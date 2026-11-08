@@ -2,7 +2,7 @@
 -- tooltip goes beside it. Buttons are the micro menu's and the action bars' (Blizzard's and bar addons').
 --   micro and Blizzard action buttons carry their binding command (`commandName`: "TOGGLECHARACTER0",
 --   "ACTIONBUTTON1"); LibActionButton's (Bartender) keep theirs in `config.keyBoundTarget` (Bartender maps its
---   bars to Blizzard's: bar 1 is "ACTIONBUTTON1", the others "MULTIACTIONBAR..."; seen missing, 2026-11-07), else
+--   bars to Blizzard's: bar 1 is "ACTIONBUTTON1", the others "MULTIACTIONBAR..."; it can be missing), else
 --   bind a click ("CLICK BT4Button1:Keybind", "...:LeftButton").
 -- Cost: the binding commands of a button are built once (cached per button); a show calls GetBindingKey and reads
 -- the key's text from a cache, so it creates no strings.

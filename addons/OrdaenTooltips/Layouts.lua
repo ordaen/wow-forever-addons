@@ -19,7 +19,7 @@ ns.Layouts = Layouts
 ---@field subtitle string|false
 ---@field skip table<integer, boolean> rows shown in the header instead
 ---@field tint boolean the title's colour also tints the tooltip's border (an item's quality); else only the title
---- wears it (a unit's reaction: the user's rule, 2026-11-07)
+--- wears it (a unit's reaction)
 ---@field extrasFrom integer|false the first row another addon added
 ---@field stats table<string, OrdaenTooltipsStat> a spell's section under the title, by stat (SpellStats.ORDER)
 local result = { icon = false, subtitle = false, skip = {}, extrasFrom = false, stats = {}, tint = false }

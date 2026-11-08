@@ -96,7 +96,7 @@ end
 
 -- What Forever's tooltip data holds (kinds, line types and their fields, measured live): api/forever/tooltip-data.md.
 --- The last tooltip data the game gave, for the dev dump's probe of what Forever's tooltip lines carry (types,
---- arguments: the base for tooltips inside tooltips, 2026-11-07): the last PROBE_KEEP different ones per kind, keyed
+--- arguments: the base for tooltips inside tooltips): the last PROBE_KEEP different ones per kind, keyed
 --- "item<id>", "spell<id>", "unit<guid>" or "kind<type>". Dev mode only: players' builds keep nothing.
 Reader.lastData = {}
 local recent = {} -- kind -> keys, newest first
@@ -164,7 +164,7 @@ local function readData(tooltip, model)
 		if price and price > 0 and row and i <= model.count and GetMoneyString then
 			row.right = GetMoneyString(price)
 			-- The label only: on Forever the game's line also writes the coins into its text ("Sell Price: 10c"),
-			-- which showed the price twice (2026-11-07).
+			-- which would show the price twice.
 			row.left = SELL_PRICE or row.left
 			row.blank = false
 			model.priceRow = i

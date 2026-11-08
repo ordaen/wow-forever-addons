@@ -197,16 +197,16 @@ function ViewMethods:Follow(native, viewOf, beside, nearest)
 	local other = relativeTo and viewOf(relativeTo)
 	if type(point) == "string" and other and other ~= self then
 		-- A comparison tooltip: Blizzard's offsets come from the natives' widths (ours differ, and the view it hangs
-		-- from may sit beside a button instead), so copying them overlapped the views (the user, 2026-11-07). Ours
+		-- from may sit beside a button instead), so copying them overlaps the views. Ours
 		-- goes edge to edge with that view, tops aligned, on the side Blizzard chose (from the natives' centres).
 		local myX = native:GetCenter()
 		local otherX = relativeTo:GetCenter()
 		local left = not (isSecret(myX) or isSecret(otherX)) and myX and otherX and myX < otherX
-		-- Blizzard anchors both comparison tooltips to GameTooltip, the second one past the first (both views went
-		-- beside the main one, 2026-11-07): ours hangs from the nearest shown tooltip between it and its anchor.
+		-- Blizzard anchors both comparison tooltips to GameTooltip, the second one past the first (both views would
+		-- go beside the main one): ours hangs from the nearest shown tooltip between it and its anchor.
 		local between = left ~= nil and myX and otherX and nearest and nearest(native, relativeTo, myX, otherX)
 		-- Never from a view that already hangs from this one (Blizzard re-anchors the first comparison tooltip after the
-		-- second, while the natives move: a loop the game refuses, 2026-11-07).
+		-- second, while the natives move: a loop the game refuses).
 		local candidate = between and viewOf(between)
 		if candidate and not dependsOn(candidate.component.frame, c.frame) then
 			other, relativeTo = candidate, between

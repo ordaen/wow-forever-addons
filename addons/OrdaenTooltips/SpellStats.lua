@@ -1,8 +1,8 @@
 -- Ordaen Tooltips, a spell's key numbers: cost, range, cast time and cooldown, read from the spell tooltip's own
--- lines (Blizzard's format strings, so every client language) for the section under the title (the user's request,
--- 2026-11-07; the idea is PrettyTooltip's). Pure: no WoW calls but Blizzard's strings, so specs read it as is.
+-- lines (Blizzard's format strings, so every client language) for the section under the title (the idea is
+-- PrettyTooltip's). Pure: no WoW calls but Blizzard's strings, so specs read it as is.
 --
--- No captions (the user's decision, 2026-11-07): the columns' order says what each is. Range and times keep the
+-- No captions: the columns' order says what each is. Range and times keep the
 -- number Blizzard wrote and drop the words around it ("30 yd range" shows as "30 yd"); the cost shows Blizzard's
 -- whole line ("30 Mana": a bare number would say nothing). Values are a format and one argument (SetFormattedText),
 -- so a show builds no strings.

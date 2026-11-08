@@ -117,7 +117,7 @@ end
 
 -- Show on a hidden tooltip fires its OnShow inside, then our Show hook: it's drawn twice on that first show. Kept on
 -- purpose: addons add lines and call Show again in the same frame, and that second draw must not be skipped (a
--- same-frame stamp dropped their lines, 2026-11-07). Draws happen per show, never per frame.
+-- same-frame stamp would drop their lines). Draws happen per show, never per frame.
 local function onShown(native)
 	draw(native)
 end
@@ -128,8 +128,8 @@ local function onSetShown(native, shown)
 	end
 end
 
--- Blizzard anchors the comparison tooltips after showing them (the views followed the anchor of the show before and
--- overlapped, 2026-11-07): a native moved while its view shows moves the view, without a redraw.
+-- Blizzard anchors the comparison tooltips after showing them (the views would follow the anchor of the show before
+-- and overlap): a native moved while its view shows moves the view, without a redraw.
 local function onMoved(native)
 	local state = states[native]
 	if state and state.view:IsShown() then
@@ -169,8 +169,8 @@ local function onAlpha(native, alpha)
 end
 
 -- Blizzard fades a unit's tooltip out when the mouse leaves the unit (FadeOut, run inside the game): the fade sets
--- the native back to full alpha every frame, where our hooks can't see it, so Blizzard's tooltip showed beside ours
--- for the fade (dev probe, 2026-11-07: alpha 0 at FadeOut, 1.00 after 0.1 s and 0.3 s). While ours is drawn, the
+-- the native back to full alpha every frame, where our hooks can't see it, so Blizzard's tooltip would show beside
+-- ours for the fade (a dev probe reads alpha 0 at FadeOut, 1.00 after 0.1 s and 0.3 s). While ours is drawn, the
 -- native is hidden at once instead (as addons' OnLeave handlers do); its OnHide takes ours with it.
 local function onFadeOut(native)
 	local state = states[native]
