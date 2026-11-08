@@ -1,4 +1,4 @@
-"""Build the bottom panel's art (the user's design, approved 2026-11-07 in the browser preview /preview/panel/).
+"""Build the bottom panel's art (the design in the browser preview /preview/panel/).
 
 Usage:
     art/.venv/Scripts/python art/panel.py

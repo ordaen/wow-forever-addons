@@ -10,7 +10,7 @@ highlight), rows 4-7 the red accent (same order). The theme slices each row into
 the same in every column, stretched across) and right cap (224-256). A cap has aspect 0.5: on screen it is half as
 wide as the button is high (a 34 px button: 64 texture px over 34 screen px, ~1.9 per px; an icon-only button is
 just the two caps), so rim sizes below are in texture px.
-The look was picked by the user from the browser preview (2026-11-07): #2 bronze plate, #1 red as the accent.
+The look: preview #2's bronze plate, #1's red as the accent.
 """
 
 from pathlib import Path
@@ -21,19 +21,19 @@ from PIL import Image
 ART = Path(__file__).resolve().parent
 REPO = ART.parent
 W, ROW, ROWS = 256, 64, 8
-# The plate fills its row edge to edge: no transparent margin in the art (the user's rule, 2026-11-07). Space
+# The plate fills its row edge to edge: no transparent margin in the art. Space
 # between buttons is the container's job (a block's gap; Blizzard's layout frames' spacing via Reskin).
 PLATE = ROW
 SS = 4  # supersampling
 # How strongly the rim is lit, 1 = the bronze-rim profile as measured. The window border (Blizzard's metal) is
-# softer: lit peak ~108 against the buttons' ~142 at 1440p (2026-11-07), so 0.75 matches it. --contrast sets it.
-CONTRAST = 0.72  # the user's pick, 2026-11-07 (border.html: "buttons softer")
+# softer: lit peak ~108 against the buttons' ~142 at 1440p, so 0.75 matches it. --contrast sets it.
+CONTRAST = 0.72  # border.html: "buttons softer"
 # Surface textures (--rim, --fill). The centre slice is stretched across the button, so only patterns running along
 # it survive there (horizontal brushing, grain lying along the button); the caps are only scaled.
 #   rim:  none | brushed (fine streaks along each side) | hammered (soft dents)
 #   fill: none | brushed | wood (a wood image, grain turned along the button: --wood) | vignette (darker towards
 #         the rim) | groove (an engraved line inside the rim, cut in: dark on the side away from the light)
-RIM_TEX, FILL_TEX, WOOD = "brushed", "groove", None  # the user's pick, 2026-11-07 (border.html #5)
+RIM_TEX, FILL_TEX, WOOD = "brushed", "groove", None  # border.html #5
 
 
 def rgb(hexstr):

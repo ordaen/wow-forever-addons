@@ -1,4 +1,4 @@
-"""Build the dropdown arrow: a small gold downward triangle for our dropdown (a2's Bags v2 design, 2026-11-07).
+"""Build the dropdown arrow: a small gold downward triangle for our dropdown (the Bags design).
 
 Usage:
     art/.venv/Scripts/python art/arrow.py

@@ -1,4 +1,4 @@
-"""Build the "new" marker: a small glowing blue gem (the user's pick, 2026-11-07, preview new.html #2).
+"""Build the "new" marker: a small glowing blue gem (preview new.html #2).
 
 Usage:
     art/.venv/Scripts/python art/gem.py

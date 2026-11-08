@@ -33,4 +33,4 @@ art/.venv/Scripts/python art/generate.py art/prompts/materials-01.json
 ## WoW texture rules
 
 32-bit `.tga` with alpha (or `.blp`), power-of-two sides (256x256, 512x64, ...), referenced as
-`Interface\AddOns\<Addon>\media\<name>` without the extension. On Forever a new texture file loads on `/reload` (seen 2026-11-07 with the bar textures).
+`Interface\AddOns\<Addon>\media\<name>` without the extension. On Forever a new texture file loads on `/reload` (no client restart).

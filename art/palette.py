@@ -1,6 +1,6 @@
 """The Ordaen palette's default tones: each named colour from a Blizzard source, rebalanced for dark backgrounds and
-weak monitors in OKLCH (one lightness for bar fills, a lighter one for text, chroma capped), as the user picked on
-the preview page (variant #10, 2026-11-07). Players can change every tone in Ordaen Core's settings; these are the
+weak monitors in OKLCH (one lightness for bar fills, a lighter one for text, chroma capped), variant #10 of
+the preview page. Players can change every tone in Ordaen Core's settings; these are the
 Ordaen theme's defaults.
 
 Usage:
