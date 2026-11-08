@@ -620,8 +620,8 @@ end
 Core._addons = {}
 
 --- An Ordaen addon loaded by Ordaen from inside its own ADDON_LOADED (Modules.lua): the game doesn't deliver the
---- loaded addon's ADDON_LOADED to the frame it registered while loading (seen 2026-11-07: every module loaded, none
---- started), so Ordaen starts it here. Nothing when it already started (the event came after all).
+--- loaded addon's ADDON_LOADED to the frame it registered while loading (the module would load but never start), so
+--- Ordaen starts it here. Nothing when it already started (the event came after all).
 ---@param name string
 function Core._Loaded(name)
 	for _, addon in ipairs(Core._addons) do
@@ -638,12 +638,12 @@ function Core._IsLoggedIn()
 end
 
 -- The loading screen: addons load under it, so it starts as up. Something shown under it may be gone when it ends
--- (the conflict dialog after the first login with a newly enabled addon, 2026-11-06).
+-- (the conflict dialog after the first login with a newly enabled addon).
 local loadingScreen = true
 local afterLoading = {} -- functions waiting for the loading screen to end
 
--- Whichever comes first ends it: PLAYER_ENTERING_WORLD (the world is ready; after a /reload Forever sent
--- LOADING_SCREEN_DISABLED only much later, so a dialog waited, 2026-11-06) or LOADING_SCREEN_DISABLED. Dev mode logs
+-- Whichever comes first ends it: PLAYER_ENTERING_WORLD (the world is ready; after a /reload Forever sends
+-- LOADING_SCREEN_DISABLED only much later, and a dialog would wait for it) or LOADING_SCREEN_DISABLED. Dev mode logs
 -- each with its time, to see how the client orders them.
 local function onLoadingScreen(event)
 	local Debug = Core.NewDebug("OrdaenCore")

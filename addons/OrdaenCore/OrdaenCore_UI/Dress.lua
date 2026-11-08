@@ -189,8 +189,8 @@ local function wanted(dress)
 end
 
 -- Our block sits right under Blizzard's frame: its strata, one level below. Blizzard moves some frames to another
--- strata while they're used (the chat input goes to DIALOG while typing): a look left in the old strata showed the
--- chat's text over the input's background (2026-11-07), so it follows every strata change and each show.
+-- strata while they're used (the chat input goes to DIALOG while typing): a look left in the old strata would show the
+-- chat's text over the input's background, so it follows every strata change and each show.
 local function layer(dress)
 	local frame, look = dress.frame, dress.look
 	look:SetFrameStrata(frame:GetFrameStrata())
@@ -202,7 +202,7 @@ local function layer(dress)
 end
 
 -- Our block is a sibling of Blizzard's frame (so it never covers it): it shows and hides with that frame. Without
--- this, every hidden chat window, tab and voice button left its look on screen (2026-11-06).
+-- this, every hidden chat window, tab and voice button would leave its look on screen.
 local function onFrameShown(frame)
 	for _, dress in pairs(byClickable) do
 		if dress.frame == frame and dress.dressed then
@@ -239,8 +239,8 @@ local function onFrameHidden(frame)
 	end
 end
 
--- Our block follows Blizzard's fades too: it's a sibling, so the frame's alpha doesn't reach it by itself (the chat
--- input faded out in Blizzard's IM style left our buttons faintly visible, 2026-11-06).
+-- Our block follows Blizzard's fades too: it's a sibling, so the frame's alpha doesn't reach it by itself (else the
+-- chat input faded out in Blizzard's IM style leaves our buttons faintly visible).
 local function onFrameAlpha(frame, alpha)
 	for _, dress in pairs(byClickable) do
 		if dress.frame == frame and dress.dressed and not dress.opts.focus then
@@ -261,7 +261,7 @@ local function resize(self)
 	local block = look.block
 	local width, height = look:GetWidth(), look:GetHeight()
 	-- A frame sized from secret combat numbers (the damage meter's bars) has a secret size: our code can't compare
-	-- or lay it out (it errored, 2026-11-07). Our look still covers the frame by its anchors; it isn't drawn again
+	-- or lay it out (it errors). Our look still covers the frame by its anchors; it isn't drawn again
 	-- for that size.
 	if issecretvalue(width) or issecretvalue(height) then
 		return
@@ -281,7 +281,7 @@ function Dress:Apply()
 		-- On the frame itself: a child at the frame's own level, so our regions interleave with Blizzard's by layer
 		-- (our fill under its content) and its visibility, alpha, strata and scale reach ours by themselves.
 		-- It stays shown: its parent decides. Dressed while the frame is closed (Ordaen Reskin dresses at login), it
-		-- would otherwise stay hidden for good, since nothing shows a child again (2026-11-07). An input with `focus`
+		-- would otherwise stay hidden for good, since nothing shows a child again. An input with `focus`
 		-- still shows only while typed in (its focus hooks).
 		look:SetParent(frame)
 		look.frame:SetUsingParentLevel(true)

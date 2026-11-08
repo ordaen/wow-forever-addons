@@ -11,7 +11,7 @@
       "tooltip": { "label": "FRAME_TOOLTIP", "edgeFile": "Interface\\Tooltips\\UI-Tooltip-Border", "edgeSize": 16, "outset": 4 },
       "thin": { "label": "FRAME_THIN", "edgeFile": "Interface\\Buttons\\WHITE8X8", "edgeSize": 2, "outset": 2, "natural": [0, 0, 0] },
       "none": { "label": "FRAME_NONE" },
-      // Blizzard's window art (inventory of 35 windows, 2026-11-07): `layout` names a NineSliceLayouts entry, drawn with
+      // Blizzard's window art (from an inventory of 35 windows): `layout` names a NineSliceLayouts entry, drawn with
       // NineSliceUtil.ApplyLayoutByName, so the pieces and offsets are Blizzard's own.
       "metal": { "label": "FRAME_METAL", "layout": "ButtonFrameTemplateNoPortrait" },
       "metal-portrait": { "label": "FRAME_METAL_PORTRAIT", "layout": "PortraitFrameTemplate" },
@@ -38,7 +38,7 @@
       "blizzard": { "label": "BAR_BLIZZARD", "file": "Interface\\TargetingFrame\\UI-StatusBar" }
     },
     "xpFill": {
-      // The experience bar's fill in its glass tube (art/panel.py, the user's picks 2026-11-07): deep blue, a
+      // The experience bar's fill in its glass tube (art/panel.py): deep blue, a
       // texture each, tiling along the bar; `shine` warms the tube's glass highlight (steel's is amber).
       "deep": { "label": "XP_FILL_DEEP", "file": "Interface\\AddOns\\OrdaenCore\\media\\xp-fill-deep" },
       "grain": { "label": "XP_FILL_GRAIN", "file": "Interface\\AddOns\\OrdaenCore\\media\\xp-fill-grain" },
@@ -51,8 +51,8 @@
     // { "atlas" | "file", "alpha"?, "coords"? }, or slices: { left, center, right } (stretched across) or
     // { top, middle, bottom } (stretched down), each slice a piece. `size` is the natural [width, height]; slices
     // stretch the center/middle. The art is Blizzard's own, as Forever's windows use it (the WindowArt dumps of the
-    // character, collections, professions, group finder and game menu windows, 2026-11-07); every state named here
-    // was seen there. States the dumps didn't show (a red button's pushed or disabled art) aren't listed: the
+    // character, collections, professions, group finder and game menu windows); every state named here
+    // appears there. States the dumps didn't show (a red button's pushed or disabled art) aren't listed: the
     // renderer draws those from `normal` (tinted) until they are seen in game.
     "tab": {
       "blizzard": {
@@ -70,7 +70,7 @@
       }
     },
     "pushButton": {
-      // Our own (art/button.py, media/button.tga; the user's pick 2026-11-07: the bronze plate): a dark plate in the
+      // Our own (art/button.py, media/button.tga: the bronze plate): a dark plate in the
       // windows' bronze rim. Each state is a row of the file; the caps are half as wide as the button is high.
       "ordaen": {
         "label": "CONTROL_ORDAEN",
@@ -79,7 +79,7 @@
         "disabled": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0, 0.125, 0.25, 0.375], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.125, 0.875, 0.25, 0.375] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.875, 1, 0.25, 0.375], "aspect": 0.5 } },
         "highlight": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0, 0.125, 0.375, 0.5], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.125, 0.875, 0.375, 0.5] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.875, 1, 0.375, 0.5], "aspect": 0.5 } }
       },
-      // The accent (the user's pick 2026-11-07: preview #1, red with the bronze rim) for buttons that need to stand
+      // The accent (red with the bronze rim) for buttons that need to stand
       // out: leaving the game, later other important actions. Rows 4-7 of the same file.
       "ordaen-accent": {
         "label": "CONTROL_ORDAEN_ACCENT",
@@ -96,12 +96,12 @@
     },
     "marker": {
       // Marks a control that holds something new (Blizzard's floating «new» label): drawn at the control's left
-      // end, `inset` UI units in from its left side (clear of the rim: 4 touched it, the user 2026-11-07), at `size`
-      // (art/gem.py; the user's pick 2026-11-07).
+      // end, `inset` UI units in from its left side (clear of the rim: at 4 it touches it), at `size`
+      // (art/gem.py).
       "gem": { "label": "MARKER_GEM", "file": "Interface\\AddOns\\OrdaenCore\\media\\new-gem", "size": [16, 16], "inset": 12 }
     },
     "panelCell": {
-      // The bottom panel's cells (art/panel.py, the user's design 2026-11-07): our button's side rims only, the
+      // The bottom panel's cells (art/panel.py): our button's side rims only, the
       // panel's wood showing through. Rows of media/panel-cell.tga: 0 normal, 1 the hover glow alone, 2 pushed.
       "ordaen": {
         "label": "CONTROL_ORDAEN",
@@ -125,7 +125,7 @@
       }
     },
     "dropdown": {
-      // Ours (the user's approved bags layout, 2026-11-07): the push button's bronze plate, its states the same rows of
+      // Ours (as in the bags layout): the push button's bronze plate, its states the same rows of
       // media/button.tga, and a gold arrow (art/arrow.py: 16x16 UI units, the triangle centred) inside the right end.
       "ordaen": {
         "label": "CONTROL_ORDAEN",
@@ -142,7 +142,7 @@
       "blizzard": {
         "label": "CONTROL_BLIZZARD", "size": [0, 20],
         // a nine-slice: its ends at their own width, top and bottom 6 px of the art, so the border stays thin when taller;
-        // drawn at 0.4 of the art (about 2.4 px edges), as thin as the plates' rims (the user, 2026-11-07)
+        // drawn at 0.4 of the art (about 2.4 px edges), as thin as the plates' rims
         "normal": { "left": "common-search-border-left", "center": "common-search-border-middle", "right": "common-search-border-right", "edges": [6], "scale": 0.4 }
       }
     },
@@ -277,7 +277,7 @@
       "sound.open": "IG_MAINMENU_OPEN", "sound.close": "IG_MAINMENU_CLOSE", "sound.click": "U_CHAT_SCROLL_BUTTON",
       "control.tab": "blizzard", "control.sideTab": "blizzard", "control.pushButton": "ordaen", "control.pushButtonAccent": "ordaen-accent", "control.panelCell": "ordaen", "control.closeButton": "blizzard", "control.newMarker": "gem", "control.checkbox": "blizzard", "control.dropdown": "ordaen", "control.input": "blizzard", "control.scrollTrack": "blizzard", "control.scrollThumb": "blizzard", "control.scrollStepper": "blizzard", "control.slot": "blizzard"
     }
-    // Planned, not built (user's decision, 2026-11-07): "blizzard" (mostly Blizzard's default look) and "minimal"
-    // (little to no textures). Only Ordaen is worked on now; add them back here, with every token, when they are.
+    // Planned, not built: "blizzard" (mostly Blizzard's default look) and "minimal"
+    // (little to no textures). Only Ordaen is worked on; add them here, with every token, when they are.
   }
 }

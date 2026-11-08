@@ -8,7 +8,7 @@
       "settings": {
         "ui.theme": {
           "type": "choice",
-          // Only Ordaen for now (Blizzard and Minimal are planned, not built): kept as a setting, not on the page.
+          // Only Ordaen (Blizzard and Minimal are planned, not built): kept as a setting, not on the page.
           "choices": [
             { "id": "ordaen", "label": "THEME_ORDAEN" }
           ],

@@ -26,8 +26,8 @@ ns.Component = Component
 
 -- Listeners run protected: an error in one is reported (geterrorhandler: BugSack, Blizzard, dev mode) and the rest
 -- still run. Not through securecallfunction: it ends the "the player clicked" state the game needs for protected
--- calls, so a button whose listener calls ReloadUI was blocked ("call to Reload() was blocked", the conflict
--- dialog, 2026-11-06). xpcall keeps the listener in the click's own call. WoW's xpcall passes arguments; plain Lua
+-- calls, so a button whose listener calls ReloadUI is blocked ("call to Reload() was blocked").
+-- xpcall keeps the listener in the click's own call. WoW's xpcall passes arguments; plain Lua
 -- 5.1 (the specs) doesn't, so that case falls back to pcall and reports the error afterwards.
 local function report(err)
 	local handler = geterrorhandler and geterrorhandler()
@@ -421,8 +421,8 @@ local insets = { bottom = 0, top = 0, left = 0, right = 0 }
 local updateInsets
 
 -- A panel's thickness on its edge, from its frame as drawn: run after every draw (placed or refreshed), because a
--- panel grows after its first placement as its content fills in (13 then 40 UI units for Ordaen Panel,
--- 2026-11-06). A faded panel still covers its edge (fading it doesn't move what sits beside it).
+-- panel grows after its first placement as its content fills in (13 then 40 UI units for Ordaen Panel).
+-- A faded panel still covers its edge (fading it doesn't move what sits beside it).
 local function recordCover(self)
 	local cover = covers[self]
 	if not cover then

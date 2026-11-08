@@ -786,7 +786,7 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 					heard[#heard + 1] = key
 				end,
 			}, { SETTINGS_SCHEMA = schema() })
-			-- two themes of its own: only Ordaen is built now (2026-11-07), but the store keeps switching themes
+			-- two themes of its own: only Ordaen is built, but the store keeps switching themes
 			Store.SetTokens({
 				assets = { frame = { rim = {}, thin = {} } },
 				tokens = { ["frame.border"] = "frame" },

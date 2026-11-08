@@ -2,8 +2,8 @@
 -- demand, loaded by Ordaen while it's on. A module is an installed addon named Ordaen<Name> (no underscore: Ordaen's
 -- own parts, OrdaenCore_UI and the dev addon OrdaenCore_Debug, aren't modules) that loads on demand.
 --
--- On or off: Ordaen Core's setting `modules` (name -> false when off; a missing entry is on), account-wide for now
--- (per character comes with profiles). Startup: Ordaen's own ADDON_LOADED (CoreSettings.lua) loads the modules that
+-- On or off: Ordaen Core's setting `modules` (name -> false when off; a missing entry is on), account-wide (per
+-- character is planned, with profiles). Startup: Ordaen's own ADDON_LOADED (CoreSettings.lua) loads the modules that
 -- are on, before PLAYER_LOGIN, so the ones that take over Blizzard's frames are in place before Edit Mode lays them
 -- out. Turning one on loads it at once (A:OnLogin then runs right away); turning one off needs a /reload, since code
 -- can't be unloaded.

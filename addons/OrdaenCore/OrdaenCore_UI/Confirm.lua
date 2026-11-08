@@ -49,7 +49,7 @@ local function press(button)
 end
 
 -- Secure macros on buttons (`macro = "/reload"`). On Forever, reloading the interface is allowed only from secure
--- code, not from any addon code, not even right in a click (the conflict dialog's reload was blocked, 2026-11-06).
+-- code, not from any addon code, not even right in a click.
 -- So a button with a macro gets one of Blizzard's secure action buttons over it: its PreClick runs the entry's
 -- onClick (addon code: turn an addon off), then the secure click runs the macro, in the same click; PostClick
 -- closes the dialog. Secure frames can only be made, set up, shown and hidden out of combat: a confirm shown in
@@ -107,7 +107,7 @@ local function setOverlays(confirm, count)
 		if macro then
 			local overlay = overlayFor(i)
 			-- A secure button acts on the press the player's "ActionButtonUseKeyDown" setting names (down by
-			-- default); registered for the other half only, its PreClick ran but the macro never did (2026-11-06).
+			-- default); registered for the other half only, its PreClick runs but the macro never does.
 			-- Like DialogueUI's macro buttons: register exactly that half.
 			if C_CVar.GetCVarBool("ActionButtonUseKeyDown") then
 				overlay:RegisterForClicks("LeftButtonDown")
@@ -204,7 +204,7 @@ local function present(confirm)
 end
 
 -- The framework, not each caller, waits for the loading screen: a dialog shown under it (at login, the first
--- load after enabling an addon) wasn't there when it ended (the conflict dialog, 2026-11-06). Confirms shown then
+-- load after enabling an addon) may be gone when it ends. Confirms shown then
 -- wait in the queue; the first one appears when the loading screen is gone.
 local waitingForLoad = false
 

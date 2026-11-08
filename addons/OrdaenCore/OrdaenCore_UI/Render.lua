@@ -541,7 +541,7 @@ end
 
 local CONSTRUCTIONS = { bezel = bezel, groove = groove }
 
--- The glass tube (a bar element's `frame = "tube"`: the bottom panel's experience bar, the user's design 2026-11-07):
+-- The glass tube (a bar element's `frame = "tube"`: the bottom panel's experience bar):
 -- Theme.tube's art in four layers: the dark trough under the bar (BACKGROUND of its lowest status bar), the fill (the
 -- status bars), the engraved sections over it, then the bronze ring and the glass's shine on a frame above the bars
 -- (the ring hides the fill's square ends in its rounded caps). Each piece is a three-slice: caps as wide as the tube
@@ -799,8 +799,8 @@ end
 
 -- Border collapse (like CSS): touching blocks share one edge. A styled child skips the edge it shares with a sibling
 -- drawn before it (its left against that one's right, its top against that one's bottom), and the edges on its
--- parent's border when the parent draws an edge there (padding 0). Input buttons in a row showed two borders and a
--- gap between each pair (2026-11-06). Sibling rectangles live in tables reused per depth: no garbage per draw.
+-- parent's border when the parent draws an edge there (padding 0). Without it, input buttons in a row show two
+-- borders and a gap between each pair. Sibling rectangles live in tables reused per depth: no garbage per draw.
 local NEAR = 0.5
 
 local function collapse(p, depth, n, parentEdges, ox, oy, pw, ph, x, y, w, h)
@@ -932,8 +932,8 @@ local hovers = setmetatable({}, { __mode = "k" }) -- surface -> its hover textur
 
 -- The style's hover highlight: one texture per surface on the HIGHLIGHT layer, which WoW shows by itself while
 -- the mouse is over a mouse-enabled Button frame (and on LockHighlight). It covers the content box. Added light by
--- default; `blend = "BLEND"` lays its colour over instead (a dark one darkens: adding black changed nothing).
--- HIGHLIGHT draws above the text, so a dark one darkened the text too (the bags' tabs, 2026-11-07): `under = true`
+-- default; `blend = "BLEND"` lays its colour over instead (a dark one darkens: adding black changes nothing).
+-- HIGHLIGHT draws above the text, so a dark one darkens the text too (the bags' tabs): `under = true`
 -- puts it on the background instead, over the whole surface, shown by the component's enter and leave
 -- (Render.Hover).
 local function drawHighlight(surface, p, look, result)
@@ -1069,7 +1069,7 @@ local function fitFill(surface, width, height)
 		return
 	end
 	-- After SetAtlas, texture coordinates count within the atlas's own region (0..1), not its file: a texture reports
-	-- 0,0 .. 1,1 right after SetAtlas on Forever (dev dump, 2026-11-07). Only the atlas's aspect comes from its info.
+	-- 0,0 .. 1,1 right after SetAtlas on Forever. Only the atlas's aspect comes from its info.
 	local aspect, l, r, t, b = atlas[1], 0, 1, 0, 1
 	local surfaceAspect = w / h
 	if surfaceAspect > aspect then -- wider than the art: its full width, a band of its height
@@ -1088,7 +1088,7 @@ local artOverlays = setmetatable({}, { __mode = "k" }) -- surface -> the overlay
 -- edges) an overlay over the surface placed above that window and its children, as Blizzard draws its own NineSlice.
 -- The overlay takes no mouse. Its strata and level follow the window on each draw: the level of the window's own
 -- NineSlice (Blizzard's templates put it 500 levels above the window, over every content child; at +50 the
--- character window's panes covered our border, 2026-11-07), else the window's level + 500 like Blizzard's.
+-- character window's panes cover our border), else the window's level + 500 like Blizzard's.
 local ABOVE_LEVELS = 500
 
 local function aboveLevel(target)
@@ -1187,7 +1187,7 @@ end
 -- atlases flipped upside down (their atlas coordinates, top and bottom swapped) at the bottom corners' offsets turned
 -- upwards, and the top edge takes the bottom edge's atlas turned half a circle (a repeating strip: the same as a flip,
 -- and it keeps tiling). A window's own top edge carries its title bar; on a strip that read as two borders stacked.
--- Mitred top corners (art/mitre.py masks, 2026-11-07): each top corner piece shrinks to a square as wide as the rim
+-- Mitred top corners (art/mitre.py masks): each top corner piece shrinks to a square as wide as the rim
 -- (T, the left edge's thickness) and turns invisible, so Blizzard's and our edge anchors meet it; over the square,
 -- the side rim (the top T rows of the left/right edge) through a mask below the diagonal and the turned top rim
 -- through one above it, so the two rims join on the diagonal with Blizzard's own art at any scale.
@@ -1270,21 +1270,21 @@ local function mirrorTop(holder, layoutName)
 		if piece and atlas then
 			piece:SetAtlas(atlas, true)
 			-- Flipped top to bottom within the atlas: after SetAtlas the coordinates are the atlas's own (0..1), not
-			-- its file's (the file's drew a transparent slice: the chat's top-right corner was empty, 2026-11-07).
+			-- its file's (the file's draw a transparent slice: the chat's top-right corner would be empty).
 			piece:SetTexCoord(0, 1, 1, 0)
 			piece:ClearAllPoints()
 			piece:SetPoint(pair[3], holder, pair[3], from.x or 0, -(from.y or 0))
 		end
 	end
 	-- The top edge is the left edge turned a quarter clockwise (lit from the top-left like the rest: its outline and
-	-- bright band on the outer side, the user's lighting rule, 2026-11-07), within the atlas: drawn top-left shows
+	-- bright band on the outer side), within the atlas: drawn top-left shows
 	-- the art's bottom-left, top-right its top-left.
 	local edge, from = holder.TopEdge, layout.LeftEdge
 	if edge and type(from) == "table" and from.atlas then
 		edge:SetAtlas(from.atlas)
 		edge:SetRotation(0)
-		-- Blizzard's top edge tiles across; tiling overrides our coordinates (the game menu's top drew a sliver of
-		-- the art: a gap in the middle, dev dump 2026-11-07), so the turned edge is stretched instead.
+		-- Blizzard's top edge tiles across; tiling overrides our coordinates (the game menu's top would draw a sliver
+		-- of the art: a gap in the middle), so the turned edge is stretched instead.
 		edge:SetHorizTile(false)
 		edge:SetVertTile(false)
 		edge:SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0)
@@ -1478,9 +1478,9 @@ end
 
 -- Three slices as a nine-slice (`edges = { px }` on the slices): each end at its atlas's own width, every slice's
 -- top and bottom `px` of the art high whatever the height, so a thin border stays thin on a taller field (the search
--- box at the buttons' height, 2026-11-07). Built only when a field is drawn, never per frame.
+-- box at the buttons' height). Built only when a field is drawn, never per frame.
 -- `scale` on the slices draws the whole border smaller than the art (its ends, edges and chamfers alike): Blizzard's
--- search border at full size read heavy beside the plates (the user, 2026-11-07).
+-- search border at full size reads heavy beside the plates.
 local function capWidths(piece)
 	local left, right = atlasOf(piece.left), atlasOf(piece.right)
 	local k = piece.scale or 1
@@ -1792,7 +1792,7 @@ end
 --- Lay out `root` and draw it onto `surface` (a frame; BackdropTemplate for themes with art).
 --- `width` nil = shrink to fit. Sizes the surface; returns the root's layout result.
 -- A top-level block's `hints` (what a click or a key does: the addon's own lines, "Left-click: open") and `hotkey`
--- (the key bound to it), drawn the same way in every tooltip (the user's decision, 2026-11-07): dimmed lines at the
+-- (the key bound to it), drawn the same way in every tooltip: dimmed lines at the
 -- bottom, the hotkey last ("Key: C", Ordaen Core's words). The rows are added to the block once and grow only when it
 -- gets more hints than before; after that only their fields change. They span the block's columns.
 Render.strings = { hotkey = "%s" } -- Ordaen Core's, handed over when the module loads (UI._Provide)

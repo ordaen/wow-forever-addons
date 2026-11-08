@@ -85,7 +85,7 @@ local function title(name)
 end
 
 -- Turn `name` off; the button's own secure macro (`macro = "/reload"`, UI.Confirm) reloads in the same click. This
--- client blocks a reload from addon code even inside a click (2026-11-06), so we never call ReloadUI here. In combat
+-- client blocks a reload from addon code even inside a click, so we never call ReloadUI here. In combat
 -- the dialog has no secure button, so the player is told to type /reload. Without the API, tell the player how.
 local function turnOff(addon, name)
 	local disable = C_AddOns.DisableAddOn

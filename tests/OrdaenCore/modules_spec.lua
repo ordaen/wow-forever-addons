@@ -66,7 +66,7 @@ describe("OrdaenCore modules", function()
 		A:OnLoad(function()
 			started = true
 		end)
-		Core.Modules.LoadEnabled() -- the fake LoadAddOn fires no ADDON_LOADED, as the game did (2026-11-07)
+		Core.Modules.LoadEnabled() -- the fake LoadAddOn fires no ADDON_LOADED, like the game
 		assert.is_true(started)
 	end)
 end)

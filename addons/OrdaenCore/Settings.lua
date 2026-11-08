@@ -161,7 +161,7 @@ function SettingsPage.Register(addon)
 end
 
 -- The page of an addon with a settings manifest ------------------------------------------------------------------
--- Drawn with Blizzard's Settings API for now (a page drawn with OrdaenCore.UI components is on docs/roadmap.md).
+-- Drawn with Blizzard's Settings API (a page drawn with OrdaenCore.UI components is planned: docs/roadmap.md).
 -- Proxy settings: the page reads through the store and writes with store:Set, so only the player's choices are
 -- saved and every change is announced (features, then the addon's onChange).
 

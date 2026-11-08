@@ -6,7 +6,7 @@
 -- from it, so one slider resizes all Ordaen UI and the proportions stay the same. Addons name roles
 -- (style = "title", gap = "sm"), never numbers, and pick a change up by themselves.
 --
--- Themes (CLAUDE.md, "UI framework"): only `ordaen` is built for now (the user's decision, 2026-11-07); `blizzard`
+-- Themes (CLAUDE.md, "UI framework"): only `ordaen` is built; `blizzard`
 -- (mostly Blizzard's default look) and `minimal` (little to no textures) are planned and unimplemented. The theme is
 -- chosen globally in Ordaen Core (OrdaenCoreDB.ui.theme); an unknown name falls back to ordaen. Every theme defines
 -- every role, so an addon never needs to know which one is on.
@@ -97,7 +97,7 @@ end
 
 local THEMES = {}
 
--- An engraved window title (the user's pick, title variant B, 2026-11-07): the title's text inside the window's top
+-- An engraved window title (title variant B): the title's text inside the window's top
 -- (its top `textY` below the window's), and under it a groove `ruleY` below the top, `inset` in from each side: a
 -- 1 px dark line over a 1 px lit one (lit from the top-left), both fading out at their ends.
 local TITLE_RULE = { textY = 14, ruleY = 32, inset = 40, text = { 1, 0.82, 0 }, -- the title in gold (#ffd100)
@@ -106,17 +106,17 @@ local TITLE_RULE = { textY = 14, ruleY = 32, inset = 40, text = { 1, 0.82, 0 }, 
 -- Blizzard's window art, by theme token (themes.jsonc): the frame asset (its NineSlice layout), the background asset,
 -- the border's scale, and where the background sits inside that layout's border (the art's pixels: top, right,
 -- bottom, left). Windows at full size; small surfaces (tooltips, panels, the chat window) with the border at the
--- small scale (the user's choice: half); dialogs in Blizzard's dialog frame.
+-- small scale (half); dialogs in Blizzard's dialog frame.
 local WINDOW_ART = { border = "frame.border", background = "frame.background", scale = "frame.scale.window",
 	inset = { 21, 2, 2, 2 } }
 -- Small surfaces: the window metal at the small scale, its top drawn as its bottom mirrored (mirrorTop): a window's
--- top edge carries the title bar, which on a strip read as two borders stacked (the user, 2026-11-07).
+-- top edge carries the title bar, which on a strip reads as two borders stacked.
 local SMALL_ART = { border = "frame.borderSmall", background = "frame.background", scale = "frame.scale.small",
 	inset = { 6, 6, 6, 6 }, mirrorTop = true }
 -- Windows with a portrait ring in the top-left corner (Blizzard's own windows that Ordaen Reskin dresses).
 local PORTRAIT_ART = { border = "frame.portrait", background = "frame.background", scale = "frame.scale.window",
 	inset = { 21, 2, 2, 2 } }
--- Dialogs: the window's art (the user: everything uses the same art), its top mirrored from its bottom: a dialog has
+-- Dialogs: the window's art (everything uses the same art), its top mirrored from its bottom: a dialog has
 -- no title bar.
 local DIALOG_ART = { border = "frame.dialog", background = "frame.dialogBackground", scale = "frame.scale.window",
 	inset = { 2, 2, 2, 2 }, mirrorTop = true }
@@ -131,13 +131,13 @@ THEMES.ordaen = {
 			frameArt = SMALL_ART,
 		},
 		header = {
-			-- No fill of its own: the tooltip's one background shows behind the title too (the user's choice). No side
+			-- No fill of its own: the tooltip's one background shows behind the title too. No side
 			-- padding: its icon and title line up with the text below.
 			-- Nothing below it: the section after it brings the gap.
 			padding = 0, gap = { "md", "xs" },
 		},
 		-- Tabs in a list beside their page (Ordaen Bags' categories): hovering darkens one; the selected one has a bronze
-		-- bar on its left over a faint warm fill (the user's pick, 2026-11-07, on the bags design page).
+		-- bar on its left over a faint warm fill (as on the bags design page).
 		listTab = {
 			padding = { "sm", "lg", "sm", "lg" },
 			highlight = { color = { 0, 0, 0, 0.35 }, blend = "BLEND", under = true },
@@ -241,7 +241,7 @@ THEMES.ordaen = {
 		pushButton = { padding = { "sm", "lg", "sm", "lg" }, controlArt = { kind = "pushButton" } },
 		-- The panel's cells (Ordaen Panel): our button's side rims only, the panel's wood showing through, edge to edge
 		-- (two neighbours' rims make the divider). The panel pads its metal edge's side, so the cells start just
-		-- under it (from the panel's top their rims showed as notches above the edge, 2026-11-07).
+		-- under it (from the panel's top their rims would show as notches above the edge).
 		-- Hover: the block's `highlight` (its glow), pressed: `controlState = "pushed"`.
 		panelCell = { padding = 0, controlArt = { kind = "panelCell" } },
 		-- An important button (the game menu's exits): the accent plate, the same kind of art under its own token.
@@ -255,7 +255,7 @@ THEMES.ordaen = {
 		-- field's height: 26).
 		dropdown = { padding = { 0, 30, 0, "md" }, rowAlign = "center", height = 34,
 			controlArt = { kind = "dropdown", parts = { arrow = "RIGHT" } } },
-		-- (as tall as the buttons: the user's approved bags layout, 2026-11-07)
+		-- (as tall as the buttons, as in the bags layout)
 		input = { padding = 0, height = 34, controlArt = { kind = "input" } },
 		scrollTrack = { padding = 0, controlArt = { kind = "scrollTrack" } },
 		scrollThumb = { padding = 0, controlArt = { kind = "scrollThumb" } },
@@ -264,14 +264,14 @@ THEMES.ordaen = {
 		slot = { padding = 0, controlArt = { kind = "slot", base = "background", accent = true } },
 	},
 	text = {
-		-- No capitals: the size step sets the title apart (the user's decision, 2026-11-07).
+		-- No capitals: the size step sets the title apart.
 		title = { font = "header", size = "title", color = { 0.96, 0.91, 0.82 } },
 		subtitle = { font = "body", size = "small", color = { 0.5, 0.5, 0.5, accent = 0.6 } },
 		body = { font = "body", size = "body", color = { 0.89, 0.85, 0.77 } },
 		label = { font = "body", size = "small", color = { 0.70, 0.65, 0.56 } },
 		value = { font = "body", size = "body", color = { 0.96, 0.93, 0.86 } },
 		-- White text on a coloured bar (a meter's names and numbers, the XP bar's label): a 1 px outline instead of a
-		-- shadow, over a faint scrim (the user's choice, 2026-11-07).
+		-- shadow, over a faint scrim.
 		onBar = { font = "body", size = "body", color = { 1, 1, 1 }, outline = true },
 		onBarValue = { font = "body", size = "body", color = { 1, 1, 1 }, outline = true },
 		hint = { font = "body", size = "small", color = { 0.56, 0.54, 0.50 } },
@@ -290,7 +290,7 @@ THEMES.ordaen = {
 	bar = {
 		height = "md", track = { 0.08, 0.08, 0.09, 0.9 }, trackBottom = { 0.02, 0.02, 0.02, 0.9 },
 		edge = { 0.36, 0.31, 0.24, 1 }, fill = { 0, 0, 0, 1, accent = 1 },
-		-- A bar built into the panel (the user: "a skeuomorphic part of the panel"), two constructions to try in game
+		-- A bar built into the panel (a skeuomorphic part of the panel), two constructions to try in game
 		-- (Ordaen Core's setting ui.barFrame) until one is picked. All in whole physical pixels.
 		frames = {
 			-- A bronze bezel like the panel's rim: lit top and left, shaded bottom and right, a dark line inside it.
