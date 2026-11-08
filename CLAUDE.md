@@ -107,6 +107,11 @@ would have caught it is half a fix: say which check now catches it, or add one.
    append the change as a story: no "(the user, <date>)", "moved here from X", "was Y", "first …, then …", "no longer",
    "now" or "Found <date>: …". History lives in git: put it in the commit message. A reason may stay when it isn't
    obvious, written as a reason ("hidden in combat: the frame is protected"), never as an event.
+11. **Design checklist before showing any design** (same rule in wow-dev-tools' CLAUDE.md): every API, declaration,
+   file format or tool interface is checked against the list in `../wow-dev-tools/design/development/rules.md`
+   («Design checklist»: no invalid value can be written, rules hold by construction, nothing listed by hand, no fact
+   twice, no Lua traps, one name per concept) before it goes to the user, and what the check caught is said with it.
+   The standard is general software engineering, not WoW-addon habit.
 
 ## Game install
 
