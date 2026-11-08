@@ -112,6 +112,16 @@ describe("api_import", function()
 		assert.truthy(text:find("First dump.", 1, true))
 	end)
 
+	it("counts the objects.txt changes instead of listing them (frame trees follow the UI state)", function()
+		local old = Import.Render(fakeDump(70790))
+		local dump = fakeDump(71000)
+		dump.objects["Minimap.ZoomOut"] = { Show = "function" }
+		local text = Import.Changes({ "1.60.1-70790", "1.60.1-71000" },
+			{ ["1.60.1-70790"] = old, ["1.60.1-71000"] = Import.Render(dump) })
+		assert.truthy(text:find("### objects.txt (+1 / -0 vs 1.60.1-70790)", 1, true))
+		assert.falsy(text:find("`+ Minimap.ZoomOut", 1, true))
+	end)
+
 	it("counts a file the previous version didn't record instead of listing every line", function()
 		local old = Import.Render(fakeDump(70790))
 		local dump = fakeDump(71000)
