@@ -1,0 +1,5 @@
+C_ActionBar.GetExtraBarIndex	34
+C_ActionBar.GetMultiCastBarIndex	12
+C_ActionBar.GetOverrideBarIndex	33
+C_ActionBar.GetTempShapeshiftBarIndex	32
+C_ActionBar.GetVehicleBarIndex	31

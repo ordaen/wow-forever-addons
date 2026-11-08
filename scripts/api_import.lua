@@ -227,7 +227,12 @@ function M.Changes(folders, contents)
 			for _, name in ipairs(FILES) do
 				local file = name .. ".txt"
 				local added, removed = M.Diff(contents[previous][file], contents[folder][file])
-				if #added + #removed > 0 then
+				if contents[previous][file] == nil and contents[folder][file] ~= nil then
+					-- a file older dumps didn't record (constants.txt, facts.txt): its size, not every line
+					any = true
+					out[#out + 1] = string.format("### %s (new, %d entries)", file, #added)
+					out[#out + 1] = ""
+				elseif #added + #removed > 0 then
 					any = true
 					out[#out + 1] = string.format("### %s (+%d / -%d vs %s)", file, #added, #removed, previous)
 					out[#out + 1] = ""

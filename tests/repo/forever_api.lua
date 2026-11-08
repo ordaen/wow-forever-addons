@@ -39,9 +39,12 @@ function M.Globals()
 	return set
 end
 
--- Templates our frames inherit (CreateFrame's 4th argument) mix in Blizzard methods from these tables.
+-- Templates our frames inherit (CreateFrame's 4th argument) mix in Blizzard methods from these tables. objects.txt
+-- only has them when the game had made such a frame before the dump (the bags' item buttons exist once the bags
+-- were opened), so the mixin table is the source that's always there.
 M.TEMPLATE_MIXINS = {
 	BackdropTemplate = "BackdropTemplateMixin",
+	ContainerFrameItemButtonTemplate = "ContainerFrameItemButtonMixin", -- Ordaen Bags' slots
 }
 
 --- Set of method names any widget type, dumped Blizzard object or template mixin we use has, or nil.

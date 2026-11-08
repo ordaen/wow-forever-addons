@@ -1,0 +1,8 @@
+addonGlobals=2258
+build=70862
+date=Nov  6 2026
+docs=APIDocumentation
+interface=16001
+locale=ruRU
+time=1794150733
+version=1.60.1
