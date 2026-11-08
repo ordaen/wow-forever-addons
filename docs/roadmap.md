@@ -56,7 +56,7 @@ addon code causes blocked-action errors. An addon that needs one uses Blizzard's
 - **Partly open sides**: an edge open along part of its length (the panel's top only under the chat).
 - **Resizing** windows.
 - **Scrolling** and long repeated lists.
-- **The `blizzard` and `minimal` themes** (mostly Blizzard's default look; little to no textures): unimplemented for
-  now, the user's decision (2026-11-07).
+- **The `blizzard` and `minimal` themes** (mostly Blizzard's default look; little to no textures): planned, not
+  built.
 - **Theme addon API**: how a theme addon adds its own set of three themes.
 - **Library**: packaging the framework for addons outside Ordaen.

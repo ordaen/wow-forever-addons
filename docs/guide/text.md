@@ -42,6 +42,6 @@ WoW rasterizes fonts at whole-pixel sizes for a frame's **effective scale** (its
 The same text in the same font is therefore a little wider or narrower in UI units at a different scale.
 
 The renderer measures each text with a hidden font string **on the surface it will draw on**, so measuring and
-drawing always share the scale and the font. This was a real bug: text measured on an unparented frame (scale 1)
-but drawn under `UIParent` (the UI scale) wrapped onto an extra line and overflowed the tooltip. A spec with
-scale-aware fake fonts now guards it.
+drawing always share the scale and the font. Text measured on an unparented frame (scale 1) but drawn under
+`UIParent` (the UI scale) wraps onto an extra line and overflows the tooltip; a spec with scale-aware fake fonts
+guards against it.

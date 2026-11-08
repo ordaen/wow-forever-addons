@@ -1,6 +1,6 @@
 # Themes and roles
 
-Only the `ordaen` theme is built for now (`blizzard` and `minimal` are planned: [Themes](/guide/themes)). The exact
+Only the `ordaen` theme is built (`blizzard` and `minimal` are planned: [Themes](/guide/themes)). The exact
 values live in `OrdaenCore_UI/Theme.lua`, the single source; this page says what each role is for and how it looks.
 How themes work: [Themes](/guide/themes).
 

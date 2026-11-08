@@ -10,7 +10,7 @@ Ordaen Core's settings page (Options > AddOns > Ordaen Core, "Appearance") holds
 
 | Setting | Saved as | Values |
 |---|---|---|
-| Theme | `OrdaenCoreDB.ui.theme` | `ordaen` (the only one built for now; not on the page) |
+| Theme | `OrdaenCoreDB.ui.theme` | `ordaen` (the only one built; not on the page) |
 | Text size | `OrdaenCoreDB.ui.textSize` | body text height, 10 to 16 px (default 12) |
 
 A change redraws everything on screen at once: Ordaen Core calls `OrdaenCore.UI._SettingsChanged()`, which
@@ -18,8 +18,7 @@ rebuilds the theme and redraws every component and the shown tooltip. Nothing re
 
 ## Themes
 
-Three themes are planned (CLAUDE.md, "UI framework"); only `ordaen` is built for now (the user's decision,
-2026-11-07). The other two are unimplemented and not offered in the settings, and a saved name that isn't built falls
+Three themes are planned (CLAUDE.md, "UI framework"); only `ordaen` is built. The other two are unimplemented and not offered in the settings, and a saved name that isn't built falls
 back to `ordaen`.
 
 | Theme | Look |
@@ -71,7 +70,7 @@ entry then tints correctly for any accent, and no table is made per accent.
 | `edges` | `{ top, right, bottom, left }`, each `{ physical px, colour }`: whole pixels at any UI scale |
 | `vignette` | `{ size = token, alpha }`: the rim darkened inwards |
 | `bleed` | a nested block's surface reaches over its parent's padding to the edges (the header band) |
-| `backdrop`, `background`, `border` | Blizzard art instead of a fill (no built theme uses it now) |
+| `backdrop`, `background`, `border` | Blizzard art instead of a fill (no built theme uses it) |
 | `highlight` | `{ texture = path }` or `{ color = { r, g, b, a } }`, shown while the mouse is over it |
 
 Nested blocks with a style draw their own surface, so a `header` inside a `tooltip` gets its band.
