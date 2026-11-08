@@ -119,16 +119,16 @@ local homes = {} ---@type table<table, table> Blizzard button -> { parent, point
 local sizes = {} ---@type table<table, number[]> Blizzard button -> its size before
 local dresses = {} ---@type table<table, OrdaenUIDress>
 local placing = false
--- The character button's portrait (the user's design, 2026-11-07): across the bottom edge, the player's face in a
+-- The character button's portrait: across the bottom edge, the player's face in a
 -- round ring in the screen's bottom-left corner, cut by the screen's edges and standing over the panel's left end;
 -- Blizzard's character button sits invisibly over it. The micro menu starts right of it (a spacer in the left zone).
 local portrait ---@type OrdaenUIPortrait|nil
 local portraitButton ---@type table|nil the character button while it sits over the portrait
--- The new look's measures in one table (build() is near Lua 5.1's limit of 60 upvalues: it broke at 61,
--- 2026-11-07). At the panel's height 72 (scaled with it): the portrait's ring 152 across, its centre 50 in from the
+-- The look's measures in one table (build() is near Lua 5.1's limit of 60 upvalues; 61 fails to
+-- compile). At the panel's height 72 (scaled with it): the portrait's ring 152 across, its centre 50 in from the
 -- screen's left and 46 up from its bottom, the micro menu starting 136 in. The panel's metal edge on the side away
 -- from the screen covers its first 8 units: the cells, icons and the bar sit in the rest (`inside`), so they're
--- centred in what shows (measured in game: centred on the whole height they sat 4 too high).
+-- centred in what shows (measured in game: centred on the whole height they sit 4 too high).
 local EDGE_ROOM = 8
 local look = {
 	portraitSize = 152 / 72, portraitX = 50 / 72, portraitY = 46 / 72, portraitRoom = 136 / 72,
@@ -136,7 +136,7 @@ local look = {
 	padBottomEdge = { EDGE_ROOM, 0, 0, 0 }, padTopEdge = { 0, 0, EDGE_ROOM, 0 },
 	spacer = { width = 0, height = 0 }, -- room for the portrait in the left zone
 }
--- Sizes, all from the panel's height (setting `height`; the user's design, 2026-11-07, at 72): square cells fill
+-- Sizes, all from the panel's height (setting `height`; designed at 72): square cells fill
 -- it; an icon's picture is 44/72 of it (iconSide; each atlas box scaled by its CONTENT), a bag's 52/72 (bagSide).
 local size = 72 -- the panel's height
 local cellWidth = 72
@@ -164,8 +164,8 @@ local function columns(n)
 	return out
 end
 
--- A zone's (or the currencies') columns: one per shown child. A column per possible child left the empty ones' gaps
--- at the end, so the bags didn't reach the right edge (2026-11-07). One table per count, made once: children show
+-- A zone's (or the currencies') columns: one per shown child. A column per possible child would leave the empty ones'
+-- gaps at the end, so the bags wouldn't reach the right edge. One table per count, made once: children show
 -- and hide on events.
 local tracksByCount = {}
 local ONE_COLUMN = { "auto" }
@@ -209,7 +209,7 @@ local function placeOnPortrait(button)
 	placing = false
 end
 
--- Micro buttons the panel takes off the screen (the user's decision, 2026-11-07: no shop button). Another bar addon
+-- Micro buttons the panel takes off the screen (no shop button). Another bar addon
 -- (Bartender4) would otherwise show it alone, so it goes on a hidden holder, back there when anyone moves it.
 local OFF_BUTTONS = { StoreMicroButton = true }
 local stashed = {} ---@type table<table, boolean>
@@ -388,14 +388,14 @@ local function socialIcon()
 end
 
 -- The character button shows the player's face: our own portrait image in its cell (the renderer draws it with
--- SetPortraitTexture), not Blizzard's portrait texture, whose mask, crop and size Blizzard keeps setting (it came out
--- small and squashed, 2026-11-06). Blizzard's art on the button goes like on every other button.
+-- SetPortraitTexture), not Blizzard's portrait texture, whose mask, crop and size Blizzard keeps setting (it comes out
+-- small and squashed). Blizzard's art on the button goes like on every other button.
 local PORTRAIT_BUTTON = "CharacterMicroButton"
 
 -- An atlas icon keeps its proportions (Blizzard's micro icons are taller than wide): fit into the icon square.
 -- How much of its atlas box each micro icon's picture fills (the larger of its visible width and height over the
 -- box height). Blizzard's micro atlases leave different empty margins, so equal boxes look unequal. Measured from
--- the panel's pixels in game (screenshot 2026-11-06, boxes 36 units high); re-measure when Blizzard changes the art.
+-- the panel's pixels in game (a screenshot, boxes 36 units high); re-measure when Blizzard changes the art.
 local CONTENT = {
 	ProfessionMicroButton = 0.56, SpellbookMicroButton = 0.58, TalentMicroButton = 0.50,
 	QuestLogMicroButton = 0.64, GuildMicroButton = 0.61, LFDMicroButton = 0.44, CollectionsMicroButton = 0.53,
@@ -510,8 +510,8 @@ local function cellFor(button)
 		style = "iconButton", padding = 0, rowAlign = "center", edges = { top = false, bottom = false },
 	}
 	cells[button] = cell
-	-- across a top or bottom edge, the theme's panel cells (our button's side rims on the panel's wood, edge to edge:
-	-- the user's design, 2026-11-07); on a side edge, the plain icon buttons
+	-- across a top or bottom edge, the theme's panel cells (our button's side rims on the panel's wood, edge to edge);
+	-- on a side edge, the plain icon buttons
 	cell.style = horizontal() and "panelCell" or "iconButton"
 	if horizontal() then
 		cell.width, cell.height = cellWidth, look.inside
@@ -1015,13 +1015,13 @@ local function build()
 			end
 		end
 	end
-	-- One top block for the panel's life, changed in place (a new table lost the panel's look: a transparent
-	-- background after moving the height slider, 2026-11-06).
+	-- One top block for the panel's life, changed in place (a new table loses the panel's look: a transparent
+	-- background after moving the height slider).
 	spec = spec or { style = "panel" }
 	spec[1], spec[2], spec[3] = zones.left, zones.center, zones.right
 	if across then
-		-- the sides as wide as what they hold, the centre takes the rest (the bar fills it: the user's design,
-		-- 2026-11-07); no gap and no side padding: the cells run edge to edge from one end of the panel to the other
+		-- the sides as wide as what they hold, the centre takes the rest (the bar fills it); no gap and no
+		-- side padding: the cells run edge to edge from one end of the panel to the other
 		spec.columns, spec.gap = { "auto", "1fr", "auto" }, 0
 		spec.padding = s.edge == "top" and look.padTopEdge or look.padBottomEdge -- the metal edge's side
 		spec.height, spec.rowAlign = size, "center"
@@ -1029,7 +1029,7 @@ local function build()
 		spec.columns, spec.gap, spec.padding = { "auto" }, "md", { "sm", "xs", "sm", "xs" }
 		spec.height, spec.rowAlign = nil, nil
 	end
-	-- No border where the panel touches the screen (the user's rule, 2026-11-07): its edge, and along the whole edge
+	-- No border where the panel touches the screen: its edge, and along the whole edge
 	-- also both ends. The side facing the screen keeps its border (also where the chat sits on it: an edge can't be
 	-- partly open, and the rest of it would lose its line).
 	local open = spec.open or {}
@@ -1070,7 +1070,7 @@ end
 -- Updates (from ns.Changed) ---------------------------------------------------------------------------------------
 
 -- Blizzard's experience and reputation bars (StatusTrackingBarManager's containers): parked on a hidden frame for
--- as long as Ordaen Panel runs, also while our own bar is off (the user's decision, 2026-11-07: turning ours off
+-- as long as Ordaen Panel runs, also while our own bar is off (turning ours off
 -- must not bring Blizzard's back). Not in the API dump on Forever, so looked up by name and logged.
 local STATUS_BARS = { "MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer" }
 local parking ---@type Frame|nil

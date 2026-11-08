@@ -37,7 +37,7 @@ A = OrdaenCore.NewAddon(addonName, ns, {
 	end,
 	onChange = onSettingChanged,
 	migrations = {
-		-- the groups were on/off; now each item names its zone ("off" for off), the defaults being the old places
+		-- on/off groups saved as booleans: each item names its zone ("off" for off), and true takes the default place
 		function(db)
 			for _, key in ipairs({ "micromenu", "social", "experience", "currencies", "bags" }) do
 				if db[key] == false then
@@ -105,8 +105,8 @@ ns.MicroButtons = microButtons
 local Micro = A:Feature("micromenu", { when = placed("micromenu") })
 -- Forever's micro buttons, by name (the API dump doesn't list most of them). The client also has Achievement,
 -- Housing, PlayerSpells and EJ buttons from the modern code, but Forever doesn't use them: Bartender4's micro bar
--- (its Forever list in MicroMenu.lua) takes exactly the ones below and leaves those four on a hidden holder (in-game
--- log, 2026-11-06). Micro.Order keeps the visible ones (Help comes and goes). LegacyMicroButton is Forever's Legacy
+-- (its Forever list in MicroMenu.lua) takes exactly the ones below and leaves those four on a hidden holder (seen in
+-- the in-game log). Micro.Order keeps the visible ones (Help comes and goes). LegacyMicroButton is Forever's Legacy
 -- System (account-wide progression; Blizzard disables it until the first Legacy Point, usually level 25).
 local MICRO_NAMES = {
 	"CharacterMicroButton", "ProfessionMicroButton", "SpellbookMicroButton", "TalentMicroButton", "LegacyMicroButton",
