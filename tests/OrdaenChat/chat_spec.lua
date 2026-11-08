@@ -245,7 +245,7 @@ describe("Ordaen Chat", function()
 			FCFDock_GetChatFrames = function()
 				return dock
 			end,
-			-- Like the game: docking a window that's already docked doesn't move it (seen in game, 2026-11-06).
+			-- Like the game: docking a window that's already docked doesn't move it (seen in game).
 			FCF_DockFrame = function(frame, index)
 				for _, w in ipairs(dock) do
 					if w == frame then
@@ -303,7 +303,7 @@ describe("Ordaen Chat", function()
 				return secrets[v] == true
 			end,
 			-- Like the game's: every owner's callback for an event runs (one per owner; registering again replaces it).
-			-- It kept only the last one, so Position's theme listener hid Look's and Dim's (2026-11-07).
+			-- A fake keeping only the last one would let Position's theme listener hide Look's and Dim's.
 			EventRegistry = {
 				RegisterCallback = function(self, event, fn, owner)
 					local list = rawget(self, event) or {}

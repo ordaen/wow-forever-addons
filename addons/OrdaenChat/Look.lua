@@ -21,14 +21,14 @@ local WINDOW_ART = {
 	"ButtonFrameTopTexture", "ButtonFrameBottomTexture", "ButtonFrameLeftTexture", "ButtonFrameRightTexture",
 }
 local TAB_STATES = { selected = "chatTabSelected", flash = "chatTabFlash" }
--- Room around the messages (the user's request, 2026-11-06): our background reaches past Blizzard's by these spacing
+-- Room around the messages: our background reaches past Blizzard's by these spacing
 -- tokens (left, right, top, bottom); less at the top, where the tabs sit.
 local PADDING = { "md", "md", "sm", "md" }
 -- Blizzard's chat has one spacing for the lines of a wrapped message and between messages (each message is one font
 -- string, stacked by RefreshLayout with the font's spacing as the offset). We keep the font's spacing small for the
--- lines and re-anchor the messages with a bigger gap after each of Blizzard's layouts (the user's choice, 2026-11-06).
+-- lines and re-anchor the messages with a bigger gap after each of Blizzard's layouts.
 local LINE_GAP = "xs"
--- 8 at the default text size (the user's choice, 2026-11-07), following the text size.
+-- 8 at the default text size, following the text size.
 local MESSAGE_GAP = "md"
 
 local on = false
@@ -102,7 +102,7 @@ local function showTabState(frame)
 		dress:SetState(nil)
 	end
 	-- The badge redraws only when its count changes: Blizzard updates every tab's colours several times per tab
-	-- switch, and redrawing each tab's look each time made switching tabs lag (2026-11-07).
+	-- switch, and redrawing each tab's look each time makes switching tabs lag.
 	local badge = badges[tab]
 	if badge and (badge.hidden ~= (count == 0) or badge.args[1] ~= count) then
 		badge.hidden = count == 0
@@ -302,7 +302,7 @@ end
 local hooked = false
 
 -- Blizzard hangs the tab dock on the chat window (FCFDock_SetPrimary: BOTTOMLEFT to its TOPLEFT, 3 up), but our
--- background reaches further left by Blizzard's background and our padding: the first tab sat inside it (2026-11-07).
+-- background reaches further left by Blizzard's background and our padding, so the first tab would sit inside it.
 -- Its left edge goes to our background's; the right one and the height stay Blizzard's.
 local DOCK_UP = 3 -- Blizzard's own offset
 local function alignTabs()
@@ -391,8 +391,8 @@ end
 
 --- What the dev-mode dump records.
 -- Dev dump: the chat window's border corners as drawn, Blizzard's layout entries, and how texture coordinates behave
--- after SetAtlas on this client (absolute in the file, or relative to the atlas): the mirrored top corner drew
--- nothing (2026-11-07). Runs only on "Send state".
+-- after SetAtlas on this client (absolute in the file, or relative to the atlas), which decides how the mirrored
+-- top corner is drawn. Runs only on "Send state".
 local probeTexture
 local function pieceState(piece)
 	if not piece then

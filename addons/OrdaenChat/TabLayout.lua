@@ -1,4 +1,4 @@
--- Ordaen Chat's default tabs, as data (the user's choices, 2026-11-06): General (conversation, your progress, what
+-- Ordaen Chat's default tabs, as data: General (conversation, your progress, what
 -- you must notice), Guild, Channels, and Journal last (Blizzard's Combat Log window, renamed: the combat log plus
 -- everything else). Whispers open a tab per conversation (Whispers.lua) and aren't in General. Pure: no WoW calls,
 -- so specs read it as is.

@@ -3,7 +3,7 @@
 -- numbers of our own. The window keeps the size Edit Mode gives it; with the setting at "Edit Mode" its place is
 -- Edit Mode's too. Blizzard places the chat window from several places (Edit Mode's layout, the chat windows'
 -- saved positions): a hook on the window's SetPoint notes Blizzard's new place and puts it back above the panels
--- (hooking only Edit Mode's ApplySystemAnchor missed the other path: the chat stayed at x 30, 2026-11-06). We never
+-- (hooking only Edit Mode's ApplySystemAnchor misses the other path and leaves the chat at x 30). We never
 -- call Edit Mode's code: it also places protected frames (action bars), and our calls would taint it.
 -- Cost: no events and nothing per frame. A callback when a panel's inset changes, a hook on Edit Mode placing the
 -- chat window.
@@ -14,10 +14,10 @@ ns.Position = Position
 
 local UI = OrdaenCore.UI
 
--- Between the chat's background and the screen edge (none: flush, the user's choice, 2026-11-07) and the panel.
+-- Between the chat's background and the screen edge (none: flush) and the panel.
 local MARGIN_LEFT, MARGIN_BOTTOM = 0, 0
 -- Flush with the screen's left edge and sitting on the panel (or the bottom edge): no border on those sides, as if the
--- metal ran on (a7's and the user's open sides). The bottom only while the input sits over the chat; below it, the
+-- metal ran on (open sides). The bottom only while the input sits over the chat; below it, the
 -- input is the chat's bottom.
 local OPEN_DOCKED = { left = true, bottom = true }
 local OPEN_LEFT = { left = true }
@@ -26,8 +26,8 @@ local on = false
 local placing = false
 local editModePoints -- where Edit Mode had the chat before we moved it: given back when the feature goes off
 -- Blizzard clamps the chat to the screen with insets that keep room for its button column on the left (FCF, set
--- again in FCF_UpdateButtonSide): that column is empty now (Input.lua), but its room pushed the chat 30 UI units off
--- the left edge (2026-11-06). Ours leave only the background's own reach; Blizzard's come back when the feature goes
+-- again in FCF_UpdateButtonSide): that column is empty (Input.lua), but its room would push the chat 30 UI units off
+-- the left edge. Ours leave only the background's own reach; Blizzard's come back when the feature goes
 -- off.
 local blizzardClamp -- { left, right, top, bottom } before ours
 local hooked = false

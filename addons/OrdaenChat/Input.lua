@@ -53,10 +53,10 @@ local socialHome
 local buttonsSeen = true -- the row's Blizzard buttons are seen and take the mouse (false: over the chat, not typing)
 local settingAlpha = false -- our own SetAlpha calls on those buttons (the hook leaves them alone)
 
--- Over the chat the input only shows while typing, but Blizzard's IM style just fades it: its buttons stayed under
--- the mouse while invisible, and Blizzard's chat fade (mouse over the chat) blinked them (2026-11-07). They follow
+-- Over the chat the input only shows while typing, but Blizzard's IM style just fades it: its buttons would stay
+-- under the mouse while invisible, and Blizzard's chat fade (mouse over the chat) would blink them. They follow
 -- the typing instead: seen and clickable while the input has the keyboard focus, else alpha 0 and no mouse. The
--- faded input itself took clicks meant for the chat under it (the scroll-to-bottom button opened it): it gets the
+-- faded input itself would take clicks meant for the chat under it (the scroll-to-bottom button opened it): it gets the
 -- mouse only while typing too.
 local function showButtons()
 	local seen = not overlaid or (current ~= nil and current:HasFocus()) or false
@@ -81,7 +81,7 @@ local function onButtonAlpha(frame)
 	end
 end
 
--- Dev mode: what draws over what while typing (the chat's text showed over the input's background, 2026-11-07).
+-- Dev mode: what draws over what while typing (to check the chat's text stays under the input's background).
 local function logLayers(input)
 	if ns.Debug:IsEnabled() then
 		local window = input.chatFrame or input:GetParent()
@@ -164,7 +164,7 @@ end
 
 -- Blizzard set the input's insets for its header ("Say:", "To Name:"), from scratch: add ours again on top. A hook on
 -- the input's own SetTextInsets, so every path counts (Forever updates the header in the input's UpdateHeader
--- method, not the old global ChatEdit_UpdateHeader: the caret sat under "Say:", 2026-11-06).
+-- method, not the global ChatEdit_UpdateHeader; without this the caret sits under "Say:").
 local function onInsetsSet(input)
 	if insetting or not inputs[input] then
 		return
@@ -196,8 +196,8 @@ local function overlay(input)
 	input:SetPoint("BOTTOMLEFT", background, "BOTTOMLEFT", 0, 0)
 	input:SetPoint("BOTTOMRIGHT", background, "BOTTOMRIGHT", 0, 0)
 	anchoring = false
-	-- Above the chat's lines, with our look between them and the input (the text showed through the input's
-	-- background, 2026-11-06).
+	-- Above the chat's lines, with our look between them and the input (else the text shows through the input's
+	-- background).
 	local lines = window.FontStringContainer
 	if lines and input:GetFrameLevel() <= lines:GetFrameLevel() + 1 then
 		input:SetFrameLevel(lines:GetFrameLevel() + 3)

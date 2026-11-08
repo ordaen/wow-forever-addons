@@ -71,7 +71,7 @@ end
 Tabs.DockIds = dockIds
 
 local lastSeen
--- Dev mode: log what CombatLogLast found, once per different state (Journal stayed second, 2026-11-06).
+-- Dev mode: log what CombatLogLast found, once per different state.
 local function noteDock(what)
 	if ns.Debug:IsEnabled() then
 		local seen = what .. ", dock " .. table.concat(dockIds(), ",")
@@ -98,10 +98,10 @@ function Tabs.CombatLogLast()
 	local relayout = false
 	if combat.isStaticDocked then
 		-- Blizzard draws a "static docked" window's tab (General's, Combat Log's) on the dock itself, right after
-		-- General, whatever its place in the dock: Journal stayed second although the dock had it last (2026-11-06).
-		-- Clearing the flag lets its tab follow the dock order. The user's choice, knowing the cost: a field an addon
+		-- General, whatever its place in the dock, so Journal shows second even when the dock has it last.
+		-- Clearing the flag lets its tab follow the dock order, knowing the cost: a field an addon
 		-- writes is tainted, so Blizzard's tab code runs tainted after reading it (watch for "tainted by OrdaenChat").
-		combat.isStaticDocked = false -- luacheck: ignore 122 (deliberate taint, the user's choice: see above)
+		combat.isStaticDocked = false -- luacheck: ignore 122 (deliberate taint: see above)
 		relayout = true
 	end
 	local docked = FCFDock_GetChatFrames(GeneralDockManager)
@@ -109,7 +109,7 @@ function Tabs.CombatLogLast()
 		noteDock("already last")
 	else
 		moving = true
-		-- Docking a window that's already docked doesn't move it (Combat Log stayed second, 2026-11-06): take it
+		-- Docking a window that's already docked doesn't move it: take it
 		-- out of the dock, then dock it at the end.
 		FCF_UnDockFrame(combat)
 		FCF_DockFrame(combat, #FCFDock_GetChatFrames(GeneralDockManager) + 1, false)
@@ -124,7 +124,7 @@ function Tabs.CombatLogLast()
 		moving = true
 		-- Blizzard's FCFDock_UpdateTabs places the tabs first and anchors the scroll frame of the other tabs to the last
 		-- static tab only afterwards: it is still anchored to Combat Log's tab, which now goes inside it, so placing the
-		-- tab fails ("Cannot anchor to a region dependent on it", 2026-11-06) and the tabs vanish. Anchor it to
+		-- tab fails ("Cannot anchor to a region dependent on it") and the tabs vanish. Anchor it to
 		-- General's tab first, as Blizzard does next.
 		GeneralDockManager.scrollFrame:SetPoint("LEFT", ChatFrame1Tab, "RIGHT", 0, 0)
 		FCFDock_UpdateTabs(GeneralDockManager, true)

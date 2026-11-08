@@ -102,7 +102,7 @@ end)
 -- - the chat menu button hidden or faded: Prat's Buttons module does that, and we never call these ourselves;
 -- - the first window's input art and background: UI.Dress hides them, through names built at runtime. Only the
 --   first window's: an addon restyling the chat restyles that one too, and claiming all ten windows' art reported
---   one conflict per texture (30 records for Prat, 2026-11-06). Focus art is Blizzard's to toggle on every focus.
+--   one conflict per texture (30 records for Prat). Focus art is Blizzard's to toggle on every focus.
 local menuButton = _G.ChatFrameMenuButton
 if menuButton then
 	A:Claim(menuButton, { "Hide", "SetAlpha" }, "ChatFrameMenuButton")

@@ -1,5 +1,5 @@
 -- Messages split by whose they are: your crafting and openings (gathering, chests) in General, other players' in
--- Journal (the user's split, 2026-11-06). Blizzard puts a message type in a tab as a whole, so both tabs get these
+-- Journal. Blizzard puts a message type in a tab as a whole, so both tabs get these
 -- types (TabLayout.lua) and a chat message filter hides the other half in each. Other tabs show them as Blizzard does.
 -- Messages with secret values are left alone (shown).
 -- Cost: two filters (registered once, at the first login of the "layout" feature); each returns at once for a chat
@@ -26,7 +26,7 @@ local function patternOf(format)
 	return "^" .. p:gsub(PLACEHOLDER, ".+") .. "$"
 end
 
--- Crafting and opening lines carry no sender (name and GUID are empty, 2026-11-06): whose they are is in the text,
+-- Crafting and opening lines carry no sender (name and GUID are empty): whose they are is in the text,
 -- Blizzard's first or third person line. Built once, from the client's own strings (every language).
 local textual -- event -> { mine = pattern, others = pattern }
 local function patterns()
