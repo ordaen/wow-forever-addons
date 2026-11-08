@@ -147,7 +147,7 @@ function Kit.Tab(tab, side)
 	return Kit.Dress(tab, role, art, { track = "tab" })
 end
 
--- Our push button's label is gold, white on hover (the user's pick, 2026-11-07, like the classic red buttons):
+-- Our push button's label is gold, white on hover (like the classic red buttons):
 -- Blizzard's white button font is swapped for its gold twin of the same size, so nothing else about the text
 -- changes. Only Blizzard's font objects, no Font methods (the dump has no Font type to confirm them).
 local GOLD_TWINS = {

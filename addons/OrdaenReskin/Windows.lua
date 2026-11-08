@@ -2,7 +2,7 @@
 -- exists (at login, or when Blizzard loads its addon): the frame itself (UI.Dress with "window", "portraitWindow"
 -- or "dialog": its border above its content, its fill under it), its tabs, close button and every standard control
 -- inside it (Kit.lua). Only frame and control art goes; content (parchment, talent art, the map, lists) stays, and
--- so do clicks, scripts and sizes. Which windows and which art: the window inventory of 2026-11-07 (35 windows and
+-- so do clicks, scripts and sizes. Which windows and which art: the window inventory (35 windows and
 -- tabs, wow-dev-tools' companion /preview/inventory/). Prior art: EllesmereUI's window skin engine (ideas only).
 --
 -- Each window is skinned in its own protected call: one failing is reported and the rest still skin. A window that
@@ -17,10 +17,10 @@ ns.Windows = Windows
 -- The packs: global name, kind ("window" or "dialog"), the style of its tabs ("tab" along an edge, "sideTab" for
 -- the square icon tabs), the keys of children that hold content only (not scanned for controls), and `spacing`: a
 -- spacing token (the theme's scale) for a window Blizzard lays out with a layout frame. Our controls' art fills them
--- edge to edge, so the space between them is the container's (the user's rule, 2026-11-07: no margin in textures).
+-- edge to edge, so the space between them is the container's (no margin in textures).
 -- `newLabels`: keys of Blizzard's floating «new» labels, which it anchors to a control while that control holds
--- something new: hidden, and the control's dress shows the theme's new marker instead (the user's pick: a gem).
--- `accent`: Blizzard's global strings whose buttons wear the accent push button (the user's pick, 2026-11-07: the
+-- something new: hidden, and the control's dress shows the theme's new marker instead (a gem).
+-- `accent`: Blizzard's global strings whose buttons wear the accent push button (the
 -- game menu's exit buttons in red). Matched by text, since the menu's pooled buttons have no names.
 local PACKS = {
 	{ name = "CharacterFrame", kind = "window", tabs = "sideTab" },
@@ -155,7 +155,7 @@ function Window:Collect(dress)
 end
 
 -- Blizzard's title plate on a dialog (the game menu's Header: three plate pieces and the text): the plate goes with
--- the rest of the art and the text becomes the look's engraved title (the user's pick, 2026-11-07: preview
+-- the rest of the art and the text becomes the look's engraved title (preview
 -- title.html B). Nil when the frame has none.
 local PLATE_PIECES = { "LeftBG", "CenterBG", "RightBG" }
 
@@ -510,7 +510,7 @@ function Windows.Describe()
 		if first and window.frame:IsShown() and type(first.look) == "table" then
 			local look = first.look.frame
 			entry.look = frameState(look)
-			entry.art = first:DescribeArt() -- the border pieces as drawn (a broken edge, 2026-11-07)
+			entry.art = first:DescribeArt() -- the border pieces as drawn (to find a broken edge)
 			entry.lookChildren = {}
 			for _, child in ipairs({ look:GetChildren() }) do
 				entry.lookChildren[#entry.lookChildren + 1] = frameState(child)

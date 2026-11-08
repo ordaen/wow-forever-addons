@@ -14,7 +14,7 @@ if not A then
 end
 ns.Addon = A
 
--- One feature per kind of window, skinned at once (the user's choice: eager, like EllesmereUI). Load-on-demand
+-- One feature per kind of window, skinned at once (eager, like EllesmereUI). Load-on-demand
 -- windows are skinned when Blizzard loads them.
 local windows = A:Feature("windows", { setting = "windows" })
 windows:On("ADDON_LOADED", function()
