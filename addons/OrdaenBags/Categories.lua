@@ -1,6 +1,6 @@
 -- Ordaen Bags, categories: which tab an item goes in (the tabs on the window's left) and which section of that tab
--- (a caption with its grid of slots), from the item's class and subclass as the game gives them (the user's design,
--- 2026-11-07: tabs on the left, subcategories in the window, like Baganator).
+-- (a caption with its grid of slots), from the item's class and subclass as the game gives them (tabs on
+-- the left, subcategories in the window, like Baganator).
 --   junk     grey items, whatever their class (sold at a vendor: Ordaen QoL)
 --   quest    quest items, also items the game marks as starting or belonging to a quest
 --   by class equipment (weapons, armour, profession tools), consumables, trade goods (with reagents, gems,

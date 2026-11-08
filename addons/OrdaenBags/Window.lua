@@ -1,4 +1,4 @@
--- Ordaen Bags, the window (the user's design, approved on the design page 2026-11-07): an OrdaenCore.UI window.
+-- Ordaen Bags, the window (as on the design page): an OrdaenCore.UI window.
 --   top     the search box; on the right the sort order (a dropdown: Blizzard's menu), the quick actions in our
 --           bronze button (arrange, the bag slots, settings) and the close button in our red accent
 --   bags    the bag strip (the bag slots button): each bag with its free slots; hovering one lights up its items
@@ -24,7 +24,7 @@ local SLOT = 37 -- Blizzard's item button
 local SLOT_GAP = 2
 local ICON = "Interface\\AddOns\\OrdaenCore\\media\\icon-"
 local CAPTION_EM = 7 -- a caption letter's width, roughly (UI units), for packing sections into rows
-local SECTION_GAP = 24 -- between sections side by side (UI units; the user asked for bigger gaps, 2026-11-07)
+local SECTION_GAP = 24 -- between sections side by side (UI units)
 
 -- The sort orders the dropdown offers (the setting "sort"): the order of the items inside each section.
 local SORTS = {
@@ -776,7 +776,7 @@ end
 
 local function build()
 	local search = UI.Input({ name = "OrdaenBagsSearch", width = 200, placeholder = SEARCH, on = { change = onSearch } })
-	-- the dropdown's art is a 26 px field with a shadow (82, 2026-11-07): give it its height
+	-- the dropdown's art is a 26 px field with a shadow: give it its height
 	sortButton = UI.Button({ style = "dropdown", on = { click = onSortClick }, sortText })
 	local arrange = iconButton("pushButton", "sort", actionTip(L.TIP_SORT, L.TIP_SORT_TEXT), onArrange)
 	local bags = iconButton("pushButton", "bag", actionTip(L.TIP_BAGS, L.TIP_BAGS_TEXT), onToggleBags)
@@ -961,7 +961,7 @@ local function describe(frame, depth)
 end
 
 --- Dev-mode state (Send state): the tab, the counts, the window's place, and how the search box and the quick
---- actions draw (for the renderer owner: their art didn't show in game, 2026-11-07).
+--- actions draw (for the renderer owner, to check their art in game).
 ---@return table
 function View.Dump()
 	local controls = {}
