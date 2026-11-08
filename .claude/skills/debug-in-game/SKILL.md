@@ -38,7 +38,7 @@ chat, never from guesses about what the game showed.
 
 The game runs the build of `develop` in the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons`: its `dist/`,
 through the AddOns junctions, kept current by `ordaen watch` running there (else `ordaen build` there). Get the change
-there with `ordaen merge <branch>`. Never switch the main checkout to another branch or re-point the junctions; a new
+there by rebasing the branch and fast-forwarding develop (CLAUDE.md "Branches"). Never switch the main checkout to another branch or re-point the junctions; a new
 addon folder needs `ordaen link`.
 
 Note the newest message id (`wow_status` → `newest_id`), then tell the user exactly what to do:
@@ -74,7 +74,7 @@ Read only our own addons' data, not other addons' saved data.
 ## 4. Decide
 
 - The data explains the bug: fix it, add the static check that would have caught it (CLAUDE.md "Preventing bugs"),
-  add a busted spec when the logic is pure, `ordaen merge`, and go back to step 2.
+  add a busted spec when the logic is pure, merge (rebase, fast-forward), and go back to step 2.
 - It doesn't: add logging or dump fields where the gap is and do another round. Don't ship speculative fixes, and
   say plainly what is still unknown.
 - After every merge the user reloads, read `wow_errors` (and `wow_log`/`wow_screenshot` for what changed) before

@@ -63,10 +63,10 @@ would have caught it is half a fix: say which check now catches it, or add one.
    dump: unknown fields and methods are `nil`, and object fakes check `self` like the real thing. No per-spec stub that
    is looser than the game (a lenient stub makes a missing `frame.Button` look real; a no-op kit hides dot calls).
 4. **No checks by default: the game decides.**
-   `develop` moves only through `ordaen merge <branch>`, which rebases the branch and fast-forwards develop, nothing
-   else. Don't run `ordaen check` before handing over or merging, nor after. Run checks only when the debug addon
-   shows errors in game (`wow_errors`), and then for the area involved: `ordaen test -- <spec>`, `ordaen lint`, or
-   `ordaen merge --check` (it then reports `DEVELOP IS RED` when the check fails; the merging session fixes it next).
+   `develop` moves only by fast-forward (see "Branches"), nothing else. Don't run `ordaen check` before handing over
+   or merging, nor after. Run checks only when the debug addon shows errors in game (`wow_errors`), and then for the
+   area involved: `ordaen test -- <spec>`, `ordaen lint`. When a check on develop fails, the session that merged last
+   fixes it next.
    The checks themselves exist all the same: CI runs them, and every new bug class gets one, as above. Check
    `git status`/`git diff --stat` before each commit (a refused file write can leave a stale file in a build).
 5. **Isolated features.** Each feature of an addon is an `A:Feature(...)` (Core `Feature.lua`): the framework
@@ -124,10 +124,10 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - **Branches (local-only until the user says otherwise: no push, PR or merge on GitHub):**
   - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
   - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
-  - Run `ordaen merge feat/<topic>` (rule 4: rebase and fast-forward develop, no check). That keeps the signed conventional commits. Then `ordaen watch` (running in the main checkout) rebuilds `dist/` and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon must be linked first (`ordaen link`).
+  - Merge with plain git (rule 4: no check): in the worktree `git rebase develop`, then in the main checkout `git merge --ff-only feat/<topic>`; if develop moved meanwhile the fast-forward refuses, so rebase again. Then `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`. That keeps the signed conventional commits. Then `ordaen watch` (running in the main checkout) rebuilds `dist/` and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon must be linked first (`ordaen link`).
   - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
 - **Help when busy:** when an owner is busy, any session may do the work in its area (the renderer, Core, an addon). Tell the owner first what you'll change, work on your own branch,
-  `ordaen merge`, and report back after.
+  merge it (rebase, fast-forward), and report back after.
 - Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/package.sh`.
 - Commits: Conventional Commits via commitlint (`commitlint.config.mjs`; scope = addon folder name or repo scope), enforced by husky `commit-msg` hook and in CI (PR title + PR commits).
 - Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. release-please bumps `"version"` in the addon's `addon.jsonc` (the line marked `// x-release-please-version`; nested addons take their parent's) — never edit it by hand.
