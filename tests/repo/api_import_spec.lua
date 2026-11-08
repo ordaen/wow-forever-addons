@@ -35,6 +35,16 @@ local function fakeDump(build, extra)
 end
 
 describe("api_import", function()
+	it("renders constants and facts when the dump records them, and no file for older dumps", function()
+		assert.is_nil(Import.Render(fakeDump(70790))["constants.txt"])
+		local dump = fakeDump(70790)
+		dump.constants = { NUM_ACTIONBAR_PAGES = 6, NUM_OVERRIDE_BUTTONS = 6, ["bad key"] = 1 }
+		dump.facts = { ["C_ActionBar.GetVehicleBarIndex"] = "31" }
+		local files = Import.Render(dump)
+		assert.equals("NUM_ACTIONBAR_PAGES\t6\nNUM_OVERRIDE_BUTTONS\t6\n", files["constants.txt"])
+		assert.equals("C_ActionBar.GetVehicleBarIndex\t31\n", files["facts.txt"])
+	end)
+
 	it("names the folder after version and build", function()
 		assert.equals("1.60.1-70790", Import.FolderName(fakeDump(70790).meta))
 	end)

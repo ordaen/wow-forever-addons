@@ -12,7 +12,7 @@
 -- Usually run through scripts/api-import.sh. Lua 5.1; the functions are also used by specs.
 local M = {}
 
-local FILES = { "globals", "namespaces", "widgets", "objects", "docs" }
+local FILES = { "globals", "constants", "facts", "namespaces", "widgets", "objects", "docs" }
 
 local function sortedKeys(t)
 	local keys = {}
@@ -59,7 +59,8 @@ function M.Merge(old, new)
 end
 
 -- The files merged with an earlier import of the same build (the rest are replaced: meta, docs).
-local MERGED = { ["globals.txt"] = true, ["namespaces.txt"] = true, ["widgets.txt"] = true, ["objects.txt"] = true }
+local MERGED = { ["globals.txt"] = true, ["constants.txt"] = true, ["facts.txt"] = true, ["namespaces.txt"] = true,
+	["widgets.txt"] = true, ["objects.txt"] = true }
 
 --- Folder name for a dump: "<version>-<build>", e.g. "1.60.1-70790".
 function M.FolderName(meta)
@@ -93,6 +94,25 @@ function M.Render(dump)
 		end
 	end
 	out["globals.txt"] = lines(globals)
+
+	-- number constants' values (NUM_ACTIONBAR_PAGES = 6) and fixed facts (C_ActionBar.GetVehicleBarIndex = 31), from
+	-- dumps that record them (OrdaenCore_Debug's ApiDump, 2026-11-08); older dumps have neither and get no file
+	if dump.constants then
+		local constants = {}
+		for name, value in pairs(dump.constants) do
+			if identifier(name) then
+				constants[#constants + 1] = name .. "\t" .. tostring(value)
+			end
+		end
+		out["constants.txt"] = lines(constants)
+	end
+	if dump.facts then
+		local facts = {}
+		for call, result in pairs(dump.facts) do
+			facts[#facts + 1] = call .. "\t" .. tostring(result)
+		end
+		out["facts.txt"] = lines(facts)
+	end
 
 	local namespaces = {}
 	for name, members in pairs(dump.namespaces or {}) do
