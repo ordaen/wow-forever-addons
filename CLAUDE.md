@@ -5,7 +5,7 @@ Developed on Windows (the user normally works on Linux — explain Windows speci
 
 ## Performance: every KB and every CPU cycle matters (non-negotiable)
 
-The user's rule, set in stone: our addons must cost as close to nothing as possible. "It's only 100 KB" or "it's only
+Set in stone: our addons must cost as close to nothing as possible. "It's only 100 KB" or "it's only
 a few microseconds" is **never** an acceptable argument. Players run dozens of addons and the cost adds up. When
 simpler code and leaner code conflict, choose leaner, or ask the user. A performance regression is a bug.
 
@@ -20,7 +20,7 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
   loaded with `C_AddOns.LoadAddOn`; confirmed on Forever). Strings and data for other locales are not kept in memory.
 - **No garbage in hot paths:** no table/closure/string creation (`..`, `format`, `{}`) in per-frame or per-event code;
   reuse tables; cache globals used in hot code as upvalues.
-- **SavedVariables: be deliberate** (user's decision, 2026-11-07). They may hold more than settings (each character's
+- **SavedVariables: be deliberate.** They may hold more than settings (each character's
   gold for a realm total, say) when the feature needs it across sessions, but every stored thing is a choice made on
   purpose: say in the code why it's saved, keep it small, give anything that can grow a hard cap, drop entries that go
   stale (a deleted character), and don't save what can be rebuilt cheaply. They are parsed at login and written at
@@ -34,7 +34,7 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
   `Debug:TimeEnd(t, "label")` or the statement `Debug:Time("label", fn, ...)` (stripped from release builds, so never
   use its results: forever-lint FL7). Mention the numbers when handing work over.
 
-## Lua code style (user's decision; applies to every session and repo with addon Lua)
+## Lua code style (applies to every session and repo with addon Lua)
 
 - **Object style.** Anything with state or identity is an object whose methods are called with `:`
   (`tooltip:Show(owner)`, `button:On("click", fn)`, `A:OnLogin(fn)`), never a free function that takes the object as
@@ -47,7 +47,7 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
   closures per call or event. A method call through `__index` is one table lookup and is fine.
 - **Stateless helpers stay module functions:** pure math and data (`Layout.Run`, `ns.RingOffset`) need no object.
 
-## Preventing bugs (user's decision; applies to every session)
+## Preventing bugs (applies to every session)
 
 Every bug class we hit gets a **static check** first; tests and in-game checks come after. A fix without a check that
 would have caught it is half a fix: say which check now catches it, or add one.
@@ -55,21 +55,20 @@ would have caught it is half a fix: say which check now catches it, or add one.
 1. **Typed objects.** Every object kind is a LuaLS `---@class` whose methods are defined with `:`
    (`function Kit:Logf(fmt, ...)`), never assigned as untyped fields (`Logf = noop`), so a dot call is a type error.
    LuaLS findings (`param-type-mismatch`, `missing-parameter`, `undefined-field`, ...) fail `ordaen check` like lint.
-   forever-lint FL6 also flags known object methods called with `.`. (Caught by none of these before:
-   `debug().Logf(...)` in the drawer, 2026-11-06.)
+   forever-lint FL6 also flags known object methods called with `.` (such as `debug().Logf(...)`).
 2. **Lint-first refactors.** Before reshaping an API (renames, `.` to `:`, removed functions), add the check that fails
    on the old form, then convert until it reports nothing. The check decides when the conversion is done, never a
    regex or a reading of the code.
 3. **Strict, shared fakes.** Specs use the shared fakes in `tests/OrdaenCore/helpers.lua`, generated from the API
    dump: unknown fields and methods are `nil`, and object fakes check `self` like the real thing. No per-spec stub that
-   is looser than the game (a lenient stub made `frame.Button` look real; the no-op kit made dot calls look fine).
-4. **No checks by default: the game decides** (user's decision, 2026-11-07, replacing "merge, then check").
+   is looser than the game (a lenient stub makes a missing `frame.Button` look real; a no-op kit hides dot calls).
+4. **No checks by default: the game decides.**
    `develop` moves only through `ordaen merge <branch>`, which rebases the branch and fast-forwards develop, nothing
    else. Don't run `ordaen check` before handing over or merging, nor after. Run checks only when the debug addon
    shows errors in game (`wow_errors`), and then for the area involved: `ordaen test -- <spec>`, `ordaen lint`, or
    `ordaen merge --check` (it then reports `DEVELOP IS RED` when the check fails; the merging session fixes it next).
-   The checks themselves stay (CI runs them, and a new bug class still gets one, as above). Check
-   `git status`/`git diff --stat` before each commit (a refused file write once left a stale file in a build).
+   The checks themselves exist all the same: CI runs them, and every new bug class gets one, as above. Check
+   `git status`/`git diff --stat` before each commit (a refused file write can leave a stale file in a build).
 5. **Isolated features.** Each feature of an addon is an `A:Feature(...)` (Core `Feature.lua`): the framework
    starts each one in its own protected call, so one feature's error is reported and the rest still start.
 6. **Check the game after a merge.** After merging and the user's `/reload`, the merging session reads `wow_errors`
@@ -77,7 +76,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
 7. **Player actions stay in the click's own call; reloading needs secure code.** Code that a click runs (UI
    listeners, dialog buttons) calls protected functions only directly, without `securecallfunction`, C_Timer or
    another frame's script in between; catch errors with `xpcall`. `ReloadUI` / `C_UI.Reload` are stricter on
-   Forever: blocked from any addon code, even directly in a click (the conflict dialog, 2026-11-06). Reload with a
+   Forever: blocked from any addon code, even directly in a click. Reload with a
    `UI.Confirm` button's `macro = "/reload"` (a secure overlay runs it), or tell the player to type `/reload`.
    A secure button acts only on the press the player's `ActionButtonUseKeyDown` setting names (key down by
    default): register exactly that half (`RegisterForClicks("LeftButtonDown")` or `"LeftButtonUp"`).
@@ -87,8 +86,8 @@ would have caught it is half a fix: say which check now catches it, or add one.
 8. **Handovers happen on an event, never on a timer.** When one addon takes something over from another (a frame,
    a position), the side that comes second completes it: the owner announces its thing when it creates it
    (`EventRegistry:TriggerEvent("OrdaenDevButton.Created", b)`) and the taker also checks at its own start. A
-   fixed delay has no ordering guarantee (the Ordaen Dev gear button sat on the minimap border for seconds after
-   each reload until a 5 s retry found it, 2026-11-06). Specs cover both orders: created before and after login.
+   fixed delay has no ordering guarantee, and whatever it moves sits in the wrong place until it fires. Specs cover
+   both orders: created before and after login.
 9. **One source of truth** (same rule in wow-dev-tools' CLAUDE.md): every fact
    lives in exactly one place, and everything else reads it from there (requires it, or gets it generated by the
    build), never a copy. The sources here:
@@ -115,9 +114,9 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - AddOns folder: `C:\Program Files (x86)\World of Warcraft\_forever_\Interface\AddOns\`
 - The game loads the **built** addons: `ordaen link` makes a directory junction in the AddOns folder for each addon in `dist/` (nested ones too, e.g. `OrdaenCore_UI`; no admin needed; `--unlink` removes them). They point at `dist/` of the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons`, which stays on `develop` (see Branches). Keep `ordaen watch` running there while working: it rebuilds `dist/` on every change, then `/reload`. Without it the game runs the last build.
 
-## Decisions so far
+## Repo and workflow
 
-- User wants things done properly from the start (full tooling, not "add later").
+- Things are done properly from the start: full tooling, never "add later".
 - Repo: public GitHub repo `ordaen/wow-forever-addons` (org; user is admin). The org forbids GITHUB_TOKEN from opening PRs, so release-please uses an org GitHub App token (`vars.RELEASE_APP_CLIENT_ID`, `secrets.RELEASE_APP_PRIVATE_KEY`). Default branch `main`, squash-merge only, PR title = commit message.
 - Commit identity (global git config): `David Iunevich <1751835+f3oall@users.noreply.github.com>`. GitHub user `f3oall`.
 - Signed commits are required on every branch (ordaen org ruleset). Commits are SSH-signed with `~/.ssh/id_ed25519` (global `commit.gpgsign`/`tag.gpgsign`). Commits GitHub creates (squash merges, release-please via the App, Dependabot) are signed by GitHub.
@@ -125,22 +124,19 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - **Branches (local-only until the user says otherwise: no push, PR or merge on GitHub):**
   - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
   - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
-  - Run `ordaen merge feat/<topic>` (rule 4: rebase and fast-forward develop, no check). That keeps the signed conventional commits. Then `ordaen watch` (running in the main checkout) rebuilds `dist/` and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart, observed 2026-11-07), TOC changes and even new addon folders (observed 2026-11-06 with OrdaenCore_UI). A new addon must be linked first (`ordaen link`).
+  - Run `ordaen merge feat/<topic>` (rule 4: rebase and fast-forward develop, no check). That keeps the signed conventional commits. Then `ordaen watch` (running in the main checkout) rebuilds `dist/` and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon must be linked first (`ordaen link`).
   - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
-- **Help when busy** (user's decision, 2026-11-07, via the coordinator session): when an owner is busy, any session may do
-  the work in its area (the renderer, Core, an addon). Tell the owner first what you'll change, work on your own branch,
+- **Help when busy:** when an owner is busy, any session may do the work in its area (the renderer, Core, an addon). Tell the owner first what you'll change, work on your own branch,
   `ordaen merge`, and report back after.
 - Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/package.sh`.
 - Commits: Conventional Commits via commitlint (`commitlint.config.mjs`; scope = addon folder name or repo scope), enforced by husky `commit-msg` hook and in CI (PR title + PR commits).
 - Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. release-please bumps `"version"` in the addon's `addon.jsonc` (the line marked `// x-release-please-version`; nested addons take their parent's) — never edit it by hand.
 - Quality: luacheck + busted (pure-logic tests only, Lua 5.1) in CI; manual testing in game with dev mode (Ordaen Core - Debug).
-- **Forever lacks many retail/classic FrameXML helpers** (e.g. no global `MouseIsOver`; it errored every frame in the
-  drawer). **The source of truth is the in-game API dump in `api/forever/`** (see "Forever API dump" below): never use,
+- **Forever lacks many retail/classic FrameXML helpers** (e.g. no global `MouseIsOver`). **The source of truth is the in-game API dump in `api/forever/`** (see "Forever API dump" below): never use,
   list or stub a WoW global, namespace function or widget method that isn't in `api/forever/$(cat CURRENT)/`. luacheck
-  and the specs enforce this once a dump is imported. Before the first dump (or for things a dump can't see), confirm
-  by a Forever-specific addon using it (`*Camelot*`/`Forever*` files) or a `/dump` in game; unconfirmed APIs get a
+  and the specs enforce this. For things a dump can't see, confirm by a Forever-specific addon using it (`*Camelot*`/`Forever*` files) or a `/dump` in game; unconfirmed APIs get a
   fallback and go in the dev-mode `api:` log line (`UNCONFIRMED_APIS` in `addons/OrdaenMinimap/Core.lua`).
-- Dev environment is Windows, no WSL (user's decision, 2026-11-07). `ordaen` has Lua 5.1 built in and runs luacheck, busted and forever-lint in it (threads, no shell); lua-language-server is the pinned native release it downloads once. Scripts and specs therefore never shell out (`io.popen`, `os.execute`): list and make folders with `scripts/fs.lua` (LuaFileSystem). Run any repo script with `ordaen lua <script> [args]`.
+- Dev environment is Windows, no WSL. `ordaen` has Lua 5.1 built in and runs luacheck, busted and forever-lint in it (threads, no shell); lua-language-server is the pinned native release it downloads once. Scripts and specs therefore never shell out (`io.popen`, `os.execute`): list and make folders with `scripts/fs.lua` (LuaFileSystem). Run any repo script with `ordaen lua <script> [args]`.
 - Packaging: BigWigs packager (pinned in `scripts/package.sh`). It requires a git repo root as topdir, so the script copies the addon into a temp git repo and tags it. Packager handles CurseForge/Wago uploads; the zip is attached to release-please's GitHub release with `gh release upload` (packager's own GitHub upload would overwrite the release notes). Packager maps interface `16???` to the `forever` flavor (CurseForge game id 88568).
 
 ## Layout
@@ -168,13 +164,13 @@ docs/                           OrdaenCore.UI docs site (VitePress, own package.
 .github/workflows/release.yml   release-please, then package + upload per released addon
 ```
 
-## Ordaen: one addon, modules (user's decision, 2026-11-07)
+## Ordaen: one addon, modules
 
 Like EllesmereUI, but the modules load on demand. The approach and the inventory: the design site's
 `general/modules` (http://127.0.0.1:47860/preview/design/general/modules.html; source
 `../wow-dev-tools/design/general/modules.md`); the settings window's approved look: `settings/` (http://127.0.0.1:47860/preview/design/settings/).
 
-- **Ordaen** (today's `OrdaenCore`, folder name unchanged) is the one addon the player installs: always loaded and
+- **Ordaen** (folder `OrdaenCore`) is the one addon the player installs: always loaded and
   small. It holds the shared code, the **global settings** and the one **Ordaen settings window** (`/ordaen`; each
   module's slash command and gear open it on that module's page). Blizzard's Settings → AddOns keeps one short Ordaen
   page with a button that opens our window.
@@ -184,22 +180,20 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
   (Panel, Reskin, Minimap, Chat) must be in place before Edit Mode and other addons lay things out. Turning a module on loads it at once; turning one off needs a /reload (code can't be
   unloaded; the reload goes through a secure button, rule 7). A module that is off costs nothing.
 - No module calls another's code; links go through Ordaen (Shared.lua items, EventRegistry events), so any module
-  can be off while the others run (inventory 2026-11-07: true for every module today). Keep it that way.
+  can be off while the others run. Every module meets this; keep it that way.
 - Modules follow the **globals** (theme, fonts, text size, scale, spacing, colours, bar textures, animations, ...):
   a module's look setting defaults to "as in the globals" and may be overridden for that module only.
 - **Themes:** Ordaen, Blizzard and Minimalism are all listed from the start; the last two show as "in development"
-  and can't be picked until built (this replaces "only Ordaen is offered").
+  and can't be picked until built.
 - **Release:** one CurseForge project and one zip with every module folder (packaging: TODO in the CLI).
 - Open: module on/off per account or per character (with profiles); which new globals to add.
 
 ## Branding
 
 Every addon is named `Ordaen<Name>` (folder, .toc, globals) with TOC title `Ordaen <Name>`, so CurseForge search
-finds them all. One CurseForge project, **Ordaen**, ships every module in one zip (the user's decision, 2026-11-07;
-see "Ordaen: one addon, modules"). Every addon sets `"category"` in its addon.jsonc; the
+finds them all. One CurseForge project, **Ordaen**, ships every module in one zip (see "Ordaen: one addon, modules"). Every addon sets `"category"` in its addon.jsonc; the
 build writes `## Category:` plus the localized `## Category-xxXX:` lines from `ordaen.jsonc`. Pick the category
-from `addon-categories.json` (the Warcraft Wiki's list with every translation; the user's decision, 2026-11-07: the
-in-game list groups by exact text, so these names share a group with other addons in every language) and copy its
+from `addon-categories.json` (the Warcraft Wiki's list with every translation: the in-game list groups by exact text, so these names share a group with other addons in every language) and copy its
 translations into `ordaen.jsonc` "categories". Never invent a category or a translation; CurseForge's own categories
 are set per project on the website (e.g. "Miscellaneous", "Bags & Inventory"), not in the TOC. Ordaen (OrdaenCore,
 TOC title `Ordaen`) and every module are `User Interface`; the modules' TOCs also say `## Group: OrdaenCore`
@@ -236,8 +230,8 @@ hand-written .toc/.pkgmeta/Locale*.lua in addons/), B7 settings and theme manife
 
 ## Localization
 
-- English and Russian for now; the user's client is ruRU. Every user-facing string goes through `ns.L`.
-- **Writing player-facing text** (user's rules): the skills `text-en` and `text-ru` (`.claude/skills/`), for every
+- Languages: English and Russian; the user's client is ruRU. Every user-facing string goes through `ns.L`.
+- **Writing player-facing text:** the skills `text-en` and `text-ru` (`.claude/skills/`), for every
   string in a locale file, addon.jsonc, popups and CurseForge pages. In short: no fluff, clear instructions, the
   game's own words; mouse buttons are `Left-click`/`Right-click` in English and `ЛКМ`/`ПКМ` in Russian.
   `tests/repo/locale_text_spec.lua` fails on the wording the rules forbid.
@@ -251,13 +245,13 @@ hand-written .toc/.pkgmeta/Locale*.lua in addons/), B7 settings and theme manife
 - Use Blizzard's own translated globals for common words where they fit (`CLOSE`, `OKAY`, `CANCEL`, `RESET`, `NONE`,
   `SETTINGS`), after confirming they exist on Forever.
 - TOC: `"notes"` (and `"title"`) in addon.jsonc may be `{ "enUS": …, "ruRU": … }`, giving `## Notes-ruRU` lines;
-  categories come localized from ordaen.jsonc. Whether titles get a `## Title-ruRU` (e.g. "Ordaen Миникарта") is
-  still for the user to decide; until then titles stay English.
+  categories come localized from ordaen.jsonc. Titles are English; whether they get a `## Title-ruRU` (e.g.
+  "Ordaen Миникарта") is open, for the user to decide.
 - The Ordaen Dev window (dev mode) is English only.
 
-## UI framework `OrdaenCore.UI`: design philosophy (set in stone by the user)
+## UI framework `OrdaenCore.UI`: design philosophy (set in stone)
 
-Owner (user's decision): the Ordaen Minimap session owns `OrdaenCore.UI`: `addons/OrdaenCore/UI.lua`, the
+Owner: the Ordaen Minimap session owns `OrdaenCore.UI`: `addons/OrdaenCore/UI.lua`, the
 load-on-demand module `addons/OrdaenCore/OrdaenCore_UI/`, and their specs (`tests/OrdaenCore/ui_spec.lua`,
 `layout_spec.lua`). Requests go to it. The Ordaen Core session owns the rest of the Core (`Core.lua`, the
 `OrdaenCore.toc` file list, `.pkgmeta`, `tests/OrdaenCore/helpers.lua`) and gets a heads-up before the UI owner touches
@@ -275,15 +269,15 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   from theme data (`Theme.lua`: per style role the surface, colours and layout defaults; per text style font, size
   tier, colour, shadow, caps). No second renderer, no fallback branches. `color` on an element is for meaning (a
   pending invite), not decoration; `accent = { r, g, b }` on a block tints it for meaning (quality, PvP).
-- **Themes** (user's decision, 2026-11-07): three are planned: `ordaen` (Blizzard's classic look with a nicer style,
-  the default), `blizzard` (mostly Blizzard's default) and `minimal` (little to no textures). **Only Ordaen is built
-  now**; the other two are listed in the settings as "in development" and can't be picked (user's decision,
-  2026-11-07); they're not in themes.jsonc and no work is spent on their looks yet.
-  The earlier rule, kept for when they come back: our own `ordaen` look is the default (flat surfaces
+- **Themes:** three are planned: `ordaen` (Blizzard's classic look with a nicer style, the default), `blizzard`
+  (mostly Blizzard's default) and `minimal` (little to no textures). **Only Ordaen is built**; the other two are
+  listed in the settings as "in development" and can't be picked; they're not in themes.jsonc and no work is spent
+  on their looks until they're built.
+  For when the other two are built: our own `ordaen` look is the default (flat surfaces
   drawn without art, tinted by an accent; approach credited to PrettyTooltip, values our own), `blizzard` (Blizzard's
   art and shadowed text) is an option, and `minimal` (flat, hairlines, no effects) is the third. Every theme defines
   every role. A theme addon later adds a set of three, never one.
-- **Addons follow the theme** (user's rule, 2026-11-06): addons never define their look. Every look setting (frame
+- **Addons follow the theme:** addons never define their look. Every look setting (frame
   art, font, colour, bar texture, sound, fade) defaults to a **theme token** (`"default": { "theme": "frame.border" }`
   in the addon's `settings.jsonc`); only behaviour settings (columns, on/off, positions) have plain defaults. The
   tokens, the shared assets (frame art, fonts, bar textures) and each theme's value for every token live in
@@ -292,7 +286,7 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   reads its accent and fonts from the same tokens. Saved settings hold only the player's choices and override the
   theme in the Core: a player may pick another theme's asset for one addon. Contract:
   `docs/reference/settings.md` (Core session: the build checks; UI session: runtime, page, manifests).
-- **One design scale, global settings** (user's decision): sizes, fonts and spacing are global for every Ordaen addon,
+- **One design scale, global settings:** sizes, fonts and spacing are global for every Ordaen addon,
   chosen in Ordaen Core's settings (`OrdaenCoreDB.ui.theme`, `.textSize` = body px 10-16; c4 owns the page,
   `CoreSettings.lua`, which calls `OrdaenCore.UI._SettingsChanged()`). Spacing tokens `xs sm md lg xl` and text
   tiers `tiny small body large title` are derived from the text size; addons name tokens and roles, never numbers
@@ -307,7 +301,7 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   their own timer or event. One shared tooltip surface; font strings and textures are pooled; layout results are
   reused tables; nothing is copied per show; no timers or `OnUpdate` in the framework. Text that changes often is
   `{ format = "...", args = { ... } }`, drawn with `SetFormattedText` (no Lua string per change).
-- **Components** (user's decision, object style): a **block** is data; a **component** is a kind of thing on screen
+- **Components** (object style): a **block** is data; a **component** is a kind of thing on screen
   (Tooltip, Block, Button; later windows, inputs, bars, dropdowns, and addon-defined ones); an **instance** is an
   object with `:` methods sharing one metatable per component, owning its WoW frame (`instance.frame`).
   - `local tip = UI.Tooltip(block, opts)`: the same table with methods `:Show(owner)`, `:Hide(owner?)`, `:Refresh()`,
@@ -321,18 +315,18 @@ those. Core API names become permanent at the first release of OrdaenCore; until
     `iconButton` (the gear-button look), `slot`; text styles `title`, `subtitle`, `body` (default), `label`, `value`,
     `hint`, `caption`, `normal`, `small` (the last two for text on the world, with a shadow). Elements also include
     separators (`rule`, `divider`, `caption`) and bars; `shift = true/false` rows show only with/without Shift.
-- **Scale and position** (user's decision): our blocks live on the global UI scale only (children of `UIParent`, sizes
+- **Scale and position:** our blocks live on the global UI scale only (children of `UIParent`, sizes
   in UI units, no scale property). A block attached to a scaled Blizzard frame inherits that frame's scale; the
   renderer measures text on the surface it draws on, so either way it fits. An anchored tooltip takes only its
   position from its owner, never its scale. Tooltips anchored to nothing (`side = "default"`) sit where Blizzard
   puts its own: Edit Mode's "HUD Tooltip" position (`GameTooltipDefaultContainer`, bottom-right to bottom-right).
-- **Tooltips** (user's rules, 2026-11-06): everything on our UI shows OrdaenCore.UI tooltips, including Blizzard
+- **Tooltips:** everything on our UI shows OrdaenCore.UI tooltips, including Blizzard
   buttons we adopt (the minimap's tracking, mail, expansion buttons: hook their OnEnter, hide GameTooltip, show
   ours from Blizzard's data); ask other Ordaen addons (Ordaen Dev) to do the same. A tooltip anchored beside what
   it describes has **no title** naming that thing (the clock's tooltip doesn't say "Time"): it's obvious from the
   mouse. Titles only for custom things whose purpose isn't self-evident (the drawer button, compartment entries,
   Ordaen Dev).
-- **Every tooltip in our style** (user's decision 2026-11-06, replacing "restyle in place, never redraw"): the addon
+- **Every tooltip in our style:** the addon
   **Ordaen Tooltips** draws Blizzard's and other addons' tooltips with OrdaenCore.UI. The native tooltip
   (GameTooltip, ItemRefTooltip, later the comparison tooltips) stays the owner of its content and stays shown at
   alpha 0, so every addon that fills or checks it works as before; we read it (`Reader.lua`: its lines, and its
@@ -340,10 +334,10 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   (`issecretvalue`, combat) or forbidden stays native for that show. Only hooks (`hooksecurefunc`, `HookScript`),
   never replaced methods. It replaces PrettyTooltip for the user; native types (items, units, spells, quests,
   auras) get their own layouts step by step.
-- **Events** (user's decision, built in `OrdaenCore_UI/Component.lua`): `instance:On(event, fn)` / `:Off(event, fn)`
+- **Events** (built in `OrdaenCore_UI/Component.lua`): `instance:On(event, fn)` / `:Off(event, fn)`
   with plain functions only, or `on = { ... }` in the spec, for both sources. User events are lower case (`click`,
   `enter`, `leave`, `mousedown`, `mouseup`, `dragstart`, `dragstop`, `wheel`, later keyboard), and so are the
-  framework's own (`render`, width and height, after each draw: the user's decision, 2026-11-06; sizes change only
+  framework's own (`render`, width and height, after each draw; sizes change only
   when the framework draws or the UI scale changes, so code following a block's size listens to it and nothing
   watches frame sizes); system events are
   Blizzard's own UPPER_CASE event names (`CALENDAR_UPDATE_PENDING_INVITES`) and get Blizzard's arguments unchanged.
@@ -351,7 +345,7 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   component's own frame registers a game event only while it listens (so the profiler bills its addon); a
   frame takes the mouse only once it has a user listener. WoW scripts are set to dispatchers made once at load, so
   `:On` creates no closure. High-frequency game events are allowed but must exit early.
-- **The framework waits for the loading screen** (user's decision): things it shows on its own initiative, such as
+- **The framework waits for the loading screen:** things it shows on its own initiative, such as
   dialogs (`UI.Confirm`), appear only after the loading screen is gone (`Core._AfterLoadingScreen`); callers just
   `:Show()` and never wait themselves. Anything new of that kind (windows, notices) does the same.
 - **Elements:** text, image, blocks, and the inputs that can't be composed from blocks because they need WoW's own
@@ -370,12 +364,11 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   block format, layout rules or the theme updates the matching page in the same commit; planned parts stay on
   `docs/roadmap.md` until built. Check with `npm run build` in `docs/` (fails on dead links).
 
-## First addon: OrdaenMinimap
+## OrdaenMinimap
 
 Our own specialized take on **SexyMap** (installed reference: `_forever_\Interface\AddOns\SexyMap\`), deliberately with
-little configuration: opinionated defaults instead of option panels. Renamed from MinimapCompartment before its first
-release; the button drawer + addon compartment is one feature of it. Feature scope beyond the drawer is still to be
-decided with the user.
+little configuration: opinionated defaults instead of option panels. The button drawer + addon compartment is one
+feature of it. Features beyond those below are decided with the user.
 
 - SavedVariables `OrdaenMinimapDB`; slash `/om` opens the settings (alias `/ordaenminimap`), `/om reset` restores defaults.
 - Forever runs the **modern (mainline) minimap code** with Forever tweaks (SexyMap loads its mainline files there; its
@@ -400,7 +393,7 @@ decided with the user.
   has no `incompatible` relation; set that on the CurseForge project page by hand.
 - Feature: square map with a configurable border. Styles in `ns.BORDER_STYLES` are backdrops drawn by a frame around the
   map; built-in ones use game textures (gold dialog, tooltip, thin line). Custom art goes in `media/` as a new style.
-- Layout rule (user's decision): nothing sits on or inside the map frame. Zone name above the border, coordinates
+- Layout rule: nothing sits on or inside the map frame. Zone name above the border, coordinates
   (left) and clock (right) below it (`Info.lua`); every button outside the border on a ring (`Ring.lua` pure math,
   `Buttons.lua` WoW side), placed by angle (`db.buttonAngles[id]`, 0 = right, CCW) and dragged around the map like
   the Ordaen Dev gear button. Hidden for good (`Map.lua` `HIDDEN_PIECES`): Blizzard's zone bar, clock, calendar button
@@ -415,7 +408,7 @@ decided with the user.
     ticks create no tables; a 1 s `C_Timer.After` chain for clock and coordinates, plus 0.1 s only between
     `PLAYER_STARTED_MOVING` and `PLAYER_STOPPED_MOVING`. Dev mode logs our coordinates next to
     `C_Map.GetPlayerMapPosition` once per zone to verify the math.
-- Feature: button drawer (replaces MinimapButtonButton, MBB) that also collects **addon compartment** entries.
+- Feature: button drawer (does the job of MinimapButtonButton, MBB) that also collects **addon compartment** entries.
   Implemented in `DrawerData.lua` (pure: grid, entry merging) and `Drawer.lua`; settings `drawerEnabled` (default
   on), `hideBlizzardCompartment` (default on), `drawerColumns`; the main button sits on the button ring
   (`buttonAngles.drawer`; drag moves it, right-click opens settings). Needed on a square map anyway: addons like
@@ -437,7 +430,7 @@ decided with the user.
     - De-duplicate: if an addon also has a LibDBIcon minimap button that is shown, hide its compartment twin (decide at layout time).
   - Hide Blizzard's compartment button (default on). Warn if MBB is also loaded (they would conflict).
   - Drawer settings: columns, grow direction, autoClose, ignore list. Slash: reset, list, ignore/unignore.
-  - Addons in Forever that use the compartment today: Altoholic, Baganator, Details, DialogueUI, Pawn, Prat.
+  - Addons on Forever that use the compartment: Altoholic, Baganator, Details, DialogueUI, Pawn, Prat.
 
 ## Ordaen Reskin
 
@@ -456,9 +449,9 @@ art.
 
 - `addons/OrdaenCore/` holds the code every addon shares. It publishes the global `OrdaenCore` and contains no features. The build gives every addon that uses it `## Dependencies: OrdaenCore`, `## OptionalDeps: OrdaenCore_Debug` and `required-dependencies: [ordaen-core]` in `.pkgmeta` (the CurseForge slug, `"package"` in addon.jsonc, is a guess until the project exists); `"minCore"` in addon.jsonc becomes `## X-Ordaen-MinCore`.
 - **The Core API only grows.** Users update the Core and the addons independently. Never change the behavior of a released Core function or remove one; add a new name instead. When an addon starts using a new Core API, raise its `"minCore"`. `OrdaenCore.IsCompatible(addonName)` enforces that in packaged builds; git checkouts are detected by the unreplaced `@project-version@` token in `Core.lua` and skip the check.
-- **Every addon starts through the framework** (`addons/OrdaenCore/Addon.lua`, example `addons/OrdaenMinimap/Core.lua`): `local A = OrdaenCore.NewAddon(addonName, ns, { db = "…DB", defaults = {…}, slash = {…}, settings = {…}, dump = fn })`, then `if not A then return end` (Core too old; the player was told). The spec is a table written in the file (the build reads `db`/`charDb`). The framework checks compatibility, takes the addon's debug kit (`A.Debug`; `Debug:Init` with the SavedVariables on its ADDON_LOADED, slash input through `Debug:HandleSlash`), fills defaults (deep, never overwriting), builds the settings page (`Settings.lua`: dropdown for `choices`, slider for numbers with min/max, checkbox for booleans; labels are locale keys; saved values kept valid), and registers the slash commands (`/x` opens settings, `/x reset` restores defaults then runs `A:OnReset`, `A:Command(name, fn, helpKey)`, help for anything else). Lifecycle: `A:OnLoad(fn(db, charDb))`, `A:OnLogin(fn)` (right away for load-on-demand addons loaded after login). Events: `A:On(event, fn(event, ...))` / `A:Off` on the addon's own event frame, made by `NewAddon` while the addon's file runs (WoW's CPU profiler bills a handler to the addon whose code created its frame, so every addon shows its own cost), handlers in the order added, each through `securecallfunction` so one failing handler doesn't stop the others; register only while a feature needs it. Unit events: `A:OnUnit(event, unit, fn)` / `A:OffUnit` (`RegisterUnitEvent` on one frame per addon and unit, made on its first `OnUnit`). **Features** (`Feature.lua`): `local F = A:Feature(name, { setting = "drawerEnabled", when = fn(db) })` is on after login while its boolean setting and `when` say so (`F:Refresh()` re-checks `when`); `F:OnEnable(fn(db))`, `F:OnDisable`, `F:OnChange(fn(key, value))` (other settings, while on); what it registers runs only while it is on and is released when it goes off: `F:On/Off`, `F:OnUnit/OffUnit`, `F:Every`, `F:Hook`. **Timers** (`Timer.lua`): `A:Every(seconds, fn)` / `F:Every` return a ticker (`:Start()`, `:Stop()`, `:IsRunning()`); an addon's tickers share its own `C_Timer.After` chain (callback made in `NewAddon`) set for the next one due; whether the profiler bills those ticks to the addon is **unverified** (EllesmereUI's probe found billing follows the frame a handler runs on, not where its function was made, and a C_Timer callback has no frame; a frame-based ticker, e.g. a looping AnimationGroup on the addon's own frame, is the candidate once a probe in game settles it) (no `OnUpdate`, no garbage per tick); make tickers once and Start/Stop them. **Hooks**: `A:Hook(object, "Method", fn)` / `A:Hook("GlobalFn", fn)` / `F:Hook` (`hooksecurefunc` once per function; false and a dev-log warning when the function is missing). **Migrations**: `migrations = { fn(db), ... }` (and `charMigrations`) in the spec: each runs once, in order, before defaults are filled; `db._schema` counts them, new SavedVariables start counted, a failing one is reported and retried next load; append only. **Conflicts** (`Conflict.lua`) with third-party addons are found from what addons do, a hand-written list is the fallback. The build reads what each addon **claims** (takes over) from its code: globals it defines that aren't its own (`GetMinimapShape`, also `_G.X = …`) and state-changing methods it calls on Blizzard widgets (`Minimap:SetMaskTexture`, `SetPoint`/`SetParent`/`SetAlpha`/`Hide`...; shared tooltip Show/Hide don't count), reached by name, `_G.X`/`_G["X"]`, a local bound to one (`local b = MinimapCluster.Tracking`, `x and _G[name]`, a local helper that returns one) or a built name (`_G["ChatFrame" .. i .. "Tab"]`, loops over literal name lists), matched against the dump's widget globals; Lua (mixin) methods the dump lists on an object count too unless their name reads as a query (`Get`/`Is`/`Has`/`Contains`/`At`/... and a short pure list in `claims.rs`), and `UI.Dress(x, opts)` / `UI.DressFont(x)` count as changing x (SetSize unless `size = "frame"`, SetAlpha on a literal `art` list, SetFont) -> generated `Claims.lua` (`ns.CLAIMS`) + `claims.json` (file:line). At login (before OnLogin) and when other addons load, the Core checks claimed globals with `issecurevariable` and hooks claimed methods (`hooksecurefunc`): calls while an Ordaen addon's code runs (`Core._running`, set by the framework's dispatch: events, lifecycle, features, tickers, hooks; other callers of addon code use `Core._RunAs(addon, fn, ...)`) are skipped with one field read; any other call costs one `debugstack` (at most once per second per method), and the first addon on the stack decides (an Ordaen or Blizzard_ one: no conflict). Frames the build can't see (function parameters, names it can't build): `A:Claim(frame, { "SetAlpha" }, "GameTooltip")`. Each finding runs `A:OnConflict(fn(other, what))` once; if no handler records anything about that addon, it is recorded as not handled (later: the shared dialog via OrdaenCore.UI asks the player). Fallback for conflicts that touch nothing claimed: `conflicts = { "SexyMap" }` in the spec (at login, "loaded together") or in `A:Feature(name, { conflicts = { "MinimapButtonButton" } })` (the feature stays off while it is loaded). The build writes them to the TOC as `## X-Ordaen-Conflicts` (the companion reads it from disk). Runtime findings: `A:Conflict(other, what, handled)` (`what` short English for developers; `handled` = we adapted). Records stay in memory (max 20 per addon, `A:Conflicts()`); dev mode sends each to the companion (`Debug:Conflict`). Also `A:AfterCombat(fn)`, `A:Compartment{ onClick, onEnter, onLeave, icon }` (Blizzard's addon compartment), `A:OpenSettings()`, `A:Print(...)`. New code logs its decisions with `A.Debug:Log` (stripped from release builds). In dev builds the framework traces for the companion: each event handled (per owning addon), slash input and settings changes, through `Debug:Trace(what, detail)` guarded by `if Debug:TraceEnabled() then … end`; frames worth tracing (hover, click, show) are registered with `Debug:TraceFrame(frame)` in the same guarded form.
+- **Every addon starts through the framework** (`addons/OrdaenCore/Addon.lua`, example `addons/OrdaenMinimap/Core.lua`): `local A = OrdaenCore.NewAddon(addonName, ns, { db = "…DB", defaults = {…}, slash = {…}, settings = {…}, dump = fn })`, then `if not A then return end` (Core too old; the player was told). The spec is a table written in the file (the build reads `db`/`charDb`). The framework checks compatibility, takes the addon's debug kit (`A.Debug`; `Debug:Init` with the SavedVariables on its ADDON_LOADED, slash input through `Debug:HandleSlash`), fills defaults (deep, never overwriting), builds the settings page (`Settings.lua`: dropdown for `choices`, slider for numbers with min/max, checkbox for booleans; labels are locale keys; saved values kept valid), and registers the slash commands (`/x` opens settings, `/x reset` restores defaults then runs `A:OnReset`, `A:Command(name, fn, helpKey)`, help for anything else). Lifecycle: `A:OnLoad(fn(db, charDb))`, `A:OnLogin(fn)` (right away for load-on-demand addons loaded after login). Events: `A:On(event, fn(event, ...))` / `A:Off` on the addon's own event frame, made by `NewAddon` while the addon's file runs (WoW's CPU profiler bills a handler to the addon whose code created its frame, so every addon shows its own cost), handlers in the order added, each through `securecallfunction` so one failing handler doesn't stop the others; register only while a feature needs it. Unit events: `A:OnUnit(event, unit, fn)` / `A:OffUnit` (`RegisterUnitEvent` on one frame per addon and unit, made on its first `OnUnit`). **Features** (`Feature.lua`): `local F = A:Feature(name, { setting = "drawerEnabled", when = fn(db) })` is on after login while its boolean setting and `when` say so (`F:Refresh()` re-checks `when`); `F:OnEnable(fn(db))`, `F:OnDisable`, `F:OnChange(fn(key, value))` (other settings, while on); what it registers runs only while it is on and is released when it goes off: `F:On/Off`, `F:OnUnit/OffUnit`, `F:Every`, `F:Hook`. **Timers** (`Timer.lua`): `A:Every(seconds, fn)` / `F:Every` return a ticker (`:Start()`, `:Stop()`, `:IsRunning()`); an addon's tickers share its own `C_Timer.After` chain (callback made in `NewAddon`) set for the next one due; whether the profiler bills those ticks to the addon is **unverified** (per EllesmereUI's probe, billing follows the frame a handler runs on, not where its function was made, and a C_Timer callback has no frame; a frame-based ticker, e.g. a looping AnimationGroup on the addon's own frame, is the candidate once a probe in game settles it) (no `OnUpdate`, no garbage per tick); make tickers once and Start/Stop them. **Hooks**: `A:Hook(object, "Method", fn)` / `A:Hook("GlobalFn", fn)` / `F:Hook` (`hooksecurefunc` once per function; false and a dev-log warning when the function is missing). **Migrations**: `migrations = { fn(db), ... }` (and `charMigrations`) in the spec: each runs once, in order, before defaults are filled; `db._schema` counts them, new SavedVariables start counted, a failing one is reported and retried next load; append only. **Conflicts** (`Conflict.lua`) with third-party addons are found from what addons do, a hand-written list is the fallback. The build reads what each addon **claims** (takes over) from its code: globals it defines that aren't its own (`GetMinimapShape`, also `_G.X = …`) and state-changing methods it calls on Blizzard widgets (`Minimap:SetMaskTexture`, `SetPoint`/`SetParent`/`SetAlpha`/`Hide`...; shared tooltip Show/Hide don't count), reached by name, `_G.X`/`_G["X"]`, a local bound to one (`local b = MinimapCluster.Tracking`, `x and _G[name]`, a local helper that returns one) or a built name (`_G["ChatFrame" .. i .. "Tab"]`, loops over literal name lists), matched against the dump's widget globals; Lua (mixin) methods the dump lists on an object count too unless their name reads as a query (`Get`/`Is`/`Has`/`Contains`/`At`/... and a short pure list in `claims.rs`), and `UI.Dress(x, opts)` / `UI.DressFont(x)` count as changing x (SetSize unless `size = "frame"`, SetAlpha on a literal `art` list, SetFont) -> generated `Claims.lua` (`ns.CLAIMS`) + `claims.json` (file:line). At login (before OnLogin) and when other addons load, the Core checks claimed globals with `issecurevariable` and hooks claimed methods (`hooksecurefunc`): calls while an Ordaen addon's code runs (`Core._running`, set by the framework's dispatch: events, lifecycle, features, tickers, hooks; other callers of addon code use `Core._RunAs(addon, fn, ...)`) are skipped with one field read; any other call costs one `debugstack` (at most once per second per method), and the first addon on the stack decides (an Ordaen or Blizzard_ one: no conflict). Frames the build can't see (function parameters, names it can't build): `A:Claim(frame, { "SetAlpha" }, "GameTooltip")`. Each finding runs `A:OnConflict(fn(other, what))` once; if no handler records anything about that addon, it is recorded as not handled (later: the shared dialog via OrdaenCore.UI asks the player). Fallback for conflicts that touch nothing claimed: `conflicts = { "SexyMap" }` in the spec (at login, "loaded together") or in `A:Feature(name, { conflicts = { "MinimapButtonButton" } })` (the feature stays off while it is loaded). The build writes them to the TOC as `## X-Ordaen-Conflicts` (the companion reads it from disk). Runtime findings: `A:Conflict(other, what, handled)` (`what` short English for developers; `handled` = we adapted). Records stay in memory (max 20 per addon, `A:Conflicts()`); dev mode sends each to the companion (`Debug:Conflict`). Also `A:AfterCombat(fn)`, `A:Compartment{ onClick, onEnter, onLeave, icon }` (Blizzard's addon compartment), `A:OpenSettings()`, `A:Print(...)`. New code logs its decisions with `A.Debug:Log` (stripped from release builds). In dev builds the framework traces for the companion: each event handled (per owning addon), slash input and settings changes, through `Debug:Trace(what, detail)` guarded by `if Debug:TraceEnabled() then … end`; frames worth tracing (hover, click, show) are registered with `Debug:TraceFrame(frame)` in the same guarded form.
 - Before handing code over for an in-game test, have `ordaen watch` running so `dist/` is current (no check run: rule 4 of "Preventing bugs"; the game's errors decide). `/reload` is enough on Forever, also for new files, new textures, TOC changes and new (linked) addon folders: never ask for a client restart.
-- **Debugging is opt-in development mode.** Players get a no-op stand-in from the Core: nothing is recorded and errors take WoW's normal path (BugSack, Blizzard). The real kit is the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug"), which lives in the **private repo `../wow-dev-tools`** next to the companion app and is never shipped (decided by the user: dev tooling, including the pixel channel, stays private). Its own `scripts/link.ps1` junctions it into the AddOns folder; its specs load the built Core (`dist/OrdaenCore/`, TOC order) and `api/forever/` from this checkout. Keep the stand-in's API in step with it: the kit is an object (methods on a shared metatable, called with `:`): `Init, IsEnabled, Log, Logf, Warn, Warnf, Verbose, Verbosef, Wrap, Call, Dump, Snapshot, HandleSlash, HelpLines, Trace, TraceFrame, TraceEnabled, TimeStart, TimeEnd, Time, Conflict`; levels error/warn/info (Log)/debug (Verbose, Trace). Installing and enabling it turns on dev mode: our own error catcher (global error handler chained to the previous one, or BugGrabber's callback when BugGrabber keeps the handler; plus taint events), per-addon logs and dumps, the Ordaen Dev window, and a live stream to the companion app (wow-dev-tools), which serves it to Claude as the MCP server `ordaen`: `wow_status`, `wow_errors`, `wow_log`, `wow_watch`, `wow_screenshot`, `wow_dump` (after the user clicks "Send state"), `wow_perf` (Performance tab: memory, CPU, `Debug:Time` labels), `wow_check`. The user describes what they saw in chat; Claude reads the rest live (no notes, no reload just for Claude). All dev data goes to one SavedVariables table, `OrdaenCoreDebugDB`, never into players' addon settings. Never make players' builds record anything. Plan for the window: Errors and Performance (done), then Log, Inspect (frame picker, outlines). Prefer UI in the window over new slash commands.
+- **Debugging is opt-in development mode.** Players get a no-op stand-in from the Core: nothing is recorded and errors take WoW's normal path (BugSack, Blizzard). The real kit is the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug"), which lives in the **private repo `../wow-dev-tools`** next to the companion app and is never shipped (dev tooling, including the pixel channel, stays private). Its own `scripts/link.ps1` junctions it into the AddOns folder; its specs load the built Core (`dist/OrdaenCore/`, TOC order) and `api/forever/` from this checkout. Keep the stand-in's API in step with it: the kit is an object (methods on a shared metatable, called with `:`): `Init, IsEnabled, Log, Logf, Warn, Warnf, Verbose, Verbosef, Wrap, Call, Dump, Snapshot, HandleSlash, HelpLines, Trace, TraceFrame, TraceEnabled, TimeStart, TimeEnd, Time, Conflict`; levels error/warn/info (Log)/debug (Verbose, Trace). Installing and enabling it turns on dev mode: our own error catcher (global error handler chained to the previous one, or BugGrabber's callback when BugGrabber keeps the handler; plus taint events), per-addon logs and dumps, the Ordaen Dev window, and a live stream to the companion app (wow-dev-tools), which serves it to Claude as the MCP server `ordaen`: `wow_status`, `wow_errors`, `wow_log`, `wow_watch`, `wow_screenshot`, `wow_dump` (after the user clicks "Send state"), `wow_perf` (Performance tab: memory, CPU, `Debug:Time` labels), `wow_check`. The user describes what they saw in chat; Claude reads the rest live (no notes, no reload just for Claude). All dev data goes to one SavedVariables table, `OrdaenCoreDebugDB`, never into players' addon settings. Never make players' builds record anything. Plan for the window: Errors and Performance (done), then Log, Inspect (frame picker, outlines). Prefer UI in the window over new slash commands.
 - For anything observed in game (bugs, errors, layout, "check" after a reload), follow the `debug-in-game` skill (`.claude/skills/debug-in-game/SKILL.md`).
 - Addons have no network access, so there is no telemetry. Players report errors through BugSack/Blizzard's error frame and the GitHub issue form; add each new addon to the form's dropdown.
 
