@@ -28,7 +28,7 @@ local BLIZZARD = {
 	{ id = "craftingOrder", names = { "MinimapCluster.IndicatorFrame.CraftingOrderFrame" }, keepParent = true },
 	{ id = "landing", names = { "ExpansionLandingPageMinimapButton" }, tip = "landing" },
 	-- The Ordaen Dev gear button (dev mode, wow-dev-tools). While `ordaenPlacedBy` is set, it leaves its
-	-- position and dragging to us (agreed with the dev-tools session); clicks and tooltip stay its own.
+	-- position and dragging to us; clicks and tooltip stay its own.
 	-- The dev addon makes it seconds after login, so it also announces it (DEV_BUTTON_CREATED below).
 	{ id = "dev", names = { "OrdaenDevButton" }, claim = true },
 }

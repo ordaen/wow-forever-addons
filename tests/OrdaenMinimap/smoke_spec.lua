@@ -655,8 +655,8 @@ describe("OrdaenMinimap smoke", function()
 		end)
 
 		it("takes over the gear button at once when the dev addon makes it after login", function()
-			-- In game the dev addon creates it seconds after login; until a timer found it, it sat at its own
-			-- spot on the border (2026-11-06). The dev addon announces it through EventRegistry instead.
+			-- In game the dev addon creates it seconds after login; a timer finding it later would leave it at
+			-- its own spot on the border meanwhile. The dev addon announces it through EventRegistry instead.
 			login()
 			local gear = stubObject("OrdaenDevButton")
 			rawset(_G, "OrdaenDevButton", gear)
@@ -965,7 +965,7 @@ describe("OrdaenMinimap smoke", function()
 			addTocEntry("Pawn", { Title = "Pawn", AddonCompartmentFunc = "Pawn_OnCompartmentClick" })
 			addTocEntry("Details", { Title = "Details!", AddonCompartmentFunc = "Details_Click" })
 			addButton("LibDBIcon10_Details", { libdbicon = "Details" })
-			-- A plain minimap button twins its addon's compartment entry too (Altoholic, 2026-11-06).
+			-- A plain minimap button twins its addon's compartment entry too (Altoholic).
 			addTocEntry("Altoholic", { Title = "Altoholic", AddonCompartmentFunc = "Altoholic_Click" })
 			addButton("AltoholicMinimapButton")
 			table.insert(world.runtimeEntries, {

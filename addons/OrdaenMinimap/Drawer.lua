@@ -131,10 +131,10 @@ local function queueLayout()
 end
 
 -- Squares ----------------------------------------------------------------------------------------
--- Every entry in the drawer is one of our slots showing the addon's icon (the user's decision), like the compartment
+-- Every entry in the drawer is one of our slots showing the addon's icon, like the compartment
 -- entries. A collected button stays as it is, but invisible (alpha 0) and exactly over its slot: its clicks, menus,
 -- dragging and tooltips stay its own, while its art (round borders, AutoBiographer's circle) and its frame level
--- (LibDBIcon fixes its buttons at MEDIUM level 8, under our old drawer backdrop: dimmed, 2026-11-06) no longer show.
+-- (LibDBIcon fixes its buttons at MEDIUM level 8, which a backdrop over them would dim) don't show.
 -- Our copy of the icon follows theirs (a hook on their icon's SetTexture).
 
 local ICON_CROP = { 0.08, 0.92, 0.08, 0.92 } -- trims the border most icons have
@@ -351,7 +351,7 @@ local function runtimeEntries()
 end
 
 -- Addons whose minimap button is in the drawer and shown, by CompartmentKey: their compartment entry is a twin.
--- LibDBIcon buttons and plain ones alike (Altoholic's own button twinned its compartment entry, 2026-11-06).
+-- LibDBIcon buttons and plain ones alike (Altoholic's own button twins its compartment entry).
 local function shownIconKeys()
 	local keys = {}
 	for _, c in ipairs(collected) do

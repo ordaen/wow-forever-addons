@@ -22,7 +22,7 @@ local HIDDEN_PIECES = {
 	{ "MinimapCompassTextureUnderlay" },
 	{ "Minimap.ZoomIn" },
 	{ "Minimap.ZoomOut" },
-	-- Replaced by Info.lua: zone text, clock, calendar button (our clock opens it), day/night icon, and
+	-- Shown by Info.lua instead: zone text, clock, calendar button (our clock opens it), day/night icon, and
 	-- Blizzard's own coordinates (MinimapPlayerCoordsMixin exists; the frame is deeper than the dump goes).
 	{ "MinimapCluster.ZoneTextButton" },
 	{ "TimeManagerClockButton" },

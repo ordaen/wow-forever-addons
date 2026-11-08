@@ -16,8 +16,8 @@ local function dumpState()
 	}
 end
 
--- The zone name and the clock are shown by the minimap or by Ordaen Panel, one at a time (the user's decision,
--- 2026-11-07; Core's A:Shared): turning one on in either addon turns the other's off. The holds are made below.
+-- The zone name and the clock are shown by the minimap or by Ordaen Panel, one at a time
+-- (Core's A:Shared): turning one on in either addon turns the other's off. The holds are made below.
 local zoneHold, clockHold
 local sharing = false -- the other addon took or gave back an item: our own setting changes, no Claim/Release
 local HOLDS = { showZone = function()
