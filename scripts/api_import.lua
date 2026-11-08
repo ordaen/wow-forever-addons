@@ -96,7 +96,7 @@ function M.Render(dump)
 	out["globals.txt"] = lines(globals)
 
 	-- number constants' values (NUM_ACTIONBAR_PAGES = 6) and fixed facts (C_ActionBar.GetVehicleBarIndex = 31), from
-	-- dumps that record them (OrdaenCore_Debug's ApiDump, 2026-11-08); older dumps have neither and get no file
+	-- dumps that record them (OrdaenCore_Debug's ApiDump); older dumps have neither and get no file
 	if dump.constants then
 		local constants = {}
 		for name, value in pairs(dump.constants) do

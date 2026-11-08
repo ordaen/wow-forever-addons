@@ -15,9 +15,9 @@ export default {
     'scope-enum': [2, 'always', [...addons, ...repoScopes]],
     // Addon names are PascalCase.
     'scope-case': [0],
-    // Subjects may start with a capital (the user's decision): code names like `UI.DressBar` or `Blizzard_*`.
+    // Subjects may start with a capital: code names like `UI.DressBar` or `Blizzard_*`.
     'subject-case': [0],
-    // A long subject is a warning, not an error (the user's decision): keep them short, but a precise one may run long.
+    // A long subject is a warning, not an error: keep them short, but a precise one may run long.
     'header-max-length': [1, 'always', 100],
     // Bot-written bodies (release-please, dependabot) contain long URLs.
     'body-max-line-length': [0],

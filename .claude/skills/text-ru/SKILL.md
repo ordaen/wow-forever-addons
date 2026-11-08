@@ -29,9 +29,9 @@ exact and natural Russian, never a word-for-word translation of the English.
    space, not words.
 8. **Placeholders.** `%s`, `%d` stay in the same order and count as in enUS (the build refuses a mismatch); build
    the sentence so case endings work for any value (`Модификация %s` rather than `%s модификации`).
-9. **NPC stays NPC** (user's rule, 2026-11-07): write the English abbreviation `NPC` in Russian text, never «НПЦ»
+9. **NPC stays NPC:** write the English abbreviation `NPC` in Russian text, never «НПЦ»
    (`Подсказки NPC`).
-10. **CD in compact places** (user's rule, 2026-11-07): where room is short (a tooltip line, a label, a bar) a
+10. **CD in compact places:** where room is short (a tooltip line, a label, a bar) a
     cooldown reads `CD 15 сек.`, the English abbreviation; in sentences it stays «восстановление»
     (`Время восстановления сбрасывается при смерти`).
 

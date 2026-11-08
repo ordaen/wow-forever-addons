@@ -109,7 +109,7 @@ describe("LuaLS definitions", function()
 	end)
 
 	-- lua-language-server silently skips library files over its preload size, and Lua refuses a chunk with more
-	-- than 200 locals at once: both left Minimap and UIParent undefined after the deep dump (2026-11-06).
+	-- than 200 locals at once: either leaves Minimap and UIParent undefined after a deep dump.
 	it("cuts big files into parts at the top level, never inside a block or after an annotation", function()
 		local saved = defs.MAX_FILE
 		defs.MAX_FILE = 60
