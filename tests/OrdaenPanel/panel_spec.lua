@@ -100,3 +100,26 @@ describe("Ordaen Panel with the character button as a cell", function()
 		assert.is_true(math.abs(button._h - 53) < 1, "height " .. tostring(button._h))
 	end)
 end)
+
+describe("Ordaen Panel with the gold micro menu icons", function()
+	it("draws the micro menu's icons desaturated", function()
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenPanel" } })
+		local home = wow.env.CreateFrame("Frame", "BagsBar", wow.env.UIParent)
+		for _, name in ipairs(BLIZZARD) do
+			wow.env.CreateFrame("Button", name, home):SetSize(45, 45)
+		end
+		wow.env.OrdaenPanelDB = { module = { microIcons = "gold" } }
+		wow:Login()
+		wow:Tick()
+		assert.are.same({}, wow.errors)
+		local gold = 0
+		for frame in pairs(wow.allFrames) do
+			for _, r in ipairs(frame._regions) do
+				if r._desaturated and r:IsVisible() then
+					gold = gold + 1
+				end
+			end
+		end
+		assert.is_true(gold >= 10, gold .. " desaturated textures; the micro menu has 10 icons")
+	end)
+end)

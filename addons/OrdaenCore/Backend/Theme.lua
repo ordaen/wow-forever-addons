@@ -21,6 +21,9 @@ ns.Theme = {
 	-- experience: the old panel's XP blue; rested XP the design's pale blue over the trough (XpTube)
 	["color.xp"] = { 0.1, 0.42, 0.9, 1 },
 	["color.xpRested"] = { 0.43, 0.59, 0.82, 0.16 },
+	-- the micro menu's gold icon set: the icons desaturated and multiplied by this (the design's MicroIcon .gold filter,
+	-- grayscale + sepia + saturate 2.6 + hue -8deg + brightness 1.05 + contrast 1.1, taken at mid grey)
+	["color.microGold"] = { 1, 0.72, 0.28, 1 },
 	-- a bar's trough on the wood: darker than the wood, so the bar reads as set into it
 	["color.inset"] = { 0.02, 0.012, 0.006, 0.85 },
 	["spacing.xs"] = 2,

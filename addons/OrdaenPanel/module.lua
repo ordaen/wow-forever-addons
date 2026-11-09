@@ -13,6 +13,9 @@ local L = import("locales")
 -- micro menu cell with the face, first in the row.
 ---@enum OrdaenPanelCharButton
 local CharButton = { Portrait = "portrait", Button = "button" }
+-- The micro menu's icon set (setting microIcons, design MicroIcon): our icons as they are, or the same in one gold.
+---@enum OrdaenPanelMicroIcons
+local MicroIcons = { Upscaled = "upscaled", Gold = "gold" }
 
 -- The micro menu, left to right (design/micromenu): our cells with our icons on the wood, each with Blizzard's button
 -- invisible over it, so the click, menus and alerts stay Blizzard's. While Ordaen Spells and Ordaen Social don't exist,
@@ -71,9 +74,13 @@ for i = 1, #MICRO do
 		position = "absolute", left = ICON_LEFT, top = ICON_TOP, width = ICON_SIDE, height = ICON_SIDE,
 		background = m.icon, stateFrom = "parent",
 	} }
+	local goldCall = { attributes = {
+		position = "absolute", left = ICON_LEFT, top = ICON_TOP, width = ICON_SIDE, height = ICON_SIDE,
+		background = m.icon, stateFrom = "parent", desaturate = true, tint = Define.Theme.color.microGold,
+	} }
 	local friends = m.friends
 	m.call = { key = i, attributes = CELL, slots = { default = function(game, self)
-		game.ui:Box(iconCall)
+		game.ui:Box(self.state.microIcons == MicroIcons.Gold and goldCall or iconCall)
 		if friends then
 			local online = game.Friends.online:Get()
 			if online > 0 then
@@ -226,6 +233,7 @@ return Define.Module({
 	Setup = function(game, self)
 		Define.Persistent({
 			height = { type = "number", default = 60, min = 24, max = 96, step = 1, unit = "px", setting = true },
+			microIcons = { type = "choice", choices = MicroIcons, default = MicroIcons.Upscaled, setting = true },
 			charButton = { type = "choice", choices = CharButton, default = CharButton.Portrait, setting = true },
 			livePortrait = { type = "boolean", default = false }, -- the 3D head instead of the face's picture
 		})
@@ -234,6 +242,7 @@ return Define.Module({
 	-- the settings page (design settings/, Ordaen Panel): the tabs of the parts built so far
 	Settings = function(game, self)
 		game.ui:SettingsTab({ attributes = { title = L.TAB_MICROMENU }, slots = { default = function()
+			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.microIcons) } })
 			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.charButton) } })
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_BOTTOM }, slots = { default = function()

@@ -8,5 +8,9 @@
   "PANEL_CHARBUTTON": "Character button",
   "PANEL_CHARBUTTON_TIP": "Your portrait with your level in the screen's corner, or a menu button with your face.",
   "PANEL_CHARBUTTON_PORTRAIT": "Portrait",
-  "PANEL_CHARBUTTON_BUTTON": "Button"
+  "PANEL_CHARBUTTON_BUTTON": "Button",
+  "PANEL_MICROICONS": "Menu icons",
+  "PANEL_MICROICONS_TIP": "Blizzard's icons scaled to one size, or the same icons in one gold colour.",
+  "PANEL_MICROICONS_UPSCALED": "Normal",
+  "PANEL_MICROICONS_GOLD": "Gold"
 }

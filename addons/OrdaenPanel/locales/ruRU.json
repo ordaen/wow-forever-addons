@@ -8,5 +8,9 @@
   "PANEL_CHARBUTTON": "Кнопка персонажа",
   "PANEL_CHARBUTTON_TIP": "Портрет в углу экрана с уровнем или обычная кнопка меню с лицом персонажа.",
   "PANEL_CHARBUTTON_PORTRAIT": "Портрет",
-  "PANEL_CHARBUTTON_BUTTON": "Кнопка"
+  "PANEL_CHARBUTTON_BUTTON": "Кнопка",
+  "PANEL_MICROICONS": "Значки меню",
+  "PANEL_MICROICONS_TIP": "Значки Blizzard, увеличенные до одного размера, или они же в одном золотом цвете.",
+  "PANEL_MICROICONS_UPSCALED": "Обычные",
+  "PANEL_MICROICONS_GOLD": "Золотые"
 }
