@@ -121,3 +121,55 @@ enabling the mouse costs nothing at creation.
   tables (`table.getcountinfo` on a node after a grid make).
 - Arrays reused from a pool keep the size of their largest use: a grid box's row arrays held 560 entries while it
   used 20.
+- The heap can shrink without a collection: a table resized smaller on a rehash frees memory at once. With the
+  collector stopped, closing the large signals scenario shrank the heap by 224 KB per call.
+
+## Garbage collector
+
+- `collectgarbage("stop")` holds only until WoW's next collection step: the client steps the collector between frames
+  (5.1's `lua_gc(L, LUA_GCSTEP, …)` resets the threshold `stop` raised), which turns it back on. Stopped once for a
+  whole series, opening the large signals scenario took 33.0 ms and added 245 KB per call: about 12 MB of earlier
+  garbage was collected inside each timed call. Stopped right before every call, the same open takes 18.8 ms and
+  adds 12,511 KB. To keep collection out of a measurement, stop the collector right before the measured code.
+- That step also means a frame's time can hold collection work no addon code asked for. In bench round 7, three
+  series had a step in 1 to 3 of their 15 measured frames, all closes of large scenarios (the report marks them ᵍ).
+
+## Comparing what two sides draw
+
+The bench checks that the framework and hand-written code end on the same screen
+(`addons/OrdaenBench/bench/screen.lua`): every visible text with its glyph position, and textures' rects.
+
+- The framework puts every rect on whole pixels and rounds centring offsets; hand code keeps fractions. Each is up
+  to a pixel from the exact position, and positions are read relative to a first text that carries its own pixel,
+  so the same element can sit up to 2 px apart on two correct sides. The check allows exactly 2 px; more is a
+  difference.
+- Within that allowance a list can still step unevenly (lines 11 and 12 px apart in turn), so lists get their own
+  check: in a one-column list, consecutive line distances may differ by at most 0.1 unit.
+- Both sides space lines by the font's height rounded up to a whole pixel (11.733 units for the bench font) and size
+  boxes, gaps and padding on whole pixels (`addons/OrdaenBench/bench/line.lua`, `bench/px.lua`).
+
+## Framework against hand-written code
+
+Bench round 7 (Core 8332ac6), Lua ms per call; the bench report (`bench/README.md`, the design site's Bench page)
+has every row. "By hand" is the hand-written best (`addons/OrdaenBench/baseline/`); "typical" is how an addon
+usually writes it.
+
+| | Framework | Engine | Backend | By hand | Typical |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Large grid (1000 cells), first open | 68.8 | | | 5.7 | 7.7 |
+| Large grid, open with warm pools | 43.1 | 15.4 | 27.7 | | |
+| Large grid, close | 16.6 | 4.2 | 12.5 | 0.05 (hide) | 0.09 (hide) |
+| Large grid, every cell changed | 19.0 | 11.5 | 7.5 | 0.40 | 1.81 |
+| Large grid, one cell changed | 1.84 | 1.80 | 0.03 | <0.01 | 0.01 |
+| 500 writes to 10,000 values | 3.80 | | | 0.28 | 0.35 |
+| 1000 writes to one value, one frame | 10.8 | | | 0.014 | 10.2 |
+| One value read by 5000 watches, changed | 19.6 | | | 0.22 | |
+| Window moved | 0.30 | 0.28 | 0.03 | <0.01 | |
+| Tooltip shown with new content | 0.26 | 0.04 | 0.22 | 0.07 | |
+| Hovered item changed (100 cells) | 0.23 | | | 0.02 | |
+
+- A component call that changes nothing is the engine's largest unit cost: one changed cell of 1000 costs 1.8 ms,
+  nearly all of it the 999 unchanged calls.
+- Memory: the first open of the large grid keeps 18.8 MB of Lua heap; the hand-written grid keeps 3.3 MB, the
+  typical one 0.4 MB. A warm open adds 6.3 MB per open, all of it the engine's (the stub backend adds the same).
+- A grid on screen with nothing changing costs nothing measurable on either side.

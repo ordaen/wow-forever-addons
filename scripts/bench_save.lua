@@ -337,10 +337,16 @@ local function Model(id, saved, previous)
 		gc = json.array({}),
 	}
 	local gcSeries = {}
+	local measured = {}
+	for _, r in ipairs(results) do
+		measured[r.impl .. "|" .. Key(r)] = r.n
+	end
 	for _, g in ipairs(round.gc or {}) do
-		gcSeries[g.impl .. "|" .. g.scenario .. "|" .. g.size .. "|" .. g.metric] = g.frames
-		entry.gc[#entry.gc + 1] = string.format("%s %s %s (%s): the collector stepped in %d measured frames",
-			g.scenario, g.size, g.metric, g.impl, g.frames)
+		local series = g.impl .. "|" .. g.scenario .. "|" .. g.size .. "|" .. g.metric
+		gcSeries[series] = g.frames
+		entry.gc[#entry.gc + 1] = string.format("%s %s %s (%s): the collector stepped in %d of %s measured frame%s",
+			g.scenario, g.size, g.metric, g.impl, g.frames, tostring(measured[series] or "?"),
+			measured[series] == 1 and "" or "s")
 	end
 	local function head(line)
 		entry.header[#entry.header + 1] = line
