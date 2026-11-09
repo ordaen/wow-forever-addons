@@ -19,6 +19,13 @@ return Define.Component({
 	end,
 
 	Render = function(game, self)
+		if self.attributes.naive:Get() then -- new tables and a new function every render
+			local count = self.attributes.count:Get()
+			game.ui:Box({ attributes = CELL, slots = { default = function()
+				game.ui:Text({ attributes = { text = "%d", arguments = { count } } })
+			end } })
+			return
+		end
 		local counts = self.attributes.counts:Get()
 		if counts then
 			self.arguments[1] = counts:Get(self.attributes.index:Get()) or 0

@@ -6,6 +6,8 @@ local Define = import("@ordaen/define")
 local Driver = import("bench/driver")
 local Plan = import("bench/plan")
 local Stub = import("bench/stub")
+local Probes = import("bench/probes")
+local Progress = import("bench/progress")
 
 local SCENES = {
 	{ id = "signals-small", component = import("components/signals"), size = "small" },
@@ -19,6 +21,20 @@ local SCENES = {
 	{ id = "grid-large", component = import("components/grid"), size = "large" },
 	{ id = "grid-small-itemsRead", component = import("components/grid"), size = "small", itemsRead = true },
 	{ id = "grid-large-itemsRead", component = import("components/grid"), size = "large", itemsRead = true },
+	{ id = "grid-small-naive", component = import("components/grid"), size = "small", naive = true },
+	{ id = "grid-large-naive", component = import("components/grid"), size = "large", naive = true },
+	{ id = "ticker-small-naive", component = import("components/ticker"), size = "small", naive = true },
+	{ id = "ticker-large-naive", component = import("components/ticker"), size = "large", naive = true },
+	{ id = "resize", component = import("components/resize") },
+	{ id = "columns", component = import("components/columns") },
+	{ id = "grow", component = import("components/grow") },
+	{ id = "rows", component = import("components/rows") },
+	{ id = "tooltip", component = import("components/tooltip") },
+	{ id = "filter", component = import("components/filter") },
+	{ id = "drag", component = import("components/drag") },
+	{ id = "bars", component = import("components/bars") },
+	{ id = "sections", component = import("components/sections") },
+	{ id = "events", component = import("components/events") },
 	{ id = "ticker-small", component = import("components/ticker"), size = "small" },
 	{ id = "ticker-large", component = import("components/ticker"), size = "large" },
 	{ id = "reorder", component = import("components/reorder") },
@@ -40,14 +56,17 @@ return Define.Module({
 		-- and how many rounds ran: it rotates which side of each block goes first
 		Define.Persistent({
 			results = { type = "list", of = { type = "string" }, cap = 3000 },
+			-- the probes' lines (bench/probes.lua): answers for the backend's owner, never part of a round
+			probes = { type = "list", of = { type = "string" }, cap = 500 },
 			rounds = { type = "number", default = 0 },
 		})
 		local scene, results, rounds = self.state.ephemeral.scene, self.state.persistent.results, self.state.persistent.rounds
+		local probes = self.state.persistent.probes
 
 		local refs, mounts = {}, {}
 		for _, s in ipairs(SCENES) do
 			refs[s.id] = Define.Ref(s.component)
-			mounts[s.id] = { component = s.component, data = { key = s.id, ref = refs[s.id], attributes = { size = s.size, itemsRead = s.itemsRead } } }
+			mounts[s.id] = { component = s.component, data = { key = s.id, ref = refs[s.id], attributes = { size = s.size, itemsRead = s.itemsRead, naive = s.naive } } }
 		end
 		self:Watch(function()
 			local mount = mounts[scene:Get()]
@@ -64,6 +83,10 @@ return Define.Module({
 			pending[#pending + 1] = line
 		end)
 		local silent = Driver.NewMeasure(nil)
+		local probed = {}
+		local probing = Driver.NewMeasure(function(line)
+			probed[#probed + 1] = line
+		end)
 		local real -- the drawing backend while the stub is in (framework-engine sides)
 		local bench = {
 			flush = flush, refs = refs,
@@ -139,14 +162,37 @@ return Define.Module({
 				tostring(GetCVar("useMaxFPSBk")), tostring(GetCVar("maxFPSBk")), tostring(GetCVar("vsync")),
 				physicalWidth, physicalHeight, GetScreenWidth(), GetScreenHeight(), tostring(GetCVar("renderScale")))
 			tracked.failures = 0
-			Say("running: several minutes; keep the game in front, frame rate uncapped, vsync off")
+			-- the build the game loaded (bench_save records only rounds on the bench profile: release stripping) and
+			-- where the round ran (the world drawn is in every frame time)
+			pending[#pending + 1] = string.format("build|core=%s|bench=%s|zone=%s|subzone=%s|graphicsQuality=%s",
+				tostring(C_AddOns.GetAddOnMetadata("OrdaenCore", "X-Ordaen-Build")),
+				tostring(C_AddOns.GetAddOnMetadata("OrdaenBench", "X-Ordaen-Build")), GetZoneText() or "",
+				GetSubZoneText() or "", tostring(GetCVar("graphicsQuality")))
+			Say("running: several minutes. Keep the game in front, frame rate uncapped, vsync off.")
+			local steps = Plan.Steps(bench, round, tracked, silent, Progress.Set)
+			-- the probes, after the measured plan, so they can't disturb it
+			local probeSteps = Probes.Steps(probing, bench)
+			steps[#steps + 1] = function()
+				Progress.Set("probes")
+				return true
+			end
+			for i = 1, #probeSteps do
+				steps[#steps + 1] = probeSteps[i]
+			end
 			Quiet(true)
-			Driver.Run(Plan.Steps(bench, round, tracked, silent), function()
+			Driver.Run(steps, function()
 				Quiet(false)
+				Progress.Hide()
 				results:Reset()
 				for i = 1, #pending do
 					results:Insert(pending[i])
 					pending[i] = nil
+				end
+				probes:Reset()
+				for i = 1, #probed do
+					probes:Insert(probed[i])
+					debug:Log("probe|" .. probed[i])
+					probed[i] = nil
 				end
 				debug:Logf("round %d: %d lines, %d failed checks", round, results:Len(), tracked.failures)
 				Say(string.format("done: %d failed checks. /reload, then save the round.", tracked.failures))

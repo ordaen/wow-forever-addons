@@ -42,3 +42,37 @@ function Core._ScreenTexts(out)
 	end
 	return n
 end
+
+--- The first drawn node of `kind` ("box" or "text") on the screen layer, in tree order (the bench's probes inspect a
+--- backend node's tables).
+---@param kind string
+---@return table|nil
+function Core._ScreenNode(kind)
+	local function Find(node)
+		if node.kind == kind then
+			return node
+		end
+		local children = node.children
+		if children then
+			for i = 1, node.count or 0 do
+				local found = Find(children[i])
+				if found then
+					return found
+				end
+			end
+		end
+	end
+	local layer = ns.Game.Layer.Screen.node -- the layer itself isn't one of the drawn nodes
+	for i = 1, layer.count or 0 do
+		local found = Find(layer.children[i])
+		if found then
+			return found
+		end
+	end
+end
+
+--- Fire a game event into the engine as if the game had sent it (the bench's event bursts).
+---@param name string
+function Core._FireEvent(name, ...)
+	ns.Game.RawEvent(name):Fire(...)
+end

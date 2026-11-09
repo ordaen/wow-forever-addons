@@ -1,5 +1,6 @@
 -- grid: a window of item buttons (36x36, a background and a count) in 10 columns, on the screen.
 -- small: 200 (the bags). large: 1000 (bank, reagents and warband bank together).
+-- A naive variant (attribute `naive`) writes its calls as code reads without the build: a new table every call.
 -- Two ways to hand the counts down (attribute `itemsRead`): the grid reads every count and passes each as an
 -- attribute (one change re-runs the grid's render), or the grid passes the map once and each item reads its own
 -- count (one change re-runs what read the map: with whole-map tracking, every item).
@@ -16,6 +17,13 @@ local GRID = {
 
 local function Cells(game, self)
 	local calls = self.calls
+	if self.naive then -- as code reads without the build's hoisting: new tables every call
+		local counts = self.state.ephemeral.counts
+		for i = 1, #calls do
+			game.ui:GridItem({ key = i, attributes = { count = counts:Get(i) or 0, naive = true } })
+		end
+		return
+	end
 	if self.itemsRead then
 		for i = 1, #calls do
 			game.ui:GridItem(calls[i])
@@ -44,6 +52,7 @@ return Define.Component({
 		return {
 			calls = calls,
 			itemsRead = itemsRead,
+			naive = self.attributes.naive:Peek() or false,
 			public = {
 				functions = {
 					SetOne = function(i, value)

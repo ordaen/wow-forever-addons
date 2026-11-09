@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Package one addon with the BigWigs packager, from its release build (`ordaen build --release`).
+# Package one addon with the BigWigs packager, from its release build (`ordaen build --profile release`).
 #
 #   scripts/package.sh <AddonName> [<tag>]
 #
@@ -26,7 +26,7 @@ trap 'rm -rf "$work"' EXIT
 
 # The zip holds the release build: generated TOC/.pkgmeta/locales, Debug calls stripped, dev files left out.
 # ordaen is the private build tool (wow-dev-tools); CI downloads a pinned release, locally it is on PATH or $ORDAEN.
-"${ORDAEN:-ordaen}" build --repo "$root" --release --out "$work/dist" "$addon"
+"${ORDAEN:-ordaen}" build --repo "$root" --profile release --out "$work/dist" "$addon"
 src="$work/dist/$addon"
 
 packager="$work/release.sh"

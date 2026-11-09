@@ -45,20 +45,20 @@ function Grid.SetOne(size, i, value)
 	Update(grids[size], cells[size][i], i, value)
 end
 
-function Grid.SetAll(size, base)
+function Grid.SetAll(size, values)
 	local grid, list = grids[size], cells[size]
 	for i = 1, #list do
-		Update(grid, list[i], i, base + i)
+		Update(grid, list[i], i, values[i])
 	end
 end
 
---- Whether the counts show what SetAll(size, base) wrote: the first, middle and last cell.
-function Grid.Verify(size, base)
+--- Whether the counts show what SetAll(size, values) wrote: the first, middle and last cell.
+function Grid.Verify(size, values)
 	local list = cells[size]
 	local n = #list
 	for _, i in ipairs({ 1, floor(n / 2), n }) do
 		local shown = list[i].count:GetText()
-		if shown ~= tostring(base + i) then
+		if shown ~= tostring(values[i]) then
 			return false, "cell " .. i .. " shows " .. tostring(shown)
 		end
 	end

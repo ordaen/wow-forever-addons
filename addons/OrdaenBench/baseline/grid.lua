@@ -41,21 +41,21 @@ function Grid.SetOne(size, i, value)
 end
 
 -- The method looked up once, not per cell: every font string shares it.
-function Grid.SetAll(size, base)
+function Grid.SetAll(size, values)
 	local list = texts[size]
 	local SetFormattedText = list[1].SetFormattedText
 	for i = 1, #list do
-		SetFormattedText(list[i], "%d", base + i)
+		SetFormattedText(list[i], "%d", values[i])
 	end
 end
 
---- Whether the counts show what SetAll(size, base) wrote: the first, middle and last cell.
-function Grid.Verify(size, base)
+--- Whether the counts show what SetAll(size, values) wrote: the first, middle and last cell.
+function Grid.Verify(size, values)
 	local list = texts[size]
 	local n = #list
 	for _, i in ipairs({ 1, floor(n / 2), n }) do
 		local shown = list[i]:GetText()
-		if shown ~= tostring(base + i) then
+		if shown ~= tostring(values[i]) then
 			return false, "cell " .. i .. " shows " .. tostring(shown)
 		end
 	end

@@ -7,6 +7,12 @@ local COLUMN = { position = "absolute", left = 40, width = 200 }
 
 local function Lines(game, self)
 	local tick, calls = self.state.ephemeral.tick:Get(), self.calls
+	if self.naive then -- as code reads without the build's hoisting: new tables every call
+		for i = 1, #calls do
+			game.ui:Text({ key = i, attributes = { text = "%.1f, %.1f", arguments = { tick * 0.1 + i, tick * 0.2 - i } } })
+		end
+		return
+	end
 	for i = 1, #calls do
 		local call = calls[i]
 		local arguments = call.attributes.arguments
@@ -27,6 +33,7 @@ return Define.Component({
 		end
 		return {
 			calls = calls,
+			naive = self.attributes.naive:Peek() or false,
 			public = {
 				functions = {
 					Tick = function()

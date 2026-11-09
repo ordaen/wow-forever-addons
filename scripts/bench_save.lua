@@ -129,6 +129,14 @@ local function Parse(lines)
 					round.settings[k] = v
 				end
 			end
+		elseif f[1] == "build" then
+			round.build = {}
+			for j = 2, #f do
+				local k, v = f[j]:match("^([^=]+)=(.*)$")
+				if k then
+					round.build[k] = v
+				end
+			end
 		elseif f[1] == "addons" then
 			round.addons = json.array({})
 			for name in (f[2] or ""):gmatch("[^,]+") do
@@ -180,8 +188,14 @@ local NOTES = {
 		.. " rows): what stays after a full collection. The Lua heap only: WoW frames' own memory is invisible to every"
 		.. " side.",
 	"**¹** a single sample (a first opening, a hand make): its frame time is one frame's, not a median.",
+	"**Built as players run it:** every round is on the bench profile (release stripping, the bench's dev hooks kept)"
+		.. " with the debug addon disabled; bench_save refuses any other.",
+	"**Engine / backend, read with care:** the stub run touches less memory, so the engine runs with warmer caches"
+		.. " there and the backend's share reads slightly high. Hand-written drawing leaves its text layout to WoW's"
+		.. " drawing, so compare the backend with best's frame column, not its Lua column.",
 	"**Change:** against the newest earlier round with clean builds on the same display; an improvement or a"
-		.. " regression is a change of " .. CHANGE * 100 .. "% or more (frame changes also beyond the idle spread).",
+		.. " regression is a change of " .. CHANGE * 100 .. "% or more (frame changes also beyond the idle spread). Same"
+		.. " display, graphics quality and spot in the world (zone and subzone) only.",
 }
 local READING = {
 	"**One /obench:** a cold block first (the large grid opened on every side while the session is fresh), then the"
@@ -223,8 +237,10 @@ end
 --- Rounds compare only when both ran clean builds on the same display.
 local function Comparable(a, b)
 	local sa, sb = a.round.settings or {}, b.round.settings or {}
+	local ba, bb = a.round.build or {}, b.round.build or {}
 	return Clean(a) and Clean(b) and sa.physical ~= nil and sa.physical == sb.physical
-		and sa.renderScale == sb.renderScale
+		and sa.renderScale == sb.renderScale and ba.graphicsQuality == bb.graphicsQuality
+		and ba.zone == bb.zone and ba.subzone == bb.subzone
 end
 
 --- Each row's idle: its block's idle series (the nearest before it), as { median, noise }.
@@ -522,6 +538,28 @@ end
 local path = FindSaved(arg and arg[1])
 assert(path, "no OrdaenBench.lua under " .. DEFAULT_WTF)
 local round, results = Parse(Load(path))
+-- a round is recorded only as players would run it: the Core and the bench built with the bench profile (release
+-- stripping, the bench's dev file kept), and the debug addon not loaded
+local profile = round.build and round.build.core or "?"
+local debugLoaded = false
+for _, name in ipairs(round.addons or {}) do
+	if name == "OrdaenCore_Debug" then
+		debugLoaded = true
+	end
+end
+if profile == "dev" and not debugLoaded then
+	-- the one round that measures what the dev build costs: kept to the side, never in the history
+	fs.MakeDirs("bench/dev")
+	local file = "bench/dev/" .. round.date:gsub(" ", "_"):gsub(":", "") .. ".json"
+	Write(file, json.encode({ round = round, builds = { OrdaenCore = Build("OrdaenCore") }, results = results }))
+	print("a dev-profile round: saved to the side, " .. file .. " (not in the history)")
+	os.exit(0)
+end
+if profile ~= "bench" or debugLoaded then
+	print("not recorded: the Core was built with profile " .. profile .. (debugLoaded and ", and OrdaenCore_Debug was loaded" or "")
+		.. ". Rounds count only on `ordaen build --profile bench` with the debug addon disabled.")
+	os.exit(1)
+end
 -- a round with a failed check isn't recorded: its numbers measured something broken
 local failures = {}
 for _, r in ipairs(results) do

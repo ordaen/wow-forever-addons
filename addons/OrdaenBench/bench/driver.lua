@@ -205,6 +205,14 @@ function Measure:Do(fn)
 	end
 end
 
+--- A fact for the record (the probes), untimed: `describe()` returns its text, stored in the check field.
+function Measure:Info(scenario, size, impl, metric, describe)
+	return function()
+		self:Record(scenario, size, impl, metric, 0, 0, 0, 0, 0, 1, "info " .. tostring(describe()))
+		return true
+	end
+end
+
 --- A correctness check alone, untimed.
 function Measure:Check(scenario, size, impl, metric, verify)
 	return function()
