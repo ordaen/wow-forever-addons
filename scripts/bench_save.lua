@@ -547,6 +547,13 @@ local function Model(id, saved, previous)
 					engine and Memory(engine.r.keptKb) or "", changeLua, changeFrame, r.check or "",
 				},
 			}
+			if row.checkOnly then
+				-- a check measures nothing: no measure values, no cells but its name and its check
+				row.values, row.previous, row.task = nil, nil, nil
+				for c = 4, #row.cells - 1 do
+					row.cells[c] = ""
+				end
+			end
 			entry.rows[#entry.rows + 1] = row
 			if verdict then
 				local list = verdict == "improvement" and entry.improvements or entry.regressions
