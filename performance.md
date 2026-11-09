@@ -170,6 +170,10 @@ usually writes it.
 
 - A component call that changes nothing is the engine's largest unit cost: one changed cell of 1000 costs 1.8 ms,
   nearly all of it the 999 unchanged calls.
-- Memory: the first open of the large grid keeps 18.8 MB of Lua heap; the hand-written grid keeps 3.3 MB, the
-  typical one 0.4 MB. A warm open adds 6.3 MB per open, all of it the engine's (the stub backend adds the same).
-- A grid on screen with nothing changing costs nothing measurable on either side.
+- Memory: the first open of the large grid keeps 18.8 MB of Lua heap, engine and backend together (the split of a
+  first open isn't measured yet: the bench's engine-only first open records it from the next round); the
+  hand-written grid keeps 3.3 MB, the typical one 0.4 MB. A warm open adds 6.3 MB per open, all of it the engine's
+  (the stub backend adds the same).
+- A grid on screen with nothing changing adds nothing measurable to the main thread's frame at CPU-bound settings, on
+  either side. WoW also draws on worker threads, whose slack hides work, so this doesn't mean drawing is free; for
+  what an addon costs players' frames, the main thread is the measure.
