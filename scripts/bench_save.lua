@@ -1,6 +1,8 @@
 -- Save the last OrdaenBench round (/obench in game, then /reload) to bench/results/<date>_<time>.json, then rewrite
 -- bench/report.json (every round, computed: tables, changes, improvements and regressions) and bench/README.md (the
 -- newest round). Run from the repo root: ordaen lua scripts/bench_save.lua [SavedVariables dir]
+-- A round with a failed check is refused: it isn't saved, and the history keeps only rounds that measured working
+-- code.
 --
 -- A round's file holds what the game recorded (bench/driver.lua's structured lines), the builds the game ran
 -- (dist/<Addon>/build.json: commit, branch, uncommitted changes) and the size of each scenario's code on both sides
@@ -520,6 +522,18 @@ end
 local path = FindSaved(arg and arg[1])
 assert(path, "no OrdaenBench.lua under " .. DEFAULT_WTF)
 local round, results = Parse(Load(path))
+-- a round with a failed check isn't recorded: its numbers measured something broken
+local failures = {}
+for _, r in ipairs(results) do
+	if r.check and r.check:match("^FAIL") then
+		failures[#failures + 1] = string.format("  %s %s %s (%s): %s", r.scenario, r.size, r.metric, r.impl, r.check)
+	end
+end
+if #failures > 0 then
+	print(#failures .. " failed checks: the round isn't recorded. Fix them, then run a new round.")
+	print(table.concat(failures, "\n"))
+	os.exit(1)
+end
 local source = {}
 for _, r in ipairs(results) do
 	if not source[r.scenario] then
@@ -558,5 +572,9 @@ for _, round_file in ipairs(RoundFiles()) do
 end
 Write("bench/report.json", json.encode({ rounds = entries }))
 print("wrote bench/report.json (" .. #entries .. " rounds)")
-Write("bench/README.md", Markdown(entries[#entries]))
+if #entries > 0 then
+	Write("bench/README.md", Markdown(entries[#entries]))
+else
+	Write("bench/README.md", "# Bench\n\nNo rounds yet: run /obench in game, /reload, then `ordaen lua scripts/bench_save.lua`.\n")
+end
 print("wrote bench/README.md")
