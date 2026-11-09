@@ -132,6 +132,11 @@ local function LoadModules()
 	for i = 1, C_AddOns.GetNumAddOns() do
 		local name = C_AddOns.GetAddOnInfo(i)
 		if type(name) == "string" and C_AddOns.GetAddOnMetadata(name, "X-Ordaen-Module") == "1" then
+			-- Ordaen decides which of its modules run, not the AddOns list: one disabled there (by the character, or new
+			-- since the client started) is enabled for this character before it loads
+			if C_AddOns.GetAddOnEnableState(name, UnitName("player")) == 0 then
+				C_AddOns.EnableAddOn(name, UnitName("player"))
+			end
 			local ok, loaded = pcall(C_AddOns.LoadAddOn, name)
 			if not ok then
 				geterrorhandler()(loaded)
