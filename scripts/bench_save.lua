@@ -149,6 +149,8 @@ local function Parse(lines)
 			round.gc[#round.gc + 1] = { scenario = f[2], size = f[3], impl = f[4], metric = f[5], frames = tonumber(f[6]) }
 		elseif f[1] == "mode" then
 			round.mode = f[2]
+		elseif f[1] == "session" then
+			round.sessionRun = tonumber(f[2]) -- 1: the session's first run, with the cold block
 		elseif f[1] == "errors" then
 			round.errors = { count = tonumber(f[2]) or 0, first = f[3] or "" }
 		elseif f[1] == "addons" then

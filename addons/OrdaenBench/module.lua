@@ -142,7 +142,7 @@ return Define.Module({
 
 		-- a dev tool's own slash command (modules get `commands` after the MVP)
 		SLASH_ORDAENBENCH1 = "/obench"
-		local ran = false
+		local runs = 0 -- runs this session: the first has the cold block (a fresh session), later ones skip it
 		-- `/obench`: a round. `/obench check`: the same plan with a few calls per series, for the checks only
 		-- (bench_save reports its checks and never records it). `/obench variants`: a round with the framework's
 		-- variants (naive, itemsRead) too. `/obench probes`: only the probes (bench/probes.lua:
@@ -152,11 +152,6 @@ return Define.Module({
 			local mode = (word == "check" or word == "probes" or word == "variants") and word or "round"
 			if Driver.IsRunning() then
 				Say("already running")
-				return
-			end
-			-- one round per /reload: its cold block needs a fresh session (empty pools, no frames made yet)
-			if ran then
-				Say("one run per session: /reload, then /obench")
 				return
 			end
 			-- a round counts only on the bench builds (bench_save refuses any other): say so before minutes are spent
@@ -170,13 +165,17 @@ return Define.Module({
 					return
 				end
 			end
-			ran = true
+			runs = runs + 1
+			local cold = runs == 1
+			Driver.errors.count, Driver.errors.first = 0, {}
 			local round = rounds:Get() + ((mode == "round" or mode == "variants") and 1 or 0)
 			rounds:Set(round)
 			local _, build = GetBuildInfo()
 			pending[#pending + 1] = string.format("round|%s|%s|%.0f|%.0f|%d", date("%Y-%m-%d %H:%M:%S"), build,
 				GetFramerate(), collectgarbage("count"), round)
 			pending[#pending + 1] = "mode|" .. mode
+			-- the run's number in this session: a later run has no cold block (its rows are a different plan shape)
+			pending[#pending + 1] = "session|" .. runs
 			-- what else ran: every loaded addon's work is in the frame times
 			local loaded = {}
 			for i = 1, C_AddOns.GetNumAddOns() do
@@ -211,7 +210,7 @@ return Define.Module({
 			if mode == "probes" then
 				steps = Probes.Steps(probing, bench)
 			else
-				steps = Plan.Steps(bench, tracked, Progress.Set, mode)
+				steps = Plan.Steps(bench, tracked, Progress.Set, mode, cold)
 			end
 			Quiet(true)
 			Driver.Run(steps, function()

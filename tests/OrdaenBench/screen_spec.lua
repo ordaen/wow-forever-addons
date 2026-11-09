@@ -2,7 +2,8 @@
 -- check` runs the whole plan (every scenario's framework and hand-written sides, the same seeded actions), and every
 -- check it makes must pass: the screen comparisons (bench/screen.lua: same texts and textures in the same places as
 -- the hand-written side), the state verifies, the level and retention checks. A layout path that draws something
--- else than hand code fails here before it reaches the game.
+-- else than hand code fails here before it reaches the game. A second run in the same session (the companion's key
+-- presses run the bench without a /reload) must pass too, without the cold block.
 --
 -- Positions come from the fake's anchor rules and its fixed-width font, the same for both sides; the in-game round
 -- still decides with WoW's own.
@@ -20,27 +21,49 @@ local function findList(db, name)
 	end
 end
 
-describe("OrdaenBench /obench check in the fake client", function()
-	local wow, results
+local function failures(lines)
+	local failed = {}
+	for _, line in ipairs(lines) do
+		if line:find("|FAIL ", 1, true) then
+			failed[#failed + 1] = line
+		end
+	end
+	return failed
+end
 
-	setup(function()
-		wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenBench" } })
-		wow:Login()
-		wow:Tick()
+describe("OrdaenBench /obench check in the fake client", function()
+	local wow, first, second
+
+	-- One /obench check to its end; a copy of the results it saved.
+	local function run()
+		local before = #wow.printed
 		assert(wow:Slash("/obench check"), "/obench isn't registered: the bench module didn't load\n"
 			.. table.concat(wow.errors, "\n"))
 		local done = false
 		for _ = 1, MAX_FRAMES do
 			wow:Tick()
 			local last = wow.printed[#wow.printed]
-			if last and last:find("done:", 1, true) then
+			if #wow.printed > before and last:find("done:", 1, true) then
 				done = true
 				break
 			end
 		end
 		assert(done, "the check run didn't finish in " .. MAX_FRAMES .. " frames; last printed: "
 			.. tostring(wow.printed[#wow.printed]) .. "\n" .. table.concat(wow.errors, "\n"))
-		results = findList(wow.env.OrdaenBenchDB, "results") or {}
+		local saved = findList(wow.env.OrdaenBenchDB, "results") or {}
+		local copy = {}
+		for i = 1, #saved do
+			copy[i] = saved[i]
+		end
+		return copy
+	end
+
+	setup(function()
+		wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenBench" } })
+		wow:Login()
+		wow:Tick()
+		first = run()
+		second = run()
 	end)
 
 	it("raises no Lua errors", function()
@@ -48,13 +71,22 @@ describe("OrdaenBench /obench check in the fake client", function()
 	end)
 
 	it("passes every check", function()
-		local failed = {}
-		for _, line in ipairs(results) do
-			if line:find("|FAIL ", 1, true) then
-				failed[#failed + 1] = line
-			end
-		end
-		assert(#results > 0, "the run wrote no results")
+		local failed = failures(first)
+		assert(#first > 0, "the run wrote no results")
 		assert(#failed == 0, #failed .. " failed checks:\n" .. table.concat(failed, "\n"))
+	end)
+
+	it("runs again in the same session: every check passes, without the cold block", function()
+		local failed = failures(second)
+		assert(#failed == 0, #failed .. " failed checks on the second run:\n" .. table.concat(failed, "\n"))
+		local cold, session = 0, nil
+		for _, line in ipairs(second) do
+			if line:find("|first open|", 1, true) then
+				cold = cold + 1
+			end
+			session = session or line:match("^session|(%d+)")
+		end
+		assert.are.equal(0, cold)
+		assert.are.equal("2", session)
 	end)
 end)

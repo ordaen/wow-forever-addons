@@ -1,7 +1,8 @@
--- The bench's plan. One /obench (one per /reload) runs:
+-- The bench's plan. An /obench runs:
 -- 0. the client's one-time costs paid untimed (a frame, a texture, the bench font);
--- 1. a cold block: opening the large grid on every side while the session is fresh (the framework's pools empty,
---    the hand sides' frames never made), measured;
+-- 1. on the session's first run only, a cold block: opening the large grid on every side while the session is fresh
+--    (the framework's pools empty, the hand sides' frames never made), measured; a later run in the same session
+--    has no cold rows (bench_save compares it with rounds of its own plan shape);
 -- 2. the whole plan, measured. Each series' first calls stay out of its numbers (the driver's warm-up), which keeps
 --    one-time costs (fonts, first textures, Blizzard code running for the first time) out.
 -- `/obench check` runs the same plan with a few calls per series: a quick run for the checks, never a round.
@@ -64,7 +65,8 @@ end
 ---@param tracked BenchMeasure records the numbers
 ---@param progress fun(line: string) shows what runs now
 ---@param mode "round"|"variants"|"check" variants: a round with the framework's variants (naive, itemsRead) too
-function Plan.Steps(bench, tracked, progress, mode)
+---@param cold boolean the session's first run: the cold block runs
+function Plan.Steps(bench, tracked, progress, mode, cold)
 	local counts = COUNTS[mode]
 	FRAMES, STEADY, IDLE, REPEATS, HEAVY = counts.frames, counts.steady, counts.idle, counts.repeats, counts.heavy
 	CHECKS = counts.checks
@@ -1060,9 +1062,9 @@ function Plan.Steps(bench, tracked, progress, mode)
 	add(tracked:Do(function()
 		warm:Hide()
 	end))
-	-- 1. the cold block, measured while the session is fresh
+	-- 1. the cold block, measured while the session is fresh (its first run)
 	measure, passName = tracked, "cold"
-	Block("grid", "large", {
+	if cold then Block("grid", "large", {
 		{ impl = FW, add = function()
 			add(measure:Series("grid", "large", FW, "first open", 1, function()
 				Show("grid-large")
@@ -1097,7 +1099,7 @@ function Plan.Steps(bench, tracked, progress, mode)
 				Typical.grid.Hide("large")
 			end))
 		end },
-	})
+	}) end
 	-- 2. the measured pass
 	measure, passName = tracked, "measured"
 	Pass()
