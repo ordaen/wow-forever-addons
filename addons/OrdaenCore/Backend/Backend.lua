@@ -2236,13 +2236,14 @@ function Backend:Create(kind)
 			local frame = CreateFrame("Button", nil, getHolder()) --[[@as OrdaenBackendFrame]]
 			frame.node = node
 			frame:Hide()
-			frame:EnableMouse(false)
 			frame:RegisterForClicks("AnyUp")
 			frame:SetScript("OnEnter", onEnter)
 			frame:SetScript("OnLeave", onLeave)
 			frame:SetScript("OnMouseDown", onMouseDown)
 			frame:SetScript("OnMouseUp", onMouseUp)
 			frame:SetScript("OnClick", onClick)
+			-- after the scripts: setting a mouse script turns the mouse on (a box takes it only with a handler)
+			frame:EnableMouse(false)
 			node.frame, node.mouse, node.shown = frame, false, false
 		end
 	end

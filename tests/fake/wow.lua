@@ -442,8 +442,16 @@ function FrameMethods:GetChildren()
 	return unpack(self._children)
 end
 
+-- the scripts that turn a frame's mouse on when set, as the game does (EnableMouse(false) before them is undone)
+local MOUSE_SCRIPTS = { OnEnter = true, OnLeave = true, OnMouseDown = true, OnMouseUp = true }
+
 function FrameMethods:SetScript(name, fn)
 	self._scripts[name] = fn
+	if fn and MOUSE_SCRIPTS[name] then
+		self._mouse = true
+	elseif fn and name == "OnMouseWheel" then
+		self._wheel = true
+	end
 	local wow = self._wow
 	if name == "OnUpdate" then
 		local was = wow.updating[self]

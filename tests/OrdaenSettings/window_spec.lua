@@ -199,5 +199,21 @@ describe("the settings window", function()
 		assert.is_true((win.offL or 0) > before, "moved " .. tostring(win.offL))
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("leaves the mouse to the boxes with a handler: the tab's art doesn't cover its drag", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local taking = 0
+		walk(ns, function(node)
+			if node.kind == "box" and not node.embedded and node.frame:IsMouseEnabled() then
+				local a = node.a
+				assert.is_truthy(a.OnClick or a.OnEnter or a.OnLeave or a.OnDragStart or a.hoverWithin or node.states,
+					"a box without a handler takes the mouse")
+				taking = taking + 1
+			end
+		end)
+		assert.is_true(taking > 0)
+	end)
 end)
 
