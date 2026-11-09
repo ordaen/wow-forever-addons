@@ -181,16 +181,31 @@ function Region:SetHeight(h)
 	self._h = h
 end
 
+-- A frame's OnShow / OnHide, as WoW fires them: when it is shown while its parents are, or hidden while it was visible
+-- (only the frame's own; its children's aren't fired)
+local function Shown(self, shown)
+	local scripts = self._scripts
+	local was = scripts and self:IsVisible()
+	self._shown = shown
+	if scripts then
+		local is = self:IsVisible()
+		local fn = is ~= was and (is and scripts.OnShow or not is and scripts.OnHide)
+		if fn then
+			self._wow:Call(fn, self)
+		end
+	end
+end
+
 function Region:Show()
-	self._shown = true
+	Shown(self, true)
 end
 
 function Region:Hide()
-	self._shown = false
+	Shown(self, false)
 end
 
 function Region:SetShown(shown)
-	self._shown = not not shown
+	Shown(self, not not shown)
 end
 
 function Region:IsShown()

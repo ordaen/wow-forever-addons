@@ -113,18 +113,25 @@ local function help()
 	end
 end
 
+--- Open the settings window (its `open` command); false when it isn't installed or can't load.
+function Commands.OpenSettings()
+	local settings = ns.App.OpenOnDemand(SETTINGS)
+	local open = settings and groups[Commands.Word(SETTINGS)]
+	open = open and open.list.open
+	if not open then
+		return false
+	end
+	Engine:Handle(open.Run, settings.game, settings.root, "")
+	return true
+end
+
 local function run(line)
 	local word, command, arguments = match(line or "", "^%s*(%S*)%s*(%S*)%s*(.-)%s*$")
 	word, command = lower(word), lower(command)
 	if word == "" then -- the settings window, where it's installed; else the commands
-		local settings = ns.App.OpenOnDemand(SETTINGS)
-		local open = settings and groups[Commands.Word(SETTINGS)]
-		open = open and open.list.open
-		if open then
-			Engine:Handle(open.Run, settings.game, settings.root, "")
-			return
+		if not Commands.OpenSettings() then
+			help()
 		end
-		help()
 		return
 	end
 	if word == "help" then
@@ -168,3 +175,21 @@ end
 
 SLASH_ORDAEN1 = "/ordaen"
 SlashCmdList.ORDAEN = run
+
+-- Ordaen in Blizzard's own options (Параметры → Модификации), where players look for an addon's settings: choosing it
+-- opens Ordaen's window and closes Blizzard's. Without the window (not installed) the entry stays, empty.
+ns.Stage.Login:Subscribe(function()
+	if not (Settings and Settings.RegisterCanvasLayoutCategory) then
+		return
+	end
+	local canvas = CreateFrame("Frame")
+	canvas:SetScript("OnShow", function()
+		if Commands.OpenSettings() and SettingsPanel then
+			HideUIPanel(SettingsPanel)
+		end
+	end)
+	local _, title = C_AddOns.GetAddOnInfo("OrdaenCore")
+	local category = Settings.RegisterCanvasLayoutCategory(canvas, title or "Ordaen")
+	Settings.RegisterAddOnCategory(category)
+	Commands.optionsCategory = category
+end, false)
