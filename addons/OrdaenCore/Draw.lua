@@ -10,6 +10,7 @@ local _, ns = ...
 local Engine = ns.Engine
 local Scheduler = ns.Scheduler
 local pairs, error, getmetatable = pairs, error, getmetatable
+local isfrozen = table.isfrozen
 
 ---@class OrdaenDraw
 local Draw = {}
@@ -118,10 +119,13 @@ local function Release(f, e)
 			-- instance (and everything it holds) alive until the entry is taken again
 			kids.owner = nil
 		end
+		if e.bind then
+			ns.Unbind(e)
+		end
 		if e.node then
 			backend:Release(e.node)
 		end
-		e.node, e.frame, e.dirty = nil, nil, nil
+		e.node, e.frame, e.dirty, e.src = nil, nil, nil, nil -- src: a reused entry diffs its next table afresh
 	end
 	Forget(f, e)
 	local last = e.last
@@ -340,7 +344,33 @@ end
 
 -- Attributes -----------------------------------------------------------------------------------------------------
 
-local function Differs(last, attributes)
+local Differs, Copy
+
+-- Whether the call's attributes differ from what the entry drew last. A frozen table (what the build lifts) that the
+-- entry drew last can't have changed: no walk.
+local function Changed(e, attributes)
+	if attributes == e.src and isfrozen(attributes) then
+		return false
+	end
+	e.src = attributes
+	return Differs(e.last, attributes)
+end
+
+-- A compiled call's `bind` (field -> expression): bound when the entry is first drawn, again when the call binds
+-- differently; the expressions get the drawing component (self) and the call's key (item).
+local function BindEntry(e, data, key)
+	local bind = data and data.bind
+	if bind ~= e.bind then
+		if e.bind then
+			ns.Unbind(e)
+		end
+		if bind then
+			ns.Bind(e, bind, lexical[nLexical], key)
+		end
+	end
+end
+
+function Differs(last, attributes)
 	for k, v in pairs(attributes) do
 		if last[k] ~= v then
 			return true
@@ -354,7 +384,7 @@ local function Differs(last, attributes)
 	return false
 end
 
-local function Copy(last, attributes)
+function Copy(last, attributes)
 	for k in pairs(last) do
 		if attributes[k] == nil then
 			last[k] = nil
@@ -419,13 +449,17 @@ end
 ---@class OrdaenUi
 local UiBase = {}
 
-function UiBase:Box(site, a, b)
+--- A box: `(site, data)`, `(site, target, data)`, or as the build compiles a call, `(site, target or nil, call, key)`.
+function UiBase:Box(site, a, b, k)
 	local target, data = Resolve(a, b)
 	local f = FragmentFor(target)
 	if not f then
 		return
 	end
-	local key = data and data.key
+	local key = k
+	if key == nil then
+		key = data and data.key
+	end
 	local e = Lookup(f, site, key)
 	if e and e.kind ~= "box" then
 		error("Ordaen: call site reused for another kind", 2)
@@ -441,10 +475,11 @@ function UiBase:Box(site, a, b)
 	end
 	Append(f, e)
 	local attributes = data and data.attributes or EMPTY
-	if Differs(e.last, attributes) then
+	if Changed(e, attributes) then
 		Copy(e.last, attributes)
 		ns.Backend:Set(e.node, attributes)
 	end
+	BindEntry(e, data, key)
 	local slots = data and data.slots
 	local content = slots and slots.default
 	local kids = e.kids
@@ -463,13 +498,16 @@ function UiBase:Box(site, a, b)
 	end
 end
 
-function UiBase:Text(site, a, b)
+function UiBase:Text(site, a, b, k)
 	local target, data = Resolve(a, b)
 	local f = FragmentFor(target)
 	if not f then
 		return
 	end
-	local key = data and data.key
+	local key = k
+	if key == nil then
+		key = data and data.key
+	end
 	local e = Lookup(f, site, key)
 	if e and e.kind ~= "text" then
 		error("Ordaen: call site reused for another kind", 2)
@@ -480,7 +518,7 @@ function UiBase:Text(site, a, b)
 	end
 	Append(f, e)
 	local attributes = data and data.attributes or EMPTY
-	local changed = Differs(e.last, attributes)
+	local changed = Changed(e, attributes)
 	if ArgumentsDiffer(e, attributes.arguments) then
 		changed = true
 	end
@@ -488,6 +526,7 @@ function UiBase:Text(site, a, b)
 		Copy(e.last, attributes)
 		ns.Backend:Set(e.node, attributes)
 	end
+	BindEntry(e, data, key)
 end
 
 --- Take over a Blizzard frame while this render draws it: `game.ui:Frame(game.Frame.CombinedBags, data)`.

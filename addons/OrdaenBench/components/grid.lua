@@ -21,6 +21,7 @@ local function Cells(game, self)
 	if self.naive then -- as code reads without the build's hoisting: new tables every call
 		local counts = self.state.ephemeral.counts
 		for i = 1, #calls do
+			-- ordaen: ignore B13 the naive variant reads a render local on purpose: it measures code the build can't lift
 			game.ui:GridItem({ key = i, attributes = { count = counts:Get(i) or 0, naive = true } })
 		end
 		return

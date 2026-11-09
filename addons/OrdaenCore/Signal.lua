@@ -347,7 +347,6 @@ end
 --- Re-run the marked effects, parents first, then settle what was drawn and let the backend lay it out.
 function Scheduler.Flush()
 	pending = false
-	local Engine = ns.Engine
 	local Debug = Kit()
 	local t = Debug:TimeStart()
 	flushes = flushes + 1
@@ -369,7 +368,7 @@ function Scheduler.Flush()
 				end
 				looped = true
 			else
-				Engine:RunEffect(effect)
+				effect:Run() -- an effect, or a binding (Binding.lua)
 			end
 		end
 	end

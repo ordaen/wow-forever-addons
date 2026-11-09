@@ -103,6 +103,11 @@ local function NewEffect(instance, fn, isRender, immediate)
 	}, EffectMeta)
 end
 
+--- The scheduler runs what it queued by its Run: an effect's is the engine's RunEffect (a binding has its own).
+function Effect:Run()
+	Engine:RunEffect(self)
+end
+
 function Effect:Mark()
 	if self.dirty or not self.alive then
 		return
