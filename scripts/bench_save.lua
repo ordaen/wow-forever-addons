@@ -237,6 +237,11 @@ local READING = {
 		.. " pools) for what comes back; hand code hides and shows frames it keeps. That difference is in their rows.",
 	"**hover:** the bench calls the cells' frames' OnLeave and OnEnter scripts; WoW finding the frame under the cursor"
 		.. " (hit testing) is the same on every side and isn't measured. No engine side: the stub draws no frames.",
+	"**scheduler:** two ways to start the engine's flush, 1000 minimal schedulers each (a row's ms is µs per"
+		.. " scheduler). Framework column: the engine's way, the OnUpdate attached on a frame's first write and removed"
+		.. " by the flush. Best column: the proposed way, the OnUpdate always attached and returning when nothing is"
+		.. " pending. Writes are in the Lua column; the OnUpdates (attach's removal, always's call every frame) only"
+		.. " in the frame column.",
 }
 
 local function Key(r)

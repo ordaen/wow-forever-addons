@@ -19,6 +19,7 @@ local counters = import("bench/counters")
 local FONT = import("bench/font")
 local Random = import("bench/random")
 local Screen = import("bench/screen")
+local Schedulers = import("bench/schedulers")
 local Best = {
 	signals = import("baseline/signals"), coalesce = import("baseline/coalesce"), chain = import("baseline/chain"),
 	diamond = import("baseline/diamond"), fanout = import("baseline/fanout"), cascade = import("baseline/cascade"),
@@ -902,6 +903,51 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			end
 			Block("units", "-", sides)
 		end
+
+		-- scheduler: two ways to start the flush, 1000 minimal schedulers each (bench/schedulers.lua); the framework
+		-- column is the engine's way (attach the OnUpdate per busy frame), the best column the proposed one (always
+		-- attached, returning when nothing is pending)
+		local PATTERNS = {
+			{ metric = "nothing written", writes = function(_) return 0 end },
+			{ metric = "a write every other frame", writes = function(i) return i % 2 end },
+			{ metric = "a write every frame", writes = function(_) return 1 end },
+			{ metric = "10 writes every frame", writes = function(_) return 10 end },
+		}
+		local function SchedulerSide(variant, impl)
+			return function()
+				add(measure:Do(function()
+					Schedulers.Make()
+					Schedulers.Start(variant)
+				end))
+				for _, p in ipairs(PATTERNS) do
+					local before, expected = 0, 0
+					add(measure:Do(function()
+						before = Schedulers.Flushes(variant)
+						expected = 0
+					end))
+					add(measure:Series("scheduler", "-", impl, p.metric, FRAMES, function(i)
+						local times = p.writes(i)
+						if times > 0 then
+							Schedulers.Write(variant, times)
+							expected = expected + 1000
+						end
+					end, { verify = function()
+						local ran = Schedulers.Flushes(variant) - before
+						if Schedulers.Pending(variant) then
+							return false, "writes still pending after their frame"
+						end
+						return ran == expected, ran .. " flushes, not " .. expected
+					end }))
+				end
+				add(measure:Do(function()
+					Schedulers.Stop(variant)
+				end))
+			end
+		end
+		Block("scheduler", "-", {
+			{ impl = FW, add = SchedulerSide("attach", FW) },
+			{ impl = BEST, add = SchedulerSide("always", BEST) },
+		})
 
 		add(measure:Series("idle", "-", "-", "idle (end)", IDLE, Nothing))
 	end
