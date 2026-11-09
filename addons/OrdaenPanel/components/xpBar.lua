@@ -35,7 +35,7 @@ local function Sections(game)
 end
 local MARKS_CALL = { attributes = MARKS, slots = { default = Sections } }
 local LABEL = {
-	position = "absolute", left = 0, top = 0, width = "100%", height = "100%", textAlign = "center",
+	position = "absolute", left = 0, right = 0, top = 0, bottom = 0, textAlign = "center",
 	textSize = 12.5, textColor = { 0.953, 0.906, 0.8, 1 },
 }
 local format = string.format
@@ -68,7 +68,7 @@ return Define.Component({
 			position = "absolute", left = 0, top = 0, height = "100%", width = "0%", background = Define.Theme.panel.xpFill,
 		} }
 		local label = { attributes = {
-			position = LABEL.position, left = 0, top = 0, width = "100%", height = "100%", text = "",
+			position = LABEL.position, left = 0, right = 0, top = 0, bottom = 0, text = "",
 			textAlign = LABEL.textAlign, textSize = LABEL.textSize, textColor = LABEL.textColor,
 		} }
 		return {
