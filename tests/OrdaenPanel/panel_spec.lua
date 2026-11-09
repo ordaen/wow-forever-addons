@@ -80,3 +80,23 @@ describe("Ordaen Panel", function()
 		end
 	end)
 end)
+
+describe("Ordaen Panel with the character button as a cell", function()
+	it("puts Blizzard's character button in a micro menu cell, not over a corner portrait", function()
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenPanel" } })
+		local home = wow.env.CreateFrame("Frame", "BagsBar", wow.env.UIParent)
+		for _, name in ipairs(BLIZZARD) do
+			local f = wow.env.CreateFrame("Button", name, home)
+			f:SetSize(45, 45)
+			f:SetPoint("CENTER", home, "CENTER", 0, 0)
+		end
+		wow.env.OrdaenPanelDB = { module = { charButton = "button" } }
+		wow:Login()
+		wow:Tick()
+		assert.are.same({}, wow.errors)
+		local button = wow.env.CharacterMicroButton
+		assert.are_not.equal(home, button:GetParent())
+		-- a cell's size (53 units high), not the portrait's (124)
+		assert.is_true(math.abs(button._h - 53) < 1, "height " .. tostring(button._h))
+	end)
+end)

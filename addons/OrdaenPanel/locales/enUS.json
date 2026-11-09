@@ -3,5 +3,10 @@
   "CMD_PORTRAIT": "face or live: your portrait as a picture or as a live 3D head",
   "TAB_BOTTOM": "Bottom panel",
   "PANEL_HEIGHT": "Height",
-  "PANEL_HEIGHT_TIP": "The panel's height. Its buttons, icons and bar grow with it."
+  "PANEL_HEIGHT_TIP": "The panel's height. Its buttons, icons and bar grow with it.",
+  "TAB_MICROMENU": "Micro menu",
+  "PANEL_CHARBUTTON": "Character button",
+  "PANEL_CHARBUTTON_TIP": "Your portrait with your level in the screen's corner, or a menu button with your face.",
+  "PANEL_CHARBUTTON_PORTRAIT": "Portrait",
+  "PANEL_CHARBUTTON_BUTTON": "Button"
 }

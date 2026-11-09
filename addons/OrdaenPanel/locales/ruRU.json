@@ -3,5 +3,10 @@
   "CMD_PORTRAIT": "face или live: портрет картинкой или живой 3D-головой",
   "TAB_BOTTOM": "Нижняя панель",
   "PANEL_HEIGHT": "Высота",
-  "PANEL_HEIGHT_TIP": "Высота панели. Кнопки, значки и полоса растут вместе с ней."
+  "PANEL_HEIGHT_TIP": "Высота панели. Кнопки, значки и полоса растут вместе с ней.",
+  "TAB_MICROMENU": "Микроменю",
+  "PANEL_CHARBUTTON": "Кнопка персонажа",
+  "PANEL_CHARBUTTON_TIP": "Портрет в углу экрана с уровнем или обычная кнопка меню с лицом персонажа.",
+  "PANEL_CHARBUTTON_PORTRAIT": "Портрет",
+  "PANEL_CHARBUTTON_BUTTON": "Кнопка"
 }

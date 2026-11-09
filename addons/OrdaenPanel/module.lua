@@ -9,6 +9,11 @@
 local Define = import("@ordaen/define")
 local L = import("locales")
 
+-- The character button (setting charButton, design: panel): the portrait in the screen's corner with the level, or a
+-- micro menu cell with the face, first in the row.
+---@enum OrdaenPanelCharButton
+local CharButton = { Portrait = "portrait", Button = "button" }
+
 -- The micro menu, left to right (design/micromenu): our cells with our icons on the wood, each with Blizzard's button
 -- invisible over it, so the click, menus and alerts stay Blizzard's. While Ordaen Spells and Ordaen Social don't exist,
 -- the spellbook and talents keep a button each and the guild's stays; the social one (friends: Blizzard's button by
@@ -135,6 +140,24 @@ end
 local BAGS_BAR_HIDDEN = { attributes = { shown = false } }
 
 local MICRO_CALL = { attributes = MICRO_ROW, slots = { default = MicroButtons } }
+-- the character button as a cell: the face, round with a thin dark rim (design .face, 40 px), with Blizzard's button
+-- invisible over the cell like the others
+local FACE_SIDE = 40 / 1.2
+local FACE = {
+	position = "absolute", left = (CELL_WIDTH - FACE_SIDE) / 2, top = (CELL_HEIGHT - FACE_SIDE) / 2, width = FACE_SIDE,
+	height = FACE_SIDE, portrait = "player", mask = Define.Theme.panel.faceRound,
+}
+local FACE_CALL = { attributes = FACE }
+local function FaceCell(game)
+	game.ui:Box(FACE_CALL)
+	game.ui:Embed(game.Frame.CharacterMicroButton, CLICK_CALL)
+end
+local FACE_CELL_CALL = { key = "face", attributes = CELL, slots = { default = FaceCell } }
+local function FaceAndMicroButtons(game)
+	game.ui:Box(FACE_CELL_CALL)
+	MicroButtons(game)
+end
+local MICRO_FACE_CALL = { attributes = { columns = #MICRO + 1, gap = 0 }, slots = { default = FaceAndMicroButtons } }
 local BAG_CALL = { attributes = BAG_ROW, slots = { default = BagButtons } }
 -- the character button, invisible over the whole portrait: a click on the face opens the character window
 local CHARACTER = { position = "absolute", left = 0, top = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT, opacity = 0 }
@@ -171,6 +194,11 @@ local function Left(game, self)
 	game.ui:Box(MICRO_CALL)
 end
 
+-- the left column with the character button as a cell: no portrait, so no room kept for it
+local function LeftButton(game)
+	game.ui:Box(MICRO_FACE_CALL)
+end
+
 local function Right(game)
 	game.ui:Text({ attributes = {
 		text = game.Money:Format(game.Money.amount:Get()), textColor = Define.Theme.color.text,
@@ -181,9 +209,12 @@ local function Right(game)
 end
 
 local LEFT_CALL = { key = "left", attributes = LEFT, slots = { default = Left } }
+local LEFT_BUTTON_CALL = {
+	key = "leftButton", attributes = { xAlign = "start", yAlign = "center" }, slots = { default = LeftButton },
+}
 
-local function Cells(game)
-	game.ui:Box(LEFT_CALL)
+local function Cells(game, self)
+	game.ui:Box(self.state.charButton == CharButton.Button and LEFT_BUTTON_CALL or LEFT_CALL)
 	game.ui:XpBar()
 	game.ui:Box({ attributes = RIGHT, slots = { default = Right } })
 end
@@ -195,12 +226,16 @@ return Define.Module({
 	Setup = function(game, self)
 		Define.Persistent({
 			height = { type = "number", default = 60, min = 24, max = 96, step = 1, unit = "px", setting = true },
+			charButton = { type = "choice", choices = CharButton, default = CharButton.Portrait, setting = true },
 			livePortrait = { type = "boolean", default = false }, -- the 3D head instead of the face's picture
 		})
 	end,
 
 	-- the settings page (design settings/, Ordaen Panel): the tabs of the parts built so far
 	Settings = function(game, self)
+		game.ui:SettingsTab({ attributes = { title = L.TAB_MICROMENU }, slots = { default = function()
+			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.charButton) } })
+		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_BOTTOM }, slots = { default = function()
 			game.ui:Slider({ attributes = { value = Define.Signal(self.state.height) } })
 		end } })
