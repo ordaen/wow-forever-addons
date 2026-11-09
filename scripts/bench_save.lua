@@ -215,8 +215,8 @@ local NOTES = {
 		.. " drawing, so compare the backend with best's frame column, not its Lua column.",
 	"**Change:** against the newest earlier comparable round (clean builds, the same plan shape: the same series"
 		.. " with the same calls, since what runs before a row is part of its conditions); an improvement or a"
-		.. " regression is a change of " .. CHANGE * 100 .. "% or more beyond the noise (Lua: the row's spread, p95"
-		.. " above median, in either round; frame: the idle spread); single samples (¹) and frame values with"
+		.. " regression is a change of " .. CHANGE * 100 .. "% or more beyond the noise (the row's own spread, p95
+		.. " above median, in either round; for frame also the idle spread); single samples (¹) and frame values with"
 		.. " collector work (ᵍ) in either round never count. Same"
 		.. " graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the"
 		.. " same way, since the world drawn is in every frame time.",
@@ -499,7 +499,10 @@ local function Model(id, saved, previous)
 				if frame and oldFrame and not collected then
 					changeFrame = Percent(frame, oldFrame)
 					local ratio = (frame - oldFrame) / oldFrame
-					local beyond = math.abs(frame - oldFrame) > idles[i].noise
+					-- beyond the idle frames' spread and the row's own frame spread (p95 above median) in either round
+					local spread = math.max(idles[i].noise, (r.frameP95 or r.frameMs) - r.frameMs,
+						(old.r.frameP95 or old.r.frameMs) - old.r.frameMs)
+					local beyond = math.abs(frame - oldFrame) > spread
 					if beyond and ratio <= -CHANGE and verdict ~= "regression" then
 						verdict = verdict or "improvement"
 					elseif beyond and ratio >= CHANGE then
