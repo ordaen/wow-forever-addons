@@ -39,6 +39,7 @@ local Typical = {
 local FRAMES, STEADY, IDLE, REPEATS, HEAVY
 local COUNTS = {
 	round = { frames = 120, steady = 300, idle = 60, repeats = 60, heavy = 20 },
+	variants = { frames = 120, steady = 300, idle = 60, repeats = 60, heavy = 20 },
 	check = { frames = 8, steady = 8, idle = 8, repeats = 8, heavy = 7 },
 }
 local SPIN = 200 -- ms of untimed work before each block: the CPU at full clock when its idle series and sides run
@@ -63,7 +64,7 @@ end
 ---@param tracked BenchMeasure records the numbers
 ---@param silent BenchMeasure records nothing (the warm-up pass)
 ---@param progress fun(line: string) shows what runs now
----@param mode "round"|"check"
+---@param mode "round"|"variants"|"check" variants: a round with the framework's variants (naive, itemsRead) too
 function Plan.Steps(bench, tracked, silent, progress, mode)
 	local counts = COUNTS[mode]
 	FRAMES, STEADY, IDLE, REPEATS, HEAVY = counts.frames, counts.steady, counts.idle, counts.repeats, counts.heavy
@@ -136,6 +137,16 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			return true
 		end)
 		add(measure:Series(scenario, size, "-", "idle", IDLE, Nothing))
+		-- the framework's variants (naive, itemsRead) run only in a variants round (`/obench variants`)
+		if mode ~= "variants" then
+			local kept = {}
+			for k = 1, #sides do
+				if sides[k].impl ~= FW_ITEMS and sides[k].impl ~= FW_NAIVE then
+					kept[#kept + 1] = sides[k]
+				end
+			end
+			sides = kept
+		end
 		local names = {}
 		for k = 1, #sides do
 			names[k] = sides[k].impl
@@ -203,13 +214,43 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 	-- the changes. Each side does a task its own way (the framework mounts from its pools and unmounts; hand code
 	-- shows and hides the frames it made once, or rebuilds the state it has instead of frames).
 
+	-- what the engine and the backend hold, counted untimed (OrdaenCore's Bench.dev.lua and Backend.dev.lua): read
+	-- closed and open around every framework open, to explain what an open keeps
+	local engineStats, backendStats = {}, {}
+	local function Stats(scenario, size, impl, state)
+		return measure:Info(scenario, size, impl, "held " .. state, function()
+			OrdaenCore._EngineStats(engineStats)
+			local text = string.format("engine %d instances, %d entries; heap %.0f KB", engineStats.instances,
+				engineStats.entries, collectgarbage("count"))
+			if OrdaenCore._BackendStats then
+				OrdaenCore._BackendStats(backendStats)
+				local parts = {}
+				for k, v in pairs(backendStats) do
+					parts[#parts + 1] = k .. " " .. tostring(v)
+				end
+				table.sort(parts)
+				text = text .. "; backend " .. table.concat(parts, ", ")
+			end
+			return text
+		end)
+	end
+
 	--- open, the framework: unmount untimed, then mount timed (mounted after); kept: what an open keeps.
 	local function FwMake(scenario, size, impl, scene)
+		add(measure:Do(function()
+			Show("none")
+			collectgarbage("collect")
+		end))
+		add(Stats(scenario, size, impl, "closed"))
 		add(measure:Series(scenario, size, impl, "open", HEAVY, function()
 			Show(scene)
 		end, { prepare = function()
 			Show("none")
 		end, kept = true }))
+		add(measure:Do(function()
+			collectgarbage("collect")
+		end))
+		add(Stats(scenario, size, impl, "open"))
 	end
 	--- close, the framework: mount untimed, then unmount timed (unmounted after).
 	local function FwClose(scenario, size, impl, scene)

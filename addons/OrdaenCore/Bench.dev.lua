@@ -105,3 +105,44 @@ function Core._ScreenNodes(kind, out)
 	end
 	return n
 end
+
+--- What the engine holds alive on the screen layer, counted by walking it (no hooks, so nothing is added to the
+--- timed code): component instances, and draw entries (one per box, text or component call). Fills `out`.
+---@param out { instances: integer, entries: integer }
+function Core._EngineStats(out)
+	local instances, entries = 0, 0
+	local WalkInstance
+	local function WalkFragment(f)
+		local list = f.cur
+		for i = 1, f.n or 0 do
+			local e = list[i]
+			entries = entries + 1
+			if e.instance then
+				WalkInstance(e.instance)
+			end
+			if e.kids then
+				WalkFragment(e.kids)
+			end
+		end
+	end
+	WalkInstance = function(instance)
+		instances = instances + 1
+		if instance._fragment then
+			WalkFragment(instance._fragment)
+		end
+		for i = 1, instance._nMounted or 0 do
+			WalkInstance(instance._mounted[i])
+		end
+	end
+	local place = ns.Game.Layer.Screen
+	for i = 1, place.n or 0 do
+		local member = place.members[i]
+		if member._fragment then
+			WalkInstance(member)
+		elseif member.cur then
+			WalkFragment(member)
+		end
+	end
+	out.instances, out.entries = instances, entries
+	return out
+end

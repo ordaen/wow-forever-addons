@@ -151,11 +151,12 @@ return Define.Module({
 		SLASH_ORDAENBENCH1 = "/obench"
 		local ran = false
 		-- `/obench`: a round. `/obench check`: the same plan with a few calls per series, for the checks only
-		-- (bench_save reports its checks and never records it). `/obench probes`: only the probes (bench/probes.lua:
+		-- (bench_save reports its checks and never records it). `/obench variants`: a round with the framework's
+		-- variants (naive, itemsRead) too. `/obench probes`: only the probes (bench/probes.lua:
 		-- what WoW's calls cost, for the backend's owner), never part of a round.
 		SlashCmdList.ORDAENBENCH = function(message)
 			local word = (message or ""):match("^%s*(%a*)%s*$")
-			local mode = (word == "check" or word == "probes") and word or "round"
+			local mode = (word == "check" or word == "probes" or word == "variants") and word or "round"
 			if Driver.IsRunning() then
 				Say("already running")
 				return
@@ -166,7 +167,7 @@ return Define.Module({
 				return
 			end
 			ran = true
-			local round = rounds:Get() + (mode == "round" and 1 or 0)
+			local round = rounds:Get() + ((mode == "round" or mode == "variants") and 1 or 0)
 			rounds:Set(round)
 			local _, build = GetBuildInfo()
 			pending[#pending + 1] = string.format("round|%s|%s|%.0f|%.0f|%d", date("%Y-%m-%d %H:%M:%S"), build,
