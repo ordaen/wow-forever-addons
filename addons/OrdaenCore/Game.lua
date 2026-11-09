@@ -112,6 +112,11 @@ function DOMAINS.Settings()
 	return ns.Globals.ByName
 end
 
+--- Numbers formatted by the global settings: `game.Numbers:Format(n)` (Numbers.lua).
+function DOMAINS.Numbers()
+	return ns.Numbers
+end
+
 function DOMAINS.Money()
 	local Money = { amount = NewValue(GetMoney()) }
 	RawEvent("PLAYER_MONEY"):Subscribe(function()
