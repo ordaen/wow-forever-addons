@@ -55,6 +55,8 @@ local GRAPHICS = {
 	"graphicsOutlineMode", "graphicsComputeEffects", "MSAAQuality", "ffxAntiAliasingMode",
 }
 
+local RECORD_LINES = 500 -- result lines per record sent over the strip
+
 ---@enum BenchScene
 local BenchScene = { None = "none" }
 for _, scene in ipairs(SCENES) do
@@ -218,6 +220,20 @@ return Define.Module({
 				Progress.Hide()
 				local errors = Driver.errors
 				pending[#pending + 1] = "errors|" .. errors.count .. "|" .. table.concat(errors.first, " // ")
+				-- over the strip too, so a run needs no /reload to be saved: the dev addon's record channel (a
+				-- global: the bench build strips the debug kit's calls), in parts (one record carries up to 250 KB);
+				-- the companion files them, bench_save joins them by run
+				local record = OrdaenCoreDebug_Record
+				if record then
+					local run, parts = pending[1] .. "|" .. runs, math.ceil(#pending / RECORD_LINES)
+					for part = 1, parts do
+						local lines = {}
+						for i = (part - 1) * RECORD_LINES + 1, math.min(part * RECORD_LINES, #pending) do
+							lines[#lines + 1] = pending[i]
+						end
+						record("bench", { run = run, part = part, parts = parts, lines = lines })
+					end
+				end
 				results:Reset()
 				for i = 1, #pending do
 					results:Insert(pending[i])

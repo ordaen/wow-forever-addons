@@ -21,6 +21,7 @@ globals = ours
 local fromOtherAddons = {
 	"LibStub",
 	"BugGrabber",
+	"OrdaenCoreDebug_Record", -- the dev addon's record channel (wow-dev-tools), present only in dev mode
 }
 
 -- The real Forever API, generated from an in-game dump (scripts/api-import.sh, api/forever/CURRENT).

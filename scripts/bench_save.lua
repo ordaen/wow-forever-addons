@@ -1,6 +1,8 @@
--- Save the last OrdaenBench round (/obench in game, then /reload) to bench/results/<date>_<time>.json, then rewrite
--- bench/report.json (every round, computed: tables, changes, improvements and regressions) and bench/README.md (the
--- newest round). Run from the repo root: ordaen lua scripts/bench_save.lua [SavedVariables dir]
+-- Save the last OrdaenBench round to bench/results/<date>_<time>.json, then rewrite bench/report.json (every round,
+-- computed: tables, changes, improvements and regressions) and bench/README.md (the newest round). The round is the
+-- newer of the last one sent over the strip (the companion's records, when the debug addon is on) and the last one in
+-- the SavedVariables (written at a /reload). Run from the repo root: ordaen lua scripts/bench_save.lua
+-- [SavedVariables dir] (a dir given: that SavedVariables only).
 -- A round with a failed check is refused: it isn't saved, and the history keeps only rounds that measured working
 -- code.
 --
@@ -109,14 +111,66 @@ local function Build(addon)
 end
 
 local function Load(path)
-	local chunk = assert(loadfile(path))
+	local chunk = path and loadfile(path)
+	if not chunk then
+		return nil
+	end
 	local env = {}
 	setfenv(chunk, env)
 	chunk()
 	local db = env.OrdaenBenchDB
 	local saved = db and db.module and db.module.results
-	assert(saved and saved[1], "no round in " .. path .. ": run /obench, then /reload")
-	return saved
+	return saved and saved[1] and saved or nil
+end
+
+--- The newest complete run the bench sent over the strip (module.lua: the dev addon's record channel, filed by the
+--- companion as %LOCALAPPDATA%/OrdaenCompanion/records/<date>.jsonl, domain "bench", in parts): its lines, or nil.
+local function LoadRecords()
+	local base = os.getenv("LOCALAPPDATA")
+	if not base then
+		return nil
+	end
+	local dir = base:gsub("\\", "/") .. "/OrdaenCompanion/records"
+	local files = {}
+	for _, name in ipairs(fs.List(dir)) do
+		if name:match("%.jsonl$") then
+			files[#files + 1] = name
+		end
+	end
+	table.sort(files)
+	local runs, newest = {}, nil
+	for _, name in ipairs(files) do
+		for line in (Read(dir .. "/" .. name) or ""):gmatch("[^\n]+") do
+			if line:find('"domain":"bench"', 1, true) then
+				local ok, record = pcall(json.decode, line)
+				local data = ok and record and record.data
+				if data and data.run and data.part and data.parts and data.lines then
+					local run = runs[data.run]
+					if not run then
+						run = { parts = data.parts, got = 0, chunks = {} }
+						runs[data.run] = run
+					end
+					if not run.chunks[data.part] then
+						run.chunks[data.part] = data.lines
+						run.got = run.got + 1
+					end
+					if run.got == run.parts and (not newest or data.run > newest) then
+						newest = data.run -- "round|<date time>|...|<session run>": newer sorts later
+					end
+				end
+			end
+		end
+	end
+	if not newest then
+		return nil
+	end
+	local lines, run = {}, runs[newest]
+	for part = 1, run.parts do
+		for _, l in ipairs(run.chunks[part]) do
+			lines[#lines + 1] = l
+		end
+	end
+	return lines
 end
 
 local function Parse(lines)
@@ -293,12 +347,13 @@ local function Shape(saved)
 	return table.concat(list, "\n")
 end
 
---- Rounds compare only when both ran clean builds of the same plan shape, at the same graphics settings and spot
---- (every round runs at the same resolution and render scale, so those aren't recorded).
+--- Rounds compare only when both ran clean builds of the same plan shape, at the same graphics settings and spot,
+--- both with the debug addon or both without (every round runs at the same resolution and render scale, so those
+--- aren't recorded).
 local function Comparable(a, b)
 	local ba, bb = a.round.build or {}, b.round.build or {}
 	return Clean(a) and Clean(b) and ba.graphics ~= nil and ba.graphics == bb.graphics
-		and ba.zone == bb.zone and ba.subzone == bb.subzone
+		and ba.zone == bb.zone and ba.subzone == bb.subzone and (a.round.debug or false) == (b.round.debug or false)
 end
 
 --- Each row's idle: its block's idle series (the nearest before it), as { median, noise }.
@@ -701,9 +756,16 @@ for _, a in ipairs(arg or {}) do
 		given = a
 	end
 end
-local path = FindSaved(given)
-assert(path, "no OrdaenBench.lua under " .. DEFAULT_WTF)
-local round, results = Parse(Load(path))
+-- the newer of the two: the last run sent over the strip, the last one in the SavedVariables (written at a /reload)
+local fromSaved = Load(FindSaved(given))
+local fromStrip = not given and LoadRecords() or nil
+local lines = fromSaved
+if fromStrip and (not fromSaved or Split(fromStrip[1])[2] > Split(fromSaved[1])[2]) then
+	lines = fromStrip
+	print("the newest run, from the companion's records")
+end
+assert(lines, "no round: run /obench (then /reload, unless the debug addon is on to send it over the strip)")
+local round, results = Parse(lines)
 if round.mode == "probes" then
 	print("a probes run: its lines are in the probes list and the bench's log, nothing to save")
 	os.exit(0)
@@ -734,7 +796,7 @@ if round.mode == "check" then
 	os.exit((#failed > 0 or errors > 0) and 1 or 0)
 end
 -- a round is recorded only as players would run it: the Core and the bench built with the bench profile (release
--- stripping, the bench's dev file kept), and the debug addon not loaded
+-- stripping, the bench's dev file kept); one with the debug addon loaded is marked and compared only with its kind
 if round.gc then
 	print(#round.gc .. " series had a collection step in their measured frames (frame column holds collector work):")
 	for _, g in ipairs(round.gc) do
@@ -763,12 +825,14 @@ if profile == "dev" and benchProfile == "dev" and debugLoaded then
 	print("a dev-profile round: saved to the side, " .. file .. " (not in the history)")
 	os.exit(0)
 end
-if profile ~= "bench" or benchProfile ~= "bench" or debugLoaded then
+if profile ~= "bench" or benchProfile ~= "bench" then
 	print("not recorded: OrdaenCore built " .. profile .. ", OrdaenBench built " .. benchProfile
-		.. (debugLoaded and ", and OrdaenCore_Debug was loaded" or "")
-		.. ". Rounds count only with both on `ordaen build --profile bench` and the debug addon disabled.")
+		.. ". Rounds count only with both on `ordaen build --profile bench`.")
 	os.exit(1)
 end
+-- a round run with the debug addon loaded (the companion pressed /obench; the addon quiet while it ran) is recorded
+-- and marked: its frames hold whatever the quiet addon still does, so it's judged only against rounds marked alike
+round.debug = debugLoaded
 -- a round with a failed check isn't recorded: its numbers measured something broken
 local failures = {}
 for _, r in ipairs(results) do
