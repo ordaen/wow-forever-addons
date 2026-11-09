@@ -15,14 +15,18 @@ function Fanout.Make()
 	end
 end
 
+-- bench: begin
 function Fanout.Checksum()
 	return sum
 end
+-- bench: end
 
 --- Drop what the last make built (untimed, before the next make: its kept KB is then its own).
+-- bench: begin
 function Fanout.Release()
 	listeners = {}
 end
+-- bench: end
 
 function Fanout.Bump()
 	value = value + 1

@@ -94,8 +94,10 @@ function Reorder.Hide()
 end
 
 --- The frame the screen check reads (bench/screen.lua).
+-- bench: begin
 function Reorder.Root()
 	return frame
 end
+-- bench: end
 
 return Reorder

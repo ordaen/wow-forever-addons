@@ -82,6 +82,7 @@ function Signals.Flush()
 	frame = frame + 1
 end
 
+-- bench: begin
 function Signals.Checksum()
 	local sum = 0
 	for w = 1, nWatches do
@@ -89,10 +90,13 @@ function Signals.Checksum()
 	end
 	return sum
 end
+-- bench: end
 
 --- Drop what the last make built (untimed, before the next make: its kept KB is then its own).
+-- bench: begin
 function Signals.Release()
 	values, first, feeds, watchers, stamp, queue, out = nil, nil, nil, nil, nil, nil, nil
 end
+-- bench: end
 
 return Signals

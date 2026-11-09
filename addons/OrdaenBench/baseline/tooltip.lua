@@ -44,8 +44,10 @@ function Tooltip.Hide()
 end
 
 --- The frame the screen check reads (bench/screen.lua).
+-- bench: begin
 function Tooltip.Root()
 	return frame
 end
+-- bench: end
 
 return Tooltip

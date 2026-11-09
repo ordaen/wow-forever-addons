@@ -43,8 +43,10 @@ function Rows.Hide()
 end
 
 --- The frame the screen check reads (bench/screen.lua).
+-- bench: begin
 function Rows.Root()
 	return list
 end
+-- bench: end
 
 return Rows

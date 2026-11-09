@@ -42,6 +42,7 @@ return Define.Component({
 		return {
 			public = {
 				functions = {
+					-- bench: begin
 					Checksum = function()
 						local sum = 0
 						for w = 1, s.watches do
@@ -49,6 +50,7 @@ return Define.Component({
 						end
 						return sum
 					end,
+					-- bench: end
 					Write = function(k)
 						local value = values[(k - 1) % s.values + 1]
 						value:Set(value:Peek() + 1)

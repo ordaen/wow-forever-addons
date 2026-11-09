@@ -51,8 +51,10 @@ function Resize.Hide()
 end
 
 --- The frame the screen check reads (bench/screen.lua).
+-- bench: begin
 function Resize.Root()
 	return window
 end
+-- bench: end
 
 return Resize

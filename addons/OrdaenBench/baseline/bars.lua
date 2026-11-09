@@ -39,8 +39,10 @@ function Bars.Hide()
 end
 
 --- The frame the screen check reads (bench/screen.lua).
+-- bench: begin
 function Bars.Root()
 	return holder
 end
+-- bench: end
 
 return Bars

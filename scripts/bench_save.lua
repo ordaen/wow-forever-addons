@@ -57,14 +57,20 @@ local function Split(line)
 	return fields
 end
 
---- Code lines and characters of one Lua file: no comments, blank lines or indentation.
+--- Code lines and characters of one Lua file: no comments, blank lines or indentation, and none of the code between
+--- `-- bench: begin` and `-- bench: end` (what only the bench needs: its checks' hooks, the measured variants; not
+--- what an addon would write).
 local function Size(path)
 	local text = Read(path) or ""
 	text = text:gsub("%-%-%[(=*)%[.-%]%1%]", "") -- block comments
-	local lines, chars = 0, 0
+	local lines, chars, bench = 0, 0, false
 	for line in (text .. "\n"):gmatch("([^\n]*)\n") do
+		local marker = line:match("^%s*%-%- bench: (%a+)%s*$")
+		if marker then
+			bench = marker == "begin"
+		end
 		local code = line:gsub("%-%-.*$", ""):gsub("^%s+", ""):gsub("%s+$", "")
-		if code ~= "" then
+		if code ~= "" and not bench then
 			lines = lines + 1
 			chars = chars + #code
 		end
@@ -627,7 +633,7 @@ local function Markdown(entry)
 	add("")
 	add("## Source size")
 	add("")
-	add("Code lines and characters, without comments, blank lines or indentation.")
+	add("Code lines and characters, without comments, blank lines, indentation or bench-only code (checks' hooks, measured variants). Typical exists for signals, coalesce, grid, ticker and reorder only.")
 	add("")
 	Table(out, entry.source.columns, entry.source.rows)
 	add("")

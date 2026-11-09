@@ -62,8 +62,10 @@ function Sections.Hide()
 end
 
 --- The frame the screen check reads (bench/screen.lua).
+-- bench: begin
 function Sections.Root()
 	return holder
 end
+-- bench: end
 
 return Sections

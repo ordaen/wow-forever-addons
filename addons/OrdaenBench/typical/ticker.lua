@@ -43,8 +43,10 @@ function Ticker.Hide(size)
 end
 
 --- The frame the screen check reads (bench/screen.lua).
+-- bench: begin
 function Ticker.Root(size)
 	return frames[size]
 end
+-- bench: end
 
 return Ticker

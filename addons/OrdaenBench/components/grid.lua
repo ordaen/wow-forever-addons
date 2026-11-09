@@ -17,6 +17,7 @@ local GRID = {
 
 local function Cells(game, self)
 	local calls = self.calls
+	-- bench: begin
 	if self.naive then -- as code reads without the build's hoisting: new tables every call
 		local counts = self.state.ephemeral.counts
 		for i = 1, #calls do
@@ -24,12 +25,15 @@ local function Cells(game, self)
 		end
 		return
 	end
+	-- bench: end
+	-- bench: begin
 	if self.itemsRead then
 		for i = 1, #calls do
 			game.ui:GridItem(calls[i])
 		end
 		return
 	end
+	-- bench: end
 	local counts = self.state.ephemeral.counts
 	for i = 1, #calls do
 		local call = calls[i]
@@ -44,23 +48,31 @@ return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ counts = { type = "map", key = "number", of = { type = "number" }, cap = 2000 } })
 		local counts = self.state.ephemeral.counts
+		-- bench: begin
 		local itemsRead = self.attributes.itemsRead:Peek() or false
+		-- bench: end
 		local calls = {}
 		for i = 1, SIZES[self.attributes.size:Peek()] do
 			calls[i] = { key = i, attributes = itemsRead and { counts = counts, index = i } or { count = 0 } }
 		end
 		return {
 			calls = calls,
+			-- bench: begin
 			itemsRead = itemsRead,
+			-- bench: end
+			-- bench: begin
 			naive = self.attributes.naive:Peek() or false,
+			-- bench: end
 			public = {
 				functions = {
 					SetOne = function(i, value)
 						counts:Set(i, value)
 					end,
+					-- bench: begin
 					Count = function()
 						return #calls
 					end,
+					-- bench: end
 				},
 			},
 		}

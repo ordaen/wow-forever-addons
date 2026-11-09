@@ -47,8 +47,10 @@ function Events.Hide()
 end
 
 --- The frame the screen check reads (bench/screen.lua).
+-- bench: begin
 function Events.Root()
 	return holder
 end
+-- bench: end
 
 return Events

@@ -31,8 +31,10 @@ function Drag.Hide()
 end
 
 --- The frame the screen check reads (bench/screen.lua).
+-- bench: begin
 function Drag.Root()
 	return window
 end
+-- bench: end
 
 return Drag

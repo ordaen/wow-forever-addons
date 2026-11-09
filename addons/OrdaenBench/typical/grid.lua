@@ -54,6 +54,7 @@ function Grid.SetAll(size, values)
 end
 
 --- Whether the counts show what SetAll(size, values) wrote: every cell.
+-- bench: begin
 function Grid.Verify(size, values)
 	local list = cells[size]
 	local n = #list
@@ -65,6 +66,7 @@ function Grid.Verify(size, values)
 	end
 	return true
 end
+-- bench: end
 
 function Grid.Show(size)
 	grids[size]:Show()
@@ -75,8 +77,10 @@ function Grid.Hide(size)
 end
 
 --- The frame the screen check reads (bench/screen.lua).
+-- bench: begin
 function Grid.Root(size)
 	return grids[size]
 end
+-- bench: end
 
 return Grid

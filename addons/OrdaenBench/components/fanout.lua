@@ -16,9 +16,11 @@ return Define.Component({
 		return {
 			public = {
 				functions = {
+					-- bench: begin
 					Checksum = function()
 						return sum
 					end,
+					-- bench: end
 					Bump = function()
 						value:Set(value:Peek() + 1)
 					end,
