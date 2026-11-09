@@ -19,14 +19,21 @@ local TROUGH = layer(Define.Theme.panel.xpTrough)
 local SHINE = layer(Define.Theme.panel.xpShine)
 local RING = layer(Define.Theme.panel.xpTube)
 local INNER = { position = "absolute", left = INSET, top = INSET, right = INSET, bottom = INSET }
--- the engraved section marks: 1 px dark lines at each tenth
-local TICKS = {}
-for k = 1, SECTIONS - 1 do
-	TICKS[k] = { key = k, attributes = {
-		position = "absolute", left = (100 * k / SECTIONS) .. "%", top = 0, width = 1, height = "100%",
-		background = { 0, 0, 0, 0.5 },
-	} }
+-- the engraved section marks: a row of SECTIONS equal cells over the inside, each but the last with a 1 px dark right
+-- edge (offsets take units, not shares, so the marks come from the grid)
+local MARKS = { position = "absolute", left = 0, top = 0, width = "100%", height = "100%", columns = SECTIONS }
+local MARK = { height = "100%", border = { width = 1, sides = { "right" }, color = { 0, 0, 0, 0.5 } } }
+local LAST_MARK = { height = "100%" }
+local SECTION_CALLS = {}
+for k = 1, SECTIONS do
+	SECTION_CALLS[k] = { key = k, attributes = k < SECTIONS and MARK or LAST_MARK }
 end
+local function Sections(game)
+	for k = 1, SECTIONS do
+		game.ui:Box(SECTION_CALLS[k])
+	end
+end
+local MARKS_CALL = { attributes = MARKS, slots = { default = Sections } }
 local LABEL = {
 	position = "absolute", left = 0, top = 0, width = "100%", height = "100%", textAlign = "center",
 	textSize = 12.5, textColor = { 0.953, 0.906, 0.8, 1 },
@@ -36,9 +43,7 @@ local format = string.format
 local function Inner(game, self)
 	game.ui:Box(self.rested)
 	game.ui:Box(self.fill)
-	for k = 1, #TICKS do
-		game.ui:Box(TICKS[k])
-	end
+	game.ui:Box(MARKS_CALL)
 end
 
 local function Layers(game, self)
