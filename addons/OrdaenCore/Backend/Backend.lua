@@ -163,6 +163,11 @@ local lineHeights = {} -- one line of FONT at a size, in UI units on whole pixel
 -- pressed); false for a table that can't be cached. Weak keys: a module's tables go when it does. Pixel sizes are in
 -- the fields, so a new pixel size starts it again.
 local styles = setmetatable({}, { __mode = "k" })
+-- Which pixel size a node's fields were rounded and measured at: node.gen is the pxGen of its last full Apply. A new
+-- pixel size (the UI scale or the resolution changed) rounds again every node in the trees at once (repixelTrees), and
+-- any other node (pooled, or not attached yet) at its next Set or attach.
+local pxGen = 0
+local repixelTrees -- forward: defined with the tree
 
 local function updateScreen()
 	local _, physH = GetPhysicalScreenSize()
@@ -176,6 +181,10 @@ local function updateScreen()
 		end
 		for t in pairs(styles) do
 			styles[t] = nil
+		end
+		pxGen = pxGen + 1
+		if repixelTrees then
+			repixelTrees()
 		end
 	end
 end
@@ -228,7 +237,7 @@ end
 -- grid: children, padding, gaps, columns).
 local function newNode(kind)
 	local node = setmetatable(createTable(0, 64), NodeMeta)
-	node.kind = kind
+	node.kind, node.gen = kind, pxGen
 	if kind == "text" then
 		node.a, node.args, node.nargs = createTable(0, 16), {}, 0
 	else
@@ -651,7 +660,38 @@ local function show(node, shown)
 	end
 end
 
+-- Round and measure the node and its subtree again at the pixel size now, from the attributes they draw.
+function Node:Repixel()
+	self.gen = pxGen
+	self.valid, self.natValid, self.mW = false, false, nil
+	if self.kind == "text" then
+		self:ApplyText()
+	elseif self.kind == "box" and not self.taken then
+		ownColumns(self)
+		Layout.Apply(self, self.a, resolve, resolveRef, px)
+		self:ApplyLook()
+	end
+	local children = self.children
+	for i = 1, self.count or 0 do
+		children[i]:Repixel()
+	end
+end
+
+function repixelTrees()
+	for _, layer in pairs(layers) do
+		layer:Repixel()
+		enqueue(Layout.Invalidate(layer, true))
+	end
+	for _, node in pairs(takenBy) do
+		node:Repixel()
+		enqueue(Layout.Invalidate(node, true))
+	end
+end
+
 local function attach(child, parent)
+	if child.gen ~= pxGen then
+		child:Repixel() -- rounded at an older pixel size while detached
+	end
 	child.parent = parent
 	local pf = parent.frame
 	if child.fparent ~= pf then -- a node reused under the frame it last sat in keeps it
@@ -786,7 +826,8 @@ function Backend:Take(frame)
 	updateScreen()
 	local node = newNode("root")
 	node.frame, node.taken = frame, true
-	node.parent0, node.scale0, node.alpha0, node.shown0 = frame:GetParent(), frame:GetScale(), frame:GetAlpha(), frame:IsShown()
+	node.parent0, node.scale0 = frame:GetParent(), frame:GetScale()
+	node.alpha0, node.shown0 = frame:GetAlpha(), frame:IsShown()
 	local points = {}
 	for i = 1, frame:GetNumPoints() do
 		points[i] = { frame:GetPoint(i) }
@@ -881,15 +922,22 @@ function Backend:Set(node, attributes)
 			text = true
 		end
 		for i = 1, n do
-			local v = args[i]
-			if mine[i] ~= v then
-				mine[i], text = v, true
+			local arg = args[i]
+			if mine[i] ~= arg then
+				mine[i], text = arg, true
 			end
 		end
 		for i = n + 1, node.nargs do
 			mine[i] = nil
 		end
 		node.nargs = n
+	end
+	if node.gen ~= pxGen then
+		-- rounded at another pixel size: every group again, from the attributes as they now are
+		node.gen = pxGen
+		size, offset, content, border = true, true, true, true
+		text = node.kind == "text"
+		node.valid, node.natValid, node.mW = false, false, nil
 	end
 	if not (size or offset or content or border or look or input or text) then
 		return

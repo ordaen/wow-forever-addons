@@ -6,7 +6,8 @@
 --   kind                      "box", "text" or "root" (a layer or a taken Blizzard frame: w and h come from WoW)
 --   parent, children, count   the tree; children is an array, count its length; a child's place in its parent's grid
 --                             is kept by the parent, in arrays indexed by the child's position (child.idx): cCol,
---                             cRow, cSpan, cW (cell width), cTw, cTh, cGiven (its size there and the height it was given)
+--                             cRow, cSpan, cW (cell width), cTw, cTh, cGiven (its size there and the height it was
+--                             given)
 --   wKind, wAmount            width: "fixed" (amount in UI units), "auto" (content), "pct" (amount 0..1 of the
 --   hKind, hAmount            parent's content box), "fill" (the cell), nil (stretch in its cell, unless the parent's
 --                             xAlign places it; heights: content, stretched to the row by the parent's yAlign)
@@ -606,7 +607,8 @@ end
 -- Size a flow child in its cell: width from its attributes, height at that width (given, or its content's).
 -- Returns w, h and the height it was given (nil: its content decides).
 local function sizeIn(child, cellW, parent, contentW, contentH, ctx)
-	local wk, w = child.wKind, nil
+	local wk = child.wKind
+	local w
 	if wk == "fixed" then
 		w = child.wAmount
 	elseif wk == "pct" then
@@ -637,7 +639,8 @@ local function sizeIn(child, cellW, parent, contentW, contentH, ctx)
 end
 
 -- layoutBox for one flow child in one fr column (cells, wrappers, nested levels): the same result as the grid's
--- general path, computed directly. The cell is the content box (at least MIN_COLUMN), the one row is the child's height.
+-- general path, computed directly. The cell is the content box (at least MIN_COLUMN), the one row is the child's
+-- height.
 local function single(node, child, W, H, padT, padB, padL, contentW, contentH, ctx)
 	local cCol, cRow, cSpan = cells(node)
 	child.idx, cCol[1], cRow[1], cSpan[1] = 1, 1, 1, 1
