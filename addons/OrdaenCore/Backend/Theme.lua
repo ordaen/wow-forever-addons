@@ -17,6 +17,11 @@ ns.Theme = {
 	["color.text"] = { 0.93, 0.91, 0.86, 1 },
 	["color.textDim"] = { 0.62, 0.6, 0.56, 1 },
 	["color.accent"] = { 1, 0.82, 0, 1 },
+	-- experience: the old panel's XP blue; rested XP the design's pale blue over the trough (XpTube: rgba(110,150,210,.16))
+	["color.xp"] = { 0.1, 0.42, 0.9, 1 },
+	["color.xpRested"] = { 0.43, 0.59, 0.82, 0.16 },
+	-- a bar's trough on the wood: darker than the wood, so the bar reads as set into it
+	["color.inset"] = { 0.02, 0.012, 0.006, 0.85 },
 	["spacing.xs"] = 2,
 	["spacing.sm"] = 4,
 	["spacing.md"] = 8,
@@ -37,4 +42,6 @@ ns.Theme = {
 		rim = "Interface\\AddOns\\OrdaenCore\\media\\portrait-rim",
 	},
 	["panel.badge"] = "Interface\\AddOns\\OrdaenCore\\media\\level-badge",
+	-- a thin dark edge round a bar on the wood (the portrait rim's darkest stroke)
+	["panel.barEdge"] = { width = 1, color = { 0.07, 0.043, 0.02, 1 } },
 }
