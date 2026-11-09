@@ -1,5 +1,6 @@
 -- reorder, as a typical addon writes it: after any change every row is re-anchored (ClearAllPoints + SetPoint) and
 -- its text set again from string.format.
+local FONT = import("bench/font")
 local format = string.format
 
 local ROWS, LINE = 500, 14
@@ -9,14 +10,14 @@ local Reorder = {}
 local frame
 local ids, nextId = {}, ROWS + 1
 local textOf, pool = {}, {}
-local seed = 7
+local seed = 1 -- the same shuffles as the other sides
 
 local function Refresh()
 	for i = 1, #ids do
 		local id = ids[i]
 		local text = textOf[id]
 		if not text then
-			text = table.remove(pool) or frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+			text = table.remove(pool) or frame:CreateFontString(nil, "OVERLAY", FONT)
 			textOf[id] = text
 			text:Show()
 		end

@@ -1,5 +1,6 @@
 -- reorder, by hand: one font string per row id, made once (removed ones pooled); after a change of order only the
 -- rows whose position changed are anchored again.
+local FONT = import("bench/font")
 local ROWS, LINE = 500, 14
 
 local Reorder = {}
@@ -12,7 +13,7 @@ local seed = 1
 local function Text(id)
 	local text = table.remove(pool)
 	if not text then
-		text = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		text = frame:CreateFontString(nil, "OVERLAY", FONT)
 	end
 	text:SetFormattedText("row %d", id)
 	text:Show()

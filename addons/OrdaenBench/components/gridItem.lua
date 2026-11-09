@@ -1,4 +1,5 @@
--- One cell of the grid scenario: a 36x36 box with a background and its count.
+-- One cell of the grid scenario: a 36x36 box with a background and its count, handed down (`count`) or read by
+-- the item itself from the grid's map (`counts`, `index`).
 local Define = import("@ordaen/define")
 local counters = import("bench/counters")
 
@@ -18,7 +19,12 @@ return Define.Component({
 	end,
 
 	Render = function(game, self)
-		self.arguments[1] = self.attributes.count:Get()
+		local counts = self.attributes.counts:Get()
+		if counts then
+			self.arguments[1] = counts:Get(self.attributes.index:Get()) or 0
+		else
+			self.arguments[1] = self.attributes.count:Get()
+		end
 		game.ui:Box(CELL_CALL)
 	end,
 })

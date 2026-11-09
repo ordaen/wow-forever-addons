@@ -119,11 +119,26 @@ local function Parse(lines)
 	local results = json.array({})
 	for i = 2, #lines do
 		local f = Split(lines[i])
-		results[#results + 1] = {
+		if f[1] == "settings" then
+			round.settings = {}
+			for j = 2, #f do
+				local k, v = f[j]:match("^([^=]+)=(.*)$")
+				if k then
+					round.settings[k] = v
+				end
+			end
+		elseif f[1] == "addons" then
+			round.addons = json.array({})
+			for name in (f[2] or ""):gmatch("[^,]+") do
+				round.addons[#round.addons + 1] = name
+			end
+		else
+			results[#results + 1] = {
 			scenario = f[1], size = f[2], impl = f[3], metric = f[4],
 			luaMs = tonumber(f[5]), luaP95 = tonumber(f[6]), frameMs = tonumber(f[7]), frameP95 = tonumber(f[8]),
 			kb = tonumber(f[9]), n = tonumber(f[10]), check = f[11] ~= "" and f[11] or nil,
-		}
+			}
+		end
 	end
 	return round, results
 end
@@ -141,6 +156,7 @@ local function Rounds()
 			list[#list + 1] = name
 		end
 	end
+	table.sort(list) -- names are dates: oldest first
 	return list
 end
 
@@ -155,6 +171,25 @@ local function Factor(a, b, field)
 	return string.format("%.1f", a[field] / b[field])
 end
 
+--- The frame with nothing to do: the mean of the round's idle series (start and end).
+local function Idle(round)
+	local sum, n = 0, 0
+	for _, r in ipairs(round.results) do
+		if r.scenario == "idle" and r.frameMs then
+			sum, n = sum + r.frameMs, n + 1
+		end
+	end
+	return n > 0 and sum / n or 0
+end
+
+--- A row's frame time above the idle frame.
+local function AboveIdle(r, idle)
+	if not (r and r.frameMs) then
+		return nil
+	end
+	return math.max(r.frameMs - idle, 0)
+end
+
 local function Readme(round, newest)
 	local rounds = Rounds()
 	local previous
@@ -167,9 +202,7 @@ local function Readme(round, newest)
 	local before, sides = {}, { baseline = {}, typical = {} }
 	if previous then
 		for _, r in ipairs(previous.results) do
-			if r.impl == "framework" then
-				before[Key(r)] = r
-			end
+			before[r.impl .. "|" .. Key(r)] = r
 		end
 	end
 	for _, r in ipairs(round.results) do
@@ -177,6 +210,7 @@ local function Readme(round, newest)
 			sides[r.impl][Key(r)] = r
 		end
 	end
+	local idle, oldIdle = Idle(round), previous and Idle(previous) or 0
 	local out = {}
 	local function add(line)
 		out[#out + 1] = line
@@ -188,35 +222,72 @@ local function Readme(round, newest)
 	add("as a typical addon writes it (`typical/`). Medians in ms, per call or per frame as the metric says:")
 	add("")
 	add("- **Lua:** the step's own time (debugprofilestop). It misses what WoW defers to drawing.")
-	add("- **Frame:** from one frame to the next, the deferred work included (and everything else the client did).")
+	add("- **Frame:** from one frame to the next, the deferred work included, minus the idle frame (the `idle` rows:")
+	add("  a frame with nothing to do, measured at the start and end of the round).")
 	add("- **KB:** Lua heap growth per call, the garbage players pay for later.")
-	add("- **Change:** the framework's Lua median against the round before.")
+	add("- **Change:** the framework's Lua and frame medians against the round before.")
 	add("")
-	add(string.format("Newest round: %s (round %s), client %s, %s fps; Core %s.", round.round.date,
-		tostring(round.round.number), round.round.client, tostring(round.round.fps),
+	add("Reading it:")
+	add("")
+	add("- **grid close and open+close:** the framework unmounts and mounts again (the MVP has no hidden attribute);")
+	add("  hand code hides and shows. Both are real costs, not the same operation, so they have no factor.")
+	add("- **grid steady:** the grid on screen with nothing changing: what drawing it costs every frame.")
+	add("- **make:** hand code always makes its frames new (one round per /reload); the framework's pools may already")
+	add("  hold frames from an earlier scenario of the same round (the large grid reuses the small grid's).")
+	add("- **deep, value through 100 levels:** the framework hands the value down as an attribute through every level;")
+	add("  hand code sets the one text directly. Intended: it shows what passing attributes costs.")
+	add("")
+	add(string.format("Newest round: %s (round %s), client %s, %s fps, idle frame %.2f ms; Core %s.", round.round.date,
+		tostring(round.round.number), round.round.client, tostring(round.round.fps), idle,
 		round.builds.OrdaenCore and round.builds.OrdaenCore.commit or "?"))
+	local settings = round.round.settings
+	if settings then
+		local capped = (tonumber(settings.maxFPS) or 0) > 0 or settings.vsync == "1"
+		add(string.format("Run with: collector %s, maxFPS %s, maxFPSBk %s, vsync %s.%s", settings.collector or "?",
+			settings.maxFPS or "?", settings.maxFPSBk or "?", settings.vsync or "?",
+			capped and " **Frame times are capped (maxFPS or vsync): don't trust them.**" or ""))
+	end
+	local addons = round.round.addons
+	if addons then
+		add(string.format("Loaded addons (%d): %s.", #addons, table.concat(addons, ", ")))
+	end
 	if previous then
 		add(string.format("Compared with: %s (Core %s).", previous.round.date,
 			previous.builds.OrdaenCore and previous.builds.OrdaenCore.commit or "?"))
 	end
 	add("")
 	add("| Scenario | Size | Metric | Framework Lua | Frame | Best Lua | Frame | Typical Lua | Frame "
-		.. "| × best Lua | × best frame | Framework KB | Change | Check |")
-	add("| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
+		.. "| × best Lua | × best frame | × typical Lua | Framework KB | Change Lua | Change frame | Check |")
+	add("| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- |")
 	local failed = 0
 	for _, r in ipairs(round.results) do
-		if r.impl == "framework" then
+		if r.impl == "baseline" or r.impl == "typical" then
+			if r.check and r.check:match("^FAIL") then
+				failed = failed + 1
+				add(string.format("| %s | %s | %s (%s) | | | | | | | | | | | | | %s |", r.scenario, r.size, r.metric, r.impl,
+					r.check))
+			end
+		elseif r.impl:match("^framework") or r.scenario == "idle" then
 			local key = Key(r)
-			local best, typical, old = sides.baseline[key], sides.typical[key], before[key]
-			local change = old and old.luaMs and old.luaMs > 0
-				and string.format("%+.0f%%", (r.luaMs - old.luaMs) / old.luaMs * 100) or ""
+			local best, typical, old = sides.baseline[key], sides.typical[key], before[r.impl .. "|" .. key]
+			local metric = r.impl:match("^framework%-") and (r.metric .. " (" .. r.impl .. ")") or r.metric
+			local frame = { frameMs = AboveIdle(r, idle) }
+			local bestFrame, typicalFrame = { frameMs = AboveIdle(best, idle) }, { frameMs = AboveIdle(typical, idle) }
+			if r.scenario == "idle" then
+				frame = r
+			end
+			local function Change(new, was)
+				return new and was and was > 0 and string.format("%+.0f%%", (new - was) / was * 100) or ""
+			end
 			if r.check and r.check:match("^FAIL") then
 				failed = failed + 1
 			end
-			add(string.format("| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %.1f | %s | %s |", r.scenario,
-				r.size, r.metric, Ms(r, "luaMs"), Ms(r, "frameMs"), Ms(best, "luaMs"), Ms(best, "frameMs"),
-				Ms(typical, "luaMs"), Ms(typical, "frameMs"), Factor(r, best, "luaMs"), Factor(r, best, "frameMs"),
-				r.kb or 0, change, r.check or ""))
+			add(string.format("| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %.1f | %s | %s | %s |",
+				r.scenario, r.size, metric, Ms(r, "luaMs"), Ms(frame, "frameMs"), Ms(best, "luaMs"),
+				Ms(bestFrame, "frameMs"), Ms(typical, "luaMs"), Ms(typicalFrame, "frameMs"), Factor(r, best, "luaMs"),
+				Factor(frame, bestFrame, "frameMs"), Factor(r, typical, "luaMs"), r.kb or 0,
+				Change(r.luaMs, old and old.luaMs),
+				Change(frame.frameMs, old and AboveIdle(old, oldIdle)), r.check or ""))
 		end
 	end
 	add("")

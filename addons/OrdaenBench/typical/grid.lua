@@ -1,9 +1,10 @@
 -- grid, as a typical addon writes it: a frame per cell, and an update that re-anchors the cell and sets its text
 -- from string.format (a Lua string per call).
+local FONT = import("bench/font")
 local floor, format = math.floor, string.format
 
 local SIZES = { small = 200, large = 1000 }
-local COLUMNS, CELL, GAP, PAD = 10, 36, 4, 8
+local COLUMNS, CELL, GAP, PAD = 10, 36, 2, 8 -- the framework grid's spacing.xs and spacing.md
 
 local Grid = {}
 
@@ -32,7 +33,7 @@ function Grid.Make(size)
 		local texture = cell:CreateTexture(nil, "BACKGROUND")
 		texture:SetAllPoints()
 		texture:SetColorTexture(0.3, 0.3, 0.35, 1)
-		cell.count = cell:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		cell.count = cell:CreateFontString(nil, "OVERLAY", FONT)
 		cell.count:SetAllPoints()
 		Update(grid, cell, i, 0)
 		list[i] = cell
@@ -49,6 +50,19 @@ function Grid.SetAll(size, base)
 	for i = 1, #list do
 		Update(grid, list[i], i, base + i)
 	end
+end
+
+--- Whether the counts show what SetAll(size, base) wrote: the first, middle and last cell.
+function Grid.Verify(size, base)
+	local list = cells[size]
+	local n = #list
+	for _, i in ipairs({ 1, floor(n / 2), n }) do
+		local shown = list[i].count:GetText()
+		if shown ~= tostring(base + i) then
+			return false, "cell " .. i .. " shows " .. tostring(shown)
+		end
+	end
+	return true
 end
 
 function Grid.Show(size)

@@ -40,6 +40,10 @@ end
 
 local WARMUP = 5
 
+--- How the collector is kept out of timed calls: "stop" (stopped around each call; its work for a call's garbage
+--- lands in that frame) or "collect" (a full collection before each call; frame times then hold no GC).
+Driver.collector = canStop and "stop" or "collect"
+
 function Driver.IsRunning()
 	return running
 end

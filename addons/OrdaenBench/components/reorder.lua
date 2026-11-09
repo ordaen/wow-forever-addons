@@ -48,8 +48,10 @@ return Define.Component({
 						Store()
 					end,
 					Rotate = function()
-						table.insert(ids, table.remove(ids, 1))
-						Store()
+						local id = table.remove(ids, 1)
+						ids[#ids + 1] = id
+						order:Remove(1)
+						order:Insert(id)
 					end,
 					InsertFront = function()
 						table.insert(ids, 1, nextId)
@@ -57,8 +59,9 @@ return Define.Component({
 						Store()
 					end,
 					RemoveMiddle = function()
-						table.remove(ids, math.floor(#ids / 2))
-						Store()
+						local middle = math.floor(#ids / 2)
+						table.remove(ids, middle)
+						order:Remove(middle)
 					end,
 					Shuffle = function()
 						for i = #ids, 2, -1 do

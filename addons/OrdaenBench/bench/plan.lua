@@ -15,8 +15,9 @@ local Typical = {
 }
 
 local FRAMES = 120 -- frames per steady-state series
-local REPEATS = 20 -- repeats of each one-off change
+local REPEATS = 60 -- repeats of each one-off change (WARMUP of them out of the numbers)
 local FW, BEST, TYPICAL = "framework", "baseline", "typical"
+local FW_ITEMS = "framework-itemsRead" -- the grid with each item reading its own count
 
 local Plan = {}
 
@@ -50,6 +51,10 @@ function Plan.Steps(bench, round)
 	local function NoViolations()
 		return counters.violations == mark.violations, (counters.violations - mark.violations) .. " stale reads"
 	end
+	local function Nothing() end
+
+	-- idle: the frame with nothing to do, the reference frame times are read against (again at the end)
+	add(measure:Series("idle", "-", "-", "nothing", FRAMES, Nothing))
 
 	-- signals: many values, sums, watches
 	for _, size in ipairs({ "small", "large" }) do
@@ -205,11 +210,14 @@ function Plan.Steps(bench, round)
 				add(measure:Once("grid", size, impl, "make", function()
 					Grid.Make(size)
 				end))
+				add(measure:Series("grid", size, impl, "steady (shown, unchanged)", FRAMES, Nothing))
 				add(measure:Series("grid", size, impl, "one changed", REPEATS, function(i)
 					Grid.SetOne(size, i, i)
 				end))
 				add(measure:Series("grid", size, impl, "all changed", REPEATS, function(i)
 					Grid.SetAll(size, i)
+				end, function()
+					return Grid.Verify(size, REPEATS)
 				end))
 				add(measure:Once("grid", size, impl, "close", function()
 					Grid.Hide(size)
@@ -220,40 +228,47 @@ function Plan.Steps(bench, round)
 				end))
 			end
 		end
-		Sides({
-			function()
-				add(measure:Once("grid", size, FW, "make", function()
+		--- The framework side: `impl` names the variant, `scene` the mounted grid.
+		local function Framework(impl, scene)
+			return function()
+				add(measure:Once("grid", size, impl, "make", function()
 					Show(scene)
 				end))
-				add(measure:Series("grid", size, FW, "one changed", REPEATS, function(i)
+				add(measure:Series("grid", size, impl, "steady (shown, unchanged)", FRAMES, Nothing))
+				add(measure:Series("grid", size, impl, "one changed", REPEATS, function(i)
 					refs[scene].SetOne(i, i)
 					flush()
 				end))
-				add(measure:Series("grid", size, FW, "all changed", REPEATS, function(i)
+				add(measure:Series("grid", size, impl, "all changed", REPEATS, function(i)
 					local ref = refs[scene]
 					for k = 1, ref.Count() do
 						ref.SetOne(k, i + k)
 					end
 					flush()
 				end))
-				add(measure:Once("grid", size, FW, "close", function()
+				-- the MVP has no hidden attribute: closing unmounts, opening mounts again (hand code hides and shows)
+				add(measure:Once("grid", size, impl, "close (unmount)", function()
 					Show("none")
 				end))
-				add(measure:Series("grid", size, FW, "open+close", REPEATS, function()
+				add(measure:Series("grid", size, impl, "open+close (remount)", REPEATS, function()
 					Show(scene)
 					Show("none")
 				end))
 				add(Mark("mounts"))
-				add(measure:Once("grid", size, FW, "race: open+close in one frame", function()
+				add(measure:Once("grid", size, impl, "race: open+close in one frame", function()
 					Set(scene)
 					Set("none")
 					flush()
 					return Grew("mounts", 0)()
 				end))
-				add(measure:Check("grid", size, FW, "race: handle after close", function()
+				add(measure:Check("grid", size, impl, "race: handle after close", function()
 					return pcall(refs[scene].SetOne, 1, 1)
 				end))
-			end,
+			end
+		end
+		Sides({
+			Framework(FW, scene),
+			Framework(FW_ITEMS, scene .. "-itemsRead"),
 			ByHand(BEST, Best.grid),
 			ByHand(TYPICAL, Typical.grid),
 		})
@@ -353,6 +368,7 @@ function Plan.Steps(bench, round)
 			add(measure:Once("deep", "-", BEST, "close", Best.deep.Hide))
 		end,
 	})
+	add(measure:Series("idle", "-", "-", "nothing (end)", FRAMES, Nothing))
 	return steps
 end
 

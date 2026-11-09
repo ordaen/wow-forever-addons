@@ -1,5 +1,6 @@
 -- deep, by hand: 100 frames nested one inside the other with a 1-pixel inset, a font string in the innermost; either
 -- change sets that one font string.
+local FONT = import("bench/font")
 local DEPTH = 100
 
 local Deep = {}
@@ -18,7 +19,7 @@ function Deep.Make()
 		level:SetPoint("BOTTOMRIGHT", -1, 1)
 		parent = level
 	end
-	text = parent:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+	text = parent:CreateFontString(nil, "OVERLAY", FONT)
 	text:SetPoint("CENTER")
 	text:SetFormattedText("%d / %d", value, source)
 end

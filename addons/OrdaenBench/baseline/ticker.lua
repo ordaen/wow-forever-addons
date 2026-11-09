@@ -1,5 +1,6 @@
 -- ticker, by hand: the font strings made once and placed one under the other; every frame sets each one's two
 -- numbers with SetFormattedText (no Lua string made).
+local FONT = import("bench/font")
 local SIZES = { small = 50, large = 500 }
 local LINE = 14
 
@@ -14,7 +15,7 @@ function Ticker.Make(size)
 	frame:SetPoint("LEFT", 40, 0)
 	local list = {}
 	for i = 1, count do
-		local text = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
+		local text = frame:CreateFontString(nil, "OVERLAY", FONT)
 		text:SetPoint("TOPLEFT", 0, -(i - 1) * LINE)
 		text:SetWidth(200) -- the framework's column is 200 wide, its texts left-aligned
 		text:SetJustifyH("LEFT")
