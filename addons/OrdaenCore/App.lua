@@ -20,11 +20,27 @@ local ModuleMeta = { __index = Module }
 
 local IMPORTING = {} -- marks a file whose import is running (a cycle)
 
+-- What the build freezes in a module file goes through here (design: development/framework/structure, «Frozen
+-- tables»). Forever's table.freeze freezes only a table owned by its caller's addon, and a module file's tables are
+-- made while OrdaenCore imports it: they are OrdaenCore's, so OrdaenCore's function freezes them. A table it can't
+-- freeze stays as it is (the module still loads) and the import reports it in dev.
+local freeze = table.freeze
+local freezeError -- the first failure while a file is imported
+local function Freeze(t)
+	local ok, err = pcall(freeze, t)
+	if not ok and not freezeError then
+		freezeError = err
+	end
+	return t
+end
+
 --- A file's export by its path in the module; runs the file the first time.
 ---@param path string
 function Module:Import(path)
 	if path == "@ordaen/define" then
 		return Define
+	elseif path == "@ordaen/freeze" then
+		return Freeze
 	end
 	local cached = self.cache[path]
 	if cached == IMPORTING then
@@ -42,6 +58,10 @@ function Module:Import(path)
 		App.currentFile = path
 		local ok, result = pcall(export, self.import)
 		App.currentFile = previous
+		if freezeError then
+			self.debug:Warnf("%s: a table the build froze stayed writable: %s", path, tostring(freezeError))
+			freezeError = nil
+		end
 		if not ok then
 			self.cache[path] = nil
 			error(result, 0)
