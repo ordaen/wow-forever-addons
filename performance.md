@@ -183,3 +183,21 @@ usually writes it.
 - A grid on screen with nothing changing adds nothing measurable to the main thread's frame at CPU-bound settings, on
   either side. WoW also draws on worker threads, whose slack hides work, so this doesn't mean drawing is free; for
   what an addon costs players' frames, the main thread is the measure.
+
+## How a changed value reaches the screen
+
+`scripts/vapor.lua` (offline, the fake client, Lua VM instructions; Core 1ac7d2a): a grid of 1000 texts, each
+showing one value, drawn three ways. Every way ends with every text right.
+
+| | Mount | Kept per text | All 1000 changed, per text | One changed | 1000 equal writes |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| A component per text, its render re-run | 7.81 M | 7.0 KB | 3054 | 571 k | 21 k |
+| A binding object per text (shared expression) | 6.63 M | 5.1 KB | 2265 | 571 k | 21 k |
+| A binding holding a closure per text | 6.61 M | 4.9 KB | 2267 | 571 k | 21 k |
+
+- A binding writes its field without re-running a render: a quarter fewer instructions per change and 2 KB less
+  per text (no instance, effect or fragment per text).
+- Object or closure costs the same time; the closure's lower memory here is the prototype's object carrying three
+  fields a shared metatable would hold. Bindings are objects (one metatable), as the code style asks.
+- One changed text costs the same three ways: the backend lays the whole grid out again (the text's width can
+  change), about 570 instructions per text in the grid. That is the backend's share to cut, not the engine's.
