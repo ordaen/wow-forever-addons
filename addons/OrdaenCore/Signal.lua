@@ -6,7 +6,7 @@
 -- (made on first use), a run's sources a reused array, the queue two reused arrays.
 local _, ns = ...
 
-local pairs, sort = pairs, table.sort
+local pairs = pairs
 
 ---@class OrdaenTracking
 ---@field observer table|nil the effect or computed value recording its reads now
@@ -247,13 +247,17 @@ ns.Stage.Ready.sticky = true
 
 -- The scheduler --------------------------------------------------------------------------------------------------
 
-local MAX_PASSES = 100 -- an effect that keeps writing what it reads stops here
+local MAX_RUNS = 100 -- runs of one effect in one flush: past it, it's writing what it reads (a loop)
 
 ---@class OrdaenScheduler
 local Scheduler = {}
 ns.Scheduler = Scheduler
 
-local queue, queued, spare = {}, 0, {}
+-- The queue is a binary heap ordered parents first (depth, then creation order), reused: an effect marked during
+-- the flush (a child whose attribute its parent just changed) is taken in the same flush, in tree order, however
+-- deep the tree.
+local heap, size = {}, 0
+local flushes = 0 -- counts flushes: an effect's runs in this one are counted against MAX_RUNS
 local frame -- made on the first change: one OnUpdate, set only while something waits
 local pending = false
 local Debug -- Ordaen's debug kit, taken once the dev addon can have replaced the stand-in (after login)
@@ -291,12 +295,48 @@ function Scheduler.Request()
 	end
 end
 
---- Queue a marked effect for the next flush.
+--- Queue a marked effect for the next flush (or for this one, while it runs).
 ---@param effect table
 function Scheduler.Queue(effect)
-	queued = queued + 1
-	queue[queued] = effect
+	size = size + 1
+	local i = size
+	while i > 1 do -- sift up
+		local parent = (i - i % 2) / 2
+		local above = heap[parent]
+		if not Before(effect, above) then
+			break
+		end
+		heap[i] = above
+		i = parent
+	end
+	heap[i] = effect
 	Scheduler.Request()
+end
+
+local function Pop()
+	local top = heap[1]
+	local last = heap[size]
+	heap[size] = nil
+	size = size - 1
+	if size > 0 then
+		local i = 1
+		while true do -- sift down
+			local child = i * 2
+			if child > size then
+				break
+			end
+			if child < size and Before(heap[child + 1], heap[child]) then
+				child = child + 1
+			end
+			if not Before(heap[child], last) then
+				break
+			end
+			heap[i] = heap[child]
+			i = child
+		end
+		heap[i] = last
+	end
+	return top
 end
 
 --- Re-run the marked effects, parents first, then settle what was drawn and let the backend lay it out.
@@ -308,30 +348,26 @@ function Scheduler.Flush()
 	local Engine = ns.Engine
 	local Debug = Kit()
 	local t = Debug:TimeStart()
-	local passes = 0
-	while queued > 0 do
-		passes = passes + 1
-		if passes > MAX_PASSES then
-			for i = 1, queued do
-				queue[i].dirty = false
-				queue[i] = nil
+	flushes = flushes + 1
+	local looped = false
+	while size > 0 do
+		local effect = Pop()
+		if effect.dirty and effect.alive then
+			if effect.flush ~= flushes then
+				effect.flush, effect.runs = flushes, 0
 			end
-			queued = 0
-			geterrorhandler()("Ordaen: effects kept re-running each other (an effect writes what it reads)")
-			break
-		end
-		local list, n = queue, queued
-		queue, queued, spare = spare, 0, list
-		if n > 1 then
-			sort(list, Before)
-		end
-		for i = 1, n do
-			local effect = list[i]
-			list[i] = nil
-			if effect.dirty and effect.alive then
+			local runs = effect.runs + 1
+			effect.runs = runs
+			if runs > MAX_RUNS then
+				effect.dirty = false -- dropped for this flush: it runs again on its next change
+				looped = true
+			else
 				Engine:RunEffect(effect)
 			end
 		end
+	end
+	if looped then
+		geterrorhandler()("Ordaen: effects kept re-running each other (an effect writes what it reads)")
 	end
 	Debug:TimeEnd(t, "flush: effects")
 	t = Debug:TimeStart()

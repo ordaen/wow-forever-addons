@@ -184,7 +184,8 @@ function Draw:NewInstance(instance, container)
 	instance._container = container
 	instance._fragment = NewFragment(instance, container)
 	instance._mounted, instance._nMounted = {}, 0
-	if container.isPlace then
+	-- a place lists the module roots only: a child mounted with self:Mount is drawn through its parent's _mounted
+	if container.isPlace and not instance._parent then
 		local n = container.n + 1
 		container.n = n
 		container.members[n] = instance
