@@ -517,6 +517,36 @@ function UiBase:Frame(site, reference, data)
 	end
 end
 
+--- Place a Blizzard frame in this render's layout, like a box: `game.ui:Embed(game.Frame.CharacterMicroButton,
+--- { attributes = { width = 32, height = 40 } })`. It's moved into the parent box's grid (its parent, level, one
+--- point, its size, shown), keeps its own scripts, mouse and secure state, and goes back as it was when the render
+--- stops drawing it. Takes width, height, columnSpan, position, the offsets and opacity.
+function UiBase:Embed(site, reference, data)
+	local f = fragments[nFragments]
+	if not f then
+		error("Ordaen: drawing outside a render", 2)
+	end
+	local frame = reference:Get()
+	if not frame then
+		return -- not there yet (a load-on-demand window): embedded when a later run finds it
+	end
+	local e = Lookup(f, site, nil)
+	if e and (e.kind ~= "embed" or e.frame ~= frame) then
+		e = nil
+	end
+	if not e then
+		e = NewEntry(f, "embed", site, nil)
+		e.frame = frame
+		e.node = ns.Backend:Embed(frame)
+	end
+	Append(f, e)
+	local attributes = data and data.attributes or EMPTY
+	if Differs(e.last, attributes) then
+		Copy(e.last, attributes)
+		ns.Backend:Set(e.node, attributes)
+	end
+end
+
 --- Where the caller's content for slot `name` goes.
 function UiBase:Slot(site, name) -- luacheck: ignore 212
 	local instance = runs[nRuns]
@@ -610,7 +640,7 @@ local function Expand(f, n)
 			if e.instance then
 				n = ExpandInstance(e.instance, n)
 			end
-		elseif kind ~= "frame" then
+		elseif kind ~= "frame" then -- boxes, texts and embedded frames are laid out; taken frames stay where they are
 			n = n + 1
 			flat[n] = e.node
 		end

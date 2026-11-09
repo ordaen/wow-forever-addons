@@ -75,6 +75,17 @@ end
 
 --- Blizzard's frames by reference: `game.Frame.CombinedBags:Get()`.
 local FRAME_NAMES = { CombinedBags = "ContainerFrameCombinedBags", Minimap = "Minimap", Merchant = "MerchantFrame" }
+-- the micro menu and bag bar, under their own names (every one in the dump of 70862)
+for _, name in ipairs({
+	"CharacterMicroButton", "PlayerSpellsMicroButton", "SpellbookMicroButton", "TalentMicroButton",
+	"ProfessionMicroButton", "AchievementMicroButton", "QuestLogMicroButton", "GuildMicroButton", "LFDMicroButton",
+	"CollectionsMicroButton", "EJMicroButton", "HousingMicroButton", "LegacyMicroButton", "MainMenuMicroButton",
+	"HelpMicroButton", "StoreMicroButton", "MicroMenu", "MicroMenuContainer",
+	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
+	"CharacterReagentBag0Slot", "BagBarExpandToggle", "BagsBar",
+}) do
+	FRAME_NAMES[name] = name
+end
 local FrameRef = {}
 local FrameRefMeta = { __index = FrameRef }
 function FrameRef:Get()
@@ -110,14 +121,34 @@ function DOMAINS.Money()
 end
 
 function DOMAINS.Player()
-	local Player = { name = NewValue(nil) }
+	-- value signals, read once the character is in the world and kept current by the events that change them
+	local Player = {
+		name = NewValue(nil), class = NewValue(nil), level = NewValue(nil), xp = NewValue(nil),
+		xpMax = NewValue(nil), rested = NewValue(nil),
+	}
 	local key
-	Game.Stage.Login:Subscribe(function()
-		Player.name:Set(UnitName("player"))
-	end, false)
-	if Game.Stage.Login.fired then
-		Player.name:Set(UnitName("player"))
+	local function ReadXp()
+		Player.level:Set(UnitLevel("player"))
+		Player.xp:Set(UnitXP("player"))
+		Player.xpMax:Set(UnitXPMax("player"))
+		Player.rested:Set(GetXPExhaustion()) -- nil when there's none
 	end
+	local function ReadAll()
+		Player.name:Set(UnitName("player"))
+		Player.class:Set((select(2, UnitClass("player")))) -- the file name: "WARRIOR"
+		ReadXp()
+	end
+	Game.Stage.Login:Subscribe(ReadAll, false)
+	if Game.Stage.Login.fired then
+		ReadAll()
+	end
+	RawEvent("PLAYER_ENTERING_WORLD"):Subscribe(ReadAll, false)
+	RawEvent("PLAYER_XP_UPDATE"):Subscribe(ReadXp, false)
+	RawEvent("PLAYER_LEVEL_UP"):Subscribe(function(level) -- UnitLevel can still say the old level here
+		ReadXp()
+		Player.level:Set(level)
+	end, false)
+	RawEvent("UPDATE_EXHAUSTION"):Subscribe(ReadXp, false)
 	--- "Name-Realm": the character's key in account-wide data.
 	function Player:Key() -- luacheck: ignore 212
 		if not key then
