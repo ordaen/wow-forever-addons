@@ -513,6 +513,18 @@ function FrameMethods:SetClipsChildren(on)
 	self._clips = on
 end
 
+function FrameMethods:DoesClipChildren()
+	return not not self._clips
+end
+
+function FrameMethods:EnableMouseWheel(on)
+	self._wheel = on
+end
+
+function FrameMethods:IsMouseWheelEnabled()
+	return not not self._wheel
+end
+
 local ButtonMethods = copyInto({}, FrameMethods)
 
 function ButtonMethods:RegisterForClicks(...)

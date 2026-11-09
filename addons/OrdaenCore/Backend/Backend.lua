@@ -22,7 +22,8 @@ local Theme = ns.Theme
 
 local CreateFrame, UIParent, GetPhysicalScreenSize = CreateFrame, UIParent, GetPhysicalScreenSize
 local InCombatLockdown, hooksecurefunc = InCombatLockdown, hooksecurefunc
-local floor, ceil, max, type, rawget, tonumber, unpack = math.floor, math.ceil, math.max, type, rawget, tonumber, unpack
+local floor, ceil, max, min = math.floor, math.ceil, math.max, math.min
+local type, rawget, tonumber, unpack = type, rawget, tonumber, unpack
 local find = string.find
 local createTable, isfrozen = table.create, table.isfrozen
 
@@ -63,7 +64,7 @@ local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5,
 local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
-	shown = LOOK, textShadow = LOOK,
+	shown = LOOK, textShadow = LOOK, overflow = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT,
 	text = TEXT, textSize = TEXT, textFamily = TEXT, wrap = TEXT,
 }
@@ -76,7 +77,8 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 		TEXT_KEYS[#TEXT_KEYS + 1] = attribute.key
 	end
 end
-for _, key in ipairs({ "background", "opacity", "portrait", "mask", "stateFrom", "OnClick", "OnEnter", "OnLeave" }) do
+for _, key in ipairs({ "background", "opacity", "portrait", "mask", "overflow", "stateFrom", "OnClick", "OnEnter",
+	"OnLeave" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
 end
 for _, key in ipairs({ "text", "textSize", "textFamily", "wrap", "textColor", "textShadow", "textAlign", "opacity" }) do
@@ -214,6 +216,9 @@ local stale, nStale = {}, 0 -- reused nodes still drawing their previous attribu
 local orphans, nOrphans = {}, 0 -- children a reused node held in its previous life: hidden at Flush unless reused
 local stamp = 0
 local layers = {}
+-- boxes with overflow = "scroll": their content's extent is measured again after each layout (weak: a released box goes)
+local scrollers = setmetatable({}, { __mode = "k" })
+local attach -- forward: Node:ApplyOverflow moves the children
 -- Read by Backend.dev.lua (the bench's node counts); the tables themselves, never replaced.
 Backend._boxPool, Backend._textPool, Backend._layers = boxPool, textPool, layers
 local takenBy = setmetatable({}, { __mode = "k" }) -- Blizzard frame -> the node holding it
@@ -314,14 +319,14 @@ function ctx.place(node)
 	local x, y = snap(node.x), snap(node.y)
 	local obj, rel, w, h
 	if node.embedded then
-		node.pRel, node.pX, node.pY = parent.frame, x, y
+		node.pRel, node.pX, node.pY = parent.inner or parent.frame, x, y
 		node.pW, node.pH = max(snap(node.x + node.w) - x, 0), max(snap(node.y + node.h) - y, 0)
 		node:PlaceEmbedded()
 		return
 	elseif node.kind == "text" then
-		obj, rel, w, h = node.fs, parent.frame, node.w, node.h
+		obj, rel, w, h = node.fs, parent.inner or parent.frame, node.w, node.h
 	else
-		obj, rel = node.frame, node.pos == "fixed" and UIParent or parent.frame
+		obj, rel = node.frame, node.pos == "fixed" and UIParent or parent.inner or parent.frame
 		w, h = max(snap(node.x + node.w) - x, 0), max(snap(node.y + node.h) - y, 0)
 	end
 	if rel ~= node.pRel or x ~= node.pX or y ~= node.pY then
@@ -728,6 +733,94 @@ function Node:FitBackground()
 	self.bg:SetTexCoord(l, r, t, b)
 end
 
+-- overflow: "clip" cuts the children at the box's edges; "scroll" clips too and holds them in an inner frame the
+-- mouse wheel moves (one SetPoint a notch), as tall as their extent (Node:ScrollTo). "visible" or unset draws them as
+-- they fall.
+local SCROLL_STEP = 40 -- UI units a wheel notch moves
+
+local function onWheel(frame, delta)
+	local node = frame.node
+	node:ScrollTo((node.scrollY or 0) - delta * SCROLL_STEP)
+end
+
+function Node:ApplyOverflow(overflow)
+	local frame = self.frame
+	local scroll = overflow == "scroll"
+	frame:SetClipsChildren(scroll or overflow == "clip")
+	if scroll == (self.inner ~= nil) then
+		return
+	end
+	if scroll then
+		local inner = self.innerFrame
+		if not inner then
+			inner = CreateFrame("Frame", nil, frame)
+			self.innerFrame = inner
+		end
+		inner:Show()
+		inner:ClearAllPoints()
+		inner:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
+		self.inner, self.scrollY, self.innerW, self.innerH = inner, 0, nil, nil
+		frame:EnableMouseWheel(true)
+		frame:SetScript("OnMouseWheel", onWheel)
+		scrollers[self] = true
+	else
+		self.innerFrame:Hide()
+		self.inner, self.scrollY, self.innerW, self.innerH = nil, nil, nil, nil
+		frame:EnableMouseWheel(false)
+		frame:SetScript("OnMouseWheel", nil)
+		scrollers[self] = nil
+	end
+	-- the children move to the new host frame, and are placed again
+	local host = self.inner or frame
+	local tf = self.textFrame
+	if tf then
+		tf:SetParent(host)
+		tf:ClearAllPoints()
+		tf:SetAllPoints(host)
+	end
+	if self.textHost and self.textHost ~= tf then
+		self.textHost = host
+	end
+	local children = self.children
+	for i = 1, self.count or 0 do
+		local child = children[i]
+		child.fparent, child.pRel, child.x = nil, nil, nil
+		attach(child, self)
+	end
+	enqueue(Layout.Invalidate(self))
+end
+
+---Scroll a box with overflow = "scroll" to `y` UI units from its content's top, held between 0 and its content's
+---extent (its children's bottom and its bottom padding) less its height, on whole pixels.
+---@param y number
+function Node:ScrollTo(y)
+	local inner = self.inner
+	if not inner then
+		return
+	end
+	local extent = 0
+	local children = self.children
+	for i = 1, self.count or 0 do
+		local child = children[i]
+		local cy, ch = child.y, child.h
+		if cy and ch and cy + ch > extent then
+			extent = cy + ch
+		end
+	end
+	extent = extent + (self.padB or 0)
+	local view = self.pH or 0
+	y = snap(min(max(y, 0), max(0, extent - view)))
+	if y ~= self.scrollY then
+		self.scrollY = y
+		inner:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 0, y)
+	end
+	local w, h = self.pW or 0, max(extent, view)
+	if w ~= self.innerW or h ~= self.innerH then
+		self.innerW, self.innerH = w, h
+		inner:SetSize(w, h)
+	end
+end
+
 -- The look: background, border, opacity, text colour and alignment. Each setter runs only when its value changed.
 function Node:ApplyLook()
 	local a = self.a
@@ -786,6 +879,14 @@ function Node:ApplyLook()
 	if mask ~= self.lookMask then
 		self.lookMask = mask
 		self:ApplyMask(mask)
+	end
+	local overflow = a.overflow
+	if overflow ~= nil then
+		overflow = resolve(self, overflow)
+	end
+	if overflow ~= self.lookOverflow then
+		self.lookOverflow = overflow
+		self:ApplyOverflow(overflow)
 	end
 	local bg = resolve(self, a.background)
 	-- under a border drawn with Blizzard's art the background starts at the art's inset (MetalFrame's fill)
@@ -1159,7 +1260,7 @@ function Node:PlaceEmbedded()
 	embedding = true
 	local parent = self.parent
 	if parent and self.shown then
-		local pf = parent.frame
+		local pf = parent.inner or parent.frame
 		if frame:GetParent() ~= pf then
 			frame:SetParent(pf)
 		end
@@ -1366,20 +1467,21 @@ local TEXT_LEVELS = 20
 function Node:TextFrame()
 	local tf = self.textFrame
 	if not tf then
-		tf = CreateFrame("Frame", nil, self.frame)
-		tf:SetAllPoints(self.frame)
+		local host = self.inner or self.frame
+		tf = CreateFrame("Frame", nil, host)
+		tf:SetAllPoints(host)
 		self.textFrame = tf
 	end
 	tf:SetFrameLevel(self.frame:GetFrameLevel() + TEXT_LEVELS)
 	return tf
 end
 
-local function attach(child, parent)
+function attach(child, parent)
 	if child.gen ~= pxGen then
 		child:Repixel() -- rounded at an older pixel size while detached
 	end
 	child.parent = parent
-	local pf = child.kind == "text" and parent.textHost or parent.frame
+	local pf = child.kind == "text" and parent.textHost or parent.inner or parent.frame
 	if child.embedded then -- its parent, level and point come with its place (PlaceEmbedded)
 		child.fparent, child.x, child.shown = pf, nil, true
 		return
@@ -1859,7 +1961,7 @@ function Backend:SetChildren(node, children, count)
 		child.mark = stamp
 		boxes = boxes or child.kind ~= "text"
 	end
-	local host = boxes and node.kind ~= "root" and node:TextFrame() or node.frame
+	local host = boxes and node.kind ~= "root" and node:TextFrame() or node.inner or node.frame
 	local moved = host ~= node.textHost
 	node.textHost = host
 	for i = 1, node.count do
@@ -1989,6 +2091,13 @@ function Backend:Flush()
 			i = i + 1
 		end
 		nQueue = 0
+		for node in next, scrollers do
+			if node.released then
+				scrollers[node] = nil
+			else
+				node:ScrollTo(node.scrollY or 0)
+			end
+		end
 	end
 	if nOrphans > 0 then
 		for i = 1, nOrphans do

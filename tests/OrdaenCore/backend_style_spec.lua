@@ -239,6 +239,55 @@ describe("backend styles", function()
 		assert.are.equal("100", short.fs:GetText())
 	end)
 
+	it("scrolls a box's children with the wheel within their extent, and clips them", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local box = Backend:Create("box")
+		Backend:Set(box, { position = "absolute", left = 0, top = 0, width = 100, height = 100, overflow = "scroll" })
+		local rows = {}
+		for i = 1, 10 do
+			local row = Backend:Create("box")
+			Backend:Set(row, { height = 30 })
+			rows[i] = row
+		end
+		local label = Backend:Create("text")
+		Backend:Set(label, { text = "end" })
+		rows[11] = label
+		Backend:SetChildren(box, rows, 11)
+		Backend:SetChildren(layer, { box }, 1)
+		Backend:Flush()
+		local frame, inner = box.frame, box.inner
+		assert.is_true(frame:DoesClipChildren())
+		assert.is_true(frame:IsMouseWheelEnabled())
+		assert.are.equal(inner, rows[1].frame:GetParent())
+		assert.are.equal(inner, label.fs:GetParent():GetParent()) -- the texts' frame, above the rows, sits in it too
+		local extent = label.y + label.h -- the last row's laid-out bottom
+		assert.are.equal(extent, inner:GetHeight())
+		local wheel = frame:GetScript("OnMouseWheel")
+		wheel(frame, -1) -- down one notch
+		assert.is_true(math.abs(box.scrollY - 40) < 1) -- one notch, on a whole pixel
+		for _ = 1, 20 do
+			wheel(frame, -1)
+		end
+		assert.is_true(math.abs(box.scrollY - (extent - 100)) < 1) -- held at the content's end, on a whole pixel
+		wheel(frame, 50)
+		assert.are.equal(0, box.scrollY)
+		-- fewer children: the position is held within the new extent at the next layout
+		for _ = 1, 20 do
+			wheel(frame, -1)
+		end
+		Backend:SetChildren(box, { rows[1], rows[2], rows[3], rows[4] }, 4)
+		Backend:Flush()
+		assert.is_true(math.abs(box.scrollY - (rows[4].y + rows[4].h - 100)) < 1)
+		-- back to visible: the children sit in the box's own frame again
+		Backend:Set(box, { position = "absolute", left = 0, top = 0, width = 100, height = 100 })
+		Backend:Flush()
+		assert.is_nil(box.inner)
+		assert.is_false(frame:DoesClipChildren())
+		assert.are.equal(frame, rows[1].frame:GetParent())
+	end)
+
 	it("draws a text in a theme font with a shadow, and drops the shadow", function()
 		local wow, ns = client()
 		local Backend = ns.Backend
