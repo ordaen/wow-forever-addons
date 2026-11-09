@@ -44,6 +44,10 @@ local function walk(node, out)
 			out.live_text = out.live_text + 1
 		else
 			out.live_box = out.live_box + 1
+			-- a box must draw above the frame it sits in (Backend.lua sets a level only when it isn't)
+			if child.frame:GetFrameLevel() <= node.frame:GetFrameLevel() then
+				out.level_errors = out.level_errors + 1
+			end
 		end
 		count(child, out)
 		walk(child, out)
@@ -51,14 +55,15 @@ local function walk(node, out)
 end
 
 local FIELDS = { "created_box", "created_text", "live_box", "live_text", "pool_box", "pool_text", "hash", "hash_slots",
-	"array" }
+	"array", "level_errors" }
 
 --- The backend's nodes now, into `out` (reused by the caller):
 --- - live_box, live_text: nodes drawn under a layer; pool_box, pool_text: released nodes waiting in the pools;
 ---   created_box, created_text: their sums (a node detached but not released is in neither);
 --- - hash, hash_slots, array: summed over those nodes and their own tables (attributes, arguments, children,
 ---   column and row arrays, border edges): hash entries, the hash slots Lua allocates for them (powers of two), and
----   array entries, from table.getcountinfo.
+---   array entries, from table.getcountinfo;
+--- - level_errors: live boxes whose frame level isn't above the frame they sit in (0, or they draw under it).
 ---@param out table
 ---@return table out
 function Core._BackendStats(out)

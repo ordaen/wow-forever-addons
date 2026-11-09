@@ -3,8 +3,18 @@
 -- only the setters whose value changed, Layout.lua places what changed at the end of each flush, and mouse states
 -- (hover, pressed) restyle a box without the engine. Module code runs only through ns.Engine:Handle.
 --
--- Costs: nothing per frame (no OnUpdate, no events; a layer's OnSizeChanged lays it out again), no tables per Set or
--- Flush once a node exists, text measured only when its text, size or wrapped width changes.
+-- Costs (performance.md has the measured WoW call prices):
+-- - nothing per frame (no OnUpdate, no events; a layer's OnSizeChanged lays it out again);
+-- - no tables per Set or Flush once a node exists;
+-- - a Set does only the work of the attribute groups that changed;
+-- - text is measured only when its text, size or wrapping changes, and laid out only when its size can matter;
+-- - release makes no WoW call: a released node keeps its frame where it was and the attributes it last drew, so
+--   reusing it changes only what differs; the one Hide is the closed subtree's top node, when its parent drops it;
+-- - placing calls SetPoint and SetSize only for what changed.
+--
+-- The placing rules that make that safe: every node has one anchor point, TOPLEFT, to its parent's frame (UIParent for
+-- position "fixed"), and Layout places a parent before its children. A reused node's stale point is replaced before
+-- anything is anchored to it, so no two frames ever anchor to each other.
 local _, ns = ...
 
 local Layout = ns.Layout
@@ -13,6 +23,8 @@ local Theme = ns.Theme
 local CreateFrame, UIParent, GetPhysicalScreenSize = CreateFrame, UIParent, GetPhysicalScreenSize
 local InCombatLockdown, hooksecurefunc = InCombatLockdown, hooksecurefunc
 local floor, ceil, max, type, rawget, tonumber, unpack = math.floor, math.ceil, math.max, type, rawget, tonumber, unpack
+local find = string.find
+local createTable = table.create
 
 ---A node of the tree: what Create, Layer and Take return. Opaque to the engine.
 ---@class OrdaenNode
@@ -22,12 +34,12 @@ local floor, ceil, max, type, rawget, tonumber, unpack = math.floor, math.ceil, 
 
 ---@class OrdaenBackendNode : OrdaenNode
 ---@field kind "box"|"text"|"root"
----@field a table                     -- the attributes as last set (copied)
+---@field a table                     -- the attributes as last drawn (copied)
 ---@field frame Frame?                -- a box's pooled button, a layer's frame, a taken Blizzard frame
 ---@field fs FontString?              -- a text node's font string
 ---@field parent OrdaenBackendNode?
----@field children OrdaenBackendNode[]
----@field count integer
+---@field children OrdaenBackendNode[]? -- boxes and roots
+---@field count integer?
 ---@field [string] any               -- layout fields (Layout.lua's header) and caches of what was applied
 local Node = {}
 local NodeMeta = { __index = Node }
@@ -42,9 +54,10 @@ ns.Backend = Backend
 local FONT = STANDARD_TEXT_FONT
 local STRATA = { screen = "MEDIUM", dialog = "DIALOG", tooltip = "TOOLTIP" }
 local JUSTIFY = { start = "LEFT", center = "CENTER", ["end"] = "RIGHT" }
+local EMPTY = {}
 
 -- What each attribute changes: the node's own size, its offsets (where a free node sits, not its size), its
--- content's layout, its look, its mouse handlers.
+-- content's layout, its border, its look, its text, its mouse handlers.
 -- The layout attributes come from Layout.ATTRIBUTES (their groups and the fields they fill); the rest are listed here.
 local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5, 6, 7, 8
 local GROUP = {
@@ -71,40 +84,38 @@ local TAKEN_KEYS = { "position", "top", "right", "bottom", "left", "opacity" }
 
 -- Theme references and per-state maps -------------------------------------------------------------------------
 
-local function isRef(v)
-	local test = ns.IsThemeRef
-	return test ~= nil and test(v)
-end
-
--- rawget: a theme reference may build paths on index.
-local function isStateMap(v)
-	return rawget(v, "default") ~= nil or rawget(v, "hover") ~= nil or rawget(v, "pressed") ~= nil
-end
-
+-- A theme reference is the only attribute value with a raw `path` (Define.lua's interned references; ns.IsThemeRef
+-- tests the same by metatable): one rawget, no call. rawget also keeps a reference from building paths on index.
 local function resolveRef(v)
-	if type(v) == "table" and isRef(v) then
-		return Theme[v.path]
+	if type(v) == "table" then
+		local path = rawget(v, "path")
+		if path ~= nil then
+			return Theme[path]
+		end
 	end
 	return v
 end
 
 -- A value as drawn now: the state's entry of a per-state map, then the theme's value of a reference.
 local function resolve(node, v)
-	if type(v) ~= "table" or isRef(v) then
-		return resolveRef(v)
+	if type(v) ~= "table" then
+		return v
 	end
-	if isStateMap(v) then
-		local s
-		if node.pressed and rawget(v, "pressed") ~= nil then
-			s = v.pressed
-		elseif node.hovered and rawget(v, "hover") ~= nil then
-			s = v.hover
-		else
-			s = rawget(v, "default")
-		end
-		return resolveRef(s)
+	local path = rawget(v, "path")
+	if path ~= nil then
+		return Theme[path]
 	end
-	return v
+	local default = rawget(v, "default")
+	local hover, pressed = rawget(v, "hover"), rawget(v, "pressed")
+	if default == nil and hover == nil and pressed == nil then
+		return v -- a plain table value (a border, a column list)
+	end
+	if node.pressed and pressed ~= nil then
+		return resolveRef(pressed)
+	elseif node.hovered and hover ~= nil then
+		return resolveRef(hover)
+	end
+	return resolveRef(default)
 end
 
 -- "#rrggbb" / "#rrggbbaa" as { r, g, b, a }, parsed once per string.
@@ -136,12 +147,19 @@ end
 
 local px = 1 -- one screen pixel in UI units (UIParent's)
 local ctx = { screenW = 0, screenH = 0 } ---@type OrdaenLayoutContext
+local lineHeights = {} -- one line of FONT at a size, in UI units on whole pixels (one value per size, not per text)
 
 local function updateScreen()
 	local _, physH = GetPhysicalScreenSize()
 	local w, h = UIParent:GetWidth(), UIParent:GetHeight()
 	ctx.screenW, ctx.screenH = w, h
+	local old = px
 	px = physH and physH > 0 and h / physH or 1
+	if px ~= old then
+		for size in pairs(lineHeights) do
+			lineHeights[size] = nil
+		end
+	end
 end
 
 local function snap(v)
@@ -154,12 +172,14 @@ local function pixelsUp(v)
 	return ceil(v / px - 0.001) * px
 end
 
--- The pool's hidden holder and the queue of nodes to lay out ------------------------------------------------------
+-- The pools, the queues, the layers ---------------------------------------------------------------------------------
 
 local holder ---@type Frame
 local boxPool, nBoxPool = {}, 0
 local textPool, nTextPool = {}, 0
-local queue, nQueue = {}, 0
+local queue, nQueue = {}, 0 -- nodes to lay out at Flush
+local stale, nStale = {}, 0 -- reused nodes still drawing their previous attributes, until a Set or Flush
+local orphans, nOrphans = {}, 0 -- children a reused node held in its previous life: hidden at Flush unless reused
 local stamp = 0
 local layers = {}
 -- Read by Backend.dev.lua (the bench's node counts); the tables themselves, never replaced.
@@ -186,10 +206,18 @@ local function getHolder()
 	return holder
 end
 
+-- A node table sized for its fields up front (no rehash while it fills): a text node or a box (which also has a
+-- grid: children, padding, gaps, columns).
 local function newNode(kind)
-	local node = setmetatable({ kind = kind, a = {}, children = {}, count = 0, args = {}, nargs = 0 }, NodeMeta)
-	node.padT, node.padR, node.padB, node.padL, node.gapR, node.gapC, node.bw = 0, 0, 0, 0, 0, 0, 0
-	Layout.Columns(node, nil, resolveRef)
+	local node = setmetatable(createTable(0, 64), NodeMeta)
+	node.kind = kind
+	if kind == "text" then
+		node.a, node.args, node.nargs = createTable(0, 16), {}, 0
+	else
+		node.a, node.children, node.count = createTable(0, 32), {}, 0
+		node.padT, node.padR, node.padB, node.padL, node.gapR, node.gapC, node.bw = 0, 0, 0, 0, 0, 0, 0
+		Layout.Columns(node, nil, resolveRef)
+	end
 	return node
 end
 
@@ -251,20 +279,27 @@ end
 
 -- Placing (Layout's callback) -------------------------------------------------------------------------------------
 
+-- Only the calls whose values changed: the point (pRel, pX, pY as last set) and the size (pW, pH).
 function ctx.place(node)
 	local parent = node.parent
 	if not parent then
 		return
 	end
 	local x, y = snap(node.x), snap(node.y)
+	local obj, rel, w, h
 	if node.kind == "text" then
-		local fs = node.fs
-		fs:SetPoint("TOPLEFT", parent.frame, "TOPLEFT", x, -y)
-		fs:SetSize(node.w, node.h)
+		obj, rel, w, h = node.fs, parent.frame, node.w, node.h
 	else
-		local frame = node.frame
-		frame:SetPoint("TOPLEFT", node.pos == "fixed" and UIParent or parent.frame, "TOPLEFT", x, -y)
-		frame:SetSize(max(snap(node.x + node.w) - x, 0), max(snap(node.y + node.h) - y, 0))
+		obj, rel = node.frame, node.pos == "fixed" and UIParent or parent.frame
+		w, h = max(snap(node.x + node.w) - x, 0), max(snap(node.y + node.h) - y, 0)
+	end
+	if rel ~= node.pRel or x ~= node.pX or y ~= node.pY then
+		node.pRel, node.pX, node.pY = rel, x, y
+		obj:SetPoint("TOPLEFT", rel, "TOPLEFT", x, -y)
+	end
+	if w ~= node.pW or h ~= node.pH then
+		node.pW, node.pH = w, h
+		obj:SetSize(w, h)
 	end
 end
 
@@ -272,18 +307,11 @@ function ctx.measure(node, width)
 	local fs = node.fs
 	fs:SetWidth(width)
 	local h = pixelsUp(fs:GetStringHeight())
-	if node.w then
-		fs:SetWidth(node.w)
-	end
+	fs:SetWidth(node.pW or 0) -- back to the width it's drawn at
 	return h
 end
 
 -- Applying attributes --------------------------------------------------------------------------------------------
-
--- Copy layout attributes into the fields Layout reads.
-function Node:ApplyLayout()
-	Layout.Apply(self, self.a, resolve, resolveRef, px)
-end
 
 local function edge(frame)
 	local t = frame:CreateTexture(nil, "BORDER")
@@ -386,7 +414,32 @@ function Node:ApplyLook()
 	end
 end
 
--- Text, size and wrapping; measures the text. Returns true when its size changed (the layout must run).
+-- One line of the font at `size`: the font's line height on whole pixels, measured once per size.
+local function lineHeight(fs, size)
+	local h = lineHeights[size]
+	if not h then
+		h = pixelsUp(fs:GetLineHeight())
+		lineHeights[size] = h
+	end
+	return h
+end
+
+-- Whether the drawn text can hold a line break (then it's measured as lines, not as one).
+function Node:HasBreak(text)
+	if find(text, "\n", 1, true) then
+		return true
+	end
+	local args = self.args
+	for i = 1, self.nargs do
+		local v = args[i]
+		if type(v) == "string" and find(v, "\n", 1, true) then
+			return true
+		end
+	end
+	return false
+end
+
+-- Text, size and wrapping; measures the text. Returns true when the layout must run (Layout.TextResized).
 function Node:ApplyText()
 	local a, fs = self.a, self.fs
 	local size = resolve(self, a.textSize) or Theme["text.body"]
@@ -395,36 +448,39 @@ function Node:ApplyText()
 		fs:SetFont(FONT, size, "")
 	end
 	local wrap = resolve(self, a.wrap) ~= false
-	self.wrap = wrap
-	fs:SetWordWrap(wrap)
+	if wrap ~= self.wrap then
+		self.wrap = wrap
+		fs:SetWordWrap(wrap)
+	end
 	local text = resolve(self, a.text) or ""
 	if self.nargs > 0 then
 		fs:SetFormattedText(text, unpack(self.args, 1, self.nargs))
 	else
 		fs:SetText(text)
 	end
-	fs:SetWidth(0)
-	local natW, lineH = pixelsUp(fs:GetStringWidth()), pixelsUp(fs:GetStringHeight())
-	if self.w then
-		fs:SetWidth(self.w)
+	local natW, lineH
+	if self:HasBreak(text) then
+		fs:SetWidth(0) -- lines: the widest and their height, measured without a width
+		natW, lineH = pixelsUp(fs:GetStringWidth()), pixelsUp(fs:GetStringHeight())
+		fs:SetWidth(self.pW or 0)
+	else
+		natW, lineH = pixelsUp(fs:GetUnboundedStringWidth()), lineHeight(fs, size)
 	end
-	self.mW = nil
-	local changed = natW ~= self.natW or lineH ~= self.lineH or (self.w ~= nil and natW > self.w)
-	self.natW, self.lineH = natW, lineH
-	return changed
+	local oldW, oldH = self.natW, self.lineH
+	self.natW, self.lineH, self.mW = natW, lineH, nil
+	return Layout.TextResized(self, oldW, oldH)
 end
 
 -- A box takes the mouse only with a handler or a per-state map, and never at opacity 0.
 function Node:ApplyMouse()
-	local frame = self.frame
 	if self.kind ~= "box" then
 		return
 	end
 	local a = self.a
-	local want = (self.states or a.OnClick ~= nil or a.OnEnter ~= nil or a.OnLeave ~= nil) and (self.lookOpacity or 1) > 0
+	local want = (self.states or a.OnClick or a.OnEnter or a.OnLeave) and (self.lookOpacity or 1) > 0 and true or false
 	if want ~= self.mouse then
 		self.mouse = want
-		frame:EnableMouse(want)
+		self.frame:EnableMouse(want)
 		if not want then
 			self.hovered, self.pressed = false, false
 		end
@@ -437,7 +493,8 @@ function Node:ScanStates(keys)
 	local states, stateLayout = false, false
 	for i = 1, #keys do
 		local v = a[keys[i]]
-		if type(v) == "table" and not isRef(v) and isStateMap(v) then
+		if type(v) == "table" and rawget(v, "path") == nil
+			and (rawget(v, "default") ~= nil or rawget(v, "hover") ~= nil or rawget(v, "pressed") ~= nil) then
 			states = true
 			local g = GROUP[keys[i]]
 			if g ~= LOOK and g ~= INPUT then
@@ -452,7 +509,7 @@ end
 function Node:Restyle()
 	self:ApplyLook()
 	if self.stateLayout then
-		self:ApplyLayout()
+		Layout.Apply(self, self.a, resolve, resolveRef, px)
 		if self.kind == "text" then
 			self:ApplyText()
 		end
@@ -535,26 +592,34 @@ end
 -- The tree ------------------------------------------------------------------------------------------------------
 
 local function show(node, shown)
-	local obj = node.kind == "text" and node.fs or node.frame
-	if shown then
-		obj:Show()
-	else
-		obj:Hide()
+	if node.shown ~= shown then
+		node.shown = shown
+		local obj = node.kind == "text" and node.fs or node.frame
+		if shown then
+			obj:Show()
+		else
+			obj:Hide()
+		end
 	end
 end
 
 local function attach(child, parent)
 	child.parent = parent
 	local pf = parent.frame
-	if child.kind == "text" then
-		child.fs:SetParent(pf)
-	else
-		local frame = child.frame
-		frame:SetParent(pf)
-		frame:SetFrameLevel(pf:GetFrameLevel() + 1)
-		frame:ClearAllPoints()
+	if child.fparent ~= pf then -- a node reused under the frame it last sat in keeps it
+		child.fparent = pf
+		if child.kind == "text" then
+			child.fs:SetParent(pf)
+		else
+			local frame = child.frame
+			frame:SetParent(pf)
+			local level = pf:GetFrameLevel()
+			if frame:GetFrameLevel() <= level then
+				frame:SetFrameLevel(level + 1)
+			end
+		end
 	end
-	child.x = nil -- placed again against its new parent
+	child.x = nil -- placed again in its new place (ctx.place skips the calls that wouldn't change anything)
 	show(child, true)
 end
 
@@ -562,6 +627,22 @@ local function detach(child)
 	child.parent = nil
 	child.x, child.valid, child.natValid = nil, false, false
 	show(child, false)
+end
+
+-- A reused node's children from its previous life: those not reused elsewhere are hidden at the next Flush, unless
+-- the new life attaches them here again (then nothing was hidden or shown).
+function Node:DropStale()
+	local children = self.children
+	for i = 1, self.count do
+		local child = children[i]
+		children[i] = nil
+		if child.parent == self then
+			child.parent = nil
+			nOrphans = nOrphans + 1
+			orphans[nOrphans] = child
+		end
+	end
+	self.count = 0
 end
 
 ---A root: a layer of the screen, the size of UIParent, in WoW's strata order.
@@ -593,7 +674,8 @@ function Backend:Layer(name)
 	return node
 end
 
----A new node from the pool, detached and hidden.
+---A new node from the pool, detached; it shows nothing until it's attached. A reused node draws its previous
+---attributes until its first Set (or, if none comes, the next Flush) changes what differs.
 ---@param kind "box"|"text"
 ---@return OrdaenNode
 function Backend:Create(kind)
@@ -608,21 +690,25 @@ function Backend:Create(kind)
 			fs:SetJustifyH("LEFT")
 			fs:SetJustifyV("TOP")
 			fs:SetNonSpaceWrap(true)
-			node.fs, node.lookJustify = fs, "LEFT"
+			fs:Hide()
+			node.fs, node.lookJustify, node.shown = fs, "LEFT", false
 			node.natW, node.lineH = 0, 0
 			node.fontSize = Theme["text.body"]
 			fs:SetFont(FONT, node.fontSize, "")
 			node:ApplyLook()
 		end
-		node.fs:Hide()
 	else
 		if nBoxPool > 0 then
 			node, boxPool[nBoxPool] = boxPool[nBoxPool], nil
 			nBoxPool = nBoxPool - 1
+			if node.count > 0 then
+				node:DropStale()
+			end
 		else
 			node = newNode("box")
 			local frame = CreateFrame("Button", nil, getHolder()) --[[@as OrdaenBackendFrame]]
 			frame.node = node
+			frame:Hide()
 			frame:EnableMouse(false)
 			frame:RegisterForClicks("AnyUp")
 			frame:SetScript("OnEnter", onEnter)
@@ -630,9 +716,16 @@ function Backend:Create(kind)
 			frame:SetScript("OnMouseDown", onMouseDown)
 			frame:SetScript("OnMouseUp", onMouseUp)
 			frame:SetScript("OnClick", onClick)
-			node.frame, node.mouse = frame, false
+			node.frame, node.mouse, node.shown = frame, false, false
 		end
-		node.frame:Hide()
+	end
+	if node.released then
+		node.released = nil
+		if node.drawn then
+			node.stale = true
+			nStale = nStale + 1
+			stale[nStale] = node
+		end
 	end
 	return node
 end
@@ -661,36 +754,43 @@ function Backend:Take(frame)
 	return node
 end
 
----Copy the attributes the node uses and apply what changed. The table is the engine's: nothing keeps it.
+---Copy the attributes the node uses and apply what changed: only the work of the groups that changed. The table is
+---the engine's: nothing keeps it.
 ---@param node OrdaenNode
 ---@param attributes table
 function Backend:Set(node, attributes)
 	---@cast node OrdaenBackendNode
+	node.stale = nil
 	local own = node.a
 	local keys = node.kind == "text" and TEXT_KEYS or node.taken and TAKEN_KEYS or BOX_KEYS
-	local ownChg, posChg, offsetChg, contentChg, lookChg, inputChg, textChg = false, false, false, false, false, false, false
+	local size, position, offset, content, border, look, input, text, tables =
+		false, false, false, false, false, false, false, false, false
 	for i = 1, #keys do
 		local k = keys[i]
 		local v = attributes[k]
-		if own[k] ~= v then
+		local old = own[k]
+		if old ~= v then
 			own[k] = v
+			if type(v) == "table" or type(old) == "table" then
+				tables = true
+			end
 			local g = GROUP[k]
 			if g == OWN then
-				ownChg = true
+				size = true
 			elseif g == POSITION then
-				ownChg, posChg = true, true
+				size, position = true, true
 			elseif g == OFFSET then
-				offsetChg = true
+				offset = true
 			elseif g == CONTENT then
-				contentChg = true
+				content = true
 			elseif g == LOOK then
-				lookChg = true
+				look = true
 			elseif g == BORDER then
-				contentChg, lookChg = true, true
+				border = true
 			elseif g == TEXT then
-				textChg = true
+				text = true
 			else
-				inputChg = true
+				input = true
 			end
 		end
 	end
@@ -698,12 +798,12 @@ function Backend:Set(node, attributes)
 		local args, mine = attributes.arguments, node.args
 		local n = args and #args or 0
 		if n ~= node.nargs then
-			textChg = true
+			text = true
 		end
 		for i = 1, n do
 			local v = args[i]
 			if mine[i] ~= v then
-				mine[i], textChg = v, true
+				mine[i], text = v, true
 			end
 		end
 		for i = n + 1, node.nargs do
@@ -711,32 +811,47 @@ function Backend:Set(node, attributes)
 		end
 		node.nargs = n
 	end
-	if not (ownChg or offsetChg or contentChg or lookChg or inputChg or textChg) then
+	if not (size or offset or content or border or look or input or text) then
 		return
 	end
-	node:ScanStates(keys)
+	node.drawn = true
+	if tables then
+		node:ScanStates(keys)
+		input = true -- a per-state map makes the box take the mouse
+	end
 	if node.taken then
 		node:ApplyTaken()
 		return
 	end
-	if ownChg or offsetChg or contentChg then
-		node:ApplyLayout()
+	if size then
+		Layout.ApplySize(node, own, resolve, px)
 	end
-	local resized = textChg and node:ApplyText()
-	if lookChg or contentChg then
+	if offset then
+		Layout.ApplyOffsets(node, own, resolve)
+	end
+	if content then
+		Layout.ApplyContent(node, own, resolve, resolveRef, px)
+	end
+	if border then
+		Layout.ApplyBorder(node, own, resolve, resolveRef, px)
+	end
+	local resized = text and node:ApplyText()
+	if look or border then
 		node:ApplyLook()
 	end
-	node:ApplyMouse()
-	if ownChg then
+	if input or look then
+		node:ApplyMouse()
+	end
+	if size then
 		enqueue(Layout.Invalidate(node, true))
-		if posChg and node.parent then
+		if position and node.parent then
 			enqueue(Layout.Invalidate(node.parent))
 		end
 	else
-		if offsetChg then
+		if offset then
 			enqueue(Layout.Offsets(node))
 		end
-		if contentChg or resized then
+		if content or border or resized then
 			enqueue(Layout.Invalidate(node))
 		end
 	end
@@ -773,7 +888,9 @@ function Backend:SetChildren(node, children, count)
 	enqueue(Layout.Invalidate(node))
 end
 
----Detach the node and pool it; a taken frame is given back as it was. The engine releases children first.
+---Pool the node; a taken frame is given back as it was. No WoW call: the node keeps its frame where it was and the
+---attributes it last drew (its parent's SetChildren hides it if the parent stays; its children stay inside it). Only
+---the references to module code go: its handlers (false, so the next Set sees a change and sets the mouse again).
 ---@param node OrdaenNode
 function Backend:Release(node)
 	---@cast node OrdaenBackendNode
@@ -784,38 +901,31 @@ function Backend:Release(node)
 	if node.kind == "root" then
 		return -- layers live as long as the client
 	end
-	if node.parent then
-		detach(node)
-	else
-		show(node, false)
-	end
 	local a = node.a
-	for k in pairs(a) do
-		a[k] = nil
-	end
-	for i = 1, node.nargs do
-		node.args[i] = nil
-	end
-	for i = 1, node.count do
-		local child = node.children[i]
-		if child.parent == node then
-			detach(child)
+	if node.kind == "box" then
+		if a.OnClick then
+			a.OnClick = false
 		end
-		node.children[i] = nil
+		if a.OnEnter then
+			a.OnEnter = false
+		end
+		if a.OnLeave then
+			a.OnLeave = false
+		end
+		-- scratch arrays sized for a big grid don't stay with a pooled node
+		local rowH = node.rowH
+		if rowH and #rowH > 64 then
+			node.colW, node.colX, node.rowH, node.rowY = nil, nil, nil, nil
+		end
 	end
-	node.nargs, node.count = 0, 0
-	node.w, node.h, node.lw, node.lh, node.nhW, node.mW = nil, nil, nil, nil, nil, nil
-	node.states, node.stateLayout, node.hovered, node.pressed = false, false, false, false
-	-- Back to the defaults: the engine sets nothing on a node whose attributes are all empty.
-	node:ApplyLayout()
-	node:ApplyLook()
+	node.released, node.stale = true, nil
+	node.hovered, node.pressed = false, false
+	node.valid, node.natValid, node.x = false, false, nil
+	node.lw, node.lh, node.nhW, node.mW = nil, nil, nil, nil
 	if node.kind == "text" then
-		node.fs:SetText("")
-		node.natW, node.lineH = 0, 0
 		nTextPool = nTextPool + 1
 		textPool[nTextPool] = node
 	else
-		node:ApplyMouse()
 		nBoxPool = nBoxPool + 1
 		boxPool[nBoxPool] = node
 	end
@@ -831,23 +941,44 @@ local function attached(node)
 	return false
 end
 
----End of every scheduler flush: lay out and place what changed.
+---End of every scheduler flush: draw what reused nodes didn't get a Set for, lay out and place what changed, and hide
+---the children reused nodes held before that their new life didn't take.
 function Backend:Flush()
-	if nQueue == 0 then
-		return
-	end
-	local i = 1
-	while i <= nQueue do -- a layout may queue more (a restyle); the loop sees it
-		local node = queue[i]
-		queue[i] = nil
-		node.queued = false
-		if attached(node) then
-			if node.taken then
-				node.w, node.h = node.frame:GetWidth(), node.frame:GetHeight()
+	if nStale > 0 then
+		for i = 1, nStale do
+			local node = stale[i]
+			stale[i] = nil
+			if node.stale and not node.released then
+				self:Set(node, EMPTY) -- its previous attributes, gone: back to the defaults
 			end
-			Layout.Relayout(node, ctx)
 		end
-		i = i + 1
+		nStale = 0
 	end
-	nQueue = 0
+	if nQueue > 0 then
+		local i = 1
+		while i <= nQueue do -- a layout may queue more (a restyle); the loop sees it
+			local node = queue[i]
+			queue[i] = nil
+			node.queued = false
+			if not node.released and attached(node) then
+				if node.taken then
+					node.w, node.h = node.frame:GetWidth(), node.frame:GetHeight()
+				end
+				Layout.Relayout(node, ctx)
+			end
+			i = i + 1
+		end
+		nQueue = 0
+	end
+	if nOrphans > 0 then
+		for i = 1, nOrphans do
+			local node = orphans[i]
+			orphans[i] = nil
+			if node.parent == nil then
+				node.x = nil
+				show(node, false)
+			end
+		end
+		nOrphans = 0
+	end
 end

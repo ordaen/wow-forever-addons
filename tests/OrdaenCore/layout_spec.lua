@@ -295,6 +295,57 @@ describe("backend layout", function()
 		end)
 	end)
 
+	describe("placing order", function()
+		-- The backend gives every node one anchor point to its parent and replaces a reused node's old point when it's
+		-- placed; that's safe only if a parent is always placed before its children (else a child could anchor to a
+		-- frame still anchored to it).
+		local function recordingCtx()
+			local order, at = {}, {}
+			local c = setmetatable({ place = function(node)
+				order[#order + 1] = node
+				at[node] = #order
+			end }, { __index = ctx })
+			return c, order, at
+		end
+
+		local function assertParentsFirst(order, at)
+			for _, node in ipairs(order) do
+				local parent = node.parent
+				if parent and at[parent] then
+					assert(at[parent] < at[node], "a child was placed before its parent")
+				end
+			end
+		end
+
+		it("places every parent before its children", function()
+			local leaves = {}
+			local function level(depth)
+				if depth == 0 then
+					local t = text("leaf")
+					leaves[#leaves + 1] = t
+					return t
+				end
+				return box({ padding = 1, columns = 2 }, { level(depth - 1), level(depth - 1) })
+			end
+			local r = root({ level(4), box({ width = 50, height = 20, position = "absolute", left = 5, top = 5 },
+				{ level(2) }) })
+			local c, order, at = recordingCtx()
+			Layout.Relayout(Layout.Invalidate(r, true), c)
+			assert.is_true(#order > 30)
+			assertParentsFirst(order, at)
+		end)
+
+		it("places a stretched box before its content", function()
+			local inner = box({}, { text("x") })
+			local short = box({ width = 10 }, { inner })
+			local row = box({ columns = { "auto", "auto" } }, { box({ width = 10, height = 40 }), short })
+			local c, order, at = recordingCtx()
+			Layout.Relayout(Layout.Invalidate(root({ row }), true), c)
+			assertParentsFirst(order, at)
+			assert.equal(40, short.h)
+		end)
+	end)
+
 	describe("invalidation", function()
 		it("stops at a box of its own size", function()
 			local count = text("1")

@@ -15,8 +15,10 @@
 --   pos                       "flow" | "absolute" | "fixed" (nil = flow); offL, offR, offT, offB its offsets
 --   text: natW, lineH, wrap   its width on one line and that line's height (the backend measures them), wrap false
 --                             keeps it on one line
--- and writes back x, y, w, h: the node's rectangle relative to its parent's top-left corner (y downwards), calling
--- ctx.place(node) when it changed. Free nodes (absolute, fixed, a root's children) are placed by their offsets,
+-- and writes back x, y, w, h: the node's rectangle relative to its parent's top-left corner (y downwards). Once a
+-- Relayout has computed every rectangle, it calls ctx.place(node) for those that changed, walking the tree from the
+-- top, so a parent is always placed before its children (measuring a child's natural height lays it out early, and
+-- only the walk decides the order). Free nodes (absolute, fixed, a root's children) are placed by their offsets,
 -- centred without any; fixed ones relative to the screen (ctx.screenW, ctx.screenH).
 --
 -- Two passes per box, like CSS grid: column widths (fixed, then auto = widest content, then fr shares of what is left;
@@ -133,23 +135,52 @@ local function pixels(v, px)
 	return floor(v / px + 0.5) * px
 end
 
----Fill the layout fields of `node` from its attributes `a`. `resolve(node, v)` turns a theme reference or per-state map
----into its value now, `resolveRef(v)` a theme reference inside a list; `px` is one screen pixel in UI units. Fixed
----sizes, gaps, padding and border widths land on whole pixels (a border at least one).
----@param node table
----@param a table
----@param resolve fun(node: table, v: any): any
----@param resolveRef fun(v: any): any
----@param px number
-function Layout.Apply(node, a, resolve, resolveRef, px)
+-- The Apply* functions fill the layout fields of `node` from its attributes `a`, one attribute group each (the groups
+-- of Layout.ATTRIBUTES), so a change touches only its own group. `resolve(node, v)` turns a theme reference or
+-- per-state map into its value now, `resolveRef(v)` a theme reference inside a list; `px` is one screen pixel in UI
+-- units. Fixed sizes, gaps, padding and border widths land on whole pixels (a border at least one).
+
+---The "own" and "position" groups: size, span and position.
+function Layout.ApplySize(node, a, resolve, px)
 	local wk, wa = Layout.Size(resolve(node, a.width))
 	local hk, ha = Layout.Size(resolve(node, a.height))
 	node.wKind, node.wAmount = wk, wk == "fixed" and pixels(wa, px) or wa
 	node.hKind, node.hAmount = hk, hk == "fixed" and pixels(ha, px) or ha
 	node.span = resolve(node, a.columnSpan)
 	node.pos = resolve(node, a.position)
+end
+
+---The "offset" group.
+function Layout.ApplyOffsets(node, a, resolve)
 	node.offT, node.offR = resolve(node, a.top), resolve(node, a.right)
 	node.offB, node.offL = resolve(node, a.bottom), resolve(node, a.left)
+end
+
+---The "border" group: the border's width (a box's only).
+function Layout.ApplyBorder(node, a, resolve, resolveRef, px)
+	if node.kind ~= "box" then
+		return
+	end
+	local border = resolve(node, a.border)
+	local bw = type(border) == "table" and resolveRef(border.width) or 0
+	node.bw = bw > 0 and max(px, pixels(bw, px)) or 0
+end
+
+---Every group at once.
+---@param node table
+---@param a table
+---@param resolve fun(node: table, v: any): any
+---@param resolveRef fun(v: any): any
+---@param px number
+function Layout.Apply(node, a, resolve, resolveRef, px)
+	Layout.ApplySize(node, a, resolve, px)
+	Layout.ApplyOffsets(node, a, resolve)
+	Layout.ApplyContent(node, a, resolve, resolveRef, px)
+	Layout.ApplyBorder(node, a, resolve, resolveRef, px)
+end
+
+---The "content" group: the grid of a box's children (a box's only).
+function Layout.ApplyContent(node, a, resolve, resolveRef, px)
 	if node.kind ~= "box" then
 		return
 	end
@@ -169,9 +200,6 @@ function Layout.Apply(node, a, resolve, resolveRef, px)
 		pad = pixels(pad or 0, px)
 		node.padT, node.padR, node.padB, node.padL = pad, pad, pad, pad
 	end
-	local border = resolve(node, a.border)
-	local bw = type(border) == "table" and resolveRef(border.width) or 0
-	node.bw = bw > 0 and max(px, pixels(bw, px)) or 0
 	node.xAlign, node.yAlign = resolve(node, a.xAlign), resolve(node, a.yAlign)
 end
 
@@ -245,6 +273,55 @@ function Layout.Offsets(node)
 		return Layout.Invalidate(node, true)
 	end
 	return node
+end
+
+-- Whether a box's width is set from outside (its attributes, or a cell whose width no content decides).
+local function widthGiven(node)
+	while true do
+		local wk = node.wKind
+		if wk == "fixed" or wk == "pct" or wk == "fill" then
+			return true
+		elseif wk == "auto" or node.kind ~= "box" or isFree(node) then
+			return false
+		end
+		local parent = node.parent
+		if parent == nil or placed(parent.xAlign) then
+			return false
+		end
+		local kinds = parent.colKind
+		for c = node.col or 1, (node.col or 1) + (node.cspan or 1) - 1 do
+			if kinds[c] ~= "fr" and kinds[c] ~= "fixed" then
+				return false
+			end
+		end
+		node = parent
+	end
+end
+
+---Whether a text node's new size (natW, lineH; the old ones given) changes any layout. Text that keeps its line height
+---and stays on one line in a cell no content sizes changes nothing: its rectangle stays the cell's.
+---@param node table
+---@param oldW number?
+---@param oldH number?
+---@return boolean
+function Layout.TextResized(node, oldW, oldH)
+	local natW, w = node.natW, node.w
+	if natW == oldW and node.lineH == oldH then
+		return false
+	elseif w == nil or node.lineH ~= oldH or natW > w or (oldW or 0) > w then
+		return true -- not laid out yet, another line height, or wrapping before or after
+	end
+	local parent = node.parent
+	if parent == nil or isFree(node) or node.wrap == false or node.wKind ~= nil or placed(parent.xAlign) then
+		return true
+	end
+	local kinds = parent.colKind
+	for c = node.col or 1, (node.col or 1) + (node.cspan or 1) - 1 do
+		if kinds[c] ~= "fr" and kinds[c] ~= "fixed" then
+			return true
+		end
+	end
+	return not widthGiven(parent)
 end
 
 -- Flow children into cells, reading order, wrapping when a span doesn't fit the row. Returns the number of rows.
@@ -401,10 +478,27 @@ local function textHeight(node, w, ctx)
 	return node.mH
 end
 
-local function setRect(node, x, y, w, h, ctx)
+-- Which Relayout laid a box out last: the placing walk goes into a box only if this one did.
+local pass = 0
+
+local function setRect(node, x, y, w, h)
 	if node.x ~= x or node.y ~= y or node.w ~= w or node.h ~= h then
 		node.x, node.y, node.w, node.h = x, y, w, h
+		node.moved = true
+	end
+end
+
+-- Place what moved, parents first: down from `node` through the boxes this pass laid out.
+local function commit(node, ctx)
+	if node.moved then
+		node.moved = false
 		ctx.place(node)
+	end
+	if node.pass == pass then
+		local children = node.children
+		for i = 1, node.count or 0 do
+			commit(children[i], ctx)
+		end
 	end
 end
 
@@ -418,11 +512,20 @@ local function autoHeight(node, w, ctx)
 	return layoutBox(node, w, nil, ctx)
 end
 
--- Make sure the last layout of `node` is the one at (w, h), so its children sit where they belong.
+-- Make sure the last layout of `node` is the one at (w, h), so its children sit where they belong. node.lh is the
+-- height it was last laid out at; a box given exactly its natural height lays out as it did without one (unless a
+-- child's height is a percentage, which only a given height sizes), so that isn't done twice.
 local function finalize(node, w, h, ctx)
-	if not (node.valid and node.lw == w and node.lh == h) then
-		layoutBox(node, w, h, ctx)
+	if node.valid and node.lw == w then
+		if h == nil then
+			if node.nhW == w and node.lh == node.nhH then
+				return
+			end
+		elseif node.lh == h and (node.lgiven or not node.pctH) then
+			return
+		end
 	end
+	layoutBox(node, w, h, ctx)
 end
 
 -- Place a free node in a reference box (its parent's border box, or the screen for "fixed").
@@ -461,11 +564,15 @@ local function placeFree(node, refW, refH, ctx)
 			given = refH - t - b
 		end
 		h = given or autoHeight(node, w, ctx)
+		local x = l or (r and refW - r - w) or floor((refW - w) / 2 + 0.5)
+		local y = t or (b and refH - b - h) or floor((refH - h) / 2 + 0.5)
+		setRect(node, x, y, w, h)
 		finalize(node, w, given, ctx)
+		return
 	end
 	local x = l or (r and refW - r - w) or floor((refW - w) / 2 + 0.5)
 	local y = t or (b and refH - b - h) or floor((refH - h) / 2 + 0.5)
-	setRect(node, x, y, w, h, ctx)
+	setRect(node, x, y, w, h)
 end
 
 -- Size a flow child in its cell: width from its attributes, height at that width (given, or its content's).
@@ -503,6 +610,7 @@ end
 
 -- Lay out a box's children at outer width W and, when given, outer height H. Returns its outer height.
 function layoutBox(node, W, H, ctx)
+	node.pass = pass
 	local n = node.ncols or 1
 	local kinds = node.colKind
 	local bw = node.bw
@@ -584,6 +692,7 @@ function layoutBox(node, W, H, ctx)
 	end
 
 	-- Pass 2: row heights from content sized in its cell.
+	local pctH = false
 	for r = 1, rows do
 		rowH[r] = 0
 	end
@@ -597,6 +706,9 @@ function layoutBox(node, W, H, ctx)
 			child.cellW = cellW
 			local w, h, given = sizeIn(child, cellW, node, contentW, contentH, ctx)
 			child.tw, child.th, child.tgiven = w, h, given
+			if child.hKind == "pct" then
+				pctH = true
+			end
 			if h > rowH[child.row] then
 				rowH[child.row] = h
 			end
@@ -646,11 +758,9 @@ function layoutBox(node, W, H, ctx)
 				end
 			end
 			local cy, rh = rowY[child.row], rowH[child.row]
-			if child.kind == "box" then
-				if child.hKind == "fill" or (child.hKind == nil and stretchRows) then
-					h, given = rh, rh
-				end
-				finalize(child, w, given, ctx)
+			local box = child.kind == "box"
+			if box and (child.hKind == "fill" or (child.hKind == nil and stretchRows)) then
+				h, given = rh, rh
 			end
 			local vfree = rh - h
 			if vfree > 0 then
@@ -660,7 +770,10 @@ function layoutBox(node, W, H, ctx)
 					cy = cy + vfree
 				end
 			end
-			setRect(child, cx, cy, w, h, ctx)
+			setRect(child, cx, cy, w, h)
+			if box then
+				finalize(child, w, given, ctx)
+			end
 		end
 	end
 	for i = 1, count do
@@ -673,7 +786,7 @@ function layoutBox(node, W, H, ctx)
 	if H == nil then
 		node.nhW, node.nhH = W, outH
 	end
-	node.lw, node.lh, node.valid = W, H, true
+	node.lw, node.lh, node.lgiven, node.pctH, node.valid = W, outH, H ~= nil, pctH, true
 	return outH
 end
 
@@ -682,20 +795,25 @@ end
 ---@param node table
 ---@param ctx OrdaenLayoutContext
 function Layout.Relayout(node, ctx)
+	pass = pass + 1
 	if node.kind == "root" then
+		node.pass = pass
 		local children = node.children
 		for i = 1, node.count or 0 do
 			placeFree(children[i], node.w, node.h, ctx)
 		end
 		node.valid = true
+		commit(node, ctx)
 		return
 	end
 	local parent = node.parent
 	if isFree(node) then
 		if parent and parent.w then
 			placeFree(node, parent.w, parent.h, ctx)
+			commit(node, ctx)
 		end
 	elseif node.w and node.kind == "box" then
 		finalize(node, node.w, node.lh, ctx)
+		commit(node, ctx)
 	end
 end
