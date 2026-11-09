@@ -2,8 +2,9 @@
 -- scheduler that re-runs what depends on a changed value, once a frame, parents first.
 --
 -- Cost: a read checks one field (is something tracking) and, while tracked, records itself once per run; a write
--- marks each dependant once. Nothing is allocated per read or write after the first run: dependants are table keys
--- (made on first use), a run's sources a reused array, the queue two reused arrays.
+-- marks each dependant once, and a further write before any of them ran marks nobody (the source remembers it
+-- notified). Nothing is allocated per read or write after the first run: dependants are table keys (made on first
+-- use), a run's sources a reused array, the queue a reused array.
 local _, ns = ...
 
 local pairs = pairs
@@ -27,6 +28,7 @@ local function Track(source)
 		return
 	end
 	observers[o] = true
+	source.notified = nil -- a new dependant: the next write has someone unmarked to mark
 	local n = o.nSources + 1
 	o.nSources = n
 	o.sources[n] = source
@@ -44,11 +46,17 @@ function Tracking.Clear(o)
 	o.nSources = 0
 end
 
---- Mark everything that read `source`.
+--- Mark everything that read `source`. Once it has, every dependant stays marked until it runs, and running it
+--- tracks its reads again (which clears `notified`): until then a further write has nothing to mark.
 ---@param source table
 local function Notify(source)
+	if source.notified then
+		return
+	end
 	local observers = source.observers
 	if observers then
+		-- set first: an immediate effect runs inside this loop and tracks again, which clears it
+		source.notified = true
 		for o in pairs(observers) do
 			o:Mark()
 		end
@@ -258,7 +266,7 @@ ns.Scheduler = Scheduler
 -- deep the tree.
 local heap, size = {}, 0
 local flushes = 0 -- counts flushes: an effect's runs in this one are counted against MAX_RUNS
-local frame -- made on the first change: one OnUpdate, set only while something waits
+local frame -- made on the first change: its OnUpdate stays set and returns at once while nothing waits
 local pending = false
 local Debug -- Ordaen's debug kit, taken once the dev addon can have replaced the stand-in (after login)
 
@@ -280,8 +288,12 @@ local function Before(a, b)
 	return a.seq < b.seq
 end
 
+-- Set once and never removed: an idle frame costs one empty call (about 0.5 µs), a busy frame no SetScript on and off
+-- (bench round 9: attaching per busy frame cost about 1.5 µs more per busy frame, and made writes 14x dearer)
 local function OnUpdate()
-	Scheduler.Flush()
+	if pending then
+		Scheduler.Flush()
+	end
 end
 
 --- Make sure a flush runs on the next frame (something was drawn or marked).
@@ -290,8 +302,8 @@ function Scheduler.Request()
 		pending = true
 		if not frame then
 			frame = CreateFrame("Frame")
+			frame:SetScript("OnUpdate", OnUpdate)
 		end
-		frame:SetScript("OnUpdate", OnUpdate)
 	end
 end
 
@@ -342,9 +354,6 @@ end
 --- Re-run the marked effects, parents first, then settle what was drawn and let the backend lay it out.
 function Scheduler.Flush()
 	pending = false
-	if frame then
-		frame:SetScript("OnUpdate", nil)
-	end
 	local Engine = ns.Engine
 	local Debug = Kit()
 	local t = Debug:TimeStart()
@@ -360,6 +369,11 @@ function Scheduler.Flush()
 			effect.runs = runs
 			if runs > MAX_RUNS then
 				effect.dirty = false -- dropped for this flush: it runs again on its next change
+				-- not run, so not tracked again: its sources must mark it on their next write
+				local sources = effect.sources
+				for s = 1, effect.nSources do
+					sources[s].notified = nil
+				end
 				looped = true
 			else
 				Engine:RunEffect(effect)
