@@ -39,10 +39,12 @@ function Grid.SetOne(size, i, value)
 	texts[size][i]:SetFormattedText("%d", value)
 end
 
+-- The method looked up once, not per cell: every font string shares it.
 function Grid.SetAll(size, base)
 	local list = texts[size]
+	local SetFormattedText = list[1].SetFormattedText
 	for i = 1, #list do
-		list[i]:SetFormattedText("%d", base + i)
+		SetFormattedText(list[i], "%d", base + i)
 	end
 end
 

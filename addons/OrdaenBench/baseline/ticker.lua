@@ -25,8 +25,10 @@ function Ticker.Tick(size)
 	local tick = ticks[size] + 1
 	ticks[size] = tick
 	local list = texts[size]
+	local SetFormattedText = list[1].SetFormattedText -- looked up once: every font string shares it
+	local a, b = tick * 0.1, tick * 0.2
 	for i = 1, #list do
-		list[i]:SetFormattedText("%.1f, %.1f", tick * 0.1 + i, tick * 0.2 - i)
+		SetFormattedText(list[i], "%.1f, %.1f", a + i, b - i)
 	end
 end
 

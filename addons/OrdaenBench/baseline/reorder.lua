@@ -20,14 +20,16 @@ local function Text(id)
 	return text
 end
 
+-- One anchor point per row, always TOPLEFT: SetPoint replaces it, so no ClearAllPoints.
 local function Place()
+	local SetPoint
 	for i = 1, #ids do
 		local id = ids[i]
 		if slotOf[id] ~= i then
 			slotOf[id] = i
 			local text = textOf[id]
-			text:ClearAllPoints()
-			text:SetPoint("TOPLEFT", 0, -(i - 1) * LINE)
+			SetPoint = SetPoint or text.SetPoint
+			SetPoint(text, "TOPLEFT", 0, -(i - 1) * LINE)
 		end
 	end
 end
