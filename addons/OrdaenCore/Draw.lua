@@ -639,12 +639,28 @@ local function DrawComponent(ui, declaration, site, a, b, k)
 	e.declaration = declaration
 	Append(f, e)
 	local parent = runs[nRuns]
-	local instance = Engine:Mount(parent, declaration, site, data, f.container, parent.module, ui._game, owner)
+	local given = data
+	local bind = data and data.bind
+	if bind then
+		-- bound attributes are there from the child's first render: its bindings run first, into the attributes
+		-- it mounts with (one table at mount, never per render)
+		local attributes = {}
+		for name, value in pairs(data.attributes or EMPTY) do
+			attributes[name] = value
+		end
+		e.mounting = attributes
+		ns.Bind(e, bind, owner, key)
+		e.mounting = nil
+		given = { key = data.key, ref = data.ref, slots = data.slots, attributes = attributes }
+	end
+	local instance = Engine:Mount(parent, declaration, site, given, f.container, parent.module, ui._game, owner)
 	if instance then
 		e.instance = instance
 		e.src = data and data.attributes
-		BindEntry(e, data, key)
 	else
+		if bind then
+			ns.Unbind(e)
+		end
 		f.cur[f.n] = nil -- failed to mount: not drawn
 		f.n = f.n - 1
 		Forget(f, e)

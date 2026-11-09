@@ -59,6 +59,13 @@ function Binding:Run()
 	end
 	self.value, self.written = value, true
 	local fields, entry = self.fields, self.entry
+	local mounting = entry.mounting
+	if mounting then -- a component about to mount: into the attributes it mounts with
+		for i = 1, self.nFields do
+			mounting[fields[i]] = value
+		end
+		return
+	end
 	local instance = entry.instance
 	if instance then -- a component: its attributes, which its own render reads
 		local attributes = instance.attributes

@@ -163,4 +163,43 @@ describe("bindings", function()
 		assert.are.equal(before + 1, childRenders) -- the second child alone
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("gives a component its bound attributes from its first render, also through another component's slot", function()
+		local renders, firstSeen = 0, nil
+		local Child = ns.Define.Component({
+			Render = function(_, self)
+				renders = renders + 1
+				if renders == 1 then
+					firstSeen = self.attributes.value:Get()
+				end
+			end,
+		})
+		local Holder = ns.Define.Component({ -- forwards the slot it's given, as the library's Window does
+			Render = function(game)
+				game.ui:Box(1, { attributes = {}, slots = { default = function(g)
+					g.ui:Slot(2, "default")
+				end } })
+			end,
+		})
+		local expr = function(_, self)
+			return self.state.ephemeral.on
+		end
+		local CALL = freeze({ attributes = freeze({}), bind = freeze({ value = expr }) })
+		local module = { name = "OrdaenSpec", ns = {}, cache = {}, Import = function(_, path)
+			return path == "components/child" and Child or path == "components/holder" and Holder or nil
+		end }
+		ns.Engine:Mount(nil, ns.Define.Component({
+			Setup = function()
+				ns.Define.Ephemeral({ on = { type = "boolean", default = true } })
+			end,
+			Render = function(game)
+				game.ui:Holder(1, { slots = { default = function(g)
+					g.ui:Child(2, nil, CALL)
+				end } })
+			end,
+		}), 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
+		ns.Scheduler.Flush()
+		assert.is_table(firstSeen) -- the Setting, already at the first render: the writer's own state
+		assert.are.same({}, wow.errors)
+	end)
 end)
