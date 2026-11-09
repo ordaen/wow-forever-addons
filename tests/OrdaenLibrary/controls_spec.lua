@@ -19,6 +19,9 @@ describe("the settings controls", function()
 					height = { type = "number", default = 60, min = 24, max = 96, step = 1, unit = "px", setting = true },
 					scale = { type = "number", default = 1, min = 0.7, max = 1.5, step = 0.05, unit = "percent",
 						setting = true },
+					-- the build writes `order` from the enum literal; a spec's component isn't built, so it's given
+					density = { type = "choice", choices = { Compact = "compact", Normal = "normal", Roomy = "roomy" },
+						order = { "compact", "normal", "roomy" }, default = "normal", setting = true },
 				})
 				disabled = ns.NewValue(false)
 			end,
@@ -62,6 +65,23 @@ describe("the settings controls", function()
 		end
 		return out
 	end
+	local function has(text)
+		for _, t in ipairs(texts()) do
+			if t == text then
+				return true
+			end
+		end
+		return false
+	end
+	-- the row a control sits in (SettingRow) faded to 45% while disabled
+	local function faded()
+		for _, node in ipairs(nodes()) do
+			if node.frame and node.frame:GetAlpha() == 0.45 then
+				return true
+			end
+		end
+		return false
+	end
 	local function click(node, x)
 		local frame = node.frame
 		local scale = frame:GetEffectiveScale()
@@ -101,7 +121,7 @@ describe("the settings controls", function()
 			disabled:Set(true)
 			ns.Scheduler.Flush()
 			local track = withBackground("ctl.switchOn")
-			assert.are.equal(0.45, track.frame:GetAlpha())
+			assert.is_true(faded())
 			assert.is_nil(track.frame:GetScript("OnClick") and track.a.OnClick)
 			assert.are.same({}, wow.errors)
 		end)
@@ -121,8 +141,55 @@ describe("the settings controls", function()
 			disabled:Set(true)
 			ns.Scheduler.Flush()
 			well = withBackground("ctl.check")
-			assert.are.equal(0.45, well.frame:GetAlpha())
+			assert.is_true(faded())
 			assert.is_nil(well.a.OnClick)
+			assert.are.same({}, wow.errors)
+		end)
+	end)
+
+	describe("Dropdown", function()
+		it("shows the picked choice, opens its menu in order, picks one, and closes on a click outside", function()
+			mount(function(game, self)
+				game.ui:Dropdown(1, { attributes = { value = self.state.persistent.density, disabled = disabled:Get() } })
+			end)
+			local face = withBackground("ctl.button")
+			assert.is_truthy(face)
+			local setting = instance.state.persistent.density
+			assert.is_true(has(setting:ChoiceLabel("normal")))
+			assert.is_true(has(setting:Label())) -- its row's label
+			click(face)
+			local marks = {}
+			for _, node in ipairs(nodes()) do
+				local bg = node.a and node.a.background
+				local path = type(bg) == "table" and rawget(bg, "path")
+				if path == "ctl.radio" or path == "ctl.radioOn" then
+					marks[#marks + 1] = path
+				end
+			end
+			assert.are.same({ "ctl.radio", "ctl.radioOn", "ctl.radio" }, marks) -- in order, the picked one gold
+			local menu = withBackground("ctl.radioOn").parent.parent
+			assert.is_true(menu.frame:GetFrameLevel() > face.frame:GetFrameLevel()) -- over the rows below
+			local items = menu.children
+			items[3].frame:GetScript("OnClick")(items[3].frame, "LeftButton") -- Просторно
+			ns.Scheduler.Flush()
+			assert.are.equal("roomy", setting:Peek())
+			assert.is_nil(withBackground("ctl.radio")) -- closed
+			click(withBackground("ctl.button"))
+			assert.is_truthy(withBackground("ctl.radioOn"))
+			-- a click outside: the screen-wide box under the menu closes it
+			for _, node in ipairs(nodes()) do
+				if node.a and node.a.position == "fixed" and node.a.OnClick then
+					node.frame:GetScript("OnClick")(node.frame, "LeftButton")
+				end
+			end
+			ns.Scheduler.Flush()
+			assert.is_nil(withBackground("ctl.radioOn"))
+			assert.are.equal("roomy", setting:Peek())
+			disabled:Set(true)
+			ns.Scheduler.Flush()
+			click(withBackground("ctl.button"))
+			assert.is_nil(withBackground("ctl.radioOn")) -- disabled: doesn't open
+			assert.is_true(faded())
 			assert.are.same({}, wow.errors)
 		end)
 	end)
@@ -220,7 +287,7 @@ describe("the settings controls", function()
 
 		it("shows the value in its unit, the fill and knob at its place, and sets it from a click in its steps", function()
 			draw("height")
-			assert.are.same({ "60 px" }, texts())
+			assert.is_true(has("60 px"))
 			local groove = withBackground("ctl.groove")
 			local fill, knob = withBackground("ctl.sliderFill"), withBackground("ctl.sliderKnob")
 			local length = groove.w
@@ -229,7 +296,7 @@ describe("the settings controls", function()
 			assert.is_true(math.abs(knob.x + knob.w / 2 - t * length) < 1)
 			click(band(), length) -- the far end
 			assert.are.equal(96, instance.state.persistent.height:Peek())
-			assert.are.same({ "96 px" }, texts())
+			assert.is_true(has("96 px"))
 			click(band(), length * 0.251) -- a quarter: 24 + 18 = 42
 			assert.are.equal(42, instance.state.persistent.height:Peek())
 			assert.are.same({}, wow.errors)
@@ -237,7 +304,7 @@ describe("the settings controls", function()
 
 		it("drags: the value follows the cursor, held to the range; percent shows as a whole number", function()
 			draw("scale")
-			assert.are.same({ "100%" }, texts())
+			assert.is_true(has("100%"))
 			local b = band()
 			local frame = b.frame
 			local scale = frame:GetEffectiveScale()
@@ -250,7 +317,7 @@ describe("the settings controls", function()
 			assert.are.equal(1.5, instance.state.persistent.scale:Peek())
 			wow:DragStop(frame)
 			ns.Scheduler.Flush()
-			assert.are.same({ "150%" }, texts())
+			assert.is_true(has("150%"))
 			assert.are.same({}, wow.errors)
 		end)
 
@@ -260,7 +327,7 @@ describe("the settings controls", function()
 			ns.Scheduler.Flush()
 			click(band(), 0)
 			assert.are.equal(60, instance.state.persistent.height:Peek())
-			assert.are.equal(0.45, band().frame:GetAlpha())
+			assert.is_true(faded())
 		end)
 	end)
 end)

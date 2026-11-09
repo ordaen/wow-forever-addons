@@ -41,10 +41,6 @@ local function Label(_, self)
 	local unit, v = setting.spec.unit, setting:Get() or 0
 	return format(FORMATS[unit] or "%s", unit == "percent" and floor(v * 100 + 0.5) or v)
 end
-local function Opacity(_, self)
-	return self.attributes.disabled == true and 0.45 or 1
-end
-
 local function Parts(game, self)
 	game.ui:Box({ attributes = GROOVE_BOX })
 	game.ui:Box({ attributes = { position = "absolute", left = EDGE, top = GROOVE_TOP + EDGE, height = GROOVE - 2 * EDGE,
@@ -54,12 +50,15 @@ local function Parts(game, self)
 end
 
 local function Row(game, self)
-	game.ui:Box({ attributes = { width = LENGTH, height = BAND, opacity = Opacity(game, self), OnClick = self.click,
-		OnDragStart = self.setAt, OnDrag = self.setAt }, slots = { default = Parts } })
+	game.ui:Box({ attributes = { width = LENGTH, height = BAND, OnClick = self.click, OnDragStart = self.setAt,
+		OnDrag = self.setAt }, slots = { default = Parts } })
 	game.ui:Text({ attributes = { text = Label(game, self), textColor = { 1, 1, 1, 1 } } })
 end
 
-local ROW_CALL = { attributes = ROW, slots = { default = Row } }
+local WIDGET = { attributes = ROW, slots = { default = Row } }
+local function Widget(game)
+	game.ui:Box(WIDGET)
+end
 
 return Define.Component({
 	Setup = function(_, self)
@@ -82,7 +81,8 @@ return Define.Component({
 		}
 	end,
 
-	Render = function(game)
-		game.ui:Box(ROW_CALL)
+	Render = function(game, self)
+		game.ui:SettingRow({ attributes = { value = self.attributes.value, disabled = self.attributes.disabled },
+			slots = { default = Widget } })
 	end,
 })

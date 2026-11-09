@@ -1,6 +1,6 @@
--- Checkbox (design controls/checkbox): a boolean setting as a dark well with a bronze edge, a gold tick while on; the
--- edge lights up under the cursor. Left-click toggles it. Disabled it draws at 45% and takes no click. 22 px as the
--- design draws it, at the user's scale (a px is 1/1.2 UI units).
+-- Checkbox (design controls/checkbox): a boolean setting's row (SettingRow: its label; the row greyed while disabled)
+-- with a dark well with a bronze edge, a gold tick while on; the edge lights up under the cursor. Left-click toggles
+-- it; disabled, it takes no click. 22 px as the design draws it, at the user's scale (a px is 1/1.2 UI units).
 --
 -- Attributes (state.md «Controls»): `value`, a boolean Setting; `disabled`, a boolean.
 local Define = import("@ordaen/define")
@@ -15,6 +15,11 @@ local function Tick(game)
 end
 local function Empty() end
 
+local function Widget(game, self)
+	local on = self.attributes.value:Get() == true
+	game.ui:Box(self.looks[on][self.attributes.disabled == true])
+end
+
 return Define.Component({
 	Setup = function(_, self)
 		local function Toggle()
@@ -25,7 +30,6 @@ return Define.Component({
 		local function call(on, disabled)
 			return { attributes = {
 				width = SIZE, height = SIZE, background = Define.Theme.ctl.check,
-				opacity = disabled and 0.45 or nil,
 				OnClick = not disabled and Toggle or nil,
 			}, slots = { default = on and Tick or Empty } }
 		end
@@ -38,8 +42,7 @@ return Define.Component({
 	end,
 
 	Render = function(game, self)
-		local setting = self.attributes.value -- the attribute's value: the Setting (a bare read, tracked by the build)
-		local on = setting:Get() == true
-		game.ui:Box(self.looks[on][self.attributes.disabled == true])
+		game.ui:SettingRow({ attributes = { value = self.attributes.value, disabled = self.attributes.disabled },
+			slots = { default = Widget } })
 	end,
 })
