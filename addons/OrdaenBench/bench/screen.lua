@@ -12,7 +12,12 @@ local floor, sort, format, abs = math.floor, table.sort, string.format, math.abs
 
 local Screen = {}
 
-local TOLERANCE = 1.5 -- px: font strings of the same font and text land within a pixel of each other
+-- How far apart the same text or texture may sit on two sides: 2 screen pixels. The framework snaps every rect to a
+-- whole pixel and rounds a centring offset, hand code keeps fractions: each is up to a pixel off the exact spot, and
+-- positions are read relative to the first text, which carries its own pixel. A list that drifts further fails, and
+-- uneven steps fail Screen.Even.
+local _, physicalHeight = GetPhysicalScreenSize()
+local TOLERANCE = 2 * UIParent:GetHeight() / physicalHeight
 
 local H = { LEFT = 0, CENTER = 0.5, RIGHT = 1 }
 local V = { TOP = 0, MIDDLE = 0.5, BOTTOM = 1 }
