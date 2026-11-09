@@ -1,6 +1,7 @@
 -- Ordaen Panel on the fake client, as built: Blizzard's own buttons it embeds (the micro menu over our cells, the bag
 -- buttons) each get their own place in the panel. Several frames embedded from one call site in a loop are told apart
--- by their keys, as boxes are: none takes another's place, and none goes back to Blizzard's layout.
+-- apart: none takes another's place, and none goes back to Blizzard's layout. Blizzard's bag bar, left with what the
+-- panel doesn't show, is hidden.
 local Fake = require("tests.fake.wow")
 
 local DIST = ".ordaen/check/dist"
@@ -32,6 +33,10 @@ describe("Ordaen Panel", function()
 
 	it("raises no Lua errors", function()
 		assert.are.same({}, wow.errors)
+	end)
+
+	it("hides what stays in Blizzard's bag bar", function()
+		assert.is_false(home:IsShown())
 	end)
 
 	it("embeds every bag button in its own place in the panel", function()

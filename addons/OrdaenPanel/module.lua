@@ -101,6 +101,10 @@ local function BagButtons(game)
 	end
 end
 
+-- Blizzard's bag bar, hidden while the panel holds its bag buttons: what stays in it (the reagent bag, which the design
+-- leaves out) would sit over the panel's right end
+local BAGS_BAR_HIDDEN = { attributes = { shown = false } }
+
 local MICRO_CALL = { attributes = MICRO_ROW, slots = { default = MicroButtons } }
 local BAG_CALL = { attributes = BAG_ROW, slots = { default = BagButtons } }
 -- the character button, invisible over the whole portrait: a click on the face opens the character window
@@ -142,6 +146,7 @@ local function Right(game, self)
 	money.attributes.text = game.Money:Format(game.Money.amount:Get())
 	game.ui:Text(money)
 	game.ui:Box(BAG_CALL)
+	game.ui:Frame(game.Frame.BagsBar, BAGS_BAR_HIDDEN)
 end
 
 local LEFT_CALL = { key = "left", attributes = LEFT, slots = { default = Left } }

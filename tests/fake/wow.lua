@@ -89,6 +89,10 @@ function Region:GetParent()
 	return self._parent
 end
 
+function Region:GetName()
+	return self._name
+end
+
 function Region:SetParent(parent)
 	local old = self._parent
 	if old == parent then
@@ -827,6 +831,7 @@ function Wow:NewFrame(kind, name, parent)
 	}, Metas()[kind])
 	f:SetParent(parent)
 	if name then
+		f._name = name
 		self.env[name] = f
 	end
 	self.allFrames[f] = true
