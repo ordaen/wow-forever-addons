@@ -14,6 +14,47 @@ ns.State = State
 
 local EMPTY = {}
 
+-- Per-key reads. A list's or map's whole-container readers (Len, Ipairs, Pairs) track the container itself; a read of
+-- one index or key tracks that entry's own source, so a write re-runs only what read that entry (and the whole-
+-- container readers). Entry sources are made on a tracked read and held weakly: one no observer holds is collected,
+-- so keys nobody reads cost nothing.
+local WEAK_VALUES = { __mode = "v" }
+
+local function EntrySource(self, key)
+	local entries = self.entries
+	if not entries then
+		entries = setmetatable({}, WEAK_VALUES)
+		self.entries = entries
+	end
+	local source = entries[key]
+	if not source then
+		source = {}
+		entries[key] = source
+	end
+	return source
+end
+
+-- Mark what read `key` (if anything did).
+local function NotifyEntry(self, key)
+	local entries = self.entries
+	local source = entries and entries[key]
+	if source then
+		Notify(source)
+	end
+end
+
+-- Mark what read any entry: a change that moves or drops them all.
+local function NotifyEntries(self, from)
+	local entries = self.entries
+	if entries then
+		for key, source in pairs(entries) do
+			if not from or (type(key) == "number" and key >= from) then
+				Notify(source)
+			end
+		end
+	end
+end
+
 local function Read(self)
 	local t = self.root[self.path]
 	return t and t[self.name]
@@ -106,7 +147,7 @@ local ListMeta = { __index = List }
 
 function List:Get(index)
 	if Tracking.observer then
-		Track(self)
+		Track(EntrySource(self, index))
 	end
 	local list = Read(self)
 	return list and list[index]
@@ -139,6 +180,9 @@ function List:Insert(value)
 	tinsert(list, value)
 	if #list > self.spec.cap then
 		tremove(list, 1)
+		NotifyEntries(self) -- every entry moved down one
+	else
+		NotifyEntry(self, #list)
 	end
 	Notify(self)
 end
@@ -147,6 +191,7 @@ function List:Remove(index)
 	local list = Read(self)
 	if list and list[index] ~= nil then
 		tremove(list, index)
+		NotifyEntries(self, index) -- this entry and every one after it moved
 		Notify(self)
 	end
 end
@@ -155,6 +200,7 @@ function List:Reset()
 	local t = self.root[self.path]
 	if t and t[self.name] then
 		t[self.name] = nil
+		NotifyEntries(self)
 		Notify(self)
 	end
 end
@@ -167,7 +213,7 @@ local MapMeta = { __index = Map }
 
 function Map:Get(key)
 	if Tracking.observer then
-		Track(self)
+		Track(EntrySource(self, key))
 	end
 	local map = Read(self)
 	return map and map[key]
@@ -214,10 +260,12 @@ function Map:Set(key, value)
 				evict = next(map, evict)
 			end
 			map[evict] = nil
+			NotifyEntry(self, evict)
 			count = count - 1
 		end
 		self.count = count
 	end
+	NotifyEntry(self, key)
 	Notify(self)
 end
 
@@ -228,6 +276,7 @@ function Map:Remove(key)
 		if self.count then
 			self.count = self.count - 1
 		end
+		NotifyEntry(self, key)
 		Notify(self)
 	end
 end
@@ -237,6 +286,7 @@ function Map:Reset()
 	if t and t[self.name] then
 		t[self.name] = nil
 		self.count = 0
+		NotifyEntries(self)
 		Notify(self)
 	end
 end
