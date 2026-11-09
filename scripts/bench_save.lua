@@ -264,8 +264,9 @@ local NOTES = {
 		.. " side. **Engine net KB / Engine kept KB:** the same on the stub backend (the engine alone, plus the"
 		.. " stub's bookkeeping); the rest is the drawing backend's.",
 	"**¹** a single sample (a first opening, a hand make): its frame time is one frame's, not a median.",
-	"**Built as players run it:** every round is on the bench profile (release stripping, the bench's dev hooks kept)"
-		.. " with the debug addon disabled; bench_save refuses any other.",
+	"**Built as players run it:** every round is on the bench profile (release stripping, the bench's dev hooks kept);"
+		.. " bench_save refuses any other. A round run with the debug addon loaded (started by the companion, the addon"
+		.. " quiet while it ran) is marked so and compared only with rounds marked alike.",
 	"**Engine / backend, read with care:** the stub run touches less memory, so the engine runs with warmer caches"
 		.. " there and the backend's share reads slightly high. Hand-written drawing leaves its text layout to WoW's"
 		.. " drawing, so compare the backend with best's frame column, not its Lua column.",
@@ -480,6 +481,9 @@ local function Model(id, saved, previous)
 	end
 	if round.addons then
 		head(string.format("Loaded addons (%d): %s.", #round.addons, table.concat(round.addons, ", ")))
+	end
+	if round.debug then
+		head("**Debug addon loaded** (the companion started the round): compared only with rounds run the same way.")
 	end
 	if #entry.gc > 0 then
 		head("Frame values marked ᵍ hold collector work WoW ran between frames: " .. table.concat(entry.gc, "; ") .. ".")
