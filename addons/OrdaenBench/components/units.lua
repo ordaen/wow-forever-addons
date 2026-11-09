@@ -101,8 +101,8 @@ return Define.Component({
 			for i = 1, N do
 				local inner = { key = 1, attributes = { width = 20, height = 20, background = BORDER } }
 				calls[i] = { key = i, inner = inner, attributes = { width = 40, height = 40 },
-					slots = { default = function(g)
-						g.ui:Box(inner)
+					slots = { default = function(game)
+						game.ui:Box(inner)
 					end } }
 			end
 		elseif unit == "textFixed" or unit == "textClimb" then
@@ -114,18 +114,18 @@ return Define.Component({
 				if fixed then
 					calls[i] = { key = i, arguments = arguments,
 						attributes = { width = 36, height = 36, xAlign = "center", yAlign = "center" },
-						slots = { default = function(g)
-							g.ui:Text(text)
+						slots = { default = function(game)
+							game.ui:Text(text)
 						end } }
 				else
 					for level = 1, 3 do -- three content-sized boxes around the text
 						local inside = child
 						local isText = level == 1
-						child = { key = 1, attributes = { width = "auto", padding = 1 }, slots = { default = function(g)
+						child = { key = 1, attributes = { width = "auto", padding = 1 }, slots = { default = function(game)
 							if isText then
-								g.ui:Text(inside)
+								game.ui:Text(inside)
 							else
-								g.ui:Box(inside)
+								game.ui:Box(inside)
 							end
 						end } }
 					end
