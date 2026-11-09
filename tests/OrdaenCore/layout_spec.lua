@@ -293,6 +293,40 @@ describe("backend layout", function()
 			assert.equal(r.children[1], Layout.Invalidate(t)) -- a layer's child is free: placed on its own
 		end)
 
+		it("moves a free box by its offsets without laying its content out again", function()
+			local cells = {}
+			for i = 1, 20 do
+				cells[i] = box({ width = 36, height = 36 })
+			end
+			local window = box({ columns = 10, gap = 2, position = "absolute", left = 200, top = 200 }, cells)
+			run(root({ window }))
+			placedCount = 0
+			window.offL, window.offT = 300, 250
+			assert.equal(window, Layout.Offsets(window))
+			assert.is_true(window.valid) -- still laid out: only its place changes
+			assert.is_true(window.natValid)
+			Layout.Relayout(window, ctx)
+			assert.equal(1, placedCount)
+			assert.same({ 300, 250 }, { window.x, window.y })
+		end)
+
+		it("treats offsets that size a box as a size change", function()
+			local panel = box({ position = "absolute", left = 10, right = 10, height = 20 })
+			run(root({ panel }))
+			panel.offR = 100
+			assert.equal(panel, Layout.Offsets(panel))
+			assert.is_false(panel.valid)
+			Layout.Relayout(panel, ctx)
+			assert.equal(1000 - 110, panel.w)
+		end)
+
+		it("ignores offsets on a flow node", function()
+			local child = box({ width = 10, height = 10 })
+			run(root({ box({}, { child }) }))
+			child.offL = 5
+			assert.is_nil(Layout.Offsets(child))
+		end)
+
 		it("returns nil for a detached node", function()
 			assert.is_nil(Layout.Invalidate(text("x")))
 		end)

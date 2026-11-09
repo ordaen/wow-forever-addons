@@ -40,10 +40,11 @@ local FONT = STANDARD_TEXT_FONT
 local STRATA = { screen = "MEDIUM", dialog = "DIALOG", tooltip = "TOOLTIP" }
 local JUSTIFY = { start = "LEFT", center = "CENTER", ["end"] = "RIGHT" }
 
--- What each attribute changes: the node's own size or place, its content's layout, its look, its mouse handlers.
-local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION = 1, 2, 3, 4, 5, 6, 7
+-- What each attribute changes: the node's own size, its offsets (where a free node sits, not its size), its
+-- content's layout, its look, its mouse handlers.
+local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5, 6, 7, 8
 local GROUP = {
-	width = OWN, height = OWN, columnSpan = OWN, top = OWN, right = OWN, bottom = OWN, left = OWN,
+	width = OWN, height = OWN, columnSpan = OWN, top = OFFSET, right = OFFSET, bottom = OFFSET, left = OFFSET,
 	position = POSITION,
 	columns = CONTENT, gap = CONTENT, padding = CONTENT, xAlign = CONTENT, yAlign = CONTENT,
 	border = BORDER,
@@ -676,7 +677,7 @@ function Backend:Set(node, attributes)
 	---@cast node OrdaenBackendNode
 	local own = node.a
 	local keys = node.kind == "text" and TEXT_KEYS or node.taken and TAKEN_KEYS or BOX_KEYS
-	local ownChg, posChg, contentChg, lookChg, inputChg, textChg = false, false, false, false, false, false
+	local ownChg, posChg, offsetChg, contentChg, lookChg, inputChg, textChg = false, false, false, false, false, false, false
 	for i = 1, #keys do
 		local k = keys[i]
 		local v = attributes[k]
@@ -687,6 +688,8 @@ function Backend:Set(node, attributes)
 				ownChg = true
 			elseif g == POSITION then
 				ownChg, posChg = true, true
+			elseif g == OFFSET then
+				offsetChg = true
 			elseif g == CONTENT then
 				contentChg = true
 			elseif g == LOOK then
@@ -717,7 +720,7 @@ function Backend:Set(node, attributes)
 		end
 		node.nargs = n
 	end
-	if not (ownChg or contentChg or lookChg or inputChg or textChg) then
+	if not (ownChg or offsetChg or contentChg or lookChg or inputChg or textChg) then
 		return
 	end
 	node:ScanStates(keys)
@@ -725,7 +728,7 @@ function Backend:Set(node, attributes)
 		node:ApplyTaken()
 		return
 	end
-	if ownChg or contentChg then
+	if ownChg or offsetChg or contentChg then
 		node:ApplyLayout()
 	end
 	local resized = textChg and node:ApplyText()
@@ -738,8 +741,13 @@ function Backend:Set(node, attributes)
 		if posChg and node.parent then
 			enqueue(Layout.Invalidate(node.parent))
 		end
-	elseif contentChg or resized then
-		enqueue(Layout.Invalidate(node))
+	else
+		if offsetChg then
+			enqueue(Layout.Offsets(node))
+		end
+		if contentChg or resized then
+			enqueue(Layout.Invalidate(node))
+		end
 	end
 end
 

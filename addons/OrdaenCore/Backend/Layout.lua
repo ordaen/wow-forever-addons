@@ -162,6 +162,21 @@ function Layout.Invalidate(node, own)
 	end
 end
 
+---A node's offsets changed. Returns what to lay out again: the node itself, placed again with its cached size, when
+---it's free; nothing for a flow node (offsets don't apply to it). Offsets that size it (left and right, or top and
+---bottom, with no width or height) change its size: then it's invalidated like a size change.
+---@param node table
+---@return table?
+function Layout.Offsets(node)
+	if node.kind == "root" or not isFree(node) then
+		return nil
+	end
+	if (node.wKind == nil and node.offL and node.offR) or (node.hKind == nil and node.offT and node.offB) then
+		return Layout.Invalidate(node, true)
+	end
+	return node
+end
+
 -- Flow children into cells, reading order, wrapping when a span doesn't fit the row. Returns the number of rows.
 local function assignCells(node)
 	local children, n = node.children, node.ncols or 1
