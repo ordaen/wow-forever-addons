@@ -363,30 +363,35 @@ local function edge(frame)
 	return t
 end
 
--- A border drawn with a Blizzard nine-slice's art (`nineSlice`, a NineSliceLayouts name): its left edge turned to
--- lie along the top, lit from the top-left like the rest, stretched across (a tiling texture ignores the turn). Only
--- the top side has art: the panel strips that use it are open on the other sides.
-function Node:ApplyEdgeArt(name)
-	local layout = NineSliceLayouts and NineSliceLayouts[name]
+-- A border drawn with a Blizzard nine-slice's art (border.nineSlice, a NineSliceLayouts name), as the design site's
+-- MetalFrame draws a small surface open at the sides and bottom: the layout's left edge turned to lie along the top
+-- (lit from the top-left like the rest), stretched across (a tiling texture ignores the turn), as thick as its atlas
+-- is wide times border.scale, its outer side border.outset above the box. The box's background starts border.inset
+-- below its top, under the metal. Only the top side has art.
+function Node:ApplyEdgeArt(border)
+	local layout = NineSliceLayouts and NineSliceLayouts[border.nineSlice]
 	local from = type(layout) == "table" and layout.LeftEdge or nil
 	local atlas = type(from) == "table" and from.atlas or nil
-	if not atlas or self.bwT == 0 then
+	local info = atlas and C_Texture.GetAtlasInfo(atlas)
+	if not info or self.bwT == 0 then
 		return
 	end
 	local tex = self.edgeArt
 	if not tex then
 		tex = self.frame:CreateTexture(nil, "BORDER")
-		tex:SetPoint("TOPLEFT")
-		tex:SetPoint("TOPRIGHT")
 		tex:SetSnapToPixelGrid(false) -- as NineSliceUtil.DisableSharpening: the art stays sharp at any scale
 		tex:SetTexelSnappingBias(0)
 		self.edgeArt = tex
 	end
+	local outset = snap(border.outset or 0)
+	tex:ClearAllPoints()
+	tex:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 0, outset)
+	tex:SetPoint("TOPRIGHT", self.frame, "TOPRIGHT", 0, outset)
 	tex:SetAtlas(atlas)
 	tex:SetHorizTile(false)
 	tex:SetVertTile(false)
 	tex:SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0) -- within the atlas: top-left shows its bottom-left, top-right its top-left
-	tex:SetHeight(self.bwT)
+	tex:SetHeight(snap(info.width * (border.scale or 1)))
 	tex:Show()
 end
 
@@ -406,7 +411,7 @@ function Node:ApplyBorder(border)
 		return
 	end
 	if border.nineSlice then
-		self:ApplyEdgeArt(border.nineSlice)
+		self:ApplyEdgeArt(border)
 		return
 	end
 	if not edges then
@@ -554,6 +559,7 @@ end
 -- keeps its aspect (texture coordinates count within the atlas after SetAtlas). Again only when the box's size changed.
 function Node:FitBackground()
 	local aspect, w, h = self.lookFit, self.pW, self.pH
+	h = h and h - (self.fillTop or 0) -- the background starts below the border art's inset
 	if not aspect or not w or not h or h <= 0 or (w == self.fitW and h == self.fitH) then
 		return
 	end
@@ -606,6 +612,16 @@ function Node:ApplyLook()
 		self:ApplyMask(mask)
 	end
 	local bg = resolve(self, a.background)
+	-- under a border drawn with Blizzard's art the background starts at the art's inset (MetalFrame's fill)
+	local border = resolve(self, a.border)
+	local fillTop = type(border) == "table" and border.nineSlice and snap(border.inset or 0) or 0
+	if fillTop ~= (self.fillTop or 0) then
+		self.fillTop, self.fitW = fillTop, nil
+		if self.bg then
+			self.bg:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -fillTop)
+			self:FitBackground()
+		end
+	end
 	if bg ~= self.lookBg then
 		self.lookBg = bg
 		local tex = self.bg
@@ -616,7 +632,8 @@ function Node:ApplyLook()
 		else
 			if not tex then
 				tex = frame:CreateTexture(nil, "BACKGROUND")
-				tex:SetAllPoints(frame)
+				tex:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -(self.fillTop or 0))
+				tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
 				self.bg = tex
 				if self.maskTex then
 					tex:AddMaskTexture(self.maskTex)
@@ -646,7 +663,6 @@ function Node:ApplyLook()
 		self.lookPortrait = unit
 		self:ApplyPortrait(unit)
 	end
-	local border = resolve(self, a.border)
 	-- the widths change together (the pixel size) or with the border's sides (another border): one sum tells
 	local bw = self.bwT + self.bwR + self.bwB + self.bwL
 	if border ~= self.lookBorder or bw ~= self.lookBw then

@@ -1182,7 +1182,7 @@ function Wow:MakeEnv()
 			return { width = 256, height = 128 }
 		end,
 	})
-	offer("NineSliceLayouts", { GenericMetal = { LeftEdge = { atlas = "UI-Frame-GenericMetal-EdgeLeft" } } })
+	offer("NineSliceLayouts", { ButtonFrameTemplateNoPortrait = { LeftEdge = { atlas = "UI-Frame-Metal-EdgeLeft" } } })
 	offer("issecurevariable", function()
 		return false
 	end)

@@ -49,6 +49,16 @@ local function draw(Backend, grid, cell, n)
 	return g, cells, texts
 end
 
+-- A region's TOPLEFT point's y offset (points come back in no fixed order).
+local function topLeftY(region)
+	for i = 1, region:GetNumPoints() do
+		local point, _, _, _, y = region:GetPoint(i)
+		if point == "TOPLEFT" then
+			return y
+		end
+	end
+end
+
 local function same(a, b, what)
 	for _, f in ipairs(FIELDS) do
 		assert.are.equal(b[f], a[f], what .. "." .. f)
@@ -215,8 +225,10 @@ describe("backend styles", function()
 		assert.are.same({ 0, 0, 0 }, { strip.bwR, strip.bwB, strip.bwL })
 		assert.are.equal(strip.bwT, cell.y) -- below the metal
 		assert.are.equal(0, cell.x) -- flush left
-		assert.are.equal(strip.bwT, strip.edgeArt._h)
-		assert.are.equal("UI-Frame-GenericMetal-EdgeLeft", strip.edgeArt._atlas)
+		assert.are.equal("UI-Frame-Metal-EdgeLeft", strip.edgeArt._atlas)
+		assert.is_true(topLeftY(strip.edgeArt) > 0) -- its outer side above the strip
+		assert.is_true(strip.edgeArt._h > strip.bwT) -- the art at its own thickness, past the content's inset
+		assert.is_true(topLeftY(strip.bg) < 0) -- the wood starts under the metal
 		assert.are.equal("UI-Character-Info-General-BG", strip.bg._atlas)
 		-- the strip is far wider than the 2:1 art: its full width, a band of its height
 		local l, r, t, b = unpack(strip.bg._coords)

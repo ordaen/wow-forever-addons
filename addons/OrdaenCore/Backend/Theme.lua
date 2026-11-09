@@ -33,8 +33,11 @@ ns.Theme = {
 	["text.title"] = 16,
 	-- the character sheet's wood, as the panel's surface
 	["panel.wood"] = { atlas = "UI-Character-Info-General-BG" },
-	-- the small metal (GenericMetal at half its size) along the top: 8 px at the user's scale (1.2 px per unit)
-	["panel.edge"] = { width = 7, sides = { "top" }, nineSlice = "GenericMetal" },
+	-- the small metal along the top, as the design site's MetalFrame kind "small" draws it: Blizzard's
+	-- ButtonFrameTemplateNoPortrait at half size, its outer side 1.5 units above the panel, the wood from 3 below
+	-- its top; the content starts 7 units down (8 px at the user's scale, 1.2 px per unit)
+	["panel.edge"] = { width = 7, sides = { "top" }, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5,
+		outset = 1.5, inset = 3 },
 	-- the portrait fitted into the screen's corner: flat top, the top-right corner rounded, the rim along the top and
 	-- the right (design: panel, «Portrait»; CornerPortrait)
 	["panel.corner"] = {
