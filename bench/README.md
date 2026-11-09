@@ -14,10 +14,10 @@ round: the history); the design site's Bench page shows every round. This is the
 
 Reading it:
 
-- **One /obench:** a cold block first (the large grid opened on every side while the session is fresh), then the whole plan untracked (one-time costs: fonts, first textures, Blizzard code), then the whole plan measured.
-- **make (pool warm):** the framework opened again after closing, its frames back from the pools; hand code makes new frames every time. **make (cold)** compares the first opening on every side.
-- **grid close and open+close:** the framework unmounts and mounts again (the MVP has no hidden attribute); hand code hides and shows ("By hand only"). Not the same operation: no factor.
-- **framework-naive:** grid and ticker written as code reads without the build's lifting and hoisting: new tables and a new slot function every call. Its rows include lost skipping (a new slot function re-renders the child), not only allocation.
+- **One /obench:** a cold block first (the large grid's first open on every side while the session is fresh), then the whole plan measured; each series' first calls stay out of its numbers. `/obench variants` adds the framework's variants.
+- **open, close, first open:** each side its own way: the framework mounts from its pools and unmounts; hand code shows and hides the frames it made once, or rebuilds and drops the state it has instead of frames. **first open** is every side's first opening in a fresh session.
+- **framework-naive** (variants rounds): grid and ticker written as code reads without the build's lifting and hoisting: new tables and a new slot function every call. Its rows include lost skipping (a new slot function re-renders the child), not only allocation.
+- **chain, diamond, cascade:** there for their checks (each watch runs once per change, no stale reads): a few calls, not a timing series.
 - **grid steady:** the grid on screen with nothing changing. "≈ idle" means drawing it adds nothing to the main thread's frame (what an addon costs players' frames); WoW's render threads can still do work their slack hides, so not that drawing is free.
 - **Same as baseline:** after each block, what every side ended on (its texts and where their glyphs sit; the textures' rects where the scenario draws shapes; a checksum of every watch's result where nothing is drawn) is compared with the baseline's. Both ran the same seeded actions, so a side that skipped work or drew something else fails, whatever its time.
 - **deep, value through 100 levels:** the framework hands the value down as an attribute through every level; hand code sets the one text directly. Intended: it shows what passing attributes costs.
@@ -25,146 +25,112 @@ Reading it:
 - **hover:** the bench calls the cells' frames' OnLeave and OnEnter scripts; WoW finding the frame under the cursor (hit testing) is the same on every side and isn't measured. No engine side: the stub draws no frames.
 - **scheduler:** two ways to start the engine's flush, 1000 minimal schedulers each (a row's ms is µs per scheduler). Framework column: the engine's way, the OnUpdate attached on a frame's first write and removed by the flush. Best column: the proposed way, the OnUpdate always attached and returning when nothing is pending. Writes are in the Lua column; the OnUpdates (attach's removal, always's call every frame) only in the frame column.
 
-Round 10, 2026-11-09 06:54:29; client 70862, 536 fps; Core 8332ac6, Bench 7a5e8f4.
+Round 12, 2026-11-09 07:14:55; client 70862, 547 fps; Core 0dc7800, Bench 64f987c.
 Run with: collector stop, useMaxFPS 0 (maxFPS 120), vsync 0.
 Built: Core bench, Bench bench (profiles). Where: Элвиннский лес, Зеркальное озеро. Graphics: 13 settings at 0, ParticleDensity 1, OutlineMode 2, ffxAntiAliasingMode 4.
 Loaded addons (2): OrdaenCore, OrdaenBench.
-Frame values marked ᵍ hold collector work WoW ran between frames: grid large close (framework-engine): the collector stepped in 2 of 15 measured frames; reorder - close (framework): the collector stepped in 1 of 15 measured frames.
-Compared with: no earlier comparable round.
+Compared with: round 10, 2026-11-09 06:54:29 (Core 8332ac6).
+
+## Improvements
+
+- signals large: open: Lua -13% (23.44 ms → 20.50 ms), frame -11%
+- signals large: close: Lua -10% (3.35 ms → 3.00 ms), frame -12%
+- fanout -: open: Lua -7% (11.89 ms → 11.01 ms), frame -12%
+- events -: open: Lua -32% (0.82 ms → 0.56 ms), frame -1%
+- ticker large: open: Lua -10% (6.91 ms → 6.25 ms), frame -12%
+- reorder -: open: Lua -6% (12.18 ms → 11.48 ms), frame -11%
+- reorder -: close: Lua -14% (4.21 ms → 3.60 ms)
+- deep -: open: Lua -10% (5.18 ms → 4.68 ms), frame -15%
+- columns -: open: Lua -8% (10.26 ms → 9.48 ms), frame -20%
+- grow -: open: Lua -8% (11.78 ms → 10.79 ms), frame -20%
+- rows -: open: Lua -18% (2.00 ms → 1.63 ms), frame -35%
+- filter -: open: Lua -9% (4.78 ms → 4.36 ms), frame -29%
+- drag -: open: Lua -10% (4.94 ms → 4.44 ms), frame -33%
+- bars -: open: Lua -21% (1.96 ms → 1.55 ms), frame -36%
+- sections -: open: Lua -9% (3.48 ms → 3.17 ms), frame -23%
+- tooltip -: open: Lua -7% (0.07 ms → 0.06 ms), frame -38%
+- hover -: open: Lua -12% (3.05 ms → 2.70 ms), frame -36%
+
+## Regressions
+
+- resize -: close: Lua +10% (2.94 ms → 3.23 ms), frame +33%
+- sections -: close: Lua +4% (1.13 ms → 1.18 ms), frame +106%
+- units -: release 1000 texts: Lua +1% (5.00 ms → 5.06 ms), frame +12%
 
 ## Results
 
 | Scenario | Size | Metric | Framework Lua | Engine | Backend | Frame | Best Lua | Frame | Typical Lua | Frame | × best Lua | × best frame | × typical Lua | Net | Engine net | Kept | Engine kept | Change Lua | Change frame | Check |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| grid | large | first open ¹ | 67.71 ms | 15.41 ms | 52.30 ms | 74.14 ms | 5.61 ms | 7.77 ms | 7.87 ms | 12.16 ms | 12.1× | 9.5× | 8.6× | 18.59 MB | 6.27 MB | 18.37 MB | 47.70 KB |  |  |  |
-| signals | small | open | 2.18 ms |  |  | 4.10 ms | 0.47 ms | 2.25 ms | 0.35 ms | 2.26 ms | 4.6× | 1.8× | 6.2× | 1.20 MB |  | 1.19 MB |  |  |  |  |
-| signals | small | 50 writes/frame | 0.33 ms |  |  | ≈ idle | 0.04 ms | ≈ idle | 0.04 ms | ≈ idle | 7.6× |  | 8.8× | 0.37 KB |  |  |  |  |  |  |
-| signals | small | close | 0.31 ms |  |  | 0.58 ms | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
-| signals | small | 50 writes/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| signals | large | open | 23.44 ms |  |  | 26.27 ms | 4.42 ms | 7.19 ms | 3.34 ms | 6.06 ms | 5.3× | 3.7× | 7.0× | 12.54 MB |  | 12.19 MB |  |  |  |  |
-| signals | large | 500 writes/frame | 3.90 ms |  |  | 4.08 ms | 0.28 ms | ≈ idle | 0.33 ms | ≈ idle | 13.9× |  | 11.8× | 5.84 KB |  |  |  |  |  |  |
-| signals | large | close | 3.35 ms |  |  | 3.85 ms | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | -224.00 KB |  |  |  |  |  |  |
+| grid | large | first open ¹ | 68.05 ms | 16.27 ms | 51.77 ms | 73.35 ms | 5.77 ms | 9.27 ms | 8.08 ms | 11.64 ms | 11.8× | 7.9× | 8.4× | 18.59 MB | 6.27 MB | 18.37 MB | 47.70 KB |  |  |  |
+| signals | large | held closed ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 1 instances, 0 entries; heap 135822 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| signals | large | open | 20.50 ms |  |  | 23.32 ms | 3.74 ms | 5.97 ms | 3.14 ms | 5.41 ms | 5.5× | 3.9× | 6.5× | 12.57 MB |  | 12.19 MB |  | -13% | -11% |  |
+| signals | large | held open ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 2 instances, 0 entries; heap 148303 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| signals | large | 500 writes/frame | 3.86 ms |  |  | 3.85 ms | 0.26 ms | ≈ idle | 0.32 ms | ≈ idle | 14.6× |  | 12.0× | 5.84 KB |  |  |  | -1% | -5% |  |
+| signals | large | close | 3.00 ms |  |  | 3.40 ms | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | -224.00 KB |  |  |  | -10% | -12% |  |
 | signals | large | 500 writes/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| coalesce | - | open | 0.26 ms |  |  | 2.11 ms |  |  |  |  |  |  |  | 148.54 KB |  | 147.20 KB |  |  |  |  |
-| coalesce | - | 1000 writes/frame | 10.55 ms |  |  | 10.97 ms | 0.01 ms | ≈ idle | 10.07 ms | 10.49 ms | 770.4× |  | 1.0× | 0.00 KB |  |  |  |  |  | ok |
-| coalesce | - | close | 0.10 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  |  |
-| chain | - | open | 0.25 ms |  |  | 2.80 ms |  |  |  |  |  |  |  | 218.08 KB |  | 143.20 KB |  |  |  |  |
-| chain | - | 1 change/frame | 0.15 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| chain | - | close | 0.02 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.05 KB |  |  |  |  |  |  |
-| diamond | - | open | 0.23 ms |  |  | 2.56 ms |  |  |  |  |  |  |  | 106.09 KB |  | 104.70 KB |  |  |  |  |
-| diamond | - | 1 change/frame | 0.15 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| diamond | - | close | 0.02 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.05 KB |  |  |  |  |  |  |
-| fanout | - | open | 11.89 ms |  |  | 14.64 ms | 0.25 ms | 3.03 ms |  |  | 48.5× | 4.8× |  | 7.27 MB |  | 7.26 MB |  |  |  |  |
-| fanout | - | 1 change/frame | 20.08 ms |  |  | 20.71 ms | 0.23 ms | ≈ idle |  |  | 86.5× |  |  | 0.00 KB |  |  |  |  |  |  |
-| fanout | - | close | 3.89 ms |  |  | 4.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  |  |
+| coalesce | - | held closed ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 1 instances, 0 entries; heap 135875 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| coalesce | - | open | 0.24 ms |  |  | 1.72 ms |  |  |  |  |  |  |  | 148.54 KB |  | 147.20 KB |  | -8% | -18% |  |
+| coalesce | - | held open ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 2 instances, 0 entries; heap 136015 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| coalesce | - | 1000 writes/frame | 10.65 ms |  |  | 10.98 ms | 0.01 ms | ≈ idle | 10.04 ms | 10.34 ms | 783.2× |  | 1.1× | 0.00 KB |  |  |  | +1% | +0% | ok |
+| coalesce | - | close | 0.10 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  | -3% |  |  |
+| chain | - | held closed ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 1 instances, 0 entries; heap 135899 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| chain | - | open | 0.23 ms |  |  | 2.56 ms |  |  |  |  |  |  |  | 217.82 KB |  | 143.10 KB |  | -10% | -8% |  |
+| chain | - | held open ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 2 instances, 0 entries; heap 136029 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| chain | - | 1 change/frame | 0.14 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  | -8% |  | ok |
+| chain | - | close | 0.02 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.05 KB |  |  |  | -2% |  |  |
+| diamond | - | held closed ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 1 instances, 0 entries; heap 135913 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| diamond | - | open | 0.21 ms |  |  | 2.74 ms |  |  |  |  |  |  |  | 106.09 KB |  | 104.70 KB |  | -11% | +7% |  |
+| diamond | - | held open ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 2 instances, 0 entries; heap 136011 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| diamond | - | 1 change/frame | 0.14 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  | -5% |  | ok |
+| diamond | - | close | 0.02 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.05 KB |  |  |  | +0% |  |  |
+| fanout | - | held closed ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 1 instances, 0 entries; heap 135922 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| fanout | - | open | 11.01 ms |  |  | 12.83 ms | 0.14 ms | 2.56 ms |  |  | 77.4× | 5.0× |  | 7.27 MB |  | 7.26 MB |  | -7% | -12% |  |
+| fanout | - | held open ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 2 instances, 0 entries; heap 143354 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| fanout | - | 1 change/frame | 19.71 ms |  |  | 20.31 ms | 0.21 ms | ≈ idle |  |  | 93.9× |  |  | 0.00 KB |  |  |  | -2% | -2% |  |
+| fanout | - | close | 3.74 ms |  |  | 4.16 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  | -4% | +4% |  |
 | fanout | - | 1 change/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| cascade | - | open | 0.23 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 113.01 KB |  | 111.70 KB |  |  |  |  |
-| cascade | - | 1 change/frame | 0.10 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| cascade | - | close | 0.07 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  |  |
-| events | - | open | 0.82 ms |  |  | 3.45 ms | <0.01 ms | 1.74 ms |  |  |  | 2.0× |  | 9.48 KB |  | 0.10 KB |  |  |  |  |
-| events | - | 20 BAG_UPDATE/frame | 0.10 ms |  |  | ≈ idle | 0.01 ms | ≈ idle |  |  | 8.2× |  |  | 0.00 KB |  |  |  |  |  |  |
-| events | - | close | 0.10 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  |  |
+| cascade | - | held closed ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 1 instances, 0 entries; heap 136111 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| cascade | - | open | 0.21 ms |  |  | 1.79 ms |  |  |  |  |  |  |  | 113.52 KB |  | 111.70 KB |  | -8% |  |  |
+| cascade | - | held open ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 2 instances, 0 entries; heap 136216 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| cascade | - | 1 change/frame | 0.10 ms |  |  | 0.45 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  | -5% |  | ok |
+| cascade | - | close | 0.06 ms |  |  | 0.50 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | -4% |  |  |
+| events | - | held closed ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 1 instances, 0 entries; heap 136117 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| events | - | open | 0.56 ms |  |  | 3.41 ms | <0.01 ms | 1.76 ms |  |  |  | 1.9× |  | 9.48 KB |  | 0.10 KB |  | -32% | -1% |  |
+| events | - | held open ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 2 instances, 6 entries; heap 136122 KB; backend array 8255, created_box 1001, created_text 1000, hash 83078, hash_slots 128077, live_box 1, live_text 5, pool_box 1000, pool_text 995 |
+| events | - | 20 BAG_UPDATE/frame | 0.10 ms |  |  | ≈ idle | 0.01 ms | ≈ idle |  |  | 8.3× |  |  | 0.00 KB |  |  |  | +1% |  |  |
+| events | - | close | 0.09 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  | -8% |  |  |
 | events | - | 20 BAG_UPDATE/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | events | - | 20 BAG_UPDATE/frame (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | open | 10.50 ms | 3.63 ms | 6.87 ms | 13.87 ms | 0.06 ms | 2.94 ms | 0.10 ms | 2.29 ms | 179.8× | 4.7× | 107.4× | 1.25 MB | 1.25 MB | 0.00 KB | 0.00 KB |  |  |  |
-| grid | small | steady (shown, unchanged) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
-| grid | small | one changed | 0.43 ms | 0.40 ms | 0.02 ms | 0.67 ms | <0.01 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 36.7× | 0.08 KB | 0.08 KB |  |  |  |  |  |
-| grid | small | all changed | 3.57 ms | 2.21 ms | 1.36 ms | 4.09 ms | 0.10 ms | ≈ idle | 0.33 ms | 0.88 ms | 34.4× |  | 10.9× | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| grid | small | close | 3.06 ms | 0.80 ms | 2.26 ms | 2.99 ms | 0.01 ms | ≈ idle | 0.02 ms | ≈ idle | 208.3× |  | 135.5× | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| grid | small | open+close | 12.20 ms | 4.05 ms | 8.15 ms | 12.70 ms | 0.02 ms | ≈ idle | 0.04 ms | ≈ idle | 490.0× |  | 304.3× | 1.24 MB | 1.24 MB |  |  |  |  |  |
-| grid | small | race: open+close in one frame ¹ | 0.03 ms |  |  | 1.40 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | race: handle after close ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | open (framework-itemsRead) | 10.81 ms |  |  | 13.42 ms | 0.06 ms | 2.94 ms | 0.10 ms | 2.29 ms | 185.1× | 4.6× | 110.5× | 1.29 MB |  | 0.00 KB |  |  |  |  |
-| grid | small | steady (shown, unchanged) (framework-itemsRead) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
-| grid | small | one changed (framework-itemsRead) | 1.70 ms |  |  | 1.94 ms | <0.01 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 146.4× | 0.06 KB |  |  |  |  |  |  |
-| grid | small | all changed (framework-itemsRead) | 7.20 ms |  |  | 7.82 ms | 0.10 ms | ≈ idle | 0.33 ms | 0.88 ms | 69.3× |  | 22.0× | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | close (framework-itemsRead) | 3.16 ms |  |  | 3.62 ms | 0.01 ms | ≈ idle | 0.02 ms | ≈ idle | 215.3× |  | 140.0× | 0.00 KB |  |  |  |  |  |  |
-| grid | small | open+close (framework-itemsRead) | 12.42 ms |  |  | 13.15 ms | 0.02 ms | ≈ idle | 0.04 ms | ≈ idle | 498.8× |  | 309.7× | 1.28 MB |  |  |  |  |  |  |
-| grid | small | race: open+close in one frame (framework-itemsRead) ¹ | 0.04 ms |  |  | 2.72 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | race: handle after close (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | open (framework-naive) | 11.11 ms |  |  | 14.53 ms | 0.06 ms | 2.94 ms | 0.10 ms | 2.29 ms | 190.3× | 4.9× | 113.6× | 1.52 MB |  | 18.80 KB |  |  |  |  |
-| grid | small | steady (shown, unchanged) (framework-naive) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
-| grid | small | one changed (framework-naive) | 0.47 ms |  |  | 0.72 ms | <0.01 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 40.6× | 73.34 KB |  |  |  |  |  |  |
-| grid | small | all changed (framework-naive) | 3.68 ms |  |  | 4.27 ms | 0.10 ms | ≈ idle | 0.33 ms | 0.88 ms | 35.4× |  | 11.2× | 350.00 KB |  |  |  |  |  | ok |
-| grid | small | close (framework-naive) | 3.11 ms |  |  | 3.18 ms | 0.01 ms | ≈ idle | 0.02 ms | ≈ idle | 211.3× |  | 137.5× | 0.00 KB |  |  |  |  |  |  |
-| grid | small | open+close (framework-naive) | 12.37 ms |  |  | 13.27 ms | 0.02 ms | ≈ idle | 0.04 ms | ≈ idle | 496.8× |  | 308.5× | 1.52 MB |  |  |  |  |  |  |
-| grid | small | race: open+close in one frame (framework-naive) ¹ | 0.03 ms |  |  | 1.51 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | race: handle after close (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | one changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | one changed (same as baseline) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | one changed (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | one changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | one changed (even line spacing) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | one changed (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | all changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | all changed (same as baseline) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | all changed (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | all changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | all changed (even line spacing) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | small | all changed (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | open | 51.72 ms | 18.35 ms | 33.37 ms | 58.06 ms | 0.26 ms | 3.72 ms | 0.41 ms | 2.87 ms | 202.1× | 15.6× | 126.9× | 6.22 MB | 6.22 MB | 0.00 KB | 0.00 KB |  |  |  |
+| grid | large | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 136149 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| grid | large | open | 48.97 ms | 15.92 ms | 33.05 ms | 56.09 ms | 0.21 ms | 2.36 ms | 0.36 ms | 1.72 ms | 231.3× | 23.8× | 136.4× | 6.22 MB | 6.22 MB | -0.10 KB | 0.00 KB | -5% | -3% |  |
+| grid | large | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1002 instances, 3001 entries; heap 136133 KB; backend array 11240, created_box 1001, created_text 1000, hash 104049, hash_slots 137068, live_box 1001, live_text 1000, pool_box 0, pool_text 0 |
 | grid | large | steady (shown, unchanged) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
-| grid | large | one changed | 1.92 ms | 1.84 ms | 0.08 ms | 2.42 ms | <0.01 ms | 0.57 ms | 0.01 ms | 0.41 ms |  | 4.3× | 158.6× | 0.08 KB | 0.08 KB |  |  |  |  |  |
-| grid | large | all changed | 19.32 ms | 11.36 ms | 7.97 ms | 21.39 ms | 0.42 ms | 1.88 ms | 1.81 ms | 3.36 ms | 46.4× | 11.4× | 10.7× | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| grid | large | close | 18.25 ms | 5.02 ms | 13.23 ms | 19.76 ms | 0.06 ms | ≈ idle | 0.10 ms | 0.48 ms | 308.3× |  | 186.3× | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| grid | large | open+close | 62.07 ms | 19.95 ms | 42.12 ms | 64.77 ms | 0.11 ms | ≈ idle | 0.20 ms | 0.44 ms | 562.8× |  | 315.7× | 6.19 MB | 6.19 MB |  |  |  |  |  |
-| grid | large | race: open+close in one frame ¹ | 0.03 ms |  |  | 2.49 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | one changed | 1.78 ms | 1.78 ms | <0.01 ms | 2.35 ms | <0.01 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 147.3× | 0.08 KB | 0.08 KB |  |  | -7% | -3% |  |
+| grid | large | all changed | 17.97 ms | 11.40 ms | 6.57 ms | 19.97 ms | 0.40 ms | 1.68 ms | 1.83 ms | 3.43 ms | 44.7× | 11.9× | 9.8× | 0.00 KB | 0.00 KB |  |  | -7% | -7% | ok |
+| grid | large | close | 16.74 ms | 4.28 ms | 12.46 ms | 18.12 ms | 0.05 ms | ≈ idle | 0.09 ms | 0.59 ms | 313.5× |  | 176.6× | 0.00 KB | 0.00 KB |  |  | -8% | -8% |  |
+| grid | large | open+close | 58.11 ms | 17.56 ms | 40.55 ms | 60.80 ms | 0.10 ms | ≈ idle | 0.29 ms | 0.71 ms | 602.1× |  | 203.0× | 6.19 MB | 6.19 MB |  |  | -6% | -6% |  |
+| grid | large | race: open+close in one frame ¹ | 0.03 ms |  |  | 1.17 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | grid | large | race: handle after close ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | open (framework-itemsRead) | 52.06 ms |  |  | 57.76 ms | 0.26 ms | 3.72 ms | 0.41 ms | 2.87 ms | 203.4× | 15.5× | 127.7× | 6.38 MB |  | 0.00 KB |  |  |  |  |
-| grid | large | steady (shown, unchanged) (framework-itemsRead) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
-| grid | large | one changed (framework-itemsRead) | 8.99 ms |  |  | 9.81 ms | <0.01 ms | 0.57 ms | 0.01 ms | 0.41 ms |  | 17.4× | 743.0× | 0.06 KB |  |  |  |  |  |  |
-| grid | large | all changed (framework-itemsRead) | 120.70 ms |  |  | 123.79 ms | 0.42 ms | 1.88 ms | 1.81 ms | 3.36 ms | 290.0× | 65.8× | 66.6× | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | close (framework-itemsRead) | 17.91 ms |  |  | 19.73 ms | 0.06 ms | ≈ idle | 0.10 ms | 0.48 ms | 302.5× |  | 182.7× | 0.00 KB |  |  |  |  |  |  |
-| grid | large | open+close (framework-itemsRead) | 61.91 ms |  |  | 63.12 ms | 0.11 ms | ≈ idle | 0.20 ms | 0.44 ms | 561.3× |  | 314.9× | 6.35 MB |  |  |  |  |  |  |
-| grid | large | race: open+close in one frame (framework-itemsRead) ¹ | 0.04 ms |  |  | 3.47 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | race: handle after close (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | open (framework-naive) | 53.72 ms |  |  | 60.28 ms | 0.26 ms | 3.72 ms | 0.41 ms | 2.87 ms | 209.9× | 16.2× | 131.8× | 7.58 MB |  | 93.80 KB |  |  |  |  |
-| grid | large | steady (shown, unchanged) (framework-naive) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
-| grid | large | one changed (framework-naive) | 2.12 ms |  |  | 3.12 ms | <0.01 ms | 0.57 ms | 0.01 ms | 0.41 ms |  | 5.5× | 175.1× | 360.84 KB |  |  |  |  |  |  |
-| grid | large | all changed (framework-naive) | 20.47 ms |  |  | 22.94 ms | 0.42 ms | 1.88 ms | 1.81 ms | 3.36 ms | 49.2× | 12.2× | 11.3× | 1.71 MB |  |  |  |  |  | ok |
-| grid | large | close (framework-naive) | 17.88 ms |  |  | 19.45 ms | 0.06 ms | ≈ idle | 0.10 ms | 0.48 ms | 302.0× |  | 182.4× | 0.00 KB |  |  |  |  |  |  |
-| grid | large | open+close (framework-naive) | 63.20 ms |  |  | 64.99 ms | 0.11 ms | ≈ idle | 0.20 ms | 0.44 ms | 573.0× |  | 321.5× | 7.55 MB |  |  |  |  |  |  |
-| grid | large | race: open+close in one frame (framework-naive) ¹ | 0.03 ms |  |  | 1.55 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | race: handle after close (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | grid | large | one changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | one changed (same as baseline) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | one changed (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | grid | large | one changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | one changed (even line spacing) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | one changed (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | grid | large | all changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | all changed (same as baseline) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | all changed (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | grid | large | all changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | all changed (even line spacing) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grid | large | all changed (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| ticker | small | open | 1.41 ms | 0.21 ms | 1.19 ms | 4.51 ms | 0.02 ms | 1.84 ms | 0.02 ms | 2.83 ms | 83.3× | 2.4× | 84.3× | 32.80 KB | 32.80 KB | 0.00 KB | 0.00 KB |  |  |  |
-| ticker | small | all texts/frame | 0.45 ms | 0.12 ms | 0.33 ms | 0.75 ms | 0.04 ms | ≈ idle | 0.08 ms | ≈ idle | 12.8× |  | 6.0× | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| ticker | small | close | 0.31 ms | 0.06 ms | 0.25 ms | ≈ idle | <0.01 ms | 0.36 ms | <0.01 ms | ≈ idle |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| ticker | small | open (framework-naive) | 1.36 ms |  |  | 4.28 ms | 0.02 ms | 1.84 ms | 0.02 ms | 2.83 ms | 80.7× | 2.3× | 81.6× | 56.63 KB |  | 5.90 KB |  |  |  |  |
-| ticker | small | all texts/frame (framework-naive) | 0.40 ms |  |  | 0.67 ms | 0.04 ms | ≈ idle | 0.08 ms | ≈ idle | 11.3× |  | 5.3× | 23.83 KB |  |  |  |  |  |  |
-| ticker | small | close (framework-naive) | 0.31 ms |  |  | ≈ idle | <0.01 ms | 0.36 ms | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
-| ticker | small | all texts/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| ticker | small | all texts/frame (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| ticker | small | all texts/frame (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| ticker | small | all texts/frame (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| ticker | large | open | 6.91 ms | 1.31 ms | 5.60 ms | 9.86 ms | 0.07 ms | 2.83 ms | 0.07 ms | 2.00 ms | 101.4× | 3.5× | 96.3× | 257.76 KB | 257.76 KB | 0.00 KB | 0.00 KB |  |  |  |
-| ticker | large | all texts/frame | 4.02 ms | 0.95 ms | 3.06 ms | 5.03 ms | 0.28 ms | 1.43 ms | 0.65 ms | 1.77 ms | 14.2× | 3.5× | 6.2× | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| ticker | large | close | 2.65 ms | 0.39 ms | 2.27 ms | 3.25 ms | 0.02 ms | ≈ idle | 0.02 ms | 0.70 ms | 169.0× |  | 170.1× | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| ticker | large | open (framework-naive) | 7.49 ms |  |  | 10.60 ms | 0.07 ms | 2.83 ms | 0.07 ms | 2.00 ms | 109.9× | 3.7× | 104.4× | 496.04 KB |  | 58.60 KB |  |  |  |  |
-| ticker | large | all texts/frame (framework-naive) | 3.88 ms |  |  | 5.01 ms | 0.28 ms | 1.43 ms | 0.65 ms | 1.77 ms | 13.7× | 3.5× | 6.0× | 238.28 KB |  |  |  |  |  |  |
-| ticker | large | close (framework-naive) | 2.63 ms |  |  | 3.16 ms | 0.02 ms | ≈ idle | 0.02 ms | 0.70 ms | 167.5× |  | 168.6× | 0.00 KB |  |  |  |  |  |  |
+| ticker | large | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 137025 KB; backend array 8240, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| ticker | large | open | 6.25 ms | 1.21 ms | 5.04 ms | 8.70 ms | 0.06 ms | 1.64 ms | 0.06 ms | 2.50 ms | 106.5× | 5.3× | 105.4× | 257.76 KB | 257.76 KB | 0.00 KB | 0.10 KB | -10% | -12% |  |
+| ticker | large | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 2 instances, 501 entries; heap 137453 KB; backend array 10540, created_box 1001, created_text 1000, hash 85550, hash_slots 128568, live_box 1, live_text 500, pool_box 1000, pool_text 500 |
+| ticker | large | all texts/frame | 3.75 ms | 0.97 ms | 2.78 ms | 4.74 ms | 0.29 ms | 1.20 ms | 0.65 ms | 1.62 ms | 13.1× | 4.0× | 5.8× | 0.00 KB | 0.00 KB |  |  | -7% | -6% |  |
+| ticker | large | close | 2.52 ms | 0.42 ms | 2.10 ms | 2.43 ms | 0.01 ms | ≈ idle | 0.05 ms | ≈ idle | 178.8× |  | 51.0× | 0.00 KB | 0.00 KB |  |  | -5% | -25% |  |
 | ticker | large | all texts/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| ticker | large | all texts/frame (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | ticker | large | all texts/frame (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| ticker | large | all texts/frame (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| reorder | - | open | 12.18 ms | 6.17 ms | 6.01 ms | 15.81 ms | 0.07 ms | 1.90 ms | 0.07 ms | 2.71 ms | 169.2× | 8.3× | 186.8× | 2.80 MB | 2.80 MB | 2.51 MB | 2.51 MB |  |  |  |
-| reorder | - | Reverse | 2.32 ms | 1.21 ms | 1.11 ms | 2.33 ms | 0.16 ms | ≈ idle | 0.55 ms | ≈ idle | 14.9× |  | 4.2× | 12.07 KB | 12.07 KB |  |  |  |  |  |
-| reorder | - | Rotate | 2.04 ms | 0.89 ms | 1.15 ms | 2.17 ms | 0.15 ms | ≈ idle | 0.55 ms | ≈ idle | 13.5× |  | 3.7× | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| reorder | - | InsertFront | 2.58 ms | 1.31 ms | 1.26 ms | 2.89 ms | 0.18 ms | ≈ idle | 0.63 ms | ≈ idle | 14.7× |  | 4.1× | 28.90 KB | 28.63 KB |  |  |  |  |  |
-| reorder | - | RemoveMiddle | 2.03 ms | 0.95 ms | 1.08 ms | 2.30 ms | 0.09 ms | ≈ idle | 0.60 ms | ≈ idle | 22.4× |  | 3.4× | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| reorder | - | Shuffle | 2.39 ms | 1.24 ms | 1.15 ms | 2.48 ms | 0.17 ms | ≈ idle | 0.58 ms | ≈ idle | 13.7× |  | 4.1× | 12.07 KB | 12.07 KB |  |  |  |  | ok |
-| reorder | - | close | 4.21 ms | 1.50 ms | 2.70 ms | 4.94 ms ᵍ | 0.02 ms | ≈ idle | 0.02 ms | ≈ idle | 256.4× |  | 256.4× | -0.58 KB | 0.00 KB |  |  |  |  |  |
+| reorder | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 137640 KB; backend array 9040, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| reorder | - | open | 11.48 ms | 6.05 ms | 5.43 ms | 14.08 ms | 0.06 ms | 1.81 ms | 0.07 ms | 1.25 ms | 186.3× | 7.8× | 168.5× | 2.80 MB | 2.80 MB | 2.51 MB | 2.51 MB | -6% | -11% |  |
+| reorder | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 502 instances, 1001 entries; heap 140140 KB; backend array 10040, created_box 1001, created_text 1000, hash 85551, hash_slots 128568, live_box 1, live_text 500, pool_box 1000, pool_text 500 |
+| reorder | - | Reverse | 2.36 ms | 1.18 ms | 1.19 ms | 2.68 ms | 0.15 ms | 0.51 ms | 0.55 ms | 0.87 ms | 16.2× | 5.3× | 4.3× | 12.07 KB | 12.07 KB |  |  | +2% | +15% |  |
+| reorder | - | Rotate | 2.00 ms | 0.87 ms | 1.13 ms | 2.40 ms | 0.14 ms | 0.66 ms | 0.55 ms | 1.07 ms | 14.2× | 3.7× | 3.6× | 0.00 KB | 0.00 KB |  |  | -2% | +11% |  |
+| reorder | - | InsertFront | 2.59 ms | 1.29 ms | 1.30 ms | 2.98 ms | 0.16 ms | 0.68 ms | 0.60 ms | 1.09 ms | 15.8× | 4.4× | 4.3× | 29.38 KB | 28.63 KB |  |  | +1% | +3% |  |
+| reorder | - | RemoveMiddle | 1.95 ms | 0.94 ms | 1.02 ms | 2.28 ms | 0.08 ms | ≈ idle | 0.59 ms | 1.06 ms | 23.1× |  | 3.3× | 0.00 KB | 0.00 KB |  |  | -4% | -1% |  |
+| reorder | - | Shuffle | 2.34 ms | 1.26 ms | 1.08 ms | 2.74 ms | 0.17 ms | 0.62 ms | 0.58 ms | 1.09 ms | 14.0× | 4.4× | 4.0× | 12.07 KB | 12.07 KB |  |  | -2% | +11% | ok |
+| reorder | - | close | 3.60 ms | 1.24 ms | 2.36 ms | 4.43 ms | 0.02 ms | ≈ idle | 0.02 ms | ≈ idle | 219.3× |  | 238.2× | 0.00 KB | 0.00 KB |  |  | -14% |  |  |
 | reorder | - | Reverse (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | reorder | - | Reverse (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | reorder | - | Rotate (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
@@ -175,84 +141,106 @@ Compared with: no earlier comparable round.
 | reorder | - | RemoveMiddle (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | reorder | - | Shuffle (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | reorder | - | Shuffle (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| deep | - | open | 5.18 ms | 1.51 ms | 3.67 ms | 7.66 ms | 0.03 ms | 2.40 ms |  |  | 148.9× | 3.2× |  | 804.20 KB | 893.88 KB | 34.10 KB | 45.70 KB |  |  |  |
-| deep | - | leaf signal changed | 0.04 ms | 0.02 ms | 0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| deep | - | value through 100 levels | 0.62 ms | 0.61 ms | 0.01 ms | 1.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 1.23 KB | 0.00 KB |  |  |  |  | ok |
-| deep | - | race: change + close in one frame ¹ | 1.77 ms |  |  | 4.85 ms |  |  |  |  |  |  |  | 139.55 KB |  |  |  |  |  | ok |
+| deep | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 137943 KB; backend array 9160, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| deep | - | open | 4.68 ms | 1.39 ms | 3.30 ms | 6.50 ms | 0.03 ms | 2.57 ms |  |  | 153.1× | 2.5× |  | 827.50 KB | 860.85 KB | 36.50 KB | 6.30 KB | -10% | -15% |  |
+| deep | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 103 instances, 202 entries; heap 138474 KB; backend array 9262, created_box 1001, created_text 1000, hash 83846, hash_slots 128168, live_box 100, live_text 1, pool_box 901, pool_text 999 |
+| deep | - | leaf signal changed | 0.04 ms | 0.02 ms | 0.02 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -0% |  | ok |
+| deep | - | value through 100 levels | 0.61 ms | 0.59 ms | 0.01 ms | 0.75 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 1.93 KB | 0.00 KB |  |  | -2% | -26% | ok |
+| deep | - | race: change + close in one frame ¹ | 1.63 ms |  |  | 2.96 ms |  |  |  |  |  |  |  | 149.11 KB |  |  |  |  |  | ok |
 | deep | - | leaf signal changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | deep | - | leaf signal changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | deep | - | value through 100 levels (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | deep | - | value through 100 levels (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| resize | - | open | 10.16 ms | 3.06 ms | 7.10 ms | 13.52 ms | 0.06 ms | 2.12 ms |  |  | 158.3× | 6.4× |  | 1.06 MB | 1.05 MB | 0.00 KB | 0.00 KB |  |  |  |
-| resize | - | window resized (300-700) | 1.59 ms | 0.28 ms | 1.30 ms | 1.74 ms | 0.20 ms | ≈ idle |  |  | 8.0× |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| resize | - | close | 2.94 ms | 0.74 ms | 2.21 ms | 2.87 ms | 0.01 ms | ≈ idle |  |  | 228.2× |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
+| resize | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 138432 KB; backend array 9160, created_box 1001, created_text 1000, hash 83038, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| resize | - | open | 9.78 ms | 2.95 ms | 6.82 ms | 12.19 ms | 0.05 ms | 2.78 ms |  |  | 182.4× | 4.4× |  | 1.06 MB | 1.05 MB | 0.00 KB | 0.00 KB | -4% | -10% |  |
+| resize | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 202 instances, 601 entries; heap 139082 KB; backend array 9760, created_box 1001, created_text 1000, hash 86950, hash_slots 129072, live_box 201, live_text 200, pool_box 800, pool_text 800 |
+| resize | - | window resized (300-700) | 1.56 ms | 0.27 ms | 1.28 ms | 1.94 ms | 0.19 ms | 0.69 ms |  |  | 8.2× | 2.8× |  | 0.00 KB | 0.00 KB |  |  | -2% | +11% |  |
+| resize | - | close | 3.23 ms | 0.68 ms | 2.55 ms | 3.83 ms | 0.01 ms | ≈ idle |  |  | 244.8× |  |  | 0.00 KB | 0.00 KB |  |  | +10% | +33% |  |
 | resize | - | window resized (300-700) (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | resize | - | window resized (300-700) (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| columns | - | open | 10.26 ms | 3.15 ms | 7.11 ms | 13.75 ms | 0.06 ms | 2.34 ms |  |  | 164.5× | 5.9× |  | 1.06 MB | 1.05 MB | 0.00 KB | 0.00 KB |  |  |  |
-| columns | - | column count changed (6-14) | 0.89 ms | 0.28 ms | 0.61 ms | 1.43 ms | 0.14 ms | 0.56 ms |  |  | 6.5× | 2.6× |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| columns | - | close | 3.06 ms | 0.77 ms | 2.29 ms | 2.95 ms | 0.01 ms | ≈ idle |  |  | 235.1× |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
+| columns | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 139170 KB; backend array 9160, created_box 1001, created_text 1000, hash 83137, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| columns | - | open | 9.48 ms | 2.84 ms | 6.64 ms | 11.04 ms | 0.06 ms | 2.87 ms |  |  | 163.5× | 3.8× |  | 1.06 MB | 1.05 MB | 0.00 KB | 0.00 KB | -8% | -20% |  |
+| columns | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 202 instances, 601 entries; heap 139204 KB; backend array 9760, created_box 1001, created_text 1000, hash 87348, hash_slots 129868, live_box 201, live_text 200, pool_box 800, pool_text 800 |
+| columns | - | column count changed (6-14) | 0.86 ms | 0.27 ms | 0.59 ms | 1.09 ms | 0.12 ms | ≈ idle |  |  | 7.4× |  |  | 0.00 KB | 0.00 KB |  |  | -3% | -24% |  |
+| columns | - | close | 2.90 ms | 0.72 ms | 2.18 ms | 3.36 ms | 0.01 ms | ≈ idle |  |  | 211.5× |  |  | 0.00 KB | 0.00 KB |  |  | -5% | +14% |  |
 | columns | - | column count changed (6-14) (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | columns | - | column count changed (6-14) (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| grow | - | open | 11.78 ms | 4.27 ms | 7.51 ms | 15.26 ms | 0.09 ms | 2.03 ms |  |  | 134.9× | 7.5× |  | 1.71 MB | 1.71 MB | 284.10 KB | 289.30 KB |  |  |  |
-| grow | - | 50 texts new length (1-30) | 3.16 ms | 0.56 ms | 2.60 ms | 3.75 ms | 0.14 ms | ≈ idle |  |  | 22.5× |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| grow | - | close | 2.93 ms | 0.93 ms | 2.00 ms | 2.67 ms | 0.02 ms | ≈ idle |  |  | 129.8× |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
+| grow | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 139293 KB; backend array 9176, created_box 1001, created_text 1000, hash 83137, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| grow | - | open | 10.79 ms | 3.95 ms | 6.84 ms | 12.22 ms | 0.08 ms | 2.63 ms |  |  | 141.6× | 4.6× |  | 1.71 MB | 1.71 MB | 289.30 KB | 289.30 KB | -8% | -20% |  |
+| grow | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 302 instances, 601 entries; heap 140224 KB; backend array 9476, created_box 1001, created_text 1000, hash 86552, hash_slots 129122, live_box 251, live_text 50, pool_box 750, pool_text 950 |
+| grow | - | 50 texts new length (1-30) | 3.10 ms | 0.56 ms | 2.54 ms | 3.41 ms | 0.14 ms | ≈ idle |  |  | 22.6× |  |  | 0.00 KB | 0.00 KB |  |  | -2% | -9% |  |
+| grow | - | close | 3.00 ms | 0.90 ms | 2.09 ms | 3.29 ms | 0.02 ms | ≈ idle |  |  | 132.0× |  |  | 0.00 KB | 0.00 KB |  |  | +2% | +23% |  |
 | grow | - | 50 texts new length (1-30) (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | grow | - | 50 texts new length (1-30) (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| rows | - | open | 2.00 ms | 0.33 ms | 1.67 ms | 5.34 ms | 0.03 ms | 2.09 ms |  |  | 70.1× | 2.6× |  | 80.98 KB | 80.98 KB | 0.00 KB | 0.00 KB |  |  |  |
-| rows | - | row count changed (50-150) | 0.52 ms | 0.17 ms | 0.34 ms | 0.85 ms | 0.02 ms | ≈ idle |  |  | 30.0× |  |  | 0.17 KB | 0.00 KB |  |  |  |  |  |
-| rows | - | close | 0.56 ms | 0.10 ms | 0.46 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
+| rows | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 140043 KB; backend array 9176, created_box 1001, created_text 1000, hash 83338, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| rows | - | open | 1.63 ms | 0.31 ms | 1.31 ms | 3.46 ms | 0.03 ms | 2.85 ms |  |  | 64.4× | 1.2× |  | 80.98 KB | 80.98 KB | 0.00 KB | 0.00 KB | -18% | -35% |  |
+| rows | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 2 instances, 101 entries; heap 140149 KB; backend array 9376, created_box 1001, created_text 1000, hash 83854, hash_slots 128172, live_box 1, live_text 100, pool_box 1000, pool_text 900 |
+| rows | - | row count changed (50-150) | 0.51 ms | 0.16 ms | 0.35 ms | 1.08 ms | 0.02 ms | ≈ idle |  |  | 31.4× |  |  | 0.23 KB | -0.01 KB |  |  | -1% | +27% |  |
+| rows | - | close | 0.60 ms | 0.10 ms | 0.50 ms | 1.37 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +8% |  |  |
 | rows | - | row count changed (50-150) (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | rows | - | row count changed (50-150) (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| filter | - | open | 4.78 ms | 0.97 ms | 3.81 ms | 8.36 ms | 0.06 ms | 1.99 ms |  |  | 77.1× | 4.2× |  | 245.57 KB | 245.57 KB | 0.00 KB | 0.00 KB |  |  |  |
-| filter | - | filter shifted | 3.18 ms | 0.64 ms | 2.54 ms | 3.59 ms | 0.12 ms | ≈ idle |  |  | 26.6× |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| filter | - | close | 1.70 ms | 0.27 ms | 1.42 ms | 1.46 ms | 0.01 ms | ≈ idle |  |  | 132.4× |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
+| filter | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 140218 KB; backend array 9176, created_box 1001, created_text 1000, hash 83338, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| filter | - | open | 4.36 ms | 0.85 ms | 3.51 ms | 5.98 ms | 0.06 ms | 2.58 ms |  |  | 75.1× | 2.3× |  | 245.57 KB | 245.57 KB | 0.00 KB | 0.00 KB | -9% | -29% |  |
+| filter | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 2 instances, 335 entries; heap 140443 KB; backend array 9844, created_box 1001, created_text 1000, hash 85021, hash_slots 128402, live_box 1, live_text 334, pool_box 1000, pool_text 666 |
+| filter | - | filter shifted | 3.14 ms | 0.64 ms | 2.50 ms | 3.57 ms | 0.11 ms | ≈ idle |  |  | 27.4× |  |  | 0.00 KB | 0.00 KB |  |  | -1% | -1% |  |
+| filter | - | close | 1.69 ms | 0.27 ms | 1.42 ms | 1.93 ms | 0.01 ms | ≈ idle |  |  | 139.8× |  |  | 0.00 KB | 0.00 KB |  |  | -0% | +32% |  |
 | filter | - | filter shifted (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | filter | - | filter shifted (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| drag | - | open | 4.94 ms | 0.50 ms | 4.44 ms | 8.28 ms | 0.04 ms | 2.09 ms |  |  | 136.0× | 4.0× |  | 50.88 KB | 50.88 KB | 0.00 KB | 0.00 KB |  |  |  |
-| drag | - | moved | 0.30 ms | 0.28 ms | 0.02 ms | 0.93 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| drag | - | close | 1.43 ms | 0.18 ms | 1.25 ms | 1.17 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
+| drag | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 140601 KB; backend array 9176, created_box 1001, created_text 1000, hash 83338, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| drag | - | open | 4.44 ms | 0.46 ms | 3.98 ms | 5.56 ms | 0.03 ms | 1.78 ms |  |  | 136.2× | 3.1× |  | 50.88 KB | 50.88 KB | 0.00 KB | 0.00 KB | -10% | -33% |  |
+| drag | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 2 instances, 201 entries; heap 139711 KB; backend array 9376, created_box 1001, created_text 1000, hash 85955, hash_slots 128872, live_box 201, live_text 0, pool_box 800, pool_text 1000 |
+| drag | - | moved | 0.30 ms | 0.28 ms | 0.02 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -1% |  |  |
+| drag | - | close | 1.53 ms | 0.17 ms | 1.36 ms | 1.70 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +7% | +45% |  |
 | drag | - | moved (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | drag | - | moved (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| bars | - | open | 1.96 ms | 0.40 ms | 1.56 ms | 5.29 ms | 0.01 ms | 2.00 ms |  |  | 136.0× | 2.6× |  | 118.62 KB | 118.62 KB | 0.00 KB | 0.00 KB |  |  |  |
-| bars | - | 20 fills changed | 0.48 ms | 0.21 ms | 0.27 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 35.7× |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| bars | - | close | 0.40 ms | 0.10 ms | 0.30 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
+| bars | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 139771 KB; backend array 9176, created_box 1001, created_text 1000, hash 83538, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| bars | - | open | 1.55 ms | 0.40 ms | 1.15 ms | 3.40 ms | 0.01 ms | 2.65 ms |  |  | 116.5× | 1.3× |  | 118.62 KB | 118.62 KB | 0.00 KB | 0.00 KB | -21% | -36% |  |
+| bars | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 22 instances, 61 entries; heap 139866 KB; backend array 9216, created_box 1001, created_text 1000, hash 84072, hash_slots 128232, live_box 41, live_text 0, pool_box 960, pool_text 1000 |
+| bars | - | 20 fills changed | 0.48 ms | 0.21 ms | 0.27 ms | 0.60 ms | 0.01 ms | ≈ idle |  |  | 40.4× |  |  | 0.07 KB | 0.00 KB |  |  | -1% |  |  |
+| bars | - | close | 0.40 ms | 0.10 ms | 0.30 ms | 0.71 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -0% |  |  |
 | bars | - | 20 fills changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | bars | - | 20 fills changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| sections | - | open | 3.48 ms | 0.66 ms | 2.83 ms | 6.96 ms | 0.04 ms | 2.10 ms |  |  | 93.4× | 3.3× |  | 122.20 KB | 122.20 KB | 0.00 KB | 0.00 KB |  |  |  |
-| sections | - | a section toggled | 0.55 ms | 0.21 ms | 0.33 ms | 0.84 ms | 0.02 ms | ≈ idle |  |  | 32.1× |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| sections | - | close | 1.13 ms | 0.19 ms | 0.94 ms | 0.74 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
+| sections | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 139921 KB; backend array 9176, created_box 1001, created_text 1000, hash 83538, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| sections | - | open | 3.17 ms | 0.58 ms | 2.59 ms | 5.36 ms | 0.03 ms | 2.75 ms |  |  | 94.9× | 2.0× |  | 122.20 KB | 122.20 KB | 0.00 KB | 0.00 KB | -9% | -23% |  |
+| sections | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 2 instances, 221 entries; heap 140058 KB; backend array 9816, created_box 1001, created_text 1000, hash 84653, hash_slots 128292, live_box 1, live_text 220, pool_box 1000, pool_text 780 |
+| sections | - | a section toggled | 0.57 ms | 0.20 ms | 0.37 ms | 0.81 ms | 0.02 ms | ≈ idle |  |  | 33.4× |  |  | 0.00 KB | 0.00 KB |  |  | +5% | -3% |  |
+| sections | - | close | 1.18 ms | 0.19 ms | 0.99 ms | 1.53 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +4% | +106% |  |
 | sections | - | a section toggled (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | sections | - | a section toggled (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| tooltip | - | open | 0.07 ms | 0.06 ms | <0.01 ms | 2.97 ms |  |  |  |  |  |  |  | 11.21 KB | 11.16 KB | 9.70 KB | 9.60 KB |  |  |  |
-| tooltip | - | show with new content | 0.32 ms | 0.04 ms | 0.27 ms | ≈ idle | 0.06 ms | ≈ idle |  |  | 5.2× |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| tooltip | - | hide | 0.12 ms | 0.03 ms | 0.09 ms | 0.44 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
-| tooltip | - | close | 0.02 ms | 0.02 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  |  |
+| tooltip | - | held closed ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 1 instances, 0 entries; heap 140123 KB; backend array 9176, created_box 1001, created_text 1000, hash 83538, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| tooltip | - | open | 0.06 ms | 0.06 ms | <0.01 ms | 1.84 ms |  |  |  |  |  |  |  | 11.21 KB | 11.16 KB | 9.70 KB | 9.60 KB | -7% | -38% |  |
+| tooltip | - | held open ¹ | <0.01 ms | <0.01 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | info engine 2 instances, 0 entries; heap 140126 KB; backend array 9176, created_box 1001, created_text 1000, hash 83538, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| tooltip | - | show with new content | 0.31 ms | 0.04 ms | 0.27 ms | 1.04 ms | 0.06 ms | ≈ idle |  |  | 5.1× |  |  | 0.00 KB | 0.00 KB |  |  | -2% |  |  |
+| tooltip | - | hide | 0.11 ms | 0.03 ms | 0.09 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -5% |  |  |
+| tooltip | - | close | 0.02 ms | 0.02 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -0% |  |  |
 | tooltip | - | show with new content (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | tooltip | - | show with new content (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | tooltip | - | hide (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | tooltip | - | hide (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| hover | - | open | 3.05 ms |  |  | 6.21 ms | 0.05 ms | 3.02 ms |  |  | 61.7× | 2.1× |  | 92.38 KB |  | 0.00 KB |  |  |  |  |
-| hover | - | hovered item changed | 0.22 ms |  |  | ≈ idle | 0.02 ms | ≈ idle |  |  | 11.2× |  |  | 0.00 KB |  |  |  |  |  | ok |
-| hover | - | close | 0.86 ms |  |  | 1.15 ms | 0.02 ms | ≈ idle |  |  | 34.7× |  |  | 0.00 KB |  |  |  |  |  |  |
+| hover | - | held closed ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 1 instances, 0 entries; heap 140036 KB; backend array 9176, created_box 1001, created_text 1000, hash 83543, hash_slots 128064, live_box 0, live_text 0, pool_box 1001, pool_text 1000 |
+| hover | - | open | 2.70 ms |  |  | 3.95 ms | 0.04 ms | 1.74 ms |  |  | 62.2× | 2.3× |  | 92.38 KB |  | 0.00 KB |  | -12% | -36% |  |
+| hover | - | held open ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | info engine 2 instances, 102 entries; heap 140096 KB; backend array 9331, created_box 1001, created_text 1000, hash 84965, hash_slots 128874, live_box 102, live_text 0, pool_box 899, pool_text 1000 |
+| hover | - | hovered item changed | 0.22 ms |  |  | ≈ idle | 0.02 ms | ≈ idle |  |  | 11.7× |  |  | 0.00 KB |  |  |  | -0% |  | ok |
+| hover | - | close | 0.79 ms |  |  | ≈ idle | 0.02 ms | ≈ idle |  |  | 33.9× |  |  | 0.00 KB |  |  |  | -8% |  |  |
 | hover | - | hovered item changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
 | hover | - | hovered item changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| units | - | take 1000 texts | 10.77 ms | 1.67 ms | 9.11 ms | 12.33 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| units | - | release 1000 texts | 5.00 ms | 0.75 ms | 4.24 ms | 5.31 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| units | - | take 1000 boxes | 16.99 ms | 1.75 ms | 15.23 ms | 19.74 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| units | - | release 1000 boxes | 7.10 ms | 0.80 ms | 6.30 ms | 7.50 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| units | - | 1000 backgrounds changed | 6.37 ms | 1.63 ms | 4.74 ms | 7.02 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| units | - | 1000 widths changed in fixed cells | 16.32 ms | 3.38 ms | 12.95 ms | 17.50 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| units | - | 1000 texts changed, layout unchanged | 8.73 ms | 3.68 ms | 5.05 ms | 10.34 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| units | - | 1000 texts changed width, 3 levels | 44.22 ms | 6.59 ms | 37.63 ms | 53.99 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| units | - | 100 boxes moved | 1.13 ms | 0.24 ms | 0.88 ms | 1.11 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| units | - | 1000 calls, nothing changed | 1.32 ms | 1.31 ms | <0.01 ms | 1.54 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  |  |  | ok |
-| units | - | 1000 writes, no reader | 0.62 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| units | - | 1000 x (write, flush), 1 watch | 3.30 ms |  |  | 3.57 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| units | - | 5000 writes, 5000 watches, 1 flush | 23.74 ms |  |  | 24.62 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| scheduler | - | nothing written | <0.01 ms |  |  | ≈ idle | <0.01 ms | 0.59 ms |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
-| scheduler | - | a write every other frame | <0.01 ms |  |  | 0.80 ms | <0.01 ms | 0.60 ms |  |  |  | 1.3× |  | 0.00 KB |  |  |  |  |  | ok |
-| scheduler | - | a write every frame | 0.60 ms |  |  | 1.86 ms | 0.04 ms | 0.59 ms |  |  | 14.6× | 3.1× |  | 0.00 KB |  |  |  |  |  | ok |
-| scheduler | - | 10 writes every frame | 0.98 ms |  |  | 2.29 ms | 0.40 ms | 1.06 ms |  |  | 2.4× | 2.2× |  | 0.00 KB |  |  |  |  |  | ok |
+| units | - | take 1000 texts | 10.51 ms | 1.65 ms | 8.87 ms | 11.39 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -2% | -8% | ok |
+| units | - | release 1000 texts | 5.06 ms | 0.79 ms | 4.27 ms | 5.96 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +1% | +12% | ok |
+| units | - | take 1000 boxes | 16.58 ms | 1.72 ms | 14.87 ms | 18.69 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -2% | -5% | ok |
+| units | - | release 1000 boxes | 7.25 ms | 0.78 ms | 6.47 ms | 7.84 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +2% | +5% | ok |
+| units | - | 1000 backgrounds changed | 6.62 ms | 1.61 ms | 5.01 ms | 7.33 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +4% | +5% | ok |
+| units | - | 1000 widths changed in fixed cells | 16.81 ms | 3.27 ms | 13.55 ms | 18.20 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +3% | +4% | ok |
+| units | - | 1000 texts changed, layout unchanged | 8.80 ms | 3.71 ms | 5.09 ms | 10.34 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +1% | +0% | ok |
+| units | - | 1000 texts changed width, 3 levels | 45.82 ms | 6.38 ms | 39.44 ms | 56.31 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +4% | +4% | ok |
+| units | - | 100 boxes moved | 1.12 ms | 0.24 ms | 0.88 ms | 1.17 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -0% | +5% | ok |
+| units | - | 1000 calls, nothing changed | 1.33 ms | 1.31 ms | 0.02 ms | 1.67 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +1% | +8% | ok |
+| units | - | 1000 writes, no reader | 0.61 ms |  |  | 0.63 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | -1% |  | ok |
+| units | - | 1000 x (write, flush), 1 watch | 3.33 ms |  |  | 3.39 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | +1% | -5% | ok |
+| units | - | 5000 writes, 5000 watches, 1 flush | 23.93 ms |  |  | 24.85 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | +1% | +1% | ok |
+| scheduler | - | nothing written | <0.01 ms |  |  | ≈ idle | <0.01 ms | 0.71 ms |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| scheduler | - | a write every other frame | <0.01 ms |  |  | ≈ idle | <0.01 ms | 0.70 ms |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| scheduler | - | a write every frame | 0.59 ms |  |  | 1.92 ms | 0.04 ms | 0.83 ms |  |  | 14.2× | 2.3× |  | 0.00 KB |  |  |  | -3% | +3% | ok |
+| scheduler | - | 10 writes every frame | 0.96 ms |  |  | 2.24 ms | 0.40 ms | 1.07 ms |  |  | 2.4× | 2.1× |  | 0.00 KB |  |  |  | -1% | -2% | ok |
 
 Failed checks: 0.
 
@@ -268,7 +256,6 @@ Hand-written rows with no framework row of the same name (hide and show against 
 Which side of each block ran first, second, ...: the same order in every round.
 
 - grid large: framework, framework-engine, baseline, typical
-- signals small: framework, baseline, typical
 - signals large: framework, baseline, typical
 - coalesce -: framework, baseline, typical
 - chain -: framework, baseline
@@ -276,10 +263,8 @@ Which side of each block ran first, second, ...: the same order in every round.
 - fanout -: framework, baseline
 - cascade -: framework, baseline
 - events -: framework, baseline
-- grid small: framework, framework-itemsRead, framework-naive, framework-engine, baseline, typical
-- grid large: framework, framework-itemsRead, framework-naive, framework-engine, baseline, typical
-- ticker small: framework, framework-naive, framework-engine, baseline, typical
-- ticker large: framework, framework-naive, framework-engine, baseline, typical
+- grid large: framework, framework-engine, baseline, typical
+- ticker large: framework, framework-engine, baseline, typical
 - reorder -: framework, framework-engine, baseline, typical
 - deep -: framework, framework-engine, baseline
 - resize -: framework, framework-engine, baseline
