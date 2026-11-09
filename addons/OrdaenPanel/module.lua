@@ -50,14 +50,15 @@ for i = 1, #MICRO do
 	end } }
 end
 -- The bags, left to right (design/panel): the backpack, then the four bags. Each is a slot on the wood (design
--- ItemSlot: 38 px, a bronze edge inside it) holding Blizzard's button, so its click, drag and tooltip stay Blizzard's.
+-- ItemSlot: 38 px, a bronze edge inside it) holding Blizzard's button with only its icon showing (look = "icon"), so
+-- its click, drag and tooltip stay Blizzard's.
 local BAGS = {
 	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
 }
 local SLOT_SIDE = 38 / 1.2
 local SLOT = { width = SLOT_SIDE, height = SLOT_SIDE, border = Define.Theme.panel.slotEdge }
 local SLOT_BUTTON = { attributes = {
-	position = "absolute", left = 1, top = 1, width = SLOT_SIDE - 2, height = SLOT_SIDE - 2,
+	position = "absolute", left = 1, top = 1, width = SLOT_SIDE - 2, height = SLOT_SIDE - 2, look = "icon",
 } }
 local BAG_CALLS = {}
 for i = 1, #BAGS do
