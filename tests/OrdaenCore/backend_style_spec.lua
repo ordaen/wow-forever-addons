@@ -561,6 +561,37 @@ describe("backend styles", function()
 		assert.is_false(art.tlSide:IsShown())
 	end)
 
+	it("draws one picture across boxes: each box under artOrigin shows its own part, wherever the layout puts it", function()
+		local _, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local WOOD = { atlas = "UI-Character-Info-General-BG", fit = "origin" }
+		local window = Backend:Create("box")
+		Backend:Set(window, { position = "absolute", left = 50, top = 50, width = 398, height = 300, artOrigin = true })
+		local tab = Backend:Create("box")
+		Backend:Set(tab, { position = "absolute", left = 20, top = 0, width = 100, height = 40, background = WOOD })
+		local body = Backend:Create("box")
+		Backend:Set(body, { position = "absolute", left = 0, top = 36, width = 398, height = 264, background = WOOD })
+		Backend:SetChildren(window, { body, tab }, 2)
+		Backend:SetChildren(layer, { window }, 1)
+		Backend:Flush()
+		-- the atlas (398 x 464 in the fake) at the window's width: 1:1 here, so a part's coordinates are its place / size
+		local function near(a, b)
+			return math.abs(a - b) < 0.01
+		end
+		local l, r, t, b = unpack(tab.bg._coords)
+		assert.is_true(near(l, tab.x / 398) and near(r, (tab.x + tab.w) / 398), "tab across")
+		assert.is_true(near(t, 0) and near(b, tab.h / 464), "tab down")
+		l, r, t, b = unpack(body.bg._coords)
+		assert.is_true(near(l, 0) and near(r, 1), "body across")
+		assert.is_true(near(t, body.y / 464) and near(b, (body.y + body.h) / 464), "body down")
+		-- the tab moves: its part follows
+		Backend:Set(tab, { position = "absolute", left = 140, top = 0, width = 100, height = 40, background = WOOD })
+		Backend:Flush()
+		l = tab.bg._coords[1]
+		assert.is_true(near(l, tab.x / 398) and tab.x > 100)
+	end)
+
 	it("draws a switch: its track three-sliced with round caps, its knob whole (no caps), the row by its token", function()
 		local _, ns = client()
 		local Backend = ns.Backend

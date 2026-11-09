@@ -64,7 +64,7 @@ local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5,
 local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
-	shown = LOOK, textShadow = LOOK, overflow = LOOK,
+	shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT,
 	text = TEXT, textSize = TEXT, textFamily = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT, maxLength = TEXT,
@@ -78,7 +78,7 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 		TEXT_KEYS[#TEXT_KEYS + 1] = attribute.key
 	end
 end
-for _, key in ipairs({ "background", "opacity", "portrait", "mask", "overflow", "stateFrom", "OnClick", "OnEnter",
+for _, key in ipairs({ "background", "artOrigin", "opacity", "portrait", "mask", "overflow", "stateFrom", "OnClick", "OnEnter",
 	"OnLeave", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
@@ -377,12 +377,17 @@ function ctx.place(node)
 	if rel ~= node.pRel or x ~= node.pX or y ~= node.pY then
 		node.pRel, node.pX, node.pY = rel, x, y
 		obj:SetPoint("TOPLEFT", rel, "TOPLEFT", x, -y)
+		if node.lookOrigin then
+			node:OriginBackground()
+		end
 	end
 	if w ~= node.pW or h ~= node.pH then
 		node.pW, node.pH = w, h
 		obj:SetSize(w, h)
 		if node.lookFit then
 			node:FitBackground()
+		elseif node.lookOrigin then
+			node:OriginBackground()
 		elseif node.lookArt then
 			node:DrawArt()
 		end
@@ -959,6 +964,30 @@ function Node:FitBackground()
 	self.bg:SetTexCoord(l, r, t, b)
 end
 
+-- A background { atlas, fit = "origin" }: one picture across the nearest box above with artOrigin (the box itself when
+-- it has it), the atlas at that box's width from its top-left; this box shows the part under it (inside the border
+-- art's inset). Again whenever the box is placed or sized.
+function Node:OriginBackground()
+	local ratio, w, h = self.lookOrigin, self.pW, self.pH
+	if not ratio or not w or not h then
+		return
+	end
+	local fl, ft = self.fillLeft or 0, self.fillTop or 0
+	local x, y = fl, ft
+	local node = self
+	while node and not node.a.artOrigin do
+		x, y = x + (node.x or 0), y + (node.y or 0)
+		node = node.parent
+	end
+	local W = node and node.w
+	if not W or W <= 0 then
+		return
+	end
+	local H = W * ratio
+	w, h = w - fl - (self.fillRight or 0), h - ft - (self.fillBottom or 0)
+	self.bg:SetTexCoord(x / W, (x + w) / W, y / H, (y + h) / H)
+end
+
 -- overflow: "clip" cuts the children at the box's edges; "scroll" clips too and holds them in an inner frame the
 -- mouse wheel moves (one SetPoint a notch), as tall as their extent (Node:ScrollTo). "visible" or unset draws them as
 -- they fall.
@@ -1239,7 +1268,7 @@ function Node:ApplyLook()
 				end
 			end
 			local c = color(bg)
-			self.lookFit, self.lookArt, self.artW = nil, nil, nil
+			self.lookFit, self.lookArt, self.artW, self.lookOrigin = nil, nil, nil, nil
 			hideSlices(self.slices)
 			hideSlices(self.glows)
 			if type(bg) == "table" and bg.file and not bg.tile then -- three-slice: its own textures
@@ -1257,8 +1286,13 @@ function Node:ApplyLook()
 				tex:SetAtlas(bg.atlas)
 				local info = C_Texture.GetAtlasInfo(bg.atlas)
 				if info and info.width > 0 and info.height > 0 then
-					self.lookFit, self.fitW = info.width / info.height, nil -- cropped to the box when it's placed
-					self:FitBackground()
+					if bg.fit == "origin" then -- one picture across the box with artOrigin above: its part, when placed
+						self.lookOrigin = info.height / info.width
+						self:OriginBackground()
+					else
+						self.lookFit, self.fitW = info.width / info.height, nil -- cropped to the box when it's placed
+						self:FitBackground()
+					end
 				end
 			else
 				tex:SetTexture(bg)
