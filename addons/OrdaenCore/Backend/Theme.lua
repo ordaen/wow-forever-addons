@@ -63,4 +63,8 @@ ns.Theme = {
 		capHeight = 1 },
 	["panel.xpTube"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube", size = { 256, 64 }, cap = 64,
 		capHeight = 1 },
+	-- a count on a cell (the friends online on the social button; design .mbadge): a green pill with a black ring and a
+	-- faint top highlight, round caps half its height wide; the box gives it 16 px height, the text and side padding
+	["panel.countBadge"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\panel-count-badge", size = { 128, 64 },
+		cap = 32, capHeight = 0.5 },
 }
