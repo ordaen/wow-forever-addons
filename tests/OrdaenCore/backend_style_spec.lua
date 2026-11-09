@@ -506,6 +506,21 @@ describe("backend styles", function()
 		end)
 	end)
 
+	it("draws the player's face round in a cell (panel.faceRound): masked, with its ring", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local face = Backend:Create("box")
+		Backend:Set(face, wow.env.table.freeze({ position = "absolute", left = 0, top = 0, width = 40 / 1.2,
+			height = 40 / 1.2, portrait = "player", mask = ref("panel.faceRound") }))
+		Backend:SetChildren(layer, { face }, 1)
+		Backend:Flush()
+		assert.are.equal("player", face.face._portrait)
+		assert.is_true(face.face._masks[face.maskTex])
+		assert.is_true(face.rimTex:IsShown())
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("draws a unit's face under a mask, redraws it on the portrait events, and stops when released", function()
 		local wow, ns = client()
 		local Backend = ns.Backend

@@ -51,6 +51,12 @@ ns.Theme = {
 		mask = "Interface\\AddOns\\OrdaenCore\\media\\portrait-mask",
 		rim = "Interface\\AddOns\\OrdaenCore\\media\\portrait-rim",
 	},
+	-- the portrait in a micro menu cell (Panel's «Кнопка персонажа» = button; design BottomPanel .face): a 40 px circle
+	-- with a 1 px black ring
+	["panel.faceRound"] = {
+		mask = "Interface\\AddOns\\OrdaenCore\\media\\face-round-mask",
+		rim = "Interface\\AddOns\\OrdaenCore\\media\\face-round-rim",
+	},
 	["panel.badge"] = "Interface\\AddOns\\OrdaenCore\\media\\level-badge",
 	-- a thin dark edge round a bar on the wood (the portrait rim's darkest stroke)
 	["panel.barEdge"] = { width = 1, color = { 0.07, 0.043, 0.02, 1 } },
