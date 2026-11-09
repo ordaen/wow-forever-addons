@@ -61,7 +61,7 @@
 				"**¹** a single sample (a first opening, a hand make): its frame time is one frame's, not a median.",
 				"**Built as players run it:** every round is on the bench profile (release stripping, the bench's dev hooks kept) with the debug addon disabled; bench_save refuses any other.",
 				"**Engine / backend, read with care:** the stub run touches less memory, so the engine runs with warmer caches there and the backend's share reads slightly high. Hand-written drawing leaves its text layout to WoW's drawing, so compare the backend with best's frame column, not its Lua column.",
-				"**Change:** against the newest earlier comparable round (clean builds); an improvement or a regression is a change of 10% or more beyond the noise (Lua: the row's spread, p95 above median, in either round; frame: the idle spread); single samples (¹) and frame values with collector work (ᵍ) in either round never count. Same graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the same way, since the world drawn is in every frame time."
+				"**Change:** against the newest earlier comparable round (clean builds, the same plan shape: the same series with the same calls, since what runs before a row is part of its conditions); an improvement or a regression is a change of 10% or more beyond the noise (Lua: the row's spread, p95 above median, in either round; frame: the idle spread); single samples (¹) and frame values with collector work (ᵍ) in either round never count. Same graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the same way, since the world drawn is in every frame time."
 			],
 			"number": 10,
 			"orders": [
@@ -13505,7 +13505,6 @@
 				"Change frame",
 				"Check"
 			],
-			"comparedWith": "2026-11-09_065429",
 			"date": "2026-11-09 07:14:55",
 			"failed": 0,
 			"gc": [],
@@ -13526,130 +13525,10 @@
 				"Run with: collector stop, useMaxFPS 0 (maxFPS 120), vsync 0.",
 				"Built: Core bench, Bench bench (profiles). Where: Элвиннский лес, Зеркальное озеро. Graphics: 13 settings at 0, ParticleDensity 1, OutlineMode 2, ffxAntiAliasingMode 4.",
 				"Loaded addons (2): OrdaenCore, OrdaenBench.",
-				"Compared with: round 10, 2026-11-09 06:54:29 (Core 8332ac6)."
+				"Compared with: no earlier comparable round."
 			],
 			"id": "2026-11-09_071455",
-			"improvements": [
-				{
-					"frame": "-11%",
-					"label": "signals large: open",
-					"lua": "-13%",
-					"now": "20.50 ms",
-					"was": "23.44 ms"
-				},
-				{
-					"frame": "-12%",
-					"label": "signals large: close",
-					"lua": "-10%",
-					"now": "3.00 ms",
-					"was": "3.35 ms"
-				},
-				{
-					"frame": "-12%",
-					"label": "fanout -: open",
-					"lua": "-7%",
-					"now": "11.01 ms",
-					"was": "11.89 ms"
-				},
-				{
-					"frame": "-1%",
-					"label": "events -: open",
-					"lua": "-32%",
-					"now": "0.56 ms",
-					"was": "0.82 ms"
-				},
-				{
-					"frame": "-12%",
-					"label": "ticker large: open",
-					"lua": "-10%",
-					"now": "6.25 ms",
-					"was": "6.91 ms"
-				},
-				{
-					"frame": "-11%",
-					"label": "reorder -: open",
-					"lua": "-6%",
-					"now": "11.48 ms",
-					"was": "12.18 ms"
-				},
-				{
-					"frame": "",
-					"label": "reorder -: close",
-					"lua": "-14%",
-					"now": "3.60 ms",
-					"was": "4.21 ms"
-				},
-				{
-					"frame": "-15%",
-					"label": "deep -: open",
-					"lua": "-10%",
-					"now": "4.68 ms",
-					"was": "5.18 ms"
-				},
-				{
-					"frame": "-20%",
-					"label": "columns -: open",
-					"lua": "-8%",
-					"now": "9.48 ms",
-					"was": "10.26 ms"
-				},
-				{
-					"frame": "-20%",
-					"label": "grow -: open",
-					"lua": "-8%",
-					"now": "10.79 ms",
-					"was": "11.78 ms"
-				},
-				{
-					"frame": "-35%",
-					"label": "rows -: open",
-					"lua": "-18%",
-					"now": "1.63 ms",
-					"was": "2.00 ms"
-				},
-				{
-					"frame": "-29%",
-					"label": "filter -: open",
-					"lua": "-9%",
-					"now": "4.36 ms",
-					"was": "4.78 ms"
-				},
-				{
-					"frame": "-33%",
-					"label": "drag -: open",
-					"lua": "-10%",
-					"now": "4.44 ms",
-					"was": "4.94 ms"
-				},
-				{
-					"frame": "-36%",
-					"label": "bars -: open",
-					"lua": "-21%",
-					"now": "1.55 ms",
-					"was": "1.96 ms"
-				},
-				{
-					"frame": "-23%",
-					"label": "sections -: open",
-					"lua": "-9%",
-					"now": "3.17 ms",
-					"was": "3.48 ms"
-				},
-				{
-					"frame": "-38%",
-					"label": "tooltip -: open",
-					"lua": "-7%",
-					"now": "0.06 ms",
-					"was": "0.07 ms"
-				},
-				{
-					"frame": "-36%",
-					"label": "hover -: open",
-					"lua": "-12%",
-					"now": "2.70 ms",
-					"was": "3.05 ms"
-				}
-			],
+			"improvements": [],
 			"notes": [
 				"**Lua:** the call's own time (debugprofilestop). Below 0.01 ms it is timer noise: no factor.",
 				"**Frame:** from the call's start to the next frame, the work WoW defers to drawing included, minus the block's idle frame (each block starts with one). \"≈ idle\" is within the idle frames' own spread (p95 above median): no factor.",
@@ -13658,7 +13537,7 @@
 				"**¹** a single sample (a first opening, a hand make): its frame time is one frame's, not a median.",
 				"**Built as players run it:** every round is on the bench profile (release stripping, the bench's dev hooks kept) with the debug addon disabled; bench_save refuses any other.",
 				"**Engine / backend, read with care:** the stub run touches less memory, so the engine runs with warmer caches there and the backend's share reads slightly high. Hand-written drawing leaves its text layout to WoW's drawing, so compare the backend with best's frame column, not its Lua column.",
-				"**Change:** against the newest earlier comparable round (clean builds); an improvement or a regression is a change of 10% or more beyond the noise (Lua: the row's spread, p95 above median, in either round; frame: the idle spread); single samples (¹) and frame values with collector work (ᵍ) in either round never count. Same graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the same way, since the world drawn is in every frame time."
+				"**Change:** against the newest earlier comparable round (clean builds, the same plan shape: the same series with the same calls, since what runs before a row is part of its conditions); an improvement or a regression is a change of 10% or more beyond the noise (Lua: the row's spread, p95 above median, in either round; frame: the idle spread); single samples (¹) and frame values with collector work (ᵍ) in either round never count. Same graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the same way, since the world drawn is in every frame time."
 			],
 			"number": 12,
 			"orders": [
@@ -13711,29 +13590,7 @@
 				"**hover:** the bench calls the cells' frames' OnLeave and OnEnter scripts; WoW finding the frame under the cursor (hit testing) is the same on every side and isn't measured. No engine side: the stub draws no frames.",
 				"**scheduler:** two ways to start the engine's flush, 1000 minimal schedulers each (a row's ms is µs per scheduler). Framework column: the engine's way, the OnUpdate attached on a frame's first write and removed by the flush. Best column: the proposed way, the OnUpdate always attached and returning when nothing is pending. Writes are in the Lua column; the OnUpdates (attach's removal, always's call every frame) only in the frame column."
 			],
-			"regressions": [
-				{
-					"frame": "+33%",
-					"label": "resize -: close",
-					"lua": "+10%",
-					"now": "3.23 ms",
-					"was": "2.94 ms"
-				},
-				{
-					"frame": "+106%",
-					"label": "sections -: close",
-					"lua": "+4%",
-					"now": "1.18 ms",
-					"was": "1.13 ms"
-				},
-				{
-					"frame": "+12%",
-					"label": "units -: release 1000 texts",
-					"lua": "+1%",
-					"now": "5.06 ms",
-					"was": "5.00 ms"
-				}
-			],
+			"regressions": [],
 			"rows": [
 				{
 					"cells": [
@@ -13761,12 +13618,6 @@
 					],
 					"failed": false,
 					"metric": "first open ¹",
-					"previous": {
-						"frame": "74.14 ms",
-						"kept": "18.37 MB",
-						"lua": "67.71 ms",
-						"memory": "18.59 MB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
@@ -13882,25 +13733,19 @@
 						"",
 						"12.19 MB",
 						"",
-						"-13%",
-						"-11%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "26.27 ms",
-						"kept": "12.19 MB",
-						"lua": "23.44 ms",
-						"memory": "12.54 MB"
-					},
 					"scenario": "signals",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "5.97 ms",
-							"change": "-11%",
+							"change": "",
 							"ours": "23.32 ms",
 							"typical": "5.41 ms",
 							"xBest": "3.9×",
@@ -13909,7 +13754,7 @@
 						"lua": {
 							"backend": "",
 							"best": "3.74 ms",
-							"change": "-13%",
+							"change": "",
 							"engine": "",
 							"ours": "20.50 ms",
 							"typical": "3.14 ms",
@@ -13926,8 +13771,7 @@
 							"typical": "2.81 MB",
 							"typicalKept": "2.81 MB"
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -14010,25 +13854,19 @@
 						"",
 						"",
 						"",
-						"-1%",
-						"-5%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "500 writes/frame",
-					"previous": {
-						"frame": "4.08 ms",
-						"kept": "",
-						"lua": "3.90 ms",
-						"memory": "5.84 KB"
-					},
 					"scenario": "signals",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-5%",
+							"change": "",
 							"ours": "3.85 ms",
 							"typical": "≈ idle",
 							"xBest": "",
@@ -14037,7 +13875,7 @@
 						"lua": {
 							"backend": "",
 							"best": "0.26 ms",
-							"change": "-1%",
+							"change": "",
 							"engine": "",
 							"ours": "3.86 ms",
 							"typical": "0.32 ms",
@@ -14076,25 +13914,19 @@
 						"",
 						"",
 						"",
-						"-10%",
-						"-12%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "3.85 ms",
-						"kept": "",
-						"lua": "3.35 ms",
-						"memory": "-224.00 KB"
-					},
 					"scenario": "signals",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-12%",
+							"change": "",
 							"ours": "3.40 ms",
 							"typical": "≈ idle",
 							"xBest": "",
@@ -14103,7 +13935,7 @@
 						"lua": {
 							"backend": "",
 							"best": "<0.01 ms",
-							"change": "-10%",
+							"change": "",
 							"engine": "",
 							"ours": "3.00 ms",
 							"typical": "<0.01 ms",
@@ -14120,8 +13952,7 @@
 							"typical": "0.00 KB",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -14151,12 +13982,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "500 writes/frame (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "signals",
 					"size": "large",
 					"task": true,
@@ -14272,24 +14097,18 @@
 						"",
 						"147.20 KB",
 						"",
-						"-8%",
-						"-18%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "2.11 ms",
-						"kept": "147.20 KB",
-						"lua": "0.26 ms",
-						"memory": "148.54 KB"
-					},
 					"scenario": "coalesce",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "-18%",
+							"change": "",
 							"ours": "1.72 ms",
 							"typical": "",
 							"xBest": "",
@@ -14298,7 +14117,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "-8%",
+							"change": "",
 							"engine": "",
 							"ours": "0.24 ms",
 							"typical": "",
@@ -14398,26 +14217,20 @@
 						"",
 						"",
 						"",
-						"+1%",
-						"+0%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1000 writes/frame",
-					"previous": {
-						"frame": "10.97 ms",
-						"kept": "",
-						"lua": "10.55 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "coalesce",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "+0%",
+							"change": "",
 							"ours": "10.98 ms",
 							"typical": "10.34 ms",
 							"xBest": "",
@@ -14426,7 +14239,7 @@
 						"lua": {
 							"backend": "",
 							"best": "0.01 ms",
-							"change": "+1%",
+							"change": "",
 							"engine": "",
 							"ours": "10.65 ms",
 							"typical": "10.04 ms",
@@ -14465,18 +14278,12 @@
 						"",
 						"",
 						"",
-						"-3%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.10 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "coalesce",
 					"size": "-",
 					"values": {
@@ -14491,7 +14298,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "-3%",
+							"change": "",
 							"engine": "",
 							"ours": "0.10 ms",
 							"typical": "",
@@ -14591,24 +14398,18 @@
 						"",
 						"143.10 KB",
 						"",
-						"-10%",
-						"-8%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "2.80 ms",
-						"kept": "143.20 KB",
-						"lua": "0.25 ms",
-						"memory": "218.08 KB"
-					},
 					"scenario": "chain",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "-8%",
+							"change": "",
 							"ours": "2.56 ms",
 							"typical": "",
 							"xBest": "",
@@ -14617,7 +14418,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "-10%",
+							"change": "",
 							"engine": "",
 							"ours": "0.23 ms",
 							"typical": "",
@@ -14717,19 +14518,13 @@
 						"",
 						"",
 						"",
-						"-8%",
+						"",
 						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1 change/frame",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.15 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "chain",
 					"size": "-",
 					"task": true,
@@ -14745,7 +14540,7 @@
 						"lua": {
 							"backend": "",
 							"best": "<0.01 ms",
-							"change": "-8%",
+							"change": "",
 							"engine": "",
 							"ours": "0.14 ms",
 							"typical": "",
@@ -14784,18 +14579,12 @@
 						"",
 						"",
 						"",
-						"-2%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.02 ms",
-						"memory": "0.05 KB"
-					},
 					"scenario": "chain",
 					"size": "-",
 					"values": {
@@ -14810,7 +14599,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "-2%",
+							"change": "",
 							"engine": "",
 							"ours": "0.02 ms",
 							"typical": "",
@@ -14910,24 +14699,18 @@
 						"",
 						"104.70 KB",
 						"",
-						"-11%",
-						"+7%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "2.56 ms",
-						"kept": "104.70 KB",
-						"lua": "0.23 ms",
-						"memory": "106.09 KB"
-					},
 					"scenario": "diamond",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "+7%",
+							"change": "",
 							"ours": "2.74 ms",
 							"typical": "",
 							"xBest": "",
@@ -14936,7 +14719,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "-11%",
+							"change": "",
 							"engine": "",
 							"ours": "0.21 ms",
 							"typical": "",
@@ -15036,19 +14819,13 @@
 						"",
 						"",
 						"",
-						"-5%",
+						"",
 						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1 change/frame",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.15 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "diamond",
 					"size": "-",
 					"task": true,
@@ -15064,7 +14841,7 @@
 						"lua": {
 							"backend": "",
 							"best": "<0.01 ms",
-							"change": "-5%",
+							"change": "",
 							"engine": "",
 							"ours": "0.14 ms",
 							"typical": "",
@@ -15103,18 +14880,12 @@
 						"",
 						"",
 						"",
-						"+0%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.02 ms",
-						"memory": "0.05 KB"
-					},
 					"scenario": "diamond",
 					"size": "-",
 					"values": {
@@ -15129,7 +14900,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "+0%",
+							"change": "",
 							"engine": "",
 							"ours": "0.02 ms",
 							"typical": "",
@@ -15229,25 +15000,19 @@
 						"",
 						"7.26 MB",
 						"",
-						"-7%",
-						"-12%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "14.64 ms",
-						"kept": "7.26 MB",
-						"lua": "11.89 ms",
-						"memory": "7.27 MB"
-					},
 					"scenario": "fanout",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "2.56 ms",
-							"change": "-12%",
+							"change": "",
 							"ours": "12.83 ms",
 							"typical": "",
 							"xBest": "5.0×",
@@ -15256,7 +15021,7 @@
 						"lua": {
 							"backend": "",
 							"best": "0.14 ms",
-							"change": "-7%",
+							"change": "",
 							"engine": "",
 							"ours": "11.01 ms",
 							"typical": "",
@@ -15273,8 +15038,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -15357,25 +15121,19 @@
 						"",
 						"",
 						"",
-						"-2%",
-						"-2%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "1 change/frame",
-					"previous": {
-						"frame": "20.71 ms",
-						"kept": "",
-						"lua": "20.08 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "fanout",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-2%",
+							"change": "",
 							"ours": "20.31 ms",
 							"typical": "",
 							"xBest": "",
@@ -15384,7 +15142,7 @@
 						"lua": {
 							"backend": "",
 							"best": "0.21 ms",
-							"change": "-2%",
+							"change": "",
 							"engine": "",
 							"ours": "19.71 ms",
 							"typical": "",
@@ -15423,25 +15181,19 @@
 						"",
 						"",
 						"",
-						"-4%",
-						"+4%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "4.01 ms",
-						"kept": "",
-						"lua": "3.89 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "fanout",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "+4%",
+							"change": "",
 							"ours": "4.16 ms",
 							"typical": "",
 							"xBest": "",
@@ -15450,7 +15202,7 @@
 						"lua": {
 							"backend": "",
 							"best": "<0.01 ms",
-							"change": "-4%",
+							"change": "",
 							"engine": "",
 							"ours": "3.74 ms",
 							"typical": "",
@@ -15497,12 +15249,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "1 change/frame (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "fanout",
 					"size": "-",
 					"values": {
@@ -15617,18 +15363,12 @@
 						"",
 						"111.70 KB",
 						"",
-						"-8%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "111.70 KB",
-						"lua": "0.23 ms",
-						"memory": "113.01 KB"
-					},
 					"scenario": "cascade",
 					"size": "-",
 					"values": {
@@ -15643,7 +15383,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "-8%",
+							"change": "",
 							"engine": "",
 							"ours": "0.21 ms",
 							"typical": "",
@@ -15743,19 +15483,13 @@
 						"",
 						"",
 						"",
-						"-5%",
+						"",
 						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1 change/frame",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.10 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "cascade",
 					"size": "-",
 					"task": true,
@@ -15771,7 +15505,7 @@
 						"lua": {
 							"backend": "",
 							"best": "<0.01 ms",
-							"change": "-5%",
+							"change": "",
 							"engine": "",
 							"ours": "0.10 ms",
 							"typical": "",
@@ -15810,18 +15544,12 @@
 						"",
 						"",
 						"",
-						"-4%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.07 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "cascade",
 					"size": "-",
 					"values": {
@@ -15836,7 +15564,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "-4%",
+							"change": "",
 							"engine": "",
 							"ours": "0.06 ms",
 							"typical": "",
@@ -15936,25 +15664,19 @@
 						"",
 						"0.10 KB",
 						"",
-						"-32%",
-						"-1%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "3.45 ms",
-						"kept": "0.10 KB",
-						"lua": "0.82 ms",
-						"memory": "9.48 KB"
-					},
 					"scenario": "events",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "1.76 ms",
-							"change": "-1%",
+							"change": "",
 							"ours": "3.41 ms",
 							"typical": "",
 							"xBest": "1.9×",
@@ -15963,7 +15685,7 @@
 						"lua": {
 							"backend": "",
 							"best": "<0.01 ms",
-							"change": "-32%",
+							"change": "",
 							"engine": "",
 							"ours": "0.56 ms",
 							"typical": "",
@@ -15980,8 +15702,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -16064,18 +15785,12 @@
 						"",
 						"",
 						"",
-						"+1%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "20 BAG_UPDATE/frame",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.10 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "events",
 					"size": "-",
 					"task": true,
@@ -16091,7 +15806,7 @@
 						"lua": {
 							"backend": "",
 							"best": "0.01 ms",
-							"change": "+1%",
+							"change": "",
 							"engine": "",
 							"ours": "0.10 ms",
 							"typical": "",
@@ -16130,18 +15845,12 @@
 						"",
 						"",
 						"",
-						"-8%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.10 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "events",
 					"size": "-",
 					"task": true,
@@ -16157,7 +15866,7 @@
 						"lua": {
 							"backend": "",
 							"best": "<0.01 ms",
-							"change": "-8%",
+							"change": "",
 							"engine": "",
 							"ours": "0.09 ms",
 							"typical": "",
@@ -16204,12 +15913,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "20 BAG_UPDATE/frame (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "events",
 					"size": "-",
 					"values": {
@@ -16271,12 +15974,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "20 BAG_UPDATE/frame (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "events",
 					"size": "-",
 					"task": true,
@@ -16392,25 +16089,19 @@
 						"6.22 MB",
 						"-0.10 KB",
 						"0.00 KB",
-						"-5%",
-						"-3%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "58.06 ms",
-						"kept": "0.00 KB",
-						"lua": "51.72 ms",
-						"memory": "6.22 MB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "2.36 ms",
-							"change": "-3%",
+							"change": "",
 							"ours": "56.09 ms",
 							"typical": "1.72 ms",
 							"xBest": "23.8×",
@@ -16419,7 +16110,7 @@
 						"lua": {
 							"backend": "33.05 ms",
 							"best": "0.21 ms",
-							"change": "-5%",
+							"change": "",
 							"engine": "15.92 ms",
 							"ours": "48.97 ms",
 							"typical": "0.36 ms",
@@ -16525,12 +16216,6 @@
 					],
 					"failed": false,
 					"metric": "steady (shown, unchanged)",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
@@ -16585,25 +16270,19 @@
 						"0.08 KB",
 						"",
 						"",
-						"-7%",
-						"-3%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "one changed",
-					"previous": {
-						"frame": "2.42 ms",
-						"kept": "",
-						"lua": "1.92 ms",
-						"memory": "0.08 KB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-3%",
+							"change": "",
 							"ours": "2.35 ms",
 							"typical": "≈ idle",
 							"xBest": "",
@@ -16612,7 +16291,7 @@
 						"lua": {
 							"backend": "<0.01 ms",
 							"best": "<0.01 ms",
-							"change": "-7%",
+							"change": "",
 							"engine": "1.78 ms",
 							"ours": "1.78 ms",
 							"typical": "0.01 ms",
@@ -16651,26 +16330,20 @@
 						"0.00 KB",
 						"",
 						"",
-						"-7%",
-						"-7%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "all changed",
-					"previous": {
-						"frame": "21.39 ms",
-						"kept": "",
-						"lua": "19.32 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "1.68 ms",
-							"change": "-7%",
+							"change": "",
 							"ours": "19.97 ms",
 							"typical": "3.43 ms",
 							"xBest": "11.9×",
@@ -16679,7 +16352,7 @@
 						"lua": {
 							"backend": "6.57 ms",
 							"best": "0.40 ms",
-							"change": "-7%",
+							"change": "",
 							"engine": "11.40 ms",
 							"ours": "17.97 ms",
 							"typical": "1.83 ms",
@@ -16718,25 +16391,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-8%",
-						"-8%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "19.76 ms",
-						"kept": "",
-						"lua": "18.25 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-8%",
+							"change": "",
 							"ours": "18.12 ms",
 							"typical": "0.59 ms",
 							"xBest": "",
@@ -16745,7 +16412,7 @@
 						"lua": {
 							"backend": "12.46 ms",
 							"best": "0.05 ms",
-							"change": "-8%",
+							"change": "",
 							"engine": "4.28 ms",
 							"ours": "16.74 ms",
 							"typical": "0.09 ms",
@@ -16784,25 +16451,19 @@
 						"6.19 MB",
 						"",
 						"",
-						"-6%",
-						"-6%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open+close",
-					"previous": {
-						"frame": "64.77 ms",
-						"kept": "",
-						"lua": "62.07 ms",
-						"memory": "6.19 MB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-6%",
+							"change": "",
 							"ours": "60.80 ms",
 							"typical": "0.71 ms",
 							"xBest": "",
@@ -16811,7 +16472,7 @@
 						"lua": {
 							"backend": "40.55 ms",
 							"best": "0.10 ms",
-							"change": "-6%",
+							"change": "",
 							"engine": "17.56 ms",
 							"ours": "58.11 ms",
 							"typical": "0.29 ms",
@@ -16857,12 +16518,6 @@
 					"check": "ok",
 					"failed": false,
 					"metric": "race: open+close in one frame ¹",
-					"previous": {
-						"frame": "2.49 ms",
-						"kept": "",
-						"lua": "0.03 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"values": {
@@ -16924,12 +16579,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "race: handle after close ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"values": {
@@ -16991,12 +16640,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "one changed (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
@@ -17059,12 +16702,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "one changed (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
@@ -17127,12 +16764,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "all changed (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
@@ -17195,12 +16826,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "all changed (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grid",
 					"size": "large",
 					"task": true,
@@ -17316,25 +16941,19 @@
 						"257.76 KB",
 						"0.00 KB",
 						"0.10 KB",
-						"-10%",
-						"-12%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "9.86 ms",
-						"kept": "0.00 KB",
-						"lua": "6.91 ms",
-						"memory": "257.76 KB"
-					},
 					"scenario": "ticker",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "1.64 ms",
-							"change": "-12%",
+							"change": "",
 							"ours": "8.70 ms",
 							"typical": "2.50 ms",
 							"xBest": "5.3×",
@@ -17343,7 +16962,7 @@
 						"lua": {
 							"backend": "5.04 ms",
 							"best": "0.06 ms",
-							"change": "-10%",
+							"change": "",
 							"engine": "1.21 ms",
 							"ours": "6.25 ms",
 							"typical": "0.06 ms",
@@ -17360,8 +16979,7 @@
 							"typical": "0.00 KB",
 							"typicalKept": "0.00 KB"
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -17444,25 +17062,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-7%",
-						"-6%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "all texts/frame",
-					"previous": {
-						"frame": "5.03 ms",
-						"kept": "",
-						"lua": "4.02 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "ticker",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "1.20 ms",
-							"change": "-6%",
+							"change": "",
 							"ours": "4.74 ms",
 							"typical": "1.62 ms",
 							"xBest": "4.0×",
@@ -17471,7 +17083,7 @@
 						"lua": {
 							"backend": "2.78 ms",
 							"best": "0.29 ms",
-							"change": "-7%",
+							"change": "",
 							"engine": "0.97 ms",
 							"ours": "3.75 ms",
 							"typical": "0.65 ms",
@@ -17510,25 +17122,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-5%",
-						"-25%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "3.25 ms",
-						"kept": "",
-						"lua": "2.65 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "ticker",
 					"size": "large",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-25%",
+							"change": "",
 							"ours": "2.43 ms",
 							"typical": "≈ idle",
 							"xBest": "",
@@ -17537,7 +17143,7 @@
 						"lua": {
 							"backend": "2.10 ms",
 							"best": "0.01 ms",
-							"change": "-5%",
+							"change": "",
 							"engine": "0.42 ms",
 							"ours": "2.52 ms",
 							"typical": "0.05 ms",
@@ -17584,12 +17190,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "all texts/frame (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "ticker",
 					"size": "large",
 					"task": true,
@@ -17652,12 +17252,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "all texts/frame (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "ticker",
 					"size": "large",
 					"task": true,
@@ -17773,25 +17367,19 @@
 						"2.80 MB",
 						"2.51 MB",
 						"2.51 MB",
-						"-6%",
-						"-11%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "15.81 ms",
-						"kept": "2.51 MB",
-						"lua": "12.18 ms",
-						"memory": "2.80 MB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "1.81 ms",
-							"change": "-11%",
+							"change": "",
 							"ours": "14.08 ms",
 							"typical": "1.25 ms",
 							"xBest": "7.8×",
@@ -17800,7 +17388,7 @@
 						"lua": {
 							"backend": "5.43 ms",
 							"best": "0.06 ms",
-							"change": "-6%",
+							"change": "",
 							"engine": "6.05 ms",
 							"ours": "11.48 ms",
 							"typical": "0.07 ms",
@@ -17817,8 +17405,7 @@
 							"typical": "0.00 KB",
 							"typicalKept": "0.00 KB"
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -17901,25 +17488,19 @@
 						"12.07 KB",
 						"",
 						"",
-						"+2%",
-						"+15%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "Reverse",
-					"previous": {
-						"frame": "2.33 ms",
-						"kept": "",
-						"lua": "2.32 ms",
-						"memory": "12.07 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "0.51 ms",
-							"change": "+15%",
+							"change": "",
 							"ours": "2.68 ms",
 							"typical": "0.87 ms",
 							"xBest": "5.3×",
@@ -17928,7 +17509,7 @@
 						"lua": {
 							"backend": "1.19 ms",
 							"best": "0.15 ms",
-							"change": "+2%",
+							"change": "",
 							"engine": "1.18 ms",
 							"ours": "2.36 ms",
 							"typical": "0.55 ms",
@@ -17967,25 +17548,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-2%",
-						"+11%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "Rotate",
-					"previous": {
-						"frame": "2.17 ms",
-						"kept": "",
-						"lua": "2.04 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "0.66 ms",
-							"change": "+11%",
+							"change": "",
 							"ours": "2.40 ms",
 							"typical": "1.07 ms",
 							"xBest": "3.7×",
@@ -17994,7 +17569,7 @@
 						"lua": {
 							"backend": "1.13 ms",
 							"best": "0.14 ms",
-							"change": "-2%",
+							"change": "",
 							"engine": "0.87 ms",
 							"ours": "2.00 ms",
 							"typical": "0.55 ms",
@@ -18033,25 +17608,19 @@
 						"28.63 KB",
 						"",
 						"",
-						"+1%",
-						"+3%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "InsertFront",
-					"previous": {
-						"frame": "2.89 ms",
-						"kept": "",
-						"lua": "2.58 ms",
-						"memory": "28.90 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "0.68 ms",
-							"change": "+3%",
+							"change": "",
 							"ours": "2.98 ms",
 							"typical": "1.09 ms",
 							"xBest": "4.4×",
@@ -18060,7 +17629,7 @@
 						"lua": {
 							"backend": "1.30 ms",
 							"best": "0.16 ms",
-							"change": "+1%",
+							"change": "",
 							"engine": "1.29 ms",
 							"ours": "2.59 ms",
 							"typical": "0.60 ms",
@@ -18099,25 +17668,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-4%",
-						"-1%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "RemoveMiddle",
-					"previous": {
-						"frame": "2.30 ms",
-						"kept": "",
-						"lua": "2.03 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-1%",
+							"change": "",
 							"ours": "2.28 ms",
 							"typical": "1.06 ms",
 							"xBest": "",
@@ -18126,7 +17689,7 @@
 						"lua": {
 							"backend": "1.02 ms",
 							"best": "0.08 ms",
-							"change": "-4%",
+							"change": "",
 							"engine": "0.94 ms",
 							"ours": "1.95 ms",
 							"typical": "0.59 ms",
@@ -18165,26 +17728,20 @@
 						"12.07 KB",
 						"",
 						"",
-						"-2%",
-						"+11%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "Shuffle",
-					"previous": {
-						"frame": "2.48 ms",
-						"kept": "",
-						"lua": "2.39 ms",
-						"memory": "12.07 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "0.62 ms",
-							"change": "+11%",
+							"change": "",
 							"ours": "2.74 ms",
 							"typical": "1.09 ms",
 							"xBest": "4.4×",
@@ -18193,7 +17750,7 @@
 						"lua": {
 							"backend": "1.08 ms",
 							"best": "0.17 ms",
-							"change": "-2%",
+							"change": "",
 							"engine": "1.26 ms",
 							"ours": "2.34 ms",
 							"typical": "0.58 ms",
@@ -18232,18 +17789,12 @@
 						"0.00 KB",
 						"",
 						"",
-						"-14%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "4.94 ms",
-						"kept": "",
-						"lua": "4.21 ms",
-						"memory": "-0.58 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -18259,7 +17810,7 @@
 						"lua": {
 							"backend": "2.36 ms",
 							"best": "0.02 ms",
-							"change": "-14%",
+							"change": "",
 							"engine": "1.24 ms",
 							"ours": "3.60 ms",
 							"typical": "0.02 ms",
@@ -18276,8 +17827,7 @@
 							"typical": "0.00 KB",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -18307,12 +17857,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "Reverse (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -18375,12 +17919,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "Reverse (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -18443,12 +17981,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "Rotate (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -18511,12 +18043,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "Rotate (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -18579,12 +18105,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "InsertFront (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -18647,12 +18167,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "InsertFront (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -18715,12 +18229,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "RemoveMiddle (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -18783,12 +18291,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "RemoveMiddle (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -18851,12 +18353,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "Shuffle (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -18919,12 +18415,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "Shuffle (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "reorder",
 					"size": "-",
 					"task": true,
@@ -19040,25 +18530,19 @@
 						"860.85 KB",
 						"36.50 KB",
 						"6.30 KB",
-						"-10%",
-						"-15%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "7.66 ms",
-						"kept": "34.10 KB",
-						"lua": "5.18 ms",
-						"memory": "804.20 KB"
-					},
 					"scenario": "deep",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "2.57 ms",
-							"change": "-15%",
+							"change": "",
 							"ours": "6.50 ms",
 							"typical": "",
 							"xBest": "2.5×",
@@ -19067,7 +18551,7 @@
 						"lua": {
 							"backend": "3.30 ms",
 							"best": "0.03 ms",
-							"change": "-10%",
+							"change": "",
 							"engine": "1.39 ms",
 							"ours": "4.68 ms",
 							"typical": "",
@@ -19084,8 +18568,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -19168,19 +18651,13 @@
 						"0.00 KB",
 						"",
 						"",
-						"-0%",
+						"",
 						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "leaf signal changed",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.04 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "deep",
 					"size": "-",
 					"task": true,
@@ -19196,7 +18673,7 @@
 						"lua": {
 							"backend": "0.02 ms",
 							"best": "<0.01 ms",
-							"change": "-0%",
+							"change": "",
 							"engine": "0.02 ms",
 							"ours": "0.04 ms",
 							"typical": "",
@@ -19235,26 +18712,20 @@
 						"0.00 KB",
 						"",
 						"",
-						"-2%",
-						"-26%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "value through 100 levels",
-					"previous": {
-						"frame": "1.01 ms",
-						"kept": "",
-						"lua": "0.62 ms",
-						"memory": "1.23 KB"
-					},
 					"scenario": "deep",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-26%",
+							"change": "",
 							"ours": "0.75 ms",
 							"typical": "",
 							"xBest": "",
@@ -19263,7 +18734,7 @@
 						"lua": {
 							"backend": "0.01 ms",
 							"best": "<0.01 ms",
-							"change": "-2%",
+							"change": "",
 							"engine": "0.59 ms",
 							"ours": "0.61 ms",
 							"typical": "",
@@ -19309,12 +18780,6 @@
 					"check": "ok",
 					"failed": false,
 					"metric": "race: change + close in one frame ¹",
-					"previous": {
-						"frame": "4.85 ms",
-						"kept": "",
-						"lua": "1.77 ms",
-						"memory": "139.55 KB"
-					},
 					"scenario": "deep",
 					"size": "-",
 					"values": {
@@ -19376,12 +18841,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "leaf signal changed (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "deep",
 					"size": "-",
 					"values": {
@@ -19443,12 +18902,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "leaf signal changed (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "deep",
 					"size": "-",
 					"task": true,
@@ -19511,12 +18964,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "value through 100 levels (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "deep",
 					"size": "-",
 					"values": {
@@ -19578,12 +19025,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "value through 100 levels (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "deep",
 					"size": "-",
 					"task": true,
@@ -19699,25 +19140,19 @@
 						"1.05 MB",
 						"0.00 KB",
 						"0.00 KB",
-						"-4%",
-						"-10%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "13.52 ms",
-						"kept": "0.00 KB",
-						"lua": "10.16 ms",
-						"memory": "1.06 MB"
-					},
 					"scenario": "resize",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "2.78 ms",
-							"change": "-10%",
+							"change": "",
 							"ours": "12.19 ms",
 							"typical": "",
 							"xBest": "4.4×",
@@ -19726,7 +19161,7 @@
 						"lua": {
 							"backend": "6.82 ms",
 							"best": "0.05 ms",
-							"change": "-4%",
+							"change": "",
 							"engine": "2.95 ms",
 							"ours": "9.78 ms",
 							"typical": "",
@@ -19826,25 +19261,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-2%",
-						"+11%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "window resized (300-700)",
-					"previous": {
-						"frame": "1.74 ms",
-						"kept": "",
-						"lua": "1.59 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "resize",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "0.69 ms",
-							"change": "+11%",
+							"change": "",
 							"ours": "1.94 ms",
 							"typical": "",
 							"xBest": "2.8×",
@@ -19853,7 +19282,7 @@
 						"lua": {
 							"backend": "1.28 ms",
 							"best": "0.19 ms",
-							"change": "-2%",
+							"change": "",
 							"engine": "0.27 ms",
 							"ours": "1.56 ms",
 							"typical": "",
@@ -19892,25 +19321,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+10%",
-						"+33%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "2.87 ms",
-						"kept": "",
-						"lua": "2.94 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "resize",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "+33%",
+							"change": "",
 							"ours": "3.83 ms",
 							"typical": "",
 							"xBest": "",
@@ -19919,7 +19342,7 @@
 						"lua": {
 							"backend": "2.55 ms",
 							"best": "0.01 ms",
-							"change": "+10%",
+							"change": "",
 							"engine": "0.68 ms",
 							"ours": "3.23 ms",
 							"typical": "",
@@ -19936,8 +19359,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "regression"
+					}
 				},
 				{
 					"cells": [
@@ -19967,12 +19389,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "window resized (300-700) (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "resize",
 					"size": "-",
 					"values": {
@@ -20034,12 +19450,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "window resized (300-700) (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "resize",
 					"size": "-",
 					"task": true,
@@ -20155,25 +19565,19 @@
 						"1.05 MB",
 						"0.00 KB",
 						"0.00 KB",
-						"-8%",
-						"-20%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "13.75 ms",
-						"kept": "0.00 KB",
-						"lua": "10.26 ms",
-						"memory": "1.06 MB"
-					},
 					"scenario": "columns",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "2.87 ms",
-							"change": "-20%",
+							"change": "",
 							"ours": "11.04 ms",
 							"typical": "",
 							"xBest": "3.8×",
@@ -20182,7 +19586,7 @@
 						"lua": {
 							"backend": "6.64 ms",
 							"best": "0.06 ms",
-							"change": "-8%",
+							"change": "",
 							"engine": "2.84 ms",
 							"ours": "9.48 ms",
 							"typical": "",
@@ -20199,8 +19603,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -20283,25 +19686,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-3%",
-						"-24%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "column count changed (6-14)",
-					"previous": {
-						"frame": "1.43 ms",
-						"kept": "",
-						"lua": "0.89 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "columns",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-24%",
+							"change": "",
 							"ours": "1.09 ms",
 							"typical": "",
 							"xBest": "",
@@ -20310,7 +19707,7 @@
 						"lua": {
 							"backend": "0.59 ms",
 							"best": "0.12 ms",
-							"change": "-3%",
+							"change": "",
 							"engine": "0.27 ms",
 							"ours": "0.86 ms",
 							"typical": "",
@@ -20349,25 +19746,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-5%",
-						"+14%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "2.95 ms",
-						"kept": "",
-						"lua": "3.06 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "columns",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "+14%",
+							"change": "",
 							"ours": "3.36 ms",
 							"typical": "",
 							"xBest": "",
@@ -20376,7 +19767,7 @@
 						"lua": {
 							"backend": "2.18 ms",
 							"best": "0.01 ms",
-							"change": "-5%",
+							"change": "",
 							"engine": "0.72 ms",
 							"ours": "2.90 ms",
 							"typical": "",
@@ -20423,12 +19814,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "column count changed (6-14) (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "columns",
 					"size": "-",
 					"values": {
@@ -20490,12 +19875,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "column count changed (6-14) (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "columns",
 					"size": "-",
 					"task": true,
@@ -20611,25 +19990,19 @@
 						"1.71 MB",
 						"289.30 KB",
 						"289.30 KB",
-						"-8%",
-						"-20%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "15.26 ms",
-						"kept": "284.10 KB",
-						"lua": "11.78 ms",
-						"memory": "1.71 MB"
-					},
 					"scenario": "grow",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "2.63 ms",
-							"change": "-20%",
+							"change": "",
 							"ours": "12.22 ms",
 							"typical": "",
 							"xBest": "4.6×",
@@ -20638,7 +20011,7 @@
 						"lua": {
 							"backend": "6.84 ms",
 							"best": "0.08 ms",
-							"change": "-8%",
+							"change": "",
 							"engine": "3.95 ms",
 							"ours": "10.79 ms",
 							"typical": "",
@@ -20655,8 +20028,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -20739,25 +20111,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-2%",
-						"-9%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "50 texts new length (1-30)",
-					"previous": {
-						"frame": "3.75 ms",
-						"kept": "",
-						"lua": "3.16 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grow",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-9%",
+							"change": "",
 							"ours": "3.41 ms",
 							"typical": "",
 							"xBest": "",
@@ -20766,7 +20132,7 @@
 						"lua": {
 							"backend": "2.54 ms",
 							"best": "0.14 ms",
-							"change": "-2%",
+							"change": "",
 							"engine": "0.56 ms",
 							"ours": "3.10 ms",
 							"typical": "",
@@ -20805,25 +20171,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+2%",
-						"+23%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "2.67 ms",
-						"kept": "",
-						"lua": "2.93 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grow",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "+23%",
+							"change": "",
 							"ours": "3.29 ms",
 							"typical": "",
 							"xBest": "",
@@ -20832,7 +20192,7 @@
 						"lua": {
 							"backend": "2.09 ms",
 							"best": "0.02 ms",
-							"change": "+2%",
+							"change": "",
 							"engine": "0.90 ms",
 							"ours": "3.00 ms",
 							"typical": "",
@@ -20879,12 +20239,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "50 texts new length (1-30) (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grow",
 					"size": "-",
 					"values": {
@@ -20946,12 +20300,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "50 texts new length (1-30) (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "grow",
 					"size": "-",
 					"task": true,
@@ -21067,25 +20415,19 @@
 						"80.98 KB",
 						"0.00 KB",
 						"0.00 KB",
-						"-18%",
-						"-35%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "5.34 ms",
-						"kept": "0.00 KB",
-						"lua": "2.00 ms",
-						"memory": "80.98 KB"
-					},
 					"scenario": "rows",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "2.85 ms",
-							"change": "-35%",
+							"change": "",
 							"ours": "3.46 ms",
 							"typical": "",
 							"xBest": "1.2×",
@@ -21094,7 +20436,7 @@
 						"lua": {
 							"backend": "1.31 ms",
 							"best": "0.03 ms",
-							"change": "-18%",
+							"change": "",
 							"engine": "0.31 ms",
 							"ours": "1.63 ms",
 							"typical": "",
@@ -21111,8 +20453,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -21195,25 +20536,19 @@
 						"-0.01 KB",
 						"",
 						"",
-						"-1%",
-						"+27%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "row count changed (50-150)",
-					"previous": {
-						"frame": "0.85 ms",
-						"kept": "",
-						"lua": "0.52 ms",
-						"memory": "0.17 KB"
-					},
 					"scenario": "rows",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "+27%",
+							"change": "",
 							"ours": "1.08 ms",
 							"typical": "",
 							"xBest": "",
@@ -21222,7 +20557,7 @@
 						"lua": {
 							"backend": "0.35 ms",
 							"best": "0.02 ms",
-							"change": "-1%",
+							"change": "",
 							"engine": "0.16 ms",
 							"ours": "0.51 ms",
 							"typical": "",
@@ -21261,18 +20596,12 @@
 						"0.00 KB",
 						"",
 						"",
-						"+8%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.56 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "rows",
 					"size": "-",
 					"task": true,
@@ -21288,7 +20617,7 @@
 						"lua": {
 							"backend": "0.50 ms",
 							"best": "<0.01 ms",
-							"change": "+8%",
+							"change": "",
 							"engine": "0.10 ms",
 							"ours": "0.60 ms",
 							"typical": "",
@@ -21335,12 +20664,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "row count changed (50-150) (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "rows",
 					"size": "-",
 					"values": {
@@ -21402,12 +20725,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "row count changed (50-150) (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "rows",
 					"size": "-",
 					"task": true,
@@ -21523,25 +20840,19 @@
 						"245.57 KB",
 						"0.00 KB",
 						"0.00 KB",
-						"-9%",
-						"-29%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "8.36 ms",
-						"kept": "0.00 KB",
-						"lua": "4.78 ms",
-						"memory": "245.57 KB"
-					},
 					"scenario": "filter",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "2.58 ms",
-							"change": "-29%",
+							"change": "",
 							"ours": "5.98 ms",
 							"typical": "",
 							"xBest": "2.3×",
@@ -21550,7 +20861,7 @@
 						"lua": {
 							"backend": "3.51 ms",
 							"best": "0.06 ms",
-							"change": "-9%",
+							"change": "",
 							"engine": "0.85 ms",
 							"ours": "4.36 ms",
 							"typical": "",
@@ -21567,8 +20878,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -21651,25 +20961,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-1%",
-						"-1%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "filter shifted",
-					"previous": {
-						"frame": "3.59 ms",
-						"kept": "",
-						"lua": "3.18 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "filter",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-1%",
+							"change": "",
 							"ours": "3.57 ms",
 							"typical": "",
 							"xBest": "",
@@ -21678,7 +20982,7 @@
 						"lua": {
 							"backend": "2.50 ms",
 							"best": "0.11 ms",
-							"change": "-1%",
+							"change": "",
 							"engine": "0.64 ms",
 							"ours": "3.14 ms",
 							"typical": "",
@@ -21717,25 +21021,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-0%",
-						"+32%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "1.46 ms",
-						"kept": "",
-						"lua": "1.70 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "filter",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "+32%",
+							"change": "",
 							"ours": "1.93 ms",
 							"typical": "",
 							"xBest": "",
@@ -21744,7 +21042,7 @@
 						"lua": {
 							"backend": "1.42 ms",
 							"best": "0.01 ms",
-							"change": "-0%",
+							"change": "",
 							"engine": "0.27 ms",
 							"ours": "1.69 ms",
 							"typical": "",
@@ -21791,12 +21089,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "filter shifted (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "filter",
 					"size": "-",
 					"values": {
@@ -21858,12 +21150,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "filter shifted (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "filter",
 					"size": "-",
 					"task": true,
@@ -21979,25 +21265,19 @@
 						"50.88 KB",
 						"0.00 KB",
 						"0.00 KB",
-						"-10%",
-						"-33%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "8.28 ms",
-						"kept": "0.00 KB",
-						"lua": "4.94 ms",
-						"memory": "50.88 KB"
-					},
 					"scenario": "drag",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "1.78 ms",
-							"change": "-33%",
+							"change": "",
 							"ours": "5.56 ms",
 							"typical": "",
 							"xBest": "3.1×",
@@ -22006,7 +21286,7 @@
 						"lua": {
 							"backend": "3.98 ms",
 							"best": "0.03 ms",
-							"change": "-10%",
+							"change": "",
 							"engine": "0.46 ms",
 							"ours": "4.44 ms",
 							"typical": "",
@@ -22023,8 +21303,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -22107,18 +21386,12 @@
 						"0.00 KB",
 						"",
 						"",
-						"-1%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "moved",
-					"previous": {
-						"frame": "0.93 ms",
-						"kept": "",
-						"lua": "0.30 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "drag",
 					"size": "-",
 					"task": true,
@@ -22134,7 +21407,7 @@
 						"lua": {
 							"backend": "0.02 ms",
 							"best": "<0.01 ms",
-							"change": "-1%",
+							"change": "",
 							"engine": "0.28 ms",
 							"ours": "0.30 ms",
 							"typical": "",
@@ -22173,25 +21446,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+7%",
-						"+45%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "1.17 ms",
-						"kept": "",
-						"lua": "1.43 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "drag",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "+45%",
+							"change": "",
 							"ours": "1.70 ms",
 							"typical": "",
 							"xBest": "",
@@ -22200,7 +21467,7 @@
 						"lua": {
 							"backend": "1.36 ms",
 							"best": "<0.01 ms",
-							"change": "+7%",
+							"change": "",
 							"engine": "0.17 ms",
 							"ours": "1.53 ms",
 							"typical": "",
@@ -22247,12 +21514,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "moved (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "drag",
 					"size": "-",
 					"values": {
@@ -22314,12 +21575,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "moved (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "drag",
 					"size": "-",
 					"task": true,
@@ -22435,25 +21690,19 @@
 						"118.62 KB",
 						"0.00 KB",
 						"0.00 KB",
-						"-21%",
-						"-36%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "5.29 ms",
-						"kept": "0.00 KB",
-						"lua": "1.96 ms",
-						"memory": "118.62 KB"
-					},
 					"scenario": "bars",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "2.65 ms",
-							"change": "-36%",
+							"change": "",
 							"ours": "3.40 ms",
 							"typical": "",
 							"xBest": "1.3×",
@@ -22462,7 +21711,7 @@
 						"lua": {
 							"backend": "1.15 ms",
 							"best": "0.01 ms",
-							"change": "-21%",
+							"change": "",
 							"engine": "0.40 ms",
 							"ours": "1.55 ms",
 							"typical": "",
@@ -22479,8 +21728,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -22563,18 +21811,12 @@
 						"0.00 KB",
 						"",
 						"",
-						"-1%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "20 fills changed",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.48 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "bars",
 					"size": "-",
 					"task": true,
@@ -22590,7 +21832,7 @@
 						"lua": {
 							"backend": "0.27 ms",
 							"best": "0.01 ms",
-							"change": "-1%",
+							"change": "",
 							"engine": "0.21 ms",
 							"ours": "0.48 ms",
 							"typical": "",
@@ -22629,18 +21871,12 @@
 						"0.00 KB",
 						"",
 						"",
-						"-0%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.40 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "bars",
 					"size": "-",
 					"task": true,
@@ -22656,7 +21892,7 @@
 						"lua": {
 							"backend": "0.30 ms",
 							"best": "<0.01 ms",
-							"change": "-0%",
+							"change": "",
 							"engine": "0.10 ms",
 							"ours": "0.40 ms",
 							"typical": "",
@@ -22703,12 +21939,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "20 fills changed (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "bars",
 					"size": "-",
 					"values": {
@@ -22770,12 +22000,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "20 fills changed (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "bars",
 					"size": "-",
 					"task": true,
@@ -22891,25 +22115,19 @@
 						"122.20 KB",
 						"0.00 KB",
 						"0.00 KB",
-						"-9%",
-						"-23%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "6.96 ms",
-						"kept": "0.00 KB",
-						"lua": "3.48 ms",
-						"memory": "122.20 KB"
-					},
 					"scenario": "sections",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "2.75 ms",
-							"change": "-23%",
+							"change": "",
 							"ours": "5.36 ms",
 							"typical": "",
 							"xBest": "2.0×",
@@ -22918,7 +22136,7 @@
 						"lua": {
 							"backend": "2.59 ms",
 							"best": "0.03 ms",
-							"change": "-9%",
+							"change": "",
 							"engine": "0.58 ms",
 							"ours": "3.17 ms",
 							"typical": "",
@@ -22935,8 +22153,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -23019,25 +22236,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+5%",
-						"-3%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "a section toggled",
-					"previous": {
-						"frame": "0.84 ms",
-						"kept": "",
-						"lua": "0.55 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "sections",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "-3%",
+							"change": "",
 							"ours": "0.81 ms",
 							"typical": "",
 							"xBest": "",
@@ -23046,7 +22257,7 @@
 						"lua": {
 							"backend": "0.37 ms",
 							"best": "0.02 ms",
-							"change": "+5%",
+							"change": "",
 							"engine": "0.20 ms",
 							"ours": "0.57 ms",
 							"typical": "",
@@ -23085,25 +22296,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+4%",
-						"+106%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "0.74 ms",
-						"kept": "",
-						"lua": "1.13 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "sections",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "≈ idle",
-							"change": "+106%",
+							"change": "",
 							"ours": "1.53 ms",
 							"typical": "",
 							"xBest": "",
@@ -23112,7 +22317,7 @@
 						"lua": {
 							"backend": "0.99 ms",
 							"best": "<0.01 ms",
-							"change": "+4%",
+							"change": "",
 							"engine": "0.19 ms",
 							"ours": "1.18 ms",
 							"typical": "",
@@ -23129,8 +22334,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "regression"
+					}
 				},
 				{
 					"cells": [
@@ -23160,12 +22364,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "a section toggled (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "sections",
 					"size": "-",
 					"values": {
@@ -23227,12 +22425,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "a section toggled (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "sections",
 					"size": "-",
 					"task": true,
@@ -23348,24 +22540,18 @@
 						"11.16 KB",
 						"9.70 KB",
 						"9.60 KB",
-						"-7%",
-						"-38%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "2.97 ms",
-						"kept": "9.70 KB",
-						"lua": "0.07 ms",
-						"memory": "11.21 KB"
-					},
 					"scenario": "tooltip",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "-38%",
+							"change": "",
 							"ours": "1.84 ms",
 							"typical": "",
 							"xBest": "",
@@ -23374,7 +22560,7 @@
 						"lua": {
 							"backend": "<0.01 ms",
 							"best": "",
-							"change": "-7%",
+							"change": "",
 							"engine": "0.06 ms",
 							"ours": "0.06 ms",
 							"typical": "",
@@ -23391,8 +22577,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -23475,18 +22660,12 @@
 						"0.00 KB",
 						"",
 						"",
-						"-2%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "show with new content",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.32 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "tooltip",
 					"size": "-",
 					"task": true,
@@ -23502,7 +22681,7 @@
 						"lua": {
 							"backend": "0.27 ms",
 							"best": "0.06 ms",
-							"change": "-2%",
+							"change": "",
 							"engine": "0.04 ms",
 							"ours": "0.31 ms",
 							"typical": "",
@@ -23541,18 +22720,12 @@
 						"0.00 KB",
 						"",
 						"",
-						"-5%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "hide",
-					"previous": {
-						"frame": "0.44 ms",
-						"kept": "",
-						"lua": "0.12 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "tooltip",
 					"size": "-",
 					"task": true,
@@ -23568,7 +22741,7 @@
 						"lua": {
 							"backend": "0.09 ms",
 							"best": "<0.01 ms",
-							"change": "-5%",
+							"change": "",
 							"engine": "0.03 ms",
 							"ours": "0.11 ms",
 							"typical": "",
@@ -23607,18 +22780,12 @@
 						"0.00 KB",
 						"",
 						"",
-						"-0%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.02 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "tooltip",
 					"size": "-",
 					"values": {
@@ -23633,7 +22800,7 @@
 						"lua": {
 							"backend": "<0.01 ms",
 							"best": "",
-							"change": "-0%",
+							"change": "",
 							"engine": "0.02 ms",
 							"ours": "0.02 ms",
 							"typical": "",
@@ -23680,12 +22847,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "show with new content (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "tooltip",
 					"size": "-",
 					"values": {
@@ -23747,12 +22908,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "show with new content (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "tooltip",
 					"size": "-",
 					"task": true,
@@ -23815,12 +22970,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "hide (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "tooltip",
 					"size": "-",
 					"values": {
@@ -23882,12 +23031,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "hide (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "tooltip",
 					"size": "-",
 					"task": true,
@@ -24003,25 +23146,19 @@
 						"",
 						"0.00 KB",
 						"",
-						"-12%",
-						"-36%",
+						"",
+						"",
 						""
 					],
 					"failed": false,
 					"metric": "open",
-					"previous": {
-						"frame": "6.21 ms",
-						"kept": "0.00 KB",
-						"lua": "3.05 ms",
-						"memory": "92.38 KB"
-					},
 					"scenario": "hover",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "1.74 ms",
-							"change": "-36%",
+							"change": "",
 							"ours": "3.95 ms",
 							"typical": "",
 							"xBest": "2.3×",
@@ -24030,7 +23167,7 @@
 						"lua": {
 							"backend": "",
 							"best": "0.04 ms",
-							"change": "-12%",
+							"change": "",
 							"engine": "",
 							"ours": "2.70 ms",
 							"typical": "",
@@ -24047,8 +23184,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "improvement"
+					}
 				},
 				{
 					"cells": [
@@ -24131,19 +23267,13 @@
 						"",
 						"",
 						"",
-						"-0%",
+						"",
 						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "hovered item changed",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.22 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "hover",
 					"size": "-",
 					"task": true,
@@ -24159,7 +23289,7 @@
 						"lua": {
 							"backend": "",
 							"best": "0.02 ms",
-							"change": "-0%",
+							"change": "",
 							"engine": "",
 							"ours": "0.22 ms",
 							"typical": "",
@@ -24198,18 +23328,12 @@
 						"",
 						"",
 						"",
-						"-8%",
+						"",
 						"",
 						""
 					],
 					"failed": false,
 					"metric": "close",
-					"previous": {
-						"frame": "1.15 ms",
-						"kept": "",
-						"lua": "0.86 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "hover",
 					"size": "-",
 					"task": true,
@@ -24225,7 +23349,7 @@
 						"lua": {
 							"backend": "",
 							"best": "0.02 ms",
-							"change": "-8%",
+							"change": "",
 							"engine": "",
 							"ours": "0.79 ms",
 							"typical": "",
@@ -24272,12 +23396,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "hovered item changed (same as baseline) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "hover",
 					"size": "-",
 					"values": {
@@ -24339,12 +23457,6 @@
 					"checkOnly": true,
 					"failed": false,
 					"metric": "hovered item changed (even line spacing) ¹",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "hover",
 					"size": "-",
 					"task": true,
@@ -24399,25 +23511,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-2%",
-						"-8%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "take 1000 texts",
-					"previous": {
-						"frame": "12.33 ms",
-						"kept": "",
-						"lua": "10.77 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "-8%",
+							"change": "",
 							"ours": "11.39 ms",
 							"typical": "",
 							"xBest": "",
@@ -24426,7 +23532,7 @@
 						"lua": {
 							"backend": "8.87 ms",
 							"best": "",
-							"change": "-2%",
+							"change": "",
 							"engine": "1.65 ms",
 							"ours": "10.51 ms",
 							"typical": "",
@@ -24465,25 +23571,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+1%",
-						"+12%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "release 1000 texts",
-					"previous": {
-						"frame": "5.31 ms",
-						"kept": "",
-						"lua": "5.00 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "+12%",
+							"change": "",
 							"ours": "5.96 ms",
 							"typical": "",
 							"xBest": "",
@@ -24492,7 +23592,7 @@
 						"lua": {
 							"backend": "4.27 ms",
 							"best": "",
-							"change": "+1%",
+							"change": "",
 							"engine": "0.79 ms",
 							"ours": "5.06 ms",
 							"typical": "",
@@ -24509,8 +23609,7 @@
 							"typical": "",
 							"typicalKept": ""
 						}
-					},
-					"verdict": "regression"
+					}
 				},
 				{
 					"cells": [
@@ -24532,25 +23631,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-2%",
-						"-5%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "take 1000 boxes",
-					"previous": {
-						"frame": "19.74 ms",
-						"kept": "",
-						"lua": "16.99 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "-5%",
+							"change": "",
 							"ours": "18.69 ms",
 							"typical": "",
 							"xBest": "",
@@ -24559,7 +23652,7 @@
 						"lua": {
 							"backend": "14.87 ms",
 							"best": "",
-							"change": "-2%",
+							"change": "",
 							"engine": "1.72 ms",
 							"ours": "16.58 ms",
 							"typical": "",
@@ -24598,25 +23691,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+2%",
-						"+5%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "release 1000 boxes",
-					"previous": {
-						"frame": "7.50 ms",
-						"kept": "",
-						"lua": "7.10 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "+5%",
+							"change": "",
 							"ours": "7.84 ms",
 							"typical": "",
 							"xBest": "",
@@ -24625,7 +23712,7 @@
 						"lua": {
 							"backend": "6.47 ms",
 							"best": "",
-							"change": "+2%",
+							"change": "",
 							"engine": "0.78 ms",
 							"ours": "7.25 ms",
 							"typical": "",
@@ -24664,25 +23751,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+4%",
-						"+5%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1000 backgrounds changed",
-					"previous": {
-						"frame": "7.02 ms",
-						"kept": "",
-						"lua": "6.37 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "+5%",
+							"change": "",
 							"ours": "7.33 ms",
 							"typical": "",
 							"xBest": "",
@@ -24691,7 +23772,7 @@
 						"lua": {
 							"backend": "5.01 ms",
 							"best": "",
-							"change": "+4%",
+							"change": "",
 							"engine": "1.61 ms",
 							"ours": "6.62 ms",
 							"typical": "",
@@ -24730,25 +23811,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+3%",
-						"+4%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1000 widths changed in fixed cells",
-					"previous": {
-						"frame": "17.50 ms",
-						"kept": "",
-						"lua": "16.32 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "+4%",
+							"change": "",
 							"ours": "18.20 ms",
 							"typical": "",
 							"xBest": "",
@@ -24757,7 +23832,7 @@
 						"lua": {
 							"backend": "13.55 ms",
 							"best": "",
-							"change": "+3%",
+							"change": "",
 							"engine": "3.27 ms",
 							"ours": "16.81 ms",
 							"typical": "",
@@ -24796,25 +23871,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+1%",
-						"+0%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1000 texts changed, layout unchanged",
-					"previous": {
-						"frame": "10.34 ms",
-						"kept": "",
-						"lua": "8.73 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "+0%",
+							"change": "",
 							"ours": "10.34 ms",
 							"typical": "",
 							"xBest": "",
@@ -24823,7 +23892,7 @@
 						"lua": {
 							"backend": "5.09 ms",
 							"best": "",
-							"change": "+1%",
+							"change": "",
 							"engine": "3.71 ms",
 							"ours": "8.80 ms",
 							"typical": "",
@@ -24862,25 +23931,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+4%",
-						"+4%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1000 texts changed width, 3 levels",
-					"previous": {
-						"frame": "53.99 ms",
-						"kept": "",
-						"lua": "44.22 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "+4%",
+							"change": "",
 							"ours": "56.31 ms",
 							"typical": "",
 							"xBest": "",
@@ -24889,7 +23952,7 @@
 						"lua": {
 							"backend": "39.44 ms",
 							"best": "",
-							"change": "+4%",
+							"change": "",
 							"engine": "6.38 ms",
 							"ours": "45.82 ms",
 							"typical": "",
@@ -24928,25 +23991,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"-0%",
-						"+5%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "100 boxes moved",
-					"previous": {
-						"frame": "1.11 ms",
-						"kept": "",
-						"lua": "1.13 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "+5%",
+							"change": "",
 							"ours": "1.17 ms",
 							"typical": "",
 							"xBest": "",
@@ -24955,7 +24012,7 @@
 						"lua": {
 							"backend": "0.88 ms",
 							"best": "",
-							"change": "-0%",
+							"change": "",
 							"engine": "0.24 ms",
 							"ours": "1.12 ms",
 							"typical": "",
@@ -24994,25 +24051,19 @@
 						"0.00 KB",
 						"",
 						"",
-						"+1%",
-						"+8%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1000 calls, nothing changed",
-					"previous": {
-						"frame": "1.54 ms",
-						"kept": "",
-						"lua": "1.32 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "+8%",
+							"change": "",
 							"ours": "1.67 ms",
 							"typical": "",
 							"xBest": "",
@@ -25021,7 +24072,7 @@
 						"lua": {
 							"backend": "0.02 ms",
 							"best": "",
-							"change": "+1%",
+							"change": "",
 							"engine": "1.31 ms",
 							"ours": "1.33 ms",
 							"typical": "",
@@ -25060,19 +24111,13 @@
 						"",
 						"",
 						"",
-						"-1%",
+						"",
 						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1000 writes, no reader",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "0.62 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
@@ -25087,7 +24132,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "-1%",
+							"change": "",
 							"engine": "",
 							"ours": "0.61 ms",
 							"typical": "",
@@ -25126,25 +24171,19 @@
 						"",
 						"",
 						"",
-						"+1%",
-						"-5%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "1000 x (write, flush), 1 watch",
-					"previous": {
-						"frame": "3.57 ms",
-						"kept": "",
-						"lua": "3.30 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "-5%",
+							"change": "",
 							"ours": "3.39 ms",
 							"typical": "",
 							"xBest": "",
@@ -25153,7 +24192,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "+1%",
+							"change": "",
 							"engine": "",
 							"ours": "3.33 ms",
 							"typical": "",
@@ -25192,25 +24231,19 @@
 						"",
 						"",
 						"",
-						"+1%",
-						"+1%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "5000 writes, 5000 watches, 1 flush",
-					"previous": {
-						"frame": "24.62 ms",
-						"kept": "",
-						"lua": "23.74 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "units",
 					"size": "-",
 					"values": {
 						"frame": {
 							"best": "",
-							"change": "+1%",
+							"change": "",
 							"ours": "24.85 ms",
 							"typical": "",
 							"xBest": "",
@@ -25219,7 +24252,7 @@
 						"lua": {
 							"backend": "",
 							"best": "",
-							"change": "+1%",
+							"change": "",
 							"engine": "",
 							"ours": "23.93 ms",
 							"typical": "",
@@ -25265,12 +24298,6 @@
 					"check": "ok",
 					"failed": false,
 					"metric": "nothing written",
-					"previous": {
-						"frame": "≈ idle",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "scheduler",
 					"size": "-",
 					"task": true,
@@ -25332,12 +24359,6 @@
 					"check": "ok",
 					"failed": false,
 					"metric": "a write every other frame",
-					"previous": {
-						"frame": "0.80 ms",
-						"kept": "",
-						"lua": "<0.01 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "scheduler",
 					"size": "-",
 					"task": true,
@@ -25392,26 +24413,20 @@
 						"",
 						"",
 						"",
-						"-3%",
-						"+3%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "a write every frame",
-					"previous": {
-						"frame": "1.86 ms",
-						"kept": "",
-						"lua": "0.60 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "scheduler",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "0.83 ms",
-							"change": "+3%",
+							"change": "",
 							"ours": "1.92 ms",
 							"typical": "",
 							"xBest": "2.3×",
@@ -25420,7 +24435,7 @@
 						"lua": {
 							"backend": "",
 							"best": "0.04 ms",
-							"change": "-3%",
+							"change": "",
 							"engine": "",
 							"ours": "0.59 ms",
 							"typical": "",
@@ -25459,26 +24474,20 @@
 						"",
 						"",
 						"",
-						"-1%",
-						"-2%",
+						"",
+						"",
 						"ok"
 					],
 					"check": "ok",
 					"failed": false,
 					"metric": "10 writes every frame",
-					"previous": {
-						"frame": "2.29 ms",
-						"kept": "",
-						"lua": "0.98 ms",
-						"memory": "0.00 KB"
-					},
 					"scenario": "scheduler",
 					"size": "-",
 					"task": true,
 					"values": {
 						"frame": {
 							"best": "1.07 ms",
-							"change": "-2%",
+							"change": "",
 							"ours": "2.24 ms",
 							"typical": "",
 							"xBest": "2.1×",
@@ -25487,7 +24496,7 @@
 						"lua": {
 							"backend": "",
 							"best": "0.40 ms",
-							"change": "-1%",
+							"change": "",
 							"engine": "",
 							"ours": "0.96 ms",
 							"typical": "",
