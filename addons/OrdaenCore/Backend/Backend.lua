@@ -137,6 +137,12 @@ local function snap(v)
 	return floor(v / px + 0.5) * px
 end
 
+-- Up to the next whole pixel: text sizes, so lines of one font stack the same number of pixels apart (12 UI units at
+-- 0.94 px per unit would land 11 and 12 px apart in turn). The small margin keeps an exact pixel from rounding up.
+local function pixelsUp(v)
+	return ceil(v / px - 0.001) * px
+end
+
 -- The pool's hidden holder and the queue of nodes to lay out ------------------------------------------------------
 
 local holder ---@type Frame
@@ -160,6 +166,7 @@ end
 
 local function getHolder()
 	if not holder then
+		updateScreen() -- the pixel size, before the first text is measured
 		holder = CreateFrame("Frame", nil, UIParent)
 		holder:Hide()
 	end
@@ -251,7 +258,7 @@ end
 function ctx.measure(node, width)
 	local fs = node.fs
 	fs:SetWidth(width)
-	local h = ceil(fs:GetStringHeight())
+	local h = pixelsUp(fs:GetStringHeight())
 	if node.w then
 		fs:SetWidth(node.w)
 	end
@@ -413,7 +420,7 @@ function Node:ApplyText()
 		fs:SetText(text)
 	end
 	fs:SetWidth(0)
-	local natW, lineH = ceil(fs:GetStringWidth()), ceil(fs:GetStringHeight())
+	local natW, lineH = pixelsUp(fs:GetStringWidth()), pixelsUp(fs:GetStringHeight())
 	if self.w then
 		fs:SetWidth(self.w)
 	end
