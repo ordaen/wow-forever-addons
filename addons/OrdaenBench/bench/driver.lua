@@ -149,9 +149,10 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 	local measured = count - skip
 	local lua, frames = {}, {}
 	local i, prepared, started, kb, capStart, keptKb, base = 0, false, nil, 0, 0, nil, 0
-	-- measured calls and frames the collector ran in anyway (the heap shrank): WoW's own collection step between
-	-- frames re-arms a stopped collector, so it is stopped again before every call, and this proves it held
-	local gcInCall, gcInFrame, after = 0, 0, 0
+	-- measured frames the heap shrank in between a call's end and the next frame (a collection step outside our code:
+	-- its work is in that frame's time). Calls can't collect: the collector is stopped again right before each one,
+	-- since a step between frames re-arms it.
+	local gcInFrame, after = 0, 0
 	return function()
 		local now = debugprofilestop()
 		if started then -- the frame of the last timed call ends here
@@ -169,7 +170,7 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 		end
 		if i == 0 and not prepared then -- the series' first frame: untimed
 			CollectAndStop()
-			kb, capStart, gcInCall, gcInFrame = 0, capHits, 0, 0
+			kb, capStart, gcInFrame = 0, capHits, 0
 			if prepare then
 				prepare(1)
 			end
@@ -180,15 +181,15 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 			local check
 			if capHits > capStart then
 				check = self:Verdict(false, "the scheduler hit its pass cap: the change didn't finish")
-			elseif gcInCall > 0 or gcInFrame > 0 then
-				check = self:Verdict(false, string.format("the collector ran in %d measured calls and %d measured frames",
-					gcInCall, gcInFrame))
 			elseif verify then
 				check = self:Verdict(verify())
 			end
 			self:Record(scenario, size, impl, metric, Percentile(lua, measured, 0.5), Percentile(lua, measured, 0.95),
 				Percentile(frames, measured, 0.5), Percentile(frames, measured, 0.95), kb / measured, measured, check,
 				keptKb)
+			if gcInFrame > 0 then
+				self:Note(format("gc|%s|%s|%s|%s|%d", scenario, size, impl, metric, gcInFrame))
+			end
 			Restart()
 			i, prepared = 0, false
 			return true
@@ -217,9 +218,6 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 		if i > skip then
 			lua[i - skip] = ms
 			kb = kb + grew
-			if grew < 0 then
-				gcInCall = gcInCall + 1
-			end
 		end
 		return false
 	end

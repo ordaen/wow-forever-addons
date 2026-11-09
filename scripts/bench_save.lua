@@ -137,6 +137,10 @@ local function Parse(lines)
 					round.build[k] = v
 				end
 			end
+		elseif f[1] == "gc" then
+			-- a series whose frames held a collection step outside our code (bench/driver.lua)
+			round.gc = round.gc or json.array({})
+			round.gc[#round.gc + 1] = { scenario = f[2], size = f[3], impl = f[4], metric = f[5], frames = tonumber(f[6]) }
 		elseif f[1] == "mode" then
 			round.mode = f[2]
 		elseif f[1] == "errors" then
@@ -573,6 +577,9 @@ if round.mode == "check" then
 			print(string.format("  %s %s: %s", r.scenario, r.metric, r.check:sub(6)))
 		end
 	end
+	for _, g in ipairs(round.gc or {}) do
+		print(string.format("  collector in %d frames: %s %s %s (%s)", g.frames, g.scenario, g.size, g.metric, g.impl))
+	end
 	local errors = round.errors and round.errors.count or 0
 	print(string.format("check run: %d checks passed, %d failed, %d errors (not recorded)", passed, #failed, errors))
 	if errors > 0 then
@@ -585,6 +592,12 @@ if round.mode == "check" then
 end
 -- a round is recorded only as players would run it: the Core and the bench built with the bench profile (release
 -- stripping, the bench's dev file kept), and the debug addon not loaded
+if round.gc then
+	print(#round.gc .. " series had a collection step in their measured frames (frame column holds collector work):")
+	for _, g in ipairs(round.gc) do
+		print(string.format("  %d frames: %s %s %s (%s)", g.frames, g.scenario, g.size, g.metric, g.impl))
+	end
+end
 local profile = round.build and round.build.core or "?"
 local benchProfile = round.build and round.build.bench or "?"
 local debugLoaded = false
