@@ -7,7 +7,8 @@ local Backend, Core = ns.Backend, ns.Core
 local getcountinfo, rawget, type, ipairs, pairs = table.getcountinfo, rawget, type, ipairs, pairs
 
 -- A node's own tables, measured with it.
-local OWN_TABLES = { "a", "args", "children", "colKind", "colAmount", "colW", "colX", "rowH", "rowY", "edges" }
+local OWN_TABLES = { "a", "args", "children", "colKind", "colAmount", "colW", "colX", "rowH", "rowY", "edges", "cCol",
+	"cRow", "cSpan", "cW", "cTw", "cTh", "cGiven" }
 
 -- Hash slots Lua allocates for `n` hash entries: the next power of two.
 local function slots(n)

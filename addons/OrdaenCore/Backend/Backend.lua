@@ -60,6 +60,7 @@ local EMPTY = {}
 -- content's layout, its border, its look, its text, its mouse handlers.
 -- The layout attributes come from Layout.ATTRIBUTES (their groups and the fields they fill); the rest are listed here.
 local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5, 6, 7, 8
+local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT,
@@ -81,6 +82,15 @@ for _, key in ipairs({ "text", "textSize", "wrap", "textColor", "textAlign", "op
 	TEXT_KEYS[#TEXT_KEYS + 1] = key
 end
 local TAKEN_KEYS = { "position", "top", "right", "bottom", "left", "opacity" }
+-- The same lists as sets, so a Set walks only the keys a table has (usually a few), not every key a kind takes.
+local function set(keys)
+	local s = {}
+	for _, key in ipairs(keys) do
+		s[key] = true
+	end
+	return s
+end
+local BOX_TAKES, TEXT_TAKES, TAKEN_TAKES = set(BOX_KEYS), set(TEXT_KEYS), set(TAKEN_KEYS)
 
 -- Theme references and per-state maps -------------------------------------------------------------------------
 
@@ -488,15 +498,13 @@ function Node:ApplyMouse()
 end
 
 -- Whether any attribute is a per-state map, and whether one of them is a layout attribute.
-function Node:ScanStates(keys)
-	local a = self.a
+function Node:ScanStates()
 	local states, stateLayout = false, false
-	for i = 1, #keys do
-		local v = a[keys[i]]
+	for key, v in next, self.a do
 		if type(v) == "table" and rawget(v, "path") == nil
 			and (rawget(v, "default") ~= nil or rawget(v, "hover") ~= nil or rawget(v, "pressed") ~= nil) then
 			states = true
-			local g = GROUP[keys[i]]
+			local g = GROUP[key]
 			if g ~= LOOK and g ~= INPUT then
 				stateLayout = true
 			end
@@ -721,7 +729,7 @@ function Backend:Create(kind)
 	end
 	if node.released then
 		node.released = nil
-		if node.drawn then
+		if next(node.a) ~= nil then
 			node.stale = true
 			nStale = nStale + 1
 			stale[nStale] = node
@@ -762,14 +770,15 @@ function Backend:Set(node, attributes)
 	---@cast node OrdaenBackendNode
 	node.stale = nil
 	local own = node.a
-	local keys = node.kind == "text" and TEXT_KEYS or node.taken and TAKEN_KEYS or BOX_KEYS
+	local takes = node.kind == "text" and TEXT_TAKES or node.taken and TAKEN_TAKES or BOX_TAKES
 	local size, position, offset, content, border, look, input, text, tables =
 		false, false, false, false, false, false, false, false, false
-	for i = 1, #keys do
-		local k = keys[i]
-		local v = attributes[k]
+	-- What changed: the keys the new table has, then the old keys it no longer has. Both tables hold only the
+	-- attributes in use, so this walks a few keys, not every key the node's kind takes.
+	local k, v = next(attributes)
+	while k ~= nil do
 		local old = own[k]
-		if old ~= v then
+		if old ~= v and takes[k] then
 			own[k] = v
 			if type(v) == "table" or type(old) == "table" then
 				tables = true
@@ -793,6 +802,37 @@ function Backend:Set(node, attributes)
 				input = true
 			end
 		end
+		k, v = next(attributes, k)
+	end
+	local key, old = next(own)
+	while key ~= nil do
+		local after = next(own, key) -- clearing a field while walking a table is allowed in Lua; adding one isn't
+		if attributes[key] == nil then
+			own[key] = nil
+			if type(old) == "table" then
+				tables = true
+			end
+			local g = GROUP[key]
+			if g == OWN then
+				size = true
+			elseif g == POSITION then
+				size, position = true, true
+			elseif g == OFFSET then
+				offset = true
+			elseif g == CONTENT then
+				content = true
+			elseif g == LOOK then
+				look = true
+			elseif g == BORDER then
+				border = true
+			elseif g == TEXT then
+				text = true
+			else
+				input = true
+			end
+		end
+		key = after
+		old = after ~= nil and own[after] or nil
 	end
 	if node.kind == "text" then
 		local args, mine = attributes.arguments, node.args
@@ -814,9 +854,8 @@ function Backend:Set(node, attributes)
 	if not (size or offset or content or border or look or input or text) then
 		return
 	end
-	node.drawn = true
 	if tables then
-		node:ScanStates(keys)
+		node:ScanStates()
 		input = true -- a per-state map makes the box take the mouse
 	end
 	if node.taken then
@@ -913,9 +952,12 @@ function Backend:Release(node)
 			a.OnLeave = false
 		end
 		-- scratch arrays sized for a big grid don't stay with a pooled node
-		local rowH = node.rowH
+		local rowH, cCol = node.rowH, node.cCol
 		if rowH and #rowH > 64 then
 			node.colW, node.colX, node.rowH, node.rowY = nil, nil, nil, nil
+		end
+		if cCol and #cCol > 64 then
+			node.cCol, node.cRow, node.cSpan, node.cW, node.cTw, node.cTh, node.cGiven = nil, nil, nil, nil, nil, nil, nil
 		end
 	end
 	node.released, node.stale = true, nil

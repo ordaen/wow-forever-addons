@@ -4,7 +4,9 @@
 -- It works on node tables. Layout.Apply fills these fields from a node's attributes when they change (the backend
 -- passes its resolver for theme references and per-state maps); Layout.ATTRIBUTES lists which attribute fills which:
 --   kind                      "box", "text" or "root" (a layer or a taken Blizzard frame: w and h come from WoW)
---   parent, children, count   the tree; children is an array, count its length
+--   parent, children, count   the tree; children is an array, count its length; a child's place in its parent's grid
+--                             is kept by the parent, in arrays indexed by the child's position (child.idx): cCol,
+--                             cRow, cSpan, cW (cell width), cTw, cTh, cGiven (its size there and the height it was given)
 --   wKind, wAmount            width: "fixed" (amount in UI units), "auto" (content), "pct" (amount 0..1 of the
 --   hKind, hAmount            parent's content box), "fill" (the cell), nil (stretch in its cell, unless the parent's
 --                             xAlign places it; heights: content, stretched to the row by the parent's yAlign)
@@ -288,8 +290,12 @@ local function widthGiven(node)
 		if parent == nil or placed(parent.xAlign) then
 			return false
 		end
-		local kinds = parent.colKind
-		for c = node.col or 1, (node.col or 1) + (node.cspan or 1) - 1 do
+		local kinds, idx, cCol = parent.colKind, node.idx, parent.cCol
+		if not idx or not cCol then
+			return false
+		end
+		local col = cCol[idx]
+		for c = col, col + parent.cSpan[idx] - 1 do
 			if kinds[c] ~= "fr" and kinds[c] ~= "fixed" then
 				return false
 			end
@@ -315,8 +321,12 @@ function Layout.TextResized(node, oldW, oldH)
 	if parent == nil or isFree(node) or node.wrap == false or node.wKind ~= nil or placed(parent.xAlign) then
 		return true
 	end
-	local kinds = parent.colKind
-	for c = node.col or 1, (node.col or 1) + (node.cspan or 1) - 1 do
+	local kinds, idx, cCol = parent.colKind, node.idx, parent.cCol
+	if not idx or not cCol then
+		return true
+	end
+	local col = cCol[idx]
+	for c = col, col + parent.cSpan[idx] - 1 do
 		if kinds[c] ~= "fr" and kinds[c] ~= "fixed" then
 			return true
 		end
@@ -324,9 +334,20 @@ function Layout.TextResized(node, oldW, oldH)
 	return not widthGiven(parent)
 end
 
+-- The parent's arrays for its children's cells (made on first use).
+local function cells(node)
+	local cCol = node.cCol
+	if not cCol then
+		cCol = {}
+		node.cCol, node.cRow, node.cSpan, node.cW, node.cTw, node.cTh, node.cGiven = cCol, {}, {}, {}, {}, {}, {}
+	end
+	return cCol, node.cRow, node.cSpan
+end
+
 -- Flow children into cells, reading order, wrapping when a span doesn't fit the row. Returns the number of rows.
 local function assignCells(node)
 	local children, n = node.children, node.ncols or 1
+	local cCol, cRow, cSpan = cells(node)
 	local col, row, rows = 1, 1, 0
 	for i = 1, node.count or 0 do
 		local child = children[i]
@@ -340,7 +361,7 @@ local function assignCells(node)
 			if col + span - 1 > n then
 				col, row = 1, row + 1
 			end
-			child.col, child.row, child.cspan = col, row, span
+			child.idx, cCol[i], cRow[i], cSpan[i] = i, col, row, span
 			rows = row
 			col = col + span
 			if col > n then
@@ -407,16 +428,22 @@ local natural -- forward
 local function boxNatural(node)
 	local n = node.ncols or 1
 	local kinds, amounts = node.colKind, node.colAmount
+	local children = node.children
+	if n == 1 and node.count == 1 and not isFree(children[1]) then
+		-- one child in one column (cells, wrappers, nested levels): its natural width, or the fixed track's
+		local v = kinds[1] == "fixed" and amounts[1] or natural(children[1])
+		return v + node.padL + node.padR + 2 * node.bw
+	end
 	local colW = scratch(node)
 	assignCells(node)
+	local cCol, cSpan = node.cCol, node.cSpan
 	for c = 1, n do
 		colW[c] = kinds[c] == "fixed" and amounts[c] or 0
 	end
-	local children = node.children
 	for i = 1, node.count or 0 do
 		local child = children[i]
-		if not isFree(child) and child.cspan == 1 and kinds[child.col] ~= "fixed" then
-			colW[child.col] = max(colW[child.col], natural(child))
+		if not isFree(child) and cSpan[i] == 1 and kinds[cCol[i]] ~= "fixed" then
+			colW[cCol[i]] = max(colW[cCol[i]], natural(child))
 		end
 	end
 	local unit = 0
@@ -432,14 +459,15 @@ local function boxNatural(node)
 	end
 	for i = 1, node.count or 0 do
 		local child = children[i]
-		if not isFree(child) and child.cspan > 1 then
-			local last = child.col + child.cspan - 1
-			local have = node.gapC * (child.cspan - 1)
-			for c = child.col, last do
+		if not isFree(child) and cSpan[i] > 1 then
+			local col = cCol[i]
+			local last = col + cSpan[i] - 1
+			local have = node.gapC * (cSpan[i] - 1)
+			for c = col, last do
 				have = have + colW[c]
 			end
 			local need = natural(child) - have
-			if need > 0 and not grow(node, child.col, last, "fr", need) and not grow(node, child.col, last, "auto", need) then
+			if need > 0 and not grow(node, col, last, "fr", need) and not grow(node, col, last, "auto", need) then
 				colW[last] = colW[last] + need
 			end
 		end
@@ -608,6 +636,54 @@ local function sizeIn(child, cellW, parent, contentW, contentH, ctx)
 	return w, given or autoHeight(child, w, ctx), given
 end
 
+-- layoutBox for one flow child in one fr column (cells, wrappers, nested levels): the same result as the grid's
+-- general path, computed directly. The cell is the content box (at least MIN_COLUMN), the one row is the child's height.
+local function single(node, child, W, H, padT, padB, padL, contentW, contentH, ctx)
+	local cCol, cRow, cSpan = cells(node)
+	child.idx, cCol[1], cRow[1], cSpan[1] = 1, 1, 1, 1
+	local cellW = contentW >= MIN_COLUMN and contentW or MIN_COLUMN
+	node.cW[1] = cellW
+	local w, h, given = sizeIn(child, cellW, node, contentW, contentH, ctx)
+	local ya = node.yAlign
+	local y = padT
+	if contentH then
+		local free = contentH - h
+		if free > 0 then
+			if ya == "center" then
+				y = y + floor(free / 2 + 0.5)
+			elseif ya == "end" then
+				y = y + free
+			elseif ya == "spaceAround" then
+				y = y + free / 2
+			end
+		end
+	end
+	local x = padL
+	local free = cellW - w
+	if free > 0 then
+		local xa = node.xAlign
+		if xa == "center" then
+			x = x + floor(free / 2 + 0.5)
+		elseif xa == "end" then
+			x = x + free
+		end
+	end
+	local box = child.kind == "box"
+	if box and (child.hKind == "fill" or (child.hKind == nil and not placed(ya))) then
+		given = h -- stretched to its row, which is its own height
+	end
+	setRect(child, x, y, w, h)
+	if box then
+		finalize(child, w, given, ctx)
+	end
+	local outH = H or (padT + h + padB)
+	if H == nil then
+		node.nhW, node.nhH = W, outH
+	end
+	node.lw, node.lh, node.lgiven, node.pctH, node.valid = W, outH, H ~= nil, child.hKind == "pct", true
+	return outH
+end
+
 -- Lay out a box's children at outer width W and, when given, outer height H. Returns its outer height.
 function layoutBox(node, W, H, ctx)
 	node.pass = pass
@@ -616,11 +692,16 @@ function layoutBox(node, W, H, ctx)
 	local bw = node.bw
 	local padT, padR, padB, padL = node.padT + bw, node.padR + bw, node.padB + bw, node.padL + bw
 	local gapC, gapR = node.gapC, node.gapR
-	local colW, colX, rowH, rowY = scratch(node)
 	local children, count = node.children, node.count or 0
-	local rows = assignCells(node)
 	local contentW = W - padL - padR
 	local contentH = H and H - padT - padB or nil
+	if n == 1 and count == 1 and kinds[1] == "fr" and not isFree(children[1]) then
+		return single(node, children[1], W, H, padT, padB, padL, contentW, contentH, ctx)
+	end
+	local colW, colX, rowH, rowY = scratch(node)
+	local rows = assignCells(node)
+	local cCol, cRow, cSpan = node.cCol, node.cRow, node.cSpan
+	local cW, cTw, cTh, cGiven = node.cW, node.cTw, node.cTh, node.cGiven
 
 	-- Pass 1: column widths.
 	local amounts = node.colAmount
@@ -629,22 +710,23 @@ function layoutBox(node, W, H, ctx)
 	end
 	for i = 1, count do
 		local child = children[i]
-		if not isFree(child) and child.cspan == 1 and kinds[child.col] == "auto" then
-			colW[child.col] = max(colW[child.col], natural(child))
+		if not isFree(child) and cSpan[i] == 1 and kinds[cCol[i]] == "auto" then
+			colW[cCol[i]] = max(colW[cCol[i]], natural(child))
 		end
 	end
 	for i = 1, count do
 		local child = children[i]
-		if not isFree(child) and child.cspan > 1 then
-			local last = child.col + child.cspan - 1
-			local have = gapC * (child.cspan - 1)
+		if not isFree(child) and cSpan[i] > 1 then
+			local col = cCol[i]
+			local last = col + cSpan[i] - 1
+			local have = gapC * (cSpan[i] - 1)
 			local hasFr = false
-			for c = child.col, last do
+			for c = col, last do
 				have = have + colW[c]
 				hasFr = hasFr or kinds[c] == "fr"
 			end
 			local need = natural(child) - have
-			if need > 0 and not hasFr and not grow(node, child.col, last, "auto", need) then
+			if need > 0 and not hasFr and not grow(node, col, last, "auto", need) then
 				colW[last] = colW[last] + need
 			end
 		end
@@ -699,18 +781,20 @@ function layoutBox(node, W, H, ctx)
 	for i = 1, count do
 		local child = children[i]
 		if not isFree(child) then
-			local cellW = (gapC + spread) * (child.cspan - 1)
-			for c = child.col, child.col + child.cspan - 1 do
+			local col = cCol[i]
+			local cellW = (gapC + spread) * (cSpan[i] - 1)
+			for c = col, col + cSpan[i] - 1 do
 				cellW = cellW + colW[c]
 			end
-			child.cellW = cellW
+			cW[i] = cellW
 			local w, h, given = sizeIn(child, cellW, node, contentW, contentH, ctx)
-			child.tw, child.th, child.tgiven = w, h, given
+			cTw[i], cTh[i], cGiven[i] = w, h, given or false
 			if child.hKind == "pct" then
 				pctH = true
 			end
-			if h > rowH[child.row] then
-				rowH[child.row] = h
+			local row = cRow[i]
+			if h > rowH[row] then
+				rowH[row] = h
 			end
 		end
 	end
@@ -747,9 +831,9 @@ function layoutBox(node, W, H, ctx)
 	for i = 1, count do
 		local child = children[i]
 		if not isFree(child) then
-			local w, h, given = child.tw, child.th, child.tgiven
-			local cx = colX[child.col]
-			local free = child.cellW - w
+			local w, h, given = cTw[i], cTh[i], cGiven[i] or nil
+			local cx = colX[cCol[i]]
+			local free = cW[i] - w
 			if free > 0 then
 				if xa == "center" then
 					cx = cx + floor(free / 2 + 0.5)
@@ -757,7 +841,7 @@ function layoutBox(node, W, H, ctx)
 					cx = cx + free
 				end
 			end
-			local cy, rh = rowY[child.row], rowH[child.row]
+			local cy, rh = rowY[cRow[i]], rowH[cRow[i]]
 			local box = child.kind == "box"
 			if box and (child.hKind == "fill" or (child.hKind == nil and stretchRows)) then
 				h, given = rh, rh

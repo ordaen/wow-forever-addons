@@ -178,7 +178,7 @@ describe("backend layout", function()
 			local a, b, c = text("a"), text("b"), text("wide", { columnSpan = 2 })
 			local win = box({ width = 100, columns = 2, gap = { 4, 0 } }, { a, b, c })
 			run(root({ win }))
-			assert.same({ 1, 1, 2, 1 }, { a.row, a.col, b.col, c.col })
+			assert.same({ 1, 1, 2, 1 }, { win.cRow[a.idx], win.cCol[a.idx], win.cCol[b.idx], win.cCol[c.idx] })
 			assert.same({ 0, 16, 100, 12 }, rect(c))
 		end)
 
