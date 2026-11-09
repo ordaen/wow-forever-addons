@@ -61,6 +61,7 @@ return Define.Component({
 			counters.renders = counters.renders + 1
 			local arguments = self.arguments
 			arguments[1], arguments[2] = self.attributes.value:Get(), self.attributes.source:Get():Get()
+			counters.leafValue = arguments[1]
 			game.ui:Text(self.text)
 		else
 			game.ui:Box(depth == DEPTH and OUTER_CALL or LEVEL_CALL)
