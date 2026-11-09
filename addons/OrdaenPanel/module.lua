@@ -52,6 +52,8 @@ local FRIENDS_BADGE_ONE = {
 local function FriendsCount(game)
 	game.ui:Text({ attributes = {
 		text = tostring(game.Friends.online:Get()), textSize = 11 / 1.2, textColor = { 1, 1, 1, 1 },
+		-- the design's bold number: its number font, a white shadow one pixel right (a browser's synthetic bold)
+		textFamily = Define.Theme.font.numbers, textShadow = { color = { 1, 1, 1, 1 }, x = 1, y = 0 },
 	} })
 end
 local FRIENDS_BADGE_CALL = { attributes = FRIENDS_BADGE, slots = { default = FriendsCount } }
