@@ -125,6 +125,9 @@ local function MountModule(module)
 	end
 	local short = module.name:gsub("^Ordaen", "")
 	module.root = Engine:Mount(nil, declaration, 0, { ref = App.Handle(short) }, Game.Layer.Screen, module, module.game)
+	if module.root then
+		ns.Commands.AddModule(module, declaration.commands) -- /ordaen <module> ...
+	end
 	module.debug:Logf("mounted: %s", module.root and "yes" or "failed")
 end
 
@@ -132,6 +135,7 @@ local function LoadModules()
 	for i = 1, C_AddOns.GetNumAddOns() do
 		local name = C_AddOns.GetAddOnInfo(i)
 		if type(name) == "string" and C_AddOns.GetAddOnMetadata(name, "X-Ordaen-Module") == "1" then
+			ns.Commands.Know(name) -- /ordaen <module> answers "off" until it mounts
 			-- Ordaen decides which of its modules run, not the AddOns list: one disabled there (by the character, or new
 			-- since the client started) is enabled for this character before it loads
 			if C_AddOns.GetAddOnEnableState(name, UnitName("player")) == 0 then

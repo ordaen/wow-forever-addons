@@ -11,6 +11,7 @@ local ours = {
 	"OrdaenCore",
 	"StaticPopupDialogs", -- we add our popup to it
 	"OrdaenMinimapDB",
+	"SLASH_ORDAEN1", -- /ordaen, Ordaen's one slash command (OrdaenCore/Commands.lua)
 	"SLASH_ORDAENMINIMAP1",
 	"SLASH_ORDAENMINIMAP2",
 	"SlashCmdList",

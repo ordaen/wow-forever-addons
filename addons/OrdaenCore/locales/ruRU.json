@@ -1,0 +1,7 @@
+{
+  "HELP_TITLE": "Команды:",
+  "NO_COMMANDS": "У модуля %s нет команд.",
+  "MODULE_OFF": "Модуль %s выключен.",
+  "UNKNOWN_MODULE": "Модуля «%s» нет. Список: /ordaen help",
+  "UNKNOWN_COMMAND": "У модуля %s нет команды «%s». Список: /ordaen %s help"
+}

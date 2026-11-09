@@ -1,0 +1,7 @@
+{
+  "HELP_TITLE": "Commands:",
+  "NO_COMMANDS": "%s has no commands.",
+  "MODULE_OFF": "%s is off.",
+  "UNKNOWN_MODULE": "No module \"%s\". Type /ordaen help for the list.",
+  "UNKNOWN_COMMAND": "%s has no command \"%s\". Type /ordaen %s help for the list."
+}
