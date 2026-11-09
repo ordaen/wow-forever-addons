@@ -78,6 +78,12 @@ describe("Ordaen Panel", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("draws each positioned layer over the ones before it (the XP tube's ring over its fill)", function()
+		local Core = wow.addons.OrdaenCore.ns.Core
+		local stats = Core._BackendStats({})
+		assert.are.equal(0, stats.order_errors)
+	end)
+
 	it("shows the money as it changes", function()
 		wow.money = 12345
 		wow:Fire("PLAYER_MONEY")
