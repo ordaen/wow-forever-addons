@@ -155,13 +155,12 @@ return Define.Module({
 			end
 			pending[#pending + 1] = "addons|" .. table.concat(loaded, ",")
 			-- what decides how frame times read: a capped frame rate or vsync makes frames wait (the cap is on only
-			-- while useMaxFPS is 1; maxFPS keeps its value either way); the resolution and render scale set the drawing
-			local physicalWidth, physicalHeight = GetPhysicalScreenSize()
+			-- while useMaxFPS is 1; maxFPS keeps its value either way). Resolution and render scale aren't recorded:
+			-- every round runs at the same ones.
 			pending[#pending + 1] = string.format(
-				"settings|collector=%s|useMaxFPS=%s|maxFPS=%s|useMaxFPSBk=%s|maxFPSBk=%s|vsync=%s|physical=%dx%d|ui=%.0fx%.0f|renderScale=%s",
+				"settings|collector=%s|useMaxFPS=%s|maxFPS=%s|useMaxFPSBk=%s|maxFPSBk=%s|vsync=%s",
 				Driver.collector, tostring(GetCVar("useMaxFPS")), tostring(GetCVar("maxFPS")),
-				tostring(GetCVar("useMaxFPSBk")), tostring(GetCVar("maxFPSBk")), tostring(GetCVar("vsync")),
-				physicalWidth, physicalHeight, GetScreenWidth(), GetScreenHeight(), tostring(GetCVar("renderScale")))
+				tostring(GetCVar("useMaxFPSBk")), tostring(GetCVar("maxFPSBk")), tostring(GetCVar("vsync")))
 			tracked.failures = 0
 			-- the build the game loaded (bench_save records only rounds on the bench profile: release stripping) and
 			-- where the round ran (the world drawn is in every frame time)

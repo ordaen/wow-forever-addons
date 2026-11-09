@@ -195,9 +195,9 @@ local NOTES = {
 	"**Engine / backend, read with care:** the stub run touches less memory, so the engine runs with warmer caches"
 		.. " there and the backend's share reads slightly high. Hand-written drawing leaves its text layout to WoW's"
 		.. " drawing, so compare the backend with best's frame column, not its Lua column.",
-	"**Change:** against the newest earlier round with clean builds on the same display; an improvement or a"
+	"**Change:** against the newest earlier comparable round (clean builds); an improvement or a"
 		.. " regression is a change of " .. CHANGE * 100 .. "% or more (frame changes also beyond the idle spread). Same"
-		.. " display, graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the"
+		.. " graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the"
 		.. " same way, since the world drawn is in every frame time.",
 }
 local READING = {
@@ -244,12 +244,11 @@ local function Clean(saved)
 	return true
 end
 
---- Rounds compare only when both ran clean builds on the same display.
+--- Rounds compare only when both ran clean builds at the same graphics quality and spot (every round runs at the
+--- same resolution and render scale, so those aren't recorded).
 local function Comparable(a, b)
-	local sa, sb = a.round.settings or {}, b.round.settings or {}
 	local ba, bb = a.round.build or {}, b.round.build or {}
-	return Clean(a) and Clean(b) and sa.physical ~= nil and sa.physical == sb.physical
-		and sa.renderScale == sb.renderScale and ba.graphicsQuality == bb.graphicsQuality
+	return Clean(a) and Clean(b) and ba.graphicsQuality == bb.graphicsQuality
 		and ba.zone == bb.zone and ba.subzone == bb.subzone
 end
 
@@ -326,9 +325,8 @@ local function Model(id, saved, previous)
 	local settings = round.settings
 	if settings then
 		local capped = settings.useMaxFPS == "1" or settings.vsync == "1"
-		head(string.format("Run with: collector %s, useMaxFPS %s (maxFPS %s), vsync %s, screen %s (UI %s), render scale %s.%s",
+		head(string.format("Run with: collector %s, useMaxFPS %s (maxFPS %s), vsync %s.%s",
 			settings.collector or "?", settings.useMaxFPS or "?", settings.maxFPS or "?", settings.vsync or "?",
-			settings.physical or "?", settings.ui or "?", settings.renderScale or "?",
 			capped and " **Frame times are capped (maxFPS or vsync): don't trust them.**" or ""))
 	end
 	if round.addons then
@@ -339,7 +337,7 @@ local function Model(id, saved, previous)
 		head(string.format("Compared with: round %s, %s (Core %s).", tostring(previous.saved.round.number),
 			previous.saved.round.date, Commit(previous.saved.builds.OrdaenCore)))
 	else
-		head("Compared with: no earlier round with clean builds on the same display.")
+		head("Compared with: no earlier comparable round.")
 	end
 
 	local before = {}
