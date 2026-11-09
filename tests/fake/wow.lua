@@ -1192,10 +1192,11 @@ local function wipe(t)
 	return t
 end
 
--- The atlases the addons and specs draw, at their sizes in the game (Forever's c60 frame art, measured from its files
--- at half their 2x size; the character sheet's wood); an atlas not listed has no info, as an unknown one in WoW.
+-- The atlases the addons and specs draw, at their sizes in the game (Forever's c60 frame art at half its 2x files; the
+-- character sheet's wood at half the design site's extraction, design/public/ui/wood.png, 796 x 928); an atlas not
+-- listed has no info, as an unknown one in WoW.
 local ATLASES = {
-	["UI-Character-Info-General-BG"] = { 256, 128 },
+	["UI-Character-Info-General-BG"] = { 398, 464 },
 	["UI-Frame-Metal-CornerTopLeft"] = { 95, 95 },
 	["UI-Frame-Metal-CornerTopRight"] = { 95, 95 },
 	["UI-Frame-Metal-CornerBottomLeft"] = { 95, 100 },

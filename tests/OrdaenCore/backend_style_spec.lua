@@ -428,7 +428,7 @@ describe("backend styles", function()
 		assert.is_nil(strip.frameArt.tlSide)
 		assert.is_true(topLeftY(strip.bg) < 0) -- the wood starts under the metal
 		assert.are.equal("UI-Character-Info-General-BG", strip.bg._atlas)
-		-- the strip is far wider than the 2:1 art: its full width, a band of its height
+		-- the strip is far wider than the art (398 x 464): its full width, a band of its height
 		local l, r, t, b = unpack(strip.bg._coords)
 		assert.are.same({ 0, 1 }, { l, r })
 		assert.is_true(t > 0 and b < 1 and math.abs(t - (1 - b)) < 1e-9)
