@@ -447,4 +447,57 @@ describe("backend styles", function()
 		assert.are.equal(1, ring:GetAlpha())
 		assert.are.equal("CENTER", (icon:GetPoint(1)))
 	end)
+
+	describe("bindings: SetField and SetArgument", function()
+		local wow, Backend, layer
+		before_each(function()
+			local ns
+			wow, ns = client()
+			Backend = ns.Backend
+			layer = Backend:Layer("screen")
+		end)
+
+		it("writes one bound key, and a later Set of the static table keeps it", function()
+			local STATIC = wow.env.table.freeze({ position = "absolute", left = 0, top = 0, height = 20,
+				background = ref("color.surface") })
+			local b = Backend:Create("box")
+			Backend:Set(b, STATIC)
+			Backend:SetChildren(layer, { b }, 1)
+			Backend:Flush()
+			Backend:SetField(b, "width", 50)
+			Backend:Flush()
+			assert.are.equal(50, b.w)
+			-- the render runs again with the same static table, and with a new one that lacks the bound key too
+			Backend:Set(b, STATIC)
+			Backend:Set(b, wow.env.table.freeze({ position = "absolute", left = 0, top = 0, height = 30 }))
+			Backend:Flush()
+			assert.are.equal(50, b.a.width)
+			assert.are.same({ 50, 30 }, { b.a.width, b.a.height })
+			assert.is_nil(b.a.background) -- a static key the new table lacks still goes
+			Backend:SetField(b, "width", nil)
+			Backend:Flush()
+			assert.is_nil(b.a.width)
+		end)
+
+		it("does nothing for the same value or a key the node doesn't take", function()
+			local b = Backend:Create("box")
+			Backend:Set(b, { width = 10 })
+			Backend:SetField(b, "width", 10)
+			Backend:SetField(b, "text", "x") -- a text's key on a box
+			assert.is_nil(b.a.text)
+			assert.is_nil(b.queued)
+		end)
+
+		it("draws a text's changed arguments at the next Flush, once", function()
+			local t = Backend:Create("text")
+			Backend:Set(t, { text = "%d / %d", arguments = { 1, 2 } })
+			Backend:SetChildren(layer, { t }, 1)
+			Backend:Flush()
+			Backend:SetArgument(t, 1, 10)
+			Backend:SetArgument(t, 2, 20)
+			assert.are.equal("1 / 2", t.fs:GetText())
+			Backend:Flush()
+			assert.are.equal("10 / 20", t.fs:GetText())
+		end)
+	end)
 end)

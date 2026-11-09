@@ -1512,6 +1512,8 @@ function Backend:Embed(frame)
 	return node
 end
 
+local applyGroups -- forward: Set, SetField and Flush share it
+
 ---Copy the attributes the node uses and apply what changed: only the work of the groups that changed. The table is
 ---the engine's: only a frozen one is kept (node.src), since it can't change: the same frozen table again is a no-op.
 ---@param node OrdaenNode
@@ -1568,12 +1570,13 @@ function Backend:Set(node, attributes)
 		k, v = next(attributes, k)
 	end
 	local key, old
-	if na > given then
+	local bound = node.bound -- keys a binding writes (SetField): the static table lacks them, and they stay
+	if na > given + (node.nbound or 0) then
 		key, old = next(own)
 	end
 	while key ~= nil do
 		local after = next(own, key) -- clearing a field while walking a table is allowed in Lua; adding one isn't
-		if attributes[key] == nil then
+		if attributes[key] == nil and not (bound and bound[key]) then
 			own[key] = nil
 			na = na - 1
 			if type(old) == "table" and rawget(old, "path") == nil then
@@ -1632,6 +1635,13 @@ function Backend:Set(node, attributes)
 	if not (size or offset or content or border or look or input or text) then
 		return
 	end
+	applyGroups(node, attributes, size, position, offset, content, border, look, input, text, tables)
+end
+
+-- The work of the attribute groups that changed (Set's, SetField's, the arguments at Flush). `attributes`: the static
+-- table Set got, whose cached style may stand in for Layout.Apply; nil, or a node with bound keys, applies from the
+-- node's own copy.
+function applyGroups(node, attributes, size, position, offset, content, border, look, input, text, tables)
 	if tables then
 		node:ScanStates()
 		input = true -- a per-state map makes the box take the mouse
@@ -1640,8 +1650,10 @@ function Backend:Set(node, attributes)
 		node:ApplyTaken()
 		return
 	end
-	-- The node's attributes are now exactly the table's, so a cached style holds exactly what Apply would compute.
-	local style = node.kind == "box" and not node.embedded and styleOf(attributes)
+	local own = node.a
+	-- The node's attributes are exactly the static table's (no bound key on top), so its cached style holds exactly what
+	-- Apply would compute.
+	local style = attributes and node.kind == "box" and not node.embedded and not node.bound and styleOf(attributes)
 	if style then
 		if size then
 			node.wKind, node.wAmount, node.hKind, node.hAmount = style.wKind, style.wAmount, style.hKind, style.hAmount
@@ -1692,6 +1704,71 @@ function Backend:Set(node, attributes)
 		if content or border or resized then
 			enqueue(Layout.Invalidate(node))
 		end
+	end
+end
+
+---One attribute of a node already drawn, written by a binding: `value` (nil removes it), applied with the work of its
+---group only, as a changed key in Set. The key is bound from then on: a later Set of the node's static table, which
+---lacks it, keeps it. The same value again does nothing. node.src stays: the static table's identity still means
+---"nothing of it changed".
+---@param node OrdaenNode
+---@param key string
+---@param value any
+function Backend:SetField(node, key, value)
+	---@cast node OrdaenBackendNode
+	local takes = node.kind == "text" and TEXT_TAKES or node.taken and TAKEN_TAKES or node.embedded and EMBED_TAKES
+		or BOX_TAKES
+	if not takes[key] then
+		return
+	end
+	local bound = node.bound
+	if not bound then
+		bound = {}
+		node.bound, node.nbound = bound, 0
+	end
+	if not bound[key] then
+		bound[key] = true
+		node.nbound = node.nbound + 1
+	end
+	local own = node.a
+	local old = own[key]
+	if old == value then
+		return
+	end
+	own[key] = value
+	if old == nil then
+		node.na = node.na + 1
+	elseif value == nil then
+		node.na = node.na - 1
+	end
+	local tables = (type(value) == "table" and rawget(value, "path") == nil)
+		or (type(old) == "table" and rawget(old, "path") == nil)
+	local g = GROUP[key]
+	applyGroups(node, nil, g == OWN or g == POSITION, g == POSITION, g == OFFSET, g == CONTENT, g == BORDER, g == LOOK,
+		g == INPUT, g == TEXT, tables)
+end
+
+local dirtyTexts, nDirtyTexts = {}, 0 -- texts whose arguments changed, drawn at the next Flush
+
+---A text's argument `i` (its format's i-th value), written by a binding. Drawn at the next Flush, once for all its
+---arguments that changed meanwhile.
+---@param node OrdaenNode
+---@param i integer
+---@param value any
+function Backend:SetArgument(node, i, value)
+	---@cast node OrdaenBackendNode
+	local args = node.args
+	if not args or args[i] == value then
+		return
+	end
+	args[i] = value
+	if i > node.nargs then
+		node.nargs = i
+	end
+	if not node.argsDirty then
+		node.argsDirty = true
+		nDirtyTexts = nDirtyTexts + 1
+		dirtyTexts[nDirtyTexts] = node
 	end
 end
 
@@ -1785,6 +1862,7 @@ function Backend:Release(node)
 		end
 	end
 	node.released, node.stale, node.src = true, nil, nil
+	node.bound, node.nbound = nil, 0 -- its bindings went with its component
 	if portraits[node] then -- it keeps its face, but no event redraws it while pooled
 		portraits[node] = nil
 		node.lookPortrait = nil
@@ -1815,6 +1893,17 @@ end
 ---End of every scheduler flush: draw what reused nodes didn't get a Set for, lay out and place what changed, and hide
 ---the children reused nodes held before that their new life didn't take.
 function Backend:Flush()
+	if nDirtyTexts > 0 then
+		for i = 1, nDirtyTexts do
+			local node = dirtyTexts[i]
+			dirtyTexts[i] = nil
+			node.argsDirty = nil
+			if not node.released then
+				applyGroups(node, nil, false, false, false, false, false, false, false, true, false)
+			end
+		end
+		nDirtyTexts = 0
+	end
 	if nStale > 0 then
 		for i = 1, nStale do
 			local node = stale[i]
