@@ -24,7 +24,7 @@ local CreateFrame, UIParent, GetPhysicalScreenSize = CreateFrame, UIParent, GetP
 local InCombatLockdown, hooksecurefunc = InCombatLockdown, hooksecurefunc
 local floor, ceil, max, type, rawget, tonumber, unpack = math.floor, math.ceil, math.max, type, rawget, tonumber, unpack
 local find = string.find
-local createTable = table.create
+local createTable, isfrozen = table.create, table.isfrozen
 
 ---A node of the tree: what Create, Layer and Take return. Opaque to the engine.
 ---@class OrdaenNode
@@ -158,6 +158,11 @@ end
 local px = 1 -- one screen pixel in UI units (UIParent's)
 local ctx = { screenW = 0, screenH = 0 } ---@type OrdaenLayoutContext
 local lineHeights = {} -- one line of FONT at a size, in UI units on whole pixels (one value per size, not per text)
+-- A frozen attribute table's layout fields, worked out once and copied into every box drawn from it (its column
+-- arrays shared, never written). Only for tables without per-state maps (those depend on each node's hover and
+-- pressed); false for a table that can't be cached. Weak keys: a module's tables go when it does. Pixel sizes are in
+-- the fields, so a new pixel size starts it again.
+local styles = setmetatable({}, { __mode = "k" })
 
 local function updateScreen()
 	local _, physH = GetPhysicalScreenSize()
@@ -168,6 +173,9 @@ local function updateScreen()
 	if px ~= old then
 		for size in pairs(lineHeights) do
 			lineHeights[size] = nil
+		end
+		for t in pairs(styles) do
+			styles[t] = nil
 		end
 	end
 end
@@ -513,10 +521,42 @@ function Node:ScanStates()
 	self.states, self.stateLayout = states, stateLayout
 end
 
+-- The fields Layout.Apply fills for a box, from a frozen attribute table without per-state maps (nil otherwise).
+local function styleOf(t)
+	local style = styles[t]
+	if style == nil then
+		style = false
+		if isfrozen(t) then
+			local plain = true
+			for _, v in next, t do
+				if type(v) == "table" and rawget(v, "path") == nil
+					and (rawget(v, "default") ~= nil or rawget(v, "hover") ~= nil or rawget(v, "pressed") ~= nil) then
+					plain = false
+					break
+				end
+			end
+			if plain then
+				style = { kind = "box" }
+				Layout.Apply(style, t, resolve, resolveRef, px)
+			end
+		end
+		styles[t] = style
+	end
+	return style or nil
+end
+
+-- Before a box's column arrays are written: its own, not a style's shared ones.
+local function ownColumns(node)
+	if node.colShared then
+		node.colKind, node.colAmount, node.colShared = nil, nil, nil
+	end
+end
+
 -- Hover or pressed changed: resolve the per-state maps again.
 function Node:Restyle()
 	self:ApplyLook()
 	if self.stateLayout then
+		ownColumns(self)
 		Layout.Apply(self, self.a, resolve, resolveRef, px)
 		if self.kind == "text" then
 			self:ApplyText()
@@ -862,17 +902,38 @@ function Backend:Set(node, attributes)
 		node:ApplyTaken()
 		return
 	end
-	if size then
-		Layout.ApplySize(node, own, resolve, px)
-	end
-	if offset then
-		Layout.ApplyOffsets(node, own, resolve)
-	end
-	if content then
-		Layout.ApplyContent(node, own, resolve, resolveRef, px)
-	end
-	if border then
-		Layout.ApplyBorder(node, own, resolve, resolveRef, px)
+	-- The node's attributes are now exactly the table's, so a cached style holds exactly what Apply would compute.
+	local style = node.kind == "box" and styleOf(attributes)
+	if style then
+		if size then
+			node.wKind, node.wAmount, node.hKind, node.hAmount = style.wKind, style.wAmount, style.hKind, style.hAmount
+			node.span, node.pos = style.span, style.pos
+		end
+		if offset then
+			node.offT, node.offR, node.offB, node.offL = style.offT, style.offR, style.offB, style.offL
+		end
+		if content then
+			node.ncols, node.colKind, node.colAmount, node.colShared = style.ncols, style.colKind, style.colAmount, true
+			node.gapR, node.gapC, node.xAlign, node.yAlign = style.gapR, style.gapC, style.xAlign, style.yAlign
+			node.padT, node.padR, node.padB, node.padL = style.padT, style.padR, style.padB, style.padL
+		end
+		if border then
+			node.bw = style.bw
+		end
+	else
+		if size then
+			Layout.ApplySize(node, own, resolve, px)
+		end
+		if offset then
+			Layout.ApplyOffsets(node, own, resolve)
+		end
+		if content then
+			ownColumns(node)
+			Layout.ApplyContent(node, own, resolve, resolveRef, px)
+		end
+		if border then
+			Layout.ApplyBorder(node, own, resolve, resolveRef, px)
+		end
 	end
 	local resized = text and node:ApplyText()
 	if look or border then
