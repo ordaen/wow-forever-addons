@@ -33,6 +33,8 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
   (Performance tab; Claude reads it with `wow_perf`) and time hot spots with `local t = Debug:TimeStart()` ...
   `Debug:TimeEnd(t, "label")` or the statement `Debug:Time("label", fn, ...)` (stripped from release builds, so never
   use its results: forever-lint FL7). Mention the numbers when handing work over.
+- **What's already measured:** [performance.md](performance.md) holds the costs measured in game (WoW calls, pixels,
+  CPU against GPU, bench findings). Read it before choosing an approach; add to it what a probe or bench round settles.
 
 ## Lua code style (applies to every session and repo with addon Lua)
 
