@@ -58,6 +58,7 @@ describe("the settings window", function()
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
 		assert.is_true(wow.addons.OrdaenSettings.loaded)
+		assert.are.same({}, wow.errors)
 		local t = texts(ns)
 		assert.is_truthy(t["General"]) -- the list's own entry
 		assert.is_truthy(t["Panel"]) -- the module, its title without "Ordaen "
@@ -153,4 +154,31 @@ describe("the settings window", function()
 		assert.is_false(wow.env.CloseSpecialWindows()) -- closed: Escape is the game's again
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("resizes from its grip, its content laid out again, and keeps the size", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local grip
+		walk(ns, function(node)
+			if node.a and node.a.OnDragStart and node.a.width and node.a.width < 20 then
+				grip = node
+			end
+		end)
+		local page = texts(ns)["Save"].parent.parent.parent -- the buttons' row, at the foot's right end
+		local x0 = page.x
+		local f = grip.frame
+		wow:MoveCursor(500, 500)
+		wow:DragStart(f)
+		wow:MoveCursor(600, 450)
+		wow:Tick()
+		wow:DragStop(f)
+		ns.Scheduler.Flush()
+		ns.Backend:Flush()
+		assert.is_true(page.x > x0) -- the foot's buttons moved right with the window's right edge
+		local db = wow.env.OrdaenSettingsDB
+		assert.is_truthy(db)
+		assert.are.same({}, wow.errors)
+	end)
 end)
+

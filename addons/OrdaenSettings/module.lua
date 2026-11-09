@@ -8,13 +8,12 @@ local L = import("locales")
 local pages = import("pages")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
-local WIDTH, HEIGHT = 1160 * PX, 700 * PX -- the window's body (design SETTINGS_SIZE)
--- the window body's content: its height less the body's padding (14 and 12 px inside the wood's 3 px)
-local CONTENT_HEIGHT = HEIGHT - (14 + 3 + 12 + 3) * PX
+local WIDTH, HEIGHT = 1160 * PX, 700 * PX -- the window's body at first (design SETTINGS_SIZE)
+local MIN_WIDTH, MIN_HEIGHT = 900 * PX, 480 * PX -- the smallest it resizes to: the list, a row and the foot fit
 local DIM = { 0.639, 0.592, 0.498, 1 } -- --o-dim #a3977f
 local SELF = "OrdaenSettings" -- Ordaen's own page is this module's Settings
 
-local BODY = { columns = { "auto", "1fr" }, height = CONTENT_HEIGHT }
+local BODY = { columns = { "auto", "1fr" }, height = "100%" }
 local LIST = { columns = 1 }
 -- the list's heading over the modules: small capitals in the dim colour, 10 px above, 4 below
 local HEADING = { padding = { 10 * PX, 16 * PX, 4 * PX, 16 * PX } }
@@ -146,6 +145,8 @@ return Define.Module({
 		Define.Persistent({
 			x = { type = "number", default = 0 },
 			y = { type = "number", default = 0 },
+			width = { type = "number", default = WIDTH }, -- its body's size, as the player left it
+			height = { type = "number", default = HEIGHT },
 		})
 		-- the window's one draft: every page's changes wait in it until «Сохранить» (design settings/)
 		local draft = game.Settings:Draft()
@@ -200,6 +201,10 @@ return Define.Module({
 				self.state.tab = i
 			end,
 			-- closing asks first while anything is unsaved
+			resized = function(width, height)
+				self.state.width = width
+				self.state.height = height
+			end,
 			moved = function(x, y)
 				self.state.x = x
 				self.state.y = y
@@ -216,8 +221,9 @@ return Define.Module({
 
 	Render = function(game, self)
 		if self.state.shown then
-			game.ui:Window({ attributes = { title = game.Ordaen.title, width = WIDTH, height = HEIGHT, x = self.state.x,
-				y = self.state.y, OnMoved = self.moved, OnClose = self.hide }, slots = { default = Window } })
+			game.ui:Window({ attributes = { title = game.Ordaen.title, width = self.state.width,
+				height = self.state.height, minWidth = MIN_WIDTH, minHeight = MIN_HEIGHT, x = self.state.x, y = self.state.y,
+				OnMoved = self.moved, OnResized = self.resized, OnClose = self.hide }, slots = { default = Window } })
 			if self.state.closing then
 				game.ui:Dialog({ attributes = { title = L.UNSAVED_TITLE, width = CONFIRM_WIDTH },
 					slots = { default = Question, buttons = Answers } })

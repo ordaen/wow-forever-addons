@@ -3,15 +3,17 @@
 -- on the body's top line at its left, its rim running down into the frame's left line and out along the top line on
 -- its right, the title in gold. Centred on the screen at first; dragging its tab row moves it (design windows/:
 -- dragged by its tab row), and Escape closes it as it closes Blizzard's windows. Sizes as the design draws them at the
--- user's scale (a px is 1/1.2 UI units).
+-- user's scale (a px is 1/1.2 UI units). Its grip in the bottom-right corner resizes it (Blizzard's own grip art,
+-- the chat window's), its top-left corner staying where it is; the content lays itself out at the new size.
 --
 -- In the body's top-right corner, while the cursor is over the window: full screen (and back) and close, a joined group
 -- of plates under the frame's line.
 --
 -- Attributes: `title` (text), `width`, `height` (the body's, UI units), `x`, `y` (where it sits: its centre's offset
 -- from the screen's, UI units, y down; 0, 0 when unset), `OnMoved(x, y)` (called when a drag ends: its owner keeps
--- the place), `OnClose` (called by the close button and by Escape). Slot `default`: the body's content, inside its
--- padding.
+-- the place), `minWidth`, `minHeight` (the smallest body), `OnResized(width, height)` (called when a resize ends,
+-- the body's size), `OnClose` (called by the close button and by Escape). Slot `default`: the body's content, inside
+-- its padding.
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
@@ -71,10 +73,18 @@ local function CornerButtons(game, self)
 		background = Define.Theme.ctl.cornerClose, OnClick = self.close } })
 end
 
+-- the resize grip: 16 px, 2 px in from the body's bottom-right corner, over the content
+local GRIP = { attributes = { position = "absolute", right = 2 * PX, bottom = 2 * PX, width = 16 * PX,
+	height = 16 * PX, background = { default = Define.Theme.ctl.grip, hover = Define.Theme.ctl.gripHover,
+		pressed = Define.Theme.ctl.gripDown } } }
+
 local function Body(game, self)
 	game.ui:Slot("default")
 	if self.state.hovered then
 		game.ui:Box({ attributes = CORNER_GROUP, slots = { default = CornerButtons } })
+	end
+	if not self.state.full then
+		game.ui:Box(self.grip)
 	end
 end
 
@@ -104,10 +114,10 @@ local function Edge(_, self)
 	return self.state.full and 0 or nil
 end
 local function Width(_, self)
-	return not self.state.full and self.attributes.width or nil
+	return not self.state.full and self.state.w or nil
 end
 local function Height(_, self)
-	return not self.state.full and TAB + self.attributes.height or nil
+	return not self.state.full and TAB + self.state.h or nil
 end
 
 return Define.Component({
@@ -115,12 +125,42 @@ return Define.Component({
 		Define.Ephemeral({
 			x = { type = "number", default = Define.Peek(self.attributes.x) or 0 },
 			y = { type = "number", default = Define.Peek(self.attributes.y) or 0 },
+			w = { type = "number", default = Define.Peek(self.attributes.width) or 0 },
+			h = { type = "number", default = Define.Peek(self.attributes.height) or 0 },
 			full = { type = "boolean", default = false },
 			hovered = { type = "boolean", default = false },
 		})
 		-- where the window was and where the cursor took the tab when the drag began: the window follows the cursor
 		local x0, y0, grabX, grabY = 0, 0, 0, 0
+		local w0, h0 = 0, 0 -- the body's size when a resize began
+		local function sizeStart(x, y)
+			x0, y0, grabX, grabY = Define.Peek(self.state.x), Define.Peek(self.state.y), x, y
+			w0, h0 = Define.Peek(self.state.w), Define.Peek(self.state.h)
+		end
+		-- the grip follows the cursor; the window is placed by its centre, so the centre moves half as far and the
+		-- top-left corner stays
+		local function size(x, y)
+			local w = math.max(self.attributes.minWidth or 0, w0 + x - grabX)
+			local h = math.max(self.attributes.minHeight or 0, h0 + y - grabY)
+			self.state.w = w
+			self.state.h = h
+			self.state.x = x0 + (w - w0) / 2
+			self.state.y = y0 + (h - h0) / 2
+		end
+		local function sizeStop()
+			local resized, moved = self.attributes.OnResized, self.attributes.OnMoved
+			if resized then
+				resized(Define.Peek(self.state.w), Define.Peek(self.state.h))
+			end
+			if moved then
+				moved(Define.Peek(self.state.x), Define.Peek(self.state.y))
+			end
+		end
+		local grip = GRIP.attributes
 		return {
+			grip = { attributes = { position = grip.position, right = grip.right, bottom = grip.bottom,
+				width = grip.width, height = grip.height, background = grip.background, OnDragStart = sizeStart,
+				OnDrag = size, OnDragStop = sizeStop } },
 			dragStart = function(x, y)
 				x0, y0, grabX, grabY = Define.Peek(self.state.x), Define.Peek(self.state.y), x, y
 			end,

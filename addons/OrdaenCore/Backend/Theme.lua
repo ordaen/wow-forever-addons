@@ -154,6 +154,10 @@ ns.Theme = {
 	["ctl.radioOn"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-radio", size = { 32, 64 },
 		cap = 0, capHeight = 0, rows = 2, normal = 1 },
 	-- a section heading's rule (design controls/row, heading): #d6a56b at 45%, fading out to the right
+	-- a window's resize grip in its bottom-right corner: Blizzard's own (the chat window's), up, under the cursor, held
+	["ctl.grip"] = "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up",
+	["ctl.gripHover"] = "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight",
+	["ctl.gripDown"] = "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down",
 	["ctl.rule"] = "Interface\\AddOns\\OrdaenCore\\media\\ctl-rule",
 	["ctl.dropdownArrow"] = "Interface\\AddOns\\OrdaenCore\\media\\dropdown-arrow",
 	-- a count on a cell (the friends online on the social button; design .mbadge): a green pill with a black ring and a
