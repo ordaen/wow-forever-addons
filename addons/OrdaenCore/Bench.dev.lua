@@ -18,8 +18,42 @@ function Core._SwapBackend(backend)
 	return old
 end
 
---- The texts drawn on the screen layer, in tree order, into `out` (the bench checks the framework drew what it was
---- told). Returns how many.
+-- The bench's own drawing: the top nodes the bench module's instances drew, in tree order (other modules draw on the
+-- screen layer too, the Panel say; what they drew isn't the bench's).
+local roots = {}
+
+local function TopNodes(instance, n)
+	local f = instance._fragment
+	local cur = f.cur
+	for i = 1, f.n do
+		local e = cur[i]
+		if e.kind == "comp" then
+			if e.instance then
+				n = TopNodes(e.instance, n)
+			end
+		elseif e.kind ~= "frame" and e.node then -- a taken Blizzard frame isn't drawn by us
+			n = n + 1
+			roots[n] = e.node
+		end
+	end
+	local mounted = instance._mounted
+	for i = 1, instance._nMounted do
+		n = TopNodes(mounted[i], n)
+	end
+	return n
+end
+
+local function Roots()
+	local module = ns.App.Module("OrdaenBench")
+	local n = module and module.root and TopNodes(module.root, 0) or 0
+	for i = n + 1, #roots do
+		roots[i] = nil
+	end
+	return roots, n
+end
+
+--- The texts the bench drew, in tree order, into `out` (the bench checks the framework drew what it was told).
+--- Returns how many.
 ---@param out string[]
 ---@return integer
 function Core._ScreenTexts(out)
@@ -36,15 +70,18 @@ function Core._ScreenTexts(out)
 			end
 		end
 	end
-	Walk(ns.Game.Layer.Screen.node)
+	local top, count = Roots()
+	for i = 1, count do
+		Walk(top[i])
+	end
 	for i = n + 1, #out do
 		out[i] = nil
 	end
 	return n
 end
 
---- The first drawn node of `kind` ("box" or "text") on the screen layer, in tree order (the bench's probes inspect a
---- backend node's tables).
+--- The first node of `kind` ("box" or "text") the bench drew, in tree order (the bench's probes inspect a backend
+--- node's tables).
 ---@param kind string
 ---@return table|nil
 function Core._ScreenNode(kind)
@@ -62,9 +99,9 @@ function Core._ScreenNode(kind)
 			end
 		end
 	end
-	local layer = ns.Game.Layer.Screen.node -- the layer itself isn't one of the drawn nodes
-	for i = 1, layer.count or 0 do
-		local found = Find(layer.children[i])
+	local top, count = Roots()
+	for i = 1, count do
+		local found = Find(top[i])
 		if found then
 			return found
 		end
@@ -77,8 +114,8 @@ function Core._FireEvent(name, ...)
 	ns.Game.RawEvent(name):Fire(...)
 end
 
---- Every drawn node of `kind` on the screen layer, in tree order, into `out` (the bench drives their frames' scripts:
---- a hover without a cursor). Returns how many.
+--- Every node of `kind` the bench drew, in tree order, into `out` (the bench drives their frames' scripts: a hover
+--- without a cursor). Returns how many.
 ---@param kind string
 ---@param out table[]
 ---@return integer
@@ -96,9 +133,9 @@ function Core._ScreenNodes(kind, out)
 			end
 		end
 	end
-	local layer = ns.Game.Layer.Screen.node
-	for i = 1, layer.count or 0 do
-		Walk(layer.children[i])
+	local top, count = Roots()
+	for i = 1, count do
+		Walk(top[i])
 	end
 	for i = n + 1, #out do
 		out[i] = nil

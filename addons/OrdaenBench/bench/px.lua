@@ -16,4 +16,11 @@ function Px.Ceil(v)
 	return math.ceil(v / px - 0.001) * px
 end
 
+--- Whether the pixel size is still the one the hand sides were sized with (a UI scale or resolution change since
+--- loading leaves them sized for the old one).
+function Px.Current()
+	local _, height = GetPhysicalScreenSize()
+	return math.abs(UIParent:GetHeight() / height - px) < 1e-9
+end
+
 return Px

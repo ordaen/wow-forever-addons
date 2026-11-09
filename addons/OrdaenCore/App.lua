@@ -94,6 +94,12 @@ function Core.RegisterModule(folder, moduleNs)
 	modules[folder] = module
 end
 
+--- A registered module by its folder ("OrdaenBench"), or nil.
+---@param folder string
+function App.Module(folder)
+	return modules[folder]
+end
+
 --- A module's public part by its name ("Notices" for OrdaenNotices): stable, empty while it's off.
 ---@param name string
 function App.Handle(name)

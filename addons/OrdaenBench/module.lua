@@ -4,9 +4,11 @@
 -- (wow_log) and OrdaenBenchDB; after a /reload, `ordaen lua scripts/bench_save.lua` saves the round to bench/results/.
 local Define = import("@ordaen/define")
 local Driver = import("bench/driver")
-local Plan = import("bench/plan")
 local Stub = import("bench/stub")
-local Probes = import("bench/probes")
+-- the plan and the probes (and through them every hand-written side, the screen check and the pixel sizes) load at
+-- the first run, not with the module: the module loads before WoW applies the UI scale, and the hand sides size
+-- themselves in whole pixels of the scale they load at (bench/px.lua)
+local Plan, Probes, Px
 local Progress = import("bench/progress")
 
 local SCENES = {
@@ -166,6 +168,15 @@ return Define.Module({
 						tostring(benchBuild)))
 					return
 				end
+			end
+			Plan = Plan or import("bench/plan")
+			Probes = Probes or import("bench/probes")
+			Px = Px or import("bench/px")
+			-- the hand sides are sized in whole pixels of the scale they loaded at; the framework follows the scale
+			if not Px.Current() then
+				Say("not running: the UI scale or the resolution changed since the bench's first run. /reload, then"
+					.. " /obench.")
+				return
 			end
 			runs = runs + 1
 			local cold = runs == 1
