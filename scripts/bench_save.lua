@@ -827,13 +827,23 @@ local entries, seen = json.array({}), {}
 for _, round_file in ipairs(RoundFiles()) do
 	local id = round_file:gsub("%.json$", "")
 	local saved = json.decode(Read(RESULTS .. "/" .. round_file))
-	-- the newest earlier comparable round; of another plan shape, its shared rows are compared but not judged
-	local previous
+	-- the newest earlier comparable round of the same plan shape (judged); without one, the newest comparable round of
+	-- another shape, its shared rows compared but not judged
+	local previous, shape = nil, Shape(saved)
 	for i = #seen, 1, -1 do
-		if Comparable(saved, seen[i].saved) then
+		if Comparable(saved, seen[i].saved) and Shape(seen[i].saved) == shape then
 			previous = seen[i]
-			previous.judged = Shape(saved) == Shape(seen[i].saved)
+			previous.judged = true
 			break
+		end
+	end
+	if not previous then
+		for i = #seen, 1, -1 do
+			if Comparable(saved, seen[i].saved) then
+				previous = seen[i]
+				previous.judged = false
+				break
+			end
 		end
 	end
 	entries[#entries + 1] = Model(id, saved, previous)
