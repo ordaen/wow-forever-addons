@@ -1,5 +1,5 @@
 -- Ordaen Panel on the fake client, as built: Blizzard's own buttons it embeds (the micro menu over our cells, the bag
--- buttons) each get their own place in the panel. Several frames embedded from one call site in a loop are told apart
+-- buttons) each get their own place in the panel. Several frames embedded from one call site in a loop are told
 -- apart: none takes another's place, and none goes back to Blizzard's layout. Blizzard's bag bar, left with what the
 -- panel doesn't show, is hidden.
 local Fake = require("tests.fake.wow")
