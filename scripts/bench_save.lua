@@ -208,7 +208,9 @@ local NOTES = {
 		.. " there and the backend's share reads slightly high. Hand-written drawing leaves its text layout to WoW's"
 		.. " drawing, so compare the backend with best's frame column, not its Lua column.",
 	"**Change:** against the newest earlier comparable round (clean builds); an improvement or a"
-		.. " regression is a change of " .. CHANGE * 100 .. "% or more beyond the noise (Lua: the row's spread, p95 above median, in either round; frame: the idle spread); single samples (¹) never count. Same"
+		.. " regression is a change of " .. CHANGE * 100 .. "% or more beyond the noise (Lua: the row's spread, p95"
+		.. " above median, in either round; frame: the idle spread); single samples (¹) and frame values with"
+		.. " collector work (ᵍ) in either round never count. Same"
 		.. " graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the"
 		.. " same way, since the world drawn is in every frame time.",
 }
@@ -336,7 +338,10 @@ local function Model(id, saved, previous)
 		-- the series whose measured frames held a collection step WoW ran between frames (bench/driver.lua)
 		gc = json.array({}),
 	}
-	local gcSeries = {}
+	local gcSeries, oldGc = {}, {}
+	for _, g in ipairs(previous and previous.saved.round.gc or {}) do
+		oldGc[g.impl .. "|" .. g.scenario .. "|" .. g.size .. "|" .. g.metric] = true
+	end
 	local measured = {}
 	for _, r in ipairs(results) do
 		measured[r.impl .. "|" .. Key(r)] = r.n
@@ -437,7 +442,8 @@ local function Model(id, saved, previous)
 					end
 				end
 				local _, oldFrame = Frame(old.r.frameMs, old.idle)
-				if frame and oldFrame then
+				local collected = gcSeries[r.impl .. "|" .. key] or oldGc[r.impl .. "|" .. key]
+				if frame and oldFrame and not collected then
 					changeFrame = Percent(frame, oldFrame)
 					local ratio = (frame - oldFrame) / oldFrame
 					local beyond = math.abs(frame - oldFrame) > idles[i].noise
