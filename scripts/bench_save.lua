@@ -427,7 +427,10 @@ local function Model(id, saved, previous)
 			if best then
 				bestFrameText, bestFrame = Frame(best.r.frameMs, best.idle)
 			end
-			local typicalFrameText = typical and Frame(typical.r.frameMs, typical.idle) or ""
+			local typicalFrameText, typicalFrame = "", nil
+			if typical then
+				typicalFrameText, typicalFrame = Frame(typical.r.frameMs, typical.idle)
+			end
 			local engineLua = engine and engine.r.luaMs
 			local backendLua = engineLua and math.max(r.luaMs - engineLua, 0)
 			local changeLua, changeFrame, verdict = "", "", nil
@@ -459,8 +462,31 @@ local function Model(id, saved, previous)
 					end
 				end
 			end
+			local function Kb(v)
+				return v and string.format("%.1f", v) or ""
+			end
+			local function Kept(v)
+				return v and string.format("%.0f", v) or ""
+			end
 			local row = {
 				scenario = r.scenario, size = r.size, metric = metric, failed = failed, verdict = verdict,
+				-- a check alone (no time, no memory: "same as baseline", "stub: every node back"): the page lists these
+				-- apart from the measurements
+				checkOnly = r.luaMs == 0 and r.frameMs == 0 and (r.kb or 0) == 0 and r.check ~= nil or nil,
+				check = r.check,
+				-- each measure's values per side, formatted: the page shows one measure at a time, the sides side by side
+				values = {
+					lua = { ours = Lua(r.luaMs), engine = Lua(engineLua), backend = Lua(backendLua),
+						best = best and Lua(best.r.luaMs) or "", typical = typical and Lua(typical.r.luaMs) or "",
+						xBest = Factor(r.luaMs, best and best.r.luaMs, LUA_FLOOR),
+						xTypical = Factor(r.luaMs, typical and typical.r.luaMs, LUA_FLOOR), change = changeLua },
+					frame = { ours = frameText, best = bestFrameText, typical = typicalFrameText,
+						xBest = Factor(frame, bestFrame, 0.001), xTypical = Factor(frame, typicalFrame, 0.001),
+						change = changeFrame },
+					memory = { ours = Kb(r.kb), engine = engine and Kb(engine.r.kb) or "",
+						best = best and Kb(best.r.kb) or "", typical = typical and Kb(typical.r.kb) or "",
+						kept = Kept(r.keptKb), engineKept = engine and Kept(engine.r.keptKb) or "" },
+				},
 				cells = {
 					r.scenario, r.size, metric, Lua(r.luaMs), Lua(engineLua), Lua(backendLua), frameText,
 					best and Lua(best.r.luaMs) or "", bestFrameText, typical and Lua(typical.r.luaMs) or "",
@@ -480,6 +506,7 @@ local function Model(id, saved, previous)
 		elseif failed then
 			entry.rows[#entry.rows + 1] = {
 				scenario = r.scenario, size = r.size, metric = r.metric .. " (" .. r.impl .. ")", failed = true,
+				checkOnly = true, check = r.check,
 				cells = { r.scenario, r.size, r.metric .. " (" .. r.impl .. ")", "", "", "", "", "", "", "", "", "", "", "",
 					"", "", "", "", r.check },
 			}
