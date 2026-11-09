@@ -149,11 +149,17 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 	local measured = count - skip
 	local lua, frames = {}, {}
 	local i, prepared, started, kb, capStart, keptKb, base = 0, false, nil, 0, 0, nil, 0
+	-- measured calls and frames the collector ran in anyway (the heap shrank): WoW's own collection step between
+	-- frames re-arms a stopped collector, so it is stopped again before every call, and this proves it held
+	local gcInCall, gcInFrame, after = 0, 0, 0
 	return function()
 		local now = debugprofilestop()
 		if started then -- the frame of the last timed call ends here
 			if i > skip then
 				frames[i - skip] = now - started
+				if collectgarbage("count") < after then
+					gcInFrame = gcInFrame + 1
+				end
 			end
 			started = nil
 			if kept then
@@ -163,7 +169,7 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 		end
 		if i == 0 and not prepared then -- the series' first frame: untimed
 			CollectAndStop()
-			kb, capStart = 0, capHits
+			kb, capStart, gcInCall, gcInFrame = 0, capHits, 0, 0
 			if prepare then
 				prepare(1)
 			end
@@ -174,6 +180,9 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 			local check
 			if capHits > capStart then
 				check = self:Verdict(false, "the scheduler hit its pass cap: the change didn't finish")
+			elseif gcInCall > 0 or gcInFrame > 0 then
+				check = self:Verdict(false, string.format("the collector ran in %d measured calls and %d measured frames",
+					gcInCall, gcInFrame))
 			elseif verify then
 				check = self:Verdict(verify())
 			end
@@ -195,15 +204,22 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 			CollectAndStop()
 			base = collectgarbage("count")
 		end
+		if canStop then
+			collectgarbage("stop") -- again: a collection step since the last call re-arms it (no collection here)
+		end
 		local before = collectgarbage("count")
 		local start = debugprofilestop()
 		fn(i)
 		local ms = debugprofilestop() - start
-		local grew = collectgarbage("count") - before
+		after = collectgarbage("count")
+		local grew = after - before
 		started = start
 		if i > skip then
 			lua[i - skip] = ms
 			kb = kb + grew
+			if grew < 0 then
+				gcInCall = gcInCall + 1
+			end
 		end
 		return false
 	end
