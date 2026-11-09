@@ -525,6 +525,17 @@ function FrameMethods:IsMouseWheelEnabled()
 	return not not self._wheel
 end
 
+-- Whether the cursor (wow:MoveCursor, screen pixels) is over the frame's rectangle, as WoW tests it.
+function FrameMethods:IsMouseOver()
+	local l, r, t, b = self:GetLeft(), self:GetRight(), self:GetTop(), self:GetBottom()
+	if not l then
+		return false
+	end
+	local scale = self:GetEffectiveScale()
+	local x, y = (self._wow.cursorX or -1) / scale, (self._wow.cursorY or -1) / scale
+	return x >= l and x <= r and y >= b and y <= t
+end
+
 function FrameMethods:RegisterForDrag(...)
 	self._drag = { ... }
 end

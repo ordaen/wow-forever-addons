@@ -65,7 +65,7 @@ local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
 	shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET,
-	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
+	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT, hoverWithin = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT,
 	text = TEXT, textSize = TEXT, textFamily = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT, maxLength = TEXT,
 }
@@ -79,7 +79,7 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 	end
 end
 for _, key in ipairs({ "background", "artOrigin", "anchor", "opacity", "portrait", "mask", "overflow", "stateFrom",
-	"OnClick", "OnEnter", "OnLeave", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
+	"OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
@@ -276,8 +276,36 @@ local function handle(fn, ...)
 	end
 end
 
+-- hoverWithin: the box is hovered while the cursor is anywhere over it, its children included (WoW leaves a frame
+-- when the cursor moves onto a child that takes the mouse). Leaving onto a child starts a check ten times a second
+-- that ends the hover once the cursor is out; it runs only then.
+local WITHIN_EVERY = 0.1
+
+local function pollWithin(frame, elapsed)
+	local t = (frame.withinT or 0) + elapsed
+	if t < WITHIN_EVERY then
+		frame.withinT = t
+		return
+	end
+	frame.withinT = 0
+	if frame:IsMouseOver() then
+		return
+	end
+	frame:SetScript("OnUpdate", nil)
+	local node = frame.node
+	node:SetState(false, false)
+	local fn = node.a.OnLeave
+	if fn then
+		handle(fn)
+	end
+end
+
 local function onEnter(frame)
 	local node = frame.node
+	if frame:GetScript("OnUpdate") == pollWithin then -- back from a child: still hovered
+		frame:SetScript("OnUpdate", nil)
+		return
+	end
 	node:SetState(true, node.pressed)
 	local fn = node.a.OnEnter
 	if fn then
@@ -287,6 +315,11 @@ end
 
 local function onLeave(frame)
 	local node = frame.node
+	if node.a.hoverWithin and frame:IsMouseOver() then -- onto a child: hovered until the cursor is out
+		frame.withinT = 0
+		frame:SetScript("OnUpdate", pollWithin)
+		return
+	end
 	node:SetState(false, false)
 	local fn = node.a.OnLeave
 	if fn then
@@ -874,9 +907,10 @@ function Node:ApplyMask(mask)
 end
 
 -- Art a background can be besides a colour, a file or an atlas (theme values; design site: Slice3, PanelCell, XpTube):
---   { file, size = { w, h }, cap, capHeight, rows, normal, pressed, glow }  three-sliced across the box: the caps are
---     `cap` texture px of the file drawn capHeight x the box's height wide, the middle stretches; `rows` rows of equal
---     height: `normal`, or `pressed` while the box is pressed, and the `glow` row over it while hovered (not pressed)
+--   { file, size = { w, h }, cap, capHeight, rows, normal, hover, pressed, glow }  three-sliced across the box: the
+--     caps are `cap` texture px of the file drawn capHeight x the box's height wide (cap 0: drawn whole), the middle
+--     stretches; `rows` rows of equal height: `normal`, `hover` in its place while hovered, `pressed` while pressed,
+--     and the `glow` row over normal while hovered (not pressed)
 --   { file, size = { w, h }, tile = true }  the file repeated along the box, each copy as high as the box
 -- Drawn again only when the box's size or state changed.
 local SLICE_POINTS = { "TOPLEFT", "BOTTOMLEFT", "TOPRIGHT", "BOTTOMRIGHT" }
@@ -951,7 +985,9 @@ function Node:DrawArt()
 		capW = w / 2
 	end
 	local u, rows = (art.cap or 0) / size[1], art.rows or 1
-	sliceRow(self:Slices("slices", 0, art.file), capW, u, state == 2 and art.pressed or art.normal or 0, rows)
+	-- the row by state: pressed, hover (a row of its own in place of normal), normal; glow is drawn over normal
+	local row = state == 2 and art.pressed or state == 1 and art.hover or art.normal or 0
+	sliceRow(self:Slices("slices", 0, art.file), capW, u, row, rows)
 	if art.glow and state == 1 then
 		sliceRow(self:Slices("glows", 1, art.file), capW, u, art.glow, rows)
 	else
@@ -1418,8 +1454,8 @@ function Node:ApplyMouse()
 	end
 	local a = self.a
 	local drag = (a.OnDragStart or a.OnDrag or a.OnDragStop) and true or false
-	local want = (self.states or a.OnClick or a.OnEnter or a.OnLeave or drag) and (self.lookOpacity or 1) > 0 and true
-		or false
+	local want = (self.states or a.OnClick or a.OnEnter or a.OnLeave or a.hoverWithin or drag)
+		and (self.lookOpacity or 1) > 0 and true or false
 	local frame = self.frame
 	if want ~= self.mouse then
 		self.mouse = want

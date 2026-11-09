@@ -107,6 +107,15 @@ ns.Theme = {
 	["ctl.tabCornerL"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-l" },
 	["ctl.tabCornerR"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-r" },
 	["ctl.tabFlareR"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-flare-r" },
+	-- the tabbed window's corner buttons (design TabbedWindow, the corner group of plates), each drawn whole from its
+	-- art, 64 x 32 px: the full screen button 5 px in from the art's left (the group's edge and its lines), both 5 px
+	-- above its bottom; the row by state
+	["ctl.cornerExpand"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-corner-full", size = { 128, 512 },
+		cap = 0, capHeight = 0, rows = 8, normal = 0, hover = 1, pressed = 2 },
+	["ctl.cornerContract"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-corner-full", size = { 128, 512 },
+		cap = 0, capHeight = 0, rows = 8, normal = 3, hover = 4, pressed = 5 },
+	["ctl.cornerClose"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-corner-close", size = { 128, 256 },
+		cap = 0, capHeight = 0, rows = 4, normal = 0, hover = 1, pressed = 2 },
 	-- a count on a cell (the friends online on the social button; design .mbadge): a green pill with a black ring and a
 	-- faint top highlight, round caps half its height wide; the box gives it 16 px height, the text and side padding
 	["panel.countBadge"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\panel-count-badge", size = { 128, 64 },

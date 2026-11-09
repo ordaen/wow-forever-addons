@@ -561,6 +561,44 @@ describe("backend styles", function()
 		assert.is_false(art.tlSide:IsShown())
 	end)
 
+	it("keeps a hoverWithin box hovered over its children, and ends the hover once the cursor is out", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local leaves = 0
+		local box = Backend:Create("box")
+		Backend:Set(box, { position = "absolute", left = 100, top = 100, width = 200, height = 100, hoverWithin = true,
+			OnLeave = function()
+				leaves = leaves + 1
+			end })
+		local child = Backend:Create("box")
+		Backend:Set(child, { width = 50, height = 50, OnClick = function() end })
+		Backend:SetChildren(box, { child }, 1)
+		Backend:SetChildren(layer, { box }, 1)
+		Backend:Flush()
+		local frame = box.frame
+		local scale = frame:GetEffectiveScale()
+		local function at(x, y)
+			wow:MoveCursor((frame:GetLeft() + x) * scale, (frame:GetTop() - y) * scale)
+		end
+		at(150, 50)
+		frame:GetScript("OnEnter")(frame)
+		assert.is_true(box.hovered)
+		at(10, 10) -- onto the child: WoW leaves the box
+		frame:GetScript("OnLeave")(frame)
+		assert.is_true(box.hovered)
+		assert.are.equal(0, leaves)
+		wow:Tick()
+		assert.is_true(box.hovered)
+		at(500, 500) -- out of the box (from the child: the box gets no event)
+		for _ = 1, 10 do
+			wow:Tick()
+		end
+		assert.is_false(box.hovered)
+		assert.are.equal(1, leaves)
+		assert.is_nil(frame:GetScript("OnUpdate")) -- nothing runs once it's out
+	end)
+
 	it("anchors a free box by its point to its parent's, moved from there by left and top; plain offsets again", function()
 		local _, ns = client()
 		local Backend = ns.Backend
