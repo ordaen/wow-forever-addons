@@ -37,16 +37,22 @@ local ICON_TOP = { default = (CELL_HEIGHT - ICON_SIDE) / 2, pressed = (CELL_HEIG
 local CLICK = { position = "absolute", left = 0, top = 0, width = CELL_WIDTH, height = CELL_HEIGHT, opacity = 0 }
 local CLICK_CALL = { attributes = CLICK }
 -- the friends online on the social button (design .mbadge): a green pill in the cell's lower right, shown while any are
--- online; Blizzard's own count is on its button, which lies invisible over the cell
+-- online; Blizzard's own count is on its button, which lies invisible over the cell. 16 px high and at least as wide:
+-- one digit is a circle, more grow the pill
+local BADGE_SIDE = 16 / 1.2
 local FRIENDS_BADGE = {
-	position = "absolute", right = CELL_WIDTH * 0.12, bottom = CELL_HEIGHT * 0.14, height = 16 / 1.2,
-	padding = { 0, 4 / 1.2, 0, 4 / 1.2 }, xAlign = "center", yAlign = "center",
-	background = { 0.122, 0.435, 0.122, 1 }, border = { width = 1, color = { 0, 0, 0, 1 } },
+	position = "absolute", right = CELL_WIDTH * 0.12, bottom = CELL_HEIGHT * 0.14, height = BADGE_SIDE,
+	padding = { 0, 4 / 1.2, 0, 4 / 1.2 }, xAlign = "center", yAlign = "center", background = Define.Theme.panel.countBadge,
+}
+local FRIENDS_BADGE_ONE = {
+	position = "absolute", right = CELL_WIDTH * 0.12, bottom = CELL_HEIGHT * 0.14, width = BADGE_SIDE, height = BADGE_SIDE,
+	xAlign = "center", yAlign = "center", background = Define.Theme.panel.countBadge,
 }
 local function FriendsCount(game, self)
 	game.ui:Text(self.friends)
 end
 local FRIENDS_BADGE_CALL = { attributes = FRIENDS_BADGE, slots = { default = FriendsCount } }
+local FRIENDS_BADGE_ONE_CALL = { attributes = FRIENDS_BADGE_ONE, slots = { default = FriendsCount } }
 -- each button's calls, made once here: its icon, its cell, and Blizzard's button over it
 for i = 1, #MICRO do
 	local m = MICRO[i]
@@ -62,7 +68,7 @@ for i = 1, #MICRO do
 			local online = game.Friends.online:Get()
 			if online > 0 then
 				self.friends.attributes.text = tostring(online)
-				game.ui:Box(FRIENDS_BADGE_CALL)
+				game.ui:Box(online < 10 and FRIENDS_BADGE_ONE_CALL or FRIENDS_BADGE_CALL)
 			end
 		end
 		game.ui:Embed(game.Frame[frame], CLICK_CALL)
