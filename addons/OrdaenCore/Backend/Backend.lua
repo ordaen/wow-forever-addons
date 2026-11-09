@@ -66,13 +66,14 @@ local BLACK = { 0, 0, 0, 1 } -- a text shadow without a colour
 local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5, 6, 7, 8
 local next = next
 local GROUP = {
-	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, textYAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
-	shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET, zLevel = LOOK,
-	desaturate = LOOK, tint = LOOK,
+	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, textYAlign = LOOK, portrait = LOOK,
+	mask = LOOK, look = LOOK, shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET,
+	zLevel = LOOK, desaturate = LOOK, tint = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
 	hoverWithin = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT,
-	text = TEXT, textSize = TEXT, textFamily = TEXT, textOutline = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT, maxLength = TEXT,
+	text = TEXT, textSize = TEXT, textFamily = TEXT, textOutline = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT,
+	maxLength = TEXT,
 }
 local LAYOUT_GROUP = { own = OWN, content = CONTENT, position = POSITION, offset = OFFSET, border = BORDER }
 local BOX_KEYS, TEXT_KEYS = {}, {}
@@ -236,6 +237,7 @@ local layers = {}
 -- boxes with overflow = "scroll": their content's extent is measured again after a layout (weak: a released box goes)
 local scrollers = setmetatable({}, { __mode = "k" })
 local attach -- forward: Node:ApplyOverflow moves the children
+local restack -- forward: a zLevel or a live portrait stacks the children again
 -- Read by Backend.dev.lua (the bench's node counts); the tables themselves, never replaced.
 Backend._boxPool, Backend._textPool, Backend._layers = boxPool, textPool, layers
 local takenBy = setmetatable({}, { __mode = "k" }) -- Blizzard frame -> the node holding it
@@ -797,19 +799,6 @@ function Node:PlaceRim()
 	end
 end
 
--- The child boxes' frames above a live portrait's rim (attach raises a new child the same way).
-function Node:RaiseChildren()
-	local level = self.frame:GetFrameLevel() + (self.liveModel and CHILD_LEVELS or 1)
-	local children = self.children
-	for i = 1, self.count or 0 do
-		local child = children[i]
-		local frame = child.kind ~= "text" and not child.embedded and child.frame
-		if frame and frame:GetFrameLevel() < level then
-			frame:SetFrameLevel(level)
-		end
-	end
-end
-
 -- A frame above the box's own regions and its model, for the rim while a live portrait shows (made on first use).
 function Node:OverFrame()
 	local over = self.overFrame
@@ -836,7 +825,7 @@ function Node:ApplyPortrait(portrait)
 	if (live or false) ~= (self.liveModel or false) then
 		self.liveModel = live or nil
 		self:PlaceRim()
-		self:RaiseChildren()
+		restack(self)
 	end
 	if unit == nil then
 		if portraits[self] then
@@ -1333,12 +1322,8 @@ function Node:ApplyLook()
 	local z = a.zLevel
 	if z ~= self.lookZ then
 		self.lookZ = z
-		local pf = self.fparent
-		if pf and self.parent then -- attached: placed again among its parent's children now; else at its attach
-			self.frame:SetFrameLevel(pf:GetFrameLevel() + 1 + (z or 0))
-			if self.textFrame then
-				self:TextFrame()
-			end
+		if self.parent then -- attached: stacked again among its parent's children now; else at its attach
+			restack(self.parent)
 		end
 	end
 	local overflow = a.overflow
@@ -2010,6 +1995,62 @@ function Node:TextFrame()
 	return tf
 end
 
+-- Paint order, as the design pages draw (CSS): a positioned box (absolute, fixed) draws over everything its parent's
+-- earlier children draw, their own children and texts included; a box in the flow sits one level over its parent
+-- (siblings in the flow don't overlap). zLevel lifts a box that many levels more. Each box keeps the highest level in
+-- its subtree (`top`), so stacking a parent's children reads each child once. It runs when children change, a zLevel
+-- changes or a live portrait comes or goes, never per frame; a change of a box's top stacks its parent again.
+function Node:Stack()
+	local pf = self.inner or self.frame
+	local own = pf:GetFrameLevel()
+	local base = own + 1 + (self.liveModel and CHILD_LEVELS - 1 or 0)
+	local top = own
+	local children = self.children
+	for i = 1, self.count or 0 do
+		local child = children[i]
+		if child.kind == "box" then
+			local frame = child.frame
+			if child.embedded then -- its level comes with its place (PlaceEmbedded)
+				local level = frame:GetFrameLevel()
+				top = level > top and level or top
+			else
+				local want = base + (child.lookZ or 0)
+				local pos = child.pos
+				if (pos == "absolute" or pos == "fixed") and top >= want then
+					want = top + 1
+				end
+				if frame:GetFrameLevel() ~= want then
+					frame:SetFrameLevel(want)
+					child:Stack() -- its own children over its new level
+				end
+				local t = child.top or want
+				top = t > top and t or top
+			end
+		end
+	end
+	local tf = self.textFrame
+	if tf then -- its texts over its child boxes
+		local level = max(self.frame:GetFrameLevel() + TEXT_LEVELS, top + 1)
+		if tf:GetFrameLevel() ~= level then
+			tf:SetFrameLevel(level)
+		end
+		top = level
+	end
+	self.top = top
+end
+
+-- Stack a box's children, then its parent's while its top changes.
+function restack(node)
+	while node and node.kind ~= "text" do
+		local old = node.top
+		node:Stack()
+		if node.top == old then
+			return
+		end
+		node = node.parent
+	end
+end
+
 function attach(child, parent)
 	if child.gen ~= pxGen then
 		child:Repixel() -- rounded at an older pixel size while detached
@@ -2400,6 +2441,7 @@ function applyGroups(node, attributes, size, position, offset, content, border, 
 		enqueue(Layout.Invalidate(node, true))
 		if position and node.parent then
 			enqueue(Layout.Invalidate(node.parent))
+			restack(node.parent) -- in the flow or free: its level among its siblings
 		end
 	else
 		if offset then
@@ -2526,6 +2568,7 @@ function Backend:SetChildren(node, children, count)
 		mine[i] = nil
 	end
 	node.count = count
+	restack(node)
 	enqueue(Layout.Invalidate(node))
 end
 

@@ -11,20 +11,18 @@ local SECTIONS = 10
 
 local OUTER = { padding = { 0, MARGIN, 0, MARGIN }, yAlign = "center" }
 local TUBE = { height = TUBE_HEIGHT }
--- zLevel: the shine and the ring draw over the fill and the marks, which sit a level deeper inside the trough
-local function layer(background, z)
+local function layer(background)
 	return { attributes = { position = "absolute", left = 0, top = 0, width = "100%", height = "100%",
-		background = background, zLevel = z } }
+		background = background } }
 end
 local TROUGH = layer(Define.Theme.panel.xpTrough)
-local SHINE = layer(Define.Theme.panel.xpShine, 2)
-local RING = layer(Define.Theme.panel.xpTube, 3)
+local SHINE = layer(Define.Theme.panel.xpShine)
+local RING = layer(Define.Theme.panel.xpTube)
 -- the share done, in the tube's middle: 15 px bold-weight light text with a dark drop and outline (design .label)
 local LABEL_COLOR = { 0.953, 0.906, 0.8, 1 } -- #f3e7cc
 local LABEL_SHADOW = { color = { 0, 0, 0, 1 }, x = 1, y = -1 }
--- over the whole tube and over the ring, its text centred both ways
-local LABEL = { position = "absolute", left = 0, right = 0, top = 0, bottom = 0, xAlign = "center", yAlign = "center",
-	zLevel = 4 }
+-- over the whole tube, its text centred both ways
+local LABEL = { position = "absolute", left = 0, right = 0, top = 0, bottom = 0, xAlign = "center", yAlign = "center" }
 local INNER = { position = "absolute", left = INSET, top = INSET, right = INSET, bottom = INSET }
 -- the engraved section marks: a row of SECTIONS equal cells over the inside, each but the last with a 1 px dark right
 -- edge (offsets take units, not shares, so the marks come from the grid)

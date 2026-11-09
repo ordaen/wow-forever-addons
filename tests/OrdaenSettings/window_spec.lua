@@ -65,6 +65,8 @@ describe("the settings window", function()
 		assert.is_truthy(t["Ordaen window scale"]) -- the scale's row, bound to the global
 		assert.is_truthy(t["100%"])
 		assert.are.same({}, wow.errors)
+		-- every layer over the ones before it (the tab's rim over its wood)
+		assert.are.equal(0, ns.Core._BackendStats({}).order_errors)
 	end)
 
 	it("shows a module's page when its entry is picked, and that it's off when it is", function()

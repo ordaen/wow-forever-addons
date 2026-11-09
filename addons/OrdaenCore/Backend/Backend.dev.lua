@@ -58,18 +58,21 @@ end
 
 -- Paint order: a positioned box (absolute, fixed) draws over the siblings before it, their children included, where
 -- they overlap (the CSS order the design pages draw in). One below a frame of a visible earlier sibling (an XP fill
--- over the tube's ring drawn after it) counts as an order error. Frames on one level draw in an order WoW picks, so a
--- tie isn't counted; an invisible sibling (an embedded button at opacity 0) hides nothing.
+-- over the tube's ring drawn after it) counts as an order error, and so does one on the same level as an earlier
+-- sibling when both draw a background: frames on one level draw in an order WoW picks (a window tab's wood over its
+-- rim). An invisible box (an embedded button at opacity 0) neither hides nor is hidden.
 local function orderErrors(node, out)
 	local children = node.children
 	for j = 2, node.count or 0 do
 		local later = children[j]
-		if later.kind == "box" and (later.pos == "absolute" or later.pos == "fixed") then
+		if later.kind == "box" and (later.pos == "absolute" or later.pos == "fixed") and later.frame:GetAlpha() > 0 then
 			local level = later.frame:GetFrameLevel()
 			for i = 1, j - 1 do
 				local earlier = children[i]
-				if earlier.kind == "box" and earlier.frame:GetAlpha() > 0 and overlap(earlier, later)
-					and deepest(earlier) > level then
+				local deep = earlier.kind == "box" and earlier.frame:GetAlpha() > 0 and overlap(earlier, later)
+					and deepest(earlier)
+				-- above it, or on its level with both drawing a background (WoW picks which of the two is on top)
+				if deep and (deep > level or deep == level and earlier.lookBg ~= nil and later.lookBg ~= nil) then
 					out.order_errors = out.order_errors + 1
 					break
 				end
