@@ -92,11 +92,20 @@ for i = 1, #MICRO do
 end
 -- Blizzard's frames the panel replaces, hidden while it's on: the bag bar (what stays in it, the reagent bag the design
 -- leaves out, would sit over the panel's right end), the XP and reputation bars (design status-bars/: ours are drawn
--- instead) and the micro menu's two buttons the design leaves out (shop, help)
+-- instead)
 local HIDDEN = { attributes = { shown = false } }
 -- the micro menu's box, emptied by the panel: invisible, not hidden, since Blizzard's MicroMenu:Layout reads its
 -- buttons' positions (GetEdgeButton), which a hidden box doesn't have
 local INVISIBLE = { attributes = { opacity = 0 } }
+-- the micro buttons the design leaves out (shop, help): taken out of Blizzard's MicroMenu into a box of no size,
+-- invisible. Hidden there instead, they'd have no position, and MicroMenu:Layout reads every child's (GetEdgeButton).
+local PARKED_BUTTON = { attributes = { width = 0, height = 0, opacity = 0 } }
+local function Parked(game)
+	game.ui:Embed(game.Frame.StoreMicroButton, PARKED_BUTTON)
+	game.ui:Embed(game.Frame.HelpMicroButton, PARKED_BUTTON)
+end
+local PARKED_CALL = { key = "parked", attributes = { position = "absolute", left = 0, top = 0, width = 0, height = 0 },
+	slots = { default = Parked } }
 
 -- The bags, left to right (design/panel): the backpack, then the four bags. Each is a slot on the wood (design
 -- ItemSlot: 38 px, a bronze edge inside it) holding Blizzard's button with only its icon showing (look = "icon"), so
@@ -245,8 +254,7 @@ local function Cells(game, self)
 	game.ui:XpBar()
 	game.ui:Box({ attributes = RIGHT, slots = { default = Right } })
 	game.ui:Frame(game.Frame.MicroMenuContainer, INVISIBLE)
-	game.ui:Frame(game.Frame.StoreMicroButton, HIDDEN)
-	game.ui:Frame(game.Frame.HelpMicroButton, HIDDEN)
+	game.ui:Box(PARKED_CALL)
 	game.ui:Frame(game.Frame.MainStatusTrackingBarContainer, HIDDEN)
 	game.ui:Frame(game.Frame.SecondaryStatusTrackingBarContainer, HIDDEN)
 end

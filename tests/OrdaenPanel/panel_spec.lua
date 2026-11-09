@@ -18,8 +18,9 @@ local BAGS = { "MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1S
 	"CharacterBag3Slot" }
 
 -- Blizzard's frames the panel draws its own of, left empty or unused
-local REPLACED = { "MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer", "StoreMicroButton",
-	"HelpMicroButton" }
+local REPLACED = { "MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer" }
+-- the micro buttons the panel leaves out, in Blizzard's MicroMenu
+local LEFT_OUT = { "StoreMicroButton", "HelpMicroButton" }
 
 describe("Ordaen Panel", function()
 	local wow, home
@@ -36,6 +37,10 @@ describe("Ordaen Panel", function()
 			wow.env.CreateFrame("Frame", name, wow.env.UIParent)
 		end
 		wow.env.CreateFrame("Frame", "MicroMenuContainer", wow.env.UIParent)
+		local menu = wow.env.CreateFrame("Frame", "MicroMenu", wow.env.MicroMenuContainer)
+		for _, name in ipairs(LEFT_OUT) do
+			wow.env.CreateFrame("Button", name, menu):SetSize(45, 45)
+		end
 		local count = wow.env.MainMenuBarBackpackButton:CreateFontString()
 		wow.env.MainMenuBarBackpackButton.FreeSlots = count
 		count:SetFont("Fonts\\ARIALN.TTF", 12, "")
@@ -44,9 +49,18 @@ describe("Ordaen Panel", function()
 		wow:Tick()
 	end)
 
-	it("hides Blizzard's XP and reputation bars and the micro buttons it leaves out", function()
+	it("hides Blizzard's XP and reputation bars", function()
 		for _, name in ipairs(REPLACED) do
 			assert.is_false(wow.env[name]:IsShown(), name .. " is shown")
+		end
+	end)
+
+	it("takes the micro buttons it leaves out from Blizzard's MicroMenu, invisible and of no size", function()
+		for _, name in ipairs(LEFT_OUT) do
+			local b = wow.env[name]
+			assert.are_not.equal(wow.env.MicroMenu, b:GetParent(), name .. " still in MicroMenu")
+			assert.are.equal(0, b:GetAlpha(), name .. " visible")
+			assert.is_true(b._w == 0 and b._h == 0, name .. " has a size")
 		end
 	end)
 
