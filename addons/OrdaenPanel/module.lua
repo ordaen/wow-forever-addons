@@ -194,9 +194,16 @@ return Define.Module({
 
 	Setup = function(game, self)
 		Define.Persistent({
-			height = { type = "number", default = 60, min = 24, max = 96 },
+			height = { type = "number", default = 60, min = 24, max = 96, step = 1, unit = "px", setting = true },
 			livePortrait = { type = "boolean", default = false }, -- the 3D head instead of the face's picture
 		})
+	end,
+
+	-- the settings page (design settings/, Ordaen Panel): the tabs of the parts built so far
+	Settings = function(game, self)
+		game.ui:SettingsTab({ attributes = { title = L.TAB_BOTTOM }, slots = { default = function()
+			game.ui:Slider({ attributes = { value = Define.Signal(self.state.height) } })
+		end } })
 	end,
 
 	commands = {

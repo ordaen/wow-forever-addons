@@ -1,4 +1,7 @@
 {
   "MODULE_NOTES": "One panel along the bottom of the screen: your portrait, the game menu, the experience bar, money and bags.",
-  "CMD_PORTRAIT": "face or live: your portrait as a picture or as a live 3D head"
+  "CMD_PORTRAIT": "face or live: your portrait as a picture or as a live 3D head",
+  "TAB_BOTTOM": "Bottom panel",
+  "PANEL_HEIGHT": "Height",
+  "PANEL_HEIGHT_TIP": "The panel's height. Its buttons, icons and bar grow with it."
 }
