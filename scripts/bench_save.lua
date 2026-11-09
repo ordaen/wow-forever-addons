@@ -208,7 +208,7 @@ local NOTES = {
 		.. " there and the backend's share reads slightly high. Hand-written drawing leaves its text layout to WoW's"
 		.. " drawing, so compare the backend with best's frame column, not its Lua column.",
 	"**Change:** against the newest earlier comparable round (clean builds); an improvement or a"
-		.. " regression is a change of " .. CHANGE * 100 .. "% or more (frame changes also beyond the idle spread). Same"
+		.. " regression is a change of " .. CHANGE * 100 .. "% or more beyond the noise (Lua: the row's spread, p95 above median, in either round; frame: the idle spread); single samples (¹) never count. Same"
 		.. " graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the"
 		.. " same way, since the world drawn is in every frame time.",
 }
@@ -421,13 +421,18 @@ local function Model(id, saved, previous)
 			local engineLua = engine and engine.r.luaMs
 			local backendLua = engineLua and math.max(r.luaMs - engineLua, 0)
 			local changeLua, changeFrame, verdict = "", "", nil
-			if old then
+			-- a single sample (¹) has no spread to tell a change from noise: shown, never an improvement or regression
+			if old and r.n > 1 and (old.r.n or 0) > 1 then
 				if old.r.luaMs and old.r.luaMs >= LUA_FLOOR and r.luaMs >= LUA_FLOOR then
 					changeLua = Percent(r.luaMs, old.r.luaMs)
 					local ratio = (r.luaMs - old.r.luaMs) / old.r.luaMs
-					if ratio <= -CHANGE then
+					-- beyond the row's own spread (p95 above median) in either round, as frame changes are beyond
+					-- the idle spread: same code measured twice moves within it
+					local spread = math.max((r.luaP95 or r.luaMs) - r.luaMs, (old.r.luaP95 or old.r.luaMs) - old.r.luaMs)
+					local beyond = math.abs(r.luaMs - old.r.luaMs) > spread
+					if beyond and ratio <= -CHANGE then
 						verdict = "improvement"
-					elseif ratio >= CHANGE then
+					elseif beyond and ratio >= CHANGE then
 						verdict = "regression"
 					end
 				end
