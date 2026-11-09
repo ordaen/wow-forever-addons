@@ -239,9 +239,9 @@ local function newNode(kind)
 	local node = setmetatable(createTable(0, 64), NodeMeta)
 	node.kind, node.gen = kind, pxGen
 	if kind == "text" then
-		node.a, node.args, node.nargs = createTable(0, 16), {}, 0
+		node.a, node.na, node.args, node.nargs = createTable(0, 16), 0, {}, 0
 	else
-		node.a, node.children, node.count = createTable(0, 32), {}, 0
+		node.a, node.na, node.children, node.count = createTable(0, 32), 0, {}, 0
 		node.padT, node.padR, node.padB, node.padL, node.gapR, node.gapC, node.bw = 0, 0, 0, 0, 0, 0, 0
 		Layout.Columns(node, nil, resolveRef)
 	end
@@ -844,24 +844,36 @@ function Backend:Take(frame)
 end
 
 ---Copy the attributes the node uses and apply what changed: only the work of the groups that changed. The table is
----the engine's: nothing keeps it.
+---the engine's: only a frozen one is kept (node.src), since it can't change: the same frozen table again is a no-op.
 ---@param node OrdaenNode
 ---@param attributes table
 function Backend:Set(node, attributes)
 	---@cast node OrdaenBackendNode
 	node.stale = nil
+	if attributes == node.src and node.gen == pxGen then
+		return
+	end
 	local own = node.a
 	local takes = node.kind == "text" and TEXT_TAKES or node.taken and TAKEN_TAKES or BOX_TAKES
 	local size, position, offset, content, border, look, input, text, tables =
 		false, false, false, false, false, false, false, false, false
-	-- What changed: the keys the new table has, then the old keys it no longer has. Both tables hold only the
-	-- attributes in use, so this walks a few keys, not every key the node's kind takes.
+	-- What changed: the keys the new table has, then the old keys it no longer has (only when the copy holds more
+	-- keys than the new table gave: node.na counts them). Both tables hold only the attributes in use, so this walks a
+	-- few keys, not every key the node's kind takes. `tables`: a per-state map came or went (a theme reference, the
+	-- other table value that changes often, can't hold one).
+	local na, given = node.na, 0
 	local k, v = next(attributes)
 	while k ~= nil do
 		local old = own[k]
+		if takes[k] then
+			given = given + 1
+		end
 		if old ~= v and takes[k] then
 			own[k] = v
-			if type(v) == "table" or type(old) == "table" then
+			if old == nil then
+				na = na + 1
+			end
+			if (type(v) == "table" and rawget(v, "path") == nil) or (type(old) == "table" and rawget(old, "path") == nil) then
 				tables = true
 			end
 			local g = GROUP[k]
@@ -885,12 +897,16 @@ function Backend:Set(node, attributes)
 		end
 		k, v = next(attributes, k)
 	end
-	local key, old = next(own)
+	local key, old
+	if na > given then
+		key, old = next(own)
+	end
 	while key ~= nil do
 		local after = next(own, key) -- clearing a field while walking a table is allowed in Lua; adding one isn't
 		if attributes[key] == nil then
 			own[key] = nil
-			if type(old) == "table" then
+			na = na - 1
+			if type(old) == "table" and rawget(old, "path") == nil then
 				tables = true
 			end
 			local g = GROUP[key]
@@ -915,6 +931,10 @@ function Backend:Set(node, attributes)
 		key = after
 		old = after ~= nil and own[after] or nil
 	end
+	node.na = na
+	-- a frozen table can't change: kept, so the same one again returns at once (a text's arguments list isn't
+	-- covered by the freeze, so only a text without one)
+	node.src = (node.kind ~= "text" or attributes.arguments == nil) and isfrozen(attributes) and attributes or nil
 	if node.kind == "text" then
 		local args, mine = attributes.arguments, node.args
 		local n = args and #args or 0
@@ -1011,11 +1031,24 @@ end
 ---@param count integer
 function Backend:SetChildren(node, children, count)
 	---@cast node OrdaenBackendNode
+	local mine = node.children
+	if count == node.count then -- the same children in the same order: nothing to attach, detach or lay out
+		local same = true
+		for i = 1, count do
+			local child = children[i]
+			if mine[i] ~= child or child.parent ~= node then
+				same = false
+				break
+			end
+		end
+		if same then
+			return
+		end
+	end
 	stamp = stamp + 1
 	for i = 1, count do
 		children[i].mark = stamp
 	end
-	local mine = node.children
 	for i = 1, node.count do
 		local child = mine[i]
 		if child.mark ~= stamp and child.parent == node then
@@ -1069,7 +1102,7 @@ function Backend:Release(node)
 			node.cCol, node.cRow, node.cSpan, node.cW, node.cTw, node.cTh, node.cGiven = nil, nil, nil, nil, nil, nil, nil
 		end
 	end
-	node.released, node.stale = true, nil
+	node.released, node.stale, node.src = true, nil, nil
 	node.hovered, node.pressed = false, false
 	node.valid, node.natValid, node.x = false, false, nil
 	node.lw, node.lh, node.nhW, node.mW = nil, nil, nil, nil
