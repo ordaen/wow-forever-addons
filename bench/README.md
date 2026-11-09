@@ -362,30 +362,28 @@ Which side of each block ran first, second, ...: the same order in every round.
 
 ## Source size
 
-Code lines and characters, without comments, blank lines or indentation.
+Code lines and characters, without comments, blank lines, indentation or bench-only code (checks' hooks, measured variants). Typical exists for signals, coalesce, grid, ticker and reorder only.
 
 | Scenario | Framework lines | Best lines | Typical lines | Framework chars | Best chars | Typical chars |
 | --- | --- | --- | --- | ---: | ---: | ---: |
-| bars | 47 | 37 |  | 1469 | 927 |  |
+| bars | 47 | 34 |  | 1469 | 891 |  |
 | cascade | 33 | 17 |  | 595 | 265 |  |
 | chain | 32 | 19 |  | 635 | 377 |  |
 | coalesce | 27 | 30 | 20 | 490 | 480 | 351 |
-| columns | 47 | 43 |  | 1345 | 1243 |  |
-| deep | 61 | 39 |  | 1738 | 827 |  |
+| columns | 47 | 40 |  | 1345 | 1204 |  |
+| deep | 61 | 36 |  | 1738 | 792 |  |
 | diamond | 38 | 21 |  | 742 | 424 |  |
-| drag | 37 | 29 |  | 1113 | 928 |  |
-| events | 29 | 40 |  | 924 | 899 |  |
-| fanout | 26 | 26 |  | 424 | 397 |  |
-| filter | 31 | 42 |  | 802 | 824 |  |
-| grid | 89 | 62 | 66 | 2532 | 1765 | 1892 |
-| grow | 55 | 48 |  | 1663 | 1309 |  |
-| hover | 49 | 59 |  | 1315 | 1497 |  |
-| reorder | 88 | 83 | 73 | 1820 | 1631 | 1503 |
-| resize | 47 | 46 |  | 1332 | 1327 |  |
-| rows | 32 | 39 |  | 822 | 866 |  |
-| scheduler | 0 | 0 |  | 0 | 0 |  |
-| sections | 40 | 55 |  | 1148 | 1237 |  |
-| signals | 54 | 85 | 51 | 1152 | 1669 | 1088 |
-| ticker | 43 | 40 | 39 | 1145 | 991 | 951 |
-| tooltip | 46 | 40 |  | 1129 | 1034 |  |
-| units | 207 | 0 |  | 5091 | 0 |  |
+| drag | 37 | 26 |  | 1113 | 892 |  |
+| events | 29 | 37 |  | 924 | 861 |  |
+| fanout | 23 | 20 |  | 389 | 316 |  |
+| filter | 31 | 39 |  | 802 | 788 |  |
+| grid | 62 | 48 | 52 | 1785 | 1487 | 1608 |
+| grow | 55 | 45 |  | 1663 | 1273 |  |
+| hover | 49 | 44 |  | 1315 | 1310 |  |
+| reorder | 85 | 80 | 70 | 1790 | 1593 | 1465 |
+| resize | 47 | 43 |  | 1332 | 1289 |  |
+| rows | 32 | 36 |  | 822 | 832 |  |
+| sections | 40 | 52 |  | 1148 | 1197 |  |
+| signals | 47 | 75 | 41 | 1053 | 1452 | 918 |
+| ticker | 36 | 37 | 36 | 938 | 943 | 903 |
+| tooltip | 46 | 37 |  | 1129 | 996 |  |

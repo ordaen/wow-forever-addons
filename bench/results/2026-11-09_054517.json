@@ -5779,11 +5779,11 @@
 	"source": {
 		"bars": {
 			"baseline": {
-				"chars": 927,
+				"chars": 891,
 				"files": [
 					"addons/OrdaenBench/baseline/bars.lua"
 				],
-				"lines": 37
+				"lines": 34
 			},
 			"framework": {
 				"chars": 1469,
@@ -5866,11 +5866,11 @@
 		},
 		"columns": {
 			"baseline": {
-				"chars": 1243,
+				"chars": 1204,
 				"files": [
 					"addons/OrdaenBench/baseline/columns.lua"
 				],
-				"lines": 43
+				"lines": 40
 			},
 			"framework": {
 				"chars": 1345,
@@ -5888,11 +5888,11 @@
 		},
 		"deep": {
 			"baseline": {
-				"chars": 827,
+				"chars": 792,
 				"files": [
 					"addons/OrdaenBench/baseline/deep.lua"
 				],
-				"lines": 39
+				"lines": 36
 			},
 			"framework": {
 				"chars": 1738,
@@ -5930,11 +5930,11 @@
 		},
 		"drag": {
 			"baseline": {
-				"chars": 928,
+				"chars": 892,
 				"files": [
 					"addons/OrdaenBench/baseline/drag.lua"
 				],
-				"lines": 29
+				"lines": 26
 			},
 			"framework": {
 				"chars": 1113,
@@ -5951,11 +5951,11 @@
 		},
 		"events": {
 			"baseline": {
-				"chars": 899,
+				"chars": 861,
 				"files": [
 					"addons/OrdaenBench/baseline/events.lua"
 				],
-				"lines": 40
+				"lines": 37
 			},
 			"framework": {
 				"chars": 924,
@@ -5972,18 +5972,18 @@
 		},
 		"fanout": {
 			"baseline": {
-				"chars": 397,
+				"chars": 316,
 				"files": [
 					"addons/OrdaenBench/baseline/fanout.lua"
 				],
-				"lines": 26
+				"lines": 20
 			},
 			"framework": {
-				"chars": 424,
+				"chars": 389,
 				"files": [
 					"addons/OrdaenBench/components/fanout.lua"
 				],
-				"lines": 26
+				"lines": 23
 			},
 			"typical": {
 				"chars": 0,
@@ -5993,11 +5993,11 @@
 		},
 		"filter": {
 			"baseline": {
-				"chars": 824,
+				"chars": 788,
 				"files": [
 					"addons/OrdaenBench/baseline/filter.lua"
 				],
-				"lines": 42
+				"lines": 39
 			},
 			"framework": {
 				"chars": 802,
@@ -6014,35 +6014,35 @@
 		},
 		"grid": {
 			"baseline": {
-				"chars": 1765,
+				"chars": 1487,
 				"files": [
 					"addons/OrdaenBench/baseline/grid.lua"
 				],
-				"lines": 62
+				"lines": 48
 			},
 			"framework": {
-				"chars": 2532,
+				"chars": 1785,
 				"files": [
 					"addons/OrdaenBench/components/grid.lua",
 					"addons/OrdaenBench/components/gridItem.lua"
 				],
-				"lines": 89
+				"lines": 62
 			},
 			"typical": {
-				"chars": 1892,
+				"chars": 1608,
 				"files": [
 					"addons/OrdaenBench/typical/grid.lua"
 				],
-				"lines": 66
+				"lines": 52
 			}
 		},
 		"grow": {
 			"baseline": {
-				"chars": 1309,
+				"chars": 1273,
 				"files": [
 					"addons/OrdaenBench/baseline/grow.lua"
 				],
-				"lines": 48
+				"lines": 45
 			},
 			"framework": {
 				"chars": 1663,
@@ -6060,11 +6060,11 @@
 		},
 		"hover": {
 			"baseline": {
-				"chars": 1497,
+				"chars": 1310,
 				"files": [
 					"addons/OrdaenBench/baseline/hover.lua"
 				],
-				"lines": 59
+				"lines": 44
 			},
 			"framework": {
 				"chars": 1315,
@@ -6079,54 +6079,37 @@
 				"lines": 0
 			}
 		},
-		"idle": {
-			"baseline": {
-				"chars": 0,
-				"files": [],
-				"lines": 0
-			},
-			"framework": {
-				"chars": 0,
-				"files": [],
-				"lines": 0
-			},
-			"typical": {
-				"chars": 0,
-				"files": [],
-				"lines": 0
-			}
-		},
 		"reorder": {
 			"baseline": {
-				"chars": 1631,
+				"chars": 1593,
 				"files": [
 					"addons/OrdaenBench/baseline/reorder.lua"
 				],
-				"lines": 83
+				"lines": 80
 			},
 			"framework": {
-				"chars": 1820,
+				"chars": 1790,
 				"files": [
 					"addons/OrdaenBench/components/reorder.lua",
 					"addons/OrdaenBench/components/reorderRow.lua"
 				],
-				"lines": 88
+				"lines": 85
 			},
 			"typical": {
-				"chars": 1503,
+				"chars": 1465,
 				"files": [
 					"addons/OrdaenBench/typical/reorder.lua"
 				],
-				"lines": 73
+				"lines": 70
 			}
 		},
 		"resize": {
 			"baseline": {
-				"chars": 1327,
+				"chars": 1289,
 				"files": [
 					"addons/OrdaenBench/baseline/resize.lua"
 				],
-				"lines": 46
+				"lines": 43
 			},
 			"framework": {
 				"chars": 1332,
@@ -6144,11 +6127,11 @@
 		},
 		"rows": {
 			"baseline": {
-				"chars": 866,
+				"chars": 832,
 				"files": [
 					"addons/OrdaenBench/baseline/rows.lua"
 				],
-				"lines": 39
+				"lines": 36
 			},
 			"framework": {
 				"chars": 822,
@@ -6165,11 +6148,11 @@
 		},
 		"sections": {
 			"baseline": {
-				"chars": 1237,
+				"chars": 1197,
 				"files": [
 					"addons/OrdaenBench/baseline/sections.lua"
 				],
-				"lines": 55
+				"lines": 52
 			},
 			"framework": {
 				"chars": 1148,
@@ -6186,57 +6169,57 @@
 		},
 		"signals": {
 			"baseline": {
-				"chars": 1669,
+				"chars": 1452,
 				"files": [
 					"addons/OrdaenBench/baseline/signals.lua"
 				],
-				"lines": 85
+				"lines": 75
 			},
 			"framework": {
-				"chars": 1152,
+				"chars": 1053,
 				"files": [
 					"addons/OrdaenBench/components/signals.lua"
 				],
-				"lines": 54
+				"lines": 47
 			},
 			"typical": {
-				"chars": 1088,
+				"chars": 918,
 				"files": [
 					"addons/OrdaenBench/typical/signals.lua"
 				],
-				"lines": 51
+				"lines": 41
 			}
 		},
 		"ticker": {
 			"baseline": {
-				"chars": 991,
+				"chars": 943,
 				"files": [
 					"addons/OrdaenBench/baseline/ticker.lua"
 				],
-				"lines": 40
+				"lines": 37
 			},
 			"framework": {
-				"chars": 1145,
+				"chars": 938,
 				"files": [
 					"addons/OrdaenBench/components/ticker.lua"
 				],
-				"lines": 43
+				"lines": 36
 			},
 			"typical": {
-				"chars": 951,
+				"chars": 903,
 				"files": [
 					"addons/OrdaenBench/typical/ticker.lua"
 				],
-				"lines": 39
+				"lines": 36
 			}
 		},
 		"tooltip": {
 			"baseline": {
-				"chars": 1034,
+				"chars": 996,
 				"files": [
 					"addons/OrdaenBench/baseline/tooltip.lua"
 				],
-				"lines": 40
+				"lines": 37
 			},
 			"framework": {
 				"chars": 1129,
