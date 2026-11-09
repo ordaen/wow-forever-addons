@@ -1235,8 +1235,9 @@ function Wow:MakeEnv()
 	offer("GetRealmName", function()
 		return "Fake"
 	end)
+	-- the player's money: a spec sets wow.money and fires PLAYER_MONEY
 	offer("GetMoney", function()
-		return 0
+		return wow.money or 0
 	end)
 	-- the player: a level 10 warrior halfway through the level, no rested experience
 	offer("UnitClass", function()

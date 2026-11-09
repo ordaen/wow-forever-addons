@@ -3,8 +3,9 @@
 -- middle, the money and the bags at the right end.
 -- The micro menu and the bags are Blizzard's own buttons, embedded in the panel's cells (game.ui:Embed), so their
 -- clicks, menus and alerts stay Blizzard's; the character button lies invisible over the portrait.
--- Written as the build leaves it: constant tables at file level (frozen by the build), slot functions at file level
--- taking game and self.
+-- Drawing calls with literal data are compiled by the build (development/framework/structure, «Bindings»): their
+-- constant attributes become one frozen table per call, and each value that reads the game or state is bound, so a
+-- change sets that one field without drawing the panel again. Slot functions live at file level, taking game and self.
 local Define = import("@ordaen/define")
 local L = import("locales")
 
@@ -48,8 +49,10 @@ local FRIENDS_BADGE_ONE = {
 	position = "absolute", right = CELL_WIDTH * 0.12, bottom = CELL_HEIGHT * 0.14, width = BADGE_SIDE, height = BADGE_SIDE,
 	xAlign = "center", yAlign = "center", background = Define.Theme.panel.countBadge,
 }
-local function FriendsCount(game, self)
-	game.ui:Text(self.friends)
+local function FriendsCount(game)
+	game.ui:Text({ attributes = {
+		text = tostring(game.Friends.online:Get()), textSize = 11 / 1.2, textColor = { 1, 1, 1, 1 },
+	} })
 end
 local FRIENDS_BADGE_CALL = { attributes = FRIENDS_BADGE, slots = { default = FriendsCount } }
 local FRIENDS_BADGE_ONE_CALL = { attributes = FRIENDS_BADGE_ONE, slots = { default = FriendsCount } }
@@ -67,7 +70,6 @@ for i = 1, #MICRO do
 		if friends then
 			local online = game.Friends.online:Get()
 			if online > 0 then
-				self.friends.attributes.text = tostring(online)
 				game.ui:Box(online < 10 and FRIENDS_BADGE_ONE_CALL or FRIENDS_BADGE_CALL)
 			end
 		end
@@ -136,15 +138,16 @@ local BAG_CALL = { attributes = BAG_ROW, slots = { default = BagButtons } }
 local CHARACTER = { position = "absolute", left = 0, top = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT, opacity = 0 }
 local CHARACTER_CALL = { attributes = CHARACTER }
 
-local function Badge(game, self)
-	game.ui:Embed(game.Frame.CharacterMicroButton, CHARACTER_CALL)
-	local level = self.level
-	level.attributes.text = tostring(game.Player.level:Get() or "")
-	game.ui:Box(self.badge)
+local function Level(game)
+	game.ui:Text({ attributes = {
+		text = tostring(game.Player.level:Get() or ""), textSize = Define.Theme.text.title,
+		textColor = Define.Theme.color.accent,
+	} })
 end
 
-local function Level(game, self)
-	game.ui:Text(self.level)
+local function Badge(game)
+	game.ui:Embed(game.Frame.CharacterMicroButton, CHARACTER_CALL)
+	game.ui:Box({ attributes = BADGE, slots = { default = Level } })
 end
 
 local PORTRAIT_CALL = { key = "portrait", attributes = PORTRAIT, slots = { default = Badge } }
@@ -166,20 +169,21 @@ local function Left(game, self)
 	game.ui:Box(MICRO_CALL)
 end
 
-local function Right(game, self)
-	local money = self.money
-	money.attributes.text = game.Money:Format(game.Money.amount:Get())
-	game.ui:Text(money)
+local function Right(game)
+	game.ui:Text({ attributes = {
+		text = game.Money:Format(game.Money.amount:Get()), textColor = Define.Theme.color.text,
+		textSize = Define.Theme.text.body,
+	} })
 	game.ui:Box(BAG_CALL)
 	game.ui:Frame(game.Frame.BagsBar, BAGS_BAR_HIDDEN)
 end
 
 local LEFT_CALL = { key = "left", attributes = LEFT, slots = { default = Left } }
 
-local function Cells(game, self)
+local function Cells(game)
 	game.ui:Box(LEFT_CALL)
 	game.ui:XpBar()
-	game.ui:Box(self.right)
+	game.ui:Box({ attributes = RIGHT, slots = { default = Right } })
 end
 
 return Define.Module({
@@ -191,23 +195,6 @@ return Define.Module({
 			height = { type = "number", default = 60, min = 24, max = 96 },
 			livePortrait = { type = "boolean", default = false }, -- the 3D head instead of the face's picture
 		})
-		-- one call table each, refilled by the render: the panel's height and the money's text change
-		local panel = {
-			attributes = {
-				position = "absolute", left = 0, right = 0, bottom = 0, height = 60,
-				columns = { "1fr", "1fr", "1fr" }, yAlign = "center",
-				background = Define.Theme.panel.wood, border = Define.Theme.panel.edge,
-			},
-			slots = { default = Cells },
-		}
-		local money = {
-			attributes = { text = "", textColor = Define.Theme.color.text, textSize = Define.Theme.text.body },
-		}
-		local friends = { attributes = { text = "", textSize = 11 / 1.2, textColor = { 1, 1, 1, 1 } } }
-		local level = { attributes = { text = "", textSize = Define.Theme.text.title, textColor = Define.Theme.color.accent } }
-		local badge = { attributes = BADGE, slots = { default = Level } }
-		local right = { key = "right", attributes = RIGHT, slots = { default = Right } }
-		return { panel = panel, money = money, level = level, badge = badge, right = right, friends = friends }
 	end,
 
 	commands = {
@@ -223,8 +210,13 @@ return Define.Module({
 	},
 
 	Render = function(game, self)
-		local panel = self.panel
-		panel.attributes.height = self.state.height
-		game.ui:Box(panel)
+		game.ui:Box({
+			attributes = {
+				position = "absolute", left = 0, right = 0, bottom = 0, height = self.state.height,
+				columns = { "1fr", "1fr", "1fr" }, yAlign = "center",
+				background = Define.Theme.panel.wood, border = Define.Theme.panel.edge,
+			},
+			slots = { default = Cells },
+		})
 	end,
 })

@@ -35,6 +35,22 @@ describe("Ordaen Panel", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("shows the money as it changes", function()
+		wow.money = 12345
+		wow:Fire("PLAYER_MONEY")
+		wow:Tick()
+		local shown = {}
+		for frame in pairs(wow.allFrames) do
+			for _, r in ipairs(frame._regions) do
+				if r._text and r:IsVisible() then
+					shown[r._text] = true
+				end
+			end
+		end
+		assert.is_true(shown["12345"], "the new amount isn't drawn")
+		assert.is_nil(shown["0"], "the old amount is still drawn")
+	end)
+
 	it("counts the friends online on the social button", function()
 		local shown = {}
 		for frame in pairs(wow.allFrames) do

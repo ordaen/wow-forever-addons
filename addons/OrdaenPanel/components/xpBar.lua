@@ -34,61 +34,56 @@ local function Sections(game)
 	end
 end
 local MARKS_CALL = { attributes = MARKS, slots = { default = Sections } }
-local LABEL = {
-	position = "absolute", left = 0, right = 0, top = 0, bottom = 0, textAlign = "center",
-	textSize = 12.5, textColor = { 0.953, 0.906, 0.8, 1 },
-}
-local format = string.format
+local format, floor, min = string.format, math.floor, math.min
 
-local function Inner(game, self)
-	game.ui:Box(self.rested)
-	game.ui:Box(self.fill)
+-- the level's share as the bar shows it, each bound to its one field: the fill's width, the rested part's, the label
+local function FillWidth(game)
+	local max = game.Player.xpMax:Get() or 0
+	return max > 0 and format("%.2f%%", 100 * (game.Player.xp:Get() or 0) / max) or "0%"
+end
+local function RestedWidth(game)
+	local max = game.Player.xpMax:Get() or 0
+	local current = (game.Player.xp:Get() or 0) + (game.Player.rested:Get() or 0)
+	return max > 0 and format("%.2f%%", 100 * min(current, max) / max) or "0%"
+end
+local function Percent(game)
+	local max = game.Player.xpMax:Get() or 0
+	return max > 0 and format("%d%%", floor(100 * (game.Player.xp:Get() or 0) / max)) or ""
+end
+
+local function Inner(game)
+	game.ui:Box({ attributes = {
+		position = "absolute", left = 0, top = 0, height = "100%", width = RestedWidth(game),
+		background = Define.Theme.color.xpRested,
+	} })
+	game.ui:Box({ attributes = {
+		position = "absolute", left = 0, top = 0, height = "100%", width = FillWidth(game),
+		background = Define.Theme.panel.xpFill,
+	} })
 	game.ui:Box(MARKS_CALL)
 end
 
-local function Layers(game, self)
+local function Layers(game)
 	game.ui:Box(TROUGH)
-	game.ui:Box(self.inner)
+	game.ui:Box({ attributes = INNER, slots = { default = Inner } })
 	game.ui:Box(SHINE)
 	game.ui:Box(RING)
-	game.ui:Text(self.label)
+	game.ui:Text({ attributes = {
+		position = "absolute", left = 0, right = 0, top = 0, bottom = 0, text = Percent(game), textAlign = "center",
+		textSize = 12.5, textColor = { 0.953, 0.906, 0.8, 1 },
+	} })
 end
 
-local function Tube(game, self)
-	game.ui:Box(self.tube)
+local function Tube(game)
+	game.ui:Box({ attributes = TUBE, slots = { default = Layers } })
 end
 
 return Define.Component({
-	Setup = function(game, self)
-		-- one call table each, refilled by the render (the widths and the label change)
-		local rested = { attributes = {
-			position = "absolute", left = 0, top = 0, height = "100%", width = "0%", background = Define.Theme.color.xpRested,
-		} }
-		local fill = { attributes = {
-			position = "absolute", left = 0, top = 0, height = "100%", width = "0%", background = Define.Theme.panel.xpFill,
-		} }
-		local label = { attributes = {
-			position = LABEL.position, left = 0, right = 0, top = 0, bottom = 0, text = "",
-			textAlign = LABEL.textAlign, textSize = LABEL.textSize, textColor = LABEL.textColor,
-		} }
-		return {
-			outer = { attributes = OUTER, slots = { default = Tube } },
-			tube = { attributes = TUBE, slots = { default = Layers } },
-			inner = { attributes = INNER, slots = { default = Inner } },
-			rested = rested, fill = fill, label = label,
-		}
-	end,
-
-	Render = function(game, self)
+	Render = function(game)
 		local max = game.Player.xpMax:Get()
 		if not max or max <= 0 then
 			return -- the level cap: no bar
 		end
-		local current = game.Player.xp:Get() or 0
-		local restedXp = game.Player.rested:Get() or 0
-		self.fill.attributes.width = format("%.2f%%", 100 * current / max)
-		self.rested.attributes.width = format("%.2f%%", 100 * math.min(current + restedXp, max) / max)
-		self.label.attributes.text = format("%d%%", math.floor(100 * current / max))
-		game.ui:Box(self.outer)
+		game.ui:Box({ attributes = OUTER, slots = { default = Tube } })
 	end,
 })
