@@ -344,6 +344,27 @@ local function Pop()
 	return top
 end
 
+-- What a looping effect is, for its report: its component and the values it reads, by name where they have one (a
+-- stored value's), so the report says where to look. Built only when a loop happens.
+local function Looping(effect)
+	local instance = effect.instance or effect.owner -- an effect's instance; a binding's drawing component
+	local declaration = instance and instance._declaration
+	local module = instance and instance.module
+	local where = (module and module.name or "?") .. "/" .. (declaration and declaration.name or "?")
+	local names, n = {}, 0
+	local sources = effect.sources
+	for i = 1, effect.nSources do
+		local name = sources[i].name
+		if name then
+			n = n + 1
+			names[n] = name
+		end
+	end
+	local kind = effect.isRender and "render" or (effect.fields and "binding") or "watch"
+	return "Ordaen: effects kept re-running each other (an effect writes what it reads): the " .. kind .. " of "
+		.. where .. (n > 0 and (", reading " .. table.concat(names, ", ")) or "")
+end
+
 --- Re-run the marked effects, parents first, then settle what was drawn and let the backend lay it out.
 function Scheduler.Flush()
 	pending = false
@@ -366,14 +387,16 @@ function Scheduler.Flush()
 				for s = 1, effect.nSources do
 					sources[s].notified = nil
 				end
-				looped = true
+				if not looped then
+					looped = Looping(effect) -- the first: what to fix (one report a flush)
+				end
 			else
 				effect:Run() -- an effect, or a binding (Binding.lua)
 			end
 		end
 	end
 	if looped then
-		geterrorhandler()("Ordaen: effects kept re-running each other (an effect writes what it reads)")
+		geterrorhandler()(looped)
 	end
 	Debug:TimeEnd(t, "flush: effects")
 	t = Debug:TimeStart()
