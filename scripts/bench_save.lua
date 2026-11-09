@@ -242,9 +242,10 @@ local function Readme(round, newest)
 		round.builds.OrdaenCore and round.builds.OrdaenCore.commit or "?"))
 	local settings = round.round.settings
 	if settings then
-		local capped = (tonumber(settings.maxFPS) or 0) > 0 or settings.vsync == "1"
-		add(string.format("Run with: collector %s, maxFPS %s, maxFPSBk %s, vsync %s.%s", settings.collector or "?",
-			settings.maxFPS or "?", settings.maxFPSBk or "?", settings.vsync or "?",
+		-- capped: the cap's toggle on (useMaxFPS; maxFPS keeps its value while it's off), or vsync
+		local capped = settings.useMaxFPS == "1" or settings.vsync == "1"
+		add(string.format("Run with: collector %s, useMaxFPS %s (maxFPS %s), vsync %s.%s", settings.collector or "?",
+			settings.useMaxFPS or "?", settings.maxFPS or "?", settings.vsync or "?",
 			capped and " **Frame times are capped (maxFPS or vsync): don't trust them.**" or ""))
 	end
 	local addons = round.round.addons
@@ -292,6 +293,25 @@ local function Readme(round, newest)
 	end
 	add("")
 	add("Failed checks: " .. failed .. ".")
+	add("")
+	add("## By hand only")
+	add("")
+	add("Hand-written rows with no framework row of the same name (hide and show against unmount and remount).")
+	add("")
+	add("| Scenario | Size | Metric | Side | Lua | Frame |")
+	add("| --- | --- | --- | --- | ---: | ---: |")
+	local framework = {}
+	for _, r in ipairs(round.results) do
+		if r.impl:match("^framework") then
+			framework[Key(r)] = true
+		end
+	end
+	for _, r in ipairs(round.results) do
+		if (r.impl == "baseline" or r.impl == "typical") and not framework[Key(r)] then
+			add(string.format("| %s | %s | %s | %s | %s | %s |", r.scenario, r.size, r.metric, r.impl, Ms(r, "luaMs"),
+				Ms({ frameMs = AboveIdle(r, idle) }, "frameMs")))
+		end
+	end
 	add("")
 	add("## Source size")
 	add("")

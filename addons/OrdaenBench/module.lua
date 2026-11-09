@@ -109,8 +109,10 @@ return Define.Module({
 			end
 			results:Insert("addons|" .. table.concat(loaded, ","))
 			-- what decides how frame times read: a capped frame rate or vsync makes frames wait
-			results:Insert(string.format("settings|collector=%s|maxFPS=%s|maxFPSBk=%s|vsync=%s", Driver.collector,
-				tostring(GetCVar("maxFPS")), tostring(GetCVar("maxFPSBk")), tostring(GetCVar("vsync"))))
+			-- (the cap is on only while useMaxFPS is 1; maxFPS keeps its value either way)
+			results:Insert(string.format("settings|collector=%s|useMaxFPS=%s|maxFPS=%s|useMaxFPSBk=%s|maxFPSBk=%s|vsync=%s",
+				Driver.collector, tostring(GetCVar("useMaxFPS")), tostring(GetCVar("maxFPS")),
+				tostring(GetCVar("useMaxFPSBk")), tostring(GetCVar("maxFPSBk")), tostring(GetCVar("vsync"))))
 			measure.failures = 0
 			Say("running: a few minutes; keep the game in front, frame rate uncapped, vsync off")
 			Driver.Run(Plan.Steps(bench, round), function()
