@@ -66,6 +66,7 @@ local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
 	shown = LOOK, textShadow = LOOK, overflow = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
+	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT,
 	text = TEXT, textSize = TEXT, textFamily = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT, maxLength = TEXT,
 }
 local LAYOUT_GROUP = { own = OWN, content = CONTENT, position = POSITION, offset = OFFSET, border = BORDER }
@@ -78,7 +79,8 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 	end
 end
 for _, key in ipairs({ "background", "opacity", "portrait", "mask", "overflow", "stateFrom", "OnClick", "OnEnter",
-	"OnLeave", -- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
+	"OnLeave", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
+	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
 end
@@ -165,7 +167,7 @@ end
 
 local px = 1 -- one screen pixel in UI units (UIParent's)
 local ctx = { screenW = 0, screenH = 0 } ---@type OrdaenLayoutContext
-local lineHeights = {} -- [font][size]: one line, in UI units on whole pixels (one value per font and size, not per text)
+local lineHeights = {} -- [font][size]: one line in UI units on whole pixels (one value per font and size, not per text)
 -- A frozen attribute table's layout fields, worked out once and copied into every box drawn from it (its column
 -- arrays shared, never written). Only for tables without per-state maps (those depend on each node's hover and
 -- pressed); false for a table that can't be cached. Weak keys: a module's tables go when it does. Pixel sizes are in
@@ -217,7 +219,7 @@ local stale, nStale = {}, 0 -- reused nodes still drawing their previous attribu
 local orphans, nOrphans = {}, 0 -- children a reused node held in its previous life: hidden at Flush unless reused
 local stamp = 0
 local layers = {}
--- boxes with overflow = "scroll": their content's extent is measured again after each layout (weak: a released box goes)
+-- boxes with overflow = "scroll": their content's extent is measured again after a layout (weak: a released box goes)
 local scrollers = setmetatable({}, { __mode = "k" })
 local attach -- forward: Node:ApplyOverflow moves the children
 -- Read by Backend.dev.lua (the bench's node counts); the tables themselves, never replaced.
@@ -302,10 +304,52 @@ local function onMouseUp(frame)
 	node:SetState(node.hovered, false)
 end
 
+-- The cursor from a frame's top left in UI units (x right, y down): from where the frame's top left was when a drag
+-- began while it lasts, so a box that moves with the drag (a window) still sees the cursor move.
+local function cursorIn(frame)
+	local x, y = GetCursorPosition()
+	local scale = frame:GetEffectiveScale()
+	return x / scale - (frame.dragL or frame:GetLeft() or 0), (frame.dragT or frame:GetTop() or 0) - y / scale
+end
+
 local function onClick(frame, button)
 	local fn = frame.node.a.OnClick
 	if fn then
-		handle(fn, button)
+		handle(fn, button, cursorIn(frame))
+	end
+end
+
+-- Dragging: OnDragStart(x, y), OnDrag(x, y) at most once a frame while the cursor moves, OnDragStop(x, y). The
+-- per-frame script runs only during a drag.
+local function onDragUpdate(frame)
+	local x, y = cursorIn(frame)
+	if x ~= frame.dragX or y ~= frame.dragY then
+		frame.dragX, frame.dragY = x, y
+		local fn = frame.node.a.OnDrag
+		if fn then
+			handle(fn, x, y)
+		end
+	end
+end
+
+local function onDragStart(frame)
+	frame.dragL, frame.dragT = frame:GetLeft(), frame:GetTop()
+	local x, y = cursorIn(frame)
+	frame.dragX, frame.dragY = x, y
+	frame:SetScript("OnUpdate", onDragUpdate)
+	local fn = frame.node.a.OnDragStart
+	if fn then
+		handle(fn, x, y)
+	end
+end
+
+local function onDragStop(frame)
+	frame:SetScript("OnUpdate", nil)
+	local x, y = cursorIn(frame)
+	frame.dragL, frame.dragT, frame.dragX, frame.dragY = nil, nil, nil, nil
+	local fn = frame.node.a.OnDragStop
+	if fn then
+		handle(fn, x, y)
 	end
 end
 
@@ -741,7 +785,22 @@ local SCROLL_STEP = 40 -- UI units a wheel notch moves
 
 local function onWheel(frame, delta)
 	local node = frame.node
-	node:ScrollTo((node.scrollY or 0) - delta * SCROLL_STEP)
+	local fn = node.a.OnWheel
+	if fn then
+		handle(fn, delta)
+	elseif node.inner then
+		node:ScrollTo((node.scrollY or 0) - delta * SCROLL_STEP)
+	end
+end
+
+-- The wheel is on for a box with OnWheel or overflow = "scroll".
+function Node:ApplyWheel()
+	local on = (self.inner or self.a.OnWheel) and true or false
+	if on ~= (self.wheelOn or false) then
+		self.wheelOn = on or nil
+		self.frame:EnableMouseWheel(on)
+		self.frame:SetScript("OnMouseWheel", on and onWheel or nil)
+	end
 end
 
 function Node:ApplyOverflow(overflow)
@@ -761,16 +820,13 @@ function Node:ApplyOverflow(overflow)
 		inner:ClearAllPoints()
 		inner:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
 		self.inner, self.scrollY, self.innerW, self.innerH = inner, 0, nil, nil
-		frame:EnableMouseWheel(true)
-		frame:SetScript("OnMouseWheel", onWheel)
 		scrollers[self] = true
 	else
 		self.innerFrame:Hide()
 		self.inner, self.scrollY, self.innerW, self.innerH = nil, nil, nil, nil
-		frame:EnableMouseWheel(false)
-		frame:SetScript("OnMouseWheel", nil)
 		scrollers[self] = nil
 	end
+	self:ApplyWheel()
 	-- the children move to the new host frame, and are placed again
 	local host = self.inner or frame
 	local tf = self.textFrame
@@ -1122,13 +1178,32 @@ function Node:ApplyMouse()
 		return
 	end
 	local a = self.a
-	local want = (self.states or a.OnClick or a.OnEnter or a.OnLeave) and (self.lookOpacity or 1) > 0 and true or false
+	local drag = (a.OnDragStart or a.OnDrag or a.OnDragStop) and true or false
+	local want = (self.states or a.OnClick or a.OnEnter or a.OnLeave or drag) and (self.lookOpacity or 1) > 0 and true
+		or false
+	local frame = self.frame
 	if want ~= self.mouse then
 		self.mouse = want
-		self.frame:EnableMouse(want)
+		frame:EnableMouse(want)
 		if not want then
 			self.hovered, self.pressed = false, false
 		end
+	end
+	if drag ~= (self.dragOn or false) then
+		self.dragOn = drag or nil
+		if drag then
+			frame:RegisterForDrag("LeftButton")
+		else
+			frame:RegisterForDrag()
+			if frame.dragL then -- released mid-drag
+				onDragStop(frame)
+			end
+		end
+		frame:SetScript("OnDragStart", drag and onDragStart or nil)
+		frame:SetScript("OnDragStop", drag and onDragStop or nil)
+	end
+	if self.inner or a.OnWheel or self.wheelOn then
+		self:ApplyWheel()
 	end
 end
 

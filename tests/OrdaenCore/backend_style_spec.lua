@@ -240,7 +240,7 @@ describe("backend styles", function()
 	end)
 
 	it("scrolls a box's children with the wheel within their extent, and clips them", function()
-		local wow, ns = client()
+		local _, ns = client()
 		local Backend = ns.Backend
 		local layer = Backend:Layer("screen")
 		local box = Backend:Create("box")
@@ -288,7 +288,7 @@ describe("backend styles", function()
 		assert.are.equal(frame, rows[1].frame:GetParent())
 	end)
 
-	it("takes typed text in an input box: OnChange for typing, OnSubmit on Enter, focus, and back to a plain box", function()
+	it("takes typed text in an input box: OnChange for typing, OnSubmit on Enter, focus, then a plain box", function()
 		local wow, ns = client()
 		local Backend = ns.Backend
 		local layer = Backend:Layer("screen")
@@ -325,8 +325,65 @@ describe("backend styles", function()
 		assert.is_false(edit:IsShown())
 	end)
 
-	it("draws a text in a theme font with a shadow, and drops the shadow", function()
+	it("drags a box: start, moves once a frame from where it began, stop; the wheel and the click's position", function()
 		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local log = {}
+		local box = Backend:Create("box")
+		Backend:Set(box, { position = "absolute", left = 100, top = 100, width = 200, height = 20,
+			OnDragStart = function(x, y)
+				log[#log + 1] = { "start", x, y }
+			end,
+			OnDrag = function(x, y)
+				log[#log + 1] = { "drag", x, y }
+			end,
+			OnDragStop = function(x, y)
+				log[#log + 1] = { "stop", x, y }
+			end,
+			OnWheel = function(delta)
+				log[#log + 1] = { "wheel", delta }
+			end,
+			OnClick = function(button, x)
+				log[#log + 1] = { "click", button, x }
+			end,
+		})
+		Backend:SetChildren(layer, { box }, 1)
+		Backend:Flush()
+		local frame = box.frame
+		local scale = frame:GetEffectiveScale()
+		local left, top = frame:GetLeft(), frame:GetTop()
+		local function at(x, y) -- the cursor at (x, y) UI units from the box's top left, in screen pixels
+			wow:MoveCursor((left + x) * scale, (top - y) * scale)
+		end
+		at(10, 5)
+		wow:DragStart(frame)
+		at(60, 5)
+		wow:Tick()
+		wow:Tick() -- the cursor didn't move: no second OnDrag
+		at(90, 8)
+		wow:DragStop(frame)
+		local function near(a, b)
+			return math.abs(a - b) < 0.01
+		end
+		assert.are.equal(3, #log)
+		assert.are.equal("start", log[1][1])
+		assert.is_true(near(log[1][2], 10) and near(log[1][3], 5))
+		assert.are.equal("drag", log[2][1])
+		assert.is_true(near(log[2][2], 60))
+		assert.are.equal("stop", log[3][1])
+		assert.is_true(near(log[3][2], 90) and near(log[3][3], 8))
+		assert.is_nil(frame:GetScript("OnUpdate")) -- nothing runs per frame once the drag ends
+		frame:GetScript("OnMouseWheel")(frame, 1)
+		assert.are.same({ "wheel", 1 }, log[4])
+		at(25, 5)
+		frame:GetScript("OnClick")(frame, "LeftButton")
+		assert.are.equal("click", log[5][1])
+		assert.is_true(near(log[5][3], 25))
+	end)
+
+	it("draws a text in a theme font with a shadow, and drops the shadow", function()
+		local _, ns = client()
 		local Backend = ns.Backend
 		local layer = Backend:Layer("screen")
 		local t = Backend:Create("text")

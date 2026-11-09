@@ -525,6 +525,10 @@ function FrameMethods:IsMouseWheelEnabled()
 	return not not self._wheel
 end
 
+function FrameMethods:RegisterForDrag(...)
+	self._drag = { ... }
+end
+
 local ButtonMethods = copyInto({}, FrameMethods)
 
 function ButtonMethods:RegisterForClicks(...)
@@ -995,6 +999,28 @@ end
 
 --- Fire a game event on every frame registered for it.
 -- The player types `text` into an edit box (its whole text, as after a paste): OnTextChanged with userInput.
+-- The cursor, in screen pixels from the bottom left (GetCursorPosition), as WoW gives it.
+function Wow:MoveCursor(x, y)
+	self.cursorX, self.cursorY = x, y
+end
+
+-- The player drags a frame registered for dragging: its OnDragStart, then OnDragStop. Between them a spec moves the
+-- cursor and ticks frames.
+function Wow:DragStart(frame)
+	assert(frame._drag and #frame._drag > 0, "the frame isn't registered for dragging")
+	local fn = frame._scripts.OnDragStart
+	if fn then
+		fn(frame, frame._drag[1])
+	end
+end
+
+function Wow:DragStop(frame)
+	local fn = frame._scripts.OnDragStop
+	if fn then
+		fn(frame)
+	end
+end
+
 function Wow:Type(edit, text)
 	edit._text = text
 	local fn = edit._scripts.OnTextChanged
@@ -1293,6 +1319,9 @@ function Wow:MakeEnv()
 	end)
 	offer("debugprofilestop", function()
 		return os.clock() * 1000
+	end)
+	offer("GetCursorPosition", function()
+		return wow.cursorX or 0, wow.cursorY or 0
 	end)
 	offer("GetTime", function()
 		return wow.time
