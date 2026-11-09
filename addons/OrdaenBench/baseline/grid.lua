@@ -2,10 +2,11 @@
 -- font string on the grid's own frame, made once and placed by arithmetic; a change sets the one count with
 -- SetFormattedText (no Lua string); opening and closing show and hide the grid.
 local FONT = import("bench/font")
+local Px = import("bench/px")
 local floor = math.floor
 
 local SIZES = { small = 200, large = 1000 }
-local COLUMNS, CELL, GAP, PAD = 10, 36, 2, 8 -- the framework grid's spacing.xs and spacing.md
+local COLUMNS, CELL, GAP, PAD = 10, Px.Round(36), Px.Round(2), Px.Round(8) -- the framework grid's spacing.xs and spacing.md
 
 local Grid = {}
 

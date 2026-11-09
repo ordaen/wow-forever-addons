@@ -1,5 +1,6 @@
 -- bars, by hand at its best: a track texture and a fill texture per bar on one frame; a new fill sets its width.
-local BARS, WIDTH, HEIGHT, GAP = 20, 200, 12, 2
+local Px = import("bench/px")
+local BARS, WIDTH, HEIGHT, GAP = 20, Px.Round(200), Px.Round(12), Px.Round(2)
 
 local Bars = {}
 

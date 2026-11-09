@@ -1,8 +1,9 @@
 -- columns, by hand at its best: cells as regions on the window's frame; a new column count re-places every cell and
 -- resizes the window by arithmetic.
 local FONT = import("bench/font")
+local Px = import("bench/px")
 
-local CELLS, CELL, GAP, PAD = 200, 36, 2, 8
+local CELLS, CELL, GAP, PAD = 200, Px.Round(36), Px.Round(2), Px.Round(8)
 
 local Columns = {}
 

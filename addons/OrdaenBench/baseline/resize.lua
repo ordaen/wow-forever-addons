@@ -1,8 +1,9 @@
 -- resize, by hand at its best: the window's cells as regions on its frame (a texture and a font string each); a new
 -- width resizes and re-places every cell by arithmetic.
 local FONT = import("bench/font")
+local Px = import("bench/px")
 
-local CELLS, COLUMNS, HEIGHT, GAP, PAD = 200, 10, 24, 2, 8
+local CELLS, COLUMNS, HEIGHT, GAP, PAD = 200, 10, Px.Round(24), Px.Round(2), Px.Round(8)
 
 local Resize = {}
 

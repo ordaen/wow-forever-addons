@@ -1,9 +1,11 @@
 -- tooltip, by hand at its best: one frame with 10 font strings made once; showing sets the lines, measures the widest
 -- and sizes the frame; hiding hides the frame.
 local FONT = import("bench/font")
+local Px = import("bench/px")
 local Words = import("bench/words")
 
-local LINES, LINE, PAD = 10, import("bench/line"), 8
+local LINES, LINE, PAD = 10, import("bench/line"), Px.Round(8)
+local GAP = Px.Round(1)
 
 local Tooltip = {}
 
@@ -17,7 +19,7 @@ function Tooltip.Make()
 	background:SetColorTexture(0.1, 0.1, 0.12, 0.9)
 	for i = 1, LINES do
 		local text = frame:CreateFontString(nil, "OVERLAY", FONT)
-		text:SetPoint("TOPLEFT", PAD, -PAD - (i - 1) * (LINE + 1))
+		text:SetPoint("TOPLEFT", PAD, -PAD - (i - 1) * (LINE + GAP))
 		texts[i] = text
 	end
 	frame:Hide()
@@ -33,7 +35,7 @@ function Tooltip.ShowWith(n)
 			widest = width
 		end
 	end
-	frame:SetSize(widest + PAD * 2, LINES * (LINE + 1) - 1 + PAD * 2)
+	frame:SetSize(Px.Ceil(widest) + PAD * 2, LINES * (LINE + GAP) - GAP + PAD * 2)
 	frame:Show()
 end
 

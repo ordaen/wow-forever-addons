@@ -1,5 +1,6 @@
 -- drag, by hand at its best: the window's cells as textures on its frame; moving it is one SetPoint.
-local CELLS, COLUMNS, CELL, GAP, PAD = 200, 10, 36, 2, 8
+local Px = import("bench/px")
+local CELLS, COLUMNS, CELL, GAP, PAD = 200, 10, Px.Round(36), Px.Round(2), Px.Round(8)
 
 local Drag = {}
 

@@ -1,8 +1,9 @@
 -- hover, by hand at its best: 100 cell frames made once, each with a background and a highlight texture; OnEnter
 -- shows the highlight and names the item in the line above, OnLeave hides both. The bench calls the scripts.
 local FONT = import("bench/font")
+local Px = import("bench/px")
 
-local CELLS, SIZE, GAP, COLUMNS = 100, 30, 2, 10
+local CELLS, SIZE, GAP, COLUMNS = 100, Px.Round(30), Px.Round(2), 10
 
 local Hover = {}
 

@@ -1,9 +1,11 @@
 -- grow, by hand at its best: each row is 5 nested frames around a font string; a new text sets it, measures its
 -- width once, and sizes the 5 frames around it by arithmetic.
 local FONT = import("bench/font")
+local Px = import("bench/px")
 local Words = import("bench/words")
 
-local ROWS, DEPTH, PAD, LINE = 50, 5, 2, import("bench/line")
+local ROWS, DEPTH, PAD, LINE = 50, 5, Px.Round(2), import("bench/line")
+local GAP = Px.Round(2) -- between rows
 
 local Grow = {}
 
@@ -11,14 +13,14 @@ local holder, texts, levels = nil, {}, {}
 
 function Grow.Make()
 	holder = CreateFrame("Frame", nil, UIParent)
-	holder:SetSize(300, ROWS * (LINE + DEPTH * PAD * 2 + 2))
+	holder:SetSize(300, ROWS * (LINE + DEPTH * PAD * 2 + GAP))
 	holder:SetPoint("TOPLEFT", 40, -40)
 	for r = 1, ROWS do
 		local parent, frames = holder, {}
 		for d = 1, DEPTH do
 			local frame = CreateFrame("Frame", nil, parent)
 			if d == 1 then
-				frame:SetPoint("TOPLEFT", 0, -(r - 1) * (LINE + DEPTH * PAD * 2 + 2))
+				frame:SetPoint("TOPLEFT", 0, -(r - 1) * (LINE + DEPTH * PAD * 2 + GAP))
 			else
 				frame:SetPoint("TOPLEFT", PAD, -PAD)
 			end
@@ -37,7 +39,7 @@ end
 function Grow.SetLength(r, n)
 	local text = texts[r]
 	text:SetText(Words.WORDS[n])
-	local width = text:GetStringWidth()
+	local width = Px.Ceil(text:GetStringWidth())
 	local frames = levels[r]
 	for d = DEPTH, 1, -1 do
 		local inset = (DEPTH - d + 1) * PAD * 2

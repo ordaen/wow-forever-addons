@@ -1,8 +1,9 @@
 -- rows, by hand at its best: 150 font strings made once and placed once; a new count shows the first n, hides the
 -- rest (only those that change) and sets the list's height.
 local FONT = import("bench/font")
+local Px = import("bench/px")
 
-local MOST, LINE, PAD = 150, import("bench/line"), 2
+local MOST, LINE, PAD = 150, import("bench/line"), Px.Round(2)
 
 local Rows = {}
 
