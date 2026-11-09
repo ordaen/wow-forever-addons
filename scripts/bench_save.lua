@@ -213,7 +213,8 @@ local NOTES = {
 	"**Engine / backend, read with care:** the stub run touches less memory, so the engine runs with warmer caches"
 		.. " there and the backend's share reads slightly high. Hand-written drawing leaves its text layout to WoW's"
 		.. " drawing, so compare the backend with best's frame column, not its Lua column.",
-	"**Change:** against the newest earlier comparable round (clean builds); an improvement or a"
+	"**Change:** against the newest earlier comparable round (clean builds, the same plan shape: the same series"
+		.. " with the same calls, since what runs before a row is part of its conditions); an improvement or a"
 		.. " regression is a change of " .. CHANGE * 100 .. "% or more beyond the noise (Lua: the row's spread, p95"
 		.. " above median, in either round; frame: the idle spread); single samples (¹) and frame values with"
 		.. " collector work (ᵍ) in either round never count. Same"
@@ -276,12 +277,23 @@ local function Clean(saved)
 	return true
 end
 
---- Rounds compare only when both ran clean builds at the same graphics quality and spot (every round runs at the
---- same resolution and render scale, so those aren't recorded).
+-- A round's plan shape: every series it ran (scenario, size, side, task) with its number of calls, in order. What runs
+-- before a row (other scenarios' frames, pools, hidden WoW objects) is part of its conditions, so rounds compare only
+-- within one shape: a change of the bench never reads as a change of the framework.
+local function Shape(saved)
+	local list = {}
+	for i, r in ipairs(saved.results) do
+		list[i] = r.scenario .. "|" .. r.size .. "|" .. r.impl .. "|" .. r.metric .. "|" .. tostring(r.n)
+	end
+	return table.concat(list, "\n")
+end
+
+--- Rounds compare only when both ran clean builds of the same plan shape, at the same graphics settings and spot
+--- (every round runs at the same resolution and render scale, so those aren't recorded).
 local function Comparable(a, b)
 	local ba, bb = a.round.build or {}, b.round.build or {}
 	return Clean(a) and Clean(b) and ba.graphics ~= nil and ba.graphics == bb.graphics
-		and ba.zone == bb.zone and ba.subzone == bb.subzone
+		and ba.zone == bb.zone and ba.subzone == bb.subzone and Shape(a) == Shape(b)
 end
 
 --- Each row's idle: its block's idle series (the nearest before it), as { median, noise }.
