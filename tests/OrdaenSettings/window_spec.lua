@@ -180,5 +180,24 @@ describe("the settings window", function()
 		assert.is_truthy(db)
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("moves with its tab row while dragged", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local tab = texts(ns)["Ordaen"].parent
+		local win = tab.parent
+		local before = win.offL or 0
+		local f = tab.frame
+		wow:MoveCursor(500, 500)
+		wow:DragStart(f)
+		wow:MoveCursor(600, 500)
+		wow:Tick()
+		ns.Scheduler.Flush()
+		wow:DragStop(f)
+		ns.Scheduler.Flush()
+		assert.is_true((win.offL or 0) > before, "moved " .. tostring(win.offL))
+		assert.are.same({}, wow.errors)
+	end)
 end)
 

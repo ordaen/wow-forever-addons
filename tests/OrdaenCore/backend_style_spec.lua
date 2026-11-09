@@ -883,10 +883,16 @@ describe("backend styles", function()
 		assert.are.equal(cell.pW, icon:GetWidth()) -- the icon fills the box
 		local l = unpack(icon._coords)
 		assert.is_true(l > 0) -- the rim cropped
+		-- Blizzard sets the icon again (a bag changed): still cropped
+		icon:SetTexture(133634)
+		icon:SetTexCoord(0, 1, 0, 1)
+		assert.is_true(unpack(icon._coords) > 0)
 		Backend:SetChildren(slot, {}, 0)
 		Backend:Release(cell)
 		assert.are.equal(1, ring:GetAlpha())
 		assert.are.equal("CENTER", (icon:GetPoint(1)))
+		icon:SetTexCoord(0, 1, 0, 1) -- given back: Blizzard's coordinates stay its own
+		assert.are.equal(0, (unpack(icon._coords)))
 	end)
 
 	describe("bindings: SetField and SetArgument", function()

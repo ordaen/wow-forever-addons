@@ -1876,6 +1876,19 @@ end
 -- field or its <name>IconTexture region; its rim is cropped as Blizzard's own UI crops icons (8% each side).
 local ICON_CROP = 0.08
 
+-- Blizzard sets the icon's whole texture again when the bag or the item changes (coordinates 0 to 1): the crop goes
+-- back on after its call while the button wears look = "icon" (one hook per icon, made the first time)
+local cropped = setmetatable({}, { __mode = "k" }) -- icon -> true while it's to be cropped
+local cropping = false
+local function recrop(icon)
+	if cropped[icon] and not cropping then
+		cropping = true
+		icon:SetTexCoord(ICON_CROP, 1 - ICON_CROP, ICON_CROP, 1 - ICON_CROP)
+		cropping = false
+	end
+end
+local hookedIcons = setmetatable({}, { __mode = "k" })
+
 local function iconOf(frame)
 	local icon = rawget(frame, "icon") or rawget(frame, "Icon")
 	if not icon then
@@ -1910,7 +1923,13 @@ function Node:ApplyEmbedLook(iconOnly)
 			end
 			icon:ClearAllPoints()
 			icon:SetAllPoints(frame)
-			icon:SetTexCoord(ICON_CROP, 1 - ICON_CROP, ICON_CROP, 1 - ICON_CROP)
+			cropped[icon] = true
+			if not hookedIcons[icon] then
+				hookedIcons[icon] = true
+				hooksecurefunc(icon, "SetTexCoord", recrop)
+				hooksecurefunc(icon, "SetTexture", recrop)
+			end
+			recrop(icon)
 		end
 	else
 		self:RestoreEmbedArt()
@@ -1931,6 +1950,7 @@ function Node:RestoreEmbedArt()
 	end
 	local icon, saved = iconOf(self.frame), self.icon0
 	if icon and saved then
+		cropped[icon] = nil -- Blizzard's coordinates are its own again
 		icon:ClearAllPoints()
 		for i = 1, #saved.points do
 			local p = saved.points[i]
