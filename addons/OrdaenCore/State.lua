@@ -95,7 +95,12 @@ local function Check(spec, value, name)
 	end
 end
 
+-- A plain stored value; as a setting, what a control reads and writes (design: development/framework/state,
+-- «Controls»): `spec` is its declaration (type, default, min/max/step, choices, unit, follows). A value that
+-- `follows` a global setting (spec.follows, another stored value) stores nothing while it follows, and reads as the
+-- global's value then.
 ---@class OrdaenStoredValue
+---@field spec table its declaration
 local Plain = {}
 local PlainMeta = { __index = Plain }
 
@@ -105,6 +110,10 @@ function Plain:Get()
 	end
 	local value = Read(self)
 	if value == nil then
+		local follows = self.spec.follows
+		if follows then
+			return follows:Get() -- tracked too: a change of the global reaches what reads this
+		end
 		return self.spec.default
 	end
 	return value
@@ -113,14 +122,42 @@ end
 function Plain:Peek()
 	local value = Read(self)
 	if value == nil then
+		local follows = self.spec.follows
+		if follows then
+			return follows:Peek()
+		end
 		return self.spec.default
 	end
 	return value
 end
 
+--- Whether it follows its global setting now (stores nothing). False for a value that follows none.
+function Plain:Follows()
+	return self.spec.follows ~= nil and Read(self) == nil
+end
+
+--- Follow the global setting again: the stored value goes.
+function Plain:Follow()
+	if not self.spec.follows or Read(self) == nil then
+		return
+	end
+	self.root[self.path][self.name] = nil
+	Notify(self)
+end
+
 function Plain:Set(value)
 	local spec = self.spec
 	Check(spec, value, self.name)
+	local stored = Read(self)
+	if spec.follows then
+		-- a value of its own, even one equal to the global's: following is chosen with Follow
+		if value == stored then
+			return
+		end
+		TableFor(self)[self.name] = value
+		Notify(self)
+		return
+	end
 	if value == self:Peek() then
 		return
 	end
@@ -135,7 +172,11 @@ function Plain:Set(value)
 	Notify(self)
 end
 
+--- Back to the default; for a value that follows a global, back to following it.
 function Plain:Reset()
+	if self.spec.follows then
+		return self:Follow()
+	end
 	self:Set(self.spec.default)
 end
 
