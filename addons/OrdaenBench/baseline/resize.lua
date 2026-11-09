@@ -49,4 +49,9 @@ function Resize.Hide()
 	window:Hide()
 end
 
+--- The frame the screen check reads (bench/screen.lua).
+function Resize.Root()
+	return window
+end
+
 return Resize

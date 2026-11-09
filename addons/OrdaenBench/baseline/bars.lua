@@ -3,9 +3,10 @@ local BARS, WIDTH, HEIGHT, GAP = 20, 200, 12, 2
 
 local Bars = {}
 
-local holder, fills = nil, {}
+local holder, fills, last = nil, {}, {}
 
 function Bars.Make()
+	last = {}
 	holder = CreateFrame("Frame", nil, UIParent)
 	holder:SetSize(WIDTH, BARS * (HEIGHT + GAP))
 	holder:SetPoint("BOTTOMLEFT", 40, 200)
@@ -25,11 +26,20 @@ function Bars.Make()
 end
 
 function Bars.SetFill(i, percent)
+	if last[i] == percent then -- unchanged: nothing to do (the framework skips an unchanged attribute as well)
+		return
+	end
+	last[i] = percent
 	fills[i]:SetWidth(math.max(WIDTH * percent / 100, 0.01))
 end
 
 function Bars.Hide()
 	holder:Hide()
+end
+
+--- The frame the screen check reads (bench/screen.lua).
+function Bars.Root()
+	return holder
 end
 
 return Bars

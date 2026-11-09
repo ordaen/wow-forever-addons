@@ -3,15 +3,25 @@ local WATCHES = 5000
 
 local Fanout = {}
 
-local value, sink = 0, 0
+local value, sum = 0, 0 -- sum: what every run read, the bench's checksum
 local listeners = {}
 
 function Fanout.Make()
+	value, sum, listeners = 0, 0, {}
 	for i = 1, WATCHES do
 		listeners[i] = function()
-			sink = value
+			sum = sum + value
 		end
 	end
+end
+
+function Fanout.Checksum()
+	return sum
+end
+
+--- Drop what the last make built (untimed, before the next make: its kept KB is then its own).
+function Fanout.Release()
+	listeners = {}
 end
 
 function Fanout.Bump()

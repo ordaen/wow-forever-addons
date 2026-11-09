@@ -7,15 +7,18 @@ return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ value = { type = "number", default = 0 } })
 		local value = self.state.ephemeral.value
-		local sink = 0
+		local sum = 0 -- what every run read: the bench's checksum
 		for _ = 1, WATCHES do
 			self:Watch(function()
-				sink = value:Get()
+				sum = sum + value:Get()
 			end)
 		end
 		return {
 			public = {
 				functions = {
+					Checksum = function()
+						return sum
+					end,
 					Bump = function()
 						value:Set(value:Peek() + 1)
 					end,

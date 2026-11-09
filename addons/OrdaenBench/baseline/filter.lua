@@ -45,4 +45,9 @@ function Filter.Hide()
 	list:Hide()
 end
 
+--- The frame the screen check reads (bench/screen.lua).
+function Filter.Root()
+	return list
+end
+
 return Filter

@@ -29,4 +29,9 @@ function Drag.Hide()
 	window:Hide()
 end
 
+--- The frame the screen check reads (bench/screen.lua).
+function Drag.Root()
+	return window
+end
+
 return Drag

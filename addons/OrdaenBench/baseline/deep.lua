@@ -42,4 +42,9 @@ function Deep.Hide()
 	outer:Hide()
 end
 
+--- The frame the screen check reads (bench/screen.lua).
+function Deep.Root()
+	return outer
+end
+
 return Deep

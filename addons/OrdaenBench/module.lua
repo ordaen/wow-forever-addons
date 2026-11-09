@@ -42,6 +42,14 @@ local SCENES = {
 	{ id = "deep", component = import("components/deep") },
 }
 
+-- the graphics settings a round records (bench_save compares rounds only with the same ones)
+local GRAPHICS = {
+	"graphicsQuality", "graphicsViewDistance", "graphicsEnvironmentDetail", "graphicsGroundClutter",
+	"graphicsShadowQuality", "graphicsLiquidDetail", "graphicsParticleDensity", "graphicsSSAO",
+	"graphicsDepthEffects", "graphicsTextureResolution", "graphicsSpellDensity", "graphicsProjectedTextures",
+	"graphicsOutlineMode", "graphicsComputeEffects", "MSAAQuality", "ffxAntiAliasingMode",
+}
+
 ---@enum BenchScene
 local BenchScene = { None = "none" }
 for _, scene in ipairs(SCENES) do
@@ -53,8 +61,8 @@ return Define.Module({
 
 	Setup = function(game, self)
 		Define.Ephemeral({ scene = { type = "choice", choices = BenchScene, default = BenchScene.None } })
-		-- the last round's results, one structured line each (bench/driver.lua), read by scripts/bench_save.lua,
-		-- and how many rounds ran: it rotates which side of each block goes first
+		-- the last run's results, one structured line each (bench/driver.lua), read by scripts/bench_save.lua,
+		-- and how many rounds ran (the round's number)
 		Define.Persistent({
 			results = { type = "list", of = { type = "string" }, cap = 3000 },
 			-- the probes' lines (bench/probes.lua): answers for the backend's owner, never part of a round
@@ -130,22 +138,26 @@ return Define.Module({
 		-- a dev tool's own slash command (modules get `commands` after the MVP)
 		SLASH_ORDAENBENCH1 = "/obench"
 		local ran = false
-		SlashCmdList.ORDAENBENCH = function()
+		-- `/obench`: a round. `/obench check`: the same plan with a few calls per series, for the checks only
+		-- (bench_save reports its checks and never records it).
+		SlashCmdList.ORDAENBENCH = function(message)
+			local mode = (message or ""):match("^%s*check%s*$") and "check" or "round"
 			if Driver.IsRunning() then
 				Say("already running")
 				return
 			end
 			-- one round per /reload: its cold block needs a fresh session (empty pools, no frames made yet)
 			if ran then
-				Say("one round per session: /reload, then /obench")
+				Say("one run per session: /reload, then /obench")
 				return
 			end
 			ran = true
-			local round = rounds:Get() + 1
+			local round = rounds:Get() + (mode == "round" and 1 or 0)
 			rounds:Set(round)
 			local _, build = GetBuildInfo()
 			pending[#pending + 1] = string.format("round|%s|%s|%.0f|%.0f|%d", date("%Y-%m-%d %H:%M:%S"), build,
 				GetFramerate(), collectgarbage("count"), round)
+			pending[#pending + 1] = "mode|" .. mode
 			-- what else ran: every loaded addon's work is in the frame times
 			local loaded = {}
 			for i = 1, C_AddOns.GetNumAddOns() do
@@ -162,22 +174,30 @@ return Define.Module({
 				Driver.collector, tostring(GetCVar("useMaxFPS")), tostring(GetCVar("maxFPS")),
 				tostring(GetCVar("useMaxFPSBk")), tostring(GetCVar("maxFPSBk")), tostring(GetCVar("vsync")))
 			tracked.failures = 0
-			-- the build the game loaded (bench_save records only rounds on the bench profile: release stripping) and
-			-- where the round ran (the world drawn is in every frame time)
-			pending[#pending + 1] = string.format("build|core=%s|bench=%s|zone=%s|subzone=%s|graphicsQuality=%s",
+			-- the build the game loaded (bench_save records only rounds on the bench profile: release stripping),
+			-- where the round ran and the graphics settings (the world drawn is in every frame time): each drawing
+			-- setting itself, since what the overall quality slider writes isn't documented for this client
+			local graphics = {}
+			for i = 1, #GRAPHICS do
+				graphics[i] = GRAPHICS[i] .. ":" .. tostring(GetCVar(GRAPHICS[i]))
+			end
+			pending[#pending + 1] = string.format("build|core=%s|bench=%s|zone=%s|subzone=%s|graphics=%s",
 				tostring(C_AddOns.GetAddOnMetadata("OrdaenCore", "X-Ordaen-Build")),
 				tostring(C_AddOns.GetAddOnMetadata("OrdaenBench", "X-Ordaen-Build")), GetZoneText() or "",
-				GetSubZoneText() or "", tostring(GetCVar("graphicsQuality")))
-			Say("running: several minutes. Keep the game in front, frame rate uncapped, vsync off.")
-			local steps = Plan.Steps(bench, round, tracked, silent, Progress.Set)
-			-- the probes, after the measured plan, so they can't disturb it
-			local probeSteps = Probes.Steps(probing, bench)
-			steps[#steps + 1] = function()
-				Progress.Set("probes")
-				return true
-			end
-			for i = 1, #probeSteps do
-				steps[#steps + 1] = probeSteps[i]
+				GetSubZoneText() or "", table.concat(graphics, ","))
+			Say(mode == "check" and "checking: about a minute. Keep the mouse away from the bench's frames."
+				or "running: several minutes. Keep the game in front and the mouse away from the bench's frames.")
+			local steps = Plan.Steps(bench, tracked, silent, Progress.Set, mode)
+			-- the probes, after the measured plan, so they can't disturb it (a round only)
+			if mode == "round" then
+				local probeSteps = Probes.Steps(probing, bench)
+				steps[#steps + 1] = function()
+					Progress.Set("probes")
+					return true
+				end
+				for i = 1, #probeSteps do
+					steps[#steps + 1] = probeSteps[i]
+				end
 			end
 			Quiet(true)
 			Driver.Run(steps, function()

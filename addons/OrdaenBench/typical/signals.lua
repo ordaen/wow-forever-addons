@@ -8,12 +8,15 @@ local SIZES = {
 local Signals = {}
 
 local values, listeners, nValues
-local sink = 0
+local out -- each watch's last result: the bench's checksum
+local nWatches = 0
 
 function Signals.Make(size)
 	local s = SIZES[size]
 	nValues = s.values
-	values, listeners = {}, {}
+	values, listeners, out = {}, {}, {}
+	nWatches = s.watches
+	local results = out
 	for i = 1, s.values do
 		values[i] = 0
 		listeners[i] = {}
@@ -24,7 +27,7 @@ function Signals.Make(size)
 	for w = 1, s.watches do
 		local a, b, c = w, (w * 7) % s.values + 1, (w % s.sums) + 1
 		local function OnChange()
-			sink = values[a] + values[b] + values[c] + values[c + s.sums] + values[c + 2 * s.sums]
+			results[w] = values[a] + values[b] + values[c] + values[c + s.sums] + values[c + 2 * s.sums]
 		end
 		listen(a, OnChange)
 		listen(b, OnChange)
@@ -40,6 +43,19 @@ function Signals.Write(k)
 	for _, fn in ipairs(listeners[k]) do
 		fn()
 	end
+end
+
+function Signals.Checksum()
+	local sum = 0
+	for w = 1, nWatches do
+		sum = sum + (out[w] or 0)
+	end
+	return sum
+end
+
+--- Drop what the last make built (untimed, before the next make: its kept KB is then its own).
+function Signals.Release()
+	values, listeners, out = nil, nil, nil
 end
 
 return Signals

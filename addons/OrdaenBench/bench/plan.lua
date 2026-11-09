@@ -5,16 +5,20 @@
 -- 2. the whole plan once untracked, so one-time costs (fonts, first textures, Blizzard code running for the first
 --    time) land outside the numbers;
 -- 3. the whole plan again, measured.
+-- `/obench check` runs the same plan with a few calls per series: a quick run for the checks, never a round.
 -- Every scenario runs on the framework, on the framework with a stub backend (framework-engine: the engine alone,
 -- where something is drawn), written naively (framework-naive: new tables every call, as code reads without the
 -- build's hoisting; grid and ticker), by hand at its best (baseline/) and, where it differs, as a typical addon writes
--- it (typical/). Each block starts with an idle series (the frame to read its frame times against) and notes the
--- order its sides ran in, which rotates with each round. Actions follow seeded random sequences (bench/random.lua):
--- the same on every side and in every round.
+-- it (typical/). Each block starts with a short spin (the CPU at full clock) and an idle series (the frame to read its
+-- frame times against), runs its sides in a fixed order (the same in every round, so rounds compare like with like)
+-- and ends by comparing what every side ended on with the baseline (bench/screen.lua: the texts and where they sit,
+-- textures where the scenario draws shapes; checksums where nothing is drawn). Actions follow seeded random sequences
+-- (bench/random.lua): the same on every side and in every round.
 -- `bench` gives: flush, Show(scene) (switch and flush), Set(scene) (switch, no flush), refs, Swap(toStub), StubCount.
 local counters = import("bench/counters")
 local FONT = import("bench/font")
 local Random = import("bench/random")
+local Screen = import("bench/screen")
 local Best = {
 	signals = import("baseline/signals"), coalesce = import("baseline/coalesce"), chain = import("baseline/chain"),
 	diamond = import("baseline/diamond"), fanout = import("baseline/fanout"), cascade = import("baseline/cascade"),
@@ -30,11 +34,13 @@ local Typical = {
 	ticker = import("typical/ticker"), reorder = import("typical/reorder"),
 }
 
-local FRAMES = 120 -- frames per steady-state series
-local STEADY = 300 -- frames of a grid on screen with nothing changing (only a long series shows drawing cost)
-local IDLE = 60 -- frames of each block's idle series
-local REPEATS = 60 -- repeats of each one-off change
-local HEAVY = 20 -- repeats of make, close and remount (each needs an untimed frame to prepare)
+-- calls per series: a round, and a check run (`/obench check`: enough calls to pass the warm-up, then a few)
+local FRAMES, STEADY, IDLE, REPEATS, HEAVY
+local COUNTS = {
+	round = { frames = 120, steady = 300, idle = 60, repeats = 60, heavy = 20 },
+	check = { frames = 8, steady = 8, idle = 8, repeats = 8, heavy = 7 },
+}
+local SPIN = 200 -- ms of untimed work before each block: the CPU at full clock when its idle series and sides run
 local FW, FW_ITEMS, FW_ENGINE, FW_NAIVE = "framework", "framework-itemsRead", "framework-engine", "framework-naive"
 local BEST, TYPICAL = "baseline", "typical"
 
@@ -42,13 +48,24 @@ local Plan = {}
 
 local function Nothing() end
 
+local function Spin()
+	local stop = debugprofilestop() + SPIN
+	local x = 0
+	while debugprofilestop() < stop do
+		x = x + 1
+	end
+	return x
+end
+
 --- The steps of one /obench.
 ---@param bench table
----@param round integer rotates which side of each block goes first
 ---@param tracked BenchMeasure records the numbers
 ---@param silent BenchMeasure records nothing (the warm-up pass)
 ---@param progress fun(line: string) shows what runs now
-function Plan.Steps(bench, round, tracked, silent, progress)
+---@param mode "round"|"check"
+function Plan.Steps(bench, tracked, silent, progress, mode)
+	local counts = COUNTS[mode]
+	FRAMES, STEADY, IDLE, REPEATS, HEAVY = counts.frames, counts.steady, counts.idle, counts.repeats, counts.heavy
 	local flush, Show, Set, refs = bench.flush, bench.Show, bench.Set, bench.refs
 	local steps = {}
 	local function add(step)
@@ -74,27 +91,85 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 		return counters.violations == mark.violations, (counters.violations - mark.violations) .. " stale reads"
 	end
 
-	--- A block: its idle series, then its sides in this round's order (a side: { impl, add = fn }).
+	-- What each side ended on, per measured series (Seen), compared with the baseline's when the block ends.
+	local seen, seenKeys = {}, {}
+	local COMPARED = { FW, FW_ITEMS, FW_NAIVE, TYPICAL }
+
+	--- A series' verify that first records what the side ended on: `take()` gives a screen snapshot
+	--- (bench/screen.lua) or a checksum. `verify` (optional) is the side's own check.
+	local function Seen(metric, impl, take, verify)
+		return function()
+			if not seen[metric] then
+				seen[metric] = {}
+				seenKeys[#seenKeys + 1] = metric
+			end
+			seen[metric][impl] = take()
+			if verify then
+				return verify()
+			end
+		end
+	end
+	--- The framework's screen: the scene's root box frame.
+	local function FwScreen(textures)
+		return function()
+			local node = OrdaenCore._ScreenNode("box")
+			return Screen.Of(node and node.frame, textures)
+		end
+	end
+	--- A hand side's screen: its module's Root(size).
+	local function HandScreen(module, textures, size)
+		return function()
+			return Screen.Of(module.Root(size), textures)
+		end
+	end
+
+	--- A block: a spin and its idle series, then its sides in the order given (the same in every round), then every
+	--- side's end state compared with the baseline's (a side: { impl, add = fn }).
 	local function Block(scenario, size, sides)
 		blocks = blocks + 1
 		local number, pass, label = blocks, passName, scenario .. (size ~= "-" and (" " .. size) or "")
 		add(function()
 			progress(string.format("%s · block %d/%d · %s", pass, number, totals.blocks, label))
+			Spin()
 			return true
 		end)
 		add(measure:Series(scenario, size, "-", "idle", IDLE, Nothing))
-		local n, order, names = #sides, {}, {}
-		for k = 0, n - 1 do
-			order[k + 1] = sides[(round + k) % n + 1]
-			names[k + 1] = order[k + 1].impl
+		local names = {}
+		for k = 1, #sides do
+			names[k] = sides[k].impl
 		end
 		local note, m = "order|" .. scenario .. "|" .. size .. "|" .. table.concat(names, ","), measure
 		add(m:Do(function()
 			m:Note(note)
 		end))
-		for k = 1, n do
-			order[k].add()
+		for k = 1, #sides do
+			sides[k].add()
 		end
+		add(function()
+			for _, metric in ipairs(seenKeys) do
+				local ended = seen[metric]
+				local reference = ended[BEST]
+				for _, impl in ipairs(COMPARED) do
+					local value = ended[impl]
+					if value ~= nil then
+						local ok, why
+						if reference == nil then
+							ok, why = false, "no baseline to compare with"
+						elseif type(value) == "table" then
+							ok, why = Screen.Same(value, reference)
+						else
+							ok, why = value == reference, tostring(value) .. ", the baseline " .. tostring(reference)
+						end
+						m:Record(scenario, size, impl, metric .. " (same as baseline)", 0, 0, 0, 0, 0, 1, m:Verdict(ok, why))
+					end
+				end
+				seen[metric] = nil
+			end
+			for i = #seenKeys, 1, -1 do
+				seenKeys[i] = nil
+			end
+			return true
+		end)
 	end
 
 	--- A framework-engine side: the stub backend swapped in before it, the real one back after, and a check that
@@ -131,9 +206,11 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 			Show(scene)
 		end }))
 	end
-	--- A hand side's make (once: hand code makes new frames every time, and WoW never frees one).
-	local function HandMake(scenario, size, impl, make)
-		add(measure:Series(scenario, size, impl, "make", 1, make, { kept = true }))
+	--- A hand side's make (once: hand code makes new frames every time, and WoW never frees one). `release` (for a
+	--- make that replaces module state) drops the last make's state in the untimed frame before, so kept KB is this
+	--- make's own and not minus the state it orphans.
+	local function HandMake(scenario, size, impl, make, release)
+		add(measure:Series(scenario, size, impl, "make", 1, make, { kept = true, prepare = release }))
 	end
 	--- A hand side's close: show untimed, then hide timed (hidden after).
 	local function HandClose(scenario, size, impl, ShowIt, HideIt)
@@ -141,14 +218,14 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 	end
 
 	local texts = {}
-	--- The framework drew `values` in order (first, middle, last checked).
+	--- The framework drew `values` in order (every cell).
 	local function ShowsValues(values, count)
 		return function()
 			local n = OrdaenCore._ScreenTexts(texts)
 			if n ~= count then
 				return false, n .. " texts on screen, not " .. count
 			end
-			for _, i in ipairs({ 1, math.floor(n / 2), n }) do
+			for i = 1, n do
 				if texts[i] ~= tostring(values[i]) then
 					return false, "cell " .. i .. " shows " .. tostring(texts[i]) .. ", not " .. tostring(values[i])
 				end
@@ -191,21 +268,24 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 					FwMake("signals", size, FW, scene)
 					add(measure:Series("signals", size, FW, metric, FRAMES, Writes(function(k)
 						refs[scene].Write(k)
-					end, flush)))
+					end, flush), { verify = Seen(metric, FW, function()
+						return refs[scene].Checksum()
+					end) }))
 					FwClose("signals", size, FW, scene)
 				end },
 				{ impl = BEST, add = function()
 					HandMake("signals", size, BEST, function()
 						Best.signals.Make(size)
-					end)
+					end, Best.signals.Release)
 					add(measure:Series("signals", size, BEST, metric, FRAMES, Writes(Best.signals.Write,
-						Best.signals.Flush)))
+						Best.signals.Flush), { verify = Seen(metric, BEST, Best.signals.Checksum) }))
 				end },
 				{ impl = TYPICAL, add = function()
 					HandMake("signals", size, TYPICAL, function()
 						Typical.signals.Make(size)
-					end)
-					add(measure:Series("signals", size, TYPICAL, metric, FRAMES, Writes(Typical.signals.Write)))
+					end, Typical.signals.Release)
+					add(measure:Series("signals", size, TYPICAL, metric, FRAMES, Writes(Typical.signals.Write),
+						{ verify = Seen(metric, TYPICAL, Typical.signals.Checksum) }))
 				end },
 			})
 		end
@@ -269,12 +349,15 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 				add(measure:Series("fanout", "-", FW, "1 change/frame", FRAMES, function()
 					refs.fanout.Bump()
 					flush()
-				end))
+				end, { verify = Seen("1 change/frame", FW, function()
+					return refs.fanout.Checksum()
+				end) }))
 				FwClose("fanout", "-", FW, "fanout")
 			end },
 			{ impl = BEST, add = function()
-				HandMake("fanout", "-", BEST, Best.fanout.Make)
-				add(measure:Series("fanout", "-", BEST, "1 change/frame", FRAMES, Best.fanout.Bump))
+				HandMake("fanout", "-", BEST, Best.fanout.Make, Best.fanout.Release)
+				add(measure:Series("fanout", "-", BEST, "1 change/frame", FRAMES, Best.fanout.Bump,
+					{ verify = Seen("1 change/frame", BEST, Best.fanout.Checksum) }))
 			end },
 		})
 
@@ -309,7 +392,7 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 						OrdaenCore._FireEvent("BAG_UPDATE", rng:Next(5))
 					end
 					flush()
-				end))
+				end, { verify = Seen("20 BAG_UPDATE/frame", FW, FwScreen()) }))
 				FwClose("events", "-", FW, "events")
 			end },
 			{ impl = BEST, add = function()
@@ -320,7 +403,7 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 						Best.events.OnBagUpdate(rng:Next(5))
 					end
 					Best.events.Flush()
-				end))
+				end, { verify = Seen("20 BAG_UPDATE/frame", BEST, HandScreen(Best.events)) }))
 				add(measure:Do(Best.events.Hide))
 			end },
 		})
@@ -355,7 +438,7 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 					add(measure:Series("grid", size, impl, "one changed", REPEATS, OneChanged(function(k, v)
 						refs[mounted].SetOne(k, v)
 						flush()
-					end)))
+					end), { verify = not engine and Seen("one changed", impl, FwScreen(true)) or nil }))
 					local all, values = AllChanged(function(values)
 						local ref = refs[mounted]
 						for k = 1, count do
@@ -364,7 +447,8 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 						flush()
 					end)
 					add(measure:Series("grid", size, impl, "all changed", REPEATS, all,
-						{ verify = not engine and ShowsValues(values, count) or nil }))
+						{ verify = not engine and Seen("all changed", impl, FwScreen(true), ShowsValues(values, count))
+							or nil }))
 					FwClose("grid", size, impl, mounted)
 					add(measure:Series("grid", size, impl, "open+close (remount)", HEAVY, function()
 						Show(mounted)
@@ -391,13 +475,15 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 					add(measure:Series("grid", size, impl, "steady (shown, unchanged)", STEADY, Nothing))
 					add(measure:Series("grid", size, impl, "one changed", REPEATS, OneChanged(function(k, v)
 						Grid.SetOne(size, k, v)
-					end)))
+					end), { verify = Seen("one changed", impl, HandScreen(Grid, true, size)) }))
 					local all, values = AllChanged(function(values)
 						Grid.SetAll(size, values)
 					end)
-					add(measure:Series("grid", size, impl, "all changed", REPEATS, all, { verify = function()
-						return Grid.Verify(size, values)
-					end }))
+					add(measure:Series("grid", size, impl, "all changed", REPEATS, all, {
+						verify = Seen("all changed", impl, HandScreen(Grid, true, size), function()
+							return Grid.Verify(size, values)
+						end),
+					}))
 					HandClose("grid", size, impl, function()
 						Grid.Show(size)
 					end, function()
@@ -422,13 +508,13 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 		-- ticker: texts changed every frame
 		for _, size in ipairs({ "small", "large" }) do
 			local scene = "ticker-" .. size
-			local function Framework(impl, mounted)
+			local function Framework(impl, mounted, engine)
 				return function()
 					FwMake("ticker", size, impl, mounted)
 					add(measure:Series("ticker", size, impl, "all texts/frame", FRAMES, function()
 						refs[mounted].Tick()
 						flush()
-					end))
+					end, { verify = engine == nil and Seen("all texts/frame", impl, FwScreen()) or nil }))
 					FwClose("ticker", size, impl, mounted)
 				end
 			end
@@ -439,7 +525,7 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 					end)
 					add(measure:Series("ticker", size, impl, "all texts/frame", FRAMES, function()
 						Ticker.Tick(size)
-					end))
+					end, { verify = Seen("all texts/frame", impl, HandScreen(Ticker, false, size)) }))
 					HandClose("ticker", size, impl, function()
 						Ticker.Show(size)
 					end, function()
@@ -450,7 +536,7 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 			Block("ticker", size, {
 				{ impl = FW, add = Framework(FW, scene) },
 				{ impl = FW_NAIVE, add = Framework(FW_NAIVE, scene .. "-naive") },
-				{ impl = FW_ENGINE, add = UnderStub("ticker", size, Framework(FW_ENGINE, scene)) },
+				{ impl = FW_ENGINE, add = UnderStub("ticker", size, Framework(FW_ENGINE, scene, true)) },
 				{ impl = BEST, add = ByHand(BEST, Best.ticker) },
 				{ impl = TYPICAL, add = ByHand(TYPICAL, Typical.ticker) },
 			})
@@ -481,7 +567,7 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 					add(measure:Series("reorder", "-", impl, operation, REPEATS, function()
 						refs.reorder[operation]()
 						flush()
-					end, { verify = verify }))
+					end, { verify = not engine and Seen(operation, impl, FwScreen(), verify) or nil }))
 				end
 				FwClose("reorder", "-", impl, "reorder")
 			end
@@ -490,7 +576,8 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 			return function()
 				HandMake("reorder", "-", impl, Reorder.Make)
 				for _, operation in ipairs(OPERATIONS) do
-					add(measure:Series("reorder", "-", impl, operation, REPEATS, Reorder[operation]))
+					add(measure:Series("reorder", "-", impl, operation, REPEATS, Reorder[operation],
+						{ verify = Seen(operation, impl, HandScreen(Reorder)) }))
 				end
 				HandClose("reorder", "-", impl, Reorder.Show, Reorder.Hide)
 			end
@@ -510,13 +597,15 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 				add(measure:Series("deep", "-", impl, "leaf signal changed", REPEATS, function(i)
 					refs.deep.SetSource(i)
 					flush()
-				end, { verify = Grew("renders", REPEATS) }))
+				end, { verify = engine and Grew("renders", REPEATS)
+					or Seen("leaf signal changed", impl, FwScreen(), Grew("renders", REPEATS)) }))
+				local function LeafValue()
+					return counters.leafValue == REPEATS, "the leaf got " .. tostring(counters.leafValue)
+				end
 				add(measure:Series("deep", "-", impl, "value through 100 levels", REPEATS, function(i)
 					refs.deep.SetValue(i)
 					flush()
-				end, { verify = function()
-					return counters.leafValue == REPEATS, "the leaf shows " .. tostring(counters.leafValue)
-				end }))
+				end, { verify = engine and LeafValue or Seen("value through 100 levels", impl, FwScreen(), LeafValue) }))
 				if engine then
 					FwClose("deep", "-", impl, "deep")
 				else
@@ -534,8 +623,10 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 			{ impl = FW_ENGINE, add = UnderStub("deep", "-", DeepFramework(FW_ENGINE, true)) },
 			{ impl = BEST, add = function()
 				HandMake("deep", "-", BEST, Best.deep.Make)
-				add(measure:Series("deep", "-", BEST, "leaf signal changed", REPEATS, Best.deep.SetSource))
-				add(measure:Series("deep", "-", BEST, "value through 100 levels", REPEATS, Best.deep.SetValue))
+				add(measure:Series("deep", "-", BEST, "leaf signal changed", REPEATS, Best.deep.SetSource,
+					{ verify = Seen("leaf signal changed", BEST, HandScreen(Best.deep)) }))
+				add(measure:Series("deep", "-", BEST, "value through 100 levels", REPEATS, Best.deep.SetValue,
+					{ verify = Seen("value through 100 levels", BEST, HandScreen(Best.deep)) }))
 				HandClose("deep", "-", BEST, Best.deep.Show, Best.deep.Hide)
 			end },
 		})
@@ -544,26 +635,26 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 		-- its change on the framework, on the stub (the engine alone) and by hand, from the same random sequence.
 		local COMMON = {
 			{ name = "resize", metric = "window resized (300-700)", draw = function(rng, set) set(299 + rng:Next(400)) end,
-				fw = "SetWidth", hand = Best.resize.SetWidth },
+				fw = "SetWidth", hand = Best.resize.SetWidth, textures = true },
 			{ name = "columns", metric = "column count changed (6-14)", draw = function(rng, set) set(5 + rng:Next(9)) end,
-				fw = "SetColumns", hand = Best.columns.SetColumns },
+				fw = "SetColumns", hand = Best.columns.SetColumns, textures = true },
 			{ name = "grow", metric = "50 texts new length (1-30)", draw = function(rng, set)
 				for r = 1, 50 do
 					set(r, rng:Next(30))
 				end
-			end, fw = "SetLength", hand = Best.grow.SetLength },
+			end, fw = "SetLength", hand = Best.grow.SetLength, textures = true },
 			{ name = "rows", metric = "row count changed (50-150)", draw = function(rng, set) set(49 + rng:Next(101)) end,
 				fw = "SetCount", hand = Best.rows.SetCount },
 			{ name = "filter", metric = "filter shifted", draw = function(rng, set) set(rng:Next(1000)) end,
 				fw = "SetShift", hand = Best.filter.SetShift },
 			{ name = "drag", metric = "moved", frames = true, draw = function(rng, set)
 				set(100 + rng:Next(400), 100 + rng:Next(300))
-			end, fw = "Move", hand = Best.drag.Move },
+			end, fw = "Move", hand = Best.drag.Move, textures = true },
 			{ name = "bars", metric = "20 fills changed", frames = true, draw = function(rng, set)
 				for i = 1, 20 do
 					set(i, rng:Next(100))
 				end
-			end, fw = "SetFill", hand = Best.bars.SetFill },
+			end, fw = "SetFill", hand = Best.bars.SetFill, textures = true },
 			{ name = "sections", metric = "a section toggled", draw = function(rng, set) set(rng:Next(20)) end,
 				fw = "Toggle", hand = Best.sections.Toggle },
 		}
@@ -577,7 +668,7 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 				return { { metric = c.metric, count = count, fn = function()
 					c.draw(rng, set)
 					flush()
-				end } }
+				end, verify = Seen(c.metric, FW, FwScreen(c.textures)) } }
 			end
 			local hand = Best[c.name]
 			Block(c.name, "-", {
@@ -589,7 +680,7 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 					local rng = Random.New()
 					add(measure:Series(c.name, "-", BEST, c.metric, count, function()
 						c.draw(rng, c.hand)
-					end))
+					end, { verify = Seen(c.metric, BEST, HandScreen(hand, c.textures)) }))
 					add(measure:Do(hand.Hide))
 				end },
 			})
@@ -600,20 +691,21 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 			return function()
 				FwMake("tooltip", "-", impl, "tooltip")
 				local rng = Random.New()
+				local engine = impl == FW_ENGINE
 				add(measure:Series("tooltip", "-", impl, "show with new content", REPEATS, function()
 					refs.tooltip.ShowWith(rng:Next(1000))
 					flush()
 				end, { prepare = function()
 					refs.tooltip.Hide()
 					flush()
-				end }))
+				end, verify = not engine and Seen("show with new content", impl, FwScreen(true)) or nil }))
 				add(measure:Series("tooltip", "-", impl, "hide", REPEATS, function()
 					refs.tooltip.Hide()
 					flush()
 				end, { prepare = function()
 					refs.tooltip.ShowWith(7)
 					flush()
-				end }))
+				end, verify = not engine and Seen("hide", impl, FwScreen(true)) or nil }))
 				FwClose("tooltip", "-", impl, "tooltip")
 			end
 		end
@@ -625,10 +717,11 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 				local rng = Random.New()
 				add(measure:Series("tooltip", "-", BEST, "show with new content", REPEATS, function()
 					Best.tooltip.ShowWith(rng:Next(1000))
-				end, { prepare = Best.tooltip.Hide }))
+				end, { prepare = Best.tooltip.Hide,
+					verify = Seen("show with new content", BEST, HandScreen(Best.tooltip, true)) }))
 				add(measure:Series("tooltip", "-", BEST, "hide", REPEATS, Best.tooltip.Hide, { prepare = function()
 					Best.tooltip.ShowWith(7)
-				end }))
+				end, verify = Seen("hide", BEST, HandScreen(Best.tooltip, true)) }))
 			end },
 		})
 
@@ -663,9 +756,13 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 							hoverFrames[k] = hoverNodes[i].frame
 						end
 					end
+					for i = #hoverFrames, k + 1, -1 do
+						hoverFrames[i] = nil
+					end
 				end))
 				local move, current = Hovers(hoverFrames, flush)
-				add(measure:Series("hover", "-", FW, "hovered item changed", FRAMES, move, { verify = function()
+				add(measure:Series("hover", "-", FW, "hovered item changed", FRAMES, move, { verify = Seen(
+					"hovered item changed", FW, FwScreen(), function()
 					if #hoverFrames ~= 100 then
 						return false, #hoverFrames .. " hoverable cells, not 100"
 					end
@@ -686,12 +783,17 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 						end
 					end
 					return lit == 1, lit .. " cells lit, not 1"
-				end }))
+				end) }))
 				FwClose("hover", "-", FW, "hover")
 			end },
 			{ impl = BEST, add = function()
 				HandMake("hover", "-", BEST, Best.hover.Make)
-				add(measure:Series("hover", "-", BEST, "hovered item changed", FRAMES, (Hovers(Best.hover.Cells()))))
+				add(measure:Series("hover", "-", BEST, "hovered item changed", FRAMES, (Hovers(Best.hover.Cells())), {
+					verify = Seen("hovered item changed", BEST, HandScreen(Best.hover), function()
+						local lit = Best.hover.Lit()
+						return lit == 1, lit .. " cells lit, not 1"
+					end),
+				}))
 				add(measure:Do(Best.hover.Hide))
 			end },
 		})

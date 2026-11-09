@@ -7,9 +7,11 @@
 -- - Lua: debugprofilestop around the call. It misses work WoW defers to drawing (anchors, text layout).
 -- - Frame: from the call's start to the next frame's start: the deferred work included, with everything else the
 --   client does in a frame (the report reads it above the block's idle frame).
--- Medians and the 95th percentile. Garbage collection never runs inside a timed call: the collector is stopped
--- around it where the client allows (else a full collection runs just before), so KB is exactly the call's net heap
--- growth. Before every measurement an untimed full collection. The first WARMUP calls of a series stay out of the
+-- Medians and the 95th percentile. No garbage collection anywhere in a series: a full collection in its untimed
+-- first frame, then the collector stays stopped through every frame of it (prepare frames, warm-up and measured
+-- calls) until its result is recorded, so neither time holds collector work and KB is exactly each call's net heap
+-- growth. What collecting a scenario's garbage costs is a bench of its own. Where the client can't stop the
+-- collector, a full collection runs before each call instead. The first WARMUP calls of a series stay out of the
 -- numbers. A step that hits the scheduler's pass cap (it didn't finish propagating) fails, whatever its time.
 local format, sort, find = string.format, table.sort, string.find
 local debugprofilestop, collectgarbage = debugprofilestop, collectgarbage
@@ -18,19 +20,19 @@ local Driver = {}
 
 local canStop = pcall(collectgarbage, "stop") and pcall(collectgarbage, "restart")
 
---- How the collector is kept out of timed calls: "stop" (its work for a call's garbage lands in that frame) or
---- "collect" (a full collection before each call; frame times then hold no GC).
+--- How the collector is kept out of a series: "stop" (stopped from its first frame to its record) or "collect" (a
+--- full collection before each call).
 Driver.collector = canStop and "stop" or "collect"
 
-local function Quiet()
+-- A full collection, then the collector stopped (a full collection restarts it in Lua 5.1, so stop it again).
+local function CollectAndStop()
+	collectgarbage("collect")
 	if canStop then
 		collectgarbage("stop")
-	else
-		collectgarbage("collect")
 	end
 end
 
-local function Resume()
+local function Restart()
 	if canStop then
 		collectgarbage("restart")
 	end
@@ -77,6 +79,7 @@ function Driver.Run(steps, done)
 		local step = steps[index]
 		if not step then
 			frame:SetScript("OnUpdate", nil)
+			Restart() -- a series that errored left the collector stopped
 			seterrorhandler(previous)
 			running = false
 			done()
@@ -154,12 +157,12 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 			end
 			started = nil
 			if kept then
-				collectgarbage("collect")
+				CollectAndStop()
 				keptKb = collectgarbage("count") - base
 			end
 		end
 		if i == 0 and not prepared then -- the series' first frame: untimed
-			collectgarbage("collect")
+			CollectAndStop()
 			kb, capStart = 0, capHits
 			if prepare then
 				prepare(1)
@@ -177,6 +180,7 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 			self:Record(scenario, size, impl, metric, Percentile(lua, measured, 0.5), Percentile(lua, measured, 0.95),
 				Percentile(frames, measured, 0.5), Percentile(frames, measured, 0.95), kb / measured, measured, check,
 				keptKb)
+			Restart()
 			i, prepared = 0, false
 			return true
 		end
@@ -187,17 +191,15 @@ function Measure:Series(scenario, size, impl, metric, count, fn, options)
 		end
 		i = i + 1
 		prepared = prepare == nil -- with no preparing, the next call comes in the next frame
-		if kept then
-			collectgarbage("collect")
+		if kept or not canStop then
+			CollectAndStop()
 			base = collectgarbage("count")
 		end
-		Quiet()
 		local before = collectgarbage("count")
 		local start = debugprofilestop()
 		fn(i)
 		local ms = debugprofilestop() - start
 		local grew = collectgarbage("count") - before
-		Resume()
 		started = start
 		if i > skip then
 			lua[i - skip] = ms

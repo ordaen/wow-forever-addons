@@ -41,4 +41,9 @@ function Rows.Hide()
 	list:Hide()
 end
 
+--- The frame the screen check reads (bench/screen.lua).
+function Rows.Root()
+	return list
+end
+
 return Rows

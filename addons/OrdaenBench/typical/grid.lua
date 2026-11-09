@@ -52,11 +52,11 @@ function Grid.SetAll(size, values)
 	end
 end
 
---- Whether the counts show what SetAll(size, values) wrote: the first, middle and last cell.
+--- Whether the counts show what SetAll(size, values) wrote: every cell.
 function Grid.Verify(size, values)
 	local list = cells[size]
 	local n = #list
-	for _, i in ipairs({ 1, floor(n / 2), n }) do
+	for i = 1, n do
 		local shown = list[i].count:GetText()
 		if shown ~= tostring(values[i]) then
 			return false, "cell " .. i .. " shows " .. tostring(shown)
@@ -71,6 +71,11 @@ end
 
 function Grid.Hide(size)
 	grids[size]:Hide()
+end
+
+--- The frame the screen check reads (bench/screen.lua).
+function Grid.Root(size)
+	return grids[size]
 end
 
 return Grid

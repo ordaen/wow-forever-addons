@@ -11,12 +11,14 @@ local Signals = {}
 
 local values, first, feeds, watchers, stamp, queue
 local queued, frame, nValues = 0, 1, 0
-local sink
+local out -- each watch's last result: the bench's checksum
+local nWatches = 0
 
 function Signals.Make(size)
 	local s = SIZES[size]
 	nValues = s.values
-	values, watchers, stamp, queue = {}, {}, {}, {}
+	values, watchers, stamp, queue, out = {}, {}, {}, {}, {}
+	nWatches = s.watches
 	queued, frame = 0, 1
 	local lists = {} -- per value, only while building
 	for i = 1, s.values do
@@ -36,8 +38,9 @@ function Signals.Make(size)
 		feed(c, w)
 		feed(c2, w)
 		feed(c3, w)
+		local results = out
 		watchers[w] = function()
-			sink = vals[a] + vals[b] + vals[c] + vals[c2] + vals[c3]
+			results[w] = vals[a] + vals[b] + vals[c] + vals[c2] + vals[c3]
 		end
 		stamp[w] = 0
 	end
@@ -77,6 +80,19 @@ function Signals.Flush()
 	end
 	queued = 0
 	frame = frame + 1
+end
+
+function Signals.Checksum()
+	local sum = 0
+	for w = 1, nWatches do
+		sum = sum + (out[w] or 0)
+	end
+	return sum
+end
+
+--- Drop what the last make built (untimed, before the next make: its kept KB is then its own).
+function Signals.Release()
+	values, first, feeds, watchers, stamp, queue, out = nil, nil, nil, nil, nil, nil, nil
 end
 
 return Signals

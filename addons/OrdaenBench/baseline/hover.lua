@@ -46,6 +46,17 @@ function Hover.Make()
 	end
 end
 
+--- How many highlights show (the bench's check: one).
+function Hover.Lit()
+	local n = 0
+	for i = 1, #cells do
+		if cells[i].highlight:IsShown() then
+			n = n + 1
+		end
+	end
+	return n
+end
+
 --- The frames the bench hovers, in order.
 function Hover.Cells()
 	return cells
@@ -53,6 +64,11 @@ end
 
 function Hover.Hide()
 	holder:Hide()
+end
+
+--- The frame the screen check reads (bench/screen.lua).
+function Hover.Root()
+	return holder
 end
 
 return Hover

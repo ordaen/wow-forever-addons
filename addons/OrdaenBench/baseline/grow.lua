@@ -49,4 +49,9 @@ function Grow.Hide()
 	holder:Hide()
 end
 
+--- The frame the screen check reads (bench/screen.lua).
+function Grow.Root()
+	return holder
+end
+
 return Grow

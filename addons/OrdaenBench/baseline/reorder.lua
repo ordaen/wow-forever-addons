@@ -36,6 +36,7 @@ local function Place()
 end
 
 function Reorder.Make()
+	ids, nextId, textOf, slotOf, pool, seed = {}, ROWS + 1, {}, {}, {}, 1
 	frame = CreateFrame("Frame", nil, UIParent)
 	frame:SetSize(120, ROWS * LINE)
 	frame:SetPoint("RIGHT", -40, 0)
@@ -90,6 +91,11 @@ end
 
 function Reorder.Hide()
 	frame:Hide()
+end
+
+--- The frame the screen check reads (bench/screen.lua).
+function Reorder.Root()
+	return frame
 end
 
 return Reorder

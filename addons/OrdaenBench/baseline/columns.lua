@@ -46,4 +46,9 @@ function Columns.Hide()
 	window:Hide()
 end
 
+--- The frame the screen check reads (bench/screen.lua).
+function Columns.Root()
+	return window
+end
+
 return Columns

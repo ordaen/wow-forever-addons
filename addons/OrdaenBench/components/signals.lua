@@ -32,16 +32,23 @@ return Define.Component({
 				return a:Get() + b:Get() + d:Get()
 			end)
 		end
-		local sink = 0
+		local out = {} -- each watch's last result: the bench's checksum
 		for w = 1, s.watches do
 			local a, b, c = values[w], values[(w * 7) % s.values + 1], sums[(w % s.sums) + 1]
 			self:Watch(function()
-				sink = a:Get() + b:Get() + c:Get()
+				out[w] = a:Get() + b:Get() + c:Get()
 			end)
 		end
 		return {
 			public = {
 				functions = {
+					Checksum = function()
+						local sum = 0
+						for w = 1, s.watches do
+							sum = sum + (out[w] or 0)
+						end
+						return sum
+					end,
 					Write = function(k)
 						local value = values[(k - 1) % s.values + 1]
 						value:Set(value:Peek() + 1)

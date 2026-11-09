@@ -137,6 +137,8 @@ local function Parse(lines)
 					round.build[k] = v
 				end
 			end
+		elseif f[1] == "mode" then
+			round.mode = f[2]
 		elseif f[1] == "errors" then
 			round.errors = { count = tonumber(f[2]) or 0, first = f[3] or "" }
 		elseif f[1] == "addons" then
@@ -186,7 +188,9 @@ local NOTES = {
 	"**Engine / backend:** the framework row's Lua time on the stub backend (the engine alone) and the rest (the"
 		.. " drawing backend's share). Lua only: the stub draws nothing, so its frame times mean nothing. The stub's"
 		.. " empty calls (about 0.1 ms per 1000) count as engine time, so the backend's share reads slightly low.",
-	"**Net KB:** Lua heap growth per call with the collector stopped (negative: a call that frees). **Kept KB** (make"
+	"**Net KB:** Lua heap growth per call (negative: a call that frees). The collector is stopped through every"
+		.. " series, so no time holds collector work; what collecting a scenario's garbage costs is a bench of its"
+		.. " own. **Kept KB** (make"
 		.. " rows): what stays after a full collection. The Lua heap only: WoW frames' own memory is invisible to every"
 		.. " side.",
 	"**¹** a single sample (a first opening, a hand make): its frame time is one frame's, not a median.",
@@ -210,8 +214,13 @@ local READING = {
 	"**framework-naive:** grid and ticker written as code reads without the build's lifting and hoisting: new tables"
 		.. " and a new slot function every call. Its rows include lost skipping (a new slot function re-renders the"
 		.. " child), not only allocation.",
-	"**grid steady:** the grid on screen with nothing changing. \"≈ idle\" means the CPU pays nothing for drawing it"
-		.. " at this frame rate (the GPU may); not that drawing is free on every machine.",
+	"**grid steady:** the grid on screen with nothing changing. \"≈ idle\" means drawing it adds nothing to the main"
+		.. " thread's frame (what an addon costs players' frames); WoW's render threads can still do work their slack"
+		.. " hides, so not that drawing is free.",
+	"**Same as baseline:** after each block, what every side ended on (its texts and where their glyphs sit; the"
+		.. " textures' rects where the scenario draws shapes; a checksum of every watch's result where nothing is"
+		.. " drawn) is compared with the baseline's. Both ran the same seeded actions, so a side that skipped work or"
+		.. " drew something else fails, whatever its time.",
 	"**deep, value through 100 levels:** the framework hands the value down as an attribute through every level;"
 		.. " hand code sets the one text directly. Intended: it shows what passing attributes costs.",
 	"**rows, filter, tooltip, sections:** the framework releases the nodes of what goes away and takes them (from its"
@@ -248,7 +257,7 @@ end
 --- same resolution and render scale, so those aren't recorded).
 local function Comparable(a, b)
 	local ba, bb = a.round.build or {}, b.round.build or {}
-	return Clean(a) and Clean(b) and ba.graphicsQuality == bb.graphicsQuality
+	return Clean(a) and Clean(b) and ba.graphics ~= nil and ba.graphics == bb.graphics
 		and ba.zone == bb.zone and ba.subzone == bb.subzone
 end
 
@@ -328,6 +337,12 @@ local function Model(id, saved, previous)
 		head(string.format("Run with: collector %s, useMaxFPS %s (maxFPS %s), vsync %s.%s",
 			settings.collector or "?", settings.useMaxFPS or "?", settings.maxFPS or "?", settings.vsync or "?",
 			capped and " **Frame times are capped (maxFPS or vsync): don't trust them.**" or ""))
+	end
+	local build = round.build
+	if build then
+		head(string.format("Built: Core %s, Bench %s (profiles). Where: %s%s. Graphics: %s.", build.core or "?",
+			build.bench or "?", build.zone or "?", (build.subzone or "") ~= "" and (", " .. build.subzone) or "",
+			build.graphics or build.graphicsQuality or "?"))
 	end
 	if round.addons then
 		head(string.format("Loaded addons (%d): %s.", #round.addons, table.concat(round.addons, ", ")))
@@ -526,7 +541,7 @@ local function Markdown(entry)
 	add("")
 	add("## Order of the sides")
 	add("")
-	add("Which side of each block ran first, second, ... in this round (it rotates with each round).")
+	add("Which side of each block ran first, second, ...: the same order in every round.")
 	add("")
 	for _, line in ipairs(entry.orders) do
 		add("- " .. line)
@@ -546,6 +561,26 @@ end
 local path = FindSaved(arg and arg[1])
 assert(path, "no OrdaenBench.lua under " .. DEFAULT_WTF)
 local round, results = Parse(Load(path))
+if round.mode == "check" then
+	-- a check run (`/obench check`): its checks reported, never recorded
+	local failed, passed = {}, 0
+	for _, r in ipairs(results) do
+		if r.check and r.check:match("^FAIL") then
+			failed[#failed + 1] = string.format("  %s %s %s (%s): %s", r.scenario, r.size, r.metric, r.impl, r.check)
+		elseif r.check == "ok" then
+			passed = passed + 1
+		end
+	end
+	local errors = round.errors and round.errors.count or 0
+	print(string.format("check run: %d checks passed, %d failed, %d errors (not recorded)", passed, #failed, errors))
+	if errors > 0 then
+		print("  first errors: " .. round.errors.first)
+	end
+	if #failed > 0 then
+		print(table.concat(failed, "\n"))
+	end
+	os.exit((#failed > 0 or errors > 0) and 1 or 0)
+end
 -- a round is recorded only as players would run it: the Core and the bench built with the bench profile (release
 -- stripping, the bench's dev file kept), and the debug addon not loaded
 local profile = round.build and round.build.core or "?"
