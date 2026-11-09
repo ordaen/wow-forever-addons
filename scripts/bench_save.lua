@@ -1,6 +1,6 @@
--- Save the last OrdaenBench round (/obench in game, then /reload) to bench/results/<date>_<time>.json and rewrite
--- bench/README.md: the latest round, framework against hand-written code with the source size of each, and the
--- change against the round before. Run from the repo root: ordaen lua scripts/bench_save.lua [SavedVariables dir]
+-- Save the last OrdaenBench round (/obench in game, then /reload) to bench/results/<date>_<time>.json, then rewrite
+-- bench/report.json (every round, computed: tables, changes, improvements and regressions) and bench/README.md (the
+-- newest round). Run from the repo root: ordaen lua scripts/bench_save.lua [SavedVariables dir]
 --
 -- A round's file holds what the game recorded (bench/driver.lua's structured lines), the builds the game ran
 -- (dist/<Addon>/build.json: commit, branch, uncommitted changes) and the size of each scenario's code on both sides
@@ -150,15 +150,55 @@ local function Parse(lines)
 	return round, results
 end
 
--- The README ------------------------------------------------------------------------------------------------------
+-- The report ------------------------------------------------------------------------------------------------------
+-- Each round becomes one entry of bench/report.json: its header, its tables as display cells, and its changes against
+-- the newest earlier comparable round, sorted into improvements and regressions. bench/README.md (the newest round)
+-- and the design site's bench page (every round) both render these entries, so neither formats a number itself.
 
-local LUA_FLOOR = 0.01 -- ms: below it a Lua time is timer noise, so it shows as "<0.01" and gives no factor
+local LUA_FLOOR = 0.01 -- ms: below it a Lua time is timer noise: shown as "<0.01", no factor, no change
+local CHANGE = 0.10 -- a change smaller than 10% is neither an improvement nor a regression
+
+local COLUMNS = {
+	"Scenario", "Size", "Metric", "Framework Lua", "Engine", "Backend", "Frame", "Best Lua", "Frame", "Typical Lua",
+	"Frame", "× best Lua", "× best frame", "× typical Lua", "Net KB", "Kept KB", "Change Lua", "Change frame", "Check",
+}
+local HAND_COLUMNS = { "Scenario", "Size", "Metric", "Side", "Lua", "Frame", "Kept KB" }
+local SOURCE_COLUMNS = { "Scenario", "Framework lines", "Best lines", "Typical lines", "Framework chars", "Best chars",
+	"Typical chars" }
+
+local NOTES = {
+	"**Lua:** the call's own time (debugprofilestop). Below " .. LUA_FLOOR .. " ms it is timer noise: no factor.",
+	"**Frame:** from the call's start to the next frame, the work WoW defers to drawing included, minus the block's"
+		.. " idle frame (each block starts with one). \"≈ idle\" is within the idle frames' own spread (p95 above"
+		.. " median): no factor.",
+	"**Engine / backend:** the framework row's Lua time on the stub backend (the engine alone) and the rest (the"
+		.. " drawing backend's share). Lua only: the stub draws nothing, so its frame times mean nothing. The stub's"
+		.. " empty calls (about 0.1 ms per 1000) count as engine time, so the backend's share reads slightly low.",
+	"**Net KB:** Lua heap growth per call with the collector stopped (negative: a call that frees). **Kept KB** (make"
+		.. " rows): what stays after a full collection. The Lua heap only: WoW frames' own memory is invisible to every"
+		.. " side.",
+	"**¹** a single sample (a first opening, a hand make): its frame time is one frame's, not a median.",
+	"**Change:** against the newest earlier round with clean builds on the same display; an improvement or a"
+		.. " regression is a change of " .. CHANGE * 100 .. "% or more (frame changes also beyond the idle spread).",
+}
+local READING = {
+	"**One /obench:** a cold block first (the large grid opened on every side while the session is fresh), then the"
+		.. " whole plan untracked (one-time costs: fonts, first textures, Blizzard code), then the whole plan measured.",
+	"**make (pool warm):** the framework opened again after closing, its frames back from the pools; hand code makes"
+		.. " new frames every time. **make (cold)** compares the first opening on every side.",
+	"**grid close and open+close:** the framework unmounts and mounts again (the MVP has no hidden attribute); hand"
+		.. " code hides and shows (\"By hand only\"). Not the same operation: no factor.",
+	"**grid steady:** the grid on screen with nothing changing. \"≈ idle\" means the CPU pays nothing for drawing it"
+		.. " at this frame rate (the GPU may); not that drawing is free on every machine.",
+	"**deep, value through 100 levels:** the framework hands the value down as an attribute through every level;"
+		.. " hand code sets the one text directly. Intended: it shows what passing attributes costs.",
+}
 
 local function Key(r)
 	return r.scenario .. "|" .. r.size .. "|" .. r.metric
 end
 
-local function Rounds()
+local function RoundFiles()
 	local list = {}
 	for _, name in ipairs(fs.List(RESULTS)) do
 		if name:match("%.json$") then
@@ -169,22 +209,23 @@ local function Rounds()
 	return list
 end
 
---- Rounds compare only when both ran clean builds on the same display.
-local function Comparable(a, b)
-	local function Clean(round)
-		for _, build in pairs(round.builds or {}) do
-			if build.dirty then
-				return false
-			end
+local function Clean(saved)
+	for _, build in pairs(saved.builds or {}) do
+		if build.dirty then
+			return false
 		end
-		return true
 	end
-	local sa, sb = a.round.settings or {}, b.round.settings or {}
-	return Clean(a) and Clean(b) and sa.physical == sb.physical and sa.renderScale == sb.renderScale
+	return true
 end
 
---- Each row's idle: the idle series of its block (the nearest one before it), as { median, noise }; noise is the
---- idle frames' p95 above their median.
+--- Rounds compare only when both ran clean builds on the same display.
+local function Comparable(a, b)
+	local sa, sb = a.round.settings or {}, b.round.settings or {}
+	return Clean(a) and Clean(b) and sa.physical ~= nil and sa.physical == sb.physical
+		and sa.renderScale == sb.renderScale
+end
+
+--- Each row's idle: its block's idle series (the nearest before it), as { median, noise }.
 local function Idles(results)
 	local idle, out = { frameMs = 0, frameP95 = 0 }, {}
 	for i, r in ipairs(results) do
@@ -206,7 +247,7 @@ local function Lua(ms)
 	return string.format("%.3f", ms)
 end
 
---- A frame time above its block's idle, or "≈ idle" within the idle frames' noise.
+--- A frame time above its block's idle (text, number), or "≈ idle" within the idle frames' spread (number nil).
 local function Frame(ms, idle)
 	if not ms then
 		return "", nil
@@ -225,106 +266,81 @@ local function Factor(a, b, floor)
 	return string.format("%.1f", a / b)
 end
 
-local function Readme(round, newest)
-	local rounds = Rounds()
-	local previous
-	for i = #rounds, 1, -1 do
-		if rounds[i] ~= newest then
-			local candidate = json.decode(Read(RESULTS .. "/" .. rounds[i]))
-			if Comparable(round, candidate) then
-				previous = candidate
-				break
-			end
-		end
+local function Percent(new, old)
+	return string.format("%+.0f%%", (new - old) / old * 100)
+end
+
+local function Commit(build)
+	if not build then
+		return "?"
 	end
-	local idles = Idles(round.results)
+	return build.commit .. (build.dirty and " (dirty)" or "")
+end
+
+--- One round's entry: header lines, tables of display cells, and changes against `previous` (or nil).
+local function Model(id, saved, previous)
+	local round, results = saved.round, saved.results
+	local idles = Idles(results)
+	local entry = {
+		id = id, date = round.date, number = round.number, clean = Clean(saved),
+		header = json.array({}), notes = NOTES, reading = READING,
+		columns = COLUMNS, rows = json.array({}),
+		hand = { columns = HAND_COLUMNS, rows = json.array({}) },
+		orders = json.array({}),
+		source = { columns = SOURCE_COLUMNS, rows = json.array({}) },
+		improvements = json.array({}), regressions = json.array({}), failed = 0,
+	}
+	local function head(line)
+		entry.header[#entry.header + 1] = line
+	end
+	head(string.format("Round %s, %s; client %s, %s fps; Core %s, Bench %s.", tostring(round.number), round.date,
+		tostring(round.client), tostring(round.fps), Commit(saved.builds.OrdaenCore), Commit(saved.builds.OrdaenBench)))
+	local settings = round.settings
+	if settings then
+		local capped = settings.useMaxFPS == "1" or settings.vsync == "1"
+		head(string.format("Run with: collector %s, useMaxFPS %s (maxFPS %s), vsync %s, screen %s (UI %s), render scale %s.%s",
+			settings.collector or "?", settings.useMaxFPS or "?", settings.maxFPS or "?", settings.vsync or "?",
+			settings.physical or "?", settings.ui or "?", settings.renderScale or "?",
+			capped and " **Frame times are capped (maxFPS or vsync): don't trust them.**" or ""))
+	end
+	if round.addons then
+		head(string.format("Loaded addons (%d): %s.", #round.addons, table.concat(round.addons, ", ")))
+	end
+	if previous then
+		entry.comparedWith = previous.id
+		head(string.format("Compared with: round %s, %s (Core %s).", tostring(previous.saved.round.number),
+			previous.saved.round.date, Commit(previous.saved.builds.OrdaenCore)))
+	else
+		head("Compared with: no earlier round with clean builds on the same display.")
+	end
+
 	local before = {}
 	if previous then
-		local oldIdles = Idles(previous.results)
-		for i, r in ipairs(previous.results) do
+		local oldIdles = Idles(previous.saved.results)
+		for i, r in ipairs(previous.saved.results) do
 			before[r.impl .. "|" .. Key(r)] = { r = r, idle = oldIdles[i] }
 		end
 	end
 	local others = { baseline = {}, typical = {}, ["framework-engine"] = {} }
-	for i, r in ipairs(round.results) do
+	for i, r in ipairs(results) do
 		if others[r.impl] then
 			others[r.impl][Key(r)] = { r = r, idle = idles[i] }
 		end
 	end
 
-	local out = {}
-	local function add(line)
-		out[#out + 1] = line
-	end
-	add("# Bench")
-	add("")
-	add("Generated by `scripts/bench_save.lua` from the newest round in `results/` (one file per round: the history).")
-	add("Each scenario (`addons/OrdaenBench`) on the framework, by hand at its best (`baseline/`) and, where it differs,")
-	add("as a typical addon writes it (`typical/`); with drawing, also on the framework with a stub backend that draws")
-	add("nothing (the engine alone). Medians in ms, per call or per frame as the metric says.")
-	add("")
-	add("- **Lua:** the call's own time (debugprofilestop). Below " .. LUA_FLOOR .. " ms it is timer noise: no factor.")
-	add("- **Frame:** from the call's start to the next frame, the work WoW defers to drawing included, minus the")
-	add("  block's idle frame (each block starts with one). \"≈ idle\" is within the idle frames' own spread (p95")
-	add("  above median): no factor.")
-	add("- **Engine / backend:** the framework row's Lua time on the stub backend (the engine alone) and the rest")
-	add("  (the drawing backend's share). Lua only: the stub draws nothing, so its frame times mean nothing. The stub's")
-	add("  empty calls (about 0.1 ms per 1000) count as engine time, so the backend's share reads slightly low.")
-	add("- **Net KB:** Lua heap growth per call with the collector stopped (it can be negative: a call that frees).")
-	add("  **Kept KB** (make rows): what stays after a full collection. The Lua heap only: WoW frames' own memory is")
-	add("  invisible to every side.")
-	add("- **Change:** against the newest earlier round with clean builds on the same display.")
-	add("")
-	add("Reading it:")
-	add("")
-	add("- **One /obench:** a cold block first (the large grid opened on every side while the session is fresh), then")
-	add("  the whole plan untracked (one-time costs: fonts, first textures, Blizzard code), then the whole plan measured.")
-	add("- **make (pool warm):** the framework opened again after closing, its frames back from the pools; hand code")
-	add("  makes new frames every time. **make (cold)** compares the first opening on every side.")
-	add("- **grid close and open+close:** the framework unmounts and mounts again (the MVP has no hidden attribute);")
-	add("  hand code hides and shows (\"By hand only\" below). Not the same operation: no factor.")
-	add("- **grid steady:** the grid on screen with nothing changing. \"≈ idle\" means the CPU pays nothing for")
-	add("  drawing it at this frame rate (the GPU may); not that drawing is free on every machine.")
-	add("- **deep, value through 100 levels:** the framework hands the value down as an attribute through every level;")
-	add("  hand code sets the one text directly. Intended: it shows what passing attributes costs.")
-	add("")
-	add(string.format("Newest round: %s (round %s), client %s, %s fps; Core %s, Bench %s.", round.round.date,
-		tostring(round.round.number), round.round.client, tostring(round.round.fps),
-		round.builds.OrdaenCore and (round.builds.OrdaenCore.commit .. (round.builds.OrdaenCore.dirty and " (dirty)" or "")) or "?",
-		round.builds.OrdaenBench and (round.builds.OrdaenBench.commit .. (round.builds.OrdaenBench.dirty and " (dirty)" or "")) or "?"))
-	local settings = round.round.settings
-	if settings then
-		local capped = settings.useMaxFPS == "1" or settings.vsync == "1"
-		add(string.format("Run with: collector %s, useMaxFPS %s (maxFPS %s), vsync %s, screen %s (UI %s), render scale %s.%s",
-			settings.collector or "?", settings.useMaxFPS or "?", settings.maxFPS or "?", settings.vsync or "?",
-			settings.physical or "?", settings.ui or "?", settings.renderScale or "?",
-			capped and " **Frame times are capped (maxFPS or vsync): don't trust them.**" or ""))
-	end
-	local addons = round.round.addons
-	if addons then
-		add(string.format("Loaded addons (%d): %s.", #addons, table.concat(addons, ", ")))
-	end
-	if previous then
-		add(string.format("Compared with: %s (Core %s).", previous.round.date,
-			previous.builds.OrdaenCore and previous.builds.OrdaenCore.commit or "?"))
-	else
-		add("Compared with: no earlier round with clean builds on the same display.")
-	end
-	add("")
-	add("| Scenario | Size | Metric | Framework Lua | Engine | Backend | Frame | Best Lua | Frame | Typical Lua "
-		.. "| Frame | × best Lua | × best frame | × typical Lua | Net KB | Kept KB | Change Lua | Change frame | Check |")
-	add("| --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: "
-		.. "| ---: | ---: | --- |")
-	local failed = 0
-	for i, r in ipairs(round.results) do
-		if r.check and r.check:match("^FAIL") then
-			failed = failed + 1
+	for i, r in ipairs(results) do
+		local failed = r.check and r.check:match("^FAIL") and true or false
+		if failed then
+			entry.failed = entry.failed + 1
 		end
 		if r.impl:match("^framework") and r.impl ~= "framework-engine" then
 			local key = Key(r)
 			local best, typical, engine = others.baseline[key], others.typical[key], others["framework-engine"][key]
 			local old = before[r.impl .. "|" .. key]
 			local metric = r.impl == "framework" and r.metric or (r.metric .. " (" .. r.impl .. ")")
+			if r.n == 1 then
+				metric = metric .. " ¹"
+			end
 			local frameText, frame = Frame(r.frameMs, idles[i])
 			local bestFrameText, bestFrame = "", nil
 			if best then
@@ -333,78 +349,166 @@ local function Readme(round, newest)
 			local typicalFrameText = typical and Frame(typical.r.frameMs, typical.idle) or ""
 			local engineLua = engine and engine.r.luaMs
 			local backendLua = engineLua and math.max(r.luaMs - engineLua, 0)
-			local changeLua, changeFrame = "", ""
-			if old and old.r.luaMs and old.r.luaMs >= LUA_FLOOR then
-				changeLua = string.format("%+.0f%%", (r.luaMs - old.r.luaMs) / old.r.luaMs * 100)
+			local changeLua, changeFrame, verdict = "", "", nil
+			if old then
+				if old.r.luaMs and old.r.luaMs >= LUA_FLOOR and r.luaMs >= LUA_FLOOR then
+					changeLua = Percent(r.luaMs, old.r.luaMs)
+					local ratio = (r.luaMs - old.r.luaMs) / old.r.luaMs
+					if ratio <= -CHANGE then
+						verdict = "improvement"
+					elseif ratio >= CHANGE then
+						verdict = "regression"
+					end
+				end
 				local _, oldFrame = Frame(old.r.frameMs, old.idle)
 				if frame and oldFrame then
-					changeFrame = string.format("%+.0f%%", (frame - oldFrame) / oldFrame * 100)
+					changeFrame = Percent(frame, oldFrame)
+					local ratio = (frame - oldFrame) / oldFrame
+					local beyond = math.abs(frame - oldFrame) > idles[i].noise
+					if beyond and ratio <= -CHANGE and verdict ~= "regression" then
+						verdict = verdict or "improvement"
+					elseif beyond and ratio >= CHANGE then
+						verdict = "regression"
+					end
 				end
 			end
-			add(string.format("| %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %s | %.1f | %s | %s | %s | %s |",
-				r.scenario, r.size, metric, Lua(r.luaMs), Lua(engineLua), Lua(backendLua), frameText,
-				best and Lua(best.r.luaMs) or "", bestFrameText, typical and Lua(typical.r.luaMs) or "", typicalFrameText,
-				Factor(r.luaMs, best and best.r.luaMs, LUA_FLOOR), Factor(frame, bestFrame, 0.001),
-				Factor(r.luaMs, typical and typical.r.luaMs, LUA_FLOOR), r.kb or 0,
-				r.keptKb and string.format("%.0f", r.keptKb) or "", changeLua, changeFrame, r.check or ""))
-		elseif r.check and r.check:match("^FAIL") then
-			add(string.format("| %s | %s | %s (%s) | | | | | | | | | | | | | | | | %s |", r.scenario, r.size, r.metric,
-				r.impl, r.check))
+			local row = {
+				scenario = r.scenario, size = r.size, metric = metric, failed = failed, verdict = verdict,
+				cells = {
+					r.scenario, r.size, metric, Lua(r.luaMs), Lua(engineLua), Lua(backendLua), frameText,
+					best and Lua(best.r.luaMs) or "", bestFrameText, typical and Lua(typical.r.luaMs) or "",
+					typicalFrameText, Factor(r.luaMs, best and best.r.luaMs, LUA_FLOOR), Factor(frame, bestFrame, 0.001),
+					Factor(r.luaMs, typical and typical.r.luaMs, LUA_FLOOR), string.format("%.1f", r.kb or 0),
+					r.keptKb and string.format("%.0f", r.keptKb) or "", changeLua, changeFrame, r.check or "",
+				},
+			}
+			entry.rows[#entry.rows + 1] = row
+			if verdict then
+				local list = verdict == "improvement" and entry.improvements or entry.regressions
+				list[#list + 1] = { label = r.scenario .. " " .. r.size .. ": " .. metric, lua = changeLua,
+					frame = changeFrame, now = Lua(r.luaMs), was = Lua(old.r.luaMs) }
+			end
+		elseif failed then
+			entry.rows[#entry.rows + 1] = {
+				scenario = r.scenario, size = r.size, metric = r.metric .. " (" .. r.impl .. ")", failed = true,
+				cells = { r.scenario, r.size, r.metric .. " (" .. r.impl .. ")", "", "", "", "", "", "", "", "", "", "", "",
+					"", "", "", "", r.check },
+			}
 		end
 	end
-	add("")
-	add("Failed checks: " .. failed .. ".")
-	add("")
 
-	add("## By hand only")
-	add("")
-	add("Hand-written rows with no framework row of the same name (hide and show against unmount and remount).")
-	add("")
-	add("| Scenario | Size | Metric | Side | Lua | Frame | Kept KB |")
-	add("| --- | --- | --- | --- | ---: | ---: | ---: |")
 	local framework = {}
-	for _, r in ipairs(round.results) do
+	for _, r in ipairs(results) do
 		if r.impl:match("^framework") then
 			framework[Key(r)] = true
 		end
 	end
-	for i, r in ipairs(round.results) do
+	for i, r in ipairs(results) do
 		if (r.impl == "baseline" or r.impl == "typical") and not framework[Key(r)] then
-			add(string.format("| %s | %s | %s | %s | %s | %s | %s |", r.scenario, r.size, r.metric, r.impl, Lua(r.luaMs),
-				(Frame(r.frameMs, idles[i])), r.keptKb and string.format("%.0f", r.keptKb) or ""))
+			entry.hand.rows[#entry.hand.rows + 1] = { cells = { r.scenario, r.size, r.metric .. (r.n == 1 and " ¹" or ""), r.impl, Lua(r.luaMs),
+				(Frame(r.frameMs, idles[i])), r.keptKb and string.format("%.0f", r.keptKb) or "" } }
 		end
 	end
-	add("")
-
-	add("## Order of the sides")
-	add("")
-	add("Which side of each block ran first, second, ... in this round (it rotates with each round).")
-	add("")
-	for _, o in ipairs(round.round.orders or {}) do
-		add(string.format("- %s %s: %s", o.scenario, o.size, table.concat(o.sides, ", ")))
+	for _, o in ipairs(round.orders or {}) do
+		entry.orders[#entry.orders + 1] = o.scenario .. " " .. o.size .. ": " .. table.concat(o.sides, ", ")
 	end
-	add("")
-
-	add("## Source size")
-	add("")
-	add("Code lines and characters, without comments, blank lines or indentation.")
-	add("")
-	add("| Scenario | Framework lines | Best lines | Typical lines | Framework chars | Best chars | Typical chars |")
-	add("| --- | ---: | ---: | ---: | ---: | ---: | ---: |")
 	local names = {}
-	for name in pairs(round.source) do
+	for name in pairs(saved.source or {}) do
 		if name ~= "idle" then
 			names[#names + 1] = name
 		end
 	end
 	table.sort(names)
 	for _, name in ipairs(names) do
-		local s = round.source[name]
+		local s = saved.source[name]
 		local typical = s.typical or { lines = 0, chars = 0 }
-		add(string.format("| %s | %d | %d | %s | %d | %d | %s |", name, s.framework.lines, s.baseline.lines,
-			typical.lines > 0 and tostring(typical.lines) or "", s.framework.chars, s.baseline.chars,
-			typical.chars > 0 and tostring(typical.chars) or ""))
+		entry.source.rows[#entry.source.rows + 1] = { cells = { name, tostring(s.framework.lines),
+			tostring(s.baseline.lines), typical.lines > 0 and tostring(typical.lines) or "",
+			tostring(s.framework.chars), tostring(s.baseline.chars), typical.chars > 0 and tostring(typical.chars) or "" } }
 	end
+	return entry
+end
+
+-- Markdown --------------------------------------------------------------------------------------------------------
+
+local function Table(out, columns, rows)
+	out[#out + 1] = "| " .. table.concat(columns, " | ") .. " |"
+	local rule = {}
+	for i = 1, #columns do
+		rule[i] = i <= 4 and "---" or "---:"
+	end
+	out[#out + 1] = "| " .. table.concat(rule, " | ") .. " |"
+	for _, row in ipairs(rows) do
+		out[#out + 1] = "| " .. table.concat(row.cells, " | ") .. " |"
+	end
+end
+
+--- bench/README.md: the newest round's entry, as Markdown.
+local function Markdown(entry)
+	local out = {}
+	local function add(line)
+		out[#out + 1] = line
+	end
+	add("# Bench")
+	add("")
+	add("Generated by `scripts/bench_save.lua` from `report.json` (every round, computed from `results/`, one file per")
+	add("round: the history); the design site's Bench page shows every round. This is the newest.")
+	add("")
+	for _, note in ipairs(entry.notes) do
+		add("- " .. note)
+	end
+	add("")
+	add("Reading it:")
+	add("")
+	for _, note in ipairs(entry.reading) do
+		add("- " .. note)
+	end
+	add("")
+	for _, line in ipairs(entry.header) do
+		add(line)
+	end
+	add("")
+	local function List(title, list)
+		add("## " .. title)
+		add("")
+		if #list == 0 then
+			add("None.")
+		end
+		for _, c in ipairs(list) do
+			add(string.format("- %s: Lua %s (%s → %s)%s", c.label, c.lua ~= "" and c.lua or "–", c.was, c.now,
+				c.frame ~= "" and (", frame " .. c.frame) or ""))
+		end
+		add("")
+	end
+	if entry.comparedWith then
+		List("Improvements", entry.improvements)
+		List("Regressions", entry.regressions)
+	end
+	add("## Results")
+	add("")
+	Table(out, entry.columns, entry.rows)
+	add("")
+	add("Failed checks: " .. entry.failed .. ".")
+	add("")
+	add("## By hand only")
+	add("")
+	add("Hand-written rows with no framework row of the same name (hide and show against unmount and remount).")
+	add("")
+	Table(out, entry.hand.columns, entry.hand.rows)
+	add("")
+	add("## Order of the sides")
+	add("")
+	add("Which side of each block ran first, second, ... in this round (it rotates with each round).")
+	add("")
+	for _, line in ipairs(entry.orders) do
+		add("- " .. line)
+	end
+	add("")
+	add("## Source size")
+	add("")
+	add("Code lines and characters, without comments, blank lines or indentation.")
+	add("")
+	Table(out, entry.source.columns, entry.source.rows)
 	add("")
 	return table.concat(out, "\n")
 end
@@ -420,20 +524,37 @@ for _, r in ipairs(results) do
 		source[r.scenario] = Source(r.scenario)
 	end
 end
-local saved = {
-	round = round,
-	builds = { OrdaenCore = Build("OrdaenCore"), OrdaenBench = Build("OrdaenBench") },
-	source = source,
-	results = results,
-}
 fs.MakeDirs(RESULTS)
 local name = round.date:gsub(" ", "_"):gsub(":", "") .. ".json"
 local file = RESULTS .. "/" .. name
 if Read(file) then
 	print("already saved: " .. file)
 else
-	Write(file, json.encode(saved))
+	Write(file, json.encode({
+		round = round,
+		builds = { OrdaenCore = Build("OrdaenCore"), OrdaenBench = Build("OrdaenBench") },
+		source = source,
+		results = results,
+	}))
 	print("saved: " .. file)
 end
-Write("bench/README.md", Readme(json.decode(Read(file)), name))
+
+-- every round's entry, each compared with the newest earlier comparable round
+local entries, seen = json.array({}), {}
+for _, round_file in ipairs(RoundFiles()) do
+	local id = round_file:gsub("%.json$", "")
+	local saved = json.decode(Read(RESULTS .. "/" .. round_file))
+	local previous
+	for i = #seen, 1, -1 do
+		if Comparable(saved, seen[i].saved) then
+			previous = seen[i]
+			break
+		end
+	end
+	entries[#entries + 1] = Model(id, saved, previous)
+	seen[#seen + 1] = { id = id, saved = saved }
+end
+Write("bench/report.json", json.encode({ rounds = entries }))
+print("wrote bench/report.json (" .. #entries .. " rounds)")
+Write("bench/README.md", Markdown(entries[#entries]))
 print("wrote bench/README.md")

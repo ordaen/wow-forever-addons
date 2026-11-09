@@ -10,6 +10,7 @@
 -- its sides ran in, which rotates with each round.
 -- `bench` gives: flush, Show(scene) (switch and flush), Set(scene) (switch, no flush), refs, Swap(toStub).
 local counters = import("bench/counters")
+local FONT = import("bench/font")
 local Best = {
 	signals = import("baseline/signals"), coalesce = import("baseline/coalesce"), chain = import("baseline/chain"),
 	diamond = import("baseline/diamond"), fanout = import("baseline/fanout"), cascade = import("baseline/cascade"),
@@ -461,6 +462,24 @@ function Plan.Steps(bench, round, tracked, silent)
 		add(measure:Series("idle", "-", "-", "idle (end)", IDLE, Nothing))
 	end
 
+	-- 0. the client's one-time costs (the font file, the first texture, the first frame), paid untimed by WoW objects
+	-- of the bench's own, so no side's cold make carries them and the framework's pools stay empty; drawn for one
+	-- frame, then hidden
+	local warm
+	add(tracked:Do(function()
+		warm = CreateFrame("Frame", nil, UIParent)
+		warm:SetSize(36, 36)
+		warm:SetPoint("CENTER")
+		local texture = warm:CreateTexture(nil, "BACKGROUND")
+		texture:SetAllPoints()
+		texture:SetColorTexture(0.3, 0.3, 0.35, 1)
+		local text = warm:CreateFontString(nil, "OVERLAY", FONT)
+		text:SetAllPoints()
+		text:SetFormattedText("%d", 1)
+	end))
+	add(tracked:Do(function()
+		warm:Hide()
+	end))
 	-- 1. the cold block, measured while the session is fresh
 	measure = tracked
 	Block("grid", "large", {
