@@ -143,9 +143,12 @@ local function BagButtons(game)
 end
 
 -- Blizzard's frames the panel replaces, hidden while it's on: the bag bar (what stays in it, the reagent bag the design
--- leaves out, would sit over the panel's right end), the micro menu's box and the XP and reputation bars (design
--- micromenu/, status-bars/: ours are drawn instead)
+-- leaves out, would sit over the panel's right end), the XP and reputation bars (design status-bars/: ours are drawn
+-- instead) and the micro menu's two buttons the design leaves out (shop, help)
 local HIDDEN = { attributes = { shown = false } }
+-- the micro menu's box, emptied by the panel: invisible, not hidden, since Blizzard's MicroMenu:Layout reads its
+-- buttons' positions (GetEdgeButton), which a hidden box doesn't have
+local INVISIBLE = { attributes = { opacity = 0 } }
 
 local MICRO_CALL = { attributes = MICRO_ROW, slots = { default = MicroButtons } }
 -- the character button as a cell: the face, round with a thin dark rim (design .face, 40 px), with Blizzard's button
@@ -225,7 +228,9 @@ local function Cells(game, self)
 	game.ui:Box(self.state.charButton == CharButton.Button and LEFT_BUTTON_CALL or LEFT_CALL)
 	game.ui:XpBar()
 	game.ui:Box({ attributes = RIGHT, slots = { default = Right } })
-	game.ui:Frame(game.Frame.MicroMenuContainer, HIDDEN)
+	game.ui:Frame(game.Frame.MicroMenuContainer, INVISIBLE)
+	game.ui:Frame(game.Frame.StoreMicroButton, HIDDEN)
+	game.ui:Frame(game.Frame.HelpMicroButton, HIDDEN)
 	game.ui:Frame(game.Frame.MainStatusTrackingBarContainer, HIDDEN)
 	game.ui:Frame(game.Frame.SecondaryStatusTrackingBarContainer, HIDDEN)
 end

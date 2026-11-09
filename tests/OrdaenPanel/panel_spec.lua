@@ -1,7 +1,8 @@
 -- Ordaen Panel on the fake client, as built: Blizzard's own buttons it embeds (the micro menu over our cells, the bag
 -- buttons) each get their own place in the panel. Several frames embedded from one call site in a loop are told
 -- apart: none takes another's place, and none goes back to Blizzard's layout. Blizzard's bag bar, left with what the
--- panel doesn't show, is hidden, and so are the micro menu's box and Blizzard's XP and reputation bars.
+-- panel doesn't show, is hidden, and so are Blizzard's XP and reputation bars and the micro buttons the panel leaves
+-- out; the micro menu's box stays shown (Blizzard's layout reads its buttons' positions) but invisible.
 local Fake = require("tests.fake.wow")
 
 local DIST = ".ordaen/check/dist"
@@ -17,7 +18,8 @@ local BAGS = { "MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1S
 	"CharacterBag3Slot" }
 
 -- Blizzard's frames the panel draws its own of, left empty or unused
-local REPLACED = { "MicroMenuContainer", "MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer" }
+local REPLACED = { "MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer", "StoreMicroButton",
+	"HelpMicroButton" }
 
 describe("Ordaen Panel", function()
 	local wow, home
@@ -33,14 +35,20 @@ describe("Ordaen Panel", function()
 		for _, name in ipairs(REPLACED) do
 			wow.env.CreateFrame("Frame", name, wow.env.UIParent)
 		end
+		wow.env.CreateFrame("Frame", "MicroMenuContainer", wow.env.UIParent)
 		wow:Login()
 		wow:Tick()
 	end)
 
-	it("hides Blizzard's micro menu box and XP and reputation bars", function()
+	it("hides Blizzard's XP and reputation bars and the micro buttons it leaves out", function()
 		for _, name in ipairs(REPLACED) do
 			assert.is_false(wow.env[name]:IsShown(), name .. " is shown")
 		end
+	end)
+
+	it("keeps Blizzard's micro menu box shown but invisible", function()
+		assert.is_true(wow.env.MicroMenuContainer:IsShown())
+		assert.are.equal(0, wow.env.MicroMenuContainer:GetAlpha())
 	end)
 
 	it("raises no Lua errors", function()
