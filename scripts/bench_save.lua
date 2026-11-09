@@ -642,7 +642,15 @@ end
 
 -- Main -------------------------------------------------------------------------------------------------------------
 
-local path = FindSaved(arg and arg[1])
+local RECOUNT, given = false, nil
+for _, a in ipairs(arg or {}) do
+	if a == "--recount" then
+		RECOUNT = true
+	else
+		given = a
+	end
+end
+local path = FindSaved(given)
 assert(path, "no OrdaenBench.lua under " .. DEFAULT_WTF)
 local round, results = Parse(Load(path))
 if round.mode == "probes" then
@@ -722,12 +730,34 @@ if #failures > 0 then
 	print(table.concat(failures, "\n"))
 	os.exit(1)
 end
-local source = {}
-for _, r in ipairs(results) do
-	if not source[r.scenario] then
-		source[r.scenario] = Source(r.scenario)
+-- each scenario with a hand-written side: its code's size on every side (units and the scheduler have none to compare)
+local function Sources(list)
+	local out = {}
+	for _, r in ipairs(list) do
+		if out[r.scenario] == nil then
+			local s = Source(r.scenario)
+			out[r.scenario] = s.baseline.lines > 0 and s or false
+		end
+	end
+	for scenario, s in pairs(out) do
+		if not s then
+			out[scenario] = nil
+		end
+	end
+	return out
+end
+-- `--recount`: every saved round's source sizes counted again from the current code (after the count's rules change;
+-- the scenarios' code is what the rounds ran, apart from the bench markers)
+if RECOUNT then
+	for _, round_file in ipairs(RoundFiles()) do
+		local path = RESULTS .. "/" .. round_file
+		local saved = json.decode(Read(path))
+		saved.source = Sources(saved.results)
+		Write(path, json.encode(saved))
+		print("recounted: " .. path)
 	end
 end
+local source = Sources(results)
 fs.MakeDirs(RESULTS)
 local name = round.date:gsub(" ", "_"):gsub(":", "") .. ".json"
 local file = RESULTS .. "/" .. name
