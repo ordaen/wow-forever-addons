@@ -1,115 +1,91 @@
 -- Ordaen Bench: measures the framework in game against hand-written code doing the same (design:
--- development/framework/mvp#the-benchmark). Dev only, never packaged. `/obench` runs every scenario; results go to
--- chat, the module's log (wow_log) and OrdaenBenchDB.
+-- development/framework/mvp#the-benchmark). Dev only, never packaged. `/obench` runs every scenario (components/ on
+-- the framework, baseline/ by hand; bench/plan.lua says what and how). Every result goes to the module's log
+-- (wow_log) and OrdaenBenchDB; after a /reload, `ordaen lua scripts/bench_save.lua` saves the round to bench/results/.
 local Define = import("@ordaen/define")
 local Driver = import("bench/driver")
-local Baseline = import("bench/baseline")
-local Signals = import("components/signals")
-local Grid = import("components/grid")
-local Ticker = import("components/ticker")
+local Plan = import("bench/plan")
 
----@enum BenchScenario
-local BenchScenario = { None = "none", Signals = "signals", Grid = "grid", Ticker = "ticker" }
+local SCENES = {
+	{ id = "signals-small", component = import("components/signals"), size = "small" },
+	{ id = "signals-large", component = import("components/signals"), size = "large" },
+	{ id = "coalesce", component = import("components/coalesce") },
+	{ id = "chain", component = import("components/chain") },
+	{ id = "diamond", component = import("components/diamond") },
+	{ id = "fanout", component = import("components/fanout") },
+	{ id = "cascade", component = import("components/cascade") },
+	{ id = "grid-small", component = import("components/grid"), size = "small" },
+	{ id = "grid-large", component = import("components/grid"), size = "large" },
+	{ id = "ticker-small", component = import("components/ticker"), size = "small" },
+	{ id = "ticker-large", component = import("components/ticker"), size = "large" },
+	{ id = "reorder", component = import("components/reorder") },
+	{ id = "deep", component = import("components/deep") },
+}
 
-local FRAMES = 300 -- frames per steady-state scenario
-local REPEATS = 20 -- repeats of each one-off change
+---@enum BenchScene
+local BenchScene = { None = "none" }
+for _, scene in ipairs(SCENES) do
+	BenchScene[scene.id] = scene.id
+end
 
 return Define.Module({
 	title = "Ordaen Bench",
 
 	Setup = function(game, self)
-		Define.Ephemeral({ scenario = { type = "choice", choices = BenchScenario, default = BenchScenario.None } })
-		Define.Persistent({ results = { type = "list", of = { type = "string" }, cap = 200 } })
-		local scenario = self.state.ephemeral.scenario
-		local results = self.state.persistent.results
-		local signals, grid, ticker = Define.Ref(Signals), Define.Ref(Grid), Define.Ref(Ticker)
+		Define.Ephemeral({ scene = { type = "choice", choices = BenchScene, default = BenchScene.None } })
+		-- the last round's results, one structured line each (bench/driver.lua), read by scripts/bench_save.lua
+		Define.Persistent({ results = { type = "list", of = { type = "string" }, cap = 1000 } })
+		local scene, results = self.state.ephemeral.scene, self.state.persistent.results
 
+		local refs, mounts = {}, {}
+		for _, s in ipairs(SCENES) do
+			refs[s.id] = Define.Ref(s.component)
+			mounts[s.id] = { component = s.component, data = { key = s.id, ref = refs[s.id], attributes = { size = s.size } } }
+		end
 		self:Watch(function()
-			local current = scenario:Get()
-			if current == BenchScenario.Signals then
-				self:Mount(Signals, { ref = signals })
-			elseif current == BenchScenario.Grid then
-				self:Mount(Grid, { ref = grid })
-			elseif current == BenchScenario.Ticker then
-				self:Mount(Ticker, { ref = ticker })
+			local mount = mounts[scene:Get()]
+			if mount then
+				self:Mount(mount.component, mount.data)
 			end
 		end)
 
-		local function Record(line)
-			print("|cff88ccffOrdaen Bench|r " .. line)
-			self.module.debug:Log(line)
-			results:Insert(line)
-		end
-		local measure = Driver.NewMeasure(Record)
 		local flush = OrdaenCore._Flush -- the bench's door: a change timed with its flush
+		local measure = Driver.NewMeasure(function(line)
+			self.module.debug:Log(line)
+		end, function(line)
+			results:Insert(line)
+		end)
+		local bench = {
+			measure = measure, flush = flush, refs = refs,
+			Set = function(to)
+				scene:Set(to)
+			end,
+			Show = function(to)
+				scene:Set(to)
+				flush()
+			end,
+		}
 
-		local function Switch(to)
-			return function()
-				scenario:Set(to)
-				flush()
-			end
-		end
-
-		local function Steps()
-			local steps = {}
-			local function add(step)
-				steps[#steps + 1] = step
-			end
-			add(measure:Once("framework signals: mount", Switch(BenchScenario.Signals)))
-			add(measure:Frames("framework signals: 50 writes/frame", FRAMES, function(frame)
-				for i = 1, 50 do
-					signals.Write((frame * 50 + i * 37) % 1000 + 1)
-				end
-				flush()
-			end))
-			add(measure:Once("framework signals: unmount", Switch(BenchScenario.None)))
-			add(measure:Once("baseline signals: make", Baseline.SignalsMake))
-			add(measure:Frames("baseline signals: 50 writes/frame", FRAMES, Baseline.SignalsFrame))
-
-			add(measure:Once("framework grid: mount 200", Switch(BenchScenario.Grid)))
-			add(measure:Repeat("framework grid: one changed", REPEATS, function(i)
-				grid.SetOne(i, i)
-				flush()
-			end))
-			add(measure:Repeat("framework grid: all changed", REPEATS, function(i)
-				for k = 1, 200 do
-					grid.SetOne(k, i + k)
-				end
-				flush()
-			end))
-			add(measure:Once("framework grid: unmount", Switch(BenchScenario.None)))
-			add(measure:Repeat("framework grid: open+close", REPEATS, function()
-				Switch(BenchScenario.Grid)()
-				Switch(BenchScenario.None)()
-			end))
-			add(measure:Once("baseline grid: make 200", Baseline.GridMake))
-			add(measure:Repeat("baseline grid: one changed", REPEATS, Baseline.GridOne))
-			add(measure:Repeat("baseline grid: all changed", REPEATS, Baseline.GridAll))
-			add(measure:Repeat("baseline grid: show+hide", REPEATS, Baseline.GridToggle))
-
-			add(measure:Once("framework ticker: mount 50", Switch(BenchScenario.Ticker)))
-			add(measure:Frames("framework ticker: 50 texts/frame", FRAMES, function()
-				ticker.Tick()
-				flush()
-			end))
-			add(measure:Once("framework ticker: unmount", Switch(BenchScenario.None)))
-			add(measure:Once("baseline ticker: make", Baseline.TickerMake))
-			add(measure:Frames("baseline ticker: 50 texts/frame", FRAMES, Baseline.TickerFrame))
-			add(measure:Once("baseline: hide all", Baseline.HideAll))
-			return steps
+		local function Say(text)
+			print("|cff88ccffOrdaen Bench|r " .. text)
 		end
 
 		-- a dev tool's own slash command (modules get `commands` after the MVP)
 		SLASH_ORDAENBENCH1 = "/obench"
 		SlashCmdList.ORDAENBENCH = function()
 			if Driver.IsRunning() then
-				print("|cff88ccffOrdaen Bench|r already running")
+				Say("already running")
 				return
 			end
 			results:Reset()
-			Record(string.format("start: Lua heap %.0f KB", collectgarbage("count")))
-			Driver.Run(Steps(), function()
-				Record(string.format("done: Lua heap %.0f KB", collectgarbage("count")))
+			local _, build = GetBuildInfo()
+			results:Insert(string.format("round|%s|%s|%.0f|%.0f", date("%Y-%m-%d %H:%M:%S"), build, GetFramerate(),
+				collectgarbage("count")))
+			measure.failures = 0
+			Say("running: about two minutes, keep the game in front")
+			Driver.Run(Plan.Steps(bench), function()
+				Say(string.format("done: %d results, %d failed checks. /reload, then save the round.", results:Len() - 1,
+					measure.failures))
 			end)
 		end
 	end,

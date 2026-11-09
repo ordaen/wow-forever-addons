@@ -1,32 +1,40 @@
--- Signals scenario: 1000 values, 100 computed sums of three, 300 watches reading two values and a sum. No view.
+-- signals: many values, computed sums of three, and watches reading two values and a sum. No view.
+-- small: 1000 values, 100 sums, 300 watches. large: 10000 values, 1000 sums, 3000 watches.
 local Define = import("@ordaen/define")
 
-local N, SUMS, WATCHES = 1000, 100, 300
+local SIZES = {
+	small = { values = 1000, sums = 100, watches = 300 },
+	large = { values = 10000, sums = 1000, watches = 3000 },
+}
 
--- built here because the bench needs 1000 values; module code declares its state as a literal table
-local SPEC = {}
-for i = 1, N do
-	SPEC["v" .. i] = { type = "number", default = 0 }
+-- built here because the bench needs thousands of values; module code declares its state as a literal table
+local SPECS = {}
+for size, s in pairs(SIZES) do
+	local spec = {}
+	for i = 1, s.values do
+		spec["v" .. i] = { type = "number", default = 0 }
+	end
+	SPECS[size] = spec
 end
 
 return Define.Component({
 	Setup = function(game, self)
-		Define.Ephemeral(SPEC)
-		local store = self.state.ephemeral
-		local values = {}
-		for i = 1, N do
+		local size = self.attributes.size:Peek()
+		local s = SIZES[size]
+		Define.Ephemeral(SPECS[size])
+		local store, values, sums = self.state.ephemeral, {}, {}
+		for i = 1, s.values do
 			values[i] = store["v" .. i]
 		end
-		local sums = {}
-		for c = 1, SUMS do
-			local a, b, d = values[c], values[c + 100], values[c + 200]
+		for c = 1, s.sums do
+			local a, b, d = values[c], values[c + s.sums], values[c + 2 * s.sums]
 			sums[c] = game.Computed(function()
 				return a:Get() + b:Get() + d:Get()
 			end)
 		end
 		local sink = 0
-		for w = 1, WATCHES do
-			local a, b, c = values[w], values[(w * 7) % N + 1], sums[(w % SUMS) + 1]
+		for w = 1, s.watches do
+			local a, b, c = values[w], values[(w * 7) % s.values + 1], sums[(w % s.sums) + 1]
 			self:Watch(function()
 				sink = a:Get() + b:Get() + c:Get()
 			end)
@@ -35,7 +43,7 @@ return Define.Component({
 			public = {
 				functions = {
 					Write = function(k)
-						local value = values[k]
+						local value = values[(k - 1) % s.values + 1]
 						value:Set(value:Peek() + 1)
 					end,
 				},
