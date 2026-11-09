@@ -808,20 +808,63 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 
 		-- units: one operation 1000 times per call (components/units.lua), the shape around it held still: a row's ms is
 		-- µs per operation. The framework, and the engine alone on the stub where something is drawn.
+		local unitBoxes = {}
+		local function Texts(count, first)
+			return function()
+				local n = OrdaenCore._ScreenTexts(texts)
+				if n ~= count then
+					return false, n .. " texts on screen, not " .. count
+				end
+				return first == nil or texts[1] == first, "the first text shows " .. tostring(texts[1])
+			end
+		end
+		local function Boxes(count, field, value, index)
+			return function()
+				local n = OrdaenCore._ScreenNodes("box", unitBoxes)
+				if n ~= count then
+					return false, n .. " boxes on screen, not " .. count
+				end
+				local got = field and unitBoxes[index or 2].a[field]
+				if type(value) == "string" then -- a theme colour: its reference's path
+					got = type(got) == "table" and rawget(got, "path") or got
+				end
+				return field == nil or got == value, field and (field .. " is " .. tostring(got))
+			end
+		end
+		-- every Flip unit starts off and flips an even number of times (REPEATS calls), so it ends off
 		local UNITS = {
-			{ unit = "text", metric = "take 1000 texts", fn = "Show", arg = true, prepare = false, drawn = true },
-			{ unit = "text", metric = "release 1000 texts", fn = "Show", arg = false, prepare = true, drawn = true },
-			{ unit = "box", metric = "take 1000 boxes", fn = "Show", arg = true, prepare = false, drawn = true },
-			{ unit = "box", metric = "release 1000 boxes", fn = "Show", arg = false, prepare = true, drawn = true },
-			{ unit = "look", metric = "1000 backgrounds changed", fn = "Flip", drawn = true },
-			{ unit = "size", metric = "1000 widths changed in fixed cells", fn = "Flip", drawn = true },
-			{ unit = "textFixed", metric = "1000 texts changed, layout unchanged", fn = "Flip", drawn = true },
-			{ unit = "textClimb", metric = "1000 texts changed width, 3 levels", fn = "Flip", drawn = true },
-			{ unit = "offset", metric = "100 boxes moved", fn = "Flip", drawn = true },
-			{ unit = "unchanged", metric = "1000 calls, nothing changed", fn = "Flip", drawn = true },
-			{ unit = "writes", metric = "1000 writes, no reader", fn = "WriteAll" },
-			{ unit = "runs", metric = "1000 x (write, flush), 1 watch", fn = "Flip", each = 1000 },
-			{ unit = "wide", metric = "5000 writes, 5000 watches, 1 flush", fn = "WriteAll" },
+			{ unit = "text", metric = "take 1000 texts", fn = "Show", arg = true, prepare = false, drawn = true,
+				verify = Texts(1000) },
+			{ unit = "text", metric = "release 1000 texts", fn = "Show", arg = false, prepare = true, drawn = true,
+				verify = Texts(0) },
+			{ unit = "box", metric = "take 1000 boxes", fn = "Show", arg = true, prepare = false, drawn = true,
+				verify = Boxes(1001) },
+			{ unit = "box", metric = "release 1000 boxes", fn = "Show", arg = false, prepare = true, drawn = true,
+				verify = Boxes(1) },
+			{ unit = "look", metric = "1000 backgrounds changed", fn = "Flip", drawn = true,
+				verify = Boxes(1001, "background", "color.border") },
+			{ unit = "size", metric = "1000 widths changed in fixed cells", fn = "Flip", drawn = true,
+				verify = Boxes(2001, "width", 20, 3) },
+			{ unit = "textFixed", metric = "1000 texts changed, layout unchanged", fn = "Flip", drawn = true,
+				verify = Texts(1000, "1001") },
+			{ unit = "textClimb", metric = "1000 texts changed width, 3 levels", fn = "Flip", drawn = true,
+				verify = Texts(1000, "1") },
+			{ unit = "offset", metric = "100 boxes moved", fn = "Flip", drawn = true,
+				verify = Boxes(101, "left", 10) },
+			{ unit = "unchanged", metric = "1000 calls, nothing changed", fn = "Flip", drawn = true,
+				verify = Texts(1000, "1") },
+			{ unit = "writes", metric = "1000 writes, no reader", fn = "WriteAll", verify = function(ref)
+				local sum = ref.Sum()
+				return sum == REPEATS * 1000, "values add up to " .. sum
+			end },
+			{ unit = "runs", metric = "1000 x (write, flush), 1 watch", fn = "Flip", each = 1000, verify = function(ref)
+				local runs = ref.Runs()
+				return runs == 1 + REPEATS * 1000, "the watch ran " .. runs .. " times"
+			end },
+			{ unit = "wide", metric = "5000 writes, 5000 watches, 1 flush", fn = "WriteAll", verify = function(ref)
+				local runs = ref.Runs()
+				return runs == 5000 * (1 + REPEATS), "the watches ran " .. runs .. " times"
+			end },
 		}
 		local function UnitSide(u, impl)
 			return function()
@@ -829,21 +872,24 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 				add(measure:Do(function()
 					Show(scene)
 				end))
-				local ref = refs[scene]
+				-- the ref's functions are read at call time: before the mount they are the empty public part
 				local prepare
 				if u.prepare ~= nil then
 					prepare = function()
-						ref.Show(u.prepare)
+						refs[scene].Show(u.prepare)
 						flush()
 					end
 				end
-				local call, arg, each = ref[u.fn], u.arg, u.each or 1
+				local name, arg, each = u.fn, u.arg, u.each or 1
 				add(measure:Series("units", "-", impl, u.metric, REPEATS, function()
+					local call = refs[scene][name]
 					for _ = 1, each do
 						call(arg)
 						flush()
 					end
-				end, { prepare = prepare }))
+				end, { prepare = prepare, verify = impl == FW and function()
+					return u.verify(refs[scene])
+				end or nil }))
 				add(measure:Do(function()
 					Show("none")
 				end))

@@ -163,19 +163,34 @@ return Define.Component({
 					value:Set(value:Peek() + 1)
 				end
 			end
+			functions.Sum = function() -- the bench's check: every write landed
+				local sum = 0
+				for i = 1, N do
+					sum = sum + values[i]:Peek()
+				end
+				return sum
+			end
 		elseif unit == "runs" then
-			local sum = 0
+			local runs = 0
 			self:Watch(function()
-				sum = sum + (on:Get() and 1 or 0)
+				local _ = on:Get()
+				runs = runs + 1
 			end)
+			functions.Runs = function() -- the bench's check: the watch ran once per flush
+				return runs
+			end
 		elseif unit == "wide" then
-			local values = {}
+			local values, runs = {}, 0
 			for i = 1, WIDE do
 				local value = store["v" .. i]
 				values[i] = value
 				self:Watch(function()
 					local _ = value:Get()
+					runs = runs + 1
 				end)
+			end
+			functions.Runs = function() -- the bench's check: every watch ran once per flush
+				return runs
 			end
 			functions.WriteAll = function()
 				for i = 1, WIDE do
