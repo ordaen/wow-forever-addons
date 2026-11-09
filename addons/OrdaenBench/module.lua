@@ -10,20 +10,15 @@ local Probes = import("bench/probes")
 local Progress = import("bench/progress")
 
 local SCENES = {
-	{ id = "signals-small", component = import("components/signals"), size = "small" },
 	{ id = "signals-large", component = import("components/signals"), size = "large" },
 	{ id = "coalesce", component = import("components/coalesce") },
 	{ id = "chain", component = import("components/chain") },
 	{ id = "diamond", component = import("components/diamond") },
 	{ id = "fanout", component = import("components/fanout") },
 	{ id = "cascade", component = import("components/cascade") },
-	{ id = "grid-small", component = import("components/grid"), size = "small" },
 	{ id = "grid-large", component = import("components/grid"), size = "large" },
-	{ id = "grid-small-itemsRead", component = import("components/grid"), size = "small", itemsRead = true },
 	{ id = "grid-large-itemsRead", component = import("components/grid"), size = "large", itemsRead = true },
-	{ id = "grid-small-naive", component = import("components/grid"), size = "small", naive = true },
 	{ id = "grid-large-naive", component = import("components/grid"), size = "large", naive = true },
-	{ id = "ticker-small-naive", component = import("components/ticker"), size = "small", naive = true },
 	{ id = "ticker-large-naive", component = import("components/ticker"), size = "large", naive = true },
 	{ id = "resize", component = import("components/resize") },
 	{ id = "columns", component = import("components/columns") },
@@ -47,7 +42,6 @@ local SCENES = {
 	{ id = "units-writes", component = import("components/units"), unit = "writes" },
 	{ id = "units-runs", component = import("components/units"), unit = "runs" },
 	{ id = "units-wide", component = import("components/units"), unit = "wide" },
-	{ id = "ticker-small", component = import("components/ticker"), size = "small" },
 	{ id = "ticker-large", component = import("components/ticker"), size = "large" },
 	{ id = "reorder", component = import("components/reorder") },
 	{ id = "deep", component = import("components/deep") },
@@ -103,7 +97,6 @@ return Define.Module({
 		local tracked = Driver.NewMeasure(function(line)
 			pending[#pending + 1] = line
 		end)
-		local silent = Driver.NewMeasure(nil)
 		local probed = {}
 		local probing = Driver.NewMeasure(function(line)
 			probed[#probed + 1] = line
@@ -207,7 +200,7 @@ return Define.Module({
 			if mode == "probes" then
 				steps = Probes.Steps(probing, bench)
 			else
-				steps = Plan.Steps(bench, tracked, silent, Progress.Set, mode)
+				steps = Plan.Steps(bench, tracked, Progress.Set, mode)
 			end
 			Quiet(true)
 			Driver.Run(steps, function()

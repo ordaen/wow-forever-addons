@@ -2,9 +2,8 @@
 -- 0. the client's one-time costs paid untimed (a frame, a texture, the bench font);
 -- 1. a cold block: opening the large grid on every side while the session is fresh (the framework's pools empty,
 --    the hand sides' frames never made), measured;
--- 2. the whole plan once untracked, so one-time costs (fonts, first textures, Blizzard code running for the first
---    time) land outside the numbers;
--- 3. the whole plan again, measured.
+-- 2. the whole plan, measured. Each series' first calls stay out of its numbers (the driver's warm-up), which keeps
+--    one-time costs (fonts, first textures, Blizzard code running for the first time) out.
 -- `/obench check` runs the same plan with a few calls per series: a quick run for the checks, never a round.
 -- Every scenario runs on the framework, on the framework with a stub backend (framework-engine: the engine alone,
 -- where something is drawn), written naively (framework-naive: new tables every call, as code reads without the
@@ -36,11 +35,12 @@ local Typical = {
 }
 
 -- calls per series: a round, and a check run (`/obench check`: enough calls to pass the warm-up, then a few)
-local FRAMES, STEADY, IDLE, REPEATS, HEAVY
+-- (checks: series that are there for their checks, chain, diamond and cascade: a few calls past the warm-up)
+local FRAMES, STEADY, IDLE, REPEATS, HEAVY, CHECKS
 local COUNTS = {
-	round = { frames = 120, steady = 300, idle = 60, repeats = 60, heavy = 20 },
-	variants = { frames = 120, steady = 300, idle = 60, repeats = 60, heavy = 20 },
-	check = { frames = 8, steady = 8, idle = 8, repeats = 8, heavy = 7 },
+	round = { frames = 120, steady = 60, idle = 60, repeats = 60, heavy = 20, checks = 8 },
+	variants = { frames = 120, steady = 60, idle = 60, repeats = 60, heavy = 20, checks = 8 },
+	check = { frames = 8, steady = 8, idle = 8, repeats = 8, heavy = 7, checks = 8 },
 }
 local SPIN = 200 -- ms of untimed work before each block: the CPU at full clock when its idle series and sides run
 local FW, FW_ITEMS, FW_ENGINE, FW_NAIVE = "framework", "framework-itemsRead", "framework-engine", "framework-naive"
@@ -62,18 +62,18 @@ end
 --- The steps of one /obench.
 ---@param bench table
 ---@param tracked BenchMeasure records the numbers
----@param silent BenchMeasure records nothing (the warm-up pass)
 ---@param progress fun(line: string) shows what runs now
 ---@param mode "round"|"variants"|"check" variants: a round with the framework's variants (naive, itemsRead) too
-function Plan.Steps(bench, tracked, silent, progress, mode)
+function Plan.Steps(bench, tracked, progress, mode)
 	local counts = COUNTS[mode]
 	FRAMES, STEADY, IDLE, REPEATS, HEAVY = counts.frames, counts.steady, counts.idle, counts.repeats, counts.heavy
+	CHECKS = counts.checks
 	local flush, Show, Set, refs = bench.flush, bench.Show, bench.Set, bench.refs
 	local steps = {}
 	local function add(step)
 		steps[#steps + 1] = step
 	end
-	local measure -- the pass's measure: tracked for the cold block, silent for the warm-up, tracked again
+	local measure -- the measure the steps record with
 	local passName -- what the progress line calls the pass
 	local blocks, totals = 0, {}
 
@@ -325,7 +325,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 
 	local function Pass()
 		-- signals: many values, sums, watches; writes to random values
-		for _, size in ipairs({ "small", "large" }) do
+		for _, size in ipairs({ "large" }) do
 			local scene, writes = "signals-" .. size, size == "small" and 50 or 500
 			local values = size == "small" and 1000 or 10000
 			local metric = writes .. " writes/frame"
@@ -403,11 +403,11 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 					FwMake(name, "-", FW, name)
 					add(Mark("runs"))
 					add(Mark("violations"))
-					add(measure:Series(name, "-", FW, "1 change/frame", FRAMES, function()
+					add(measure:Series(name, "-", FW, "1 change/frame", CHECKS, function()
 						refs[name].Bump()
 						flush()
 					end, { verify = function()
-						local ok, why = Grew("runs", FRAMES)()
+						local ok, why = Grew("runs", CHECKS)()
 						if not ok then
 							return false, "watch runs: " .. why
 						end
@@ -417,7 +417,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 				end },
 				{ impl = BEST, add = function()
 					add(Mark("violations"))
-					add(measure:Series(name, "-", BEST, "1 change/frame", FRAMES, Best[name].Bump,
+					add(measure:Series(name, "-", BEST, "1 change/frame", CHECKS, Best[name].Bump,
 						{ verify = NoViolations }))
 				end },
 			})
@@ -447,7 +447,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 		Block("cascade", "-", {
 			{ impl = FW, add = function()
 				FwMake("cascade", "-", FW, "cascade")
-				add(measure:Series("cascade", "-", FW, "1 change/frame", FRAMES, function()
+				add(measure:Series("cascade", "-", FW, "1 change/frame", CHECKS, function()
 					refs.cascade.Bump()
 					flush()
 				end, { verify = function()
@@ -456,7 +456,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 				FwClose("cascade", "-", FW, "cascade")
 			end },
 			{ impl = BEST, add = function()
-				add(measure:Series("cascade", "-", BEST, "1 change/frame", FRAMES, Best.cascade.Bump, {
+				add(measure:Series("cascade", "-", BEST, "1 change/frame", CHECKS, Best.cascade.Bump, {
 					verify = function()
 						return Best.cascade.Settled(), "the last value lags the first"
 					end,
@@ -492,7 +492,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 		})
 
 		-- grid: item buttons
-		for _, size in ipairs({ "small", "large" }) do
+		for _, size in ipairs({ "large" }) do
 			local scene = "grid-" .. size
 			local count = size == "small" and 200 or 1000
 			--- Random cells changed to random numbers of 1 to 4 digits, which fit a cell (one changed), and every cell to a new random
@@ -589,7 +589,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 		end
 
 		-- ticker: texts changed every frame
-		for _, size in ipairs({ "small", "large" }) do
+		for _, size in ipairs({ "large" }) do
 			local scene = "ticker-" .. size
 			local function Framework(impl, mounted, engine)
 				return function()
@@ -1087,10 +1087,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			end))
 		end },
 	})
-	-- 2. the warm-up pass, untracked
-	measure, passName = silent, "warm-up"
-	Pass()
-	-- 3. the measured pass
+	-- 2. the measured pass
 	measure, passName = tracked, "measured"
 	Pass()
 	totals.blocks = blocks

@@ -221,15 +221,17 @@ local NOTES = {
 		.. " same way, since the world drawn is in every frame time.",
 }
 local READING = {
-	"**One /obench:** a cold block first (the large grid opened on every side while the session is fresh), then the"
-		.. " whole plan untracked (one-time costs: fonts, first textures, Blizzard code), then the whole plan measured.",
-	"**make (pool warm):** the framework opened again after closing, its frames back from the pools; hand code makes"
-		.. " new frames every time. **make (cold)** compares the first opening on every side.",
-	"**grid close and open+close:** the framework unmounts and mounts again (the MVP has no hidden attribute); hand"
-		.. " code hides and shows (\"By hand only\"). Not the same operation: no factor.",
-	"**framework-naive:** grid and ticker written as code reads without the build's lifting and hoisting: new tables"
-		.. " and a new slot function every call. Its rows include lost skipping (a new slot function re-renders the"
-		.. " child), not only allocation.",
+	"**One /obench:** a cold block first (the large grid's first open on every side while the session is fresh), then"
+		.. " the whole plan measured; each series' first calls stay out of its numbers. `/obench variants` adds the"
+		.. " framework's variants.",
+	"**open, close, first open:** each side its own way: the framework mounts from its pools and unmounts; hand code"
+		.. " shows and hides the frames it made once, or rebuilds and drops the state it has instead of frames. **first"
+		.. " open** is every side's first opening in a fresh session.",
+	"**framework-naive** (variants rounds): grid and ticker written as code reads without the build's lifting and"
+		.. " hoisting: new tables and a new slot function every call. Its rows include lost skipping (a new slot function"
+		.. " re-renders the child), not only allocation.",
+	"**chain, diamond, cascade:** there for their checks (each watch runs once per change, no stale reads): a few"
+		.. " calls, not a timing series.",
 	"**grid steady:** the grid on screen with nothing changing. \"≈ idle\" means drawing it adds nothing to the main"
 		.. " thread's frame (what an addon costs players' frames); WoW's render threads can still do work their slack"
 		.. " hides, so not that drawing is free.",
