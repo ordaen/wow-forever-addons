@@ -78,6 +78,21 @@ ns.Theme = {
 		capHeight = 0, rows = 2, normal = 0 },
 	["ctl.knobOn"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-switch-knob", size = { 64, 128 }, cap = 0,
 		capHeight = 0, rows = 2, normal = 1 },
+	-- the checkbox (design controls/checkbox), 22 px, drawn whole: the well with its bronze edge (hover: the light ring
+	-- over it), and the tick over the well
+	["ctl.check"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-check", size = { 64, 256 }, cap = 0,
+		capHeight = 0, rows = 4, normal = 0, glow = 1 },
+	["ctl.tick"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-check", size = { 64, 256 }, cap = 0,
+		capHeight = 0, rows = 4, normal = 2 },
+	-- the slider (design controls/slider): the groove, 8 px with its 1 px edge (caps 1 px: an eighth of its height),
+	-- the bronze fill inside it, and the knob, 14 x 20 px drawn in a 16 x 32 px square with its shadow (the knob 1 px
+	-- in from the left, 2 px down)
+	["ctl.groove"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-slider", size = { 64, 128 }, cap = 4,
+		capHeight = 0.125, rows = 4, normal = 0 },
+	["ctl.sliderFill"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-slider", size = { 64, 128 }, cap = 0,
+		capHeight = 0, rows = 4, normal = 1 },
+	["ctl.sliderKnob"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-slider-knob", size = { 32, 64 },
+		cap = 0, capHeight = 0 },
 	-- a count on a cell (the friends online on the social button; design .mbadge): a green pill with a black ring and a
 	-- faint top highlight, round caps half its height wide; the box gives it 16 px height, the text and side padding
 	["panel.countBadge"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\panel-count-badge", size = { 128, 64 },
