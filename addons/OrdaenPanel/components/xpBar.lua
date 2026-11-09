@@ -22,6 +22,9 @@ local RING = layer(Define.Theme.panel.xpTube, 3)
 -- the share done, in the tube's middle: 15 px bold-weight light text with a dark drop and outline (design .label)
 local LABEL_COLOR = { 0.953, 0.906, 0.8, 1 } -- #f3e7cc
 local LABEL_SHADOW = { color = { 0, 0, 0, 1 }, x = 1, y = -1 }
+-- over the whole tube and over the ring, its text centred both ways
+local LABEL = { position = "absolute", left = 0, right = 0, top = 0, bottom = 0, xAlign = "center", yAlign = "center",
+	zLevel = 4 }
 local INNER = { position = "absolute", left = INSET, top = INSET, right = INSET, bottom = INSET }
 -- the engraved section marks: a row of SECTIONS equal cells over the inside, each but the last with a 1 px dark right
 -- edge (offsets take units, not shares, so the marks come from the grid)
@@ -67,15 +70,19 @@ local function Inner(game)
 	game.ui:Box(MARKS_CALL)
 end
 
+local function Label(game)
+	game.ui:Text({ attributes = {
+		text = Percent(game), textSize = 12.5, textColor = LABEL_COLOR, textOutline = "thin", textShadow = LABEL_SHADOW,
+		wrap = false,
+	} })
+end
+
 local function Layers(game)
 	game.ui:Box(TROUGH)
 	game.ui:Box({ attributes = INNER, slots = { default = Inner } })
 	game.ui:Box(SHINE)
 	game.ui:Box(RING)
-	game.ui:Text({ attributes = {
-		position = "absolute", left = 0, right = 0, top = 0, bottom = 0, text = Percent(game), textAlign = "center",
-		textYAlign = "center", textSize = 12.5, textColor = LABEL_COLOR, textOutline = "thin", textShadow = LABEL_SHADOW,
-	} })
+	game.ui:Box({ attributes = LABEL, slots = { default = Label } })
 end
 
 local function Tube(game)
