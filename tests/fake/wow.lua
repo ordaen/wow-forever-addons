@@ -1273,6 +1273,11 @@ function Wow:MakeEnv()
 		LoadAddOn = function(name)
 			return wow:LoadAddOn(name)
 		end,
+		-- every addon is enabled for every character (2: Enum.AddOnEnableState.All)
+		GetAddOnEnableState = function()
+			return 2
+		end,
+		EnableAddOn = function() end,
 	})
 	-- what the fake offers must be in the dump, like everything else
 	local missing = {}
