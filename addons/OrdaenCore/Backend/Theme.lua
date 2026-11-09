@@ -96,6 +96,17 @@ ns.Theme = {
 		capHeight = 0, rows = 4, normal = 1 },
 	["ctl.sliderKnob"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-slider-knob", size = { 32, 64 },
 		cap = 0, capHeight = 0 },
+	-- the tabbed window (design TabbedWindow): its wood, one picture across the window from its top-left (the box with
+	-- artOrigin), so the body and the open tab show one surface; the open tab's art, three-sliced (caps 27 of its 64 px
+	-- height), drawn from 12 px above the tab to 10 px below the body's line and 10 px past its right side: the shadow
+	-- above, the light inside, the rim with the frame line's profile, the right flare's curve; the masks that round
+	-- the tab's wood (14 px corners) and cut its right flare (8 x 11 px)
+	["window.wood"] = { atlas = "UI-Character-Info-General-BG", fit = "origin" },
+	["ctl.tab"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab", size = { 128, 128 }, cap = 54,
+		capHeight = 27 / 64 },
+	["ctl.tabCornerL"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-l" },
+	["ctl.tabCornerR"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-r" },
+	["ctl.tabFlareR"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-flare-r" },
 	-- a count on a cell (the friends online on the social button; design .mbadge): a green pill with a black ring and a
 	-- faint top highlight, round caps half its height wide; the box gives it 16 px height, the text and side padding
 	["panel.countBadge"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\panel-count-badge", size = { 128, 64 },
