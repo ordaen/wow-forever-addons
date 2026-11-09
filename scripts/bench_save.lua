@@ -389,9 +389,20 @@ local function Model(id, saved, previous)
 	end
 	local build = round.build
 	if build then
+		-- the graphics settings in short: how many are 0 (off or lowest), and the others by name; rounds compare on
+		-- the full list
+		local zero, others = 0, {}
+		for name, value in (build.graphics or ""):gmatch("([^:,]+):([^,]*)") do
+			if value == "0" then
+				zero = zero + 1
+			else
+				others[#others + 1] = name:gsub("^graphics", "") .. " " .. value
+			end
+		end
+		local graphics = build.graphics and (zero .. " settings at 0" .. (#others > 0 and (", " .. table.concat(others, ", "))
+			or "")) or build.graphicsQuality or "?"
 		head(string.format("Built: Core %s, Bench %s (profiles). Where: %s%s. Graphics: %s.", build.core or "?",
-			build.bench or "?", build.zone or "?", (build.subzone or "") ~= "" and (", " .. build.subzone) or "",
-			build.graphics or build.graphicsQuality or "?"))
+			build.bench or "?", build.zone or "?", (build.subzone or "") ~= "" and (", " .. build.subzone) or "", graphics))
 	end
 	if round.addons then
 		head(string.format("Loaded addons (%d): %s.", #round.addons, table.concat(round.addons, ", ")))
