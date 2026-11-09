@@ -325,3 +325,6 @@ function Scheduler.Flush()
 		backend:Flush()
 	end
 end
+
+--- Flush now: for the benchmark module only (OrdaenBench times a change with its flush). Not module API.
+ns.Core._Flush = Scheduler.Flush
