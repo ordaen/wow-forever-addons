@@ -155,9 +155,25 @@ function Layout.ApplySize(node, a, resolve, px)
 end
 
 ---The "offset" group.
+-- An offset is a number of UI units; anything else is left out (as if unset) and named to the caller.
+local OFFSETS = { "top", "right", "bottom", "left" }
+local OFFSET_FIELDS = { top = "offT", right = "offR", bottom = "offB", left = "offL" }
+
+---Returns the first offset that isn't a number (its attribute's name and value), or nothing: the caller reports it.
 function Layout.ApplyOffsets(node, a, resolve)
-	node.offT, node.offR = resolve(node, a.top), resolve(node, a.right)
-	node.offB, node.offL = resolve(node, a.bottom), resolve(node, a.left)
+	local badKey, badValue
+	for i = 1, 4 do
+		local key = OFFSETS[i]
+		local v = resolve(node, a[key])
+		if v ~= nil and type(v) ~= "number" then
+			if not badKey then
+				badKey, badValue = key, v
+			end
+			v = nil
+		end
+		node[OFFSET_FIELDS[key]] = v
+	end
+	return badKey, badValue
 end
 
 -- A border's sides: every side, or those its `sides` list names ("top", "right", "bottom", "left").
@@ -196,9 +212,10 @@ end
 ---@param px number
 function Layout.Apply(node, a, resolve, resolveRef, px)
 	Layout.ApplySize(node, a, resolve, px)
-	Layout.ApplyOffsets(node, a, resolve)
+	local badKey, badValue = Layout.ApplyOffsets(node, a, resolve)
 	Layout.ApplyContent(node, a, resolve, resolveRef, px)
 	Layout.ApplyBorder(node, a, resolve, resolveRef, px)
+	return badKey, badValue
 end
 
 ---The "content" group: the grid of a box's children (a box's only).

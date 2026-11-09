@@ -848,6 +848,15 @@ function Node:ScanStates()
 	self.states, self.stateLayout = states, stateLayout
 end
 
+-- An attribute the layout can't take: reported through the game's error handler at the Set that gave it (the dev
+-- addon shows it), laid out as if unset, so one wrong value never stops the flush.
+local function badAttribute(key, value)
+	if key then
+		geterrorhandler()(("Ordaen: %s = %s is not a number of UI units (a share of the parent is a width or height"
+			.. " like \"10%%\")"):format(key, type(value) == "string" and ("%q"):format(value) or tostring(value)))
+	end
+end
+
 -- The fields Layout.Apply fills for a box, from a frozen attribute table without per-state maps (nil otherwise).
 local function styleOf(t)
 	local style = styles[t]
@@ -864,7 +873,7 @@ local function styleOf(t)
 			end
 			if plain then
 				style = { kind = "box" }
-				Layout.Apply(style, t, resolve, resolveRef, px)
+				badAttribute(Layout.Apply(style, t, resolve, resolveRef, px))
 			end
 		end
 		styles[t] = style
@@ -1135,12 +1144,28 @@ function repixelTrees()
 	end
 end
 
+-- A box's texts are font strings, drawn with their frame: under its child boxes, which are frames above it. A box
+-- with box children holds its texts in a frame of their own above them (TEXT_LEVELS levels up: deeper than any panel
+-- or window nests boxes), so a text over a box (a bar's label) shows. A box with only texts draws them itself.
+local TEXT_LEVELS = 20
+
+function Node:TextFrame()
+	local tf = self.textFrame
+	if not tf then
+		tf = CreateFrame("Frame", nil, self.frame)
+		tf:SetAllPoints(self.frame)
+		self.textFrame = tf
+	end
+	tf:SetFrameLevel(self.frame:GetFrameLevel() + TEXT_LEVELS)
+	return tf
+end
+
 local function attach(child, parent)
 	if child.gen ~= pxGen then
 		child:Repixel() -- rounded at an older pixel size while detached
 	end
 	child.parent = parent
-	local pf = parent.frame
+	local pf = child.kind == "text" and parent.textHost or parent.frame
 	if child.embedded then -- its parent, level and point come with its place (PlaceEmbedded)
 		child.fparent, child.x, child.shown = pf, nil, true
 		return
@@ -1155,6 +1180,9 @@ local function attach(child, parent)
 			local level = pf:GetFrameLevel()
 			if frame:GetFrameLevel() <= level then
 				frame:SetFrameLevel(level + 1)
+				if child.textFrame then
+					child:TextFrame() -- its texts' frame follows it up
+				end
 			end
 		end
 	end
@@ -1479,7 +1507,7 @@ function Backend:Set(node, attributes)
 			Layout.ApplySize(node, own, resolve, px)
 		end
 		if offset then
-			Layout.ApplyOffsets(node, own, resolve)
+			badAttribute(Layout.ApplyOffsets(node, own, resolve))
 		end
 		if content then
 			ownColumns(node)
@@ -1532,9 +1560,15 @@ function Backend:SetChildren(node, children, count)
 		end
 	end
 	stamp = stamp + 1
+	local boxes = false -- any child a frame of its own: then the texts go above them (Node:TextFrame)
 	for i = 1, count do
-		children[i].mark = stamp
+		local child = children[i]
+		child.mark = stamp
+		boxes = boxes or child.kind ~= "text"
 	end
+	local host = boxes and node.kind ~= "root" and node:TextFrame() or node.frame
+	local moved = host ~= node.textHost
+	node.textHost = host
 	for i = 1, node.count do
 		local child = mine[i]
 		if child.mark ~= stamp and child.parent == node then
@@ -1546,6 +1580,9 @@ function Backend:SetChildren(node, children, count)
 		mine[i] = child
 		if child.parent ~= node then
 			attach(child, node)
+		elseif moved and child.kind == "text" then -- staying, but its texts' frame changed
+			child.fparent = host
+			child.fs:SetParent(host)
 		end
 	end
 	for i = count + 1, node.count do
