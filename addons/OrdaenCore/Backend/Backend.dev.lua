@@ -133,3 +133,101 @@ function Core._BackendStats(out)
 	out.created_text = out.live_text + out.pool_text
 	return out
 end
+
+-- Inspecting ------------------------------------------------------------------------------------------------------
+
+local format, tostring, concat = string.format, tostring, table.concat
+
+-- A value as text: a theme reference by its path, a colour as its components, a function as "fn".
+local function show(v)
+	local kind = type(v)
+	if kind == "table" then
+		local path = rawget(v, "path")
+		if path then
+			return "@" .. path
+		end
+		local parts = {}
+		for k, x in pairs(v) do
+			parts[#parts + 1] = tostring(k) .. "=" .. (type(x) == "table" and "{..}" or tostring(x))
+		end
+		table.sort(parts)
+		return "{" .. concat(parts, ",") .. "}"
+	elseif kind == "function" then
+		return "fn"
+	end
+	return tostring(v)
+end
+
+local function points(region)
+	local list = {}
+	for i = 1, region:GetNumPoints() do
+		local p, rel, rp, x, y = region:GetPoint(i)
+		local relName = rel and (rel:GetName() or (rawget(rel, "node") and "box" or rel:GetObjectType())) or "-"
+		list[#list + 1] = format("%s>%s:%s %.1f,%.1f", p, relName, tostring(rp), x or 0, y or 0)
+	end
+	return concat(list, " ")
+end
+
+local function piece(tex)
+	local l, t, _, _, _, _, r, b = tex:GetTexCoord()
+	return format("%s %.1fx%.1f [%s] coords %.3f,%.3f-%.3f,%.3f", tex:IsShown() and "shown" or "hidden", tex:GetWidth(),
+		tex:GetHeight(), points(tex), l, t, r or 0, b or 0)
+end
+
+local function label(node)
+	local a = node.a or {}
+	return format("%s %s %.0fx%.0f", node.kind, show(a.background or a.text or a.position or ""), node.w or 0,
+		node.h or 0)
+end
+
+--- What the drawing backend knows of the box behind `frame` (dev mode's inspect): its attributes, layout, frame,
+--- stacking, art pieces, state and parents, as plain text fields; nil for a frame that isn't one of ours.
+---@param frame table
+---@return table?
+function Core._Inspect(frame)
+	local node = type(frame) == "table" and rawget(frame, "node")
+	if type(node) ~= "table" or type(node.a) ~= "table" then
+		return nil
+	end
+	local out = { kind = node.kind }
+	local attrs = {}
+	for k, v in pairs(node.a) do
+		attrs[#attrs + 1] = k .. "=" .. show(v)
+	end
+	table.sort(attrs)
+	out.attributes = concat(attrs, " ")
+	out.layout = format("x=%s y=%s w=%s h=%s placed %sx%s at %s,%s pos=%s", tostring(node.x), tostring(node.y),
+		tostring(node.w), tostring(node.h), tostring(node.pW), tostring(node.pH), tostring(node.pX), tostring(node.pY),
+		tostring(node.pos))
+	local obj = node.frame or node.fs
+	out.frame = format("%.1fx%.1f [%s] shown=%s visible=%s alpha=%.2f", obj:GetWidth(), obj:GetHeight(), points(obj),
+		tostring(obj:IsShown()), tostring(obj:IsVisible()), obj:GetAlpha())
+	if node.frame then
+		local f = node.frame
+		out.stack = format("%s/%d depth=%s z=%s mouse=%s", f:GetFrameStrata(), f:GetFrameLevel(), tostring(node.depth),
+			tostring(node.lookZ), tostring(f:IsMouseEnabled()))
+	end
+	out.state = format("hovered=%s pressed=%s states=%s", tostring(node.hovered), tostring(node.pressed),
+		tostring(node.states))
+	if node.bg then
+		out.bg = piece(node.bg)
+	end
+	for i, tex in ipairs(node.slices or {}) do
+		out["slice" .. i] = piece(tex)
+	end
+	if node.fs then
+		out.text = format("%q size=%s", tostring(node.fs:GetText()), tostring(node.fontSize))
+	end
+	local chain, parent = {}, node.parent
+	while parent and #chain < 12 do
+		chain[#chain + 1] = label(parent)
+		parent = parent.parent
+	end
+	out.parents = concat(chain, " < ")
+	local kids = {}
+	for i = 1, node.count or 0 do
+		kids[i] = label(node.children[i])
+	end
+	out.children = concat(kids, " | ")
+	return out
+end

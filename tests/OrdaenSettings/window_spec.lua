@@ -265,5 +265,51 @@ describe("the settings window", function()
 		ns.Scheduler.Flush()
 		assert.are.equal(0, ns.Core._BackendStats({}).order_errors) -- the tab's wood, flare and rim, as before
 	end)
+
+	it("draws its corner buttons in place after open, move, close and open again", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local f = texts(ns)["Ordaen"].parent.frame
+		wow:MoveCursor(500, 500)
+		wow:DragStart(f)
+		wow:MoveCursor(560, 470)
+		wow:Tick()
+		ns.Scheduler.Flush()
+		wow:DragStop(f)
+		ns.Scheduler.Flush()
+		wow.env.CloseSpecialWindows()
+		ns.Scheduler.Flush()
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local tab = texts(ns)["Ordaen"].parent
+		-- every part of the tab within the tab and its art's 10 px past it
+		for i = 1, tab.count do
+			local c = tab.children[i]
+			if c.kind == "box" then
+				local w = c.frame:GetWidth()
+				assert.is_true(w <= tab.frame:GetWidth() + 12, string.format("part %d is %.1f wide, the tab %.1f", i, w,
+					tab.frame:GetWidth()))
+			end
+		end
+		local body = tab.parent.children[1]
+		body.frame:GetScript("OnEnter")(body.frame)
+		ns.Scheduler.Flush()
+		ns.Backend:Flush()
+		local group
+		for i = 1, body.count do
+			local c = body.children[i]
+			if c.a.overflow == "clip" then
+				group = c
+			end
+		end
+		assert.is_truthy(group, "no corner group")
+		local fr = group.frame
+		local info = string.format("w=%s x=%s frame=%sx%s pt=%s", tostring(group.w), tostring(group.x),
+			tostring(fr:GetWidth()), tostring(fr:GetHeight()), tostring(fr:GetNumPoints()))
+		assert.is_true(math.abs(fr:GetWidth() - group.w) < 1, info)
+		assert.is_true(group.x > body.w / 2, info)
+		assert.are.equal(1, fr:GetNumPoints(), info)
+	end)
 end)
 
