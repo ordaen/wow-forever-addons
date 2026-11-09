@@ -199,31 +199,58 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 		end
 	end
 
-	--- Make, measured repeatedly: unmount untimed, then mount timed (the scene stays mounted after).
+	-- Tasks are named as the player sees them, so every side lands on the same row: "open", "close", "first open" and
+	-- the changes. Each side does a task its own way (the framework mounts from its pools and unmounts; hand code
+	-- shows and hides the frames it made once, or rebuilds the state it has instead of frames).
+
+	--- open, the framework: unmount untimed, then mount timed (mounted after); kept: what an open keeps.
 	local function FwMake(scenario, size, impl, scene)
-		add(measure:Series(scenario, size, impl, "make (pool warm)", HEAVY, function()
+		add(measure:Series(scenario, size, impl, "open", HEAVY, function()
 			Show(scene)
 		end, { prepare = function()
 			Show("none")
-		end }))
+		end, kept = true }))
 	end
-	--- Close, measured repeatedly: mount untimed, then unmount timed (unmounted after).
+	--- close, the framework: mount untimed, then unmount timed (unmounted after).
 	local function FwClose(scenario, size, impl, scene)
-		add(measure:Series(scenario, size, impl, "close (unmount)", HEAVY, function()
+		add(measure:Series(scenario, size, impl, "close", HEAVY, function()
 			Show("none")
 		end, { prepare = function()
 			Show(scene)
 		end }))
 	end
-	--- A hand side's make (once: hand code makes new frames every time, and WoW never frees one). `release` (for a
-	--- make that replaces module state) drops the last make's state in the untimed frame before, so kept KB is this
-	--- make's own and not minus the state it orphans.
+	--- A hand side's frames or state, made untimed: hand code makes its frames once (WoW never frees a frame), so
+	--- making them is the first open, the cold block's task. `release` drops the last make's state first.
 	local function HandMake(scenario, size, impl, make, release)
-		add(measure:Series(scenario, size, impl, "make", 1, make, { kept = true, prepare = release }))
+		add(measure:Do(function()
+			if release then
+				release()
+			end
+			make()
+		end))
 	end
-	--- A hand side's close: show untimed, then hide timed (hidden after).
-	local function HandClose(scenario, size, impl, ShowIt, HideIt)
-		add(measure:Series(scenario, size, impl, "close", HEAVY, HideIt, { prepare = ShowIt }))
+	--- open and close, by hand, for frames made once: hidden untimed then shown timed, and the reverse.
+	--- `root()`: the frame that holds them all.
+	local function HandOpen(scenario, size, impl, root)
+		add(measure:Series(scenario, size, impl, "open", HEAVY, function()
+			root():Show()
+		end, { prepare = function()
+			root():Hide()
+		end, kept = true }))
+	end
+	local function HandClose(scenario, size, impl, root)
+		add(measure:Series(scenario, size, impl, "close", HEAVY, function()
+			root():Hide()
+		end, { prepare = function()
+			root():Show()
+		end }))
+	end
+	--- open and close, by hand, for state without frames: made again, and dropped.
+	local function HandRebuild(scenario, size, impl, make, release)
+		add(measure:Series(scenario, size, impl, "open", HEAVY, make, { prepare = release, kept = true }))
+	end
+	local function HandRelease(scenario, size, impl, make, release)
+		add(measure:Series(scenario, size, impl, "close", HEAVY, release, { prepare = make }))
 	end
 
 	local texts = {}
@@ -283,18 +310,22 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 					FwClose("signals", size, FW, scene)
 				end },
 				{ impl = BEST, add = function()
-					HandMake("signals", size, BEST, function()
+					local function Make()
 						Best.signals.Make(size)
-					end, Best.signals.Release)
+					end
+					HandRebuild("signals", size, BEST, Make, Best.signals.Release)
 					add(measure:Series("signals", size, BEST, metric, FRAMES, Writes(Best.signals.Write,
 						Best.signals.Flush), { verify = Seen(metric, BEST, Best.signals.Checksum) }))
+					HandRelease("signals", size, BEST, Make, Best.signals.Release)
 				end },
 				{ impl = TYPICAL, add = function()
-					HandMake("signals", size, TYPICAL, function()
+					local function Make()
 						Typical.signals.Make(size)
-					end, Typical.signals.Release)
+					end
+					HandRebuild("signals", size, TYPICAL, Make, Typical.signals.Release)
 					add(measure:Series("signals", size, TYPICAL, metric, FRAMES, Writes(Typical.signals.Write),
 						{ verify = Seen(metric, TYPICAL, Typical.signals.Checksum) }))
+					HandRelease("signals", size, TYPICAL, Make, Typical.signals.Release)
 				end },
 			})
 		end
@@ -364,9 +395,10 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 				FwClose("fanout", "-", FW, "fanout")
 			end },
 			{ impl = BEST, add = function()
-				HandMake("fanout", "-", BEST, Best.fanout.Make, Best.fanout.Release)
+				HandRebuild("fanout", "-", BEST, Best.fanout.Make, Best.fanout.Release)
 				add(measure:Series("fanout", "-", BEST, "1 change/frame", FRAMES, Best.fanout.Bump,
 					{ verify = Seen("1 change/frame", BEST, Best.fanout.Checksum) }))
+				HandRelease("fanout", "-", BEST, Best.fanout.Make, Best.fanout.Release)
 			end },
 		})
 
@@ -406,6 +438,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			end },
 			{ impl = BEST, add = function()
 				HandMake("events", "-", BEST, Best.events.Make)
+				HandOpen("events", "-", BEST, Best.events.Root)
 				local rng = Random.New()
 				add(measure:Series("events", "-", BEST, "20 BAG_UPDATE/frame", FRAMES, function()
 					for _ = 1, 20 do
@@ -413,7 +446,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 					end
 					Best.events.Flush()
 				end, { verify = Seen("20 BAG_UPDATE/frame", BEST, HandScreen(Best.events)) }))
-				add(measure:Do(Best.events.Hide))
+				HandClose("events", "-", BEST, Best.events.Root)
 			end },
 		})
 
@@ -459,7 +492,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 						{ verify = not engine and Seen("all changed", impl, FwScreen(true), ShowsValues(values, count))
 							or nil }))
 					FwClose("grid", size, impl, mounted)
-					add(measure:Series("grid", size, impl, "open+close (remount)", HEAVY, function()
+					add(measure:Series("grid", size, impl, "open+close", HEAVY, function()
 						Show(mounted)
 						Show("none")
 					end))
@@ -478,9 +511,13 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			end
 			local function ByHand(impl, Grid)
 				return function()
+					local function Root()
+						return Grid.Root(size)
+					end
 					HandMake("grid", size, impl, function()
 						Grid.Make(size)
 					end)
+					HandOpen("grid", size, impl, Root)
 					add(measure:Series("grid", size, impl, "steady (shown, unchanged)", STEADY, Nothing))
 					add(measure:Series("grid", size, impl, "one changed", REPEATS, OneChanged(function(k, v)
 						Grid.SetOne(size, k, v)
@@ -493,11 +530,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 							return Grid.Verify(size, values)
 						end),
 					}))
-					HandClose("grid", size, impl, function()
-						Grid.Show(size)
-					end, function()
-						Grid.Hide(size)
-					end)
+					HandClose("grid", size, impl, Root)
 					add(measure:Series("grid", size, impl, "open+close", HEAVY, function()
 						Grid.Show(size)
 						Grid.Hide(size)
@@ -529,17 +562,17 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			end
 			local function ByHand(impl, Ticker)
 				return function()
+					local function Root()
+						return Ticker.Root(size)
+					end
 					HandMake("ticker", size, impl, function()
 						Ticker.Make(size)
 					end)
+					HandOpen("ticker", size, impl, Root)
 					add(measure:Series("ticker", size, impl, "all texts/frame", FRAMES, function()
 						Ticker.Tick(size)
 					end, { verify = Seen("all texts/frame", impl, HandScreen(Ticker, false, size)) }))
-					HandClose("ticker", size, impl, function()
-						Ticker.Show(size)
-					end, function()
-						Ticker.Hide(size)
-					end)
+					HandClose("ticker", size, impl, Root)
 				end
 			end
 			Block("ticker", size, {
@@ -584,11 +617,12 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 		local function ReorderByHand(impl, Reorder)
 			return function()
 				HandMake("reorder", "-", impl, Reorder.Make)
+				HandOpen("reorder", "-", impl, Reorder.Root)
 				for _, operation in ipairs(OPERATIONS) do
 					add(measure:Series("reorder", "-", impl, operation, REPEATS, Reorder[operation],
 						{ verify = Seen(operation, impl, HandScreen(Reorder)) }))
 				end
-				HandClose("reorder", "-", impl, Reorder.Show, Reorder.Hide)
+				HandClose("reorder", "-", impl, Reorder.Root)
 			end
 		end
 		Block("reorder", "-", {
@@ -632,11 +666,12 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			{ impl = FW_ENGINE, add = UnderStub("deep", "-", DeepFramework(FW_ENGINE, true)) },
 			{ impl = BEST, add = function()
 				HandMake("deep", "-", BEST, Best.deep.Make)
+				HandOpen("deep", "-", BEST, Best.deep.Root)
 				add(measure:Series("deep", "-", BEST, "leaf signal changed", REPEATS, Best.deep.SetSource,
 					{ verify = Seen("leaf signal changed", BEST, HandScreen(Best.deep)) }))
 				add(measure:Series("deep", "-", BEST, "value through 100 levels", REPEATS, Best.deep.SetValue,
 					{ verify = Seen("value through 100 levels", BEST, HandScreen(Best.deep)) }))
-				HandClose("deep", "-", BEST, Best.deep.Show, Best.deep.Hide)
+				HandClose("deep", "-", BEST, Best.deep.Root)
 			end },
 		})
 
@@ -686,11 +721,12 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 					nil, true)) },
 				{ impl = BEST, add = function()
 					HandMake(c.name, "-", BEST, hand.Make)
+					HandOpen(c.name, "-", BEST, hand.Root)
 					local rng = Random.New()
 					add(measure:Series(c.name, "-", BEST, c.metric, count, function()
 						c.draw(rng, c.hand)
 					end, { verify = Seen(c.metric, BEST, HandScreen(hand, c.textures)) }))
-					add(measure:Do(hand.Hide))
+					HandClose(c.name, "-", BEST, hand.Root)
 				end },
 			})
 		end
@@ -797,13 +833,14 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			end },
 			{ impl = BEST, add = function()
 				HandMake("hover", "-", BEST, Best.hover.Make)
+				HandOpen("hover", "-", BEST, Best.hover.Root)
 				add(measure:Series("hover", "-", BEST, "hovered item changed", FRAMES, (Hovers(Best.hover.Cells())), {
 					verify = Seen("hovered item changed", BEST, HandScreen(Best.hover), function()
 						local lit = Best.hover.Lit()
 						return lit == 1, lit .. " cells lit, not 1"
 					end),
 				}))
-				add(measure:Do(Best.hover.Hide))
+				HandClose("hover", "-", BEST, Best.hover.Root)
 			end },
 		})
 
@@ -975,7 +1012,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 	measure, passName = tracked, "cold"
 	Block("grid", "large", {
 		{ impl = FW, add = function()
-			add(measure:Series("grid", "large", FW, "make (cold)", 1, function()
+			add(measure:Series("grid", "large", FW, "first open", 1, function()
 				Show("grid-large")
 			end, { kept = true }))
 			add(measure:Do(function()
@@ -985,7 +1022,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 		-- the engine alone (the stub backend) right after: its kept KB splits the framework's between engine and
 		-- backend. Not quite cold for the engine: the framework side's first mount ran its one-time code just before.
 		{ impl = FW_ENGINE, add = UnderStub("grid", "large", function()
-			add(measure:Series("grid", "large", FW_ENGINE, "make (cold)", 1, function()
+			add(measure:Series("grid", "large", FW_ENGINE, "first open", 1, function()
 				Show("grid-large")
 			end, { kept = true }))
 			add(measure:Do(function()
@@ -993,7 +1030,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			end))
 		end) },
 		{ impl = BEST, add = function()
-			add(measure:Series("grid", "large", BEST, "make (cold)", 1, function()
+			add(measure:Series("grid", "large", BEST, "first open", 1, function()
 				Best.grid.Make("large")
 			end, { kept = true }))
 			add(measure:Do(function()
@@ -1001,7 +1038,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			end))
 		end },
 		{ impl = TYPICAL, add = function()
-			add(measure:Series("grid", "large", TYPICAL, "make (cold)", 1, function()
+			add(measure:Series("grid", "large", TYPICAL, "first open", 1, function()
 				Typical.grid.Make("large")
 			end, { kept = true }))
 			add(measure:Do(function()

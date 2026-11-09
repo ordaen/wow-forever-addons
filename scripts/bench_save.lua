@@ -485,6 +485,13 @@ local function Model(id, saved, previous)
 				-- apart from the measurements
 				checkOnly = r.luaMs == 0 and r.frameMs == 0 and (r.kb or 0) == 0 and r.check ~= nil or nil,
 				check = r.check,
+				-- a task (framework against hand code, black box): the plain framework on a row a hand side shares;
+				-- every framework row is also compared with the previous round (framework against itself)
+				task = r.impl == "framework" and (best ~= nil or typical ~= nil) or nil,
+				previous = old and {
+					lua = Lua(old.r.luaMs), frame = (Frame(old.r.frameMs, old.idle)), memory = Memory(old.r.kb),
+					kept = Memory(old.r.keptKb),
+				} or nil,
 				-- each measure's values per side, formatted: the page shows one measure at a time, the sides side by side
 				values = {
 					lua = { ours = Lua(r.luaMs), engine = Lua(engineLua), backend = Lua(backendLua),
@@ -496,7 +503,8 @@ local function Model(id, saved, previous)
 						change = changeFrame },
 					memory = { ours = Memory(r.kb), engine = engine and Memory(engine.r.kb) or "",
 						best = best and Memory(best.r.kb) or "", typical = typical and Memory(typical.r.kb) or "",
-						kept = Memory(r.keptKb), engineKept = engine and Memory(engine.r.keptKb) or "" },
+						kept = Memory(r.keptKb), engineKept = engine and Memory(engine.r.keptKb) or "",
+						bestKept = best and Memory(best.r.keptKb) or "", typicalKept = typical and Memory(typical.r.keptKb) or "" },
 				},
 				cells = {
 					r.scenario, r.size, metric, Lua(r.luaMs), Lua(engineLua), Lua(backendLua), frameText,
