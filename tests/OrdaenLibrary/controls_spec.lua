@@ -139,6 +139,34 @@ describe("the settings controls", function()
 			assert.are.same({}, wow.errors)
 		end)
 
+		it("shows its corner buttons while the cursor is over it: full screen and back, close", function()
+			local closed = 0
+			mount(function(game)
+				game.ui:Window(1, { attributes = { title = "Ordaen", width = 400, height = 300, OnClose = function()
+					closed = closed + 1
+				end } })
+			end)
+			assert.is_nil(withBackground("ctl.cornerClose")) -- hidden until hovered
+			local body = withBackground("window.wood")
+			body.frame:GetScript("OnEnter")(body.frame)
+			ns.Scheduler.Flush()
+			local full = withBackground("ctl.cornerExpand")
+			assert.is_truthy(full)
+			full.frame:GetScript("OnClick")(full.frame, "LeftButton")
+			ns.Scheduler.Flush()
+			local window = body.parent
+			assert.are.equal("TOPLEFT", (window.frame:GetPoint(1))) -- no anchor: it fills the layer
+			assert.are.equal(window.parent.w, window.w)
+			assert.is_truthy(withBackground("ctl.cornerContract"))
+			withBackground("ctl.cornerContract").frame:GetScript("OnClick")(full.frame, "LeftButton")
+			ns.Scheduler.Flush()
+			assert.are.equal("CENTER", (window.frame:GetPoint(1)))
+			local close = withBackground("ctl.cornerClose")
+			close.frame:GetScript("OnClick")(close.frame, "LeftButton")
+			assert.are.equal(1, closed)
+			assert.are.same({}, wow.errors)
+		end)
+
 		it("moves with its tab when dragged", function()
 			draw()
 			local art = withBackground("ctl.tab")
