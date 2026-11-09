@@ -153,6 +153,27 @@ function List:Get(index)
 	return list and list[index]
 end
 
+--- The entry at `index`, not recorded.
+function List:Peek(index)
+	local list = Read(self)
+	return list and list[index]
+end
+
+--- Replace the entry at `index` (1 to Len()); nil is refused (Remove takes an entry out).
+function List:Set(index, value)
+	Check(self.spec.of, value, self.name)
+	local list = Read(self)
+	if not list or list[index] == nil then
+		error("Ordaen: " .. self.name .. " has no entry " .. tostring(index) .. " to set (Insert adds one)", 2)
+	end
+	if list[index] == value then
+		return
+	end
+	list[index] = value
+	NotifyEntry(self, index)
+	Notify(self)
+end
+
 function List:Len()
 	if Tracking.observer then
 		Track(self)
@@ -215,6 +236,12 @@ function Map:Get(key)
 	if Tracking.observer then
 		Track(EntrySource(self, key))
 	end
+	local map = Read(self)
+	return map and map[key]
+end
+
+--- The entry at `key`, not recorded.
+function Map:Peek(key)
 	local map = Read(self)
 	return map and map[key]
 end
