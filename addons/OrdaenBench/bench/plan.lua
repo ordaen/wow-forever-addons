@@ -1,7 +1,14 @@
--- The bench's plan: every scenario on the framework, by hand at its best (baseline/) and, where it differs, as a
--- typical addon writes it (typical/), with the checks that tell a correct run. The sides of a scenario run in an
--- order that rotates with each round, so none always goes first.
--- `bench` gives: measure (driver), Show(scene) (switch and flush), Set(scene) (switch, no flush), flush, refs.
+-- The bench's plan. One /obench (one per /reload) runs:
+-- 1. a cold block: opening the large grid on every side while the session is fresh (the framework's pools empty,
+--    the hand sides' frames never made), measured;
+-- 2. the whole plan once untracked, so one-time costs (fonts, first textures, Blizzard code running for the first
+--    time) land outside the numbers;
+-- 3. the whole plan again, measured.
+-- Every scenario runs on the framework, on the framework with a stub backend (framework-engine: the engine alone,
+-- where something is drawn), by hand at its best (baseline/) and, where it differs, as a typical addon writes it
+-- (typical/). Each block starts with an idle series (the frame to read its frame times against) and notes the order
+-- its sides ran in, which rotates with each round.
+-- `bench` gives: flush, Show(scene) (switch and flush), Set(scene) (switch, no flush), refs, Swap(toStub).
 local counters = import("bench/counters")
 local Best = {
 	signals = import("baseline/signals"), coalesce = import("baseline/coalesce"), chain = import("baseline/chain"),
@@ -15,32 +22,35 @@ local Typical = {
 }
 
 local FRAMES = 120 -- frames per steady-state series
-local REPEATS = 60 -- repeats of each one-off change (WARMUP of them out of the numbers)
-local FW, BEST, TYPICAL = "framework", "baseline", "typical"
-local FW_ITEMS = "framework-itemsRead" -- the grid with each item reading its own count
+local STEADY = 300 -- frames of a grid on screen with nothing changing (only a long series shows drawing cost)
+local IDLE = 60 -- frames of each block's idle series
+local REPEATS = 60 -- repeats of each one-off change
+local HEAVY = 20 -- repeats of make, close and remount (each needs an untimed frame to prepare)
+local FW, FW_ITEMS, FW_ENGINE = "framework", "framework-itemsRead", "framework-engine"
+local BEST, TYPICAL = "baseline", "typical"
 
 local Plan = {}
 
----@param round integer rotates which side of each scenario goes first
-function Plan.Steps(bench, round)
-	local measure, flush, Show, Set, refs = bench.measure, bench.flush, bench.Show, bench.Set, bench.refs
+local function Nothing() end
+
+--- The steps of one /obench.
+---@param bench table
+---@param round integer rotates which side of each block goes first
+---@param tracked BenchMeasure records the numbers
+---@param silent BenchMeasure records nothing (the warm-up pass)
+function Plan.Steps(bench, round, tracked, silent)
+	local flush, Show, Set, refs = bench.flush, bench.Show, bench.Set, bench.refs
 	local steps = {}
 	local function add(step)
 		steps[#steps + 1] = step
 	end
-	--- Each side is a function adding its steps; they run in the round's order.
-	local function Sides(sides)
-		local n = #sides
-		for i = 0, n - 1 do
-			sides[(round + i) % n + 1]()
-		end
-	end
+	local measure -- the pass's measure: tracked for the cold block, silent for the warm-up, tracked again
+
 	local mark = {}
 	local function Mark(name)
-		return function()
+		return measure:Do(function()
 			mark[name] = counters[name]
-			return true
-		end
+		end)
 	end
 	local function Grew(name, by)
 		return function()
@@ -51,326 +61,435 @@ function Plan.Steps(bench, round)
 	local function NoViolations()
 		return counters.violations == mark.violations, (counters.violations - mark.violations) .. " stale reads"
 	end
-	local function Nothing() end
 
-	-- idle: the frame with nothing to do, the reference frame times are read against (again at the end)
-	add(measure:Series("idle", "-", "-", "nothing", FRAMES, Nothing))
-
-	-- signals: many values, sums, watches
-	for _, size in ipairs({ "small", "large" }) do
-		local scene, writes = "signals-" .. size, size == "small" and 50 or 500
-		local metric = writes .. " writes/frame"
-		Sides({
-			function()
-				add(measure:Once("signals", size, FW, "make", function()
-					Show(scene)
-				end))
-				add(measure:Series("signals", size, FW, metric, FRAMES, function(frame)
-					local ref = refs[scene]
-					for i = 1, writes do
-						ref.Write(frame * writes + i * 37)
-					end
-					flush()
-				end))
-				add(measure:Once("signals", size, FW, "unmount", function()
-					Show("none")
-				end))
-			end,
-			function()
-				add(measure:Once("signals", size, BEST, "make", function()
-					Best.signals.Make(size)
-				end))
-				add(measure:Series("signals", size, BEST, metric, FRAMES, function(frame)
-					for i = 1, writes do
-						Best.signals.Write(frame * writes + i * 37)
-					end
-					Best.signals.Flush()
-				end))
-			end,
-			function()
-				add(measure:Once("signals", size, TYPICAL, "make", function()
-					Typical.signals.Make(size)
-				end))
-				add(measure:Series("signals", size, TYPICAL, metric, FRAMES, function(frame)
-					for i = 1, writes do
-						Typical.signals.Write(frame * writes + i * 37)
-					end
-				end))
-			end,
-		})
-	end
-
-	-- coalesce: 1000 writes of one value a frame, 100 watches: each should run once a frame
-	Sides({
-		function()
-			add(measure:Once("coalesce", "-", FW, "make", function()
-				Show("coalesce")
-			end))
-			add(Mark("runs"))
-			add(measure:Series("coalesce", "-", FW, "1000 writes/frame", FRAMES, function()
-				refs.coalesce.WriteMany(1000)
-				flush()
-			end, Grew("runs", 100 * FRAMES)))
-			add(measure:Once("coalesce", "-", FW, "unmount", function()
-				Show("none")
-			end))
-		end,
-		function()
-			add(Mark("runs"))
-			add(measure:Series("coalesce", "-", BEST, "1000 writes/frame", FRAMES, function()
-				Best.coalesce.WriteMany(1000)
-				Best.coalesce.Flush()
-			end, Grew("runs", 100 * FRAMES)))
-		end,
-		function()
-			add(measure:Series("coalesce", "-", TYPICAL, "1000 writes/frame", FRAMES, function()
-				Typical.coalesce.WriteMany(1000)
-			end))
-		end,
-	})
-
-	-- chain, diamond: derived values, glitch-free
-	for _, name in ipairs({ "chain", "diamond" }) do
-		Sides({
-			function()
-				add(measure:Once(name, "-", FW, "make", function()
-					Show(name)
-				end))
-				add(Mark("runs"))
-				add(Mark("violations"))
-				add(measure:Series(name, "-", FW, "1 change/frame", FRAMES, function()
-					refs[name].Bump()
-					flush()
-				end, function()
-					local ok, why = Grew("runs", FRAMES)()
-					if not ok then
-						return false, "watch runs: " .. why
-					end
-					return NoViolations()
-				end))
-				add(measure:Once(name, "-", FW, "unmount", function()
-					Show("none")
-				end))
-			end,
-			function()
-				add(Mark("violations"))
-				add(measure:Series(name, "-", BEST, "1 change/frame", FRAMES, Best[name].Bump, NoViolations))
-			end,
-		})
-	end
-
-	-- fanout: one value, 5000 watches
-	Sides({
-		function()
-			add(measure:Once("fanout", "-", FW, "make", function()
-				Show("fanout")
-			end))
-			add(measure:Series("fanout", "-", FW, "1 change/frame", FRAMES, function()
-				refs.fanout.Bump()
-				flush()
-			end))
-			add(measure:Once("fanout", "-", FW, "unmount", function()
-				Show("none")
-			end))
-		end,
-		function()
-			add(measure:Once("fanout", "-", BEST, "make", Best.fanout.Make))
-			add(measure:Series("fanout", "-", BEST, "1 change/frame", FRAMES, Best.fanout.Bump))
-		end,
-	})
-
-	-- cascade: 50 watches each writing the next value
-	Sides({
-		function()
-			add(measure:Once("cascade", "-", FW, "make", function()
-				Show("cascade")
-			end))
-			add(measure:Series("cascade", "-", FW, "1 change/frame", FRAMES, function()
-				refs.cascade.Bump()
-				flush()
-			end, function()
-				return refs.cascade.Settled(), "the last value lags the first"
-			end))
-			add(measure:Once("cascade", "-", FW, "unmount", function()
-				Show("none")
-			end))
-		end,
-		function()
-			add(measure:Series("cascade", "-", BEST, "1 change/frame", FRAMES, Best.cascade.Bump, function()
-				return Best.cascade.Settled(), "the last value lags the first"
-			end))
-		end,
-	})
-
-	-- grid: item buttons
-	for _, size in ipairs({ "small", "large" }) do
-		local scene = "grid-" .. size
-		local function ByHand(impl, Grid)
-			return function()
-				add(measure:Once("grid", size, impl, "make", function()
-					Grid.Make(size)
-				end))
-				add(measure:Series("grid", size, impl, "steady (shown, unchanged)", FRAMES, Nothing))
-				add(measure:Series("grid", size, impl, "one changed", REPEATS, function(i)
-					Grid.SetOne(size, i, i)
-				end))
-				add(measure:Series("grid", size, impl, "all changed", REPEATS, function(i)
-					Grid.SetAll(size, i)
-				end, function()
-					return Grid.Verify(size, REPEATS)
-				end))
-				add(measure:Once("grid", size, impl, "close", function()
-					Grid.Hide(size)
-				end))
-				add(measure:Series("grid", size, impl, "open+close", REPEATS, function()
-					Grid.Show(size)
-					Grid.Hide(size)
-				end))
-			end
+	--- A block: its idle series, then its sides in this round's order (a side: { impl, add = fn }).
+	local function Block(scenario, size, sides)
+		add(measure:Series(scenario, size, "-", "idle", IDLE, Nothing))
+		local n, order, names = #sides, {}, {}
+		for k = 0, n - 1 do
+			order[k + 1] = sides[(round + k) % n + 1]
+			names[k + 1] = order[k + 1].impl
 		end
-		--- The framework side: `impl` names the variant, `scene` the mounted grid.
-		local function Framework(impl, scene)
-			return function()
-				add(measure:Once("grid", size, impl, "make", function()
-					Show(scene)
-				end))
-				add(measure:Series("grid", size, impl, "steady (shown, unchanged)", FRAMES, Nothing))
-				add(measure:Series("grid", size, impl, "one changed", REPEATS, function(i)
-					refs[scene].SetOne(i, i)
-					flush()
-				end))
-				add(measure:Series("grid", size, impl, "all changed", REPEATS, function(i)
-					local ref = refs[scene]
-					for k = 1, ref.Count() do
-						ref.SetOne(k, i + k)
-					end
-					flush()
-				end))
-				-- the MVP has no hidden attribute: closing unmounts, opening mounts again (hand code hides and shows)
-				add(measure:Once("grid", size, impl, "close (unmount)", function()
-					Show("none")
-				end))
-				add(measure:Series("grid", size, impl, "open+close (remount)", REPEATS, function()
-					Show(scene)
-					Show("none")
-				end))
-				add(Mark("mounts"))
-				add(measure:Once("grid", size, impl, "race: open+close in one frame", function()
-					Set(scene)
-					Set("none")
-					flush()
-					return Grew("mounts", 0)()
-				end))
-				add(measure:Check("grid", size, impl, "race: handle after close", function()
-					return pcall(refs[scene].SetOne, 1, 1)
-				end))
-			end
+		local note, m = "order|" .. scenario .. "|" .. size .. "|" .. table.concat(names, ","), measure
+		add(m:Do(function()
+			m:Note(note)
+		end))
+		for k = 1, n do
+			order[k].add()
 		end
-		Sides({
-			Framework(FW, scene),
-			Framework(FW_ITEMS, scene .. "-itemsRead"),
-			ByHand(BEST, Best.grid),
-			ByHand(TYPICAL, Typical.grid),
-		})
 	end
 
-	-- ticker: texts changed every frame
-	for _, size in ipairs({ "small", "large" }) do
-		local scene = "ticker-" .. size
-		local function ByHand(impl, Ticker)
-			return function()
-				add(measure:Once("ticker", size, impl, "make", function()
-					Ticker.Make(size)
-				end))
-				add(measure:Series("ticker", size, impl, "all texts/frame", FRAMES, function()
-					Ticker.Tick(size)
-				end))
-				add(measure:Once("ticker", size, impl, "close", function()
-					Ticker.Hide(size)
-				end))
-			end
-		end
-		Sides({
-			function()
-				add(measure:Once("ticker", size, FW, "make", function()
-					Show(scene)
-				end))
-				add(measure:Series("ticker", size, FW, "all texts/frame", FRAMES, function()
-					refs[scene].Tick()
-					flush()
-				end))
-				add(measure:Once("ticker", size, FW, "close", function()
-					Show("none")
-				end))
-			end,
-			ByHand(BEST, Best.ticker),
-			ByHand(TYPICAL, Typical.ticker),
-		})
-	end
-
-	-- reorder: a keyed list changing order
-	local OPERATIONS = { "Reverse", "Rotate", "InsertFront", "RemoveMiddle", "Shuffle" }
-	local function ReorderByHand(impl, Reorder)
+	--- A framework-engine side: the stub backend swapped in before it, the real one back after.
+	local function UnderStub(addSteps)
 		return function()
-			add(measure:Once("reorder", "-", impl, "make", Reorder.Make))
-			for _, operation in ipairs(OPERATIONS) do
-				add(measure:Series("reorder", "-", impl, operation, REPEATS, Reorder[operation]))
-			end
-			add(measure:Once("reorder", "-", impl, "close", Reorder.Hide))
+			add(measure:Do(function()
+				bench.Swap(true)
+			end))
+			addSteps()
+			add(measure:Do(function()
+				bench.Swap(false)
+			end))
 		end
 	end
-	Sides({
-		function()
-			add(measure:Once("reorder", "-", FW, "make", function()
-				Show("reorder")
-			end))
-			for _, operation in ipairs(OPERATIONS) do
-				add(measure:Series("reorder", "-", FW, operation, REPEATS, function()
-					refs.reorder[operation]()
+
+	--- Make, measured repeatedly: unmount untimed, then mount timed (the scene stays mounted after).
+	local function FwMake(scenario, size, impl, scene)
+		add(measure:Series(scenario, size, impl, "make (pool warm)", HEAVY, function()
+			Show(scene)
+		end, { prepare = function()
+			Show("none")
+		end }))
+	end
+	--- Close, measured repeatedly: mount untimed, then unmount timed (unmounted after).
+	local function FwClose(scenario, size, impl, scene)
+		add(measure:Series(scenario, size, impl, "close (unmount)", HEAVY, function()
+			Show("none")
+		end, { prepare = function()
+			Show(scene)
+		end }))
+	end
+	--- A hand side's close: show untimed, then hide timed (hidden after).
+	local function HandClose(scenario, size, impl, ShowIt, HideIt)
+		add(measure:Series(scenario, size, impl, "close", HEAVY, HideIt, { prepare = ShowIt }))
+	end
+
+	local texts = {}
+	--- The framework drew `count` counts, each base + its index (first, middle, last checked).
+	local function ShowsCounts(count, base)
+		return function()
+			local n = OrdaenCore._ScreenTexts(texts)
+			if n ~= count then
+				return false, n .. " texts on screen, not " .. count
+			end
+			for _, i in ipairs({ 1, math.floor(n / 2), n }) do
+				if texts[i] ~= tostring(base + i) then
+					return false, "cell " .. i .. " shows " .. tostring(texts[i])
+				end
+			end
+			return true
+		end
+	end
+
+	local function Pass()
+		-- signals: many values, sums, watches
+		for _, size in ipairs({ "small", "large" }) do
+			local scene, writes = "signals-" .. size, size == "small" and 50 or 500
+			local metric = writes .. " writes/frame"
+			Block("signals", size, {
+				{ impl = FW, add = function()
+					FwMake("signals", size, FW, scene)
+					add(measure:Series("signals", size, FW, metric, FRAMES, function(frame)
+						local ref = refs[scene]
+						for i = 1, writes do
+							ref.Write(frame * writes + i * 37)
+						end
+						flush()
+					end))
+					FwClose("signals", size, FW, scene)
+				end },
+				{ impl = BEST, add = function()
+					add(measure:Series("signals", size, BEST, "make", 1, function()
+						Best.signals.Make(size)
+					end, { kept = true }))
+					add(measure:Series("signals", size, BEST, metric, FRAMES, function(frame)
+						for i = 1, writes do
+							Best.signals.Write(frame * writes + i * 37)
+						end
+						Best.signals.Flush()
+					end))
+				end },
+				{ impl = TYPICAL, add = function()
+					add(measure:Series("signals", size, TYPICAL, "make", 1, function()
+						Typical.signals.Make(size)
+					end, { kept = true }))
+					add(measure:Series("signals", size, TYPICAL, metric, FRAMES, function(frame)
+						for i = 1, writes do
+							Typical.signals.Write(frame * writes + i * 37)
+						end
+					end))
+				end },
+			})
+		end
+
+		-- coalesce: 1000 writes of one value a frame, 100 watches: each should run once a frame
+		Block("coalesce", "-", {
+			{ impl = FW, add = function()
+				FwMake("coalesce", "-", FW, "coalesce")
+				add(Mark("runs"))
+				add(measure:Series("coalesce", "-", FW, "1000 writes/frame", FRAMES, function()
+					refs.coalesce.WriteMany(1000)
+					flush()
+				end, { verify = Grew("runs", 100 * FRAMES) }))
+				FwClose("coalesce", "-", FW, "coalesce")
+			end },
+			{ impl = BEST, add = function()
+				add(Mark("runs"))
+				add(measure:Series("coalesce", "-", BEST, "1000 writes/frame", FRAMES, function()
+					Best.coalesce.WriteMany(1000)
+					Best.coalesce.Flush()
+				end, { verify = Grew("runs", 100 * FRAMES) }))
+			end },
+			{ impl = TYPICAL, add = function()
+				add(measure:Series("coalesce", "-", TYPICAL, "1000 writes/frame", FRAMES, function()
+					Typical.coalesce.WriteMany(1000)
+				end))
+			end },
+		})
+
+		-- chain, diamond: derived values, glitch-free
+		for _, name in ipairs({ "chain", "diamond" }) do
+			Block(name, "-", {
+				{ impl = FW, add = function()
+					FwMake(name, "-", FW, name)
+					add(Mark("runs"))
+					add(Mark("violations"))
+					add(measure:Series(name, "-", FW, "1 change/frame", FRAMES, function()
+						refs[name].Bump()
+						flush()
+					end, { verify = function()
+						local ok, why = Grew("runs", FRAMES)()
+						if not ok then
+							return false, "watch runs: " .. why
+						end
+						return NoViolations()
+					end }))
+					FwClose(name, "-", FW, name)
+				end },
+				{ impl = BEST, add = function()
+					add(Mark("violations"))
+					add(measure:Series(name, "-", BEST, "1 change/frame", FRAMES, Best[name].Bump,
+						{ verify = NoViolations }))
+				end },
+			})
+		end
+
+		-- fanout: one value, 5000 watches
+		Block("fanout", "-", {
+			{ impl = FW, add = function()
+				FwMake("fanout", "-", FW, "fanout")
+				add(measure:Series("fanout", "-", FW, "1 change/frame", FRAMES, function()
+					refs.fanout.Bump()
 					flush()
 				end))
+				FwClose("fanout", "-", FW, "fanout")
+			end },
+			{ impl = BEST, add = function()
+				add(measure:Series("fanout", "-", BEST, "make", 1, Best.fanout.Make, { kept = true }))
+				add(measure:Series("fanout", "-", BEST, "1 change/frame", FRAMES, Best.fanout.Bump))
+			end },
+		})
+
+		-- cascade: 50 watches each writing the next value
+		Block("cascade", "-", {
+			{ impl = FW, add = function()
+				FwMake("cascade", "-", FW, "cascade")
+				add(measure:Series("cascade", "-", FW, "1 change/frame", FRAMES, function()
+					refs.cascade.Bump()
+					flush()
+				end, { verify = function()
+					return refs.cascade.Settled(), "the last value lags the first"
+				end }))
+				FwClose("cascade", "-", FW, "cascade")
+			end },
+			{ impl = BEST, add = function()
+				add(measure:Series("cascade", "-", BEST, "1 change/frame", FRAMES, Best.cascade.Bump, {
+					verify = function()
+						return Best.cascade.Settled(), "the last value lags the first"
+					end,
+				}))
+			end },
+		})
+
+		-- grid: item buttons
+		for _, size in ipairs({ "small", "large" }) do
+			local scene = "grid-" .. size
+			local count = size == "small" and 200 or 1000
+			local function Framework(impl, mounted, engine)
+				return function()
+					FwMake("grid", size, impl, mounted)
+					if not engine then
+						add(measure:Series("grid", size, impl, "steady (shown, unchanged)", STEADY, Nothing))
+					end
+					add(measure:Series("grid", size, impl, "one changed", REPEATS, function(i)
+						refs[mounted].SetOne(i, i)
+						flush()
+					end))
+					add(measure:Series("grid", size, impl, "all changed", REPEATS, function(i)
+						local ref = refs[mounted]
+						for k = 1, count do
+							ref.SetOne(k, i + k)
+						end
+						flush()
+					end, { verify = not engine and ShowsCounts(count, REPEATS) or nil }))
+					FwClose("grid", size, impl, mounted)
+					add(measure:Series("grid", size, impl, "open+close (remount)", HEAVY, function()
+						Show(mounted)
+						Show("none")
+					end))
+					if not engine then
+						add(Mark("mounts"))
+						add(measure:Series("grid", size, impl, "race: open+close in one frame", 1, function()
+							Set(mounted)
+							Set("none")
+							flush()
+						end, { verify = Grew("mounts", 0) }))
+						add(measure:Check("grid", size, impl, "race: handle after close", function()
+							return pcall(refs[mounted].SetOne, 1, 1)
+						end))
+					end
+				end
 			end
-			add(measure:Once("reorder", "-", FW, "close", function()
+			local function ByHand(impl, Grid)
+				return function()
+					add(measure:Series("grid", size, impl, "make", 1, function()
+						Grid.Make(size)
+					end, { kept = true }))
+					add(measure:Series("grid", size, impl, "steady (shown, unchanged)", STEADY, Nothing))
+					add(measure:Series("grid", size, impl, "one changed", REPEATS, function(i)
+						Grid.SetOne(size, i, i)
+					end))
+					add(measure:Series("grid", size, impl, "all changed", REPEATS, function(i)
+						Grid.SetAll(size, i)
+					end, { verify = function()
+						return Grid.Verify(size, REPEATS)
+					end }))
+					HandClose("grid", size, impl, function()
+						Grid.Show(size)
+					end, function()
+						Grid.Hide(size)
+					end)
+					add(measure:Series("grid", size, impl, "open+close", HEAVY, function()
+						Grid.Show(size)
+						Grid.Hide(size)
+					end))
+				end
+			end
+			Block("grid", size, {
+				{ impl = FW, add = Framework(FW, scene) },
+				{ impl = FW_ITEMS, add = Framework(FW_ITEMS, scene .. "-itemsRead") },
+				{ impl = FW_ENGINE, add = UnderStub(Framework(FW_ENGINE, scene, true)) },
+				{ impl = BEST, add = ByHand(BEST, Best.grid) },
+				{ impl = TYPICAL, add = ByHand(TYPICAL, Typical.grid) },
+			})
+		end
+
+		-- ticker: texts changed every frame
+		for _, size in ipairs({ "small", "large" }) do
+			local scene = "ticker-" .. size
+			local function Framework(impl)
+				return function()
+					FwMake("ticker", size, impl, scene)
+					add(measure:Series("ticker", size, impl, "all texts/frame", FRAMES, function()
+						refs[scene].Tick()
+						flush()
+					end))
+					FwClose("ticker", size, impl, scene)
+				end
+			end
+			local function ByHand(impl, Ticker)
+				return function()
+					add(measure:Series("ticker", size, impl, "make", 1, function()
+						Ticker.Make(size)
+					end, { kept = true }))
+					add(measure:Series("ticker", size, impl, "all texts/frame", FRAMES, function()
+						Ticker.Tick(size)
+					end))
+					HandClose("ticker", size, impl, function()
+						Ticker.Show(size)
+					end, function()
+						Ticker.Hide(size)
+					end)
+				end
+			end
+			Block("ticker", size, {
+				{ impl = FW, add = Framework(FW) },
+				{ impl = FW_ENGINE, add = UnderStub(Framework(FW_ENGINE)) },
+				{ impl = BEST, add = ByHand(BEST, Best.ticker) },
+				{ impl = TYPICAL, add = ByHand(TYPICAL, Typical.ticker) },
+			})
+		end
+
+		-- reorder: a keyed list changing order
+		local OPERATIONS = { "Reverse", "Rotate", "InsertFront", "RemoveMiddle", "Shuffle" }
+		local function ReorderFramework(impl, engine)
+			return function()
+				FwMake("reorder", "-", impl, "reorder")
+				for _, operation in ipairs(OPERATIONS) do
+					local verify
+					if operation == "Shuffle" and not engine then
+						verify = function()
+							local ids = refs.reorder.Ids()
+							local n = OrdaenCore._ScreenTexts(texts)
+							if n ~= #ids then
+								return false, n .. " rows on screen, not " .. #ids
+							end
+							for i = 1, n do
+								if texts[i] ~= "row " .. ids[i] then
+									return false, "row " .. i .. " shows " .. tostring(texts[i])
+								end
+							end
+							return true
+						end
+					end
+					add(measure:Series("reorder", "-", impl, operation, REPEATS, function()
+						refs.reorder[operation]()
+						flush()
+					end, { verify = verify }))
+				end
+				FwClose("reorder", "-", impl, "reorder")
+			end
+		end
+		local function ReorderByHand(impl, Reorder)
+			return function()
+				add(measure:Series("reorder", "-", impl, "make", 1, Reorder.Make, { kept = true }))
+				for _, operation in ipairs(OPERATIONS) do
+					add(measure:Series("reorder", "-", impl, operation, REPEATS, Reorder[operation]))
+				end
+				HandClose("reorder", "-", impl, Reorder.Show, Reorder.Hide)
+			end
+		end
+		Block("reorder", "-", {
+			{ impl = FW, add = ReorderFramework(FW) },
+			{ impl = FW_ENGINE, add = UnderStub(ReorderFramework(FW_ENGINE, true)) },
+			{ impl = BEST, add = ReorderByHand(BEST, Best.reorder) },
+			{ impl = TYPICAL, add = ReorderByHand(TYPICAL, Typical.reorder) },
+		})
+
+		-- deep: 100 nested components
+		local function DeepFramework(impl, engine)
+			return function()
+				FwMake("deep", "-", impl, "deep")
+				add(Mark("renders"))
+				add(measure:Series("deep", "-", impl, "leaf signal changed", REPEATS, function(i)
+					refs.deep.SetSource(i)
+					flush()
+				end, { verify = Grew("renders", REPEATS) }))
+				add(measure:Series("deep", "-", impl, "value through 100 levels", REPEATS, function(i)
+					refs.deep.SetValue(i)
+					flush()
+				end, { verify = function()
+					return counters.leafValue == REPEATS, "the leaf shows " .. tostring(counters.leafValue)
+				end }))
+				if engine then
+					FwClose("deep", "-", impl, "deep")
+				else
+					add(Mark("renders"))
+					add(measure:Series("deep", "-", impl, "race: change + close in one frame", 1, function()
+						refs.deep.SetSource(-1)
+						Set("none")
+						flush()
+					end, { verify = Grew("renders", 0) }))
+				end
+			end
+		end
+		Block("deep", "-", {
+			{ impl = FW, add = DeepFramework(FW) },
+			{ impl = FW_ENGINE, add = UnderStub(DeepFramework(FW_ENGINE, true)) },
+			{ impl = BEST, add = function()
+				add(measure:Series("deep", "-", BEST, "make", 1, Best.deep.Make, { kept = true }))
+				add(measure:Series("deep", "-", BEST, "leaf signal changed", REPEATS, Best.deep.SetSource))
+				add(measure:Series("deep", "-", BEST, "value through 100 levels", REPEATS, Best.deep.SetValue))
+				HandClose("deep", "-", BEST, Best.deep.Show, Best.deep.Hide)
+			end },
+		})
+
+		add(measure:Series("idle", "-", "-", "idle (end)", IDLE, Nothing))
+	end
+
+	-- 1. the cold block, measured while the session is fresh
+	measure = tracked
+	Block("grid", "large", {
+		{ impl = FW, add = function()
+			add(measure:Series("grid", "large", FW, "make (cold)", 1, function()
+				Show("grid-large")
+			end, { kept = true }))
+			add(measure:Do(function()
 				Show("none")
 			end))
-		end,
-		ReorderByHand(BEST, Best.reorder),
-		ReorderByHand(TYPICAL, Typical.reorder),
+		end },
+		{ impl = BEST, add = function()
+			add(measure:Series("grid", "large", BEST, "make (cold)", 1, function()
+				Best.grid.Make("large")
+			end, { kept = true }))
+			add(measure:Do(function()
+				Best.grid.Hide("large")
+			end))
+		end },
+		{ impl = TYPICAL, add = function()
+			add(measure:Series("grid", "large", TYPICAL, "make (cold)", 1, function()
+				Typical.grid.Make("large")
+			end, { kept = true }))
+			add(measure:Do(function()
+				Typical.grid.Hide("large")
+			end))
+		end },
 	})
-
-	-- deep: 100 nested components
-	Sides({
-		function()
-			add(measure:Once("deep", "-", FW, "make", function()
-				Show("deep")
-			end))
-			add(Mark("renders"))
-			add(measure:Series("deep", "-", FW, "leaf signal changed", REPEATS, function(i)
-				refs.deep.SetSource(i)
-				flush()
-			end, Grew("renders", REPEATS)))
-			add(measure:Series("deep", "-", FW, "value through 100 levels", REPEATS, function(i)
-				refs.deep.SetValue(i)
-				flush()
-			end, function()
-				return counters.leafValue == REPEATS, "the leaf shows " .. tostring(counters.leafValue)
-			end))
-			add(Mark("renders"))
-			add(measure:Once("deep", "-", FW, "race: change + close in one frame", function()
-				refs.deep.SetSource(-1)
-				Set("none")
-				flush()
-				return Grew("renders", 0)()
-			end))
-		end,
-		function()
-			add(measure:Once("deep", "-", BEST, "make", Best.deep.Make))
-			add(measure:Series("deep", "-", BEST, "leaf signal changed", REPEATS, Best.deep.SetSource))
-			add(measure:Series("deep", "-", BEST, "value through 100 levels", REPEATS, Best.deep.SetValue))
-			add(measure:Once("deep", "-", BEST, "close", Best.deep.Hide))
-		end,
-	})
-	add(measure:Series("idle", "-", "-", "nothing (end)", FRAMES, Nothing))
+	-- 2. the warm-up pass, untracked
+	measure = silent
+	Pass()
+	-- 3. the measured pass
+	measure = tracked
+	Pass()
 	return steps
 end
 

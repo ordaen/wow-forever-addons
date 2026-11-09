@@ -5,6 +5,7 @@
 local Define = import("@ordaen/define")
 local Driver = import("bench/driver")
 local Plan = import("bench/plan")
+local Stub = import("bench/stub")
 
 local SCENES = {
 	{ id = "signals-small", component = import("components/signals"), size = "small" },
@@ -35,10 +36,10 @@ return Define.Module({
 
 	Setup = function(game, self)
 		Define.Ephemeral({ scene = { type = "choice", choices = BenchScene, default = BenchScene.None } })
-		-- the last round's results, one structured line each (bench/driver.lua), read by scripts/bench_save.lua
-		-- and how many rounds ran: it rotates which side of each scenario goes first
+		-- the last round's results, one structured line each (bench/driver.lua), read by scripts/bench_save.lua,
+		-- and how many rounds ran: it rotates which side of each block goes first
 		Define.Persistent({
-			results = { type = "list", of = { type = "string" }, cap = 1000 },
+			results = { type = "list", of = { type = "string" }, cap = 3000 },
 			rounds = { type = "number", default = 0 },
 		})
 		local scene, results, rounds = self.state.ephemeral.scene, self.state.persistent.results, self.state.persistent.rounds
@@ -55,17 +56,17 @@ return Define.Module({
 			end
 		end)
 
-		local flush = OrdaenCore._Flush -- the bench's door: a change timed with its flush
-		-- log lines wait for the end of the round: the dev addon streams each one over the following frames, which
-		-- would land in the next measurements' frame times
-		local held = {}
-		local measure = Driver.NewMeasure(function(line)
-			held[#held + 1] = line
-		end, function(line)
-			results:Insert(line)
+		local flush = OrdaenCore._Flush -- the bench's door (OrdaenCore's Bench.dev.lua): a change timed with its flush
+		-- results wait in memory until the round ends: written to the persistent list during the round, they would be
+		-- synced and streamed by the dev addon over the following frames, inside the next measurements
+		local pending = {}
+		local tracked = Driver.NewMeasure(function(line)
+			pending[#pending + 1] = line
 		end)
+		local silent = Driver.NewMeasure(nil)
+		local real -- the drawing backend while the stub is in (framework-engine sides)
 		local bench = {
-			measure = measure, flush = flush, refs = refs,
+			flush = flush, refs = refs,
 			Set = function(to)
 				scene:Set(to)
 			end,
@@ -73,7 +74,26 @@ return Define.Module({
 				scene:Set(to)
 				flush()
 			end,
+			Swap = function(toStub)
+				if toStub then
+					Stub.Fill(20000)
+					real = OrdaenCore._SwapBackend(Stub)
+				elseif real then
+					OrdaenCore._SwapBackend(real)
+					real = nil
+				end
+			end,
 		}
+
+		local debug = self.module.debug
+		--- The dev addon's background work (state sync, Perf sampler, channel) paused while the round runs, where
+		--- the dev addon offers it.
+		local function Quiet(on)
+			local method = debug.Quiet
+			if method then
+				method(debug, on)
+			end
+		end
 
 		local function Say(text)
 			print("|cff88ccffOrdaen Bench|r " .. text)
@@ -87,19 +107,17 @@ return Define.Module({
 				Say("already running")
 				return
 			end
-			-- one round per /reload: hand code makes its frames again each round and WoW never frees a frame, while the
-			-- framework's pools would start warm
+			-- one round per /reload: its cold block needs a fresh session (empty pools, no frames made yet)
 			if ran then
 				Say("one round per session: /reload, then /obench")
 				return
 			end
 			ran = true
-			results:Reset()
 			local round = rounds:Get() + 1
 			rounds:Set(round)
 			local _, build = GetBuildInfo()
-			results:Insert(string.format("round|%s|%s|%.0f|%.0f|%d", date("%Y-%m-%d %H:%M:%S"), build, GetFramerate(),
-				collectgarbage("count"), round))
+			pending[#pending + 1] = string.format("round|%s|%s|%.0f|%.0f|%d", date("%Y-%m-%d %H:%M:%S"), build,
+				GetFramerate(), collectgarbage("count"), round)
 			-- what else ran: every loaded addon's work is in the frame times
 			local loaded = {}
 			for i = 1, C_AddOns.GetNumAddOns() do
@@ -107,21 +125,27 @@ return Define.Module({
 					loaded[#loaded + 1] = (C_AddOns.GetAddOnInfo(i))
 				end
 			end
-			results:Insert("addons|" .. table.concat(loaded, ","))
-			-- what decides how frame times read: a capped frame rate or vsync makes frames wait
-			-- (the cap is on only while useMaxFPS is 1; maxFPS keeps its value either way)
-			results:Insert(string.format("settings|collector=%s|useMaxFPS=%s|maxFPS=%s|useMaxFPSBk=%s|maxFPSBk=%s|vsync=%s",
+			pending[#pending + 1] = "addons|" .. table.concat(loaded, ",")
+			-- what decides how frame times read: a capped frame rate or vsync makes frames wait (the cap is on only
+			-- while useMaxFPS is 1; maxFPS keeps its value either way); the resolution and render scale set the drawing
+			local physicalWidth, physicalHeight = GetPhysicalScreenSize()
+			pending[#pending + 1] = string.format(
+				"settings|collector=%s|useMaxFPS=%s|maxFPS=%s|useMaxFPSBk=%s|maxFPSBk=%s|vsync=%s|physical=%dx%d|ui=%.0fx%.0f|renderScale=%s",
 				Driver.collector, tostring(GetCVar("useMaxFPS")), tostring(GetCVar("maxFPS")),
-				tostring(GetCVar("useMaxFPSBk")), tostring(GetCVar("maxFPSBk")), tostring(GetCVar("vsync"))))
-			measure.failures = 0
-			Say("running: a few minutes; keep the game in front, frame rate uncapped, vsync off")
-			Driver.Run(Plan.Steps(bench, round), function()
-				for i = 1, #held do
-					self.module.debug:Log(held[i])
-					held[i] = nil
+				tostring(GetCVar("useMaxFPSBk")), tostring(GetCVar("maxFPSBk")), tostring(GetCVar("vsync")),
+				physicalWidth, physicalHeight, GetScreenWidth(), GetScreenHeight(), tostring(GetCVar("renderScale")))
+			tracked.failures = 0
+			Say("running: several minutes; keep the game in front, frame rate uncapped, vsync off")
+			Quiet(true)
+			Driver.Run(Plan.Steps(bench, round, tracked, silent), function()
+				Quiet(false)
+				results:Reset()
+				for i = 1, #pending do
+					results:Insert(pending[i])
+					pending[i] = nil
 				end
-				Say(string.format("done: %d results, %d failed checks. /reload, then save the round.", results:Len() - 3,
-					measure.failures))
+				debug:Logf("round %d: %d lines, %d failed checks", round, results:Len(), tracked.failures)
+				Say(string.format("done: %d failed checks. /reload, then save the round.", tracked.failures))
 			end)
 		end
 	end,

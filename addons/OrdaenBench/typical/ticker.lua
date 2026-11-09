@@ -34,6 +34,10 @@ function Ticker.Tick(size)
 	end
 end
 
+function Ticker.Show(size)
+	frames[size]:Show()
+end
+
 function Ticker.Hide(size)
 	frames[size]:Hide()
 end

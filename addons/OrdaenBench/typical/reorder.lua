@@ -73,6 +73,10 @@ function Reorder.Shuffle()
 	Refresh()
 end
 
+function Reorder.Show()
+	frame:Show()
+end
+
 function Reorder.Hide()
 	frame:Hide()
 end

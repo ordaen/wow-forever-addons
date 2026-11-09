@@ -1,28 +1,26 @@
--- The bench's driver: runs steps one frame at a time on a frame of its own, measures them, and records each result
--- twice: a line for the log, and a structured line
--- `scenario|size|impl|metric|luaMedian|luaP95|frameMedian|frameP95|kb|n|check` that scripts/bench_save.lua turns
--- into the round's file. Dev only: it uses WoW directly.
+-- The bench's driver: runs steps one frame at a time on a frame of its own, measures them, and hands each result to
+-- the module as a structured line
+-- `scenario|size|impl|metric|luaMedian|luaP95|frameMedian|frameP95|kb|n|check|keptKb`
+-- that scripts/bench_save.lua turns into the round's file. Dev only: it uses WoW directly.
 --
 -- Two times per measurement:
--- - Lua: debugprofilestop around the step. It misses work WoW defers to drawing (anchors, text layout), so code that
---   never reads geometry back looks cheaper than it is.
--- - Frame: from this OnUpdate to the next, which includes that deferred work (and everything else the client does in
---   the frame, so cap the frame rate high and turn vsync off while the bench runs).
--- Medians and the 95th percentile, not mean and max. Garbage collection never runs inside a timed call: Lua runs a
--- GC step in whatever code allocates when the debt is due, so code that allocates would pay for other addons'
--- garbage. The collector is stopped around each timed call where the client allows it, else a full collection runs
--- just before the call; the heap growth (KB) is then exactly what the call allocated. Before every measurement an
--- untimed full collection, so one side's garbage isn't left to the other. The first WARMUP calls of a series grow
--- arrays and queues to their working size and stay out of the numbers.
-local format, sort = string.format, table.sort
+-- - Lua: debugprofilestop around the call. It misses work WoW defers to drawing (anchors, text layout).
+-- - Frame: from the call's start to the next frame's start: the deferred work included, with everything else the
+--   client does in a frame (the report reads it above the block's idle frame).
+-- Medians and the 95th percentile. Garbage collection never runs inside a timed call: the collector is stopped
+-- around it where the client allows (else a full collection runs just before), so KB is exactly the call's net heap
+-- growth. Before every measurement an untimed full collection. The first WARMUP calls of a series stay out of the
+-- numbers. A step that hits the scheduler's pass cap (it didn't finish propagating) fails, whatever its time.
+local format, sort, find = string.format, table.sort, string.find
 local debugprofilestop, collectgarbage = debugprofilestop, collectgarbage
 
 local Driver = {}
 
-local frame
-local running = false
-
 local canStop = pcall(collectgarbage, "stop") and pcall(collectgarbage, "restart")
+
+--- How the collector is kept out of timed calls: "stop" (its work for a call's garbage lands in that frame) or
+--- "collect" (a full collection before each call; frame times then hold no GC).
+Driver.collector = canStop and "stop" or "collect"
 
 local function Quiet()
 	if canStop then
@@ -40,15 +38,16 @@ end
 
 local WARMUP = 5
 
---- How the collector is kept out of timed calls: "stop" (stopped around each call; its work for a call's garbage
---- lands in that frame) or "collect" (a full collection before each call; frame times then hold no GC).
-Driver.collector = canStop and "stop" or "collect"
+local frame
+local running = false
+local capHits = 0 -- the scheduler's "effects kept re-running each other" reports during the run
 
 function Driver.IsRunning()
 	return running
 end
 
---- Run `steps` (functions returning true when done), one call per frame, then `done()`.
+--- Run `steps` (functions returning true when done), one call per frame, then `done()`. While it runs, the error
+--- handler counts the scheduler's pass-cap reports (then passes every error on).
 ---@param steps (fun(): boolean)[]
 ---@param done fun()
 function Driver.Run(steps, done)
@@ -56,11 +55,19 @@ function Driver.Run(steps, done)
 		frame = CreateFrame("Frame")
 	end
 	running = true
+	local previous = geterrorhandler()
+	seterrorhandler(function(message, ...)
+		if type(message) == "string" and find(message, "effects kept re-running", 1, true) then
+			capHits = capHits + 1
+		end
+		return previous(message, ...)
+	end)
 	local index = 1
 	frame:SetScript("OnUpdate", function()
 		local step = steps[index]
 		if not step then
 			frame:SetScript("OnUpdate", nil)
+			seterrorhandler(previous)
 			running = false
 			done()
 			return
@@ -76,19 +83,25 @@ end
 local Measure = {}
 local MeasureMeta = { __index = Measure }
 
----@param log fun(line: string) a line for people (the log)
----@param store fun(line: string) a structured line for the round's file
-function Driver.NewMeasure(log, store)
-	return setmetatable({ log = log, store = store, failures = 0 }, MeasureMeta)
+--- `store(line)` gets every structured line; a silent measure (the untracked warm-up pass) stores nothing.
+---@param store fun(line: string)|nil
+function Driver.NewMeasure(store)
+	return setmetatable({ store = store, failures = 0 }, MeasureMeta)
 end
 
-local SHOWN = "%-9s %-5s %-9s %-30s lua %8.3f/%8.3f  frame %7.2f/%7.2f ms  %8.1f KB  n=%-4d %s"
+function Measure:Record(scenario, size, impl, metric, lua, luaP95, frameMs, frameP95, kb, n, check, kept)
+	if not self.store then
+		return
+	end
+	self.store(format("%s|%s|%s|%s|%.4f|%.4f|%.3f|%.3f|%.2f|%d|%s|%s", scenario, size, impl, metric, lua, luaP95,
+		frameMs, frameP95, kb, n, check or "", kept and format("%.1f", kept) or ""))
+end
 
-function Measure:Record(scenario, size, impl, metric, lua, luaP95, frame, frameP95, kb, n, check)
-	check = check or ""
-	self.log(format(SHOWN, scenario, size, impl, metric, lua, luaP95, frame, frameP95, kb, n, check))
-	self.store(format("%s|%s|%s|%s|%.4f|%.4f|%.3f|%.3f|%.2f|%d|%s", scenario, size, impl, metric, lua, luaP95, frame,
-		frameP95, kb, n, check))
+--- A line of its own (the order of a block's sides).
+function Measure:Note(line)
+	if self.store then
+		self.store(line)
+	end
 end
 
 function Measure:Verdict(ok, why)
@@ -98,85 +111,97 @@ function Measure:Verdict(ok, why)
 	if ok then
 		return "ok"
 	end
-	self.failures = self.failures + 1
+	if self.store then
+		self.failures = self.failures + 1
+	end
 	return "FAIL " .. tostring(why or "")
 end
 
 local function Percentile(samples, n, p)
 	sort(samples)
-	local i = math.floor((n - 1) * p + 0.5) + 1
-	return samples[i]
+	return samples[math.floor((n - 1) * p + 0.5) + 1]
 end
 
---- `count` calls, one per frame: fn(i); the first WARMUP aren't in the numbers. Before them an untimed frame collects
---- garbage; after the last, one more frame closes the last frame time, then `verify()` (optional, untimed) decides
---- the check.
-function Measure:Series(scenario, size, impl, metric, count, fn, verify)
+--- `count` timed calls, one per frame: fn(i); the first WARMUP (when count > WARMUP) aren't in the numbers.
+--- options:
+--- - prepare(i): runs untimed in a frame of its own before each timed call (open what a close then measures);
+--- - verify(): untimed after the last call, decides the check (true, or false and why);
+--- - kept: after each call (use with count 1), an untimed full collection: the heap growth since a collection just
+---   before the call is what the call keeps (KB), next to what it allocated.
+---@param options { prepare: fun(i: integer)?, verify: (fun(): boolean?, string?)?, kept: boolean? }|nil
+function Measure:Series(scenario, size, impl, metric, count, fn, options)
+	options = options or {}
+	local prepare, verify, kept = options.prepare, options.verify, options.kept
+	local skip = count > WARMUP and WARMUP or 0
+	local measured = count - skip
 	local lua, frames = {}, {}
-	local phase, kb, last = 0, 0, 0
-	local measured = count - WARMUP
+	local i, prepared, started, kb, capStart, keptKb, base = 0, false, nil, 0, 0, nil, 0
 	return function()
 		local now = debugprofilestop()
-		if phase == 0 then
+		if started then -- the frame of the last timed call ends here
+			if i > skip then
+				frames[i - skip] = now - started
+			end
+			started = nil
+			if kept then
+				collectgarbage("collect")
+				keptKb = collectgarbage("count") - base
+			end
+		end
+		if i == 0 and not prepared then -- the series' first frame: untimed
 			collectgarbage("collect")
-			phase, kb = 1, 0
+			kb, capStart = 0, capHits
+			if prepare then
+				prepare(1)
+			end
+			prepared = true
 			return false
 		end
-		if phase > WARMUP + 1 then
-			frames[phase - 1 - WARMUP] = now - last
-		end
-		if phase > count then
+		if i == count then
 			local check
-			if verify then
+			if capHits > capStart then
+				check = self:Verdict(false, "the scheduler hit its pass cap: the change didn't finish")
+			elseif verify then
 				check = self:Verdict(verify())
 			end
 			self:Record(scenario, size, impl, metric, Percentile(lua, measured, 0.5), Percentile(lua, measured, 0.95),
-				Percentile(frames, measured, 0.5), Percentile(frames, measured, 0.95), kb / measured, measured, check)
-			phase = 0
+				Percentile(frames, measured, 0.5), Percentile(frames, measured, 0.95), kb / measured, measured, check,
+				keptKb)
+			i, prepared = 0, false
 			return true
+		end
+		if not prepared then -- a frame of its own for preparing the next call
+			prepare(i + 1)
+			prepared = true
+			return false
+		end
+		i = i + 1
+		prepared = prepare == nil -- with no preparing, the next call comes in the next frame
+		if kept then
+			collectgarbage("collect")
+			base = collectgarbage("count")
 		end
 		Quiet()
 		local before = collectgarbage("count")
-		last = debugprofilestop()
-		fn(phase)
-		local ms = debugprofilestop() - last
+		local start = debugprofilestop()
+		fn(i)
+		local ms = debugprofilestop() - start
 		local grew = collectgarbage("count") - before
 		Resume()
-		if phase > WARMUP then
-			lua[phase - WARMUP] = ms
+		started = start
+		if i > skip then
+			lua[i - skip] = ms
 			kb = kb + grew
 		end
-		phase = phase + 1
 		return false
 	end
 end
 
---- One timed call (`fn` may return a check: true, or false and why), after an untimed garbage collection; its frame
---- time is the frame it ran in.
-function Measure:Once(scenario, size, impl, metric, fn)
-	local phase, lua, kb, check, start = 0, 0, 0, nil, 0
+--- One untimed action in a frame of its own (setting up or tearing down between measurements).
+function Measure:Do(fn)
 	return function()
-		local now = debugprofilestop()
-		if phase == 0 then
-			collectgarbage("collect")
-			phase = 1
-			return false
-		end
-		if phase == 2 then
-			self:Record(scenario, size, impl, metric, lua, lua, now - start, now - start, kb, 1, check)
-			phase = 0
-			return true
-		end
-		Quiet()
-		local before = collectgarbage("count")
-		start = debugprofilestop()
-		local ok, why = fn()
-		lua = debugprofilestop() - start
-		kb = collectgarbage("count") - before
-		Resume()
-		check = self:Verdict(ok, why)
-		phase = 2
-		return false
+		fn()
+		return true
 	end
 end
 

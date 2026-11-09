@@ -34,6 +34,10 @@ function Deep.SetSource(v)
 	text:SetFormattedText("%d / %d", value, source)
 end
 
+function Deep.Show()
+	outer:Show()
+end
+
 function Deep.Hide()
 	outer:Hide()
 end

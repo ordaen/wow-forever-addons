@@ -63,6 +63,9 @@ return Define.Component({
 						table.remove(ids, middle)
 						order:Remove(middle)
 					end,
+					Ids = function()
+						return ids
+					end,
 					Shuffle = function()
 						for i = #ids, 2, -1 do
 							seed = (seed * 1103515245 + 12345) % 2147483648
