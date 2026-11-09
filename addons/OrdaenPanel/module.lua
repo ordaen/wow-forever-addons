@@ -1,16 +1,17 @@
 -- Ordaen Panel (design: wow-dev-tools design/panel): one panel along the screen's bottom edge. From the left: the
 -- player's portrait in the corner, the micro menu, the experience bar across the middle, the money and the bags.
--- The micro menu and the bags are Blizzard's own buttons, taken over and laid out in the panel's cells, so their
--- clicks, menus and alerts stay Blizzard's.
+-- The micro menu and the bags are Blizzard's own buttons, embedded in the panel's cells (game.ui:Embed), so their
+-- clicks, menus and alerts stay Blizzard's; the character button lies invisible over the portrait.
 -- Written as the build leaves it: constant tables at file level (frozen by the build), slot functions at file level
 -- taking game and self.
 local Define = import("@ordaen/define")
 
--- The micro menu, left to right: the buttons Forever has (api/forever/1.60.1-70862), the shop left out.
+-- The micro menu, left to right: the buttons Forever shows (probed in game, 70862) in Blizzard's order, the character
+-- button under the portrait instead, the spellbook and talents in Player Spells, no shop (design/micromenu).
 local MICRO = {
-	"CharacterMicroButton", "PlayerSpellsMicroButton", "AchievementMicroButton", "QuestLogMicroButton",
+	"PlayerSpellsMicroButton", "ProfessionMicroButton", "AchievementMicroButton", "QuestLogMicroButton",
 	"HousingMicroButton", "GuildMicroButton", "LFDMicroButton", "CollectionsMicroButton", "EJMicroButton",
-	"LegacyMicroButton", "MainMenuMicroButton", "HelpMicroButton",
+	"LegacyMicroButton", "MainMenuMicroButton",
 }
 -- The bags, left to right: the four bags, then the backpack, the reagent bag last (Blizzard's order on screen).
 local BAGS = {
@@ -37,19 +38,24 @@ local BAG_CELL = { width = 36, height = 36 }
 
 local function MicroButtons(game)
 	for i = 1, #MICRO do
-		game.ui:Frame(game.Frame[MICRO[i]], { key = i, attributes = MICRO_CELL })
+		game.ui:Embed(game.Frame[MICRO[i]], { key = i, attributes = MICRO_CELL })
 	end
 end
 
 local function BagButtons(game)
 	for i = 1, #BAGS do
-		game.ui:Frame(game.Frame[BAGS[i]], { key = i, attributes = BAG_CELL })
+		game.ui:Embed(game.Frame[BAGS[i]], { key = i, attributes = BAG_CELL })
 	end
 end
 
 local MICRO_CALL = { attributes = MICRO_ROW, slots = { default = MicroButtons } }
 local BAG_CALL = { attributes = BAG_ROW, slots = { default = BagButtons } }
+-- the character button, invisible over the whole portrait: a click on the face opens the character window
+local CHARACTER = { position = "absolute", left = 0, top = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT, opacity = 0 }
+local CHARACTER_CALL = { attributes = CHARACTER }
+
 local function Badge(game, self)
+	game.ui:Embed(game.Frame.CharacterMicroButton, CHARACTER_CALL)
 	local level = self.level
 	level.attributes.text = tostring(game.Player.level:Get() or "")
 	game.ui:Box(self.badge)
