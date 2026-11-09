@@ -107,6 +107,59 @@ describe("the settings controls", function()
 		end)
 	end)
 
+	describe("Window", function()
+		local function draw()
+			mount(function(game)
+				game.ui:Window(1, { attributes = { title = "Ordaen", width = 400, height = 300 }, slots = {
+					default = function(g)
+						g.ui:Text(2, { attributes = { text = "inside" } })
+					end,
+				} })
+			end)
+		end
+
+		it("draws its body in the metal with the wood, its tab with the title, and the content in the body", function()
+			draw()
+			local body = withBackground("window.wood")
+			assert.is_truthy(body)
+			local window = body.parent
+			assert.is_true(window.a.artOrigin)
+			assert.are.equal("CENTER", (window.frame:GetPoint(1)))
+			local metal = nil
+			for _, node in ipairs(nodes()) do
+				if node.frameArt and node.frameArt.top and node.frameArt.top:IsShown() then
+					metal = node
+				end
+			end
+			assert.is_truthy(metal) -- the body's frame art
+			assert.is_truthy(withBackground("ctl.tab"))
+			local t = texts()
+			assert.is_truthy(table.concat(t, "|"):find("Ordaen", 1, true))
+			assert.is_truthy(table.concat(t, "|"):find("inside", 1, true))
+			assert.are.same({}, wow.errors)
+		end)
+
+		it("moves with its tab when dragged", function()
+			draw()
+			local art = withBackground("ctl.tab")
+			local tab = art.parent
+			local frame = tab.frame
+			local window = tab.parent
+			local scale = frame:GetEffectiveScale()
+			local left, top = frame:GetLeft(), frame:GetTop()
+			wow:MoveCursor((left + 10) * scale, (top - 10) * scale)
+			wow:DragStart(frame)
+			wow:MoveCursor((left + 60) * scale, (top - 30) * scale)
+			wow:Tick()
+			ns.Scheduler.Flush()
+			wow:DragStop(frame)
+			ns.Scheduler.Flush()
+			local _, _, _, x, y = window.frame:GetPoint(1)
+			assert.is_true(math.abs(x - 50) < 1 and math.abs(y + 20) < 1) -- 50 right, 20 down
+			assert.are.same({}, wow.errors)
+		end)
+	end)
+
 	describe("Slider", function()
 		local function draw(key)
 			mount(function(game, self)
