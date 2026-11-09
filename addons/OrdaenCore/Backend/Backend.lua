@@ -63,6 +63,7 @@ local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5,
 local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
+	shown = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT,
 	text = TEXT, textSize = TEXT, wrap = TEXT,
 }
@@ -81,7 +82,8 @@ end
 for _, key in ipairs({ "text", "textSize", "wrap", "textColor", "textAlign", "opacity" }) do
 	TEXT_KEYS[#TEXT_KEYS + 1] = key
 end
-local TAKEN_KEYS = { "position", "top", "right", "bottom", "left", "opacity" }
+-- a taken Blizzard frame (Backend:Take): where it sits, its opacity, and `shown = false` (hidden while we hold it)
+local TAKEN_KEYS = { "position", "top", "right", "bottom", "left", "opacity", "shown" }
 -- an embedded Blizzard frame (Backend:Embed): its place and size in the grid, and its opacity; nothing of its look
 local EMBED_KEYS = { "width", "height", "columnSpan", "position", "top", "right", "bottom", "left", "opacity", "look" }
 -- The same lists as sets, so a Set walks only the keys a table has (usually a few), not every key a kind takes.
@@ -1040,6 +1042,24 @@ function Node:ApplyTaken()
 	if opacity ~= nil and frame:GetAlpha() ~= opacity then
 		frame:SetAlpha(opacity)
 	end
+	-- `shown = false`: hidden while we hold it (Blizzard showing it again is undone: Show and SetShown are hooked); a
+	-- protected frame in combat waits for the end, as its points do
+	if resolve(self, a.shown) == false and frame:IsShown() then
+		if InCombatLockdown() and frame:IsProtected() then
+			pendingCombat[self] = true
+			if not combatFrame then
+				combatFrame = CreateFrame("Frame")
+				combatFrame:SetScript("OnEvent", onCombatEnd)
+			end
+			combatFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+		else
+			frame:Hide()
+			self.hid = true
+		end
+	elseif resolve(self, a.shown) ~= false and self.hid then
+		self.hid = nil
+		frame:SetShown(self.shown0)
+	end
 	local pos = resolve(self, a.position)
 	if pos == "absolute" or pos == "fixed" then
 		if InCombatLockdown() and frame:IsProtected() then
@@ -1071,6 +1091,10 @@ function Node:GiveBack()
 	pendingCombat[self] = nil
 	self.applying = true
 	frame:SetAlpha(self.alpha0)
+	if self.hid and not (InCombatLockdown() and frame:IsProtected()) then
+		self.hid = nil
+		frame:SetShown(self.shown0)
+	end
 	if self.moved and not (InCombatLockdown() and frame:IsProtected()) then
 		frame:ClearAllPoints()
 		local points = self.points0
@@ -1474,6 +1498,8 @@ function Backend:Take(frame)
 		hooked[frame] = true
 		hooksecurefunc(frame, "SetPoint", onBlizzardChange)
 		hooksecurefunc(frame, "SetAlpha", onBlizzardChange)
+		hooksecurefunc(frame, "Show", onBlizzardChange)
+		hooksecurefunc(frame, "SetShown", onBlizzardChange)
 	end
 	return node
 end

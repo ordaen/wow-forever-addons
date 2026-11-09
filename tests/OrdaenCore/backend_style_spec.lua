@@ -500,4 +500,23 @@ describe("backend styles", function()
 			assert.are.equal("10 / 20", t.fs:GetText())
 		end)
 	end)
+
+	it("hides a taken Blizzard frame with shown = false, again after Blizzard shows it, and gives it back", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local bar = wow.env.CreateFrame("Frame", nil, wow.env.UIParent)
+		bar:Show()
+		local node = Backend:Take(bar)
+		Backend:Set(node, { shown = false })
+		assert.is_false(bar:IsShown())
+		bar:Show() -- Blizzard's layout shows it again
+		assert.is_false(bar:IsShown())
+		bar:SetShown(true)
+		assert.is_false(bar:IsShown())
+		Backend:Release(node)
+		assert.is_true(bar:IsShown())
+		bar:Hide()
+		bar:Show() -- ours no longer: Blizzard's own showing stands
+		assert.is_true(bar:IsShown())
+	end)
 end)
