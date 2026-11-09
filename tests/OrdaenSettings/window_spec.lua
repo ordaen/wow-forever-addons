@@ -215,5 +215,55 @@ describe("the settings window", function()
 		end)
 		assert.is_true(taking > 0)
 	end)
+
+	it("draws its corner buttons at the body's top right after a drag", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local tab = texts(ns)["Ordaen"].parent
+		local f = tab.frame
+		wow:MoveCursor(500, 500)
+		wow:DragStart(f)
+		wow:MoveCursor(560, 470)
+		wow:Tick()
+		ns.Scheduler.Flush()
+		-- the cursor onto the body while still dragging, then the drag ends
+		local body = tab.parent.children[1]
+		body.frame:GetScript("OnEnter")(body.frame)
+		ns.Scheduler.Flush()
+		wow:DragStop(f)
+		ns.Scheduler.Flush()
+		ns.Backend:Flush()
+		local group
+		for i = 1, body.count do
+			local c = body.children[i]
+			if c.a.overflow == "clip" then
+				group = c
+			end
+		end
+		assert.is_truthy(group, "no corner group")
+		local out = {}
+		local function dump(n, d)
+			out[#out + 1] = string.rep(" ", d) .. string.format("%s x=%s y=%s w=%s h=%s pW=%s pH=%s", n.kind,
+				tostring(n.x), tostring(n.y), tostring(n.w), tostring(n.h), tostring(n.pW), tostring(n.pH))
+			for i = 1, n.count or 0 do
+				dump(n.children[i], d + 1)
+			end
+		end
+		dump(group, 0)
+		assert.is_true(group.w < 60, table.concat(out, " | "))
+		assert.is_true(group.x > body.w / 2, table.concat(out, " | "))
+	end)
+
+	it("keeps the tab's layers in order while the corner buttons show", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local tab = texts(ns)["Ordaen"].parent
+		local body = tab.parent.children[1]
+		body.frame:GetScript("OnEnter")(body.frame)
+		ns.Scheduler.Flush()
+		assert.are.equal(0, ns.Core._BackendStats({}).order_errors) -- the tab's wood, flare and rim, as before
+	end)
 end)
 

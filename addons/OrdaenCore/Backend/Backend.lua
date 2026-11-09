@@ -2060,8 +2060,9 @@ end
 
 -- Paint order, as the design pages draw (CSS): a positioned box (absolute, fixed) draws over everything its parent's
 -- earlier children draw, their own children and texts included; a box in the flow sits one level over its parent
--- (siblings in the flow don't overlap). zLevel lifts a box that many levels more. Each box keeps the highest level in
--- its subtree (`top`), so stacking a parent's children reads each child once. It runs when children change, a zLevel
+-- (siblings in the flow don't overlap). zLevel lifts a box that many levels more. Each box keeps how far its subtree
+-- reaches above its own level (`depth`: relative, since the game moves a frame's children with its level), so
+-- stacking a parent's children reads each child once. It runs when children change, a zLevel
 -- changes or a live portrait comes or goes, never per frame; a change of a box's top stacks its parent again.
 function Node:Stack()
 	local pf = self.inner or self.frame
@@ -2086,7 +2087,7 @@ function Node:Stack()
 					frame:SetFrameLevel(want)
 					child:Stack() -- its own children over its new level
 				end
-				local t = child.top or want
+				local t = frame:GetFrameLevel() + (child.depth or 0)
 				top = t > top and t or top
 			end
 		end
@@ -2099,15 +2100,15 @@ function Node:Stack()
 		end
 		top = level
 	end
-	self.top = top
+	self.depth = top - self.frame:GetFrameLevel()
 end
 
--- Stack a box's children, then its parent's while its top changes.
+-- Stack a box's children, then its parent's while its depth changes.
 function restack(node)
 	while node and node.kind ~= "text" do
-		local old = node.top
+		local old = node.depth
 		node:Stack()
-		if node.top == old then
+		if node.depth == old then
 			return
 		end
 		node = node.parent
