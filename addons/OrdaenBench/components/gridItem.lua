@@ -3,7 +3,7 @@
 local Define = import("@ordaen/define")
 local counters = import("bench/counters")
 
-local CELL = { width = 36, height = 36, background = Define.Theme.color.border }
+local CELL = { width = 36, height = 36, xAlign = "center", yAlign = "center", background = Define.Theme.color.border }
 
 local function Count(game, self)
 	game.ui:Text(self.text)
@@ -21,7 +21,8 @@ return Define.Component({
 	Render = function(game, self)
 		if self.attributes.naive:Get() then -- new tables and a new function every render
 			local count = self.attributes.count:Get()
-			game.ui:Box({ attributes = { width = 36, height = 36, background = Define.Theme.color.border }, slots = { default = function()
+			game.ui:Box({ attributes = { width = 36, height = 36, xAlign = "center", yAlign = "center",
+				background = Define.Theme.color.border }, slots = { default = function()
 				game.ui:Text({ attributes = { text = "%d", arguments = { count } } })
 			end } })
 			return

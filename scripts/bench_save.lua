@@ -569,6 +569,8 @@ if round.mode == "check" then
 			failed[#failed + 1] = string.format("  %s %s %s (%s): %s", r.scenario, r.size, r.metric, r.impl, r.check)
 		elseif r.check == "ok" then
 			passed = passed + 1
+		elseif r.check and r.check:match("^info ") then
+			print(string.format("  %s %s: %s", r.scenario, r.metric, r.check:sub(6)))
 		end
 	end
 	local errors = round.errors and round.errors.count or 0

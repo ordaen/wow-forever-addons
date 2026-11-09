@@ -3,6 +3,7 @@
 -- the framework, baseline/ by hand; bench/plan.lua says what and how). Every result goes to the module's log
 -- (wow_log) and OrdaenBenchDB; after a /reload, `ordaen lua scripts/bench_save.lua` saves the round to bench/results/.
 local Define = import("@ordaen/define")
+local Font = import("bench/font")
 local Driver = import("bench/driver")
 local Plan = import("bench/plan")
 local Stub = import("bench/stub")
@@ -188,6 +189,43 @@ return Define.Module({
 			Say(mode == "check" and "checking: about a minute. Keep the mouse away from the bench's frames."
 				or "running: several minutes. Keep the game in front and the mouse away from the bench's frames.")
 			local steps = Plan.Steps(bench, tracked, silent, Progress.Set, mode)
+			if mode == "check" then
+				-- what text heights are on this screen (a check run only): the screen's scale, the bench font's
+				-- heights for the strings the scenarios draw, and the framework's text nodes in sections
+				steps[#steps + 1] = tracked:Info("text", "-", "-", "screen", function()
+					local w, h = GetPhysicalScreenSize()
+					return string.format("UIParent scale %.4f, height %.1f; physical %dx%d", UIParent:GetEffectiveScale(),
+						UIParent:GetHeight(), w, h)
+				end)
+				local probe
+				for _, s in ipairs({ "Section 1", "  row 1.1", "row 1", "item 1", "42", "Ag" }) do
+					steps[#steps + 1] = tracked:Info("text", "-", "-", "font " .. s, function()
+						probe = probe or UIParent:CreateFontString(nil, "OVERLAY", Font)
+						probe:SetWidth(0)
+						probe:SetText(s)
+						return string.format("string height %.4f, line height %.4f, width %.4f", probe:GetStringHeight(),
+							probe:GetLineHeight(), probe:GetStringWidth())
+					end)
+				end
+				steps[#steps + 1] = function()
+					bench.Show("sections")
+					return true
+				end
+				local nodes = {}
+				steps[#steps + 1] = tracked:Info("text", "-", "-", "sections nodes", function()
+					local n, parts = OrdaenCore._ScreenNodes("text", nodes), {}
+					for i = 1, math.min(n, 14) do
+						local node = nodes[i]
+						parts[i] = string.format("%q lineH=%s y=%s h=%s natW=%s", tostring(node.fs:GetText()),
+							tostring(node.lineH), tostring(node.y), tostring(node.h), tostring(node.natW))
+					end
+					return n .. " texts: " .. table.concat(parts, "; ")
+				end)
+				steps[#steps + 1] = function()
+					bench.Show("none")
+					return true
+				end
+			end
 			-- the probes, after the measured plan, so they can't disturb it (a round only)
 			if mode == "round" then
 				local probeSteps = Probes.Steps(probing, bench)

@@ -9,6 +9,7 @@ local outer, text
 local value, source = 0, 0
 
 function Deep.Make()
+	value, source = 0, 0
 	outer = CreateFrame("Frame", nil, UIParent)
 	outer:SetSize(300, 300)
 	outer:SetPoint("BOTTOM", 0, 80)

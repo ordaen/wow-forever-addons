@@ -33,7 +33,9 @@ local function Collect(frame, out, textures)
 						local sw, sh = region:GetStringWidth(), region:GetStringHeight()
 						local x = left + (w - sw) * (H[region:GetJustifyH()] or 0)
 						local y = top - (h - sh) * (V[region:GetJustifyV()] or 0)
-						out[#out + 1] = { kind = "text", text = text, x = x * scale, y = y * scale }
+						out[#out + 1] = { kind = "text", text = text, x = x * scale, y = y * scale,
+							how = format("box %.1f,%.1f %.1fx%.1f, string %.1fx%.1f, %s %s, scale %.3f", left, top, w, h,
+								sw, sh, tostring(region:GetJustifyH()), tostring(region:GetJustifyV()), scale) }
 					end
 				elseif kind == "Texture" and textures then
 					out[#out + 1] = { kind = "texture", text = "", x = left * scale, y = top * scale,
@@ -62,7 +64,14 @@ local function Before(a, b)
 	if ax ~= bx then
 		return ax < bx
 	end
-	return a.text < b.text
+	if a.text ~= b.text then
+		return a.text < b.text
+	end
+	local aw, bw = floor((a.w or 0) + 0.5), floor((b.w or 0) + 0.5)
+	if aw ~= bw then
+		return aw < bw
+	end
+	return floor((a.h or 0) + 0.5) < floor((b.h or 0) + 0.5)
 end
 
 --- The snapshot of `root` (nil root: nothing shown). `textures`: include visible textures' rects.
@@ -99,7 +108,7 @@ local function Describe(r)
 		return "nothing"
 	end
 	if r.kind == "text" then
-		return format("%q at %.1f,%.1f", r.text, r.x, -r.y)
+		return format("%q at %.1f,%.1f (%s)", r.text, r.x, -r.y, r.how or "")
 	end
 	return format("texture %.1fx%.1f at %.1f,%.1f", r.w, r.h, r.x, -r.y)
 end
