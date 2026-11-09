@@ -1,8 +1,8 @@
 -- The drawing backend's layout (development/framework/box, "The renderer"): where every box and text goes. Pure Lua
 -- (no WoW API), so busted specs drive it with a fake text measurer (tests/OrdaenCore/layout_spec.lua).
 --
--- It works on node tables. The backend fills these fields from a node's attributes when they change (theme
--- references and per-state maps already resolved, see Layout.Size and Layout.Columns):
+-- It works on node tables. Layout.Apply fills these fields from a node's attributes when they change (the backend
+-- passes its resolver for theme references and per-state maps); Layout.ATTRIBUTES lists which attribute fills which:
 --   kind                      "box", "text" or "root" (a layer or a taken Blizzard frame: w and h come from WoW)
 --   parent, children, count   the tree; children is an array, count its length
 --   wKind, wAmount            width: "fixed" (amount in UI units), "auto" (content), "pct" (amount 0..1 of the
@@ -78,7 +78,7 @@ end
 ---@param node table
 ---@param columns any
 ---@param resolve fun(value: any): any
-function Layout.Columns(node, columns, resolve)
+function Layout.Columns(node, columns, resolve, px)
 	local kinds, amounts = node.colKind, node.colAmount
 	if not kinds then
 		kinds, amounts = {}, {}
@@ -91,6 +91,8 @@ function Layout.Columns(node, columns, resolve)
 			kinds[c], amounts[c] = Layout.Size(resolve(columns[c]), true)
 			if kinds[c] == "pct" then
 				kinds[c] = "auto"
+			elseif kinds[c] == "fixed" and px then
+				amounts[c] = floor(amounts[c] / px + 0.5) * px
 			end
 		end
 	else
@@ -103,6 +105,74 @@ function Layout.Columns(node, columns, resolve)
 		n, kinds[1], amounts[1] = 1, "fr", 1
 	end
 	node.ncols = n
+end
+
+---The layout attributes, in one place: what a change to each invalidates (`group`), the node fields Layout.Apply
+---fills from it, and whether a text node takes it (`text`). The backend builds its attribute groups and key lists from
+---this list, and the layout spec checks that Apply reads every entry.
+Layout.ATTRIBUTES = {
+	{ key = "width", group = "own", text = true, fields = { "wKind", "wAmount" } },
+	{ key = "height", group = "own", fields = { "hKind", "hAmount" } },
+	{ key = "columnSpan", group = "own", text = true, fields = { "span" } },
+	{ key = "position", group = "position", text = true, fields = { "pos" } },
+	{ key = "top", group = "offset", text = true, fields = { "offT" } },
+	{ key = "right", group = "offset", text = true, fields = { "offR" } },
+	{ key = "bottom", group = "offset", text = true, fields = { "offB" } },
+	{ key = "left", group = "offset", text = true, fields = { "offL" } },
+	{ key = "columns", group = "content", fields = { "ncols" } },
+	{ key = "gap", group = "content", fields = { "gapR", "gapC" } },
+	{ key = "padding", group = "content", fields = { "padT", "padR", "padB", "padL" } },
+	{ key = "xAlign", group = "content", fields = { "xAlign" } },
+	{ key = "yAlign", group = "content", fields = { "yAlign" } },
+	{ key = "border", group = "border", fields = { "bw" } },
+}
+
+-- A length on whole pixels (px: one pixel in UI units), so sums of sizes, gaps and padding stay on the pixel grid
+-- and equal steps stay equal on screen.
+local function pixels(v, px)
+	return floor(v / px + 0.5) * px
+end
+
+---Fill the layout fields of `node` from its attributes `a`. `resolve(node, v)` turns a theme reference or per-state map
+---into its value now, `resolveRef(v)` a theme reference inside a list; `px` is one screen pixel in UI units. Fixed
+---sizes, gaps, padding and border widths land on whole pixels (a border at least one).
+---@param node table
+---@param a table
+---@param resolve fun(node: table, v: any): any
+---@param resolveRef fun(v: any): any
+---@param px number
+function Layout.Apply(node, a, resolve, resolveRef, px)
+	local wk, wa = Layout.Size(resolve(node, a.width))
+	local hk, ha = Layout.Size(resolve(node, a.height))
+	node.wKind, node.wAmount = wk, wk == "fixed" and pixels(wa, px) or wa
+	node.hKind, node.hAmount = hk, hk == "fixed" and pixels(ha, px) or ha
+	node.span = resolve(node, a.columnSpan)
+	node.pos = resolve(node, a.position)
+	node.offT, node.offR = resolve(node, a.top), resolve(node, a.right)
+	node.offB, node.offL = resolve(node, a.bottom), resolve(node, a.left)
+	if node.kind ~= "box" then
+		return
+	end
+	Layout.Columns(node, resolve(node, a.columns), resolveRef, px)
+	local gap = resolve(node, a.gap)
+	if type(gap) == "table" then
+		node.gapR, node.gapC = pixels(resolveRef(gap[1]) or 0, px), pixels(resolveRef(gap[2]) or 0, px)
+	else
+		gap = pixels(gap or 0, px)
+		node.gapR, node.gapC = gap, gap
+	end
+	local pad = resolve(node, a.padding)
+	if type(pad) == "table" then
+		node.padT, node.padR = pixels(resolveRef(pad[1]) or 0, px), pixels(resolveRef(pad[2]) or 0, px)
+		node.padB, node.padL = pixels(resolveRef(pad[3]) or 0, px), pixels(resolveRef(pad[4]) or 0, px)
+	else
+		pad = pixels(pad or 0, px)
+		node.padT, node.padR, node.padB, node.padL = pad, pad, pad, pad
+	end
+	local border = resolve(node, a.border)
+	local bw = type(border) == "table" and resolveRef(border.width) or 0
+	node.bw = bw > 0 and max(px, pixels(bw, px)) or 0
+	node.xAlign, node.yAlign = resolve(node, a.xAlign), resolve(node, a.yAlign)
 end
 
 local function isFree(node)

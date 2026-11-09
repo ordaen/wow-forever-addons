@@ -42,20 +42,28 @@ local JUSTIFY = { start = "LEFT", center = "CENTER", ["end"] = "RIGHT" }
 
 -- What each attribute changes: the node's own size, its offsets (where a free node sits, not its size), its
 -- content's layout, its look, its mouse handlers.
+-- The layout attributes come from Layout.ATTRIBUTES (their groups and the fields they fill); the rest are listed here.
 local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5, 6, 7, 8
 local GROUP = {
-	width = OWN, height = OWN, columnSpan = OWN, top = OFFSET, right = OFFSET, bottom = OFFSET, left = OFFSET,
-	position = POSITION,
-	columns = CONTENT, gap = CONTENT, padding = CONTENT, xAlign = CONTENT, yAlign = CONTENT,
-	border = BORDER,
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT,
 	text = TEXT, textSize = TEXT, wrap = TEXT,
 }
-local BOX_KEYS = { "width", "height", "columnSpan", "position", "top", "right", "bottom", "left", "columns", "gap",
-	"padding", "xAlign", "yAlign", "border", "background", "opacity", "OnClick", "OnEnter", "OnLeave" }
-local TEXT_KEYS = { "width", "columnSpan", "position", "top", "right", "bottom", "left", "text", "textSize", "wrap",
-	"textColor", "textAlign", "opacity" }
+local LAYOUT_GROUP = { own = OWN, content = CONTENT, position = POSITION, offset = OFFSET, border = BORDER }
+local BOX_KEYS, TEXT_KEYS = {}, {}
+for _, attribute in ipairs(Layout.ATTRIBUTES) do
+	GROUP[attribute.key] = LAYOUT_GROUP[attribute.group]
+	BOX_KEYS[#BOX_KEYS + 1] = attribute.key
+	if attribute.text then
+		TEXT_KEYS[#TEXT_KEYS + 1] = attribute.key
+	end
+end
+for _, key in ipairs({ "background", "opacity", "OnClick", "OnEnter", "OnLeave" }) do
+	BOX_KEYS[#BOX_KEYS + 1] = key
+end
+for _, key in ipairs({ "text", "textSize", "wrap", "textColor", "textAlign", "opacity" }) do
+	TEXT_KEYS[#TEXT_KEYS + 1] = key
+end
 local TAKEN_KEYS = { "position", "top", "right", "bottom", "left", "opacity" }
 
 -- Theme references and per-state maps -------------------------------------------------------------------------
@@ -269,36 +277,7 @@ end
 
 -- Copy layout attributes into the fields Layout reads.
 function Node:ApplyLayout()
-	local a = self.a
-	self.wKind, self.wAmount = Layout.Size(resolve(self, a.width))
-	self.hKind, self.hAmount = Layout.Size(resolve(self, a.height))
-	self.span = resolve(self, a.columnSpan)
-	local pos = resolve(self, a.position)
-	self.pos = pos
-	self.offT, self.offR = resolve(self, a.top), resolve(self, a.right)
-	self.offB, self.offL = resolve(self, a.bottom), resolve(self, a.left)
-	if self.kind ~= "box" then
-		return
-	end
-	Layout.Columns(self, resolve(self, a.columns), resolveRef)
-	local gap = resolve(self, a.gap)
-	if type(gap) == "table" then
-		self.gapR, self.gapC = resolveRef(gap[1]) or 0, resolveRef(gap[2]) or 0
-	else
-		gap = gap or 0
-		self.gapR, self.gapC = gap, gap
-	end
-	local pad = resolve(self, a.padding)
-	if type(pad) == "table" then
-		self.padT, self.padR = resolveRef(pad[1]) or 0, resolveRef(pad[2]) or 0
-		self.padB, self.padL = resolveRef(pad[3]) or 0, resolveRef(pad[4]) or 0
-	else
-		pad = pad or 0
-		self.padT, self.padR, self.padB, self.padL = pad, pad, pad, pad
-	end
-	local border = resolve(self, a.border)
-	local bw = type(border) == "table" and resolveRef(border.width) or 0
-	self.bw = bw > 0 and max(px, snap(bw)) or 0
+	Layout.Apply(self, self.a, resolve, resolveRef, px)
 end
 
 local function edge(frame)

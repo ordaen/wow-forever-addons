@@ -48,26 +48,14 @@ local function attach(parent, children)
 	end
 end
 
--- A box from attributes (only those the layout reads).
+local function resolveAs(_, v)
+	return v
+end
+
+-- A box from attributes, filled as the backend fills it (Layout.Apply, one pixel = one unit).
 local function box(a, children)
-	a = a or {}
-	local node = { kind = "box", span = a.columnSpan, xAlign = a.xAlign, yAlign = a.yAlign, pos = a.position }
-	node.wKind, node.wAmount = Layout.Size(a.width)
-	node.hKind, node.hAmount = Layout.Size(a.height)
-	Layout.Columns(node, a.columns, identity)
-	local gap, pad = a.gap or 0, a.padding or 0
-	if type(gap) == "table" then
-		node.gapR, node.gapC = gap[1], gap[2]
-	else
-		node.gapR, node.gapC = gap, gap
-	end
-	if type(pad) == "table" then
-		node.padT, node.padR, node.padB, node.padL = pad[1], pad[2], pad[3], pad[4]
-	else
-		node.padT, node.padR, node.padB, node.padL = pad, pad, pad, pad
-	end
-	node.bw = a.border or 0
-	node.offL, node.offR, node.offT, node.offB = a.left, a.right, a.top, a.bottom
+	local node = { kind = "box" }
+	Layout.Apply(node, a or {}, resolveAs, identity, 1)
 	attach(node, children or {})
 	return node
 end
@@ -96,6 +84,38 @@ local function rect(node)
 end
 
 describe("backend layout", function()
+	describe("attributes", function()
+		-- A value for each layout attribute that differs from its default.
+		local SAMPLE = {
+			width = 10, height = 10, columnSpan = 2, position = "absolute", top = 5, right = 5, bottom = 5, left = 5,
+			columns = { "auto", 20 }, gap = 3, padding = 4, xAlign = "center", yAlign = "end", border = { width = 1 },
+		}
+
+		it("reads every layout attribute into its fields", function()
+			for _, attribute in ipairs(Layout.ATTRIBUTES) do
+				local plain, set = { kind = "box" }, { kind = "box" }
+				Layout.Apply(plain, {}, resolveAs, identity, 1)
+				Layout.Apply(set, { [attribute.key] = SAMPLE[attribute.key] }, resolveAs, identity, 1)
+				local differs = false
+				for _, field in ipairs(attribute.fields) do
+					differs = differs or plain[field] ~= set[field]
+				end
+				assert(SAMPLE[attribute.key] ~= nil, "no sample for " .. attribute.key)
+				assert(differs, attribute.key .. " fills none of its fields")
+			end
+		end)
+
+		it("puts sizes, gaps and padding on whole pixels", function()
+			local node = { kind = "box" }
+			Layout.Apply(node, { width = 36, gap = 1, padding = 2, columns = { 50 } }, resolveAs, identity, 768 / 720)
+			local px = 768 / 720
+			for _, v in ipairs({ node.wAmount, node.gapC, node.padT, node.colAmount[1] }) do
+				local pixels = v / px
+				assert.is_true(math.abs(pixels - math.floor(pixels + 0.5)) < 1e-9, tostring(v) .. " isn't whole pixels")
+			end
+		end)
+	end)
+
 	describe("sizes", function()
 		it("parses numbers, auto, percentages and fr", function()
 			assert.same({ "fixed", 24 }, { Layout.Size(24) })
@@ -250,7 +270,7 @@ describe("backend layout", function()
 	describe("padding and border", function()
 		it("offsets content by both", function()
 			local t = text("x")
-			local win = box({ padding = { 1, 2, 3, 4 }, border = 1 }, { t })
+			local win = box({ padding = { 1, 2, 3, 4 }, border = { width = 1 } }, { t })
 			run(root({ win }))
 			assert.same({ 5, 2 }, { t.x, t.y })
 			assert.same({ 6 + 4 + 2 + 2, 12 + 1 + 3 + 2 }, { win.w, win.h })
