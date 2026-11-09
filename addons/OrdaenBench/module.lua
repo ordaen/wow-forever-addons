@@ -75,6 +75,7 @@ end
 
 return Define.Module({
 	title = "Ordaen Bench",
+	icon = Define.Asset("Interface/Icons/INV_Misc_PocketWatch_01"), -- a stopwatch: it times the engine
 
 	Setup = function(game, self)
 		Define.Ephemeral({
