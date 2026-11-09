@@ -385,7 +385,7 @@ describe("backend styles", function()
 	end)
 
 	it("draws a box's text above its child boxes (a bar's label over the bar's art)", function()
-		local wow, ns = client()
+		local _, ns = client()
 		local Backend = ns.Backend
 		local layer = Backend:Layer("screen")
 		local tube = Backend:Create("box")
