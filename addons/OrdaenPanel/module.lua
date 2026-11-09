@@ -1,5 +1,6 @@
--- Ordaen Panel (design: wow-dev-tools design/panel): one panel along the screen's bottom edge. From the left: the
--- player's portrait in the corner, the micro menu, the experience bar across the middle, the money and the bags.
+-- Ordaen Panel (design: wow-dev-tools design/panel): one panel along the screen's bottom edge, in three equal
+-- columns: the player's portrait in the corner and the micro menu at the left, the experience bar centred in the
+-- middle, the money and the bags at the right end.
 -- The micro menu and the bags are Blizzard's own buttons, embedded in the panel's cells (game.ui:Embed), so their
 -- clicks, menus and alerts stay Blizzard's; the character button lies invisible over the portrait.
 -- Written as the build leaves it: constant tables at file level (frozen by the build), slot functions at file level
@@ -101,15 +102,31 @@ local PORTRAIT_CALL = { attributes = PORTRAIT, slots = { default = Badge } }
 local SPACER = { width = PORTRAIT_WIDTH, height = 1 }
 local SPACER_CALL = { attributes = SPACER }
 
-local function Cells(game, self)
+-- The three columns (design/panel): the left one from its start, the right one to its end, the bar filling the middle.
+local LEFT = { columns = { PORTRAIT_WIDTH, "auto" }, gap = Define.Theme.spacing.md, xAlign = "start",
+	yAlign = "center" }
+local RIGHT = { columns = { "auto", "auto" }, gap = Define.Theme.spacing.md, xAlign = "end", yAlign = "center",
+	padding = { 0, 8, 0, 0 } }
+
+local function Left(game)
 	game.ui:Box(SPACER_CALL)
 	game.ui:Box(PORTRAIT_CALL)
 	game.ui:Box(MICRO_CALL)
-	game.ui:XpBar()
+end
+
+local function Right(game, self)
 	local money = self.money
 	money.attributes.text = game.Money:Format(game.Money.amount:Get())
 	game.ui:Text(money)
 	game.ui:Box(BAG_CALL)
+end
+
+local LEFT_CALL = { key = "left", attributes = LEFT, slots = { default = Left } }
+
+local function Cells(game, self)
+	game.ui:Box(LEFT_CALL)
+	game.ui:XpBar()
+	game.ui:Box(self.right)
 end
 
 return Define.Module({
@@ -122,8 +139,7 @@ return Define.Module({
 		local panel = {
 			attributes = {
 				position = "absolute", left = 0, right = 0, bottom = 0, height = 60,
-				columns = { PORTRAIT_WIDTH, "auto", "1fr", "auto", "auto" },
-				gap = Define.Theme.spacing.md, padding = { 0, 8, 0, 0 }, yAlign = "center",
+				columns = { "1fr", "1fr", "1fr" }, yAlign = "center",
 				background = Define.Theme.panel.wood, border = Define.Theme.panel.edge,
 			},
 			slots = { default = Cells },
@@ -133,7 +149,8 @@ return Define.Module({
 		}
 		local level = { attributes = { text = "", textSize = Define.Theme.text.title, textColor = Define.Theme.color.accent } }
 		local badge = { attributes = BADGE, slots = { default = Level } }
-		return { panel = panel, money = money, level = level, badge = badge }
+		local right = { key = "right", attributes = RIGHT, slots = { default = Right } }
+		return { panel = panel, money = money, level = level, badge = badge, right = right }
 	end,
 
 	Render = function(game, self)

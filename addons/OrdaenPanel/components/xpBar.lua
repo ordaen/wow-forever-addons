@@ -1,10 +1,10 @@
--- The experience bar across the panel's middle (design/panel XpTube): a glass tube with margins on the wood, back to
+-- The experience bar in the panel's middle third (design/panel XpTube): a glass tube with margins on the wood, back to
 -- front the trough, the rested part in pale blue and the experience fill (tiled brushed metal), engraved sections every
 -- tenth, the glass shine, the bronze ring, and the share of the level done in its middle. At the level cap it shows
 -- nothing (the column stays, empty).
 local Define = import("@ordaen/define")
 
-local TUBE_HEIGHT = 30 -- 36 px at the user's scale
+local TUBE_HEIGHT = 25 -- 30 px at the user's scale: slim at a third of the screen's width (design/panel)
 local MARGIN = 32 -- 38 px each side
 local INSET = TUBE_HEIGHT * 10 / 64 -- the trough's inside, as the art draws it
 local SECTIONS = 10
