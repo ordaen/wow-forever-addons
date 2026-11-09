@@ -178,10 +178,10 @@ local CHANGE = 0.10 -- a change smaller than 10% is neither an improvement nor a
 
 local COLUMNS = {
 	"Scenario", "Size", "Metric", "Framework Lua", "Engine", "Backend", "Frame", "Best Lua", "Frame", "Typical Lua",
-	"Frame", "× best Lua", "× best frame", "× typical Lua", "Net KB", "Engine net KB", "Kept KB",
-	"Engine kept KB", "Change Lua", "Change frame", "Check",
+	"Frame", "× best Lua", "× best frame", "× typical Lua", "Net", "Engine net", "Kept",
+	"Engine kept", "Change Lua", "Change frame", "Check",
 }
-local HAND_COLUMNS = { "Scenario", "Size", "Metric", "Side", "Lua", "Frame", "Kept KB" }
+local HAND_COLUMNS = { "Scenario", "Size", "Metric", "Side", "Lua", "Frame", "Kept" }
 local SOURCE_COLUMNS = { "Scenario", "Framework lines", "Best lines", "Typical lines", "Framework chars", "Best chars",
 	"Typical chars" }
 
@@ -293,9 +293,20 @@ local function Lua(ms)
 		return ""
 	end
 	if ms < LUA_FLOOR then
-		return "<" .. LUA_FLOOR
+		return "<" .. LUA_FLOOR .. " ms"
 	end
-	return string.format("%.3f", ms)
+	return string.format("%.2f ms", ms)
+end
+
+--- Lua heap KB as people read it: MB from 1 MB, else KB; two decimals, its unit.
+local function Memory(kb)
+	if not kb then
+		return ""
+	end
+	if math.abs(kb) >= 1024 then
+		return string.format("%.2f MB", kb / 1024)
+	end
+	return string.format("%.2f KB", kb)
 end
 
 --- A frame time above its block's idle (text, number), or "≈ idle" within the idle frames' spread (number nil).
@@ -307,14 +318,14 @@ local function Frame(ms, idle)
 	if above <= idle.noise then
 		return "≈ idle", nil
 	end
-	return string.format("%.3f", above), above
+	return string.format("%.2f ms", above), above
 end
 
 local function Factor(a, b, floor)
 	if not (a and b) or b < floor then
 		return ""
 	end
-	return string.format("%.1f", a / b)
+	return string.format("%.1f×", a / b)
 end
 
 local function Percent(new, old)
@@ -462,12 +473,6 @@ local function Model(id, saved, previous)
 					end
 				end
 			end
-			local function Kb(v)
-				return v and string.format("%.1f", v) or ""
-			end
-			local function Kept(v)
-				return v and string.format("%.0f", v) or ""
-			end
 			local row = {
 				scenario = r.scenario, size = r.size, metric = metric, failed = failed, verdict = verdict,
 				-- a check alone (no time, no memory: "same as baseline", "stub: every node back"): the page lists these
@@ -483,18 +488,18 @@ local function Model(id, saved, previous)
 					frame = { ours = frameText, best = bestFrameText, typical = typicalFrameText,
 						xBest = Factor(frame, bestFrame, 0.001), xTypical = Factor(frame, typicalFrame, 0.001),
 						change = changeFrame },
-					memory = { ours = Kb(r.kb), engine = engine and Kb(engine.r.kb) or "",
-						best = best and Kb(best.r.kb) or "", typical = typical and Kb(typical.r.kb) or "",
-						kept = Kept(r.keptKb), engineKept = engine and Kept(engine.r.keptKb) or "" },
+					memory = { ours = Memory(r.kb), engine = engine and Memory(engine.r.kb) or "",
+						best = best and Memory(best.r.kb) or "", typical = typical and Memory(typical.r.kb) or "",
+						kept = Memory(r.keptKb), engineKept = engine and Memory(engine.r.keptKb) or "" },
 				},
 				cells = {
 					r.scenario, r.size, metric, Lua(r.luaMs), Lua(engineLua), Lua(backendLua), frameText,
 					best and Lua(best.r.luaMs) or "", bestFrameText, typical and Lua(typical.r.luaMs) or "",
 					typicalFrameText, Factor(r.luaMs, best and best.r.luaMs, LUA_FLOOR), Factor(frame, bestFrame, 0.001),
-					Factor(r.luaMs, typical and typical.r.luaMs, LUA_FLOOR), string.format("%.1f", r.kb or 0),
-					engine and string.format("%.1f", engine.r.kb or 0) or "",
-					r.keptKb and string.format("%.0f", r.keptKb) or "",
-					engine and engine.r.keptKb and string.format("%.0f", engine.r.keptKb) or "", changeLua, changeFrame, r.check or "",
+					Factor(r.luaMs, typical and typical.r.luaMs, LUA_FLOOR), Memory(r.kb or 0),
+					engine and Memory(engine.r.kb or 0) or "",
+					Memory(r.keptKb),
+					engine and Memory(engine.r.keptKb) or "", changeLua, changeFrame, r.check or "",
 				},
 			}
 			entry.rows[#entry.rows + 1] = row
@@ -522,7 +527,7 @@ local function Model(id, saved, previous)
 	for i, r in ipairs(results) do
 		if (r.impl == "baseline" or r.impl == "typical") and not framework[Key(r)] then
 			entry.hand.rows[#entry.hand.rows + 1] = { cells = { r.scenario, r.size, r.metric .. (r.n == 1 and " ¹" or ""), r.impl, Lua(r.luaMs),
-				(Frame(r.frameMs, idles[i])), r.keptKb and string.format("%.0f", r.keptKb) or "" } }
+				(Frame(r.frameMs, idles[i])), Memory(r.keptKb) } }
 		end
 	end
 	for _, o in ipairs(round.orders or {}) do
