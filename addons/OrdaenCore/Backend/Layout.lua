@@ -381,6 +381,16 @@ function Layout.TextResized(node, oldW, oldH)
 	if not first then
 		return true
 	end
+	-- In a grid its content sizes, a column is as wide as its widest content (colNat, from the grid's natural width):
+	-- a text that wasn't its column's widest and still isn't changes no column, so nothing of the grid; its own
+	-- rectangle is its cell's (stretched, one line, the same line height).
+	local colNat = parent.colNat
+	if first == last and colNat and parent.natValid then
+		local widest = colNat[first]
+		if widest and (oldW or 0) < widest and natW <= widest then
+			return false
+		end
+	end
 	local kinds = parent.colKind
 	for c = first, last do
 		if kinds[c] ~= "fr" and kinds[c] ~= "fixed" then
@@ -501,6 +511,15 @@ local function boxNatural(node)
 		if child.pos ~= "absolute" and child.pos ~= "fixed" and cSpan[i] == 1 and kinds[cCol[i]] ~= "fixed" then
 			colW[cCol[i]] = max(colW[cCol[i]], natural(child))
 		end
+	end
+	-- each column's widest content, for Layout.TextResized: a text narrower than it changes no column
+	local colNat = node.colNat
+	if not colNat then
+		colNat = {}
+		node.colNat = colNat
+	end
+	for c = 1, n do
+		colNat[c] = kinds[c] ~= "fixed" and colW[c] or nil
 	end
 	local unit = 0
 	for c = 1, n do

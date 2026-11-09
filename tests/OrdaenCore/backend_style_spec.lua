@@ -209,6 +209,36 @@ describe("backend styles", function()
 		assert.is_false(ns.Layout.TextResized(t, oldW, oldH))
 	end)
 
+	it("skips the layout of a content-sized grid for a text that isn't its column's widest, before and after", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local g = Backend:Create("box")
+		Backend:Set(g, wow.env.table.freeze({ columns = 1, position = "absolute", left = 0, top = 0 }))
+		local wide, short = Backend:Create("text"), Backend:Create("text")
+		Backend:Set(wide, { text = "1000000000" })
+		Backend:Set(short, { text = "1" })
+		Backend:SetChildren(g, { wide, short }, 2)
+		Backend:SetChildren(layer, { g }, 1)
+		Backend:Flush()
+		local gw, oldW, oldH = g.w, short.natW, short.lineH
+		assert.are.equal(wide.natW, g.colNat[1])
+		short.natW = wide.natW -- as wide as the widest: no column changes
+		assert.is_false(ns.Layout.TextResized(short, oldW, oldH))
+		short.natW = wide.natW + 1 -- wider: the column grows
+		assert.is_true(ns.Layout.TextResized(short, oldW, oldH))
+		wide.natW, short.natW = oldW, oldW -- the widest shrinks: the column may too
+		assert.is_true(ns.Layout.TextResized(wide, g.colNat[1], oldH))
+		-- drawn: a longer text that still fits keeps the grid and its cell
+		short.natW = oldW
+		wide.natW = g.colNat[1]
+		Backend:Set(short, { text = "100" })
+		Backend:Flush()
+		assert.are.equal(gw, g.w)
+		assert.are.equal(gw, short.w)
+		assert.are.equal("100", short.fs:GetText())
+	end)
+
 	it("draws a panel strip: wood covering it, the metal edge along the top only, content below the edge", function()
 		local wow, ns = client()
 		local Backend = ns.Backend
