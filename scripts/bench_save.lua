@@ -213,9 +213,9 @@ local NOTES = {
 	"**Engine / backend, read with care:** the stub run touches less memory, so the engine runs with warmer caches"
 		.. " there and the backend's share reads slightly high. Hand-written drawing leaves its text layout to WoW's"
 		.. " drawing, so compare the backend with best's frame column, not its Lua column.",
-	"**Change:** against the newest earlier comparable round (clean builds, the same plan shape: the same series"
-		.. " with the same calls, since what runs before a row is part of its conditions); an improvement or a"
-		.. " regression is a change of " .. CHANGE * 100 .. "% or more beyond the noise (the row's own spread, p95"
+	"**Change:** against the newest earlier comparable round (clean builds), on the rows both ran. Only within one"
+		.. " plan shape (the same series with the same calls: what runs before a row is part of its conditions) does a"
+		.. " change count as an improvement or a regression: a change of " .. CHANGE * 100 .. "% or more beyond the noise (the row's own spread, p95"
 		.. " above median, in either round; for frame also the idle spread); single samples (¹) and frame values with"
 		.. " collector work (ᵍ) in either round never count. Same"
 		.. " graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the"
@@ -296,7 +296,7 @@ end
 local function Comparable(a, b)
 	local ba, bb = a.round.build or {}, b.round.build or {}
 	return Clean(a) and Clean(b) and ba.graphics ~= nil and ba.graphics == bb.graphics
-		and ba.zone == bb.zone and ba.subzone == bb.subzone and Shape(a) == Shape(b)
+		and ba.zone == bb.zone and ba.subzone == bb.subzone
 end
 
 --- Each row's idle: its block's idle series (the nearest before it), as { median, noise }.
@@ -429,8 +429,10 @@ local function Model(id, saved, previous)
 	end
 	if previous then
 		entry.comparedWith = previous.id
-		head(string.format("Compared with: round %s, %s (Core %s).", tostring(previous.saved.round.number),
-			previous.saved.round.date, Commit(previous.saved.builds.OrdaenCore)))
+		head(string.format("Compared with: round %s, %s (Core %s)%s", tostring(previous.saved.round.number),
+			previous.saved.round.date, Commit(previous.saved.builds.OrdaenCore), previous.judged and "."
+				or "; another plan shape: the rows both ran are compared, but no change counts as an improvement or a"
+				.. " regression (what ran before a row differs)."))
 	else
 		head("Compared with: no earlier comparable round.")
 	end
@@ -481,6 +483,7 @@ local function Model(id, saved, previous)
 			local changeLua, changeFrame, verdict = "", "", nil
 			-- a single sample (¹) has no spread to tell a change from noise: shown, never an improvement or regression
 			if old and r.n > 1 and (old.r.n or 0) > 1 then
+				local judged = previous.judged
 				if old.r.luaMs and old.r.luaMs >= LUA_FLOOR and r.luaMs >= LUA_FLOOR then
 					changeLua = Percent(r.luaMs, old.r.luaMs)
 					local ratio = (r.luaMs - old.r.luaMs) / old.r.luaMs
@@ -488,9 +491,9 @@ local function Model(id, saved, previous)
 					-- the idle spread: same code measured twice moves within it
 					local spread = math.max((r.luaP95 or r.luaMs) - r.luaMs, (old.r.luaP95 or old.r.luaMs) - old.r.luaMs)
 					local beyond = math.abs(r.luaMs - old.r.luaMs) > spread
-					if beyond and ratio <= -CHANGE then
+					if judged and beyond and ratio <= -CHANGE then
 						verdict = "improvement"
-					elseif beyond and ratio >= CHANGE then
+					elseif judged and beyond and ratio >= CHANGE then
 						verdict = "regression"
 					end
 				end
@@ -503,9 +506,9 @@ local function Model(id, saved, previous)
 					local spread = math.max(idles[i].noise, (r.frameP95 or r.frameMs) - r.frameMs,
 						(old.r.frameP95 or old.r.frameMs) - old.r.frameMs)
 					local beyond = math.abs(frame - oldFrame) > spread
-					if beyond and ratio <= -CHANGE and verdict ~= "regression" then
+					if judged and beyond and ratio <= -CHANGE and verdict ~= "regression" then
 						verdict = verdict or "improvement"
-					elseif beyond and ratio >= CHANGE then
+					elseif judged and beyond and ratio >= CHANGE then
 						verdict = "regression"
 					end
 				end
@@ -824,10 +827,12 @@ local entries, seen = json.array({}), {}
 for _, round_file in ipairs(RoundFiles()) do
 	local id = round_file:gsub("%.json$", "")
 	local saved = json.decode(Read(RESULTS .. "/" .. round_file))
+	-- the newest earlier comparable round; of another plan shape, its shared rows are compared but not judged
 	local previous
 	for i = #seen, 1, -1 do
 		if Comparable(saved, seen[i].saved) then
 			previous = seen[i]
+			previous.judged = Shape(saved) == Shape(seen[i].saved)
 			break
 		end
 	end
