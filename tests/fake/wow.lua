@@ -64,6 +64,7 @@ local V = { TOPLEFT = "T", TOP = "T", TOPRIGHT = "T", LEFT = "M", CENTER = "M", 
 local Region = {} -- methods every region has
 local FrameMethods = {}
 local TextureMethods = {}
+local MaskTextureMethods = {}
 local FontStringMethods = {}
 local FontMethods = {} -- CreateFont's objects (the dump lists no Font type: not checked)
 
@@ -386,6 +387,10 @@ function FrameMethods:CreateTexture(_, layer)
 	return self._wow:NewRegion("Texture", self, layer)
 end
 
+function FrameMethods:CreateMaskTexture()
+	return self._wow:NewRegion("MaskTexture", self, "ARTWORK")
+end
+
 function FrameMethods:CreateFontString(_, layer, template)
 	local fs = self._wow:NewRegion("FontString", self, layer)
 	if template then
@@ -497,7 +502,7 @@ function FrameMethods:IsMouseEnabled()
 end
 
 function FrameMethods:IsProtected()
-	return false
+	return self._protected == true -- a spec marks a frame protected (bag buttons can be)
 end
 
 function FrameMethods:SetClipsChildren(on)
@@ -534,6 +539,44 @@ end
 
 function TextureMethods:SetTexCoord(...)
 	self._coords = { ... }
+end
+
+function TextureMethods:SetAtlas(atlas)
+	self._atlas = atlas
+	self._texture, self._color, self._coords = nil, nil, nil -- coordinates count within the atlas again
+end
+
+function TextureMethods:SetHorizTile(on)
+	self._tileH = on
+end
+
+function TextureMethods:SetVertTile(on)
+	self._tileV = on
+end
+
+function TextureMethods:SetSnapToPixelGrid(on)
+	self._snap = on
+end
+
+function TextureMethods:SetTexelSnappingBias(bias)
+	self._snapBias = bias
+end
+
+function TextureMethods:AddMaskTexture(mask)
+	self._masks = self._masks or {}
+	self._masks[mask] = true
+end
+
+function TextureMethods:RemoveMaskTexture(mask)
+	if self._masks then
+		self._masks[mask] = nil
+	end
+end
+
+copyInto(MaskTextureMethods, Region)
+
+function MaskTextureMethods:SetTexture(path)
+	self._texture = path
 end
 
 -- Font strings ------------------------------------------------------------------------------------------------------
@@ -704,13 +747,14 @@ end
 -- Every fake method must be one Forever has.
 local CLASSES = {
 	Frame = FrameMethods, Button = ButtonMethods, Texture = TextureMethods, FontString = FontStringMethods,
+	MaskTexture = MaskTextureMethods,
 }
 
 -- Every method that can move or resize a region (or its text) starts a new rect generation.
 local MUTATORS = { "SetPoint", "SetAllPoints", "ClearAllPoints", "SetSize", "SetWidth", "SetHeight", "SetScale",
 	"SetParent", "SetText", "SetFormattedText", "SetFont", "SetWordWrap", "SetNonSpaceWrap", "Show", "Hide",
 	"SetShown" }
-for _, class in pairs({ Region, FrameMethods, ButtonMethods, TextureMethods, FontStringMethods }) do
+for _, class in pairs({ Region, FrameMethods, ButtonMethods, TextureMethods, MaskTextureMethods, FontStringMethods }) do
 	for _, name in ipairs(MUTATORS) do
 		local fn = rawget(class, name)
 		if fn then
@@ -766,7 +810,7 @@ function Wow:NewRegion(kind, parent, layer)
 end
 
 function Wow:NewFrame(kind, name, parent)
-	if not CLASSES[kind] or kind == "Texture" or kind == "FontString" then
+	if not CLASSES[kind] or kind == "Texture" or kind == "FontString" or kind == "MaskTexture" then
 		error("CreateFrame: the fake has no " .. tostring(kind), 3)
 	end
 	local f = setmetatable({
@@ -1002,11 +1046,28 @@ function Wow:MakeEnv()
 	end
 	-- library tables: the dumped fields Lua has, plus Forever's own the fake makes
 	local frozen = setmetatable({}, { __mode = "k" })
+	-- table.create sized like Forever's: a constructor with n named fields sizes the hash part for n though they are
+	-- nil (and n nils the array part), so memory measured here is the game's
+	local makers = {}
+	local function create(narr, nhash)
+		local key = (narr or 0) .. ":" .. (nhash or 0)
+		local make = makers[key]
+		if not make then
+			local parts = {}
+			for _ = 1, narr or 0 do
+				parts[#parts + 1] = "nil"
+			end
+			for i = 1, nhash or 0 do
+				parts[#parts + 1] = "k" .. i .. " = nil"
+			end
+			make = assert(loadstring("return function() return { " .. table.concat(parts, ", ") .. " } end"))()
+			makers[key] = make
+		end
+		return make()
+	end
 	local forever = {
 		table = {
-			create = function()
-				return {}
-			end,
+			create = create,
 			-- Can't stop writes in plain Lua: frozen tables are only marked (isfrozen), which is what the code reads.
 			freeze = function(t)
 				frozen[t] = true
@@ -1107,8 +1168,21 @@ function Wow:MakeEnv()
 		return nil
 	end)
 	offer("InCombatLockdown", function()
-		return false
+		return wow.combat == true -- a spec sets wow.combat, then fires PLAYER_REGEN_ENABLED when it ends
 	end)
+	-- a face drawn: the texture remembers whose; wow.faces counts the draws
+	wow.faces = 0
+	offer("SetPortraitTexture", function(texture, unit)
+		texture._portrait = unit
+		wow.faces = wow.faces + 1
+	end)
+	-- every atlas 256 x 128; the one nine-slice layout the theme names
+	offer("C_Texture", {
+		GetAtlasInfo = function()
+			return { width = 256, height = 128 }
+		end,
+	})
+	offer("NineSliceLayouts", { GenericMetal = { LeftEdge = { atlas = "UI-Frame-GenericMetal-EdgeLeft" } } })
 	offer("issecurevariable", function()
 		return false
 	end)
@@ -1207,7 +1281,7 @@ function Wow:MakeEnv()
 			missing[#missing + 1] = name
 		end
 	end
-	for _, ns in ipairs({ "C_Timer", "C_AddOns" }) do
+	for _, ns in ipairs({ "C_Timer", "C_AddOns", "C_Texture", "NineSliceLayouts" }) do
 		for name in pairs(env[ns]) do
 			if not d.namespaces[ns .. "." .. name] then
 				missing[#missing + 1] = ns .. "." .. name

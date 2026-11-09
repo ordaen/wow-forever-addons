@@ -964,7 +964,8 @@ end
 -- Round and measure the node and its subtree again at the pixel size now, from the attributes they draw.
 function Node:Repixel()
 	self.gen = pxGen
-	self.valid, self.natValid, self.mW = false, false, nil
+	-- x forgotten: its rectangle may not change in UI units, but its point snaps to the new pixel grid
+	self.valid, self.natValid, self.mW, self.x = false, false, nil, nil
 	if self.kind == "text" then
 		self:ApplyText()
 	elseif self.kind == "box" and not self.taken then

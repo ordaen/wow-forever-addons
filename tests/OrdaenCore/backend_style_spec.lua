@@ -1,7 +1,17 @@
--- The drawing backend (addons/OrdaenCore/Backend/Backend.lua) on the fake game: a box drawn from a frozen attribute
--- table (the build freezes static ones; the backend then shares one computed style) lays out exactly like the same
--- attributes in a plain table.
-local Fake = dofile("tests/OrdaenCore/fake_game.lua")
+-- The drawing backend (addons/OrdaenCore/Backend/) on the fake client (tests/fake/wow.lua), as built: frozen attribute
+-- tables (the build freezes static ones; the backend shares one computed style) lay out exactly like plain ones, a
+-- new pixel size rounds every node again, Set and SetChildren skip only what can't have changed, and the Panel's
+-- parts: art backgrounds, borders on named sides, embedded Blizzard frames, portraits under a mask.
+local Fake = require("tests.fake.wow")
+
+local DIST = ".ordaen/check/dist"
+
+-- A logged-in client running the built Ordaen Core; returns it and the Core's namespace.
+local function client(uiScale)
+	local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore" }, uiScale = uiScale })
+	wow:Login()
+	return wow, wow.addons.OrdaenCore.ns
+end
 
 local function ref(path)
 	return { path = path } -- a theme reference: the only attribute value with a raw `path`
@@ -59,13 +69,13 @@ describe("backend styles", function()
 		top = 10, background = ref("color.surface") }
 	local CELL = { width = 36, height = 36, xAlign = "center", yAlign = "center", background = ref("color.border") }
 
-	local function run(frozen, uiHeight)
-		Fake.Install(uiHeight)
-		local ns = Fake.LoadBackend()
+	-- The grid of 25 cells drawn on a new client, from frozen or plain tables.
+	local function run(frozen, uiScale)
+		local wow, ns = client(uiScale)
 		local grid, cell = copy(GRID), copy(CELL)
 		if frozen then
-			table.freeze(grid)
-			table.freeze(cell)
+			wow.env.table.freeze(grid)
+			wow.env.table.freeze(cell)
 		end
 		return draw(ns.Backend, grid, cell, 25)
 	end
@@ -88,10 +98,9 @@ describe("backend styles", function()
 	end)
 
 	it("keeps a frozen cell's layout when its node is reused from the pool", function()
-		Fake.Install()
-		local ns = Fake.LoadBackend()
+		local wow, ns = client()
 		local Backend = ns.Backend
-		local grid, cell = table.freeze(copy(GRID)), table.freeze(copy(CELL))
+		local grid, cell = wow.env.table.freeze(copy(GRID)), wow.env.table.freeze(copy(CELL))
 		local g, cells = draw(Backend, grid, cell, 5)
 		for i = #cells, 1, -1 do
 			Backend:Release(cells[i])
@@ -107,18 +116,15 @@ describe("backend styles", function()
 
 	it("rounds every node again when the pixel size changes", function()
 		for _, frozen in ipairs({ false, true }) do
-			local ui = Fake.Install()
-			local ns = Fake.LoadBackend()
+			local wow, ns = client()
 			local grid, cell = copy(GRID), copy(CELL)
 			if frozen then
-				table.freeze(grid)
-				table.freeze(cell)
+				wow.env.table.freeze(grid)
+				wow.env.table.freeze(cell)
 			end
 			local g, cells, texts = draw(ns.Backend, grid, cell, 25)
-			ui._h, ui._w = 1200, 1200 * 16 / 9 -- UI scale 0.64: one pixel is 1200 / 720 units
-			local layer = ns.Backend:Layer("screen")
-			layer.frame._scripts.OnSizeChanged(layer.frame, ui._w, ui._h)
-			local fg, fcells, ftexts = run(frozen, 1200)
+			wow:SetScreen(wow.physW, wow.physH, 0.8) -- the player changed the UI scale
+			local fg, fcells, ftexts = run(frozen, 0.8)
 			same(g, fg, "grid")
 			for i = 1, #cells do
 				same(cells[i], fcells[i], "cell " .. i)
@@ -128,10 +134,11 @@ describe("backend styles", function()
 	end)
 
 	describe("Set and SetChildren skip only what can't have changed", function()
-		local Backend
+		local wow, Backend
 		before_each(function()
-			Fake.Install()
-			Backend = Fake.LoadBackend().Backend
+			local ns
+			wow, ns = client()
+			Backend = ns.Backend
 		end)
 
 		it("drops a key the new table leaves out", function()
@@ -146,7 +153,7 @@ describe("backend styles", function()
 
 		it("applies a frozen table again after the node was released and reused", function()
 			local clicks = function() end
-			local A = table.freeze({ width = 10, OnClick = clicks })
+			local A = wow.env.table.freeze({ width = 10, OnClick = clicks })
 			local layer = Backend:Layer("screen")
 			local b = Backend:Create("box")
 			Backend:Set(b, A)
@@ -182,24 +189,22 @@ describe("backend styles", function()
 	end)
 
 	it("keeps no cell arrays for a one-child cell, and still skips the layout for a text change inside it", function()
-		Fake.Install()
-		local ns = Fake.LoadBackend()
-		local plain = table.freeze({ width = 36, height = 36 }) -- the text fills it (a centred one would move)
-		local _, cells, texts = draw(ns.Backend, table.freeze(copy(GRID)), plain, 25)
+		local wow, ns = client()
+		local plain = wow.env.table.freeze({ width = 36, height = 36 }) -- the text fills it (a centred one would move)
+		local _, cells, texts = draw(ns.Backend, wow.env.table.freeze(copy(GRID)), plain, 25)
 		assert.is_nil(cells[1].cCol)
 		local t = texts[1]
 		local oldW, oldH = t.natW, t.lineH
-		t.natW = oldW + 6 -- still narrower than the 36-unit cell
+		t.natW = oldW + 1 -- still narrower than the 36-unit cell
 		assert.is_false(ns.Layout.TextResized(t, oldW, oldH))
 	end)
 
 	it("draws a panel strip: wood covering it, the metal edge along the top only, content below the edge", function()
-		Fake.Install()
-		local ns = Fake.LoadBackend()
+		local wow, ns = client()
 		local Backend = ns.Backend
 		local layer = Backend:Layer("screen")
 		local strip = Backend:Create("box")
-		Backend:Set(strip, table.freeze({ position = "fixed", left = 0, right = 0, bottom = 0, height = 60,
+		Backend:Set(strip, wow.env.table.freeze({ position = "fixed", left = 0, right = 0, bottom = 0, height = 60,
 			background = ref("panel.wood"), border = ref("panel.edge") }))
 		local cell = Backend:Create("box")
 		Backend:Set(cell, { width = 40 })
@@ -220,12 +225,13 @@ describe("backend styles", function()
 	end)
 
 	describe("an embedded Blizzard frame", function()
-		local Backend, layer, row, bag, home
+		local wow, Backend, layer, row, bag, home
 		before_each(function()
-			local ui = Fake.Install()
-			Backend = Fake.LoadBackend().Backend
-			home = CreateFrame("Frame", nil, ui)
-			bag = CreateFrame("Button", nil, home)
+			local ns
+			wow, ns = client()
+			Backend = ns.Backend
+			home = wow.env.CreateFrame("Frame", nil, wow.env.UIParent)
+			bag = wow.env.CreateFrame("Button", nil, home)
 			bag:SetSize(30, 30)
 			bag:SetPoint("BOTTOMRIGHT", home, "BOTTOMRIGHT", -4, 4)
 			layer = Backend:Layer("screen")
@@ -252,7 +258,7 @@ describe("backend styles", function()
 			assert.are.equal("TOPLEFT", point)
 			assert.are.equal(row.frame, rel)
 			assert.is_true(x >= 40)
-			assert.are.same({ cell.pW, cell.pH }, { bag:GetWidth(), bag:GetHeight() })
+			assert.are.same({ cell.pW, cell.pH }, { bag._w, bag._h })
 			assert.is_true(bag:IsShown())
 		end)
 
@@ -260,19 +266,19 @@ describe("backend styles", function()
 			drawRow()
 			local _, _, _, x, y = bag:GetPoint(1)
 			bag:ClearAllPoints()
-			bag:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+			bag:SetPoint("CENTER", wow.env.UIParent, "CENTER", 0, 0)
 			local point, rel, _, x2, y2 = bag:GetPoint(1)
 			assert.are.same({ "TOPLEFT", row.frame, x, y }, { point, rel, x2, y2 })
 		end)
 
 		it("waits for combat to end when protected", function()
 			bag._protected = true
-			Fake.combat = true
+			wow.combat = true
 			drawRow()
 			assert.are.equal(home, bag:GetParent())
 			assert.are.equal("BOTTOMRIGHT", (bag:GetPoint(1)))
-			Fake.combat = false
-			Fake.Fire("PLAYER_REGEN_ENABLED")
+			wow.combat = false
+			wow:Fire("PLAYER_REGEN_ENABLED")
 			assert.are.equal(row.frame, bag:GetParent())
 			assert.are.equal("TOPLEFT", (bag:GetPoint(1)))
 		end)
@@ -284,33 +290,34 @@ describe("backend styles", function()
 			assert.are.equal(home, bag:GetParent())
 			local point, rel, _, x, y = bag:GetPoint(1)
 			assert.are.same({ "BOTTOMRIGHT", home, -4, 4 }, { point, rel, x, y })
-			assert.are.same({ 30, 30 }, { bag:GetWidth(), bag:GetHeight() })
-			bag:SetPoint("CENTER", UIParent, "CENTER", 0, 0) -- Blizzard moving it now isn't undone
+			assert.are.same({ 30, 30 }, { bag._w, bag._h })
+			bag:SetPoint("CENTER", wow.env.UIParent, "CENTER", 0, 0) -- Blizzard moving it now isn't undone
 			assert.are.equal("CENTER", (bag:GetPoint(1)))
 		end)
 	end)
 
 	it("draws a unit's face under a mask, redraws it on the portrait events, and stops when released", function()
-		Fake.Install()
-		local Backend = Fake.LoadBackend().Backend
+		local wow, ns = client()
+		local Backend = ns.Backend
 		local layer = Backend:Layer("screen")
 		local corner = Backend:Create("box")
-		Backend:Set(corner, table.freeze({ position = "fixed", left = 0, bottom = 0, width = 128, height = 124,
+		Backend:Set(corner, wow.env.table.freeze({ position = "fixed", left = 0, bottom = 0, width = 128, height = 124,
 			background = ref("color.surface"), portrait = "player", mask = ref("panel.corner") }))
 		Backend:SetChildren(layer, { corner }, 1)
 		Backend:Flush()
 		assert.are.equal("player", corner.face._portrait)
-		assert.is_not_nil(corner.maskTex)
+		assert.is_true(corner.face._masks[corner.maskTex])
+		assert.is_true(corner.bg._masks[corner.maskTex])
 		assert.is_true(corner.rimTex:IsShown())
 		assert.is_false(corner.mouse) -- no handler: it takes no clicks
-		local drawn = Fake.faces
-		Fake.Fire("UNIT_PORTRAIT_UPDATE", "player")
-		assert.are.equal(drawn + 1, Fake.faces)
-		Fake.Fire("UNIT_PORTRAIT_UPDATE", "target")
-		assert.are.equal(drawn + 1, Fake.faces)
+		local drawn = wow.faces
+		wow:Fire("UNIT_PORTRAIT_UPDATE", "player")
+		assert.are.equal(drawn + 1, wow.faces)
+		wow:Fire("UNIT_PORTRAIT_UPDATE", "target")
+		assert.are.equal(drawn + 1, wow.faces)
 		Backend:SetChildren(layer, {}, 0)
 		Backend:Release(corner)
-		Fake.Fire("PORTRAITS_UPDATED")
-		assert.are.equal(drawn + 1, Fake.faces)
+		wow:Fire("PORTRAITS_UPDATED")
+		assert.are.equal(drawn + 1, wow.faces)
 	end)
 end)
