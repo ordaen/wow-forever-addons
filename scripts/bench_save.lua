@@ -282,8 +282,11 @@ end
 -- within one shape: a change of the bench never reads as a change of the framework.
 local function Shape(saved)
 	local list = {}
-	for i, r in ipairs(saved.results) do
-		list[i] = r.scenario .. "|" .. r.size .. "|" .. r.impl .. "|" .. r.metric .. "|" .. tostring(r.n)
+	for _, r in ipairs(saved.results) do
+		-- a check alone (no time, no memory) runs outside the measured series, so it doesn't change their conditions
+		if not (r.luaMs == 0 and r.frameMs == 0 and (r.kb or 0) == 0 and r.check) then
+			list[#list + 1] = r.scenario .. "|" .. r.size .. "|" .. r.impl .. "|" .. r.metric .. "|" .. tostring(r.n)
+		end
 	end
 	return table.concat(list, "\n")
 end
