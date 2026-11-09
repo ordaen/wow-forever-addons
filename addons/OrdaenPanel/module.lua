@@ -119,7 +119,7 @@ local function Free(game)
 			textOutline = "thin", zLevel = 1,
 		} })
 	end
-	game.ui:Frame(game.Frame.MainMenuBarBackpackButtonCount, HIDDEN)
+	game.ui:Frame(game.Frame.BackpackFreeSlots, HIDDEN)
 end
 local BAG_CALLS = {}
 for i = 1, #BAGS do

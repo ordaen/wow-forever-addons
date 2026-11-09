@@ -36,7 +36,8 @@ describe("Ordaen Panel", function()
 			wow.env.CreateFrame("Frame", name, wow.env.UIParent)
 		end
 		wow.env.CreateFrame("Frame", "MicroMenuContainer", wow.env.UIParent)
-		local count = wow.env.MainMenuBarBackpackButton:CreateFontString("MainMenuBarBackpackButtonCount")
+		local count = wow.env.MainMenuBarBackpackButton:CreateFontString()
+		wow.env.MainMenuBarBackpackButton.FreeSlots = count
 		count:SetFont("Fonts\\ARIALN.TTF", 12, "")
 		count:SetText("(23)")
 		wow:Login()
@@ -50,7 +51,7 @@ describe("Ordaen Panel", function()
 	end)
 
 	it("shows the backpack's free slots in its slot, not Blizzard's count", function()
-		assert.is_false(wow.env.MainMenuBarBackpackButtonCount:IsShown())
+		assert.is_false(wow.env.MainMenuBarBackpackButton.FreeSlots:IsShown())
 		local function shown(text)
 			for frame in pairs(wow.allFrames) do
 				for _, r in ipairs(frame._regions) do

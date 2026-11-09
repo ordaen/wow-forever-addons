@@ -82,25 +82,38 @@ for _, name in ipairs({
 	"CollectionsMicroButton", "EJMicroButton", "HousingMicroButton", "LegacyMicroButton", "MainMenuMicroButton",
 	"HelpMicroButton", "StoreMicroButton", "MicroMenu", "MicroMenuContainer",
 	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
-	"CharacterReagentBag0Slot", "BagBarExpandToggle", "BagsBar", "MainMenuBarBackpackButtonCount",
+	"CharacterReagentBag0Slot", "BagBarExpandToggle", "BagsBar",
 	"MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer", "QuickJoinToastButton",
 }) do
 	FRAME_NAMES[name] = name
 end
+-- regions without a global name, as their frame's parentKey: { global, key }
+local FRAME_KEYS = {
+	-- the backpack's free slots, "(23)" under its icon (seen in game: the dev addon's "bag button" probe)
+	BackpackFreeSlots = { "MainMenuBarBackpackButton", "FreeSlots" },
+}
 local FrameRef = {}
 local FrameRefMeta = { __index = FrameRef }
 function FrameRef:Get()
-	return _G[self.global]
+	local frame = _G[self.global]
+	if frame and self.key then
+		return frame[self.key]
+	end
+	return frame
 end
 
 function DOMAINS.Frame()
 	return setmetatable({}, {
 		__index = function(frames, key)
-			local global = FRAME_NAMES[key]
+			local global, child = FRAME_NAMES[key], nil
+			local path = FRAME_KEYS[key]
+			if path then
+				global, child = path[1], path[2]
+			end
 			if not global then
 				return nil
 			end
-			local ref = setmetatable({ global = global }, FrameRefMeta)
+			local ref = setmetatable({ global = global, key = child }, FrameRefMeta)
 			frames[key] = ref
 			return ref
 		end,
