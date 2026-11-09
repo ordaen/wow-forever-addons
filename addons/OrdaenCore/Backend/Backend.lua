@@ -62,7 +62,7 @@ local EMPTY = {}
 local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5, 6, 7, 8
 local next = next
 local GROUP = {
-	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK,
+	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT,
 	text = TEXT, textSize = TEXT, wrap = TEXT,
 }
@@ -75,7 +75,7 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 		TEXT_KEYS[#TEXT_KEYS + 1] = attribute.key
 	end
 end
-for _, key in ipairs({ "background", "opacity", "OnClick", "OnEnter", "OnLeave" }) do
+for _, key in ipairs({ "background", "opacity", "portrait", "mask", "OnClick", "OnEnter", "OnLeave" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
 end
 for _, key in ipairs({ "text", "textSize", "wrap", "textColor", "textAlign", "opacity" }) do
@@ -436,6 +436,125 @@ function Node:ApplyBorder(border)
 	edges[4]:SetShown(r > 0)
 end
 
+-- Portraits: a box whose `portrait` names a unit shows that unit's face (SetPortraitTexture) over its background.
+-- The faces are drawn again on UNIT_PORTRAIT_UPDATE for their units and on PORTRAITS_UPDATED, registered only while a
+-- portrait is shown (for one or two units by unit; more, every unit's event, filtered here).
+local portraits = {} -- node -> its unit, while it shows a face
+local portraitFrame ---@type Frame?
+
+local function onPortraitEvent(_, event, unit)
+	for node, own in pairs(portraits) do
+		if event == "PORTRAITS_UPDATED" or own == unit then
+			SetPortraitTexture(node.face, own)
+		end
+	end
+end
+
+local function portraitEvents()
+	local first, second, more = nil, nil, false
+	for _, unit in pairs(portraits) do
+		if first == nil or first == unit then
+			first = unit
+		elseif second == nil or second == unit then
+			second = unit
+		else
+			more = true
+		end
+	end
+	if not first then
+		if portraitFrame then
+			portraitFrame:UnregisterAllEvents()
+		end
+		return
+	end
+	if not portraitFrame then
+		portraitFrame = CreateFrame("Frame")
+		portraitFrame:SetScript("OnEvent", onPortraitEvent)
+	end
+	portraitFrame:UnregisterAllEvents()
+	if more then
+		portraitFrame:RegisterEvent("UNIT_PORTRAIT_UPDATE")
+	elseif second then
+		portraitFrame:RegisterUnitEvent("UNIT_PORTRAIT_UPDATE", first, second)
+	else
+		portraitFrame:RegisterUnitEvent("UNIT_PORTRAIT_UPDATE", first)
+	end
+	portraitFrame:RegisterEvent("PORTRAITS_UPDATED")
+end
+
+function Node:ApplyPortrait(unit)
+	local face = self.face
+	if unit == nil then
+		if face then
+			face:Hide()
+		end
+		if portraits[self] then
+			portraits[self] = nil
+			portraitEvents()
+		end
+		return
+	end
+	if not face then
+		face = self.frame:CreateTexture(nil, "BORDER")
+		face:SetAllPoints(self.frame)
+		self.face = face
+		if self.maskTex then
+			face:AddMaskTexture(self.maskTex)
+		end
+	end
+	SetPortraitTexture(face, unit)
+	face:Show()
+	if portraits[self] ~= unit then
+		portraits[self] = unit
+		portraitEvents()
+	end
+end
+
+-- A box's `mask` (a theme value { mask, rim }): its shape cuts its background and its face, and its rim art lies over
+-- both, all stretched to the box (the art is drawn for the box's aspect). Clicks still land on the whole rectangle:
+-- a frame's hit area can't follow a shape, so a masked box takes the mouse only with a handler, as any box.
+function Node:ApplyMask(mask)
+	local tex, rim = self.maskTex, self.rimTex
+	if type(mask) ~= "table" or not mask.mask then
+		if tex then
+			if self.bg then
+				self.bg:RemoveMaskTexture(tex)
+			end
+			if self.face then
+				self.face:RemoveMaskTexture(tex)
+			end
+			self.maskTex = nil
+		end
+		if rim then
+			rim:Hide()
+		end
+		return
+	end
+	if not tex then
+		tex = self.frame:CreateMaskTexture()
+		tex:SetAllPoints(self.frame)
+		self.maskTex = tex
+		if self.bg then
+			self.bg:AddMaskTexture(tex)
+		end
+		if self.face then
+			self.face:AddMaskTexture(tex)
+		end
+	end
+	tex:SetTexture(mask.mask, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	if mask.rim then
+		if not rim then
+			rim = self.frame:CreateTexture(nil, "OVERLAY")
+			rim:SetAllPoints(self.frame)
+			self.rimTex = rim
+		end
+		rim:SetTexture(mask.rim)
+		rim:Show()
+	elseif rim then
+		rim:Hide()
+	end
+end
+
 -- An art background covers the box: the art's full width and a band of its height, or the other way round, so it
 -- keeps its aspect (texture coordinates count within the atlas after SetAtlas). Again only when the box's size changed.
 function Node:FitBackground()
@@ -486,6 +605,11 @@ function Node:ApplyLook()
 	if self.kind ~= "box" then
 		return
 	end
+	local mask = resolve(self, a.mask)
+	if mask ~= self.lookMask then
+		self.lookMask = mask
+		self:ApplyMask(mask)
+	end
 	local bg = resolve(self, a.background)
 	if bg ~= self.lookBg then
 		self.lookBg = bg
@@ -499,6 +623,9 @@ function Node:ApplyLook()
 				tex = frame:CreateTexture(nil, "BACKGROUND")
 				tex:SetAllPoints(frame)
 				self.bg = tex
+				if self.maskTex then
+					tex:AddMaskTexture(self.maskTex)
+				end
 			end
 			local c = color(bg)
 			self.lookFit = nil
@@ -518,6 +645,11 @@ function Node:ApplyLook()
 			end
 			tex:Show()
 		end
+	end
+	local unit = resolve(self, a.portrait)
+	if unit ~= self.lookPortrait then
+		self.lookPortrait = unit
+		self:ApplyPortrait(unit)
 	end
 	local border = resolve(self, a.border)
 	-- the widths change together (the pixel size) or with the border's sides (another border): one sum tells
@@ -1315,6 +1447,11 @@ function Backend:Release(node)
 		end
 	end
 	node.released, node.stale, node.src = true, nil, nil
+	if portraits[node] then -- it keeps its face, but no event redraws it while pooled
+		portraits[node] = nil
+		node.lookPortrait = nil
+		portraitEvents()
+	end
 	node.hovered, node.pressed = false, false
 	node.valid, node.natValid, node.x = false, false, nil
 	node.lw, node.lh, node.nhW, node.mW = nil, nil, nil, nil

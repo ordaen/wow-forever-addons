@@ -289,4 +289,28 @@ describe("backend styles", function()
 			assert.are.equal("CENTER", (bag:GetPoint(1)))
 		end)
 	end)
+
+	it("draws a unit's face under a mask, redraws it on the portrait events, and stops when released", function()
+		Fake.Install()
+		local Backend = Fake.LoadBackend().Backend
+		local layer = Backend:Layer("screen")
+		local corner = Backend:Create("box")
+		Backend:Set(corner, table.freeze({ position = "fixed", left = 0, bottom = 0, width = 128, height = 124,
+			background = ref("color.surface"), portrait = "player", mask = ref("panel.corner") }))
+		Backend:SetChildren(layer, { corner }, 1)
+		Backend:Flush()
+		assert.are.equal("player", corner.face._portrait)
+		assert.is_not_nil(corner.maskTex)
+		assert.is_true(corner.rimTex:IsShown())
+		assert.is_false(corner.mouse) -- no handler: it takes no clicks
+		local drawn = Fake.faces
+		Fake.Fire("UNIT_PORTRAIT_UPDATE", "player")
+		assert.are.equal(drawn + 1, Fake.faces)
+		Fake.Fire("UNIT_PORTRAIT_UPDATE", "target")
+		assert.are.equal(drawn + 1, Fake.faces)
+		Backend:SetChildren(layer, {}, 0)
+		Backend:Release(corner)
+		Fake.Fire("PORTRAITS_UPDATED")
+		assert.are.equal(drawn + 1, Fake.faces)
+	end)
 end)

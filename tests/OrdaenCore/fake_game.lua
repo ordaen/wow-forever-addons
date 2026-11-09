@@ -149,7 +149,7 @@ local function new(kind, parent)
 	assert(DUMP[kind], "no widget type " .. tostring(kind) .. " in the API dump")
 	return setmetatable({ _kind = kind, _parent = parent }, Widget)
 end
-local CREATES = { CreateTexture = "Texture", CreateFontString = "FontString" }
+local CREATES = { CreateTexture = "Texture", CreateFontString = "FontString", CreateMaskTexture = "MaskTexture" }
 for method, kind in pairs(CREATES) do
 	IMPL[method] = function(self)
 		return new(kind, self)
@@ -174,18 +174,7 @@ function Fake.Install(uiHeight)
 	end
 	Fake.combat = false
 	_G.InCombatLockdown = function()
-		---Send `event` to every frame made with an OnEvent script (what the backend registered isn't tracked: the specs
----send only events that frame waits for).
-function Fake.Fire(event, ...)
-	for _, frame in ipairs(Fake.created) do
-		local script = frame._scripts and frame._scripts.OnEvent
-		if script then
-			script(frame, event, ...)
-		end
-	end
-end
-
-return Fake.combat
+		return Fake.combat
 	end
 	-- as WoW's: hooksecurefunc(object, method, fn) or hooksecurefunc(globalName, fn), fn after the original
 	_G.hooksecurefunc = function(target, name, fn)
@@ -204,6 +193,12 @@ return Fake.combat
 		end)
 	end
 	_G.STANDARD_TEXT_FONT = "Fonts\\FRIZQT__.TTF"
+	-- a face drawn: the texture remembers whose (Fake.faces counts the draws)
+	Fake.faces = 0
+	_G.SetPortraitTexture = function(texture, unit)
+		texture._portrait = unit
+		Fake.faces = Fake.faces + 1
+	end
 	-- art: every atlas 256 x 128; the one nine-slice layout the theme names
 	_G.C_Texture = {
 		GetAtlasInfo = function()
@@ -248,6 +243,17 @@ function Fake.LoadBackend()
 		assert(loadfile("addons/OrdaenCore/Backend/" .. file .. ".lua"))("OrdaenCore", ns)
 	end
 	return ns
+end
+
+---Send `event` to every frame made with an OnEvent script (what the backend registered isn't tracked: the specs
+---send only events that frame waits for).
+function Fake.Fire(event, ...)
+	for _, frame in ipairs(Fake.created) do
+		local script = frame._scripts and frame._scripts.OnEvent
+		if script then
+			script(frame, event, ...)
+		end
+	end
 end
 
 return Fake

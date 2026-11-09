@@ -5,7 +5,9 @@
 --   spacing.*  UI units
 --   text.*     font sizes
 --   panel.*    Ordaen Panel's look (design: panel): wood, a background { atlas } that covers its box; edge, a border
---              { width, sides, nineSlice } drawn with a Blizzard nine-slice's art along the top only
+--              { width, sides, nineSlice } drawn with a Blizzard nine-slice's art along the top only; corner, the
+--              portrait's mask { mask, rim } (media/portrait-*.tga, drawn for a 128 x 124 box); badge, the level
+--              badge's art as a background
 local _, ns = ...
 
 ns.Theme = {
@@ -28,4 +30,11 @@ ns.Theme = {
 	["panel.wood"] = { atlas = "UI-Character-Info-General-BG" },
 	-- the small metal (GenericMetal at half its size) along the top: 8 px at the user's scale (1.2 px per unit)
 	["panel.edge"] = { width = 7, sides = { "top" }, nineSlice = "GenericMetal" },
+	-- the portrait fitted into the screen's corner: flat top, the top-right corner rounded, the rim along the top and
+	-- the right (design: panel, «Portrait»; CornerPortrait)
+	["panel.corner"] = {
+		mask = "Interface\\AddOns\\OrdaenCore\\media\\portrait-mask",
+		rim = "Interface\\AddOns\\OrdaenCore\\media\\portrait-rim",
+	},
+	["panel.badge"] = "Interface\\AddOns\\OrdaenCore\\media\\level-badge",
 }
