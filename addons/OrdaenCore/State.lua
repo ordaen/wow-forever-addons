@@ -72,10 +72,28 @@ end
 
 -- Plain values: boolean, number, string, choice ------------------------------------------------------------------
 
+-- Whether two values of a setting are the same: a colour by its components (a new table each time it's picked)
+local function Same(a, b)
+	if a == b then
+		return true
+	end
+	if type(a) ~= "table" or type(b) ~= "table" then
+		return false
+	end
+	return a[1] == b[1] and a[2] == b[2] and a[3] == b[3]
+end
+State.Same = Same
+
 local function Check(spec, value, name)
 	local kind = spec.type
 	local ok
-	if kind == "choice" then
+	if kind == "color" then -- { r, g, b } from 0 to 1
+		ok = type(value) == "table"
+		for i = 1, 3 do
+			local c = ok and value[i]
+			ok = ok and type(c) == "number" and c >= 0 and c <= 1
+		end
+	elseif kind == "choice" then
 		ok = false
 		for _, member in pairs(spec.choices) do
 			if member == value then
@@ -151,17 +169,17 @@ function Plain:Set(value)
 	local stored = Read(self)
 	if spec.follows then
 		-- a value of its own, even one equal to the global's: following is chosen with Follow
-		if value == stored then
+		if Same(value, stored) then
 			return
 		end
 		TableFor(self)[self.name] = value
 		Notify(self)
 		return
 	end
-	if value == self:Peek() then
+	if Same(value, self:Peek()) then
 		return
 	end
-	if value == spec.default then
+	if Same(value, spec.default) then
 		local t = self.root[self.path]
 		if t then
 			t[self.name] = nil
@@ -371,7 +389,9 @@ local function LabelKey(self)
 	local key = self.labelKey
 	if not key then
 		local module = self.module
-		if self.path == "global" and module.name == "OrdaenCore" then
+		if self.spec.label then -- named by its declaration (a theme's value: THEME_PALETTE_RED)
+			key = self.spec.label
+		elseif self.path == "global" and module.name == "OrdaenCore" then
 			key = "GLOBAL_" .. self.name:upper()
 		elseif self.path == "module" then
 			key = module.name:gsub("^Ordaen", ""):upper() .. "_" .. self.name:upper()
@@ -385,7 +405,7 @@ end
 
 local function Text(self, key)
 	local module = self.module
-	if self.path == "global" and module.name == "OrdaenCore" then
+	if module.name == "OrdaenCore" then -- Ordaen's own (globals, themes): the window that shows them has the texts
 		module = ns.App.Module(SETTINGS_WINDOW)
 	end
 	local locales = module and module.ns and module.ns.locales
@@ -416,7 +436,8 @@ function Plain:ChoiceLabel(value)
 	end
 	local key = keys[value]
 	if not key then
-		key = LabelKey(self) .. "_" .. tostring(value):upper()
+		-- a choice named by its declaration's kind (THEME_FONT_FIRASANS: a font once, whichever role picks it)
+		key = (self.spec.choiceLabel or LabelKey(self)) .. "_" .. tostring(value):upper()
 		keys[value] = key
 	end
 	return Text(self, key)
@@ -481,12 +502,12 @@ function Draft:Of(setting)
 end
 
 local function Stage(draft, setting, value)
-	if value == setting:Peek() then
+	if Same(value, setting:Peek()) then
 		value = nil -- the stored value: nothing to save
 	end
 	local staged = draft.staged
 	local was = staged[setting]
-	if was == value then
+	if Same(was, value) then
 		return
 	end
 	staged[setting] = value
@@ -599,7 +620,7 @@ end
 -- Declaring ------------------------------------------------------------------------------------------------------
 
 local METAS = {
-	boolean = PlainMeta, number = PlainMeta, string = PlainMeta, choice = PlainMeta,
+	boolean = PlainMeta, number = PlainMeta, string = PlainMeta, choice = PlainMeta, color = PlainMeta,
 	list = ListMeta, map = MapMeta,
 }
 

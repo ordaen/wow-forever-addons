@@ -291,6 +291,8 @@ frame:SetScript("OnEvent", function(_, event, arg)
 			frame:UnregisterEvent("ADDON_LOADED")
 			-- Ordaen's own SavedVariables (its global settings and, later, the players' themes): there now
 			ns.Globals.Load(OrdaenCore.SavedVariables({ db = "OrdaenCoreDB" }))
+			ns.Themes.Load()
+			ns.Themes.Start()
 			LoadModules()
 		end
 	elseif event == "PLAYER_LOGIN" then

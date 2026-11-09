@@ -36,6 +36,8 @@ local SPEC = {
 	numbers = { type = "choice", choices = Globals.LargeNumbers, order = { "full", "short" },
 		default = Globals.LargeNumbers.Short, setting = true },
 	sounds = { type = "boolean", default = true, setting = true },
+	-- the active theme's id (Themes.lua): chosen with «Использовать» on «Темы», not a row of «Общие»
+	theme = { type = "string", default = "ordaen" },
 	clock = { type = "choice", choices = Globals.Clock, order = { "24", "12" },
 		default = Globals.Clock.H24, setting = true },
 }
@@ -43,6 +45,7 @@ Globals.spec = SPEC
 
 -- Ordaen as the store's module: its account-wide table, given at its ADDON_LOADED (Globals.Load)
 local store = { name = "OrdaenCore" }
+Globals.store = store -- the themes' values are stored here too (Themes.lua)
 
 --- Ordaen's SavedVariables are there (its ADDON_LOADED): the global settings can be read from now on.
 ---@param db table OrdaenCoreDB

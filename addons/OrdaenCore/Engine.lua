@@ -120,6 +120,18 @@ function Effect:Mark()
 	end
 end
 
+-- What Ordaen's own effects belong to (Engine.Effect): no component, nothing drawn, never unmounted
+local CORE = { _depth = 0, _alive = true }
+
+--- An effect of Ordaen's own, outside any module (the themes applying the active one): runs now, then again after
+--- each flush that changed what it read. Lives as long as the client.
+---@param fn function
+function Engine.Effect(fn)
+	local effect = NewEffect(CORE, fn, false)
+	Engine:RunEffect(effect)
+	return effect
+end
+
 local UnmountRecord -- the revert of self:Mount, kept for reuse across a watch's runs
 
 --- Run an effect: revert its last run (children it mounted are kept for reuse), track what it reads, roll back if

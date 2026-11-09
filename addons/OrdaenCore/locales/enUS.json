@@ -4,5 +4,6 @@
   "MODULE_OFF": "%s is off.",
   "UNKNOWN_MODULE": "No module \"%s\". Type /ordaen help for the list.",
   "UNKNOWN_COMMAND": "%s has no command \"%s\". Type /ordaen %s help for the list.",
+  "THEME_UNNAMED": "Theme %d",
   "SETTINGS_RESET": "%s: settings back to their defaults."
 }

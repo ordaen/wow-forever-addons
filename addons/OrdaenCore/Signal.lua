@@ -249,7 +249,7 @@ end
 
 --- The app's stages (design: development/framework/app#stages), offered as game.Stage and fired by the app; a
 --- listener added after Login or Ready passed runs at once.
-ns.Stage = { Login = ns.NewEvent(), Ready = ns.NewEvent(), Shutdown = ns.NewEvent() }
+ns.Stage = { Login = ns.NewEvent(), Ready = ns.NewEvent(), Shutdown = ns.NewEvent(), ThemeChanged = ns.NewEvent() }
 ns.Stage.Login.sticky = true
 ns.Stage.Ready.sticky = true
 
