@@ -35,6 +35,18 @@ describe("Ordaen Panel", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("counts the friends online on the social button", function()
+		local shown = {}
+		for frame in pairs(wow.allFrames) do
+			for _, r in ipairs(frame._regions) do
+				if r._text and r:IsVisible() then
+					shown[r._text] = true
+				end
+			end
+		end
+		assert.is_true(shown["3"], "no \"3\" drawn")
+	end)
+
 	it("hides what stays in Blizzard's bag bar", function()
 		assert.is_false(home:IsShown())
 	end)

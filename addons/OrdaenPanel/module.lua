@@ -22,7 +22,7 @@ local MICRO = {
 	{ frame = "LFDMicroButton", icon = import("assets/micro-groupfinder.tga") },
 	{ frame = "CollectionsMicroButton", icon = import("assets/micro-collections.tga") },
 	{ frame = "MainMenuMicroButton", icon = import("assets/micro-gamemenu.tga") },
-	{ frame = "QuickJoinToastButton", icon = import("assets/micro-social.tga") },
+	{ frame = "QuickJoinToastButton", icon = import("assets/micro-social.tga"), friends = true },
 }
 -- A cell fills the panel below its metal edge (60 - 7 units), 1.075 times as wide: the inside between the cell's side
 -- rims is square (design PanelCell). Icons 35 units (42 px at the user's scale).
@@ -36,6 +36,17 @@ local ICON_LEFT = (CELL_WIDTH - ICON_SIDE) / 2
 local ICON_TOP = { default = (CELL_HEIGHT - ICON_SIDE) / 2, pressed = (CELL_HEIGHT - ICON_SIDE) / 2 + 1 / 1.2 }
 local CLICK = { position = "absolute", left = 0, top = 0, width = CELL_WIDTH, height = CELL_HEIGHT, opacity = 0 }
 local CLICK_CALL = { attributes = CLICK }
+-- the friends online on the social button (design .mbadge): a green pill in the cell's lower right, shown while any are
+-- online; Blizzard's own count is on its button, which lies invisible over the cell
+local FRIENDS_BADGE = {
+	position = "absolute", right = CELL_WIDTH * 0.12, bottom = CELL_HEIGHT * 0.14, height = 16 / 1.2,
+	padding = { 0, 4 / 1.2, 0, 4 / 1.2 }, xAlign = "center", yAlign = "center",
+	background = { 0.122, 0.435, 0.122, 1 }, border = { width = 1, color = { 0, 0, 0, 1 } },
+}
+local function FriendsCount(game, self)
+	game.ui:Text(self.friends)
+end
+local FRIENDS_BADGE_CALL = { attributes = FRIENDS_BADGE, slots = { default = FriendsCount } }
 -- each button's calls, made once here: its icon, its cell, and Blizzard's button over it
 for i = 1, #MICRO do
 	local m = MICRO[i]
@@ -44,8 +55,16 @@ for i = 1, #MICRO do
 		position = "absolute", left = ICON_LEFT, top = ICON_TOP, width = ICON_SIDE, height = ICON_SIDE,
 		background = m.icon, stateFrom = "parent",
 	} }
-	m.call = { key = i, attributes = CELL, slots = { default = function(game)
+	local friends = m.friends
+	m.call = { key = i, attributes = CELL, slots = { default = function(game, self)
 		game.ui:Box(iconCall)
+		if friends then
+			local online = game.Friends.online:Get()
+			if online > 0 then
+				self.friends.attributes.text = tostring(online)
+				game.ui:Box(FRIENDS_BADGE_CALL)
+			end
+		end
 		game.ui:Embed(game.Frame[frame], CLICK_CALL)
 	end } }
 end
@@ -178,10 +197,11 @@ return Define.Module({
 		local money = {
 			attributes = { text = "", textColor = Define.Theme.color.text, textSize = Define.Theme.text.body },
 		}
+		local friends = { attributes = { text = "", textSize = 11 / 1.2, textColor = { 1, 1, 1, 1 } } }
 		local level = { attributes = { text = "", textSize = Define.Theme.text.title, textColor = Define.Theme.color.accent } }
 		local badge = { attributes = BADGE, slots = { default = Level } }
 		local right = { key = "right", attributes = RIGHT, slots = { default = Right } }
-		return { panel = panel, money = money, level = level, badge = badge, right = right }
+		return { panel = panel, money = money, level = level, badge = badge, right = right, friends = friends }
 	end,
 
 	commands = {

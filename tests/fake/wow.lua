@@ -1254,6 +1254,15 @@ function Wow:MakeEnv()
 	offer("GetXPExhaustion", function()
 		return nil
 	end)
+	-- two character friends and one Battle.net friend online (of five)
+	offer("BNGetNumFriends", function()
+		return 5, 1
+	end)
+	offer("C_FriendList", {
+		GetNumOnlineFriends = function()
+			return 2
+		end,
+	})
 	offer("C_CurrencyInfo", {
 		GetCoinTextureString = function(copper)
 			return tostring(copper)
