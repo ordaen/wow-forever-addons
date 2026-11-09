@@ -219,6 +219,32 @@ describe("the settings controls", function()
 		end)
 	end)
 
+	describe("Tabs", function()
+		it("draws the names, the picked one with its light, and picks another on a click", function()
+			local picked = {}
+			local selected = ns.NewValue(1)
+			mount(function(game)
+				game.ui:Tabs(1, { attributes = { tabs = { "One", "Two", "Three" }, selected = selected:Get(),
+					OnSelect = function(i)
+						picked[#picked + 1] = i
+						selected:Set(i)
+					end } })
+			end)
+			assert.is_true(has("One") and has("Two") and has("Three"))
+			local tabs = {}
+			for _, node in ipairs(nodes()) do
+				if node.kind == "text" and (node.fs:GetText() == "Three") then
+					tabs.three = node.parent
+				end
+			end
+			tabs.three.frame:GetScript("OnClick")(tabs.three.frame, "LeftButton")
+			ns.Scheduler.Flush()
+			assert.are.same({ 3 }, picked)
+			assert.is_nil(tabs.three.a.OnClick) -- picked: no click of its own
+			assert.are.same({}, wow.errors)
+		end)
+	end)
+
 	describe("Window", function()
 		local function draw()
 			mount(function(game)
