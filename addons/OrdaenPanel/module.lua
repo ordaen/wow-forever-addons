@@ -10,7 +10,8 @@ local L = import("locales")
 
 -- The micro menu, left to right (design/micromenu): our cells with our icons on the wood, each with Blizzard's button
 -- invisible over it, so the click, menus and alerts stay Blizzard's. While Ordaen Spells and Ordaen Social don't exist,
--- the spellbook and talents keep a button each and the guild's stays (the social one comes with its game.Frame).
+-- the spellbook and talents keep a button each, the guild's stays, and the social one (friends: Blizzard's button by the
+-- chat) comes last.
 local MICRO = {
 	{ frame = "ProfessionMicroButton", icon = import("assets/micro-professions.tga") },
 	{ frame = "SpellbookMicroButton", icon = import("assets/micro-spellbookabilities.tga") },
@@ -21,6 +22,7 @@ local MICRO = {
 	{ frame = "LFDMicroButton", icon = import("assets/micro-groupfinder.tga") },
 	{ frame = "CollectionsMicroButton", icon = import("assets/micro-collections.tga") },
 	{ frame = "MainMenuMicroButton", icon = import("assets/micro-gamemenu.tga") },
+	{ frame = "QuickJoinToastButton", icon = import("assets/micro-social.tga") },
 }
 -- A cell fills the panel below its metal edge (60 - 7 units), 1.075 times as wide: the inside between the cell's side
 -- rims is square (design PanelCell). Icons 35 units (42 px at the user's scale).
@@ -47,11 +49,23 @@ for i = 1, #MICRO do
 		game.ui:Embed(game.Frame[frame], CLICK_CALL)
 	end } }
 end
--- The bags, left to right: the four bags, then the backpack, the reagent bag last (Blizzard's order on screen).
+-- The bags, left to right (design/panel): the backpack, then the four bags. Each is a slot on the wood (design
+-- ItemSlot: 38 px, a bronze edge inside it) holding Blizzard's button, so its click, drag and tooltip stay Blizzard's.
 local BAGS = {
-	"CharacterBag3Slot", "CharacterBag2Slot", "CharacterBag1Slot", "CharacterBag0Slot", "MainMenuBarBackpackButton",
-	"CharacterReagentBag0Slot",
+	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
 }
+local SLOT_SIDE = 38 / 1.2
+local SLOT = { width = SLOT_SIDE, height = SLOT_SIDE, border = Define.Theme.panel.slotEdge }
+local SLOT_BUTTON = { attributes = {
+	position = "absolute", left = 1, top = 1, width = SLOT_SIDE - 2, height = SLOT_SIDE - 2,
+} }
+local BAG_CALLS = {}
+for i = 1, #BAGS do
+	local frame = BAGS[i]
+	BAG_CALLS[i] = { key = i, attributes = SLOT, slots = { default = function(game)
+		game.ui:Embed(game.Frame[frame], SLOT_BUTTON)
+	end } }
+end
 
 local PORTRAIT_WIDTH, PORTRAIT_HEIGHT = 128, 124
 
@@ -72,8 +86,7 @@ local BADGE = {
 	xAlign = "center", yAlign = "center",
 }
 local MICRO_ROW = { columns = #MICRO, gap = 0 }
-local BAG_ROW = { columns = #BAGS, gap = 2 }
-local BAG_CELL = { width = 36, height = 36 }
+local BAG_ROW = { columns = #BAGS, gap = 6 / 1.2 }
 
 local function MicroButtons(game)
 	for i = 1, #MICRO do
@@ -83,7 +96,7 @@ end
 
 local function BagButtons(game)
 	for i = 1, #BAGS do
-		game.ui:Embed(game.Frame[BAGS[i]], { key = i, attributes = BAG_CELL })
+		game.ui:Box(BAG_CALLS[i])
 	end
 end
 
@@ -113,8 +126,9 @@ local SPACER_CALL = { attributes = SPACER }
 -- The three columns (design/panel): the left one from its start, the right one to its end, the bar filling the middle.
 local LEFT = { columns = { PORTRAIT_WIDTH, "auto" }, gap = Define.Theme.spacing.md, xAlign = "start",
 	yAlign = "center" }
-local RIGHT = { columns = { "auto", "auto" }, gap = Define.Theme.spacing.md, xAlign = "end", yAlign = "center",
-	padding = { 0, 8, 0, 0 } }
+-- the right column (design .right): the money 16 px before the bags, 10 px from the screen edge
+local RIGHT = { columns = { "auto", "auto" }, gap = 16 / 1.2, xAlign = "end", yAlign = "center",
+	padding = { 0, 10 / 1.2, 0, 0 } }
 
 local function Left(game, self)
 	game.ui:Box(SPACER_CALL)

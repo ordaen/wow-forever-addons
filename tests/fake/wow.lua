@@ -1225,6 +1225,27 @@ function Wow:MakeEnv()
 	offer("GetMoney", function()
 		return 0
 	end)
+	-- the player: a level 10 warrior halfway through the level, no rested experience
+	offer("UnitClass", function()
+		return "Warrior", "WARRIOR", 1
+	end)
+	offer("UnitLevel", function()
+		return 10
+	end)
+	offer("UnitXP", function()
+		return 500
+	end)
+	offer("UnitXPMax", function()
+		return 1000
+	end)
+	offer("GetXPExhaustion", function()
+		return nil
+	end)
+	offer("C_CurrencyInfo", {
+		GetCoinTextureString = function(copper)
+			return tostring(copper)
+		end,
+	})
 	offer("STANDARD_TEXT_FONT", "Fonts\\FRIZQT__.TTF")
 	offer("SlashCmdList", {})
 	offer("C_Timer", {
