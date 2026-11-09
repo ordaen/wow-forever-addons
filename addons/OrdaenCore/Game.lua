@@ -121,6 +121,30 @@ function DOMAINS.Money()
 	return Money
 end
 
+-- what changes the number of friends online: the friend list, and Battle.net friends coming and going
+local FRIEND_EVENTS = {
+	"FRIENDLIST_UPDATE", "BN_FRIEND_ACCOUNT_ONLINE", "BN_FRIEND_ACCOUNT_OFFLINE", "BN_FRIEND_INFO_CHANGED", "BN_CONNECTED",
+	"BN_DISCONNECTED",
+}
+
+function DOMAINS.Friends()
+	-- value signal: friends online, the character friend list and Battle.net friends together (what Blizzard's social
+	-- button counts)
+	local Friends = { online = NewValue(0) }
+	local function Read()
+		local _, bnetOnline = BNGetNumFriends()
+		Friends.online:Set((C_FriendList.GetNumOnlineFriends() or 0) + (bnetOnline or 0))
+	end
+	for i = 1, #FRIEND_EVENTS do
+		RawEvent(FRIEND_EVENTS[i]):Subscribe(Read, false)
+	end
+	Game.Stage.Login:Subscribe(Read, false)
+	if Game.Stage.Login.fired then
+		Read()
+	end
+	return Friends
+end
+
 function DOMAINS.Player()
 	-- value signals, read once the character is in the world and kept current by the events that change them
 	local Player = {
