@@ -202,6 +202,7 @@ end
 ---@class OrdaenModuleEntry
 ---@field folder string "OrdaenPanel"
 ---@field title string the toc's Title ("Ordaen Panel")
+---@field icon string|nil the toc's IconTexture (the build writes it from addon.jsonc's icon)
 ---@field on OrdaenValueSignal boolean: the player's choice
 ---@field loaded OrdaenValueSignal boolean: mounted and running now
 ---@field reason OrdaenValueSignal string|nil: why it can't run, nil when it can: the AddOns list's reason ("MISSING",
@@ -265,7 +266,7 @@ local function LoadModules()
 		if type(name) == "string" and C_AddOns.GetAddOnMetadata(name, "X-Ordaen-Module") == "1" then
 			ns.Commands.Know(name) -- /ordaen <module> answers "off" until it mounts
 			local entry = setmetatable({
-				folder = name, title = title or name,
+				folder = name, title = title or name, icon = C_AddOns.GetAddOnMetadata(name, "IconTexture"),
 				on = ns.NewValue(not IsOff(name)), loaded = ns.NewValue(false), reason = ns.NewValue(nil),
 				pending = ns.NewValue(false),
 			}, EntryMeta)

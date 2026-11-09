@@ -118,6 +118,13 @@ function DOMAINS.Modules()
 	return ns.App.modules
 end
 
+--- Ordaen itself, as the settings window shows it beside its own pages: `game.Ordaen.title`, `game.Ordaen.icon`
+--- (OrdaenCore's toc).
+function DOMAINS.Ordaen()
+	local _, title = C_AddOns.GetAddOnInfo("OrdaenCore")
+	return { title = title, icon = C_AddOns.GetAddOnMetadata("OrdaenCore", "IconTexture") }
+end
+
 --- Numbers formatted by the global settings: `game.Numbers:Format(n)` (Numbers.lua).
 function DOMAINS.Numbers()
 	return ns.Numbers
