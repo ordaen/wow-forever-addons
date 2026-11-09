@@ -9,11 +9,10 @@ local EXPECTED = WIDTH * (WIDTH + 1) / 2
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ root = { type = "number", default = 1 } })
-		local root = self.state.ephemeral.root
 		local parts = {}
 		for i = 1, WIDTH do
 			parts[i] = game.Computed(function()
-				return root:Get() * i
+				return self.state.root * i
 			end)
 		end
 		local sum = game.Computed(function()
@@ -25,7 +24,7 @@ return Define.Component({
 		end)
 		self:Watch(function()
 			counters.runs = counters.runs + 1
-			if sum:Get() ~= root:Get() * EXPECTED then
+			if sum:Get() ~= self.state.root * EXPECTED then
 				counters.violations = counters.violations + 1
 			end
 		end)
@@ -33,7 +32,7 @@ return Define.Component({
 			public = {
 				functions = {
 					Bump = function()
-						root:Set(root:Peek() + 1)
+						self.state.root = Define.Peek(self.state.root) + 1
 					end,
 				},
 			},

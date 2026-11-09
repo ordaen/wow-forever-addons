@@ -6,7 +6,7 @@ local SIZES = { small = 50, large = 500 }
 local COLUMN = { position = "absolute", left = 40, width = 200 }
 
 local function Lines(game, self)
-	local tick, calls = self.state.ephemeral.tick:Get(), self.calls
+	local tick, calls = self.state.tick, self.calls
 	-- bench: begin
 	if self.naive then -- as code reads without the build's hoisting: new tables every call
 		for i = 1, #calls do
@@ -28,20 +28,19 @@ local COLUMN_CALL = { attributes = COLUMN, slots = { default = Lines } }
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ tick = { type = "number", default = 0 } })
-		local tick = self.state.ephemeral.tick
 		local calls = {}
-		for i = 1, SIZES[self.attributes.size:Peek()] do
+		for i = 1, SIZES[Define.Peek(self.attributes.size)] do
 			calls[i] = { key = i, attributes = { text = "%.1f, %.1f", arguments = { 0, 0 } } }
 		end
 		return {
 			calls = calls,
 			-- bench: begin
-			naive = self.attributes.naive:Peek() or false,
+			naive = Define.Peek(self.attributes.naive) or false,
 			-- bench: end
 			public = {
 				functions = {
 					Tick = function()
-						tick:Set(tick:Peek() + 1)
+						self.state.tick = Define.Peek(self.state.tick) + 1
 					end,
 				},
 			},

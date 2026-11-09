@@ -84,8 +84,6 @@ return Define.Module({
 			probes = { type = "list", of = { type = "string" }, cap = 500 },
 			rounds = { type = "number", default = 0 },
 		})
-		local scene, results, rounds = self.state.ephemeral.scene, self.state.persistent.results, self.state.persistent.rounds
-		local probes = self.state.persistent.probes
 
 		local refs, mounts = {}, {}
 		for _, s in ipairs(SCENES) do
@@ -94,7 +92,7 @@ return Define.Module({
 				unit = s.unit } } }
 		end
 		self:Watch(function()
-			local mount = mounts[scene:Get()]
+			local mount = mounts[self.state.scene]
 			if mount then
 				self:Mount(mount.component, mount.data)
 			end
@@ -115,10 +113,10 @@ return Define.Module({
 		local bench = {
 			flush = flush, refs = refs,
 			Set = function(to)
-				scene:Set(to)
+				self.state.scene = to
 			end,
 			Show = function(to)
-				scene:Set(to)
+				self.state.scene = to
 				flush()
 			end,
 			StubCount = Stub.Count,
@@ -179,8 +177,8 @@ return Define.Module({
 			runs = runs + 1
 			local cold = runs == 1
 			Driver.errors.count, Driver.errors.first = 0, {}
-			local round = rounds:Get() + ((mode == "round" or mode == "variants") and 1 or 0)
-			rounds:Set(round)
+			local round = Define.Peek(self.state.rounds) + ((mode == "round" or mode == "variants") and 1 or 0)
+			self.state.rounds = round
 			local _, build = GetBuildInfo()
 			pending[#pending + 1] = string.format("round|%s|%s|%.0f|%.0f|%d", date("%Y-%m-%d %H:%M:%S"), build,
 				GetFramerate(), collectgarbage("count"), round)
@@ -243,18 +241,18 @@ return Define.Module({
 						record("bench", { run = run, part = part, parts = parts, lines = lines })
 					end
 				end
-				results:Reset()
+				Define.Reset(self.state.results)
 				for i = 1, #pending do
-					results:Insert(pending[i])
+					table.insert(self.state.results, pending[i])
 					pending[i] = nil
 				end
-				probes:Reset()
+				Define.Reset(self.state.probes)
 				for i = 1, #probed do
-					probes:Insert(probed[i])
+					table.insert(self.state.probes, probed[i])
 					debug:Log("probe|" .. probed[i])
 					probed[i] = nil
 				end
-				debug:Logf("round %d: %d lines, %d failed checks", round, results:Len(), tracked.failures)
+				debug:Logf("round %d: %d lines, %d failed checks", round, #self.state.results, tracked.failures)
 				Say(string.format("done: %d failed checks, %d errors. /reload, then save the round.", tracked.failures,
 					errors.count))
 			end)

@@ -20,8 +20,8 @@ return Define.Component({
 
 	Render = function(game, self)
 		-- bench: begin
-		if self.attributes.naive:Get() then -- new tables and a new function every render
-			local count = self.attributes.count:Get()
+		if self.attributes.naive then -- new tables and a new function every render
+			local count = self.attributes.count
 			game.ui:Box({ attributes = { width = 36, height = 36, xAlign = "center", yAlign = "center",
 				background = Define.Theme.color.border }, slots = { default = function()
 				game.ui:Text({ attributes = { text = "%d", arguments = { count } } })
@@ -29,11 +29,11 @@ return Define.Component({
 			return
 		end
 		-- bench: end
-		local counts = self.attributes.counts:Get()
+		local counts = self.attributes.counts -- the grid's map itself, in the items-read variant
 		if counts then
-			self.arguments[1] = counts:Get(self.attributes.index:Get()) or 0
+			self.arguments[1] = counts:Get(self.attributes.index) or 0
 		else
-			self.arguments[1] = self.attributes.count:Get()
+			self.arguments[1] = self.attributes.count
 		end
 		game.ui:Box(CELL_CALL)
 	end,

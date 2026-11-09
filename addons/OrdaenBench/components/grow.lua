@@ -18,7 +18,7 @@ local COLUMN_CALL = { attributes = COLUMN, slots = { default = Rows } }
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ lengths = { type = "map", key = "number", of = { type = "number" }, cap = 100 } })
-		local lengths = self.state.ephemeral.lengths
+		local lengths = Define.Signal(self.state.lengths) -- handed down to the rows' texts, the only readers
 		local calls = {}
 		for r = 1, ROWS do
 			calls[r] = { key = r, attributes = { depth = DEPTH, row = r, lengths = lengths } }
@@ -26,7 +26,7 @@ return Define.Component({
 		return {
 			calls = calls,
 			public = { functions = { SetLength = function(r, n)
-				lengths:Set(r, n)
+				self.state.lengths[r] = n
 			end } },
 		}
 	end,

@@ -11,7 +11,7 @@ local OUTER = { padding = 1, width = 300, height = 300 } -- the outermost level:
 
 local function Inside(game, self)
 	local call = self.child
-	call.attributes.value = self.attributes.value:Get()
+	call.attributes.value = self.attributes.value
 	game.ui:Deep(call)
 end
 
@@ -20,24 +20,23 @@ local OUTER_CALL = { attributes = OUTER, slots = { default = Inside } }
 
 return Define.Component({
 	Setup = function(game, self)
-		local depth = self.attributes.depth:Peek()
+		local depth = Define.Peek(self.attributes.depth)
 		if depth == nil then -- the root: owns the two numbers
 			Define.Ephemeral({
 				value = { type = "number", default = 0 },
 				source = { type = "number", default = 0 },
 			})
-			local value, source = self.state.ephemeral.value, self.state.ephemeral.source
-			local child = { attributes = { depth = DEPTH, value = 0, source = source } }
+			-- the source goes down as the value object itself: only the leaf reads it
+			local child = { attributes = { depth = DEPTH, value = 0, source = Define.Signal(self.state.source) } }
 			return {
 				child = child,
-				rootValue = value,
 				public = {
 					functions = {
 						SetValue = function(v)
-							value:Set(v)
+							self.state.value = v
 						end,
 						SetSource = function(v)
-							source:Set(v)
+							self.state.source = v
 						end,
 					},
 				},
@@ -47,20 +46,20 @@ return Define.Component({
 			local arguments = { 0, 0 }
 			return { arguments = arguments, text = { attributes = { text = "%d / %d", arguments = arguments } } }
 		end
-		local source = self.attributes.source:Peek()
-		return { child = { attributes = { depth = depth - 1, value = 0, source = source } } }
+		return { child = { attributes = { depth = depth - 1, value = 0, source = Define.Peek(self.attributes.source) } } }
 	end,
 
 	Render = function(game, self)
-		local depth = self.attributes.depth:Get()
+		local depth = self.attributes.depth
 		if depth == nil then
 			local call = self.child
-			call.attributes.value = self.rootValue:Get()
+			call.attributes.value = self.state.value
 			game.ui:Deep(call)
 		elseif depth == 0 then
 			counters.renders = counters.renders + 1
 			local arguments = self.arguments
-			arguments[1], arguments[2] = self.attributes.value:Get(), self.attributes.source:Get():Get()
+			local source = self.attributes.source -- the root's value object
+			arguments[1], arguments[2] = self.attributes.value, source:Get()
 			counters.leafValue = arguments[1]
 			game.ui:Text(self.text)
 		else

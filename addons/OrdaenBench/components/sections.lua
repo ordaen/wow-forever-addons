@@ -7,10 +7,10 @@ local SECTIONS, ROWS = 20, 10
 local COLUMN = { columns = 1, position = "absolute", right = 40, top = 40, width = 160 }
 
 local function Content(game, self)
-	local headers, rows, open = self.headers, self.rows, self.state.ephemeral.open
+	local headers, rows = self.headers, self.rows
 	for s = 1, SECTIONS do
 		game.ui:Text(headers[s])
-		if open:Get(s) ~= false then
+		if self.state.open[s] ~= false then
 			local list = rows[s]
 			for r = 1, ROWS do
 				game.ui:Text(list[r])
@@ -24,7 +24,6 @@ local COLUMN_CALL = { attributes = COLUMN, slots = { default = Content } }
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ open = { type = "map", key = "number", of = { type = "boolean" }, cap = 100 } })
-		local open = self.state.ephemeral.open
 		local headers, rows = {}, {}
 		for s = 1, SECTIONS do
 			headers[s] = { key = s * 100, attributes = { text = "Section %d", arguments = { s } } }
@@ -37,7 +36,7 @@ return Define.Component({
 		return {
 			headers = headers, rows = rows,
 			public = { functions = { Toggle = function(s)
-				open:Set(s, open:Get(s) == false) -- nil (never toggled) is open
+				self.state.open[s] = self.state.open[s] == false -- nil (never toggled) is open
 			end } },
 		}
 	end,

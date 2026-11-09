@@ -7,7 +7,7 @@ local ITEMS = 500
 local LIST = { columns = 1, position = "absolute", left = 300, width = 120 }
 
 local function Items(game, self)
-	local calls, shift = self.calls, self.state.ephemeral.shift:Get()
+	local calls, shift = self.calls, self.state.shift
 	for id = 1, ITEMS do
 		if (id + shift) % 3 ~= 0 then
 			game.ui:Text(calls[id])
@@ -20,7 +20,6 @@ local LIST_CALL = { attributes = LIST, slots = { default = Items } }
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ shift = { type = "number", default = 0 } })
-		local shift = self.state.ephemeral.shift
 		local calls = {}
 		for id = 1, ITEMS do
 			calls[id] = { key = id, attributes = { text = "item %d", arguments = { id } } }
@@ -28,7 +27,7 @@ return Define.Component({
 		return {
 			calls = calls,
 			public = { functions = { SetShift = function(s)
-				shift:Set(s)
+				self.state.shift = s
 			end } },
 		}
 	end,

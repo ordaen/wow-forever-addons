@@ -11,7 +11,7 @@ local LIST = {
 
 local function Rows(game, self)
 	local calls = self.calls
-	for i = 1, self.state.ephemeral.count:Get() do
+	for i = 1, self.state.count do
 		game.ui:Text(calls[i])
 	end
 end
@@ -21,7 +21,6 @@ local LIST_CALL = { attributes = LIST, slots = { default = Rows } }
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ count = { type = "number", default = 100 } })
-		local count = self.state.ephemeral.count
 		local calls = {}
 		for i = 1, MOST do
 			calls[i] = { key = i, attributes = { text = "row %d", arguments = { i } } }
@@ -29,7 +28,7 @@ return Define.Component({
 		return {
 			calls = calls,
 			public = { functions = { SetCount = function(n)
-				count:Set(n)
+				self.state.count = n
 			end } },
 		}
 	end,

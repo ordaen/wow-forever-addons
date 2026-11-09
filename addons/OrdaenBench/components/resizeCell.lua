@@ -11,7 +11,7 @@ local CELL_CALL = { attributes = CELL, slots = { default = Label } }
 
 return Define.Component({
 	Setup = function(game, self)
-		return { text = { attributes = { text = "%d", arguments = { self.attributes.index:Peek() } } } }
+		return { text = { attributes = { text = "%d", arguments = { Define.Peek(self.attributes.index) } } } }
 	end,
 
 	Render = function(game, self)

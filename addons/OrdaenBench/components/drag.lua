@@ -16,7 +16,6 @@ end
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ x = { type = "number", default = 200 }, y = { type = "number", default = 200 } })
-		local x, y = self.state.ephemeral.x, self.state.ephemeral.y
 		local window = {
 			columns = 10, gap = Define.Theme.spacing.xs, padding = Define.Theme.spacing.md,
 			background = Define.Theme.color.surface, position = "absolute", left = 200, top = 200,
@@ -29,15 +28,15 @@ return Define.Component({
 			window = window, calls = calls,
 			windowCall = { attributes = window, slots = { default = Cells } },
 			public = { functions = { Move = function(left, top)
-				x:Set(left)
-				y:Set(top)
+				self.state.x = left
+				self.state.y = top
 			end } },
 		}
 	end,
 
 	Render = function(game, self)
 		local window = self.window
-		window.left, window.top = self.state.ephemeral.x:Get(), self.state.ephemeral.y:Get()
+		window.left, window.top = self.state.x, self.state.y
 		game.ui:Box(self.windowCall)
 	end,
 })

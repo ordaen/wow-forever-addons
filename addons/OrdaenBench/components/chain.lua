@@ -8,8 +8,9 @@ local LENGTH = 150 -- below the ~195 levels where nested recomputes overflow the
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ root = { type = "number", default = 0 } })
-		local root = self.state.ephemeral.root
-		local previous = root
+		local previous = game.Computed(function()
+			return self.state.root
+		end)
 		for _ = 1, LENGTH do
 			local before = previous
 			previous = game.Computed(function()
@@ -19,7 +20,7 @@ return Define.Component({
 		local last = previous
 		self:Watch(function()
 			counters.runs = counters.runs + 1
-			if last:Get() ~= root:Get() + LENGTH then
+			if last:Get() ~= self.state.root + LENGTH then
 				counters.violations = counters.violations + 1
 			end
 		end)
@@ -27,7 +28,7 @@ return Define.Component({
 			public = {
 				functions = {
 					Bump = function()
-						root:Set(root:Peek() + 1)
+						self.state.root = Define.Peek(self.state.root) + 1
 					end,
 				},
 			},

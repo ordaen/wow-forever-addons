@@ -8,7 +8,7 @@ return Define.Component({
 	end,
 
 	Render = function(game, self)
-		self.arguments[1] = self.attributes.id:Get()
+		self.arguments[1] = self.attributes.id
 		game.ui:Text(self.text)
 	end,
 })

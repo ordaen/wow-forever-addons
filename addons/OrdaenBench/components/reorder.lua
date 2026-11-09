@@ -8,7 +8,7 @@ local LIST = { columns = 1, position = "absolute", right = 40, width = 120 }
 
 local function Rows(game, self)
 	local calls = self.calls
-	for _, id in self.state.ephemeral.order:Ipairs() do
+	for _, id in ipairs(self.state.order) do
 		local call = calls[id]
 		if not call then -- a new row: its call table, made once
 			call = { key = id, attributes = { id = id } }
@@ -23,16 +23,15 @@ local LIST_CALL = { attributes = LIST, slots = { default = Rows } }
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ order = { type = "list", of = { type = "number" }, cap = 5000 } })
-		local order = self.state.ephemeral.order
 		local ids, nextId = {}, ROWS + 1
 		for i = 1, ROWS do
 			ids[i] = i
-			order:Insert(i)
+			table.insert(self.state.order, i)
 		end
 		local function Store()
-			order:Reset()
+			Define.Reset(self.state.order)
 			for i = 1, #ids do
-				order:Insert(ids[i])
+				table.insert(self.state.order, ids[i])
 			end
 		end
 		local seed = 1
@@ -50,8 +49,8 @@ return Define.Component({
 					Rotate = function()
 						local id = table.remove(ids, 1)
 						ids[#ids + 1] = id
-						order:Remove(1)
-						order:Insert(id)
+						table.remove(self.state.order, 1)
+						table.insert(self.state.order, id)
 					end,
 					InsertFront = function()
 						table.insert(ids, 1, nextId)
@@ -61,7 +60,7 @@ return Define.Component({
 					RemoveMiddle = function()
 						local middle = math.floor(#ids / 2)
 						table.remove(ids, middle)
-						order:Remove(middle)
+						table.remove(self.state.order, middle)
 					end,
 					-- bench: begin
 					Ids = function()

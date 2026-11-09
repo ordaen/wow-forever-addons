@@ -4,32 +4,26 @@ local Define = import("@ordaen/define")
 
 local LENGTH = 50
 
-local SPEC = {}
-for i = 1, LENGTH do
-	SPEC["v" .. i] = { type = "number", default = 0 }
-end
-
 return Define.Component({
 	Setup = function(game, self)
-		Define.Ephemeral(SPEC)
-		local store, values = self.state.ephemeral, {}
-		for i = 1, LENGTH do
-			values[i] = store["v" .. i]
+		-- one list, read and written per entry: each watch depends on its own entry only
+		Define.Ephemeral({ values = { type = "list", of = { type = "number" }, cap = LENGTH } })
+		for _ = 1, LENGTH do
+			table.insert(self.state.values, 0)
 		end
 		for i = 1, LENGTH - 1 do
-			local from, to = values[i], values[i + 1]
 			self:Watch(function()
-				to:Set(from:Get())
+				self.state.values[i + 1] = self.state.values[i]
 			end)
 		end
 		return {
 			public = {
 				functions = {
 					Bump = function()
-						values[1]:Set(values[1]:Peek() + 1)
+						self.state.values[1] = Define.Peek(self.state.values[1]) + 1
 					end,
 					Settled = function()
-						return values[LENGTH]:Peek() == values[1]:Peek()
+						return Define.Peek(self.state.values[LENGTH]) == Define.Peek(self.state.values[1])
 					end,
 				},
 			},

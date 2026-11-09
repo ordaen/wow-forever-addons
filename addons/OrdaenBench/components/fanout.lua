@@ -6,11 +6,10 @@ local WATCHES = 5000
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ value = { type = "number", default = 0 } })
-		local value = self.state.ephemeral.value
 		local sum = 0 -- what every run read: the bench's checksum
 		for _ = 1, WATCHES do
 			self:Watch(function()
-				sum = sum + value:Get()
+				sum = sum + self.state.value
 			end)
 		end
 		return {
@@ -22,7 +21,7 @@ return Define.Component({
 					end,
 					-- bench: end
 					Bump = function()
-						value:Set(value:Peek() + 1)
+						self.state.value = Define.Peek(self.state.value) + 1
 					end,
 				},
 			},

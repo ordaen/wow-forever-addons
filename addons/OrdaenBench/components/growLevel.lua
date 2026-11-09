@@ -13,17 +13,18 @@ local LEVEL_CALL = { attributes = LEVEL, slots = { default = Inside } }
 
 return Define.Component({
 	Setup = function(game, self)
-		local depth = self.attributes.depth:Peek()
+		local depth = Define.Peek(self.attributes.depth)
 		if depth == 0 then
 			return { text = { attributes = { text = Words.WORDS[1] } } }
 		end
-		local a = self.attributes
-		return { child = { attributes = { depth = depth - 1, row = a.row:Peek(), lengths = a.lengths:Peek() } } }
+		return { child = { attributes = { depth = depth - 1, row = Define.Peek(self.attributes.row),
+			lengths = Define.Peek(self.attributes.lengths) } } }
 	end,
 
 	Render = function(game, self)
-		if self.attributes.depth:Get() == 0 then
-			local length = self.attributes.lengths:Get():Get(self.attributes.row:Get()) or 1
+		if self.attributes.depth == 0 then
+			local lengths = self.attributes.lengths -- the row's map itself
+			local length = lengths:Get(self.attributes.row) or 1
 			self.text.attributes.text = Words.WORDS[length]
 			game.ui:Text(self.text)
 		else

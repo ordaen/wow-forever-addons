@@ -5,7 +5,7 @@ local Words = import("bench/words")
 local TRACK = { width = 200, height = 12, background = Define.Theme.color.border, xAlign = "start" }
 
 local function Fill(game, self)
-	self.fill.attributes.width = Words.PERCENT[self.attributes.fill:Get()]
+	self.fill.attributes.width = Words.PERCENT[self.attributes.fill]
 	game.ui:Box(self.fill)
 end
 

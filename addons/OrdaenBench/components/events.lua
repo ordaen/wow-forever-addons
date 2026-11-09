@@ -7,10 +7,10 @@ local BAGS = 5
 local COLUMN = { columns = 1, position = "absolute", left = 40, top = 300, width = 120 }
 
 local function Counts(game, self)
-	local calls, counts = self.calls, self.state.ephemeral.counts
+	local calls = self.calls
 	for bag = 1, BAGS do
 		local call = calls[bag]
-		call.attributes.arguments[2] = counts:Get(bag) or 0
+		call.attributes.arguments[2] = self.state.counts[bag] or 0
 		game.ui:Text(call)
 	end
 end
@@ -20,9 +20,8 @@ local COLUMN_CALL = { attributes = COLUMN, slots = { default = Counts } }
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ counts = { type = "map", key = "number", of = { type = "number" }, cap = 10 } })
-		local counts = self.state.ephemeral.counts
 		self:On("BAG_UPDATE", function(bag)
-			counts:Set(bag, (counts:Get(bag) or 0) + 1)
+			self.state.counts[bag] = (self.state.counts[bag] or 0) + 1
 		end)
 		local calls = {}
 		for bag = 1, BAGS do

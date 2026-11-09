@@ -14,7 +14,6 @@ end
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ columns = { type = "number", default = 10 } })
-		local columns = self.state.ephemeral.columns
 		local window = {
 			columns = 10, gap = Define.Theme.spacing.xs, padding = Define.Theme.spacing.md,
 			background = Define.Theme.color.surface,
@@ -27,13 +26,13 @@ return Define.Component({
 			window = window, calls = calls,
 			windowCall = { attributes = window, slots = { default = Cells } },
 			public = { functions = { SetColumns = function(n)
-				columns:Set(n)
+				self.state.columns = n
 			end } },
 		}
 	end,
 
 	Render = function(game, self)
-		self.window.columns = self.state.ephemeral.columns:Get()
+		self.window.columns = self.state.columns
 		game.ui:Box(self.windowCall)
 	end,
 })

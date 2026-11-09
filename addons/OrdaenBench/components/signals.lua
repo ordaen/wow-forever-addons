@@ -7,36 +7,27 @@ local SIZES = {
 	large = { values = 10000, sums = 1000, watches = 3000 },
 }
 
--- built here because the bench needs thousands of values; module code declares its state as a literal table
-local SPECS = {}
-for size, s in pairs(SIZES) do
-	local spec = {}
-	for i = 1, s.values do
-		spec["v" .. i] = { type = "number", default = 0 }
-	end
-	SPECS[size] = spec
-end
 
 return Define.Component({
 	Setup = function(game, self)
-		local size = self.attributes.size:Peek()
-		local s = SIZES[size]
-		Define.Ephemeral(SPECS[size])
-		local store, values, sums = self.state.ephemeral, {}, {}
-		for i = 1, s.values do
-			values[i] = store["v" .. i]
+		local s = SIZES[Define.Peek(self.attributes.size)]
+		-- the values: one list, read and written per entry (each reader depends on its entries only)
+		Define.Ephemeral({ values = { type = "list", of = { type = "number" }, cap = 10000 } })
+		for _ = 1, s.values do
+			table.insert(self.state.values, 0)
 		end
+		local sums = {}
 		for c = 1, s.sums do
-			local a, b, d = values[c], values[c + s.sums], values[c + 2 * s.sums]
+			local a, b, d = c, c + s.sums, c + 2 * s.sums
 			sums[c] = game.Computed(function()
-				return a:Get() + b:Get() + d:Get()
+				return self.state.values[a] + self.state.values[b] + self.state.values[d]
 			end)
 		end
 		local out = {} -- each watch's last result: the bench's checksum
 		for w = 1, s.watches do
-			local a, b, c = values[w], values[(w * 7) % s.values + 1], sums[(w % s.sums) + 1]
+			local a, b, c = w, (w * 7) % s.values + 1, sums[(w % s.sums) + 1]
 			self:Watch(function()
-				out[w] = a:Get() + b:Get() + c:Get()
+				out[w] = self.state.values[a] + self.state.values[b] + c:Get()
 			end)
 		end
 		return {
@@ -52,8 +43,8 @@ return Define.Component({
 					end,
 					-- bench: end
 					Write = function(k)
-						local value = values[(k - 1) % s.values + 1]
-						value:Set(value:Peek() + 1)
+						local i = (k - 1) % s.values + 1
+						self.state.values[i] = Define.Peek(self.state.values[i]) + 1
 					end,
 				},
 			},

@@ -14,7 +14,6 @@ end
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ width = { type = "number", default = 500 } })
-		local width = self.state.ephemeral.width
 		local window = {
 			width = 500, columns = 10, gap = Define.Theme.spacing.xs, padding = Define.Theme.spacing.md,
 			background = Define.Theme.color.surface,
@@ -27,13 +26,13 @@ return Define.Component({
 			window = window, calls = calls,
 			windowCall = { attributes = window, slots = { default = Cells } },
 			public = { functions = { SetWidth = function(w)
-				width:Set(w)
+				self.state.width = w
 			end } },
 		}
 	end,
 
 	Render = function(game, self)
-		self.window.width = self.state.ephemeral.width:Get()
+		self.window.width = self.state.width
 		game.ui:Box(self.windowCall)
 	end,
 })

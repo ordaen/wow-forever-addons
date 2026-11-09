@@ -8,12 +8,11 @@ local WATCHES = 100
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ value = { type = "number", default = 0 } })
-		local value = self.state.ephemeral.value
 		local sink = 0
 		for _ = 1, WATCHES do
 			self:Watch(function()
 				counters.runs = counters.runs + 1
-				sink = value:Get()
+				sink = self.state.value
 			end)
 		end
 		return {
@@ -21,7 +20,7 @@ return Define.Component({
 				functions = {
 					WriteMany = function(times)
 						for _ = 1, times do
-							value:Set(value:Peek() + 1)
+							self.state.value = Define.Peek(self.state.value) + 1
 						end
 					end,
 				},

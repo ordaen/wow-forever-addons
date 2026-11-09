@@ -19,10 +19,8 @@ local function Cells(game, self)
 	local calls = self.calls
 	-- bench: begin
 	if self.naive then -- as code reads without the build's hoisting: new tables every call
-		local counts = self.state.ephemeral.counts
 		for i = 1, #calls do
-			-- ordaen: ignore B13 the naive variant reads a render local on purpose: it measures code the build can't lift
-			game.ui:GridItem({ key = i, attributes = { count = counts:Get(i) or 0, naive = true } })
+			game.ui:GridItem({ key = i, attributes = { count = self.state.counts[i] or 0, naive = true } })
 		end
 		return
 	end
@@ -35,10 +33,9 @@ local function Cells(game, self)
 		return
 	end
 	-- bench: end
-	local counts = self.state.ephemeral.counts
 	for i = 1, #calls do
 		local call = calls[i]
-		call.attributes.count = counts:Get(i) or 0
+		call.attributes.count = self.state.counts[i] or 0
 		game.ui:GridItem(call)
 	end
 end
@@ -48,12 +45,12 @@ local GRID_CALL = { attributes = GRID, slots = { default = Cells } }
 return Define.Component({
 	Setup = function(game, self)
 		Define.Ephemeral({ counts = { type = "map", key = "number", of = { type = "number" }, cap = 2000 } })
-		local counts = self.state.ephemeral.counts
 		-- bench: begin
-		local itemsRead = self.attributes.itemsRead:Peek() or false
+		local itemsRead = Define.Peek(self.attributes.itemsRead) or false
 		-- bench: end
+		local counts = Define.Signal(self.state.counts) -- handed down whole in the items-read variant
 		local calls = {}
-		for i = 1, SIZES[self.attributes.size:Peek()] do
+		for i = 1, SIZES[Define.Peek(self.attributes.size)] do
 			calls[i] = { key = i, attributes = itemsRead and { counts = counts, index = i } or { count = 0 } }
 		end
 		return {
@@ -62,12 +59,12 @@ return Define.Component({
 			itemsRead = itemsRead,
 			-- bench: end
 			-- bench: begin
-			naive = self.attributes.naive:Peek() or false,
+			naive = Define.Peek(self.attributes.naive) or false,
 			-- bench: end
 			public = {
 				functions = {
 					SetOne = function(i, value)
-						counts:Set(i, value)
+						self.state.counts[i] = value
 					end,
 					-- bench: begin
 					Count = function()

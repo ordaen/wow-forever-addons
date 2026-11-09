@@ -17,16 +17,6 @@ local N, OFFSETS, WIDE = 1000, 100, 5000
 
 local SURFACE, BORDER = Define.Theme.color.surface, Define.Theme.color.border
 
--- built here: the units need thousands of values (module code declares state as a literal table)
-local function Values(count)
-	local spec = { on = { type = "boolean", default = false } }
-	for i = 1, count do
-		spec["v" .. i] = { type = "number", default = 0 }
-	end
-	return spec
-end
-local SPECS = { writes = Values(N), wide = Values(WIDE) }
-local ON = { on = { type = "boolean", default = false } }
 
 local ROOT = { columns = 25, gap = 1, position = "absolute", left = 10, top = 10, width = 1200, height = 900 }
 
@@ -35,7 +25,7 @@ local function Children(game, self)
 	if unit == "writes" or unit == "runs" or unit == "wide" then
 		return -- nothing drawn: these units measure the engine alone
 	end
-	local on = self.state.ephemeral.on:Get() -- the drawn units re-render on Flip and Show
+	local on = self.state.on -- the drawn units re-render on Flip and Show
 	if unit == "text" then
 		if on then
 			for i = 1, N do
@@ -85,9 +75,12 @@ end
 
 return Define.Component({
 	Setup = function(game, self)
-		local unit = self.attributes.unit:Peek()
-		Define.Ephemeral(SPECS[unit] or ON) -- one declaration: the unit's values, if any, and its switch
-		local on = self.state.ephemeral.on
+		local unit = Define.Peek(self.attributes.unit)
+		-- the unit's switch and, for the value units, one list of values read and written per entry
+		Define.Ephemeral({
+			on = { type = "boolean", default = false },
+			values = { type = "list", of = { type = "number" }, cap = 5000 },
+		})
 		local calls = {}
 		if unit == "text" then
 			for i = 1, N do
@@ -145,47 +138,43 @@ return Define.Component({
 		end
 		local functions = {
 			Show = function(shown)
-				on:Set(shown)
+				self.state.on = shown
 			end,
 			Flip = function()
-				on:Set(not on:Peek())
+				self.state.on = not Define.Peek(self.state.on)
 			end,
 		}
-		local store = self.state.ephemeral
 		if unit == "writes" then
-			local values = {}
-			for i = 1, N do
-				values[i] = store["v" .. i]
+			for _ = 1, N do
+				table.insert(self.state.values, 0)
 			end
 			functions.WriteAll = function()
 				for i = 1, N do
-					local value = values[i]
-					value:Set(value:Peek() + 1)
+					self.state.values[i] = Define.Peek(self.state.values[i]) + 1
 				end
 			end
 			functions.Sum = function() -- the bench's check: every write landed
 				local sum = 0
 				for i = 1, N do
-					sum = sum + values[i]:Peek()
+					sum = sum + Define.Peek(self.state.values[i])
 				end
 				return sum
 			end
 		elseif unit == "runs" then
 			local runs = 0
 			self:Watch(function()
-				local _ = on:Get()
+				local _ = self.state.on
 				runs = runs + 1
 			end)
 			functions.Runs = function() -- the bench's check: the watch ran once per flush
 				return runs
 			end
 		elseif unit == "wide" then
-			local values, runs = {}, 0
+			local runs = 0
 			for i = 1, WIDE do
-				local value = store["v" .. i]
-				values[i] = value
+				table.insert(self.state.values, 0)
 				self:Watch(function()
-					local _ = value:Get()
+					local _ = self.state.values[i]
 					runs = runs + 1
 				end)
 			end
@@ -194,8 +183,7 @@ return Define.Component({
 			end
 			functions.WriteAll = function()
 				for i = 1, WIDE do
-					local value = values[i]
-					value:Set(value:Peek() + 1)
+					self.state.values[i] = Define.Peek(self.state.values[i]) + 1
 				end
 			end
 		end

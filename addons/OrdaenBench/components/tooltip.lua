@@ -11,7 +11,7 @@ local TIP = {
 }
 
 local function Lines(game, self)
-	local calls, content, pool = self.calls, self.state.ephemeral.content:Get(), Words.LINES
+	local calls, content, pool = self.calls, self.state.content, Words.LINES
 	for i = 1, LINES do
 		local call = calls[i]
 		call.attributes.text = pool[(content + i * 7) % #pool + 1]
@@ -27,7 +27,6 @@ return Define.Component({
 			shown = { type = "boolean", default = false },
 			content = { type = "number", default = 1 },
 		})
-		local shown, content = self.state.ephemeral.shown, self.state.ephemeral.content
 		local calls = {}
 		for i = 1, LINES do
 			calls[i] = { key = i, attributes = { text = "" } }
@@ -36,18 +35,18 @@ return Define.Component({
 			calls = calls,
 			public = { functions = {
 				ShowWith = function(n)
-					content:Set(n)
-					shown:Set(true)
+					self.state.content = n
+					self.state.shown = true
 				end,
 				Hide = function()
-					shown:Set(false)
+					self.state.shown = false
 				end,
 			} },
 		}
 	end,
 
 	Render = function(game, self)
-		if self.state.ephemeral.shown:Get() then
+		if self.state.shown then
 			game.ui:Box(TIP_CALL)
 		end
 	end,
