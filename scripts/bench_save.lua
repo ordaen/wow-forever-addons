@@ -565,6 +565,10 @@ end
 local path = FindSaved(arg and arg[1])
 assert(path, "no OrdaenBench.lua under " .. DEFAULT_WTF)
 local round, results = Parse(Load(path))
+if round.mode == "probes" then
+	print("a probes run: its lines are in the probes list and the bench's log, nothing to save")
+	os.exit(0)
+end
 if round.mode == "check" then
 	-- a check run (`/obench check`): its checks reported, never recorded
 	local failed, passed = {}, 0
