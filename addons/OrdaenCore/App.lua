@@ -8,6 +8,7 @@ local type, error, pcall = type, error, pcall
 
 ---@class OrdaenApp
 ---@field currentFile string|nil the module file running now (Define.Component names its component by it)
+---@field currentModule table|nil the module whose file runs now (Define.Component keeps it: its state's store)
 local App = {}
 ns.App = App
 
@@ -54,10 +55,10 @@ function Module:Import(path)
 	end
 	if type(export) == "function" then
 		self.cache[path] = IMPORTING
-		local previous = App.currentFile
-		App.currentFile = path
+		local previous, previousModule = App.currentFile, App.currentModule
+		App.currentFile, App.currentModule = path, self
 		local ok, result = pcall(export, self.import)
-		App.currentFile = previous
+		App.currentFile, App.currentModule = previous, previousModule
 		if freezeError then
 			self.debug:Warnf("%s: a table the build froze stayed writable: %s", path, tostring(freezeError))
 			freezeError = nil

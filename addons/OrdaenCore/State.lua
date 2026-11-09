@@ -366,6 +366,45 @@ local METAS = {
 	list = ListMeta, map = MapMeta,
 }
 
+-- One stored value per module, component path and name, made on first use: what a mounted instance declares and what
+-- a settings page binds (`Define.Signal(SellJunk.state.on)`) are the same object, so a write through either reaches
+-- every reader.
+local function Stored(module, path, name, spec)
+	local byPath = module.stored
+	if not byPath then
+		byPath = {}
+		module.stored = byPath
+	end
+	local values = byPath[path]
+	if not values then
+		values = {}
+		byPath[path] = values
+	end
+	local value = values[name]
+	if not value then
+		local root = spec.scope == "character" and module.charDb or module.db
+		value = setmetatable({ root = root, path = path, name = name, spec = spec }, METAS[spec.type])
+		values[name] = value
+	end
+	return value
+end
+
+--- A component's persistent value by its declaration, without mounting it (`Comp.state.on`): from the declaration
+--- the build lifted onto the component (`persistent`); nil for a name it doesn't declare.
+---@param declaration table
+---@param name string
+function State.OfDeclaration(declaration, name)
+	local spec = declaration.persistent and declaration.persistent[name]
+	local module = declaration.module
+	if not spec or not module then
+		return nil
+	end
+	if not module.db then
+		error("Ordaen: " .. declaration.name .. "." .. name .. " read before its module loaded its settings", 3)
+	end
+	return Stored(module, declaration.name, name, spec)
+end
+
 --- Define.Persistent / Define.Ephemeral, in the setup of `instance`.
 ---@param instance OrdaenInstance|nil
 ---@param spec table<string, table>
@@ -403,6 +442,10 @@ function State.Declare(instance, spec, persistent)
 			end
 			path = "values"
 		end
-		store[name] = setmetatable({ root = root, path = path, name = name, spec = s }, meta)
+		if persistent then
+			store[name] = Stored(module, path, name, s)
+		else
+			store[name] = setmetatable({ root = root, path = path, name = name, spec = s }, meta)
+		end
 	end
 end

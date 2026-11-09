@@ -11,10 +11,25 @@ ns.Define = Define
 
 --- A component; its name is its file's ("components/sellJunk" → "sellJunk").
 ---@param declaration table { Setup, Render }
+-- `Comp.state.<name>` on a declaration: the component's persistent value, without mounting it (a settings page binds
+-- it with Define.Signal)
+local DeclarationStateMeta = {
+	__index = function(state, name)
+		return State.OfDeclaration(rawget(state, "_declaration"), name)
+	end,
+}
+
 function Define.Component(declaration)
 	local path = ns.App.currentFile
 	declaration.name = path and path:match("([^/]+)$") or "component"
+	declaration.module = ns.App.currentModule
+	declaration.state = setmetatable({ _declaration = declaration }, DeclarationStateMeta)
 	return declaration
+end
+
+--- A value as a signal: what the build leaves of `Define.Signal(…)` around a state path is the value object itself.
+function Define.Signal(value)
+	return value
 end
 
 --- The module: its root component plus what only a package has (title, icon, conflicts, ...).

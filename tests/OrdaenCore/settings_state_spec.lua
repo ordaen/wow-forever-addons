@@ -82,4 +82,28 @@ describe("settings as stored values", function()
 		assert.is_nil(module.db.component.textSize)
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("reads another component's setting without mounting it, and shares one value with it once mounted", function()
+		module = { name = "OrdaenSpec", ns = {}, cache = {}, db = {}, charDb = {} }
+		ns.App.currentModule, ns.App.currentFile = module, "components/sellJunk"
+		local SellJunk = ns.Define.Component({
+			persistent = { on = { type = "boolean", default = true, setting = true } },
+			Setup = function(game, self)
+				ns.Define.Persistent({ on = { type = "boolean", default = true, setting = true } })
+			end,
+		})
+		ns.App.currentModule, ns.App.currentFile = nil, nil
+		local setting = ns.Define.Signal(SellJunk.state.on) -- a page binding it, the component not mounted
+		assert.is_true(setting:Peek())
+		setting:Set(false)
+		assert.are.same({ sellJunk = { on = false } }, module.db)
+		module.Import = function()
+			return nil
+		end
+		local mounted = ns.Engine:Mount(nil, SellJunk, 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
+		assert.are.equal(setting, mounted.state.persistent.on) -- one value: a write through either reaches both
+		assert.is_false(mounted.state.persistent.on:Peek())
+		assert.is_nil(SellJunk.state.nope)
+		assert.are.same({}, wow.errors)
+	end)
 end)
