@@ -47,6 +47,8 @@ ns.Theme = {
 	["panel.badge"] = "Interface\\AddOns\\OrdaenCore\\media\\level-badge",
 	-- a thin dark edge round a bar on the wood (the portrait rim's darkest stroke)
 	["panel.barEdge"] = { width = 1, color = { 0.07, 0.043, 0.02, 1 } },
+	-- a bag button's edge on the wood (ItemSlot): one bronze line inside the slot's size
+	["panel.slotEdge"] = { width = 1, color = { 0.424, 0.333, 0.208, 1 } },
 	-- a micro menu or bag cell (PanelCell): our button's side rims on the wood, caps a fifth of its height; rows
 	-- 0 normal, 1 the hover glow (over normal), 2 pushed
 	["panel.cell"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", size = { 256, 256 }, cap = 32,

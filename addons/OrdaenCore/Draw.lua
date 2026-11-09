@@ -530,12 +530,13 @@ function UiBase:Embed(site, reference, data)
 	if not frame then
 		return -- not there yet (a load-on-demand window): embedded when a later run finds it
 	end
-	local e = Lookup(f, site, nil)
+	local key = data and data.key
+	local e = Lookup(f, site, key)
 	if e and (e.kind ~= "embed" or e.frame ~= frame) then
 		e = nil
 	end
 	if not e then
-		e = NewEntry(f, "embed", site, nil)
+		e = NewEntry(f, "embed", site, key)
 		e.frame = frame
 		e.node = ns.Backend:Embed(frame)
 	end
