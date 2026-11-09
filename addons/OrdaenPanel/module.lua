@@ -10,8 +10,8 @@ local L = import("locales")
 
 -- The micro menu, left to right (design/micromenu): our cells with our icons on the wood, each with Blizzard's button
 -- invisible over it, so the click, menus and alerts stay Blizzard's. While Ordaen Spells and Ordaen Social don't exist,
--- the spellbook and talents keep a button each, the guild's stays, and the social one (friends: Blizzard's button by the
--- chat) comes last.
+-- the spellbook and talents keep a button each and the guild's stays; the social one (friends: Blizzard's button by
+-- the chat) comes before the game menu, which is always last.
 local MICRO = {
 	{ frame = "ProfessionMicroButton", icon = import("assets/micro-professions.tga") },
 	{ frame = "SpellbookMicroButton", icon = import("assets/micro-spellbookabilities.tga") },
@@ -21,8 +21,8 @@ local MICRO = {
 	{ frame = "GuildMicroButton", icon = import("assets/micro-guildcommunities.tga") },
 	{ frame = "LFDMicroButton", icon = import("assets/micro-groupfinder.tga") },
 	{ frame = "CollectionsMicroButton", icon = import("assets/micro-collections.tga") },
-	{ frame = "MainMenuMicroButton", icon = import("assets/micro-gamemenu.tga") },
 	{ frame = "QuickJoinToastButton", icon = import("assets/micro-social.tga"), friends = true },
+	{ frame = "MainMenuMicroButton", icon = import("assets/micro-gamemenu.tga") },
 }
 -- A cell fills the panel below its metal edge (60 - 7 units), 1.075 times as wide: the inside between the cell's side
 -- rims is square (design PanelCell). Icons 35 units (42 px at the user's scale).
