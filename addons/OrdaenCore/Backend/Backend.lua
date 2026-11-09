@@ -65,8 +65,8 @@ local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
 	shown = LOOK, textShadow = LOOK, overflow = LOOK,
-	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT,
-	text = TEXT, textSize = TEXT, textFamily = TEXT, wrap = TEXT,
+	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
+	text = TEXT, textSize = TEXT, textFamily = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT, maxLength = TEXT,
 }
 local LAYOUT_GROUP = { own = OWN, content = CONTENT, position = POSITION, offset = OFFSET, border = BORDER }
 local BOX_KEYS, TEXT_KEYS = {}, {}
@@ -78,7 +78,8 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 	end
 end
 for _, key in ipairs({ "background", "opacity", "portrait", "mask", "overflow", "stateFrom", "OnClick", "OnEnter",
-	"OnLeave" }) do
+	"OnLeave", -- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
+	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
 end
 for _, key in ipairs({ "text", "textSize", "textFamily", "wrap", "textColor", "textShadow", "textAlign", "opacity" }) do
@@ -821,6 +822,81 @@ function Node:ScrollTo(y)
 	end
 end
 
+-- kind = "input": an edit box filling the box inside its padding, drawn with the text attributes. `text` is what it
+-- shows; typing calls OnChange(text) (only for the player's typing, not for a `text` the render set), Enter
+-- OnSubmit(text) and leaves the box, Escape leaves it. `focus` true takes the keyboard, false gives it back. The edit
+-- box is made on first use and hidden while the box is another kind.
+local function onEditChanged(edit, userInput)
+	local fn = userInput and edit.node.a.OnChange
+	if fn then
+		handle(fn, edit:GetText())
+	end
+end
+
+local function onEditEnter(edit)
+	local fn = edit.node.a.OnSubmit
+	edit:ClearFocus()
+	if fn then
+		handle(fn, edit:GetText())
+	end
+end
+
+local function onEditEscape(edit)
+	edit:ClearFocus()
+end
+
+function Node:ApplyInput()
+	local a, edit = self.a, self.edit
+	if resolve(self, a.kind) ~= "input" then
+		if edit and edit:IsShown() then
+			edit:ClearFocus()
+			edit:Hide()
+		end
+		return
+	end
+	if not edit then
+		edit = CreateFrame("EditBox", nil, self.frame)
+		edit:SetAutoFocus(false)
+		edit:SetAllPoints(self.frame)
+		edit.node = self
+		edit:SetScript("OnTextChanged", onEditChanged)
+		edit:SetScript("OnEnterPressed", onEditEnter)
+		edit:SetScript("OnEscapePressed", onEditEscape)
+		self.edit = edit
+	end
+	edit:Show()
+	local size = resolve(self, a.textSize) or Theme["text.body"]
+	local font = resolve(self, a.textFamily) or Theme["font.body"]
+	if size ~= self.editSize or font ~= self.editFont then
+		self.editSize, self.editFont = size, font
+		edit:SetFont(font, size, "")
+	end
+	local c = color(resolve(self, a.textColor)) or Theme["color.text"]
+	if c ~= self.editColor then
+		self.editColor = c
+		edit:SetTextColor(c[1], c[2], c[3], c[4] or 1)
+	end
+	local justify = JUSTIFY[resolve(self, a.textAlign)] or "LEFT"
+	if justify ~= edit:GetJustifyH() then
+		edit:SetJustifyH(justify)
+	end
+	edit:SetTextInsets(self.padL or 0, self.padR or 0, self.padT or 0, self.padB or 0)
+	local maxLength = resolve(self, a.maxLength) or 0
+	if maxLength ~= edit:GetMaxLetters() then
+		edit:SetMaxLetters(maxLength)
+	end
+	local text = resolve(self, a.text) or ""
+	if text ~= edit:GetText() then -- what the player typed, written back, leaves the cursor where it is
+		edit:SetText(text)
+	end
+	local focus = resolve(self, a.focus)
+	if focus == true and not edit:HasFocus() then
+		edit:SetFocus()
+	elseif focus == false and edit:HasFocus() then
+		edit:ClearFocus()
+	end
+end
+
 -- The look: background, border, opacity, text colour and alignment. Each setter runs only when its value changed.
 function Node:ApplyLook()
 	local a = self.a
@@ -879,6 +955,9 @@ function Node:ApplyLook()
 	if mask ~= self.lookMask then
 		self.lookMask = mask
 		self:ApplyMask(mask)
+	end
+	if self.edit or a.kind ~= nil then
+		self:ApplyInput()
 	end
 	local overflow = a.overflow
 	if overflow ~= nil then
@@ -995,6 +1074,10 @@ end
 
 -- Text, size and wrapping; measures the text. Returns true when the layout must run (Layout.TextResized).
 function Node:ApplyText()
+	if self.kind ~= "text" then
+		self:ApplyInput()
+		return false -- an input box is the size its attributes give it, whatever is typed
+	end
 	local a, fs = self.a, self.fs
 	local size = resolve(self, a.textSize) or Theme["text.body"]
 	-- node.font: the font when it isn't the body font (nil for most texts: a text node's fields fit its 32 slots)

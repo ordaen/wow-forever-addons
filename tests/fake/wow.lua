@@ -531,6 +531,88 @@ function ButtonMethods:RegisterForClicks(...)
 	self._clicks = { ... }
 end
 
+-- An edit box: its text, font, letters cap, insets and keyboard focus (one box has it: wow.focus). A spec types with
+-- wow:Type(edit, text) (OnTextChanged with userInput) and presses Enter with wow:Enter(edit).
+local EditBoxMethods = copyInto({}, FrameMethods)
+
+function EditBoxMethods:SetText(text)
+	self._text = text ~= nil and tostring(text) or ""
+	local fn = self._scripts.OnTextChanged
+	if fn then
+		fn(self, false)
+	end
+end
+
+function EditBoxMethods:GetText()
+	return self._text or ""
+end
+
+function EditBoxMethods:SetFont(font, size, flags)
+	self._font, self._size, self._flags = font, size, flags
+	return true
+end
+
+function EditBoxMethods:GetFont()
+	return self._font, self._size, self._flags
+end
+
+function EditBoxMethods:SetTextColor(r, g, b, a)
+	self._textColor = { r, g, b, a }
+end
+
+function EditBoxMethods:GetTextColor()
+	local c = self._textColor or { 1, 1, 1, 1 }
+	return c[1], c[2], c[3], c[4]
+end
+
+function EditBoxMethods:SetJustifyH(j)
+	self._justifyH = j
+end
+
+function EditBoxMethods:GetJustifyH()
+	return self._justifyH or "LEFT"
+end
+
+function EditBoxMethods:SetMaxLetters(n)
+	self._maxLetters = n
+end
+
+function EditBoxMethods:GetMaxLetters()
+	return self._maxLetters or 0
+end
+
+function EditBoxMethods:SetTextInsets(l, r, t, b)
+	self._insets = { l, r, t, b }
+end
+
+function EditBoxMethods:GetTextInsets()
+	local i = self._insets or { 0, 0, 0, 0 }
+	return i[1], i[2], i[3], i[4]
+end
+
+function EditBoxMethods:SetAutoFocus(on)
+	self._autoFocus = on
+end
+
+function EditBoxMethods:SetFocus()
+	local wow = self._wow
+	if wow.focus and wow.focus ~= self then
+		wow.focus:ClearFocus()
+	end
+	wow.focus = self
+end
+
+function EditBoxMethods:ClearFocus()
+	local wow = self._wow
+	if wow.focus == self then
+		wow.focus = nil
+	end
+end
+
+function EditBoxMethods:HasFocus()
+	return self._wow.focus == self
+end
+
 -- Textures ----------------------------------------------------------------------------------------------------------
 
 copyInto(TextureMethods, Region)
@@ -788,14 +870,15 @@ end
 -- Every fake method must be one Forever has.
 local CLASSES = {
 	Frame = FrameMethods, Button = ButtonMethods, Texture = TextureMethods, FontString = FontStringMethods,
-	MaskTexture = MaskTextureMethods,
+	MaskTexture = MaskTextureMethods, EditBox = EditBoxMethods,
 }
 
 -- Every method that can move or resize a region (or its text) starts a new rect generation.
 local MUTATORS = { "SetPoint", "SetAllPoints", "ClearAllPoints", "SetSize", "SetWidth", "SetHeight", "SetScale",
 	"SetParent", "SetText", "SetFormattedText", "SetFont", "SetWordWrap", "SetNonSpaceWrap", "Show", "Hide",
 	"SetShown" }
-for _, class in pairs({ Region, FrameMethods, ButtonMethods, TextureMethods, MaskTextureMethods, FontStringMethods }) do
+for _, class in pairs({ Region, FrameMethods, ButtonMethods, TextureMethods, MaskTextureMethods, FontStringMethods,
+	EditBoxMethods }) do
 	for _, name in ipairs(MUTATORS) do
 		local fn = rawget(class, name)
 		if fn then
@@ -911,6 +994,23 @@ end
 -- Events, frames, time ----------------------------------------------------------------------------------------------
 
 --- Fire a game event on every frame registered for it.
+-- The player types `text` into an edit box (its whole text, as after a paste): OnTextChanged with userInput.
+function Wow:Type(edit, text)
+	edit._text = text
+	local fn = edit._scripts.OnTextChanged
+	if fn then
+		fn(edit, true)
+	end
+end
+
+-- The player presses Enter in an edit box.
+function Wow:Enter(edit)
+	local fn = edit._scripts.OnEnterPressed
+	if fn then
+		fn(edit)
+	end
+end
+
 function Wow:Fire(event, ...)
 	local l = self.listeners[event]
 	if not l then

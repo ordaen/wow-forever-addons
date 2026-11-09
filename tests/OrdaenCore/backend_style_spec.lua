@@ -288,6 +288,43 @@ describe("backend styles", function()
 		assert.are.equal(frame, rows[1].frame:GetParent())
 	end)
 
+	it("takes typed text in an input box: OnChange for typing, OnSubmit on Enter, focus, and back to a plain box", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local changes, submits = {}, {}
+		local A = {
+			kind = "input", position = "absolute", left = 0, top = 0, width = 200, height = 24, padding = 4,
+			text = "Ordaen", textSize = 12, maxLength = 24, focus = true,
+			OnChange = function(text)
+				changes[#changes + 1] = text
+			end,
+			OnSubmit = function(text)
+				submits[#submits + 1] = text
+			end,
+		}
+		local box = Backend:Create("box")
+		Backend:Set(box, A)
+		Backend:SetChildren(layer, { box }, 1)
+		Backend:Flush()
+		local edit = box.edit
+		assert.are.equal("Ordaen", edit:GetText())
+		assert.are.equal(24, edit:GetMaxLetters())
+		assert.is_true(edit:HasFocus())
+		assert.are.same({}, changes) -- the render's own text is no change
+		wow:Type(edit, "My theme")
+		assert.are.same({ "My theme" }, changes)
+		-- the render writes the typed text back: the box keeps it as typed
+		Backend:Set(box, setmetatable({ text = "My theme" }, { __index = A }))
+		assert.are.equal("My theme", edit:GetText())
+		wow:Enter(edit)
+		assert.are.same({ "My theme" }, submits)
+		assert.is_false(edit:HasFocus())
+		-- a plain box again: the edit box hides
+		Backend:Set(box, { position = "absolute", left = 0, top = 0, width = 200, height = 24 })
+		assert.is_false(edit:IsShown())
+	end)
+
 	it("draws a text in a theme font with a shadow, and drops the shadow", function()
 		local wow, ns = client()
 		local Backend = ns.Backend
@@ -584,8 +621,8 @@ describe("backend styles", function()
 			local b = Backend:Create("box")
 			Backend:Set(b, { width = 10 })
 			Backend:SetField(b, "width", 10)
-			Backend:SetField(b, "text", "x") -- a text's key on a box
-			assert.is_nil(b.a.text)
+			Backend:SetField(b, "wrap", false) -- a text's key on a box
+			assert.is_nil(b.a.wrap)
 			assert.is_nil(b.queued)
 		end)
 
