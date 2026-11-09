@@ -137,3 +137,80 @@ describe("a setting's texts", function()
 		assert.are.equal("GLOBAL_NUMBERFORMAT", ns.Game.Settings.numberFormat:Label())
 	end)
 end)
+
+describe("a draft of settings changes", function()
+	it("stages writes through its views until Save, and Discard drops them", function()
+		local wow, ns = Start(nil)
+		local draft = ns.Game.Settings:Draft()
+		local scale = draft.Settings.scale
+		local seen
+		local module = { name = "OrdaenSpec", ns = {}, cache = {}, Import = function()
+			return nil
+		end }
+		ns.Engine:Mount(nil, ns.Define.Component({ Setup = function(_, self)
+			self:Watch(function()
+				seen = scale:Get()
+			end)
+		end }), 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
+		scale:Set(1.2)
+		ns.Scheduler.Flush()
+		assert.are.equal(1.2, seen)
+		assert.are.equal(1, ns.Game.Settings.scale:Peek()) -- not saved yet
+		assert.are.equal(1, draft.changed:Peek())
+		assert.are.equal("GLOBAL_SCALE", scale:Label())
+		scale:Set(1) -- the stored value again: nothing to save
+		assert.are.equal(0, draft.changed:Peek())
+		scale:Set(1.3)
+		assert.has_error(function()
+			scale:Set(9) -- checked as the setting checks it
+		end)
+		draft:Save()
+		assert.are.equal(1.3, ns.Game.Settings.scale:Peek())
+		assert.are.equal(0, draft.changed:Peek())
+		assert.is_true(draft.saved:Peek())
+		draft:Rollback()
+		assert.are.equal(1, ns.Game.Settings.scale:Peek())
+		assert.is_false(draft.saved:Peek())
+		draft.Settings.clock:Set("12")
+		draft:Discard()
+		assert.are.equal("24", draft.Settings.clock:Peek())
+		assert.are.same({}, wow.errors)
+	end)
+
+	it("is what a module's page binds when the window hands it one", function()
+		local wow, ns = Start(nil)
+		ns.App.Library()
+		local bound = {}
+		local function Probe()
+			return function(import)
+				local Define = import("@ordaen/define")
+				return Define.Component({
+					Render = function(game, self)
+						bound[#bound + 1] = self.attributes.value:Get()
+						game.ui:Slot(1, "default")
+					end,
+				})
+			end
+		end
+		local library = wow.addons.OrdaenLibrary.ns
+		library["components/settingsTab"], library["components/slider"] = Probe(), Probe()
+		local draft = ns.Game.Settings:Draft()
+		local module = { name = "OrdaenSpec", ns = {}, cache = {}, Import = function()
+			return nil
+		end }
+		ns.Engine:Mount(nil, ns.Define.Component({
+			Render = function(game)
+				game.ui:ModuleSettings(1, { attributes = { module = "OrdaenPanel", tab = 2, draft = draft } })
+			end,
+		}), 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
+		ns.Scheduler.Flush()
+		local height = bound[#bound]
+		local stored = ns.App.Module("OrdaenPanel").root.state.persistent.height
+		assert.are.equal(draft:Of(stored), height)
+		height:Set(80)
+		assert.are.equal(60, stored:Peek())
+		draft:Save()
+		assert.are.equal(80, stored:Peek())
+		assert.are.same({}, wow.errors)
+	end)
+end)

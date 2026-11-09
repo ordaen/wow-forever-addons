@@ -702,7 +702,21 @@ local function SettingsPage(module)
 			module = module,
 			game = game,
 			Setup = function(_, self)
-				self.state = module.root.state -- its controls bind the root's settings (self.state.<name>)
+				-- its controls bind the root's settings (self.state.<name>), through the window's draft when it has one
+				local state = module.root.state
+				local draft = self.attributes.draft:Peek()
+				if draft and state then
+					local persistent = state.persistent
+					state = { ephemeral = state.ephemeral, persistent = setmetatable({}, {
+						__index = function(t, name)
+							local setting = persistent[name]
+							local view = setting and draft:Of(setting)
+							t[name] = view
+							return view
+						end,
+					}) }
+				end
+				self.state = state
 			end,
 			Render = function(_, self)
 				shown, count = self.attributes.tab:Get() or 1, 0
@@ -716,7 +730,8 @@ end
 
 local PAGE_CALL = { attributes = { tab = 1 } } -- the page's call, refilled per render of ModuleSettings (one table)
 
--- `game.ui:ModuleSettings(site, { attributes = { module = "OrdaenPanel", tab = 1 } })`: the settings window's page
+-- `game.ui:ModuleSettings(site, { attributes = { module = "OrdaenPanel", tab = 1, draft = draft } })`: the settings
+-- window's page; with a draft (game.Settings:Draft()) its controls stage their changes in it
 local ModuleSettings = {
 	name = "moduleSettings",
 	Render = function(_, self)
@@ -726,8 +741,10 @@ local ModuleSettings = {
 		if not page then
 			return -- not running, or no page: the window says why
 		end
-		PAGE_CALL.attributes.tab = self.attributes.tab:Get() or 1
-		DrawComponent(module.game.ui, page, 1, PAGE_CALL, nil, folder, module, page.game)
+		local attributes = PAGE_CALL.attributes
+		attributes.tab, attributes.draft = self.attributes.tab:Get() or 1, self.attributes.draft:Get()
+		-- keyed by module and draft: a page mounts its state's views once, so a new draft is a new page
+		DrawComponent(module.game.ui, page, 1, PAGE_CALL, nil, attributes.draft or folder, module, page.game)
 	end,
 }
 

@@ -70,6 +70,12 @@ Globals.ByName = setmetatable({}, {
 	end,
 })
 
+--- `game.Settings:Draft()`: a new draft of settings changes for the settings window (State.NewDraft). Not a setting:
+--- settings are named in lower camel case.
+rawset(Globals.ByName, "Draft", function()
+	return State.NewDraft()
+end)
+
 --- Every global setting back to its default (`/ordaen reset` for Ordaen itself).
 function Globals.Reset()
 	for name in pairs(SPEC) do

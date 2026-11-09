@@ -431,6 +431,171 @@ end
 
 List.Label, List.Tip = Plain.Label, Plain.Tip -- a list setting (Chips) has a row too
 
+-- Drafts ---------------------------------------------------------------------------------------------------------
+
+-- The settings window's unsaved changes (design settings/, «Сохранить»): a draft stages writes to settings until its
+-- Save, which applies them (nothing shows before), and its Rollback undoes the last Save. A control gets a view of a setting (`draft:Of(setting)`, `draft.Settings.<name>`) with the setting's own API,
+-- so it neither knows nor can bypass the draft: Get is the staged value or the stored one, Set stages (the stored
+-- value again unstages). The draft holds only the staged entries, keyed by the stored value.
+
+---@class OrdaenDraft
+---@field changed OrdaenValueSignal number: how many settings are staged (Save is off at 0)
+---@field saved OrdaenValueSignal boolean: whether there's a last Save to roll back
+---@field Settings table<string, OrdaenDraftView> the global settings through the draft
+local Draft = {}
+local DraftMeta = { __index = Draft }
+
+---@class OrdaenDraftView
+---@field spec table the setting's declaration
+---@field name string
+local View = {}
+local ViewMeta = { __index = View }
+
+--- A new draft, empty.
+---@return OrdaenDraft
+function State.NewDraft()
+	local draft = setmetatable({
+		staged = {}, views = {}, nStaged = 0, changed = ns.NewValue(0),
+		before = {}, saved = ns.NewValue(false), -- what the last Save replaced: setting -> its value, or FOLLOWED
+	}, DraftMeta)
+	draft.Settings = setmetatable({}, {
+		__index = function(t, name)
+			local view = draft:Of(ns.Globals.Get(name))
+			t[name] = view
+			return view
+		end,
+	})
+	return draft
+end
+
+--- `setting` through the draft (one view per setting).
+---@param setting OrdaenStoredValue
+---@return OrdaenDraftView
+function Draft:Of(setting)
+	local view = self.views[setting]
+	if not view then
+		view = setmetatable({ draft = self, setting = setting, spec = setting.spec, name = setting.name }, ViewMeta)
+		self.views[setting] = view
+	end
+	return view
+end
+
+local function Stage(draft, setting, value)
+	if value == setting:Peek() then
+		value = nil -- the stored value: nothing to save
+	end
+	local staged = draft.staged
+	local was = staged[setting]
+	if was == value then
+		return
+	end
+	staged[setting] = value
+	draft.nStaged = draft.nStaged + (value ~= nil and 1 or 0) - (was ~= nil and 1 or 0)
+	draft.changed:Set(draft.nStaged)
+	Notify(draft)
+end
+
+local FOLLOWED = {} -- in `before`: the setting followed its global
+
+--- Write every staged value to its setting (what they replace kept for Rollback), then empty the draft.
+function Draft:Save()
+	if self.nStaged == 0 then
+		return
+	end
+	local staged, before = self.staged, self.before
+	for setting in pairs(before) do
+		before[setting] = nil
+	end
+	for setting, value in pairs(staged) do
+		before[setting] = setting:Follows() and FOLLOWED or setting:Peek()
+		setting:Set(value)
+		staged[setting] = nil
+	end
+	self.nStaged = 0
+	self.changed:Set(0)
+	self.saved:Set(true)
+	Notify(self)
+end
+
+--- Undo the last Save: its settings back to what they were (following their global again where they did); what's
+--- staged is dropped.
+function Draft:Rollback()
+	local before = self.before
+	for setting, value in pairs(before) do
+		if value == FOLLOWED then
+			setting:Follow()
+		else
+			setting:Set(value)
+		end
+		before[setting] = nil
+	end
+	self.saved:Set(false)
+	self:Discard()
+end
+
+--- Drop every staged value.
+function Draft:Discard()
+	local staged = self.staged
+	for setting in pairs(staged) do
+		staged[setting] = nil
+	end
+	self.nStaged = 0
+	self.changed:Set(0)
+	Notify(self)
+end
+
+function View:Get()
+	local draft = self.draft
+	if Tracking.observer then
+		Track(draft)
+	end
+	local value = draft.staged[self.setting]
+	if value == nil then
+		return self.setting:Get()
+	end
+	return value
+end
+
+function View:Peek()
+	local value = self.draft.staged[self.setting]
+	if value == nil then
+		return self.setting:Peek()
+	end
+	return value
+end
+
+--- Stage `value` (checked as the setting checks it); the stored value again unstages.
+function View:Set(value)
+	Check(self.spec, value, self.name)
+	Stage(self.draft, self.setting, value)
+end
+
+--- Stage the default.
+function View:Reset()
+	Stage(self.draft, self.setting, self.spec.default)
+end
+
+--- Whether it's staged (changed and not saved).
+function View:Staged()
+	return self.draft.staged[self.setting] ~= nil
+end
+
+function View:Label()
+	return self.setting:Label()
+end
+
+function View:Tip()
+	return self.setting:Tip()
+end
+
+function View:ChoiceLabel(value)
+	return self.setting:ChoiceLabel(value)
+end
+
+function View:Choices()
+	return self.setting:Choices()
+end
+
 -- Declaring ------------------------------------------------------------------------------------------------------
 
 local METAS = {
