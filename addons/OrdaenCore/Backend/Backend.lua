@@ -62,7 +62,7 @@ local EMPTY = {}
 local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5, 6, 7, 8
 local next = next
 local GROUP = {
-	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK,
+	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT,
 	text = TEXT, textSize = TEXT, wrap = TEXT,
 }
@@ -83,7 +83,7 @@ for _, key in ipairs({ "text", "textSize", "wrap", "textColor", "textAlign", "op
 end
 local TAKEN_KEYS = { "position", "top", "right", "bottom", "left", "opacity" }
 -- an embedded Blizzard frame (Backend:Embed): its place and size in the grid, and its opacity; nothing of its look
-local EMBED_KEYS = { "width", "height", "columnSpan", "position", "top", "right", "bottom", "left", "opacity" }
+local EMBED_KEYS = { "width", "height", "columnSpan", "position", "top", "right", "bottom", "left", "opacity", "look" }
 -- The same lists as sets, so a Set walks only the keys a table has (usually a few), not every key a kind takes.
 local function set(keys)
 	local s = {}
@@ -755,6 +755,13 @@ function Node:ApplyLook()
 	end
 	if self.kind ~= "box" then
 		return
+	elseif self.embedded then
+		local look = resolve(self, a.look)
+		if look ~= self.lookEmbed then
+			self.lookEmbed = look
+			self:ApplyEmbedLook(look == "icon")
+		end
+		return
 	end
 	local mask = resolve(self, a.mask)
 	if mask ~= self.lookMask then
@@ -1150,11 +1157,83 @@ local function onEmbedMoved(frame)
 	end
 end
 
+-- An embedded button's `look`: "icon" shows only its icon, filling the box (its dark rim cropped), every other
+-- texture of the button transparent (its ring, highlight, pushed and quality art: alpha 0, since Blizzard shows and
+-- hides them itself), its texts kept (a bag's free slots); nil, the button as Blizzard draws it. The icon is the
+-- button's `icon`/`Icon` field or its <name>IconTexture region.
+local ICON_CROP = 0.07
+
+local function iconOf(frame)
+	local icon = rawget(frame, "icon") or rawget(frame, "Icon")
+	if not icon then
+		local name = frame:GetName()
+		icon = name and _G[name .. "IconTexture"]
+	end
+	return type(icon) == "table" and icon.SetTexCoord and icon or nil
+end
+
+function Node:ApplyEmbedLook(iconOnly)
+	local frame = self.frame
+	local icon = iconOf(frame)
+	local hidden = self.hiddenArt
+	if iconOnly then
+		hidden = hidden or {}
+		self.hiddenArt = hidden
+		local regions = { frame:GetRegions() } -- once per look change (rare): may allocate
+		for i = 1, #regions do
+			local r = regions[i]
+			if r ~= icon and r:GetObjectType() == "Texture" and hidden[r] == nil then
+				hidden[r] = r:GetAlpha()
+				r:SetAlpha(0)
+			end
+		end
+		if icon then
+			if not self.icon0 then
+				local points = {}
+				for i = 1, icon:GetNumPoints() do
+					points[i] = { icon:GetPoint(i) }
+				end
+				self.icon0 = { points = points, coords = { icon:GetTexCoord() } }
+			end
+			icon:ClearAllPoints()
+			icon:SetAllPoints(frame)
+			icon:SetTexCoord(ICON_CROP, 1 - ICON_CROP, ICON_CROP, 1 - ICON_CROP)
+		end
+	else
+		self:RestoreEmbedArt()
+	end
+end
+
+-- The button's own art as it was before `look` changed it.
+function Node:RestoreEmbedArt()
+	local hidden = self.hiddenArt
+	if not hidden and not self.icon0 then
+		return -- `look` never changed it
+	end
+	if hidden then
+		for r, alpha in pairs(hidden) do
+			r:SetAlpha(alpha)
+		end
+		self.hiddenArt = nil
+	end
+	local icon, saved = iconOf(self.frame), self.icon0
+	if icon and saved then
+		icon:ClearAllPoints()
+		for i = 1, #saved.points do
+			local p = saved.points[i]
+			icon:SetPoint(p[1], p[2], p[3], p[4], p[5])
+		end
+		icon:SetTexCoord(unpack(saved.coords))
+		self.icon0 = nil
+	end
+end
+
 -- Give an embedded frame back as it was. A protected frame in combat can't move: Blizzard's own layout places it.
 function Node:Unembed()
 	local frame = self.frame
 	embeddedBy[frame] = nil
 	pendingEmbed[self] = nil
+	self:RestoreEmbedArt()
 	if InCombatLockdown() and frame:IsProtected() then
 		return
 	end

@@ -541,6 +541,14 @@ function TextureMethods:SetTexCoord(...)
 	self._coords = { ... }
 end
 
+function TextureMethods:GetTexCoord()
+	local c = self._coords
+	if not c then
+		return 0, 0, 0, 1, 1, 0, 1, 1
+	end
+	return unpack(c)
+end
+
 function TextureMethods:SetAtlas(atlas)
 	self._atlas = atlas
 	self._texture, self._color, self._coords = nil, nil, nil -- coordinates count within the atlas again
