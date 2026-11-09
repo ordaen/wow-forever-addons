@@ -106,7 +106,15 @@ describe("the settings window", function()
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
 		local t = texts(ns)
-		assert.is_truthy(t["On top of the game's UI scale."]) -- the hint under its label
+		assert.is_falsy(t["On top of the game's UI scale."]) -- the hint: in a tooltip, not inline
+		local label = t["Ordaen window scale"].parent
+		label.frame:GetScript("OnEnter")(label.frame)
+		ns.Scheduler.Flush()
+		assert.is_truthy(texts(ns)["On top of the game's UI scale."])
+		label.frame:GetScript("OnLeave")(label.frame)
+		ns.Scheduler.Flush()
+		assert.is_falsy(texts(ns)["On top of the game's UI scale."])
+		t = texts(ns)
 		local pixel = ns.Globals.Get("pixel")
 		local was = pixel:Peek()
 		-- the checkbox: the box beside the "One-pixel lines" label
