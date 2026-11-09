@@ -4,6 +4,8 @@
 --   color.*    { r, g, b, a } from 0 to 1
 --   spacing.*  UI units
 --   text.*     font sizes
+--   panel.*    Ordaen Panel's look (design: panel): wood, a background { atlas } that covers its box; edge, a border
+--              { width, sides, nineSlice } drawn with a Blizzard nine-slice's art along the top only
 local _, ns = ...
 
 ns.Theme = {
@@ -22,4 +24,8 @@ ns.Theme = {
 	["text.body"] = 12,
 	["text.large"] = 14,
 	["text.title"] = 16,
+	-- the character sheet's wood, as the panel's surface
+	["panel.wood"] = { atlas = "UI-Character-Info-General-BG" },
+	-- the small metal (GenericMetal at half its size) along the top: 8 px at the user's scale (1.2 px per unit)
+	["panel.edge"] = { width = 7, sides = { "top" }, nineSlice = "GenericMetal" },
 }

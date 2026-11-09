@@ -243,7 +243,8 @@ local function newNode(kind)
 		node.a, node.na, node.args, node.nargs = createTable(0, 4), 0, {}, 0
 	else
 		node.a, node.na, node.children, node.count = createTable(0, 8), 0, {}, 0
-		node.padT, node.padR, node.padB, node.padL, node.gapR, node.gapC, node.bw = 0, 0, 0, 0, 0, 0, 0
+		node.padT, node.padR, node.padB, node.padL, node.gapR, node.gapC = 0, 0, 0, 0, 0, 0
+		node.bwT, node.bwR, node.bwB, node.bwL = 0, 0, 0, 0
 		Layout.Columns(node, nil, resolveRef)
 	end
 	return node
@@ -328,6 +329,9 @@ function ctx.place(node)
 	if w ~= node.pW or h ~= node.pH then
 		node.pW, node.pH = w, h
 		obj:SetSize(w, h)
+		if node.lookFit then
+			node:FitBackground()
+		end
 	end
 end
 
@@ -347,16 +351,50 @@ local function edge(frame)
 	return t
 end
 
+-- A border drawn with a Blizzard nine-slice's art (`nineSlice`, a NineSliceLayouts name): its left edge turned to
+-- lie along the top, lit from the top-left like the rest, stretched across (a tiling texture ignores the turn). Only
+-- the top side has art: the panel strips that use it are open on the other sides.
+function Node:ApplyEdgeArt(name)
+	local layout = NineSliceLayouts and NineSliceLayouts[name]
+	local from = type(layout) == "table" and layout.LeftEdge or nil
+	local atlas = type(from) == "table" and from.atlas or nil
+	if not atlas or self.bwT == 0 then
+		return
+	end
+	local tex = self.edgeArt
+	if not tex then
+		tex = self.frame:CreateTexture(nil, "BORDER")
+		tex:SetPoint("TOPLEFT")
+		tex:SetPoint("TOPRIGHT")
+		tex:SetSnapToPixelGrid(false) -- as NineSliceUtil.DisableSharpening: the art stays sharp at any scale
+		tex:SetTexelSnappingBias(0)
+		self.edgeArt = tex
+	end
+	tex:SetAtlas(atlas)
+	tex:SetHorizTile(false)
+	tex:SetVertTile(false)
+	tex:SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0) -- within the atlas: top-left shows its bottom-left, top-right its top-left
+	tex:SetHeight(self.bwT)
+	tex:Show()
+end
+
 function Node:ApplyBorder(border)
 	local frame = self.frame
-	local bw = self.bw
+	local t, r, b, l = self.bwT, self.bwR, self.bwB, self.bwL
 	local edges = self.edges
-	if bw == 0 or type(border) ~= "table" then
-		if edges then
-			for i = 1, 4 do
-				edges[i]:Hide()
-			end
+	if edges then
+		for i = 1, 4 do
+			edges[i]:Hide()
 		end
+	end
+	if self.edgeArt then
+		self.edgeArt:Hide()
+	end
+	if type(border) ~= "table" or t + r + b + l == 0 then
+		return
+	end
+	if border.nineSlice then
+		self:ApplyEdgeArt(border.nineSlice)
 		return
 	end
 	if not edges then
@@ -371,15 +409,39 @@ function Node:ApplyBorder(border)
 		edges[4]:SetPoint("TOPRIGHT", edges[1], "BOTTOMRIGHT")
 		edges[4]:SetPoint("BOTTOMRIGHT", edges[2], "TOPRIGHT")
 	end
-	edges[1]:SetHeight(bw)
-	edges[2]:SetHeight(bw)
-	edges[3]:SetWidth(bw)
-	edges[4]:SetWidth(bw)
+	-- a side without width keeps its edge (the others anchor to it) at no height, hidden
+	edges[1]:SetHeight(t)
+	edges[2]:SetHeight(b)
+	edges[3]:SetWidth(l)
+	edges[4]:SetWidth(r)
 	local c = color(resolveRef(border.color)) or Theme["color.border"]
 	for i = 1, 4 do
 		edges[i]:SetVertexColor(c[1], c[2], c[3], c[4] or 1)
-		edges[i]:Show()
 	end
+	edges[1]:SetShown(t > 0)
+	edges[2]:SetShown(b > 0)
+	edges[3]:SetShown(l > 0)
+	edges[4]:SetShown(r > 0)
+end
+
+-- An art background covers the box: the art's full width and a band of its height, or the other way round, so it
+-- keeps its aspect (texture coordinates count within the atlas after SetAtlas). Again only when the box's size changed.
+function Node:FitBackground()
+	local aspect, w, h = self.lookFit, self.pW, self.pH
+	if not aspect or not w or not h or h <= 0 or (w == self.fitW and h == self.fitH) then
+		return
+	end
+	self.fitW, self.fitH = w, h
+	local l, r, t, b = 0, 1, 0, 1
+	local boxAspect = w / h
+	if boxAspect > aspect then
+		local cut = (1 - aspect / boxAspect) / 2
+		t, b = cut, 1 - cut
+	else
+		local cut = (1 - boxAspect / aspect) / 2
+		l, r = cut, 1 - cut
+	end
+	self.bg:SetTexCoord(l, r, t, b)
 end
 
 -- The look: background, border, opacity, text colour and alignment. Each setter runs only when its value changed.
@@ -427,17 +489,29 @@ function Node:ApplyLook()
 				self.bg = tex
 			end
 			local c = color(bg)
+			self.lookFit = nil
 			if c then
 				tex:SetColorTexture(c[1], c[2], c[3], c[4] or 1)
+				tex:SetTexCoord(0, 1, 0, 1) -- an art background before may have cropped it
+			elseif type(bg) == "table" and bg.atlas then
+				tex:SetAtlas(bg.atlas)
+				local info = C_Texture.GetAtlasInfo(bg.atlas)
+				if info and info.width > 0 and info.height > 0 then
+					self.lookFit, self.fitW = info.width / info.height, nil -- cropped to the box when it's placed
+					self:FitBackground()
+				end
 			else
 				tex:SetTexture(bg)
+				tex:SetTexCoord(0, 1, 0, 1)
 			end
 			tex:Show()
 		end
 	end
 	local border = resolve(self, a.border)
-	if border ~= self.lookBorder or self.bw ~= self.lookBw then
-		self.lookBorder, self.lookBw = border, self.bw
+	-- the widths change together (the pixel size) or with the border's sides (another border): one sum tells
+	local bw = self.bwT + self.bwR + self.bwB + self.bwL
+	if border ~= self.lookBorder or bw ~= self.lookBw then
+		self.lookBorder, self.lookBw = border, bw
 		self:ApplyBorder(border)
 	end
 end
@@ -987,7 +1061,7 @@ function Backend:Set(node, attributes)
 			node.padT, node.padR, node.padB, node.padL = style.padT, style.padR, style.padB, style.padL
 		end
 		if border then
-			node.bw = style.bw
+			node.bwT, node.bwR, node.bwB, node.bwL = style.bwT, style.bwR, style.bwB, style.bwL
 		end
 	else
 		if size then

@@ -8,7 +8,8 @@ local function ref(path)
 end
 
 local FIELDS = { "wKind", "wAmount", "hKind", "hAmount", "span", "pos", "offT", "offR", "offB", "offL", "ncols", "gapR",
-	"gapC", "padT", "padR", "padB", "padL", "xAlign", "yAlign", "bw", "x", "y", "w", "h", "pX", "pY", "pW", "pH" }
+	"gapC", "padT", "padR", "padB", "padL", "xAlign", "yAlign", "bwT", "bwR", "bwB", "bwL", "x", "y", "w", "h", "pX", "pY",
+	"pW", "pH" }
 
 local function copy(t)
 	local c = {}
@@ -190,5 +191,31 @@ describe("backend styles", function()
 		local oldW, oldH = t.natW, t.lineH
 		t.natW = oldW + 6 -- still narrower than the 36-unit cell
 		assert.is_false(ns.Layout.TextResized(t, oldW, oldH))
+	end)
+
+	it("draws a panel strip: wood covering it, the metal edge along the top only, content below the edge", function()
+		Fake.Install()
+		local ns = Fake.LoadBackend()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local strip = Backend:Create("box")
+		Backend:Set(strip, table.freeze({ position = "fixed", left = 0, right = 0, bottom = 0, height = 60,
+			background = ref("panel.wood"), border = ref("panel.edge") }))
+		local cell = Backend:Create("box")
+		Backend:Set(cell, { width = 40 })
+		Backend:SetChildren(strip, { cell }, 1)
+		Backend:SetChildren(layer, { strip }, 1)
+		Backend:Flush()
+		assert.is_true(strip.bwT > 0)
+		assert.are.same({ 0, 0, 0 }, { strip.bwR, strip.bwB, strip.bwL })
+		assert.are.equal(strip.bwT, cell.y) -- below the metal
+		assert.are.equal(0, cell.x) -- flush left
+		assert.are.equal(strip.bwT, strip.edgeArt._h)
+		assert.are.equal("UI-Frame-GenericMetal-EdgeLeft", strip.edgeArt._atlas)
+		assert.are.equal("UI-Character-Info-General-BG", strip.bg._atlas)
+		-- the strip is far wider than the 2:1 art: its full width, a band of its height
+		local l, r, t, b = unpack(strip.bg._coords)
+		assert.are.same({ 0, 1 }, { l, r })
+		assert.is_true(t > 0 and b < 1 and math.abs(t - (1 - b)) < 1e-9)
 	end)
 end)

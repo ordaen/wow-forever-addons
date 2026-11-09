@@ -12,7 +12,8 @@
 --   hKind, hAmount            parent's content box), "fill" (the cell), nil (stretch in its cell, unless the parent's
 --                             xAlign places it; heights: content, stretched to the row by the parent's yAlign)
 --   ncols, colKind, colAmount the grid's tracks: "fixed" | "auto" | "fr" (amount = weight)
---   gapC, gapR, padT, padR, padB, padL, bw   gaps, padding and border width (padding sits inside the border)
+--   gapC, gapR, padT, padR, padB, padL   gaps and padding (padding sits inside the border)
+--   bwT, bwR, bwB, bwL        the border's width on each side: its width on the sides it names, 0 on the others
 --   span                      columns covered in the parent's grid
 --   xAlign, yAlign            "start" | "center" | "end" | "stretch" | "spaceBetween" | "spaceAround" | nil
 --   pos                       "flow" | "absolute" | "fixed" (nil = flow); offL, offR, offT, offB its offsets
@@ -129,7 +130,7 @@ Layout.ATTRIBUTES = {
 	{ key = "padding", group = "content", fields = { "padT", "padR", "padB", "padL" } },
 	{ key = "xAlign", group = "content", fields = { "xAlign" } },
 	{ key = "yAlign", group = "content", fields = { "yAlign" } },
-	{ key = "border", group = "border", fields = { "bw" } },
+	{ key = "border", group = "border", fields = { "bwT", "bwR", "bwB", "bwL" } },
 }
 
 -- A length on whole pixels (px: one pixel in UI units), so sums of sizes, gaps and padding stay on the pixel grid
@@ -159,14 +160,32 @@ function Layout.ApplyOffsets(node, a, resolve)
 	node.offB, node.offL = resolve(node, a.bottom), resolve(node, a.left)
 end
 
----The "border" group: the border's width (a box's only).
+-- A border's sides: every side, or those its `sides` list names ("top", "right", "bottom", "left").
+local function hasSide(sides, name)
+	if sides == nil then
+		return true
+	end
+	for i = 1, #sides do
+		if sides[i] == name then
+			return true
+		end
+	end
+	return false
+end
+
+---The "border" group: the border's width on each side (a box's only).
 function Layout.ApplyBorder(node, a, resolve, resolveRef, px)
 	if node.kind ~= "box" then
 		return
 	end
 	local border = resolve(node, a.border)
 	local bw = type(border) == "table" and resolveRef(border.width) or 0
-	node.bw = bw > 0 and max(px, pixels(bw, px)) or 0
+	bw = bw > 0 and max(px, pixels(bw, px)) or 0
+	local sides = bw > 0 and border.sides or nil
+	node.bwT = hasSide(sides, "top") and bw or 0
+	node.bwR = hasSide(sides, "right") and bw or 0
+	node.bwB = hasSide(sides, "bottom") and bw or 0
+	node.bwL = hasSide(sides, "left") and bw or 0
 end
 
 ---Every group at once.
@@ -452,7 +471,7 @@ local function boxNatural(node)
 	if n == 1 and node.count == 1 and children[1].pos ~= "absolute" and children[1].pos ~= "fixed" then
 		-- one child in one column (cells, wrappers, nested levels): its natural width, or the fixed track's
 		local v = kinds[1] == "fixed" and amounts[1] or natural(children[1])
-		return v + node.padL + node.padR + 2 * node.bw
+		return v + node.padL + node.padR + node.bwL + node.bwR
 	end
 	local colW = scratch(node)
 	assignCells(node)
@@ -492,7 +511,7 @@ local function boxNatural(node)
 			end
 		end
 	end
-	local sum = node.gapC * (n - 1) + node.padL + node.padR + 2 * node.bw
+	local sum = node.gapC * (n - 1) + node.padL + node.padR + node.bwL + node.bwR
 	for c = 1, n do
 		sum = sum + colW[c]
 	end
@@ -713,8 +732,7 @@ function layoutBox(node, W, H, ctx)
 	node.pass = pass
 	local n = node.ncols or 1
 	local kinds = node.colKind
-	local bw = node.bw
-	local padT, padR, padB, padL = node.padT + bw, node.padR + bw, node.padB + bw, node.padL + bw
+	local padT, padR, padB, padL = node.padT + node.bwT, node.padR + node.bwR, node.padB + node.bwB, node.padL + node.bwL
 	local gapC, gapR = node.gapC, node.gapR
 	local children, count = node.children, node.count or 0
 	local contentW = W - padL - padR

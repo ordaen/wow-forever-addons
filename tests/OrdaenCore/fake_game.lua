@@ -34,6 +34,12 @@ end
 function IMPL.SetWidth(self, w)
 	self._w = w
 end
+function IMPL.SetTexCoord(self, ...)
+	self._coords = { ... }
+end
+function IMPL.SetAtlas(self, atlas)
+	self._atlas = atlas
+end
 function IMPL.SetHeight(self, h)
 	self._h = h
 end
@@ -162,6 +168,13 @@ function Fake.Install(uiHeight)
 	end
 	_G.hooksecurefunc = noop
 	_G.STANDARD_TEXT_FONT = "Fonts\\FRIZQT__.TTF"
+	-- art: every atlas 256 x 128; the one nine-slice layout the theme names
+	_G.C_Texture = {
+		GetAtlasInfo = function()
+			return { width = 256, height = 128 }
+		end,
+	}
+	_G.NineSliceLayouts = { GenericMetal = { LeftEdge = { atlas = "UI-Frame-GenericMetal-EdgeLeft" } } }
 	local frozen = setmetatable({}, { __mode = "k" })
 	-- sized like Forever's: a constructor with n named fields sizes the hash part for n even though they are nil, so
 	-- memory measured on the fake matches the game's
@@ -171,7 +184,7 @@ function Fake.Install(uiHeight)
 		local make = makers[key]
 		if not make then
 			local parts = {}
-			for i = 1, narr or 0 do
+			for _ = 1, narr or 0 do
 				parts[#parts + 1] = "nil"
 			end
 			for i = 1, nhash or 0 do
