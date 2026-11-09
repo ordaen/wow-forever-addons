@@ -206,6 +206,8 @@ function Layout.ApplyContent(node, a, resolve, resolveRef, px)
 	node.xAlign, node.yAlign = resolve(node, a.xAlign), resolve(node, a.yAlign)
 end
 
+-- Whether a node sits outside its parent's grid. Inside a box's own loops (assignCells, boxNatural, layoutBox) the
+-- parent is a box, so there it is only its position, tested inline (a call per child per pass is measurable).
 local function isFree(node)
 	local pos = node.pos
 	if pos == "absolute" or pos == "fixed" then
@@ -352,7 +354,7 @@ local function assignCells(node)
 	local col, row, rows = 1, 1, 0
 	for i = 1, node.count or 0 do
 		local child = children[i]
-		if not isFree(child) then
+		if child.pos ~= "absolute" and child.pos ~= "fixed" then
 			local span = child.span or 1
 			if span > n then
 				span = n
@@ -430,7 +432,7 @@ local function boxNatural(node)
 	local n = node.ncols or 1
 	local kinds, amounts = node.colKind, node.colAmount
 	local children = node.children
-	if n == 1 and node.count == 1 and not isFree(children[1]) then
+	if n == 1 and node.count == 1 and children[1].pos ~= "absolute" and children[1].pos ~= "fixed" then
 		-- one child in one column (cells, wrappers, nested levels): its natural width, or the fixed track's
 		local v = kinds[1] == "fixed" and amounts[1] or natural(children[1])
 		return v + node.padL + node.padR + 2 * node.bw
@@ -443,7 +445,7 @@ local function boxNatural(node)
 	end
 	for i = 1, node.count or 0 do
 		local child = children[i]
-		if not isFree(child) and cSpan[i] == 1 and kinds[cCol[i]] ~= "fixed" then
+		if child.pos ~= "absolute" and child.pos ~= "fixed" and cSpan[i] == 1 and kinds[cCol[i]] ~= "fixed" then
 			colW[cCol[i]] = max(colW[cCol[i]], natural(child))
 		end
 	end
@@ -460,7 +462,7 @@ local function boxNatural(node)
 	end
 	for i = 1, node.count or 0 do
 		local child = children[i]
-		if not isFree(child) and cSpan[i] > 1 then
+		if child.pos ~= "absolute" and child.pos ~= "fixed" and cSpan[i] > 1 then
 			local col = cCol[i]
 			local last = col + cSpan[i] - 1
 			local have = node.gapC * (cSpan[i] - 1)
@@ -698,7 +700,8 @@ function layoutBox(node, W, H, ctx)
 	local children, count = node.children, node.count or 0
 	local contentW = W - padL - padR
 	local contentH = H and H - padT - padB or nil
-	if n == 1 and count == 1 and kinds[1] == "fr" and not isFree(children[1]) then
+	local only = children[1]
+	if n == 1 and count == 1 and kinds[1] == "fr" and only.pos ~= "absolute" and only.pos ~= "fixed" then
 		return single(node, children[1], W, H, padT, padB, padL, contentW, contentH, ctx)
 	end
 	local colW, colX, rowH, rowY = scratch(node)
@@ -713,13 +716,13 @@ function layoutBox(node, W, H, ctx)
 	end
 	for i = 1, count do
 		local child = children[i]
-		if not isFree(child) and cSpan[i] == 1 and kinds[cCol[i]] == "auto" then
+		if child.pos ~= "absolute" and child.pos ~= "fixed" and cSpan[i] == 1 and kinds[cCol[i]] == "auto" then
 			colW[cCol[i]] = max(colW[cCol[i]], natural(child))
 		end
 	end
 	for i = 1, count do
 		local child = children[i]
-		if not isFree(child) and cSpan[i] > 1 then
+		if child.pos ~= "absolute" and child.pos ~= "fixed" and cSpan[i] > 1 then
 			local col = cCol[i]
 			local last = col + cSpan[i] - 1
 			local have = gapC * (cSpan[i] - 1)
@@ -783,7 +786,7 @@ function layoutBox(node, W, H, ctx)
 	end
 	for i = 1, count do
 		local child = children[i]
-		if not isFree(child) then
+		if child.pos ~= "absolute" and child.pos ~= "fixed" then
 			local col = cCol[i]
 			local cellW = (gapC + spread) * (cSpan[i] - 1)
 			for c = col, col + cSpan[i] - 1 do
@@ -833,7 +836,7 @@ function layoutBox(node, W, H, ctx)
 	local stretchRows = not placed(ya)
 	for i = 1, count do
 		local child = children[i]
-		if not isFree(child) then
+		if child.pos ~= "absolute" and child.pos ~= "fixed" then
 			local w, h, given = cTw[i], cTh[i], cGiven[i] or nil
 			local cx = colX[cCol[i]]
 			local free = cW[i] - w
@@ -865,7 +868,7 @@ function layoutBox(node, W, H, ctx)
 	end
 	for i = 1, count do
 		local child = children[i]
-		if isFree(child) then
+		if child.pos == "absolute" or child.pos == "fixed" then
 			placeFree(child, W, outH, ctx)
 		end
 	end
