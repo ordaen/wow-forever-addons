@@ -650,6 +650,14 @@ function TextureMethods:SetVertexColor(r, g, b, a)
 	self._vertex = { r, g, b, a }
 end
 
+function TextureMethods:SetDesaturated(on)
+	self._desaturated = on and true or false
+end
+
+function TextureMethods:IsDesaturated()
+	return self._desaturated == true
+end
+
 function TextureMethods:SetTexCoord(...)
 	self._coords = { ... }
 end

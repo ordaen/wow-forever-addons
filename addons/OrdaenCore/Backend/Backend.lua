@@ -65,6 +65,7 @@ local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
 	shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET, zLevel = LOOK,
+	desaturate = LOOK, tint = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
 	hoverWithin = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT,
@@ -79,8 +80,9 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 		TEXT_KEYS[#TEXT_KEYS + 1] = attribute.key
 	end
 end
-for _, key in ipairs({ "background", "artOrigin", "anchor", "zLevel", "opacity", "portrait", "mask", "overflow",
-	"stateFrom", "OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
+for _, key in ipairs({ "background", "desaturate", "tint", "artOrigin", "anchor", "zLevel", "opacity", "portrait",
+	"mask", "overflow", "stateFrom", "OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart",
+	"OnDrag", "OnDragStop",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
@@ -917,6 +919,18 @@ end
 local SLICE_POINTS = { "TOPLEFT", "BOTTOMLEFT", "TOPRIGHT", "BOTTOMRIGHT" }
 
 -- Three textures for a three-slice in `key` (the base, or the glow over it), made on first use.
+-- A texture greyed (desaturate) and multiplied by a colour (tint), as a box's look says.
+local function tintTexture(tex, desaturate, tint)
+	if tex then
+		tex:SetDesaturated(desaturate)
+		if tint then
+			tex:SetVertexColor(tint[1], tint[2], tint[3], tint[4] or 1)
+		else
+			tex:SetVertexColor(1, 1, 1, 1)
+		end
+	end
+end
+
 function Node:Slices(key, sublevel, file)
 	local list = self[key]
 	if not list then
@@ -932,6 +946,11 @@ function Node:Slices(key, sublevel, file)
 		list[2]:SetPoint("TOPLEFT", list[1], "TOPRIGHT")
 		list[2]:SetPoint("BOTTOMRIGHT", list[3], "BOTTOMLEFT")
 		self[key] = list
+		if key == "slices" and (self.lookDesat or self.lookTint) then -- made after the look: greyed and tinted as it says
+			for i = 1, 3 do
+				tintTexture(list[i], self.lookDesat == true, self.lookTint)
+			end
+		end
 	end
 	if list.file ~= file then
 		list.file = file
@@ -1218,6 +1237,20 @@ function Node:ApplyInput()
 	end
 end
 
+-- The background's textures greyed and tinted as the box's look says (a colour background is its colour: untouched).
+function Node:ApplyTint()
+	local desaturate, tint = self.lookDesat == true, self.lookTint
+	if self.bg and not color(self.lookBg) then
+		tintTexture(self.bg, desaturate, tint)
+	end
+	local slices = self.slices
+	if slices then
+		for i = 1, 3 do
+			tintTexture(slices[i], desaturate, tint)
+		end
+	end
+end
+
 -- The look: background, border, opacity, text colour and alignment. Each setter runs only when its value changed.
 function Node:ApplyLook()
 	local a = self.a
@@ -1371,6 +1404,20 @@ function Node:ApplyLook()
 	end
 	if self.lookArt then
 		self:DrawArt()
+	end
+	-- desaturate (grey) and tint (multiplied in) for a texture background, its art's slices included: a module
+	-- that's off, a set of icons in one colour
+	local desaturate = a.desaturate
+	if desaturate ~= nil then
+		desaturate = resolve(self, desaturate) == true
+	end
+	local tint = a.tint
+	if tint ~= nil then
+		tint = color(resolve(self, tint))
+	end
+	if (desaturate or false) ~= (self.lookDesat or false) or tint ~= self.lookTint or self.lookBg ~= self.tintedBg then
+		self.lookDesat, self.lookTint, self.tintedBg = desaturate or nil, tint, self.lookBg
+		self:ApplyTint()
 	end
 	local unit = resolve(self, a.portrait)
 	if unit ~= self.lookPortrait then

@@ -600,6 +600,30 @@ describe("backend styles", function()
 		assert.are.equal(row1.frame:GetFrameLevel() + 1, menu.frame:GetFrameLevel())
 	end)
 
+	it("greys and tints a texture background, the art's slices too, and gives them back", function()
+		local _, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local GOLD = { 1, 0.85, 0.4, 1 }
+		local icon = Backend:Create("box")
+		Backend:Set(icon, { position = "absolute", left = 0, top = 0, width = 22, height = 22,
+			background = "Interface/Icons/INV_Misc_Bag_08", desaturate = true, tint = GOLD })
+		local plate = Backend:Create("box")
+		Backend:Set(plate, { position = "absolute", left = 0, top = 40, width = 120, height = 28,
+			background = ref("ctl.button"), desaturate = true })
+		Backend:SetChildren(layer, { icon, plate }, 2)
+		Backend:Flush()
+		assert.is_true(icon.bg:IsDesaturated())
+		assert.are.same(GOLD, icon.bg._vertex)
+		for i = 1, 3 do
+			assert.is_true(plate.slices[i]:IsDesaturated(), "slice " .. i) -- made at its first draw, after the look
+		end
+		Backend:Set(icon, { position = "absolute", left = 0, top = 0, width = 22, height = 22,
+			background = "Interface/Icons/INV_Misc_Bag_08" })
+		assert.is_false(icon.bg:IsDesaturated())
+		assert.are.same({ 1, 1, 1, 1 }, icon.bg._vertex)
+	end)
+
 	it("keeps a hoverWithin box hovered over its children, and ends the hover once the cursor is out", function()
 		local wow, ns = client()
 		local Backend = ns.Backend
