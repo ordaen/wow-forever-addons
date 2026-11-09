@@ -10,9 +10,9 @@
 -- otherwise its set size, otherwise (font strings) its text's size. Screen coordinates are physical pixels, y up from
 -- the bottom; a region's GetLeft/GetTop/GetWidth are in its own units (screen pixels / effective scale), like WoW.
 --
--- Text: every character is half the font size wide, a line is the font size high; text wraps at spaces when the font
--- string has a width (set or from anchors) and word wrap on. The same measure on every side keeps comparisons fair;
--- it doesn't try to match WoW's fonts.
+-- Text: a line is the font size high; text wraps at spaces when the font string has a width (set or from anchors)
+-- and word wrap on. Text is measured by Fake.New's `measure` (the design site's Lua stage measures with WoW's fonts),
+-- else every character is half the font size wide: the same measure on every side keeps specs' comparisons fair.
 local Fake = {}
 
 local REPO = "."
@@ -835,17 +835,23 @@ function FontStringMethods:GetLineHeight()
 	return self._size
 end
 
-local function charWidth(self)
+-- The width of a run of text in the font string's units: the fake's measure (Fake.New's `measure`), else half the font
+-- size per character.
+local function textWidth(self, s)
 	if not self._size then
 		error("FontString: no font set", 3)
 	end
-	return self._size / 2
+	local measure = self._wow.measure
+	if measure then
+		return measure(self._font, self._size, self._flags, s)
+	end
+	return #s * self._size / 2
 end
 
 function FontStringMethods:GetUnboundedStringWidth()
-	local cw, widest = charWidth(self), 0
+	local widest = 0
 	for line in ((self._text or "") .. "\n"):gmatch("([^\n]*)\n") do
-		widest = math.max(widest, #line * cw)
+		widest = math.max(widest, textWidth(self, line))
 	end
 	return widest
 end
@@ -873,21 +879,21 @@ end
 
 -- The lines the text breaks into: widest line and line count.
 local function lines(self)
-	local cw = charWidth(self)
+	local space = textWidth(self, " ")
 	local limit = wrapWidth(self)
 	local widest, count = 0, 0
 	for para in ((self._text or "") .. "\n"):gmatch("([^\n]*)\n") do
 		count = count + 1
 		if not limit then
-			widest = math.max(widest, #para * cw)
+			widest = math.max(widest, textWidth(self, para))
 		else
 			local current = 0
 			for word in para:gmatch("%S+") do
-				local w = #word * cw
+				local w = textWidth(self, word)
 				if current == 0 then
 					current = w
-				elseif current + cw + w <= limit + 1e-6 then
-					current = current + cw + w
+				elseif current + space + w <= limit + 1e-6 then
+					current = current + space + w
 				else
 					widest = math.max(widest, current)
 					count, current = count + 1, w
@@ -1618,7 +1624,7 @@ function Fake.New(opts)
 	local wow = setmetatable({
 		dist = opts.dist, addons = {}, order = {}, listeners = {}, updating = {}, timers = {}, errors = {}, allFrames = setmetatable({}, { __mode = "k" }),
 		printed = {}, time = 0, frameTime = 1 / 60, frames = 0, gen = 0, made = 0,
-		physW = opts.physW or 2560, physH = opts.physH or 1440,
+		physW = opts.physW or 2560, physH = opts.physH or 1440, measure = opts.measure,
 	}, WowMeta)
 	wow.env = wow:MakeEnv()
 	local world = wow:NewFrame("Frame", "WorldFrame", nil)
