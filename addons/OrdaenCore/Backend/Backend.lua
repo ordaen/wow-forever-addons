@@ -51,10 +51,10 @@ local NodeMeta = { __index = Node }
 local Backend = {}
 ns.Backend = Backend
 
-local FONT = STANDARD_TEXT_FONT
 local STRATA = { screen = "MEDIUM", dialog = "DIALOG", tooltip = "TOOLTIP" }
 local JUSTIFY = { start = "LEFT", center = "CENTER", ["end"] = "RIGHT" }
 local EMPTY = {}
+local BLACK = { 0, 0, 0, 1 } -- a text shadow without a colour
 
 -- What each attribute changes: the node's own size, its offsets (where a free node sits, not its size), its
 -- content's layout, its border, its look, its text, its mouse handlers.
@@ -63,9 +63,9 @@ local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5,
 local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
-	shown = LOOK,
+	shown = LOOK, textShadow = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT,
-	text = TEXT, textSize = TEXT, wrap = TEXT,
+	text = TEXT, textSize = TEXT, textFamily = TEXT, wrap = TEXT,
 }
 local LAYOUT_GROUP = { own = OWN, content = CONTENT, position = POSITION, offset = OFFSET, border = BORDER }
 local BOX_KEYS, TEXT_KEYS = {}, {}
@@ -79,7 +79,7 @@ end
 for _, key in ipairs({ "background", "opacity", "portrait", "mask", "stateFrom", "OnClick", "OnEnter", "OnLeave" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
 end
-for _, key in ipairs({ "text", "textSize", "wrap", "textColor", "textAlign", "opacity" }) do
+for _, key in ipairs({ "text", "textSize", "textFamily", "wrap", "textColor", "textShadow", "textAlign", "opacity" }) do
 	TEXT_KEYS[#TEXT_KEYS + 1] = key
 end
 -- a taken Blizzard frame (Backend:Take): where it sits, its opacity, and `shown = false` (hidden while we hold it)
@@ -162,7 +162,7 @@ end
 
 local px = 1 -- one screen pixel in UI units (UIParent's)
 local ctx = { screenW = 0, screenH = 0 } ---@type OrdaenLayoutContext
-local lineHeights = {} -- one line of FONT at a size, in UI units on whole pixels (one value per size, not per text)
+local lineHeights = {} -- [font][size]: one line, in UI units on whole pixels (one value per font and size, not per text)
 -- A frozen attribute table's layout fields, worked out once and copied into every box drawn from it (its column
 -- arrays shared, never written). Only for tables without per-state maps (those depend on each node's hover and
 -- pressed); false for a table that can't be cached. Weak keys: a module's tables go when it does. Pixel sizes are in
@@ -181,8 +181,8 @@ local function updateScreen()
 	local old = px
 	px = physH and physH > 0 and h / physH or 1
 	if px ~= old then
-		for size in pairs(lineHeights) do
-			lineHeights[size] = nil
+		for font in pairs(lineHeights) do
+			lineHeights[font] = nil
 		end
 		for t in pairs(styles) do
 			styles[t] = nil
@@ -739,6 +739,23 @@ function Node:ApplyLook()
 			self.lookColor = c
 			fs:SetTextColor(c[1], c[2], c[3], c[4] or 1)
 		end
+		-- textShadow { color, x, y }: x and y in UI units on whole pixels, y up; no shadow when unset. It doesn't
+		-- change the text's size (as in CSS). The same colour one pixel right reads as bold where a font has no bold
+		-- face (Blizzard's Arial Narrow).
+		local shadow = a.textShadow
+		if shadow ~= nil then
+			shadow = resolve(self, shadow)
+		end
+		if shadow ~= self.lookShadow then
+			self.lookShadow = shadow
+			if shadow then
+				local sc = color(resolveRef(shadow.color)) or BLACK
+				fs:SetShadowColor(sc[1], sc[2], sc[3], sc[4] or 1)
+				fs:SetShadowOffset(snap(shadow.x or 0), snap(shadow.y or 0))
+			else
+				fs:SetShadowOffset(0, 0)
+			end
+		end
 		local justify = JUSTIFY[resolve(self, a.textAlign)] or "LEFT"
 		if justify ~= self.lookJustify then
 			self.lookJustify = justify
@@ -845,12 +862,17 @@ function Node:ApplyLook()
 	end
 end
 
--- One line of the font at `size`: the font's line height on whole pixels, measured once per size.
-local function lineHeight(fs, size)
-	local h = lineHeights[size]
+-- One line of `font` at `size`: its line height on whole pixels, measured once per font and size.
+local function lineHeight(fs, font, size)
+	local sizes = lineHeights[font]
+	if not sizes then
+		sizes = {}
+		lineHeights[font] = sizes
+	end
+	local h = sizes[size]
 	if not h then
 		h = pixelsUp(fs:GetLineHeight())
-		lineHeights[size] = h
+		sizes[size] = h
 	end
 	return h
 end
@@ -874,9 +896,17 @@ end
 function Node:ApplyText()
 	local a, fs = self.a, self.fs
 	local size = resolve(self, a.textSize) or Theme["text.body"]
-	if size ~= self.fontSize then
-		self.fontSize = size
-		fs:SetFont(FONT, size, "")
+	-- node.font: the font when it isn't the body font (nil for most texts: a text node's fields fit its 32 slots)
+	local font = a.textFamily
+	if font ~= nil then
+		font = resolve(self, font)
+	end
+	if font == Theme["font.body"] then
+		font = nil
+	end
+	if size ~= self.fontSize or font ~= self.font then
+		self.fontSize, self.font = size, font
+		fs:SetFont(font or Theme["font.body"], size, "")
 	end
 	local wrap = resolve(self, a.wrap) ~= false
 	if wrap ~= self.wrap then
@@ -895,7 +925,7 @@ function Node:ApplyText()
 		natW, lineH = pixelsUp(fs:GetStringWidth()), pixelsUp(fs:GetStringHeight())
 		fs:SetWidth(self.pW or 0)
 	else
-		natW, lineH = pixelsUp(fs:GetUnboundedStringWidth()), lineHeight(fs, size)
+		natW, lineH = pixelsUp(fs:GetUnboundedStringWidth()), lineHeight(fs, font or Theme["font.body"], size)
 	end
 	local oldW, oldH = self.natW, self.lineH
 	self.natW, self.lineH, self.mW = natW, lineH, nil
@@ -1302,6 +1332,10 @@ function Node:Repixel()
 	self.valid, self.natValid, self.mW, self.x = false, false, nil, nil
 	if self.kind == "text" then
 		self:ApplyText()
+		if self.lookShadow then -- its offsets snap to the new pixel grid
+			self.lookShadow = false
+			self:ApplyLook()
+		end
 	elseif self.kind == "box" and not self.taken then
 		ownColumns(self)
 		Layout.Apply(self, self.a, resolve, resolveRef, px)
@@ -1441,7 +1475,7 @@ function Backend:Create(kind)
 			node.fs, node.lookJustify, node.shown = fs, "LEFT", false
 			node.natW, node.lineH = 0, 0
 			node.fontSize = Theme["text.body"]
-			fs:SetFont(FONT, node.fontSize, "")
+			fs:SetFont(Theme["font.body"], node.fontSize, "")
 			node:ApplyLook()
 		end
 	else

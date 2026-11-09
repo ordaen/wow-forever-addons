@@ -4,6 +4,7 @@
 --   color.*    { r, g, b, a } from 0 to 1
 --   spacing.*  UI units
 --   text.*     font sizes
+--   font.*     font files (textFamily)
 --   panel.*    Ordaen Panel's look (design: panel): wood, a background { atlas } that covers its box; edge, a border
 --              { width, sides, nineSlice } drawn with a Blizzard nine-slice's art along the top only; corner, the
 --              portrait's mask { mask, rim } (media/portrait-*.tga, drawn for a 128 x 124 box); badge, the level
@@ -31,6 +32,9 @@ ns.Theme = {
 	["text.body"] = 12,
 	["text.large"] = 14,
 	["text.title"] = 16,
+	-- the client's text font (Friz Quadrata; its Cyrillic file on ruRU), and Blizzard's number font (NumberFontNormal's)
+	["font.body"] = STANDARD_TEXT_FONT,
+	["font.numbers"] = "Fonts\\ARIALN.TTF",
 	-- the character sheet's wood, as the panel's surface
 	["panel.wood"] = { atlas = "UI-Character-Info-General-BG" },
 	-- the small metal along the top, as the design site's MetalFrame kind "small" draws it: Blizzard's

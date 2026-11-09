@@ -239,6 +239,28 @@ describe("backend styles", function()
 		assert.are.equal("100", short.fs:GetText())
 	end)
 
+	it("draws a text in a theme font with a shadow, and drops the shadow", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local t = Backend:Create("text")
+		Backend:Set(t, { text = "7", textSize = 11, textFamily = ref("font.numbers"),
+			textShadow = { color = { 1, 1, 1, 1 }, x = 1, y = 0 } })
+		Backend:SetChildren(layer, { t }, 1)
+		Backend:Flush()
+		local font, size = t.fs:GetFont()
+		assert.are.equal(ns.Theme["font.numbers"], font)
+		assert.are.equal(11, size)
+		local x, y = t.fs:GetShadowOffset()
+		assert.is_true(x > 0)
+		assert.are.equal(0, y)
+		assert.are.same({ 1, 1, 1, 1 }, { t.fs:GetShadowColor() })
+		Backend:Set(t, { text = "7", textSize = 11 })
+		Backend:Flush()
+		assert.are.equal(ns.Theme["font.body"], (t.fs:GetFont()))
+		assert.are.same({ 0, 0 }, { t.fs:GetShadowOffset() })
+	end)
+
 	it("draws a panel strip: wood covering it, the metal edge along the top only, content below the edge", function()
 		local wow, ns = client()
 		local Backend = ns.Backend

@@ -608,6 +608,23 @@ function FontStringMethods:GetFont()
 	return self._font, self._size, self._flags
 end
 
+function FontStringMethods:SetShadowOffset(x, y)
+	self._shadowX, self._shadowY = x, y
+end
+
+function FontStringMethods:GetShadowOffset()
+	return self._shadowX or 0, self._shadowY or 0
+end
+
+function FontStringMethods:SetShadowColor(r, g, b, a)
+	self._shadowColor = { r, g, b, a }
+end
+
+function FontStringMethods:GetShadowColor()
+	local c = self._shadowColor or { 0, 0, 0, 1 }
+	return c[1], c[2], c[3], c[4]
+end
+
 function FontStringMethods:SetText(text)
 	self._text = text ~= nil and tostring(text) or ""
 end
