@@ -12,6 +12,8 @@ local Stub = import("bench/stub")
 -- themselves in whole pixels of the scale they load at (bench/px.lua)
 local Plan, Probes, Px
 local Progress = import("bench/progress")
+local WindowCheck = import("components/windowCheck")
+local WINDOW_CHECK = { key = "window" }
 
 local SCENES = {
 	{ id = "signals-large", component = import("components/signals"), size = "large" },
@@ -75,7 +77,11 @@ return Define.Module({
 	title = "Ordaen Bench",
 
 	Setup = function(game, self)
-		Define.Ephemeral({ scene = { type = "choice", choices = BenchScene, default = BenchScene.None } })
+		Define.Ephemeral({
+			scene = { type = "choice", choices = BenchScene, default = BenchScene.None },
+			-- the library's Window shown for a look in game (/ordaen bench window), never during a round
+			window = { type = "boolean", default = false },
+		})
 		-- the last run's results, one structured line each (bench/driver.lua), read by scripts/bench_save.lua,
 		-- and how many rounds ran (the round's number)
 		Define.Persistent({
@@ -95,6 +101,11 @@ return Define.Module({
 			local mount = mounts[self.state.scene]
 			if mount then
 				self:Mount(mount.component, mount.data)
+			end
+		end)
+		self:Watch(function()
+			if self.state.window then
+				self:Mount(WindowCheck, WINDOW_CHECK)
 			end
 		end)
 
@@ -275,6 +286,9 @@ return Define.Module({
 		end },
 		probes = { help = L.CMD_PROBES, Run = function()
 			start("probes")
+		end },
+		window = { help = L.CMD_WINDOW, Run = function(_, self)
+			self.state.window = not Define.Peek(self.state.window)
 		end },
 	},
 })
