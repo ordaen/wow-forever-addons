@@ -1,8 +1,10 @@
 -- Ordaen Bench: measures the framework in game against hand-written code doing the same (design:
--- development/framework/mvp#the-benchmark). Dev only, never packaged. `/obench` runs every scenario (components/ on
--- the framework, baseline/ by hand; bench/plan.lua says what and how). Every result goes to the module's log
--- (wow_log) and OrdaenBenchDB; after a /reload, `ordaen lua scripts/bench_save.lua` saves the round to bench/results/.
+-- development/framework/mvp#the-benchmark). Dev only, never packaged. `/ordaen bench round` runs every scenario
+-- (components/ on the framework, baseline/ by hand; bench/plan.lua says what and how). Every result goes to
+-- OrdaenBenchDB and, with the debug addon on, over the strip; `ordaen lua scripts/bench_save.lua` saves the round to
+-- bench/results/.
 local Define = import("@ordaen/define")
+local L = import("locales")
 local Driver = import("bench/driver")
 local Stub = import("bench/stub")
 -- the plan and the probes (and through them every hand-written side, the screen check and the pixel sizes) load at
@@ -58,6 +60,10 @@ local GRAPHICS = {
 }
 
 local RECORD_LINES = 500 -- result lines per record sent over the strip
+
+-- Starts a run of `mode` ("round", "check", "variants", "probes"): made by the module's setup, which holds the
+-- run's state; the commands call it
+local start
 
 ---@enum BenchScene
 local BenchScene = { None = "none" }
@@ -144,16 +150,8 @@ return Define.Module({
 			print("|cff88ccffOrdaen Bench|r " .. text)
 		end
 
-		-- a dev tool's own slash command (modules get `commands` after the MVP)
-		SLASH_ORDAENBENCH1 = "/obench"
 		local runs = 0 -- runs this session: the first has the cold block (a fresh session), later ones skip it
-		-- `/obench`: a round. `/obench check`: the same plan with a few calls per series, for the checks only
-		-- (bench_save reports its checks and never records it). `/obench variants`: a round with the framework's
-		-- variants (naive, itemsRead) too. `/obench probes`: only the probes (bench/probes.lua:
-		-- what WoW's calls cost, for the backend's owner), never part of a round.
-		SlashCmdList.ORDAENBENCH = function(message)
-			local word = (message or ""):match("^%s*(%a*)%s*$")
-			local mode = (word == "check" or word == "probes" or word == "variants") and word or "round"
+		start = function(mode)
 			if Driver.IsRunning() then
 				Say("already running")
 				return
@@ -175,7 +173,7 @@ return Define.Module({
 			-- the hand sides are sized in whole pixels of the scale they loaded at; the framework follows the scale
 			if not Px.Current() then
 				Say("not running: the UI scale or the resolution changed since the bench's first run. /reload, then"
-					.. " /obench.")
+					.. " /ordaen bench round.")
 				return
 			end
 			runs = runs + 1
@@ -262,4 +260,23 @@ return Define.Module({
 			end)
 		end
 	end,
+
+	-- `/ordaen bench round`: a round. `check`: the same plan with a few calls per series, for the checks only
+	-- (bench_save reports its checks and never records it). `variants`: a round with the framework's variants
+	-- (naive, itemsRead) too. `probes`: only the probes (bench/probes.lua: what WoW's calls cost, for the backend's
+	-- owner), never part of a round.
+	commands = {
+		round = { help = L.CMD_ROUND, Run = function()
+			start("round")
+		end },
+		check = { help = L.CMD_CHECK, Run = function()
+			start("check")
+		end },
+		variants = { help = L.CMD_VARIANTS, Run = function()
+			start("variants")
+		end },
+		probes = { help = L.CMD_PROBES, Run = function()
+			start("probes")
+		end },
+	},
 })

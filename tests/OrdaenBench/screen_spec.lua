@@ -1,5 +1,5 @@
--- The bench's checks offline: the built Ordaen and OrdaenBench run in the fake client (tests/fake/wow.lua), `/obench
--- check` runs the whole plan (every scenario's framework and hand-written sides, the same seeded actions), and every
+-- The bench's checks offline: the built Ordaen and OrdaenBench run in the fake client (tests/fake/wow.lua),
+-- `/ordaen bench check` runs the whole plan (every scenario's framework and hand-written sides, the same seeded actions), and every
 -- check it makes must pass: the screen comparisons (bench/screen.lua: same texts and textures in the same places as
 -- the hand-written side), the state verifies, the level and retention checks. A layout path that draws something
 -- else than hand code fails here before it reaches the game. A second run in the same session (the companion's key
@@ -31,13 +31,13 @@ local function failures(lines)
 	return failed
 end
 
-describe("OrdaenBench /obench check in the fake client", function()
+describe("OrdaenBench /ordaen bench check in the fake client", function()
 	local wow, first, second
 
-	-- One /obench check to its end; a copy of the results it saved.
+	-- One /ordaen bench check to its end; a copy of the results it saved.
 	local function run()
 		local before = #wow.printed
-		assert(wow:Slash("/obench check"), "/obench isn't registered: the bench module didn't load\n"
+		assert(wow:Slash("/ordaen bench check"), "/ordaen bench isn't there: the bench module didn't load\n"
 			.. table.concat(wow.errors, "\n"))
 		local done = false
 		for _ = 1, MAX_FRAMES do

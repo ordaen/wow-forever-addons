@@ -1,11 +1,11 @@
--- The bench's plan. An /obench runs:
+-- The bench's plan. A run (/ordaen bench round, check, variants):
 -- 0. the client's one-time costs paid untimed (a frame, a texture, the bench font);
 -- 1. on the session's first run only, a cold block: opening the large grid on every side while the session is fresh
 --    (the framework's pools empty, the hand sides' frames never made), measured; a later run in the same session
 --    has no cold rows (bench_save compares it with rounds of its own plan shape);
 -- 2. the whole plan, measured. Each series' first calls stay out of its numbers (the driver's warm-up), which keeps
 --    one-time costs (fonts, first textures, Blizzard code running for the first time) out.
--- `/obench check` runs the same plan with a few calls per series: a quick run for the checks, never a round.
+-- `/ordaen bench check` runs the same plan with a few calls per series: a quick run for the checks, never a round.
 -- Every scenario runs on the framework, on the framework with a stub backend (framework-engine: the engine alone,
 -- where something is drawn), written naively (framework-naive: new tables every call, as code reads without the
 -- build's hoisting; grid and ticker), by hand at its best (baseline/) and, where it differs, as a typical addon writes
@@ -35,7 +35,7 @@ local Typical = {
 	ticker = import("typical/ticker"), reorder = import("typical/reorder"),
 }
 
--- calls per series: a round, and a check run (`/obench check`: enough calls to pass the warm-up, then a few)
+-- calls per series: a round, and a check run (`/ordaen bench check`: enough calls to pass the warm-up, then a few)
 -- (checks: series that are there for their checks, chain, diamond and cascade: a few calls past the warm-up)
 local FRAMES, STEADY, IDLE, REPEATS, HEAVY, CHECKS
 local COUNTS = {
@@ -60,7 +60,7 @@ local function Spin()
 	return x
 end
 
---- The steps of one /obench.
+--- The steps of one run.
 ---@param bench table
 ---@param tracked BenchMeasure records the numbers
 ---@param progress fun(line: string) shows what runs now
@@ -139,7 +139,7 @@ function Plan.Steps(bench, tracked, progress, mode, cold)
 			return true
 		end)
 		add(measure:Series(scenario, size, "-", "idle", IDLE, Nothing))
-		-- the framework's variants (naive, itemsRead) run only in a variants round (`/obench variants`)
+		-- the framework's variants (naive, itemsRead) run only in a variants round (`/ordaen bench variants`)
 		if mode ~= "variants" then
 			local kept = {}
 			for k = 1, #sides do

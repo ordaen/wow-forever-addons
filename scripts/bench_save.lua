@@ -279,8 +279,8 @@ local NOTES = {
 		.. " same way, since the world drawn is in every frame time.",
 }
 local READING = {
-	"**One /obench:** a cold block first (the large grid's first open on every side while the session is fresh), then"
-		.. " the whole plan measured; each series' first calls stay out of its numbers. `/obench variants` adds the"
+	"**One round:** a cold block first (the large grid's first open on every side while the session is fresh), then"
+		.. " the whole plan measured; each series' first calls stay out of its numbers. `/ordaen bench variants` adds the"
 		.. " framework's variants.",
 	"**open, close, first open:** each side its own way: the framework mounts from its pools and unmounts; hand code"
 		.. " shows and hides the frames it made once, or rebuilds and drops the state it has instead of frames. **first"
@@ -768,14 +768,15 @@ if fromStrip and (not fromSaved or Split(fromStrip[1])[2] > Split(fromSaved[1])[
 	lines = fromStrip
 	print("the newest run, from the companion's records")
 end
-assert(lines, "no round: run /obench (then /reload, unless the debug addon is on to send it over the strip)")
+assert(lines, "no round: run /ordaen bench round (then /reload, unless the debug addon is on to send it over the"
+	.. " strip)")
 local round, results = Parse(lines)
 if round.mode == "probes" then
 	print("a probes run: its lines are in the probes list and the bench's log, nothing to save")
 	os.exit(0)
 end
 if round.mode == "check" then
-	-- a check run (`/obench check`): its checks reported, never recorded
+	-- a check run (`/ordaen bench check`): its checks reported, never recorded
 	local failed, passed = {}, 0
 	for _, r in ipairs(results) do
 		if r.check and r.check:match("^FAIL") then
@@ -834,7 +835,7 @@ if profile ~= "bench" or benchProfile ~= "bench" then
 		.. ". Rounds count only with both on `ordaen build --profile bench`.")
 	os.exit(1)
 end
--- a round run with the debug addon loaded (the companion pressed /obench; the addon quiet while it ran) is recorded
+-- a round run with the debug addon loaded (the companion started it; the addon quiet while it ran) is recorded
 -- and marked: its frames hold whatever the quiet addon still does, so it's judged only against rounds marked alike
 round.debug = debugLoaded
 -- a round with a failed check isn't recorded: its numbers measured something broken
@@ -924,6 +925,7 @@ print("wrote bench/report.json (" .. #entries .. " rounds)")
 if #entries > 0 then
 	Write("bench/README.md", Markdown(entries[#entries]))
 else
-	Write("bench/README.md", "# Bench\n\nNo rounds yet: run /obench in game, /reload, then `ordaen lua scripts/bench_save.lua`.\n")
+	Write("bench/README.md", "# Bench\n\nNo rounds yet: run /ordaen bench round in game, then"
+		.. " `ordaen lua scripts/bench_save.lua`.\n")
 end
 print("wrote bench/README.md")
