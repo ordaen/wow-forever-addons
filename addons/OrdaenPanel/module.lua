@@ -116,7 +116,7 @@ local function Free(game)
 		game.ui:Text({ attributes = {
 			text = tostring(game.Bags.free:Get()), position = "absolute", right = 3 / 1.2, bottom = 1 / 1.2, textSize = 14 / 1.2,
 			textColor = { 1, 1, 1, 1 }, textFamily = Define.Theme.font.numbers,
-			textShadow = { color = { 0, 0, 0, 1 }, x = 1, y = -1 }, zLevel = 1,
+			textOutline = "thin", zLevel = 1,
 		} })
 	end
 	game.ui:Frame(game.Frame.MainMenuBarBackpackButtonCount, HIDDEN)
