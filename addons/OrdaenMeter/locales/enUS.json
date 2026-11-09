@@ -1,7 +1,0 @@
-{
-  "SETTINGS_TITLE": "Ordaen Meter",
-  "METER_LOOK": "Ordaen look",
-  "METER_LOOK_TOOLTIP": "Draws the game's damage meter in the Ordaen theme. Off: the game's own look returns; its fonts return after /reload.",
-  "BAR_TEXTURE": "Bar texture",
-  "BAR_TEXTURE_TOOLTIP": "The texture of the meter's bars. By default the theme's."
-}

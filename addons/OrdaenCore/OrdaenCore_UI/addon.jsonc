@@ -1,8 +1,0 @@
-// The UI framework module: ships in the Ordaen Core zip, takes Ordaen Core's version, loads on first use.
-{
-  "title": "Ordaen Core - UI",
-  "notes": "The Ordaen UI framework (layout and drawing). Ordaen Core loads it the first time it is needed.",
-  "category": "Libraries",
-  "icon": "Interface\\Icons\\INV_Misc_Gear_01",
-  "loadOnDemand": true
-}

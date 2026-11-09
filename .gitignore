@@ -13,3 +13,6 @@ dist/
 
 # generated LuaLS classes of each addon's settings (ordaen build)
 .ordaen/
+
+# the previous code, kept locally for reference while the framework is rebuilt (design site: development/framework)
+_old/
