@@ -10,7 +10,7 @@ round: the history); the design site's Bench page shows every round. This is the
 - **¹** a single sample (a first opening, a hand make): its frame time is one frame's, not a median.
 - **Built as players run it:** every round is on the bench profile (release stripping, the bench's dev hooks kept) with the debug addon disabled; bench_save refuses any other.
 - **Engine / backend, read with care:** the stub run touches less memory, so the engine runs with warmer caches there and the backend's share reads slightly high. Hand-written drawing leaves its text layout to WoW's drawing, so compare the backend with best's frame column, not its Lua column.
-- **Change:** against the newest earlier comparable round (clean builds); an improvement or a regression is a change of 10% or more (frame changes also beyond the idle spread). Same graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the same way, since the world drawn is in every frame time.
+- **Change:** against the newest earlier comparable round (clean builds); an improvement or a regression is a change of 10% or more beyond the noise (Lua: the row's spread, p95 above median, in either round; frame: the idle spread); single samples (¹) and frame values with collector work (ᵍ) in either round never count. Same graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the same way, since the world drawn is in every frame time.
 
 Reading it:
 
@@ -33,36 +33,24 @@ Compared with: round 7, 2026-11-09 05:45:17 (Core 8332ac6).
 
 ## Improvements
 
-- signals large: close (unmount): Lua -7% (3.586 → 3.320), frame -17%
 - fanout -: close (unmount): Lua +0% (3.843 → 3.851), frame -11%
-- grid large: race: open+close in one frame (framework-itemsRead) ¹: Lua -20% (0.039 → 0.031), frame +9%
 
 ## Regressions
 
-- diamond -: make (pool warm): Lua +13% (0.192 → 0.216)
-- cascade -: close (unmount): Lua +10% (0.063 → 0.069)
 - events -: make (pool warm): Lua +27% (0.216 → 0.275)
-- grid small: race: open+close in one frame ¹: Lua +562% (0.025 → 0.166), frame +16%
-- grid small: race: open+close in one frame (framework-naive) ¹: Lua +10% (0.028 → 0.031), frame +4%
-- grid large: race: open+close in one frame ¹: Lua +13% (0.031 → 0.035), frame -7%
-- grid large: race: open+close in one frame (framework-naive) ¹: Lua -16% (0.039 → 0.033), frame +46%
-- ticker small: all texts/frame (framework-naive): Lua +16% (0.387 → 0.449)
-- sections -: close (unmount): Lua +11% (1.132 → 1.260)
-- tooltip -: show with new content: Lua +46% (0.259 → 0.379)
-- tooltip -: hide: Lua +11% (0.111 → 0.123)
 
 ## Results
 
 | Scenario | Size | Metric | Framework Lua | Engine | Backend | Frame | Best Lua | Frame | Typical Lua | Frame | × best Lua | × best frame | × typical Lua | Net KB | Engine net KB | Kept KB | Engine kept KB | Change Lua | Change frame | Check |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| grid | large | make (cold) ¹ | 66.958 | 16.008 | 50.951 | 72.577 | 5.609 | 8.565 | 7.858 | 10.633 | 11.9 | 8.5 | 8.5 | 19034.5 | 6424.7 | 18813 | 48 | -3% | -4% |  |
+| grid | large | make (cold) ¹ | 66.958 | 16.008 | 50.951 | 72.577 | 5.609 | 8.565 | 7.858 | 10.633 | 11.9 | 8.5 | 8.5 | 19034.5 | 6424.7 | 18813 | 48 |  |  |  |
 | signals | small | make (pool warm) | 2.038 |  |  | 1.556 |  |  |  |  |  |  |  | 1223.8 |  |  |  | +0% | -7% |  |
 | signals | small | 50 writes/frame | 0.336 |  |  | 0.480 | 0.028 | ≈ idle | 0.036 | ≈ idle | 12.0 |  | 9.4 | 0.4 |  |  |  | -3% |  |  |
 | signals | small | close (unmount) | 0.314 |  |  | 0.578 |  |  |  |  |  |  |  | 0.0 |  |  |  | -4% |  |  |
 | signals | small | 50 writes/frame (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
 | signals | large | make (pool warm) | 18.263 |  |  | 18.953 |  |  |  |  |  |  |  | 12511.1 |  |  |  | -3% | -4% |  |
 | signals | large | 500 writes/frame | 3.712 |  |  | 3.803 | 0.258 | ≈ idle | 0.328 | 0.462 | 14.4 |  | 11.3 | 5.8 |  |  |  | -2% | -2% |  |
-| signals | large | close (unmount) | 3.320 |  |  | 3.719 |  |  |  |  |  |  |  | -224.0 |  |  |  | -7% | -17% |  |
+| signals | large | close (unmount) | 3.320 |  |  | 3.719 |  |  |  |  |  |  |  | -224.0 |  |  |  | -7% |  |  |
 | signals | large | 500 writes/frame (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
 | coalesce | - | make (pool warm) | 0.236 |  |  | ≈ idle |  |  |  |  |  |  |  | 147.6 |  |  |  | +5% |  |  |
 | coalesce | - | 1000 writes/frame | 10.491 |  |  | 10.745 | 0.014 | ≈ idle | 10.155 | 10.308 | 771.4 |  | 1.0 | 0.0 |  |  |  | -3% | -3% | ok |
@@ -91,7 +79,7 @@ Compared with: round 7, 2026-11-09 05:45:17 (Core 8332ac6).
 | grid | small | all changed | 3.506 | 2.188 | 1.318 | 4.112 | 0.100 | 0.699 | 0.334 | 0.895 | 35.2 | 5.9 | 10.5 | 0.0 | 0.0 |  |  | -4% | -5% | ok |
 | grid | small | close (unmount) | 3.043 | 0.785 | 2.258 | 2.803 |  |  |  |  |  |  |  | -1.0 | 0.0 |  |  | -1% | -3% |  |
 | grid | small | open+close (remount) | 11.960 | 3.893 | 8.067 | 12.834 |  |  |  |  |  |  |  | 1274.2 | 1274.2 |  |  | -4% | -2% |  |
-| grid | small | race: open+close in one frame ¹ | 0.166 |  |  | 1.550 |  |  |  |  |  |  |  | 0.0 |  |  |  | +562% | +16% | ok |
+| grid | small | race: open+close in one frame ¹ | 0.166 |  |  | 1.550 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | small | race: handle after close ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | small | make (pool warm) (framework-itemsRead) | 9.288 |  |  | 9.546 |  |  |  |  |  |  |  | 1310.0 |  |  |  | +1% | +2% |  |
 | grid | small | steady (shown, unchanged) (framework-itemsRead) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
@@ -99,7 +87,7 @@ Compared with: round 7, 2026-11-09 05:45:17 (Core 8332ac6).
 | grid | small | all changed (framework-itemsRead) | 7.139 |  |  | 7.903 | 0.100 | 0.699 | 0.334 | 0.895 | 71.6 | 11.3 | 21.4 | 0.0 |  |  |  | -1% | -2% | ok |
 | grid | small | close (unmount) (framework-itemsRead) | 3.391 |  |  | 3.863 |  |  |  |  |  |  |  | -0.1 |  |  |  | +4% | +4% |  |
 | grid | small | open+close (remount) (framework-itemsRead) | 12.595 |  |  | 13.416 |  |  |  |  |  |  |  | 1310.0 |  |  |  | +1% | -1% |  |
-| grid | small | race: open+close in one frame (framework-itemsRead) ¹ | 0.030 |  |  | 2.854 |  |  |  |  |  |  |  | 0.0 |  |  |  | -3% | -14% | ok |
+| grid | small | race: open+close in one frame (framework-itemsRead) ¹ | 0.030 |  |  | 2.854 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | small | race: handle after close (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | small | make (pool warm) (framework-naive) | 9.494 |  |  | 10.601 |  |  |  |  |  |  |  | 1553.9 |  |  |  | +3% | +3% |  |
 | grid | small | steady (shown, unchanged) (framework-naive) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
@@ -107,7 +95,7 @@ Compared with: round 7, 2026-11-09 05:45:17 (Core 8332ac6).
 | grid | small | all changed (framework-naive) | 3.672 |  |  | 4.292 | 0.100 | 0.699 | 0.334 | 0.895 | 36.8 | 6.1 | 11.0 | 350.0 |  |  |  | -2% | -2% | ok |
 | grid | small | close (unmount) (framework-naive) | 3.004 |  |  | 2.818 |  |  |  |  |  |  |  | 0.0 |  |  |  | -2% | -7% |  |
 | grid | small | open+close (remount) (framework-naive) | 12.297 |  |  | 13.518 |  |  |  |  |  |  |  | 1553.9 |  |  |  | -0% | +4% |  |
-| grid | small | race: open+close in one frame (framework-naive) ¹ | 0.031 |  |  | 1.570 |  |  |  |  |  |  |  | 0.0 |  |  |  | +10% | +4% | ok |
+| grid | small | race: open+close in one frame (framework-naive) ¹ | 0.031 |  |  | 1.570 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | small | race: handle after close (framework-naive) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | small | one changed (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | small | one changed (same as baseline) (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
@@ -125,9 +113,9 @@ Compared with: round 7, 2026-11-09 05:45:17 (Core 8332ac6).
 | grid | large | steady (shown, unchanged) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
 | grid | large | one changed | 1.836 | 1.817 | 0.019 | 2.506 | <0.01 | 0.665 | 0.012 | ≈ idle |  | 3.8 | 154.3 | 0.1 | 0.1 |  |  | +0% | -2% |  |
 | grid | large | all changed | 18.943 | 11.524 | 7.419 | 20.919 | 0.432 | 1.844 | 1.833 | 3.442 | 43.9 | 11.3 | 10.3 | 0.0 | 0.0 |  |  | -0% | -1% | ok |
-| grid | large | close (unmount) | 17.594 | 4.546 | 13.047 | 18.648 ᵍ |  |  |  |  |  |  |  | -11.7 | 0.0 |  |  | +6% | +3% |  |
+| grid | large | close (unmount) | 17.594 | 4.546 | 13.047 | 18.648 ᵍ |  |  |  |  |  |  |  | -11.7 | 0.0 |  |  | +6% |  |  |
 | grid | large | open+close (remount) | 60.299 | 19.119 | 41.181 | 62.828 |  |  |  |  |  |  |  | 6336.0 | 6336.0 |  |  | +4% | +5% |  |
-| grid | large | race: open+close in one frame ¹ | 0.035 |  |  | 1.485 |  |  |  |  |  |  |  | 0.0 |  |  |  | +13% | -7% | ok |
+| grid | large | race: open+close in one frame ¹ | 0.035 |  |  | 1.485 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | large | race: handle after close ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | large | make (pool warm) (framework-itemsRead) | 47.400 |  |  | 51.045 |  |  |  |  |  |  |  | 6501.3 |  |  |  | +6% | +5% |  |
 | grid | large | steady (shown, unchanged) (framework-itemsRead) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
@@ -135,15 +123,15 @@ Compared with: round 7, 2026-11-09 05:45:17 (Core 8332ac6).
 | grid | large | all changed (framework-itemsRead) | 117.748 |  |  | 120.973 | 0.432 | 1.844 | 1.833 | 3.442 | 272.8 | 65.6 | 64.3 | 0.0 |  |  |  | -3% | -3% | ok |
 | grid | large | close (unmount) (framework-itemsRead) | 18.131 |  |  | 19.921 |  |  |  |  |  |  |  | 0.0 |  |  |  | +9% | +7% |  |
 | grid | large | open+close (remount) (framework-itemsRead) | 61.524 |  |  | 63.607 |  |  |  |  |  |  |  | 6501.3 |  |  |  | +5% | +6% |  |
-| grid | large | race: open+close in one frame (framework-itemsRead) ¹ | 0.031 |  |  | 2.526 |  |  |  |  |  |  |  | 0.0 |  |  |  | -20% | +9% | ok |
+| grid | large | race: open+close in one frame (framework-itemsRead) ¹ | 0.031 |  |  | 2.526 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | large | race: handle after close (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | large | make (pool warm) (framework-naive) | 45.213 |  |  | 49.293 |  |  |  |  |  |  |  | 7734.4 |  |  |  | +5% | +6% |  |
 | grid | large | steady (shown, unchanged) (framework-naive) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
 | grid | large | one changed (framework-naive) | 2.037 |  |  | 2.592 | <0.01 | 0.665 | 0.012 | ≈ idle |  | 3.9 | 171.2 | 360.8 |  |  |  | +2% | +6% |  |
 | grid | large | all changed (framework-naive) | 19.423 |  |  | 21.485 | 0.432 | 1.844 | 1.833 | 3.442 | 45.0 | 11.7 | 10.6 | 1749.9 |  |  |  | -5% | -6% | ok |
-| grid | large | close (unmount) (framework-naive) | 17.671 |  |  | 19.101 |  |  |  |  |  |  |  | 0.0 |  |  |  | +8% | +9% |  |
+| grid | large | close (unmount) (framework-naive) | 17.671 |  |  | 19.101 |  |  |  |  |  |  |  | 0.0 |  |  |  | +8% |  |  |
 | grid | large | open+close (remount) (framework-naive) | 64.141 |  |  | 66.154 |  |  |  |  |  |  |  | 7734.4 |  |  |  | +7% | +6% |  |
-| grid | large | race: open+close in one frame (framework-naive) ¹ | 0.033 |  |  | 2.080 |  |  |  |  |  |  |  | 0.0 |  |  |  | -16% | +46% | ok |
+| grid | large | race: open+close in one frame (framework-naive) ¹ | 0.033 |  |  | 2.080 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | large | race: handle after close (framework-naive) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | large | one changed (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
 | grid | large | one changed (same as baseline) (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
@@ -197,7 +185,7 @@ Compared with: round 7, 2026-11-09 05:45:17 (Core 8332ac6).
 | deep | - | make (pool warm) | 4.144 | 1.356 | 2.788 | 4.112 |  |  |  |  |  |  |  | 598.6 | 598.6 |  |  | -2% | -2% |  |
 | deep | - | leaf signal changed | 0.036 | 0.022 | 0.015 | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 | 0.0 |  |  | -2% |  | ok |
 | deep | - | value through 100 levels | 0.652 | 0.598 | 0.054 | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 2.1 | 0.0 |  |  | +6% |  | ok |
-| deep | - | race: change + close in one frame ¹ | 1.867 |  |  | 4.719 |  |  |  |  |  |  |  | 137.3 |  |  |  | -6% | -1% | ok |
+| deep | - | race: change + close in one frame ¹ | 1.867 |  |  | 4.719 |  |  |  |  |  |  |  | 137.3 |  |  |  |  |  | ok |
 | deep | - | leaf signal changed (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | deep | - | leaf signal changed (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
 | deep | - | value through 100 levels (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
