@@ -36,6 +36,9 @@ describe("Ordaen Panel", function()
 			wow.env.CreateFrame("Frame", name, wow.env.UIParent)
 		end
 		wow.env.CreateFrame("Frame", "MicroMenuContainer", wow.env.UIParent)
+		local count = wow.env.MainMenuBarBackpackButton:CreateFontString("MainMenuBarBackpackButtonCount")
+		count:SetFont("Fonts\\ARIALN.TTF", 12, "")
+		count:SetText("(23)")
 		wow:Login()
 		wow:Tick()
 	end)
@@ -44,6 +47,26 @@ describe("Ordaen Panel", function()
 		for _, name in ipairs(REPLACED) do
 			assert.is_false(wow.env[name]:IsShown(), name .. " is shown")
 		end
+	end)
+
+	it("shows the backpack's free slots in its slot, not Blizzard's count", function()
+		assert.is_false(wow.env.MainMenuBarBackpackButtonCount:IsShown())
+		local function shown(text)
+			for frame in pairs(wow.allFrames) do
+				for _, r in ipairs(frame._regions) do
+					if r.GetText and r:GetText() == text and r:IsVisible() then
+						return true
+					end
+				end
+			end
+			return false
+		end
+		assert.is_true(shown("23"), "no 23")
+		wow.freeSlots = 7
+		wow:Fire("BAG_UPDATE_DELAYED")
+		wow:Tick()
+		assert.is_true(shown("7"), "no 7")
+		assert.is_false(shown("23"), "23 still shown")
 	end)
 
 	it("keeps Blizzard's micro menu box shown but invisible", function()

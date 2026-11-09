@@ -402,16 +402,25 @@ function FrameMethods:SetScale(s)
 	self._scale = s
 end
 
-function FrameMethods:CreateTexture(_, layer)
-	return self._wow:NewRegion("Texture", self, layer)
+-- a named region is a global, as in the game
+local function named(region, name)
+	if name then
+		region._name = name
+		region._wow.env[name] = region
+	end
+	return region
+end
+
+function FrameMethods:CreateTexture(name, layer)
+	return named(self._wow:NewRegion("Texture", self, layer), name)
 end
 
 function FrameMethods:CreateMaskTexture()
 	return self._wow:NewRegion("MaskTexture", self, "ARTWORK")
 end
 
-function FrameMethods:CreateFontString(_, layer, template)
-	local fs = self._wow:NewRegion("FontString", self, layer)
+function FrameMethods:CreateFontString(name, layer, template)
+	local fs = named(self._wow:NewRegion("FontString", self, layer), name)
 	if template then
 		local font = self._wow.env[template] or self._wow:BlizzardFont(template)
 		if not font then
@@ -1481,6 +1490,12 @@ function Wow:MakeEnv()
 	offer("C_FriendList", {
 		GetNumOnlineFriends = function()
 			return 2
+		end,
+	})
+	-- the free bag slots: a spec sets wow.freeSlots and fires BAG_UPDATE_DELAYED
+	offer("C_Container", {
+		CalculateTotalNumberOfFreeBagSlots = function()
+			return wow.freeSlots or 23
 		end,
 	})
 	offer("C_CurrencyInfo", {

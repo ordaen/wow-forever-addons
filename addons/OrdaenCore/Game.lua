@@ -82,7 +82,7 @@ for _, name in ipairs({
 	"CollectionsMicroButton", "EJMicroButton", "HousingMicroButton", "LegacyMicroButton", "MainMenuMicroButton",
 	"HelpMicroButton", "StoreMicroButton", "MicroMenu", "MicroMenuContainer",
 	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
-	"CharacterReagentBag0Slot", "BagBarExpandToggle", "BagsBar",
+	"CharacterReagentBag0Slot", "BagBarExpandToggle", "BagsBar", "MainMenuBarBackpackButtonCount",
 	"MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer", "QuickJoinToastButton",
 }) do
 	FRAME_NAMES[name] = name
@@ -250,7 +250,18 @@ function DOMAINS.Bags()
 			end)
 		end
 	end)
-	local Bags = { Signal = { Toggled = toggled, Changed = RawEvent("BAG_UPDATE_DELAYED") } }
+	local changed = RawEvent("BAG_UPDATE_DELAYED")
+	-- value signal: the free slots in the backpack and bags (what Blizzard's backpack button counts), read at login and
+	-- after each burst of bag changes
+	local Bags = { Signal = { Toggled = toggled, Changed = changed }, free = NewValue(nil) }
+	local function ReadFree()
+		Bags.free:Set(C_Container.CalculateTotalNumberOfFreeBagSlots())
+	end
+	changed:Subscribe(ReadFree, false)
+	Game.Stage.Login:Subscribe(ReadFree, false)
+	if Game.Stage.Login.fired then
+		ReadFree()
+	end
 	--- `fn(item, bag, slot)` for every filled slot; item is Blizzard's ContainerItemInfo.
 	function Bags:Each(fn) -- luacheck: ignore 212
 		local GetInfo = C_Container.GetContainerItemInfo

@@ -90,6 +90,14 @@ for i = 1, #MICRO do
 		game.ui:Embed(game.Frame[frame], CLICK_CALL)
 	end } }
 end
+-- Blizzard's frames the panel replaces, hidden while it's on: the bag bar (what stays in it, the reagent bag the design
+-- leaves out, would sit over the panel's right end), the XP and reputation bars (design status-bars/: ours are drawn
+-- instead) and the micro menu's two buttons the design leaves out (shop, help)
+local HIDDEN = { attributes = { shown = false } }
+-- the micro menu's box, emptied by the panel: invisible, not hidden, since Blizzard's MicroMenu:Layout reads its
+-- buttons' positions (GetEdgeButton), which a hidden box doesn't have
+local INVISIBLE = { attributes = { opacity = 0 } }
+
 -- The bags, left to right (design/panel): the backpack, then the four bags. Each is a slot on the wood (design
 -- ItemSlot: 38 px, a bronze edge inside it) holding Blizzard's button with only its icon showing (look = "icon"), so
 -- its click, drag and tooltip stay Blizzard's.
@@ -101,11 +109,26 @@ local SLOT = { width = SLOT_SIDE, height = SLOT_SIDE, border = Define.Theme.pane
 local SLOT_BUTTON = { attributes = {
 	position = "absolute", left = 1, top = 1, width = SLOT_SIDE - 2, height = SLOT_SIDE - 2, look = "icon",
 } }
+-- the backpack's free slots in the slot's lower right (design ItemSlot .n: 14 px bold numbers, white, outlined), over
+-- Blizzard's button; Blizzard's own count, "(23)" under the icon, is hidden
+local function Free(game)
+	if game.Bags.free:Get() then
+		game.ui:Text({ attributes = {
+			text = tostring(game.Bags.free:Get()), position = "absolute", right = 3 / 1.2, bottom = 1 / 1.2, textSize = 14 / 1.2,
+			textColor = { 1, 1, 1, 1 }, textFamily = Define.Theme.font.numbers,
+			textShadow = { color = { 0, 0, 0, 1 }, x = 1, y = -1 }, zLevel = 1,
+		} })
+	end
+	game.ui:Frame(game.Frame.MainMenuBarBackpackButtonCount, HIDDEN)
+end
 local BAG_CALLS = {}
 for i = 1, #BAGS do
 	local frame = BAGS[i]
 	BAG_CALLS[i] = { key = i, attributes = SLOT, slots = { default = function(game)
 		game.ui:Embed(game.Frame[frame], SLOT_BUTTON)
+		if i == 1 then
+			Free(game)
+		end
 	end } }
 end
 
@@ -142,13 +165,6 @@ local function BagButtons(game)
 	end
 end
 
--- Blizzard's frames the panel replaces, hidden while it's on: the bag bar (what stays in it, the reagent bag the design
--- leaves out, would sit over the panel's right end), the XP and reputation bars (design status-bars/: ours are drawn
--- instead) and the micro menu's two buttons the design leaves out (shop, help)
-local HIDDEN = { attributes = { shown = false } }
--- the micro menu's box, emptied by the panel: invisible, not hidden, since Blizzard's MicroMenu:Layout reads its
--- buttons' positions (GetEdgeButton), which a hidden box doesn't have
-local INVISIBLE = { attributes = { opacity = 0 } }
 
 local MICRO_CALL = { attributes = MICRO_ROW, slots = { default = MicroButtons } }
 -- the character button as a cell: the face, round with a thin dark rim (design .face, 40 px), with Blizzard's button
