@@ -142,9 +142,10 @@ local function BagButtons(game)
 	end
 end
 
--- Blizzard's bag bar, hidden while the panel holds its bag buttons: what stays in it (the reagent bag, which the design
--- leaves out) would sit over the panel's right end
-local BAGS_BAR_HIDDEN = { attributes = { shown = false } }
+-- Blizzard's frames the panel replaces, hidden while it's on: the bag bar (what stays in it, the reagent bag the design
+-- leaves out, would sit over the panel's right end), the micro menu's box and the XP and reputation bars (design
+-- micromenu/, status-bars/: ours are drawn instead)
+local HIDDEN = { attributes = { shown = false } }
 
 local MICRO_CALL = { attributes = MICRO_ROW, slots = { default = MicroButtons } }
 -- the character button as a cell: the face, round with a thin dark rim (design .face, 40 px), with Blizzard's button
@@ -212,7 +213,7 @@ local function Right(game)
 		textSize = Define.Theme.text.body,
 	} })
 	game.ui:Box(BAG_CALL)
-	game.ui:Frame(game.Frame.BagsBar, BAGS_BAR_HIDDEN)
+	game.ui:Frame(game.Frame.BagsBar, HIDDEN)
 end
 
 local LEFT_CALL = { key = "left", attributes = LEFT, slots = { default = Left } }
@@ -224,6 +225,9 @@ local function Cells(game, self)
 	game.ui:Box(self.state.charButton == CharButton.Button and LEFT_BUTTON_CALL or LEFT_CALL)
 	game.ui:XpBar()
 	game.ui:Box({ attributes = RIGHT, slots = { default = Right } })
+	game.ui:Frame(game.Frame.MicroMenuContainer, HIDDEN)
+	game.ui:Frame(game.Frame.MainStatusTrackingBarContainer, HIDDEN)
+	game.ui:Frame(game.Frame.SecondaryStatusTrackingBarContainer, HIDDEN)
 end
 
 return Define.Module({

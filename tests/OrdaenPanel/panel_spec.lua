@@ -1,7 +1,7 @@
 -- Ordaen Panel on the fake client, as built: Blizzard's own buttons it embeds (the micro menu over our cells, the bag
 -- buttons) each get their own place in the panel. Several frames embedded from one call site in a loop are told
 -- apart: none takes another's place, and none goes back to Blizzard's layout. Blizzard's bag bar, left with what the
--- panel doesn't show, is hidden.
+-- panel doesn't show, is hidden, and so are the micro menu's box and Blizzard's XP and reputation bars.
 local Fake = require("tests.fake.wow")
 
 local DIST = ".ordaen/check/dist"
@@ -16,6 +16,9 @@ local BLIZZARD = {
 local BAGS = { "MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot",
 	"CharacterBag3Slot" }
 
+-- Blizzard's frames the panel draws its own of, left empty or unused
+local REPLACED = { "MicroMenuContainer", "MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer" }
+
 describe("Ordaen Panel", function()
 	local wow, home
 
@@ -27,8 +30,17 @@ describe("Ordaen Panel", function()
 			f:SetSize(45, 45)
 			f:SetPoint("CENTER", home, "CENTER", 0, 0)
 		end
+		for _, name in ipairs(REPLACED) do
+			wow.env.CreateFrame("Frame", name, wow.env.UIParent)
+		end
 		wow:Login()
 		wow:Tick()
+	end)
+
+	it("hides Blizzard's micro menu box and XP and reputation bars", function()
+		for _, name in ipairs(REPLACED) do
+			assert.is_false(wow.env[name]:IsShown(), name .. " is shown")
+		end
 	end)
 
 	it("raises no Lua errors", function()

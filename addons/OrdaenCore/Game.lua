@@ -75,7 +75,7 @@ end
 
 --- Blizzard's frames by reference: `game.Frame.CombinedBags:Get()`.
 local FRAME_NAMES = { CombinedBags = "ContainerFrameCombinedBags", Minimap = "Minimap", Merchant = "MerchantFrame" }
--- the micro menu, the bag bar and the social button by the chat, under their own names (every one in the dump of 70862)
+-- the micro menu, the bag bar, the XP and reputation bars and the social button by the chat, under their own names (every one in the dump of 70862)
 for _, name in ipairs({
 	"CharacterMicroButton", "PlayerSpellsMicroButton", "SpellbookMicroButton", "TalentMicroButton",
 	"ProfessionMicroButton", "AchievementMicroButton", "QuestLogMicroButton", "GuildMicroButton", "LFDMicroButton",
@@ -83,7 +83,7 @@ for _, name in ipairs({
 	"HelpMicroButton", "StoreMicroButton", "MicroMenu", "MicroMenuContainer",
 	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
 	"CharacterReagentBag0Slot", "BagBarExpandToggle", "BagsBar",
-	"QuickJoinToastButton",
+	"MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer", "QuickJoinToastButton",
 }) do
 	FRAME_NAMES[name] = name
 end
