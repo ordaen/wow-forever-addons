@@ -528,6 +528,33 @@ describe("backend styles", function()
 		assert.are.equal(drawn + 1, wow.faces)
 	end)
 
+	it("draws a switch: its track three-sliced with round caps, its knob whole (no caps), the row by its token", function()
+		local _, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local track = Backend:Create("box")
+		Backend:Set(track, { position = "absolute", left = 0, top = 0, width = 32, height = 17,
+			background = ref("ctl.switchOn") })
+		local knob = Backend:Create("box")
+		Backend:Set(knob, { position = "absolute", left = 12.5, top = -2.5, width = 22, height = 22,
+			background = ref("ctl.knobOn") })
+		Backend:SetChildren(track, { knob }, 1)
+		Backend:SetChildren(layer, { track }, 1)
+		Backend:Flush()
+		local s = track.slices
+		assert.is_true(s[1]:IsShown() and s[2]:IsShown() and s[3]:IsShown())
+		local _, _, top, bottom = s[2]:GetTexCoord()
+		assert.are.equal(0.25, top) -- row 1 of 4: on
+		assert.are.equal(0.5, bottom)
+		local k = knob.slices
+		assert.is_false(k[1]:IsShown()) -- no caps: the knob isn't stretched
+		assert.is_false(k[3]:IsShown())
+		assert.is_true(k[2]:IsShown())
+		assert.is_true(k[1]:GetWidth() > 0) -- a hair's width, never 0 (the file's own size)
+		local left, right, kTop = k[2]:GetTexCoord()
+		assert.are.same({ 0, 1, 0.5 }, { left, right, kTop }) -- the whole width of row 1 of 2
+	end)
+
 	it("draws a panel cell three-sliced, following the Blizzard button inside it, its icon following it", function()
 		local wow, ns = client()
 		local Backend = ns.Backend

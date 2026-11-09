@@ -708,16 +708,19 @@ function Node:Slices(key, sublevel, file)
 	return list
 end
 
+-- Art without caps (cap = 0: a knob, an icon drawn whole) hides them; they keep a hair's width, never 0 (a region's
+-- width 0 can mean "the file's own size").
 local function sliceRow(list, capW, u, row, rows)
 	local v0, v1 = row / rows, (row + 1) / rows
-	list[1]:SetWidth(capW)
-	list[3]:SetWidth(capW)
+	local caps = capW > 0
+	list[1]:SetWidth(caps and capW or 0.001)
+	list[3]:SetWidth(caps and capW or 0.001)
 	list[1]:SetTexCoord(0, u, v0, v1)
 	list[2]:SetTexCoord(u, 1 - u, v0, v1)
 	list[3]:SetTexCoord(1 - u, 1, v0, v1)
-	for i = 1, 3 do
-		list[i]:Show()
-	end
+	list[1]:SetShown(caps)
+	list[2]:Show()
+	list[3]:SetShown(caps)
 end
 
 local function hideSlices(list)

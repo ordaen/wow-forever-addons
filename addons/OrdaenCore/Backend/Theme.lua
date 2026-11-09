@@ -67,6 +67,17 @@ ns.Theme = {
 		capHeight = 1 },
 	["panel.xpTube"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube", size = { 256, 64 }, cap = 64,
 		capHeight = 1 },
+	-- the settings switch (design controls/switch), rendered from it at 3.2 texels a px: the track, a pill three-sliced
+	-- with round caps (rows 0 off, 1 on, 2 the hover ring over either), and the knob drawn whole in a 26 px square
+	-- (the 14 px knob and the on knob's glow; rows 0 off, 1 on)
+	["ctl.switchOff"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-switch-track", size = { 128, 256 },
+		cap = 32, capHeight = 0.5, rows = 4, normal = 0, glow = 2 },
+	["ctl.switchOn"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-switch-track", size = { 128, 256 },
+		cap = 32, capHeight = 0.5, rows = 4, normal = 1, glow = 2 },
+	["ctl.knobOff"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-switch-knob", size = { 64, 128 }, cap = 0,
+		capHeight = 0, rows = 2, normal = 0 },
+	["ctl.knobOn"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-switch-knob", size = { 64, 128 }, cap = 0,
+		capHeight = 0, rows = 2, normal = 1 },
 	-- a count on a cell (the friends online on the social button; design .mbadge): a green pill with a black ring and a
 	-- faint top highlight, round caps half its height wide; the box gives it 16 px height, the text and side padding
 	["panel.countBadge"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\panel-count-badge", size = { 128, 64 },
