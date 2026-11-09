@@ -117,28 +117,38 @@ local function Near(a, b)
 	return a == nil and b == nil or a ~= nil and b ~= nil and abs(a - b) <= TOLERANCE
 end
 
---- Whether `side` shows what `reference` does; else false and the first difference.
+local function Only(list, kind)
+	local out = {}
+	for i = 1, #list do
+		if list[i].kind == kind then
+			out[#out + 1] = list[i]
+		end
+	end
+	return out
+end
+
+-- The first difference between two lists of one kind, or nil.
+local function FirstDifference(side, reference, kind)
+	for i = 1, math.max(#side, #reference) do
+		local a, b = side[i], reference[i]
+		if not a or not b or a.text ~= b.text or not Near(a.x, b.x) or not Near(a.y, b.y) or not Near(a.w, b.w)
+			or not Near(a.h, b.h) then
+			return format("%d %ss, the baseline %d; #%d shows %s where the baseline shows %s", #side, kind,
+				#reference, i, Describe(a), Describe(b))
+		end
+	end
+end
+
+--- Whether `side` shows what `reference` does; else false and the first difference in its texts and the first in
+--- its textures (both, so one run shows every kind of difference).
 ---@param side table[]
 ---@param reference table[]
 ---@return boolean, string|nil
 function Screen.Same(side, reference)
-	local texts, refTexts = 0, 0
-	for i = 1, #side do
-		texts = texts + (side[i].kind == "text" and 1 or 0)
-	end
-	for i = 1, #reference do
-		refTexts = refTexts + (reference[i].kind == "text" and 1 or 0)
-	end
-	if texts ~= refTexts or #side ~= #reference then
-		return false, format("%d texts and %d textures, not %d and %d", texts, #side - texts, refTexts,
-			#reference - refTexts)
-	end
-	for i = 1, #side do
-		local a, b = side[i], reference[i]
-		if a.kind ~= b.kind or a.text ~= b.text or not Near(a.x, b.x) or not Near(a.y, b.y) or not Near(a.w, b.w)
-			or not Near(a.h, b.h) then
-			return false, "shows " .. Describe(a) .. " where the baseline shows " .. Describe(b)
-		end
+	local texts = FirstDifference(Only(side, "text"), Only(reference, "text"), "text")
+	local textures = FirstDifference(Only(side, "texture"), Only(reference, "texture"), "texture")
+	if texts or textures then
+		return false, (texts or "texts match") .. " // " .. (textures or "textures match")
 	end
 	return true
 end

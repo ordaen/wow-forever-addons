@@ -1,7 +1,7 @@
 -- reorder, by hand: one font string per row id, made once (removed ones pooled); after a change of order only the
 -- rows whose position changed are anchored again.
 local FONT = import("bench/font")
-local ROWS, LINE = 500, 14
+local ROWS, LINE = 500, import("bench/line")
 
 local Reorder = {}
 

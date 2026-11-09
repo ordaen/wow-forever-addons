@@ -2,7 +2,7 @@
 -- texts are set (the bench calls the handler as the game's OnEvent would).
 local FONT = import("bench/font")
 
-local BAGS, LINE = 5, 14
+local BAGS, LINE = 5, import("bench/line")
 
 local Events = {}
 

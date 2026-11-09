@@ -2,7 +2,7 @@
 -- rest (only those that change) and sets the list's height.
 local FONT = import("bench/font")
 
-local MOST, LINE, PAD = 150, 14, 2
+local MOST, LINE, PAD = 150, import("bench/line"), 2
 
 local Rows = {}
 

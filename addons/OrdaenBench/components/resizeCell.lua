@@ -1,7 +1,7 @@
 -- One cell of the resize scenario: a box 24 high, as wide as its column, with its number.
 local Define = import("@ordaen/define")
 
-local CELL = { height = 24, background = Define.Theme.color.border }
+local CELL = { height = 24, xAlign = "center", yAlign = "center", background = Define.Theme.color.border }
 
 local function Label(game, self)
 	game.ui:Text(self.text)

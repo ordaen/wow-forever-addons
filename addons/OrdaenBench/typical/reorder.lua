@@ -3,7 +3,7 @@
 local FONT = import("bench/font")
 local format = string.format
 
-local ROWS, LINE = 500, 14
+local ROWS, LINE = 500, import("bench/line")
 
 local Reorder = {}
 

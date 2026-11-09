@@ -2,7 +2,7 @@
 -- keeps, and re-anchors only those whose place changed.
 local FONT = import("bench/font")
 
-local ITEMS, LINE = 500, 14
+local ITEMS, LINE = 500, import("bench/line")
 
 local Filter = {}
 

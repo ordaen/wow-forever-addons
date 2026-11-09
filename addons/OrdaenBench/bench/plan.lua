@@ -412,19 +412,19 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 		for _, size in ipairs({ "small", "large" }) do
 			local scene = "grid-" .. size
 			local count = size == "small" and 200 or 1000
-			--- Random cells changed to random numbers of varying width (one changed), and every cell to a new random
+			--- Random cells changed to random numbers of 1 to 4 digits, which fit a cell (one changed), and every cell to a new random
 			--- number (all changed): the same sequences on every side.
 			local function OneChanged(set)
 				local rng = Random.New()
 				return function()
-					set(rng:Next(count), rng:Next(99999))
+					set(rng:Next(count), rng:Next(9999))
 				end
 			end
 			local function AllChanged(setAll)
 				local rng, values = Random.New(), {}
 				return function()
 					for k = 1, count do
-						values[k] = rng:Next(99999)
+						values[k] = rng:Next(9999)
 					end
 					setAll(values)
 				end, values

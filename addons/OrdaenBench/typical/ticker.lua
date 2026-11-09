@@ -3,7 +3,7 @@ local FONT = import("bench/font")
 local format = string.format
 
 local SIZES = { small = 50, large = 500 }
-local LINE = 14
+local LINE = import("bench/line")
 
 local Ticker = {}
 

@@ -3,7 +3,7 @@
 local FONT = import("bench/font")
 local Words = import("bench/words")
 
-local LINES, LINE, PAD = 10, 14, 8
+local LINES, LINE, PAD = 10, import("bench/line"), 8
 
 local Tooltip = {}
 

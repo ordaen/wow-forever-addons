@@ -3,7 +3,7 @@
 local FONT = import("bench/font")
 local Words = import("bench/words")
 
-local ROWS, DEPTH, PAD, LINE = 50, 5, 2, 14
+local ROWS, DEPTH, PAD, LINE = 50, 5, 2, import("bench/line")
 
 local Grow = {}
 

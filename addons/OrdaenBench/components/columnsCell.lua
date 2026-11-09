@@ -1,7 +1,7 @@
 -- One cell of the columns scenario: 36x36 with its number.
 local Define = import("@ordaen/define")
 
-local CELL = { width = 36, height = 36, background = Define.Theme.color.border }
+local CELL = { width = 36, height = 36, xAlign = "center", yAlign = "center", background = Define.Theme.color.border }
 
 local function Label(game, self)
 	game.ui:Text(self.text)

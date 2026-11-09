@@ -2,6 +2,7 @@
 -- before it (chained anchors); a toggle shows or hides the section's rows and re-anchors only the next header, and
 -- WoW moves everything below it.
 local FONT = import("bench/font")
+local LINE = import("bench/line")
 
 local SECTIONS, ROWS = 20, 10
 
@@ -24,11 +25,13 @@ function Sections.Make()
 	for s = 1, SECTIONS do
 		local header = holder:CreateFontString(nil, "OVERLAY", FONT)
 		header:SetFormattedText("Section %d", s)
+		header:SetHeight(LINE) -- the framework's line pitch
 		headers[s] = header
 		local list, above = {}, header
 		for r = 1, ROWS do
 			local row = holder:CreateFontString(nil, "OVERLAY", FONT)
 			row:SetFormattedText("  row %d.%d", s, r)
+			row:SetHeight(LINE)
 			row:SetPoint("TOPLEFT", above, "BOTTOMLEFT")
 			list[r], above = row, row
 		end
