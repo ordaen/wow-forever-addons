@@ -5,7 +5,8 @@ local Define = import("@ordaen/define")
 local TRACK = {
 	height = 14, border = Define.Theme.panel.barEdge, background = Define.Theme.color.surface,
 }
-local NUMBERS = { textSize = Define.Theme.text.small, textColor = Define.Theme.color.text, textAlign = "center" }
+-- the share of the level done, at the tube's right end (design/panel: "85%"; the numbers belong to its tooltip)
+local NUMBERS = { textSize = Define.Theme.text.small, textColor = Define.Theme.color.text, textAlign = "right" }
 local format = string.format
 
 local function Fill(game, self)
@@ -26,7 +27,7 @@ return Define.Component({
 			position = "absolute", left = 0, top = 0, height = "100%", width = "0%", background = Define.Theme.color.xp,
 		} }
 		local numbers = { attributes = {
-			position = "absolute", left = 0, right = 0, top = 0, bottom = 0, text = "",
+			position = "absolute", left = 0, right = 4, top = 0, bottom = 0, text = "",
 			textSize = NUMBERS.textSize, textColor = NUMBERS.textColor, textAlign = NUMBERS.textAlign,
 		} }
 		return { track = track, rested = rested, xp = xp, numbers = numbers }
@@ -41,9 +42,7 @@ return Define.Component({
 		local restedXp = game.Player.rested:Get() or 0
 		self.xp.attributes.width = format("%.2f%%", 100 * current / max)
 		self.rested.attributes.width = format("%.2f%%", 100 * math.min(current + restedXp, max) / max)
-		self.numbers.attributes.text = restedXp > 0
-			and format("%d / %d (%.1f%%)  +%d", current, max, 100 * current / max, restedXp)
-			or format("%d / %d (%.1f%%)", current, max, 100 * current / max)
+		self.numbers.attributes.text = format("%d%%", math.floor(100 * current / max))
 		game.ui:Box(self.track)
 	end,
 })

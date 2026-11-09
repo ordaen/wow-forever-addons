@@ -6,13 +6,40 @@
 -- taking game and self.
 local Define = import("@ordaen/define")
 
--- The micro menu, left to right: the buttons Forever shows (probed in game, 70862) in Blizzard's order, the character
--- button under the portrait instead, the spellbook and talents in Player Spells, no shop (design/micromenu).
+-- The micro menu, left to right (design/micromenu): our cells with our icons on the wood, each with Blizzard's button
+-- invisible over it, so the click, menus and alerts stay Blizzard's. While Ordaen Spells and Ordaen Social don't exist,
+-- the spellbook and talents keep a button each and the guild's stays (the social one comes with its game.Frame).
 local MICRO = {
-	"PlayerSpellsMicroButton", "ProfessionMicroButton", "AchievementMicroButton", "QuestLogMicroButton",
-	"HousingMicroButton", "GuildMicroButton", "LFDMicroButton", "CollectionsMicroButton", "EJMicroButton",
-	"LegacyMicroButton", "MainMenuMicroButton",
+	{ frame = "ProfessionMicroButton", icon = import("assets/micro-professions.tga") },
+	{ frame = "SpellbookMicroButton", icon = import("assets/micro-spellbookabilities.tga") },
+	{ frame = "TalentMicroButton", icon = import("assets/micro-spectalents.tga") },
+	{ frame = "LegacyMicroButton", icon = import("assets/micro-legacy.tga") },
+	{ frame = "QuestLogMicroButton", icon = import("assets/micro-questlog.tga") },
+	{ frame = "GuildMicroButton", icon = import("assets/micro-guildcommunities.tga") },
+	{ frame = "LFDMicroButton", icon = import("assets/micro-groupfinder.tga") },
+	{ frame = "CollectionsMicroButton", icon = import("assets/micro-collections.tga") },
+	{ frame = "MainMenuMicroButton", icon = import("assets/micro-gamemenu.tga") },
 }
+-- A cell fills the panel below its metal edge (60 - 7 units), 1.075 times as wide: the inside between the cell's side
+-- rims is square (design PanelCell). Icons 35 units (42 px at the user's scale).
+local CELL_HEIGHT = 53
+local CELL_WIDTH = CELL_HEIGHT * 1.075
+local ICON_SIDE = 35
+local CELL = {
+	width = CELL_WIDTH, height = CELL_HEIGHT, background = Define.Theme.panel.cell, xAlign = "center", yAlign = "center",
+}
+local CLICK = { position = "absolute", left = 0, top = 0, width = CELL_WIDTH, height = CELL_HEIGHT, opacity = 0 }
+local CLICK_CALL = { attributes = CLICK }
+-- each button's calls, made once here: its icon, its cell, and Blizzard's button over it
+for i = 1, #MICRO do
+	local m = MICRO[i]
+	local frame = m.frame
+	local iconCall = { attributes = { width = ICON_SIDE, height = ICON_SIDE, background = m.icon } }
+	m.call = { key = i, attributes = CELL, slots = { default = function(game)
+		game.ui:Box(iconCall)
+		game.ui:Embed(game.Frame[frame], CLICK_CALL)
+	end } }
+end
 -- The bags, left to right: the four bags, then the backpack, the reagent bag last (Blizzard's order on screen).
 local BAGS = {
 	"CharacterBag3Slot", "CharacterBag2Slot", "CharacterBag1Slot", "CharacterBag0Slot", "MainMenuBarBackpackButton",
@@ -32,13 +59,12 @@ local BADGE = {
 	xAlign = "center", yAlign = "center",
 }
 local MICRO_ROW = { columns = #MICRO, gap = 0 }
-local MICRO_CELL = { width = 32, height = 40 }
 local BAG_ROW = { columns = #BAGS, gap = 2 }
 local BAG_CELL = { width = 36, height = 36 }
 
 local function MicroButtons(game)
 	for i = 1, #MICRO do
-		game.ui:Embed(game.Frame[MICRO[i]], { key = i, attributes = MICRO_CELL })
+		game.ui:Box(MICRO[i].call)
 	end
 end
 
@@ -92,7 +118,7 @@ return Define.Module({
 			attributes = {
 				position = "absolute", left = 0, right = 0, bottom = 0, height = 60,
 				columns = { PORTRAIT_WIDTH, "auto", "1fr", "auto", "auto" },
-				gap = Define.Theme.spacing.md, padding = { 8, 8, 0, 0 }, yAlign = "center",
+				gap = Define.Theme.spacing.md, padding = { 0, 8, 0, 0 }, yAlign = "center",
 				background = Define.Theme.panel.wood, border = Define.Theme.panel.edge,
 			},
 			slots = { default = Cells },
@@ -100,7 +126,7 @@ return Define.Module({
 		local money = {
 			attributes = { text = "", textColor = Define.Theme.color.text, textSize = Define.Theme.text.body },
 		}
-		local level = { attributes = { text = "", textSize = Define.Theme.text.body, textColor = Define.Theme.color.text } }
+		local level = { attributes = { text = "", textSize = Define.Theme.text.title, textColor = Define.Theme.color.accent } }
 		local badge = { attributes = BADGE, slots = { default = Level } }
 		return { panel = panel, money = money, level = level, badge = badge }
 	end,
