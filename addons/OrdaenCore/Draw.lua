@@ -110,8 +110,13 @@ local function Release(f, e)
 		end
 	else
 		local kids = e.kids
-		if kids and kids.n > 0 then
-			ReleaseEntries(kids)
+		if kids then
+			if kids.n > 0 then
+				ReleaseEntries(kids)
+			end
+			-- the pooled entry keeps its kids fragment for reuse, never its owner: that would keep the unmounted
+			-- instance (and everything it holds) alive until the entry is taken again
+			kids.owner = nil
 		end
 		if e.node then
 			backend:Release(e.node)
