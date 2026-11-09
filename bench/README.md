@@ -28,7 +28,7 @@ Round 7, 2026-11-09 05:45:17; client 70862, 574 fps; Core 8332ac6, Bench f718c8b
 Run with: collector stop, useMaxFPS 0 (maxFPS 120), vsync 0.
 Built: Core bench, Bench bench (profiles). Where: Элвиннский лес, Зеркальное озеро. Graphics: graphicsQuality:0,graphicsViewDistance:0,graphicsEnvironmentDetail:0,graphicsGroundClutter:0,graphicsShadowQuality:0,graphicsLiquidDetail:0,graphicsParticleDensity:1,graphicsSSAO:0,graphicsDepthEffects:0,graphicsTextureResolution:0,graphicsSpellDensity:0,graphicsProjectedTextures:0,graphicsOutlineMode:2,graphicsComputeEffects:0,MSAAQuality:0,ffxAntiAliasingMode:4.
 Loaded addons (2): OrdaenCore, OrdaenBench.
-Frame values marked ᵍ hold collector work WoW ran between frames: signals large close (unmount) (framework): the collector stepped in 3 measured frames; grid large close (unmount) (framework): the collector stepped in 1 measured frames; grid large close (unmount) (framework-naive): the collector stepped in 2 measured frames.
+Frame values marked ᵍ hold collector work WoW ran between frames: signals large close (unmount) (framework): the collector stepped in 3 of 15 measured frames; grid large close (unmount) (framework): the collector stepped in 1 of 15 measured frames; grid large close (unmount) (framework-naive): the collector stepped in 2 of 15 measured frames.
 Compared with: no earlier comparable round.
 
 ## Results
