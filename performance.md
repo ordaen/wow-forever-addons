@@ -123,6 +123,12 @@ enabling the mouse costs nothing at creation.
   used 20.
 - The heap can shrink without a collection: a table resized smaller on a rehash frees memory at once. With the
   collector stopped, closing the large signals scenario shrank the heap by 224 KB per call.
+- `table.freeze(t)` (a Blizzard addition to Lua 5.1, in the API dump) freezes `t` in place and returns the same table;
+  `table.isfrozen(t)` is then true. A write to a frozen table raises an error, through `rawset` too; reads and `pairs`
+  work as before. Checked in game with
+  `/run local t={a=1}; local f=table.freeze(t); print(f==t, table.isfrozen(t), pcall(function() t.b=2 end), pcall(rawset,t,"c",3), t.a)`,
+  which prints `true true false false 1`. So a table the build freezes can't be changed by mistake without failing
+  loudly, and code may cache what it derives from it.
 
 ## Garbage collector
 
