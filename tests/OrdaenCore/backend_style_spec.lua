@@ -404,6 +404,29 @@ describe("backend styles", function()
 		assert.are.same({ 0, 0 }, { t.fs:GetShadowOffset() })
 	end)
 
+	it("outlines a text and sets its lines where textYAlign says, and goes back to plain at the top", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local t = Backend:Create("text")
+		Backend:Set(t, { position = "absolute", left = 0, right = 0, top = 0, bottom = 0, text = "85%",
+			textOutline = "thin", textYAlign = "center" })
+		Backend:SetChildren(layer, { t }, 1)
+		Backend:Flush()
+		local _, _, flags = t.fs:GetFont()
+		assert.are.equal("OUTLINE", flags)
+		assert.are.equal("MIDDLE", t.fs:GetJustifyV())
+		Backend:Set(t, { text = "85%", textOutline = "thick", textYAlign = "end" })
+		Backend:Flush()
+		assert.are.equal("THICKOUTLINE", select(3, t.fs:GetFont()))
+		assert.are.equal("BOTTOM", t.fs:GetJustifyV())
+		Backend:Set(t, { text = "85%" })
+		Backend:Flush()
+		assert.are.equal("", select(3, t.fs:GetFont()))
+		assert.are.equal("TOP", t.fs:GetJustifyV())
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("draws a panel strip: wood covering it, the metal edge along the top only, content below the edge", function()
 		local wow, ns = client()
 		local Backend = ns.Backend
@@ -756,13 +779,16 @@ describe("backend styles", function()
 		Backend:Set(cell, wow.env.table.freeze({ position = "absolute", left = 0, top = 0, width = 56, height = 52,
 			background = ref("panel.cell"), stateFrom = "child" }))
 		local icon = Backend:Create("box")
-		Backend:Set(icon, { width = 37, height = 37, stateFrom = "parent" })
+		Backend:Set(icon, { width = 37, height = 37, stateFrom = "parent", top = { default = 0, pressed = 1 } })
 		local micro = wow.env.CreateFrame("Button", nil, wow.env.UIParent)
 		local button = Backend:Embed(micro)
 		Backend:Set(button, { position = "absolute", left = 0, top = 0, width = 56, height = 52, opacity = 0 })
 		Backend:SetChildren(cell, { icon, button }, 2)
 		Backend:SetChildren(layer, { cell }, 1)
 		Backend:Flush()
+		-- the icon's state is the cell's, the cell's the button's: neither takes the mouse from the button under them
+		assert.is_false(icon.frame:IsMouseEnabled())
+		assert.is_false(cell.frame:IsMouseEnabled())
 		local s = cell.slices
 		assert.is_false(cell.bg:IsShown()) -- the three slices draw it
 		assert.are.equal(cell.pH * 0.2 > 0 and s[1]._w, s[3]._w)

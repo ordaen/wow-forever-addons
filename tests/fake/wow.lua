@@ -112,6 +112,9 @@ function Region:SetParent(parent)
 	if parent then
 		local t = parent[list]
 		t[#t + 1] = self
+		if not self._isRegion then
+			self:SetFrameLevel((parent._level or 0) + 1) -- the game puts a frame one level above its new parent
+		end
 	end
 end
 
@@ -496,8 +499,15 @@ function FrameMethods:IsEventRegistered(event)
 	return l and l[self] or false
 end
 
+-- As the game does: a frame's children move with it, keeping their levels relative to it.
 function FrameMethods:SetFrameLevel(level)
+	local delta = level - (self._level or 0)
 	self._level = level
+	if delta ~= 0 then
+		for _, child in ipairs(self._children) do
+			child:SetFrameLevel((child._level or 0) + delta)
+		end
+	end
 end
 
 function FrameMethods:GetFrameLevel()

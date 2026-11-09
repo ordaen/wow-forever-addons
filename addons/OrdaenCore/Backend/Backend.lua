@@ -54,6 +54,9 @@ ns.Backend = Backend
 
 local STRATA = { screen = "MEDIUM", dialog = "DIALOG", tooltip = "TOOLTIP" }
 local JUSTIFY = { start = "LEFT", center = "CENTER", ["end"] = "RIGHT" }
+local JUSTIFY_V = { center = "MIDDLE", ["end"] = "BOTTOM" } -- start (the default): TOP
+-- textOutline: the font's flags (monochrome: outlined, without smoothing)
+local OUTLINE = { thin = "OUTLINE", thick = "THICKOUTLINE", monochrome = "OUTLINE, MONOCHROME" }
 local EMPTY = {}
 local BLACK = { 0, 0, 0, 1 } -- a text shadow without a colour
 
@@ -63,13 +66,13 @@ local BLACK = { 0, 0, 0, 1 } -- a text shadow without a colour
 local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5, 6, 7, 8
 local next = next
 local GROUP = {
-	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
+	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, textYAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
 	shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET, zLevel = LOOK,
 	desaturate = LOOK, tint = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
 	hoverWithin = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT,
-	text = TEXT, textSize = TEXT, textFamily = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT, maxLength = TEXT,
+	text = TEXT, textSize = TEXT, textFamily = TEXT, textOutline = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT, maxLength = TEXT,
 }
 local LAYOUT_GROUP = { own = OWN, content = CONTENT, position = POSITION, offset = OFFSET, border = BORDER }
 local BOX_KEYS, TEXT_KEYS = {}, {}
@@ -87,7 +90,8 @@ for _, key in ipairs({ "background", "desaturate", "tint", "artOrigin", "anchor"
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
 end
-for _, key in ipairs({ "text", "textSize", "textFamily", "wrap", "textColor", "textShadow", "textAlign", "opacity" }) do
+for _, key in ipairs({ "text", "textSize", "textFamily", "textOutline", "wrap", "textColor", "textShadow", "textAlign",
+	"textYAlign", "opacity" }) do
 	TEXT_KEYS[#TEXT_KEYS + 1] = key
 end
 -- a taken Blizzard frame (Backend:Take): where it sits, its opacity, and `shown = false` (hidden while we hold it)
@@ -171,6 +175,8 @@ end
 local px = 1 -- one screen pixel in UI units (UIParent's)
 local ctx = { screenW = 0, screenH = 0 } ---@type OrdaenLayoutContext
 local lineHeights = {} -- [font][size]: one line in UI units on whole pixels (one value per font and size, not per text)
+-- the same for outlined text, per outline (textOutline: the font's flags)
+local outlinedHeights = { OUTLINE = {}, THICKOUTLINE = {}, ["OUTLINE, MONOCHROME"] = {} }
 -- A frozen attribute table's layout fields, worked out once and copied into every box drawn from it (its column
 -- arrays shared, never written). Only for tables without per-state maps (those depend on each node's hover and
 -- pressed); false for a table that can't be cached. Weak keys: a module's tables go when it does. Pixel sizes are in
@@ -191,6 +197,11 @@ local function updateScreen()
 	if px ~= old then
 		for font in pairs(lineHeights) do
 			lineHeights[font] = nil
+		end
+		for _, cache in pairs(outlinedHeights) do
+			for font in pairs(cache) do
+				cache[font] = nil
+			end
 		end
 		for t in pairs(styles) do
 			styles[t] = nil
@@ -1284,6 +1295,12 @@ function Node:ApplyLook()
 			self.lookJustify = justify
 			fs:SetJustifyH(justify)
 		end
+		-- textYAlign: where the lines sit in the text's box when it's taller than they are (a label over a bar)
+		local justifyV = JUSTIFY_V[resolve(self, a.textYAlign)]
+		if justifyV ~= self.lookJustifyV then
+			self.lookJustifyV = justifyV
+			fs:SetJustifyV(justifyV or "TOP")
+		end
 		if opacity ~= self.lookOpacity then
 			self.lookOpacity = opacity
 			fs:SetAlpha(opacity)
@@ -1432,12 +1449,14 @@ function Node:ApplyLook()
 	end
 end
 
--- One line of `font` at `size`: its line height on whole pixels, measured once per font and size.
-local function lineHeight(fs, font, size)
-	local sizes = lineHeights[font]
+-- One line of `font` at `size` (outlined or not): its line height on whole pixels, measured once per font, size and
+-- outline.
+local function lineHeight(fs, font, size, outline)
+	local cache = outline and outlinedHeights[outline] or lineHeights
+	local sizes = cache[font]
 	if not sizes then
 		sizes = {}
-		lineHeights[font] = sizes
+		cache[font] = sizes
 	end
 	local h = sizes[size]
 	if not h then
@@ -1478,9 +1497,14 @@ function Node:ApplyText()
 	if font == Theme["font.body"] then
 		font = nil
 	end
-	if size ~= self.fontSize or font ~= self.font then
-		self.fontSize, self.font = size, font
-		fs:SetFont(font or Theme["font.body"], size, "")
+	-- textOutline: thin, thick or monochrome, a dark outline around the letters; node.outline only when set
+	local outline = a.textOutline
+	if outline ~= nil then
+		outline = OUTLINE[resolve(self, outline)]
+	end
+	if size ~= self.fontSize or font ~= self.font or outline ~= self.outline then
+		self.fontSize, self.font, self.outline = size, font, outline
+		fs:SetFont(font or Theme["font.body"], size, outline or "")
 	end
 	local wrap = resolve(self, a.wrap) ~= false
 	if wrap ~= self.wrap then
@@ -1499,21 +1523,23 @@ function Node:ApplyText()
 		natW, lineH = pixelsUp(fs:GetStringWidth()), pixelsUp(fs:GetStringHeight())
 		fs:SetWidth(self.pW or 0)
 	else
-		natW, lineH = pixelsUp(fs:GetUnboundedStringWidth()), lineHeight(fs, font or Theme["font.body"], size)
+		natW, lineH = pixelsUp(fs:GetUnboundedStringWidth()), lineHeight(fs, font or Theme["font.body"], size, outline)
 	end
 	local oldW, oldH = self.natW, self.lineH
 	self.natW, self.lineH, self.mW = natW, lineH, nil
 	return Layout.TextResized(self, oldW, oldH)
 end
 
--- A box takes the mouse only with a handler or a per-state map, and never at opacity 0.
+-- A box takes the mouse only with a handler or a per-state map of its own state, and never at opacity 0. A box whose
+-- state comes from elsewhere (`stateFrom`: its parent's, or its embedded child's) leaves the mouse to that one, so
+-- an icon in a cell doesn't cover the cell's button.
 function Node:ApplyMouse()
 	if self.kind ~= "box" or self.embedded then -- an embedded frame keeps its own mouse
 		return
 	end
 	local a = self.a
 	local drag = (a.OnDragStart or a.OnDrag or a.OnDragStop) and true or false
-	local want = (self.states or a.OnClick or a.OnEnter or a.OnLeave or a.hoverWithin or drag)
+	local want = (self.states and a.stateFrom == nil or a.OnClick or a.OnEnter or a.OnLeave or a.hoverWithin or drag)
 		and (self.lookOpacity or 1) > 0 and true or false
 	local frame = self.frame
 	if want ~= self.mouse then
@@ -1822,9 +1848,9 @@ end
 
 -- An embedded button's `look`: "icon" shows only its icon, filling the box (its dark rim cropped), every other
 -- texture of the button transparent (its ring, highlight, pushed and quality art: alpha 0, since Blizzard shows and
--- hides them itself), its texts kept (a bag's free slots); nil, the button as Blizzard draws it. The icon is the
--- button's `icon`/`Icon` field or its <name>IconTexture region.
-local ICON_CROP = 0.07
+-- hides them itself), its texts kept; nil, the button as Blizzard draws it. The icon is the button's `icon`/`Icon`
+-- field or its <name>IconTexture region; its rim is cropped as Blizzard's own UI crops icons (8% each side).
+local ICON_CROP = 0.08
 
 local function iconOf(frame)
 	local icon = rawget(frame, "icon") or rawget(frame, "Icon")

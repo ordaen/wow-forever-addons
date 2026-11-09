@@ -263,6 +263,14 @@ function Plan.Steps(bench, tracked, progress, mode, cold)
 				local errors = backendStats.level_errors or 0
 				return errors == 0, errors .. " boxes not drawn above the frame they sit in"
 			end))
+			add(measure:Check(scenario, size, impl, "every positioned box drawn over the siblings before it", function()
+				if not OrdaenCore._BackendStats then
+					return true
+				end
+				OrdaenCore._BackendStats(backendStats)
+				local errors = backendStats.order_errors or 0
+				return errors == 0, errors .. " positioned boxes drawn under an earlier sibling's children"
+			end))
 		end
 	end
 	--- close, the framework: mount untimed, then unmount timed (unmounted after).
