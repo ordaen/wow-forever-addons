@@ -106,6 +106,52 @@ function Core._ScreenNodes(kind, out)
 	return n
 end
 
+--- Instances the engine mounts while tracking is on, in a weak-keyed set: what a full collection leaves in it after
+--- a close is still referenced from somewhere. For `/obench probes` only (it wraps Mount, so never during a round).
+local tracked = setmetatable({}, { __mode = "k" })
+local mount
+
+---@param on boolean
+function Core._TrackInstances(on)
+	local Engine = ns.Engine
+	if on and not mount then
+		mount = Engine.Mount
+		Engine.Mount = function(...)
+			local instance = mount(...)
+			if instance then
+				tracked[instance] = true
+			end
+			return instance
+		end
+	elseif not on and mount then
+		Engine.Mount = mount
+		mount = nil
+	end
+end
+
+--- The tracked instances a full collection left, unmounted ones by component name ("name count", ...), and how
+--- many are still mounted.
+---@return string
+function Core._SurvivingInstances()
+	collectgarbage("collect")
+	collectgarbage("collect")
+	local dead, alive = {}, 0
+	for instance in pairs(tracked) do
+		if instance._alive then
+			alive = alive + 1
+		else
+			local name = instance._declaration and instance._declaration.name or "?"
+			dead[name] = (dead[name] or 0) + 1
+		end
+	end
+	local parts = {}
+	for name, n in pairs(dead) do
+		parts[#parts + 1] = name .. " " .. n
+	end
+	table.sort(parts)
+	return string.format("%d mounted; unmounted but kept: %s", alive, #parts > 0 and table.concat(parts, ", ") or "none")
+end
+
 --- What the engine holds alive on the screen layer, counted by walking it (no hooks, so nothing is added to the
 --- timed code): component instances, and draw entries (one per box, text or component call). Fills `out`.
 ---@param out { instances: integer, entries: integer }
