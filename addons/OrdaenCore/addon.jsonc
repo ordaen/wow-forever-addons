@@ -1,0 +1,9 @@
+// What the code can't say about Ordaen Core; `ordaen build` derives the rest (file list, dependencies) from the code.
+{
+  "title": "Ordaen", // the one addon; the modules show under it (## Group)
+  "notes": "Ordaen: the framework every Ordaen module runs in. Does nothing on its own.",
+  "category": "User Interface",
+  "icon": "Interface\\Icons\\INV_Misc_Gear_01",
+  "version": "0.0.0", // x-release-please-version
+  "package": { "slug": "ordaen-core" }
+}
