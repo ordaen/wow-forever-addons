@@ -2,7 +2,8 @@
 local Define = import("@ordaen/define")
 local Words = import("bench/words")
 
-local LEVEL = { padding = 2, background = Define.Theme.color.border }
+-- width "auto": each level is its own content's width (a box stretches to its cell otherwise)
+local LEVEL = { width = "auto", padding = 2, background = Define.Theme.color.border }
 
 local function Inside(game, self)
 	game.ui:GrowLevel(self.child)

@@ -264,7 +264,7 @@ function Probes.Steps(measure, bench)
 			local frame = CreateFrame("Frame", nil, layerHolder)
 			frame:SetSize(36, 36)
 			frame:SetPoint("TOPLEFT", (i - 1) % 10 * 38, -floor((i - 1) / 10) % 10 * 38)
-			local texture = frame:CreateTexture(nil, "HIGHLIGHT")
+			local texture = frame:CreateTexture(nil, "ARTWORK")
 			texture:SetAllPoints()
 			texture:SetColorTexture(1, 1, 1, 0.2)
 			layerFrames[i], layerTextures[i] = frame, texture
@@ -284,7 +284,7 @@ function Probes.Steps(measure, bench)
 	Series("draw-layer", "layer", "SetDrawLayerEnabled on each frame", COUNT, function()
 		shown = not shown
 		for i = 1, N do
-			layerFrames[i]:SetDrawLayerEnabled("HIGHLIGHT", shown)
+			layerFrames[i]:SetDrawLayerEnabled("ARTWORK", shown)
 		end
 	end)
 	add(measure:Do(function()

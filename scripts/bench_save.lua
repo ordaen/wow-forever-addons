@@ -137,6 +137,8 @@ local function Parse(lines)
 					round.build[k] = v
 				end
 			end
+		elseif f[1] == "errors" then
+			round.errors = { count = tonumber(f[2]) or 0, first = f[3] or "" }
 		elseif f[1] == "addons" then
 			round.addons = json.array({})
 			for name in (f[2] or ""):gmatch("[^,]+") do
@@ -195,7 +197,8 @@ local NOTES = {
 		.. " drawing, so compare the backend with best's frame column, not its Lua column.",
 	"**Change:** against the newest earlier round with clean builds on the same display; an improvement or a"
 		.. " regression is a change of " .. CHANGE * 100 .. "% or more (frame changes also beyond the idle spread). Same"
-		.. " display, graphics quality and spot in the world (zone and subzone) only.",
+		.. " display, graphics quality and spot in the world (zone and subzone) only; stand in the same place facing the"
+		.. " same way, since the world drawn is in every frame time.",
 }
 local READING = {
 	"**One /obench:** a cold block first (the large grid opened on every side while the session is fresh), then the"
@@ -204,10 +207,17 @@ local READING = {
 		.. " new frames every time. **make (cold)** compares the first opening on every side.",
 	"**grid close and open+close:** the framework unmounts and mounts again (the MVP has no hidden attribute); hand"
 		.. " code hides and shows (\"By hand only\"). Not the same operation: no factor.",
+	"**framework-naive:** grid and ticker written as code reads without the build's lifting and hoisting: new tables"
+		.. " and a new slot function every call. Its rows include lost skipping (a new slot function re-renders the"
+		.. " child), not only allocation.",
 	"**grid steady:** the grid on screen with nothing changing. \"≈ idle\" means the CPU pays nothing for drawing it"
 		.. " at this frame rate (the GPU may); not that drawing is free on every machine.",
 	"**deep, value through 100 levels:** the framework hands the value down as an attribute through every level;"
 		.. " hand code sets the one text directly. Intended: it shows what passing attributes costs.",
+	"**rows, filter, tooltip, sections:** the framework releases the nodes of what goes away and takes them (from its"
+		.. " pools) for what comes back; hand code hides and shows frames it keeps. That difference is in their rows.",
+	"**hover:** the bench calls the cells' frames' OnLeave and OnEnter scripts; WoW finding the frame under the cursor"
+		.. " (hit testing) is the same on every side and isn't measured. No engine side: the stub draws no frames.",
 }
 
 local function Key(r)
@@ -541,23 +551,31 @@ local round, results = Parse(Load(path))
 -- a round is recorded only as players would run it: the Core and the bench built with the bench profile (release
 -- stripping, the bench's dev file kept), and the debug addon not loaded
 local profile = round.build and round.build.core or "?"
+local benchProfile = round.build and round.build.bench or "?"
 local debugLoaded = false
 for _, name in ipairs(round.addons or {}) do
 	if name == "OrdaenCore_Debug" then
 		debugLoaded = true
 	end
 end
-if profile == "dev" and not debugLoaded then
-	-- the one round that measures what the dev build costs: kept to the side, never in the history
+if round.errors and round.errors.count > 0 then
+	print(round.errors.count .. " errors during the round: not recorded (a step that errored left its row missing or"
+		.. " half-measured). First: " .. round.errors.first)
+	os.exit(1)
+end
+if profile == "dev" and benchProfile == "dev" and debugLoaded then
+	-- the one round that measures what our dev setup costs against players' builds (a dev build with the debug
+	-- addon loaded, as we develop): kept to the side, never in the history
 	fs.MakeDirs("bench/dev")
 	local file = "bench/dev/" .. round.date:gsub(" ", "_"):gsub(":", "") .. ".json"
 	Write(file, json.encode({ round = round, builds = { OrdaenCore = Build("OrdaenCore") }, results = results }))
 	print("a dev-profile round: saved to the side, " .. file .. " (not in the history)")
 	os.exit(0)
 end
-if profile ~= "bench" or debugLoaded then
-	print("not recorded: the Core was built with profile " .. profile .. (debugLoaded and ", and OrdaenCore_Debug was loaded" or "")
-		.. ". Rounds count only on `ordaen build --profile bench` with the debug addon disabled.")
+if profile ~= "bench" or benchProfile ~= "bench" or debugLoaded then
+	print("not recorded: OrdaenCore built " .. profile .. ", OrdaenBench built " .. benchProfile
+		.. (debugLoaded and ", and OrdaenCore_Debug was loaded" or "")
+		.. ". Rounds count only with both on `ordaen build --profile bench` and the debug addon disabled.")
 	os.exit(1)
 end
 -- a round with a failed check isn't recorded: its numbers measured something broken

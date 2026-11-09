@@ -35,6 +35,7 @@ local SCENES = {
 	{ id = "bars", component = import("components/bars") },
 	{ id = "sections", component = import("components/sections") },
 	{ id = "events", component = import("components/events") },
+	{ id = "hover", component = import("components/hover") },
 	{ id = "ticker-small", component = import("components/ticker"), size = "small" },
 	{ id = "ticker-large", component = import("components/ticker"), size = "large" },
 	{ id = "reorder", component = import("components/reorder") },
@@ -183,6 +184,8 @@ return Define.Module({
 			Driver.Run(steps, function()
 				Quiet(false)
 				Progress.Hide()
+				local errors = Driver.errors
+				pending[#pending + 1] = "errors|" .. errors.count .. "|" .. table.concat(errors.first, " // ")
 				results:Reset()
 				for i = 1, #pending do
 					results:Insert(pending[i])
@@ -195,7 +198,8 @@ return Define.Module({
 					probed[i] = nil
 				end
 				debug:Logf("round %d: %d lines, %d failed checks", round, results:Len(), tracked.failures)
-				Say(string.format("done: %d failed checks. /reload, then save the round.", tracked.failures))
+				Say(string.format("done: %d failed checks, %d errors. /reload, then save the round.", tracked.failures,
+					errors.count))
 			end)
 		end
 	end,

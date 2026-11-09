@@ -76,3 +76,32 @@ end
 function Core._FireEvent(name, ...)
 	ns.Game.RawEvent(name):Fire(...)
 end
+
+--- Every drawn node of `kind` on the screen layer, in tree order, into `out` (the bench drives their frames' scripts:
+--- a hover without a cursor). Returns how many.
+---@param kind string
+---@param out table[]
+---@return integer
+function Core._ScreenNodes(kind, out)
+	local n = 0
+	local function Walk(node)
+		if node.kind == kind then
+			n = n + 1
+			out[n] = node
+		end
+		local children = node.children
+		if children then
+			for i = 1, node.count or 0 do
+				Walk(children[i])
+			end
+		end
+	end
+	local layer = ns.Game.Layer.Screen.node
+	for i = 1, layer.count or 0 do
+		Walk(layer.children[i])
+	end
+	for i = n + 1, #out do
+		out[i] = nil
+	end
+	return n
+end

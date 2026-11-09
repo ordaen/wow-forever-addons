@@ -23,6 +23,7 @@ local Best = {
 	grow = import("baseline/grow"), rows = import("baseline/rows"), tooltip = import("baseline/tooltip"),
 	filter = import("baseline/filter"), drag = import("baseline/drag"), bars = import("baseline/bars"),
 	sections = import("baseline/sections"), events = import("baseline/events"),
+	hover = import("baseline/hover"),
 }
 local Typical = {
 	signals = import("typical/signals"), coalesce = import("typical/coalesce"), grid = import("typical/grid"),
@@ -628,6 +629,70 @@ function Plan.Steps(bench, round, tracked, silent, progress)
 				add(measure:Series("tooltip", "-", BEST, "hide", REPEATS, Best.tooltip.Hide, { prepare = function()
 					Best.tooltip.ShowWith(7)
 				end }))
+			end },
+		})
+
+		-- hover: the cursor leaves one item cell and enters a random other, through the frames' own OnLeave/OnEnter
+		-- scripts (no stub side: the stub draws no frames to hover)
+		local function Hovers(cells, after)
+			local rng, last = Random.New(), nil
+			return function()
+				if last then
+					local script = last:GetScript("OnLeave")
+					script(last)
+				end
+				last = cells[rng:Next(#cells)]
+				local script = last:GetScript("OnEnter")
+				script(last)
+				if after then
+					after()
+				end
+			end, function()
+				return last
+			end
+		end
+		local hoverFrames, hoverNodes = {}, {}
+		Block("hover", "-", {
+			{ impl = FW, add = function()
+				FwMake("hover", "-", FW, "hover")
+				add(measure:Do(function()
+					local n, k = OrdaenCore._ScreenNodes("box", hoverNodes), 0
+					for i = 1, n do
+						if hoverNodes[i].mouse then
+							k = k + 1
+							hoverFrames[k] = hoverNodes[i].frame
+						end
+					end
+				end))
+				local move, current = Hovers(hoverFrames, flush)
+				add(measure:Series("hover", "-", FW, "hovered item changed", FRAMES, move, { verify = function()
+					if #hoverFrames ~= 100 then
+						return false, #hoverFrames .. " hoverable cells, not 100"
+					end
+					local index
+					for i = 1, #hoverFrames do
+						if hoverFrames[i] == current() then
+							index = i
+						end
+					end
+					local n = OrdaenCore._ScreenTexts(texts)
+					if n ~= 1 or texts[1] ~= "Item " .. tostring(index) then
+						return false, "the line shows " .. tostring(texts[1]) .. ", not Item " .. tostring(index)
+					end
+					local lit = 0
+					for i = 1, #hoverFrames do
+						if hoverFrames[i].node.hovered then
+							lit = lit + 1
+						end
+					end
+					return lit == 1, lit .. " cells lit, not 1"
+				end }))
+				FwClose("hover", "-", FW, "hover")
+			end },
+			{ impl = BEST, add = function()
+				HandMake("hover", "-", BEST, Best.hover.Make)
+				add(measure:Series("hover", "-", BEST, "hovered item changed", FRAMES, (Hovers(Best.hover.Cells()))))
+				add(measure:Do(Best.hover.Hide))
 			end },
 		})
 

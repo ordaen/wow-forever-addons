@@ -42,6 +42,11 @@ local frame
 local running = false
 local capHits = 0 -- the scheduler's "effects kept re-running each other" reports during the run
 
+--- Every error during the run (the debug addon is off in measured rounds, so nothing else shows them): a step that
+--- errored left its row missing or half-measured, so a round with any isn't recorded.
+Driver.errors = { count = 0, first = {} }
+local ERRORS_KEPT = 3
+
 function Driver.IsRunning()
 	return running
 end
@@ -57,6 +62,11 @@ function Driver.Run(steps, done)
 	running = true
 	local previous = geterrorhandler()
 	seterrorhandler(function(message, ...)
+		local errors = Driver.errors
+		errors.count = errors.count + 1
+		if #errors.first < ERRORS_KEPT then
+			errors.first[#errors.first + 1] = (tostring(message):gsub("[|\n]", " "))
+		end
 		if type(message) == "string" and find(message, "effects kept re-running", 1, true) then
 			capHits = capHits + 1
 		end
