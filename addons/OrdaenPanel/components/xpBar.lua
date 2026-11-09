@@ -20,10 +20,10 @@ return Define.Component({
 		-- one call table each, refilled by the render (the widths and the numbers change)
 		local track = { attributes = TRACK, slots = { default = Fill } }
 		local rested = { attributes = {
-			position = "absolute", left = 0, top = 0, bottom = 0, width = "0%", background = Define.Theme.color.xpRested,
+			position = "absolute", left = 0, top = 0, height = "100%", width = "0%", background = Define.Theme.color.xpRested,
 		} }
 		local xp = { attributes = {
-			position = "absolute", left = 0, top = 0, bottom = 0, width = "0%", background = Define.Theme.color.xp,
+			position = "absolute", left = 0, top = 0, height = "100%", width = "0%", background = Define.Theme.color.xp,
 		} }
 		local numbers = { attributes = {
 			position = "absolute", left = 0, right = 0, top = 0, bottom = 0, text = "",

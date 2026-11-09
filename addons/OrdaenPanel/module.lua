@@ -23,7 +23,12 @@ local PORTRAIT_WIDTH, PORTRAIT_HEIGHT = 128, 124
 -- The portrait stands over the panel's left end, flush with the screen's left and bottom edges.
 local PORTRAIT = {
 	position = "fixed", left = 0, bottom = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT,
-	portrait = "player",
+	portrait = "player", mask = Define.Theme.panel.corner,
+}
+-- the level, on a badge on the portrait's rounded corner
+local BADGE = {
+	position = "absolute", right = -6, top = -6, width = 30, height = 30, background = Define.Theme.panel.badge,
+	xAlign = "center", yAlign = "center",
 }
 local MICRO_ROW = { columns = #MICRO, gap = 0 }
 local MICRO_CELL = { width = 32, height = 40 }
@@ -44,7 +49,17 @@ end
 
 local MICRO_CALL = { attributes = MICRO_ROW, slots = { default = MicroButtons } }
 local BAG_CALL = { attributes = BAG_ROW, slots = { default = BagButtons } }
-local PORTRAIT_CALL = { attributes = PORTRAIT }
+local function Badge(game, self)
+	local level = self.level
+	level.attributes.text = tostring(game.Player.level:Get() or "")
+	game.ui:Box(self.badge)
+end
+
+local function Level(game, self)
+	game.ui:Text(self.level)
+end
+
+local PORTRAIT_CALL = { attributes = PORTRAIT, slots = { default = Badge } }
 -- the panel's first column, kept free under the portrait (the portrait itself is placed on the screen, out of the grid)
 local SPACER = { width = PORTRAIT_WIDTH, height = 1 }
 local SPACER_CALL = { attributes = SPACER }
@@ -79,7 +94,9 @@ return Define.Module({
 		local money = {
 			attributes = { text = "", textColor = Define.Theme.color.text, textSize = Define.Theme.text.body },
 		}
-		return { panel = panel, money = money }
+		local level = { attributes = { text = "", textSize = Define.Theme.text.body, textColor = Define.Theme.color.text } }
+		local badge = { attributes = BADGE, slots = { default = Level } }
+		return { panel = panel, money = money, level = level, badge = badge }
 	end,
 
 	Render = function(game, self)
