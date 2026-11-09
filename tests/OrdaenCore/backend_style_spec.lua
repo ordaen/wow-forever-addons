@@ -561,6 +561,34 @@ describe("backend styles", function()
 		assert.is_false(art.tlSide:IsShown())
 	end)
 
+	it("anchors a free box by its point to its parent's, moved from there by left and top; plain offsets again", function()
+		local _, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local CENTER = { point = "CENTER", relativePoint = "CENTER" }
+		local window = Backend:Create("box")
+		Backend:Set(window, { position = "absolute", width = 400, height = 300, anchor = CENTER, left = 30, top = 20 })
+		Backend:SetChildren(layer, { window }, 1)
+		Backend:Flush()
+		local frame = window.frame
+		assert.are.equal(1, frame:GetNumPoints())
+		local point, rel, relPoint, x, y = frame:GetPoint(1)
+		assert.are.same({ "CENTER", "CENTER" }, { point, relPoint })
+		assert.are.equal(layer.frame, rel)
+		assert.is_true(math.abs(x - 30) < 1 and math.abs(y + 20) < 1) -- 30 right, 20 down
+		-- dragged: only the offsets change, the anchor stays
+		Backend:SetField(window, "left", 80)
+		Backend:Flush()
+		point, _, _, x = frame:GetPoint(1)
+		assert.are.equal("CENTER", point)
+		assert.is_true(math.abs(x - 80) < 1)
+		-- no anchor: by its top left again
+		Backend:Set(window, { position = "absolute", width = 400, height = 300, left = 10, top = 10 })
+		Backend:Flush()
+		assert.are.equal(1, frame:GetNumPoints())
+		assert.are.equal("TOPLEFT", (frame:GetPoint(1)))
+	end)
+
 	it("draws one picture across boxes: each box under artOrigin shows its part, wherever the layout puts it", function()
 		local _, ns = client()
 		local Backend = ns.Backend

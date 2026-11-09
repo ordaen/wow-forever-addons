@@ -64,7 +64,7 @@ local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5,
 local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
-	shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK,
+	shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT,
 	text = TEXT, textSize = TEXT, textFamily = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT, maxLength = TEXT,
@@ -78,8 +78,8 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 		TEXT_KEYS[#TEXT_KEYS + 1] = attribute.key
 	end
 end
-for _, key in ipairs({ "background", "artOrigin", "opacity", "portrait", "mask", "overflow", "stateFrom", "OnClick",
-	"OnEnter", "OnLeave", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
+for _, key in ipairs({ "background", "artOrigin", "anchor", "opacity", "portrait", "mask", "overflow", "stateFrom",
+	"OnClick", "OnEnter", "OnLeave", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
@@ -374,7 +374,25 @@ function ctx.place(node)
 		obj, rel = node.frame, node.pos == "fixed" and UIParent or parent.inner or parent.frame
 		w, h = max(snap(node.x + node.w) - x, 0), max(snap(node.y + node.h) - y, 0)
 	end
-	if rel ~= node.pRel or x ~= node.pX or y ~= node.pY then
+	-- anchor { to, point, relativePoint }: a free box attached by its point to another's (to: a drawn box; unset, its
+	-- parent), moved from there by its left and top offsets (x right, y down)
+	local anchor = node.a.anchor
+	if anchor ~= nil and obj == node.frame and (node.pos == "absolute" or node.pos == "fixed") then
+		anchor = resolve(node, anchor)
+		local to = anchor.to
+		rel = to and to.frame or rel
+		x, y = snap(node.offL or 0), snap(node.offT or 0)
+		if anchor ~= node.pAnchor or rel ~= node.pRel or x ~= node.pX or y ~= node.pY then
+			node.pAnchor, node.pRel, node.pX, node.pY = anchor, rel, x, y
+			local point = anchor.point or "TOPLEFT"
+			obj:ClearAllPoints()
+			obj:SetPoint(point, rel, anchor.relativePoint or point, x, -y)
+		end
+	elseif rel ~= node.pRel or x ~= node.pX or y ~= node.pY or node.pAnchor then
+		if node.pAnchor then
+			node.pAnchor = nil
+			obj:ClearAllPoints()
+		end
 		node.pRel, node.pX, node.pY = rel, x, y
 		obj:SetPoint("TOPLEFT", rel, "TOPLEFT", x, -y)
 		if node.lookOrigin then
@@ -2112,7 +2130,7 @@ function Backend:Set(node, attributes)
 	end
 	local key, old
 	local bound = node.bound -- keys a binding writes (SetField): the static table lacks them, and they stay
-	if na > given + (node.nbound or 0) then
+	if na > given then -- more keys than the table gives: some go, unless they're all bound (a bound key may be in it too)
 		key, old = next(own)
 	end
 	while key ~= nil do
