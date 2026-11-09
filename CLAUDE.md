@@ -135,6 +135,9 @@ would have caught it is half a fix: say which check now catches it, or add one.
   - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
 - **Help when busy:** when an owner is busy, any session may do the work in its area (the renderer, Core, an addon). Tell the owner first what you'll change, work on your own branch,
   merge it (rebase, fast-forward), and report back after.
+- **Agree before acting in the game:** before a session reloads the game, runs a bench round, a check run, probes or
+  any test in game, every other session working on the addons agrees first: say what will run and why, and wait until
+  each has answered (a reload or a round in the middle of someone's in-game test spoils both).
 - Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/package.sh`.
 - Commits: Conventional Commits via commitlint (`commitlint.config.mjs`; scope = addon folder name or repo scope), enforced by husky `commit-msg` hook and in CI (PR title + PR commits).
 - Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. release-please bumps `"version"` in the addon's `addon.jsonc` (the line marked `// x-release-please-version`; nested addons take their parent's) — never edit it by hand.
