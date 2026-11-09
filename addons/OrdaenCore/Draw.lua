@@ -188,7 +188,7 @@ end
 function Draw:NewInstance(instance, container)
 	instance._container = container
 	instance._fragment = NewFragment(instance, container)
-	instance._mounted, instance._nMounted = {}, 0
+	instance._nMounted = 0 -- _mounted: made by the first self:Mount (AttachMounted)
 	-- a place lists the module roots only: a child mounted with self:Mount is drawn through its parent's _mounted
 	if container.isPlace and not instance._parent then
 		local n = container.n + 1
@@ -206,7 +206,12 @@ end
 function Draw:AttachMounted(parent, child)
 	local n = parent._nMounted + 1
 	parent._nMounted = n
-	parent._mounted[n] = child
+	local mounted = parent._mounted
+	if not mounted then
+		mounted = {}
+		parent._mounted = mounted
+	end
+	mounted[n] = child
 	MarkDirty(parent._container)
 end
 

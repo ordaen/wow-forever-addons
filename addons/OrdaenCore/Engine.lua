@@ -26,6 +26,10 @@ ns.OnError = OnError
 
 local function Push(holder, revert, a, b, c)
 	local rec, n = holder.rec, holder.nRec
+	if not rec then -- made on the first record: most instances and effects never record anything
+		rec = {}
+		holder.rec = rec
+	end
 	rec[n + 1], rec[n + 2], rec[n + 3], rec[n + 4] = revert, a, b, c
 	holder.nRec = n + 4
 end
@@ -94,7 +98,7 @@ local function NewEffect(instance, fn, isRender, immediate)
 	return setmetatable({
 		instance = instance, fn = fn, isRender = isRender, immediate = immediate or nil,
 		depth = instance._depth, seq = seq, dirty = false, alive = true,
-		sources = {}, nSources = 0, rec = {}, nRec = 0,
+		sources = {}, nSources = 0, nRec = 0, -- rec: made on the first record (Push)
 	}, EffectMeta)
 end
 
@@ -290,13 +294,12 @@ function Engine:Mount(parent, declaration, site, data, container, module, game, 
 	local key = data and data.key
 	local instance = setmetatable({
 		_declaration = declaration, _parent = parent, _depth = parent and parent._depth + 1 or 0,
-		_site = site, _key = key, _game = game, _alive = true, _effects = {}, _nEffects = 0,
-		_path = key ~= nil and (declaration.name .. "#" .. tostring(key)) or declaration.name,
+		_site = site, _key = key, _game = game, _alive = true, _nEffects = 0, -- _effects: made by the first Watch
 		_slots = data and data.slots, _slotOwner = slotOwner,
-		rec = {}, nRec = 0,
+		nRec = 0, -- rec: made on the first record (Push)
 		module = module,
 		attributes = setmetatable({}, AttributesMeta),
-		state = { persistent = {}, ephemeral = {} },
+		-- state: made by the first Define.Persistent or Define.Ephemeral (State.Declare)
 	}, InstanceMeta)
 	if data and data.attributes then
 		Engine.SetAttributes(instance, data.attributes)
@@ -420,7 +423,12 @@ function Instance:Watch(fn, options)
 	local effect = NewEffect(self, fn, false, options and options.immediate)
 	local n = self._nEffects + 1
 	self._nEffects = n
-	self._effects[n] = effect
+	local effects = self._effects
+	if not effects then
+		effects = {}
+		self._effects = effects
+	end
+	effects[n] = effect
 	Push(holder, KillWatch, effect)
 	if not self._pending then
 		Engine:RunEffect(effect)

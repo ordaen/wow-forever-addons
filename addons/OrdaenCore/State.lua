@@ -256,7 +256,12 @@ function State.Declare(instance, spec, persistent)
 	if not instance then
 		error("Ordaen: Define.Persistent and Define.Ephemeral belong directly in a setup", 3)
 	end
-	local store = persistent and instance.state.persistent or instance.state.ephemeral
+	local state = instance.state
+	if not state then -- made by the first declaration: an instance without state has none
+		state = { persistent = {}, ephemeral = {} }
+		instance.state = state
+	end
+	local store = persistent and state.persistent or state.ephemeral
 	local module = instance.module
 	for name, s in pairs(spec) do
 		local meta = METAS[s.type]
@@ -269,7 +274,9 @@ function State.Declare(instance, spec, persistent)
 		local root, path
 		if persistent then
 			root = s.scope == "character" and module.charDb or module.db
-			path = instance._path
+			-- the instance's path: its component, and its key when it has one
+			local key = instance._key
+			path = key ~= nil and (instance._declaration.name .. "#" .. tostring(key)) or instance._declaration.name
 		else
 			root = instance._ephemeral
 			if not root then
