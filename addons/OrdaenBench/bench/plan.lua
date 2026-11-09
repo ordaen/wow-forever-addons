@@ -839,6 +839,16 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 				Show("none")
 			end))
 		end },
+		-- the engine alone (the stub backend) right after: its kept KB splits the framework's between engine and
+		-- backend. Not quite cold for the engine: the framework side's first mount ran its one-time code just before.
+		{ impl = FW_ENGINE, add = UnderStub("grid", "large", function()
+			add(measure:Series("grid", "large", FW_ENGINE, "make (cold)", 1, function()
+				Show("grid-large")
+			end, { kept = true }))
+			add(measure:Do(function()
+				Show("none")
+			end))
+		end) },
 		{ impl = BEST, add = function()
 			add(measure:Series("grid", "large", BEST, "make (cold)", 1, function()
 				Best.grid.Make("large")

@@ -178,7 +178,8 @@ local CHANGE = 0.10 -- a change smaller than 10% is neither an improvement nor a
 
 local COLUMNS = {
 	"Scenario", "Size", "Metric", "Framework Lua", "Engine", "Backend", "Frame", "Best Lua", "Frame", "Typical Lua",
-	"Frame", "× best Lua", "× best frame", "× typical Lua", "Net KB", "Kept KB", "Change Lua", "Change frame", "Check",
+	"Frame", "× best Lua", "× best frame", "× typical Lua", "Net KB", "Engine net KB", "Kept KB",
+	"Engine kept KB", "Change Lua", "Change frame", "Check",
 }
 local HAND_COLUMNS = { "Scenario", "Size", "Metric", "Side", "Lua", "Frame", "Kept KB" }
 local SOURCE_COLUMNS = { "Scenario", "Framework lines", "Best lines", "Typical lines", "Framework chars", "Best chars",
@@ -192,11 +193,14 @@ local NOTES = {
 	"**Engine / backend:** the framework row's Lua time on the stub backend (the engine alone) and the rest (the"
 		.. " drawing backend's share). Lua only: the stub draws nothing, so its frame times mean nothing. The stub's"
 		.. " empty calls (about 0.1 ms per 1000) count as engine time, so the backend's share reads slightly low.",
-	"**Net KB:** Lua heap growth per call (negative: a call that frees). The collector is stopped through every"
-		.. " series, so no time holds collector work; what collecting a scenario's garbage costs is a bench of its"
-		.. " own. **Kept KB** (make"
+	"**Net KB:** Lua heap growth per call (negative: a call that frees, such as a table shrinking). No Lua time"
+		.. " holds collector work: the collector is stopped right before every timed call. Frame time can, where WoW"
+		.. " stepped the collector between frames: those frame values carry ᵍ, and the round lists in how many of the"
+		.. " series' frames (a few: the median likely holds, the p95 likely doesn't). What collecting a scenario's"
+		.. " garbage costs is a bench of its own. **Kept KB** (make"
 		.. " rows): what stays after a full collection. The Lua heap only: WoW frames' own memory is invisible to every"
-		.. " side.",
+		.. " side. **Engine net KB / Engine kept KB:** the same on the stub backend (the engine alone, plus the"
+		.. " stub's bookkeeping); the rest is the drawing backend's.",
 	"**¹** a single sample (a first opening, a hand make): its frame time is one frame's, not a median.",
 	"**Built as players run it:** every round is on the bench profile (release stripping, the bench's dev hooks kept)"
 		.. " with the debug addon disabled; bench_save refuses any other.",
@@ -329,7 +333,15 @@ local function Model(id, saved, previous)
 		orders = json.array({}),
 		source = { columns = SOURCE_COLUMNS, rows = json.array({}) },
 		improvements = json.array({}), regressions = json.array({}), failed = 0,
+		-- the series whose measured frames held a collection step WoW ran between frames (bench/driver.lua)
+		gc = json.array({}),
 	}
+	local gcSeries = {}
+	for _, g in ipairs(round.gc or {}) do
+		gcSeries[g.impl .. "|" .. g.scenario .. "|" .. g.size .. "|" .. g.metric] = g.frames
+		entry.gc[#entry.gc + 1] = string.format("%s %s %s (%s): the collector stepped in %d measured frames",
+			g.scenario, g.size, g.metric, g.impl, g.frames)
+	end
 	local function head(line)
 		entry.header[#entry.header + 1] = line
 	end
@@ -350,6 +362,9 @@ local function Model(id, saved, previous)
 	end
 	if round.addons then
 		head(string.format("Loaded addons (%d): %s.", #round.addons, table.concat(round.addons, ", ")))
+	end
+	if #entry.gc > 0 then
+		head("Frame values marked ᵍ hold collector work WoW ran between frames: " .. table.concat(entry.gc, "; ") .. ".")
 	end
 	if previous then
 		entry.comparedWith = previous.id
@@ -389,6 +404,9 @@ local function Model(id, saved, previous)
 				metric = metric .. " ¹"
 			end
 			local frameText, frame = Frame(r.frameMs, idles[i])
+			if gcSeries[r.impl .. "|" .. key] then
+				frameText = frameText .. " ᵍ"
+			end
 			local bestFrameText, bestFrame = "", nil
 			if best then
 				bestFrameText, bestFrame = Frame(best.r.frameMs, best.idle)
@@ -426,7 +444,9 @@ local function Model(id, saved, previous)
 					best and Lua(best.r.luaMs) or "", bestFrameText, typical and Lua(typical.r.luaMs) or "",
 					typicalFrameText, Factor(r.luaMs, best and best.r.luaMs, LUA_FLOOR), Factor(frame, bestFrame, 0.001),
 					Factor(r.luaMs, typical and typical.r.luaMs, LUA_FLOOR), string.format("%.1f", r.kb or 0),
-					r.keptKb and string.format("%.0f", r.keptKb) or "", changeLua, changeFrame, r.check or "",
+					engine and string.format("%.1f", engine.r.kb or 0) or "",
+					r.keptKb and string.format("%.0f", r.keptKb) or "",
+					engine and engine.r.keptKb and string.format("%.0f", engine.r.keptKb) or "", changeLua, changeFrame, r.check or "",
 				},
 			}
 			entry.rows[#entry.rows + 1] = row
