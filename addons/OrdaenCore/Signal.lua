@@ -281,13 +281,6 @@ local function Kit()
 	return kit
 end
 
-local function Before(a, b)
-	if a.depth ~= b.depth then
-		return a.depth < b.depth
-	end
-	return a.seq < b.seq
-end
-
 -- Set once and never removed: an idle frame costs one empty call (about 0.5 µs), a busy frame no SetScript on and off
 -- (bench round 9: attaching per busy frame cost about 1.5 µs more per busy frame, and made writes 14x dearer)
 local function OnUpdate()
@@ -311,11 +304,11 @@ end
 ---@param effect table
 function Scheduler.Queue(effect)
 	size = size + 1
-	local i = size
+	local i, order = size, effect.order
 	while i > 1 do -- sift up
 		local parent = (i - i % 2) / 2
 		local above = heap[parent]
-		if not Before(effect, above) then
+		if order >= above.order then
 			break
 		end
 		heap[i] = above
@@ -331,16 +324,16 @@ local function Pop()
 	heap[size] = nil
 	size = size - 1
 	if size > 0 then
-		local i = 1
+		local i, order = 1, last.order
 		while true do -- sift down
 			local child = i * 2
 			if child > size then
 				break
 			end
-			if child < size and Before(heap[child + 1], heap[child]) then
+			if child < size and heap[child + 1].order < heap[child].order then
 				child = child + 1
 			end
-			if not Before(heap[child], last) then
+			if heap[child].order >= order then
 				break
 			end
 			heap[i] = heap[child]

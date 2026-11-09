@@ -97,7 +97,8 @@ local function NewEffect(instance, fn, isRender, immediate)
 	seq = seq + 1
 	return setmetatable({
 		instance = instance, fn = fn, isRender = isRender, immediate = immediate or nil,
-		depth = instance._depth, seq = seq, dirty = false, alive = true,
+		-- the scheduler's order, one number: parents first (depth), then creation order (seq < 2^32)
+		order = instance._depth * 4294967296 + seq, dirty = false, alive = true,
 		sources = {}, nSources = 0, nRec = 0, -- rec: made on the first record (Push)
 	}, EffectMeta)
 end
