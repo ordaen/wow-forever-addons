@@ -142,15 +142,13 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - **Help when busy:** when an owner is busy, any session may do the work in its area (the renderer, Core, an addon),
   and a session that needs something from a busy owner does it itself. Tell the owner first what you'll change, work on
   your own branch, merge it (rebase, fast-forward), and report back after.
-- **The sessions:** with the user they go by codenames: Plumb (dev tools: the CLI, the companion, the debug addon, the
-  design site), Metronome (the engine, the bench, Core), Loom (the drawing backend). Session ids change on a restart:
-  find the others with ListAgents.
 - **Agree before acting in the game:** before a session reloads the game, runs a bench round, a check run, probes or
   any test in game, every other session working on the addons agrees first: say what will run and why, and wait until
   each has answered (a reload or a round in the middle of someone's in-game test spoils both).
-- **Slack:** the sessions and the user share one thread. A message that names no session is answered by Plumb alone;
-  the others read it and do their part without posting. A message that starts with a session's name is that
-  session's to answer. Reaching the user unasked (a blocker, a question, finished work) goes to the same thread.
+- **Slack:** the sessions and the user share one thread. A message that names no session is answered by one session
+  only, the dev-tools one; the others read it and do their part without posting. A message that starts with a
+  session's name is that session's to answer. Reaching the user unasked (a blocker, a question, finished work) goes to
+  the same thread.
 - **What the companion may press:** the dev addon's keys (reload, probes, bench) and the player's own keys that open
   windows (`wow_open`). Never movement, abilities or anything bot-like.
 - **Long work runs in the background:** builds, lints, tests, probes, watch loops and repro runs, always; keep talking
