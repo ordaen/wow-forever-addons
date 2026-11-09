@@ -1090,6 +1090,26 @@ function Plan.Steps(bench, tracked, progress, mode)
 	-- 2. the measured pass
 	measure, passName = tracked, "measured"
 	Pass()
+	-- 3. nothing kept after a close: each scene opened and closed twice with instance tracking on (OrdaenCore's
+	-- Bench.dev.lua); after a full collection no unmounted instance may survive (one would keep what it holds alive)
+	for _, scene in ipairs({ "grid-large", "reorder", "grow", "deep", "sections", "hover" }) do
+		add(tracked:Do(function()
+			OrdaenCore._TrackInstances(true)
+		end))
+		for _ = 1, 2 do
+			add(tracked:Do(function()
+				bench.Show(scene)
+			end))
+			add(tracked:Do(function()
+				bench.Show("none")
+			end))
+		end
+		add(tracked:Check("retention", "-", FW, scene .. ": nothing kept after a close", function()
+			local text, kept = OrdaenCore._SurvivingInstances()
+			OrdaenCore._TrackInstances(false)
+			return kept == 0, text
+		end))
+	end
 	totals.blocks = blocks
 	return steps
 end

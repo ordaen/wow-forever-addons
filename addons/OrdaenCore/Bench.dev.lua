@@ -107,7 +107,8 @@ function Core._ScreenNodes(kind, out)
 end
 
 --- Instances the engine mounts while tracking is on, in a weak-keyed set: what a full collection leaves in it after
---- a close is still referenced from somewhere. For `/obench probes` only (it wraps Mount, so never during a round).
+--- a close is still referenced from somewhere. Used after a round's measured plan (it wraps Mount while on, so never
+--- around a timed call).
 local tracked = setmetatable({}, { __mode = "k" })
 local mount
 
@@ -129,19 +130,20 @@ function Core._TrackInstances(on)
 	end
 end
 
---- The tracked instances a full collection left, unmounted ones by component name ("name count", ...), and how
---- many are still mounted.
----@return string
+--- The tracked instances a full collection left: a description (unmounted ones by component name, and how many are
+--- still mounted) and how many unmounted ones are kept.
+---@return string, integer
 function Core._SurvivingInstances()
 	collectgarbage("collect")
 	collectgarbage("collect")
-	local dead, alive = {}, 0
+	local dead, alive, kept = {}, 0, 0
 	for instance in pairs(tracked) do
 		if instance._alive then
 			alive = alive + 1
 		else
 			local name = instance._declaration and instance._declaration.name or "?"
 			dead[name] = (dead[name] or 0) + 1
+			kept = kept + 1
 		end
 	end
 	local parts = {}
@@ -149,7 +151,8 @@ function Core._SurvivingInstances()
 		parts[#parts + 1] = name .. " " .. n
 	end
 	table.sort(parts)
-	return string.format("%d mounted; unmounted but kept: %s", alive, #parts > 0 and table.concat(parts, ", ") or "none")
+	return string.format("%d mounted; unmounted but kept: %s", alive, #parts > 0 and table.concat(parts, ", ") or "none"),
+		kept
 end
 
 --- What the engine holds alive on the screen layer, counted by walking it (no hooks, so nothing is added to the

@@ -30,27 +30,6 @@ function Probes.Steps(measure, bench)
 
 	Series("idle", "-", "nothing", COUNT, Nothing)
 
-	-- 0. retention: instances a close leaves referenced. Each scene opened and closed twice with instance tracking
-	-- on; after a full collection, what survives unmounted is held from somewhere (OrdaenCore's Bench.dev.lua)
-	for _, scene in ipairs({ "grid-large", "reorder", "grow", "deep" }) do
-		add(measure:Do(function()
-			OrdaenCore._TrackInstances(true)
-		end))
-		for _ = 1, 2 do
-			add(measure:Do(function()
-				bench.Show(scene)
-			end))
-			add(measure:Do(function()
-				bench.Show("none")
-			end))
-		end
-		add(measure:Info("probe", "retention", scene, "after 2 opens and closes", function()
-			local text = OrdaenCore._SurvivingInstances()
-			OrdaenCore._TrackInstances(false)
-			return text
-		end))
-	end
-
 	-- 1. text-measure: N one-line font strings 36 wide, each set to a new number every call
 	local texts = {}
 	local value = 0
