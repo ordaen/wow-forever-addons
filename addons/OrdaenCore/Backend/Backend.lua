@@ -82,6 +82,8 @@ for _, key in ipairs({ "text", "textSize", "wrap", "textColor", "textAlign", "op
 	TEXT_KEYS[#TEXT_KEYS + 1] = key
 end
 local TAKEN_KEYS = { "position", "top", "right", "bottom", "left", "opacity" }
+-- an embedded Blizzard frame (Backend:Embed): its place and size in the grid, and its opacity; nothing of its look
+local EMBED_KEYS = { "width", "height", "columnSpan", "position", "top", "right", "bottom", "left", "opacity" }
 -- The same lists as sets, so a Set walks only the keys a table has (usually a few), not every key a kind takes.
 local function set(keys)
 	local s = {}
@@ -91,6 +93,7 @@ local function set(keys)
 	return s
 end
 local BOX_TAKES, TEXT_TAKES, TAKEN_TAKES = set(BOX_KEYS), set(TEXT_KEYS), set(TAKEN_KEYS)
+local EMBED_TAKES = set(EMBED_KEYS)
 
 -- Theme references and per-state maps -------------------------------------------------------------------------
 
@@ -213,7 +216,11 @@ local layers = {}
 Backend._boxPool, Backend._textPool, Backend._layers = boxPool, textPool, layers
 local takenBy = setmetatable({}, { __mode = "k" }) -- Blizzard frame -> the node holding it
 local hooked = setmetatable({}, { __mode = "k" })
+local hookedEmbed = setmetatable({}, { __mode = "k" }) -- frames whose placing calls are hooked for Embed (once each)
 local pendingCombat = {} -- taken nodes whose protected frame waits for combat to end
+local embeddedBy = setmetatable({}, { __mode = "k" }) -- Blizzard frame -> the node holding it as a cell
+local pendingEmbed = {} -- embedded nodes whose protected frame waits for combat to end
+local embedding = false -- our own calls on an embedded frame (its hooks ignore them)
 local combatFrame ---@type Frame?
 
 local function enqueue(node)
@@ -316,7 +323,12 @@ function ctx.place(node)
 	end
 	local x, y = snap(node.x), snap(node.y)
 	local obj, rel, w, h
-	if node.kind == "text" then
+	if node.embedded then
+		node.pRel, node.pX, node.pY = parent.frame, x, y
+		node.pW, node.pH = max(snap(node.x + node.w) - x, 0), max(snap(node.y + node.h) - y, 0)
+		node:PlaceEmbedded()
+		return
+	elseif node.kind == "text" then
 		obj, rel, w, h = node.fs, parent.frame, node.w, node.h
 	else
 		obj, rel = node.frame, node.pos == "fixed" and UIParent or parent.frame
@@ -575,7 +587,7 @@ end
 
 -- A box takes the mouse only with a handler or a per-state map, and never at opacity 0.
 function Node:ApplyMouse()
-	if self.kind ~= "box" then
+	if self.kind ~= "box" or self.embedded then -- an embedded frame keeps its own mouse
 		return
 	end
 	local a = self.a
@@ -659,6 +671,12 @@ local function onCombatEnd()
 			node:ApplyTaken()
 		end
 	end
+	for node in pairs(pendingEmbed) do
+		pendingEmbed[node] = nil
+		if embeddedBy[node.frame] == node then
+			node:PlaceEmbedded()
+		end
+	end
 	if combatFrame then
 		combatFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
 	end
@@ -721,9 +739,90 @@ function Node:GiveBack()
 	self.applying = false
 end
 
+-- Embedded Blizzard frames -----------------------------------------------------------------------------------------
+
+local function waitForCombat(node)
+	pendingEmbed[node] = true
+	if not combatFrame then
+		combatFrame = CreateFrame("Frame")
+		combatFrame:SetScript("OnEvent", onCombatEnd)
+	end
+	combatFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+end
+
+-- Put an embedded frame where its node is: under its parent's frame (a level above it), at its point and size, shown;
+-- hidden when detached. Every call at once (rare: a move, Blizzard moving it, combat ending). A protected frame in
+-- combat waits for the end.
+function Node:PlaceEmbedded()
+	local frame = self.frame
+	if InCombatLockdown() and frame:IsProtected() then
+		waitForCombat(self)
+		return
+	end
+	embedding = true
+	local parent = self.parent
+	if parent and self.shown then
+		local pf = parent.frame
+		if frame:GetParent() ~= pf then
+			frame:SetParent(pf)
+		end
+		local level = pf:GetFrameLevel()
+		if frame:GetFrameLevel() <= level then
+			frame:SetFrameLevel(level + 1)
+		end
+		if self.pX then
+			frame:ClearAllPoints()
+			frame:SetPoint("TOPLEFT", self.pRel, "TOPLEFT", self.pX, -self.pY)
+			frame:SetSize(self.pW, self.pH)
+		end
+		if not frame:IsShown() then
+			frame:Show()
+		end
+	elseif frame:IsShown() then
+		frame:Hide()
+	end
+	embedding = false
+end
+
+-- Blizzard placed, parented or sized a frame we hold as a cell: put it back (hooksecurefunc runs after its call).
+local function onEmbedMoved(frame)
+	local node = embeddedBy[frame]
+	if node and not embedding then
+		node:PlaceEmbedded()
+	end
+end
+
+-- Give an embedded frame back as it was. A protected frame in combat can't move: Blizzard's own layout places it.
+function Node:Unembed()
+	local frame = self.frame
+	embeddedBy[frame] = nil
+	pendingEmbed[self] = nil
+	if InCombatLockdown() and frame:IsProtected() then
+		return
+	end
+	embedding = true
+	frame:SetParent(self.parent0)
+	frame:SetScale(self.scale0)
+	frame:SetAlpha(self.alpha0)
+	frame:ClearAllPoints()
+	local points = self.points0
+	for i = 1, #points do
+		local p = points[i]
+		frame:SetPoint(p[1], p[2], p[3], p[4], p[5])
+	end
+	frame:SetSize(self.w0, self.h0)
+	frame:SetShown(self.shown0)
+	embedding = false
+end
+
 -- The tree ------------------------------------------------------------------------------------------------------
 
 local function show(node, shown)
+	if node.embedded then
+		node.shown = shown
+		node:PlaceEmbedded()
+		return
+	end
 	if node.shown ~= shown then
 		node.shown = shown
 		local obj = node.kind == "text" and node.fs or node.frame
@@ -769,6 +868,10 @@ local function attach(child, parent)
 	end
 	child.parent = parent
 	local pf = parent.frame
+	if child.embedded then -- its parent, level and point come with its place (PlaceEmbedded)
+		child.fparent, child.x, child.shown = pf, nil, true
+		return
+	end
 	if child.fparent ~= pf then -- a node reused under the frame it last sat in keeps it
 		child.fparent = pf
 		if child.kind == "text" then
@@ -918,6 +1021,36 @@ function Backend:Take(frame)
 	return node
 end
 
+---A Blizzard frame as a cell of a box's grid (Ordaen Panel's bag buttons): a box node with no children of ours, laid
+---out by its attributes (width, height, columnSpan, position, the offsets; opacity). It keeps its scripts, its mouse
+---and its secure state: we set only its parent, one TOPLEFT point, its size and whether it shows (a protected frame in
+---combat waits for the end). Blizzard placing, parenting or sizing it again is undone after its call. Release gives
+---back its parent, points, size, scale, alpha and shown state; the node isn't pooled.
+---@param frame Frame
+---@return OrdaenNode
+function Backend:Embed(frame)
+	getHolder() -- the pixel size, before the first layout
+	local node = newNode("box")
+	node.frame, node.embedded, node.shown = frame, true, false
+	node.parent0, node.scale0 = frame:GetParent(), frame:GetScale()
+	node.alpha0, node.shown0 = frame:GetAlpha(), frame:IsShown()
+	node.w0, node.h0 = frame:GetWidth(), frame:GetHeight()
+	local points = {}
+	for i = 1, frame:GetNumPoints() do
+		points[i] = { frame:GetPoint(i) }
+	end
+	node.points0 = points
+	embeddedBy[frame] = node
+	if not hookedEmbed[frame] then
+		hookedEmbed[frame] = true
+		hooksecurefunc(frame, "SetPoint", onEmbedMoved)
+		hooksecurefunc(frame, "ClearAllPoints", onEmbedMoved)
+		hooksecurefunc(frame, "SetParent", onEmbedMoved)
+		hooksecurefunc(frame, "SetSize", onEmbedMoved)
+	end
+	return node
+end
+
 ---Copy the attributes the node uses and apply what changed: only the work of the groups that changed. The table is
 ---the engine's: only a frozen one is kept (node.src), since it can't change: the same frozen table again is a no-op.
 ---@param node OrdaenNode
@@ -929,7 +1062,8 @@ function Backend:Set(node, attributes)
 		return
 	end
 	local own = node.a
-	local takes = node.kind == "text" and TEXT_TAKES or node.taken and TAKEN_TAKES or BOX_TAKES
+	local takes = node.kind == "text" and TEXT_TAKES or node.taken and TAKEN_TAKES or node.embedded and EMBED_TAKES
+		or BOX_TAKES
 	local size, position, offset, content, border, look, input, text, tables =
 		false, false, false, false, false, false, false, false, false
 	-- What changed: the keys the new table has, then the old keys it no longer has (only when the copy holds more
@@ -1046,7 +1180,7 @@ function Backend:Set(node, attributes)
 		return
 	end
 	-- The node's attributes are now exactly the table's, so a cached style holds exactly what Apply would compute.
-	local style = node.kind == "box" and styleOf(attributes)
+	local style = node.kind == "box" and not node.embedded and styleOf(attributes)
 	if style then
 		if size then
 			node.wKind, node.wAmount, node.hKind, node.hAmount = style.wKind, style.wAmount, style.hKind, style.hAmount
@@ -1152,6 +1286,9 @@ function Backend:Release(node)
 	---@cast node OrdaenBackendNode
 	if node.taken then
 		node:GiveBack()
+		return
+	elseif node.embedded then
+		node:Unembed()
 		return
 	end
 	if node.kind == "root" then

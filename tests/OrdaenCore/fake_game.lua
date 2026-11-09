@@ -93,8 +93,8 @@ function IMPL.SetScript(self, name, fn)
 	self._scripts = self._scripts or {}
 	self._scripts[name] = fn
 end
-function IMPL.GetScale()
-	return 1
+function IMPL.GetScale(self)
+	return self._scale or 1
 end
 function IMPL.GetAlpha(self)
 	return self._alpha or 1
@@ -102,8 +102,14 @@ end
 function IMPL.SetAlpha(self, a)
 	self._alpha = a
 end
-function IMPL.IsProtected()
-	return false
+function IMPL.IsProtected(self)
+	return self._protected == true -- a spec marks a frame protected
+end
+function IMPL.SetShown(self, shown)
+	self._shown = shown and true or false
+end
+function IMPL.SetScale(self, scale)
+	self._scale = scale
 end
 function IMPL.SetFont(self, _, size)
 	self._size = size
@@ -157,16 +163,46 @@ function Fake.Install(uiHeight)
 	ui._h = uiHeight or 768
 	ui._w = ui._h * 16 / 9
 	_G.UIParent = ui
+	Fake.created = {} -- every frame CreateFrame made, in order
 	_G.CreateFrame = function(kind, _, parent)
-		return new(kind, parent)
+		local frame = new(kind, parent)
+		Fake.created[#Fake.created + 1] = frame
+		return frame
 	end
 	_G.GetPhysicalScreenSize = function()
 		return 1280, 720
 	end
+	Fake.combat = false
 	_G.InCombatLockdown = function()
-		return false
+		---Send `event` to every frame made with an OnEvent script (what the backend registered isn't tracked: the specs
+---send only events that frame waits for).
+function Fake.Fire(event, ...)
+	for _, frame in ipairs(Fake.created) do
+		local script = frame._scripts and frame._scripts.OnEvent
+		if script then
+			script(frame, event, ...)
+		end
 	end
-	_G.hooksecurefunc = noop
+end
+
+return Fake.combat
+	end
+	-- as WoW's: hooksecurefunc(object, method, fn) or hooksecurefunc(globalName, fn), fn after the original
+	_G.hooksecurefunc = function(target, name, fn)
+		if type(target) == "string" then
+			local original = _G[target]
+			_G[target] = function(...)
+				original(...)
+				name(...)
+			end
+			return
+		end
+		local original = target[name]
+		rawset(target, name, function(...)
+			original(...)
+			fn(...)
+		end)
+	end
 	_G.STANDARD_TEXT_FONT = "Fonts\\FRIZQT__.TTF"
 	-- art: every atlas 256 x 128; the one nine-slice layout the theme names
 	_G.C_Texture = {
