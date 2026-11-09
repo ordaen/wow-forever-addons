@@ -118,19 +118,7 @@ local function staticGrid(ns, values)
 	end, texts, calls
 end
 
--- the scheduler runs a binding with its own Run (not an effect's): installed once per client
-local function teachEngine(ns)
-	local RunEffect = ns.Engine.RunEffect
-	ns.Engine.RunEffect = function(engine, effect)
-		if effect.binding then
-			effect.dirty = false
-			effect:Run()
-			return
-		end
-		return RunEffect(engine, effect)
-	end
-end
-
+-- the scheduler runs what it queued by its own Run (Signal.lua), so these bindings need no engine change
 local order = 2 ^ 40 -- after every component: bindings run once their parents have
 
 -- link: a binding object, the expression shared --------------------------------------------------------------------
@@ -145,6 +133,7 @@ function Link:Mark()
 end
 
 function Link:Run()
+	self.dirty = false
 	local source = self.source
 	source.notified = nil -- the binding reads only this source: it stays subscribed, so the next write marks again
 	local v = self.expr(source)
@@ -161,7 +150,6 @@ local function value(source)
 end
 
 function STRATEGIES.link(ns, values)
-	teachEngine(ns)
 	local draw, texts, calls = staticGrid(ns, values)
 	return function()
 		draw()
@@ -183,11 +171,11 @@ local ClosureMeta = { __index = Closure }
 Closure.Mark = Link.Mark
 
 function Closure:Run()
+	self.dirty = false
 	self.fn()
 end
 
 function STRATEGIES.closure(ns, values)
-	teachEngine(ns)
 	local draw, texts, calls = staticGrid(ns, values)
 	return function()
 		draw()
