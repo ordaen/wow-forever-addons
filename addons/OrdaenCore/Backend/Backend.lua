@@ -485,7 +485,34 @@ local function portraitEvents()
 	end
 end
 
--- A frame above the box's own regions and its model, for the rim (made on first use).
+-- Frame levels over a box with a live portrait: its model just above it, the rim above the model (OverFrame), its
+-- child boxes (the panel's level badge) above the rim. A box without one keeps its rim on its own frame, under its
+-- children, and they sit one level up, as every child does.
+local MODEL_LEVELS, CHILD_LEVELS = 1, 3
+
+-- The box's rim on the frame it belongs to now: over the model while a live portrait shows, else the box's own.
+function Node:PlaceRim()
+	local rim = self.rimTex
+	if rim then
+		rim:SetParent(self.liveModel and self:OverFrame() or self.frame)
+		rim:SetDrawLayer("OVERLAY")
+	end
+end
+
+-- The child boxes' frames above a live portrait's rim (attach raises a new child the same way).
+function Node:RaiseChildren()
+	local level = self.frame:GetFrameLevel() + (self.liveModel and CHILD_LEVELS or 1)
+	local children = self.children
+	for i = 1, self.count or 0 do
+		local child = children[i]
+		local frame = child.kind ~= "text" and not child.embedded and child.frame
+		if frame and frame:GetFrameLevel() < level then
+			frame:SetFrameLevel(level)
+		end
+	end
+end
+
+-- A frame above the box's own regions and its model, for the rim while a live portrait shows (made on first use).
 function Node:OverFrame()
 	local over = self.overFrame
 	if not over then
@@ -508,6 +535,11 @@ function Node:ApplyPortrait(portrait)
 		model:ClearModel()
 		model:Hide()
 	end
+	if (live or false) ~= (self.liveModel or false) then
+		self.liveModel = live or nil
+		self:PlaceRim()
+		self:RaiseChildren()
+	end
 	if unit == nil then
 		if portraits[self] then
 			portraits[self] = nil
@@ -521,7 +553,7 @@ function Node:ApplyPortrait(portrait)
 			model:SetAllPoints(self.frame)
 			self.model3d = model
 		end
-		model:SetFrameLevel(self.frame:GetFrameLevel() + 1)
+		model:SetFrameLevel(self.frame:GetFrameLevel() + MODEL_LEVELS)
 		model:SetUnit(unit)
 		model:SetPortraitZoom(1)
 		model:SetCamDistanceScale(1)
@@ -578,9 +610,10 @@ function Node:ApplyMask(mask)
 	tex:SetTexture(mask.mask, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
 	if mask.rim then
 		if not rim then
-			rim = self:OverFrame():CreateTexture(nil, "OVERLAY") -- over a live portrait's model too
+			rim = self.frame:CreateTexture(nil, "OVERLAY")
 			rim:SetAllPoints(self.frame)
 			self.rimTex = rim
+			self:PlaceRim()
 		end
 		rim:SetTexture(mask.rim)
 		rim:Show()
@@ -1221,7 +1254,7 @@ local function attach(child, parent)
 		else
 			local frame = child.frame
 			frame:SetParent(pf)
-			local level = pf:GetFrameLevel()
+			local level = pf:GetFrameLevel() + (parent.liveModel and CHILD_LEVELS - 1 or 0)
 			if frame:GetFrameLevel() <= level then
 				frame:SetFrameLevel(level + 1)
 				if child.textFrame then
