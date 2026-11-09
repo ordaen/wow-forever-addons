@@ -6,6 +6,7 @@
 -- Written as the build leaves it: constant tables at file level (frozen by the build), slot functions at file level
 -- taking game and self.
 local Define = import("@ordaen/define")
+local L = import("locales")
 
 -- The micro menu, left to right (design/micromenu): our cells with our icons on the wood, each with Blizzard's button
 -- invisible over it, so the click, menus and alerts stay Blizzard's. While Ordaen Spells and Ordaen Social don't exist,
@@ -55,9 +56,15 @@ local BAGS = {
 local PORTRAIT_WIDTH, PORTRAIT_HEIGHT = 128, 124
 
 -- The portrait stands over the panel's left end, flush with the screen's left and bottom edges.
+-- Two looks, the player's choice (/ordaen panel portrait face|live): the face as a picture in the corner's shape, or
+-- the live 3D head (a model: no mask can cut it, so it stays a rectangle under the rim; it renders every frame).
 local PORTRAIT = {
 	position = "fixed", left = 0, bottom = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT,
 	portrait = "player", mask = Define.Theme.panel.corner,
+}
+local PORTRAIT_LIVE = {
+	position = "fixed", left = 0, bottom = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT,
+	portrait = { unit = "player", live = true }, mask = Define.Theme.panel.corner,
 }
 -- the level, on a badge centred on the portrait's rim at 45° (its centre: 128 - 64 + 57.5 cos 45°, 64 - 57.5 sin 45°)
 local BADGE = {
@@ -97,7 +104,8 @@ local function Level(game, self)
 	game.ui:Text(self.level)
 end
 
-local PORTRAIT_CALL = { attributes = PORTRAIT, slots = { default = Badge } }
+local PORTRAIT_CALL = { key = "portrait", attributes = PORTRAIT, slots = { default = Badge } }
+local PORTRAIT_LIVE_CALL = { key = "portrait", attributes = PORTRAIT_LIVE, slots = { default = Badge } }
 -- the panel's first column, kept free under the portrait (the portrait itself is placed on the screen, out of the grid)
 local SPACER = { width = PORTRAIT_WIDTH, height = 1 }
 local SPACER_CALL = { attributes = SPACER }
@@ -108,9 +116,9 @@ local LEFT = { columns = { PORTRAIT_WIDTH, "auto" }, gap = Define.Theme.spacing.
 local RIGHT = { columns = { "auto", "auto" }, gap = Define.Theme.spacing.md, xAlign = "end", yAlign = "center",
 	padding = { 0, 8, 0, 0 } }
 
-local function Left(game)
+local function Left(game, self)
 	game.ui:Box(SPACER_CALL)
-	game.ui:Box(PORTRAIT_CALL)
+	game.ui:Box(self.state.livePortrait and PORTRAIT_LIVE_CALL or PORTRAIT_CALL)
 	game.ui:Box(MICRO_CALL)
 end
 
@@ -134,7 +142,10 @@ return Define.Module({
 	icon = Define.Asset("Interface/Icons/INV_Misc_Bag_08"),
 
 	Setup = function(game, self)
-		Define.Persistent({ height = { type = "number", default = 60, min = 24, max = 96 } })
+		Define.Persistent({
+			height = { type = "number", default = 60, min = 24, max = 96 },
+			livePortrait = { type = "boolean", default = false }, -- the 3D head instead of the face's picture
+		})
 		-- one call table each, refilled by the render: the panel's height and the money's text change
 		local panel = {
 			attributes = {
@@ -152,6 +163,18 @@ return Define.Module({
 		local right = { key = "right", attributes = RIGHT, slots = { default = Right } }
 		return { panel = panel, money = money, level = level, badge = badge, right = right }
 	end,
+
+	commands = {
+		-- the portrait's look: face (the picture, in the corner's shape) or live (the 3D head)
+		portrait = { help = L.CMD_PORTRAIT, Run = function(game, self, arguments)
+			local word = arguments:match("^%s*(%a+)") or ""
+			if word == "live" or word == "face" then
+				self.state.livePortrait = word == "live"
+			else
+				print("/ordaen panel portrait face | live")
+			end
+		end },
+	},
 
 	Render = function(game, self)
 		local panel = self.panel
