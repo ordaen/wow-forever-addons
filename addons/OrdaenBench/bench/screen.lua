@@ -139,6 +139,31 @@ local function FirstDifference(side, reference, kind)
 	end
 end
 
+local EVEN = 0.1 -- the most consecutive lines of a list may differ in distance
+
+--- Whether a list's lines are evenly spaced: where every text sits in one column (a list), the distances between
+--- consecutive lines may differ by at most EVEN (lines alternating 11 and 12 px apart fail, though each is within
+--- the comparison's tolerance). Snapshots with texts in several columns pass.
+---@param snapshot table[]
+---@return boolean, string|nil
+function Screen.Even(snapshot)
+	local texts = Only(snapshot, "text")
+	if #texts < 3 then
+		return true
+	end
+	for i = 2, #texts do
+		if abs(texts[i].x - texts[1].x) > 0.5 then
+			return true
+		end
+	end
+	local least, most = math.huge, -math.huge
+	for i = 2, #texts do
+		local d = texts[i - 1].y - texts[i].y
+		least, most = math.min(least, d), math.max(most, d)
+	end
+	return most - least <= EVEN, format("lines %.2f to %.2f apart", least, most)
+end
+
 --- Whether `side` shows what `reference` does; else false and the first difference in its texts and the first in
 --- its textures (both, so one run shows every kind of difference).
 ---@param side table[]

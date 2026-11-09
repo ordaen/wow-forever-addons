@@ -94,6 +94,7 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 	-- What each side ended on, per measured series (Seen), compared with the baseline's when the block ends.
 	local seen, seenKeys = {}, {}
 	local COMPARED = { FW, FW_ITEMS, FW_NAIVE, TYPICAL }
+	local EVENED = { BEST, FW, FW_ITEMS, FW_NAIVE, TYPICAL } -- every side drawing a list spaces its lines evenly
 
 	--- A series' verify that first records what the side ended on: `take()` gives a screen snapshot
 	--- (bench/screen.lua) or a checksum. `verify` (optional) is the side's own check.
@@ -161,6 +162,13 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 							ok, why = value == reference, tostring(value) .. ", the baseline " .. tostring(reference)
 						end
 						m:Record(scenario, size, impl, metric .. " (same as baseline)", 0, 0, 0, 0, 0, 1, m:Verdict(ok, why))
+					end
+				end
+				for _, impl in ipairs(EVENED) do
+					local value = ended[impl]
+					if type(value) == "table" then
+						m:Record(scenario, size, impl, metric .. " (even line spacing)", 0, 0, 0, 0, 0, 1,
+							m:Verdict(Screen.Even(value)))
 					end
 				end
 				seen[metric] = nil
