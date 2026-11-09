@@ -117,6 +117,32 @@ function App.Library()
 	return modules[LIBRARY]
 end
 
+--- An on-demand module (`onDemand = true`: the settings window): loaded and mounted on the dialog layer at its
+--- first use, never at login, and not in the module list. Returns the module, or nil when it can't load.
+---@param folder string
+function App.OpenOnDemand(folder)
+	local module = modules[folder]
+	if module and module.root then
+		return module
+	end
+	if C_AddOns.GetAddOnMetadata(folder, "X-Ordaen-OnDemand") ~= "1" then
+		return nil
+	end
+	if C_AddOns.GetAddOnEnableState(folder, UnitName("player")) == 0 then
+		C_AddOns.EnableAddOn(folder, UnitName("player"))
+	end
+	local ok, loaded = pcall(C_AddOns.LoadAddOn, folder)
+	if not ok then
+		geterrorhandler()(loaded)
+		return nil
+	end
+	module = loaded and modules[folder]
+	if module and not module.game then
+		MountModule(module, Game.Layer.Dialog)
+	end
+	return module and module.root and module or nil
+end
+
 --- A registered module by its folder ("OrdaenBench"), or nil.
 ---@param folder string
 function App.Module(folder)
@@ -143,7 +169,7 @@ local function SavedTable(global)
 	return t
 end
 
-local function MountModule(module)
+local function MountModule(module, layer)
 	module.db = SavedTable(module.name .. "DB")
 	module.charDb = SavedTable(module.name .. "CharDB")
 	module.game = Game.ForModule(module)
@@ -153,7 +179,8 @@ local function MountModule(module)
 		return
 	end
 	local short = module.name:gsub("^Ordaen", "")
-	module.root = Engine:Mount(nil, declaration, 0, { ref = App.Handle(short) }, Game.Layer.Screen, module, module.game)
+	module.root = Engine:Mount(nil, declaration, 0, { ref = App.Handle(short) }, layer or Game.Layer.Screen, module,
+		module.game)
 	if module.root then
 		ns.Commands.AddModule(module, declaration.commands) -- /ordaen <module> ...
 	end
@@ -191,6 +218,8 @@ frame:SetScript("OnEvent", function(_, event, arg)
 	if event == "ADDON_LOADED" then
 		if arg == addonName then
 			frame:UnregisterEvent("ADDON_LOADED")
+			-- Ordaen's own SavedVariables (its global settings and, later, the players' themes): there now
+			ns.Globals.Load(OrdaenCore.SavedVariables({ db = "OrdaenCoreDB" }))
 			LoadModules()
 		end
 	elseif event == "PLAYER_LOGIN" then

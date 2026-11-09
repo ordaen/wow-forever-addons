@@ -22,6 +22,7 @@ local groups = {} -- word -> { title, list = { command -> { Run, help } }, modul
 local off = {} -- word -> title, for every module the AddOns list has (a module that loaded goes to groups)
 
 local WORD = "^[a-z0-9%-]+$"
+local SETTINGS = "OrdaenSettings" -- the settings window: an on-demand module, its `open` command opens it
 local RESERVED = { help = true, reset = true } -- the Core's own: every module's help, and its settings reset
 
 local function say(text)
@@ -115,8 +116,24 @@ end
 local function run(line)
 	local word, command, arguments = match(line or "", "^%s*(%S*)%s*(%S*)%s*(.-)%s*$")
 	word, command = lower(word), lower(command)
-	if word == "" or word == "help" then
+	if word == "" then -- the settings window, where it's installed; else the commands
+		local settings = ns.App.OpenOnDemand(SETTINGS)
+		local open = settings and groups[Commands.Word(SETTINGS)]
+		open = open and open.list.open
+		if open then
+			Engine:Handle(open.Run, settings.game, settings.root, "")
+			return
+		end
 		help()
+		return
+	end
+	if word == "help" then
+		help()
+		return
+	end
+	if word == "ordaen" and command == "reset" then -- Ordaen's own: the global settings
+		ns.Globals.Reset()
+		say(format(L.SETTINGS_RESET, "Ordaen"))
 		return
 	end
 	local group = groups[word]

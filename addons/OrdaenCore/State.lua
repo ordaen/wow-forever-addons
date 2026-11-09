@@ -369,7 +369,7 @@ local METAS = {
 -- One stored value per module, component path and name, made on first use: what a mounted instance declares and what
 -- a settings page binds (`Define.Signal(SellJunk.state.on)`) are the same object, so a write through either reaches
 -- every reader.
-local function Stored(module, path, name, spec)
+function State.Stored(module, path, name, spec)
 	local byPath = module.stored
 	if not byPath then
 		byPath = {}
@@ -402,7 +402,7 @@ function State.OfDeclaration(declaration, name)
 	if not module.db then
 		error("Ordaen: " .. declaration.name .. "." .. name .. " read before its module loaded its settings", 3)
 	end
-	return Stored(module, declaration.name, name, spec)
+	return State.Stored(module, declaration.name, name, spec)
 end
 
 --- Every setting of `module` back to its default (or to following its global): `/ordaen <module> reset`. Its other
@@ -469,7 +469,7 @@ function State.Declare(instance, spec, persistent)
 			path = "values"
 		end
 		if persistent then
-			store[name] = Stored(module, path, name, s)
+			store[name] = State.Stored(module, path, name, s)
 		else
 			store[name] = setmetatable({ root = root, path = path, name = name, spec = s }, meta)
 		end

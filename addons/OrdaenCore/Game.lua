@@ -107,6 +107,11 @@ function DOMAINS.Frame()
 	})
 end
 
+--- Ordaen's global settings as values: `game.Settings.scale:Get()` (development/framework/game).
+function DOMAINS.Settings()
+	return ns.Globals.ByName
+end
+
 function DOMAINS.Money()
 	local Money = { amount = NewValue(GetMoney()) }
 	RawEvent("PLAYER_MONEY"):Subscribe(function()

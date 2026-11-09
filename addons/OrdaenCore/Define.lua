@@ -27,6 +27,13 @@ function Define.Component(declaration)
 	return declaration
 end
 
+--- Ordaen's global settings by name, for a look setting that follows one: `follows = Define.Global.scale`.
+Define.Global = setmetatable({}, {
+	__index = function(_, name)
+		return ns.Globals.Get(name)
+	end,
+})
+
 --- A value as a signal: what the build leaves of `Define.Signal(…)` around a state path is the value object itself.
 function Define.Signal(value)
 	return value

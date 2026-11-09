@@ -150,6 +150,19 @@ local standIn = setmetatable({}, { __index = StandIn })
 --- The debug kit for one addon: the shared no-op stand-in unless the dev addon replaced this.
 ---@return OrdaenDebug
 ---@param name string|nil the addon the kit is for (the real kit keeps per-addon logs)
+--- Ordaen's own SavedVariables, named for the build (which writes `## SavedVariables` from this call): the table,
+--- made empty on a first login.
+---@param names { db: string }
+---@return table
+function Core.SavedVariables(names)
+	local db = _G[names.db]
+	if type(db) ~= "table" then
+		db = {}
+		_G[names.db] = db
+	end
+	return db
+end
+
 function Core.NewDebug(name) -- luacheck: ignore 212
 	return standIn
 end
