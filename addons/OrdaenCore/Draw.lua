@@ -103,6 +103,9 @@ local ReleaseEntries
 
 local function Release(f, e)
 	local kind, backend = e.kind, ns.Backend
+	if e.bind then
+		ns.Unbind(e)
+	end
 	if kind == "comp" then
 		local instance = e.instance
 		e.instance, e.declaration = nil, nil
@@ -118,9 +121,6 @@ local function Release(f, e)
 			-- the pooled entry keeps its kids fragment for reuse, never its owner: that would keep the unmounted
 			-- instance (and everything it holds) alive until the entry is taken again
 			kids.owner = nil
-		end
-		if e.bind then
-			ns.Unbind(e)
 		end
 		if e.node then
 			backend:Release(e.node)
@@ -551,10 +551,11 @@ function UiBase:Frame(site, reference, data)
 	end
 	Append(f, e)
 	local attributes = data and data.attributes or EMPTY
-	if Differs(e.last, attributes) then
+	if Changed(e, attributes) then
 		Copy(e.last, attributes)
 		ns.Backend:Set(e.node, attributes)
 	end
+	BindEntry(e, data, nil)
 end
 
 --- Place a Blizzard frame in this render's layout, like a box: `game.ui:Embed(game.Frame.CharacterMicroButton,
@@ -582,10 +583,11 @@ function UiBase:Embed(site, reference, data)
 	end
 	Append(f, e)
 	local attributes = data and data.attributes or EMPTY
-	if Differs(e.last, attributes) then
+	if Changed(e, attributes) then
 		Copy(e.last, attributes)
 		ns.Backend:Set(e.node, attributes)
 	end
+	BindEntry(e, data, nil)
 end
 
 --- Where the caller's content for slot `name` goes.
@@ -604,13 +606,16 @@ function UiBase:Slot(site, name) -- luacheck: ignore 212
 	nLexical = nLexical - 1
 end
 
-local function DrawComponent(ui, declaration, site, a, b)
+local function DrawComponent(ui, declaration, site, a, b, k)
 	local target, data = Resolve(a, b)
 	local f = FragmentFor(target)
 	if not f then
 		return
 	end
-	local key = data and data.key
+	local key = k
+	if key == nil then
+		key = data and data.key
+	end
 	local e = Lookup(f, site, key)
 	if e and (e.kind ~= "comp" or e.declaration ~= declaration or not e.instance or not e.instance._alive) then
 		Forget(f, e) -- replaced: the old entry is released at the end of the run (not seen)
@@ -620,8 +625,14 @@ local function DrawComponent(ui, declaration, site, a, b)
 	if e then
 		Append(f, e)
 		local instance = e.instance
-		Engine.SetAttributes(instance, data and data.attributes)
+		local attributes = data and data.attributes
+		-- a frozen table it was given last can't have changed
+		if not (attributes ~= nil and attributes == e.src and isfrozen(attributes)) then
+			e.src = attributes
+			Engine.SetAttributes(instance, attributes, e.bind)
+		end
 		Engine.SetSlots(instance, data and data.slots, owner)
+		BindEntry(e, data, key)
 		return
 	end
 	e = NewEntry(f, "comp", site, key)
@@ -631,6 +642,8 @@ local function DrawComponent(ui, declaration, site, a, b)
 	local instance = Engine:Mount(parent, declaration, site, data, f.container, parent.module, ui._game, owner)
 	if instance then
 		e.instance = instance
+		e.src = data and data.attributes
+		BindEntry(e, data, key)
 	else
 		f.cur[f.n] = nil -- failed to mount: not drawn
 		f.n = f.n - 1
@@ -653,8 +666,8 @@ local UiMeta = {
 		end
 		local module = rawget(ui, "_module")
 		local declaration = module:Import("components/" .. LowerFirst(name))
-		local method = function(_, site, a, b)
-			return DrawComponent(ui, declaration, site, a, b)
+		local method = function(_, site, a, b, k)
+			return DrawComponent(ui, declaration, site, a, b, k)
 		end
 		rawset(ui, name, method)
 		return method

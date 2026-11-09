@@ -128,4 +128,39 @@ describe("bindings", function()
 		assert.are.same({ "7", "20" }, texts())
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("binds a component's attribute: the child re-renders, the parent doesn't", function()
+		local childRenders = 0
+		local Child = ns.Define.Component({
+			Render = function(game, self)
+				childRenders = childRenders + 1
+				game.ui:Text(1, nil, { attributes = { text = tostring(self.attributes.value:Get()) } })
+			end,
+		})
+		local expr = function(_, _, item)
+			runs = runs + 1
+			return values[item]:Get()
+		end
+		local CALL = freeze({ attributes = freeze({ label = "x" }), bind = freeze({ value = expr }) })
+		local module = { name = "OrdaenSpec", ns = {}, cache = {}, Import = function(_, path)
+			return path == "components/child" and Child or nil
+		end }
+		ns.Engine:Mount(nil, ns.Define.Component({
+			Render = function(game)
+				renders = renders + 1
+				for i = 1, 3 do
+					game.ui:Child(1, nil, CALL, i)
+				end
+			end,
+		}), 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
+		ns.Scheduler.Flush()
+		assert.are.same({ "10", "20", "30" }, texts())
+		local before = childRenders
+		values[2]:Set(77)
+		ns.Scheduler.Flush()
+		assert.are.same({ "10", "77", "30" }, texts())
+		assert.are.equal(1, renders)
+		assert.are.equal(before + 1, childRenders) -- the second child alone
+		assert.are.same({}, wow.errors)
+	end)
 end)

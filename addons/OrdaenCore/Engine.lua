@@ -226,13 +226,15 @@ local function Holder(instance, method)
 	return instance
 end
 
---- Set a child's attributes from its parent's call: only changed ones notify.
+--- Set a child's attributes from its parent's call: only changed ones notify. Names the call binds (`bound`, its
+--- bind map) are its bindings' to write: the static table, which lacks them, leaves them alone.
 ---@param instance OrdaenInstance
 ---@param values table|nil
-function Engine.SetAttributes(instance, values)
+---@param bound table|nil
+function Engine.SetAttributes(instance, values, bound)
 	local attributes = instance.attributes
 	for name, signal in pairs(attributes) do
-		if values == nil or values[name] == nil then
+		if (values == nil or values[name] == nil) and not (bound and bound[name]) then
 			signal:Set(nil)
 		end
 	end

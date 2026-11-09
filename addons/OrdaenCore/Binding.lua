@@ -14,7 +14,7 @@ local xpcall = xpcall
 ---@field fn fun(game: table, self: table, item: any): any the expression
 ---@field fields string[] the fields it feeds
 ---@field nFields integer
----@field node table the backend node
+---@field entry table the drawn entry: its node, or its component instance
 ---@field owner table the instance whose render (or slot) drew the call: the expression's self
 ---@field item any the call's key: the expression's item
 ---@field value any the last value written
@@ -24,14 +24,14 @@ local BindingMeta = { __index = Binding }
 local seq = 0 -- creation order within a depth, after the instances' own effects (their numbers are below 2^31)
 
 ---@param fn function
----@param node table
+---@param entry table the drawn entry: a node's (written with SetField) or a component's (its attributes)
 ---@param owner table
 ---@param item any
 ---@return OrdaenBinding
-function ns.NewBinding(fn, node, owner, item)
+function ns.NewBinding(fn, entry, owner, item)
 	seq = seq + 1
 	return setmetatable({
-		fn = fn, fields = {}, nFields = 0, node = node, owner = owner, item = item,
+		fn = fn, fields = {}, nFields = 0, entry = entry, owner = owner, item = item,
 		order = owner._depth * 4294967296 + 2147483648 + seq, dirty = false, alive = true,
 		sources = {}, nSources = 0,
 	}, BindingMeta)
@@ -58,7 +58,16 @@ function Binding:Run()
 		return
 	end
 	self.value, self.written = value, true
-	local backend, node, fields = ns.Backend, self.node, self.fields
+	local fields, entry = self.fields, self.entry
+	local instance = entry.instance
+	if instance then -- a component: its attributes, which its own render reads
+		local attributes = instance.attributes
+		for i = 1, self.nFields do
+			attributes[fields[i]]:Set(value)
+		end
+		return
+	end
+	local backend, node = ns.Backend, entry.node
 	for i = 1, self.nFields do
 		backend:SetField(node, fields[i], value)
 	end
@@ -92,7 +101,7 @@ function ns.Bind(entry, bind, owner, item)
 			end
 		end
 		if not b then
-			b = ns.NewBinding(fn, entry.node, owner, item)
+			b = ns.NewBinding(fn, entry, owner, item)
 			n = n + 1
 			list[n] = b
 		end
