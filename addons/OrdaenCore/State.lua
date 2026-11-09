@@ -359,6 +359,78 @@ function Map:Reset()
 	end
 end
 
+-- Labels -------------------------------------------------------------------------------------------------------
+
+-- A setting's texts by the locale-key convention the build checks (B15): module.lua's own `<PREFIX>_<NAME>`
+-- (PANEL_HEIGHT), a component's `<COMPONENT>_<NAME>` (SELLJUNK_ON), a global's `GLOBAL_<NAME>` (GLOBAL_NUMBERFORMAT,
+-- in the settings window's locales: the window shows them), each name upper-cased as it is; its tip `<label>_TIP`, a choice
+-- member's `<label>_<VALUE>`. Keys are made once per value; a missing text reads as its key.
+local SETTINGS_WINDOW = "OrdaenSettings"
+
+local function LabelKey(self)
+	local key = self.labelKey
+	if not key then
+		local module = self.module
+		if self.path == "global" and module.name == "OrdaenCore" then
+			key = "GLOBAL_" .. self.name:upper()
+		elseif self.path == "module" then
+			key = module.name:gsub("^Ordaen", ""):upper() .. "_" .. self.name:upper()
+		else
+			key = self.path:gsub("#.*$", ""):upper() .. "_" .. self.name:upper()
+		end
+		self.labelKey = key
+	end
+	return key
+end
+
+local function Text(self, key)
+	local module = self.module
+	if self.path == "global" and module.name == "OrdaenCore" then
+		module = ns.App.Module(SETTINGS_WINDOW)
+	end
+	local locales = module and module.ns and module.ns.locales
+	return locales and locales[key] or key
+end
+
+--- The setting's label, for its row.
+function Plain:Label()
+	return Text(self, LabelKey(self))
+end
+
+--- The setting's tip, for its row's tooltip.
+function Plain:Tip()
+	local key = self.tipKey
+	if not key then
+		key = LabelKey(self) .. "_TIP"
+		self.tipKey = key
+	end
+	return Text(self, key)
+end
+
+--- A choice member's label (`value` one of the setting's choices).
+function Plain:ChoiceLabel(value)
+	local keys = self.choiceKeys
+	if not keys then
+		keys = {}
+		self.choiceKeys = keys
+	end
+	local key = keys[value]
+	if not key then
+		key = LabelKey(self) .. "_" .. tostring(value):upper()
+		keys[value] = key
+	end
+	return Text(self, key)
+end
+
+--- A choice's values in the order its enum declares them (`spec.order`: the build writes it from the enum's literal
+--- table, which pairs() can't give back), for a menu.
+---@return string[]
+function Plain:Choices()
+	return self.spec.order
+end
+
+List.Label, List.Tip = Plain.Label, Plain.Tip -- a list setting (Chips) has a row too
+
 -- Declaring ------------------------------------------------------------------------------------------------------
 
 local METAS = {
@@ -383,7 +455,7 @@ function State.Stored(module, path, name, spec)
 	local value = values[name]
 	if not value then
 		local root = spec.scope == "character" and module.charDb or module.db
-		value = setmetatable({ root = root, path = path, name = name, spec = spec }, METAS[spec.type])
+		value = setmetatable({ root = root, path = path, name = name, spec = spec, module = module }, METAS[spec.type])
 		values[name] = value
 	end
 	return value

@@ -43,6 +43,22 @@ describe("Ordaen's global settings", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("lists each choice's values in its menu order, the enum's members exactly", function()
+		for name, spec in pairs(ns.Globals.spec) do
+			if spec.type == "choice" then
+				local members, listed = {}, {}
+				for _, value in pairs(spec.choices) do
+					members[value] = true
+				end
+				for _, value in ipairs(spec.order) do
+					listed[value] = true
+				end
+				assert.are.same(members, listed, name)
+				assert.are.equal(spec.order, ns.Game.Settings[name]:Choices())
+			end
+		end
+	end)
+
 	it("goes back to its defaults with /ordaen ordaen reset", function()
 		ns.Game.Settings.sounds:Set(false)
 		assert.is_true(wow:Slash("/ordaen ordaen reset"))

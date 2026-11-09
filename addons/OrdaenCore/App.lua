@@ -117,6 +117,8 @@ function App.Library()
 	return modules[LIBRARY]
 end
 
+local MountModule -- below: a module's root mounted, after its SavedVariables
+
 --- An on-demand module (`onDemand = true`: the settings window): loaded and mounted on the dialog layer at its
 --- first use, never at login, and not in the module list. Returns the module, or nil when it can't load.
 ---@param folder string
@@ -169,7 +171,7 @@ local function SavedTable(global)
 	return t
 end
 
-local function MountModule(module, layer)
+function MountModule(module, layer)
 	module.db = SavedTable(module.name .. "DB")
 	module.charDb = SavedTable(module.name .. "CharDB")
 	module.game = Game.ForModule(module)
@@ -187,21 +189,89 @@ local function MountModule(module, layer)
 	module.debug:Logf("mounted: %s", module.root and "yes" or "failed")
 end
 
+-- The module list (`game.Modules`, the settings window's left column) ---------------------------------------------
+
+-- Which modules are off: Ordaen's own setting, account-wide in OrdaenCoreDB (`off[folder] = true`, only the ones that
+-- are off; the table only while one is), not the AddOns list.
+local db
+
+local function IsOff(folder)
+	return db.off ~= nil and db.off[folder] == true
+end
+
+---@class OrdaenModuleEntry
+---@field folder string "OrdaenPanel"
+---@field title string the toc's Title ("Ordaen Panel")
+---@field on OrdaenValueSignal boolean: the player's choice
+---@field loaded OrdaenValueSignal boolean: mounted and running now
+---@field reason OrdaenValueSignal string|nil: why it can't run, nil when it can: the AddOns list's reason ("MISSING",
+---  "DEP_DISABLED", ...; the game's text is _G["ADDON_" .. reason]) or "FAILED" (its own error stopped it)
+---@field pending OrdaenValueSignal boolean: off but still running until /reload (Forever can't unload an addon)
+local Entry = {}
+local EntryMeta = { __index = Entry }
+
+local list = {} -- the entries in AddOns order
+App.modules = list
+
+-- Load and mount the module, out of the AddOns list's say: Ordaen decides which of its modules run, so one disabled
+-- there (by the character, or new since the client started) is enabled for this character first.
+function Entry:Load()
+	local folder = self.folder
+	local module = modules[folder]
+	if module and module.root then
+		return
+	end
+	if C_AddOns.GetAddOnEnableState(folder, UnitName("player")) == 0 then
+		C_AddOns.EnableAddOn(folder, UnitName("player"))
+	end
+	local ok, loaded, reason = pcall(C_AddOns.LoadAddOn, folder)
+	if not ok then
+		geterrorhandler()(loaded)
+	end
+	module = modules[folder]
+	if ok and loaded and module and not module.game then
+		MountModule(module)
+	end
+	local running = module and module.root ~= nil or false
+	self.loaded:Set(running)
+	self.reason:Set(not running and (ok and not loaded and reason or "FAILED") or nil)
+end
+
+--- Turn the module on or off. On loads and mounts it now; off is stored, and it keeps running (pending) until
+--- /reload: Forever can't unload an addon, and its /reload needs the player's click (a secure button).
+---@param on boolean
+function Entry:Enable(on)
+	on = on and true or false
+	if not on then
+		db.off = db.off or {}
+		db.off[self.folder] = true
+	elseif db.off then
+		db.off[self.folder] = nil
+		if next(db.off) == nil then
+			db.off = nil
+		end
+	end
+	self.on:Set(on)
+	if on then
+		self:Load()
+	end
+	self.pending:Set(not on and self.loaded:Peek())
+end
+
 local function LoadModules()
+	db = OrdaenCore.SavedVariables({ db = "OrdaenCoreDB" })
 	for i = 1, C_AddOns.GetNumAddOns() do
-		local name = C_AddOns.GetAddOnInfo(i)
+		local name, title = C_AddOns.GetAddOnInfo(i)
 		if type(name) == "string" and C_AddOns.GetAddOnMetadata(name, "X-Ordaen-Module") == "1" then
 			ns.Commands.Know(name) -- /ordaen <module> answers "off" until it mounts
-			-- Ordaen decides which of its modules run, not the AddOns list: one disabled there (by the character, or new
-			-- since the client started) is enabled for this character before it loads
-			if C_AddOns.GetAddOnEnableState(name, UnitName("player")) == 0 then
-				C_AddOns.EnableAddOn(name, UnitName("player"))
-			end
-			local ok, loaded = pcall(C_AddOns.LoadAddOn, name)
-			if not ok then
-				geterrorhandler()(loaded)
-			elseif loaded and modules[name] and not modules[name].game then
-				MountModule(modules[name])
+			local entry = setmetatable({
+				folder = name, title = title or name,
+				on = ns.NewValue(not IsOff(name)), loaded = ns.NewValue(false), reason = ns.NewValue(nil),
+				pending = ns.NewValue(false),
+			}, EntryMeta)
+			list[#list + 1] = entry
+			if entry.on:Peek() then
+				entry:Load()
 			end
 		end
 	end

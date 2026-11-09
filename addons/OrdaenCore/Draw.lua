@@ -606,7 +606,8 @@ function UiBase:Slot(site, name) -- luacheck: ignore 212
 	nLexical = nLexical - 1
 end
 
-local function DrawComponent(ui, declaration, site, a, b, k)
+-- `module` and `game`: the context it mounts in, when not its parent's (a module's settings page in the window)
+local function DrawComponent(ui, declaration, site, a, b, k, module, game)
 	local target, data = Resolve(a, b)
 	local f = FragmentFor(target)
 	if not f then
@@ -653,7 +654,8 @@ local function DrawComponent(ui, declaration, site, a, b, k)
 		e.mounting = nil
 		given = { key = data.key, ref = data.ref, slots = data.slots, attributes = attributes }
 	end
-	local instance = Engine:Mount(parent, declaration, site, given, f.container, parent.module, ui._game, owner)
+	local instance = Engine:Mount(parent, declaration, site, given, f.container, module or parent.module,
+		game or ui._game, owner)
 	if instance then
 		e.instance = instance
 		e.src = data and data.attributes
@@ -668,6 +670,71 @@ local function DrawComponent(ui, declaration, site, a, b, k)
 		nPool = nPool + 1
 		pool[nPool] = e
 	end
+end
+
+-- A module's settings page ---------------------------------------------------------------------------------------
+
+-- A module's `Settings` as a component of its own module: drawn with its game and components, reading its root's
+-- state, and showing one tab, the `tab`-th top-level SettingsTab in source order (the order of the build's page
+-- description): the others aren't drawn. Made once per module; false for a module without a page.
+local function SettingsPage(module)
+	local page = module.settingsPage
+	if page ~= nil then
+		return page
+	end
+	local ok, declaration = pcall(module.Import, module, "module")
+	local settings = ok and type(declaration) == "table" and declaration.Settings
+	page = false
+	if settings then
+		local shown, count = 1, 0
+		local real = module.game.ui
+		local ui = setmetatable({
+			SettingsTab = function(_, site, a, b, k)
+				count = count + 1
+				if count == shown then
+					return real:SettingsTab(site, a, b, k)
+				end
+			end,
+		}, { __index = real })
+		local game = setmetatable({ ui = ui }, { __index = module.game })
+		page = {
+			name = "settings",
+			module = module,
+			game = game,
+			Setup = function(_, self)
+				self.state = module.root.state -- its controls bind the root's settings (self.state.<name>)
+			end,
+			Render = function(_, self)
+				shown, count = self.attributes.tab:Get() or 1, 0
+				settings(game, self)
+			end,
+		}
+	end
+	module.settingsPage = page
+	return page
+end
+
+local PAGE_CALL = { attributes = { tab = 1 } } -- the page's call, refilled per render of ModuleSettings (one table)
+
+-- `game.ui:ModuleSettings(site, { attributes = { module = "OrdaenPanel", tab = 1 } })`: the settings window's page
+local ModuleSettings = {
+	name = "moduleSettings",
+	Render = function(_, self)
+		local folder = self.attributes.module:Get()
+		local module = folder and ns.App.Module(folder)
+		local page = module and module.root and module.root._alive and SettingsPage(module)
+		if not page then
+			return -- not running, or no page: the window says why
+		end
+		PAGE_CALL.attributes.tab = self.attributes.tab:Get() or 1
+		DrawComponent(module.game.ui, page, 1, PAGE_CALL, nil, folder, module, page.game)
+	end,
+}
+
+--- A module's settings page (its `Settings`, in its own context), one tab of it: `(site, data)` with
+--- `attributes = { module = <folder>, tab = <n> }`.
+function UiBase:ModuleSettings(site, a, b, k)
+	return DrawComponent(self, ModuleSettings, site, a, b, k)
 end
 
 local function LowerFirst(name)

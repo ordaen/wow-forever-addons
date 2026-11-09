@@ -112,6 +112,12 @@ function DOMAINS.Settings()
 	return ns.Globals.ByName
 end
 
+--- Ordaen's modules, for the settings window's list: `game.Modules[i]` (folder, title, on, loaded, reason, pending,
+--- :Enable(on)), in AddOns order (App.lua).
+function DOMAINS.Modules()
+	return ns.App.modules
+end
+
 --- Numbers formatted by the global settings: `game.Numbers:Format(n)` (Numbers.lua).
 function DOMAINS.Numbers()
 	return ns.Numbers

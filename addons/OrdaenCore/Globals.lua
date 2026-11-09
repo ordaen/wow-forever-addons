@@ -21,19 +21,23 @@ Globals.LargeNumbers = { Full = "full", Short = "short" }
 ---@enum OrdaenClock
 Globals.Clock = { H24 = "24", H12 = "12" }
 
--- What the «Общие» tabs hold (Масштаб, Числа, Поведение), with the design's defaults
+-- What the «Общие» tabs hold (Масштаб, Числа, Поведение), with the design's defaults. A choice's `order` is its
+-- menu's order, which the build writes for a module's settings; this file isn't built, so it's written here and
+-- globals_spec fails when it and the enum drift apart.
 local SPEC = {
 	scale = { type = "number", default = 1, min = 0.7, max = 1.5, step = 0.05, unit = "percent", setting = true },
-	density = { type = "choice", choices = Globals.Density, default = Globals.Density.Normal, setting = true },
+	density = { type = "choice", choices = Globals.Density, order = { "compact", "normal", "roomy" },
+		default = Globals.Density.Normal, setting = true },
 	pixel = { type = "boolean", default = true, setting = true },
-	numberFormat = { type = "choice", choices = Globals.NumberFormat, default = Globals.NumberFormat.Space,
-		setting = true },
+	numberFormat = { type = "choice", choices = Globals.NumberFormat, order = { "space", "comma", "dot" },
+		default = Globals.NumberFormat.Space, setting = true },
 	numberRound = { type = "boolean", default = false, setting = true },
 	numberPrecision = { type = "number", default = 2, min = 0, max = 3, step = 1, setting = true },
-	numbers = { type = "choice", choices = Globals.LargeNumbers, default = Globals.LargeNumbers.Short,
-		setting = true },
+	numbers = { type = "choice", choices = Globals.LargeNumbers, order = { "full", "short" },
+		default = Globals.LargeNumbers.Short, setting = true },
 	sounds = { type = "boolean", default = true, setting = true },
-	clock = { type = "choice", choices = Globals.Clock, default = Globals.Clock.H24, setting = true },
+	clock = { type = "choice", choices = Globals.Clock, order = { "24", "12" },
+		default = Globals.Clock.H24, setting = true },
 }
 Globals.spec = SPEC
 
