@@ -159,6 +159,17 @@ return Define.Module({
 				Say("one run per session: /reload, then /obench")
 				return
 			end
+			-- a round counts only on the bench builds (bench_save refuses any other): say so before minutes are spent
+			if mode == "round" or mode == "variants" then
+				local core = C_AddOns.GetAddOnMetadata("OrdaenCore", "X-Ordaen-Build")
+				local benchBuild = C_AddOns.GetAddOnMetadata("OrdaenBench", "X-Ordaen-Build")
+				if core ~= "bench" or benchBuild ~= "bench" then
+					Say(string.format("not running: Ordaen is a %s build and the bench a %s build; a round needs both on"
+						.. " the bench build (ordaen watch --profile bench), then /reload.", tostring(core),
+						tostring(benchBuild)))
+					return
+				end
+			end
 			ran = true
 			local round = rounds:Get() + ((mode == "round" or mode == "variants") and 1 or 0)
 			rounds:Set(round)
