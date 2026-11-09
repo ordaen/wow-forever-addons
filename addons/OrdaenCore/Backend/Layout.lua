@@ -7,7 +7,7 @@
 --   parent, children, count   the tree; children is an array, count its length; a child's place in its parent's grid
 --                             is kept by the parent, in arrays indexed by the child's position (child.idx): cCol,
 --                             cRow, cSpan, cW (cell width), cTw, cTh, cGiven (its size there and the height it was
---                             given)
+--                             given); a box with one child in one column keeps none (the child is in column 1)
 --   wKind, wAmount            width: "fixed" (amount in UI units), "auto" (content), "pct" (amount 0..1 of the
 --   hKind, hAmount            parent's content box), "fill" (the cell), nil (stretch in its cell, unless the parent's
 --                             xAlign places it; heights: content, stretched to the row by the parent's yAlign)
@@ -280,6 +280,23 @@ function Layout.Offsets(node)
 	return node
 end
 
+-- The columns a flow child's cell spans in its parent (first, last), or nil when that isn't known. A box laid out
+-- by `single` (one child, one column) keeps no cell arrays: its child, idx 1, spans column 1.
+local function cellColumns(parent, node)
+	local idx = node.idx
+	if not idx then
+		return nil
+	end
+	local cCol = parent.cCol
+	if cCol then
+		local col = cCol[idx]
+		return col, col + parent.cSpan[idx] - 1
+	elseif idx == 1 and parent.count == 1 then
+		return 1, 1
+	end
+	return nil
+end
+
 -- Whether a box's width is set from outside (its attributes, or a cell whose width no content decides).
 local function widthGiven(node)
 	while true do
@@ -293,12 +310,12 @@ local function widthGiven(node)
 		if parent == nil or placed(parent.xAlign) then
 			return false
 		end
-		local kinds, idx, cCol = parent.colKind, node.idx, parent.cCol
-		if not idx or not cCol then
+		local first, last = cellColumns(parent, node)
+		if not first then
 			return false
 		end
-		local col = cCol[idx]
-		for c = col, col + parent.cSpan[idx] - 1 do
+		local kinds = parent.colKind
+		for c = first, last do
 			if kinds[c] ~= "fr" and kinds[c] ~= "fixed" then
 				return false
 			end
@@ -324,12 +341,12 @@ function Layout.TextResized(node, oldW, oldH)
 	if parent == nil or isFree(node) or node.wrap == false or node.wKind ~= nil or placed(parent.xAlign) then
 		return true
 	end
-	local kinds, idx, cCol = parent.colKind, node.idx, parent.cCol
-	if not idx or not cCol then
+	local first, last = cellColumns(parent, node)
+	if not first then
 		return true
 	end
-	local col = cCol[idx]
-	for c = col, col + parent.cSpan[idx] - 1 do
+	local kinds = parent.colKind
+	for c = first, last do
 		if kinds[c] ~= "fr" and kinds[c] ~= "fixed" then
 			return true
 		end
@@ -644,10 +661,12 @@ end
 -- general path, computed directly. The cell is the content box (at least MIN_COLUMN), the one row is the child's
 -- height.
 local function single(node, child, W, H, padT, padB, padL, contentW, contentH, ctx)
-	local cCol, cRow, cSpan = cells(node)
-	child.idx, cCol[1], cRow[1], cSpan[1] = 1, 1, 1, 1
 	local cellW = contentW >= MIN_COLUMN and contentW or MIN_COLUMN
-	node.cW[1] = cellW
+	child.idx = 1
+	local cCol = node.cCol
+	if cCol then -- arrays from a grid it laid out before stay true for whoever reads them
+		cCol[1], node.cRow[1], node.cSpan[1], node.cW[1] = 1, 1, 1, cellW
+	end
 	local w, h, given = sizeIn(child, cellW, node, contentW, contentH, ctx)
 	local ya = node.yAlign
 	local y = padT

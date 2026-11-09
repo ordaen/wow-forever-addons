@@ -179,4 +179,16 @@ describe("backend styles", function()
 			assert.is_true(x.x > y.x)
 		end)
 	end)
+
+	it("keeps no cell arrays for a one-child cell, and still skips the layout for a text change inside it", function()
+		Fake.Install()
+		local ns = Fake.LoadBackend()
+		local plain = table.freeze({ width = 36, height = 36 }) -- the text fills it (a centred one would move)
+		local _, cells, texts = draw(ns.Backend, table.freeze(copy(GRID)), plain, 25)
+		assert.is_nil(cells[1].cCol)
+		local t = texts[1]
+		local oldW, oldH = t.natW, t.lineH
+		t.natW = oldW + 6 -- still narrower than the 36-unit cell
+		assert.is_false(ns.Layout.TextResized(t, oldW, oldH))
+	end)
 end)

@@ -163,8 +163,24 @@ function Fake.Install(uiHeight)
 	_G.hooksecurefunc = noop
 	_G.STANDARD_TEXT_FONT = "Fonts\\FRIZQT__.TTF"
 	local frozen = setmetatable({}, { __mode = "k" })
-	table.create = table.create or function()
-		return {}
+	-- sized like Forever's: a constructor with n named fields sizes the hash part for n even though they are nil, so
+	-- memory measured on the fake matches the game's
+	local makers = {}
+	table.create = table.create or function(narr, nhash)
+		local key = (narr or 0) .. ":" .. (nhash or 0)
+		local make = makers[key]
+		if not make then
+			local parts = {}
+			for i = 1, narr or 0 do
+				parts[#parts + 1] = "nil"
+			end
+			for i = 1, nhash or 0 do
+				parts[#parts + 1] = "k" .. i .. " = nil"
+			end
+			make = assert(loadstring("return function() return { " .. table.concat(parts, ", ") .. " } end"))()
+			makers[key] = make
+		end
+		return make()
 	end
 	table.freeze = function(t)
 		frozen[t] = true

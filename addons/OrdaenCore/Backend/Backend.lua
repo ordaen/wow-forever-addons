@@ -233,15 +233,16 @@ local function getHolder()
 	return holder
 end
 
--- A node table sized for its fields up front (no rehash while it fills): a text node or a box (which also has a
--- grid: children, padding, gaps, columns).
+-- A node table sized for the fields it fills (a hash slot is 40 bytes, and a node lives in its pool for good): a
+-- text node holds about 30 fields, a box about 60 (it also has a grid: children, padding, gaps, columns); the copy of
+-- its attributes, a few keys (a table with more grows once).
 local function newNode(kind)
-	local node = setmetatable(createTable(0, 64), NodeMeta)
+	local node = setmetatable(createTable(0, kind == "text" and 32 or 64), NodeMeta)
 	node.kind, node.gen = kind, pxGen
 	if kind == "text" then
-		node.a, node.na, node.args, node.nargs = createTable(0, 16), 0, {}, 0
+		node.a, node.na, node.args, node.nargs = createTable(0, 4), 0, {}, 0
 	else
-		node.a, node.na, node.children, node.count = createTable(0, 32), 0, {}, 0
+		node.a, node.na, node.children, node.count = createTable(0, 8), 0, {}, 0
 		node.padT, node.padR, node.padB, node.padL, node.gapR, node.gapC, node.bw = 0, 0, 0, 0, 0, 0, 0
 		Layout.Columns(node, nil, resolveRef)
 	end
