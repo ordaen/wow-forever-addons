@@ -405,6 +405,32 @@ function State.OfDeclaration(declaration, name)
 	return Stored(module, declaration.name, name, spec)
 end
 
+--- Every setting of `module` back to its default (or to following its global): `/ordaen <module> reset`. Its other
+--- persistent values (gold per character, say) stay. Every component file is imported first, so a setting of a
+--- component not drawn yet is reset too; returns how many settings there are.
+---@param module table
+---@return integer
+function State.ResetSettings(module)
+	local count = 0
+	for path, export in pairs(module.ns) do
+		if type(export) == "function" or type(export) == "table" then
+			if path == "module" or path:match("^components/") then
+				local ok, declaration = pcall(module.Import, module, path)
+				local persistent = ok and type(declaration) == "table" and declaration.persistent
+				if persistent then
+					for name, spec in pairs(persistent) do
+						if spec.setting then
+							State.OfDeclaration(declaration, name):Reset()
+							count = count + 1
+						end
+					end
+				end
+			end
+		end
+	end
+	return count
+end
+
 --- Define.Persistent / Define.Ephemeral, in the setup of `instance`.
 ---@param instance OrdaenInstance|nil
 ---@param spec table<string, table>

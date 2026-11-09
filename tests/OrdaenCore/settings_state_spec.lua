@@ -106,4 +106,23 @@ describe("settings as stored values", function()
 		assert.is_nil(SellJunk.state.nope)
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("/ordaen <module> reset puts every setting back, imports what isn't drawn yet, and keeps other state", function()
+		local moduleNs = {}
+		moduleNs["components/sellJunk"] = function(import)
+			local Define = import("@ordaen/define")
+			return Define.Component({ persistent = {
+				on = { type = "boolean", default = true, setting = true },
+				sold = { type = "number", default = 0 }, -- persistent, not a setting
+			} })
+		end
+		wow.env.OrdaenCore.RegisterModule("OrdaenSpec", moduleNs)
+		local spec = ns.App.Module("OrdaenSpec")
+		spec.db, spec.charDb = { sellJunk = { on = false, sold = 7 } }, {}
+		ns.Commands.AddModule(spec, {})
+		assert.is_true(wow:Slash("/ordaen spec reset"))
+		assert.are.same({ sellJunk = { sold = 7 } }, spec.db)
+		assert.is_truthy(table.concat(wow.printed, "\n"):find("Spec: settings back to their defaults.", 1, true))
+		assert.are.same({}, wow.errors)
+	end)
 end)

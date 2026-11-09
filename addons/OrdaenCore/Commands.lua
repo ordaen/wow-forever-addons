@@ -128,6 +128,14 @@ local function run(line)
 		groupHelp(word)
 		return
 	end
+	if command == "reset" then -- the Core's: the module's settings to their defaults
+		local module = group.module
+		if module then
+			ns.State.ResetSettings(module)
+			say(format(L.SETTINGS_RESET, group.title))
+		end
+		return
+	end
 	local entry = group.list[command]
 	if not entry then
 		say(format(L.UNKNOWN_COMMAND, group.title, command, word))
