@@ -153,6 +153,8 @@ ns.Theme = {
 		cap = 0, capHeight = 0, rows = 2, normal = 0 },
 	["ctl.radioOn"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-radio", size = { 32, 64 },
 		cap = 0, capHeight = 0, rows = 2, normal = 1 },
+	-- a section heading's rule (design controls/row, heading): #d6a56b at 45%, fading out to the right
+	["ctl.rule"] = "Interface\\AddOns\\OrdaenCore\\media\\ctl-rule",
 	["ctl.dropdownArrow"] = "Interface\\AddOns\\OrdaenCore\\media\\dropdown-arrow",
 	-- a count on a cell (the friends online on the social button; design .mbadge): a green pill with a black ring and a
 	-- faint top highlight, round caps half its height wide; the box gives it 16 px height, the text and side padding
