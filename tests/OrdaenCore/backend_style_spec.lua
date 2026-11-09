@@ -744,7 +744,7 @@ describe("backend styles", function()
 		local layer = Backend:Layer("screen")
 		local fill = Backend:Create("box")
 		Backend:Set(fill, wow.env.table.freeze({ position = "absolute", left = 0, top = 0, width = 640, height = 20,
-			background = ref("panel.xpFill") }))
+			background = ref("panel.xpFill.brushed") }))
 		Backend:SetChildren(layer, { fill }, 1)
 		Backend:Flush()
 		local _, r = unpack(fill.bg._coords)

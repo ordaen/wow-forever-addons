@@ -51,8 +51,8 @@ ns.Theme = {
 		mask = "Interface\\AddOns\\OrdaenCore\\media\\portrait-mask",
 		rim = "Interface\\AddOns\\OrdaenCore\\media\\portrait-rim",
 	},
-	-- the portrait in a micro menu cell (Panel's «Кнопка персонажа» = button; design BottomPanel .face): a 40 px circle
-	-- with a 1 px black ring
+	-- the portrait in a micro menu cell (Panel's charButton = "button"; design BottomPanel .face): a 40 px circle with
+	-- a 1 px black ring
 	["panel.faceRound"] = {
 		mask = "Interface\\AddOns\\OrdaenCore\\media\\face-round-mask",
 		rim = "Interface\\AddOns\\OrdaenCore\\media\\face-round-rim",
@@ -70,7 +70,17 @@ ns.Theme = {
 	-- height), the glass shine, the bronze ring; the three tube pieces three-sliced with caps as wide as it is high
 	["panel.xpTrough"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube-trough", size = { 256, 64 }, cap = 64,
 		capHeight = 1 },
-	["panel.xpFill"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-fill-brushed", size = { 1024, 32 },
+	["panel.xpFill.brushed"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-fill-brushed", size = { 1024, 32 },
+		tile = true },
+	["panel.xpFill.clouds"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-fill-clouds", size = { 1024, 32 },
+		tile = true },
+	["panel.xpFill.deep"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-fill-deep", size = { 1024, 32 },
+		tile = true },
+	["panel.xpFill.grain"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-fill-grain", size = { 1024, 32 },
+		tile = true },
+	["panel.xpFill.potion"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-fill-potion", size = { 1024, 32 },
+		tile = true },
+	["panel.xpFill.steel"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-fill-steel", size = { 1024, 32 },
 		tile = true },
 	["panel.xpShine"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube-shine", size = { 256, 64 }, cap = 64,
 		capHeight = 1 },
@@ -122,6 +132,19 @@ ns.Theme = {
 		cap = 0, capHeight = 0, rows = 8, normal = 3, hover = 4, pressed = 5 },
 	["ctl.cornerClose"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-corner-close", size = { 128, 256 },
 		cap = 0, capHeight = 0, rows = 4, normal = 0, hover = 1, pressed = 2 },
+	-- the push button and the dropdown's face (design controls/push-button, dropdown; our own art, media/button: rows
+	-- 0 normal, 1 pushed, 2 disabled, 3 the hover light over normal, 4 the accent, 5 the accent pushed), three-sliced
+	-- with caps half as wide as it is high; the dropdown's arrow
+	["ctl.button"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\button", size = { 256, 512 },
+		cap = 32, capHeight = 0.5, rows = 8,
+		normal = 0, pressed = 1, glow = 3 },
+	["ctl.buttonAccent"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\button", size = { 256, 512 },
+		cap = 32, capHeight = 0.5, rows = 8,
+		normal = 4, pressed = 5, glow = 3 },
+	["ctl.buttonDisabled"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\button", size = { 256, 512 },
+		cap = 32, capHeight = 0.5, rows = 8,
+		normal = 2 },
+	["ctl.dropdownArrow"] = "Interface\\AddOns\\OrdaenCore\\media\\dropdown-arrow",
 	-- a count on a cell (the friends online on the social button; design .mbadge): a green pill with a black ring and a
 	-- faint top highlight, round caps half its height wide; the box gives it 16 px height, the text and side padding
 	["panel.countBadge"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\panel-count-badge", size = { 128, 64 },

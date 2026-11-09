@@ -58,7 +58,7 @@ local function Inner(game)
 	} })
 	game.ui:Box({ attributes = {
 		position = "absolute", left = 0, top = 0, height = "100%", width = FillWidth(game),
-		background = Define.Theme.panel.xpFill,
+		background = Define.Theme.panel.xpFill.brushed,
 	} })
 	game.ui:Box(MARKS_CALL)
 end
