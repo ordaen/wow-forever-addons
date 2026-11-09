@@ -70,7 +70,7 @@ local GROUP = {
 	mask = LOOK, look = LOOK, shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET,
 	zLevel = LOOK, desaturate = LOOK, tint = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
-	hoverWithin = INPUT,
+	hoverWithin = INPUT, OnEscape = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT,
 	text = TEXT, textSize = TEXT, textFamily = TEXT, textOutline = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT,
 	maxLength = TEXT,
@@ -86,7 +86,7 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 end
 for _, key in ipairs({ "background", "desaturate", "tint", "artOrigin", "anchor", "zLevel", "opacity", "portrait",
 	"mask", "overflow", "stateFrom", "OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart",
-	"OnDrag", "OnDragStop",
+	"OnDrag", "OnDragStop", "OnEscape",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
@@ -1550,6 +1550,45 @@ function Node:ApplyMouse()
 	if self.inner or a.OnWheel or self.wheelOn then
 		self:ApplyWheel()
 	end
+	if a.OnEscape or self.escapeProxy then
+		self:ApplyEscape()
+	end
+end
+
+-- OnEscape: Escape closes the box, as it closes Blizzard's windows. While the box shows, a stand-in frame of its own
+-- is listed in UISpecialFrames; Escape hides it (so the game menu doesn't open) and its OnHide calls the handler. Made
+-- on first use, one per box that ever had the handler.
+local escapes = 0
+
+---@class OrdaenEscapeProxy : Frame
+---@field node OrdaenBackendNode
+
+local function onEscapeHide(proxy)
+	local node = proxy.node
+	if node.shown and node.escapeOn then -- hidden by Escape, not with its box
+		local fn = node.a.OnEscape
+		if fn then
+			fn()
+		end
+	end
+end
+
+function Node:ApplyEscape()
+	local want = self.a.OnEscape and true or nil
+	local proxy = self.escapeProxy
+	if want and not proxy then
+		escapes = escapes + 1
+		local name = "OrdaenEscape" .. escapes
+		proxy = CreateFrame("Frame", name, UIParent) --[[@as OrdaenEscapeProxy]]
+		proxy.node = self
+		proxy:Hide()
+		proxy:SetScript("OnHide", onEscapeHide)
+		local special = UISpecialFrames -- Blizzard's list: Escape hides what's in it
+		special[#special + 1] = name -- luacheck: ignore 122 (adding to Blizzard's list is how a frame joins it)
+		self.escapeProxy = proxy
+	end
+	self.escapeOn = want
+	proxy:SetShown(want and self.shown or false)
 end
 
 -- Whether any attribute is a per-state map, and whether one of them is a layout attribute.
@@ -1941,6 +1980,10 @@ local function show(node, shown)
 			obj:Show()
 		else
 			obj:Hide()
+		end
+		local proxy = node.escapeProxy
+		if proxy then -- Escape closes it only while it shows
+			proxy:SetShown(shown and node.escapeOn or false)
 		end
 	end
 end

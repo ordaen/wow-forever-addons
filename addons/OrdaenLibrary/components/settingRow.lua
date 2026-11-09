@@ -1,7 +1,7 @@
 -- SettingRow (design controls/row): one setting's row on a settings page: its label (the setting's own, in the label
 -- colour; its hint in a Tip while the cursor is on it) in a 280 px column, its control beside it, 18 px apart,
--- both centred on the row. A disabled row draws at 45%. Every settings control (Switch, Checkbox, Slider, Dropdown) draws its row with it, so
--- the rows line up.
+-- both centred on the row. A disabled row draws at 45%. Every settings control (Switch, Checkbox, Slider, Dropdown)
+-- draws its row with it, so the rows line up.
 --
 -- Attributes: `value`, the Setting (its label: `setting:Label()`); `disabled`, a boolean. Slot `default`: the control.
 local Define = import("@ordaen/define")

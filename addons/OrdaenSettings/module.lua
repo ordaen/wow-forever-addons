@@ -141,6 +141,12 @@ return Define.Module({
 			tab = { type = "number", default = 1 }, -- its tab
 			closing = { type = "boolean", default = false }, -- asking about unsaved changes
 		})
+		-- where the player left the window (design windows/: remembered per window, account-wide): its centre's offset
+		-- from the screen's
+		Define.Persistent({
+			x = { type = "number", default = 0 },
+			y = { type = "number", default = 0 },
+		})
 		-- the window's one draft: every page's changes wait in it until «Сохранить» (design settings/)
 		local draft = game.Settings:Draft()
 		local function close()
@@ -194,8 +200,12 @@ return Define.Module({
 				self.state.tab = i
 			end,
 			-- closing asks first while anything is unsaved
+			moved = function(x, y)
+				self.state.x = x
+				self.state.y = y
+			end,
 			hide = function()
-				if Define.Peek(draft.changed) > 0 then
+				if draft.changed:Peek() > 0 then
 					self.state.closing = true
 				else
 					close()
@@ -206,8 +216,8 @@ return Define.Module({
 
 	Render = function(game, self)
 		if self.state.shown then
-			game.ui:Window({ attributes = { title = game.Ordaen.title, width = WIDTH, height = HEIGHT, OnClose = self.hide },
-				slots = { default = Window } })
+			game.ui:Window({ attributes = { title = game.Ordaen.title, width = WIDTH, height = HEIGHT, x = self.state.x,
+				y = self.state.y, OnMoved = self.moved, OnClose = self.hide }, slots = { default = Window } })
 			if self.state.closing then
 				game.ui:Dialog({ attributes = { title = L.UNSAVED_TITLE, width = CONFIRM_WIDTH },
 					slots = { default = Question, buttons = Answers } })

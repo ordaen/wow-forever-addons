@@ -1,14 +1,17 @@
 -- Window (design controls/window: the tabbed window, TabbedWindow): a window whose open tab is its title. The small
 -- metal frame round its body, the character sheet's wood as one picture across the body and the tab, the tab standing
 -- on the body's top line at its left, its rim running down into the frame's left line and out along the top line on
--- its right, the title in gold. Centred on the screen; dragging its tab moves it. Sizes as the design draws them at
--- the user's scale (a px is 1/1.2 UI units).
+-- its right, the title in gold. Centred on the screen at first; dragging its tab row moves it (design windows/:
+-- dragged by its tab row), and Escape closes it as it closes Blizzard's windows. Sizes as the design draws them at the
+-- user's scale (a px is 1/1.2 UI units).
 --
 -- In the body's top-right corner, while the cursor is over the window: full screen (and back) and close, a joined group
 -- of plates under the frame's line.
 --
--- Attributes: `title` (text), `width`, `height` (the body's, UI units), `OnClose` (called by the close button). Slot
--- `default`: the body's content, inside its padding.
+-- Attributes: `title` (text), `width`, `height` (the body's, UI units), `x`, `y` (where it sits: its centre's offset
+-- from the screen's, UI units, y down; 0, 0 when unset), `OnMoved(x, y)` (called when a drag ends: its owner keeps
+-- the place), `OnClose` (called by the close button and by Escape). Slot `default`: the body's content, inside its
+-- padding.
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
@@ -79,9 +82,12 @@ local function Parts(game, self)
 	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = TAB, bottom = 0,
 		border = Define.Theme.frame.small, background = WOOD, padding = PADDING, columns = 1, hoverWithin = true,
 		OnEnter = self.enter, OnLeave = self.leave }, slots = { default = Body } })
+	-- the tab row: the whole row above the body moves the window, the tab over it too
+	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = 0, height = TAB,
+		OnDragStart = self.dragStart, OnDrag = self.drag, OnDragStop = self.dragStop } })
 	game.ui:Box({ attributes = { position = "absolute", left = ROW_X, top = 0, height = LINE + 4 * PX,
 		padding = { 0, TAB_PAD, 0, TAB_PAD }, yAlign = "center", columns = 1, OnDragStart = self.dragStart,
-		OnDrag = self.drag }, slots = { default = TabParts } })
+		OnDrag = self.drag, OnDragStop = self.dragStop }, slots = { default = TabParts } })
 end
 
 -- where the window sits: centred and moved by dragging its tab, or the whole screen
@@ -107,8 +113,8 @@ end
 return Define.Component({
 	Setup = function(_, self)
 		Define.Ephemeral({
-			x = { type = "number", default = 0 },
-			y = { type = "number", default = 0 },
+			x = { type = "number", default = Define.Peek(self.attributes.x) or 0 },
+			y = { type = "number", default = Define.Peek(self.attributes.y) or 0 },
 			full = { type = "boolean", default = false },
 			hovered = { type = "boolean", default = false },
 		})
@@ -124,6 +130,12 @@ return Define.Component({
 				end
 				self.state.x = x0 + x - grabX
 				self.state.y = y0 + y - grabY
+			end,
+			dragStop = function()
+				local fn = self.attributes.OnMoved
+				if fn and not Define.Peek(self.state.full) then
+					fn(Define.Peek(self.state.x), Define.Peek(self.state.y))
+				end
 			end,
 			enter = function()
 				self.state.hovered = true
@@ -146,6 +158,6 @@ return Define.Component({
 	Render = function(game, self)
 		game.ui:Box({ attributes = { position = "absolute", anchor = Anchor(game, self), left = Left(game, self),
 			top = Top(game, self), right = Edge(game, self), bottom = Edge(game, self), width = Width(game, self),
-			height = Height(game, self), artOrigin = true }, slots = { default = Parts } })
+			height = Height(game, self), artOrigin = true, OnEscape = self.close }, slots = { default = Parts } })
 	end,
 })

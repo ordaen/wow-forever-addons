@@ -1515,6 +1515,20 @@ function Wow:MakeEnv()
 	})
 	offer("STANDARD_TEXT_FONT", "Fonts\\FRIZQT__.TTF")
 	offer("SlashCmdList", {})
+	-- the frames Escape closes, as FrameXML's CloseSpecialWindows does (wow:Escape presses it)
+	local special = {}
+	offer("UISpecialFrames", special)
+	offer("CloseSpecialWindows", function()
+		local found = false
+		for _, name in ipairs(special) do
+			local frame = env[name]
+			if frame and frame:IsShown() then
+				frame:Hide()
+				found = true
+			end
+		end
+		return found
+	end)
 	offer("C_Timer", {
 		After = function(delay, fn)
 			wow.timers[#wow.timers + 1] = { at = wow.time + delay, fn = fn }

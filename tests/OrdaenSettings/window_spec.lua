@@ -134,5 +134,23 @@ describe("the settings window", function()
 		assert.are.equal(was, pixel:Peek())
 		assert.are.same({}, wow.errors)
 	end)
-end)
 
+	it("closes on Escape, and keeps where its tab row was dragged", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		-- the tab row: the box over the window's top, before the tab
+		local tab = texts(ns)["Ordaen"].parent
+		local row = tab.parent.children[2]
+		local f = row.frame
+		f:GetScript("OnDragStart")(f)
+		f:GetScript("OnDragStop")(f)
+		ns.Scheduler.Flush()
+		assert.is_true(wow.env.CloseSpecialWindows()) -- Escape: the window took it, no game menu
+		ns.Scheduler.Flush()
+		assert.are.same({}, wow.errors)
+		assert.is_falsy(texts(ns)["General"])
+		assert.is_false(wow.env.CloseSpecialWindows()) -- closed: Escape is the game's again
+		assert.are.same({}, wow.errors)
+	end)
+end)
