@@ -251,6 +251,17 @@ function Plan.Steps(bench, tracked, progress, mode)
 			collectgarbage("collect")
 		end))
 		add(Stats(scenario, size, impl, "open"))
+		-- every live box drawn above the frame it sits in (the backend sets a level only when it isn't already above)
+		if impl ~= FW_ENGINE then
+			add(measure:Check(scenario, size, impl, "every box drawn above its parent", function()
+				if not OrdaenCore._BackendStats then
+					return true
+				end
+				OrdaenCore._BackendStats(backendStats)
+				local errors = backendStats.level_errors or 0
+				return errors == 0, errors .. " boxes not drawn above the frame they sit in"
+			end))
+		end
 	end
 	--- close, the framework: mount untimed, then unmount timed (unmounted after).
 	local function FwClose(scenario, size, impl, scene)
