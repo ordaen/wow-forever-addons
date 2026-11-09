@@ -1,4 +1,4 @@
--- cascade, by hand: a change of the first value is copied along the 50 in a loop.
+-- cascade, by hand: a change of the first value is the value of all 50 (a copy along the chain, written in one loop).
 local LENGTH = 50
 
 local Cascade = {}
@@ -9,9 +9,10 @@ for i = 1, LENGTH do
 end
 
 function Cascade.Bump()
-	values[1] = values[1] + 1
-	for i = 2, LENGTH do
-		values[i] = values[i - 1]
+	local list = values
+	local v = list[1] + 1
+	for i = 1, LENGTH do
+		list[i] = v
 	end
 end
 

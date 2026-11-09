@@ -16,8 +16,9 @@ end
 
 function Fanout.Bump()
 	value = value + 1
+	local list = listeners
 	for i = 1, WATCHES do
-		listeners[i]()
+		list[i]()
 	end
 end
 

@@ -8,9 +8,12 @@
 --   never reads geometry back looks cheaper than it is.
 -- - Frame: from this OnUpdate to the next, which includes that deferred work (and everything else the client does in
 --   the frame, so cap the frame rate high and turn vsync off while the bench runs).
--- Medians and the 95th percentile, not mean and max: one garbage collection step makes a max meaningless. Before
--- every measurement an untimed full collection, so one side's garbage isn't collected during the other's steps and
--- the heap growth (KB) is exact.
+-- Medians and the 95th percentile, not mean and max. Garbage collection never runs inside a timed call: Lua runs a
+-- GC step in whatever code allocates when the debt is due, so code that allocates would pay for other addons'
+-- garbage. The collector is stopped around each timed call where the client allows it, else a full collection runs
+-- just before the call; the heap growth (KB) is then exactly what the call allocated. Before every measurement an
+-- untimed full collection, so one side's garbage isn't left to the other. The first WARMUP calls of a series grow
+-- arrays and queues to their working size and stay out of the numbers.
 local format, sort = string.format, table.sort
 local debugprofilestop, collectgarbage = debugprofilestop, collectgarbage
 
@@ -18,6 +21,24 @@ local Driver = {}
 
 local frame
 local running = false
+
+local canStop = pcall(collectgarbage, "stop") and pcall(collectgarbage, "restart")
+
+local function Quiet()
+	if canStop then
+		collectgarbage("stop")
+	else
+		collectgarbage("collect")
+	end
+end
+
+local function Resume()
+	if canStop then
+		collectgarbage("restart")
+	end
+end
+
+local WARMUP = 5
 
 function Driver.IsRunning()
 	return running
@@ -83,11 +104,13 @@ local function Percentile(samples, n, p)
 	return samples[i]
 end
 
---- `count` timed calls, one per frame: fn(i). Before them an untimed frame collects garbage; after the last, one more
---- frame closes the last frame time, then `verify()` (optional, untimed) decides the check.
+--- `count` calls, one per frame: fn(i); the first WARMUP aren't in the numbers. Before them an untimed frame collects
+--- garbage; after the last, one more frame closes the last frame time, then `verify()` (optional, untimed) decides
+--- the check.
 function Measure:Series(scenario, size, impl, metric, count, fn, verify)
 	local lua, frames = {}, {}
 	local phase, kb, last = 0, 0, 0
+	local measured = count - WARMUP
 	return function()
 		local now = debugprofilestop()
 		if phase == 0 then
@@ -95,24 +118,30 @@ function Measure:Series(scenario, size, impl, metric, count, fn, verify)
 			phase, kb = 1, 0
 			return false
 		end
-		if phase > 1 then
-			frames[phase - 1] = now - last
+		if phase > WARMUP + 1 then
+			frames[phase - 1 - WARMUP] = now - last
 		end
 		if phase > count then
 			local check
 			if verify then
 				check = self:Verdict(verify())
 			end
-			self:Record(scenario, size, impl, metric, Percentile(lua, count, 0.5), Percentile(lua, count, 0.95),
-				Percentile(frames, count, 0.5), Percentile(frames, count, 0.95), kb / count, count, check)
+			self:Record(scenario, size, impl, metric, Percentile(lua, measured, 0.5), Percentile(lua, measured, 0.95),
+				Percentile(frames, measured, 0.5), Percentile(frames, measured, 0.95), kb / measured, measured, check)
 			phase = 0
 			return true
 		end
+		Quiet()
 		local before = collectgarbage("count")
 		last = debugprofilestop()
 		fn(phase)
-		lua[phase] = debugprofilestop() - last
-		kb = kb + collectgarbage("count") - before
+		local ms = debugprofilestop() - last
+		local grew = collectgarbage("count") - before
+		Resume()
+		if phase > WARMUP then
+			lua[phase - WARMUP] = ms
+			kb = kb + grew
+		end
 		phase = phase + 1
 		return false
 	end
@@ -134,11 +163,13 @@ function Measure:Once(scenario, size, impl, metric, fn)
 			phase = 0
 			return true
 		end
+		Quiet()
 		local before = collectgarbage("count")
 		start = debugprofilestop()
 		local ok, why = fn()
 		lua = debugprofilestop() - start
 		kb = collectgarbage("count") - before
+		Resume()
 		check = self:Verdict(ok, why)
 		phase = 2
 		return false

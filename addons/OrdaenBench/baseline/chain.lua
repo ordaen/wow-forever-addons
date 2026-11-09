@@ -9,14 +9,15 @@ local root = 0
 local steps = {}
 
 function Chain.Bump()
-	root = root + 1
-	local previous = root
+	local r = root + 1
+	root = r
+	local list, previous = steps, r
 	for i = 1, LENGTH do
 		previous = previous + 1
-		steps[i] = previous
+		list[i] = previous
 	end
 	counters.runs = counters.runs + 1
-	if steps[LENGTH] ~= root + LENGTH then
+	if list[LENGTH] ~= r + LENGTH then
 		counters.violations = counters.violations + 1
 	end
 end
