@@ -34,236 +34,236 @@ Compared with: round 8, 2026-11-09 06:17:06 (Core 8332ac6).
 
 ## Improvements
 
-- grow -: close (unmount): Lua -11% (3.146 → 2.803), frame -14%
+- grow -: close (unmount): Lua -11% (3.15 ms → 2.80 ms), frame -14%
 
 ## Regressions
 
-- signals large: close (unmount): Lua +16% (3.320 → 3.845), frame +22%
-- ticker large: close (unmount) (framework-naive): Lua +14% (2.515 → 2.873), frame +25%
-- reorder -: Shuffle: Lua +2% (2.388 → 2.427), frame +19%
-- resize -: close (unmount): Lua +11% (2.914 → 3.241), frame +9%
+- signals large: close (unmount): Lua +16% (3.32 ms → 3.84 ms), frame +22%
+- ticker large: close (unmount) (framework-naive): Lua +14% (2.52 ms → 2.87 ms), frame +25%
+- reorder -: Shuffle: Lua +2% (2.39 ms → 2.43 ms), frame +19%
+- resize -: close (unmount): Lua +11% (2.91 ms → 3.24 ms), frame +9%
 
 ## Results
 
-| Scenario | Size | Metric | Framework Lua | Engine | Backend | Frame | Best Lua | Frame | Typical Lua | Frame | × best Lua | × best frame | × typical Lua | Net KB | Engine net KB | Kept KB | Engine kept KB | Change Lua | Change frame | Check |
+| Scenario | Size | Metric | Framework Lua | Engine | Backend | Frame | Best Lua | Frame | Typical Lua | Frame | × best Lua | × best frame | × typical Lua | Net | Engine net | Kept | Engine kept | Change Lua | Change frame | Check |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| grid | large | make (cold) ¹ | 68.773 | 15.284 | 53.489 | 75.236 | 5.551 | 7.729 | 7.789 | 11.943 | 12.4 | 9.7 | 8.8 | 19034.5 | 6424.7 | 18813 | 48 |  |  |  |
-| signals | small | make (pool warm) | 2.073 |  |  | 1.718 |  |  |  |  |  |  |  | 1223.8 |  |  |  | +2% | +10% |  |
-| signals | small | 50 writes/frame | 0.344 |  |  | ≈ idle | 0.027 | ≈ idle | 0.035 | ≈ idle | 12.6 |  | 9.7 | 0.4 |  |  |  | +2% |  |  |
-| signals | small | close (unmount) | 0.318 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | +1% |  |  |
-| signals | small | 50 writes/frame (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| signals | large | make (pool warm) | 18.671 |  |  | 19.451 |  |  |  |  |  |  |  | 12511.1 |  |  |  | +2% | +3% |  |
-| signals | large | 500 writes/frame | 3.869 |  |  | 4.050 | 0.252 | ≈ idle | 0.361 | 0.430 | 15.4 |  | 10.7 | 5.8 |  |  |  | +4% | +6% |  |
-| signals | large | close (unmount) | 3.845 |  |  | 4.534 |  |  |  |  |  |  |  | -224.0 |  |  |  | +16% | +22% |  |
-| signals | large | 500 writes/frame (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| coalesce | - | make (pool warm) | 0.230 |  |  | ≈ idle |  |  |  |  |  |  |  | 147.6 |  |  |  | -2% |  |  |
-| coalesce | - | 1000 writes/frame | 10.738 |  |  | 11.165 | 0.014 | ≈ idle | 10.168 | 10.679 | 783.8 |  | 1.1 | 0.0 |  |  |  | +2% | +4% | ok |
-| coalesce | - | close (unmount) | 0.097 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | -3% |  |  |
-| chain | - | make (pool warm) | 0.225 |  |  | 0.564 |  |  |  |  |  |  |  | 132.8 |  |  |  | -4% |  |  |
-| chain | - | 1 change/frame | 0.153 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | +4% |  | ok |
-| chain | - | close (unmount) | 0.023 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.1 |  |  |  | -3% |  |  |
-| diamond | - | make (pool warm) | 0.209 |  |  | ≈ idle |  |  |  |  |  |  |  | 105.2 |  |  |  | -3% |  |  |
-| diamond | - | 1 change/frame | 0.145 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | +2% |  | ok |
-| diamond | - | close (unmount) | 0.023 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.1 |  |  |  | +3% |  |  |
-| fanout | - | make (pool warm) | 10.481 |  |  | 11.064 |  |  |  |  |  |  |  | 7439.5 |  |  |  | -3% | -3% |  |
-| fanout | - | 1 change/frame | 19.685 |  |  | 20.422 | 0.210 | ≈ idle |  |  | 93.8 |  |  | 0.0 |  |  |  | -0% | +0% |  |
-| fanout | - | close (unmount) | 3.886 |  |  | 4.290 |  |  |  |  |  |  |  | 0.0 |  |  |  | +1% | +9% |  |
-| fanout | - | 1 change/frame (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| cascade | - | make (pool warm) | 0.197 |  |  | ≈ idle |  |  |  |  |  |  |  | 112.1 |  |  |  | +2% |  |  |
-| cascade | - | 1 change/frame | 0.101 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | +0% |  | ok |
-| cascade | - | close (unmount) | 0.062 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | -10% |  |  |
-| events | - | make (pool warm) | 0.269 |  |  | ≈ idle |  |  |  |  |  |  |  | 8.6 |  |  |  | -2% |  |  |
-| events | - | 20 BAG_UPDATE/frame | 0.105 |  |  | ≈ idle | 0.013 | ≈ idle |  |  | 8.1 |  |  | 0.0 |  |  |  | +1% |  |  |
-| events | - | close (unmount) | 0.109 |  |  | 1.022 |  |  |  |  |  |  |  | 0.0 |  |  |  | +16% |  |  |
-| events | - | 20 BAG_UPDATE/frame (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| events | - | 20 BAG_UPDATE/frame (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | make (pool warm) | 9.297 | 3.350 | 5.947 | 10.707 |  |  |  |  |  |  |  | 1274.2 | 1274.2 |  |  | +3% | +6% |  |
-| grid | small | steady (shown, unchanged) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
-| grid | small | one changed | 0.414 | 0.395 | 0.018 | 0.681 | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 36.6 | 0.1 | 0.1 |  |  | +1% | -3% |  |
-| grid | small | all changed | 3.700 | 2.184 | 1.516 | 4.396 | 0.097 | ≈ idle | 0.327 | 0.869 | 38.3 |  | 11.3 | 0.0 | 0.0 |  |  | +6% | +7% | ok |
-| grid | small | close (unmount) | 3.221 | 0.832 | 2.389 | 3.122 |  |  |  |  |  |  |  | -1.1 | 0.0 |  |  | +6% | +11% |  |
-| grid | small | open+close (remount) | 12.522 | 3.894 | 8.628 | 13.295 |  |  |  |  |  |  |  | 1274.2 | 1274.2 |  |  | +5% | +4% |  |
-| grid | small | race: open+close in one frame ¹ | 0.025 |  |  | 1.983 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | race: handle after close ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | make (pool warm) (framework-itemsRead) | 9.027 |  |  | 9.586 |  |  |  |  |  |  |  | 1310.0 |  |  |  | -3% | +0% |  |
-| grid | small | steady (shown, unchanged) (framework-itemsRead) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
-| grid | small | one changed (framework-itemsRead) | 1.633 |  |  | 1.967 | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 144.5 | 0.1 |  |  |  | -4% | +5% |  |
-| grid | small | all changed (framework-itemsRead) | 7.273 |  |  | 8.105 | 0.097 | ≈ idle | 0.327 | 0.869 | 75.4 |  | 22.2 | 0.0 |  |  |  | +2% | +3% | ok |
-| grid | small | close (unmount) (framework-itemsRead) | 3.227 |  |  | 3.975 |  |  |  |  |  |  |  | -0.1 |  |  |  | -5% | +3% |  |
-| grid | small | open+close (remount) (framework-itemsRead) | 12.160 |  |  | 13.017 |  |  |  |  |  |  |  | 1310.0 |  |  |  | -3% | -3% |  |
-| grid | small | race: open+close in one frame (framework-itemsRead) ¹ | 0.026 |  |  | 2.460 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | race: handle after close (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | make (pool warm) (framework-naive) | 9.156 |  |  | 9.960 |  |  |  |  |  |  |  | 1553.9 |  |  |  | -4% | -6% |  |
-| grid | small | steady (shown, unchanged) (framework-naive) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
-| grid | small | one changed (framework-naive) | 0.461 |  |  | 0.734 | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 40.8 | 73.3 |  |  |  | -1% | -14% |  |
-| grid | small | all changed (framework-naive) | 3.702 |  |  | 4.358 | 0.097 | ≈ idle | 0.327 | 0.869 | 38.4 |  | 11.3 | 350.0 |  |  |  | +1% | +2% | ok |
-| grid | small | close (unmount) (framework-naive) | 3.042 |  |  | 2.968 |  |  |  |  |  |  |  | 0.0 |  |  |  | +1% | +5% |  |
-| grid | small | open+close (remount) (framework-naive) | 12.190 |  |  | 12.882 |  |  |  |  |  |  |  | 1553.9 |  |  |  | -1% | -5% |  |
-| grid | small | race: open+close in one frame (framework-naive) ¹ | 0.032 |  |  | 2.185 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | race: handle after close (framework-naive) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | one changed (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | one changed (same as baseline) (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | one changed (same as baseline) (framework-naive) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | one changed (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | one changed (even line spacing) (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | one changed (even line spacing) (framework-naive) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | all changed (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | all changed (same as baseline) (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | all changed (same as baseline) (framework-naive) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | all changed (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | all changed (even line spacing) (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | small | all changed (even line spacing) (framework-naive) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | make (pool warm) | 44.478 | 15.601 | 28.877 | 48.648 |  |  |  |  |  |  |  | 6336.0 | 6336.0 |  |  | +2% | +2% |  |
-| grid | large | steady (shown, unchanged) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
-| grid | large | one changed | 1.831 | 1.810 | 0.021 | 2.533 | <0.01 | ≈ idle | 0.012 | ≈ idle |  |  | 152.6 | 0.1 | 0.1 |  |  | -0% | +1% |  |
-| grid | large | all changed | 18.207 | 11.192 | 7.015 | 20.002 | 0.410 | 1.604 | 1.774 | 3.233 | 44.4 | 12.5 | 10.3 | 0.0 | 0.0 |  |  | -4% | -4% | ok |
-| grid | large | close (unmount) | 17.128 | 4.855 | 12.273 | 18.330 ᵍ |  |  |  |  |  |  |  | -10.7 | 0.0 |  |  | -3% |  |  |
-| grid | large | open+close (remount) | 64.665 | 18.977 | 45.689 | 67.412 |  |  |  |  |  |  |  | 6336.0 | 6336.0 |  |  | +7% | +7% |  |
-| grid | large | race: open+close in one frame ¹ | 0.033 |  |  | 2.649 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | race: handle after close ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | make (pool warm) (framework-itemsRead) | 45.397 |  |  | 48.633 |  |  |  |  |  |  |  | 6501.3 |  |  |  | -4% | -5% |  |
-| grid | large | steady (shown, unchanged) (framework-itemsRead) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
-| grid | large | one changed (framework-itemsRead) | 8.534 |  |  | 9.257 | <0.01 | ≈ idle | 0.012 | ≈ idle |  |  | 711.2 | 0.1 |  |  |  | -3% | -2% |  |
-| grid | large | all changed (framework-itemsRead) | 115.941 |  |  | 119.833 | 0.410 | 1.604 | 1.774 | 3.233 | 282.7 | 74.7 | 65.3 | 0.0 |  |  |  | -2% | -1% | ok |
-| grid | large | close (unmount) (framework-itemsRead) | 16.812 |  |  | 18.823 |  |  |  |  |  |  |  | 0.0 |  |  |  | -7% | -6% |  |
-| grid | large | open+close (remount) (framework-itemsRead) | 61.680 |  |  | 64.284 |  |  |  |  |  |  |  | 6501.3 |  |  |  | +0% | +1% |  |
-| grid | large | race: open+close in one frame (framework-itemsRead) ¹ | 0.036 |  |  | 2.454 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | race: handle after close (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | make (pool warm) (framework-naive) | 45.514 |  |  | 49.894 |  |  |  |  |  |  |  | 7734.4 |  |  |  | +1% | +1% |  |
-| grid | large | steady (shown, unchanged) (framework-naive) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  |  |
-| grid | large | one changed (framework-naive) | 2.029 |  |  | 2.490 | <0.01 | ≈ idle | 0.012 | ≈ idle |  |  | 169.0 | 360.8 |  |  |  | -0% | -4% |  |
-| grid | large | all changed (framework-naive) | 19.212 |  |  | 21.027 | 0.410 | 1.604 | 1.774 | 3.233 | 46.8 | 13.1 | 10.8 | 1749.9 |  |  |  | -1% | -2% | ok |
-| grid | large | close (unmount) (framework-naive) | 17.298 |  |  | 18.537 ᵍ |  |  |  |  |  |  |  | 0.0 |  |  |  | -2% |  |  |
-| grid | large | open+close (remount) (framework-naive) | 64.242 |  |  | 65.921 |  |  |  |  |  |  |  | 7734.4 |  |  |  | +0% | -0% |  |
-| grid | large | race: open+close in one frame (framework-naive) ¹ | 0.032 |  |  | 1.761 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | race: handle after close (framework-naive) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | one changed (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | one changed (same as baseline) (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | one changed (same as baseline) (framework-naive) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | one changed (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | one changed (even line spacing) (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | one changed (even line spacing) (framework-naive) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | all changed (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | all changed (same as baseline) (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | all changed (same as baseline) (framework-naive) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | all changed (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | all changed (even line spacing) (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grid | large | all changed (even line spacing) (framework-naive) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| ticker | small | make (pool warm) | 0.712 | 0.147 | 0.566 | 1.287 |  |  |  |  |  |  |  | 31.9 | 31.9 |  |  | +2% | +11% |  |
-| ticker | small | all texts/frame | 0.401 | 0.119 | 0.281 | 0.749 | 0.037 | ≈ idle | 0.076 | ≈ idle | 10.7 |  | 5.3 | 0.0 | 0.0 |  |  | -10% |  |  |
-| ticker | small | close (unmount) | 0.335 | 0.068 | 0.267 | ≈ idle |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | +9% |  |  |
-| ticker | small | make (pool warm) (framework-naive) | 0.774 |  |  | 1.627 |  |  |  |  |  |  |  | 55.8 |  |  |  | +6% | +30% |  |
-| ticker | small | all texts/frame (framework-naive) | 0.401 |  |  | 0.756 | 0.037 | ≈ idle | 0.076 | ≈ idle | 10.8 |  | 5.3 | 23.8 |  |  |  | -11% |  |  |
-| ticker | small | close (unmount) (framework-naive) | 0.312 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | -1% |  |  |
-| ticker | small | all texts/frame (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| ticker | small | all texts/frame (same as baseline) (framework-naive) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| ticker | small | all texts/frame (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| ticker | small | all texts/frame (even line spacing) (framework-naive) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| ticker | large | make (pool warm) | 5.268 | 1.111 | 4.157 | 6.173 |  |  |  |  |  |  |  | 256.9 | 256.9 |  |  | -1% | +4% |  |
-| ticker | large | all texts/frame | 3.989 | 0.952 | 3.037 | 5.044 | 0.277 | 1.445 | 0.651 | 1.729 | 14.4 | 3.5 | 6.1 | 0.0 | 0.0 |  |  | +7% | +5% |  |
-| ticker | large | close (unmount) | 2.766 | 0.388 | 2.378 | 3.252 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | +9% | +10% |  |
-| ticker | large | make (pool warm) (framework-naive) | 5.435 |  |  | 6.237 |  |  |  |  |  |  |  | 495.2 |  |  |  | -1% | -2% |  |
-| ticker | large | all texts/frame (framework-naive) | 3.988 |  |  | 5.131 | 0.277 | 1.445 | 0.651 | 1.729 | 14.4 | 3.6 | 6.1 | 238.3 |  |  |  | +8% | +7% |  |
-| ticker | large | close (unmount) (framework-naive) | 2.873 |  |  | 3.737 |  |  |  |  |  |  |  | 0.0 |  |  |  | +14% | +25% |  |
-| ticker | large | all texts/frame (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| ticker | large | all texts/frame (same as baseline) (framework-naive) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| ticker | large | all texts/frame (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| ticker | large | all texts/frame (even line spacing) (framework-naive) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| reorder | - | make (pool warm) | 10.039 | 5.648 | 4.391 | 11.381 |  |  |  |  |  |  |  | 2829.3 | 2829.3 |  |  | -4% | -1% |  |
-| reorder | - | Reverse | 2.280 | 1.159 | 1.121 | 2.454 | 0.148 | ≈ idle | 0.542 | 0.822 | 15.4 |  | 4.2 | 12.1 | 12.1 |  |  | -3% | -3% |  |
-| reorder | - | Rotate | 2.020 | 0.854 | 1.166 | 2.519 | 0.145 | 0.633 | 0.544 | 1.007 | 13.9 | 4.0 | 3.7 | 0.0 | 0.0 |  |  | -5% | +5% |  |
-| reorder | - | InsertFront | 2.501 | 1.261 | 1.240 | 2.923 | 0.167 | 0.631 | 0.598 | 0.968 | 15.0 | 4.6 | 4.2 | 28.9 | 28.6 |  |  | -1% | -0% |  |
-| reorder | - | RemoveMiddle | 1.987 | 0.920 | 1.067 | 2.284 | 0.087 | ≈ idle | 0.592 | 1.084 | 22.7 |  | 3.4 | -0.0 | 0.0 |  |  | +0% | -4% |  |
-| reorder | - | Shuffle | 2.427 | 1.176 | 1.250 | 3.205 | 0.168 | 0.541 | 0.575 | 1.015 | 14.4 | 5.9 | 4.2 | 12.1 | 12.1 |  |  | +2% | +19% | ok |
-| reorder | - | close (unmount) | 3.906 | 1.393 | 2.513 | 4.426 ᵍ |  |  |  |  |  |  |  | -2.5 | -0.6 |  |  | -0% |  |  |
-| reorder | - | Reverse (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| reorder | - | Reverse (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| reorder | - | Rotate (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| reorder | - | Rotate (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| reorder | - | InsertFront (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| reorder | - | InsertFront (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| reorder | - | RemoveMiddle (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| reorder | - | RemoveMiddle (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| reorder | - | Shuffle (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| reorder | - | Shuffle (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |  | ok |
-| deep | - | make (pool warm) | 4.282 | 1.323 | 2.959 | 4.235 |  |  |  |  |  |  |  | 598.6 | 598.6 |  |  | +3% | +3% |  |
-| deep | - | leaf signal changed | 0.037 | 0.022 | 0.015 | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 | 0.0 |  |  | +2% |  | ok |
-| deep | - | value through 100 levels | 0.608 | 0.604 | <0.01 | 0.740 | <0.01 | ≈ idle |  |  |  |  |  | 2.1 | 0.0 |  |  | -7% |  | ok |
-| deep | - | race: change + close in one frame ¹ | 1.766 |  |  | 4.389 |  |  |  |  |  |  |  | 136.9 |  |  |  |  |  | ok |
-| deep | - | leaf signal changed (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| deep | - | leaf signal changed (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| deep | - | value through 100 levels (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| deep | - | value through 100 levels (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| resize | - | make (pool warm) | 8.194 | 2.766 | 5.428 | 8.598 |  |  |  |  |  |  |  | 1075.5 | 1075.5 |  |  | -1% | +1% |  |
-| resize | - | window resized (300-700) | 1.563 | 0.273 | 1.290 | 1.942 | 0.192 | ≈ idle |  |  | 8.1 |  |  | 0.0 | 0.0 |  |  | +1% | +3% |  |
-| resize | - | close (unmount) | 3.241 | 0.698 | 2.543 | 3.828 |  |  |  |  |  |  |  | -0.2 | -0.8 |  |  | +11% | +9% |  |
-| resize | - | window resized (300-700) (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| resize | - | window resized (300-700) (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| columns | - | make (pool warm) | 8.982 | 2.740 | 6.242 | 10.236 |  |  |  |  |  |  |  | 1075.3 | 1075.3 |  |  | +6% | +7% |  |
-| columns | - | column count changed (6-14) | 0.862 | 0.272 | 0.589 | 1.175 | 0.122 | ≈ idle |  |  | 7.1 |  |  | 0.0 | 0.0 |  |  | -0% | -8% |  |
-| columns | - | close (unmount) | 3.016 | 0.736 | 2.279 | 2.764 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | +3% | -5% |  |
-| columns | - | column count changed (6-14) (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| columns | - | column count changed (6-14) (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grow | - | make (pool warm) | 10.143 | 3.784 | 6.359 | 10.553 |  |  |  |  |  |  |  | 1740.2 | 1740.2 |  |  | +0% | +1% |  |
-| grow | - | 50 texts new length (1-30) | 3.148 | 0.558 | 2.590 | 3.813 | 0.142 | ≈ idle |  |  | 22.1 |  |  | 0.0 | 0.0 |  |  | -3% | -2% |  |
-| grow | - | close (unmount) | 2.803 | 0.888 | 1.915 | 3.295 |  |  |  |  |  |  |  | 0.0 | -2.9 |  |  | -11% | -14% |  |
-| grow | - | 50 texts new length (1-30) (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| grow | - | 50 texts new length (1-30) (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| rows | - | make (pool warm) | 1.212 | 0.261 | 0.950 | 1.755 |  |  |  |  |  |  |  | 80.1 | 80.1 |  |  | +0% | +6% |  |
-| rows | - | row count changed (50-150) | 0.499 | 0.162 | 0.337 | 0.840 | 0.016 | ≈ idle |  |  | 31.4 |  |  | 0.2 | -0.0 |  |  | -4% |  |  |
-| rows | - | close (unmount) | 0.555 | 0.095 | 0.459 | ≈ idle |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | -0% |  |  |
-| rows | - | row count changed (50-150) (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| rows | - | row count changed (50-150) (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| filter | - | make (pool warm) | 3.471 | 0.782 | 2.689 | 3.892 |  |  |  |  |  |  |  | 244.7 | 244.7 |  |  | -3% | -3% |  |
-| filter | - | filter shifted | 3.112 | 0.639 | 2.473 | 3.707 | 0.127 | ≈ idle |  |  | 24.6 |  |  | 0.0 | 0.0 |  |  | -1% | +7% |  |
-| filter | - | close (unmount) | 1.780 | 0.263 | 1.516 | 2.924 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | -0% | +23% |  |
-| filter | - | filter shifted (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| filter | - | filter shifted (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| drag | - | make (pool warm) | 3.679 | 0.394 | 3.284 | 4.704 |  |  |  |  |  |  |  | 50.0 | 50.0 |  |  | -1% | +9% |  |
-| drag | - | moved | 0.308 | 0.278 | 0.030 | 0.968 | <0.01 | ≈ idle |  |  |  |  |  | 0.0 | 0.0 |  |  | +2% | +16% |  |
-| drag | - | close (unmount) | 1.423 | 0.176 | 1.247 | 1.143 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | -4% | +15% |  |
-| drag | - | moved (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| drag | - | moved (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| bars | - | make (pool warm) | 1.175 | 0.334 | 0.841 | 1.131 |  |  |  |  |  |  |  | 117.7 | 117.7 |  |  | +1% | +23% |  |
-| bars | - | 20 fills changed | 0.482 | 0.205 | 0.277 | 0.805 | 0.011 | ≈ idle |  |  | 42.3 |  |  | 0.0 | 0.0 |  |  | +3% |  |  |
-| bars | - | close (unmount) | 0.398 | 0.096 | 0.303 | 0.910 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | -0% | +5% |  |
-| bars | - | 20 fills changed (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| bars | - | 20 fills changed (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| sections | - | make (pool warm) | 2.527 | 0.516 | 2.011 | 3.189 |  |  |  |  |  |  |  | 121.3 | 121.3 |  |  | +2% | -3% |  |
-| sections | - | a section toggled | 0.560 | 0.206 | 0.354 | 0.596 | 0.016 | ≈ idle |  |  | 35.4 |  |  | 0.0 | 0.0 |  |  | -2% | -41% |  |
-| sections | - | close (unmount) | 1.148 | 0.191 | 0.957 | 0.496 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | -9% | -48% |  |
-| sections | - | a section toggled (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| sections | - | a section toggled (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| tooltip | - | make (pool warm) | 0.042 | 0.039 | <0.01 | ≈ idle |  |  |  |  |  |  |  | 10.3 | 10.3 |  |  | -4% |  |  |
-| tooltip | - | show with new content | 0.318 | 0.042 | 0.276 | 0.912 | 0.062 | ≈ idle |  |  | 5.2 |  |  | 0.0 | 0.0 |  |  | -16% | -32% |  |
-| tooltip | - | hide | 0.124 | 0.027 | 0.097 | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 | 0.0 |  |  | +1% |  |  |
-| tooltip | - | close (unmount) | 0.021 | 0.019 | <0.01 | ≈ idle |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | +4% |  |  |
-| tooltip | - | show with new content (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| tooltip | - | show with new content (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| tooltip | - | hide (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| tooltip | - | hide (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| hover | - | make (pool warm) | 2.283 |  |  | 2.135 |  |  |  |  |  |  |  | 91.5 |  |  |  | +5% | -9% |  |
-| hover | - | hovered item changed | 0.226 |  |  | ≈ idle | 0.020 | ≈ idle |  |  | 11.5 |  |  | 0.0 |  |  |  | +1% |  | ok |
-| hover | - | close (unmount) | 0.803 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | -0% |  |  |
-| hover | - | hovered item changed (same as baseline) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| hover | - | hovered item changed (even line spacing) ¹ | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| units | - | take 1000 texts | 10.447 | 1.665 | 8.782 | 11.951 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | -3% | -3% | ok |
-| units | - | release 1000 texts | 5.067 | 0.741 | 4.326 | 5.249 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | -2% | -2% | ok |
-| units | - | take 1000 boxes | 16.756 | 1.687 | 15.069 | 19.328 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | -3% | -3% | ok |
-| units | - | release 1000 boxes | 7.012 | 0.793 | 6.220 | 7.364 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | -3% | +1% | ok |
-| units | - | 1000 backgrounds changed | 6.216 | 1.625 | 4.591 | 6.845 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | +0% | -4% | ok |
-| units | - | 1000 widths changed in fixed cells | 16.421 | 3.249 | 13.172 | 17.659 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | +1% | +2% | ok |
-| units | - | 1000 texts changed, layout unchanged | 8.830 | 3.662 | 5.168 | 10.354 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | +3% | +1% | ok |
-| units | - | 1000 texts changed width, 3 levels | 45.438 | 6.691 | 38.746 | 55.735 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | +1% | +2% | ok |
-| units | - | 100 boxes moved | 1.156 | 0.238 | 0.918 | 1.294 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | +2% | +28% | ok |
-| units | - | 1000 calls, nothing changed | 1.318 | 1.332 | <0.01 | 1.352 |  |  |  |  |  |  |  | 0.0 | 0.0 |  |  | +1% | -6% | ok |
-| units | - | 1000 writes, no reader | 0.663 |  |  | 0.825 |  |  |  |  |  |  |  | 0.0 |  |  |  | +9% |  | ok |
-| units | - | 1000 x (write, flush), 1 watch | 3.630 |  |  | 3.694 |  |  |  |  |  |  |  | 0.0 |  |  |  | +9% | +2% | ok |
-| units | - | 5000 writes, 5000 watches, 1 flush | 22.925 |  |  | 23.720 |  |  |  |  |  |  |  | 0.0 |  |  |  | -3% | -4% | ok |
-| scheduler | - | nothing written | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| scheduler | - | a write every other frame | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |  | ok |
-| scheduler | - | a write every frame | 0.588 |  |  | 1.643 | 0.042 | ≈ idle |  |  | 14.2 |  |  | 0.0 |  |  |  |  |  | ok |
-| scheduler | - | 10 writes every frame | 0.964 |  |  | 2.060 | 0.409 | ≈ idle |  |  | 2.4 |  |  | 0.0 |  |  |  |  |  | ok |
+| grid | large | make (cold) ¹ | 68.77 ms | 15.28 ms | 53.49 ms | 75.24 ms | 5.55 ms | 7.73 ms | 7.79 ms | 11.94 ms | 12.4× | 9.7× | 8.8× | 18.59 MB | 6.27 MB | 18.37 MB | 47.70 KB |  |  |  |
+| signals | small | make (pool warm) | 2.07 ms |  |  | 1.72 ms |  |  |  |  |  |  |  | 1.20 MB |  |  |  | +2% | +10% |  |
+| signals | small | 50 writes/frame | 0.34 ms |  |  | ≈ idle | 0.03 ms | ≈ idle | 0.04 ms | ≈ idle | 12.6× |  | 9.7× | 0.37 KB |  |  |  | +2% |  |  |
+| signals | small | close (unmount) | 0.32 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  | +1% |  |  |
+| signals | small | 50 writes/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| signals | large | make (pool warm) | 18.67 ms |  |  | 19.45 ms |  |  |  |  |  |  |  | 12.22 MB |  |  |  | +2% | +3% |  |
+| signals | large | 500 writes/frame | 3.87 ms |  |  | 4.05 ms | 0.25 ms | ≈ idle | 0.36 ms | 0.43 ms | 15.4× |  | 10.7× | 5.84 KB |  |  |  | +4% | +6% |  |
+| signals | large | close (unmount) | 3.84 ms |  |  | 4.53 ms |  |  |  |  |  |  |  | -224.00 KB |  |  |  | +16% | +22% |  |
+| signals | large | 500 writes/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| coalesce | - | make (pool warm) | 0.23 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 147.62 KB |  |  |  | -2% |  |  |
+| coalesce | - | 1000 writes/frame | 10.74 ms |  |  | 11.16 ms | 0.01 ms | ≈ idle | 10.17 ms | 10.68 ms | 783.8× |  | 1.1× | 0.00 KB |  |  |  | +2% | +4% | ok |
+| coalesce | - | close (unmount) | 0.10 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  | -3% |  |  |
+| chain | - | make (pool warm) | 0.23 ms |  |  | 0.56 ms |  |  |  |  |  |  |  | 132.78 KB |  |  |  | -4% |  |  |
+| chain | - | 1 change/frame | 0.15 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  | +4% |  | ok |
+| chain | - | close (unmount) | 0.02 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.05 KB |  |  |  | -3% |  |  |
+| diamond | - | make (pool warm) | 0.21 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 105.16 KB |  |  |  | -3% |  |  |
+| diamond | - | 1 change/frame | 0.14 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  | +2% |  | ok |
+| diamond | - | close (unmount) | 0.02 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.05 KB |  |  |  | +3% |  |  |
+| fanout | - | make (pool warm) | 10.48 ms |  |  | 11.06 ms |  |  |  |  |  |  |  | 7.27 MB |  |  |  | -3% | -3% |  |
+| fanout | - | 1 change/frame | 19.68 ms |  |  | 20.42 ms | 0.21 ms | ≈ idle |  |  | 93.8× |  |  | 0.00 KB |  |  |  | -0% | +0% |  |
+| fanout | - | close (unmount) | 3.89 ms |  |  | 4.29 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | +1% | +9% |  |
+| fanout | - | 1 change/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| cascade | - | make (pool warm) | 0.20 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 112.09 KB |  |  |  | +2% |  |  |
+| cascade | - | 1 change/frame | 0.10 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  | +0% |  | ok |
+| cascade | - | close (unmount) | 0.06 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  | -10% |  |  |
+| events | - | make (pool warm) | 0.27 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 8.60 KB |  |  |  | -2% |  |  |
+| events | - | 20 BAG_UPDATE/frame | 0.10 ms |  |  | ≈ idle | 0.01 ms | ≈ idle |  |  | 8.1× |  |  | 0.00 KB |  |  |  | +1% |  |  |
+| events | - | close (unmount) | 0.11 ms |  |  | 1.02 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | +16% |  |  |
+| events | - | 20 BAG_UPDATE/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| events | - | 20 BAG_UPDATE/frame (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | make (pool warm) | 9.30 ms | 3.35 ms | 5.95 ms | 10.71 ms |  |  |  |  |  |  |  | 1.24 MB | 1.24 MB |  |  | +3% | +6% |  |
+| grid | small | steady (shown, unchanged) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
+| grid | small | one changed | 0.41 ms | 0.40 ms | 0.02 ms | 0.68 ms | <0.01 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 36.6× | 0.08 KB | 0.08 KB |  |  | +1% | -3% |  |
+| grid | small | all changed | 3.70 ms | 2.18 ms | 1.52 ms | 4.40 ms | 0.10 ms | ≈ idle | 0.33 ms | 0.87 ms | 38.3× |  | 11.3× | 0.00 KB | 0.00 KB |  |  | +6% | +7% | ok |
+| grid | small | close (unmount) | 3.22 ms | 0.83 ms | 2.39 ms | 3.12 ms |  |  |  |  |  |  |  | -1.05 KB | 0.00 KB |  |  | +6% | +11% |  |
+| grid | small | open+close (remount) | 12.52 ms | 3.89 ms | 8.63 ms | 13.29 ms |  |  |  |  |  |  |  | 1.24 MB | 1.24 MB |  |  | +5% | +4% |  |
+| grid | small | race: open+close in one frame ¹ | 0.02 ms |  |  | 1.98 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | race: handle after close ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | make (pool warm) (framework-itemsRead) | 9.03 ms |  |  | 9.59 ms |  |  |  |  |  |  |  | 1.28 MB |  |  |  | -3% | +0% |  |
+| grid | small | steady (shown, unchanged) (framework-itemsRead) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
+| grid | small | one changed (framework-itemsRead) | 1.63 ms |  |  | 1.97 ms | <0.01 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 144.5× | 0.06 KB |  |  |  | -4% | +5% |  |
+| grid | small | all changed (framework-itemsRead) | 7.27 ms |  |  | 8.11 ms | 0.10 ms | ≈ idle | 0.33 ms | 0.87 ms | 75.4× |  | 22.2× | 0.00 KB |  |  |  | +2% | +3% | ok |
+| grid | small | close (unmount) (framework-itemsRead) | 3.23 ms |  |  | 3.98 ms |  |  |  |  |  |  |  | -0.06 KB |  |  |  | -5% | +3% |  |
+| grid | small | open+close (remount) (framework-itemsRead) | 12.16 ms |  |  | 13.02 ms |  |  |  |  |  |  |  | 1.28 MB |  |  |  | -3% | -3% |  |
+| grid | small | race: open+close in one frame (framework-itemsRead) ¹ | 0.03 ms |  |  | 2.46 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | race: handle after close (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | make (pool warm) (framework-naive) | 9.16 ms |  |  | 9.96 ms |  |  |  |  |  |  |  | 1.52 MB |  |  |  | -4% | -6% |  |
+| grid | small | steady (shown, unchanged) (framework-naive) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
+| grid | small | one changed (framework-naive) | 0.46 ms |  |  | 0.73 ms | <0.01 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 40.8× | 73.34 KB |  |  |  | -1% | -14% |  |
+| grid | small | all changed (framework-naive) | 3.70 ms |  |  | 4.36 ms | 0.10 ms | ≈ idle | 0.33 ms | 0.87 ms | 38.4× |  | 11.3× | 350.00 KB |  |  |  | +1% | +2% | ok |
+| grid | small | close (unmount) (framework-naive) | 3.04 ms |  |  | 2.97 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | +1% | +5% |  |
+| grid | small | open+close (remount) (framework-naive) | 12.19 ms |  |  | 12.88 ms |  |  |  |  |  |  |  | 1.52 MB |  |  |  | -1% | -5% |  |
+| grid | small | race: open+close in one frame (framework-naive) ¹ | 0.03 ms |  |  | 2.19 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | race: handle after close (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | one changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | one changed (same as baseline) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | one changed (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | one changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | one changed (even line spacing) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | one changed (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | all changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | all changed (same as baseline) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | all changed (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | all changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | all changed (even line spacing) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | small | all changed (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | make (pool warm) | 44.48 ms | 15.60 ms | 28.88 ms | 48.65 ms |  |  |  |  |  |  |  | 6.19 MB | 6.19 MB |  |  | +2% | +2% |  |
+| grid | large | steady (shown, unchanged) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
+| grid | large | one changed | 1.83 ms | 1.81 ms | 0.02 ms | 2.53 ms | <0.01 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 152.6× | 0.08 KB | 0.08 KB |  |  | -0% | +1% |  |
+| grid | large | all changed | 18.21 ms | 11.19 ms | 7.02 ms | 20.00 ms | 0.41 ms | 1.60 ms | 1.77 ms | 3.23 ms | 44.4× | 12.5× | 10.3× | 0.00 KB | 0.00 KB |  |  | -4% | -4% | ok |
+| grid | large | close (unmount) | 17.13 ms | 4.85 ms | 12.27 ms | 18.33 ms ᵍ |  |  |  |  |  |  |  | -10.73 KB | 0.00 KB |  |  | -3% |  |  |
+| grid | large | open+close (remount) | 64.67 ms | 18.98 ms | 45.69 ms | 67.41 ms |  |  |  |  |  |  |  | 6.19 MB | 6.19 MB |  |  | +7% | +7% |  |
+| grid | large | race: open+close in one frame ¹ | 0.03 ms |  |  | 2.65 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | race: handle after close ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | make (pool warm) (framework-itemsRead) | 45.40 ms |  |  | 48.63 ms |  |  |  |  |  |  |  | 6.35 MB |  |  |  | -4% | -5% |  |
+| grid | large | steady (shown, unchanged) (framework-itemsRead) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
+| grid | large | one changed (framework-itemsRead) | 8.53 ms |  |  | 9.26 ms | <0.01 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 711.2× | 0.06 KB |  |  |  | -3% | -2% |  |
+| grid | large | all changed (framework-itemsRead) | 115.94 ms |  |  | 119.83 ms | 0.41 ms | 1.60 ms | 1.77 ms | 3.23 ms | 282.7× | 74.7× | 65.3× | 0.00 KB |  |  |  | -2% | -1% | ok |
+| grid | large | close (unmount) (framework-itemsRead) | 16.81 ms |  |  | 18.82 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | -7% | -6% |  |
+| grid | large | open+close (remount) (framework-itemsRead) | 61.68 ms |  |  | 64.28 ms |  |  |  |  |  |  |  | 6.35 MB |  |  |  | +0% | +1% |  |
+| grid | large | race: open+close in one frame (framework-itemsRead) ¹ | 0.04 ms |  |  | 2.45 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | race: handle after close (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | make (pool warm) (framework-naive) | 45.51 ms |  |  | 49.89 ms |  |  |  |  |  |  |  | 7.55 MB |  |  |  | +1% | +1% |  |
+| grid | large | steady (shown, unchanged) (framework-naive) | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  |  |
+| grid | large | one changed (framework-naive) | 2.03 ms |  |  | 2.49 ms | <0.01 ms | ≈ idle | 0.01 ms | ≈ idle |  |  | 169.0× | 360.84 KB |  |  |  | -0% | -4% |  |
+| grid | large | all changed (framework-naive) | 19.21 ms |  |  | 21.03 ms | 0.41 ms | 1.60 ms | 1.77 ms | 3.23 ms | 46.8× | 13.1× | 10.8× | 1.71 MB |  |  |  | -1% | -2% | ok |
+| grid | large | close (unmount) (framework-naive) | 17.30 ms |  |  | 18.54 ms ᵍ |  |  |  |  |  |  |  | 0.00 KB |  |  |  | -2% |  |  |
+| grid | large | open+close (remount) (framework-naive) | 64.24 ms |  |  | 65.92 ms |  |  |  |  |  |  |  | 7.55 MB |  |  |  | +0% | -0% |  |
+| grid | large | race: open+close in one frame (framework-naive) ¹ | 0.03 ms |  |  | 1.76 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | race: handle after close (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | one changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | one changed (same as baseline) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | one changed (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | one changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | one changed (even line spacing) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | one changed (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | all changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | all changed (same as baseline) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | all changed (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | all changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | all changed (even line spacing) (framework-itemsRead) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grid | large | all changed (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| ticker | small | make (pool warm) | 0.71 ms | 0.15 ms | 0.57 ms | 1.29 ms |  |  |  |  |  |  |  | 31.93 KB | 31.93 KB |  |  | +2% | +11% |  |
+| ticker | small | all texts/frame | 0.40 ms | 0.12 ms | 0.28 ms | 0.75 ms | 0.04 ms | ≈ idle | 0.08 ms | ≈ idle | 10.7× |  | 5.3× | 0.00 KB | 0.00 KB |  |  | -10% |  |  |
+| ticker | small | close (unmount) | 0.33 ms | 0.07 ms | 0.27 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +9% |  |  |
+| ticker | small | make (pool warm) (framework-naive) | 0.77 ms |  |  | 1.63 ms |  |  |  |  |  |  |  | 55.76 KB |  |  |  | +6% | +30% |  |
+| ticker | small | all texts/frame (framework-naive) | 0.40 ms |  |  | 0.76 ms | 0.04 ms | ≈ idle | 0.08 ms | ≈ idle | 10.8× |  | 5.3× | 23.83 KB |  |  |  | -11% |  |  |
+| ticker | small | close (unmount) (framework-naive) | 0.31 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  | -1% |  |  |
+| ticker | small | all texts/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| ticker | small | all texts/frame (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| ticker | small | all texts/frame (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| ticker | small | all texts/frame (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| ticker | large | make (pool warm) | 5.27 ms | 1.11 ms | 4.16 ms | 6.17 ms |  |  |  |  |  |  |  | 256.88 KB | 256.88 KB |  |  | -1% | +4% |  |
+| ticker | large | all texts/frame | 3.99 ms | 0.95 ms | 3.04 ms | 5.04 ms | 0.28 ms | 1.45 ms | 0.65 ms | 1.73 ms | 14.4× | 3.5× | 6.1× | 0.00 KB | 0.00 KB |  |  | +7% | +5% |  |
+| ticker | large | close (unmount) | 2.77 ms | 0.39 ms | 2.38 ms | 3.25 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +9% | +10% |  |
+| ticker | large | make (pool warm) (framework-naive) | 5.43 ms |  |  | 6.24 ms |  |  |  |  |  |  |  | 495.16 KB |  |  |  | -1% | -2% |  |
+| ticker | large | all texts/frame (framework-naive) | 3.99 ms |  |  | 5.13 ms | 0.28 ms | 1.45 ms | 0.65 ms | 1.73 ms | 14.4× | 3.6× | 6.1× | 238.28 KB |  |  |  | +8% | +7% |  |
+| ticker | large | close (unmount) (framework-naive) | 2.87 ms |  |  | 3.74 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | +14% | +25% |  |
+| ticker | large | all texts/frame (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| ticker | large | all texts/frame (same as baseline) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| ticker | large | all texts/frame (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| ticker | large | all texts/frame (even line spacing) (framework-naive) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| reorder | - | make (pool warm) | 10.04 ms | 5.65 ms | 4.39 ms | 11.38 ms |  |  |  |  |  |  |  | 2.76 MB | 2.76 MB |  |  | -4% | -1% |  |
+| reorder | - | Reverse | 2.28 ms | 1.16 ms | 1.12 ms | 2.45 ms | 0.15 ms | ≈ idle | 0.54 ms | 0.82 ms | 15.4× |  | 4.2× | 12.07 KB | 12.07 KB |  |  | -3% | -3% |  |
+| reorder | - | Rotate | 2.02 ms | 0.85 ms | 1.17 ms | 2.52 ms | 0.15 ms | 0.63 ms | 0.54 ms | 1.01 ms | 13.9× | 4.0× | 3.7× | 0.00 KB | 0.00 KB |  |  | -5% | +5% |  |
+| reorder | - | InsertFront | 2.50 ms | 1.26 ms | 1.24 ms | 2.92 ms | 0.17 ms | 0.63 ms | 0.60 ms | 0.97 ms | 15.0× | 4.6× | 4.2× | 28.90 KB | 28.63 KB |  |  | -1% | -0% |  |
+| reorder | - | RemoveMiddle | 1.99 ms | 0.92 ms | 1.07 ms | 2.28 ms | 0.09 ms | ≈ idle | 0.59 ms | 1.08 ms | 22.7× |  | 3.4× | -0.02 KB | 0.00 KB |  |  | +0% | -4% |  |
+| reorder | - | Shuffle | 2.43 ms | 1.18 ms | 1.25 ms | 3.21 ms | 0.17 ms | 0.54 ms | 0.57 ms | 1.02 ms | 14.4× | 5.9× | 4.2× | 12.07 KB | 12.07 KB |  |  | +2% | +19% | ok |
+| reorder | - | close (unmount) | 3.91 ms | 1.39 ms | 2.51 ms | 4.43 ms ᵍ |  |  |  |  |  |  |  | -2.48 KB | -0.55 KB |  |  | -0% |  |  |
+| reorder | - | Reverse (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| reorder | - | Reverse (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| reorder | - | Rotate (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| reorder | - | Rotate (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| reorder | - | InsertFront (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| reorder | - | InsertFront (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| reorder | - | RemoveMiddle (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| reorder | - | RemoveMiddle (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| reorder | - | Shuffle (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| reorder | - | Shuffle (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| deep | - | make (pool warm) | 4.28 ms | 1.32 ms | 2.96 ms | 4.24 ms |  |  |  |  |  |  |  | 598.57 KB | 598.57 KB |  |  | +3% | +3% |  |
+| deep | - | leaf signal changed | 0.04 ms | 0.02 ms | 0.01 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +2% |  | ok |
+| deep | - | value through 100 levels | 0.61 ms | 0.60 ms | <0.01 ms | 0.74 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 2.10 KB | 0.00 KB |  |  | -7% |  | ok |
+| deep | - | race: change + close in one frame ¹ | 1.77 ms |  |  | 4.39 ms |  |  |  |  |  |  |  | 136.88 KB |  |  |  |  |  | ok |
+| deep | - | leaf signal changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| deep | - | leaf signal changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| deep | - | value through 100 levels (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| deep | - | value through 100 levels (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| resize | - | make (pool warm) | 8.19 ms | 2.77 ms | 5.43 ms | 8.60 ms |  |  |  |  |  |  |  | 1.05 MB | 1.05 MB |  |  | -1% | +1% |  |
+| resize | - | window resized (300-700) | 1.56 ms | 0.27 ms | 1.29 ms | 1.94 ms | 0.19 ms | ≈ idle |  |  | 8.1× |  |  | 0.00 KB | 0.00 KB |  |  | +1% | +3% |  |
+| resize | - | close (unmount) | 3.24 ms | 0.70 ms | 2.54 ms | 3.83 ms |  |  |  |  |  |  |  | -0.20 KB | -0.85 KB |  |  | +11% | +9% |  |
+| resize | - | window resized (300-700) (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| resize | - | window resized (300-700) (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| columns | - | make (pool warm) | 8.98 ms | 2.74 ms | 6.24 ms | 10.24 ms |  |  |  |  |  |  |  | 1.05 MB | 1.05 MB |  |  | +6% | +7% |  |
+| columns | - | column count changed (6-14) | 0.86 ms | 0.27 ms | 0.59 ms | 1.18 ms | 0.12 ms | ≈ idle |  |  | 7.1× |  |  | 0.00 KB | 0.00 KB |  |  | -0% | -8% |  |
+| columns | - | close (unmount) | 3.02 ms | 0.74 ms | 2.28 ms | 2.76 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +3% | -5% |  |
+| columns | - | column count changed (6-14) (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| columns | - | column count changed (6-14) (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grow | - | make (pool warm) | 10.14 ms | 3.78 ms | 6.36 ms | 10.55 ms |  |  |  |  |  |  |  | 1.70 MB | 1.70 MB |  |  | +0% | +1% |  |
+| grow | - | 50 texts new length (1-30) | 3.15 ms | 0.56 ms | 2.59 ms | 3.81 ms | 0.14 ms | ≈ idle |  |  | 22.1× |  |  | 0.00 KB | 0.00 KB |  |  | -3% | -2% |  |
+| grow | - | close (unmount) | 2.80 ms | 0.89 ms | 1.91 ms | 3.29 ms |  |  |  |  |  |  |  | 0.00 KB | -2.92 KB |  |  | -11% | -14% |  |
+| grow | - | 50 texts new length (1-30) (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| grow | - | 50 texts new length (1-30) (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| rows | - | make (pool warm) | 1.21 ms | 0.26 ms | 0.95 ms | 1.75 ms |  |  |  |  |  |  |  | 80.10 KB | 80.10 KB |  |  | +0% | +6% |  |
+| rows | - | row count changed (50-150) | 0.50 ms | 0.16 ms | 0.34 ms | 0.84 ms | 0.02 ms | ≈ idle |  |  | 31.4× |  |  | 0.18 KB | -0.02 KB |  |  | -4% |  |  |
+| rows | - | close (unmount) | 0.55 ms | 0.10 ms | 0.46 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -0% |  |  |
+| rows | - | row count changed (50-150) (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| rows | - | row count changed (50-150) (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| filter | - | make (pool warm) | 3.47 ms | 0.78 ms | 2.69 ms | 3.89 ms |  |  |  |  |  |  |  | 244.70 KB | 244.70 KB |  |  | -3% | -3% |  |
+| filter | - | filter shifted | 3.11 ms | 0.64 ms | 2.47 ms | 3.71 ms | 0.13 ms | ≈ idle |  |  | 24.6× |  |  | 0.00 KB | 0.00 KB |  |  | -1% | +7% |  |
+| filter | - | close (unmount) | 1.78 ms | 0.26 ms | 1.52 ms | 2.92 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -0% | +23% |  |
+| filter | - | filter shifted (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| filter | - | filter shifted (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| drag | - | make (pool warm) | 3.68 ms | 0.39 ms | 3.28 ms | 4.70 ms |  |  |  |  |  |  |  | 50.00 KB | 50.00 KB |  |  | -1% | +9% |  |
+| drag | - | moved | 0.31 ms | 0.28 ms | 0.03 ms | 0.97 ms | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +2% | +16% |  |
+| drag | - | close (unmount) | 1.42 ms | 0.18 ms | 1.25 ms | 1.14 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -4% | +15% |  |
+| drag | - | moved (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| drag | - | moved (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| bars | - | make (pool warm) | 1.18 ms | 0.33 ms | 0.84 ms | 1.13 ms |  |  |  |  |  |  |  | 117.74 KB | 117.74 KB |  |  | +1% | +23% |  |
+| bars | - | 20 fills changed | 0.48 ms | 0.20 ms | 0.28 ms | 0.81 ms | 0.01 ms | ≈ idle |  |  | 42.3× |  |  | 0.00 KB | 0.00 KB |  |  | +3% |  |  |
+| bars | - | close (unmount) | 0.40 ms | 0.10 ms | 0.30 ms | 0.91 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -0% | +5% |  |
+| bars | - | 20 fills changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| bars | - | 20 fills changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| sections | - | make (pool warm) | 2.53 ms | 0.52 ms | 2.01 ms | 3.19 ms |  |  |  |  |  |  |  | 121.33 KB | 121.33 KB |  |  | +2% | -3% |  |
+| sections | - | a section toggled | 0.56 ms | 0.21 ms | 0.35 ms | 0.60 ms | 0.02 ms | ≈ idle |  |  | 35.4× |  |  | 0.00 KB | 0.00 KB |  |  | -2% | -41% |  |
+| sections | - | close (unmount) | 1.15 ms | 0.19 ms | 0.96 ms | 0.50 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -9% | -48% |  |
+| sections | - | a section toggled (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| sections | - | a section toggled (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| tooltip | - | make (pool warm) | 0.04 ms | 0.04 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 10.29 KB | 10.29 KB |  |  | -4% |  |  |
+| tooltip | - | show with new content | 0.32 ms | 0.04 ms | 0.28 ms | 0.91 ms | 0.06 ms | ≈ idle |  |  | 5.2× |  |  | 0.00 KB | 0.00 KB |  |  | -16% | -32% |  |
+| tooltip | - | hide | 0.12 ms | 0.03 ms | 0.10 ms | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +1% |  |  |
+| tooltip | - | close (unmount) | 0.02 ms | 0.02 ms | <0.01 ms | ≈ idle |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +4% |  |  |
+| tooltip | - | show with new content (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| tooltip | - | show with new content (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| tooltip | - | hide (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| tooltip | - | hide (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| hover | - | make (pool warm) | 2.28 ms |  |  | 2.14 ms |  |  |  |  |  |  |  | 91.51 KB |  |  |  | +5% | -9% |  |
+| hover | - | hovered item changed | 0.23 ms |  |  | ≈ idle | 0.02 ms | ≈ idle |  |  | 11.5× |  |  | 0.00 KB |  |  |  | +1% |  | ok |
+| hover | - | close (unmount) | 0.80 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  | -0% |  |  |
+| hover | - | hovered item changed (same as baseline) ¹ | <0.01 ms |  |  | ≈ idle |  |  |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| hover | - | hovered item changed (even line spacing) ¹ | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| units | - | take 1000 texts | 10.45 ms | 1.66 ms | 8.78 ms | 11.95 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -3% | -3% | ok |
+| units | - | release 1000 texts | 5.07 ms | 0.74 ms | 4.33 ms | 5.25 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -2% | -2% | ok |
+| units | - | take 1000 boxes | 16.76 ms | 1.69 ms | 15.07 ms | 19.33 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -3% | -3% | ok |
+| units | - | release 1000 boxes | 7.01 ms | 0.79 ms | 6.22 ms | 7.36 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | -3% | +1% | ok |
+| units | - | 1000 backgrounds changed | 6.22 ms | 1.62 ms | 4.59 ms | 6.85 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +0% | -4% | ok |
+| units | - | 1000 widths changed in fixed cells | 16.42 ms | 3.25 ms | 13.17 ms | 17.66 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +1% | +2% | ok |
+| units | - | 1000 texts changed, layout unchanged | 8.83 ms | 3.66 ms | 5.17 ms | 10.35 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +3% | +1% | ok |
+| units | - | 1000 texts changed width, 3 levels | 45.44 ms | 6.69 ms | 38.75 ms | 55.73 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +1% | +2% | ok |
+| units | - | 100 boxes moved | 1.16 ms | 0.24 ms | 0.92 ms | 1.29 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +2% | +28% | ok |
+| units | - | 1000 calls, nothing changed | 1.32 ms | 1.33 ms | <0.01 ms | 1.35 ms |  |  |  |  |  |  |  | 0.00 KB | 0.00 KB |  |  | +1% | -6% | ok |
+| units | - | 1000 writes, no reader | 0.66 ms |  |  | 0.83 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | +9% |  | ok |
+| units | - | 1000 x (write, flush), 1 watch | 3.63 ms |  |  | 3.69 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | +9% | +2% | ok |
+| units | - | 5000 writes, 5000 watches, 1 flush | 22.93 ms |  |  | 23.72 ms |  |  |  |  |  |  |  | 0.00 KB |  |  |  | -3% | -4% | ok |
+| scheduler | - | nothing written | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| scheduler | - | a write every other frame | <0.01 ms |  |  | ≈ idle | <0.01 ms | ≈ idle |  |  |  |  |  | 0.00 KB |  |  |  |  |  | ok |
+| scheduler | - | a write every frame | 0.59 ms |  |  | 1.64 ms | 0.04 ms | ≈ idle |  |  | 14.2× |  |  | 0.00 KB |  |  |  |  |  | ok |
+| scheduler | - | 10 writes every frame | 0.96 ms |  |  | 2.06 ms | 0.41 ms | ≈ idle |  |  | 2.4× |  |  | 0.00 KB |  |  |  |  |  | ok |
 
 Failed checks: 0.
 
@@ -271,50 +271,50 @@ Failed checks: 0.
 
 Hand-written rows with no framework row of the same name (hide and show against unmount and remount).
 
-| Scenario | Size | Metric | Side | Lua | Frame | Kept KB |
+| Scenario | Size | Metric | Side | Lua | Frame | Kept |
 | --- | --- | --- | --- | ---: | ---: | ---: |
-| signals | small | make ¹ | baseline | 0.392 | 2.247 | 270 |
-| signals | small | make ¹ | typical | 0.331 | 2.933 | 259 |
-| signals | large | make ¹ | baseline | 4.543 | 7.311 | 2845 |
-| signals | large | make ¹ | typical | 3.793 | 5.919 | 2878 |
-| fanout | - | make ¹ | baseline | 0.145 | 2.913 | 544 |
-| events | - | make ¹ | baseline | 0.087 | 2.914 | 1 |
-| grid | small | make ¹ | baseline | 1.094 | 3.606 | 50 |
-| grid | small | close | baseline | 0.013 | ≈ idle |  |
-| grid | small | open+close | baseline | 0.023 | ≈ idle |  |
-| grid | small | make ¹ | typical | 1.664 | 4.068 | 86 |
-| grid | small | close | typical | 0.022 | ≈ idle |  |
-| grid | small | open+close | typical | 0.040 | ≈ idle |  |
-| grid | large | make ¹ | baseline | 5.142 | 8.199 | 250 |
-| grid | large | close | baseline | 0.053 | ≈ idle |  |
-| grid | large | open+close | baseline | 0.107 | ≈ idle |  |
-| grid | large | make ¹ | typical | 7.859 | 10.956 | 430 |
-| grid | large | close | typical | 0.094 | ≈ idle |  |
-| grid | large | open+close | typical | 0.193 | ≈ idle |  |
-| ticker | small | make ¹ | baseline | 0.301 | 3.411 | 6 |
-| ticker | small | close | baseline | <0.01 | ≈ idle |  |
-| ticker | small | make ¹ | typical | 0.184 | 3.581 | 6 |
-| ticker | small | close | typical | <0.01 | ≈ idle |  |
-| ticker | large | make ¹ | baseline | 1.113 | 3.687 | 63 |
-| ticker | large | close | baseline | 0.015 | ≈ idle |  |
-| ticker | large | make ¹ | typical | 1.089 | 3.318 | 63 |
-| ticker | large | close | typical | 0.015 | ≈ idle |  |
-| reorder | - | make ¹ | baseline | 1.257 | 4.857 | 25 |
-| reorder | - | close | baseline | 0.018 | ≈ idle |  |
-| reorder | - | make ¹ | typical | 1.749 | 5.949 | 37 |
-| reorder | - | close | typical | 0.016 | ≈ idle |  |
-| deep | - | make ¹ | baseline | 0.601 | 3.552 | 1 |
-| deep | - | close | baseline | 0.013 | ≈ idle |  |
-| resize | - | make ¹ | baseline | 1.121 | 3.669 | 50 |
-| columns | - | make ¹ | baseline | 1.068 | 4.186 | 50 |
-| grow | - | make ¹ | baseline | 1.573 | 3.899 | 69 |
-| rows | - | make ¹ | baseline | 0.524 | 3.325 | 19 |
-| filter | - | make ¹ | baseline | 1.441 | 3.832 | 63 |
-| drag | - | make ¹ | baseline | 0.608 | 3.726 | 25 |
-| bars | - | make ¹ | baseline | 0.160 | 2.394 | 5 |
-| sections | - | make ¹ | baseline | 0.623 | 4.338 | 28 |
-| tooltip | - | make ¹ | baseline | 0.219 | 2.653 | 1 |
-| hover | - | make ¹ | baseline | 1.139 | 3.823 | 54 |
+| signals | small | make ¹ | baseline | 0.39 ms | 2.25 ms | 270.50 KB |
+| signals | small | make ¹ | typical | 0.33 ms | 2.93 ms | 259.30 KB |
+| signals | large | make ¹ | baseline | 4.54 ms | 7.31 ms | 2.78 MB |
+| signals | large | make ¹ | typical | 3.79 ms | 5.92 ms | 2.81 MB |
+| fanout | - | make ¹ | baseline | 0.14 ms | 2.91 ms | 543.60 KB |
+| events | - | make ¹ | baseline | 0.09 ms | 2.91 ms | 0.80 KB |
+| grid | small | make ¹ | baseline | 1.09 ms | 3.61 ms | 50.30 KB |
+| grid | small | close | baseline | 0.01 ms | ≈ idle |  |
+| grid | small | open+close | baseline | 0.02 ms | ≈ idle |  |
+| grid | small | make ¹ | typical | 1.66 ms | 4.07 ms | 86.20 KB |
+| grid | small | close | typical | 0.02 ms | ≈ idle |  |
+| grid | small | open+close | typical | 0.04 ms | ≈ idle |  |
+| grid | large | make ¹ | baseline | 5.14 ms | 8.20 ms | 250.30 KB |
+| grid | large | close | baseline | 0.05 ms | ≈ idle |  |
+| grid | large | open+close | baseline | 0.11 ms | ≈ idle |  |
+| grid | large | make ¹ | typical | 7.86 ms | 10.96 ms | 430.00 KB |
+| grid | large | close | typical | 0.09 ms | ≈ idle |  |
+| grid | large | open+close | typical | 0.19 ms | ≈ idle |  |
+| ticker | small | make ¹ | baseline | 0.30 ms | 3.41 ms | 6.40 KB |
+| ticker | small | close | baseline | <0.01 ms | ≈ idle |  |
+| ticker | small | make ¹ | typical | 0.18 ms | 3.58 ms | 6.40 KB |
+| ticker | small | close | typical | <0.01 ms | ≈ idle |  |
+| ticker | large | make ¹ | baseline | 1.11 ms | 3.69 ms | 62.70 KB |
+| ticker | large | close | baseline | 0.01 ms | ≈ idle |  |
+| ticker | large | make ¹ | typical | 1.09 ms | 3.32 ms | 62.70 KB |
+| ticker | large | close | typical | 0.01 ms | ≈ idle |  |
+| reorder | - | make ¹ | baseline | 1.26 ms | 4.86 ms | 25.20 KB |
+| reorder | - | close | baseline | 0.02 ms | ≈ idle |  |
+| reorder | - | make ¹ | typical | 1.75 ms | 5.95 ms | 37.20 KB |
+| reorder | - | close | typical | 0.02 ms | ≈ idle |  |
+| deep | - | make ¹ | baseline | 0.60 ms | 3.55 ms | 0.90 KB |
+| deep | - | close | baseline | 0.01 ms | ≈ idle |  |
+| resize | - | make ¹ | baseline | 1.12 ms | 3.67 ms | 50.40 KB |
+| columns | - | make ¹ | baseline | 1.07 ms | 4.19 ms | 50.30 KB |
+| grow | - | make ¹ | baseline | 1.57 ms | 3.90 ms | 68.90 KB |
+| rows | - | make ¹ | baseline | 0.52 ms | 3.33 ms | 19.00 KB |
+| filter | - | make ¹ | baseline | 1.44 ms | 3.83 ms | 62.70 KB |
+| drag | - | make ¹ | baseline | 0.61 ms | 3.73 ms | 25.30 KB |
+| bars | - | make ¹ | baseline | 0.16 ms | 2.39 ms | 5.20 KB |
+| sections | - | make ¹ | baseline | 0.62 ms | 4.34 ms | 27.70 KB |
+| tooltip | - | make ¹ | baseline | 0.22 ms | 2.65 ms | 1.40 KB |
+| hover | - | make ¹ | baseline | 1.14 ms | 3.82 ms | 54.10 KB |
 
 ## Order of the sides
 
