@@ -25,9 +25,9 @@ local PORTRAIT = {
 	position = "fixed", left = 0, bottom = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT,
 	portrait = "player", mask = Define.Theme.panel.corner,
 }
--- the level, on a badge on the portrait's rounded corner
+-- the level, on a badge centred on the portrait's rim at 45° (its centre: 128 - 64 + 57.5 cos 45°, 64 - 57.5 sin 45°)
 local BADGE = {
-	position = "absolute", right = -6, top = -6, width = 30, height = 30, background = Define.Theme.panel.badge,
+	position = "absolute", left = 86.7, top = 5.3, width = 36, height = 36, background = Define.Theme.panel.badge,
 	xAlign = "center", yAlign = "center",
 }
 local MICRO_ROW = { columns = #MICRO, gap = 0 }
