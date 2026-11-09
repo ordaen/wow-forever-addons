@@ -431,16 +431,28 @@ function Node:ApplyBorder(border)
 	edges[4]:SetShown(r > 0)
 end
 
--- Portraits: a box whose `portrait` names a unit shows that unit's face (SetPortraitTexture) over its background.
--- The faces are drawn again on UNIT_PORTRAIT_UPDATE for their units and on PORTRAITS_UPDATED, registered only while a
--- portrait is shown: one frame per unit shown, registered for that unit only.
-local portraits = {} -- node -> its unit, while it shows a face
+-- Portraits: a box's `portrait` shows a unit's face over its background, filling the box.
+--   "player" (a unit)            the face as a texture (SetPortraitTexture without Blizzard's round mask: square, so a
+--                                box's own `mask` gives it its shape), drawn again on UNIT_PORTRAIT_UPDATE and
+--                                PORTRAITS_UPDATED
+--   { unit = "player", live = true }  the unit's 3D model zoomed to its head (a PlayerModel), alive, drawn again on
+--                                UNIT_MODEL_CHANGED. A model can't take a mask texture: it stays a rectangle under the
+--                                rim, and it costs a model render every frame.
+-- The events are registered only while a portrait shows: one frame per unit shown, registered for that unit only.
+local portraits = {} -- node -> its unit, while it shows a face or a model
 local portraitFrames = {} -- unit -> its event frame (kept: a unit's frame is made once)
 
 local function onPortraitEvent(_, event, unit)
 	for node, own in pairs(portraits) do
 		if event == "PORTRAITS_UPDATED" or own == unit then
-			SetPortraitTexture(node.face, own)
+			local model = node.model3d
+			if model and model:IsShown() then
+				if event == "UNIT_MODEL_CHANGED" then
+					model:RefreshUnit()
+				end
+			elseif event ~= "UNIT_MODEL_CHANGED" then
+				SetPortraitTexture(node.face, own, true)
+			end
 		end
 	end
 end
@@ -460,6 +472,7 @@ local function portraitEvents()
 		end
 		frame:UnregisterAllEvents()
 		frame:RegisterUnitEvent("UNIT_PORTRAIT_UPDATE", unit)
+		frame:RegisterUnitEvent("UNIT_MODEL_CHANGED", unit)
 		if not all then
 			all = true
 			frame:RegisterEvent("PORTRAITS_UPDATED")
@@ -472,28 +485,59 @@ local function portraitEvents()
 	end
 end
 
-function Node:ApplyPortrait(unit)
-	local face = self.face
+-- A frame above the box's own regions and its model, for the rim (made on first use).
+function Node:OverFrame()
+	local over = self.overFrame
+	if not over then
+		over = CreateFrame("Frame", nil, self.frame)
+		over:SetAllPoints(self.frame)
+		self.overFrame = over
+	end
+	over:SetFrameLevel(self.frame:GetFrameLevel() + 2)
+	return over
+end
+
+function Node:ApplyPortrait(portrait)
+	local face, model = self.face, self.model3d
+	local live = type(portrait) == "table" and portrait.live
+	local unit = type(portrait) == "table" and portrait.unit or portrait
+	if face and (unit == nil or live) then
+		face:Hide()
+	end
+	if model and not live then
+		model:ClearModel()
+		model:Hide()
+	end
 	if unit == nil then
-		if face then
-			face:Hide()
-		end
 		if portraits[self] then
 			portraits[self] = nil
 			portraitEvents()
 		end
 		return
 	end
-	if not face then
-		face = self.frame:CreateTexture(nil, "BORDER")
-		face:SetAllPoints(self.frame)
-		self.face = face
-		if self.maskTex then
-			face:AddMaskTexture(self.maskTex)
+	if live then
+		if not model then
+			model = CreateFrame("PlayerModel", nil, self.frame)
+			model:SetAllPoints(self.frame)
+			self.model3d = model
 		end
+		model:SetFrameLevel(self.frame:GetFrameLevel() + 1)
+		model:SetUnit(unit)
+		model:SetPortraitZoom(1)
+		model:SetCamDistanceScale(1)
+		model:Show()
+	else
+		if not face then
+			face = self.frame:CreateTexture(nil, "BORDER")
+			face:SetAllPoints(self.frame)
+			self.face = face
+			if self.maskTex then
+				face:AddMaskTexture(self.maskTex)
+			end
+		end
+		SetPortraitTexture(face, unit, true) -- square: the box's mask shapes it
+		face:Show()
 	end
-	SetPortraitTexture(face, unit)
-	face:Show()
 	if portraits[self] ~= unit then
 		portraits[self] = unit
 		portraitEvents()
@@ -534,7 +578,7 @@ function Node:ApplyMask(mask)
 	tex:SetTexture(mask.mask, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
 	if mask.rim then
 		if not rim then
-			rim = self.frame:CreateTexture(nil, "OVERLAY")
+			rim = self:OverFrame():CreateTexture(nil, "OVERLAY") -- over a live portrait's model too
 			rim:SetAllPoints(self.frame)
 			self.rimTex = rim
 		end
