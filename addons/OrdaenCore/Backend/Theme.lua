@@ -41,7 +41,10 @@ ns.Theme = {
 	-- ButtonFrameTemplateNoPortrait at half size, its outer side 1.5 units above the panel, the wood from 3 below
 	-- its top; the content starts 7 units down (8 px at the user's scale, 1.2 px per unit)
 	["panel.edge"] = { width = 7, sides = { "top" }, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5,
-		outset = 1.5, inset = 3 },
+		inset = 3 },
+	-- a window's or small surface's metal on all four sides (MetalFrame kind "small": windows, the chat, tooltips):
+	-- the same art at half size, the top corners mitred, the wood from 3 units in on every side
+	["frame.small"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 3 },
 	-- the portrait fitted into the screen's corner: flat top, the top-right corner rounded, the rim along the top and
 	-- the right (design: panel, «Portrait»; CornerPortrait)
 	["panel.corner"] = {

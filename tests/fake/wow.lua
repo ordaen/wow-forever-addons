@@ -1192,6 +1192,20 @@ local function wipe(t)
 	return t
 end
 
+-- The atlases the addons and specs draw, at their sizes in the game (Forever's c60 frame art, measured from its files
+-- at half their 2x size; the character sheet's wood); an atlas not listed has no info, as an unknown one in WoW.
+local ATLASES = {
+	["UI-Character-Info-General-BG"] = { 256, 128 },
+	["UI-Frame-Metal-CornerTopLeft"] = { 95, 95 },
+	["UI-Frame-Metal-CornerTopRight"] = { 95, 95 },
+	["UI-Frame-Metal-CornerBottomLeft"] = { 95, 100 },
+	["UI-Frame-Metal-CornerBottomRight"] = { 95, 100 },
+	["_UI-Frame-Metal-EdgeTop"] = { 128, 95 },
+	["_UI-Frame-Metal-EdgeBottom"] = { 128, 100 },
+	["!UI-Frame-Metal-EdgeLeft"] = { 95, 128 },
+	["!UI-Frame-Metal-EdgeRight"] = { 95, 128 },
+}
+
 function Wow:MakeEnv()
 	local d = Dump()
 	local env = {}
@@ -1349,11 +1363,23 @@ function Wow:MakeEnv()
 	end)
 	-- every atlas 256 x 128; the one nine-slice layout the theme names
 	offer("C_Texture", {
-		GetAtlasInfo = function()
-			return { width = 256, height = 128 }
+		GetAtlasInfo = function(atlas)
+			local size = ATLASES[atlas]
+			return size and { width = size[1], height = size[2] } or nil
 		end,
 	})
-	offer("NineSliceLayouts", { ButtonFrameTemplateNoPortrait = { LeftEdge = { atlas = "UI-Frame-Metal-EdgeLeft" } } })
+	-- Blizzard's ButtonFrameTemplateNoPortrait, as Forever's NineSliceLayouts.lua has it
+	offer("NineSliceLayouts", { ButtonFrameTemplateNoPortrait = {
+		disableSharpening = true,
+		TopLeftCorner = { layer = "OVERLAY", atlas = "UI-Frame-Metal-CornerTopLeft", x = -8, y = 16 },
+		TopRightCorner = { layer = "OVERLAY", atlas = "UI-Frame-Metal-CornerTopRight", x = 4, y = 16 },
+		BottomLeftCorner = { layer = "OVERLAY", atlas = "UI-Frame-Metal-CornerBottomLeft", x = -8, y = -3 },
+		BottomRightCorner = { layer = "OVERLAY", atlas = "UI-Frame-Metal-CornerBottomRight", x = 4, y = -3 },
+		TopEdge = { layer = "OVERLAY", atlas = "_UI-Frame-Metal-EdgeTop" },
+		BottomEdge = { layer = "OVERLAY", atlas = "_UI-Frame-Metal-EdgeBottom" },
+		LeftEdge = { layer = "OVERLAY", atlas = "!UI-Frame-Metal-EdgeLeft" },
+		RightEdge = { layer = "OVERLAY", atlas = "!UI-Frame-Metal-EdgeRight" },
+	} })
 	offer("issecurevariable", function()
 		return false
 	end)

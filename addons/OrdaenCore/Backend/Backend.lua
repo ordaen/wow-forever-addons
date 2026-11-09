@@ -406,35 +406,206 @@ local function edge(frame)
 end
 
 -- A border drawn with a Blizzard nine-slice's art (border.nineSlice, a NineSliceLayouts name), as the design site's
--- MetalFrame draws a small surface open at the sides and bottom: the layout's left edge turned to lie along the top
--- (lit from the top-left like the rest), stretched across (a tiling texture ignores the turn), as thick as its atlas
--- is wide times border.scale, its outer side border.outset above the box. The box's background starts border.inset
--- below its top, under the metal. Only the top side has art.
-function Node:ApplyEdgeArt(border)
+-- MetalFrame draws its small and dialog frames: the sides border.sides names (all four when unset), each at its
+-- atlas's size times border.scale (k):
+--   bottom, left, right  the layout's edges, tiling along; the bottom corners the layout's, where both sides meet;
+--   top                  the left edge turned a quarter to lie along the top (lit from the top-left like the rest),
+--                        stretched across;
+--   top corners          mitred: a square of the side's edge (as thick as the left edge is wide, T) under a square of
+--                        the turned top, each masked to its half of the diagonal (media/mitre-*). The top line sits
+--                        11.5 units in from its outer side, the right edge's only 2, so the top-right square sits
+--                        9.5 k lower and its top piece shows the art 9.5 k higher, to stay in line with the top.
+-- The pieces reach past the box as the layout's corner offsets say (8 k left, 4 k right, 3 k up and down); a side
+-- not drawn leaves its neighbours running to their outer end. Anchored to the box's corners: no size needed.
+local MITRE = "Interface\\AddOns\\OrdaenCore\\media\\mitre-"
+
+local function artPiece(frame, sub)
+	local tex = frame:CreateTexture(nil, "BORDER", nil, sub)
+	tex:SetSnapToPixelGrid(false) -- as NineSliceUtil.DisableSharpening: the art stays sharp at any scale
+	tex:SetTexelSnappingBias(0)
+	return tex
+end
+
+local function maskOf(frame, tex, file)
+	local mask = frame:CreateMaskTexture()
+	mask:SetTexture(MITRE .. file, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	tex:AddMaskTexture(mask)
+	return mask
+end
+
+local function atlasSize(piece)
+	local info = type(piece) == "table" and piece.atlas and C_Texture.GetAtlasInfo(piece.atlas)
+	if info then
+		return piece.atlas, info.width, info.height
+	end
+end
+
+function Node:ApplyFrameArt(border)
 	local layout = NineSliceLayouts and NineSliceLayouts[border.nineSlice]
-	local from = type(layout) == "table" and layout.LeftEdge or nil
-	local atlas = type(from) == "table" and from.atlas or nil
-	local info = atlas and C_Texture.GetAtlasInfo(atlas)
-	if not info or self.bwT == 0 then
+	if type(layout) ~= "table" then
 		return
 	end
-	local tex = self.edgeArt
-	if not tex then
-		tex = self.frame:CreateTexture(nil, "BORDER")
-		tex:SetSnapToPixelGrid(false) -- as NineSliceUtil.DisableSharpening: the art stays sharp at any scale
-		tex:SetTexelSnappingBias(0)
-		self.edgeArt = tex
+	local leftAtlas, leftW, leftH = atlasSize(layout.LeftEdge)
+	if not leftAtlas then
+		return
 	end
-	local outset = snap(border.outset or 0)
-	tex:ClearAllPoints()
-	tex:SetPoint("TOPLEFT", self.frame, "TOPLEFT", 0, outset)
-	tex:SetPoint("TOPRIGHT", self.frame, "TOPRIGHT", 0, outset)
-	tex:SetAtlas(atlas)
-	tex:SetHorizTile(false)
-	tex:SetVertTile(false)
-	tex:SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0) -- within the atlas: top-left shows its bottom-left, top-right its top-left
-	tex:SetHeight(snap(info.width * (border.scale or 1)))
-	tex:Show()
+	local frame = self.frame
+	local art = self.frameArt
+	if not art then
+		art = {}
+		self.frameArt = art
+	end
+	local sides = border.sides
+	local top, right, bottom, left = true, true, true, true
+	if sides then
+		top, right, bottom, left = false, false, false, false
+		for i = 1, #sides do
+			local side = sides[i]
+			if side == "top" then
+				top = true
+			elseif side == "right" then
+				right = true
+			elseif side == "bottom" then
+				bottom = true
+			elseif side == "left" then
+				left = true
+			end
+		end
+	end
+	local k = border.scale or 1
+	local T = snap(leftW * k) -- the left edge's thickness: the mitred corners' square
+	local f = leftW / leftH -- that square's share of the left edge's atlas length
+	local outL, outR, outV = snap(8 * k), snap(4 * k), snap(3 * k)
+	local D = top and right and snap(9.5 * k) or 0
+	local function piece(key, sub)
+		local tex = art[key]
+		if not tex then
+			tex = artPiece(frame, sub)
+			art[key] = tex
+		end
+		tex:ClearAllPoints()
+		tex:Show()
+		return tex
+	end
+	local blAtlas, blW, blH = atlasSize(layout.BottomLeftCorner)
+	local brAtlas, brW, brH = atlasSize(layout.BottomRightCorner)
+	blW, blH, brW, brH = snap((blW or 0) * k), snap((blH or 0) * k), snap((brW or 0) * k), snap((brH or 0) * k)
+	-- top: the left edge turned (within the atlas: the piece's top-left shows its bottom-left, top-right its top-left)
+	if top then
+		local tex = piece("top", 0)
+		tex:SetAtlas(leftAtlas)
+		tex:SetHorizTile(false)
+		tex:SetVertTile(false)
+		tex:SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0)
+		tex:SetPoint("TOPLEFT", frame, "TOPLEFT", left and T - outL or -outL, outV)
+		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", right and outR - T or outR, outV)
+		tex:SetHeight(T)
+	end
+	if bottom then
+		local atlas, _, h = atlasSize(layout.BottomEdge)
+		if atlas then
+			local tex = piece("bottom", 0)
+			tex:SetAtlas(atlas)
+			tex:SetHorizTile(true)
+			tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", left and blW - outL or -outL, -outV)
+			tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", right and outR - brW or outR, -outV)
+			tex:SetHeight(snap(h * k))
+		end
+	end
+	if left then
+		local tex = piece("left", 0)
+		tex:SetAtlas(leftAtlas)
+		tex:SetVertTile(true)
+		tex:SetPoint("TOPLEFT", frame, "TOPLEFT", -outL, top and outV - T or outV)
+		tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -outL, bottom and blH - outV or -outV)
+		tex:SetWidth(T)
+	end
+	local rightAtlas, rightW = atlasSize(layout.RightEdge)
+	if right and rightAtlas then
+		local tex = piece("right", 0)
+		tex:SetAtlas(rightAtlas)
+		tex:SetVertTile(true)
+		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", outR, top and outV - D - T or outV)
+		tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", outR, bottom and brH - outV or -outV)
+		tex:SetWidth(snap(rightW * k))
+	end
+	if bottom and left and blAtlas then
+		local tex = piece("bl", 1)
+		tex:SetAtlas(blAtlas)
+		tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -outL, -outV)
+		tex:SetSize(blW, blH)
+	end
+	if bottom and right and brAtlas then
+		local tex = piece("br", 1)
+		tex:SetAtlas(brAtlas)
+		tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", outR, -outV)
+		tex:SetSize(brW, brH)
+	end
+	-- the mitred top corners: the side's square (lower half), the turned top's square (upper half)
+	if top and left then
+		local side = piece("tlSide", 1)
+		side:SetAtlas(leftAtlas)
+		side:SetTexCoord(0, 1, 0, f)
+		side:SetPoint("TOPLEFT", frame, "TOPLEFT", -outL, outV)
+		side:SetSize(T, T)
+		local turned = piece("tlTop", 2)
+		turned:SetAtlas(leftAtlas)
+		turned:SetTexCoord(0, 1, 1, 1, 0, 1 - f, 1, 1 - f)
+		turned:SetAllPoints(side)
+		if not art.tlSideMask then
+			art.tlSideMask = maskOf(frame, side, "ll")
+			art.tlTopMask = maskOf(frame, turned, "ur")
+		end
+		art.tlSideMask:SetAllPoints(side)
+		art.tlTopMask:SetAllPoints(side)
+	end
+	if top and right and rightAtlas then
+		local side = piece("trSide", 1)
+		side:SetAtlas(rightAtlas)
+		side:SetTexCoord(0, 1, 0, f)
+		side:SetPoint("TOPRIGHT", frame, "TOPRIGHT", outR, outV - D)
+		side:SetSize(T, T)
+		-- the turned top drawn D higher: the square's upper T - D show the art's lower part (its rows D to T)
+		local turned = piece("trTop", 2)
+		turned:SetAtlas(leftAtlas)
+		local u = D / T
+		turned:SetTexCoord(u, 1, 1, 1, u, 1 - f, 1, 1 - f)
+		turned:SetPoint("TOPLEFT", side, "TOPLEFT")
+		turned:SetPoint("TOPRIGHT", side, "TOPRIGHT")
+		turned:SetHeight(T - D)
+		if not art.trSideMask then
+			art.trSideMask = maskOf(frame, side, "lr")
+			art.trTopMask = maskOf(frame, turned, "ul")
+		end
+		art.trSideMask:SetAllPoints(side)
+		art.trTopMask:SetAllPoints(side)
+	end
+end
+
+-- The background's inset under the frame art, per side: the art's inset (border.inset) on the sides it draws.
+local function fillInsets(border)
+	if type(border) ~= "table" or not border.nineSlice then
+		return 0, 0, 0, 0
+	end
+	local inset = snap(border.inset or 0)
+	local sides = border.sides
+	if not sides then
+		return inset, inset, inset, inset
+	end
+	local t, r, b, l = 0, 0, 0, 0
+	for i = 1, #sides do
+		local side = sides[i]
+		if side == "top" then
+			t = inset
+		elseif side == "right" then
+			r = inset
+		elseif side == "bottom" then
+			b = inset
+		elseif side == "left" then
+			l = inset
+		end
+	end
+	return t, r, b, l
 end
 
 function Node:ApplyBorder(border)
@@ -446,14 +617,19 @@ function Node:ApplyBorder(border)
 			edges[i]:Hide()
 		end
 	end
-	if self.edgeArt then
-		self.edgeArt:Hide()
+	local art = self.frameArt
+	if art then
+		for _, tex in next, art do
+			if tex.Hide then
+				tex:Hide()
+			end
+		end
 	end
 	if type(border) ~= "table" or t + r + b + l == 0 then
 		return
 	end
 	if border.nineSlice then
-		self:ApplyEdgeArt(border)
+		self:ApplyFrameArt(border)
 		return
 	end
 	if not edges then
@@ -764,7 +940,9 @@ end
 -- keeps its aspect (texture coordinates count within the atlas after SetAtlas). Again only when the box's size changed.
 function Node:FitBackground()
 	local aspect, w, h = self.lookFit, self.pW, self.pH
-	h = h and h - (self.fillTop or 0) -- the background starts below the border art's inset
+	-- the background starts inside the border art's inset
+	w = w and w - (self.fillLeft or 0) - (self.fillRight or 0)
+	h = h and h - (self.fillTop or 0) - (self.fillBottom or 0)
 	if not aspect or not w or not h or h <= 0 or (w == self.fitW and h == self.fitH) then
 		return
 	end
@@ -1029,11 +1207,17 @@ function Node:ApplyLook()
 	local bg = resolve(self, a.background)
 	-- under a border drawn with Blizzard's art the background starts at the art's inset (MetalFrame's fill)
 	local border = resolve(self, a.border)
-	local fillTop = type(border) == "table" and border.nineSlice and snap(border.inset or 0) or 0
-	if fillTop ~= (self.fillTop or 0) then
-		self.fillTop, self.fitW = fillTop, nil
+	local fillTop, fillRight, fillBottom, fillLeft = fillInsets(border)
+	if fillTop ~= (self.fillTop or 0) or fillRight ~= (self.fillRight or 0) or fillBottom ~= (self.fillBottom or 0)
+		or fillLeft ~= (self.fillLeft or 0) then
+		self.fitW = nil
+		self.fillTop = fillTop ~= 0 and fillTop or nil
+		self.fillRight = fillRight ~= 0 and fillRight or nil
+		self.fillBottom = fillBottom ~= 0 and fillBottom or nil
+		self.fillLeft = fillLeft ~= 0 and fillLeft or nil
 		if self.bg then
-			self.bg:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -fillTop)
+			self.bg:SetPoint("TOPLEFT", frame, "TOPLEFT", fillLeft, -fillTop)
+			self.bg:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -fillRight, fillBottom)
 			self:FitBackground()
 		end
 	end
@@ -1047,8 +1231,8 @@ function Node:ApplyLook()
 		else
 			if not tex then
 				tex = frame:CreateTexture(nil, "BACKGROUND")
-				tex:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -(self.fillTop or 0))
-				tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT")
+				tex:SetPoint("TOPLEFT", frame, "TOPLEFT", self.fillLeft or 0, -(self.fillTop or 0))
+				tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -(self.fillRight or 0), self.fillBottom or 0)
 				self.bg = tex
 				if self.maskTex then
 					tex:AddMaskTexture(self.maskTex)

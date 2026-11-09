@@ -420,9 +420,12 @@ describe("backend styles", function()
 		assert.are.same({ 0, 0, 0 }, { strip.bwR, strip.bwB, strip.bwL })
 		assert.are.equal(strip.bwT, cell.y) -- below the metal
 		assert.are.equal(0, cell.x) -- flush left
-		assert.are.equal("UI-Frame-Metal-EdgeLeft", strip.edgeArt._atlas)
-		assert.is_true(topLeftY(strip.edgeArt) > 0) -- its outer side above the strip
-		assert.is_true(strip.edgeArt._h > strip.bwT) -- the art at its own thickness, past the content's inset
+		local top = strip.frameArt.top
+		assert.are.equal("!UI-Frame-Metal-EdgeLeft", top._atlas)
+		assert.is_true(topLeftY(top) > 0) -- its outer side above the strip
+		assert.is_true(top._h > strip.bwT) -- the art at its own thickness, past the content's inset
+		assert.is_nil(strip.frameArt.left) -- the strip draws only the top
+		assert.is_nil(strip.frameArt.tlSide)
 		assert.is_true(topLeftY(strip.bg) < 0) -- the wood starts under the metal
 		assert.are.equal("UI-Character-Info-General-BG", strip.bg._atlas)
 		-- the strip is far wider than the 2:1 art: its full width, a band of its height
@@ -526,6 +529,36 @@ describe("backend styles", function()
 		Backend:Release(corner)
 		wow:Fire("PORTRAITS_UPDATED")
 		assert.are.equal(drawn + 1, wow.faces)
+	end)
+
+	it("draws a frame's metal on all four sides: the edges, the bottom corners, mitred top corners, the wood", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local window = Backend:Create("box")
+		Backend:Set(window, wow.env.table.freeze({ position = "absolute", left = 100, top = 100, width = 400,
+			height = 300, background = ref("panel.wood"), border = ref("frame.small") }))
+		Backend:SetChildren(layer, { window }, 1)
+		Backend:Flush()
+		local art = window.frameArt
+		for _, key in ipairs({ "top", "bottom", "left", "right", "bl", "br", "tlSide", "tlTop", "trSide", "trTop" }) do
+			assert.is_truthy(art[key], key)
+			assert.is_true(art[key]:IsShown(), key)
+		end
+		assert.are.equal("!UI-Frame-Metal-EdgeLeft", art.top._atlas)
+		assert.are.equal("!UI-Frame-Metal-EdgeLeft", art.tlTop._atlas) -- the turned top's square
+		assert.is_truthy(art.tlSideMask and art.tlTopMask and art.trSideMask and art.trTopMask)
+		-- the top-right square sits lower than the top-left's (the right line meets the top line), its top piece shorter
+		assert.is_true(select(5, art.trSide:GetPoint(1)) < select(5, art.tlSide:GetPoint(1))) -- each by its outer corner
+		assert.is_true(art.trTop._coords[1] > 0) -- the turned top's art starts lower in it: drawn higher, in line
+		assert.are.equal(0, art.tlTop._coords[1])
+		-- the wood inside the art's inset on every side
+		assert.is_true(window.fillTop > 0 and window.fillRight > 0 and window.fillBottom > 0 and window.fillLeft > 0)
+		-- a plain border again: the art goes
+		Backend:Set(window, { position = "absolute", left = 100, top = 100, width = 400, height = 300 })
+		Backend:Flush()
+		assert.is_false(art.top:IsShown())
+		assert.is_false(art.tlSide:IsShown())
 	end)
 
 	it("draws a switch: its track three-sliced with round caps, its knob whole (no caps), the row by its token", function()
