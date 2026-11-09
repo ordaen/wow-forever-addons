@@ -33,6 +33,9 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
   (Performance tab; Claude reads it with `wow_perf`) and time hot spots with `local t = Debug:TimeStart()` ...
   `Debug:TimeEnd(t, "label")` or the statement `Debug:Time("label", fn, ...)` (stripped from release builds, so never
   use its results: forever-lint FL7). Mention the numbers when handing work over.
+- **Measure what players run:** a number counts only from the bench profile (`## X-Ordaen-Build: bench`, release
+  stripping). A measurement or a performance review starts by confirming the build, the loaded addons and the settings;
+  a wrong build blocks the review, it isn't a footnote.
 - **What's already measured:** [performance.md](performance.md) holds the costs measured in game (WoW calls, pixels,
   CPU against GPU, bench findings). Read it before choosing an approach; add to it what a probe or bench round settles.
 
@@ -74,7 +77,10 @@ would have caught it is half a fix: say which check now catches it, or add one.
 5. **Isolated components.** Every setup, effect run and handler runs in its own protected call: one that fails is
    reported and rolled back, and the rest still run (design: development/framework/transaction).
 6. **Check the game after a merge.** After merging and the user's `/reload`, the merging session reads `wow_errors`
-   (and `wow_log`/`wow_screenshot` for what it changed) before reporting the change as done.
+   (and `wow_log`/`wow_screenshot` for what it changed) before reporting the change as done. What it draws must match
+   its design page 1:1: compare `wow_screenshot` regions with the design site's rendering for textures and atlases,
+   borders (whole pixels, which sides), sizes, spacing, clipping, overflow, alignment, colours and z-order. Fix every
+   difference or raise it; never "close enough".
 7. **Player actions stay in the click's own call; reloading needs secure code.** Code that a click runs (UI
    listeners, dialog buttons) calls protected functions only directly, without `securecallfunction`, C_Timer or
    another frame's script in between; catch errors with `xpcall`. `ReloadUI` / `C_UI.Reload` are stricter on
@@ -131,17 +137,33 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - **Branches (local-only until the user says otherwise: no push, PR or merge on GitHub):**
   - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
   - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
-  - Merge with plain git (rule 4: no check): in the worktree `git rebase develop`, then in the main checkout `git merge --ff-only feat/<topic>`; if develop moved meanwhile the fast-forward refuses, so rebase again. Then `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`. That keeps the signed conventional commits. Then `ordaen watch` (running in the main checkout) rebuilds `dist/` and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon must be linked first (`ordaen link`).
+  - Merge once, with `ordaen merge feat/<topic>` (from any checkout; rule 4: no check): it rebases the worktree onto develop and fast-forwards develop. If it reports develop red after your merge, fixing develop is your next task. Then `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`. That keeps the signed conventional commits. Then `ordaen watch` (running in the main checkout) rebuilds `dist/` and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon must be linked first (`ordaen link`).
   - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
-- **Help when busy:** when an owner is busy, any session may do the work in its area (the renderer, Core, an addon). Tell the owner first what you'll change, work on your own branch,
-  merge it (rebase, fast-forward), and report back after.
+- **Help when busy:** when an owner is busy, any session may do the work in its area (the renderer, Core, an addon),
+  and a session that needs something from a busy owner does it itself. Tell the owner first what you'll change, work on
+  your own branch, merge it (rebase, fast-forward), and report back after.
+- **The sessions:** with the user they go by codenames: Plumb (dev tools: the CLI, the companion, the debug addon, the
+  design site), Metronome (the engine, the bench, Core), Loom (the drawing backend). Session ids change on a restart:
+  find the others with ListAgents.
 - **Agree before acting in the game:** before a session reloads the game, runs a bench round, a check run, probes or
   any test in game, every other session working on the addons agrees first: say what will run and why, and wait until
   each has answered (a reload or a round in the middle of someone's in-game test spoils both).
+- **What the companion may press:** the dev addon's keys (reload, probes, bench) and the player's own keys that open
+  windows (`wow_open`). Never movement, abilities or anything bot-like.
+- **Long work runs in the background:** builds, lints, tests, probes, watch loops and repro runs, always; keep talking
+  to the user meanwhile.
+- **No subagents:** each session does its work itself, until the user says otherwise.
+- **Idle bug hunts:** with nothing queued, a session runs bug-hunt and simplification rounds over its own areas until a
+  round finds nothing; each round ends green and committed.
+- **Shared checkouts:** never `--autostash` (rebase or pull) in a checkout other sessions use, and commit only your own
+  paths (`git commit -- <paths>`).
 - Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/package.sh`.
 - Commits: Conventional Commits via commitlint (`commitlint.config.mjs`; scope = addon folder name or repo scope), enforced by husky `commit-msg` hook and in CI (PR title + PR commits).
 - Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. release-please bumps `"version"` in the addon's `addon.jsonc` (the line marked `// x-release-please-version`; nested addons take their parent's) — never edit it by hand.
 - Quality: luacheck + busted (pure-logic tests only, Lua 5.1) in CI; manual testing in game with dev mode (Ordaen Core - Debug).
+- **Forever's game:** only the nine original classes (no Death Knight, Monk, Demon Hunter or Evoker; their strings in the
+  dump are retail leftovers). Forever sells junk at vendors itself, so we offer no sell-junk button; the automatic sell
+  when a merchant opens is ours and approved.
 - **Forever lacks many retail/classic FrameXML helpers** (e.g. no global `MouseIsOver`). **The source of truth is the in-game API dump in `api/forever/`** (see "Forever API dump" below): never use,
   list or stub a WoW global, namespace function or widget method that isn't in `api/forever/$(cat CURRENT)/`. luacheck
   and the specs enforce this. For things a dump can't see, confirm by a Forever-specific addon using it (`*Camelot*`/`Forever*` files) or a `/dump` in game; unconfirmed APIs get a
@@ -180,9 +202,11 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
 `../wow-dev-tools/design/general/modules.md`); the settings window's approved look: `settings/` (http://127.0.0.1:47860/preview/design/settings/).
 
 - **Ordaen** (folder `OrdaenCore`) is the one addon the player installs: always loaded and
-  small. It holds the shared code, the **global settings** and the one **Ordaen settings window** (`/ordaen`; each
-  module's slash command and gear open it on that module's page). Blizzard's Settings → AddOns keeps one short Ordaen
-  page with a button that opens our window.
+  small. It holds the shared code, the **global settings** and the one **Ordaen settings window** (`/ordaen`;
+  `/ordaen <module>` and each module's gear open it on that module's page). Blizzard's Settings → AddOns keeps one short
+  Ordaen page with a button that opens our window. Every command is `/ordaen <module> <command>`: modules declare
+  `commands`, Ordaen Core owns the one slash command, and no module registers its own (design:
+  development/framework/module, «Commands»).
 - Every other addon (`OrdaenBags`, `OrdaenPanel`, ...) is a **module**: `LoadOnDemand: 1`, depends on OrdaenCore,
   its SavedVariables load with it. At startup Ordaen loads the modules that are on (`C_AddOns.LoadAddOn`, each in
   its own protected call) from its own ADDON_LOADED, so before PLAYER_LOGIN: modules that take over Blizzard frames
@@ -192,6 +216,12 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
   can be off while the others run. Every module meets this; keep it that way.
 - Modules follow the **globals** (theme, fonts, text size, scale, spacing, colours, bar textures, animations, ...):
   a module's look setting defaults to "as in the globals" and may be overridden for that module only.
+- **Design for the weakest monitor:** colours, contrast and textures must hold on the least professional screen: white
+  text on fills at least 5:1, similar colours clearly apart in hue and lightness, no meaning carried by subtle shading
+  alone; check against a washed-out rendering.
+- **Design previews are pages of the design site** (`../wow-dev-tools/design`, one folder per topic, `addons:`
+  frontmatter), never loose HTML files. The user views the built site on port 47860: build it (`npm run build`) after a
+  design change.
 - **Themes:** Ordaen, Blizzard and Minimalism are all listed from the start; the last two show as "in development"
   and can't be picked until built.
 - **Release:** one CurseForge project and one zip with every module folder (packaging: TODO in the CLI).
@@ -282,6 +312,9 @@ first.
 - **What a module calls** is the framework's (`Define`, `game`, `self`), never the Core's internals; the Core holds the engine, the drawing backend and the debug stand-in (`OrdaenCore.NewDebug`).
 - Before handing code over for an in-game test, have `ordaen watch` running so `dist/` is current (no check run: rule 4 of "Preventing bugs"; the game's errors decide). `/reload` is enough on Forever, also for new files, new textures, TOC changes and new (linked) addon folders: never ask for a client restart.
 - **Debugging is opt-in development mode.** Players get a no-op stand-in from the Core: nothing is recorded and errors take WoW's normal path (BugSack, Blizzard). The real kit is the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug"), which lives in the **private repo `../wow-dev-tools`** next to the companion app and is never shipped (dev tooling, including the pixel channel, stays private). Its own `scripts/link.ps1` junctions it into the AddOns folder; its specs load the built Core (`dist/OrdaenCore/`, TOC order) and `api/forever/` from this checkout. Keep the stand-in's API in step with it: the kit is an object (methods on a shared metatable, called with `:`): `Init, IsEnabled, Log, Logf, Warn, Warnf, Verbose, Verbosef, Wrap, Call, Dump, Snapshot, HandleSlash, HelpLines, Trace, TraceFrame, TraceEnabled, TimeStart, TimeEnd, Time, Conflict`; levels error/warn/info (Log)/debug (Verbose, Trace). Installing and enabling it turns on dev mode: our own error catcher (global error handler chained to the previous one, or BugGrabber's callback when BugGrabber keeps the handler; plus taint events), per-addon logs and dumps, the Ordaen Dev window, and a live stream to the companion app (wow-dev-tools), which serves it to Claude as the MCP server `ordaen`: `wow_status`, `wow_errors`, `wow_log`, `wow_watch`, `wow_screenshot`, `wow_dump` (after the user clicks "Send state"), `wow_perf` (Performance tab: memory, CPU, `Debug:Time` labels), `wow_check`. The user describes what they saw in chat; Claude reads the rest live (no notes, no reload just for Claude). All dev data goes to one SavedVariables table, `OrdaenCoreDebugDB`, never into players' addon settings. Never make players' builds record anything. Plan for the window: Errors and Performance (done), then Log, Inspect (frame picker, outlines). Prefer UI in the window over new slash commands.
+- **The companion runs whenever the game does.** The dev addon captures, measures and sends over the strip; the companion
+  stores and shows. What the strip carries (errors, logs, records, bench and test results) has no SavedVariables
+  fallback and never waits for a `/reload` to reach Claude.
 - For anything observed in game (bugs, errors, layout, "check" after a reload), follow the `debug-in-game` skill (`.claude/skills/debug-in-game/SKILL.md`).
 - Addons have no network access, so there is no telemetry. Players report errors through BugSack/Blizzard's error frame and the GitHub issue form; add each new addon to the form's dropdown.
 
