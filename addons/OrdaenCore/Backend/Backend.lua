@@ -438,9 +438,9 @@ end
 
 -- Portraits: a box whose `portrait` names a unit shows that unit's face (SetPortraitTexture) over its background.
 -- The faces are drawn again on UNIT_PORTRAIT_UPDATE for their units and on PORTRAITS_UPDATED, registered only while a
--- portrait is shown (for one or two units by unit; more, every unit's event, filtered here).
+-- portrait is shown: one frame per unit shown, registered for that unit only.
 local portraits = {} -- node -> its unit, while it shows a face
-local portraitFrame ---@type Frame?
+local portraitFrames = {} -- unit -> its event frame (kept: a unit's frame is made once)
 
 local function onPortraitEvent(_, event, unit)
 	for node, own in pairs(portraits) do
@@ -451,35 +451,30 @@ local function onPortraitEvent(_, event, unit)
 end
 
 local function portraitEvents()
-	local first, second, more = nil, nil, false
+	local shown = {}
 	for _, unit in pairs(portraits) do
-		if first == nil or first == unit then
-			first = unit
-		elseif second == nil or second == unit then
-			second = unit
-		else
-			more = true
+		shown[unit] = true
+	end
+	local all = false -- PORTRAITS_UPDATED on one frame only
+	for unit in pairs(shown) do
+		local frame = portraitFrames[unit]
+		if not frame then
+			frame = CreateFrame("Frame")
+			frame:SetScript("OnEvent", onPortraitEvent)
+			portraitFrames[unit] = frame
+		end
+		frame:UnregisterAllEvents()
+		frame:RegisterUnitEvent("UNIT_PORTRAIT_UPDATE", unit)
+		if not all then
+			all = true
+			frame:RegisterEvent("PORTRAITS_UPDATED")
 		end
 	end
-	if not first then
-		if portraitFrame then
-			portraitFrame:UnregisterAllEvents()
+	for unit, frame in pairs(portraitFrames) do
+		if not shown[unit] then
+			frame:UnregisterAllEvents()
 		end
-		return
 	end
-	if not portraitFrame then
-		portraitFrame = CreateFrame("Frame")
-		portraitFrame:SetScript("OnEvent", onPortraitEvent)
-	end
-	portraitFrame:UnregisterAllEvents()
-	if more then
-		portraitFrame:RegisterEvent("UNIT_PORTRAIT_UPDATE")
-	elseif second then
-		portraitFrame:RegisterUnitEvent("UNIT_PORTRAIT_UPDATE", first, second)
-	else
-		portraitFrame:RegisterUnitEvent("UNIT_PORTRAIT_UPDATE", first)
-	end
-	portraitFrame:RegisterEvent("PORTRAITS_UPDATED")
 end
 
 function Node:ApplyPortrait(unit)
