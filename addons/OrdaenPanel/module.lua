@@ -25,16 +25,21 @@ local MICRO = {
 local CELL_HEIGHT = 53
 local CELL_WIDTH = CELL_HEIGHT * 1.075
 local ICON_SIDE = 35
-local CELL = {
-	width = CELL_WIDTH, height = CELL_HEIGHT, background = Define.Theme.panel.cell, xAlign = "center", yAlign = "center",
-}
+-- the cell lights and pushes with Blizzard's button inside it (stateFrom), the icon follows the cell and sits 1 px
+-- lower while pushed (design PanelCell)
+local CELL = { width = CELL_WIDTH, height = CELL_HEIGHT, background = Define.Theme.panel.cell, stateFrom = "child" }
+local ICON_LEFT = (CELL_WIDTH - ICON_SIDE) / 2
+local ICON_TOP = { default = (CELL_HEIGHT - ICON_SIDE) / 2, pressed = (CELL_HEIGHT - ICON_SIDE) / 2 + 1 / 1.2 }
 local CLICK = { position = "absolute", left = 0, top = 0, width = CELL_WIDTH, height = CELL_HEIGHT, opacity = 0 }
 local CLICK_CALL = { attributes = CLICK }
 -- each button's calls, made once here: its icon, its cell, and Blizzard's button over it
 for i = 1, #MICRO do
 	local m = MICRO[i]
 	local frame = m.frame
-	local iconCall = { attributes = { width = ICON_SIDE, height = ICON_SIDE, background = m.icon } }
+	local iconCall = { attributes = {
+		position = "absolute", left = ICON_LEFT, top = ICON_TOP, width = ICON_SIDE, height = ICON_SIDE,
+		background = m.icon, stateFrom = "parent",
+	} }
 	m.call = { key = i, attributes = CELL, slots = { default = function(game)
 		game.ui:Box(iconCall)
 		game.ui:Embed(game.Frame[frame], CLICK_CALL)
