@@ -24,6 +24,14 @@ function Define.Module(declaration)
 	return declaration
 end
 
+--- The component library's declaration (addons/OrdaenLibrary/module.lua): a load-on-demand addon of components any
+--- module draws by name (`game.ui:Button`), loaded at the first such call; never mounted, never in the module list.
+function Define.Library(declaration)
+	declaration.name = "library"
+	declaration.library = true
+	return declaration
+end
+
 ---@param spec table<string, table>
 function Define.Persistent(spec)
 	State.Declare(Engine.setupInstance, spec, true)

@@ -94,6 +94,28 @@ function Core.RegisterModule(folder, moduleNs)
 	modules[folder] = module
 end
 
+local LIBRARY = "OrdaenLibrary" -- the component library's folder (Define.Library)
+
+--- The component library: loaded at its first use (the first `game.ui:<Name>` no module file answers), or nil when
+--- it can't be (not installed, or failing to load). Enabled for this character first, like the modules.
+function App.Library()
+	local library = modules[LIBRARY]
+	if library or App.libraryFailed then
+		return library
+	end
+	if C_AddOns.GetAddOnEnableState(LIBRARY, UnitName("player")) == 0 then
+		C_AddOns.EnableAddOn(LIBRARY, UnitName("player"))
+	end
+	local ok, loaded = pcall(C_AddOns.LoadAddOn, LIBRARY)
+	if not ok or not loaded then
+		App.libraryFailed = true -- asked once: a missing library doesn't cost a LoadAddOn per draw
+		if not ok then
+			geterrorhandler()(loaded)
+		end
+	end
+	return modules[LIBRARY]
+end
+
 --- A registered module by its folder ("OrdaenBench"), or nil.
 ---@param folder string
 function App.Module(folder)

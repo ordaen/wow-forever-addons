@@ -665,7 +665,15 @@ local UiMeta = {
 			return base
 		end
 		local module = rawget(ui, "_module")
-		local declaration = module:Import("components/" .. LowerFirst(name))
+		local path = "components/" .. LowerFirst(name)
+		local from = module
+		if module.ns[path] == nil then -- not the module's own: the component library's (loaded now, once)
+			local library = ns.App.Library()
+			if library and library.ns[path] ~= nil then
+				from = library
+			end
+		end
+		local declaration = from:Import(path)
 		local method = function(_, site, a, b, k)
 			return DrawComponent(ui, declaration, site, a, b, k)
 		end
