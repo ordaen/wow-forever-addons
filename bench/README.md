@@ -18,87 +18,89 @@ Reading it:
 - **grid steady:** the grid on screen with nothing changing. "≈ idle" means the CPU pays nothing for drawing it at this frame rate (the GPU may); not that drawing is free on every machine.
 - **deep, value through 100 levels:** the framework hands the value down as an attribute through every level; hand code sets the one text directly. Intended: it shows what passing attributes costs.
 
-Round 1, 2026-11-09 03:45:24; client 70862, 305 fps; Core e71dcec, Bench 4c798f9.
-Run with: collector stop, useMaxFPS 0 (maxFPS 120), vsync 0, screen ? (UI ?), render scale ?.
-Loaded addons (6): OrdaenCore, OrdaenBench, OrdaenCore_Debug, Pawn, QuestieDB, QuestieTrace.
+Round 2, 2026-11-09 04:09:45; client 70862, 317 fps; Core 2ea2d10, Bench b5fdd5c.
+Run with: collector stop, useMaxFPS 0 (maxFPS 120), vsync 0, screen 2560x1440 (UI 2133x1200), render scale 1.000000.
+Loaded addons (3): OrdaenCore, OrdaenBench, OrdaenCore_Debug.
 Compared with: no earlier round with clean builds on the same display.
 
 ## Results
 
 | Scenario | Size | Metric | Framework Lua | Engine | Backend | Frame | Best Lua | Frame | Typical Lua | Frame | × best Lua | × best frame | × typical Lua | Net KB | Kept KB | Change Lua | Change frame | Check |
 | --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| signals | small | make ¹ | 2.105 |  |  | 2.734 | 0.368 | 1.032 | 0.309 | 1.953 | 5.7 | 2.6 | 6.8 | 1227.8 |  |  |  |  |
-| signals | small | 50 writes/frame | 0.337 |  |  | ≈ idle | 0.028 | ≈ idle | 0.038 | ≈ idle | 12.2 |  | 8.8 | 0.4 |  |  |  |  |
-| signals | small | unmount ¹ | 0.512 |  |  | 2.914 |  |  |  |  |  |  |  | 0.1 |  |  |  |  |
-| signals | large | make ¹ | 20.828 |  |  | 21.560 | 3.953 | 4.245 | 3.259 | 5.387 | 5.3 | 5.1 | 6.4 | 12587.2 |  |  |  |  |
-| signals | large | 500 writes/frame | 3.336 |  |  | 2.690 | 0.221 | ≈ idle | 0.320 | ≈ idle | 15.1 |  | 10.4 | 5.8 |  |  |  |  |
-| signals | large | unmount ¹ | 4.800 |  |  | 7.770 |  |  |  |  |  |  |  | -224.0 |  |  |  |  |
-| coalesce | - | make ¹ | 0.263 |  |  | 1.985 |  |  |  |  |  |  |  | 148.5 |  |  |  |  |
-| coalesce | - | 1000 writes/frame | 10.624 |  |  | 10.559 | 0.014 | ≈ idle | 10.164 | 10.017 | 775.5 |  | 1.0 | 0.0 |  |  |  | ok |
-| coalesce | - | unmount ¹ | 0.141 |  |  | 1.262 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
-| chain | - | make ¹ | 0.286 |  |  | 3.297 |  |  |  |  |  |  |  | 234.4 |  |  |  |  |
-| chain | - | 1 change/frame | 0.151 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | ok |
-| chain | - | unmount ¹ | 0.053 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.1 |  |  |  |  |
-| diamond | - | make ¹ | 0.224 |  |  | ≈ idle |  |  |  |  |  |  |  | 106.1 |  |  |  |  |
-| diamond | - | 1 change/frame | 0.147 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | ok |
-| diamond | - | unmount ¹ | 0.044 |  |  | 1.495 |  |  |  |  |  |  |  | 0.1 |  |  |  |  |
-| fanout | - | make ¹ | 12.318 |  |  | 14.667 | 0.158 | ≈ idle |  |  | 77.9 |  |  | 7440.2 |  |  |  |  |
-| fanout | - | 1 change/frame | 15.432 |  |  | 15.471 | 0.192 | ≈ idle |  |  | 80.4 |  |  | 0.0 |  |  |  |  |
-| fanout | - | unmount ¹ | 4.922 |  |  | 5.333 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
-| cascade | - | make ¹ | 0.257 |  |  | 2.664 |  |  |  |  |  |  |  | 113.5 |  |  |  |  |
-| cascade | - | 1 change/frame | 0.097 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | ok |
-| cascade | - | unmount ¹ | 0.129 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
-| grid | small | make (framework-itemsRead) ¹ | 14.153 |  |  | 16.973 | 1.693 | 4.183 | 2.116 | 4.246 | 8.4 | 4.1 | 6.7 | 3711.0 |  |  |  |  |
-| grid | small | steady (shown, unchanged) (framework-itemsRead) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |
-| grid | small | one changed (framework-itemsRead) | 1.371 |  |  | 2.560 | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 128.1 | 0.0 |  |  |  |  |
-| grid | small | all changed (framework-itemsRead) | 6.896 |  |  | 8.085 | 0.079 | ≈ idle | 0.295 | 1.127 | 87.2 |  | 23.4 | 0.0 |  |  |  |  |
-| grid | small | close (unmount) (framework-itemsRead) ¹ | 3.938 |  |  | 5.672 |  |  |  |  |  |  |  | 36.9 |  |  |  |  |
-| grid | small | open+close (remount) (framework-itemsRead) | 10.789 |  |  | 11.886 |  |  |  |  |  |  |  | 1237.9 |  |  |  |  |
-| grid | small | race: open+close in one frame (framework-itemsRead) ¹ | 0.049 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.2 |  |  |  | ok |
-| grid | small | race: handle after close (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | ok |
-| grid | small | make ¹ | 9.331 |  |  | 11.774 | 1.693 | 4.183 | 2.116 | 4.246 | 5.5 | 2.8 | 4.4 | 1205.5 |  |  |  |  |
+| grid | large | make (cold) ¹ | 65.610 |  |  | 71.487 | 5.017 | 10.621 | 9.557 | 14.172 | 13.1 | 6.7 | 6.9 | 18190.5 | 17969 |  |  |  |
+| signals | small | make (pool warm) | 1.997 |  |  | 0.732 |  |  |  |  |  |  |  | 1192.8 |  |  |  |  |
+| signals | small | 50 writes/frame | 0.311 |  |  | ≈ idle | 0.026 | ≈ idle | 0.039 | ≈ idle | 12.0 |  | 8.0 | 0.4 |  |  |  |  |
+| signals | small | close (unmount) | 0.312 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
+| signals | large | make (pool warm) | 20.290 |  |  | 21.324 |  |  |  |  |  |  |  | 12227.3 |  |  |  |  |
+| signals | large | 500 writes/frame | 3.567 |  |  | 3.536 | 0.261 | ≈ idle | 0.301 | ≈ idle | 13.7 |  | 11.9 | 5.8 |  |  |  |  |
+| signals | large | close (unmount) | 3.812 |  |  | 3.927 |  |  |  |  |  |  |  | -224.0 |  |  |  |  |
+| coalesce | - | make (pool warm) | 0.223 |  |  | ≈ idle |  |  |  |  |  |  |  | 147.6 |  |  |  |  |
+| coalesce | - | 1000 writes/frame | 10.921 |  |  | 10.913 | 0.013 | ≈ idle | 10.212 | 10.162 | 808.9 |  | 1.1 | 0.0 |  |  |  | ok |
+| coalesce | - | close (unmount) | 0.096 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
+| chain | - | make (pool warm) | 0.236 |  |  | ≈ idle |  |  |  |  |  |  |  | 132.8 |  |  |  |  |
+| chain | - | 1 change/frame | 0.152 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | ok |
+| chain | - | close (unmount) | 0.022 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.1 |  |  |  |  |
+| diamond | - | make (pool warm) | 0.191 |  |  | ≈ idle |  |  |  |  |  |  |  | 105.2 |  |  |  |  |
+| diamond | - | 1 change/frame | 0.144 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | ok |
+| diamond | - | close (unmount) | 0.022 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.1 |  |  |  |  |
+| fanout | - | make (pool warm) | 10.361 |  |  | 9.805 |  |  |  |  |  |  |  | 7439.3 |  |  |  |  |
+| fanout | - | 1 change/frame | 15.433 |  |  | 15.935 | 0.190 | ≈ idle |  |  | 81.3 |  |  | 0.0 |  |  |  |  |
+| fanout | - | close (unmount) | 3.892 |  |  | 5.064 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
+| cascade | - | make (pool warm) | 0.196 |  |  | ≈ idle |  |  |  |  |  |  |  | 112.1 |  |  |  |  |
+| cascade | - | 1 change/frame | 0.098 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | ok |
+| cascade | - | close (unmount) | 0.063 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
+| grid | small | make (pool warm) | 8.558 | 3.044 | 5.514 | 10.439 |  |  |  |  |  |  |  | 1192.8 |  |  |  |  |
 | grid | small | steady (shown, unchanged) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |
-| grid | small | one changed | 0.373 |  |  | ≈ idle | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 34.9 | 0.1 |  |  |  |  |
-| grid | small | all changed | 3.450 |  |  | 4.319 | 0.079 | ≈ idle | 0.295 | 1.127 | 43.6 |  | 11.7 | 0.0 |  |  |  |  |
-| grid | small | close (unmount) ¹ | 4.292 |  |  | 8.014 |  |  |  |  |  |  |  | 0.9 |  |  |  |  |
-| grid | small | open+close (remount) | 10.419 |  |  | 11.504 |  |  |  |  |  |  |  | 1192.8 |  |  |  |  |
-| grid | small | race: open+close in one frame ¹ | 0.042 |  |  | 1.802 |  |  |  |  |  |  |  | 0.2 |  |  |  | ok |
+| grid | small | one changed | 0.385 | 0.376 | <0.01 | ≈ idle | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 36.3 | 0.1 |  |  |  |  |
+| grid | small | all changed | 3.406 | 1.896 | 1.510 | 4.324 | 0.074 | ≈ idle | 0.313 | ≈ idle | 45.8 |  | 10.9 | 0.0 |  |  |  | FAIL 400 texts on screen, not 200 |
+| grid | small | close (unmount) | 2.849 | 0.787 | 2.062 | 2.973 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
+| grid | small | open+close (remount) | 11.412 | 3.913 | 7.499 | 12.355 |  |  |  |  |  |  |  | 1192.8 |  |  |  |  |
+| grid | small | race: open+close in one frame ¹ | 0.029 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | ok |
 | grid | small | race: handle after close ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | ok |
-| grid | large | make (framework-itemsRead) ¹ | 62.356 |  |  | 72.273 | 5.804 | 8.671 | 8.589 | 12.590 | 10.7 | 8.3 | 7.3 | 15936.5 |  |  |  |  |
-| grid | large | steady (shown, unchanged) (framework-itemsRead) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |
-| grid | large | one changed (framework-itemsRead) | 7.247 |  |  | 8.495 | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 647.0 | 0.0 |  |  |  |  |
-| grid | large | all changed (framework-itemsRead) | 118.710 |  |  | 123.609 | 0.338 | 2.218 | 1.657 | 3.479 | 351.0 | 55.7 | 71.7 | 0.0 |  |  |  |  |
-| grid | large | close (unmount) (framework-itemsRead) ¹ | 20.579 |  |  | 22.990 |  |  |  |  |  |  |  | 108.9 |  |  |  |  |
-| grid | large | open+close (remount) (framework-itemsRead) | 55.378 |  |  | 57.693 |  |  |  |  |  |  |  | 6141.7 |  |  |  |  |
-| grid | large | race: open+close in one frame (framework-itemsRead) ¹ | 0.043 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.2 |  |  |  | ok |
-| grid | large | race: handle after close (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | ok |
-| grid | large | make ¹ | 46.859 |  |  | 53.530 | 5.804 | 8.671 | 8.589 | 12.590 | 8.1 | 6.2 | 5.5 | 5982.2 |  |  |  |  |
+| grid | small | make (pool warm) (framework-itemsRead) | 8.470 |  |  | 9.173 |  |  |  |  |  |  |  | 1237.9 |  |  |  |  |
+| grid | small | steady (shown, unchanged) (framework-itemsRead) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |
+| grid | small | one changed (framework-itemsRead) | 1.405 |  |  | 2.221 | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 132.5 | 0.0 |  |  |  |  |
+| grid | small | all changed (framework-itemsRead) | 7.083 |  |  | 8.186 | 0.074 | ≈ idle | 0.313 | ≈ idle | 95.2 |  | 22.6 | 0.0 |  |  |  | FAIL 400 texts on screen, not 200 |
+| grid | small | close (unmount) (framework-itemsRead) | 2.967 |  |  | 4.469 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
+| grid | small | open+close (remount) (framework-itemsRead) | 11.502 |  |  | 12.462 |  |  |  |  |  |  |  | 1237.9 |  |  |  |  |
+| grid | small | race: open+close in one frame (framework-itemsRead) ¹ | 0.029 |  |  | 1.753 |  |  |  |  |  |  |  | 0.0 |  |  |  | ok |
+| grid | small | race: handle after close (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | ok |
+| grid | large | make (pool warm) | 42.601 | 14.103 | 28.498 | 47.809 |  |  |  |  |  |  |  | 5929.5 |  |  |  |  |
 | grid | large | steady (shown, unchanged) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |
-| grid | large | one changed | 1.663 |  |  | 2.574 | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 148.5 | 0.1 |  |  |  |  |
-| grid | large | all changed | 17.075 |  |  | 19.492 | 0.338 | 2.218 | 1.657 | 3.479 | 50.5 | 8.8 | 10.3 | 0.0 |  |  |  |  |
-| grid | large | close (unmount) ¹ | 19.904 |  |  | 23.797 |  |  |  |  |  |  |  | 0.9 |  |  |  |  |
-| grid | large | open+close (remount) | 53.009 |  |  | 55.764 |  |  |  |  |  |  |  | 5929.5 |  |  |  |  |
-| grid | large | race: open+close in one frame ¹ | 0.042 |  |  | 1.949 |  |  |  |  |  |  |  | 0.2 |  |  |  | ok |
+| grid | large | one changed | 1.622 | 1.608 | 0.014 | 2.838 | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 150.2 | 0.1 |  |  |  |  |
+| grid | large | all changed | 17.854 | 9.519 | 8.335 | 20.616 | 0.321 | 2.308 | 1.571 | 3.680 | 55.6 | 8.9 | 11.4 | 0.0 |  |  |  | FAIL 2000 texts on screen, not 1000 |
+| grid | large | close (unmount) | 16.524 | 3.982 | 12.542 | 19.603 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
+| grid | large | open+close (remount) | 54.020 | 17.781 | 36.239 | 57.283 |  |  |  |  |  |  |  | 5929.5 |  |  |  |  |
+| grid | large | race: open+close in one frame ¹ | 0.033 |  |  | 3.022 |  |  |  |  |  |  |  | 0.0 |  |  |  | ok |
 | grid | large | race: handle after close ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | ok |
-| ticker | small | make ¹ | 1.106 |  |  | 5.146 | 0.336 | 3.502 | 0.154 | 3.182 | 3.3 | 1.5 | 7.2 | 41.6 |  |  |  |  |
-| ticker | small | all texts/frame | 0.411 |  |  | 1.303 | 0.035 | ≈ idle | 0.076 | ≈ idle | 11.6 |  | 5.4 | 0.0 |  |  |  |  |
-| ticker | small | close ¹ | 0.529 |  |  | 2.165 | <0.01 | 1.477 | <0.01 | 1.291 |  | 1.5 |  | 8.3 |  |  |  |  |
-| ticker | large | make ¹ | 7.199 |  |  | 11.527 | 1.507 | 10.894 | 1.063 | 4.248 | 4.8 | 1.1 | 6.8 | 349.8 |  |  |  |  |
-| ticker | large | all texts/frame | 3.713 |  |  | 5.226 | 0.284 | 1.850 | 0.644 | 2.342 | 13.1 | 2.8 | 5.8 | 0.0 |  |  |  |  |
-| ticker | large | close ¹ | 3.764 |  |  | 5.793 | 0.043 | 1.709 | 0.041 | 1.318 | 86.7 | 3.4 | 90.9 | 66.5 |  |  |  |  |
-| reorder | - | make ¹ | 12.303 |  |  | 17.184 | 1.304 | 6.407 | 1.549 | 5.973 | 9.4 | 2.7 | 7.9 | 2898.5 |  |  |  |  |
-| reorder | - | Reverse | 2.454 |  |  | 3.277 | 0.136 | ≈ idle | 0.550 | ≈ idle | 18.1 |  | 4.5 | 12.1 |  |  |  |  |
-| reorder | - | Rotate | 2.034 |  |  | 2.928 | 0.137 | 1.065 | 0.568 | 1.479 | 14.9 | 2.7 | 3.6 | 0.0 |  |  |  |  |
-| reorder | - | InsertFront | 2.764 |  |  | 3.353 | 0.165 | 1.121 | 0.641 | 1.557 | 16.7 | 3.0 | 4.3 | 29.4 |  |  |  |  |
-| reorder | - | RemoveMiddle | 1.914 |  |  | 2.989 | 0.081 | ≈ idle | 0.604 | 1.650 | 23.5 |  | 3.2 | 0.0 |  |  |  |  |
-| reorder | - | Shuffle | 2.396 |  |  | 3.359 | 0.159 | ≈ idle | 0.606 | 1.543 | 15.0 |  | 4.0 | 12.1 |  |  |  |  |
-| reorder | - | close ¹ | 5.583 |  |  | 7.738 | 0.041 | 1.395 | 0.041 | 1.951 | 134.9 | 5.5 | 135.2 | 0.9 |  |  |  |  |
-| deep | - | make ¹ | 4.694 |  |  | 8.384 | 0.535 | 4.182 |  |  | 8.8 | 2.0 |  | 952.1 |  |  |  |  |
-| deep | - | leaf signal changed | 0.040 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | ok |
-| deep | - | value through 100 levels | 0.588 |  |  | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  |  |
-| deep | - | race: change + close in one frame ¹ | 1.559 |  |  | 3.353 |  |  |  |  |  |  |  | 175.2 |  |  |  | ok |
+| grid | large | make (pool warm) (framework-itemsRead) | 40.747 |  |  | 46.156 |  |  |  |  |  |  |  | 6141.7 |  |  |  |  |
+| grid | large | steady (shown, unchanged) (framework-itemsRead) | <0.01 |  |  | ≈ idle | <0.01 | ≈ idle | <0.01 | ≈ idle |  |  |  | 0.0 |  |  |  |  |
+| grid | large | one changed (framework-itemsRead) | 7.564 |  |  | 9.471 | <0.01 | ≈ idle | 0.011 | ≈ idle |  |  | 700.4 | 0.0 |  |  |  |  |
+| grid | large | all changed (framework-itemsRead) | 114.964 |  |  | 119.260 | 0.321 | 2.308 | 1.571 | 3.680 | 358.3 | 51.7 | 73.2 | 0.0 |  |  |  | FAIL 2000 texts on screen, not 1000 |
+| grid | large | close (unmount) (framework-itemsRead) | 16.282 |  |  | 17.488 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
+| grid | large | open+close (remount) (framework-itemsRead) | 57.336 |  |  | 59.782 |  |  |  |  |  |  |  | 6141.7 |  |  |  |  |
+| grid | large | race: open+close in one frame (framework-itemsRead) ¹ | 0.034 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | ok |
+| grid | large | race: handle after close (framework-itemsRead) ¹ | <0.01 |  |  | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  | ok |
+| ticker | small | make (pool warm) | 0.664 | 0.148 | 0.516 | 1.915 |  |  |  |  |  |  |  | 31.6 |  |  |  |  |
+| ticker | small | all texts/frame | 0.420 | 0.123 | 0.297 | 1.120 | 0.035 | ≈ idle | 0.076 | ≈ idle | 11.9 |  | 5.5 | 0.0 |  |  |  |  |
+| ticker | small | close (unmount) | 0.297 | 0.063 | 0.235 | ≈ idle |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
+| ticker | large | make (pool warm) | 5.352 | 1.109 | 4.244 | 5.898 |  |  |  |  |  |  |  | 256.6 |  |  |  |  |
+| ticker | large | all texts/frame | 3.950 | 0.993 | 2.957 | 5.455 | 0.291 | 1.932 | 0.671 | 2.358 | 13.6 | 2.8 | 5.9 | 0.0 |  |  |  |  |
+| ticker | large | close (unmount) | 2.502 | 0.399 | 2.102 | 3.816 |  |  |  |  |  |  |  | 0.0 |  |  |  |  |
+| reorder | - | make (pool warm) | 9.985 | 6.027 | 3.958 | 11.857 |  |  |  |  |  |  |  | 2829.3 |  |  |  |  |
+| reorder | - | Reverse | 2.320 | 1.206 | 1.114 | 2.162 | 0.137 | ≈ idle | 0.540 | ≈ idle | 16.9 |  | 4.3 | 12.1 |  |  |  |  |
+| reorder | - | Rotate | 2.078 | 0.896 | 1.182 | 2.917 | 0.147 | 0.952 | 0.543 | ≈ idle | 14.1 | 3.1 | 3.8 | 0.0 |  |  |  |  |
+| reorder | - | InsertFront | 2.510 | 1.320 | 1.190 | 3.549 | 0.155 | 0.997 | 0.602 | 1.144 | 16.2 | 3.6 | 4.2 | 28.8 |  |  |  |  |
+| reorder | - | RemoveMiddle | 1.971 | 0.940 | 1.031 | 2.887 | 0.085 | 0.874 | 0.581 | ≈ idle | 23.3 | 3.3 | 3.4 | 0.0 |  |  |  |  |
+| reorder | - | Shuffle | 2.384 | 1.198 | 1.187 | 3.256 | 0.169 | 1.099 | 0.591 | 1.215 | 14.1 | 3.0 | 4.0 | 12.1 |  |  |  | FAIL 1000 rows on screen, not 500 |
+| reorder | - | close (unmount) | 3.724 | 1.581 | 2.143 | 3.959 |  |  |  |  |  |  |  | -1.4 |  |  |  |  |
+| deep | - | make (pool warm) | 4.188 | 1.392 | 2.797 | 4.571 |  |  |  |  |  |  |  | 598.6 |  |  |  |  |
+| deep | - | leaf signal changed | 0.041 | 0.025 | 0.016 | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | ok |
+| deep | - | value through 100 levels | 0.600 | 0.585 | 0.015 | ≈ idle | <0.01 | ≈ idle |  |  |  |  |  | 0.0 |  |  |  | FAIL the scheduler hit its pass cap: the change didn't finish |
+| deep | - | race: change + close in one frame ¹ | 1.637 |  |  | 5.518 |  |  |  |  |  |  |  | 209.3 |  |  |  | ok |
+| deep | - | value through 100 levels (framework-engine) |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  | FAIL the scheduler hit its pass cap: the change didn't finish |
 
-Failed checks: 0.
+Failed checks: 7.
 
 ## By hand only
 
@@ -106,20 +108,56 @@ Hand-written rows with no framework row of the same name (hide and show against 
 
 | Scenario | Size | Metric | Side | Lua | Frame | Kept KB |
 | --- | --- | --- | --- | ---: | ---: | ---: |
-| grid | small | close ¹ | baseline | 0.041 | 2.875 |  |
+| signals | small | make ¹ | typical | 0.368 | 2.414 | -2450 |
+| signals | small | make ¹ | baseline | 0.464 | 1.641 | -2282 |
+| signals | large | make ¹ | typical | 3.352 | 4.729 | 2450 |
+| signals | large | make ¹ | baseline | 4.537 | 7.524 | 2255 |
+| fanout | - | make ¹ | baseline | 0.119 | 1.787 | 0 |
+| grid | small | make ¹ | baseline | 1.424 | 5.390 | 50 |
+| grid | small | close | baseline | 0.013 | ≈ idle |  |
 | grid | small | open+close | baseline | 0.024 | ≈ idle |  |
-| grid | small | close ¹ | typical | 0.107 | 3.185 |  |
-| grid | small | open+close | typical | 0.038 | ≈ idle |  |
-| grid | large | close ¹ | baseline | 0.180 | 3.720 |  |
-| grid | large | open+close | baseline | 0.112 | ≈ idle |  |
-| grid | large | close ¹ | typical | 0.303 | 4.015 |  |
-| grid | large | open+close | typical | 0.196 | ≈ idle |  |
-| deep | - | close ¹ | baseline | 0.028 | 1.723 |  |
+| grid | small | make ¹ | typical | 1.766 | 5.465 | 86 |
+| grid | small | close | typical | 0.023 | ≈ idle |  |
+| grid | small | open+close | typical | 0.037 | ≈ idle |  |
+| grid | large | make ¹ | baseline | 5.971 | 10.215 | 3100 |
+| grid | large | close | baseline | 0.058 | 1.528 |  |
+| grid | large | open+close | baseline | 0.103 | ≈ idle |  |
+| grid | large | make ¹ | typical | 7.962 | 11.459 | 430 |
+| grid | large | close | typical | 0.104 | 1.558 |  |
+| grid | large | open+close | typical | 0.184 | ≈ idle |  |
+| ticker | small | make ¹ | baseline | 0.289 | 4.068 | 6 |
+| ticker | small | close | baseline | <0.01 | ≈ idle |  |
+| ticker | small | make ¹ | typical | 0.183 | 4.602 | 6 |
+| ticker | small | close | typical | <0.01 | ≈ idle |  |
+| ticker | large | make ¹ | baseline | 1.175 | 3.067 | 63 |
+| ticker | large | close | baseline | 0.016 | ≈ idle |  |
+| ticker | large | make ¹ | typical | 1.080 | 3.101 | 63 |
+| ticker | large | close | typical | 0.015 | ≈ idle |  |
+| reorder | - | make ¹ | baseline | 1.380 | 5.426 | 55 |
+| reorder | - | close | baseline | 0.014 | ≈ idle |  |
+| reorder | - | make ¹ | typical | 0.689 | 4.389 | 0 |
+| reorder | - | close | typical | <0.01 | ≈ idle |  |
+| deep | - | make ¹ | baseline | 0.516 | 3.222 | 13 |
+| deep | - | close | baseline | 0.011 | 1.474 |  |
 
 ## Order of the sides
 
 Which side of each block ran first, second, ... in this round (it rotates with each round).
 
+- grid large: typical, framework, baseline
+- signals small: typical, framework, baseline
+- signals large: typical, framework, baseline
+- coalesce -: typical, framework, baseline
+- chain -: framework, baseline
+- diamond -: framework, baseline
+- fanout -: framework, baseline
+- cascade -: framework, baseline
+- grid small: framework-engine, baseline, typical, framework, framework-itemsRead
+- grid large: framework-engine, baseline, typical, framework, framework-itemsRead
+- ticker small: baseline, typical, framework, framework-engine
+- ticker large: baseline, typical, framework, framework-engine
+- reorder -: baseline, typical, framework, framework-engine
+- deep -: baseline, framework, framework-engine
 
 ## Source size
 
@@ -130,10 +168,10 @@ Code lines and characters, without comments, blank lines or indentation.
 | cascade | 33 | 17 |  | 595 | 265 |  |
 | chain | 32 | 19 |  | 635 | 377 |  |
 | coalesce | 27 | 30 | 20 | 490 | 480 | 351 |
-| deep | 60 | 32 |  | 1705 | 737 |  |
+| deep | 61 | 35 |  | 1738 | 772 |  |
 | diamond | 38 | 21 |  | 742 | 424 |  |
 | fanout | 23 | 19 |  | 385 | 280 |  |
 | grid | 73 | 58 | 62 | 1943 | 1685 | 1812 |
-| reorder | 85 | 76 | 66 | 1790 | 1468 | 1352 |
+| reorder | 88 | 79 | 69 | 1820 | 1506 | 1390 |
 | signals | 47 | 72 | 38 | 1051 | 1381 | 851 |
-| ticker | 36 | 34 | 33 | 938 | 877 | 837 |
+| ticker | 36 | 37 | 36 | 938 | 925 | 885 |

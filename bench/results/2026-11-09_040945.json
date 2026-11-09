@@ -1,0 +1,2748 @@
+{
+	"builds": {
+		"OrdaenBench": {
+			"branch": "develop",
+			"built_at": "2026-11-09T04:04:41+01:00",
+			"commit": "b5fdd5c",
+			"dirty": false
+		},
+		"OrdaenCore": {
+			"branch": "develop",
+			"built_at": "2026-11-09T03:59:26+01:00",
+			"commit": "2ea2d10",
+			"dirty": false
+		}
+	},
+	"results": [
+		{
+			"frameMs": 3.118,
+			"frameP95": 4.129,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 17.29,
+			"frameP95": 17.29,
+			"impl": "typical",
+			"kb": 454.12,
+			"keptKb": 454,
+			"luaMs": 9.5572,
+			"luaP95": 9.5572,
+			"metric": "make (cold)",
+			"n": 1,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 74.605,
+			"frameP95": 74.605,
+			"impl": "framework",
+			"kb": 18190.47,
+			"keptKb": 17969.2,
+			"luaMs": 65.6096,
+			"luaP95": 65.6096,
+			"metric": "make (cold)",
+			"n": 1,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 13.739,
+			"frameP95": 13.739,
+			"impl": "baseline",
+			"kb": 274.43,
+			"keptKb": 274.5,
+			"luaMs": 5.0168,
+			"luaP95": 5.0168,
+			"metric": "make (cold)",
+			"n": 1,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.393,
+			"frameP95": 4.078,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "signals",
+			"size": "small"
+		},
+		{
+			"frameMs": 5.807,
+			"frameP95": 5.807,
+			"impl": "typical",
+			"kb": 240.45,
+			"keptKb": -2449.6,
+			"luaMs": 0.3676,
+			"luaP95": 0.3676,
+			"metric": "make",
+			"n": 1,
+			"scenario": "signals",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.212,
+			"frameP95": 4.337,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.0389,
+			"luaP95": 0.0602,
+			"metric": "50 writes/frame",
+			"n": 115,
+			"scenario": "signals",
+			"size": "small"
+		},
+		{
+			"frameMs": 4.125,
+			"frameP95": 4.751,
+			"impl": "framework",
+			"kb": 1192.81,
+			"luaMs": 1.9973,
+			"luaP95": 2.5417,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "signals",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.147,
+			"frameP95": 4.41,
+			"impl": "framework",
+			"kb": 0.37,
+			"luaMs": 0.3111,
+			"luaP95": 0.4621,
+			"metric": "50 writes/frame",
+			"n": 115,
+			"scenario": "signals",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.587,
+			"frameP95": 4.092,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.3123,
+			"luaP95": 0.3722,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "signals",
+			"size": "small"
+		},
+		{
+			"frameMs": 5.034,
+			"frameP95": 5.034,
+			"impl": "baseline",
+			"kb": 372.01,
+			"keptKb": -2281.5,
+			"luaMs": 0.4636,
+			"luaP95": 0.4636,
+			"metric": "make",
+			"n": 1,
+			"scenario": "signals",
+			"size": "small"
+		},
+		{
+			"frameMs": 2.883,
+			"frameP95": 4.25,
+			"impl": "baseline",
+			"kb": 0.01,
+			"luaMs": 0.026,
+			"luaP95": 0.0545,
+			"metric": "50 writes/frame",
+			"n": 115,
+			"scenario": "signals",
+			"size": "small"
+		},
+		{
+			"frameMs": 2.756,
+			"frameP95": 4.084,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "signals",
+			"size": "large"
+		},
+		{
+			"frameMs": 7.485,
+			"frameP95": 7.485,
+			"impl": "typical",
+			"kb": 2690.13,
+			"keptKb": 2449.7,
+			"luaMs": 3.3519,
+			"luaP95": 3.3519,
+			"metric": "make",
+			"n": 1,
+			"scenario": "signals",
+			"size": "large"
+		},
+		{
+			"frameMs": 2.936,
+			"frameP95": 4.231,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.3007,
+			"luaP95": 0.4706,
+			"metric": "500 writes/frame",
+			"n": 115,
+			"scenario": "signals",
+			"size": "large"
+		},
+		{
+			"frameMs": 24.08,
+			"frameP95": 25.643,
+			"impl": "framework",
+			"kb": 12227.31,
+			"luaMs": 20.2903,
+			"luaP95": 21.9229,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "signals",
+			"size": "large"
+		},
+		{
+			"frameMs": 6.292,
+			"frameP95": 7.698,
+			"impl": "framework",
+			"kb": 5.84,
+			"luaMs": 3.5668,
+			"luaP95": 4.0111,
+			"metric": "500 writes/frame",
+			"n": 115,
+			"scenario": "signals",
+			"size": "large"
+		},
+		{
+			"frameMs": 6.683,
+			"frameP95": 8.794,
+			"impl": "framework",
+			"kb": -224,
+			"luaMs": 3.8118,
+			"luaP95": 4.293,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "signals",
+			"size": "large"
+		},
+		{
+			"frameMs": 10.28,
+			"frameP95": 10.28,
+			"impl": "baseline",
+			"kb": 4002.1,
+			"keptKb": 2254.6,
+			"luaMs": 4.5371,
+			"luaP95": 4.5371,
+			"metric": "make",
+			"n": 1,
+			"scenario": "signals",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.303,
+			"frameP95": 4.299,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.2607,
+			"luaP95": 0.4896,
+			"metric": "500 writes/frame",
+			"n": 115,
+			"scenario": "signals",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.081,
+			"frameP95": 4.235,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "coalesce",
+			"size": "-"
+		},
+		{
+			"frameMs": 13.243,
+			"frameP95": 14.509,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 10.2119,
+			"luaP95": 10.9275,
+			"metric": "1000 writes/frame",
+			"n": 115,
+			"scenario": "coalesce",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.001,
+			"frameP95": 4.246,
+			"impl": "framework",
+			"kb": 147.62,
+			"luaMs": 0.2232,
+			"luaP95": 0.2385,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "coalesce",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 13.994,
+			"frameP95": 15.213,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 10.9205,
+			"luaP95": 11.5404,
+			"metric": "1000 writes/frame",
+			"n": 115,
+			"scenario": "coalesce",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.888,
+			"frameP95": 4.241,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.0955,
+			"luaP95": 0.099,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "coalesce",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 3.002,
+			"frameP95": 4.326,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0135,
+			"luaP95": 0.018,
+			"metric": "1000 writes/frame",
+			"n": 115,
+			"scenario": "coalesce",
+			"size": "-"
+		},
+		{
+			"frameMs": 2.754,
+			"frameP95": 4.216,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "chain",
+			"size": "-"
+		},
+		{
+			"frameMs": 2.394,
+			"frameP95": 2.896,
+			"impl": "framework",
+			"kb": 132.78,
+			"luaMs": 0.2356,
+			"luaP95": 0.2913,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "chain",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 2.752,
+			"frameP95": 4.384,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.1525,
+			"luaP95": 0.2127,
+			"metric": "1 change/frame",
+			"n": 115,
+			"scenario": "chain",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.825,
+			"frameP95": 4.267,
+			"impl": "framework",
+			"kb": 0.05,
+			"luaMs": 0.022,
+			"luaP95": 0.0224,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "chain",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 2.708,
+			"frameP95": 4.266,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.003,
+			"luaP95": 0.0031,
+			"metric": "1 change/frame",
+			"n": 115,
+			"scenario": "chain",
+			"size": "-"
+		},
+		{
+			"frameMs": 2.628,
+			"frameP95": 4.246,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "diamond",
+			"size": "-"
+		},
+		{
+			"frameMs": 2.194,
+			"frameP95": 2.588,
+			"impl": "framework",
+			"kb": 105.16,
+			"luaMs": 0.1906,
+			"luaP95": 0.2189,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "diamond",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 2.928,
+			"frameP95": 4.358,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.1445,
+			"luaP95": 0.2022,
+			"metric": "1 change/frame",
+			"n": 115,
+			"scenario": "diamond",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.884,
+			"frameP95": 4.191,
+			"impl": "framework",
+			"kb": 0.05,
+			"luaMs": 0.0217,
+			"luaP95": 0.0219,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "diamond",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 2.87,
+			"frameP95": 4.387,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0026,
+			"luaP95": 0.0032,
+			"metric": "1 change/frame",
+			"n": 115,
+			"scenario": "diamond",
+			"size": "-"
+		},
+		{
+			"frameMs": 2.631,
+			"frameP95": 4.242,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "fanout",
+			"size": "-"
+		},
+		{
+			"frameMs": 12.436,
+			"frameP95": 13.24,
+			"impl": "framework",
+			"kb": 7439.3,
+			"luaMs": 10.3612,
+			"luaP95": 11.3985,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "fanout",
+			"size": "-"
+		},
+		{
+			"frameMs": 18.566,
+			"frameP95": 20.13,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 15.4327,
+			"luaP95": 16.4194,
+			"metric": "1 change/frame",
+			"n": 115,
+			"scenario": "fanout",
+			"size": "-"
+		},
+		{
+			"frameMs": 7.695,
+			"frameP95": 8.347,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 3.8916,
+			"luaP95": 4.5539,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "fanout",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.418,
+			"frameP95": 4.418,
+			"impl": "baseline",
+			"kb": 351.56,
+			"keptKb": 0,
+			"luaMs": 0.1194,
+			"luaP95": 0.1194,
+			"metric": "make",
+			"n": 1,
+			"scenario": "fanout",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.411,
+			"frameP95": 4.501,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.1899,
+			"luaP95": 0.2204,
+			"metric": "1 change/frame",
+			"n": 115,
+			"scenario": "fanout",
+			"size": "-"
+		},
+		{
+			"frameMs": 2.596,
+			"frameP95": 4.305,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "cascade",
+			"size": "-"
+		},
+		{
+			"frameMs": 2.3,
+			"frameP95": 2.61,
+			"impl": "framework",
+			"kb": 112.09,
+			"luaMs": 0.1964,
+			"luaP95": 0.2254,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "cascade",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 2.841,
+			"frameP95": 4.316,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.0984,
+			"luaP95": 0.1422,
+			"metric": "1 change/frame",
+			"n": 115,
+			"scenario": "cascade",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.851,
+			"frameP95": 4.206,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.063,
+			"luaP95": 0.0722,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "cascade",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 3.266,
+			"frameP95": 4.189,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0013,
+			"luaP95": 0.0017,
+			"metric": "1 change/frame",
+			"n": 115,
+			"scenario": "cascade",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.302,
+			"frameP95": 4.954,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0004,
+			"luaP95": 0.0006,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 5.143,
+			"frameP95": 5.704,
+			"impl": "framework-engine",
+			"kb": 1192.75,
+			"luaMs": 3.0439,
+			"luaP95": 3.2033,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.534,
+			"frameP95": 4.425,
+			"impl": "framework-engine",
+			"kb": 0.05,
+			"luaMs": 0.3764,
+			"luaP95": 0.5618,
+			"metric": "one changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 4.66,
+			"frameP95": 5.633,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 1.896,
+			"luaP95": 2.2033,
+			"metric": "all changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 4.531,
+			"frameP95": 5.244,
+			"impl": "framework-engine",
+			"kb": -0.64,
+			"luaMs": 0.7875,
+			"luaP95": 1.2671,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 6.765,
+			"frameP95": 7.459,
+			"impl": "framework-engine",
+			"kb": 1192.75,
+			"luaMs": 3.9129,
+			"luaP95": 4.1257,
+			"metric": "open+close (remount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"check": "ok",
+			"frameMs": 0,
+			"frameP95": 0,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0,
+			"luaP95": 0,
+			"metric": "stub: every node back",
+			"n": 1,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 8.692,
+			"frameP95": 8.692,
+			"impl": "baseline",
+			"kb": 56.32,
+			"keptKb": 50.3,
+			"luaMs": 1.4241,
+			"luaP95": 1.4241,
+			"metric": "make",
+			"n": 1,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 2.972,
+			"frameP95": 4.298,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "steady (shown, unchanged)",
+			"n": 295,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.866,
+			"frameP95": 4.776,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0043,
+			"luaP95": 0.0055,
+			"metric": "one changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"check": "ok",
+			"frameMs": 4.189,
+			"frameP95": 4.991,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0744,
+			"luaP95": 0.1154,
+			"metric": "all changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 2.921,
+			"frameP95": 3.827,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0135,
+			"luaP95": 0.0515,
+			"metric": "close",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.212,
+			"frameP95": 4.588,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0235,
+			"luaP95": 0.0241,
+			"metric": "open+close",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 8.767,
+			"frameP95": 8.767,
+			"impl": "typical",
+			"kb": 92.26,
+			"keptKb": 86.2,
+			"luaMs": 1.7657,
+			"luaP95": 1.7657,
+			"metric": "make",
+			"n": 1,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.183,
+			"frameP95": 4.432,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "steady (shown, unchanged)",
+			"n": 295,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 4.119,
+			"frameP95": 4.683,
+			"impl": "typical",
+			"kb": 0.01,
+			"luaMs": 0.0106,
+			"luaP95": 0.0113,
+			"metric": "one changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"check": "ok",
+			"frameMs": 4.457,
+			"frameP95": 5.747,
+			"impl": "typical",
+			"kb": 0.04,
+			"luaMs": 0.3132,
+			"luaP95": 0.4159,
+			"metric": "all changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.183,
+			"frameP95": 4.023,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.0229,
+			"luaP95": 0.0501,
+			"metric": "close",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.029,
+			"frameP95": 4.464,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.0371,
+			"luaP95": 0.054,
+			"metric": "open+close",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 13.741,
+			"frameP95": 14.987,
+			"impl": "framework",
+			"kb": 1192.75,
+			"luaMs": 8.5577,
+			"luaP95": 9.5939,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.253,
+			"frameP95": 4.31,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "steady (shown, unchanged)",
+			"n": 295,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 4.528,
+			"frameP95": 5.253,
+			"impl": "framework",
+			"kb": 0.05,
+			"luaMs": 0.385,
+			"luaP95": 0.4749,
+			"metric": "one changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"check": "FAIL 400 texts on screen, not 200",
+			"frameMs": 7.626,
+			"frameP95": 8.914,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 3.4062,
+			"luaP95": 3.9233,
+			"metric": "all changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 6.275,
+			"frameP95": 6.691,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 2.849,
+			"luaP95": 3.295,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 15.657,
+			"frameP95": 16.736,
+			"impl": "framework",
+			"kb": 1192.75,
+			"luaMs": 11.4117,
+			"luaP95": 11.7749,
+			"metric": "open+close (remount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"check": "ok",
+			"frameMs": 3.322,
+			"frameP95": 3.322,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.0295,
+			"luaP95": 0.0295,
+			"metric": "race: open+close in one frame",
+			"n": 1,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"check": "ok",
+			"frameMs": 0,
+			"frameP95": 0,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0,
+			"luaP95": 0,
+			"metric": "race: handle after close",
+			"n": 1,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 12.475,
+			"frameP95": 13.355,
+			"impl": "framework-itemsRead",
+			"kb": 1237.92,
+			"luaMs": 8.4702,
+			"luaP95": 8.9076,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.267,
+			"frameP95": 4.382,
+			"impl": "framework-itemsRead",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "steady (shown, unchanged)",
+			"n": 295,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 5.523,
+			"frameP95": 6.663,
+			"impl": "framework-itemsRead",
+			"kb": 0.02,
+			"luaMs": 1.4046,
+			"luaP95": 1.7751,
+			"metric": "one changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"check": "FAIL 400 texts on screen, not 200",
+			"frameMs": 11.488,
+			"frameP95": 12.905,
+			"impl": "framework-itemsRead",
+			"kb": 0,
+			"luaMs": 7.0833,
+			"luaP95": 7.5033,
+			"metric": "all changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 7.771,
+			"frameP95": 8.184,
+			"impl": "framework-itemsRead",
+			"kb": 0,
+			"luaMs": 2.9673,
+			"luaP95": 3.2831,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 15.764,
+			"frameP95": 16.807,
+			"impl": "framework-itemsRead",
+			"kb": 1237.92,
+			"luaMs": 11.5025,
+			"luaP95": 11.9119,
+			"metric": "open+close (remount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"check": "ok",
+			"frameMs": 5.055,
+			"frameP95": 5.055,
+			"impl": "framework-itemsRead",
+			"kb": 0,
+			"luaMs": 0.0287,
+			"luaP95": 0.0287,
+			"metric": "race: open+close in one frame",
+			"n": 1,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"check": "ok",
+			"frameMs": 0,
+			"frameP95": 0,
+			"impl": "framework-itemsRead",
+			"kb": 0,
+			"luaMs": 0,
+			"luaP95": 0,
+			"metric": "race: handle after close",
+			"n": 1,
+			"scenario": "grid",
+			"size": "small"
+		},
+		{
+			"frameMs": 2.744,
+			"frameP95": 4.222,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 17.492,
+			"frameP95": 18.461,
+			"impl": "framework-engine",
+			"kb": 5929.5,
+			"luaMs": 14.1033,
+			"luaP95": 14.9696,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 4.663,
+			"frameP95": 5.269,
+			"impl": "framework-engine",
+			"kb": 0.05,
+			"luaMs": 1.608,
+			"luaP95": 1.8869,
+			"metric": "one changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 12.565,
+			"frameP95": 14.316,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 9.5186,
+			"luaP95": 10.3216,
+			"metric": "all changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 6.329,
+			"frameP95": 7.433,
+			"impl": "framework-engine",
+			"kb": -0.12,
+			"luaMs": 3.9821,
+			"luaP95": 4.3708,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 20.729,
+			"frameP95": 22.295,
+			"impl": "framework-engine",
+			"kb": 5929.5,
+			"luaMs": 17.7807,
+			"luaP95": 18.6237,
+			"metric": "open+close (remount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"check": "ok",
+			"frameMs": 0,
+			"frameP95": 0,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0,
+			"luaP95": 0,
+			"metric": "stub: every node back",
+			"n": 1,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 12.959,
+			"frameP95": 12.959,
+			"impl": "baseline",
+			"kb": 3124.07,
+			"keptKb": 3100,
+			"luaMs": 5.9706,
+			"luaP95": 5.9706,
+			"metric": "make",
+			"n": 1,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.225,
+			"frameP95": 4.408,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "steady (shown, unchanged)",
+			"n": 295,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.986,
+			"frameP95": 4.89,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0043,
+			"luaP95": 0.0046,
+			"metric": "one changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"check": "ok",
+			"frameMs": 5.052,
+			"frameP95": 6.585,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.3209,
+			"luaP95": 0.4835,
+			"metric": "all changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 4.272,
+			"frameP95": 4.729,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0577,
+			"luaP95": 0.151,
+			"metric": "close",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 4.043,
+			"frameP95": 5.087,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.1026,
+			"luaP95": 0.1308,
+			"metric": "open+close",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 14.203,
+			"frameP95": 14.203,
+			"impl": "typical",
+			"kb": 454.01,
+			"keptKb": 430,
+			"luaMs": 7.9624,
+			"luaP95": 7.9624,
+			"metric": "make",
+			"n": 1,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.048,
+			"frameP95": 4.375,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "steady (shown, unchanged)",
+			"n": 295,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.883,
+			"frameP95": 4.605,
+			"impl": "typical",
+			"kb": 0.01,
+			"luaMs": 0.0108,
+			"luaP95": 0.0122,
+			"metric": "one changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"check": "ok",
+			"frameMs": 6.424,
+			"frameP95": 7.897,
+			"impl": "typical",
+			"kb": 0.04,
+			"luaMs": 1.5715,
+			"luaP95": 1.8458,
+			"metric": "all changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 4.302,
+			"frameP95": 4.912,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.1042,
+			"luaP95": 0.123,
+			"metric": "close",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 4.213,
+			"frameP95": 4.67,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.1837,
+			"luaP95": 0.2107,
+			"metric": "open+close",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 50.553,
+			"frameP95": 53.004,
+			"impl": "framework",
+			"kb": 5929.5,
+			"luaMs": 42.6014,
+			"luaP95": 45.2268,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.099,
+			"frameP95": 4.396,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "steady (shown, unchanged)",
+			"n": 295,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 5.582,
+			"frameP95": 6.637,
+			"impl": "framework",
+			"kb": 0.05,
+			"luaMs": 1.6223,
+			"luaP95": 1.8663,
+			"metric": "one changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"check": "FAIL 2000 texts on screen, not 1000",
+			"frameMs": 23.36,
+			"frameP95": 27.738,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 17.8536,
+			"luaP95": 20.9441,
+			"metric": "all changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 22.347,
+			"frameP95": 24.747,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 16.5238,
+			"luaP95": 18.541,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 60.027,
+			"frameP95": 61.643,
+			"impl": "framework",
+			"kb": 5929.5,
+			"luaMs": 54.0198,
+			"luaP95": 56.9524,
+			"metric": "open+close (remount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"check": "ok",
+			"frameMs": 5.766,
+			"frameP95": 5.766,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.033,
+			"luaP95": 0.033,
+			"metric": "race: open+close in one frame",
+			"n": 1,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"check": "ok",
+			"frameMs": 0,
+			"frameP95": 0,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0,
+			"luaP95": 0,
+			"metric": "race: handle after close",
+			"n": 1,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 48.9,
+			"frameP95": 52.016,
+			"impl": "framework-itemsRead",
+			"kb": 6141.67,
+			"luaMs": 40.7466,
+			"luaP95": 42.723,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.066,
+			"frameP95": 4.203,
+			"impl": "framework-itemsRead",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "steady (shown, unchanged)",
+			"n": 295,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 12.215,
+			"frameP95": 14.884,
+			"impl": "framework-itemsRead",
+			"kb": 0.02,
+			"luaMs": 7.5645,
+			"luaP95": 8.6585,
+			"metric": "one changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"check": "FAIL 2000 texts on screen, not 1000",
+			"frameMs": 122.004,
+			"frameP95": 128.642,
+			"impl": "framework-itemsRead",
+			"kb": 0,
+			"luaMs": 114.9638,
+			"luaP95": 120.957,
+			"metric": "all changed",
+			"n": 55,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 20.232,
+			"frameP95": 24.259,
+			"impl": "framework-itemsRead",
+			"kb": 0,
+			"luaMs": 16.2818,
+			"luaP95": 18.854,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 62.526,
+			"frameP95": 67.925,
+			"impl": "framework-itemsRead",
+			"kb": 6141.67,
+			"luaMs": 57.3359,
+			"luaP95": 61.3754,
+			"metric": "open+close (remount)",
+			"n": 15,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"check": "ok",
+			"frameMs": 3.671,
+			"frameP95": 3.671,
+			"impl": "framework-itemsRead",
+			"kb": 0,
+			"luaMs": 0.0335,
+			"luaP95": 0.0335,
+			"metric": "race: open+close in one frame",
+			"n": 1,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"check": "ok",
+			"frameMs": 0,
+			"frameP95": 0,
+			"impl": "framework-itemsRead",
+			"kb": 0,
+			"luaMs": 0,
+			"luaP95": 0,
+			"metric": "race: handle after close",
+			"n": 1,
+			"scenario": "grid",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.18,
+			"frameP95": 4.157,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0005,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 7.248,
+			"frameP95": 7.248,
+			"impl": "baseline",
+			"kb": 7.95,
+			"keptKb": 6.4,
+			"luaMs": 0.2889,
+			"luaP95": 0.2889,
+			"metric": "make",
+			"n": 1,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 4.071,
+			"frameP95": 4.981,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0354,
+			"luaP95": 0.0773,
+			"metric": "all texts/frame",
+			"n": 115,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 2.777,
+			"frameP95": 3.235,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0043,
+			"luaP95": 0.0051,
+			"metric": "close",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 7.782,
+			"frameP95": 7.782,
+			"impl": "typical",
+			"kb": 7.95,
+			"keptKb": 6.4,
+			"luaMs": 0.1827,
+			"luaP95": 0.1827,
+			"metric": "make",
+			"n": 1,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 4.023,
+			"frameP95": 4.802,
+			"impl": "typical",
+			"kb": 2.12,
+			"luaMs": 0.0764,
+			"luaP95": 0.1029,
+			"metric": "all texts/frame",
+			"n": 115,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 2.643,
+			"frameP95": 3.466,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.0045,
+			"luaP95": 0.0055,
+			"metric": "close",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 5.095,
+			"frameP95": 5.85,
+			"impl": "framework",
+			"kb": 31.64,
+			"luaMs": 0.6639,
+			"luaP95": 0.7098,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 4.3,
+			"frameP95": 5.608,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.4201,
+			"luaP95": 0.5225,
+			"metric": "all texts/frame",
+			"n": 115,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 2.829,
+			"frameP95": 3.554,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.2972,
+			"luaP95": 0.3184,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 2.121,
+			"frameP95": 2.54,
+			"impl": "framework-engine",
+			"kb": 31.64,
+			"luaMs": 0.1483,
+			"luaP95": 0.1803,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 2.961,
+			"frameP95": 4.691,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0.1226,
+			"luaP95": 0.1667,
+			"metric": "all texts/frame",
+			"n": 115,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 4.041,
+			"frameP95": 4.579,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0.0627,
+			"luaP95": 0.0636,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"check": "ok",
+			"frameMs": 0,
+			"frameP95": 0,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0,
+			"luaP95": 0,
+			"metric": "stub: every node back",
+			"n": 1,
+			"scenario": "ticker",
+			"size": "small"
+		},
+		{
+			"frameMs": 3.228,
+			"frameP95": 4.258,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 6.295,
+			"frameP95": 6.295,
+			"impl": "baseline",
+			"kb": 74.7,
+			"keptKb": 62.7,
+			"luaMs": 1.1755,
+			"luaP95": 1.1755,
+			"metric": "make",
+			"n": 1,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 5.16,
+			"frameP95": 6.523,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.291,
+			"luaP95": 0.4053,
+			"metric": "all texts/frame",
+			"n": 115,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 4.154,
+			"frameP95": 4.641,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0156,
+			"luaP95": 0.0209,
+			"metric": "close",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 6.329,
+			"frameP95": 6.329,
+			"impl": "typical",
+			"kb": 74.7,
+			"keptKb": 62.7,
+			"luaMs": 1.0801,
+			"luaP95": 1.0801,
+			"metric": "make",
+			"n": 1,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 5.586,
+			"frameP95": 6.789,
+			"impl": "typical",
+			"kb": 22.23,
+			"luaMs": 0.6711,
+			"luaP95": 0.7846,
+			"metric": "all texts/frame",
+			"n": 115,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 4.22,
+			"frameP95": 4.624,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.0151,
+			"luaP95": 0.0257,
+			"metric": "close",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 9.126,
+			"frameP95": 9.968,
+			"impl": "framework",
+			"kb": 256.59,
+			"luaMs": 5.3522,
+			"luaP95": 5.6803,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 8.683,
+			"frameP95": 10.392,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 3.95,
+			"luaP95": 4.8054,
+			"metric": "all texts/frame",
+			"n": 115,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 7.044,
+			"frameP95": 7.631,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 2.5016,
+			"luaP95": 3.032,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 4.373,
+			"frameP95": 4.972,
+			"impl": "framework-engine",
+			"kb": 256.59,
+			"luaMs": 1.1086,
+			"luaP95": 1.3051,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.899,
+			"frameP95": 4.825,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0.9926,
+			"luaP95": 1.2675,
+			"metric": "all texts/frame",
+			"n": 115,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 2.198,
+			"frameP95": 2.609,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0.3993,
+			"luaP95": 0.4574,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"check": "ok",
+			"frameMs": 0,
+			"frameP95": 0,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0,
+			"luaP95": 0,
+			"metric": "stub: every node back",
+			"n": 1,
+			"scenario": "ticker",
+			"size": "large"
+		},
+		{
+			"frameMs": 3.19,
+			"frameP95": 4.053,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 8.616,
+			"frameP95": 8.616,
+			"impl": "baseline",
+			"kb": 55.12,
+			"keptKb": 55.2,
+			"luaMs": 1.3803,
+			"luaP95": 1.3803,
+			"metric": "make",
+			"n": 1,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.385,
+			"frameP95": 4.345,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.1371,
+			"luaP95": 0.2095,
+			"metric": "Reverse",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.142,
+			"frameP95": 5.283,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.147,
+			"luaP95": 0.1919,
+			"metric": "Rotate",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.187,
+			"frameP95": 4.893,
+			"impl": "baseline",
+			"kb": 0.12,
+			"luaMs": 0.1552,
+			"luaP95": 0.1854,
+			"metric": "InsertFront",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.064,
+			"frameP95": 5.247,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0847,
+			"luaP95": 0.1017,
+			"metric": "RemoveMiddle",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.289,
+			"frameP95": 5.496,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.1692,
+			"luaP95": 0.2444,
+			"metric": "Shuffle",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 2.968,
+			"frameP95": 3.623,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0137,
+			"luaP95": 0.0225,
+			"metric": "close",
+			"n": 15,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 7.579,
+			"frameP95": 7.579,
+			"impl": "typical",
+			"kb": 19.55,
+			"keptKb": 0.2,
+			"luaMs": 0.6891,
+			"luaP95": 0.6891,
+			"metric": "make",
+			"n": 1,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.283,
+			"frameP95": 4.137,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.5401,
+			"luaP95": 0.684,
+			"metric": "Reverse",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.382,
+			"frameP95": 4.813,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.5433,
+			"luaP95": 0.608,
+			"metric": "Rotate",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.334,
+			"frameP95": 5.591,
+			"impl": "typical",
+			"kb": 0.16,
+			"luaMs": 0.6022,
+			"luaP95": 0.6489,
+			"metric": "InsertFront",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.43,
+			"frameP95": 4.218,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.5805,
+			"luaP95": 0.6502,
+			"metric": "RemoveMiddle",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.405,
+			"frameP95": 5.164,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.5907,
+			"luaP95": 0.6528,
+			"metric": "Shuffle",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 2.737,
+			"frameP95": 3.643,
+			"impl": "typical",
+			"kb": 0,
+			"luaMs": 0.0044,
+			"luaP95": 0.0046,
+			"metric": "close",
+			"n": 15,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 15.047,
+			"frameP95": 16.153,
+			"impl": "framework",
+			"kb": 2829.27,
+			"luaMs": 9.9846,
+			"luaP95": 10.5044,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 5.352,
+			"frameP95": 6.557,
+			"impl": "framework",
+			"kb": 12.07,
+			"luaMs": 2.3204,
+			"luaP95": 2.5094,
+			"metric": "Reverse",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 6.107,
+			"frameP95": 6.956,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 2.078,
+			"luaP95": 2.3264,
+			"metric": "Rotate",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 6.739,
+			"frameP95": 7.447,
+			"impl": "framework",
+			"kb": 28.75,
+			"luaMs": 2.5101,
+			"luaP95": 2.7659,
+			"metric": "InsertFront",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 6.077,
+			"frameP95": 7.208,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 1.9706,
+			"luaP95": 2.2495,
+			"metric": "RemoveMiddle",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"check": "FAIL 1000 rows on screen, not 500",
+			"frameMs": 6.446,
+			"frameP95": 7.631,
+			"impl": "framework",
+			"kb": 12.07,
+			"luaMs": 2.3841,
+			"luaP95": 2.771,
+			"metric": "Shuffle",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 7.149,
+			"frameP95": 7.554,
+			"impl": "framework",
+			"kb": -1.4,
+			"luaMs": 3.7241,
+			"luaP95": 3.927,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 8.244,
+			"frameP95": 9.149,
+			"impl": "framework-engine",
+			"kb": 2829.27,
+			"luaMs": 6.0267,
+			"luaP95": 6.3372,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.164,
+			"frameP95": 4.863,
+			"impl": "framework-engine",
+			"kb": 12.07,
+			"luaMs": 1.2065,
+			"luaP95": 1.4345,
+			"metric": "Reverse",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.8,
+			"frameP95": 4.455,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0.8959,
+			"luaP95": 1.2519,
+			"metric": "Rotate",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.326,
+			"frameP95": 5.307,
+			"impl": "framework-engine",
+			"kb": 28.59,
+			"luaMs": 1.3203,
+			"luaP95": 1.4853,
+			"metric": "InsertFront",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.761,
+			"frameP95": 5.288,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0.94,
+			"luaP95": 1.1072,
+			"metric": "RemoveMiddle",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.206,
+			"frameP95": 5.031,
+			"impl": "framework-engine",
+			"kb": 12.07,
+			"luaMs": 1.1975,
+			"luaP95": 1.4142,
+			"metric": "Shuffle",
+			"n": 55,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 5.466,
+			"frameP95": 5.857,
+			"impl": "framework-engine",
+			"kb": -0.76,
+			"luaMs": 1.5807,
+			"luaP95": 1.7999,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 0,
+			"frameP95": 0,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0,
+			"luaP95": 0,
+			"metric": "stub: every node back",
+			"n": 1,
+			"scenario": "reorder",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.395,
+			"frameP95": 4.381,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle",
+			"n": 55,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"frameMs": 6.617,
+			"frameP95": 6.617,
+			"impl": "baseline",
+			"kb": 12.75,
+			"keptKb": 12.7,
+			"luaMs": 0.5158,
+			"luaP95": 0.5158,
+			"metric": "make",
+			"n": 1,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.039,
+			"frameP95": 4.872,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.004,
+			"luaP95": 0.0043,
+			"metric": "leaf signal changed",
+			"n": 55,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.638,
+			"frameP95": 5.123,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.004,
+			"luaP95": 0.0044,
+			"metric": "value through 100 levels",
+			"n": 55,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"frameMs": 4.869,
+			"frameP95": 5.369,
+			"impl": "baseline",
+			"kb": 0,
+			"luaMs": 0.0113,
+			"luaP95": 0.0149,
+			"metric": "close",
+			"n": 15,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"frameMs": 7.966,
+			"frameP95": 8.475,
+			"impl": "framework",
+			"kb": 598.57,
+			"luaMs": 4.1884,
+			"luaP95": 4.48,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 4.349,
+			"frameP95": 5.733,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.0408,
+			"luaP95": 0.738,
+			"metric": "leaf signal changed",
+			"n": 55,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"check": "FAIL the scheduler hit its pass cap: the change didn't finish",
+			"frameMs": 3.609,
+			"frameP95": 4.499,
+			"impl": "framework",
+			"kb": 0,
+			"luaMs": 0.6001,
+			"luaP95": 0.8048,
+			"metric": "value through 100 levels",
+			"n": 55,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 8.913,
+			"frameP95": 8.913,
+			"impl": "framework",
+			"kb": 209.29,
+			"luaMs": 1.6373,
+			"luaP95": 1.6373,
+			"metric": "race: change + close in one frame",
+			"n": 1,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"frameMs": 5.077,
+			"frameP95": 5.537,
+			"impl": "framework-engine",
+			"kb": 598.57,
+			"luaMs": 1.3916,
+			"luaP95": 1.6372,
+			"metric": "make (pool warm)",
+			"n": 15,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 2.797,
+			"frameP95": 4.207,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0.0253,
+			"luaP95": 0.0335,
+			"metric": "leaf signal changed",
+			"n": 55,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"check": "FAIL the scheduler hit its pass cap: the change didn't finish",
+			"frameMs": 3.426,
+			"frameP95": 4.703,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0.5849,
+			"luaP95": 0.8414,
+			"metric": "value through 100 levels",
+			"n": 55,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"frameMs": 3.589,
+			"frameP95": 4.236,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0.2965,
+			"luaP95": 0.3251,
+			"metric": "close (unmount)",
+			"n": 15,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"check": "ok",
+			"frameMs": 0,
+			"frameP95": 0,
+			"impl": "framework-engine",
+			"kb": 0,
+			"luaMs": 0,
+			"luaP95": 0,
+			"metric": "stub: every node back",
+			"n": 1,
+			"scenario": "deep",
+			"size": "-"
+		},
+		{
+			"frameMs": 2.509,
+			"frameP95": 6.344,
+			"impl": "-",
+			"kb": 0,
+			"luaMs": 0.0003,
+			"luaP95": 0.0004,
+			"metric": "idle (end)",
+			"n": 55,
+			"scenario": "idle",
+			"size": "-"
+		}
+	],
+	"round": {
+		"addons": [
+			"OrdaenCore",
+			"OrdaenBench",
+			"OrdaenCore_Debug"
+		],
+		"client": "70862",
+		"date": "2026-11-09 04:09:45",
+		"fps": 317,
+		"luaHeapKb": 127610,
+		"number": 2,
+		"orders": [
+			{
+				"scenario": "grid",
+				"sides": [
+					"typical",
+					"framework",
+					"baseline"
+				],
+				"size": "large"
+			},
+			{
+				"scenario": "signals",
+				"sides": [
+					"typical",
+					"framework",
+					"baseline"
+				],
+				"size": "small"
+			},
+			{
+				"scenario": "signals",
+				"sides": [
+					"typical",
+					"framework",
+					"baseline"
+				],
+				"size": "large"
+			},
+			{
+				"scenario": "coalesce",
+				"sides": [
+					"typical",
+					"framework",
+					"baseline"
+				],
+				"size": "-"
+			},
+			{
+				"scenario": "chain",
+				"sides": [
+					"framework",
+					"baseline"
+				],
+				"size": "-"
+			},
+			{
+				"scenario": "diamond",
+				"sides": [
+					"framework",
+					"baseline"
+				],
+				"size": "-"
+			},
+			{
+				"scenario": "fanout",
+				"sides": [
+					"framework",
+					"baseline"
+				],
+				"size": "-"
+			},
+			{
+				"scenario": "cascade",
+				"sides": [
+					"framework",
+					"baseline"
+				],
+				"size": "-"
+			},
+			{
+				"scenario": "grid",
+				"sides": [
+					"framework-engine",
+					"baseline",
+					"typical",
+					"framework",
+					"framework-itemsRead"
+				],
+				"size": "small"
+			},
+			{
+				"scenario": "grid",
+				"sides": [
+					"framework-engine",
+					"baseline",
+					"typical",
+					"framework",
+					"framework-itemsRead"
+				],
+				"size": "large"
+			},
+			{
+				"scenario": "ticker",
+				"sides": [
+					"baseline",
+					"typical",
+					"framework",
+					"framework-engine"
+				],
+				"size": "small"
+			},
+			{
+				"scenario": "ticker",
+				"sides": [
+					"baseline",
+					"typical",
+					"framework",
+					"framework-engine"
+				],
+				"size": "large"
+			},
+			{
+				"scenario": "reorder",
+				"sides": [
+					"baseline",
+					"typical",
+					"framework",
+					"framework-engine"
+				],
+				"size": "-"
+			},
+			{
+				"scenario": "deep",
+				"sides": [
+					"baseline",
+					"framework",
+					"framework-engine"
+				],
+				"size": "-"
+			}
+		],
+		"settings": {
+			"collector": "stop",
+			"maxFPS": "120",
+			"maxFPSBk": "140",
+			"physical": "2560x1440",
+			"renderScale": "1.000000",
+			"ui": "2133x1200",
+			"useMaxFPS": "0",
+			"useMaxFPSBk": "0",
+			"vsync": "0"
+		}
+	},
+	"source": {
+		"cascade": {
+			"baseline": {
+				"chars": 265,
+				"files": [
+					"addons/OrdaenBench/baseline/cascade.lua"
+				],
+				"lines": 17
+			},
+			"framework": {
+				"chars": 595,
+				"files": [
+					"addons/OrdaenBench/components/cascade.lua"
+				],
+				"lines": 33
+			},
+			"typical": {
+				"chars": 0,
+				"files": [],
+				"lines": 0
+			}
+		},
+		"chain": {
+			"baseline": {
+				"chars": 377,
+				"files": [
+					"addons/OrdaenBench/baseline/chain.lua"
+				],
+				"lines": 19
+			},
+			"framework": {
+				"chars": 635,
+				"files": [
+					"addons/OrdaenBench/components/chain.lua"
+				],
+				"lines": 32
+			},
+			"typical": {
+				"chars": 0,
+				"files": [],
+				"lines": 0
+			}
+		},
+		"coalesce": {
+			"baseline": {
+				"chars": 480,
+				"files": [
+					"addons/OrdaenBench/baseline/coalesce.lua"
+				],
+				"lines": 30
+			},
+			"framework": {
+				"chars": 490,
+				"files": [
+					"addons/OrdaenBench/components/coalesce.lua"
+				],
+				"lines": 27
+			},
+			"typical": {
+				"chars": 351,
+				"files": [
+					"addons/OrdaenBench/typical/coalesce.lua"
+				],
+				"lines": 20
+			}
+		},
+		"deep": {
+			"baseline": {
+				"chars": 772,
+				"files": [
+					"addons/OrdaenBench/baseline/deep.lua"
+				],
+				"lines": 35
+			},
+			"framework": {
+				"chars": 1738,
+				"files": [
+					"addons/OrdaenBench/components/deep.lua"
+				],
+				"lines": 61
+			},
+			"typical": {
+				"chars": 0,
+				"files": [],
+				"lines": 0
+			}
+		},
+		"diamond": {
+			"baseline": {
+				"chars": 424,
+				"files": [
+					"addons/OrdaenBench/baseline/diamond.lua"
+				],
+				"lines": 21
+			},
+			"framework": {
+				"chars": 742,
+				"files": [
+					"addons/OrdaenBench/components/diamond.lua"
+				],
+				"lines": 38
+			},
+			"typical": {
+				"chars": 0,
+				"files": [],
+				"lines": 0
+			}
+		},
+		"fanout": {
+			"baseline": {
+				"chars": 280,
+				"files": [
+					"addons/OrdaenBench/baseline/fanout.lua"
+				],
+				"lines": 19
+			},
+			"framework": {
+				"chars": 385,
+				"files": [
+					"addons/OrdaenBench/components/fanout.lua"
+				],
+				"lines": 23
+			},
+			"typical": {
+				"chars": 0,
+				"files": [],
+				"lines": 0
+			}
+		},
+		"grid": {
+			"baseline": {
+				"chars": 1685,
+				"files": [
+					"addons/OrdaenBench/baseline/grid.lua"
+				],
+				"lines": 58
+			},
+			"framework": {
+				"chars": 1943,
+				"files": [
+					"addons/OrdaenBench/components/grid.lua",
+					"addons/OrdaenBench/components/gridItem.lua"
+				],
+				"lines": 73
+			},
+			"typical": {
+				"chars": 1812,
+				"files": [
+					"addons/OrdaenBench/typical/grid.lua"
+				],
+				"lines": 62
+			}
+		},
+		"idle": {
+			"baseline": {
+				"chars": 0,
+				"files": [],
+				"lines": 0
+			},
+			"framework": {
+				"chars": 0,
+				"files": [],
+				"lines": 0
+			},
+			"typical": {
+				"chars": 0,
+				"files": [],
+				"lines": 0
+			}
+		},
+		"reorder": {
+			"baseline": {
+				"chars": 1506,
+				"files": [
+					"addons/OrdaenBench/baseline/reorder.lua"
+				],
+				"lines": 79
+			},
+			"framework": {
+				"chars": 1820,
+				"files": [
+					"addons/OrdaenBench/components/reorder.lua",
+					"addons/OrdaenBench/components/reorderRow.lua"
+				],
+				"lines": 88
+			},
+			"typical": {
+				"chars": 1390,
+				"files": [
+					"addons/OrdaenBench/typical/reorder.lua"
+				],
+				"lines": 69
+			}
+		},
+		"signals": {
+			"baseline": {
+				"chars": 1381,
+				"files": [
+					"addons/OrdaenBench/baseline/signals.lua"
+				],
+				"lines": 72
+			},
+			"framework": {
+				"chars": 1051,
+				"files": [
+					"addons/OrdaenBench/components/signals.lua"
+				],
+				"lines": 47
+			},
+			"typical": {
+				"chars": 851,
+				"files": [
+					"addons/OrdaenBench/typical/signals.lua"
+				],
+				"lines": 38
+			}
+		},
+		"ticker": {
+			"baseline": {
+				"chars": 925,
+				"files": [
+					"addons/OrdaenBench/baseline/ticker.lua"
+				],
+				"lines": 37
+			},
+			"framework": {
+				"chars": 938,
+				"files": [
+					"addons/OrdaenBench/components/ticker.lua"
+				],
+				"lines": 36
+			},
+			"typical": {
+				"chars": 885,
+				"files": [
+					"addons/OrdaenBench/typical/ticker.lua"
+				],
+				"lines": 36
+			}
+		}
+	}
+}

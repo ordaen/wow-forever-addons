@@ -335,7 +335,9 @@ local function Model(id, saved, previous)
 		end
 		if r.impl:match("^framework") and r.impl ~= "framework-engine" then
 			local key = Key(r)
-			local best, typical, engine = others.baseline[key], others.typical[key], others["framework-engine"][key]
+			local best, typical = others.baseline[key], others.typical[key]
+			-- the stub runs the plain framework side only: its engine time is no other variant's
+			local engine = r.impl == "framework" and others["framework-engine"][key] or nil
 			local old = before[r.impl .. "|" .. key]
 			local metric = r.impl == "framework" and r.metric or (r.metric .. " (" .. r.impl .. ")")
 			if r.n == 1 then
