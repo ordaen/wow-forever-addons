@@ -500,12 +500,13 @@ function UiBase:Frame(site, reference, data)
 	if not frame then
 		return -- not there yet (a load-on-demand window): taken when a later run finds it
 	end
-	local e = Lookup(f, site, nil)
-	if e and (e.kind ~= "frame" or e.frame ~= frame) then
-		e = nil
+	-- keyed by the frame: frames taken from one call site (a loop) are told apart without a key to forget
+	local e = Lookup(f, site, frame)
+	if e and e.kind ~= "frame" then
+		error("Ordaen: call site reused for another kind", 2)
 	end
 	if not e then
-		e = NewEntry(f, "frame", site, nil)
+		e = NewEntry(f, "frame", site, frame)
 		e.frame = frame
 		e.node = ns.Backend:Take(frame)
 	end
@@ -530,13 +531,13 @@ function UiBase:Embed(site, reference, data)
 	if not frame then
 		return -- not there yet (a load-on-demand window): embedded when a later run finds it
 	end
-	local key = data and data.key
-	local e = Lookup(f, site, key)
-	if e and (e.kind ~= "embed" or e.frame ~= frame) then
-		e = nil
+	-- keyed by the frame: frames embedded from one call site (a loop) are told apart without a key to forget
+	local e = Lookup(f, site, frame)
+	if e and e.kind ~= "embed" then
+		error("Ordaen: call site reused for another kind", 2)
 	end
 	if not e then
-		e = NewEntry(f, "embed", site, key)
+		e = NewEntry(f, "embed", site, frame)
 		e.frame = frame
 		e.node = ns.Backend:Embed(frame)
 	end
