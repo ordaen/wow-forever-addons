@@ -63,7 +63,7 @@ local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5,
 local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK,
-	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT,
+	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT,
 	text = TEXT, textSize = TEXT, wrap = TEXT,
 }
 local LAYOUT_GROUP = { own = OWN, content = CONTENT, position = POSITION, offset = OFFSET, border = BORDER }
@@ -75,7 +75,7 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 		TEXT_KEYS[#TEXT_KEYS + 1] = attribute.key
 	end
 end
-for _, key in ipairs({ "background", "opacity", "portrait", "mask", "OnClick", "OnEnter", "OnLeave" }) do
+for _, key in ipairs({ "background", "opacity", "portrait", "mask", "stateFrom", "OnClick", "OnEnter", "OnLeave" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
 end
 for _, key in ipairs({ "text", "textSize", "wrap", "textColor", "textAlign", "opacity" }) do
@@ -268,10 +268,7 @@ end
 
 local function onEnter(frame)
 	local node = frame.node
-	node.hovered = true
-	if node.states then
-		node:Restyle()
-	end
+	node:SetState(true, node.pressed)
 	local fn = node.a.OnEnter
 	if fn then
 		handle(fn)
@@ -280,10 +277,7 @@ end
 
 local function onLeave(frame)
 	local node = frame.node
-	node.hovered, node.pressed = false, false
-	if node.states then
-		node:Restyle()
-	end
+	node:SetState(false, false)
 	local fn = node.a.OnLeave
 	if fn then
 		handle(fn)
@@ -292,18 +286,12 @@ end
 
 local function onMouseDown(frame)
 	local node = frame.node
-	node.pressed = true
-	if node.states then
-		node:Restyle()
-	end
+	node:SetState(node.hovered, true)
 end
 
 local function onMouseUp(frame)
 	local node = frame.node
-	node.pressed = false
-	if node.states then
-		node:Restyle()
-	end
+	node:SetState(node.hovered, false)
 end
 
 local function onClick(frame, button)
@@ -343,6 +331,8 @@ function ctx.place(node)
 		obj:SetSize(w, h)
 		if node.lookFit then
 			node:FitBackground()
+		elseif node.lookArt then
+			node:DrawArt()
 		end
 	end
 end
@@ -555,6 +545,89 @@ function Node:ApplyMask(mask)
 	end
 end
 
+-- Art a background can be besides a colour, a file or an atlas (theme values; design site: Slice3, PanelCell, XpTube):
+--   { file, size = { w, h }, cap, capHeight, rows, normal, pressed, glow }  three-sliced across the box: the caps are
+--     `cap` texture px of the file drawn capHeight x the box's height wide, the middle stretches; `rows` rows of equal
+--     height: `normal`, or `pressed` while the box is pressed, and the `glow` row over it while hovered (not pressed)
+--   { file, size = { w, h }, tile = true }  the file repeated along the box, each copy as high as the box
+-- Drawn again only when the box's size or state changed.
+local SLICE_POINTS = { "TOPLEFT", "BOTTOMLEFT", "TOPRIGHT", "BOTTOMRIGHT" }
+
+-- Three textures for a three-slice in `key` (the base, or the glow over it), made on first use.
+function Node:Slices(key, sublevel, file)
+	local list = self[key]
+	if not list then
+		local frame = self.frame
+		list = {}
+		for i = 1, 3 do
+			list[i] = frame:CreateTexture(nil, "BACKGROUND", nil, sublevel)
+		end
+		list[1]:SetPoint(SLICE_POINTS[1], frame, SLICE_POINTS[1])
+		list[1]:SetPoint(SLICE_POINTS[2], frame, SLICE_POINTS[2])
+		list[3]:SetPoint(SLICE_POINTS[3], frame, SLICE_POINTS[3])
+		list[3]:SetPoint(SLICE_POINTS[4], frame, SLICE_POINTS[4])
+		list[2]:SetPoint("TOPLEFT", list[1], "TOPRIGHT")
+		list[2]:SetPoint("BOTTOMRIGHT", list[3], "BOTTOMLEFT")
+		self[key] = list
+	end
+	if list.file ~= file then
+		list.file = file
+		for i = 1, 3 do
+			list[i]:SetTexture(file)
+		end
+	end
+	return list
+end
+
+local function sliceRow(list, capW, u, row, rows)
+	local v0, v1 = row / rows, (row + 1) / rows
+	list[1]:SetWidth(capW)
+	list[3]:SetWidth(capW)
+	list[1]:SetTexCoord(0, u, v0, v1)
+	list[2]:SetTexCoord(u, 1 - u, v0, v1)
+	list[3]:SetTexCoord(1 - u, 1, v0, v1)
+	for i = 1, 3 do
+		list[i]:Show()
+	end
+end
+
+local function hideSlices(list)
+	if list then
+		for i = 1, 3 do
+			list[i]:Hide()
+		end
+	end
+end
+
+function Node:DrawArt()
+	local art, w, h = self.lookArt, self.pW, self.pH
+	if not art or not w or not h or h <= 0 then
+		return
+	end
+	local state = self.pressed and 2 or self.hovered and 1 or 0
+	if w == self.artW and h == self.artH and state == self.artState then
+		return
+	end
+	self.artW, self.artH, self.artState = w, h, state
+	local size = art.size
+	if art.tile then
+		local tileW = size[1] * h / size[2]
+		self.bg:SetTexCoord(0, w / tileW, 0, 1)
+		return
+	end
+	local capW = snap(h * (art.capHeight or 1))
+	if 2 * capW > w then
+		capW = w / 2
+	end
+	local u, rows = (art.cap or 0) / size[1], art.rows or 1
+	sliceRow(self:Slices("slices", 0, art.file), capW, u, state == 2 and art.pressed or art.normal or 0, rows)
+	if art.glow and state == 1 then
+		sliceRow(self:Slices("glows", 1, art.file), capW, u, art.glow, rows)
+	else
+		hideSlices(self.glows)
+	end
+end
+
 -- An art background covers the box: the art's full width and a band of its height, or the other way round, so it
 -- keeps its aspect (texture coordinates count within the atlas after SetAtlas). Again only when the box's size changed.
 function Node:FitBackground()
@@ -640,8 +713,18 @@ function Node:ApplyLook()
 				end
 			end
 			local c = color(bg)
-			self.lookFit = nil
-			if c then
+			self.lookFit, self.lookArt, self.artW = nil, nil, nil
+			hideSlices(self.slices)
+			hideSlices(self.glows)
+			if type(bg) == "table" and bg.file and not bg.tile then -- three-slice: its own textures
+				tex:Hide()
+				self.lookArt = bg
+				self:DrawArt()
+			elseif type(bg) == "table" and bg.file then -- tiled along
+				tex:SetTexture(bg.file, "REPEAT", "CLAMP")
+				self.lookArt = bg
+				self:DrawArt()
+			elseif c then
 				tex:SetColorTexture(c[1], c[2], c[3], c[4] or 1)
 				tex:SetTexCoord(0, 1, 0, 1) -- an art background before may have cropped it
 			elseif type(bg) == "table" and bg.atlas then
@@ -655,8 +738,13 @@ function Node:ApplyLook()
 				tex:SetTexture(bg)
 				tex:SetTexCoord(0, 1, 0, 1)
 			end
-			tex:Show()
+			if not (self.lookArt and not bg.tile) then
+				tex:Show()
+			end
 		end
+	end
+	if self.lookArt then
+		self:DrawArt()
 	end
 	local unit = resolve(self, a.portrait)
 	if unit ~= self.lookPortrait then
@@ -788,6 +876,25 @@ end
 local function ownColumns(node)
 	if node.colShared then
 		node.colKind, node.colAmount, node.colShared = nil, nil, nil
+	end
+end
+
+-- The mouse's state on the box: hovered, pressed. Its per-state maps and state art follow; so do the children whose
+-- `stateFrom` is "parent" (a cell's icon moving down while the cell is pressed).
+function Node:SetState(hovered, pressed)
+	if self.hovered == hovered and self.pressed == pressed then
+		return
+	end
+	self.hovered, self.pressed = hovered, pressed
+	if self.states or self.lookArt then
+		self:Restyle()
+	end
+	local children = self.children
+	for i = 1, self.count or 0 do
+		local child = children[i]
+		if child.a.stateFrom == "parent" then
+			child:SetState(hovered, pressed)
+		end
 	end
 end
 
@@ -925,6 +1032,28 @@ function Node:PlaceEmbedded()
 		frame:Hide()
 	end
 	embedding = false
+end
+
+-- An embedded frame's mouse is its parent box's state when the parent's `stateFrom` is "child" (a panel cell under
+-- Blizzard's invisible micro button: the cell lights and pushes as the button is hovered and pressed).
+local function embedState(frame, hovered, pressed)
+	local node = embeddedBy[frame]
+	local parent = node and node.parent
+	if parent and parent.a.stateFrom == "child" then
+		parent:SetState(hovered == nil and parent.hovered or hovered, pressed == nil and parent.pressed or pressed)
+	end
+end
+local function onEmbedEnter(frame)
+	embedState(frame, true, nil)
+end
+local function onEmbedLeave(frame)
+	embedState(frame, false, false)
+end
+local function onEmbedDown(frame)
+	embedState(frame, nil, true)
+end
+local function onEmbedUp(frame)
+	embedState(frame, nil, false)
 end
 
 -- Blizzard placed, parented or sized a frame we hold as a cell: put it back (hooksecurefunc runs after its call).
@@ -1191,6 +1320,10 @@ function Backend:Embed(frame)
 		hooksecurefunc(frame, "ClearAllPoints", onEmbedMoved)
 		hooksecurefunc(frame, "SetParent", onEmbedMoved)
 		hooksecurefunc(frame, "SetSize", onEmbedMoved)
+		frame:HookScript("OnEnter", onEmbedEnter)
+		frame:HookScript("OnLeave", onEmbedLeave)
+		frame:HookScript("OnMouseDown", onEmbedDown)
+		frame:HookScript("OnMouseUp", onEmbedUp)
 	end
 	return node
 end

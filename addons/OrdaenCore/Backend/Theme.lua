@@ -17,7 +17,7 @@ ns.Theme = {
 	["color.text"] = { 0.93, 0.91, 0.86, 1 },
 	["color.textDim"] = { 0.62, 0.6, 0.56, 1 },
 	["color.accent"] = { 1, 0.82, 0, 1 },
-	-- experience: the old panel's XP blue; rested XP the design's pale blue over the trough (XpTube: rgba(110,150,210,.16))
+	-- experience: the old panel's XP blue; rested XP the design's pale blue over the trough (XpTube)
 	["color.xp"] = { 0.1, 0.42, 0.9, 1 },
 	["color.xpRested"] = { 0.43, 0.59, 0.82, 0.16 },
 	-- a bar's trough on the wood: darker than the wood, so the bar reads as set into it
@@ -47,4 +47,18 @@ ns.Theme = {
 	["panel.badge"] = "Interface\\AddOns\\OrdaenCore\\media\\level-badge",
 	-- a thin dark edge round a bar on the wood (the portrait rim's darkest stroke)
 	["panel.barEdge"] = { width = 1, color = { 0.07, 0.043, 0.02, 1 } },
+	-- a micro menu or bag cell (PanelCell): our button's side rims on the wood, caps a fifth of its height; rows
+	-- 0 normal, 1 the hover glow (over normal), 2 pushed
+	["panel.cell"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", size = { 256, 256 }, cap = 32,
+		capHeight = 0.2, rows = 4, normal = 0, glow = 1, pressed = 2 },
+	-- the experience tube (XpTube), back to front: the trough, the fill tiling along it (inset 10/64 of the tube's
+	-- height), the glass shine, the bronze ring; the three tube pieces three-sliced with caps as wide as it is high
+	["panel.xpTrough"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube-trough", size = { 256, 64 }, cap = 64,
+		capHeight = 1 },
+	["panel.xpFill"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-fill-brushed", size = { 1024, 32 },
+		tile = true },
+	["panel.xpShine"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube-shine", size = { 256, 64 }, cap = 64,
+		capHeight = 1 },
+	["panel.xpTube"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube", size = { 256, 64 }, cap = 64,
+		capHeight = 1 },
 }
