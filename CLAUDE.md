@@ -148,6 +148,9 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - **Agree before acting in the game:** before a session reloads the game, runs a bench round, a check run, probes or
   any test in game, every other session working on the addons agrees first: say what will run and why, and wait until
   each has answered (a reload or a round in the middle of someone's in-game test spoils both).
+- **Slack:** the sessions and the user share one thread. A message that names no session is answered by Plumb alone;
+  the others read it and do their part without posting. A message that starts with a session's name is that
+  session's to answer. Reaching the user unasked (a blocker, a question, finished work) goes to the same thread.
 - **What the companion may press:** the dev addon's keys (reload, probes, bench) and the player's own keys that open
   windows (`wow_open`). Never movement, abilities or anything bot-like.
 - **Long work runs in the background:** builds, lints, tests, probes, watch loops and repro runs, always; keep talking
