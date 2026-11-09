@@ -806,6 +806,57 @@ function Plan.Steps(bench, tracked, silent, progress, mode)
 			end },
 		})
 
+		-- units: one operation 1000 times per call (components/units.lua), the shape around it held still: a row's ms is
+		-- µs per operation. The framework, and the engine alone on the stub where something is drawn.
+		local UNITS = {
+			{ unit = "text", metric = "take 1000 texts", fn = "Show", arg = true, prepare = false, drawn = true },
+			{ unit = "text", metric = "release 1000 texts", fn = "Show", arg = false, prepare = true, drawn = true },
+			{ unit = "box", metric = "take 1000 boxes", fn = "Show", arg = true, prepare = false, drawn = true },
+			{ unit = "box", metric = "release 1000 boxes", fn = "Show", arg = false, prepare = true, drawn = true },
+			{ unit = "look", metric = "1000 backgrounds changed", fn = "Flip", drawn = true },
+			{ unit = "size", metric = "1000 widths changed in fixed cells", fn = "Flip", drawn = true },
+			{ unit = "textFixed", metric = "1000 texts changed, layout unchanged", fn = "Flip", drawn = true },
+			{ unit = "textClimb", metric = "1000 texts changed width, 3 levels", fn = "Flip", drawn = true },
+			{ unit = "offset", metric = "100 boxes moved", fn = "Flip", drawn = true },
+			{ unit = "unchanged", metric = "1000 calls, nothing changed", fn = "Flip", drawn = true },
+			{ unit = "writes", metric = "1000 writes, no reader", fn = "WriteAll" },
+			{ unit = "runs", metric = "1000 x (write, flush), 1 watch", fn = "Flip", each = 1000 },
+			{ unit = "wide", metric = "5000 writes, 5000 watches, 1 flush", fn = "WriteAll" },
+		}
+		local function UnitSide(u, impl)
+			return function()
+				local scene = "units-" .. u.unit
+				add(measure:Do(function()
+					Show(scene)
+				end))
+				local ref = refs[scene]
+				local prepare
+				if u.prepare ~= nil then
+					prepare = function()
+						ref.Show(u.prepare)
+						flush()
+					end
+				end
+				local call, arg, each = ref[u.fn], u.arg, u.each or 1
+				add(measure:Series("units", "-", impl, u.metric, REPEATS, function()
+					for _ = 1, each do
+						call(arg)
+						flush()
+					end
+				end, { prepare = prepare }))
+				add(measure:Do(function()
+					Show("none")
+				end))
+			end
+		end
+		for _, u in ipairs(UNITS) do
+			local sides = { { impl = FW, add = UnitSide(u, FW) } }
+			if u.drawn then
+				sides[2] = { impl = FW_ENGINE, add = UnderStub("units", "-", UnitSide(u, FW_ENGINE)) }
+			end
+			Block("units", "-", sides)
+		end
+
 		add(measure:Series("idle", "-", "-", "idle (end)", IDLE, Nothing))
 	end
 

@@ -36,6 +36,17 @@ local SCENES = {
 	{ id = "sections", component = import("components/sections") },
 	{ id = "events", component = import("components/events") },
 	{ id = "hover", component = import("components/hover") },
+	{ id = "units-text", component = import("components/units"), unit = "text" },
+	{ id = "units-box", component = import("components/units"), unit = "box" },
+	{ id = "units-look", component = import("components/units"), unit = "look" },
+	{ id = "units-size", component = import("components/units"), unit = "size" },
+	{ id = "units-textFixed", component = import("components/units"), unit = "textFixed" },
+	{ id = "units-textClimb", component = import("components/units"), unit = "textClimb" },
+	{ id = "units-offset", component = import("components/units"), unit = "offset" },
+	{ id = "units-unchanged", component = import("components/units"), unit = "unchanged" },
+	{ id = "units-writes", component = import("components/units"), unit = "writes" },
+	{ id = "units-runs", component = import("components/units"), unit = "runs" },
+	{ id = "units-wide", component = import("components/units"), unit = "wide" },
 	{ id = "ticker-small", component = import("components/ticker"), size = "small" },
 	{ id = "ticker-large", component = import("components/ticker"), size = "large" },
 	{ id = "reorder", component = import("components/reorder") },
@@ -75,7 +86,8 @@ return Define.Module({
 		local refs, mounts = {}, {}
 		for _, s in ipairs(SCENES) do
 			refs[s.id] = Define.Ref(s.component)
-			mounts[s.id] = { component = s.component, data = { key = s.id, ref = refs[s.id], attributes = { size = s.size, itemsRead = s.itemsRead, naive = s.naive } } }
+			mounts[s.id] = { component = s.component, data = { key = s.id, ref = refs[s.id], attributes = { size = s.size, itemsRead = s.itemsRead, naive = s.naive,
+				unit = s.unit } } }
 		end
 		self:Watch(function()
 			local mount = mounts[scene:Get()]
