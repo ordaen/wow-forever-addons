@@ -561,7 +561,7 @@ describe("backend styles", function()
 		assert.is_false(art.tlSide:IsShown())
 	end)
 
-	it("draws one picture across boxes: each box under artOrigin shows its own part, wherever the layout puts it", function()
+	it("draws one picture across boxes: each box under artOrigin shows its part, wherever the layout puts it", function()
 		local _, ns = client()
 		local Backend = ns.Backend
 		local layer = Backend:Layer("screen")

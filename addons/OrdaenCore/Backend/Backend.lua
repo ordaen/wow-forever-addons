@@ -78,8 +78,8 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 		TEXT_KEYS[#TEXT_KEYS + 1] = attribute.key
 	end
 end
-for _, key in ipairs({ "background", "artOrigin", "opacity", "portrait", "mask", "overflow", "stateFrom", "OnClick", "OnEnter",
-	"OnLeave", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
+for _, key in ipairs({ "background", "artOrigin", "opacity", "portrait", "mask", "overflow", "stateFrom", "OnClick",
+	"OnEnter", "OnLeave", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
