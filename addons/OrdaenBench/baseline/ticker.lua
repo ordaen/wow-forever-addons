@@ -16,6 +16,8 @@ function Ticker.Make(size)
 	for i = 1, count do
 		local text = frame:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
 		text:SetPoint("TOPLEFT", 0, -(i - 1) * LINE)
+		text:SetWidth(200) -- the framework's column is 200 wide, its texts left-aligned
+		text:SetJustifyH("LEFT")
 		list[i] = text
 	end
 	frames[size], texts[size], ticks[size] = frame, list, 0

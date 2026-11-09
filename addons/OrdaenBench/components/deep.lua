@@ -7,6 +7,7 @@ local counters = import("bench/counters")
 local DEPTH = 100
 
 local LEVEL = { padding = 1 }
+local OUTER = { padding = 1, width = 300, height = 300 } -- the outermost level: the hand-written one is 300x300 too
 
 local function Inside(game, self)
 	local call = self.child
@@ -15,6 +16,7 @@ local function Inside(game, self)
 end
 
 local LEVEL_CALL = { attributes = LEVEL, slots = { default = Inside } }
+local OUTER_CALL = { attributes = OUTER, slots = { default = Inside } }
 
 return Define.Component({
 	Setup = function(game, self)
@@ -61,7 +63,7 @@ return Define.Component({
 			arguments[1], arguments[2] = self.attributes.value:Get(), self.attributes.source:Get():Get()
 			game.ui:Text(self.text)
 		else
-			game.ui:Box(LEVEL_CALL)
+			game.ui:Box(depth == DEPTH and OUTER_CALL or LEVEL_CALL)
 		end
 	end,
 })

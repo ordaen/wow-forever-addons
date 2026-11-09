@@ -1,5 +1,6 @@
--- grid, by hand: one frame per size, its cells made once (a frame, a background texture, a count font string)
--- and placed by arithmetic; a change sets the one count; opening and closing show and hide the frame.
+-- grid, by hand at its best: no frame per cell (cells take no mouse): each cell is a background texture and a count
+-- font string on the grid's own frame, made once and placed by arithmetic; a change sets the one count with
+-- SetFormattedText (no Lua string); opening and closing show and hide the grid.
 local floor = math.floor
 
 local SIZES = { small = 200, large = 1000 }
@@ -20,15 +21,14 @@ function Grid.Make(size)
 	background:SetColorTexture(0.1, 0.1, 0.12, 0.9)
 	local list = {}
 	for i = 1, count do
-		local cell = CreateFrame("Frame", nil, grid)
-		cell:SetSize(CELL, CELL)
-		local column, row = (i - 1) % COLUMNS, floor((i - 1) / COLUMNS)
-		cell:SetPoint("TOPLEFT", PAD + column * (CELL + GAP), -(PAD + row * (CELL + GAP)))
-		local texture = cell:CreateTexture(nil, "BACKGROUND")
-		texture:SetAllPoints()
+		local x, y = PAD + (i - 1) % COLUMNS * (CELL + GAP), -(PAD + floor((i - 1) / COLUMNS) * (CELL + GAP))
+		local texture = grid:CreateTexture(nil, "BORDER")
+		texture:SetSize(CELL, CELL)
+		texture:SetPoint("TOPLEFT", x, y)
 		texture:SetColorTexture(0.3, 0.3, 0.35, 1)
-		local text = cell:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-		text:SetAllPoints()
+		local text = grid:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
+		text:SetSize(CELL, CELL)
+		text:SetPoint("TOPLEFT", x, y)
 		text:SetFormattedText("%d", 0)
 		list[i] = text
 	end

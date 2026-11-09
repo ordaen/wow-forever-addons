@@ -34,8 +34,12 @@ return Define.Module({
 	Setup = function(game, self)
 		Define.Ephemeral({ scene = { type = "choice", choices = BenchScene, default = BenchScene.None } })
 		-- the last round's results, one structured line each (bench/driver.lua), read by scripts/bench_save.lua
-		Define.Persistent({ results = { type = "list", of = { type = "string" }, cap = 1000 } })
-		local scene, results = self.state.ephemeral.scene, self.state.persistent.results
+		-- and how many rounds ran: it rotates which side of each scenario goes first
+		Define.Persistent({
+			results = { type = "list", of = { type = "string" }, cap = 1000 },
+			rounds = { type = "number", default = 0 },
+		})
+		local scene, results, rounds = self.state.ephemeral.scene, self.state.persistent.results, self.state.persistent.rounds
 
 		local refs, mounts = {}, {}
 		for _, s in ipairs(SCENES) do
@@ -78,12 +82,14 @@ return Define.Module({
 				return
 			end
 			results:Reset()
+			local round = rounds:Get() + 1
+			rounds:Set(round)
 			local _, build = GetBuildInfo()
-			results:Insert(string.format("round|%s|%s|%.0f|%.0f", date("%Y-%m-%d %H:%M:%S"), build, GetFramerate(),
-				collectgarbage("count")))
+			results:Insert(string.format("round|%s|%s|%.0f|%.0f|%d", date("%Y-%m-%d %H:%M:%S"), build, GetFramerate(),
+				collectgarbage("count"), round))
 			measure.failures = 0
-			Say("running: about two minutes, keep the game in front")
-			Driver.Run(Plan.Steps(bench), function()
+			Say("running: a few minutes; keep the game in front, frame rate uncapped, vsync off")
+			Driver.Run(Plan.Steps(bench, round), function()
 				Say(string.format("done: %d results, %d failed checks. /reload, then save the round.", results:Len() - 1,
 					measure.failures))
 			end)
