@@ -291,6 +291,65 @@ function Probes.Steps(measure, bench)
 		layerHolder:Hide()
 	end))
 
+	-- 9. resize: N chains of 3 nested Buttons around a font string (the textClimb unit's shape), each call switching the
+	-- text between 1 and 5 digits and resizing what holds it
+	local chains, chainHolder = {}, nil
+	add(measure:Do(function()
+		chainHolder = Holder(1200, 900)
+		for i = 1, N do
+			local parent, chain = chainHolder, {}
+			for level = 1, 3 do
+				local box = CreateFrame("Button", nil, parent)
+				if level == 1 then
+					box:SetPoint("TOPLEFT", chainHolder, "TOPLEFT", (i - 1) % 25 * 48, -floor((i - 1) / 25) * 20)
+				else
+					box:SetPoint("TOPLEFT", parent, "TOPLEFT", 1, -1)
+				end
+				box:SetSize(14, 18)
+				chain[level], parent = box, box
+			end
+			local text = parent:CreateFontString(nil, "OVERLAY", FONT)
+			text:SetPoint("TOPLEFT", parent, "TOPLEFT", 1, -1)
+			text:SetSize(8, 12)
+			chain[4] = text
+			chains[i] = chain
+		end
+	end))
+	local wide = false
+	local RESIZE = { -- variant, metric, first and last object resized (1-3 the boxes, 4 the text), SetWidth only, set text
+		{ "a", "SetSize on the font string", 4, 4, false, false },
+		{ "b", "SetSize on the font string and its 3 boxes", 1, 4, false, false },
+		{ "c", "SetWidth on the font string and its 3 boxes", 1, 4, true, false },
+		{ "d", "SetFormattedText + GetUnboundedStringWidth, then SetSize on all 4", 1, 4, false, true },
+		{ "e", "SetFormattedText + GetUnboundedStringWidth only", 5, 4, false, true },
+	}
+	for _, r in ipairs(RESIZE) do
+		local variant, metric, first, last, widthOnly, setText = r[1], r[2], r[3], r[4], r[5], r[6]
+		Series("resize", variant, metric, COUNT, function()
+			wide = not wide
+			local w = wide and 32 or 8
+			for i = 1, N do
+				local chain = chains[i]
+				if setText then
+					local text = chain[4]
+					text:SetFormattedText("%d", wide and 10000 + i or i % 10)
+					text:GetUnboundedStringWidth()
+				end
+				for level = first, last do
+					local width = w + (4 - level) * 2
+					if widthOnly then
+						chain[level]:SetWidth(width)
+					else
+						chain[level]:SetSize(width, level == 4 and 12 or 18 - (level - 1) * 2)
+					end
+				end
+			end
+		end)
+	end
+	add(measure:Do(function()
+		chainHolder:Hide()
+	end))
+
 	-- 8. getcountinfo: one backend node's tables after the small grid is drawn (untimed)
 	add(measure:Do(function()
 		bench.Show("grid-small")
