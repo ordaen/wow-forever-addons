@@ -750,11 +750,11 @@ end
 -- the scenarios' code is what the rounds ran, apart from the bench markers)
 if RECOUNT then
 	for _, round_file in ipairs(RoundFiles()) do
-		local path = RESULTS .. "/" .. round_file
-		local saved = json.decode(Read(path))
+		local round_path = RESULTS .. "/" .. round_file
+		local saved = json.decode(Read(round_path))
 		saved.source = Sources(saved.results)
-		Write(path, json.encode(saved))
-		print("recounted: " .. path)
+		Write(round_path, json.encode(saved))
+		print("recounted: " .. round_path)
 	end
 end
 local source = Sources(results)
