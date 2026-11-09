@@ -64,8 +64,9 @@ local OWN, CONTENT, LOOK, BORDER, INPUT, TEXT, POSITION, OFFSET = 1, 2, 3, 4, 5,
 local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, portrait = LOOK, mask = LOOK, look = LOOK,
-	shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET,
-	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT, hoverWithin = INPUT,
+	shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET, zLevel = LOOK,
+	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
+	hoverWithin = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT,
 	text = TEXT, textSize = TEXT, textFamily = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT, maxLength = TEXT,
 }
@@ -78,8 +79,8 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 		TEXT_KEYS[#TEXT_KEYS + 1] = attribute.key
 	end
 end
-for _, key in ipairs({ "background", "artOrigin", "anchor", "opacity", "portrait", "mask", "overflow", "stateFrom",
-	"OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
+for _, key in ipairs({ "background", "artOrigin", "anchor", "zLevel", "opacity", "portrait", "mask", "overflow",
+	"stateFrom", "OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart", "OnDrag", "OnDragStop",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
@@ -1279,6 +1280,17 @@ function Node:ApplyLook()
 	if self.edit or a.kind ~= nil then
 		self:ApplyInput()
 	end
+	local z = a.zLevel
+	if z ~= self.lookZ then
+		self.lookZ = z
+		local pf = self.fparent
+		if pf and self.parent then -- attached: placed again among its parent's children now; else at its attach
+			self.frame:SetFrameLevel(pf:GetFrameLevel() + 1 + (z or 0))
+			if self.textFrame then
+				self:TextFrame()
+			end
+		end
+	end
 	local overflow = a.overflow
 	if overflow ~= nil then
 		overflow = resolve(self, overflow)
@@ -1927,7 +1939,13 @@ function attach(child, parent)
 			local frame = child.frame
 			frame:SetParent(pf)
 			local level = pf:GetFrameLevel() + (parent.liveModel and CHILD_LEVELS - 1 or 0)
-			if frame:GetFrameLevel() <= level then
+			local z = child.lookZ
+			if z then -- zLevel: that many levels above its parent's children, over what its parent's siblings draw
+				frame:SetFrameLevel(level + 1 + z)
+				if child.textFrame then
+					child:TextFrame()
+				end
+			elseif frame:GetFrameLevel() <= level then
 				frame:SetFrameLevel(level + 1)
 				if child.textFrame then
 					child:TextFrame() -- its texts' frame follows it up
