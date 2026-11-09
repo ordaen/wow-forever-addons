@@ -35,5 +35,12 @@
   "GLOBAL_CLOCK": "Time format",
   "GLOBAL_CLOCK_TIP": "The clock and times in every module.",
   "GLOBAL_CLOCK_24": "24-hour",
-  "GLOBAL_CLOCK_12": "12-hour"
+  "GLOBAL_CLOCK_12": "12-hour",
+  "SAVE": "Save",
+  "ROLLBACK": "Roll back",
+  "OPENS_PAGE": "/ordaen opens this page",
+  "UNSAVED_TITLE": "Unsaved changes",
+  "UNSAVED_ASK": "Save the changes?",
+  "CANCEL": "Cancel",
+  "DONT_SAVE": "Don't save"
 }

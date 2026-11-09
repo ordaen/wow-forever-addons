@@ -18,9 +18,20 @@ local BODY = { columns = { "auto", "1fr" }, height = CONTENT_HEIGHT }
 local LIST = { columns = 1 }
 -- the list's heading over the modules: small capitals in the dim colour, 10 px above, 4 below
 local HEADING = { padding = { 10 * PX, 16 * PX, 4 * PX, 16 * PX } }
--- the page beside the list: a darker panel, its content scrolling
-local PAGE = { background = { 0, 0, 0, 0.25 }, padding = { 14 * PX, 18 * PX, 18 * PX, 18 * PX }, columns = 1,
-	gap = 14 * PX, overflow = "scroll" }
+-- the page beside the list: a darker panel, its content scrolling above its foot
+local PAGE = { background = { 0, 0, 0, 0.25 }, height = "100%" }
+local FOOT_HEIGHT = 34 * PX -- a PushButton's
+local SCROLL = { position = "absolute", left = 0, right = 0, top = 0, bottom = (18 + 6) * PX + FOOT_HEIGHT,
+	padding = { 14 * PX, 18 * PX, 0, 18 * PX }, columns = 1, gap = 14 * PX, overflow = "scroll" }
+-- the page's foot (design .sw-foot): how to open the page at the left, «Откатить» after a save and «Сохранить» at
+-- the bottom right
+local FOOT = { position = "absolute", left = 18 * PX, right = 18 * PX, bottom = 18 * PX, height = FOOT_HEIGHT,
+	columns = { "1fr", "auto" }, yAlign = "center", gap = 12 * PX }
+local SAVE_ROW = { columns = { "auto", "auto" }, gap = 8 * PX }
+local HINT = 13 * PX
+-- the question on closing with unsaved changes (design .sw-confirm)
+local CONFIRM_WIDTH = 440 * PX
+local INK = { 0.91, 0.863, 0.769, 1 } -- --o-ink
 
 -- each module's tab names, from its page description, made once
 local tabNames = setmetatable({}, { __index = function(t, folder)
@@ -59,20 +70,45 @@ local function ModulePage(game, self)
 	if #names > 1 then
 		game.ui:Tabs({ attributes = { tabs = tabNames[self.state.at], selected = self.state.tab, OnSelect = self.pickTab } })
 	end
-	game.ui:ModuleSettings({ attributes = { module = self.state.at, tab = self.state.tab } })
+	game.ui:ModuleSettings({ attributes = { module = self.state.at, tab = self.state.tab, draft = self.draft } })
 end
 
 local function Off(game)
 	game.ui:Text({ attributes = { text = L.MODULE_OFF, textColor = DIM, textSize = 15 * PX } })
 end
 
-local function Page(game, self)
+local function Content(game, self)
 	local module = self.modules[self.state.at]
 	if self.state.at == SELF or module and module.on:Get() then
 		game.ui:Box({ key = self.state.at, attributes = { columns = 1, gap = 14 * PX }, slots = { default = ModulePage } })
 	else
 		game.ui:Box({ attributes = { columns = 1 }, slots = { default = Off } })
 	end
+end
+
+local function Unchanged(_, self)
+	return self.draft.changed:Get() == 0
+end
+local function SaveButtons(game, self)
+	if self.draft.saved:Get() then
+		game.ui:PushButton({ attributes = { label = L.ROLLBACK, width = 130 * PX, OnClick = self.rollback } })
+	end
+	game.ui:PushButton({ attributes = { label = L.SAVE, width = 140 * PX, disabled = Unchanged(game, self),
+		OnClick = self.save } })
+end
+local function Opens(game, self)
+	if self.state.at == SELF then
+		game.ui:Text({ attributes = { text = L.OPENS_PAGE, textColor = DIM, textSize = HINT } })
+	end
+end
+local function Foot(game)
+	game.ui:Box({ attributes = {}, slots = { default = Opens } })
+	game.ui:Box({ attributes = SAVE_ROW, slots = { default = SaveButtons } })
+end
+
+local function Page(game)
+	game.ui:Box({ attributes = SCROLL, slots = { default = Content } })
+	game.ui:Box({ attributes = FOOT, slots = { default = Foot } })
 end
 
 local function Body(game)
@@ -82,6 +118,15 @@ end
 
 local function Window(game)
 	game.ui:Box({ attributes = BODY, slots = { default = Body } })
+end
+
+local function Question(game)
+	game.ui:Text({ attributes = { text = L.UNSAVED_ASK, textColor = INK, textSize = 15 * PX } })
+end
+local function Answers(game, self)
+	game.ui:PushButton({ attributes = { label = L.CANCEL, width = 120 * PX, OnClick = self.stay } })
+	game.ui:PushButton({ attributes = { label = L.DONT_SAVE, width = 150 * PX, OnClick = self.closeDiscarding } })
+	game.ui:PushButton({ attributes = { label = L.SAVE, width = 140 * PX, OnClick = self.closeSaving } })
 end
 
 return Define.Module({
@@ -94,7 +139,14 @@ return Define.Module({
 			shown = { type = "boolean", default = false },
 			at = { type = "string", default = SELF }, -- the page shown: a module's folder (this one's: General)
 			tab = { type = "number", default = 1 }, -- its tab
+			closing = { type = "boolean", default = false }, -- asking about unsaved changes
 		})
+		-- the window's one draft: every page's changes wait in it until «Сохранить» (design settings/)
+		local draft = game.Settings:Draft()
+		local function close()
+			self.state.closing = false
+			self.state.shown = false
+		end
 		local modules = {}
 		for i = 1, #game.Modules do
 			modules[game.Modules[i].folder] = game.Modules[i]
@@ -117,14 +169,37 @@ return Define.Module({
 				OnClick = picks[module.folder] } }
 		end
 		return {
+			draft = draft,
+			save = function()
+				draft:Save()
+			end,
+			rollback = function()
+				draft:Rollback()
+			end,
+			stay = function()
+				self.state.closing = false
+			end,
+			closeSaving = function()
+				draft:Save()
+				close()
+			end,
+			closeDiscarding = function()
+				draft:Discard()
+				close()
+			end,
 			modules = modules,
 			moduleCalls = moduleCalls,
 			picks = picks,
 			pickTab = function(i)
 				self.state.tab = i
 			end,
+			-- closing asks first while anything is unsaved
 			hide = function()
-				self.state.shown = false
+				if Define.Peek(draft.changed) > 0 then
+					self.state.closing = true
+				else
+					close()
+				end
 			end,
 		}
 	end,
@@ -133,6 +208,10 @@ return Define.Module({
 		if self.state.shown then
 			game.ui:Window({ attributes = { title = game.Ordaen.title, width = WIDTH, height = HEIGHT, OnClose = self.hide },
 				slots = { default = Window } })
+			if self.state.closing then
+				game.ui:Dialog({ attributes = { title = L.UNSAVED_TITLE, width = CONFIRM_WIDTH },
+					slots = { default = Question, buttons = Answers } })
+			end
 		end
 	end,
 

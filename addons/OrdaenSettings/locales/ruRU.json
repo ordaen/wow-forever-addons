@@ -35,5 +35,12 @@
   "GLOBAL_CLOCK": "Формат времени",
   "GLOBAL_CLOCK_TIP": "Часы и время во всех модулях.",
   "GLOBAL_CLOCK_24": "24 часа",
-  "GLOBAL_CLOCK_12": "12 часов"
+  "GLOBAL_CLOCK_12": "12 часов",
+  "SAVE": "Сохранить",
+  "ROLLBACK": "Откатить",
+  "OPENS_PAGE": "/ordaen открывает эту страницу",
+  "UNSAVED_TITLE": "Несохранённые изменения",
+  "UNSAVED_ASK": "Сохранить изменения?",
+  "CANCEL": "Отмена",
+  "DONT_SAVE": "Не сохранять"
 }

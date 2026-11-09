@@ -100,4 +100,31 @@ describe("the settings window", function()
 		assert.is_true(off)
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("stages changes until Save, and rolls the last Save back", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local t = texts(ns)
+		assert.is_truthy(t["On top of the game's UI scale."]) -- the hint under its label
+		local pixel = ns.Globals.Get("pixel")
+		local was = pixel:Peek()
+		-- the checkbox: the box beside the "One-pixel lines" label
+		local row = t["One-pixel lines"].parent.parent
+		local check = row.children[2]
+		click(check)
+		ns.Scheduler.Flush()
+		assert.are.equal(was, pixel:Peek()) -- staged, not applied
+		t = texts(ns)
+		click(t["Save"].parent.parent)
+		ns.Scheduler.Flush()
+		assert.are.equal(not was, pixel:Peek())
+		t = texts(ns)
+		assert.is_truthy(t["Roll back"])
+		click(t["Roll back"].parent.parent)
+		ns.Scheduler.Flush()
+		assert.are.equal(was, pixel:Peek())
+		assert.are.same({}, wow.errors)
+	end)
 end)
+

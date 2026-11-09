@@ -702,9 +702,12 @@ local function SettingsPage(module)
 			module = module,
 			game = game,
 			Setup = function(_, self)
-				-- its controls bind the root's settings (self.state.<name>), through the window's draft when it has one
+				-- its controls bind the root's settings (self.state.<name>) and the globals, through the window's draft when
+				-- it has one
 				local state = module.root.state
 				local draft = self.attributes.draft:Peek()
+				-- the globals (game.Settings.<name>) through the draft too; without one, the stored ones
+				rawset(game, "Settings", draft and draft.Settings or nil)
 				if draft and state then
 					local persistent = state.persistent
 					state = { ephemeral = state.ephemeral, persistent = setmetatable({}, {
