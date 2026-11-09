@@ -144,6 +144,12 @@ ns.Theme = {
 	["ctl.buttonDisabled"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\button", size = { 256, 512 },
 		cap = 32, capHeight = 0.5, rows = 8,
 		normal = 2 },
+	-- a dropdown menu item's mark (design Dropdown .mi::before): an 11 px circle, the dim outline, or gold with a dark
+	-- inner ring for the picked one; drawn whole
+	["ctl.radio"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-radio", size = { 32, 64 },
+		cap = 0, capHeight = 0, rows = 2, normal = 0 },
+	["ctl.radioOn"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-radio", size = { 32, 64 },
+		cap = 0, capHeight = 0, rows = 2, normal = 1 },
 	["ctl.dropdownArrow"] = "Interface\\AddOns\\OrdaenCore\\media\\dropdown-arrow",
 	-- a count on a cell (the friends online on the social button; design .mbadge): a green pill with a black ring and a
 	-- faint top highlight, round caps half its height wide; the box gives it 16 px height, the text and side padding
