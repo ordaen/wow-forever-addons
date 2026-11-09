@@ -256,6 +256,18 @@ ns.Scheduler = Scheduler
 local queue, queued, spare = {}, 0, {}
 local frame -- made on the first change: one OnUpdate, set only while something waits
 local pending = false
+local Debug -- Ordaen's debug kit, taken once the dev addon can have replaced the stand-in (after login)
+
+local function Kit()
+	if Debug then
+		return Debug
+	end
+	local kit = ns.Core.NewDebug("OrdaenCore")
+	if ns.Stage.Login.fired then
+		Debug = kit
+	end
+	return kit
+end
 
 local function Before(a, b)
 	if a.depth ~= b.depth then
@@ -294,6 +306,8 @@ function Scheduler.Flush()
 		frame:SetScript("OnUpdate", nil)
 	end
 	local Engine = ns.Engine
+	local Debug = Kit()
+	local t = Debug:TimeStart()
 	local passes = 0
 	while queued > 0 do
 		passes = passes + 1
@@ -319,11 +333,16 @@ function Scheduler.Flush()
 			end
 		end
 	end
+	Debug:TimeEnd(t, "flush: effects")
+	t = Debug:TimeStart()
 	ns.Draw:Settle()
+	Debug:TimeEnd(t, "flush: settle")
+	t = Debug:TimeStart()
 	local backend = ns.Backend
 	if backend then
 		backend:Flush()
 	end
+	Debug:TimeEnd(t, "flush: backend")
 end
 
 --- Flush now: for the benchmark module only (OrdaenBench times a change with its flush). Not module API.
