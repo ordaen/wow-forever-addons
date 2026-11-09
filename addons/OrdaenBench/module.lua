@@ -74,8 +74,12 @@ return Define.Module({
 				scene:Set(to)
 				flush()
 			end,
+			StubCount = Stub.Count,
 			Swap = function(toStub)
 				if toStub then
+					-- every layer made on the real backend first: a layer is made on first use and kept for the
+					-- session, so one first touched under the stub would stay a stub
+					local _ = game.Layer.Screen, game.Layer.Dialog, game.Layer.Tooltip
 					Stub.Fill(20000)
 					real = OrdaenCore._SwapBackend(Stub)
 				elseif real then

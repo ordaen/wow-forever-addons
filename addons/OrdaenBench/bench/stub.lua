@@ -13,6 +13,12 @@ function Stub.Fill(count)
 	end
 end
 
+--- Nodes in the pool now: after a framework-engine side it must be what it was before (none left in the engine,
+--- no real node taken in).
+function Stub.Count()
+	return pooled
+end
+
 function Stub:Layer(name) -- luacheck: ignore 212
 	return {}
 end

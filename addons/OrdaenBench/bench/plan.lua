@@ -79,15 +79,20 @@ function Plan.Steps(bench, round, tracked, silent)
 		end
 	end
 
-	--- A framework-engine side: the stub backend swapped in before it, the real one back after.
-	local function UnderStub(addSteps)
+	--- A framework-engine side: the stub backend swapped in before it, the real one back after, and a check that
+	--- the stub got every node back.
+	local function UnderStub(scenario, size, addSteps)
 		return function()
+			local pooled
 			add(measure:Do(function()
 				bench.Swap(true)
+				pooled = bench.StubCount()
 			end))
 			addSteps()
-			add(measure:Do(function()
+			add(measure:Check(scenario, size, FW_ENGINE, "stub: every node back", function()
+				local now = bench.StubCount()
 				bench.Swap(false)
+				return now == pooled, (pooled - now) .. " nodes kept, or real ones taken in"
 			end))
 		end
 	end
@@ -327,7 +332,7 @@ function Plan.Steps(bench, round, tracked, silent)
 			Block("grid", size, {
 				{ impl = FW, add = Framework(FW, scene) },
 				{ impl = FW_ITEMS, add = Framework(FW_ITEMS, scene .. "-itemsRead") },
-				{ impl = FW_ENGINE, add = UnderStub(Framework(FW_ENGINE, scene, true)) },
+				{ impl = FW_ENGINE, add = UnderStub("grid", size, Framework(FW_ENGINE, scene, true)) },
 				{ impl = BEST, add = ByHand(BEST, Best.grid) },
 				{ impl = TYPICAL, add = ByHand(TYPICAL, Typical.grid) },
 			})
@@ -363,7 +368,7 @@ function Plan.Steps(bench, round, tracked, silent)
 			end
 			Block("ticker", size, {
 				{ impl = FW, add = Framework(FW) },
-				{ impl = FW_ENGINE, add = UnderStub(Framework(FW_ENGINE)) },
+				{ impl = FW_ENGINE, add = UnderStub("ticker", size, Framework(FW_ENGINE)) },
 				{ impl = BEST, add = ByHand(BEST, Best.ticker) },
 				{ impl = TYPICAL, add = ByHand(TYPICAL, Typical.ticker) },
 			})
@@ -410,7 +415,7 @@ function Plan.Steps(bench, round, tracked, silent)
 		end
 		Block("reorder", "-", {
 			{ impl = FW, add = ReorderFramework(FW) },
-			{ impl = FW_ENGINE, add = UnderStub(ReorderFramework(FW_ENGINE, true)) },
+			{ impl = FW_ENGINE, add = UnderStub("reorder", "-", ReorderFramework(FW_ENGINE, true)) },
 			{ impl = BEST, add = ReorderByHand(BEST, Best.reorder) },
 			{ impl = TYPICAL, add = ReorderByHand(TYPICAL, Typical.reorder) },
 		})
@@ -444,7 +449,7 @@ function Plan.Steps(bench, round, tracked, silent)
 		end
 		Block("deep", "-", {
 			{ impl = FW, add = DeepFramework(FW) },
-			{ impl = FW_ENGINE, add = UnderStub(DeepFramework(FW_ENGINE, true)) },
+			{ impl = FW_ENGINE, add = UnderStub("deep", "-", DeepFramework(FW_ENGINE, true)) },
 			{ impl = BEST, add = function()
 				add(measure:Series("deep", "-", BEST, "make", 1, Best.deep.Make, { kept = true }))
 				add(measure:Series("deep", "-", BEST, "leaf signal changed", REPEATS, Best.deep.SetSource))
