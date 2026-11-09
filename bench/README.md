@@ -27,7 +27,7 @@ Reading it:
 
 Round 10, 2026-11-09 06:54:29; client 70862, 536 fps; Core 8332ac6, Bench 7a5e8f4.
 Run with: collector stop, useMaxFPS 0 (maxFPS 120), vsync 0.
-Built: Core bench, Bench bench (profiles). Where: Элвиннский лес, Зеркальное озеро. Graphics: graphicsQuality:0,graphicsViewDistance:0,graphicsEnvironmentDetail:0,graphicsGroundClutter:0,graphicsShadowQuality:0,graphicsLiquidDetail:0,graphicsParticleDensity:1,graphicsSSAO:0,graphicsDepthEffects:0,graphicsTextureResolution:0,graphicsSpellDensity:0,graphicsProjectedTextures:0,graphicsOutlineMode:2,graphicsComputeEffects:0,MSAAQuality:0,ffxAntiAliasingMode:4.
+Built: Core bench, Bench bench (profiles). Where: Элвиннский лес, Зеркальное озеро. Graphics: 13 settings at 0, ParticleDensity 1, OutlineMode 2, ffxAntiAliasingMode 4.
 Loaded addons (2): OrdaenCore, OrdaenBench.
 Frame values marked ᵍ hold collector work WoW ran between frames: grid large close (framework-engine): the collector stepped in 2 of 15 measured frames; reorder - close (framework): the collector stepped in 1 of 15 measured frames.
 Compared with: no earlier comparable round.
