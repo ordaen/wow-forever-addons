@@ -6,7 +6,7 @@ local Fake = require("tests.fake.wow")
 local DIST = ".ordaen/check/dist"
 
 describe("Draw: Blizzard frames from one call site in a loop", function()
-	local wow, ns, env, blizzard, frames, version, kind
+	local wow, ns, env, blizzard, frames, version, kind, embedded
 
 	local function ref(frame)
 		return { Get = function()
@@ -15,6 +15,7 @@ describe("Draw: Blizzard frames from one call site in a loop", function()
 	end
 
 	before_each(function()
+		embedded = { attributes = { width = 30, height = 30 } }
 		wow = Fake.New({ dist = DIST, addons = { "OrdaenCore" } })
 		wow:Login()
 		ns, env = wow.addons.OrdaenCore.ns, wow.env
@@ -38,7 +39,7 @@ describe("Draw: Blizzard frames from one call site in a loop", function()
 				g.ui:Box(1, box)
 				for _, b in ipairs(frames) do
 					if kind == "embed" then
-						g.ui:Embed(2, b.ref, { attributes = { width = 30, height = 30 } })
+						g.ui:Embed(2, b.ref, embedded)
 					else
 						g.ui:Frame(3, b.ref, { attributes = { opacity = 0.5 } })
 					end
@@ -72,6 +73,18 @@ describe("Draw: Blizzard frames from one call site in a loop", function()
 		assert.are.equal(blizzard, b.frame:GetParent())
 		assert.are.equal(ours, a.frame:GetParent())
 		assert.are.equal(ours, c.frame:GetParent())
+		assert.are.same({}, wow.errors)
+	end)
+
+	it("keeps an embedded frame's opacity when Blizzard sets its alpha, and gives Blizzard's back", function()
+		kind, embedded = "embed", { attributes = { width = 30, height = 30, opacity = 0 } }
+		rerun(frames)
+		local a = frames[1]
+		assert.are.equal(0, a.frame:GetAlpha())
+		a.frame:SetAlpha(0.5) -- a micro button's OnDisable
+		assert.are.equal(0, a.frame:GetAlpha())
+		rerun({ frames[2], frames[3] }) -- dropped: Blizzard's last alpha
+		assert.are.equal(0.5, a.frame:GetAlpha())
 		assert.are.same({}, wow.errors)
 	end)
 

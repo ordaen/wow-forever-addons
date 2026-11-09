@@ -1796,6 +1796,22 @@ local function onEmbedUp(frame)
 	embedState(frame, nil, false)
 end
 
+-- Blizzard setting the alpha of a frame we hold with an `opacity` (a micro button's OnEnable/OnDisable: 1 or 0.5): its
+-- alpha is kept as the one to give back, and ours is put back. Our own SetAlpha (the same value) changes nothing.
+local function onEmbedAlpha(frame, alpha)
+	local node = embeddedBy[frame]
+	if not node or embedding or node.a.opacity == nil then
+		return
+	end
+	local ours = node.lookOpacity
+	if ours ~= nil and alpha ~= ours then
+		node.alpha0 = alpha
+		embedding = true
+		frame:SetAlpha(ours)
+		embedding = false
+	end
+end
+
 -- Blizzard placed, parented or sized a frame we hold as a cell: put it back (hooksecurefunc runs after its call).
 local function onEmbedMoved(frame)
 	local node = embeddedBy[frame]
@@ -2140,8 +2156,9 @@ end
 
 ---A Blizzard frame as a cell of a box's grid (Ordaen Panel's bag buttons): a box node with no children of ours, laid
 ---out by its attributes (width, height, columnSpan, position, the offsets; opacity). It keeps its scripts, its mouse
----and its secure state: we set only its parent, one TOPLEFT point, its size and whether it shows (a protected frame in
----combat waits for the end). Blizzard placing, parenting or sizing it again is undone after its call. Release gives
+---and its secure state: we set only its parent, one TOPLEFT point, its size, its opacity and whether it shows (a
+---protected frame in combat waits for the end). Blizzard placing, parenting, sizing or fading it again is undone after
+---its call. Release gives
 ---back its parent, points, size, scale, alpha and shown state; the node isn't pooled.
 ---@param frame Frame
 ---@return OrdaenNode
@@ -2164,6 +2181,7 @@ function Backend:Embed(frame)
 		hooksecurefunc(frame, "ClearAllPoints", onEmbedMoved)
 		hooksecurefunc(frame, "SetParent", onEmbedMoved)
 		hooksecurefunc(frame, "SetSize", onEmbedMoved)
+		hooksecurefunc(frame, "SetAlpha", onEmbedAlpha)
 		frame:HookScript("OnEnter", onEmbedEnter)
 		frame:HookScript("OnLeave", onEmbedLeave)
 		frame:HookScript("OnMouseDown", onEmbedDown)
