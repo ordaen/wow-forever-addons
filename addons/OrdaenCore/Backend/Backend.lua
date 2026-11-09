@@ -33,6 +33,9 @@ local Node = {}
 local NodeMeta = { __index = Node }
 
 ---@class OrdaenBackend
+---@field _boxPool OrdaenBackendNode[]   -- for Backend.dev.lua's counts only
+---@field _textPool OrdaenBackendNode[]
+---@field _layers table<string, OrdaenBackendNode>
 local Backend = {}
 ns.Backend = Backend
 
@@ -159,6 +162,8 @@ local textPool, nTextPool = {}, 0
 local queue, nQueue = {}, 0
 local stamp = 0
 local layers = {}
+-- Read by Backend.dev.lua (the bench's node counts); the tables themselves, never replaced.
+Backend._boxPool, Backend._textPool, Backend._layers = boxPool, textPool, layers
 local takenBy = setmetatable({}, { __mode = "k" }) -- Blizzard frame -> the node holding it
 local hooked = setmetatable({}, { __mode = "k" })
 local pendingCombat = {} -- taken nodes whose protected frame waits for combat to end
