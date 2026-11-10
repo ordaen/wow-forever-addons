@@ -5,5 +5,6 @@
   "UNKNOWN_MODULE": "Модуля «%s» нет. Список: /ordaen help",
   "UNKNOWN_COMMAND": "У модуля %s нет команды «%s». Список: /ordaen %s help",
   "THEME_UNNAMED": "Тема %d",
+  "SETTINGS_OPEN": "Открыть настройки Ordaen",
   "SETTINGS_RESET": "%s: настройки сброшены к значениям по умолчанию."
 }

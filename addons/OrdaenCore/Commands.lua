@@ -176,16 +176,33 @@ end
 SLASH_ORDAEN1 = "/ordaen"
 SlashCmdList.ORDAEN = run
 
--- Ordaen in Blizzard's own options (Параметры → Модификации), where players look for an addon's settings: choosing it
--- opens Ordaen's window and closes Blizzard's. Without the window (not installed) the entry stays, empty.
+-- Ordaen in Blizzard's own options (Параметры → Модификации), where players look for an addon's settings: picking it
+-- opens Ordaen's window and closes Blizzard's. Blizzard's panel reopens on the category picked last, so its canvas also
+-- shows when the panel opens: then it only offers a button, or «Параметры» would always open Ordaen's window.
 ns.Stage.Login:Subscribe(function()
 	if not (Settings and Settings.RegisterCanvasLayoutCategory) then
 		return
 	end
-	local canvas = CreateFrame("Frame")
-	canvas:SetScript("OnShow", function()
+	local function Open()
 		if Commands.OpenSettings() and SettingsPanel then
 			HideUIPanel(SettingsPanel)
+		end
+	end
+	local opened -- GetTime() when Blizzard's panel last opened: a canvas shown in that frame wasn't picked
+	if SettingsPanel then
+		SettingsPanel:HookScript("OnShow", function()
+			opened = GetTime()
+		end)
+	end
+	local canvas = CreateFrame("Frame")
+	local button = CreateFrame("Button", nil, canvas, "UIPanelButtonTemplate")
+	button:SetSize(200, 26)
+	button:SetPoint("TOPLEFT", canvas, "TOPLEFT", 16, -16)
+	button:SetText(L.SETTINGS_OPEN)
+	button:SetScript("OnClick", Open)
+	canvas:SetScript("OnShow", function()
+		if opened ~= GetTime() then
+			Open()
 		end
 	end)
 	local _, title = C_AddOns.GetAddOnInfo("OrdaenCore")

@@ -584,6 +584,15 @@ end
 
 local ButtonMethods = copyInto({}, FrameMethods)
 
+-- a button's own label (a template's text): kept, not drawn
+function ButtonMethods:SetText(text)
+	self._text = text
+end
+
+function ButtonMethods:GetText()
+	return self._text
+end
+
 function ButtonMethods:RegisterForClicks(...)
 	self._clicks = { ... }
 end

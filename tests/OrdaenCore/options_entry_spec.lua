@@ -35,4 +35,25 @@ describe("Ordaen's entry in Blizzard's options", function()
 		assert.are.equal(wow.env.SettingsPanel, hidden)
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("doesn't open the window when Blizzard's panel opens on it, the category picked last", function()
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenLibrary", "OrdaenSettings" } })
+		local canvas
+		wow.env.Settings = {
+			RegisterCanvasLayoutCategory = function(frame)
+				canvas = frame
+				return {}
+			end,
+			RegisterAddOnCategory = function() end,
+		}
+		local panel = wow.env.CreateFrame("Frame", nil, wow.env.UIParent)
+		wow.env.SettingsPanel = panel
+		wow.env.HideUIPanel = function() end
+		wow:Login()
+		panel:Hide()
+		canvas:SetParent(panel)
+		panel:Show() -- the panel opens (Esc → Параметры) with Ordaen's canvas shown in it
+		assert.is_nil(wow.addons.OrdaenCore.ns.App.Module("OrdaenSettings"))
+		assert.are.same({}, wow.errors)
+	end)
 end)
