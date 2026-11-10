@@ -12,6 +12,7 @@ local Stub = import("bench/stub")
 -- themselves in whole pixels of the scale they load at (bench/px.lua)
 local Plan, Probes, Px
 local Progress = import("bench/progress")
+local LoopBench = import("bench/loop")
 local WindowCheck = import("components/windowCheck")
 local WINDOW_CHECK = { key = "window" }
 
@@ -287,6 +288,17 @@ return Define.Module({
 		end },
 		probes = { help = L.CMD_PROBES, Run = function()
 			start("probes")
+		end },
+		-- `loop`: the event loop's research bench (bench/loop.lua), not part of a round
+		loop = { help = L.CMD_LOOP, Run = function(_, self)
+			local debug = self.module.debug
+			LoopBench.Run(function(text)
+				print("|cff88ccffOrdaen Bench|r " .. text)
+			end, function(line)
+				debug:Log(line)
+			end, function()
+				print("|cff88ccffOrdaen Bench|r loop bench done")
+			end)
 		end },
 		window = { help = L.CMD_WINDOW, Run = function(_, self)
 			self.state.window = not Define.Peek(self.state.window)
