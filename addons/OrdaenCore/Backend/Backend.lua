@@ -458,16 +458,14 @@ function ctx.place(node)
 			target = node.anchorFrame
 		end
 		rel = target or rel
-		x, y = snap(node.offL or 0), snap(node.offT or 0)
-		-- placed by its centre on an axis: a whole, even number of pixels across it, so both edges land on whole
-		-- pixels (an odd count puts them on halves, and a box resized by dragging shimmers as they snap in turn)
+		-- placed by its centre on an axis: the offset snaps where its near edge lands on a whole pixel (offset minus
+		-- half the size), not the centre; with an odd pixel size the centre sits on a half, and its edges would land
+		-- on halves and shimmer while it's resized
 		local point = anchor.point or "TOPLEFT"
-		if point == "CENTER" or point == "TOP" or point == "BOTTOM" then
-			w = 2 * snap(w / 2)
-		end
-		if point == "CENTER" or point == "LEFT" or point == "RIGHT" then
-			h = 2 * snap(h / 2)
-		end
+		local cx = point == "CENTER" or point == "TOP" or point == "BOTTOM"
+		local cy = point == "CENTER" or point == "LEFT" or point == "RIGHT"
+		x = cx and snap((node.offL or 0) - w / 2) + w / 2 or snap(node.offL or 0)
+		y = cy and snap((node.offT or 0) - h / 2) + h / 2 or snap(node.offT or 0)
 		if anchor ~= node.pAnchor or rel ~= node.pRel or x ~= node.pX or y ~= node.pY then
 			node.pAnchor, node.pRel, node.pX, node.pY = anchor, rel, x, y
 			local point = anchor.point or "TOPLEFT"
