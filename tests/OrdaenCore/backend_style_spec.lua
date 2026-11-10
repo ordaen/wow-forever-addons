@@ -1128,6 +1128,36 @@ describe("backend styles", function()
 		end)
 	end)
 
+	it("reports a window whose layout fails and still lays out the others in the same flush", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local bad, good = Backend:Create("box"), Backend:Create("box")
+		Backend:Set(bad, { position = "absolute", left = 0, top = 0, width = 10, height = 10 })
+		Backend:Set(good, { position = "absolute", left = 20, top = 0, width = 20, height = 20 })
+		Backend:SetChildren(layer, { bad, good }, 2)
+		Backend:Flush()
+		-- both change: each is laid out on its own (two windows)
+		Backend:Set(bad, { position = "absolute", left = 0, top = 0, width = 12, height = 12 })
+		Backend:Set(good, { position = "absolute", left = 20, top = 0, width = 30, height = 40 })
+		local relayout = ns.Layout.Relayout
+		ns.Layout.Relayout = function(node, ctx)
+			if node == bad then
+				error("a broken window")
+			end
+			return relayout(node, ctx)
+		end
+		Backend:Flush()
+		ns.Layout.Relayout = relayout
+		-- laid out (to whole pixels: within one of the size asked)
+		assert.is_true(math.abs(good.frame:GetWidth() - 30) < 1, tostring(good.frame:GetWidth()))
+		assert.is_true(math.abs(good.frame:GetHeight() - 40) < 1, tostring(good.frame:GetHeight()))
+		assert.are.equal(1, #wow.errors)
+		assert.is_truthy(wow.errors[1]:find("a broken window"))
+		Backend:Flush() -- the next flush doesn't fail again on what's left
+		assert.are.equal(1, #wow.errors)
+	end)
+
 	it("hides a taken Blizzard frame with shown = false, again after Blizzard shows it, and gives it back", function()
 		local wow, ns = client()
 		local Backend = ns.Backend

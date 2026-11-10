@@ -2992,9 +2992,8 @@ end
 ---End of every scheduler flush: draw what reused nodes didn't get a Set for, lay out and place what changed, and hide
 ---the children reused nodes held before that their new life didn't take.
 -- Each list's entry is cleared before it's handled, and a hole is skipped: an error in one node's work leaves the
--- entries before it cleared and its count standing, and the next Flush walks past them instead of failing again
--- on the same hole (one bad node never stops drawing for the session).
-function Backend:Flush()
+-- entries before it cleared and its count standing, so walking the lists again resumes after it.
+local function FlushWork(self)
 	if nDirtyTexts > 0 then
 		for i = 1, nDirtyTexts do
 			local node = dirtyTexts[i]
@@ -3053,5 +3052,23 @@ function Backend:Flush()
 			end
 		end
 		nOrphans = 0
+	end
+end
+
+-- how often one flush resumes after errors before it leaves the rest to the next frame's flush
+local FLUSH_RESUMES = 4
+
+--- One node's error (a layout that fails) is reported, and the flush resumes after it: every other window and part
+--- still draws in this frame. One protected call per flush, none per node.
+function Backend:Flush()
+	local ok, err = pcall(FlushWork, self)
+	local resumes = 0
+	while not ok do
+		geterrorhandler()(err)
+		resumes = resumes + 1
+		if resumes > FLUSH_RESUMES then
+			return
+		end
+		ok, err = pcall(FlushWork, self)
 	end
 end
