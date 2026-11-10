@@ -9,7 +9,7 @@ local MARGIN = 32 -- 38 px each side
 local INSET = TUBE_HEIGHT * 10 / 64 -- the trough's inside, as the art draws it
 local SECTIONS = 10
 
-local OUTER = { padding = { 0, MARGIN, 0, MARGIN }, yAlign = "center" }
+local OUTER = { width = "100%", padding = { 0, MARGIN, 0, MARGIN }, yAlign = "center" } -- across its track
 local TUBE = { height = TUBE_HEIGHT }
 local function layer(background)
 	return { attributes = { position = "absolute", left = 0, top = 0, width = "100%", height = "100%",

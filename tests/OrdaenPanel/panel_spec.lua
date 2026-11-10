@@ -261,3 +261,26 @@ describe("Ordaen Panel's zones", function()
 		end
 	end)
 end)
+
+describe("Ordaen Panel's experience bar", function()
+	it("fills what its zone leaves, not just its label's width", function()
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenPanel" } })
+		local home = wow.env.CreateFrame("Frame", "BagsBar", wow.env.UIParent)
+		for _, name in ipairs(BLIZZARD) do
+			wow.env.CreateFrame("Button", name, home):SetSize(45, 45)
+		end
+		wow:Login()
+		wow:Tick()
+		-- the label "50%" lies over the whole tube: its box is the tube's width
+		local width
+		for frame in pairs(wow.allFrames) do
+			for _, r in ipairs(frame._regions) do
+				if r.GetText and r:GetText() == "50%" and r:IsVisible() then
+					width = r:GetParent():GetWidth()
+				end
+			end
+		end
+		assert.is_truthy(width, "no label")
+		assert.is_true(width > 300, "the tube is " .. tostring(width) .. " wide")
+	end)
+end)
