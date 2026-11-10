@@ -1424,7 +1424,7 @@ function Wow:MakeEnv()
 		return "1.60.1", "70862", "", 16001
 	end)
 	offer("GetLocale", function()
-		return "enUS"
+		return wow.locale
 	end)
 	offer("GetCVar", function()
 		return nil
@@ -1678,7 +1678,7 @@ function Fake.New(opts)
 	local wow = setmetatable({
 		dist = opts.dist, addons = {}, order = {}, listeners = {}, updating = {}, timers = {}, errors = {}, allFrames = setmetatable({}, { __mode = "k" }),
 		printed = {}, time = 0, frameTime = 1 / 60, frames = 0, gen = 0, made = 0,
-		physW = opts.physW or 2560, physH = opts.physH or 1440, measure = opts.measure,
+		physW = opts.physW or 2560, physH = opts.physH or 1440, measure = opts.measure, locale = opts.locale or "enUS",
 	}, WowMeta)
 	wow.env = wow:MakeEnv()
 	local world = wow:NewFrame("Frame", "WorldFrame", nil)
