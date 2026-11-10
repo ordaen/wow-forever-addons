@@ -260,9 +260,13 @@ return Define.Module({
 				OnMore = function()
 					self.state.count = self.state.count + 1
 				end } },
+			-- a tab opens its profession through the game; the tab shows picked at once, the lists fill when the game
+			-- has sent them. Every profession with a recipe window opens (Mining's smelting too); Herbalism and
+			-- Skinning have none, and the game opens nothing for them.
 			openTab = function(i)
 				local p = game.Professions.list[i]
-				if p and p.kind ~= game.Professions.Kind.Gathering then
+				if p then
+					self.state.tab = i
 					game.TradeSkill:Open(p.skillLine)
 				end
 			end,

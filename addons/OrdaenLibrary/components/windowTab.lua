@@ -13,8 +13,10 @@ local CORNER = 14 * PX -- the tab's top corners
 local FLARE = 8 * PX -- the open tab's right side curving out into the body's line
 local EDGE = 2.5 * PX -- the tab's rim inside its bounds
 local DROP = 5 * PX -- a closed tab stands this much lower
-local ART_TOP, ART_PAST = -12 * PX, 10 * PX -- the tab art from above the tab to past its right
-local ART_BELOW = 10 * PX -- and below the line
+-- the tab art, as Window's own tab draws it: from 11 px above the tab to 11 px below the line (the open tab stands 4 px
+-- below the line, so 7 px under its box), 10 px past its right
+local ART_TOP, ART_PAST = -11 * PX, 10 * PX
+local ART_BELOW = 7 * PX
 local TITLE_OPEN = { 1, 0.82, 0, 1 } -- #ffd100
 local TITLE_CLOSED = { 0.702, 0.651, 0.565, 1 } -- #b3a690
 local DESC = { 0.561, 0.518, 0.439, 1 } -- #8f8470
