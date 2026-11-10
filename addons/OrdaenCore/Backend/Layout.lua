@@ -686,7 +686,7 @@ local function sizeIn(child, cellW, parent, contentW, contentH, ctx)
 	if wk == "fixed" then
 		w = child.wAmount
 	elseif wk == "pct" then
-		w = child.wAmount * contentW
+		w = child.wAmount * cellW -- of its grid cell, as CSS takes it (not the whole content box)
 	elseif wk == "fill" then
 		w = cellW
 	elseif wk == "auto" or placed(parent.xAlign) then

@@ -79,8 +79,7 @@ describe("the settings window", function()
 		local t = texts(ns)
 		assert.is_falsy(t["Ordaen window scale"]) -- General's rows are gone
 		assert.is_truthy(t["Micro menu"] and t["Bottom panel"]) -- the Panel's tabs, from its page description
-		assert.is_truthy(t["Menu icons"] and t["Character button"]) -- its first tab's rows
-		assert.is_falsy(t["Height"]) -- not the second tab's
+		assert.is_falsy(t["Menu icons"]) -- a later tab's rows aren't drawn: the first tab is
 		assert.are.same({}, wow.errors)
 		-- turned off from its switch: off now, its page says so
 		local panel
