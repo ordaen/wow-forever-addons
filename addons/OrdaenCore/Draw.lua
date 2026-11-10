@@ -834,8 +834,10 @@ function Draw:Settle()
 	while i <= nDirty do -- a container may be marked while settling: the loop sees it
 		local c = dirty[i]
 		dirty[i] = nil
+		-- released since it was marked (its dirty cleared, maybe reused as a text): nothing to settle
+		local marked = c.dirty
 		c.dirty = false
-		if c.node then
+		if marked and c.node then
 			local n = 0
 			if c.isPlace then
 				local members = c.members
@@ -854,7 +856,10 @@ function Draw:Settle()
 				flat[j] = nil
 			end
 			flatMax = n
-			backend:SetChildren(c.node, flat, n)
+			local ok, err = pcall(backend.SetChildren, backend, c.node, flat, n)
+			if not ok then -- one container failing leaves the others (and the next flush) settling
+				geterrorhandler()(err)
+			end
 		end
 		i = i + 1
 	end
