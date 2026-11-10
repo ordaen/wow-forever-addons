@@ -9,11 +9,12 @@
 -- In the body's top-right corner, while the cursor is over the window: full screen (and back) and close, a joined group
 -- of plates under the frame's line.
 --
--- Attributes: `title` (text), `width`, `height` (the body's, UI units), `x`, `y` (where it sits: its centre's offset
--- from the screen's, UI units, y down; 0, 0 when unset), `OnMoved(x, y)` (called when a drag ends: its owner keeps
--- the place), `minWidth`, `minHeight` (the smallest body; 320 x 200 px unless given), `maxWidth`, `maxHeight` (the largest), `OnResized(width, height)` (called when a resize ends,
--- the body's size), `OnClose` (called by the close button and by Escape). Slot `default`: the body's content, inside
--- its padding.
+-- Attributes: `title` (text: one tab, the window's name), or `tabs` (several: each { title, desc, icon }, a WindowTab),
+-- `selected` (the open one's index) and `OnSelect(index)`; `width`, `height` (the body's, UI units), `x`, `y` (where it
+-- sits: its centre's offset from the screen's, UI units, y down; 0, 0 when unset), `OnMoved(x, y)` (called when a drag
+-- ends: its owner keeps the place), `minWidth`, `minHeight` (the smallest body; 320 x 200 px unless given),
+-- `maxWidth`, `maxHeight` (the largest), `OnResized(width, height)` (called when a resize ends, the body's size),
+-- `OnClose` (called by the close button and by Escape). Slot `default`: the body's content, inside its padding.
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
@@ -45,6 +46,40 @@ local FLARE_R = { position = "absolute", right = EDGE - FLARE, top = LINE - FLAR
 	height = FLARE + 3 * PX, background = WOOD, mask = Define.Theme.ctl.tabFlareR }
 local ART = { position = "absolute", left = 0, right = -ART_PAST, top = ART_TOP, height = ART_H,
 	background = Define.Theme.ctl.tab }
+
+-- the tab row's height: taller when a tab has a second line (TabbedWindow: 50 px with a description, else 36)
+local TAB_DESC = 50 * PX
+local function TabH(self)
+	local tabs = self.attributes.tabs
+	if tabs then
+		for i = 1, #tabs do
+			if tabs[i].desc then
+				return TAB_DESC
+			end
+		end
+	end
+	return TAB
+end
+local function LineH(self)
+	return TabH(self) + (LINE - TAB)
+end
+-- the tab row: one auto column per tab, made once per count
+local tabColumns = setmetatable({}, { __index = function(t, n)
+	local list = {}
+	for i = 1, n do
+		list[i] = "auto"
+	end
+	t[n] = list
+	return list
+end })
+local function TabRow(game, self)
+	local tabs, height = self.attributes.tabs, LineH(self) + 4 * PX
+	for i = 1, #tabs do
+		local call = self.tabCalls[i]
+		call.attributes.height = height
+		game.ui:WindowTab(call)
+	end
+end
 
 local function TabParts(game, self)
 	game.ui:Box({ attributes = WOOD_L })
@@ -89,12 +124,17 @@ local function Body(game, self)
 end
 
 local function Parts(game, self)
-	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = TAB, bottom = 0,
+	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = TabH(self), bottom = 0,
 		border = Define.Theme.frame.small, background = WOOD, padding = PADDING, columns = 1, hoverWithin = true,
 		OnEnter = self.enter, OnLeave = self.leave }, slots = { default = Body } })
 	-- the tab row: the whole row above the body moves the window, the tab over it too
-	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = 0, height = TAB,
+	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = 0, height = TabH(self),
 		OnDragStart = self.dragStart, OnDrag = self.drag, OnDragStop = self.dragStop } })
+	if self.attributes.tabs then
+		game.ui:Box({ attributes = { position = "absolute", left = ROW_X, top = 0, height = LineH(self) + 4 * PX,
+			columns = tabColumns[#self.attributes.tabs], gap = 12 * PX, yAlign = "end" }, slots = { default = TabRow } })
+		return
+	end
 	game.ui:Box({ attributes = { position = "absolute", left = ROW_X, top = 0, height = LINE + 4 * PX,
 		padding = { 0, TAB_PAD, 0, TAB_PAD }, yAlign = "center", columns = 1, OnDragStart = self.dragStart,
 		OnDrag = self.drag, OnDragStop = self.dragStop }, slots = { default = TabParts } })
@@ -120,7 +160,7 @@ local function Width(_, self)
 	return not self.state.full and self.state.w or nil
 end
 local function Height(_, self)
-	return not self.state.full and TAB + self.state.h or nil
+	return not self.state.full and TabH(self) + self.state.h or nil
 end
 
 return Define.Component({
@@ -162,7 +202,19 @@ return Define.Component({
 			end
 		end
 		local grip = GRIP.attributes
+		-- each tab's call, made once per index; a click on a closed one selects it
+		local tabCalls = setmetatable({}, { __index = function(t, i)
+			local call = { key = i, attributes = { window = self, index = i, height = TAB, OnPick = function()
+				local fn = self.attributes.OnSelect
+				if fn then
+					fn(i)
+				end
+			end } }
+			t[i] = call
+			return call
+		end })
 		return {
+			tabCalls = tabCalls,
 			grip = { attributes = { position = grip.position, right = grip.right, bottom = grip.bottom,
 				width = grip.width, height = grip.height, background = grip.background, OnDragStart = sizeStart,
 				OnDrag = size, OnDragStop = sizeStop } },
