@@ -274,7 +274,9 @@ return Define.Component({
 			iconImage = { attributes = { width = "100%", height = "100%" } },
 			faceImage = { attributes = { width = "100%", height = "100%", background = BLACK } },
 			-- the title's lines never wrap: the tooltip grows to them
-			name = { attributes = { textSize = 18 * PX, wrap = false, textFamily = Define.Theme.font.header } },
+			-- the title's lines have fixed heights (20, 18, 18, 2 apart): the icon is exactly as tall as the three
+			name = { attributes = { textSize = 18 * PX, wrap = false, textFamily = Define.Theme.font.header, height = 20 * PX,
+				textYAlign = "center" } },
 			desc = { attributes = { color = LABEL, size = 14 * PX } },
 			info = { attributes = { color = QUIET, size = 14 * PX } },
 			-- the band: one row of cells, each padded, a rule between neighbours (design TooltipColumns)
