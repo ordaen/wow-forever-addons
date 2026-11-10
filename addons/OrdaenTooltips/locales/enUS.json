@@ -289,5 +289,6 @@
   "TOOLTIPS_SPELLSNEXT": "Next rank",
   "TOOLTIPS_SPELLSNEXT_TIP": "What the talent's next rank changes.",
   "TERM_TALENT": "Talent",
-  "TERM_TALENT_TEXT": "Learned with talent points. The numbers: ranks learned of the most there are."
+  "TERM_TALENT_TEXT": "Learned with talent points. The numbers: ranks learned of the most there are.",
+  "LOCKED_HINT": "Locked — hover the underlined parts"
 }

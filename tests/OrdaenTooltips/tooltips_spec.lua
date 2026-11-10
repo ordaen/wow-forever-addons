@@ -588,9 +588,7 @@ describe("Ordaen Tooltips", function()
 			assert.is_truthy(fill)
 			wait(0.8)
 			assert.is_truthy(closeButton())
-			assert.is_truthy(find(function(node) -- locked: full, and it stays
-				return node.a and node.a.position == "absolute" and node.a.width == "100%"
-			end))
+			has(texts(), "Locked — hover the underlined parts") -- locked: the bar gives way to the hint
 			wow.env.GameTooltip:Hide()
 			ns.Scheduler.Flush()
 			has(texts(), "Copper Axe")
@@ -710,10 +708,21 @@ describe("Ordaen Tooltips", function()
 			ns.Scheduler.Flush()
 			has(texts(), "Specialization\nFury 0/5/0")
 			wait(1.3)
-			local race = find(function(node) -- the race's cell text, a TermText taking the mouse once locked
+			-- the race's cell (the whole cell takes the mouse once locked): the one holding the text «Gnome»
+			local function holds(node, text)
+				if node.fs and node.fs:GetText() == text then
+					return true
+				end
+				for i = 1, node.count or 0 do
+					if holds(node.children[i], text) then
+						return true
+					end
+				end
+				return false
+			end
+			local race = find(function(node)
 				local call = node.a
-				return call and call.OnEnter and not call.hoverWithin and node.children and node.children[1]
-					and node.children[1].fs and node.children[1].fs:GetText() == "Gnome"
+				return call and call.OnEnter and not call.hoverWithin and holds(node, "Gnome")
 			end)
 			assert.is_truthy(race)
 			wow.mouseFocus = race.frame

@@ -15,6 +15,7 @@
 -- alone, so a step redraws nothing else), `locked`, `OnClose`, `OnLink` (its rows'
 -- links: set while the tooltip is locked).
 local Define = import("@ordaen/define")
+local L = import("locales")
 local GLYPHS = import("glyphs")
 local GLYPH_FILE = import("assets/glyphs.tga")
 
@@ -134,9 +135,8 @@ local function Header(game, self)
 	game.ui:Box({ attributes = { height = 2 * PX, border = GROOVE } })
 end
 
--- full once locked (it stays: the tooltip keeps its height)
 local function BarWidth(_, self)
-	return self.attributes.locked and BAR_WIDTHS[STEPS] or BAR_WIDTHS[self.attributes.charge:Get()]
+	return BAR_WIDTHS[self.attributes.charge:Get()]
 end
 
 local function BarFill(game, self)
@@ -151,7 +151,18 @@ local function Track(game, self)
 	game.ui:Box({ attributes = { height = BAR_HEIGHT * PX, background = TrackColor(game, self) },
 		slots = { default = BarFill } })
 end
-local BAR = { attributes = { columns = 1, padding = { SECTION, 0, 0, 0 } }, slots = { default = Track } }
+-- once locked, the bar gives way to what the player can do now, in the footer's quiet colour
+local function Hint(game)
+	game.ui:Text({ attributes = { text = L.LOCKED_HINT, textColor = QUIET, textSize = 13 * PX } })
+end
+local function BarOrHint(game, self)
+	if self.attributes.locked then
+		Hint(game)
+	else
+		Track(game, self)
+	end
+end
+local BAR = { attributes = { columns = 1, padding = { SECTION, 0, 0, 0 } }, slots = { default = BarOrHint } }
 
 local function Sections(game, self)
 	local calls = self.calls

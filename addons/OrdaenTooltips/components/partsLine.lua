@@ -8,13 +8,15 @@ local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2
 local SEPARATOR = " · "
--- the row's columns: a part, then a separator and a part for each further one (one table per count)
+-- the row's columns: a part, then a separator and a part for each further one, then the rest of the row empty (its
+-- parts keep their own widths; one table per count)
 local COLUMNS = {}
 for n = 1, 12 do
 	local list = {}
 	for i = 1, 2 * n - 1 do
 		list[i] = "auto"
 	end
+	list[2 * n] = "1fr"
 	COLUMNS[n] = list
 end
 
