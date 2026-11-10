@@ -450,11 +450,11 @@ describe("backend styles", function()
 		assert.is_nil(strip.frameArt.left) -- the strip draws only the top
 		assert.is_nil(strip.frameArt.tlSide)
 		assert.is_true(topLeftY(strip.bg) < 0) -- the wood starts under the metal
-		assert.are.equal("UI-Character-Info-General-BG", strip.bg._atlas)
-		-- the strip is far wider than the art (398 x 464): its full width, a band of its height
-		local l, r, t, b = unpack(strip.bg._coords)
-		assert.are.same({ 0, 1 }, { l, r })
-		assert.is_true(t > 0 and b < 1 and math.abs(t - (1 - b)) < 1e-9)
+		-- the windows' wood, repeated at its own scale: the texture's coordinates run past 1 on a wide strip
+		assert.is_truthy(tostring(strip.bg._texture):find("window-wood", 1, true))
+		assert.are.equal("REPEAT", strip.bg._wrapH)
+		local l, r = unpack(strip.bg._coords)
+		assert.is_true(r - l > 1)
 	end)
 
 	describe("an embedded Blizzard frame", function()
