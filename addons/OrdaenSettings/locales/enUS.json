@@ -144,5 +144,6 @@
   "THEME_NAME_MINIMAL": "Minimal",
   "THEME_ABOUT_ORDAEN": "Blizzard's look in our style: bronze, dark wood, our own fonts",
   "THEME_ABOUT_BLIZZARD": "Almost Blizzard's default: its fonts, its textures",
-  "THEME_ABOUT_MINIMAL": "Flat, fine lines, hardly any textures or animations"
+  "THEME_ABOUT_MINIMAL": "Flat, fine lines, hardly any textures or animations",
+  "PLACING": "Move mode"
 }

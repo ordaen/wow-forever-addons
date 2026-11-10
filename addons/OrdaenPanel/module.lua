@@ -755,10 +755,6 @@ return Define.Module({
 			toggleCalendar = function()
 				game.Clock:ToggleCalendar()
 			end,
-			-- Ordaen Core's placing mode, where every free part moves (the bars among them)
-			togglePlacing = function()
-				game.Placing:Toggle()
-			end,
 
 		}
 	end,
@@ -774,8 +770,6 @@ return Define.Module({
 				game.ui:Switch({ attributes = { value = Define.Signal(self.state.barsOn) } })
 				game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.barsMode),
 					disabled = not self.state.barsOn } })
-				game.ui:PushButton({ attributes = { title = L.PLACING, label = L.PLACING, width = 240 / 1.2,
-					OnClick = self.togglePlacing } })
 			end } })
 			game.ui:Section({ attributes = { title = L.SECTION_STATUS }, slots = { default = function()
 				game.ui:Switch({ attributes = { value = Define.Signal(self.state.statusOn) } })

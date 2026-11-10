@@ -23,10 +23,10 @@ local PAGE = { background = { 0, 0, 0, 0.25 }, height = "100%" }
 local FOOT_HEIGHT = 34 * PX -- a PushButton's
 local SCROLL = { position = "absolute", left = 0, right = 0, top = 0, bottom = (18 + 6) * PX + FOOT_HEIGHT,
 	padding = { 14 * PX, 18 * PX, 0, 18 * PX }, columns = 1, gap = 14 * PX, overflow = "scroll" }
--- the page's foot (design .sw-foot): how to open the page at the left, «Откатить» after a save and «Сохранить» at
--- the bottom right
+-- the page's foot (design .sw-foot): «Режим перемещения» (Ordaen Core's, for every module's parts) and how to open
+-- the page at the left, «Откатить» after a save and «Сохранить» at the bottom right
 local FOOT = { position = "absolute", left = 18 * PX, right = 18 * PX, bottom = 18 * PX, height = FOOT_HEIGHT,
-	columns = { "1fr", "auto" }, yAlign = "center", gap = 12 * PX }
+	columns = { "auto", "1fr", "auto" }, yAlign = "center", gap = 12 * PX }
 local SAVE_ROW = { columns = { "auto", "auto" }, gap = 8 * PX }
 local HINT = 13 * PX
 -- the question on closing with unsaved changes (design .sw-confirm)
@@ -111,7 +111,8 @@ local function Opens(game, self)
 		game.ui:Text({ attributes = { text = L.OPENS_PAGE, textColor = DIM, textSize = HINT } })
 	end
 end
-local function Foot(game)
+local function Foot(game, self)
+	game.ui:PushButton({ attributes = { label = L.PLACING, width = 200 * PX, OnClick = self.togglePlacing } })
 	game.ui:Box({ attributes = {}, slots = { default = Opens } })
 	game.ui:Box({ attributes = SAVE_ROW, slots = { default = SaveButtons } })
 end
@@ -202,6 +203,10 @@ return Define.Module({
 			closeSaving = function()
 				draft:Save()
 				close()
+			end,
+			-- Ordaen Core's placing mode: every module's free parts move in it
+			togglePlacing = function()
+				game.Placing:Toggle()
 			end,
 			closeDiscarding = function()
 				draft:Discard()
