@@ -1635,6 +1635,57 @@ function Node:ApplyMouse()
 	dropTargets[self] = a.OnDrop and true or nil
 end
 
+-- The theme's art, loaded ahead: when the first window (a box with OnEscape) opens, one texture per theme file and atlas (a nine-slice's
+-- pieces too), on a
+-- frame the player can't see, so the client has every file by the time a window draws it (otherwise its first open
+-- shows the text before its art). Never at login: a player who opens no window loads none of it.
+local warmed = false
+local WARM_FIELDS = { "file", "mask", "rim" }
+
+local function warmFile(frame, seen, file)
+	if type(file) == "string" and file:find("^Interface\\") and not seen[file] then
+		seen[file] = true
+		frame:CreateTexture(nil, "BACKGROUND"):SetTexture(file)
+	end
+end
+
+local function warmAtlas(frame, seen, atlas)
+	if type(atlas) == "string" and not seen[atlas] then
+		seen[atlas] = true
+		frame:CreateTexture(nil, "BACKGROUND"):SetAtlas(atlas)
+	end
+end
+
+-- a nine-slice's pieces are atlases, named in Blizzard's layout
+local function warmNineSlice(frame, seen, name)
+	local layout = type(name) == "string" and NineSliceLayouts and NineSliceLayouts[name]
+	if layout then
+		for _, piece in next, layout do
+			if type(piece) == "table" then
+				warmAtlas(frame, seen, piece.atlas)
+			end
+		end
+	end
+end
+
+local function warmTheme()
+	warmed = true
+	local frame = CreateFrame("Frame", nil, UIParent)
+	frame:SetSize(1, 1)
+	frame:SetPoint("TOPLEFT")
+	frame:SetAlpha(0)
+	local seen = {}
+	for _, v in next, Theme do
+		if type(v) == "table" then
+			for i = 1, #WARM_FIELDS do
+				warmFile(frame, seen, v[WARM_FIELDS[i]])
+			end
+		else
+			warmFile(frame, seen, v)
+		end
+	end
+end
+
 -- OnEscape: Escape closes the box, as it closes Blizzard's windows. While the box shows, a stand-in frame of its own
 -- is listed in UISpecialFrames; Escape hides it (so the game menu doesn't open) and its OnHide calls the handler. Made
 -- on first use, one per box that ever had the handler.
@@ -1657,6 +1708,9 @@ function Node:ApplyEscape()
 	local want = self.a.OnEscape and true or nil
 	local proxy = self.escapeProxy
 	if want and not proxy then
+		if not warmed then
+			warmTheme()
+		end
 		escapes = escapes + 1
 		local name = "OrdaenEscape" .. escapes
 		proxy = CreateFrame("Frame", name, UIParent) --[[@as OrdaenEscapeProxy]]
