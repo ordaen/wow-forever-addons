@@ -1,3 +1,4 @@
 {
-  "MODULE_NOTES": "The controls and windows every Ordaen module draws. Loaded when a module first needs it."
+  "MODULE_NOTES": "The controls and windows every Ordaen module draws. Loaded when a module first needs it.",
+  "SOON": "in development"
 }

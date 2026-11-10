@@ -120,6 +120,15 @@ local function Valid(spec, value)
 				break
 			end
 		end
+		-- a choice listed but not built yet (`soon`, design: shown «в разработке», never picked)
+		local soon = spec.soon
+		if ok and soon then
+			for i = 1, #soon do
+				if soon[i] == value then
+					ok = false
+				end
+			end
+		end
 	elseif kind == "number" then
 		ok = type(value) == "number" and (not spec.min or value >= spec.min) and (not spec.max or value <= spec.max)
 	elseif kind == "string" then
@@ -490,6 +499,19 @@ function Plain:Choices()
 	return spec.order
 end
 
+--- Whether a choice is listed but not built yet (its declaration's `soon`): shown in development, never picked.
+function Plain:Soon(value)
+	local soon = self.spec.soon
+	if soon then
+		for i = 1, #soon do
+			if soon[i] == value then
+				return true
+			end
+		end
+	end
+	return false
+end
+
 --- A string's longest length (its declaration's maxLength), for its input field; nil when it has none.
 ---@return integer?
 function Plain:MaxLength()
@@ -667,8 +689,79 @@ function View:Choices()
 	return self.setting:Choices()
 end
 
+function View:Soon(value)
+	return self.setting:Soon(value)
+end
+
 function View:MaxLength()
 	return self.setting:MaxLength()
+end
+
+-- Records --------------------------------------------------------------------------------------------------------
+
+-- One record per key (`type = "records"`, `key = { type = "choice", choices = ... }`, `fields = { name = spec, ... }`:
+-- design development/framework/state): each entry's field is a stored value of its own, made once and cached (the
+-- path "<path>/<name>/<key>"), so a control binds one bar's setting and it stages, resets and stores only what differs
+-- from its field's default like any other. Every key has its record by construction: no entry is ever missing.
+---@class OrdaenStoredRecords
+local Records = {}
+local RecordsMeta = { __index = Records }
+
+--- The entry `key`'s field `field`: a stored value with the setting API (label <PREFIX>_<NAME>_<FIELD>).
+function Records:Field(key, field)
+	local fields = self.fields
+	if not fields then
+		fields = {}
+		self.fields = fields
+	end
+	local byKey = fields[key]
+	if not byKey then
+		if not Valid(self.spec.key, key) then
+			error("Ordaen: " .. self.name .. " has no entry " .. tostring(key), 2)
+		end
+		byKey = {}
+		fields[key] = byKey
+	end
+	local value = byKey[field]
+	if not value then
+		local base = self.spec.fields[field]
+		if not base then
+			error("Ordaen: " .. self.name .. " has no field " .. tostring(field), 2)
+		end
+		-- its spec: the field's, labelled after the records' own label and the field's name (made once)
+		local specs = self.specs
+		if not specs then
+			specs = {}
+			self.specs = specs
+		end
+		local spec = specs[field]
+		if not spec then
+			spec = { label = LabelKey(self) .. "_" .. field:upper() }
+			for k, v in pairs(base) do
+				spec[k] = v
+			end
+			spec.scope = self.spec.scope
+			specs[field] = spec
+		end
+		value = State.Stored(self.module, self.path .. "/" .. self.name .. "/" .. tostring(key), field, spec)
+		byKey[field] = value
+	end
+	return value
+end
+
+--- Every entry back to its fields' defaults.
+function Records:Reset()
+	for _, byKey in pairs(self.fields or EMPTY) do
+		for _, value in pairs(byKey) do
+			value:Reset()
+		end
+	end
+	local root, prefix = self.root, self.path .. "/" .. self.name .. "/"
+	for path in pairs(root) do
+		if type(path) == "string" and path:sub(1, #prefix) == prefix then
+			root[path] = nil
+		end
+	end
 end
 
 -- Declaring ------------------------------------------------------------------------------------------------------
@@ -676,7 +769,7 @@ end
 local METAS = {
 	boolean = PlainMeta, number = PlainMeta, string = PlainMeta, choice = PlainMeta, color = PlainMeta,
 	asset = PlainMeta,
-	list = ListMeta, map = MapMeta,
+	list = ListMeta, map = MapMeta, records = RecordsMeta,
 }
 
 -- One stored value per module, component path and name, made on first use: what a mounted instance declares and what

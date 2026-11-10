@@ -131,5 +131,10 @@
   "PANEL_BAR7": "Bar 7",
   "PANEL_BAR7_TIP": "Blizzard's bar 7: its abilities and key bindings.",
   "PANEL_BAR8": "Bar 8",
-  "PANEL_BAR8_TIP": "Blizzard's bar 8: its abilities and key bindings."
+  "PANEL_BAR8_TIP": "Blizzard's bar 8: its abilities and key bindings.",
+  "PANEL_BARSMODE": "Mode",
+  "PANEL_BARSMODE_TIP": "Classic: Blizzard's eight bars, each on its own page of slots, so the game's bars show the same without the addon. Free: your own bars of any size.",
+  "PANEL_BARSMODE_CLASSIC": "Classic",
+  "PANEL_BARSMODE_FREE": "Free",
+  "PLACING": "Move mode"
 }

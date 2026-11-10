@@ -181,6 +181,21 @@ function DOMAINS.ActionButtons()
 	})
 end
 
+--- Blizzard's action bars as the character's own settings have them (Параметры → Панели команд).
+function DOMAINS.ActionBars()
+	local ActionBars = {}
+	--- Which of Blizzard's eight bars the character shows: { true, bottomLeft, bottomRight, right, left, 5, 6, 7 }
+	--- (the main bar always), from GetActionBarToggles.
+	function ActionBars:BlizzardShown() -- luacheck: ignore 212
+		local shown = { true, GetActionBarToggles() }
+		for k = 2, 8 do
+			shown[k] = shown[k] == true
+		end
+		return shown
+	end
+	return ActionBars
+end
+
 --- Ordaen's global settings as values: `game.Settings.scale:Get()` (development/framework/game).
 function DOMAINS.Settings()
 	return ns.Globals.ByName

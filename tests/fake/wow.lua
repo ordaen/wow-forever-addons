@@ -1832,6 +1832,10 @@ function Wow:MakeEnv()
 			end
 		end,
 	})
+	-- the character's Blizzard action bars shown (bottom left, bottom right, right, left, 5, 6, 7)
+	offer("GetActionBarToggles", function()
+		return true, false, false, false, false, false, false
+	end)
 	offer("C_Map", { GetBestMapForUnit = function()
 		return nil
 	end })

@@ -25,6 +25,10 @@ local Edge = { Bottom = "bottom", Top = "top", Left = "left", Right = "right" }
 -- The panel's length: the whole edge, or as long as its items, centred.
 ---@enum OrdaenPanelFit
 local Fit = { Full = "full", Center = "center" }
+-- The action bars' mode (design action-bars/configuration): Blizzard's eight bars on their own pages, or the player's
+-- own bars from the slot pool (not built yet: listed «в разработке»).
+---@enum OrdaenPanelBarsMode
+local BarsMode = { Classic = "classic", Free = "free" }
 ---@enum OrdaenPanelOutline
 local Outline = { None = "none", Thin = "thin", Thick = "thick" }
 -- When the panel shows (design settings, «Видимость»).
@@ -691,6 +695,11 @@ return Define.Module({
 			-- the parts, each on or off («Общее»)
 			microOn = { type = "boolean", default = true, setting = true },
 			barsOn = { type = "boolean", default = true, setting = true },
+			barsMode = { type = "choice", choices = BarsMode, default = BarsMode.Classic, soon = { BarsMode.Free },
+				setting = true },
+			-- saved: the bars below were copied once from the character's own Blizzard settings (design action-bars:
+			-- the bars on by default are Blizzard's choice); a reset clears it, and the next load copies them again
+			barsSeeded = { type = "boolean", default = false },
 			-- the action bars (Classic): Blizzard's eight, each on or off
 			bar1 = { type = "boolean", default = true, setting = true },
 			bar2 = { type = "boolean", default = true, setting = true },
@@ -731,6 +740,17 @@ return Define.Module({
 			condition = { type = "string", default = "", maxLength = 255, macro = true, setting = true },
 		})
 		Define.Ephemeral({ hovered = { type = "boolean", default = false } })
+		if not self.state.barsSeeded then
+			local shown = game.ActionBars:BlizzardShown()
+			self.state.bar2 = shown[2]
+			self.state.bar3 = shown[3]
+			self.state.bar4 = shown[4]
+			self.state.bar5 = shown[5]
+			self.state.bar6 = shown[6]
+			self.state.bar7 = shown[7]
+			self.state.bar8 = shown[8]
+			self.state.barsSeeded = true
+		end
 		return {
 			enter = function()
 				self.state.hovered = true
@@ -740,6 +760,10 @@ return Define.Module({
 			end,
 			toggleCalendar = function()
 				game.Clock:ToggleCalendar()
+			end,
+			-- Ordaen Core's placing mode, where every free part moves (the bars among them)
+			togglePlacing = function()
+				game.Placing:Toggle()
 			end,
 		}
 	end,
@@ -753,6 +777,10 @@ return Define.Module({
 			end } })
 			game.ui:Section({ attributes = { title = L.SECTION_BARS }, slots = { default = function()
 				game.ui:Switch({ attributes = { value = Define.Signal(self.state.barsOn) } })
+				game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.barsMode),
+					disabled = not self.state.barsOn } })
+				game.ui:PushButton({ attributes = { title = L.PLACING, label = L.PLACING, width = 240 / 1.2,
+					OnClick = self.togglePlacing } })
 			end } })
 			game.ui:Section({ attributes = { title = L.SECTION_STATUS }, slots = { default = function()
 				game.ui:Switch({ attributes = { value = Define.Signal(self.state.statusOn) } })

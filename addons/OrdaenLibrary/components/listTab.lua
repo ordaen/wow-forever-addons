@@ -1,6 +1,6 @@
--- listTab: an entry in the settings window's list (design controls/list-tab): its icon (22 px), its name, and what
--- its slot holds at its right (a module's switch); the shade under the cursor; selected, a darker shade, the name
--- white and a 3 px light along its left; a module that's off, its name and icon dimmed.
+-- listTab: an entry in a list of pages (design controls/list-tab: the settings window's modules, a module page's
+-- bars): its icon (22 px; none: no icon column), its name, and what its slot holds at its right (a switch); the shade
+-- under the cursor; selected, a darker shade, the name white and a 3 px light along its left; off, name and icon dimmed.
 --
 -- Attributes: `label` (text), `icon` (a file, or nil), `selected`, `off` (booleans), `OnClick`. Slot `default`.
 local Define = import("@ordaen/define")
@@ -17,6 +17,10 @@ local BAR = { attributes = { position = "absolute", left = 0, top = 0, bottom = 
 	background = { 0.839, 0.647, 0.42, 1 } } } -- --o-hi #d6a56b
 local ROW = { columns = { 22 * PX, "1fr", "auto" }, gap = 10 * PX, padding = { 7 * PX, 12 * PX, 7 * PX, 16 * PX },
 	yAlign = "center" }
+local NO_ICON = { "1fr", "auto" } -- an entry without an icon: its name from the left
+local function Columns(_, self)
+	return self.attributes.icon and ROW.columns or NO_ICON
+end
 
 local function Background(_, self)
 	return self.attributes.selected and SELECTED or SHADE
@@ -32,8 +36,10 @@ local function Parts(game, self)
 	if self.attributes.selected then
 		game.ui:Box(BAR)
 	end
-	game.ui:Box({ attributes = { width = 22 * PX, height = 22 * PX, background = self.attributes.icon,
-		desaturate = self.attributes.off, tint = Tint(game, self) } })
+	if self.attributes.icon then
+		game.ui:Box({ attributes = { width = 22 * PX, height = 22 * PX, background = self.attributes.icon,
+			desaturate = self.attributes.off, tint = Tint(game, self) } })
+	end
 	game.ui:Text({ attributes = { text = self.attributes.label, textColor = Color(game, self), textSize = TEXT,
 		wrap = false } })
 	game.ui:Slot("default")
@@ -41,7 +47,7 @@ end
 
 return Define.Component({
 	Render = function(game, self)
-		game.ui:Box({ attributes = { columns = ROW.columns, gap = ROW.gap, padding = ROW.padding, yAlign = ROW.yAlign,
+		game.ui:Box({ attributes = { columns = Columns(game, self), gap = ROW.gap, padding = ROW.padding, yAlign = ROW.yAlign,
 			background = Background(game, self), OnClick = self.attributes.OnClick }, slots = { default = Parts } })
 	end,
 })
