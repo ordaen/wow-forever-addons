@@ -510,5 +510,14 @@ describe("backend layout", function()
 		run(root({ body }))
 		assert.is_true(body.w >= 80)
 	end)
+
+	it("keeps an fr column as wide as its text's longest word, next to a fixed one", function()
+		local title = text("Massive grinding stone")
+		title.minW = 8 * CHAR
+		local grid = box({ position = "absolute", left = 0, top = 0, width = 50, columns = { 20, "1fr" } },
+			{ box({ width = 20 }), title })
+		run(root({ grid }))
+		assert.is_true(title.w >= 8 * CHAR)
+	end)
 end)
 

@@ -287,6 +287,6 @@ return Define.Component({
 	Render = function(game, self)
 		game.ui:Box({ attributes = { position = "absolute", anchor = Anchor(game, self), left = Left(game, self),
 			top = Top(game, self), right = Edge(game, self), bottom = Edge(game, self), width = Width(game, self),
-			height = Height(game, self), artOrigin = true, OnEscape = self.close }, slots = { default = Parts } })
+			height = Height(game, self), artOrigin = true, minContent = true, OnEscape = self.close }, slots = { default = Parts } })
 	end,
 })

@@ -765,6 +765,18 @@ local function placeFree(node, refW, refH, ctx)
 			local was = fitting
 			fitting = true
 			w = max(w, boxNatural(node))
+			-- its free children held by its left edge count too (a window's tab row, its body held by both sides):
+			-- their offsets and their own min-content
+			local children = node.children
+			for i = 1, node.count or 0 do
+				local child = children[i]
+				if child.pos == "absolute" and child.offL then
+					local need = child.offL + (child.offR or 0) + (child.kind == "text" and child.natW or natural(child))
+					if need > w then
+						w = need
+					end
+				end
+			end
 			fitting = was
 		end
 		local given
@@ -964,8 +976,12 @@ function layoutBox(node, W, H, ctx)
 	if deficit > 0 then
 		shrink(node, n, "auto", deficit)
 	end
-	if extra < 0 or deficit > 0 then
-		-- squeezed: no column narrower than its content's min-content (a text's longest word, a box's content without
+	local hasFr = false
+	for c = 1, n do
+		hasFr = hasFr or kinds[c] == "fr"
+	end
+	if extra < 0 or deficit > 0 or hasFr then
+		-- squeezed, or an fr column given only what's left: no column narrower than its content's min-content (a text's longest word, a box's content without
 		-- wrapping texts), as CSS keeps a grid item's min-content; what doesn't fit overflows the box
 		local was = fitting
 		fitting = true
