@@ -7,8 +7,11 @@
 -- Drawn from a model (read.lua) whenever `version` changes; the calls are this frame's own tables, refilled then (no
 -- tables per show after the first): a call's attributes table changes in place and the draw sets what differs.
 --
+-- Tooltips in tooltips: while `charge` counts up (steps of the module's 1 s), a gold bar runs along the bottom
+-- padding; `locked`, the bar is gone and the game's red X sits in the top-right padding (OnClose).
+--
 -- Attributes: `model` (Read's model), `version` (a number that changes with each refill), `side` (true: a tooltip
--- beside another, a little narrower).
+-- beside another, a little narrower), `charge` (0 to STEPS, or nil: no bar), `locked`, `OnClose`.
 local Define = import("@ordaen/define")
 local GLYPHS = import("glyphs")
 local GLYPH_FILE = import("assets/glyphs.tga")
@@ -31,6 +34,14 @@ local BLACK = { 0, 0, 0, 1 }
 local RIM = { width = 1 * PX, color = { 0.424, 0.333, 0.208, 1 } } -- the icon's bronze ring
 local TITLE_COLUMNS = { ICON, "1fr" }
 local format, concat = string.format, table.concat
+local STEPS = 20 -- the charge's steps (the module's)
+-- the lock's bar: 2 px in the bottom padding, 2 px up, bronze to gold; its width the charge (a string per step, made once)
+local BAR_FILL = { from = { 0.561, 0.416, 0.227, 1 }, to = { 0.91, 0.765, 0.353, 1 }, direction = "horizontal" }
+local BAR_WIDTHS = {}
+for i = 0, STEPS do
+	BAR_WIDTHS[i] = (i * 100 / STEPS) .. "%"
+end
+local CLOSE_ART = "Interface\\Buttons\\UI-Panel-MinimizeButton-Up" -- the game's red X
 
 -- parts joined with « · », each in its colour (|c codes: a FontString has one colour)
 local joined = {}
@@ -149,6 +160,29 @@ local function Sections(game, self)
 	end
 end
 
+local function BarWidth(_, self)
+	return BAR_WIDTHS[self.attributes.charge or 0]
+end
+local function Close(_, self)
+	return self.attributes.OnClose
+end
+
+-- the lock's parts over the sections: the bar while charging, the close button once locked
+local function Lock(game, self)
+	if self.attributes.locked then
+		game.ui:Box({ attributes = { position = "absolute", right = 2 * PX, top = 2 * PX, width = 24 * PX, height = 24 * PX,
+			background = CLOSE_ART, OnClick = Close(game, self) } })
+	elseif (self.attributes.charge or 0) > 0 then
+		game.ui:Box({ attributes = { position = "absolute", left = 0, bottom = 2 * PX, height = 2 * PX,
+			width = BarWidth(game, self), background = BAR_FILL } })
+	end
+end
+
+local function Frame(game, self)
+	Sections(game, self)
+	Lock(game, self)
+end
+
 -- a section's box: rows 2 px apart, 8 px above and below, a rule on top when something is above it
 local function Section(slot)
 	return { attributes = { columns = 1, gap = 2 * PX, padding = { SECTION, 0, SECTION, 0 } },
@@ -231,7 +265,7 @@ return Define.Component({
 			headerText = { attributes = { textColor = HEADING, textSize = 15 * PX, textAlign = "center", wrap = false } },
 		}
 		self.box = { attributes = { width = WIDTH, columns = 1, padding = 12 * PX, border = Define.Theme.frame.small,
-			background = Define.Theme.window.wood, artOrigin = true }, slots = { default = Sections } }
+			background = Define.Theme.window.wood, artOrigin = true }, slots = { default = Frame } }
 	end,
 
 	Render = function(game, self)

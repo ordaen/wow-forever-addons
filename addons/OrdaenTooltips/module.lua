@@ -14,6 +14,10 @@ local Read = import("read")
 -- Blizzard's tooltips drawn here: the main one, the linked item's, the comparison ones
 local NATIVES = { "GameTooltip", "ItemRefTooltip", "ShoppingTooltip1", "ShoppingTooltip2" }
 local COMPARE = { ShoppingTooltip1 = true, ShoppingTooltip2 = true }
+-- the lock (design «Tooltips in tooltips»): the main tooltip charges for 1 s in STEPS while the mouse stays on what
+-- it describes, then locks; a locked group closes GRACE s after the mouse leaves it (unless it comes back)
+local STEPS, STEP = 20, 1 / 20
+local GRACE = 0.22
 
 ---@enum OrdaenTooltipsPlace
 local Place = { Corner = "corner", Anchor = "anchor" } -- where an item's tooltip shows: the game's corner, beside it
@@ -54,9 +58,13 @@ local function Views(game, self)
 		local name = NATIVES[i]
 		local tip = game.Tooltip[name]
 		if tip then
+			local a = self.viewCalls[name].attributes
+			a.anchor = self.anchors[name] or nil
+			a.epoch = self.state.epoch
+			a.locked = self.state.lock > 0 and self.kept[name] or nil
+			a.kept = a.locked
+			a.charge = name == "GameTooltip" and self.state.charge or nil
 			local call = self.viewCalls[name]
-			call.attributes.anchor = self.anchors[name] or nil
-			call.attributes.epoch = self.state.epoch
 			game.ui:View(game.Layer.Tooltip, call, name)
 		end
 	end
@@ -90,7 +98,11 @@ return Define.Module({
 			npcsLoot = { type = "boolean", default = true, setting = true },
 			objectsOn = { type = "boolean", default = true, setting = true },
 		})
-		Define.Ephemeral({ epoch = { type = "number", default = 0 } }) -- a comparison changed another view's rows
+		Define.Ephemeral({
+			epoch = { type = "number", default = 0 }, -- a comparison changed another view's rows
+			charge = { type = "number", default = 0 }, -- the main tooltip's lock charging: 0 to STEPS
+			lock = { type = "number", default = 0 }, -- the locked show of the main tooltip (its tip.shown), 0: none
+		})
 		local models, ctx, anchors, hooks = {}, { numbers = game.Numbers, L = L }, {}, {}
 		self.models, self.anchors = models, anchors
 
@@ -211,6 +223,66 @@ return Define.Module({
 				self.viewCalls[tip.name] = { attributes = { tip = tip, model = models[tip.name], refill = Fill } }
 				tip:Take(Wants)
 			end
+		end
+
+		-- the lock: GameTooltip's shows charge; locked, every view shown then stays until it closes
+		local main = game.Tooltip.GameTooltip
+		local kept, closed = {}, 0 -- the views kept by the lock; the show last closed (it doesn't charge again)
+		self.kept = kept
+		local function Close()
+			closed = Define.Peek(self.state.lock)
+			self.state.lock = 0
+			self.state.charge = 0
+		end
+		local function Step()
+			local n = Define.Peek(self.state.charge) + 1
+			if n < STEPS then
+				self.state.charge = n
+				return
+			end
+			for i = 1, #NATIVES do
+				local tip = game.Tooltip[NATIVES[i]]
+				kept[NATIVES[i]] = tip and tip.shown:Peek() > 0 or nil
+			end
+			self.state.charge = STEPS
+			self.state.lock = main.shown:Peek()
+		end
+		if main then
+			self:Watch(function()
+				local shown, lock = main.shown:Get(), self.state.lock
+				if shown > 0 and lock ~= 0 and shown ~= lock then
+					Close() -- another tooltip starts: the locked one goes
+					return
+				end
+				if shown > 0 and lock == 0 and shown ~= closed then
+					self.state.charge = 0
+					self:Every(STEP, Step)
+				elseif lock == 0 then
+					self.state.charge = 0
+				end
+			end)
+		end
+		-- the mouse leaving the locked group closes it after the grace, unless it came back
+		local leaving, leftAt = false, 0
+		local function CloseIfLeft()
+			if leaving and GetTime() - leftAt >= GRACE - 0.01 then
+				leaving = false
+				Close()
+			end
+		end
+		local lockCalls = {
+			OnClose = Close,
+			OnEnter = function()
+				leaving = false
+			end,
+			OnLeave = function()
+				leaving, leftAt = true, GetTime()
+				C_Timer.After(GRACE, CloseIfLeft)
+			end,
+		}
+		for _, call in pairs(self.viewCalls) do
+			call.attributes.OnClose, call.attributes.OnEnter = lockCalls.OnClose, lockCalls.OnEnter
+			call.attributes.OnLeave = lockCalls.OnLeave
 		end
 
 		return {

@@ -6,7 +6,9 @@
 --
 -- Attributes: `tip` (game.Tooltip.<name>), `model` (Read's model for it), `refill` (reads the tip into the model
 -- again: the module's), `anchor` (nil: Blizzard's place; else { to, point, relativePoint } beside its owner),
--- `epoch` (the module's: changes when a comparison rewrote this view's rows).
+-- `epoch` (the module's: changes when a comparison rewrote this view's rows); the lock (the module's, design
+-- «Tooltips in tooltips»): `charge` (its steps, the main tooltip's bar), `kept` (locked while this view showed: it
+-- stays after Blizzard's goes), `locked`, `OnEnter`/`OnLeave` (the mouse on the locked group) and `OnClose`.
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2
@@ -29,8 +31,10 @@ end
 local function Parts(game, self)
 	local call = self.mainCall
 	-- a new show, a comparison or a refill: the frames draw again
-	call.attributes.model, call.attributes.version = self.attributes.model, self.attributes.tip.shown:Get() * 1000000 +
+	local a = call.attributes
+	a.model, a.version = self.attributes.model, self.attributes.tip.shown:Get() * 1000000 +
 		self.attributes.epoch * 1000 + self.state.tick
+	a.charge, a.locked, a.OnClose = self.attributes.charge, self.attributes.locked, self.attributes.OnClose
 	game.ui:TipFrame(call)
 	if self.attributes.model.side.n > 0 then
 		game.ui:Box(self.sidesBox)
@@ -62,10 +66,15 @@ return Define.Component({
 
 	Render = function(game, self)
 		local tip = self.attributes.tip
-		if tip.shown:Get() == 0 then
+		if tip.shown:Get() == 0 and not self.attributes.kept then
 			return
 		end
 		local a = self.box.attributes
+		-- locked: the mouse on it keeps the group (else the box lets the mouse through to what's under it)
+		local locked = self.attributes.locked
+		a.hoverWithin = locked or nil
+		a.OnEnter = locked and self.attributes.OnEnter or nil
+		a.OnLeave = locked and self.attributes.OnLeave or nil
 		local beside = self.attributes.anchor
 		if beside then
 			a.anchor = beside

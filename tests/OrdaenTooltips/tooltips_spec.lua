@@ -269,4 +269,93 @@ describe("Ordaen Tooltips", function()
 		ns.Scheduler.Flush()
 		assert.are.equal("", texts())
 	end)
+
+	-- the lock (design «Tooltips in tooltips»): held 1 s, the tooltip locks and stays after Blizzard's goes; the mouse
+	-- leaving it closes it after the grace, a new tooltip or the X at once
+	describe("the lock", function()
+		local function find(pred)
+			local found
+			local function walk(node)
+				if not found and pred(node) then
+					found = node
+				end
+				for i = 1, node.count or 0 do
+					walk(node.children[i])
+				end
+			end
+			walk(ns.Game.Layer.Tooltip.node)
+			return found
+		end
+		local function closeButton()
+			return find(function(node)
+				return node.a and node.a.OnClick -- the only click on the tooltip layer
+			end)
+		end
+		local function group()
+			return find(function(node)
+				return node.a and node.a.OnLeave
+			end)
+		end
+		local function wait(seconds)
+			for _ = 1, math.ceil(seconds / wow.frameTime) do
+				wow:Tick()
+			end
+			ns.Scheduler.Flush()
+		end
+
+		before_each(function()
+			wow.env.GetTime = function()
+				return wow.time
+			end
+		end)
+
+		it("charges for a second, locks, and stays after Blizzard's tooltip hides", function()
+			wow:ShowTooltip("GameTooltip", AXE)
+			ns.Scheduler.Flush()
+			wait(0.5)
+			assert.is_nil(closeButton())
+			wait(0.6)
+			assert.is_truthy(closeButton())
+			wow.env.GameTooltip:Hide()
+			ns.Scheduler.Flush()
+			has(texts(), "Copper Axe")
+			assert.are.same({}, wow.errors)
+		end)
+
+		it("closes when the mouse leaves it, after the grace, and not when it comes back in time", function()
+			wow:ShowTooltip("GameTooltip", AXE)
+			wait(1.1)
+			wow.env.GameTooltip:Hide()
+			ns.Scheduler.Flush()
+			local g = group()
+			g.a.OnLeave()
+			wait(0.1)
+			g.a.OnEnter()
+			wait(0.3)
+			has(texts(), "Copper Axe")
+			g.a.OnLeave()
+			wait(0.3)
+			assert.are.equal("", texts())
+			assert.are.same({}, wow.errors)
+		end)
+
+		it("closes on its X and when another tooltip starts", function()
+			wow:ShowTooltip("GameTooltip", AXE)
+			wait(1.1)
+			wow.env.GameTooltip:Hide()
+			ns.Scheduler.Flush()
+			closeButton().a.OnClick()
+			ns.Scheduler.Flush()
+			assert.are.equal("", texts())
+			wow:ShowTooltip("GameTooltip", AXE)
+			wait(1.1)
+			wow.env.GameTooltip:Hide()
+			wow:ShowTooltip("GameTooltip", SHOUT)
+			ns.Scheduler.Flush()
+			local shown = texts()
+			has(shown, "Battle Shout")
+			assert.is_falsy(shown:find("Copper Axe", 1, true))
+			assert.are.same({}, wow.errors)
+		end)
+	end)
 end)
