@@ -80,6 +80,12 @@ local function Parts(game, self)
 	end
 	game.ui:Box({ attributes = { position = "absolute", left = 0, right = -ART_PAST, top = ART_TOP,
 		bottom = ArtBelow(self), background = Define.Theme.ctl.tab, tint = Tint(self) } })
+	-- an open tab after the first opens into the body on its left too: the art's left rim, which runs down into the
+	-- frame's left line on the first tab, is covered below the line with the tab's wood (its left flare isn't drawn)
+	if Open(self) and self.attributes.index > 1 then
+		game.ui:Box({ attributes = { position = "absolute", left = 0, width = 2 * EDGE, bottom = -ART_BELOW,
+			height = ART_BELOW + 4 * PX, background = WOOD } })
+	end
 	Label(game, self)
 end
 -- the left padding: the icon and the label's own
