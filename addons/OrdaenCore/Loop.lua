@@ -7,7 +7,7 @@
 -- nearest due time wakes the driver (Loop.OnWake); with only sources waiting, nothing runs until one fires.
 local _, ns = ...
 
-local coroutine, debugprofilestop, GetTime = coroutine, debugprofilestop, GetTime
+local coroutine, debugprofilestop = coroutine, debugprofilestop -- GetTime read at each call: a delay is rare
 local create, resume, status, yield = coroutine.create, coroutine.resume, coroutine.status, coroutine.yield
 
 ---@class OrdaenLoop
@@ -45,7 +45,8 @@ end
 ---@field waiters OrdaenTask[]? the tasks waiting for it to end (await.all)
 ---@field pending integer? tasks it still waits for (await.all)
 ---@field onFire function? its handler for the sources it waits on, made once
----@field unsubscribe fun(task: OrdaenTask)? ends its wait on a source
+---@field source table? the source it waits on
+---@field off function? what that source's Subscribe returned (a function ending the subscription), if anything
 local Task = {}
 local TaskMeta = { __index = Task }
 
@@ -165,16 +166,24 @@ function Loop.Spawn(owner, fn, a1, a2, a3, a4)
 	return task
 end
 
+-- End a task's wait on a source: the function its Subscribe returned, else the source's Unsubscribe(fn, owner) (the
+-- framework's events: no function made per wait)
+local function stopListening(task)
+	local source, off = task.source, task.off
+	task.source, task.off = nil, nil
+	if off then
+		off()
+	elseif source and source.Unsubscribe then
+		source:Unsubscribe(task.onFire, task.owner)
+	end
+end
+
 --- End the task: it never resumes. Idempotent, and safe from inside the task itself (it ends at its next wait).
 function Task:Cancel()
 	if self.state == "done" then
 		return
 	end
-	local unsubscribe = self.unsubscribe
-	if unsubscribe then
-		self.unsubscribe = nil
-		unsubscribe(self)
-	end
+	stopListening(self)
 	self.state, self.wait = "done", ""
 	live[self] = nil
 	local Debug = kit()
@@ -234,21 +243,16 @@ function await.source(source)
 			if task.state ~= "waiting" or task.wait ~= "source" then
 				return
 			end
-			local unsubscribe = task.unsubscribe --[[@as fun(task: OrdaenTask)?]]
-			task.unsubscribe = nil
-			if unsubscribe then
-				unsubscribe(task)
-			end
+			stopListening(task)
 			task.a1, task.a2, task.a3, task.a4 = a1, a2, a3, a4
 			push(task)
 		end
 		task.onFire = onFire
 	end
 	task.state, task.wait = "waiting", "source"
+	task.source = source
 	local off = source:Subscribe(onFire, task.owner)
-	task.unsubscribe = off and function()
-		off()
-	end or nil
+	task.off = type(off) == "function" and off or nil
 	return yield()
 end
 await.event = await.source

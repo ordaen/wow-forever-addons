@@ -73,6 +73,9 @@ Game.Computed = NewComputed
 
 Game.Stage = ns.Stage
 
+-- the loop's waits, for a task's function (self:Spawn): game.await.frame/delay/event/all, game.checkpoint()
+Game.await, Game.checkpoint = ns.Loop.await, ns.Loop.checkpoint
+
 ---@param name string
 function Game:UseModule(name) -- luacheck: ignore 212
 	return ns.App.Handle(name)

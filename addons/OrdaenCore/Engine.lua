@@ -6,9 +6,9 @@
 -- instance (setup and handlers, reverted at unmount). Reverts run newest first.
 local _, ns = ...
 
-local Tracking, Scheduler = ns.Tracking, ns.Scheduler
+local Tracking, Scheduler, Loop = ns.Tracking, ns.Scheduler, ns.Loop
 local NewValue = ns.NewValue
-local xpcall, type, pairs, rawget, rawset, error, getmetatable = xpcall, type, pairs, rawget, rawset, error, getmetatable
+local xpcall, pcall, type, pairs, rawget, rawset, error, getmetatable = xpcall, pcall, type, pairs, rawget, rawset, error, getmetatable
 
 ---@class OrdaenEngine
 ---@field owner table|nil the effect or instance whose code runs now (holder of its transactions)
@@ -443,6 +443,41 @@ function Instance:On(signal, handler)
 	end
 end
 
+-- The loop's tasks (Loop.lua) ----------------------------------------------------------------------------------
+
+-- one resume of a task is a transaction of its owner (an instance): kept when it reaches a wait or ends, reverted when
+-- it fails (the loop has reported it, with the task's stack and spawn site)
+local function RunTask(instance, step, task)
+	if instance and not instance._alive then
+		return
+	end
+	local previousObserver, previousOwner = Tracking.observer, Engine.owner
+	Tracking.observer, Engine.owner = nil, instance or nil
+	local mark = instance and instance.nRec
+	local ok = pcall(step, task)
+	Tracking.observer, Engine.owner = previousObserver, previousOwner
+	if not ok and instance then
+		RevertTo(instance, mark)
+	end
+end
+-- the Scheduler drives the loop: before its flush, once a frame while tasks are ready, woken for a delay
+Loop.Runner, Loop.OnReady, Loop.OnWake = RunTask, Scheduler.LoopReady, Scheduler.Wake
+
+local function CancelTask(task)
+	task:Cancel()
+end
+
+--- A task (design: development/framework/loop): `fn(game, self, ...)` runs now as a coroutine, up to its first wait
+--- (game.await, game.checkpoint), and ends with its holder (the running watch, else the instance).
+---@param fn function
+---@return OrdaenTask
+function Instance:Spawn(fn, a1, a2)
+	local holder = Holder(self, "Spawn")
+	local task = Loop.Spawn(self, fn, self._game, self, a1, a2)
+	Push(holder, CancelTask, task)
+	return task
+end
+
 local function KillWatch(effect)
 	KillEffect(effect)
 end
@@ -467,20 +502,25 @@ function Instance:Watch(fn, options)
 	end
 end
 
-local function CancelTicker(ticker)
-	ticker:Cancel()
+-- a repeating timer's task: `handler` every `seconds` (0: every frame); a handler that fails is reported and its
+-- writes reverted, and the timer goes on
+local function Repeat(instance, seconds, handler)
+	local delay = Loop.await.delay
+	while true do
+		delay(seconds)
+		local mark = instance.nRec
+		if not xpcall(handler, OnError) then
+			RevertTo(instance, mark)
+		end
+	end
 end
 
---- A repeating timer while the owner holds it.
+--- A repeating timer while the owner holds it (a task of the loop: one shared timer list, no C_Timer per timer).
 ---@param seconds number
 ---@param handler fun()
 function Instance:Every(seconds, handler)
 	local holder = Holder(self, "Every")
-	local instance = self
-	local ticker = C_Timer.NewTicker(seconds, function()
-		Engine:Run(instance, handler)
-	end)
-	Push(holder, CancelTicker, ticker)
+	Push(holder, CancelTask, Loop.Spawn(self, Repeat, self, seconds, handler))
 end
 
 UnmountRecord = function(parent, child)

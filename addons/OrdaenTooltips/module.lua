@@ -30,7 +30,7 @@ local COMPARE = { ShoppingTooltip1 = true, ShoppingTooltip2 = true }
 -- the lock (design «Tooltips in tooltips»): after DELAY s on what it describes (a passing mouse sees no bar) the main
 -- tooltip charges for CHARGE s, then locks; the bar's fill is the charge in STEPS (per cent), read from the clock at
 -- each frame while it charges; a locked group closes GRACE s after the mouse leaves it (unless it comes back)
-local DELAY, CHARGE, STEPS, STEP = 0.18, 1, 100, 0
+local DELAY, CHARGE, STEPS = 0.18, 1, 100
 local GRACE = 0.22
 local REFRESH = 0.1 -- a hide shorter than this is Blizzard refreshing the tooltip, not the mouse leaving
 
@@ -544,22 +544,26 @@ return Define.Module({
 			Truncate(0)
 			ResetCursor() -- a term's help cursor: its text goes without an OnLeave
 		end
+		local await = game.await
 		-- Blizzard hides and shows a button's tooltip again as it refreshes it: only a hide that lasts ends the charge
-		local hiddenAt = 0
-		local function EndIfHidden()
-			if main.shown:Peek() == 0 and Define.Peek(self.state.lock) == 0 and GetTime() - hiddenAt >= REFRESH - 0.01 then
-				self.state.charge = 0
-				targetType, targetId, closed = nil, nil, false
-			end
+		-- (a task of the watch: the tooltip back within REFRESH runs the watch again, which ends it)
+		local function EndAfterRefresh()
+			await.delay(REFRESH)
+			self.state.charge = 0
+			targetType, targetId, closed = nil, nil, false
 		end
 		local started = 0 -- when the target began to show
-		local function Step()
-			local n = math.floor((GetTime() - started - DELAY) / CHARGE * STEPS)
-			if n < STEPS then
+		-- the charge, a task of the watch: after DELAY the bar fills, read from the clock each frame, then it locks
+		local function Charge()
+			while true do
+				local n = math.floor((GetTime() - started - DELAY) / CHARGE * STEPS)
+				if n >= STEPS then
+					break
+				end
 				if n > 0 and n ~= Define.Peek(self.state.charge) then
 					self.state.charge = n
 				end
-				return
+				await.frame()
 			end
 			for i = 1, #NATIVES do
 				local tip = game.Tooltip[NATIVES[i]]
@@ -573,8 +577,7 @@ return Define.Module({
 				local shown, lock = main.shown:Get(), self.state.lock
 				if shown == 0 then
 					if lock == 0 then -- hidden: the charge ends unless it's back within REFRESH (a refresh)
-						hiddenAt = GetTime()
-						C_Timer.After(REFRESH, EndIfHidden)
+						self:Spawn(EndAfterRefresh)
 					end
 					return
 				end
@@ -591,18 +594,25 @@ return Define.Module({
 				-- its type's «Подсказки в подсказках» off: it never charges
 				local lockable = LOCK[TypeOf(Read.Kind(data), main)]
 				if lock == 0 and not closed and lockable and lockable(self) then
-					self:Every(STEP, Step) -- every frame; the same target shown again keeps its charge
+					self:Spawn(Charge) -- the same target shown again keeps its charge (`started` stays)
 				end
 			end)
 		end
-		-- the mouse leaving the locked group closes it after the grace, unless it came back
-		local leaving, leftAt = false, 0
-		local function CloseIfLeft()
-			if leaving and GetTime() - leftAt >= GRACE - 0.01 then
-				leaving = false
-				Close()
+		-- the mouse leaving the locked group closes it after the grace, unless it came back: one task for the module's
+		-- life, waiting for a leave, then watching the grace out frame by frame
+		local leaving, leftAt, left = false, 0, Define.Event()
+		self:Spawn(function()
+			while true do
+				await.event(left)
+				while leaving and GetTime() < leftAt + GRACE do
+					await.frame()
+				end
+				if leaving then
+					leaving = false
+					Close()
+				end
 			end
-		end
+		end)
 		local lockCalls = {
 			OnClose = Close,
 			OnEnter = function()
@@ -610,7 +620,7 @@ return Define.Module({
 			end,
 			OnLeave = function()
 				leaving, leftAt = true, GetTime()
-				C_Timer.After(GRACE, CloseIfLeft)
+				left:Fire()
 			end,
 		}
 		-- a term or link hovered in the locked group opens its tooltip at the text; it takes no mouse and goes as the

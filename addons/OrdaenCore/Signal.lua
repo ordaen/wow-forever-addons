@@ -281,22 +281,60 @@ local function Kit()
 	return kit
 end
 
+-- The loop's tasks (Loop.lua) run here, before the flush, so what they wrote draws in the same frame: `looping` while
+-- tasks are ready; with only delays waiting, one C_Timer at the nearest due time (`wakeAt`) sets it again.
+local looping, wakeAt = false, nil
+
 -- Set once and never removed: an idle frame costs one empty call (about 0.5 µs), a busy frame no SetScript on and off
 -- (bench round 9: attaching per busy frame cost about 1.5 µs more per busy frame, and made writes 14x dearer)
+local Wake -- below
 local function OnUpdate()
+	if looping then
+		local more, due = ns.Loop.Step(GetTime())
+		looping = more
+		if not more and due then
+			Wake(due)
+		end
+	end
 	if pending then
 		Scheduler.Flush()
 	end
 end
 
+local function Frame()
+	if not frame then
+		frame = CreateFrame("Frame")
+		frame:SetScript("OnUpdate", OnUpdate)
+	end
+end
+
+local function LoopReady()
+	looping = true
+	Frame()
+end
+
+local function Woken()
+	wakeAt = nil
+	LoopReady()
+end
+
+-- a delay is due at `at` (game time): a timer then, unless one is set for that time or earlier (it steps the loop,
+-- which sets the next one)
+Wake = function(at)
+	if at and (not wakeAt or at < wakeAt) then
+		wakeAt = at
+		C_Timer.After(math.max(0, at - GetTime()), Woken)
+	end
+end
+
+-- the loop's driver hooks (the engine sets them on Loop: Loop.OnReady, Loop.OnWake)
+Scheduler.LoopReady, Scheduler.Wake = LoopReady, Wake
+
 --- Make sure a flush runs on the next frame (something was drawn or marked).
 function Scheduler.Request()
 	if not pending then
 		pending = true
-		if not frame then
-			frame = CreateFrame("Frame")
-			frame:SetScript("OnUpdate", OnUpdate)
-		end
+		Frame()
 	end
 end
 
