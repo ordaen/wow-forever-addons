@@ -285,6 +285,28 @@ function DOMAINS.Player()
 	return Player
 end
 
+function DOMAINS.Reputation()
+	-- value signals of the faction the player watches (the reputation bar's): its name, standing's label, and how far
+	-- into the standing (value from min to max); name "" while none is watched
+	local Reputation = { name = NewValue(""), standing = NewValue(""), min = NewValue(0), max = NewValue(0),
+		value = NewValue(0) }
+	local function Read()
+		local data = C_Reputation.GetWatchedFactionData()
+		if not data or not data.name or data.name == "" then
+			Reputation.name:Set("")
+			return
+		end
+		Reputation.name:Set(data.name)
+		Reputation.standing:Set(_G["FACTION_STANDING_LABEL" .. (data.reaction or 4)] or "")
+		Reputation.min:Set(data.currentReactionThreshold or 0)
+		Reputation.max:Set(data.nextReactionThreshold or 0)
+		Reputation.value:Set(data.currentStanding or 0)
+	end
+	AtLogin(Read)
+	RawEvent("UPDATE_FACTION"):Subscribe(Read, false)
+	return Reputation
+end
+
 function DOMAINS.Situation()
 	-- value signals of what the player is doing, for what shows or hides by it (Ordaen Panel's visibility)
 	local Situation = { combat = NewValue(false), resting = NewValue(false), vehicle = NewValue(false),

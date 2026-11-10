@@ -233,7 +233,8 @@ local function FaceAndMicroButtons(game)
 end
 local MICRO_FACE_LINE = Line(#MICRO + 1, 0, FaceAndMicroButtons, "micro")
 -- the character button, invisible over the whole portrait: a click on the face opens the character window
-local CHARACTER = { position = "absolute", left = 0, top = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT, opacity = 0 }
+local CHARACTER = { position = "absolute", left = 0, top = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT,
+	opacity = 0 }
 local CHARACTER_CALL = { attributes = CHARACTER }
 
 local function Level(game)
@@ -314,6 +315,8 @@ local function PortraitShown(self)
 		and self.state.micromenu == Zone.Left
 end
 
+local IsFree -- forward: whether an item is a free part now (after ZoneOf)
+
 -- One item, drawn in its zone. `vertical`: the panel runs down a side of the screen.
 local function Item(game, self, item, vertical)
 	if item == "micromenu" then
@@ -331,7 +334,7 @@ local function Item(game, self, item, vertical)
 		end
 	elseif item == "experience" then
 		if self.state.statusOn and not vertical then
-			game.ui:XpBar({ key = "xp", attributes = { fill = self.state.xpFill } })
+			game.ui:XpBar({ key = "xp", attributes = { fill = self.state.xpFill, both = IsFree(self, "experience") } })
 		end
 	elseif item == "zone" then
 		ZoneName(game, self)
@@ -363,6 +366,11 @@ local function ZoneOf(self, item)
 		return self.state.currencies
 	end
 	return self.state.bags
+end
+
+-- whether an item is a free part now: off the panel, or the panel off
+function IsFree(self, item)
+	return not self.state.bottomOn or ZoneOf(self, item) == Zone.Off
 end
 
 -- a zone's box: its items along the panel, from the zone's start, centred or to its end
@@ -474,15 +482,12 @@ for _, item in ipairs(FREE_ITEMS) do
 	}, slots = { default = slot } }
 end
 
--- whether an item is a free part now
-local function Free(self, item)
-	return not self.state.bottomOn or ZoneOf(self, item) == Zone.Off
-end
+
 
 local function FreeParts(game, self)
 	for i = 1, #FREE_ITEMS do
 		local item = FREE_ITEMS[i]
-		if Free(self, item) and (item ~= "micromenu" and item ~= "social" or self.state.microOn)
+		if IsFree(self, item) and (item ~= "micromenu" and item ~= "social" or self.state.microOn)
 			and (item ~= "experience" or self.state.statusOn) then
 			game.ui:Placed(FREE_CALLS[item])
 		end
@@ -656,7 +661,7 @@ return Define.Module({
 
 	commands = {
 		-- the portrait's look: face (the picture, in the corner's shape) or live (the 3D head)
-		portrait = { help = L.CMD_PORTRAIT, Run = function(game, self, arguments)
+		portrait = { help = L.CMD_PORTRAIT, Run = function(_, self, arguments)
 			local word = arguments:match("^%s*(%a+)") or ""
 			if word == "live" or word == "face" then
 				self.state.livePortrait = word == "live"

@@ -1,7 +1,8 @@
--- The experience bar in the panel's middle third (design/panel XpTube): a glass tube with margins on the wood, back to
--- front the trough, the rested part in pale blue and the experience fill (tiled brushed metal), engraved sections every
--- tenth, the glass shine, the bronze ring, and the share of the level done in its middle. At the level cap it shows
--- nothing (the column stays, empty).
+-- The status bars (design status-bars, panel XpTube): glass tubes with margins on the wood, back to front the trough,
+-- the fill, engraved sections every tenth, the glass shine, the bronze ring, and its text in the middle. Experience:
+-- the rested part in pale blue and the player's fill (attribute `fill`); reputation: the watched faction in steel.
+-- In the panel one tube: experience, or at the level cap the watched faction (nothing when none is); as a bar of its
+-- own (attribute `both`), the faction under the experience.
 local Define = import("@ordaen/define")
 
 local TUBE_HEIGHT = 25 -- 30 px at the user's scale: slim at a third of the screen's width (design/panel)
@@ -9,7 +10,7 @@ local MARGIN = 32 -- 38 px each side
 local INSET = TUBE_HEIGHT * 10 / 64 -- the trough's inside, as the art draws it
 local SECTIONS = 10
 
-local OUTER = { width = "100%", padding = { 0, MARGIN, 0, MARGIN }, yAlign = "center" } -- its whole cell
+local OUTER = { width = "100%", padding = { 0, MARGIN, 0, MARGIN }, yAlign = "center", columns = 1, gap = 6 / 1.2 }
 local TUBE = { height = TUBE_HEIGHT }
 local function layer(background)
 	return { attributes = { position = "absolute", left = 0, top = 0, width = "100%", height = "100%",
@@ -90,16 +91,62 @@ local function Layers(game)
 	game.ui:Box({ attributes = LABEL, slots = { default = Label } })
 end
 
-local function Tube(game)
-	game.ui:Box({ attributes = TUBE, slots = { default = Layers } })
+-- The reputation tube (design StatusBarsBar): the same glass, the steel fill, the watched faction's name, standing
+-- and how far into it ("Stormwind: Honored 40%").
+local function RepWidth(game)
+	local r = game.Reputation
+	local span = r.max:Get() - r.min:Get()
+	return span > 0 and format("%.2f%%", 100 * (r.value:Get() - r.min:Get()) / span) or "100%"
+end
+local function RepLabel(game)
+	local r = game.Reputation
+	local span = r.max:Get() - r.min:Get()
+	local share = span > 0 and floor(100 * (r.value:Get() - r.min:Get()) / span) or 100
+	return format("%s: %s %d%%", r.name:Get(), r.standing:Get(), share)
+end
+
+local function RepInner(game)
+	game.ui:Box({ attributes = {
+		position = "absolute", left = 0, top = 0, height = "100%", width = RepWidth(game),
+		background = FILLS.steel,
+	} })
+	game.ui:Box(MARKS_CALL)
+end
+
+local function RepText(game)
+	game.ui:Text({ attributes = {
+		text = RepLabel(game), textSize = 12.5, textColor = LABEL_COLOR, textOutline = "thin",
+		textShadow = LABEL_SHADOW, wrap = false,
+	} })
+end
+
+local function RepLayers(game)
+	game.ui:Box(TROUGH)
+	game.ui:Box({ attributes = INNER, slots = { default = RepInner } })
+	game.ui:Box(SHINE)
+	game.ui:Box(RING)
+	game.ui:Box({ attributes = LABEL, slots = { default = RepText } })
+end
+
+local XP_TUBE = { key = "xp", attributes = TUBE, slots = { default = Layers } }
+local REP_TUBE = { key = "reputation", attributes = TUBE, slots = { default = RepLayers } }
+
+-- what the bar shows: experience below the level cap, and the watched faction under it when `both` (a bar of its own);
+-- at the cap, the watched faction alone
+local function Tubes(game, self)
+	local max = game.Player.xpMax:Get()
+	local capped = not max or max <= 0
+	local watched = game.Reputation.name:Get() ~= ""
+	if not capped then
+		game.ui:Box(XP_TUBE)
+	end
+	if watched and (capped or self.attributes.both) then
+		game.ui:Box(REP_TUBE)
+	end
 end
 
 return Define.Component({
 	Render = function(game)
-		local max = game.Player.xpMax:Get()
-		if not max or max <= 0 then
-			return -- the level cap: no bar
-		end
-		game.ui:Box({ attributes = OUTER, slots = { default = Tube } })
+		game.ui:Box({ attributes = OUTER, slots = { default = Tubes } })
 	end,
 })

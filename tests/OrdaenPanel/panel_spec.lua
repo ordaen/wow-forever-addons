@@ -297,3 +297,50 @@ describe("Ordaen Panel's experience bar", function()
 		assert.is_true(right < wow.env.MainMenuBarBackpackButton:GetLeft(), "the tube runs over the bags")
 	end)
 end)
+
+describe("Ordaen Panel's reputation bar", function()
+	local function Panel(db, setup)
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenPanel" } })
+		local home = wow.env.CreateFrame("Frame", "BagsBar", wow.env.UIParent)
+		for _, name in ipairs(BLIZZARD) do
+			wow.env.CreateFrame("Button", name, home):SetSize(45, 45)
+		end
+		wow.env.OrdaenPanelDB = { module = db }
+		if setup then
+			setup(wow)
+		end
+		wow:Login()
+		wow:Tick()
+		return wow
+	end
+	local function Shown(wow, text)
+		for frame in pairs(wow.allFrames) do
+			for _, r in ipairs(frame._regions) do
+				if r.GetText and r:GetText() == text and r:IsVisible() then
+					return true
+				end
+			end
+		end
+		return false
+	end
+
+	it("shows the experience in the panel, the watched faction only at the level cap", function()
+		local wow = Panel({})
+		assert.is_true(Shown(wow, "50%"))
+		assert.is_false(Shown(wow, "Stormwind: Honored 40%"))
+		local capped = Panel({}, function(w)
+			w.env.UnitXPMax = function()
+				return 0
+			end
+		end)
+		assert.are.same({}, capped.errors)
+		assert.is_true(Shown(capped, "Stormwind: Honored 40%"))
+	end)
+
+	it("shows the watched faction under the experience as a bar of its own", function()
+		local wow = Panel({ experience = "off" })
+		assert.are.same({}, wow.errors)
+		assert.is_true(Shown(wow, "50%"))
+		assert.is_true(Shown(wow, "Stormwind: Honored 40%"))
+	end)
+end)

@@ -1553,6 +1553,17 @@ function Wow:MakeEnv()
 	offer("UnitInVehicle", function()
 		return false
 	end)
+	-- the watched faction: Stormwind, Honored, 40% into it (a spec sets wow.watched = false for none)
+	offer("C_Reputation", {
+		GetWatchedFactionData = function()
+			if wow.watched == false then
+				return nil
+			end
+			return { name = "Stormwind", reaction = 6, currentReactionThreshold = 9000, nextReactionThreshold = 21000,
+				currentStanding = 13800 }
+		end,
+	})
+	offer("FACTION_STANDING_LABEL6", "Honored")
 	offer("C_PetBattles", {
 		IsInBattle = function()
 			return false
