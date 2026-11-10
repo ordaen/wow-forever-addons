@@ -368,10 +368,13 @@ return Define.Module({
 	commands = {},
 
 	Render = function(game, self)
-		-- Blizzard's minimap furniture: the cluster (its zone text, clock, calendar and compartment buttons, the round
-		-- decorations) hidden; the dev addon's gear replaced by the Ordaen button
+		-- Blizzard's minimap furniture: the cluster (its zone text, clock, calendar and compartment buttons) and the map's
+		-- round border hidden; the dev addon's own button replaced by the Ordaen button
 		game.ui:Frame(game.Frame.MinimapCluster, { attributes = { shown = false } })
-		game.ui:Frame(game.Frame.OrdaenDevButton, { attributes = { shown = false } })
+		game.ui:Frame(game.Frame.MinimapBackdrop, { attributes = { shown = false } }) -- the round border
+		if game.Ordaen.devButton:Get() then
+			game.ui:Frame(game.Frame.OrdaenDevButton, { attributes = { shown = false } })
+		end
 		local hide = self.state.hide
 		if hide == Hide.Combat and game.Situation.combat:Get()
 			or hide == Hide.Transport and (game.Situation.taxi:Get() or game.Situation.vehicle:Get()) then

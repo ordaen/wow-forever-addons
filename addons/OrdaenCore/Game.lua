@@ -205,7 +205,12 @@ end
 function DOMAINS.Ordaen()
 	local _, title = C_AddOns.GetAddOnInfo("OrdaenCore")
 	local Ordaen = { title = title, icon = C_AddOns.GetAddOnMetadata("OrdaenCore", "IconTexture"),
-		dev = NewValue(false) }
+		dev = NewValue(false), devButton = NewValue(_G.OrdaenDevButton) }
+	-- the dev addon's own minimap button, for a module that takes its place: there now, or when the dev addon makes it
+	-- (it announces it: rule 8, handovers on an event)
+	EventRegistry:RegisterCallback("OrdaenDevButton.Created", function(_, button)
+		Ordaen.devButton:Set(button)
+	end)
 	--- Ordaen's settings window, as /ordaen opens it; `page`: a module's word (/ordaen minimap) for its page.
 	function Ordaen:OpenSettings(page) -- luacheck: ignore 212
 		ns.Commands.OpenSettings(page)

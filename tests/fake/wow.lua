@@ -1792,6 +1792,19 @@ function Wow:MakeEnv()
 			return false
 		end,
 	})
+	-- Blizzard's callback registry: callbacks by event, run in the order registered, with the owner first
+	local callbacks = {}
+	offer("EventRegistry", {
+		RegisterCallback = function(_, event, fn, owner)
+			callbacks[event] = callbacks[event] or {}
+			table.insert(callbacks[event], { fn = fn, owner = owner })
+		end,
+		TriggerEvent = function(_, event, ...)
+			for _, c in ipairs(callbacks[event] or {}) do
+				c.fn(c.owner, ...)
+			end
+		end,
+	})
 	offer("C_Map", { GetBestMapForUnit = function()
 		return nil
 	end })
