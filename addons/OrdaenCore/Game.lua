@@ -99,7 +99,8 @@ function DOMAINS.Layer()
 end
 
 --- Blizzard's frames by reference: `game.Frame.CombinedBags:Get()`.
-local FRAME_NAMES = { CombinedBags = "ContainerFrameCombinedBags", Minimap = "Minimap", Merchant = "MerchantFrame" }
+local FRAME_NAMES = { CombinedBags = "ContainerFrameCombinedBags", Minimap = "Minimap", Merchant = "MerchantFrame",
+	Professions = "ProfessionsFrame" }
 -- the micro menu, the bag bar, the XP and reputation bars and the social button by the chat, under their own names
 -- (every one in the dump of 70862)
 for _, name in ipairs({
@@ -496,6 +497,218 @@ end
 
 function DOMAINS.ItemQuality()
 	return Enum.ItemQuality
+end
+
+-- Professions -------------------------------------------------------------------------------------------------------
+
+-- A profession's kind (design professions/: crafting, gathering, secondary).
+---@enum OrdaenProfessionKind
+local ProfessionKind = { Crafting = "crafting", Gathering = "gathering", Secondary = "secondary" }
+-- the gathering professions by skill line: herbalism, mining, skinning
+local GATHERING = { [182] = true, [186] = true, [393] = true }
+
+---@class OrdaenProfession
+---@field skillLine integer
+---@field name string
+---@field icon integer
+---@field rank integer
+---@field max integer
+---@field kind OrdaenProfessionKind
+
+function DOMAINS.Professions()
+	-- list: the character's professions in the game's order (main ones first), one kept record each; version: a value
+	-- signal that changes whenever the records are refilled
+	local Professions = { Kind = ProfessionKind, list = {}, version = NewValue(0) }
+	local list = Professions.list
+	local function Read()
+		local n = 0
+		local indexes = { GetProfessions() } -- luacheck: ignore (once per skill change, not per frame)
+		for slot = 1, 6 do
+			local index = indexes[slot]
+			if index then
+				local name, icon, rank, max, _, _, skillLine = GetProfessionInfo(index)
+				if skillLine then
+					n = n + 1
+					local p = list[n] or {}
+					list[n] = p
+					p.skillLine, p.name, p.icon, p.rank, p.max = skillLine, name, icon, rank, max
+					p.kind = GATHERING[skillLine] and ProfessionKind.Gathering
+						or slot <= 2 and ProfessionKind.Crafting or ProfessionKind.Secondary
+				end
+			end
+		end
+		for i = n + 1, #list do
+			list[i] = nil
+		end
+		Professions.version:Set(Professions.version:Peek() + 1)
+	end
+	AtLogin(Read)
+	RawEvent("SKILL_LINES_CHANGED"):Subscribe(Read, false)
+	return Professions
+end
+
+-- A recipe's difficulty for the player now (the game's Enum.TradeskillRelativeDifficulty).
+---@enum OrdaenRecipeDifficulty
+local RecipeDifficulty = { Optimal = 0, Medium = 1, Easy = 2, Trivial = 3 }
+
+---@class OrdaenRecipe
+---@field id integer
+---@field name string
+---@field icon integer
+---@field categoryID integer
+---@field difficulty OrdaenRecipeDifficulty
+---@field learned boolean
+---@field favorite boolean
+---@field craftable integer how many the bags have reagents for now
+---@field grey integer the skill at which it stops raising the skill
+
+---@class OrdaenTradeSkillCategory
+---@field id integer
+---@field name string
+---@field parentID integer|nil nil for a header
+
+---@class OrdaenReagent
+---@field itemID integer
+---@field need integer
+---@field have integer
+
+function DOMAINS.TradeSkill()
+	local TS = C_TradeSkillUI
+	-- open: the open profession's skill line, nil while none is; recipes and categories: the open profession's, kept
+	-- records refilled when the game's list changes; version changes on each refill
+	local TradeSkill = {
+		Difficulty = RecipeDifficulty, open = NewValue(nil), recipes = {}, categories = {}, version = NewValue(0),
+		Signal = { Shown = RawEvent("TRADE_SKILL_SHOW"), Closed = RawEvent("TRADE_SKILL_CLOSE") },
+	}
+	local recipes, categories = TradeSkill.recipes, TradeSkill.categories
+	local byID = {} -- recipe id -> its record
+
+	local function ReadCategories()
+		local n = 0
+		local headers = { TS.GetCategories() } -- luacheck: ignore (on a list change only)
+		local skillLine
+		for h = 1, #headers do
+			local info = TS.GetCategoryInfo(headers[h])
+			if info then
+				skillLine = skillLine or info.skillLineID
+				n = n + 1
+				local c = categories[n] or {}
+				categories[n] = c
+				c.id, c.name, c.parentID = info.categoryID, info.name, nil
+				local subs = { TS.GetSubCategories(headers[h]) } -- luacheck: ignore
+				for s = 1, #subs do
+					local sub = TS.GetCategoryInfo(subs[s])
+					if sub then
+						n = n + 1
+						local d = categories[n] or {}
+						categories[n] = d
+						d.id, d.name, d.parentID = sub.categoryID, sub.name, info.categoryID
+					end
+				end
+			end
+		end
+		for i = n + 1, #categories do
+			categories[i] = nil
+		end
+		return skillLine
+	end
+
+	local function ReadRecipes()
+		local ids = TS.GetAllRecipeIDs()
+		local n = 0
+		for i = 1, #ids do
+			local info = TS.GetRecipeInfo(ids[i])
+			if info then
+				n = n + 1
+				local r = recipes[n] or {}
+				recipes[n] = r
+				r.id, r.name, r.icon, r.categoryID = info.recipeID, info.name, info.icon, info.categoryID
+				r.difficulty, r.learned, r.favorite = info.relativeDifficulty, info.learned, info.favorite
+				r.craftable = info.learned and TS.GetCraftableCount(info.recipeID) or 0
+				r.grey = info.maxTrivialLevel
+				byID[r.id] = r
+			end
+		end
+		for i = n + 1, #recipes do
+			byID[recipes[i].id] = nil
+			recipes[i] = nil
+		end
+	end
+
+	local function Refill()
+		if not TradeSkill.open:Peek() then
+			return
+		end
+		ReadCategories()
+		ReadRecipes()
+		TradeSkill.version:Set(TradeSkill.version:Peek() + 1)
+	end
+	TradeSkill.Signal.Shown:Subscribe(function()
+		TradeSkill.open:Set(ReadCategories() or true)
+		Refill()
+	end, false)
+	TradeSkill.Signal.Closed:Subscribe(function()
+		TradeSkill.open:Set(nil)
+	end, false)
+	RawEvent("TRADE_SKILL_LIST_UPDATE"):Subscribe(function()
+		local skillLine = ReadCategories()
+		if TradeSkill.open:Peek() and skillLine then
+			TradeSkill.open:Set(skillLine)
+		end
+		Refill()
+	end, false)
+	RawEvent("BAG_UPDATE_DELAYED"):Subscribe(Refill, false) -- what the bags can make changes with them
+
+	--- The recipe's record, nil when it isn't the open profession's.
+	function TradeSkill:Recipe(id) -- luacheck: ignore 212
+		return byID[id]
+	end
+	--- Opens a profession by its skill line (the game's own window opens with it; the module hides it).
+	function TradeSkill:Open(skillLine) -- luacheck: ignore 212
+		TS.OpenTradeSkill(skillLine)
+	end
+	function TradeSkill:Close() -- luacheck: ignore 212
+		TS.CloseTradeSkill()
+	end
+	-- the chosen recipe's reagents and output, refilled by Schematic: one kept table
+	local schematic = { reagents = {}, outputItemID = nil, makes = 1 }
+	TradeSkill.schematic = schematic
+	--- A recipe's reagents (need and have) and what it makes: one kept table, refilled on each call.
+	function TradeSkill:Schematic(id) -- luacheck: ignore 212
+		local s = TS.GetRecipeSchematic(id, false)
+		local reagents, n = schematic.reagents, 0
+		if s then
+			schematic.outputItemID, schematic.makes = s.outputItemID, s.quantityMin or 1
+			local slots = s.reagentSlotSchematics
+			for i = 1, #slots do
+				local slot = slots[i]
+				local first = slot.reagents and slot.reagents[1]
+				if first and first.itemID and slot.required then
+					n = n + 1
+					local r = reagents[n] or {}
+					reagents[n] = r
+					r.itemID, r.need = first.itemID, slot.quantityRequired
+					r.have = C_Item.GetItemCount(first.itemID)
+				end
+			end
+		end
+		for i = n + 1, #reagents do
+			reagents[i] = nil
+		end
+		return schematic
+	end
+	--- What the work needs (tools, an anvil, a fire): the game's list, each { name, met }.
+	function TradeSkill:Requirements(id) -- luacheck: ignore 212
+		return TS.GetRecipeRequirements(id)
+	end
+	--- Makes `count` of a recipe: only from a click (the game takes it from a hardware event).
+	function TradeSkill:Craft(id, count) -- luacheck: ignore 212
+		TS.CraftRecipe(id, count)
+	end
+	function TradeSkill:SetFavorite(id, on) -- luacheck: ignore 212
+		TS.SetRecipeFavorite(id, on)
+	end
+	return TradeSkill
 end
 
 setmetatable(Game, {
