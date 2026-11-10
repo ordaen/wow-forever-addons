@@ -133,23 +133,23 @@ end
 local PARKED_CALL = { key = "parked", attributes = { position = "absolute", left = 0, top = 0, width = 0, height = 0 },
 	slots = { default = Parked } }
 
--- The bags, left to right (design/panel): the backpack, then the four bags. Each is a slot on the wood (design
--- ItemSlot: 38 px, a bronze edge inside it) holding Blizzard's button with only its icon showing (look = "icon"), so
--- its click, drag and tooltip stay Blizzard's.
+-- The bags, left to right (design/panel): the backpack, then the four bags. Each is a cell like the micro menu's (its
+-- side rims on the wood) with Blizzard's button in it showing only its icon (look = "icon"), square, the cell's full
+-- height, so its click, drag and tooltip stay Blizzard's.
 local BAGS = {
 	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
 }
-local SLOT_SIDE = 38 / 1.2
-local SLOT = { width = SLOT_SIDE, height = SLOT_SIDE, border = Define.Theme.panel.slotEdge }
-local SLOT_BUTTON = { attributes = {
-	position = "absolute", left = 1, top = 1, width = SLOT_SIDE - 2, height = SLOT_SIDE - 2, look = "icon",
+local BAG_ICON = { attributes = {
+	position = "absolute", left = (CELL_WIDTH - CELL_HEIGHT) / 2, top = 0, width = CELL_HEIGHT, height = CELL_HEIGHT,
+	look = "icon",
 } }
 -- the backpack's free slots in the slot's lower right (design ItemSlot .n: 14 px bold numbers, white, outlined), over
 -- Blizzard's button; Blizzard's own count, "(23)" under the icon, is hidden
 local function Free(game)
 	if game.Bags.free:Get() then
 		game.ui:Text({ attributes = {
-			text = tostring(game.Bags.free:Get()), position = "absolute", right = 3 / 1.2, bottom = 1 / 1.2, textSize = 14 / 1.2,
+			text = tostring(game.Bags.free:Get()), position = "absolute", right = (CELL_WIDTH - CELL_HEIGHT) / 2 + 3 / 1.2,
+			bottom = 1 / 1.2, textSize = 14 / 1.2,
 			textColor = { 1, 1, 1, 1 }, textFamily = Define.Theme.font.numbers,
 			textOutline = "thin", zLevel = 1,
 		} })
@@ -159,8 +159,8 @@ end
 local BAG_CALLS = {}
 for i = 1, #BAGS do
 	local frame = BAGS[i]
-	BAG_CALLS[i] = { key = i, attributes = SLOT, slots = { default = function(game)
-		game.ui:Embed(game.Frame[frame], SLOT_BUTTON)
+	BAG_CALLS[i] = { key = i, attributes = CELL, slots = { default = function(game)
+		game.ui:Embed(game.Frame[frame], BAG_ICON)
 		if i == 1 then
 			Free(game)
 		end
@@ -213,7 +213,7 @@ end
 
 local MICRO_LINE = Line(#MICRO, 0, MicroButtons, "micro")
 local SOCIAL_LINE = Line(#SOCIAL, 0, SocialButtons, "social")
-local BAG_LINE = Line(#BAGS, 6 / 1.2, BagButtons, "bags")
+local BAG_LINE = Line(#BAGS, 0, BagButtons, "bags")
 -- the character button as a cell: the face, round with a thin dark rim (design .face, 40 px), with Blizzard's button
 -- invisible over the cell like the others
 local FACE_SIDE = 40 / 1.2
