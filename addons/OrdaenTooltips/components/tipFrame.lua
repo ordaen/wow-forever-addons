@@ -42,7 +42,7 @@ local STEPS = 100 -- the charge's steps (the module's: per cent)
 -- the lock's bar: 2 px in the bottom padding, 2 px up, bronze to gold; its width the charge (a string per step, made once)
 -- the lock's bar: the tooltip's last section, 8 px under the content: a dark track, gold filling it as it charges
 local TRACK = { 0, 0, 0, 0.45 }
-local BAR_GOLD = { 0.91, 0.765, 0.353, 1 } -- --o-gold #e8c35a
+local BAR_GOLD = { 0.839, 0.647, 0.420, 0.5 } -- the rules' bronze, half strength: it fills quietly, never louder than the text
 local BAR_HEIGHT = 3
 local BAR_WIDTHS = {}
 for i = 0, STEPS do
