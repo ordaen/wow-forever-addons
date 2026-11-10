@@ -34,7 +34,7 @@ local BANDAGE = { type = 1, id = 746, lines = {
 } }
 local SHOUT = { type = 1, id = 6673, lines = {
 	{ type = 13, leftText = "Battle Shout", rightText = "Rank 1" },
-	{ type = 0, leftText = "Rage: 10", rightText = "Melee range", leftColor = Color(1, 1, 1) }, -- Forever's form
+	{ type = 0, leftText = "Rage: 10", rightText = "Melee Range", leftColor = Color(1, 1, 1) }, -- Forever's form
 	{ type = 0, leftText = "Instant", rightText = "Cooldown: 10 sec.", leftColor = Color(1, 1, 1) },
 	{ type = 34, leftText = "The warrior shouts, increasing attack power by 15 for «Battle Shout»." },
 } }
@@ -249,7 +249,8 @@ describe("Ordaen Tooltips", function()
 		wow:ShowTooltip("GameTooltip", SHOUT)
 		ns.Scheduler.Flush()
 		local shown = texts()
-		has(shown, "Battle Shout", "Rank 1", "Melee range", "CD 10 sec.")
+		has(shown, "Battle Shout", "Rank 1", "5 yd", "CD 10 sec.") -- melee range: its distance
+		assert.is_falsy(shown:find("Melee range", 1, true))
 		has(shown, "|cffffffff15|r", "|cffffd100«Battle Shout»|r")
 		assert.is_falsy(shown:find("Cooldown:", 1, true)) -- the cooldown in short
 		assert.is_falsy(shown:find("Rage:", 1, true)) -- the cost: its dot and number

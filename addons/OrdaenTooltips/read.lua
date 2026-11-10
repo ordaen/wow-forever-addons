@@ -625,7 +625,12 @@ local function SpellCell(model, text, first, right, L, cost, cast)
 			text, term = "CD " .. Value(text), "cd"
 		end
 	elseif first then -- the range, on the cost's right or alone
-		text, term = (Value(text):gsub("%.$", "")), "range"
+		if text == MELEE_RANGE or text == L.MELEE_RANGE_TEXT then
+			-- «Дистанция ближнего боя»: its distance, the full name in its term's tooltip
+			text, term = L.MELEE_RANGE_SHORT, "melee"
+		else
+			text, term = (Value(text):gsub("%.$", "")), "range"
+		end
 	end
 	Cell(model, text, nil, glyph, tint, term, amount)
 	return isCast

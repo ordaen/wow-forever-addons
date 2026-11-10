@@ -209,5 +209,9 @@
   "TERM_HEALTH": "Health: %s",
   "TERM_HEALTH_TEXT": "The ability's cost in health: using it, you lose this much health.",
   "TERM_FOCUS": "Focus: %s",
-  "TERM_FOCUS_TEXT": "The ability's focus cost. Focus comes back steadily, up to 100."
+  "TERM_FOCUS_TEXT": "The ability's focus cost. Focus comes back steadily, up to 100.",
+  "MELEE_RANGE_SHORT": "5 yd",
+  "MELEE_RANGE_TEXT": "Melee Range",
+  "TERM_MELEE": "Melee range",
+  "TERM_MELEE_TEXT": "About 5 yd: the target must be within a weapon's reach. Larger creatures (bosses, dragons) can be hit from further."
 }
