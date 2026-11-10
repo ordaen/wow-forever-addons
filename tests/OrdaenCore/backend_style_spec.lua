@@ -754,9 +754,13 @@ describe("backend styles", function()
 		local base = ns.Theme["frame.small"]
 		for path, value in pairs(ns.Theme) do
 			if type(value) == "table" and value.nineSlice then
-				for _, key in ipairs({ "nineSlice", "scale", "width", "reach", "curves" }) do
+				for _, key in ipairs({ "nineSlice", "scale", "width", "curves", "lineStart" }) do
 					assert.are.equal(base[key], value[key], path .. " differs in " .. key)
 				end
+				-- the art's thickness on each side: the left edge's on the right too when the frame is rounded (its right
+				-- side is the left edge mirrored)
+				local right = value.radius and base.reach[4] or base.reach[2]
+				assert.are.same({ base.reach[1], right, base.reach[3], base.reach[4] }, value.reach, path .. " reach")
 			end
 		end
 	end)
@@ -1281,7 +1285,9 @@ describe("backend styles", function()
 					assert.is_true(tex:GetTop() <= T + e and tex:GetBottom() >= B - e, where .. ": past the top or bottom")
 				end
 			end
-			assert.is_true(drawn > 0, name .. " drew no art")
+			-- a frame naming no side draws nothing (a picture cut by another's curve)
+			local sides = ns.Theme[name].sides
+			assert.is_true(drawn > 0 or (sides and #sides == 0), name .. " drew no art")
 			-- drawn again (taken off and put back: ApplyBorder hides every piece first): the mitred corners keep their
 			-- masks shown, or they draw as a cross
 			Backend:Set(box, { position = "absolute", left = 100, top = 100, width = 300, height = 200,
@@ -1291,7 +1297,7 @@ describe("backend styles", function()
 				border = ref(name), background = ref("window.wood") })
 			Backend:Flush()
 			for _, key in ipairs({ "tlSideMask", "tlTopMask", "trSideMask", "trTopMask" }) do
-				local mask = box.frameArt[key]
+				local mask = box.frameArt and box.frameArt[key]
 				if mask then
 					assert.is_true(mask:IsShown(), name .. " " .. key .. " hidden after a redraw")
 				end

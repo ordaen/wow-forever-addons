@@ -32,12 +32,18 @@ local METAL_REACH = { 14.5, 4.5, 10, 14.5 }
 -- the outer side: small 8 px, large 14 px at the user's scale (1.2 px a unit, the art at half size); a flare is the
 -- line's visible 21 units, bent round its outer side.
 local METAL_CURVES = { small = 8 / 1.2 / 0.5 + 14, large = 14 / 1.2 / 0.5 + 14, flare = 21 }
+-- where the line starts in its edge's art, in from the box's edge (art units at scale 1): a box placing a line of its
+-- own against another's reads it
+local METAL_LINE_START = 10
+-- a rounded frame's right side is the left edge mirrored (Backend), as deep as its left
+local METAL_REACH_ROUND = { METAL_REACH[1], METAL_REACH[4], METAL_REACH[3], METAL_REACH[4] }
 local function Metal(sides, inset, radius, flare)
 	return { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = inset or -1.5,
-		reach = METAL_REACH, sides = sides, curves = METAL_CURVES, radius = radius, flare = flare }
+		reach = radius and METAL_REACH_ROUND or METAL_REACH, sides = sides, curves = METAL_CURVES, radius = radius,
+		flare = flare, lineStart = METAL_LINE_START }
 end
 local TAB_CORNERS = { tl = "large", tr = "large" }
-local ICON_CORNER = { br = "small" }
+local NO_SIDES = {}
 
 ns.Theme = {
 	["color.surface"] = { 0.06, 0.06, 0.08, 0.92 },
@@ -79,9 +85,13 @@ ns.Theme = {
 	["frame.tab"] = Metal({ "top", "left", "right" }, nil, TAB_CORNERS),
 	["frame.tabOpen"] = Metal({ "top", "left", "right" }, nil, TAB_CORNERS, { "left", "right" }),
 	["frame.tabOpenFirst"] = Metal({ "top", "left", "right" }, nil, TAB_CORNERS, { "right" }),
-	-- the icon's picture runs under its line to the box's right edge (the right reach times the scale, back)
-	["frame.tabIcon"] = Metal({ "right" }, -2.25),
-	["frame.tabIconOpen"] = Metal({ "right", "bottom" }, -2.25, ICON_CORNER),
+	-- a tab's icon: its picture cut by the tab's top-left curve (no side of its own: the tab's frame lies over it); the
+	-- line on its right, the metal's left edge standing at the picture's right (the open tab's curving out at its
+	-- bottom into the body's line, which runs on under the picture: the body's top line again)
+	["frame.tabIconClip"] = Metal(NO_SIDES, nil, { tl = "large" }),
+	["frame.tabIconLine"] = Metal({ "left" }),
+	["frame.tabIconLineOpen"] = Metal({ "left" }, nil, nil, { "left" }),
+	["frame.tabIconUnder"] = Metal({ "top" }),
 	-- a button on the minimap's ring (design Minimap .ring): a 34 px dark disc in a bronze ring with a black edge,
 	-- drawn whole (rows 0 the button, 1 the light ring over it under the cursor, 2 lit: the drawer open)
 	["minimap.ring"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\minimap-ring", size = { 128, 512 }, cap = 0,

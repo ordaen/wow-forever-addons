@@ -653,9 +653,13 @@ end
 -- (border.reach) is counted in the layout's border widths and the fill's inset. A side not drawn leaves its
 -- neighbours running to the box's edge. Anchored to the box's corners: no size needed.
 local MITRE = "Interface\\AddOns\\OrdaenCore\\media\\mitre-"
-local CURVE = "Interface\\AddOns\\OrdaenCore\\media\\metal-"
--- a corner piece's texture coordinates: the top-left piece as made, the others mirrored
-local CORNER_COORDS = { tl = { 0, 1, 0, 1 }, tr = { 1, 0, 0, 1 }, bl = { 0, 1, 1, 0 }, br = { 1, 0, 1, 0 } }
+-- the curves' files, a corner piece's texture coordinates (the top-left piece as made, the others mirrored) and each
+-- corner's point: one table (the file is near Lua's 200 locals)
+local CURVE = {
+	file = "Interface\\AddOns\\OrdaenCore\\media\\metal-",
+	coords = { tl = { 0, 1, 0, 1 }, tr = { 1, 0, 0, 1 }, bl = { 0, 1, 1, 0 }, br = { 1, 0, 1, 0 } },
+	points = { tl = "TOPLEFT", tr = "TOPRIGHT", bl = "BOTTOMLEFT", br = "BOTTOMRIGHT" },
+}
 
 local function artPiece(frame, sub)
 	local tex = frame:CreateTexture(nil, "BORDER", nil, sub)
@@ -785,11 +789,17 @@ function Node:ApplyFrameArt(border)
 	local rightAtlas, rightW = atlasSize(layout.RightEdge)
 	if right and rightAtlas then
 		local tex = piece("right", 0)
-		tex:SetAtlas(rightAtlas)
+		-- a rounded frame's right side is its left edge mirrored, so its line lies as deep as its curves' (Blizzard's
+		-- right edge sits its line nearer the edge)
+		local mirrored = border.radius ~= nil
+		tex:SetAtlas(mirrored and leftAtlas or rightAtlas)
+		if mirrored then
+			tex:SetTexCoord(1, 0, 0, 1)
+		end
 		tex:SetVertTile(true)
 		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -(rTR or (top and D + T or 0)))
 		tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, fR and F or rBR or (bottom and brH or 0))
-		tex:SetWidth(snap(rightW * k))
+		tex:SetWidth(mirrored and T or snap(rightW * k))
 	end
 	if bottom and left and blAtlas and not rBL then
 		local tex = piece("bl", 1)
@@ -806,28 +816,28 @@ function Node:ApplyFrameArt(border)
 	-- the rounded corners and the flares
 	local function curve(key, file, size, point, coords)
 		local tex = piece(key, 1)
-		tex:SetTexture(CURVE .. file)
+		tex:SetTexture(CURVE.file .. file)
 		tex:SetTexCoord(coords[1], coords[2], coords[3], coords[4])
 		tex:SetPoint(point, frame, point, 0, 0)
 		tex:SetSize(size, size)
 	end
 	if rTL then
-		curve("roundTL", "corner-" .. radius.tl, rTL, "TOPLEFT", CORNER_COORDS.tl)
+		curve("roundTL", "corner-" .. radius.tl, rTL, "TOPLEFT", CURVE.coords.tl)
 	end
 	if rTR then
-		curve("roundTR", "corner-" .. radius.tr, rTR, "TOPRIGHT", CORNER_COORDS.tr)
+		curve("roundTR", "corner-" .. radius.tr, rTR, "TOPRIGHT", CURVE.coords.tr)
 	end
 	if rBL then
-		curve("roundBL", "corner-" .. radius.bl, rBL, "BOTTOMLEFT", CORNER_COORDS.bl)
+		curve("roundBL", "corner-" .. radius.bl, rBL, "BOTTOMLEFT", CURVE.coords.bl)
 	end
 	if rBR then
-		curve("roundBR", "corner-" .. radius.br, rBR, "BOTTOMRIGHT", CORNER_COORDS.br)
+		curve("roundBR", "corner-" .. radius.br, rBR, "BOTTOMRIGHT", CURVE.coords.br)
 	end
 	if fL then
-		curve("flareL", "flare", F, "BOTTOMLEFT", CORNER_COORDS.tl)
+		curve("flareL", "flare", F, "BOTTOMLEFT", CURVE.coords.tl)
 	end
 	if fR then
-		curve("flareR", "flare", F, "BOTTOMRIGHT", CORNER_COORDS.tr)
+		curve("flareR", "flare", F, "BOTTOMRIGHT", CURVE.coords.tr)
 	end
 	-- the mitred top corners: the side's square (lower half), the turned top's square (upper half)
 	if top and left and not rTL then
@@ -872,6 +882,52 @@ function Node:ApplyFrameArt(border)
 		art.trTopMask:SetAllPoints(side)
 		art.trSideMask:Show()
 		art.trTopMask:Show()
+	end
+end
+
+-- A frame's rounded corners cut its fill (the background picture: wood, an icon) to their curve: one mask per
+-- corner (media/metal-clip-<size>-<corner>), as large as the curve's piece, at the corner. Clamped at its edges, so
+-- the rest of the fill stays whole. A corner rounded with no side drawn still cuts (a picture under another box's
+-- curve).
+function Node:ApplyClip(border)
+	local masks = self.clipMasks
+	local radius = type(border) == "table" and border.radius
+	if masks then
+		for corner, mask in next, masks do
+			if self.bg then
+				self.bg:RemoveMaskTexture(mask)
+			end
+			mask:Hide()
+			masks[corner] = nil
+		end
+	end
+	if not radius then
+		return
+	end
+	local k, curves = border.scale or 1, border.curves
+	for corner, point in next, CURVE.points do
+		local name = radius[corner]
+		if name then
+			masks = masks or {}
+			self.clipMasks = masks
+			local pool = self.clipPool or {}
+			self.clipPool = pool
+			local mask = pool[corner]
+			if not mask then
+				mask = self.frame:CreateMaskTexture()
+				pool[corner] = mask
+			end
+			mask:SetTexture(CURVE.file .. "clip-" .. name .. "-" .. corner, "CLAMP", "CLAMP")
+			mask:ClearAllPoints()
+			mask:SetPoint(point, self.frame, point, 0, 0)
+			local size = snap(curves[name] * k)
+			mask:SetSize(size, size)
+			mask:Show()
+			masks[corner] = mask
+			if self.bg then
+				self.bg:AddMaskTexture(mask)
+			end
+		end
 	end
 end
 
@@ -925,6 +981,9 @@ function Node:ApplyBorder(border)
 	end
 	if self.artFrame and not (type(border) == "table" and border.nineSlice) then
 		self.artFrame:Hide()
+	end
+	if self.clipMasks or type(border) == "table" and border.radius then
+		self:ApplyClip(border)
 	end
 	if type(border) ~= "table" or t + r + b + l == 0 then
 		return
@@ -1719,6 +1778,11 @@ function Node:ApplyLook()
 				self.bg = tex
 				if self.maskTex then
 					tex:AddMaskTexture(self.maskTex)
+				end
+				if self.clipMasks then
+					for _, mask in next, self.clipMasks do
+						tex:AddMaskTexture(mask)
+					end
 				end
 			end
 			local c = color(bg)

@@ -4,6 +4,8 @@
 #
 #   metal-corner-small/large  a top-left corner: the line's outer side on an arc of radius S round the square's
 #                             bottom-right corner (S the square's side); the others are this one turned and flipped
+#   metal-clip-<size>-<corner> a corner's shape as a mask, one per corner: inside where the line starts, out past it (the box's
+#                             fill and a child's picture are cut with it, so nothing shows outside the curve)
 #   metal-flare               the bottom-left inward curve where a side meets a line below it (an open tab on its
 #                             window's body): the line's outer side on an arc of radius 0 round the square's top-left
 #
@@ -76,6 +78,20 @@ for name, px_radius in (("small", 8), ("large", 14)):
         return sample(S - d)
 
     render(S, corner, f"{OUT}/metal-corner-{name}.tga")
+
+# where the line starts, in from its outer side (the first visible column of the edge): the clip's edge
+START = min(i for i, p in enumerate(profile) if p[3] > 0) / UNIT
+for name, S in SIZES.items():
+
+    def clip(ux, uy, S=S):
+        return (255.0, 255.0, 255.0, 1.0) if math.hypot(S - ux, S - uy) <= S - START else (0.0, 0.0, 0.0, 0.0)
+
+    render(S, clip, f"{OUT}/metal-clip-{name}-tl.tga")
+    # a mask can't be mirrored by its coordinates: one file per corner
+    base = Image.open(f"{OUT}/metal-clip-{name}-tl.tga")
+    base.transpose(Image.FLIP_LEFT_RIGHT).save(f"{OUT}/metal-clip-{name}-tr.tga")
+    base.transpose(Image.FLIP_TOP_BOTTOM).save(f"{OUT}/metal-clip-{name}-bl.tga")
+    base.transpose(Image.ROTATE_180).save(f"{OUT}/metal-clip-{name}-br.tga")
 
 # the inward curve: the line's outer side on an arc of radius 0 round the square's top-left, out to its visible end
 FLARE = VISIBLE

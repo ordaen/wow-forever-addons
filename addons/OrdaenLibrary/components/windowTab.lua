@@ -10,8 +10,8 @@
 -- Attributes: `window` (the Window it belongs to: its `title`, or its `tabs`, each { title, desc, icon }, and
 -- `selected`), `index` (this tab's in them), `height` (the open tab's, UI units: from the window's top to the inner
 -- side of the body's top line, where its curves end; a closed one is 5 px less), `under` (the layer under the body:
--- it shows the tab only while closed; else only while open), `OnPick` (a click on a closed tab), `OnDragStart`, `OnDrag`, `OnDragStop`
--- (dragging the tab: Window's move).
+-- it shows the tab only while closed; else only while open), `OnPick` (a click on a closed tab), `OnDragStart`,
+-- `OnDrag`, `OnDragStop` (dragging the tab: Window's move).
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
@@ -28,7 +28,8 @@ local MIN_TAB = 120 * PX -- the tab's smallest width; wider as its label needs
 local WOOD = Define.Theme.window.wood
 local FRAME, FRAME_OPEN, FRAME_OPEN_FIRST = Define.Theme.frame.tab, Define.Theme.frame.tabOpen,
 	Define.Theme.frame.tabOpenFirst
-local ICON_FRAME, ICON_FRAME_OPEN = Define.Theme.frame.tabIcon, Define.Theme.frame.tabIconOpen
+local ICON_CLIP, ICON_LINE, ICON_LINE_OPEN, ICON_UNDER = Define.Theme.frame.tabIconClip, Define.Theme.frame.tabIconLine,
+	Define.Theme.frame.tabIconLineOpen, Define.Theme.frame.tabIconUnder
 
 local NONE = {} -- a single-title window's tab: no icon, no second line
 
@@ -57,17 +58,6 @@ end
 local function GivenHeight(self)
 	return Height(self) - self.reachTop
 end
--- the icon: as tall as the tab inside its frame's top, square; given less its own frame's reach (right, and bottom on
--- the open tab)
-local function IconSide(self)
-	return Height(self) - self.frameTop
-end
-local function IconWidth(self)
-	return IconSide(self) - self.iconReachRight
-end
-local function IconHeight(self)
-	return IconSide(self) - (Open(self) and self.iconReachBottom or 0)
-end
 -- the tab's frame: its top corners rounded; the open one's sides curving out into the body's line, the first's left
 -- running straight down the body's own
 local function Frame(self)
@@ -76,8 +66,32 @@ local function Frame(self)
 	end
 	return self.attributes.index > 1 and FRAME_OPEN or FRAME_OPEN_FIRST
 end
-local function IconFrame(self)
-	return Open(self) and ICON_FRAME_OPEN or ICON_FRAME
+
+-- The icon fills the tab's left end from its top-left corner (the tab's frame lies over it, its curve cutting the
+-- picture), as wide as the window's tab row is tall. Its line stands at its right: the metal's left edge from the tab's
+-- top (under the tab's top line) down to its bottom; on the open tab it curves out at the bottom into the body's top
+-- line, which runs on under the picture (the tab's wood covers the body's own there).
+local function IconRight(self)
+	return self.attributes.height - self.flare
+end
+local function PictureHeight(self)
+	return Open(self) and IconRight(self) + self.lineStart or Height(self)
+end
+local function IconLine(self)
+	return Open(self) and ICON_LINE_OPEN or ICON_LINE
+end
+local function LineLeft(self)
+	return IconRight(self) - self.lineStart
+end
+-- the line's box: given so that, grown by the art's reach, it holds the flare's piece
+local function LineWidth(self)
+	return self.flare - self.lineReach + 1
+end
+local function UnderWidth(self)
+	return IconRight(self) - self.lineStart
+end
+local function UnderHeight(self)
+	return self.flare - self.underReach
 end
 
 -- Window draws its tabs twice, the closed ones under the body (`under`: the body's line runs over them) and the open
@@ -118,35 +132,45 @@ local LABEL = { rows = "auto", xAlign = "center", yAlign = "center", gap = 1 * P
 
 local function Parts(game, self)
 	if Tab(self).icon then
-		game.ui:Box({ attributes = { width = IconWidth(self), height = IconHeight(self), background = Tab(self).icon,
-			tint = Tint(self), border = IconFrame(self) } })
+		game.ui:Box({ attributes = { position = "absolute", left = 0, top = 0, width = IconRight(self),
+			height = PictureHeight(self), background = Tab(self).icon, tint = Tint(self), border = ICON_CLIP } })
+		if Open(self) then
+			game.ui:Box({ attributes = { position = "absolute", left = 0, top = IconRight(self), width = UnderWidth(self),
+				height = UnderHeight(self), border = ICON_UNDER } })
+		end
+		game.ui:Box({ attributes = { position = "absolute", left = LineLeft(self), top = 0, width = LineWidth(self),
+			height = Height(self), border = IconLine(self) } })
 	end
 	game.ui:Box({ attributes = LABEL, slots = { default = Label } })
 end
 
--- the label's room: LABEL_PAD each side of it (the icon flush with the frame)
-local PADDING_ICON = { 0, LABEL_PAD, 0, 0 }
+-- the label's room: LABEL_PAD each side of it, past the icon (laid out in the tab's frame: its border holds the rest)
 local PADDING_TITLE = { 0, LABEL_PAD, 0, LABEL_PAD }
-local COLUMNS_ICON, COLUMNS_TITLE = { "auto", "1fr" }, { "1fr" }
+local COLUMNS = { "1fr" }
 local function Padding(self)
-	return Tab(self).icon and PADDING_ICON or PADDING_TITLE
-end
-local function Columns(self)
-	return Tab(self).icon and COLUMNS_ICON or COLUMNS_TITLE
+	if not Tab(self).icon then
+		return PADDING_TITLE
+	end
+	return self.iconPadding
 end
 
 return Define.Component({
-	Setup = function()
+	Setup = function(_, self)
 		-- the frame's top: its width and how far its art stands past its line, inside the box (border-box)
-		local frame, icon = Define.ThemeValue(FRAME), Define.ThemeValue(ICON_FRAME_OPEN)
-		local reachTop = frame.reach[1] * frame.scale
-		return { width = { fit = "min", min = MIN_TAB }, reachTop = reachTop, frameTop = frame.width + reachTop,
-			iconReachRight = icon.reach[2] * icon.scale, iconReachBottom = icon.reach[3] * icon.scale }
+		local frame, line, under = Define.ThemeValue(FRAME), Define.ThemeValue(ICON_LINE), Define.ThemeValue(ICON_UNDER)
+		local k = frame.scale
+		local reachTop, flare = frame.reach[1] * k, frame.curves.flare * k
+		local height = Define.Peek(self.attributes.height)
+		-- the label past the icon's line: the icon as wide as the row is tall, less the frame's own left border
+		local left = height - flare + (line.width + line.reach[4] * k) - (frame.width + frame.reach[4] * k) + LABEL_PAD
+		return { width = { fit = "min", min = MIN_TAB }, reachTop = reachTop, flare = flare,
+			lineStart = frame.lineStart * k, lineReach = line.reach[4] * k, underReach = under.reach[1] * k,
+			iconPadding = { 0, LABEL_PAD, 0, left } }
 	end,
 
 	Render = function(game, self)
 		game.ui:Box({ attributes = { width = self.width, height = GivenHeight(self), border = Frame(self), background = WOOD,
-			tint = Tint(self), padding = Padding(self), columns = Columns(self), gap = LABEL_PAD,
+			tint = Tint(self), padding = Padding(self), columns = COLUMNS,
 			opacity = Opacity(self), OnClick = Click(self), OnDragStart = self.attributes.OnDragStart,
 			OnDrag = self.attributes.OnDrag, OnDragStop = self.attributes.OnDragStop }, slots = { default = Parts } })
 	end,
