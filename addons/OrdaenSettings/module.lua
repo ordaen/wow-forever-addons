@@ -55,21 +55,27 @@ local function Heading(game)
 		textFamily = Define.Theme.font.numbers } })
 end
 
+-- the page shown: a module's folder, or this one's (General) while the window is on its first page
+local function At(self)
+	local page = self.windows.main:Page()
+	return page == "" and SELF or page
+end
+
 local function List(game, self)
 	game.ui:ListTab({ attributes = { label = L.LIST_GLOBAL, icon = game.Ordaen.icon,
-		selected = self.state.at == SELF, OnClick = self.picks[SELF] } })
+		selected = At(self) == SELF, OnClick = self.picks[SELF] } })
 	game.ui:Box({ attributes = HEADING, slots = { default = Heading } })
 	game.ui:Box({ attributes = LIST, slots = { default = ModuleList } })
 end
 
 -- a module's page: its tabs (when it has more than one) and the picked one, or a word that it's off
 local function ModulePage(game, self)
-	local folder = self.state.at
+	local folder = At(self)
 	local names = tabNames[folder]
 	if #names > 1 then
-		game.ui:Tabs({ attributes = { tabs = tabNames[self.state.at], selected = self.state.tab, OnSelect = self.pickTab } })
+		game.ui:Tabs({ attributes = { tabs = tabNames[At(self)], selected = self.state.tab, OnSelect = self.pickTab } })
 	end
-	game.ui:ModuleSettings({ attributes = { module = self.state.at, tab = self.state.tab, draft = self.draft } })
+	game.ui:ModuleSettings({ attributes = { module = At(self), tab = self.state.tab, draft = self.draft } })
 end
 
 local function Off(game)
@@ -77,9 +83,9 @@ local function Off(game)
 end
 
 local function Content(game, self)
-	local module = self.modules[self.state.at]
-	if self.state.at == SELF or module and module.on:Get() then
-		game.ui:Box({ key = self.state.at, attributes = { columns = 1, gap = 14 * PX }, slots = { default = ModulePage } })
+	local module = self.modules[At(self)]
+	if At(self) == SELF or module and module.on:Get() then
+		game.ui:Box({ key = At(self), attributes = { columns = 1, gap = 14 * PX }, slots = { default = ModulePage } })
 	else
 		game.ui:Box({ attributes = { columns = 1 }, slots = { default = Off } })
 	end
@@ -96,7 +102,7 @@ local function SaveButtons(game, self)
 		OnClick = self.save } })
 end
 local function Opens(game, self)
-	if self.state.at == SELF then
+	if At(self) == SELF then
 		game.ui:Text({ attributes = { text = L.OPENS_PAGE, textColor = DIM, textSize = HINT } })
 	end
 end
@@ -133,10 +139,10 @@ return Define.Module({
 
 	onDemand = true,
 
+	windows = { main = {} },
+
 	Setup = function(game, self)
 		Define.Ephemeral({
-			shown = { type = "boolean", default = false },
-			at = { type = "string", default = SELF }, -- the page shown: a module's folder (this one's: General)
 			tab = { type = "number", default = 1 }, -- its tab
 			closing = { type = "boolean", default = false }, -- asking about unsaved changes
 		})
@@ -150,20 +156,30 @@ return Define.Module({
 		})
 		-- the window's one draft: every page's changes wait in it until «Сохранить» (design settings/)
 		local draft = game.Settings:Draft()
+		local window = self.windows.main
+		-- closing asks first while anything is unsaved; saved or discarded, it closes
+		window:Guard(function()
+			if draft.changed:Peek() > 0 then
+				self.state.closing = true
+				return false
+			end
+			self.state.closing = false
+			return true
+		end)
 		local function close()
 			self.state.closing = false
-			self.state.shown = false
+			window:Close()
 		end
 		local modules = {}
 		for i = 1, #game.Modules do
 			modules[game.Modules[i].folder] = game.Modules[i]
 		end
 		-- each module's entry, made once (the list of modules is fixed for the session); it reads the page shown
-		local shown = Define.Signal(self.state.at)
+		local shown = window.page -- module entries are folders: never "" (the first page)
 		-- a click per entry, made once: shows that page, its first tab
 		local picks = setmetatable({}, { __index = function(t, at)
 			local function Pick()
-				self.state.at = at
+				window:Open(at)
 				self.state.tab = 1
 			end
 			t[at] = Pick
@@ -210,17 +226,13 @@ return Define.Module({
 				self.state.y = y
 			end,
 			hide = function()
-				if draft.changed:Peek() > 0 then
-					self.state.closing = true
-				else
-					close()
-				end
+				window:Close()
 			end,
 		}
 	end,
 
 	Render = function(game, self)
-		if self.state.shown then
+		if self.windows.main:IsShown() then
 			game.ui:Window({ attributes = { title = game.Ordaen.title, width = self.state.width,
 				height = self.state.height, minWidth = MIN_WIDTH, minHeight = MIN_HEIGHT, x = self.state.x, y = self.state.y,
 				OnMoved = self.moved, OnResized = self.resized, OnClose = self.hide }, slots = { default = Window } })
@@ -253,8 +265,20 @@ return Define.Module({
 	end,
 
 	commands = {
-		open = { help = L.CMD_OPEN, Run = function(_, self)
-			self.state.shown = true
+		-- /ordaen, /ordaen <module> and every Ordaen button: open on that page, or close (design module, «Windows»)
+		toggle = { help = L.CMD_TOGGLE, Run = function(game, self, word)
+			local folder = ""
+			for i = 1, #game.Modules do
+				local module = game.Modules[i]
+				if word ~= "" and module.folder:gsub("^Ordaen", ""):lower() == word then
+					folder = module.folder
+				end
+			end
+			local before = self.windows.main:Page()
+			self.windows.main:Toggle(folder)
+			if self.windows.main:Page() ~= before then
+				self.state.tab = 1
+			end
 		end },
 	},
 })

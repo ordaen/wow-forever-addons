@@ -211,9 +211,9 @@ function DOMAINS.Ordaen()
 	EventRegistry:RegisterCallback("OrdaenDevButton.Created", function(_, button)
 		Ordaen.devButton:Set(button)
 	end)
-	--- Ordaen's settings window, as /ordaen opens it; `page`: a module's word (/ordaen minimap) for its page.
-	function Ordaen:OpenSettings(page) -- luacheck: ignore 212
-		ns.Commands.OpenSettings(page)
+	--- Ordaen's settings window toggled, as /ordaen does; `page`: a module's word (/ordaen minimap) for its page.
+	function Ordaen:ToggleSettings(page) -- luacheck: ignore 212
+		ns.Commands.ToggleSettings(page)
 	end
 	-- the dev addon (OrdaenCore_Debug, never in players' installs): its window's toggle, while it's loaded
 	local function ReadDev()

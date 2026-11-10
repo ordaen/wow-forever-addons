@@ -78,7 +78,6 @@ end
 
 function Module:Conflict() end -- luacheck: ignore 212
 function Module:Conflicts() return {} end -- luacheck: ignore 212
-function Module:OpenSettings() end -- luacheck: ignore 212
 
 --- Called by every module's generated __module.lua with WoW's (folder, ns).
 ---@param folder string

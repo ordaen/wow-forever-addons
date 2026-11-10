@@ -1,6 +1,5 @@
 {
   "MODULE_NOTES": "The Ordaen settings window: Ordaen's own settings and every module's.",
-  "CMD_OPEN": "open the settings window",
   "LIST_GLOBAL": "General",
   "LIST_MODULES": "Modules",
   "GLOBAL_TAB_SCALE": "Scale",
@@ -121,5 +120,6 @@
   "THEME_CLASS_SHAMAN": "Shaman",
   "THEME_CLASS_MAGE": "Mage",
   "THEME_CLASS_WARLOCK": "Warlock",
-  "THEME_CLASS_DRUID": "Druid"
+  "THEME_CLASS_DRUID": "Druid",
+  "CMD_TOGGLE": "open or close the settings window"
 }

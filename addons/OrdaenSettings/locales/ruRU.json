@@ -1,6 +1,5 @@
 {
   "MODULE_NOTES": "Окно настроек Ordaen: общие настройки и настройки модулей.",
-  "CMD_OPEN": "открыть окно настроек",
   "LIST_GLOBAL": "Общие",
   "LIST_MODULES": "Модули",
   "GLOBAL_TAB_SCALE": "Масштаб",
@@ -121,5 +120,6 @@
   "THEME_CLASS_SHAMAN": "Шаман",
   "THEME_CLASS_MAGE": "Маг",
   "THEME_CLASS_WARLOCK": "Чернокнижник",
-  "THEME_CLASS_DRUID": "Друид"
+  "THEME_CLASS_DRUID": "Друид",
+  "CMD_TOGGLE": "открыть или закрыть окно настроек"
 }

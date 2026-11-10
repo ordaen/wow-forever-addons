@@ -252,7 +252,7 @@ return Define.Module({
 		end
 		function out.clockClick(button)
 			if button == "RightButton" then
-				game.Ordaen:OpenSettings("minimap")
+				game.Ordaen:ToggleSettings("minimap")
 			else
 				game.Clock:ToggleCalendar()
 			end
@@ -285,7 +285,7 @@ return Define.Module({
 					if button == "RightButton" then
 						game.Ordaen:ToggleDev()
 					else
-						game.Ordaen:OpenSettings()
+						game.Ordaen:ToggleSettings()
 					end
 				elseif id == "drawer" then
 					self.state.drawerOpen = not self.state.drawerOpen

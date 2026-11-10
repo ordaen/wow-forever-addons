@@ -208,12 +208,13 @@ end
 ---@field _depth integer
 ---@field _game table
 ---@field _alive boolean
+---@field windows table<string, OrdaenWindow>|nil the module's windows (its spec's `windows`)
 local Instance = {}
 local InstanceMeta = { __index = Instance }
 ns.InstanceMeta = InstanceMeta
 
 -- Names a setup may not return: the instance's own members.
-local RESERVED = { state = true, attributes = true, module = true, public = true }
+local RESERVED = { state = true, attributes = true, module = true, public = true, windows = true }
 
 local AttributesMeta = {
 	__index = function(attributes, name)
@@ -326,6 +327,14 @@ function Engine:Mount(parent, declaration, site, data, container, module, game, 
 	}, InstanceMeta)
 	if data and data.attributes then
 		Engine.SetAttributes(instance, data.attributes)
+	end
+	-- a module's windows (`windows = { main = {} }`): made here, so the framework owns their shown state and page
+	local windows = declaration.windows
+	if windows then
+		instance.windows = {}
+		for name in pairs(windows) do
+			instance.windows[name] = ns.NewWindow()
+		end
 	end
 	ns.Draw:NewInstance(instance, container)
 

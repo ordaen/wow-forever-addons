@@ -113,11 +113,12 @@ local function help()
 	end
 end
 
---- Open the settings window (its `open` command); false when it isn't installed or can't load.
-function Commands.OpenSettings(page)
+--- Toggle the settings window (its `toggle` command), on a module's page by its word ("minimap"); false when it
+--- isn't installed or can't load.
+function Commands.ToggleSettings(page)
 	local settings = ns.App.OpenOnDemand(SETTINGS)
 	local open = settings and groups[Commands.Word(SETTINGS)]
-	open = open and open.list.open
+	open = open and open.list.toggle
 	if not open then
 		return false
 	end
@@ -129,7 +130,7 @@ local function run(line)
 	local word, command, arguments = match(line or "", "^%s*(%S*)%s*(%S*)%s*(.-)%s*$")
 	word, command = lower(word), lower(command)
 	if word == "" then -- the settings window, where it's installed; else the commands
-		if not Commands.OpenSettings() then
+		if not Commands.ToggleSettings() then
 			help()
 		end
 		return
@@ -152,7 +153,13 @@ local function run(line)
 		say(off[word] and format(L.MODULE_OFF, off[word]) or format(L.UNKNOWN_MODULE, word))
 		return
 	end
-	if command == "" or command == "help" then
+	if command == "" then -- the module's page in the settings window, toggled; its commands where there's none
+		if not Commands.ToggleSettings(word) then
+			groupHelp(word)
+		end
+		return
+	end
+	if command == "help" then
 		groupHelp(word)
 		return
 	end
@@ -188,7 +195,7 @@ ns.Stage.Login:Subscribe(function()
 		return
 	end
 	local function Open()
-		if Commands.OpenSettings() and SettingsPanel then
+		if Commands.ToggleSettings() and SettingsPanel then
 			HideUIPanel(SettingsPanel)
 		end
 	end
