@@ -245,6 +245,32 @@ describe("the settings window", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("opens again where its tab row left it", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local tab = texts(ns)["Ordaen"].parent
+		local f = tab.frame
+		wow:MoveCursor(500, 500)
+		wow:DragStart(f)
+		wow:MoveCursor(600, 450)
+		wow:Tick()
+		ns.Scheduler.Flush()
+		wow:DragStop(f)
+		ns.Scheduler.Flush()
+		local moved = tab.parent.offL
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		assert.is_nil(texts(ns)["Ordaen"])
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local again = texts(ns)["Ordaen"].parent.parent
+		assert.is_number(moved)
+		assert.are.equal(moved, again.offL)
+		assert.is_number(wow.env.OrdaenSettingsDB["window#main"].x) -- kept in the module's db: a /reload keeps it too
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("moves with its tab row while dragged", function()
 		local wow, ns = Start(nil)
 		wow:Slash("/ordaen")
