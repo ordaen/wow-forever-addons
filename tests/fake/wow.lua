@@ -1209,6 +1209,31 @@ local function parseToc(dir, name)
 	return toc
 end
 
+-- The names a TOC's SavedVariables and SavedVariablesPerCharacter lines declare.
+local function savedNames(toc)
+	local names = {}
+	for _, key in ipairs({ "SavedVariables", "SavedVariablesPerCharacter" }) do
+		for var in (toc.meta[key] or ""):gmatch("[%w_]+") do
+			names[#names + 1] = var
+		end
+	end
+	return names
+end
+
+--- Every loaded addon's saved variables as they are now (what the game would write at logout): name -> value.
+function Wow:SavedVariables()
+	local out = {}
+	for _, name in ipairs(self.order) do
+		local addon = self.addons[name]
+		if addon.loaded then
+			for _, var in ipairs(savedNames(addon.toc)) do
+				out[var] = self.env[var]
+			end
+		end
+	end
+	return out
+end
+
 --- Load an addon's files in TOC order (each with its name and a table of its own), then fire ADDON_LOADED.
 function Wow:LoadAddOn(name)
 	local addon = self.addons[name]
@@ -1227,6 +1252,13 @@ function Wow:LoadAddOn(name)
 		end
 		setfenv(chunk, self.env)
 		self:Call(chunk, name, addon.ns)
+	end
+	-- its saved variables, as the game sets them: after its files, before ADDON_LOADED
+	for _, var in ipairs(savedNames(addon.toc)) do
+		local value = self.saved[var]
+		if value ~= nil then
+			self.env[var] = value
+		end
 	end
 	self:Fire("ADDON_LOADED", name)
 	return true
@@ -1732,6 +1764,7 @@ function Fake.New(opts)
 		dist = opts.dist, addons = {}, order = {}, listeners = {}, updating = {}, timers = {}, errors = {}, allFrames = setmetatable({}, { __mode = "k" }),
 		printed = {}, time = 0, frameTime = 1 / 60, frames = 0, gen = 0, made = 0,
 		physW = opts.physW or 2560, physH = opts.physH or 1440, measure = opts.measure, locale = opts.locale or "enUS",
+		saved = opts.saved or {},
 	}, WowMeta)
 	wow.env = wow:MakeEnv()
 	local world = wow:NewFrame("Frame", "WorldFrame", nil)
