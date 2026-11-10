@@ -285,7 +285,7 @@ describe("Ordaen Tooltips", function()
 		has(shown, "Next")
 		assert.is_falsy(shown:find("Next melee", 1, true))
 		has(shown, "Requires\nBattle Stance") -- a footer line: its label, its value
-		has(shown, "|Hordaen:term:phys:|hphysical damage|h") -- a school in the description: its term
+		has(shown, "|cffe0c9a0|Hordaen:term:phys:|hphysical damage|h|r") -- a school in the description: its colour, its term
 		assert.are.same({}, wow.errors)
 	end)
 

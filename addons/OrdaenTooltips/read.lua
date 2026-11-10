@@ -361,7 +361,10 @@ end
 
 -- the damage schools a description names, each a link to its term (design spells «How it's parsed»: the client's
 -- phrases with their case forms, longest first; Lua patterns have no alternation): set from the locales (Read.Schools)
-local schools = {} -- { phrase, link } longest first
+local schools = {} -- { phrase, key } longest first
+-- each school's colour (design Tooltip.vue .school.<key>)
+local SCHOOL_COLOR = { phys = "e0c9a0", fire = "ff8a3c", nature = "6ed04a", frost = "8fd2ff", shadow = "b48ae8",
+	arcane = "e48af0", holy = "ffe680" }
 local function ByLength(a, b)
 	return #a[1] > #b[1]
 end
@@ -375,14 +378,14 @@ function Read.Schools(L)
 	end
 	table.sort(schools, ByLength)
 end
--- the schools linked in a text: each phrase once, a found one's run replaced so a shorter phrase in it isn't linked
--- again
+-- the schools linked in a text, each in its colour: a found phrase's run replaced so a shorter phrase in it isn't
+-- linked again
 local function Schools(text)
 	for i = 1, #schools do
 		local phrase, key = schools[i][1], schools[i][2]
 		local at = text:find(phrase, 1, true)
 		while at do
-			local link = "|Hordaen:term:" .. key .. ":|h" .. phrase .. "|h"
+			local link = "|cff" .. SCHOOL_COLOR[key] .. "|Hordaen:term:" .. key .. ":|h" .. phrase .. "|h|r"
 			text = text:sub(1, at - 1) .. link .. text:sub(at + #phrase)
 			at = text:find(phrase, at + #link, true)
 		end
