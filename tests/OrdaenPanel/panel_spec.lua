@@ -232,10 +232,21 @@ describe("Ordaen Panel's items and visibility", function()
 		assert.are.same({}, wow.errors)
 	end)
 
-	it("draws nothing of its own while the bottom panel is off", function()
+	it("puts its items in free parts while the bottom panel is off; the time goes to the minimap", function()
 		local wow = Panel({ bottomOn = false, clock = "left" })
 		assert.are.same({}, wow.errors)
 		assert.is_false(Shown(wow, "18:14"))
+		-- the bags and the micro menu in parts of their own, not back in Blizzard's bars
+		assert.are_not.equal(wow.env.BagsBar, wow.env.MainMenuBarBackpackButton:GetParent())
+		assert.is_true(wow.env.MainMenuBarBackpackButton:IsVisible())
+		assert.is_true(wow.env.ProfessionMicroButton:IsVisible())
+		assert.is_true(Shown(wow, "50%"), "the experience bar")
+	end)
+
+	it("puts an item in «Не на панели» in a free part", function()
+		local wow = Panel({ bags = "off" })
+		assert.are.same({}, wow.errors)
+		assert.is_true(wow.env.MainMenuBarBackpackButton:IsVisible())
 	end)
 end)
 

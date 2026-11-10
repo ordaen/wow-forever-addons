@@ -310,7 +310,7 @@ local MICRO_PORTRAIT_CALL = { key = "micromenu", attributes = { columns = { PORT
 
 -- whether the portrait stands in the corner: asked for, and the micro menu at the start of a bottom panel
 local function PortraitShown(self)
-	return self.state.charButton == CharButton.Portrait and self.state.edge == Edge.Bottom
+	return self.state.charButton == CharButton.Portrait and self.state.bottomOn and self.state.edge == Edge.Bottom
 		and self.state.micromenu == Zone.Left
 end
 
@@ -331,7 +331,7 @@ local function Item(game, self, item, vertical)
 		end
 	elseif item == "experience" then
 		if self.state.statusOn and not vertical then
-			game.ui:XpBar({ key = "xp" })
+			game.ui:XpBar({ key = "xp", attributes = { fill = self.state.xpFill } })
 		end
 	elseif item == "zone" then
 		ZoneName(game, self)
@@ -440,6 +440,55 @@ local function Zones(game, self)
 	ZoneBox(game, self, Zone.Right)
 end
 
+-- The items off the panel (in «Не на панели», or all of them while the bottom panel is off): each a free part of its
+-- own, placed by the player in Ordaen's placing mode, on the small metal frame round the windows' wood. The zone's
+-- name and the time are the exception: off the panel they're the minimap's. Never moved, the parts sit above the
+-- bottom of the screen, the experience bar centred (its width the player's: resizable).
+local FREE_ITEMS = { "micromenu", "social", "experience", "currencies", "bags" }
+local FREE_TITLES = {
+	micromenu = L.PANEL_MICROMENU, social = L.PANEL_SOCIAL, experience = L.PANEL_EXPERIENCE,
+	currencies = L.PANEL_CURRENCIES, bags = L.PANEL_BAGS,
+}
+local FREE_DEFAULTS = {
+	micromenu = { point = "BOTTOMLEFT", relativePoint = "BOTTOMLEFT", left = 140, top = -10 },
+	social = { point = "BOTTOMLEFT", relativePoint = "BOTTOMLEFT", left = 660, top = -10 },
+	experience = { point = "BOTTOM", relativePoint = "BOTTOM", left = 0, top = -20 },
+	currencies = { point = "BOTTOMRIGHT", relativePoint = "BOTTOMRIGHT", left = -330, top = -20 },
+	bags = { point = "BOTTOMRIGHT", relativePoint = "BOTTOMRIGHT", left = -10, top = -10 },
+}
+local FREE_CALLS = {}
+for _, item in ipairs(FREE_ITEMS) do
+	local function content(game, self)
+		Item(game, self, item, false)
+	end
+	local frame = { key = item, attributes = {
+		background = Define.Theme.window.wood, border = Define.Theme.frame.small, artOrigin = true,
+		padding = Define.Theme.spacing.sm, yAlign = "center",
+	}, slots = { default = content } }
+	local function slot(game)
+		game.ui:Box(frame)
+	end
+	FREE_CALLS[item] = { key = item, attributes = {
+		title = FREE_TITLES[item], default = FREE_DEFAULTS[item],
+		width = item == "experience" and 600 or nil, resize = item == "experience" and "width" or nil,
+	}, slots = { default = slot } }
+end
+
+-- whether an item is a free part now
+local function Free(self, item)
+	return not self.state.bottomOn or ZoneOf(self, item) == Zone.Off
+end
+
+local function FreeParts(game, self)
+	for i = 1, #FREE_ITEMS do
+		local item = FREE_ITEMS[i]
+		if Free(self, item) and (item ~= "micromenu" and item ~= "social" or self.state.microOn)
+			and (item ~= "experience" or self.state.statusOn) then
+			game.ui:Placed(FREE_CALLS[item])
+		end
+	end
+end
+
 -- What the panel replaces of Blizzard's, for as long as it's on: its micro menu's box (invisible, not hidden: see
 -- INVISIBLE) and the buttons the design leaves out; Blizzard's XP and reputation bars while ours are on.
 local function Replaced(game, self)
@@ -521,6 +570,8 @@ return Define.Module({
 			-- the panel's text
 			outline = { type = "choice", choices = Outline, default = Outline.None, setting = true },
 			shadow = { type = "boolean", default = true, setting = true },
+			-- the experience bar's fill: the theme's unless the player picks another
+			xpFill = { type = "asset", kind = "xpFill", follows = Define.Theme.xpFill, setting = true },
 			-- the bottom panel: where, how long, how high, what sits in which zone, when it shows
 			edge = { type = "choice", choices = Edge, default = Edge.Bottom, setting = true },
 			fit = { type = "choice", choices = Fit, default = Fit.Full, setting = true },
@@ -575,6 +626,7 @@ return Define.Module({
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_STATUS, shown = self.state.statusOn },
 			slots = { default = function()
+			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.xpFill) } })
 			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.outline) } })
 			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.shadow) } })
 		end } })
@@ -616,6 +668,7 @@ return Define.Module({
 
 	Render = function(game, self)
 		Replaced(game, self)
+		FreeParts(game, self)
 		if not self.state.bottomOn then
 			return
 		end

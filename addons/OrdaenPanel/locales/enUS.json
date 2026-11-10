@@ -109,5 +109,7 @@
   "SECTION_ITEMS_LEFT": "Left",
   "SECTION_ITEMS_CENTER": "Centre",
   "SECTION_ITEMS_RIGHT": "Right",
-  "SECTION_ITEMS_OFF": "Not on the panel"
+  "SECTION_ITEMS_OFF": "Not on the panel",
+  "PANEL_XPFILL": "Experience bar texture",
+  "PANEL_XPFILL_TIP": "The texture that fills the experience bar."
 }

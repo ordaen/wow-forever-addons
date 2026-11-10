@@ -109,5 +109,7 @@
   "SECTION_ITEMS_LEFT": "Слева",
   "SECTION_ITEMS_CENTER": "В центре",
   "SECTION_ITEMS_RIGHT": "Справа",
-  "SECTION_ITEMS_OFF": "Не на панели"
+  "SECTION_ITEMS_OFF": "Не на панели",
+  "PANEL_XPFILL": "Текстура полосы опыта",
+  "PANEL_XPFILL_TIP": "Чем заполнена полоса опыта."
 }
