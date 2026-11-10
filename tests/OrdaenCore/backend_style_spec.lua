@@ -713,6 +713,28 @@ describe("backend styles", function()
 		assert.are.equal("TOPLEFT", (frame:GetPoint(1)))
 	end)
 
+	it("anchors a free box to a Blizzard frame, given itself or by its global name, made later or now", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("tooltip")
+		local view = Backend:Create("box")
+		local anchor = { to = { global = "SpecTooltip" }, point = "BOTTOMRIGHT", relativePoint = "BOTTOMRIGHT" }
+		Backend:Set(view, { position = "fixed", width = 200, height = 50, anchor = anchor })
+		Backend:SetChildren(layer, { view }, 1)
+		Backend:Flush() -- not made yet: left where it is, no error
+		local native = wow.env.CreateFrame("Frame", "SpecTooltip", wow.env.UIParent)
+		Backend:Set(view, { position = "fixed", width = 200, height = 50, anchor = anchor, left = 1 })
+		Backend:Flush()
+		local point, rel, relPoint = view.frame:GetPoint(1)
+		assert.are.same({ "BOTTOMRIGHT", "BOTTOMRIGHT" }, { point, relPoint })
+		assert.are.equal(native, rel)
+		local other = wow.env.CreateFrame("Frame", nil, wow.env.UIParent)
+		Backend:Set(view, { position = "fixed", width = 200, height = 50, anchor = { to = other, point = "TOPLEFT" } })
+		Backend:Flush()
+		assert.are.equal(other, select(2, view.frame:GetPoint(1)))
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("draws one picture across boxes: each box under artOrigin shows its part, wherever the layout puts it", function()
 		local _, ns = client()
 		local Backend = ns.Backend

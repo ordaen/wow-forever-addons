@@ -443,7 +443,21 @@ function ctx.place(node)
 	if anchor ~= nil and obj == node.frame and (node.pos == "absolute" or node.pos == "fixed") then
 		anchor = resolve(node, anchor)
 		local to = anchor.to
-		rel = to and to.frame or rel
+		local target = to and to.frame
+		if to and not target then
+			-- a Blizzard frame (a game.Frame ref or the frame itself), looked up once per anchor table; one not made
+			-- yet leaves the box where it is until the next Set
+			if node.anchorOf ~= anchor then
+				local frame = to.global and _G[to.global] or (to.GetObjectType and to) -- luacheck: ignore 113 (B8: a
+				-- frame the module names by game.Frame, not built here)
+				if not frame then
+					return
+				end
+				node.anchorOf, node.anchorFrame = anchor, frame
+			end
+			target = node.anchorFrame
+		end
+		rel = target or rel
 		x, y = snap(node.offL or 0), snap(node.offT or 0)
 		if anchor ~= node.pAnchor or rel ~= node.pRel or x ~= node.pX or y ~= node.pY then
 			node.pAnchor, node.pRel, node.pX, node.pY = anchor, rel, x, y

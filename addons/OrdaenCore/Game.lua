@@ -190,6 +190,12 @@ function DOMAINS.Placing()
 	return ns.Placing
 end
 
+--- Blizzard's tooltips as the game fills them, for a module that draws its own: `game.Tooltip.GameTooltip`
+--- (Tooltip.lua).
+function DOMAINS.Tooltip()
+	return ns.NewTooltips()
+end
+
 --- Numbers formatted by the global settings: `game.Numbers:Format(n)` (Numbers.lua).
 function DOMAINS.Numbers()
 	return ns.Numbers

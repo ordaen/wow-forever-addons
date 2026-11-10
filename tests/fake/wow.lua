@@ -971,10 +971,26 @@ end
 -- a check button (Ordaen's action buttons, on ActionBarButtonTemplate): a button whose template the fake doesn't run
 local CheckButtonMethods = setmetatable({}, { __index = ButtonMethods })
 
+-- a game tooltip (GameTooltip and the like): a frame that holds the data a spec shows it with (Wow:ShowTooltip)
+local GameTooltipMethods = setmetatable({}, { __index = FrameMethods })
+
+function GameTooltipMethods:SetOwner(owner, anchor)
+	self._owner, self._anchorType = owner, anchor
+end
+
+function GameTooltipMethods:GetOwner()
+	return self._owner
+end
+
+function GameTooltipMethods:FadeOut()
+	self:Hide()
+end
+
 -- Every fake method must be one Forever has.
 local CLASSES = {
 	Frame = FrameMethods, Button = ButtonMethods, Texture = TextureMethods, FontString = FontStringMethods,
 	MaskTexture = MaskTextureMethods, EditBox = EditBoxMethods, CheckButton = CheckButtonMethods,
+	GameTooltip = GameTooltipMethods,
 }
 
 -- Every method that can move or resize a region (or its text) starts a new rect generation.
@@ -1119,6 +1135,32 @@ function Wow:DragStop(frame)
 	if fn then
 		fn(frame)
 	end
+end
+
+-- Blizzard's tooltips, as FrameXML makes them before any addon loads (GameTooltip, ItemRefTooltip, the comparison
+-- ones): made by a spec that draws tooltips, before login.
+function Wow:MakeTooltips()
+	for _, name in ipairs({ "GameTooltip", "ItemRefTooltip", "ShoppingTooltip1", "ShoppingTooltip2" }) do
+		local tip = self:NewFrame("GameTooltip", name, self.env.UIParent)
+		-- FrameXML's tooltip data mixin (the dump lists it on the GameTooltip object, not the widget)
+		tip.GetTooltipData = function(t)
+			return t._data
+		end
+		tip:Hide()
+	end
+end
+
+-- The game shows `name` (a tooltip made by MakeTooltips) with `data` (what GetTooltipData gives: type, id, lines),
+-- owned by `owner`, anchored by `point` to it: as SetOwner, SetBagItem... then Show.
+function Wow:ShowTooltip(name, data, owner, point)
+	local tip = self.env[name]
+	tip:Hide()
+	tip:SetOwner(owner or self.env.UIParent, "ANCHOR_NONE")
+	tip._data = data
+	tip:ClearAllPoints()
+	tip:SetPoint(point or "BOTTOMRIGHT", self.env.UIParent, point or "BOTTOMRIGHT", -20, 20)
+	tip:SetSize(200, 100)
+	tip:Show()
 end
 
 function Wow:Type(edit, text)
