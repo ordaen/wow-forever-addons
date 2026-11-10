@@ -1154,6 +1154,10 @@ function Node:ApplyOverflow(overflow)
 	local frame = self.frame
 	local scroll = overflow == "scroll"
 	frame:SetClipsChildren(scroll or overflow == "clip")
+	if (self.scroll or false) ~= scroll then -- the layout's: a scroll box's content doesn't size its parent
+		self.scroll = scroll or nil
+		enqueue(Layout.Invalidate(self, true))
+	end
 	if scroll == (self.inner ~= nil) then
 		return
 	end

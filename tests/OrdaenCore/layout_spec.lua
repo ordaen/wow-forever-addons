@@ -519,5 +519,21 @@ describe("backend layout", function()
 		run(root({ grid }))
 		assert.is_true(title.w >= 8 * CHAR)
 	end)
+
+	it("lets a scroll box's content scroll inside a minContent window instead of growing it", function()
+		local rows = {}
+		for i = 1, 100 do
+			rows[i] = box({ height = 20 })
+		end
+		local list = box({ rows = "auto" }, rows)
+		list.scroll = true -- the backend's, from overflow = "scroll"
+		local head = box({ height = 30 })
+		local content = box({ rows = { "auto", "1fr" } }, { head, list })
+		local body = box({ position = "absolute", left = 0, top = 0, width = 300, height = 400, minContent = true,
+			rows = { "1fr" } }, { content })
+		run(root({ body }))
+		assert.are.equal(400, body.h)
+		assert.are.equal(370, list.h)
+	end)
 end)
 

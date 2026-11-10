@@ -834,6 +834,10 @@ local function sizeIn(child, cellW, parent, contentW, contentH, ctx)
 		given = child.hAmount
 	elseif hk == "pct" and contentH then
 		given = child.hAmount * contentH
+	elseif child.scroll then
+		-- a scroll box's content scrolls inside it rather than sizing its row: it takes no height of its own (as a CSS
+		-- scroll container's automatic minimum is 0) and stretches to its row
+		return w, 0, 0
 	end
 	return w, given or autoHeight(child, w, ctx), given
 end
