@@ -735,6 +735,30 @@ describe("backend styles", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("repeats a tiled background from the art's origin, so neighbouring boxes show one surface at any size", function()
+		local _, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local WOOD = { file = "wood", size = { 512, 512 }, repeatSize = 100 }
+		local window = Backend:Create("box")
+		Backend:Set(window, { position = "absolute", left = 50, top = 50, width = 900, height = 600, artOrigin = true })
+		local tab = Backend:Create("box")
+		Backend:Set(tab, { position = "absolute", left = 20, top = 0, width = 60, height = 40, background = WOOD })
+		local body = Backend:Create("box")
+		Backend:Set(body, { position = "absolute", left = 0, top = 40, width = 900, height = 560, background = WOOD })
+		Backend:SetChildren(window, { body, tab }, 2)
+		Backend:SetChildren(layer, { window }, 1)
+		Backend:Flush()
+		local function near(a, b)
+			return math.abs(a - b) < 0.02
+		end
+		local l, r, t, b = unpack(tab.bg._coords)
+		assert.is_true(near(l, 0.2) and near(r, 0.8) and near(t, 0) and near(b, 0.4), "the tab's part of the first tile")
+		l, r, t, b = unpack(body.bg._coords)
+		assert.is_true(near(l, 0) and near(r, 9) and near(t, 0.4) and near(b, 6), "the body: nine tiles across, at scale")
+		assert.are.equal("REPEAT", body.bg._wrapH)
+	end)
+
 	it("draws one picture across boxes: each box under artOrigin shows its part, wherever the layout puts it", function()
 		local _, ns = client()
 		local Backend = ns.Backend

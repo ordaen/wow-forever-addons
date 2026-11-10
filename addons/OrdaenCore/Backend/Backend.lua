@@ -1068,12 +1068,15 @@ end
 
 -- A background { atlas, fit = "origin" }: one picture across the nearest box above with artOrigin (the box itself when
 -- it has it), the atlas at that box's width from its top-left; this box shows the part under it (inside the border
--- art's inset). Again whenever the box is placed or sized.
+-- art's inset). A background { file, repeatSize }: the file repeated at that size (UI units) from the same top-left,
+-- so neighbouring boxes (a window's body and tab) show one surface at any size. Again whenever the box is placed or
+-- sized.
 function Node:OriginBackground()
 	local ratio, w, h = self.lookOrigin, self.pW, self.pH
 	if not ratio or not w or not h then
 		return
 	end
+	local T = self.lookRepeat
 	local fl, ft = self.fillLeft or 0, self.fillTop or 0
 	local x, y = fl, ft
 	local node = self
@@ -1081,12 +1084,16 @@ function Node:OriginBackground()
 		x, y = x + (node.x or 0), y + (node.y or 0)
 		node = node.parent
 	end
+	w, h = w - fl - (self.fillRight or 0), h - ft - (self.fillBottom or 0)
+	if T then -- repeated: coordinates past 1 repeat the file (REPEAT wrap)
+		self.bg:SetTexCoord(x / T, (x + w) / T, y / T, (y + h) / T)
+		return
+	end
 	local W = node and node.w
 	if not W or W <= 0 then
 		return
 	end
 	local H = W * ratio
-	w, h = w - fl - (self.fillRight or 0), h - ft - (self.fillBottom or 0)
 	self.bg:SetTexCoord(x / W, (x + w) / W, y / H, (y + h) / H)
 end
 
@@ -1393,7 +1400,7 @@ function Node:ApplyLook()
 				tex:Hide()
 			end
 			-- an art background before: its pieces go too (a pooled box keeps them, and would draw them at its size)
-			self.lookFit, self.lookArt, self.artW, self.lookOrigin = nil, nil, nil, nil
+			self.lookFit, self.lookArt, self.artW, self.lookOrigin, self.lookRepeat = nil, nil, nil, nil, nil
 			hideSlices(self.slices)
 			hideSlices(self.glows)
 		else
@@ -1410,7 +1417,12 @@ function Node:ApplyLook()
 			self.lookFit, self.lookArt, self.artW, self.lookOrigin = nil, nil, nil, nil
 			hideSlices(self.slices)
 			hideSlices(self.glows)
-			if type(bg) == "table" and bg.file and not bg.tile then -- three-slice: its own textures
+			self.lookRepeat = nil
+			if type(bg) == "table" and bg.file and bg.repeatSize then -- repeated both ways from the art's origin
+				tex:SetTexture(bg.file, "REPEAT", "REPEAT")
+				self.lookOrigin, self.lookRepeat = 1, bg.repeatSize
+				self:OriginBackground()
+			elseif type(bg) == "table" and bg.file and not bg.tile then -- three-slice: its own textures
 				tex:Hide()
 				self.lookArt = bg
 				self:DrawArt()

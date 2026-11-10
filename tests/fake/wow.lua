@@ -702,12 +702,13 @@ function TextureMethods:SetColorTexture(r, g, b, a)
 	self._texture = nil
 end
 
-function TextureMethods:SetTexture(path)
+function TextureMethods:SetTexture(path, wrapH, wrapV)
 	-- the game takes a file path or a file id (or nil): a table here is a background the backend didn't understand
 	assert(path == nil or type(path) == "string" or type(path) == "number",
 		"SetTexture takes a path or a file id, not a " .. type(path))
 	self._texture = path
 	self._color = nil
+	self._wrapH, self._wrapV = wrapH, wrapV
 end
 
 -- a gradient over the texture: its orientation and its two colours (ColorMixin objects, as CreateColor makes them)

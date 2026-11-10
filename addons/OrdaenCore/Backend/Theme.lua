@@ -120,7 +120,11 @@ ns.Theme = {
 	-- height), drawn from 12 px above the tab to 10 px below the body's line and 10 px past its right side: the shadow
 	-- above, the light inside, the rim with the frame line's profile, the right flare's curve; the masks that round
 	-- the tab's wood (14 px corners) and cut its right flare (8 x 11 px)
-	["window.wood"] = { atlas = "UI-Character-Info-General-BG", fit = "origin" },
+	-- the windows' wood (design settings/wood, D): Blizzard's character sheet wood made a seamless tile
+	-- (design/scripts/wood-split.py), repeated from the window's top-left at the scale the picture had in a
+	-- 1160 px window (512 texels over 746 px), so a resized window keeps its grain
+	["window.wood"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\window-wood", size = { 512, 512 },
+		repeatSize = 746 / 1.2 },
 	["ctl.tab"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab", size = { 128, 128 }, cap = 54,
 		capHeight = 27 / 64 },
 	["ctl.tabCornerL"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-l" },
