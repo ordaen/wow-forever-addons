@@ -1480,9 +1480,10 @@ local function Diff(current, next)
 end
 
 -- A talent (the talent window's button owns the tooltip; design spells «Talents»): the spell as on skills (its band,
--- its description), «Талант · 2/5» on the second line; the next rank with what changes lit (the «Следующий уровень»
+-- its description), «Талант · 2/5 · Оружие» on the second line; the next rank with what changes lit (the «Следующий уровень»
 -- setting); an unlearned talent's requirements in the footer, red when not met. The talent frame writes the name and
 -- rank lines itself: the data starts at the cost (api/forever/tooltip-data.md «Talent»), so the name is the spell's.
+-- Forever's trait API has one tree per class and no tree names: the classic tab comes from the client data.
 function Talent(model, data, ctx, owner)
 	local L = ctx.L
 	local configID = C_ClassTalents.GetActiveConfigID()
@@ -1502,6 +1503,11 @@ function Talent(model, data, ctx, owner)
 	local rank, max = node.currentRank or 0, node.maxRanks or 1
 	Part(model.desc, L.TALENT, nil, "talent")
 	Part(model.desc, rank .. "/" .. max, rank >= max and GREEN or nil, "talent")
+	-- its tree, as the classic talent window names it (talents.lua: spell -> tab, from the client data)
+	local trees = Read.talents
+	local tab = trees and trees.tab[spellID]
+	local names = tab and trees.name[tab]
+	Part(model.desc, names and (names[GetLocale()] or names.enUS) or nil)
 	local entryID = owner.GetEntryID and owner:GetEntryID()
 		or node.activeEntry and node.activeEntry.entryID or node.entryIDs and node.entryIDs[1]
 	if ctx.spellsNext and entryID and rank > 0 and rank < max then

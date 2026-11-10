@@ -12,6 +12,7 @@ local L = import("locales")
 local floor = math.floor
 local Read = import("read")
 Read.racials = import("racials")
+Read.talents = import("talents")
 local HELP_CURSOR = import("cursor")
 
 -- Blizzard's tooltips drawn here: the main one, the linked item's, the comparison ones
