@@ -399,3 +399,23 @@ describe("Ordaen Panel's action bars", function()
 		assert.is_nil(wow.env.OrdaenActionButton1)
 	end)
 end)
+
+describe("Ordaen Panel's micro menu order", function()
+	it("puts friends and guild before the game menu, which is last, with no gap", function()
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenPanel" } })
+		local home = wow.env.CreateFrame("Frame", "BagsBar", wow.env.UIParent)
+		for _, name in ipairs(BLIZZARD) do
+			wow.env.CreateFrame("Button", name, home):SetSize(45, 45)
+		end
+		wow:Login()
+		wow:Tick()
+		assert.are.same({}, wow.errors)
+		local collections, social, guild, menu = wow.env.CollectionsMicroButton, wow.env.QuickJoinToastButton,
+			wow.env.GuildMicroButton, wow.env.MainMenuMicroButton
+		assert.is_true(collections:GetLeft() < social:GetLeft())
+		assert.is_true(social:GetLeft() < guild:GetLeft())
+		assert.is_true(guild:GetLeft() < menu:GetLeft(), "the game menu last")
+		assert.is_true(math.abs(social:GetLeft() - collections:GetRight()) < 1, "no gap before friends")
+		assert.is_true(math.abs(menu:GetLeft() - guild:GetRight()) < 1, "no gap before the game menu")
+	end)
+end)

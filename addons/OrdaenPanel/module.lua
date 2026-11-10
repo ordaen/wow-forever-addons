@@ -191,6 +191,17 @@ local function MicroButtons(game)
 	end
 end
 
+-- the micro menu with friends and guild in it, before the game menu (always last), when they share a zone
+local function JoinedButtons(game)
+	for i = 1, #MICRO - 1 do
+		game.ui:Box(MICRO[i].call)
+	end
+	for i = 1, #SOCIAL do
+		game.ui:Box(SOCIAL[i].call)
+	end
+	game.ui:Box(MICRO[#MICRO].call)
+end
+
 local function SocialButtons(game)
 	for i = 1, #SOCIAL do
 		game.ui:Box(SOCIAL[i].call)
@@ -212,6 +223,7 @@ local function Line(count, gap, slot, key)
 end
 
 local MICRO_LINE = Line(#MICRO, 0, MicroButtons, "micro")
+local JOINED_LINE = Line(#MICRO + #SOCIAL, 0, JoinedButtons, "micro")
 local SOCIAL_LINE = Line(#SOCIAL, 0, SocialButtons, "social")
 local BAG_LINE = Line(#BAGS, 0, BagButtons, "bags")
 -- the character button as a cell: the face, round with a thin dark rim (design .face, 40 px), with Blizzard's button
@@ -232,6 +244,11 @@ local function FaceAndMicroButtons(game)
 	MicroButtons(game)
 end
 local MICRO_FACE_LINE = Line(#MICRO + 1, 0, FaceAndMicroButtons, "micro")
+local function FaceAndJoined(game)
+	game.ui:Box(FACE_CELL_CALL)
+	JoinedButtons(game)
+end
+local JOINED_FACE_LINE = Line(#MICRO + #SOCIAL + 1, 0, FaceAndJoined, "micro")
 -- the character button, invisible over the whole portrait: a click on the face opens the character window
 local CHARACTER = { position = "absolute", left = 0, top = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT,
 	opacity = 0 }
@@ -306,8 +323,20 @@ local function MicroWithPortrait(game, self)
 	game.ui:Box(self.state.livePortrait and PORTRAIT_LIVE_CALL or PORTRAIT_CALL)
 	game.ui:Box(MICRO_LINE[false])
 end
+local function JoinedWithPortrait(game, self)
+	game.ui:Box(SPACER_CALL)
+	game.ui:Box(self.state.livePortrait and PORTRAIT_LIVE_CALL or PORTRAIT_CALL)
+	game.ui:Box(JOINED_LINE[false])
+end
 local MICRO_PORTRAIT_CALL = { key = "micromenu", attributes = { columns = { PORTRAIT_WIDTH, "auto" },
 	gap = Define.Theme.spacing.md, yAlign = "center" }, slots = { default = MicroWithPortrait } }
+local JOINED_PORTRAIT_CALL = { key = "micromenu", attributes = { columns = { PORTRAIT_WIDTH, "auto" },
+	gap = Define.Theme.spacing.md, yAlign = "center" }, slots = { default = JoinedWithPortrait } }
+
+-- friends and guild in the micro menu's row (before the game menu, no gap): both on the panel, in one zone
+local function Joined(self)
+	return self.state.bottomOn and self.state.social == self.state.micromenu and self.state.micromenu ~= Zone.Off
+end
 
 -- whether the portrait stands in the corner: asked for, and the micro menu at the start of a bottom panel
 local function PortraitShown(self)
@@ -323,13 +352,14 @@ local function Item(game, self, item, vertical)
 		if not self.state.microOn then
 			return
 		end
+		local joined = Joined(self)
 		if PortraitShown(self) then
-			game.ui:Box(MICRO_PORTRAIT_CALL)
+			game.ui:Box(joined and JOINED_PORTRAIT_CALL or MICRO_PORTRAIT_CALL)
 		else
-			game.ui:Box(MICRO_FACE_LINE[vertical])
+			game.ui:Box((joined and JOINED_FACE_LINE or MICRO_FACE_LINE)[vertical])
 		end
 	elseif item == "social" then
-		if self.state.microOn then
+		if self.state.microOn and not Joined(self) then
 			game.ui:Box(SOCIAL_LINE[vertical])
 		end
 	elseif item == "experience" then
@@ -430,8 +460,9 @@ end
 -- the set of items in a zone, a bit per item
 local function Mask(self, zone)
 	local mask = 0
+	local joined = Joined(self)
 	for i = 1, #ITEMS do
-		if ZoneOf(self, ITEMS[i]) == zone then
+		if ZoneOf(self, ITEMS[i]) == zone and not (joined and ITEMS[i] == "social") then
 			mask = mask + 2 ^ (i - 1)
 		end
 	end
