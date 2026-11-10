@@ -1159,6 +1159,20 @@ describe("backend styles", function()
 				end
 			end
 			assert.is_true(drawn > 0, name .. " drew no art")
+			-- drawn again (taken off and put back: ApplyBorder hides every piece first): the mitred corners keep their
+			-- masks shown, or they draw as a cross
+			Backend:Set(box, { position = "absolute", left = 100, top = 100, width = 300, height = 200,
+				background = ref("window.wood") })
+			Backend:Flush()
+			Backend:Set(box, { position = "absolute", left = 100, top = 100, width = 300, height = 200,
+				border = ref(name), background = ref("window.wood") })
+			Backend:Flush()
+			for _, key in ipairs({ "tlSideMask", "tlTopMask", "trSideMask", "trTopMask" }) do
+				local mask = box.frameArt[key]
+				if mask then
+					assert.is_true(mask:IsShown(), name .. " " .. key .. " hidden after a redraw")
+				end
+			end
 			Backend:SetChildren(layer, {}, 0)
 			Backend:Flush()
 		end

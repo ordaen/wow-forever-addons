@@ -659,8 +659,11 @@ function Node:ApplyFrameArt(border)
 			art.tlSideMask = maskOf(frame, side, "ll")
 			art.tlTopMask = maskOf(frame, turned, "ur")
 		end
+		-- shown again: ApplyBorder hides every piece in art, masks included, and a hidden mask masks nothing
 		art.tlSideMask:SetAllPoints(side)
 		art.tlTopMask:SetAllPoints(side)
+		art.tlSideMask:Show()
+		art.tlTopMask:Show()
 	end
 	if top and right and rightAtlas then
 		local side = piece("trSide", 1)
@@ -682,6 +685,8 @@ function Node:ApplyFrameArt(border)
 		end
 		art.trSideMask:SetAllPoints(side)
 		art.trTopMask:SetAllPoints(side)
+		art.trSideMask:Show()
+		art.trTopMask:Show()
 	end
 end
 
