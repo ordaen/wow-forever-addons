@@ -372,17 +372,22 @@ local ALIGN = { left = "start", center = "center", right = "end" }
 local function Vertical(self)
 	return self.state.edge == Edge.Left or self.state.edge == Edge.Right
 end
-local AUTO = {}
-for n = 1, #ITEMS do
+-- A zone's tracks, one per item in it in ITEMS order: the experience bar takes what's left ("1fr"), the rest their
+-- content's size. Made on first use per set of items (a bit per item): the player uses a few sets.
+local function TracksOf(mask)
 	local tracks = {}
-	for k = 1, n do
-		tracks[k] = "auto"
+	for i = 1, #ITEMS do
+		if math.floor(mask / 2 ^ (i - 1)) % 2 == 1 then
+			tracks[#tracks + 1] = ITEMS[i] == "experience" and "1fr" or "auto"
+		end
 	end
-	AUTO[n] = tracks
+	return tracks
 end
-local ZONE_CALLS = {}
+
+-- each zone's slot: its items in order
+local ZONE_SLOTS = {}
 for _, zone in ipairs({ Zone.Left, Zone.Center, Zone.Right }) do
-	local function slot(game, self)
+	ZONE_SLOTS[zone] = function(game, self)
 		local vertical = Vertical(self)
 		for i = 1, #ITEMS do
 			if ZoneOf(self, ITEMS[i]) == zone then
@@ -390,32 +395,38 @@ for _, zone in ipairs({ Zone.Left, Zone.Center, Zone.Right }) do
 			end
 		end
 	end
-	-- by direction and the number of items in it (its tracks)
-	local gap = Define.Theme.spacing.md
-	local calls = { [false] = {}, [true] = {} }
-	for n = 0, #ITEMS do
-		local tracks = n > 0 and AUTO[n] or nil
-		calls[false][n] = { key = zone, attributes = { columns = tracks, gap = gap, xAlign = ALIGN[zone],
-			yAlign = "center" }, slots = { default = slot } }
-		calls[true][n] = { key = zone, attributes = { rows = tracks, gap = gap, yAlign = ALIGN[zone],
-			xAlign = "center" }, slots = { default = slot } }
-	end
-	ZONE_CALLS[zone] = calls
 end
 
--- the number of items in a zone, for its tracks
-local function Count(self, zone)
-	local n = 0
+-- a zone's box per direction and set of items, made on first use: its items along the panel, from the zone's start,
+-- centred or to its end
+local ZONE_CALLS = { [false] = {}, [true] = {} }
+local function ZoneCall(zone, vertical, mask)
+	local key = zone .. mask
+	local call = ZONE_CALLS[vertical][key]
+	if not call then
+		local tracks, gap = mask > 0 and TracksOf(mask) or nil, Define.Theme.spacing.md
+		local attributes = vertical
+			and { rows = tracks, gap = gap, yAlign = ALIGN[zone], xAlign = "center" }
+			or { columns = tracks, gap = gap, xAlign = ALIGN[zone], yAlign = "center" }
+		call = { key = zone, attributes = attributes, slots = { default = ZONE_SLOTS[zone] } }
+		ZONE_CALLS[vertical][key] = call
+	end
+	return call
+end
+
+-- the set of items in a zone, a bit per item
+local function Mask(self, zone)
+	local mask = 0
 	for i = 1, #ITEMS do
 		if ZoneOf(self, ITEMS[i]) == zone then
-			n = n + 1
+			mask = mask + 2 ^ (i - 1)
 		end
 	end
-	return n
+	return mask
 end
 
 local function ZoneBox(game, self, zone)
-	game.ui:Box(ZONE_CALLS[zone][Vertical(self)][Count(self, zone)])
+	game.ui:Box(ZoneCall(zone, Vertical(self), Mask(self, zone)))
 end
 
 local function Zones(game, self)
