@@ -88,7 +88,7 @@ describe("backend layout", function()
 		-- A value for each layout attribute that differs from its default.
 		local SAMPLE = {
 			width = 10, height = 10, columnSpan = 2, position = "absolute", top = 5, right = 5, bottom = 5, left = 5,
-			columns = { "auto", 20 }, gap = 3, padding = 4, xAlign = "center", yAlign = "end", border = { width = 1 },
+			columns = { "auto", 20 }, rows = { "1fr" }, minContent = true, gap = 3, padding = 4, xAlign = "center", yAlign = "end", border = { width = 1 },
 		}
 
 		it("reads every layout attribute into its fields", function()
@@ -464,6 +464,33 @@ describe("backend layout", function()
 			run(root({ tip }))
 			assert.are.equal(720, tip.w) -- three shares of the widest cell (240)
 		end)
+	end)
+
+	it("sizes rows as tracks: fixed, auto, and fr sharing what a given height leaves", function()
+		local a, b, c = box({ height = 20 }), box({ height = 30 }), box({})
+		local grid = box({ position = "absolute", left = 0, top = 0, width = 100, height = 300, columns = 1,
+			rows = { 40, "auto", "1fr" } }, { a, b, c })
+		run(root({ grid }))
+		assert.are.equal(40, b.y) -- the fixed row is 40 high whatever its content
+		assert.are.equal(70, c.y)
+		assert.are.equal(230, c.h) -- the fr row: the rest of the 300, its box (no height of its own) stretched to it
+	end)
+
+	it("stretches the one child of a one-row fr grid to the given height", function()
+		local child = box({}, { text("hello") })
+		local body = box({ position = "absolute", left = 0, top = 0, right = 0, bottom = 0, rows = { "1fr" } },
+			{ child })
+		run(root({ body }))
+		assert.are.equal(800, child.h)
+	end)
+
+	it("keeps a minContent box no smaller than its content, whatever its offsets say", function()
+		local content = box({ width = 300, height = 200 })
+		local body = box({ position = "absolute", left = 0, top = 0, width = 100, height = 50, minContent = true,
+			rows = { "1fr" } }, { content })
+		run(root({ body }))
+		assert.are.equal(300, body.w)
+		assert.are.equal(200, body.h)
 	end)
 end)
 

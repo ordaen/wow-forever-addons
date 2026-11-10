@@ -118,6 +118,42 @@ function Layout.Columns(node, columns, resolve, px)
 	node.ncols = n
 end
 
+---Fill node.nrows, node.rowKind, node.rowAmount from a `rows` attribute: a list of track sizes or a number (that many
+---1fr tracks); nil leaves no row tracks (every row auto). Rows past the list are auto. A fixed row is that tall, an
+---auto row its content's height, and fr rows share what a given height leaves (with none given they're auto).
+---@param node table
+---@param rows any
+---@param resolve fun(value: any): any
+function Layout.Rows(node, rows, resolve, px)
+	if rows == nil then
+		node.nrows = 0
+		return
+	end
+	local kinds, amounts = node.rowKind, node.rowAmount
+	if not kinds then
+		kinds, amounts = {}, {}
+		node.rowKind, node.rowAmount = kinds, amounts
+	end
+	local n
+	if type(rows) == "table" then
+		n = #rows
+		for r = 1, n do
+			kinds[r], amounts[r] = Layout.Size(resolve(rows[r]), true)
+			if kinds[r] == "pct" then
+				kinds[r] = "auto"
+			elseif kinds[r] == "fixed" and px then
+				amounts[r] = floor(amounts[r] / px + 0.5) * px
+			end
+		end
+	else
+		n = type(rows) == "number" and rows >= 1 and floor(rows) or 0
+		for r = 1, n do
+			kinds[r], amounts[r] = "fr", 1
+		end
+	end
+	node.nrows = n
+end
+
 ---The layout attributes, in one place: what a change to each invalidates (`group`), the node fields Layout.Apply
 ---fills from it, and whether a text node takes it (`text`). The backend builds its attribute groups and key lists from
 ---this list, and the layout spec checks that Apply reads every entry.
@@ -130,7 +166,9 @@ Layout.ATTRIBUTES = {
 	{ key = "right", group = "offset", text = true, fields = { "offR" } },
 	{ key = "bottom", group = "offset", text = true, fields = { "offB" } },
 	{ key = "left", group = "offset", text = true, fields = { "offL" } },
+	{ key = "minContent", group = "own", fields = { "minContent" } },
 	{ key = "columns", group = "content", fields = { "ncols" } },
+	{ key = "rows", group = "content", fields = { "nrows" } },
 	{ key = "gap", group = "content", fields = { "gapR", "gapC" } },
 	{ key = "padding", group = "content", fields = { "padT", "padR", "padB", "padL" } },
 	{ key = "xAlign", group = "content", fields = { "xAlign" } },
@@ -156,6 +194,7 @@ function Layout.ApplySize(node, a, resolve, px)
 	node.wKind, node.wAmount = wk, (wk == "fixed" or wk == "minfit") and pixels(wa, px) or wa
 	node.hKind, node.hAmount = hk, hk == "fixed" and pixels(ha, px) or ha
 	node.span = resolve(node, a.columnSpan)
+	node.minContent = resolve(node, a.minContent) == true or nil
 	node.pos = resolve(node, a.position)
 end
 
@@ -229,6 +268,7 @@ function Layout.ApplyContent(node, a, resolve, resolveRef, px)
 		return
 	end
 	Layout.Columns(node, resolve(node, a.columns), resolveRef, px)
+	Layout.Rows(node, resolve(node, a.rows), resolveRef, px)
 	local gap = resolve(node, a.gap)
 	if type(gap) == "table" then
 		node.gapR, node.gapC = pixels(resolveRef(gap[1]) or 0, px), pixels(resolveRef(gap[2]) or 0, px)
@@ -680,6 +720,12 @@ local function placeFree(node, refW, refH, ctx)
 	if node.kind == "text" then
 		h = textHeight(node, w, ctx)
 	else
+		if node.minContent then -- never narrower than its content without wrapping texts (min-content)
+			local was = fitting
+			fitting = true
+			w = max(w, boxNatural(node))
+			fitting = was
+		end
 		local given
 		if hk == "fixed" then
 			given = node.hAmount
@@ -689,6 +735,9 @@ local function placeFree(node, refW, refH, ctx)
 			given = refH
 		elseif hk == nil and t and b then
 			given = refH - t - b
+		end
+		if given and node.minContent then -- nor shorter than its content at that width
+			given = max(given, autoHeight(node, w, ctx))
 		end
 		h = given or autoHeight(node, w, ctx)
 		local x = l or (r and refW - r - w) or floor((refW - w) / 2 + 0.5)
@@ -772,6 +821,10 @@ local function single(node, child, W, H, padT, padB, padL, contentW, contentH, c
 		end
 	end
 	local box = child.kind == "box"
+	if contentH and (node.nrows or 0) >= 1 and node.rowKind[1] == "fr" and h < contentH then
+		h = contentH -- its row is fr: the whole given height
+		y = padT
+	end
 	if box and (child.hKind == "fill" or (child.hKind == nil and not placed(ya))) then
 		given = h -- stretched to its row, which is its own height
 	end
@@ -901,9 +954,28 @@ function layoutBox(node, W, H, ctx)
 			end
 		end
 	end
+	local nrows, rowKind, rowAmount = node.nrows or 0, node.rowKind, node.rowAmount
+	local frs = 0
+	for r = 1, min(nrows, rows) do
+		local k = rowKind[r]
+		if k == "fixed" then
+			rowH[r] = rowAmount[r]
+		elseif k == "fr" then
+			frs = frs + rowAmount[r]
+		end
+	end
 	local used = rows > 1 and gapR * (rows - 1) or 0
 	for r = 1, rows do
 		used = used + rowH[r]
+	end
+	if frs > 0 and contentH and contentH > used then -- the fr rows share what's left of the given height
+		local unit = (contentH - used) / frs
+		for r = 1, min(nrows, rows) do
+			if rowKind[r] == "fr" then
+				rowH[r] = rowH[r] + unit * rowAmount[r]
+			end
+		end
+		used = contentH
 	end
 	local y, rowSpread = padT, 0
 	if contentH then

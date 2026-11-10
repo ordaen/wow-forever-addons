@@ -128,10 +128,14 @@ local function Body(game, self)
 	end
 end
 
+-- the body: its content (the default slot: one box) fills it, so a module's 1fr and percentage rows and columns follow
+-- the window's size; and the card never gets smaller than that content needs (min-content), whatever the size
+local BODY_ROWS = { "1fr" }
+
 local function Parts(game, self)
 	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = TabH(self), bottom = 0,
-		border = Define.Theme.frame.small, background = WOOD, padding = PADDING, columns = 1, hoverWithin = true,
-		OnEnter = self.enter, OnLeave = self.leave }, slots = { default = Body } })
+		border = Define.Theme.frame.small, background = WOOD, padding = PADDING, columns = 1, rows = BODY_ROWS,
+		minContent = true, hoverWithin = true, OnEnter = self.enter, OnLeave = self.leave }, slots = { default = Body } })
 	-- the tab row: the whole row above the body moves the window, the tab over it too
 	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = 0, height = TabH(self),
 		OnDragStart = self.dragStart, OnDrag = self.drag, OnDragStop = self.dragStop } })
