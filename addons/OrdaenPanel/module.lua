@@ -679,6 +679,14 @@ return Define.Module({
 		end
 		-- hidden: faded to its opacity, or not drawn at all at none. Shown on mouseover, a hidden panel stays drawn
 		-- at the least opacity the cursor still finds (a box at opacity 0 takes no mouse).
+		-- the player's own condition, when there is one, decides alone (a secure state driver: it works in combat)
+		local condition = self.state.condition
+		if condition ~= "" then
+			local a = PanelAttributes(self)
+			a.visibleWhen = condition
+			game.ui:Box({ attributes = a, slots = { default = Zones } })
+			return
+		end
 		local hidden = Hidden(game, self)
 		local faded = self.state.fadedAlpha
 		if hidden and faded <= 0 and self.state.show ~= Show.Mouseover then

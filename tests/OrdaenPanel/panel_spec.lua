@@ -344,3 +344,21 @@ describe("Ordaen Panel's reputation bar", function()
 		assert.is_true(Shown(wow, "Stormwind: Honored 40%"))
 	end)
 end)
+
+describe("Ordaen Panel's own condition", function()
+	it("hands the panel's showing to a secure state driver while it has one", function()
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenPanel" } })
+		local home = wow.env.CreateFrame("Frame", "BagsBar", wow.env.UIParent)
+		for _, name in ipairs(BLIZZARD) do
+			wow.env.CreateFrame("Button", name, home):SetSize(45, 45)
+		end
+		wow.env.OrdaenPanelDB = { module = { condition = "[combat] hide; show", combat = "hide" } }
+		wow:Login()
+		wow:Tick()
+		assert.are.same({}, wow.errors)
+		-- drawn even with combat set to hide: the condition decides, not the settings above it
+		wow:Fire("PLAYER_REGEN_DISABLED")
+		wow:Tick()
+		assert.is_truthy(wow.env.ProfessionMicroButton:GetParent() ~= home)
+	end)
+end)
