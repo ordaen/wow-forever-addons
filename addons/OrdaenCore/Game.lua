@@ -808,7 +808,26 @@ function DOMAINS.TradeSkill()
 	-- records refilled when the game's list changes; version changes on each refill
 	local TradeSkill = {
 		Difficulty = RecipeDifficulty, open = NewValue(nil), recipes = {}, categories = {}, version = NewValue(0),
-		Signal = { Shown = RawEvent("TRADE_SKILL_SHOW"), Closed = RawEvent("TRADE_SKILL_CLOSE") },
+		Signal = { Shown = RawEvent("TRADE_SKILL_SHOW"), Closed = RawEvent("TRADE_SKILL_CLOSE"),
+			-- Blizzard's professions window showed (the micro button, its key): on its overview when no profession
+			-- is open, as after a reload
+			FrameShown = NewEvent(function(event)
+				if event.hooked then
+					return
+				end
+				event.hooked = true
+				local function Hook()
+					local frame = _G.ProfessionsFrame
+					if frame and not event.frameHooked then
+						event.frameHooked = true
+						frame:HookScript("OnShow", function()
+							event:Fire()
+						end)
+					end
+				end
+				Hook()
+				RawEvent("ADDON_LOADED"):Subscribe(Hook, false) -- it loads on demand
+			end) },
 	}
 	local recipes, categories = TradeSkill.recipes, TradeSkill.categories
 	local byID = {} -- recipe id -> its record

@@ -232,6 +232,20 @@ return Define.Module({
 				game.TradeSkill:Craft(recipe.id, math.min(self.state.count, recipe.craftable))
 			end
 		end
+		-- Blizzard's professions window showing with no profession open (its overview, as the micro button opens it
+		-- after a reload): open the first profession with recipes, so this window shows in its place
+		self:On(game.TradeSkill.Signal.FrameShown, function()
+			if game.TradeSkill.open:Peek() then
+				return
+			end
+			local list = game.Professions.list
+			for i = 1, #list do
+				if list[i].kind ~= game.Professions.Kind.Gathering then
+					game.TradeSkill:Open(list[i].skillLine)
+					return
+				end
+			end
+		end)
 		return {
 			tabs = tabs,
 			counts = counts,
