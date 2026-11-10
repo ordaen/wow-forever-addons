@@ -11,14 +11,15 @@ local L = import("locales")
 local S = import("style")
 
 local MARBLE = { file = "Interface\\FrameGeneral\\UI-Background-Marble", repeatSize = 256 * S.PX }
-local PANEL = { rows = "auto", gap = 8 * S.PX, padding = 12 * S.PX,
-	border = { width = 1 * S.PX, color = S.LINE }, background = MARBLE, height = "100%", overflow = "clip" }
+-- the head, the description, the needs, the reagents (scrolling in what's left) and the make row at the bottom: in the
+-- flow, so the make row's buttons count in the window's smallest size
+local PANEL = { rows = { "auto", "auto", "auto", "1fr", "auto" }, gap = 8 * S.PX, padding = 12 * S.PX,
+	border = { width = 1 * S.PX, color = S.LINE }, background = MARBLE, overflow = "clip" }
+local REAGENTS = { rows = "auto", overflow = "scroll" }
 local BRONZE = { width = 1 * S.PX, color = { 0.424, 0.333, 0.208, 1 } } -- --o-bronze, an item slot's edge
 local HEAD = { columns = { 52 * S.PX, "1fr" }, gap = 10 * S.PX, yAlign = "center" }
 local SLOT = 52 * S.PX
--- the make row: at the panel's bottom, inside its padding
-local MAKE = { position = "absolute", left = 12 * S.PX, right = 12 * S.PX, bottom = 12 * S.PX,
-	columns = { "auto", "auto", "auto", "1fr", "auto" }, gap = 8 * S.PX, yAlign = "center" }
+local MAKE = { columns = { "auto", "auto", "auto", "1fr", "auto" }, gap = 8 * S.PX, yAlign = "center" }
 local STEP = 30 * S.PX
 local MAX_REAGENTS = 8
 
@@ -108,7 +109,7 @@ local function Panel(game, self)
 	game.ui:Box({ attributes = HEAD, slots = { default = Head } })
 	game.ui:Text({ attributes = { text = Description(game, self), textSize = S.RECIPE_TEXT, textColor = S.INK } })
 	game.ui:Text({ attributes = { text = Needs(game, self), textSize = S.RECIPE_TEXT, textColor = S.DIM } })
-	game.ui:Box({ attributes = { rows = "auto" }, slots = { default = Reagents } })
+	game.ui:Box({ attributes = REAGENTS, slots = { default = Reagents } })
 	game.ui:Box({ attributes = MAKE, slots = { default = Make } })
 end
 
