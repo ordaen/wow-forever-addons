@@ -1,6 +1,6 @@
 -- One Ordaen tooltip in place of a Blizzard one (design tooltips/) and the group around it: the tooltip itself (the
 -- main one), the ones open from the start beside it (use effects, the set, the item a recipe makes: one column), the
--- comparison tooltips (the main view's), the ones opened from links (one column per depth). While something in it
+-- comparison tooltips (the main view's); the ones opened from links each at the text that opened it. While something in it
 -- counts down (a cooldown, an aura's time) it is read again once a second; nothing runs otherwise.
 --
 -- Placement (design tooltips «Placement»), decided once per show:
@@ -17,7 +17,8 @@
 -- written as each show starts), `epoch` (the module's: changes when a comparison rewrote this view's rows); the lock (the module's, design «Tooltips in tooltips»): `charge` (its
 -- steps, the main tooltip's bar), `kept` (locked while this view showed: it stays after Blizzard's goes), `locked`,
 -- `OnEnter`/`OnLeave` (the mouse on the locked group) and `OnClose`; the main view's: `links` (per depth, OnLink of
--- its tooltips' parts: 0 the group's own), `nested` (the models opened from links by depth, `.n` open), `nest`
+-- its tooltips' parts: 0 the group's own), `nested` (the models opened from links by depth, `.n` open, `.at[d]` the
+-- frame of the text it opened from), `nest`
 -- (changes when one opens or closes), `nestHover` (per depth, { OnEnter, OnLeave }), `compares` (the comparison
 -- tooltips, each { tip, model, name, call }), `keptBy` (the lock's kept views by name).
 local Define = import("@ordaen/define")
@@ -32,7 +33,7 @@ for n = 1, 8 do
 	end
 	COLUMNS[n] = list
 end
-local MAIN, SIDES, NESTED = "main", "sides", "nested" -- the group's parts (a comparison: its index)
+local MAIN, SIDES = "main", "sides" -- the group's parts (a comparison: its index)
 
 local function Link(_, self)
 	return self.attributes.locked and self.attributes.links and self.attributes.links[0] or nil
@@ -42,28 +43,49 @@ local function Version(self, tip)
 	return tip.shown:Get() * 1000000 + self.attributes.epoch * 1000 + self.state.tick
 end
 
--- a tooltip opened from a link, in a box that knows the mouse on it
+-- a tooltip opened from a link: its own box at the text that opened it (below it, or above it in the screen's lower
+-- half; on its left edge, or its right edge in the screen's right third), knowing the mouse on it
 local function Opened(game, self)
 	local d = self.nestedDepth
 	game.ui:TipFrame(nil, self.nestedCalls[d], d)
 end
+
+local function AnchorAt(box, frame)
+	local x, y = frame:GetCenter()
+	local scale = frame:GetEffectiveScale() / UIParent:GetEffectiveScale()
+	local side = (x and x * scale > UIParent:GetWidth() * 2 / 3) and "RIGHT" or "LEFT"
+	local below = not y or y * scale > UIParent:GetHeight() / 2
+	local point = (below and "TOP" or "BOTTOM") .. side
+	local relativePoint = (below and "BOTTOM" or "TOP") .. side
+	local anchor = box.attributes.anchor
+	if not anchor or anchor.to ~= frame or anchor.point ~= point then
+		box.attributes.anchor = { to = frame, point = point, relativePoint = relativePoint }
+	end
+end
+
 local function Nested(game, self)
 	local nested = self.attributes.nested
+	local _ = self.attributes.nest -- read: one opened or closed draws again
+	if not (nested and self.attributes.locked) then
+		return
+	end
 	local calls, boxes = self.nestedCalls, self.nestedBoxes
-	local reversed = self.reversed
-	for i = 1, nested.n do
-		local d = reversed and nested.n + 1 - i or i
-		local call = calls[d]
-		if not call then
-			call = { attributes = { side = true, locked = false } }
-			calls[d] = call
-			local hover = self.attributes.nestHover[d]
-			boxes[d] = { attributes = { columns = 1, hoverWithin = true, OnEnter = hover.OnEnter,
-				OnLeave = hover.OnLeave }, slots = { default = self.opened[d] } }
+	for d = 1, nested.n do
+		local frame = nested.at[d]
+		if frame then
+			local call = calls[d]
+			if not call then
+				call = { attributes = { side = true, locked = false } }
+				calls[d] = call
+				local hover = self.attributes.nestHover[d]
+				boxes[d] = { attributes = { position = "fixed", columns = 1, hoverWithin = true,
+					OnEnter = hover.OnEnter, OnLeave = hover.OnLeave }, slots = { default = self.opened[d] } }
+			end
+			local a = call.attributes
+			a.model, a.version, a.OnLink = nested[d], self.attributes.nest, self.attributes.links[d]
+			AnchorAt(boxes[d], frame)
+			game.ui:Box(nil, boxes[d], d)
 		end
-		local a = call.attributes
-		a.model, a.version, a.OnLink = nested[d], self.attributes.nest, self.attributes.links[d]
-		game.ui:Box(nil, boxes[d], d)
 	end
 end
 
@@ -91,9 +113,6 @@ local function Part(game, self, part)
 		game.ui:TipFrame(self.mainCall)
 	elseif part == SIDES then
 		game.ui:Box(self.sidesBox)
-	elseif part == NESTED then
-		self.nestedBox.attributes.columns = COLUMNS[self.attributes.nested.n]
-		game.ui:Box(self.nestedBox)
 	else
 		local c = self.attributes.compares[part]
 		local a = c.call.attributes
@@ -136,12 +155,6 @@ local function Order(self)
 			end
 		end
 	end
-	local nested = self.attributes.nested
-	local _ = self.attributes.nest -- read: one opened or closed draws again
-	if nested and nested.n > 0 and self.attributes.locked then
-		n = n + 1
-		order[n] = NESTED
-	end
 	self.nParts = n
 	return n
 end
@@ -176,7 +189,6 @@ return Define.Component({
 		self.sideCalls = {}
 		self.order, self.nParts, self.reversed = {}, 0, false
 		self.sidesBox = { attributes = { columns = 1, gap = 4 * PX }, slots = { default = Sides } }
-		self.nestedBox = { attributes = { columns = 1, gap = 4 * PX, yAlign = "start" }, slots = { default = Nested } }
 		self.nestedCalls, self.nestedBoxes, self.opened = {}, {}, {}
 		for d = 1, 8 do
 			self.opened[d] = function(game)
@@ -217,5 +229,6 @@ return Define.Component({
 		-- the sides' column lined up like the row
 		self.sidesBox.attributes.yAlign = a.yAlign
 		game.ui:Box(self.box)
+		Nested(game, self)
 	end,
 })

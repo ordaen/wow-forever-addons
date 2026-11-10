@@ -481,10 +481,15 @@ describe("Ordaen Tooltips", function()
 			wait(1.1)
 			assert.is_truthy(underline()) -- locked: a term's text gets the gold dashes
 			local c = cell()
+			wow.mouseFocus = c.frame
 			c.a.OnEnter()
 			ns.Scheduler.Flush()
 			has(texts(), "Rage: 10", "The ability's rage cost.")
-			assert.is_truthy(wow.cursor and wow.cursor:find("help%-cursor")) -- the help cursor on a term
+			assert.is_truthy(wow.cursor and wow.cursor:find("QuestTurnIn", 1, true)) -- the help cursor on a term
+			local at = find(function(node)
+				return node.a and node.a.position == "fixed" and node.a.anchor and node.a.anchor.to == c.frame
+			end)
+			assert.is_truthy(at) -- the term's tooltip opens at the text it explains
 			c.a.OnLeave()
 			assert.is_nil(wow.cursor)
 			wait(0.3)
@@ -508,6 +513,7 @@ describe("Ordaen Tooltips", function()
 				local row = find(function(node)
 					return node.a and node.a.OnLink
 				end)
+				wow.mouseFocus = row.frame -- the text under the mouse: the tooltip opens at it
 				row.a.OnLink("ordaen:spell:772", true)
 				ns.Scheduler.Flush()
 				has(texts(), "Wounds the target for")

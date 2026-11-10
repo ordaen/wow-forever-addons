@@ -1587,6 +1587,10 @@ function Wow:MakeEnv()
 	offer("debugprofilestop", function()
 		return os.clock() * 1000
 	end)
+	-- the frames under the mouse: the one a test put there (wow.mouseFocus), topmost first
+	offer("GetMouseFoci", function()
+		return { wow.mouseFocus }
+	end)
 	-- the cursor's look: a texture set by an addon (nil: the game's own)
 	offer("SetCursor", function(cursor)
 		wow.cursor = cursor

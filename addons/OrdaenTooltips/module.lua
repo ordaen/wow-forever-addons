@@ -274,7 +274,8 @@ return Define.Module({
 		self.kept = kept
 		-- the tooltips opened from links: their models by depth (`n` open), whether the mouse is on each, when the
 		-- link that opened the next was left
-		local nested, hovered, linkLeft = { n = 0 }, {}, {}
+		-- (`nested.at[d]`: the frame of the text that opened it, which it opens at)
+		local nested, hovered, linkLeft = { n = 0, at = {} }, {}, {}
 		local function Truncate(depth)
 			if nested.n > depth then
 				nested.n = depth
@@ -397,6 +398,9 @@ return Define.Module({
 			links[depth] = function(link, entered)
 				if entered then
 					linkLeft[depth] = nil
+					-- the text's own frame, under the mouse now: the tooltip opens at it
+					local foci = GetMouseFoci()
+					nested.at[depth + 1] = foci and foci[1] or nil
 					Open(depth, link)
 				else
 					linkLeft[depth] = GetTime()
@@ -406,13 +410,16 @@ return Define.Module({
 		end
 		for d = 1, DEPTH do
 			nestHover[d] = {
+				-- it sits apart from the group's row: the mouse on it is on the group too
 				OnEnter = function()
 					hovered[d] = true
+					lockCalls.OnEnter()
 				end,
 				OnLeave = function()
 					hovered[d] = false
 					linkLeft[d - 1] = GetTime()
 					C_Timer.After(GRACE, checks[d - 1])
+					lockCalls.OnLeave()
 				end,
 			}
 		end
