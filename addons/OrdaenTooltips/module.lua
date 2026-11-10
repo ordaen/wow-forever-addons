@@ -279,6 +279,48 @@ return Define.Module({
 		local INSPECT_TTL, INSPECT_EVERY = 300, 1.5
 		local GEAR_SLOTS = { 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 } -- no shirt (4), no tabard (19)
 		local inspected, pending, asked = {}, nil, -INSPECT_EVERY
+		-- the inspected player's points per talent tree (design «Разрушение 0/0/10»: the tree with most points, then all
+		-- three in their order): their learned ranks from the trait API's inspect config, each spell's tree from
+		-- talents.lua (Forever's API has one tree per class, the client data the classic three); nil without data
+		local INSPECT_CONFIG = Constants and Constants.TraitConsts and Constants.TraitConsts.INSPECT_TRAIT_CONFIG_ID or -1
+		local points, tabOfOrder = { 0, 0, 0 }, {}
+		local function InspectedTrees()
+			if not C_Traits.HasValidInspectData() then
+				return nil
+			end
+			local config = C_Traits.GetConfigInfo(INSPECT_CONFIG)
+			local treeID = config and config.treeIDs and config.treeIDs[1]
+			local nodes = treeID and C_Traits.GetTreeNodes(treeID)
+			if not nodes then
+				return nil
+			end
+			points[1], points[2], points[3] = 0, 0, 0
+			local trees = Read.talents
+			for i = 1, #nodes do
+				local node = C_Traits.GetNodeInfo(INSPECT_CONFIG, nodes[i])
+				local rank = node and node.currentRank or 0
+				local entryID = rank > 0 and node.activeEntry and node.activeEntry.entryID
+				local entry = entryID and C_Traits.GetEntryInfo(INSPECT_CONFIG, entryID)
+				local definition = entry and entry.definitionID and C_Traits.GetDefinitionInfo(entry.definitionID)
+				local tab = definition and definition.spellID and trees.tab[definition.spellID]
+				local info = tab and trees.name[tab]
+				if info then
+					points[info.order] = points[info.order] + rank
+					tabOfOrder[info.order] = info
+				end
+			end
+			local top = 1
+			for i = 2, 3 do
+				if points[i] > points[top] then
+					top = i
+				end
+			end
+			local name = tabOfOrder[top] and (tabOfOrder[top][GetLocale()] or tabOfOrder[top].enUS)
+			if not name or points[top] == 0 then
+				return nil
+			end
+			return name .. " " .. points[1] .. "/" .. points[2] .. "/" .. points[3]
+		end
 		function ctx.inspect(unit)
 			local guid = UnitGUID(unit)
 			local entry = guid and inspected[guid]
@@ -307,10 +349,13 @@ return Define.Module({
 				return
 			end
 			local entry = { at = GetTime() }
-			local specID = GetInspectSpecialization(unit)
-			if specID and specID > 0 then
-				local _, name = GetSpecializationInfoByID(specID)
-				entry.spec = name
+			entry.spec = InspectedTrees()
+			if not entry.spec then -- no talent data in the inspect: the spec's name alone
+				local specID = GetInspectSpecialization(unit)
+				if specID and specID > 0 then
+					local _, name = GetSpecializationInfoByID(specID)
+					entry.spec = name
+				end
 			end
 			local total, count = 0, 0
 			for i = 1, #GEAR_SLOTS do

@@ -677,6 +677,38 @@ describe("Ordaen Tooltips", function()
 			ns.Scheduler.Flush()
 			has(texts(), "Specialization\nInspecting…") -- asked for, not back yet
 			assert.are.equal("mouseover", asked)
+			-- back: the points per tree from the inspect's talents (Ruthlessness 12320 is Fury's, 5 of 5 ranks)
+			env.UnitTokenFromGUID = function()
+				return "mouseover"
+			end
+			env.GetInventoryItemLink = function() end
+			env.ClearInspectPlayer = function() end
+			env.GetInspectSpecialization = function()
+				return 0
+			end
+			env.C_Traits = {
+				HasValidInspectData = function()
+					return true
+				end,
+				GetConfigInfo = function()
+					return { treeIDs = { 1 } }
+				end,
+				GetTreeNodes = function()
+					return { 105939 }
+				end,
+				GetNodeInfo = function()
+					return { currentRank = 5, activeEntry = { entryID = 130669 } }
+				end,
+				GetEntryInfo = function()
+					return { definitionID = 135470 }
+				end,
+				GetDefinitionInfo = function()
+					return { spellID = 12320 }
+				end,
+			}
+			wow:Fire("INSPECT_READY", "Player-1")
+			ns.Scheduler.Flush()
+			has(texts(), "Specialization\nFury 0/5/0")
 			wait(1.3)
 			local race = find(function(node) -- the race's cell text, a TermText taking the mouse once locked
 				local call = node.a
