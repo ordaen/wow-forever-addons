@@ -1580,12 +1580,23 @@ function Node:ApplyText()
 	else
 		natW, lineH = pixelsUp(fs:GetUnboundedStringWidth()), lineHeight(fs, font or Theme["font.body"], size, outline)
 	end
-	-- its min-content width: the longest word (each word on a line of its own: the widest), what a column keeps
+	-- its min-content width: its longest word, what a column keeps. Each word measured on its own (GetWrappedWidth at
+	-- a tiny width gives the whole line on Forever); only when the text changes
 	local minW = natW
-	if wrap and natW > 0 and text:find(" ", 1, true) then
-		fs:SetWidth(1)
-		minW = min(natW, pixelsUp(fs:GetWrappedWidth()))
-		fs:SetWidth(self.pW or 0)
+	if wrap and natW > 0 then
+		local shown = fs:GetText() or ""
+		if shown:find(" ", 1, true) then
+			minW = 0
+			for word in shown:gmatch("%S+") do
+				fs:SetText(word)
+				local w = fs:GetUnboundedStringWidth()
+				if w > minW then
+					minW = w
+				end
+			end
+			fs:SetText(shown)
+			minW = min(natW, pixelsUp(minW))
+		end
 	end
 	local oldW, oldH = self.natW, self.lineH
 	self.natW, self.minW, self.lineH, self.mW = natW, minW, lineH, nil
