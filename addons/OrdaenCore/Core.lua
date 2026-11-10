@@ -81,6 +81,20 @@ function StandIn:TraceEnabled()
 	return false
 end
 
+--- For the dev addon's game recorder: one line on a channel ("layout", "stack", "drag", ...), formatted only while
+--- that channel is recorded. Nothing here.
+---@param channel string
+---@param fmt string
+---@param ... any
+function StandIn:Record(channel, fmt, ...) end
+
+--- Is the recorder taking this channel? Guard costly gathering with it: `if Debug:Recording("layout") then ... end`.
+---@param channel string
+---@return boolean
+function StandIn:Recording(channel)
+	return false
+end
+
 --- `fn` itself here (errors take WoW's normal path); the real kit records errors.
 ---@generic F
 ---@param fn F
