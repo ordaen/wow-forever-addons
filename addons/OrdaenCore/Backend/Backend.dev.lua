@@ -180,6 +180,27 @@ local function label(node)
 		node.h or 0)
 end
 
+--- The windows on every layer, one short string each, for the recorder's snapshot channel (every 2 s while it's
+--- ticked): its layer, rect in UI units, strata, level and raise order ("dialog 102,406 1118x601 DIALOG 2 r3").
+---@return string
+function Core._Layers()
+	local out = {}
+	for name, layer in pairs(Backend._layers) do
+		for i = 1, layer.count or 0 do
+			local node = layer.children[i]
+			local f = node.frame
+			if f and f:IsShown() then
+				local l, b = f:GetLeft(), f:GetBottom()
+				out[#out + 1] = string.format("%s %s,%s %sx%s %s %d%s", name, l and string.format("%.0f", l) or "?",
+					b and string.format("%.0f", b) or "?", string.format("%.0f", f:GetWidth()),
+					string.format("%.0f", f:GetHeight()), f:GetFrameStrata(), f:GetFrameLevel(),
+					node.raised and (" r" .. node.raised) or "")
+			end
+		end
+	end
+	return table.concat(out, "; ")
+end
+
 --- What the drawing backend knows of the box behind `frame` (dev mode's inspect): its attributes, layout, frame,
 --- stacking, art pieces, state and parents, as plain text fields; nil for a frame that isn't one of ours.
 ---@param frame table

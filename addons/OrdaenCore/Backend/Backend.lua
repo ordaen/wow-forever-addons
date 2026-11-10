@@ -19,6 +19,19 @@ local _, ns = ...
 
 local Layout = ns.Layout
 local Theme = ns.Theme
+-- The debug kit, taken once the dev addon can have replaced the stand-in (after login): its Record channels feed the
+-- dev addon's recorder (layout, stack, drag, text, pool, flush); release builds strip every call
+local kitCache
+local function kit()
+	if kitCache then
+		return kitCache
+	end
+	local k = ns.Core.NewDebug("OrdaenCore")
+	if ns.Stage and ns.Stage.Login.fired then
+		kitCache = k
+	end
+	return k
+end
 
 local CreateFrame, UIParent, GetPhysicalScreenSize = CreateFrame, UIParent, GetPhysicalScreenSize
 local InCombatLockdown, hooksecurefunc = InCombatLockdown, hooksecurefunc
@@ -387,7 +400,7 @@ end
 -- stay on the screen: at the drag's start, how far the box's edges are from the screen's, as limits on the cursor
 -- (in the dragged frame's units, as the cursor is reported)
 local function clampOf(frame, x, y)
-	local Debug = ns.Core.NewDebug("OrdaenCore")
+	local Debug = kit()
 	local node = frame.node
 	while node and not node.clampToScreen do
 		node = node.parent
@@ -406,8 +419,8 @@ local function clampOf(frame, x, y)
 	local sw, sh = UIParent:GetWidth() * s, UIParent:GetHeight() * s
 	frame.clampL, frame.clampR = x - l * k, x + (sw - r) * k
 	frame.clampT, frame.clampB = y - (sh - t) * k, y + b * k
-	if Debug:IsEnabled() then
-		Debug:Logf("drag clamp: box l %.1f r %.1f t %.1f b %.1f, screen %.1f x %.1f, k %.3f, cursor %.1f %.1f, "
+	if Debug:Recording("drag") then
+		Debug:Record("drag", "drag clamp: box l %.1f r %.1f t %.1f b %.1f, screen %.1f x %.1f, k %.3f, cursor %.1f %.1f, "
 			.. "x in [%.1f, %.1f], y in [%.1f, %.1f]", l, r, t, b, sw, sh, k, x, y, frame.clampL, frame.clampR,
 			frame.clampT, frame.clampB)
 	end
@@ -417,8 +430,8 @@ local function clampDrag(frame, x, y)
 		local cx = x < frame.clampL and frame.clampL or x > frame.clampR and frame.clampR or x
 		local cy = y < frame.clampT and frame.clampT or y > frame.clampB and frame.clampB or y
 		if cx ~= x or cy ~= y then
-			local Debug = ns.Core.NewDebug("OrdaenCore")
-			Debug:Logf("drag clamped: cursor %.1f %.1f -> %.1f %.1f", x, y, cx, cy)
+			local Debug = kit()
+			Debug:Record("drag", "drag clamped: cursor %.1f %.1f -> %.1f %.1f", x, y, cx, cy)
 		end
 		return cx, cy
 	end
@@ -1726,8 +1739,8 @@ function Node:ApplyText()
 		loadFont(font or Theme["font.body"])
 		local ok = fs:SetFont(font or Theme["font.body"], size, outline or "")
 		if not ok then
-			local Debug = ns.Core.NewDebug("OrdaenCore")
-			Debug:Logf("SetFont(%s, %s) failed for a text", tostring(font or Theme["font.body"]), tostring(size))
+			local Debug = kit()
+			Debug:Record("text", "SetFont(%s, %s) failed for a text", tostring(font or Theme["font.body"]), tostring(size))
 		end
 	end
 	local wrap = resolve(self, a.wrap) ~= false
@@ -1771,14 +1784,14 @@ function Node:ApplyText()
 	self.natW, self.minW, self.lineH, self.mW = natW, minW, lineH, nil
 	if natW == 0 and text ~= "" then
 		remeasureLater(self)
-		local Debug = ns.Core.NewDebug("OrdaenCore")
+		local Debug = kit()
 		local file, h = fs:GetFont()
-		Debug:Logf("text %q measured 0 wide (font %s %s, login %s): measuring again", text, tostring(file),
+		Debug:Record("text", "text %q measured 0 wide (font %s %s, login %s): measuring again", text, tostring(file),
 			tostring(h), tostring(ns.Stage and ns.Stage.Login.fired))
 	elseif self.remeasured then
 		self.remeasured = nil
-		local Debug = ns.Core.NewDebug("OrdaenCore")
-		Debug:Logf("text %q measured %.1f wide on a second try", text, natW)
+		local Debug = kit()
+		Debug:Record("text", "text %q measured %.1f wide on a second try", text, natW)
 	end
 	return Layout.TextResized(self, oldW, oldH)
 end
@@ -2706,8 +2719,8 @@ end
 function raiseUnderCursor()
 	local foci = GetMouseFoci()
 	local f = foci and foci[1]
-	local Debug = ns.Core.NewDebug("OrdaenCore")
-	if Debug:IsEnabled() then
+	local Debug = kit()
+	if Debug:Recording("stack") then
 		local names, g = {}, f
 		while g do
 			local n = g.node
@@ -2715,7 +2728,8 @@ function raiseUnderCursor()
 				.. (n.parent and n.parent.kind == "root" and " branch" or "") .. "]") or "")
 			g = g:GetParent()
 		end
-		Debug:Logf("click: %d under the mouse; from the first up: %s", foci and #foci or 0, table.concat(names, " < "))
+		Debug:Record("stack", "click: %d under the mouse; from the first up: %s", foci and #foci or 0,
+			table.concat(names, " < "))
 	end
 	while f do
 		local node = f.node
@@ -2732,7 +2746,7 @@ function raiseUnderCursor()
 				if node.parent then
 					node.parent:Stack()
 				end
-				if Debug:IsEnabled() then
+				if Debug:Recording("stack") then
 					local levels, siblings = {}, node.parent and node.parent.children or {}
 					for i = 1, node.parent and node.parent.count or 0 do
 						local c = siblings[i]
@@ -2741,7 +2755,7 @@ function raiseUnderCursor()
 								tostring(c.depth) .. (c.raised and ("r" .. c.raised) or "") .. "/" .. c.frame:GetFrameStrata()
 						end
 					end
-					Debug:Logf("raised: level %d -> %d; the layer's boxes: %s", before, node.frame:GetFrameLevel(),
+					Debug:Record("stack", "raised: level %d -> %d; the layer's boxes: %s", before, node.frame:GetFrameLevel(),
 						table.concat(levels, " "))
 				end
 			end
@@ -3378,6 +3392,8 @@ function Backend:Release(node)
 		end
 	end
 	node.released, node.stale, node.src = true, nil, nil
+	local Debug = kit()
+	Debug:Record("pool", "release %s", node.kind)
 	node.bound, node.nbound = nil, 0 -- its bindings went with its component
 	-- what it draws stays, and so does the record of it (look*, text*, border*): the next Set compares against
 	-- that and changes what differs. Clearing a record here without undoing its drawing makes the next Set see no
@@ -3468,6 +3484,8 @@ local function FlushWork(self)
 				node.queued = false
 			end
 			if node and not node.released and attached(node) then
+				local Debug = kit()
+				Debug:Record("layout", "relayout %s (%s children)", node.kind, node.count or 0)
 				if node.taken then
 					node.w, node.h = node.frame:GetWidth(), node.frame:GetHeight()
 				end
@@ -3509,6 +3527,8 @@ function Backend:Flush()
 	local ok, err = pcall(FlushWork, self)
 	local resumes = 0
 	while not ok do
+		local Debug = kit()
+		Debug:Record("flush", "flush failed, resuming (%d): %s", resumes + 1, err)
 		geterrorhandler()(err)
 		resumes = resumes + 1
 		if resumes > FLUSH_RESUMES then
