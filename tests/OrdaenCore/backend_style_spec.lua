@@ -588,7 +588,7 @@ describe("backend styles", function()
 		end
 		Backend:SetChildren(layer, { a, b }, 2)
 		Backend:Flush()
-		assert.is_true(b.frame:GetFrameLevel() > a.frame:GetFrameLevel()) -- b is drawn after a
+		assert.is_true(b.frame:GetFrameLevel() > a.frame:GetFrameLevel()) -- b opened after a: in front
 		wow.mouseFocus = a.frame
 		wow:Fire("GLOBAL_MOUSE_DOWN", "LeftButton")
 		assert.are.same({}, wow.errors)
@@ -600,6 +600,17 @@ describe("backend styles", function()
 		assert.is_true(a.frame:GetFrameLevel() > b.frame:GetFrameLevel()) -- a restack keeps it forward
 		wow.mouseFocus = b.frame
 		wow:Fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+		assert.is_true(b.frame:GetFrameLevel() > a.frame:GetFrameLevel())
+		-- a third one opened comes in front of both; closed, the last clicked (b) is in front again
+		local c = Backend:Create("box")
+		Backend:Set(c, wow.env.table.freeze({ position = "absolute", left = 30, top = 0, width = 100, height = 100,
+			toplevel = true, background = ref("color.surface"), OnClick = function() end }))
+		Backend:SetChildren(layer, { a, b, c }, 3)
+		Backend:Flush()
+		assert.is_true(c.frame:GetFrameLevel() > b.frame:GetFrameLevel())
+		Backend:SetChildren(layer, { a, b }, 2)
+		Backend:Release(c)
+		Backend:Flush()
 		assert.is_true(b.frame:GetFrameLevel() > a.frame:GetFrameLevel())
 	end)
 

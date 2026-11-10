@@ -46,6 +46,7 @@ describe("the settings controls", function()
 			end
 		end
 		walk(ns.Game.Layer.Screen.node)
+		walk(ns.Game.Layer.Dialog.node) -- windows draw on the dialog layer, whatever layer mounts them
 		return out
 	end
 	local function withBackground(path)

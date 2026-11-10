@@ -414,8 +414,13 @@ local function clampOf(frame, x, y)
 end
 local function clampDrag(frame, x, y)
 	if frame.clampL then
-		x = x < frame.clampL and frame.clampL or x > frame.clampR and frame.clampR or x
-		y = y < frame.clampT and frame.clampT or y > frame.clampB and frame.clampB or y
+		local cx = x < frame.clampL and frame.clampL or x > frame.clampR and frame.clampR or x
+		local cy = y < frame.clampT and frame.clampT or y > frame.clampB and frame.clampB or y
+		if cx ~= x or cy ~= y then
+			local Debug = ns.Core.NewDebug("OrdaenCore")
+			Debug:Logf("drag clamped: cursor %.1f %.1f -> %.1f %.1f", x, y, cx, cy)
+		end
+		return cx, cy
 	end
 	return x, y
 end
@@ -450,8 +455,28 @@ end
 
 -- Dragging: OnDragStart(x, y), OnDrag(x, y) at most once a frame while the cursor moves, OnDragStop(x, y). The
 -- per-frame script runs only during a drag.
+-- The cursor in a dragged frame's units, held to the game's screen. Outside it (past the window's edge, on another
+-- monitor) the game reports the other axis jumping, so an axis past the edge is pinned to it and the other keeps
+-- the drag's last value: a window dragged into the left edge stops there and doesn't jump, a slider dragged past
+-- its end still reaches the end.
+local function dragCursor(frame)
+	local x, y = GetCursorPosition()
+	local s = UIParent:GetEffectiveScale()
+	local sw, sh = UIParent:GetWidth() * s, UIParent:GetHeight() * s
+	local offX, offY = x < 0 or x > sw, y < 0 or y > sh
+	local scale = frame:GetEffectiveScale()
+	local fx = (x < 0 and 0 or x > sw and sw or x) / scale - (frame.dragL or frame:GetLeft() or 0)
+	local fy = (frame.dragT or frame:GetTop() or 0) - (y < 0 and 0 or y > sh and sh or y) / scale
+	if offX and not offY and frame.dragY then
+		fy = frame.dragY
+	elseif offY and not offX and frame.dragX then
+		fx = frame.dragX
+	end
+	return clampDrag(frame, fx, fy)
+end
+
 local function onDragUpdate(frame)
-	local x, y = clampDrag(frame, cursorIn(frame))
+	local x, y = dragCursor(frame)
 	if x ~= frame.dragX or y ~= frame.dragY then
 		frame.dragX, frame.dragY = x, y
 		local fn = frame.node.a.OnDrag
@@ -479,7 +504,7 @@ local dropTargets = {} -- node -> true
 
 local function onDragStop(frame)
 	frame:SetScript("OnUpdate", nil)
-	local x, y = clampDrag(frame, cursorIn(frame))
+	local x, y = dragCursor(frame)
 	frame.dragL, frame.dragT, frame.dragX, frame.dragY, frame.clampL = nil, nil, nil, nil, nil
 	for target in pairs(dropTargets) do
 		local f, drop = target.frame, target.a.OnDrop
@@ -496,15 +521,20 @@ end
 -- Placing (Layout's callback) -------------------------------------------------------------------------------------
 
 -- Only the calls whose values changed: the point (pRel, pX, pY as last set) and the size (pW, pH).
-local raiser, listenForRaise -- forward: windows to the front (Node:Stack), the listener made on the first toplevel box
+local raiser, listenForRaise, raiseNew -- forward: windows to the front (Node:Stack), the listener made on the first toplevel box
 
 function ctx.place(node)
 	local parent = node.parent
 	if not parent then
 		return
 	end
-	if node.toplevel and not raiser then
-		listenForRaise()
+	if node.toplevel then
+		if not raiser then
+			listenForRaise()
+		end
+		if not node.raised then -- just opened: it comes forward, over every window opened or clicked before it
+			raiseNew(node)
+		end
 	end
 	local x, y = snap(node.x), snap(node.y)
 	local obj, rel, w, h
@@ -2591,6 +2621,22 @@ function repixelTrees()
 	end
 end
 
+-- Once the world is up, every text is measured again, once: what's drawn at load can measure a pixel short of the
+-- final string (its font or the scale not settled yet: measured in game, natW 99.2 where the string is 100.0, and a
+-- one-line text gets "…"). One pass a second after the first PLAYER_ENTERING_WORLD; the event is dropped after it.
+do
+	local settle = CreateFrame("Frame")
+	settle:RegisterEvent("PLAYER_ENTERING_WORLD")
+	settle:SetScript("OnEvent", function(self)
+		self:UnregisterEvent("PLAYER_ENTERING_WORLD")
+		self:SetScript("OnEvent", nil)
+		C_Timer.After(1, function()
+			repixelTrees()
+			ns.Scheduler.Request()
+		end)
+	end)
+end
+
 -- A box's texts are font strings, drawn with their frame: under its child boxes, which are frames above it. A box
 -- with box children holds its texts in a frame of their own above them (TEXT_LEVELS levels up: deeper than any panel
 -- or window nests boxes), so a text over a box (a bar's label) shows. A box with only texts draws them itself.
@@ -2646,9 +2692,31 @@ function listenForRaise()
 	raiser:SetScript("OnEvent", raiseUnderCursor)
 	raiser:RegisterEvent("GLOBAL_MOUSE_DOWN")
 end
+-- A window just opened: the newest raise, so it's drawn over the others; when it closes, the one raised before it is
+-- the newest left, so it comes forward (Stack orders the raised by their stamps).
+function raiseNew(node)
+	raiseStamp = raiseStamp + 1
+	node.raised = raiseStamp
+	local parent = node.parent
+	if parent and parent.kind == "root" then
+		parent:Stack()
+	end
+end
+
 function raiseUnderCursor()
 	local foci = GetMouseFoci()
 	local f = foci and foci[1]
+	local Debug = ns.Core.NewDebug("OrdaenCore")
+	if Debug:IsEnabled() then
+		local names, g = {}, f
+		while g do
+			local n = g.node
+			names[#names + 1] = (g:GetName() or "?") .. (n and ("[" .. n.kind .. (n.toplevel and " toplevel" or "")
+				.. (n.parent and n.parent.kind == "root" and " branch" or "") .. "]") or "")
+			g = g:GetParent()
+		end
+		Debug:Logf("click: %d under the mouse; from the first up: %s", foci and #foci or 0, table.concat(names, " < "))
+	end
 	while f do
 		local node = f.node
 		if node and node.toplevel and not node.released then
@@ -2660,8 +2728,21 @@ function raiseUnderCursor()
 			if node.raised ~= raiseStamp or raiseStamp == 0 then
 				raiseStamp = raiseStamp + 1
 				node.raised = raiseStamp
+				local before = node.frame:GetFrameLevel()
 				if node.parent then
 					node.parent:Stack()
+				end
+				if Debug:IsEnabled() then
+					local levels, siblings = {}, node.parent and node.parent.children or {}
+					for i = 1, node.parent and node.parent.count or 0 do
+						local c = siblings[i]
+						if c.kind == "box" then
+							levels[#levels + 1] = (c == node and "*" or "") .. c.frame:GetFrameLevel() .. "+" ..
+								tostring(c.depth) .. (c.raised and ("r" .. c.raised) or "") .. "/" .. c.frame:GetFrameStrata()
+						end
+					end
+					Debug:Logf("raised: level %d -> %d; the layer's boxes: %s", before, node.frame:GetFrameLevel(),
+						table.concat(levels, " "))
 				end
 			end
 			return

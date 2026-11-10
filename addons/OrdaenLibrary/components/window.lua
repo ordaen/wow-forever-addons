@@ -298,9 +298,11 @@ return Define.Component({
 		}
 	end,
 
+	-- every window on the dialog layer, whatever layer its module draws on (the panel's on the screen's): windows are
+	-- siblings there, so a click brings any of them over the others
 	Render = function(game, self)
-		game.ui:Box({ attributes = { position = "absolute", anchor = Anchor(game, self), left = Left(game, self),
-			top = Top(game, self), right = Edge(game, self), bottom = Edge(game, self), width = Width(game, self),
+		game.ui:Box(game.Layer.Dialog, { attributes = { position = "absolute", anchor = Anchor(game, self),
+			left = Left(game, self), top = Top(game, self), right = Edge(game, self), bottom = Edge(game, self), width = Width(game, self),
 			height = Height(game, self), artOrigin = true, minContent = true, clampToScreen = true, toplevel = true,
 			OnEscape = self.close }, slots = { default = Parts } })
 	end,
