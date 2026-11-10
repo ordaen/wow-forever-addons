@@ -577,6 +577,37 @@ describe("backend styles", function()
 		assert.is_false(again.face:IsShown())
 	end)
 
+	it("draws a box's shadow by the box: outset past its sides under the background, inset inside its edges", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local box = Backend:Create("box")
+		Backend:Set(box, wow.env.table.freeze({ position = "fixed", left = 100, top = 100, width = 200, height = 100,
+			background = ref("color.surface"), shadow = { size = 10, y = 4 } }))
+		Backend:SetChildren(layer, { box }, 1)
+		Backend:Flush()
+		local out = box.shadowTex
+		assert.is_true(out:IsShown())
+		assert.are.same({ 32, 32, 32, 32 }, out._sliceMargins) -- nine-sliced: the soft edge keeps its width
+		local l, r = out:GetLeft(), out:GetRight()
+		local fl, fr = box.frame:GetLeft(), box.frame:GetRight()
+		assert.is_true(math.abs((fl - l) - 10) < 1 and math.abs((r - fr) - 10) < 1) -- 10 past each side
+		assert.are.equal(200, box.w) -- paint: the box keeps its size
+		Backend:Set(box, wow.env.table.freeze({ position = "fixed", left = 100, top = 100, width = 200, height = 100,
+			background = ref("color.surface"), shadow = { size = 6, inset = true } }))
+		Backend:Flush()
+		assert.is_false(out:IsShown())
+		for i = 1, 4 do
+			assert.is_true(box.shadowSides[i]:IsShown())
+		end
+		Backend:Set(box, wow.env.table.freeze({ position = "fixed", left = 100, top = 100, width = 200, height = 100,
+			background = ref("color.surface") }))
+		Backend:Flush()
+		for i = 1, 4 do
+			assert.is_false(box.shadowSides[i]:IsShown()) -- dropped: no shadow left
+		end
+	end)
+
 	it("raises a toplevel box over its siblings when clicked, the latest click on top", function()
 		local wow, ns = client()
 		local Backend = ns.Backend

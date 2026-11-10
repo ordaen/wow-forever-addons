@@ -81,7 +81,7 @@ local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, textYAlign = LOOK, portrait = LOOK,
 	mask = LOOK, look = LOOK, shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET,
-	zLevel = LOOK, desaturate = LOOK, tint = LOOK, visibleWhen = LOOK,
+	zLevel = LOOK, desaturate = LOOK, tint = LOOK, visibleWhen = LOOK, shadow = LOOK,
 	action = LOOK, index = LOOK, binding = LOOK, paging = LOOK, hotkey = LOOK, macroName = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
 	hoverWithin = INPUT, OnEscape = INPUT, OnLink = INPUT, OnRect = INPUT,
@@ -99,7 +99,7 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 	end
 end
 for _, key in ipairs({ "background", "desaturate", "tint", "artOrigin", "anchor", "zLevel", "opacity", "portrait",
-	"mask", "overflow", "stateFrom", "OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart",
+	"shadow", "mask", "overflow", "stateFrom", "OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart",
 	"OnDrag", "OnDragStop", "OnDrop", "OnEscape", "OnLink", "OnRect", "visibleWhen",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
@@ -1032,6 +1032,86 @@ end
 -- A box's `mask` (a theme value { mask, rim }): its shape cuts its background and its face, and its rim art lies over
 -- both, all stretched to the box (the art is drawn for the box's aspect). Clicks still land on the whole rectangle:
 -- a frame's hit area can't follow a shape, so a masked box takes the mouse only with a handler, as any box.
+-- A box's `shadow` { color, size, x, y, inset }: a soft shadow drawn by the box, never part of a texture.
+-- Outset (the default): under the box's background, reaching `size` past each side, moved by x (right) and y (down):
+-- one white texture with a soft alpha edge (media/shadow), nine-sliced so the edge keeps its width at any box size,
+-- tinted to `color`. It's paint: the box's size in the layout doesn't change, and nothing reads it.
+-- Inset: the box's own edges darkened `size` deep, over its background and under its content: four strips, each a
+-- gradient from `color` at the edge to clear.
+-- `color` defaults to black at 50%.
+do -- its constants local to it (the file is near Lua's 200 locals)
+local SHADOW = "Interface\AddOns\OrdaenCore\media\shadow"
+local SHADOW_COLOR = { 0, 0, 0, 0.5 }
+local INSET_SIDES = { "TOP", "BOTTOM", "LEFT", "RIGHT" }
+function Node:ApplyShadow(shadow)
+	local out, sides = self.shadowTex, self.shadowSides
+	if out then
+		out:Hide()
+	end
+	if sides then
+		for i = 1, 4 do
+			sides[i]:Hide()
+		end
+	end
+	if type(shadow) ~= "table" then
+		return
+	end
+	local frame = self.frame
+	local c = color(resolveRef(shadow.color)) or SHADOW_COLOR
+	local size = snap(resolveRef(shadow.size) or 8)
+	local x, y = snap(shadow.x or 0), snap(shadow.y or 0)
+	if not shadow.inset then
+		if not out then
+			out = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
+			out:SetTexture(SHADOW)
+			out:SetTextureSliceMargins(32, 32, 32, 32)
+			out:SetTextureSliceMode(0)
+			self.shadowTex = out
+		end
+		out:SetVertexColor(c[1], c[2], c[3], c[4] or 1)
+		out:ClearAllPoints()
+		out:SetPoint("TOPLEFT", frame, "TOPLEFT", x - size, size - y)
+		out:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", x + size, -size - y)
+		out:Show()
+		return
+	end
+	if not sides then
+		sides = {}
+		for i = 1, 4 do
+			sides[i] = frame:CreateTexture(nil, "BORDER", nil, -8)
+			sides[i]:SetColorTexture(1, 1, 1, 1)
+		end
+		self.shadowSides = sides
+	end
+	local from, to = CreateColor(c[1], c[2], c[3], c[4] or 1), CreateColor(c[1], c[2], c[3], 0)
+	for i = 1, 4 do
+		local tex, side = sides[i], INSET_SIDES[i]
+		tex:ClearAllPoints()
+		if side == "TOP" or side == "BOTTOM" then
+			tex:SetPoint(side .. "LEFT", frame, side .. "LEFT", x, -y)
+			tex:SetPoint(side .. "RIGHT", frame, side .. "RIGHT", x, -y)
+			tex:SetHeight(size)
+			-- SetGradient's minimum colour is the bottom one
+			if side == "TOP" then
+				tex:SetGradient("VERTICAL", to, from)
+			else
+				tex:SetGradient("VERTICAL", from, to)
+			end
+		else
+			tex:SetPoint("TOP" .. side, frame, "TOP" .. side, x, -y)
+			tex:SetPoint("BOTTOM" .. side, frame, "BOTTOM" .. side, x, -y)
+			tex:SetWidth(size)
+			if side == "LEFT" then
+				tex:SetGradient("HORIZONTAL", from, to)
+			else
+				tex:SetGradient("HORIZONTAL", to, from)
+			end
+		end
+		tex:Show()
+	end
+end
+end
+
 function Node:ApplyMask(mask)
 	local tex, rim = self.maskTex, self.rimTex
 	if type(mask) ~= "table" or not mask.mask then
@@ -1633,6 +1713,11 @@ function Node:ApplyLook()
 	if (desaturate or false) ~= (self.lookDesat or false) or tint ~= self.lookTint or self.lookBg ~= self.tintedBg then
 		self.lookDesat, self.lookTint, self.tintedBg = desaturate or nil, tint, self.lookBg
 		self:ApplyTint()
+	end
+	local shadow = resolve(self, a.shadow)
+	if shadow ~= self.lookShadowBox then
+		self.lookShadowBox = shadow
+		self:ApplyShadow(shadow)
 	end
 	local unit = resolve(self, a.portrait)
 	if unit ~= self.lookPortrait then

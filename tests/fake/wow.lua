@@ -747,6 +747,15 @@ function TextureMethods:SetDrawLayer(layer)
 	self._layer = layer
 end
 
+-- a nine-slice texture: its margins (texels kept unstretched at each side) and how the middle fills
+function TextureMethods:SetTextureSliceMargins(left, top, right, bottom)
+	self._sliceMargins = { left, top, right, bottom }
+end
+
+function TextureMethods:SetTextureSliceMode(mode)
+	self._sliceMode = mode
+end
+
 function TextureMethods:SetColorTexture(r, g, b, a)
 	self._color = { r, g, b, a }
 	self._texture = nil
