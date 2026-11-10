@@ -49,6 +49,33 @@ describe("Ordaen Panel", function()
 		wow:Tick()
 	end)
 
+	it("centres the level in its badge", function()
+		local ns = wow.addons.OrdaenCore.ns
+		ns.Scheduler.Flush()
+		ns.Backend:Flush()
+		local found
+		local function go(node)
+			if node.kind == "box" and node.a and node.a.width == 36 and node.a.xAlign == "center" then
+				found = node
+			end
+			for i = 1, node.count or 0 do
+				go(node.children[i])
+			end
+		end
+		for _, layer in pairs(ns.Game.Layer) do
+			if type(layer) == "table" and layer.node then
+				go(layer.node)
+			end
+		end
+		assert.is_truthy(found, "no badge")
+		local text = found.children[1]
+		assert.is_true(text.w > 0, "level text has no width: natW " .. tostring(text.natW))
+		assert.is_true(math.abs(text.x + text.w / 2 - 18) <= 1, "level text at x " .. tostring(text.x) .. " w " ..
+			tostring(text.w))
+		assert.is_true(math.abs(text.y + text.h / 2 - 18) <= 1, "level text at y " .. tostring(text.y) .. " h " ..
+			tostring(text.h))
+	end)
+
 	it("hides Blizzard's XP and reputation bars", function()
 		for _, name in ipairs(REPLACED) do
 			assert.is_false(wow.env[name]:IsShown(), name .. " is shown")

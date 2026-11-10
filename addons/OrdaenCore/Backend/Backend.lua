@@ -1566,6 +1566,40 @@ function Node:HasBreak(text)
 end
 
 -- Text, size and wrapping; measures the text. Returns true when the layout must run (Layout.TextResized).
+-- A text that measured 0 wide while it has text: its font file wasn't loaded yet (the game measures nothing before
+-- it is, at login most of all). Measured again a moment later, at most a few times, through the dirty texts as an
+-- argument change goes; nothing runs while every text measures.
+local dirtyTexts, nDirtyTexts = {}, 0 -- texts whose arguments changed (or to measure again), drawn at the next Flush
+local unmeasured, nUnmeasured, remeasureTries = {}, 0, 0
+local function remeasure()
+	local n = nUnmeasured
+	nUnmeasured = 0
+	for i = 1, n do
+		local node = unmeasured[i]
+		unmeasured[i] = nil
+		node.remeasuring = nil
+		node.remeasured = true
+		if not node.released and not node.argsDirty then
+			node.argsDirty = true
+			nDirtyTexts = nDirtyTexts + 1
+			dirtyTexts[nDirtyTexts] = node
+		end
+	end
+	ns.Scheduler.Request()
+end
+local function remeasureLater(node)
+	if node.remeasuring or remeasureTries >= 20 then
+		return
+	end
+	node.remeasuring = true
+	if nUnmeasured == 0 then
+		remeasureTries = remeasureTries + 1
+		C_Timer.After(0.2, remeasure)
+	end
+	nUnmeasured = nUnmeasured + 1
+	unmeasured[nUnmeasured] = node
+end
+
 function Node:ApplyText()
 	if self.kind ~= "text" then
 		self:ApplyInput()
@@ -1588,7 +1622,11 @@ function Node:ApplyText()
 	end
 	if size ~= self.fontSize or font ~= self.font or outline ~= self.outline then
 		self.fontSize, self.font, self.outline = size, font, outline
-		fs:SetFont(font or Theme["font.body"], size, outline or "")
+		local ok = fs:SetFont(font or Theme["font.body"], size, outline or "")
+		if not ok then
+			local Debug = ns.Core.NewDebug("OrdaenCore")
+			Debug:Logf("SetFont(%s, %s) failed for a text", tostring(font or Theme["font.body"]), tostring(size))
+		end
 	end
 	local wrap = resolve(self, a.wrap) ~= false
 	if wrap ~= self.wrap then
@@ -1629,6 +1667,17 @@ function Node:ApplyText()
 	end
 	local oldW, oldH = self.natW, self.lineH
 	self.natW, self.minW, self.lineH, self.mW = natW, minW, lineH, nil
+	if natW == 0 and text ~= "" then
+		remeasureLater(self)
+		local Debug = ns.Core.NewDebug("OrdaenCore")
+		local file, h = fs:GetFont()
+		Debug:Logf("text %q measured 0 wide (font %s %s, login %s): measuring again", text, tostring(file),
+			tostring(h), tostring(ns.Stage and ns.Stage.Login.fired))
+	elseif self.remeasured then
+		self.remeasured = nil
+		local Debug = ns.Core.NewDebug("OrdaenCore")
+		Debug:Logf("text %q measured %.1f wide on a second try", text, natW)
+	end
 	return Layout.TextResized(self, oldW, oldH)
 end
 
@@ -2971,7 +3020,6 @@ function Backend:SetField(node, key, value)
 		g == INPUT, g == TEXT, tables)
 end
 
-local dirtyTexts, nDirtyTexts = {}, 0 -- texts whose arguments changed, drawn at the next Flush
 
 ---A text's argument `i` (its format's i-th value), written by a binding. Drawn at the next Flush, once for all its
 ---arguments that changed meanwhile.

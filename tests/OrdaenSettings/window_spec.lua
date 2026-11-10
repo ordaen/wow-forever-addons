@@ -187,7 +187,7 @@ describe("the settings window", function()
 		ns.Scheduler.Flush()
 		local grip
 		walk(ns, function(node)
-			if node.a and node.a.OnDragStart and node.a.width and node.a.width < 20 then
+			if node.a and node.a.OnDragStart and type(node.a.width) == "number" and node.a.width < 20 then
 				grip = node
 			end
 		end)
@@ -213,7 +213,7 @@ describe("the settings window", function()
 		ns.Scheduler.Flush()
 		local grip
 		walk(ns, function(node)
-			if node.a and node.a.OnDragStart and node.a.width and node.a.width < 20 then
+			if node.a and node.a.OnDragStart and type(node.a.width) == "number" and node.a.width < 20 then
 				grip = node
 			end
 		end)
