@@ -222,9 +222,10 @@ local function Fill(calls, m)
 		local row = m.body[i]
 		local a = Calls(calls.body, i)
 		a.left, a.right = row.left, row.right
-		a.leftColor = row.color or (row.right and BODY or FREE)
+		a.leftColor = row.color or ((row.right or row.desc) and BODY or FREE)
 		a.rightColor = row.rightColor or row.color or BODY
-		a.size = row.right and 16 * PX or 14 * PX
+		-- a stat row 16 px, a description 15 (larger than the footer's 14), other free lines 14
+		a.size = row.right and 16 * PX or row.desc and 15 * PX or 14 * PX
 	end
 	calls.nFoot = m.foot.n
 	for i = 1, m.foot.n do

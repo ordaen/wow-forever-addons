@@ -10,6 +10,7 @@
 local Define = import("@ordaen/define")
 local L = import("locales")
 local Read = import("read")
+local HELP_CURSOR = import("cursor")
 
 -- Blizzard's tooltips drawn here: the main one, the linked item's, the comparison ones
 local NATIVES = { "GameTooltip", "ItemRefTooltip", "ShoppingTooltip1", "ShoppingTooltip2" }
@@ -253,6 +254,7 @@ return Define.Module({
 		-- the spellbook's names: a description's spell names link to their tooltips
 		self:On("SPELLS_CHANGED", Read.Spellbook)
 		Read.Spellbook()
+		Read.Schools(L)
 
 		self.chargeSignal = Define.Signal(self.state.charge) -- the bar reads it: a step moves only the bar
 		self.viewCalls = {}
@@ -379,6 +381,12 @@ return Define.Module({
 			self.state.nest = Define.Peek(self.state.nest) + 1
 		end
 		links[0] = function(link, entered)
+			-- a link's text shows the question-mark cursor, as a term does (TermText)
+			if entered then
+				SetCursor(HELP_CURSOR)
+			else
+				ResetCursor()
+			end
 			if entered then
 				-- the text's own frame, under the mouse now: the tooltip opens at it
 				local foci = GetMouseFoci()

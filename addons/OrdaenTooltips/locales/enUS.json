@@ -216,5 +216,15 @@
   "TERM_MELEE_TEXT": "About 5 yd: the target must be within a weapon's reach. Larger creatures (bosses, dragons) can be hit from further.",
   "CAST_NEXT": "Next",
   "TERM_CASTNEXT": "Next attack",
-  "TERM_CASTNEXT_TEXT": "Goes off with your next weapon swing (or shot) in place of the usual one: used at once, the hit lands when the swing is due."
+  "TERM_CASTNEXT_TEXT": "Goes off with your next weapon swing (or shot) in place of the usual one: used at once, the hit lands when the swing is due.",
+  "REQ_LEVEL": "Requires level",
+  "TERM_PHYS": "Physical damage",
+  "TERM_PHYS_TEXT": "Damage by weapons and physical abilities: the target's armour reduces it, not resistances.",
+  "TERM_PHYS_WORDS": "physical damage|Physical damage",
+  "TERM_FIRE_WORDS": "Fire damage|fire damage",
+  "TERM_NATURE_WORDS": "Nature damage|nature damage",
+  "TERM_FROST_WORDS": "Frost damage|frost damage",
+  "TERM_SHADOW_WORDS": "Shadow damage|shadow damage",
+  "TERM_ARCANE_WORDS": "Arcane damage|arcane damage",
+  "TERM_HOLY_WORDS": "Holy damage|holy damage"
 }

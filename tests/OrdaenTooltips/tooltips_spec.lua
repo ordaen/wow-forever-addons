@@ -58,7 +58,8 @@ local HEROIC = { type = 1, id = 78, lines = {
 	{ type = 13, leftText = "Heroic Strike" },
 	{ type = 0, leftText = "Rage: 15", rightText = "Melee Range" },
 	{ type = 0, leftText = "Next melee" },
-	{ type = 34, leftText = "A strong attack that increases melee damage by 11." },
+	{ type = 43, leftText = "Requires: Battle Stance" },
+	{ type = 34, leftText = "A strong attack that deals 11 physical damage." },
 } }
 local GUARD = { type = 2, guid = "Creature-1", lines = {
 	{ type = 2, leftText = "Stormwind Guard", unitToken = "mouseover" },
@@ -224,6 +225,7 @@ describe("Ordaen Tooltips", function()
 		env.SPELL_CAST_TIME_INSTANT = "Instant"
 		env.SPELL_RANGE = "%s yd range"
 		env.SPELL_ON_NEXT_SWING = "Next melee"
+		env.ITEM_MIN_LEVEL = "Requires Level %d"
 		wow:Login()
 		ns = wow.addons.OrdaenCore.ns
 	end)
@@ -237,7 +239,7 @@ describe("Ordaen Tooltips", function()
 		has(shown, "Item level\n12", "Strength\n+3")
 		assert.is_falsy(shown:find("+3 Strength", 1, true)) -- the stat line became its row
 		has(shown, "First Aid", "Heals |cffffffff66|r damage", "CD 1 min.") -- the use effect: its own tooltip beside
-		has(shown, "Durability", "0 / 35", "Requires Level 9", "345c")
+		has(shown, "Durability", "0 / 35", "Requires level\n9", "345c") -- the required level: its label and value
 		assert.are.equal(0, wow.env.GameTooltip:GetAlpha())
 		assert.are.same({}, wow.errors)
 	end)
@@ -282,6 +284,8 @@ describe("Ordaen Tooltips", function()
 		local shown = texts()
 		has(shown, "Next")
 		assert.is_falsy(shown:find("Next melee", 1, true))
+		has(shown, "Requires\nBattle Stance") -- a footer line: its label, its value
+		has(shown, "|Hordaen:term:phys:|hphysical damage|h") -- a school in the description: its term
 		assert.are.same({}, wow.errors)
 	end)
 

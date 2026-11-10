@@ -7,8 +7,7 @@
 -- speaks of, or nil), `OnLink`.
 local Define = import("@ordaen/define")
 local DASH_FILE = import("assets/dash.tga")
--- the game's question-mark cursor (an addon's own texture isn't taken as a hardware cursor: it shows as a black square)
-local HELP_CURSOR = "Interface\\Cursor\\QuestTurnIn"
+local HELP_CURSOR = import("cursor")
 
 local PX = 1 / 1.2
 -- the underline: the dash tiled along the text's bottom, 1 px high (art/tooltip-dash.py: 2 px on, 2 off)

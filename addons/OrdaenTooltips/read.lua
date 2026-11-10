@@ -215,18 +215,34 @@ end
 local function Free(model, text, color)
 	if text then
 		local row = Push(model.body)
-		row.left, row.color = text, color
+		row.left, row.right, row.color, row.rightColor, row.desc = text, nil, color, nil, nil
+	end
+end
+
+-- a spell's or aura's description (design .txt-body): a free line, larger than the footer, in the body's colour
+local function Desc(model, text)
+	if text then
+		local row = Push(model.body)
+		row.left, row.right, row.color, row.rightColor, row.desc = text, nil, nil, nil, true
 	end
 end
 
 -- a row of the body: the name on the left, the value on the right
 local function Row(model, left, right, color, rightColor)
 	local row = Push(model.body)
-	row.left, row.right, row.color, row.rightColor = left, right, color, rightColor
+	row.left, row.right, row.color, row.rightColor, row.desc = left, right, color, rightColor, nil
 	return row
 end
 
+-- a footer line: its label on the left, its value on the right; a line the game writes «Label: value» («Требуется:
+-- Оборонительная стойка») is split so (design TooltipFooter: every footer line a label and a value)
 local function Foot(model, left, right, valueColor, term, amount)
+	if not right and left then
+		local label, value = left:match("^([^:|]+):%s+(.+)$")
+		if label then
+			left, right = label, value
+		end
+	end
 	local row = Push(model.foot)
 	row.left, row.right, row.valueColor, row.term, row.amount = left, right, valueColor, term, amount
 	return row
@@ -343,6 +359,37 @@ local function Quoted(name)
 	return "|cffffd100«" .. name .. "»|r"
 end
 
+-- the damage schools a description names, each a link to its term (design spells «How it's parsed»: the client's
+-- phrases with their case forms, longest first; Lua patterns have no alternation): set from the locales (Read.Schools)
+local schools = {} -- { phrase, link } longest first
+local function ByLength(a, b)
+	return #a[1] > #b[1]
+end
+--- The school phrases of the client's language: TERM_<SCHOOL>_WORDS, its forms separated by «|».
+function Read.Schools(L)
+	for _, key in ipairs({ "phys", "fire", "nature", "frost", "shadow", "arcane", "holy" }) do
+		local words = rawget(L, "TERM_" .. key:upper() .. "_WORDS")
+		for phrase in (words or ""):gmatch("[^|]+") do
+			schools[#schools + 1] = { phrase, key }
+		end
+	end
+	table.sort(schools, ByLength)
+end
+-- the schools linked in a text: each phrase once, a found one's run replaced so a shorter phrase in it isn't linked
+-- again
+local function Schools(text)
+	for i = 1, #schools do
+		local phrase, key = schools[i][1], schools[i][2]
+		local at = text:find(phrase, 1, true)
+		while at do
+			local link = "|Hordaen:term:" .. key .. ":|h" .. phrase .. "|h"
+			text = text:sub(1, at - 1) .. link .. text:sub(at + #phrase)
+			at = text:find(phrase, at + #link, true)
+		end
+	end
+	return text
+end
+
 local function Rich(id, text)
 	if not text then
 		return nil
@@ -352,7 +399,7 @@ local function Rich(id, text)
 		return entry.rich
 	end
 	current = id
-	local out = text:gsub("(%d+[%.,]?%d*%%?)", "|cffffffff%1|r"):gsub("«(.-)»", Quoted)
+	local out = Schools(text:gsub("(%d+[%.,]?%d*%%?)", "|cffffffff%1|r"):gsub("«(.-)»", Quoted))
 	if id then
 		rich[id] = { raw = text, rich = out, book = book }
 	end
@@ -477,7 +524,12 @@ local function Item(model, data, ctx)
 				if skill and rank then
 					Foot(model, skill, rank, line.usable == false and RED or nil, "prof")
 				else
-					Foot(model, left, nil, line.usable == false and RED or nil, "req")
+					local level = Match(left, ITEM_MIN_LEVEL)
+					if level then -- «Требуется 40-й уровень»: the required level as its label and value
+						Foot(model, L.REQ_LEVEL, level, line.usable == false and RED or nil, "req")
+					else
+						Foot(model, left, nil, line.usable == false and RED or nil, "req")
+					end
 				end
 			end
 		elseif kind == LINE.Use then
@@ -698,7 +750,7 @@ local function Spell(model, data, ctx)
 				Foot(model, left, nil, line.usable == false and RED or nil)
 			end
 		elseif kind == LINE.Description then
-			Free(model, Rich(id, left))
+			Desc(model, Rich(id, left))
 		elseif kind == LINE.Passive then
 			Part(model.desc, left)
 		elseif kind ~= LINE.Blank and (left or right) then
@@ -760,7 +812,7 @@ local function Aura(model, data, ctx, owner)
 			model.name = left
 		elseif left and line.type ~= LINE.Blank and not left:find("^ID ") and not Match(left, SPELL_TIME_REMAINING_MIN)
 			and not Match(left, SPELL_TIME_REMAINING_SEC) and not left:find(L.REMAINING_WORD or "\0", 1, true) then
-			Free(model, Rich(id, left)) -- Forever's own spell ID line and the time left go: the band has the time
+			Desc(model, Rich(id, left)) -- Forever's own spell ID line and the time left go: the band has the time
 		end
 	end
 	local harmful = aura and aura.isHarmful
