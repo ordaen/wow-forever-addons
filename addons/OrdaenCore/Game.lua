@@ -43,6 +43,31 @@ function Game.RawEvent(name)
 end
 local RawEvent = Game.RawEvent
 
+-- A unit event for the player only (RegisterUnitEvent: other units' events never reach us), on a frame of its own.
+local playerEvents = {} -- name -> OrdaenEvent
+local playerFrame = CreateFrame("Frame")
+playerFrame:SetScript("OnEvent", function(_, name, ...)
+	local event = playerEvents[name]
+	if event then
+		event:Fire(...)
+	end
+end)
+local function RegisterPlayer(event)
+	playerFrame:RegisterUnitEvent(event.name, "player")
+end
+local function UnregisterPlayer(event)
+	playerFrame:UnregisterEvent(event.name)
+end
+local function PlayerEvent(name)
+	local event = playerEvents[name]
+	if not event then
+		event = NewEvent(RegisterPlayer, UnregisterPlayer)
+		event.name = name
+		playerEvents[name] = event
+	end
+	return event
+end
+
 --- A derived value: `game.Computed(function() ... end)`.
 Game.Computed = NewComputed
 
@@ -75,7 +100,8 @@ end
 
 --- Blizzard's frames by reference: `game.Frame.CombinedBags:Get()`.
 local FRAME_NAMES = { CombinedBags = "ContainerFrameCombinedBags", Minimap = "Minimap", Merchant = "MerchantFrame" }
--- the micro menu, the bag bar, the XP and reputation bars and the social button by the chat, under their own names (every one in the dump of 70862)
+-- the micro menu, the bag bar, the XP and reputation bars and the social button by the chat, under their own names
+-- (every one in the dump of 70862)
 for _, name in ipairs({
 	"CharacterMicroButton", "PlayerSpellsMicroButton", "SpellbookMicroButton", "TalentMicroButton",
 	"ProfessionMicroButton", "AchievementMicroButton", "QuestLogMicroButton", "GuildMicroButton", "LFDMicroButton",
@@ -95,11 +121,11 @@ local FRAME_KEYS = {
 local FrameRef = {}
 local FrameRefMeta = { __index = FrameRef }
 function FrameRef:Get()
-	local frame = _G[self.global]
-	if frame and self.key then
-		return frame[self.key]
+	local found = _G[self.global]
+	if found and self.key then
+		return found[self.key]
 	end
-	return frame
+	return found
 end
 
 function DOMAINS.Frame()
@@ -148,6 +174,14 @@ function DOMAINS.Numbers()
 	return ns.Numbers
 end
 
+-- Read now if the character is in the world, and again at each login.
+local function AtLogin(fn)
+	Game.Stage.Login:Subscribe(fn, false)
+	if Game.Stage.Login.fired then
+		fn()
+	end
+end
+
 function DOMAINS.Money()
 	local Money = { amount = NewValue(GetMoney()) }
 	RawEvent("PLAYER_MONEY"):Subscribe(function()
@@ -159,6 +193,27 @@ function DOMAINS.Money()
 	function Money:Format(copper) -- luacheck: ignore 212
 		return C_CurrencyInfo.GetCoinTextureString(copper)
 	end
+	-- value signal: the currencies the player marked to show on the backpack (the Currency tab), as one text of
+	-- "<count> <icon>" each, "" with none; read at login and when a currency changes
+	Money.tracked = NewValue("")
+	local parts = {}
+	local function ReadTracked()
+		local n = 0
+		for i = 1, 3 do -- the backpack shows at most three
+			local info = C_CurrencyInfo.GetBackpackCurrencyInfo(i)
+			if not info then
+				break
+			end
+			n = n + 1
+			parts[n] = BreakUpLargeNumbers(info.quantity) .. " |T" .. info.iconFileID .. ":0|t"
+		end
+		for i = n + 1, #parts do
+			parts[i] = nil
+		end
+		Money.tracked:Set(table.concat(parts, "  "))
+	end
+	AtLogin(ReadTracked)
+	RawEvent("CURRENCY_DISPLAY_UPDATE"):Subscribe(ReadTracked, false)
 	return Money
 end
 
@@ -223,6 +278,93 @@ function DOMAINS.Player()
 		return key
 	end
 	return Player
+end
+
+function DOMAINS.Situation()
+	-- value signals of what the player is doing, for what shows or hides by it (Ordaen Panel's visibility)
+	local Situation = { combat = NewValue(false), resting = NewValue(false), vehicle = NewValue(false),
+		petBattle = NewValue(false) }
+	local function ReadCombat()
+		Situation.combat:Set(UnitAffectingCombat("player") == true)
+	end
+	local function ReadResting()
+		Situation.resting:Set(IsResting() == true)
+	end
+	local function ReadVehicle()
+		Situation.vehicle:Set(UnitInVehicle("player") == true)
+	end
+	local function ReadPetBattle()
+		Situation.petBattle:Set(C_PetBattles.IsInBattle() == true)
+	end
+	AtLogin(function()
+		ReadCombat()
+		ReadResting()
+		ReadVehicle()
+		ReadPetBattle()
+	end)
+	RawEvent("PLAYER_REGEN_DISABLED"):Subscribe(function()
+		Situation.combat:Set(true)
+	end, false)
+	RawEvent("PLAYER_REGEN_ENABLED"):Subscribe(function()
+		Situation.combat:Set(false)
+	end, false)
+	RawEvent("PLAYER_UPDATE_RESTING"):Subscribe(ReadResting, false)
+	PlayerEvent("UNIT_ENTERED_VEHICLE"):Subscribe(ReadVehicle, false)
+	PlayerEvent("UNIT_EXITED_VEHICLE"):Subscribe(ReadVehicle, false)
+	RawEvent("PET_BATTLE_OPENING_START"):Subscribe(ReadPetBattle, false)
+	RawEvent("PET_BATTLE_CLOSE"):Subscribe(ReadPetBattle, false)
+	return Situation
+end
+
+function DOMAINS.Location()
+	-- value signal: the zone's name as the minimap shows it (the subzone where there is one)
+	local Location = { zone = NewValue("") }
+	local function Read()
+		Location.zone:Set(GetMinimapZoneText() or "")
+	end
+	AtLogin(Read)
+	RawEvent("ZONE_CHANGED"):Subscribe(Read, false)
+	RawEvent("ZONE_CHANGED_INDOORS"):Subscribe(Read, false)
+	RawEvent("ZONE_CHANGED_NEW_AREA"):Subscribe(Read, false)
+	return Location
+end
+
+function DOMAINS.Clock()
+	-- value signals: the time as the game's clock shows it (the minimap's: realm or local time, 24 or 12 hours by
+	-- Blizzard's own options) and the calendar invites waiting for an answer. The time changes once a minute: one
+	-- timer to the next minute's start, then one a minute.
+	local Clock = { text = NewValue(""), invites = NewValue(0) }
+	local floor, format = math.floor, string.format
+	local function Text()
+		local hour, minute
+		if GetCVarBool("timeMgrUseLocalTime") then
+			local now = C_DateAndTime.GetCurrentCalendarTime()
+			hour, minute = now.hour, now.minute
+		else
+			hour, minute = GetGameTime()
+		end
+		if GetCVarBool("timeMgrUseMilitaryTime") then
+			return format("%02d:%02d", hour, minute)
+		end
+		return format("%d:%02d %s", (hour - 1) % 12 + 1, minute, hour < 12 and "AM" or "PM")
+	end
+	local function Tick()
+		Clock.text:Set(Text())
+		C_Timer.After(60 - floor(GetServerTime() % 60), Tick)
+	end
+	local function ReadInvites()
+		Clock.invites:Set(C_Calendar.GetNumPendingInvites() or 0)
+	end
+	AtLogin(function()
+		ReadInvites()
+		Tick()
+	end)
+	RawEvent("CALENDAR_UPDATE_PENDING_INVITES"):Subscribe(ReadInvites, false)
+	--- Open or close Blizzard's calendar (a click on the clock).
+	function Clock:ToggleCalendar() -- luacheck: ignore 212
+		ToggleCalendar()
+	end
+	return Clock
 end
 
 function DOMAINS.Merchant()

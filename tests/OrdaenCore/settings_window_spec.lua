@@ -88,22 +88,22 @@ describe("a module's settings page", function()
 				local Define = import("@ordaen/define")
 				return Define.Component({
 					Render = function(game, self)
-						local value = self.attributes.value:Get()
-						drawn[#drawn + 1] = { kind = kind, value = value, module = self.module.name }
+						local setting = self.attributes.value
+						drawn[#drawn + 1] = { kind = kind, value = setting and setting:Get(), module = self.module.name }
 						game.ui:Slot(1, "default")
 					end,
 				})
 			end
 		end
-		library["components/settingsTab"] = Probe("tab")
-		library["components/slider"] = Probe("slider")
-		library["components/dropdown"] = Probe("dropdown")
+		for _, kind in ipairs({ "settingsTab", "slider", "dropdown", "section", "checkbox", "switch", "zones", "input" }) do
+			library["components/" .. kind] = Probe(kind)
+		end
 		local module = { name = "OrdaenSpec", ns = {}, cache = {}, Import = function()
 			return nil
 		end }
 		local window = ns.Engine:Mount(nil, ns.Define.Component({
 			Setup = function()
-				ns.Define.Ephemeral({ tab = { type = "number", default = 2 } })
+				ns.Define.Ephemeral({ tab = { type = "number", default = 4 } })
 			end,
 			Render = function(game, self)
 				game.ui:ModuleSettings(1, { attributes = { module = "OrdaenPanel", tab = self.state.ephemeral.tab:Get() } })
@@ -111,15 +111,19 @@ describe("a module's settings page", function()
 		}), 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
 		ns.Scheduler.Flush()
 		assert.are.same({}, wow.errors)
-		-- the second tab only (its height slider), drawn by the panel's own module
-		assert.are.equal(2, #drawn)
-		assert.are.equal("tab", drawn[1].kind)
-		assert.are.equal("slider", drawn[2].kind)
-		assert.are.equal("OrdaenPanel", drawn[2].module)
-		local height = drawn[2].value
-		assert.are.equal(ns.App.Module("OrdaenPanel").root.state.persistent.height, height)
+		-- the fourth tab only (the bottom panel's: its height slider among its rows), drawn by the panel's own module
+		assert.are.equal("settingsTab", drawn[1].kind)
+		local stored = ns.App.Module("OrdaenPanel").root.state.persistent.height
+		local height
+		for _, d in ipairs(drawn) do
+			assert.are.equal("OrdaenPanel", d.module)
+			if d.kind == "slider" and d.value == stored then
+				height = d.value
+			end
+		end
+		assert.are.equal(stored, height)
 		drawn = {}
-		window.state.ephemeral.tab:Set(1)
+		window.state.ephemeral.tab:Set(2)
 		ns.Scheduler.Flush()
 		assert.are.equal("dropdown", drawn[#drawn].kind)
 		assert.are.same({}, wow.errors)
@@ -186,26 +190,33 @@ describe("a draft of settings changes", function()
 				local Define = import("@ordaen/define")
 				return Define.Component({
 					Render = function(game, self)
-						bound[#bound + 1] = self.attributes.value:Get()
+						bound[#bound + 1] = self.attributes.value and self.attributes.value:Get() or false
 						game.ui:Slot(1, "default")
 					end,
 				})
 			end
 		end
 		local library = wow.addons.OrdaenLibrary.ns
-		library["components/settingsTab"], library["components/slider"] = Probe(), Probe()
+		for _, kind in ipairs({ "settingsTab", "slider", "dropdown", "section", "checkbox", "switch", "zones", "input" }) do
+			library["components/" .. kind] = Probe()
+		end
 		local draft = ns.Game.Settings:Draft()
 		local module = { name = "OrdaenSpec", ns = {}, cache = {}, Import = function()
 			return nil
 		end }
 		ns.Engine:Mount(nil, ns.Define.Component({
 			Render = function(game)
-				game.ui:ModuleSettings(1, { attributes = { module = "OrdaenPanel", tab = 2, draft = draft } })
+				game.ui:ModuleSettings(1, { attributes = { module = "OrdaenPanel", tab = 4, draft = draft } })
 			end,
 		}), 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
 		ns.Scheduler.Flush()
-		local height = bound[#bound]
 		local stored = ns.App.Module("OrdaenPanel").root.state.persistent.height
+		local height
+		for _, b in ipairs(bound) do
+			if b == draft:Of(stored) then
+				height = b
+			end
+		end
 		assert.are.equal(draft:Of(stored), height)
 		height:Set(80)
 		assert.are.equal(60, stored:Peek())

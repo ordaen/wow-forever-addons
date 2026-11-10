@@ -1535,7 +1535,52 @@ function Wow:MakeEnv()
 		GetCoinTextureString = function(copper)
 			return tostring(copper)
 		end,
+		-- no currency marked to show on the backpack
+		GetBackpackCurrencyInfo = function()
+			return nil
+		end,
 	})
+	offer("BreakUpLargeNumbers", function(n)
+		return tostring(n)
+	end)
+	-- the player: out of combat, not resting, not in a vehicle or a pet battle, in "Fake" at 18:14 realm time
+	offer("UnitAffectingCombat", function()
+		return wow.combat == true
+	end)
+	offer("IsResting", function()
+		return wow.resting == true
+	end)
+	offer("UnitInVehicle", function()
+		return false
+	end)
+	offer("C_PetBattles", {
+		IsInBattle = function()
+			return false
+		end,
+	})
+	offer("GetMinimapZoneText", function()
+		return "Fake"
+	end)
+	offer("GetCVarBool", function(name)
+		return name == "timeMgrUseMilitaryTime"
+	end)
+	offer("GetGameTime", function()
+		return 18, 14
+	end)
+	offer("GetServerTime", function()
+		return 0
+	end)
+	offer("C_DateAndTime", {
+		GetCurrentCalendarTime = function()
+			return { hour = 18, minute = 14 }
+		end,
+	})
+	offer("C_Calendar", {
+		GetNumPendingInvites = function()
+			return 0
+		end,
+	})
+	offer("ToggleCalendar", function() end)
 	offer("STANDARD_TEXT_FONT", "Fonts\\FRIZQT__.TTF")
 	offer("SlashCmdList", {})
 	-- the frames Escape closes, as FrameXML's CloseSpecialWindows does (wow:Escape presses it)

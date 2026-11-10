@@ -187,3 +187,54 @@ describe("Ordaen Panel with the gold micro menu icons", function()
 		assert.is_true(gold >= 10, gold .. " desaturated textures; the micro menu has 10 icons")
 	end)
 end)
+
+describe("Ordaen Panel's items and visibility", function()
+	local function Panel(db)
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenPanel" } })
+		local home = wow.env.CreateFrame("Frame", "BagsBar", wow.env.UIParent)
+		for _, name in ipairs(BLIZZARD) do
+			wow.env.CreateFrame("Button", name, home):SetSize(45, 45)
+		end
+		wow.env.OrdaenPanelDB = { module = db }
+		wow:Login()
+		wow:Tick()
+		return wow
+	end
+	local function Shown(wow, text)
+		for frame in pairs(wow.allFrames) do
+			for _, r in ipairs(frame._regions) do
+				if r.GetText and r:GetText() == text and r:IsVisible() then
+					return true
+				end
+			end
+		end
+		return false
+	end
+
+	it("draws an item only in the zone its setting names", function()
+		local off = Panel({})
+		assert.is_false(Shown(off, "18:14"), "the time is off the panel by default")
+		local wow = Panel({ clock = "left", zone = "right" })
+		assert.are.same({}, wow.errors)
+		assert.is_true(Shown(wow, "18:14"), "the time")
+		assert.is_true(Shown(wow, "Fake"), "the zone's name")
+	end)
+
+	it("hides in combat when set to, and shows again after it", function()
+		local wow = Panel({ combat = "hide", clock = "left" })
+		assert.is_true(Shown(wow, "18:14"))
+		wow:Fire("PLAYER_REGEN_DISABLED")
+		wow:Tick()
+		assert.is_false(Shown(wow, "18:14"), "hidden in combat")
+		wow:Fire("PLAYER_REGEN_ENABLED")
+		wow:Tick()
+		assert.is_true(Shown(wow, "18:14"), "shown after combat")
+		assert.are.same({}, wow.errors)
+	end)
+
+	it("draws nothing of its own while the bottom panel is off", function()
+		local wow = Panel({ bottomOn = false, clock = "left" })
+		assert.are.same({}, wow.errors)
+		assert.is_false(Shown(wow, "18:14"))
+	end)
+end)

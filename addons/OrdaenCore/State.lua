@@ -450,6 +450,12 @@ function Plain:Choices()
 	return self.spec.order
 end
 
+--- A string's longest length (its declaration's maxLength), for its input field; nil when it has none.
+---@return integer?
+function Plain:MaxLength()
+	return self.spec.maxLength
+end
+
 List.Label, List.Tip = Plain.Label, Plain.Tip -- a list setting (Chips) has a row too
 
 -- Drafts ---------------------------------------------------------------------------------------------------------
@@ -615,6 +621,10 @@ end
 
 function View:Choices()
 	return self.setting:Choices()
+end
+
+function View:MaxLength()
+	return self.setting:MaxLength()
 end
 
 -- Declaring ------------------------------------------------------------------------------------------------------

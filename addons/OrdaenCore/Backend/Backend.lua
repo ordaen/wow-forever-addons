@@ -71,7 +71,7 @@ local GROUP = {
 	zLevel = LOOK, desaturate = LOOK, tint = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
 	hoverWithin = INPUT, OnEscape = INPUT,
-	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT,
+	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT, OnDrop = INPUT,
 	text = TEXT, textSize = TEXT, textFamily = TEXT, textOutline = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT,
 	maxLength = TEXT,
 }
@@ -86,7 +86,7 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 end
 for _, key in ipairs({ "background", "desaturate", "tint", "artOrigin", "anchor", "zLevel", "opacity", "portrait",
 	"mask", "overflow", "stateFrom", "OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart",
-	"OnDrag", "OnDragStop", "OnEscape",
+	"OnDrag", "OnDragStop", "OnDrop", "OnEscape",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
@@ -392,10 +392,20 @@ local function onDragStart(frame)
 	end
 end
 
+-- Drop targets: the boxes with an OnDrop (a zone a chip is dragged into). When a drag ends, each one shown under the
+-- cursor gets OnDrop() first, then the dragged box its OnDragStop: the dragged thing is the source's to remember.
+local dropTargets = {} -- node -> true
+
 local function onDragStop(frame)
 	frame:SetScript("OnUpdate", nil)
 	local x, y = cursorIn(frame)
 	frame.dragL, frame.dragT, frame.dragX, frame.dragY = nil, nil, nil, nil
+	for target in pairs(dropTargets) do
+		local f, drop = target.frame, target.a.OnDrop
+		if drop and f:IsVisible() and f:IsMouseOver() then
+			handle(drop)
+		end
+	end
 	local fn = frame.node.a.OnDragStop
 	if fn then
 		handle(fn, x, y)
@@ -1557,6 +1567,7 @@ function Node:ApplyMouse()
 	if a.OnEscape or self.escapeProxy then
 		self:ApplyEscape()
 	end
+	dropTargets[self] = a.OnDrop and true or nil
 end
 
 -- OnEscape: Escape closes the box, as it closes Blizzard's windows. While the box shows, a stand-in frame of its own
@@ -2659,6 +2670,7 @@ function Backend:Release(node)
 	end
 	local a = node.a
 	if node.kind == "box" then
+		dropTargets[node] = nil
 		if a.OnClick then
 			a.OnClick = false
 		end

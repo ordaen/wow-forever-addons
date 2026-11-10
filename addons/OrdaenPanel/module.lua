@@ -1,6 +1,7 @@
--- Ordaen Panel (design: wow-dev-tools design/panel): one panel along the screen's bottom edge, in three equal
--- columns: the player's portrait in the corner and the micro menu at the left, the experience bar centred in the
--- middle, the money and the bags at the right end.
+-- Ordaen Panel (design: wow-dev-tools design/panel): one panel along an edge of the screen (the bottom by default),
+-- in three zones: at its start, centred and at its end. Each item (the micro menu, friends and guild, the experience
+-- bar, the zone name, the time, the money, the bags) sits in the zone its setting names, or not on the panel; the
+-- player's portrait stands in the screen's bottom-left corner while the micro menu is at the bottom panel's start.
 -- The micro menu and the bags are Blizzard's own buttons, embedded in the panel's cells (game.ui:Embed), so their
 -- clicks, menus and alerts stay Blizzard's; the character button lies invisible over the portrait.
 -- Drawing calls with literal data are compiled by the build (development/framework/structure, «Bindings»): their
@@ -16,6 +17,21 @@ local CharButton = { Portrait = "portrait", Button = "button" }
 -- The micro menu's icon set (setting microIcons, design MicroIcon): our icons as they are, or the same in one gold.
 ---@enum OrdaenPanelMicroIcons
 local MicroIcons = { Upscaled = "upscaled", Gold = "gold" }
+-- Where an item sits (design settings, «Элементы»): one of the panel's zones, or not on the panel.
+---@enum OrdaenPanelZone
+local Zone = { Left = "left", Center = "center", Right = "right", Off = "off" }
+---@enum OrdaenPanelEdge
+local Edge = { Bottom = "bottom", Top = "top", Left = "left", Right = "right" }
+-- The panel's length: the whole edge, or as long as its items, centred.
+---@enum OrdaenPanelFit
+local Fit = { Full = "full", Center = "center" }
+---@enum OrdaenPanelOutline
+local Outline = { None = "none", Thin = "thin", Thick = "thick" }
+-- When the panel shows (design settings, «Видимость»).
+---@enum OrdaenPanelShow
+local Show = { Always = "always", Mouseover = "mouseover", Never = "never" }
+---@enum OrdaenPanelCombat
+local Combat = { Any = "any", Hide = "hide", Only = "only" }
 
 -- The micro menu, left to right (design/micromenu): our cells with our icons on the wood, each with Blizzard's button
 -- invisible over it, so the click, menus and alerts stay Blizzard's. While Ordaen Spells and Ordaen Social don't exist,
@@ -27,11 +43,14 @@ local MICRO = {
 	{ frame = "TalentMicroButton", icon = import("assets/micro-spectalents.tga") },
 	{ frame = "LegacyMicroButton", icon = import("assets/micro-legacy.tga") },
 	{ frame = "QuestLogMicroButton", icon = import("assets/micro-questlog.tga") },
-	{ frame = "GuildMicroButton", icon = import("assets/micro-guildcommunities.tga") },
 	{ frame = "LFDMicroButton", icon = import("assets/micro-groupfinder.tga") },
 	{ frame = "CollectionsMicroButton", icon = import("assets/micro-collections.tga") },
-	{ frame = "QuickJoinToastButton", icon = import("assets/micro-social.tga"), friends = true },
 	{ frame = "MainMenuMicroButton", icon = import("assets/micro-gamemenu.tga") },
+}
+-- Friends and guild (design settings, item «Друзья и гильдия»): their own item, wherever the player puts it.
+local SOCIAL = {
+	{ frame = "QuickJoinToastButton", icon = import("assets/micro-social.tga"), friends = true },
+	{ frame = "GuildMicroButton", icon = import("assets/micro-guildcommunities.tga") },
 }
 -- A cell fills the panel below its metal edge (60 - 7 units), 1.075 times as wide: the inside between the cell's side
 -- rims is square (design PanelCell). Icons 35 units (42 px at the user's scale).
@@ -67,8 +86,15 @@ end
 local FRIENDS_BADGE_CALL = { attributes = FRIENDS_BADGE, slots = { default = FriendsCount } }
 local FRIENDS_BADGE_ONE_CALL = { attributes = FRIENDS_BADGE_ONE, slots = { default = FriendsCount } }
 -- each button's calls, made once here: its icon, its cell, and Blizzard's button over it
+local CELLS = {}
 for i = 1, #MICRO do
-	local m = MICRO[i]
+	CELLS[#CELLS + 1] = MICRO[i]
+end
+for i = 1, #SOCIAL do
+	CELLS[#CELLS + 1] = SOCIAL[i]
+end
+for i = 1, #CELLS do
+	local m = CELLS[i]
 	local frame = m.frame
 	local iconCall = { attributes = {
 		position = "absolute", left = ICON_LEFT, top = ICON_TOP, width = ICON_SIDE, height = ICON_SIDE,
@@ -79,7 +105,7 @@ for i = 1, #MICRO do
 		background = m.icon, stateFrom = "parent", desaturate = true, tint = Define.Theme.color.microGold,
 	} }
 	local friends = m.friends
-	m.call = { key = i, attributes = CELL, slots = { default = function(game, self)
+	m.call = { key = m.frame, attributes = CELL, slots = { default = function(game, self)
 		game.ui:Box(self.state.microIcons == MicroIcons.Gold and goldCall or iconCall)
 		if friends then
 			local online = game.Friends.online:Get()
@@ -159,12 +185,15 @@ local BADGE = {
 	position = "absolute", left = 86.7, top = 5.3, width = 36, height = 36, background = Define.Theme.panel.badge,
 	xAlign = "center", yAlign = "center",
 }
-local MICRO_ROW = { columns = #MICRO, gap = 0 }
-local BAG_ROW = { columns = #BAGS, gap = 6 / 1.2 }
-
 local function MicroButtons(game)
 	for i = 1, #MICRO do
 		game.ui:Box(MICRO[i].call)
+	end
+end
+
+local function SocialButtons(game)
+	for i = 1, #SOCIAL do
+		game.ui:Box(SOCIAL[i].call)
 	end
 end
 
@@ -174,8 +203,17 @@ local function BagButtons(game)
 	end
 end
 
+-- a row of an item's buttons along a horizontal panel, a column down a vertical one
+local function Line(count, gap, slot, key)
+	return {
+		[false] = { key = key, attributes = { columns = count, gap = gap }, slots = { default = slot } },
+		[true] = { key = key, attributes = { rows = count, gap = gap }, slots = { default = slot } },
+	}
+end
 
-local MICRO_CALL = { attributes = MICRO_ROW, slots = { default = MicroButtons } }
+local MICRO_LINE = Line(#MICRO, 0, MicroButtons, "micro")
+local SOCIAL_LINE = Line(#SOCIAL, 0, SocialButtons, "social")
+local BAG_LINE = Line(#BAGS, 6 / 1.2, BagButtons, "bags")
 -- the character button as a cell: the face, round with a thin dark rim (design .face, 40 px), with Blizzard's button
 -- invisible over the cell like the others
 local FACE_SIDE = 40 / 1.2
@@ -193,8 +231,7 @@ local function FaceAndMicroButtons(game)
 	game.ui:Box(FACE_CELL_CALL)
 	MicroButtons(game)
 end
-local MICRO_FACE_CALL = { attributes = { columns = #MICRO + 1, gap = 0 }, slots = { default = FaceAndMicroButtons } }
-local BAG_CALL = { attributes = BAG_ROW, slots = { default = BagButtons } }
+local MICRO_FACE_LINE = Line(#MICRO + 1, 0, FaceAndMicroButtons, "micro")
 -- the character button, invisible over the whole portrait: a click on the face opens the character window
 local CHARACTER = { position = "absolute", left = 0, top = 0, width = PORTRAIT_WIDTH, height = PORTRAIT_HEIGHT, opacity = 0 }
 local CHARACTER_CALL = { attributes = CHARACTER }
@@ -213,50 +250,235 @@ end
 
 local PORTRAIT_CALL = { key = "portrait", attributes = PORTRAIT, slots = { default = Badge } }
 local PORTRAIT_LIVE_CALL = { key = "portrait", attributes = PORTRAIT_LIVE, slots = { default = Badge } }
--- the panel's first column, kept free under the portrait (the portrait itself is placed on the screen, out of the grid)
-local SPACER = { width = PORTRAIT_WIDTH, height = 1 }
-local SPACER_CALL = { attributes = SPACER }
+-- the room kept free under the portrait at the bottom panel's start (the portrait itself is placed on the screen)
+local SPACER_CALL = { key = "spacer", attributes = { width = PORTRAIT_WIDTH, height = 1 } }
 
--- The three columns (design/panel): the left one from its start, the right one to its end, the bar filling the middle.
-local LEFT = { columns = { PORTRAIT_WIDTH, "auto" }, gap = Define.Theme.spacing.md, xAlign = "start",
-	yAlign = "center" }
--- the right column (design .right): the money 16 px before the bags, 10 px from the screen edge
-local RIGHT = { columns = { "auto", "auto" }, gap = 16 / 1.2, xAlign = "end", yAlign = "center",
-	padding = { 0, 10 / 1.2, 0, 0 } }
+-- the panel's text (the money, the time, the zone): its outline and shadow are the panel's own settings (design
+-- settings: text drawn on the world)
+local OUTLINE = { none = nil, thin = "thin", thick = "thick" }
+local TEXT_SHADOW = { color = { 0, 0, 0, 1 }, x = 1, y = -1 }
+local PENDING = { 1, 0.6, 0.2, 1 } -- the time while calendar invites wait: orange (design .clock.pending)
 
-local function Left(game, self)
-	game.ui:Box(SPACER_CALL)
-	game.ui:Box(self.state.livePortrait and PORTRAIT_LIVE_CALL or PORTRAIT_CALL)
-	game.ui:Box(MICRO_CALL)
-end
-
--- the left column with the character button as a cell: no portrait, so no room kept for it
-local function LeftButton(game)
-	game.ui:Box(MICRO_FACE_CALL)
-end
-
-local function Right(game)
+local function Money(game, self)
 	game.ui:Text({ attributes = {
 		text = game.Money:Format(game.Money.amount:Get()), textColor = Define.Theme.color.text,
-		textSize = Define.Theme.text.body,
+		textSize = Define.Theme.text.body, textOutline = OUTLINE[self.state.outline],
+		textShadow = self.state.shadow and TEXT_SHADOW or nil, wrap = false,
 	} })
-	game.ui:Box(BAG_CALL)
+	if game.Money.tracked:Get() ~= "" then
+		game.ui:Text({ attributes = {
+			text = game.Money.tracked:Get(), textColor = Define.Theme.color.text, textSize = Define.Theme.text.body,
+			textOutline = OUTLINE[self.state.outline], textShadow = self.state.shadow and TEXT_SHADOW or nil, wrap = false,
+		} })
+	end
+end
+local MONEY_LINE = {
+	[false] = { key = "money", attributes = { columns = { "auto", "auto" }, gap = 12 / 1.2, yAlign = "center" },
+		slots = { default = Money } },
+	[true] = { key = "money", attributes = { rows = { "auto", "auto" }, gap = 4 / 1.2, xAlign = "center" },
+		slots = { default = Money } },
+}
+
+local function ZoneName(game, self)
+	game.ui:Text({ key = "zone", attributes = {
+		text = game.Location.zone:Get(), textColor = Define.Theme.color.text, textSize = Define.Theme.text.body,
+		textOutline = OUTLINE[self.state.outline], textShadow = self.state.shadow and TEXT_SHADOW or nil, wrap = false,
+	} })
+end
+
+local function TimeText(game, self)
+	game.ui:Text({ attributes = {
+		text = game.Clock.text:Get(),
+		textColor = game.Clock.invites:Get() > 0 and PENDING or Define.Theme.color.text,
+		textSize = Define.Theme.text.body, textOutline = OUTLINE[self.state.outline],
+		textShadow = self.state.shadow and TEXT_SHADOW or nil, wrap = false,
+	} })
+end
+
+local function Time(game, self)
+	game.ui:Box({ key = "clock", attributes = { OnClick = self.toggleCalendar }, slots = { default = TimeText } })
+end
+
+-- whether the portrait stands in the corner: asked for, and the micro menu at the start of a bottom panel
+local function PortraitShown(self)
+	return self.state.charButton == CharButton.Portrait and self.state.edge == Edge.Bottom
+		and self.state.micromenu == Zone.Left
+end
+
+-- One item, drawn in its zone. `vertical`: the panel runs down a side of the screen.
+local function Item(game, self, item, vertical)
+	if item == "micromenu" then
+		if not self.state.microOn then
+			return
+		end
+		if PortraitShown(self) then
+			game.ui:Box(SPACER_CALL)
+			game.ui:Box(self.state.livePortrait and PORTRAIT_LIVE_CALL or PORTRAIT_CALL)
+			game.ui:Box(MICRO_LINE[vertical])
+		else
+			game.ui:Box(MICRO_FACE_LINE[vertical])
+		end
+	elseif item == "social" then
+		if self.state.microOn then
+			game.ui:Box(SOCIAL_LINE[vertical])
+		end
+	elseif item == "experience" then
+		if self.state.statusOn and not vertical then
+			game.ui:XpBar({ key = "xp" })
+		end
+	elseif item == "zone" then
+		ZoneName(game, self)
+	elseif item == "clock" then
+		Time(game, self)
+	elseif item == "currencies" then
+		game.ui:Box(MONEY_LINE[vertical])
+	elseif item == "bags" then
+		game.ui:Box(BAG_LINE[vertical])
+	end
+end
+
+-- the items in the order they line up in a zone (design settings, «Элементы»)
+local ITEMS = { "micromenu", "social", "experience", "zone", "clock", "currencies", "bags" }
+
+-- the zone an item's setting names
+local function ZoneOf(self, item)
+	if item == "micromenu" then
+		return self.state.micromenu
+	elseif item == "social" then
+		return self.state.social
+	elseif item == "experience" then
+		return self.state.experience
+	elseif item == "zone" then
+		return self.state.zone
+	elseif item == "clock" then
+		return self.state.clock
+	elseif item == "currencies" then
+		return self.state.currencies
+	end
+	return self.state.bags
+end
+
+-- a zone's box: its items along the panel, from the zone's start, centred or to its end
+local ALIGN = { left = "start", center = "center", right = "end" }
+-- each zone's box, made once per zone and direction: its items along the panel, from the zone's start, centred or to
+-- its end (a grid of one track per item, "auto" each)
+local function Vertical(self)
+	return self.state.edge == Edge.Left or self.state.edge == Edge.Right
+end
+local AUTO = {}
+for n = 1, #ITEMS do
+	local tracks = {}
+	for k = 1, n do
+		tracks[k] = "auto"
+	end
+	AUTO[n] = tracks
+end
+local ZONE_CALLS = {}
+for _, zone in ipairs({ Zone.Left, Zone.Center, Zone.Right }) do
+	local function slot(game, self)
+		local vertical = Vertical(self)
+		for i = 1, #ITEMS do
+			if ZoneOf(self, ITEMS[i]) == zone then
+				Item(game, self, ITEMS[i], vertical)
+			end
+		end
+	end
+	-- by direction and the number of items in it (its tracks)
+	local gap = Define.Theme.spacing.md
+	local calls = { [false] = {}, [true] = {} }
+	for n = 0, #ITEMS do
+		local tracks = n > 0 and AUTO[n] or nil
+		calls[false][n] = { key = zone, attributes = { columns = tracks, gap = gap, xAlign = ALIGN[zone],
+			yAlign = "center" }, slots = { default = slot } }
+		calls[true][n] = { key = zone, attributes = { rows = tracks, gap = gap, yAlign = ALIGN[zone],
+			xAlign = "center" }, slots = { default = slot } }
+	end
+	ZONE_CALLS[zone] = calls
+end
+
+-- the number of items in a zone, for its tracks
+local function Count(self, zone)
+	local n = 0
+	for i = 1, #ITEMS do
+		if ZoneOf(self, ITEMS[i]) == zone then
+			n = n + 1
+		end
+	end
+	return n
+end
+
+local function ZoneBox(game, self, zone)
+	game.ui:Box(ZONE_CALLS[zone][Vertical(self)][Count(self, zone)])
+end
+
+local function Zones(game, self)
+	ZoneBox(game, self, Zone.Left)
+	ZoneBox(game, self, Zone.Center)
+	ZoneBox(game, self, Zone.Right)
+end
+
+-- What the panel replaces of Blizzard's, for as long as it's on: its micro menu's box (invisible, not hidden: see
+-- INVISIBLE) and the buttons the design leaves out; Blizzard's XP and reputation bars while ours are on.
+local function Replaced(game, self)
+	if self.state.microOn then
+		game.ui:Frame(game.Frame.MicroMenuContainer, INVISIBLE)
+		game.ui:Box(PARKED_CALL)
+	end
+	if self.state.statusOn then
+		game.ui:Frame(game.Frame.MainStatusTrackingBarContainer, HIDDEN)
+		game.ui:Frame(game.Frame.SecondaryStatusTrackingBarContainer, HIDDEN)
+	end
 	game.ui:Frame(game.Frame.BagsBar, HIDDEN)
 end
 
-local LEFT_CALL = { key = "left", attributes = LEFT, slots = { default = Left } }
-local LEFT_BUTTON_CALL = {
-	key = "leftButton", attributes = { xAlign = "start", yAlign = "center" }, slots = { default = LeftButton },
-}
+-- Whether the panel is hidden now (design settings, «Видимость»): never shown, or only while the cursor is on it,
+-- or by combat, a vehicle, a pet battle or resting.
+local function Hidden(game, self)
+	local show = self.state.show
+	if show == Show.Never then
+		return true
+	end
+	local combat, situation = self.state.combat, game.Situation
+	if combat == Combat.Hide and situation.combat:Get() or combat == Combat.Only and not situation.combat:Get() then
+		return true
+	end
+	if self.state.vehicle and situation.vehicle:Get() or self.state.petBattle and situation.petBattle:Get()
+		or self.state.resting and situation.resting:Get() then
+		return true
+	end
+	return show == Show.Mouseover and not self.state.hovered
+end
 
-local function Cells(game, self)
-	game.ui:Box(self.state.charButton == CharButton.Button and LEFT_BUTTON_CALL or LEFT_CALL)
-	game.ui:XpBar()
-	game.ui:Box({ attributes = RIGHT, slots = { default = Right } })
-	game.ui:Frame(game.Frame.MicroMenuContainer, INVISIBLE)
-	game.ui:Box(PARKED_CALL)
-	game.ui:Frame(game.Frame.MainStatusTrackingBarContainer, HIDDEN)
-	game.ui:Frame(game.Frame.SecondaryStatusTrackingBarContainer, HIDDEN)
+local MOUSEOVER_MIN = 1 / 255 -- a panel shown on mouseover, hidden: invisible, yet under the cursor
+
+-- the panel box along its edge: the whole edge, or its items' length centred on it
+local function PanelAttributes(self)
+	local edge, size, full = self.state.edge, self.state.height, self.state.fit == Fit.Full
+	local vertical = edge == Edge.Left or edge == Edge.Right
+	local a = {
+		position = "fixed", background = Define.Theme.panel.wood, border = Define.Theme.panel.edge,
+		hoverWithin = true, OnEnter = self.enter, OnLeave = self.leave,
+	}
+	if vertical then
+		a.width, a.top, a.bottom = size, full and 0 or nil, full and 0 or nil
+		a.rows = full and { "1fr", "1fr", "1fr" } or { "auto", "auto", "auto" }
+		a.xAlign = "center"
+		a[edge] = 0
+		if not full then
+			local point = edge == Edge.Left and "LEFT" or "RIGHT"
+			a.anchor = { point = point, relativePoint = point }
+		end
+	else
+		a.height, a.left, a.right = size, full and 0 or nil, full and 0 or nil
+		a.columns = full and { "1fr", "1fr", "1fr" } or { "auto", "auto", "auto" }
+		a.yAlign = "center"
+		a[edge] = 0
+		if not full then
+			local point = edge == Edge.Bottom and "BOTTOM" or "TOP"
+			a.anchor = { point = point, relativePoint = point }
+		end
+	end
+	return a
 end
 
 return Define.Module({
@@ -265,21 +487,95 @@ return Define.Module({
 
 	Setup = function(game, self)
 		Define.Persistent({
-			height = { type = "number", default = 60, min = 24, max = 96, step = 1, unit = "px", setting = true },
+			-- the parts, each on or off («Общее»)
+			microOn = { type = "boolean", default = true, setting = true },
+			statusOn = { type = "boolean", default = true, setting = true },
+			bottomOn = { type = "boolean", default = true, setting = true },
+			-- the micro menu
 			microIcons = { type = "choice", choices = MicroIcons, default = MicroIcons.Upscaled, setting = true },
 			charButton = { type = "choice", choices = CharButton, default = CharButton.Portrait, setting = true },
 			livePortrait = { type = "boolean", default = false }, -- the 3D head instead of the face's picture
+			-- the panel's text
+			outline = { type = "choice", choices = Outline, default = Outline.None, setting = true },
+			shadow = { type = "boolean", default = true, setting = true },
+			-- the bottom panel: where, how long, how high, what sits in which zone, when it shows
+			edge = { type = "choice", choices = Edge, default = Edge.Bottom, setting = true },
+			fit = { type = "choice", choices = Fit, default = Fit.Full, setting = true },
+			height = { type = "number", default = 60, min = 24, max = 96, step = 1, unit = "px", setting = true },
+			micromenu = { type = "choice", choices = Zone, default = Zone.Left, setting = true },
+			social = { type = "choice", choices = Zone, default = Zone.Left, setting = true },
+			experience = { type = "choice", choices = Zone, default = Zone.Center, setting = true },
+			zone = { type = "choice", choices = Zone, default = Zone.Off, setting = true },
+			clock = { type = "choice", choices = Zone, default = Zone.Off, setting = true },
+			currencies = { type = "choice", choices = Zone, default = Zone.Right, setting = true },
+			bags = { type = "choice", choices = Zone, default = Zone.Right, setting = true },
+			show = { type = "choice", choices = Show, default = Show.Always, setting = true },
+			combat = { type = "choice", choices = Combat, default = Combat.Any, setting = true },
+			vehicle = { type = "boolean", default = true, setting = true },
+			petBattle = { type = "boolean", default = true, setting = true },
+			resting = { type = "boolean", default = false, setting = true },
+			fadedAlpha = { type = "number", default = 0, min = 0, max = 1, step = 0.05, unit = "percent", setting = true },
+			condition = { type = "string", default = "", maxLength = 255, setting = true },
 		})
+		Define.Ephemeral({ hovered = { type = "boolean", default = false } })
+		return {
+			enter = function()
+				self.state.hovered = true
+			end,
+			leave = function()
+				self.state.hovered = false
+			end,
+			toggleCalendar = function()
+				game.Clock:ToggleCalendar()
+			end,
+		}
 	end,
 
-	-- the settings page (design settings/, Ordaen Panel): the tabs of the parts built so far
+	-- the settings page (design settings/, Ordaen Panel): «Общее» switches each part on or off; each part's tab shows
+	-- while it's on
 	Settings = function(game, self)
-		game.ui:SettingsTab({ attributes = { title = L.TAB_MICROMENU }, slots = { default = function()
+		game.ui:SettingsTab({ attributes = { title = L.TAB_GENERAL }, slots = { default = function()
+			game.ui:Section({ attributes = { title = L.SECTION_MICROMENU }, slots = { default = function()
+				game.ui:Switch({ attributes = { value = Define.Signal(self.state.microOn) } })
+			end } })
+			game.ui:Section({ attributes = { title = L.SECTION_STATUS }, slots = { default = function()
+				game.ui:Switch({ attributes = { value = Define.Signal(self.state.statusOn) } })
+			end } })
+			game.ui:Section({ attributes = { title = L.SECTION_BOTTOM }, slots = { default = function()
+				game.ui:Switch({ attributes = { value = Define.Signal(self.state.bottomOn) } })
+			end } })
+		end } })
+		game.ui:SettingsTab({ attributes = { title = L.TAB_MICROMENU, shown = self.state.microOn },
+			slots = { default = function()
 			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.microIcons) } })
 			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.charButton) } })
 		end } })
-		game.ui:SettingsTab({ attributes = { title = L.TAB_BOTTOM }, slots = { default = function()
+		game.ui:SettingsTab({ attributes = { title = L.TAB_STATUS, shown = self.state.statusOn },
+			slots = { default = function()
+			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.outline) } })
+			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.shadow) } })
+		end } })
+		game.ui:SettingsTab({ attributes = { title = L.TAB_BOTTOM, shown = self.state.bottomOn },
+			slots = { default = function()
+			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.edge) } })
+			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.fit) } })
 			game.ui:Slider({ attributes = { value = Define.Signal(self.state.height) } })
+			game.ui:Section({ attributes = { title = L.SECTION_ITEMS }, slots = { default = function()
+				game.ui:Zones({ attributes = { title = L.SECTION_ITEMS, items = {
+					Define.Signal(self.state.micromenu), Define.Signal(self.state.social),
+					Define.Signal(self.state.experience), Define.Signal(self.state.zone), Define.Signal(self.state.clock),
+					Define.Signal(self.state.currencies), Define.Signal(self.state.bags),
+				} } })
+			end } })
+			game.ui:Section({ attributes = { title = L.SECTION_VISIBILITY }, slots = { default = function()
+				game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.show) } })
+				game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.combat) } })
+				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.vehicle) } })
+				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.petBattle) } })
+				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.resting) } })
+				game.ui:Slider({ attributes = { value = Define.Signal(self.state.fadedAlpha) } })
+				game.ui:Input({ attributes = { value = Define.Signal(self.state.condition) } })
+			end } })
 		end } })
 	end,
 
@@ -296,13 +592,24 @@ return Define.Module({
 	},
 
 	Render = function(game, self)
-		game.ui:Box({
-			attributes = {
-				position = "absolute", left = 0, right = 0, bottom = 0, height = self.state.height,
-				columns = { "1fr", "1fr", "1fr" }, yAlign = "center",
-				background = Define.Theme.panel.wood, border = Define.Theme.panel.edge,
-			},
-			slots = { default = Cells },
-		})
+		Replaced(game, self)
+		if not self.state.bottomOn then
+			return
+		end
+		-- hidden: faded to its opacity, or not drawn at all at none. Shown on mouseover, a hidden panel stays drawn
+		-- at the least opacity the cursor still finds (a box at opacity 0 takes no mouse).
+		local hidden = Hidden(game, self)
+		local faded = self.state.fadedAlpha
+		if hidden and faded <= 0 and self.state.show ~= Show.Mouseover then
+			-- its buttons go back to Blizzard's frames, which the panel keeps hidden or invisible; the friends
+			-- button's home is by the chat, so it's hidden while the panel is
+			if self.state.microOn then
+				game.ui:Frame(game.Frame.QuickJoinToastButton, HIDDEN)
+			end
+			return
+		end
+		local a = PanelAttributes(self)
+		a.opacity = not hidden and 1 or self.state.show == Show.Mouseover and math.max(faded, MOUSEOVER_MIN) or faded
+		game.ui:Box({ attributes = a, slots = { default = Zones } })
 	end,
 })
