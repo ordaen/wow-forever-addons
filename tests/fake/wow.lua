@@ -1634,8 +1634,16 @@ function Wow:MakeEnv()
 	offer("GetPhysicalScreenSize", function()
 		return wow.physW, wow.physH
 	end)
+	-- the call stack as text, as the game gives it: of a coroutine when the first argument is one
+	offer("debugstack", function(a, ...)
+		if type(a) == "thread" then
+			return debug.traceback(a, "", (...) or 1)
+		end
+		return debug.traceback("", (a or 1) + 1)
+	end)
+	-- ms; a spec may set wow.clock to drive it by hand (code keeps the function in a local at load)
 	offer("debugprofilestop", function()
-		return os.clock() * 1000
+		return wow.clock or os.clock() * 1000
 	end)
 	-- the frames under the mouse: the one a test put there (wow.mouseFocus), topmost first
 	offer("GetMouseFoci", function()

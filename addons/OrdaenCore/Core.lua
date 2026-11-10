@@ -36,27 +36,39 @@ function StandIn:Init(db, opts) end
 
 --- Info level.
 ---@param ... any
-function StandIn:Log(...) end
+function StandIn:Log(...)
+	local _ = ... -- names the vararg: Lua 5.1 builds an `arg` table per call for one that never does
+end
 
 ---@param fmt string
 ---@param ... any
-function StandIn:Logf(fmt, ...) end
+function StandIn:Logf(fmt, ...)
+	local _ = ... -- names the vararg: Lua 5.1 builds an `arg` table per call for one that never does
+end
 
 --- Warn level.
 ---@param ... any
-function StandIn:Warn(...) end
+function StandIn:Warn(...)
+	local _ = ... -- names the vararg: Lua 5.1 builds an `arg` table per call for one that never does
+end
 
 ---@param fmt string
 ---@param ... any
-function StandIn:Warnf(fmt, ...) end
+function StandIn:Warnf(fmt, ...)
+	local _ = ... -- names the vararg: Lua 5.1 builds an `arg` table per call for one that never does
+end
 
 --- Debug level.
 ---@param ... any
-function StandIn:Verbose(...) end
+function StandIn:Verbose(...)
+	local _ = ... -- names the vararg: Lua 5.1 builds an `arg` table per call for one that never does
+end
 
 ---@param fmt string
 ---@param ... any
-function StandIn:Verbosef(fmt, ...) end
+function StandIn:Verbosef(fmt, ...)
+	local _ = ... -- names the vararg: Lua 5.1 builds an `arg` table per call for one that never does
+end
 
 --- The addon's dev-mode state (the dump callback's result); nothing here.
 ---@return table|nil
@@ -86,7 +98,9 @@ end
 ---@param channel string
 ---@param fmt string
 ---@param ... any
-function StandIn:Record(channel, fmt, ...) end
+function StandIn:Record(channel, fmt, ...)
+	local _ = ... -- names the vararg: Lua 5.1 builds an `arg` table per call for one that never does
+end
 
 --- Is the recorder taking this channel? Guard costly gathering with it: `if Debug:Recording("layout") then ... end`.
 ---@param channel string
