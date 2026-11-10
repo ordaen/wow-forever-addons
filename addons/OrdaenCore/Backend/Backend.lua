@@ -1635,10 +1635,10 @@ function Node:ApplyMouse()
 	dropTargets[self] = a.OnDrop and true or nil
 end
 
--- The theme's art, loaded ahead: when the first window (a box with OnEscape) opens, one texture per theme file and atlas (a nine-slice's
--- pieces too), on a
--- frame the player can't see, so the client has every file by the time a window draws it (otherwise its first open
--- shows the text before its art). Never at login: a player who opens no window loads none of it.
+-- The theme's art, loaded ahead: when the first window (a box with OnEscape) opens, one texture per theme file and
+-- atlas (a nine-slice's pieces too), on a frame the player can't see, so the client has all of it by the time a window
+-- draws it (otherwise its first open shows the text before its art). Never at login: a player who opens no window
+-- loads none of it.
 local warmed = false
 local WARM_FIELDS = { "file", "mask", "rim" }
 
@@ -1680,6 +1680,8 @@ local function warmTheme()
 			for i = 1, #WARM_FIELDS do
 				warmFile(frame, seen, v[WARM_FIELDS[i]])
 			end
+			warmAtlas(frame, seen, v.atlas)
+			warmNineSlice(frame, seen, v.nineSlice)
 		else
 			warmFile(frame, seen, v)
 		end
