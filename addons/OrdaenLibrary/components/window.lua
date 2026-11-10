@@ -30,7 +30,8 @@ local INSET = 3 * PX -- the body's wood inside the metal
 local PADDING = { 14 * PX + INSET, 12 * PX + INSET, 12 * PX + INSET, 12 * PX + INSET }
 -- the tab: its text and 16 px each side; its art from 12 px above it to 10 px below the line, 10 px past its right
 local TAB_PAD = 16 * PX
-local ART_TOP, ART_H, ART_PAST = -12 * PX, 64 * PX, 10 * PX
+-- (11 px above, measured in game: at 12 its right flare met the card's top line a pixel high)
+local ART_TOP, ART_H, ART_PAST = -11 * PX, 64 * PX, 10 * PX
 local TITLE = { 1, 0.82, 0, 1 } -- #ffd100
 local TITLE_SIZE = 15 * PX
 -- placed by its top-left corner from the screen's centre: x and y say where its centre is, and the corner is half
