@@ -1358,6 +1358,10 @@ function Node:ApplyLook()
 			if tex then
 				tex:Hide()
 			end
+			-- an art background before: its pieces go too (a pooled box keeps them, and would draw them at its size)
+			self.lookFit, self.lookArt, self.artW, self.lookOrigin = nil, nil, nil, nil
+			hideSlices(self.slices)
+			hideSlices(self.glows)
 		else
 			if not tex then
 				tex = frame:CreateTexture(nil, "BACKGROUND")
