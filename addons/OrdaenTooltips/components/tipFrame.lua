@@ -45,13 +45,22 @@ for i = 0, STEPS do
 end
 local CLOSE_ART = "Interface\\Buttons\\UI-Panel-MinimizeButton-Up" -- the game's red X
 
--- parts joined with « · », each in its colour (|c codes: a FontString has one colour)
+-- a part's text as a link to its term (a locked tooltip opens the term's tooltip from it), or as it is
+local function Termed(text, term, amount)
+	if not term then
+		return text
+	end
+	return "|Hordaen:term:" .. term .. ":" .. (amount or "") .. "|h" .. text .. "|h"
+end
+
+-- parts joined with « · », each in its colour (|c codes: a FontString has one colour) and linked to its term
 local joined = {}
 local function Join(list)
 	for i = 1, list.n do
 		local part = list[i]
 		local c = part.color
-		joined[i] = c and format("|cff%02x%02x%02x%s|r", c[1] * 255, c[2] * 255, c[3] * 255, part.text) or part.text
+		local text = Termed(part.text, part.term)
+		joined[i] = c and format("|cff%02x%02x%02x%s|r", c[1] * 255, c[2] * 255, c[3] * 255, text) or text
 	end
 	for i = list.n + 1, #joined do
 		joined[i] = nil
@@ -104,7 +113,8 @@ local function Head(game, self)
 	elseif calls.face.attributes.portrait then
 		game.ui:Box(calls.face)
 	end
-	game.ui:Box({ attributes = { columns = 1, gap = 2 * PX, yAlign = "center" }, slots = { default = Title } })
+	game.ui:Box({ attributes = { columns = 1, gap = 2 * PX, yAlign = "center", OnLink = self.attributes.OnLink },
+		slots = { default = Title } })
 end
 
 local function Cols(game, self)
@@ -210,6 +220,7 @@ local function Fill(calls, m)
 		-- the cells never wrap: equal shares, or the widest one's, and the tooltip grows to them
 		local a, cell = Calls(calls.cols, i), m.cols[i]
 		a.text, a.color, a.glyph, a.tint = cell.text, cell.color or BODY, GlyphOf(cell.glyph), cell.tint
+		a.term, a.amount = cell.term, cell.amount
 	end
 	calls.colsBox.attributes.columns = m.cols.n
 
@@ -226,7 +237,7 @@ local function Fill(calls, m)
 	for i = 1, m.foot.n do
 		local row = m.foot[i]
 		local a = Calls(calls.foot, i)
-		a.left, a.right, a.size = row.left, row.right, 14 * PX
+		a.left, a.right, a.size = Termed(row.left, row.term, row.amount), row.right, 14 * PX
 		a.leftColor = (row.valueColor and not row.right) and row.valueColor or QUIET
 		a.rightColor = row.valueColor or QUIET_VALUE
 	end
@@ -280,6 +291,9 @@ return Define.Component({
 		end
 		for i = 1, calls.nFoot do
 			calls.foot[i].attributes.OnLink = link
+		end
+		for i = 1, calls.nCols do
+			calls.cols[i].attributes.OnLink = link
 		end
 		self.box.attributes.width = self.attributes.side and SIDE_WIDTH or WIDTH
 		game.ui:Box(self.box)

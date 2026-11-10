@@ -40,6 +40,7 @@ local SHOUT = { type = 1, id = 6673, lines = {
 } }
 local CHARGE = { type = 1, id = 100, lines = {
 	{ type = 13, leftText = "Charge" },
+	{ type = 0, leftText = "Instant", rightText = "25 yd range" },
 	{ type = 34, leftText = "Charges an enemy; then «Rend» bleeds it and «Charge» can't again." },
 } }
 local REND = { type = 1, id = 772, lines = {
@@ -192,6 +193,7 @@ describe("Ordaen Tooltips", function()
 		env.CONTAINER_SLOTS = "%d Slot %s"
 		env.ITEM_UNIQUE = "Unique"
 		env.SPELL_CAST_TIME_INSTANT = "Instant"
+		env.SPELL_RANGE = "%s yd range"
 		wow:Login()
 		ns = wow.addons.OrdaenCore.ns
 	end)
@@ -200,7 +202,7 @@ describe("Ordaen Tooltips", function()
 		wow:ShowTooltip("GameTooltip", AXE)
 		ns.Scheduler.Flush()
 		local shown = texts()
-		has(shown, "Copper Axe", "One-Hand · |cffff3f3fAxe|r · Unique", "Binds when equipped")
+		has(shown, "Copper Axe", "One-Hand · |cffff3f3fAxe|r · |Hordaen:term:uni:|hUnique|h", "Binds when equipped")
 		has(shown, "7–13", "2.6/s", "3.8 DPS")
 		has(shown, "Item level\n12", "Strength\n+3")
 		assert.is_falsy(shown:find("+3 Strength", 1, true)) -- the stat line became its row
@@ -272,7 +274,7 @@ describe("Ordaen Tooltips", function()
 		wow:ShowTooltip("GameTooltip", GUARD)
 		ns.Scheduler.Flush()
 		shown = texts()
-		has(shown, "Istanbul · Officer", "Warrior", "Human", "Sergeant")
+		has(shown, "|Hordaen:term:guild:|hIstanbul|h · |Hordaen:term:rank:|hOfficer|h", "Warrior", "Human", "Sergeant")
 		local module = ns.App.Module("OrdaenTooltips")
 		module.root.state.persistent.playersOn:Set(false)
 		wow:ShowTooltip("GameTooltip", GUARD)
@@ -406,6 +408,26 @@ describe("Ordaen Tooltips", function()
 			assert.is_falsy(shown:find("Copper Axe", 1, true))
 			assert.are.same({}, wow.errors)
 		end)
+		it("opens a cell's term once locked: the cost's resource with its amount; left, it goes", function()
+			wow:ShowTooltip("GameTooltip", SHOUT)
+			ns.Scheduler.Flush()
+			local function cell()
+				return find(function(node)
+					return node.a and node.a.OnEnter and not node.a.hoverWithin
+				end)
+			end
+			assert.is_nil(cell()) -- not locked: the cells take no mouse
+			wait(1.1)
+			local c = cell()
+			c.a.OnEnter()
+			ns.Scheduler.Flush()
+			has(texts(), "Rage: 10", "The ability's rage cost.")
+			c.a.OnLeave()
+			wait(0.3)
+			assert.is_falsy(texts():find("Rage: 10", 1, true))
+			assert.are.same({}, wow.errors)
+		end)
+
 		it("links a description's spell names once locked; hovered, the spell's tooltip opens beside, left, it goes",
 			function()
 				wow:ShowTooltip("GameTooltip", CHARGE)
@@ -413,6 +435,8 @@ describe("Ordaen Tooltips", function()
 				local shown = texts()
 				has(shown, "|Hordaen:spell:772|h«Rend»|h") -- another spell of the book: a link
 				has(shown, "|cffffd100«Charge»|r") -- its own name stays plain
+				has(shown, "25 yd") -- the range in short: the number and its unit
+				assert.is_falsy(shown:find("yd range", 1, true))
 				assert.is_nil(find(function(node)
 					return node.a and node.a.OnLink
 				end)) -- not locked: no links

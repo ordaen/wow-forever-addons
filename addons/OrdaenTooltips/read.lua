@@ -202,10 +202,12 @@ local function Clear(model)
 	end
 end
 
-local function Part(list, text, color)
+-- `term` (and `amount`, the number it speaks of): the glossary entry a locked tooltip opens from this part (design
+-- tooltips «Tooltips in tooltips»; Read.Term)
+local function Part(list, text, color, term)
 	if text then
 		local part = Push(list)
-		part.text, part.color = text, color
+		part.text, part.color, part.term = text, color, term
 	end
 end
 
@@ -224,15 +226,17 @@ local function Row(model, left, right, color, rightColor)
 	return row
 end
 
-local function Foot(model, left, right, valueColor)
+local function Foot(model, left, right, valueColor, term, amount)
 	local row = Push(model.foot)
-	row.left, row.right, row.valueColor = left, right, valueColor
+	row.left, row.right, row.valueColor, row.term, row.amount = left, right, valueColor, term, amount
 	return row
 end
 
-local function Cell(model, text, color, glyph, tint)
+-- a cell of the band; its term is its glyph's unless given
+local function Cell(model, text, color, glyph, tint, term, amount)
 	local cell = Push(model.cols)
 	cell.text, cell.color, cell.glyph, cell.tint = text, color, glyph, tint
+	cell.term, cell.amount = term or glyph, amount
 	return cell
 end
 
@@ -270,6 +274,35 @@ local function Remaining(start, duration)
 	end
 	local left = start + duration - GetTime()
 	return left > 0 and left or nil
+end
+
+-- a binding line's term, by the game's own text for it
+local BINDING = {}
+for global, term in pairs({ ITEM_SOULBOUND = "bound", ITEM_BIND_ON_EQUIP = "boe", ITEM_BIND_ON_PICKUP = "bop" }) do
+	local text = _G[global] -- luacheck: ignore 113
+	if type(text) == "string" then
+		BINDING[text] = term
+	end
+end
+
+-- Terms -----------------------------------------------------------------------------------------------------------
+
+--- A glossary entry as a tooltip (design tooltips «Tooltips in tooltips»: a part's term): its name in gold, its text;
+--- both from the locales (TERM_<KEY>, TERM_<KEY>_TEXT), a «%s» in them the amount the part spoke of. False when the
+--- locales have no such term.
+function Read.Term(model, key, amount, L)
+	local upper = "TERM_" .. key:upper()
+	local name, text = rawget(L, upper), rawget(L, upper .. "_TEXT")
+	if not name or not text then
+		return false
+	end
+	Clear(model)
+	model.kind = "term"
+	local n = amount or ""
+	model.name = name:find("%s", 1, true) and format(name, n) or name
+	model.nameColor = GOLD
+	Free(model, text:find("%s", 1, true) and format(text, n) or text)
+	return true
 end
 
 -- Rich text --------------------------------------------------------------------------------------------------------
@@ -432,7 +465,7 @@ local function Item(model, data, ctx)
 			Part(model.desc, left, line.isValidInvSlot == false and RED or nil)
 			Part(model.desc, Text(line.rightText), line.isValidItemType == false and RED or nil)
 		elseif kind == LINE.Binding then
-			Part(model.info, left)
+			Part(model.info, left, nil, left and BINDING[left])
 		elseif kind == LINE.SellPrice then
 			local price = Id(line.price)
 			if price and price > 0 then
@@ -442,9 +475,9 @@ local function Item(model, data, ctx)
 			if left then
 				local skill, rank = Match(left, ITEM_MIN_SKILL)
 				if skill and rank then
-					Foot(model, skill, rank, line.usable == false and RED or nil)
+					Foot(model, skill, rank, line.usable == false and RED or nil, "prof")
 				else
-					Foot(model, left, nil, line.usable == false and RED or nil)
+					Foot(model, left, nil, line.usable == false and RED or nil, "req")
 				end
 			end
 		elseif kind == LINE.Use then
@@ -457,7 +490,7 @@ local function Item(model, data, ctx)
 					local start, duration = C_Container.GetItemCooldown(id)
 					local left2 = Remaining(start, duration)
 					if left2 then
-						Foot(sub, L.READY_IN, Duration(left2), YELLOW)
+						Foot(sub, L.READY_IN, Duration(left2), YELLOW, "ready")
 						model.timer = true
 					end
 				end
@@ -483,7 +516,7 @@ local function Item(model, data, ctx)
 		elseif kind == LINE.Blank or not left then -- luacheck: ignore 542
 			-- nothing to draw
 		elseif left == ITEM_UNIQUE or left == ITEM_UNIQUE_EQUIPPABLE then
-			Part(model.desc, left) -- «Уникальный» joins the description
+			Part(model.desc, left, nil, "uni") -- «Уникальный» joins the description
 		else
 			-- the columns: damage and speed, damage per second, armor, block, a bag's slots; the footer's lines
 			local low, high = Match(left, DAMAGE_TEMPLATE_WITH_SCHOOL) -- the school is the item's type already
@@ -512,21 +545,22 @@ local function Item(model, data, ctx)
 			elseif single then
 				Cell(model, numbers:Format(Number(single) or 0), nil, "dmg")
 			elseif dps then
-				Cell(model, format(L.COL_DPS, numbers:Format(Number(dps) or 0)))
+				Cell(model, format(L.COL_DPS, numbers:Format(Number(dps) or 0)), nil, nil, nil, "dps")
 				model.stats.dps = Number(dps)
 			elseif armor then
-				Cell(model, numbers:Format(Number(armor) or 0), ColorOf(line.leftColor), "arm") -- bonus armor: green
+				-- bonus armor: green
+				Cell(model, numbers:Format(Number(armor) or 0), ColorOf(line.leftColor), "arm", nil, nil, Number(armor))
 				model.stats.arm = Number(armor)
 			elseif block then
-				Cell(model, numbers:Format(Number(block) or 0), nil, "blk")
+				Cell(model, numbers:Format(Number(block) or 0), nil, "blk", nil, nil, Number(block))
 				model.stats.blk = Number(block)
 			elseif slots then
-				Cell(model, Read.Plural(L, "COL_SLOTS", slots))
+				Cell(model, Read.Plural(L, "COL_SLOTS", slots), nil, nil, nil, "bag", slots)
 			elseif current and maximum then
 				local c, m = Number(current) or 0, Number(maximum) or 1
-				Foot(model, L.DURABILITY, format("%d / %d", c, m), DurabilityColor(c, m))
+				Foot(model, L.DURABILITY, format("%d / %d", c, m), DurabilityColor(c, m), "dur")
 			elseif classes then
-				Foot(model, L.CLASSES, classes, ColorOf(line.leftColor))
+				Foot(model, L.CLASSES, classes, ColorOf(line.leftColor), "cls")
 			elseif reagents and Reagents(model, reagents, L) then -- luacheck: ignore 542
 				-- a recipe's reagents: rows
 			elseif hasStats and StatLine(left) and not ColorOf(line.leftColor) then -- luacheck: ignore 542
@@ -545,14 +579,14 @@ local function Item(model, data, ctx)
 		local total = C_Item.GetItemCount(id, true) or bags
 		if ctx.itemsCount and ((stack and stack > 1) or total > 1) then
 			if bags > 0 then
-				Foot(model, L.IN_BAGS, numbers:Format(bags))
+				Foot(model, L.IN_BAGS, numbers:Format(bags), nil, "own")
 			end
 			if total - bags > 0 then
-				Foot(model, L.IN_BANK, numbers:Format(total - bags))
+				Foot(model, L.IN_BANK, numbers:Format(total - bags), nil, "own")
 			end
 		end
 		if ctx.itemsStack and stack and stack > 1 then
-			Foot(model, L.STACK, numbers:Format(stack))
+			Foot(model, L.STACK, numbers:Format(stack), nil, "stack")
 		end
 	end
 	return model.name ~= nil
@@ -560,35 +594,60 @@ end
 
 -- Spells and auras -------------------------------------------------------------------------------------------------
 
+-- A spell's range in short: the number and the unit after it in the game's own format («Радиус действия: %s м»,
+-- «%s yd range»), its words around them dropped; nil when the text isn't a range
+local RANGES = { "SPELL_RANGE", "SPELL_RANGE_AREA" }
+local function Range(text)
+	for i = 1, #RANGES do
+		local fmt = _G[RANGES[i]] -- luacheck: ignore 113
+		local n = type(fmt) == "string" and Match(text, fmt)
+		if n then
+			local unit = fmt:match("%%s%s*([^%s%%]+)")
+			if unit and not n:find(unit, 1, true) then
+				return n .. " " .. unit
+			end
+			return n
+		end
+	end
+	return nil
+end
+
 -- A band cell of a spell's two-sided lines, in the design's short form: an instant cast «Мгновенно», a cooldown
 -- «CD 10 сек.» (Forever writes «Восстановление: 10 сек.»; the English abbreviation in every locale); each cast kind
 -- its glyph, the cost a dot in its resource's colour.
-local function SpellCell(model, text, right, L, costColor)
-	local glyph, tint
+local function SpellCell(model, text, right, L, costColor, costTerm)
+	local glyph, tint, term, amount
 	if text == SPELL_CAST_TIME_INSTANT or text == SPELL_CAST_TIME_INSTANT_NO_MANA then
 		text, glyph = L.CAST_INSTANT, "castNow"
 	elseif text == SPELL_CAST_CHANNELED or text:find(SPELL_CAST_CHANNELED or "\0", 1, true) then
 		glyph = "castChan"
 	elseif right then
-		local value = text:match("^[^:]+:%s*(.+)$")
-		if value and text:find("%d") then -- «Восстановление: 10 сек.»: no glyph, its text says enough
-			text = "CD " .. value
+		local range = Range(text)
+		local value = not range and text:match("^[^:]+:%s*(.+)$")
+		if range then -- «Радиус действия: 30 м» → «30 м»
+			text, term = range, "range"
+		elseif value and text:find("%d") then -- «Восстановление: 10 сек.»: no glyph, its text says enough
+			text, term = "CD " .. value, "cd"
+		else -- «В пределах досягаемости», unlimited: as the game writes it
+			term = "range"
 		end
 	elseif Match(text, SPELL_CAST_TIME_SEC) or Match(text, SPELL_CAST_TIME_MIN) then
 		glyph = "castTime"
 	elseif costColor and text:find("%d") and not text:find(":", 1, true) then
 		-- the cost: «10 ед. ярости» → a dot in the resource's colour and the number
 		glyph, tint, text = "cost", costColor, text:match("[%d%s\194\160]+") or text
+		term, amount = costTerm, text
 	end
-	Cell(model, text, nil, glyph, tint)
+	Cell(model, text, nil, glyph, tint, term, amount)
 end
 
 -- the colour of a spell's resource (rage red, mana blue, energy yellow), from its cost's power type
+local POWER_TERM = { [0] = "mana", [1] = "rage", [3] = "energy" } -- a cost's power type -> its term
 local function CostColor(id)
 	local costs = id and C_Spell.GetSpellPowerCost(id)
 	local cost = type(costs) == "table" and costs[1]
 	local color = cost and PowerBarColor and PowerBarColor[cost.type]
-	return color and Rgb(color.r, color.g, color.b) or nil
+	return color and Rgb(color.r, color.g, color.b) or nil, cost and POWER_TERM[cost.type]
 end
 
 local function Spell(model, data, ctx)
@@ -596,7 +655,7 @@ local function Spell(model, data, ctx)
 	model.id = id
 	local L = ctx.L
 	model.icon = id and C_Spell.GetSpellTexture(id) or nil
-	local costColor = CostColor(id)
+	local costColor, costTerm = CostColor(id)
 	local lines = data.lines
 	for i = 1, #lines do
 		local line = lines[i]
@@ -616,10 +675,10 @@ local function Spell(model, data, ctx)
 		elseif kind ~= LINE.Blank and (left or right) then
 			-- cost and range, cast and cooldown: Forever's two-sided lines, cells of the band
 			if left and right then
-				SpellCell(model, left, false, L, costColor)
-				SpellCell(model, right, true, L, costColor)
+				SpellCell(model, left, false, L, costColor, costTerm)
+				SpellCell(model, right, true, L, costColor, costTerm)
 			elseif left and i <= 4 and model.body.n == 0 then
-				SpellCell(model, left, false, L, costColor)
+				SpellCell(model, left, false, L, costColor, costTerm)
 			elseif left then
 				Free(model, left, ColorOf(line.leftColor))
 			end
@@ -629,7 +688,7 @@ local function Spell(model, data, ctx)
 		local cd = C_Spell.GetSpellCooldown(id)
 		local left = cd and Remaining(cd.startTime, cd.duration)
 		if left then
-			Foot(model, L.READY_IN, Duration(left), YELLOW)
+			Foot(model, L.READY_IN, Duration(left), YELLOW, "ready")
 			model.timer = true
 		end
 	end
@@ -679,16 +738,16 @@ local function Aura(model, data, ctx, owner)
 	local dispel = aura and aura.dispelName
 	if type(dispel) == "string" then
 		Part(model.desc, _G["STRING_SCHOOL_" .. dispel:upper()] or L["DISPEL_" .. dispel:upper()] or dispel, -- luacheck: ignore 113
-			DISPEL[dispel])
+			DISPEL[dispel], dispel:lower())
 	end
 	local source = aura and aura.sourceUnit
 	if source == "player" or source == "pet" then
-		Part(model.desc, L.AURA_YOURS, GOLD)
+		Part(model.desc, L.AURA_YOURS, GOLD, "mine")
 	end
 	if aura then
 		local stacks = aura.applications
 		if type(stacks) == "number" and stacks > 1 then
-			Cell(model, "×" .. stacks)
+			Cell(model, "×" .. stacks, nil, nil, nil, "stacks")
 		end
 		local expires = aura.expirationTime
 		if type(expires) == "number" and expires > 0 then
@@ -696,13 +755,13 @@ local function Aura(model, data, ctx, owner)
 			model.timer = true
 		end
 		if unit == "player" and not harmful then
-			Cell(model, L.CANCEL_KEY)
+			Cell(model, L.CANCEL_KEY, nil, nil, nil, "cancel")
 		end
 		if ctx.aurasCaster and type(source) == "string" and UnitExists(source) then
 			local name = (source == "player") and L.YOU or UnitName(source)
 			local _, class = UnitClass(source)
 			local color = class and RAID_CLASS_COLORS[class]
-			Foot(model, L.CASTER, name, color and Rgb(color.r, color.g, color.b) or nil)
+			Foot(model, L.CASTER, name, color and Rgb(color.r, color.g, color.b) or nil, "caster")
 		end
 	end
 	if id and ctx.aurasId then
@@ -740,22 +799,22 @@ local function Player(model, unit, ctx)
 	model.nameColor = color
 	local guild, rank = GetGuildInfo(unit)
 	if guild then
-		Part(model.desc, guild)
-		Part(model.desc, rank)
+		Part(model.desc, guild, nil, "guild")
+		Part(model.desc, rank, nil, "rank")
 	end
-	Part(model.info, (UnitClass(unit)))
+	Part(model.info, (UnitClass(unit)), nil, "pclass")
 	if UnitIsDeadOrGhost(unit) then
-		Part(model.info, UnitIsGhost(unit) and L.GHOST or L.CORPSE)
+		Part(model.info, UnitIsGhost(unit) and L.GHOST or L.CORPSE, nil, "status")
 	elseif UnitIsAFK(unit) then
-		Part(model.info, L.AFK)
+		Part(model.info, L.AFK, nil, "status")
 	elseif UnitIsDND(unit) then
-		Part(model.info, L.DND)
+		Part(model.info, L.DND, nil, "status")
 	end
 	if UnitIsPVP(unit) then
-		Part(model.info, "PvP")
+		Part(model.info, "PvP", nil, "pvp")
 	end
 	local level = UnitLevel(unit)
-	Cell(model, level and level > 0 and format(L.LEVEL_CELL, level) or "??")
+	Cell(model, level and level > 0 and format(L.LEVEL_CELL, level) or "??", nil, nil, nil, "plvl")
 	Cell(model, (UnitRace(unit)))
 	local faction, factionName = UnitFactionGroup(unit)
 	if faction then
@@ -765,7 +824,7 @@ local function Player(model, unit, ctx)
 	if ctx.playersTarget then
 		local target = unit .. "target"
 		if UnitExists(target) then
-			Foot(model, L.TARGET, UnitName(target), UnitIsPlayer(target) and ClassColor(target) or nil)
+			Foot(model, L.TARGET, UnitName(target), UnitIsPlayer(target) and ClassColor(target) or nil, "ptarget")
 		end
 	end
 	if ctx.playersRelation then
@@ -773,17 +832,17 @@ local function Player(model, unit, ctx)
 			local index = UnitInRaid(unit)
 			local group = index and select(3, GetRaidRosterInfo(index))
 			if group then
-				Foot(model, L.RAID, format(L.RAID_GROUP, group))
+				Foot(model, L.RAID, format(L.RAID_GROUP, group), nil, "relation")
 			end
 		elseif UnitInParty(unit) and not UnitIsUnit(unit, "player") then
-			Foot(model, L.PARTY, L.PARTY_YOURS)
+			Foot(model, L.PARTY, L.PARTY_YOURS, nil, "relation")
 		end
 		if name and C_FriendList.IsFriend(UnitGUID(unit)) then
 			local info = C_FriendList.GetFriendInfo(name)
-			Foot(model, L.FRIEND, info and info.notes or "")
+			Foot(model, L.FRIEND, info and info.notes or "", nil, "relation")
 		end
 		if name and C_FriendList.IsIgnored(name) then
-			Foot(model, L.IGNORED, L.IGNORED_YES, RED)
+			Foot(model, L.IGNORED, L.IGNORED_YES, RED, "relation")
 		end
 	end
 end
@@ -792,12 +851,12 @@ end
 local function LevelCell(model, unit, L)
 	local level = UnitLevel(unit)
 	if not level or level <= 0 then
-		Cell(model, "??", RED)
+		Cell(model, "??", RED, nil, nil, "lvlColor")
 		return
 	end
 	local friendly = UnitReaction(unit, "player")
 	local color = (friendly or 0) < 5 and GetQuestDifficultyColor and GetQuestDifficultyColor(level)
-	Cell(model, format(L.LEVEL_CELL, level), color and Rgb(color.r, color.g, color.b) or nil)
+	Cell(model, format(L.LEVEL_CELL, level), color and Rgb(color.r, color.g, color.b) or nil, nil, nil, "lvlColor")
 end
 
 -- an NPC: the name in its reaction colour (grey tapped), its role, creature type and «Труп»; level, elite/rare, faction
@@ -833,9 +892,9 @@ local function Npc(model, unit, data, ctx)
 			end
 		end
 	end
-	Part(model.info, UnitCreatureType(unit))
+	Part(model.info, UnitCreatureType(unit), nil, "beast")
 	if UnitIsDead(unit) then
-		Part(model.info, L.CORPSE)
+		Part(model.info, L.CORPSE, nil, "npcDead")
 	end
 	LevelCell(model, unit, L)
 	local class = UnitClassification(unit)
@@ -847,7 +906,8 @@ local function Npc(model, unit, data, ctx)
 	end
 	local faction = UnitFactionGroup(unit)
 	if faction then
-		Cell(model, factionName or faction, faction == UnitFactionGroup("player") and GREEN or RED)
+		Cell(model, factionName or faction, faction == UnitFactionGroup("player") and GREEN or RED, nil, nil,
+			faction == "Alliance" and "alliance" or faction == "Horde" and "horde" or nil)
 	end
 end
 

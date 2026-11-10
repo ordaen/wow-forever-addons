@@ -335,16 +335,24 @@ return Define.Module({
 		-- is on it or on one opened from it
 		local links, checks, nestHover = {}, {}, {}
 		local function Open(depth, link)
-			local data = depth < DEPTH and DataOf(link)
-			if not data then
+			if depth >= DEPTH then
 				return
 			end
 			local d = depth + 1
 			local model = nested[d] or Read.NewModel()
 			nested[d] = model
-			Settings(nil)
-			if not Read.Fill(model, data, ctx) then
-				return
+			-- a term's glossary entry (ordaen:term:key:amount), else what the game's data says of the link
+			local key, amount = link:match("^ordaen:term:([^:]+):(.*)$")
+			if key then
+				if not Read.Term(model, key, amount ~= "" and amount or nil, L) then
+					return
+				end
+			else
+				local data = DataOf(link)
+				Settings(nil)
+				if not data or not Read.Fill(model, data, ctx) then
+					return
+				end
 			end
 			for k = d, nested.n do
 				hovered[k] = false
