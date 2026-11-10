@@ -11,7 +11,7 @@
 --
 -- Attributes: `title` (text), `width`, `height` (the body's, UI units), `x`, `y` (where it sits: its centre's offset
 -- from the screen's, UI units, y down; 0, 0 when unset), `OnMoved(x, y)` (called when a drag ends: its owner keeps
--- the place), `minWidth`, `minHeight` (the smallest body), `OnResized(width, height)` (called when a resize ends,
+-- the place), `minWidth`, `minHeight` (the smallest body; 320 x 200 px unless given), `maxWidth`, `maxHeight` (the largest), `OnResized(width, height)` (called when a resize ends,
 -- the body's size), `OnClose` (called by the close button and by Escape). Slot `default`: the body's content, inside
 -- its padding.
 local Define = import("@ordaen/define")
@@ -107,6 +107,9 @@ end
 local function Left(_, self)
 	return self.state.full and 0 or self.state.x
 end
+-- the smallest body when the window names none: room for the tab row and a few lines
+local MIN_W, MIN_H = 320 * PX, 200 * PX
+
 local function Top(_, self)
 	return self.state.full and 0 or self.state.y
 end
@@ -140,8 +143,9 @@ return Define.Component({
 		-- the grip follows the cursor; the window is placed by its centre, so the centre moves half as far and the
 		-- top-left corner stays
 		local function size(x, y)
-			local w = math.max(self.attributes.minWidth or 0, w0 + x - grabX)
-			local h = math.max(self.attributes.minHeight or 0, h0 + y - grabY)
+			local a = self.attributes
+			local w = math.min(a.maxWidth or math.huge, math.max(a.minWidth or MIN_W, w0 + x - grabX))
+			local h = math.min(a.maxHeight or math.huge, math.max(a.minHeight or MIN_H, h0 + y - grabY))
 			self.state.w = w
 			self.state.h = h
 			self.state.x = x0 + (w - w0) / 2
@@ -198,6 +202,6 @@ return Define.Component({
 	Render = function(game, self)
 		game.ui:Box({ attributes = { position = "absolute", anchor = Anchor(game, self), left = Left(game, self),
 			top = Top(game, self), right = Edge(game, self), bottom = Edge(game, self), width = Width(game, self),
-			height = Height(game, self), artOrigin = true, OnEscape = self.close }, slots = { default = Parts } })
+			height = Height(game, self), artOrigin = true, overflow = "clip", OnEscape = self.close }, slots = { default = Parts } })
 	end,
 })

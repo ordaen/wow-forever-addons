@@ -464,8 +464,10 @@ function ctx.place(node)
 		local point = anchor.point or "TOPLEFT"
 		local cx = point == "CENTER" or point == "TOP" or point == "BOTTOM"
 		local cy = point == "CENTER" or point == "LEFT" or point == "RIGHT"
-		x = cx and snap((node.offL or 0) - w / 2) + w / 2 or snap(node.offL or 0)
-		y = cy and snap((node.offT or 0) - h / 2) + h / 2 or snap(node.offT or 0)
+		-- (the edge from the box's own size, not its snapped one: while a drag resizes it, offset minus half the size
+		-- stays the same, so the near edge holds its pixel)
+		x = cx and snap((node.offL or 0) - node.w / 2) + w / 2 or snap(node.offL or 0)
+		y = cy and snap((node.offT or 0) - node.h / 2) + h / 2 or snap(node.offT or 0)
 		if anchor ~= node.pAnchor or rel ~= node.pRel or x ~= node.pX or y ~= node.pY then
 			node.pAnchor, node.pRel, node.pX, node.pY = anchor, rel, x, y
 			local point = anchor.point or "TOPLEFT"
