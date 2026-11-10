@@ -405,13 +405,14 @@ local function ZoneCall(zone, vertical, mask)
 	local call = ZONE_CALLS[vertical][key]
 	if not call then
 		local tracks, gap = mask > 0 and TracksOf(mask) or nil, Define.Theme.spacing.md
-		-- the zone fills its third of the panel ("1fr": its whole cell); with the experience bar in it, the bar takes
+		-- the zone fills its third of the panel (100% of its cell; down a side "1fr": a percentage height is the
+		-- panel's, rows being sized by their content); with the experience bar in it, the bar takes
 		-- what the others leave
 		-- (no alignment: an aligned item keeps its content's size)
 		local align = mask % 8 >= 4 and nil or ALIGN[zone] -- bit 3: the experience bar
 		local attributes = vertical
 			and { height = "1fr", rows = tracks, gap = gap, yAlign = align, xAlign = "center" }
-			or { width = "1fr", columns = tracks, gap = gap, xAlign = align, yAlign = "center" }
+			or { width = "100%", columns = tracks, gap = gap, xAlign = align, yAlign = "center" }
 		call = { key = zone, attributes = attributes, slots = { default = ZONE_SLOTS[zone] } }
 		ZONE_CALLS[vertical][key] = call
 	end
