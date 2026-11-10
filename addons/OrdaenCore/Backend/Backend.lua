@@ -496,11 +496,14 @@ function ctx.place(node)
 	end
 end
 
+-- a wrapped text's height at `width`: measured unconstrained (WoW gives a FontString with a fixed height that height,
+-- clipped, so a text drawn one line high would measure one line again and stay cut off with «…»), then back to the
+-- size it's drawn at
 function ctx.measure(node, width)
 	local fs = node.fs
-	fs:SetWidth(width)
+	fs:SetSize(width, 0)
 	local h = pixelsUp(fs:GetStringHeight())
-	fs:SetWidth(node.pW or 0) -- back to the width it's drawn at
+	fs:SetSize(node.pW or 0, node.pH or 0)
 	return h
 end
 
