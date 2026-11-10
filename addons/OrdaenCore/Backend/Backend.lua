@@ -687,7 +687,16 @@ function Node:ApplyFrameArt(border)
 	if not leftAtlas then
 		return
 	end
-	local frame = self.frame
+	-- the art on a frame of its own over the box's content (Node:Stack raises it over the children and texts), so the
+	-- rim lies over whatever the box holds: a child reaching under a rounded corner is covered by the curve
+	local frame = self.artFrame
+	if not frame then
+		frame = CreateFrame("Frame", nil, self.frame)
+		frame:SetAllPoints(self.frame)
+		self.artFrame = frame
+		restack(self)
+	end
+	frame:Show()
 	local art = self.frameArt
 	if not art then
 		art = {}
@@ -914,6 +923,9 @@ function Node:ApplyBorder(border)
 			end
 		end
 	end
+	if self.artFrame and not (type(border) == "table" and border.nineSlice) then
+		self.artFrame:Hide()
+	end
 	if type(border) ~= "table" or t + r + b + l == 0 then
 		return
 	end
@@ -1093,7 +1105,7 @@ end
 -- shaped art (an arrow, a knob), as a text's shadow is the text again.
 -- `color` defaults to black at 50%.
 do -- its constants local to it (the file is near Lua's 200 locals)
-local SHADOW = "Interface\AddOns\OrdaenCore\media\shadow"
+local SHADOW = "Interface\\AddOns\\OrdaenCore\\media\\shadow"
 local SHADOW_COLOR = { 0, 0, 0, 0.5 }
 local INSET_SIDES = { "TOP", "BOTTOM", "LEFT", "RIGHT" }
 function Node:ApplyShadow(shadow)
@@ -2962,6 +2974,13 @@ function Node:Stack()
 			tf:SetFrameLevel(level)
 		end
 		top = level
+	end
+	local af = self.artFrame
+	if af then -- its frame art over all it holds
+		if af:GetFrameLevel() ~= top + 1 then
+			af:SetFrameLevel(top + 1)
+		end
+		top = top + 1
 	end
 	self.depth = top - self.frame:GetFrameLevel()
 end

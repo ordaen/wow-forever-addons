@@ -6,7 +6,6 @@
 #                             bottom-right corner (S the square's side); the others are this one turned and flipped
 #   metal-flare               the bottom-left inward curve where a side meets a line below it (an open tab on its
 #                             window's body): the line's outer side on an arc of radius 0 round the square's top-left
-#   metal-flare-fill          its inside (past the line, away from the arc's centre) as a mask, for the fill under it
 #
 # The sizes are in the art's units at scale 1, as the Theme's metal reads them (Backend: size times border.scale).
 # Run: python tools/metal-curves.py <design public/ui/metal/left.png> <addons/OrdaenCore/media>
@@ -86,10 +85,5 @@ def flare(ux, uy):
     return sample(math.hypot(ux, uy))
 
 
-def flare_fill(ux, uy):
-    return (255.0, 255.0, 255.0, 1.0) if math.hypot(ux, uy) > BRONZE else (0.0, 0.0, 0.0, 0.0)
-
-
 render(FLARE, flare, f"{OUT}/metal-flare.tga")
-render(FLARE, flare_fill, f"{OUT}/metal-flare-fill.tga")
 print("T", T, "visible", VISIBLE, "corners", SIZES, "flare", FLARE)

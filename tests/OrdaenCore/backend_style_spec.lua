@@ -706,8 +706,11 @@ describe("backend styles", function()
 		assert.is_true(select(5, art.trSide:GetPoint(1)) < select(5, art.tlSide:GetPoint(1))) -- each by its outer corner
 		assert.is_true(art.trTop._coords[1] > 0) -- the turned top's art starts lower in it: drawn higher, in line
 		assert.are.equal(0, art.tlTop._coords[1])
-		-- the wood inside the art's inset on every side
-		assert.is_true(window.fillTop > 0 and window.fillRight > 0 and window.fillBottom > 0 and window.fillLeft > 0)
+		-- the wood inside the box and under the art on every side: from the box's edge at most as far in as the art
+		for side, bw in pairs({ Top = window.bwT, Right = window.bwR, Bottom = window.bwB, Left = window.bwL }) do
+			local fill = window["fill" .. side] or 0
+			assert.is_true(fill >= 0 and fill <= bw, side .. ": fill " .. fill .. ", border " .. bw)
+		end
 		-- a plain border again: the art goes
 		Backend:Set(window, { position = "absolute", left = 100, top = 100, width = 400, height = 300 })
 		Backend:Flush()

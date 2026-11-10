@@ -16,14 +16,16 @@ local _, ns = ...
 -- (512 texels over 746 px), so a resized box keeps its grain; one file for every surface
 local WOOD = { file = "Interface\\AddOns\\OrdaenCore\\media\\window-wood", size = { 512, 512 },
 	repeatSize = 746 / 1.2 }
--- How far Blizzard's metal art (ButtonFrameTemplateNoPortrait) stands out past the line it frames, per side { top,
--- right, bottom, left }, in the art's units at scale 1 (the NineSlice layout's corner offsets: 8 left, 4 right, 3 above
--- and below). A border is drawn inside its box (border-box): the layout counts reach x scale into the border's width on
--- each side it draws, the art starts at the box's edge and the fill moves in by as much. The window tab reads it too.
-local METAL_REACH = { 3, 4, 3, 8 }
--- The one metal frame (design MetalFrame "small"): Blizzard's ButtonFrameTemplateNoPortrait at half size, its line 3
--- units wide, the wood from 3 units in; every framed surface (windows, dialogs, tooltips, the minimap, the bottom
--- panel's top edge, the window tabs) is this frame on the sides it names (all four when `sides` is nil). Spacing
+-- The metal art's thickness past its 3-unit line, per side { top, right, bottom, left }, in the art's units at scale 1:
+-- the art (ButtonFrameTemplateNoPortrait's edges, design public/ui/metal) is drawn from the box's edge, and its line
+-- ends 20.5 units in on the top and left (the left edge's art and the top turned from it: 20 transparent units, then
+-- the shadow, the bronze and the dark core), 10.5 on the right and 16 at the bottom. A border is drawn inside its box
+-- (border-box): the layout counts 3 + reach x scale as the border's width on each side it draws, so the content
+-- starts where the art ends and never lies on it.
+local METAL_REACH = { 14.5, 4.5, 10, 14.5 }
+-- The one metal frame (design MetalFrame "small"): Blizzard's ButtonFrameTemplateNoPortrait at half size; its fill
+-- (the wood) from 1.5 units into the art past its line, under the line, so no gap shows between them. Every framed
+-- surface (windows, dialogs, tooltips, the minimap, the bottom panel's top edge, the window tabs) is this frame on the sides it names (all four when `sides` is nil). Spacing
 -- inside a frame is the box's padding, never a wider border.
 -- Its curves (border.radius, border.flare: tools/metal-curves.py makes their pieces from the same left edge): the
 -- pieces' sides in the art's units at scale 1. A corner's radius reads at the line's bronze stripe, 14 units in from
@@ -31,7 +33,7 @@ local METAL_REACH = { 3, 4, 3, 8 }
 -- line's visible 21 units, bent round its outer side.
 local METAL_CURVES = { small = 8 / 1.2 / 0.5 + 14, large = 14 / 1.2 / 0.5 + 14, flare = 21 }
 local function Metal(sides, inset, radius, flare)
-	return { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = inset or 3,
+	return { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = inset or -1.5,
 		reach = METAL_REACH, sides = sides, curves = METAL_CURVES, radius = radius, flare = flare }
 end
 local TAB_CORNERS = { tl = "large", tr = "large" }
@@ -74,11 +76,12 @@ ns.Theme = {
 	-- it stands on the window's body; the open tab's sides curve out into the body's top line (the first tab's left
 	-- runs straight down the body's left line). Its icon's: the metal on its right; the open tab's on its bottom too,
 	-- the corner between rounded small
-	["frame.tab"] = Metal({ "top", "left", "right" }, 3, TAB_CORNERS),
-	["frame.tabOpen"] = Metal({ "top", "left", "right" }, 3, TAB_CORNERS, { "left", "right" }),
-	["frame.tabOpenFirst"] = Metal({ "top", "left", "right" }, 3, TAB_CORNERS, { "right" }),
-	["frame.tabIcon"] = Metal({ "right" }, 0),
-	["frame.tabIconOpen"] = Metal({ "right", "bottom" }, 0, ICON_CORNER),
+	["frame.tab"] = Metal({ "top", "left", "right" }, nil, TAB_CORNERS),
+	["frame.tabOpen"] = Metal({ "top", "left", "right" }, nil, TAB_CORNERS, { "left", "right" }),
+	["frame.tabOpenFirst"] = Metal({ "top", "left", "right" }, nil, TAB_CORNERS, { "right" }),
+	-- the icon's picture runs under its line to the box's right edge (the right reach times the scale, back)
+	["frame.tabIcon"] = Metal({ "right" }, -2.25),
+	["frame.tabIconOpen"] = Metal({ "right", "bottom" }, -2.25, ICON_CORNER),
 	-- a button on the minimap's ring (design Minimap .ring): a 34 px dark disc in a bronze ring with a black edge,
 	-- drawn whole (rows 0 the button, 1 the light ring over it under the cursor, 2 lit: the drawer open)
 	["minimap.ring"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\minimap-ring", size = { 128, 512 }, cap = 0,
