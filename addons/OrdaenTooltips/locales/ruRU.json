@@ -36,5 +36,6 @@
   "COL_SLOTS_FEW": "%d ячейки",
   "COL_SLOTS_MANY": "%d ячеек",
   "DURABILITY": "Прочность",
-  "CLASSES": "Классы"
+  "CLASSES": "Классы",
+  "CAST_INSTANT": "Мгновенно"
 }

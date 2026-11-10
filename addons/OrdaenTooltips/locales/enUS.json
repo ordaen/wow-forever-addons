@@ -36,5 +36,6 @@
   "COL_SLOTS_FEW": "%d slots",
   "COL_SLOTS_MANY": "%d slots",
   "DURABILITY": "Durability",
-  "CLASSES": "Classes"
+  "CLASSES": "Classes",
+  "CAST_INSTANT": "Instant"
 }

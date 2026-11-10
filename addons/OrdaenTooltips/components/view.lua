@@ -139,8 +139,10 @@ local function Fill(calls, m)
 	calls.nCols = m.cols.n
 	for i = 1, m.cols.n do
 		local a = Calls(calls.cols, i)
-		a.text, a.textColor, a.textSize, a.wrap, a.textAlign = m.cols[i].text, m.cols[i].color or BODY, 16 * PX,
-			false, "center"
+		-- the design's cells never wrap and the tooltip grows; until the layout can size it to them they wrap in
+		-- their share rather than run over each other
+		a.text, a.textColor, a.textSize, a.wrap, a.textAlign = m.cols[i].text, m.cols[i].color or BODY, 14 * PX,
+			true, "center"
 	end
 	calls.colsBox.attributes.columns = m.cols.n
 
@@ -190,7 +192,7 @@ return Define.Component({
 			name = { attributes = { textSize = 18 * PX, textFamily = Define.Theme.font.header } },
 			desc = { attributes = { textColor = LABEL, textSize = 14 * PX } },
 			info = { attributes = { textColor = QUIET, textSize = 14 * PX } },
-			colsBox = { attributes = { padding = { SECTION, 0, SECTION, 0 } }, slots = { default = Cols } },
+			colsBox = { attributes = { padding = { SECTION, 0, SECTION, 0 }, gap = 10 * PX }, slots = { default = Cols } },
 			bodyBox = Section(Body), footBox = Section(Foot), keysBox = Section(Keys),
 			cols = {}, body = {}, foot = {}, keys = {}, nCols = 0, nBody = 0, nFoot = 0, nKeys = 0,
 		}

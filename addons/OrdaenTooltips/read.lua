@@ -306,6 +306,20 @@ end
 
 -- Spells and auras ---------------------------------------------------------------------------------------------------
 
+-- A band cell of a spell's two-sided lines, in the design's short form: an instant cast «Мгновенно», a cooldown
+-- «CD 10 сек.» (Forever writes «Восстановление: 10 сек.»; the English abbreviation in every locale); the rest as is.
+local function SpellCell(model, text, right, L)
+	if text == SPELL_CAST_TIME_INSTANT or text == SPELL_CAST_TIME_INSTANT_NO_MANA then
+		text = L.CAST_INSTANT
+	elseif right then
+		local value = text:match("^[^:]+:%s*(.+)$")
+		if value and text:find("%d") then -- «Восстановление: 10 сек.»
+			text = "CD " .. value
+		end
+	end
+	Push(model.cols).text = text
+end
+
 local function Spell(model, data, settings, aura)
 	local id = type(data.id) == "number" and not isSecret(data.id) and data.id or nil
 	model.icon = id and C_Spell.GetSpellTexture(id) or nil
@@ -326,6 +340,7 @@ local function Spell(model, data, settings, aura)
 			end
 		elseif kind == LINE.Description then
 			Body(model, line, true)
+			model.body[model.body.n].color = nil -- the design's body colour, not the game's gold
 		elseif kind == LINE.Passive then
 			Part(model.desc, Text(line.leftText))
 		elseif kind ~= LINE.Blank then
@@ -335,11 +350,11 @@ local function Spell(model, data, settings, aura)
 				left = nil
 			end
 			if left and right then
-				Push(model.cols).text = left
-				Push(model.cols).text = right
+				SpellCell(model, left, false, settings.L)
+				SpellCell(model, right, true, settings.L)
 			elseif left then
 				if line.leftColor and not aura and i <= 3 then
-					Push(model.cols).text = left
+					SpellCell(model, left, false, settings.L)
 				else
 					Body(model, line, true)
 				end
