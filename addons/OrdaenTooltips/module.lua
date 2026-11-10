@@ -62,32 +62,26 @@ local SWITCH = {
 	end,
 }
 
--- what a button's tooltip is beside: any button (an action button of any bar, the micro menu), not a unit frame (those
--- keep the game's place)
-local function IsButton(owner)
-	if not (owner and owner.IsObjectType and owner:IsObjectType("Button")) then
+-- what a tooltip can sit beside: the frame it belongs to (a button of any bar, a slot, a micro menu button), not the
+-- screen or the world (a unit in the world, a tooltip with no owner) and not a unit frame (those keep the game's
+-- place); it must be on screen
+local function Placeable(owner)
+	if not owner or owner == UIParent or owner == WorldFrame or not owner.IsVisible or not owner:IsVisible() then
 		return false
 	end
 	local unit = rawget(owner, "unit")
 	if unit == nil and owner.GetAttribute then
 		unit = owner:GetAttribute("unit")
 	end
-	return unit == nil
+	return unit == nil and owner:GetCenter() ~= nil
 end
 
--- beside what it belongs to (design tooltips «Placement»): above it with the left edges lined up, below it when the
--- upper half of the screen has no room above; lined up on the right edges in the screen's right third. One table per
--- the anchor at each show (a new table: the view sees a new place by identity).
+-- beside its owner (design tooltips «Placement»): above it in the screen's lower half, below it in the upper half;
+-- lined up on its right edge in the screen's right third, else on its left edge. A new table each show.
 Anchored = function(owner)
 	local x, y = owner:GetCenter()
 	local scale = owner:GetEffectiveScale() / UIParent:GetEffectiveScale()
-	local right = x ~= nil and x * scale > UIParent:GetWidth() * 2 / 3
-	local below = y ~= nil and y * scale > UIParent:GetHeight() / 2
-	local side = right and "RIGHT" or "LEFT"
-	if below then
-		return { to = owner, point = "TOP" .. side, relativePoint = "BOTTOM" .. side }
-	end
-	return { to = owner, point = "BOTTOM" .. side, relativePoint = "TOP" .. side }
+	return { to = owner, below = y * scale > UIParent:GetHeight() / 2, right = x * scale > UIParent:GetWidth() * 2 / 3 }
 end
 
 local function Views(game, self)
@@ -96,14 +90,13 @@ local function Views(game, self)
 		local tip = game.Tooltip[name]
 		if tip and not COMPARE[name] then -- the comparison tooltips are the main one's (its group draws them)
 			local a = self.viewCalls[name].attributes
-			a.anchor = self.anchors[name] or nil
+			a.places = self.anchors -- read by the view at each show (its place is decided when it shows)
 			a.epoch = self.state.epoch
 			a.locked = self.state.lock > 0 and self.kept[name] or nil
 			a.kept = a.locked
 			a.charge = name == "GameTooltip" and self.chargeSignal or nil
 			if name == "GameTooltip" then
 				a.nest = self.state.nest
-				a.compareEpoch = self.state.epoch
 			end
 			local call = self.viewCalls[name]
 			game.ui:View(game.Layer.Tooltip, call, name)
@@ -198,10 +191,10 @@ return Define.Module({
 				place = Define.Peek(self.state.itemsAnchorChar)
 			elseif type(name) == "string" and (name:find("^ContainerFrame%d+Item") or name:find("^Bank")) then
 				place = Define.Peek(self.state.itemsAnchorBags)
-			elseif Define.Peek(self.state.anchorToButtons) and IsButton(owner) then
+			elseif Define.Peek(self.state.anchorToButtons) then
 				place = Place.Anchor
 			end
-			if place == Place.Anchor then
+			if place == Place.Anchor and Placeable(owner) then
 				return Anchored(owner)
 			end
 			return nil

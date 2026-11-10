@@ -76,6 +76,21 @@ describe("Ordaen Tooltips", function()
 		return table.concat(out, "\n")
 	end
 
+	-- the first node on the tooltip layer `pred` accepts
+	local function find(pred)
+		local found
+		local function walk(node)
+			if not found and pred(node) then
+				found = node
+			end
+			for i = 1, node.count or 0 do
+				walk(node.children[i])
+			end
+		end
+		walk(ns.Game.Layer.Tooltip.node)
+		return found
+	end
+
 	local function has(shown, ...)
 		for _, part in ipairs({ ... }) do
 			assert.is_truthy(shown:find(part, 1, true), part .. " missing in:\n" .. shown)
@@ -202,7 +217,7 @@ describe("Ordaen Tooltips", function()
 		wow:ShowTooltip("GameTooltip", AXE)
 		ns.Scheduler.Flush()
 		local shown = texts()
-		has(shown, "Copper Axe", "One-Hand · |cffff3f3fAxe|r · |Hordaen:term:uni:|hUnique|h", "Binds when equipped")
+		has(shown, "Copper Axe", "One-Hand\n · \nAxe\n · \nUnique", "Binds when equipped") -- the title's parts
 		has(shown, "7–13", "2.6/s", "3.8 DPS")
 		has(shown, "Item level\n12", "Strength\n+3")
 		assert.is_falsy(shown:find("+3 Strength", 1, true)) -- the stat line became its row
@@ -274,7 +289,7 @@ describe("Ordaen Tooltips", function()
 		wow:ShowTooltip("GameTooltip", GUARD)
 		ns.Scheduler.Flush()
 		shown = texts()
-		has(shown, "|Hordaen:term:guild:|hIstanbul|h · |Hordaen:term:rank:|hOfficer|h", "Warrior", "Human", "Sergeant")
+		has(shown, "Istanbul\n · \nOfficer", "Warrior", "Human", "Sergeant")
 		local module = ns.App.Module("OrdaenTooltips")
 		module.root.state.persistent.playersOn:Set(false)
 		wow:ShowTooltip("GameTooltip", GUARD)
@@ -285,22 +300,36 @@ describe("Ordaen Tooltips", function()
 	end)
 
 	it("sits above any button it belongs to (whatever bar drew it), and in the game's place for a unit frame", function()
-		local button = wow.env.CreateFrame("Button", nil, wow.env.UIParent) -- no Blizzard action fields
+		local button = wow.env.CreateFrame("Frame", nil, wow.env.UIParent) -- any frame: another bar's button
+		button:SetSize(40, 40)
+		button:SetPoint("BOTTOMLEFT", wow.env.UIParent, "BOTTOMLEFT", 100, 10)
 		wow:ShowTooltip("GameTooltip", SHOUT, button)
 		ns.Scheduler.Flush()
 		local view = ns.App.Module("OrdaenTooltips").root.anchors.GameTooltip
 		assert.are.equal(button, view and view.to)
-		assert.are.equal("BOTTOMLEFT", view.point) -- above it, the left edges lined up
-		assert.are.equal("TOPLEFT", view.relativePoint)
+		assert.is_false(view.below) -- above it, the left edges lined up
+		assert.is_false(view.right)
+		local box = find(function(node)
+			return node.a and node.a.position == "fixed"
+		end)
+		assert.are.equal("BOTTOMLEFT", box.a.anchor.point)
+		assert.are.equal("TOPLEFT", box.a.anchor.relativePoint)
+		assert.are.equal("end", box.a.yAlign) -- every tooltip's bottom on the owner
 		-- in the screen's upper right: below it, the right edges lined up
-		button:SetSize(40, 40)
+		button:ClearAllPoints()
 		button:SetPoint("TOPRIGHT", wow.env.UIParent, "TOPRIGHT", -10, -10)
 		wow:ShowTooltip("GameTooltip", AXE, button)
 		ns.Scheduler.Flush()
-		view = ns.App.Module("OrdaenTooltips").root.anchors.GameTooltip
-		assert.are.equal("TOPRIGHT", view.point)
-		assert.are.equal("BOTTOMRIGHT", view.relativePoint)
+		ns.Scheduler.Flush()
+		box = find(function(node)
+			return node.a and node.a.position == "fixed"
+		end)
+		assert.are.equal("TOPRIGHT", box.a.anchor.point)
+		assert.are.equal("BOTTOMRIGHT", box.a.anchor.relativePoint)
+		assert.are.equal("start", box.a.yAlign)
 		local unitFrame = wow.env.CreateFrame("Button", nil, wow.env.UIParent)
+		unitFrame:SetSize(40, 40)
+		unitFrame:SetPoint("CENTER")
 		unitFrame:SetAttribute("unit", "player")
 		wow:ShowTooltip("GameTooltip", SHOUT, unitFrame)
 		ns.Scheduler.Flush()
@@ -319,19 +348,6 @@ describe("Ordaen Tooltips", function()
 	-- the lock (design «Tooltips in tooltips»): held 1 s, the tooltip locks and stays after Blizzard's goes; the mouse
 	-- leaving it closes it after the grace, a new tooltip or the X at once
 	describe("the lock", function()
-		local function find(pred)
-			local found
-			local function walk(node)
-				if not found and pred(node) then
-					found = node
-				end
-				for i = 1, node.count or 0 do
-					walk(node.children[i])
-				end
-			end
-			walk(ns.Game.Layer.Tooltip.node)
-			return found
-		end
 		local function closeButton()
 			return find(function(node)
 				return node.a and node.a.OnClick -- the only click on the tooltip layer
@@ -455,8 +471,15 @@ describe("Ordaen Tooltips", function()
 					return node.a and node.a.OnEnter and not node.a.hoverWithin
 				end)
 			end
+			local function underline()
+				return find(function(node)
+					return node.a and type(node.a.background) == "table" and node.a.background.tile == true
+				end)
+			end
 			assert.is_nil(cell()) -- not locked: the cells take no mouse
+			assert.is_nil(underline()) -- and nothing is underlined
 			wait(1.1)
+			assert.is_truthy(underline()) -- locked: a term's text gets the gold dashes
 			local c = cell()
 			c.a.OnEnter()
 			ns.Scheduler.Flush()

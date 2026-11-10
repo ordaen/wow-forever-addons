@@ -1,23 +1,29 @@
--- One Ordaen tooltip in place of a Blizzard one (design tooltips/): its frame (tipFrame) where Blizzard placed its
--- own (the same anchor point, to Blizzard's invisible tooltip), or beside the button or item slot it belongs to, and
--- the tooltips open from the start beside it in one column (use effects, the set, the item a recipe makes), on its
--- right. While something in it counts down (a cooldown, an aura's time) it is read again once a second; nothing runs
--- otherwise.
+-- One Ordaen tooltip in place of a Blizzard one (design tooltips/) and the group around it: the tooltip itself (the
+-- main one), the ones open from the start beside it (use effects, the set, the item a recipe makes: one column), the
+-- comparison tooltips (the main view's), the ones opened from links (one column per depth). While something in it
+-- counts down (a cooldown, an aura's time) it is read again once a second; nothing runs otherwise.
+--
+-- Placement (design tooltips «Placement»), decided once per show:
+--   beside its owner (`place`, the module's): above it, the bottom edges of the group's tooltips on the owner's top,
+--   or below it, their top edges on its bottom; lined up on the owner's left edge, or on its right edge with the
+--   group running leftwards (place.right);
+--   else where Blizzard placed its own (the same point, to Blizzard's invisible tooltip), the group running away from
+--   that point's side.
+-- The main tooltip is always the one at the anchor; the others follow it in one row, in the order above, lined up on
+-- the edge that faces the owner (so no tooltip floats off it). The row's columns are set before it draws.
 --
 -- Attributes: `tip` (game.Tooltip.<name>), `model` (Read's model for it), `refill` (reads the tip into the model
--- again: the module's), `anchor` (nil: Blizzard's place; else { to, point, relativePoint } beside its owner),
--- `epoch` (the module's: changes when a comparison rewrote this view's rows); the lock (the module's, design
--- «Tooltips in tooltips»): `charge` (its steps, the main tooltip's bar), `kept` (locked while this view showed: it
--- stays after Blizzard's goes), `locked`, `OnEnter`/`OnLeave` (the mouse on the locked group) and `OnClose`; the
--- tooltips opened from its links (the main view only): `links` (per depth, OnLink of its rows: 0 this view's),
--- `nested` (their models by depth, `.n` open), `nest` (changes when one opens or closes), `nestHover` (per depth,
--- { OnEnter, OnLeave }: the mouse on that one); `compares` (the main view only: the comparison tooltips, each
--- { tip, model, name, call }, drawn on its right while shown or kept by the lock; `keptBy` the lock's kept views,
--- `compareEpoch` the module's epoch).
+-- again: the module's), `places` (the module's: tip name -> nil for Blizzard's place, else { to, below, right },
+-- written as each show starts), `epoch` (the module's: changes when a comparison rewrote this view's rows); the lock (the module's, design «Tooltips in tooltips»): `charge` (its
+-- steps, the main tooltip's bar), `kept` (locked while this view showed: it stays after Blizzard's goes), `locked`,
+-- `OnEnter`/`OnLeave` (the mouse on the locked group) and `OnClose`; the main view's: `links` (per depth, OnLink of
+-- its tooltips' parts: 0 the group's own), `nested` (the models opened from links by depth, `.n` open), `nest`
+-- (changes when one opens or closes), `nestHover` (per depth, { OnEnter, OnLeave }), `compares` (the comparison
+-- tooltips, each { tip, model, name, call }), `keptBy` (the lock's kept views by name).
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2
--- the group's columns: the tooltip, then the ones beside it, then each opened from a link (one table per count)
+-- the group's columns (one table per count)
 local COLUMNS = {}
 for n = 1, 8 do
 	local list = {}
@@ -26,9 +32,14 @@ for n = 1, 8 do
 	end
 	COLUMNS[n] = list
 end
+local MAIN, SIDES, NESTED = "main", "sides", "nested" -- the group's parts (a comparison: its index)
 
 local function Link(_, self)
 	return self.attributes.locked and self.attributes.links and self.attributes.links[0] or nil
+end
+
+local function Version(self, tip)
+	return tip.shown:Get() * 1000000 + self.attributes.epoch * 1000 + self.state.tick
 end
 
 -- a tooltip opened from a link, in a box that knows the mouse on it
@@ -39,7 +50,9 @@ end
 local function Nested(game, self)
 	local nested = self.attributes.nested
 	local calls, boxes = self.nestedCalls, self.nestedBoxes
-	for d = 1, nested.n do
+	local reversed = self.reversed
+	for i = 1, nested.n do
+		local d = reversed and nested.n + 1 - i or i
 		local call = calls[d]
 		if not call then
 			call = { attributes = { side = true, locked = false } }
@@ -63,50 +76,97 @@ local function Sides(game, self)
 			call = { attributes = { side = true } }
 			calls[i] = call
 		end
-		call.attributes.model, call.attributes.version = m.side[i], self.attributes.tip.shown:Get() * 1000000 +
-			self.attributes.epoch * 1000 + self.state.tick
+		call.attributes.model, call.attributes.version = m.side[i], Version(self, self.attributes.tip)
 		call.attributes.OnLink = Link(game, self)
 		game.ui:TipFrame(nil, call, i)
 	end
 end
 
-local function Parts(game, self)
-	local call = self.mainCall
-	-- a new show, a comparison or a refill: the frames draw again
-	local a = call.attributes
-	a.model, a.version = self.attributes.model, self.attributes.tip.shown:Get() * 1000000 +
-		self.attributes.epoch * 1000 + self.state.tick
-	a.charge, a.locked, a.OnClose = self.attributes.charge, self.attributes.locked, self.attributes.OnClose
-	a.OnLink = Link(game, self)
-	game.ui:TipFrame(call)
-	local n = 1
-	if self.attributes.model.side.n > 0 then
+local function Part(game, self, part)
+	if part == MAIN then
+		local a = self.mainCall.attributes
+		a.model, a.version = self.attributes.model, Version(self, self.attributes.tip)
+		a.charge, a.locked, a.OnClose = self.attributes.charge, self.attributes.locked, self.attributes.OnClose
+		a.OnLink = Link(game, self)
+		game.ui:TipFrame(self.mainCall)
+	elseif part == SIDES then
 		game.ui:Box(self.sidesBox)
+	elseif part == NESTED then
+		self.nestedBox.attributes.columns = COLUMNS[self.attributes.nested.n]
+		game.ui:Box(self.nestedBox)
+	else
+		local c = self.attributes.compares[part]
+		local a = c.call.attributes
+		a.model, a.version = c.model, c.tip.shown:Get() * 1000000 + self.attributes.epoch * 1000
+		a.OnLink = Link(game, self)
+		game.ui:TipFrame(nil, c.call, c.name)
+	end
+end
+
+-- the group's parts in order: the main tooltip at the anchor, the rest away from it
+local function Parts(game, self)
+	local order, n = self.order, self.nParts
+	if self.reversed then
+		for i = n, 1, -1 do
+			Part(game, self, order[i])
+		end
+	else
+		for i = 1, n do
+			Part(game, self, order[i])
+		end
+	end
+end
+
+-- what the group holds this time, in order from the main tooltip outwards
+local function Order(self)
+	local order, n = self.order, 1
+	order[1] = MAIN
+	if self.attributes.model.side.n > 0 then
 		n = n + 1
+		order[n] = SIDES
 	end
 	local compares = self.attributes.compares
 	if compares then
 		local kept = self.attributes.locked and self.attributes.keptBy
 		for i = 1, #compares do
 			local c = compares[i]
-			local shown = c.tip.shown:Get()
-			if shown > 0 or (kept and kept[c.name]) then
-				local ca = c.call.attributes
-				ca.model, ca.version = c.model, shown * 1000000 + (self.attributes.compareEpoch or 0) * 1000
-				ca.OnLink = Link(game, self)
-				game.ui:TipFrame(nil, c.call, c.name)
+			if c.tip.shown:Get() > 0 or (kept and kept[c.name]) then
 				n = n + 1
+				order[n] = i
 			end
 		end
 	end
 	local nested = self.attributes.nested
 	local _ = self.attributes.nest -- read: one opened or closed draws again
 	if nested and nested.n > 0 and self.attributes.locked then
-		self.nestedBox.attributes.columns = COLUMNS[nested.n]
-		game.ui:Box(self.nestedBox)
 		n = n + 1
+		order[n] = NESTED
 	end
-	self.box.attributes.columns = COLUMNS[n]
+	self.nParts = n
+	return n
+end
+
+-- the anchor: beside the owner by its corner, or Blizzard's own point (a new table only for a new place)
+local function Place(self, tip)
+	-- read at each show from the module's table: an attribute set by the module would be the last show's
+	local a, place = self.box.attributes, self.attributes.places[tip.name]
+	local to, point, relativePoint, below, right
+	if place then
+		below, right = place.below, place.right
+		local side = right and "RIGHT" or "LEFT"
+		to = place.to
+		point = (below and "TOP" or "BOTTOM") .. side
+		relativePoint = (below and "BOTTOM" or "TOP") .. side
+	else
+		to, point, relativePoint = tip.frame, tip.point, tip.point
+		below, right = not point:find("BOTTOM"), point:find("RIGHT") ~= nil
+	end
+	local anchor = a.anchor
+	if anchor.to ~= to or anchor.point ~= point or anchor.relativePoint ~= relativePoint then
+		a.anchor = { to = to, point = point, relativePoint = relativePoint }
+	end
+	a.yAlign = below and "start" or "end" -- every tooltip's edge on the owner's side lined up
+	self.reversed = right
 end
 
 return Define.Component({
@@ -114,7 +174,8 @@ return Define.Component({
 		Define.Ephemeral({ tick = { type = "number", default = 0 } }) -- the once-a-second refills of this show
 		self.mainCall = { attributes = {} }
 		self.sideCalls = {}
-		self.sidesBox = { attributes = { columns = 1, gap = 4 * PX, yAlign = "start" }, slots = { default = Sides } }
+		self.order, self.nParts, self.reversed = {}, 0, false
+		self.sidesBox = { attributes = { columns = 1, gap = 4 * PX }, slots = { default = Sides } }
 		self.nestedBox = { attributes = { columns = 1, gap = 4 * PX, yAlign = "start" }, slots = { default = Nested } }
 		self.nestedCalls, self.nestedBoxes, self.opened = {}, {}, {}
 		for d = 1, 8 do
@@ -151,12 +212,10 @@ return Define.Component({
 		a.hoverWithin = locked or nil
 		a.OnEnter = locked and self.attributes.OnEnter or nil
 		a.OnLeave = locked and self.attributes.OnLeave or nil
-		local beside = self.attributes.anchor
-		if beside then
-			a.anchor = beside
-		elseif a.anchor.to ~= tip.frame or a.anchor.point ~= tip.point then
-			a.anchor = { to = tip.frame, point = tip.point, relativePoint = tip.point } -- a new place: a new table
-		end
+		Place(self, tip)
+		a.columns = COLUMNS[Order(self)]
+		-- the sides' column lined up like the row
+		self.sidesBox.attributes.yAlign = a.yAlign
 		game.ui:Box(self.box)
 	end,
 })
