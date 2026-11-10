@@ -11,6 +11,12 @@
 --              badge's art as a background
 local _, ns = ...
 
+-- the wood of the windows and the panel (design settings/wood, D): Blizzard's character sheet wood made a seamless tile
+-- (design/scripts/wood-split.py), repeated from the box's top-left at the scale the picture had in a 1160 px window
+-- (512 texels over 746 px), so a resized box keeps its grain; one file for every surface
+local WOOD = { file = "Interface\\AddOns\\OrdaenCore\\media\\window-wood", size = { 512, 512 },
+	repeatSize = 746 / 1.2 }
+
 ns.Theme = {
 	["color.surface"] = { 0.06, 0.06, 0.08, 0.92 },
 	["color.surfaceHover"] = { 0.14, 0.14, 0.18, 0.95 },
@@ -38,8 +44,8 @@ ns.Theme = {
 	-- the client's text font (Friz Quadrata; its Cyrillic file on ruRU), and Blizzard's number font (NumberFontNormal's)
 	["font.body"] = STANDARD_TEXT_FONT,
 	["font.numbers"] = "Fonts\\ARIALN.TTF",
-	-- the character sheet's wood, as the panel's surface
-	["panel.wood"] = { atlas = "UI-Character-Info-General-BG" },
+	-- the panel's surface: the windows' wood (WOOD), so its grain matches theirs and doesn't stretch on wide screens
+	["panel.wood"] = WOOD,
 	-- the small metal along the top, as the design site's MetalFrame kind "small" draws it: Blizzard's
 	-- ButtonFrameTemplateNoPortrait at half size, its outer side 1.5 units above the panel, the wood from 3 below
 	-- its top; the content starts 7 units down (8 px at the user's scale, 1.2 px per unit)
@@ -128,11 +134,8 @@ ns.Theme = {
 	-- height), drawn from 12 px above the tab to 10 px below the body's line and 10 px past its right side: the shadow
 	-- above, the light inside, the rim with the frame line's profile, the right flare's curve; the masks that round
 	-- the tab's wood (14 px corners) and cut its right flare (8 x 11 px)
-	-- the windows' wood (design settings/wood, D): Blizzard's character sheet wood made a seamless tile
-	-- (design/scripts/wood-split.py), repeated from the window's top-left at the scale the picture had in a
-	-- 1160 px window (512 texels over 746 px), so a resized window keeps its grain
-	["window.wood"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\window-wood", size = { 512, 512 },
-		repeatSize = 746 / 1.2 },
+	-- the windows' wood: WOOD
+	["window.wood"] = WOOD,
 	["ctl.tab"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab", size = { 128, 128 }, cap = 54,
 		capHeight = 27 / 64 },
 	["ctl.tabCornerL"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-l" },
