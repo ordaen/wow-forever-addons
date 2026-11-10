@@ -272,15 +272,17 @@ describe("Ordaen Panel's experience bar", function()
 		wow:Login()
 		wow:Tick()
 		-- the label "50%" lies over the whole tube: its box is the tube's width
-		local width
+		local width, right
 		for frame in pairs(wow.allFrames) do
 			for _, r in ipairs(frame._regions) do
 				if r.GetText and r:GetText() == "50%" and r:IsVisible() then
-					width = r:GetParent():GetWidth()
+					width, right = r:GetParent():GetWidth(), r:GetParent():GetRight()
 				end
 			end
 		end
 		assert.is_truthy(width, "no label")
 		assert.is_true(width > 300, "the tube is " .. tostring(width) .. " wide")
+		-- and stays in its zone: the right one's money and bags come after it
+		assert.is_true(right < wow.env.MainMenuBarBackpackButton:GetLeft(), "the tube runs over the bags")
 	end)
 end)
