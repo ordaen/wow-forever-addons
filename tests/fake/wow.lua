@@ -43,6 +43,13 @@ local function Dump()
 	for _, line in ipairs(readLines(dir .. "widgets.txt")) do
 		dump.methods[line] = true
 	end
+	-- the Minimap widget type: the dump has its methods on the Minimap object (Minimap.<objectType> is Minimap)
+	for _, line in ipairs(readLines(dir .. "objects.txt")) do
+		local method = line:match("^Minimap%.(%u%w*)	function$")
+		if method then
+			dump.methods["Minimap:" .. method] = true
+		end
+	end
 	for _, line in ipairs(readLines(dir .. "globals.txt")) do
 		local name = line:match("^([^\t]+)")
 		dump.globals[name] = true
@@ -83,6 +90,21 @@ local WowMeta = { __index = Wow }
 
 function Region:GetObjectType()
 	return self._type
+end
+
+-- the widget types each type also is, as the game answers IsObjectType (Frame for every frame type)
+local IS_ALSO = { Button = "Frame", CheckButton = "Button", EditBox = "Frame", GameTooltip = "Frame",
+	Minimap = "Frame" }
+
+function Region:IsObjectType(kind)
+	local t = self._type
+	while t do
+		if t == kind then
+			return true
+		end
+		t = IS_ALSO[t]
+	end
+	return kind == "Region" and self._isRegion == true or kind == "Frame" and self._children ~= nil
 end
 
 function Region:GetParent()
@@ -987,11 +1009,30 @@ function GameTooltipMethods:FadeOut()
 	self:Hide()
 end
 
+-- the minimap (Blizzard's Minimap, the only one): a frame with its mask and zoom levels
+local MinimapMethods = setmetatable({}, { __index = FrameMethods })
+
+function MinimapMethods:SetMaskTexture(asset)
+	self._mask = asset
+end
+
+function MinimapMethods:GetZoomLevels() -- luacheck: ignore 212
+	return 6
+end
+
+function MinimapMethods:GetZoom()
+	return self._zoom or 0
+end
+
+function MinimapMethods:SetZoom(zoom)
+	self._zoom = zoom
+end
+
 -- Every fake method must be one Forever has.
 local CLASSES = {
 	Frame = FrameMethods, Button = ButtonMethods, Texture = TextureMethods, FontString = FontStringMethods,
 	MaskTexture = MaskTextureMethods, EditBox = EditBoxMethods, CheckButton = CheckButtonMethods,
-	GameTooltip = GameTooltipMethods,
+	GameTooltip = GameTooltipMethods, Minimap = MinimapMethods,
 }
 
 -- Every method that can move or resize a region (or its text) starts a new rect generation.
@@ -1729,6 +1770,9 @@ function Wow:MakeEnv()
 	offer("IsResting", function()
 		return wow.resting == true
 	end)
+	offer("UnitOnTaxi", function()
+		return false
+	end)
 	offer("UnitInVehicle", function()
 		return false
 	end)
@@ -1748,6 +1792,15 @@ function Wow:MakeEnv()
 			return false
 		end,
 	})
+	offer("C_Map", { GetBestMapForUnit = function()
+		return nil
+	end })
+	offer("C_PvP", { GetZonePVPInfo = function()
+		return nil
+	end })
+	offer("GetRealZoneText", function()
+		return "Fake"
+	end)
 	offer("GetMinimapZoneText", function()
 		return "Fake"
 	end)

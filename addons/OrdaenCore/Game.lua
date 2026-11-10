@@ -111,6 +111,8 @@ for _, name in ipairs({
 	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
 	"CharacterReagentBag0Slot", "BagBarExpandToggle", "BagsBar",
 	"MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer", "QuickJoinToastButton",
+	"MinimapCluster", "MinimapCompassTexture", "MinimapBackdrop", "TimeManagerClockButton", "GameTimeFrame",
+	"AddonCompartmentFrame", "ExpansionLandingPageMinimapButton", "OrdaenDevButton",
 	"MainActionBar", "MultiBarBottomLeft", "MultiBarBottomRight", "MultiBarRight", "MultiBarLeft", "MultiBar5",
 	"MultiBar6", "MultiBar7",
 }) do
@@ -120,13 +122,29 @@ end
 local FRAME_KEYS = {
 	-- the backpack's free slots, "(23)" under its icon (seen in game: the dev addon's "bag button" probe)
 	BackpackFreeSlots = { "MainMenuBarBackpackButton", "FreeSlots" },
+	-- the minimap's own parts (MinimapCluster's children in the dump of 70862; Ordaen Minimap takes them)
+	MinimapTracking = { "MinimapCluster", "Tracking" },
+	MinimapTrackingButton = { "MinimapCluster", "Tracking", "Button" },
+	MinimapMail = { "MinimapCluster", "IndicatorFrame", "MailFrame" },
+	MinimapCraftingOrder = { "MinimapCluster", "IndicatorFrame", "CraftingOrderFrame" },
+	MinimapZoneText = { "MinimapCluster", "ZoneTextButton" },
+	MinimapDiel = { "MinimapCluster", "DielFrame" },
+	MinimapCoords = { "MinimapCluster", "MinimapContainer", "PlayerCoords" },
+	MinimapZoomIn = { "Minimap", "ZoomIn" },
+	MinimapZoomOut = { "Minimap", "ZoomOut" },
 }
 local FrameRef = {}
 local FrameRefMeta = { __index = FrameRef }
 function FrameRef:Get()
 	local found = _G[self.global]
-	if found and self.key then
-		return found[self.key]
+	local path = self.path
+	if path then
+		for i = 2, #path do
+			if type(found) ~= "table" then
+				return nil
+			end
+			found = found[path[i]]
+		end
 	end
 	return found
 end
@@ -134,15 +152,15 @@ end
 function DOMAINS.Frame()
 	return setmetatable({}, {
 		__index = function(frames, key)
-			local global, child = FRAME_NAMES[key], nil
+			local global = FRAME_NAMES[key]
 			local path = FRAME_KEYS[key]
 			if path then
-				global, child = path[1], path[2]
+				global = path[1]
 			end
 			if not global then
 				return nil
 			end
-			local ref = setmetatable({ global = global, key = child }, FrameRefMeta)
+			local ref = setmetatable({ global = global, path = path }, FrameRefMeta)
 			frames[key] = ref
 			return ref
 		end,
@@ -176,9 +194,36 @@ end
 
 --- Ordaen itself, as the settings window shows it beside its own pages: `game.Ordaen.title`, `game.Ordaen.icon`
 --- (OrdaenCore's toc).
+-- Read now if the character is in the world, and again at each login.
+local function AtLogin(fn)
+	Game.Stage.Login:Subscribe(fn, false)
+	if Game.Stage.Login.fired then
+		fn()
+	end
+end
+
 function DOMAINS.Ordaen()
 	local _, title = C_AddOns.GetAddOnInfo("OrdaenCore")
-	return { title = title, icon = C_AddOns.GetAddOnMetadata("OrdaenCore", "IconTexture") }
+	local Ordaen = { title = title, icon = C_AddOns.GetAddOnMetadata("OrdaenCore", "IconTexture"),
+		dev = NewValue(false) }
+	--- Ordaen's settings window, as /ordaen opens it; `page`: a module's word (/ordaen minimap) for its page.
+	function Ordaen:OpenSettings(page) -- luacheck: ignore 212
+		ns.Commands.OpenSettings(page)
+	end
+	-- the dev addon (OrdaenCore_Debug, never in players' installs): its window's toggle, while it's loaded
+	local function ReadDev()
+		Ordaen.dev:Set(type(_G.OrdaenCoreDebug_Toggle) == "function")
+	end
+	--- Open or close the Ordaen Dev window (nothing without the dev addon).
+	function Ordaen:ToggleDev() -- luacheck: ignore 212
+		local toggle = _G.OrdaenCoreDebug_Toggle
+		if type(toggle) == "function" then
+			toggle()
+		end
+	end
+	ReadDev()
+	AtLogin(ReadDev)
+	return Ordaen
 end
 
 --- The themes: `game.Themes:Active()`, `:List()`, `:Get(id)`, `.ClassColor(class)` (Themes.lua).
@@ -202,13 +247,6 @@ function DOMAINS.Numbers()
 	return ns.Numbers
 end
 
--- Read now if the character is in the world, and again at each login.
-local function AtLogin(fn)
-	Game.Stage.Login:Subscribe(fn, false)
-	if Game.Stage.Login.fired then
-		fn()
-	end
-end
 
 function DOMAINS.Money()
 	local Money = { amount = NewValue(GetMoney()) }
@@ -330,10 +368,205 @@ function DOMAINS.Reputation()
 	return Reputation
 end
 
+-- the round minimap's mask, put back when the square one goes
+local ROUND_MASK = "Interface\\CharacterFrame\\TempPortraitAlphaMask"
+local SQUARE_MASK = "Interface\\Buttons\\WHITE8X8"
+local SHAPE_GLOBAL = "GetMinimapShape"
+local function SquareShape()
+	return "SQUARE"
+end
+local BLOB_RINGS = { "SetArchBlobRingScalar", "SetQuestBlobRingScalar", "SetTaskBlobRingScalar" }
+-- other addons' minimap buttons: children of the minimap (or its cluster) that aren't Blizzard's or ours, by their
+-- names (LibDBIcon's LibDBIcon10_<name>, and the usual "...MinimapButton" names)
+local BLIZZARD_MINIMAP = {
+	MinimapBackdrop = true, MinimapCompassTexture = true, MiniMapMailFrame = true, MinimapZoomIn = true,
+	MinimapZoomOut = true, GameTimeFrame = true, TimeManagerClockButton = true, ExpansionLandingPageMinimapButton = true,
+	AddonCompartmentFrame = true, OrdaenDevButton = true, HybridMinimap = true,
+}
+local function IsAddonButton(child)
+	if type(child) ~= "table" or not child.GetName or not child.IsObjectType then
+		return false
+	end
+	local name = child:GetName()
+	if not name or BLIZZARD_MINIMAP[name] or name:find("^Ordaen") then
+		return false
+	end
+	if not (child:IsObjectType("Button") or child:IsObjectType("Frame")) then
+		return false
+	end
+	return name:find("^LibDBIcon10_") ~= nil or name:lower():find("minimap") ~= nil and name:lower():find("button") ~= nil
+end
+
+function DOMAINS.Minimap()
+	-- value signals: the player's coordinates as text ("" where the game gives none: instances), the last ping
+	-- ({ name, class, x, y } for 5 s, nil after), the other addons' minimap buttons (a list, new when it changes) and
+	-- the addon compartment's entries (Blizzard's AddonCompartmentFrame.registeredAddons)
+	local Minimap = { coords = NewValue(""), ping = NewValue(nil), buttons = NewValue({}), entries = NewValue({}) }
+	local map = _G.Minimap
+
+	--- The square map (on) or Blizzard's round one: its mask, and GetMinimapShape for other addons' buttons.
+	function Minimap:Square(on) -- luacheck: ignore 212
+		map:SetMaskTexture(on and SQUARE_MASK or ROUND_MASK)
+		for _, method in ipairs(BLOB_RINGS) do
+			if map[method] then
+				map[method](map, on and 0 or 1)
+			end
+		end
+		-- what other addons ask to place their buttons round it (LibDBIcon and the like)
+		rawset(_G, SHAPE_GLOBAL, on and SquareShape or nil)
+	end
+
+	--- Zoom in (delta > 0) or out, clamped to the game's levels.
+	function Minimap:Zoom(delta) -- luacheck: ignore 212
+		local zoom = map:GetZoom() + (delta > 0 and 1 or -1)
+		if zoom >= 0 and zoom < map:GetZoomLevels() then
+			map:SetZoom(zoom)
+		end
+	end
+
+	-- the coordinates, read twice a second while asked for (the game has no event for moving)
+	local ticker
+	local format = string.format
+	local function ReadCoords()
+		local id = C_Map.GetBestMapForUnit("player")
+		local pos = id and C_Map.GetPlayerMapPosition(id, "player")
+		Minimap.coords:Set(pos and format("%.1f, %.1f", pos.x * 100, pos.y * 100) or "")
+	end
+	--- Keep the coordinates current (on) or stop.
+	function Minimap:TrackCoords(on) -- luacheck: ignore 212
+		if on and not ticker then
+			ReadCoords()
+			ticker = C_Timer.NewTicker(0.5, ReadCoords)
+		elseif not on and ticker then
+			ticker:Cancel()
+			ticker = nil
+		end
+	end
+
+	-- pings: who and where, gone with the ping
+	local pingTimer
+	RawEvent("MINIMAP_PING"):Subscribe(function(unit, y, x)
+		local _, class = UnitClass(unit)
+		Minimap.ping:Set({ name = UnitName(unit), class = class, x = x, y = y })
+		if pingTimer then
+			pingTimer:Cancel()
+		end
+		pingTimer = C_Timer.NewTimer(5, function()
+			Minimap.ping:Set(nil)
+		end)
+	end, false)
+
+	-- other addons' buttons: looked for at login, when an addon loads (after its own setup ran) and a while later
+	local seen = {}
+	local function Scan()
+		local list, changed = {}, false
+		for _, parent in ipairs({ map, _G.MinimapCluster }) do
+			for _, child in ipairs({ parent:GetChildren() }) do
+				if not seen[child] and IsAddonButton(child) then
+					seen[child] = true
+					changed = true
+				end
+			end
+		end
+		if not changed then
+			return
+		end
+		for button in pairs(seen) do
+			list[#list + 1] = button
+		end
+		table.sort(list, function(a, b)
+			return a:GetName() < b:GetName()
+		end)
+		Minimap.buttons:Set(list)
+	end
+	local function ScanSoon()
+		C_Timer.After(0, Scan)
+	end
+	AtLogin(function()
+		Scan()
+		C_Timer.After(2, Scan)
+		C_Timer.After(10, Scan)
+	end)
+	RawEvent("ADDON_LOADED"):Subscribe(ScanSoon, false)
+
+	-- the compartment's entries, read again when an addon registers one
+	local compartment = _G.AddonCompartmentFrame
+	local function ReadEntries()
+		local list = {}
+		for i, entry in ipairs(compartment and compartment.registeredAddons or {}) do
+			list[i] = entry
+		end
+		Minimap.entries:Set(list)
+	end
+	if compartment and compartment.RegisterAddon then
+		hooksecurefunc(compartment, "RegisterAddon", ReadEntries)
+	end
+	AtLogin(ReadEntries)
+	--- Blizzard's own button behind one of ours (a ring button): press it with `mouse` ("LeftButton", ...) as a click
+	--- of the player's would (its mouse-down opens a menu, its click the rest).
+	function Minimap:Press(ref, mouse) -- luacheck: ignore 212
+		local button = ref:Get()
+		if not button then
+			return
+		end
+		if button:HasScript("OnMouseDown") and button:GetScript("OnMouseDown") then
+			ExecuteFrameScript(button, "OnMouseDown", mouse)
+		end
+		if button:HasScript("OnMouseUp") and button:GetScript("OnMouseUp") then
+			ExecuteFrameScript(button, "OnMouseUp", mouse)
+		end
+		if button.Click and button:GetScript("OnClick") then
+			button:Click(mouse)
+		end
+	end
+	--- Its tooltip shown (on) or hidden, as the cursor over it would.
+	function Minimap:Hover(ref, on) -- luacheck: ignore 212
+		local button = ref:Get()
+		local script = on and "OnEnter" or "OnLeave"
+		if button and button:GetScript(script) then
+			ExecuteFrameScript(button, script)
+		end
+	end
+	--- The mouse wheel zooms the map (unless Blizzard already handles it).
+	function Minimap:WheelZoom() -- luacheck: ignore 212
+		if not map:GetScript("OnMouseWheel") then
+			map:EnableMouseWheel(true)
+			map:SetScript("OnMouseWheel", function(_, delta)
+				Minimap:Zoom(delta)
+			end)
+		end
+	end
+	--- The subzone and coordinates into the chat's input («Аллея Героев (71.8, 87.1)»), opening it when closed.
+	function Minimap:SendCoords() -- luacheck: ignore 212
+		local coords = Minimap.coords:Peek()
+		if coords == "" then
+			return
+		end
+		local text = format("%s (%s)", GetMinimapZoneText() or "", coords)
+		if not ChatFrameUtil.InsertLink(text) then
+			ChatFrameUtil.OpenChat(text)
+		end
+	end
+
+	--- Run a compartment entry's click, as Blizzard's menu does.
+	function Minimap:RunEntry(entry, button) -- luacheck: ignore 212
+		local func = entry.func
+		if type(func) == "function" then
+			func(entry.text, button)
+		elseif type(func) == "string" and type(_G[func]) == "function" then
+			_G[func](entry.text, button)
+		end
+	end
+	return Minimap
+end
+
 function DOMAINS.Situation()
 	-- value signals of what the player is doing, for what shows or hides by it (Ordaen Panel's visibility)
 	local Situation = { combat = NewValue(false), resting = NewValue(false), vehicle = NewValue(false),
-		petBattle = NewValue(false) }
+		petBattle = NewValue(false), taxi = NewValue(false) }
+	local function ReadTaxi()
+		Situation.taxi:Set(UnitOnTaxi("player") == true)
+	end
 	local function ReadCombat()
 		Situation.combat:Set(UnitAffectingCombat("player") == true)
 	end
@@ -351,7 +584,10 @@ function DOMAINS.Situation()
 		ReadResting()
 		ReadVehicle()
 		ReadPetBattle()
+		ReadTaxi()
 	end)
+	RawEvent("PLAYER_CONTROL_LOST"):Subscribe(ReadTaxi, false)
+	RawEvent("PLAYER_CONTROL_GAINED"):Subscribe(ReadTaxi, false)
 	RawEvent("PLAYER_REGEN_DISABLED"):Subscribe(function()
 		Situation.combat:Set(true)
 	end, false)
@@ -368,9 +604,11 @@ end
 
 function DOMAINS.Location()
 	-- value signal: the zone's name as the minimap shows it (the subzone where there is one)
-	local Location = { zone = NewValue("") }
+	local Location = { zone = NewValue(""), pvp = NewValue(nil), realZone = NewValue("") }
 	local function Read()
 		Location.zone:Set(GetMinimapZoneText() or "")
+		Location.realZone:Set(GetRealZoneText() or "")
+		Location.pvp:Set((C_PvP.GetZonePVPInfo())) -- "sanctuary", "friendly", "hostile", "contested", ... or nil
 	end
 	AtLogin(Read)
 	RawEvent("ZONE_CHANGED"):Subscribe(Read, false)

@@ -530,7 +530,7 @@ function UiBase:Text(site, a, b, k)
 end
 
 --- Take over a Blizzard frame while this render draws it: `game.ui:Frame(game.Frame.CombinedBags, data)`.
-function UiBase:Frame(site, reference, data)
+function UiBase:Frame(site, reference, data, key)
 	local f = fragments[nFragments]
 	if not f then
 		error("Ordaen: drawing outside a render", 2)
@@ -555,14 +555,14 @@ function UiBase:Frame(site, reference, data)
 		Copy(e.last, attributes)
 		ns.Backend:Set(e.node, attributes)
 	end
-	BindEntry(e, data, nil)
+	BindEntry(e, data, key)
 end
 
 --- Place a Blizzard frame in this render's layout, like a box: `game.ui:Embed(game.Frame.CharacterMicroButton,
 --- { attributes = { width = 32, height = 40 } })`. It's moved into the parent box's grid (its parent, level, one
 --- point, its size, shown), keeps its own scripts, mouse and secure state, and goes back as it was when the render
 --- stops drawing it. Takes width, height, columnSpan, position, the offsets and opacity.
-function UiBase:Embed(site, reference, data)
+function UiBase:Embed(site, reference, data, key)
 	local f = fragments[nFragments]
 	if not f then
 		error("Ordaen: drawing outside a render", 2)
@@ -587,7 +587,7 @@ function UiBase:Embed(site, reference, data)
 		Copy(e.last, attributes)
 		ns.Backend:Set(e.node, attributes)
 	end
-	BindEntry(e, data, nil)
+	BindEntry(e, data, key)
 end
 
 --- Where the caller's content for slot `name` goes.

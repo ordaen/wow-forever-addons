@@ -48,6 +48,14 @@ ns.Theme = {
 	-- a window's or small surface's metal on all four sides (MetalFrame kind "small": windows, the chat, tooltips):
 	-- the same art at half size, the top corners mitred, the wood from 3 units in on every side
 	["frame.small"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 3 },
+	-- the same metal at full size (MetalFrame kind "dialog": the minimap's frame), the wood from 6 units in
+	["frame.dialog"] = { width = 6, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 1, inset = 6 },
+	-- a button on the minimap's ring (design Minimap .ring): a 34 px dark disc in a bronze ring with a black edge,
+	-- drawn whole (rows 0 the button, 1 the light ring over it under the cursor, 2 lit: the drawer open)
+	["minimap.ring"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\minimap-ring", size = { 128, 512 }, cap = 0,
+		capHeight = 0, rows = 4, normal = 0, glow = 1 },
+	["minimap.ringLit"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\minimap-ring", size = { 128, 512 },
+		cap = 0, capHeight = 0, rows = 4, normal = 2, glow = 1 },
 	-- the portrait fitted into the screen's corner: flat top, the top-right corner rounded, the rim along the top and
 	-- the right (design: panel, «Portrait»; CornerPortrait)
 	["panel.corner"] = {

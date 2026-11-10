@@ -114,14 +114,14 @@ local function help()
 end
 
 --- Open the settings window (its `open` command); false when it isn't installed or can't load.
-function Commands.OpenSettings()
+function Commands.OpenSettings(page)
 	local settings = ns.App.OpenOnDemand(SETTINGS)
 	local open = settings and groups[Commands.Word(SETTINGS)]
 	open = open and open.list.open
 	if not open then
 		return false
 	end
-	Engine:Handle(open.Run, settings.game, settings.root, "")
+	Engine:Handle(open.Run, settings.game, settings.root, page or "")
 	return true
 end
 
