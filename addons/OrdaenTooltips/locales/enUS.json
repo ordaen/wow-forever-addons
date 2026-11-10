@@ -205,5 +205,9 @@
   "TERM_CASTER": "Cast by",
   "TERM_CASTER_TEXT": "Who put this effect on.",
   "TERM_STACKS": "Stacks",
-  "TERM_STACKS_TEXT": "How many times the effect is applied: each stack makes it stronger."
+  "TERM_STACKS_TEXT": "How many times the effect is applied: each stack makes it stronger.",
+  "TERM_HEALTH": "Health: %s",
+  "TERM_HEALTH_TEXT": "The ability's cost in health: using it, you lose this much health.",
+  "TERM_FOCUS": "Focus: %s",
+  "TERM_FOCUS_TEXT": "The ability's focus cost. Focus comes back steadily, up to 100."
 }

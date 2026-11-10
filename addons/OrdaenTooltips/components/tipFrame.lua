@@ -37,7 +37,10 @@ local RIM = { width = 1 * PX, color = { 0.424, 0.333, 0.208, 1 } } -- the icon's
 local TITLE_COLUMNS = { ICON, "1fr" }
 local STEPS = 30 -- the charge's steps (the module's)
 -- the lock's bar: 2 px in the bottom padding, 2 px up, bronze to gold; its width the charge (a string per step, made once)
-local BAR_FILL = { from = { 0.561, 0.416, 0.227, 1 }, to = { 0.91, 0.765, 0.353, 1 }, direction = "horizontal" }
+-- the lock's bar: the tooltip's last section, 8 px under the content: a dark track, gold filling it as it charges
+local TRACK = { 0, 0, 0, 0.45 }
+local BAR_GOLD = { 0.91, 0.765, 0.353, 1 } -- --o-gold #e8c35a
+local BAR_HEIGHT = 3
 local BAR_WIDTHS = {}
 for i = 0, STEPS do
 	BAR_WIDTHS[i] = (i * 100 / STEPS) .. "%"
@@ -125,6 +128,20 @@ local function Header(game, self)
 	game.ui:Box({ attributes = { height = 2 * PX, border = GROOVE } })
 end
 
+-- full once locked (it stays: the tooltip keeps its height)
+local function BarWidth(_, self)
+	return self.attributes.locked and BAR_WIDTHS[STEPS] or BAR_WIDTHS[self.attributes.charge:Get()]
+end
+
+local function BarFill(game, self)
+	game.ui:Box({ attributes = { position = "absolute", left = 0, top = 0, bottom = 0, width = BarWidth(game, self),
+		background = BAR_GOLD } })
+end
+local function Track(game)
+	game.ui:Box({ attributes = { height = BAR_HEIGHT * PX, background = TRACK }, slots = { default = BarFill } })
+end
+local BAR = { attributes = { columns = 1, padding = { SECTION, 0, 0, 0 } }, slots = { default = Track } }
+
 local function Sections(game, self)
 	local calls = self.calls
 	if calls.headerText.attributes.text then
@@ -145,11 +162,11 @@ local function Sections(game, self)
 	if calls.nKeys > 0 then
 		game.ui:Box(calls.keysBox)
 	end
+	if self.attributes.charge then -- the main tooltip: the lock's bar
+		game.ui:Box(BAR)
+	end
 end
 
-local function BarWidth(_, self)
-	return BAR_WIDTHS[self.attributes.charge:Get()]
-end
 local function Close(_, self)
 	return self.attributes.OnClose
 end
@@ -159,9 +176,6 @@ local function Lock(game, self)
 	if self.attributes.locked then
 		game.ui:Box({ attributes = { position = "absolute", right = 2 * PX, top = 2 * PX, width = 24 * PX, height = 24 * PX,
 			background = CLOSE_ART, OnClick = Close(game, self) } })
-	elseif self.attributes.charge then
-		game.ui:Box({ attributes = { position = "absolute", left = 0, bottom = 2 * PX, height = 2 * PX,
-			width = BarWidth(game, self), background = BAR_FILL } })
 	end
 end
 

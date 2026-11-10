@@ -48,6 +48,12 @@ local REND = { type = 1, id = 772, lines = {
 	{ type = 13, leftText = "Rend" },
 	{ type = 34, leftText = "Wounds the target for 15 damage over 9 sec." },
 } }
+local LIFE_TAP = { type = 1, id = 1454, lines = {
+	{ type = 13, leftText = "Life Tap" },
+	{ type = 0, leftText = "Health: 30" }, -- a cost in health
+	{ type = 0, leftText = "Instant" },
+	{ type = 34, leftText = "Converts 30 health into 30 mana." },
+} }
 local GUARD = { type = 2, guid = "Creature-1", lines = {
 	{ type = 2, leftText = "Stormwind Guard", unitToken = "mouseover" },
 	{ type = 0, leftText = "Level 55" },
@@ -129,7 +135,8 @@ describe("Ordaen Tooltips", function()
 				return 132333
 			end,
 			GetSpellPowerCost = function(id)
-				return id == 6673 and { { type = 1, cost = 10 } } or {}
+				return id == 6673 and { { type = 1, cost = 10 } } or id == 1454 and { { type = -2, name = "HEALTH", cost = 30 } }
+					or {}
 			end,
 			GetSpellCooldown = function()
 				return { startTime = 0, duration = 0 }
@@ -246,6 +253,18 @@ describe("Ordaen Tooltips", function()
 		has(shown, "|cffffffff15|r", "|cffffd100«Battle Shout»|r")
 		assert.is_falsy(shown:find("Cooldown:", 1, true)) -- the cooldown in short
 		assert.is_falsy(shown:find("Rage:", 1, true)) -- the cost: its dot and number
+		assert.are.same({}, wow.errors)
+	end)
+
+	it("draws any resource's cost as its dot: health green", function()
+		wow:ShowTooltip("GameTooltip", LIFE_TAP)
+		ns.Scheduler.Flush()
+		assert.is_falsy(texts():find("Health:", 1, true))
+		local dot = find(function(node)
+			return node.a and type(node.a.tint) == "table"
+		end)
+		assert.is_truthy(dot)
+		assert.is_true(dot.a.tint[2] > 0.8 and dot.a.tint[1] < 0.2) -- green
 		assert.are.same({}, wow.errors)
 	end)
 
@@ -378,8 +397,18 @@ describe("Ordaen Tooltips", function()
 			ns.Scheduler.Flush()
 			wait(0.5)
 			assert.is_nil(closeButton())
+			-- the bar: the tooltip's last section (in the layout, not over it), partly full
+			local fill = find(function(node)
+				local w = node.a and node.a.position == "absolute" and type(node.a.width) == "string"
+					and tonumber(node.a.width:match("^([%d.]+)%%$"))
+				return w and w > 0 and w < 100
+			end)
+			assert.is_truthy(fill)
 			wait(0.6)
 			assert.is_truthy(closeButton())
+			assert.is_truthy(find(function(node) -- locked: full, and it stays
+				return node.a and node.a.position == "absolute" and node.a.width == "100%"
+			end))
 			wow.env.GameTooltip:Hide()
 			ns.Scheduler.Flush()
 			has(texts(), "Copper Axe")

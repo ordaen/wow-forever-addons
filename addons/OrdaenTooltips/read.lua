@@ -631,9 +631,24 @@ local function SpellCell(model, text, first, right, L, cost, cast)
 	return isCast
 end
 
--- a spell's cost (its first power cost): its amount, its resource's colour (rage red, mana blue, energy yellow) and
--- term; nil without one. A table per spell, made once.
-local POWER_TERM = { [0] = "mana", [1] = "rage", [3] = "energy" } -- a cost's power type -> its term
+-- a spell's cost (its first power cost): its amount, its resource's colour and term; nil without one. Every resource
+-- a cost can be in: health (a green dot: Enum.PowerType.HealthCost, -2), mana, rage, focus, energy; its colour the
+-- game's PowerBarColor by name (else by type), health's green. A table per spell, made once.
+local POWER = {
+	[-2] = { term = "health", color = Rgb(0.1, 0.85, 0.1) },
+	[0] = { term = "mana" },
+	[1] = { term = "rage" },
+	[2] = { term = "focus" },
+	[3] = { term = "energy" },
+}
+local function PowerColor(cost)
+	local power = POWER[cost.type]
+	if power and power.color then
+		return power.color
+	end
+	local bar = PowerBarColor and (type(cost.name) == "string" and PowerBarColor[cost.name] or PowerBarColor[cost.type])
+	return bar and Rgb(bar.r, bar.g, bar.b) or nil
+end
 local costs = {}
 local function CostOf(id)
 	local entry = id and costs[id]
@@ -642,11 +657,11 @@ local function CostOf(id)
 	end
 	local list = id and C_Spell.GetSpellPowerCost(id)
 	local cost = type(list) == "table" and list[1]
-	local color = cost and PowerBarColor and PowerBarColor[cost.type]
+	local power = cost and POWER[cost.type]
 	entry = cost and type(cost.cost) == "number" and cost.cost > 0 and {
 		amount = cost.cost,
-		color = color and Rgb(color.r, color.g, color.b) or nil,
-		term = POWER_TERM[cost.type],
+		color = PowerColor(cost),
+		term = power and power.term or nil,
 	} or false
 	if id then
 		costs[id] = entry
