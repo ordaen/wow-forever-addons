@@ -28,6 +28,7 @@ local SHADE = { 0.6, 0.6, 0.6, 1 } -- a closed tab's art and wood, darker
 local TITLE_SIZE, DESC_SIZE = 15 * PX, 11 * PX
 local SHADOW = { color = { 0, 0, 0, 0.8 }, x = 1 * PX, y = -1 * PX }
 local LABEL_PAD = 10 * PX
+local MIN_TAB = 120 * PX -- the tab's smallest width; wider as its label needs
 
 local WOOD = Define.Theme.window.wood
 
@@ -73,12 +74,28 @@ local function ArtTop(self)
 	return Open(self) and 0 or DROP
 end
 
+-- the layer that doesn't show this tab keeps its label's size, unseen (a box's opacity doesn't reach the texts it draws)
+local UNSEEN = { 0, 0, 0, 0 }
+local UNSEEN_SHADOW = { color = UNSEEN, x = 0, y = 0 }
+local function Shown(self)
+	return Open(self) ~= (self.attributes.under == true)
+end
+local function TitleColor(self)
+	return not Shown(self) and UNSEEN or Open(self) and TITLE_OPEN or TITLE_CLOSED
+end
+local function DescColor(self)
+	return Shown(self) and DESC or UNSEEN
+end
+local function TextShadow(self)
+	return Shown(self) and SHADOW or UNSEEN_SHADOW
+end
+
 local function Label(game, self)
 	game.ui:Text({ attributes = { text = Title(self), textSize = TITLE_SIZE, wrap = false,
-		textColor = Open(self) and TITLE_OPEN or TITLE_CLOSED, textShadow = SHADOW } })
+		textColor = TitleColor(self), textShadow = TextShadow(self) } })
 	if Tab(self).desc then
-		game.ui:Text({ attributes = { text = Tab(self).desc, textSize = DESC_SIZE, wrap = false, textColor = DESC,
-			textShadow = SHADOW } })
+		game.ui:Text({ attributes = { text = Tab(self).desc, textSize = DESC_SIZE, wrap = false,
+			textColor = DescColor(self), textShadow = TextShadow(self) } })
 	end
 end
 
@@ -87,12 +104,20 @@ end
 local function LeftPast(self)
 	return self.attributes.index > 1 and self.attributes.past or 0
 end
--- the open tab after the first: the art with both flares; else the one with the right flare only
+-- the art: a closed tab's sides run straight down; the open tab's curve out into the line on both sides, the first's
+-- on its right only (its left stands on the card's left line). A closed tab's art covers the tab alone, the open
+-- one's its flares too.
 local function Art(self)
-	return Open(self) and self.attributes.index > 1 and Define.Theme.ctl.tabFlared or Define.Theme.ctl.tab
+	if not Open(self) then
+		return Define.Theme.ctl.tabStraight
+	end
+	return self.attributes.index > 1 and Define.Theme.ctl.tabFlared or Define.Theme.ctl.tab
 end
 local function ArtLeft(self)
 	return Open(self) and 0 or LeftPast(self)
+end
+local function ArtRight(self)
+	return Open(self) and 0 or self.attributes.past
 end
 
 local function Parts(game, self)
@@ -120,7 +145,7 @@ local function Parts(game, self)
 			width = IconSide(self), height = IconSide(self), background = Tab(self).icon, tint = Tint(self),
 			mask = IconMask(self) } })
 	end
-	game.ui:Box({ attributes = { position = "absolute", left = ArtLeft(self), right = 0, top = ArtTop(self),
+	game.ui:Box({ attributes = { position = "absolute", left = ArtLeft(self), right = ArtRight(self), top = ArtTop(self),
 		bottom = 0, background = Art(self), tint = Tint(self) } })
 	Label(game, self)
 end
@@ -137,15 +162,21 @@ end
 -- Window draws its tabs twice, the closed ones under the body (`under`: the body's line runs over them) and the open
 -- one over it; each layer shows only its own, the other's kept in place unseen. The open layer takes the mouse.
 local function Opacity(self)
-	return Open(self) ~= (self.attributes.under == true) and 1 or 0
+	return Shown(self) and 1 or 0
 end
 local function Click(self)
 	return not self.attributes.under and not Open(self) and self.attributes.OnPick or nil
 end
 
 return Define.Component({
+	Setup = function(_, self)
+		-- its width: as its label needs, at least MIN_TAB, plus the art's reach out of its sides (made once)
+		local index, past = Define.Peek(self.attributes.index), Define.Peek(self.attributes.past)
+		return { width = { fit = "min", min = MIN_TAB + past + (index > 1 and past or 0) } }
+	end,
+
 	Render = function(game, self)
-		game.ui:Box({ attributes = { height = Height(self), padding = Padding(self), rows = "auto", xAlign = "center",
+		game.ui:Box({ attributes = { width = self.width, height = Height(self), padding = Padding(self), rows = "auto", xAlign = "center",
 			yAlign = "center", gap = 1 * PX, opacity = Opacity(self), OnClick = Click(self),
 			OnDragStart = self.attributes.OnDragStart, OnDrag = self.attributes.OnDrag,
 			OnDragStop = self.attributes.OnDragStop },

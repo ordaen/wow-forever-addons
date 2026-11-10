@@ -392,7 +392,8 @@ describe("the settings controls", function()
 			for _, node in ipairs(nodes()) do
 				local bg = node.a and node.a.background
 				-- the layer that shows each tab (the other draws it unseen)
-				if type(bg) == "table" and rawget(bg, "path") == "ctl.tab" and node.parent.a.opacity ~= 0 then
+				local art = type(bg) == "table" and rawget(bg, "path")
+				if (art == "ctl.tab" or art == "ctl.tabStraight") and node.parent.a.opacity ~= 0 then
 					within(node, node.parent)
 					if node.a.tint then -- a closed tab's art is shaded
 						closed = node.parent

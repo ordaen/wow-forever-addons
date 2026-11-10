@@ -13,14 +13,14 @@ local S = import("style")
 ---@enum OrdaenProfessionsPage
 local Page = { Recipes = 1, Camp = 2 }
 
--- the body fills the window's: the skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest
+-- the body fills the window's (each grid's one row takes the height it gets: "1fr"): the skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest
 local BODY = { rows = { "auto", "auto", "1fr" }, gap = 8 * S.PX }
-local GRID = { columns = { S.LEFT, "1fr" }, gap = S.GAP }
+local GRID = { columns = { S.LEFT, "1fr" }, rows = { "1fr" }, gap = S.GAP }
 local SEARCH_H = 30 * S.PX
 local LEFT = { rows = { "auto", "1fr" }, gap = 8 * S.PX }
-local LISTS = { columns = { S.CATEGORIES, "1fr" }, border = { width = 1 * S.PX, color = S.LINE },
+local LISTS = { columns = { S.CATEGORIES, "1fr" }, rows = { "1fr" }, border = { width = 1 * S.PX, color = S.LINE },
 	background = S.LISTS_BG }
-local CAMP_LISTS = { columns = { "1fr" }, border = { width = 1 * S.PX, color = S.LINE },
+local CAMP_LISTS = { columns = { "1fr" }, rows = { "1fr" }, border = { width = 1 * S.PX, color = S.LINE },
 	background = S.LISTS_BG }
 local CATEGORY_COLUMN = { rows = "auto", overflow = "scroll" }
 local RECIPE_COLUMN = { rows = "auto", overflow = "scroll",
