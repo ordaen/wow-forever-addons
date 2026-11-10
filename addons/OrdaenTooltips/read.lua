@@ -192,9 +192,10 @@ local function Last(text)
 	return text and Number(text:match("([%d%.,]+)%s*$"))
 end
 
-local function Cell(model, text, color)
+-- a band cell; `glyph` a name of glyphs.lua (the design's: dmg, spd, arm, blk, castNow...), or nil for none
+local function Cell(model, text, color, glyph)
 	local cell = Push(model.cols)
-	cell.text, cell.color = text, color
+	cell.text, cell.color, cell.glyph = text, color, glyph
 end
 
 local GREEN = { 0.12, 1, 0, 1 }
@@ -265,20 +266,21 @@ local function Item(model, data, ctx)
 			local current, maximum = Match(left, DURABILITY_TEMPLATE)
 			local classes = Match(left, ITEM_CLASSES_ALLOWED)
 			if low and high then
-				Cell(model, format(L.COL_DAMAGE, numbers:Format(Number(low) or 0), numbers:Format(Number(high) or 0)))
+				Cell(model, format(L.COL_DAMAGE, numbers:Format(Number(low) or 0), numbers:Format(Number(high) or 0)), nil,
+					"dmg")
 				local speed = Last(Text(line.rightText))
 				if speed then
-					Cell(model, format(L.COL_SPEED, numbers:Format(speed)))
+					Cell(model, format(L.COL_SPEED, numbers:Format(speed)), nil, "spd")
 				end
 			elseif single then
-				Cell(model, numbers:Format(Number(single) or 0))
+				Cell(model, numbers:Format(Number(single) or 0), nil, "dmg")
 			elseif dps then
 				Cell(model, format(L.COL_DPS, numbers:Format(Number(dps) or 0)))
 			elseif armor then
 				-- bonus armor is in the total, green as the game shows it
-				Cell(model, format(L.COL_ARMOR, numbers:Format(Number(armor) or 0)), ColorOf(line.leftColor))
+				Cell(model, numbers:Format(Number(armor) or 0), ColorOf(line.leftColor), "arm")
 			elseif block then
-				Cell(model, format(L.COL_BLOCK, numbers:Format(Number(block) or 0)))
+				Cell(model, numbers:Format(Number(block) or 0), nil, "blk")
 			elseif slots then
 				Cell(model, Read.Plural(L, "COL_SLOTS", slots))
 			elseif current and maximum then
@@ -309,15 +311,20 @@ end
 -- A band cell of a spell's two-sided lines, in the design's short form: an instant cast «Мгновенно», a cooldown
 -- «CD 10 сек.» (Forever writes «Восстановление: 10 сек.»; the English abbreviation in every locale); the rest as is.
 local function SpellCell(model, text, right, L)
+	local glyph
 	if text == SPELL_CAST_TIME_INSTANT or text == SPELL_CAST_TIME_INSTANT_NO_MANA then
-		text = L.CAST_INSTANT
+		text, glyph = L.CAST_INSTANT, "castNow"
+	elseif text == SPELL_CAST_CHANNELED then
+		glyph = "castChan"
 	elseif right then
 		local value = text:match("^[^:]+:%s*(.+)$")
-		if value and text:find("%d") then -- «Восстановление: 10 сек.»
+		if value and text:find("%d") then -- «Восстановление: 10 сек.»: no glyph, its text says enough
 			text = "CD " .. value
 		end
+	elseif Match(text, SPELL_CAST_TIME_SEC) or Match(text, SPELL_CAST_TIME_MIN) then
+		glyph = "castTime"
 	end
-	Push(model.cols).text = text
+	Cell(model, text, nil, glyph)
 end
 
 local function Spell(model, data, settings, aura)

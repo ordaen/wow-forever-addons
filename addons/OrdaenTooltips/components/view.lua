@@ -9,9 +9,12 @@
 --
 -- Attributes: `tip` (game.Tooltip.<name>), `model` (Read's model for it).
 local Define = import("@ordaen/define")
+local GLYPHS = import("glyphs")
+local GLYPH_FILE = import("assets/glyphs.tga")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale
-local WIDTH = 314 * PX
+-- the minimum, or as wide as the title and the columns need (they never wrap); the body wraps at that
+local WIDTH = { min = 314 * PX, fit = "min" }
 local ICON = 60 * PX
 local SECTION = 8 * PX
 local RULE = { width = 1 * PX, sides = { "top" }, color = { 0.839, 0.647, 0.420, 0.18 } } -- --rule rgba(214, 165, 107, .18)
@@ -37,6 +40,23 @@ local function Join(list)
 		joined[i] = nil
 	end
 	return concat(joined, " · ")
+end
+
+-- a glyph's background: one part of the glyph atlas, a table per glyph made once
+local glyphs = {}
+local function GlyphOf(name)
+	local cell = name and GLYPHS[name]
+	if not cell then
+		return nil
+	end
+	local glyph = glyphs[name]
+	if not glyph then
+		local cols, rows = GLYPHS.size[1], GLYPHS.size[2]
+		glyph = { file = GLYPH_FILE, coords = { cell[1] / cols, (cell[1] + 1) / cols, cell[2] / rows,
+			(cell[2] + 1) / rows } }
+		glyphs[name] = glyph
+	end
+	return glyph
 end
 
 -- a call per line, kept: calls[i] for the i-th line of a section
@@ -73,7 +93,7 @@ end
 local function Cols(game, self)
 	local calls = self.calls
 	for i = 1, calls.nCols do
-		game.ui:Text(nil, calls.cols[i], i)
+		game.ui:Cell(nil, calls.cols[i], i)
 	end
 end
 
@@ -138,11 +158,9 @@ local function Fill(calls, m)
 
 	calls.nCols = m.cols.n
 	for i = 1, m.cols.n do
-		local a = Calls(calls.cols, i)
-		-- the design's cells never wrap and the tooltip grows; until the layout can size it to them they wrap in
-		-- their share rather than run over each other
-		a.text, a.textColor, a.textSize, a.wrap, a.textAlign = m.cols[i].text, m.cols[i].color or BODY, 14 * PX,
-			true, "center"
+		-- the cells never wrap: equal shares, or the widest one's, and the tooltip grows to them
+		local a, cell = Calls(calls.cols, i), m.cols[i]
+		a.text, a.color, a.glyph = cell.text, cell.color or BODY, GlyphOf(cell.glyph)
 	end
 	calls.colsBox.attributes.columns = m.cols.n
 
@@ -187,11 +205,10 @@ return Define.Component({
 				slots = { default = Head } },
 			icon = { attributes = { width = ICON, height = ICON, border = RIM } },
 			face = { attributes = { width = ICON, height = ICON, border = RIM, background = BLACK } },
-			-- the design's titles never wrap and the tooltip grows; until the layout can size a box to its widest line
-			-- (width = { min, fit = "min" }) they wrap in the fixed width rather than overflow it
-			name = { attributes = { textSize = 18 * PX, textFamily = Define.Theme.font.header } },
-			desc = { attributes = { textColor = LABEL, textSize = 14 * PX } },
-			info = { attributes = { textColor = QUIET, textSize = 14 * PX } },
+			-- the title's lines never wrap: the tooltip grows to them
+			name = { attributes = { textSize = 18 * PX, wrap = false, textFamily = Define.Theme.font.header } },
+			desc = { attributes = { textColor = LABEL, textSize = 14 * PX, wrap = false } },
+			info = { attributes = { textColor = QUIET, textSize = 14 * PX, wrap = false } },
 			colsBox = { attributes = { padding = { SECTION, 0, SECTION, 0 }, gap = 10 * PX }, slots = { default = Cols } },
 			bodyBox = Section(Body), footBox = Section(Foot), keysBox = Section(Keys),
 			cols = {}, body = {}, foot = {}, keys = {}, nCols = 0, nBody = 0, nFoot = 0, nKeys = 0,
