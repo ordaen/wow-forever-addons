@@ -108,6 +108,13 @@ end
 
 Define.Theme = setmetatable({}, ThemeRefMeta)
 
+--- A theme reference's value now (the active theme's), for a component that places things by it: a frame's reach,
+--- a size. Drawing takes the reference itself (the backend follows a theme change); this reads it once.
+---@param ref table a theme reference (Define.Theme.frame.small)
+function Define.ThemeValue(ref)
+	return ns.Theme[rawget(ref, "path")]
+end
+
 --- Whether `value` is a theme reference (its path is `value.path`, "color.surface").
 function ns.IsThemeRef(value)
 	return getmetatable(value) == ThemeRefMeta

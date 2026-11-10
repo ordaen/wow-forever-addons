@@ -310,7 +310,7 @@ describe("the settings controls", function()
 			local art = withBackground("ctl.tab")
 			local tab = art.parent
 			local frame = tab.frame
-			local window = tab.parent
+			local window = tab.parent.parent -- the tab, in the tab row, in the window
 			local scale = frame:GetEffectiveScale()
 			local left, top = frame:GetLeft(), frame:GetTop()
 			local _, _, _, x0, y0 = window.frame:GetPoint(1)
@@ -323,6 +323,73 @@ describe("the settings controls", function()
 			ns.Scheduler.Flush()
 			local _, _, _, x, y = window.frame:GetPoint(1)
 			assert.is_true(math.abs(x - x0 - 50) < 1 and math.abs(y - y0 + 20) < 1) -- 50 right, 20 down
+			assert.are.same({}, wow.errors)
+		end)
+	end)
+
+	describe("Window's tabs", function()
+		local PX = 1 / 1.2
+		-- a node's top and bottom in the window's box
+		local function span(node, window)
+			local y = 0
+			local n = node
+			while n ~= window do
+				y = y + n.y
+				n = n.parent
+			end
+			return y, y + node.h
+		end
+		local function within(node, outer)
+			assert.is_true(node.x >= -1e-6 and node.y >= -1e-6 and node.x + node.w <= outer.w + 1e-6
+				and node.y + node.h <= outer.h + 1e-6, "drawn outside its box")
+		end
+
+		it("draws a single-title window's tab as a tabbed window's one open tab, all its art in its box", function()
+			mount(function(game)
+				game.ui:Window(1, { attributes = { title = "Ordaen", width = 400, height = 300 } })
+			end)
+			local art = withBackground("ctl.tab")
+			local tab = art.parent
+			within(art, tab)
+			for _, child in ipairs(tab.children) do
+				if child.kind == "box" then
+					within(child, tab)
+				end
+			end
+			within(tab, tab.parent)
+			assert.are.same({}, wow.errors)
+		end)
+
+		it("stands the open tab 4 px under the card's line and closed tabs' bottoms on it", function()
+			mount(function(game)
+				game.ui:Window(1, { attributes = { tabs = { { title = "One" }, { title = "Two" } }, selected = 1,
+					width = 400, height = 300 } })
+			end)
+			local body = withBackground("window.wood")
+			local window = body.parent
+			-- the card's line: 6 px under the metal art's top, which is its reach under the body's top (border-box)
+			local line = body.y + (body.rT or 0) + 6 * PX
+			local open, closed
+			for _, node in ipairs(nodes()) do
+				local bg = node.a and node.a.background
+				if type(bg) == "table" and rawget(bg, "path") == "ctl.tab" then
+					within(node, node.parent)
+					if node.parent.a.OnClick then
+						closed = node.parent
+					else
+						open = node.parent
+					end
+				end
+			end
+			local _, openBottom = span(open, window)
+			local _, closedBottom = span(closed, window)
+			-- the open tab's own bottom is 4 px under the line, its art 7 px further into the body
+			local seen = ("open %.3f closed %.3f line %.3f"):format(openBottom, closedBottom, line)
+			-- within a screen pixel (the layout puts sizes and the reach on whole pixels)
+			local pixel = 1
+			assert.is_true(math.abs(openBottom - 7 * PX - 4 * PX - line) < pixel, seen)
+			assert.is_true(math.abs(closedBottom - 4 * PX - line) < pixel, seen)
+			assert.is_true(math.abs(closedBottom - (openBottom - 7 * PX)) < pixel, seen)
 			assert.are.same({}, wow.errors)
 		end)
 	end)

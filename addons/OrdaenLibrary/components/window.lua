@@ -21,39 +21,36 @@
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
+-- the tab art (WindowTab) stands 11 px above the tab and 10 px past its right; the window's box holds it
+local ART_ABOVE, ART_PAST = 11 * PX, 10 * PX
 local TAB = 36 * PX -- the tab row above the body
-local LINE = 42 * PX -- the body's top line, from the window's top
-local CORNER = 14 * PX -- the tab's top corners
-local FLARE = 8 * PX -- the open tab's right side curving out into the body's line
-local EDGE = 2.5 * PX -- the tab's rim inside its bounds
-local ROW_X = 2 * PX -- the tab row's start: the tab's rim on the card's left line (measured in game: the metal's
--- brightest column is 2 px in from the card's edge)
+local LINE = 42 * PX -- the body's top line, from the tab's top
+local FRAME = Define.Theme.frame.small -- the body's metal
+-- the tabs stand on the metal's line: the art reaches past it (border-box: inside the body's box) by reach x scale on
+-- each side, so the row starts that far in on the left, plus RIM to the art's brightest column, where the tab's rim
+-- meets it; and that far down on the top
+local RIM = 2 * PX
+local function Reach()
+	local frame = Define.ThemeValue(FRAME)
+	return frame.reach[1] * frame.scale, frame.reach[4] * frame.scale
+end
+local function RowX()
+	local _, left = Reach()
+	return left + RIM
+end
+local function RowY()
+	local top = Reach()
+	return top
+end
 local INSET = 3 * PX -- the body's wood inside the metal
 -- the body's content: the design's padding (14 12 12) inside the wood's inset
 local PADDING = { 14 * PX + INSET, 12 * PX + INSET, 12 * PX + INSET, 12 * PX + INSET }
--- the tab: its text and 16 px each side; its art from 12 px above it to 10 px below the line, 10 px past its right
-local TAB_PAD = 16 * PX
--- (11 px above, measured in game: at 12 its right flare met the card's top line a pixel high)
-local ART_TOP, ART_H, ART_PAST = -11 * PX, 64 * PX, 10 * PX
-local TITLE = { 1, 0.82, 0, 1 } -- #ffd100
-local TITLE_SIZE = 15 * PX
 -- placed by its top-left corner from the screen's centre: x and y say where its centre is, and the corner is half
 -- its size from there. A resize moves the centre by half the size change, so the corner's offset stays exactly the
 -- same and snaps to the same pixel (by its centre, a size rounded to pixels would move it a pixel back and forth)
 local FROM_CENTER = { point = "TOPLEFT", relativePoint = "CENTER" }
 
 local WOOD = Define.Theme.window.wood
--- the open tab, over the body (drawn after it): its wood in three parts (the corners masked round), the right flare's
--- wood, the art, the title in its flow (the tab is as wide as the title and its padding)
-local WOOD_L = { position = "absolute", left = 0, top = 0, width = CORNER, bottom = 0, background = WOOD,
-	mask = Define.Theme.ctl.tabCornerL }
-local WOOD_M = { position = "absolute", left = CORNER, right = CORNER, top = 0, bottom = 0, background = WOOD }
-local WOOD_R = { position = "absolute", right = 0, top = 0, width = CORNER, bottom = 0, background = WOOD,
-	mask = Define.Theme.ctl.tabCornerR }
-local FLARE_R = { position = "absolute", right = EDGE - FLARE, top = LINE - FLARE, width = FLARE,
-	height = FLARE + 3 * PX, background = WOOD, mask = Define.Theme.ctl.tabFlareR }
-local ART = { position = "absolute", left = 0, right = -ART_PAST, top = ART_TOP, height = ART_H,
-	background = Define.Theme.ctl.tab }
 
 -- the tab row's height: taller when a tab has a second line (TabbedWindow: 50 px with a description, else 36)
 local TAB_DESC = 50 * PX
@@ -62,11 +59,11 @@ local function TabH(self)
 	if tabs then
 		for i = 1, #tabs do
 			if tabs[i].desc then
-				return TAB_DESC
+				return ART_ABOVE + TAB_DESC
 			end
 		end
 	end
-	return TAB
+	return ART_ABOVE + TAB
 end
 local function LineH(self)
 	return TabH(self) + (LINE - TAB)
@@ -80,23 +77,18 @@ local tabColumns = setmetatable({}, { __index = function(t, n)
 	t[n] = list
 	return list
 end })
+-- how many tabs: a window with a title and no tabs has that one
+local function Count(self)
+	local tabs = self.attributes.tabs
+	return tabs and #tabs or 1
+end
 local function TabRow(game, self)
-	local tabs, height = self.attributes.tabs, LineH(self) + 4 * PX
-	for i = 1, #tabs do
+	local height = LineH(self) - ART_ABOVE + 4 * PX -- from the tab's top to 4 px under the line
+	for i = 1, Count(self) do
 		local call = self.tabCalls[i]
 		call.attributes.height = height
 		game.ui:WindowTab(call)
 	end
-end
-
-local function TabParts(game, self)
-	game.ui:Box({ attributes = WOOD_L })
-	game.ui:Box({ attributes = WOOD_M })
-	game.ui:Box({ attributes = WOOD_R })
-	game.ui:Box({ attributes = FLARE_R })
-	game.ui:Box({ attributes = ART })
-	game.ui:Text({ attributes = { text = self.attributes.title, textColor = TITLE, textSize = TITLE_SIZE,
-		textShadow = { color = { 0, 0, 0, 0.7 }, x = 1 * PX, y = -1 * PX }, wrap = false } })
 end
 
 -- the corner group: 5.5 px down, its right end at the frame's right line's inner edge (5 px in; the design's group
@@ -137,19 +129,14 @@ local BODY_ROWS = { "1fr" }
 
 local function Parts(game, self)
 	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = TabH(self), bottom = 0,
-		border = Define.Theme.frame.small, background = WOOD, padding = PADDING, columns = 1, rows = BODY_ROWS,
+		border = FRAME, background = WOOD, padding = PADDING, columns = 1, rows = BODY_ROWS,
 		minContent = true, hoverWithin = true, OnEnter = self.enter, OnLeave = self.leave }, slots = { default = Body } })
 	-- the tab row: the whole row above the body moves the window, the tab over it too
 	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = 0, height = TabH(self),
 		OnDragStart = self.dragStart, OnDrag = self.drag, OnDragStop = self.dragStop } })
-	if self.attributes.tabs then
-		game.ui:Box({ attributes = { position = "absolute", left = ROW_X, top = 0, height = LineH(self) + 4 * PX,
-			columns = tabColumns[#self.attributes.tabs], gap = 12 * PX, yAlign = "end" }, slots = { default = TabRow } })
-		return
-	end
-	game.ui:Box({ attributes = { position = "absolute", left = ROW_X, top = 0, height = LINE + 4 * PX,
-		padding = { 0, TAB_PAD, 0, TAB_PAD }, yAlign = "center", columns = 1, OnDragStart = self.dragStart,
-		OnDrag = self.drag, OnDragStop = self.dragStop }, slots = { default = TabParts } })
+	-- 12 px between the tabs, the art past each one's right in them
+	game.ui:Box({ attributes = { position = "absolute", left = RowX(), top = RowY(), columns = tabColumns[Count(self)],
+		gap = 12 * PX - ART_PAST, yAlign = "start" }, slots = { default = TabRow } })
 end
 
 -- where the window sits: centred and moved by dragging its tab, or the whole screen
@@ -227,14 +214,35 @@ return Define.Component({
 			end
 		end
 		local grip = GRIP.attributes
+		-- the tab row moves the window, its tabs too
+		local function dragStart(x, y)
+			x0, y0, grabX, grabY = Define.Peek(self.state.x), Define.Peek(self.state.y), x, y
+		end
+		local function drag(x, y)
+			if Define.Peek(self.state.full) then
+				return
+			end
+			self.state.x = x0 + x - grabX
+			self.state.y = y0 + y - grabY
+		end
+		local function dragStop()
+			if not Define.Peek(self.state.full) then
+				keep()
+			end
+			local fn = self.attributes.OnMoved
+			if fn and not Define.Peek(self.state.full) then
+				fn(Define.Peek(self.state.x), Define.Peek(self.state.y))
+			end
+		end
 		-- each tab's call, made once per index; a click on a closed one selects it
 		local tabCalls = setmetatable({}, { __index = function(t, i)
-			local call = { key = i, attributes = { window = self, index = i, height = TAB, OnPick = function()
-				local fn = self.attributes.OnSelect
-				if fn then
-					fn(i)
-				end
-			end } }
+			local call = { key = i, attributes = { window = self, index = i, height = TAB, above = ART_ABOVE,
+				past = ART_PAST, OnDragStart = dragStart, OnDrag = drag, OnDragStop = dragStop, OnPick = function()
+					local fn = self.attributes.OnSelect
+					if fn then
+						fn(i)
+					end
+				end } }
 			t[i] = call
 			return call
 		end })
@@ -243,25 +251,9 @@ return Define.Component({
 			grip = { attributes = { position = grip.position, right = grip.right, bottom = grip.bottom,
 				width = grip.width, height = grip.height, background = grip.background, OnDragStart = sizeStart,
 				OnDrag = size, OnDragStop = sizeStop } },
-			dragStart = function(x, y)
-				x0, y0, grabX, grabY = Define.Peek(self.state.x), Define.Peek(self.state.y), x, y
-			end,
-			drag = function(x, y)
-				if Define.Peek(self.state.full) then
-					return
-				end
-				self.state.x = x0 + x - grabX
-				self.state.y = y0 + y - grabY
-			end,
-			dragStop = function()
-				if not Define.Peek(self.state.full) then
-					keep()
-				end
-				local fn = self.attributes.OnMoved
-				if fn and not Define.Peek(self.state.full) then
-					fn(Define.Peek(self.state.x), Define.Peek(self.state.y))
-				end
-			end,
+			dragStart = dragStart,
+			drag = drag,
+			dragStop = dragStop,
 			enter = function()
 				self.state.hovered = true
 			end,

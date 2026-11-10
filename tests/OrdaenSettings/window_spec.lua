@@ -168,7 +168,7 @@ describe("the settings window", function()
 		ns.Scheduler.Flush()
 		-- the tab row: the box over the window's top, before the tab
 		local tab = texts(ns)["Ordaen"].parent
-		local row = tab.parent.children[2]
+		local row = tab.parent.parent.children[2]
 		local f = row.frame
 		f:GetScript("OnDragStart")(f)
 		f:GetScript("OnDragStop")(f)
@@ -234,7 +234,7 @@ describe("the settings window", function()
 				local at = string.format("%.4f %.4f", fr:GetLeft(), fr:GetTop())
 				seen[key] = seen[key] or at
 				if seen[key] ~= at then
-					local win = tab.parent
+					local win = tab.parent.parent
 					error(string.format("%s step %d: %s -> %s; win frame %.4f %.4f off %.4f %.4f w %.4f h %.4f",
 						node == tab and "tab" or "list", i, seen[key], at, win.frame:GetLeft(), win.frame:GetTop(),
 						win.offL or -1, win.offT or -1, win.w or -1, win.h or -1))
@@ -276,7 +276,7 @@ describe("the settings window", function()
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
 		local tab = texts(ns)["Ordaen"].parent
-		local win = tab.parent
+		local win = tab.parent.parent
 		local before = win.offL or 0
 		local f = tab.frame
 		wow:MoveCursor(500, 500)
@@ -318,7 +318,7 @@ describe("the settings window", function()
 		wow:Tick()
 		ns.Scheduler.Flush()
 		-- the cursor onto the body while still dragging, then the drag ends
-		local body = tab.parent.children[1]
+		local body = tab.parent.parent.children[1]
 		body.frame:GetScript("OnEnter")(body.frame)
 		ns.Scheduler.Flush()
 		wow:DragStop(f)
@@ -350,7 +350,7 @@ describe("the settings window", function()
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
 		local tab = texts(ns)["Ordaen"].parent
-		local body = tab.parent.children[1]
+		local body = tab.parent.parent.children[1]
 		body.frame:GetScript("OnEnter")(body.frame)
 		ns.Scheduler.Flush()
 		assert.are.equal(0, ns.Core._BackendStats({}).order_errors) -- the tab's wood, flare and rim, as before
@@ -382,7 +382,7 @@ describe("the settings window", function()
 					tab.frame:GetWidth()))
 			end
 		end
-		local body = tab.parent.children[1]
+		local body = tab.parent.parent.children[1]
 		body.frame:GetScript("OnEnter")(body.frame)
 		ns.Scheduler.Flush()
 		ns.Backend:Flush()
