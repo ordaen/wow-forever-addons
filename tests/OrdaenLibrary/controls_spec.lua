@@ -62,7 +62,8 @@ describe("the settings controls", function()
 		local out = {}
 		for _, node in ipairs(nodes()) do
 			local border = node.a and node.a.border
-			if type(border) == "table" and rawget(border, "path") == "frame.tab" and node.a.opacity ~= 0 then
+			local path = type(border) == "table" and rawget(border, "path")
+			if path and path:find("^frame%.tab") and not path:find("Icon") and node.a.opacity ~= 0 then
 				out[#out + 1] = node
 			end
 		end
@@ -410,8 +411,8 @@ describe("the settings controls", function()
 			end)
 			local body = windowBody()
 			local window = body.parent
-			-- the body's top line, inside its box: its frame's width and the art's reach (border-box)
-			local line = body.y + body.bwT
+			-- the body's top line, as far as the open tab's curves into it reach (the line's visible part)
+			local line = body.y + 21 * 0.5
 			local tabs = shownTabs()
 			assert.are.equal(2, #tabs)
 			for _, tab in ipairs(tabs) do

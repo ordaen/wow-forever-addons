@@ -643,10 +643,19 @@ end
 --                        the turned top, each masked to its half of the diagonal (media/mitre-*). The top line sits
 --                        11.5 units in from its outer side, the right edge's only 2, so the top-right square sits
 --                        9.5 k lower and its top piece shows the art 9.5 k higher, to stay in line with the top.
+--   radius               a corner border.radius names ("small" or "large", border.curves' sizes) is rounded in place
+--                        of the above: the line bent round a quarter circle (media/metal-corner-*, made from the
+--                        left edge by tools/metal-curves.py), its sides running to where the curve starts
+--   flare                a side border.flare names ("left", "right") curves out at its bottom into a line under the
+--                        box (a window's body under its open tab): the line bent the other way (media/metal-flare),
+--                        in the box's bottom corner, the side running down to it
 -- Drawn inside the box (border-box): the art's outer side is the box's edge, and what it stands out past its line
 -- (border.reach) is counted in the layout's border widths and the fill's inset. A side not drawn leaves its
 -- neighbours running to the box's edge. Anchored to the box's corners: no size needed.
 local MITRE = "Interface\\AddOns\\OrdaenCore\\media\\mitre-"
+local CURVE = "Interface\\AddOns\\OrdaenCore\\media\\metal-"
+-- a corner piece's texture coordinates: the top-left piece as made, the others mirrored
+local CORNER_COORDS = { tl = { 0, 1, 0, 1 }, tr = { 1, 0, 0, 1 }, bl = { 0, 1, 1, 0 }, br = { 1, 0, 1, 0 } }
 
 local function artPiece(frame, sub)
 	local tex = frame:CreateTexture(nil, "BORDER", nil, sub)
@@ -705,6 +714,22 @@ function Node:ApplyFrameArt(border)
 	local T = snap(leftW * k) -- the left edge's thickness: the mitred corners' square
 	local f = leftW / leftH -- that square's share of the left edge's atlas length
 	local D = top and right and snap(9.5 * k) or 0
+	-- rounded corners and the sides' flares: their pieces' sides (border.curves, the art's units at scale 1)
+	local radius, curves = border.radius, border.curves
+	local function round(corner, a, b)
+		local name = a and b and radius and radius[corner]
+		return name and snap(curves[name] * k) or nil
+	end
+	local rTL, rTR, rBL, rBR = round("tl", top, left), round("tr", top, right), round("bl", bottom, left),
+		round("br", bottom, right)
+	local flares = border.flare
+	local fL, fR = false, false
+	if flares then
+		for i = 1, #flares do
+			fL, fR = fL or flares[i] == "left", fR or flares[i] == "right"
+		end
+	end
+	local F = (fL or fR) and snap(curves.flare * k) or 0
 	local function piece(key, sub)
 		local tex = art[key]
 		if not tex then
@@ -725,8 +750,8 @@ function Node:ApplyFrameArt(border)
 		tex:SetHorizTile(false)
 		tex:SetVertTile(false)
 		tex:SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0)
-		tex:SetPoint("TOPLEFT", frame, "TOPLEFT", left and T or 0, 0)
-		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", right and -T or 0, 0)
+		tex:SetPoint("TOPLEFT", frame, "TOPLEFT", rTL or (left and T or 0), 0)
+		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -(rTR or (right and T or 0)), 0)
 		tex:SetHeight(T)
 	end
 	if bottom then
@@ -735,8 +760,8 @@ function Node:ApplyFrameArt(border)
 			local tex = piece("bottom", 0)
 			tex:SetAtlas(atlas)
 			tex:SetHorizTile(true)
-			tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", left and blW or 0, 0)
-			tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", right and -brW or 0, 0)
+			tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", rBL or (left and blW or 0), 0)
+			tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", -(rBR or (right and brW or 0)), 0)
 			tex:SetHeight(snap(h * k))
 		end
 	end
@@ -744,8 +769,8 @@ function Node:ApplyFrameArt(border)
 		local tex = piece("left", 0)
 		tex:SetAtlas(leftAtlas)
 		tex:SetVertTile(true)
-		tex:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, top and -T or 0)
-		tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, bottom and blH or 0)
+		tex:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -(rTL or (top and T or 0)))
+		tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, fL and F or rBL or (bottom and blH or 0))
 		tex:SetWidth(T)
 	end
 	local rightAtlas, rightW = atlasSize(layout.RightEdge)
@@ -753,24 +778,50 @@ function Node:ApplyFrameArt(border)
 		local tex = piece("right", 0)
 		tex:SetAtlas(rightAtlas)
 		tex:SetVertTile(true)
-		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, top and -D - T or 0)
-		tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, bottom and brH or 0)
+		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -(rTR or (top and D + T or 0)))
+		tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, fR and F or rBR or (bottom and brH or 0))
 		tex:SetWidth(snap(rightW * k))
 	end
-	if bottom and left and blAtlas then
+	if bottom and left and blAtlas and not rBL then
 		local tex = piece("bl", 1)
 		tex:SetAtlas(blAtlas)
 		tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, 0)
 		tex:SetSize(blW, blH)
 	end
-	if bottom and right and brAtlas then
+	if bottom and right and brAtlas and not rBR then
 		local tex = piece("br", 1)
 		tex:SetAtlas(brAtlas)
 		tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, 0)
 		tex:SetSize(brW, brH)
 	end
+	-- the rounded corners and the flares
+	local function curve(key, file, size, point, coords)
+		local tex = piece(key, 1)
+		tex:SetTexture(CURVE .. file)
+		tex:SetTexCoord(coords[1], coords[2], coords[3], coords[4])
+		tex:SetPoint(point, frame, point, 0, 0)
+		tex:SetSize(size, size)
+	end
+	if rTL then
+		curve("roundTL", "corner-" .. radius.tl, rTL, "TOPLEFT", CORNER_COORDS.tl)
+	end
+	if rTR then
+		curve("roundTR", "corner-" .. radius.tr, rTR, "TOPRIGHT", CORNER_COORDS.tr)
+	end
+	if rBL then
+		curve("roundBL", "corner-" .. radius.bl, rBL, "BOTTOMLEFT", CORNER_COORDS.bl)
+	end
+	if rBR then
+		curve("roundBR", "corner-" .. radius.br, rBR, "BOTTOMRIGHT", CORNER_COORDS.br)
+	end
+	if fL then
+		curve("flareL", "flare", F, "BOTTOMLEFT", CORNER_COORDS.tl)
+	end
+	if fR then
+		curve("flareR", "flare", F, "BOTTOMRIGHT", CORNER_COORDS.tr)
+	end
 	-- the mitred top corners: the side's square (lower half), the turned top's square (upper half)
-	if top and left then
+	if top and left and not rTL then
 		local side = piece("tlSide", 1)
 		side:SetAtlas(leftAtlas)
 		side:SetTexCoord(0, 1, 0, f)
@@ -790,7 +841,7 @@ function Node:ApplyFrameArt(border)
 		art.tlSideMask:Show()
 		art.tlTopMask:Show()
 	end
-	if top and right and rightAtlas then
+	if top and right and rightAtlas and not rTR then
 		local side = piece("trSide", 1)
 		side:SetAtlas(rightAtlas)
 		side:SetTexCoord(0, 1, 0, f)

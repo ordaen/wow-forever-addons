@@ -1,15 +1,16 @@
 -- WindowTab (design controls/window, TabbedWindow's tabs): one of a window's tabs on its top line, framed with the
--- body's own metal (frame.tab: the small frame's top and sides, its top corners mitred like the body's). The open one
--- stands over the body, its wood running down over the body's top line, so its sides meet that line; its title in
--- gold. A closed one stands 5 px lower, behind the body (the body's line runs in front of it), darker, its title dim.
+-- body's own metal (frame.tab: the frame's top and sides, its top corners rounded). The open one stands over the
+-- body, its wood running down over the body's top line, its sides curving out into that line (the first tab's left
+-- running straight down the body's left line); its title in gold. A closed one stands 5 px lower, behind the body
+-- (the body's line runs in front of it), darker, its title dim.
 -- An icon fills the tab's left end inside the frame, with the frame's line on its right (and its bottom, on the body's
 -- line, for the open one); the title is centred in what's left, with an optional second line under it (a profession's
 -- skill). The frame is drawn inside the tab's box (border-box), so nothing is drawn outside it.
 --
 -- Attributes: `window` (the Window it belongs to: its `title`, or its `tabs`, each { title, desc, icon }, and
 -- `selected`), `index` (this tab's in them), `height` (the open tab's, UI units: from the window's top to the inner
--- side of the body's top line; a closed one is 5 px less), `under` (the layer under the body: it shows the tab only
--- while closed; else only while open), `OnPick` (a click on a closed tab), `OnDragStart`, `OnDrag`, `OnDragStop`
+-- side of the body's top line, where its curves end; a closed one is 5 px less), `under` (the layer under the body:
+-- it shows the tab only while closed; else only while open), `OnPick` (a click on a closed tab), `OnDragStart`, `OnDrag`, `OnDragStop`
 -- (dragging the tab: Window's move).
 local Define = import("@ordaen/define")
 
@@ -25,7 +26,8 @@ local LABEL_PAD = 10 * PX
 local MIN_TAB = 120 * PX -- the tab's smallest width; wider as its label needs
 
 local WOOD = Define.Theme.window.wood
-local FRAME = Define.Theme.frame.tab
+local FRAME, FRAME_OPEN, FRAME_OPEN_FIRST = Define.Theme.frame.tab, Define.Theme.frame.tabOpen,
+	Define.Theme.frame.tabOpenFirst
 local ICON_FRAME, ICON_FRAME_OPEN = Define.Theme.frame.tabIcon, Define.Theme.frame.tabIconOpen
 
 local NONE = {} -- a single-title window's tab: no icon, no second line
@@ -65,6 +67,14 @@ local function IconWidth(self)
 end
 local function IconHeight(self)
 	return IconSide(self) - (Open(self) and self.iconReachBottom or 0)
+end
+-- the tab's frame: its top corners rounded; the open one's sides curving out into the body's line, the first's left
+-- running straight down the body's own
+local function Frame(self)
+	if not Open(self) then
+		return FRAME
+	end
+	return self.attributes.index > 1 and FRAME_OPEN or FRAME_OPEN_FIRST
 end
 local function IconFrame(self)
 	return Open(self) and ICON_FRAME_OPEN or ICON_FRAME
@@ -135,7 +145,7 @@ return Define.Component({
 	end,
 
 	Render = function(game, self)
-		game.ui:Box({ attributes = { width = self.width, height = GivenHeight(self), border = FRAME, background = WOOD,
+		game.ui:Box({ attributes = { width = self.width, height = GivenHeight(self), border = Frame(self), background = WOOD,
 			tint = Tint(self), padding = Padding(self), columns = Columns(self), gap = LABEL_PAD,
 			opacity = Opacity(self), OnClick = Click(self), OnDragStart = self.attributes.OnDragStart,
 			OnDrag = self.attributes.OnDrag, OnDragStop = self.attributes.OnDragStop }, slots = { default = Parts } })

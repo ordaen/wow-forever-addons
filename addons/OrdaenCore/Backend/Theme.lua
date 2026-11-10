@@ -25,10 +25,17 @@ local METAL_REACH = { 3, 4, 3, 8 }
 -- units wide, the wood from 3 units in; every framed surface (windows, dialogs, tooltips, the minimap, the bottom
 -- panel's top edge, the window tabs) is this frame on the sides it names (all four when `sides` is nil). Spacing
 -- inside a frame is the box's padding, never a wider border.
-local function Metal(sides, inset)
+-- Its curves (border.radius, border.flare: tools/metal-curves.py makes their pieces from the same left edge): the
+-- pieces' sides in the art's units at scale 1. A corner's radius reads at the line's bronze stripe, 14 units in from
+-- the outer side: small 8 px, large 14 px at the user's scale (1.2 px a unit, the art at half size); a flare is the
+-- line's visible 21 units, bent round its outer side.
+local METAL_CURVES = { small = 8 / 1.2 / 0.5 + 14, large = 14 / 1.2 / 0.5 + 14, flare = 21 }
+local function Metal(sides, inset, radius, flare)
 	return { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = inset or 3,
-		reach = METAL_REACH, sides = sides }
+		reach = METAL_REACH, sides = sides, curves = METAL_CURVES, radius = radius, flare = flare }
 end
+local TAB_CORNERS = { tl = "large", tr = "large" }
+local ICON_CORNER = { br = "small" }
 
 ns.Theme = {
 	["color.surface"] = { 0.06, 0.06, 0.08, 0.92 },
@@ -63,11 +70,15 @@ ns.Theme = {
 	["panel.edge"] = Metal({ "top" }),
 	-- a window's or small surface's metal on all four sides: windows, dialogs, tooltips, the minimap
 	["frame.small"] = Metal(),
-	-- a window tab's frame: the metal on its top and sides, none along its bottom, where it stands on the window's body;
-	-- its icon's, the metal on its right (the open tab's on its bottom too)
-	["frame.tab"] = Metal({ "top", "left", "right" }),
+	-- a window tab's frame: the metal on its top and sides, its top corners rounded large, none along its bottom, where
+	-- it stands on the window's body; the open tab's sides curve out into the body's top line (the first tab's left
+	-- runs straight down the body's left line). Its icon's: the metal on its right; the open tab's on its bottom too,
+	-- the corner between rounded small
+	["frame.tab"] = Metal({ "top", "left", "right" }, 3, TAB_CORNERS),
+	["frame.tabOpen"] = Metal({ "top", "left", "right" }, 3, TAB_CORNERS, { "left", "right" }),
+	["frame.tabOpenFirst"] = Metal({ "top", "left", "right" }, 3, TAB_CORNERS, { "right" }),
 	["frame.tabIcon"] = Metal({ "right" }, 0),
-	["frame.tabIconOpen"] = Metal({ "right", "bottom" }, 0),
+	["frame.tabIconOpen"] = Metal({ "right", "bottom" }, 0, ICON_CORNER),
 	-- a button on the minimap's ring (design Minimap .ring): a 34 px dark disc in a bronze ring with a black edge,
 	-- drawn whole (rows 0 the button, 1 the light ring over it under the cursor, 2 lit: the drawer open)
 	["minimap.ring"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\minimap-ring", size = { 128, 512 }, cap = 0,

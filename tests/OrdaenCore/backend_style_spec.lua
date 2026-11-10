@@ -715,6 +715,49 @@ describe("backend styles", function()
 		assert.is_false(art.tlSide:IsShown())
 	end)
 
+	it("rounds a frame's named corners and curves its flared sides out at the bottom, sides running to them", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local tab = Backend:Create("box")
+		Backend:Set(tab, { position = "absolute", left = 100, top = 100, width = 160, height = 50,
+			border = ref("frame.tabOpen") })
+		Backend:SetChildren(layer, { tab }, 1)
+		Backend:Flush()
+		local art = tab.frameArt
+		local curves = ns.Theme["frame.tabOpen"].curves
+		for _, key in ipairs({ "roundTL", "roundTR", "flareL", "flareR", "top", "left", "right" }) do
+			assert.is_truthy(art[key] and art[key]:IsShown(), key)
+		end
+		assert.is_truthy(art.roundTL._texture:find("metal%-corner%-large$"))
+		assert.is_truthy(art.flareL._texture:find("metal%-flare$"))
+		-- no mitred corner where one is rounded, no bottom (the tab stands on the body)
+		assert.is_falsy(art.tlSide and art.tlSide:IsShown())
+		assert.is_falsy(art.bottom and art.bottom:IsShown())
+		-- the corner's piece as large as its curve, at the frame's scale; the left side ends where the flare starts
+		local k = ns.Theme["frame.tabOpen"].scale
+		assert.is_true(math.abs(art.roundTL:GetWidth() - curves.large * k) < 1)
+		local flare = art.flareL:GetHeight()
+		assert.is_true(math.abs(flare - curves.flare * k) < 1)
+		assert.is_true(math.abs(art.left._points.BOTTOMLEFT.y - flare) < 0.01)
+		-- the right curve is the left one mirrored
+		assert.are.same({ 1, 0, 0, 1 }, { art.flareR._coords[1], art.flareR._coords[2], art.flareR._coords[3],
+			art.flareR._coords[4] })
+		assert.are.same({}, wow.errors)
+	end)
+
+	it("keeps every metal frame one frame: the same art, scale, width and reach; only sides and curves its own", function()
+		local _, ns = client()
+		local base = ns.Theme["frame.small"]
+		for path, value in pairs(ns.Theme) do
+			if type(value) == "table" and value.nineSlice then
+				for _, key in ipairs({ "nineSlice", "scale", "width", "reach", "curves" }) do
+					assert.are.equal(base[key], value[key], path .. " differs in " .. key)
+				end
+			end
+		end
+	end)
+
 	it("raises a box with zLevel above what its parent's later siblings draw (a menu over the rows below)", function()
 		local _, ns = client()
 		local Backend = ns.Backend
@@ -835,7 +878,7 @@ describe("backend styles", function()
 		local layer = Backend:Layer("screen")
 		local glyph = Backend:Create("box")
 		Backend:Set(glyph, { position = "absolute", width = 16, height = 16,
-			background = { file = "Interface\AddOns\Spec\glyphs", coords = { 0.125, 0.25, 0, 0.25 } } })
+			background = { file = "Interface\\AddOns\\Spec\\glyphs", coords = { 0.125, 0.25, 0, 0.25 } } })
 		Backend:SetChildren(layer, { glyph }, 1)
 		Backend:Flush()
 		assert.are.same({ 0.125, 0.25, 0, 0.25 }, { glyph.bg:GetTexCoord() })

@@ -23,10 +23,10 @@ local Define = import("@ordaen/define")
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
 local TAB = 36 * PX -- the tab row above the body
 local FRAME = Define.Theme.frame.small -- the body's metal
--- the body's top line, inside its box: the frame's width and how far its art stands past it (border-box)
+-- the body's top line, inside its box, as far as the open tab's curves into it reach: the line's visible part
 local function LineTop()
-	local frame = Define.ThemeValue(FRAME)
-	return frame.width + frame.reach[1] * frame.scale
+	local frame = Define.ThemeValue(Define.Theme.frame.tabOpen)
+	return frame.curves.flare * frame.scale
 end
 local INSET = 3 * PX -- the body's wood inside the metal
 -- the body's content: the design's padding (14 12 12) inside the wood's inset
@@ -286,7 +286,8 @@ return Define.Component({
 	-- siblings there, so a click brings any of them over the others
 	Render = function(game, self)
 		game.ui:Box(game.Layer.Dialog, { attributes = { position = "absolute", anchor = Anchor(game, self),
-			left = Left(game, self), top = Top(game, self), right = Edge(game, self), bottom = Edge(game, self), width = Width(game, self),
+			left = Left(game, self), top = Top(game, self), right = Edge(game, self), bottom = Edge(game, self),
+			width = Width(game, self),
 			height = Height(game, self), artOrigin = true, minContent = true, clampToScreen = true, toplevel = true,
 			OnEscape = self.close }, slots = { default = Parts } })
 	end,
