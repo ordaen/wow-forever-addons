@@ -392,6 +392,15 @@ function Region:GetBottom()
 	return l and b / self:GetEffectiveScale()
 end
 
+function Region:GetCenter()
+	local l, r, t, b = rect(self)
+	if not l then
+		return nil
+	end
+	local scale = self:GetEffectiveScale()
+	return (l + r) / 2 / scale, (t + b) / 2 / scale
+end
+
 function Region:GetWidth()
 	local l, r = rect(self)
 	if l then

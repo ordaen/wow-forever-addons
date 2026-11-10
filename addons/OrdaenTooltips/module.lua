@@ -18,6 +18,7 @@ local COMPARE = { ShoppingTooltip1 = true, ShoppingTooltip2 = true }
 -- it describes, then locks; a locked group closes GRACE s after the mouse leaves it (unless it comes back)
 local STEPS, STEP = 30, 1 / 30
 local GRACE = 0.22
+local REFRESH = 0.1 -- a hide shorter than this is Blizzard refreshing the tooltip, not the mouse leaving
 local DEPTH = 6 -- tooltips opened from links in tooltips, at most this deep
 
 -- what a link opens: our spell links (a description's spell names), the game's item and spell links
@@ -34,6 +35,7 @@ end
 
 ---@enum OrdaenTooltipsPlace
 local Place = { Corner = "corner", Anchor = "anchor" } -- where an item's tooltip shows: the game's corner, beside it
+local Anchored -- below: a tooltip's anchor beside its owner
 
 -- a tooltip kind (read.lua) -> whether its switch is on
 local SWITCH = {
@@ -73,11 +75,26 @@ local function IsButton(owner)
 	return unit == nil
 end
 
+-- beside what it belongs to (design tooltips «Placement»): above it with the left edges lined up, below it when the
+-- upper half of the screen has no room above; lined up on the right edges in the screen's right third. One table per
+-- the anchor at each show (a new table: the view sees a new place by identity).
+Anchored = function(owner)
+	local x, y = owner:GetCenter()
+	local scale = owner:GetEffectiveScale() / UIParent:GetEffectiveScale()
+	local right = x ~= nil and x * scale > UIParent:GetWidth() * 2 / 3
+	local below = y ~= nil and y * scale > UIParent:GetHeight() / 2
+	local side = right and "RIGHT" or "LEFT"
+	if below then
+		return { to = owner, point = "TOP" .. side, relativePoint = "BOTTOM" .. side }
+	end
+	return { to = owner, point = "BOTTOM" .. side, relativePoint = "TOP" .. side }
+end
+
 local function Views(game, self)
 	for i = 1, #NATIVES do
 		local name = NATIVES[i]
 		local tip = game.Tooltip[name]
-		if tip then
+		if tip and not COMPARE[name] then -- the comparison tooltips are the main one's (its group draws them)
 			local a = self.viewCalls[name].attributes
 			a.anchor = self.anchors[name] or nil
 			a.epoch = self.state.epoch
@@ -86,6 +103,7 @@ local function Views(game, self)
 			a.charge = name == "GameTooltip" and self.chargeSignal or nil
 			if name == "GameTooltip" then
 				a.nest = self.state.nest
+				a.compareEpoch = self.state.epoch
 			end
 			local call = self.viewCalls[name]
 			game.ui:View(game.Layer.Tooltip, call, name)
@@ -101,7 +119,7 @@ return Define.Module({
 		Define.Persistent({
 			anchorToButtons = { type = "boolean", default = true, setting = true },
 			itemsOn = { type = "boolean", default = true, setting = true },
-			itemsAnchorBags = { type = "choice", choices = Place, default = Place.Corner, setting = true },
+			itemsAnchorBags = { type = "choice", choices = Place, default = Place.Anchor, setting = true },
 			itemsAnchorChar = { type = "choice", choices = Place, default = Place.Anchor, setting = true },
 			itemsIlvl = { type = "boolean", default = true, setting = true },
 			itemsId = { type = "boolean", default = false, setting = true },
@@ -181,10 +199,10 @@ return Define.Module({
 			elseif type(name) == "string" and (name:find("^ContainerFrame%d+Item") or name:find("^Bank")) then
 				place = Define.Peek(self.state.itemsAnchorBags)
 			elseif Define.Peek(self.state.anchorToButtons) and IsButton(owner) then
-				return { to = owner, point = "BOTTOM", relativePoint = "TOP" }
+				place = Place.Anchor
 			end
 			if place == Place.Anchor then
-				return { to = owner, point = "TOPLEFT", relativePoint = "TOPRIGHT" }
+				return Anchored(owner)
 			end
 			return nil
 		end
@@ -276,6 +294,14 @@ return Define.Module({
 			self.state.charge = 0
 			Truncate(0)
 		end
+		-- Blizzard hides and shows a button's tooltip again as it refreshes it: only a hide that lasts ends the charge
+		local hiddenAt = 0
+		local function EndIfHidden()
+			if main.shown:Peek() == 0 and Define.Peek(self.state.lock) == 0 and GetTime() - hiddenAt >= REFRESH - 0.01 then
+				self.state.charge = 0
+				targetType, targetId, closed = nil, nil, false
+			end
+		end
 		local function Step()
 			local n = Define.Peek(self.state.charge) + 1
 			if n < STEPS then
@@ -293,9 +319,9 @@ return Define.Module({
 			self:Watch(function()
 				local shown, lock = main.shown:Get(), self.state.lock
 				if shown == 0 then
-					if lock == 0 then -- the mouse left before it locked: the next show starts over
-						self.state.charge = 0
-						targetType, targetId, closed = nil, nil, false
+					if lock == 0 then -- hidden: the charge ends unless it's back within REFRESH (a refresh)
+						hiddenAt = GetTime()
+						C_Timer.After(REFRESH, EndIfHidden)
 					end
 					return
 				end
@@ -399,6 +425,19 @@ return Define.Module({
 		local mainCall = self.viewCalls.GameTooltip
 		if mainCall then
 			mainCall.attributes.nested, mainCall.attributes.nestHover = nested, nestHover
+			-- the comparison tooltips: drawn in the main one's group, on its right (each its tip and model)
+			local compares = {}
+			for name in pairs(COMPARE) do
+				local tip = game.Tooltip[name]
+				if tip then
+					compares[#compares + 1] = { tip = tip, model = models[name], name = name,
+						call = { attributes = { side = false } } }
+				end
+			end
+			table.sort(compares, function(x, y)
+				return x.name < y.name
+			end)
+			mainCall.attributes.compares, mainCall.attributes.keptBy = compares, kept
 		end
 		for _, call in pairs(self.viewCalls) do
 			call.attributes.links = links

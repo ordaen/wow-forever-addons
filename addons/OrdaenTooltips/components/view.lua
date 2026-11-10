@@ -11,7 +11,9 @@
 -- stays after Blizzard's goes), `locked`, `OnEnter`/`OnLeave` (the mouse on the locked group) and `OnClose`; the
 -- tooltips opened from its links (the main view only): `links` (per depth, OnLink of its rows: 0 this view's),
 -- `nested` (their models by depth, `.n` open), `nest` (changes when one opens or closes), `nestHover` (per depth,
--- { OnEnter, OnLeave }: the mouse on that one).
+-- { OnEnter, OnLeave }: the mouse on that one); `compares` (the main view only: the comparison tooltips, each
+-- { tip, model, name, call }, drawn on its right while shown or kept by the lock; `keptBy` the lock's kept views,
+-- `compareEpoch` the module's epoch).
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2
@@ -81,6 +83,21 @@ local function Parts(game, self)
 	if self.attributes.model.side.n > 0 then
 		game.ui:Box(self.sidesBox)
 		n = n + 1
+	end
+	local compares = self.attributes.compares
+	if compares then
+		local kept = self.attributes.locked and self.attributes.keptBy
+		for i = 1, #compares do
+			local c = compares[i]
+			local shown = c.tip.shown:Get()
+			if shown > 0 or (kept and kept[c.name]) then
+				local ca = c.call.attributes
+				ca.model, ca.version = c.model, shown * 1000000 + (self.attributes.compareEpoch or 0) * 1000
+				ca.OnLink = Link(game, self)
+				game.ui:TipFrame(nil, c.call, c.name)
+				n = n + 1
+			end
+		end
 	end
 	local nested = self.attributes.nested
 	local _ = self.attributes.nest -- read: one opened or closed draws again
