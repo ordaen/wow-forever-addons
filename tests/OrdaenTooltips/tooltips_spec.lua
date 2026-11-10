@@ -54,6 +54,12 @@ local LIFE_TAP = { type = 1, id = 1454, lines = {
 	{ type = 0, leftText = "Instant" },
 	{ type = 34, leftText = "Converts 30 health into 30 mana." },
 } }
+local HEROIC = { type = 1, id = 78, lines = {
+	{ type = 13, leftText = "Heroic Strike" },
+	{ type = 0, leftText = "Rage: 15", rightText = "Melee Range" },
+	{ type = 0, leftText = "Next melee" },
+	{ type = 34, leftText = "A strong attack that increases melee damage by 11." },
+} }
 local GUARD = { type = 2, guid = "Creature-1", lines = {
 	{ type = 2, leftText = "Stormwind Guard", unitToken = "mouseover" },
 	{ type = 0, leftText = "Level 55" },
@@ -217,6 +223,7 @@ describe("Ordaen Tooltips", function()
 		env.ITEM_UNIQUE = "Unique"
 		env.SPELL_CAST_TIME_INSTANT = "Instant"
 		env.SPELL_RANGE = "%s yd range"
+		env.SPELL_ON_NEXT_SWING = "Next melee"
 		wow:Login()
 		ns = wow.addons.OrdaenCore.ns
 	end)
@@ -266,6 +273,15 @@ describe("Ordaen Tooltips", function()
 		end)
 		assert.is_truthy(dot)
 		assert.is_true(dot.a.tint[2] > 0.8 and dot.a.tint[1] < 0.2) -- green
+		assert.are.same({}, wow.errors)
+	end)
+
+	it("draws «next melee» as a cast: its glyph and the short word", function()
+		wow:ShowTooltip("GameTooltip", HEROIC)
+		ns.Scheduler.Flush()
+		local shown = texts()
+		has(shown, "Next")
+		assert.is_falsy(shown:find("Next melee", 1, true))
 		assert.are.same({}, wow.errors)
 	end)
 

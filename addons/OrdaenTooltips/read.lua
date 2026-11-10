@@ -601,7 +601,8 @@ end
 
 -- The band's cells from a spell's first lines (api/forever/tooltip-data.md «Spell»), in the design's short form: its
 -- first line the cost («Ярость: 10» → a dot in the resource's colour and the number) or the range alone, with the
--- range on its right; then the cast («Мгновенно» with its glyph, a cast time, channelled) with the cooldown on its
+-- range on its right; then the cast («Мгновенно» with its glyph, a cast time, channelled, «Следующая» for the next
+-- swing or shot) with the cooldown on its
 -- right («Восстановление: 10 сек.» → «CD 10 сек.», the English abbreviation in every locale); a spell with neither
 -- cost nor range starts with the cast. A range is its value only, its closing full stop dropped («Радиус действия:
 -- 30 м.» → «30 м»). `first`: the spell's first band line; `right`: the line's right side; `cast`: its left side was
@@ -616,6 +617,9 @@ local function SpellCell(model, text, first, right, L, cost, cast)
 		glyph, term, isCast = "castChan", "castChan", true
 	elseif Match(text, SPELL_CAST_TIME_SEC) or Match(text, SPELL_CAST_TIME_MIN) then
 		glyph, term, isCast = "castTime", "castTime", true
+	elseif text == SPELL_ON_NEXT_SWING or text == SPELL_ON_NEXT_RANGED then
+		-- «Следующая атака»: on the next swing or shot, its glyph and the short word
+		text, glyph, term, isCast = L.CAST_NEXT, "castNext", "castNext", true
 	elseif not right and first and cost and number and tonumber((number:gsub("%D", ""))) == cost.amount then
 		glyph, tint, term = "cost", cost.color, cost.term
 		text = number:gsub("%s+$", "")

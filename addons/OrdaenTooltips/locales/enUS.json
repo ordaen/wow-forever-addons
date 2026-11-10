@@ -213,5 +213,8 @@
   "MELEE_RANGE_SHORT": "5 yd",
   "MELEE_RANGE_TEXT": "Melee Range",
   "TERM_MELEE": "Melee range",
-  "TERM_MELEE_TEXT": "About 5 yd: the target must be within a weapon's reach. Larger creatures (bosses, dragons) can be hit from further."
+  "TERM_MELEE_TEXT": "About 5 yd: the target must be within a weapon's reach. Larger creatures (bosses, dragons) can be hit from further.",
+  "CAST_NEXT": "Next",
+  "TERM_CASTNEXT": "Next attack",
+  "TERM_CASTNEXT_TEXT": "Goes off with your next weapon swing (or shot) in place of the usual one: used at once, the hit lands when the swing is due."
 }

@@ -23,7 +23,8 @@ return {
 	castNow = { 2, 2 },
 	castTime = { 3, 2 },
 	castChan = { 4, 2 },
-	up = { 5, 2 },
-	down = { 6, 2 },
-	cd = { 7, 2 },
+	castNext = { 5, 2 },
+	up = { 6, 2 },
+	down = { 7, 2 },
+	cd = { 0, 3 },
 }
