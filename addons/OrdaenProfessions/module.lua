@@ -22,10 +22,10 @@ local LISTS = { columns = { S.CATEGORIES, "1fr" }, border = { width = 1 * S.PX, 
 	background = S.LISTS_BG }
 local CAMP_LISTS = { columns = { "1fr" }, border = { width = 1 * S.PX, color = S.LINE },
 	background = S.LISTS_BG }
-local CATEGORY_COLUMN = { rows = "auto", overflow = "scroll", height = "100%" }
-local RECIPE_COLUMN = { rows = "auto", overflow = "scroll", height = "100%",
+local CATEGORY_COLUMN = { rows = "auto", overflow = "scroll" }
+local RECIPE_COLUMN = { rows = "auto", overflow = "scroll",
 	border = { width = 1 * S.PX, sides = { "left" }, color = S.LINE } }
-local CAMP_COLUMN = { rows = "auto", overflow = "scroll", height = "100%" }
+local CAMP_COLUMN = { rows = "auto", overflow = "scroll" }
 local SEARCH_EDGE = { width = 1 * S.PX, color = { 0.29, 0.227, 0.141, 1 } } -- #4a3a24
 local SEARCH_BG = { 0, 0, 0, 0.5 }
 local SEARCH_PAD = { 0, 10 * S.PX, 0, 10 * S.PX }
@@ -129,7 +129,15 @@ return Define.Module({
 	title = "Ordaen Professions",
 	icon = Define.Asset("Interface/Icons/Trade_BlackSmithing"),
 
+	-- where the player leaves it and its size are kept; it shows while the game has a profession open
+	windows = { main = { width = S.WIDTH, height = S.HEIGHT } },
+
 	Setup = function(game, self)
+		-- closing it (the close button, Escape) closes the profession, which hides it
+		self.windows.main:Guard(function()
+			game.TradeSkill:Close()
+			return true
+		end)
 		Define.Ephemeral({
 			skillLine = { type = "number", default = 0 }, -- the open profession's
 			tab = { type = "number", default = 0 }, -- its window tab
@@ -272,9 +280,6 @@ return Define.Module({
 			typedSearch = function(text)
 				self.state.search = text or ""
 			end,
-			close = function()
-				game.TradeSkill:Close()
-			end,
 		}
 	end,
 
@@ -284,6 +289,6 @@ return Define.Module({
 		end
 		game.ui:Frame(game.Frame.Professions, AWAY)
 		game.ui:Window({ attributes = { tabs = self.tabs, selected = self.state.tab, OnSelect = self.openTab,
-			width = S.WIDTH, height = S.HEIGHT, OnClose = self.close }, slots = { default = Body } })
+			window = self.windows.main }, slots = { default = Body } })
 	end,
 })
