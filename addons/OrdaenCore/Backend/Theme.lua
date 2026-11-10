@@ -138,6 +138,10 @@ ns.Theme = {
 	["ctl.tabCornerL"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-l" },
 	["ctl.tabCornerR"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-r" },
 	["ctl.tabFlareR"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-flare-r" },
+	-- a window tab's icon (design TabbedWindow .iconfill): its top-left corner the tab rim's inner curve; the open tab's
+	-- also its bottom-right, that curve mirrored
+	["ctl.tabIcon"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon" },
+	["ctl.tabIconOpen"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon-open" },
 	-- the tabbed window's corner buttons (design TabbedWindow, the corner group of plates), each drawn whole from its
 	-- art, 64 x 32 px: the full screen button 5 px in from the art's left (the group's edge and its lines), both 5 px
 	-- above its bottom; the row by state

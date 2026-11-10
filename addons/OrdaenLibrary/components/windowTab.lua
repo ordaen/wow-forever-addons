@@ -40,6 +40,13 @@ end
 local function Tint(self)
 	return not Open(self) and SHADE or nil
 end
+-- the open tab's art reaches below the line, its rim running into the body's; a closed tab's stops at its bottom
+local function ArtBelow(self)
+	return Open(self) and -ART_BELOW or 0
+end
+local function IconMask(self)
+	return Open(self) and Define.Theme.ctl.tabIconOpen or Define.Theme.ctl.tabIcon
+end
 local function IconSide(self)
 	return Tab(self).icon and Height(self) - 3 * PX or 0
 end
@@ -64,13 +71,13 @@ local function Parts(game, self)
 		game.ui:Box({ attributes = { position = "absolute", right = EDGE - FLARE, bottom = -3 * PX, width = FLARE,
 			height = FLARE + 3 * PX, background = WOOD, mask = Define.Theme.ctl.tabFlareR } })
 	end
-	game.ui:Box({ attributes = { position = "absolute", left = 0, right = -ART_PAST, top = ART_TOP, bottom = -ART_BELOW,
-		background = Define.Theme.ctl.tab, tint = Tint(self) } })
+	-- the icon under the art, so the tab's rim lies over its edge
 	if Tab(self).icon then
 		game.ui:Box({ attributes = { position = "absolute", left = 3 * PX, top = 3 * PX, width = IconSide(self),
-			height = IconSide(self), background = Tab(self).icon, tint = Tint(self),
-			mask = Define.Theme.ctl.tabCornerL } })
+			height = IconSide(self), background = Tab(self).icon, tint = Tint(self), mask = IconMask(self) } })
 	end
+	game.ui:Box({ attributes = { position = "absolute", left = 0, right = -ART_PAST, top = ART_TOP,
+		bottom = ArtBelow(self), background = Define.Theme.ctl.tab, tint = Tint(self) } })
 	Label(game, self)
 end
 -- the left padding: the icon and the label's own
