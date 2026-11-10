@@ -36,7 +36,10 @@ end
 describe("the bench: /ordaen dev check in the fake client", function()
 	local linked = io.open(DIST .. "/OrdaenDev/OrdaenDev.toc", "rb")
 	if not linked then
-		pending("OrdaenDev isn't linked (private: wow-dev-tools/modules/OrdaenDev)")
+		-- a pending test, not a describe-level pending (busted's JSON report can't encode that one)
+		it("needs OrdaenDev linked (private: wow-dev-tools/modules/OrdaenDev)", function()
+			pending("OrdaenDev isn't linked")
+		end)
 		return
 	end
 	linked:close()
