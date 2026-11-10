@@ -60,6 +60,14 @@ ns.Theme = {
 	-- the same art at half size, the top corners mitred, the wood from 3 units in on every side
 	["frame.small"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 3,
 		reach = METAL_REACH },
+	-- a window tab's frame: the same metal on its top and sides (its top corners mitred as the window's), none along its
+	-- bottom, where it stands on the window's body; its icon's, the metal on its right (the open tab's on its bottom too)
+	["frame.tab"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 3,
+		reach = METAL_REACH, sides = { "top", "left", "right" } },
+	["frame.tabIcon"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 0,
+		reach = METAL_REACH, sides = { "right" } },
+	["frame.tabIconOpen"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 0,
+		reach = METAL_REACH, sides = { "right", "bottom" } },
 	-- the same metal at full size (MetalFrame kind "dialog": the minimap's frame), the wood from 6 units in
 	["frame.dialog"] = { width = 6, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 1, inset = 6,
 		reach = METAL_REACH },
@@ -137,33 +145,9 @@ ns.Theme = {
 	["ctl.sliderKnob"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-slider-knob", size = { 32, 64 },
 		cap = 0, capHeight = 0 },
 	-- the tabbed window (design TabbedWindow): its wood, one picture across the window from its top-left (the box with
-	-- artOrigin), so the body and the open tab show one surface; the open tab's art, three-sliced (caps 27 of its 64 px
-	-- height), drawn from 12 px above the tab to 10 px below the body's line and 10 px past its right side: the shadow
-	-- above, the light inside, the rim with the frame line's profile, the right flare's curve; the masks that round
-	-- the tab's wood (14 px corners) and cut its right flare (8 x 11 px)
-	-- the windows' wood: WOOD
+	-- artOrigin), so the body and the open tab show one surface (the windows' wood: WOOD); its tabs are framed with
+	-- frame.tab
 	["window.wood"] = WOOD,
-	["ctl.tab"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab", size = { 128, 128 }, cap = 54,
-		capHeight = 27 / 64 },
-	["ctl.tabCornerL"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-l" },
-	["ctl.tabCornerR"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-r" },
-	["ctl.tabFlareR"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-flare-r" },
-	-- an open tab after the first: the same art with the left flare too (the right cap mirrored), and its wood's mask
-	["ctl.tabFlared"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-flared", size = { 128, 128 },
-		cap = 54, capHeight = 27 / 64 },
-	-- a closed tab: its sides straight down (the left cap mirrored), the art over the tab alone
-	["ctl.tabStraight"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-straight", size = { 128, 128 },
-		cap = 54, capHeight = 27 / 64 },
-	["ctl.tabFlareL"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-flare-l" },
-	-- a window tab's icon (design TabbedWindow .iconfill): its top-left corner the tab rim's inner curve; the open tab's
-	-- also its bottom-right, that curve mirrored
-	["ctl.tabIcon"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon" },
-	["ctl.tabIconOpen"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon-open" },
-	-- the icon's border, the tab rim's profile (design TabbedWindow's icon border): across a straight piece (vertical,
-	-- horizontal) and the bottom-right corner, a quarter ring
-	["ctl.tabIconLineV"] = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon-line-v",
-	["ctl.tabIconLineH"] = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon-line-h",
-	["ctl.tabIconCorner"] = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon-corner",
 	-- the tabbed window's corner buttons (design TabbedWindow, the corner group of plates), each drawn whole from its
 	-- art, 64 x 32 px: the full screen button 5 px in from the art's left (the group's edge and its lines), both 5 px
 	-- above its bottom; the row by state

@@ -1,36 +1,32 @@
--- WindowTab (design controls/window, TabbedWindow's tabs): one of a window's tabs on its top line. The open one stands
--- on the line, its wood running into the body, its title in gold; a closed one stands 5 px lower, behind the line,
--- darker, its title dim. An icon fills the tab's left end (the open one's corner rounded like the tab's); the title
--- is centred in what's left, with an optional second line under it (a profession's skill).
---
--- Its box holds all of its art: the art stands `above` the tab and `past` its sides (Window's tab row sets both; the
--- first tab has none on its left), and the open tab's runs ART_BELOW under it, curving out into the body's line on
--- both sides (the first tab only on its right); nothing is drawn outside the box.
+-- WindowTab (design controls/window, TabbedWindow's tabs): one of a window's tabs on its top line, framed with the
+-- body's own metal (frame.tab: the small frame's top and sides, its top corners mitred like the body's). The open one
+-- stands over the body, its wood running down over the body's top line, so its sides meet that line; its title in
+-- gold. A closed one stands 5 px lower, behind the body (the body's line runs in front of it), darker, its title dim.
+-- An icon fills the tab's left end inside the frame, with the frame's line on its right (and its bottom, on the body's
+-- line, for the open one); the title is centred in what's left, with an optional second line under it (a profession's
+-- skill). The frame is drawn inside the tab's box (border-box), so nothing is drawn outside it.
 --
 -- Attributes: `window` (the Window it belongs to: its `title`, or its `tabs`, each { title, desc, icon }, and
--- `selected`), `index` (this tab's in them), `height` (the open tab's, UI units, from its top to 4 px under the line; a
--- closed one is 5 px less), `above`, `past` (the art's reach above the tab and past its sides), `under` (the layer under the
--- body: it shows the tab only while closed; else only while open), `OnPick` (a click on a
--- closed tab), `OnDragStart`, `OnDrag`, `OnDragStop` (dragging the tab: Window's move).
+-- `selected`), `index` (this tab's in them), `height` (the open tab's, UI units: from the window's top to the inner
+-- side of the body's top line; a closed one is 5 px less), `under` (the layer under the body: it shows the tab only
+-- while closed; else only while open), `OnPick` (a click on a closed tab), `OnDragStart`, `OnDrag`, `OnDragStop`
+-- (dragging the tab: Window's move).
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
-local CORNER = 14 * PX -- the tab's top corners
-local FLARE = 8 * PX -- the open tab's right side curving out into the body's line
-local EDGE = 2.5 * PX -- the tab's rim inside its bounds
 local DROP = 5 * PX -- a closed tab stands this much lower
--- the open tab's art runs to 11 px below the line; the tab stands 4 px below it, so 7 px under the tab
-local ART_BELOW = 7 * PX
 local TITLE_OPEN = { 1, 0.82, 0, 1 } -- #ffd100
 local TITLE_CLOSED = { 0.702, 0.651, 0.565, 1 } -- #b3a690
 local DESC = { 0.561, 0.518, 0.439, 1 } -- #8f8470
-local SHADE = { 0.6, 0.6, 0.6, 1 } -- a closed tab's art and wood, darker
+local SHADE = { 0.6, 0.6, 0.6, 1 } -- a closed tab's wood and icon, darker
 local TITLE_SIZE, DESC_SIZE = 15 * PX, 11 * PX
 local SHADOW = { color = { 0, 0, 0, 0.8 }, x = 1 * PX, y = -1 * PX }
 local LABEL_PAD = 10 * PX
 local MIN_TAB = 120 * PX -- the tab's smallest width; wider as its label needs
 
 local WOOD = Define.Theme.window.wood
+local FRAME = Define.Theme.frame.tab
+local ICON_FRAME, ICON_FRAME_OPEN = Define.Theme.frame.tabIcon, Define.Theme.frame.tabIconOpen
 
 local NONE = {} -- a single-title window's tab: no icon, no second line
 
@@ -48,45 +44,46 @@ local function Open(self)
 	local window = self.attributes.window.attributes
 	return window.tabs:Get() == nil or window.selected:Get() == self.attributes.index
 end
--- where the tab's own parts start in its box: under the art's reach above it, a closed tab DROP lower (its bottom on the
--- open one's); and end: the open tab's art runs ART_BELOW under it
-local function PartsTop(self)
-	return self.attributes.above + (Open(self) and 0 or DROP)
-end
-local function PartsBottom(self)
-	return Open(self) and ART_BELOW or 0
-end
 local function Tint(self)
 	return not Open(self) and SHADE or nil
 end
-local function IconMask(self)
-	return Open(self) and Define.Theme.ctl.tabIconOpen or Define.Theme.ctl.tabIcon
-end
--- the tab's own height (a closed one DROP less)
-local function TabHeight(self)
+-- the tab's height, its frame's art included
+local function Height(self)
 	return Open(self) and self.attributes.height or self.attributes.height - DROP
 end
--- the card's line in the tab's box: the open tab stands 4 px below it
-local function LineY(self)
-	return self.attributes.above + self.attributes.height - 4 * PX
+-- the height it's given: a framed box grows by its art's reach (border-box), so less that
+local function GivenHeight(self)
+	return Height(self) - self.reachTop
 end
--- the icon: 3 px in from the tab's top-left; the open one's bottom on the card's line, a closed one's at its bottom
+-- the icon: as tall as the tab inside its frame's top, square; given less its own frame's reach (right, and bottom on
+-- the open tab)
 local function IconSide(self)
-	if not Tab(self).icon then
-		return 0
-	end
-	return Open(self) and LineY(self) - PartsTop(self) - 3 * PX or TabHeight(self) - 3 * PX
+	return Height(self) - self.frameTop
 end
--- the art: from the box's top (a closed tab's DROP lower) to its bottom, its whole width
-local function ArtTop(self)
-	return Open(self) and 0 or DROP
+local function IconWidth(self)
+	return IconSide(self) - self.iconReachRight
+end
+local function IconHeight(self)
+	return IconSide(self) - (Open(self) and self.iconReachBottom or 0)
+end
+local function IconFrame(self)
+	return Open(self) and ICON_FRAME_OPEN or ICON_FRAME
 end
 
--- the layer that doesn't show this tab keeps its label's size, unseen (a box's opacity doesn't reach the texts it draws)
+-- Window draws its tabs twice, the closed ones under the body (`under`: the body's line runs over them) and the open
+-- one over it; each layer shows only its own, the other's kept in place unseen (a box's opacity doesn't reach the
+-- texts it draws, so the texts take an unseen colour too). A closed tab is picked on the layer it shows on (a box at
+-- opacity 0 takes no mouse).
 local UNSEEN = { 0, 0, 0, 0 }
 local UNSEEN_SHADOW = { color = UNSEEN, x = 0, y = 0 }
 local function Shown(self)
 	return Open(self) ~= (self.attributes.under == true)
+end
+local function Opacity(self)
+	return Shown(self) and 1 or 0
+end
+local function Click(self)
+	return self.attributes.under and not Open(self) and self.attributes.OnPick or nil
 end
 local function TitleColor(self)
 	return not Shown(self) and UNSEEN or Open(self) and TITLE_OPEN or TITLE_CLOSED
@@ -107,118 +104,40 @@ local function Label(game, self)
 	end
 end
 
--- the art's reach past the tab's left: an open tab after the first curves out into the line on its left too, so every
--- tab after the first keeps room for it (the first stands on the card's left line, its side running straight down)
-local function LeftPast(self)
-	return self.attributes.index > 1 and self.attributes.past or 0
-end
--- the art: a closed tab's sides run straight down; the open tab's curve out into the line on both sides, the first's
--- on its right only (its left stands on the card's left line). A closed tab's art covers the tab alone, the open
--- one's its flares too.
-local function Art(self)
-	if not Open(self) then
-		return Define.Theme.ctl.tabStraight
-	end
-	return self.attributes.index > 1 and Define.Theme.ctl.tabFlared or Define.Theme.ctl.tab
-end
-local function ArtLeft(self)
-	return Open(self) and 0 or LeftPast(self)
-end
-local function ArtRight(self)
-	return Open(self) and 0 or self.attributes.past
-end
-
--- the box: the art above the tab, the tab (a closed one's parts DROP lower in it, its bottom on the open one's) and
--- under it for the open one
-local function Height(self)
-	return self.attributes.above + self.attributes.height + PartsBottom(self)
-end
--- The icon's border, the tab's rim profile (design TabbedWindow, the icon border): down its right side from the tab's
--- top; on the open tab it turns round the icon's bottom-right corner (radius ICON_R at the line's centre) and runs left
--- along the card's line under the icon, into the tab's left flare (or its straight left side on the first tab).
-local LINE_W = 5 * PX -- the line's width, centred on the icon's edge
-local ICON_R = (14 - 4.5) * PX
-local function IconRight(self)
-	return LeftPast(self) + 3 * PX + IconSide(self)
-end
-local function IconLineHeight(self)
-	return Open(self) and LineY(self) - ICON_R - PartsTop(self) or Height(self) - PartsTop(self)
-end
-local function UnderStart(self)
-	return self.attributes.index > 1 and LeftPast(self) - FLARE or EDGE
-end
-local function IconBorder(game, self)
-	game.ui:Box({ attributes = { position = "absolute", left = IconRight(self) - LINE_W / 2, top = PartsTop(self),
-		width = LINE_W, height = IconLineHeight(self), background = Define.Theme.ctl.tabIconLineV, tint = Tint(self) } })
-	if Open(self) then
-		game.ui:Box({ attributes = { position = "absolute", left = IconRight(self) - ICON_R, top = LineY(self) - ICON_R,
-			width = ICON_R + LINE_W / 2, height = ICON_R + LINE_W / 2, background = Define.Theme.ctl.tabIconCorner } })
-		game.ui:Box({ attributes = { position = "absolute", left = UnderStart(self), top = LineY(self) - LINE_W / 2,
-			width = IconRight(self) - ICON_R - UnderStart(self), height = LINE_W,
-			background = Define.Theme.ctl.tabIconLineH } })
-	end
-end
+local LABEL = { rows = "auto", xAlign = "center", yAlign = "center", gap = 1 * PX }
 
 local function Parts(game, self)
-	game.ui:Box({ attributes = { position = "absolute", left = LeftPast(self), top = PartsTop(self), width = CORNER,
-		bottom = PartsBottom(self), background = WOOD, tint = Tint(self), mask = Define.Theme.ctl.tabCornerL } })
-	game.ui:Box({ attributes = { position = "absolute", left = LeftPast(self) + CORNER,
-		right = self.attributes.past + CORNER, top = PartsTop(self), bottom = PartsBottom(self), background = WOOD,
-		tint = Tint(self) } })
-	game.ui:Box({ attributes = { position = "absolute", right = self.attributes.past, top = PartsTop(self),
-		width = CORNER, bottom = PartsBottom(self), background = WOOD, tint = Tint(self),
-		mask = Define.Theme.ctl.tabCornerR } })
-	if Open(self) then
-		game.ui:Box({ attributes = { position = "absolute", right = self.attributes.past + EDGE - FLARE,
-			bottom = ART_BELOW - 3 * PX, width = FLARE, height = FLARE + 3 * PX, background = WOOD,
-			mask = Define.Theme.ctl.tabFlareR } })
-	end
-	if Open(self) and self.attributes.index > 1 then
-		game.ui:Box({ attributes = { position = "absolute", left = LeftPast(self) + EDGE - FLARE,
-			bottom = ART_BELOW - 3 * PX, width = FLARE, height = FLARE + 3 * PX, background = WOOD,
-			mask = Define.Theme.ctl.tabFlareL } })
-	end
-	-- the icon under the art, so the tab's rim lies over its edge
 	if Tab(self).icon then
-		game.ui:Box({ attributes = { position = "absolute", left = LeftPast(self) + 3 * PX, top = PartsTop(self) + 3 * PX,
-			width = IconSide(self), height = IconSide(self), background = Tab(self).icon, tint = Tint(self),
-			mask = IconMask(self) } })
+		game.ui:Box({ attributes = { width = IconWidth(self), height = IconHeight(self), background = Tab(self).icon,
+			tint = Tint(self), border = IconFrame(self) } })
 	end
-	if Tab(self).icon then
-		IconBorder(game, self)
-	end
-	game.ui:Box({ attributes = { position = "absolute", left = ArtLeft(self), right = ArtRight(self), top = ArtTop(self),
-		bottom = 0, background = Art(self), tint = Tint(self) } })
-	Label(game, self)
+	game.ui:Box({ attributes = LABEL, slots = { default = Label } })
 end
--- the label sits in the tab: under the parts' top, over their bottom, the icon and the art's reach out of its sides
+
+-- the label's room: LABEL_PAD each side of it (the icon flush with the frame)
+local PADDING_ICON = { 0, LABEL_PAD, 0, 0 }
+local PADDING_TITLE = { 0, LABEL_PAD, 0, LABEL_PAD }
+local COLUMNS_ICON, COLUMNS_TITLE = { "auto", "1fr" }, { "1fr" }
 local function Padding(self)
-	return { PartsTop(self), LABEL_PAD + self.attributes.past, PartsBottom(self),
-		LeftPast(self) + IconSide(self) + 3 * PX + LABEL_PAD }
+	return Tab(self).icon and PADDING_ICON or PADDING_TITLE
 end
--- Window draws its tabs twice, the closed ones under the body (`under`: the body's line runs over them) and the open
--- one over it; each layer shows only its own, the other's kept in place unseen.
-local function Opacity(self)
-	return Shown(self) and 1 or 0
-end
--- a click on a closed tab picks it: on the layer under the body, the one it shows on (a box at opacity 0 takes no
--- mouse)
-local function Click(self)
-	return self.attributes.under and not Open(self) and self.attributes.OnPick or nil
+local function Columns(self)
+	return Tab(self).icon and COLUMNS_ICON or COLUMNS_TITLE
 end
 
 return Define.Component({
-	Setup = function(_, self)
-		-- its width: as its label needs, at least MIN_TAB, plus the art's reach out of its sides (made once)
-		local index, past = Define.Peek(self.attributes.index), Define.Peek(self.attributes.past)
-		return { width = { fit = "min", min = MIN_TAB + past + (index > 1 and past or 0) } }
+	Setup = function()
+		-- the frame's top: its width and how far its art stands past its line, inside the box (border-box)
+		local frame, icon = Define.ThemeValue(FRAME), Define.ThemeValue(ICON_FRAME_OPEN)
+		local reachTop = frame.reach[1] * frame.scale
+		return { width = { fit = "min", min = MIN_TAB }, reachTop = reachTop, frameTop = frame.width + reachTop,
+			iconReachRight = icon.reach[2] * icon.scale, iconReachBottom = icon.reach[3] * icon.scale }
 	end,
 
 	Render = function(game, self)
-		game.ui:Box({ attributes = { width = self.width, height = Height(self), padding = Padding(self), rows = "auto", xAlign = "center",
-			yAlign = "center", gap = 1 * PX, opacity = Opacity(self), OnClick = Click(self),
-			OnDragStart = self.attributes.OnDragStart, OnDrag = self.attributes.OnDrag,
-			OnDragStop = self.attributes.OnDragStop },
-			slots = { default = Parts } })
+		game.ui:Box({ attributes = { width = self.width, height = GivenHeight(self), border = FRAME, background = WOOD,
+			tint = Tint(self), padding = Padding(self), columns = Columns(self), gap = LABEL_PAD,
+			opacity = Opacity(self), OnClick = Click(self), OnDragStart = self.attributes.OnDragStart,
+			OnDrag = self.attributes.OnDrag, OnDragStop = self.attributes.OnDragStop }, slots = { default = Parts } })
 	end,
 })

@@ -167,7 +167,7 @@ describe("the settings window", function()
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
 		-- the tab row: the box over the window's top, before the tab
-		local tab = texts(ns)["Ordaen"].parent
+		local tab = texts(ns)["Ordaen"].parent.parent
 		local row = tab.parent.parent.children[1]
 		local f = row.frame
 		f:GetScript("OnDragStart")(f)
@@ -217,7 +217,7 @@ describe("the settings window", function()
 				grip = node
 			end
 		end)
-		local tab = texts(ns)["Ordaen"].parent
+		local tab = texts(ns)["Ordaen"].parent.parent
 		local list = texts(ns)["General"].parent
 		local f = grip.frame
 		wow:MoveCursor(500, 500)
@@ -249,7 +249,7 @@ describe("the settings window", function()
 		local wow, ns = Start(nil)
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
-		local tab = texts(ns)["Ordaen"].parent
+		local tab = texts(ns)["Ordaen"].parent.parent
 		local f = tab.frame
 		wow:MoveCursor(500, 500)
 		wow:DragStart(f)
@@ -264,7 +264,7 @@ describe("the settings window", function()
 		assert.is_nil(texts(ns)["Ordaen"])
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
-		local again = texts(ns)["Ordaen"].parent.parent
+		local again = texts(ns)["Ordaen"].parent.parent.parent
 		assert.is_number(moved)
 		assert.are.equal(moved, again.offL)
 		assert.is_number(wow.env.OrdaenSettingsDB["window#main"].x) -- kept in the module's db: a /reload keeps it too
@@ -275,7 +275,7 @@ describe("the settings window", function()
 		local wow, ns = Start(nil)
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
-		local tab = texts(ns)["Ordaen"].parent
+		local tab = texts(ns)["Ordaen"].parent.parent
 		local win = tab.parent
 		local f = tab.frame
 		ns.Backend:Flush()
@@ -302,7 +302,7 @@ describe("the settings window", function()
 		local wow, ns = Start(nil)
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
-		local tab = texts(ns)["Ordaen"].parent
+		local tab = texts(ns)["Ordaen"].parent.parent
 		local win = tab.parent.parent
 		local before = win.offL or 0
 		local f = tab.frame
@@ -337,7 +337,7 @@ describe("the settings window", function()
 		local wow, ns = Start(nil)
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
-		local tab = texts(ns)["Ordaen"].parent
+		local tab = texts(ns)["Ordaen"].parent.parent
 		local f = tab.frame
 		wow:MoveCursor(500, 500)
 		wow:DragStart(f)
@@ -376,7 +376,7 @@ describe("the settings window", function()
 		local wow, ns = Start(nil)
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
-		local tab = texts(ns)["Ordaen"].parent
+		local tab = texts(ns)["Ordaen"].parent.parent
 		local body = tab.parent.parent.children[3]
 		body.frame:GetScript("OnEnter")(body.frame)
 		ns.Scheduler.Flush()
@@ -387,7 +387,7 @@ describe("the settings window", function()
 		local wow, ns = Start(nil)
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
-		local f = texts(ns)["Ordaen"].parent.frame
+		local f = texts(ns)["Ordaen"].parent.parent.frame
 		wow:MoveCursor(500, 500)
 		wow:DragStart(f)
 		wow:MoveCursor(560, 470)
@@ -399,7 +399,7 @@ describe("the settings window", function()
 		ns.Scheduler.Flush()
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
-		local tab = texts(ns)["Ordaen"].parent
+		local tab = texts(ns)["Ordaen"].parent.parent
 		-- every part of the tab within the tab and its art's 10 px past it
 		for i = 1, tab.count do
 			local c = tab.children[i]

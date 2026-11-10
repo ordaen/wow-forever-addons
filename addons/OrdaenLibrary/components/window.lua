@@ -21,26 +21,12 @@
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
--- the tab art (WindowTab) stands 11 px above the tab and 10 px past its right; the window's box holds it
-local ART_ABOVE, ART_PAST = 11 * PX, 10 * PX
 local TAB = 36 * PX -- the tab row above the body
-local LINE = 42 * PX -- the body's top line, from the tab's top
 local FRAME = Define.Theme.frame.small -- the body's metal
--- the tabs stand on the metal's line: the art reaches past it (border-box: inside the body's box) by reach x scale on
--- each side, so the row starts that far in on the left, plus RIM to the art's brightest column, where the tab's rim
--- meets it; and that far down on the top
-local RIM = 2 * PX
-local function Reach()
+-- the body's top line, inside its box: the frame's width and how far its art stands past it (border-box)
+local function LineTop()
 	local frame = Define.ThemeValue(FRAME)
-	return frame.reach[1] * frame.scale, frame.reach[4] * frame.scale
-end
-local function RowX()
-	local _, left = Reach()
-	return left + RIM
-end
-local function RowY()
-	local top = Reach()
-	return top
+	return frame.width + frame.reach[1] * frame.scale
 end
 local INSET = 3 * PX -- the body's wood inside the metal
 -- the body's content: the design's padding (14 12 12) inside the wood's inset
@@ -59,14 +45,11 @@ local function TabH(self)
 	if tabs then
 		for i = 1, #tabs do
 			if tabs[i].desc then
-				return ART_ABOVE + TAB_DESC
+				return TAB_DESC
 			end
 		end
 	end
-	return ART_ABOVE + TAB
-end
-local function LineH(self)
-	return TabH(self) + (LINE - TAB)
+	return TAB
 end
 -- the tab row: one auto column per tab, made once per count
 local tabColumns = setmetatable({}, { __index = function(t, n)
@@ -84,7 +67,8 @@ local function Count(self)
 end
 -- the tabs, twice: the closed ones under the body, the open one over it (WindowTab `under`)
 local function Tabs(game, self, calls)
-	local height = LineH(self) - ART_ABOVE + 4 * PX -- from the tab's top to 4 px under the line
+	-- the open tab runs from the window's top down over the body's top line, to its inner side
+	local height = TabH(self) + LineTop()
 	for i = 1, Count(self) do
 		local call = calls[i]
 		call.attributes.height = height
@@ -134,10 +118,10 @@ end
 -- the window's size; and the card never gets smaller than that content needs (min-content), whatever the size
 local BODY_ROWS = { "1fr" }
 
--- 12 px between the tabs, the art past each one's sides in them
+-- the tabs from the body's left edge, 12 px apart, standing on their bottoms (a closed one is shorter)
 local function TabRowAttributes(self)
-	return { position = "absolute", left = RowX(), top = RowY(), columns = tabColumns[Count(self)],
-		gap = 12 * PX - 2 * ART_PAST, yAlign = "start" }
+	return { position = "absolute", left = 0, top = 0, columns = tabColumns[Count(self)], gap = 12 * PX,
+		yAlign = "end" }
 end
 
 local function Parts(game, self)
@@ -248,8 +232,8 @@ return Define.Component({
 		end
 		-- each tab's call, made once per index; a click on a closed one selects it
 		local tabCalls = setmetatable({}, { __index = function(t, i)
-			local call = { key = i, attributes = { window = self, index = i, height = TAB, above = ART_ABOVE,
-				past = ART_PAST, OnDragStart = dragStart, OnDrag = drag, OnDragStop = dragStop, OnPick = function()
+			local call = { key = i, attributes = { window = self, index = i, height = TAB,
+				OnDragStart = dragStart, OnDrag = drag, OnDragStop = dragStop, OnPick = function()
 					local fn = self.attributes.OnSelect
 					if fn then
 						fn(i)
@@ -261,8 +245,8 @@ return Define.Component({
 		-- the same tabs in the layer under the body: shown while closed, and picked there
 		local underCalls = setmetatable({}, { __index = function(t, i)
 			local over = tabCalls[i].attributes
-			local call = { key = i, attributes = { window = self, index = i, height = TAB, above = ART_ABOVE,
-				past = ART_PAST, under = true, OnPick = over.OnPick, OnDragStart = dragStart, OnDrag = drag,
+			local call = { key = i, attributes = { window = self, index = i, height = TAB,
+				under = true, OnPick = over.OnPick, OnDragStart = dragStart, OnDrag = drag,
 				OnDragStop = dragStop } }
 			t[i] = call
 			return call

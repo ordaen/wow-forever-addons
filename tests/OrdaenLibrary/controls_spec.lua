@@ -57,16 +57,16 @@ describe("the settings controls", function()
 			end
 		end
 	end
-	-- the last drawn node with this background: the window's tabs are drawn twice (the open layer over the body last)
-	local function lastWithBackground(path)
-		local found
+	-- the window's tabs that show (each is drawn twice, once unseen): the boxes framed with frame.tab
+	local function shownTabs()
+		local out = {}
 		for _, node in ipairs(nodes()) do
-			local bg = node.a and node.a.background
-			if type(bg) == "table" and rawget(bg, "path") == path then
-				found = node
+			local border = node.a and node.a.border
+			if type(border) == "table" and rawget(border, "path") == "frame.tab" and node.a.opacity ~= 0 then
+				out[#out + 1] = node
 			end
 		end
-		return found
+		return out
 	end
 	-- a window's body: the box in the metal frame
 	local function windowBody()
@@ -290,7 +290,7 @@ describe("the settings controls", function()
 				end
 			end
 			assert.is_truthy(metal) -- the body's frame art
-			assert.is_truthy(lastWithBackground("ctl.tab"))
+			assert.are.equal(1, #shownTabs())
 			local t = texts()
 			assert.is_truthy(table.concat(t, "|"):find("Ordaen", 1, true))
 			assert.is_truthy(table.concat(t, "|"):find("inside", 1, true))
@@ -327,8 +327,7 @@ describe("the settings controls", function()
 
 		it("moves with its tab when dragged", function()
 			draw()
-			local art = lastWithBackground("ctl.tab")
-			local tab = art.parent
+			local tab = shownTabs()[1]
 			local frame = tab.frame
 			local window = tab.parent.parent -- the tab, in the tab row, in the window
 			local scale = frame:GetEffectiveScale()
@@ -348,7 +347,6 @@ describe("the settings controls", function()
 	end)
 
 	describe("Window's tabs", function()
-		local PX = 1 / 1.2
 		-- a node's top and bottom in the window's box
 		local function span(node, window)
 			local y = 0
@@ -364,13 +362,12 @@ describe("the settings controls", function()
 				and node.y + node.h <= outer.h + 1e-6, "drawn outside its box")
 		end
 
-		it("draws a single-title window's tab as a tabbed window's one open tab, all its art in its box", function()
+		it("draws a single-title window's tab as a tabbed window's one open tab, all of it in its box", function()
 			mount(function(game)
 				game.ui:Window(1, { attributes = { title = "Ordaen", width = 400, height = 300 } })
 			end)
-			local art = lastWithBackground("ctl.tab")
-			local tab = art.parent
-			within(art, tab)
+			local tab = shownTabs()[1]
+			assert.is_truthy(tab)
 			for _, child in ipairs(tab.children) do
 				if child.kind == "box" then
 					within(child, tab)
@@ -406,38 +403,27 @@ describe("the settings controls", function()
 			assert.are.same({}, wow.errors)
 		end)
 
-		it("stands the open tab 4 px under the card's line and closed tabs' bottoms on it", function()
+		it("runs the open tab down to the inside of the body's top line, closed tabs' bottoms on it too", function()
 			mount(function(game)
 				game.ui:Window(1, { attributes = { tabs = { { title = "One" }, { title = "Two" } }, selected = 1,
 					width = 400, height = 300 } })
 			end)
 			local body = windowBody()
 			local window = body.parent
-			-- the card's line: 6 px under the metal art's top, which is its reach under the body's top (border-box)
-			local line = body.y + (body.rT or 0) + 6 * PX
-			local open, closed
-			for _, node in ipairs(nodes()) do
-				local bg = node.a and node.a.background
-				-- the layer that shows each tab (the other draws it unseen)
-				local art = type(bg) == "table" and rawget(bg, "path")
-				if (art == "ctl.tab" or art == "ctl.tabStraight") and node.parent.a.opacity ~= 0 then
-					within(node, node.parent)
-					if node.a.tint then -- a closed tab's art is shaded
-						closed = node.parent
-					else
-						open = node.parent
-					end
-				end
+			-- the body's top line, inside its box: its frame's width and the art's reach (border-box)
+			local line = body.y + body.bwT
+			local tabs = shownTabs()
+			assert.are.equal(2, #tabs)
+			for _, tab in ipairs(tabs) do
+				within(tab, tab.parent)
+				local _, bottom = span(tab, window)
+				-- within a screen pixel: the layout puts the frame's width and reach on whole pixels
+				assert.is_true(math.abs(bottom - line) < 0.5, ("tab bottom %.3f, line %.3f"):format(bottom, line))
 			end
-			local _, openBottom = span(open, window)
-			local _, closedBottom = span(closed, window)
-			-- the open tab's own bottom is 4 px under the line, its art 7 px further into the body
-			local seen = ("open %.3f closed %.3f line %.3f"):format(openBottom, closedBottom, line)
-			-- within a screen pixel (the layout puts sizes and the reach on whole pixels)
-			local pixel = 1
-			assert.is_true(math.abs(openBottom - 7 * PX - 4 * PX - line) < pixel, seen)
-			assert.is_true(math.abs(closedBottom - 4 * PX - line) < pixel, seen)
-			assert.is_true(math.abs(closedBottom - (openBottom - 7 * PX)) < pixel, seen)
+			-- the open one over the body (drawn after it), the closed one under it
+			local open, closed = tabs[2], tabs[1]
+			assert.is_nil(open.a.tint)
+			assert.is_truthy(closed.a.tint)
 			assert.are.same({}, wow.errors)
 		end)
 	end)
