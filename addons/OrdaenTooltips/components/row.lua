@@ -7,7 +7,7 @@
 -- A footer label with a term (`term`, `amount`) is a TermText: underlined and opened once the tooltip is locked.
 --
 -- Attributes: `left`, `right` (nil: free text), `leftColor`, `rightColor`, `size` (text size, UI units), `term`,
--- `amount`, `link` (what its label opens: an item's link), `OnLink`.
+-- `amount`, `link` (what its label opens: an item's link), `valueLink` (what its value opens: a unit), `OnLink`.
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2
@@ -32,8 +32,13 @@ local function Pair(game, self)
 		game.ui:Text({ attributes = { text = self.attributes.left, textColor = self.attributes.leftColor,
 			textSize = self.attributes.size } })
 	end
-	game.ui:Text({ attributes = { text = self.attributes.right, textColor = self.attributes.rightColor,
-		textSize = self.attributes.size, wrap = false } })
+	if self.attributes.valueLink then -- a value that opens something (the caster's unit)
+		game.ui:TermText({ attributes = { text = self.attributes.right, color = self.attributes.rightColor,
+			size = self.attributes.size, link = self.attributes.valueLink, OnLink = self.attributes.OnLink } })
+	else
+		game.ui:Text({ attributes = { text = self.attributes.right, textColor = self.attributes.rightColor,
+			textSize = self.attributes.size, wrap = false } })
+	end
 end
 
 return Define.Component({

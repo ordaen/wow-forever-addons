@@ -227,7 +227,7 @@ local function Fill(calls, m)
 	for i = 1, m.body.n do
 		local row = m.body[i]
 		local a = Calls(calls.body, i)
-		a.left, a.right, a.term, a.amount, a.link = row.left, row.right, row.term, nil, nil
+		a.left, a.right, a.term, a.amount, a.link, a.valueLink = row.left, row.right, row.term, nil, row.link, nil
 		a.leftColor = row.color or ((row.right or row.desc) and BODY or FREE)
 		a.rightColor = row.rightColor or row.color or BODY
 		-- a stat row 16 px, a description 15 (larger than the footer's 14), other free lines 14
@@ -238,6 +238,7 @@ local function Fill(calls, m)
 		local row = m.foot[i]
 		local a = Calls(calls.foot, i)
 		a.left, a.right, a.size, a.term, a.amount, a.link = row.left, row.right, 14 * PX, row.term, row.amount, row.link
+		a.valueLink = row.valueLink
 		a.leftColor = (row.valueColor and not row.right) and row.valueColor or QUIET
 		a.rightColor = row.valueColor or QUIET_VALUE
 	end

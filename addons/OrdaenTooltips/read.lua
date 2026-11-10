@@ -231,6 +231,7 @@ end
 local function Row(model, left, right, color, rightColor)
 	local row = Push(model.body)
 	row.left, row.right, row.color, row.rightColor, row.desc, row.term = left, right, color, rightColor, nil, nil
+	row.link = nil
 	return row
 end
 
@@ -245,6 +246,7 @@ local function Foot(model, left, right, valueColor, term, amount, link)
 	end
 	local row = Push(model.foot)
 	row.left, row.right, row.valueColor, row.term, row.amount, row.link = left, right, valueColor, term, amount, link
+	row.valueLink = nil
 	return row
 end
 
@@ -302,6 +304,18 @@ for global, term in pairs({ ITEM_SOULBOUND = "bound", ITEM_BIND_ON_EQUIP = "boe"
 end
 
 -- Terms -----------------------------------------------------------------------------------------------------------
+
+--- A plain tooltip: a name in gold and one sentence (a camp building's full bonus). False without a text.
+function Read.Text(model, name, text)
+	if not text then
+		return false
+	end
+	Clear(model)
+	model.kind = "text"
+	model.name, model.nameColor = name, GOLD
+	Desc(model, Rich(nil, text))
+	return true
+end
 
 --- A glossary entry as a tooltip (design tooltips «Tooltips in tooltips»: a part's term): its name in gold, its text;
 --- both from the locales (TERM_<KEY>, TERM_<KEY>_TEXT), a «%s» in them the amount the part spoke of. False when the
@@ -863,9 +877,78 @@ end
 
 -- the dispel types' colours, lifted to read on the wood (design auras: Магия blue, Проклятие purple, Яд green,
 -- Болезнь brown)
+-- the dispel types in their colours (design data.js DISPEL: the game's DebuffTypeColor, lifted to read on the wood)
 local DISPEL = {
-	Magic = Rgb(0.35, 0.6, 1), Curse = Rgb(0.7, 0.35, 1), Poison = Rgb(0.3, 0.8, 0.3), Disease = Rgb(0.75, 0.55, 0.3),
+	Magic = Rgb(0x3c / 255, 0x9c / 255, 1), Curse = Rgb(0xb4 / 255, 0x5c / 255, 1),
+	Poison = Rgb(0x2f / 255, 0xbf / 255, 0x3f / 255), Disease = Rgb(0xc8 / 255, 0x90 / 255, 0x40 / 255),
 }
+local REMOVE_COLOR = Rgb(0x8f / 255, 0xd2 / 255, 1) -- the band's «remove by» cell (design #8fd2ff)
+
+-- the spells that remove an effect of a dispel type, by class (design auras «Remove by your class»): the first known
+-- names the band's cell. On an enemy's buff, the offensive dispel.
+local REMOVE = {
+	MAGE = { Curse = { 475 } },
+	DRUID = { Curse = { 2782 }, Poison = { 2893, 8946 } },
+	PRIEST = { Magic = { 527, 988 }, Disease = { 552, 528 } },
+	PALADIN = { Magic = { 4987 }, Poison = { 4987, 1152 }, Disease = { 4987, 1152 } },
+	SHAMAN = { Poison = { 526 }, Disease = { 2870 } },
+}
+local PURGE = { SHAMAN = { 8012, 370 }, PRIEST = { 988, 527 } }
+local function Remover(list)
+	for i = 1, list and #list or 0 do
+		if IsPlayerSpell(list[i]) then
+			return C_Spell.GetSpellName(list[i])
+		end
+	end
+	return nil
+end
+
+-- The camp's bonuses (Forever's own effect, design auras «Camp bonuses»): its description's paragraphs after the
+-- first, «Name: effect» each, as rows: the building's name on the left (opens the full sentence), the bonus in short
+-- on the right (the locales' CAMP_<BUILDING>, matched by CAMP_<BUILDING>_NAME; else the sentence itself).
+local BUILDINGS = { "WELL", "AQUA" }
+local function CampShort(name, L)
+	for i = 1, #BUILDINGS do
+		if rawget(L, "CAMP_" .. BUILDINGS[i] .. "_NAME") == name then
+			return rawget(L, "CAMP_" .. BUILDINGS[i])
+		end
+	end
+	return nil
+end
+local CAMP = 1229741
+local camp = {} -- the last camp effect's sentences by building (what its row's name opens)
+Read.camp = camp
+local function CampRows(model, text, L)
+	local first = true
+	for line in text:gmatch("[^\n]+") do
+		if first then
+			first = false -- «Получены следующие бонусы лагеря:»
+		else
+			local name, effect = line:match("^%s*([^:]+):%s*(.+)$")
+			if name then
+				camp[name] = effect
+				local row = Row(model, name, CampShort(name, L) or effect)
+				row.link = "ordaen:camp:" .. name
+			end
+		end
+	end
+end
+
+-- What an effect over time will still deal or heal (design auras «Total over time»): «N ед. … каждые T сек.» in its
+-- description × the ticks left × the stacks; nil when the description doesn't say so.
+local function Total(text, left, stacks, L)
+	local amount, period = text:match(L.TOTAL_PATTERN or "\0")
+	amount, period = tonumber(amount), tonumber(period)
+	if not amount or not period or period <= 0 or not left then
+		return nil
+	end
+	local total = amount * math.floor(left / period) * (stacks or 1)
+	if total <= 0 then
+		return nil
+	end
+	local heal = L.HEAL_WORD and text:find(L.HEAL_WORD, 1, true)
+	return heal and L.TOTAL_HEAL or L.TOTAL_DAMAGE, format(L.TOTAL_VALUE, total, Duration(left))
+end
 
 -- the aura on its unit: the owner's (Blizzard's aura buttons know their unit and instance), else the player's own
 local function AuraData(owner, id)
@@ -885,6 +968,7 @@ local function Aura(model, data, ctx, owner)
 	model.icon = id and C_Spell.GetSpellTexture(id) or nil
 	local aura, unit = AuraData(owner, id)
 	local lines = data.lines
+	local description
 	for i = 1, #lines do
 		local line = lines[i]
 		local left = Text(line.leftText)
@@ -892,12 +976,22 @@ local function Aura(model, data, ctx, owner)
 			model.name = left
 		elseif left and line.type ~= LINE.Blank and not left:find("^ID ") and not Match(left, SPELL_TIME_REMAINING_MIN)
 			and not Match(left, SPELL_TIME_REMAINING_SEC) and not left:find(L.REMAINING_WORD or "\0", 1, true) then
-			Desc(model, Rich(id, left)) -- Forever's own spell ID line and the time left go: the band has the time
+			-- Forever's own spell ID line and the time left go: the band has the time
+			if id == CAMP then
+				CampRows(model, left, L)
+			else
+				Desc(model, Rich(id, left))
+			end
+			description = description or left
 		end
 	end
 	local harmful = aura and aura.isHarmful
 	model.nameColor = harmful and RED or GOLD
-	Part(model.desc, harmful and L.AURA_DEBUFF or L.AURA_BUFF)
+	if id == CAMP then
+		Part(model.desc, L.CAMP, nil, "camp")
+	else
+		Part(model.desc, harmful and L.AURA_DEBUFF or L.AURA_BUFF)
+	end
 	local dispel = aura and aura.dispelName
 	if type(dispel) == "string" then
 		Part(model.desc, _G["STRING_SCHOOL_" .. dispel:upper()] or L["DISPEL_" .. dispel:upper()] or dispel, -- luacheck: ignore 113
@@ -917,14 +1011,32 @@ local function Aura(model, data, ctx, owner)
 			Cell(model, Duration(max(0, expires - GetTime())), nil, "time")
 			model.timer = true
 		end
+		-- what you can do about it: cancel your own buff, or the spell of your class that removes it
+		local _, myClass = UnitClass("player")
+		local remover
+		if type(dispel) == "string" and harmful then
+			remover = Remover(REMOVE[myClass] and REMOVE[myClass][dispel])
+		elseif dispel == "Magic" and not harmful and type(unit) == "string" and UnitCanAttack("player", unit) then
+			remover = Remover(PURGE[myClass])
+		end
 		if unit == "player" and not harmful then
 			Cell(model, L.CANCEL_KEY, nil, nil, nil, "cancel")
+		elseif remover then
+			Cell(model, remover, REMOVE_COLOR, nil, nil, "removeBy")
 		end
 		if ctx.aurasCaster and type(source) == "string" and UnitExists(source) then
 			local name = (source == "player") and L.YOU or UnitName(source)
 			local _, class = UnitClass(source)
-			local color = class and RAID_CLASS_COLORS[class]
-			Foot(model, L.CASTER, name, color and Rgb(color.r, color.g, color.b) or nil, "caster")
+			local color = ctx.classNames and class and RAID_CLASS_COLORS[class]
+			local row = Foot(model, L.CASTER, name, color and Rgb(color.r, color.g, color.b) or nil, "caster")
+			row.valueLink = source ~= "player" and "unit:" .. source or nil -- hovered: the caster's own tooltip
+		end
+		if ctx.aurasTotal and description then
+			local left = type(expires) == "number" and expires > 0 and expires - GetTime() or nil
+			local label, value = Total(description, left, stacks, L)
+			if label then
+				Foot(model, label, value, nil, "total")
+			end
 		end
 	end
 	if id and ctx.aurasId then

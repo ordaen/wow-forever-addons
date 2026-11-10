@@ -201,6 +201,9 @@ describe("Ordaen Tooltips", function()
 		env.UnitLevel = function()
 			return 55
 		end
+		env.UnitCanAttack = function()
+			return false
+		end
 		env.UnitIsTapDenied = function()
 			return false
 		end
@@ -323,6 +326,31 @@ describe("Ordaen Tooltips", function()
 		has(shown, "|cffe0c9a0|Hordaen:term:phys:|hphysical damage|h|r") -- a school in the description: its colour, its term
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("draws a debuff with its total over time, your class's spell that removes it, and its caster's tooltip link",
+		function()
+			wow.env.C_UnitAuras.GetPlayerAuraBySpellID = function()
+				return { isHarmful = true, applications = 1, expirationTime = 19, sourceUnit = "target",
+					dispelName = "Curse" }
+			end
+			wow.env.UnitClass = function()
+				return "Mage", "MAGE"
+			end
+			wow.env.IsPlayerSpell = function(id)
+				return id == 475
+			end
+			wow.env.C_Spell.GetSpellName = function(id)
+				return id == 475 and "Remove Lesser Curse" or nil
+			end
+			wow:ShowTooltip("GameTooltip", { type = 7, id = 172, lines = {
+				{ type = 0, leftText = "Corruption" },
+				{ type = 0, leftText = "Deals 10 damage every 3 sec." },
+			} })
+			ns.Scheduler.Flush()
+			local shown = texts()
+			has(shown, "Debuff", "Remove Lesser Curse", "Damage left", "30 over 9 s") -- 9 s left: 3 ticks of 10
+			assert.are.same({}, wow.errors)
+		end)
 
 	it("draws an aura: buff, dispel type, yours; stacks and time in the band; who cast it", function()
 		wow:ShowTooltip("GameTooltip", MIGHT)

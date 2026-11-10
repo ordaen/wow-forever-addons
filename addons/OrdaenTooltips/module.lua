@@ -31,6 +31,10 @@ local function DataOf(link)
 	if link:find("^item:") or link:find("^spell:") then
 		return C_TooltipInfo.GetHyperlink(link)
 	end
+	local unit = link:match("^unit:(.+)$")
+	if unit then
+		return UnitExists(unit) and C_TooltipInfo.GetUnit(unit) or nil
+	end
 	return nil
 end
 
@@ -126,6 +130,7 @@ return Define.Module({
 			aurasOn = { type = "boolean", default = true, setting = true },
 			aurasId = { type = "boolean", default = false, setting = true },
 			aurasCaster = { type = "boolean", default = true, setting = true },
+			aurasTotal = { type = "boolean", default = true, setting = true },
 			playersOn = { type = "boolean", default = true, setting = true },
 			playersTarget = { type = "boolean", default = true, setting = true },
 			playersRelation = { type = "boolean", default = true, setting = true },
@@ -150,6 +155,7 @@ return Define.Module({
 			ctx.itemsCooldown, ctx.spellsId = Define.Peek(self.state.itemsCooldown), Define.Peek(self.state.spellsId)
 			ctx.spellsCooldown = Define.Peek(self.state.spellsCooldown)
 			ctx.aurasId, ctx.aurasCaster = Define.Peek(self.state.aurasId), Define.Peek(self.state.aurasCaster)
+			ctx.aurasTotal = Define.Peek(self.state.aurasTotal)
 			ctx.playersTarget = Define.Peek(self.state.playersTarget)
 			ctx.playersRelation, ctx.npcsLoot = Define.Peek(self.state.playersRelation), Define.Peek(self.state.npcsLoot)
 			local theme = game.Themes:Active()
@@ -366,7 +372,12 @@ return Define.Module({
 			nested[1] = model
 			-- a term's glossary entry (ordaen:term:key:amount), else what the game's data says of the link
 			local key, amount = link:match("^ordaen:term:([^:]+):(.*)$")
-			if key then
+			local building = link:match("^ordaen:camp:(.+)$")
+			if building then -- a camp building's full sentence
+				if not Read.Text(model, building, Read.camp[building]) then
+					return
+				end
+			elseif key then
 				if not Read.Term(model, key, amount ~= "" and amount or nil, L) then
 					return
 				end
@@ -471,6 +482,8 @@ return Define.Module({
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.aurasId),
 					disabled = not self.state.aurasOn } })
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.aurasCaster),
+					disabled = not self.state.aurasOn } })
+				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.aurasTotal),
 					disabled = not self.state.aurasOn } })
 			end } })
 		end } })
