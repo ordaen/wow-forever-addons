@@ -8,7 +8,9 @@
 --                             is kept by the parent, in arrays indexed by the child's position (child.idx): cCol,
 --                             cRow, cSpan, cW (cell width), cTw, cTh, cGiven (its size there and the height it was
 --                             given); a box with one child in one column keeps none (the child is in column 1)
---   wKind, wAmount            width: "fixed" (amount in UI units), "auto" (content), "pct" (amount 0..1 of the
+--   wKind, wAmount            width: "fixed" (amount in UI units), "auto" (content), "minfit" (`{ min, fit = "min" }`:
+--                             the widest content that doesn't wrap, at least amount; wrapping texts wrap at it, as CSS
+--                             `width: min-content; min-width: ...` with the titles on one line), "pct" (amount 0..1 of the
 --   hKind, hAmount            parent's content box), "fill" (the cell), nil (stretch in its cell, unless the parent's
 --                             xAlign places it; heights: content, stretched to the row by the parent's yAlign)
 --   ncols, colKind, colAmount the grid's tracks: "fixed" | "auto" | "fr" (amount = weight)
@@ -41,6 +43,7 @@ local Layout = {}
 ns.Layout = Layout
 
 local MIN_COLUMN = 8 -- a column never shrinks below this
+local fitting = false -- natural() measures for a "minfit" box: wrapping texts count for nothing
 
 local floor, max, min, tonumber, type = math.floor, math.max, math.min, tonumber, type
 
@@ -58,6 +61,8 @@ function Layout.Size(value, track)
 		return nil, 0
 	elseif type(value) == "number" then
 		return "fixed", value
+	elseif type(value) == "table" and value.fit == "min" then
+		return "minfit", value.min or 0
 	end
 	local kind = sizeKind[value]
 	if not kind then
@@ -148,7 +153,7 @@ end
 function Layout.ApplySize(node, a, resolve, px)
 	local wk, wa = Layout.Size(resolve(node, a.width))
 	local hk, ha = Layout.Size(resolve(node, a.height))
-	node.wKind, node.wAmount = wk, wk == "fixed" and pixels(wa, px) or wa
+	node.wKind, node.wAmount = wk, (wk == "fixed" or wk == "minfit") and pixels(wa, px) or wa
 	node.hKind, node.hAmount = hk, hk == "fixed" and pixels(ha, px) or ha
 	node.span = resolve(node, a.columnSpan)
 	node.pos = resolve(node, a.position)
@@ -339,7 +344,7 @@ local function widthGiven(node)
 		local wk = node.wKind
 		if wk == "fixed" or wk == "pct" or wk == "fill" then
 			return true
-		elseif wk == "auto" or node.kind ~= "box" or isFree(node) then
+		elseif wk == "auto" or wk == "minfit" or node.kind ~= "box" or isFree(node) then
 			return false
 		end
 		local parent = node.parent
@@ -518,8 +523,10 @@ local function boxNatural(node)
 		colNat = {}
 		node.colNat = colNat
 	end
-	for c = 1, n do
-		colNat[c] = kinds[c] ~= "fixed" and colW[c] or nil
+	if not fitting then -- a fit's measure leaves wrapping texts out: not the columns' real widest
+		for c = 1, n do
+			colNat[c] = kinds[c] ~= "fixed" and colW[c] or nil
+		end
 	end
 	local unit = 0
 	for c = 1, n do
@@ -554,7 +561,8 @@ local function boxNatural(node)
 	return sum
 end
 
----The width a node takes on its own, without wrapping.
+---The width a node takes on its own, without wrapping; while `fitting` (a "minfit" box measuring its content), a text
+---that may wrap takes none: it wraps at whatever the rest gives.
 function natural(node)
 	local wk = node.wKind
 	if wk == "fixed" then
@@ -562,7 +570,20 @@ function natural(node)
 	elseif wk == "pct" or wk == "fill" then
 		return 0
 	elseif node.kind == "text" then
+		if fitting and node.wrap ~= false then
+			return 0
+		end
 		return node.natW
+	elseif wk == "minfit" then
+		if not node.natValid then -- cleared wherever the natural width is (its cache is the fit's for this box)
+			local was = fitting
+			fitting = true
+			node.natCache, node.natValid = max(node.wAmount, boxNatural(node)), true
+			fitting = was
+		end
+		return node.natCache
+	elseif fitting then
+		return boxNatural(node) -- not cached: the cache holds the real natural width
 	end
 	if not node.natValid then
 		node.natCache, node.natValid = boxNatural(node), true
@@ -689,7 +710,7 @@ local function sizeIn(child, cellW, parent, contentW, contentH, ctx)
 		w = child.wAmount * cellW -- of its grid cell, as CSS takes it (not the whole content box)
 	elseif wk == "fill" then
 		w = cellW
-	elseif wk == "auto" or placed(parent.xAlign) then
+	elseif wk == "auto" or wk == "minfit" or placed(parent.xAlign) then
 		if child.kind == "text" and child.wrap == false then
 			w = child.natW
 		else

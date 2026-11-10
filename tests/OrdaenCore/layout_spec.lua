@@ -439,4 +439,31 @@ describe("backend layout", function()
 			assert.equal(0, placedCount)
 		end)
 	end)
+
+	describe("a box sized to its widest line (width = { min, fit = \"min\" })", function()
+		it("takes its minimum when its lines are shorter, its widest one-line text when that's wider", function()
+			local title = text("Short", { wrap = false })
+			local body = text(string.rep("word ", 60)) -- 300 chars: would be 1800 wide on one line
+			local tip = box({ position = "fixed", width = { min = 200, fit = "min" }, columns = 1 }, { title, body })
+			local r = root({ tip })
+			run(r)
+			assert.are.equal(200, tip.w)
+			assert.are.equal(200, body.w) -- it wraps at the tooltip's width
+			assert.is_true(body.h > LINE)
+			local long = text(string.rep("x", 50), { wrap = false }) -- 300 wide
+			attach(tip, { long, body })
+			run(tip) -- what changed: its parents are laid out again from there
+			assert.are.equal(300, tip.w)
+			assert.are.equal(300, body.w)
+		end)
+
+		it("grows to equal cells as wide as its widest one", function()
+			local cells = box({ columns = 3 }, {
+				text("aaaa", { wrap = false }), text(string.rep("b", 40), { wrap = false }), text("c", { wrap = false }) })
+			local tip = box({ position = "fixed", width = { min = 100, fit = "min" }, columns = 1 }, { cells })
+			run(root({ tip }))
+			assert.are.equal(720, tip.w) -- three shares of the widest cell (240)
+		end)
+	end)
 end)
+
