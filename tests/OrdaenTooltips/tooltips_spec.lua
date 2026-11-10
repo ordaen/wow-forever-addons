@@ -201,6 +201,18 @@ describe("Ordaen Tooltips", function()
 		env.UnitLevel = function()
 			return 55
 		end
+		env.C_Reputation = {
+			GetNumFactions = function()
+				return 1
+			end,
+			GetFactionDataByIndex = function()
+				return { name = "Stormwind", reaction = 5, isHeader = false }
+			end,
+		}
+		env.FACTION_STANDING_LABEL5 = "Friendly"
+		env.UnitTokenFromGUID = function()
+			return nil
+		end
 		env.UnitCanAttack = function()
 			return false
 		end
@@ -359,6 +371,26 @@ describe("Ordaen Tooltips", function()
 		has(shown, "Blessing of Might", "Buff", "Magic", "Yours", "×3", "1 m", "Increases attack power by")
 		has(shown, "Cast by", "You")
 		assert.is_falsy(shown:find("ID 19834", 1, true)) -- Forever's own line goes
+		assert.are.same({}, wow.errors)
+	end)
+
+	it("draws an NPC's quest objectives with the party's, someone else's loot and your reputation", function()
+		wow.env.UnitIsTapDenied = function()
+			return true
+		end
+		wow:ShowTooltip("GameTooltip", { type = 2, guid = "Creature-2", lines = {
+			{ type = 2, leftText = "Stormwind Guard", unitToken = "mouseover" },
+			{ type = 0, leftText = "Level 55" },
+			{ type = 0, leftText = "Stormwind" },
+			{ type = 17, leftText = "The Guard's Watch" },
+			{ type = 8, leftText = "Guards greeted: 3/8" },
+			{ type = 18, leftText = "Tiranda" },
+			{ type = 8, leftText = "Guards greeted: 8/8", completed = true },
+		} })
+		ns.Scheduler.Flush()
+		local shown = texts()
+		has(shown, "The Guard's Watch", "Guards greeted\n3/8", "Tiranda\n8/8") -- the quest, yours, the party's
+		has(shown, "Someone else's loot", "Stormwind\nFriendly") -- tapped; your standing with its faction
 		assert.are.same({}, wow.errors)
 	end)
 

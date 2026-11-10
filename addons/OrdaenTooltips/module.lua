@@ -135,7 +135,9 @@ return Define.Module({
 			playersTarget = { type = "boolean", default = true, setting = true },
 			playersRelation = { type = "boolean", default = true, setting = true },
 			npcsOn = { type = "boolean", default = true, setting = true },
+			npcsParty = { type = "boolean", default = true, setting = true },
 			npcsLoot = { type = "boolean", default = true, setting = true },
+			npcsRep = { type = "boolean", default = true, setting = true },
 			objectsOn = { type = "boolean", default = true, setting = true },
 		})
 		Define.Ephemeral({
@@ -158,6 +160,7 @@ return Define.Module({
 			ctx.aurasTotal = Define.Peek(self.state.aurasTotal)
 			ctx.playersTarget = Define.Peek(self.state.playersTarget)
 			ctx.playersRelation, ctx.npcsLoot = Define.Peek(self.state.playersRelation), Define.Peek(self.state.npcsLoot)
+			ctx.npcsParty, ctx.npcsRep = Define.Peek(self.state.npcsParty), Define.Peek(self.state.npcsRep)
 			local theme = game.Themes:Active()
 			ctx.classNames = not theme or theme.values.classNames:Peek() ~= false
 		end
@@ -261,6 +264,8 @@ return Define.Module({
 		self:On("SPELLS_CHANGED", Read.Spellbook)
 		Read.Spellbook()
 		Read.Schools(L)
+		self:On("UPDATE_FACTION", Read.Factions)
+		Read.Factions()
 
 		self.chargeSignal = Define.Signal(self.state.charge) -- the bar reads it: a step moves only the bar
 		self.viewCalls = {}
@@ -499,7 +504,11 @@ return Define.Module({
 		game.ui:SettingsTab({ attributes = { title = L.TAB_NPCS }, slots = { default = function()
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.npcsOn) } })
 			game.ui:Section({ attributes = { title = L.SECTION_MORE }, slots = { default = function()
+				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.npcsParty),
+					disabled = not self.state.npcsOn } })
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.npcsLoot),
+					disabled = not self.state.npcsOn } })
+				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.npcsRep),
 					disabled = not self.state.npcsOn } })
 			end } })
 		end } })

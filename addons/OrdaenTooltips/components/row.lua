@@ -7,7 +7,8 @@
 -- A footer label with a term (`term`, `amount`) is a TermText: underlined and opened once the tooltip is locked.
 --
 -- Attributes: `left`, `right` (nil: free text), `leftColor`, `rightColor`, `size` (text size, UI units), `term`,
--- `amount`, `link` (what its label opens: an item's link), `valueLink` (what its value opens: a unit), `OnLink`.
+-- `amount`, `link` (what its label opens: an item's link), `valueLink` (what its value opens: a unit), `indent` (a
+-- party member's progress under an objective), `OnLink`.
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2
@@ -21,6 +22,12 @@ local function Free(game, self)
 		game.ui:Text({ attributes = { text = self.attributes.left, textColor = self.attributes.leftColor,
 			textSize = self.attributes.size } })
 	end
+end
+
+-- a party member's progress under an objective: 12 px in (design TooltipLines .pair.party)
+local INDENT = { 0, 0, 0, 12 * PX }
+local function Indent(_, self)
+	return self.attributes.indent and INDENT or nil
 end
 
 local function Pair(game, self)
@@ -44,8 +51,8 @@ end
 return Define.Component({
 	Render = function(game, self)
 		if self.attributes.right then
-			game.ui:Box({ attributes = { columns = { "1fr", "auto" }, gap = 10 * PX, OnLink = self.attributes.OnLink },
-				slots = { default = Pair } })
+			game.ui:Box({ attributes = { columns = { "1fr", "auto" }, gap = 10 * PX, OnLink = self.attributes.OnLink,
+				padding = Indent(game, self) }, slots = { default = Pair } })
 		else
 			game.ui:Box({ attributes = { columns = 1, OnLink = self.attributes.OnLink }, slots = { default = Free } })
 		end

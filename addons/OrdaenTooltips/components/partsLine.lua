@@ -2,7 +2,7 @@
 -- part in its colour and a TermText (its term underlined and opened once the tooltip is locked). Never wrapped: the
 -- tooltip grows to it.
 --
--- Attributes: `parts` (Read's list: `.n`, each { text, color, term }), `version` (changes with each refill), `color`
+-- Attributes: `parts` (Read's list: `.n`, each { text, color, term, link }), `version` (changes with each refill), `color`
 -- (the line's colour, for parts without their own), `size` (text size, UI units), `OnLink`.
 local Define = import("@ordaen/define")
 
@@ -38,6 +38,7 @@ local function Parts(game, self)
 		end
 		local a, part = call.attributes, parts[i]
 		a.text, a.color, a.size, a.term, a.OnLink = part.text, part.color or color, size, part.term, link
+		a.link = part.link
 		game.ui:TermText(nil, call, i)
 	end
 end

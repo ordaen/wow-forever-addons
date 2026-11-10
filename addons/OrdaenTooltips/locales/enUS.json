@@ -249,5 +249,16 @@
   "CAMP_WELL_NAME": "Mana Well",
   "CAMP_WELL": "+10 mana / 5 sec.",
   "CAMP_AQUA_NAME": "Aquarium",
-  "CAMP_AQUA": "Stats +8%"
+  "CAMP_AQUA": "Stats +8%",
+  "TAPPED": "Someone else's loot",
+  "TOOLTIPS_NPCSPARTY": "Party quests",
+  "TOOLTIPS_NPCSPARTY_TIP": "Your party members' quest counters.",
+  "TOOLTIPS_NPCSREP": "Reputation",
+  "TOOLTIPS_NPCSREP_TIP": "Your standing with the NPC's faction.",
+  "TERM_TAPPED": "Someone else's loot",
+  "TERM_TAPPED_TEXT": "Someone outside your group attacked this creature first: its loot and experience go to them.",
+  "TERM_REP": "Reputation",
+  "TERM_REP_TEXT": "Your standing with this NPC's faction.",
+  "TERM_QUEST": "Quest",
+  "TERM_QUEST_TEXT": "A quest objective: how many you and your party members have."
 }

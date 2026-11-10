@@ -204,10 +204,10 @@ end
 
 -- `term` (and `amount`, the number it speaks of): the glossary entry a locked tooltip opens from this part (design
 -- tooltips «Tooltips in tooltips»; Read.Term)
-local function Part(list, text, color, term)
+local function Part(list, text, color, term, link)
 	if text then
 		local part = Push(list)
-		part.text, part.color, part.term = text, color, term
+		part.text, part.color, part.term, part.link = text, color, term, link
 	end
 end
 
@@ -216,6 +216,7 @@ local function Free(model, text, color)
 	if text then
 		local row = Push(model.body)
 		row.left, row.right, row.color, row.rightColor, row.desc, row.term = text, nil, color, nil, nil, nil
+		row.link, row.indent = nil, nil
 	end
 end
 
@@ -224,6 +225,7 @@ local function Desc(model, text)
 	if text then
 		local row = Push(model.body)
 		row.left, row.right, row.color, row.rightColor, row.desc, row.term = text, nil, nil, nil, true, nil
+		row.link, row.indent = nil, nil
 	end
 end
 
@@ -231,7 +233,7 @@ end
 local function Row(model, left, right, color, rightColor)
 	local row = Push(model.body)
 	row.left, row.right, row.color, row.rightColor, row.desc, row.term = left, right, color, rightColor, nil, nil
-	row.link = nil
+	row.link, row.indent = nil, nil
 	return row
 end
 
@@ -1134,6 +1136,56 @@ local function LevelCell(model, unit, L)
 	Cell(model, format(L.LEVEL_CELL, level), color and Rgb(color.r, color.g, color.b) or nil, nil, nil, "lvlColor")
 end
 
+-- Your standing with each faction you've met, by name (the reputation footer row): read again on UPDATE_FACTION.
+local standings = {}
+function Read.Factions()
+	for name in pairs(standings) do
+		standings[name] = nil
+	end
+	for i = 1, C_Reputation.GetNumFactions() or 0 do
+		local faction = C_Reputation.GetFactionDataByIndex(i)
+		if faction and not faction.isHeader and type(faction.name) == "string" then
+			standings[faction.name] = faction.reaction
+		end
+	end
+end
+-- a standing's colour (design data.js REP_TONE): hated to hostile red, unfriendly orange, neutral yellow, friendly up
+-- green
+local STANDING_COLOR = { [1] = RED, [2] = RED, [3] = Rgb(1, 0.5, 0.25), [4] = YELLOW }
+local STANDING_FRIENDLY = Rgb(0.25, 0.75, 0.25)
+
+-- The quest lines of a unit's or object's tooltip data (design npcs «Quest objectives»): the quest's name in gold,
+-- each objective a row with your counter (green when done), your party's under it, indented (QuestPlayer lines name
+-- the member whose objectives follow). `party`: show them.
+local QUEST_TITLE, QUEST_OBJECTIVE, QUEST_PLAYER = 17, 8, 18
+local function Quests(model, lines, party)
+	local member
+	for i = 1, #lines do
+		local line = lines[i]
+		local text = Text(line.leftText)
+		if text and line.type == QUEST_TITLE then
+			member = nil
+			Free(model, text, GOLD)
+		elseif text and line.type == QUEST_PLAYER then
+			member = text
+		elseif text and line.type == QUEST_OBJECTIVE then
+			local have, need = text:match("(%d+)%s*/%s*(%d+)")
+			local label = text:gsub("%s*:?%s*%d+%s*/%s*%d+%s*", ""):gsub("^%s*%-%s*", "")
+			local done = line.completed == true or have and tonumber(have) >= tonumber(need)
+			local value = have and have .. "/" .. need or nil
+			if member then
+				if party then
+					local row = Row(model, member, value, nil, done and GREEN or nil)
+					row.indent, row.term = true, "quest"
+				end
+			else
+				Row(model, label, value, nil, done and GREEN or nil).term = "quest"
+			end
+		end
+	end
+end
+Read.Quests = Quests
+
 -- an NPC: the name in its reaction colour (grey tapped), its role, creature type and «Труп»; level, elite/rare, faction
 local function Npc(model, unit, data, ctx)
 	local L = ctx.L
@@ -1155,7 +1207,11 @@ local function Npc(model, unit, data, ctx)
 			if role then
 				Part(model.desc, role)
 			elseif line.type == LINE.UnitOwner then
-				Part(model.desc, text)
+				-- a pet's owner: hovered, their own tooltip
+				local owner = type(line.guid) == "string" and UnitTokenFromGUID(line.guid)
+				Part(model.desc, text, nil, nil, owner and "unit:" .. owner or nil)
+			elseif line.type == QUEST_TITLE or line.type == QUEST_OBJECTIVE or line.type == QUEST_PLAYER then -- luacheck: ignore 542
+				-- quest lines: their own rows (Quests)
 			elseif text == PVP or text:find("%d") and level and text:find(tostring(level), 1, true) and i <= 3 then -- luacheck: ignore 542
 				-- «PvP» and the level line: the band has the level
 			elseif i <= 4 and not factionName and UnitFactionGroup(unit) then
@@ -1183,6 +1239,16 @@ local function Npc(model, unit, data, ctx)
 	if faction then
 		Cell(model, factionName or faction, faction == UnitFactionGroup("player") and GREEN or RED, nil, nil,
 			faction == "Alliance" and "alliance" or faction == "Horde" and "horde" or nil)
+	end
+	Quests(model, lines, ctx.npcsParty)
+	-- the footer: someone else's loot; your reputation with its faction (factions you've met only)
+	if ctx.npcsLoot and UnitIsTapDenied(unit) then
+		Foot(model, L.TAPPED, "", nil, "tapped")
+	end
+	local standing = ctx.npcsRep and factionName and standings[factionName]
+	if standing then
+		Foot(model, factionName, _G["FACTION_STANDING_LABEL" .. standing] or tostring(standing), -- luacheck: ignore 113
+			STANDING_COLOR[standing] or STANDING_FRIENDLY, "rep")
 	end
 end
 

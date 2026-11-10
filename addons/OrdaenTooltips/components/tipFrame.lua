@@ -228,10 +228,11 @@ local function Fill(calls, m)
 		local row = m.body[i]
 		local a = Calls(calls.body, i)
 		a.left, a.right, a.term, a.amount, a.link, a.valueLink = row.left, row.right, row.term, nil, row.link, nil
+		a.indent = row.indent
 		a.leftColor = row.color or ((row.right or row.desc) and BODY or FREE)
 		a.rightColor = row.rightColor or row.color or BODY
 		-- a stat row 16 px, a description 15 (larger than the footer's 14), other free lines 14
-		a.size = row.right and 16 * PX or row.desc and 15 * PX or 14 * PX
+		a.size = row.indent and 14 * PX or row.right and 16 * PX or row.desc and 15 * PX or 14 * PX
 	end
 	calls.nFoot = m.foot.n
 	for i = 1, m.foot.n do
