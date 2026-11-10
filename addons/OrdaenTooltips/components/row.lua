@@ -8,7 +8,7 @@
 --
 -- Attributes: `left`, `right` (nil: free text), `leftColor`, `rightColor`, `size` (text size, UI units), `term`,
 -- `amount`, `link` (what its label opens: an item's link), `valueLink` (what its value opens: a unit), `indent` (a
--- party member's progress under an objective), `OnLink`.
+-- party member's progress under an objective), `spaced` (6 px above it: rows turn into sentences here), `OnLink`.
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2
@@ -24,10 +24,12 @@ local function Free(game, self)
 	end
 end
 
--- a party member's progress under an objective: 12 px in (design TooltipLines .pair.party)
+-- a party member's progress under an objective: 12 px in (design TooltipLines .pair.party); 6 px above a row where
+-- the body turns from rows to sentences or back (.pair + .free)
 local INDENT = { 0, 0, 0, 12 * PX }
-local function Indent(_, self)
-	return self.attributes.indent and INDENT or nil
+local SPACED = { 6 * PX, 0, 0, 0 }
+local function Padding(_, self)
+	return self.attributes.indent and INDENT or self.attributes.spaced and SPACED or nil
 end
 
 local function Pair(game, self)
@@ -52,9 +54,10 @@ return Define.Component({
 	Render = function(game, self)
 		if self.attributes.right then
 			game.ui:Box({ attributes = { columns = { "1fr", "auto" }, gap = 10 * PX, OnLink = self.attributes.OnLink,
-				padding = Indent(game, self) }, slots = { default = Pair } })
+				padding = Padding(game, self) }, slots = { default = Pair } })
 		else
-			game.ui:Box({ attributes = { columns = 1, OnLink = self.attributes.OnLink }, slots = { default = Free } })
+			game.ui:Box({ attributes = { columns = 1, OnLink = self.attributes.OnLink, padding = Padding(game, self) },
+				slots = { default = Free } })
 		end
 	end,
 })

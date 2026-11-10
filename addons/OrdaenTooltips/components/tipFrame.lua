@@ -116,6 +116,13 @@ local function Body(game, self)
 	end
 end
 
+local function More(game, self)
+	local calls = self.calls
+	for i = 1, calls.nMore do
+		game.ui:Row(nil, calls.more[i], i)
+	end
+end
+
 local function Foot(game, self)
 	local calls = self.calls
 	for i = 1, calls.nFoot do
@@ -178,6 +185,9 @@ local function Sections(game, self)
 	if calls.nBody > 0 then
 		game.ui:Box(calls.bodyBox)
 	end
+	if calls.nMore > 0 then
+		game.ui:Box(calls.moreBox)
+	end
 	if calls.nFoot > 0 then
 		game.ui:Box(calls.footBox)
 	end
@@ -212,6 +222,24 @@ local function Section(slot)
 		slots = { default = slot } }
 end
 
+-- a body's rows (the body, the «More» section) into their calls: stat rows 16 px, a description 15 (larger than the
+-- footer's 14), other free lines 14; 6 px more above a row where rows turn into sentences or back (design TooltipLines
+-- .pair + .free); returns how many
+local function BodyRows(calls, rows)
+	for i = 1, rows.n do
+		local row = rows[i]
+		local a = Calls(calls, i)
+		a.left, a.right, a.term, a.amount, a.link, a.valueLink = row.left, row.right, row.term, nil, row.link, nil
+		a.indent = row.indent
+		a.leftColor = row.color or ((row.right or row.desc) and BODY or FREE)
+		a.rightColor = row.rightColor or row.color or BODY
+		a.size = row.indent and 14 * PX or row.right and 16 * PX or row.desc and 15 * PX or 14 * PX
+		local before = rows[i - 1]
+		a.spaced = i > 1 and (row.right == nil) ~= (before.right == nil) and not row.indent
+	end
+	return rows.n
+end
+
 -- the model into the calls: what this show draws
 local function Fill(calls, m)
 	calls.headerText.attributes.text = m.header
@@ -232,21 +260,12 @@ local function Fill(calls, m)
 		a.text, a.color, a.glyph, a.tint = cell.text, cell.color or BODY, GlyphOf(cell.glyph), cell.tint
 		a.term, a.amount, a.link = cell.term, cell.amount, cell.link
 		a.divider = i > 1
-		a.last = m.body.n == 0 and m.foot.n == 0 and m.keys.n == 0 -- the band ends the tooltip: no padding under it
+		a.last = m.body.n + m.more.n + m.foot.n + m.keys.n == 0 -- the band ends the tooltip: no padding under it
 	end
 	calls.colsBox.attributes.columns = m.cols.n
 
-	calls.nBody = m.body.n
-	for i = 1, m.body.n do
-		local row = m.body[i]
-		local a = Calls(calls.body, i)
-		a.left, a.right, a.term, a.amount, a.link, a.valueLink = row.left, row.right, row.term, nil, row.link, nil
-		a.indent = row.indent
-		a.leftColor = row.color or ((row.right or row.desc) and BODY or FREE)
-		a.rightColor = row.rightColor or row.color or BODY
-		-- a stat row 16 px, a description 15 (larger than the footer's 14), other free lines 14
-		a.size = row.indent and 14 * PX or row.right and 16 * PX or row.desc and 15 * PX or 14 * PX
-	end
+	calls.nBody = BodyRows(calls.body, m.body)
+	calls.nMore = BodyRows(calls.more, m.more)
 	calls.nFoot = m.foot.n
 	for i = 1, m.foot.n do
 		local row = m.foot[i]
@@ -263,13 +282,15 @@ local function Fill(calls, m)
 	end
 
 	-- the title alone (a sign): no padding under it
-	head.padding = (m.cols.n + m.body.n + m.foot.n + m.keys.n > 0 or m.header) and HEAD_PADDING or nil
+	head.padding = (m.cols.n + m.body.n + m.more.n + m.foot.n + m.keys.n > 0 or m.header) and HEAD_PADDING or nil
 	-- a rule only between two present sections; none between the title and the body
 	local above = head.shown
 	calls.colsBox.attributes.border = above and RULE or nil
 	above = above or m.cols.n > 0
 	calls.bodyBox.attributes.border = (m.cols.n > 0) and RULE or nil
 	above = above or m.body.n > 0
+	calls.moreBox.attributes.border = above and RULE or nil -- «More»: always under a rule
+	above = above or m.more.n > 0
 	calls.footBox.attributes.border = above and RULE or nil
 	above = above or m.foot.n > 0
 	calls.keysBox.attributes.border = above and RULE or nil
@@ -292,8 +313,8 @@ return Define.Component({
 			info = { attributes = { color = QUIET, size = 14 * PX } },
 			-- the band: one row of cells, each padded, a rule between neighbours (design TooltipColumns)
 			colsBox = { attributes = { gap = 0 }, slots = { default = Cols } },
-			bodyBox = Section(Body), footBox = Section(Foot), keysBox = Section(Keys),
-			cols = {}, body = {}, foot = {}, keys = {}, nCols = 0, nBody = 0, nFoot = 0, nKeys = 0,
+			bodyBox = Section(Body), moreBox = Section(More), footBox = Section(Foot), keysBox = Section(Keys),
+			cols = {}, body = {}, more = {}, foot = {}, keys = {}, nCols = 0, nBody = 0, nMore = 0, nFoot = 0, nKeys = 0,
 			-- the header: the windows' title style, a groove under it (a fixed height: compared titles line up)
 			-- a fixed height (15 + 6 + 2 + 12 = 35 px, design .header): the compared item lines its title up by it
 			header = { attributes = { columns = 1, gap = 6 * PX, padding = { 0, 0, 12 * PX, 0 }, height = HEADER_HEIGHT },
@@ -311,6 +332,9 @@ return Define.Component({
 		local link = self.attributes.OnLink
 		for i = 1, calls.nBody do
 			calls.body[i].attributes.OnLink = link
+		end
+		for i = 1, calls.nMore do
+			calls.more[i].attributes.OnLink = link
 		end
 		for i = 1, calls.nFoot do
 			calls.foot[i].attributes.OnLink = link

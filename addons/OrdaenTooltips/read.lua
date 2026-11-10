@@ -187,12 +187,13 @@ end
 
 --- A new model for one tooltip view (made once).
 function Read.NewModel()
-	return { desc = List(), info = List(), cols = List(), body = List(), foot = List(), keys = List(), side = List(),
-		stats = {} }
+	return { desc = List(), info = List(), cols = List(), body = List(), more = List(), foot = List(), keys = List(),
+		side = List(), stats = {} }
 end
 
 local function Clear(model)
 	model.desc.n, model.info.n, model.cols.n, model.body.n, model.foot.n, model.keys.n = 0, 0, 0, 0, 0, 0
+	model.more.n = 0
 	model.side.n = 0
 	model.icon, model.portrait, model.name, model.header, model.timer = nil, nil, nil, nil, nil
 	model.nameColor, model.kind, model.id = WHITE, nil, nil
@@ -1246,6 +1247,9 @@ local STANDING_FRIENDLY = Rgb(0.25, 0.75, 0.25)
 -- the member whose objectives follow). `party`: show them.
 local QUEST_TITLE, QUEST_OBJECTIVE, QUEST_PLAYER = 17, 8, 18
 local function Quests(model, lines, party)
+	-- their own section under a rule (design «More»: quest objectives), drawn like the body
+	local body = model.body
+	model.body = model.more
 	local member
 	for i = 1, #lines do
 		local line = lines[i]
@@ -1270,6 +1274,7 @@ local function Quests(model, lines, party)
 			end
 		end
 	end
+	model.body = body
 end
 Read.Quests = Quests
 
@@ -1518,8 +1523,12 @@ function Talent(model, data, ctx, owner)
 		local current = C_Traits.GetTraitDescription(entryID, rank)
 		local next = C_Traits.GetTraitDescription(entryID, rank + 1)
 		if type(current) == "string" and type(next) == "string" and next ~= "" then
+			-- its own section under a rule (design «More»: the next rank), drawn like the body
+			local body = model.body
+			model.body = model.more
 			Free(model, L.NEXT_RANK, GREY)
 			Desc(model, Diff(Rich(nil, current), Rich(nil, next)))
+			model.body = body
 		end
 	end
 	if rank == 0 then
