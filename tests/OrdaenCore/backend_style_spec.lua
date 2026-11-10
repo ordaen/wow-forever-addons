@@ -577,6 +577,32 @@ describe("backend styles", function()
 		assert.is_false(again.face:IsShown())
 	end)
 
+	it("raises a toplevel box over its siblings when clicked, the latest click on top", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("dialog")
+		local a, b = Backend:Create("box"), Backend:Create("box")
+		for i, node in ipairs({ a, b }) do
+			Backend:Set(node, wow.env.table.freeze({ position = "absolute", left = i * 10, top = 0, width = 100,
+				height = 100, toplevel = true, background = ref("color.surface"), OnClick = function() end }))
+		end
+		Backend:SetChildren(layer, { a, b }, 2)
+		Backend:Flush()
+		assert.is_true(b.frame:GetFrameLevel() > a.frame:GetFrameLevel()) -- b is drawn after a
+		wow.mouseFocus = a.frame
+		wow:Fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+		assert.are.same({}, wow.errors)
+		assert.is_true(a.frame:GetFrameLevel() > b.frame:GetFrameLevel(), "a " .. a.frame:GetFrameLevel() .. " b " ..
+			b.frame:GetFrameLevel() .. " raised " .. tostring(a.raised))
+		Backend:Set(b, wow.env.table.freeze({ position = "absolute", left = 20, top = 0, width = 120,
+			height = 100, toplevel = true, background = ref("color.surface"), OnClick = function() end }))
+		Backend:Flush()
+		assert.is_true(a.frame:GetFrameLevel() > b.frame:GetFrameLevel()) -- a restack keeps it forward
+		wow.mouseFocus = b.frame
+		wow:Fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+		assert.is_true(b.frame:GetFrameLevel() > a.frame:GetFrameLevel())
+	end)
+
 	it("a pooled box reused with a table draws as a fresh box given it: nothing of its last look stays", function()
 		local wow, ns = client()
 		local Backend = ns.Backend

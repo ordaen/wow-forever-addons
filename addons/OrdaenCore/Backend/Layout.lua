@@ -167,6 +167,8 @@ Layout.ATTRIBUTES = {
 	{ key = "bottom", group = "offset", text = true, fields = { "offB" } },
 	{ key = "left", group = "offset", text = true, fields = { "offL" } },
 	{ key = "minContent", group = "own", fields = { "minContent" } },
+	{ key = "clampToScreen", group = "own", fields = { "clampToScreen" } },
+	{ key = "toplevel", group = "own", fields = { "toplevel" } },
 	{ key = "columns", group = "content", fields = { "ncols" } },
 	{ key = "rows", group = "content", fields = { "nrows" } },
 	{ key = "gap", group = "content", fields = { "gapR", "gapC" } },
@@ -203,6 +205,8 @@ function Layout.ApplySize(node, a, resolve, px)
 	end
 	node.span = resolve(node, a.columnSpan)
 	node.minContent = resolve(node, a.minContent) == true or nil
+	node.clampToScreen = resolve(node, a.clampToScreen) == true or nil -- a drag inside it stops at the screen's edges
+	node.toplevel = resolve(node, a.toplevel) == true or nil -- a click in it raises it over its siblings
 	node.pos = resolve(node, a.position)
 end
 

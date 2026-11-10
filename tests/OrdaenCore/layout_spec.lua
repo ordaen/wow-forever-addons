@@ -88,7 +88,8 @@ describe("backend layout", function()
 		-- A value for each layout attribute that differs from its default.
 		local SAMPLE = {
 			width = 10, height = 10, columnSpan = 2, position = "absolute", top = 5, right = 5, bottom = 5, left = 5,
-			columns = { "auto", 20 }, rows = { "1fr" }, minContent = true, gap = 3, padding = 4, xAlign = "center", yAlign = "end", border = { width = 1 },
+			columns = { "auto", 20 }, rows = { "1fr" }, minContent = true, clampToScreen = true, toplevel = true,
+			gap = 3, padding = 4, xAlign = "center", yAlign = "end", border = { width = 1 },
 		}
 
 		it("reads every layout attribute into its fields", function()

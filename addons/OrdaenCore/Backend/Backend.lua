@@ -383,6 +383,37 @@ end
 
 -- The cursor from a frame's top left in UI units (x right, y down): from where the frame's top left was when a drag
 -- began while it lasts, so a box that moves with the drag (a window) still sees the cursor move.
+-- A drag inside a box marked clampToScreen (a window: its tab row drags it) moves no further than that box can go and
+-- stay on the screen: at the drag's start, how far the box's edges are from the screen's, as limits on the cursor
+-- (in the dragged frame's units, as the cursor is reported)
+local function clampOf(frame, x, y)
+	local node = frame.node
+	while node and not node.clampToScreen do
+		node = node.parent
+	end
+	frame.clampL = nil
+	if not node or not node.frame then
+		return
+	end
+	local box = node.frame
+	local l, r, t, b = box:GetLeft(), box:GetRight(), box:GetTop(), box:GetBottom()
+	if not l then
+		return
+	end
+	local k = box:GetEffectiveScale() / frame:GetEffectiveScale()
+	local s = UIParent:GetEffectiveScale() / box:GetEffectiveScale()
+	local sw, sh = UIParent:GetWidth() * s, UIParent:GetHeight() * s
+	frame.clampL, frame.clampR = x - l * k, x + (sw - r) * k
+	frame.clampT, frame.clampB = y - (sh - t) * k, y + b * k
+end
+local function clampDrag(frame, x, y)
+	if frame.clampL then
+		x = x < frame.clampL and frame.clampL or x > frame.clampR and frame.clampR or x
+		y = y < frame.clampT and frame.clampT or y > frame.clampB and frame.clampB or y
+	end
+	return x, y
+end
+
 local function cursorIn(frame)
 	local x, y = GetCursorPosition()
 	local scale = frame:GetEffectiveScale()
@@ -414,7 +445,7 @@ end
 -- Dragging: OnDragStart(x, y), OnDrag(x, y) at most once a frame while the cursor moves, OnDragStop(x, y). The
 -- per-frame script runs only during a drag.
 local function onDragUpdate(frame)
-	local x, y = cursorIn(frame)
+	local x, y = clampDrag(frame, cursorIn(frame))
 	if x ~= frame.dragX or y ~= frame.dragY then
 		frame.dragX, frame.dragY = x, y
 		local fn = frame.node.a.OnDrag
@@ -427,6 +458,7 @@ end
 local function onDragStart(frame)
 	frame.dragL, frame.dragT = frame:GetLeft(), frame:GetTop()
 	local x, y = cursorIn(frame)
+	clampOf(frame, x, y)
 	frame.dragX, frame.dragY = x, y
 	frame:SetScript("OnUpdate", onDragUpdate)
 	local fn = frame.node.a.OnDragStart
@@ -441,8 +473,8 @@ local dropTargets = {} -- node -> true
 
 local function onDragStop(frame)
 	frame:SetScript("OnUpdate", nil)
-	local x, y = cursorIn(frame)
-	frame.dragL, frame.dragT, frame.dragX, frame.dragY = nil, nil, nil, nil
+	local x, y = clampDrag(frame, cursorIn(frame))
+	frame.dragL, frame.dragT, frame.dragX, frame.dragY, frame.clampL = nil, nil, nil, nil, nil
 	for target in pairs(dropTargets) do
 		local f, drop = target.frame, target.a.OnDrop
 		if drop and f:IsVisible() and f:IsMouseOver() then
@@ -458,10 +490,15 @@ end
 -- Placing (Layout's callback) -------------------------------------------------------------------------------------
 
 -- Only the calls whose values changed: the point (pRel, pX, pY as last set) and the size (pW, pH).
+local raiser, listenForRaise -- forward: windows to the front (Node:Stack), the listener made on the first toplevel box
+
 function ctx.place(node)
 	local parent = node.parent
 	if not parent then
 		return
+	end
+	if node.toplevel and not raiser then
+		listenForRaise()
 	end
 	local x, y = snap(node.x), snap(node.y)
 	local obj, rel, w, h
@@ -1916,6 +1953,27 @@ local function styleOf(t)
 	return style or nil
 end
 
+-- The node fields a cached style holds, per attribute group of Set (size: the "own" and "position" groups): each
+-- Layout.ATTRIBUTES entry's fields, and what Apply fills beside them (the given size before a frame's reach, the
+-- track arrays, the frame art's reach).
+local STYLE_FIELDS = { size = { "wGiven", "hGiven" }, offset = {}, content = { "colKind", "colAmount", "rowKind",
+	"rowAmount" }, border = { "rT", "rL", "rW", "rH" } }
+do
+	local SET_GROUP = { own = "size", position = "size", offset = "offset", content = "content", border = "border" }
+	for _, entry in ipairs(Layout.ATTRIBUTES) do
+		local list = STYLE_FIELDS[SET_GROUP[entry.group]]
+		for _, field in ipairs(entry.fields) do
+			list[#list + 1] = field
+		end
+	end
+end
+local function copyFields(node, style, fields)
+	for i = 1, #fields do
+		local f = fields[i]
+		node[f] = style[f]
+	end
+end
+
 -- Before a box's column arrays are written: its own, not a style's shared ones.
 local function ownColumns(node)
 	if node.colShared then
@@ -2546,32 +2604,88 @@ end
 -- reaches above its own level (`depth`: relative, since the game moves a frame's children with its level), so
 -- stacking a parent's children reads each child once. It runs when children change, a zLevel
 -- changes or a live portrait comes or goes, never per frame; a change of a box's top stacks its parent again.
+-- One child's levels in Node:Stack: over `top` when it's positioned (over every earlier sibling's subtree); returns
+-- the new top.
+local function stackChild(child, base, top)
+	local frame = child.frame
+	if child.embedded then -- its level comes with its place (PlaceEmbedded)
+		local level = frame:GetFrameLevel()
+		return level > top and level or top
+	end
+	local want = base + (child.lookZ or 0)
+	local pos = child.pos
+	if (pos == "absolute" or pos == "fixed") and top >= want then
+		want = top + 1
+	end
+	if frame:GetFrameLevel() ~= want then
+		frame:SetFrameLevel(want)
+		child:Stack() -- its own children over its new level
+	end
+	local t = frame:GetFrameLevel() + (child.depth or 0)
+	return t > top and t or top
+end
+
+-- Windows to the front: a click in a box marked toplevel raises it over its siblings (Stack puts the raised ones
+-- last, the latest click on top), as Blizzard's windows come forward when clicked. GLOBAL_MOUSE_DOWN, registered
+-- once the first toplevel box is stacked: an event per click, never per frame.
+local raiseStamp = 0
+local raiseUnderCursor
+-- the click listener, made when the first toplevel box is placed (ctx.place): no event for a UI without windows
+function listenForRaise()
+	raiser = CreateFrame("Frame")
+	raiser:SetScript("OnEvent", raiseUnderCursor)
+	raiser:RegisterEvent("GLOBAL_MOUSE_DOWN")
+end
+function raiseUnderCursor()
+	local foci = GetMouseFoci()
+	local f = foci and foci[1]
+	while f do
+		local node = f.node
+		if node and node.toplevel and not node.released then
+			if node.raised ~= raiseStamp or raiseStamp == 0 then
+				raiseStamp = raiseStamp + 1
+				node.raised = raiseStamp
+				local parent = node.parent
+				if parent then
+					parent:Stack()
+					restack(parent.parent)
+				end
+			end
+			return
+		end
+		f = f:GetParent()
+	end
+end
 function Node:Stack()
 	local pf = self.inner or self.frame
 	local own = pf:GetFrameLevel()
 	local base = own + 1 + (self.liveModel and CHILD_LEVELS - 1 or 0)
 	local top = own
 	local children = self.children
+	local raised, nRaised = nil, 0 -- made only when a child is raised (a layer holding clicked windows)
 	for i = 1, self.count or 0 do
 		local child = children[i]
 		if child.kind == "box" then
-			local frame = child.frame
-			if child.embedded then -- its level comes with its place (PlaceEmbedded)
-				local level = frame:GetFrameLevel()
-				top = level > top and level or top
+			if child.raised then
+				raised = raised or {}
+				nRaised = nRaised + 1
+				raised[nRaised] = child
 			else
-				local want = base + (child.lookZ or 0)
-				local pos = child.pos
-				if (pos == "absolute" or pos == "fixed") and top >= want then
-					want = top + 1
-				end
-				if frame:GetFrameLevel() ~= want then
-					frame:SetFrameLevel(want)
-					child:Stack() -- its own children over its new level
-				end
-				local t = frame:GetFrameLevel() + (child.depth or 0)
-				top = t > top and t or top
+				top = stackChild(child, base, top)
 			end
+		end
+	end
+	if nRaised > 0 then -- the raised ones last, the latest click on top (insertion sort: a few windows)
+		for i = 2, nRaised do
+			local v, j = raised[i], i - 1
+			while j >= 1 and raised[j].raised > v.raised do
+				raised[j + 1] = raised[j]
+				j = j - 1
+			end
+			raised[j + 1] = v
+		end
+		for i = 1, nRaised do
+			top = stackChild(raised[i], base, top)
 		end
 	end
 	local tf = self.textFrame
@@ -2952,22 +3066,20 @@ function applyGroups(node, attributes, size, position, offset, content, border, 
 	-- Apply would compute.
 	local style = attributes and node.kind == "box" and not node.embedded and not node.bound and styleOf(attributes)
 	if style then
+		-- every field Apply fills, by group, from Layout.ATTRIBUTES (STYLE_FIELDS): a new layout attribute is copied
+		-- with no list to keep here
 		if size then
-			node.wKind, node.wAmount, node.hKind, node.hAmount = style.wKind, style.wAmount, style.hKind, style.hAmount
-			node.wGiven, node.hGiven = style.wGiven, style.hGiven
-			node.span, node.pos = style.span, style.pos
+			copyFields(node, style, STYLE_FIELDS.size)
 		end
 		if offset then
-			node.offT, node.offR, node.offB, node.offL = style.offT, style.offR, style.offB, style.offL
+			copyFields(node, style, STYLE_FIELDS.offset)
 		end
 		if content then
-			node.ncols, node.colKind, node.colAmount, node.colShared = style.ncols, style.colKind, style.colAmount, true
-			node.gapR, node.gapC, node.xAlign, node.yAlign = style.gapR, style.gapC, style.xAlign, style.yAlign
-			node.padT, node.padR, node.padB, node.padL = style.padT, style.padR, style.padB, style.padL
+			copyFields(node, style, STYLE_FIELDS.content)
+			node.colShared = true
 		end
 		if border then
-			node.bwT, node.bwR, node.bwB, node.bwL = style.bwT, style.bwR, style.bwB, style.bwL
-			node.rT, node.rL, node.rW, node.rH = style.rT, style.rL, style.rW, style.rH
+			copyFields(node, style, STYLE_FIELDS.border)
 			if not size then -- its given size grows by the art's reach (Layout.ApplyBorder)
 				if node.wKind == "fixed" and node.wGiven then
 					node.wAmount = node.wGiven + (node.rW or 0)
@@ -3177,6 +3289,7 @@ function Backend:Release(node)
 	-- that and changes what differs. Clearing a record here without undoing its drawing makes the next Set see no
 	-- change and keep the stale look; only registrations outside the node go (they come back when Create takes
 	-- it from the pool).
+	node.raised = nil -- its place among clicked windows went with its component (an order, not a look)
 	if portraits[node] then -- no event redraws it while pooled
 		portraits[node] = nil
 		portraitEvents()
