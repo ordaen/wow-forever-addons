@@ -830,6 +830,35 @@ describe("backend styles", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("shows a box by its visibleWhen condition, changed only out of combat, and dropped with it", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local b = Backend:Create("box")
+		Backend:Set(b, { position = "absolute", left = 0, top = 0, width = 40, height = 20,
+			visibleWhen = "[combat] hide; show" })
+		Backend:SetChildren(layer, { b }, 1)
+		Backend:Flush()
+		assert.is_true(b.frame:IsShown())
+		wow.combat = true
+		wow:Drive()
+		assert.is_false(b.frame:IsShown()) -- the driver hides it in combat
+		-- a new condition in combat waits for its end
+		Backend:Set(b, { position = "absolute", left = 0, top = 0, width = 40, height = 20, visibleWhen = "hide" })
+		Backend:Flush()
+		assert.are.equal("[combat] hide; show", b.frame._visibility)
+		wow.combat = false
+		wow:Fire("PLAYER_REGEN_ENABLED")
+		assert.are.equal("hide", b.frame._visibility)
+		assert.is_false(b.frame:IsShown())
+		-- unset: no driver, shown as any box
+		Backend:Set(b, { position = "absolute", left = 0, top = 0, width = 40, height = 20 })
+		Backend:Flush()
+		assert.is_nil(b.frame._visibility)
+		assert.is_true(b.frame:IsShown())
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("tiles the XP fill along its box, each copy as high as the box", function()
 		local wow, ns = client()
 		local Backend = ns.Backend

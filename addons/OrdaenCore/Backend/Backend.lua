@@ -68,7 +68,7 @@ local next = next
 local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, textYAlign = LOOK, portrait = LOOK,
 	mask = LOOK, look = LOOK, shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET,
-	zLevel = LOOK, desaturate = LOOK, tint = LOOK,
+	zLevel = LOOK, desaturate = LOOK, tint = LOOK, visibleWhen = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
 	hoverWithin = INPUT, OnEscape = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT, OnDrop = INPUT,
@@ -86,7 +86,7 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 end
 for _, key in ipairs({ "background", "desaturate", "tint", "artOrigin", "anchor", "zLevel", "opacity", "portrait",
 	"mask", "overflow", "stateFrom", "OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart",
-	"OnDrag", "OnDragStop", "OnDrop", "OnEscape",
+	"OnDrag", "OnDragStop", "OnDrop", "OnEscape", "visibleWhen",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
@@ -1329,6 +1329,9 @@ function Node:ApplyLook()
 	if self.edit or a.kind ~= nil then
 		self:ApplyInput()
 	end
+	if a.visibleWhen ~= nil or self.visDriver then
+		self:ApplyVisibility()
+	end
 	local z = a.zLevel
 	if z ~= self.lookZ then
 		self.lookZ = z
@@ -1697,7 +1700,13 @@ end
 
 -- Taken Blizzard frames --------------------------------------------------------------------------------------------
 
+local pendingVisibility = {} -- boxes whose visibleWhen changed in combat (a state driver can't change then)
+
 local function onCombatEnd()
+	for node in pairs(pendingVisibility) do
+		pendingVisibility[node] = nil
+		node:ApplyVisibility()
+	end
 	for node in pairs(pendingCombat) do
 		pendingCombat[node] = nil
 		if takenBy[node.frame] == node then
@@ -1792,6 +1801,34 @@ function Node:GiveBack()
 		end
 	end
 	self.applying = false
+end
+
+-- visibleWhen: a macro condition ("[combat] hide; show") deciding whether the box shows, run by Blizzard's secure
+-- state driver on its frame (RegisterStateDriver "visibility"), so it holds in combat too. Hidden, the box keeps its
+-- place (CSS visibility: hidden). The driver runs only while the box is drawn; it's set, changed or dropped out of
+-- combat, a change in combat waiting for its end.
+function Node:ApplyVisibility()
+	local want = self.shown and resolve(self, self.a.visibleWhen) or nil
+	if want == self.visDriver then
+		return
+	end
+	if InCombatLockdown() then
+		pendingVisibility[self] = true
+		if not combatFrame then
+			combatFrame = CreateFrame("Frame")
+			combatFrame:SetScript("OnEvent", onCombatEnd)
+		end
+		combatFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+		return
+	end
+	local frame = self.frame
+	if want then
+		RegisterStateDriver(frame, "visibility", want)
+	elseif self.visDriver then
+		UnregisterStateDriver(frame, "visibility")
+		frame:SetShown(self.shown)
+	end
+	self.visDriver = want
 end
 
 -- Embedded Blizzard frames -----------------------------------------------------------------------------------------
@@ -2012,9 +2049,14 @@ local function show(node, shown)
 		node.shown = shown
 		local obj = node.kind == "text" and node.fs or node.frame
 		if shown then
-			obj:Show()
+			if not node.a.visibleWhen then -- else its state driver decides
+				obj:Show()
+			end
 		else
 			obj:Hide()
+		end
+		if node.visDriver or shown and node.a.visibleWhen then
+			node:ApplyVisibility()
 		end
 		local proxy = node.escapeProxy
 		if proxy then -- Escape closes it only while it shows

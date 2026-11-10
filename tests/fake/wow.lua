@@ -1432,6 +1432,48 @@ function Wow:MakeEnv()
 	offer("InCombatLockdown", function()
 		return wow.combat == true -- a spec sets wow.combat, then fires PLAYER_REGEN_ENABLED when it ends
 	end)
+	-- Blizzard's secure state driver, its "visibility" kind: the frame shown or hidden by the condition's result, read
+	-- here as the last "show"/"hide" of its clauses whose [combat]/[nocombat] holds (enough for the specs); refused in
+	-- combat, as the game's protected attribute calls are
+	local function visibility(frame)
+		local text = frame._visibility
+		if not text then
+			return
+		end
+		local result
+		for clause in text:gmatch("[^;]+") do
+			local cond, action = clause:match("^%s*%[(.-)%]%s*(%a+)")
+			if not cond then
+				cond, action = "", clause:match("(%a+)")
+			end
+			local holds = cond == "" or cond == "combat" and wow.combat or cond == "nocombat" and not wow.combat
+			if holds then
+				result = action
+				break
+			end
+		end
+		frame:SetShown(result ~= "hide")
+	end
+	wow.drivers = {}
+	offer("RegisterStateDriver", function(frame, kind, text)
+		assert(not wow.combat, "RegisterStateDriver in combat")
+		assert(kind == "visibility", "only the visibility driver is faked")
+		frame._visibility = text
+		wow.drivers[frame] = true
+		visibility(frame)
+	end)
+	offer("UnregisterStateDriver", function(frame, kind)
+		assert(not wow.combat, "UnregisterStateDriver in combat")
+		assert(kind == "visibility", "only the visibility driver is faked")
+		frame._visibility = nil
+		wow.drivers[frame] = nil
+	end)
+	-- the drivers' conditions read again (a spec calls it after changing wow.combat)
+	function wow:Drive()
+		for frame in pairs(self.drivers) do
+			visibility(frame)
+		end
+	end
 	-- a face drawn: the texture remembers whose; wow.faces counts the draws
 	wow.faces = 0
 	offer("SetPortraitTexture", function(texture, unit)
