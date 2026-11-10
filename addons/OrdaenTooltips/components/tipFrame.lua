@@ -26,6 +26,7 @@ local HEADING = { 1, 0.82, 0, 1 } -- the windows' title colour (#ffd100)
 local GROOVE = { width = 1 * PX, sides = { "top", "bottom" }, color = { 0, 0, 0, 0.85 } }
 local ICON = 60 * PX
 local SECTION = 8 * PX
+local HEAD_PADDING = { 0, 0, SECTION, 0 } -- under the title, when something follows it
 local RULE = { width = 1 * PX, sides = { "top" }, color = { 0.839, 0.647, 0.420, 0.18 } } -- --rule rgba(214, 165, 107, .18)
 local LABEL = { 0.796, 0.725, 0.58, 1 } -- --label #cbb994
 local QUIET = { 0.522, 0.478, 0.4, 1 } -- --quiet #857a66
@@ -249,6 +250,8 @@ local function Fill(calls, m)
 		a.left, a.right, a.leftColor, a.size = m.keys[i].text, nil, QUIET, 14 * PX
 	end
 
+	-- the title alone (a sign): no padding under it
+	head.padding = (m.cols.n + m.body.n + m.foot.n + m.keys.n > 0 or m.header) and HEAD_PADDING or nil
 	-- a rule only between two present sections; none between the title and the body
 	local above = head.shown
 	calls.colsBox.attributes.border = above and RULE or nil
@@ -263,7 +266,7 @@ end
 return Define.Component({
 	Setup = function(_, self)
 		self.calls = {
-			head = { attributes = { gap = 10 * PX, yAlign = "center", padding = { 0, 0, SECTION, 0 } },
+			head = { attributes = { gap = 10 * PX, yAlign = "center", padding = HEAD_PADDING },
 				slots = { default = Head } },
 			icon = { attributes = { width = ICON, height = ICON, border = RIM, padding = 1 * PX, background = BLACK,
 				columns = 1 }, slots = { default = Picture } },

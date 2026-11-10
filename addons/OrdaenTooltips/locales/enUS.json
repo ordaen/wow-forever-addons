@@ -271,5 +271,8 @@
   "TERM_PSPEC": "Specialization",
   "TERM_PSPEC_TEXT": "The player's talent tree. Learned by inspecting them: they must be near.",
   "TERM_PGEAR": "Item level",
-  "TERM_PGEAR_TEXT": "The average level of the items they wear (by inspect)."
+  "TERM_PGEAR_TEXT": "The average level of the items they wear (by inspect).",
+  "KEY_NEEDED": "Needs a key",
+  "TERM_LOCK": "Lock",
+  "TERM_LOCK_TEXT": "How to open it: lockpicking (a rogue's skill) or a key. In red: you can't open it yet."
 }

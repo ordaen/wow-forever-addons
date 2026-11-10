@@ -480,6 +480,20 @@ describe("Ordaen Tooltips", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("draws a chest's lock as a footer row, and a sign as its name alone", function()
+		wow.env.ITEM_MIN_SKILL = "Requires %s (%d)"
+		wow:ShowTooltip("GameTooltip", { type = 4, lines = {
+			{ type = 0, leftText = "Battered Chest" },
+			{ type = 43, leftText = "Requires Lockpicking (75)", usable = false },
+		} })
+		ns.Scheduler.Flush()
+		has(texts(), "Battered Chest", "Lockpicking\n75")
+		wow:ShowTooltip("GameTooltip", { type = 4, lines = { { type = 0, leftText = "Apothecary" } } })
+		ns.Scheduler.Flush()
+		assert.are.equal("Apothecary", texts())
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("goes when Blizzard's tooltip hides", function()
 		wow:ShowTooltip("GameTooltip", AXE)
 		ns.Scheduler.Flush()

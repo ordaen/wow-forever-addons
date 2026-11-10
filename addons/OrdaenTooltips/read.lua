@@ -1318,7 +1318,11 @@ local function Unit(model, data, ctx)
 end
 
 -- Objects (signs, nodes, chests): the name in gold, the rest as the game wrote it (a lock red when you can't)
-local function Object(model, data)
+-- An object (design objects/): its name in gold; a chest's lock in the footer, «Взлом замков 75» or «Нужен ключ» with
+-- the key (it opens the key's item), red when you can't open it; a quest object's objectives as on NPCs; a sign is its
+-- name alone.
+local function Object(model, data, ctx)
+	local L = ctx.L
 	local lines = data.lines
 	for i = 1, #lines do
 		local line = lines[i]
@@ -1326,14 +1330,25 @@ local function Object(model, data)
 		if i == 1 then
 			model.name = text
 			model.nameColor = GOLD
-		elseif text and line.type ~= LINE.Blank then
+		elseif text and line.type ~= LINE.Blank and line.type ~= 17 and line.type ~= 8 and line.type ~= 18 then
 			if line.type == LINE.Requirement then
-				Foot(model, text, nil, line.usable == false and RED or nil)
+				local skill, rank = Match(text, ITEM_MIN_SKILL)
+				local red = line.usable == false and RED or nil
+				if skill and rank then -- «Требуется: Взлом замков (75)»
+					Foot(model, skill, rank, red, "lock")
+				else -- a key: «Требуется Ключ от сундука Дефиаса»
+					local key = text:match("^[^:]+:%s*(.+)$") or text:gsub("^%S+%s+", "")
+					local itemID = C_Item.GetItemInfoInstant(key)
+					local missing = (C_Item.GetItemCount(key) or 0) == 0
+					local row = Foot(model, L.KEY_NEEDED, key, (red or missing) and RED or nil, "lock")
+					row.valueLink = itemID and "item:" .. itemID or nil
+				end
 			else
 				Free(model, text, ColorOf(line.leftColor))
 			end
 		end
 	end
+	Read.Quests(model, lines, ctx.npcsParty)
 	return model.name ~= nil
 end
 
@@ -1393,7 +1408,7 @@ function Fill(model, data, ctx)
 	elseif kind == "unit" then
 		return Unit(model, data, ctx)
 	end
-	return Object(model, data)
+	return Object(model, data, ctx)
 end
 Read.Fill = Fill
 
