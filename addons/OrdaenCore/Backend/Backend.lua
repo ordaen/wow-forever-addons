@@ -1430,7 +1430,11 @@ function Node:ApplyLook()
 			hideSlices(self.slices)
 			hideSlices(self.glows)
 			self.lookRepeat = nil
-			if type(bg) == "table" and bg.file and bg.repeatSize then -- repeated both ways from the art's origin
+			if type(bg) == "table" and bg.file and bg.coords then -- one part of a file (a glyph of an atlas)
+				local co = bg.coords
+				tex:SetTexture(bg.file)
+				tex:SetTexCoord(co[1], co[2], co[3], co[4])
+			elseif type(bg) == "table" and bg.file and bg.repeatSize then -- repeated both ways from the art's origin
 				tex:SetTexture(bg.file, "REPEAT", "REPEAT")
 				self.lookOrigin, self.lookRepeat = 1, bg.repeatSize
 				self:OriginBackground()

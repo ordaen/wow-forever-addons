@@ -752,6 +752,20 @@ describe("backend styles", function()
 		assert.are.equal("TOPLEFT", (frame:GetPoint(1)))
 	end)
 
+	it("draws one part of a file as a background (a glyph of an atlas)", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local glyph = Backend:Create("box")
+		Backend:Set(glyph, { position = "absolute", width = 16, height = 16,
+			background = { file = "Interface\AddOns\Spec\glyphs", coords = { 0.125, 0.25, 0, 0.25 } } })
+		Backend:SetChildren(layer, { glyph }, 1)
+		Backend:Flush()
+		assert.are.same({ 0.125, 0.25, 0, 0.25 }, { glyph.bg:GetTexCoord() })
+		assert.is_true(glyph.bg:IsShown())
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("anchors a free box to a Blizzard frame, given itself or by its global name, made later or now", function()
 		local wow, ns = client()
 		local Backend = ns.Backend
