@@ -168,7 +168,7 @@ describe("the settings window", function()
 		ns.Scheduler.Flush()
 		-- the tab row: the box over the window's top, before the tab
 		local tab = texts(ns)["Ordaen"].parent
-		local row = tab.parent.parent.children[2]
+		local row = tab.parent.parent.children[3]
 		local f = row.frame
 		f:GetScript("OnDragStart")(f)
 		f:GetScript("OnDragStop")(f)
@@ -318,7 +318,7 @@ describe("the settings window", function()
 		wow:Tick()
 		ns.Scheduler.Flush()
 		-- the cursor onto the body while still dragging, then the drag ends
-		local body = tab.parent.parent.children[1]
+		local body = tab.parent.parent.children[2]
 		body.frame:GetScript("OnEnter")(body.frame)
 		ns.Scheduler.Flush()
 		wow:DragStop(f)
@@ -350,7 +350,7 @@ describe("the settings window", function()
 		wow:Slash("/ordaen")
 		ns.Scheduler.Flush()
 		local tab = texts(ns)["Ordaen"].parent
-		local body = tab.parent.parent.children[1]
+		local body = tab.parent.parent.children[2]
 		body.frame:GetScript("OnEnter")(body.frame)
 		ns.Scheduler.Flush()
 		assert.are.equal(0, ns.Core._BackendStats({}).order_errors) -- the tab's wood, flare and rim, as before
@@ -382,7 +382,7 @@ describe("the settings window", function()
 					tab.frame:GetWidth()))
 			end
 		end
-		local body = tab.parent.parent.children[1]
+		local body = tab.parent.parent.children[2]
 		body.frame:GetScript("OnEnter")(body.frame)
 		ns.Scheduler.Flush()
 		ns.Backend:Flush()

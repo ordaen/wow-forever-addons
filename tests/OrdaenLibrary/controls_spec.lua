@@ -56,6 +56,25 @@ describe("the settings controls", function()
 			end
 		end
 	end
+	-- the last drawn node with this background: the window's tabs are drawn twice (the open layer over the body last)
+	local function lastWithBackground(path)
+		local found
+		for _, node in ipairs(nodes()) do
+			local bg = node.a and node.a.background
+			if type(bg) == "table" and rawget(bg, "path") == path then
+				found = node
+			end
+		end
+		return found
+	end
+	-- a window's body: the box in the metal frame
+	local function windowBody()
+		for _, node in ipairs(nodes()) do
+			if node.a and node.a.border and node.a.minContent then
+				return node
+			end
+		end
+	end
 	local function texts()
 		local out = {}
 		for _, node in ipairs(nodes()) do
@@ -258,7 +277,7 @@ describe("the settings controls", function()
 
 		it("draws its body in the metal with the wood, its tab with the title, and the content in the body", function()
 			draw()
-			local body = withBackground("window.wood")
+			local body = windowBody()
 			assert.is_truthy(body)
 			local window = body.parent
 			assert.is_true(window.a.artOrigin)
@@ -270,7 +289,7 @@ describe("the settings controls", function()
 				end
 			end
 			assert.is_truthy(metal) -- the body's frame art
-			assert.is_truthy(withBackground("ctl.tab"))
+			assert.is_truthy(lastWithBackground("ctl.tab"))
 			local t = texts()
 			assert.is_truthy(table.concat(t, "|"):find("Ordaen", 1, true))
 			assert.is_truthy(table.concat(t, "|"):find("inside", 1, true))
@@ -285,7 +304,7 @@ describe("the settings controls", function()
 				end } })
 			end)
 			assert.is_nil(withBackground("ctl.cornerClose")) -- hidden until hovered
-			local body = withBackground("window.wood")
+			local body = windowBody()
 			body.frame:GetScript("OnEnter")(body.frame)
 			ns.Scheduler.Flush()
 			local full = withBackground("ctl.cornerExpand")
@@ -307,7 +326,7 @@ describe("the settings controls", function()
 
 		it("moves with its tab when dragged", function()
 			draw()
-			local art = withBackground("ctl.tab")
+			local art = lastWithBackground("ctl.tab")
 			local tab = art.parent
 			local frame = tab.frame
 			local window = tab.parent.parent -- the tab, in the tab row, in the window
@@ -348,7 +367,7 @@ describe("the settings controls", function()
 			mount(function(game)
 				game.ui:Window(1, { attributes = { title = "Ordaen", width = 400, height = 300 } })
 			end)
-			local art = withBackground("ctl.tab")
+			local art = lastWithBackground("ctl.tab")
 			local tab = art.parent
 			within(art, tab)
 			for _, child in ipairs(tab.children) do
@@ -365,16 +384,17 @@ describe("the settings controls", function()
 				game.ui:Window(1, { attributes = { tabs = { { title = "One" }, { title = "Two" } }, selected = 1,
 					width = 400, height = 300 } })
 			end)
-			local body = withBackground("window.wood")
+			local body = windowBody()
 			local window = body.parent
 			-- the card's line: 6 px under the metal art's top, which is its reach under the body's top (border-box)
 			local line = body.y + (body.rT or 0) + 6 * PX
 			local open, closed
 			for _, node in ipairs(nodes()) do
 				local bg = node.a and node.a.background
-				if type(bg) == "table" and rawget(bg, "path") == "ctl.tab" then
+				-- the layer that shows each tab (the other draws it unseen)
+				if type(bg) == "table" and rawget(bg, "path") == "ctl.tab" and node.parent.a.opacity ~= 0 then
 					within(node, node.parent)
-					if node.parent.a.OnClick then
+					if node.a.tint then -- a closed tab's art is shaded
 						closed = node.parent
 					else
 						open = node.parent

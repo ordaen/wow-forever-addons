@@ -82,13 +82,20 @@ local function Count(self)
 	local tabs = self.attributes.tabs
 	return tabs and #tabs or 1
 end
-local function TabRow(game, self)
+-- the tabs, twice: the closed ones under the body, the open one over it (WindowTab `under`)
+local function Tabs(game, self, calls)
 	local height = LineH(self) - ART_ABOVE + 4 * PX -- from the tab's top to 4 px under the line
 	for i = 1, Count(self) do
-		local call = self.tabCalls[i]
+		local call = calls[i]
 		call.attributes.height = height
 		game.ui:WindowTab(call)
 	end
+end
+local function TabsUnder(game, self)
+	Tabs(game, self, self.underCalls)
+end
+local function TabsOver(game, self)
+	Tabs(game, self, self.tabCalls)
 end
 
 -- the corner group: 5.5 px down, its right end at the frame's right line's inner edge (5 px in; the design's group
@@ -127,16 +134,21 @@ end
 -- the window's size; and the card never gets smaller than that content needs (min-content), whatever the size
 local BODY_ROWS = { "1fr" }
 
+-- 12 px between the tabs, the art past each one's sides in them
+local function TabRowAttributes(self)
+	return { position = "absolute", left = RowX(), top = RowY(), columns = tabColumns[Count(self)],
+		gap = 12 * PX - 2 * ART_PAST, yAlign = "start" }
+end
+
 local function Parts(game, self)
+	game.ui:Box({ attributes = TabRowAttributes(self), slots = { default = TabsUnder } })
 	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = TabH(self), bottom = 0,
 		border = FRAME, background = WOOD, padding = PADDING, columns = 1, rows = BODY_ROWS,
 		minContent = true, hoverWithin = true, OnEnter = self.enter, OnLeave = self.leave }, slots = { default = Body } })
 	-- the tab row: the whole row above the body moves the window, the tab over it too
 	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = 0, height = TabH(self),
 		OnDragStart = self.dragStart, OnDrag = self.drag, OnDragStop = self.dragStop } })
-	-- 12 px between the tabs, the art past each one's right in them
-	game.ui:Box({ attributes = { position = "absolute", left = RowX(), top = RowY(), columns = tabColumns[Count(self)],
-		gap = 12 * PX - ART_PAST, yAlign = "start" }, slots = { default = TabRow } })
+	game.ui:Box({ attributes = TabRowAttributes(self), slots = { default = TabsOver } })
 end
 
 -- where the window sits: centred and moved by dragging its tab, or the whole screen
@@ -246,8 +258,16 @@ return Define.Component({
 			t[i] = call
 			return call
 		end })
+		-- the same tabs in the layer under the body: shown while closed, no input (the open layer's take it)
+		local underCalls = setmetatable({}, { __index = function(t, i)
+			local call = { key = i, attributes = { window = self, index = i, height = TAB, above = ART_ABOVE,
+				past = ART_PAST, under = true } }
+			t[i] = call
+			return call
+		end })
 		return {
 			tabCalls = tabCalls,
+			underCalls = underCalls,
 			grip = { attributes = { position = grip.position, right = grip.right, bottom = grip.bottom,
 				width = grip.width, height = grip.height, background = grip.background, OnDragStart = sizeStart,
 				OnDrag = size, OnDragStop = sizeStop } },

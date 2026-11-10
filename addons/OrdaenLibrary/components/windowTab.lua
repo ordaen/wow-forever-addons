@@ -3,12 +3,14 @@
 -- darker, its title dim. An icon fills the tab's left end (the open one's corner rounded like the tab's); the title
 -- is centred in what's left, with an optional second line under it (a profession's skill).
 --
--- Its box holds all of its art: the art stands `above` the tab and `past` its right (Window's tab row sets both), and the
--- open tab's runs ART_BELOW under it into the body's line; nothing is drawn outside the box.
+-- Its box holds all of its art: the art stands `above` the tab and `past` its sides (Window's tab row sets both; the
+-- first tab has none on its left), and the open tab's runs ART_BELOW under it, curving out into the body's line on
+-- both sides (the first tab only on its right); nothing is drawn outside the box.
 --
 -- Attributes: `window` (the Window it belongs to: its `title`, or its `tabs`, each { title, desc, icon }, and
 -- `selected`), `index` (this tab's in them), `height` (the open tab's, UI units, from its top to 4 px under the line; a
--- closed one is 5 px less), `above`, `past` (the art's reach above the tab and past its right), `OnPick` (a click on a
+-- closed one is 5 px less), `above`, `past` (the art's reach above the tab and past its sides), `under` (the layer under the
+-- body: it shows the tab only while closed; else only while open), `OnPick` (a click on a
 -- closed tab), `OnDragStart`, `OnDrag`, `OnDragStop` (dragging the tab: Window's move).
 local Define = import("@ordaen/define")
 
@@ -80,47 +82,71 @@ local function Label(game, self)
 	end
 end
 
+-- the art's reach past the tab's left: an open tab after the first curves out into the line on its left too, so every
+-- tab after the first keeps room for it (the first stands on the card's left line, its side running straight down)
+local function LeftPast(self)
+	return self.attributes.index > 1 and self.attributes.past or 0
+end
+-- the open tab after the first: the art with both flares; else the one with the right flare only
+local function Art(self)
+	return Open(self) and self.attributes.index > 1 and Define.Theme.ctl.tabFlared or Define.Theme.ctl.tab
+end
+local function ArtLeft(self)
+	return Open(self) and 0 or LeftPast(self)
+end
+
 local function Parts(game, self)
-	local top, bottom, right = PartsTop(self), PartsBottom(self), self.attributes.past
-	game.ui:Box({ attributes = { position = "absolute", left = 0, top = top, width = CORNER, bottom = bottom,
-		background = WOOD, tint = Tint(self), mask = Define.Theme.ctl.tabCornerL } })
-	game.ui:Box({ attributes = { position = "absolute", left = CORNER, right = right + CORNER, top = top,
-		bottom = bottom, background = WOOD, tint = Tint(self) } })
-	game.ui:Box({ attributes = { position = "absolute", right = right, top = top, width = CORNER, bottom = bottom,
-		background = WOOD, tint = Tint(self), mask = Define.Theme.ctl.tabCornerR } })
+	game.ui:Box({ attributes = { position = "absolute", left = LeftPast(self), top = PartsTop(self), width = CORNER,
+		bottom = PartsBottom(self), background = WOOD, tint = Tint(self), mask = Define.Theme.ctl.tabCornerL } })
+	game.ui:Box({ attributes = { position = "absolute", left = LeftPast(self) + CORNER,
+		right = self.attributes.past + CORNER, top = PartsTop(self), bottom = PartsBottom(self), background = WOOD,
+		tint = Tint(self) } })
+	game.ui:Box({ attributes = { position = "absolute", right = self.attributes.past, top = PartsTop(self),
+		width = CORNER, bottom = PartsBottom(self), background = WOOD, tint = Tint(self),
+		mask = Define.Theme.ctl.tabCornerR } })
 	if Open(self) then
-		game.ui:Box({ attributes = { position = "absolute", right = right + EDGE - FLARE, bottom = ART_BELOW - 3 * PX,
-			width = FLARE, height = FLARE + 3 * PX, background = WOOD, mask = Define.Theme.ctl.tabFlareR } })
+		game.ui:Box({ attributes = { position = "absolute", right = self.attributes.past + EDGE - FLARE,
+			bottom = ART_BELOW - 3 * PX, width = FLARE, height = FLARE + 3 * PX, background = WOOD,
+			mask = Define.Theme.ctl.tabFlareR } })
+	end
+	if Open(self) and self.attributes.index > 1 then
+		game.ui:Box({ attributes = { position = "absolute", left = LeftPast(self) + EDGE - FLARE,
+			bottom = ART_BELOW - 3 * PX, width = FLARE, height = FLARE + 3 * PX, background = WOOD,
+			mask = Define.Theme.ctl.tabFlareL } })
 	end
 	-- the icon under the art, so the tab's rim lies over its edge
 	if Tab(self).icon then
-		game.ui:Box({ attributes = { position = "absolute", left = 3 * PX, top = top + 3 * PX, width = IconSide(self),
-			height = IconSide(self), background = Tab(self).icon, tint = Tint(self), mask = IconMask(self) } })
+		game.ui:Box({ attributes = { position = "absolute", left = LeftPast(self) + 3 * PX, top = PartsTop(self) + 3 * PX,
+			width = IconSide(self), height = IconSide(self), background = Tab(self).icon, tint = Tint(self),
+			mask = IconMask(self) } })
 	end
-	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = ArtTop(self), bottom = 0,
-		background = Define.Theme.ctl.tab, tint = Tint(self) } })
-	-- an open tab after the first opens into the body on its left too: the art's left rim, which runs down into the
-	-- frame's left line on the first tab, is covered below the line with the tab's wood (its left flare isn't drawn)
-	if Open(self) and self.attributes.index > 1 then
-		game.ui:Box({ attributes = { position = "absolute", left = 0, width = 2 * EDGE, bottom = 0,
-			height = ART_BELOW + 4 * PX, background = WOOD } })
-	end
+	game.ui:Box({ attributes = { position = "absolute", left = ArtLeft(self), right = 0, top = ArtTop(self),
+		bottom = 0, background = Art(self), tint = Tint(self) } })
 	Label(game, self)
 end
 -- the label sits in the tab: under the parts' top, over their bottom, the icon and the art's reach out of its sides
 local function Padding(self)
-	return { PartsTop(self), LABEL_PAD + self.attributes.past, PartsBottom(self), IconSide(self) + 3 * PX + LABEL_PAD }
+	return { PartsTop(self), LABEL_PAD + self.attributes.past, PartsBottom(self),
+		LeftPast(self) + IconSide(self) + 3 * PX + LABEL_PAD }
 end
 -- the box: the art above the tab, the tab (a closed one's parts DROP lower in it, its bottom on the open one's) and
 -- under it for the open one
 local function Height(self)
 	return self.attributes.above + self.attributes.height + PartsBottom(self)
 end
+-- Window draws its tabs twice, the closed ones under the body (`under`: the body's line runs over them) and the open
+-- one over it; each layer shows only its own, the other's kept in place unseen. The open layer takes the mouse.
+local function Opacity(self)
+	return Open(self) ~= (self.attributes.under == true) and 1 or 0
+end
+local function Click(self)
+	return not self.attributes.under and not Open(self) and self.attributes.OnPick or nil
+end
 
 return Define.Component({
 	Render = function(game, self)
 		game.ui:Box({ attributes = { height = Height(self), padding = Padding(self), rows = "auto", xAlign = "center",
-			yAlign = "center", gap = 1 * PX, OnClick = not Open(self) and self.attributes.OnPick or nil,
+			yAlign = "center", gap = 1 * PX, opacity = Opacity(self), OnClick = Click(self),
 			OnDragStart = self.attributes.OnDragStart, OnDrag = self.attributes.OnDrag,
 			OnDragStop = self.attributes.OnDragStop },
 			slots = { default = Parts } })

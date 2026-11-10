@@ -148,6 +148,10 @@ ns.Theme = {
 	["ctl.tabCornerL"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-l" },
 	["ctl.tabCornerR"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-corner-r" },
 	["ctl.tabFlareR"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-flare-r" },
+	-- an open tab after the first: the same art with the left flare too (the right cap mirrored), and its wood's mask
+	["ctl.tabFlared"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-flared", size = { 128, 128 },
+		cap = 54, capHeight = 27 / 64 },
+	["ctl.tabFlareL"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-flare-l" },
 	-- a window tab's icon (design TabbedWindow .iconfill): its top-left corner the tab rim's inner curve; the open tab's
 	-- also its bottom-right, that curve mirrored
 	["ctl.tabIcon"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon" },
