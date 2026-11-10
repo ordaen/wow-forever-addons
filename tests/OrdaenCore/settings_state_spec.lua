@@ -125,4 +125,31 @@ describe("settings as stored values", function()
 		assert.is_truthy(table.concat(wow.printed, "\n"):find("Spec: settings back to their defaults.", 1, true))
 		assert.are.same({}, wow.errors)
 	end)
+
+	it("takes a macro condition only when the game parses it, keeping the last valid one", function()
+		local wow = Fake.New({ dist = ".ordaen/check/dist", addons = { "OrdaenCore" } })
+		wow.env.SecureCmdOptionParse = function(text)
+			if text:find("%[nonsense%]") then
+				error("unknown macro option")
+			end
+			return "show"
+		end
+		wow:Login()
+		local ns = wow.addons.OrdaenCore.ns
+		local module = { name = "OrdaenSpec", ns = {}, cache = {}, db = {}, charDb = {}, Import = function()
+			return nil
+		end }
+		local instance = ns.Engine:Mount(nil, ns.Define.Component({ Setup = function()
+			ns.Define.Persistent({ when = { type = "string", default = "[combat] hide; show", macro = true,
+				setting = true } })
+		end }), 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
+		local when = instance.state.persistent.when
+		assert.is_true(when:Valid("[mod:shift] show; hide"))
+		assert.is_false(when:Valid("[nonsense] show"))
+		assert.has_error(function()
+			when:Set("[nonsense] show")
+		end)
+		assert.are.equal("[combat] hide; show", when:Get())
+	end)
 end)
+

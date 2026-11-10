@@ -99,7 +99,8 @@ local function AssetIds(kind)
 	return ns.THEMES and ns.THEMES.assets[kind]
 end
 
-local function Check(spec, value, name)
+-- Whether `value` is one the setting can take (its type, range, choices, a macro condition the game parses)
+local function Valid(spec, value)
 	local kind = spec.type
 	local ok
 	if kind == "color" then -- { r, g, b } from 0 to 1
@@ -123,11 +124,19 @@ local function Check(spec, value, name)
 		ok = type(value) == "number" and (not spec.min or value >= spec.min) and (not spec.max or value <= spec.max)
 	elseif kind == "string" then
 		ok = type(value) == "string" and (not spec.maxLength or #value <= spec.maxLength)
+		-- a macro condition (a visibility rule, "[combat] hide; show"): the game's parser takes it
+		if ok and spec.macro then
+			ok = pcall(SecureCmdOptionParse, value)
+		end
 	else
 		ok = type(value) == kind
 	end
-	if not ok then
-		error("Ordaen: " .. name .. " can't be " .. tostring(value) .. " (" .. kind .. ")", 3)
+	return ok
+end
+
+local function Check(spec, value, name)
+	if not Valid(spec, value) then
+		error("Ordaen: " .. name .. " can't be " .. tostring(value) .. " (" .. spec.type .. ")", 3)
 	end
 end
 
@@ -467,6 +476,12 @@ end
 --- A choice's values in the order its enum declares them (`spec.order`: the build writes it from the enum's literal
 --- table, which pairs() can't give back), for a menu.
 ---@return string[]
+--- Whether `value` can be set (a control checks text before setting it: a wrong macro condition keeps the last
+--- valid one).
+function Plain:Valid(value)
+	return Valid(self.spec, value) and true or false
+end
+
 function Plain:Choices()
 	local spec = self.spec
 	if spec.type == "asset" then -- its kind's ids, in themes.jsonc's order
@@ -642,6 +657,10 @@ end
 
 function View:ChoiceLabel(value)
 	return self.setting:ChoiceLabel(value)
+end
+
+function View:Valid(value)
+	return self.setting:Valid(value)
 end
 
 function View:Choices()
