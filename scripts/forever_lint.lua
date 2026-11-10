@@ -376,6 +376,10 @@ function M.LintSource(api, source)
 					.. tostring(api.version))
 			end
 		end
+		-- a local of ours with an API function's name (`local function Save`) isn't the API's
+		if declared(name:match("^[^.]+")) then
+			return
+		end
 		local fn = api.functions[name]
 		if not fn then
 			return
