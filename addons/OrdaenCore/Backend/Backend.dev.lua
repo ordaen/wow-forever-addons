@@ -201,18 +201,23 @@ function Core._Layers()
 	return table.concat(out, "; ")
 end
 
---- What the drawing backend knows of the box behind `frame` (dev mode's inspect): its attributes, layout, frame,
---- stacking, art pieces, state and parents, as plain text fields; nil for a frame that isn't one of ours.
----@param frame table
----@return table?
-function Core._Inspect(frame)
-	local node = type(frame) == "table" and rawget(frame, "node")
-	if type(node) ~= "table" or type(node.a) ~= "table" then
-		return nil
-	end
+-- One region's numbers for inspect: size, whether shown, points (and the layout's own w x h beside it).
+local function fsMetrics(fs)
+	local file, height, flags = fs:GetFont()
+	return format("width=%.1f height=%.1f string=%.1fx%.1f unbounded=%.1f wordWrap=%s lines=%s maxLines=%s "
+		.. "truncated=%s font=%s %s %s", fs:GetWidth(), fs:GetHeight(), fs:GetStringWidth(), fs:GetStringHeight(),
+		fs:GetUnboundedStringWidth(), tostring(fs:CanWordWrap()), tostring(fs:GetNumLines()),
+		tostring(fs:GetMaxLines()), tostring(fs:IsTruncated()), tostring(file), tostring(height), tostring(flags or ""))
+end
+
+--- What the drawing backend knows of `node` (dev mode's inspect): its attributes, layout, real size against the
+--- layout's, stacking, art pieces, text metrics, state, parents and children, as plain text fields.
+---@param node table
+---@return table
+function Core._InspectNode(node)
 	local out = { kind = node.kind }
 	local attrs = {}
-	for k, v in pairs(node.a) do
+	for k, v in pairs(node.a or {}) do
 		attrs[#attrs + 1] = k .. "=" .. show(v)
 	end
 	table.sort(attrs)
@@ -221,12 +226,21 @@ function Core._Inspect(frame)
 		tostring(node.w), tostring(node.h), tostring(node.pW), tostring(node.pH), tostring(node.pX), tostring(node.pY),
 		tostring(node.pos))
 	local obj = node.frame or node.fs
-	out.frame = format("%.1fx%.1f [%s] shown=%s visible=%s alpha=%.2f", obj:GetWidth(), obj:GetHeight(), points(obj),
-		tostring(obj:IsShown()), tostring(obj:IsVisible()), obj:GetAlpha())
+	if obj then
+		local w, h = obj:GetWidth(), obj:GetHeight()
+		out.frame = format("%.1fx%.1f [%s] shown=%s visible=%s alpha=%.2f", w, h, points(obj), tostring(obj:IsShown()),
+			tostring(obj:IsVisible()), obj:GetAlpha())
+		-- the real size against the layout's: any difference is a box model bug
+		local lw, lh = node.pW or node.w, node.pH or node.h
+		if lw and lh and (math.abs(w - lw) > 0.05 or math.abs(h - lh) > 0.05) then
+			out.mismatch = format("drawn %.2fx%.2f, laid out %.2fx%.2f", w, h, lw, lh)
+		end
+	end
 	if node.frame then
 		local f = node.frame
-		out.stack = format("%s/%d depth=%s z=%s mouse=%s", f:GetFrameStrata(), f:GetFrameLevel(), tostring(node.depth),
-			tostring(node.lookZ), tostring(f:IsMouseEnabled()))
+		out.stack = format("%s/%d depth=%s z=%s mouse=%s click=%s", f:GetFrameStrata(), f:GetFrameLevel(),
+			tostring(node.depth), tostring(node.lookZ), tostring(f:IsMouseEnabled()),
+			tostring(f.IsMouseClickEnabled and f:IsMouseClickEnabled()))
 	end
 	out.state = format("hovered=%s pressed=%s states=%s", tostring(node.hovered), tostring(node.pressed),
 		tostring(node.states))
@@ -236,8 +250,20 @@ function Core._Inspect(frame)
 	for i, tex in ipairs(node.slices or {}) do
 		out["slice" .. i] = piece(tex)
 	end
+	for i, tex in ipairs(node.glows or {}) do
+		out["glow" .. i] = piece(tex)
+	end
+	for i, tex in ipairs(node.edges or {}) do
+		if type(tex) == "table" and tex.GetTexCoord then
+			out["edge" .. i] = piece(tex)
+		end
+	end
 	if node.fs then
 		out.text = format("%q size=%s", tostring(node.fs:GetText()), tostring(node.fontSize))
+		out.textMetrics = fsMetrics(node.fs)
+		out.textLayout = format("natW=%s minW=%s lineH=%s mW=%s mH=%s w=%s h=%s", tostring(node.natW),
+			tostring(node.minW), tostring(node.lineH), tostring(node.mW), tostring(node.mH), tostring(node.w),
+			tostring(node.h))
 	end
 	local chain, parent = {}, node.parent
 	while parent and #chain < 12 do
@@ -251,4 +277,53 @@ function Core._Inspect(frame)
 	end
 	out.children = concat(kids, " | ")
 	return out
+end
+
+--- The box behind `frame`, or nil for a frame that isn't one of ours.
+---@param frame table
+---@return table?
+function Core._NodeOf(frame)
+	local node = type(frame) == "table" and rawget(frame, "node")
+	return type(node) == "table" and type(node.a) == "table" and node or nil
+end
+
+--- What the drawing backend knows of the box behind `frame`; nil for a frame that isn't one of ours.
+---@param frame table
+---@return table?
+function Core._Inspect(frame)
+	local node = Core._NodeOf(frame)
+	return node and Core._InspectNode(node)
+end
+
+-- Is the cursor (x, y in UI units) inside this node's drawn region?
+local function contains(node, x, y)
+	local obj = node.frame or node.fs
+	if not obj or not obj:IsVisible() then
+		return false
+	end
+	local l, b, w, h = obj:GetRect()
+	return l and x >= l and x <= l + w and y >= b and y <= b + h
+end
+
+--- The deepest box under the cursor from `node` down (texts and art boxes too, which take no mouse), the later
+--- sibling first, as it's drawn over the earlier.
+---@param node table
+---@param x number UI units
+---@param y number
+---@return table
+function Core._NodeAt(node, x, y)
+	for i = node.count or 0, 1, -1 do
+		local child = node.children[i]
+		if child and contains(child, x, y) then
+			return Core._NodeAt(child, x, y)
+		end
+	end
+	return node
+end
+
+--- A short line for a box: its kind, its text or background, its size.
+---@param node table
+---@return string
+function Core._Label(node)
+	return label(node)
 end

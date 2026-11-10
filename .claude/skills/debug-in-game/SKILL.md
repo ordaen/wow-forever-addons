@@ -32,7 +32,7 @@ chat, never from guesses about what the game showed.
 - For a bug that's hard to see in logs (focus, drag, hover, layout), ask the user to tick the recorder's channels in the
   Ordaen Dev window and press the mark key (Alt+Shift+F8) when the bug shows. Then read `wow_record` with
   `around_mark` and you get one reproduction with everything in it: input with the frames under the cursor, frames
-  traced from an inspect (Alt+Shift+F9), events, hover, snapshots, and the backend's own lines. Backend and engine
+  traced from an inspect (Ctrl+I: inspect mode, like a browser's picker; `wow_inspect` reads what was picked, with every parent), events, hover, snapshots, and the backend's own lines. Backend and engine
   code writes those lines with `Debug:Record(channel, fmt, ...)`, with costly gathering guarded by
   `if Debug:Recording(channel) then ... end`; release builds strip both.
 - Time code you suspect is slow: `local t = Debug:TimeStart()` ... `Debug:TimeEnd(t, "drawer.collect")`, or the
