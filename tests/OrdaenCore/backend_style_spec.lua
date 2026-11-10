@@ -859,6 +859,22 @@ describe("backend styles", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("draws a gradient background, from at the top", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local b = Backend:Create("box")
+		Backend:Set(b, { position = "absolute", left = 0, top = 0, width = 40, height = 20,
+			background = { from = { 1, 0, 0, 1 }, to = { 0, 0, 1, 1 }, direction = "vertical" } })
+		Backend:SetChildren(layer, { b }, 1)
+		Backend:Flush()
+		local g = b.bg._gradient
+		assert.are.equal("VERTICAL", g[1])
+		assert.are.same({ 0, 0, 1, 1 }, g[2]) -- the bottom: to
+		assert.are.same({ 1, 0, 0, 1 }, g[3]) -- the top: from
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("tiles the XP fill along its box, each copy as high as the box", function()
 		local wow, ns = client()
 		local Backend = ns.Backend

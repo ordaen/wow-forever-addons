@@ -703,8 +703,19 @@ function TextureMethods:SetColorTexture(r, g, b, a)
 end
 
 function TextureMethods:SetTexture(path)
+	-- the game takes a file path or a file id (or nil): a table here is a background the backend didn't understand
+	assert(path == nil or type(path) == "string" or type(path) == "number",
+		"SetTexture takes a path or a file id, not a " .. type(path))
 	self._texture = path
 	self._color = nil
+end
+
+-- a gradient over the texture: its orientation and its two colours (ColorMixin objects, as CreateColor makes them)
+function TextureMethods:SetGradient(orientation, minColor, maxColor)
+	assert(orientation == "VERTICAL" or orientation == "HORIZONTAL", "SetGradient orientation " .. tostring(orientation))
+	assert(type(minColor) == "table" and minColor.GetRGBA and type(maxColor) == "table" and maxColor.GetRGBA,
+		"SetGradient takes two colour objects")
+	self._gradient = { orientation, { minColor:GetRGBA() }, { maxColor:GetRGBA() } }
 end
 
 function TextureMethods:SetVertexColor(r, g, b, a)
@@ -1473,6 +1484,15 @@ function Wow:MakeEnv()
 	end)
 	offer("GetCVar", function()
 		return nil
+	end)
+	-- a colour object (ColorMixin): what SetGradient and other colour-taking calls want
+	local ColorMeta = { __index = {
+		GetRGBA = function(c)
+			return c.r, c.g, c.b, c.a
+		end,
+	} }
+	offer("CreateColor", function(r, g, b, a)
+		return setmetatable({ r = r, g = g, b = b, a = a or 1 }, ColorMeta)
 	end)
 	offer("InCombatLockdown", function()
 		return wow.combat == true -- a spec sets wow.combat, then fires PLAYER_REGEN_ENABLED when it ends

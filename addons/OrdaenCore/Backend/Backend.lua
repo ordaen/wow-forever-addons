@@ -1404,6 +1404,19 @@ function Node:ApplyLook()
 				tex:SetTexture(bg.file, "REPEAT", "CLAMP")
 				self.lookArt = bg
 				self:DrawArt()
+			elseif type(bg) == "table" and bg.from and bg.to then
+				-- a gradient { from, to, direction }: from at the top (vertical, the default) or left, as CSS draws it;
+				-- the game's minimum colour is the bottom or left one
+				tex:SetColorTexture(1, 1, 1, 1)
+				tex:SetTexCoord(0, 1, 0, 1)
+				local from, to = color(bg.from), color(bg.to)
+				if bg.direction == "horizontal" then
+					tex:SetGradient("HORIZONTAL", CreateColor(from[1], from[2], from[3], from[4] or 1),
+						CreateColor(to[1], to[2], to[3], to[4] or 1))
+				else
+					tex:SetGradient("VERTICAL", CreateColor(to[1], to[2], to[3], to[4] or 1),
+						CreateColor(from[1], from[2], from[3], from[4] or 1))
+				end
 			elseif c then
 				tex:SetColorTexture(c[1], c[2], c[3], c[4] or 1)
 				tex:SetTexCoord(0, 1, 0, 1) -- an art background before may have cropped it
