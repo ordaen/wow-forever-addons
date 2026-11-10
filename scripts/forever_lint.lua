@@ -18,6 +18,8 @@
 --   FL9 unit event a unit event (its first argument is the unit, per Blizzard's documentation) registered for every
 --                  unit: :RegisterEvent("UNIT_AURA") or :On("UNIT_AURA", ...) also runs for every nameplate and
 --                  raider; register it for the units you need (RegisterUnitEvent, A:OnUnit / F:OnUnit)
+--   FL10 slash     a slash command of its own (SLASH_X1 = ..., SlashCmdList.X = ...): Ordaen has one, /ordaen, in
+--                  Ordaen Core's Commands.lua; a module declares `commands` (/ordaen <module> <command>)
 -- It only reports what it's sure of: a variable assigned anything it can't type is no longer checked.
 -- Silence one line with a trailing comment:  -- forever-lint: ignore FL2
 --
@@ -479,6 +481,11 @@ function M.LintSource(api, source)
 			local targets, exprs = node[1], node[2]
 			for i, target in ipairs(targets) do
 				local p = path(target)
+				local slashList = target.tag == "Index" and target[1].tag == "Id" and target[1][1] == "SlashCmdList"
+				if (p and p:find("^SLASH_")) or slashList then
+					report(target, "FL10", "a slash command of its own: Ordaen has one, /ordaen; declare `commands` in "
+						.. "the module (/ordaen <module> <command>)")
+				end
 				if p then
 					assign(p, typeOf(exprs[i]))
 				else

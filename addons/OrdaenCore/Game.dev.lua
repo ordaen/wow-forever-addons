@@ -106,6 +106,11 @@ function Dev:ClearDump()
 	self.hasDump:Set(false)
 end
 
+--- The window opened: the dev addon's gear button drops its error alert.
+function Dev:Opened() -- luacheck: ignore 212
+	_G.OrdaenCoreDebug:Opened()
+end
+
 function Dev:ToggleArtPreview() -- luacheck: ignore 212
 	_G.OrdaenCoreDebug:ToggleArtPreview()
 end

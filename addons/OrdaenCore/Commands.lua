@@ -56,6 +56,21 @@ function Commands.Word(folder)
 	return lower((folder:gsub("^Ordaen", "")))
 end
 
+--- The folder of the on-demand module (X-Ordaen-OnDemand in its TOC) that answers to `word`, or nil. Read from the
+--- AddOns list at the command, not kept: commands are rare.
+---@param word string
+---@return string?
+function Commands.OnDemandFolder(word)
+	for i = 1, C_AddOns.GetNumAddOns() do
+		local folder = C_AddOns.GetAddOnInfo(i)
+		if folder and Commands.Word(folder) == word and C_AddOns.GetAddOnMetadata(folder, "X-Ordaen-OnDemand") == "1"
+			and folder:find("^Ordaen") then
+			return folder
+		end
+	end
+	return nil
+end
+
 --- A module the AddOns list has, before it loads: `/ordaen <word>` says it's off until it mounts.
 ---@param folder string
 function Commands.Know(folder)
@@ -159,6 +174,18 @@ local function run(line)
 		return
 	end
 	local group = groups[word]
+	-- an on-demand module (the settings window, the dev window): its word alone toggles its window, loading it first
+	local onDemand = Commands.OnDemandFolder(word)
+	if onDemand and (command == "" or not group) then
+		if Commands.RunOnDemand(onDemand, command == "" and "toggle" or command, arguments) then
+			return
+		elseif groups[word] then
+			groupHelp(word)
+		else
+			say(format(L.UNKNOWN_MODULE, word))
+		end
+		return
+	end
 	if not group then
 		say(off[word] and format(L.MODULE_OFF, off[word]) or format(L.UNKNOWN_MODULE, word))
 		return
@@ -194,8 +221,8 @@ local function run(line)
 	end
 end
 
-SLASH_ORDAEN1 = "/ordaen"
-SlashCmdList.ORDAEN = run
+SLASH_ORDAEN1 = "/ordaen" -- forever-lint: ignore FL10 Ordaen's one slash command
+SlashCmdList.ORDAEN = run -- forever-lint: ignore FL10 Ordaen's one slash command
 
 -- Ordaen in Blizzard's own options (Параметры → Модификации), where players look for an addon's settings: picking it
 -- opens Ordaen's window and closes Blizzard's. Blizzard's panel reopens on the category picked last, so its canvas also
