@@ -117,7 +117,7 @@ return Define.Module({
 		Define.Ephemeral({
 			epoch = { type = "number", default = 0 }, -- a comparison changed another view's rows
 			charge = { type = "number", default = 0 }, -- the main tooltip's lock charging: 0 to STEPS
-			lock = { type = "number", default = 0 }, -- the locked show of the main tooltip (its tip.shown), 0: none
+			lock = { type = "number", default = 0 }, -- 1: the main tooltip's group is locked
 			nest = { type = "number", default = 0 }, -- a tooltip opened from a link opened or closed
 		})
 		local models, ctx, anchors, hooks = {}, { numbers = game.Numbers, L = L }, {}, {}
@@ -248,7 +248,10 @@ return Define.Module({
 
 		-- the lock: GameTooltip's shows charge; locked, every view shown then stays until it closes
 		local main = game.Tooltip.GameTooltip
-		local kept, closed = {}, 0 -- the views kept by the lock; the show last closed (it doesn't charge again)
+		-- the views kept by the lock; what the main tooltip shows (its data's type and link, id or GUID: Blizzard shows
+		-- the same thing again several times a second, an action button's or a bag item's, and that's one target that
+		-- keeps charging); whether the target was closed (it doesn't charge again until something else shows)
+		local kept, targetType, targetId, closed = {}, nil, nil, false
 		self.kept = kept
 		-- the tooltips opened from links: their models by depth (`n` open), whether the mouse is on each, when the
 		-- link that opened the next was left
@@ -260,7 +263,7 @@ return Define.Module({
 			end
 		end
 		local function Close()
-			closed = Define.Peek(self.state.lock)
+			closed = true
 			self.state.lock = 0
 			self.state.charge = 0
 			Truncate(0)
@@ -276,20 +279,29 @@ return Define.Module({
 				kept[NATIVES[i]] = tip and tip.shown:Peek() > 0 or nil
 			end
 			self.state.charge = STEPS
-			self.state.lock = main.shown:Peek()
+			self.state.lock = 1
 		end
 		if main then
 			self:Watch(function()
 				local shown, lock = main.shown:Get(), self.state.lock
-				if shown > 0 and lock ~= 0 and shown ~= lock then
-					Close() -- another tooltip starts: the locked one goes
+				if shown == 0 then
+					if lock == 0 then -- the mouse left before it locked: the next show starts over
+						self.state.charge = 0
+						targetType, targetId, closed = nil, nil, false
+					end
 					return
 				end
-				if shown > 0 and lock == 0 and shown ~= closed then
+				local data = main.data
+				local id = data and (data.hyperlink or data.guid or data.id)
+				if data and (data.type ~= targetType or id ~= targetId) then
+					if lock ~= 0 then
+						Close() -- another tooltip starts: the locked one goes
+					end
+					targetType, targetId, closed = data.type, id, false
 					self.state.charge = 0
-					self:Every(STEP, Step)
-				elseif lock == 0 then
-					self.state.charge = 0
+				end
+				if lock == 0 and not closed then
+					self:Every(STEP, Step) -- the same target shown again keeps its charge
 				end
 			end)
 		end

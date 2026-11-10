@@ -342,6 +342,20 @@ describe("Ordaen Tooltips", function()
 			assert.are.same({}, wow.errors)
 		end)
 
+		it("keeps charging while Blizzard shows the same thing again (it refreshes a button's or bag item's tooltip)",
+			function()
+				for _ = 1, 4 do
+					wow:ShowTooltip("GameTooltip", AXE)
+					wait(0.25)
+				end
+				wait(0.1)
+				assert.is_truthy(closeButton())
+				wow:ShowTooltip("GameTooltip", AXE) -- shown again while locked: still locked
+				ns.Scheduler.Flush()
+				assert.is_truthy(closeButton())
+				assert.are.same({}, wow.errors)
+			end)
+
 		it("closes when the mouse leaves it, after the grace, and not when it comes back in time", function()
 			wow:ShowTooltip("GameTooltip", AXE)
 			wait(1.1)
