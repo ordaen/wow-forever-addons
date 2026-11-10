@@ -139,20 +139,12 @@ return Define.Module({
 
 	onDemand = true,
 
-	windows = { main = {} },
+	windows = { main = { width = WIDTH, height = HEIGHT } },
 
 	Setup = function(game, self)
 		Define.Ephemeral({
 			tab = { type = "number", default = 1 }, -- its tab
 			closing = { type = "boolean", default = false }, -- asking about unsaved changes
-		})
-		-- where the player left the window (design windows/: remembered per window, account-wide): its centre's offset
-		-- from the screen's
-		Define.Persistent({
-			x = { type = "number", default = 0 },
-			y = { type = "number", default = 0 },
-			width = { type = "number", default = WIDTH }, -- its body's size, as the player left it
-			height = { type = "number", default = HEIGHT },
 		})
 		-- the window's one draft: every page's changes wait in it until «Сохранить» (design settings/)
 		local draft = game.Settings:Draft()
@@ -217,25 +209,13 @@ return Define.Module({
 				self.state.tab = i
 			end,
 			-- closing asks first while anything is unsaved
-			resized = function(width, height)
-				self.state.width = width
-				self.state.height = height
-			end,
-			moved = function(x, y)
-				self.state.x = x
-				self.state.y = y
-			end,
-			hide = function()
-				window:Close()
-			end,
 		}
 	end,
 
 	Render = function(game, self)
 		if self.windows.main:IsShown() then
-			game.ui:Window({ attributes = { title = game.Ordaen.title, width = self.state.width,
-				height = self.state.height, minWidth = MIN_WIDTH, minHeight = MIN_HEIGHT, x = self.state.x, y = self.state.y,
-				OnMoved = self.moved, OnResized = self.resized, OnClose = self.hide }, slots = { default = Window } })
+			game.ui:Window({ attributes = { title = game.Ordaen.title, window = self.windows.main, minWidth = MIN_WIDTH,
+				minHeight = MIN_HEIGHT }, slots = { default = Window } })
 			if self.state.closing then
 				game.ui:Dialog({ attributes = { title = L.UNSAVED_TITLE, width = CONFIRM_WIDTH },
 					slots = { default = Question, buttons = Answers } })

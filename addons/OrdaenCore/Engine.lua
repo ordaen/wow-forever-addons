@@ -332,8 +332,8 @@ function Engine:Mount(parent, declaration, site, data, container, module, game, 
 	local windows = declaration.windows
 	if windows then
 		instance.windows = {}
-		for name in pairs(windows) do
-			instance.windows[name] = ns.NewWindow()
+		for name, spec in pairs(windows) do
+			instance.windows[name] = ns.NewWindow(module, name, spec)
 		end
 	end
 	ns.Draw:NewInstance(instance, container)

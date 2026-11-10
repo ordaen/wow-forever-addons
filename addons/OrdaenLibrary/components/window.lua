@@ -14,7 +14,10 @@
 -- sits: its centre's offset from the screen's, UI units, y down; 0, 0 when unset), `OnMoved(x, y)` (called when a drag
 -- ends: its owner keeps the place), `minWidth`, `minHeight` (the smallest body; 320 x 200 px unless given),
 -- `maxWidth`, `maxHeight` (the largest), `OnResized(width, height)` (called when a resize ends, the body's size),
--- `OnClose` (called by the close button and by Escape). Slot `default`: the body's content, inside its padding.
+-- `OnClose` (called by the close button and by Escape). `window`: the module's window (`self.windows.main`, design
+-- development/framework/module «Windows») in place of x, y, width, height, OnMoved, OnResized and OnClose: it starts
+-- where the player left it, keeps where a move or resize ends, and closes through the window. Slot `default`: the
+-- body's content, inside its padding.
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
@@ -174,11 +177,16 @@ end
 
 return Define.Component({
 	Setup = function(_, self)
+		local window = Define.Peek(self.attributes.window)
+		local wx, wy, ww, wh
+		if window then
+			wx, wy, ww, wh = window:Place()
+		end
 		Define.Ephemeral({
-			x = { type = "number", default = Define.Peek(self.attributes.x) or 0 },
-			y = { type = "number", default = Define.Peek(self.attributes.y) or 0 },
-			w = { type = "number", default = Define.Peek(self.attributes.width) or 0 },
-			h = { type = "number", default = Define.Peek(self.attributes.height) or 0 },
+			x = { type = "number", default = wx or Define.Peek(self.attributes.x) or 0 },
+			y = { type = "number", default = wy or Define.Peek(self.attributes.y) or 0 },
+			w = { type = "number", default = ww or Define.Peek(self.attributes.width) or 0 },
+			h = { type = "number", default = wh or Define.Peek(self.attributes.height) or 0 },
 			full = { type = "boolean", default = false },
 			hovered = { type = "boolean", default = false },
 		})
@@ -201,7 +209,15 @@ return Define.Component({
 			self.state.x = x0 + (w - w0) / 2
 			self.state.y = y0 + (h - h0) / 2
 		end
+		-- the module's window keeps where the player left it
+		local function keep()
+			if window then
+				window:SetPlace(Define.Peek(self.state.x), Define.Peek(self.state.y), Define.Peek(self.state.w),
+					Define.Peek(self.state.h))
+			end
+		end
 		local function sizeStop()
+			keep()
 			local resized, moved = self.attributes.OnResized, self.attributes.OnMoved
 			if resized then
 				resized(Define.Peek(self.state.w), Define.Peek(self.state.h))
@@ -238,6 +254,9 @@ return Define.Component({
 				self.state.y = y0 + y - grabY
 			end,
 			dragStop = function()
+				if not Define.Peek(self.state.full) then
+					keep()
+				end
 				local fn = self.attributes.OnMoved
 				if fn and not Define.Peek(self.state.full) then
 					fn(Define.Peek(self.state.x), Define.Peek(self.state.y))
@@ -253,6 +272,10 @@ return Define.Component({
 				self.state.full = not Define.Peek(self.state.full)
 			end,
 			close = function()
+				if window then
+					window:Close()
+					return
+				end
 				local fn = self.attributes.OnClose
 				if fn then
 					fn()
