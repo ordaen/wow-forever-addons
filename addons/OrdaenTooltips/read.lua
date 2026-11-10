@@ -14,6 +14,20 @@ local Read = {}
 
 local format, tonumber, select = string.format, tonumber, select
 
+-- Colours as the draw takes them, { r, g, b, 1 }: one table per colour, made once and never changed, so a text drawn
+-- in another colour gets another table (the draw compares tables, not their contents)
+local colors = {}
+local function Rgb(r, g, b)
+	local key = math.floor(r * 255 + 0.5) * 65536 + math.floor(g * 255 + 0.5) * 256 + math.floor(b * 255 + 0.5)
+	local color = colors[key]
+	if not color then
+		color = { r, g, b, 1 }
+		colors[key] = color
+	end
+	return color
+end
+Read.Rgb = Rgb
+
 local isSecret = issecretvalue or function()
 	return false
 end
@@ -50,19 +64,18 @@ end
 
 --- A new model for one tooltip view (made once).
 function Read.NewModel()
-	return { desc = List(), info = List(), cols = List(), body = List(), foot = List(), keys = List(),
-		nameColor = { 1, 1, 1, 1 } }
+	return { desc = List(), info = List(), cols = List(), body = List(), foot = List(), keys = List() }
 end
 
 local function Clear(model)
 	model.desc.n, model.info.n, model.cols.n, model.body.n, model.foot.n, model.keys.n = 0, 0, 0, 0, 0, 0
 	model.icon, model.portrait, model.name, model.header = nil, nil, nil, nil
-	local c = model.nameColor
-	c[1], c[2], c[3] = 1, 1, 1
+	model.nameColor = Rgb(1, 1, 1)
 end
 
--- a line's colour as { r, g, b, 1 } into `into` (the line's ColorMixin), or nil for white and unreadable ones
-local function ColorOf(color, into)
+
+-- a line's colour (its ColorMixin), or nil for white and unreadable ones
+local function ColorOf(color)
 	if type(color) ~= "table" or isSecret(color) then
 		return nil
 	end
@@ -70,9 +83,7 @@ local function ColorOf(color, into)
 	if type(r) ~= "number" or (r > 0.95 and g > 0.95 and b > 0.95) then
 		return nil
 	end
-	into = into or {}
-	into[1], into[2], into[3], into[4] = r, g, b, 1
-	return into
+	return Rgb(r, g, b)
 end
 
 -- The game's grammar codes, which Forever leaves in some lines (api/forever/tooltip-data.md): the plural code
@@ -130,8 +141,7 @@ local function Body(model, line, free)
 	end
 	local row = Push(model.body)
 	row.left, row.right, row.free = left, Text(line.rightText), free
-	row.buf = row.buf or {}
-	row.color = ColorOf(line.leftColor, row.buf)
+	row.color = ColorOf(line.leftColor)
 end
 
 local function Foot(model, left, right, valueColor)
@@ -219,8 +229,7 @@ local function Item(model, data, ctx)
 			local quality = line.quality
 			local color = type(quality) == "number" and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[quality]
 			if color then
-				local c = model.nameColor
-				c[1], c[2], c[3] = color.r, color.g, color.b
+				model.nameColor = Rgb(color.r, color.g, color.b)
 			end
 		elseif kind == LINE.ItemSlot then
 			Part(model.desc, left, line.isValidInvSlot == false and RED or nil)
@@ -308,8 +317,7 @@ local function Spell(model, data, settings, aura)
 			model.name = Text(line.leftText)
 			Part(model.desc, Text(line.rightText)) -- the rank, an aura's dispel type
 			if aura then
-				local c = model.nameColor
-				c[1], c[2], c[3] = GOLD[1], GOLD[2], GOLD[3]
+				model.nameColor = Rgb(GOLD[1], GOLD[2], GOLD[3])
 			end
 		elseif kind == LINE.Requirement then
 			local text = Text(line.leftText)
@@ -358,28 +366,22 @@ local function Unit(model, data)
 			local text = Text(line.leftText)
 			if text then
 				local list = model.desc.n < 1 and model.desc or model.info
-				Part(list, text)
-				local part = list[list.n]
-				part.buf = part.buf or {}
-				part.color = ColorOf(line.leftColor, part.buf)
+				Part(list, text, ColorOf(line.leftColor))
 			end
 		end
 	end
 	if unit then
 		model.portrait = unit
-		local c = model.nameColor
+		local color
 		if UnitIsPlayer(unit) then
 			local _, class = UnitClass(unit)
-			local color = class and RAID_CLASS_COLORS and RAID_CLASS_COLORS[class]
-			if color then
-				c[1], c[2], c[3] = color.r, color.g, color.b
-			end
+			color = class and RAID_CLASS_COLORS and RAID_CLASS_COLORS[class]
 		else
 			local reaction = UnitReaction(unit, "player")
-			local color = reaction and FACTION_BAR_COLORS and FACTION_BAR_COLORS[reaction]
-			if color then
-				c[1], c[2], c[3] = color.r, color.g, color.b
-			end
+			color = reaction and FACTION_BAR_COLORS and FACTION_BAR_COLORS[reaction]
+		end
+		if color then
+			model.nameColor = Rgb(color.r, color.g, color.b)
 		end
 	end
 	return model.name ~= nil
@@ -392,8 +394,7 @@ local function Object(model, data)
 		local line = lines[i]
 		if i == 1 then
 			model.name = Text(line.leftText)
-			local c = model.nameColor
-			c[1], c[2], c[3] = GOLD[1], GOLD[2], GOLD[3]
+			model.nameColor = Rgb(GOLD[1], GOLD[2], GOLD[3])
 		elseif line.type ~= LINE.Blank then
 			Body(model, line, true)
 		end

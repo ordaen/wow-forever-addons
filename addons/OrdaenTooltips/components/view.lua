@@ -62,8 +62,10 @@ end
 
 local function Head(game, self)
 	local calls = self.calls
-	if calls.icon.attributes.width then
+	if calls.icon.attributes.background then
 		game.ui:Box(calls.icon)
+	elseif calls.face.attributes.portrait then
+		game.ui:Box(calls.face)
 	end
 	game.ui:Box({ attributes = { columns = 1, gap = 2 * PX, yAlign = "center" }, slots = { default = Title } })
 end
@@ -125,10 +127,10 @@ end
 local function Fill(calls, m)
 	local head = calls.head.attributes
 	head.shown = m.name ~= nil
-	local icon = calls.icon.attributes
+	-- the item's or spell's icon, else a unit's face: each its own box (never one turned into the other)
 	local hasIcon = m.icon ~= nil or m.portrait ~= nil
-	icon.width, icon.height = hasIcon and ICON or nil, hasIcon and ICON or nil
-	icon.background, icon.portrait = m.icon or BLACK, m.portrait
+	calls.icon.attributes.background = m.icon
+	calls.face.attributes.portrait = not m.icon and m.portrait or nil
 	head.columns = hasIcon and TITLE_COLUMNS or 1
 	calls.name.attributes.text, calls.name.attributes.textColor = m.name, m.nameColor
 	calls.desc.attributes.text = m.desc.n > 0 and Join(m.desc) or nil
@@ -181,10 +183,13 @@ return Define.Component({
 		self.calls = {
 			head = { attributes = { gap = 10 * PX, yAlign = "center", padding = { 0, 0, SECTION, 0 } },
 				slots = { default = Head } },
-			icon = { attributes = { border = RIM } },
-			name = { attributes = { textSize = 18 * PX, wrap = false, textFamily = Define.Theme.font.header } },
-			desc = { attributes = { textColor = LABEL, textSize = 14 * PX, wrap = false } },
-			info = { attributes = { textColor = QUIET, textSize = 14 * PX, wrap = false } },
+			icon = { attributes = { width = ICON, height = ICON, border = RIM } },
+			face = { attributes = { width = ICON, height = ICON, border = RIM, background = BLACK } },
+			-- the design's titles never wrap and the tooltip grows; until the layout can size a box to its widest line
+			-- (width = { min, fit = "min" }) they wrap in the fixed width rather than overflow it
+			name = { attributes = { textSize = 18 * PX, textFamily = Define.Theme.font.header } },
+			desc = { attributes = { textColor = LABEL, textSize = 14 * PX } },
+			info = { attributes = { textColor = QUIET, textSize = 14 * PX } },
 			colsBox = { attributes = { padding = { SECTION, 0, SECTION, 0 } }, slots = { default = Cols } },
 			bodyBox = Section(Body), footBox = Section(Foot), keysBox = Section(Keys),
 			cols = {}, body = {}, foot = {}, keys = {}, nCols = 0, nBody = 0, nFoot = 0, nKeys = 0,
