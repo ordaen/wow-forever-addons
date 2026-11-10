@@ -1596,6 +1596,9 @@ function Node:ApplyMouse()
 	local drag = (a.OnDragStart or a.OnDrag or a.OnDragStop) and true or false
 	local want = (self.states and a.stateFrom == nil or a.OnClick or a.OnEnter or a.OnLeave or a.hoverWithin or drag)
 		and (self.lookOpacity or 1) > 0 and true or false
+	-- clicks only where something takes them (a click, a press look, a drag): a box that only follows the cursor
+	-- (OnEnter, hoverWithin) lets clicks through to what lies under it (the map under the minimap's ring room)
+	local click = want and (a.OnClick or drag or self.states and a.stateFrom == nil) and true or false
 	local frame = self.frame
 	if want ~= self.mouse then
 		self.mouse = want
@@ -1603,6 +1606,12 @@ function Node:ApplyMouse()
 		if not want then
 			self.hovered, self.pressed = false, false
 		end
+	end
+	if want and click ~= self.click then
+		self.click = click
+		frame:SetMouseClickEnabled(click)
+	elseif not want then
+		self.click = nil
 	end
 	if drag ~= (self.dragOn or false) then
 		self.dragOn = drag or nil

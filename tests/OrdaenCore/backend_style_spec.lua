@@ -870,6 +870,24 @@ describe("backend styles", function()
 		assert.are.same({ 0, 1, 0.5 }, { left, right, kTop }) -- the whole width of row 1 of 2
 	end)
 
+	it("lets clicks through a box that only follows the cursor, and takes them where it handles a click", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local hover = Backend:Create("box")
+		local fn = function() end
+		Backend:Set(hover, { position = "absolute", left = 0, top = 0, width = 50, height = 50, hoverWithin = true,
+			OnEnter = fn, OnLeave = fn })
+		local click = Backend:Create("box")
+		Backend:Set(click, { position = "absolute", left = 0, top = 0, width = 10, height = 10, OnClick = fn })
+		Backend:SetChildren(layer, { hover, click }, 2)
+		Backend:Flush()
+		assert.is_true(hover.frame:IsMouseEnabled()) -- it still sees the cursor
+		assert.is_false(hover.frame:IsMouseClickEnabled()) -- the minimap's ring room over the map
+		assert.is_true(click.frame:IsMouseClickEnabled())
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("draws a panel cell three-sliced, following the Blizzard button inside it, its icon following it", function()
 		local wow, ns = client()
 		local Backend = ns.Backend

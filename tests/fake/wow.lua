@@ -563,6 +563,16 @@ end
 
 function FrameMethods:EnableMouse(on)
 	self._mouse = on
+	self._click = on
+end
+
+-- clicks apart from the cursor's motion (EnableMouse sets both)
+function FrameMethods:SetMouseClickEnabled(on)
+	self._click = on
+end
+
+function FrameMethods:IsMouseClickEnabled()
+	return self._click == true
 end
 
 function FrameMethods:IsMouseEnabled()
