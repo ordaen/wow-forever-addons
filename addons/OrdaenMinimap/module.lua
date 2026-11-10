@@ -412,7 +412,7 @@ return Define.Module({
 					if self.state.showCoords or self.state.showClock then
 						game.ui:Box({ attributes = {
 							position = "absolute", left = OUT, bottom = OUT, width = Size(self), height = STRIP,
-							background = Define.Theme.window.wood, border = RULE_ABOVE, columns = { "auto", "1fr", "auto" },
+							background = Define.Theme.window.wood, border = RULE_ABOVE, columns = { "1fr", "auto" },
 							padding = { 0, 10 * PX, 0, 10 * PX }, yAlign = "center",
 						}, slots = { default = function()
 							Foot(game, self)
