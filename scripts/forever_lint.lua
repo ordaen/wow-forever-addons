@@ -1,8 +1,9 @@
 -- forever-lint: checks Lua code against the real Forever API (api/forever/$(cat CURRENT)/api.json, made
 -- from the in-game dump). luacheck already rejects unknown globals and namespace functions; this adds
 -- what luacheck can't know:
---   FL1 event      :RegisterEvent/RegisterUnitEvent/UnregisterEvent/IsEventRegistered("NAME") with a
---                  name Forever's API documentation doesn't list
+--   FL1 event      :RegisterEvent/RegisterUnitEvent/UnregisterEvent/IsEventRegistered("NAME") or RawEvent("NAME")
+--                  with a name Forever's API documentation doesn't list, or one its client refuses (the dump
+--                  registers every documented event once: retail leftovers like MINIMAP_PING fail there)
 --   FL2 method     a method that the widget type doesn't have, on a variable we know holds that type
 --                  (from CreateFrame("Type", ..., "Template"), :CreateTexture(), :CreateFontString(), ...)
 --   FL3 arguments  more arguments than a documented function takes, or fewer than it needs (only when
@@ -272,6 +273,17 @@ function M.LintSource(api, source)
 
 	local typeOf -- forward
 
+	local function checkEvent(at, event)
+		local known = api.events[event]
+		if not known then
+			report(at, "FL1", "event '" .. event .. "' is not in Forever " .. tostring(api.version)
+				.. "'s API documentation")
+		elseif known.refused then
+			report(at, "FL1", "event '" .. event .. "' is in Blizzard's documentation, but Forever " .. tostring(api.version)
+				.. "'s client refuses to register it (unknown event)")
+		end
+	end
+
 	local function checkCall(node)
 		-- node: Call; node[1] = callee
 		local callee = node[1]
@@ -283,6 +295,12 @@ function M.LintSource(api, source)
 		local name = path(callee)
 		if not name then
 			return
+		end
+		if name == "RawEvent" then -- Ordaen Core's raw event signals (Game.lua)
+			local kind, event = literal(node[2])
+			if kind == "string" then
+				checkEvent(node[2], event)
+			end
 		end
 		if name == "CreateFrame" then
 			local kind, frameType = literal(node[2])
@@ -339,9 +357,8 @@ function M.LintSource(api, source)
 		local method = node[2][1]
 		if EVENT_METHODS[method] then
 			local kind, event = literal(node[3])
-			if kind == "string" and not api.events[event] then
-				report(node[3], "FL1", "event '" .. event .. "' is not in Forever " .. tostring(api.version)
-					.. "'s API documentation")
+			if kind == "string" then
+				checkEvent(node[3], event)
 			end
 		end
 		if ALL_UNITS_METHODS[method] then

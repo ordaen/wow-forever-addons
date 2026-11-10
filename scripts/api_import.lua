@@ -166,8 +166,10 @@ function M.Render(dump)
 		for name, signature in pairs(dump.docs.functions or {}) do
 			docs[#docs + 1] = "function " .. name .. signature
 		end
+		local refused = dump.docs.refused or {}
 		for name, payload in pairs(dump.docs.events or {}) do
-			docs[#docs + 1] = "event " .. name .. "(" .. payload .. ")"
+			-- " refused": documented, but the client refuses to register it (the dump tried)
+			docs[#docs + 1] = "event " .. name .. "(" .. payload .. ")" .. (refused[name] and " refused" or "")
 		end
 		out["docs.txt"] = lines(docs)
 	end
@@ -415,9 +417,9 @@ function M.Structured(files)
 		if name then
 			api.functions[name] = { args = parseFields(args, withDefaults), returns = parseFields(returns) }
 		else
-			local event, payload = line:match("^event ([^(]+)%((.-)%)$")
+			local event, payload, refused = line:match("^event ([^(]+)%((.-)%)( ?r?e?f?u?s?e?d?)$")
 			if event then
-				api.events[event] = { payload = parseFields(payload) }
+				api.events[event] = { payload = parseFields(payload), refused = refused == " refused" or nil }
 			end
 		end
 	end
