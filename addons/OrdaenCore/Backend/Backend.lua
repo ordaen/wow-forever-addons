@@ -71,7 +71,7 @@ local GROUP = {
 	zLevel = LOOK, desaturate = LOOK, tint = LOOK, visibleWhen = LOOK,
 	action = LOOK, index = LOOK, binding = LOOK, paging = LOOK, hotkey = LOOK, macroName = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
-	hoverWithin = INPUT, OnEscape = INPUT, OnLink = INPUT,
+	hoverWithin = INPUT, OnEscape = INPUT, OnLink = INPUT, OnRect = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT, OnDrop = INPUT,
 	text = TEXT, textSize = TEXT, textFamily = TEXT, textOutline = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT,
 	maxLength = TEXT,
@@ -87,7 +87,7 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 end
 for _, key in ipairs({ "background", "desaturate", "tint", "artOrigin", "anchor", "zLevel", "opacity", "portrait",
 	"mask", "overflow", "stateFrom", "OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart",
-	"OnDrag", "OnDragStop", "OnDrop", "OnEscape", "OnLink", "visibleWhen",
+	"OnDrag", "OnDragStop", "OnDrop", "OnEscape", "OnLink", "OnRect", "visibleWhen",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
@@ -258,6 +258,30 @@ local function enqueue(node)
 		node.queued = true
 		nQueue = nQueue + 1
 		queue[nQueue] = node
+	end
+end
+
+-- Fonts are loaded before any text uses them: a FontString set to a font file the game hasn't opened yet measures 0
+-- wide (and a text laid out then sits off its place until it's measured again). One hidden FontString per font file,
+-- made when the file is first named: the theme's fonts at load (so the first screen's texts find them open), any
+-- other (a module's textFamily) on its first use. A file is loaded once and stays: a few FontStrings in all.
+local fontLoader, loadedFonts = nil, {}
+local function loadFont(file)
+	if loadedFonts[file] or type(file) ~= "string" then
+		return
+	end
+	if not fontLoader then
+		fontLoader = CreateFrame("Frame", nil, UIParent)
+		fontLoader:Hide()
+	end
+	local fs = fontLoader:CreateFontString(nil, "ARTWORK")
+	fs:SetFont(file, 12, "")
+	fs:SetText("0")
+	loadedFonts[file] = fs
+end
+for key, value in pairs(Theme) do
+	if type(key) == "string" and key:find("^font%.") then
+		loadFont(value)
 	end
 end
 
@@ -1622,6 +1646,7 @@ function Node:ApplyText()
 	end
 	if size ~= self.fontSize or font ~= self.font or outline ~= self.outline then
 		self.fontSize, self.font, self.outline = size, font, outline
+		loadFont(font or Theme["font.body"])
 		local ok = fs:SetFont(font or Theme["font.body"], size, outline or "")
 		if not ok then
 			local Debug = ns.Core.NewDebug("OrdaenCore")
@@ -1684,11 +1709,22 @@ end
 -- A box takes the mouse only with a handler or a per-state map of its own state, and never at opacity 0. A box whose
 -- state comes from elsewhere (`stateFrom`: its parent's, or its embedded child's) leaves the mouse to that one, so
 -- an icon in a cell doesn't cover the cell's button.
+-- OnRect(left, top, width, height): told where the box is on the screen (UI units from the screen's top left) when
+-- that changes, its own move or an ancestor's; checked at the end of each flush, for the few boxes that ask (the
+-- placing mode's outlines, for snapping)
+local rectWatchers = {}
+
 function Node:ApplyMouse()
 	if self.kind ~= "box" or self.embedded then -- an embedded frame keeps its own mouse
 		return
 	end
 	local a = self.a
+	if a.OnRect then
+		rectWatchers[self] = true
+	elseif rectWatchers[self] then
+		rectWatchers[self] = nil
+		self.rectL = nil
+	end
 	local drag = (a.OnDragStart or a.OnDrag or a.OnDragStop) and true or false
 	local link = a.OnLink and true or false
 	local want = (self.states and a.stateFrom == nil or a.OnClick or a.OnEnter or a.OnLeave or a.hoverWithin or drag
@@ -3171,6 +3207,27 @@ end
 ---the children reused nodes held before that their new life didn't take.
 -- Each list's entry is cleared before it's handled, and a hole is skipped: an error in one node's work leaves the
 -- entries before it cleared and its count standing, so walking the lists again resumes after it.
+local function TellRects()
+	local screenTop = UIParent:GetTop() or 0
+	for node in next, rectWatchers do
+		local fn = not node.released and node.a.OnRect
+		if not fn then
+			rectWatchers[node] = nil
+			node.rectL = nil
+		else
+			local frame = node.frame
+			local l, t = frame:GetLeft(), frame:GetTop()
+			if l then
+				local top, w, h = screenTop - t, frame:GetWidth(), frame:GetHeight()
+				if l ~= node.rectL or top ~= node.rectT or w ~= node.rectW or h ~= node.rectH then
+					node.rectL, node.rectT, node.rectW, node.rectH = l, top, w, h
+					fn(l, top, w, h)
+				end
+			end
+		end
+	end
+end
+
 local function FlushWork(self)
 	if nDirtyTexts > 0 then
 		for i = 1, nDirtyTexts do
@@ -3230,6 +3287,9 @@ local function FlushWork(self)
 			end
 		end
 		nOrphans = 0
+	end
+	if next(rectWatchers) then
+		TellRects()
 	end
 end
 
