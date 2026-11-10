@@ -126,6 +126,9 @@ local function RingShown(game, id)
 	elseif id == "landing" then
 		return game.Frame.ExpansionLandingPageMinimapButton:Get() ~= nil
 			and game.Frame.ExpansionLandingPageMinimapButton:Get():IsShown()
+	elseif id == "drawer" then
+		-- only while it holds something: another addon's button or a compartment entry
+		return #game.Minimap.buttons:Get() + #game.Minimap.entries:Get() > 0
 	end
 	return true
 end
