@@ -32,7 +32,10 @@ local TAB_PAD = 16 * PX
 local ART_TOP, ART_H, ART_PAST = -12 * PX, 64 * PX, 10 * PX
 local TITLE = { 1, 0.82, 0, 1 } -- #ffd100
 local TITLE_SIZE = 15 * PX
-local CENTER = { point = "CENTER", relativePoint = "CENTER" }
+-- placed by its top-left corner from the screen's centre: x and y say where its centre is, and the corner is half
+-- its size from there. A resize moves the centre by half the size change, so the corner's offset stays exactly the
+-- same and snaps to the same pixel (by its centre, a size rounded to pixels would move it a pixel back and forth)
+local FROM_CENTER = { point = "TOPLEFT", relativePoint = "CENTER" }
 
 local WOOD = Define.Theme.window.wood
 -- the open tab, over the body (drawn after it): its wood in three parts (the corners masked round), the right flare's
@@ -142,16 +145,16 @@ end
 
 -- where the window sits: centred and moved by dragging its tab, or the whole screen
 local function Anchor(_, self)
-	return not self.state.full and CENTER or nil
+	return not self.state.full and FROM_CENTER or nil
 end
 local function Left(_, self)
-	return self.state.full and 0 or self.state.x
+	return self.state.full and 0 or self.state.x - self.state.w / 2
 end
 -- the smallest body when the window names none: room for the tab row and a few lines
 local MIN_W, MIN_H = 320 * PX, 200 * PX
 
 local function Top(_, self)
-	return self.state.full and 0 or self.state.y
+	return self.state.full and 0 or self.state.y - (TabH(self) + self.state.h) / 2
 end
 local function Edge(_, self)
 	return self.state.full and 0 or nil

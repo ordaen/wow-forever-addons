@@ -200,6 +200,44 @@ describe("the settings window", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("holds its tab and its list still on the screen while resized, step by fraction of a pixel", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		local grip
+		walk(ns, function(node)
+			if node.a and node.a.OnDragStart and node.a.width and node.a.width < 20 then
+				grip = node
+			end
+		end)
+		local tab = texts(ns)["Ordaen"].parent
+		local list = texts(ns)["General"].parent
+		local f = grip.frame
+		wow:MoveCursor(500, 500)
+		wow:DragStart(f)
+		local seen = {}
+		for i = 1, 40 do
+			wow:MoveCursor(500 + i * 0.37, 500 - i * 0.29)
+			wow:Tick()
+			ns.Scheduler.Flush()
+			ns.Backend:Flush()
+			for _, node in ipairs({ tab, list }) do
+				local fr = node.frame
+				local key = tostring(node)
+				local at = string.format("%.4f %.4f", fr:GetLeft(), fr:GetTop())
+				seen[key] = seen[key] or at
+				if seen[key] ~= at then
+					local win = tab.parent
+					error(string.format("%s step %d: %s -> %s; win frame %.4f %.4f off %.4f %.4f w %.4f h %.4f",
+						node == tab and "tab" or "list", i, seen[key], at, win.frame:GetLeft(), win.frame:GetTop(),
+						win.offL or -1, win.offT or -1, win.w or -1, win.h or -1))
+				end
+			end
+		end
+		wow:DragStop(f)
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("moves with its tab row while dragged", function()
 		local wow, ns = Start(nil)
 		wow:Slash("/ordaen")
