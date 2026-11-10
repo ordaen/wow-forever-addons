@@ -160,7 +160,7 @@ local function Track(game, self)
 end
 -- once locked, the bar gives way to what the player can do now, in the footer's quiet colour
 local function Hint(game)
-	game.ui:Text({ attributes = { text = L.LOCKED_HINT, textColor = QUIET, textSize = 13 * PX } })
+	game.ui:Text({ attributes = { text = L.LOCKED_HINT, textColor = QUIET, textSize = 13 * PX, wrap = false } })
 end
 local function BarOrHint(game, self)
 	if self.attributes.locked then
@@ -169,7 +169,13 @@ local function BarOrHint(game, self)
 		Track(game, self)
 	end
 end
-local BAR = { attributes = { columns = 1, padding = { SECTION, 0, 0, 0 } }, slots = { default = BarOrHint } }
+-- one height for both, the hint's line (16 px): the tooltip keeps its height when the lock lands (no layout shift); the
+-- track centred in it
+local BAR_ROW = { attributes = { columns = 1, height = 16 * PX, yAlign = "center" }, slots = { default = BarOrHint } }
+local function BarRow(game)
+	game.ui:Box(BAR_ROW)
+end
+local BAR = { attributes = { columns = 1, padding = { SECTION, 0, 0, 0 } }, slots = { default = BarRow } }
 
 local function Sections(game, self)
 	local calls = self.calls

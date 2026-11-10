@@ -579,6 +579,13 @@ describe("Ordaen Tooltips", function()
 			end))
 			wait(0.4)
 			assert.is_nil(closeButton())
+			local function frameHeight() -- the main tooltip's frame (its wood: artOrigin)
+				local frame = find(function(node)
+					return node.a and node.a.artOrigin == true
+				end)
+				return frame and frame.h
+			end
+			local charging = frameHeight()
 			-- the bar: the tooltip's last section (in the layout, not over it), partly full
 			local fill = find(function(node)
 				local w = node.a and node.a.position == "absolute" and type(node.a.width) == "string"
@@ -589,6 +596,7 @@ describe("Ordaen Tooltips", function()
 			wait(0.8)
 			assert.is_truthy(closeButton())
 			has(texts(), "Locked — hover the underlined parts") -- locked: the bar gives way to the hint
+			assert.are.equal(charging, frameHeight()) -- the hint takes the bar's row: no layout shift
 			wow.env.GameTooltip:Hide()
 			ns.Scheduler.Flush()
 			has(texts(), "Copper Axe")
