@@ -18,6 +18,19 @@ local COMPARE = { ShoppingTooltip1 = true, ShoppingTooltip2 = true }
 -- it describes, then locks; a locked group closes GRACE s after the mouse leaves it (unless it comes back)
 local STEPS, STEP = 20, 1 / 20
 local GRACE = 0.22
+local DEPTH = 6 -- tooltips opened from links in tooltips, at most this deep
+
+-- what a link opens: our spell links (a description's spell names), the game's item and spell links
+local function DataOf(link)
+	local id = link:match("^ordaen:spell:(%d+)")
+	if id then
+		return C_TooltipInfo.GetSpellByID(tonumber(id))
+	end
+	if link:find("^item:") or link:find("^spell:") then
+		return C_TooltipInfo.GetHyperlink(link)
+	end
+	return nil
+end
 
 ---@enum OrdaenTooltipsPlace
 local Place = { Corner = "corner", Anchor = "anchor" } -- where an item's tooltip shows: the game's corner, beside it
@@ -64,6 +77,9 @@ local function Views(game, self)
 			a.locked = self.state.lock > 0 and self.kept[name] or nil
 			a.kept = a.locked
 			a.charge = name == "GameTooltip" and self.state.charge or nil
+			if name == "GameTooltip" then
+				a.nest = self.state.nest
+			end
 			local call = self.viewCalls[name]
 			game.ui:View(game.Layer.Tooltip, call, name)
 		end
@@ -102,6 +118,7 @@ return Define.Module({
 			epoch = { type = "number", default = 0 }, -- a comparison changed another view's rows
 			charge = { type = "number", default = 0 }, -- the main tooltip's lock charging: 0 to STEPS
 			lock = { type = "number", default = 0 }, -- the locked show of the main tooltip (its tip.shown), 0: none
+			nest = { type = "number", default = 0 }, -- a tooltip opened from a link opened or closed
 		})
 		local models, ctx, anchors, hooks = {}, { numbers = game.Numbers, L = L }, {}, {}
 		self.models, self.anchors = models, anchors
@@ -215,6 +232,10 @@ return Define.Module({
 			return true
 		end
 
+		-- the spellbook's names: a description's spell names link to their tooltips
+		self:On("SPELLS_CHANGED", Read.Spellbook)
+		Read.Spellbook()
+
 		self.viewCalls = {}
 		for i = 1, #NATIVES do
 			local tip = game.Tooltip[NATIVES[i]]
@@ -229,10 +250,20 @@ return Define.Module({
 		local main = game.Tooltip.GameTooltip
 		local kept, closed = {}, 0 -- the views kept by the lock; the show last closed (it doesn't charge again)
 		self.kept = kept
+		-- the tooltips opened from links: their models by depth (`n` open), whether the mouse is on each, when the
+		-- link that opened the next was left
+		local nested, hovered, linkLeft = { n = 0 }, {}, {}
+		local function Truncate(depth)
+			if nested.n > depth then
+				nested.n = depth
+				self.state.nest = Define.Peek(self.state.nest) + 1
+			end
+		end
 		local function Close()
 			closed = Define.Peek(self.state.lock)
 			self.state.lock = 0
 			self.state.charge = 0
+			Truncate(0)
 		end
 		local function Step()
 			local n = Define.Peek(self.state.charge) + 1
@@ -280,7 +311,69 @@ return Define.Module({
 				C_Timer.After(GRACE, CloseIfLeft)
 			end,
 		}
+		-- a link hovered at a depth opens its tooltip one deeper; left, that one closes after the grace unless the mouse
+		-- is on it or on one opened from it
+		local links, checks, nestHover = {}, {}, {}
+		local function Open(depth, link)
+			local data = depth < DEPTH and DataOf(link)
+			if not data then
+				return
+			end
+			local d = depth + 1
+			local model = nested[d] or Read.NewModel()
+			nested[d] = model
+			Settings(nil)
+			if not Read.Fill(model, data, ctx) then
+				return
+			end
+			for k = d, nested.n do
+				hovered[k] = false
+			end
+			nested.n = d
+			self.state.nest = Define.Peek(self.state.nest) + 1
+		end
+		for depth = 0, DEPTH do
+			checks[depth] = function()
+				local t = linkLeft[depth]
+				if not t or GetTime() - t < GRACE - 0.01 then
+					return
+				end
+				for k = depth + 1, nested.n do
+					if hovered[k] then
+						return
+					end
+				end
+				linkLeft[depth] = nil
+				Truncate(depth)
+			end
+			links[depth] = function(link, entered)
+				if entered then
+					linkLeft[depth] = nil
+					Open(depth, link)
+				else
+					linkLeft[depth] = GetTime()
+					C_Timer.After(GRACE, checks[depth])
+				end
+			end
+		end
+		for d = 1, DEPTH do
+			nestHover[d] = {
+				OnEnter = function()
+					hovered[d] = true
+				end,
+				OnLeave = function()
+					hovered[d] = false
+					linkLeft[d - 1] = GetTime()
+					C_Timer.After(GRACE, checks[d - 1])
+				end,
+			}
+		end
+		local mainCall = self.viewCalls.GameTooltip
+		if mainCall then
+			mainCall.attributes.nested, mainCall.attributes.nestHover = nested, nestHover
+		end
 		for _, call in pairs(self.viewCalls) do
+			call.attributes.links = links
 			call.attributes.OnClose, call.attributes.OnEnter = lockCalls.OnClose, lockCalls.OnEnter
 			call.attributes.OnLeave = lockCalls.OnLeave
 		end

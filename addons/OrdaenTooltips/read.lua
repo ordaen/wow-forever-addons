@@ -275,19 +275,53 @@ end
 -- Rich text --------------------------------------------------------------------------------------------------------
 
 -- A description as the design draws it (colour only: a FontString has one font): numbers white, a spell's name in
--- «ёлочках» gold. Made once per spell and text (the raw text compared on every show: a change re-parses it).
+-- «ёлочках» gold, and a link (|Hordaen:spell:ID|h) when it's a spell of the player's spellbook other than this one: a
+-- locked tooltip opens it beside (design spells «Hovering a name»). Made once per spell and text (the raw text and the
+-- spellbook compared on every show: a change re-parses it).
 local rich = {}
+local spellbook, book = {}, 0 -- spell name -> spellID; changes with each reading of the spellbook
+local current -- the spell whose text is parsed (its own name stays plain)
+
+--- The player's spells by name (on SPELLS_CHANGED): the names their descriptions quote open their tooltips.
+function Read.Spellbook()
+	for name in pairs(spellbook) do
+		spellbook[name] = nil
+	end
+	local banks = Enum and Enum.SpellBookSpellBank
+	local bank = banks and banks.Player or 0
+	for line = 1, C_SpellBook.GetNumSpellBookSkillLines() or 0 do
+		local info = C_SpellBook.GetSpellBookSkillLineInfo(line)
+		local first, count = info and info.itemIndexOffset or 0, info and info.numSpellBookItems or 0
+		for slot = first + 1, first + count do
+			local item = C_SpellBook.GetSpellBookItemInfo(slot, bank)
+			if item and type(item.name) == "string" and type(item.spellID) == "number" then
+				spellbook[item.name] = item.spellID
+			end
+		end
+	end
+	book = book + 1
+end
+
+local function Quoted(name)
+	local id = spellbook[name]
+	if id and id ~= current then
+		return "|cffffd100|Hordaen:spell:" .. id .. "|h«" .. name .. "»|h|r"
+	end
+	return "|cffffd100«" .. name .. "»|r"
+end
+
 local function Rich(id, text)
 	if not text then
 		return nil
 	end
 	local entry = id and rich[id]
-	if entry and entry.raw == text then
+	if entry and entry.raw == text and entry.book == book then
 		return entry.rich
 	end
-	local out = text:gsub("(%d+[%.,]?%d*%%?)", "|cffffffff%1|r"):gsub("«(.-)»", "|cffffd100«%1»|r")
+	current = id
+	local out = text:gsub("(%d+[%.,]?%d*%%?)", "|cffffffff%1|r"):gsub("«(.-)»", Quoted)
 	if id then
-		rich[id] = { raw = text, rich = out }
+		rich[id] = { raw = text, rich = out, book = book }
 	end
 	return out
 end

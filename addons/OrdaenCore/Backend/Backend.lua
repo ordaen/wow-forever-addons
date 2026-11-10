@@ -71,7 +71,7 @@ local GROUP = {
 	zLevel = LOOK, desaturate = LOOK, tint = LOOK, visibleWhen = LOOK,
 	action = LOOK, index = LOOK, binding = LOOK, paging = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
-	hoverWithin = INPUT, OnEscape = INPUT,
+	hoverWithin = INPUT, OnEscape = INPUT, OnLink = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT, OnDrop = INPUT,
 	text = TEXT, textSize = TEXT, textFamily = TEXT, textOutline = TEXT, wrap = TEXT, kind = TEXT, focus = TEXT,
 	maxLength = TEXT,
@@ -87,7 +87,7 @@ for _, attribute in ipairs(Layout.ATTRIBUTES) do
 end
 for _, key in ipairs({ "background", "desaturate", "tint", "artOrigin", "anchor", "zLevel", "opacity", "portrait",
 	"mask", "overflow", "stateFrom", "OnClick", "OnEnter", "OnLeave", "hoverWithin", "OnWheel", "OnDragStart",
-	"OnDrag", "OnDragStop", "OnDrop", "OnEscape", "visibleWhen",
+	"OnDrag", "OnDragStop", "OnDrop", "OnEscape", "OnLink", "visibleWhen",
 	-- an input box (kind = "input"): its text, how it's drawn, its keyboard focus and handlers
 	"kind", "text", "textSize", "textFamily", "textColor", "textAlign", "maxLength", "focus", "OnChange", "OnSubmit" }) do
 	BOX_KEYS[#BOX_KEYS + 1] = key
@@ -363,6 +363,21 @@ local function cursorIn(frame)
 	local x, y = GetCursorPosition()
 	local scale = frame:GetEffectiveScale()
 	return x / scale - (frame.dragL or frame:GetLeft() or 0), (frame.dragT or frame:GetTop() or 0) - y / scale
+end
+
+-- OnLink(link, entered): the box's texts' hyperlinks (|H…|h runs) under the cursor; the box's own texts only (a box
+-- with boxes among its children draws its texts on a frame of their own, which takes no mouse)
+local function onLinkEnter(frame, link)
+	local fn = frame.node.a.OnLink
+	if fn then
+		handle(fn, link, true)
+	end
+end
+local function onLinkLeave(frame, link)
+	local fn = frame.node.a.OnLink
+	if fn then
+		handle(fn, link, false)
+	end
 end
 
 local function onClick(frame, button)
@@ -1622,7 +1637,9 @@ function Node:ApplyMouse()
 	end
 	local a = self.a
 	local drag = (a.OnDragStart or a.OnDrag or a.OnDragStop) and true or false
-	local want = (self.states and a.stateFrom == nil or a.OnClick or a.OnEnter or a.OnLeave or a.hoverWithin or drag)
+	local link = a.OnLink and true or false
+	local want = (self.states and a.stateFrom == nil or a.OnClick or a.OnEnter or a.OnLeave or a.hoverWithin or drag
+		or link)
 		and (self.lookOpacity or 1) > 0 and true or false
 	-- clicks only where something takes them (a click, a press look, a drag): a box that only follows the cursor
 	-- (OnEnter, hoverWithin) lets clicks through to what lies under it (the map under the minimap's ring room)
@@ -1659,6 +1676,12 @@ function Node:ApplyMouse()
 	end
 	if a.OnEscape or self.escapeProxy then
 		self:ApplyEscape()
+	end
+	if link ~= (self.linkOn or false) then
+		self.linkOn = link or nil
+		frame:SetHyperlinksEnabled(link)
+		frame:SetScript("OnHyperlinkEnter", link and onLinkEnter or nil)
+		frame:SetScript("OnHyperlinkLeave", link and onLinkLeave or nil)
 	end
 	dropTargets[self] = a.OnDrop and true or nil
 end

@@ -571,6 +571,15 @@ function FrameMethods:SetMouseClickEnabled(on)
 	self._click = on
 end
 
+-- its texts' |H…|h runs fire OnHyperlinkEnter / OnHyperlinkLeave (a test calls those scripts itself)
+function FrameMethods:SetHyperlinksEnabled(on)
+	self._links = on
+end
+
+function FrameMethods:GetHyperlinksEnabled()
+	return self._links == true
+end
+
 function FrameMethods:IsMouseClickEnabled()
 	return self._click == true
 end

@@ -11,7 +11,8 @@
 -- padding; `locked`, the bar is gone and the game's red X sits in the top-right padding (OnClose).
 --
 -- Attributes: `model` (Read's model), `version` (a number that changes with each refill), `side` (true: a tooltip
--- beside another, a little narrower), `charge` (0 to STEPS, or nil: no bar), `locked`, `OnClose`.
+-- beside another, a little narrower), `charge` (0 to STEPS, or nil: no bar), `locked`, `OnClose`, `OnLink` (its rows'
+-- links: set while the tooltip is locked).
 local Define = import("@ordaen/define")
 local GLYPHS = import("glyphs")
 local GLYPH_FILE = import("assets/glyphs.tga")
@@ -270,7 +271,15 @@ return Define.Component({
 
 	Render = function(game, self)
 		local _ = self.attributes.version -- read: a new show draws again
-		Fill(self.calls, self.attributes.model)
+		local calls = self.calls
+		Fill(calls, self.attributes.model)
+		local link = self.attributes.OnLink
+		for i = 1, calls.nBody do
+			calls.body[i].attributes.OnLink = link
+		end
+		for i = 1, calls.nFoot do
+			calls.foot[i].attributes.OnLink = link
+		end
 		self.box.attributes.width = self.attributes.side and SIDE_WIDTH or WIDTH
 		game.ui:Box(self.box)
 	end,

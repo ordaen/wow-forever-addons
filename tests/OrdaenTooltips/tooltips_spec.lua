@@ -38,6 +38,14 @@ local SHOUT = { type = 1, id = 6673, lines = {
 	{ type = 0, leftText = "Instant", rightText = "Cooldown: 10 sec.", leftColor = Color(1, 1, 1) },
 	{ type = 34, leftText = "The warrior shouts, increasing attack power by 15 for «Battle Shout»." },
 } }
+local CHARGE = { type = 1, id = 100, lines = {
+	{ type = 13, leftText = "Charge" },
+	{ type = 34, leftText = "Charges an enemy; then «Rend» bleeds it and «Charge» can't again." },
+} }
+local REND = { type = 1, id = 772, lines = {
+	{ type = 13, leftText = "Rend" },
+	{ type = 34, leftText = "Wounds the target for 15 damage over 9 sec." },
+} }
 local GUARD = { type = 2, guid = "Creature-1", lines = {
 	{ type = 2, leftText = "Stormwind Guard", unitToken = "mouseover" },
 	{ type = 0, leftText = "Level 55" },
@@ -111,8 +119,20 @@ describe("Ordaen Tooltips", function()
 			end,
 		}
 		env.C_TooltipInfo = { GetSpellByID = function(id)
-			return id == 746 and BANDAGE or nil
-		end, GetItemByID = function() end }
+			return id == 746 and BANDAGE or id == 772 and REND or nil
+		end, GetItemByID = function() end, GetHyperlink = function() end }
+		-- the spellbook: one line with Charge and Rend
+		env.C_SpellBook = {
+			GetNumSpellBookSkillLines = function()
+				return 1
+			end,
+			GetSpellBookSkillLineInfo = function()
+				return { itemIndexOffset = 0, numSpellBookItems = 2 }
+			end,
+			GetSpellBookItemInfo = function(slot)
+				return slot == 1 and { name = "Charge", spellID = 100 } or { name = "Rend", spellID = 772 }
+			end,
+		}
 		env.C_UnitAuras = { GetPlayerAuraBySpellID = function()
 			return { isHarmful = false, applications = 3, expirationTime = 70, sourceUnit = "player",
 				dispelName = "Magic" }
@@ -357,5 +377,28 @@ describe("Ordaen Tooltips", function()
 			assert.is_falsy(shown:find("Copper Axe", 1, true))
 			assert.are.same({}, wow.errors)
 		end)
+		it("links a description's spell names once locked; hovered, the spell's tooltip opens beside, left, it goes",
+			function()
+				wow:ShowTooltip("GameTooltip", CHARGE)
+				ns.Scheduler.Flush()
+				local shown = texts()
+				has(shown, "|Hordaen:spell:772|h«Rend»|h") -- another spell of the book: a link
+				has(shown, "|cffffd100«Charge»|r") -- its own name stays plain
+				assert.is_nil(find(function(node)
+					return node.a and node.a.OnLink
+				end)) -- not locked: no links
+				wait(1.1)
+				local row = find(function(node)
+					return node.a and node.a.OnLink
+				end)
+				row.a.OnLink("ordaen:spell:772", true)
+				ns.Scheduler.Flush()
+				has(texts(), "Wounds the target for")
+				row.a.OnLink("ordaen:spell:772", false)
+				wait(0.3)
+				assert.is_falsy(texts():find("Wounds the target for", 1, true))
+				has(texts(), "Charge")
+				assert.are.same({}, wow.errors)
+			end)
 	end)
 end)
