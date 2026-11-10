@@ -256,7 +256,7 @@ end
 local function Cell(model, text, color, glyph, tint, term, amount)
 	local cell = Push(model.cols)
 	cell.text, cell.color, cell.glyph, cell.tint = text, color, glyph, tint
-	cell.term, cell.amount = term or glyph, amount
+	cell.term, cell.amount, cell.link = term or glyph, amount, nil
 	return cell
 end
 
@@ -306,18 +306,6 @@ for global, term in pairs({ ITEM_SOULBOUND = "bound", ITEM_BIND_ON_EQUIP = "boe"
 end
 
 -- Terms -----------------------------------------------------------------------------------------------------------
-
---- A plain tooltip: a name in gold and one sentence (a camp building's full bonus). False without a text.
-function Read.Text(model, name, text)
-	if not text then
-		return false
-	end
-	Clear(model)
-	model.kind = "text"
-	model.name, model.nameColor = name, GOLD
-	Desc(model, Rich(nil, text))
-	return true
-end
 
 --- A glossary entry as a tooltip (design tooltips «Tooltips in tooltips»: a part's term): its name in gold, its text;
 --- both from the locales (TERM_<KEY>, TERM_<KEY>_TEXT), a «%s» in them the amount the part spoke of. False when the
@@ -430,6 +418,43 @@ local function Rich(id, text)
 	return out
 end
 Read.Rich = Rich
+
+--- A race's racial abilities (design players «Hovering the race»): the race in gold, then one line per racial, its
+--- name in gold and its effect as the skills' rich text; a class's own variant only for that class (Read.racials:
+--- raceID -> spellID, classMask pairs, generated from the client data). False for a race without any.
+function Read.Race(model, raceID, classID, raceName)
+	local list = Read.racials and Read.racials[raceID]
+	if not list then
+		return false
+	end
+	Clear(model)
+	model.kind = "race"
+	model.name, model.nameColor = raceName, GOLD
+	local bit = classID and classID > 0 and 2 ^ (classID - 1) or 0
+	for i = 1, #list, 2 do
+		local id, mask = list[i], list[i + 1]
+		if mask == 0 or bit > 0 and floor(mask / bit) % 2 == 1 then
+			local name = C_Spell.GetSpellName(id)
+			local text = C_Spell.GetSpellDescription(id)
+			if name then
+				Desc(model, "|cffffd100" .. name .. "|r" .. (text and text ~= "" and " — " .. Rich(id, text) or ""))
+			end
+		end
+	end
+	return true
+end
+
+--- A plain tooltip: a name in gold and one sentence (a camp building's full bonus). False without a text.
+function Read.Text(model, name, text)
+	if not text then
+		return false
+	end
+	Clear(model)
+	model.kind = "text"
+	model.name, model.nameColor = name, GOLD
+	Desc(model, Rich(nil, text))
+	return true
+end
 
 -- Items ------------------------------------------------------------------------------------------------------------
 
@@ -1092,7 +1117,11 @@ local function Player(model, unit, ctx)
 	end
 	local level = UnitLevel(unit)
 	Cell(model, level and level > 0 and format(L.LEVEL_CELL, level) or "??", nil, nil, nil, "plvl")
-	Cell(model, (UnitRace(unit)))
+	-- the race: hovered, its racial abilities (for this player's class)
+	local raceName, _, raceID = UnitRace(unit)
+	local _, _, classID = UnitClass(unit)
+	local race = Cell(model, raceName)
+	race.link = raceID and "ordaen:race:" .. raceID .. ":" .. (classID or 0) .. ":" .. (raceName or "") or nil
 	local faction, factionName = UnitFactionGroup(unit)
 	if faction then
 		Cell(model, factionName or faction, faction == UnitFactionGroup("player") and GREEN or RED,
@@ -1101,7 +1130,22 @@ local function Player(model, unit, ctx)
 	if ctx.playersTarget then
 		local target = unit .. "target"
 		if UnitExists(target) then
-			Foot(model, L.TARGET, UnitName(target), UnitIsPlayer(target) and ClassColor(target) or nil, "ptarget")
+			local row = Foot(model, L.TARGET, UnitName(target), UnitIsPlayer(target) and ClassColor(target) or nil, "ptarget")
+			row.valueLink = "unit:" .. target -- hovered: the target's own tooltip
+		end
+	end
+	if ctx.playersInspect and ctx.inspect then
+		-- their spec and gear, by inspecting them (the module's: on demand, cached in memory)
+		local entry, status = ctx.inspect(unit)
+		if entry then
+			if entry.spec then
+				Row(model, L.SPEC, entry.spec).term = "pspec"
+			end
+			if entry.gear then
+				Row(model, L.GEAR, tostring(entry.gear)).term = "pgear"
+			end
+		elseif status then
+			Row(model, L.SPEC, L["INSPECT_" .. status:upper()]).term = "pspec"
 		end
 	end
 	if ctx.playersRelation then

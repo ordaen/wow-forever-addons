@@ -9,7 +9,9 @@
 --                                  tip:AddKey(text). Handlers answer only for what they own, and make no tables.
 local Define = import("@ordaen/define")
 local L = import("locales")
+local floor = math.floor
 local Read = import("read")
+Read.racials = import("racials")
 local HELP_CURSOR = import("cursor")
 
 -- Blizzard's tooltips drawn here: the main one, the linked item's, the comparison ones
@@ -132,6 +134,7 @@ return Define.Module({
 			aurasCaster = { type = "boolean", default = true, setting = true },
 			aurasTotal = { type = "boolean", default = true, setting = true },
 			playersOn = { type = "boolean", default = true, setting = true },
+			playersInspect = { type = "boolean", default = true, setting = true },
 			playersTarget = { type = "boolean", default = true, setting = true },
 			playersRelation = { type = "boolean", default = true, setting = true },
 			npcsOn = { type = "boolean", default = true, setting = true },
@@ -159,6 +162,7 @@ return Define.Module({
 			ctx.aurasId, ctx.aurasCaster = Define.Peek(self.state.aurasId), Define.Peek(self.state.aurasCaster)
 			ctx.aurasTotal = Define.Peek(self.state.aurasTotal)
 			ctx.playersTarget = Define.Peek(self.state.playersTarget)
+			ctx.playersInspect = Define.Peek(self.state.playersInspect)
 			ctx.playersRelation, ctx.npcsLoot = Define.Peek(self.state.playersRelation), Define.Peek(self.state.npcsLoot)
 			ctx.npcsParty, ctx.npcsRep = Define.Peek(self.state.npcsParty), Define.Peek(self.state.npcsRep)
 			local theme = game.Themes:Active()
@@ -266,6 +270,62 @@ return Define.Module({
 		Read.Schools(L)
 		self:On("UPDATE_FACTION", Read.Factions)
 		Read.Factions()
+
+		-- inspecting players (design players «Spec and gear by inspect»): on demand when a player's tooltip shows, one
+		-- at a time, throttled, never while the Inspect window is open; cached by GUID for INSPECT_TTL s, in memory
+		local INSPECT_TTL, INSPECT_EVERY = 300, 1.5
+		local GEAR_SLOTS = { 1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18 } -- no shirt (4), no tabard (19)
+		local inspected, pending, asked = {}, nil, -INSPECT_EVERY
+		function ctx.inspect(unit)
+			local guid = UnitGUID(unit)
+			local entry = guid and inspected[guid]
+			if entry and GetTime() - entry.at < INSPECT_TTL then
+				return entry
+			end
+			if not CanInspect(unit) then
+				return nil, "no"
+			elseif not CheckInteractDistance(unit, 1) then
+				return nil, "far"
+			end
+			local window = rawget(_G, "InspectFrame")
+			if not pending and GetTime() - asked >= INSPECT_EVERY and not (window and window:IsShown()) then
+				pending, asked = guid, GetTime()
+				NotifyInspect(unit)
+			end
+			return nil, "pending"
+		end
+		self:On("INSPECT_READY", function(guid)
+			if guid ~= pending then
+				return
+			end
+			pending = nil
+			local unit = UnitTokenFromGUID(guid)
+			if not unit then
+				return
+			end
+			local entry = { at = GetTime() }
+			local specID = GetInspectSpecialization(unit)
+			if specID and specID > 0 then
+				local _, name = GetSpecializationInfoByID(specID)
+				entry.spec = name
+			end
+			local total, count = 0, 0
+			for i = 1, #GEAR_SLOTS do
+				local link = GetInventoryItemLink(unit, GEAR_SLOTS[i])
+				local level = link and C_Item.GetDetailedItemLevelInfo(link)
+				if level then
+					total, count = total + level, count + 1
+				end
+			end
+			entry.gear = count > 0 and floor(total / count + 0.5) or nil
+			inspected[guid] = entry
+			ClearInspectPlayer()
+			-- the player's tooltip shows the result
+			local main = game.Tooltip.GameTooltip
+			if main and main.shown:Peek() > 0 and Fill(main) then
+				self.state.epoch = Define.Peek(self.state.epoch) + 1
+			end
+		end)
 
 		self.chargeSignal = Define.Signal(self.state.charge) -- the bar reads it: a step moves only the bar
 		self.viewCalls = {}
@@ -378,7 +438,12 @@ return Define.Module({
 			-- a term's glossary entry (ordaen:term:key:amount), else what the game's data says of the link
 			local key, amount = link:match("^ordaen:term:([^:]+):(.*)$")
 			local building = link:match("^ordaen:camp:(.+)$")
-			if building then -- a camp building's full sentence
+			local raceID, classID, raceName = link:match("^ordaen:race:(%d+):(%d+):(.*)$")
+			if raceID then -- a race's racial abilities
+				if not Read.Race(model, tonumber(raceID), tonumber(classID), raceName) then
+					return
+				end
+			elseif building then -- a camp building's full sentence
 				if not Read.Text(model, building, Read.camp[building]) then
 					return
 				end
@@ -495,6 +560,8 @@ return Define.Module({
 		game.ui:SettingsTab({ attributes = { title = L.TAB_PLAYERS }, slots = { default = function()
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.playersOn) } })
 			game.ui:Section({ attributes = { title = L.SECTION_MORE }, slots = { default = function()
+				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.playersInspect),
+					disabled = not self.state.playersOn } })
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.playersTarget),
 					disabled = not self.state.playersOn } })
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.playersRelation),

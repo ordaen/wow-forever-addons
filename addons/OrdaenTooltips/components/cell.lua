@@ -3,7 +3,8 @@
 -- once the tooltip is locked), centred, never wrapped.
 --
 -- Attributes: `text`, `color`, `glyph` (the glyph's background, or nil for none), `tint` (the glyph's colour: a
--- spell's cost in its resource's colour), `term` and `amount` (its glossary entry and the number it speaks of),
+-- spell's cost in its resource's colour), `term` and `amount` (its glossary entry and the number it speaks of), `link`
+-- (what it opens instead: a race's racials),
 -- `divider` (a rule on its left: not the first cell), `last` (the band ends the tooltip: no padding under it),
 -- `OnLink`.
 local Define = import("@ordaen/define")
@@ -26,7 +27,8 @@ local function Parts(game, self)
 			tint = self.attributes.tint } })
 	end
 	game.ui:TermText({ attributes = { text = self.attributes.text, color = self.attributes.color, size = 16 * PX,
-		term = self.attributes.term, amount = self.attributes.amount, OnLink = self.attributes.OnLink } })
+		term = self.attributes.term, amount = self.attributes.amount, link = self.attributes.link,
+		OnLink = self.attributes.OnLink } })
 end
 
 -- the glyph and the text, centred in the cell

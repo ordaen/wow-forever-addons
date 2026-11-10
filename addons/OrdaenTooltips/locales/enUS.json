@@ -260,5 +260,16 @@
   "TERM_REP": "Reputation",
   "TERM_REP_TEXT": "Your standing with this NPC's faction.",
   "TERM_QUEST": "Quest",
-  "TERM_QUEST_TEXT": "A quest objective: how many you and your party members have."
+  "TERM_QUEST_TEXT": "A quest objective: how many you and your party members have.",
+  "SPEC": "Specialization",
+  "GEAR": "Item level",
+  "INSPECT_PENDING": "Inspecting…",
+  "INSPECT_FAR": "Too far away",
+  "INSPECT_NO": "Can't be inspected",
+  "TOOLTIPS_PLAYERSINSPECT": "Spec and gear",
+  "TOOLTIPS_PLAYERSINSPECT_TIP": "Inspects the player when near: their talent tree and average item level.",
+  "TERM_PSPEC": "Specialization",
+  "TERM_PSPEC_TEXT": "The player's talent tree. Learned by inspecting them: they must be near.",
+  "TERM_PGEAR": "Item level",
+  "TERM_PGEAR_TEXT": "The average level of the items they wear (by inspect)."
 }

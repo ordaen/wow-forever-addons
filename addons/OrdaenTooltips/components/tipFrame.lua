@@ -217,7 +217,7 @@ local function Fill(calls, m)
 		-- the cells never wrap: equal shares, or the widest one's, and the tooltip grows to them
 		local a, cell = Calls(calls.cols, i), m.cols[i]
 		a.text, a.color, a.glyph, a.tint = cell.text, cell.color or BODY, GlyphOf(cell.glyph), cell.tint
-		a.term, a.amount = cell.term, cell.amount
+		a.term, a.amount, a.link = cell.term, cell.amount, cell.link
 		a.divider = i > 1
 		a.last = m.body.n == 0 and m.foot.n == 0 and m.keys.n == 0 -- the band ends the tooltip: no padding under it
 	end

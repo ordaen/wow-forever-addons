@@ -213,6 +213,12 @@ describe("Ordaen Tooltips", function()
 		env.UnitTokenFromGUID = function()
 			return nil
 		end
+		env.CanInspect = function()
+			return false
+		end
+		env.CheckInteractDistance = function()
+			return false
+		end
 		env.UnitCanAttack = function()
 			return false
 		end
@@ -567,6 +573,69 @@ describe("Ordaen Tooltips", function()
 				assert.is_nil(closeButton())
 				assert.are.same({}, wow.errors)
 			end)
+
+		it("draws a player's inspect row, and their race opens its racial abilities for their class", function()
+			unitIsPlayer = true
+			local env = wow.env
+			for _, name in ipairs({ "UnitIsDeadOrGhost", "UnitIsGhost", "UnitIsAFK", "UnitIsDND", "UnitIsPVP",
+				"UnitInRaid", "UnitInParty" }) do
+				env[name] = function()
+					return false
+				end
+			end
+			env.UnitPVPName = function()
+				return "Stormwind Guard"
+			end
+			env.GetGuildInfo = function() end
+			env.UnitGUID = function()
+				return "Player-1"
+			end
+			env.C_FriendList = { IsFriend = function()
+				return false
+			end, IsIgnored = function()
+				return false
+			end }
+			env.UnitRace = function()
+				return "Gnome", "Gnome", 7
+			end
+			env.UnitClass = function()
+				return "Mage", "MAGE", 8
+			end
+			env.CanInspect = function()
+				return true
+			end
+			env.CheckInteractDistance = function()
+				return true
+			end
+			local asked
+			env.NotifyInspect = function(unit)
+				asked = unit
+			end
+			env.C_Spell.GetSpellName = function(id)
+				return ({ [20589] = "Escape Artist", [1259817] = "Eureka!", [1259813] = "Eureka (warrior)" })[id]
+			end
+			env.C_Spell.GetSpellDescription = function(id)
+				return id == 20589 and "Escape the effects of any immobilization." or ""
+			end
+			wow:ShowTooltip("GameTooltip", GUARD)
+			ns.Scheduler.Flush()
+			has(texts(), "Specialization\nInspecting…") -- asked for, not back yet
+			assert.are.equal("mouseover", asked)
+			wait(1.3)
+			local race = find(function(node) -- the race's cell text, a TermText taking the mouse once locked
+				local call = node.a
+				return call and call.OnEnter and not call.hoverWithin and node.children and node.children[1]
+					and node.children[1].fs and node.children[1].fs:GetText() == "Gnome"
+			end)
+			assert.is_truthy(race)
+			wow.mouseFocus = race.frame
+			race.a.OnEnter()
+			ns.Scheduler.Flush()
+			local shown = texts()
+			has(shown, "Escape Artist", "Eureka!") -- the race's own and the mage's variant
+			assert.is_falsy(shown:find("Eureka (warrior)", 1, true)) -- not another class's
+			assert.are.same({}, wow.errors)
+		end)
 
 		it("keeps the comparison in the locked group", function()
 			wow:ShowTooltip("GameTooltip", AXE)
