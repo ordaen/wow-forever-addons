@@ -398,10 +398,10 @@ local function IsAddonButton(child)
 end
 
 function DOMAINS.Minimap()
-	-- value signals: the player's coordinates as text ("" where the game gives none: instances), the last ping
-	-- ({ name, class, x, y } for 5 s, nil after), the other addons' minimap buttons (a list, new when it changes) and
-	-- the addon compartment's entries (Blizzard's AddonCompartmentFrame.registeredAddons)
-	local Minimap = { coords = NewValue(""), ping = NewValue(nil), buttons = NewValue({}), entries = NewValue({}) }
+	-- value signals: the player's coordinates as text ("" where the game gives none: instances), the other addons'
+	-- minimap buttons (a list, new when it changes) and the addon compartment's entries (Blizzard's
+	-- AddonCompartmentFrame.registeredAddons). No pings: Forever's client refuses MINIMAP_PING.
+	local Minimap = { coords = NewValue(""), buttons = NewValue({}), entries = NewValue({}) }
 	local map = _G.Minimap
 
 	--- The square map (on) or Blizzard's round one: its mask, and GetMinimapShape for other addons' buttons.
@@ -442,19 +442,6 @@ function DOMAINS.Minimap()
 			ticker = nil
 		end
 	end
-
-	-- pings: who and where, gone with the ping
-	local pingTimer
-	RawEvent("MINIMAP_PING"):Subscribe(function(unit, y, x)
-		local _, class = UnitClass(unit)
-		Minimap.ping:Set({ name = UnitName(unit), class = class, x = x, y = y })
-		if pingTimer then
-			pingTimer:Cancel()
-		end
-		pingTimer = C_Timer.NewTimer(5, function()
-			Minimap.ping:Set(nil)
-		end)
-	end, false)
 
 	-- other addons' buttons: looked for at login, when an addon loads (after its own setup ran) and a while later
 	local seen = {}

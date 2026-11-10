@@ -65,23 +65,6 @@ local function EntryName(game, self)
 	local entry = game.Minimap.entries:Get()[tonumber(self.state.tip:sub(6)) or 0]
 	return entry and entry.text or ""
 end
--- who pinged, and where: beside the ping, inside the map
-local function PingName(game)
-	local ping = game.Minimap.ping:Get()
-	return ping and ping.name or ""
-end
-local function PingColor(game)
-	local ping = game.Minimap.ping:Get()
-	return ping and game.Themes.ClassColor(ping.class) or { 1, 1, 1, 1 }
-end
-local function PingX(game)
-	local ping = game.Minimap.ping:Get()
-	return ping and ping.x or 0
-end
-local function PingY(game)
-	local ping = game.Minimap.ping:Get()
-	return ping and ping.y or 0
-end
 
 -- the map's side and the frame's size now
 local function Size(self)
@@ -231,7 +214,6 @@ return Define.Module({
 			showCoords = { type = "boolean", default = true, setting = true },
 			buttonsHover = { type = "boolean", default = true, setting = true },
 			hide = { type = "choice", choices = Hide, default = Hide.Never, setting = true },
-			pingNames = { type = "boolean", default = true, setting = true },
 			-- «Панель кнопок»
 			drawerOn = { type = "boolean", default = true, setting = true },
 			drawerColumns = { type = "number", default = 4, min = 2, max = 12, step = 1, setting = true },
@@ -375,7 +357,6 @@ return Define.Module({
 			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.showCoords) } })
 			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.buttonsHover) } })
 			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.hide) } })
-			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.pingNames) } })
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_DRAWER }, slots = { default = function()
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.drawerOn) } })
@@ -433,17 +414,6 @@ return Define.Module({
 						}, slots = { default = function()
 							Foot(game, self)
 						end } })
-					end
-					-- who pinged: the name beside the ping, inside the map
-					local ping = game.Minimap.ping:Get()
-					if self.state.pingNames and ping and ping.name then
-						game.ui:Text({ attributes = {
-							text = PingName(game), position = "absolute",
-							left = OUT + Size(self) / 2 + PingX(game) * Size(self) + 10 * PX,
-							top = OUT + Top(self) + Size(self) / 2 - PingY(game) * Size(self) - 7 * PX,
-							textSize = 13 * PX, textColor = PingColor(game),
-							textShadow = { color = { 0, 0, 0, 1 }, x = 1, y = -1 }, wrap = false,
-						} })
 					end
 				end } })
 				-- the ring

@@ -18,8 +18,6 @@
   "MINIMAP_HIDE_NEVER": "Никогда",
   "MINIMAP_HIDE_COMBAT": "В бою",
   "MINIMAP_HIDE_TRANSPORT": "В транспорте",
-  "MINIMAP_PINGNAMES": "Кто отметил точку",
-  "MINIMAP_PINGNAMES_TIP": "Имя игрока рядом с отметкой на карте.",
   "MINIMAP_DRAWERON": "Панель кнопок",
   "MINIMAP_DRAWERON_TIP": "Собирает кнопки модификаций с миникарты и пункты меню модификаций за одной кнопкой на кольце. Чтобы вернуть кнопки на карту после выключения, введите /reload.",
   "MINIMAP_DRAWERCOLUMNS": "Столбцы",

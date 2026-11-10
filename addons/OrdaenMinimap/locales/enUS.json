@@ -18,8 +18,6 @@
   "MINIMAP_HIDE_NEVER": "Never",
   "MINIMAP_HIDE_COMBAT": "In combat",
   "MINIMAP_HIDE_TRANSPORT": "On transport",
-  "MINIMAP_PINGNAMES": "Who pinged",
-  "MINIMAP_PINGNAMES_TIP": "The player's name beside a ping on the map.",
   "MINIMAP_DRAWERON": "Button drawer",
   "MINIMAP_DRAWERON_TIP": "Gathers other addons' minimap buttons and the addon menu's entries behind one button on the ring. Type /reload to put the buttons back on the map after turning it off.",
   "MINIMAP_DRAWERCOLUMNS": "Columns",
