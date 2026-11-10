@@ -577,6 +577,37 @@ describe("backend styles", function()
 		assert.is_false(again.face:IsShown())
 	end)
 
+	it("a pooled box reused with a table draws as a fresh box given it: nothing of its last look stays", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local plain = wow.env.table.freeze({ position = "fixed", left = 0, top = 0, width = 300, height = 200,
+			background = ref("color.surface") })
+		local fresh = Backend:Create("box")
+		Backend:Set(fresh, plain)
+		-- another box with every look it can have, released, then reused for the plain table
+		local used = Backend:Create("box")
+		Backend:Set(used, wow.env.table.freeze({ position = "fixed", left = 0, bottom = 0, width = 128, height = 124,
+			background = ref("color.surface"), portrait = "player", mask = ref("panel.corner"), tint = "#ff0000",
+			desaturate = true, opacity = 0.5 }))
+		Backend:SetChildren(layer, { fresh, used }, 2)
+		Backend:Flush()
+		Backend:SetChildren(layer, { fresh }, 1)
+		Backend:Release(used)
+		local again = Backend:Create("box")
+		assert.are.equal(used, again)
+		Backend:Set(again, plain)
+		Backend:SetChildren(layer, { fresh, again }, 2)
+		Backend:Flush()
+		assert.is_false(again.face:IsShown())
+		assert.are.equal(fresh.lookTint, again.lookTint)
+		assert.are.equal(fresh.lookDesat, again.lookDesat)
+		assert.are.equal(fresh.frame:GetAlpha(), again.frame:GetAlpha())
+		assert.are.same(fresh.bg._masks or {}, again.bg._masks or {})
+		wow:Fire("UNIT_PORTRAIT_UPDATE", "player") -- and no event of its old face redraws it
+		assert.is_false(again.face:IsShown())
+	end)
+
 	it("draws a frame's metal on all four sides: the edges, the bottom corners, mitred top corners, the wood", function()
 		local wow, ns = client()
 		local Backend = ns.Backend

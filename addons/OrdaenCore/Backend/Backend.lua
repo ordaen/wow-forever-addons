@@ -2523,6 +2523,11 @@ function Backend:Create(kind)
 	end
 	if node.released then
 		node.released = nil
+		local face = node.lookPortrait -- still drawn: its events come back with it (Release dropped them)
+		if face ~= nil then
+			portraits[node] = type(face) == "table" and face.unit or face
+			portraitEvents()
+		end
 		if next(node.a) ~= nil then
 			node.stale = true
 			nStale = nStale + 1
@@ -2910,8 +2915,9 @@ function Backend:SetChildren(node, children, count)
 	enqueue(Layout.Invalidate(node))
 end
 
----Pool the node; a taken frame is given back as it was. No WoW call: the node keeps its frame where it was and the
----attributes it last drew (its parent's SetChildren hides it if the parent stays; its children stay inside it). Only
+---Pool the node; a taken frame is given back as it was. No WoW call and no reset: the node keeps its frame where it
+---was, the attributes it last drew and the record of them, which the next Set diffs against (its parent's
+---SetChildren hides it if the parent stays; its children stay inside it). Only
 ---the references to module code go: its handlers (false, so the next Set sees a change and sets the mouse again).
 ---@param node OrdaenNode
 function Backend:Release(node)
@@ -2949,10 +2955,13 @@ function Backend:Release(node)
 	end
 	node.released, node.stale, node.src = true, nil, nil
 	node.bound, node.nbound = nil, 0 -- its bindings went with its component
-	if node.lookPortrait ~= nil then -- its face and model go (the next use draws one only if it names a unit), and
-		-- no event redraws it while pooled
-		node.lookPortrait = nil
-		node:ApplyPortrait(nil)
+	-- what it draws stays, and so does the record of it (look*, text*, border*): the next Set compares against
+	-- that and changes what differs. Clearing a record here without undoing its drawing makes the next Set see no
+	-- change and keep the stale look; only registrations outside the node go (they come back when Create takes
+	-- it from the pool).
+	if portraits[node] then -- no event redraws it while pooled
+		portraits[node] = nil
+		portraitEvents()
 	end
 	node.hovered, node.pressed = false, false
 	node.valid, node.natValid, node.x = false, false, nil
