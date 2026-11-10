@@ -1462,9 +1462,13 @@ Read.Fill = Fill
 
 -- Talents -----------------------------------------------------------------------------------------------------------
 
--- the words of `next` that differ from `current` at the same place, lit (design spells «The next rank diffs»: a word
--- diff; ranks of one talent differ in their numbers, word for word)
+-- the words of `next` that differ from `current` at the same place, lit green (design spells «The next rank diffs»: a
+-- word diff; ranks of one talent differ in their numbers, word for word; a next rank is an improvement). A lit word
+-- drops its own colour codes (the rich text's white numbers), or they would hide the green.
 local LIT = "|cff40ff60"
+local function Plain(word)
+	return (word:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""))
+end
 local function Diff(current, next)
 	local words, n = {}, 0
 	for word in current:gmatch("%S+") do
@@ -1474,7 +1478,7 @@ local function Diff(current, next)
 	local out, i = {}, 0
 	for word in next:gmatch("%S+") do
 		i = i + 1
-		out[i] = word == words[i] and word or LIT .. word .. "|r"
+		out[i] = word == words[i] and word or LIT .. Plain(word) .. "|r"
 	end
 	return table.concat(out, " ")
 end

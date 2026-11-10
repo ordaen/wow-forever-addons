@@ -360,7 +360,7 @@ describe("Ordaen Tooltips", function()
 		ns.Scheduler.Flush()
 		local shown = texts()
 		has(shown, "Ruthlessness", "Talent\n · \n1/5\n · \nFury", "Next rank:") -- its tree
-		has(shown, "by |cff40ff60|cffffffff2%|r.|r") -- only the word that changes is lit
+		has(shown, "by |cff40ff602%.|r") -- only the word that changes is lit, green (its own white dropped)
 		assert.are.same({}, wow.errors)
 	end)
 
