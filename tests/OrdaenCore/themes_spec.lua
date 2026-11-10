@@ -80,4 +80,33 @@ describe("themes", function()
 		assert.are.equal("THEME_FONT_FIRASANS", v.fontHeader:ChoiceLabel("firaSans"))
 		assert.are.equal("firaSans", v.font:Choices()[1])
 	end)
+
+	it("is followed by a module's asset setting until it has its own value", function()
+		local module = { name = "OrdaenSpec", ns = { locales = {} }, cache = {}, db = {}, charDb = {},
+			Import = function()
+				return nil
+			end }
+		local instance = ns.Engine:Mount(nil, ns.Define.Component({ Setup = function()
+			ns.Define.Persistent({ xpFill = { type = "asset", kind = "xpFill", setting = true,
+				follows = ns.Define.Theme.xpFill } })
+		end }), 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
+		local xpFill = instance.state.persistent.xpFill
+		assert.are.equal("brushed", xpFill:Get())
+		assert.is_true(xpFill:Follows())
+		Themes:Get("ordaen").values.xpFill:Set("steel")
+		assert.are.equal("steel", xpFill:Get())
+		ns.Game.Settings.theme:Set("minimal")
+		assert.are.equal("brushed", xpFill:Get()) -- the new theme's
+		xpFill:Set("clouds")
+		assert.is_false(xpFill:Follows())
+		assert.are.equal("clouds", xpFill:Get())
+		assert.has_error(function()
+			xpFill:Set("velvet")
+		end)
+		assert.are.equal("deep", xpFill:Choices()[1])
+		assert.are.equal("THEME_XPFILL_STEEL", xpFill:ChoiceLabel("steel"):gsub("Сталь", "THEME_XPFILL_STEEL"))
+		xpFill:Follow()
+		assert.are.equal("brushed", xpFill:Get())
+		assert.are.same({}, wow.errors)
+	end)
 end)

@@ -84,6 +84,21 @@ local function Same(a, b)
 end
 State.Same = Same
 
+-- What a value follows: another stored value (a global setting), or a theme value (`follows = Define.Theme.xpFill`:
+-- the active theme's, so a change of theme reaches it too)
+local function Followed(spec)
+	local follows = spec.follows
+	if follows and ns.IsThemeRef(follows) then
+		return ns.Themes:Active().values[follows.path]
+	end
+	return follows
+end
+
+-- An asset kind's ids (themes.jsonc: xpFill, font, bar...), as a choice's members
+local function AssetIds(kind)
+	return ns.THEMES and ns.THEMES.assets[kind]
+end
+
 local function Check(spec, value, name)
 	local kind = spec.type
 	local ok
@@ -93,6 +108,9 @@ local function Check(spec, value, name)
 			local c = ok and value[i]
 			ok = ok and type(c) == "number" and c >= 0 and c <= 1
 		end
+	elseif kind == "asset" then -- one of its kind's ids
+		local assets = AssetIds(spec.kind)
+		ok = type(value) == "string" and assets ~= nil and assets[value] ~= nil
 	elseif kind == "choice" then
 		ok = false
 		for _, member in pairs(spec.choices) do
@@ -128,9 +146,9 @@ function Plain:Get()
 	end
 	local value = Read(self)
 	if value == nil then
-		local follows = self.spec.follows
+		local follows = Followed(self.spec)
 		if follows then
-			return follows:Get() -- tracked too: a change of the global reaches what reads this
+			return follows:Get() -- tracked too: a change of the global (or the theme) reaches what reads this
 		end
 		return self.spec.default
 	end
@@ -140,7 +158,7 @@ end
 function Plain:Peek()
 	local value = Read(self)
 	if value == nil then
-		local follows = self.spec.follows
+		local follows = Followed(self.spec)
 		if follows then
 			return follows:Peek()
 		end
@@ -403,9 +421,10 @@ local function LabelKey(self)
 	return key
 end
 
-local function Text(self, key)
+local function Text(self, key, shared)
 	local module = self.module
-	if module.name == "OrdaenCore" then -- Ordaen's own (globals, themes): the window that shows them has the texts
+	-- Ordaen's own (globals, themes) and the assets' names: the window that shows them has the texts
+	if shared or module.name == "OrdaenCore" then
 		module = ns.App.Module(SETTINGS_WINDOW)
 	end
 	local locales = module and module.ns and module.ns.locales
@@ -437,17 +456,23 @@ function Plain:ChoiceLabel(value)
 	local key = keys[value]
 	if not key then
 		-- a choice named by its declaration's kind (THEME_FONT_FIRASANS: a font once, whichever role picks it)
-		key = (self.spec.choiceLabel or LabelKey(self)) .. "_" .. tostring(value):upper()
+		local spec = self.spec
+		local prefix = spec.choiceLabel or (spec.type == "asset" and "THEME_" .. spec.kind:upper()) or LabelKey(self)
+		key = prefix .. "_" .. tostring(value):upper()
 		keys[value] = key
 	end
-	return Text(self, key)
+	return Text(self, key, self.spec.type == "asset")
 end
 
 --- A choice's values in the order its enum declares them (`spec.order`: the build writes it from the enum's literal
 --- table, which pairs() can't give back), for a menu.
 ---@return string[]
 function Plain:Choices()
-	return self.spec.order
+	local spec = self.spec
+	if spec.type == "asset" then -- its kind's ids, in themes.jsonc's order
+		return ns.THEMES.order.assets[spec.kind]
+	end
+	return spec.order
 end
 
 --- A string's longest length (its declaration's maxLength), for its input field; nil when it has none.
@@ -631,6 +656,7 @@ end
 
 local METAS = {
 	boolean = PlainMeta, number = PlainMeta, string = PlainMeta, choice = PlainMeta, color = PlainMeta,
+	asset = PlainMeta,
 	list = ListMeta, map = MapMeta,
 }
 
