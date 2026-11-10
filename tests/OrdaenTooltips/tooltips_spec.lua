@@ -34,13 +34,14 @@ local BANDAGE = { type = 1, id = 746, lines = {
 } }
 local SHOUT = { type = 1, id = 6673, lines = {
 	{ type = 13, leftText = "Battle Shout", rightText = "Rank 1" },
-	{ type = 0, leftText = "10 Rage", rightText = "Melee range", leftColor = Color(1, 1, 1) },
+	{ type = 0, leftText = "Rage: 10", rightText = "Melee range", leftColor = Color(1, 1, 1) }, -- Forever's form
 	{ type = 0, leftText = "Instant", rightText = "Cooldown: 10 sec.", leftColor = Color(1, 1, 1) },
 	{ type = 34, leftText = "The warrior shouts, increasing attack power by 15 for «Battle Shout»." },
 } }
 local CHARGE = { type = 1, id = 100, lines = {
 	{ type = 13, leftText = "Charge" },
-	{ type = 0, leftText = "Instant", rightText = "25 yd range" },
+	{ type = 0, leftText = "Range: 8-25 yd." }, -- the range alone (no cost)
+	{ type = 0, leftText = "Instant", rightText = "Cooldown: 15 sec." },
 	{ type = 34, leftText = "Charges an enemy; then «Rend» bleeds it and «Charge» can't again." },
 } }
 local REND = { type = 1, id = 772, lines = {
@@ -128,7 +129,7 @@ describe("Ordaen Tooltips", function()
 				return 132333
 			end,
 			GetSpellPowerCost = function(id)
-				return id == 6673 and { { type = 1 } } or {}
+				return id == 6673 and { { type = 1, cost = 10 } } or {}
 			end,
 			GetSpellCooldown = function()
 				return { startTime = 0, duration = 0 }
@@ -244,6 +245,7 @@ describe("Ordaen Tooltips", function()
 		has(shown, "Battle Shout", "Rank 1", "Melee range", "CD 10 sec.")
 		has(shown, "|cffffffff15|r", "|cffffd100«Battle Shout»|r")
 		assert.is_falsy(shown:find("Cooldown:", 1, true)) -- the cooldown in short
+		assert.is_falsy(shown:find("Rage:", 1, true)) -- the cost: its dot and number
 		assert.are.same({}, wow.errors)
 	end)
 
@@ -504,8 +506,8 @@ describe("Ordaen Tooltips", function()
 				local shown = texts()
 				has(shown, "|Hordaen:spell:772|h«Rend»|h") -- another spell of the book: a link
 				has(shown, "|cffffd100«Charge»|r") -- its own name stays plain
-				has(shown, "25 yd") -- the range in short: the number and its unit
-				assert.is_falsy(shown:find("yd range", 1, true))
+				has(shown, "8-25 yd", "CD 15 sec.") -- the range alone, its label dropped; the cooldown short
+				assert.is_falsy(shown:find("Range:", 1, true))
 				assert.is_nil(find(function(node)
 					return node.a and node.a.OnLink
 				end)) -- not locked: no links

@@ -594,60 +594,64 @@ end
 
 -- Spells and auras -------------------------------------------------------------------------------------------------
 
--- A spell's range in short: the number and the unit after it in the game's own format («Радиус действия: %s м»,
--- «%s yd range»), its words around them dropped; nil when the text isn't a range
-local RANGES = { "SPELL_RANGE", "SPELL_RANGE_AREA" }
-local function Range(text)
-	for i = 1, #RANGES do
-		local fmt = _G[RANGES[i]] -- luacheck: ignore 113
-		local n = type(fmt) == "string" and Match(text, fmt)
-		if n then
-			local unit = fmt:match("%%s%s*([^%s%%]+)")
-			if unit and not n:find(unit, 1, true) then
-				return n .. " " .. unit
-			end
-			return n
-		end
-	end
-	return nil
+-- What follows a label's colon («Восстановление: 10 сек.» → «10 сек.»), or the text
+local function Value(text)
+	return text:match("^[^:]+:%s*(.+)$") or text
 end
 
--- A band cell of a spell's two-sided lines, in the design's short form: an instant cast «Мгновенно», a cooldown
--- «CD 10 сек.» (Forever writes «Восстановление: 10 сек.»; the English abbreviation in every locale); each cast kind
--- its glyph, the cost a dot in its resource's colour.
-local function SpellCell(model, text, right, L, costColor, costTerm)
+-- The band's cells from a spell's first lines (api/forever/tooltip-data.md «Spell»), in the design's short form: its
+-- first line the cost («Ярость: 10» → a dot in the resource's colour and the number) or the range alone, with the
+-- range on its right; then the cast («Мгновенно» with its glyph, a cast time, channelled) with the cooldown on its
+-- right («Восстановление: 10 сек.» → «CD 10 сек.», the English abbreviation in every locale); a spell with neither
+-- cost nor range starts with the cast. A range is its value only, its closing full stop dropped («Радиус действия:
+-- 30 м.» → «30 м»). `first`: the spell's first band line; `right`: the line's right side; `cast`: its left side was
+-- the cast (the right side is then the cooldown). Returns whether this was a cast.
+local function SpellCell(model, text, first, right, L, cost, cast)
 	local glyph, tint, term, amount
+	local isCast = false
+	local number = text:match("%d[%d%s\194\160]*")
 	if text == SPELL_CAST_TIME_INSTANT or text == SPELL_CAST_TIME_INSTANT_NO_MANA then
-		text, glyph = L.CAST_INSTANT, "castNow"
+		text, glyph, term, isCast = L.CAST_INSTANT, "castNow", "castNow", true
 	elseif text == SPELL_CAST_CHANNELED or text:find(SPELL_CAST_CHANNELED or "\0", 1, true) then
-		glyph = "castChan"
-	elseif right then
-		local range = Range(text)
-		local value = not range and text:match("^[^:]+:%s*(.+)$")
-		if range then -- «Радиус действия: 30 м» → «30 м»
-			text, term = range, "range"
-		elseif value and text:find("%d") then -- «Восстановление: 10 сек.»: no glyph, its text says enough
-			text, term = "CD " .. value, "cd"
-		else -- «В пределах досягаемости», unlimited: as the game writes it
-			term = "range"
-		end
+		glyph, term, isCast = "castChan", "castChan", true
 	elseif Match(text, SPELL_CAST_TIME_SEC) or Match(text, SPELL_CAST_TIME_MIN) then
-		glyph = "castTime"
-	elseif costColor and text:find("%d") and not text:find(":", 1, true) then
-		-- the cost: «10 ед. ярости» → a dot in the resource's colour and the number
-		glyph, tint, text = "cost", costColor, text:match("[%d%s\194\160]+") or text
-		term, amount = costTerm, text
+		glyph, term, isCast = "castTime", "castTime", true
+	elseif not right and first and cost and number and tonumber((number:gsub("%D", ""))) == cost.amount then
+		glyph, tint, term = "cost", cost.color, cost.term
+		text = number:gsub("%s+$", "")
+		amount = text
+	elseif right and cast then
+		if number then
+			text, term = "CD " .. Value(text), "cd"
+		end
+	elseif first then -- the range, on the cost's right or alone
+		text, term = (Value(text):gsub("%.$", "")), "range"
 	end
 	Cell(model, text, nil, glyph, tint, term, amount)
+	return isCast
 end
 
--- the colour of a spell's resource (rage red, mana blue, energy yellow), from its cost's power type
+-- a spell's cost (its first power cost): its amount, its resource's colour (rage red, mana blue, energy yellow) and
+-- term; nil without one. A table per spell, made once.
 local POWER_TERM = { [0] = "mana", [1] = "rage", [3] = "energy" } -- a cost's power type -> its term
-local function CostColor(id)
-	local costs = id and C_Spell.GetSpellPowerCost(id)
-	local cost = type(costs) == "table" and costs[1]
+local costs = {}
+local function CostOf(id)
+	local entry = id and costs[id]
+	if entry ~= nil then
+		return entry or nil
+	end
+	local list = id and C_Spell.GetSpellPowerCost(id)
+	local cost = type(list) == "table" and list[1]
 	local color = cost and PowerBarColor and PowerBarColor[cost.type]
-	return color and Rgb(color.r, color.g, color.b) or nil, cost and POWER_TERM[cost.type]
+	entry = cost and type(cost.cost) == "number" and cost.cost > 0 and {
+		amount = cost.cost,
+		color = color and Rgb(color.r, color.g, color.b) or nil,
+		term = POWER_TERM[cost.type],
+	} or false
+	if id then
+		costs[id] = entry
+	end
+	return entry or nil
 end
 
 local function Spell(model, data, ctx)
@@ -655,7 +659,8 @@ local function Spell(model, data, ctx)
 	model.id = id
 	local L = ctx.L
 	model.icon = id and C_Spell.GetSpellTexture(id) or nil
-	local costColor, costTerm = CostColor(id)
+	local cost = CostOf(id)
+	local band = 0 -- the band lines read so far
 	local lines = data.lines
 	for i = 1, #lines do
 		local line = lines[i]
@@ -675,10 +680,12 @@ local function Spell(model, data, ctx)
 		elseif kind ~= LINE.Blank and (left or right) then
 			-- cost and range, cast and cooldown: Forever's two-sided lines, cells of the band
 			if left and right then
-				SpellCell(model, left, false, L, costColor, costTerm)
-				SpellCell(model, right, true, L, costColor, costTerm)
+				band = band + 1
+				local cast = SpellCell(model, left, band == 1, false, L, cost)
+				SpellCell(model, right, band == 1, true, L, cost, cast)
 			elseif left and i <= 4 and model.body.n == 0 then
-				SpellCell(model, left, false, L, costColor, costTerm)
+				band = band + 1
+				SpellCell(model, left, band == 1, false, L, cost)
 			elseif left then
 				Free(model, left, ColorOf(line.leftColor))
 			end

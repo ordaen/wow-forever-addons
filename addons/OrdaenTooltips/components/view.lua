@@ -17,9 +17,9 @@
 -- written as each show starts), `epoch` (the module's: changes when a comparison rewrote this view's rows); the lock (the module's, design «Tooltips in tooltips»): `charge` (its
 -- steps, the main tooltip's bar), `kept` (locked while this view showed: it stays after Blizzard's goes), `locked`,
 -- `OnEnter`/`OnLeave` (the mouse on the locked group) and `OnClose`; the main view's: `links` (per depth, OnLink of
--- its tooltips' parts: 0 the group's own), `nested` (the models opened from links by depth, `.n` open, `.at[d]` the
+-- its tooltips' parts: 0 the group's), `nested` (the models opened from links by depth, `.n` open, `.at[d]` the
 -- frame of the text it opened from), `nest`
--- (changes when one opens or closes), `nestHover` (per depth, { OnEnter, OnLeave }), `compares` (the comparison
+-- (changes when one opens or closes), `compares` (the comparison
 -- tooltips, each { tip, model, name, call }), `keptBy` (the lock's kept views by name).
 local Define = import("@ordaen/define")
 
@@ -44,7 +44,7 @@ local function Version(self, tip)
 end
 
 -- a tooltip opened from a link: its own box at the text that opened it (below it, or above it in the screen's lower
--- half; on its left edge, or its right edge in the screen's right third), knowing the mouse on it
+-- half; on its left edge, or its right edge in the screen's right third); it takes no mouse
 local function Opened(game, self)
 	local d = self.nestedDepth
 	game.ui:TipFrame(nil, self.nestedCalls[d], d)
@@ -77,12 +77,11 @@ local function Nested(game, self)
 			if not call then
 				call = { attributes = { side = true, locked = false } }
 				calls[d] = call
-				local hover = self.attributes.nestHover[d]
-				boxes[d] = { attributes = { position = "fixed", columns = 1, hoverWithin = true,
-					OnEnter = hover.OnEnter, OnLeave = hover.OnLeave }, slots = { default = self.opened[d] } }
+				-- no mouse: it goes as the mouse leaves its text
+				boxes[d] = { attributes = { position = "fixed", columns = 1 }, slots = { default = self.opened[d] } }
 			end
 			local a = call.attributes
-			a.model, a.version, a.OnLink = nested[d], self.attributes.nest, self.attributes.links[d]
+			a.model, a.version = nested[d], self.attributes.nest
 			AnchorAt(boxes[d], frame)
 			game.ui:Box(nil, boxes[d], d)
 		end

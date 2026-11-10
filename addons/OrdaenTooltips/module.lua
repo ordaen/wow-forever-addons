@@ -19,7 +19,6 @@ local COMPARE = { ShoppingTooltip1 = true, ShoppingTooltip2 = true }
 local STEPS, STEP = 30, 1 / 30
 local GRACE = 0.22
 local REFRESH = 0.1 -- a hide shorter than this is Blizzard refreshing the tooltip, not the mouse leaving
-local DEPTH = 6 -- tooltips opened from links in tooltips, at most this deep
 
 -- what a link opens: our spell links (a description's spell names), the game's item and spell links
 local function DataOf(link)
@@ -275,7 +274,7 @@ return Define.Module({
 		-- the tooltips opened from links: their models by depth (`n` open), whether the mouse is on each, when the
 		-- link that opened the next was left
 		-- (`nested.at[d]`: the frame of the text that opened it, which it opens at)
-		local nested, hovered, linkLeft = { n = 0, at = {} }, {}, {}
+		local nested = { n = 0, at = {} }
 		local function Truncate(depth)
 			if nested.n > depth then
 				nested.n = depth
@@ -352,16 +351,12 @@ return Define.Module({
 				C_Timer.After(GRACE, CloseIfLeft)
 			end,
 		}
-		-- a link hovered at a depth opens its tooltip one deeper; left, that one closes after the grace unless the mouse
-		-- is on it or on one opened from it
-		local links, checks, nestHover = {}, {}, {}
-		local function Open(depth, link)
-			if depth >= DEPTH then
-				return
-			end
-			local d = depth + 1
-			local model = nested[d] or Read.NewModel()
-			nested[d] = model
+		-- a term or link hovered in the locked group opens its tooltip at the text; it takes no mouse and goes as the
+		-- mouse leaves the text (design: a tooltip's tooltips never hold the mouse)
+		local links = {}
+		local function Open(link)
+			local model = nested[1] or Read.NewModel()
+			nested[1] = model
 			-- a term's glossary entry (ordaen:term:key:amount), else what the game's data says of the link
 			local key, amount = link:match("^ordaen:term:([^:]+):(.*)$")
 			if key then
@@ -375,57 +370,22 @@ return Define.Module({
 					return
 				end
 			end
-			for k = d, nested.n do
-				hovered[k] = false
-			end
-			nested.n = d
+			nested.n = 1
 			self.state.nest = Define.Peek(self.state.nest) + 1
 		end
-		for depth = 0, DEPTH do
-			checks[depth] = function()
-				local t = linkLeft[depth]
-				if not t or GetTime() - t < GRACE - 0.01 then
-					return
-				end
-				for k = depth + 1, nested.n do
-					if hovered[k] then
-						return
-					end
-				end
-				linkLeft[depth] = nil
-				Truncate(depth)
+		links[0] = function(link, entered)
+			if entered then
+				-- the text's own frame, under the mouse now: the tooltip opens at it
+				local foci = GetMouseFoci()
+				nested.at[1] = foci and foci[1] or nil
+				Open(link)
+			else
+				Truncate(0)
 			end
-			links[depth] = function(link, entered)
-				if entered then
-					linkLeft[depth] = nil
-					-- the text's own frame, under the mouse now: the tooltip opens at it
-					local foci = GetMouseFoci()
-					nested.at[depth + 1] = foci and foci[1] or nil
-					Open(depth, link)
-				else
-					linkLeft[depth] = GetTime()
-					C_Timer.After(GRACE, checks[depth])
-				end
-			end
-		end
-		for d = 1, DEPTH do
-			nestHover[d] = {
-				-- it sits apart from the group's row: the mouse on it is on the group too
-				OnEnter = function()
-					hovered[d] = true
-					lockCalls.OnEnter()
-				end,
-				OnLeave = function()
-					hovered[d] = false
-					linkLeft[d - 1] = GetTime()
-					C_Timer.After(GRACE, checks[d - 1])
-					lockCalls.OnLeave()
-				end,
-			}
 		end
 		local mainCall = self.viewCalls.GameTooltip
 		if mainCall then
-			mainCall.attributes.nested, mainCall.attributes.nestHover = nested, nestHover
+			mainCall.attributes.nested = nested
 			-- the comparison tooltips: drawn in the main one's group, on its right (each its tip and model)
 			local compares = {}
 			for name in pairs(COMPARE) do
