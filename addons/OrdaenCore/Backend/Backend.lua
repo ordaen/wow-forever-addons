@@ -1580,8 +1580,15 @@ function Node:ApplyText()
 	else
 		natW, lineH = pixelsUp(fs:GetUnboundedStringWidth()), lineHeight(fs, font or Theme["font.body"], size, outline)
 	end
+	-- its min-content width: the longest word (each word on a line of its own: the widest), what a column keeps
+	local minW = natW
+	if wrap and natW > 0 and text:find(" ", 1, true) then
+		fs:SetWidth(1)
+		minW = min(natW, pixelsUp(fs:GetWrappedWidth()))
+		fs:SetWidth(self.pW or 0)
+	end
 	local oldW, oldH = self.natW, self.lineH
-	self.natW, self.lineH, self.mW = natW, lineH, nil
+	self.natW, self.minW, self.lineH, self.mW = natW, minW, lineH, nil
 	return Layout.TextResized(self, oldW, oldH)
 end
 
@@ -2550,7 +2557,7 @@ function Backend:Create(kind)
 			local fs = getHolder():CreateFontString(nil, "ARTWORK")
 			fs:SetJustifyH("LEFT")
 			fs:SetJustifyV("TOP")
-			fs:SetNonSpaceWrap(true)
+			fs:SetNonSpaceWrap(false) -- lines break between words only, never inside one (a word wider than its room overflows)
 			fs:Hide()
 			node.fs, node.lookJustify, node.shown = fs, "LEFT", false
 			node.natW, node.lineH = 0, 0

@@ -492,5 +492,23 @@ describe("backend layout", function()
 		assert.are.equal(300, body.w)
 		assert.are.equal(200, body.h)
 	end)
+
+	it("never squeezes a column below its content's longest word", function()
+		local long = text("Massive grinding stone")
+		long.minW = 8 * CHAR -- "grinding"
+		local grid = box({ position = "absolute", left = 0, top = 0, width = 60, columns = { "auto", "auto" } },
+			{ text("aaaaaaaaaa", { wrap = false }), long })
+		run(root({ grid }))
+		assert.is_true(long.w >= 8 * CHAR)
+	end)
+
+	it("keeps a minContent box as wide as its fr and percent children's content", function()
+		local buttons = box({ width = "1fr", columns = { 40, 40 } }, { box({ width = 40 }), box({ width = 40 }) })
+		local inner = box({ width = "100%", columns = 1 }, { buttons })
+		local body = box({ position = "absolute", left = 0, top = 0, width = 30, height = 50, minContent = true,
+			columns = 1 }, { inner })
+		run(root({ body }))
+		assert.is_true(body.w >= 80)
+	end)
 end)
 

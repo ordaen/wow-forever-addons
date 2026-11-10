@@ -611,10 +611,15 @@ function natural(node)
 	if wk == "fixed" then
 		return node.wAmount
 	elseif wk == "pct" or wk == "fill" then
+		-- sized by its parent: no width of its own, but measuring a minimum (fitting) its content's minimum still counts,
+		-- so a box is never narrower than its children's min-content (CSS's min-width: auto)
+		if fitting and node.kind == "box" then
+			return boxNatural(node)
+		end
 		return 0
 	elseif node.kind == "text" then
 		if fitting and node.wrap ~= false then
-			return 0
+			return node.minW or 0 -- wraps at whatever the rest gives, but not inside a word
 		end
 		return node.natW
 	elseif wk == "minfit" then
@@ -922,6 +927,23 @@ function layoutBox(node, W, H, ctx)
 	end
 	if deficit > 0 then
 		shrink(node, n, "auto", deficit)
+	end
+	if extra < 0 or deficit > 0 then
+		-- squeezed: no column narrower than its content's min-content (a text's longest word, a box's content without
+		-- wrapping texts), as CSS keeps a grid item's min-content; what doesn't fit overflows the box
+		local was = fitting
+		fitting = true
+		for i = 1, count do
+			local child = children[i]
+			if child.pos ~= "absolute" and child.pos ~= "fixed" and cSpan[i] == 1 then
+				local c = cCol[i]
+				local least = natural(child)
+				if colW[c] < least then
+					colW[c] = least
+				end
+			end
+		end
+		fitting = was
 	end
 	local x = padL + offset
 	for c = 1, n do

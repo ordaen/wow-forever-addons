@@ -941,7 +941,7 @@ local function wrapWidth(self)
 end
 
 -- The lines the text breaks into: widest line and line count.
-local function lines(self)
+local function lines(self, overflow)
 	local space = textWidth(self, " ")
 	local limit = wrapWidth(self)
 	local widest, count = 0, 0
@@ -965,10 +965,18 @@ local function lines(self)
 			widest = math.max(widest, current)
 		end
 	end
-	if limit then
+	if limit and not overflow then
 		widest = math.min(widest, limit)
 	end
 	return widest, count
+end
+
+-- The widest line as wrapped: a word wider than the limit isn't broken (SetNonSpaceWrap(false)), so it can exceed it.
+function FontStringMethods:GetWrappedWidth()
+	if (self._text or "") == "" then
+		return 0
+	end
+	return (lines(self, true))
 end
 
 function FontStringMethods:GetStringWidth()
