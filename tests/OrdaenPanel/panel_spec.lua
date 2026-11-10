@@ -393,6 +393,21 @@ describe("Ordaen Panel's action bars", function()
 		assert.is_nil(wow.env.OrdaenActionButton25, "the third bar is off by default")
 	end)
 
+	it("fades a bar to its opacity out of combat, full while the mouse is over it", function()
+		local wow = Panel({})
+		wow.env.OrdaenPanelDB["module/bars/bar1"] = nil
+		local ns = wow.addons.OrdaenCore.ns
+		local panel = ns.App.Module("OrdaenPanel")
+		panel.root.state.persistent.bars:Field("bar1", "fadeOoc"):Set(0.3)
+		ns.Scheduler.Flush()
+		local box = wow.env.OrdaenActionButton1:GetParent()
+		assert.are.equal(0.3, box:GetAlpha())
+		box:GetScript("OnEnter")(box)
+		ns.Scheduler.Flush()
+		assert.are.equal(1, box:GetAlpha())
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("draws none and leaves Blizzard's bars while the action bars are off", function()
 		local wow = Panel({ barsOn = false })
 		assert.are.same({}, wow.errors)

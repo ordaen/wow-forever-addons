@@ -181,6 +181,15 @@ function DOMAINS.ActionButtons()
 	})
 end
 
+--- One-shot timers for a module: `local t = game.Timer:After(seconds, fn)`, `t:Cancel()` (C_Timer.NewTimer).
+function DOMAINS.Timer()
+	local Timer = {}
+	function Timer:After(seconds, fn) -- luacheck: ignore 212
+		return C_Timer.NewTimer(seconds, fn)
+	end
+	return Timer
+end
+
 --- Blizzard's action bars as the character's own settings have them (Параметры → Панели команд).
 function DOMAINS.ActionBars()
 	local ActionBars = {}
