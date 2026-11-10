@@ -459,6 +459,15 @@ function ctx.place(node)
 		end
 		rel = target or rel
 		x, y = snap(node.offL or 0), snap(node.offT or 0)
+		-- placed by its centre on an axis: a whole, even number of pixels across it, so both edges land on whole
+		-- pixels (an odd count puts them on halves, and a box resized by dragging shimmers as they snap in turn)
+		local point = anchor.point or "TOPLEFT"
+		if point == "CENTER" or point == "TOP" or point == "BOTTOM" then
+			w = 2 * snap(w / 2)
+		end
+		if point == "CENTER" or point == "LEFT" or point == "RIGHT" then
+			h = 2 * snap(h / 2)
+		end
 		if anchor ~= node.pAnchor or rel ~= node.pRel or x ~= node.pX or y ~= node.pY then
 			node.pAnchor, node.pRel, node.pX, node.pY = anchor, rel, x, y
 			local point = anchor.point or "TOPLEFT"
