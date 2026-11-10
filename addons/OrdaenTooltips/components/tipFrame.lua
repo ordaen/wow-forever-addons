@@ -35,7 +35,7 @@ local FREE = { 0.902, 0.863, 0.776, 1 } -- .free #e6dcc6
 local BLACK = { 0, 0, 0, 1 }
 local RIM = { width = 1 * PX, color = { 0.424, 0.333, 0.208, 1 } } -- the icon's bronze ring
 local TITLE_COLUMNS = { ICON, "1fr" }
-local STEPS = 30 -- the charge's steps (the module's)
+local STEPS = 100 -- the charge's steps (the module's: per cent)
 -- the lock's bar: 2 px in the bottom padding, 2 px up, bronze to gold; its width the charge (a string per step, made once)
 -- the lock's bar: the tooltip's last section, 8 px under the content: a dark track, gold filling it as it charges
 local TRACK = { 0, 0, 0, 0.45 }
@@ -137,8 +137,13 @@ local function BarFill(game, self)
 	game.ui:Box({ attributes = { position = "absolute", left = 0, top = 0, bottom = 0, width = BarWidth(game, self),
 		background = BAR_GOLD } })
 end
-local function Track(game)
-	game.ui:Box({ attributes = { height = BAR_HEIGHT * PX, background = TRACK }, slots = { default = BarFill } })
+-- the track shows once the charge starts (its row's room is there from the show on: nothing moves)
+local function TrackColor(_, self)
+	return (self.attributes.locked or self.attributes.charge:Get() > 0) and TRACK or nil
+end
+local function Track(game, self)
+	game.ui:Box({ attributes = { height = BAR_HEIGHT * PX, background = TrackColor(game, self) },
+		slots = { default = BarFill } })
 end
 local BAR = { attributes = { columns = 1, padding = { SECTION, 0, 0, 0 } }, slots = { default = Track } }
 

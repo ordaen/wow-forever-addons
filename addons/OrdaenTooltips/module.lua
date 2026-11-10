@@ -14,9 +14,10 @@ local Read = import("read")
 -- Blizzard's tooltips drawn here: the main one, the linked item's, the comparison ones
 local NATIVES = { "GameTooltip", "ItemRefTooltip", "ShoppingTooltip1", "ShoppingTooltip2" }
 local COMPARE = { ShoppingTooltip1 = true, ShoppingTooltip2 = true }
--- the lock (design «Tooltips in tooltips»): the main tooltip charges for 1 s in STEPS while the mouse stays on what
--- it describes, then locks; a locked group closes GRACE s after the mouse leaves it (unless it comes back)
-local STEPS, STEP = 30, 1 / 30
+-- the lock (design «Tooltips in tooltips»): after DELAY s on what it describes (a passing mouse sees no bar) the main
+-- tooltip charges for CHARGE s, then locks; the bar's fill is the charge in STEPS (per cent), read from the clock at
+-- each frame while it charges; a locked group closes GRACE s after the mouse leaves it (unless it comes back)
+local DELAY, CHARGE, STEPS, STEP = 0.18, 1, 100, 0
 local GRACE = 0.22
 local REFRESH = 0.1 -- a hide shorter than this is Blizzard refreshing the tooltip, not the mouse leaving
 
@@ -296,10 +297,13 @@ return Define.Module({
 				targetType, targetId, closed = nil, nil, false
 			end
 		end
+		local started = 0 -- when the target began to show
 		local function Step()
-			local n = Define.Peek(self.state.charge) + 1
+			local n = math.floor((GetTime() - started - DELAY) / CHARGE * STEPS)
 			if n < STEPS then
-				self.state.charge = n
+				if n > 0 and n ~= Define.Peek(self.state.charge) then
+					self.state.charge = n
+				end
 				return
 			end
 			for i = 1, #NATIVES do
@@ -327,9 +331,10 @@ return Define.Module({
 					end
 					targetType, targetId, closed = data.type, id, false
 					self.state.charge = 0
+					started = GetTime()
 				end
 				if lock == 0 and not closed then
-					self:Every(STEP, Step) -- the same target shown again keeps its charge
+					self:Every(STEP, Step) -- every frame; the same target shown again keeps its charge
 				end
 			end)
 		end

@@ -395,7 +395,11 @@ describe("Ordaen Tooltips", function()
 		it("charges for a second, locks, and stays after Blizzard's tooltip hides", function()
 			wow:ShowTooltip("GameTooltip", AXE)
 			ns.Scheduler.Flush()
-			wait(0.5)
+			wait(0.1)
+			assert.is_nil(find(function(node) -- a passing mouse sees no bar: its track isn't drawn yet
+				return node.a and type(node.a.background) == "table" and node.a.background[4] == 0.45
+			end))
+			wait(0.4)
 			assert.is_nil(closeButton())
 			-- the bar: the tooltip's last section (in the layout, not over it), partly full
 			local fill = find(function(node)
@@ -404,7 +408,7 @@ describe("Ordaen Tooltips", function()
 				return w and w > 0 and w < 100
 			end)
 			assert.is_truthy(fill)
-			wait(0.6)
+			wait(0.8)
 			assert.is_truthy(closeButton())
 			assert.is_truthy(find(function(node) -- locked: full, and it stays
 				return node.a and node.a.position == "absolute" and node.a.width == "100%"
@@ -421,7 +425,7 @@ describe("Ordaen Tooltips", function()
 					wow:ShowTooltip("GameTooltip", AXE)
 					wait(0.25)
 				end
-				wait(0.1)
+				wait(0.3)
 				assert.is_truthy(closeButton())
 				wow:ShowTooltip("GameTooltip", AXE) -- shown again while locked: still locked
 				ns.Scheduler.Flush()
@@ -435,7 +439,7 @@ describe("Ordaen Tooltips", function()
 				wait(0.5)
 				wow.env.GameTooltip:Hide()
 				wow:ShowTooltip("GameTooltip", AXE)
-				wait(0.6)
+				wait(0.8)
 				assert.is_truthy(closeButton())
 				closeButton().a.OnClick()
 				wow:ShowTooltip("GameTooltip", SHOUT)
@@ -451,7 +455,7 @@ describe("Ordaen Tooltips", function()
 		it("keeps the comparison in the locked group", function()
 			wow:ShowTooltip("GameTooltip", AXE)
 			wow:ShowTooltip("ShoppingTooltip1", WORN)
-			wait(1.1)
+			wait(1.3)
 			wow.env.ShoppingTooltip1:Hide()
 			wow.env.GameTooltip:Hide()
 			ns.Scheduler.Flush()
@@ -461,7 +465,7 @@ describe("Ordaen Tooltips", function()
 
 		it("closes when the mouse leaves it, after the grace, and not when it comes back in time", function()
 			wow:ShowTooltip("GameTooltip", AXE)
-			wait(1.1)
+			wait(1.3)
 			wow.env.GameTooltip:Hide()
 			ns.Scheduler.Flush()
 			local g = group()
@@ -478,14 +482,14 @@ describe("Ordaen Tooltips", function()
 
 		it("closes on its X and when another tooltip starts", function()
 			wow:ShowTooltip("GameTooltip", AXE)
-			wait(1.1)
+			wait(1.3)
 			wow.env.GameTooltip:Hide()
 			ns.Scheduler.Flush()
 			closeButton().a.OnClick()
 			ns.Scheduler.Flush()
 			assert.are.equal("", texts())
 			wow:ShowTooltip("GameTooltip", AXE)
-			wait(1.1)
+			wait(1.3)
 			wow.env.GameTooltip:Hide()
 			wow:ShowTooltip("GameTooltip", SHOUT)
 			ns.Scheduler.Flush()
@@ -509,7 +513,7 @@ describe("Ordaen Tooltips", function()
 			end
 			assert.is_nil(cell()) -- not locked: the cells take no mouse
 			assert.is_nil(underline()) -- and nothing is underlined
-			wait(1.1)
+			wait(1.3)
 			assert.is_truthy(underline()) -- locked: a term's text gets the gold dashes
 			local c = cell()
 			wow.mouseFocus = c.frame
@@ -540,7 +544,7 @@ describe("Ordaen Tooltips", function()
 				assert.is_nil(find(function(node)
 					return node.a and node.a.OnLink
 				end)) -- not locked: no links
-				wait(1.1)
+				wait(1.3)
 				local row = find(function(node)
 					return node.a and node.a.OnLink
 				end)
