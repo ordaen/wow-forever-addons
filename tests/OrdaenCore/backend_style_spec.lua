@@ -606,6 +606,15 @@ describe("backend styles", function()
 		for i = 1, 4 do
 			assert.is_false(box.shadowSides[i]:IsShown()) -- dropped: no shadow left
 		end
+		-- a shape shadow: the box's own picture, tinted and moved, under it
+		Backend:Set(box, wow.env.table.freeze({ position = "fixed", left = 100, top = 100, width = 16, height = 16,
+			background = ref("ctl.dropdownArrow"), shadow = { shape = true, x = 1, y = 1 } }))
+		Backend:Flush()
+		local shape = box.shadowShape
+		assert.is_true(shape:IsShown())
+		assert.are.equal(box.bg:GetTexture(), shape:GetTexture())
+		local dx = shape:GetLeft() - box.bg:GetLeft()
+		assert.is_true(dx > 0 and dx < 2, "moved right by one whole pixel: " .. dx)
 	end)
 
 	it("raises a toplevel box over its siblings when clicked, the latest click on top", function()

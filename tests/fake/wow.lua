@@ -748,6 +748,10 @@ function TextureMethods:SetDrawLayer(layer)
 end
 
 -- a nine-slice texture: its margins (texels kept unstretched at each side) and how the middle fills
+function TextureMethods:GetTexture()
+	return self._texture
+end
+
 function TextureMethods:SetTextureSliceMargins(left, top, right, bottom)
 	self._sliceMargins = { left, top, right, bottom }
 end

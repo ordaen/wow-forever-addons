@@ -1038,15 +1038,20 @@ end
 -- tinted to `color`. It's paint: the box's size in the layout doesn't change, and nothing reads it.
 -- Inset: the box's own edges darkened `size` deep, over its background and under its content: four strips, each a
 -- gradient from `color` at the edge to clear.
+-- Shape (`shape = true`): the box's own picture, tinted to `color` and moved by x, y, under it: a drop shadow for
+-- shaped art (an arrow, a knob), as a text's shadow is the text again.
 -- `color` defaults to black at 50%.
 do -- its constants local to it (the file is near Lua's 200 locals)
 local SHADOW = "Interface\AddOns\OrdaenCore\media\shadow"
 local SHADOW_COLOR = { 0, 0, 0, 0.5 }
 local INSET_SIDES = { "TOP", "BOTTOM", "LEFT", "RIGHT" }
 function Node:ApplyShadow(shadow)
-	local out, sides = self.shadowTex, self.shadowSides
+	local out, sides, shape = self.shadowTex, self.shadowSides, self.shadowShape
 	if out then
 		out:Hide()
+	end
+	if shape then
+		shape:Hide()
 	end
 	if sides then
 		for i = 1, 4 do
@@ -1060,6 +1065,24 @@ function Node:ApplyShadow(shadow)
 	local c = color(resolveRef(shadow.color)) or SHADOW_COLOR
 	local size = snap(resolveRef(shadow.size) or 8)
 	local x, y = snap(shadow.x or 0), snap(shadow.y or 0)
+	if shadow.shape then
+		local bg = self.bg
+		if not bg then
+			return
+		end
+		if not shape then
+			shape = frame:CreateTexture(nil, "BACKGROUND", nil, -7)
+			self.shadowShape = shape
+		end
+		shape:SetTexture(bg:GetTexture())
+		shape:SetTexCoord(bg:GetTexCoord())
+		shape:SetVertexColor(c[1], c[2], c[3], c[4] or 1)
+		shape:ClearAllPoints()
+		shape:SetPoint("TOPLEFT", bg, "TOPLEFT", x, -y)
+		shape:SetPoint("BOTTOMRIGHT", bg, "BOTTOMRIGHT", x, -y)
+		shape:Show()
+		return
+	end
 	if not shadow.inset then
 		if not out then
 			out = frame:CreateTexture(nil, "BACKGROUND", nil, -8)
@@ -1715,7 +1738,7 @@ function Node:ApplyLook()
 		self:ApplyTint()
 	end
 	local shadow = resolve(self, a.shadow)
-	if shadow ~= self.lookShadowBox then
+	if shadow ~= self.lookShadowBox or (type(shadow) == "table" and shadow.shape) then
 		self.lookShadowBox = shadow
 		self:ApplyShadow(shadow)
 	end

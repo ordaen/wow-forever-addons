@@ -15,6 +15,8 @@ local EDGE = 1 * PX
 local GROOVE_TOP = (BAND - GROOVE) / 2
 -- the knob's art: a 16 x 32 px square, the 14 x 20 px knob 1 px in and 2 px down, centred on the value
 local KNOB_W, KNOB_H = 16 * PX, 32 * PX
+-- the knob's soft drop shadow, drawn by its box (the art has none)
+local KNOB_SHADOW = { size = 3 * PX, y = 2 * PX, color = { 0, 0, 0, 0.55 } }
 local floor, max, min, format = math.floor, math.max, math.min, string.format
 
 -- the value as the slider shows it, by the declaration's unit
@@ -48,7 +50,7 @@ local function Parts(game, self)
 	game.ui:Box({ attributes = { position = "absolute", left = EDGE, top = GROOVE_TOP + EDGE, height = GROOVE - 2 * EDGE,
 		width = FillWidth(game, self), background = Define.Theme.ctl.sliderFill } })
 	game.ui:Box({ attributes = { position = "absolute", left = KnobLeft(game, self), top = -2 * PX, width = KNOB_W,
-		height = KNOB_H, background = Define.Theme.ctl.sliderKnob } })
+		height = KNOB_H, background = Define.Theme.ctl.sliderKnob, shadow = KNOB_SHADOW } })
 end
 
 local function Row(game, self)

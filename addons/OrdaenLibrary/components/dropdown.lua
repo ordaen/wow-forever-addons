@@ -15,7 +15,9 @@ local BOLD = { color = GOLD, x = 1 * PX, y = 0 } -- the design's 700: the same c
 
 local FACE = { position = "absolute", left = 0, top = 0, width = WIDTH, height = HEIGHT,
 	padding = { 0, 12 * PX, 0, 18 * PX }, columns = { "1fr", 16 * PX }, gap = 10 * PX, yAlign = "center" }
-local ARROW = { attributes = { width = 16 * PX, height = 16 * PX, background = Define.Theme.ctl.dropdownArrow } }
+-- its drop shadow drawn by the box from the arrow's own shape, not baked into the art
+local ARROW = { attributes = { width = 16 * PX, height = 16 * PX, background = Define.Theme.ctl.dropdownArrow,
+	shadow = { shape = true, x = 1 * PX, y = 1 * PX, color = { 0.08, 0.08, 0.12, 0.8 } } } }
 -- the menu: under the plate (38 px down), over the rows below it, as wide as the plate and 20 px more
 local MENU = { position = "absolute", left = 0, top = 38 * PX, width = WIDTH + 20 * PX, zLevel = 50,
 	background = { 10 / 255, 8 / 255, 6 / 255, 0.97 }, border = { width = 1 * PX, color = { 0.424, 0.333, 0.208, 1 } },
