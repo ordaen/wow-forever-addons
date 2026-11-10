@@ -582,6 +582,16 @@ function FrameMethods:RegisterForDrag(...)
 	self._drag = { ... }
 end
 
+-- secure attributes (an action button's action and index)
+function FrameMethods:SetAttribute(name, value)
+	self._attributes = self._attributes or {}
+	self._attributes[name] = value
+end
+
+function FrameMethods:GetAttribute(name)
+	return self._attributes and self._attributes[name]
+end
+
 local ButtonMethods = copyInto({}, FrameMethods)
 
 -- a button's own label (a template's text): kept, not drawn
@@ -947,10 +957,13 @@ function FontMethods:GetFont()
 	return self._font, self._size, self._flags
 end
 
+-- a check button (Ordaen's action buttons, on ActionBarButtonTemplate): a button whose template the fake doesn't run
+local CheckButtonMethods = setmetatable({}, { __index = ButtonMethods })
+
 -- Every fake method must be one Forever has.
 local CLASSES = {
 	Frame = FrameMethods, Button = ButtonMethods, Texture = TextureMethods, FontString = FontStringMethods,
-	MaskTexture = MaskTextureMethods, EditBox = EditBoxMethods,
+	MaskTexture = MaskTextureMethods, EditBox = EditBoxMethods, CheckButton = CheckButtonMethods,
 }
 
 -- Every method that can move or resize a region (or its text) starts a new rect generation.
@@ -1489,10 +1502,39 @@ function Wow:MakeEnv()
 	wow.drivers = {}
 	offer("RegisterStateDriver", function(frame, kind, text)
 		assert(not wow.combat, "RegisterStateDriver in combat")
-		assert(kind == "visibility", "only the visibility driver is faked")
+		if kind ~= "visibility" then -- another state (an action bar's page): only remembered
+			frame._states = frame._states or {}
+			frame._states[kind] = text
+			return
+		end
 		frame._visibility = text
 		wow.drivers[frame] = true
 		visibility(frame)
+	end)
+	-- a macro condition's result: the fake knows no conditions, so its last clause ("[bonusbar:1] 7; 1" -> "1")
+	offer("SecureCmdOptionParse", function(text)
+		local last = text:match("([^;]*)$") or ""
+		return (last:gsub("%b[]", ""):match("^%s*(.-)%s*$"))
+	end)
+	-- the keys bound to a binding: the first action bar's buttons 1-12 on 1-9, 0, -, =
+	local MAIN_KEYS = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "-", "=" }
+	offer("GetBindingKey", function(binding)
+		local i = tonumber(binding:match("^ACTIONBUTTON(%d+)$"))
+		return i and MAIN_KEYS[i] or nil
+	end)
+	offer("SecureHandlerSetFrameRef", function(header, name, frame)
+		header._refs = header._refs or {}
+		header._refs[name] = frame
+	end)
+	-- override bindings: wow.overrides[key] = the button's name a key clicks
+	wow.overrides = {}
+	offer("SetOverrideBindingClick", function(_, _, key, name)
+		assert(not wow.combat, "SetOverrideBindingClick in combat")
+		wow.overrides[key] = name
+	end)
+	offer("ClearOverrideBindings", function()
+		assert(not wow.combat, "ClearOverrideBindings in combat")
+		wow.overrides = {}
 	end)
 	offer("UnregisterStateDriver", function(frame, kind)
 		assert(not wow.combat, "UnregisterStateDriver in combat")

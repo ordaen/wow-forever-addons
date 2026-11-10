@@ -103,7 +103,7 @@ describe("a module's settings page", function()
 		end }
 		local window = ns.Engine:Mount(nil, ns.Define.Component({
 			Setup = function()
-				ns.Define.Ephemeral({ tab = { type = "number", default = 4 } })
+				ns.Define.Ephemeral({ tab = { type = "number", default = 5 } })
 			end,
 			Render = function(game, self)
 				game.ui:ModuleSettings(1, { attributes = { module = "OrdaenPanel", tab = self.state.ephemeral.tab:Get() } })
@@ -111,7 +111,7 @@ describe("a module's settings page", function()
 		}), 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
 		ns.Scheduler.Flush()
 		assert.are.same({}, wow.errors)
-		-- the fourth tab only (the bottom panel's: its height slider among its rows), drawn by the panel's own module
+		-- the fifth tab only (the bottom panel's: its height slider among its rows), drawn by the panel's own module
 		assert.are.equal("settingsTab", drawn[1].kind)
 		local stored = ns.App.Module("OrdaenPanel").root.state.persistent.height
 		local height
@@ -206,7 +206,7 @@ describe("a draft of settings changes", function()
 		end }
 		ns.Engine:Mount(nil, ns.Define.Component({
 			Render = function(game)
-				game.ui:ModuleSettings(1, { attributes = { module = "OrdaenPanel", tab = 4, draft = draft } })
+				game.ui:ModuleSettings(1, { attributes = { module = "OrdaenPanel", tab = 5, draft = draft } })
 			end,
 		}), 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
 		ns.Scheduler.Flush()

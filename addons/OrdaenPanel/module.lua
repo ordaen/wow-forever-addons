@@ -494,6 +494,99 @@ local function FreeParts(game, self)
 	end
 end
 
+-- The action bars, Classic mode (design action-bars): Blizzard's eight bars of 12, each ours on Blizzard's own page
+-- of slots and key bindings, so without the addon Blizzard's bars show the same abilities in the same places. The
+-- first one pages by stance or form as Blizzard's main bar does (the stance pages 7-10). Free parts: never moved,
+-- they stack above the bottom panel, the first lowest. Blizzard's bars are hidden while ours are on.
+local BARS = {
+	{ page = 1, binding = "ACTIONBUTTON", blizzard = "MainActionBar",
+		paging = "[bonusbar:1] 7; [bonusbar:2] 8; [bonusbar:3] 9; [bonusbar:4] 10; 1" },
+	{ page = 6, binding = "MULTIACTIONBAR1BUTTON", blizzard = "MultiBarBottomLeft" },
+	{ page = 5, binding = "MULTIACTIONBAR2BUTTON", blizzard = "MultiBarBottomRight" },
+	{ page = 3, binding = "MULTIACTIONBAR3BUTTON", blizzard = "MultiBarRight" },
+	{ page = 4, binding = "MULTIACTIONBAR4BUTTON", blizzard = "MultiBarLeft" },
+	{ page = 13, binding = "MULTIACTIONBAR5BUTTON", blizzard = "MultiBar5" },
+	{ page = 14, binding = "MULTIACTIONBAR6BUTTON", blizzard = "MultiBar6" },
+	{ page = 15, binding = "MULTIACTIONBAR7BUTTON", blizzard = "MultiBar7" },
+}
+local BUTTONS = 12
+local BUTTON, BUTTON_GAP = 45 / 1.2, 4 / 1.2 -- 45 px buttons 4 px apart (design ActionButton, PanelWithBars)
+local BAR_TITLES = {
+	L.PANEL_BAR1, L.PANEL_BAR2, L.PANEL_BAR3, L.PANEL_BAR4, L.PANEL_BAR5, L.PANEL_BAR6, L.PANEL_BAR7, L.PANEL_BAR8,
+}
+local BAR_CALLS = {}
+for k = 1, #BARS do
+	local bar = BARS[k]
+	local buttons = {}
+	for i = 1, BUTTONS do
+		buttons[i] = { ref = (k - 1) * BUTTONS + i, call = { attributes = {
+			width = BUTTON, height = BUTTON, index = i, action = (bar.page - 1) * BUTTONS + i,
+			binding = bar.binding .. i, paging = bar.paging,
+		} } }
+	end
+	local function row(game)
+		for i = 1, BUTTONS do
+			local b = buttons[i]
+			game.ui:Embed(game.ActionButtons[b.ref], b.call)
+		end
+	end
+	local rowCall = { attributes = { columns = BUTTONS, gap = BUTTON_GAP }, slots = { default = row } }
+	local function slot(game)
+		game.ui:Box(rowCall)
+	end
+	BAR_CALLS[k] = { key = "bar" .. k, attributes = { title = BAR_TITLES[k] }, slots = { default = slot } }
+end
+-- a bar's default place: above the bottom panel (or the screen's bottom while it's off), centred, the first lowest;
+-- made once per height and row
+local BAR_DEFAULTS = {}
+local function BarDefault(height, row)
+	local key = height * 16 + row
+	local place = BAR_DEFAULTS[key]
+	if not place then
+		place = { point = "BOTTOM", relativePoint = "BOTTOM", left = 0,
+			top = -(height + 8 / 1.2 + (row - 1) * (BUTTON + BUTTON_GAP)) }
+		BAR_DEFAULTS[key] = place
+	end
+	return place
+end
+
+-- whether bar k is on (its own switch on «Панели команд»)
+local function BarOn(self, k)
+	if k == 1 then
+		return self.state.bar1
+	elseif k == 2 then
+		return self.state.bar2
+	elseif k == 3 then
+		return self.state.bar3
+	elseif k == 4 then
+		return self.state.bar4
+	elseif k == 5 then
+		return self.state.bar5
+	elseif k == 6 then
+		return self.state.bar6
+	elseif k == 7 then
+		return self.state.bar7
+	end
+	return self.state.bar8
+end
+
+local function ActionBars(game, self)
+	if not self.state.barsOn then
+		return
+	end
+	local base = self.state.bottomOn and self.state.edge == Edge.Bottom and self.state.height or 0
+	local row = 0
+	for k = 1, #BARS do
+		game.ui:Frame(game.Frame[BARS[k].blizzard], HIDDEN)
+		if BarOn(self, k) then
+			row = row + 1
+			local call = BAR_CALLS[k]
+			call.attributes.default = BarDefault(base, row)
+			game.ui:Placed(call)
+		end
+	end
+end
+
 -- What the panel replaces of Blizzard's, for as long as it's on: its micro menu's box (invisible, not hidden: see
 -- INVISIBLE) and the buttons the design leaves out; Blizzard's XP and reputation bars while ours are on.
 local function Replaced(game, self)
@@ -566,6 +659,16 @@ return Define.Module({
 		Define.Persistent({
 			-- the parts, each on or off («Общее»)
 			microOn = { type = "boolean", default = true, setting = true },
+			barsOn = { type = "boolean", default = true, setting = true },
+			-- the action bars (Classic): Blizzard's eight, each on or off
+			bar1 = { type = "boolean", default = true, setting = true },
+			bar2 = { type = "boolean", default = true, setting = true },
+			bar3 = { type = "boolean", default = false, setting = true },
+			bar4 = { type = "boolean", default = false, setting = true },
+			bar5 = { type = "boolean", default = false, setting = true },
+			bar6 = { type = "boolean", default = false, setting = true },
+			bar7 = { type = "boolean", default = false, setting = true },
+			bar8 = { type = "boolean", default = false, setting = true },
 			statusOn = { type = "boolean", default = true, setting = true },
 			bottomOn = { type = "boolean", default = true, setting = true },
 			-- the micro menu
@@ -617,6 +720,9 @@ return Define.Module({
 			game.ui:Section({ attributes = { title = L.SECTION_MICROMENU }, slots = { default = function()
 				game.ui:Switch({ attributes = { value = Define.Signal(self.state.microOn) } })
 			end } })
+			game.ui:Section({ attributes = { title = L.SECTION_BARS }, slots = { default = function()
+				game.ui:Switch({ attributes = { value = Define.Signal(self.state.barsOn) } })
+			end } })
 			game.ui:Section({ attributes = { title = L.SECTION_STATUS }, slots = { default = function()
 				game.ui:Switch({ attributes = { value = Define.Signal(self.state.statusOn) } })
 			end } })
@@ -628,6 +734,17 @@ return Define.Module({
 			slots = { default = function()
 			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.microIcons) } })
 			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.charButton) } })
+		end } })
+		game.ui:SettingsTab({ attributes = { title = L.TAB_BARS, shown = self.state.barsOn },
+			slots = { default = function()
+			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar1) } })
+			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar2) } })
+			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar3) } })
+			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar4) } })
+			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar5) } })
+			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar6) } })
+			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar7) } })
+			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar8) } })
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_STATUS, shown = self.state.statusOn },
 			slots = { default = function()
@@ -674,6 +791,7 @@ return Define.Module({
 	Render = function(game, self)
 		Replaced(game, self)
 		FreeParts(game, self)
+		ActionBars(game, self)
 		if not self.state.bottomOn then
 			return
 		end

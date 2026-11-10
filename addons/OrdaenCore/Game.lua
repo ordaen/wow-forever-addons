@@ -110,6 +110,8 @@ for _, name in ipairs({
 	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
 	"CharacterReagentBag0Slot", "BagBarExpandToggle", "BagsBar",
 	"MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer", "QuickJoinToastButton",
+	"MainActionBar", "MultiBarBottomLeft", "MultiBarBottomRight", "MultiBarRight", "MultiBarLeft", "MultiBar5",
+	"MultiBar6", "MultiBar7",
 }) do
 	FRAME_NAMES[name] = name
 end
@@ -141,6 +143,20 @@ function DOMAINS.Frame()
 			end
 			local ref = setmetatable({ global = global, key = child }, FrameRefMeta)
 			frames[key] = ref
+			return ref
+		end,
+	})
+end
+
+--- Ordaen's action buttons by index, as frame references for game.ui:Embed: `game.ActionButtons[1]` (made by the
+--- backend on first use, out of combat; Backend.lua «Action buttons»).
+function DOMAINS.ActionButtons()
+	return setmetatable({}, {
+		__index = function(refs, index)
+			local ref = { Get = function()
+				return ns.Backend:ActionButton(index)
+			end }
+			refs[index] = ref
 			return ref
 		end,
 	})

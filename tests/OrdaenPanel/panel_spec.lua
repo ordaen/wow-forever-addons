@@ -362,3 +362,40 @@ describe("Ordaen Panel's own condition", function()
 		assert.is_truthy(wow.env.ProfessionMicroButton:GetParent() ~= home)
 	end)
 end)
+
+describe("Ordaen Panel's action bars", function()
+	local function Panel(db)
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenPanel" } })
+		local home = wow.env.CreateFrame("Frame", "BagsBar", wow.env.UIParent)
+		for _, name in ipairs(BLIZZARD) do
+			wow.env.CreateFrame("Button", name, home):SetSize(45, 45)
+		end
+		wow.env.CreateFrame("Frame", "MainActionBar", wow.env.UIParent)
+		wow.env.OrdaenPanelDB = { module = db }
+		wow:Login()
+		wow:Tick()
+		return wow
+	end
+
+	it("draws Blizzard's first two bars as ours on their pages, Blizzard's hidden, the keys routed to ours", function()
+		local wow = Panel({})
+		assert.are.same({}, wow.errors)
+		assert.is_false(wow.env.MainActionBar:IsShown())
+		local first, second = wow.env.OrdaenActionButton1, wow.env.OrdaenActionButton13
+		assert.is_truthy(first and second, "made")
+		assert.is_true(first:IsVisible())
+		-- the first bar pages by stance: page 1 out of any (the fake's condition result), so slot 1; the second is
+		-- Blizzard's bottom-left bar, page 6
+		assert.are.equal(1, first:GetAttribute("action"))
+		assert.are.equal(61, second:GetAttribute("action"))
+		assert.are.equal("OrdaenActionButton1", wow.overrides["1"])
+		assert.is_nil(wow.env.OrdaenActionButton25, "the third bar is off by default")
+	end)
+
+	it("draws none and leaves Blizzard's bars while the action bars are off", function()
+		local wow = Panel({ barsOn = false })
+		assert.are.same({}, wow.errors)
+		assert.is_true(wow.env.MainActionBar:IsShown())
+		assert.is_nil(wow.env.OrdaenActionButton1)
+	end)
+end)

@@ -69,6 +69,7 @@ local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, textYAlign = LOOK, portrait = LOOK,
 	mask = LOOK, look = LOOK, shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET,
 	zLevel = LOOK, desaturate = LOOK, tint = LOOK, visibleWhen = LOOK,
+	action = LOOK, index = LOOK, binding = LOOK, paging = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
 	hoverWithin = INPUT, OnEscape = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT, OnDrop = INPUT,
@@ -98,7 +99,10 @@ end
 -- a taken Blizzard frame (Backend:Take): where it sits, its opacity, and `shown = false` (hidden while we hold it)
 local TAKEN_KEYS = { "position", "top", "right", "bottom", "left", "opacity", "shown" }
 -- an embedded Blizzard frame (Backend:Embed): its place and size in the grid, and its opacity; nothing of its look
-local EMBED_KEYS = { "width", "height", "columnSpan", "position", "top", "right", "bottom", "left", "opacity", "look" }
+local EMBED_KEYS = { "width", "height", "columnSpan", "position", "top", "right", "bottom", "left", "opacity", "look",
+	-- an action button's (Backend:ActionButton): its slot, its index in its bar, the binding whose keys press it, the
+	-- macro condition paging it
+	"action", "index", "binding", "paging" }
 -- The same lists as sets, so a Set walks only the keys a table has (usually a few), not every key a kind takes.
 local function set(keys)
 	local s = {}
@@ -1319,6 +1323,9 @@ function Node:ApplyLook()
 			self.lookEmbed = look
 			self:ApplyEmbedLook(look == "icon")
 		end
+		if self.frame.ordaenAction then
+			self:ApplyAction()
+		end
 		return
 	end
 	local mask = resolve(self, a.mask)
@@ -1698,6 +1705,157 @@ function Node:Restyle()
 	end
 end
 
+-- Action buttons -----------------------------------------------------------------------------------------------------
+-- Ordaen's action buttons (design action-bars): Blizzard's ActionBarButtonTemplate, so cooldowns, charges, range and
+-- mana tints, proc glows and flyouts stay Blizzard's. Made once per index, out of combat (a secure button can't be
+-- made in combat), and placed like an embedded frame (Embed: its moves wait for the end of combat). Attributes on the
+-- embed: `action` (the slot, 1-120), `index` (its place in its bar), `binding` (a Blizzard binding name whose keys
+-- press it: ACTIONBUTTON1, MULTIACTIONBAR1BUTTON1, ...) and `paging` (a macro condition giving the bar's page:
+-- "[bonusbar:1] 7; 1": the button's action is then (page - 1) * 12 + index). Every change waits for the end of
+-- combat; paging itself runs in combat, in a secure state header shared by the buttons with the same condition.
+local actionButtons = {} -- index -> button
+local bindingOwner -- the frame owning our override bindings (cleared and set again on a change)
+local pendingAction = {} -- action buttons whose attributes changed in combat
+local pagers = {} -- condition -> secure state header
+
+local function onActionCombatEnd()
+	for node in pairs(pendingAction) do
+		pendingAction[node] = nil
+		node:ApplyAction()
+	end
+end
+
+local actionCombat
+local function waitForAction(node)
+	pendingAction[node] = true
+	if not actionCombat then
+		actionCombat = CreateFrame("Frame")
+		actionCombat:SetScript("OnEvent", onActionCombatEnd)
+	end
+	actionCombat:RegisterEvent("PLAYER_REGEN_ENABLED")
+end
+
+-- the bindings: every action button's binding name's keys clicking it, set again when the player's bindings change
+local function ApplyBindings()
+	if InCombatLockdown() then
+		return -- UPDATE_BINDINGS comes again; and PLAYER_REGEN_ENABLED re-applies the nodes
+	end
+	if not bindingOwner then
+		bindingOwner = CreateFrame("Frame")
+		bindingOwner:RegisterEvent("UPDATE_BINDINGS")
+		bindingOwner:SetScript("OnEvent", ApplyBindings)
+	end
+	ClearOverrideBindings(bindingOwner)
+	for _, button in pairs(actionButtons) do
+		local binding = button.ordaenBinding
+		if binding then -- set only while the button is drawn (Unembed drops it)
+			local name = button:GetName()
+			local k1, k2 = GetBindingKey(binding)
+			if k1 then
+				SetOverrideBindingClick(bindingOwner, false, k1, name)
+			end
+			if k2 then
+				SetOverrideBindingClick(bindingOwner, false, k2, name)
+			end
+		end
+	end
+end
+
+-- the secure header paging the buttons that share `condition`: on a state change, each sets its action from it
+local PAGE_SNIPPET = [[
+	local page = tonumber(newstate) or 1
+	local n = self:GetAttribute("count") or 0
+	for i = 1, n do
+		local b = self:GetFrameRef("b" .. i)
+		if b then
+			b:SetAttribute("action", (page - 1) * 12 + b:GetAttribute("index"))
+		end
+	end
+]]
+local function PagerFor(condition)
+	local header = pagers[condition]
+	if not header then
+		header = CreateFrame("Frame", nil, UIParent, "SecureHandlerStateTemplate")
+		header:SetAttribute("_onstate-page", PAGE_SNIPPET)
+		header:SetAttribute("count", 0)
+		header.buttons = {}
+		RegisterStateDriver(header, "page", condition)
+		pagers[condition] = header
+	end
+	return header
+end
+
+-- a button joins (or leaves) a pager: its frame ref in the header's list
+local function Page(button, condition)
+	local old = button.ordaenPaging
+	if old == condition then
+		return
+	end
+	if old then
+		local header = pagers[old]
+		local list = header.buttons
+		for i = #list, 1, -1 do
+			if list[i] == button then
+				table.remove(list, i)
+			end
+		end
+		for i = 1, #list do
+			SecureHandlerSetFrameRef(header, "b" .. i, list[i])
+		end
+		header:SetAttribute("count", #list)
+	end
+	button.ordaenPaging = condition
+	if condition then
+		local header = PagerFor(condition)
+		local list = header.buttons
+		list[#list + 1] = button
+		SecureHandlerSetFrameRef(header, "b" .. #list, button)
+		header:SetAttribute("count", #list)
+		-- the current page now (the driver only reports changes)
+		local page = tonumber(SecureCmdOptionParse(condition)) or 1
+		button:SetAttribute("action", (page - 1) * 12 + (button:GetAttribute("index") or 1))
+	end
+end
+
+--- The action button for `index` (1, 2, ...), made on first use out of combat; nil in combat until it exists.
+---@param index integer
+---@return Frame?
+function Backend:ActionButton(index) -- luacheck: ignore 212
+	local button = actionButtons[index]
+	if not button and not InCombatLockdown() then
+		button = CreateFrame("CheckButton", "OrdaenActionButton" .. index, getHolder(), "ActionBarButtonTemplate")
+		button.ordaenAction = true
+		button:Hide()
+		actionButtons[index] = button
+	end
+	return button
+end
+
+function Node:ApplyAction()
+	if InCombatLockdown() then
+		waitForAction(self)
+		return
+	end
+	local a, button = self.a, self.frame
+	local index = resolve(self, a.index) or 1
+	if button:GetAttribute("index") ~= index then
+		button:SetAttribute("index", index)
+	end
+	local paging = resolve(self, a.paging)
+	Page(button, paging)
+	if not paging then
+		local action = resolve(self, a.action)
+		if action and button:GetAttribute("action") ~= action then
+			button:SetAttribute("action", action)
+		end
+	end
+	local binding = resolve(self, a.binding)
+	if binding ~= button.ordaenBinding then
+		button.ordaenBinding = binding
+		ApplyBindings()
+	end
+end
+
 -- Taken Blizzard frames --------------------------------------------------------------------------------------------
 
 local pendingVisibility = {} -- boxes whose visibleWhen changed in combat (a state driver can't change then)
@@ -2016,6 +2174,13 @@ end
 -- Give an embedded frame back as it was. A protected frame in combat can't move: Blizzard's own layout places it.
 function Node:Unembed()
 	local frame = self.frame
+	if frame.ordaenAction and not InCombatLockdown() then
+		Page(frame, nil)
+		if frame.ordaenBinding then
+			frame.ordaenBinding = nil
+			ApplyBindings()
+		end
+	end
 	embeddedBy[frame] = nil
 	pendingEmbed[self] = nil
 	self:RestoreEmbedArt()
