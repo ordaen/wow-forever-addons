@@ -142,6 +142,23 @@ return Define.Module({
 			end
 		end)
 
+		-- the professions overview (the micro button, its key) opens this window on the first profession with
+		-- recipes, or closes it, in place of Blizzard's overview
+		self:On(game.Professions.Signal.BookToggled, function()
+			game.Professions:CloseBook()
+			if game.TradeSkill.open:Peek() then
+				game.TradeSkill:Close()
+				return
+			end
+			local list = game.Professions.list
+			for i = 1, #list do
+				if list[i].kind ~= game.Professions.Kind.Gathering then
+					game.TradeSkill:Open(list[i].skillLine)
+					return
+				end
+			end
+		end)
+
 		local function typedCount(text)
 			local n = tonumber(text)
 			if n and n >= 1 then

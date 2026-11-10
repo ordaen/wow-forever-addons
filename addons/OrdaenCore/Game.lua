@@ -518,7 +518,25 @@ local GATHERING = { [182] = true, [186] = true, [393] = true }
 function DOMAINS.Professions()
 	-- list: the character's professions in the game's order (main ones first), one kept record each; version: a value
 	-- signal that changes whenever the records are refilled
-	local Professions = { Kind = ProfessionKind, list = {}, version = NewValue(0) }
+	-- Signal.BookToggled: Blizzard's professions overview (the professions book) was opened or closed, by its micro
+	-- button or key
+	local bookToggled = NewEvent(function(event)
+		if not event.hooked then
+			event.hooked = true
+			hooksecurefunc("ToggleProfessionsBook", function()
+				event:Fire()
+			end)
+		end
+	end)
+	local Professions = { Kind = ProfessionKind, list = {}, version = NewValue(0),
+		Signal = { BookToggled = bookToggled } }
+	--- Closes Blizzard's professions overview, when it's open (it loads on demand: absent until first opened).
+	function Professions:CloseBook() -- luacheck: ignore 212
+		local book = _G.ProfessionsBookFrame
+		if book and book:IsShown() then
+			HideUIPanel(book)
+		end
+	end
 	local list = Professions.list
 	local function Read()
 		local n = 0
