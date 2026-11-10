@@ -45,28 +45,55 @@ end
 local Place = { Corner = "corner", Anchor = "anchor" } -- where an item's tooltip shows: the game's corner, beside it
 local Anchored -- below: a tooltip's anchor beside its owner
 
--- a tooltip kind (read.lua) -> whether its switch is on
-local SWITCH = {
-	item = function(self)
+-- a tooltip's type on the settings page (its tab): Read's kind, a unit split into a player or an NPC
+local function TypeOf(kind, tip)
+	if kind == "unit" then
+		local first = tip.data and tip.data.lines and tip.data.lines[1]
+		local unit = first and first.unitToken
+		return type(unit) == "string" and UnitIsPlayer(unit) and "players" or "npcs"
+	end
+	return kind == "item" and "items" or kind == "spell" and "spells" or kind == "aura" and "auras"
+		or kind == "object" and "objects" or nil
+end
+-- each type's «Включено» (off: that type stays Blizzard's) and «Подсказки в подсказках» (off: it never locks)
+local ON = {
+	items = function(self)
 		return Define.Peek(self.state.itemsOn)
 	end,
-	spell = function(self)
+	spells = function(self)
 		return Define.Peek(self.state.spellsOn)
 	end,
-	aura = function(self)
+	auras = function(self)
 		return Define.Peek(self.state.aurasOn)
 	end,
-	-- a player's or an NPC's: each has its own switch
-	unit = function(self, tip)
-		local first = tip.data.lines[1]
-		local unit = first and first.unitToken
-		if type(unit) == "string" and UnitIsPlayer(unit) then
-			return Define.Peek(self.state.playersOn)
-		end
+	players = function(self)
+		return Define.Peek(self.state.playersOn)
+	end,
+	npcs = function(self)
 		return Define.Peek(self.state.npcsOn)
 	end,
-	object = function(self)
+	objects = function(self)
 		return Define.Peek(self.state.objectsOn)
+	end,
+}
+local LOCK = {
+	items = function(self)
+		return Define.Peek(self.state.itemsLock)
+	end,
+	spells = function(self)
+		return Define.Peek(self.state.spellsLock)
+	end,
+	auras = function(self)
+		return Define.Peek(self.state.aurasLock)
+	end,
+	players = function(self)
+		return Define.Peek(self.state.playersLock)
+	end,
+	npcs = function(self)
+		return Define.Peek(self.state.npcsLock)
+	end,
+	objects = function(self)
+		return Define.Peek(self.state.objectsLock)
 	end,
 }
 
@@ -120,6 +147,7 @@ return Define.Module({
 		Define.Persistent({
 			anchorToButtons = { type = "boolean", default = true, setting = true },
 			itemsOn = { type = "boolean", default = true, setting = true },
+			itemsLock = { type = "boolean", default = true, setting = true },
 			itemsAnchorBags = { type = "choice", choices = Place, default = Place.Anchor, setting = true },
 			itemsAnchorChar = { type = "choice", choices = Place, default = Place.Anchor, setting = true },
 			itemsIlvl = { type = "boolean", default = true, setting = true },
@@ -128,22 +156,27 @@ return Define.Module({
 			itemsStack = { type = "boolean", default = true, setting = true },
 			itemsCooldown = { type = "boolean", default = true, setting = true },
 			spellsOn = { type = "boolean", default = true, setting = true },
+			spellsLock = { type = "boolean", default = true, setting = true },
 			spellsId = { type = "boolean", default = false, setting = true },
 			spellsNext = { type = "boolean", default = true, setting = true },
 			spellsCooldown = { type = "boolean", default = true, setting = true },
 			aurasOn = { type = "boolean", default = true, setting = true },
+			aurasLock = { type = "boolean", default = true, setting = true },
 			aurasId = { type = "boolean", default = false, setting = true },
 			aurasCaster = { type = "boolean", default = true, setting = true },
 			aurasTotal = { type = "boolean", default = true, setting = true },
 			playersOn = { type = "boolean", default = true, setting = true },
+			playersLock = { type = "boolean", default = true, setting = true },
 			playersInspect = { type = "boolean", default = true, setting = true },
 			playersTarget = { type = "boolean", default = true, setting = true },
 			playersRelation = { type = "boolean", default = true, setting = true },
 			npcsOn = { type = "boolean", default = true, setting = true },
+			npcsLock = { type = "boolean", default = true, setting = true },
 			npcsParty = { type = "boolean", default = true, setting = true },
 			npcsLoot = { type = "boolean", default = true, setting = true },
 			npcsRep = { type = "boolean", default = true, setting = true },
 			objectsOn = { type = "boolean", default = true, setting = true },
+			objectsLock = { type = "boolean", default = true, setting = true },
 		})
 		Define.Ephemeral({
 			epoch = { type = "number", default = 0 }, -- a comparison changed another view's rows
@@ -256,7 +289,7 @@ return Define.Module({
 		-- whether this show is drawn here: its type is on and its data reads (else it stays Blizzard's)
 		local function Wants(tip)
 			local kind = Read.Kind(tip.data)
-			local switch = kind and SWITCH[kind]
+			local switch = ON[TypeOf(kind, tip)]
 			if not switch or not switch(self, tip) or not Fill(tip) then
 				return false
 			end
@@ -454,7 +487,9 @@ return Define.Module({
 					self.state.charge = 0
 					started = GetTime()
 				end
-				if lock == 0 and not closed then
+				-- its type's «Подсказки в подсказках» off: it never charges
+				local lockable = LOCK[TypeOf(Read.Kind(data), main)]
+				if lock == 0 and not closed and lockable and lockable(self) then
 					self:Every(STEP, Step) -- every frame; the same target shown again keeps its charge
 				end
 			end)
@@ -573,6 +608,8 @@ return Define.Module({
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_ITEMS }, slots = { default = function()
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.itemsOn) } })
+			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.itemsLock),
+				disabled = not self.state.itemsOn } })
 			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.itemsAnchorBags),
 				disabled = not self.state.itemsOn } })
 			game.ui:Dropdown({ attributes = { value = Define.Signal(self.state.itemsAnchorChar),
@@ -592,6 +629,8 @@ return Define.Module({
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_SPELLS }, slots = { default = function()
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.spellsOn) } })
+			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.spellsLock),
+				disabled = not self.state.spellsOn } })
 			game.ui:Section({ attributes = { title = L.SECTION_MORE }, slots = { default = function()
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.spellsId),
 					disabled = not self.state.spellsOn } })
@@ -603,6 +642,8 @@ return Define.Module({
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_AURAS }, slots = { default = function()
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.aurasOn) } })
+			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.aurasLock),
+				disabled = not self.state.aurasOn } })
 			game.ui:Section({ attributes = { title = L.SECTION_MORE }, slots = { default = function()
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.aurasId),
 					disabled = not self.state.aurasOn } })
@@ -614,6 +655,8 @@ return Define.Module({
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_PLAYERS }, slots = { default = function()
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.playersOn) } })
+			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.playersLock),
+				disabled = not self.state.playersOn } })
 			game.ui:Section({ attributes = { title = L.SECTION_MORE }, slots = { default = function()
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.playersInspect),
 					disabled = not self.state.playersOn } })
@@ -625,6 +668,8 @@ return Define.Module({
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_NPCS }, slots = { default = function()
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.npcsOn) } })
+			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.npcsLock),
+				disabled = not self.state.npcsOn } })
 			game.ui:Section({ attributes = { title = L.SECTION_MORE }, slots = { default = function()
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.npcsParty),
 					disabled = not self.state.npcsOn } })
@@ -636,6 +681,8 @@ return Define.Module({
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_OBJECTS }, slots = { default = function()
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.objectsOn) } })
+			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.objectsLock),
+				disabled = not self.state.objectsOn } })
 		end } })
 	end,
 

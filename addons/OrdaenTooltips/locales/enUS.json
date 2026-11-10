@@ -290,5 +290,17 @@
   "TOOLTIPS_SPELLSNEXT_TIP": "What the talent's next rank changes.",
   "TERM_TALENT": "Talent",
   "TERM_TALENT_TEXT": "Learned with talent points. The numbers: ranks learned of the most there are.",
-  "LOCKED_HINT": "Locked — hover the underlined parts"
+  "LOCKED_HINT": "Locked — hover the underlined parts",
+  "TOOLTIPS_ITEMSLOCK": "Tooltips in tooltips",
+  "TOOLTIPS_ITEMSLOCK_TIP": "Hold the mouse on a tooltip: it locks, and its underlined parts open their own explanations.",
+  "TOOLTIPS_SPELLSLOCK": "Tooltips in tooltips",
+  "TOOLTIPS_SPELLSLOCK_TIP": "Hold the mouse on a tooltip: it locks, and its underlined parts open their own explanations.",
+  "TOOLTIPS_AURASLOCK": "Tooltips in tooltips",
+  "TOOLTIPS_AURASLOCK_TIP": "Hold the mouse on a tooltip: it locks, and its underlined parts open their own explanations.",
+  "TOOLTIPS_PLAYERSLOCK": "Tooltips in tooltips",
+  "TOOLTIPS_PLAYERSLOCK_TIP": "Hold the mouse on a tooltip: it locks, and its underlined parts open their own explanations.",
+  "TOOLTIPS_NPCSLOCK": "Tooltips in tooltips",
+  "TOOLTIPS_NPCSLOCK_TIP": "Hold the mouse on a tooltip: it locks, and its underlined parts open their own explanations.",
+  "TOOLTIPS_OBJECTSLOCK": "Tooltips in tooltips",
+  "TOOLTIPS_OBJECTSLOCK_TIP": "Hold the mouse on a tooltip: it locks, and its underlined parts open their own explanations."
 }
