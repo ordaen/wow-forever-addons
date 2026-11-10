@@ -23,7 +23,8 @@ local LINE = 42 * PX -- the body's top line, from the window's top
 local CORNER = 14 * PX -- the tab's top corners
 local FLARE = 8 * PX -- the open tab's right side curving out into the body's line
 local EDGE = 2.5 * PX -- the tab's rim inside its bounds
-local ROW_X = 1 * PX -- the tab row's start: the tab's rim on the card's left line
+local ROW_X = 2 * PX -- the tab row's start: the tab's rim on the card's left line (measured in game: the metal's
+-- brightest column is 2 px in from the card's edge)
 local INSET = 3 * PX -- the body's wood inside the metal
 -- the body's content: the design's padding (14 12 12) inside the wood's inset
 local PADDING = { 14 * PX + INSET, 12 * PX + INSET, 12 * PX + INSET, 12 * PX + INSET }
