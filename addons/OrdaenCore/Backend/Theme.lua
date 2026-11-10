@@ -159,6 +159,11 @@ ns.Theme = {
 	-- also its bottom-right, that curve mirrored
 	["ctl.tabIcon"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon" },
 	["ctl.tabIconOpen"] = { mask = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon-open" },
+	-- the icon's border, the tab rim's profile (design TabbedWindow's icon border): across a straight piece (vertical,
+	-- horizontal) and the bottom-right corner, a quarter ring
+	["ctl.tabIconLineV"] = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon-line-v",
+	["ctl.tabIconLineH"] = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon-line-h",
+	["ctl.tabIconCorner"] = "Interface\\AddOns\\OrdaenCore\\media\\ctl-tab-icon-corner",
 	-- the tabbed window's corner buttons (design TabbedWindow, the corner group of plates), each drawn whole from its
 	-- art, 64 x 32 px: the full screen button 5 px in from the art's left (the group's edge and its lines), both 5 px
 	-- above its bottom; the row by state

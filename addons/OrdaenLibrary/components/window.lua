@@ -141,13 +141,13 @@ local function TabRowAttributes(self)
 end
 
 local function Parts(game, self)
+	-- the strip above the body moves the window (under the tabs, which move it too)
+	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = 0, height = TabH(self),
+		OnDragStart = self.dragStart, OnDrag = self.drag, OnDragStop = self.dragStop } })
 	game.ui:Box({ attributes = TabRowAttributes(self), slots = { default = TabsUnder } })
 	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = TabH(self), bottom = 0,
 		border = FRAME, background = WOOD, padding = PADDING, columns = 1, rows = BODY_ROWS,
 		minContent = true, hoverWithin = true, OnEnter = self.enter, OnLeave = self.leave }, slots = { default = Body } })
-	-- the tab row: the whole row above the body moves the window, the tab over it too
-	game.ui:Box({ attributes = { position = "absolute", left = 0, right = 0, top = 0, height = TabH(self),
-		OnDragStart = self.dragStart, OnDrag = self.drag, OnDragStop = self.dragStop } })
 	game.ui:Box({ attributes = TabRowAttributes(self), slots = { default = TabsOver } })
 end
 
@@ -258,10 +258,12 @@ return Define.Component({
 			t[i] = call
 			return call
 		end })
-		-- the same tabs in the layer under the body: shown while closed, no input (the open layer's take it)
+		-- the same tabs in the layer under the body: shown while closed, and picked there
 		local underCalls = setmetatable({}, { __index = function(t, i)
+			local over = tabCalls[i].attributes
 			local call = { key = i, attributes = { window = self, index = i, height = TAB, above = ART_ABOVE,
-				past = ART_PAST, under = true } }
+				past = ART_PAST, under = true, OnPick = over.OnPick, OnDragStart = dragStart, OnDrag = drag,
+				OnDragStop = dragStop } }
 			t[i] = call
 			return call
 		end })

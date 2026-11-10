@@ -379,6 +379,32 @@ describe("the settings controls", function()
 			assert.are.same({}, wow.errors)
 		end)
 
+		it("picks a closed tab on a click, and fits every tab's title in it", function()
+			local picked
+			mount(function(game)
+				game.ui:Window(1, { attributes = { tabs = { { title = "Blacksmithing", desc = "31 / 75" },
+					{ title = "Mining", desc = "54 / 75" }, { title = "First Aid", desc = "31 / 75" },
+					{ title = "Fishing", desc = "30 / 75" }, { title = "Cooking", desc = "12 / 75" } }, selected = 1,
+					width = 300, height = 300, OnSelect = function(i)
+						picked = i
+					end } })
+			end)
+			for _, node in ipairs(nodes()) do
+				if node.kind == "text" then
+					assert.is_true(node.w >= node.natW - 0.01, node.fs:GetText() .. " cut: " .. node.w .. " < " .. node.natW)
+				end
+			end
+			for _, node in ipairs(nodes()) do
+				local f = node.frame
+				if node.a and node.a.OnClick and f and f:IsMouseEnabled() then
+					f:GetScript("OnClick")(f, "LeftButton")
+					break
+				end
+			end
+			assert.is_truthy(picked)
+			assert.are.same({}, wow.errors)
+		end)
+
 		it("stands the open tab 4 px under the card's line and closed tabs' bottoms on it", function()
 			mount(function(game)
 				game.ui:Window(1, { attributes = { tabs = { { title = "One" }, { title = "Two" } }, selected = 1,

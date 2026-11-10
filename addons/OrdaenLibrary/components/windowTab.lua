@@ -66,8 +66,16 @@ end
 local function TabHeight(self)
 	return Open(self) and self.attributes.height or self.attributes.height - DROP
 end
+-- the card's line in the tab's box: the open tab stands 4 px below it
+local function LineY(self)
+	return self.attributes.above + self.attributes.height - 4 * PX
+end
+-- the icon: 3 px in from the tab's top-left; the open one's bottom on the card's line, a closed one's at its bottom
 local function IconSide(self)
-	return Tab(self).icon and TabHeight(self) - 3 * PX or 0
+	if not Tab(self).icon then
+		return 0
+	end
+	return Open(self) and LineY(self) - PartsTop(self) - 3 * PX or TabHeight(self) - 3 * PX
 end
 -- the art: from the box's top (a closed tab's DROP lower) to its bottom, its whole width
 local function ArtTop(self)
@@ -120,6 +128,37 @@ local function ArtRight(self)
 	return Open(self) and 0 or self.attributes.past
 end
 
+-- the box: the art above the tab, the tab (a closed one's parts DROP lower in it, its bottom on the open one's) and
+-- under it for the open one
+local function Height(self)
+	return self.attributes.above + self.attributes.height + PartsBottom(self)
+end
+-- The icon's border, the tab's rim profile (design TabbedWindow, the icon border): down its right side from the tab's
+-- top; on the open tab it turns round the icon's bottom-right corner (radius ICON_R at the line's centre) and runs left
+-- along the card's line under the icon, into the tab's left flare (or its straight left side on the first tab).
+local LINE_W = 5 * PX -- the line's width, centred on the icon's edge
+local ICON_R = (14 - 4.5) * PX
+local function IconRight(self)
+	return LeftPast(self) + 3 * PX + IconSide(self)
+end
+local function IconLineHeight(self)
+	return Open(self) and LineY(self) - ICON_R - PartsTop(self) or Height(self) - PartsTop(self)
+end
+local function UnderStart(self)
+	return self.attributes.index > 1 and LeftPast(self) - FLARE or EDGE
+end
+local function IconBorder(game, self)
+	game.ui:Box({ attributes = { position = "absolute", left = IconRight(self) - LINE_W / 2, top = PartsTop(self),
+		width = LINE_W, height = IconLineHeight(self), background = Define.Theme.ctl.tabIconLineV, tint = Tint(self) } })
+	if Open(self) then
+		game.ui:Box({ attributes = { position = "absolute", left = IconRight(self) - ICON_R, top = LineY(self) - ICON_R,
+			width = ICON_R + LINE_W / 2, height = ICON_R + LINE_W / 2, background = Define.Theme.ctl.tabIconCorner } })
+		game.ui:Box({ attributes = { position = "absolute", left = UnderStart(self), top = LineY(self) - LINE_W / 2,
+			width = IconRight(self) - ICON_R - UnderStart(self), height = LINE_W,
+			background = Define.Theme.ctl.tabIconLineH } })
+	end
+end
+
 local function Parts(game, self)
 	game.ui:Box({ attributes = { position = "absolute", left = LeftPast(self), top = PartsTop(self), width = CORNER,
 		bottom = PartsBottom(self), background = WOOD, tint = Tint(self), mask = Define.Theme.ctl.tabCornerL } })
@@ -145,6 +184,9 @@ local function Parts(game, self)
 			width = IconSide(self), height = IconSide(self), background = Tab(self).icon, tint = Tint(self),
 			mask = IconMask(self) } })
 	end
+	if Tab(self).icon then
+		IconBorder(game, self)
+	end
 	game.ui:Box({ attributes = { position = "absolute", left = ArtLeft(self), right = ArtRight(self), top = ArtTop(self),
 		bottom = 0, background = Art(self), tint = Tint(self) } })
 	Label(game, self)
@@ -154,18 +196,15 @@ local function Padding(self)
 	return { PartsTop(self), LABEL_PAD + self.attributes.past, PartsBottom(self),
 		LeftPast(self) + IconSide(self) + 3 * PX + LABEL_PAD }
 end
--- the box: the art above the tab, the tab (a closed one's parts DROP lower in it, its bottom on the open one's) and
--- under it for the open one
-local function Height(self)
-	return self.attributes.above + self.attributes.height + PartsBottom(self)
-end
 -- Window draws its tabs twice, the closed ones under the body (`under`: the body's line runs over them) and the open
--- one over it; each layer shows only its own, the other's kept in place unseen. The open layer takes the mouse.
+-- one over it; each layer shows only its own, the other's kept in place unseen.
 local function Opacity(self)
 	return Shown(self) and 1 or 0
 end
+-- a click on a closed tab picks it: on the layer under the body, the one it shows on (a box at opacity 0 takes no
+-- mouse)
 local function Click(self)
-	return not self.attributes.under and not Open(self) and self.attributes.OnPick or nil
+	return self.attributes.under and not Open(self) and self.attributes.OnPick or nil
 end
 
 return Define.Component({
