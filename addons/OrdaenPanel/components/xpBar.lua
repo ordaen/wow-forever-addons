@@ -57,13 +57,6 @@ local function Percent(game)
 	return max > 0 and format("%d%%", floor(100 * (game.Player.xp:Get() or 0) / max)) or ""
 end
 
--- the fills by id (themes.jsonc's xpFill kind); the bar's `fill` attribute names one
-local FILLS = {
-	brushed = Define.Theme.panel.xpFill.brushed, deep = Define.Theme.panel.xpFill.deep,
-	grain = Define.Theme.panel.xpFill.grain, potion = Define.Theme.panel.xpFill.potion,
-	clouds = Define.Theme.panel.xpFill.clouds, steel = Define.Theme.panel.xpFill.steel,
-}
-
 local function Inner(game, self)
 	game.ui:Box({ attributes = {
 		position = "absolute", left = 0, top = 0, height = "100%", width = RestedWidth(game),
@@ -71,7 +64,7 @@ local function Inner(game, self)
 	} })
 	game.ui:Box({ attributes = {
 		position = "absolute", left = 0, top = 0, height = "100%", width = FillWidth(game),
-		background = FILLS[self.attributes.fill] or FILLS.brushed,
+		background = Define.Theme.panel.xpFill[self.attributes.fill or "brushed"],
 	} })
 	game.ui:Box(MARKS_CALL)
 end
@@ -108,7 +101,7 @@ end
 local function RepInner(game)
 	game.ui:Box({ attributes = {
 		position = "absolute", left = 0, top = 0, height = "100%", width = RepWidth(game),
-		background = FILLS.steel,
+		background = Define.Theme.panel.xpFill.steel,
 	} })
 	game.ui:Box(MARKS_CALL)
 end

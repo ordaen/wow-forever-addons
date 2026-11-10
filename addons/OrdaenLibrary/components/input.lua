@@ -27,8 +27,13 @@ end
 return Define.Component({
 	Setup = function(_, self)
 		return {
+			-- written while it's a value the setting takes (a macro condition the game parses); the field keeps what
+			-- was typed either way, and the setting its last valid value
 			typed = function(text)
-				self.attributes.value:Set(text)
+				local setting = self.attributes.value
+				if not setting.Valid or setting:Valid(text) then
+					setting:Set(text)
+				end
 			end,
 		}
 	end,

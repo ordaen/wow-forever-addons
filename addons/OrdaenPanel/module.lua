@@ -594,7 +594,7 @@ return Define.Module({
 			petBattle = { type = "boolean", default = true, setting = true },
 			resting = { type = "boolean", default = false, setting = true },
 			fadedAlpha = { type = "number", default = 0, min = 0, max = 1, step = 0.05, unit = "percent", setting = true },
-			condition = { type = "string", default = "", maxLength = 255, setting = true },
+			condition = { type = "string", default = "", maxLength = 255, macro = true, setting = true },
 		})
 		Define.Ephemeral({ hovered = { type = "boolean", default = false } })
 		return {
