@@ -748,25 +748,7 @@ local GATHERING = { [182] = true, [186] = true, [393] = true }
 function DOMAINS.Professions()
 	-- list: the character's professions in the game's order (main ones first), one kept record each; version: a value
 	-- signal that changes whenever the records are refilled
-	-- Signal.BookToggled: Blizzard's professions overview (the professions book) was opened or closed, by its micro
-	-- button or key
-	local bookToggled = NewEvent(function(event)
-		if not event.hooked then
-			event.hooked = true
-			hooksecurefunc("ToggleProfessionsBook", function()
-				event:Fire()
-			end)
-		end
-	end)
-	local Professions = { Kind = ProfessionKind, list = {}, version = NewValue(0),
-		Signal = { BookToggled = bookToggled } }
-	--- Closes Blizzard's professions overview, when it's open (it loads on demand: absent until first opened).
-	function Professions:CloseBook() -- luacheck: ignore 212
-		local book = _G.ProfessionsBookFrame
-		if book and book:IsShown() then
-			HideUIPanel(book)
-		end
-	end
+	local Professions = { Kind = ProfessionKind, list = {}, version = NewValue(0) }
 	local list = Professions.list
 	local function Read()
 		local n = 0
@@ -944,6 +926,11 @@ function DOMAINS.TradeSkill()
 			reagents[i] = nil
 		end
 		return schematic
+	end
+	local NO_REAGENTS = {}
+	--- The recipe's description (what the made thing does), "" when it has none.
+	function TradeSkill:Description(id) -- luacheck: ignore 212
+		return TS.GetRecipeDescription(id, NO_REAGENTS) or ""
 	end
 	--- What the work needs (tools, an anvil, a fire): the game's list, each { name, met }.
 	function TradeSkill:Requirements(id) -- luacheck: ignore 212
