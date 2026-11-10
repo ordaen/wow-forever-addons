@@ -1856,6 +1856,21 @@ function Wow:MakeEnv()
 	offer("GetActionBarToggles", function()
 		return true, false, false, false, false, false, false
 	end)
+	-- Edit Mode's account settings, «Snap» among them (off until set)
+	local editMode = { [1] = 0 }
+	offer("Enum", { EditModeAccountSetting = { EnableSnap = 1 } })
+	offer("C_EditMode", {
+		GetAccountSettings = function()
+			local out = {}
+			for setting, value in pairs(editMode) do
+				out[#out + 1] = { setting = setting, value = value }
+			end
+			return out
+		end,
+		SetAccountSetting = function(setting, value)
+			editMode[setting] = value
+		end,
+	})
 	offer("C_Map", { GetBestMapForUnit = function()
 		return nil
 	end })
