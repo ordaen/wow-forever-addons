@@ -228,7 +228,12 @@ end
 -- bar textures. Runs as a watch: it re-runs when the active theme or any of its values changes.
 local tokens = {}
 
-local function FontFile(id, bold)
+local FontFile -- below; game.Themes.FontFile(id, bold): a font asset's file (a theme's preview draws in it)
+function Themes.FontFile(id, bold)
+	return FontFile(id, bold)
+end
+
+function FontFile(id, bold)
 	local font = data.assets.font[id]
 	if not font then
 		return nil

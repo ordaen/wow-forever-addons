@@ -46,6 +46,13 @@ local function texts(ns)
 	end)
 	return out
 end
+-- a click on what the node is drawn in: the nearest box up from it that takes clicks
+local function press(node)
+	while not (node.frame and node.a and node.a.OnClick) do
+		node = node.parent
+	end
+	node.frame:GetScript("OnClick")(node.frame, "LeftButton")
+end
 local function click(node)
 	local frame = node.frame
 	frame:GetScript("OnClick")(frame, "LeftButton")
@@ -368,5 +375,30 @@ describe("the settings window", function()
 		assert.is_true(group.x > body.w / 2, info)
 		assert.are.equal(1, fr:GetNumPoints(), info)
 	end)
-end)
 
+	it("«Themes»: a tab per theme, the active one marked; Use goes through the draft, Copy makes an own theme", function()
+		local wow, ns = Start(nil)
+		wow:Slash("/ordaen")
+		ns.Scheduler.Flush()
+		press(texts(ns)["Themes"])
+		ns.Scheduler.Flush()
+		local t = texts(ns)
+		assert.is_truthy(t["● Ordaen"] and t["Blizzard"] and t["Minimal"])
+		assert.is_truthy(t["In use"] and t["Fonts"] and t["Class colours"] and t["Text font"])
+		assert.are.same({}, wow.errors)
+		press(t["Blizzard"])
+		ns.Scheduler.Flush()
+		press(texts(ns)["Use"])
+		ns.Scheduler.Flush()
+		assert.are.equal("ordaen", ns.Globals.Get("theme"):Get()) -- waits for «Save»
+		assert.is_truthy(texts(ns)["● Blizzard"])
+		press(texts(ns)["Save"])
+		ns.Scheduler.Flush()
+		assert.are.equal("blizzard", ns.Globals.Get("theme"):Get())
+		press(texts(ns)["Copy"])
+		ns.Scheduler.Flush()
+		assert.are.equal(4, #ns.Themes:List())
+		assert.is_truthy(texts(ns)["Delete"])
+		assert.are.same({}, wow.errors)
+	end)
+end)

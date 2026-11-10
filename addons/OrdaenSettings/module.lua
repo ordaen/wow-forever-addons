@@ -12,6 +12,7 @@ local WIDTH, HEIGHT = 1160 * PX, 700 * PX -- the window's body at first (design 
 local MIN_WIDTH, MIN_HEIGHT = 900 * PX, 480 * PX -- the smallest it resizes to: the list, a row and the foot fit
 local DIM = { 0.639, 0.592, 0.498, 1 } -- --o-dim #a3977f
 local SELF = "OrdaenSettings" -- Ordaen's own page is this module's Settings
+local THEMES = "themes" -- the «Темы» page (components/themesPage.lua)
 
 local BODY = { columns = { "auto", "1fr" }, height = "100%" }
 local LIST = { columns = 1 }
@@ -64,6 +65,8 @@ end
 local function List(game, self)
 	game.ui:ListTab({ attributes = { label = L.LIST_GLOBAL, icon = game.Ordaen.icon,
 		selected = At(self) == SELF, OnClick = self.picks[SELF] } })
+	game.ui:ListTab({ attributes = { label = L.LIST_THEMES, icon = game.Ordaen.icon,
+		selected = At(self) == THEMES, OnClick = self.picks[THEMES] } })
 	game.ui:Box({ attributes = HEADING, slots = { default = Heading } })
 	game.ui:Box({ attributes = LIST, slots = { default = ModuleList } })
 end
@@ -84,7 +87,9 @@ end
 
 local function Content(game, self)
 	local module = self.modules[At(self)]
-	if At(self) == SELF or module and module.on:Get() then
+	if At(self) == THEMES then
+		game.ui:ThemesPage({ attributes = { draft = self.draft } })
+	elseif At(self) == SELF or module and module.on:Get() then
 		game.ui:Box({ key = At(self), attributes = { columns = 1, gap = 14 * PX }, slots = { default = ModulePage } })
 	else
 		game.ui:Box({ attributes = { columns = 1 }, slots = { default = Off } })
