@@ -2,7 +2,8 @@
 -- bars): its icon (22 px; none: no icon column), its name, and what its slot holds at its right (a switch); the shade
 -- under the cursor; selected, a darker shade, the name white and a 3 px light along its left; off, name and icon dimmed.
 --
--- Attributes: `label` (text), `icon` (a file, or nil), `selected`, `off` (booleans), `OnClick`. Slot `default`.
+-- Attributes: `label` (text), `icon` (a file, or nil), `selected`, `off` (booleans), `OnClick`; `value`, a boolean
+-- setting whose bare switch it draws at its right (else its slot `default` does).
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
@@ -42,7 +43,11 @@ local function Parts(game, self)
 	end
 	game.ui:Text({ attributes = { text = self.attributes.label, textColor = Color(game, self), textSize = TEXT,
 		wrap = false } })
-	game.ui:Slot("default")
+	if self.attributes.value then
+		game.ui:Switch({ attributes = { value = self.attributes.value, bare = true } })
+	else
+		game.ui:Slot("default")
+	end
 end
 
 return Define.Component({

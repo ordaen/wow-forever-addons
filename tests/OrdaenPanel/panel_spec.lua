@@ -382,7 +382,8 @@ describe("Ordaen Panel's action bars", function()
 		assert.are.same({}, wow.errors)
 		assert.is_false(wow.env.MainActionBar:IsShown())
 		local first, second = wow.env.OrdaenActionButton1, wow.env.OrdaenActionButton13
-		assert.is_truthy(first and second, "made")
+		assert.is_truthy(first, "first made")
+		assert.is_truthy(second, "second made")
 		assert.is_true(first:IsVisible())
 		-- the first bar pages by stance: page 1 out of any (the fake's condition result), so slot 1; the second is
 		-- Blizzard's bottom-left bar, page 6

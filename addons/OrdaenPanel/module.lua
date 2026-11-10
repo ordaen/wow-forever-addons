@@ -546,30 +546,30 @@ local BARS = {
 }
 local BUTTONS = 12
 local BUTTON, BUTTON_GAP = 45 / 1.2, 4 / 1.2 -- 45 px buttons 4 px apart (design ActionButton, PanelWithBars)
+-- the bars by id (the records `bars`: each bar's own settings), in the list's order
+---@enum OrdaenPanelBar
+local BarId = { Bar1 = "bar1", Bar2 = "bar2", Bar3 = "bar3", Bar4 = "bar4", Bar5 = "bar5", Bar6 = "bar6",
+	Bar7 = "bar7", Bar8 = "bar8" }
 local BAR_TITLES = {
 	L.PANEL_BAR1, L.PANEL_BAR2, L.PANEL_BAR3, L.PANEL_BAR4, L.PANEL_BAR5, L.PANEL_BAR6, L.PANEL_BAR7, L.PANEL_BAR8,
 }
+local BAR_IDS, BAR_TITLE = {}, {} -- the bars' ids in order, and each one's name (the «Панели команд» list)
+for k = 1, #BARS do
+	local id = "bar" .. k
+	BARS[k].id = id
+	BAR_IDS[k] = id
+	BAR_TITLE[id] = BAR_TITLES[k]
+end
 local BAR_CALLS = {}
 for k = 1, #BARS do
 	local bar = BARS[k]
-	local buttons = {}
-	for i = 1, BUTTONS do
-		buttons[i] = { ref = (k - 1) * BUTTONS + i, call = { attributes = {
-			width = BUTTON, height = BUTTON, index = i, action = (bar.page - 1) * BUTTONS + i,
-			binding = bar.binding .. i, paging = bar.paging,
-		} } }
-	end
-	local function row(game)
-		for i = 1, BUTTONS do
-			local b = buttons[i]
-			game.ui:Embed(game.ActionButtons[b.ref], b.call)
-		end
-	end
-	local rowCall = { attributes = { columns = BUTTONS, gap = BUTTON_GAP }, slots = { default = row } }
-	local function slot(game)
-		game.ui:Box(rowCall)
-	end
-	BAR_CALLS[k] = { key = "bar" .. k, attributes = { title = BAR_TITLES[k] }, slots = { default = slot } }
+	-- the bar itself, drawn by the ActionBar component (its settings from the records; the call made once)
+	local barCall = { attributes = { bar = bar.id, first = (k - 1) * BUTTONS, page = bar.page, binding = bar.binding,
+		paging = bar.paging } }
+	bar.call = barCall
+	BAR_CALLS[k] = { key = bar.id, attributes = { title = BAR_TITLES[k] }, slots = { default = function(game)
+		game.ui:ActionBar(barCall)
+	end } }
 end
 -- a bar's default place: above the bottom panel (or the screen's bottom while it's off), centred, the first lowest;
 -- made once per height and row
@@ -585,26 +585,6 @@ local function BarDefault(height, row)
 	return place
 end
 
--- whether bar k is on (its own switch on «Панели команд»)
-local function BarOn(self, k)
-	if k == 1 then
-		return self.state.bar1
-	elseif k == 2 then
-		return self.state.bar2
-	elseif k == 3 then
-		return self.state.bar3
-	elseif k == 4 then
-		return self.state.bar4
-	elseif k == 5 then
-		return self.state.bar5
-	elseif k == 6 then
-		return self.state.bar6
-	elseif k == 7 then
-		return self.state.bar7
-	end
-	return self.state.bar8
-end
-
 local function ActionBars(game, self)
 	if not self.state.barsOn then
 		return
@@ -613,10 +593,11 @@ local function ActionBars(game, self)
 	local row = 0
 	for k = 1, #BARS do
 		game.ui:Frame(game.Frame[BARS[k].blizzard], HIDDEN)
-		if BarOn(self, k) then
+		if self.state.bars[BARS[k].id].on then
 			row = row + 1
 			local call = BAR_CALLS[k]
 			call.attributes.default = BarDefault(base, row)
+			BARS[k].call.attributes.bars = Define.Signal(self.state.bars)
 			game.ui:Placed(call)
 		end
 	end
@@ -699,16 +680,31 @@ return Define.Module({
 				setting = true },
 			-- saved: the bars below were copied once from the character's own Blizzard settings (design action-bars:
 			-- the bars on by default are Blizzard's choice); a reset clears it, and the next load copies them again
-			barsSeeded = { type = "boolean", default = false },
-			-- the action bars (Classic): Blizzard's eight, each on or off
-			bar1 = { type = "boolean", default = true, setting = true },
-			bar2 = { type = "boolean", default = true, setting = true },
-			bar3 = { type = "boolean", default = false, setting = true },
-			bar4 = { type = "boolean", default = false, setting = true },
-			bar5 = { type = "boolean", default = false, setting = true },
-			bar6 = { type = "boolean", default = false, setting = true },
-			bar7 = { type = "boolean", default = false, setting = true },
-			bar8 = { type = "boolean", default = false, setting = true },
+			barsCopied = { type = "boolean", default = false },
+			-- each bar's own settings (design action-bars/configuration): on or off, its buttons, its look, and for each
+			-- state (out of combat, in combat, on transport) whether it shows, its opacity while the mouse isn't over it,
+			-- how long it stays after the mouse leaves, and whether clicks go through it
+			bars = { type = "records", key = { type = "choice", choices = BarId }, setting = true, fields = {
+				on = { type = "boolean", default = false },
+				perRow = { type = "number", default = 12, min = 1, max = 12, step = 1 },
+				spacing = { type = "number", default = 4, min = 0, max = 20, step = 1, unit = "px" },
+				scale = { type = "number", default = 1, min = 0.5, max = 2, step = 0.05, unit = "percent" },
+				keys = { type = "boolean", default = true },
+				macros = { type = "boolean", default = true },
+				empty = { type = "boolean", default = false },
+				showOoc = { type = "boolean", default = true },
+				fadeOoc = { type = "number", default = 1, min = 0, max = 1, step = 0.05, unit = "percent" },
+				delayOoc = { type = "number", default = 0, min = 0, max = 5, step = 0.5, unit = "sec" },
+				throughOoc = { type = "boolean", default = false },
+				showCombat = { type = "boolean", default = true },
+				fadeCombat = { type = "number", default = 1, min = 0, max = 1, step = 0.05, unit = "percent" },
+				delayCombat = { type = "number", default = 0, min = 0, max = 5, step = 0.5, unit = "sec" },
+				throughCombat = { type = "boolean", default = false },
+				showTransport = { type = "boolean", default = true },
+				fadeTransport = { type = "number", default = 1, min = 0, max = 1, step = 0.05, unit = "percent" },
+				delayTransport = { type = "number", default = 0, min = 0, max = 5, step = 0.5, unit = "sec" },
+				throughTransport = { type = "boolean", default = false },
+			} },
 			statusOn = { type = "boolean", default = true, setting = true },
 			bottomOn = { type = "boolean", default = true, setting = true },
 			-- the micro menu
@@ -739,17 +735,15 @@ return Define.Module({
 			fadedAlpha = { type = "number", default = 0, min = 0, max = 1, step = 0.05, unit = "percent", setting = true },
 			condition = { type = "string", default = "", maxLength = 255, macro = true, setting = true },
 		})
-		Define.Ephemeral({ hovered = { type = "boolean", default = false } })
-		if not self.state.barsSeeded then
+		Define.Ephemeral({
+			hovered = { type = "boolean", default = false },
+		})
+		if not self.state.barsCopied then
 			local shown = game.ActionBars:BlizzardShown()
-			self.state.bar2 = shown[2]
-			self.state.bar3 = shown[3]
-			self.state.bar4 = shown[4]
-			self.state.bar5 = shown[5]
-			self.state.bar6 = shown[6]
-			self.state.bar7 = shown[7]
-			self.state.bar8 = shown[8]
-			self.state.barsSeeded = true
+			for k = 1, #BARS do
+				self.state.bars[BARS[k].id].on = shown[k]
+			end
+			self.state.barsCopied = true
 		end
 		return {
 			enter = function()
@@ -765,6 +759,7 @@ return Define.Module({
 			togglePlacing = function()
 				game.Placing:Toggle()
 			end,
+
 		}
 	end,
 
@@ -796,14 +791,8 @@ return Define.Module({
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_BARS, shown = self.state.barsOn },
 			slots = { default = function()
-			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar1) } })
-			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar2) } })
-			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar3) } })
-			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar4) } })
-			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar5) } })
-			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar6) } })
-			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar7) } })
-			game.ui:Switch({ attributes = { value = Define.Signal(self.state.bar8) } })
+			game.ui:BarsEditor({ attributes = { title = L.TAB_BARS, bars = Define.Signal(self.state.bars), ids = BAR_IDS,
+				titles = BAR_TITLE } })
 		end } })
 		game.ui:SettingsTab({ attributes = { title = L.TAB_STATUS, shown = self.state.statusOn },
 			slots = { default = function()

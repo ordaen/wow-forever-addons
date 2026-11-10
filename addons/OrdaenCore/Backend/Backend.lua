@@ -69,7 +69,7 @@ local GROUP = {
 	background = LOOK, opacity = LOOK, textColor = LOOK, textAlign = LOOK, textYAlign = LOOK, portrait = LOOK,
 	mask = LOOK, look = LOOK, shown = LOOK, textShadow = LOOK, overflow = LOOK, artOrigin = LOOK, anchor = OFFSET,
 	zLevel = LOOK, desaturate = LOOK, tint = LOOK, visibleWhen = LOOK,
-	action = LOOK, index = LOOK, binding = LOOK, paging = LOOK,
+	action = LOOK, index = LOOK, binding = LOOK, paging = LOOK, hotkey = LOOK, macroName = LOOK,
 	OnClick = INPUT, OnEnter = INPUT, OnLeave = INPUT, stateFrom = INPUT, OnChange = INPUT, OnSubmit = INPUT,
 	hoverWithin = INPUT, OnEscape = INPUT, OnLink = INPUT,
 	OnWheel = INPUT, OnDragStart = INPUT, OnDrag = INPUT, OnDragStop = INPUT, OnDrop = INPUT,
@@ -102,7 +102,7 @@ local TAKEN_KEYS = { "position", "top", "right", "bottom", "left", "opacity", "s
 local EMBED_KEYS = { "width", "height", "columnSpan", "position", "top", "right", "bottom", "left", "opacity", "look",
 	-- an action button's (Backend:ActionButton): its slot, its index in its bar, the binding whose keys press it, the
 	-- macro condition paging it
-	"action", "index", "binding", "paging" }
+	"action", "index", "binding", "paging", "hotkey", "macroName" }
 -- The same lists as sets, so a Set walks only the keys a table has (usually a few), not every key a kind takes.
 local function set(keys)
 	local s = {}
@@ -2015,6 +2015,15 @@ function Node:ApplyAction()
 	if binding ~= button.ordaenBinding then
 		button.ordaenBinding = binding
 		ApplyBindings()
+	end
+	-- its key in the corner and a macro's name under the icon (the template's HotKey and Name), shown or not: by
+	-- alpha, since Blizzard's own updates show them again
+	local hotkey, name = resolve(self, a.hotkey) ~= false, resolve(self, a.macroName) ~= false
+	if button.HotKey then
+		button.HotKey:SetAlpha(hotkey and 1 or 0)
+	end
+	if button.Name then
+		button.Name:SetAlpha(name and 1 or 0)
 	end
 end
 

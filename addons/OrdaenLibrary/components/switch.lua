@@ -3,7 +3,8 @@
 -- left and grey while off, right, gold and glowing while on; the edge lights up under the cursor. Left-click flips it;
 -- disabled, it takes no click. 38 x 20 px as the design draws it, at the user's scale (a px is 1/1.2 UI units).
 --
--- Attributes (state.md «Controls»): `value`, a boolean Setting; `disabled`, a boolean.
+-- Attributes (state.md «Controls»): `value`, a boolean Setting; `disabled`, a boolean; `bare`, true for the switch
+-- alone, without its row (beside an entry in a list: a bar's on/off on «Панели команд»).
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
@@ -50,6 +51,10 @@ return Define.Component({
 	end,
 
 	Render = function(game, self)
+		if self.attributes.bare then
+			Widget(game, self)
+			return
+		end
 		game.ui:SettingRow({ attributes = { value = self.attributes.value, disabled = self.attributes.disabled },
 			slots = { default = Widget } })
 	end,

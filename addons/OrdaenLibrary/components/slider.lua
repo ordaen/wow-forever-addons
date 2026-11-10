@@ -5,6 +5,7 @@
 --
 -- Attributes (state.md «Controls»): `value`, a number Setting with min and max; `disabled`, a boolean.
 local Define = import("@ordaen/define")
+local L = import("locales")
 
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
 local LENGTH = 240 * PX
@@ -17,7 +18,8 @@ local KNOB_W, KNOB_H = 16 * PX, 32 * PX
 local floor, max, min, format = math.floor, math.max, math.min, string.format
 
 -- the value as the slider shows it, by the declaration's unit
-local FORMATS = { percent = "%d%%", px = "%d px" }
+-- a value's text by its unit (the client's language: «4 пикс.», «0,5 сек.»)
+local FORMATS = { percent = "%d%%", px = L.UNIT_PX, sec = L.UNIT_SEC }
 
 local ROW = { columns = { LENGTH, "auto" }, gap = 12 * PX, yAlign = "center" }
 local GROOVE_BOX = { position = "absolute", left = 0, top = GROOVE_TOP, width = LENGTH, height = GROOVE,
