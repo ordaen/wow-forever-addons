@@ -387,6 +387,7 @@ end
 -- stay on the screen: at the drag's start, how far the box's edges are from the screen's, as limits on the cursor
 -- (in the dragged frame's units, as the cursor is reported)
 local function clampOf(frame, x, y)
+	local Debug = ns.Core.NewDebug("OrdaenCore")
 	local node = frame.node
 	while node and not node.clampToScreen do
 		node = node.parent
@@ -405,6 +406,11 @@ local function clampOf(frame, x, y)
 	local sw, sh = UIParent:GetWidth() * s, UIParent:GetHeight() * s
 	frame.clampL, frame.clampR = x - l * k, x + (sw - r) * k
 	frame.clampT, frame.clampB = y - (sh - t) * k, y + b * k
+	if Debug:IsEnabled() then
+		Debug:Logf("drag clamp: box l %.1f r %.1f t %.1f b %.1f, screen %.1f x %.1f, k %.3f, cursor %.1f %.1f, "
+			.. "x in [%.1f, %.1f], y in [%.1f, %.1f]", l, r, t, b, sw, sh, k, x, y, frame.clampL, frame.clampR,
+			frame.clampT, frame.clampB)
+	end
 end
 local function clampDrag(frame, x, y)
 	if frame.clampL then
@@ -2618,7 +2624,7 @@ local function stackChild(child, base, top)
 	end
 	local want = base + (child.lookZ or 0)
 	local pos = child.pos
-	if (pos == "absolute" or pos == "fixed") and top >= want then
+	if (pos == "absolute" or pos == "fixed" or child.raised) and top >= want then
 		want = top + 1
 	end
 	if frame:GetFrameLevel() ~= want then
@@ -2646,13 +2652,16 @@ function raiseUnderCursor()
 	while f do
 		local node = f.node
 		if node and node.toplevel and not node.released then
+			-- what comes forward is its branch on the layer: each module draws under a box of its own there, so two
+			-- modules' windows are siblings only at the layer
+			while node.parent and node.parent.kind ~= "root" do
+				node = node.parent
+			end
 			if node.raised ~= raiseStamp or raiseStamp == 0 then
 				raiseStamp = raiseStamp + 1
 				node.raised = raiseStamp
-				local parent = node.parent
-				if parent then
-					parent:Stack()
-					restack(parent.parent)
+				if node.parent then
+					node.parent:Stack()
 				end
 			end
 			return

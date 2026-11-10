@@ -278,15 +278,23 @@ describe("the settings window", function()
 		local tab = texts(ns)["Ordaen"].parent
 		local win = tab.parent
 		local f = tab.frame
+		ns.Backend:Flush()
+		local top0 = win.frame:GetTop()
 		wow:MoveCursor(500, 500)
 		wow:DragStart(f)
-		wow:MoveCursor(-3000, 500)
-		wow:Tick()
-		ns.Scheduler.Flush()
+		for x = 400, -3000, -100 do -- along the screen, then past its left edge: the window stops, its height stays
+			wow:MoveCursor(x, 500)
+			wow:Tick()
+			ns.Scheduler.Flush()
+			ns.Backend:Flush()
+			assert.is_true(math.abs(win.frame:GetTop() - top0) < 0.5, "top " .. tostring(win.frame:GetTop()) ..
+				" was " .. tostring(top0) .. " at x " .. x)
+		end
 		wow:DragStop(f)
 		ns.Scheduler.Flush()
 		ns.Backend:Flush()
 		assert.is_true(win.frame:GetLeft() >= -0.5, "left " .. tostring(win.frame:GetLeft()))
+		assert.is_true(math.abs(win.frame:GetTop() - top0) < 0.5, "top after " .. tostring(win.frame:GetTop()))
 		assert.are.same({}, wow.errors)
 	end)
 
