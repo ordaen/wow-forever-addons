@@ -262,7 +262,7 @@ describe("the settings controls", function()
 			assert.is_truthy(body)
 			local window = body.parent
 			assert.is_true(window.a.artOrigin)
-			assert.are.equal("CENTER", (window.frame:GetPoint(1)))
+			assert.are.equal("CENTER", select(3, window.frame:GetPoint(1))) -- its corner from the screen's centre
 			local metal = nil
 			for _, node in ipairs(nodes()) do
 				if node.frameArt and node.frameArt.top and node.frameArt.top:IsShown() then
@@ -298,7 +298,7 @@ describe("the settings controls", function()
 			assert.is_truthy(withBackground("ctl.cornerContract"))
 			withBackground("ctl.cornerContract").frame:GetScript("OnClick")(full.frame, "LeftButton")
 			ns.Scheduler.Flush()
-			assert.are.equal("CENTER", (window.frame:GetPoint(1)))
+			assert.are.equal("CENTER", select(3, window.frame:GetPoint(1))) -- its corner from the screen's centre
 			local close = withBackground("ctl.cornerClose")
 			close.frame:GetScript("OnClick")(close.frame, "LeftButton")
 			assert.are.equal(1, closed)
@@ -313,6 +313,7 @@ describe("the settings controls", function()
 			local window = tab.parent
 			local scale = frame:GetEffectiveScale()
 			local left, top = frame:GetLeft(), frame:GetTop()
+			local _, _, _, x0, y0 = window.frame:GetPoint(1)
 			wow:MoveCursor((left + 10) * scale, (top - 10) * scale)
 			wow:DragStart(frame)
 			wow:MoveCursor((left + 60) * scale, (top - 30) * scale)
@@ -321,7 +322,7 @@ describe("the settings controls", function()
 			wow:DragStop(frame)
 			ns.Scheduler.Flush()
 			local _, _, _, x, y = window.frame:GetPoint(1)
-			assert.is_true(math.abs(x - 50) < 1 and math.abs(y + 20) < 1) -- 50 right, 20 down
+			assert.is_true(math.abs(x - x0 - 50) < 1 and math.abs(y - y0 + 20) < 1) -- 50 right, 20 down
 			assert.are.same({}, wow.errors)
 		end)
 	end)
