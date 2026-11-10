@@ -1519,6 +1519,10 @@ function Node:ApplyLook()
 				tex:SetTexture(bg.file, "REPEAT", "REPEAT")
 				self.lookOrigin, self.lookRepeat = 1, bg.repeatSize
 				self:OriginBackground()
+			elseif type(bg) == "table" and bg.file and not bg.size then -- a whole picture, stretched to the box (art
+				-- sliced or tiled names its size; without one it's drawn whole, never measured)
+				tex:SetTexture(bg.file)
+				tex:SetTexCoord(0, 1, 0, 1)
 			elseif type(bg) == "table" and bg.file and not bg.tile then -- three-slice: its own textures
 				tex:Hide()
 				self.lookArt = bg
