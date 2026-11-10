@@ -941,6 +941,11 @@ function DOMAINS.TradeSkill()
 		TS.OpenTradeSkill(skillLine)
 	end
 	function TradeSkill:Close() -- luacheck: ignore 212
+		-- Blizzard's window first: left open, it turns to its overview of professions once the profession closes
+		local frame = _G.ProfessionsFrame
+		if frame and frame:IsShown() then
+			HideUIPanel(frame)
+		end
 		TS.CloseTradeSkill()
 	end
 	-- the chosen recipe's reagents and output, refilled by Schematic: one kept table
