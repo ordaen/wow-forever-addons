@@ -169,6 +169,11 @@ function DOMAINS.Themes()
 	return ns.Themes
 end
 
+--- The placing mode: `game.Placing.on`, `:Enter()`, `:Exit()`, `:Toggle()` (Placing.lua).
+function DOMAINS.Placing()
+	return ns.Placing
+end
+
 --- Numbers formatted by the global settings: `game.Numbers:Format(n)` (Numbers.lua).
 function DOMAINS.Numbers()
 	return ns.Numbers

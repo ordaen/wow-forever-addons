@@ -309,9 +309,12 @@ end
 ---@param module table the module context (self.module)
 ---@param game table
 ---@param slotOwner OrdaenInstance|nil whose render passed the slot functions
+---@param key any|nil its key when the call gave one apart from its data (a loop's, as the build compiles it)
 ---@return OrdaenInstance|nil
-function Engine:Mount(parent, declaration, site, data, container, module, game, slotOwner)
-	local key = data and data.key
+function Engine:Mount(parent, declaration, site, data, container, module, game, slotOwner, key)
+	if key == nil then
+		key = data and data.key
+	end
 	local instance = setmetatable({
 		_declaration = declaration, _parent = parent, _depth = parent and parent._depth + 1 or 0,
 		_site = site, _key = key, _game = game, _alive = true, _nEffects = 0, -- _effects: made by the first Watch

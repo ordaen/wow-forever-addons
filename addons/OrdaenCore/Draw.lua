@@ -655,7 +655,7 @@ local function DrawComponent(ui, declaration, site, a, b, k, module, game)
 		given = { key = data.key, ref = data.ref, slots = data.slots, attributes = attributes }
 	end
 	local instance = Engine:Mount(parent, declaration, site, given, f.container, module or parent.module,
-		game or ui._game, owner)
+		game or ui._game, owner, key)
 	if instance then
 		e.instance = instance
 		e.src = data and data.attributes
@@ -755,6 +755,11 @@ local ModuleSettings = {
 --- `attributes = { module = <folder>, tab = <n> }`.
 function UiBase:ModuleSettings(site, a, b, k)
 	return DrawComponent(self, ModuleSettings, site, a, b, k)
+end
+
+--- A free part, placed by the player in the placing mode (Placing.lua): `(site, nil, data, key)`.
+function UiBase:Placed(site, a, b, k)
+	return DrawComponent(self, ns.Placing.Part, site, a, b, k)
 end
 
 local function LowerFirst(name)

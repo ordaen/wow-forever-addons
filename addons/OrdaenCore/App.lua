@@ -293,6 +293,7 @@ frame:SetScript("OnEvent", function(_, event, arg)
 			ns.Globals.Load(OrdaenCore.SavedVariables({ db = "OrdaenCoreDB" }))
 			ns.Themes.Load()
 			ns.Themes.Start()
+			ns.Placing.Load()
 			LoadModules()
 		end
 	elseif event == "PLAYER_LOGIN" then

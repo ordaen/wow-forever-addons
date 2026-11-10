@@ -138,6 +138,10 @@ local function run(line)
 		help()
 		return
 	end
+	if word == "move" then -- the placing mode, on or off (refused in combat)
+		Engine:Handle(ns.Placing.Toggle, ns.Placing)
+		return
+	end
 	if word == "ordaen" and command == "reset" then -- Ordaen's own: the global settings
 		ns.Globals.Reset()
 		say(format(L.SETTINGS_RESET, "Ordaen"))
