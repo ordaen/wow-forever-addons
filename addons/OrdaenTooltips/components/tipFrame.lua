@@ -85,12 +85,16 @@ local function Title(game, self)
 	end
 end
 
+-- the icon (or a unit's face) inside its ring: bronze, a black line inside it (design TooltipTitle .icon)
+local function Picture(game, self)
+	local calls = self.calls
+	game.ui:Box(calls.iconImage.attributes.background and calls.iconImage or calls.faceImage)
+end
+
 local function Head(game, self)
 	local calls = self.calls
-	if calls.icon.attributes.background then
+	if calls.iconImage.attributes.background or calls.faceImage.attributes.portrait then
 		game.ui:Box(calls.icon)
-	elseif calls.face.attributes.portrait then
-		game.ui:Box(calls.face)
 	end
 	game.ui:Box({ attributes = { columns = 1, gap = 2 * PX, yAlign = "center" }, slots = { default = Title } })
 end
@@ -202,8 +206,8 @@ local function Fill(calls, m)
 	head.shown = m.name ~= nil
 	-- the item's or spell's icon, else a unit's face: each its own box (never one turned into the other)
 	local hasIcon = m.icon ~= nil or m.portrait ~= nil
-	calls.icon.attributes.background = m.icon
-	calls.face.attributes.portrait = not m.icon and m.portrait or nil
+	calls.iconImage.attributes.background = m.icon
+	calls.faceImage.attributes.portrait = not m.icon and m.portrait or nil
 	head.columns = hasIcon and TITLE_COLUMNS or 1
 	calls.name.attributes.text, calls.name.attributes.textColor = m.name, m.nameColor
 	calls.desc.attributes.parts, calls.info.attributes.parts = m.desc, m.info
@@ -214,6 +218,8 @@ local function Fill(calls, m)
 		local a, cell = Calls(calls.cols, i), m.cols[i]
 		a.text, a.color, a.glyph, a.tint = cell.text, cell.color or BODY, GlyphOf(cell.glyph), cell.tint
 		a.term, a.amount = cell.term, cell.amount
+		a.divider = i > 1
+		a.last = m.body.n == 0 and m.foot.n == 0 and m.keys.n == 0 -- the band ends the tooltip: no padding under it
 	end
 	calls.colsBox.attributes.columns = m.cols.n
 
@@ -257,13 +263,16 @@ return Define.Component({
 		self.calls = {
 			head = { attributes = { gap = 10 * PX, yAlign = "center", padding = { 0, 0, SECTION, 0 } },
 				slots = { default = Head } },
-			icon = { attributes = { width = ICON, height = ICON, border = RIM } },
-			face = { attributes = { width = ICON, height = ICON, border = RIM, background = BLACK } },
+			icon = { attributes = { width = ICON, height = ICON, border = RIM, padding = 1 * PX, background = BLACK,
+				columns = 1 }, slots = { default = Picture } },
+			iconImage = { attributes = { width = "100%", height = "100%" } },
+			faceImage = { attributes = { width = "100%", height = "100%", background = BLACK } },
 			-- the title's lines never wrap: the tooltip grows to them
 			name = { attributes = { textSize = 18 * PX, wrap = false, textFamily = Define.Theme.font.header } },
 			desc = { attributes = { color = LABEL, size = 14 * PX } },
 			info = { attributes = { color = QUIET, size = 14 * PX } },
-			colsBox = { attributes = { padding = { SECTION, 0, SECTION, 0 }, gap = 10 * PX }, slots = { default = Cols } },
+			-- the band: one row of cells, each padded, a rule between neighbours (design TooltipColumns)
+			colsBox = { attributes = { gap = 0 }, slots = { default = Cols } },
 			bodyBox = Section(Body), footBox = Section(Foot), keysBox = Section(Keys),
 			cols = {}, body = {}, foot = {}, keys = {}, nCols = 0, nBody = 0, nFoot = 0, nKeys = 0,
 			-- the header: the windows' title style, a groove under it (a fixed height: compared titles line up)
