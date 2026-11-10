@@ -238,3 +238,26 @@ describe("Ordaen Panel's items and visibility", function()
 		assert.is_false(Shown(wow, "18:14"))
 	end)
 end)
+
+describe("Ordaen Panel's zones", function()
+	it("keeps every item of a zone on one line, the panel its own height", function()
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenPanel" } })
+		local home = wow.env.CreateFrame("Frame", "BagsBar", wow.env.UIParent)
+		for _, name in ipairs(BLIZZARD) do
+			wow.env.CreateFrame("Button", name, home):SetSize(45, 45)
+		end
+		wow:Login()
+		wow:Tick()
+		assert.are.same({}, wow.errors)
+		-- the micro menu's buttons and the social ones side by side: every one's bottom on the same line
+		local bottom
+		for _, name in ipairs({ "ProfessionMicroButton", "MainMenuMicroButton", "QuickJoinToastButton", "GuildMicroButton",
+			"MainMenuBarBackpackButton" }) do
+			local b = wow.env[name]
+			local y = b:GetBottom()
+			assert.is_truthy(y, name .. " placed")
+			bottom = bottom or y
+			assert.is_true(math.abs(y - bottom) < 1, name .. " at " .. tostring(y) .. ", not " .. tostring(bottom))
+		end
+	end)
+end)

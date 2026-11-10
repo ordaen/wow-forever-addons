@@ -299,6 +299,15 @@ local function Time(game, self)
 	game.ui:Box({ key = "clock", attributes = { OnClick = self.toggleCalendar }, slots = { default = TimeText } })
 end
 
+-- the micro menu with the portrait: one box (one track of its zone), the room under the portrait first
+local function MicroWithPortrait(game, self)
+	game.ui:Box(SPACER_CALL)
+	game.ui:Box(self.state.livePortrait and PORTRAIT_LIVE_CALL or PORTRAIT_CALL)
+	game.ui:Box(MICRO_LINE[false])
+end
+local MICRO_PORTRAIT_CALL = { key = "micromenu", attributes = { columns = { PORTRAIT_WIDTH, "auto" },
+	gap = Define.Theme.spacing.md, yAlign = "center" }, slots = { default = MicroWithPortrait } }
+
 -- whether the portrait stands in the corner: asked for, and the micro menu at the start of a bottom panel
 local function PortraitShown(self)
 	return self.state.charButton == CharButton.Portrait and self.state.edge == Edge.Bottom
@@ -312,9 +321,7 @@ local function Item(game, self, item, vertical)
 			return
 		end
 		if PortraitShown(self) then
-			game.ui:Box(SPACER_CALL)
-			game.ui:Box(self.state.livePortrait and PORTRAIT_LIVE_CALL or PORTRAIT_CALL)
-			game.ui:Box(MICRO_LINE[vertical])
+			game.ui:Box(MICRO_PORTRAIT_CALL)
 		else
 			game.ui:Box(MICRO_FACE_LINE[vertical])
 		end
