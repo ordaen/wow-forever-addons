@@ -3,10 +3,19 @@
 -- Ordaen keeps them invisible for the shows drawn here (game.Tooltip, Core) and this module draws its own where
 -- Blizzard placed them, from the game's tooltip data and its APIs (read.lua). Each tooltip type has its own switch:
 -- off, that type stays Blizzard's, unchanged.
--- Other modules add lines through the module's API (design «API for other addons»):
---   Tooltips:OnTooltip(kind, fn)   fn(tip, model) on each build of a tooltip of that kind ("item", "spell", "aura",
---                                  "unit", "object"); tip:AddLine(text), tip:AddFooter(label, value), tip:AddNote(text),
---                                  tip:AddKey(text). Handlers answer only for what they own, and make no tables.
+-- Other modules extend tooltips through the module's API (design tooltips «API for other addons»): an event per kind
+-- (Item, Spell, Aura, Player, Npc, Object, Text) fired on each build of such a tooltip, listened to with the filter
+-- helper For, from a watch (it subscribes again when Tooltips comes back):
+--   local Tooltips = game:UseModule("Tooltips")
+--   self:Watch(function()
+--     self:On(Tooltips.Item, Tooltips.For(filter, function(tip, model, owner) tip:AddRow(...) end))
+--   end)
+-- `filter`: nil (every one), a number (the item's, spell's or aura's id), a string (the owner frame's name), a frame
+-- (that owner), a function(owner, model) returning true. `tip` adds to it: AddLine(text, color?) a body sentence,
+-- AddRow(label, value, term?, valueColor?) a row, AddCell(text, glyph?, term?) a cell of the band, AddSection(title?)
+-- the «More» section (this handler's lines and rows after it go there), AddFooter(label, value?) / AddNote(text) the
+-- footer, AddKey(text) a hotkey line. DefineTerm(key, name, text): a glossary entry a `term` can name (a locked
+-- tooltip opens it on that part). Handlers answer only for what they own, and make no tables per show.
 local Define = import("@ordaen/define")
 local L = import("locales")
 local floor = math.floor
@@ -43,6 +52,9 @@ end
 
 ---@enum OrdaenTooltipsPlace
 local Place = { Corner = "corner", Anchor = "anchor" } -- where an item's tooltip shows: the game's corner, beside it
+-- the API's events by Read's kind (a unit: a player or an NPC)
+local EVENTS = { item = "Item", spell = "Spell", aura = "Aura", player = "Player", npc = "Npc", object = "Object",
+	text = "Text" }
 local Anchored -- below: a tooltip's anchor beside its owner
 
 -- a tooltip's type on the settings page (its tab): Read's kind, a unit split into a player or an NPC
@@ -53,7 +65,7 @@ local function TypeOf(kind, tip)
 		return type(unit) == "string" and UnitIsPlayer(unit) and "players" or "npcs"
 	end
 	return kind == "item" and "items" or kind == "spell" and "spells" or kind == "aura" and "auras"
-		or kind == "object" and "objects" or nil
+		or kind == "object" and "objects" or kind == "text" and "texts" or nil
 end
 -- each type's «Включено» (off: that type stays Blizzard's) and «Подсказки в подсказках» (off: it never locks)
 local ON = {
@@ -74,6 +86,9 @@ local ON = {
 	end,
 	objects = function(self)
 		return Define.Peek(self.state.objectsOn)
+	end,
+	texts = function(self)
+		return Define.Peek(self.state.textsOn)
 	end,
 }
 local LOCK = {
@@ -177,6 +192,8 @@ return Define.Module({
 			npcsRep = { type = "boolean", default = true, setting = true },
 			objectsOn = { type = "boolean", default = true, setting = true },
 			objectsLock = { type = "boolean", default = true, setting = true },
+			textsOn = { type = "boolean", default = true, setting = true },
+			textsExtra = { type = "boolean", default = true, setting = true },
 		})
 		Define.Ephemeral({
 			epoch = { type = "number", default = 0 }, -- a comparison changed another view's rows
@@ -184,7 +201,7 @@ return Define.Module({
 			lock = { type = "number", default = 0 }, -- 1: the main tooltip's group is locked
 			nest = { type = "number", default = 0 }, -- a tooltip opened from a link opened or closed
 		})
-		local models, ctx, anchors, hooks = {}, { numbers = game.Numbers, L = L }, {}, {}
+		local models, ctx, anchors = {}, { numbers = game.Numbers, L = L }, {}
 		self.models, self.anchors = models, anchors
 
 		-- the settings Read follows, read plainly at each build
@@ -205,22 +222,45 @@ return Define.Module({
 			ctx.classNames = not theme or theme.values.classNames:Peek() ~= false
 		end
 
-		-- the other modules' lines (the API): written into the model being built
-		local building
+		-- the other modules' additions (the API): written into the model being built; lines and rows go to the body,
+		-- after AddSection to «More»
+		local building, target
 		local api = {}
-		function api:AddLine(text) -- luacheck: ignore 212
-			local body = building.body
-			body.n = body.n + 1
-			body[body.n] = body[body.n] or {}
-			local entry = body[body.n]
-			entry.left, entry.right, entry.color, entry.rightColor, entry.stat = text, nil, nil, nil, nil
+		local function Line(list, left, right, color, rightColor, term)
+			list.n = list.n + 1
+			local entry = list[list.n] or {}
+			list[list.n] = entry
+			entry.left, entry.right, entry.color, entry.rightColor, entry.term = left, right, color, rightColor, term
+			entry.desc, entry.link, entry.valueLink, entry.indent, entry.stat = nil, nil, nil, nil, nil
+			return entry
+		end
+		function api:AddLine(text, color) -- luacheck: ignore 212
+			Line(target, text, nil, color, nil, nil).desc = color == nil or nil
+		end
+		function api:AddRow(label, value, term, valueColor) -- luacheck: ignore 212
+			Line(target, label, value, nil, valueColor, term)
+		end
+		function api:AddSection(title) -- luacheck: ignore 212
+			target = building.more
+			if title then
+				Line(target, title, nil, Read.Rgb(0.5, 0.5, 0.5), nil, nil)
+			end
+		end
+		function api:AddCell(text, glyph, term) -- luacheck: ignore 212
+			local cols = building.cols
+			cols.n = cols.n + 1
+			local cell = cols[cols.n] or {}
+			cols[cols.n] = cell
+			cell.text, cell.color, cell.glyph, cell.tint = text, nil, glyph, nil
+			cell.term, cell.amount, cell.link = term or glyph, nil, nil
 		end
 		function api:AddFooter(label, value) -- luacheck: ignore 212
 			local foot = building.foot
 			foot.n = foot.n + 1
-			foot[foot.n] = foot[foot.n] or {}
-			local entry = foot[foot.n]
-			entry.left, entry.right, entry.valueColor = label, value, nil
+			local entry = foot[foot.n] or {}
+			foot[foot.n] = entry
+			entry.left, entry.right, entry.valueColor, entry.term, entry.amount = label, value, nil, nil, nil
+			entry.link, entry.valueLink = nil, nil
 		end
 		function api:AddNote(text)
 			self:AddFooter(text, nil)
@@ -230,6 +270,51 @@ return Define.Module({
 			keys.n = keys.n + 1
 			keys[keys.n] = keys[keys.n] or {}
 			keys[keys.n].text = text
+		end
+		-- whether a filter lets this tooltip through (For checked its type)
+		local function Passes(filter, owner, model)
+			local t = type(filter)
+			if filter == nil then
+				return true
+			elseif t == "number" then
+				return model.id == filter
+			elseif t == "string" then
+				return owner ~= nil and owner.GetName ~= nil and owner:GetName() == filter
+			elseif t == "function" then
+				return filter(owner, model) == true
+			end
+			return owner == filter
+		end
+		--- A handler for the kinds' events: `fn(tip, model, owner)` on the tooltips `filter` lets through (the header).
+		local function For(filter, fn)
+			local t = type(filter)
+			if type(fn) ~= "function" then
+				error("Tooltips.For: the handler must be a function", 2)
+			elseif filter ~= nil and t ~= "number" and t ~= "string" and t ~= "function" and t ~= "table" then
+				error("Tooltips.For: a filter is an id, an owner's name, an owner frame or a function", 2)
+			end
+			return function(tip, model, owner) -- made once, when it subscribes
+				if Passes(filter, owner, model) then
+					target = model.body -- each handler starts in the body
+					fn(tip, model, owner)
+				end
+			end
+		end
+		local events = {}
+		for kind, name in pairs(EVENTS) do
+			events[kind] = Define.Event()
+			events[name] = events[kind]
+		end
+		local function Extend(model, owner)
+			local kind = model.kind
+			if kind == "unit" then
+				kind = model.portrait and UnitIsPlayer(model.portrait) and "player" or "npc"
+			end
+			local event = events[kind]
+			if event then
+				building = model
+				event:Fire(api, model, owner)
+			end
 		end
 
 		-- where the tooltip goes (its settings): beside a button, a bag or character slot, or the game's place
@@ -250,17 +335,27 @@ return Define.Module({
 			return nil
 		end
 
-		local function Fill(tip)
-			Settings(tip.owner)
-			local model = models[tip.name]
-			if not Read.Fill(model, tip.data, ctx) then
+		-- what a show is read from: its data, or without data (or of a kind not read here) the text it shows
+		local function Data(tip)
+			local data = tip.data
+			if Read.Kind(data) then
+				return data
+			end
+			return tip:Lines()
+		end
+
+		-- the model of `tip` from its show (a refill: a timer, an inspect come back), extended by the API's handlers
+		local function Fill(tip, data)
+			data = data or Data(tip)
+			if not data then
 				return false
 			end
-			building = model
-			local list = hooks[model.kind]
-			for i = 1, list and #list or 0 do
-				list[i](api, model)
+			Settings(tip.owner)
+			local model = models[tip.name]
+			if not Read.Fill(model, data, ctx) then
+				return false
 			end
+			Extend(model, tip.owner)
 			if COMPARE[tip.name] then
 				model.header = L.EQUIPPED
 			end
@@ -288,9 +383,10 @@ return Define.Module({
 
 		-- whether this show is drawn here: its type is on and its data reads (else it stays Blizzard's)
 		local function Wants(tip)
-			local kind = Read.Kind(tip.data)
+			local data = Data(tip)
+			local kind = Read.Kind(data)
 			local switch = ON[TypeOf(kind, tip)]
-			if not switch or not switch(self, tip) or not Fill(tip) then
+			if not switch or not switch(self, tip) or not Fill(tip, data) then
 				return false
 			end
 			anchors[tip.name] = Beside(tip)
@@ -299,6 +395,11 @@ return Define.Module({
 			end
 			return true
 		end
+
+		-- the micro menu's and bags' buttons tell more (design tooltips/text «Buttons»), through the API
+		import("buttons")(self, events, For, function()
+			return Define.Peek(self.state.textsExtra)
+		end, L)
 
 		-- the spellbook's names: a description's spell names link to their tooltips
 		self:On("SPELLS_CHANGED", Read.Spellbook)
@@ -589,15 +690,21 @@ return Define.Module({
 		end
 
 		return {
-			--- fn(tip, model) on each build of a tooltip of `kind`: tip:AddLine/AddFooter/AddNote/AddKey.
-			OnTooltip = function(_, kind, fn)
-				local list = hooks[kind]
-				if not list then
-					list = {}
-					hooks[kind] = list
-				end
-				list[#list + 1] = fn
-			end,
+			public = {
+				signals = { Item = events.Item, Spell = events.Spell, Aura = events.Aura, Player = events.Player,
+					Npc = events.Npc, Object = events.Object, Text = events.Text },
+				functions = {
+					For = For,
+					--- A glossary entry a row's or cell's `term` can name (see the header).
+					DefineTerm = function(key, name, text)
+						if type(key) ~= "string" or key:find(":", 1, true) or type(name) ~= "string"
+							or type(text) ~= "string" then
+							error("Tooltips.DefineTerm: a key without «:», a name and a text", 2)
+						end
+						Read.terms[key] = { name = name, text = text }
+					end,
+				},
+			},
 		}
 	end,
 
@@ -683,6 +790,11 @@ return Define.Module({
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.objectsOn) } })
 			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.objectsLock),
 				disabled = not self.state.objectsOn } })
+		end } })
+		game.ui:SettingsTab({ attributes = { title = L.TAB_TEXTS }, slots = { default = function()
+			game.ui:Switch({ attributes = { value = Define.Signal(self.state.textsOn) } })
+			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.textsExtra),
+				disabled = not self.state.textsOn } })
 		end } })
 	end,
 

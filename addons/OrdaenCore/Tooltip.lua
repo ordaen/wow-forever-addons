@@ -8,6 +8,10 @@
 --   tip.owner        the frame it belongs to (the button or unit frame hovered), nil when none or unreadable
 --   tip.point        Blizzard's anchor point for it ("BOTTOMRIGHT"): a view anchored by the same point to it
 --                    follows Blizzard's placement (tip.frame is the game.Frame ref to anchor to)
+--   tip:Lines()      what it shows, read line by line from its text (a show without data: a button's title and
+--                    lines, from SetText/AddLine): a list kept by the tip, refilled per call, in the data's shape
+--                    ({ plain = true, lines = { { leftText, rightText, leftColor, rightColor } } }, colours { r, g, b }); nil when
+--                    anything in it isn't text (money, a frame inside) or is unreadable
 --   tip:Take(wants)  take it: `wants(tip)` on each show says whether the module draws this one; tip:Release()
 -- Safe by refusal: in combat some values are secret and some frames forbidden; anything unreadable and that show
 -- stays Blizzard's. Hooks only (hooksecurefunc / HookScript), Blizzard's code untouched; nothing per frame.
@@ -26,6 +30,11 @@ end
 ---@field owner table|nil
 ---@field point string
 ---@field frame table the game.Frame ref of Blizzard's tooltip
+---@field native table Blizzard's tooltip
+---@field name string its global name
+---@field text table what tip:Lines() fills
+---@field lefts table its left font strings by line
+---@field rights table its right font strings by line
 local Tip = {}
 local TipMeta = { __index = Tip }
 
@@ -66,7 +75,24 @@ local function Read(tip)
 	tip.owner = (owner ~= nil and not isSecret(owner) and type(owner) == "table") and owner or nil
 	local point = native:GetPoint(1)
 	tip.point = (type(point) == "string" and not isSecret(point)) and point or "TOPLEFT"
-	return data ~= nil
+	return true -- without data (SetText, AddLine) the taker reads its text (tip:Lines)
+end
+
+-- a line's text and colour from one of Blizzard's font strings; false when unreadable
+local function Line(font, color)
+	local text = font and font:IsShown() and font:GetText()
+	if isSecret(text) then
+		return false
+	end
+	if type(text) ~= "string" or text == "" then
+		return nil
+	end
+	local r, g, b = font:GetTextColor()
+	if isSecret(r) or isSecret(g) or isSecret(b) or type(r) ~= "number" then
+		return false
+	end
+	color.r, color.g, color.b = r, g, b
+	return text
 end
 
 local function Shown(tip)
@@ -151,6 +177,44 @@ function Tip:Take(wants)
 	end
 end
 
+--- What it shows as text, line by line (see the header); nil when not all of it is text or it's unreadable.
+---@return table|nil
+function Tip:Lines()
+	local native = self.native
+	if not Readable(native) or (native.shownMoneyFrames or 0) > 0
+		or (type(native.insertedFrames) == "table" and #native.insertedFrames > 0) then
+		return nil
+	end
+	local count = native:NumLines()
+	if isSecret(count) or type(count) ~= "number" then
+		return nil
+	end
+	local text, lefts, rights = self.text, self.lefts, self.rights
+	local lines = text.lines
+	for i = 1, count do
+		if not lefts[i] then
+			-- Blizzard's own font strings, by the names FrameXML gives them (made once per line, kept)
+			lefts[i] = _G[self.name .. "TextLeft" .. i] or false -- luacheck: ignore 113 (B8: Blizzard's, by name)
+			rights[i] = _G[self.name .. "TextRight" .. i] or false -- luacheck: ignore 113
+		end
+		local line = text.pool[i]
+		if not line then
+			line = { leftColor = {}, rightColor = {} }
+			text.pool[i] = line
+		end
+		local left, right = Line(lefts[i], line.leftColor), Line(rights[i], line.rightColor)
+		if left == false or right == false then
+			return nil
+		end
+		line.leftText, line.rightText = left, right
+		lines[i] = line
+	end
+	for i = count + 1, #lines do
+		lines[i] = nil
+	end
+	return text
+end
+
 --- Give it back: Blizzard's draws as it always did.
 function Tip:Release()
 	self.wants = nil
@@ -166,7 +230,7 @@ function ns.NewTooltips()
 		if native and Readable(native) then
 			tooltips[name] = setmetatable({
 				native = native, name = name, frame = { global = name }, shown = ns.NewValue(0), version = 0,
-				point = "TOPLEFT", drawn = false,
+				point = "TOPLEFT", drawn = false, text = { plain = true, lines = {}, pool = {} }, lefts = {}, rights = {},
 			}, TipMeta)
 		end
 	end

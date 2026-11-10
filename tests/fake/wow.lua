@@ -918,6 +918,11 @@ function FontStringMethods:SetTextColor(r, g, b, a)
 	self._textColor = { r, g, b, a }
 end
 
+function FontStringMethods:GetTextColor()
+	local c = self._textColor or { 1, 1, 1, 1 }
+	return c[1], c[2], c[3], c[4]
+end
+
 function FontStringMethods:SetMaxLines(n)
 	self._maxLines = n
 end
@@ -1052,6 +1057,10 @@ end
 
 function GameTooltipMethods:GetOwner()
 	return self._owner
+end
+
+function GameTooltipMethods:NumLines()
+	return self._numLines or 0
 end
 
 function GameTooltipMethods:FadeOut()
@@ -1250,6 +1259,34 @@ function Wow:ShowTooltip(name, data, owner, point)
 	tip._data = data
 	tip:ClearAllPoints()
 	tip:SetPoint(point or "BOTTOMRIGHT", self.env.UIParent, point or "BOTTOMRIGHT", -20, 20)
+	tip:SetSize(200, 100)
+	tip:Show()
+end
+
+-- The game shows `name` with text only (SetText, AddLine: no data), owned by `owner`: `lines` is
+-- { { left, right, { r, g, b } } }, Blizzard's font strings <name>TextLeft<i> / TextRight<i> filled with them.
+function Wow:ShowTextTooltip(name, lines, owner)
+	local tip = self.env[name]
+	tip:Hide()
+	tip:SetOwner(owner or self.env.UIParent, "ANCHOR_NONE")
+	tip._data = nil
+	for i, line in ipairs(lines) do
+		for side, text in pairs({ Left = line[1] or false, Right = line[2] or false }) do
+			local fsName = name .. "Text" .. side .. i
+			local fs = self.env[fsName]
+			if not fs then
+				fs = tip:CreateFontString(fsName)
+				self.env[fsName] = fs
+			end
+			fs:SetText(text or nil)
+			fs:SetShown(text ~= false)
+			local c = line[3] or { 1, 1, 1 }
+			fs:SetTextColor(c[1], c[2], c[3], 1)
+		end
+	end
+	tip._numLines = #lines
+	tip:ClearAllPoints()
+	tip:SetPoint("BOTTOMRIGHT", self.env.UIParent, "BOTTOMRIGHT", -20, 20)
 	tip:SetSize(200, 100)
 	tip:Show()
 end

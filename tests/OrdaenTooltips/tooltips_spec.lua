@@ -536,6 +536,94 @@ describe("Ordaen Tooltips", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	-- a show without data (design tooltips/text): SetText and AddLine on a button, read from Blizzard's lines
+	describe("text tooltips", function()
+		local function button(name)
+			local b = wow:NewFrame("Button", name, wow.env.UIParent)
+			b:SetSize(32, 32)
+			b:SetPoint("BOTTOMLEFT", wow.env.UIParent, "BOTTOMLEFT", 100, 10)
+			return b
+		end
+		before_each(function()
+			wow.env.GetAverageItemLevel = function()
+				return 12.4, 11.6
+			end
+			wow.env.GetInventoryItemDurability = function(slot)
+				if slot == 16 then
+					return 3, 40
+				end
+			end
+		end)
+
+		it("draws a micro menu button's: the title, its binding in the hotkeys, the sentence, the button's extras",
+			function()
+				wow:ShowTextTooltip("GameTooltip", {
+					{ "Character Info |cffffd200(C)|r" },
+					{ "Your equipment, stats and reputation.", nil, { 1, 0.82, 0 } },
+				}, button("CharacterMicroButton"))
+				ns.Scheduler.Flush()
+				local shown = texts()
+				has(shown, "Character Info", "Your equipment, stats and reputation.", "C: open", "Item level\n11",
+					"Durability\n8%")
+				assert.is_falsy(shown:find("(C)", 1, true))
+				assert.are.equal(0, wow.env.GameTooltip:GetAlpha())
+				assert.are.same({}, wow.errors)
+			end)
+
+		it("draws any addon's text: rows for lines with a right side, coloured lines in their colour", function()
+			wow:ShowTextTooltip("GameTooltip", {
+				{ "Some Addon" },
+				{ "Memory", "1.2 MB" },
+				{ "Left-click to open", nil, { 0.12, 1, 0 } },
+			})
+			ns.Scheduler.Flush()
+			has(texts(), "Some Addon", "Memory\n1.2 MB", "Left-click to open")
+			assert.are.same({}, wow.errors)
+		end)
+
+		it("leaves a tooltip with money or a frame inside, and the type switched off, to Blizzard", function()
+			wow.env.GameTooltip.shownMoneyFrames = 1
+			wow:ShowTextTooltip("GameTooltip", { { "Vendor" }, { "Sells for" } })
+			ns.Scheduler.Flush()
+			assert.are.equal("", texts())
+			wow.env.GameTooltip.shownMoneyFrames = nil
+			ns.App.Module("OrdaenTooltips").root.state.persistent.textsOn:Set(false)
+			wow:ShowTextTooltip("GameTooltip", { { "Some Addon" } })
+			ns.Scheduler.Flush()
+			assert.are.equal("", texts())
+			assert.are.equal(1, wow.env.GameTooltip:GetAlpha())
+		end)
+	end)
+
+	-- the API (design tooltips «API for other addons»): an event per kind, a handler through For with its filter
+	describe("the API", function()
+		it("adds rows, a section, a cell, a footer line and a hotkey to the tooltips its filter lets through", function()
+			local Tooltips = ns.App.Handle("Tooltips")
+			Tooltips.DefineTerm("protected", "Protected slot", "Items here are never sold.")
+			Tooltips.Item:Subscribe(Tooltips.For(2845, function(tip)
+				tip:AddRow("Protected", "yes", "protected")
+				tip:AddCell("x2")
+				tip:AddFooter("Bag", "3")
+				tip:AddKey("Alt+LMB: unprotect")
+				tip:AddSection("Alts")
+				tip:AddRow("Alt One", "2")
+			end), false)
+			Tooltips.Spell:Subscribe(Tooltips.For("NoSuchButton", function(tip)
+				tip:AddLine("never")
+			end), false)
+			wow:ShowTooltip("GameTooltip", AXE)
+			ns.Scheduler.Flush()
+			has(texts(), "Protected\nyes", "x2", "Alt+LMB: unprotect", "Alts", "Alt One\n2")
+			wow:ShowTooltip("GameTooltip", SHOUT)
+			ns.Scheduler.Flush()
+			assert.is_falsy(texts():find("never", 1, true))
+			assert.has_error(function()
+				Tooltips.For({}, "not a function")
+			end)
+			assert.are.same({}, wow.errors)
+		end)
+	end)
+
 	it("goes when Blizzard's tooltip hides", function()
 		wow:ShowTooltip("GameTooltip", AXE)
 		ns.Scheduler.Flush()

@@ -2,7 +2,7 @@
 -- more, footer, hotkeys), read from the game's tooltip data (api/forever/tooltip-data.md: kinds and line types
 -- measured on Forever) and the game's own APIs, never by changing Blizzard's tooltip. One model per tooltip view,
 -- refilled on every show: its lists keep their tables and only their counts change.
---   model.kind      "item" | "spell" | "aura" | "unit" | "object"
+--   model.kind      "item" | "spell" | "aura" | "unit" | "object" | "text" (a show without data: a button's text)
 --   model.header    a heading above the title («Надето» on the equipped item of a comparison), or nil
 --   model.icon      a texture, or nil; model.portrait: a unit token for a face instead
 --   model.name, model.nameColor
@@ -311,9 +311,16 @@ end
 --- A glossary entry as a tooltip (design tooltips «Tooltips in tooltips»: a part's term): its name in gold, its text;
 --- both from the locales (TERM_<KEY>, TERM_<KEY>_TEXT), a «%s» in them the amount the part spoke of. False when the
 --- locales have no such term.
+-- other modules' glossary entries (the API's DefineTerm): key -> { name, text }
+Read.terms = {}
+
 function Read.Term(model, key, amount, L)
 	local upper = "TERM_" .. key:upper()
+	local own = Read.terms[key]
 	local name, text = rawget(L, upper), rawget(L, upper .. "_TEXT")
+	if own then
+		name, text = own.name, own.text
+	end
 	if not name or not text then
 		return false
 	end
@@ -1432,6 +1439,9 @@ end
 
 --- The kind of a tooltip's data ("item", "spell", ...) or nil for one Ordaen Tooltips leaves to Blizzard.
 function Read.Kind(data)
+	if data and data.plain then -- what the tooltip shows as text (game.Tooltip tip:Lines)
+		return "text"
+	end
 	local t = data and data.type
 	return type(t) == "number" and not isSecret(t) and KIND[t] or nil
 end
@@ -1460,10 +1470,57 @@ function Fill(model, data, ctx)
 		return Aura(model, data, ctx, ctx.owner)
 	elseif kind == "unit" then
 		return Unit(model, data, ctx)
+	elseif kind == "text" then
+		return Read.Plain(model, data, ctx)
 	end
 	return Object(model, data, ctx)
 end
 Read.Fill = Fill
+
+-- Text ---------------------------------------------------------------------------------------------------------------
+
+-- a binding at the end of a title, as Blizzard appends it (MicroButtonTooltipText, the backpack): « |cffffd200(C)|r»
+local BOUND = "^(.-)%s*|c%x%x%x%x%x%x%x%x%(([^()]+)%)|r$"
+
+-- a line's colour as ours draws it: white and the game's normal gold are the body's own (nil), others kept
+local function Tint(color)
+	local c = ColorOf(color)
+	return c ~= GOLD and c or nil
+end
+
+--- A tooltip that is only text (design tooltips/text: a micro menu or bag button, any addon's SetText and AddLine):
+--- its first line the title, the rest the body (a line with a right text a row, else a sentence), the title's binding
+--- in the hotkeys («C: открыть»). No icon.
+function Read.Plain(model, data, ctx)
+	local lines = data.lines
+	local first = lines[1]
+	local title = first and first.leftText
+	if not title then
+		return false
+	end
+	local name, key = title:match(BOUND)
+	if name and name ~= "" then
+		title = name
+		Push(model.keys).text = format(ctx.L.KEY_OPEN, key)
+	end
+	model.name = title
+	model.nameColor = ColorOf(first.leftColor) or WHITE
+	for i = 2, #lines do
+		local line = lines[i]
+		local left, right = line.leftText, line.rightText
+		if left and right then
+			Row(model, left, right, Tint(line.leftColor), Tint(line.rightColor))
+		elseif left or right then
+			local color = Tint(line.leftColor)
+			if color then
+				Free(model, left or right, color)
+			else
+				Desc(model, left or right)
+			end
+		end
+	end
+	return true
+end
 
 -- Talents -----------------------------------------------------------------------------------------------------------
 

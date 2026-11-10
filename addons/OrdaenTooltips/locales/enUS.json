@@ -302,5 +302,18 @@
   "TOOLTIPS_NPCSLOCK": "Tooltips in tooltips",
   "TOOLTIPS_NPCSLOCK_TIP": "Hold the mouse on a tooltip: it locks, and its underlined parts open their own explanations.",
   "TOOLTIPS_OBJECTSLOCK": "Tooltips in tooltips",
-  "TOOLTIPS_OBJECTSLOCK_TIP": "Hold the mouse on a tooltip: it locks, and its underlined parts open their own explanations."
+  "TOOLTIPS_OBJECTSLOCK_TIP": "Hold the mouse on a tooltip: it locks, and its underlined parts open their own explanations.",
+  "TAB_TEXTS": "Buttons and text",
+  "TOOLTIPS_TEXTSON": "On",
+  "TOOLTIPS_TEXTSON_TIP": "Off: the menu's and bags' buttons and any text tooltip stay the game's.",
+  "TOOLTIPS_TEXTSEXTRA": "More on buttons",
+  "TOOLTIPS_TEXTSEXTRA_TIP": "The menu's and bags' buttons show more: item level and durability, unspent talent points, professions, quests, the guild, free slots.",
+  "KEY_OPEN": "%s: open",
+  "EXTRA_ILVL": "Item level",
+  "EXTRA_DURABILITY": "Durability",
+  "EXTRA_TALENTS": "Unspent points",
+  "EXTRA_ACHIEVEMENTS": "Achievement points",
+  "EXTRA_QUESTS": "Quests",
+  "EXTRA_ONLINE": "Online",
+  "EXTRA_FREE": "Free slots"
 }

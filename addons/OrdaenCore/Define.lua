@@ -82,6 +82,12 @@ function Define.Refs(component) -- luacheck: ignore 212
 	return setmetatable({}, RefsMeta)
 end
 
+--- An event a component fires with `:Fire(...)` and offers in its public `signals`: others run a handler on it with
+--- `self:On(event, handler)` (from a watch, so it subscribes again when the component comes back).
+function Define.Event()
+	return ns.NewEvent()
+end
+
 --- A public slot others draw into. Not built in the MVP: what's drawn into one goes nowhere.
 function Define.Slot()
 	return ns.NULL
