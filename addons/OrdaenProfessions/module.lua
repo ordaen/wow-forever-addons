@@ -13,19 +13,14 @@ local S = import("style")
 ---@enum OrdaenProfessionsPage
 local Page = { Recipes = 1, Camp = 2 }
 
--- the body: the window's, less the window's padding (14 + 3 px above, 12 + 3 below: Window's PADDING), so its rows
--- can share a known height (the window's body is placed by its edges, which a share can't be taken of)
-local BODY = { rows = { "auto", "auto", "1fr" }, gap = 8 * S.PX, height = S.HEIGHT - 32 * S.PX }
--- the recipes' side and the chosen recipe: what's left of the body under the skill bar (30 px), the page tabs (29 px)
--- and their two gaps. A height, since a row's "1fr" doesn't stretch a box to it.
-local GRID_H = S.HEIGHT - (32 + 30 + 29 + 16) * S.PX
-local GRID = { columns = { S.LEFT, "1fr" }, gap = S.GAP, height = GRID_H }
+-- the body fills the window's: the skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest
+local BODY = { rows = { "auto", "auto", "1fr" }, gap = 8 * S.PX }
+local GRID = { columns = { S.LEFT, "1fr" }, gap = S.GAP }
 local SEARCH_H = 30 * S.PX
-local LISTS_H = GRID_H - SEARCH_H - 8 * S.PX -- under the search and its gap
-local LEFT = { rows = { "auto", "auto" }, gap = 8 * S.PX }
-local LISTS = { columns = { S.CATEGORIES, "1fr" }, height = LISTS_H, border = { width = 1 * S.PX, color = S.LINE },
+local LEFT = { rows = { "auto", "1fr" }, gap = 8 * S.PX }
+local LISTS = { columns = { S.CATEGORIES, "1fr" }, border = { width = 1 * S.PX, color = S.LINE },
 	background = S.LISTS_BG }
-local CAMP_LISTS = { columns = { "1fr" }, height = LISTS_H, border = { width = 1 * S.PX, color = S.LINE },
+local CAMP_LISTS = { columns = { "1fr" }, border = { width = 1 * S.PX, color = S.LINE },
 	background = S.LISTS_BG }
 local CATEGORY_COLUMN = { rows = "auto", overflow = "scroll", height = "100%" }
 local RECIPE_COLUMN = { rows = "auto", overflow = "scroll", height = "100%",
