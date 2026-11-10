@@ -143,9 +143,10 @@ return Define.Component({
 		-- the grip follows the cursor; the window is placed by its centre, so the centre moves half as far and the
 		-- top-left corner stays
 		local function size(x, y)
-			local a = self.attributes
-			local w = math.min(a.maxWidth or math.huge, math.max(a.minWidth or MIN_W, w0 + x - grabX))
-			local h = math.min(a.maxHeight or math.huge, math.max(a.minHeight or MIN_H, h0 + y - grabY))
+			local w = math.min(self.attributes.maxWidth or math.huge,
+				math.max(self.attributes.minWidth or MIN_W, w0 + x - grabX))
+			local h = math.min(self.attributes.maxHeight or math.huge,
+				math.max(self.attributes.minHeight or MIN_H, h0 + y - grabY))
 			self.state.w = w
 			self.state.h = h
 			self.state.x = x0 + (w - w0) / 2

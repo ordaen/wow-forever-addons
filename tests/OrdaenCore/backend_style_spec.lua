@@ -567,6 +567,14 @@ describe("backend styles", function()
 		Backend:Release(corner)
 		wow:Fire("PORTRAITS_UPDATED")
 		assert.are.equal(drawn + 1, wow.faces)
+		-- the pooled box reused without a portrait shows no face
+		local again = Backend:Create("box")
+		assert.are.equal(corner, again)
+		Backend:Set(again, wow.env.table.freeze({ position = "fixed", left = 0, top = 0, width = 300, height = 200,
+			background = ref("color.surface") }))
+		Backend:SetChildren(layer, { again }, 1)
+		Backend:Flush()
+		assert.is_false(again.face:IsShown())
 	end)
 
 	it("draws a frame's metal on all four sides: the edges, the bottom corners, mitred top corners, the wood", function()

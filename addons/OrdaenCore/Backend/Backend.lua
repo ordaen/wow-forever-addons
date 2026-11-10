@@ -2949,10 +2949,10 @@ function Backend:Release(node)
 	end
 	node.released, node.stale, node.src = true, nil, nil
 	node.bound, node.nbound = nil, 0 -- its bindings went with its component
-	if portraits[node] then -- it keeps its face, but no event redraws it while pooled
-		portraits[node] = nil
+	if node.lookPortrait ~= nil then -- its face and model go (the next use draws one only if it names a unit), and
+		-- no event redraws it while pooled
 		node.lookPortrait = nil
-		portraitEvents()
+		node:ApplyPortrait(nil)
 	end
 	node.hovered, node.pressed = false, false
 	node.valid, node.natValid, node.x = false, false, nil
