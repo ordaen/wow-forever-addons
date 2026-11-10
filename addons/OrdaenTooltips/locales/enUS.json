@@ -281,5 +281,13 @@
   "STAT_INT": "Increases |cffffffffmana|r by %d.",
   "STAT_SPI": "Increases |cffffffffhealth regeneration|r out of combat by %d every 5 sec.",
   "KNOWN": "Known",
-  "NOT_KNOWN": "Not known"
+  "NOT_KNOWN": "Not known",
+  "TALENT": "Talent",
+  "NEXT_RANK": "Next rank:",
+  "TALENT_POINTS": "Talent points required",
+  "TALENT_LOCKED": "Learn the talent before it first",
+  "TOOLTIPS_SPELLSNEXT": "Next rank",
+  "TOOLTIPS_SPELLSNEXT_TIP": "What the talent's next rank changes.",
+  "TERM_TALENT": "Talent",
+  "TERM_TALENT_TEXT": "Learned with talent points. The numbers: ranks learned of the most there are."
 }

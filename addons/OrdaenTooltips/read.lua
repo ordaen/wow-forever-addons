@@ -1433,6 +1433,8 @@ end
 
 --- Fill `model` from the tooltip data; false when it can't be read (that show stays Blizzard's).
 ---@param ctx table the module's settings read plainly, `numbers` (game.Numbers), `L` (its locales), `owner` (the
+local Talent -- below (it reads a spell with Spell, then its talent parts)
+
 --- frame the tooltip belongs to)
 function Fill(model, data, ctx)
 	Clear(model)
@@ -1442,7 +1444,10 @@ function Fill(model, data, ctx)
 		return false
 	end
 	model.kind = kind
-	if kind == "item" then
+	local owner = ctx.owner
+	if kind == "spell" and owner and type(owner.GetNodeID) == "function" then -- a talent's button
+		return Talent(model, data, ctx, owner)
+	elseif kind == "item" then
 		return Item(model, data, ctx)
 	elseif kind == "spell" then
 		return Spell(model, data, ctx)
@@ -1454,6 +1459,75 @@ function Fill(model, data, ctx)
 	return Object(model, data, ctx)
 end
 Read.Fill = Fill
+
+-- Talents -----------------------------------------------------------------------------------------------------------
+
+-- the words of `next` that differ from `current` at the same place, lit (design spells «The next rank diffs»: a word
+-- diff; ranks of one talent differ in their numbers, word for word)
+local LIT = "|cff40ff60"
+local function Diff(current, next)
+	local words, n = {}, 0
+	for word in current:gmatch("%S+") do
+		n = n + 1
+		words[n] = word
+	end
+	local out, i = {}, 0
+	for word in next:gmatch("%S+") do
+		i = i + 1
+		out[i] = word == words[i] and word or LIT .. word .. "|r"
+	end
+	return table.concat(out, " ")
+end
+
+-- A talent (the talent window's button owns the tooltip; design spells «Talents»): the spell as on skills (its band,
+-- its description), «Талант · 2/5» on the second line; the next rank with what changes lit (the «Следующий уровень»
+-- setting); an unlearned talent's requirements in the footer, red when not met. The talent frame writes the name and
+-- rank lines itself: the data starts at the cost (api/forever/tooltip-data.md «Talent»), so the name is the spell's.
+function Talent(model, data, ctx, owner)
+	local L = ctx.L
+	local configID = C_ClassTalents.GetActiveConfigID()
+	local nodeID = owner:GetNodeID()
+	local node = configID and nodeID and C_Traits.GetNodeInfo(configID, nodeID)
+	local spellID = owner.GetSpellID and owner:GetSpellID() or Id(data.id)
+	if not node or not spellID then
+		return false
+	end
+	model.name = C_Spell.GetSpellName(spellID)
+	if not Spell(model, data, ctx) then
+		return false
+	end
+	model.icon = C_Spell.GetSpellTexture(spellID) or model.icon
+	-- the second line: «Талант · 2/5» (the spell's own «Пассивная» and rank lines give way)
+	model.desc.n = 0
+	local rank, max = node.currentRank or 0, node.maxRanks or 1
+	Part(model.desc, L.TALENT, nil, "talent")
+	Part(model.desc, rank .. "/" .. max, rank >= max and GREEN or nil, "talent")
+	local entryID = owner.GetEntryID and owner:GetEntryID()
+		or node.activeEntry and node.activeEntry.entryID or node.entryIDs and node.entryIDs[1]
+	if ctx.spellsNext and entryID and rank > 0 and rank < max then
+		local current = C_Traits.GetTraitDescription(entryID, rank)
+		local next = C_Traits.GetTraitDescription(entryID, rank + 1)
+		if type(current) == "string" and type(next) == "string" and next ~= "" then
+			Free(model, L.NEXT_RANK, GREY)
+			Desc(model, Diff(Rich(nil, current), Rich(nil, next)))
+		end
+	end
+	if rank == 0 then
+		-- what it still needs: each condition's points, red while not met
+		local conditions = node.conditionIDs
+		for i = 1, conditions and #conditions or 0 do
+			local info = C_Traits.GetConditionInfo(configID, conditions[i])
+			local points = info and info.spentAmountRequired
+			if type(points) == "number" and points > 0 then
+				Foot(model, L.TALENT_POINTS, tostring(points), info.isMet == false and RED or nil, "talent")
+			end
+		end
+		if node.isAvailable == false or node.meetsEdgeRequirements == false then
+			Foot(model, L.TALENT_LOCKED, nil, RED, "talent")
+		end
+	end
+	return true
+end
 
 Read.WHITE = WHITE
 

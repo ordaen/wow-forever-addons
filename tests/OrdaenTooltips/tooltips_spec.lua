@@ -322,6 +322,48 @@ describe("Ordaen Tooltips", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("draws a talent: the spell's name, «Talent · 1/5», the next rank with what changes lit", function()
+		local env = wow.env
+		env.C_ClassTalents = { GetActiveConfigID = function()
+			return 7
+		end }
+		local texts_by_rank = { "Increases melee critical strike chance by 1%.",
+			"Increases melee critical strike chance by 2%." }
+		env.C_Traits = {
+			GetNodeInfo = function()
+				return { currentRank = 1, maxRanks = 5, activeEntry = { entryID = 130669, rank = 1 }, isAvailable = true }
+			end,
+			GetTraitDescription = function(_, rank)
+				return texts_by_rank[rank]
+			end,
+			GetConditionInfo = function() end,
+		}
+		env.C_Spell.GetSpellName = function(id)
+			return id == 12320 and "Ruthlessness" or nil
+		end
+		local button = env.CreateFrame("Button", nil, env.UIParent)
+		button:SetSize(40, 40)
+		button:SetPoint("CENTER")
+		function button.GetNodeID()
+			return 105939
+		end
+		function button.GetSpellID()
+			return 12320
+		end
+		function button.GetEntryID()
+			return 130669
+		end
+		-- the talent frame wrote the name and rank lines itself: the data starts at the description
+		wow:ShowTooltip("GameTooltip", { type = 1, id = 12320, lines = {
+			{ type = 34, leftText = "Increases melee critical strike chance by 1%." },
+		} }, button)
+		ns.Scheduler.Flush()
+		local shown = texts()
+		has(shown, "Ruthlessness", "Talent\n · \n1/5", "Next rank:")
+		has(shown, "by |cff40ff60|cffffffff2%|r.|r") -- only the word that changes is lit
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("draws any resource's cost as its dot: health green", function()
 		wow:ShowTooltip("GameTooltip", LIFE_TAP)
 		ns.Scheduler.Flush()

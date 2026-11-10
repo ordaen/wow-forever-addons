@@ -128,6 +128,7 @@ return Define.Module({
 			itemsCooldown = { type = "boolean", default = true, setting = true },
 			spellsOn = { type = "boolean", default = true, setting = true },
 			spellsId = { type = "boolean", default = false, setting = true },
+			spellsNext = { type = "boolean", default = true, setting = true },
 			spellsCooldown = { type = "boolean", default = true, setting = true },
 			aurasOn = { type = "boolean", default = true, setting = true },
 			aurasId = { type = "boolean", default = false, setting = true },
@@ -159,6 +160,7 @@ return Define.Module({
 			ctx.itemsCount, ctx.itemsStack = Define.Peek(self.state.itemsCount), Define.Peek(self.state.itemsStack)
 			ctx.itemsCooldown, ctx.spellsId = Define.Peek(self.state.itemsCooldown), Define.Peek(self.state.spellsId)
 			ctx.spellsCooldown = Define.Peek(self.state.spellsCooldown)
+			ctx.spellsNext = Define.Peek(self.state.spellsNext)
 			ctx.aurasId, ctx.aurasCaster = Define.Peek(self.state.aurasId), Define.Peek(self.state.aurasCaster)
 			ctx.aurasTotal = Define.Peek(self.state.aurasTotal)
 			ctx.playersTarget = Define.Peek(self.state.playersTarget)
@@ -546,6 +548,8 @@ return Define.Module({
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.spellsOn) } })
 			game.ui:Section({ attributes = { title = L.SECTION_MORE }, slots = { default = function()
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.spellsId),
+					disabled = not self.state.spellsOn } })
+				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.spellsNext),
 					disabled = not self.state.spellsOn } })
 				game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.spellsCooldown),
 					disabled = not self.state.spellsOn } })
