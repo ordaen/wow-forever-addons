@@ -1,4 +1,4 @@
--- Dev-only doors for the benchmark module (OrdaenBench): release builds leave out *.dev.lua, so players never get
+-- Dev-only doors for the bench (the Ordaen Dev window's, OrdaenDev): release builds leave out *.dev.lua, so players never get
 -- them. Not module API; nothing else calls them.
 local _, ns = ...
 
@@ -43,9 +43,18 @@ local function TopNodes(instance, n)
 	return n
 end
 
+-- the bench's own instance (the Ordaen Dev window's bench component, which registers itself): only what it drew, not
+-- the window around it
+local bench
+
+--- The bench component registers itself at its setup: the screen checks read what it drew.
+---@param instance table
+function Core._SetBench(instance)
+	bench = instance
+end
+
 local function Roots()
-	local module = ns.App.Module("OrdaenBench")
-	local n = module and module.root and TopNodes(module.root, 0) or 0
+	local n = bench and TopNodes(bench, 0) or 0
 	for i = n + 1, #roots do
 		roots[i] = nil
 	end

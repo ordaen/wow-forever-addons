@@ -1,5 +1,7 @@
--- The bench's checks offline: the built Ordaen and OrdaenBench run in the fake client (tests/fake/wow.lua),
--- `/ordaen bench check` runs the whole plan (every scenario's framework and hand-written sides, the same seeded actions), and every
+-- The bench's checks offline: the built Ordaen and OrdaenDev (the Ordaen Dev window, its bench: a private module
+-- linked into addons/ from wow-dev-tools; without the link this spec is pending) run in the fake client
+-- (tests/fake/wow.lua), `/ordaen dev check` runs the whole plan (every scenario's framework and hand-written sides,
+-- the same seeded actions), and every
 -- check it makes must pass: the screen comparisons (bench/screen.lua: same texts and textures in the same places as
 -- the hand-written side), the state verifies, the level and retention checks. A layout path that draws something
 -- else than hand code fails here before it reaches the game. A second run in the same session (the companion's key
@@ -31,13 +33,19 @@ local function failures(lines)
 	return failed
 end
 
-describe("OrdaenBench /ordaen bench check in the fake client", function()
+describe("the bench: /ordaen dev check in the fake client", function()
+	local linked = io.open(DIST .. "/OrdaenDev/OrdaenDev.toc", "rb")
+	if not linked then
+		pending("OrdaenDev isn't linked (private: wow-dev-tools/modules/OrdaenDev)")
+		return
+	end
+	linked:close()
 	local wow, first, second
 
-	-- One /ordaen bench check to its end; a copy of the results it saved.
+	-- One /ordaen dev check to its end; a copy of the results it saved.
 	local function run()
 		local before = #wow.printed
-		assert(wow:Slash("/ordaen bench check"), "/ordaen bench isn't there: the bench module didn't load\n"
+		assert(wow:Slash("/ordaen dev check"), "/ordaen dev isn't there: the dev module didn't load\n"
 			.. table.concat(wow.errors, "\n"))
 		local done = false
 		for _ = 1, MAX_FRAMES do
@@ -50,7 +58,7 @@ describe("OrdaenBench /ordaen bench check in the fake client", function()
 		end
 		assert(done, "the check run didn't finish in " .. MAX_FRAMES .. " frames; last printed: "
 			.. tostring(wow.printed[#wow.printed]) .. "\n" .. table.concat(wow.errors, "\n"))
-		local saved = findList(wow.env.OrdaenBenchDB, "results") or {}
+		local saved = findList(wow.env.OrdaenDevDB, "results") or {}
 		local copy = {}
 		for i = 1, #saved do
 			copy[i] = saved[i]
@@ -59,7 +67,7 @@ describe("OrdaenBench /ordaen bench check in the fake client", function()
 	end
 
 	setup(function()
-		wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenBench" } })
+		wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenLibrary", "OrdaenDev" } })
 		wow:Login()
 		wow:Tick()
 		first = run()

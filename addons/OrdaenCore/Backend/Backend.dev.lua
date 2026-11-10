@@ -1,4 +1,4 @@
--- Dev-only: the drawing backend's node counts, for the benchmark module (OrdaenBench reads them before and after an
+-- Dev-only: the drawing backend's node counts, for the bench (the Ordaen Dev window's bench reads them before and after an
 -- open to see what reopening a window allocates). Release builds leave out *.dev.lua, so players never get it, and
 -- nothing here runs unless the bench calls it. Untimed: it walks every node.
 local _, ns = ...

@@ -144,7 +144,7 @@ function App.OpenOnDemand(folder)
 	return module and module.root and module or nil
 end
 
---- A registered module by its folder ("OrdaenBench"), or nil.
+--- A registered module by its folder ("OrdaenPanel"), or nil.
 ---@param folder string
 function App.Module(folder)
 	return modules[folder]

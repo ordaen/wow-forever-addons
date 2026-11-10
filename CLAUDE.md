@@ -179,7 +179,8 @@ addons/Ordaen<Name>/            a module: module.lua, components/, locales/, ass
                                 writes it)
 addons/OrdaenCore/              Ordaen: the framework's engine, drawing backend (Backend/) and the no-op debug stand-in;
                                 addon.jsonc, built like before
-addons/OrdaenBench/             the benchmark module (dev only, never packaged)
+addons/OrdaenDev/               a link (git-ignored) to wow-dev-tools/modules/OrdaenDev: the Ordaen Dev window and its
+                                bench, private, built here like any module
 _old/                           the previous code, untracked, for reference
 dist/<Addon>/                   the built addons the game loads (ordaen build / watch; gitignored)
 ordaen.jsonc                    repo-wide build settings: interface version, languages, category names
@@ -298,7 +299,7 @@ and a worked example. Those pages are the specification; code follows them, and 
 first.
 
 - **The MVP** (`development/framework/mvp`) is the first build, made to measure the framework in game with the
-  benchmark module `OrdaenBench`: its scope, who builds what (engine, drawing backend, module build, debug addon) and
+  bench (the Ordaen Dev window's Bench tab, private in wow-dev-tools/modules/OrdaenDev): its scope, who builds what (engine, drawing backend, module build, debug addon) and
   the contracts between them.
 - **The previous code** (the old Core with `NewAddon` and `OrdaenCore.UI`, Bags, Chat, Meter, Minimap, Panel, QoL,
   Reskin, Tooltips, their specs and the UI docs site) is in `_old/`, untracked: a reference for behaviour and for what

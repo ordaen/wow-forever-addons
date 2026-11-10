@@ -1,9 +1,0 @@
-{
-  "MODULE_NOTES": "Measures the Ordaen framework in game against hand-written code. For development: /ordaen bench round runs it.",
-  "CMD_ROUND": "a bench round: every scenario, measured",
-  "CMD_CHECK": "the round's checks only, with a few calls per series (about a minute)",
-  "CMD_VARIANTS": "a round with the framework's naive and item-read variants too",
-  "CMD_PROBES": "what WoW's own calls cost, for the drawing backend",
-  "CMD_WINDOW": "show or hide the library's Window with a few settings controls, to compare with the design",
-  "CMD_LOOP": "the event loop's costs: yields, awaits, a job sliced over frames"
-}
