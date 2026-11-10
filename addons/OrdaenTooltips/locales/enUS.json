@@ -23,5 +23,18 @@
   "TOOLTIPS_PLAYERSON": "On",
   "TOOLTIPS_PLAYERSON_TIP": "Off: player tooltips stay the game's own.",
   "TOOLTIPS_NPCSON": "On",
-  "TOOLTIPS_NPCSON_TIP": "Off: NPC and creature tooltips stay the game's own."
+  "TOOLTIPS_NPCSON_TIP": "Off: NPC and creature tooltips stay the game's own.",
+  "TOOLTIPS_ITEMSILVL": "Item level",
+  "TOOLTIPS_ITEMSILVL_TIP": "The first row of the stats.",
+  "ITEM_LEVEL_ROW": "Item level",
+  "COL_DAMAGE": "%s–%s",
+  "COL_SPEED": "%s/s",
+  "COL_DPS": "%s DPS",
+  "COL_ARMOR": "%s armor",
+  "COL_BLOCK": "%s block",
+  "COL_SLOTS_ONE": "%d slot",
+  "COL_SLOTS_FEW": "%d slots",
+  "COL_SLOTS_MANY": "%d slots",
+  "DURABILITY": "Durability",
+  "CLASSES": "Classes"
 }

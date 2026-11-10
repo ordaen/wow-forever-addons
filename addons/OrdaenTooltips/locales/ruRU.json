@@ -23,5 +23,18 @@
   "TOOLTIPS_PLAYERSON": "Включено",
   "TOOLTIPS_PLAYERSON_TIP": "Выключено: подсказки игроков остаются игровыми.",
   "TOOLTIPS_NPCSON": "Включено",
-  "TOOLTIPS_NPCSON_TIP": "Выключено: подсказки NPC и существ остаются игровыми."
+  "TOOLTIPS_NPCSON_TIP": "Выключено: подсказки NPC и существ остаются игровыми.",
+  "TOOLTIPS_ITEMSILVL": "Уровень предмета",
+  "TOOLTIPS_ITEMSILVL_TIP": "Первой строкой характеристик.",
+  "ITEM_LEVEL_ROW": "Уровень предмета",
+  "COL_DAMAGE": "%s–%s",
+  "COL_SPEED": "%s/с",
+  "COL_DPS": "%s в сек.",
+  "COL_ARMOR": "Броня %s",
+  "COL_BLOCK": "Блок %s",
+  "COL_SLOTS_ONE": "%d ячейка",
+  "COL_SLOTS_FEW": "%d ячейки",
+  "COL_SLOTS_MANY": "%d ячеек",
+  "DURABILITY": "Прочность",
+  "CLASSES": "Классы"
 }

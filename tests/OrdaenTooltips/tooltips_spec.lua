@@ -13,7 +13,11 @@ local MACE = { type = 0, id = 2845, lines = {
 	{ type = 22, leftText = "Copper Axe", quality = 2 },
 	{ type = 20, leftText = "Binds when equipped", bonding = 7 },
 	{ type = 21, leftText = "One-Hand", rightText = "Axe", isValidInvSlot = true, isValidItemType = false },
+	{ type = 0, leftText = "Unique" },
+	{ type = 0, leftText = "7 - 13 Damage", rightText = "Speed 2.60" },
+	{ type = 0, leftText = "(3.8 damage per second)" },
 	{ type = 0, leftText = "+3 Strength" },
+	{ type = 0, leftText = "Durability 0 / 35" },
 	{ type = 43, leftText = "Requires Level 9", usable = false },
 	{ type = 11, leftText = "", price = 345 },
 } }
@@ -67,6 +71,16 @@ describe("Ordaen Tooltips", function()
 			return 5
 		end
 		env.FACTION_BAR_COLORS = { [5] = Color(0, 0.6, 0.1) }
+		-- Blizzard's format strings (enUS), from which the lines are read
+		env.DAMAGE_TEMPLATE = "%s - %s Damage"
+		env.DPS_TEMPLATE = "(%.1f damage per second)"
+		env.ARMOR_TEMPLATE = "%s Armor"
+		env.DURABILITY_TEMPLATE = "Durability %d / %d"
+		env.CONTAINER_SLOTS = "%d Slot %s"
+		env.ITEM_UNIQUE = "Unique"
+		env.C_Item.GetItemInfo = function()
+			return "Copper Axe", nil, 2, 12
+		end
 		wow:Login()
 		ns = wow.addons.OrdaenCore.ns
 	end)
@@ -80,6 +94,11 @@ describe("Ordaen Tooltips", function()
 		assert.is_truthy(shown:find("Copper Axe", 1, true), shown)
 		assert.is_truthy(shown:find("One-Hand · |cffff3f3fAxe|r", 1, true), shown) -- a type this class can't use: red
 		assert.is_truthy(shown:find("Binds when equipped", 1, true))
+		assert.is_truthy(shown:find("Axe|r · Unique", 1, true), shown) -- «Уникальный» joins the description
+		assert.is_truthy(shown:find("7–13", 1, true) and shown:find("2.6/s", 1, true) and shown:find("3.8 DPS", 1, true), shown)
+		assert.is_truthy(shown:find("Item level\n12\n", 1, true), shown) -- the first stat row
+		assert.is_truthy(shown:find("Durability", 1, true) and shown:find("0 / 35", 1, true))
+		assert.is_falsy(shown:find("Damage", 1, true)) -- read into the columns, not a line
 		assert.is_truthy(shown:find("+3 Strength", 1, true))
 		assert.is_truthy(shown:find("Requires Level 9", 1, true))
 		assert.is_truthy(shown:find("345c", 1, true))

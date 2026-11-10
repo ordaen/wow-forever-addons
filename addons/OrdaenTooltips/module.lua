@@ -57,10 +57,11 @@ return Define.Module({
 			npcsOn = { type = "boolean", default = true, setting = true },
 			objectsOn = { type = "boolean", default = true, setting = true },
 			itemsId = { type = "boolean", default = false, setting = true },
+			itemsIlvl = { type = "boolean", default = true, setting = true },
 			spellsId = { type = "boolean", default = false, setting = true },
 			aurasId = { type = "boolean", default = false, setting = true },
 		})
-		local models, settings = {}, {}
+		local models, settings = {}, { numbers = game.Numbers, L = L }
 		self.models = models
 		-- whether this show is drawn here: its type is on and its data reads (else it stays Blizzard's)
 		local function Wants(tip)
@@ -70,6 +71,7 @@ return Define.Module({
 				return false
 			end
 			settings.itemsId = Define.Peek(self.state.itemsId)
+			settings.itemsIlvl = Define.Peek(self.state.itemsIlvl)
 			settings.spellsId = Define.Peek(self.state.spellsId)
 			settings.aurasId = Define.Peek(self.state.aurasId)
 			return Read.Fill(models[tip.name], tip.data, settings)
@@ -87,6 +89,8 @@ return Define.Module({
 	Settings = function(game, self)
 		game.ui:SettingsTab({ attributes = { title = L.TAB_ITEMS }, slots = { default = function()
 			game.ui:Switch({ attributes = { value = Define.Signal(self.state.itemsOn) } })
+			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.itemsIlvl),
+				disabled = not self.state.itemsOn } })
 			game.ui:Checkbox({ attributes = { value = Define.Signal(self.state.itemsId),
 				disabled = not self.state.itemsOn } })
 		end } })

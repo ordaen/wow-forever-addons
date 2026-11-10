@@ -12,6 +12,8 @@
 --   model.keys[]    hotkey lines
 local Read = {}
 
+local format, tonumber, select = string.format, tonumber, select
+
 local isSecret = issecretvalue or function()
 	return false
 end
@@ -73,11 +75,45 @@ local function ColorOf(color, into)
 	return into
 end
 
+-- The game's grammar codes, which Forever leaves in some lines (api/forever/tooltip-data.md): the plural code
+-- `|4one:few:many;` takes the form for the number before it, the case code `|3-6(word)` is the word. A line without
+-- either is returned as it is (no string made).
+-- the Russian plural rule (the game's codes follow it): 1 one (1, 21), 2 few (2–4, 22–24), 3 many (the rest, 11–14 too)
+local function Form(n)
+	local mod10, mod100 = n % 10, n % 100
+	if mod10 == 1 and mod100 ~= 11 then
+		return 1
+	elseif mod10 >= 2 and mod10 <= 4 and (mod100 < 12 or mod100 > 14) then
+		return 2
+	end
+	return 3
+end
+
+local function PluralForm(n, forms)
+	local one, few, many = forms:match("^([^:]*):([^:]*):?(.*)$")
+	if not one then
+		return forms
+	end
+	local form = Form(n)
+	return form == 1 and one or form == 2 and few or (many ~= "" and many or few)
+end
+
+local function Grammar(text)
+	if not text:find("|[34]") then
+		return text
+	end
+	text = text:gsub("(%d+)([^|%d]*)|4([^;]*);", function(n, between, forms)
+		return n .. between .. PluralForm(tonumber(n), forms)
+	end)
+	return (text:gsub("|3%-%d+%((.-)%)", "%1"))
+end
+Read.Grammar = Grammar
+
 local function Text(value)
 	if type(value) ~= "string" or isSecret(value) or value == "" then
 		return nil
 	end
-	return value
+	return Grammar(value)
 end
 
 local function Part(list, text, color)
@@ -105,15 +141,81 @@ end
 
 -- Items ------------------------------------------------------------------------------------------------------------
 
-local function Item(model, data, settings)
+-- A Blizzard format string as a Lua pattern, made once per string: %s and %d capture, a number format (%.1f) captures
+-- a number, a grammar code (|4one:few:many;) matches any word; the whole line, start to end.
+local patterns = {}
+local function Pattern(format)
+	if type(format) ~= "string" then
+		return nil
+	end
+	local pattern = patterns[format]
+	if pattern == nil then
+		local p = format:gsub("|4[^;]*;", "\001") -- the plural code: one word
+		p = p:gsub("%%%%", "\002") -- a literal percent sign
+		p = p:gsub("%%[%d%$]*%.?%d*[sdf]", "\003") -- a format code: a capture
+		p = p:gsub("([%^%$%(%)%.%[%]%*%+%-%?])", "%%%1") -- the rest literally
+		p = p:gsub("\003", "(.-)"):gsub("\001", "%%S+"):gsub("\002", "%%%%")
+		pattern = "^" .. p .. "$"
+		patterns[format] = pattern
+	end
+	return pattern
+end
+Read.Pattern = Pattern
+
+local function Match(text, format)
+	local pattern = Pattern(format)
+	if pattern and text then
+		return text:match(pattern)
+	end
+end
+
+-- a number as the game wrote it ("2,60", "1 234"), or nil
+local function Number(text)
+	if not text then
+		return nil
+	end
+	return tonumber((text:gsub("[%s\194\160]", ""):gsub(",", ".")))
+end
+
+-- the right side's number (a weapon's speed: "Скорость 2,60")
+local function Last(text)
+	return text and Number(text:match("([%d%.,]+)%s*$"))
+end
+
+local function Cell(model, text, color)
+	local cell = Push(model.cols)
+	cell.text, cell.color = text, color
+end
+
+local GREEN = { 0.12, 1, 0, 1 }
+local YELLOW = { 1, 0.82, 0, 1 }
+
+-- durability's colour: red when broken, yellow at a quarter or less, else the footer's quiet value
+local function DurabilityColor(current, maximum)
+	if current <= 0 then
+		return RED
+	elseif current <= maximum / 4 then
+		return YELLOW
+	end
+	return nil
+end
+
+local function Item(model, data, ctx)
 	local id = type(data.id) == "number" and not isSecret(data.id) and data.id or nil
 	model.icon = id and C_Item.GetItemIconByID(id) or nil
+	local L, numbers = ctx.L, ctx.numbers
+	local level = id and select(4, C_Item.GetItemInfo(id))
+	if ctx.itemsIlvl and type(level) == "number" and level > 1 then
+		local row = Push(model.body)
+		row.left, row.right = L.ITEM_LEVEL_ROW, numbers:Format(level)
+	end
 	local lines = data.lines
 	for i = 1, #lines do
 		local line = lines[i]
 		local kind = line.type
+		local left = Text(line.leftText)
 		if kind == LINE.ItemName then
-			model.name = Text(line.leftText)
+			model.name = left
 			local quality = line.quality
 			local color = type(quality) == "number" and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[quality]
 			if color then
@@ -121,28 +223,76 @@ local function Item(model, data, settings)
 				c[1], c[2], c[3] = color.r, color.g, color.b
 			end
 		elseif kind == LINE.ItemSlot then
-			Part(model.desc, Text(line.leftText), line.isValidInvSlot == false and RED or nil)
+			Part(model.desc, left, line.isValidInvSlot == false and RED or nil)
 			Part(model.desc, Text(line.rightText), line.isValidItemType == false and RED or nil)
 		elseif kind == LINE.Binding then
-			Part(model.info, Text(line.leftText))
+			Part(model.info, left)
 		elseif kind == LINE.SellPrice then
 			local price = line.price
 			if type(price) == "number" and not isSecret(price) and price > 0 then
 				Foot(model, SELL_PRICE, GetMoneyString(price, true))
 			end
 		elseif kind == LINE.Requirement then
-			local text = Text(line.leftText)
-			if text then
-				Foot(model, text, nil, line.usable == false and RED or nil)
+			if left then
+				Foot(model, left, nil, line.usable == false and RED or nil)
 			end
-		elseif kind ~= LINE.Blank and kind ~= LINE.NestedBlock then
-			Body(model, line, true)
+		elseif kind == LINE.Blank or kind == LINE.NestedBlock or not left then -- luacheck: ignore 542
+			-- nothing to draw
+		elseif left == ITEM_UNIQUE or left == ITEM_UNIQUE_EQUIPPABLE then
+			Part(model.desc, left) -- «Уникальный» joins the description
+		else
+			-- the columns: damage and speed, damage per second, armor, block, a bag's slots
+			local low, high = Match(left, DAMAGE_TEMPLATE_WITH_SCHOOL) -- the school is the item's type already
+			if not low then
+				low, high = Match(left, DAMAGE_TEMPLATE)
+			end
+			local single = not low and (Match(left, SINGLE_DAMAGE_TEMPLATE_WITH_SCHOOL) or
+				Match(left, SINGLE_DAMAGE_TEMPLATE))
+			local dps = Match(left, DPS_TEMPLATE)
+			local armor = Match(left, ARMOR_TEMPLATE)
+			local block = Match(left, SHIELD_BLOCK_TEMPLATE)
+			local slotsA, slotsB = Match(line.leftText, CONTAINER_SLOTS) -- the raw line: the plural code still in it
+			local slots = Number(slotsA) or Number(slotsB)
+			local current, maximum = Match(left, DURABILITY_TEMPLATE)
+			local classes = Match(left, ITEM_CLASSES_ALLOWED)
+			if low and high then
+				Cell(model, format(L.COL_DAMAGE, numbers:Format(Number(low) or 0), numbers:Format(Number(high) or 0)))
+				local speed = Last(Text(line.rightText))
+				if speed then
+					Cell(model, format(L.COL_SPEED, numbers:Format(speed)))
+				end
+			elseif single then
+				Cell(model, numbers:Format(Number(single) or 0))
+			elseif dps then
+				Cell(model, format(L.COL_DPS, numbers:Format(Number(dps) or 0)))
+			elseif armor then
+				-- bonus armor is in the total, green as the game shows it
+				Cell(model, format(L.COL_ARMOR, numbers:Format(Number(armor) or 0)), ColorOf(line.leftColor))
+			elseif block then
+				Cell(model, format(L.COL_BLOCK, numbers:Format(Number(block) or 0)))
+			elseif slots then
+				Cell(model, Read.Plural(L, "COL_SLOTS", slots))
+			elseif current and maximum then
+				local c, m = Number(current) or 0, Number(maximum) or 1
+				Foot(model, L.DURABILITY, format("%d / %d", c, m), DurabilityColor(c, m))
+			elseif classes then
+				Foot(model, L.CLASSES, classes)
+			else
+				Body(model, line, true)
+			end
 		end
 	end
-	if id and settings.itemsId then
+	if id and ctx.itemsId then
 		Part(model.info, "ID " .. id)
 	end
 	return model.name ~= nil
+end
+
+local SUFFIX = { "_ONE", "_FEW", "_MANY" }
+--- `L[<key>_ONE|_FEW|_MANY]` for n: the Russian plural rule on ruRU, one and the rest elsewhere (English).
+function Read.Plural(L, key, n)
+	local form = GetLocale() == "ruRU" and Form(n) or (n == 1 and 1 or 3)
+	return format(L[key .. SUFFIX[form]], n)
 end
 
 -- Spells and auras ---------------------------------------------------------------------------------------------------
@@ -258,8 +408,9 @@ function Read.Kind(data)
 end
 
 --- Fill `model` from the tooltip data; false when it can't be read (that show stays Blizzard's).
----@param settings table the module's settings, read plainly (spellsId, itemsId, aurasId)
-function Read.Fill(model, data, settings)
+---@param ctx table the module's settings read plainly (itemsId, itemsIlvl, spellsId, aurasId), `numbers` (game.Numbers)
+--- and `L` (its locales)
+function Read.Fill(model, data, ctx)
 	Clear(model)
 	local kind = Read.Kind(data)
 	local lines = data and data.lines
@@ -268,11 +419,11 @@ function Read.Fill(model, data, settings)
 	end
 	model.kind = kind
 	if kind == "item" then
-		return Item(model, data, settings)
+		return Item(model, data, ctx)
 	elseif kind == "spell" then
-		return Spell(model, data, settings, false)
+		return Spell(model, data, ctx, false)
 	elseif kind == "aura" then
-		return Spell(model, data, settings, true)
+		return Spell(model, data, ctx, true)
 	elseif kind == "unit" then
 		return Unit(model, data)
 	end
