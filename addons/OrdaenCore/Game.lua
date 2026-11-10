@@ -83,6 +83,7 @@ end
 local LAYERS = { Screen = "screen", Dialog = "dialog", Tooltip = "tooltip" }
 
 local DOMAINS = {}
+ns.GameDomains = DOMAINS -- dev files add their own (Game.dev.lua: game.Dev)
 
 function DOMAINS.Layer()
 	return setmetatable({}, {

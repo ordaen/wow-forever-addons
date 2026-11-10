@@ -116,13 +116,23 @@ end
 --- Toggle the settings window (its `toggle` command), on a module's page by its word ("minimap"); false when it
 --- isn't installed or can't load.
 function Commands.ToggleSettings(page)
-	local settings = ns.App.OpenOnDemand(SETTINGS)
-	local open = settings and groups[Commands.Word(SETTINGS)]
-	open = open and open.list.toggle
-	if not open then
+	return Commands.RunOnDemand(SETTINGS, "toggle", page or "")
+end
+
+--- An on-demand module's command: the module loaded and mounted first (its first use), then its `command` run with
+--- `arguments`. False when the module or the command isn't there.
+---@param folder string
+---@param command string
+---@param arguments string
+---@return boolean
+function Commands.RunOnDemand(folder, command, arguments)
+	local module = ns.App.OpenOnDemand(folder)
+	local group = module and groups[Commands.Word(folder)]
+	local entry = group and group.list[command]
+	if not entry then
 		return false
 	end
-	Engine:Handle(open.Run, settings.game, settings.root, page or "")
+	Engine:Handle(entry.Run, module.game, module.root, arguments)
 	return true
 end
 
