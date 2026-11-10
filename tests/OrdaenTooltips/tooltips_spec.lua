@@ -282,6 +282,21 @@ describe("Ordaen Tooltips", function()
 		assert.are.same({}, wow.errors)
 	end)
 
+	it("sits above any button it belongs to (whatever bar drew it), and in the game's place for a unit frame", function()
+		local button = wow.env.CreateFrame("Button", nil, wow.env.UIParent) -- no Blizzard action fields
+		wow:ShowTooltip("GameTooltip", SHOUT, button)
+		ns.Scheduler.Flush()
+		local view = ns.App.Module("OrdaenTooltips").root.anchors.GameTooltip
+		assert.are.equal(button, view and view.to)
+		assert.are.equal("BOTTOM", view.point)
+		local unitFrame = wow.env.CreateFrame("Button", nil, wow.env.UIParent)
+		unitFrame:SetAttribute("unit", "player")
+		wow:ShowTooltip("GameTooltip", SHOUT, unitFrame)
+		ns.Scheduler.Flush()
+		assert.is_nil(ns.App.Module("OrdaenTooltips").root.anchors.GameTooltip)
+		assert.are.same({}, wow.errors)
+	end)
+
 	it("goes when Blizzard's tooltip hides", function()
 		wow:ShowTooltip("GameTooltip", AXE)
 		ns.Scheduler.Flush()

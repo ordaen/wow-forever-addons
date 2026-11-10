@@ -16,7 +16,7 @@ local NATIVES = { "GameTooltip", "ItemRefTooltip", "ShoppingTooltip1", "Shopping
 local COMPARE = { ShoppingTooltip1 = true, ShoppingTooltip2 = true }
 -- the lock (design «Tooltips in tooltips»): the main tooltip charges for 1 s in STEPS while the mouse stays on what
 -- it describes, then locks; a locked group closes GRACE s after the mouse leaves it (unless it comes back)
-local STEPS, STEP = 20, 1 / 20
+local STEPS, STEP = 30, 1 / 30
 local GRACE = 0.22
 local DEPTH = 6 -- tooltips opened from links in tooltips, at most this deep
 
@@ -60,10 +60,17 @@ local SWITCH = {
 	end,
 }
 
--- what a button's tooltip is beside: micro menu and action buttons (any bar addon's) name their binding or action
+-- what a button's tooltip is beside: any button (an action button of any bar, the micro menu), not a unit frame (those
+-- keep the game's place)
 local function IsButton(owner)
-	return owner and owner.IsObjectType and owner:IsObjectType("Button") and (rawget(owner, "commandName") ~= nil or
-		(owner:IsObjectType("CheckButton") and rawget(owner, "action") ~= nil))
+	if not (owner and owner.IsObjectType and owner:IsObjectType("Button")) then
+		return false
+	end
+	local unit = rawget(owner, "unit")
+	if unit == nil and owner.GetAttribute then
+		unit = owner:GetAttribute("unit")
+	end
+	return unit == nil
 end
 
 local function Views(game, self)
@@ -76,7 +83,7 @@ local function Views(game, self)
 			a.epoch = self.state.epoch
 			a.locked = self.state.lock > 0 and self.kept[name] or nil
 			a.kept = a.locked
-			a.charge = name == "GameTooltip" and self.state.charge or nil
+			a.charge = name == "GameTooltip" and self.chargeSignal or nil
 			if name == "GameTooltip" then
 				a.nest = self.state.nest
 			end
@@ -169,12 +176,12 @@ return Define.Module({
 			local owner = tip.owner
 			local name = owner and owner.GetName and owner:GetName()
 			local place
-			if Define.Peek(self.state.anchorToButtons) and IsButton(owner) then
-				return { to = owner, point = "BOTTOM", relativePoint = "TOP" }
-			elseif type(name) == "string" and name:find("^Character.+Slot$") then
+			if type(name) == "string" and name:find("^Character.+Slot$") then
 				place = Define.Peek(self.state.itemsAnchorChar)
 			elseif type(name) == "string" and (name:find("^ContainerFrame%d+Item") or name:find("^Bank")) then
 				place = Define.Peek(self.state.itemsAnchorBags)
+			elseif Define.Peek(self.state.anchorToButtons) and IsButton(owner) then
+				return { to = owner, point = "BOTTOM", relativePoint = "TOP" }
 			end
 			if place == Place.Anchor then
 				return { to = owner, point = "TOPLEFT", relativePoint = "TOPRIGHT" }
@@ -236,6 +243,7 @@ return Define.Module({
 		self:On("SPELLS_CHANGED", Read.Spellbook)
 		Read.Spellbook()
 
+		self.chargeSignal = Define.Signal(self.state.charge) -- the bar reads it: a step moves only the bar
 		self.viewCalls = {}
 		for i = 1, #NATIVES do
 			local tip = game.Tooltip[NATIVES[i]]

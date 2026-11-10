@@ -11,7 +11,8 @@
 -- padding; `locked`, the bar is gone and the game's red X sits in the top-right padding (OnClose).
 --
 -- Attributes: `model` (Read's model), `version` (a number that changes with each refill), `side` (true: a tooltip
--- beside another, a little narrower), `charge` (0 to STEPS, or nil: no bar), `locked`, `OnClose`, `OnLink` (its rows'
+-- beside another, a little narrower), `charge` (a signal of 0 to STEPS, or nil: no bar; read by the bar's width
+-- alone, so a step redraws nothing else), `locked`, `OnClose`, `OnLink` (its rows'
 -- links: set while the tooltip is locked).
 local Define = import("@ordaen/define")
 local GLYPHS = import("glyphs")
@@ -35,7 +36,7 @@ local BLACK = { 0, 0, 0, 1 }
 local RIM = { width = 1 * PX, color = { 0.424, 0.333, 0.208, 1 } } -- the icon's bronze ring
 local TITLE_COLUMNS = { ICON, "1fr" }
 local format, concat = string.format, table.concat
-local STEPS = 20 -- the charge's steps (the module's)
+local STEPS = 30 -- the charge's steps (the module's)
 -- the lock's bar: 2 px in the bottom padding, 2 px up, bronze to gold; its width the charge (a string per step, made once)
 local BAR_FILL = { from = { 0.561, 0.416, 0.227, 1 }, to = { 0.91, 0.765, 0.353, 1 }, direction = "horizontal" }
 local BAR_WIDTHS = {}
@@ -162,7 +163,7 @@ local function Sections(game, self)
 end
 
 local function BarWidth(_, self)
-	return BAR_WIDTHS[self.attributes.charge or 0]
+	return BAR_WIDTHS[self.attributes.charge:Get()]
 end
 local function Close(_, self)
 	return self.attributes.OnClose
@@ -173,7 +174,7 @@ local function Lock(game, self)
 	if self.attributes.locked then
 		game.ui:Box({ attributes = { position = "absolute", right = 2 * PX, top = 2 * PX, width = 24 * PX, height = 24 * PX,
 			background = CLOSE_ART, OnClick = Close(game, self) } })
-	elseif (self.attributes.charge or 0) > 0 then
+	elseif self.attributes.charge then
 		game.ui:Box({ attributes = { position = "absolute", left = 0, bottom = 2 * PX, height = 2 * PX,
 			width = BarWidth(game, self), background = BAR_FILL } })
 	end
