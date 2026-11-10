@@ -212,6 +212,11 @@ return Define.Module({
 	title = "Ordaen Minimap",
 	icon = Define.Asset("Interface/Icons/INV_Misc_Map_01"),
 
+	-- the free part (Ordaen Core's placing mode moves it): the map with its frame and ring, in the top right corner
+	parts = {
+		map = { title = L.MINIMAP_TITLE, default = { point = "TOPRIGHT", relativePoint = "TOPRIGHT", left = 0, top = 0 } },
+	},
+
 	Setup = function(game, self)
 		Define.Persistent({
 			-- «Карта»
@@ -390,10 +395,7 @@ return Define.Module({
 		game.Minimap:Square(true)
 		game.Minimap:WheelZoom()
 		game.Minimap:TrackCoords(self.state.showCoords)
-		game.ui:Placed({ key = "map", attributes = {
-			title = L.MINIMAP_TITLE,
-			default = { point = "TOPRIGHT", relativePoint = "TOPRIGHT", left = 0, top = 0 },
-		}, slots = { default = function()
+		game.ui:Placed({ attributes = { part = "map" }, slots = { default = function()
 			-- the whole: the frame with the ring's room round it
 			game.ui:Box({ attributes = {
 				width = FrameW(self) + 2 * ROOM, height = FrameH(self) + 2 * ROOM,

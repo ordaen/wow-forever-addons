@@ -32,14 +32,16 @@ describe("the placing mode", function()
 		ns.App.currentModule, ns.App.currentFile = module, "components/bars"
 		local Bars = ns.Define.Component({
 			Render = function(game)
-				game.ui:Placed(1, nil, { attributes = { title = "Полосы", width = 300, height = 20, resize = "width",
-					default = { point = "BOTTOM", relativePoint = "BOTTOM", left = 0, top = -80 } },
+				game.ui:Placed(1, nil, { attributes = { part = "status" },
 					slots = { default = function(g)
 						g.ui:Box(2, { attributes = { width = 10, height = 10 } })
 					end } }, "status")
 			end,
 		})
 		ns.App.currentModule, ns.App.currentFile = nil, nil
+		-- the module's parts, as its declaration lists them (App registers them at mount)
+		ns.Placing.Declare("OrdaenSpec", { status = { title = "Полосы", width = 300, height = 20, resize = "width",
+			default = { point = "BOTTOM", relativePoint = "BOTTOM", left = 0, top = -80 } } })
 		ns.Engine:Mount(nil, Bars, 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
 		ns.Scheduler.Flush()
 		wow:Tick()
@@ -78,13 +80,33 @@ describe("the placing mode", function()
 		ns.Scheduler.Flush()
 		wow:DragStop(frame)
 		ns.Scheduler.Flush()
-		local saved = wow.env.OrdaenCoreDB.placed["OrdaenSpec.bars#status"]
+		local saved = wow.env.OrdaenCoreDB.placed["OrdaenSpec.status"]
 		assert.are.same({ point = "BOTTOM", relativePoint = "BOTTOM", left = 40, top = -60, width = 300, height = 20 },
 			saved)
 		outline():GetScript("OnClick")(outline(), "RightButton")
 		ns.Scheduler.Flush()
 		assert.is_nil(wow.env.OrdaenCoreDB.placed)
 		assert.are.same({}, wow.errors)
+	end)
+
+	it("refuses a part its module doesn't declare", function()
+		local module = { name = "OrdaenSpec", ns = {}, cache = {}, Import = function()
+			return nil
+		end }
+		ns.App.currentModule, ns.App.currentFile = module, "components/other"
+		local Other = ns.Define.Component({
+			Render = function(game)
+				game.ui:Placed(1, nil, { attributes = { part = "nowhere" } })
+			end,
+		})
+		ns.App.currentModule, ns.App.currentFile = nil, nil
+		ns.Engine:Mount(nil, Other, 0, {}, ns.Game.Layer.Screen, module, ns.Game.ForModule(module))
+		ns.Scheduler.Flush()
+		local found = false
+		for _, e in ipairs(wow.errors) do
+			found = found or tostring(e):find("OrdaenSpec.nowhere is no part its module declares", 1, true) ~= nil
+		end
+		assert.is_true(found)
 	end)
 
 	it("is refused in combat and closes when combat starts", function()
@@ -102,5 +124,20 @@ describe("the placing mode", function()
 		assert.is_true(ns.Game.Placing.on:Peek())
 		wow:Slash("/ordaen move")
 		assert.is_false(ns.Game.Placing.on:Peek())
+	end)
+end)
+
+describe("the placing mode's saved places", function()
+	it("move once from the ids parts had before they were declared", function()
+		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore" } })
+		wow.env.OrdaenCoreDB = { placed = {
+			["OrdaenPanel.module#bar1"] = { point = "BOTTOM", left = 10, top = -50 },
+			["OrdaenMinimap.module#map"] = { point = "TOPRIGHT", left = -4, top = -4 },
+		} }
+		wow:Login()
+		assert.are.same({
+			["OrdaenPanel.bar1"] = { point = "BOTTOM", left = 10, top = -50 },
+			["OrdaenMinimap.map"] = { point = "TOPRIGHT", left = -4, top = -4 },
+		}, wow.env.OrdaenCoreDB.placed)
 	end)
 end)

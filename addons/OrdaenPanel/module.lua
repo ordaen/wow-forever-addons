@@ -488,10 +488,6 @@ end
 -- name and the time are the exception: off the panel they're the minimap's. Never moved, the parts sit above the
 -- bottom of the screen, the experience bar centred (its width the player's: resizable).
 local FREE_ITEMS = { "micromenu", "social", "experience", "currencies", "bags" }
-local FREE_TITLES = {
-	micromenu = L.PANEL_MICROMENU, social = L.PANEL_SOCIAL, experience = L.PANEL_EXPERIENCE,
-	currencies = L.PANEL_CURRENCIES, bags = L.PANEL_BAGS,
-}
 local FREE_DEFAULTS = {
 	micromenu = { point = "BOTTOMLEFT", relativePoint = "BOTTOMLEFT", left = 140, top = -10 },
 	social = { point = "BOTTOMLEFT", relativePoint = "BOTTOMLEFT", left = 660, top = -10 },
@@ -511,10 +507,7 @@ for _, item in ipairs(FREE_ITEMS) do
 	local function slot(game)
 		game.ui:Box(frame)
 	end
-	FREE_CALLS[item] = { key = item, attributes = {
-		title = FREE_TITLES[item], default = FREE_DEFAULTS[item],
-		width = item == "experience" and 600 or nil, resize = item == "experience" and "width" or nil,
-	}, slots = { default = slot } }
+	FREE_CALLS[item] = { key = item, attributes = { part = item }, slots = { default = slot } }
 end
 
 
@@ -567,7 +560,7 @@ for k = 1, #BARS do
 	local barCall = { attributes = { bar = bar.id, first = (k - 1) * BUTTONS, page = bar.page, binding = bar.binding,
 		paging = bar.paging } }
 	bar.call = barCall
-	BAR_CALLS[k] = { key = bar.id, attributes = { title = BAR_TITLES[k] }, slots = { default = function(game)
+	BAR_CALLS[k] = { key = bar.id, attributes = { part = bar.id }, slots = { default = function(game)
 		game.ui:ActionBar(barCall)
 	end } }
 end
@@ -670,6 +663,19 @@ end
 return Define.Module({
 	title = "Ordaen Panel",
 	icon = Define.Asset("Interface/Icons/INV_Misc_Bag_08"),
+
+	-- the free parts (Ordaen Core's placing mode moves them): the action bars, which stack above the bottom panel
+	-- until moved (their default comes with each draw), and the items off the panel
+	parts = {
+		bar1 = { title = L.PANEL_BAR1 }, bar2 = { title = L.PANEL_BAR2 }, bar3 = { title = L.PANEL_BAR3 },
+		bar4 = { title = L.PANEL_BAR4 }, bar5 = { title = L.PANEL_BAR5 }, bar6 = { title = L.PANEL_BAR6 },
+		bar7 = { title = L.PANEL_BAR7 }, bar8 = { title = L.PANEL_BAR8 },
+		micromenu = { title = L.PANEL_MICROMENU, default = FREE_DEFAULTS.micromenu },
+		social = { title = L.PANEL_SOCIAL, default = FREE_DEFAULTS.social },
+		experience = { title = L.PANEL_EXPERIENCE, default = FREE_DEFAULTS.experience, width = 600, resize = "width" },
+		currencies = { title = L.PANEL_CURRENCIES, default = FREE_DEFAULTS.currencies },
+		bags = { title = L.PANEL_BAGS, default = FREE_DEFAULTS.bags },
+	},
 
 	Setup = function(game, self)
 		Define.Persistent({

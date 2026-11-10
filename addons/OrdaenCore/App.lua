@@ -179,6 +179,9 @@ function MountModule(module, layer)
 		geterrorhandler()(declaration)
 		return
 	end
+	if declaration.parts then -- its free parts: the placing mode knows them from now on
+		ns.Placing.Declare(module.name, declaration.parts)
+	end
 	local short = module.name:gsub("^Ordaen", "")
 	module.root = Engine:Mount(nil, declaration, 0, { ref = App.Handle(short) }, layer or Game.Layer.Screen, module,
 		module.game)

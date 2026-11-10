@@ -1,11 +1,13 @@
 -- The placing mode («Режим перемещения»; design action-bars/index.md «Moving belongs to Ordaen Core», placement.md):
--- every free Ordaen part (the action bars, the micro menu and status bars off the bottom panel, ...) is drawn with
---   game.ui:Placed(site, nil, { attributes = { title = L.KEY, default = { point, relativePoint, left, top },
---                                             width = n, height = n, resize = "width" | "both" | nil }, slots = ... }, key)
--- at its saved place, or `default` (which may be bound, so a part never moved follows the panel). Its id is the
--- drawing component's path and the call's key (OrdaenPanel.module#statusBars): nobody types it. Saved places are
--- { point, relativePoint, left, top, width?, height? } in UI units (they hold at every scale), account-wide in
--- OrdaenCoreDB.placed; a part never moved stores nothing.
+-- every free Ordaen part (the action bars, the micro menu and status bars off the bottom panel, the minimap, ...) is
+-- declared by its module (design development/framework/module, «Parts»):
+--   Define.Module({ parts = { bar1 = { title = L.KEY, default = { point, relativePoint, left, top },
+--                                      width = n, height = n, resize = "width" | "both" | nil }, ... } })
+-- so Ordaen Core knows every part of every module that's on, drawn or not, under the id <Module>.<part>
+-- (OrdaenPanel.bar1). The module draws it with game.ui:Placed({ attributes = { part = "bar1", default = ... },
+-- slots = ... }): at its saved place, else the call's `default` (bound: a part never moved follows the panel), else
+-- the declared one. Saved places are { point, relativePoint, left, top, width?, height? } in UI units (they hold at
+-- every scale), account-wide in OrdaenCoreDB.placed; a part never moved stores nothing.
 -- game.Placing.on (a value signal), :Enter(), :Exit(), :Toggle(): opens and closes with Blizzard's Edit Mode and with
 -- `/ordaen move`, never in combat (secure parts can't move then). While it's on, each part shows an outline with its
 -- title over its content: dragged to move it, right-clicked to put it back at its default, and a grip to resize it
@@ -21,6 +23,21 @@ local Placing = {}
 ns.Placing = Placing
 
 local places = {} -- id -> value signal of its saved place (nil: its default)
+local declared = {} -- id -> its declaration (title, default, width, height, resize), from the module's `parts`
+
+--- A module's parts (its declaration's `parts`), when it mounts: known from then on, drawn or not.
+---@param module string the module's folder ("OrdaenPanel")
+---@param parts table<string, table>
+function Placing.Declare(module, parts)
+	for name, part in pairs(parts) do
+		declared[module .. "." .. name] = part
+	end
+end
+
+--- Every declared part, by id (the placing mode's list).
+function Placing.Parts()
+	return declared
+end
 
 -- a saved place's signal, read from OrdaenCoreDB.placed once
 local function PlaceOf(id)
@@ -77,6 +94,23 @@ end
 --- At Ordaen's ADDON_LOADED: the mode's signal, and following Edit Mode and combat.
 function Placing.Load()
 	Placing.on = ns.NewValue(false)
+	-- places saved under the ids parts had before they were declared (OrdaenPanel.module#bar1): moved over once
+	local db = ns.Globals.store.db
+	if db.placed then
+		local moved = {}
+		for id, place in pairs(db.placed) do
+			local new = id:match("^(Ordaen%w+)%.module#([%w_]+)$")
+			if new then
+				moved[id] = new .. "." .. id:match("#([%w_]+)$")
+			end
+		end
+		for old, new in pairs(moved) do
+			if db.placed[new] == nil then
+				db.placed[new] = db.placed[old]
+			end
+			db.placed[old] = nil
+		end
+	end
 	local registry = EventRegistry
 	if registry and registry.RegisterCallback then
 		registry:RegisterCallback("EditMode.Enter", function()
@@ -105,22 +139,23 @@ local SHADE = { 0, 0, 0, 0.45 }
 local PlacedPart = {
 	name = "placed",
 	Setup = function(_, self)
-		local owner = self._slotOwner or self._parent
-		local declaration = owner and owner._declaration
-		local module = owner and owner.module
-		local key = self._key
-		self.placeId = (module and module.name or "?") .. "." .. (declaration and declaration.name or "?")
-			.. (owner and owner._key ~= nil and ("#" .. tostring(owner._key)) or "")
-			.. (key ~= nil and ("#" .. tostring(key)) or "")
+		local module = self.module
+		local name = self.attributes.part:Peek()
+		self.placeId = (module and module.name or "?") .. "." .. tostring(name)
+		local part = declared[self.placeId]
+		if not part then
+			error("Ordaen: " .. self.placeId .. " is no part its module declares (parts = { " .. tostring(name)
+				.. " = ... })", 0)
+		end
+		self.part = part
 		self.place = PlaceOf(self.placeId)
 		self.moving = ns.NewValue(nil) -- the place while a drag or resize runs; saved on drop
 		local start, grabX, grabY
 		local function Current()
-			local place = self.moving:Peek() or self.place:Peek() or self.attributes.default:Peek()
+			local place = self.moving:Peek() or self.place:Peek() or self.attributes.default:Peek() or part.default
 			return {
 				point = place.point, relativePoint = place.relativePoint or place.point, left = place.left or 0,
-				top = place.top or 0, width = place.width or self.attributes.width:Peek(),
-				height = place.height or self.attributes.height:Peek(),
+				top = place.top or 0, width = place.width or part.width, height = place.height or part.height,
 			}
 		end
 		local function Begin(x, y)
@@ -143,7 +178,7 @@ local PlacedPart = {
 		self.dragStop = Stop
 		self.sizeStart = Begin
 		self.size = function(x, y)
-			local resize = self.attributes.resize:Peek()
+			local resize = part.resize
 			local place = Current()
 			if start.width and (resize == "width" or resize == "both") then
 				place.width = max(8, floor(start.width + x - grabX + 0.5))
@@ -163,17 +198,18 @@ local PlacedPart = {
 		end
 	end,
 	Render = function(game, self)
-		local place = self.moving:Get() or self.place:Get() or self.attributes.default:Get()
+		local part = self.part
+		local place = self.moving:Get() or self.place:Get() or self.attributes.default:Get() or part.default
 		if not place then
 			return
 		end
 		local placing = Placing.on:Get()
-		local title = self.attributes.title:Get()
-		local resize = self.attributes.resize:Get()
+		local title = part.title
+		local resize = part.resize
 		game.ui:Box(1, { attributes = {
 			position = "fixed", anchor = { point = place.point, relativePoint = place.relativePoint or place.point },
 			left = place.left or 0, top = place.top or 0,
-			width = place.width or self.attributes.width:Get(), height = place.height or self.attributes.height:Get(),
+			width = place.width or part.width, height = place.height or part.height,
 		}, slots = { default = function(g)
 			g.ui:Slot(2, "default")
 			if placing then
