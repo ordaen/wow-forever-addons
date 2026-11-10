@@ -1,6 +1,7 @@
--- Ordaen Tooltips on the fake client, as built: Blizzard's tooltip shown with an item, a spell or a unit becomes ours
--- (the one skeleton: title, description, info, body, footer) where Blizzard placed it, Blizzard's kept at alpha 0; a
--- type switched off stays Blizzard's; hidden, ours goes.
+-- Ordaen Tooltips on the fake client, as built: Blizzard's tooltip shown with an item, a spell, an aura or a unit
+-- becomes ours (design tooltips/: header, title, columns with glyphs, rows, footer; tooltips beside it), Blizzard's
+-- kept at alpha 0; a type switched off stays Blizzard's; hidden, ours goes. The game's APIs are stubbed with what the
+-- design pages show.
 local Fake = require("tests.fake.wow")
 
 local DIST = ".ordaen/check/dist"
@@ -9,7 +10,7 @@ local function Color(r, g, b)
 	return { r = r, g = g, b = b }
 end
 
-local MACE = { type = 0, id = 2845, lines = {
+local AXE = { type = 0, id = 2845, hyperlink = "item:2845", lines = {
 	{ type = 22, leftText = "Copper Axe", quality = 2 },
 	{ type = 20, leftText = "Binds when equipped", bonding = 7 },
 	{ type = 21, leftText = "One-Hand", rightText = "Axe", isValidInvSlot = true, isValidItemType = false },
@@ -17,23 +18,40 @@ local MACE = { type = 0, id = 2845, lines = {
 	{ type = 0, leftText = "7 - 13 Damage", rightText = "Speed 2.60" },
 	{ type = 0, leftText = "(3.8 damage per second)" },
 	{ type = 0, leftText = "+3 Strength" },
+	{ type = 44, leftText = "Use: Restores 66 health.", spellID = 746 },
 	{ type = 0, leftText = "Durability 0 / 35" },
 	{ type = 43, leftText = "Requires Level 9", usable = false },
 	{ type = 11, leftText = "", price = 345 },
 } }
+local WORN = { type = 0, id = 1, hyperlink = "item:1", lines = {
+	{ type = 22, leftText = "Rusty Axe", quality = 1 },
+	{ type = 0, leftText = "+1 Strength" },
+} }
+local BANDAGE = { type = 1, id = 746, lines = {
+	{ type = 13, leftText = "First Aid" },
+	{ type = 0, leftText = "Instant", rightText = "Cooldown: 1 min." },
+	{ type = 34, leftText = "Heals 66 damage over 6 sec." },
+} }
 local SHOUT = { type = 1, id = 6673, lines = {
 	{ type = 13, leftText = "Battle Shout", rightText = "Rank 1" },
 	{ type = 0, leftText = "10 Rage", rightText = "Melee range", leftColor = Color(1, 1, 1) },
-	{ type = 34, leftText = "The warrior shouts, increasing attack power." },
+	{ type = 0, leftText = "Instant", rightText = "Cooldown: 10 sec.", leftColor = Color(1, 1, 1) },
+	{ type = 34, leftText = "The warrior shouts, increasing attack power by 15 for «Battle Shout»." },
 } }
 local GUARD = { type = 2, guid = "Creature-1", lines = {
 	{ type = 2, leftText = "Stormwind Guard", unitToken = "mouseover" },
 	{ type = 0, leftText = "Level 55" },
 	{ type = 0, leftText = "Stormwind" },
+	{ type = 0, leftText = "PvP" },
+} }
+local MIGHT = { type = 7, id = 19834, lines = {
+	{ type = 0, leftText = "Blessing of Might" },
+	{ type = 0, leftText = "ID 19834" },
+	{ type = 0, leftText = "Increases attack power by 20." },
 } }
 
 describe("Ordaen Tooltips", function()
-	local wow, ns
+	local wow, ns, unitIsPlayer
 
 	local function texts()
 		local out = {}
@@ -49,28 +67,103 @@ describe("Ordaen Tooltips", function()
 		return table.concat(out, "\n")
 	end
 
+	local function has(shown, ...)
+		for _, part in ipairs({ ... }) do
+			assert.is_truthy(shown:find(part, 1, true), part .. " missing in:\n" .. shown)
+		end
+	end
+
 	before_each(function()
 		wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenLibrary", "OrdaenTooltips" } })
 		wow:MakeTooltips()
 		local env = wow.env
-		env.C_Item = { GetItemIconByID = function()
-			return 135421
+		unitIsPlayer = false
+		env.C_Item = {
+			GetItemIconByID = function()
+				return 135421
+			end,
+			GetItemInfo = function(id)
+				return "x", "item:" .. id, 2, id == 1 and 5 or 12
+			end,
+			GetItemStats = function(link)
+				return link == "item:1" and { ITEM_MOD_STRENGTH_SHORT = 1 } or { ITEM_MOD_STRENGTH_SHORT = 3 }
+			end,
+			GetItemLinkByGUID = function() end,
+			GetItemMaxStackSizeByID = function()
+				return 1
+			end,
+			GetItemCount = function()
+				return 1
+			end,
+		}
+		env.C_Container = { GetItemCooldown = function()
+			return 0, 0
 		end }
-		env.C_Spell = { GetSpellTexture = function()
-			return 132333
-		end }
+		env.C_Spell = {
+			GetSpellTexture = function()
+				return 132333
+			end,
+			GetSpellPowerCost = function(id)
+				return id == 6673 and { { type = 1 } } or {}
+			end,
+			GetSpellCooldown = function()
+				return { startTime = 0, duration = 0 }
+			end,
+		}
+		env.C_TooltipInfo = { GetSpellByID = function(id)
+			return id == 746 and BANDAGE or nil
+		end, GetItemByID = function() end }
+		env.C_UnitAuras = { GetPlayerAuraBySpellID = function()
+			return { isHarmful = false, applications = 3, expirationTime = 70, sourceUnit = "player",
+				dispelName = "Magic" }
+		end, GetAuraDataByAuraInstanceID = function() end }
+		env.PowerBarColor = { [1] = Color(1, 0, 0) }
+		env.ITEM_MOD_STRENGTH_SHORT = "Strength"
 		env.GetMoneyString = function(copper)
 			return copper .. "c"
 		end
 		env.SELL_PRICE = "Sell Price"
-		env.ITEM_QUALITY_COLORS = { [2] = Color(0.12, 1, 0) }
+		env.ITEM_QUALITY_COLORS = { [1] = Color(1, 1, 1), [2] = Color(0.12, 1, 0) }
 		env.UnitIsPlayer = function()
-			return false
+			return unitIsPlayer
+		end
+		env.UnitExists = function()
+			return true
+		end
+		env.UnitName = function(unit)
+			return unit == "player" and "Me" or "Stormwind Guard"
 		end
 		env.UnitReaction = function()
 			return 5
 		end
+		env.UnitLevel = function()
+			return 55
+		end
+		env.UnitIsTapDenied = function()
+			return false
+		end
+		env.UnitCreatureType = function()
+			return "Humanoid"
+		end
+		env.UnitIsDead = function()
+			return false
+		end
+		env.UnitClassification = function()
+			return "elite"
+		end
+		env.UnitFactionGroup = function()
+			return "Alliance", "Alliance"
+		end
+		env.UnitClass = function()
+			return "Warrior", "WARRIOR"
+		end
+		env.RAID_CLASS_COLORS = { WARRIOR = Color(0.78, 0.61, 0.43) }
 		env.FACTION_BAR_COLORS = { [5] = Color(0, 0.6, 0.1) }
+		env.GetTime = function()
+			return 10
+		end
+		env.SECOND_ONELETTER_ABBR = "%d s"
+		env.MINUTE_ONELETTER_ABBR = "%d m"
 		-- Blizzard's format strings (enUS), from which the lines are read
 		env.DAMAGE_TEMPLATE = "%s - %s Damage"
 		env.DPS_TEMPLATE = "(%.1f damage per second)"
@@ -78,47 +171,90 @@ describe("Ordaen Tooltips", function()
 		env.DURABILITY_TEMPLATE = "Durability %d / %d"
 		env.CONTAINER_SLOTS = "%d Slot %s"
 		env.ITEM_UNIQUE = "Unique"
-		env.C_Item.GetItemInfo = function()
-			return "Copper Axe", nil, 2, 12
-		end
+		env.SPELL_CAST_TIME_INSTANT = "Instant"
 		wow:Login()
 		ns = wow.addons.OrdaenCore.ns
 	end)
 
-	it("draws an item in the skeleton where Blizzard placed its tooltip, Blizzard's invisible", function()
-		wow:ShowTooltip("GameTooltip", MACE)
+	it("draws an item: title, glyphed columns, stat rows, its use effect beside it, the footer", function()
+		wow:ShowTooltip("GameTooltip", AXE)
 		ns.Scheduler.Flush()
-		assert.is_true(ns.Game.Tooltip.GameTooltip.shown:Peek() > 0, "not taken")
-		assert.are.same({}, wow.errors)
 		local shown = texts()
-		assert.is_truthy(shown:find("Copper Axe", 1, true), shown)
-		assert.is_truthy(shown:find("One-Hand · |cffff3f3fAxe|r", 1, true), shown) -- a type this class can't use: red
-		assert.is_truthy(shown:find("Binds when equipped", 1, true))
-		assert.is_truthy(shown:find("Axe|r · Unique", 1, true), shown) -- «Уникальный» joins the description
-		assert.is_truthy(shown:find("7–13", 1, true) and shown:find("2.6/s", 1, true) and shown:find("3.8 DPS", 1, true), shown)
-		assert.is_truthy(shown:find("Item level\n12\n", 1, true), shown) -- the first stat row
-		assert.is_truthy(shown:find("Durability", 1, true) and shown:find("0 / 35", 1, true))
-		assert.is_falsy(shown:find("Damage", 1, true)) -- read into the columns, not a line
-		assert.is_truthy(shown:find("+3 Strength", 1, true))
-		assert.is_truthy(shown:find("Requires Level 9", 1, true))
-		assert.is_truthy(shown:find("345c", 1, true))
+		has(shown, "Copper Axe", "One-Hand · |cffff3f3fAxe|r · Unique", "Binds when equipped")
+		has(shown, "7–13", "2.6/s", "3.8 DPS")
+		has(shown, "Item level\n12", "Strength\n+3")
+		assert.is_falsy(shown:find("+3 Strength", 1, true)) -- the stat line became its row
+		has(shown, "First Aid", "Heals |cffffffff66|r damage", "CD 1 min.") -- the use effect: its own tooltip beside
+		has(shown, "Durability", "0 / 35", "Requires Level 9", "345c")
 		assert.are.equal(0, wow.env.GameTooltip:GetAlpha())
 		assert.are.same({}, wow.errors)
 	end)
 
-	it("draws a spell and a unit, and leaves a type switched off to Blizzard", function()
+	it("compares the hovered item with the equipped one: «Equipped» over it, the difference on the hovered rows",
+		function()
+			wow:ShowTooltip("GameTooltip", AXE)
+			wow:ShowTooltip("ShoppingTooltip1", WORN)
+			ns.Scheduler.Flush()
+			local shown = texts()
+			has(shown, "Equipped", "Rusty Axe", "+3 |cff1eff00(▲2)|r")
+			assert.are.same({}, wow.errors)
+		end)
+
+	it("draws a spell: the cost a dot, instant and the cooldown short, the description's numbers lit", function()
 		wow:ShowTooltip("GameTooltip", SHOUT)
 		ns.Scheduler.Flush()
 		local shown = texts()
-		assert.is_truthy(shown:find("Battle Shout", 1, true) and shown:find("Rank 1", 1, true), shown)
-		assert.is_truthy(shown:find("10 Rage", 1, true) and shown:find("Melee range", 1, true))
-		assert.is_truthy(shown:find("increasing attack power", 1, true))
+		has(shown, "Battle Shout", "Rank 1", "Melee range", "CD 10 sec.")
+		has(shown, "|cffffffff15|r", "|cffffd100«Battle Shout»|r")
+		assert.is_falsy(shown:find("Cooldown:", 1, true)) -- the cooldown in short
+		assert.are.same({}, wow.errors)
+	end)
+
+	it("draws an aura: buff, dispel type, yours; stacks and time in the band; who cast it", function()
+		wow:ShowTooltip("GameTooltip", MIGHT)
+		ns.Scheduler.Flush()
+		local shown = texts()
+		has(shown, "Blessing of Might", "Buff", "Magic", "Yours", "×3", "1 m", "Increases attack power by")
+		has(shown, "Cast by", "You")
+		assert.is_falsy(shown:find("ID 19834", 1, true)) -- Forever's own line goes
+		assert.are.same({}, wow.errors)
+	end)
+
+	it("draws an NPC and a player, and leaves a type switched off to Blizzard", function()
+		wow:ShowTooltip("GameTooltip", GUARD)
+		ns.Scheduler.Flush()
+		local shown = texts()
+		has(shown, "Stormwind Guard", "Humanoid", "Level 55", "Elite", "Stormwind")
+		unitIsPlayer = true
+		wow.env.UnitPVPName = function()
+			return "Sergeant Stormwind Guard"
+		end
+		wow.env.GetGuildInfo = function()
+			return "Istanbul", "Officer"
+		end
+		wow.env.UnitRace = function()
+			return "Human"
+		end
+		for _, name in ipairs({ "UnitIsDeadOrGhost", "UnitIsGhost", "UnitIsAFK", "UnitIsDND", "UnitIsPVP",
+			"UnitInRaid", "UnitInParty" }) do
+			wow.env[name] = function()
+				return false
+			end
+		end
+		wow.env.UnitGUID = function()
+			return "Player-1"
+		end
+		wow.env.C_FriendList = { IsFriend = function()
+			return false
+		end, IsIgnored = function()
+			return false
+		end }
 		wow:ShowTooltip("GameTooltip", GUARD)
 		ns.Scheduler.Flush()
 		shown = texts()
-		assert.is_truthy(shown:find("Stormwind Guard", 1, true) and not shown:find("Battle Shout", 1, true), shown)
+		has(shown, "Istanbul · Officer", "Warrior", "Human", "Sergeant")
 		local module = ns.App.Module("OrdaenTooltips")
-		module.root.state.persistent.npcsOn:Set(false)
+		module.root.state.persistent.playersOn:Set(false)
 		wow:ShowTooltip("GameTooltip", GUARD)
 		ns.Scheduler.Flush()
 		assert.are.equal(1, wow.env.GameTooltip:GetAlpha())
@@ -127,7 +263,7 @@ describe("Ordaen Tooltips", function()
 	end)
 
 	it("goes when Blizzard's tooltip hides", function()
-		wow:ShowTooltip("GameTooltip", MACE)
+		wow:ShowTooltip("GameTooltip", AXE)
 		ns.Scheduler.Flush()
 		wow.env.GameTooltip:Hide()
 		ns.Scheduler.Flush()

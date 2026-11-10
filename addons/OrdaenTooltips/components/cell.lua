@@ -1,14 +1,16 @@
 -- A cell of a tooltip's band (view.lua): its glyph (design TooltipGlyph: 16 px, from assets/glyphs.tga, which
 -- art/tooltip-glyphs.mjs renders from the design's SVGs) before its text, centred, never wrapped.
 --
--- Attributes: `text`, `color`, `glyph` (a background for the glyph box: Glyph(name) below, or nil for none).
+-- Attributes: `text`, `color`, `glyph` (the glyph's background, or nil for none), `tint` (the glyph's colour: a
+-- spell's cost in its resource's colour).
 local Define = import("@ordaen/define")
 
 local PX = 1 / 1.2
 
 local function Parts(game, self)
 	if self.attributes.glyph then
-		game.ui:Box({ attributes = { width = 16 * PX, height = 16 * PX, background = self.attributes.glyph } })
+		game.ui:Box({ attributes = { width = 16 * PX, height = 16 * PX, background = self.attributes.glyph,
+			tint = self.attributes.tint } })
 	end
 	game.ui:Text({ attributes = { text = self.attributes.text, textColor = self.attributes.color, textSize = 16 * PX,
 		wrap = false } })

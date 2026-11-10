@@ -1,24 +1,35 @@
 -- What a Blizzard tooltip shows, as Ordaen Tooltips' one skeleton (design tooltips/: header, title, columns, body,
--- footer, hotkeys): read from the game's tooltip data (api/forever/tooltip-data.md: kinds and line types measured
--- on Forever), never by changing Blizzard's tooltip. One model per tooltip view, refilled on every show: its lists
--- keep their tables and only their counts change, so a show makes no tables after the first ones.
---   model.kind      "item" | "spell" | "aura" | "unit" | "object" (Read returns false for what we don't draw)
---   model.icon      a texture (file ID or path), or nil: no icon; model.portrait: a unit token for a face instead
+-- more, footer, hotkeys), read from the game's tooltip data (api/forever/tooltip-data.md: kinds and line types
+-- measured on Forever) and the game's own APIs, never by changing Blizzard's tooltip. One model per tooltip view,
+-- refilled on every show: its lists keep their tables and only their counts change.
+--   model.kind      "item" | "spell" | "aura" | "unit" | "object"
+--   model.header    a heading above the title («Надето» on the equipped item of a comparison), or nil
+--   model.icon      a texture, or nil; model.portrait: a unit token for a face instead
 --   model.name, model.nameColor
 --   model.desc[], model.info[]   the title's second and third lines, parts joined with « · »
---   model.cols[]    { text, color }       one cell per fact
---   model.body[]    { left, right, color, free }   rows (left and right) or free text (wraps)
+--   model.cols[]    { text, color, glyph, tint }   one cell per fact, its glyph's name (glyphs.lua)
+--   model.body[]    { left, right, color, rightColor }   rows (left and right) or free text (no right: wraps)
 --   model.foot[]    { left, right, color, valueColor }   label and value lines
 --   model.keys[]    hotkey lines
+--   model.side[]    tooltips beside this one, open from the start (use effects, the set, the item a recipe makes)
+--   model.timer     a value counts down while it shows (a cooldown, an aura's time): read again once a second
+--   model.stats     an item's stats by key (GetItemStats), for the comparison
 local Read = {}
 
-local format, tonumber, select = string.format, tonumber, select
+local format, tonumber, select, floor, max = string.format, tonumber, select, math.floor, math.max
+local pairs, type = pairs, type
+
+local isSecret = issecretvalue or function()
+	return false
+end
+
+-- Colours ----------------------------------------------------------------------------------------------------------
 
 -- Colours as the draw takes them, { r, g, b, 1 }: one table per colour, made once and never changed, so a text drawn
 -- in another colour gets another table (the draw compares tables, not their contents)
 local colors = {}
 local function Rgb(r, g, b)
-	local key = math.floor(r * 255 + 0.5) * 65536 + math.floor(g * 255 + 0.5) * 256 + math.floor(b * 255 + 0.5)
+	local key = floor(r * 255 + 0.5) * 65536 + floor(g * 255 + 0.5) * 256 + floor(b * 255 + 0.5)
 	local color = colors[key]
 	if not color then
 		color = { r, g, b, 1 }
@@ -28,9 +39,31 @@ local function Rgb(r, g, b)
 end
 Read.Rgb = Rgb
 
-local isSecret = issecretvalue or function()
-	return false
+local RED = Rgb(1, 0.25, 0.25)
+local GREEN = Rgb(0.12, 1, 0)
+local GOLD = Rgb(1, 0.82, 0)
+local YELLOW = Rgb(1, 0.82, 0)
+local GREY = Rgb(0.5, 0.5, 0.5)
+local LABEL = Rgb(0.796, 0.725, 0.58)
+local WHITE = Rgb(1, 1, 1)
+
+local function Hex(c)
+	return format("ff%02x%02x%02x", c[1] * 255, c[2] * 255, c[3] * 255)
 end
+
+-- a game colour (a ColorMixin or { r, g, b }), or nil for white and unreadable ones
+local function ColorOf(color)
+	if type(color) ~= "table" or isSecret(color) then
+		return nil
+	end
+	local r, g, b = color.r or color[1], color.g or color[2], color.b or color[3]
+	if type(r) ~= "number" or (r > 0.95 and g > 0.95 and b > 0.95) then
+		return nil
+	end
+	return Rgb(r, g, b)
+end
+
+-- Data lines -------------------------------------------------------------------------------------------------------
 
 -- Forever's tooltip data types (Enum.TooltipDataType, measured: the dump lists the enum without values)
 local KIND = { [0] = "item", [1] = "spell", [2] = "unit", [4] = "object", [7] = "aura" }
@@ -42,53 +75,6 @@ local LINE = {
 }
 Read.LINE = LINE
 
-local RED = { 1, 0.25, 0.25, 1 }
-local GOLD = { 1, 0.82, 0, 1 }
-
--- a list kept across shows: entries reused, `n` the count in use
-local function List()
-	return { n = 0 }
-end
-
-local function Push(list)
-	local n = list.n + 1
-	list.n = n
-	local entry = list[n]
-	if not entry then
-		entry = {}
-		list[n] = entry
-	end
-	entry.left, entry.right, entry.color, entry.valueColor, entry.free, entry.text = nil, nil, nil, nil, nil, nil
-	return entry
-end
-
---- A new model for one tooltip view (made once).
-function Read.NewModel()
-	return { desc = List(), info = List(), cols = List(), body = List(), foot = List(), keys = List() }
-end
-
-local function Clear(model)
-	model.desc.n, model.info.n, model.cols.n, model.body.n, model.foot.n, model.keys.n = 0, 0, 0, 0, 0, 0
-	model.icon, model.portrait, model.name, model.header = nil, nil, nil, nil
-	model.nameColor = Rgb(1, 1, 1)
-end
-
-
--- a line's colour (its ColorMixin), or nil for white and unreadable ones
-local function ColorOf(color)
-	if type(color) ~= "table" or isSecret(color) then
-		return nil
-	end
-	local r, g, b = color.r, color.g, color.b
-	if type(r) ~= "number" or (r > 0.95 and g > 0.95 and b > 0.95) then
-		return nil
-	end
-	return Rgb(r, g, b)
-end
-
--- The game's grammar codes, which Forever leaves in some lines (api/forever/tooltip-data.md): the plural code
--- `|4one:few:many;` takes the form for the number before it, the case code `|3-6(word)` is the word. A line without
--- either is returned as it is (no string made).
 -- the Russian plural rule (the game's codes follow it): 1 one (1, 21), 2 few (2–4, 22–24), 3 many (the rest, 11–14 too)
 local function Form(n)
 	local mod10, mod100 = n % 10, n % 100
@@ -109,6 +95,8 @@ local function PluralForm(n, forms)
 	return form == 1 and one or form == 2 and few or (many ~= "" and many or few)
 end
 
+-- The game's grammar codes, which Forever leaves in some lines: the plural code `|4one:few:many;` takes the form for
+-- the number before it, the case code `|3-6(word)` is the word. A line without either comes back as it is.
 local function Grammar(text)
 	if not text:find("|[34]") then
 		return text
@@ -120,6 +108,13 @@ local function Grammar(text)
 end
 Read.Grammar = Grammar
 
+local SUFFIX = { "_ONE", "_FEW", "_MANY" }
+--- `L[<key>_ONE|_FEW|_MANY]` for n: the Russian plural rule on ruRU, one and the rest elsewhere (English).
+function Read.Plural(L, key, n)
+	local form = GetLocale() == "ruRU" and Form(n) or (n == 1 and 1 or 3)
+	return format(L[key .. SUFFIX[form]], n)
+end
+
 local function Text(value)
 	if type(value) ~= "string" or isSecret(value) or value == "" then
 		return nil
@@ -127,53 +122,33 @@ local function Text(value)
 	return Grammar(value)
 end
 
-local function Part(list, text, color)
-	if text then
-		local part = Push(list)
-		part.text, part.color = text, color
-	end
+local function Id(value)
+	return type(value) == "number" and not isSecret(value) and value or nil
 end
 
-local function Body(model, line, free)
-	local left = Text(line.leftText)
-	if not left then
-		return
-	end
-	local row = Push(model.body)
-	row.left, row.right, row.free = left, Text(line.rightText), free
-	row.color = ColorOf(line.leftColor)
-end
-
-local function Foot(model, left, right, valueColor)
-	local row = Push(model.foot)
-	row.left, row.right, row.valueColor = left, right, valueColor
-end
-
--- Items ------------------------------------------------------------------------------------------------------------
-
--- A Blizzard format string as a Lua pattern, made once per string: %s and %d capture, a number format (%.1f) captures
--- a number, a grammar code (|4one:few:many;) matches any word; the whole line, start to end.
+-- A Blizzard format string as a Lua pattern, made once per string: %s, %d and %.1f capture, a grammar code matches
+-- any word; the whole line, start to end.
 local patterns = {}
-local function Pattern(format)
-	if type(format) ~= "string" then
+local function Pattern(fmt)
+	if type(fmt) ~= "string" then
 		return nil
 	end
-	local pattern = patterns[format]
+	local pattern = patterns[fmt]
 	if pattern == nil then
-		local p = format:gsub("|4[^;]*;", "\001") -- the plural code: one word
+		local p = fmt:gsub("|4[^;]*;", "\001") -- the plural code: one word
 		p = p:gsub("%%%%", "\002") -- a literal percent sign
 		p = p:gsub("%%[%d%$]*%.?%d*[sdf]", "\003") -- a format code: a capture
 		p = p:gsub("([%^%$%(%)%.%[%]%*%+%-%?])", "%%%1") -- the rest literally
 		p = p:gsub("\003", "(.-)"):gsub("\001", "%%S+"):gsub("\002", "%%%%")
 		pattern = "^" .. p .. "$"
-		patterns[format] = pattern
+		patterns[fmt] = pattern
 	end
 	return pattern
 end
 Read.Pattern = Pattern
 
-local function Match(text, format)
-	local pattern = Pattern(format)
+local function Match(text, fmt)
+	local pattern = Pattern(fmt)
 	if pattern and text then
 		return text:match(pattern)
 	end
@@ -187,19 +162,138 @@ local function Number(text)
 	return tonumber((text:gsub("[%s\194\160]", ""):gsub(",", ".")))
 end
 
--- the right side's number (a weapon's speed: "Скорость 2,60")
 local function Last(text)
 	return text and Number(text:match("([%d%.,]+)%s*$"))
 end
 
--- a band cell; `glyph` a name of glyphs.lua (the design's: dmg, spd, arm, blk, castNow...), or nil for none
-local function Cell(model, text, color, glyph)
-	local cell = Push(model.cols)
-	cell.text, cell.color, cell.glyph = text, color, glyph
+-- Lists ------------------------------------------------------------------------------------------------------------
+
+local function List()
+	return { n = 0 }
 end
 
-local GREEN = { 0.12, 1, 0, 1 }
-local YELLOW = { 1, 0.82, 0, 1 }
+local function Push(list)
+	local n = list.n + 1
+	list.n = n
+	local entry = list[n]
+	if not entry then
+		entry = {}
+		list[n] = entry
+	end
+	entry.left, entry.right, entry.color, entry.rightColor, entry.valueColor = nil, nil, nil, nil, nil
+	entry.text, entry.glyph, entry.tint, entry.stat = nil, nil, nil, nil
+	return entry
+end
+
+--- A new model for one tooltip view (made once).
+function Read.NewModel()
+	return { desc = List(), info = List(), cols = List(), body = List(), foot = List(), keys = List(), side = List(),
+		stats = {} }
+end
+
+local function Clear(model)
+	model.desc.n, model.info.n, model.cols.n, model.body.n, model.foot.n, model.keys.n = 0, 0, 0, 0, 0, 0
+	model.side.n = 0
+	model.icon, model.portrait, model.name, model.header, model.timer = nil, nil, nil, nil, nil
+	model.nameColor, model.kind, model.id = WHITE, nil, nil
+	local stats = model.stats
+	for k in pairs(stats) do
+		stats[k] = nil
+	end
+end
+
+local function Part(list, text, color)
+	if text then
+		local part = Push(list)
+		part.text, part.color = text, color
+	end
+end
+
+-- a free line of the body (wraps), in its own colour or the body's
+local function Free(model, text, color)
+	if text then
+		local row = Push(model.body)
+		row.left, row.color = text, color
+	end
+end
+
+-- a row of the body: the name on the left, the value on the right
+local function Row(model, left, right, color, rightColor)
+	local row = Push(model.body)
+	row.left, row.right, row.color, row.rightColor = left, right, color, rightColor
+	return row
+end
+
+local function Foot(model, left, right, valueColor)
+	local row = Push(model.foot)
+	row.left, row.right, row.valueColor = left, right, valueColor
+	return row
+end
+
+local function Cell(model, text, color, glyph, tint)
+	local cell = Push(model.cols)
+	cell.text, cell.color, cell.glyph, cell.tint = text, color, glyph, tint
+	return cell
+end
+
+-- a side tooltip (made once per slot of model.side): its own model
+local function Side(model)
+	local side = model.side
+	local n = side.n + 1
+	side.n = n
+	local sub = side[n]
+	if not sub then
+		sub = Read.NewModel()
+		side[n] = sub
+	end
+	Clear(sub)
+	return sub
+end
+
+-- Time -------------------------------------------------------------------------------------------------------------
+
+-- seconds as the game writes a duration: «12 сек.», «3 мин.», «1 ч.» (Blizzard's own abbreviations)
+local function Duration(seconds)
+	if seconds >= 3600 then
+		return format(HOUR_ONELETTER_ABBR or "%d h", floor(seconds / 3600 + 0.5))
+	elseif seconds >= 60 then
+		return format(MINUTE_ONELETTER_ABBR or "%d m", floor(seconds / 60 + 0.5))
+	end
+	return format(SECOND_ONELETTER_ABBR or "%d s", floor(seconds + 0.5))
+end
+Read.Duration = Duration
+
+-- how long until a cooldown (start, duration) is over, or nil when it's ready (the global cooldown doesn't count)
+local function Remaining(start, duration)
+	if type(start) ~= "number" or type(duration) ~= "number" or duration <= 1.5 or start <= 0 then
+		return nil
+	end
+	local left = start + duration - GetTime()
+	return left > 0 and left or nil
+end
+
+-- Rich text --------------------------------------------------------------------------------------------------------
+
+-- A description as the design draws it (colour only: a FontString has one font): numbers white, a spell's name in
+-- «ёлочках» gold. Made once per spell and text (the raw text compared on every show: a change re-parses it).
+local rich = {}
+local function Rich(id, text)
+	if not text then
+		return nil
+	end
+	local entry = id and rich[id]
+	if entry and entry.raw == text then
+		return entry.rich
+	end
+	local out = text:gsub("(%d+[%.,]?%d*%%?)", "|cffffffff%1|r"):gsub("«(.-)»", "|cffffd100«%1»|r")
+	if id then
+		rich[id] = { raw = text, rich = out }
+	end
+	return out
+end
+Read.Rich = Rich
+
+-- Items ------------------------------------------------------------------------------------------------------------
 
 -- durability's colour: red when broken, yellow at a quarter or less, else the footer's quiet value
 local function DurabilityColor(current, maximum)
@@ -211,21 +305,89 @@ local function DurabilityColor(current, maximum)
 	return nil
 end
 
+local function ItemLink(data, id)
+	local link = Text(data.hyperlink)
+	if not link and Text(data.guid) then
+		link = C_Item.GetItemLinkByGUID(data.guid)
+	end
+	if not link and id then
+		link = select(2, C_Item.GetItemInfo(id))
+	end
+	return link
+end
+
+-- The item's stats as rows (GetItemStats: key and value), the name opening its tooltip; kept by key for the
+-- comparison. The stat lines of the data are then left out (a stat line starts with its signed number).
+local function Stats(model, link)
+	local stats = link and C_Item.GetItemStats(link)
+	if type(stats) ~= "table" then
+		return false
+	end
+	local any = false
+	for key, value in pairs(stats) do
+		local name = _G[key] -- luacheck: ignore 113 (B8: the game's own stat names, by the keys it gives)
+		if type(name) == "string" and type(value) == "number" then
+			model.stats[key] = value
+			local row = Row(model, name, format("%+d", value))
+			row.stat = key
+			any = true
+		end
+	end
+	return any
+end
+
+local function StatLine(text)
+	return text:find("^[%+%-]%d") ~= nil
+end
+
+-- A side tooltip from the game's data for a spell (an item's use effect) or an item (what a recipe makes).
+local Fill -- below
+
+-- Reagents as one line («Толстая кожа (6), Цитрин (2)»): rows, the count on the right
+local function Reagents(model, text, L)
+	local any = false
+	for name, count in text:gmatch("%s*([^,]-)%s*%((%d+)%)") do
+		if name ~= "" then
+			Row(model, name, format(L.COUNT, tonumber(count)))
+			any = true
+		end
+	end
+	return any
+end
+
 local function Item(model, data, ctx)
-	local id = type(data.id) == "number" and not isSecret(data.id) and data.id or nil
+	local id = Id(data.id)
+	model.id = id
 	model.icon = id and C_Item.GetItemIconByID(id) or nil
 	local L, numbers = ctx.L, ctx.numbers
+	local link = ItemLink(data, id)
 	local level = id and select(4, C_Item.GetItemInfo(id))
 	if ctx.itemsIlvl and type(level) == "number" and level > 1 then
-		local row = Push(model.body)
-		row.left, row.right = L.ITEM_LEVEL_ROW, numbers:Format(level)
+		Row(model, L.ITEM_LEVEL_ROW, numbers:Format(level)).stat = "ilvl"
+		model.stats.ilvl = level
 	end
+	local hasStats = Stats(model, link)
 	local lines = data.lines
+	local nested = false -- inside the made item's lines (a recipe): they are its side tooltip
 	for i = 1, #lines do
 		local line = lines[i]
 		local kind = line.type
 		local left = Text(line.leftText)
-		if kind == LINE.ItemName then
+		if nested then
+			if kind == LINE.Teaches then
+				nested = false
+			end
+		end
+		if nested then -- luacheck: ignore 542
+			-- the made item's own lines: drawn in its tooltip beside
+		elseif kind == LINE.NestedBlock then
+			local made = Id(line.tooltipID)
+			local madeData = made and C_TooltipInfo.GetItemByID(made)
+			if madeData then
+				Fill(Side(model), madeData, ctx)
+			end
+			nested = true
+		elseif kind == LINE.ItemName then
 			model.name = left
 			local quality = line.quality
 			local color = type(quality) == "number" and ITEM_QUALITY_COLORS and ITEM_QUALITY_COLORS[quality]
@@ -238,20 +400,58 @@ local function Item(model, data, ctx)
 		elseif kind == LINE.Binding then
 			Part(model.info, left)
 		elseif kind == LINE.SellPrice then
-			local price = line.price
-			if type(price) == "number" and not isSecret(price) and price > 0 then
+			local price = Id(line.price)
+			if price and price > 0 then
 				Foot(model, SELL_PRICE, GetMoneyString(price, true))
 			end
 		elseif kind == LINE.Requirement then
 			if left then
-				Foot(model, left, nil, line.usable == false and RED or nil)
+				local skill, rank = Match(left, ITEM_MIN_SKILL)
+				if skill and rank then
+					Foot(model, skill, rank, line.usable == false and RED or nil)
+				else
+					Foot(model, left, nil, line.usable == false and RED or nil)
+				end
 			end
-		elseif kind == LINE.Blank or kind == LINE.NestedBlock or not left then -- luacheck: ignore 542
+		elseif kind == LINE.Use then
+			-- «Использование:» is a tooltip of its own beside the item: the spell with its cast and cooldown
+			local spell = Id(line.spellID)
+			local spellData = spell and C_TooltipInfo.GetSpellByID(spell)
+			if spellData and Fill(Side(model), spellData, ctx) then
+				local sub = model.side[model.side.n]
+				if ctx.itemsCooldown and id then
+					local start, duration = C_Container.GetItemCooldown(id)
+					local left2 = Remaining(start, duration)
+					if left2 then
+						Foot(sub, L.READY_IN, Duration(left2), YELLOW)
+						model.timer = true
+					end
+				end
+			elseif left then
+				Free(model, left, GREEN)
+			end
+		elseif kind == LINE.Teaches then
+			if left then
+				Free(model, left, ColorOf(line.leftColor))
+			end
+		elseif kind == LINE.SetLine then
+			-- the set: named only in its own tooltip beside the item
+			local sub = model.setSide
+			if not sub or model.side[model.side.n] ~= sub then
+				sub = Side(model)
+				model.setSide = sub
+				sub.kind = "set"
+				sub.name = left
+				sub.nameColor = GOLD
+			else
+				Free(sub, left, ColorOf(line.leftColor) or GREY)
+			end
+		elseif kind == LINE.Blank or not left then -- luacheck: ignore 542
 			-- nothing to draw
 		elseif left == ITEM_UNIQUE or left == ITEM_UNIQUE_EQUIPPABLE then
 			Part(model.desc, left) -- «Уникальный» joins the description
 		else
-			-- the columns: damage and speed, damage per second, armor, block, a bag's slots
+			-- the columns: damage and speed, damage per second, armor, block, a bag's slots; the footer's lines
 			local low, high = Match(left, DAMAGE_TEMPLATE_WITH_SCHOOL) -- the school is the item's type already
 			if not low then
 				low, high = Match(left, DAMAGE_TEMPLATE)
@@ -265,56 +465,75 @@ local function Item(model, data, ctx)
 			local slots = Number(slotsA) or Number(slotsB)
 			local current, maximum = Match(left, DURABILITY_TEMPLATE)
 			local classes = Match(left, ITEM_CLASSES_ALLOWED)
+			local reagents = Match(left, ITEM_REQ_SKILL and nil or SPELL_REAGENTS) -- «Реагенты: …»
 			if low and high then
-				Cell(model, format(L.COL_DAMAGE, numbers:Format(Number(low) or 0), numbers:Format(Number(high) or 0)), nil,
-					"dmg")
+				Cell(model, format(L.COL_DAMAGE, numbers:Format(Number(low) or 0), numbers:Format(Number(high) or 0)),
+					nil, "dmg")
+				model.stats.dmg = ((Number(low) or 0) + (Number(high) or 0)) / 2
 				local speed = Last(Text(line.rightText))
 				if speed then
 					Cell(model, format(L.COL_SPEED, numbers:Format(speed)), nil, "spd")
+					model.stats.spd = speed
 				end
 			elseif single then
 				Cell(model, numbers:Format(Number(single) or 0), nil, "dmg")
 			elseif dps then
 				Cell(model, format(L.COL_DPS, numbers:Format(Number(dps) or 0)))
+				model.stats.dps = Number(dps)
 			elseif armor then
-				-- bonus armor is in the total, green as the game shows it
-				Cell(model, numbers:Format(Number(armor) or 0), ColorOf(line.leftColor), "arm")
+				Cell(model, numbers:Format(Number(armor) or 0), ColorOf(line.leftColor), "arm") -- bonus armor: green
+				model.stats.arm = Number(armor)
 			elseif block then
 				Cell(model, numbers:Format(Number(block) or 0), nil, "blk")
+				model.stats.blk = Number(block)
 			elseif slots then
 				Cell(model, Read.Plural(L, "COL_SLOTS", slots))
 			elseif current and maximum then
 				local c, m = Number(current) or 0, Number(maximum) or 1
 				Foot(model, L.DURABILITY, format("%d / %d", c, m), DurabilityColor(c, m))
 			elseif classes then
-				Foot(model, L.CLASSES, classes)
+				Foot(model, L.CLASSES, classes, ColorOf(line.leftColor))
+			elseif reagents and Reagents(model, reagents, L) then -- luacheck: ignore 542
+				-- a recipe's reagents: rows
+			elseif hasStats and StatLine(left) and not ColorOf(line.leftColor) then -- luacheck: ignore 542
+				-- a stat: its row is drawn from GetItemStats
 			else
-				Body(model, line, true)
+				Free(model, left, ColorOf(line.leftColor))
 			end
 		end
 	end
 	if id and ctx.itemsId then
 		Part(model.info, "ID " .. id)
 	end
+	if id then
+		local stack = C_Item.GetItemMaxStackSizeByID(id)
+		local bags = C_Item.GetItemCount(id) or 0
+		local total = C_Item.GetItemCount(id, true) or bags
+		if ctx.itemsCount and ((stack and stack > 1) or total > 1) then
+			if bags > 0 then
+				Foot(model, L.IN_BAGS, numbers:Format(bags))
+			end
+			if total - bags > 0 then
+				Foot(model, L.IN_BANK, numbers:Format(total - bags))
+			end
+		end
+		if ctx.itemsStack and stack and stack > 1 then
+			Foot(model, L.STACK, numbers:Format(stack))
+		end
+	end
 	return model.name ~= nil
 end
 
-local SUFFIX = { "_ONE", "_FEW", "_MANY" }
---- `L[<key>_ONE|_FEW|_MANY]` for n: the Russian plural rule on ruRU, one and the rest elsewhere (English).
-function Read.Plural(L, key, n)
-	local form = GetLocale() == "ruRU" and Form(n) or (n == 1 and 1 or 3)
-	return format(L[key .. SUFFIX[form]], n)
-end
-
--- Spells and auras ---------------------------------------------------------------------------------------------------
+-- Spells and auras -------------------------------------------------------------------------------------------------
 
 -- A band cell of a spell's two-sided lines, in the design's short form: an instant cast «Мгновенно», a cooldown
--- «CD 10 сек.» (Forever writes «Восстановление: 10 сек.»; the English abbreviation in every locale); the rest as is.
-local function SpellCell(model, text, right, L)
-	local glyph
+-- «CD 10 сек.» (Forever writes «Восстановление: 10 сек.»; the English abbreviation in every locale); each cast kind
+-- its glyph, the cost a dot in its resource's colour.
+local function SpellCell(model, text, right, L, costColor)
+	local glyph, tint
 	if text == SPELL_CAST_TIME_INSTANT or text == SPELL_CAST_TIME_INSTANT_NO_MANA then
 		text, glyph = L.CAST_INSTANT, "castNow"
-	elseif text == SPELL_CAST_CHANNELED then
+	elseif text == SPELL_CAST_CHANNELED or text:find(SPELL_CAST_CHANNELED or "\0", 1, true) then
 		glyph = "castChan"
 	elseif right then
 		local value = text:match("^[^:]+:%s*(.+)$")
@@ -323,52 +542,136 @@ local function SpellCell(model, text, right, L)
 		end
 	elseif Match(text, SPELL_CAST_TIME_SEC) or Match(text, SPELL_CAST_TIME_MIN) then
 		glyph = "castTime"
+	elseif costColor and text:find("%d") and not text:find(":", 1, true) then
+		-- the cost: «10 ед. ярости» → a dot in the resource's colour and the number
+		glyph, tint, text = "cost", costColor, text:match("[%d%s\194\160]+") or text
 	end
-	Cell(model, text, nil, glyph)
+	Cell(model, text, nil, glyph, tint)
 end
 
-local function Spell(model, data, settings, aura)
-	local id = type(data.id) == "number" and not isSecret(data.id) and data.id or nil
+-- the colour of a spell's resource (rage red, mana blue, energy yellow), from its cost's power type
+local function CostColor(id)
+	local costs = id and C_Spell.GetSpellPowerCost(id)
+	local cost = type(costs) == "table" and costs[1]
+	local color = cost and PowerBarColor and PowerBarColor[cost.type]
+	return color and Rgb(color.r, color.g, color.b) or nil
+end
+
+local function Spell(model, data, ctx)
+	local id = Id(data.id)
+	model.id = id
+	local L = ctx.L
 	model.icon = id and C_Spell.GetSpellTexture(id) or nil
+	local costColor = CostColor(id)
 	local lines = data.lines
 	for i = 1, #lines do
 		local line = lines[i]
 		local kind = line.type
-		if (kind == LINE.SpellName or (aura and i == 1)) and not model.name then
-			model.name = Text(line.leftText)
-			Part(model.desc, Text(line.rightText)) -- the rank, an aura's dispel type
-			if aura then
-				model.nameColor = Rgb(GOLD[1], GOLD[2], GOLD[3])
-			end
+		local left, right = Text(line.leftText), Text(line.rightText)
+		if kind == LINE.SpellName and not model.name then
+			model.name = left
+			Part(model.desc, right) -- the rank
 		elseif kind == LINE.Requirement then
-			local text = Text(line.leftText)
-			if text then
-				Foot(model, text, nil, line.usable == false and RED or nil)
+			if left then
+				Foot(model, left, nil, line.usable == false and RED or nil)
 			end
 		elseif kind == LINE.Description then
-			Body(model, line, true)
-			model.body[model.body.n].color = nil -- the design's body colour, not the game's gold
+			Free(model, Rich(id, left))
 		elseif kind == LINE.Passive then
-			Part(model.desc, Text(line.leftText))
-		elseif kind ~= LINE.Blank then
+			Part(model.desc, left)
+		elseif kind ~= LINE.Blank and (left or right) then
 			-- cost and range, cast and cooldown: Forever's two-sided lines, cells of the band
-			local left, right = Text(line.leftText), Text(line.rightText)
-			if aura and left and left:find("^ID ") then -- Forever's own spell ID line: on the info line if wanted
-				left = nil
-			end
 			if left and right then
-				SpellCell(model, left, false, settings.L)
-				SpellCell(model, right, true, settings.L)
+				SpellCell(model, left, false, L, costColor)
+				SpellCell(model, right, true, L, costColor)
+			elseif left and i <= 4 and model.body.n == 0 then
+				SpellCell(model, left, false, L, costColor)
 			elseif left then
-				if line.leftColor and not aura and i <= 3 then
-					SpellCell(model, left, false, settings.L)
-				else
-					Body(model, line, true)
-				end
+				Free(model, left, ColorOf(line.leftColor))
 			end
 		end
 	end
-	if id and (aura and settings.aurasId or not aura and settings.spellsId) then
+	if id and ctx.spellsCooldown then
+		local cd = C_Spell.GetSpellCooldown(id)
+		local left = cd and Remaining(cd.startTime, cd.duration)
+		if left then
+			Foot(model, L.READY_IN, Duration(left), YELLOW)
+			model.timer = true
+		end
+	end
+	if id and ctx.spellsId then
+		Part(model.info, "ID " .. id)
+	end
+	return model.name ~= nil
+end
+
+-- the dispel types' colours, lifted to read on the wood (design auras: Магия blue, Проклятие purple, Яд green,
+-- Болезнь brown)
+local DISPEL = {
+	Magic = Rgb(0.35, 0.6, 1), Curse = Rgb(0.7, 0.35, 1), Poison = Rgb(0.3, 0.8, 0.3), Disease = Rgb(0.75, 0.55, 0.3),
+}
+
+-- the aura on its unit: the owner's (Blizzard's aura buttons know their unit and instance), else the player's own
+local function AuraData(owner, id)
+	local unit = owner and rawget(owner, "unit")
+	local instance = owner and (rawget(owner, "auraInstanceID") or
+		(type(rawget(owner, "buttonInfo")) == "table" and owner.buttonInfo.auraInstanceID))
+	if type(unit) == "string" and instance then
+		return C_UnitAuras.GetAuraDataByAuraInstanceID(unit, instance), unit
+	end
+	return id and C_UnitAuras.GetPlayerAuraBySpellID(id), "player"
+end
+
+local function Aura(model, data, ctx, owner)
+	local id = Id(data.id)
+	model.id = id
+	local L, numbers = ctx.L, ctx.numbers
+	model.icon = id and C_Spell.GetSpellTexture(id) or nil
+	local aura, unit = AuraData(owner, id)
+	local lines = data.lines
+	for i = 1, #lines do
+		local line = lines[i]
+		local left = Text(line.leftText)
+		if i == 1 then
+			model.name = left
+		elseif left and line.type ~= LINE.Blank and not left:find("^ID ") and not Match(left, SPELL_TIME_REMAINING_MIN)
+			and not Match(left, SPELL_TIME_REMAINING_SEC) and not left:find(L.REMAINING_WORD or "\0", 1, true) then
+			Free(model, Rich(id, left)) -- Forever's own spell ID line and the time left go: the band has the time
+		end
+	end
+	local harmful = aura and aura.isHarmful
+	model.nameColor = harmful and RED or GOLD
+	Part(model.desc, harmful and L.AURA_DEBUFF or L.AURA_BUFF)
+	local dispel = aura and aura.dispelName
+	if type(dispel) == "string" then
+		Part(model.desc, _G["STRING_SCHOOL_" .. dispel:upper()] or L["DISPEL_" .. dispel:upper()] or dispel, -- luacheck: ignore 113
+			DISPEL[dispel])
+	end
+	local source = aura and aura.sourceUnit
+	if source == "player" or source == "pet" then
+		Part(model.desc, L.AURA_YOURS, GOLD)
+	end
+	if aura then
+		local stacks = aura.applications
+		if type(stacks) == "number" and stacks > 1 then
+			Cell(model, "×" .. stacks)
+		end
+		local expires = aura.expirationTime
+		if type(expires) == "number" and expires > 0 then
+			Cell(model, Duration(max(0, expires - GetTime())), nil, "time")
+			model.timer = true
+		end
+		if unit == "player" and not harmful then
+			Cell(model, L.CANCEL_KEY)
+		end
+		if ctx.aurasCaster and type(source) == "string" and UnitExists(source) then
+			local name = (source == "player") and L.YOU or UnitName(source)
+			local _, class = UnitClass(source)
+			local color = class and RAID_CLASS_COLORS[class]
+			Foot(model, L.CASTER, name, color and Rgb(color.r, color.g, color.b) or nil)
+		end
+	end
+	if id and ctx.aurasId then
 		Part(model.info, "ID " .. id)
 	end
 	return model.name ~= nil
@@ -376,53 +679,214 @@ end
 
 -- Units ------------------------------------------------------------------------------------------------------------
 
-local function Unit(model, data)
+local function ClassColor(unit)
+	local _, class = UnitClass(unit)
+	local color = class and RAID_CLASS_COLORS and RAID_CLASS_COLORS[class]
+	return color and Rgb(color.r, color.g, color.b) or nil
+end
+
+-- a player: title and name, guild · rank, class · status · PvP; level, race, faction; their target and relation
+local function Player(model, unit, ctx)
+	local L = ctx.L
+	local name = UnitName(unit)
+	local titled = UnitPVPName(unit)
+	local color = ctx.classNames and ClassColor(unit) or WHITE
+	if type(titled) == "string" and name and titled ~= name then
+		-- the title quieter, the name in its class colour, in the order the locale puts them
+		local at = titled:find(name, 1, true)
+		if at then
+			model.name = "|c" .. Hex(LABEL) .. titled:sub(1, at - 1) .. "|r|c" .. Hex(color) .. name .. "|r|c" ..
+				Hex(LABEL) .. titled:sub(at + #name) .. "|r"
+		else
+			model.name = titled
+		end
+	else
+		model.name = name
+	end
+	model.nameColor = color
+	local guild, rank = GetGuildInfo(unit)
+	if guild then
+		Part(model.desc, guild)
+		Part(model.desc, rank)
+	end
+	Part(model.info, (UnitClass(unit)))
+	if UnitIsDeadOrGhost(unit) then
+		Part(model.info, UnitIsGhost(unit) and L.GHOST or L.CORPSE)
+	elseif UnitIsAFK(unit) then
+		Part(model.info, L.AFK)
+	elseif UnitIsDND(unit) then
+		Part(model.info, L.DND)
+	end
+	if UnitIsPVP(unit) then
+		Part(model.info, "PvP")
+	end
+	local level = UnitLevel(unit)
+	Cell(model, level and level > 0 and format(L.LEVEL_CELL, level) or "??")
+	Cell(model, (UnitRace(unit)))
+	local faction, factionName = UnitFactionGroup(unit)
+	if faction then
+		Cell(model, factionName or faction, faction == UnitFactionGroup("player") and GREEN or RED,
+			faction == "Alliance" and "alliance" or faction == "Horde" and "horde" or nil)
+	end
+	if ctx.playersTarget then
+		local target = unit .. "target"
+		if UnitExists(target) then
+			Foot(model, L.TARGET, UnitName(target), UnitIsPlayer(target) and ClassColor(target) or nil)
+		end
+	end
+	if ctx.playersRelation then
+		if UnitInRaid(unit) then
+			local index = UnitInRaid(unit)
+			local group = index and select(3, GetRaidRosterInfo(index))
+			if group then
+				Foot(model, L.RAID, format(L.RAID_GROUP, group))
+			end
+		elseif UnitInParty(unit) and not UnitIsUnit(unit, "player") then
+			Foot(model, L.PARTY, L.PARTY_YOURS)
+		end
+		if name and C_FriendList.IsFriend(UnitGUID(unit)) then
+			local info = C_FriendList.GetFriendInfo(name)
+			Foot(model, L.FRIEND, info and info.notes or "")
+		end
+		if name and C_FriendList.IsIgnored(name) then
+			Foot(model, L.IGNORED, L.IGNORED_YES, RED)
+		end
+	end
+end
+
+-- the level's colour against yours (the game's rule), «??» far above
+local function LevelCell(model, unit, L)
+	local level = UnitLevel(unit)
+	if not level or level <= 0 then
+		Cell(model, "??", RED)
+		return
+	end
+	local friendly = UnitReaction(unit, "player")
+	local color = (friendly or 0) < 5 and GetQuestDifficultyColor and GetQuestDifficultyColor(level)
+	Cell(model, format(L.LEVEL_CELL, level), color and Rgb(color.r, color.g, color.b) or nil)
+end
+
+-- an NPC: the name in its reaction colour (grey tapped), its role, creature type and «Труп»; level, elite/rare, faction
+local function Npc(model, unit, data, ctx)
+	local L = ctx.L
+	local reaction = UnitReaction(unit, "player")
+	local color = reaction and FACTION_BAR_COLORS and FACTION_BAR_COLORS[reaction]
+	if ctx.npcsLoot and UnitIsTapDenied(unit) then
+		model.nameColor = GREY
+	elseif color then
+		model.nameColor = Rgb(color.r, color.g, color.b)
+	end
+	local level = UnitLevel(unit)
 	local lines = data.lines
-	local unit
-	for i = 1, #lines do
+	local factionName
+	for i = 2, #lines do
 		local line = lines[i]
-		if line.type == LINE.UnitName then
-			model.name = Text(line.leftText)
-			unit = Text(line.unitToken)
-		elseif i > 1 and line.type ~= LINE.Blank then
-			local text = Text(line.leftText)
-			if text then
-				local list = model.desc.n < 1 and model.desc or model.info
-				Part(list, text, ColorOf(line.leftColor))
+		local text = Text(line.leftText)
+		if text and line.type ~= LINE.Blank then
+			local role = text:match("^<(.+)>$")
+			if role then
+				Part(model.desc, role)
+			elseif line.type == LINE.UnitOwner then
+				Part(model.desc, text)
+			elseif text == PVP or text:find("%d") and level and text:find(tostring(level), 1, true) and i <= 3 then -- luacheck: ignore 542
+				-- «PvP» and the level line: the band has the level
+			elseif i <= 4 and not factionName and UnitFactionGroup(unit) then
+				factionName = text
+			elseif i <= 4 and model.desc.n == 0 and not text:find("%d") and text ~= UnitCreatureType(unit) then
+				Part(model.desc, text)
+			elseif text ~= UnitCreatureType(unit) then
+				Free(model, text, ColorOf(line.leftColor))
 			end
 		end
 	end
-	if unit then
-		model.portrait = unit
-		local color
-		if UnitIsPlayer(unit) then
-			local _, class = UnitClass(unit)
-			color = class and RAID_CLASS_COLORS and RAID_CLASS_COLORS[class]
-		else
-			local reaction = UnitReaction(unit, "player")
-			color = reaction and FACTION_BAR_COLORS and FACTION_BAR_COLORS[reaction]
+	Part(model.info, UnitCreatureType(unit))
+	if UnitIsDead(unit) then
+		Part(model.info, L.CORPSE)
+	end
+	LevelCell(model, unit, L)
+	local class = UnitClassification(unit)
+	if class == "elite" or class == "worldboss" or class == "rareelite" then
+		Cell(model, L.ELITE, GOLD, "elite")
+	end
+	if class == "rare" or class == "rareelite" then
+		Cell(model, L.RARE, nil, "rare")
+	end
+	local faction = UnitFactionGroup(unit)
+	if faction then
+		Cell(model, factionName or faction, faction == UnitFactionGroup("player") and GREEN or RED)
+	end
+end
+
+local function Unit(model, data, ctx)
+	local first = data.lines[1]
+	local unit = first and first.type == LINE.UnitName and Text(first.unitToken)
+	if not unit or not UnitExists(unit) then
+		-- a unit gone: what the game wrote
+		model.name = first and Text(first.leftText)
+		for i = 2, #data.lines do
+			Free(model, Text(data.lines[i].leftText), ColorOf(data.lines[i].leftColor))
 		end
-		if color then
-			model.nameColor = Rgb(color.r, color.g, color.b)
+		return model.name ~= nil
+	end
+	model.portrait = unit
+	model.name = Text(first.leftText)
+	if UnitIsPlayer(unit) then
+		Player(model, unit, ctx)
+	else
+		Npc(model, unit, data, ctx)
+	end
+	return model.name ~= nil
+end
+
+-- Objects (signs, nodes, chests): the name in gold, the rest as the game wrote it (a lock red when you can't)
+local function Object(model, data)
+	local lines = data.lines
+	for i = 1, #lines do
+		local line = lines[i]
+		local text = Text(line.leftText)
+		if i == 1 then
+			model.name = text
+			model.nameColor = GOLD
+		elseif text and line.type ~= LINE.Blank then
+			if line.type == LINE.Requirement then
+				Foot(model, text, nil, line.usable == false and RED or nil)
+			else
+				Free(model, text, ColorOf(line.leftColor))
+			end
 		end
 	end
 	return model.name ~= nil
 end
 
--- Objects (signs, nodes, chests): the name in gold, the rest as the game wrote it
-local function Object(model, data)
-	local lines = data.lines
-	for i = 1, #lines do
-		local line = lines[i]
-		if i == 1 then
-			model.name = Text(line.leftText)
-			model.nameColor = Rgb(GOLD[1], GOLD[2], GOLD[3])
-		elseif line.type ~= LINE.Blank then
-			Body(model, line, true)
+-- Comparison -------------------------------------------------------------------------------------------------------
+
+-- An item against the equipped one (design items «Comparison»): each stat row of `target` gets the difference
+-- better - worse in brackets, green ▲ when positive, red ▼ when negative, none when equal. With `lacks`, the stats
+-- only `worse` has follow as «—» with their loss (the hovered item against the one equipped).
+function Read.Compare(target, better, worse, L, numbers, lacks)
+	for i = 1, target.body.n do
+		local row = target.body[i]
+		local key = row.stat
+		if key and row.right then
+			local diff = (better.stats[key] or 0) - (worse.stats[key] or 0)
+			if diff ~= 0 then
+				row.right = format("%s |c%s(%s%s)|r", row.right, Hex(diff > 0 and GREEN or RED),
+					diff > 0 and "▲" or "▼", numbers:Format(math.abs(diff)))
+			end
 		end
 	end
-	return model.name ~= nil
+	if not lacks then
+		return
+	end
+	for key, value in pairs(worse.stats) do
+		if better.stats[key] == nil and key:find("^ITEM_MOD_") then
+			local name = _G[key] -- luacheck: ignore 113 (B8: the game's own stat names, by the keys it gives)
+			Row(target, name or key, format("— |c%s(▼%s)|r", Hex(RED), numbers:Format(value)), GREY)
+		end
+	end
 end
+
+-- Entry ------------------------------------------------------------------------------------------------------------
 
 --- The kind of a tooltip's data ("item", "spell", ...) or nil for one Ordaen Tooltips leaves to Blizzard.
 function Read.Kind(data)
@@ -431,9 +895,9 @@ function Read.Kind(data)
 end
 
 --- Fill `model` from the tooltip data; false when it can't be read (that show stays Blizzard's).
----@param ctx table the module's settings read plainly (itemsId, itemsIlvl, spellsId, aurasId), `numbers` (game.Numbers)
---- and `L` (its locales)
-function Read.Fill(model, data, ctx)
+---@param ctx table the module's settings read plainly, `numbers` (game.Numbers), `L` (its locales), `owner` (the
+--- frame the tooltip belongs to)
+function Fill(model, data, ctx)
 	Clear(model)
 	local kind = Read.Kind(data)
 	local lines = data and data.lines
@@ -444,13 +908,16 @@ function Read.Fill(model, data, ctx)
 	if kind == "item" then
 		return Item(model, data, ctx)
 	elseif kind == "spell" then
-		return Spell(model, data, ctx, false)
+		return Spell(model, data, ctx)
 	elseif kind == "aura" then
-		return Spell(model, data, ctx, true)
+		return Aura(model, data, ctx, ctx.owner)
 	elseif kind == "unit" then
-		return Unit(model, data)
+		return Unit(model, data, ctx)
 	end
 	return Object(model, data)
 end
+Read.Fill = Fill
+
+Read.WHITE = WHITE
 
 return Read
