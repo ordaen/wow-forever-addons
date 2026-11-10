@@ -20,6 +20,11 @@
 --                  raider; register it for the units you need (RegisterUnitEvent, A:OnUnit / F:OnUnit)
 --   FL10 slash     a slash command of its own (SLASH_X1 = ..., SlashCmdList.X = ...): Ordaen has one, /ordaen, in
 --                  Ordaen Core's Commands.lua; a module declares `commands` (/ordaen <module> <command>)
+--   FL11 no yield an event-loop wait (await.*(...) or checkpoint()) in a function passed to pcall, xpcall,
+--                  table.sort or string.gsub: Lua 5.1 can't yield across them (design development/framework/loop)
+--   FL12 restricted a function Blizzard's documentation marks restricted (it needs a hardware event or secure code)
+--                  called in a task (`self:Spawn(function ...)`) after a wait: the click's hardware event is gone by
+--                  then (CLAUDE.md, Preventing bugs, rule 7)
 -- It only reports what it's sure of: a variable assigned anything it can't type is no longer checked.
 -- Silence one line with a trailing comment:  -- forever-lint: ignore FL2
 --
@@ -286,8 +291,68 @@ function M.LintSource(api, source)
 		end
 	end
 
+	-- An event-loop wait: await.<x>(...) or checkpoint().
+	local function isWait(node)
+		if node.tag ~= "Call" then
+			return false
+		end
+		local callee = node[1]
+		return (callee.tag == "Id" and callee[1] == "checkpoint")
+			or (callee.tag == "Index" and callee[1].tag == "Id" and callee[1][1] == "await")
+	end
+
+	-- Every call inside `node`, in source order (nested functions too).
+	local function calls(node, out)
+		if type(node) ~= "table" then
+			return out
+		end
+		if node.tag == "Call" or node.tag == "Invoke" then
+			out[#out + 1] = node
+		end
+		for i = 1, #node do
+			calls(node[i], out)
+		end
+		return out
+	end
+
+	local NO_YIELD = { pcall = true, xpcall = true, ["table.sort"] = true, ["string.gsub"] = true }
+
+	local function checkLoop(node)
+		local callee = node[1]
+		local name = node.tag == "Call" and path(callee)
+		if name and NO_YIELD[name] then
+			for i = 2, #node do
+				if node[i].tag == "Function" then
+					for _, c in ipairs(calls(node[i], {})) do
+						if isWait(c) then
+							report(c, "FL11", "a wait inside a function passed to " .. name .. ": Lua 5.1 can't "
+								.. "yield across it; wait outside the call")
+						end
+					end
+				end
+			end
+		end
+		if node.tag == "Invoke" and node[2].tag == "String" and node[2][1] == "Spawn"
+			and node[3] and node[3].tag == "Function" then
+			local waited = false
+			for _, c in ipairs(calls(node[3], {})) do
+				if isWait(c) then
+					waited = true
+				elseif waited and c.tag == "Call" then
+					local fn = path(c[1])
+					local doc = fn and api.functions and api.functions[fn]
+					if doc and doc.restricted then
+						report(c, "FL12", fn .. " after a wait in a task: it needs the click's hardware event, gone "
+							.. "after the first await; call it before the first wait")
+					end
+				end
+			end
+		end
+	end
+
 	local function checkCall(node)
 		-- node: Call; node[1] = callee
+		checkLoop(node)
 		local callee = node[1]
 		if callee.tag == "Index" and callee[2].tag == "String" and KIT_METHODS[callee[2][1]]
 			and isDebugKit(callee[1]) then
@@ -356,6 +421,7 @@ function M.LintSource(api, source)
 
 	local function checkInvoke(node)
 		-- node: Invoke; node[1] = object, node[2] = String method
+		checkLoop(node)
 		local method = node[2][1]
 		if EVENT_METHODS[method] then
 			local kind, event = literal(node[3])

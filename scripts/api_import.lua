@@ -413,9 +413,11 @@ function M.Structured(files)
 	local withDefaults = (files["docs.txt"] or ""):find("=[,)]") ~= nil
 	api.meta.docsDefaults = withDefaults
 	for line in (files["docs.txt"] or ""):gmatch("[^\n]+") do
-		local name, args, returns = line:match("^function ([^(]+)%((.-)%) %-> %((.-)%)$")
+		local name, args, returns, restricted = line:match("^function ([^(]+)%((.-)%) %-> %((.-)%)( ?r?e?s?t?r?i?c?t?e?d?)$")
 		if name then
-			api.functions[name] = { args = parseFields(args, withDefaults), returns = parseFields(returns) }
+			-- restricted: Blizzard's documentation marks it as needing a hardware event or secure code
+			api.functions[name] = { args = parseFields(args, withDefaults), returns = parseFields(returns),
+				restricted = restricted == " restricted" or nil }
 		else
 			local event, payload, refused = line:match("^event ([^(]+)%((.-)%)( ?r?e?f?u?s?e?d?)$")
 			if event then

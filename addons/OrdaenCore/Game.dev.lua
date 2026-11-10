@@ -40,6 +40,8 @@ end
 ---@field status OrdaenValueSignal { queued, errors }, read again by Refresh
 ---@field addons OrdaenValueSignal string[]: the Ordaen addons with a debug kit
 ---@field hasDump OrdaenValueSignal boolean
+---@field tasks OrdaenValueSignal OrdaenDevTask[]: the event loop's live tasks (Core._Tasks, Loop.dev.lua)
+---@field cancels table<table, fun()> each task's cancel, made once (weak: a task that ended goes)
 local Dev = {}
 local DevMeta = { __index = Dev }
 
@@ -53,6 +55,35 @@ function Dev:Switch(name)
 		self.switches[name] = s
 	end
 	return s
+end
+
+---@class OrdaenDevTask
+---@field owner string module and component
+---@field site string where it was spawned (file:line)
+---@field waits string what it waits for now
+---@field cpu string the CPU it used, "41.2 ms"
+---@field Cancel fun() cancels it
+
+-- the live tasks as rows: their text, and a cancel made once per task
+local function ReadTasks(dev)
+	local read = ns.Core._Tasks
+	local out = {}
+	if not read then
+		return out
+	end
+	for i, t in ipairs(read()) do
+		local task = t.task
+		local cancel = dev.cancels[task]
+		if not cancel then
+			cancel = function()
+				task:Cancel()
+			end
+			dev.cancels[task] = cancel
+		end
+		out[i] = { owner = tostring(t.owner or t.state), site = tostring(t.site), waits = tostring(t.wait),
+			cpu = string.format("%.1f ms", t.cpu or 0), Cancel = cancel }
+	end
+	return out
 end
 
 --- Read everything again: the status, the addons, the dump and every switch (the window does it once a second while
@@ -69,6 +100,7 @@ function Dev:Refresh()
 		self.addons:Set(addons)
 	end
 	self.hasDump:Set(api:HasDump())
+	self.tasks:Set(ReadTasks(self))
 	for name, s in pairs(self.switches) do
 		s.value:Set(api:Get(name))
 	end
@@ -121,8 +153,11 @@ function ns.GameDomains.Dev()
 		return nil
 	end
 	local queued, errors = api:Status()
-	return setmetatable({ switches = {}, status = NewValue({ queued = queued, errors = errors }),
-		addons = NewValue(api:Addons()), hasDump = NewValue(api:HasDump()) }, DevMeta)
+	local dev = setmetatable({ switches = {}, status = NewValue({ queued = queued, errors = errors }),
+		addons = NewValue(api:Addons()), hasDump = NewValue(api:HasDump()), tasks = NewValue({}),
+		cancels = setmetatable({}, { __mode = "k" }) }, DevMeta)
+	dev.tasks:Set(ReadTasks(dev))
+	return dev
 end
 
 --- The Ordaen Dev window toggled (the dev addon's gear button and its key): OrdaenDev loaded at its first use.
