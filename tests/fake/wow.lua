@@ -1587,6 +1587,13 @@ function Wow:MakeEnv()
 	offer("debugprofilestop", function()
 		return os.clock() * 1000
 	end)
+	-- the cursor's look: a texture set by an addon (nil: the game's own)
+	offer("SetCursor", function(cursor)
+		wow.cursor = cursor
+	end)
+	offer("ResetCursor", function()
+		wow.cursor = nil
+	end)
 	offer("GetCursorPosition", function()
 		return wow.cursorX or 0, wow.cursorY or 0
 	end)

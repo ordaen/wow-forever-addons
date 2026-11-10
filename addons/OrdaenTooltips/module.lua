@@ -286,6 +286,7 @@ return Define.Module({
 			self.state.lock = 0
 			self.state.charge = 0
 			Truncate(0)
+			ResetCursor() -- a term's help cursor: its text goes without an OnLeave
 		end
 		-- Blizzard hides and shows a button's tooltip again as it refreshes it: only a hide that lasts ends the charge
 		local hiddenAt = 0
