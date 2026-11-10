@@ -1446,10 +1446,10 @@ function Read.Kind(data)
 	return type(t) == "number" and not isSecret(t) and KIND[t] or nil
 end
 
---- Fill `model` from the tooltip data; false when it can't be read (that show stays Blizzard's).
----@param ctx table the module's settings read plainly, `numbers` (game.Numbers), `L` (its locales), `owner` (the
 local Talent -- below (it reads a spell with Spell, then its talent parts)
 
+--- Fill `model` from the tooltip data; false when it can't be read (that show stays Blizzard's).
+---@param ctx table the module's settings read plainly, `numbers` (game.Numbers), `L` (its locales), `owner` (the
 --- frame the tooltip belongs to)
 function Fill(model, data, ctx)
 	Clear(model)

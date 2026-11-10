@@ -9,8 +9,6 @@ local setmetatable, rawget, rawset, getmetatable = setmetatable, rawget, rawset,
 local Define = {}
 ns.Define = Define
 
---- A component; its name is its file's ("components/sellJunk" → "sellJunk").
----@param declaration table { Setup, Render }
 -- `Comp.state.<name>` on a declaration: the component's persistent value, without mounting it (a settings page binds
 -- it with Define.Signal)
 local DeclarationStateMeta = {
@@ -19,6 +17,8 @@ local DeclarationStateMeta = {
 	end,
 }
 
+--- A component; its name is its file's ("components/sellJunk" → "sellJunk").
+---@param declaration table { Setup, Render }
 function Define.Component(declaration)
 	local path = ns.App.currentFile
 	declaration.name = path and path:match("([^/]+)$") or "component"
