@@ -331,6 +331,9 @@ local function cellColumns(parent, node)
 	local cCol = parent.cCol
 	if cCol then
 		local col = cCol[idx]
+		if col == nil then -- its children changed since the grid placed them: no cell yet
+			return nil
+		end
 		return col, col + parent.cSpan[idx] - 1
 	elseif idx == 1 and parent.count == 1 then
 		return 1, 1

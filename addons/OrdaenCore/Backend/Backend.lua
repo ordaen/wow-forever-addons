@@ -2991,13 +2991,18 @@ end
 
 ---End of every scheduler flush: draw what reused nodes didn't get a Set for, lay out and place what changed, and hide
 ---the children reused nodes held before that their new life didn't take.
+-- Each list's entry is cleared before it's handled, and a hole is skipped: an error in one node's work leaves the
+-- entries before it cleared and its count standing, and the next Flush walks past them instead of failing again
+-- on the same hole (one bad node never stops drawing for the session).
 function Backend:Flush()
 	if nDirtyTexts > 0 then
 		for i = 1, nDirtyTexts do
 			local node = dirtyTexts[i]
 			dirtyTexts[i] = nil
-			node.argsDirty = nil
-			if not node.released then
+			if node then
+				node.argsDirty = nil
+			end
+			if node and not node.released then
 				applyGroups(node, nil, false, false, false, false, false, false, false, true, false)
 			end
 		end
@@ -3007,7 +3012,7 @@ function Backend:Flush()
 		for i = 1, nStale do
 			local node = stale[i]
 			stale[i] = nil
-			if node.stale and not node.released then
+			if node and node.stale and not node.released then
 				self:Set(node, EMPTY) -- its previous attributes, gone: back to the defaults
 			end
 		end
@@ -3018,8 +3023,10 @@ function Backend:Flush()
 		while i <= nQueue do -- a layout may queue more (a restyle); the loop sees it
 			local node = queue[i]
 			queue[i] = nil
-			node.queued = false
-			if not node.released and attached(node) then
+			if node then
+				node.queued = false
+			end
+			if node and not node.released and attached(node) then
 				if node.taken then
 					node.w, node.h = node.frame:GetWidth(), node.frame:GetHeight()
 				end
@@ -3040,7 +3047,7 @@ function Backend:Flush()
 		for i = 1, nOrphans do
 			local node = orphans[i]
 			orphans[i] = nil
-			if node.parent == nil then
+			if node and node.parent == nil then
 				node.x = nil
 				show(node, false)
 			end
