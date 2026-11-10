@@ -274,5 +274,12 @@
   "TERM_PGEAR_TEXT": "The average level of the items they wear (by inspect).",
   "KEY_NEEDED": "Needs a key",
   "TERM_LOCK": "Lock",
-  "TERM_LOCK_TEXT": "How to open it: lockpicking (a rogue's skill) or a key. In red: you can't open it yet."
+  "TERM_LOCK_TEXT": "How to open it: lockpicking (a rogue's skill) or a key. In red: you can't open it yet.",
+  "STAT_STR": "Increases |cffffffffattack power|r by %d.",
+  "STAT_AGI": "Increases |cffffffffcritical strike chance|r by %.2f%%.\nIncreases |cffffffffranged attack power|r by %d.\nIncreases |cffffffffarmour|r by %d.\nIncreases |cffffffffdodge chance|r by %.2f%%.",
+  "STAT_STA": "Increases |cffffffffhealth|r by %d.",
+  "STAT_INT": "Increases |cffffffffmana|r by %d.",
+  "STAT_SPI": "Increases |cffffffffhealth regeneration|r out of combat by %d every 5 sec.",
+  "KNOWN": "Known",
+  "NOT_KNOWN": "Not known"
 }

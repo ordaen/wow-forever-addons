@@ -34,6 +34,11 @@ for n = 1, 8 do
 	COLUMNS[n] = list
 end
 local MAIN, SIDES = "main", "sides" -- the group's parts (a comparison: its index)
+-- with a comparison shown, the hovered item sits this much lower, so its title lines up with the equipped one's under
+-- its «Надето» header (design items «Compared tooltips line up by their titles»; tipFrame's HEADER_HEIGHT)
+local HEADER_HEIGHT = 35 * PX
+local COMPARED = { 0, 0, 0, 0 }
+COMPARED[1] = HEADER_HEIGHT
 
 local function Link(_, self)
 	return self.attributes.locked and self.attributes.links and self.attributes.links[0] or nil
@@ -109,7 +114,11 @@ local function Part(game, self, part)
 		a.model, a.version = self.attributes.model, Version(self, self.attributes.tip)
 		a.charge, a.locked, a.OnClose = self.attributes.charge, self.attributes.locked, self.attributes.OnClose
 		a.OnLink = Link(game, self)
-		game.ui:TipFrame(self.mainCall)
+		if self.comparing then
+			game.ui:Box(self.mainWrap)
+		else
+			game.ui:TipFrame(self.mainCall)
+		end
 	elseif part == SIDES then
 		game.ui:Box(self.sidesBox)
 	else
@@ -144,6 +153,7 @@ local function Order(self)
 		order[n] = SIDES
 	end
 	local compares = self.attributes.compares
+	self.comparing = false
 	if compares then
 		local kept = self.attributes.locked and self.attributes.keptBy
 		for i = 1, #compares do
@@ -151,6 +161,7 @@ local function Order(self)
 			if c.tip.shown:Get() > 0 or (kept and kept[c.name]) then
 				n = n + 1
 				order[n] = i
+				self.comparing = true
 			end
 		end
 	end
@@ -186,7 +197,10 @@ return Define.Component({
 		Define.Ephemeral({ tick = { type = "number", default = 0 } }) -- the once-a-second refills of this show
 		self.mainCall = { attributes = {} }
 		self.sideCalls = {}
-		self.order, self.nParts, self.reversed = {}, 0, false
+		self.order, self.nParts, self.reversed, self.comparing = {}, 0, false, false
+		self.mainWrap = { attributes = { columns = 1, padding = COMPARED }, slots = { default = function(game)
+			game.ui:TipFrame(self.mainCall)
+		end } }
 		self.sidesBox = { attributes = { columns = 1, gap = 4 * PX }, slots = { default = Sides } }
 		self.nestedCalls, self.nestedBoxes, self.opened = {}, {}, {}
 		for d = 1, 8 do
@@ -225,6 +239,9 @@ return Define.Component({
 		a.OnLeave = locked and self.attributes.OnLeave or nil
 		Place(self, tip)
 		a.columns = COLUMNS[Order(self)]
+		if self.comparing then
+			a.yAlign = "start" -- the titles line up (the main tooltip lowered by the header's height)
+		end
 		-- the sides' column lined up like the row
 		self.sidesBox.attributes.yAlign = a.yAlign
 		game.ui:Box(self.box)

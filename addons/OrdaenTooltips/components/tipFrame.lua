@@ -26,6 +26,7 @@ local HEADING = { 1, 0.82, 0, 1 } -- the windows' title colour (#ffd100)
 local GROOVE = { width = 1 * PX, sides = { "top", "bottom" }, color = { 0, 0, 0, 0.85 } }
 local ICON = 60 * PX
 local SECTION = 8 * PX
+local HEADER_HEIGHT = 35 * PX -- the «Надето» header (view.lua lines the hovered item's title up by it)
 local HEAD_PADDING = { 0, 0, SECTION, 0 } -- under the title, when something follows it
 local RULE = { width = 1 * PX, sides = { "top" }, color = { 0.839, 0.647, 0.420, 0.18 } } -- --rule rgba(214, 165, 107, .18)
 local LABEL = { 0.796, 0.725, 0.58, 1 } -- --label #cbb994
@@ -281,7 +282,8 @@ return Define.Component({
 			bodyBox = Section(Body), footBox = Section(Foot), keysBox = Section(Keys),
 			cols = {}, body = {}, foot = {}, keys = {}, nCols = 0, nBody = 0, nFoot = 0, nKeys = 0,
 			-- the header: the windows' title style, a groove under it (a fixed height: compared titles line up)
-			header = { attributes = { columns = 1, gap = 6 * PX, padding = { 0, 0, 12 * PX, 0 } },
+			-- a fixed height (15 + 6 + 2 + 12 = 35 px, design .header): the compared item lines its title up by it
+			header = { attributes = { columns = 1, gap = 6 * PX, padding = { 0, 0, 12 * PX, 0 }, height = HEADER_HEIGHT },
 				slots = { default = Header } },
 			headerText = { attributes = { textColor = HEADING, textSize = 15 * PX, textAlign = "center", wrap = false } },
 		}

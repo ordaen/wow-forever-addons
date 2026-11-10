@@ -444,6 +444,36 @@ function Read.Race(model, raceID, classID, raceName)
 	return true
 end
 
+--- An item stat's tooltip (design items «Stats are rows»: the character tab's wording, this character's numbers):
+--- the stat and the item's amount, then what that amount gives. False for a stat without a text of ours.
+function Read.Stat(model, key, amount, L)
+	local name = _G[key] -- luacheck: ignore 113 (B8: the game's own stat names, by the keys it gives)
+	if type(name) ~= "string" or not amount then
+		return false
+	end
+	local text
+	if key == "ITEM_MOD_STRENGTH_SHORT" then
+		text = format(L.STAT_STR, GetAttackPowerForStat(1, amount) or amount * 2)
+	elseif key == "ITEM_MOD_AGILITY_SHORT" then
+		text = format(L.STAT_AGI, amount / 20, amount * 2, amount * 2, amount / 20)
+	elseif key == "ITEM_MOD_STAMINA_SHORT" then
+		text = format(L.STAT_STA, floor(amount * 10 * (GetUnitMaxHealthModifier("player") or 1) + 0.5))
+	elseif key == "ITEM_MOD_INTELLECT_SHORT" then
+		text = UnitPowerType("player") == 0 and format(L.STAT_INT, amount * 15)
+			or "|cff808080" .. (STAT_USELESS_TOOLTIP or "") .. "|r"
+	elseif key == "ITEM_MOD_SPIRIT_SHORT" then
+		text = format(L.STAT_SPI, floor(amount * 1.2 + 0.5))
+	end
+	if not text then
+		return false
+	end
+	Clear(model)
+	model.kind = "stat"
+	model.name, model.nameColor = format("%s %+d", name, amount), GOLD
+	Desc(model, text)
+	return true
+end
+
 --- A plain tooltip: a name in gold and one sentence (a camp building's full bonus). False without a text.
 function Read.Text(model, name, text)
 	if not text then
@@ -493,6 +523,7 @@ local function Stats(model, link)
 			model.stats[key] = value
 			local row = Row(model, name, format("%+d", value))
 			row.stat = key
+			row.link = "ordaen:stat:" .. key .. ":" .. value -- hovered: what it gives this character
 			any = true
 		end
 	end
@@ -532,6 +563,7 @@ local function Item(model, data, ctx)
 	local hasStats = Stats(model, link)
 	local lines = data.lines
 	local nested = false -- inside the made item's lines (a recipe): they are its side tooltip
+	local recipe, known = false, false -- a recipe (it nests the item it makes); whether you know it
 	for i = 1, #lines do
 		local line = lines[i]
 		local kind = line.type
@@ -544,6 +576,7 @@ local function Item(model, data, ctx)
 		if nested then -- luacheck: ignore 542
 			-- the made item's own lines: drawn in its tooltip beside
 		elseif kind == LINE.NestedBlock then
+			recipe = true
 			local made = Id(line.tooltipID)
 			local madeData = made and C_TooltipInfo.GetItemByID(made)
 			if madeData then
@@ -599,9 +632,16 @@ local function Item(model, data, ctx)
 				Free(model, left, GREEN)
 			end
 		elseif kind == LINE.Teaches then
-			if left then
+			-- a recipe's «Использование: Обучает…»: the made item beside it says it (design items «Recipes»)
+			if left and not recipe then
 				Free(model, left, ColorOf(line.leftColor))
 			end
+		elseif (kind == LINE.Equip or kind == LINE.Chance) and left then
+			-- «Если на персонаже:», «Возможный эффект при попадании:»: green, opening the real spell once locked
+			local spell = Id(line.spellID)
+			Free(model, spell and "|Hspell:" .. spell .. "|h" .. left .. "|h" or left, GREEN)
+		elseif left and left == ITEM_SPELL_KNOWN then
+			known = true
 		elseif kind == LINE.SetLine then
 			-- the set: named only in its own tooltip beside the item
 			local sub = model.setSide
@@ -670,6 +710,9 @@ local function Item(model, data, ctx)
 				Free(model, left, ColorOf(line.leftColor))
 			end
 		end
+	end
+	if recipe then -- «Изучено» / «Не изучено» joins the description
+		Part(model.desc, known and L.KNOWN or L.NOT_KNOWN, known and GREY or nil)
 	end
 	if id and ctx.itemsId then
 		Part(model.info, "ID " .. id)

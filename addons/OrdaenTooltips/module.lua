@@ -439,7 +439,12 @@ return Define.Module({
 			local key, amount = link:match("^ordaen:term:([^:]+):(.*)$")
 			local building = link:match("^ordaen:camp:(.+)$")
 			local raceID, classID, raceName = link:match("^ordaen:race:(%d+):(%d+):(.*)$")
-			if raceID then -- a race's racial abilities
+			local stat, statAmount = link:match("^ordaen:stat:([%w_]+):(%-?%d+)$")
+			if stat then -- an item stat: what it gives this character
+				if not Read.Stat(model, stat, tonumber(statAmount), L) then
+					return
+				end
+			elseif raceID then -- a race's racial abilities
 				if not Read.Race(model, tonumber(raceID), tonumber(classID), raceName) then
 					return
 				end
