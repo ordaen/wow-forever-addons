@@ -1207,7 +1207,7 @@ describe("backend styles", function()
 			end
 		end
 		table.sort(names)
-		assert.is_true(#names >= 3, "frame.small, frame.dialog, panel.edge")
+		assert.is_true(#names >= 3, "frame.small, frame.tab, panel.edge")
 		for _, name in ipairs(names) do
 			local box = Backend:Create("box")
 			Backend:Set(box, { position = "absolute", left = 100, top = 100, width = 300, height = 200,

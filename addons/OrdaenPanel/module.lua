@@ -630,13 +630,16 @@ end
 
 local MOUSEOVER_MIN = 1 / 255 -- a panel shown on mouseover, hidden: invisible, yet under the cursor
 
+-- under the metal along its top, the content starts 4 units further down (7 from the top, 8 px at the user's scale)
+local EDGE_ROOM = { 4, 0, 0, 0 }
+
 -- the panel box along its edge: the whole edge, or its items' length centred on it
 local function PanelAttributes(self)
 	local edge, size, full = self.state.edge, self.state.height, self.state.fit == Fit.Full
 	local vertical = edge == Edge.Left or edge == Edge.Right
 	local a = {
 		position = "fixed", background = Define.Theme.panel.wood, border = Define.Theme.panel.edge,
-		hoverWithin = true, OnEnter = self.enter, OnLeave = self.leave,
+		padding = EDGE_ROOM, hoverWithin = true, OnEnter = self.enter, OnLeave = self.leave,
 	}
 	if vertical then
 		a.width, a.top, a.bottom = size, full and 0 or nil, full and 0 or nil

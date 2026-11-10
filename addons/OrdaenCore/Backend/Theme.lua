@@ -21,6 +21,14 @@ local WOOD = { file = "Interface\\AddOns\\OrdaenCore\\media\\window-wood", size 
 -- and below). A border is drawn inside its box (border-box): the layout counts reach x scale into the border's width on
 -- each side it draws, the art starts at the box's edge and the fill moves in by as much. The window tab reads it too.
 local METAL_REACH = { 3, 4, 3, 8 }
+-- The one metal frame (design MetalFrame "small"): Blizzard's ButtonFrameTemplateNoPortrait at half size, its line 3
+-- units wide, the wood from 3 units in; every framed surface (windows, dialogs, tooltips, the minimap, the bottom
+-- panel's top edge, the window tabs) is this frame on the sides it names (all four when `sides` is nil). Spacing
+-- inside a frame is the box's padding, never a wider border.
+local function Metal(sides, inset)
+	return { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = inset or 3,
+		reach = METAL_REACH, sides = sides }
+end
 
 ns.Theme = {
 	["color.surface"] = { 0.06, 0.06, 0.08, 0.92 },
@@ -51,26 +59,15 @@ ns.Theme = {
 	["font.numbers"] = "Fonts\\ARIALN.TTF",
 	-- the panel's surface: the windows' wood (WOOD), so its grain matches theirs and doesn't stretch on wide screens
 	["panel.wood"] = WOOD,
-	-- the small metal along the top, as the design site's MetalFrame kind "small" draws it: Blizzard's
-	-- ButtonFrameTemplateNoPortrait at half size, its outer side 1.5 units above the panel, the wood from 3 below
-	-- its top; the content starts 7 units down (8 px at the user's scale, 1.2 px per unit)
-	["panel.edge"] = { width = 7, sides = { "top" }, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5,
-		inset = 3, reach = METAL_REACH },
-	-- a window's or small surface's metal on all four sides (MetalFrame kind "small": windows, the chat, tooltips):
-	-- the same art at half size, the top corners mitred, the wood from 3 units in on every side
-	["frame.small"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 3,
-		reach = METAL_REACH },
-	-- a window tab's frame: the same metal on its top and sides (its top corners mitred as the window's), none along its
-	-- bottom, where it stands on the window's body; its icon's, the metal on its right (the open tab's on its bottom too)
-	["frame.tab"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 3,
-		reach = METAL_REACH, sides = { "top", "left", "right" } },
-	["frame.tabIcon"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 0,
-		reach = METAL_REACH, sides = { "right" } },
-	["frame.tabIconOpen"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 0,
-		reach = METAL_REACH, sides = { "right", "bottom" } },
-	-- the same metal at full size (MetalFrame kind "dialog": the minimap's frame), the wood from 6 units in
-	["frame.dialog"] = { width = 6, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 1, inset = 6,
-		reach = METAL_REACH },
+	-- the metal along the bottom panel's top (its content below it starts after the panel's own padding)
+	["panel.edge"] = Metal({ "top" }),
+	-- a window's or small surface's metal on all four sides: windows, dialogs, tooltips, the minimap
+	["frame.small"] = Metal(),
+	-- a window tab's frame: the metal on its top and sides, none along its bottom, where it stands on the window's body;
+	-- its icon's, the metal on its right (the open tab's on its bottom too)
+	["frame.tab"] = Metal({ "top", "left", "right" }),
+	["frame.tabIcon"] = Metal({ "right" }, 0),
+	["frame.tabIconOpen"] = Metal({ "right", "bottom" }, 0),
 	-- a button on the minimap's ring (design Minimap .ring): a 34 px dark disc in a bronze ring with a black edge,
 	-- drawn whole (rows 0 the button, 1 the light ring over it under the cursor, 2 lit: the drawer open)
 	["minimap.ring"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\minimap-ring", size = { 128, 512 }, cap = 0,
