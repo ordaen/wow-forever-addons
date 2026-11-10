@@ -518,8 +518,9 @@ end
 --                        the turned top, each masked to its half of the diagonal (media/mitre-*). The top line sits
 --                        11.5 units in from its outer side, the right edge's only 2, so the top-right square sits
 --                        9.5 k lower and its top piece shows the art 9.5 k higher, to stay in line with the top.
--- The pieces reach past the box as the layout's corner offsets say (8 k left, 4 k right, 3 k up and down); a side
--- not drawn leaves its neighbours running to their outer end. Anchored to the box's corners: no size needed.
+-- Drawn inside the box (border-box): the art's outer side is the box's edge, and what it stands out past its line
+-- (border.reach) is counted in the layout's border widths and the fill's inset. A side not drawn leaves its
+-- neighbours running to the box's edge. Anchored to the box's corners: no size needed.
 local MITRE = "Interface\\AddOns\\OrdaenCore\\media\\mitre-"
 
 local function artPiece(frame, sub)
@@ -578,7 +579,6 @@ function Node:ApplyFrameArt(border)
 	local k = border.scale or 1
 	local T = snap(leftW * k) -- the left edge's thickness: the mitred corners' square
 	local f = leftW / leftH -- that square's share of the left edge's atlas length
-	local outL, outR, outV = snap(8 * k), snap(4 * k), snap(3 * k)
 	local D = top and right and snap(9.5 * k) or 0
 	local function piece(key, sub)
 		local tex = art[key]
@@ -600,8 +600,8 @@ function Node:ApplyFrameArt(border)
 		tex:SetHorizTile(false)
 		tex:SetVertTile(false)
 		tex:SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0)
-		tex:SetPoint("TOPLEFT", frame, "TOPLEFT", left and T - outL or -outL, outV)
-		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", right and outR - T or outR, outV)
+		tex:SetPoint("TOPLEFT", frame, "TOPLEFT", left and T or 0, 0)
+		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", right and -T or 0, 0)
 		tex:SetHeight(T)
 	end
 	if bottom then
@@ -610,8 +610,8 @@ function Node:ApplyFrameArt(border)
 			local tex = piece("bottom", 0)
 			tex:SetAtlas(atlas)
 			tex:SetHorizTile(true)
-			tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", left and blW - outL or -outL, -outV)
-			tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", right and outR - brW or outR, -outV)
+			tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", left and blW or 0, 0)
+			tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", right and -brW or 0, 0)
 			tex:SetHeight(snap(h * k))
 		end
 	end
@@ -619,8 +619,8 @@ function Node:ApplyFrameArt(border)
 		local tex = piece("left", 0)
 		tex:SetAtlas(leftAtlas)
 		tex:SetVertTile(true)
-		tex:SetPoint("TOPLEFT", frame, "TOPLEFT", -outL, top and outV - T or outV)
-		tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -outL, bottom and blH - outV or -outV)
+		tex:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, top and -T or 0)
+		tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, bottom and blH or 0)
 		tex:SetWidth(T)
 	end
 	local rightAtlas, rightW = atlasSize(layout.RightEdge)
@@ -628,20 +628,20 @@ function Node:ApplyFrameArt(border)
 		local tex = piece("right", 0)
 		tex:SetAtlas(rightAtlas)
 		tex:SetVertTile(true)
-		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", outR, top and outV - D - T or outV)
-		tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", outR, bottom and brH - outV or -outV)
+		tex:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, top and -D - T or 0)
+		tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, bottom and brH or 0)
 		tex:SetWidth(snap(rightW * k))
 	end
 	if bottom and left and blAtlas then
 		local tex = piece("bl", 1)
 		tex:SetAtlas(blAtlas)
-		tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", -outL, -outV)
+		tex:SetPoint("BOTTOMLEFT", frame, "BOTTOMLEFT", 0, 0)
 		tex:SetSize(blW, blH)
 	end
 	if bottom and right and brAtlas then
 		local tex = piece("br", 1)
 		tex:SetAtlas(brAtlas)
-		tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", outR, -outV)
+		tex:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, 0)
 		tex:SetSize(brW, brH)
 	end
 	-- the mitred top corners: the side's square (lower half), the turned top's square (upper half)
@@ -649,7 +649,7 @@ function Node:ApplyFrameArt(border)
 		local side = piece("tlSide", 1)
 		side:SetAtlas(leftAtlas)
 		side:SetTexCoord(0, 1, 0, f)
-		side:SetPoint("TOPLEFT", frame, "TOPLEFT", -outL, outV)
+		side:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, 0)
 		side:SetSize(T, T)
 		local turned = piece("tlTop", 2)
 		turned:SetAtlas(leftAtlas)
@@ -666,7 +666,7 @@ function Node:ApplyFrameArt(border)
 		local side = piece("trSide", 1)
 		side:SetAtlas(rightAtlas)
 		side:SetTexCoord(0, 1, 0, f)
-		side:SetPoint("TOPRIGHT", frame, "TOPRIGHT", outR, outV - D)
+		side:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -D)
 		side:SetSize(T, T)
 		-- the turned top drawn D higher: the square's upper T - D show the art's lower part (its rows D to T)
 		local turned = piece("trTop", 2)
@@ -685,27 +685,32 @@ function Node:ApplyFrameArt(border)
 	end
 end
 
--- The background's inset under the frame art, per side: the art's inset (border.inset) on the sides it draws.
+-- The background's inset under the frame art, per side: the art's inset (border.inset) plus its reach (border.reach
+-- times its scale: the art stands that far inside the box past its line) on the sides it draws.
 local function fillInsets(border)
 	if type(border) ~= "table" or not border.nineSlice then
 		return 0, 0, 0, 0
 	end
-	local inset = snap(border.inset or 0)
+	local inset = border.inset or 0
+	local reach, k = border.reach, border.scale or 1
+	local function side(i)
+		return snap(inset + (reach and reach[i] * k or 0))
+	end
 	local sides = border.sides
 	if not sides then
-		return inset, inset, inset, inset
+		return side(1), side(2), side(3), side(4)
 	end
 	local t, r, b, l = 0, 0, 0, 0
 	for i = 1, #sides do
-		local side = sides[i]
-		if side == "top" then
-			t = inset
-		elseif side == "right" then
-			r = inset
-		elseif side == "bottom" then
-			b = inset
-		elseif side == "left" then
-			l = inset
+		local name = sides[i]
+		if name == "top" then
+			t = side(1)
+		elseif name == "right" then
+			r = side(2)
+		elseif name == "bottom" then
+			b = side(3)
+		elseif name == "left" then
+			l = side(4)
 		end
 	end
 	return t, r, b, l
@@ -2823,6 +2828,7 @@ function applyGroups(node, attributes, size, position, offset, content, border, 
 	if style then
 		if size then
 			node.wKind, node.wAmount, node.hKind, node.hAmount = style.wKind, style.wAmount, style.hKind, style.hAmount
+			node.wGiven, node.hGiven = style.wGiven, style.hGiven
 			node.span, node.pos = style.span, style.pos
 		end
 		if offset then
@@ -2835,6 +2841,15 @@ function applyGroups(node, attributes, size, position, offset, content, border, 
 		end
 		if border then
 			node.bwT, node.bwR, node.bwB, node.bwL = style.bwT, style.bwR, style.bwB, style.bwL
+			node.rT, node.rL, node.rW, node.rH = style.rT, style.rL, style.rW, style.rH
+			if not size then -- its given size grows by the art's reach (Layout.ApplyBorder)
+				if node.wKind == "fixed" and node.wGiven then
+					node.wAmount = node.wGiven + (node.rW or 0)
+				end
+				if node.hKind == "fixed" and node.hGiven then
+					node.hAmount = node.hGiven + (node.rH or 0)
+				end
+			end
 		end
 	else
 		if size then

@@ -12,6 +12,10 @@ local Hide = { Never = "never", Combat = "combat", Transport = "transport" }
 local PX = 1 / 1.2 -- UI units a design px is at the user's scale (a 1440p screen)
 local MAP = 262 * PX -- the map at «Размер карты» 100%
 local OUT = 12 * PX -- the border's room round the map (the full-size metal's visible rim)
+-- the frame as the design draws it (Minimap.vue): the metal stands 8 out past its line on the left and 3 above, and
+-- the frame's box holds it (border-box), so the box starts that far out; its line is 6 narrower to sit even round
+-- the map
+local ART_L, ART_T, ART_NARROW = 8, 3, 6 * PX -- the reach in UI units, as the game draws the art (Theme.lua)
 local STRIP = 30 * PX -- the zone's strip above, the coordinates' and clock's below
 local ROOM = 33 * PX -- room round the frame for the ring (16 px out to a button's centre, 17 its radius)
 local RING_OUT = 16 * PX -- from the frame's side to a ring button's centre
@@ -397,7 +401,8 @@ return Define.Module({
 			}, slots = { default = function()
 				-- the frame: the metal and its wood, the map inside, the strips
 				game.ui:Box({ attributes = {
-					position = "absolute", left = ROOM, top = ROOM, width = FrameW(self), height = FrameH(self),
+					position = "absolute", left = ROOM - ART_L, top = ROOM - ART_T, width = FrameW(self) - ART_NARROW,
+					height = FrameH(self),
 					border = Define.Theme.frame.dialog, background = Define.Theme.window.wood, artOrigin = true,
 				}, slots = { default = function()
 					game.ui:Embed(game.Frame.Minimap, { attributes = {

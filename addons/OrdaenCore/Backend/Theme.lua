@@ -16,6 +16,11 @@ local _, ns = ...
 -- (512 texels over 746 px), so a resized box keeps its grain; one file for every surface
 local WOOD = { file = "Interface\\AddOns\\OrdaenCore\\media\\window-wood", size = { 512, 512 },
 	repeatSize = 746 / 1.2 }
+-- How far Blizzard's metal art (ButtonFrameTemplateNoPortrait) stands out past the line it frames, per side { top,
+-- right, bottom, left }, in the art's units at scale 1 (the NineSlice layout's corner offsets: 8 left, 4 right, 3 above
+-- and below). A border is drawn inside its box (border-box): the layout counts reach x scale into the border's width on
+-- each side it draws, the art starts at the box's edge and the fill moves in by as much. The window tab reads it too.
+local METAL_REACH = { 3, 4, 3, 8 }
 
 ns.Theme = {
 	["color.surface"] = { 0.06, 0.06, 0.08, 0.92 },
@@ -50,12 +55,14 @@ ns.Theme = {
 	-- ButtonFrameTemplateNoPortrait at half size, its outer side 1.5 units above the panel, the wood from 3 below
 	-- its top; the content starts 7 units down (8 px at the user's scale, 1.2 px per unit)
 	["panel.edge"] = { width = 7, sides = { "top" }, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5,
-		inset = 3 },
+		inset = 3, reach = METAL_REACH },
 	-- a window's or small surface's metal on all four sides (MetalFrame kind "small": windows, the chat, tooltips):
 	-- the same art at half size, the top corners mitred, the wood from 3 units in on every side
-	["frame.small"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 3 },
+	["frame.small"] = { width = 3, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 0.5, inset = 3,
+		reach = METAL_REACH },
 	-- the same metal at full size (MetalFrame kind "dialog": the minimap's frame), the wood from 6 units in
-	["frame.dialog"] = { width = 6, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 1, inset = 6 },
+	["frame.dialog"] = { width = 6, nineSlice = "ButtonFrameTemplateNoPortrait", scale = 1, inset = 6,
+		reach = METAL_REACH },
 	-- a button on the minimap's ring (design Minimap .ring): a 34 px dark disc in a bronze ring with a black edge,
 	-- drawn whole (rows 0 the button, 1 the light ring over it under the cursor, 2 lit: the drawer open)
 	["minimap.ring"] = { file = "Interface\\AddOns\\OrdaenCore\\media\\minimap-ring", size = { 128, 512 }, cap = 0,

@@ -445,7 +445,7 @@ describe("backend styles", function()
 		assert.are.equal(0, cell.x) -- flush left
 		local top = strip.frameArt.top
 		assert.are.equal("!UI-Frame-Metal-EdgeLeft", top._atlas)
-		assert.is_true(topLeftY(top) > 0) -- its outer side above the strip
+		assert.are.equal(0, topLeftY(top)) -- its outer side on the strip's top: inside the box (border-box)
 		assert.is_true(top._h > strip.bwT) -- the art at its own thickness, past the content's inset
 		assert.is_nil(strip.frameArt.left) -- the strip draws only the top
 		assert.is_nil(strip.frameArt.tlSide)
@@ -1126,6 +1126,43 @@ describe("backend styles", function()
 			Backend:Flush()
 			assert.are.equal("10 / 20", t.fs:GetText())
 		end)
+	end)
+
+	it("draws every theme border inside its box: no piece of frame art reaches past the box's rect", function()
+		local wow, ns = client()
+		local Backend = ns.Backend
+		local layer = Backend:Layer("screen")
+		local names = {}
+		for name, value in pairs(ns.Theme) do
+			if type(value) == "table" and value.nineSlice then
+				names[#names + 1] = name
+			end
+		end
+		table.sort(names)
+		assert.is_true(#names >= 3, "frame.small, frame.dialog, panel.edge")
+		for _, name in ipairs(names) do
+			local box = Backend:Create("box")
+			Backend:Set(box, { position = "absolute", left = 100, top = 100, width = 300, height = 200,
+				border = ref(name), background = ref("window.wood") })
+			Backend:SetChildren(layer, { box }, 1)
+			Backend:Flush()
+			local f = box.frame
+			local L, R, T, B = f:GetLeft(), f:GetRight(), f:GetTop(), f:GetBottom()
+			local drawn = 0
+			for _, tex in pairs(box.frameArt or {}) do
+				if tex.IsShown and tex:IsShown() and tex.GetLeft and tex:GetLeft() then
+					drawn = drawn + 1
+					local e = 0.01
+					local where = name .. " piece at " .. tex:GetLeft() .. "," .. tex:GetTop()
+					assert.is_true(tex:GetLeft() >= L - e and tex:GetRight() <= R + e, where .. ": past a side")
+					assert.is_true(tex:GetTop() <= T + e and tex:GetBottom() >= B - e, where .. ": past the top or bottom")
+				end
+			end
+			assert.is_true(drawn > 0, name .. " drew no art")
+			Backend:SetChildren(layer, {}, 0)
+			Backend:Flush()
+		end
+		assert.are.same({}, wow.errors)
 	end)
 
 	it("reports a window whose layout fails and still lays out the others in the same flush", function()

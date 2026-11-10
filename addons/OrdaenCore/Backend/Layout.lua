@@ -193,6 +193,14 @@ function Layout.ApplySize(node, a, resolve, px)
 	local hk, ha = Layout.Size(resolve(node, a.height))
 	node.wKind, node.wAmount = wk, (wk == "fixed" or wk == "minfit") and pixels(wa, px) or wa
 	node.hKind, node.hAmount = hk, hk == "fixed" and pixels(ha, px) or ha
+	-- a given size is the frame's up to its art's line: the box grows by what its art stands out (ApplyBorder)
+	node.wGiven, node.hGiven = node.wAmount, node.hAmount
+	if wk == "fixed" and node.rW then
+		node.wAmount = node.wAmount + node.rW
+	end
+	if hk == "fixed" and node.rH then
+		node.hAmount = node.hAmount + node.rH
+	end
 	node.span = resolve(node, a.columnSpan)
 	node.minContent = resolve(node, a.minContent) == true or nil
 	node.pos = resolve(node, a.position)
@@ -242,10 +250,31 @@ function Layout.ApplyBorder(node, a, resolve, resolveRef, px)
 	local bw = type(border) == "table" and resolveRef(border.width) or 0
 	bw = bw > 0 and max(px, pixels(bw, px)) or 0
 	local sides = bw > 0 and border.sides or nil
-	node.bwT = hasSide(sides, "top") and bw or 0
-	node.bwR = hasSide(sides, "right") and bw or 0
-	node.bwB = hasSide(sides, "bottom") and bw or 0
-	node.bwL = hasSide(sides, "left") and bw or 0
+	-- frame art standing out past its line (border.reach, per side, times its scale): inside the box, so counted in
+	local reach = bw > 0 and border.reach
+	local k = reach and (border.scale or 1) or 0
+	local rT, rR, rB, rL = 0, 0, 0, 0
+	if reach then
+		rT, rR, rB, rL = pixels(reach[1] * k, px), pixels(reach[2] * k, px), pixels(reach[3] * k, px),
+			pixels(reach[4] * k, px)
+	end
+	rT, rR = hasSide(sides, "top") and rT or 0, hasSide(sides, "right") and rR or 0
+	rB, rL = hasSide(sides, "bottom") and rB or 0, hasSide(sides, "left") and rL or 0
+	node.bwT = hasSide(sides, "top") and bw + rT or 0
+	node.bwR = hasSide(sides, "right") and bw + rR or 0
+	node.bwB = hasSide(sides, "bottom") and bw + rB or 0
+	node.bwL = hasSide(sides, "left") and bw + rL or 0
+	-- the art's reach is the box's own (border-box): a given size grows by it, and absolute children are placed from
+	-- the art's line, so the frame looks as designed and its box covers every piece of it
+	local reached = rT + rR + rB + rL > 0
+	node.rT, node.rL = reached and rT or nil, reached and rL or nil
+	node.rW, node.rH = reached and rL + rR or nil, reached and rT + rB or nil
+	if node.wKind == "fixed" and node.wGiven then
+		node.wAmount = node.wGiven + (node.rW or 0)
+	end
+	if node.hKind == "fixed" and node.hGiven then
+		node.hAmount = node.hGiven + (node.rH or 0)
+	end
 end
 
 ---Every group at once.
@@ -702,8 +731,15 @@ end
 
 -- Place a free node in a reference box (its parent's border box, or the screen for "fixed").
 local function placeFree(node, refW, refH, ctx)
+	local ox, oy = 0, 0 -- a framed parent's art reach: its absolute children are placed from the art's line
 	if node.pos == "fixed" then
 		refW, refH = ctx.screenW, ctx.screenH
+	else
+		local parent = node.parent
+		if parent and parent.rW then
+			ox, oy = parent.rL, parent.rT
+			refW, refH = refW - parent.rW, refH - parent.rH
+		end
 	end
 	local l, r, t, b = node.offL, node.offR, node.offT, node.offB
 	local wk, hk = node.wKind, node.hKind
@@ -747,13 +783,13 @@ local function placeFree(node, refW, refH, ctx)
 		h = given or autoHeight(node, w, ctx)
 		local x = l or (r and refW - r - w) or floor((refW - w) / 2 + 0.5)
 		local y = t or (b and refH - b - h) or floor((refH - h) / 2 + 0.5)
-		setRect(node, x, y, w, h)
+		setRect(node, ox + x, oy + y, w, h)
 		finalize(node, w, given, ctx)
 		return
 	end
 	local x = l or (r and refW - r - w) or floor((refW - w) / 2 + 0.5)
 	local y = t or (b and refH - b - h) or floor((refH - h) / 2 + 0.5)
-	setRect(node, x, y, w, h)
+	setRect(node, ox + x, oy + y, w, h)
 end
 
 -- Size a flow child in its cell: width from its attributes, height at that width (given, or its content's).
