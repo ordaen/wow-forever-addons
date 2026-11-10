@@ -226,5 +226,10 @@
   "TERM_FROST_WORDS": "Frost damage|frost damage",
   "TERM_SHADOW_WORDS": "Shadow damage|shadow damage",
   "TERM_ARCANE_WORDS": "Arcane damage|arcane damage",
-  "TERM_HOLY_WORDS": "Holy damage|holy damage"
+  "TERM_HOLY_WORDS": "Holy damage|holy damage",
+  "COMBO_ONE": "%d point",
+  "COMBO_FEW": "%d points",
+  "COMBO_MANY": "%d points",
+  "TERM_COMBO": "Combo points",
+  "TERM_COMBO_TEXT": "Abilities like Sinister Strike build them (up to 5 on one target); a finishing move spends them all at once, the stronger the more there are."
 }

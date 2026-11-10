@@ -215,7 +215,7 @@ end
 local function Free(model, text, color)
 	if text then
 		local row = Push(model.body)
-		row.left, row.right, row.color, row.rightColor, row.desc = text, nil, color, nil, nil
+		row.left, row.right, row.color, row.rightColor, row.desc, row.term = text, nil, color, nil, nil, nil
 	end
 end
 
@@ -223,20 +223,20 @@ end
 local function Desc(model, text)
 	if text then
 		local row = Push(model.body)
-		row.left, row.right, row.color, row.rightColor, row.desc = text, nil, nil, nil, true
+		row.left, row.right, row.color, row.rightColor, row.desc, row.term = text, nil, nil, nil, true, nil
 	end
 end
 
 -- a row of the body: the name on the left, the value on the right
 local function Row(model, left, right, color, rightColor)
 	local row = Push(model.body)
-	row.left, row.right, row.color, row.rightColor, row.desc = left, right, color, rightColor, nil
+	row.left, row.right, row.color, row.rightColor, row.desc, row.term = left, right, color, rightColor, nil, nil
 	return row
 end
 
 -- a footer line: its label on the left, its value on the right; a line the game writes «Label: value» («Требуется:
 -- Оборонительная стойка») is split so (design TooltipFooter: every footer line a label and a value)
-local function Foot(model, left, right, valueColor, term, amount)
+local function Foot(model, left, right, valueColor, term, amount, link)
 	if not right and left then
 		local label, value = left:match("^([^:|]+):%s+(.+)$")
 		if label then
@@ -244,7 +244,7 @@ local function Foot(model, left, right, valueColor, term, amount)
 		end
 	end
 	local row = Push(model.foot)
-	row.left, row.right, row.valueColor, row.term, row.amount = left, right, valueColor, term, amount
+	row.left, row.right, row.valueColor, row.term, row.amount, row.link = left, right, valueColor, term, amount, link
 	return row
 end
 
@@ -329,12 +329,16 @@ end
 -- spellbook compared on every show: a change re-parses it).
 local rich = {}
 local spellbook, book = {}, 0 -- spell name -> spellID; changes with each reading of the spellbook
+local tabOf = {} -- spellID -> its spellbook tab's name (the title's second line, after the rank)
 local current -- the spell whose text is parsed (its own name stays plain)
 
 --- The player's spells by name (on SPELLS_CHANGED): the names their descriptions quote open their tooltips.
 function Read.Spellbook()
 	for name in pairs(spellbook) do
 		spellbook[name] = nil
+	end
+	for id in pairs(tabOf) do
+		tabOf[id] = nil
 	end
 	local banks = Enum and Enum.SpellBookSpellBank
 	local bank = banks and banks.Player or 0
@@ -345,6 +349,7 @@ function Read.Spellbook()
 			local item = C_SpellBook.GetSpellBookItemInfo(slot, bank)
 			if item and type(item.name) == "string" and type(item.spellID) == "number" then
 				spellbook[item.name] = item.spellID
+				tabOf[item.spellID] = info and info.name or nil
 			end
 		end
 	end
@@ -649,6 +654,75 @@ end
 
 -- Spells and auras -------------------------------------------------------------------------------------------------
 
+-- A spell's reagents (its «Реагенты: Руна телепортации, Порох (2)» line) as requirements, footer rows (design
+-- spells «Reagents»): the reagent's name on the left (opening its item once the tooltip locks, when the game knows
+-- it), «N шт.» on the right, red when you have fewer. True when the line was the reagents'.
+local function SpellReagents(model, text, L)
+	local list = Match(text, SPELL_REAGENTS)
+	if not list then
+		return false
+	end
+	for part in list:gmatch("[^,]+") do
+		local name, count = part:match("^%s*(.-)%s*%((%d+)%)%s*$")
+		name = name or part:match("^%s*(.-)%s*$")
+		local need = tonumber(count) or 1
+		if name ~= "" then
+			local have = C_Item.GetItemCount(name) or 0
+			local itemID = C_Item.GetItemInfoInstant(name)
+			Foot(model, name, format(L.COUNT, need), have < need and RED or nil, nil, nil,
+				itemID and "item:" .. itemID or nil)
+		end
+	end
+	return true
+end
+
+-- A finishing move's description: its «1 прием: …» list as rows (design spells «combo point»): «1 приём · 46–66»,
+-- the value the range the line names; the rest of the text the description. A description without the list: one
+-- sentence.
+-- a combo line's value: the range it names («46-66», «46 – 66» → «46–66»), else its first number
+local function ComboValue(effect)
+	local low, high = effect:match("(%d+)%s*%-%s*(%d+)")
+	if not low then
+		low, high = effect:match("(%d+)%s*–%s*(%d+)")
+	end
+	if low then
+		return low .. "–" .. high
+	end
+	return effect:match("%d+")
+end
+
+local function Description(model, id, text, L)
+	if not text then
+		return
+	end
+	if not (text:find("^%s*%d%s") or text:find("\n%s*%d%s")) then -- no combo list: one description
+		Desc(model, Rich(id, text))
+		return
+	end
+	local start = model.body.n -- the body before this description: its rows go after the description
+	local first, last -- the text before the list (the description)
+	for line in text:gmatch("[^\n]+") do
+		local points, effect = line:match("^%s*(%d)%s+[^%d:]-:%s*(.+)$")
+		local value = effect and ComboValue(effect)
+		if points and value then
+			Row(model, Read.Plural(L, "COMBO", tonumber(points)), value).term = "combo"
+		elseif not first then
+			first = line
+		else
+			last = (last or first) .. "\n" .. line
+		end
+	end
+	if first then
+		Desc(model, Rich(id, last or first))
+		local body = model.body
+		local desc = body[body.n]
+		for i = body.n, start + 2, -1 do
+			body[i] = body[i - 1]
+		end
+		body[start + 1] = desc
+	end
+end
+
 -- What follows a label's colon («Восстановление: 10 сек.» → «10 сек.»), or the text
 local function Value(text)
 	return text:match("^[^:]+:%s*(.+)$") or text
@@ -748,17 +822,20 @@ local function Spell(model, data, ctx)
 		if kind == LINE.SpellName and not model.name then
 			model.name = left
 			Part(model.desc, right) -- the rank
+			Part(model.desc, id and tabOf[id]) -- its spellbook tab (none outside the spellbook)
 		elseif kind == LINE.Requirement then
 			if left then
 				Foot(model, left, nil, line.usable == false and RED or nil)
 			end
 		elseif kind == LINE.Description then
-			Desc(model, Rich(id, left))
+			Description(model, id, left, L)
 		elseif kind == LINE.Passive then
 			Part(model.desc, left)
 		elseif kind ~= LINE.Blank and (left or right) then
 			-- cost and range, cast and cooldown: Forever's two-sided lines, cells of the band
-			if left and right then
+			if left and not right and SpellReagents(model, left, L) then -- luacheck: ignore 542
+				-- «Реагенты: …»: requirements, footer rows
+			elseif left and right then
 				band = band + 1
 				local cast = SpellCell(model, left, band == 1, false, L, cost)
 				SpellCell(model, right, band == 1, true, L, cost, cast)

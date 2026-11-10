@@ -4,7 +4,7 @@
 -- (OnLink("ordaen:term:<key>:<amount>", entered)).
 --
 -- Attributes: `text`, `color`, `size` (text size, UI units), `term` and `amount` (its glossary entry and the number it
--- speaks of, or nil), `OnLink`.
+-- speaks of, or nil), `link` (what it opens instead of a term: an item's or spell's link), `OnLink`.
 local Define = import("@ordaen/define")
 local DASH_FILE = import("assets/dash.tga")
 local HELP_CURSOR = import("cursor")
@@ -15,7 +15,7 @@ local UNDERLINE = { attributes = { position = "absolute", left = 0, right = 0, b
 	background = { file = DASH_FILE, size = { 8, 2 }, tile = true } } }
 
 local function Lit(_, self)
-	return self.attributes.OnLink ~= nil and self.attributes.term ~= nil
+	return self.attributes.OnLink ~= nil and (self.attributes.term ~= nil or self.attributes.link ~= nil)
 end
 
 local function Parts(game, self)
@@ -39,8 +39,8 @@ return Define.Component({
 		return {
 			enter = function()
 				local fn, term = self.attributes.OnLink, self.attributes.term
-				if fn and term then
-					link = "ordaen:term:" .. term .. ":" .. (self.attributes.amount or "")
+				if fn and (term or self.attributes.link) then
+					link = term and "ordaen:term:" .. term .. ":" .. (self.attributes.amount or "") or self.attributes.link
 					SetCursor(HELP_CURSOR)
 					fn(link, true)
 				end

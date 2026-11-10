@@ -61,6 +61,17 @@ local HEROIC = { type = 1, id = 78, lines = {
 	{ type = 43, leftText = "Requires: Battle Stance" },
 	{ type = 34, leftText = "A strong attack that deals 11 physical damage." },
 } }
+local PORTAL = { type = 1, id = 3561, lines = {
+	{ type = 13, leftText = "Teleport: Stormwind" },
+	{ type = 0, leftText = "Mana: 120" },
+	{ type = 0, leftText = "Cast time: 10 sec" },
+	{ type = 0, leftText = "Reagents: Rune of Teleportation, Arcane Powder (2)" },
+	{ type = 34, leftText = "Teleports you to Stormwind." },
+} }
+local EVISCERATE = { type = 1, id = 2098, lines = {
+	{ type = 13, leftText = "Eviscerate", rightText = "Rank 1" },
+	{ type = 34, leftText = "Finishing move that causes damage per combo point:\n1 point: 6-10 damage\n2 points: 12-16 damage" },
+} }
 local GUARD = { type = 2, guid = "Creature-1", lines = {
 	{ type = 2, leftText = "Stormwind Guard", unitToken = "mouseover" },
 	{ type = 0, leftText = "Level 55" },
@@ -158,7 +169,7 @@ describe("Ordaen Tooltips", function()
 				return 1
 			end,
 			GetSpellBookSkillLineInfo = function()
-				return { itemIndexOffset = 0, numSpellBookItems = 2 }
+				return { itemIndexOffset = 0, numSpellBookItems = 2, name = "Arms" }
 			end,
 			GetSpellBookItemInfo = function(slot)
 				return slot == 1 and { name = "Charge", spellID = 100 } or { name = "Rend", spellID = 772 }
@@ -225,6 +236,13 @@ describe("Ordaen Tooltips", function()
 		env.SPELL_CAST_TIME_INSTANT = "Instant"
 		env.SPELL_RANGE = "%s yd range"
 		env.SPELL_ON_NEXT_SWING = "Next melee"
+		env.SPELL_REAGENTS = "Reagents: %s"
+		env.C_Item.GetItemInfoInstant = function(name)
+			return name == "Rune of Teleportation" and 17031 or nil
+		end
+		env.C_Item.GetItemCount = function(item)
+			return item == "Rune of Teleportation" and 3 or 1
+		end
 		env.ITEM_MIN_LEVEL = "Requires Level %d"
 		wow:Login()
 		ns = wow.addons.OrdaenCore.ns
@@ -263,6 +281,23 @@ describe("Ordaen Tooltips", function()
 		has(shown, "|cffffffff15|r", "|cffffd100«Battle Shout»|r")
 		assert.is_falsy(shown:find("Cooldown:", 1, true)) -- the cooldown in short
 		assert.is_falsy(shown:find("Rage:", 1, true)) -- the cost: its dot and number
+		assert.are.same({}, wow.errors)
+	end)
+
+	it("draws a spell's tab beside its rank, its reagents as footer rows, a finishing move's points as rows", function()
+		wow:ShowTooltip("GameTooltip", CHARGE)
+		ns.Scheduler.Flush()
+		has(texts(), "Charge", "Arms") -- the spellbook tab on the second line
+		wow:ShowTooltip("GameTooltip", PORTAL)
+		ns.Scheduler.Flush()
+		local shown = texts()
+		has(shown, "Rune of Teleportation\n1", "Arcane Powder\n2") -- a reagent each: its name, its count
+		assert.is_falsy(shown:find("Reagents:", 1, true))
+		wow:ShowTooltip("GameTooltip", EVISCERATE)
+		ns.Scheduler.Flush()
+		shown = texts()
+		has(shown, "Finishing move that causes damage per combo point:", "1 point\n6–10", "2 points\n12–16")
+		assert.is_true(shown:find("Finishing move", 1, true) < shown:find("1 point", 1, true)) -- the description first
 		assert.are.same({}, wow.errors)
 	end)
 
