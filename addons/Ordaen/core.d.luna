@@ -1,0 +1,48 @@
+// Ordaen Core's side of the addons: the modules there are, Ordaen's own settings, the placing mode. Ordaen's root
+// (`OrdaenCore`, ordaen.luna) gives all of it.
+import { Anchored, Art } from "$ltml"
+import { Globals } from "@/globals"
+import { Entry, Module } from "@/module"
+import { Settings } from "@/settings"
+import { Theme } from "@/theme"
+
+// The theme everything Ordaen draws with.
+public theme: Reactive<Theme>
+
+// Ordaen's own name and icon, as its button and its window show them.
+public icon: Art
+public title: string
+
+// The dev tools: whether they are on, and whether their button shows by the minimap.
+public dev: Reactive<boolean>
+public devButton: Reactive<boolean>
+public function toggleDev()
+
+// The settings window asked to open at a page, or to close when it is open: whoever draws it listens.
+public settingsAsked: Event<string | nil>
+public function toggleSettings(page: string | nil)
+
+// Tell Ordaen of a module: its addon's folder, its name and icon, and what makes its root (nothing, where its
+// addon can't be loaded). It is off until it is turned on.
+public function register(folder: string, title: string, icon: Art, make: () => mut Module | nil): Entry
+
+// Start in the client, once every module is told of: Ordaen draws on the screen, and every module the player
+// didn't turn off is made.
+public function start()
+
+// Every module, in the order the settings window lists them.
+public modules: Reactive<Array<Entry>>
+// Turn a module on or off, by its folder: what an entry's `enable` asks.
+public function turn(folder: string, on: boolean)
+
+public mut globals: Settings<Globals>
+
+// The mode in which the player moves every module's free parts about the screen.
+public placing: Reactive<boolean>
+public function togglePlacing()
+
+// Where the player put a part, by the part's name; nothing for one never moved. Read in a computed cell, it is
+// followed: the part moves when its place is kept anew.
+public function moved(part: string): Anchored | nil
+// Keep a part's place; nothing puts it back where its module says.
+public function putAt(part: string, place: Anchored | nil)

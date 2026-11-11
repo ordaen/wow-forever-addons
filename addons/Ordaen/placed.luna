@@ -1,0 +1,65 @@
+// A free part of a module: something that stands on the screen where the player put it. It is drawn at its saved
+// place, or where its module says while it was never moved. In the placing mode it shows an outline with its name
+// over what it holds: dragged, it moves, and where it is let go is kept; right-clicked, it goes back to where its
+// module says. Its unnamed slot takes what it holds.
+import { Align, Anchored, Click, Color, Drag, Layer, Line, MouseButton, Place, Position } from "$ltml"
+import { Component } from "@/module"
+import { moved, placing, putAt } from "@/core"
+
+private const GOLD = $color("#ffd100")
+private const SHADE = $color("#00000073")
+private const OUTLINE: Line = { width: 1, color: GOLD }
+
+public class Placed implements Component {
+  // Where the player put it; nothing while it was never moved.
+  private kept = $computed((): Anchored | nil => moved(self.id))
+  private place = $computed((): Place => self.dragged ?? self.kept ?? self.home)
+  // Where it stood when a drag began, and where the drag has it meanwhile.
+  private mut from: Anchored = { point: "CENTER" }
+  private mut dragged: Reactive<Anchored | nil> = $reactive(nil)
+
+  $constructor(
+    // What tells it from every other part: its module's folder and its own name (`OrdaenPanel.bags`).
+    private const id: string,
+    // Its name in the placing mode.
+    private const title: string,
+    // Where it stands while the player never moved it.
+    private home: Reactive<Anchored>,
+  ) {}
+
+  private mut onGrab() {
+    self.from = $peek(self.kept) ?? $peek(self.home)
+    self.dragged = self.from
+  }
+
+  // It keeps the point it is placed by, and moves as far as the cursor went.
+  private mut onDrag(drag: Drag) {
+    self.dragged = {
+      point: self.from.point, to: self.from.to, x: (self.from.x ?? 0) + drag.dx, y: (self.from.y ?? 0) + drag.dy,
+    }
+  }
+
+  private mut onDrop() {
+    let at = $peek(self.dragged)
+    if (at != nil) { putAt(self.id, at) }
+    self.dragged = nil
+  }
+
+  // A right click puts it back where its module says.
+  private mut onClick(click: Click) {
+    if (click.button == MouseButton::Right) { putAt(self.id, nil) }
+  }
+
+  public render(): Template {
+    return $ltml {
+      <surface layer={Layer::Screen} place={self.place} clamp={true}>
+        <slot />
+        <box $if={placing} position={Position::Absolute} left={0} top={0} right={0} bottom={0} zLevel={20}
+             background={SHADE} border={OUTLINE} xAlign={Align::Center} yAlign={Align::Center}
+             @dragStart={self.onGrab} @drag={self.onDrag} @dragStop={self.onDrop} @click={self.onClick}>
+          <text value={self.title} textColor={GOLD} wrap={false} />
+        </box>
+      </surface>
+    }
+  }
+}

@@ -1,0 +1,12 @@
+## Interface: 16001
+## Title: OrdaenMinimap
+## Dependencies: LunaType, Ordaen, OrdaenLibrary
+## LoadOnDemand: 1
+
+choices.lua
+drawer.lua
+locales.lua
+ring.lua
+settings.lua
+main.lua
+index.lua

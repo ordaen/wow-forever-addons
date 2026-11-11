@@ -1,0 +1,259 @@
+// Window: a window whose open tab is its title. The small metal frame round its body, the windows' wood, its tabs
+// standing on the body's top line from its left, the open one over the body and the closed ones behind it. Centred
+// on the screen at first; dragging its tab row moves it, Escape closes it, the grip in its bottom right corner
+// resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
+// the window: full screen (and back) and close. Its unnamed slot takes the body's content, which fills the body.
+import Math from "$math"
+import { Align, Anchored, Art, Color, Drag, Edges, Layer, Metal, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
+import Ordaen from "Ordaen"
+import { PX } from "@/units"
+
+// One of a window's tabs: its name, a second line under it, a picture at its left end.
+public struct WindowTabSpec {
+  title: string
+  desc: string | nil
+  icon: Art | nil
+}
+
+// Where a window is: its centre from the screen's (y down), and its body's size. Its owner keeps it.
+public struct Placing {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+// The tab row above the body: taller when a tab has a second line.
+private const TAB = 36 * PX
+private const TAB_DESC = 50 * PX
+// A closed tab stands this much lower.
+private const DROP = 5 * PX
+private const TITLE_OPEN = $color("#ffd100")
+private const TITLE_CLOSED = $color("#b3a690")
+private const DESC = $color("#8f8470")
+// A closed tab's wood and picture, darker.
+private const SHADE = $color("#999999")
+private const WHITE = $color("#ffffff")
+private const SHADOW: Shadow = { color: $color("#000000cc"), x: 1 * PX, y: -1 * PX }
+private const LABEL_PAD = 10 * PX
+private const MIN_TAB = 120 * PX
+// The body's wood inside the metal, and the room its content keeps.
+private const INSET = 3 * PX
+private const PADDING: Edges = { top: 14 * PX + INSET, right: 12 * PX + INSET, bottom: 12 * PX + INSET, left: 12 * PX + INSET }
+// One row as high as the box: what stands in it fills it.
+private const BODY_ROWS: Array<Track> = [{ fr: 1 }]
+// The smallest body unless the window names one: room for the tab row and a few lines.
+private const MIN_W = 320 * PX
+private const MIN_H = 200 * PX
+// Over one another: the closed tabs, the body, the open tab.
+private const BODY_LEVEL = 5
+private const OPEN_LEVEL = 10
+
+// One of a window's tabs, framed with the body's own metal, its top corners rounded. The open one stands over the
+// body, its sides curving out into the body's top line; a closed one stands lower, behind the body, darker.
+public class WindowTab implements Ordaen::Component {
+  public grab: Event<nil> = $event()
+  public move: Event<Drag> = $event()
+  public drop: Event<nil> = $event()
+
+  private open = $computed((): boolean => self.selected == self.index)
+  private frame = $computed((): Metal =>
+    !self.open ? Ordaen::theme.frame.tab : self.index > 1 ? Ordaen::theme.frame.tabOpen : Ordaen::theme.frame.tabOpenFirst)
+  // The frame's measures at its scale: its art above its line, its flare, where its line starts.
+  private reachTop = $computed((): number => Ordaen::theme.frame.tab.reach.top * Ordaen::theme.frame.tab.scale)
+  private flare = $computed((): number => Ordaen::theme.frame.tab.curves.flare * Ordaen::theme.frame.tab.scale)
+  private lineStart = $computed((): number => Ordaen::theme.frame.tab.lineStart * Ordaen::theme.frame.tab.scale)
+  // The tab's height with its frame's art, and the height it is given: a framed box grows by its art's reach.
+  private whole = $computed((): number => self.open ? self.height : self.height - DROP)
+  private given = $computed((): number => self.whole - self.reachTop)
+  private level = $computed((): integer => self.open ? OPEN_LEVEL : 0)
+  private tint = $computed((): Color => self.open ? WHITE : SHADE)
+  private titleColor = $computed((): Color => self.open ? TITLE_OPEN : TITLE_CLOSED)
+  private hasIcon = $computed((): boolean => self.tab.icon != nil)
+  private hasDesc = $computed((): boolean => self.tab.desc != nil)
+  private icon = $computed((): Art => self.tab.icon ?? "")
+  private desc = $computed((): string => self.tab.desc ?? "")
+
+  // The picture fills the tab's left end, as wide as the tab row is tall; its line stands at its right, and on the
+  // open tab curves out at the bottom into the body's top line, which runs on under the picture.
+  private iconRight = $computed((): number => self.height - self.flare)
+  private pictureHeight = $computed((): number => self.open ? self.iconRight + self.lineStart : self.whole)
+  private iconLine = $computed((): Metal => self.open ? Ordaen::theme.frame.tabIconLineOpen : Ordaen::theme.frame.tabIconLine)
+  private lineLeft = $computed((): number => self.iconRight - self.lineStart)
+  private lineWidth = $computed((): number =>
+    self.flare - Ordaen::theme.frame.tabIconLine.reach.left * Ordaen::theme.frame.tabIconLine.scale + 1)
+  private underWidth = $computed((): number => self.iconRight - self.lineStart)
+  private underHeight = $computed((): number =>
+    self.flare - Ordaen::theme.frame.tabIconUnder.reach.top * Ordaen::theme.frame.tabIconUnder.scale)
+  // The label's room: past the picture's line where there is a picture.
+  private padding = $computed((): Edges => self.paddingOf())
+
+  $constructor(
+    private tab: Reactive<WindowTabSpec>,
+    private const index: integer,
+    private mut selected: Reactive<integer>,
+    // The open tab's height: from the window's top to the inner side of the body's top line.
+    private height: Reactive<number>,
+  ) {}
+
+  private paddingOf(): Edges {
+    if (!self.hasIcon) { return { left: LABEL_PAD, right: LABEL_PAD } }
+    let line = Ordaen::theme.frame.tabIconLine
+    let frame = Ordaen::theme.frame.tab
+    let lineEnd = line.width + line.reach.left * line.scale
+    let frameEnd = frame.width + frame.reach.left * frame.scale
+    let left = self.height - self.flare + lineEnd - frameEnd + LABEL_PAD
+    return { left: left, right: LABEL_PAD }
+  }
+
+  private mut pick() { self.selected = self.index }
+  private mut onGrab() { self.grab.emit() }
+  private mut onMove(drag: Drag) { self.move.emit(drag) }
+  private mut onDrop() { self.drop.emit() }
+
+  public render(): Template {
+    return $ltml {
+      <box minWidth={MIN_TAB} height={self.given} border={self.frame} background={Ordaen::theme.window.wood}
+           tint={self.tint} padding={self.padding} rows={BODY_ROWS} zLevel={self.level} @click={self.pick}
+           @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
+        <$if={self.hasIcon}>
+          <box position={Position::Absolute} left={0} top={0} width={self.iconRight} height={self.pictureHeight}
+               background={self.icon} tint={self.tint} border={Ordaen::theme.frame.tabIconClip} />
+          <box $if={self.open} position={Position::Absolute} left={0} top={self.iconRight} width={self.underWidth}
+               height={self.underHeight} border={Ordaen::theme.frame.tabIconUnder} />
+          <box position={Position::Absolute} left={self.lineLeft} top={0} width={self.lineWidth}
+               height={self.whole} border={self.iconLine} />
+        </>
+        <box xAlign={Align::Center} yAlign={Align::Center} gap={1 * PX}>
+          <text value={self.tab.title} textSize={15 * PX} wrap={false} textColor={self.titleColor}
+                textShadow={SHADOW} />
+          <text $if={self.hasDesc} value={self.desc} textSize={11 * PX} wrap={false} textColor={DESC}
+                textShadow={SHADOW} />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class Window implements Ordaen::Component {
+  // The close button, and Escape.
+  public close: Event<nil> = $event()
+
+  private mut full = $reactive(false)
+  private mut hovered = $reactive(false)
+  // Where the window and its body were when a drag began.
+  private mut x0: number = 0
+  private mut y0: number = 0
+  private mut w0: number = 0
+  private mut h0: number = 0
+
+  private tabHeight = $computed((): number => self.tabHeightOf())
+  // The body's top line, inside its box, as far as the open tab's curves into it reach.
+  private lineTop = $computed((): number => Ordaen::theme.frame.tabOpen.curves.flare * Ordaen::theme.frame.tabOpen.scale)
+  private openTab = $computed((): number => self.tabHeight + self.lineTop)
+  private columns = $computed((): Array<Track> => self.tabColumns())
+  private place = $computed((): Place => self.placeOf())
+  private width = $computed((): number | nil => self.full ? nil : self.placing.width)
+  private height = $computed((): number | nil => self.full ? nil : self.tabHeight + self.placing.height)
+  private sized = $computed((): boolean => !self.full)
+  private fullArt = $computed((): Art => self.full ? Ordaen::theme.ctl.cornerContract : Ordaen::theme.ctl.cornerExpand)
+  private grip = $computed((): Stated<Art> => self.gripOf())
+
+  $constructor(
+    private tabs: Reactive<Array<WindowTabSpec>>,
+    private mut selected: Reactive<integer>,
+    private mut placing: Reactive<Placing>,
+    private const minWidth: number = MIN_W,
+    private const minHeight: number = MIN_H,
+    private const maxWidth: number | nil = nil,
+    private const maxHeight: number | nil = nil,
+  ) {}
+
+  private tabHeightOf(): number {
+    for (tab of self.tabs) {
+      if (tab.desc != nil) { return TAB_DESC }
+    }
+    return TAB
+  }
+
+  private tabColumns(): Array<Track> {
+    let mut list: Array<Track> = []
+    for (tab of self.tabs) { list.push("auto") }
+    return list
+  }
+
+  // Placed by its top left corner from the screen's centre: a resize moves the centre by half the change, so the
+  // corner stays exactly where it is.
+  private placeOf(): Place {
+    if (self.full) { return "fill" }
+    return {
+      point: Point::TopLeft, to: Point::Center,
+      x: self.placing.x - self.placing.width / 2,
+      y: self.placing.y - (self.tabHeight + self.placing.height) / 2,
+    }
+  }
+
+  private gripOf(): Stated<Art> {
+    return { default: Ordaen::theme.ctl.grip, hover: Ordaen::theme.ctl.gripHover, pressed: Ordaen::theme.ctl.gripDown }
+  }
+
+  private mut onEnter() { self.hovered = true }
+  private mut onLeave() { self.hovered = false }
+  private mut toggleFull() { self.full = !self.full }
+  private mut onClose() { self.close.emit() }
+
+  private mut onGrab() {
+    self.x0 = $peek(self.placing).x
+    self.y0 = $peek(self.placing).y
+    self.w0 = $peek(self.placing).width
+    self.h0 = $peek(self.placing).height
+  }
+
+  // The tab row moves the window, its tabs too.
+  private mut onMove(drag: Drag) {
+    if (self.full) { return }
+    self.placing.x = self.x0 + drag.dx
+    self.placing.y = self.y0 + drag.dy
+  }
+
+  // The grip follows the cursor. The window is placed by its centre, so the centre moves half as far.
+  private mut onSize(drag: Drag) {
+    let mut width = Math::max(self.minWidth, self.w0 + drag.dx)
+    let mut height = Math::max(self.minHeight, self.h0 + drag.dy)
+    if (self.maxWidth != nil) { width = Math::min(self.maxWidth, width) }
+    if (self.maxHeight != nil) { height = Math::min(self.maxHeight, height) }
+    self.placing.width = width
+    self.placing.height = height
+    self.placing.x = self.x0 + (width - self.w0) / 2
+    self.placing.y = self.y0 + (height - self.h0) / 2
+  }
+
+  public render(): Template {
+    return $ltml {
+      <surface layer={Layer::Dialog} place={self.place} width={self.width} height={self.height} clamp={true}
+               raise={true} @escape={self.onClose}>
+        <box position={Position::Absolute} left={0} right={0} top={0} height={self.tabHeight}
+             @dragStart={self.onGrab} @drag={self.onMove} />
+        <box position={Position::Absolute} left={0} right={0} top={self.tabHeight} bottom={0}
+             border={Ordaen::theme.frame.small} background={Ordaen::theme.window.wood} padding={PADDING}
+             rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>
+          <slot />
+          <box $if={self.hovered} position={Position::Absolute} top={5.5 * PX} right={5 * PX}
+               width={(5 + 30 + 28) * PX} height={32 * PX} overflow={Overflow::Hidden}>
+            <box position={Position::Absolute} left={0} top={0} width={64 * PX} height={32 * PX}
+                 background={self.fullArt} @click={self.toggleFull} />
+            <box position={Position::Absolute} left={35 * PX} top={0} width={64 * PX} height={32 * PX}
+                 background={Ordaen::theme.ctl.cornerClose} @click={self.onClose} />
+          </box>
+          <box $if={self.sized} position={Position::Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}
+               height={16 * PX} background={self.grip} @dragStart={self.onGrab} @drag={self.onSize} />
+        </box>
+        <box position={Position::Absolute} left={0} top={0} columns={self.columns} gap={12 * PX}
+             yAlign={Align::End}>
+          <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={mut self.selected}
+                     height={self.openTab} @grab={self.onGrab} @move={self.onMove} />
+        </box>
+      </surface>
+    }
+  }
+}

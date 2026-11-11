@@ -1,0 +1,116 @@
+// The panel's items that are rows of cells or of text: the game's menu, friends and guild, the money, the bags. Each
+// is drawn in its zone of the panel, or standing free where the player put it.
+import Game from "$game"
+import { Align, Color, Shadow, Track } from "$ltml"
+import Ordaen from "Ordaen"
+import { BagCell, FaceCell, MenuCell } from "@/cells"
+
+private const INK = $color("#e8dcc4")
+private const TEXT = 12
+// An item's cells: side by side along a panel that runs across the screen, one under another down a side of it.
+private const DOWN: Array<Track> = ["auto"]
+private const MICRO: Array<Track> = ["auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"]
+private const MICRO_FACED: Array<Track> = ["auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"]
+private const PAIR: Array<Track> = ["auto", "auto"]
+private const BAGS: Array<Track> = ["auto", "auto", "auto", "auto", "auto"]
+
+// The game's menu, left to right, the game menu's button last. The character's button is its first cell, with the
+// player's face, unless the portrait in the screen's corner stands for it.
+public class MicroLine implements Ordaen::Component {
+  private columns = $computed((): Array<Track> => self.vertical ? DOWN : (self.faced ? MICRO_FACED : MICRO))
+
+  $constructor(
+    private gold: Reactive<boolean>,
+    private vertical: Reactive<boolean> = false,
+    private faced: Reactive<boolean> = true,
+  ) {}
+
+  public render(): Template {
+    return $ltml {
+      <box columns={self.columns}>
+        <FaceCell $if={self.faced} />
+        <MenuCell icon={$asset("assets/micro-professions.tga")} frame={Game::Frames::ProfessionMicroButton}
+                  gold={self.gold} />
+        <MenuCell icon={$asset("assets/micro-spellbookabilities.tga")} frame={Game::Frames::SpellbookMicroButton}
+                  gold={self.gold} />
+        <MenuCell icon={$asset("assets/micro-spectalents.tga")} frame={Game::Frames::TalentMicroButton}
+                  gold={self.gold} />
+        <MenuCell icon={$asset("assets/micro-legacy.tga")} frame={Game::Frames::LegacyMicroButton}
+                  gold={self.gold} />
+        <MenuCell icon={$asset("assets/micro-questlog.tga")} frame={Game::Frames::QuestLogMicroButton}
+                  gold={self.gold} />
+        <MenuCell icon={$asset("assets/micro-groupfinder.tga")} frame={Game::Frames::LFDMicroButton}
+                  gold={self.gold} />
+        <MenuCell icon={$asset("assets/micro-collections.tga")} frame={Game::Frames::CollectionsMicroButton}
+                  gold={self.gold} />
+        <MenuCell icon={$asset("assets/micro-gamemenu.tga")} frame={Game::Frames::MainMenuMicroButton}
+                  gold={self.gold} />
+      </box>
+    }
+  }
+}
+
+// Friends and guild: the friends' cell with how many are online.
+public class SocialLine implements Ordaen::Component {
+  private columns = $computed((): Array<Track> => self.vertical ? DOWN : PAIR)
+
+  $constructor(private gold: Reactive<boolean>, private vertical: Reactive<boolean> = false) {}
+
+  public render(): Template {
+    return $ltml {
+      <box columns={self.columns}>
+        <MenuCell icon={$asset("assets/micro-social.tga")} frame={Game::Frames::QuickJoinToastButton}
+                  gold={self.gold} count={Game::Friends::online} />
+        <MenuCell icon={$asset("assets/micro-guildcommunities.tga")} frame={Game::Frames::GuildMicroButton}
+                  gold={self.gold} />
+      </box>
+    }
+  }
+}
+
+// The money, and the currency the player follows beside it.
+public class MoneyLine implements Ordaen::Component {
+  private money = $computed((): string => Game::Money::format(Game::Money::amount))
+  private tracks = $computed((): boolean => Game::Money::tracked != "")
+  // Down a side of the screen the two stand one under the other, in the panel's middle.
+  private columns = $computed((): Array<Track> => self.vertical ? DOWN : PAIR)
+  private gap = $computed((): number => self.vertical ? 4 / 1.2 : 12 / 1.2)
+  private across = $computed((): Align => self.vertical ? Align::Center : Align::Stretch)
+
+  $constructor(
+    // The panel's text: the line round it and the shadow under it.
+    private outline: Reactive<integer>,
+    private shadow: Reactive<Shadow>,
+    private vertical: Reactive<boolean> = false,
+  ) {}
+
+  public render(): Template {
+    return $ltml {
+      <box columns={self.columns} gap={self.gap} xAlign={self.across} yAlign={Align::Center}>
+        <text value={self.money} textColor={INK} textSize={TEXT} textOutline={self.outline}
+              textShadow={self.shadow} wrap={false} />
+        <text $if={self.tracks} value={Game::Money::tracked} textColor={INK} textSize={TEXT}
+              textOutline={self.outline} textShadow={self.shadow} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// The backpack with the free slots of every bag, then the four bags.
+public class BagLine implements Ordaen::Component {
+  private columns = $computed((): Array<Track> => self.vertical ? DOWN : BAGS)
+
+  $constructor(private vertical: Reactive<boolean> = false) {}
+
+  public render(): Template {
+    return $ltml {
+      <box columns={self.columns}>
+        <BagCell frame={Game::Frames::MainMenuBarBackpackButton} free={Game::Bags::free} />
+        <BagCell frame={Game::Frames::CharacterBag0Slot} />
+        <BagCell frame={Game::Frames::CharacterBag1Slot} />
+        <BagCell frame={Game::Frames::CharacterBag2Slot} />
+        <BagCell frame={Game::Frames::CharacterBag3Slot} />
+      </box>
+    }
+  }
+}

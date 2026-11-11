@@ -1,0 +1,183 @@
+// Ordaen's theme: the art and the measures everything Ordaen draws is made of.
+import { Art, Corners, Curves, Line, Metal, Piece, Radius, Reach, Side } from "$ltml"
+
+public struct Spacing {
+  sm: number
+  md: number
+  lg: number
+}
+
+// The theme's art, by what it is for.
+public struct ThemeFrame {
+  // A window's or a small surface's metal on all four sides: windows, dialogs, tooltips, the minimap.
+  small: Metal
+  // A window tab's: the metal on its top and sides, its top corners rounded. The open tab's sides curve out into
+  // the body's top line; the first tab's left runs straight down the body's own.
+  tab: Metal
+  tabOpen: Metal
+  tabOpenFirst: Metal
+  // A tab's icon: its picture cut by the tab's top-left curve, the line on its right, the line under it.
+  tabIconClip: Metal
+  tabIconLine: Metal
+  tabIconLineOpen: Metal
+  tabIconUnder: Metal
+}
+
+public struct ThemeWindow {
+  wood: Art
+  // The game's dark marble, under a chosen thing's details.
+  marble: Art
+}
+
+public struct ThemeControls {
+  tick: Art
+  check: Art
+  button: Art
+  buttonAccent: Art
+  buttonDisabled: Art
+  groove: Art
+  sliderFill: Art
+  sliderKnob: Art
+  rule: Art
+  switchOn: Art
+  switchOff: Art
+  knobOn: Art
+  knobOff: Art
+  dropdownArrow: Art
+  radio: Art
+  radioOn: Art
+  // A window's corner: full screen and back, close; its resize grip.
+  cornerExpand: Art
+  cornerContract: Art
+  cornerClose: Art
+  grip: Art
+  gripHover: Art
+  gripDown: Art
+}
+
+public struct ThemePanel {
+  // The panel's surface, and the metal along its inner side.
+  wood: Art
+  edge: Metal
+  // A cell of the panel: its side rims on the wood.
+  cell: Art
+  // The pill a count stands on.
+  countBadge: Art
+  // The shapes a face is cut to: round on a cell, the screen's corner under the panel's rim; and the badge the
+  // level stands on.
+  faceRound: Art
+  corner: Art
+  badge: Art
+  // A bag button's edge on the wood: one line.
+  slotEdge: Line
+  // What fills the experience bar, and every bar that looks like it.
+  xpFill: Art
+  // The reputation bar's fill, and a status bar's glass: its trough, its shine, its bronze ring.
+  xpSteel: Art
+  xpTrough: Art
+  xpShine: Art
+  xpTube: Art
+}
+
+public struct ThemeMinimap {
+  ring: Art
+  ringLit: Art
+}
+
+public struct ThemeFont {
+  numbers: Art
+}
+
+public struct Theme {
+  spacing: Spacing
+  frame: ThemeFrame
+  window: ThemeWindow
+  ctl: ThemeControls
+  panel: ThemePanel
+  minimap: ThemeMinimap
+  font: ThemeFont
+}
+
+// The metal frame: the client's window frame at half size. The line is 3 units; the art stands past it by its
+// reach on each side, and the box's background starts 1.5 units into the art. A rounded frame's right side is
+// its left mirrored, so it reaches as far as the left.
+private const FRAME = "ButtonFrameTemplateNoPortrait"
+private const REACH: Reach = { top: 14.5, right: 4.5, bottom: 10, left: 14.5 }
+private const REACH_ROUND: Reach = { top: 14.5, right: 14.5, bottom: 10, left: 14.5 }
+private const CURVES: Curves = { small: 8 / 1.2 / 0.5 + 14, large: 14 / 1.2 / 0.5 + 14, flare: 21 }
+private const TAB_CORNERS: Corners = { topLeft: Radius::Large, topRight: Radius::Large }
+private const ICON_CORNER: Corners = { topLeft: Radius::Large }
+
+// The wood: one tile, repeated at the size the picture had in the design's window.
+private const WOOD: Piece = { file: "Interface\\AddOns\\Ordaen\\media\\window-wood", width: 512, height: 512, repeatSize: 746 / 1.2 }
+
+// The theme Ordaen has: its measures, and its art from this addon's `media` and the client.
+public const THEME: Theme = {
+  spacing: { sm: 4, md: 8, lg: 16 },
+  frame: {
+    small: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, curves: CURVES, lineStart: 10 },
+    tab: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side::Top, Side::Left, Side::Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },
+    tabOpen: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side::Top, Side::Left, Side::Right], radius: TAB_CORNERS, flare: [Side::Left, Side::Right], curves: CURVES, lineStart: 10 },
+    tabOpenFirst: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side::Top, Side::Left, Side::Right], radius: TAB_CORNERS, flare: [Side::Right], curves: CURVES, lineStart: 10 },
+    tabIconClip: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
+    tabIconLine: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side::Left], curves: CURVES, lineStart: 10 },
+    tabIconLineOpen: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side::Left], flare: [Side::Left], curves: CURVES, lineStart: 10 },
+    tabIconUnder: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side::Top], curves: CURVES, lineStart: 10 },
+  },
+  window: { wood: WOOD, marble: "Interface\\FrameGeneral\\UI-Background-Marble" },
+  ctl: {
+    // The checkbox, drawn whole: the well (the light ring over it under the cursor), and the tick.
+    check: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-check", width: 64, height: 256, rows: 4, normal: 0, glow: 1 },
+    tick: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-check", width: 64, height: 256, rows: 4, normal: 2 },
+    // The push button and the dropdown's face: rows 0 normal, 1 pushed, 2 disabled, 3 the light over normal, 4 the
+    // accent, 5 the accent pushed; caps half as wide as it is high.
+    button: { file: "Interface\\AddOns\\Ordaen\\media\\button", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 0, pressed: 1, glow: 3 },
+    buttonAccent: { file: "Interface\\AddOns\\Ordaen\\media\\button", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 4, pressed: 5, glow: 3 },
+    buttonDisabled: { file: "Interface\\AddOns\\Ordaen\\media\\button", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 2 },
+    // The slider: the groove with its edge, the fill inside it, the knob.
+    groove: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-slider", width: 64, height: 128, cap: 4, capHeight: 0.125, rows: 4, normal: 0 },
+    sliderFill: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-slider", width: 64, height: 128, rows: 4, normal: 1 },
+    sliderKnob: "Interface\\AddOns\\Ordaen\\media\\ctl-slider-knob",
+    rule: "Interface\\AddOns\\Ordaen\\media\\ctl-rule",
+    // The switch: the track, a pill with round caps (rows 0 off, 1 on, 2 the ring over either), and the knob.
+    switchOff: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-switch-track", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 0, glow: 2 },
+    switchOn: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-switch-track", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 1, glow: 2 },
+    knobOff: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-switch-knob", width: 64, height: 128, rows: 2, normal: 0 },
+    knobOn: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-switch-knob", width: 64, height: 128, rows: 2, normal: 1 },
+    dropdownArrow: "Interface\\AddOns\\Ordaen\\media\\dropdown-arrow",
+    radio: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-radio", width: 32, height: 64, rows: 2, normal: 0 },
+    radioOn: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-radio", width: 32, height: 64, rows: 2, normal: 1 },
+    // A window's corner buttons, each drawn whole: the row by state.
+    cornerExpand: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-corner-full", width: 128, height: 512, rows: 8, normal: 0, hover: 1, pressed: 2 },
+    cornerContract: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-corner-full", width: 128, height: 512, rows: 8, normal: 3, hover: 4, pressed: 5 },
+    cornerClose: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-corner-close", width: 128, height: 256, rows: 4, normal: 0, hover: 1, pressed: 2 },
+    // A window's resize grip: the client's own.
+    grip: "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up",
+    gripHover: "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight",
+    gripDown: "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down",
+  },
+  panel: {
+    // The shapes a face is cut to: a circle, and the screen's corner.
+    faceRound: "Interface\\AddOns\\Ordaen\\media\\face-round-mask",
+    corner: "Interface\\AddOns\\Ordaen\\media\\portrait-mask",
+    badge: "Interface\\AddOns\\Ordaen\\media\\level-badge",
+    slotEdge: { width: 1, color: $color("#6c5535") },
+    xpFill: { file: "Interface\\AddOns\\Ordaen\\media\\xp-fill-brushed", width: 1024, height: 32, tile: true },
+    xpSteel: { file: "Interface\\AddOns\\Ordaen\\media\\xp-fill-steel", width: 1024, height: 32, tile: true },
+    wood: WOOD,
+    edge: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side::Top], curves: CURVES, lineStart: 10 },
+    // A micro menu's or a bag's cell: rows 0 normal, 1 the glow over it, 2 pushed; caps a fifth of its height.
+    cell: { file: "Interface\\AddOns\\Ordaen\\media\\panel-cell", width: 256, height: 256, cap: 32, capHeight: 0.2, rows: 4, normal: 0, glow: 1, pressed: 2 },
+    countBadge: { file: "Interface\\AddOns\\Ordaen\\media\\panel-count-badge", width: 128, height: 64, cap: 32, capHeight: 0.5 },
+    // The experience tube, back to front: the trough, the fill, the shine, the ring.
+    xpTrough: { file: "Interface\\AddOns\\Ordaen\\media\\xp-tube-trough", width: 256, height: 64, cap: 64, capHeight: 1 },
+    xpShine: { file: "Interface\\AddOns\\Ordaen\\media\\xp-tube-shine", width: 256, height: 64, cap: 64, capHeight: 1 },
+    xpTube: { file: "Interface\\AddOns\\Ordaen\\media\\xp-tube", width: 256, height: 64, cap: 64, capHeight: 1 },
+  },
+  // A button on the minimap's ring, drawn whole: rows 0 the button, 1 the light ring over it, 2 lit.
+  minimap: {
+    ring: { file: "Interface\\AddOns\\Ordaen\\media\\minimap-ring", width: 128, height: 512, rows: 4, normal: 0, glow: 1 },
+    ringLit: { file: "Interface\\AddOns\\Ordaen\\media\\minimap-ring", width: 128, height: 512, rows: 4, normal: 2, glow: 1 },
+  },
+  font: { numbers: "Fonts\\ARIALN.TTF" },
+}

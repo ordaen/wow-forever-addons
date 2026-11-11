@@ -1,0 +1,87 @@
+// A talent's tooltip, on the talent window's button: the spell as on the skills (its band, its description), with
+// «Talent · 2/5 · Fire» as its second line; the next rank with what changes lit; what an unlearned talent still
+// needs in the footer, red while not met. The game's lines for a talent start at the cost: the name is the spell's.
+import Game from "$game"
+import String from "$string"
+import { GREEN, GREY, RED } from "@/colors"
+import Locale from "@/locales"
+import { Model, Note, Part, Picture, TextLine, named } from "@/model"
+import { Term } from "@/terms"
+import { Options } from "@/options"
+import { spell } from "@/spell"
+import Talents from "@/talents"
+
+// The game's number for the line a spell's name stands on.
+private const SPELL_NAME = 13
+private const LIT = "|cff40ff60"
+
+// A word without the colours the game wrote it in: a lit word shows in the one colour.
+private function plain(word: string): string {
+  return $replace($replace(word, "|c%x%x%x%x%x%x%x%x", ""), "|r", "")
+}
+
+private function words(text: string): mut Array<string> {
+  let mut list: Array<string> = []
+  for (word of String::split($replace(text, "%s+", " "), " ")) {
+    if (word != "") { list.push(word) }
+  }
+  return list
+}
+
+// The next rank's description with the words that differ from the current one's, place for place, lit green:
+// ranks of one talent differ in their numbers.
+private function diff(current: string, after: string): string {
+  let before = words(current)
+  let out = ""
+  for (i, word of words(after)) {
+    let shown = word == before[i] ? word : LIT + plain(word) + "|r"
+    out = i == 1 ? shown : out + " " + shown
+  }
+  return out
+}
+
+public function talent(data: Game::TooltipData, known: Game::TalentInfo, options: Options): Model | nil {
+  let name = Game::Spells::name(known.spell)
+  if (name == nil) { return nil }
+  let mut lines: Array<Game::TooltipLine> = [{ left: name, kind: SPELL_NAME }]
+  for (line of data.lines) { lines.push(line) }
+  let read = spell({ id: known.spell, lines: lines, ..data }, options)
+  if (read == nil) { return nil }
+
+  // The second line: the spell's own «Passive» and rank give way.
+  let maxed = known.rank >= known.ranks
+  let mut desc: Array<Part> = [
+    { text: Locale::TALENT, opens: named(Term::Talent) },
+    { text: `${known.rank}/${known.ranks}`, color: maxed ? GREEN : nil, opens: named(Term::Talent) },
+  ]
+  // Its tree, as the classic talent window names it.
+  let tab = Talents::tab[known.spell]
+  let tree = tab != nil ? Talents::name[tab] : nil
+  if (tree != nil) { desc.push({ text: Game::Client::locale == "ruRU" ? tree.ruRU : tree.enUS }) }
+
+  let mut more: Array<TextLine> = []
+  let current = known.current
+  let after = known.next
+  if (options.spellsNext && known.rank > 0 && !maxed && current != nil && after != nil && after != "") {
+    more.push({ left: Locale::NEXT_RANK, color: GREY })
+    more.push({ left: diff(current, after), desc: true })
+  }
+
+  let mut foot: Array<Note> = []
+  for (note of read.foot) { foot.push(note) }
+  if (known.rank == 0) {
+    for (condition of known.conditions) {
+      if (condition.points > 0) {
+        foot.push({
+          left: Locale::TALENT_POINTS, right: String::of(condition.points), valueColor: condition.met ? nil : RED,
+          opens: named(Term::Talent),
+        })
+      }
+    }
+    if (known.locked) { foot.push({ left: Locale::TALENT_LOCKED, valueColor: RED, opens: named(Term::Talent) }) }
+  }
+  // The talent's own icon where the game has one; the spell's otherwise.
+  let art = Game::Spells::texture(known.spell)
+  if (art == nil) { return { desc: desc, more: more, foot: foot, ..read } }
+  return { desc: desc, more: more, foot: foot, picture: Picture::Icon { art: art }, ..read }
+}

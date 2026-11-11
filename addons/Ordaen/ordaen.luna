@@ -1,0 +1,131 @@
+// Ordaen's root: what core.d.luna declares. It knows the modules, makes and ends them as the player turns them on
+// and off, and keeps Ordaen's own settings and where the player put each part.
+import { Anchored, Art } from "$ltml"
+import Runtime from "$runtime"
+import Core from "@/core"
+import Drafts from "@/drafts"
+import { DEFAULTS, Globals } from "@/globals"
+import { Keeper } from "@/keeper"
+import { Entry, Module, SettingsPage } from "@/module"
+import { Scope, Settings } from "@/settings"
+import { THEME, Theme } from "@/theme"
+
+public class ModuleEntry implements Entry {
+  public mut on: Reactive<boolean> = $reactive(false)
+  public mut pages: Reactive<Array<SettingsPage>> = $reactive([])
+  // The module while it runs.
+  private mut made: Module | nil = nil
+
+  $constructor(
+    public const folder: string,
+    public const title: string,
+    public const icon: Art,
+    private const make: () => mut Module | nil,
+  ) {}
+
+  public enable(on: boolean) {
+    Core::turn(self.folder, on)
+  }
+
+  public running(): boolean {
+    return self.made != nil
+  }
+
+  // Made and drawn at once; nothing happens where its addon can't be loaded.
+  public mut begin() {
+    let mut made = self.make()
+    if (made == nil) { return }
+    self.made = made
+    Runtime::mount(made, Runtime::screen())
+    self.pages = Runtime::copy(made.pages)
+    self.on = true
+  }
+
+  public mut stop() {
+    let made = self.made
+    self.pages = []
+    self.made = nil
+    self.on = false
+    if (made != nil) { destroy made }
+  }
+}
+
+public class OrdaenCore implements App {
+  // Before anything that makes a `Settings`: Ordaen's own are kept under its name.
+  private keeper = new Keeper()
+  public const icon: Art = $asset("Interface/Icons/Trade_Engineering")
+  public const title: string = "Ordaen"
+  public mut theme: Reactive<Theme> = $reactive(THEME)
+  public mut dev: Reactive<boolean> = $reactive(false)
+  public mut devButton: Reactive<boolean> = $reactive(false)
+  public settingsAsked: Event<string | nil> = $event()
+  public mut modules: Reactive<Array<Entry>> = $reactive([])
+  public const globals: Settings<Globals> = new Settings<Globals>(DEFAULTS, Scope::Account)
+  public mut placing: Reactive<boolean> = $reactive(false)
+  private mut entries: Array<ModuleEntry> = []
+  // Where the player put each part: read by a part an entry at a time, so a part follows its own place.
+  private mut places: Reactive<Map<string, Anchored>> = $reactive({})
+  // Which modules the player turned off; kept from `start` on.
+  private mut chosen: Map<string, boolean> = {}
+  private mut started = false
+
+  $constructor() {
+    $provide(Core, self)
+    Drafts::naming(nil)
+  }
+
+  public mut toggleDev() { self.dev = !$peek(self.dev) }
+  public mut toggleSettings(page: string | nil) { self.settingsAsked.emit(page) }
+  public mut togglePlacing() { self.placing = !$peek(self.placing) }
+
+  public moved(part: string): Anchored | nil {
+    return self.places[part]
+  }
+
+  public mut putAt(part: string, place: Anchored | nil) {
+    if (place == nil) {
+      self.places[part] = nil
+    } else {
+      self.places[part] = Runtime::copy(place)
+    }
+  }
+
+  public mut register(folder: string, title: string, icon: Art, make: () => mut Module | nil): Entry {
+    let entry = new ModuleEntry(folder, title, icon, make)
+    self.entries.push(entry)
+    self.modules.push(entry)
+    return entry
+  }
+
+  public mut turn(folder: string, on: boolean) {
+    for (i, entry of self.entries) {
+      if (entry.folder == folder && entry.running() != on) {
+        if (on) {
+          // What the module's `Settings` are kept under.
+          Drafts::naming(folder)
+          self.entries[i]?.begin()
+          Drafts::naming(nil)
+        } else {
+          self.entries[i]?.stop()
+        }
+        if (self.started) { self.chosen[folder] = entry.running() }
+      }
+    }
+  }
+
+  // `/ordaen` opens the settings, `/ordaen <module's folder>` on that module's page.
+  private command(text: string) {
+    let page = $match(text, "^%s*(%S+)")
+    self.settingsAsked.emit(page)
+  }
+
+  public mut start() {
+    self.chosen = Runtime::kept<Map<string, boolean>>(false, "modules", {})
+    self.places = Runtime::kept<Map<string, Anchored>>(false, "places", {})
+    self.started = true
+    Runtime::command("/ordaen", (text: string) => self.command(text))
+    for (entry of self.entries) {
+      if (self.chosen[entry.folder] != false) { self.turn(entry.folder, true) }
+    }
+  }
+}

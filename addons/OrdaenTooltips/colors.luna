@@ -1,0 +1,38 @@
+// The colours Ordaen Tooltips writes in, and a colour of the game's as a line's own.
+import { Color } from "$ltml"
+import Math from "$math"
+import String from "$string"
+
+public const RED = $color("#ff4040")
+public const GOLD = $color("#ffd100")
+public const YELLOW = $color("#ffd100")
+public const WHITE = $color("#ffffff")
+public const GREEN = $color("#1eff00")
+public const GREY = $color("#808080")
+// A label: quieter than the body.
+public const LABEL = $color("#cbb994")
+
+// A colour as the game's markup takes it: `|c<this>text|r`.
+public function hex(color: Color): string {
+  return String::format("ff%02x%02x%02x", Math::round(color.r * 255), Math::round(color.g * 255),
+    Math::round(color.b * 255))
+}
+
+private function near(a: number, b: number): boolean {
+  return Math::abs(a - b) < 0.002
+}
+
+// A colour of the game's as a line's own: white is the body's colour, and stands for none.
+public function colorOf(color: Color | nil): Color | nil {
+  if (color == nil) { return nil }
+  if (color.r > 0.95 && color.g > 0.95 && color.b > 0.95) { return nil }
+  return color
+}
+
+// The same, with the game's usual gold standing for none too: a text tooltip's lines are in it by default.
+public function tint(color: Color | nil): Color | nil {
+  let own = colorOf(color)
+  if (own == nil) { return nil }
+  if (near(own.r, GOLD.r) && near(own.g, GOLD.g) && near(own.b, GOLD.b)) { return nil }
+  return own
+}

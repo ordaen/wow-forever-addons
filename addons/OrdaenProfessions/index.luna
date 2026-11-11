@@ -1,0 +1,2 @@
+// Ordaen Professions: one window for the character's professions.
+export { Professions } from "@/main"

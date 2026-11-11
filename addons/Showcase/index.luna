@@ -1,0 +1,88 @@
+// A page that uses every control of the library, for the run tests: what a settings page of a real addon does.
+import Ordaen from "Ordaen"
+export { Windowed } from "@/windowed"
+export { Tinted } from "@/tinted"
+export { Arranged } from "@/arranged"
+import { Checkbox, Choice, Dialog, Dropdown, Input, PushButton, Section, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "OrdaenLibrary"
+
+private const TABS: Array<string> = ["Map", "Drawer"]
+
+public enum Hide { Never = "never", Combat = "combat", Transport = "transport" }
+
+private const HIDES: Array<Choice<Hide>> = [
+  { value: Hide::Never, label: "Never" },
+  { value: Hide::Combat, label: "In combat" },
+  { value: Hide::Transport, label: "On a mount", soon: true },
+]
+
+public struct Choices {
+  showZone: boolean
+  scale: number
+  columns: integer
+  drawer: boolean
+  hide: Hide
+  name: string
+}
+
+public class Showcase implements Ordaen::Module {
+  public const title: string = "Showcase"
+  public const pages: Array<Ordaen::SettingsPage> = []
+
+  private mut choices: Reactive<Choices> = $reactive({ showZone: true, scale: 1, columns: 4, drawer: false, hide: Hide::Never, name: "" })
+  private mut saved = $reactive(0)
+  private mut hint = $reactive(false)
+  private mut tab = $reactive(1)
+  private onMap = $computed((): boolean => self.tab == 1)
+  private onDrawer = $computed((): boolean => self.tab == 2)
+  private summary = $computed((): string => self.describe())
+
+  private describe(): string {
+    return self.choices.showZone ? "zone shown" : "zone hidden"
+  }
+
+  private mut asking = $reactive(false)
+
+  private mut onSave() { self.saved += 1 }
+  private mut onReset() { self.asking = true }
+  private mut onKeep() { self.asking = false }
+  private mut onDiscard() {
+    self.saved = 0
+    self.asking = false
+  }
+  private mut onEnter() { self.hint = true }
+  private mut onLeave() { self.hint = false }
+
+  public render(): Template {
+    return $ltml {
+      <box columns={1} gap={8} @enter={self.onEnter} @leave={self.onLeave}>
+        <Tabs tabs={TABS} selected={mut self.tab} />
+        <SettingsTab title={"Map"} shown={self.onMap}>
+          <Section title={"Map"}>
+            <Checkbox label={"Show the zone"} value={mut self.choices.showZone} />
+            <Slider label={"Size"} value={mut self.choices.scale} least={0.8} most={1.6} step={0.05} unit={Unit::Percent} />
+            <Slider label={"Columns"} value={mut self.choices.columns} least={2} most={12} disabled={!self.choices.showZone} />
+          </Section>
+        </SettingsTab>
+        <SettingsTab title={"Drawer"} shown={self.onDrawer}>
+          <Section title={"Drawer"}>
+            <Switch label={"Button drawer"} hint={"Other addons' buttons in one place."} value={mut self.choices.drawer} />
+            <Dropdown label={"Hide the map"} value={mut self.choices.hide} choices={HIDES} disabled={!self.choices.drawer} />
+            <Input label={"Its name"} hint={"Shown over the drawer."} value={mut self.choices.name} maxLength={12}
+                   disabled={!self.choices.drawer} />
+            <text value={self.choices.name} />
+            <Toggle value={mut self.choices.drawer} />
+          </Section>
+        </SettingsTab>
+        <text value={self.summary} />
+        <PushButton label={"Save"} width={120} @click={self.onSave} />
+        <PushButton label={"Reset"} width={120} accent={true} disabled={self.saved == 0} @click={self.onReset} />
+        <Dialog $if={self.asking} width={360} title={"Reset"}>
+          <text value={"Forget what was saved?"} />
+          <PushButton #buttons label={"Forget"} width={100} accent={true} @click={self.onDiscard} />
+          <PushButton #buttons label={"Keep"} width={100} @click={self.onKeep} />
+        </Dialog>
+        <Tip $if={self.hint} title={"Showcase"} text={self.summary} left={0} top={0} />
+      </box>
+    }
+  }
+}

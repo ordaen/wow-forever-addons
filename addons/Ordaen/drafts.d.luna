@@ -1,0 +1,32 @@
+// Every module's draft together, as the settings window sees them. Ordaen's `Drafts` (drafts.luna) gives it; a
+// `Settings` joins as it is made, and hears when the drafts are saved, dropped or taken back.
+
+// How many entries wait to be saved, over every module.
+public unsaved: Reactive<integer>
+// Whether there is a save to take back.
+public rollbackable: Reactive<boolean>
+
+// The drafts become the values.
+public function saveAll()
+// The drafts go back to the values.
+public function discardAll()
+// The values go back to what they were before the last save, and the drafts with them.
+public function rollbackAll()
+
+// A save: each `Settings` whose draft differs takes it and says so (`changed`); where one did, `saved` follows,
+// and what the values were before is what a roll back returns to.
+public saving: Event<nil>
+public saved: Event<nil>
+public function changed()
+public discarding: Event<nil>
+public rollingBack: Event<nil>
+
+// A `Settings` is made: what it is counted by. It says how many of its entries wait, and that it is gone.
+public function join(): integer
+public function count(id: integer, waiting: integer)
+public function leave(id: integer)
+
+// The name the `Settings` being made are kept under: a module's folder while Ordaen makes the module, `Ordaen`
+// for Ordaen's own, nothing otherwise.
+public function naming(name: string | nil)
+public function nameNow(): string | nil

@@ -1,0 +1,25 @@
+// Ordaen's own settings: what every module follows.
+
+public enum Density { Compact = "compact", Normal = "normal", Roomy = "roomy" }
+public enum NumberFormat { Space = "space", Comma = "comma", Dot = "dot" }
+public enum LargeNumbers { Full = "full", Short = "short" }
+public enum Clock { H24 = "24", H12 = "12" }
+
+public struct Globals {
+  // Ordaen's windows, on top of the game's UI scale.
+  scale: number
+  density: Density
+  // Borders and dividers exactly on the screen's pixels.
+  pixel: boolean
+  numberFormat: NumberFormat
+  numberRound: boolean
+  numberPrecision: integer
+  numbers: LargeNumbers
+  sounds: boolean
+  clock: Clock
+}
+
+public const DEFAULTS: Globals = {
+  scale: 1, density: Density::Normal, pixel: true, numberFormat: NumberFormat::Space, numberRound: false,
+  numberPrecision: 2, numbers: LargeNumbers::Short, sounds: true, clock: Clock::H24,
+}

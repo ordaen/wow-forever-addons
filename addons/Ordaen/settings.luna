@@ -1,0 +1,91 @@
+// What the player chooses, kept: a module's settings and the draft its settings page writes.
+import Runtime from "$runtime"
+import Drafts from "@/drafts"
+
+// Whose the choices are: the account's, or each character's own.
+public enum Scope { Account = "account", Character = "character" }
+
+// A module's settings: a struct `S` of what the player chooses, with the defaults it starts from.
+//
+// The module reads `values` (`settings.scale` reads an entry of it and follows it). The settings page writes
+// `draft`, an entry at a time (`value={mut settings.draft.scale}`), and nothing the module reads changes until the
+// draft is saved: every page's changes wait for «Save» together. The values are kept between sessions under the
+// name of the module being made.
+public class Settings<S implements unknown> {
+  public const defaults: S
+  public const scope: Scope
+  public mut values: Reactive<S>
+  public mut draft: Reactive<S>
+  // How many entries of the draft differ from the values.
+  public changed: Reactive<integer> = $computed((): integer => Runtime::differing(self.draft, self.values))
+  // What the values were before the last save that changed them.
+  private mut before: S | nil = nil
+  // What they were before the save that is running, where it changed them.
+  private mut replaced: S | nil = nil
+  private const name: string | nil
+  private const id: integer
+
+  $constructor(defaults: S, scope: Scope) {
+    self.defaults = defaults
+    self.scope = scope
+    self.name = Drafts::nameNow()
+    let name = self.name
+    let start = name != nil ? Runtime::restored(scope == Scope::Character, name, defaults) : Runtime::copy(defaults)
+    self.draft = $reactive(Runtime::copy(start))
+    self.values = $reactive(start)
+    self.id = Drafts::join()
+    Drafts::saving.listen(self.save)
+    Drafts::saved.listen(self.settle)
+    Drafts::discarding.listen(self.discard)
+    Drafts::rollingBack.listen(self.rollback)
+    $watch(self.tell)
+  }
+
+  $destructor() {
+    Drafts::leave(self.id)
+  }
+
+  private tell() {
+    Drafts::count(self.id, self.changed)
+  }
+
+  private keep() {
+    let name = self.name
+    if (name != nil) { Runtime::store(self.scope == Scope::Character, name, $peek(self.values)) }
+  }
+
+  private mut save() {
+    self.replaced = nil
+    if ($peek(self.changed) == 0) { return }
+    self.replaced = Runtime::copy($peek(self.values))
+    self.values = Runtime::copy($peek(self.draft))
+    self.keep()
+    Drafts::changed()
+  }
+
+  // A save changed something somewhere: what a roll back returns to is what this save replaced here, or nothing.
+  private mut settle() {
+    self.before = self.replaced
+    self.replaced = nil
+  }
+
+  private mut discard() {
+    self.draft = Runtime::copy($peek(self.values))
+  }
+
+  private mut rollback() {
+    let was = self.before
+    if (was == nil) { return }
+    self.values = Runtime::copy(was)
+    self.draft = Runtime::copy(was)
+    self.before = nil
+    self.keep()
+  }
+
+  // Every value back to its default, the draft with them.
+  public mut reset() {
+    self.values = Runtime::copy(self.defaults)
+    self.draft = Runtime::copy(self.defaults)
+    self.keep()
+  }
+}

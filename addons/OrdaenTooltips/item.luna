@@ -1,0 +1,345 @@
+// An item's tooltip, read from the game's lines for it and from what the game knows of the item: its stats as rows,
+// the band (damage and speed, damage per second, armour, block, a bag's slots), what it needs and what it is worth
+// in the footer. What it does when used, the set it belongs to and the item a recipe makes are tooltips of their
+// own beside it.
+import Game from "$game"
+import { Color } from "$ltml"
+import Math from "$math"
+import String from "$string"
+import { GOLD, GREEN, GREY, RED, WHITE, YELLOW, colorOf, hex } from "@/colors"
+import Locale from "@/locales"
+import { Fact, Kind, Model, Note, Opens, Part, TextLine, iconOf, named, namedWith } from "@/model"
+import { Options } from "@/options"
+import { spell } from "@/spell"
+import { Term } from "@/terms"
+import { clean, duration, form, last, number } from "@/text"
+
+// The game's numbers for what a line of a tooltip is.
+private const BLANK = 1
+private const SELL_PRICE = 11
+private const NESTED = 19
+private const BINDING = 20
+private const ITEM_SLOT = 21
+private const ITEM_NAME = 22
+private const TEACHES = 38
+private const SET_LINE = 42
+private const REQUIREMENT = 43
+private const USE = 44
+private const EQUIP = 45
+private const CHANCE = 46
+
+// An item as it was read.
+// The term for how an item is bound, by the game's own text for it.
+private function binding(text: string): Opens {
+  if (text == Game::Strings::soulbound) { return named(Term::Bound) }
+  if (text == Game::Strings::bindOnEquip) { return named(Term::Boe) }
+  if (text == Game::Strings::bindOnPickup) { return named(Term::Bop) }
+  return Opens::None
+}
+
+public struct ItemRead {
+  model: Model
+  // The tooltips beside it: what using it does, its set.
+  sides: Array<Model>
+  // What a recipe makes: the game's data for it, read as an item of its own.
+  makes: Array<Game::TooltipData>
+  // Its stats by the game's key for each, for a comparison.
+  stats: Map<string, number>
+}
+
+// A number as a tooltip writes it: whole where it is whole, one place after the point otherwise.
+private function shown(n: number): string {
+  if (n == Math::floor(n)) { return String::format("%d", n) }
+  return String::format("%.1f", n)
+}
+
+// What stood where a format of the game's has its first value, and its first two.
+private function one(text: string, format: string): string | nil {
+  let parts = String::unformat(text, format)
+  if (parts == nil) { return nil }
+  return parts[1]
+}
+
+private function two(text: string, format: string): (string | nil, string | nil) {
+  let parts = String::unformat(text, format)
+  if (parts == nil) { return nil, nil }
+  return parts[1], parts[2]
+}
+
+// Durability's colour: red when broken, yellow at a quarter or less, the footer's own otherwise.
+private function durabilityColor(current: number, most: number): Color | nil {
+  if (current <= 0) { return RED }
+  if (current <= most / 4) { return YELLOW }
+  return nil
+}
+
+// «%d slots», in the form the number takes.
+private function slots(count: integer): string {
+  let which = Game::Client::locale == "ruRU" ? form(count) : (count == 1 ? 1 : 3)
+  switch (which) {
+    case 1: return String::format(Locale::COL_SLOTS_ONE, count)
+    case 2: return String::format(Locale::COL_SLOTS_FEW, count)
+    default: return String::format(Locale::COL_SLOTS_MANY, count)
+  }
+}
+
+// A recipe's reagents written as one line («Thick Leather (6), Citrine (2)») as rows, the count on the right.
+// Whether there were any.
+private function reagents(text: string, mut body: Array<TextLine>): boolean {
+  let any = false
+  for (part of String::split(text, ",")) {
+    let name, count = $match(part, "^%s*(.-)%s*%((%d+)%)%s*$")
+    if (name != nil && count != nil && name != "") {
+      body.push({ left: name, right: String::format(Locale::COUNT, Math::floor(String::toNumber(count) ?? 1)) })
+      any = true
+    }
+  }
+  return any
+}
+
+// A model with one more line in its footer.
+private function withNote(model: Model, note: Note): Model {
+  let mut foot: Array<Note> = []
+  for (kept of model.foot) { foot.push(kept) }
+  foot.push(note)
+  return { foot: foot, timer: true, ..model }
+}
+
+public function item(data: Game::TooltipData, options: Options): ItemRead | nil {
+  let id = data.id
+  let name: string | nil = nil
+  let nameColor = WHITE
+  let mut desc: Array<Part> = []
+  let mut info: Array<Part> = []
+  let mut facts: Array<Fact> = []
+  let mut body: Array<TextLine> = []
+  let mut foot: Array<Note> = []
+  let mut sides: Array<Model> = []
+  let mut makes: Array<Game::TooltipData> = []
+  let mut stats: Map<string, number> = {}
+  let timer = false
+
+  let level = id != nil ? Game::Items::level(id) : nil
+  if (options.itemsIlvl && level != nil && level > 1) {
+    body.push({ left: Locale::ITEM_LEVEL_ROW, right: shown(level), stat: "ilvl" })
+    stats["ilvl"] = level
+  }
+  // The item's stats as rows; the stat lines among the game's are then left out.
+  let hasStats = false
+  for (stat of Game::Items::stats(data)) {
+    stats[stat.key] = stat.value
+    body.push({ left: stat.name, right: String::format("%+d", stat.value), stat: stat.key })
+    hasStats = true
+  }
+
+  // Inside the lines of the item a recipe makes: they are that item's own tooltip.
+  let nested = false
+  let recipe = false
+  let learned = false
+  let setName: string | nil = nil
+  let mut setBody: Array<TextLine> = []
+  for (line of data.lines) {
+    let kind = line.kind
+    let left = clean(line.left)
+    if (nested && kind == TEACHES) { nested = false }
+    if (nested) { continue }
+    let unmet = line.usable == false ? RED : nil
+    if (kind == NESTED) {
+      recipe = true
+      let makes_id = line.made
+      let made = makes_id != nil ? Game::Items::tooltip(makes_id) : nil
+      if (made != nil) { makes.push(made) }
+      nested = true
+    } else if (kind == ITEM_NAME) {
+      name = left
+      nameColor = line.quality ?? WHITE
+    } else if (kind == ITEM_SLOT) {
+      let right = clean(line.right)
+      if (left != nil) { desc.push({ text: left, color: line.validSlot == false ? RED : nil }) }
+      if (right != nil) { desc.push({ text: right, color: line.validType == false ? RED : nil }) }
+    } else if (kind == BINDING) {
+      if (left != nil) { info.push({ text: left, opens: binding(left) }) }
+    } else if (kind == SELL_PRICE) {
+      let price = line.price
+      if (price != nil && price > 0) {
+        foot.push({ left: Game::Strings::sellPrice, right: Game::Money::format(price) })
+      }
+    } else if (kind == REQUIREMENT) {
+      if (left != nil) {
+        let skill, rank = two(left, Game::Strings::itemMinSkill)
+        let needed = one(left, Game::Strings::itemMinLevel)
+        if (skill != nil && rank != nil) {
+          foot.push({ left: skill, right: rank, valueColor: unmet, opens: named(Term::Prof) })
+        } else if (needed != nil) {
+          foot.push({ left: Locale::REQ_LEVEL, right: needed, valueColor: unmet, opens: named(Term::Req) })
+        } else {
+          foot.push({ left: left, valueColor: unmet, opens: named(Term::Req) })
+        }
+      }
+    } else if (kind == USE) {
+      // What using it does is a tooltip of its own beside the item: the spell with its cast and its cooldown.
+      let cast = line.spell
+      let used = cast != nil ? Game::Spells::tooltip(cast) : nil
+      let side = used != nil ? spell(used, options) : nil
+      if (side != nil) {
+        let wait = options.itemsCooldown && id != nil ? Game::Items::cooldown(id) : nil
+        if (wait != nil) {
+          let ready = duration(wait, Game::Strings::hours, Game::Strings::minutes, Game::Strings::seconds)
+          sides.push(withNote(side, { left: Locale::READY_IN, right: ready, valueColor: YELLOW }))
+          timer = true
+        } else {
+          sides.push(side)
+        }
+      } else if (left != nil) {
+        body.push({ left: left, color: GREEN })
+      }
+    } else if (kind == TEACHES) {
+      // A recipe's «Use: Teaches…»: the made item beside it says it.
+      if (left != nil && !recipe) { body.push({ left: left, color: colorOf(line.leftColor) }) }
+    } else if (kind == EQUIP || kind == CHANCE) {
+      if (left != nil) { body.push({ left: left, color: GREEN }) }
+    } else if (left != nil && left == Game::Strings::itemSpellKnown) {
+      learned = true
+    } else if (kind == SET_LINE) {
+      // The set is named only in its own tooltip beside the item: its first line the name, the rest its pieces
+      // and bonuses.
+      if (left != nil) {
+        if (setName == nil) {
+          setName = left
+        } else {
+          setBody.push({ left: left, color: colorOf(line.leftColor) ?? GREY })
+        }
+      }
+    } else if (kind == BLANK || left == nil) {
+      // Nothing to draw.
+    } else if (left == Game::Strings::itemUnique || left == Game::Strings::itemUniqueEquippable) {
+      desc.push({ text: left, opens: named(Term::Uni) })
+    } else {
+      // The band: damage and speed, damage per second, armour, block, a bag's slots; and the footer's lines.
+      let lowSchool, highSchool = two(left, Game::Strings::damageSchool)
+      let lowPlain, highPlain = two(left, Game::Strings::damage)
+      let low = lowSchool ?? lowPlain
+      let high = highSchool ?? highPlain
+      let single = one(left, Game::Strings::singleDamageSchool) ?? one(left, Game::Strings::singleDamage)
+      let dps = one(left, Game::Strings::dps)
+      let armor = one(left, Game::Strings::armor)
+      let block = one(left, Game::Strings::shieldBlock)
+      // The line as the game wrote it: its plural code is part of the format.
+      let slotsA, slotsB = two(line.left ?? "", Game::Strings::containerSlots)
+      let room = number(slotsA ?? "") ?? number(slotsB ?? "")
+      let current, most = two(left, Game::Strings::durability)
+      let classes = one(left, Game::Strings::classesAllowed)
+      let needs = one(left, Game::Strings::spellReagents)
+      if (low != nil && high != nil) {
+        let from = number(low) ?? 0
+        let to = number(high) ?? 0
+        facts.push({ text: String::format(Locale::COL_DAMAGE, shown(from), shown(to)), glyph: "glyphs/dmg", opens: named(Term::Dmg) })
+        stats["dmg"] = (from + to) / 2
+        let speed = last(clean(line.right) ?? "")
+        if (speed != nil) {
+          facts.push({ text: String::format(Locale::COL_SPEED, shown(speed)), glyph: "glyphs/spd", opens: named(Term::Spd) })
+          stats["spd"] = speed
+        }
+      } else if (single != nil) {
+        facts.push({ text: shown(number(single) ?? 0), glyph: "glyphs/dmg", opens: named(Term::Dmg) })
+      } else if (dps != nil) {
+        let perSecond = number(dps) ?? 0
+        facts.push({ text: String::format(Locale::COL_DPS, shown(perSecond)), opens: named(Term::Dps) })
+        stats["dps"] = perSecond
+      } else if (armor != nil) {
+        // Armour beyond the item's own is in green.
+        let worn = number(armor) ?? 0
+        facts.push({
+          text: shown(worn), color: colorOf(line.leftColor), glyph: "glyphs/arm",
+          opens: namedWith(Term::Arm, shown(worn)),
+        })
+        stats["arm"] = worn
+      } else if (block != nil) {
+        let blocked = number(block) ?? 0
+        facts.push({ text: shown(blocked), glyph: "glyphs/blk", opens: namedWith(Term::Blk, shown(blocked)) })
+        stats["blk"] = blocked
+      } else if (room != nil) {
+        facts.push({ text: slots(Math::floor(room)), opens: namedWith(Term::Bag, `${Math::floor(room)}`) })
+      } else if (current != nil && most != nil) {
+        let now = number(current) ?? 0
+        let whole = number(most) ?? 1
+        foot.push({
+          left: Locale::DURABILITY, right: String::format("%d / %d", now, whole),
+          valueColor: durabilityColor(now, whole), opens: named(Term::Dur),
+        })
+      } else if (classes != nil) {
+        foot.push({
+          left: Locale::CLASSES, right: classes, valueColor: colorOf(line.leftColor), opens: named(Term::Cls),
+        })
+      } else if (needs != nil && reagents(needs, mut body)) {
+        // A recipe's reagents: rows.
+      } else if (hasStats && $match(left, "^[%+%-]%d") != nil && colorOf(line.leftColor) == nil) {
+        // A stat: its row is drawn from the item's stats.
+      } else {
+        body.push({ left: left, color: colorOf(line.leftColor) })
+      }
+    }
+  }
+  if (name == nil) { return nil }
+
+  // «Known» or «Not known» joins a recipe's description.
+  if (recipe) { desc.push({ text: learned ? Locale::KNOWN : Locale::NOT_KNOWN, color: learned ? GREY : nil }) }
+  if (id != nil && options.itemsId) { info.push({ text: `ID ${id}` }) }
+  if (id != nil) {
+    let stack = Game::Items::maxStack(id) ?? 1
+    let bags = Game::Items::inBags(id)
+    let everywhere = Math::max(Game::Items::owned(id), bags)
+    if (options.itemsCount && (stack > 1 || everywhere > 1)) {
+      if (bags > 0) { foot.push({ left: Locale::IN_BAGS, right: shown(bags), opens: named(Term::Own) }) }
+      if (everywhere - bags > 0) {
+        foot.push({ left: Locale::IN_BANK, right: shown(everywhere - bags), opens: named(Term::Own) })
+      }
+    }
+    if (options.itemsStack && stack > 1) {
+      foot.push({ left: Locale::STACK, right: shown(stack), opens: named(Term::Stack) })
+    }
+  }
+  if (setName != nil) {
+    sides.push({
+      kind: Kind::Set, name: setName, nameColor: GOLD,
+      desc: [], info: [], facts: [], body: setBody, more: [], foot: [], keys: [],
+    })
+  }
+  return {
+    model: {
+      kind: Kind::Item, picture: iconOf(id != nil ? Game::Items::icon(id) : nil), name: name, nameColor: nameColor,
+      desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer,
+    },
+    sides: sides, makes: makes, stats: stats,
+  }
+}
+
+// An item against the one it is compared with: each stat row of `target` gets the difference `better - worse` in
+// brackets, a green ▲ when it is more and a red ▼ when it is less, nothing when they are equal. With `lacks`, the
+// stats only `worse` has follow as «—» with what is lost: the hovered item against the worn one.
+public function compare(
+  target: Model, better: Map<string, number>, worse: Map<string, number>, lacks: boolean,
+): Model {
+  let mut body: Array<TextLine> = []
+  for (row of target.body) {
+    let key = row.stat
+    let right = row.right
+    let diff = key != nil ? (better[key] ?? 0) - (worse[key] ?? 0) : 0
+    if (right == nil || diff == 0) {
+      body.push(row)
+    } else {
+      let mark = diff > 0 ? `|c${hex(GREEN)}(▲${shown(diff)})|r` : `|c${hex(RED)}(▼${shown(-diff)})|r`
+      body.push({ right: `${right} ${mark}`, ..row })
+    }
+  }
+  if (lacks) {
+    for (key, value of worse) {
+      if (better[key] == nil && $match(key, "^ITEM_MOD_") != nil) {
+        body.push({
+          left: Game::Items::statName(key) ?? key, right: `— |c${hex(RED)}(▼${shown(value)})|r`, color: GREY,
+        })
+      }
+    }
+  }
+  return { body: body, ..target }
+}

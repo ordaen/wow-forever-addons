@@ -1,0 +1,33 @@
+-- Made by lunatype from OrdaenTooltips/index.luna: change the source, not this file.
+local R = LunaType
+local __OrdaenTooltips_main_Tooltips = R.addon("OrdaenTooltips")["main"].Tooltips
+local __OrdaenTooltips_text_form = R.addon("OrdaenTooltips")["text"].form
+local __OrdaenTooltips_text_pluralForm = R.addon("OrdaenTooltips")["text"].pluralForm
+local __OrdaenTooltips_text_grammar = R.addon("OrdaenTooltips")["text"].grammar
+local __OrdaenTooltips_text_number = R.addon("OrdaenTooltips")["text"].number
+local __OrdaenTooltips_text_last = R.addon("OrdaenTooltips")["text"].last
+local __OrdaenTooltips_text_labelled = R.addon("OrdaenTooltips")["text"].labelled
+local __OrdaenTooltips_text_duration = R.addon("OrdaenTooltips")["text"].duration
+local __OrdaenTooltips_frame_TipFrame = R.addon("OrdaenTooltips")["frame"].TipFrame
+local __OrdaenTooltips_view_TipGroup = R.addon("OrdaenTooltips")["view"].TipGroup
+local __OrdaenTooltips_read_kindOf = R.addon("OrdaenTooltips")["read"].kindOf
+local __OrdaenTooltips_read_fill = R.addon("OrdaenTooltips")["read"].fill
+local __OrdaenTooltips_read_group = R.addon("OrdaenTooltips")["read"].group
+local __OrdaenTooltips_item_compare = R.addon("OrdaenTooltips")["item"].compare
+local M = {}
+R.addon("OrdaenTooltips")["index"] = M
+
+M.Tooltips = __OrdaenTooltips_main_Tooltips
+M.form = __OrdaenTooltips_text_form
+M.pluralForm = __OrdaenTooltips_text_pluralForm
+M.grammar = __OrdaenTooltips_text_grammar
+M.number = __OrdaenTooltips_text_number
+M.last = __OrdaenTooltips_text_last
+M.labelled = __OrdaenTooltips_text_labelled
+M.duration = __OrdaenTooltips_text_duration
+M.TipFrame = __OrdaenTooltips_frame_TipFrame
+M.TipGroup = __OrdaenTooltips_view_TipGroup
+M.kindOf = __OrdaenTooltips_read_kindOf
+M.fill = __OrdaenTooltips_read_fill
+M.group = __OrdaenTooltips_read_group
+M.compare = __OrdaenTooltips_item_compare

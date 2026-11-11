@@ -1,0 +1,310 @@
+// Ordaen Tooltips: every tooltip in the one Ordaen skeleton, in place of the game's. The game's tooltip keeps its
+// content and its owner, so every addon that fills it works as before: for a show drawn here the game's own is kept
+// unseen, and this module draws its group where the tooltip belongs. Each kind of tooltip has its switch: off, that
+// kind stays the game's, unchanged.
+import Game from "$game"
+import Ordaen from "Ordaen"
+import { extras } from "@/buttons"
+import { Choices, Place } from "@/choices"
+import { compare, item } from "@/item"
+import Locale from "@/locales"
+import Math from "$math"
+import { Kind, Model } from "@/model"
+import { Options } from "@/options"
+import { group, kindOf } from "@/read"
+import { AurasPage, GeneralPage, ItemsPage, NpcsPage, ObjectsPage, PlayersPage, SpellsPage, TextsPage } from "@/settings"
+import { Standing, TipGroup } from "@/view"
+
+// The game's number for the line a unit's name stands on.
+private const UNIT_NAME = 2
+
+// The lock: a tooltip held under the cursor charges, then locks, and stays for the cursor to come onto it. The
+// charge starts `DELAY` seconds into the show (a passing cursor sees no bar) and takes `CHARGE` seconds, in
+// `STEPS`. A locked group goes `GRACE` seconds after the cursor left it, unless it came back. The game hides and
+// shows a button's tooltip again as it refreshes it: only a hide longer than `REFRESH` is the cursor leaving.
+private const DELAY = 0.18
+private const CHARGE = 1
+private const STEPS = 100
+private const GRACE = 0.22
+private const REFRESH = 0.1
+
+// What the game's tooltip is about, since when, and whether a tooltip of its kind locks.
+private struct Target {
+  kind: integer | nil
+  about: string | nil
+  since: number
+  locks: boolean
+}
+
+// What is drawn for the tooltip the game shows now.
+private struct Shown {
+  model: Model
+  // The tooltips beside it from the start, and the worn items it is compared with.
+  sides: Array<Model>
+  compared: Array<Model>
+}
+
+// A locked tooltip: what was shown when it locked, and where.
+private struct Held {
+  shown: Shown
+  standing: Standing
+}
+
+// What the group shows while there is nothing to show: it isn't drawn then.
+private const NOTHING: Model = {
+  kind: Kind::Text, name: "", nameColor: $color("#ffffff"),
+  desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: [],
+}
+
+public class Tooltips implements Ordaen::Module {
+  public const title: string = "Ordaen Tooltips"
+
+  private mut settings = new Ordaen::Settings<Choices>({
+    anchorToButtons: true,
+    itemsOn: true, itemsAnchorBags: Place::Anchor, itemsAnchorChar: Place::Anchor, itemsIlvl: true, itemsId: false,
+    itemsCount: true, itemsStack: true, itemsCooldown: true,
+    spellsOn: true, spellsId: false, spellsNext: true, spellsCooldown: true,
+    aurasOn: true, aurasId: false, aurasCaster: true, aurasTotal: true,
+    playersOn: true, playersTarget: true, playersRelation: true,
+    npcsOn: true, npcsParty: true, npcsLoot: true, npcsRep: true,
+    objectsOn: true, textsOn: true, textsExtra: true,
+    itemsLock: true, spellsLock: true, aurasLock: true, playersLock: true, npcsLock: true, objectsLock: true,
+  }, Ordaen::Scope::Account)
+  public const pages: Array<Ordaen::SettingsPage> = [
+    { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_ITEMS, content: $ltml { <ItemsPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_SPELLS, content: $ltml { <SpellsPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_AURAS, content: $ltml { <AurasPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_PLAYERS, content: $ltml { <PlayersPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_NPCS, content: $ltml { <NpcsPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_OBJECTS, content: $ltml { <ObjectsPage settings={mut self.settings} /> } },
+    { title: Locale::TAB_TEXTS, content: $ltml { <TextsPage settings={mut self.settings} /> } },
+  ]
+
+  private read = $computed((): Shown | nil => self.readNow())
+  // What the game's tooltip is about now; kept through a refresh.
+  private mut target: Reactive<Target | nil> = $reactive(nil)
+  // The player closed the locked tooltip: its target doesn't charge again.
+  private mut closed = $reactive(false)
+  // Locked: what was shown then and where, which stays once the game's tooltip is gone.
+  private mut held: Reactive<Held | nil> = $reactive(nil)
+  // When the game's tooltip went, while it is gone; when the cursor left the locked group, while it is away.
+  private mut hiddenAt: Reactive<number | nil> = $reactive(nil)
+  private mut leftAt: Reactive<number | nil> = $reactive(nil)
+  private locked = $computed((): boolean => self.held != nil)
+  private charge = $computed((): integer => self.chargeNow())
+  private gone = $computed((): boolean => self.goneNow())
+  private away = $computed((): boolean => self.awayNow())
+  private current = $computed((): Shown | nil => self.read ?? self.held?.shown)
+  private shown = $computed((): boolean => self.current != nil)
+  private model = $computed((): Model => self.current?.model ?? NOTHING)
+  private sides = $computed((): Array<Model> => self.current?.sides ?? [])
+  private compared = $computed((): Array<Model> => self.current?.compared ?? [])
+  private standing = $computed((): Standing => self.held?.standing ?? self.where())
+
+  $constructor() {
+    $watch(self.keepUnseen)
+    $watch(self.follow)
+    $watch(self.lockCharged)
+    $watch(self.forget)
+    $watch(self.graceOut)
+  }
+
+  // How far the lock is charged, of `STEPS`. The time is read only while a target charges.
+  private chargeNow(): integer {
+    if (self.held != nil) { return STEPS }
+    let target = self.target
+    if (target == nil || !target.locks || self.closed) { return 0 }
+    let steps = Math::floor((Game::Clock::time - target.since - DELAY) / CHARGE * STEPS)
+    if (steps < 0) { return 0 }
+    return steps < STEPS ? steps : STEPS
+  }
+
+  // The game's tooltip has been gone for longer than a refresh takes.
+  private goneNow(): boolean {
+    let at = self.hiddenAt
+    return at != nil && self.held == nil && Game::Clock::time >= at + REFRESH
+  }
+
+  // The cursor has been off the locked group for longer than the grace.
+  private awayNow(): boolean {
+    let at = self.leftAt
+    return at != nil && Game::Clock::time >= at + GRACE
+  }
+
+  // The game's tooltip shows, shows another thing, or goes. The same thing shown again keeps its charge; another
+  // one starts anew, and the locked one goes.
+  private mut follow() {
+    let tip = Game::Tooltip::main
+    if (!tip.shown) {
+      if ($peek(self.hiddenAt) == nil) { self.hiddenAt = $peek(Game::Clock::time) }
+      return
+    }
+    self.hiddenAt = nil
+    let data = tip.data
+    let target = $peek(self.target)
+    if (target != nil && target.kind == data.kind && target.about == data.about) { return }
+    let kind = kindOf(data)
+    self.held = nil
+    self.leftAt = nil
+    self.closed = false
+    self.target = {
+      kind: data.kind, about: data.about, since: $peek(Game::Clock::time),
+      locks: kind != nil && self.wanted(kind, data) && self.locks(kind, data),
+    }
+  }
+
+  // Charged in full: what is shown stays.
+  private mut lockCharged() {
+    if (self.charge < STEPS || $peek(self.held) != nil) { return }
+    let read = $peek(self.read)
+    if (read == nil) {
+      self.closed = true
+      return
+    }
+    self.held = {
+      shown: { model: read.model, sides: read.sides, compared: read.compared },
+      standing: $peek(self.standing),
+    }
+  }
+
+  // Gone for good and not locked: nothing is kept of it.
+  private mut forget() {
+    if (self.gone) {
+      self.target = nil
+      self.closed = false
+      self.hiddenAt = nil
+    }
+  }
+
+  private mut graceOut() {
+    if (self.away) { self.close() }
+  }
+
+  private mut close() {
+    self.closed = true
+    self.held = nil
+    self.leftAt = nil
+  }
+
+  private mut onEnter() { self.leftAt = nil }
+  private mut onLeave() { self.leftAt = $peek(Game::Clock::time) }
+
+  // The game's own tooltip is unseen for a show drawn here, and seen for one left to it.
+  private keepUnseen() {
+    Game::Tooltip::hide(self.shown)
+  }
+
+  private options(): Options {
+    let chosen = self.settings
+    return {
+      spellsCooldown: chosen.spellsCooldown, spellsId: chosen.spellsId, spellsNext: chosen.spellsNext,
+      aurasCaster: chosen.aurasCaster, aurasTotal: chosen.aurasTotal, aurasId: chosen.aurasId,
+      classNames: true, playersTarget: chosen.playersTarget, playersRelation: chosen.playersRelation,
+      npcsLoot: chosen.npcsLoot, npcsParty: chosen.npcsParty, npcsRep: chosen.npcsRep,
+      itemsIlvl: chosen.itemsIlvl, itemsCooldown: chosen.itemsCooldown, itemsId: chosen.itemsId,
+      itemsCount: chosen.itemsCount, itemsStack: chosen.itemsStack,
+    }
+  }
+
+  // The unit a tooltip is about is a player.
+  private aPlayer(data: Game::TooltipData): boolean {
+    let first = data.lines[1]
+    let token = first != nil && first.kind == UNIT_NAME ? first.unit : nil
+    let who = token != nil ? Game::Units::of(token) : nil
+    return who != nil && who.player
+  }
+
+  // Whether tooltips of this kind are drawn here. A unit is a player or an NPC, each with its own switch.
+  private wanted(kind: Kind, data: Game::TooltipData): boolean {
+    let chosen = self.settings
+    switch (kind) {
+      case Kind::Item: return chosen.itemsOn
+      case Kind::Spell: return chosen.spellsOn
+      case Kind::Aura: return chosen.aurasOn
+      case Kind::Object: return chosen.objectsOn
+      case Kind::Text: return chosen.textsOn
+      case Kind::Set: return false
+      case Kind::Term: return false
+      case Kind::Unit: return self.aPlayer(data) ? chosen.playersOn : chosen.npcsOn
+    }
+  }
+
+  // Whether a tooltip of this kind locks. One that is only text has nothing to open.
+  private locks(kind: Kind, data: Game::TooltipData): boolean {
+    let chosen = self.settings
+    switch (kind) {
+      case Kind::Item: return chosen.itemsLock
+      case Kind::Spell: return chosen.spellsLock
+      case Kind::Aura: return chosen.aurasLock
+      case Kind::Object: return chosen.objectsLock
+      case Kind::Text: return false
+      case Kind::Set: return false
+      case Kind::Term: return false
+      case Kind::Unit: return self.aPlayer(data) ? chosen.playersLock : chosen.npcsLock
+    }
+  }
+
+  // What the game's tooltip shows, read; nothing while it shows nothing, or what Ordaen Tooltips leaves to it.
+  private readNow(): Shown | nil {
+    let tip = Game::Tooltip::main
+    if (!tip.shown) { return nil }
+    let kind = kindOf(tip.data)
+    if (kind == nil || !self.wanted(kind, tip.data)) { return nil }
+    let options = self.options()
+    let read = group(tip.data, options)
+    if (read == nil) { return nil }
+    // Something in it counts down: it is read again as the seconds pass.
+    if (read.model.timer == true) { _ = Game::Clock::seconds }
+    // What a button of the menu or of the bags adds to its tooltip.
+    let told = self.settings.textsExtra ? extras(tip.ownerName, read.model) : read.model
+    if (told.kind != Kind::Item) { return { model: told, sides: read.sides, compared: [] } }
+
+    // The worn items it is compared with, each under «Equipped». With one, the differences stand on the hovered
+    // item; with two, on each worn one.
+    let worn = Game::Tooltip::compared
+    let mut compared: Array<Model> = []
+    let model = told
+    for (data of worn) {
+      let other = item(data, options)
+      if (other == nil) { continue }
+      if (worn.length == 1) {
+        model = compare(model, read.stats, other.stats, true)
+        compared.push({ header: Locale::EQUIPPED, ..other.model })
+      } else {
+        compared.push({ header: Locale::EQUIPPED, ..compare(other.model, read.stats, other.stats, false) })
+      }
+    }
+    return { model: model, sides: read.sides, compared: compared }
+  }
+
+  // Whether the tooltip stands beside what it belongs to: a button, a slot of the bags or of the character.
+  private beside(tip: Game::ShownTip): boolean {
+    let chosen = self.settings
+    let name = tip.ownerName ?? ""
+    let place: Place = chosen.anchorToButtons ? Place::Anchor : Place::Corner
+    if ($match(name, "^Character.+Slot$") != nil) {
+      place = chosen.itemsAnchorChar
+    } else if ($match(name, "^ContainerFrame%d+Item") != nil || $match(name, "^Bank") != nil) {
+      place = chosen.itemsAnchorBags
+    }
+    return place == Place::Anchor && tip.placeable
+  }
+
+  // Beside its owner: above it in the screen's lower half, below it in the upper; on its right edge in the
+  // screen's right third. Otherwise where the game put its own.
+  private where(): Standing {
+    let tip = Game::Tooltip::main
+    let owner = tip.owner
+    if (owner != nil && self.beside(tip)) { return { by: owner, below: tip.ownerHigh, right: tip.ownerRight } }
+    return { by: tip.corner, below: tip.below, right: tip.right }
+  }
+
+  public render(): Template {
+    return $ltml {
+      <TipGroup model={self.model} sides={self.sides} compared={self.compared} standing={self.standing}
+                shown={self.shown} charge={self.charge} locked={self.locked} @close={self.close}
+                @enter={self.onEnter} @leave={self.onLeave} />
+    }
+  }
+}

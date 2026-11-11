@@ -1,0 +1,14 @@
+// The talents' trees as the classic talent window names them, from the client's own tables (`talents.lua`, which
+// is generated): the game's talent API has one tree for a class and no names.
+
+// A tree's name in the two languages, and its place among its class's three.
+public struct Tree {
+  ruRU: string
+  enUS: string
+  order: integer
+}
+
+// A talent's spell, at any rank, to its tree.
+public tab: Map<integer, integer>
+// A tree to its name.
+public name: Map<integer, Tree>

@@ -1,0 +1,7 @@
+## Interface: 16001
+## Title: OrdaenApp
+## Dependencies: LunaType, Ordaen
+## X-LunaType-Makes: OrdaenDev, OrdaenMinimap, OrdaenPanel, OrdaenProfessions, OrdaenSettings, OrdaenTooltips
+## X-LunaType-Root: 1
+
+index.lua

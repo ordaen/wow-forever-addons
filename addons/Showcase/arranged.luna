@@ -1,0 +1,30 @@
+// A page with the library's Zones, for the run tests: three items of a panel, each in a zone of it or off it.
+import Ordaen from "Ordaen"
+import { Choice, ZoneItem, Zones } from "OrdaenLibrary"
+
+public enum Part { Clock = "clock", Money = "money", Friends = "friends" }
+public enum Where { Left = "left", Middle = "middle", Right = "right", Off = "off" }
+
+private const PARTS: Array<ZoneItem<Part>> = [
+  { key: Part::Clock, label: "Clock", hint: "The time of day." },
+  { key: Part::Money, label: "Money" },
+  { key: Part::Friends, label: "Friends", hint: "How many are online." },
+]
+private const ZONES: Array<Choice<Where>> = [
+  { value: Where::Left, label: "Left" },
+  { value: Where::Middle, label: "Middle" },
+  { value: Where::Right, label: "Right" },
+]
+private const OFF: Choice<Where> = { value: Where::Off, label: "Not on the panel" }
+
+public class Arranged implements Ordaen::Component {
+  private mut places: Reactive<Map<Part, Where>> = $reactive({
+    [Part::Clock]: Where::Left, [Part::Money]: Where::Right, [Part::Friends]: Where::Off,
+  })
+
+  public render(): Template {
+    return $ltml {
+      <Zones items={PARTS} zones={ZONES} off={OFF} value={mut self.places} />
+    }
+  }
+}

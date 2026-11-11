@@ -1,0 +1,81 @@
+// Slider: a number setting's row (SettingRow) between its least and its most. A dark groove, the bronze fill up to the value, a bronze
+// knob; the value beside it in its unit (70%, 48 px, 3). A click or a drag anywhere along it sets the value, in its
+// steps. Disabled, it takes no input.
+import Math from "$math"
+import String from "$string"
+import { Align, Click, Drag, Position, Shadow } from "$ltml"
+import Ordaen from "Ordaen"
+import { PX } from "@/units"
+import { SettingRow } from "@/settingRow"
+
+public enum Unit { None = "none", Percent = "percent", Px = "px", Sec = "sec" }
+
+private const LENGTH = 240 * PX
+// The knob's height: the band that takes the mouse, the groove centred in it.
+private const BAND = 20 * PX
+private const GROOVE = 8 * PX
+private const EDGE = 1 * PX
+private const GROOVE_TOP = (BAND - GROOVE) / 2
+private const KNOB_W = 16 * PX
+private const KNOB_H = 32 * PX
+private const KNOB_SHADOW: Shadow = { color: $color("#0000008c"), x: 0, y: 2 * PX, size: 3 * PX }
+private const WHITE = $color("#ffffff")
+
+public class Slider implements Ordaen::Component {
+  // Where the value sits along the range, from 0 to 1.
+  private fraction = $computed((): number =>
+    self.most > self.least ? (self.value - self.least) / (self.most - self.least) : 0)
+  private fillWidth = $computed((): number => self.fraction * (LENGTH - 2 * EDGE))
+  private knobLeft = $computed((): number => self.fraction * LENGTH - KNOB_W / 2)
+  private shown = $computed((): string => self.format())
+
+  $constructor(
+    private label: Reactive<string>,
+    private mut value: Reactive<number>,
+    private const least: number,
+    private const most: number,
+    private const step: number = 1,
+    private const unit: Unit = Unit::None,
+    private hint: Reactive<string> = "",
+    private disabled: Reactive<boolean> = false,
+  ) {}
+
+  // The value as the slider shows it, in its unit.
+  private format(): string {
+    switch (self.unit) {
+      case Unit::Percent: return String::format("%d%%", Math::round(self.value * 100))
+      case Unit::Px: return String::format("%d px", self.value)
+      case Unit::Sec: return String::format("%s s", String::of(self.value))
+      case Unit::None: return String::of(self.value)
+    }
+  }
+
+  // The value at `x` UI units along the groove, held to the range and its steps.
+  private mut setAt(x: number) {
+    if (self.disabled) { return }
+    let t = Math::max(0, Math::min(1, x / LENGTH))
+    let steps = Math::round(t * (self.most - self.least) / self.step)
+    self.value = Math::min(self.most, self.least + steps * self.step)
+  }
+
+  private mut onClick(click: Click) { self.setAt(click.x) }
+  private mut onDrag(drag: Drag) { self.setAt(drag.x) }
+
+  public render(): Template {
+    return $ltml {
+      <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
+        <box columns={[LENGTH, "auto"]} gap={12 * PX} yAlign={Align::Center}>
+          <box width={LENGTH} height={BAND} @click={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag}>
+            <box position={Position::Absolute} left={0} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
+                 background={Ordaen::theme.ctl.groove} />
+            <box position={Position::Absolute} left={EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
+                 width={self.fillWidth} background={Ordaen::theme.ctl.sliderFill} />
+            <box position={Position::Absolute} left={self.knobLeft} top={-2 * PX} width={KNOB_W} height={KNOB_H}
+                 background={Ordaen::theme.ctl.sliderKnob} shadow={KNOB_SHADOW} />
+          </box>
+          <text value={self.shown} textColor={WHITE} />
+        </box>
+      </SettingRow>
+    }
+  }
+}

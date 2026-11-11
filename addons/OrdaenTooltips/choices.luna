@@ -1,0 +1,41 @@
+// What the player chooses on the tooltips' settings pages.
+
+// Where an item's tooltip shows: in the screen's corner, as the game puts it, or beside the item.
+public enum Place { Corner = "corner", Anchor = "anchor" }
+
+// A kind's `Lock`: held under the cursor, a tooltip of that kind locks, and stays for the cursor to come onto it.
+public struct Choices {
+  anchorToButtons: boolean
+  itemsOn: boolean
+  itemsLock: boolean
+  itemsAnchorBags: Place
+  itemsAnchorChar: Place
+  itemsIlvl: boolean
+  itemsId: boolean
+  itemsCount: boolean
+  itemsStack: boolean
+  itemsCooldown: boolean
+  spellsOn: boolean
+  spellsLock: boolean
+  spellsId: boolean
+  spellsNext: boolean
+  spellsCooldown: boolean
+  aurasOn: boolean
+  aurasLock: boolean
+  aurasId: boolean
+  aurasCaster: boolean
+  aurasTotal: boolean
+  playersOn: boolean
+  playersLock: boolean
+  playersTarget: boolean
+  playersRelation: boolean
+  npcsOn: boolean
+  npcsLock: boolean
+  npcsParty: boolean
+  npcsLoot: boolean
+  npcsRep: boolean
+  objectsOn: boolean
+  objectsLock: boolean
+  textsOn: boolean
+  textsExtra: boolean
+}

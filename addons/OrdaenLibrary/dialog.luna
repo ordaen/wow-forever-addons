@@ -1,0 +1,48 @@
+// Dialog: a question over everything, the screen dimmed behind it. The small metal frame round the windows' wood,
+// its title in gold at the top, the question under it, and its buttons at the bottom right, 8 px apart. A click on
+// the dimmed screen does nothing: the question needs an answer. The unnamed slot takes the question, the slot
+// `buttons` its PushButtons, up to three.
+import { Align, Edges, Layer, Position, Shadow } from "$ltml"
+import Ordaen from "Ordaen"
+import { PX } from "@/units"
+
+private const TITLE = $color("#ffd100")
+private const SHADOW: Shadow = { color: $color("#000000b3"), x: 1 * PX, y: -1 * PX }
+private const SHADE = $color("#0000008c")
+private const PLAIN: Edges = { top: 24 * PX, right: 24 * PX, bottom: 24 * PX, left: 24 * PX }
+private const TITLED: Edges = { top: 44 * PX, right: 24 * PX, bottom: 24 * PX, left: 24 * PX }
+
+public class Dialog implements Ordaen::Component {
+  private titled = $computed((): boolean => self.title != "")
+  private padding = $computed((): Edges => self.titled ? TITLED : PLAIN)
+
+  $constructor(
+    private width: Reactive<number>,
+    private title: Reactive<string> = "",
+  ) {}
+
+  // The dimmed screen takes the clicks meant for what is under it.
+  private mut swallow() {}
+
+  public render(): Template {
+    return $ltml {
+      <surface layer={Layer::Dialog} place={"fill"} zLevel={100} background={SHADE} xAlign={Align::Center}
+               yAlign={Align::Center} @click={self.swallow}>
+        <box width={self.width} border={Ordaen::theme.frame.small} background={Ordaen::theme.window.wood}
+             artOrigin={true} columns={1} gap={14 * PX} padding={self.padding}>
+          <slot />
+          <box columns={[{ fr: 1 }, "auto"]}>
+            <box />
+            <box columns={["auto", "auto", "auto"]} gap={8 * PX}>
+              <slot $name="buttons" />
+            </box>
+          </box>
+          <box $if={self.titled} position={Position::Absolute} left={0} right={0} top={14 * PX}
+               xAlign={Align::Center}>
+            <text value={self.title} textColor={TITLE} textSize={15 * PX} textShadow={SHADOW} wrap={false} />
+          </box>
+        </box>
+      </surface>
+    }
+  }
+}

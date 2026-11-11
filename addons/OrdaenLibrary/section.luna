@@ -1,0 +1,25 @@
+// Section: a group of rows on a settings tab under its heading: the title in gold bold, a bronze rule fading out to
+// its right; the rows 14 px apart below it. Its unnamed slot takes the rows.
+import { Align, Shadow } from "$ltml"
+import Ordaen from "Ordaen"
+import { PX } from "@/units"
+
+private const GOLD = $color("#e8c35a")
+// The design's 700: the same colour one pixel to the right.
+private const BOLD: Shadow = { color: GOLD, x: 1 * PX, y: 0 }
+
+public class Section implements Ordaen::Component {
+  $constructor(private title: Reactive<string>) {}
+
+  public render(): Template {
+    return $ltml {
+      <box columns={1} gap={14 * PX}>
+        <box columns={["auto", { fr: 1 }]} gap={10 * PX} yAlign={Align::Center}>
+          <text value={self.title} textColor={GOLD} textSize={15 * PX} textShadow={BOLD} wrap={false} />
+          <box height={1 * PX} background={Ordaen::theme.ctl.rule} />
+        </box>
+        <slot />
+      </box>
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "wow-forever-addons",
   "private": true,
-  "description": "Dev tooling only (commit linting). The addons themselves are plain Lua.",
+  "description": "Dev tooling only (commit linting). The addons themselves are LunaType, built by the lunatype compiler.",
   "type": "module",
   "scripts": {
     "prepare": "husky",

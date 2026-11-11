@@ -1,0 +1,33 @@
+// Checkbox: a boolean setting's row (SettingRow: its label, its hint, greyed while disabled) with a dark well with
+// a bronze edge, a gold tick while on. Left-click toggles it; disabled, it takes no click.
+import { Position } from "$ltml"
+import Ordaen from "Ordaen"
+import { PX } from "@/units"
+import { SettingRow } from "@/settingRow"
+
+private const SIZE = 22 * PX
+
+public class Checkbox implements Ordaen::Component {
+  $constructor(
+    private label: Reactive<string>,
+    // The setting it shows and changes.
+    private mut value: Reactive<boolean>,
+    private hint: Reactive<string> = "",
+    private disabled: Reactive<boolean> = false,
+  ) {}
+
+  private mut toggle() {
+    if (!self.disabled) { self.value = !self.value }
+  }
+
+  public render(): Template {
+    return $ltml {
+      <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
+        <box width={SIZE} height={SIZE} background={Ordaen::theme.ctl.check} @click={self.toggle}>
+          <box $if={self.value} position={Position::Absolute} left={0} top={0} width={SIZE} height={SIZE}
+               background={Ordaen::theme.ctl.tick} />
+        </box>
+      </SettingRow>
+    }
+  }
+}

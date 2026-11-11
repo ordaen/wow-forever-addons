@@ -1,0 +1,168 @@
+// What a tooltip of the game's shows, as Ordaen Tooltips' one skeleton, read from the game's tooltip data and never
+// by changing the game's tooltip. A tooltip that can't be read gives nothing, and that show stays the game's.
+// Translated so far: a tooltip that is only text (a button's, any addon's), an object's (a chest, a door), a
+// spell's, a talent's, an aura's, a unit's and an item's, with the tooltips beside an item.
+import Game from "$game"
+import String from "$string"
+import { aura } from "@/aura"
+import { GOLD, RED, WHITE, colorOf, tint } from "@/colors"
+import Locale from "@/locales"
+import { item } from "@/item"
+import { Kind, Model, Note, TextLine, named } from "@/model"
+import { Term } from "@/terms"
+import { Options } from "@/options"
+import { quests } from "@/quests"
+import { spell } from "@/spell"
+import { talent } from "@/talent"
+import { clean } from "@/text"
+import { unit } from "@/unit"
+
+// The game's numbers for what a line of a tooltip is.
+private const BLANK = 1
+private const REQUIREMENT = 43
+
+// What a tooltip is about, or nothing for one Ordaen Tooltips leaves to the game.
+public function kindOf(data: Game::TooltipData): Kind | nil {
+  if (data.plain == true) { return Kind::Text }
+  let about = data.kind
+  if (about == nil) { return nil }
+  switch (about) {
+    case 0: return Kind::Item
+    case 1: return Kind::Spell
+    case 2: return Kind::Unit
+    case 4: return Kind::Object
+    case 7: return Kind::Aura
+    default: return nil
+  }
+}
+
+// «Requires Lockpicking (75)» as the skill and the rank, read back through the game's own format for the line.
+private function skillOf(text: string): (string | nil, string | nil) {
+  let parts = String::unformat(text, Game::Strings::itemMinSkill)
+  if (parts == nil) { return nil, nil }
+  return parts[1], parts[2]
+}
+
+// A tooltip that is only text (a micro menu's or a bag's button, any addon's lines): its first line the title, the
+// rest the body, a line with a right text a row and one without a sentence. The key the game appends to the title
+// («Character |cffffd200(C)|r») goes to the hotkeys. No icon.
+public function plain(data: Game::TooltipData): Model | nil {
+  let first = data.lines[1]
+  if (first == nil) { return nil }
+  let title = first.left
+  if (title == nil) { return nil }
+  let mut keys: Array<string> = []
+  let name, key = $match(title, "^(.-)%s*|c%x%x%x%x%x%x%x%x%(([^()]+)%)|r$")
+  if (name != nil && key != nil && name != "") {
+    title = name
+    keys.push(String::format(Locale::KEY_OPEN, key))
+  }
+  let mut body: Array<TextLine> = []
+  for (i, line of data.lines) {
+    if (i == 1) { continue }
+    let left = line.left
+    let right = line.right
+    if (left != nil && right != nil) {
+      body.push({ left: left, right: right, color: tint(line.leftColor), rightColor: tint(line.rightColor) })
+    } else {
+      let only = left ?? right
+      if (only != nil) {
+        // In a colour of its own it is a line; in the body's it reads as a description.
+        let color = tint(line.leftColor)
+        body.push({ left: only, color: color, desc: color == nil ? true : nil })
+      }
+    }
+  }
+  return {
+    kind: Kind::Text, name: title, nameColor: colorOf(first.leftColor) ?? WHITE,
+    desc: [], info: [], facts: [], body: body, more: [], foot: [], keys: keys,
+  }
+}
+
+// An object's tooltip: its name in gold, what opening it needs in the footer (a skill with its rank, or a key,
+// red while it can't be opened), every other line a sentence in its own colour, the quests it is part of after
+// them.
+public function object(data: Game::TooltipData, options: Options): Model | nil {
+  let name: string | nil = nil
+  let mut body: Array<TextLine> = []
+  let mut foot: Array<Note> = []
+  for (i, line of data.lines) {
+    let text = clean(line.left)
+    if (i == 1) {
+      name = text
+      continue
+    }
+    if (text == nil || line.kind == BLANK || line.kind == 17 || line.kind == 8 || line.kind == 18) { continue }
+    if (line.kind != REQUIREMENT) {
+      body.push({ left: text, color: colorOf(line.leftColor) })
+      continue
+    }
+    let locked = line.usable == false
+    let skill, rank = skillOf(text)
+    if (skill != nil && rank != nil) {
+      foot.push({ left: skill, right: rank, valueColor: locked ? RED : nil, opens: named(Term::Lock) })
+    } else {
+      // A key: «Requires: Defias Chest Key», or «Requires Defias Chest Key».
+      let key = $match(text, "^[^:]+:%s*(.+)$") ?? $replace(text, "^%S+%s+", "")
+      let missing = Game::Items::count(key) == 0
+      foot.push({
+        left: Locale::KEY_NEEDED, right: key, valueColor: locked || missing ? RED : nil, opens: named(Term::Lock),
+      })
+    }
+  }
+  if (name == nil) { return nil }
+  return {
+    kind: Kind::Object, name: name, nameColor: GOLD,
+    desc: [], info: [], facts: [], body: body, more: quests(data.lines, options.npcsParty), foot: foot, keys: [],
+  }
+}
+
+// The tooltip's model from the game's data, or nothing where it can't be read.
+public function fill(data: Game::TooltipData, options: Options): Model | nil {
+  let kind = kindOf(data)
+  if (kind == nil) { return nil }
+  if (kind == Kind::Item) {
+    let read = item(data, options)
+    return read != nil ? read.model : nil
+  }
+  if (kind == Kind::Spell) {
+    // A spell on the talent window's button is a talent.
+    let known = Game::Talents::shown(data)
+    if (known != nil) { return talent(data, known, options) }
+  }
+  switch (kind) {
+    case Kind::Text: return plain(data)
+    case Kind::Object: return object(data, options)
+    case Kind::Spell: return spell(data, options)
+    case Kind::Aura: return aura(data, options)
+    case Kind::Unit: return unit(data, options)
+    default: return nil
+  }
+}
+
+// A tooltip with the ones that stand beside it from the start.
+public struct Group {
+  model: Model
+  sides: Array<Model>
+  // An item's stats by the game's key for each, for a comparison; empty for anything else.
+  stats: Map<string, number>
+}
+
+// The tooltip and its sides from the game's data. An item's sides are what using it does, its set, and the item a
+// recipe makes, which is read as an item of its own.
+public function group(data: Game::TooltipData, options: Options): Group | nil {
+  if (kindOf(data) != Kind::Item) {
+    let model = fill(data, options)
+    if (model == nil) { return nil }
+    return { model: model, sides: [], stats: {} }
+  }
+  let read = item(data, options)
+  if (read == nil) { return nil }
+  let mut sides: Array<Model> = []
+  for (side of read.sides) { sides.push(side) }
+  for (made of read.makes) {
+    let inner = item(made, options)
+    if (inner != nil) { sides.push(inner.model) }
+  }
+  return { model: read.model, sides: sides, stats: read.stats }
+}

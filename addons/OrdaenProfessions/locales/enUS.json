@@ -1,0 +1,18 @@
+{
+  "MODULE_NOTES": "One window for your professions: every recipe, what it needs, and making it.",
+  "TAB_RECIPES": "Recipes",
+  "CREATE": "Create",
+  "NOT_LEARNED": "Not learned",
+  "TAB_CAMP": "Camp",
+  "SEARCH": "Search by name or reagent",
+  "RANK_75": "Apprentice",
+  "RANK_150": "Journeyman",
+  "RANK_225": "Expert",
+  "RANK_300": "Artisan",
+  "DIFFICULTY_0": "Always raises the skill",
+  "DIFFICULTY_1": "Usually raises the skill",
+  "DIFFICULTY_2": "Rarely raises the skill",
+  "DIFFICULTY_3": "Doesn't raise the skill",
+  "TOOLS": "Needs",
+  "HAVE_NEED": "Have / need"
+}

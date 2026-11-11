@@ -1,0 +1,255 @@
+// Ordaen Professions: one window for the character's professions, in place of the game's. The window's tabs are the
+// professions (icon, name, skill); under its top line the skill bar, then the profession's own tabs («Recipes», and
+// «Camp» while it has camp recipes), then the recipes' side (the search, and the categories beside the category's
+// recipes in one framed panel) and the chosen recipe beside it. The profession shown is the one the game has open
+// (it has one open at a time): a tab opens its profession through the game, and the window shows while one is
+// open. The game's own window stays open with it, unseen and off the screen: hiding it would close the profession.
+import Game from "$game"
+import String from "$string"
+import { Align, Edges, Line, Overflow, Position, Side, Track } from "$ltml"
+import Ordaen from "Ordaen"
+import { Placing, PX, Tabs, Window, WindowTabSpec } from "OrdaenLibrary"
+import Locale from "@/locales"
+import { RecipeDetails } from "@/details"
+import { CategoryRow, RecipeRow } from "@/rows"
+import { SkillBar } from "@/skillBar"
+import Style from "@/style"
+
+// The profession's own tabs.
+private const RECIPES = 1
+private const CAMP = 2
+
+private const FILL: Array<Track> = [{ fr: 1 }]
+// The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.
+private const BODY: Array<Track> = ["auto", "auto", { fr: 1 }]
+private const GRID: Array<Track> = [Style::LEFT, { fr: 1 }]
+private const SIDE: Array<Track> = ["auto", { fr: 1 }]
+private const LISTS: Array<Track> = [Style::CATEGORIES, { fr: 1 }]
+private const FRAME: Line = { width: 1 * PX, color: Style::LINE }
+private const COLUMN_RULE: Line = { width: 1 * PX, color: Style::LINE, sides: [Side::Left] }
+private const SEARCH_HEIGHT = 30 * PX
+private const SEARCH_EDGE: Line = { width: 1 * PX, color: $color("#4a3a24") }
+private const SEARCH_BACK = $color("#00000080")
+private const SEARCH_PAD: Edges = { right: 10 * PX, left: 10 * PX }
+
+public class Professions implements Ordaen::Module {
+  public const title: string = "Ordaen Professions"
+  public const pages: Array<Ordaen::SettingsPage> = []
+
+  // The window's tab: the open profession's place among the character's.
+  private mut tab = $reactive(0)
+  private mut page = $reactive(RECIPES)
+  // What the player chose, by id; 0 while nothing was: the first one there is stands for it.
+  private mut category = $reactive(0)
+  private mut recipe = $reactive(0)
+  private mut count = $reactive(1)
+  private mut search = $reactive("")
+  private mut placing: Reactive<Placing> = $reactive({ x: 0, y: 0, width: Style::WIDTH, height: Style::HEIGHT })
+  // The profession the lists were last drawn for.
+  private mut skillLine: integer = 0
+
+  private isOpen = $computed((): boolean => Game::TradeSkill::open != nil)
+  private tabs = $computed((): Array<WindowTabSpec> => self.tabsOf())
+  private profession = $computed((): Game::Profession | nil => self.professionOf())
+  // The camp category: the first under the profession's heading, by its place and never its name; 0 for none.
+  private camp = $computed((): integer => self.campOf())
+  private onCamp = $computed((): boolean => self.page == CAMP)
+  private pageNames = $computed((): Array<string> => self.pageNamesOf())
+  private categories = $computed((): Array<Game::Category> => self.categoriesOf())
+  private chosenCategory = $computed((): integer => self.chosenCategoryOf())
+  // The category whose recipes are listed.
+  private listed = $computed((): integer => self.onCamp ? self.camp : self.chosenCategory)
+  private recipes = $computed((): Array<Game::Recipe> => self.recipesOf())
+  private chosenRecipe = $computed((): integer => self.chosenRecipeOf())
+  private shown = $computed((): Game::Recipe | nil => self.shownOf())
+  private searching = $computed((): boolean => self.search != "")
+
+  $constructor() {
+    $watch(self.followOpen)
+    $watch(self.openPicked)
+    $watch(self.onPage)
+    Game::TradeSkill::shownEmpty.listen(self.onShownEmpty)
+  }
+
+  // Each profession the character has: its icon, its name and its skill (`31 / 75`).
+  private tabsOf(): Array<WindowTabSpec> {
+    let mut list: Array<WindowTabSpec> = []
+    for (profession of Game::Professions::list) {
+      list.push({
+        title: profession.name, icon: profession.icon,
+        desc: String::format("%d / %d", profession.rank, profession.max),
+      })
+    }
+    return list
+  }
+
+  private professionOf(): Game::Profession | nil {
+    for (profession of Game::Professions::list) {
+      if (profession.skillLine == Game::TradeSkill::open) { return profession }
+    }
+    return nil
+  }
+
+  private campOf(): integer {
+    for (category of Game::TradeSkill::categories) {
+      if (category.parentID != nil) { return category.id }
+    }
+    return 0
+  }
+
+  private hasRecipes(category: integer): boolean {
+    for (recipe of Game::TradeSkill::recipes) {
+      if (recipe.categoryID == category) { return true }
+    }
+    return false
+  }
+
+  private pageNamesOf(): Array<string> {
+    let mut names: Array<string> = [Locale::TAB_RECIPES]
+    if (self.camp != 0 && self.hasRecipes(self.camp)) { names.push(Locale::TAB_CAMP) }
+    return names
+  }
+
+  // The categories with recipes, but for the camp's, which has a tab of its own.
+  private categoriesOf(): Array<Game::Category> {
+    let mut list: Array<Game::Category> = []
+    for (category of Game::TradeSkill::categories) {
+      if (category.parentID != nil && category.id != self.camp && self.hasRecipes(category.id)) {
+        list.push(category)
+      }
+    }
+    return list
+  }
+
+  private chosenCategoryOf(): integer {
+    if (self.category != 0) { return self.category }
+    let first = self.categories[1]
+    if (first == nil) { return 0 }
+    return first.id
+  }
+
+  // The listed category's recipes that the search finds by name.
+  private recipesOf(): Array<Game::Recipe> {
+    let mut list: Array<Game::Recipe> = []
+    let sought = String::lower(self.search)
+    for (recipe of Game::TradeSkill::recipes) {
+      if (recipe.categoryID == self.listed && (sought == "" || String::contains(String::lower(recipe.name), sought))) {
+        list.push(recipe)
+      }
+    }
+    return list
+  }
+
+  private chosenRecipeOf(): integer {
+    if (self.recipe != 0) { return self.recipe }
+    for (recipe of Game::TradeSkill::recipes) {
+      if (recipe.categoryID == self.listed) { return recipe.id }
+    }
+    return 0
+  }
+
+  private shownOf(): Game::Recipe | nil {
+    for (recipe of Game::TradeSkill::recipes) {
+      if (recipe.id == self.chosenRecipe) { return recipe }
+    }
+    return nil
+  }
+
+  // The game opened another profession: its tab is the picked one, and nothing in it is chosen yet.
+  private mut followOpen() {
+    let open = Game::TradeSkill::open
+    let mut at = 0
+    for (index, profession of Game::Professions::list) {
+      if (profession.skillLine == open) { at = index }
+    }
+    self.tab = at
+    if (open != nil && open != self.skillLine) {
+      self.skillLine = open
+      self.category = 0
+      self.recipe = 0
+      self.page = RECIPES
+    }
+  }
+
+  // A tab opens its profession through the game. The tab shows picked at once; the lists fill when the game has
+  // sent them. A profession with no recipe window opens nothing.
+  private mut openPicked() {
+    let picked = $peek(Game::Professions::list)[self.tab]
+    if (picked != nil && picked.skillLine != $peek(Game::TradeSkill::open)) {
+      Game::TradeSkill::show(picked.skillLine)
+    }
+  }
+
+  // Another page of the profession: nothing in it is chosen yet.
+  private mut onPage() {
+    if (self.page != 0) { self.recipe = 0 }
+  }
+
+  // The game's own window came up with no profession open (its overview): open the first profession that has
+  // recipes, so this window shows in its place.
+  private mut onShownEmpty() {
+    if ($peek(Game::TradeSkill::open) != nil) { return }
+    for (profession of $peek(Game::Professions::list)) {
+      if (profession.kind != Game::ProfessionKind::Gathering) {
+        Game::TradeSkill::show(profession.skillLine)
+        return
+      }
+    }
+  }
+
+  private mut pickCategory(id: integer) {
+    self.category = id
+    self.recipe = 0
+  }
+
+  private mut pickRecipe(id: integer) { self.recipe = id }
+
+  // From the button's click: the game takes making only from one.
+  private mut onCreate(count: integer) { Game::TradeSkill::craft(self.chosenRecipe, count) }
+
+  // Closing the window (the close button, Escape) closes the profession, which hides it.
+  private mut onClose() { Game::TradeSkill::close() }
+
+  public render(): Template {
+    return $ltml {
+      <$if={self.isOpen}>
+        <frame of={Game::Frames::Professions} opacity={0} away={true} />
+        <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}>
+          <box rows={BODY} gap={8 * PX}>
+            <SkillBar profession={self.profession} />
+            <Tabs tabs={self.pageNames} selected={mut self.page} />
+            <box columns={GRID} rows={FILL} gap={Style::GAP}>
+              <box rows={SIDE} gap={8 * PX}>
+                <box height={SEARCH_HEIGHT} rows={FILL}>
+                  <input value={mut self.search} padding={SEARCH_PAD} textSize={Style::TEXT}
+                         textColor={Style::INK} background={SEARCH_BACK} border={SEARCH_EDGE} />
+                  <box $if={!self.searching} position={Position::Absolute} left={0} top={0} right={0} bottom={0}
+                       padding={SEARCH_PAD} yAlign={Align::Center}>
+                    <text value={Locale::SEARCH} textSize={Style::TEXT} textColor={Style::DIM} wrap={false} />
+                  </box>
+                </box>
+                <box $if={self.onCamp} rows={FILL} border={FRAME} background={Style::LISTS_BACK}>
+                  <box overflow={Overflow::Scroll}>
+                    <RecipeRow $for={index, recipe of self.recipes} $key={recipe.id} recipe={recipe} index={index}
+                               chosen={self.chosenRecipe} @pick={self.pickRecipe} />
+                  </box>
+                </box>
+                <box $else columns={LISTS} rows={FILL} border={FRAME} background={Style::LISTS_BACK}>
+                  <box overflow={Overflow::Scroll}>
+                    <CategoryRow $for={index, category of self.categories} $key={category.id} category={category}
+                                 index={index} chosen={self.chosenCategory} @pick={self.pickCategory} />
+                  </box>
+                  <box overflow={Overflow::Scroll} border={COLUMN_RULE}>
+                    <RecipeRow $for={index, recipe of self.recipes} $key={recipe.id} recipe={recipe} index={index}
+                               chosen={self.chosenRecipe} @pick={self.pickRecipe} />
+                  </box>
+                </box>
+              </box>
+              <RecipeDetails recipe={self.shown} count={mut self.count} @create={self.onCreate} />
+            </box>
+          </box>
+        </Window>
+      </>
+    }
+  }
+}

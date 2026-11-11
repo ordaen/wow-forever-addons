@@ -1,0 +1,69 @@
+// Tabs: a page's tabs along its top, 4 px apart, over a 1 px line: each tab's name in the dim colour, lighter with
+// a shade under the cursor; the picked one white on a darker shade, outlined, with a 2 px light along its top
+// inside. Left-click picks a tab: the strip writes the picked tab's index into the cell it was handed.
+import { Color, Edges, Line, Position, Side, Stated, Track } from "$ltml"
+import Ordaen from "Ordaen"
+import { PX } from "@/units"
+
+private const TEXT = 15 * PX
+private const LINE = $color("#3e2f1d")
+private const NAME: Stated<Color> = { default: $color("#a3977f"), hover: $color("#e8dcc4") }
+private const WHITE = $color("#ffffff")
+private const CLEAR = $color("#00000000")
+private const SHADE: Stated<Color> = { default: CLEAR, hover: $color("#00000033") }
+private const PICKED = $color("#00000059")
+private const OUTLINE: Line = { width: 1 * PX, color: LINE, sides: [Side::Top, Side::Left, Side::Right] }
+private const PADDING: Edges = { top: 7 * PX, right: 14 * PX, bottom: 6 * PX, left: 14 * PX }
+private const LIGHT = $color("#d6a56b")
+
+// One tab of the strip.
+public class Tab implements Ordaen::Component {
+  private picked = $computed((): boolean => self.selected == self.index)
+  private background = $computed((): Color | Stated<Color> => self.picked ? PICKED : SHADE)
+  private border = $computed((): Line | nil => self.picked ? OUTLINE : nil)
+  private color = $computed((): Color | Stated<Color> => self.picked ? WHITE : NAME)
+
+  $constructor(
+    private label: Reactive<string>,
+    private const index: integer,
+    private mut selected: Reactive<integer>,
+  ) {}
+
+  private mut pick() { self.selected = self.index }
+
+  public render(): Template {
+    return $ltml {
+      <box padding={PADDING} background={self.background} border={self.border} @click={self.pick}>
+        <box $if={self.picked} position={Position::Absolute} left={1 * PX} right={1 * PX} top={1 * PX}
+             height={2 * PX} background={LIGHT} />
+        <text value={self.label} textColor={self.color} textSize={TEXT} stateFromParent={true} wrap={false} />
+      </box>
+    }
+  }
+}
+
+public class Tabs implements Ordaen::Component {
+  // One column as wide as each tab, and the rest of the strip.
+  private columns = $computed((): Array<Track> => self.tracks())
+
+  $constructor(
+    private tabs: Reactive<Array<string>>,
+    private mut selected: Reactive<integer>,
+  ) {}
+
+  private tracks(): Array<Track> {
+    let mut list: Array<Track> = []
+    for (name of self.tabs) { list.push("auto") }
+    list.push({ fr: 1 })
+    return list
+  }
+
+  public render(): Template {
+    return $ltml {
+      <box columns={self.columns} gap={4 * PX}>
+        <box position={Position::Absolute} left={0} right={0} bottom={0} height={1 * PX} background={LINE} />
+        <Tab $for={index, name of self.tabs} label={name} index={index} selected={mut self.selected} />
+      </box>
+    }
+  }
+}

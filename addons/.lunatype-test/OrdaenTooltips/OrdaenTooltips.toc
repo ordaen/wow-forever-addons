@@ -1,0 +1,28 @@
+## Interface: 16001
+## Title: OrdaenTooltips
+## Dependencies: LunaType, Ordaen, OrdaenLibrary
+## LoadOnDemand: 1
+
+colors.lua
+locales.lua
+terms.lua
+model.lua
+options.lua
+text.lua
+aura.lua
+buttons.lua
+choices.lua
+frame.lua
+spell.lua
+item.lua
+quests.lua
+talents.lua
+talent.lua
+unit.lua
+read.lua
+settings.lua
+term.lua
+view.lua
+main.lua
+index.lua
+term.test.lua

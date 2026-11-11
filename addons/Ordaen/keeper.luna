@@ -1,0 +1,55 @@
+// Every `Settings`' draft together: what drafts.d.luna declares.
+import Drafts from "@/drafts"
+
+public class Keeper {
+  public unsaved: Reactive<integer> = $computed((): integer => self.sum())
+  public mut rollbackable: Reactive<boolean> = $reactive(false)
+  public saving: Event<nil> = $event()
+  public saved: Event<nil> = $event()
+  // Whether a `Settings` took its draft in the save that is running.
+  private mut any = false
+  public discarding: Event<nil> = $event()
+  public rollingBack: Event<nil> = $event()
+  // How many entries of each `Settings` wait, by what it joined as.
+  private mut counts: Reactive<Map<integer, integer>> = $reactive({})
+  private mut last = 0
+  private mut name: string | nil = "Ordaen"
+
+  $constructor() {
+    $provide(Drafts, self)
+  }
+
+  private sum(): integer {
+    let mut total = 0
+    for (id, waiting of self.counts) { total += waiting }
+    return total
+  }
+
+  public mut join(): integer {
+    self.last += 1
+    return self.last
+  }
+
+  public mut count(id: integer, waiting: integer) { self.counts[id] = waiting }
+  public mut leave(id: integer) { self.counts[id] = 0 }
+  public mut naming(name: string | nil) { self.name = name }
+  public nameNow(): string | nil { return self.name }
+
+  public mut changed() { self.any = true }
+
+  public mut saveAll() {
+    self.any = false
+    self.saving.emit()
+    if (!self.any) { return }
+    self.saved.emit()
+    self.rollbackable = true
+  }
+
+  public mut discardAll() { self.discarding.emit() }
+
+  public mut rollbackAll() {
+    if (!$peek(self.rollbackable)) { return }
+    self.rollingBack.emit()
+    self.rollbackable = false
+  }
+}

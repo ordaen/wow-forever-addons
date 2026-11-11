@@ -1,0 +1,13 @@
+## Interface: 16001
+## Title: OrdaenPanel
+## Dependencies: LunaType, Ordaen, OrdaenLibrary
+## LoadOnDemand: 1
+
+cells.lua
+choices.lua
+locales.lua
+items.lua
+settings.lua
+xpBar.lua
+main.lua
+index.lua

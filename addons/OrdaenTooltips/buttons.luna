@@ -1,0 +1,66 @@
+// The micro menu's and the bags' buttons tell more than their names: what the window behind the button holds, read
+// from the game as the tooltip shows. A row for each fact, after the button's own lines.
+import Game from "$game"
+import Math from "$math"
+import String from "$string"
+import { RED } from "@/colors"
+import Locale from "@/locales"
+import { Model, TextLine } from "@/model"
+
+// The bags' buttons by the game's names for them: the backpack, then the four bag slots.
+private const BAGS: Map<string, integer> = {
+  MainMenuBarBackpackButton: 0, CharacterBag0Slot: 1, CharacterBag1Slot: 2, CharacterBag2Slot: 3,
+  CharacterBag3Slot: 4,
+}
+
+private function count(have: integer, most: integer): string {
+  return String::format("%d / %d", have, most)
+}
+
+// The rows a button adds, by the game's name for it.
+private function rowsOf(owner: string): mut Array<TextLine> {
+  let mut rows: Array<TextLine> = []
+  let bag = BAGS[owner]
+  if (bag != nil) {
+    // The backpack: the free slots of every bag together; a bag's slot: its own.
+    let room = bag == 0 ? Game::Bags::roomOfAll() : Game::Bags::roomOf(bag)
+    if (room.slots > 0) { rows.push({ left: Locale::EXTRA_FREE, right: count(room.free, room.slots) }) }
+  } else if (owner == "CharacterMicroButton") {
+    let level = Game::Character::itemLevel()
+    if (level != nil && level > 0) { rows.push({ left: Locale::EXTRA_ILVL, right: String::of(Math::floor(level)) }) }
+    // The most worn piece: under a quarter, in red.
+    let worn = Game::Character::durability()
+    if (worn != nil) {
+      let percent = Math::round(worn * 100)
+      rows.push({ left: Locale::EXTRA_DURABILITY, right: `${percent}%`, rightColor: percent < 25 ? RED : nil })
+    }
+  } else if (owner == "TalentMicroButton") {
+    let points = Game::Character::unspentTalents()
+    if (points > 0) { rows.push({ left: Locale::EXTRA_TALENTS, right: String::of(points) }) }
+  } else if (owner == "ProfessionMicroButton") {
+    for (profession of Game::Professions::list) {
+      rows.push({ left: profession.name, right: count(profession.rank, profession.max) })
+    }
+  } else if (owner == "AchievementMicroButton") {
+    let points = Game::Character::achievementPoints()
+    if (points > 0) { rows.push({ left: Locale::EXTRA_ACHIEVEMENTS, right: String::of(points) }) }
+  } else if (owner == "QuestLogMicroButton") {
+    let quests = Game::Character::quests()
+    rows.push({ left: Locale::EXTRA_QUESTS, right: count(quests.have, quests.most) })
+  } else if (owner == "GuildMicroButton") {
+    let guild = Game::Character::guild()
+    if (guild != nil) { rows.push({ left: Locale::EXTRA_ONLINE, right: count(guild.online, guild.members) }) }
+  }
+  return rows
+}
+
+// The tooltip of one of those buttons with its facts added; any other as it is.
+public function extras(owner: string | nil, model: Model): Model {
+  if (owner == nil) { return model }
+  let added = rowsOf(owner)
+  if (added.length == 0) { return model }
+  let mut body: Array<TextLine> = []
+  for (line of model.body) { body.push(line) }
+  for (row of added) { body.push(row) }
+  return { body: body, ..model }
+}

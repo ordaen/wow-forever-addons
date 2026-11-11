@@ -1,0 +1,43 @@
+// The quest lines of a unit's or an object's tooltip, as a section of their own under the body: the quest's name
+// in gold, each objective a row with the player's counter, green once done, and the party's under it, set in.
+import Game from "$game"
+import String from "$string"
+import { GOLD, GREEN } from "@/colors"
+import { TextLine, named } from "@/model"
+import { Term } from "@/terms"
+import { clean } from "@/text"
+
+// The game's numbers for a quest's lines: its title, an objective, and the party member whose objectives follow.
+public const QUEST_TITLE = 17
+public const QUEST_OBJECTIVE = 8
+public const QUEST_PLAYER = 18
+
+// `party`: the party's objectives are shown too.
+public function quests(lines: Array<Game::TooltipLine>, party: boolean): mut Array<TextLine> {
+  let mut rows: Array<TextLine> = []
+  let member: string | nil = nil
+  for (line of lines) {
+    let text = clean(line.left)
+    if (text == nil) { continue }
+    if (line.kind == QUEST_TITLE) {
+      member = nil
+      rows.push({ left: text, color: GOLD })
+    } else if (line.kind == QUEST_PLAYER) {
+      member = text
+    } else if (line.kind == QUEST_OBJECTIVE) {
+      let have, need = $match(text, "(%d+)%s*/%s*(%d+)")
+      let label = $replace($replace(text, "%s*:?%s*%d+%s*/%s*%d+%s*", ""), "^%s*%-%s*", "")
+      let counted = have != nil && need != nil && (String::toNumber(have) ?? 0) >= (String::toNumber(need) ?? 0)
+      let done = line.completed == true || counted
+      let value = have != nil && need != nil ? have + "/" + need : nil
+      if (member == nil) {
+        rows.push({ left: label, right: value, rightColor: done ? GREEN : nil, opens: named(Term::Quest) })
+      } else if (party) {
+        rows.push({
+          left: member, right: value, rightColor: done ? GREEN : nil, indent: true, opens: named(Term::Quest),
+        })
+      }
+    }
+  }
+  return rows
+}

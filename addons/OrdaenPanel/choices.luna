@@ -1,0 +1,55 @@
+// What the player chooses on the panel's settings page.
+
+// The character button: the portrait in the screen's corner with the level, or a micro menu cell with the face.
+public enum CharButton { Portrait = "portrait", Button = "button" }
+// The micro menu's icons: as they are, or the same in one gold.
+public enum MicroIcons { Upscaled = "upscaled", Gold = "gold" }
+// What the panel holds.
+public enum Item {
+  Micromenu = "micromenu", Social = "social", Experience = "experience", Zone = "zone", Clock = "clock",
+  Currencies = "currencies", Bags = "bags",
+}
+// Where an item sits: one of the panel's zones, or not on the panel.
+public enum Zone { Left = "left", Center = "center", Right = "right", Off = "off" }
+public enum Edge { Bottom = "bottom", Top = "top", Left = "left", Right = "right" }
+// The panel's length: the whole edge, or as long as its items, in the edge's middle.
+public enum Fit { Full = "full", Center = "center" }
+public enum Outline { None = "none", Thin = "thin", Thick = "thick" }
+// When the panel shows.
+public enum Show { Always = "always", Mouseover = "mouseover", Never = "never" }
+public enum Combat { Any = "any", Hide = "hide", Only = "only" }
+
+public struct Choices {
+  // The parts, each on or off.
+  microOn: boolean
+  statusOn: boolean
+  bottomOn: boolean
+  microIcons: MicroIcons
+  charButton: CharButton
+  // The panel's text.
+  outline: Outline
+  shadow: boolean
+  // The panel: where, how long, how high, what sits in which zone, when it shows.
+  edge: Edge
+  fit: Fit
+  height: number
+  places: Map<Item, Zone>
+  show: Show
+  combat: Combat
+  vehicle: boolean
+  petBattle: boolean
+  resting: boolean
+  // How visible the panel is while hidden.
+  fadedAlpha: number
+}
+
+public const DEFAULTS: Choices = {
+  microOn: true, statusOn: true, bottomOn: true, microIcons: MicroIcons::Upscaled, charButton: CharButton::Portrait,
+  outline: Outline::None, shadow: true, edge: Edge::Bottom, fit: Fit::Full, height: 60,
+  places: {
+    [Item::Micromenu]: Zone::Left, [Item::Social]: Zone::Left, [Item::Experience]: Zone::Center,
+    [Item::Zone]: Zone::Off, [Item::Clock]: Zone::Off, [Item::Currencies]: Zone::Right, [Item::Bags]: Zone::Right,
+  },
+  show: Show::Always, combat: Combat::Any, vehicle: true, petBattle: true, resting: false,
+  fadedAlpha: 0,
+}

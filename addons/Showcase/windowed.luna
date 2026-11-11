@@ -1,0 +1,33 @@
+// A window with two tabs over a page, for the run tests: what a module with a window of its own does.
+import Ordaen from "Ordaen"
+import { Placing, Window, WindowTabSpec } from "OrdaenLibrary"
+
+public class Windowed implements Ordaen::Module {
+  public const title: string = "Windowed"
+  public const pages: Array<Ordaen::SettingsPage> = []
+
+  private mut tabs: Reactive<Array<WindowTabSpec>> = $reactive([
+    { title: "Professions", desc: "Tailoring 75", icon: "icons/tailoring" },
+    { title: "Recipes" },
+  ])
+  private mut tab = $reactive(1)
+  private mut placing: Reactive<Placing> = $reactive({ x: 0, y: 0, width: 400, height: 300 })
+  private mut open = $reactive(true)
+  private body = $computed((): string => self.tab == 1 ? "the first tab's page" : "the second tab's page")
+
+  private mut onClose() { self.open = false }
+
+  public render(): Template {
+    return $ltml {
+      <box padding={4}>
+        <text value={"a page under the window"} />
+        <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}
+                maxWidth={600} @close={self.onClose}>
+          <box>
+            <text value={self.body} />
+          </box>
+        </Window>
+      </box>
+    }
+  }
+}

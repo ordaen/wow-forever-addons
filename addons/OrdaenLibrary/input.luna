@@ -1,0 +1,33 @@
+// Input: a text setting's row (SettingRow: its label, its hint, greyed while disabled) with a text field sunk into
+// the page: dark, with a fine bronze edge. Typing writes the setting; Enter or Escape leaves the field. Disabled, it
+// takes no typing.
+import { Edges, Line } from "$ltml"
+import Ordaen from "Ordaen"
+import { PX } from "@/units"
+import { SettingRow } from "@/settingRow"
+
+private const INK = $color("#e8dcc4")
+private const FILL = $color("#0d0a08")
+private const EDGE: Line = { width: 1 * PX, color: $color("#4a3a24") }
+private const PADDING: Edges = { right: 10 * PX, left: 10 * PX }
+
+public class Input implements Ordaen::Component {
+  $constructor(
+    private label: Reactive<string>,
+    private mut value: Reactive<string>,
+    // The most characters it takes; any number when left out.
+    private const maxLength: integer | nil = nil,
+    private hint: Reactive<string> = "",
+    private disabled: Reactive<boolean> = false,
+  ) {}
+
+  public render(): Template {
+    return $ltml {
+      <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
+        <input value={mut self.value} width={300 * PX} height={30 * PX} padding={PADDING} background={FILL}
+               border={EDGE} textColor={INK} textSize={14 * PX} maxLength={self.maxLength}
+               disabled={self.disabled} />
+      </SettingRow>
+    }
+  }
+}

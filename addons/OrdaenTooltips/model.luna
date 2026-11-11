@@ -1,0 +1,107 @@
+// What a tooltip shows, as Ordaen Tooltips' one skeleton: a heading, the title (an icon beside the name, the
+// description and the info line), the band of facts, the body, what there is more of, the footer and the hotkeys.
+// The reader fills one from the game's tooltip data; the frame draws it.
+import { Art, Color } from "$ltml"
+import { Term } from "@/terms"
+
+public enum Kind {
+  Item = "item", Spell = "spell", Aura = "aura", Unit = "unit", Object = "object", Text = "text", Set = "set",
+  // A term of the glossary, opened from a part of a locked tooltip.
+  Term = "term",
+}
+
+// What a part of a tooltip opens once the tooltip is locked and the cursor comes onto the part: a term of the
+// glossary, with the amount the part speaks of.
+public enum Opens {
+  Term { term: Term, amount: string | nil },
+  None,
+}
+
+// A term a part names, and one it names with the amount it speaks of.
+public function named(term: Term): Opens {
+  return Opens::Term { term: term, amount: nil }
+}
+
+public function namedWith(term: Term, amount: string): Opens {
+  return Opens::Term { term: term, amount: amount }
+}
+
+// The term for a unit's side.
+public function side(faction: string): Opens {
+  if (faction == "Alliance") { return named(Term::Alliance) }
+  if (faction == "Horde") { return named(Term::Horde) }
+  return Opens::None
+}
+
+// A piece of a title's line: the pieces are joined with « · », each in its colour.
+public struct Part {
+  text: string
+  color: Color | nil
+  opens: Opens = Opens::None
+}
+
+// A fact of the band: its glyph before its text.
+public struct Fact {
+  text: string
+  color: Color | nil
+  glyph: Art | nil
+  // The glyph's colour: a spell's cost in its resource's.
+  tint: Color | nil
+  opens: Opens = Opens::None
+}
+
+// A line of the body: a name and its value on the right, or free text that wraps.
+public struct TextLine {
+  left: string
+  right: string | nil
+  color: Color | nil
+  rightColor: Color | nil
+  // A spell's or an aura's description: larger than a free line.
+  desc: boolean | nil
+  // A party member's progress under an objective: set in.
+  indent: boolean | nil
+  // On an item's stat: the game's key for it, which a comparison finds it by.
+  stat: string | nil
+  // What its name opens.
+  opens: Opens = Opens::None
+}
+
+// A line of the footer: a label and its value, quiet.
+public struct Note {
+  left: string
+  right: string | nil
+  valueColor: Color | nil
+  // What its label opens.
+  opens: Opens = Opens::None
+}
+
+// The picture by a tooltip's title: the icon of an item or a spell, or the face of the unit it is about.
+public enum Picture {
+  Icon { art: Art },
+  Face { unit: string },
+  None,
+}
+
+// An icon where the game has one for the thing.
+public function iconOf(art: Art | nil): Picture {
+  if (art == nil) { return Picture::None }
+  return Picture::Icon { art: art }
+}
+
+public struct Model {
+  kind: Kind
+  // Above the title: «Equipped» on the worn item of a comparison.
+  header: string | nil
+  picture: Picture = Picture::None
+  name: string
+  nameColor: Color
+  desc: Array<Part>
+  info: Array<Part>
+  facts: Array<Fact>
+  body: Array<TextLine>
+  more: Array<TextLine>
+  foot: Array<Note>
+  keys: Array<string>
+  // Something in it counts down while it shows (a cooldown): it is read again once a second.
+  timer: boolean | nil
+}

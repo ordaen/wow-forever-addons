@@ -1,0 +1,31 @@
+// Tip: our tooltip beside what it explains: the small metal frame round the windows' wood, its name in white and its
+// text under it in the label colour, wrapped at the tooltip's width. It draws over everything in its window and
+// takes no mouse. Its owner shows it while the cursor is on what it explains.
+import { Position } from "$ltml"
+import Ordaen from "Ordaen"
+import { PX } from "@/units"
+
+private const WIDTH = 314 * PX
+private const NAME = $color("#ffffff")
+private const LABEL = $color("#cbb994")
+
+public class Tip implements Ordaen::Component {
+  $constructor(
+    private title: Reactive<string>,
+    private text: Reactive<string>,
+    // Where it sits in its owner's box.
+    private left: Reactive<number>,
+    private top: Reactive<number>,
+  ) {}
+
+  public render(): Template {
+    return $ltml {
+      <box position={Position::Absolute} left={self.left} top={self.top} width={WIDTH} zLevel={60}
+           border={Ordaen::theme.frame.small} background={Ordaen::theme.window.wood} artOrigin={true}
+           padding={12 * PX} columns={1} gap={2 * PX}>
+        <text value={self.title} textColor={NAME} textSize={18 * PX} />
+        <text value={self.text} textColor={LABEL} textSize={14 * PX} />
+      </box>
+    }
+  }
+}

@@ -1,0 +1,44 @@
+// PushButton: our push button, the bronze plate three-sliced from its art, or the red one with `accent`; the art's
+// hover glow over it under the cursor, its pushed row while pressed (the label 2 px lower). The label in gold, white
+// under the cursor, with a dark drop; disabled, the grey plate and a grey label, and no click.
+import { Align, Art, Color, Position, Shadow, Stated } from "$ltml"
+import Ordaen from "Ordaen"
+import { PX } from "@/units"
+
+private const HEIGHT = 34 * PX
+private const LABEL: Stated<Color> = { default: $color("#ffd100"), hover: $color("#ffffff") }
+private const GREY = $color("#808080")
+private const SHADOW: Shadow = { color: $color("#000000"), x: 1 * PX, y: -1 * PX }
+// The label while pressed.
+private const DOWN: Stated<number> = { default: 0, pressed: 2 * PX }
+
+public class PushButton implements Ordaen::Component {
+  public click: Event<nil> = $event()
+
+  private art = $computed((): Art =>
+    self.disabled ? Ordaen::theme.ctl.buttonDisabled : self.accent ? Ordaen::theme.ctl.buttonAccent : Ordaen::theme.ctl.button)
+  private color = $computed((): Color | Stated<Color> => self.disabled ? GREY : LABEL)
+
+  $constructor(
+    private label: Reactive<string>,
+    private width: Reactive<number>,
+    private accent: Reactive<boolean> = false,
+    private disabled: Reactive<boolean> = false,
+  ) {}
+
+  private mut onClick() {
+    if (!self.disabled) { self.click.emit() }
+  }
+
+  public render(): Template {
+    return $ltml {
+      <box width={self.width} height={HEIGHT} background={self.art} @click={self.onClick}>
+        <box position={Position::Absolute} left={0} right={0} top={DOWN} height={HEIGHT}
+             xAlign={Align::Center} yAlign={Align::Center} stateFromParent={true}>
+          <text value={self.label} textColor={self.color} textSize={15 * PX} textShadow={SHADOW} wrap={false}
+                stateFromParent={true} />
+        </box>
+      </box>
+    }
+  }
+}

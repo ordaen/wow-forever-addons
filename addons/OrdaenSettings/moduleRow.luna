@@ -1,0 +1,68 @@
+// A module's entry in the settings window's list: its icon, its name, its switch; dimmed while it is off.
+import String from "$string"
+import { Art, Position } from "$ltml"
+import Ordaen from "Ordaen"
+import { ListTab, PX } from "OrdaenLibrary"
+
+private const WIDTH = 38 * PX
+private const HEIGHT = 20 * PX
+// The knob's art is a 26 px square with the 14 px knob in its middle: 3 px in from the track's left while off, 21
+// while on, and 3 px down.
+private const KNOB = 26 * PX
+private const KNOB_TOP = (3 - 6) * PX
+private const KNOB_OFF = (3 - 6) * PX
+private const KNOB_ON = (21 - 6) * PX
+private const PREFIX = "Ordaen "
+
+// A module's on and off: Left-click turns it on (it is made and drawn at once) or off (it is ended at once).
+public class ModuleSwitch implements Ordaen::Component {
+  private track = $computed((): Art => self.entry.on ? Ordaen::theme.ctl.switchOn : Ordaen::theme.ctl.switchOff)
+  private knob = $computed((): Art => self.entry.on ? Ordaen::theme.ctl.knobOn : Ordaen::theme.ctl.knobOff)
+  private knobLeft = $computed((): number => self.entry.on ? KNOB_ON : KNOB_OFF)
+
+  $constructor(private entry: Ordaen::Entry) {}
+
+  private mut flip() { self.entry.enable(!self.entry.on) }
+
+  public render(): Template {
+    return $ltml {
+      <box width={WIDTH} height={HEIGHT} background={self.track} @click={self.flip}>
+        <box position={Position::Absolute} left={self.knobLeft} top={KNOB_TOP} width={KNOB} height={KNOB}
+             background={self.knob} />
+      </box>
+    }
+  }
+}
+
+public class ModuleRow implements Ordaen::Component {
+  // Its folder: the page the window is to show.
+  public pick: Event<string> = $event()
+
+  // Its name in the list: its title without "Ordaen " (Ordaen Panel: Panel).
+  private name = $computed((): string => self.nameOf())
+  private selected = $computed((): boolean => self.shown == self.entry.folder)
+  private off = $computed((): boolean => !self.entry.on)
+
+  $constructor(
+    private entry: Ordaen::Entry,
+    // The page the window shows.
+    private shown: Reactive<string>,
+  ) {}
+
+  private nameOf(): string {
+    let title = self.entry.title
+    if (String::sub(title, 1, PREFIX.length) == PREFIX) { return String::sub(title, PREFIX.length + 1) }
+    return title
+  }
+
+  private mut onPick() { self.pick.emit(self.entry.folder) }
+
+  public render(): Template {
+    return $ltml {
+      <ListTab label={self.name} icon={self.entry.icon} selected={self.selected} off={self.off}
+               @pick={self.onPick}>
+        <ModuleSwitch entry={self.entry} />
+      </ListTab>
+    }
+  }
+}

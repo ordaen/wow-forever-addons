@@ -1,0 +1,9 @@
+// Ordaen Tooltips: every tooltip in the one Ordaen skeleton.
+export { Tooltips } from "@/main"
+export { form, pluralForm, grammar, number, last, labelled, duration } from "@/text"
+export { Kind, Part, Fact, TextLine, Note, Model } from "@/model"
+export { TipFrame } from "@/frame"
+export { Standing, TipGroup } from "@/view"
+export { kindOf, fill, group, Group } from "@/read"
+export { compare } from "@/item"
+export { Options } from "@/options"
