@@ -1,11 +1,13 @@
 // Ordaen's root: what core.d.luna declares. It knows the modules, makes and ends them as the player turns them on
 // and off, and keeps Ordaen's own settings and where the player put each part.
+import Debug from "$debug"
 import { Anchored, Art } from "$ltml"
 import Runtime from "$runtime"
 import Core from "@/core"
 import Drafts from "@/drafts"
 import { DEFAULTS, Globals } from "@/globals"
 import { Keeper } from "@/keeper"
+import Locale from "@/locales"
 import { Entry, Module, SettingsPage } from "@/module"
 import { Scope, Settings } from "@/settings"
 import { THEME, Theme } from "@/theme"
@@ -68,6 +70,8 @@ public class OrdaenCore implements App {
   // Which modules the player turned off; kept from `start` on.
   private mut chosen: Map<string, boolean> = {}
   private mut started = false
+  // The folder of the module that draws the settings window.
+  private mut window: string | nil = nil
 
   $constructor() {
     $provide(Core, self)
@@ -75,7 +79,7 @@ public class OrdaenCore implements App {
   }
 
   public mut toggleDev() { self.dev = !$peek(self.dev) }
-  public mut toggleSettings(page: string | nil) { self.settingsAsked.emit(page) }
+  public mut toggleSettings(page: string | nil) { self.ask(page) }
   public mut togglePlacing() { self.placing = !$peek(self.placing) }
 
   public moved(part: string): Anchored | nil {
@@ -94,12 +98,29 @@ public class OrdaenCore implements App {
     let entry = new ModuleEntry(folder, title, icon, make)
     self.entries.push(entry)
     self.modules.push(entry)
-    // A module told of after the start (an addon of its own that loads later) is turned on as the others were.
-    if (self.started && self.chosen[folder] != false) { self.turn(folder, true) }
+    Debug::log("module %s told of", folder)
+    // A module told of after the start (an addon of its own that loads later) runs as the others do.
+    if (self.started && self.chosen[folder] != false) { self.run(folder, true) }
     return entry
   }
 
+  // The module that draws the settings window: asked for, the window opens even where that module is off.
+  public mut settingsBy(entry: Entry) {
+    self.window = entry.folder
+  }
+
+  // The player's choice: kept, whatever comes of it. A module turned on is on in the client's own list of addons
+  // from then, so that it can be loaded.
   public mut turn(folder: string, on: boolean) {
+    self.chosen[folder] = on
+    Debug::log("module %s turned %s by the player", folder, on ? "on" : "off")
+    if (on) { _ = Runtime::enable(folder) }
+    self.run(folder, on)
+  }
+
+  // A module made and drawn, or ended. What the player chose isn't touched: a module that can't be loaded now is
+  // tried again at the next start.
+  private mut run(folder: string, on: boolean) {
     for (i, entry of self.entries) {
       if (entry.folder == folder && entry.running() != on) {
         if (on) {
@@ -110,24 +131,38 @@ public class OrdaenCore implements App {
         } else {
           self.entries[i]?.stop()
         }
-        if (self.started) { self.chosen[folder] = entry.running() }
+        Debug::log("module %s: %s", folder, entry.running() ? "running" : (on ? "not made: its addon didn't load" : "ended"))
       }
     }
   }
 
-  // `/ordaen` opens the settings, `/ordaen <module's folder>` on that module's page.
-  private command(text: string) {
-    let page = $match(text, "^%s*(%S+)")
+  // The settings window asked for: the module that draws it runs first.
+  private mut ask(page: string | nil) {
+    let window = self.window
+    if (window != nil) {
+      for (entry of self.entries) {
+        if (entry.folder == window && !entry.running()) { self.turn(window, true) }
+      }
+    }
+    Debug::log("the settings window asked for, page %s", page ?? "none")
     self.settingsAsked.emit(page)
   }
 
+  // `/ordaen` opens the settings, `/ordaen <module's folder>` on that module's page.
+  private mut command(text: string) {
+    self.ask($match(text, "^%s*(%S+)"))
+  }
+
   public mut start() {
-    self.chosen = Runtime::kept<Map<string, boolean>>(false, "modules", {})
+    self.chosen = Runtime::kept<Map<string, boolean>>(false, "choices", {})
     self.places = Runtime::kept<Map<string, Anchored>>(false, "places", {})
     self.started = true
     Runtime::command("/ordaen", (text: string) => self.command(text))
+    Runtime::options(self.title, Locale::SETTINGS_OPEN, () => self.ask(nil))
     for (entry of self.entries) {
-      if (self.chosen[entry.folder] != false) { self.turn(entry.folder, true) }
+      let wanted = self.chosen[entry.folder] != false
+      Debug::log("module %s: %s", entry.folder, wanted ? "to run" : "turned off by the player")
+      if (wanted) { self.run(entry.folder, true) }
     }
   }
 }

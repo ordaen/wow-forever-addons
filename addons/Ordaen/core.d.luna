@@ -26,6 +26,9 @@ public function toggleSettings(page: string | nil)
 // addon can't be loaded). It is off until it is turned on.
 public function register(folder: string, title: string, icon: Art, make: () => mut Module | nil): Entry
 
+// The module that draws the settings window: asked for, the window opens even where that module is off.
+public function settingsBy(entry: Entry)
+
 // Start in the client, once every module is told of: Ordaen draws on the screen, and every module the player
 // didn't turn off is made.
 public function start()
