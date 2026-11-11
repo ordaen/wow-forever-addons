@@ -230,8 +230,10 @@ public class Window implements Ordaen::Component {
 
   public render(): Template {
     return $ltml {
-      <surface layer={Layer::Dialog} place={self.place} width={self.width} height={self.height} clamp={true}
-               raise={true} @escape={self.onClose}>
+      // As wide as the player made it, and never narrower than its tabs: the tab row is the one thing in its
+      // grid, and the width it keeps is its least.
+      <surface layer={Layer::Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
+               raise={true} xAlign={Align::Start} @escape={self.onClose}>
         <box position={Position::Absolute} left={0} right={0} top={0} height={self.tabHeight}
              @dragStart={self.onGrab} @drag={self.onMove} />
         <box position={Position::Absolute} left={0} right={0} top={self.tabHeight} bottom={0}
@@ -256,8 +258,7 @@ public class Window implements Ordaen::Component {
           <box $if={self.sized} position={Position::Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}
                height={16 * PX} background={self.grip} @dragStart={self.onGrab} @drag={self.onSize} />
         </box>
-        <box position={Position::Absolute} left={0} top={0} columns={self.columns} gap={12 * PX}
-             yAlign={Align::End}>
+        <box columns={self.columns} gap={12 * PX} yAlign={Align::End}>
           <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={mut self.selected}
                      height={self.openTab} @grab={self.onGrab} @move={self.onMove} />
         </box>
