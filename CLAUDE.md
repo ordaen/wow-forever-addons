@@ -271,8 +271,7 @@ title, icon, notes and category in the TOC; a module's title and icon are writte
 Every module is written with Ordaen's framework: a component is a class with `render()`, which gives LTML; what it
 shows follows cells; a module is a component with a title and its settings pages; a part the player places is a
 `Placed`. The language pages (`development/language`) are the specification of what code can say; the framework
-pages (`development/framework`) describe the same ideas as the Lua framework had them and wait to be rewritten for
-LunaType.
+pages (`development/framework`) say what Ordaen adds to it, and which parts of its design aren't built.
 
 - **A module's folder** is `addons/Ordaen<Name>/`: `index.luna` gives its root, `locales/`, `assets/`.
 - **The previous code** is `_old/`: the Lua addons with their framework in `_old/lua/`, the code before them beside
