@@ -29,21 +29,21 @@ public class MicroLine implements Ordaen::Component {
     return $ltml {
       <box columns={self.columns}>
         <FaceCell $if={self.faced} />
-        <MenuCell icon={$asset("assets/micro-professions.tga")} frame={Game::Frames::ProfessionMicroButton}
+        <MenuCell icon={$asset("@/assets/micro-professions.tga")} frame={Game::Frames::ProfessionMicroButton}
                   gold={self.gold} />
-        <MenuCell icon={$asset("assets/micro-spellbookabilities.tga")} frame={Game::Frames::SpellbookMicroButton}
+        <MenuCell icon={$asset("@/assets/micro-spellbookabilities.tga")} frame={Game::Frames::SpellbookMicroButton}
                   gold={self.gold} />
-        <MenuCell icon={$asset("assets/micro-spectalents.tga")} frame={Game::Frames::TalentMicroButton}
+        <MenuCell icon={$asset("@/assets/micro-spectalents.tga")} frame={Game::Frames::TalentMicroButton}
                   gold={self.gold} />
-        <MenuCell icon={$asset("assets/micro-legacy.tga")} frame={Game::Frames::LegacyMicroButton}
+        <MenuCell icon={$asset("@/assets/micro-legacy.tga")} frame={Game::Frames::LegacyMicroButton}
                   gold={self.gold} />
-        <MenuCell icon={$asset("assets/micro-questlog.tga")} frame={Game::Frames::QuestLogMicroButton}
+        <MenuCell icon={$asset("@/assets/micro-questlog.tga")} frame={Game::Frames::QuestLogMicroButton}
                   gold={self.gold} />
-        <MenuCell icon={$asset("assets/micro-groupfinder.tga")} frame={Game::Frames::LFDMicroButton}
+        <MenuCell icon={$asset("@/assets/micro-groupfinder.tga")} frame={Game::Frames::LFDMicroButton}
                   gold={self.gold} />
-        <MenuCell icon={$asset("assets/micro-collections.tga")} frame={Game::Frames::CollectionsMicroButton}
+        <MenuCell icon={$asset("@/assets/micro-collections.tga")} frame={Game::Frames::CollectionsMicroButton}
                   gold={self.gold} />
-        <MenuCell icon={$asset("assets/micro-gamemenu.tga")} frame={Game::Frames::MainMenuMicroButton}
+        <MenuCell icon={$asset("@/assets/micro-gamemenu.tga")} frame={Game::Frames::MainMenuMicroButton}
                   gold={self.gold} />
       </box>
     }
@@ -59,9 +59,9 @@ public class SocialLine implements Ordaen::Component {
   public render(): Template {
     return $ltml {
       <box columns={self.columns}>
-        <MenuCell icon={$asset("assets/micro-social.tga")} frame={Game::Frames::QuickJoinToastButton}
+        <MenuCell icon={$asset("@/assets/micro-social.tga")} frame={Game::Frames::QuickJoinToastButton}
                   gold={self.gold} count={Game::Friends::online} />
-        <MenuCell icon={$asset("assets/micro-guildcommunities.tga")} frame={Game::Frames::GuildMicroButton}
+        <MenuCell icon={$asset("@/assets/micro-guildcommunities.tga")} frame={Game::Frames::GuildMicroButton}
                   gold={self.gold} />
       </box>
     }
