@@ -33,9 +33,11 @@ Development happens on Windows: the game runs there and the repo lives on the Wi
    builds the compiler and writes a build of these addons to `../lunatype/zig-out/addons`.
 3. **Lua 5.1 for the run tests:** `lua5.1` in WSL (`sudo apt install lua5.1`), or name another with
    `zig build -Dlua=<command>`.
-4. **Link the build into the game** (PowerShell): `scripts/link.ps1`. It makes a directory junction (Windows'
-   directory link; no admin needed) in the Forever AddOns folder for `LunaType`, `Ordaen`, `OrdaenApp` and each
-   module. `scripts/link.ps1 -Unlink` removes them. Only junctions are made and removed, never files.
+4. **Build into the game:** `npm run dev` in the main checkout
+   (`lunatype build addons ../lunatype/zig-out/addons --watch --link <the Forever AddOns folder>`). It builds
+   the addons, builds again whenever a file changes, and keeps a directory junction (Windows' directory link; no
+   admin needed) in the AddOns folder for `LunaType`, `Ordaen`, `OrdaenApp` and each module. Only junctions are
+   made and removed, never files. `lunatype unlink ../lunatype/zig-out/addons <AddOns>` takes them away.
 
 ### Everyday loop
 
@@ -46,8 +48,8 @@ Development happens on Windows: the game runs there and the repo lives on the Wi
 3. Run everything that checks the addons: `scripts/test.sh` (the `lunatype` suite: the compiled addons run on a
    stand-in client against their snapshots; `scripts/test.sh -Dupdate` writes the snapshots anew).
 4. Bring it into the game: rebase onto `develop` and fast-forward it. The main checkout stays on `develop`.
-5. Keep `lunatype build addons ../lunatype/zig-out/addons --watch` running in the main checkout: it builds again
-   whenever a file changes. In game: `/reload`.
+5. Keep `npm run dev` running in the main checkout: it builds again whenever a file changes. In game:
+   `/reload`.
 
 ### How an addon is built
 
@@ -84,7 +86,7 @@ Addons cannot reach the network, so there is no telemetry. To report a bug, a pl
 
 ### Commits
 
-[Conventional Commits](https://www.conventionalcommits.org/), checked by a git hook:
+[Conventional Commits](https://www.conventionalcommits.org/), checked by a git hook and in CI:
 
 ```
 feat(OrdaenMinimap): add grow direction option
@@ -99,8 +101,9 @@ chore(repo): the suite's script
 
 ### Releases
 
-Not built for the LunaType addons: CI, packaging and the release are the Lua addons'
-(`_old/lua/workflows/`, `_old/lua/scripts/package.sh`; `release-please-config.json` names their folders).
+CI (`.github/workflows/ci.yml`) runs the `lunatype` suite over the addons on every push and pull request. Packaging
+and the release aren't built for the LunaType addons: the Lua addons' are `_old/lua/workflows/release.yml` and
+`_old/lua/scripts/package.sh`, and `release-please-config.json` names their folders.
 
 ### Adding a module
 
@@ -109,7 +112,7 @@ Not built for the LunaType addons: CI, packaging and the release are the Lua add
 2. Register it in `addons/OrdaenApp/index.luna`: `import type` its class and
    `Ordaen::register(folder, title, icon, () => new? Class())`.
 3. Add the addon to the dropdown in `.github/ISSUE_TEMPLATE/bug_report.yml`.
-4. Build, `scripts/link.ps1`, then `/reload`.
+4. With `npm run dev` running: `/reload`.
 
 ### The previous code
 

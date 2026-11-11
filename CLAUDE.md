@@ -122,10 +122,12 @@ would have caught it is half a fix: say which check now catches it, or add one.
 
 - Forever client: `C:\Program Files (x86)\World of Warcraft\_forever_\`
 - AddOns folder: `C:\Program Files (x86)\World of Warcraft\_forever_\Interface\AddOns\`
-- The game loads the **built** addons: `scripts/link.ps1` makes a directory junction in the AddOns folder for each
-  addon of a build (`../lunatype/zig-out/addons`) that the app reaches: the addon that holds the root, what each
-  depends on, and what each makes on demand. `-Unlink` removes them. Only junctions are made and removed, never
-  files.
+- The game loads the **built** addons: `npm run dev` in the main checkout builds them
+  (`../lunatype/zig-out/addons`), builds again whenever a file changes, and keeps a directory junction in the
+  AddOns folder for each addon the game loads of the build (`lunatype build … --watch --link <AddOns>`): the
+  addons that hold a root, what each depends on, and what each makes on demand. A junction under an addon's
+  name that leads elsewhere is replaced, one that leads nowhere is removed; a real folder is never touched.
+  `lunatype unlink <out> <AddOns>` takes the build's junctions away.
 
 ## Repo and workflow
 
@@ -133,11 +135,11 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - Repo: public GitHub repo `ordaen/wow-forever-addons` (org; user is admin). The org forbids GITHUB_TOKEN from opening PRs, so release-please uses an org GitHub App token (`vars.RELEASE_APP_CLIENT_ID`, `secrets.RELEASE_APP_PRIVATE_KEY`). Default branch `main`, squash-merge only, PR title = commit message.
 - Commit identity (global git config): `David Iunevich <1751835+f3oall@users.noreply.github.com>`. GitHub user `f3oall`.
 - Signed commits are required on every branch (ordaen org ruleset). Commits are SSH-signed with `~/.ssh/id_ed25519` (global `commit.gpgsign`/`tag.gpgsign`). Commits GitHub creates (squash merges, release-please via the App, Dependabot) are signed by GitHub.
-- `main` ruleset: PR-only, squash-only, linear history, required checks `Conventional commits`, `Lint & test (Lua)`, `Package (dry run)`; repo admins may bypass only when merging a PR. The two last checks are the Lua addons' (their workflows are `_old/lua/workflows/`): CI for the LunaType addons isn't built.
+- `main` ruleset: PR-only, squash-only, linear history, required checks `Conventional commits`, `Lint & test (Lua)`, `Package (dry run)`; repo admins may bypass only when merging a PR. CI (`.github/workflows/ci.yml`) has `Conventional commits` and `Check & test (LunaType)`: the lunatype suite, with the `lunatype` and `wow-dev-tools` checkouts beside this one (the org App reads them). The ruleset's two Lua checks are the retired workflows' (`_old/lua/workflows/`): the ruleset is to name the new check when `main` is next used.
 - **Branches (local-only until the user says otherwise: no push, PR or merge on GitHub):**
   - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
   - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
-  - Merge once: rebase the branch onto `develop`, fast-forward `develop`, then `scripts/test.sh` (no check before the merge: rule 4). If develop is red after your merge, fixing it is your next task. Then `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`. That keeps the signed conventional commits. `lunatype build addons ../lunatype/zig-out/addons --watch` (running in the main checkout) builds again and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon is linked first (`scripts/link.ps1`).
+  - Merge once: rebase the branch onto `develop`, fast-forward `develop`, then `scripts/test.sh` (no check before the merge: rule 4). If develop is red after your merge, fixing it is your next task. Then `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`. That keeps the signed conventional commits. `npm run dev` (running in the main checkout) builds again and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon is linked by the same build.
   - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
 - **Help when busy:** when an owner is busy, any session may do the work in its area (the renderer, Core, an addon),
   and a session that needs something from a busy owner does it itself. Tell the owner first what you'll change, work on
@@ -184,7 +186,6 @@ addons/Showcase/                a page of the library's controls and a windowed 
 _old/lua/                       the Lua addons these replace, with their tests
 _old/addons, _old/docs, ...     the code before those
 addon-categories.json           the in-game AddOn List categories (Warcraft Wiki list, every translation)
-scripts/link.ps1                link a build into the game's AddOns folder
 scripts/test.sh                 the lunatype suite over these addons
 api/forever/<version>-<build>/  the Forever API per client version, as the Lua tooling read it
 .github/ISSUE_TEMPLATE/         bug report form the in-game error report links to
@@ -240,14 +241,14 @@ neither line yet: a LunaType addon has no manifest.
 The sources in `addons/` are built into a folder the game, the tests and a release use:
 
 - `lunatype check addons`: every finding, nothing written.
-- `lunatype build addons <out> [--release] [--watch]`: the Lua, one file a source file; per addon its TOC (the
+- `lunatype build addons <out> [--release] [--watch] [--link <AddOns>]`: the Lua, one file a source file; per addon its TOC (the
   client's interface number, `Dependencies` from its imports, `LoadOnDemand` where others name it only by type, its
   files in load order) and its `media` folder as it is; `LunaType/`, the runtime and the game's host. `--watch`
-  builds again when a file changes. `--release` leaves the debug kit's calls out.
+  builds again when a file changes. `--link` puts the build into the game. `--release` leaves the debug kit's calls out.
 - `lunatype fmt addons [--check]`: every file the one way it is written.
 - `lunatype test addons [name]`: the tests written beside the code (`*.test.luna`).
 
-Not built: packaging and release (the workflows in `.github/` are the Lua addons'), an addon's manifest (its
+Not built: packaging and release (the Lua addons' are `_old/lua/workflows/release.yml`), an addon's manifest (its
 title, icon, notes and category in the TOC; a module's title and icon are written where the app registers it).
 
 ## Localization

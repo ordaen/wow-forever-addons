@@ -20,5 +20,6 @@ _old/
 # the Ordaen Dev window: a private module (wow-dev-tools/modules/OrdaenDev), linked here so the build builds it
 addons/OrdaenDev
 
-# what scripts/link.ps1 set aside in the AddOns folder, for -Unlink
-scripts/link.remembered.json
+# the compiler's caches
+.lunatype-fmt
+.lunatype-test/

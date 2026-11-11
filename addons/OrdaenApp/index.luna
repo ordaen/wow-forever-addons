@@ -1,7 +1,6 @@
 // Ordaen as the player has it: every module, told to Ordaen Core. A module's addon is
 // loaded when the module is first turned on; one the player doesn't have stays off.
 import Ordaen from "Ordaen"
-import type { DevWindow } from "OrdaenDev"
 import type { Minimap } from "OrdaenMinimap"
 import type { Panel } from "OrdaenPanel"
 import type { Professions } from "OrdaenProfessions"
@@ -15,7 +14,6 @@ public class OrdaenApp implements App {
     _ = Ordaen::register("OrdaenPanel", "Ordaen Panel", $asset("Interface/Icons/INV_Misc_Note_01"), (): mut Ordaen::Module | nil => new? Panel())
     _ = Ordaen::register("OrdaenProfessions", "Ordaen Professions", $asset("Interface/Icons/Trade_BlackSmithing"), (): mut Ordaen::Module | nil => new? Professions())
     _ = Ordaen::register("OrdaenTooltips", "Ordaen Tooltips", $asset("Interface/Icons/INV_Misc_Book_09"), (): mut Ordaen::Module | nil => new? Tooltips())
-    _ = Ordaen::register("OrdaenDev", "Ordaen Dev", $asset("Interface/Icons/INV_Misc_Gear_01"), (): mut Ordaen::Module | nil => new? DevWindow())
     Ordaen::start()
   }
 }

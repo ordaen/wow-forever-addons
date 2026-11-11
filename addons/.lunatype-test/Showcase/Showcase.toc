@@ -1,8 +1,0 @@
-## Interface: 16001
-## Title: Showcase
-## Dependencies: LunaType, Ordaen, OrdaenLibrary
-
-arranged.lua
-windowed.lua
-tinted.lua
-index.lua

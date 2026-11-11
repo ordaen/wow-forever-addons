@@ -1,8 +1,0 @@
-## Interface: 16001
-## Title: OrdaenDev
-## Dependencies: LunaType, Ordaen, OrdaenLibrary
-## LoadOnDemand: 1
-
-dev.lua
-item.lua
-index.lua

@@ -94,6 +94,8 @@ public class OrdaenCore implements App {
     let entry = new ModuleEntry(folder, title, icon, make)
     self.entries.push(entry)
     self.modules.push(entry)
+    // A module told of after the start (an addon of its own that loads later) is turned on as the others were.
+    if (self.started && self.chosen[folder] != false) { self.turn(folder, true) }
     return entry
   }
 

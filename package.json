@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "prepare": "husky",
+    "dev": "../lunatype/zig-out/bin/lunatype build addons ../lunatype/zig-out/addons --watch --link \"C:/Program Files (x86)/World of Warcraft/_forever_/Interface/AddOns\"",
     "commitlint": "commitlint --edit"
   },
   "devDependencies": {
