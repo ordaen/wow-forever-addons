@@ -49,7 +49,11 @@ public class Professions implements Ordaen::Module {
   // The profession the lists were last drawn for.
   private mut skillLine: integer = 0
 
-  private isOpen = $computed((): boolean => Game::TradeSkill::open != nil)
+  // The game's own window came up with no profession open (its overview): this window stands in its place with
+  // nothing chosen, and a tab opens its profession. The client opens a profession from nothing but a click.
+  private mut waiting = $reactive(false)
+  private isOpen = $computed((): boolean => Game::TradeSkill::open != nil || self.waiting)
+  private hasOpen = $computed((): boolean => Game::TradeSkill::open != nil)
   private tabs = $computed((): Array<WindowTabSpec> => self.tabsOf())
   private profession = $computed((): Game::Profession | nil => self.professionOf())
   // The camp category: the first under the profession's heading, by its place and never its name; 0 for none.
@@ -67,7 +71,6 @@ public class Professions implements Ordaen::Module {
 
   $constructor() {
     $watch(self.followOpen)
-    $watch(self.openPicked)
     $watch(self.onPage)
     Game::TradeSkill::shownEmpty.listen(self.onShownEmpty)
   }
@@ -164,6 +167,7 @@ public class Professions implements Ordaen::Module {
       if (profession.skillLine == open) { at = index }
     }
     self.tab = at
+    if (open != nil) { self.waiting = false }
     if (open != nil && open != self.skillLine) {
       self.skillLine = open
       self.category = 0
@@ -172,10 +176,10 @@ public class Professions implements Ordaen::Module {
     }
   }
 
-  // A tab opens its profession through the game. The tab shows picked at once; the lists fill when the game has
-  // sent them. A profession with no recipe window opens nothing.
-  private mut openPicked() {
-    let picked = $peek(Game::Professions::list)[self.tab]
+  // A tab opens its profession through the game, in the click's own call: the client takes it from nothing
+  // else. The tab shows picked at once; the lists fill when the game has sent them.
+  private mut onTab(index: integer) {
+    let picked = $peek(Game::Professions::list)[index]
     if (picked != nil && picked.skillLine != $peek(Game::TradeSkill::open)) {
       Game::TradeSkill::show(picked.skillLine)
     }
@@ -186,16 +190,8 @@ public class Professions implements Ordaen::Module {
     if (self.page != 0) { self.recipe = 0 }
   }
 
-  // The game's own window came up with no profession open (its overview): open the first profession that has
-  // recipes, so this window shows in its place.
   private mut onShownEmpty() {
-    if ($peek(Game::TradeSkill::open) != nil) { return }
-    for (profession of $peek(Game::Professions::list)) {
-      if (profession.kind != Game::ProfessionKind::Gathering) {
-        Game::TradeSkill::show(profession.skillLine)
-        return
-      }
-    }
+    if ($peek(Game::TradeSkill::open) == nil) { self.waiting = true }
   }
 
   private mut pickCategory(id: integer) {
@@ -209,14 +205,21 @@ public class Professions implements Ordaen::Module {
   private mut onCreate(count: integer) { Game::TradeSkill::craft(self.chosenRecipe, count) }
 
   // Closing the window (the close button, Escape) closes the profession, which hides it.
-  private mut onClose() { Game::TradeSkill::close() }
+  private mut onClose() {
+    self.waiting = false
+    Game::TradeSkill::close()
+  }
 
   public render(): Template {
     return $ltml {
       <$if={self.isOpen}>
         <frame of={Game::Frames::Professions} opacity={0} away={true} />
-        <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}>
-          <box rows={BODY} gap={8 * PX}>
+        <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}
+                @picked={self.onTab}>
+          <box $if={!self.hasOpen} xAlign={Align::Center} yAlign={Align::Center}>
+            <text value={Locale::PICK} textSize={Style::TEXT} textColor={Style::DIM} />
+          </box>
+          <box $else rows={BODY} gap={8 * PX}>
             // The bar stops short of the window's corner buttons.
             <box padding={BAR_ROOM}>
               <SkillBar profession={self.profession} />

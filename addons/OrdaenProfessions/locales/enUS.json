@@ -14,5 +14,6 @@
   "DIFFICULTY_2": "Rarely raises the skill",
   "DIFFICULTY_3": "Doesn't raise the skill",
   "TOOLS": "Needs",
+  "PICK": "Choose a profession above",
   "HAVE_NEED": "Have / need"
 }

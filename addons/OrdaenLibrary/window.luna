@@ -62,6 +62,9 @@ public class WindowTab implements Ordaen::Component {
   public grab: Event<nil> = $event()
   public move: Event<Drag> = $event()
   public drop: Event<nil> = $event()
+  // The tab was clicked: its place among the tabs. Heard in the click's own call, where the client takes what
+  // it takes from nothing but a click (opening a profession).
+  public picked: Event<integer> = $event()
 
   private open = $computed((): boolean => self.selected == self.index)
   private frame = $computed((): Metal =>
@@ -116,7 +119,10 @@ public class WindowTab implements Ordaen::Component {
     return { left: left, right: LABEL_PAD, bottom: foot }
   }
 
-  private mut pick() { self.selected = self.index }
+  private mut pick() {
+    self.selected = self.index
+    self.picked.emit(self.index)
+  }
   private mut onGrab() { self.grab.emit() }
   private mut onMove(drag: Drag) { self.move.emit(drag) }
   private mut onDrop() { self.drop.emit() }
@@ -148,6 +154,8 @@ public class WindowTab implements Ordaen::Component {
 public class Window implements Ordaen::Component {
   // The close button, and Escape.
   public close: Event<nil> = $event()
+  // A tab was clicked: its place among the tabs, in the click's own call.
+  public picked: Event<integer> = $event()
 
   private mut full = $reactive(false)
   private mut hovered = $reactive(false)
@@ -210,6 +218,7 @@ public class Window implements Ordaen::Component {
   private mut onEnter() { self.hovered = true }
   private mut onLeave() { self.hovered = false }
   private mut toggleFull() { self.full = !self.full }
+  private mut onPicked(index: integer) { self.picked.emit(index) }
   private mut onClose() { self.close.emit() }
 
   private mut onGrab() {
@@ -270,7 +279,7 @@ public class Window implements Ordaen::Component {
         </box>
         <box columns={self.columns} gap={12 * PX} yAlign={Align::End}>
           <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={mut self.selected}
-                     height={self.openTab} @grab={self.onGrab} @move={self.onMove} />
+                     height={self.openTab} @grab={self.onGrab} @move={self.onMove} @picked={self.onPicked} />
         </box>
       </surface>
     }
