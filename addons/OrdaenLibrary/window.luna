@@ -240,10 +240,18 @@ public class Window implements Ordaen::Component {
           <slot />
           <box $if={self.hovered} position={Position::Absolute} top={5.5 * PX} right={5 * PX}
                width={(5 + 30 + 28) * PX} height={32 * PX} overflow={Overflow::Hidden}>
-            <box position={Position::Absolute} left={0} top={0} width={64 * PX} height={32 * PX}
-                 background={self.fullArt} @click={self.toggleFull} />
-            <box position={Position::Absolute} left={35 * PX} top={0} width={64 * PX} height={32 * PX}
-                 background={Ordaen::theme.ctl.cornerClose} @click={self.onClose} />
+            // Each button takes the mouse over the part of its art that shows, and no further: the art is wider
+            // than its button, and two boxes that take the mouse never overlap.
+            <box position={Position::Absolute} left={0} top={0} width={35 * PX} height={32 * PX}
+                 overflow={Overflow::Hidden} @click={self.toggleFull}>
+              <box position={Position::Absolute} left={0} top={0} width={64 * PX} height={32 * PX}
+                   background={self.fullArt} stateFromParent={true} />
+            </box>
+            <box position={Position::Absolute} left={35 * PX} top={0} width={28 * PX} height={32 * PX}
+                 overflow={Overflow::Hidden} @click={self.onClose}>
+              <box position={Position::Absolute} left={0} top={0} width={64 * PX} height={32 * PX}
+                   background={Ordaen::theme.ctl.cornerClose} stateFromParent={true} />
+            </box>
           </box>
           <box $if={self.sized} position={Position::Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}
                height={16 * PX} background={self.grip} @dragStart={self.onGrab} @drag={self.onSize} />
