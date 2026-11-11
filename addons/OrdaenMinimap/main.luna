@@ -281,7 +281,8 @@ public class Minimap implements Ordaen::Module {
     return $ltml {
       <frame of={Game::Frames::MinimapCluster} shown={false} />
       <frame of={Game::Frames::MinimapBackdrop} shown={false} />
-      <frame $if={Ordaen::devButton} of={Game::Frames::OrdaenDevButton} shown={false} />
+      // The dev addon's own button: the ring's Ordaen button opens its window.
+      <frame of={Game::Frames::OrdaenDevButton} shown={false} />
 
       <Ordaen::Placed $if={self.shown} id={"OrdaenMinimap.map"} title={Locale::MINIMAP_TITLE} home={HOME}>
         <box width={self.wholeWidth} height={self.wholeHeight} hoverWithin={true}

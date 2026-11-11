@@ -59,7 +59,6 @@ public class OrdaenCore implements App {
   public const title: string = "Ordaen"
   public mut theme: Reactive<Theme> = $reactive(THEME)
   public mut dev: Reactive<boolean> = $reactive(false)
-  public mut devButton: Reactive<boolean> = $reactive(false)
   public settingsAsked: Event<string | nil> = $event()
   public mut modules: Reactive<Array<Entry>> = $reactive([])
   public const globals: Settings<Globals> = new Settings<Globals>(DEFAULTS, Scope::Account)

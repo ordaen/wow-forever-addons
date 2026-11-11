@@ -13,9 +13,8 @@ public theme: Reactive<Theme>
 public icon: Art
 public title: string
 
-// The dev tools: whether they are on, and whether their button shows by the minimap.
+// The dev tools' window: whether it is open.
 public dev: Reactive<boolean>
-public devButton: Reactive<boolean>
 public function toggleDev()
 
 // The settings window asked to open at a page, or to close when it is open: whoever draws it listens.
