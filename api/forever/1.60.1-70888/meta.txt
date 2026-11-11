@@ -1,0 +1,10 @@
+addonGlobals=93
+build=70888
+date=Nov  9 2026
+docs=APIDocumentation
+interface=16001
+loadOnDemand=22/25
+loadOnDemandFailed=Blizzard_EncounterJournal:WRONG_GAME_TYPE Blizzard_PVPUI:WRONG_GAME_TYPE Blizzard_ChallengesUI:WRONG_GAME_TYPE
+locale=ruRU
+time=1794416323
+version=1.60.1
