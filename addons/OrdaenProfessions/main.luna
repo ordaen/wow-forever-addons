@@ -8,7 +8,7 @@ import Game from "$game"
 import String from "$string"
 import { Align, Edges, Line, Overflow, Position, Side, Track } from "$ltml"
 import Ordaen from "Ordaen"
-import { Placing, PX, Tabs, Window, WindowTabSpec } from "OrdaenLibrary"
+import { CORNER_ROOM, Placing, PX, Tabs, Window, WindowTabSpec } from "OrdaenLibrary"
 import Locale from "@/locales"
 import { RecipeDetails } from "@/details"
 import { CategoryRow, RecipeRow } from "@/rows"
@@ -27,6 +27,7 @@ private const SIDE: Array<Track> = ["auto", { fr: 1 }]
 private const LISTS: Array<Track> = [Style::CATEGORIES, { fr: 1 }]
 private const FRAME: Line = { width: 1 * PX, color: Style::LINE }
 private const COLUMN_RULE: Line = { width: 1 * PX, color: Style::LINE, sides: [Side::Left] }
+private const BAR_ROOM: Edges = { right: CORNER_ROOM }
 private const SEARCH_HEIGHT = 30 * PX
 private const SEARCH_EDGE: Line = { width: 1 * PX, color: $color("#4a3a24") }
 private const SEARCH_BACK = $color("#00000080")
@@ -216,7 +217,10 @@ public class Professions implements Ordaen::Module {
         <frame of={Game::Frames::Professions} opacity={0} away={true} />
         <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}>
           <box rows={BODY} gap={8 * PX}>
-            <SkillBar profession={self.profession} />
+            // The bar stops short of the window's corner buttons.
+            <box padding={BAR_ROOM}>
+              <SkillBar profession={self.profession} />
+            </box>
             <Tabs tabs={self.pageNames} selected={mut self.page} />
             <box columns={GRID} rows={FILL} gap={Style::GAP}>
               <box rows={SIDE} gap={8 * PX}>

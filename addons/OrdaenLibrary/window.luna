@@ -40,6 +40,13 @@ private const MIN_TAB = 120 * PX
 // The body's wood inside the metal, and the room its content keeps.
 private const INSET = 3 * PX
 private const PADDING: Edges = { top: 14 * PX + INSET, right: 12 * PX + INSET, bottom: 12 * PX + INSET, left: 12 * PX + INSET }
+// The corner's buttons (full screen, close) in the body's top right: how far from the body's line they stand, and
+// how wide the two are together.
+private const CORNER_RIGHT = 5 * PX
+private const CORNER_WIDTH = (5 + 30 + 28) * PX
+// How much of the content's first row the corner's buttons take, from its right end: what stands in that row at
+// the right (a bar across the window) ends this much short, and the buttons never lie over it.
+public const CORNER_ROOM = CORNER_RIGHT + CORNER_WIDTH + 6 * PX - (12 * PX + INSET)
 // One row as high as the box: what stands in it fills it.
 private const BODY_ROWS: Array<Track> = [{ fr: 1 }]
 // The smallest body unless the window names one: room for the tab row and a few lines.
@@ -77,7 +84,8 @@ public class WindowTab implements Ordaen::Component {
   // The picture fills the tab's left end, as wide as the tab row is tall; its line stands at its right, and on the
   // open tab curves out at the bottom into the body's top line, which runs on under the picture.
   private iconRight = $computed((): number => self.height - self.flare)
-  private pictureHeight = $computed((): number => self.open ? self.iconRight + self.lineStart : self.whole)
+  // A closed tab's picture ends where the body's line hides the tab: all of it shows.
+  private pictureHeight = $computed((): number => self.open ? self.iconRight + self.lineStart : self.whole - self.flare)
   private iconLine = $computed((): Metal => self.open ? Ordaen::theme.frame.tabIconLineOpen : Ordaen::theme.frame.tabIconLine)
   private lineLeft = $computed((): number => self.iconRight - self.lineStart)
   private lineWidth = $computed((): number =>
@@ -96,14 +104,16 @@ public class WindowTab implements Ordaen::Component {
     private height: Reactive<number>,
   ) {}
 
+  // A closed tab's foot stands behind the body's line: its label keeps to what shows of it.
   private paddingOf(): Edges {
-    if (!self.hasIcon) { return { left: LABEL_PAD, right: LABEL_PAD } }
+    let foot = self.open ? 0 : self.flare
+    if (!self.hasIcon) { return { left: LABEL_PAD, right: LABEL_PAD, bottom: foot } }
     let line = Ordaen::theme.frame.tabIconLine
     let frame = Ordaen::theme.frame.tab
     let lineEnd = line.width + line.reach.left * line.scale
     let frameEnd = frame.width + frame.reach.left * frame.scale
     let left = self.height - self.flare + lineEnd - frameEnd + LABEL_PAD
-    return { left: left, right: LABEL_PAD }
+    return { left: left, right: LABEL_PAD, bottom: foot }
   }
 
   private mut pick() { self.selected = self.index }
@@ -240,8 +250,8 @@ public class Window implements Ordaen::Component {
              border={Ordaen::theme.frame.small} background={Ordaen::theme.window.wood} padding={PADDING}
              rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>
           <slot />
-          <box $if={self.hovered} position={Position::Absolute} top={5.5 * PX} right={5 * PX}
-               width={(5 + 30 + 28) * PX} height={32 * PX} overflow={Overflow::Hidden}>
+          <box $if={self.hovered} position={Position::Absolute} top={5.5 * PX} right={CORNER_RIGHT}
+               width={CORNER_WIDTH} height={32 * PX} overflow={Overflow::Hidden}>
             // Each button takes the mouse over the part of its art that shows, and no further: the art is wider
             // than its button, and two boxes that take the mouse never overlap.
             <box position={Position::Absolute} left={0} top={0} width={35 * PX} height={32 * PX}

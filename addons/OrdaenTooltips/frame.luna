@@ -135,7 +135,9 @@ public class PartText implements Ordaen::Component {
 
   public render(): Template {
     return $ltml {
-      <text $if={self.notFirst} value={" · "} textColor={self.color} textSize={14 * PX} wrap={false} />
+      // In the numbers' font: the client's own for texts has no middle dot.
+      <text $if={self.notFirst} value={" · "} textColor={self.color} textSize={14 * PX} wrap={false}
+            textFamily={Ordaen::theme.font.numbers} />
       <TermText text={self.part.text} color={self.own} size={14 * PX} opens={self.part.opens} locked={self.locked}>
         <box #opened={opens}>
           <slot $name="opened" opens={opens} />
@@ -242,7 +244,9 @@ public class Row implements Ordaen::Component {
           </TermText>
         </box>
         <text $else value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
-        <text value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={false} />
+        // A value, in the numbers' font: it has the marks a value carries (▲, ▼), which the font for texts lacks.
+        <text value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={false}
+              textFamily={Ordaen::theme.font.numbers} />
       </box>
       <box $else padding={self.line.padding}>
         <box $if={self.opening} columns={OWN_WIDTH}>

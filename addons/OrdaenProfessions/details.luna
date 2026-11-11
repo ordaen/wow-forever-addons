@@ -92,7 +92,7 @@ public class RecipeDetails implements Ordaen::Component {
             <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
           </box>
           <box columns={MAKE} gap={8 * PX} yAlign={Align::Center}>
-            <PushButton label={"−"} width={STEP} @click={self.less} />
+            <PushButton label={"-"} width={STEP} @click={self.less} />
             <text value={"%d"} arguments={[self.count]} textSize={Style::TEXT} textColor={Style::WHITE}
                   textFamily={Ordaen::theme.font.numbers} wrap={false} />
             <PushButton label={"+"} width={STEP} @click={self.more} />
