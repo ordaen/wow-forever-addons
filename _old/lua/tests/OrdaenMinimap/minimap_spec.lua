@@ -8,7 +8,7 @@ local DIST = ".ordaen/check/dist"
 describe("Ordaen Minimap", function()
 	local wow, addonButton
 
-	setup(function()
+	before_each(function()
 		wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenMinimap" } })
 		local env = wow.env
 		local cluster = env.CreateFrame("Frame", "MinimapCluster", env.UIParent)

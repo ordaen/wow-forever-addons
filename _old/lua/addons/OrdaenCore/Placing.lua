@@ -40,6 +40,17 @@ function Placing.Declare(module, parts)
 	end
 end
 
+--- A module reset (App.ResetModule): its parts no longer declared (their saved places stay, for its next mount).
+---@param module string the module's folder
+function Placing.Forget(module)
+	local prefix = module .. "."
+	for id in pairs(declared) do
+		if id:sub(1, #prefix) == prefix then
+			declared[id] = nil
+		end
+	end
+end
+
 --- Every declared part, by id (the placing mode's list).
 function Placing.Parts()
 	return declared

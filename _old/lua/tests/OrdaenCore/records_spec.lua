@@ -8,7 +8,7 @@ local DIST = ".ordaen/check/dist"
 describe("records", function()
 	local ns
 
-	setup(function()
+	before_each(function()
 		local wow = Fake.New({ dist = DIST, addons = { "OrdaenCore" } })
 		wow:Login()
 		ns = wow.addons.OrdaenCore.ns

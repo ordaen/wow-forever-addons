@@ -87,6 +87,16 @@ function Commands.AddModule(module, commands)
 	add(Commands.Word(module.name), (module.name:gsub("^Ordaen", "")), commands, module)
 end
 
+--- A module reset (App.ResetModule): its commands gone, `/ordaen <word>` says it's off.
+---@param module table
+function Commands.RemoveModule(module)
+	local word = Commands.Word(module.name)
+	if groups[word] and groups[word].module == module then
+		groups[word] = nil
+		off[word] = (module.name:gsub("^Ordaen", ""))
+	end
+end
+
 --- Commands of an addon that isn't a module (the debug addon): `/ordaen <word> <command> ...` calls Run(arguments).
 ---@param word string lower case letters, digits and hyphens
 ---@param commands table<string, { Run: fun(arguments: string), help: string? }>

@@ -1153,6 +1153,23 @@ function Wow:NewRegion(kind, parent, layer)
 	return r
 end
 
+--- The addon whose code is running (the nearest stack frame in a built addon's file), or nil for the test's own code:
+--- a frame keeps it as `_addon` (specs tell an addon's frames from Blizzard's and another addon's).
+function Wow:Caller()
+	local prefix = self.dist .. "/"
+	for level = 3, 30 do
+		local info = debug.getinfo(level, "S")
+		if not info then
+			return nil
+		end
+		local src = info.source
+		if src:sub(2, #prefix + 1) == prefix then
+			return src:sub(#prefix + 2):match("^([^/]+)/")
+		end
+	end
+	return nil
+end
+
 function Wow:NewFrame(kind, name, parent)
 	if not CLASSES[kind] or kind == "Texture" or kind == "FontString" or kind == "MaskTexture" then
 		error("CreateFrame: the fake has no " .. tostring(kind), 3)
@@ -1169,6 +1186,7 @@ function Wow:NewFrame(kind, name, parent)
 	self.allFrames[f] = true
 	self.made = self.made + 1
 	f._made = self.made
+	f._addon = self:Caller()
 	return f
 end
 
@@ -1428,6 +1446,10 @@ function Wow:SavedVariables()
 	return out
 end
 
+-- Each built file compiled once per Lua state (a test run's; dist/ doesn't change during one): running a chunk
+-- again gives it new locals, so every client still starts as a fresh one, set to its own environment below.
+local compiled = {}
+
 --- Load an addon's files in TOC order (each with its name and a table of its own), then fire ADDON_LOADED.
 function Wow:LoadAddOn(name)
 	local addon = self.addons[name]
@@ -1440,9 +1462,14 @@ function Wow:LoadAddOn(name)
 	addon.loaded = true
 	for _, file in ipairs(addon.toc.files) do
 		local path = self.dist .. "/" .. name .. "/" .. file
-		local chunk, err = loadfile(path)
+		local chunk = compiled[path]
 		if not chunk then
-			error(err, 0)
+			local err
+			chunk, err = loadfile(path)
+			if not chunk then
+				error(err, 0)
+			end
+			compiled[path] = chunk
 		end
 		setfenv(chunk, self.env)
 		self:Call(chunk, name, addon.ns)
@@ -1890,6 +1917,13 @@ function Wow:MakeEnv()
 			return { name = "Stormwind", reaction = 6, currentReactionThreshold = 9000, nextReactionThreshold = 21000,
 				currentStanding = 13800 }
 		end,
+		-- the reputation list: no faction met (a spec gives its own)
+		GetNumFactions = function()
+			return 0
+		end,
+		GetFactionDataByIndex = function()
+			return nil
+		end,
 	})
 	offer("FACTION_STANDING_LABEL6", "Honored")
 	offer("C_PetBattles", {
@@ -2036,7 +2070,13 @@ function Wow:MakeEnv()
 			missing[#missing + 1] = name
 		end
 	end
-	for _, ns in ipairs({ "C_Timer", "C_AddOns", "C_Texture", "NineSliceLayouts" }) do
+	-- a new character's spellbook: empty (a spec gives its own)
+	offer("C_SpellBook", {
+		GetNumSpellBookSkillLines = function()
+			return 0
+		end,
+	})
+	for _, ns in ipairs({ "C_Timer", "C_AddOns", "C_Texture", "NineSliceLayouts", "C_SpellBook", "C_Reputation" }) do
 		for name in pairs(env[ns]) do
 			if not d.namespaces[ns .. "." .. name] then
 				missing[#missing + 1] = ns .. "." .. name

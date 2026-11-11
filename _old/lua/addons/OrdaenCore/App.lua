@@ -191,6 +191,25 @@ function MountModule(module, layer)
 	module.debug:Logf("mounted: %s", module.root and "yes" or "failed")
 end
 
+--- Reset a module (design development/framework/app, «Reset»): unmounted (every transaction it held reverted), its
+--- files forgotten (importing one again runs its top level again: new file-level locals) and Ordaen's records of it
+--- dropped, so mounting it again is a first mount. Its saved data stays.
+---@param folder string
+function App.ResetModule(folder)
+	local module = modules[folder]
+	if not module then
+		return
+	end
+	if module.root then
+		Engine:Unmount(module.root)
+	end
+	module.root, module.game, module.db, module.charDb = nil, nil, nil, nil
+	module.cache = {}
+	ns.Commands.RemoveModule(module)
+	ns.Placing.Forget(folder)
+	module.debug:Log("reset")
+end
+
 -- The module list (`game.Modules`, the settings window's left column) ---------------------------------------------
 
 -- Which modules are off: Ordaen's own setting, account-wide in OrdaenCoreDB (`off[folder] = true`, only the ones that
@@ -209,7 +228,6 @@ end
 ---@field loaded OrdaenValueSignal boolean: mounted and running now
 ---@field reason OrdaenValueSignal string|nil: why it can't run, nil when it can: the AddOns list's reason ("MISSING",
 ---  "DEP_DISABLED", ...; the game's text is _G["ADDON_" .. reason]) or "FAILED" (its own error stopped it)
----@field pending OrdaenValueSignal boolean: off but still running until /reload (Forever can't unload an addon)
 local Entry = {}
 local EntryMeta = { __index = Entry }
 
@@ -240,8 +258,8 @@ function Entry:Load()
 	self.reason:Set(not running and (ok and not loaded and reason or "FAILED") or nil)
 end
 
---- Turn the module on or off. On loads and mounts it now; off is stored, and it keeps running (pending) until
---- /reload: Forever can't unload an addon, and its /reload needs the player's click (a secure button).
+--- Turn the module on or off, now: on loads and mounts it, off resets it (App.ResetModule: its code stays in memory,
+--- doing nothing). The choice is stored.
 ---@param on boolean
 function Entry:Enable(on)
 	on = on and true or false
@@ -257,8 +275,10 @@ function Entry:Enable(on)
 	self.on:Set(on)
 	if on then
 		self:Load()
+	elseif self.loaded:Peek() then
+		App.ResetModule(self.folder)
+		self.loaded:Set(false)
 	end
-	self.pending:Set(not on and self.loaded:Peek())
 end
 
 local function LoadModules()
@@ -270,7 +290,6 @@ local function LoadModules()
 			local entry = setmetatable({
 				folder = name, title = title or name, icon = C_AddOns.GetAddOnMetadata(name, "IconTexture"),
 				on = ns.NewValue(not IsOff(name)), loaded = ns.NewValue(false), reason = ns.NewValue(nil),
-				pending = ns.NewValue(false),
 			}, EntryMeta)
 			list[#list + 1] = entry
 			if entry.on:Peek() then

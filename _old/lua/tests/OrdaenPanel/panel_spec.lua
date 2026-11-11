@@ -25,7 +25,7 @@ local LEFT_OUT = { "StoreMicroButton", "HelpMicroButton" }
 describe("Ordaen Panel", function()
 	local wow, home
 
-	setup(function()
+	before_each(function()
 		wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenPanel" } })
 		home = wow.env.CreateFrame("Frame", "BagsBar", wow.env.UIParent)
 		for _, name in ipairs(BLIZZARD) do

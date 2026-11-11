@@ -1,6 +1,6 @@
 -- moduleSwitch: a module's on/off in the settings window's list (design settings/: the Switch beside each module):
--- the switch's art (ctl.switchOn/Off, the knob); Left-click turns the module on (it loads at once) or off (after a
--- /reload).
+-- the switch's art (ctl.switchOn/Off, the knob); Left-click turns the module on (it loads and mounts at once) or off
+-- (it resets at once: design development/framework/app, «Reset»).
 --
 -- Attributes: `module`, an entry of game.Modules.
 local Define = import("@ordaen/define")

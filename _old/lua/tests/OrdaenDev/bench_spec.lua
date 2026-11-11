@@ -69,26 +69,18 @@ describe("the bench: /ordaen dev check in the fake client", function()
 		return copy
 	end
 
-	setup(function()
+	-- one test: the two check runs take most of the spec's time, and what they show is read together
+	it("passes every check, twice in the same session (the second without the cold block), with no Lua errors", function()
 		wow = Fake.New({ dist = DIST, addons = { "OrdaenCore", "OrdaenLibrary", "OrdaenDev" } })
 		wow:Login()
 		wow:Tick()
 		first = run()
 		second = run()
-	end)
-
-	it("raises no Lua errors", function()
 		assert.are.same({}, wow.errors)
-	end)
-
-	it("passes every check", function()
 		local failed = failures(first)
 		assert(#first > 0, "the run wrote no results")
 		assert(#failed == 0, #failed .. " failed checks:\n" .. table.concat(failed, "\n"))
-	end)
-
-	it("runs again in the same session: every check passes, without the cold block", function()
-		local failed = failures(second)
+		failed = failures(second)
 		assert(#failed == 0, #failed .. " failed checks on the second run:\n" .. table.concat(failed, "\n"))
 		local cold, session = 0, nil
 		for _, line in ipairs(second) do

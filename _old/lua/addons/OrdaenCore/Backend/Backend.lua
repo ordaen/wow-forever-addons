@@ -2611,6 +2611,11 @@ end
 -- combat waits for the end.
 function Node:PlaceEmbedded()
 	local frame = self.frame
+	-- only the frame's owner places it: a released node can still sit among a pooled box's stale children, and hiding
+	-- it as an orphan would hide the frame its next owner (a module mounted again) shows
+	if embeddedBy[frame] ~= self then
+		return
+	end
 	if InCombatLockdown() and frame:IsProtected() then
 		waitForCombat(self)
 		return
