@@ -112,8 +112,9 @@ public class RingButton implements Ordaen::Component {
       <$if={self.visible}>
         <embed $if={self.theirs != nil} frame={self.theirs} position={Position::Absolute} left={self.left}
                top={self.top} width={BUTTON} height={BUTTON} opacity={0} />
+        // Over the game's own button, which lies under it unseen, and over the map: the mouse is this box's.
         <box position={Position::Absolute} left={self.left} top={self.top} width={BUTTON} height={BUTTON}
-             opacity={self.opacity} xAlign={Align::Center} yAlign={Align::Center} background={self.art}
+             zLevel={1} opacity={self.opacity} xAlign={Align::Center} yAlign={Align::Center} background={self.art}
              @click={self.onClick} @dragStart={self.onDragStart} @drag={self.onDrag} @dragStop={self.onDragStop}
              @enter={self.onEnter} @leave={self.onLeave}>
           <box $if={self.spec.id == RingId::Ordaen} width={22 * PX} height={22 * PX} background={Ordaen::icon}
