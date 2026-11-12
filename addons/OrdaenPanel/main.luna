@@ -35,7 +35,6 @@ private const PORTRAIT_WIDTH = 128
 private const PORTRAIT_HEIGHT = 124
 private const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "auto"]
 private const CORNER: Anchored = { point: Point::BottomLeft }
-private const GOLD = $color("#ffd100")
 // Down a side of the screen: one column, the zones one under another.
 private const DOWN: Array<Track> = [{ fr: 1 }]
 
@@ -247,7 +246,7 @@ public class Panel implements Ordaen::Module {
       <surface $if={self.drawn} layer={Layer::Screen} place={self.place} width={self.width} height={self.height}
                background={Ordaen::art.panel.wood} border={Ordaen::art.panel.edge} padding={EDGE_ROOM}
                columns={self.columns} rows={self.rows} xAlign={self.along} yAlign={self.across}
-               opacity={self.opacity} hoverWithin={true}
+               opacity={self.opacity} hoverWithin={true} textFamily={Ordaen::lookArt.font}
                @enter={self.onEnter} @leave={self.onLeave}>
         <ZoneBox zone={Zone::Left} panel={self} />
         <ZoneBox zone={Zone::Center} panel={self} />
@@ -256,12 +255,14 @@ public class Panel implements Ordaen::Module {
       // The portrait: the player's face in the corner's shape, the level on a badge on its rim, and the
       // character's button of the game's unseen over all of it.
       <surface $if={self.cornered} layer={Layer::Screen} place={CORNER} width={PORTRAIT_WIDTH}
-               height={PORTRAIT_HEIGHT} portrait={"player"} mask={Ordaen::art.panel.corner}>
+               height={PORTRAIT_HEIGHT} portrait={"player"} mask={Ordaen::art.panel.corner}
+               textFamily={Ordaen::lookArt.font}>
         <embed frame={Game::Frames::CharacterMicroButton} position={Position::Absolute} left={0} top={0}
                width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
         <box position={Position::Absolute} left={86.7} top={5.3} width={36} height={36}
              background={Ordaen::art.panel.badge} xAlign={Align::Center} yAlign={Align::Center}>
-          <text value={"%d"} arguments={[Game::Player::level]} textColor={GOLD} textSize={14} wrap={false} />
+          <text value={"%d"} arguments={[Game::Player::level]} textColor={Ordaen::look.values.accent} textSize={14}
+                wrap={false} />
         </box>
       </surface>
 

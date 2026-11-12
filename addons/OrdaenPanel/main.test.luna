@@ -77,6 +77,12 @@ test "the panel: its zones and items, the game's buttons in its cells, when it s
   Test::note(`boxes that take the mouse: ${mouse.boxes > 0 ? "some" : "none"}; with part of their face under another frame: ${mouse.covered}${covered != nil ? ` (${covered})` : ""}`)
   Test::note("")
 
+  // The look chosen: the level on the badge is its accent, Blizzard's gold here; rolled back, Ordaen's bronze.
+  Ordaen::look.choose(Ordaen::preset(Ordaen::Preset::Blizzard))
+  Ordaen::saveAll()
+  shown("Blizzard's look saved: the level in its accent")
+  Ordaen::rollbackAll()
+
   Game::Friends::online = 3
   Game::Money::tracked = "12 Marks"
   shown("three friends online and a currency followed: the count on the friends' cell, the currency by the money")
