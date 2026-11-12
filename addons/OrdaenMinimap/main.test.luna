@@ -1,0 +1,72 @@
+// The minimap on the stand-in client with a stand-in game: where everything stands after each step, what it asked
+// of the game, and the game's own frames it hides, takes or lays its own over.
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import { Minimap } from "@/main"
+
+// One of the game's own frames, in the screen's top right corner.
+private function blizzard(name: string, width: number, height: number, shown: boolean): Client::Frame {
+  let ui = Client::C_UI::GetUIParent()
+  let frame = Client::CreateFrame("Button", name, ui, nil)
+  frame.SetSize(width, height)
+  frame.SetPoint("TOPRIGHT", ui, "TOPRIGHT", 0, 0)
+  frame.SetShown(shown)
+  return frame
+}
+
+// The minimap stands on the screen as a part of its own, at its top right: the middle of its map, and of the
+// ring's first and third buttons.
+private const MAP: Test::Point = { x: 1461.83, y: 163.17 }
+private const TRACKING: Test::Point = { x: 1337.83, y: 118.03 }
+private const DRAWER: Test::Point = { x: 1337.83, y: 287.17 }
+
+test "the minimap takes the game's map, and its ring and drawer answer the cursor" {
+  let cluster = blizzard("MinimapCluster", 200, 220, true)
+  let backdrop = blizzard("MinimapBackdrop", 200, 200, true)
+  let map = blizzard("Minimap", 140, 140, true)
+  let tracking = blizzard("MinimapTrackingButton", 32, 32, true)
+  let mail = blizzard("MinimapMail", 32, 32, false)
+  let other = blizzard("OtherAddonButton", 31, 31, true)
+  Game::Minimap::frame = map
+  Game::Frames::MinimapCluster = cluster
+  Game::Frames::MinimapBackdrop = backdrop
+  Game::Frames::MinimapTrackingButton = tracking
+  Game::Frames::MinimapMail = mail
+  Game::Minimap::buttons = [other]
+  Game::Minimap::entries = [{ text: "Details", icon: "Interface/Icons/Details" }, { text: "Plater" }]
+  let shown = (): string => `cluster shown: ${cluster.IsShown()}, backdrop shown: ${backdrop.IsShown()}`
+
+  let mut addon = new Minimap()
+  Test::mount(addon, { left: 100, top: 50, width: 600, height: 800 })
+  Test::shot("drawn in the screen's top right corner: the game's cluster hidden, its map in our frame, the ring not shown")
+  Test::note(shown())
+
+  Test::moveTo(MAP)
+  Test::shot("the cursor on the map: the ring shows")
+  Test::note(shown())
+
+  Test::moveTo(TRACKING)
+  Test::shot("the cursor on the first ring button, the game's tracking: its hover is passed on")
+  Test::note(shown())
+
+  Test::click(DRAWER, nil)
+  Test::shot("the drawer's button clicked: the drawer hangs under it with another addon's button and the addon menu's entries")
+  Test::note(shown())
+
+  Game::Clock::invites = 2
+  Game::Location::pvp = Game::Pvp::Contested
+  Game::Location::zone = "Stranglethorn Vale"
+  Test::shot("the game's news: invites wait, the zone and its colour change")
+  Test::note(shown())
+
+  Game::Minimap::entries = []
+  Game::Minimap::buttons = []
+  Test::shot("nothing left for the drawer to hold: its button goes, and the drawer with it")
+  Test::note(shown())
+
+  destroy addon
+  $expect(Test::blank())
+  Test::shot("destroyed")
+  Test::note(`${shown()}, the map's parent is the game's again: ${map.GetParent() == Client::C_UI::GetUIParent()}`)
+}
