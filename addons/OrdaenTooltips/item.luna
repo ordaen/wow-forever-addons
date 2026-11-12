@@ -6,6 +6,7 @@ import Game from "$game"
 import { Color } from "$ltml"
 import Math from "$math"
 import String from "$string"
+import Ordaen from "Ordaen"
 import { GOLD, GREEN, GREY, RED, WHITE, YELLOW, colorOf, hex } from "@/colors"
 import Locale from "@/locales"
 import { Fact, Kind, Model, Note, Opens, Part, TextLine, iconOf, named, namedWith } from "@/model"
@@ -47,10 +48,9 @@ public struct ItemRead {
   stats: Map<string, number>
 }
 
-// A number as a tooltip writes it: whole where it is whole, one place after the point otherwise.
+// A number as Ordaen writes it, by Ordaen's number settings.
 private function shown(n: number): string {
-  if (n == Math::floor(n)) { return String::format("%d", n) }
-  return String::format("%.1f", n)
+  return Ordaen::number(n)
 }
 
 // What stood where a format of the game's has its first value, and its first two.

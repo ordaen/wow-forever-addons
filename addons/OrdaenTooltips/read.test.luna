@@ -4,6 +4,7 @@ import Game from "$game"
 import { Art, Color } from "$ltml"
 import String from "$string"
 import Test from "$test"
+import Ordaen from "Ordaen"
 import { compare } from "@/item"
 import { Model, Opens, Picture } from "@/model"
 import { Options } from "@/options"
@@ -439,4 +440,21 @@ test "the reader's model of each kind of the game's tooltips" {
   Test::note("")
 
   show("what the game has no kind for", { kind: 9, lines: [{ left: "?", kind: 0 }] })
+}
+
+test "an item's numbers are written as Ordaen writes them" {
+  let data: Game::TooltipData = {
+    kind: 0, id: 9100,
+    lines: [
+      { left: "Tower Shield", kind: 22 },
+      { left: "1234 Armor", kind: 0 },
+      { left: "216 - 325 Damage", right: "Speed 3,40", kind: 0 },
+      { left: "(78.35 damage per second)", kind: 0 },
+    ],
+  }
+  _ = showGroup("as Ordaen starts: a space between thousands, two decimals", data)
+  Ordaen::globals.draft.numberFormat = Ordaen::NumberFormat::Dot
+  Ordaen::globals.draft.numberRound = true
+  Ordaen::saveAll()
+  _ = showGroup("dots between thousands, whole numbers", data)
 }
