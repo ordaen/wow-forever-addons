@@ -67,6 +67,7 @@ test "a locked group: each of its tooltips opens what its parts name, a value th
       { left: "Target", right: "Ann", opens: named(Term::Ptarget), valueOpens: Opens::Unit { unit: "mouseovertarget" } },
       { left: "Caster", right: "Gone", valueOpens: Opens::Unit { unit: "party3" } },
     ],
+    desc: [{ text: "Two-Hand" }, { text: "Bound", opens: named(Term::Lock) }],
     ..titled("Axe", nil),
   }
   let well = Opens::Text { name: "Well", text: "Health regenerates 5% faster." }
@@ -77,6 +78,10 @@ test "a locked group: each of its tooltips opens what its parts name, a value th
 
   stage.locked = true
   Test::shot("locked: the parts that open something are underlined in every tooltip of the group")
+
+  Test::moveTo(Test::holding("Bound", nil))
+  Test::pass(0.1)
+  Test::shot("on a piece of the main tooltip's title: its term beside it")
 
   Test::moveTo(Test::holding("Locked", nil))
   Test::pass(0.1)
