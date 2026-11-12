@@ -181,6 +181,8 @@ addons/Ordaen<Name>/            a module: its index.luna gives its root, a class
                                 locales/, assets/
 addons/OrdaenDev/               the Ordaen Dev window: private (`../wow-dev-tools/modules/OrdaenDev`), a junction
                                 here so the build has it; ignored by git
+addons/OrdaenCore_Debug/        the dev addon: private (`../wow-dev-tools/addons/OrdaenCore_Debug`), a junction
+                                as OrdaenDev's; a dev build alone builds it
 addons/Showcase/                a page of the library's controls and a windowed module, for the tests
 art/                            how every texture of addons/ came to be and the steps that make it again: pieces,
                                 ComfyUI sets and workflows, sources (README.md; skill `art`)

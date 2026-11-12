@@ -12,6 +12,8 @@ _old/
 
 # the Ordaen Dev window: a private module (wow-dev-tools/modules/OrdaenDev), linked here so the build builds it
 addons/OrdaenDev
+# the dev addon (wow-dev-tools/addons/OrdaenCore_Debug), linked here the same way: a dev build builds and links it
+addons/OrdaenCore_Debug
 
 # the compiler's caches
 .lunatype-fmt
