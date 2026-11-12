@@ -1,0 +1,56 @@
+== the plural rule
+form(1) -> 1
+form(2) -> 2
+form(4) -> 2
+form(5) -> 3
+form(11) -> 3
+form(12) -> 3
+form(14) -> 3
+form(21) -> 1
+form(22) -> 2
+form(25) -> 3
+form(101) -> 1
+form(111) -> 3
+pluralForm(1, three words) -> заряд
+pluralForm(1, two words) -> charge
+pluralForm(3, three words) -> заряда
+pluralForm(3, two words) -> charges
+pluralForm(5, three words) -> зарядов
+pluralForm(5, two words) -> charges
+pluralForm(2, no words) -> nothing
+
+== the grammar codes
+3 |4заряд:заряда:зарядов; -> 3 заряда
+Осталось 21 |4заряд:заряда:зарядов; и 5 |4минута:минуты:минут; -> Осталось 21 заряд и 5 минут
+Требуется |3-6(Кузнечный молот) -> Требуется Кузнечный молот
+1 сек. |4восстановление:восстановления; -> 1 сек. восстановление
+A plain line: 5 charges -> A plain line: 5 charges
+
+== numbers
+number("2,60") -> 2.6
+number("1 234") -> 1234
+number("1 234,5") -> 1234.5
+number("12.5") -> 12.5
+number("twelve") -> nil
+number("") -> nil
+last("Скорость 2,60") -> 2.6
+last("Урон: 1 234 ") -> 234
+last("no number here") -> nil
+last("+15 к силе") -> nil
+
+== a label and its value
+Требуется: Оборонительная стойка -> Требуется | Оборонительная стойка
+Requires: Level 40 -> Requires | Level 40
+No colon here -> No colon here | nil
+12:30 is a time -> 12:30 is a time | nil
+|cff00ff00Green: text|r -> |cff00ff00Green: text|r | nil
+
+== durations
+duration(0.4) -> 0 s
+duration(12) -> 12 s
+duration(59.6) -> 60 s
+duration(60) -> 1 m
+duration(150) -> 3 m
+duration(3599) -> 60 m
+duration(3600) -> 1 h
+duration(9000) -> 3 h
