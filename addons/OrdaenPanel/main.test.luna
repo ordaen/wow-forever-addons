@@ -1,0 +1,229 @@
+// The panel with a stand-in game: its zones and what sits in them, the game's own buttons in its cells, and when it
+// shows.
+import Client from "$client"
+import Game from "$game"
+import { MouseButton } from "$ltml"
+import Test from "$test"
+import Ordaen from "Ordaen"
+import { CharButton, Combat, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
+import { Panel } from "@/main"
+
+private const PAGE: Test::Page = { left: 20, top: 20, width: 200, height: 100 }
+
+// One of the game's own frames the panel stands its cells round, hides, or leaves unseen: the `nth` of them.
+private function blizzard(name: string, nth: integer): Client::Frame {
+  let ui = Client::C_UI::GetUIParent()
+  let frame = Client::CreateFrame("Button", name, ui, nil)
+  frame.SetSize(32, 40)
+  frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 1000 + nth * 4, -300)
+  return frame
+}
+
+private function show(title: string, menu: Client::Frame, button: Client::Frame, bags: Client::Frame) {
+  Test::shot(title)
+  let home = button.GetParent() == Client::C_UI::GetUIParent() ? "the game's" : "ours"
+  Test::note(`the game's menu: opacity ${menu.GetAlpha()}, its bag bar shown: ${bags.IsShown()}, a menu button's parent: ${home}`)
+  Test::note("")
+}
+
+// Where an item sits: the settings keep every item's place in one map.
+private function placed(now: Map<Item, Zone>, item: Item, zone: Zone): Map<Item, Zone> {
+  let mut places: Map<Item, Zone> = {}
+  for (key, value of now) { places[key] = value }
+  places[item] = zone
+  return places
+}
+
+test "the panel: its zones and items, the game's buttons in its cells, when it shows, its parts placed" {
+  let menu = blizzard("MicroMenuContainer", 1)
+  Game::Frames::MicroMenuContainer = menu
+  Game::Frames::CharacterMicroButton = blizzard("CharacterMicroButton", 2)
+  let button = blizzard("ProfessionMicroButton", 3)
+  Game::Frames::ProfessionMicroButton = button
+  Game::Frames::SpellbookMicroButton = blizzard("SpellbookMicroButton", 4)
+  Game::Frames::TalentMicroButton = blizzard("TalentMicroButton", 5)
+  Game::Frames::LegacyMicroButton = blizzard("LegacyMicroButton", 6)
+  Game::Frames::QuestLogMicroButton = blizzard("QuestLogMicroButton", 7)
+  Game::Frames::LFDMicroButton = blizzard("LFDMicroButton", 8)
+  Game::Frames::CollectionsMicroButton = blizzard("CollectionsMicroButton", 9)
+  Game::Frames::MainMenuMicroButton = blizzard("MainMenuMicroButton", 10)
+  Game::Frames::GuildMicroButton = blizzard("GuildMicroButton", 11)
+  Game::Frames::StoreMicroButton = blizzard("StoreMicroButton", 12)
+  Game::Frames::HelpMicroButton = blizzard("HelpMicroButton", 13)
+  Game::Frames::QuickJoinToastButton = blizzard("QuickJoinToastButton", 14)
+  let bags = blizzard("BagsBar", 15)
+  Game::Frames::BagsBar = bags
+  Game::Frames::MainMenuBarBackpackButton = blizzard("MainMenuBarBackpackButton", 16)
+  Game::Frames::BackpackFreeSlots = blizzard("BackpackFreeSlots", 17)
+  Game::Frames::CharacterBag0Slot = blizzard("CharacterBag0Slot", 18)
+  Game::Frames::CharacterBag1Slot = blizzard("CharacterBag1Slot", 19)
+  Game::Frames::CharacterBag2Slot = blizzard("CharacterBag2Slot", 20)
+  Game::Frames::CharacterBag3Slot = blizzard("CharacterBag3Slot", 21)
+  Game::Money::amount = 1234567
+  Game::Bags::free = 23
+  Game::Player::xp = 2500
+  Game::Player::xpMax = 10000
+  Game::Player::rested = 1500
+  let shown = (title: string) => show(title, menu, button, bags)
+
+  let mut panel = new Panel()
+  Test::mount(panel, PAGE)
+  shown("drawn along the bottom: the menu with friends and guild at its start, the money and the bags at its end")
+  // The mouse over the panel: each cell's own, the game's button in it never at one level with ours.
+  let mouse = Test::mouse()
+  let contested = mouse.contestedFirst
+  let covered = mouse.coveredFirst
+  Test::note(`points where two frames would both take the mouse: ${mouse.contested}${contested != nil ? ` (${contested})` : ""}`)
+  Test::note(`boxes that take the mouse: ${mouse.boxes > 0 ? "some" : "none"}; with part of their face under another frame: ${mouse.covered}${covered != nil ? ` (${covered})` : ""}`)
+  Test::note("")
+
+  Game::Friends::online = 3
+  Game::Money::tracked = "12 Marks"
+  shown("three friends online and a currency followed: the count on the friends' cell, the currency by the money")
+
+  Game::Friends::online = 12
+  panel.settings.draft.charButton = CharButton::Button
+  Ordaen::saveAll()
+  shown("the character's button as a cell: the face, round, first in the menu; no portrait in the corner")
+
+  Test::face("player", "player in a helm")
+  panel.settings.draft.charButton = CharButton::Portrait
+  Ordaen::saveAll()
+  shown("the portrait again, the player's look another")
+
+  panel.settings.draft.microIcons = MicroIcons::Gold
+  Ordaen::saveAll()
+  panel.settings.draft.outline = Outline::Thick
+  Ordaen::saveAll()
+  shown("twelve friends: the pill grows; the icons in one gold; the text outlined thick")
+
+  Game::Player::xp = 9400
+  Game::Reputation::name = "Stormwind"
+  Game::Reputation::standing = "Honored"
+  Game::Reputation::min = 9000
+  Game::Reputation::max = 21000
+  Game::Reputation::value = 13800
+  shown("more experience, a faction watched: the fill grows, the rested part stops at the level's end; one tube in the panel")
+
+  Game::Player::xpMax = 0
+  shown("at the level's cap: the watched faction's tube in its place")
+
+  Game::Reputation::name = ""
+  shown("no faction watched at the cap: no tube")
+
+  Game::Player::xpMax = 10000
+  panel.settings.draft.places = placed(panel.settings.draft.places, Item::Zone, Zone::Center)
+  Ordaen::saveAll()
+  panel.settings.draft.places = placed(panel.settings.draft.places, Item::Clock, Zone::Center)
+  Ordaen::saveAll()
+  panel.settings.draft.places = placed(panel.settings.draft.places, Item::Social, Zone::Right)
+  Ordaen::saveAll()
+  Game::Clock::invites = 1
+  shown("the zone's name and the time in the middle, the time orange with an invite waiting; friends and guild at the end")
+
+  panel.settings.draft.fit = Fit::Center
+  Ordaen::saveAll()
+  shown("as long as its items, in the edge's middle")
+
+  panel.settings.draft.edge = Edge::Top
+  Ordaen::saveAll()
+  panel.settings.draft.fit = Fit::Full
+  Ordaen::saveAll()
+  panel.settings.draft.height = 72
+  Ordaen::saveAll()
+  shown("along the top, 72 high")
+
+  // Down a side the zone's name is wider than the panel, and the menu longer than a third of this screen: the
+  // panel is as long as its items there.
+  panel.settings.draft.places = placed(panel.settings.draft.places, Item::Zone, Zone::Off)
+  Ordaen::saveAll()
+  panel.settings.draft.fit = Fit::Center
+  Ordaen::saveAll()
+  panel.settings.draft.edge = Edge::Left
+  Ordaen::saveAll()
+  shown("down the left side, as long as its items: the zones one under another, each item's cells too, no experience bar")
+
+  panel.settings.draft.edge = Edge::Right
+  Ordaen::saveAll()
+  shown("down the right side")
+
+  panel.settings.draft.edge = Edge::Top
+  Ordaen::saveAll()
+  panel.settings.draft.fit = Fit::Full
+  Ordaen::saveAll()
+  panel.settings.draft.places = placed(panel.settings.draft.places, Item::Zone, Zone::Center)
+  Ordaen::saveAll()
+  panel.settings.draft.show = Show::Mouseover
+  Ordaen::saveAll()
+  shown("shown on mouseover, the cursor away: all but unseen, and still there for the cursor")
+
+  Test::moveTo({ x: 800, y: 10 })
+  shown("the cursor on it: shown")
+
+  Test::moveTo({ x: 800, y: 400 })
+  panel.settings.draft.show = Show::Always
+  Ordaen::saveAll()
+  panel.settings.draft.combat = Combat::Hide
+  Ordaen::saveAll()
+  Game::Situation::combat = true
+  shown("hidden in combat with nothing left to see: not drawn, the game's buttons back where the game keeps them")
+
+  panel.settings.draft.fadedAlpha = 0.3
+  Ordaen::saveAll()
+  shown("hidden in combat at 30%: drawn faint")
+
+  Game::Situation::combat = false
+  panel.settings.draft.edge = Edge::Bottom
+  Ordaen::saveAll()
+  panel.settings.draft.height = 60
+  Ordaen::saveAll()
+  panel.settings.draft.places = placed(panel.settings.draft.places, Item::Bags, Zone::Off)
+  Ordaen::saveAll()
+  panel.settings.draft.places = placed(panel.settings.draft.places, Item::Experience, Zone::Off)
+  Ordaen::saveAll()
+  shown("the bags and the experience bar off the panel: each a part of its own above the screen's bottom, where its module says")
+
+  Ordaen::togglePlacing()
+  shown("the placing mode: each part outlined with its name over it")
+
+  // The bags' part: taken by its middle and let go 200 to the left and 100 up.
+  let at = Test::surfaceHolding("Bags")
+  Test::moveTo(at)
+  Test::press(nil)
+  Test::moveTo({ x: at.x - 1, y: at.y })
+  Test::pass(0.05)
+  Test::moveTo({ x: at.x - 201, y: at.y - 100 })
+  Test::pass(0.05)
+  shown("the bags' part dragged: it follows the cursor")
+  Test::release(nil)
+  shown("let go: it stays where it was put")
+
+  Ordaen::togglePlacing()
+  shown("the placing mode off: no outlines, the part where the player put it")
+
+  Ordaen::togglePlacing()
+  Test::moveTo(Test::surfaceHolding("Bags"))
+  Test::press(MouseButton::Right)
+  Test::release(MouseButton::Right)
+  Ordaen::togglePlacing()
+  shown("right-clicked in the placing mode: back where its module says")
+
+  panel.settings.draft.bottomOn = false
+  Ordaen::saveAll()
+  shown("the panel off: every item of it a part of its own")
+
+  panel.settings.draft.bottomOn = true
+  Ordaen::saveAll()
+  panel.settings.draft.places = placed(panel.settings.draft.places, Item::Bags, Zone::Right)
+  Ordaen::saveAll()
+  panel.settings.draft.places = placed(panel.settings.draft.places, Item::Experience, Zone::Center)
+  Ordaen::saveAll()
+  panel.settings.draft.microOn = false
+  Ordaen::saveAll()
+  shown("the menu off: its cells gone, the game's own menu seen again")
+
+  destroy panel
+  $expect(Test::blank())
+  Test::note("-- destroyed")
+  Test::note(`the game's menu: opacity ${menu.GetAlpha()}, its bag bar shown: ${bags.IsShown()}`)
+}
