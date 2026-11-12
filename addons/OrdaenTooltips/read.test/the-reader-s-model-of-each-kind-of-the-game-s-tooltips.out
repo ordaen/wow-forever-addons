@@ -1,0 +1,248 @@
+== a button's text: the key the game appends goes to the hotkeys
+text: Character Info #ffffff
+  body: Your character's gear and statistics. (a description)
+  body: Item level | 62
+  body: Durability is low #ff1a1a
+  body: only a right text (a description)
+  key: C: open
+
+== a text with no lines: nothing to read
+left to the game
+
+== a chest that needs a skill, which the player lacks
+object: Battered Chest #ffd100
+  body: Locked #ff1a1a
+  body: 2 charges left #1fff00
+  foot: Lockpicking | 75 #ff4040 (opens the term lock)
+
+== a door that needs a key the player has, and one the player hasn't
+object: Workshop Door #ffd100
+  foot: Needs a key | Workshop Key (opens the term lock)
+  foot: Needs a key | Defias Chest Key #ff4040 (opens the term lock)
+
+== an object with no name
+left to the game
+
+== a spell: the rank and the tab, the cost and the range, the cast and no cooldown, its description
+spell: Frostbolt #ffffff [icons/frostbolt]
+  desc: Rank 4
+  desc: Frost
+  info: ID 116
+  fact: 65 [glyphs/cost] #4d99ff
+  fact: 30 yd range (opens the term range)
+  fact: 2.5 sec cast [glyphs/castTime] (opens the term casttime)
+  body: Launches a bolt of frost at the enemy. (a description)
+  foot: Requires | Staff #ff4040
+
+== a finishing move on cooldown: instant, melee range, its list as rows after the sentence, reagents
+spell: Eviscerate #ffffff [icons/eviscerate] (counts down)
+  desc: Passive
+  info: ID 2098
+  fact: 35 [glyphs/cost] #ffd100
+  fact: 5 yd (opens the term melee)
+  fact: Instant [glyphs/castNow] (opens the term castnow)
+  fact: CD 10 sec (opens the term cd)
+  body: Finishing move that causes damage per combo point: / Strikes hard. (a description)
+  body: 1 point | 46–66 (opens the term combo)
+  body: 2 points | 80–100 (opens the term combo)
+  foot: Flash Powder | 2 #ff4040
+  foot: Rune | 1 #ff4040
+  foot: Ready in | 2 m #ffd100 (opens the term ready)
+
+== a talent at rank 2 of 5: its tree, the next rank with what changes lit
+spell: Improved Fireball #ffffff [icons/fireball]
+  desc: Talent (opens the term talent)
+  desc: 2/5 (opens the term talent)
+  desc: Fire
+  info: ID 11069
+  body: Reduces the cast time of Fireball by 0.2 sec. (a description)
+  more: Next rank: #808080
+  more: Reduces the cast time of Fireball by |cff40ff600.3|r sec.
+
+== a talent not learned: the points its tree wants, red while not spent, and the talent before it
+spell: Improved Fireball #ffffff [icons/fireball]
+  desc: Talent (opens the term talent)
+  desc: 0/5 (opens the term talent)
+  desc: Fire
+  info: ID 11069
+  body: Reduces the cast time of Fireball by 0.1 sec. (a description)
+  foot: Talent points required | 5 #ff4040 (opens the term talent)
+  foot: Talent points required | 10 (opens the term talent)
+  foot: Learn the talent before it first | nil #ff4040 (opens the term talent)
+
+== a talent whose spell the game doesn't name
+left to the game
+
+== a spell with no number and no name line
+left to the game
+
+== a harmful effect over time on the player: what removes it, its stacks and time, who cast it, what is left
+aura: Holy Fire #ff4040 [icons/holyfire] (counts down)
+  desc: Debuff
+  desc: Magic #3c9cff
+  info: ID 14914
+  fact: ×3 (opens the term stacks)
+  fact: 9 s [glyphs/time] (opens the term time)
+  fact: Dispel Magic #8fd2ff (opens the term removeby)
+  body: Burns for 12 damage every 3 sec. (a description)
+  foot: Cast by | Scarlet Monk #4d99ff (opens the term caster)
+  foot: Damage left | 108 over 9 s (opens the term total)
+
+== a buff of the player's own: cancelled with a click, no time for one that doesn't end
+aura: Power Word: Fortitude #ffd100 [icons/fortitude]
+  desc: Buff
+  desc: Yours #ffd100 (opens the term mine)
+  info: ID 1243
+  fact: RMB: cancel (opens the term cancel)
+  body: Stamina increased by 8. (a description)
+  foot: Cast by | You (opens the term caster)
+
+== an enemy's magic buff: the player's class takes it off
+aura: Power Word: Fortitude #ffd100 [icons/fortitude] (counts down)
+  desc: Buff
+  desc: Magic #3c9cff
+  info: ID 1243
+  fact: 1 h [glyphs/time] (opens the term time)
+  fact: Dispel Magic #8fd2ff (opens the term removeby)
+
+== the camp's bonuses: its paragraphs as rows, a known building's bonus in short
+aura: Camp #ffd100
+  desc: Camp (opens the term camp)
+  info: ID 1229741
+  body: Mana Well | +10 mana / 5 sec.
+  body: Forge | Armor increased by 5.
+
+== a player: the title quieter round the name, the guild, away, the level, race and faction, target, raid, friend
+unit: |cffcbb994|r|cff4d99ffJaina|r|cffcbb994 the Patient|r #4d99ff [the face of mouseover]
+  desc: Kirin Tor (opens the term guild)
+  desc: Archmage (opens the term rank)
+  info: Mage (opens the term pclass)
+  info: Away (opens the term status)
+  info: PvP (opens the term pvp)
+  fact: Level 60 (opens the term plvl)
+  fact: Human
+  fact: Alliance #1eff00 [glyphs/alliance] (opens the term alliance)
+  foot: Target | Thrall #ff8000 (opens the term ptarget)
+  foot: Raid | Group 2 (opens the term relation)
+  foot: Friend | met in Dalaran (opens the term relation)
+
+== an NPC: its role, its faction, elite and rare, the quests with the party's, someone else's loot, the standing
+unit: Defias Pillager #808080 [the face of target]
+  desc: Brotherhood Scout
+  info: Humanoid (opens the term beast)
+  fact: Level 15 #ff8000 (opens the term lvlcolor)
+  fact: Elite #ffd100 [glyphs/elite] (opens the term elite)
+  fact: Rare (opens the term rare)
+  fact: Defias Brotherhood #ff4040 (opens the term horde)
+  body: Carries a torch. #1fff00
+  more: The Defias Brotherhood #ffd100
+  more: Pillagers slain | 3/8 (opens the term quest)
+  more:     Anduin | 8/8 #1eff00 (opens the term quest)
+  foot: Someone else's loot |  (opens the term tapped)
+  foot: Defias Brotherhood | Hostile #ff4040
+
+== a unit that is gone: what the game wrote
+unit: Rat #ffffff
+  body: Level 1 Critter
+
+== an object a quest wants: its objective after the body
+object: Sack of Oats #ffd100
+  more: Feeding the Horses #ffd100
+  more: Oats gathered | 4/4 #1eff00 (opens the term quest)
+
+== an item: its level and stats as rows, the band, the footer; its use and its set beside it
+item: Axe of the Deep Woods #a336ed [icons/axe] (counts down)
+  desc: Unique (opens the term uni)
+  desc: Two-Hand
+  desc: Axe #ff4040
+  info: Soulbound (opens the term bound)
+  info: ID 9001
+  fact: 216–325 [glyphs/dmg] (opens the term dmg)
+  fact: 3.4/s [glyphs/spd] (opens the term spd)
+  fact: 78.3 DPS (opens the term dps)
+  body: Item level | 62
+  body: Strength | +21
+  body: Stamina | +12
+  body: +5 Fire Resistance #1fff00
+  body: Chance on hit: Blasts the target. #1eff00
+  foot: Durability | 20 / 120 #ffd100 (opens the term dur)
+  foot: Classes | Warrior, Paladin #ff1a1a (opens the term cls)
+  foot: Requires level | 57 #ff4040 (opens the term req)
+  foot: Blacksmithing | 250 (opens the term prof)
+  foot: Sell Price | 5g 12s 0c
+beside it:
+spell: Healing Touch #ffffff [icons/heal] (counts down)
+  info: ID 7001
+  fact: Instant [glyphs/castNow] (opens the term castnow)
+  body: Heals you for 100. (a description)
+  foot: Ready in | 30 s #ffd100
+beside it:
+set: Deep Woods (1/3) #ffd100
+  body:   Helm of the Deep Woods #808080
+  body: (2) Set: +10 Strength #1fff00
+  stat ITEM_MOD_STAMINA_SHORT = 12
+  stat ITEM_MOD_STRENGTH_SHORT = 21
+  stat dmg = 270.5
+  stat dps = 78.3
+  stat ilvl = 62
+  stat spd = 3.4
+
+== a bag that stacks: its slots, how many the player has and where
+item: Linen Bag #ffffff [icons/bag]
+  info: ID 9002
+  fact: 6 slots (opens the term bag of 6)
+  fact: 42 [glyphs/arm] (opens the term arm of 42)
+  foot: In bags | 3 (opens the term own)
+  foot: In the bank | 5 (opens the term own)
+  foot: Stack size | 20 (opens the term stack)
+  stat arm = 42
+
+== a recipe: what it makes beside it, its reagents as rows, not known
+item: Pattern: Swift Boots #ffffff [icons/scroll]
+  desc: Not known
+  info: ID 9003
+  body: Thick Leather | 6
+  body: Citrine | 2
+beside it:
+item: Swift Boots #ffffff [icons/boots]
+  info: ID 9004
+  fact: 40 [glyphs/arm] (opens the term arm of 40)
+
+== an item with no name line
+left to the game
+
+== compared: the hovered item against the worn one, and the worn one against the hovered
+item: Greataxe #ffffff
+  body: Strength | +30 |cff1eff00(▲9)|r
+  body: Stamina | +12
+  body: Agility #808080 | — |cffff4040(▼7)|r
+item: Axe of the Deep Woods #a336ed [icons/axe] (counts down)
+  desc: Unique (opens the term uni)
+  desc: Two-Hand
+  desc: Axe #ff4040
+  info: Soulbound (opens the term bound)
+  info: ID 9001
+  fact: 216–325 [glyphs/dmg] (opens the term dmg)
+  fact: 3.4/s [glyphs/spd] (opens the term spd)
+  fact: 78.3 DPS (opens the term dps)
+  body: Item level | 62 |cff1eff00(▲62)|r
+  body: Strength | +21 |cffff4040(▼9)|r
+  body: Stamina | +12
+  body: +5 Fire Resistance #1fff00
+  body: Chance on hit: Blasts the target. #1eff00
+  foot: Durability | 20 / 120 #ffd100 (opens the term dur)
+  foot: Classes | Warrior, Paladin #ff1a1a (opens the term cls)
+  foot: Requires level | 57 #ff4040 (opens the term req)
+  foot: Blacksmithing | 250 (opens the term prof)
+  foot: Sell Price | 5g 12s 0c
+
+== terms of the glossary: the name and the text, the amount a part speaks of in them
+term: Cooldown #ffd100
+  body: How long to wait before using it again.
+term: Armour 120 #ffd100
+  body: Reduces the |cffffffffphysical damage|r you take.
+term: Slots #ffd100
+  body: A bag with 16 slots: how many items it holds.
+
+== what the game has no kind for
+left to the game
