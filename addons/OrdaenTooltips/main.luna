@@ -101,6 +101,7 @@ public class Tooltips implements Ordaen::Module {
   private sides = $computed((): Array<Model> => self.current?.sides ?? [])
   private compared = $computed((): Array<Model> => self.current?.compared ?? [])
   private standing = $computed((): Standing => self.held?.standing ?? self.where())
+  private chosen = $computed((): Options => self.options())
 
   $constructor() {
     $watch(self.keepUnseen)
@@ -303,7 +304,7 @@ public class Tooltips implements Ordaen::Module {
   public render(): Template {
     return $ltml {
       <TipGroup model={self.model} sides={self.sides} compared={self.compared} standing={self.standing}
-                shown={self.shown} charge={self.charge} locked={self.locked} @close={self.close}
+                shown={self.shown} options={self.chosen} charge={self.charge} locked={self.locked} @close={self.close}
                 @enter={self.onEnter} @leave={self.onLeave} />
     }
   }

@@ -27,7 +27,7 @@ public class Dialog implements Ordaen::Component {
   public render(): Template {
     return $ltml {
       <surface layer={Layer::Dialog} place={"fill"} zLevel={100} background={SHADE} xAlign={Align::Center}
-               yAlign={Align::Center} @click={self.swallow}>
+               yAlign={Align::Center} textFamily={Ordaen::lookArt.font} @click={self.swallow}>
         <box width={self.width} border={Ordaen::art.frame.small} background={Ordaen::art.window.wood}
              artOrigin={true} columns={1} gap={14 * PX} padding={self.padding}>
           <slot />

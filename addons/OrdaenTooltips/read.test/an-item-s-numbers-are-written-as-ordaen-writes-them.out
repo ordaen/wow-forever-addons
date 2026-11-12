@@ -1,0 +1,23 @@
+== as Ordaen starts: a space between thousands, two decimals
+item: Tower Shield #ffffff
+  info: ID 9100
+  fact: 1 234 [glyphs/arm] (opens the term arm of 1 234)
+  fact: 216–325 [glyphs/dmg] (opens the term dmg)
+  fact: 3.4/s [glyphs/spd] (opens the term spd)
+  fact: 78.35 DPS (opens the term dps)
+  stat arm = 1234
+  stat dmg = 270.5
+  stat dps = 78.35
+  stat spd = 3.4
+
+== dots between thousands, whole numbers
+item: Tower Shield #ffffff
+  info: ID 9100
+  fact: 1.234 [glyphs/arm] (opens the term arm of 1.234)
+  fact: 216–325 [glyphs/dmg] (opens the term dmg)
+  fact: 3/s [glyphs/spd] (opens the term spd)
+  fact: 78 DPS (opens the term dps)
+  stat arm = 1234
+  stat dmg = 270.5
+  stat dps = 78.35
+  stat spd = 3.4

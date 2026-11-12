@@ -79,12 +79,97 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
 points where two frames would both take the mouse: 0
 boxes that take the mouse: some; with part of their face under another frame: 0
+
+-- Blizzard's look saved: the level in its accent
+box 0,0 0x0
+  embed 0,0 0x0 frame=StoreMicroButton opacity=0
+  embed 0,0 0x0 frame=HelpMicroButton opacity=0
+surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
+  box 0,847 713.75x53
+    box 0,847 591.8x53
+      box 0,873 128x1
+      box 136,847 455.8x53
+        box 136,847 56.97x53 art/panel.cell
+          box 146.99,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-professions
+          embed 136,847 56.97x53 absolute frame=ProfessionMicroButton opacity=0
+        box 192.97,847 56.97x53 art/panel.cell
+          box 203.96,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-spellbookabilities
+          embed 192.97,847 56.97x53 absolute frame=SpellbookMicroButton opacity=0
+        box 249.95,847 56.97x53 art/panel.cell
+          box 260.94,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-spectalents
+          embed 249.95,847 56.97x53 absolute frame=TalentMicroButton opacity=0
+        box 306.92,847 56.97x53 art/panel.cell
+          box 317.91,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-legacy
+          embed 306.92,847 56.97x53 absolute frame=LegacyMicroButton opacity=0
+        box 363.9,847 56.97x53 art/panel.cell
+          box 374.89,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-questlog
+          embed 363.9,847 56.97x53 absolute frame=QuestLogMicroButton opacity=0
+        box 420.88,847 56.97x53 art/panel.cell
+          box 431.86,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-groupfinder
+          embed 420.88,847 56.97x53 absolute frame=LFDMicroButton opacity=0
+        box 477.85,847 56.97x53 art/panel.cell
+          box 488.84,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-collections
+          embed 477.85,847 56.97x53 absolute frame=CollectionsMicroButton opacity=0
+        box 534.83,847 56.97x53 art/panel.cell
+          box 545.81,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
+          embed 534.83,847 56.97x53 absolute frame=MainMenuMicroButton opacity=0
+    box 599.8,847 113.95x53
+      box 599.8,847 56.97x53 art/panel.cell
+        box 610.79,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+        embed 599.8,847 56.97x53 absolute frame=QuickJoinToastButton opacity=0
+      box 656.78,847 56.97x53 art/panel.cell
+        box 667.76,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+        embed 656.78,847 56.97x53 absolute frame=GuildMicroButton opacity=0
+  box 713.75,861 443.12x25
+    box 713.75,861 443.12x25
+      box 745.75,861 379.12x25
+        box 745.75,861 379.12x25 absolute art/panel.xpTrough
+        box 749.66,864.91 371.31x17.19 absolute
+          box 749.66,864.91 148.53x17.19 absolute #6e96d129
+          box 749.66,864.91 92.83x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 749.66,864.91 371.31x17.19 absolute
+            box 749.66,864.91 37.13x17.19
+            box 786.79,864.91 37.13x17.19
+            box 823.92,864.91 37.13x17.19
+            box 861.05,864.91 37.13x17.19
+            box 898.18,864.91 37.13x17.19
+            box 935.31,864.91 37.13x17.19
+            box 972.44,864.91 37.13x17.19
+            box 1009.58,864.91 37.13x17.19
+            box 1046.71,864.91 37.13x17.19
+            box 1083.84,864.91 37.13x17.19
+        box 745.75,861 379.12x25 absolute art/panel.xpShine
+        box 745.75,861 379.12x25 absolute art/panel.xpTube
+        box 745.75,861 379.12x25 absolute
+          text 925.94,866 18.75x15 "25%" #f3e7cc
+  box 1156.88,847 443.12x53
+    box 1225.12,866.3 82x14.4
+      text 1225.12,866.3 72x14.4 "123g 45s 67c" #e8dcc4
+    box 1315.12,847 284.88x53
+      box 1315.12,847 56.97x53 art/panel.cell
+        embed 1317.11,847 53x53 absolute frame=MainMenuBarBackpackButton
+        box 1355.95,885.17 11.67x14 absolute
+          text 1355.95,885.17 11.67x14 "23" #ffffff
+      box 1372.1,847 56.97x53 art/panel.cell
+        embed 1374.09,847 53x53 absolute frame=CharacterBag0Slot
+      box 1429.08,847 56.97x53 art/panel.cell
+        embed 1431.06,847 53x53 absolute frame=CharacterBag1Slot
+      box 1486.05,847 56.97x53 art/panel.cell
+        embed 1488.04,847 53x53 absolute frame=CharacterBag2Slot
+      box 1543.03,847 56.97x53 art/panel.cell
+        embed 1545.01,847 53x53 absolute frame=CharacterBag3Slot
+surface 0,776 128x124 on MEDIUM face:player cut by art/panel.corner
+  embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
+  box 86.7,781.3 36x36 absolute art/panel.badge
+    text 101.2,790.9 7x16.8 "1" #ffd100
+
+the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
 -- three friends online and a currency followed: the count on the friends' cell, the currency by the money
 box 0,0 0x0
@@ -170,7 +255,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -343,7 +428,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -431,7 +516,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -519,7 +604,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -607,7 +692,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -675,7 +760,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -766,7 +851,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -857,7 +942,7 @@ surface 49.69,832.75 1500.62x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -1405,7 +1490,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 surface 495.25,828.75 609.5x51.25 on MEDIUM clamped
   box 495.25,828.75 609.5x51.25 art/window.wood border=art/frame.small
     box 509.5,843 586x25
@@ -1500,7 +1585,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 surface 495.25,828.75 609.5x51.25 on MEDIUM clamped
   box 495.25,828.75 609.5x51.25 art/window.wood border=art/frame.small
     box 509.5,843 586x25
@@ -1599,7 +1684,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 surface 495.25,828.75 609.5x51.25 on MEDIUM clamped
   box 495.25,828.75 609.5x51.25 art/window.wood border=art/frame.small
     box 509.5,843 586x25
@@ -1698,7 +1783,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 surface 495.25,828.75 609.5x51.25 on MEDIUM clamped
   box 495.25,828.75 609.5x51.25 art/window.wood border=art/frame.small
     box 509.5,843 586x25
@@ -1797,7 +1882,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 surface 495.25,828.75 609.5x51.25 on MEDIUM clamped
   box 495.25,828.75 609.5x51.25 art/window.wood border=art/frame.small
     box 509.5,843 586x25
@@ -1892,7 +1977,7 @@ surface 0,832.75 1600x67.25 on MEDIUM art/panel.wood opacity=1
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by art/panel.corner
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute art/panel.badge
-    text 101.2,790.9 7x16.8 "1" #ffd100
+    text 101.2,790.9 7x16.8 "1" #b88f57
 surface 495.25,828.75 609.5x51.25 on MEDIUM clamped
   box 495.25,828.75 609.5x51.25 art/window.wood border=art/frame.small
     box 509.5,843 586x25

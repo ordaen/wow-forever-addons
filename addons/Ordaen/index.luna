@@ -7,4 +7,5 @@ export { art, look, lookArt, register, settingsBy, start, modules, globals, plac
 export { Artwork } from "@/art"
 export { Look, LookArt, Font, BarTexture, XpFill, BarFrame, Animation, Hue, Preset, PRESETS, preset, presetOf, hueColor } from "@/look"
 export { Placed } from "@/placed"
+export { number } from "@/numbers"
 export { OrdaenCore } from "@/ordaen"
