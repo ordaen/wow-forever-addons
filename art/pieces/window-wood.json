@@ -1,0 +1,5 @@
+{
+  "says": "The windows' wood (theme window.wood and panel.wood): one 512 px tile that wraps both ways, repeated from a window's top-left at the size the picture had in the design's window.",
+  "ships": ["addons/Ordaen/media/window-wood.tga"],
+  "origin": "Made by code from the client's character sheet wood (UI-Character-Info-General-BG at 2x, wow-dev-tools design/public/game-art/ui-character-info-general-bg-c60-2x.png as of 02c4f87): wow-dev-tools design/scripts/wood-split.py (numpy; its light and its detail apart, the detail quilted on a torus; design page settings/wood, variant D) with seed 1 writes woodsplit-1.png, whose pixels this file holds (`lunatype art convert woodsplit-1.png window-wood.tga` makes it byte for byte). `python wood-split.py <folder with the picture> 1` as of af18b3e makes woodsplit-1.png again (Python 3.14.4, Pillow 13.0.0, numpy 2.5.4)."
+}

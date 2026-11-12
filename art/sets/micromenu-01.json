@@ -1,0 +1,254 @@
+{
+  "says": "The micro menu icons in two styles, painted (Blizzard-like, high resolution) and gold emblem (the panel's gold and bronze), on pure black to be keyed out (lunatype art key). Two ship, keyed into sources/micromenu: painted-quests 53 (source-questlog.png) and painted-help 102 (source-gamemenu.png) (piece micromenu).",
+  "workflow": "flux-schnell",
+  "seed": "5.seed",
+  "set": {
+    "4.width": 512,
+    "4.height": 512,
+    "5.steps": 4
+  },
+  "items": [
+    {
+      "name": "painted-professions",
+      "set": {
+        "2.text": "fantasy game UI icon, a blacksmith hammer crossed with a mining pickaxe, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        11,
+        12,
+        13
+      ]
+    },
+    {
+      "name": "painted-spellbook",
+      "set": {
+        "2.text": "fantasy game UI icon, a closed leather spellbook with brass corners and a glowing rune on the cover, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        21,
+        22,
+        23
+      ]
+    },
+    {
+      "name": "painted-talents",
+      "set": {
+        "2.text": "fantasy game UI icon, an archery target with an arrow in the bullseye, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        31,
+        32,
+        33
+      ]
+    },
+    {
+      "name": "painted-legacy",
+      "set": {
+        "2.text": "fantasy game UI icon, a heraldic shield with a small golden crown on top, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        41,
+        42,
+        43
+      ]
+    },
+    {
+      "name": "painted-quests",
+      "set": {
+        "2.text": "fantasy game UI icon, a bold golden exclamation mark, hand-painted World of Warcraft style, glossy gold, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        51,
+        52,
+        53
+      ]
+    },
+    {
+      "name": "painted-guild",
+      "set": {
+        "2.text": "fantasy game UI icon, a cloth guild banner on a pole with a swallowtail end, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        61,
+        62,
+        63
+      ]
+    },
+    {
+      "name": "painted-groupfinder",
+      "set": {
+        "2.text": "fantasy game UI icon, a glowing green dragon eye with a slit pupil, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        71,
+        72,
+        73
+      ]
+    },
+    {
+      "name": "painted-collections",
+      "set": {
+        "2.text": "fantasy game UI icon, a steel horseshoe with nails, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        81,
+        82,
+        83
+      ]
+    },
+    {
+      "name": "painted-menu",
+      "set": {
+        "2.text": "fantasy game UI icon, an ornate bronze cogwheel gear, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        91,
+        92,
+        93
+      ]
+    },
+    {
+      "name": "painted-help",
+      "set": {
+        "2.text": "fantasy game UI icon, a bold red question mark, hand-painted World of Warcraft style, glossy, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        101,
+        102,
+        103
+      ]
+    },
+    {
+      "name": "painted-social",
+      "set": {
+        "2.text": "fantasy game UI icon, two adventurer busts side by side, friends, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        111,
+        112,
+        113
+      ]
+    },
+    {
+      "name": "emblem-professions",
+      "set": {
+        "2.text": "game UI icon, crossed hammer and pickaxe emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        211,
+        212,
+        213
+      ]
+    },
+    {
+      "name": "emblem-spellbook",
+      "set": {
+        "2.text": "game UI icon, an open book emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        221,
+        222,
+        223
+      ]
+    },
+    {
+      "name": "emblem-talents",
+      "set": {
+        "2.text": "game UI icon, a talent tree of three linked circles emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        231,
+        232,
+        233
+      ]
+    },
+    {
+      "name": "emblem-legacy",
+      "set": {
+        "2.text": "game UI icon, a royal crown emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        241,
+        242,
+        243
+      ]
+    },
+    {
+      "name": "emblem-quests",
+      "set": {
+        "2.text": "game UI icon, a rolled parchment scroll with an exclamation mark, emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        251,
+        252,
+        253
+      ]
+    },
+    {
+      "name": "emblem-guild",
+      "set": {
+        "2.text": "game UI icon, a banner flag on a pole, emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        261,
+        262,
+        263
+      ]
+    },
+    {
+      "name": "emblem-groupfinder",
+      "set": {
+        "2.text": "game UI icon, an all-seeing eye emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        271,
+        272,
+        273
+      ]
+    },
+    {
+      "name": "emblem-collections",
+      "set": {
+        "2.text": "game UI icon, a horseshoe emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        281,
+        282,
+        283
+      ]
+    },
+    {
+      "name": "emblem-menu",
+      "set": {
+        "2.text": "game UI icon, a cogwheel gear emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        291,
+        292,
+        293
+      ]
+    },
+    {
+      "name": "emblem-help",
+      "set": {
+        "2.text": "game UI icon, a question mark emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        301,
+        302,
+        303
+      ]
+    },
+    {
+      "name": "emblem-social",
+      "set": {
+        "2.text": "game UI icon, two people busts side by side, friends emblem in polished engraved gold and bronze metal, embossed relief, light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        311,
+        312,
+        313
+      ]
+    }
+  ]
+}

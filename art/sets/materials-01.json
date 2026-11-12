@@ -1,0 +1,62 @@
+{
+  "says": "Seamless materials tried for frames and panels: gold filigree, carved stone, dark wood, a rune band. None ships.",
+  "workflow": "flux-schnell",
+  "seed": "5.seed",
+  "set": {
+    "4.width": 1024,
+    "4.height": 1024,
+    "5.steps": 4
+  },
+  "items": [
+    {
+      "name": "gold-filigree",
+      "set": {
+        "2.text": "seamless tileable texture, ornate polished gold filigree metalwork, intricate scrollwork and leaf engravings, fantasy jewelry, top-down orthographic view, flat even studio lighting, high detail, no text"
+      },
+      "seeds": [
+        101,
+        102,
+        103,
+        104
+      ]
+    },
+    {
+      "name": "carved-stone",
+      "set": {
+        "2.text": "seamless tileable texture, weathered grey carved stone with ancient knotwork relief, fantasy ruins, top-down orthographic view, flat even lighting, high detail, no text"
+      },
+      "seeds": [
+        201,
+        202,
+        203,
+        204
+      ]
+    },
+    {
+      "name": "dark-wood",
+      "set": {
+        "2.text": "seamless tileable texture, dark oiled oak wood planks with hammered iron rivets, medieval fantasy, top-down orthographic view, flat even lighting, high detail, no text"
+      },
+      "seeds": [
+        301,
+        302,
+        303,
+        304
+      ]
+    },
+    {
+      "name": "rune-band",
+      "set": {
+        "2.text": "horizontal decorative band, glowing blue runes engraved in dark slate, evenly spaced symbols, fantasy border trim, straight on orthographic view, flat lighting, high detail, no letters, no text",
+        "4.width": 1536,
+        "4.height": 512
+      },
+      "seeds": [
+        401,
+        402,
+        403,
+        404
+      ]
+    }
+  ]
+}

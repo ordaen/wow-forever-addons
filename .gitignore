@@ -5,7 +5,6 @@ node_modules/
 .lua/
 .luarocks/
 art/out/
-art/.venv/
 __pycache__/
 
 # the previous code, kept locally for reference while the framework is rebuilt (design site: development/framework)

@@ -1,0 +1,118 @@
+{
+  "says": "The micro menu's icons (OrdaenPanel items.luna), 256 px, each glyph scaled to the same optical size: half its longest side and half the square root of its filled area times 1.3 at 0.72 of the canvas, its longest side at most 0.92 of it, times a correction by eye.",
+  "ships": [
+    "addons/OrdaenPanel/assets/micro-professions.tga",
+    "addons/OrdaenPanel/assets/micro-spellbookabilities.tga",
+    "addons/OrdaenPanel/assets/micro-spectalents.tga",
+    "addons/OrdaenPanel/assets/micro-legacy.tga",
+    "addons/OrdaenPanel/assets/micro-questlog.tga",
+    "addons/OrdaenPanel/assets/micro-guildcommunities.tga",
+    "addons/OrdaenPanel/assets/micro-groupfinder.tga",
+    "addons/OrdaenPanel/assets/micro-collections.tga",
+    "addons/OrdaenPanel/assets/micro-gamemenu.tga",
+    "addons/OrdaenPanel/assets/micro-social.tga"
+  ],
+  "origin": "Eight are Blizzard's own icons made sharper, two are ours. Blizzard's (sources/micromenu/blizzard-<name>.png, cut from the client's micro menu atlases on black) were upscaled 16 times on ComfyUI by Real-ESRGAN x4plus_anime_6B (set micromenu-upscale); the talents icon, too small for that, was upscaled once and redrawn by FLUX.1 [schnell] at strength 0.55, seed 1 (set micromenu-talents, strength-55). The quest log and game menu icons are FLUX.1 [schnell] pictures of ours (set micromenu-01: painted-quests seed 53, painted-help seed 102). Each was then keyed off its black ground and squared to 256 px into sources/micromenu/upscaled-<name>.png or source-<name>.png; that keying is recorded nowhere (art/key.py with its defaults at 256 px does not make these files), so the steps start from those pictures. The step from them to the icons was wow-dev-tools design/scripts/micro-icons.py (58b8c36), which `fit` makes pixel for pixel. The design site keeps the same icons as design/public/panel/micromenu-icons/micro-<name>.png.",
+  "steps": [
+    {
+      "fit": {
+        "in": "art/sources/micromenu/upscaled-professions.png",
+        "out": "addons/OrdaenPanel/assets/micro-professions.tga",
+        "size": 256,
+        "target": 0.72,
+        "cap": 0.92,
+        "scale": 0.94
+      }
+    },
+    {
+      "fit": {
+        "in": "art/sources/micromenu/upscaled-spellbookabilities.png",
+        "out": "addons/OrdaenPanel/assets/micro-spellbookabilities.tga",
+        "size": 256,
+        "target": 0.72,
+        "cap": 0.92,
+        "scale": 1.06
+      }
+    },
+    {
+      "fit": {
+        "in": "art/sources/micromenu/upscaled-spectalents.png",
+        "out": "addons/OrdaenPanel/assets/micro-spectalents.tga",
+        "size": 256,
+        "target": 0.72,
+        "cap": 0.92,
+        "scale": 1.1
+      }
+    },
+    {
+      "fit": {
+        "in": "art/sources/micromenu/upscaled-legacy.png",
+        "out": "addons/OrdaenPanel/assets/micro-legacy.tga",
+        "size": 256,
+        "target": 0.72,
+        "cap": 0.92,
+        "scale": 1.0
+      }
+    },
+    {
+      "fit": {
+        "in": "art/sources/micromenu/source-questlog.png",
+        "out": "addons/OrdaenPanel/assets/micro-questlog.tga",
+        "size": 256,
+        "target": 0.72,
+        "cap": 0.92,
+        "scale": 1.0
+      }
+    },
+    {
+      "fit": {
+        "in": "art/sources/micromenu/upscaled-guildcommunities.png",
+        "out": "addons/OrdaenPanel/assets/micro-guildcommunities.tga",
+        "size": 256,
+        "target": 0.72,
+        "cap": 0.92,
+        "scale": 1.0
+      }
+    },
+    {
+      "fit": {
+        "in": "art/sources/micromenu/upscaled-groupfinder.png",
+        "out": "addons/OrdaenPanel/assets/micro-groupfinder.tga",
+        "size": 256,
+        "target": 0.72,
+        "cap": 0.92,
+        "scale": 0.96
+      }
+    },
+    {
+      "fit": {
+        "in": "art/sources/micromenu/upscaled-collections.png",
+        "out": "addons/OrdaenPanel/assets/micro-collections.tga",
+        "size": 256,
+        "target": 0.72,
+        "cap": 0.92,
+        "scale": 1.0
+      }
+    },
+    {
+      "fit": {
+        "in": "art/sources/micromenu/source-gamemenu.png",
+        "out": "addons/OrdaenPanel/assets/micro-gamemenu.tga",
+        "size": 256,
+        "target": 0.72,
+        "cap": 0.92,
+        "scale": 1.0
+      }
+    },
+    {
+      "fit": {
+        "in": "art/sources/micromenu/upscaled-social.png",
+        "out": "addons/OrdaenPanel/assets/micro-social.tga",
+        "size": 256,
+        "target": 0.72,
+        "cap": 0.92,
+        "scale": 0.9
+      }
+    }
+  ]
+}

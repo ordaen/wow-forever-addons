@@ -1,0 +1,5 @@
+{
+  "says": "The shape a face is cut to in a micro menu cell (theme panel.faceRound): a round mask, and a 1 px black ring, for a 40 px box (design BottomPanel .face). The theme names the mask; nothing names the ring.",
+  "ships": ["addons/Ordaen/media/face-round-mask.tga", "addons/Ordaen/media/face-round-rim.tga"],
+  "origin": "Made at 3371901; what drew them is recorded nowhere (no Pillow footer). The files are the source."
+}

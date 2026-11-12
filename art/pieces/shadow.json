@@ -1,0 +1,5 @@
+{
+  "says": "A soft shadow, 64 px. No theme value, addon or part of the game's host names it.",
+  "ships": ["addons/Ordaen/media/shadow.tga"],
+  "origin": "Made at e022a58 (Pillow's TGA writer); what drew it is recorded nowhere. The file is the source."
+}

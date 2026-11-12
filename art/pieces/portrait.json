@@ -1,0 +1,5 @@
+{
+  "says": "The panel's corner portrait (theme panel.corner): the mask a face is cut to and the rim laid over it, the design's CornerPortrait in its four strokes; 256 px, rows from the top. The theme names the mask; nothing names the rim.",
+  "ships": ["addons/Ordaen/media/portrait-mask.tga", "addons/Ordaen/media/portrait-rim.tga"],
+  "origin": "Rendered from the design's CornerPortrait at cd68f64; what rendered them is recorded nowhere (no Pillow footer, rows written from the top). The files are the source."
+}

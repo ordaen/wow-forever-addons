@@ -1,0 +1,66 @@
+{
+  "says": "Blizzard's own micro menu icons (cut from the client's micro menu atlases, on black), made sharper without redrawing: Real-ESRGAN x4plus_anime_6B twice, 16 times the size. Keyed into sources/micromenu/upscaled-<name>.png (piece micromenu).",
+  "workflow": "esrgan-x16",
+  "items": [
+    {
+      "name": "collections",
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-collections.png"
+      }
+    },
+    {
+      "name": "gamemenu",
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-gamemenu.png"
+      }
+    },
+    {
+      "name": "groupfinder",
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-groupfinder.png"
+      }
+    },
+    {
+      "name": "guildcommunities",
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-guildcommunities.png"
+      }
+    },
+    {
+      "name": "legacy",
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-legacy.png"
+      }
+    },
+    {
+      "name": "professions",
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-professions.png"
+      }
+    },
+    {
+      "name": "questlog",
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-questlog.png"
+      }
+    },
+    {
+      "name": "social",
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-social.png"
+      }
+    },
+    {
+      "name": "spectalents",
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-spectalents.png"
+      }
+    },
+    {
+      "name": "spellbookabilities",
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-spellbookabilities.png"
+      }
+    }
+  ]
+}

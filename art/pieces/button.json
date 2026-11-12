@@ -1,0 +1,5 @@
+{
+  "says": "The push button and the dropdown's face (theme ctl.button, buttonAccent, buttonDisabled): eight rows of 64 px, the bronze plate (normal, pushed, disabled, the light over normal), then the red accent the same; caps x 0-32 and 224-256.",
+  "ships": ["addons/Ordaen/media/button.tga"],
+  "origin": "Drawn by code: art/button.py (numpy and Pillow; its picks --contrast 0.72 --rim brushed --fill groove, the noise numpy's default_rng(7)). `git show bfe156f:art/button.py > button.py` and running it with no arguments (it writes addons/OrdaenCore/media/button.tga beside an addons folder) makes this file byte for byte (Python 3.14.4, Pillow 13.0.0, numpy 2.5.4). No `lunatype art` step draws it: a new look is drawn on the design page and rendered (`lunatype art matte`)."
+}

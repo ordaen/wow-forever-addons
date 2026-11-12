@@ -1,0 +1,5 @@
+{
+  "says": "The dropdown's arrow (theme ctl.dropdownArrow): a small gold downward triangle, 32 px for 16 units, its shadow drawn by its box.",
+  "ships": ["addons/Ordaen/media/dropdown-arrow.tga"],
+  "origin": "Drawn by code: art/arrow.py (b3964a0) drew it with its shadow in the file; at 9caf618 the shadow left the art for the box, and what made this file is recorded nowhere: arrow.py as of bfe156f still draws the shadow, and its output differs from this file in 64 pixels. The file is the source."
+}

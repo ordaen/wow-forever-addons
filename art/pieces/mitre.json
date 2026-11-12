@@ -1,0 +1,10 @@
+{
+  "says": "The masks that mitre a metal frame's top corners (the game's host, media/mitre-*): a square of the side's edge and a square of the turned top edge, each masked to its half of the diagonal; 64 px.",
+  "ships": [
+    "addons/Ordaen/media/mitre-ul.tga",
+    "addons/Ordaen/media/mitre-ur.tga",
+    "addons/Ordaen/media/mitre-ll.tga",
+    "addons/Ordaen/media/mitre-lr.tga"
+  ],
+  "origin": "Made at dc0ef63; what drew them is recorded nowhere (no Pillow footer). art/mitre.py (9794413) drew masks of the same idea under other names (mitre-tl-side, -tl-top, -tr-side, -tr-top), which no addon ships. The files are the source."
+}

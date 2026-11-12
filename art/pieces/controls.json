@@ -1,0 +1,15 @@
+{
+  "says": "The library's controls, each drawn whole with a row per state: the checkbox's well, its light ring and the tick (ctl.check, tick); the slider's groove, fill and knob (ctl.groove, sliderFill, sliderKnob); the switch's track and knob (ctl.switchOff/On, knobOff/On); the dropdown menu's radio marks (ctl.radio, radioOn); a section's bronze rule (ctl.rule); a tabbed window's corner plates (ctl.cornerExpand, cornerContract, cornerClose).",
+  "ships": [
+    "addons/Ordaen/media/ctl-check.tga",
+    "addons/Ordaen/media/ctl-slider.tga",
+    "addons/Ordaen/media/ctl-slider-knob.tga",
+    "addons/Ordaen/media/ctl-switch-track.tga",
+    "addons/Ordaen/media/ctl-switch-knob.tga",
+    "addons/Ordaen/media/ctl-radio.tga",
+    "addons/Ordaen/media/ctl-rule.tga",
+    "addons/Ordaen/media/ctl-corner-full.tga",
+    "addons/Ordaen/media/ctl-corner-close.tga"
+  ],
+  "origin": "Rendered from the design site's components, as their commits say: the Checkbox and Slider at their border-box sizes (8554551), the Switch at 3.2 texels a px (ee4bece), the Dropdown's 11 px circle (ea93da1), the corner plates normal, hover and pressed (c3fefba), the rule (4f4fc2c); the knob's shadow was taken out of its art at 9caf618. What rendered them is recorded nowhere: every file but the knob has no Pillow footer, so another writer made them. The files are the source. A change is rendered from the design again: the page shot on black and on white (design/scripts/shot.mjs), then `lunatype art matte`, and this piece gains those steps."
+}

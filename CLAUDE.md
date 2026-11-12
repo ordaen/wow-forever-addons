@@ -98,7 +98,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
    build), never a copy. The sources here:
    - an addon's sources for what it is: its files, its dependencies and its load order come from its imports;
    - `locales/*.json` for text, the client's own texts for the game's own words;
-   - `Ordaen/theme.luna` for the theme's measures and art;
+   - `Ordaen/theme.luna` for the theme's measures and art; `art/pieces` for how each texture was made;
    - the client's API dump for what the game has (`lunatype generate api`, in `../lunatype`).
 
    Before adding a constant, a list or a map, look for where the fact already lives and read it from there.
@@ -182,6 +182,8 @@ addons/Ordaen<Name>/            a module: its index.luna gives its root, a class
 addons/OrdaenDev/               the Ordaen Dev window: private (`../wow-dev-tools/modules/OrdaenDev`), a junction
                                 here so the build has it; ignored by git
 addons/Showcase/                a page of the library's controls and a windowed module, for the tests
+art/                            how every texture of addons/ came to be and the steps that make it again: pieces,
+                                ComfyUI sets and workflows, sources (README.md; skill `art`)
 _old/lua/                       the Lua addons these replace, with their tests
 _old/addons, _old/docs, ...     the code before those
 addon-categories.json           the in-game AddOn List categories (Warcraft Wiki list, every translation)
@@ -299,6 +301,7 @@ Loaded on demand, shared by the three repositories (they live in `../lunatype/.c
 | `commit` | every commit and push |
 | `debug-in-game` | anything the user reports from the game |
 | `design-stage` | seeing what the build draws without the game; game against design, 1:1 |
+| `art` | a texture: generated on ComfyUI or drawn on a design page, to a TGA in `media/` with `lunatype art` |
 | `text-en`, `text-ru` | player-facing text (this repository's own) |
 
 ## Forever API dump

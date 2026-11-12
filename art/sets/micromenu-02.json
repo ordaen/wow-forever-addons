@@ -1,0 +1,78 @@
+{
+  "says": "The professions icon of the painted set tried again, on pure black; prof-crossed 213 was picked, and Blizzard's own icon upscaled ships in its place (piece micromenu).",
+  "workflow": "flux-schnell",
+  "seed": "5.seed",
+  "set": {
+    "4.width": 512,
+    "4.height": 512,
+    "5.steps": 4
+  },
+  "items": [
+    {
+      "name": "prof-anvil",
+      "set": {
+        "2.text": "fantasy game UI icon, a blacksmith hammer resting on a small iron anvil, sparks, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        201,
+        202,
+        203
+      ]
+    },
+    {
+      "name": "prof-crossed",
+      "set": {
+        "2.text": "fantasy game UI icon, a chunky blacksmith hammer and a mining pickaxe crossed in an X, bold simple silhouette, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        211,
+        212,
+        213
+      ]
+    },
+    {
+      "name": "prof-hammer",
+      "set": {
+        "2.text": "fantasy game UI icon, a single heavy smithing hammer with a glowing hot head, bold simple silhouette, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        221,
+        222,
+        223
+      ]
+    },
+    {
+      "name": "prof-tools",
+      "set": {
+        "2.text": "fantasy game UI icon, a leather tool roll with a hammer, tongs and a chisel, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        231,
+        232,
+        233
+      ]
+    },
+    {
+      "name": "prof-gear",
+      "set": {
+        "2.text": "fantasy game UI icon, a bronze cogwheel with a small hammer across it, crafting symbol, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        241,
+        242,
+        243
+      ]
+    },
+    {
+      "name": "prof-mortar",
+      "set": {
+        "2.text": "fantasy game UI icon, a stone mortar and pestle with green herbs, alchemy crafting, hand-painted World of Warcraft style, rich colors, soft rim light from the top left, centered, isolated on pure black background, no text, no border"
+      },
+      "seeds": [
+        251,
+        252,
+        253
+      ]
+    }
+  ]
+}

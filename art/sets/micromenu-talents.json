@@ -1,0 +1,49 @@
+{
+  "says": "The talents micro menu icon: Blizzard's 53 px target, too small to upscale alone, upscaled once (Real-ESRGAN anime x4, to 1024) and redrawn by FLUX.1 [schnell] from a description of it, at three strengths. Option 3 (strength 0.55, seed 1) ships, keyed into sources/micromenu/upscaled-spectalents.png (piece micromenu).",
+  "workflow": "esrgan-flux-img2img",
+  "seed": "15.seed",
+  "items": [
+    {
+      "name": "strength-40",
+      "set": {
+        "11.text": "game UI icon, a round wooden archery target disc seen at a slight angle, concentric rings painted bright red and pale teal-white, a thin brown wooden rim on the right edge, a steel dagger with a dark leather grip and a silver pommel stuck into the bullseye from the upper left, hand-painted World of Warcraft icon style, crisp clean edges, sharp details, isolated on pure black background, no text, no border",
+        "15.denoise": 0.4
+      },
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-spectalents.png"
+      },
+      "seeds": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "strength-55",
+      "set": {
+        "11.text": "game UI icon, a round wooden archery target disc seen at a slight angle, concentric rings painted bright red and pale teal-white, a thin brown wooden rim on the right edge, a steel dagger with a dark leather grip and a silver pommel stuck into the bullseye from the upper left, hand-painted World of Warcraft icon style, crisp clean edges, sharp details, isolated on pure black background, no text, no border",
+        "15.denoise": 0.55
+      },
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-spectalents.png"
+      },
+      "seeds": [
+        1,
+        2
+      ]
+    },
+    {
+      "name": "strength-70",
+      "set": {
+        "11.text": "game UI icon, a round wooden archery target disc seen at a slight angle, concentric rings painted bright red and pale teal-white, a thin brown wooden rim on the right edge, a steel dagger with a dark leather grip and a silver pommel stuck into the bullseye from the upper left, hand-painted World of Warcraft icon style, crisp clean edges, sharp details, isolated on pure black background, no text, no border",
+        "15.denoise": 0.7
+      },
+      "upload": {
+        "1.image": "art/sources/micromenu/blizzard-spectalents.png"
+      },
+      "seeds": [
+        1,
+        2
+      ]
+    }
+  ]
+}

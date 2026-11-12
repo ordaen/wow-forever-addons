@@ -1,0 +1,5 @@
+{
+  "says": "The green count pill on a panel cell (theme panel.countBadge): three-sliced, round caps half its height wide.",
+  "ships": ["addons/Ordaen/media/panel-count-badge.tga"],
+  "origin": "Rendered from the design's .mbadge at 4x (fill #1f6f1f, a 1 px black ring, the faint inset top highlight) at 360d53c; what rendered it is recorded nowhere (no Pillow footer). The file is the source."
+}

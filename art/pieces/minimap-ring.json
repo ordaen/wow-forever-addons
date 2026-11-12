@@ -1,0 +1,5 @@
+{
+  "says": "A button on the minimap's ring (theme minimap.ring, ringLit): rows of 128, 0 the button, 1 the light ring over it, 2 lit, 3 empty; drawn at 34 px.",
+  "ships": ["addons/Ordaen/media/minimap-ring.tga"],
+  "origin": "Drawn by code after the design's Minimap .ring and .disc (a 1 px black edge, a 2 px bronze ring #6c5535, #d6a56b under the cursor; a dark disc with a radial light at 35% / 30%, #4a3a24 to #1a120a, open #6c5535 to #2a1c0c): wow-dev-tools design/scripts/art-minimap-ring.py (Pillow). `git -C ../wow-dev-tools show b86e5ee:design/scripts/art-minimap-ring.py > ring.py; python ring.py <out.tga>` makes this file byte for byte (Python 3.14.4, Pillow 13.0.0)."
+}

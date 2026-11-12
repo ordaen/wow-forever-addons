@@ -1,0 +1,17 @@
+{
+  "says": "The metal frame's curved pieces, which the game's host draws for a theme's Metal: a rounded top-left corner at two sizes (metal-corner-small, -large; the other corners are it turned and flipped), the mask that cuts a box's fill to each corner (metal-clip-<size>-<corner>), and the inward curve where a side meets the line below it (metal-flare). 128 px each.",
+  "ships": [
+    "addons/Ordaen/media/metal-corner-small.tga",
+    "addons/Ordaen/media/metal-corner-large.tga",
+    "addons/Ordaen/media/metal-flare.tga",
+    "addons/Ordaen/media/metal-clip-small-tl.tga",
+    "addons/Ordaen/media/metal-clip-small-tr.tga",
+    "addons/Ordaen/media/metal-clip-small-bl.tga",
+    "addons/Ordaen/media/metal-clip-small-br.tga",
+    "addons/Ordaen/media/metal-clip-large-tl.tga",
+    "addons/Ordaen/media/metal-clip-large-tr.tga",
+    "addons/Ordaen/media/metal-clip-large-bl.tga",
+    "addons/Ordaen/media/metal-clip-large-br.tga"
+  ],
+  "origin": "Drawn by code from the client's own frame line: tools/metal-curves.py (Pillow) bends the profile across Blizzard's ButtonFrameTemplateNoPortrait left edge (the atlas at 2x, wow-dev-tools design/public/ui/metal/left.png as of 02c4f87, extracted from the client) round a quarter circle, so a curve shows the straight edge's colours. `git show 855fb0e:tools/metal-curves.py > metal-curves.py; python metal-curves.py <left.png> <folder>` makes these eleven files byte for byte (Python 3.14.4, Pillow 13.0.0). The sizes are the theme's curves (Ordaen/theme.luna CURVES: small 27.33, large 37.33, flare 21 units at scale 1)."
+}
