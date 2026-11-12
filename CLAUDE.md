@@ -138,7 +138,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - **Branches (`develop` is pushed to `origin` after each finished change; no PR or merge into `main` until the user says so):**
   - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
   - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
-  - Merge once: rebase the branch onto `develop`, fast-forward `develop`, then `scripts/test.sh` (no check before the merge: rule 4). If develop is red after your merge, fixing it is your next task. Then `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`. That keeps the signed conventional commits. `npm run dev` (running in the main checkout) builds again and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon is linked by the same build.
+  - Merge once: rebase the branch onto `develop`, fast-forward `develop`, then the suite (`zig build -j16 test` in `../lunatype`; no check before the merge: rule 4). If develop is red after your merge, fixing it is your next task. Then `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`. That keeps the signed conventional commits. `npm run dev` (running in the main checkout) builds again and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon is linked by the same build.
   - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
 - **Help when busy:** when an owner is busy, any session may do the work in its area (the renderer, Core, an addon),
   and a session that needs something from a busy owner does it itself. Tell the owner first what you'll change, work on
@@ -159,10 +159,10 @@ would have caught it is half a fix: say which check now catches it, or add one.
   round finds nothing; each round ends green and committed.
 - **Shared checkouts:** never `--autostash` (rebase or pull) in a checkout other sessions use, and commit only your own
   paths (`git commit -- <paths>`).
-- Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/test.sh`.
+- Line endings: LF everywhere via `.gitattributes`.
 - commitlint (`commitlint.config.mjs`) holds the commit rules, enforced by the husky `commit-msg` hook and in CI (PR title + PR commits).
 - Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. Its components are the Lua addons' folders: a LunaType addon has no version of its own yet.
-- Quality: `scripts/test.sh` (the lunatype suite); manual testing in game with dev mode (Ordaen Core - Debug).
+- Quality: the lunatype suite (`zig build -j16 test -Daddons=<checkout>/addons` in `../lunatype`); manual testing in game with dev mode (Ordaen Core - Debug).
 - **Forever's game:** only the nine original classes (no Death Knight, Monk, Demon Hunter or Evoker; their strings in the
   dump are retail leftovers). Forever sells junk at vendors itself, so we offer no sell-junk button; the automatic sell
   when a merchant opens is ours and approved.
@@ -187,7 +187,6 @@ art/                            how every texture of addons/ came to be and the 
 _old/lua/                       the Lua addons these replace, with their tests
 _old/addons, _old/docs, ...     the code before those
 addon-categories.json           the in-game AddOn List categories (Warcraft Wiki list, every translation)
-scripts/test.sh                 the lunatype suite over these addons
 api/forever/<version>-<build>/  the Forever API per client version, as the Lua tooling read it
 .github/ISSUE_TEMPLATE/         bug report form the in-game error report links to
 .claude/skills/                 how player-facing text is written (`text-en`, `text-ru`)

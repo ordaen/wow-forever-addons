@@ -70,7 +70,6 @@ jobs:
       - uses: mlugg/setup-zig@v2
         with:
           version: 0.17.1
-      - run: sudo apt-get update && sudo apt-get install -y lua5.1
       # Checks, formats, builds and runs every addon against its snapshots.
       - run: zig build test
         working-directory: lunatype

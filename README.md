@@ -45,8 +45,9 @@ Development happens on Windows: the game runs there and the repo lives on the Wi
    `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`.
 2. Edit the `.luna` files. `lunatype check addons` says every finding; `lunatype fmt addons` writes every file the
    one way it is written.
-3. Run everything that checks the addons: `scripts/test.sh` (the `lunatype` suite: the compiled addons run on a
-   stand-in client against their snapshots; `scripts/test.sh -Dupdate` writes the snapshots anew).
+3. Run everything that checks the addons: the `lunatype` suite, `zig build -j16 test -Daddons=<this checkout>/addons`
+   in `../lunatype` (the compiled addons run on a stand-in client against their snapshots; `-Dupdate` writes the
+   snapshots anew). Without `-Daddons` it builds the main checkout's addons.
 4. Bring it into the game: rebase onto `develop` and fast-forward it. The main checkout stays on `develop`.
 5. Keep `npm run dev` running in the main checkout: it builds again whenever a file changes. In game:
    `/reload`.
