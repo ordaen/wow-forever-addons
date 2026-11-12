@@ -167,7 +167,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
   dump are retail leftovers). Forever sells junk at vendors itself, so we offer no sell-junk button; the automatic sell
   when a merchant opens is ours and approved.
 - **What the client has** is what its API dump says (see "Forever API dump"): the game's side in `lunatype` is typed against it, so a name the dump doesn't have is a finding. For things a dump can't see, confirm by a Forever-specific addon using it (`*Camelot*`/`Forever*` files) or a `/dump` in game.
-- Dev environment is Windows. The suite runs the compiled Lua under Lua 5.1 in WSL (`zig build -Dlua=<command>` names another); the compiler has Lua 5.1 built in for the tests written in LunaType.
+- Dev environment is Windows. The suite runs the compiled Lua in the compiler's own Lua 5.1 (`lunatype lua`; `zig build -Dlua=<command>` names another): nothing is installed for it.
 - Packaging isn't built (the Lua addons' is `_old/lua/scripts/package.sh`, BigWigs packager; interface `16???` is the `forever` flavor, CurseForge game id 88568).
 
 ## Layout

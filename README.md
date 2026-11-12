@@ -31,7 +31,7 @@ Development happens on Windows: the game runs there and the repo lives on the Wi
 1. **Node** (for the commit hook): `npm install` in this checkout.
 2. **The compiler:** clone `lunatype` next to this repo (`../lunatype`) and install Zig 0.17. `zig build -j16` there
    builds the compiler and writes a build of these addons to `../lunatype/zig-out/addons`.
-3. **Lua 5.1 for the run tests:** `lua5.1` in WSL (`sudo apt install lua5.1`), or name another with
+3. **Lua 5.1 for the run tests** is the compiler's own; another is named with
    `zig build -Dlua=<command>`.
 4. **Build into the game:** `npm run dev` in the main checkout
    (`lunatype build addons ../lunatype/zig-out/addons --watch --link <the Forever AddOns folder>`). It builds
