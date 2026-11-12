@@ -7,7 +7,7 @@ import Math from "$math"
 import String from "$string"
 import { GOLD, RED } from "@/colors"
 import Locale from "@/locales"
-import { Fact, Kind, Model, Note, Part, TextLine, iconOf, named } from "@/model"
+import { Fact, Kind, Model, Note, Opens, Part, TextLine, iconOf, named } from "@/model"
 import { Term } from "@/terms"
 import { Options } from "@/options"
 import { clean, duration } from "@/text"
@@ -54,7 +54,8 @@ private function campShort(name: string): string | nil {
 }
 
 // The camp's bonuses as rows: every paragraph of its description after the first is «Building: effect», the
-// building on the left and its bonus in short on the right, or the sentence itself.
+// building on the left and its bonus in short on the right, or the sentence itself. The building opens its whole
+// sentence.
 private function campRows(text: string, mut body: Array<TextLine>) {
   let first = true
   for (line of String::split(text, "\n")) {
@@ -64,7 +65,9 @@ private function campRows(text: string, mut body: Array<TextLine>) {
       continue
     }
     let name, effect = $match(line, "^%s*([^:]+):%s*(.+)$")
-    if (name != nil && effect != nil) { body.push({ left: name, right: campShort(name) ?? effect }) }
+    if (name != nil && effect != nil) {
+      body.push({ left: name, right: campShort(name) ?? effect, opens: Opens::Text { name: name, text: effect } })
+    }
   }
 }
 
@@ -142,9 +145,12 @@ public function aura(data: Game::TooltipData, options: Options): Model | nil {
     }
     let caster = known.sourceName
     if (options.aurasCaster && caster != nil) {
+      // Someone else's name opens their own tooltip.
+      let source = known.source
       foot.push({
-        left: Locale::CASTER, right: known.source == "player" ? Locale::YOU : caster,
+        left: Locale::CASTER, right: source == "player" ? Locale::YOU : caster,
         valueColor: options.classNames ? known.sourceColor : nil, opens: named(Term::Caster),
+        valueOpens: source != nil && source != "player" ? Opens::Unit { unit: source } : Opens::None,
       })
     }
     if (options.aurasTotal && description != nil) {

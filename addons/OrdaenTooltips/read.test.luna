@@ -64,7 +64,9 @@ private function opens(what: Opens): string {
     case Opens::Term:
       let amount = what.amount
       return ` (opens the term ${what.term}${amount != nil ? ` of ${amount}` : ""})`
-    default: return ""
+    case Opens::Text: return ` (opens «${what.name}»: ${what.text})`
+    case Opens::Unit: return ` (opens the unit ${what.unit})`
+    case Opens::None: return ""
   }
 }
 
@@ -95,7 +97,7 @@ private function describe(model: Model) {
     Test::note(`  more: ${line.indent == true ? "    " : ""}${line.left}${colour(line.color)}${right != nil ? ` | ${right}${colour(line.rightColor)}` : ""}${opens(line.opens)}`)
   }
   for (note of model.foot) {
-    Test::note(`  foot: ${note.left} | ${note.right ?? "nil"}${colour(note.valueColor)}${opens(note.opens)}`)
+    Test::note(`  foot: ${note.left}${opens(note.opens)} | ${note.right ?? "nil"}${colour(note.valueColor)}${opens(note.valueOpens)}`)
   }
   for (key of model.keys) { Test::note(`  key: ${key}`) }
 }

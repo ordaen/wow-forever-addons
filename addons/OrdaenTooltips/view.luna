@@ -8,9 +8,12 @@
 // tooltip floats off it.
 import { Align, Edges, Frame, Layer, Place, Point, Position, Track } from "$ltml"
 import Ordaen from "Ordaen"
+import { GOLD } from "@/colors"
 import { TipFrame } from "@/frame"
 import { Kind, Model, Opens } from "@/model"
+import { Options } from "@/options"
 import { term } from "@/term"
+import { unitOf } from "@/unit"
 
 private const PX = 1 / 1.2
 private const GAP = 4 * PX
@@ -43,23 +46,33 @@ private const NOTHING: Model = {
   desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: [],
 }
 
-// The tooltip a part of a locked tooltip opens. It takes no cursor, and opens nothing further.
+// The tooltip a part of a locked tooltip opens. It takes no cursor, and opens nothing further. A unit that is gone
+// opens nothing.
 private class Opened implements Ordaen::Component {
-  private model = $computed((): Model => self.read())
+  private read = $computed((): Model | nil => self.readNow())
+  private some = $computed((): boolean => self.read != nil)
+  private model = $computed((): Model => self.read ?? NOTHING)
 
-  $constructor(private opens: Reactive<Opens>) {}
+  $constructor(private opens: Reactive<Opens>, private options: Reactive<Options>) {}
 
-  private read(): Model {
+  private readNow(): Model | nil {
     let opens = self.opens
     switch (opens) {
       case Opens::Term: return term(opens.term, opens.amount)
-      case Opens::None: return NOTHING
+      case Opens::Text: {
+        return {
+          kind: Kind::Text, name: opens.name, nameColor: GOLD,
+          desc: [], info: [], facts: [], body: [{ left: opens.text, desc: true }], more: [], foot: [], keys: [],
+        }
+      }
+      case Opens::Unit: return unitOf(opens.unit, self.options)
+      case Opens::None: return nil
     }
   }
 
   public render(): Template {
     return $ltml {
-      <TipFrame model={self.model} side={true} />
+      <TipFrame $if={self.some} model={self.model} side={true} />
     }
   }
 }
@@ -86,6 +99,8 @@ public class TipGroup implements Ordaen::Component {
     private compared: Reactive<Array<Model>>,
     private standing: Reactive<Standing>,
     private shown: Reactive<boolean>,
+    // What the player asked a tooltip to show: a unit a part opens is read with it.
+    private options: Reactive<Options>,
     // The main tooltip's lock: how far it is charged, of a hundred, and whether it is locked. A locked group
     // takes the cursor; one that isn't lets it through to what is under it.
     private charge: Reactive<integer> = 0,
@@ -139,13 +154,18 @@ public class TipGroup implements Ordaen::Component {
             <box $case={Slot::Main} padding={self.lowered}>
               <TipFrame model={piece.model} main={true} charge={self.charge} locked={self.locked}
                         @close={self.onClose}>
-                <Opened #opened={opens} opens={opens} />
+                <Opened #opened={opens} opens={opens} options={self.options} />
               </TipFrame>
             </box>
+            // Every tooltip of a locked group opens what its parts name.
             <box $case={Slot::Sides} gap={GAP} yAlign={self.across}>
-              <TipFrame $for={side of self.sides} model={side} side={true} />
+              <TipFrame $for={side of self.sides} model={side} side={true} locked={self.locked}>
+                <Opened #opened={opens} opens={opens} options={self.options} />
+              </TipFrame>
             </box>
-            <TipFrame $case={Slot::Compared} model={piece.model} side={true} />
+            <TipFrame $case={Slot::Compared} model={piece.model} side={true} locked={self.locked}>
+              <Opened #opened={opens} opens={opens} options={self.options} />
+            </TipFrame>
           </>
         </>
       </surface>

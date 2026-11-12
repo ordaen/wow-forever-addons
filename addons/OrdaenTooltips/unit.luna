@@ -7,7 +7,7 @@ import { Color } from "$ltml"
 import String from "$string"
 import { GOLD, GREEN, GREY, LABEL, RED, WHITE, YELLOW, colorOf, hex } from "@/colors"
 import Locale from "@/locales"
-import { Fact, Kind, Model, Note, Part, Picture, TextLine, named, side } from "@/model"
+import { Fact, Kind, Model, Note, Opens, Part, Picture, TextLine, named, side } from "@/model"
 import { Term } from "@/terms"
 import { Options } from "@/options"
 import { QUEST_OBJECTIVE, QUEST_PLAYER, QUEST_TITLE, quests } from "@/quests"
@@ -39,7 +39,7 @@ private function titledName(name: string, titled: string | nil, color: Color): s
   return `|c${hex(LABEL)}${before}|r|c${hex(color)}${name}|r|c${hex(LABEL)}${after}|r`
 }
 
-private function player(who: Game::UnitInfo, options: Options): Model | nil {
+private function player(token: string, who: Game::UnitInfo, options: Options): Model | nil {
   let name = who.name
   if (name == nil) { return nil }
   let color = (options.classNames ? who.classColor : nil) ?? WHITE
@@ -80,7 +80,10 @@ private function player(who: Game::UnitInfo, options: Options): Model | nil {
 
   let target = who.target
   if (options.playersTarget && target != nil) {
-    foot.push({ left: Locale::TARGET, right: target.name, valueColor: target.color, opens: named(Term::Ptarget) })
+    foot.push({
+      left: Locale::TARGET, right: target.name, valueColor: target.color, opens: named(Term::Ptarget),
+      valueOpens: Opens::Unit { unit: token + "target" },
+    })
   }
   if (options.playersRelation) {
     let group = who.raidGroup
@@ -198,9 +201,23 @@ public function unit(data: Game::TooltipData, options: Options): Model | nil {
     }
   }
   if (who.player) {
-    let read = player(who, options)
+    let read = player(token, who, options)
     return read != nil ? { picture: Picture::Face { unit: token }, ..read } : nil
   }
   if (name == nil) { return nil }
   return { picture: Picture::Face { unit: token }, ..npc(who, name, data, options) }
+}
+
+// A unit's tooltip by the game's name for it, as a part of another tooltip opens it: a player's whole; an NPC's
+// without the lines only the game's tooltip of it has (its role, its quests). Nothing once the unit is gone.
+public function unitOf(token: string, options: Options): Model | nil {
+  let who = Game::Units::of(token)
+  if (who == nil) { return nil }
+  if (who.player) {
+    let read = player(token, who, options)
+    return read != nil ? { picture: Picture::Face { unit: token }, ..read } : nil
+  }
+  let name = who.name
+  if (name == nil) { return nil }
+  return { picture: Picture::Face { unit: token }, ..npc(who, name, { lines: [] }, options) }
 }

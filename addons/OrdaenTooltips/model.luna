@@ -11,9 +11,12 @@ public enum Kind {
 }
 
 // What a part of a tooltip opens once the tooltip is locked and the cursor comes onto the part: a term of the
-// glossary, with the amount the part speaks of.
+// glossary, with the amount the part speaks of; a name with its whole sentence (a camp's building and its bonus);
+// a unit's own tooltip, by the game's name for the unit (`mouseovertarget`).
 public enum Opens {
   Term { term: Term, amount: string | nil },
+  Text { name: string, text: string },
+  Unit { unit: string },
   None,
 }
 
@@ -71,8 +74,9 @@ public struct Note {
   left: string
   right: string | nil
   valueColor: Color | nil
-  // What its label opens.
+  // What its label opens, and what its value does (the unit it names).
   opens: Opens = Opens::None
+  valueOpens: Opens = Opens::None
 }
 
 // The picture by a tooltip's title: the icon of an item or a spell, or the face of the unit it is about.

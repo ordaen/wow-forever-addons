@@ -62,8 +62,16 @@ public struct Drawn {
   rightColor: Color
   size: number
   padding: Edges
-  // What its name opens.
+  // What its name opens, and what its value does.
   opens: Opens
+  valueOpens: Opens
+}
+
+private function opensSomething(opens: Opens): boolean {
+  switch (opens) {
+    case Opens::None: return false
+    default: return true
+  }
 }
 
 // A text that may open something: in a locked tooltip it is underlined, the cursor on it is the question mark, and
@@ -82,17 +90,13 @@ public class TermText implements Ordaen::Component {
     private size: Reactive<number>,
     private opens: Reactive<Opens>,
     private locked: Reactive<boolean>,
+    // A value's text is in the numbers' font; nothing keeps the text's.
+    private family: Reactive<Art | nil> = nil,
   ) {
     $watch(self.forgetCursor)
   }
 
-  private opensSomething(): boolean {
-    let opens = self.opens
-    switch (opens) {
-      case Opens::None: return false
-      default: return true
-    }
-  }
+  private opensSomething(): boolean { return opensSomething(self.opens) }
 
   // What takes the cursor goes with the lock, and says nothing as it goes.
   private mut forgetCursor() {
@@ -105,7 +109,8 @@ public class TermText implements Ordaen::Component {
   public render(): Template {
     return $ltml {
       <box>
-        <text value={self.text} textColor={self.color} textSize={self.size} wrap={false} />
+        <text value={self.text} textColor={self.color} textSize={self.size} wrap={false}
+              textFamily={self.family} />
         <box $if={self.lit} position={Position::Absolute} left={0} right={0} bottom={0} height={1 * PX}
              background={UNDERLINE} />
         <box $if={self.lit} position={Position::Absolute} left={0} top={0} right={0} bottom={0}
@@ -173,13 +178,7 @@ public class FactCell implements Ordaen::Component {
     $watch(self.forgetCursor)
   }
 
-  private opensSomething(): boolean {
-    let opens = self.fact.opens
-    switch (opens) {
-      case Opens::None: return false
-      default: return true
-    }
-  }
+  private opensSomething(): boolean { return opensSomething(self.fact.opens) }
 
   // What takes the cursor goes with the lock, and says nothing as it goes.
   private mut forgetCursor() {
@@ -217,20 +216,13 @@ public class Row implements Ordaen::Component {
 
   private paired = $computed((): boolean => self.line.right != nil)
   private right = $computed((): string => self.line.right ?? "")
-  private opening = $computed((): boolean => self.opensSomething())
+  private opening = $computed((): boolean => opensSomething(self.line.opens))
+  private valueOpening = $computed((): boolean => opensSomething(self.line.valueOpens))
 
   $constructor(
     private line: Reactive<Drawn>,
     private locked: Reactive<boolean> = false,
   ) {}
-
-  private opensSomething(): boolean {
-    let opens = self.line.opens
-    switch (opens) {
-      case Opens::None: return false
-      default: return true
-    }
-  }
 
   public render(): Template {
     return $ltml {
@@ -245,7 +237,13 @@ public class Row implements Ordaen::Component {
         </box>
         <text $else value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
         // A value, in the numbers' font: it has the marks a value carries (▲, ▼), which the font for texts lacks.
-        <text value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={false}
+        <TermText $if={self.valueOpening} text={self.right} color={self.line.rightColor} size={self.line.size}
+                  opens={self.line.valueOpens} locked={self.locked} family={Ordaen::lookArt.fontNumbers}>
+          <box #opened={opens}>
+            <slot $name="opened" opens={opens} />
+          </box>
+        </TermText>
+        <text $else value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={false}
               textFamily={Ordaen::lookArt.fontNumbers} />
       </box>
       <box $else padding={self.line.padding}>
@@ -366,6 +364,7 @@ public class TipFrame implements Ordaen::Component {
       list.push({
         left: line.left, right: line.right, leftColor: line.color ?? plain,
         rightColor: line.rightColor ?? line.color ?? BODY, size: size, padding: padding, opens: line.opens,
+        valueOpens: Opens::None,
       })
       pairedBefore = paired
     }
@@ -379,6 +378,7 @@ public class TipFrame implements Ordaen::Component {
       list.push({
         left: note.left, right: note.right, leftColor: alone ? note.valueColor ?? QUIET : QUIET,
         rightColor: note.valueColor ?? QUIET_VALUE, size: 14 * PX, padding: NO_PAD, opens: note.opens,
+        valueOpens: note.valueOpens,
       })
     }
     return list
@@ -389,7 +389,7 @@ public class TipFrame implements Ordaen::Component {
     for (key of self.model.keys) {
       list.push({
         left: key, right: nil, leftColor: QUIET, rightColor: QUIET, size: 14 * PX, padding: NO_PAD,
-        opens: Opens::None,
+        opens: Opens::None, valueOpens: Opens::None,
       })
     }
     return list
