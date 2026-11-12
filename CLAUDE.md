@@ -40,9 +40,10 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
 
 ## Code: LunaType
 
-The addons are written in LunaType (`.luna`), which compiles to the Lua the game loads. The language's specification
-is the design site's `development/language` pages (source `../wow-dev-tools/design/development/language/`); the
-compiler, its runtime and the game's host are the `lunatype` repository (`../lunatype`).
+The addons are written in LunaType (`.luna`), which compiles to the Lua the game loads. The skill `lunatype` is the
+language on one page: read it before writing a `.luna` file. Its specification is the design site's
+`development/language` pages (source `../wow-dev-tools/design/development/language/`); the compiler, its runtime
+and the game's host are the `lunatype` repository (`../lunatype`).
 
 - **The compiler is the first check.** Types, who may change what (`mut`, views), what may be `nil`, and what a
   declaration promises are held when the addon is built. A finding is an error: nothing is written until there are
@@ -76,19 +77,17 @@ would have caught it is half a fix: say which check now catches it, or add one.
 5. **Isolated components.** Every setup, effect run and handler runs in its own protected call: one that fails is
    reported and rolled back, and the rest still run (design: development/framework/transaction).
 6. **Check the game after a merge.** After merging and the user's `/reload`, the merging session reads `wow_errors`
-   (and `wow_log`/`wow_screenshot` for what it changed) before reporting the change as done. What it draws must match
-   its design page 1:1: compare `wow_screenshot` regions with the design site's rendering for textures and atlases,
-   borders (whole pixels, which sides), sizes, spacing, clipping, overflow, alignment, colours and z-order. Fix every
-   difference or raise it; never "close enough".
+   (and `wow_log`/`wow_screenshot` for what it changed) before reporting the change as done (skill
+   `debug-in-game`). What it draws must match its design page 1:1 (skill `design-stage`): fix every difference or
+   raise it; never "close enough".
 7. **Player actions stay in the click's own call; reloading needs secure code.** Code that a click runs (UI
    listeners, dialog buttons) calls protected functions only directly, without `securecallfunction`, C_Timer or
    another frame's script in between; catch errors with `xpcall`. `ReloadUI` / `C_UI.Reload` are stricter on
-   Forever: blocked from any addon code, even directly in a click. Reload with a
-   `UI.Confirm` button's `macro = "/reload"` (a secure overlay runs it), or tell the player to type `/reload`.
-   A secure button acts only on the press the player's `ActionButtonUseKeyDown` setting names (key down by
-   default): register exactly that half (`RegisterForClicks("LeftButtonDown")` or `"LeftButtonUp"`).
-   Tests can't see this (the stand-in has no "hardware event" or secure state), so a protected action gets an
-   in-game check.
+   Forever: blocked from any addon code, even directly in a click. What the client takes only from the player's
+   own click is a secure box: a box with an `action` (`CastSpell`, `UseItem`, `RunMacro`: `{ macro: "/reload" }`),
+   which the client does itself. The stand-in refuses a protected call outside the player's input and holds
+   secure frames in a fight, as the client does; what it can't know (whether the client takes a given action) gets
+   an in-game check.
 8. **Handovers happen on an event, never on a timer.** When one addon takes something over from another (a frame,
    a position), the side that comes second completes it: the owner announces its thing when it creates it
    (`EventRegistry:TriggerEvent("OrdaenDevButton.Created", b)`) and the taker also checks at its own start. A
@@ -133,10 +132,10 @@ would have caught it is half a fix: say which check now catches it, or add one.
 
 - Things are done properly from the start: full tooling, never "add later".
 - Repo: public GitHub repo `ordaen/wow-forever-addons` (org; user is admin). The org forbids GITHUB_TOKEN from opening PRs, so release-please uses an org GitHub App token (`vars.RELEASE_APP_CLIENT_ID`, `secrets.RELEASE_APP_PRIVATE_KEY`). Default branch `main`, squash-merge only, PR title = commit message.
-- Commit identity (global git config): `David Iunevich <1751835+f3oall@users.noreply.github.com>`. GitHub user `f3oall`.
-- Signed commits are required on every branch (ordaen org ruleset). Commits are SSH-signed with `~/.ssh/id_ed25519` (global `commit.gpgsign`/`tag.gpgsign`). Commits GitHub creates (squash merges, release-please via the App, Dependabot) are signed by GitHub.
+- **Commits:** the skill `commit` (type, scope = an addon's folder name or a repo scope, header at most 100
+  characters, signed, pushed). Commit identity (global git config): `David Iunevich <1751835+f3oall@users.noreply.github.com>`, GitHub user `f3oall`; commits are SSH-signed with `~/.ssh/id_ed25519`, and those GitHub creates (squash merges, release-please via the App, Dependabot) are signed by GitHub.
 - `main` ruleset: PR-only, squash-only, linear history, required checks `Conventional commits`, `Lint & test (Lua)`, `Package (dry run)`; repo admins may bypass only when merging a PR. CI (`.github/workflows/ci.yml`) has `Conventional commits` and `Check & test (LunaType)`: the lunatype suite, with the `lunatype` and `wow-dev-tools` checkouts beside this one (the org App reads them). The ruleset's two Lua checks are the retired workflows' (`_old/lua/workflows/`): the ruleset is to name the new check when `main` is next used.
-- **Branches (local-only until the user says otherwise: no push, PR or merge on GitHub):**
+- **Branches (`develop` is pushed to `origin` after each finished change; no PR or merge into `main` until the user says so):**
   - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
   - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
   - Merge once: rebase the branch onto `develop`, fast-forward `develop`, then `scripts/test.sh` (no check before the merge: rule 4). If develop is red after your merge, fixing it is your next task. Then `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`. That keeps the signed conventional commits. `npm run dev` (running in the main checkout) builds again and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart), TOC changes and even new addon folders. A new addon is linked by the same build.
@@ -161,7 +160,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - **Shared checkouts:** never `--autostash` (rebase or pull) in a checkout other sessions use, and commit only your own
   paths (`git commit -- <paths>`).
 - Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/test.sh`.
-- Commits: Conventional Commits via commitlint (`commitlint.config.mjs`; scope = addon folder name or repo scope), enforced by husky `commit-msg` hook and in CI (PR title + PR commits).
+- commitlint (`commitlint.config.mjs`) holds the commit rules, enforced by the husky `commit-msg` hook and in CI (PR title + PR commits).
 - Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. Its components are the Lua addons' folders: a LunaType addon has no version of its own yet.
 - Quality: `scripts/test.sh` (the lunatype suite); manual testing in game with dev mode (Ordaen Core - Debug).
 - **Forever's game:** only the nine original classes (no Death Knight, Monk, Demon Hunter or Evoker; their strings in the
@@ -189,7 +188,7 @@ addon-categories.json           the in-game AddOn List categories (Warcraft Wiki
 scripts/test.sh                 the lunatype suite over these addons
 api/forever/<version>-<build>/  the Forever API per client version, as the Lua tooling read it
 .github/ISSUE_TEMPLATE/         bug report form the in-game error report links to
-.claude/skills/debug-in-game/   how Claude debugs in-game behavior (loaded on demand)
+.claude/skills/                 how player-facing text is written (`text-en`, `text-ru`)
 ```
 
 An addon has no TOC and no file list in its sources: the build writes the TOC, with the files in the order their
@@ -285,8 +284,22 @@ pages (`development/framework`) say what Ordaen adds to it, and which parts of i
   With the dev addon loaded (`OrdaenCore_Debug`, in `../wow-dev-tools`; it needs no other addon) the lines go to its
   log and its inspector describes the boxes the host draws; without it they go nowhere. Players don't have it.
 - **The companion runs whenever the game does.** The dev addon captures, measures and sends over the strip; the
-  companion stores, shows and exposes it to Claude (MCP: `wow_errors`, `wow_log`, `wow_screenshot`, `wow_inspect`,
-  `wow_reload`).
+  companion stores, shows and exposes it to Claude (the MCP server `ordaen`; skill `debug-in-game`).
+
+## Skills
+
+Loaded on demand, shared by the three repositories (they live in `../lunatype/.claude/skills` and
+`../wow-dev-tools/.claude/skills`, linked into `~/.claude/skills`):
+
+| Skill | For |
+|---|---|
+| `lunatype` | writing `.luna`: the language on one page |
+| `lunatype-change` | a change to the language or the compiler |
+| `runtime-port` | moving the runtime into LunaType; the watcher's command |
+| `commit` | every commit and push |
+| `debug-in-game` | anything the user reports from the game |
+| `design-stage` | seeing what the build draws without the game; game against design, 1:1 |
+| `text-en`, `text-ru` | player-facing text (this repository's own) |
 
 ## Forever API dump
 
