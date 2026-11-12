@@ -84,18 +84,26 @@ public class WindowTab implements Ordaen::Component {
   private icon = $computed((): Art => self.tab.icon ?? "")
   private desc = $computed((): string => self.tab.desc ?? "")
 
-  // The picture fills the tab's left end, as wide as the tab row is tall; its line stands at its right, and on the
-  // open tab curves out at the bottom into the body's top line, which runs on under the picture.
-  private iconRight = $computed((): number => self.height - self.flare)
-  // A closed tab's picture ends where the body's line hides the tab: all of it shows.
-  private pictureHeight = $computed((): number => self.open ? self.iconRight + self.lineStart : self.whole - self.flare)
+  // The picture is a square at the tab's left end, as tall as what shows of the tab: from the tab's own line
+  // down to the body's line on the open tab, down to where the body hides it on a closed one. Everything here
+  // is measured from the tab's line, where what a framed box places by offsets starts. Its line stands at its
+  // right, and on the open tab curves out at the bottom into the body's top line, which runs on under the
+  // picture.
+  private side = $computed((): number =>
+    self.open ? self.height - self.flare : self.whole - self.flare - self.reachTop)
+  private underReach = $computed((): number =>
+    Ordaen::theme.frame.tabIconUnder.reach.top * Ordaen::theme.frame.tabIconUnder.scale)
+  // The open tab's picture ends under the line that runs under it.
+  private pictureHeight = $computed((): number =>
+    self.open ? self.side + Ordaen::theme.frame.tabIconUnder.width * Ordaen::theme.frame.tabIconUnder.scale : self.side)
   private iconLine = $computed((): Metal => self.open ? Ordaen::theme.frame.tabIconLineOpen : Ordaen::theme.frame.tabIconLine)
-  private lineLeft = $computed((): number => self.iconRight - self.lineStart)
+  private lineLeft = $computed((): number => self.side - self.lineStart)
   private lineWidth = $computed((): number =>
     self.flare - Ordaen::theme.frame.tabIconLine.reach.left * Ordaen::theme.frame.tabIconLine.scale + 1)
-  private underWidth = $computed((): number => self.iconRight - self.lineStart)
-  private underHeight = $computed((): number =>
-    self.flare - Ordaen::theme.frame.tabIconUnder.reach.top * Ordaen::theme.frame.tabIconUnder.scale)
+  // The line under the open tab's picture: on the body's line, which is `side` below the tab's.
+  private underTop = $computed((): number => self.side - self.underReach)
+  private underWidth = $computed((): number => self.side - self.lineStart)
+  private underHeight = $computed((): number => self.flare - self.underReach)
   // The label's room: past the picture's line where there is a picture.
   private padding = $computed((): Edges => self.paddingOf())
 
@@ -115,7 +123,7 @@ public class WindowTab implements Ordaen::Component {
     let frame = Ordaen::theme.frame.tab
     let lineEnd = line.width + line.reach.left * line.scale
     let frameEnd = frame.width + frame.reach.left * frame.scale
-    let left = self.height - self.flare + lineEnd - frameEnd + LABEL_PAD
+    let left = self.side + lineEnd - frameEnd + LABEL_PAD
     return { left: left, right: LABEL_PAD, bottom: foot }
   }
 
@@ -133,12 +141,12 @@ public class WindowTab implements Ordaen::Component {
            tint={self.tint} padding={self.padding} rows={BODY_ROWS} zLevel={self.level} @click={self.pick}
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
         <$if={self.hasIcon}>
-          <box position={Position::Absolute} left={0} top={0} width={self.iconRight} height={self.pictureHeight}
-               background={self.icon} tint={self.tint} border={Ordaen::theme.frame.tabIconClip} />
-          <box $if={self.open} position={Position::Absolute} left={0} top={self.iconRight} width={self.underWidth}
+          <box position={Position::Absolute} left={0} top={0} width={self.side} height={self.pictureHeight}
+               icon={self.icon} tint={self.tint} border={Ordaen::theme.frame.tabIconClip} />
+          <box $if={self.open} position={Position::Absolute} left={0} top={self.underTop} width={self.underWidth}
                height={self.underHeight} border={Ordaen::theme.frame.tabIconUnder} />
           <box position={Position::Absolute} left={self.lineLeft} top={0} width={self.lineWidth}
-               height={self.whole} border={self.iconLine} />
+               height={self.given} border={self.iconLine} />
         </>
         <box xAlign={Align::Center} yAlign={Align::Center} gap={1 * PX}>
           <text value={self.tab.title} textSize={15 * PX} wrap={false} textColor={self.titleColor}
@@ -165,7 +173,9 @@ public class Window implements Ordaen::Component {
   private mut w0: number = 0
   private mut h0: number = 0
 
-  private tabHeight = $computed((): number => self.tabHeightOf())
+  // The tab row's height: the design's, from a tab's own line down to the body, and the tab's art above its line.
+  private tabHeight = $computed((): number =>
+    self.tabHeightOf() + Ordaen::theme.frame.tab.reach.top * Ordaen::theme.frame.tab.scale)
   // The body's top line, inside its box, as far as the open tab's curves into it reach.
   private lineTop = $computed((): number => Ordaen::theme.frame.tabOpen.curves.flare * Ordaen::theme.frame.tabOpen.scale)
   private openTab = $computed((): number => self.tabHeight + self.lineTop)

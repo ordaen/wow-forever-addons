@@ -117,7 +117,7 @@ public class RingButton implements Ordaen::Component {
              zLevel={1} opacity={self.opacity} xAlign={Align::Center} yAlign={Align::Center} background={self.art}
              @click={self.onClick} @dragStart={self.onDragStart} @drag={self.onDrag} @dragStop={self.onDragStop}
              @enter={self.onEnter} @leave={self.onLeave}>
-          <box $if={self.spec.id == RingId::Ordaen} width={22 * PX} height={22 * PX} background={Ordaen::icon}
+          <box $if={self.spec.id == RingId::Ordaen} width={22 * PX} height={22 * PX} icon={Ordaen::icon}
                mask={Ordaen::theme.panel.faceRound} />
           <text $elseif={self.spec.id == RingId::Drawer} value={self.count} textColor={GOLD} textSize={14 * PX}
                 textFamily={Ordaen::theme.font.numbers} textShadow={COUNT_SHADOW} wrap={false} />

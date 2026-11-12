@@ -44,7 +44,7 @@ public class ListTab implements Ordaen::Component {
            background={self.background} @click={self.onClick}>
         <box $if={self.selected} position={Position::Absolute} left={0} top={0} bottom={0} width={3 * PX}
              background={LIGHT} />
-        <box $if={self.hasIcon} width={22 * PX} height={22 * PX} background={self.icon} tint={self.tint} />
+        <box $if={self.hasIcon} width={22 * PX} height={22 * PX} icon={self.icon} tint={self.tint} />
         <text value={self.label} textColor={self.color} textSize={15 * PX} wrap={false} />
         <box>
           <slot />

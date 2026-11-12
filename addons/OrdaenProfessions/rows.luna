@@ -117,7 +117,7 @@ public class ReagentRow implements Ordaen::Component {
   public render(): Template {
     return $ltml {
       <box columns={REAGENT} gap={8 * PX} yAlign={Align::Center} padding={REAGENT_PAD} border={self.rule}>
-        <box width={SLOT} height={SLOT} border={Style::BRONZE} background={self.icon} />
+        <box width={SLOT} height={SLOT} border={Style::BRONZE} icon={self.icon} />
         <text value={self.reagent.name} textSize={Style::RECIPE_TEXT} textColor={Style::INK} />
         <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} textSize={Style::RECIPE_TEXT}
               wrap={false} textColor={self.color} textFamily={Ordaen::theme.font.numbers} />

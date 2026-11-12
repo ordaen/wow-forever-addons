@@ -79,7 +79,7 @@ public class RecipeDetails implements Ordaen::Component {
            overflow={Overflow::Hidden}>
         <$if={self.has}>
           <box columns={HEAD} gap={10 * PX} yAlign={Align::Center}>
-            <box width={SLOT} height={SLOT} border={Style::BRONZE} background={self.icon} />
+            <box width={SLOT} height={SLOT} border={Style::BRONZE} icon={self.icon} />
             <box gap={2 * PX}>
               <text value={self.shown.name} textSize={Style::NAME} textColor={Style::WHITE}
                     textShadow={Style::SHADOW} />

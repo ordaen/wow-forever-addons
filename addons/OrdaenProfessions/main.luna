@@ -33,6 +33,12 @@ private const SEARCH_EDGE: Line = { width: 1 * PX, color: $color("#4a3a24") }
 private const SEARCH_BACK = $color("#00000080")
 private const SEARCH_PAD: Edges = { right: 10 * PX, left: 10 * PX }
 
+// What the window remembers for the character.
+public struct Kept {
+  // The profession last open, by its skill line; 0 before any was.
+  last: integer
+}
+
 public class Professions implements Ordaen::Module {
   public const title: string = "Ordaen Professions"
   public const pages: Array<Ordaen::SettingsPage> = []
@@ -48,6 +54,7 @@ public class Professions implements Ordaen::Module {
   private mut placing: Reactive<Placing> = $reactive({ x: 0, y: 0, width: Style::WIDTH, height: Style::HEIGHT })
   // The profession the lists were last drawn for.
   private mut skillLine: integer = 0
+  private mut memory = new Ordaen::Memory<Kept>({ last: 0 }, Ordaen::Scope::Character)
 
   // The game's own window came up with no profession open (its overview): this window stands in its place with
   // nothing chosen, and a tab opens its profession. The client opens a profession from nothing but a click.
@@ -167,7 +174,10 @@ public class Professions implements Ordaen::Module {
       if (profession.skillLine == open) { at = index }
     }
     self.tab = at
-    if (open != nil) { self.waiting = false }
+    if (open != nil) {
+      self.waiting = false
+      self.memory.values.last = open
+    }
     if (open != nil && open != self.skillLine) {
       self.skillLine = open
       self.category = 0
@@ -190,8 +200,19 @@ public class Professions implements Ordaen::Module {
     if (self.page != 0) { self.recipe = 0 }
   }
 
+  // The game's own window came up with no profession open, on the player's key: the profession last open is
+  // asked for in its place. Where the client doesn't take that (the key wasn't the player's own), the window
+  // waits with its tabs.
   private mut onShownEmpty() {
-    if ($peek(Game::TradeSkill::open) == nil) { self.waiting = true }
+    if ($peek(Game::TradeSkill::open) != nil) { return }
+    self.waiting = true
+    let last = $peek(self.memory.values).last
+    for (profession of $peek(Game::Professions::list)) {
+      if (profession.skillLine == last) {
+        Game::TradeSkill::show(last)
+        return
+      }
+    }
   }
 
   private mut pickCategory(id: integer) {

@@ -89,3 +89,30 @@ public class Settings<S implements unknown> {
     self.keep()
   }
 }
+
+// What a module remembers between sessions that the player doesn't choose on a settings page: the profession last
+// open, a list's sort. The module reads and writes `values`, and what it writes is kept at once, under the name
+// of the module being made.
+public class Memory<S implements unknown> {
+  public mut values: Reactive<S>
+  private const defaults: S
+  private const scope: Scope
+  private const name: string | nil
+
+  $constructor(defaults: S, scope: Scope) {
+    self.defaults = defaults
+    self.scope = scope
+    let name = Drafts::nameNow()
+    self.name = name != nil ? name + ":memory" : nil
+    let kept = self.name
+    self.values = $reactive(kept != nil ? Runtime::restored(scope == Scope::Character, kept, defaults) : Runtime::copy(defaults))
+    $watch(self.keep)
+  }
+
+  // Every entry is read, so a change to any of them keeps the whole.
+  private keep() {
+    _ = Runtime::differing(self.values, self.defaults)
+    let name = self.name
+    if (name != nil) { Runtime::store(self.scope == Scope::Character, name, $peek(self.values)) }
+  }
+}

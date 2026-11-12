@@ -408,7 +408,7 @@ public class TipFrame implements Ordaen::Component {
         <box columns={self.titleColumns} gap={10 * PX} yAlign={Align::Center} padding={self.titlePadding}>
           <box $if={self.hasIcon} width={ICON} height={ICON} border={RIM} padding={1 * PX} background={BLACK}
                rows={FILL}>
-            <box background={self.icon} portrait={self.face} />
+            <box icon={self.icon} portrait={self.face} />
           </box>
           <box gap={2 * PX} yAlign={Align::Center}>
             <text value={self.model.name} textColor={self.model.nameColor} textSize={18 * PX} wrap={false} />
