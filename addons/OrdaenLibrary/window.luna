@@ -261,7 +261,7 @@ public class Window implements Ordaen::Component {
       // As wide as the player made it, and never narrower than its tabs: the tab row is the one thing in its
       // grid, and the width it keeps is its least.
       <surface layer={Layer::Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
-               raise={true} xAlign={Align::Start} @escape={self.onClose}>
+               raise={true} xAlign={Align::Start} textFamily={Ordaen::lookArt.font} @escape={self.onClose}>
         <box position={Position::Absolute} left={0} right={0} top={0} height={self.tabHeight}
              @dragStart={self.onGrab} @drag={self.onMove} />
         <box position={Position::Absolute} left={0} right={0} top={self.tabHeight} bottom={0}
