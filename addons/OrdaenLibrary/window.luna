@@ -85,12 +85,11 @@ public class WindowTab implements Ordaen::Component {
   private desc = $computed((): string => self.tab.desc ?? "")
 
   // The picture is a square at the tab's left end, as tall as what shows of the tab: from the tab's own line
-  // down to the body's line on the open tab, down to where the body hides it on a closed one. Everything here
+  // down to the body's line, which a closed tab stands behind. Everything here
   // is measured from the tab's line, where what a framed box places by offsets starts. Its line stands at its
   // right, and on the open tab curves out at the bottom into the body's top line, which runs on under the
   // picture.
-  private side = $computed((): number =>
-    self.open ? self.height - self.flare : self.whole - self.flare - self.reachTop)
+  private side = $computed((): number => self.whole - self.flare)
   private underReach = $computed((): number =>
     Ordaen::theme.frame.tabIconUnder.reach.top * Ordaen::theme.frame.tabIconUnder.scale)
   // The open tab's picture ends under the line that runs under it.
@@ -117,7 +116,7 @@ public class WindowTab implements Ordaen::Component {
 
   // A closed tab's foot stands behind the body's line: its label keeps to what shows of it.
   private paddingOf(): Edges {
-    let foot = self.open ? 0 : self.flare
+    let foot = self.open ? 0 : self.flare - self.reachTop
     if (!self.hasIcon) { return { left: LABEL_PAD, right: LABEL_PAD, bottom: foot } }
     let line = Ordaen::theme.frame.tabIconLine
     let frame = Ordaen::theme.frame.tab
