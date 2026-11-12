@@ -1,0 +1,57 @@
+// Numbers as Ordaen writes them: one way for every module, which Ordaen's own settings decide.
+//   The separators (`numberFormat`): «space» 1 000 000.09 (a space that doesn't break, so a number never wraps),
+//   «comma» 1,000,000.09, «dot» 1.000.000,09.
+//   At most `numberPrecision` decimals, the zeros at the end dropped (1795 is «1 795», 2.5 «2.5»); `numberRound`:
+//   whole numbers from 1 up. Under 1 (not 0): at least two digits that aren't nought (0.25, 0.004).
+//   A negative number keeps its sign unless it rounds to 0.
+// What reads it is run again when the settings change.
+import Math from "$math"
+import String from "$string"
+import { globals } from "@/core"
+import { NumberFormat } from "@/globals"
+
+private const NBSP = "\194\160"
+// The most decimals a number under 1 takes.
+private const FINEST = 12
+
+private function decimalsFor(value: number, precision: integer, round: boolean): integer {
+  if (value > 0 && value < 1) {
+    let scaled = value
+    let shifts = 0
+    for (let i = 1; i <= FINEST; i += 1) {
+      if (scaled >= 1) { break }
+      scaled = scaled * 10
+      shifts = i
+    }
+    return Math::max(precision, shifts + 1)
+  }
+  return round ? 0 : precision
+}
+
+// Whole digits with `group` between every three from the right.
+private function grouped(digits: string, group: string): string {
+  let const n = digits.length
+  if (n <= 3) { return digits }
+  let first = n % 3
+  let out = first > 0 ? String::sub(digits, 1, first) : ""
+  for (let i = first + 1; i <= n; i += 3) {
+    out = (out == "" ? "" : out + group) + String::sub(digits, i, i + 2)
+  }
+  return out
+}
+
+public function number(n: number): string {
+  if (!Math::finite(n)) { return String::of(n) }
+  let chosen = globals
+  let thousands = chosen.numberFormat == NumberFormat::Space ? NBSP : chosen.numberFormat == NumberFormat::Comma ? "," : "."
+  let point = chosen.numberFormat == NumberFormat::Dot ? "," : "."
+  let value = Math::abs(n)
+  let text = String::format(`%.${decimalsFor(value, chosen.numberPrecision, chosen.numberRound)}f`, value)
+  if (String::contains(text, ".")) { text = $replace($replace(text, "0+$", ""), "%.$", "") }
+  let whole, fraction = $match(text, "^(%d+)%.?(%d*)$")
+  if (whole == nil) { return text }
+  let sign = n < 0 && String::toNumber(text) != 0 ? "-" : ""
+  let out = sign + grouped(whole, thousands)
+  if (fraction != nil && fraction != "") { out = out + point + fraction }
+  return out
+}
