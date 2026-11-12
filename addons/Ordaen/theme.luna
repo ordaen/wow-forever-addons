@@ -109,7 +109,7 @@ private const TAB_CORNERS: Corners = { topLeft: Radius::Large, topRight: Radius:
 private const ICON_CORNER: Corners = { topLeft: Radius::Large }
 
 // The wood: one tile, repeated at the size the picture had in the design's window.
-private const WOOD: Piece = { file: "Interface\\AddOns\\Ordaen\\media\\window-wood", width: 512, height: 512, repeatSize: 746 / 1.2 }
+private const WOOD: Piece = { file: $asset("@/media/window-wood.tga"), width: 512, height: 512, repeatSize: 746 / 1.2 }
 
 // The theme Ordaen has: its measures, and its art from this addon's `media` and the client.
 public const THEME: Theme = {
@@ -127,30 +127,30 @@ public const THEME: Theme = {
   window: { wood: WOOD, marble: "Interface\\FrameGeneral\\UI-Background-Marble" },
   ctl: {
     // The checkbox, drawn whole: the well (the light ring over it under the cursor), and the tick.
-    check: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-check", width: 64, height: 256, rows: 4, normal: 0, glow: 1 },
-    tick: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-check", width: 64, height: 256, rows: 4, normal: 2 },
+    check: { file: $asset("@/media/ctl-check.tga"), width: 64, height: 256, rows: 4, normal: 0, glow: 1 },
+    tick: { file: $asset("@/media/ctl-check.tga"), width: 64, height: 256, rows: 4, normal: 2 },
     // The push button and the dropdown's face: rows 0 normal, 1 pushed, 2 disabled, 3 the light over normal, 4 the
     // accent, 5 the accent pushed; caps half as wide as it is high.
-    button: { file: "Interface\\AddOns\\Ordaen\\media\\button", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 0, pressed: 1, glow: 3 },
-    buttonAccent: { file: "Interface\\AddOns\\Ordaen\\media\\button", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 4, pressed: 5, glow: 3 },
-    buttonDisabled: { file: "Interface\\AddOns\\Ordaen\\media\\button", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 2 },
+    button: { file: $asset("@/media/button.tga"), width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 0, pressed: 1, glow: 3 },
+    buttonAccent: { file: $asset("@/media/button.tga"), width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 4, pressed: 5, glow: 3 },
+    buttonDisabled: { file: $asset("@/media/button.tga"), width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 2 },
     // The slider: the groove with its edge, the fill inside it, the knob.
-    groove: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-slider", width: 64, height: 128, cap: 4, capHeight: 0.125, rows: 4, normal: 0 },
-    sliderFill: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-slider", width: 64, height: 128, rows: 4, normal: 1 },
-    sliderKnob: "Interface\\AddOns\\Ordaen\\media\\ctl-slider-knob",
-    rule: "Interface\\AddOns\\Ordaen\\media\\ctl-rule",
+    groove: { file: $asset("@/media/ctl-slider.tga"), width: 64, height: 128, cap: 4, capHeight: 0.125, rows: 4, normal: 0 },
+    sliderFill: { file: $asset("@/media/ctl-slider.tga"), width: 64, height: 128, rows: 4, normal: 1 },
+    sliderKnob: $asset("@/media/ctl-slider-knob.tga"),
+    rule: $asset("@/media/ctl-rule.tga"),
     // The switch: the track, a pill with round caps (rows 0 off, 1 on, 2 the ring over either), and the knob.
-    switchOff: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-switch-track", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 0, glow: 2 },
-    switchOn: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-switch-track", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 1, glow: 2 },
-    knobOff: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-switch-knob", width: 64, height: 128, rows: 2, normal: 0 },
-    knobOn: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-switch-knob", width: 64, height: 128, rows: 2, normal: 1 },
-    dropdownArrow: "Interface\\AddOns\\Ordaen\\media\\dropdown-arrow",
-    radio: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-radio", width: 32, height: 64, rows: 2, normal: 0 },
-    radioOn: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-radio", width: 32, height: 64, rows: 2, normal: 1 },
+    switchOff: { file: $asset("@/media/ctl-switch-track.tga"), width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 0, glow: 2 },
+    switchOn: { file: $asset("@/media/ctl-switch-track.tga"), width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 1, glow: 2 },
+    knobOff: { file: $asset("@/media/ctl-switch-knob.tga"), width: 64, height: 128, rows: 2, normal: 0 },
+    knobOn: { file: $asset("@/media/ctl-switch-knob.tga"), width: 64, height: 128, rows: 2, normal: 1 },
+    dropdownArrow: $asset("@/media/dropdown-arrow.tga"),
+    radio: { file: $asset("@/media/ctl-radio.tga"), width: 32, height: 64, rows: 2, normal: 0 },
+    radioOn: { file: $asset("@/media/ctl-radio.tga"), width: 32, height: 64, rows: 2, normal: 1 },
     // A window's corner buttons, each drawn whole: the row by state.
-    cornerExpand: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-corner-full", width: 128, height: 512, rows: 8, normal: 0, hover: 1, pressed: 2 },
-    cornerContract: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-corner-full", width: 128, height: 512, rows: 8, normal: 3, hover: 4, pressed: 5 },
-    cornerClose: { file: "Interface\\AddOns\\Ordaen\\media\\ctl-corner-close", width: 128, height: 256, rows: 4, normal: 0, hover: 1, pressed: 2 },
+    cornerExpand: { file: $asset("@/media/ctl-corner-full.tga"), width: 128, height: 512, rows: 8, normal: 0, hover: 1, pressed: 2 },
+    cornerContract: { file: $asset("@/media/ctl-corner-full.tga"), width: 128, height: 512, rows: 8, normal: 3, hover: 4, pressed: 5 },
+    cornerClose: { file: $asset("@/media/ctl-corner-close.tga"), width: 128, height: 256, rows: 4, normal: 0, hover: 1, pressed: 2 },
     // A window's resize grip: the client's own.
     grip: "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up",
     gripHover: "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight",
@@ -158,26 +158,26 @@ public const THEME: Theme = {
   },
   panel: {
     // The shapes a face is cut to: a circle, and the screen's corner.
-    faceRound: "Interface\\AddOns\\Ordaen\\media\\face-round-mask",
-    corner: "Interface\\AddOns\\Ordaen\\media\\portrait-mask",
-    badge: "Interface\\AddOns\\Ordaen\\media\\level-badge",
+    faceRound: $asset("@/media/face-round-mask.tga"),
+    corner: $asset("@/media/portrait-mask.tga"),
+    badge: $asset("@/media/level-badge.tga"),
     slotEdge: { width: 1, color: $color("#6c5535") },
-    xpFill: { file: "Interface\\AddOns\\Ordaen\\media\\xp-fill-brushed", width: 1024, height: 32, tile: true },
-    xpSteel: { file: "Interface\\AddOns\\Ordaen\\media\\xp-fill-steel", width: 1024, height: 32, tile: true },
+    xpFill: { file: $asset("@/media/xp-fill-brushed.tga"), width: 1024, height: 32, tile: true },
+    xpSteel: { file: $asset("@/media/xp-fill-steel.tga"), width: 1024, height: 32, tile: true },
     wood: WOOD,
     edge: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side::Top], curves: CURVES, lineStart: 10 },
     // A micro menu's or a bag's cell: rows 0 normal, 1 the glow over it, 2 pushed; caps a fifth of its height.
-    cell: { file: "Interface\\AddOns\\Ordaen\\media\\panel-cell", width: 256, height: 256, cap: 32, capHeight: 0.2, rows: 4, normal: 0, glow: 1, pressed: 2 },
-    countBadge: { file: "Interface\\AddOns\\Ordaen\\media\\panel-count-badge", width: 128, height: 64, cap: 32, capHeight: 0.5 },
+    cell: { file: $asset("@/media/panel-cell.tga"), width: 256, height: 256, cap: 32, capHeight: 0.2, rows: 4, normal: 0, glow: 1, pressed: 2 },
+    countBadge: { file: $asset("@/media/panel-count-badge.tga"), width: 128, height: 64, cap: 32, capHeight: 0.5 },
     // The experience tube, back to front: the trough, the fill, the shine, the ring.
-    xpTrough: { file: "Interface\\AddOns\\Ordaen\\media\\xp-tube-trough", width: 256, height: 64, cap: 64, capHeight: 1 },
-    xpShine: { file: "Interface\\AddOns\\Ordaen\\media\\xp-tube-shine", width: 256, height: 64, cap: 64, capHeight: 1 },
-    xpTube: { file: "Interface\\AddOns\\Ordaen\\media\\xp-tube", width: 256, height: 64, cap: 64, capHeight: 1 },
+    xpTrough: { file: $asset("@/media/xp-tube-trough.tga"), width: 256, height: 64, cap: 64, capHeight: 1 },
+    xpShine: { file: $asset("@/media/xp-tube-shine.tga"), width: 256, height: 64, cap: 64, capHeight: 1 },
+    xpTube: { file: $asset("@/media/xp-tube.tga"), width: 256, height: 64, cap: 64, capHeight: 1 },
   },
   // A button on the minimap's ring, drawn whole: rows 0 the button, 1 the light ring over it, 2 lit.
   minimap: {
-    ring: { file: "Interface\\AddOns\\Ordaen\\media\\minimap-ring", width: 128, height: 512, rows: 4, normal: 0, glow: 1 },
-    ringLit: { file: "Interface\\AddOns\\Ordaen\\media\\minimap-ring", width: 128, height: 512, rows: 4, normal: 2, glow: 1 },
+    ring: { file: $asset("@/media/minimap-ring.tga"), width: 128, height: 512, rows: 4, normal: 0, glow: 1 },
+    ringLit: { file: $asset("@/media/minimap-ring.tga"), width: 128, height: 512, rows: 4, normal: 2, glow: 1 },
   },
   font: { numbers: "Fonts\\ARIALN.TTF" },
 }
