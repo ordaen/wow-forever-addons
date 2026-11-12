@@ -17,7 +17,7 @@ public class PushButton implements Ordaen::Component {
   public click: Event<nil> = $event()
 
   private art = $computed((): Art =>
-    self.disabled ? Ordaen::theme.ctl.buttonDisabled : self.accent ? Ordaen::theme.ctl.buttonAccent : Ordaen::theme.ctl.button)
+    self.disabled ? Ordaen::art.ctl.buttonDisabled : self.accent ? Ordaen::art.ctl.buttonAccent : Ordaen::art.ctl.button)
   private color = $computed((): Color | Stated<Color> => self.disabled ? GREY : LABEL)
   // Disabled, it does nothing.
   private doing = $computed((): Action | nil => self.disabled ? nil : self.action)

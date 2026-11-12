@@ -98,7 +98,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
    build), never a copy. The sources here:
    - an addon's sources for what it is: its files, its dependencies and its load order come from its imports;
    - `locales/*.json` for text, the client's own texts for the game's own words;
-   - `Ordaen/theme.luna` for the theme's measures and art; `art/pieces` for how each texture was made;
+   - `Ordaen/art.luna` for the art and measures, `Ordaen/look.luna` for the look the player chooses (fonts, colours: presets); `art/pieces` for how each texture was made;
    - the client's API dump for what the game has (`lunatype generate api`, in `../lunatype`).
 
    Before adding a constant, a list or a map, look for where the fact already lives and read it from there.
@@ -174,7 +174,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
 
 ```
 addons/Ordaen/                  Ordaen Core: what every addon builds on (Component, Module, Settings), its root
-                                (ordaen.luna), the theme (theme.luna) and its art (media/)
+                                (ordaen.luna), its art (art.luna, media/) and the look the player chooses (look.luna)
 addons/OrdaenApp/               the app: its root tells Ordaen Core of every module and starts it
 addons/OrdaenLibrary/           the controls every addon draws by name
 addons/Ordaen<Name>/            a module: its index.luna gives its root, a class that implements Ordaen::Module;
@@ -222,8 +222,9 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
 - **Design previews are pages of the design site** (`../wow-dev-tools/design`, one folder per topic, `addons:`
   frontmatter), never loose HTML files. The user views the built site on port 47860: build it (`npm run build`) after a
   design change.
-- **Themes:** Ordaen, Blizzard and Minimalism are all listed from the start; the last two show as "in development"
-  and can't be picked until built.
+- **Presets of the look:** there is no theme of its own: Ordaen, Blizzard and Minimal are presets of Ordaen's look
+  settings (`look.luna`: `preset`), and choosing one writes every entry of the draft. The site reads them from
+  `Ordaen/look.test/` (the snapshot of `look.test.luna`).
 - **Release:** one CurseForge project and one zip with every module folder (packaging isn't built).
 - Open: module on/off per account or per character (with profiles); which new globals to add.
 

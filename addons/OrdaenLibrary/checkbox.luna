@@ -23,9 +23,9 @@ public class Checkbox implements Ordaen::Component {
   public render(): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
-        <box width={SIZE} height={SIZE} background={Ordaen::theme.ctl.check} @click={self.toggle}>
+        <box width={SIZE} height={SIZE} background={Ordaen::art.ctl.check} @click={self.toggle}>
           <box $if={self.value} position={Position::Absolute} left={0} top={0} width={SIZE} height={SIZE}
-               background={Ordaen::theme.ctl.tick} />
+               background={Ordaen::art.ctl.tick} />
         </box>
       </SettingRow>
     }

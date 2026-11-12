@@ -60,7 +60,7 @@ public class Minimap implements Ordaen::Module {
   private mut entryName = $reactive("")
 
   // The frame's metal: the map sits inside its wood, the line's width and the wood's inset in from the line.
-  private out = $computed((): number => Ordaen::theme.frame.small.width + Ordaen::theme.frame.small.inset)
+  private out = $computed((): number => Ordaen::art.frame.small.width + Ordaen::art.frame.small.inset)
   private size = $computed((): number => MAP * self.settings.scale)
   private headHeight = $computed((): number => self.settings.showZone ? STRIP : 0)
   private hasFoot = $computed((): boolean => self.settings.showCoords || self.settings.showClock)
@@ -70,8 +70,8 @@ public class Minimap implements Ordaen::Module {
   private wholeWidth = $computed((): number => self.frameWidth + 2 * ROOM)
   private wholeHeight = $computed((): number => self.frameHeight + 2 * ROOM)
   // The metal stands past its line, and the frame's box holds it: the box starts that far out.
-  private frameLeft = $computed((): number => ROOM - Ordaen::theme.frame.small.reach.left * Ordaen::theme.frame.small.scale)
-  private frameTop = $computed((): number => ROOM - Ordaen::theme.frame.small.reach.top * Ordaen::theme.frame.small.scale)
+  private frameLeft = $computed((): number => ROOM - Ordaen::art.frame.small.reach.left * Ordaen::art.frame.small.scale)
+  private frameTop = $computed((): number => ROOM - Ordaen::art.frame.small.reach.top * Ordaen::art.frame.small.scale)
   private mapTop = $computed((): number => self.out + self.headHeight)
 
   private showsCoords = $computed((): boolean => self.settings.showCoords && Game::Minimap::coords != "")
@@ -85,7 +85,7 @@ public class Minimap implements Ordaen::Module {
   private drawerShown = $computed((): boolean => self.settings.drawerOn && self.drawerOpen)
   private drawerParked = $computed((): boolean => self.settings.drawerOn && !self.drawerOpen)
   // Its cells, the room round them and its frame's line on both sides.
-  private drawerEdge = $computed((): number => 2 * DRAWER_PAD + 2 * Ordaen::theme.frame.small.width)
+  private drawerEdge = $computed((): number => 2 * DRAWER_PAD + 2 * Ordaen::art.frame.small.width)
   private drawerWidth = $computed((): number =>
     self.settings.drawerColumns * CELL + (self.settings.drawerColumns - 1) * CELL_GAP + self.drawerEdge)
   private drawerRows = $computed((): integer => Math::max(1, Math::ceil(self.held / self.settings.drawerColumns)))
@@ -288,13 +288,13 @@ public class Minimap implements Ordaen::Module {
         <box width={self.wholeWidth} height={self.wholeHeight} hoverWithin={true}
              @enter={self.onEnter} @leave={self.onLeave}>
           <box position={Position::Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameWidth}
-               height={self.frameHeight} border={Ordaen::theme.frame.small} background={Ordaen::theme.window.wood}
+               height={self.frameHeight} border={Ordaen::art.frame.small} background={Ordaen::art.window.wood}
                artOrigin={true}>
             <embed frame={Game::Minimap::frame} position={Position::Absolute} left={self.out} top={self.mapTop}
                    width={self.size} height={self.size} />
 
             <box $if={self.settings.showZone} position={Position::Absolute} left={self.out} top={self.out}
-                 width={self.size} height={STRIP} background={Ordaen::theme.window.wood} border={RULE_BELOW}
+                 width={self.size} height={STRIP} background={Ordaen::art.window.wood} border={RULE_BELOW}
                  xAlign={Align::Center} yAlign={Align::Center}>
               <box @enter={self.onZoneEnter} @leave={self.onHintLeave}>
                 <text value={Game::Location::zone} textColor={self.zoneColor} textSize={15 * PX} textShadow={ENGRAVED}
@@ -303,18 +303,18 @@ public class Minimap implements Ordaen::Module {
             </box>
 
             <box $if={self.hasFoot} position={Position::Absolute} left={self.out} bottom={self.out} width={self.size}
-                 height={STRIP} background={Ordaen::theme.window.wood} border={RULE_ABOVE}
+                 height={STRIP} background={Ordaen::art.window.wood} border={RULE_ABOVE}
                  columns={[{ fr: 1 }, "auto"]} padding={{ left: 10 * PX, right: 10 * PX }} yAlign={Align::Center}>
               <box $if={self.showsCoords} @click={self.onCoordsClick} @enter={self.onCoordsEnter}
                    @leave={self.onHintLeave}>
                 <text value={Game::Minimap::coords} textColor={INK} textSize={15 * PX} textShadow={ENGRAVED}
-                      textFamily={Ordaen::theme.font.numbers} wrap={false} />
+                      textFamily={Ordaen::lookArt.fontNumbers} wrap={false} />
               </box>
               <box $else width={1} />
               <box $if={self.settings.showClock} @click={self.onClockClick} @enter={self.onClockEnter}
                    @leave={self.onHintLeave}>
                 <text value={Game::Clock::text} textColor={self.clockColor} textSize={15 * PX} textShadow={ENGRAVED}
-                      textFamily={Ordaen::theme.font.numbers} wrap={false} />
+                      textFamily={Ordaen::lookArt.fontNumbers} wrap={false} />
               </box>
             </box>
           </box>
@@ -323,7 +323,7 @@ public class Minimap implements Ordaen::Module {
 
           <box $if={self.drawerShown} position={Position::Absolute} left={self.drawerLeft} top={self.drawerTop}
                width={self.drawerWidth} height={self.drawerHeight} columns={self.settings.drawerColumns} gap={CELL_GAP}
-               padding={DRAWER_PAD} border={Ordaen::theme.frame.small} background={Ordaen::theme.window.wood}
+               padding={DRAWER_PAD} border={Ordaen::art.frame.small} background={Ordaen::art.window.wood}
                artOrigin={true} zLevel={20}>
             <embed $for={button of Game::Minimap::buttons} frame={button} width={CELL} height={CELL}
                    look={EmbedLook::Icon} />

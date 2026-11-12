@@ -1,0 +1,208 @@
+// Ordaen's look: the fonts, the colours and the bars' art every module draws with, which the player chooses. It is
+// Ordaen's own settings (`Ordaen::look`), saved, discarded and rolled back with every other. A preset is a whole
+// look by its name: choosing one writes every entry of the draft, and a change after it is a draft like any other.
+// What no preset changes (the metal, the wood, the controls' art, the measures) is Ordaen's art (art.luna).
+import { Art, Color, Piece } from "$ltml"
+import Runtime from "$runtime"
+
+// The fonts Ordaen ships (its media, each with Cyrillic, SIL Open Font License) and the client's own two.
+public enum Font {
+  FiraSans = "firaSans",
+  AlegreyaSans = "alegreyaSans",
+  PtSans = "ptSans",
+  Philosopher = "philosopher",
+  AlegreyaSC = "alegreyaSC",
+  Forum = "forum",
+  CormorantSC = "cormorantSC",
+  FiraCondensed = "firaCondensed",
+  PtSansNarrow = "ptSansNarrow",
+  Friz = "friz",
+  ArialNarrow = "arialNarrow",
+}
+
+// What a plain bar is filled with.
+public enum BarTexture { Flat = "flat", Blizzard = "blizzard" }
+// What fills the experience bar, and every bar that looks like it.
+public enum XpFill { Deep = "deep", Grain = "grain", Brushed = "brushed", Potion = "potion", Clouds = "clouds", Steel = "steel" }
+// A bar's edge.
+public enum BarFrame { Bezel = "bezel", Groove = "groove" }
+public enum Animation { Smooth = "smooth", Fast = "fast", Off = "off" }
+// A colour of the palette, by its name: what a class is coloured with.
+public enum Hue {
+  Red = "red", Orange = "orange", Yellow = "yellow", Green = "green", Cyan = "cyan", Blue = "blue",
+  Violet = "violet", Pink = "pink", Tan = "tan", White = "white", Grey = "grey",
+}
+
+public enum Preset { Ordaen = "ordaen", Blizzard = "blizzard", Minimal = "minimal" }
+// The presets, in the order the settings window lists them.
+public const PRESETS: Array<Preset> = [Preset::Ordaen, Preset::Blizzard, Preset::Minimal]
+
+public struct Look {
+  // The text's, the titles' and the numbers' fonts.
+  font: Font
+  fontHeader: Font
+  fontNumbers: Font
+  accent: Color
+  barTexture: BarTexture
+  xpFill: XpFill
+  barFrame: BarFrame
+  animation: Animation
+  // The palette every module colours with: each colour as a bar's fill, and as text.
+  red: Color
+  redText: Color
+  orange: Color
+  orangeText: Color
+  yellow: Color
+  yellowText: Color
+  green: Color
+  greenText: Color
+  cyan: Color
+  cyanText: Color
+  blue: Color
+  blueText: Color
+  violet: Color
+  violetText: Color
+  pink: Color
+  pinkText: Color
+  tan: Color
+  tanText: Color
+  white: Color
+  whiteText: Color
+  grey: Color
+  greyText: Color
+  // Each class's colour of the palette.
+  warrior: Hue
+  paladin: Hue
+  hunter: Hue
+  rogue: Hue
+  priest: Hue
+  shaman: Hue
+  mage: Hue
+  warlock: Hue
+  druid: Hue
+}
+
+// Blizzard's look in Ordaen's style: bronze, dark wood, Ordaen's own fonts.
+private const ORDAEN: Look = {
+  font: Font::FiraSans, fontHeader: Font::AlegreyaSC, fontNumbers: Font::FiraCondensed,
+  accent: { r: 0.72, g: 0.56, b: 0.34, a: 1 },
+  barTexture: BarTexture::Flat, xpFill: XpFill::Brushed, barFrame: BarFrame::Bezel, animation: Animation::Smooth,
+  red: { r: 0.737, g: 0.004, b: 0.044, a: 1 }, redText: { r: 0.999, g: 0.631, b: 0.582, a: 1 },
+  orange: { r: 0.634, g: 0.256, b: 0.007, a: 1 }, orangeText: { r: 0.996, g: 0.644, b: 0.484, a: 1 },
+  yellow: { r: 0.779, g: 0.588, b: 0.032, a: 1 }, yellowText: { r: 1, g: 0.85, b: 0.535, a: 1 },
+  green: { r: 0.034, g: 0.422, b: 0.007, a: 1 }, greenText: { r: 0.565, g: 0.821, b: 0.537, a: 1 },
+  cyan: { r: 0.023, g: 0.434, b: 0.525, a: 1 }, cyanText: { r: 0.318, g: 0.814, b: 0.951, a: 1 },
+  blue: { r: 0.006, g: 0.335, b: 0.671, a: 1 }, blueText: { r: 0.336, g: 0.625, b: 0.997, a: 1 },
+  violet: { r: 0.472, g: 0.287, b: 0.629, a: 1 }, violetText: { r: 0.823, g: 0.662, b: 0.981, a: 1 },
+  pink: { r: 0.608, g: 0.234, b: 0.415, a: 1 }, pinkText: { r: 0.979, g: 0.615, b: 0.77, a: 1 },
+  tan: { r: 0.494, g: 0.358, b: 0.21, a: 1 }, tanText: { r: 0.865, g: 0.713, b: 0.555, a: 1 },
+  white: { r: 0.669, g: 0.669, b: 0.669, a: 1 }, whiteText: { r: 0.934, g: 0.934, b: 0.934, a: 1 },
+  grey: { r: 0.389, g: 0.389, b: 0.389, a: 1 }, greyText: { r: 0.743, g: 0.743, b: 0.743, a: 1 },
+  warrior: Hue::Tan, paladin: Hue::Pink, hunter: Hue::Green, rogue: Hue::Yellow, priest: Hue::White,
+  shaman: Hue::Blue, mage: Hue::Cyan, warlock: Hue::Violet, druid: Hue::Orange,
+}
+
+// Close to Blizzard's own: its fonts, its bars.
+private const BLIZZARD: Look = {
+  font: Font::Friz, fontHeader: Font::Friz, fontNumbers: Font::ArialNarrow,
+  accent: { r: 1, g: 0.82, b: 0, a: 1 },
+  barTexture: BarTexture::Blizzard, animation: Animation::Fast,
+  ..ORDAEN,
+}
+
+// Flat, thin lines, almost no textures or animations.
+private const MINIMAL: Look = {
+  fontHeader: Font::FiraSans,
+  accent: { r: 0.62, g: 0.62, b: 0.62, a: 1 },
+  animation: Animation::Off,
+  ..ORDAEN,
+}
+
+// A preset: a whole look.
+public function preset(name: Preset): Look {
+  switch (name) {
+    case Preset::Ordaen: return ORDAEN
+    case Preset::Blizzard: return BLIZZARD
+    case Preset::Minimal: return MINIMAL
+  }
+}
+
+// The preset a look is, where it is one as it stands.
+public function presetOf(look: Look): Preset | nil {
+  for (name of PRESETS) {
+    if (Runtime::differing(look, preset(name)) == 0) { return name }
+  }
+  return nil
+}
+
+// A colour of the palette as a look has it.
+public function hueColor(look: Look, hue: Hue): Color {
+  switch (hue) {
+    case Hue::Red: return look.red
+    case Hue::Orange: return look.orange
+    case Hue::Yellow: return look.yellow
+    case Hue::Green: return look.green
+    case Hue::Cyan: return look.cyan
+    case Hue::Blue: return look.blue
+    case Hue::Violet: return look.violet
+    case Hue::Pink: return look.pink
+    case Hue::Tan: return look.tan
+    case Hue::White: return look.white
+    case Hue::Grey: return look.grey
+  }
+}
+
+// The files a look picks, as what draws them takes them: read through `Ordaen::lookArt`, worked out once a save.
+public struct LookArt {
+  font: Art
+  fontHeader: Art
+  fontNumbers: Art
+  bar: Art
+  xpFill: Art
+}
+
+public function fontFile(font: Font): Art {
+  switch (font) {
+    case Font::FiraSans: return $asset("@/media/fonts/FiraSans-Regular.ttf")
+    case Font::AlegreyaSans: return $asset("@/media/fonts/AlegreyaSans-Regular.ttf")
+    case Font::PtSans: return $asset("@/media/fonts/PTSans-Regular.ttf")
+    case Font::Philosopher: return $asset("@/media/fonts/Philosopher-Regular.ttf")
+    case Font::AlegreyaSC: return $asset("@/media/fonts/AlegreyaSC-Medium.ttf")
+    case Font::Forum: return $asset("@/media/fonts/Forum-Regular.ttf")
+    case Font::CormorantSC: return $asset("@/media/fonts/CormorantSC-SemiBold.ttf")
+    case Font::FiraCondensed: return $asset("@/media/fonts/FiraSansCondensed-Medium.ttf")
+    case Font::PtSansNarrow: return $asset("@/media/fonts/PTSansNarrow-Regular.ttf")
+    case Font::Friz: return "Fonts\\FRIZQT__.TTF"
+    case Font::ArialNarrow: return "Fonts\\ARIALN.TTF"
+  }
+}
+
+private function barFile(texture: BarTexture): Art {
+  switch (texture) {
+    case BarTexture::Flat: return "Interface\\Buttons\\WHITE8X8"
+    case BarTexture::Blizzard: return "Interface\\TargetingFrame\\UI-StatusBar"
+  }
+}
+
+// An experience bar's fill: one tile, repeated along the bar.
+private function xpPiece(file: string): Piece {
+  return { file: file, width: 1024, height: 32, tile: true }
+}
+
+private function xpFillOf(fill: XpFill): Art {
+  switch (fill) {
+    case XpFill::Deep: return xpPiece($asset("@/media/xp-fill-deep.tga"))
+    case XpFill::Grain: return xpPiece($asset("@/media/xp-fill-grain.tga"))
+    case XpFill::Brushed: return xpPiece($asset("@/media/xp-fill-brushed.tga"))
+    case XpFill::Potion: return xpPiece($asset("@/media/xp-fill-potion.tga"))
+    case XpFill::Clouds: return xpPiece($asset("@/media/xp-fill-clouds.tga"))
+    case XpFill::Steel: return xpPiece($asset("@/media/xp-fill-steel.tga"))
+  }
+}
+
+public function artOf(look: Look): LookArt {
+  return {
+    font: fontFile(look.font), fontHeader: fontFile(look.fontHeader), fontNumbers: fontFile(look.fontNumbers),
+    bar: barFile(look.barTexture), xpFill: xpFillOf(look.xpFill),
+  }
+}

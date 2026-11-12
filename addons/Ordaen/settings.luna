@@ -82,6 +82,11 @@ public class Settings<S implements unknown> {
     self.keep()
   }
 
+  // Every entry of the draft at once (a preset): it waits for «Save» as any other change does.
+  public mut choose(values: S) {
+    self.draft = Runtime::copy(values)
+  }
+
   // Every value back to its default, the draft with them.
   public mut reset() {
     self.values = Runtime::copy(self.defaults)

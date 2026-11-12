@@ -21,7 +21,7 @@ public class Tip implements Ordaen::Component {
   public render(): Template {
     return $ltml {
       <box position={Position::Absolute} left={self.left} top={self.top} width={WIDTH} zLevel={60}
-           border={Ordaen::theme.frame.small} background={Ordaen::theme.window.wood} artOrigin={true}
+           border={Ordaen::art.frame.small} background={Ordaen::art.window.wood} artOrigin={true}
            padding={12 * PX} columns={1} gap={2 * PX}>
         <text value={self.title} textColor={NAME} textSize={18 * PX} />
         <text value={self.text} textColor={LABEL} textSize={14 * PX} />

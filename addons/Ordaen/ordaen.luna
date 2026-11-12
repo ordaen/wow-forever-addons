@@ -10,7 +10,8 @@ import { Keeper } from "@/keeper"
 import Locale from "@/locales"
 import { Entry, Module, SettingsPage } from "@/module"
 import { Scope, Settings } from "@/settings"
-import { THEME, Theme } from "@/theme"
+import { ARTWORK, Artwork } from "@/art"
+import { artOf, Look, LookArt, preset, Preset } from "@/look"
 
 public class ModuleEntry implements Entry {
   public mut on: Reactive<boolean> = $reactive(false)
@@ -57,7 +58,11 @@ public class OrdaenCore implements App {
   private keeper = new Keeper()
   public const icon: Art = $asset("Interface/Icons/Trade_Engineering")
   public const title: string = "Ordaen"
-  public mut theme: Reactive<Theme> = $reactive(THEME)
+  public mut art: Reactive<Artwork> = $reactive(ARTWORK)
+  // The fonts, colours and bars' art the player chose: Ordaen's own settings, kept apart from `globals`.
+  public const look: Settings<Look>
+  // The files the look picks, worked out again only when the look's values change.
+  public lookArt: Reactive<LookArt> = $computed((): LookArt => artOf(self.look.values))
   public mut dev: Reactive<boolean> = $reactive(false)
   public settingsAsked: Event<string | nil> = $event()
   public mut modules: Reactive<Array<Entry>> = $reactive([])
@@ -73,8 +78,10 @@ public class OrdaenCore implements App {
   private mut window: string | nil = nil
 
   $constructor() {
-    $provide(Core, self)
+    Drafts::naming("Ordaen:look")
+    self.look = new Settings<Look>(preset(Preset::Ordaen), Scope::Account)
     Drafts::naming(nil)
+    $provide(Core, self)
   }
 
   public mut toggleDev() { self.dev = !$peek(self.dev) }

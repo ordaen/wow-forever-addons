@@ -16,8 +16,8 @@ private const PREFIX = "Ordaen "
 
 // A module's on and off: Left-click turns it on (it is made and drawn at once) or off (it is ended at once).
 public class ModuleSwitch implements Ordaen::Component {
-  private track = $computed((): Art => self.entry.on ? Ordaen::theme.ctl.switchOn : Ordaen::theme.ctl.switchOff)
-  private knob = $computed((): Art => self.entry.on ? Ordaen::theme.ctl.knobOn : Ordaen::theme.ctl.knobOff)
+  private track = $computed((): Art => self.entry.on ? Ordaen::art.ctl.switchOn : Ordaen::art.ctl.switchOff)
+  private knob = $computed((): Art => self.entry.on ? Ordaen::art.ctl.knobOn : Ordaen::art.ctl.knobOff)
   private knobLeft = $computed((): number => self.entry.on ? KNOB_ON : KNOB_OFF)
 
   $constructor(private entry: Ordaen::Entry) {}

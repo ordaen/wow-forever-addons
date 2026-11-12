@@ -1,0 +1,53 @@
+// The presets as the design site reads them: one line of JSON each, the snapshot of this test. The presets are
+// written once, in look.luna; the site reads this snapshot (`design/.vitepress/theme/themes.js` in wow-dev-tools),
+// and the suite fails where the two part.
+import { Color } from "$ltml"
+import String from "$string"
+import Test from "$test"
+import Ordaen from "Ordaen"
+
+private function color(c: Color): string {
+  return String::format("[%g, %g, %g]", c.r, c.g, c.b)
+}
+
+private function text(key: string, value: string): string {
+  return `"${key}": "${value}"`
+}
+
+private function hue(key: string, value: Ordaen::Hue): string {
+  return text(key, `${value}`)
+}
+
+private function paint(key: string, value: Color): string {
+  return `"${key}": ${color(value)}`
+}
+
+private function json(name: Ordaen::Preset): string {
+  let l = Ordaen::preset(name)
+  let entries = [
+    text("font", `${l.font}`), text("fontHeader", `${l.fontHeader}`), text("fontNumbers", `${l.fontNumbers}`),
+    paint("accent", l.accent), text("barTexture", `${l.barTexture}`), text("xpFill", `${l.xpFill}`),
+    text("barFrame", `${l.barFrame}`), text("anim", `${l.animation}`),
+    paint("palette.red", l.red), paint("palette.redText", l.redText),
+    paint("palette.orange", l.orange), paint("palette.orangeText", l.orangeText),
+    paint("palette.yellow", l.yellow), paint("palette.yellowText", l.yellowText),
+    paint("palette.green", l.green), paint("palette.greenText", l.greenText),
+    paint("palette.cyan", l.cyan), paint("palette.cyanText", l.cyanText),
+    paint("palette.blue", l.blue), paint("palette.blueText", l.blueText),
+    paint("palette.violet", l.violet), paint("palette.violetText", l.violetText),
+    paint("palette.pink", l.pink), paint("palette.pinkText", l.pinkText),
+    paint("palette.tan", l.tan), paint("palette.tanText", l.tanText),
+    paint("palette.white", l.white), paint("palette.whiteText", l.whiteText),
+    paint("palette.grey", l.grey), paint("palette.greyText", l.greyText),
+    hue("class.WARRIOR", l.warrior), hue("class.PALADIN", l.paladin), hue("class.HUNTER", l.hunter),
+    hue("class.ROGUE", l.rogue), hue("class.PRIEST", l.priest), hue("class.SHAMAN", l.shaman),
+    hue("class.MAGE", l.mage), hue("class.WARLOCK", l.warlock), hue("class.DRUID", l.druid),
+  ]
+  let mut values = ""
+  for (i, entry of entries) { values += (i > 1 ? ", " : "") + entry }
+  return `{"id": "${name}", "values": {${values}}}`
+}
+
+test "the presets, as the design site reads them" {
+  for (name of Ordaen::PRESETS) { Test::note(json(name)) }
+}

@@ -1,0 +1,53 @@
+// The look's page: a preset chosen writes every entry of the draft, a colour changed after it is a draft that
+// differs, and «Save» and «Roll back» treat them as any other setting.
+import Game from "$game"
+import Test from "$test"
+import Ordaen from "Ordaen"
+import { LookPage } from "@/look"
+
+// The middle of the accent's swatch.
+private const ACCENT: Test::Point = { x: 266.67, y: 559.83 }
+
+private function presetNow(look: Ordaen::Look): string {
+  let preset = Ordaen::presetOf(look)
+  if (preset == nil) { return "none" }
+  return `${preset}`
+}
+
+private function state(): string {
+  Test::flush()
+  let file = Ordaen::lookArt.fontNumbers
+  let font = file is string ? file : "a piece"
+  return `unsaved ${Ordaen::unsaved}; the draft's preset ${presetNow(Ordaen::look.draft)}, the values' ${presetNow(Ordaen::look.values)}; numbers drawn with ${font}`
+}
+
+test "a preset is chosen whole, a colour changed after it, saved and rolled back" {
+  let mut page = new LookPage(mut Ordaen::look)
+  Test::mount(page, { left: 0, top: 0, width: 800, height: 2600 })
+  Test::note(state())
+  Test::shot("Ordaen's preset in use")
+
+  // The first «Use» is Blizzard's: the presets are listed Ordaen, Blizzard, Minimal.
+  Test::click(Test::holding("Use", nil), nil)
+  Test::note(state())
+
+  // The colour the accent already has, picked again: nothing differs.
+  Test::click(ACCENT, nil)
+  Game::ColorPicker::picked.emit({ ticket: 1, color: { r: 1, g: 0.82, b: 0, a: 1 } })
+  Test::note(state())
+
+  Test::click(ACCENT, nil)
+  Game::ColorPicker::picked.emit({ ticket: 2, color: { r: 0, g: 0.5, b: 1, a: 1 } })
+  Test::note(state())
+  Test::shot("Blizzard chosen, then its accent changed: no preset is the draft")
+
+  Ordaen::saveAll()
+  Test::note(state())
+
+  Ordaen::rollbackAll()
+  Test::note(state())
+  Test::shot("rolled back: Ordaen's again")
+
+  destroy page
+  $expect(Test::blank())
+}

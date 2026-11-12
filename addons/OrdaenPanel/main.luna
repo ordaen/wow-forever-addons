@@ -89,10 +89,10 @@ public class ZoneBox implements Ordaen::Component {
 
   public render(): Template {
     return $ltml {
-      <box columns={self.columns} rows={self.rows} gap={Ordaen::theme.spacing.md} xAlign={self.along}
+      <box columns={self.columns} rows={self.rows} gap={Ordaen::art.spacing.md} xAlign={self.along}
            yAlign={self.across}>
         <$if={self.micro}>
-          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={Ordaen::theme.spacing.md}
+          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={Ordaen::art.spacing.md}
                yAlign={Align::Center}>
             <box width={PORTRAIT_WIDTH} height={1} />
             <MicroLine gold={self.panel.goldIcons} faced={false} />
@@ -245,7 +245,7 @@ public class Panel implements Ordaen::Module {
       <frame of={Game::Frames::BackpackFreeSlots} shown={false} />
 
       <surface $if={self.drawn} layer={Layer::Screen} place={self.place} width={self.width} height={self.height}
-               background={Ordaen::theme.panel.wood} border={Ordaen::theme.panel.edge} padding={EDGE_ROOM}
+               background={Ordaen::art.panel.wood} border={Ordaen::art.panel.edge} padding={EDGE_ROOM}
                columns={self.columns} rows={self.rows} xAlign={self.along} yAlign={self.across}
                opacity={self.opacity} hoverWithin={true}
                @enter={self.onEnter} @leave={self.onLeave}>
@@ -256,40 +256,40 @@ public class Panel implements Ordaen::Module {
       // The portrait: the player's face in the corner's shape, the level on a badge on its rim, and the
       // character's button of the game's unseen over all of it.
       <surface $if={self.cornered} layer={Layer::Screen} place={CORNER} width={PORTRAIT_WIDTH}
-               height={PORTRAIT_HEIGHT} portrait={"player"} mask={Ordaen::theme.panel.corner}>
+               height={PORTRAIT_HEIGHT} portrait={"player"} mask={Ordaen::art.panel.corner}>
         <embed frame={Game::Frames::CharacterMicroButton} position={Position::Absolute} left={0} top={0}
                width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
         <box position={Position::Absolute} left={86.7} top={5.3} width={36} height={36}
-             background={Ordaen::theme.panel.badge} xAlign={Align::Center} yAlign={Align::Center}>
+             background={Ordaen::art.panel.badge} xAlign={Align::Center} yAlign={Align::Center}>
           <text value={"%d"} arguments={[Game::Player::level]} textColor={GOLD} textSize={14} wrap={false} />
         </box>
       </surface>
 
       <Ordaen::Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale::PANEL_MICROMENU} home={MICRO_HOME}>
-        <box background={Ordaen::theme.window.wood} border={Ordaen::theme.frame.small} padding={Ordaen::theme.spacing.sm}>
+        <box background={Ordaen::art.window.wood} border={Ordaen::art.frame.small} padding={Ordaen::art.spacing.sm}>
           <MicroLine gold={self.goldIcons} />
         </box>
       </Ordaen::Placed>
       <Ordaen::Placed $if={self.freeSocial} id={"OrdaenPanel.social"} title={Locale::PANEL_SOCIAL} home={SOCIAL_HOME}>
-        <box background={Ordaen::theme.window.wood} border={Ordaen::theme.frame.small} padding={Ordaen::theme.spacing.sm}>
+        <box background={Ordaen::art.window.wood} border={Ordaen::art.frame.small} padding={Ordaen::art.spacing.sm}>
           <SocialLine gold={self.goldIcons} />
         </box>
       </Ordaen::Placed>
       <Ordaen::Placed $if={self.freeExperience} id={"OrdaenPanel.experience"} title={Locale::PANEL_EXPERIENCE}
                       home={EXPERIENCE_HOME}>
-        <box width={600} background={Ordaen::theme.window.wood} border={Ordaen::theme.frame.small}
-             padding={Ordaen::theme.spacing.sm}>
+        <box width={600} background={Ordaen::art.window.wood} border={Ordaen::art.frame.small}
+             padding={Ordaen::art.spacing.sm}>
           <XpBar both={true} />
         </box>
       </Ordaen::Placed>
       <Ordaen::Placed $if={self.freeMoney} id={"OrdaenPanel.currencies"} title={Locale::PANEL_CURRENCIES}
                       home={MONEY_HOME}>
-        <box background={Ordaen::theme.window.wood} border={Ordaen::theme.frame.small} padding={Ordaen::theme.spacing.sm}>
+        <box background={Ordaen::art.window.wood} border={Ordaen::art.frame.small} padding={Ordaen::art.spacing.sm}>
           <MoneyLine outline={self.outline} shadow={self.shadow} />
         </box>
       </Ordaen::Placed>
       <Ordaen::Placed $if={self.freeBags} id={"OrdaenPanel.bags"} title={Locale::PANEL_BAGS} home={BAGS_HOME}>
-        <box background={Ordaen::theme.window.wood} border={Ordaen::theme.frame.small} padding={Ordaen::theme.spacing.sm}>
+        <box background={Ordaen::art.window.wood} border={Ordaen::art.frame.small} padding={Ordaen::art.spacing.sm}>
           <BagLine />
         </box>
       </Ordaen::Placed>

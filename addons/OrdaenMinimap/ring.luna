@@ -47,7 +47,7 @@ public class RingButton implements Ordaen::Component {
   private theirs = $computed((): Frame | nil => self.frameOf())
   private visible = $computed((): boolean => self.shownNow())
   private art = $computed((): Art =>
-    self.spec.id == RingId::Drawer && self.map.isDrawerOpen() ? Ordaen::theme.minimap.ringLit : Ordaen::theme.minimap.ring)
+    self.spec.id == RingId::Drawer && self.map.isDrawerOpen() ? Ordaen::art.minimap.ringLit : Ordaen::art.minimap.ring)
   private count = $computed((): string => String::of(self.map.holds()))
 
   $constructor(private const spec: RingSpec, private mut map: Minimap) {}
@@ -118,9 +118,9 @@ public class RingButton implements Ordaen::Component {
              @click={self.onClick} @dragStart={self.onDragStart} @drag={self.onDrag} @dragStop={self.onDragStop}
              @enter={self.onEnter} @leave={self.onLeave}>
           <box $if={self.spec.id == RingId::Ordaen} width={22 * PX} height={22 * PX} icon={Ordaen::icon}
-               mask={Ordaen::theme.panel.faceRound} />
+               mask={Ordaen::art.panel.faceRound} />
           <text $elseif={self.spec.id == RingId::Drawer} value={self.count} textColor={GOLD} textSize={14 * PX}
-                textFamily={Ordaen::theme.font.numbers} textShadow={COUNT_SHADOW} wrap={false} />
+                textFamily={Ordaen::lookArt.fontNumbers} textShadow={COUNT_SHADOW} wrap={false} />
           <box $elseif={self.spec.glyph != nil} width={self.spec.glyphWidth} height={self.spec.glyphHeight}
                background={self.spec.glyph} />
         </box>

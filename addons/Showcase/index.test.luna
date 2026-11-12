@@ -17,10 +17,10 @@ test "every control of the library answers the mouse and the keyboard" {
   Test::moveTo(Test::holding("Button drawer", nil))
   Test::shot("the cursor on the switch's label: its hint in a tip")
 
-  Test::click(Test::painted("theme/ctl.switchOff", nil), nil)
+  Test::click(Test::painted("art/ctl.switchOff", nil), nil)
   Test::shot("the switch clicked: on, both switches follow the one setting, the dropdown's row no longer greyed")
 
-  Test::click(Test::painted("theme/ctl.button", nil), nil)
+  Test::click(Test::painted("art/ctl.button", nil), nil)
   Test::shot("the dropdown's plate clicked: the menu under it, the picked choice's mark lit")
 
   Test::moveTo(Test::holding("In combat", nil))
@@ -29,20 +29,20 @@ test "every control of the library answers the mouse and the keyboard" {
   Test::click({ x: 700, y: 550 }, nil)
   Test::shot("a click elsewhere: the menu closed, nothing picked")
 
-  Test::click(Test::painted("theme/ctl.button", nil), nil)
+  Test::click(Test::painted("art/ctl.button", nil), nil)
   Test::click(Test::holding("On a mount — in development", nil), nil)
   Test::shot("opened again and a choice not built yet clicked: nothing happens")
 
   Test::click(Test::holding("In combat", nil), nil)
   Test::shot("a choice clicked: picked, the menu closed, the plate shows it")
 
-  Test::click(Test::painted("theme/ctl.switchOn", 2), nil)
+  Test::click(Test::painted("art/ctl.switchOn", 2), nil)
   Test::shot("the bare switch clicked: off again")
 
-  Test::click(Test::painted("theme/ctl.button", nil), nil)
+  Test::click(Test::painted("art/ctl.button", nil), nil)
   Test::shot("the dropdown's plate clicked while its row is disabled: it stays shut")
 
-  Test::click(Test::painted("theme/ctl.switchOff", nil), nil)
+  Test::click(Test::painted("art/ctl.switchOff", nil), nil)
   Test::click(Test::field(nil), nil)
   Test::type("The long drawer of things")
   Test::shot("the drawer on again, its name's field clicked and typed into: twelve characters taken, the text under it follows")

@@ -39,7 +39,7 @@ public class Tube implements Ordaen::Component {
     return $ltml {
       <box height={TUBE_HEIGHT}>
         <box position={Position::Absolute} left={0} top={0} right={0} bottom={0}
-             background={Ordaen::theme.panel.xpTrough} />
+             background={Ordaen::art.panel.xpTrough} />
         <box position={Position::Absolute} left={INSET} top={INSET} right={INSET} bottom={INSET}>
           <box position={Position::Absolute} left={0} top={0} bottom={0} width={self.behind} background={RESTED} />
           <box position={Position::Absolute} left={0} top={0} bottom={0} width={self.share}
@@ -50,9 +50,9 @@ public class Tube implements Ordaen::Component {
           </box>
         </box>
         <box position={Position::Absolute} left={0} top={0} right={0} bottom={0}
-             background={Ordaen::theme.panel.xpShine} />
+             background={Ordaen::art.panel.xpShine} />
         <box position={Position::Absolute} left={0} top={0} right={0} bottom={0}
-             background={Ordaen::theme.panel.xpTube} />
+             background={Ordaen::art.panel.xpTube} />
         <box position={Position::Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align::Center}
              yAlign={Align::Center}>
           <text value={self.label} textSize={12.5} textColor={LABEL} textOutline={1} textShadow={LABEL_SHADOW}
@@ -97,9 +97,9 @@ public class XpBar implements Ordaen::Component {
   public render(): Template {
     return $ltml {
       <box minWidth={LEAST} padding={MARGINS} yAlign={Align::Center} gap={6 / 1.2}>
-        <Tube $if={self.leveling} fill={Ordaen::theme.panel.xpFill} share={self.xpShare} behind={self.restedShare}
+        <Tube $if={self.leveling} fill={Ordaen::lookArt.xpFill} share={self.xpShare} behind={self.restedShare}
               label={self.xpLabel} />
-        <Tube $if={self.showsReputation} fill={Ordaen::theme.panel.xpSteel} share={self.reputationShare}
+        <Tube $if={self.showsReputation} fill={Ordaen::art.panel.xpSteel} share={self.reputationShare}
               label={self.reputationLabel} />
       </box>
     }

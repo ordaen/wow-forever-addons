@@ -36,7 +36,7 @@ private const LIGHT: Stated<Color> = { default: CLEAR, hover: $color("#d6a56b2e"
 public class DropdownItem<T implements unknown> implements Ordaen::Component {
   public pick: Event<T> = $event()
 
-  private mark = $computed((): Art => self.value == self.choice.value ? Ordaen::theme.ctl.radioOn : Ordaen::theme.ctl.radio)
+  private mark = $computed((): Art => self.value == self.choice.value ? Ordaen::art.ctl.radioOn : Ordaen::art.ctl.radio)
   private text = $computed((): string => self.choice.soon == true ? self.choice.label + " — " + Locale::SOON : self.choice.label)
   private color = $computed((): Color => self.choice.soon == true ? DIM : WHITE)
   private light = $computed((): Color | Stated<Color> => self.choice.soon == true ? CLEAR : LIGHT)
@@ -97,9 +97,9 @@ public class Dropdown<T implements unknown> implements Ordaen::Component {
         <box width={WIDTH} height={HEIGHT}>
           <box position={Position::Absolute} left={0} top={0} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
                columns={[{ fr: 1 }, 16 * PX]} gap={10 * PX} yAlign={Align::Center}
-               background={Ordaen::theme.ctl.button} @click={self.toggle}>
+               background={Ordaen::art.ctl.button} @click={self.toggle}>
             <text value={self.shown} textColor={GOLD} textSize={TEXT} textShadow={BOLD} wrap={false} />
-            <box width={16 * PX} height={16 * PX} background={Ordaen::theme.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
+            <box width={16 * PX} height={16 * PX} background={Ordaen::art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
           <box $if={self.open} position={Position::Absolute} left={0} top={38 * PX} width={WIDTH + 20 * PX}
                zLevel={50} background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}

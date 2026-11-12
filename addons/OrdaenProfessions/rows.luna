@@ -56,9 +56,9 @@ public class CategoryRow implements Ordaen::Component {
               textShadow={Style::SHADOW} />
         <box columns={["auto", "auto"]} gap={3 * PX} yAlign={Align::Center}>
           <text value={"%d"} arguments={[self.total]} textSize={Style::SMALL} textColor={Style::DIM} wrap={false}
-                textFamily={Ordaen::theme.font.numbers} />
+                textFamily={Ordaen::lookArt.fontNumbers} />
           <text value={"(%d)"} arguments={[self.makeable]} textSize={Style::SMALL} textColor={self.makeableColor}
-                wrap={false} textFamily={Ordaen::theme.font.numbers} />
+                wrap={false} textFamily={Ordaen::lookArt.fontNumbers} />
         </box>
       </box>
     }
@@ -97,7 +97,7 @@ public class RecipeRow implements Ordaen::Component {
         <text value={self.recipe.name} textSize={Style::RECIPE_TEXT} textColor={self.color}
               textShadow={Style::SHADOW} wrap={false} />
         <text value={self.count} textSize={Style::SMALL} textColor={Style::WHITE} wrap={false}
-              textFamily={Ordaen::theme.font.numbers} />
+              textFamily={Ordaen::lookArt.fontNumbers} />
       </box>
     }
   }
@@ -120,7 +120,7 @@ public class ReagentRow implements Ordaen::Component {
         <box width={SLOT} height={SLOT} border={Style::BRONZE} icon={self.icon} />
         <text value={self.reagent.name} textSize={Style::RECIPE_TEXT} textColor={Style::INK} />
         <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} textSize={Style::RECIPE_TEXT}
-              wrap={false} textColor={self.color} textFamily={Ordaen::theme.font.numbers} />
+              wrap={false} textColor={self.color} textFamily={Ordaen::lookArt.fontNumbers} />
       </box>
     }
   }

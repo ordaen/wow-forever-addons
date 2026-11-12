@@ -4,10 +4,16 @@ import { Anchored, Art } from "$ltml"
 import { Globals } from "@/globals"
 import { Entry, Module } from "@/module"
 import { Settings } from "@/settings"
-import { Theme } from "@/theme"
+import { Artwork } from "@/art"
+import { Look, LookArt } from "@/look"
 
-// The theme everything Ordaen draws with.
-public theme: Reactive<Theme>
+// The art everything Ordaen draws with, whatever the player chooses.
+public art: Reactive<Artwork>
+// What the player chooses of the look: fonts, colours, bars. Read `look.values`; the settings window writes the
+// draft, a preset all of it at once (`choose`).
+public mut look: Settings<Look>
+// The files the look's values pick (its fonts, its bars' fills): what a module draws them with.
+public lookArt: Reactive<LookArt>
 
 // Ordaen's own name and icon, as its button and its window show them.
 public icon: Art

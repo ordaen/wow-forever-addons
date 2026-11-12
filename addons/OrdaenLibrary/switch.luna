@@ -16,8 +16,8 @@ private const KNOB_OFF = (3 - 6) * PX
 private const KNOB_ON = (21 - 6) * PX
 
 public class Toggle implements Ordaen::Component {
-  private track = $computed((): Art => self.value ? Ordaen::theme.ctl.switchOn : Ordaen::theme.ctl.switchOff)
-  private knob = $computed((): Art => self.value ? Ordaen::theme.ctl.knobOn : Ordaen::theme.ctl.knobOff)
+  private track = $computed((): Art => self.value ? Ordaen::art.ctl.switchOn : Ordaen::art.ctl.switchOff)
+  private knob = $computed((): Art => self.value ? Ordaen::art.ctl.knobOn : Ordaen::art.ctl.knobOff)
   private knobLeft = $computed((): number => self.value ? KNOB_ON : KNOB_OFF)
 
   $constructor(

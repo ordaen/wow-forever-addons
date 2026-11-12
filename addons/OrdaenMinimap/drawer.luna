@@ -22,7 +22,7 @@ public class DrawerEntry implements Ordaen::Component {
   public render(): Template {
     return $ltml {
       <box width={CELL} height={CELL} xAlign={Align::Center} yAlign={Align::Center}
-           border={Ordaen::theme.panel.slotEdge} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+           border={Ordaen::art.panel.slotEdge} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
         <box width={ICON} height={ICON} background={self.icon} />
       </box>
     }

@@ -9,15 +9,16 @@ import { Dialog, ListTab, Placing, PushButton, PX, Tabs, Window, WindowTabSpec }
 import Locale from "@/locales"
 import { ModuleRow } from "@/moduleRow"
 import { BehaviourPage, NumbersPage, ScalePage } from "@/general"
+import { LookPage } from "@/look"
 
 // The window's body at first, and the smallest it resizes to: the list, a row and the foot fit.
 private const WIDTH = 1160 * PX
 private const HEIGHT = 700 * PX
 private const MIN_WIDTH = 900 * PX
 private const MIN_HEIGHT = 480 * PX
-// The pages that aren't a module's: Ordaen's own, and the themes.
+// The pages that aren't a module's: Ordaen's own, and its look.
 private const GENERAL = ""
-private const THEMES = "themes"
+private const LOOK = "look"
 
 // The question on closing with unsaved changes: as wide as its three buttons, the room round them and its frame.
 private const CONFIRM_WIDTH = 484 * PX
@@ -45,7 +46,7 @@ public class Settings implements Ordaen::Module {
   ]
 
   private mut open = $reactive(false)
-  // The page shown: Ordaen's own, the themes, or a module's folder; and its tab.
+  // The page shown: Ordaen's own, its look, or a module's folder; and its tab.
   private mut page = $reactive(GENERAL)
   private mut tab = $reactive(1)
   // Asking about unsaved changes.
@@ -57,7 +58,7 @@ public class Settings implements Ordaen::Module {
   private const nothing: Template = $ltml {}
   private heading = $computed((): string => String::upper(Locale::LIST_MODULES))
   private onGeneral = $computed((): boolean => self.page == GENERAL)
-  private onThemes = $computed((): boolean => self.page == THEMES)
+  private onLook = $computed((): boolean => self.page == LOOK)
   // The module whose page is shown, where it is a module's.
   private entry = $computed((): Ordaen::Entry | nil => self.entryOf())
   private isOff = $computed((): boolean => self.offNow())
@@ -125,7 +126,7 @@ public class Settings implements Ordaen::Module {
   }
 
   private mut pickGeneral() { self.show(GENERAL) }
-  private mut pickThemes() { self.show(THEMES) }
+  private mut pickLook() { self.show(LOOK) }
   private mut onPick(folder: string) { self.show(folder) }
 
   // Closing asks first while anything is unsaved.
@@ -162,10 +163,10 @@ public class Settings implements Ordaen::Module {
           <box columns={1}>
             <ListTab label={Locale::LIST_GLOBAL} icon={Ordaen::icon} selected={self.onGeneral}
                      @pick={self.pickGeneral} />
-            <ListTab label={Locale::LIST_THEMES} icon={Ordaen::icon} selected={self.onThemes}
-                     @pick={self.pickThemes} />
+            <ListTab label={Locale::LIST_THEMES} icon={Ordaen::icon} selected={self.onLook}
+                     @pick={self.pickLook} />
             <box padding={HEADING}>
-              <text value={self.heading} textColor={DIM} textSize={12 * PX} textFamily={Ordaen::theme.font.numbers} />
+              <text value={self.heading} textColor={DIM} textSize={12 * PX} textFamily={Ordaen::lookArt.fontNumbers} />
             </box>
             <box columns={1}>
               <ModuleRow $for={entry of Ordaen::modules} entry={entry} shown={self.page} @pick={self.onPick} />
@@ -174,7 +175,7 @@ public class Settings implements Ordaen::Module {
           <box background={PAGE_BACK}>
             <box position={Position::Absolute} left={0} right={0} top={0} bottom={ROWS_BOTTOM}
                  padding={ROWS_PAD} columns={1} gap={14 * PX} overflow={Overflow::Scroll}>
-              <text $if={self.onThemes} value={Locale::LIST_THEMES} textColor={DIM} textSize={15 * PX} />
+              <LookPage $if={self.onLook} look={mut Ordaen::look} />
               <text $elseif={self.isOff} value={Locale::MODULE_OFF} textColor={DIM} textSize={15 * PX} />
               <$else>
                 <Tabs $if={self.hasTabs} tabs={self.names} selected={mut self.tab} />

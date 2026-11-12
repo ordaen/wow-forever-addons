@@ -1,0 +1,169 @@
+// The settings window's page of Ordaen's look: the presets, each a whole look chosen at once, then every entry of
+// the look (fonts, bars, animation, the accent and the palette, the class colours). Every row writes one entry of
+// the look's draft and a preset all of them, so «Save», leaving unsaved and «Roll back» treat both alike.
+import { Align, Color, Track } from "$ltml"
+import Ordaen from "Ordaen"
+import { Choice, ColorPicker, Dropdown, PushButton, PX, Section } from "OrdaenLibrary"
+import Locale from "@/locales"
+
+private const WHITE = $color("#ffffff")
+private const DIM = $color("#a3977f")
+private const IN_USE = $color("#a6e39a")
+private const PRESET_ROW: Array<Track> = [{ fr: 1 }, 150 * PX]
+
+private const FONTS: Array<Choice<Ordaen::Font>> = [
+  { value: Ordaen::Font::FiraSans, label: Locale::THEME_FONT_FIRASANS },
+  { value: Ordaen::Font::AlegreyaSans, label: Locale::THEME_FONT_ALEGREYASANS },
+  { value: Ordaen::Font::PtSans, label: Locale::THEME_FONT_PTSANS },
+  { value: Ordaen::Font::Philosopher, label: Locale::THEME_FONT_PHILOSOPHER },
+  { value: Ordaen::Font::AlegreyaSC, label: Locale::THEME_FONT_ALEGREYASC },
+  { value: Ordaen::Font::Forum, label: Locale::THEME_FONT_FORUM },
+  { value: Ordaen::Font::CormorantSC, label: Locale::THEME_FONT_CORMORANTSC },
+  { value: Ordaen::Font::FiraCondensed, label: Locale::THEME_FONT_FIRACONDENSED },
+  { value: Ordaen::Font::PtSansNarrow, label: Locale::THEME_FONT_PTSANSNARROW },
+  { value: Ordaen::Font::Friz, label: Locale::THEME_FONT_FRIZ },
+  { value: Ordaen::Font::ArialNarrow, label: Locale::THEME_FONT_ARIALNARROW },
+]
+private const BARS: Array<Choice<Ordaen::BarTexture>> = [
+  { value: Ordaen::BarTexture::Flat, label: Locale::THEME_BAR_FLAT },
+  { value: Ordaen::BarTexture::Blizzard, label: Locale::THEME_BAR_BLIZZARD },
+]
+private const FILLS: Array<Choice<Ordaen::XpFill>> = [
+  { value: Ordaen::XpFill::Deep, label: Locale::THEME_XPFILL_DEEP },
+  { value: Ordaen::XpFill::Grain, label: Locale::THEME_XPFILL_GRAIN },
+  { value: Ordaen::XpFill::Brushed, label: Locale::THEME_XPFILL_BRUSHED },
+  { value: Ordaen::XpFill::Potion, label: Locale::THEME_XPFILL_POTION },
+  { value: Ordaen::XpFill::Clouds, label: Locale::THEME_XPFILL_CLOUDS },
+  { value: Ordaen::XpFill::Steel, label: Locale::THEME_XPFILL_STEEL },
+]
+private const FRAMES: Array<Choice<Ordaen::BarFrame>> = [
+  { value: Ordaen::BarFrame::Bezel, label: Locale::THEME_BARFRAME_BEZEL },
+  { value: Ordaen::BarFrame::Groove, label: Locale::THEME_BARFRAME_GROOVE },
+]
+private const ANIMATIONS: Array<Choice<Ordaen::Animation>> = [
+  { value: Ordaen::Animation::Smooth, label: Locale::THEME_ANIM_SMOOTH },
+  { value: Ordaen::Animation::Fast, label: Locale::THEME_ANIM_FAST },
+  { value: Ordaen::Animation::Off, label: Locale::THEME_ANIM_OFF },
+]
+private const HUES: Array<Choice<Ordaen::Hue>> = [
+  { value: Ordaen::Hue::Red, label: Locale::THEME_PALETTECOLOR_RED },
+  { value: Ordaen::Hue::Orange, label: Locale::THEME_PALETTECOLOR_ORANGE },
+  { value: Ordaen::Hue::Yellow, label: Locale::THEME_PALETTECOLOR_YELLOW },
+  { value: Ordaen::Hue::Green, label: Locale::THEME_PALETTECOLOR_GREEN },
+  { value: Ordaen::Hue::Cyan, label: Locale::THEME_PALETTECOLOR_CYAN },
+  { value: Ordaen::Hue::Blue, label: Locale::THEME_PALETTECOLOR_BLUE },
+  { value: Ordaen::Hue::Violet, label: Locale::THEME_PALETTECOLOR_VIOLET },
+  { value: Ordaen::Hue::Pink, label: Locale::THEME_PALETTECOLOR_PINK },
+  { value: Ordaen::Hue::Tan, label: Locale::THEME_PALETTECOLOR_TAN },
+  { value: Ordaen::Hue::White, label: Locale::THEME_PALETTECOLOR_WHITE },
+  { value: Ordaen::Hue::Grey, label: Locale::THEME_PALETTECOLOR_GREY },
+]
+
+private function nameOf(preset: Ordaen::Preset): string {
+  switch (preset) {
+    case Ordaen::Preset::Ordaen: return Locale::THEME_NAME_ORDAEN
+    case Ordaen::Preset::Blizzard: return Locale::THEME_NAME_BLIZZARD
+    case Ordaen::Preset::Minimal: return Locale::THEME_NAME_MINIMAL
+  }
+}
+
+private function aboutOf(preset: Ordaen::Preset): string {
+  switch (preset) {
+    case Ordaen::Preset::Ordaen: return Locale::THEME_ABOUT_ORDAEN
+    case Ordaen::Preset::Blizzard: return Locale::THEME_ABOUT_BLIZZARD
+    case Ordaen::Preset::Minimal: return Locale::THEME_ABOUT_MINIMAL
+  }
+}
+
+// A preset: its name and what it is, and «Use», which writes the whole of it into the draft; «In use» where the
+// draft is that preset as it stands.
+public class PresetRow implements Ordaen::Component {
+  private inUse = $computed((): boolean => Ordaen::presetOf(self.look.draft) == self.preset)
+  private const name: string
+  private const about: string
+
+  $constructor(private const preset: Ordaen::Preset, private mut look: Ordaen::Settings<Ordaen::Look>) {
+    self.name = nameOf(preset)
+    self.about = aboutOf(preset)
+  }
+
+  private mut use() { self.look.choose(Ordaen::preset(self.preset)) }
+
+  public render(): Template {
+    return $ltml {
+      <box columns={PRESET_ROW} gap={12 * PX} yAlign={Align::Center}>
+        <box columns={1} gap={2 * PX}>
+          <text value={self.name} textColor={WHITE} textSize={15 * PX} wrap={false} />
+          <text value={self.about} textColor={DIM} textSize={13 * PX} />
+        </box>
+        <text $if={self.inUse} value={Locale::THEMES_IN_USE} textColor={IN_USE} textSize={13 * PX} wrap={false} />
+        <PushButton $else label={Locale::THEMES_USE} width={150 * PX} accent={true} @click={self.use} />
+      </box>
+    }
+  }
+}
+
+public class LookPage implements Ordaen::Component {
+  $constructor(private mut look: Ordaen::Settings<Ordaen::Look>) {}
+
+  public render(): Template {
+    return $ltml {
+      <box columns={1} gap={18 * PX}>
+        <Section title={Locale::LIST_THEMES}>
+          <PresetRow $for={preset of Ordaen::PRESETS} $key={preset} preset={preset} look={mut self.look} />
+        </Section>
+        <Section title={Locale::THEMES_FONTS}>
+          <Dropdown label={Locale::THEME_FONT} value={mut self.look.draft.font} choices={FONTS} />
+          <Dropdown label={Locale::THEME_FONTHEADER} value={mut self.look.draft.fontHeader} choices={FONTS} />
+          <Dropdown label={Locale::THEME_FONTNUMBERS} value={mut self.look.draft.fontNumbers} choices={FONTS} />
+        </Section>
+        <Section title={Locale::THEMES_TEXTURES}>
+          <Dropdown label={Locale::THEME_BARTEXTURE} hint={Locale::THEME_BARTEXTURE_TIP}
+                    value={mut self.look.draft.barTexture} choices={BARS} />
+          <Dropdown label={Locale::THEME_XPFILL} value={mut self.look.draft.xpFill} choices={FILLS} />
+          <Dropdown label={Locale::THEME_BARFRAME} value={mut self.look.draft.barFrame} choices={FRAMES} />
+        </Section>
+        <Section title={Locale::THEMES_ANIMATION}>
+          <Dropdown label={Locale::THEME_ANIM} hint={Locale::THEME_ANIM_TIP} value={mut self.look.draft.animation}
+                    choices={ANIMATIONS} />
+        </Section>
+        <Section title={Locale::THEMES_COLORS}>
+          <ColorPicker label={Locale::THEME_ACCENT} hint={Locale::THEME_ACCENT_TIP} value={mut self.look.draft.accent} />
+          <ColorPicker label={Locale::THEME_PALETTE_RED} value={mut self.look.draft.red} />
+          <ColorPicker label={Locale::THEME_PALETTE_REDTEXT} value={mut self.look.draft.redText} />
+          <ColorPicker label={Locale::THEME_PALETTE_ORANGE} value={mut self.look.draft.orange} />
+          <ColorPicker label={Locale::THEME_PALETTE_ORANGETEXT} value={mut self.look.draft.orangeText} />
+          <ColorPicker label={Locale::THEME_PALETTE_YELLOW} value={mut self.look.draft.yellow} />
+          <ColorPicker label={Locale::THEME_PALETTE_YELLOWTEXT} value={mut self.look.draft.yellowText} />
+          <ColorPicker label={Locale::THEME_PALETTE_GREEN} value={mut self.look.draft.green} />
+          <ColorPicker label={Locale::THEME_PALETTE_GREENTEXT} value={mut self.look.draft.greenText} />
+          <ColorPicker label={Locale::THEME_PALETTE_CYAN} value={mut self.look.draft.cyan} />
+          <ColorPicker label={Locale::THEME_PALETTE_CYANTEXT} value={mut self.look.draft.cyanText} />
+          <ColorPicker label={Locale::THEME_PALETTE_BLUE} value={mut self.look.draft.blue} />
+          <ColorPicker label={Locale::THEME_PALETTE_BLUETEXT} value={mut self.look.draft.blueText} />
+          <ColorPicker label={Locale::THEME_PALETTE_VIOLET} value={mut self.look.draft.violet} />
+          <ColorPicker label={Locale::THEME_PALETTE_VIOLETTEXT} value={mut self.look.draft.violetText} />
+          <ColorPicker label={Locale::THEME_PALETTE_PINK} value={mut self.look.draft.pink} />
+          <ColorPicker label={Locale::THEME_PALETTE_PINKTEXT} value={mut self.look.draft.pinkText} />
+          <ColorPicker label={Locale::THEME_PALETTE_TAN} value={mut self.look.draft.tan} />
+          <ColorPicker label={Locale::THEME_PALETTE_TANTEXT} value={mut self.look.draft.tanText} />
+          <ColorPicker label={Locale::THEME_PALETTE_WHITE} value={mut self.look.draft.white} />
+          <ColorPicker label={Locale::THEME_PALETTE_WHITETEXT} value={mut self.look.draft.whiteText} />
+          <ColorPicker label={Locale::THEME_PALETTE_GREY} value={mut self.look.draft.grey} />
+          <ColorPicker label={Locale::THEME_PALETTE_GREYTEXT} value={mut self.look.draft.greyText} />
+        </Section>
+        <Section title={Locale::THEMES_CLASS_COLORS}>
+          <Dropdown label={Locale::THEME_CLASS_WARRIOR} value={mut self.look.draft.warrior} choices={HUES} />
+          <Dropdown label={Locale::THEME_CLASS_PALADIN} value={mut self.look.draft.paladin} choices={HUES} />
+          <Dropdown label={Locale::THEME_CLASS_HUNTER} value={mut self.look.draft.hunter} choices={HUES} />
+          <Dropdown label={Locale::THEME_CLASS_ROGUE} value={mut self.look.draft.rogue} choices={HUES} />
+          <Dropdown label={Locale::THEME_CLASS_PRIEST} value={mut self.look.draft.priest} choices={HUES} />
+          <Dropdown label={Locale::THEME_CLASS_SHAMAN} value={mut self.look.draft.shaman} choices={HUES} />
+          <Dropdown label={Locale::THEME_CLASS_MAGE} value={mut self.look.draft.mage} choices={HUES} />
+          <Dropdown label={Locale::THEME_CLASS_WARLOCK} value={mut self.look.draft.warlock} choices={HUES} />
+          <Dropdown label={Locale::THEME_CLASS_DRUID} value={mut self.look.draft.druid} choices={HUES} />
+        </Section>
+      </box>
+    }
+  }
+}
