@@ -398,7 +398,7 @@ public class TipFrame implements Ordaen::Component {
   public render(): Template {
     return $ltml {
       <box width={"min"} minWidth={self.width} padding={12 * PX} border={Ordaen::art.frame.small}
-           background={Ordaen::art.window.wood}>
+           background={Ordaen::art.window.wood} textFamily={Ordaen::lookArt.font}>
         <box $if={self.hasHeader} height={35 * PX} gap={6 * PX}>
           <box xAlign={Align::Center}>
             <text value={self.header} textColor={HEADING} textSize={15 * PX} wrap={false} />
@@ -411,7 +411,8 @@ public class TipFrame implements Ordaen::Component {
             <box icon={self.icon} portrait={self.face} />
           </box>
           <box gap={2 * PX} yAlign={Align::Center}>
-            <text value={self.model.name} textColor={self.model.nameColor} textSize={18 * PX} wrap={false} />
+            <text value={self.model.name} textColor={self.model.nameColor} textSize={18 * PX} wrap={false}
+                  textFamily={Ordaen::lookArt.fontHeader} />
             <box $if={self.hasDesc} columns={self.descColumns} height={18 * PX} yAlign={Align::Center}>
               <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
                         locked={self.locked}>
