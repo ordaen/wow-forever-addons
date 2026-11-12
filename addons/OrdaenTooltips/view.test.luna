@@ -6,7 +6,7 @@ import Test from "$test"
 import { Kind, Model } from "@/model"
 import { Standing, TipGroup } from "@/view"
 
-private function titled(name: string, header: string | nil): Model {
+private function titled(name: string, header: string | nil): mut Model {
   return {
     kind: Kind::Item, header: header, name: name, nameColor: $color("#ffffff"), desc: [], info: [], facts: [],
     body: [], more: [], foot: [], keys: [],
