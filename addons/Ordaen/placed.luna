@@ -4,7 +4,7 @@
 // module says. Its unnamed slot takes what it holds.
 import { Align, Anchored, Click, Color, Drag, Layer, Line, MouseButton, Place, Position } from "$ltml"
 import { Component } from "@/module"
-import { moved, placing, putAt } from "@/core"
+import { lookArt, moved, placing, putAt } from "@/core"
 
 private const GOLD = $color("#ffd100")
 private const SHADE = $color("#00000073")
@@ -52,7 +52,7 @@ public class Placed implements Component {
 
   public render(): Template {
     return $ltml {
-      <surface layer={Layer::Screen} place={self.place} clamp={true}>
+      <surface layer={Layer::Screen} place={self.place} clamp={true} textFamily={lookArt.font}>
         <slot />
         <box $if={placing} position={Position::Absolute} left={0} top={0} right={0} bottom={0} zLevel={20}
              background={SHADE} border={OUTLINE} xAlign={Align::Center} yAlign={Align::Center}
