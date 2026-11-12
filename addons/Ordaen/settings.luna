@@ -5,6 +5,37 @@ import Drafts from "@/drafts"
 // Whose the choices are: the account's, or each character's own.
 public enum Scope { Account = "account", Character = "character" }
 
+// Whether a default entry is a struct of numbers alone (a colour's r, g, b, a), and the kept one lacks one of them.
+private function broken(kept: unknown, like: Map<unknown, unknown>): boolean {
+  let mut any = false
+  for (_, entry of like) {
+    if (!(entry is number)) { return false }
+    any = true
+  }
+  if (!any) { return false }
+  if (!(kept is table)) { return true }
+  for (key, _ of like) {
+    if (!(kept[key] is number)) { return true }
+  }
+  return false
+}
+
+// What was kept, with each entry that isn't what its default is put back to the default: a colour without its
+// fields. The runtime takes an entry by its Lua kind; whether an enum's text is one of its members is the runtime's
+// to know (lunatype's next/language.md).
+private function restore<S implements unknown>(character: boolean, name: string, defaults: S): mut S {
+  let mut kept = Runtime::restored(character, name, defaults)
+  mend(mut kept, defaults)
+  return kept
+}
+
+private function mend(mut kept: unknown, defaults: unknown) {
+  if (!(kept is table) || !(defaults is table)) { return }
+  for (key, entry of defaults) {
+    if (key is string && entry is table && broken(kept[key], entry)) { kept[key] = Runtime::copy(entry) }
+  }
+}
+
 // A module's settings: a struct `S` of what the player chooses, with the defaults it starts from.
 //
 // The module reads `values` (`settings.scale` reads an entry of it and follows it). The settings page writes
@@ -30,7 +61,7 @@ public class Settings<S implements unknown> {
     self.scope = scope
     self.name = Drafts::nameNow()
     let name = self.name
-    let start = name != nil ? Runtime::restored(scope == Scope::Character, name, defaults) : Runtime::copy(defaults)
+    let start = name != nil ? restore(scope == Scope::Character, name, defaults) : Runtime::copy(defaults)
     self.draft = $reactive(Runtime::copy(start))
     self.values = $reactive(start)
     self.id = Drafts::join()
@@ -110,7 +141,7 @@ public class Memory<S implements unknown> {
     let name = Drafts::nameNow()
     self.name = name != nil ? name + ":memory" : nil
     let kept = self.name
-    self.values = $reactive(kept != nil ? Runtime::restored(scope == Scope::Character, kept, defaults) : Runtime::copy(defaults))
+    self.values = $reactive(kept != nil ? restore(scope == Scope::Character, kept, defaults) : Runtime::copy(defaults))
     $watch(self.keep)
   }
 

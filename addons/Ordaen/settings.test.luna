@@ -1,0 +1,37 @@
+// Settings restored from what was kept: an entry that isn't what its default is takes the default's value.
+import { Color } from "$ltml"
+import Runtime from "$runtime"
+import String from "$string"
+import Test from "$test"
+import Drafts from "@/drafts"
+import { Look, preset, Preset } from "@/look"
+import { Scope, Settings } from "@/settings"
+
+// A colour that lost its fields.
+private struct Partial {
+  r: number
+}
+
+// What saved data may hold where the look was kept: the accent without its green, blue and alpha, the red a string,
+// the text's colour whole.
+private struct Damaged {
+  accent: Partial
+  red: string
+  redText: Color
+}
+
+private function color(c: Color): string {
+  return String::format("%g, %g, %g, %g", c.r, c.g, c.b, c.a)
+}
+
+test "a kept colour without its fields is the default's" {
+  Runtime::store(false, "Probe", Damaged { accent: { r: 0.1 }, red: "red", redText: { r: 0.5, g: 0.25, b: 0, a: 1 } })
+  Drafts::naming("Probe")
+  let mut look = new Settings<Look>(preset(Preset::Ordaen), Scope::Account)
+  Drafts::naming(nil)
+  Test::note(`accent: ${color(look.values.accent)}`)
+  Test::note(`red: ${color(look.values.red)}`)
+  Test::note(`red's text, kept whole: ${color(look.values.redText)}`)
+  Test::note(`the draft's accent: ${color(look.draft.accent)}`)
+  destroy look
+}
