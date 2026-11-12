@@ -153,15 +153,17 @@ public function hueColor(look: Look, hue: Hue): Color {
 }
 
 // The files a look picks, as what draws them takes them: read through `Ordaen::lookArt`, worked out once a save.
+// A font that is nil is the client's own text font, the one for the client's language (Cyrillic on ruRU): a
+// text with no family is drawn in it.
 public struct LookArt {
-  font: Art
-  fontHeader: Art
-  fontNumbers: Art
+  font: Art | nil
+  fontHeader: Art | nil
+  fontNumbers: Art | nil
   bar: Art
   xpFill: Art
 }
 
-public function fontFile(font: Font): Art {
+public function fontFile(font: Font): Art | nil {
   switch (font) {
     case Font::FiraSans: return $asset("@/media/fonts/FiraSans-Regular.ttf")
     case Font::AlegreyaSans: return $asset("@/media/fonts/AlegreyaSans-Regular.ttf")
@@ -172,7 +174,7 @@ public function fontFile(font: Font): Art {
     case Font::CormorantSC: return $asset("@/media/fonts/CormorantSC-SemiBold.ttf")
     case Font::FiraCondensed: return $asset("@/media/fonts/FiraSansCondensed-Medium.ttf")
     case Font::PtSansNarrow: return $asset("@/media/fonts/PTSansNarrow-Regular.ttf")
-    case Font::Friz: return "Fonts\\FRIZQT__.TTF"
+    case Font::Friz: return nil
     case Font::ArialNarrow: return "Fonts\\ARIALN.TTF"
   }
 }
