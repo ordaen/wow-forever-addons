@@ -1,0 +1,64 @@
+// Ordaen Tooltips' group on the stand-in client: the main tooltip at a frame of the game's, the ones beside it, the
+// compared ones, on either edge of the frame and on either side of it.
+import Client from "$client"
+import { Frame } from "$ltml"
+import Test from "$test"
+import { Kind, Model } from "@/model"
+import { Standing, TipGroup } from "@/view"
+
+private function titled(name: string, header: string | nil): Model {
+  return {
+    kind: Kind::Item, header: header, name: name, nameColor: $color("#ffffff"), desc: [], info: [], facts: [],
+    body: [], more: [], foot: [], keys: [],
+  }
+}
+
+// What the group is given, as its owner would hold it.
+private class Stage {
+  public mut model: Reactive<Model> = $reactive(titled("Axe", nil))
+  public mut sides: Reactive<Array<Model>> = $reactive([])
+  public mut compared: Reactive<Array<Model>> = $reactive([])
+  public mut standing: Reactive<Standing>
+  public mut shown: Reactive<boolean> = $reactive(true)
+
+  $constructor(owner: Frame) {
+    self.standing = $reactive({ by: owner, below: true, right: false })
+  }
+
+  public render(): Template {
+    return $ltml {
+      <TipGroup model={self.model} sides={self.sides} compared={self.compared} standing={self.standing}
+                shown={self.shown} />
+    }
+  }
+}
+
+test "the group stands at its owner, the others beside and compared" {
+  // What the tooltip explains: a button of the game's, in the screen's middle.
+  let ui = Client::C_UI::GetUIParent()
+  let owner = Client::CreateFrame("Button", "TipOwner", ui, nil)
+  owner.SetSize(40, 40)
+  owner.SetPoint("TOPLEFT", ui, "TOPLEFT", 800, -400)
+
+  let mut stage = new Stage(owner)
+  Test::mount(stage, { left: 100, top: 50, width: 700, height: 600 })
+  Test::shot("the tooltip alone, under its owner, on the owner's left edge")
+
+  stage.sides = [titled("Use: heals", nil), titled("Set: Deep Woods", nil)]
+  Test::shot("two open beside it from the start: one column to its right, tops lined up")
+
+  stage.compared = [titled("Sword", "Equipped")]
+  Test::shot("compared with the worn item: the main tooltip lowered by the header's height, so the titles line up")
+
+  stage.standing = { by: owner, below: false, right: true }
+  Test::shot("above the owner, on its right edge: the row runs leftwards, the main tooltip still at the owner")
+
+  stage.compared = []
+  Test::shot("the comparison gone: the bottoms line up on the owner's top")
+
+  stage.shown = false
+  Test::shot("hidden: nothing is drawn")
+
+  destroy stage
+  $expect(Test::blank())
+}

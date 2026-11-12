@@ -1,0 +1,104 @@
+// Ordaen Tooltips' frame on the stand-in client, from models as the reader makes them: an item with every section, a
+// sign that is a title alone, a spell with its description, a unit with its face.
+import { Align, Color } from "$ltml"
+import Test from "$test"
+import { TipFrame } from "@/frame"
+import { Kind, Model, Picture } from "@/model"
+
+private const EPIC: Color = { r: 0.64, g: 0.21, b: 0.93, a: 1 }
+private const GREEN: Color = { r: 0.12, g: 1, b: 0, a: 1 }
+private const RED: Color = { r: 1, g: 0.25, b: 0.25, a: 1 }
+private const GOLD: Color = { r: 1, g: 0.82, b: 0, a: 1 }
+private const BLUE: Color = { r: 0.3, g: 0.6, b: 1, a: 1 }
+
+private function item(): mut Model {
+  return {
+    kind: Kind::Item, header: "Equipped", picture: Picture::Icon { art: "icons/axe" }, name: "Axe of the Deep Woods",
+    nameColor: EPIC,
+    desc: [{ text: "Two-handed" }, { text: "Axe" }, { text: "Soulbound", color: GOLD }],
+    info: [{ text: "Item level 62" }],
+    facts: [
+      { text: "78.3", glyph: "glyphs/dps" }, { text: "3.40", glyph: "glyphs/speed" },
+      { text: "120 / 120", glyph: "glyphs/durability", color: GREEN },
+    ],
+    body: [
+      { left: "Damage", right: "216 - 325" },
+      { left: "Strength", right: "+21", rightColor: GREEN },
+      { left: "Chance on hit: Blasts a target for 90 to 126 Nature damage.", color: GREEN },
+      { left: "Stamina", right: "+12" },
+    ],
+    more: [{ left: "Dropped by: Kirtonos the Herald", right: "2%" }],
+    foot: [
+      { left: "Requires", right: "Level 57" }, { left: "Sell price", right: "5g 12s" },
+      { left: "Can't be used in an arena", valueColor: RED },
+    ],
+    keys: ["Shift-click: link in chat"],
+  }
+}
+
+private function sign(): mut Model {
+  return {
+    kind: Kind::Text, name: "Mailbox", nameColor: { r: 1, g: 1, b: 1, a: 1 }, desc: [], info: [], facts: [], body: [],
+    more: [], foot: [], keys: [],
+  }
+}
+
+private function spell(): mut Model {
+  return {
+    kind: Kind::Spell, picture: Picture::Icon { art: "icons/frostbolt" }, name: "Frostbolt",
+    nameColor: { r: 1, g: 1, b: 1, a: 1 },
+    desc: [{ text: "Rank 4" }, { text: "Frost", color: BLUE }], info: [],
+    facts: [{ text: "65", glyph: "glyphs/mana", tint: BLUE }, { text: "30 yd" }],
+    body: [
+      {
+        left: "Launches a bolt of frost at the enemy, causing 74 to 83 Frost damage and slowing movement speed by 40% for 7 sec.",
+        desc: true,
+      },
+      { left: "Party member: 3 / 8", indent: true },
+    ],
+    more: [], foot: [{ left: "Cast time", right: "2.5 sec" }], keys: [],
+  }
+}
+
+private function unit(): mut Model {
+  return {
+    kind: Kind::Unit, picture: Picture::Face { unit: "mouseover" }, name: "Jaina", nameColor: BLUE,
+    desc: [{ text: "Level 60 Human Mage" }], info: [], facts: [], body: [], more: [], foot: [], keys: [],
+  }
+}
+
+// What the frame is given, as its owner would hold it.
+private class Stage {
+  public mut model: Reactive<Model> = $reactive(item())
+  public mut side: Reactive<boolean> = $reactive(false)
+
+  public render(): Template {
+    return $ltml { <TipFrame model={self.model} side={self.side} /> }
+  }
+}
+
+test "the frame draws each kind of model" {
+  let mut stage = new Stage()
+  // A tooltip is as wide as it needs to be: the page doesn't stretch it.
+  Test::mount(stage, { left: 100, top: 50, width: 700, height: 600, xAlign: Align::Start })
+  Test::shot("an item with every section: the header, the title beside its icon, the band, the body, more, the footer, a hotkey")
+
+  stage.model = sign()
+  Test::shot("a sign: the title alone, 314 px wide at least, no room under it")
+
+  stage.model = spell()
+  Test::shot("a spell: its cost's glyph in the resource's colour, its description wrapped at the tooltip's width, a line set in")
+
+  stage.side = true
+  Test::shot("beside another tooltip: narrower")
+
+  stage.side = false
+  stage.model = unit()
+  Test::shot("a unit: its face where an icon would stand")
+
+  Test::face("mouseover", "another under the cursor")
+  Test::shot("the unit under the cursor is another: the face too")
+
+  destroy stage
+  $expect(Test::blank())
+}

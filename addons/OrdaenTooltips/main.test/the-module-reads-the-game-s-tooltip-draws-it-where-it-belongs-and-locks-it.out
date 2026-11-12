@@ -1,5 +1,4 @@
 -- the game shows no tooltip: nothing is drawn, and the game's own isn't kept unseen
-asked: debug: Ordaen: its root is made
 asked: Tooltip.hide false
 
 -- a button's text: read, with the item level and the most worn piece, drawn above the button on its left edge

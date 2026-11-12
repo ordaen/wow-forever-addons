@@ -1,0 +1,46 @@
+// The library's Zones on a page with three items, worked with the mouse: a chip is dragged from its zone into
+// another, into the pool and back.
+import Test from "$test"
+import { Arranged } from "@/arranged"
+
+// Dragged from one place to another: pressed, moved, a frame, let go.
+private function drag(from: Test::Point, to: Test::Point) {
+  Test::moveTo(from)
+  Test::press(nil)
+  Test::moveTo(to)
+  Test::flush()
+  Test::release(nil)
+}
+
+test "a chip is dragged between the zones and the pool" {
+  let mut page = new Arranged()
+  Test::mount(page, { left: 100, top: 50, width: 600, height: 300 })
+  Test::shot("three items: the clock on the left, the money on the right, the friends in the pool")
+
+  Test::moveTo(Test::holding("Clock", nil))
+  Test::shot("the cursor on the clock's chip: its hint")
+
+  let middle = Test::holding("Middle", nil)
+  let clock = Test::holding("Clock", nil)
+  drag(clock, { x: clock.x + 3, y: clock.y + 2 })
+  Test::shot("the clock dragged and let go where it was: nothing moves")
+
+  drag(clock, middle)
+  Test::shot("the clock dragged into the middle zone")
+
+  drag(Test::holding("Friends", nil), Test::holding("Left", nil))
+  Test::shot("the friends dragged out of the pool into the left zone")
+
+  let money = Test::holding("Money", nil)
+  let friends = Test::holding("Friends", nil)
+  // The pool is the box under its name («Not on the panel», 13 high at 61 down the page): let go a little under
+  // the name.
+  drag(money, { x: 400, y: 136 })
+  Test::shot("the money dragged into the pool: greyed there")
+
+  drag(friends, { x: 5, y: 5 })
+  Test::shot("the friends dragged off the control: they stay where they were")
+
+  destroy page
+  $expect(Test::blank())
+}
