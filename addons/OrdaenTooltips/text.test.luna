@@ -1,0 +1,54 @@
+// Ordaen Tooltips' reading of the game's texts: each function is called with lines as the game writes them, and
+// what it gives is the snapshot.
+import Test from "$test"
+import { duration, form, grammar, labelled, last, number, pluralForm } from "@/text"
+
+private function shown(n: number | nil): string {
+  return n == nil ? "nil" : `${n}`
+}
+
+test "the game's texts read: plurals, grammar codes, numbers, labels, durations" {
+  Test::note("== the plural rule")
+  for (n of [1, 2, 4, 5, 11, 12, 14, 21, 22, 25, 101, 111]) {
+    Test::note(`form(${n}) -> ${form(n)}`)
+  }
+  for (n of [1, 3, 5]) {
+    Test::note(`pluralForm(${n}, three words) -> ${pluralForm(n, "заряд:заряда:зарядов")}`)
+    Test::note(`pluralForm(${n}, two words) -> ${pluralForm(n, "charge:charges")}`)
+  }
+  Test::note(`pluralForm(2, no words) -> ${pluralForm(2, "nothing")}`)
+
+  Test::note("")
+  Test::note("== the grammar codes")
+  for (line of [
+    "3 |4заряд:заряда:зарядов;",
+    "Осталось 21 |4заряд:заряда:зарядов; и 5 |4минута:минуты:минут;",
+    "Требуется |3-6(Кузнечный молот)",
+    "1 сек. |4восстановление:восстановления;",
+    "A plain line: 5 charges",
+  ]) {
+    Test::note(`${line} -> ${grammar(line)}`)
+  }
+
+  Test::note("")
+  Test::note("== numbers")
+  for (text of ["2,60", "1 234", "1\194\160234,5", "12.5", "twelve", ""]) {
+    Test::note(`number("${text}") -> ${shown(number(text))}`)
+  }
+  for (text of ["Скорость 2,60", "Урон: 1 234 ", "no number here", "+15 к силе"]) {
+    Test::note(`last("${text}") -> ${shown(last(text))}`)
+  }
+
+  Test::note("")
+  Test::note("== a label and its value")
+  for (line of ["Требуется: Оборонительная стойка", "Requires: Level 40", "No colon here", "12:30 is a time", "|cff00ff00Green: text|r"]) {
+    let label, value = labelled(line)
+    Test::note(`${line} -> ${label} | ${value ?? "nil"}`)
+  }
+
+  Test::note("")
+  Test::note("== durations")
+  for (seconds of [0.4, 12, 59.6, 60, 150, 3599, 3600, 9000]) {
+    Test::note(`duration(${seconds}) -> ${duration(seconds, "%d h", "%d m", "%d s")}`)
+  }
+}

@@ -1,0 +1,71 @@
+// The library's controls on a page that uses them all, worked with the mouse and the keyboard.
+import Test from "$test"
+import { Key } from "$test"
+import { Showcase } from "@/index"
+
+test "every control of the library answers the mouse and the keyboard" {
+  let mut page = new Showcase()
+  Test::mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  Test::shot("drawn: the first tab picked, the second tab's rows not shown")
+
+  Test::moveTo(Test::holding("Drawer", nil))
+  Test::shot("the cursor on the second tab: its name lighter, on a shade")
+
+  Test::click(Test::holding("Drawer", nil), nil)
+  Test::shot("the second tab clicked: its rows shown, the first tab's gone; the drawer off, so the dropdown's row is greyed")
+
+  Test::moveTo(Test::holding("Button drawer", nil))
+  Test::shot("the cursor on the switch's label: its hint in a tip")
+
+  Test::click(Test::painted("theme/ctl.switchOff", nil), nil)
+  Test::shot("the switch clicked: on, both switches follow the one setting, the dropdown's row no longer greyed")
+
+  Test::click(Test::painted("theme/ctl.button", nil), nil)
+  Test::shot("the dropdown's plate clicked: the menu under it, the picked choice's mark lit")
+
+  Test::moveTo(Test::holding("In combat", nil))
+  Test::shot("the cursor on a choice: the light under it")
+
+  Test::click({ x: 700, y: 550 }, nil)
+  Test::shot("a click elsewhere: the menu closed, nothing picked")
+
+  Test::click(Test::painted("theme/ctl.button", nil), nil)
+  Test::click(Test::holding("On a mount — in development", nil), nil)
+  Test::shot("opened again and a choice not built yet clicked: nothing happens")
+
+  Test::click(Test::holding("In combat", nil), nil)
+  Test::shot("a choice clicked: picked, the menu closed, the plate shows it")
+
+  Test::click(Test::painted("theme/ctl.switchOn", 2), nil)
+  Test::shot("the bare switch clicked: off again")
+
+  Test::click(Test::painted("theme/ctl.button", nil), nil)
+  Test::shot("the dropdown's plate clicked while its row is disabled: it stays shut")
+
+  Test::click(Test::painted("theme/ctl.switchOff", nil), nil)
+  Test::click(Test::field(nil), nil)
+  Test::type("The long drawer of things")
+  Test::shot("the drawer on again, its name's field clicked and typed into: twelve characters taken, the text under it follows")
+
+  Test::key(Key::Enter)
+  Test::shot("Enter: the field lets the keyboard go")
+
+  Test::click(Test::holding("Save", nil), nil)
+  Test::shot("Save clicked: Reset can be clicked")
+
+  Test::click(Test::holding("Reset", nil), nil)
+  Test::shot("Reset clicked: the question over the dimmed screen")
+
+  Test::click({ x: 105, y: 55 }, nil)
+  Test::shot("a click on the dimmed screen, over the first tab: nothing under it hears")
+
+  Test::click(Test::holding("Keep", nil), nil)
+  Test::shot("«Keep» clicked: the question goes, nothing forgotten")
+
+  Test::click(Test::holding("Reset", nil), nil)
+  Test::click(Test::holding("Forget", nil), nil)
+  Test::shot("asked again and «Forget» clicked: Reset is disabled again")
+
+  destroy page
+  $expect(Test::blank())
+}

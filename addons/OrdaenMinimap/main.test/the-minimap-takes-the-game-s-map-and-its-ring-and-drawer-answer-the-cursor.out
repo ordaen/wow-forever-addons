@@ -1,0 +1,169 @@
+-- drawn in the screen's top right corner: the game's cluster hidden, its map in our frame, the ring not shown
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 @enter @leave
+    box 1343.92,20.25 230.83x283.58 absolute theme/window.wood border=theme/frame.small
+      embed 1352.67,54 218.33x218.33 absolute frame=Minimap
+      box 1352.67,29 218.33x25 absolute theme/window.wood
+        box 1421.21,33.17 81.25x15 @enter @leave
+          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+      box 1352.67,272.33 218.33x25 absolute theme/window.wood
+        box 1361,278.17 170.42x15 @click @enter @leave
+          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,278.17 31.25x15 @click @enter @leave
+          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+    embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
+    box 1323.67,103.87 28.33x28.33 absolute theme/minimap.ring opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+    box 1323.67,194.13 28.33x28.33 absolute theme/minimap.ring opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      box 1328.67,199.13 18.33x18.33 cut by theme/panel.faceRound
+    box 1323.67,273 28.33x28.33 absolute theme/minimap.ring opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      text 1334.92,280.17 5.83x14 "3" #ffd100
+    box 1323.67,0 0x0 absolute opacity=0
+      embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
+asked: Minimap.square true
+asked: Minimap.wheelZoom
+
+cluster shown: false, backdrop shown: false
+-- the cursor on the map: the ring shows
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 @enter @leave
+    box 1343.92,20.25 230.83x283.58 absolute theme/window.wood border=theme/frame.small
+      embed 1352.67,54 218.33x218.33 absolute frame=Minimap
+      box 1352.67,29 218.33x25 absolute theme/window.wood
+        box 1421.21,33.17 81.25x15 @enter @leave
+          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+      box 1352.67,272.33 218.33x25 absolute theme/window.wood
+        box 1361,278.17 170.42x15 @click @enter @leave
+          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,278.17 31.25x15 @click @enter @leave
+          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+    embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
+    box 1323.67,103.87 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+    box 1323.67,194.13 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      box 1328.67,199.13 18.33x18.33 cut by theme/panel.faceRound
+    box 1323.67,273 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      text 1334.92,280.17 5.83x14 "3" #ffd100
+    box 1323.67,0 0x0 absolute opacity=0
+      embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
+
+cluster shown: false, backdrop shown: false
+-- the cursor on the first ring button, the game's tracking: its hover is passed on
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 @enter @leave
+    box 1343.92,20.25 230.83x283.58 absolute theme/window.wood border=theme/frame.small
+      embed 1352.67,54 218.33x218.33 absolute frame=Minimap
+      box 1352.67,29 218.33x25 absolute theme/window.wood
+        box 1421.21,33.17 81.25x15 @enter @leave
+          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+      box 1352.67,272.33 218.33x25 absolute theme/window.wood
+        box 1361,278.17 170.42x15 @click @enter @leave
+          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,278.17 31.25x15 @click @enter @leave
+          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+    embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
+    box 1323.67,103.87 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+    box 1323.67,194.13 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      box 1328.67,199.13 18.33x18.33 cut by theme/panel.faceRound
+    box 1323.67,273 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      text 1334.92,280.17 5.83x14 "3" #ffd100
+    box 1323.67,0 0x0 absolute opacity=0
+      embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
+asked: Minimap.hover MinimapTrackingButton true
+
+cluster shown: false, backdrop shown: false
+-- the drawer's button clicked: the drawer hangs under it with another addon's button and the addon menu's entries
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 @enter @leave
+    box 1343.92,20.25 230.83x283.58 absolute theme/window.wood border=theme/frame.small
+      embed 1352.67,54 218.33x218.33 absolute frame=Minimap
+      box 1352.67,29 218.33x25 absolute theme/window.wood
+        box 1421.21,33.17 81.25x15 @enter @leave
+          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+      box 1352.67,272.33 218.33x25 absolute theme/window.wood
+        box 1361,278.17 170.42x15 @click @enter @leave
+          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,278.17 31.25x15 @click @enter @leave
+          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+    embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
+    box 1323.67,103.87 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+    box 1323.67,194.13 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      box 1328.67,199.13 18.33x18.33 cut by theme/panel.faceRound
+    box 1323.67,273 28.33x28.33 absolute theme/minimap.ringLit opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      text 1334.92,280.17 5.83x14 "3" #ffd100
+    box 1212.67,303 148.83x56.58 absolute theme/window.wood border=theme/frame.small
+      embed 1227.92,318.25 28.33x28.33 frame=OtherAddonButton
+      box 1259.58,318.25 28.33x28.33 @click @enter @leave
+        box 1261.25,319.92 25x25 Interface/Icons/Details
+      box 1291.25,318.25 28.33x28.33 @click @enter @leave
+        box 1292.92,319.92 25x25 Interface/Icons/INV_Misc_QuestionMark
+    box 1352,273 271.17x85.92 absolute theme/window.wood border=theme/frame.small
+      text 1372.25,293.25 235.67x18 "Addons" #ffffff
+      text 1372.25,312.92 235.67x28 "Left-click: open or close the drawer
+Drag: move it round the map" #cbb994
+asked: Minimap.hover MinimapTrackingButton false
+
+cluster shown: false, backdrop shown: false
+-- the game's news: invites wait, the zone and its colour change
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 @enter @leave
+    box 1343.92,20.25 230.83x283.58 absolute theme/window.wood border=theme/frame.small
+      embed 1352.67,54 218.33x218.33 absolute frame=Minimap
+      box 1352.67,29 218.33x25 absolute theme/window.wood
+        box 1405.58,33.17 112.5x15 @enter @leave
+          text 1405.58,33.17 112.5x15 "Stranglethorn Vale" #ffb300
+      box 1352.67,272.33 218.33x25 absolute theme/window.wood
+        box 1361,278.17 170.42x15 @click @enter @leave
+          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,278.17 31.25x15 @click @enter @leave
+          text 1531.42,278.17 31.25x15 "12:30" #ff9a2e
+    embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
+    box 1323.67,103.87 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+    box 1323.67,194.13 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      box 1328.67,199.13 18.33x18.33 cut by theme/panel.faceRound
+    box 1323.67,273 28.33x28.33 absolute theme/minimap.ringLit opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      text 1334.92,280.17 5.83x14 "3" #ffd100
+    box 1212.67,303 148.83x56.58 absolute theme/window.wood border=theme/frame.small
+      embed 1227.92,318.25 28.33x28.33 frame=OtherAddonButton
+      box 1259.58,318.25 28.33x28.33 @click @enter @leave
+        box 1261.25,319.92 25x25 Interface/Icons/Details
+      box 1291.25,318.25 28.33x28.33 @click @enter @leave
+        box 1292.92,319.92 25x25 Interface/Icons/INV_Misc_QuestionMark
+    box 1352,273 271.17x85.92 absolute theme/window.wood border=theme/frame.small
+      text 1372.25,293.25 235.67x18 "Addons" #ffffff
+      text 1372.25,312.92 235.67x28 "Left-click: open or close the drawer
+Drag: move it round the map" #cbb994
+
+cluster shown: false, backdrop shown: false
+-- nothing left for the drawer to hold: its button goes, and the drawer with it
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 @enter @leave
+    box 1343.92,20.25 230.83x283.58 absolute theme/window.wood border=theme/frame.small
+      embed 1352.67,54 218.33x218.33 absolute frame=Minimap
+      box 1352.67,29 218.33x25 absolute theme/window.wood
+        box 1405.58,33.17 112.5x15 @enter @leave
+          text 1405.58,33.17 112.5x15 "Stranglethorn Vale" #ffb300
+      box 1352.67,272.33 218.33x25 absolute theme/window.wood
+        box 1361,278.17 170.42x15 @click @enter @leave
+          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,278.17 31.25x15 @click @enter @leave
+          text 1531.42,278.17 31.25x15 "12:30" #ff9a2e
+    embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
+    box 1323.67,103.87 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+    box 1323.67,194.13 28.33x28.33 absolute theme/minimap.ring opacity=1 @click @drag @dragStart @dragStop @enter @leave
+      box 1328.67,199.13 18.33x18.33 cut by theme/panel.faceRound
+    box 1212.67,303 148.83x56.58 absolute theme/window.wood border=theme/frame.small
+    box 1352,273 271.17x85.92 absolute theme/window.wood border=theme/frame.small
+      text 1372.25,293.25 235.67x18 "Addons" #ffffff
+      text 1372.25,312.92 235.67x28 "Left-click: open or close the drawer
+Drag: move it round the map" #cbb994
+
+cluster shown: false, backdrop shown: false
+-- destroyed
+asked: Minimap.square false
+
+cluster shown: true, backdrop shown: true, the map's parent is the game's again: true

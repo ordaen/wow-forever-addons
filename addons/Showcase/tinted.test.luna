@@ -1,0 +1,37 @@
+// The library's ColorPicker on a page with two of them, worked with the mouse, with the stand-in for the game's
+// colour picker.
+import Game from "$game"
+import Test from "$test"
+import { Tinted } from "@/tinted"
+
+// The middle of each row's swatch: a box 44 px wide at the design's scale, at the end of the row's label.
+private const X = 366.67
+private const FIRST = 59.17
+private const SECOND = 85.5
+private const THIRD = 111.83
+
+test "a colour picked in the game's picker reaches the setting that opened it" {
+  let mut page = new Tinted()
+  Test::mount(page, { left: 100, top: 50, width: 700, height: 200 })
+  Test::shot("two colours, the third row disabled")
+
+  Test::click({ x: X, y: FIRST }, nil)
+  Test::shot("the first swatch clicked: the game's picker opens on its colour")
+
+  // The game's picker reports a colour to whoever opened it last.
+  Game::ColorPicker::picked.emit({ ticket: 1, color: { r: 0, g: 1, b: 0, a: 1 } })
+  Test::shot("green picked there: the first setting is green, the second as it was")
+
+  Test::click({ x: X, y: SECOND }, nil)
+  Game::ColorPicker::picked.emit({ ticket: 2, color: { r: 0, g: 0, b: 1, a: 1 } })
+  Test::shot("the second opened and blue picked: only the second changes")
+
+  Game::ColorPicker::cancelled.emit(2)
+  Test::shot("the picker's Cancel: the second is back to the colour it opened with")
+
+  Test::click({ x: X, y: THIRD }, nil)
+  Test::shot("the disabled one clicked: the picker isn't opened")
+
+  destroy page
+  $expect(Test::blank())
+}
