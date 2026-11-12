@@ -1,5 +1,4 @@
 node_modules/
-.release/
 .env
 *.zip
 # created locally by leafo/gh-actions-lua when testing workflows with act
@@ -8,11 +7,6 @@ node_modules/
 art/out/
 art/.venv/
 __pycache__/
-# built by `ordaen build` / `ordaen watch` (wow-dev-tools); the game links to it
-dist/
-
-# generated LuaLS classes of each addon's settings (ordaen build)
-.ordaen/
 
 # the previous code, kept locally for reference while the framework is rebuilt (design site: development/framework)
 _old/

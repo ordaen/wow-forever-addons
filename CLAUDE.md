@@ -29,11 +29,11 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
   layout) is rate-limited or cached.
 - **Dependencies:** no library unless Blizzard's API can't do it. Ordaen Core stays small; dev-only code lives in
   `OrdaenCore_Debug`, which players never load.
-- **Measure, don't guess:** before merging a feature into `develop`, check its memory and CPU in the Ordaen Dev window
+- **Measure, don't guess:** before merging a feature into `develop`, check its memory and CPU in the Ordaen Companion
   (Performance tab; Claude reads it with `wow_perf`). What the debug kit measures is left out of release builds, so
   code never uses its results. Mention the numbers when handing work over.
-- **Measure what players run:** a number counts only from the bench profile (`## X-Ordaen-Build: bench`, release
-  stripping). A measurement or a performance review starts by confirming the build, the loaded addons and the settings;
+- **Measure what players run:** a number counts only from a release build (`lunatype build --release`: no debug
+  calls, no `$dev` blocks; its TOCs name no `## X-LunaType-Source`, which `wow_addons` shows). A measurement or a performance review starts by confirming the build, the loaded addons and the settings;
   a wrong build blocks the review, it isn't a footnote.
 - **What's already measured:** [performance.md](performance.md) holds the costs measured in game (WoW calls, pixels,
   CPU against GPU, bench findings). Read it before choosing an approach; add to it what a probe or bench round settles.
