@@ -2,12 +2,14 @@
 import Test from "$test"
 import { Key } from "$test"
 import root Ordaen from "Ordaen"
-import { Showcase } from "@/index"
+import Runtime from "$runtime"
+import root Showcase from "Showcase"
 
 test "every control of the library answers the mouse and the keyboard" {
-  const art = (Ordaen ?? panic("Ordaen runs in this test")).art
-  let page = new Showcase()
-  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  const art = Ordaen.art
+  // The showcase's root, made as its addon loaded and drawn by Ordaen on the screen, which the page is.
+  const page = Showcase
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
   Test.shot("drawn: the first tab picked, the second tab's rows not shown")
 
   Test.moveTo(Test.holding("Drawer", nil))
@@ -68,14 +70,15 @@ test "every control of the library answers the mouse and the keyboard" {
   Test.click(Test.holding("Forget", nil), nil)
   Test.shot("asked again and «Forget» clicked: Reset is disabled again")
 
-  destroy page
+  (Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")).disable()
   Test.expect(Test.blank())
 }
 
 test "the checkbox's well clicked: off, the tick gone, the text following, the second slider greyed" {
-  const art = (Ordaen ?? panic("Ordaen runs in this test")).art
-  let page = new Showcase()
-  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  const art = Ordaen.art
+  // The showcase's root, made as its addon loaded and drawn by Ordaen on the screen, which the page is.
+  const page = Showcase
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
   Test.expect(page.choices.showZone)
   Test.expect(page.summary == "zone shown")
 
@@ -87,13 +90,14 @@ test "the checkbox's well clicked: off, the tick gone, the text following, the s
   Test.click(Test.painted(art.ctl.groove, 2), nil)
   Test.expect(page.choices.columns == 4)
 
-  destroy page
+  (Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")).disable()
 }
 
 test "the first slider clicked halfway reads 120%, and dragged past its end it is held at 160%" {
-  const art = (Ordaen ?? panic("Ordaen runs in this test")).art
-  let page = new Showcase()
-  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  const art = Ordaen.art
+  // The showcase's root, made as its addon loaded and drawn by Ordaen on the screen, which the page is.
+  const page = Showcase
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
   let groove = Test.painted(art.ctl.groove, nil)
 
   Test.click(groove, nil)
@@ -110,12 +114,13 @@ test "the first slider clicked halfway reads 120%, and dragged past its end it i
   Test.shot("dragged past its end: held at 160%")
   Test.expect(page.choices.scale > 1.59 && page.choices.scale < 1.61)
 
-  destroy page
+  (Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")).disable()
 }
 
 test "Save clicked: Reset can be clicked, and Reset asks before it forgets" {
-  let page = new Showcase()
-  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  // The showcase's root, made as its addon loaded and drawn by Ordaen on the screen, which the page is.
+  const page = Showcase
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
 
   Test.click(Test.holding("Reset", nil), nil)
   Test.expect(!page.asking)
@@ -126,12 +131,13 @@ test "Save clicked: Reset can be clicked, and Reset asks before it forgets" {
   Test.shot("Save then Reset clicked: the question over the page")
   Test.expect(page.asking)
 
-  destroy page
+  (Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")).disable()
 }
 
 test "the cursor on a setting's label shows its hint in a tip, and leaving it hides the tip" {
-  let page = new Showcase()
-  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  // The showcase's root, made as its addon loaded and drawn by Ordaen on the screen, which the page is.
+  const page = Showcase
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
   Test.click(Test.holding("Drawer", nil), nil)
 
   Test.moveTo(Test.holding("Button drawer", nil))
@@ -143,14 +149,15 @@ test "the cursor on a setting's label shows its hint in a tip, and leaving it hi
   Test.pass(0.02)
   Test.shot("the cursor away: the tip is gone")
 
-  destroy page
+  (Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")).disable()
 }
 
 // A control over the page takes the mouse, so the page's own box hears the cursor where nothing else does: on
 // its summary.
 test "the cursor over the page itself shows the page's tip, and leaving it hides the tip" {
-  let page = new Showcase()
-  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  // The showcase's root, made as its addon loaded and drawn by Ordaen on the screen, which the page is.
+  const page = Showcase
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
   Test.expect(!page.hint)
 
   Test.moveTo(Test.holding("zone shown", nil))
@@ -162,13 +169,14 @@ test "the cursor over the page itself shows the page's tip, and leaving it hides
   Test.pass(0.02)
   Test.expect(!page.hint)
 
-  destroy page
+  (Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")).disable()
 }
 
 test "the page destroyed leaves nothing drawn" {
-  let page = new Showcase()
-  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  // The showcase's root, made as its addon loaded and drawn by Ordaen on the screen, which the page is.
+  const page = Showcase
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
   Test.expect(!Test.blank())
-  destroy page
+  (Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")).disable()
   Test.expect(Test.blank())
 }

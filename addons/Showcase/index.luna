@@ -37,7 +37,7 @@ public class Showcase implements Module, App {
   derived summary: String = self.describe()
 
   constructor() {
-    watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }
+    Ordaen.modules.add(self)
   }
 
   describe(self): String {

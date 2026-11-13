@@ -23,30 +23,31 @@ function show(title: String) {
 }
 
 // The client finds what is under the cursor anew each frame: a frame that moves from under a cursor standing still
-// hears OnLeave, and one that moves under it OnEnter, with no move of the mouse.
+// hears OnLeave, and one that moves under it OnEnter, with no move of the mouse. Below the showcase's page, which
+// Ordaen draws at the screen's top left.
 test "a frame moved from under a still cursor hears the cursor leave, the next frame" {
   let ui = Client.C_UI.GetUIParent()
   let frame = Client.CreateFrame("Frame", nil, ui, nil)
   frame.SetSize(100, 100)
-  frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 0, 0)
+  frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 0, -500)
   frame.EnableMouse(true)
   let heard: Map<String, Integer> = {}
   frame.SetScript("OnEnter", (): nil => { heard["enter"] = (heard["enter"] ?? 0) + 1 })
   frame.SetScript("OnLeave", (): nil => { heard["leave"] = (heard["leave"] ?? 0) + 1 })
-  Test.moveTo({ x: 50, y: 50 })
+  Test.moveTo({ x: 50, y: 550 })
   Test.expect(heard["enter"] == 1)
   frame.ClearAllPoints()
-  frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 300, 0)
+  frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 300, -500)
   Test.pass(0.02)
   Test.expect(heard["leave"] == 1)
   frame.ClearAllPoints()
-  frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 0, 0)
+  frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 0, -500)
   Test.pass(0.02)
   Test.expect(heard["enter"] == 2)
 }
 
 test "the window: its tabs, moved, full screen, resized, closed" {
-  const art = (Ordaen ?? panic("Ordaen runs in this test")).art
+  const art = Ordaen.art
   let page = new Windowed()
   Test.mount(page, PAGE)
   show("drawn: the window in the screen's middle, its first tab open over the body, the second behind it")
