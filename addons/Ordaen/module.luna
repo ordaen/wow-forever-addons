@@ -27,9 +27,9 @@ public trait Entry {
   public enable(self, on: Boolean)
 }
 
-// A module's root: a component the player turns on and off. It adds itself to Ordaen's `modules` as it is made,
-// in a watch that follows Ordaen's root (`watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }`), and is gone
-// from there as it is destroyed.
+// A module's root (`implements Module, App`): a component the player turns on and off. It adds itself to Ordaen's
+// `modules` in its constructor (`Ordaen.modules.add(self)`: Ordaen's root is made before it), and is gone from there
+// as it is destroyed. Ordaen draws each of its `modules` on the screen.
 public trait Module: Component {
   public const title: String
   // Its tabs in the settings window, in order; none for a module with nothing to choose.

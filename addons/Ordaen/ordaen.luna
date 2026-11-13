@@ -1,5 +1,6 @@
-// Ordaen's root: what Ordaen's own files (`import root Ordaen from "Ordaen"`) and every module (its root, a cell)
-// read of Ordaen. It holds the modules that run, keeps Ordaen's own settings and where the player put each part,
+// Ordaen's root: what Ordaen's own files and every module read of Ordaen (`import root Ordaen from "Ordaen"`, the
+// root as it is: a module needs Ordaen, so its root is made before any module's and ends after them). It holds the
+// modules that run and draws each on the screen, keeps Ordaen's own settings and where the player put each part,
 // turns the modules on and off as the player chooses, and draws the settings window once it is first asked for.
 import Debug from "$debug"
 import { Anchored, Art, Point } from "$ltml"
@@ -26,7 +27,7 @@ public class OrdaenCore implements App {
   public const icon: Art = "Interface/Icons/Trade_Engineering"
   public const title: String = "Ordaen"
   // The art everything Ordaen draws with, whatever the player chooses.
-  public state art: Artwork = ARTWORK
+  public const art: Artwork = ARTWORK
   // Every `Settings`' draft together, as the settings window sees them.
   public const keeper: mut Keeper = new Keeper()
   // The fonts, colours and bars' art the player chose: Ordaen's own settings, kept apart from `globals`.
@@ -37,8 +38,10 @@ public class OrdaenCore implements App {
   public const globals: mut Settings<Globals>
   // The dev tools' window: whether it is open.
   public state dev = false
-  // The modules that run: each module's root adds itself, and goes as it is destroyed.
+  // The modules that run: each module's root adds itself as it is made, and goes as it is destroyed.
   public const modules = new Registry<any Module>()
+  // The modules drawn on the screen: each once, until it ends and what it drew goes with it.
+  drawn: mut WeakMap<any Module, Boolean> = {}
   // The mode in which the player moves every module's free parts about the screen.
   public state placing = false
   // Where the player put each part: read by a part an entry at a time, so a part follows its own place.
@@ -55,7 +58,18 @@ public class OrdaenCore implements App {
     self.places = load<Map<String, KeptPlace>>(.Account, "places", {})
     Runtime.command("/ordaen", (text: String) => self.command(text))
     Runtime.options(self.title, Locale.SETTINGS_OPEN, () => self.toggleSettings(nil))
+    watch (running of self.modules) { self.draw(running) }
     self.start()
+  }
+
+  // Each module that runs and isn't drawn yet, drawn on the screen as a module's root is: what it draws ends with it.
+  draw(mut self, running: Array<any Module>) {
+    for (module of running) {
+      if (self.drawn[module] == nil) {
+        self.drawn[module] = true
+        Runtime.mount(module, Runtime.screen())
+      }
+    }
   }
 
   public toggleDev(mut self) { self.dev = !peek self.dev }
