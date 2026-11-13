@@ -57,7 +57,7 @@ public class SkillBar implements Component {
       <box height={HEIGHT} padding={PADDING} background={RIM_COLOR} rows={FILL}>
         <box background={TROUGH} overflow={Overflow.Hidden}>
           <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.share}
-               background={Ordaen?.lookArt?.xpFill} />
+               background={Ordaen.lookArt?.xpFill} />
           <box position={Position.Absolute} left={0} right={0} top={0} bottom={0} columns={10} rows={FILL}>
             <box $for={cell of CELLS} border={NOTCH} />
             <box />
@@ -65,7 +65,7 @@ public class SkillBar implements Component {
           <box position={Position.Absolute} left={0} right={0} top={0} bottom={0} xAlign={Align.Center}
                yAlign={Align.Center}>
             <text value={self.label} textSize={14 * PX} textColor={Style.WHITE} textShadow={Style.SHADOW}
-                  textFamily={Ordaen?.lookArt?.fontNumbers} wrap={false} />
+                  textFamily={Ordaen.lookArt?.fontNumbers} wrap={false} />
           </box>
         </box>
       </box>

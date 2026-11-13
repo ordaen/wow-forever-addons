@@ -78,7 +78,7 @@ public class RecipeDetails implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PANEL} gap={8 * PX} padding={12 * PX} border={RIM} background={Ordaen?.art?.window?.marble}
+      <box rows={PANEL} gap={8 * PX} padding={12 * PX} border={RIM} background={Ordaen.art.window.marble}
            overflow={Overflow.Hidden}>
         <$if={self.has}>
           <box columns={HEAD} gap={10 * PX} yAlign={Align.Center}>
@@ -97,7 +97,7 @@ public class RecipeDetails implements Component {
           <box columns={MAKE} gap={8 * PX} yAlign={Align.Center}>
             <PushButton label={"-"} width={STEP} @click={self.less} />
             <text value={"%d"} arguments={[self.count]} textSize={Style.TEXT} textColor={Style.WHITE}
-                  textFamily={Ordaen?.lookArt?.fontNumbers} wrap={false} />
+                  textFamily={Ordaen.lookArt?.fontNumbers} wrap={false} />
             <PushButton label={"+"} width={STEP} @click={self.more} />
             <box height={1} />
             <PushButton label={Locale.CREATE} width={140 * PX} disabled={self.cannot} @click={self.onCreate} />

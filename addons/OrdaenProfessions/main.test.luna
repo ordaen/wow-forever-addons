@@ -3,11 +3,13 @@
 import Client from "$client"
 import Game from "$game"
 import { Art } from "$ltml"
+import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Professions from "OrdaenProfessions"
 
-const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100 }
+// The screen Ordaen draws its modules on.
+const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
 
 // What the game sends when it opens a profession.
 function recipe(
@@ -91,7 +93,7 @@ function isIcon(file: String | Integer): Boolean {
 
 test "loaded by Ordaen, the module's root is made and is among Ordaen's modules" {
   Test.flush()
-  const ordaen = Ordaen ?? panic("Ordaen runs in this test")
+  const ordaen = Ordaen
   let found = 0
   for (entry of ordaen.modules) {
     if (entry.title == "Ordaen Professions") { found += 1 }
@@ -116,9 +118,9 @@ test "the professions window: the open profession, its lists, the search, a reci
     },
   ]
 
-  // The module's root, made as the addon loaded: a second one would hear the game as well, and ask it twice.
-  let module = Professions
-  Test.mount(module, PAGE)
+  // The module's root, made as the addon loaded and drawn by Ordaen on the screen, which the page is: a second one
+  // would hear the game as well, and ask it twice.
+  Test.mount(nil, PAGE)
   show("mounted: no profession is open, nothing is drawn", own)
 
   Game.tradeSkill.shownEmpty.emit()
@@ -146,7 +148,7 @@ test "the professions window: the open profession, its lists, the search, a reci
   // With the cursor over the window its corner's buttons show: the skill bar ends before them.
   Test.moveTo(Test.holding("Bags", nil))
   Test.flush()
-  const ordaen = Ordaen ?? panic("Ordaen runs in this test")
+  const ordaen = Ordaen
   let bar = Test.edges(ordaen.lookArt.xpFill, 2)
   let corner = Test.edges(ordaen.art.ctl.cornerClose, 2)
   Test.note("the skill bar ends %d before the corner's buttons".format((corner.left - bar.right + 0.5).floor()))
@@ -198,6 +200,6 @@ test "the professions window: the open profession, its lists, the search, a reci
   Test.inKey((): nil => Game.tradeSkill.shownEmpty.emit())
   show("the game's own window came up again on the player's key: the profession last open is asked for", own)
 
-  destroy module
+  (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
   Test.expect(Test.blank())
 }

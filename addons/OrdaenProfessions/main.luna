@@ -76,7 +76,7 @@ public class Professions implements Module, App {
   derived searching: Boolean = self.search != ""
 
   constructor() {
-    watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }
+    Ordaen.modules.add(self)
     watch { self.followOpen() }
     watch { self.onPage() }
     Game.tradeSkill.shownEmpty.listen(self.onShownEmpty)
