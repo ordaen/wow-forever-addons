@@ -2,7 +2,7 @@
 public import { Windowed } from "@/windowed"
 public import { Tinted } from "@/tinted"
 public import { Arranged } from "@/arranged"
-import { Age, Checkbox, Choice, Dialog, Dropdown, Input, Module, Money, ProgressBar, PushButton, Section, Segmented, SettingRow, SettingsPage, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "Ordaen"
+import { Age, Checkbox, Choice, Dialog, Dropdown, Input, Module, Money, ProgressBar, PushButton, Section, Segmented, SettingRow, SettingsPage, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, TreeRow, Unit } from "Ordaen"
 import root Ordaen from "Ordaen"
 
 const TABS: Array<String> = ["Map", "Drawer", "Market"]
@@ -48,6 +48,7 @@ public class Showcase implements Module, App {
   state price: Integer = 12345
   state seen: Number | nil = 2 * 86400
   state worth: Worth = Worth.Auction
+  state treeOpen = true
   derived summary: String = self.describe()
 
   constructor() {
@@ -105,6 +106,14 @@ public class Showcase implements Module, App {
             <SettingRow label={"Sold to"}>
               <Segmented value={mut self.worth} choices={WORTHS} />
             </SettingRow>
+            <box columns={1}>
+              <TreeRow label={"Bronze Axe"} depth={0} open={mut self.treeOpen}>
+                <Money amount={self.price} />
+              </TreeRow>
+              <TreeRow $if={self.treeOpen} label={"Bronze Bar"} depth={1} open={mut self.treeOpen} leaf={true}>
+                <Age seconds={self.seen} />
+              </TreeRow>
+            </box>
           </Section>
         </SettingsTab>
         <text value={self.summary} />
