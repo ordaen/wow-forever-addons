@@ -38,7 +38,7 @@ public struct Kept {
   last: Integer
 }
 
-public class Professions implements Module {
+public class Professions implements Module, App {
   public const title: String = "Ordaen Professions"
   public const pages: Array<SettingsPage> = []
 

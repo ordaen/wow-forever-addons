@@ -89,6 +89,15 @@ function isIcon(file: String | Integer): Boolean {
   return file == 136249
 }
 
+test "loaded by Ordaen, the module's root is made and is among Ordaen's modules" {
+  const ordaen = Ordaen ?? panic("Ordaen runs in this test")
+  let found = 0
+  for (entry of ordaen.modules) {
+    if (entry.title == "Ordaen Professions") { found += 1 }
+  }
+  Test.expect(found == 1)
+}
+
 test "the professions window: the open profession, its lists, the search, a recipe made" {
   // The game's own professions window: ours shows in its place.
   let ui = Client.C_UI.GetUIParent()
