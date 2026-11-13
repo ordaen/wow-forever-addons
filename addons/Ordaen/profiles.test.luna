@@ -1,0 +1,111 @@
+// Profiles: the profile a character uses, a switch that takes effect with no reload, and what `develop`'s build kept
+// read back, its settings as «Default».
+import Game from "$game"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Density, DEFAULTS, Globals } from "@/globals"
+import { preset, Preset } from "@/look"
+import { KeptPlace } from "@/ordaen"
+import { DEFAULT_PROFILE, Picks, picked, ProfileName } from "@/profiles"
+import { Memory } from "@/settings"
+
+// A module's settings and what a module remembers, as `develop`'s runtime kept them.
+struct Probe implements Plain {
+  scale: Number = 1
+}
+
+struct Remembered implements Plain {
+  last: String = ""
+}
+
+test "a character uses the profile picked for its spec, then for it, then for its class, then the account's" {
+  const picks = Picks {}
+  picks.account = "Shared"
+  picks.byClass["MAGE"] = "Mages"
+  picks.byCharacter["Player-1"] = "Mine"
+  const specs: Map<Integer, ProfileName> = {}
+  specs[2] = "Frost"
+  picks.bySpec["Player-1"] = specs
+  Test.expect(picked(picks, { character: "Player-1", spec: 2, classTag: "MAGE" }) == "Frost")
+  Test.expect(picked(picks, { character: "Player-1", spec: 1, classTag: "MAGE" }) == "Mine")
+  Test.expect(picked(picks, { character: "Player-2", spec: 2, classTag: "MAGE" }) == "Mages")
+  Test.expect(picked(picks, { character: nil, spec: nil, classTag: "PRIEST" }) == "Shared")
+}
+
+test "a switch to another profile takes effect at once, and is kept" {
+  Ordaen.globals.draft.density = .Roomy
+  Ordaen.keeper.saveAll()
+  Test.expect(Ordaen.keeper.profiles.make("Second"))
+  Test.expect(!Ordaen.keeper.profiles.make("Second"))
+  Test.expect(!Ordaen.keeper.profiles.make(""))
+  Ordaen.keeper.profiles.use("Second")
+  Test.flush()
+  Test.expect(Ordaen.globals.values.density == Density.Roomy)
+  Ordaen.globals.draft.density = .Compact
+  Ordaen.keeper.saveAll()
+  Ordaen.keeper.profiles.use(DEFAULT_PROFILE)
+  Test.flush()
+  Test.expect(Ordaen.globals.values.density == Density.Roomy)
+  Test.expect(Ordaen.globals.draft.density == Density.Roomy)
+  Ordaen.keeper.profiles.use("Second")
+  Test.flush()
+  Test.expect(Ordaen.globals.values.density == Density.Compact)
+  Test.reload()
+  Test.expect(Ordaen.keeper.profiles.active == "Second")
+  Test.expect(Ordaen.globals.values.density == Density.Compact)
+}
+
+test "what develop's build kept reads back: its settings as «Default», what modules remember, choices and places" {
+  const globals: Globals = { scale: 1.25, density: Density.Compact, ..DEFAULTS }
+  const look = preset(Preset.Blizzard)
+  const settings: Map<String, Unknown> = {}
+  settings["Ordaen"] = globals
+  settings["Ordaen:look"] = look
+  settings["OrdaenMinimap"] = Probe { scale: 1.5 }
+  settings["OrdaenProfessions:memory"] = Remembered { last: "Alchemy" }
+  const choices: Map<String, Boolean> = {}
+  choices["OrdaenPanel"] = false
+  const places: Map<String, KeptPlace> = {}
+  places["minimap"] = { point: .TopRight, to: .TopRight, x: -10, y: -20 }
+  const account: Map<String, Unknown> = {}
+  account["settings"] = settings
+  account["choices"] = choices
+  account["places"] = places
+  Test.saved("LunaTypeDB", account)
+  const own: Map<String, Unknown> = {}
+  own["OrdaenPanel:memory"] = Remembered { last: "bags" }
+  const character: Map<String, Unknown> = {}
+  character["settings"] = own
+  Test.saved("LunaTypeCharDB", character)
+  Test.reload()
+  // Ordaen's settings: read through `Settings`, from the «Default» profile they moved into.
+  Test.expect(Ordaen.keeper.profiles.active == DEFAULT_PROFILE)
+  Test.expect(Ordaen.globals.values.scale == 1.25 && Ordaen.globals.values.density == Density.Compact)
+  Test.expect(Ordaen.look.values.font == look.font && Ordaen.look.values.barFrame == look.barFrame)
+  Test.expect(Ordaen.look.values.accent.r == look.accent.r && Ordaen.look.values.red.g == look.red.g)
+  Test.expect(Ordaen.look.draft.font == look.font)
+  const kept = Ordaen.keeper.profiles.kept.profiles[DEFAULT_PROFILE]
+  Test.expect(kept != nil && kept.sections["Ordaen"] != nil && kept.sections["Ordaen:look"] != nil)
+  Test.expect(Game.saved.stored(.Account, "Ordaen") == nil && Game.saved.stored(.Account, "Ordaen:look") == nil)
+  // A module's settings move as the module's `Settings` first reads them: until then they stand as kept.
+  Test.expect(load(.Account, "OrdaenMinimap", Probe {}).scale == 1.5)
+  // What modules remember stays where it was: the account's and the character's.
+  Test.expect(load(.Account, "OrdaenProfessions:memory", Remembered {}).last == "Alchemy")
+  Test.expect(load(.Character, "OrdaenPanel:memory", Remembered {}).last == "bags")
+  // Which modules the player turned off, and where the parts were put.
+  Test.expect(Ordaen.chosen["OrdaenPanel"] == false)
+  Test.expect(Ordaen.moved("minimap")?.x == -10)
+  Test.expect(Ordaen.moved("minimap")?.to == .TopRight)
+  // Saved again, the look is the profile's alone.
+  Ordaen.look.draft.accent = Color.hex("#112233")
+  Ordaen.keeper.saveAll()
+  Test.reload()
+  Test.expect(Ordaen.look.values.accent.b == Color.hex("#112233").b)
+  Test.expect(Game.saved.stored(.Account, "Ordaen:look") == nil)
+}
+
+test "what a module remembers is written whole by its own method" {
+  const memory = new Memory<Remembered>(Remembered {}, .Account)
+  memory.write(Remembered { last: "Mining" })
+  Test.expect(memory.values.last == "Mining")
+}

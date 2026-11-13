@@ -1,6 +1,11 @@
 // Every `Settings`' draft together, as the settings window sees them: Ordaen's root keeps one (`Ordaen.keeper`), a
-// `Settings` joins it as it is made, and hears when the drafts are saved, dropped or taken back.
+// `Settings` joins it as it is made, and hears when the drafts are saved, dropped or taken back. It keeps the profiles
+// the values are kept in.
+import { Profiles } from "@/profiles"
+
 public class Keeper {
+  // Every `Settings`' values, by profile: a `Settings` reads the active profile's section and follows a switch.
+  public const profiles: mut Profiles = new Profiles()
   // How many entries wait to be saved, over every module.
   public derived unsaved: Integer = self.sum()
   // Whether there is a save to take back.
