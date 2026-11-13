@@ -1,0 +1,79 @@
+// What every reader of Ordaen Auction's prices names: an item, an amount, a key, an hour, a price with its hour, the
+// last observation's lowest with its quantity, and the trait every price is read through. Each is a number, never a
+// table: two halves packed into one below 2^53 (`redesign/market.md`, «What is kept per item»).
+import Client from "$client"
+
+// An item, by the game's number for it.
+public type ItemId = brand Integer {
+  // The game's number, as `"$game"` gives one.
+  public of(id: Integer): ItemId { return id }
+}
+
+// An amount of money.
+public type Copper = brand Integer {
+  public of(amount: Integer): Copper { return amount }
+}
+
+// The place of a number's second half: 2^20.
+const HALF: Integer = 1048576
+// 2020-01-01 00:00 UTC, in hours since 1970.
+const EPOCH: Integer = 438288
+// 2^33 − 1: a price above it is clamped.
+const MOST: Integer = 8589934591
+
+// An item and, for a weapon or armour, its random suffix: `id + suffix × 2^20`. A plain item's key is its id.
+public type PriceKey = brand Integer {
+  public of(item: Integer): PriceKey { return item }
+  // A key as the house's seams give one (`AuctionScan.read`, `Offer.key`), the same form.
+  public given(key: Integer): PriceKey { return key }
+  public suffixed(item: Integer, suffix: Integer): PriceKey { return item + suffix.abs() * HALF }
+  // The key of an item a link names: the suffix is the link's seventh number after the id
+  // (`item:id:enchant:gems×4:suffix`), a negative one counted by its size; none for a plain item.
+  public ofLink(item: Integer, link: String): PriceKey {
+    const suffix = link.match("item:%d+:%-?%d*:%-?%d*:%-?%d*:%-?%d*:%-?%d*:(%-?%d*)")
+    const by = (suffix ?? "").toNumber() ?? 0
+    return item + by.abs().floor() * HALF
+  }
+  public item(self): ItemId { return self % HALF }
+}
+
+// The server's time, in seconds: the account's 15 minutes between full scans are counted in it.
+public function serverSeconds(): Integer { return Client.GetServerTime().floor() }
+
+// Hours since 2020-01-01.
+public type Hour = brand Integer {
+  public now(): Hour { return (Client.GetServerTime() / 3600).floor() - EPOCH }
+  // The hour so many hours after this one (before it, for a negative count).
+  public after(self, hours: Integer): Hour { return self + hours }
+}
+
+// A price and the hour it was seen, in one number: a price is never read without its age.
+public type Quote = brand Integer {
+  public of(copper: Integer, seen: Hour): Quote { return copper.min(MOST).max(0) * HALF + seen }
+  public copper(self): Copper { return (self / HALF).floor() }
+  public seen(self): Hour { return self % HALF }
+  // Hours since it was seen.
+  public age(self): Integer { return Hour.now() - self.seen() }
+}
+
+// The lowest unit buyout of the last observation, and how many were listed (at most 2^20 − 1).
+public type Listing = brand Integer {
+  public of(low: Integer, quantity: Integer): Listing {
+    return low.min(MOST).max(0) * HALF + quantity.min(HALF - 1).max(0)
+  }
+  public low(self): Copper { return (self / HALF).floor() }
+  public quantity(self): Integer { return self % HALF }
+}
+
+// Where every Ordaen addon reads a price. One class implements it per source; readers hold `any PriceSource`.
+public trait PriceSource {
+  const name: String
+  // Moves whenever a price may have: a reader that follows prices reads it.
+  revision: Signal<Integer>
+  // What one costs now: the lowest listed where it is 48 hours old or less, the market otherwise.
+  public buy(self, key: PriceKey): Quote | nil
+  // What one brings: the lesser of the market and a fresh lowest, less the house's cut.
+  public sell(self, key: PriceKey): Quote | nil
+  // What a merchant asks for one; merchants don't change prices, so it has no age.
+  public vendor(self, item: ItemId): Copper | nil
+}

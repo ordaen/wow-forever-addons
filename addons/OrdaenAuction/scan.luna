@@ -1,0 +1,149 @@
+// The house's prices taken in: a full scan read 500 auctions a frame and set at its end, and every browse the house
+// shows (ours or the game's) as it comes. The house closing drops a scan not yet read through (its answer is all or
+// nothing) and puts the house at rest.
+import Game from "$game"
+import { House } from "@/house"
+import { Kept } from "@/kept"
+import { OrdaenPrices } from "@/prices"
+import { Hour, Listing, PriceKey, serverSeconds } from "@/quote"
+
+// Auctions read a frame.
+const BATCH = 500
+// The client answers a full scan once per account each 15 minutes.
+public const FULL_EVERY = 900
+
+public class Scanner {
+  // A full scan's answer is being read; how far, from 0 to 1.
+  public state reading = false
+  public state progress: Number = 0
+  // The last full scan of this session: how many auctions and items it held; none before one.
+  public state auctions = 0
+  public state items = 0
+  // The bytes the house takes at rest.
+  public state size = 0
+  // A price moved since the house was last put at rest.
+  dirty = false
+  reader: Task<nil> | nil = nil
+  house: mut House
+  source: mut OrdaenPrices
+  kept: mut Kept
+
+  constructor(house: mut House, source: mut OrdaenPrices, kept: mut Kept) {
+    self.house = house
+    self.source = source
+    self.kept = kept
+    self.size = (kept.houses[house.name] ?? "").length
+    Game.auctionScan.finished.listen(self.onFinished)
+    Game.auctionQuery.results.listen(self.onResults)
+    Game.auctionHouse.closed.listen(self.onClosed)
+  }
+
+  // Seconds until the client takes another full scan from this account; 0 when it would now.
+  public wait(self, now: Integer): Integer { return (FULL_EVERY - (now - self.kept.lastFull)).max(0) }
+
+  // A full scan is asked of the client, where the house is open, none runs, and the account's 15 minutes are past.
+  public full(mut self): Boolean {
+    const now = serverSeconds()
+    if (!peek Game.auctionHouse.open || self.wait(now) > 0 || peek Game.auctionScan.running || peek self.reading) {
+      return false
+    }
+    if (!Game.auctionScan.start()) { return false }
+    self.kept.lastFull = now
+    return true
+  }
+
+  onFinished(mut self, count: Integer) {
+    if (self.reader != nil) { destroy self.reader }
+    self.reader = self.read(count)
+  }
+
+  async read(mut self, count: Integer) {
+    self.reading = true
+    self.progress = 0
+    const at = Hour.now()
+    const byKey: Map<PriceKey, mut Array<Listing>> = {}
+    for (index of 1..=count) {
+      const key, unit, many = Game.auctionScan.read(index)
+      if (key != 0 && unit > 0 && many > 0) {
+        const auction = Listing.of(unit, many)
+        const list = byKey[PriceKey.given(key)]
+        if (list == nil) {
+          byKey[PriceKey.given(key)] = [auction]
+        } else {
+          list.push(auction)
+        }
+      }
+      if (index % BATCH == 0 && index < count) {
+        self.progress = index / count
+        await Game.frame()
+      }
+    }
+    let items = 0
+    for (key, list of byKey) {
+      list.sort((a, b) => a < b)
+      const unit, low, total = fifth(list)
+      self.house.observe(key, unit, low, total, at)
+      items += 1
+    }
+    _ = self.house.prune(at)
+    self.auctions = count
+    self.items = items
+    self.progress = 1
+    self.reading = false
+    self.reader = nil
+    self.source.moved()
+    self.keep()
+  }
+
+  // A browse's lowest prices: each an observation of its item.
+  onResults(mut self, offers: Array<Game.Offer>) {
+    const at = Hour.now()
+    let any = false
+    for (offer of offers) {
+      if (offer.key != 0 && offer.copper > 0 && offer.quantity > 0) {
+        self.house.observe(PriceKey.given(offer.key), offer.copper, offer.copper, offer.quantity, at)
+        any = true
+      }
+    }
+    if (any) {
+      self.dirty = true
+      self.source.moved()
+    }
+  }
+
+  onClosed(mut self) {
+    if (self.reader != nil) {
+      destroy self.reader
+      self.reading = false
+    }
+    if (self.dirty) { self.keep() }
+  }
+
+  // The house put at rest; where the client refuses, what was kept stays (the game's side says why).
+  keep(mut self) {
+    const packed = self.house.pack()
+    if (packed == nil) { return }
+    self.kept.houses[self.house.name] = packed
+    self.size = packed.length
+    self.dirty = false
+  }
+}
+
+// One item's auctions, cheapest first: the price a buyer pays per unit for the cheapest fifth of the quantity listed,
+// the lowest, and the quantity listed.
+public function fifth(sorted: Array<Listing>): (Integer, Integer, Integer) {
+  let total = 0
+  for (auction of sorted) { total += auction.quantity() }
+  const first = sorted[1]
+  if (first == nil || total == 0) { return 0, 0, 0 }
+  const wanted = (total / 5).ceil().max(1)
+  let left = wanted
+  let cost = 0
+  for (auction of sorted) {
+    const taken = auction.quantity().min(left)
+    cost += taken * auction.low()
+    left -= taken
+    if (left == 0) { break }
+  }
+  return (cost / wanted).round(), first.low(), total
+}

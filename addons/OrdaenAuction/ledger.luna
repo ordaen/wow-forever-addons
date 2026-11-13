@@ -1,0 +1,89 @@
+// The sales ledger: a row for each of the house's mail the player takes (a sale, a purchase, an auction back unsold),
+// written by whoever reads the mail (Ordaen Mail's inbox, through the root's `ledger`). It answers «sold 9 of 12» for an
+// item. Saved with the module's data, at most `MOST` rows, none older than 90 days: older rows say nothing of the
+// market now.
+import Game from "$game"
+import { Hour } from "@/quote"
+
+public enum Deal implements Plain { Sold = "sold", Bought = "bought", Expired = "expired" }
+
+// One row: the item by its name (an invoice names it so), how many, for how much in all.
+public struct Dealt implements Plain {
+  deal: Deal = .Sold
+  item: String = ""
+  count: Integer = 0
+  copper: Integer = 0
+  at: Hour = 0
+}
+
+// How many rows are kept; the oldest goes first.
+const MOST = 1000
+// How long a row is kept: 90 days, in hours.
+const KEPT_HOURS = 2160
+
+public class Ledger {
+  // Moves with every row written: a reader of the ledger follows it.
+  public state revision = 0
+  rows: mut Array<Dealt>
+
+  // `rows` are the module's saved ones, written in place.
+  constructor(rows: mut Array<Dealt>) {
+    self.rows = rows
+    self.drop(Hour.now())
+  }
+
+  // An invoice of the house's, as the mailbox gives it.
+  public record(mut self, invoice: Game.Invoice) {
+    const deal: Deal = invoice.kind == "buyer" ? .Bought : .Sold
+    self.add({ deal: deal, item: invoice.item, count: invoice.count, copper: invoice.copper, at: Hour.now() })
+  }
+
+  // An auction came back unsold.
+  public expired(mut self, item: String, count: Integer) {
+    self.add({ deal: .Expired, item: item, count: count, copper: 0, at: Hour.now() })
+  }
+
+  // How many of the item were sold, and how many were offered (sold, and back unsold).
+  public sellThrough(self, item: String): (Integer, Integer) {
+    let sold = 0
+    let offered = 0
+    for (row of self.rows) {
+      if (row.item == item && row.deal != .Bought) {
+        offered += row.count
+        if (row.deal == .Sold) { sold += row.count }
+      }
+    }
+    return sold, offered
+  }
+
+  // The rows of one kind, and their money together.
+  public total(self, deal: Deal): (Integer, Integer) {
+    let rows = 0
+    let copper = 0
+    for (row of self.rows) {
+      if (row.deal == deal) {
+        rows += 1
+        copper += row.copper
+      }
+    }
+    return rows, copper
+  }
+
+  add(mut self, row: Dealt) {
+    const now = row.at
+    self.drop(now)
+    if (self.rows.length >= MOST) { _ = self.rows.remove(1) }
+    self.rows.push(row)
+    self.revision += 1
+  }
+
+  // The rows older than 90 days, which stand first.
+  drop(mut self, now: Hour) {
+    let old = 0
+    for (row of self.rows) {
+      if (now - row.at <= KEPT_HOURS) { break }
+      old += 1
+    }
+    for (index of 1..=old) { _ = self.rows.remove(1) }
+  }
+}

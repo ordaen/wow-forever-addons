@@ -1,0 +1,167 @@
+// Waits for the stand-in client's `GetServerTime` (repro: lunatype's `repro/servertime`): Ordaen Auction's data
+// read with the hour on the fake house: a full scan read in batches into the cheapest fifth's price, pruning at 30
+// days, a browse taken in, a scan the house closed on dropped, `buy` and `sell` by age, the ledger.
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import { House } from "@/house"
+import { Kept } from "@/kept"
+import { Ledger } from "@/ledger"
+import { OrdaenPrices, takeMerchant } from "@/prices"
+import { Copper, Hour, ItemId, Listing, PriceKey } from "@/quote"
+import { fifth, Scanner } from "@/scan"
+
+// 2026-09-21, in the server's seconds: a whole hour.
+const START = 1790002800
+const HOUR = 3600
+const COPPER_ORE: Integer = 2770
+const LINEN: Integer = 2589
+const BLADE: Integer = 15211
+
+// The fake house's auctions, as `AuctionScan.read` gives them: key, buyout of one, how many.
+struct Auction {
+  key: Integer
+  unit: Integer
+  many: Integer
+}
+
+class Stand {
+  public state cut = 5
+  public house: mut House = new House("Realm 4", nil)
+  public kept: mut Kept = Kept {}
+  public prices: mut OrdaenPrices
+  public scanner: mut Scanner
+
+  constructor() {
+    self.prices = new OrdaenPrices(self.house, self.kept.vendor, self.cut)
+    self.scanner = new Scanner(mut self.house, mut self.prices, mut self.kept)
+  }
+}
+
+// What the fake house answers `AuctionScan.read` with: these auctions, by their place.
+function reader(auctions: Array<Auction>): (index: Integer) => (Integer, Integer, Integer) {
+  return (index: Integer): (Integer, Integer, Integer) => {
+    const auction = auctions[index]
+    if (auction == nil) { return 0, 0, 0 }
+    return auction.key, auction.unit, auction.many
+  }
+}
+
+function quoted(house: House, item: Integer): Integer {
+  return (house.quote(PriceKey.of(item)) ?? panic("the item has a price")).copper()
+}
+
+test "a full scan sets each item's price from the cheapest fifth of what is listed" {
+  Client.GetServerTime = (): Number => START
+  Game.auctionHouse.open = true
+  let stand = new Stand()
+  const auctions: Array<Auction> = [
+    { key: COPPER_ORE, unit: 100, many: 2 },
+    { key: COPPER_ORE, unit: 300, many: 10 },
+    { key: COPPER_ORE, unit: 120, many: 1 },
+    { key: LINEN, unit: 40, many: 20 },
+    // no buyout, and an auction the client couldn't say: left out
+    { key: LINEN, unit: 0, many: 5 },
+    { key: 0, unit: 10, many: 1 },
+    { key: BLADE + 3 * 1048576, unit: 25000, many: 1 },
+  ]
+  Game.auctionScan.read = reader(auctions)
+  Test.expect(stand.scanner.full())
+  Game.auctionScan.finished.emit(auctions.length)
+  Test.pass(0.2)
+  // Copper Ore: 13 listed, the fifth is 3: two at 100 and one at 120, 107 each; the fresh lowest is what one costs.
+  const ore = stand.prices.buy(PriceKey.of(COPPER_ORE)) ?? panic("copper ore was scanned")
+  Test.note(`copper ore: market ${quoted(stand.house, COPPER_ORE)}, buy ${ore.copper()}`)
+  Test.expect(quoted(stand.house, COPPER_ORE) == 107 && ore.copper() == 100 && ore.seen() == Hour.now() && ore.age() == 0)
+  const listed = stand.house.listed(PriceKey.of(COPPER_ORE)) ?? panic("listed")
+  Test.expect(listed.low() == 100 && listed.quantity() == 13)
+  Test.expect(quoted(stand.house, LINEN) == 40)
+  Test.expect(stand.house.listed(PriceKey.of(LINEN))?.quantity() == 20)
+  Test.expect(stand.prices.buy(PriceKey.suffixed(BLADE, 3))?.copper() == 25000)
+  Test.expect(stand.prices.buy(PriceKey.of(BLADE)) == nil)
+  Test.expect(stand.scanner.auctions == 7 && stand.scanner.items == 3 && stand.house.count == 3)
+  Test.expect(stand.prices.revision == 1)
+  // The house is at rest as the scan ends, and the account waits 15 minutes for the next.
+  Test.expect(stand.kept.houses["Realm 4"] != nil && stand.scanner.size > 0)
+  Test.expect(!stand.scanner.full() && stand.scanner.wait(START + 60) == 840)
+  Game.auctionHouse.open = false
+}
+
+test "buy is the fresh lowest, then the market; sell is the lesser less the cut; a price past 30 days isn't one" {
+  Client.GetServerTime = (): Number => START
+  let stand = new Stand()
+  const key = PriceKey.of(COPPER_ORE)
+  stand.house.observe(key, 1000, 800, 5, Hour.now())
+  Test.expect(stand.prices.buy(key)?.copper() == 800)
+  Test.expect(stand.prices.sell(key)?.copper() == 760)
+  stand.cut = 10
+  Test.expect(stand.prices.sell(key)?.copper() == 720)
+  stand.cut = 5
+  Client.GetServerTime = (): Number => START + 49 * HOUR
+  Test.expect(stand.prices.buy(key)?.copper() == 1000)
+  Test.expect(stand.prices.buy(key)?.age() == 49)
+  Test.expect(stand.prices.sell(key)?.copper() == 950)
+  Client.GetServerTime = (): Number => START + 721 * HOUR
+  Test.expect(stand.prices.buy(key) == nil && stand.prices.sell(key) == nil)
+}
+
+test "a full scan drops what was unseen for 30 days" {
+  Client.GetServerTime = (): Number => START
+  Game.auctionHouse.open = true
+  let stand = new Stand()
+  stand.house.observe(PriceKey.of(LINEN), 40, 40, 1, Hour.now())
+  stand.house.observe(PriceKey.of(BLADE), 9000, 9000, 1, Hour.now().after(20))
+  Client.GetServerTime = (): Number => START + 731 * HOUR
+  Game.auctionScan.read = reader([{ key: COPPER_ORE, unit: 100, many: 1 }])
+  Test.expect(stand.scanner.full())
+  Game.auctionScan.finished.emit(1)
+  Test.pass(0.02)
+  Test.expect(stand.house.quote(PriceKey.of(LINEN)) == nil && stand.house.listed(PriceKey.of(LINEN)) == nil)
+  Test.expect(stand.house.quote(PriceKey.of(BLADE)) != nil && stand.house.count == 2)
+  Game.auctionHouse.open = false
+}
+
+test "a browse's lowest prices are observations; the house closing puts them at rest" {
+  Client.GetServerTime = (): Number => START
+  Game.auctionHouse.open = true
+  let stand = new Stand()
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 45, quantity: 12 }, { key: 0, copper: 5, quantity: 1 }])
+  Test.expect(stand.prices.buy(PriceKey.of(LINEN))?.copper() == 45)
+  Test.expect(stand.prices.revision == 1)
+  Test.expect(stand.kept.houses["Realm 4"] == nil)
+  Game.auctionHouse.open = false
+  Game.auctionHouse.closed.emit()
+  Test.expect(stand.kept.houses["Realm 4"] != nil)
+}
+
+test "a scan the house closes on is dropped" {
+  Client.GetServerTime = (): Number => START
+  Game.auctionHouse.open = true
+  let stand = new Stand()
+  let auctions: Array<Auction> = []
+  for (index of 1..=1200) { auctions.push({ key: 1000 + index, unit: 10, many: 1 }) }
+  Game.auctionScan.read = reader(auctions)
+  Test.expect(stand.scanner.full())
+  Game.auctionScan.finished.emit(auctions.length)
+  Test.expect(stand.scanner.reading && stand.scanner.progress > 0.4 && stand.scanner.progress < 0.5)
+  Game.auctionHouse.open = false
+  Game.auctionHouse.closed.emit()
+  Test.pass(0.2)
+  Test.expect(!stand.scanner.reading && stand.house.count == 0 && stand.prices.revision == 0)
+}
+
+test "the ledger counts what sold of what was offered, and keeps 90 days" {
+  Client.GetServerTime = (): Number => START
+  let kept = Kept {}
+  let ledger = new Ledger(mut kept.ledger)
+  ledger.record({ kind: "seller", item: "Linen Cloth", other: "Regron", copper: 500, count: 9 })
+  ledger.expired("Linen Cloth", 3)
+  ledger.record({ kind: "buyer", item: "Linen Cloth", other: nil, copper: 300, count: 20 })
+  const sold, offered = ledger.sellThrough("Linen Cloth")
+  Test.expect(sold == 9 && offered == 12 && ledger.revision == 3)
+  const bought, spent = ledger.total(.Bought)
+  Test.expect(bought == 1 && spent == 300 && kept.ledger.length == 3)
+  Client.GetServerTime = (): Number => START + 2161 * HOUR
+  ledger.expired("Copper Bar", 1)
+  Test.expect(kept.ledger.length == 1)
+}

@@ -1,0 +1,81 @@
+// One auction house's prices: per key, the market with the hour it last moved, and the last observation's lowest with
+// the quantity listed then. Plain maps, never cells: ten thousand cells would cost a table each and a notice per
+// write, and nothing draws one price's change (the source's `revision` is what readers follow). At rest a house is
+// one string (`pack`): its two maps as CBOR, deflated, one constant to the client's parser however many keys it has.
+import Game from "$game"
+import { Hour, Listing, PriceKey, Quote } from "@/quote"
+
+// A house's two maps, as they are packed.
+public struct Packed implements Plain {
+  market: mut Map<PriceKey, Quote> = {}
+  listing: mut Map<PriceKey, Listing> = {}
+}
+
+// Each observation moves the market by `1 − 2^(−Δ/72)`, Δ the hours since it last moved.
+const HALF_LIFE: Number = 72
+// A key unseen this long (30 days, in hours) is dropped at a full scan's end, and no price is read from it before.
+public const KEPT_HOURS = 720
+
+public class House {
+  // The realm's name as the game shows it: one house per realm, both factions' (`redesign/market.md`).
+  public const name: String
+  market: mut Map<PriceKey, Quote>
+  listing: mut Map<PriceKey, Listing>
+  // How many keys it holds.
+  public count: Integer = 0
+
+  // `packed` is the house as `pack` left it; none for a house never scanned, or one the client couldn't read.
+  constructor(name: String, packed: String | nil) {
+    self.name = name
+    const maps = unpacked(packed)
+    self.market = maps.market
+    self.listing = maps.listing
+    for (_, quote of self.market) { self.count += 1 }
+  }
+
+  public quote(self, key: PriceKey): Quote | nil { return self.market[key] }
+  public listed(self, key: PriceKey): Listing | nil { return self.listing[key] }
+
+  // One look at an item: its unit price (the cheapest fifth's, or a browse's lowest), its lowest, and how many were
+  // listed. The first is the market; after it each moves the market by its decay; the listing is the last one's.
+  public observe(mut self, key: PriceKey, unit: Integer, low: Integer, quantity: Integer, at: Hour) {
+    const before = self.market[key]
+    let value: Number = unit
+    if (before == nil) {
+      self.count += 1
+    } else {
+      const kept = 0.5 ** ((at - before.seen()) / HALF_LIFE)
+      value = before.copper() * kept + unit * (1 - kept)
+    }
+    self.market[key] = Quote.of(value.round(), at)
+    self.listing[key] = Listing.of(low, quantity)
+  }
+
+  // Drops every key unseen for 30 days; says how many went.
+  public prune(mut self, now: Hour): Integer {
+    let gone: Array<PriceKey> = []
+    for (key, quote of self.market) {
+      if (now - quote.seen() > KEPT_HOURS) { gone.push(key) }
+    }
+    for (key of gone) {
+      self.market[key] = nil
+      self.listing[key] = nil
+    }
+    self.count -= gone.length
+    return gone.length
+  }
+
+  // The house at rest: none where the client refused to pack it (the game's side says why).
+  public pack(self): String | nil {
+    const raw = Game.encoding.serialize(Packed { market: self.market, listing: self.listing })
+    if (raw == nil) { return nil }
+    return Game.encoding.compress(raw)
+  }
+}
+
+function unpacked(packed: String | nil): mut Packed {
+  if (packed == nil) { return Packed {} }
+  const raw = Game.encoding.decompress(packed)
+  if (raw == nil) { return Packed {} }
+  return Packed.decode(Game.encoding.deserialize(raw), Packed {})
+}
