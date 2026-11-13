@@ -1,4 +1,4 @@
-// Settings read back from what was kept: an entry that isn't what its default is takes the default's value.
+// Settings read back from what was kept (`decode`): a field that isn't there, or isn't of its type, is the default's.
 import Game from "$game"
 import Test from "$test"
 import { Look, preset, Preset } from "@/look"
@@ -20,7 +20,7 @@ function color(c: Color): String {
   return "%g, %g, %g, %g".format(c.r, c.g, c.b, c.a)
 }
 
-test "a kept colour without its fields is the default's" {
+test "a kept colour without some of its fields takes them from the default" {
   Game.saved.store(.Account, "Probe", Damaged { accent: { r: 0.1 }, red: "red", redText: { r: 0.5, g: 0.25, b: 0, a: 1 } })
   const look: Look = load(.Account, "Probe", preset(Preset.Ordaen))
   Test.note(`accent: ${color(look.accent)}`)
