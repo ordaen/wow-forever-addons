@@ -3,76 +3,86 @@
 // bags) sits in the zone its setting names, or not on the panel. The menu's buttons and the bags are the game's own,
 // standing in the panel's cells, so their clicks, menus and alerts stay the game's.
 import Game from "$game"
-import Math from "$math"
-import { Align, Anchored, Color, Docked, Edges, Layer, Place, Point, Position, Shadow, Side, Track } from "$ltml"
-import Ordaen from "Ordaen"
+import { Align, Anchored, Docked, Edges, Layer, Place, Point, Position, Shadow, Side, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Artwork, Component, LookArt, Module, Placed, Settings, SettingsPage } from "Ordaen"
 import Locale from "@/locales"
 import { BagLine, MicroLine, MoneyLine, SocialLine } from "@/items"
 import { CharButton, Choices, Combat, DEFAULTS, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
 import { BottomPage, GeneralPage, MicroPage, StatusPage } from "@/settings"
 import { XpBar } from "@/xpBar"
 
-private const INK = $color("#e8dcc4")
+const INK: Color = Color.hex("#e8dcc4")
 // The time while calendar invites wait.
-private const PENDING = $color("#ff9933")
-private const TEXT = 12
-private const TEXT_SHADOW: Shadow = { color: $color("#000000"), x: 1, y: -1 }
-private const NO_SHADOW: Shadow = { color: $color("#00000000"), x: 0, y: 0 }
+const PENDING: Color = Color.hex("#ff9933")
+const TEXT = 12
+const TEXT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
+const NO_SHADOW: Shadow = { color: Color.hex("#00000000"), x: 0, y: 0 }
 // Under the metal along its inner side the content starts 4 further in.
-private const EDGE_ROOM: Edges = { top: 4 }
+const EDGE_ROOM: Edges = { top: 4 }
 // A panel shown on mouseover, hidden: unseen, yet under the cursor.
-private const MOUSEOVER_LEAST = 1 / 255
+const MOUSEOVER_LEAST = 1 / 255
 // Where the free parts stand until the player moves them: above the bottom of the screen.
-private const MICRO_HOME: Anchored = { point: Point::BottomLeft, x: 140, y: -10 }
-private const SOCIAL_HOME: Anchored = { point: Point::BottomLeft, x: 660, y: -10 }
-private const EXPERIENCE_HOME: Anchored = { point: Point::Bottom, x: 0, y: -20 }
-private const MONEY_HOME: Anchored = { point: Point::BottomRight, x: -330, y: -20 }
-private const BAGS_HOME: Anchored = { point: Point::BottomRight, x: -10, y: -10 }
-private const THIRDS: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
-private const FITTED: Array<Track> = ["auto", "auto", "auto"]
+const MICRO_HOME: Anchored = { point: Point.BottomLeft, x: 140, y: -10 }
+const SOCIAL_HOME: Anchored = { point: Point.BottomLeft, x: 660, y: -10 }
+const EXPERIENCE_HOME: Anchored = { point: Point.Bottom, x: 0, y: -20 }
+const MONEY_HOME: Anchored = { point: Point.BottomRight, x: -330, y: -20 }
+const BAGS_HOME: Anchored = { point: Point.BottomRight, x: -10, y: -10 }
+const THIRDS: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
+const FITTED: Array<Track> = ["auto", "auto", "auto"]
 // The portrait in the screen's corner, over the panel's start; the menu keeps that much room for it.
-private const PORTRAIT_WIDTH = 128
-private const PORTRAIT_HEIGHT = 124
-private const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "auto"]
-private const CORNER: Anchored = { point: Point::BottomLeft }
+const PORTRAIT_WIDTH = 128
+const PORTRAIT_HEIGHT = 124
+const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "auto"]
+const CORNER: Anchored = { point: Point.BottomLeft }
 // Down a side of the screen: one column, the zones one under another.
-private const DOWN: Array<Track> = [{ fr: 1 }]
+const DOWN: Array<Track> = [{ fr: 1 }]
 
 // One zone of the panel: its items in their order, from the zone's start, in its middle or to its end.
-public class ZoneBox implements Ordaen::Component {
-  private align = $computed((): Align => self.alignOf())
-  private micro = $computed((): boolean => self.panel.microIn(self.zone))
-  private social = $computed((): boolean => self.panel.socialIn(self.zone))
+public class ZoneBox implements Component {
+  // Ordaen's art: its root is there before this module loads.
+  derived artwork: Artwork {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.art
+  }
+  derived align: Align = self.alignOf()
+  derived micro: Boolean = self.panel.microIn(self.zone)
+  derived social: Boolean = self.panel.socialIn(self.zone)
   // The experience bar lies along a panel that runs across the screen: down a side there is no room for it.
-  private experience = $computed((): boolean => self.panel.experienceIn(self.zone) && !self.panel.vertical)
-  private zoneName = $computed((): boolean => self.panel.zoneIn(self.zone))
-  private clock = $computed((): boolean => self.panel.clockIn(self.zone))
-  private money = $computed((): boolean => self.panel.moneyIn(self.zone))
-  private bags = $computed((): boolean => self.panel.bagsIn(self.zone))
+  derived experience: Boolean = self.panel.experienceIn(self.zone) && !self.panel.vertical
+  derived zoneName: Boolean = self.panel.zoneIn(self.zone)
+  derived clock: Boolean = self.panel.clockIn(self.zone)
+  derived money: Boolean = self.panel.moneyIn(self.zone)
+  derived bags: Boolean = self.panel.bagsIn(self.zone)
   // One track as long as each item that sits here: columns across the screen, rows down a side of it.
-  private columns = $computed((): Array<Track> => self.panel.vertical ? DOWN : self.tracks())
-  private rows = $computed((): Array<Track> | nil => self.panel.vertical ? self.tracks() : nil)
-  private along = $computed((): Align => self.panel.vertical ? Align::Center : self.align)
-  private across = $computed((): Align => self.panel.vertical ? self.align : Align::Center)
+  derived columns: Array<Track> = self.panel.vertical ? DOWN : self.tracks()
+  derived rows: Array<Track> | nil = self.panel.vertical ? self.tracks() : nil
+  derived along: Align = self.panel.vertical ? Align.Center : self.align
+  derived across: Align = self.panel.vertical ? self.align : Align.Center
 
-  $constructor(
-    private const zone: Zone,
-    private panel: Panel,
-  ) {}
+  const zone: Zone
+  panel: Panel
+  constructor(
+    zone: Zone,
+    panel: Panel,
+  ) {
+    self.zone = zone
+    self.panel = panel
+  }
 
-  private alignOf(): Align {
+  alignOf(self): Align {
     // With the experience bar in it nothing is aligned: an aligned item keeps its content's size, and the bar
     // takes the room the others leave.
-    if (self.experience) { return Align::Stretch }
-    switch (self.zone) {
-      case Zone::Left: return Align::Start
-      case Zone::Center: return Align::Center
-      default: return Align::End
+    if (self.experience) { return Align.Stretch }
+    match (self.zone) {
+      Zone.Left => return Align.Start,
+      Zone.Center => return Align.Center,
+      else => return Align.End,
     }
   }
 
-  private tracks(): Array<Track> {
-    let mut list: Array<Track> = []
+  tracks(self): Array<Track> {
+    let list: Array<Track> = []
     for (here of [self.micro, self.social]) {
       if (here) { list.push("auto") }
     }
@@ -84,15 +94,15 @@ public class ZoneBox implements Ordaen::Component {
     return list
   }
 
-  private mut onClock() { Game::Clock::toggleCalendar() }
+  onClock(mut self) { Game.clock.toggleCalendar() }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box columns={self.columns} rows={self.rows} gap={Ordaen::art.spacing.md} xAlign={self.along}
+      <box columns={self.columns} rows={self.rows} gap={self.artwork.spacing.md} xAlign={self.along}
            yAlign={self.across}>
         <$if={self.micro}>
-          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={Ordaen::art.spacing.md}
-               yAlign={Align::Center}>
+          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={self.artwork.spacing.md}
+               yAlign={Align.Center}>
             <box width={PORTRAIT_WIDTH} height={1} />
             <MicroLine gold={self.panel.goldIcons} faced={false} />
           </box>
@@ -100,10 +110,10 @@ public class ZoneBox implements Ordaen::Component {
         </>
         <SocialLine $if={self.social} gold={self.panel.goldIcons} vertical={self.panel.vertical} />
         <XpBar $if={self.experience} />
-        <text $if={self.zoneName} value={Game::Location::zone} textColor={INK} textSize={TEXT}
+        <text $if={self.zoneName} value={Game.location.zone} textColor={INK} textSize={TEXT}
               textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
         <box $if={self.clock} @click={self.onClock}>
-          <text value={Game::Clock::text} textColor={self.panel.clockColor} textSize={TEXT}
+          <text value={Game.clock.text} textColor={self.panel.clockColor} textSize={TEXT}
                 textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
         </box>
         <MoneyLine $if={self.money} outline={self.panel.outline} shadow={self.panel.shadow}
@@ -114,186 +124,201 @@ public class ZoneBox implements Ordaen::Component {
   }
 }
 
-public class Panel implements Ordaen::Module {
-  public const title: string = "Ordaen Panel"
+public class Panel implements Module {
+  public const title: String = "Ordaen Panel"
 
-  private mut settings = new Ordaen::Settings<Choices>(DEFAULTS, Ordaen::Scope::Account)
-  public const pages: Array<Ordaen::SettingsPage> = [
-    { title: Locale::TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
-    { title: Locale::TAB_MICROMENU, content: $ltml { <MicroPage settings={mut self.settings} /> } },
-    { title: Locale::TAB_STATUS, content: $ltml { <StatusPage settings={mut self.settings} /> } },
-    { title: Locale::TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} /> } },
+  // Ordaen's art, look and fonts: its root is there before this module loads.
+  derived artwork: Artwork {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.art
+  }
+  derived lookArt: LookArt {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.lookArt
+  }
+  derived accent: Color {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.look.values.accent
+  }
+
+  settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_MICROMENU, content: $ltml { <MicroPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_STATUS, content: $ltml { <StatusPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} /> } },
   ]
 
-  private mut hovered = $reactive(false)
+  state hovered = false
+
+  constructor() {
+    watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }
+  }
 
   // What the zones read.
-  public goldIcons: Reactive<boolean> = $computed((): boolean => self.settings.microIcons == MicroIcons::Gold)
+  public derived goldIcons: Boolean = self.settings.values.microIcons == MicroIcons.Gold
   // The player's portrait stands in the screen's corner: asked for, with the menu at the start of a panel
   // along the bottom. The character's button is then the portrait, and the menu has no cell for it.
-  public portraitShown: Reactive<boolean> = $computed((): boolean =>
-    self.settings.charButton == CharButton::Portrait && self.settings.microOn && self.settings.bottomOn
-      && self.settings.edge == Edge::Bottom && self.at(Item::Micromenu) == Zone::Left)
+  public derived portraitShown: Boolean = self.settings.values.charButton == CharButton.Portrait && self.settings.values.microOn && self.settings.values.bottomOn
+    && self.settings.values.edge == Edge.Bottom && self.at(Item.Micromenu) == Zone.Left
   // The panel runs down a side of the screen: its zones one under another, each item's cells too.
-  public vertical: Reactive<boolean> = $computed((): boolean =>
-    self.settings.edge == Edge::Left || self.settings.edge == Edge::Right)
-  public outline: Reactive<integer> = $computed((): integer => self.outlineOf())
-  public shadow: Reactive<Shadow> = $computed((): Shadow => self.settings.shadow ? TEXT_SHADOW : NO_SHADOW)
-  public clockColor: Reactive<Color> = $computed((): Color => Game::Clock::invites > 0 ? PENDING : INK)
+  public derived vertical: Boolean = self.settings.values.edge == Edge.Left || self.settings.values.edge == Edge.Right
+  public derived outline: Integer = self.outlineOf()
+  public derived shadow: Shadow = self.settings.values.shadow ? TEXT_SHADOW : NO_SHADOW
+  public derived clockColor: Color = Game.clock.invites > 0 ? PENDING : INK
 
   // The items off the panel, or all of them while the panel is off: each a free part of its own, which the
   // player places in Ordaen's placing mode. (The zone's name and the time aren't: off the panel they are the
   // minimap's.)
-  private freeMicro = $computed((): boolean => self.settings.microOn && self.isFree(Item::Micromenu))
-  private freeSocial = $computed((): boolean => self.settings.microOn && self.isFree(Item::Social))
-  private freeExperience = $computed((): boolean => self.settings.statusOn && self.isFree(Item::Experience))
-  private freeMoney = $computed((): boolean => self.isFree(Item::Currencies))
-  private freeBags = $computed((): boolean => self.isFree(Item::Bags))
+  derived freeMicro: Boolean = self.settings.values.microOn && self.isFree(Item.Micromenu)
+  derived freeSocial: Boolean = self.settings.values.microOn && self.isFree(Item.Social)
+  derived freeExperience: Boolean = self.settings.values.statusOn && self.isFree(Item.Experience)
+  derived freeMoney: Boolean = self.isFree(Item.Currencies)
+  derived freeBags: Boolean = self.isFree(Item.Bags)
 
-  private hidden = $computed((): boolean => self.hiddenNow())
+  derived hidden: Boolean = self.hiddenNow()
   // The portrait shows with the panel.
-  private cornered = $computed((): boolean => self.portraitShown && self.drawn)
+  derived cornered: Boolean = self.portraitShown && self.drawn
   // Hidden with nothing to see and nothing for the cursor to find: not drawn at all.
-  private drawn = $computed((): boolean =>
-    self.settings.bottomOn && !(self.hidden && self.settings.fadedAlpha <= 0 && self.settings.show != Show::Mouseover))
-  private opacity = $computed((): number => self.opacityOf())
-  private place = $computed((): Place => self.placeOf())
+  derived drawn: Boolean = self.settings.values.bottomOn && !(self.hidden && self.settings.values.fadedAlpha <= 0 && self.settings.values.show != Show.Mouseover)
+  derived opacity: Number = self.opacityOf()
+  derived place: Place = self.placeOf()
   // The zones: three columns across the screen, three rows down a side of it; thirds of the whole edge, or each
   // as long as its items.
-  private thirds = $computed((): Array<Track> => self.settings.fit == Fit::Full ? THIRDS : FITTED)
-  private columns = $computed((): Array<Track> => self.vertical ? DOWN : self.thirds)
-  private rows = $computed((): Array<Track> | nil => self.vertical ? self.thirds : nil)
+  derived thirds: Array<Track> = self.settings.values.fit == Fit.Full ? THIRDS : FITTED
+  derived columns: Array<Track> = self.vertical ? DOWN : self.thirds
+  derived rows: Array<Track> | nil = self.vertical ? self.thirds : nil
   // How far it reaches in from its edge.
-  private width = $computed((): number | nil => self.vertical ? self.settings.height : nil)
-  private height = $computed((): number | nil => self.vertical ? nil : self.settings.height)
-  private along = $computed((): Align => self.vertical ? Align::Center : Align::Stretch)
-  private across = $computed((): Align => self.vertical ? Align::Stretch : Align::Center)
+  derived width: Number | nil = self.vertical ? self.settings.values.height : nil
+  derived height: Number | nil = self.vertical ? nil : self.settings.values.height
+  derived along: Align = self.vertical ? Align.Center : Align.Stretch
+  derived across: Align = self.vertical ? Align.Stretch : Align.Center
 
-  private outlineOf(): integer {
-    switch (self.settings.outline) {
-      case Outline::None: return 0
-      case Outline::Thin: return 1
-      case Outline::Thick: return 2
+  outlineOf(self): Integer {
+    match (self.settings.values.outline) {
+      Outline.None => return 0,
+      Outline.Thin => return 1,
+      Outline.Thick => return 2,
     }
   }
 
   // Where an item sits.
-  private at(item: Item): Zone { return self.settings.places[item] ?? Zone::Off }
+  at(self, item: Item): Zone { return self.settings.values.places[item] ?? Zone.Off }
 
-  private isFree(item: Item): boolean { return !self.settings.bottomOn || self.at(item) == Zone::Off }
+  isFree(self, item: Item): Boolean { return !self.settings.values.bottomOn || self.at(item) == Zone.Off }
 
   // Whether an item sits in a zone of the panel.
-  public microIn(zone: Zone): boolean { return self.settings.microOn && self.at(Item::Micromenu) == zone }
-  public socialIn(zone: Zone): boolean { return self.settings.microOn && self.at(Item::Social) == zone }
-  public experienceIn(zone: Zone): boolean { return self.settings.statusOn && self.at(Item::Experience) == zone }
-  public zoneIn(zone: Zone): boolean { return self.at(Item::Zone) == zone }
-  public clockIn(zone: Zone): boolean { return self.at(Item::Clock) == zone }
-  public moneyIn(zone: Zone): boolean { return self.at(Item::Currencies) == zone }
-  public bagsIn(zone: Zone): boolean { return self.at(Item::Bags) == zone }
+  public microIn(self, zone: Zone): Boolean { return self.settings.values.microOn && self.at(Item.Micromenu) == zone }
+  public socialIn(self, zone: Zone): Boolean { return self.settings.values.microOn && self.at(Item.Social) == zone }
+  public experienceIn(self, zone: Zone): Boolean { return self.settings.values.statusOn && self.at(Item.Experience) == zone }
+  public zoneIn(self, zone: Zone): Boolean { return self.at(Item.Zone) == zone }
+  public clockIn(self, zone: Zone): Boolean { return self.at(Item.Clock) == zone }
+  public moneyIn(self, zone: Zone): Boolean { return self.at(Item.Currencies) == zone }
+  public bagsIn(self, zone: Zone): Boolean { return self.at(Item.Bags) == zone }
 
   // Whether the panel is hidden now: never shown, or only while the cursor is on it, or by combat, a vehicle, a
   // pet battle or resting.
-  private hiddenNow(): boolean {
-    if (self.settings.show == Show::Never) { return true }
-    let fighting = Game::Situation::combat
-    if (self.settings.combat == Combat::Hide && fighting) { return true }
-    if (self.settings.combat == Combat::Only && !fighting) { return true }
-    if (self.settings.vehicle && Game::Situation::vehicle) { return true }
-    if (self.settings.petBattle && Game::Situation::petBattle) { return true }
-    if (self.settings.resting && Game::Situation::resting) { return true }
-    return self.settings.show == Show::Mouseover && !self.hovered
+  hiddenNow(self): Boolean {
+    if (self.settings.values.show == Show.Never) { return true }
+    let fighting = Game.situation.combat
+    if (self.settings.values.combat == Combat.Hide && fighting) { return true }
+    if (self.settings.values.combat == Combat.Only && !fighting) { return true }
+    if (self.settings.values.vehicle && Game.situation.vehicle) { return true }
+    if (self.settings.values.petBattle && Game.situation.petBattle) { return true }
+    if (self.settings.values.resting && Game.situation.resting) { return true }
+    return self.settings.values.show == Show.Mouseover && !self.hovered
   }
 
   // Hidden, it is faded to its opacity. Shown on mouseover, a hidden panel stays drawn at the least opacity the
   // cursor still finds.
-  private opacityOf(): number {
+  opacityOf(self): Number {
     if (!self.hidden) { return 1 }
-    if (self.settings.show == Show::Mouseover) { return Math::max(self.settings.fadedAlpha, MOUSEOVER_LEAST) }
-    return self.settings.fadedAlpha
+    if (self.settings.values.show == Show.Mouseover) { return self.settings.values.fadedAlpha.max(MOUSEOVER_LEAST) }
+    return self.settings.values.fadedAlpha
   }
 
-  private placeOf(): Docked {
-    let whole = self.settings.fit == Fit::Full
-    switch (self.settings.edge) {
-      case Edge::Bottom: return { side: Side::Bottom, whole: whole }
-      case Edge::Top: return { side: Side::Top, whole: whole }
-      case Edge::Left: return { side: Side::Left, whole: whole }
-      case Edge::Right: return { side: Side::Right, whole: whole }
+  placeOf(self): Docked {
+    let whole = self.settings.values.fit == Fit.Full
+    match (self.settings.values.edge) {
+      Edge.Bottom => return { side: Side.Bottom, whole: whole },
+      Edge.Top => return { side: Side.Top, whole: whole },
+      Edge.Left => return { side: Side.Left, whole: whole },
+      Edge.Right => return { side: Side.Right, whole: whole },
     }
   }
 
-  private mut onEnter() { self.hovered = true }
-  private mut onLeave() { self.hovered = false }
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       // What the panel takes the place of, for as long as it runs. The menu's box is unseen, not hidden: the game
       // lays its buttons out by their places, which a hidden box doesn't have.
-      <$if={self.settings.microOn}>
-        <frame of={Game::Frames::MicroMenuContainer} opacity={0} />
+      <$if={self.settings.values.microOn}>
+        <frame of={Game.frames.MicroMenuContainer} opacity={0} />
         <box width={0} height={0}>
-          <embed frame={Game::Frames::StoreMicroButton} width={0} height={0} opacity={0} />
-          <embed frame={Game::Frames::HelpMicroButton} width={0} height={0} opacity={0} />
+          <embed frame={Game.frames.StoreMicroButton} width={0} height={0} opacity={0} />
+          <embed frame={Game.frames.HelpMicroButton} width={0} height={0} opacity={0} />
         </box>
       </>
-      <$if={self.settings.statusOn}>
-        <frame of={Game::Frames::MainStatusTrackingBarContainer} shown={false} />
-        <frame of={Game::Frames::SecondaryStatusTrackingBarContainer} shown={false} />
+      <$if={self.settings.values.statusOn}>
+        <frame of={Game.frames.MainStatusTrackingBarContainer} shown={false} />
+        <frame of={Game.frames.SecondaryStatusTrackingBarContainer} shown={false} />
       </>
-      <frame of={Game::Frames::BagsBar} shown={false} />
-      <frame of={Game::Frames::BackpackFreeSlots} shown={false} />
+      <frame of={Game.frames.BagsBar} shown={false} />
+      <frame of={Game.frames.BackpackFreeSlots} shown={false} />
 
-      <surface $if={self.drawn} layer={Layer::Screen} place={self.place} width={self.width} height={self.height}
-               background={Ordaen::art.panel.wood} border={Ordaen::art.panel.edge} padding={EDGE_ROOM}
+      <surface $if={self.drawn} layer={Layer.Screen} place={self.place} width={self.width} height={self.height}
+               background={self.artwork.panel.wood} border={self.artwork.panel.edge} padding={EDGE_ROOM}
                columns={self.columns} rows={self.rows} xAlign={self.along} yAlign={self.across}
-               opacity={self.opacity} hoverWithin={true} textFamily={Ordaen::lookArt.font}
+               opacity={self.opacity} hoverWithin={true} textFamily={self.lookArt.font}
                @enter={self.onEnter} @leave={self.onLeave}>
-        <ZoneBox zone={Zone::Left} panel={self} />
-        <ZoneBox zone={Zone::Center} panel={self} />
-        <ZoneBox zone={Zone::Right} panel={self} />
+        <ZoneBox zone={Zone.Left} panel={self} />
+        <ZoneBox zone={Zone.Center} panel={self} />
+        <ZoneBox zone={Zone.Right} panel={self} />
       </surface>
       // The portrait: the player's face in the corner's shape, the level on a badge on its rim, and the
       // character's button of the game's unseen over all of it.
-      <surface $if={self.cornered} layer={Layer::Screen} place={CORNER} width={PORTRAIT_WIDTH}
-               height={PORTRAIT_HEIGHT} portrait={"player"} mask={Ordaen::art.panel.corner}
-               textFamily={Ordaen::lookArt.font}>
-        <embed frame={Game::Frames::CharacterMicroButton} position={Position::Absolute} left={0} top={0}
+      <surface $if={self.cornered} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
+               height={PORTRAIT_HEIGHT} portrait={"player"} mask={self.artwork.panel.corner}
+               textFamily={self.lookArt.font}>
+        <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
                width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
-        <box position={Position::Absolute} left={86.7} top={5.3} width={36} height={36}
-             background={Ordaen::art.panel.badge} xAlign={Align::Center} yAlign={Align::Center}>
-          <text value={"%d"} arguments={[Game::Player::level]} textColor={Ordaen::look.values.accent} textSize={14}
+        <box position={Position.Absolute} left={86.7} top={5.3} width={36} height={36}
+             background={self.artwork.panel.badge} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={"%d"} arguments={[Game.player.level]} textColor={self.accent} textSize={14}
                 wrap={false} />
         </box>
       </surface>
 
-      <Ordaen::Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale::PANEL_MICROMENU} home={MICRO_HOME}>
-        <box background={Ordaen::art.window.wood} border={Ordaen::art.frame.small} padding={Ordaen::art.spacing.sm}>
+      <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
+        <box background={self.artwork.window.wood} border={self.artwork.frame.small} padding={self.artwork.spacing.sm}>
           <MicroLine gold={self.goldIcons} />
         </box>
-      </Ordaen::Placed>
-      <Ordaen::Placed $if={self.freeSocial} id={"OrdaenPanel.social"} title={Locale::PANEL_SOCIAL} home={SOCIAL_HOME}>
-        <box background={Ordaen::art.window.wood} border={Ordaen::art.frame.small} padding={Ordaen::art.spacing.sm}>
+      </Placed>
+      <Placed $if={self.freeSocial} id={"OrdaenPanel.social"} title={Locale.PANEL_SOCIAL} home={SOCIAL_HOME}>
+        <box background={self.artwork.window.wood} border={self.artwork.frame.small} padding={self.artwork.spacing.sm}>
           <SocialLine gold={self.goldIcons} />
         </box>
-      </Ordaen::Placed>
-      <Ordaen::Placed $if={self.freeExperience} id={"OrdaenPanel.experience"} title={Locale::PANEL_EXPERIENCE}
-                      home={EXPERIENCE_HOME}>
-        <box width={600} background={Ordaen::art.window.wood} border={Ordaen::art.frame.small}
-             padding={Ordaen::art.spacing.sm}>
+      </Placed>
+      <Placed $if={self.freeExperience} id={"OrdaenPanel.experience"} title={Locale.PANEL_EXPERIENCE}
+              home={EXPERIENCE_HOME}>
+        <box width={600} background={self.artwork.window.wood} border={self.artwork.frame.small}
+             padding={self.artwork.spacing.sm}>
           <XpBar both={true} />
         </box>
-      </Ordaen::Placed>
-      <Ordaen::Placed $if={self.freeMoney} id={"OrdaenPanel.currencies"} title={Locale::PANEL_CURRENCIES}
-                      home={MONEY_HOME}>
-        <box background={Ordaen::art.window.wood} border={Ordaen::art.frame.small} padding={Ordaen::art.spacing.sm}>
+      </Placed>
+      <Placed $if={self.freeMoney} id={"OrdaenPanel.currencies"} title={Locale.PANEL_CURRENCIES}
+              home={MONEY_HOME}>
+        <box background={self.artwork.window.wood} border={self.artwork.frame.small} padding={self.artwork.spacing.sm}>
           <MoneyLine outline={self.outline} shadow={self.shadow} />
         </box>
-      </Ordaen::Placed>
-      <Ordaen::Placed $if={self.freeBags} id={"OrdaenPanel.bags"} title={Locale::PANEL_BAGS} home={BAGS_HOME}>
-        <box background={Ordaen::art.window.wood} border={Ordaen::art.frame.small} padding={Ordaen::art.spacing.sm}>
+      </Placed>
+      <Placed $if={self.freeBags} id={"OrdaenPanel.bags"} title={Locale.PANEL_BAGS} home={BAGS_HOME}>
+        <box background={self.artwork.window.wood} border={self.artwork.frame.small} padding={self.artwork.spacing.sm}>
           <BagLine />
         </box>
-      </Ordaen::Placed>
+      </Placed>
     }
   }
 }

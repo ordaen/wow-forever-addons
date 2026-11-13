@@ -1,52 +1,71 @@
 // The panel's cells: a button of the game's menu or a bag, each a cell of the panel with the game's own button in
 // it, so its click, its menus and its alerts stay the game's.
 import Game from "$game"
-import { Align, Art, Color, Edges, EmbedLook, Frame, Position, Shadow, Stated } from "$ltml"
-import Ordaen from "Ordaen"
+import { Align, Art, Edges, EmbedLook, Frame, Position, Shadow, Stated } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Artwork, Component, LookArt } from "Ordaen"
 
 // A cell fills the panel below its metal edge, 1.075 times as wide: the inside between its side rims is square.
 public const CELL_HEIGHT = 53
-public const CELL_WIDTH = CELL_HEIGHT * 1.075
+public const CELL_WIDTH: Number = CELL_HEIGHT * 1.075
 // The face on the character's cell.
-private const FACE = 40 / 1.2
-private const ICON = 35
-private const ICON_LEFT = (CELL_WIDTH - ICON) / 2
+const FACE = 40 / 1.2
+const ICON = 35
+const ICON_LEFT = (CELL_WIDTH - ICON) / 2
 // The icon sits a pixel lower while its cell is pushed.
-private const ICON_TOP: Stated<number> = { default: (CELL_HEIGHT - ICON) / 2, pressed: (CELL_HEIGHT - ICON) / 2 + 1 / 1.2 }
-private const GOLD = $color("#ffb847")
-private const WHITE = $color("#ffffff")
+const ICON_TOP: Stated<Number> = { default: (CELL_HEIGHT - ICON) / 2, pressed: (CELL_HEIGHT - ICON) / 2 + 1 / 1.2 }
+const GOLD: Color = Color.hex("#ffb847")
+const WHITE: Color = Color.hex("#ffffff")
 // The friends online: a green pill in the cell's lower right, 16 px high and at least as wide.
-private const BADGE = 16 / 1.2
-private const BADGE_PAD: Edges = { right: 4 / 1.2, left: 4 / 1.2 }
+const BADGE = 16 / 1.2
+const BADGE_PAD: Edges = { right: 4 / 1.2, left: 4 / 1.2 }
 // The design's bold number: a white shadow one pixel to the right.
-private const BOLD: Shadow = { color: WHITE, x: 1, y: 0 }
+const BOLD: Shadow = { color: WHITE, x: 1, y: 0 }
 
 // A button of the game's menu: our icon on the cell, the game's button unseen over it.
-public class MenuCell implements Ordaen::Component {
-  private tint = $computed((): Color => self.gold ? GOLD : WHITE)
-  private counted = $computed((): boolean => self.count > 0)
+public class MenuCell implements Component {
+  // Ordaen's art and the look's fonts: its root is there before this module loads.
+  derived artwork: Artwork {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.art
+  }
+  derived lookArt: LookArt {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.lookArt
+  }
+  derived tint: Color = self.gold ? GOLD : WHITE
+  derived counted: Boolean = self.count > 0
 
-  $constructor(
-    private const icon: Art,
-    private frame: Reactive<Frame | nil>,
+  const icon: Art
+  frame: Signal<any Frame | nil>
+  gold: Signal<Boolean>
+  count: Signal<Integer>
+  constructor(
+    icon: Art,
+    frame: Signal<any Frame | nil>,
     // The icon in one gold.
-    private gold: Reactive<boolean>,
+    gold: Signal<Boolean>,
     // A number on the cell while it isn't 0: the friends online.
-    private count: Reactive<integer> = 0,
-  ) {}
+    count: Signal<Integer> = 0,
+  ) {
+    self.icon = icon
+    self.frame = frame
+    self.gold = gold
+    self.count = count
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={Ordaen::art.panel.cell}>
-        <box position={Position::Absolute} left={ICON_LEFT} top={ICON_TOP} width={ICON} height={ICON}
+      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={self.artwork.panel.cell}>
+        <box position={Position.Absolute} left={ICON_LEFT} top={ICON_TOP} width={ICON} height={ICON}
              background={self.icon} desaturate={self.gold} tint={self.tint} stateFromParent={true} />
-        <box $if={self.counted} position={Position::Absolute} right={CELL_WIDTH * 0.12} bottom={CELL_HEIGHT * 0.14}
-             height={BADGE} minWidth={BADGE} padding={BADGE_PAD} xAlign={Align::Center} yAlign={Align::Center}
-             background={Ordaen::art.panel.countBadge}>
+        <box $if={self.counted} position={Position.Absolute} right={CELL_WIDTH * 0.12} bottom={CELL_HEIGHT * 0.14}
+             height={BADGE} minWidth={BADGE} padding={BADGE_PAD} xAlign={Align.Center} yAlign={Align.Center}
+             background={self.artwork.panel.countBadge}>
           <text value={"%d"} arguments={[self.count]} textSize={11 / 1.2} textColor={WHITE}
-                textFamily={Ordaen::lookArt.fontNumbers} textShadow={BOLD} wrap={false} />
+                textFamily={self.lookArt.fontNumbers} textShadow={BOLD} wrap={false} />
         </box>
-        <embed frame={self.frame} position={Position::Absolute} left={0} top={0} width={CELL_WIDTH}
+        <embed frame={self.frame} position={Position.Absolute} left={0} top={0} width={CELL_WIDTH}
                height={CELL_HEIGHT} opacity={0} />
       </box>
     }
@@ -55,13 +74,19 @@ public class MenuCell implements Ordaen::Component {
 
 // The character's button as a cell: the player's face, round, with the game's button unseen over the cell like the
 // others.
-public class FaceCell implements Ordaen::Component {
-  public render(): Template {
+public class FaceCell implements Component {
+  // Ordaen's art: its root is there before this module loads.
+  derived artwork: Artwork {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.art
+  }
+
+  public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={Ordaen::art.panel.cell}>
-        <box position={Position::Absolute} left={(CELL_WIDTH - FACE) / 2} top={(CELL_HEIGHT - FACE) / 2} width={FACE}
-             height={FACE} portrait={"player"} mask={Ordaen::art.panel.faceRound} />
-        <embed frame={Game::Frames::CharacterMicroButton} position={Position::Absolute} left={0} top={0}
+      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={self.artwork.panel.cell}>
+        <box position={Position.Absolute} left={(CELL_WIDTH - FACE) / 2} top={(CELL_HEIGHT - FACE) / 2} width={FACE}
+             height={FACE} portrait={"player"} mask={self.artwork.panel.faceRound} />
+        <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
                width={CELL_WIDTH} height={CELL_HEIGHT} opacity={0} />
       </box>
     }
@@ -70,24 +95,38 @@ public class FaceCell implements Ordaen::Component {
 
 // A bag: the game's button in a cell, showing only its icon, square and as high as the cell. The backpack's has
 // the free slots of every bag in its lower right.
-public class BagCell implements Ordaen::Component {
-  private counted = $computed((): boolean => self.free > 0)
+public class BagCell implements Component {
+  // Ordaen's art and the look's fonts: its root is there before this module loads.
+  derived artwork: Artwork {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.art
+  }
+  derived lookArt: LookArt {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.lookArt
+  }
+  derived counted: Boolean = self.free > 0
 
-  $constructor(
-    private frame: Reactive<Frame | nil>,
+  frame: Signal<any Frame | nil>
+  free: Signal<Integer>
+  constructor(
+    frame: Signal<any Frame | nil>,
     // 0 for a bag that shows no count.
-    private free: Reactive<integer> = 0,
-  ) {}
+    free: Signal<Integer> = 0,
+  ) {
+    self.frame = frame
+    self.free = free
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={Ordaen::art.panel.cell}>
-        <embed frame={self.frame} position={Position::Absolute} left={(CELL_WIDTH - CELL_HEIGHT) / 2} top={0}
-               width={CELL_HEIGHT} height={CELL_HEIGHT} look={EmbedLook::Icon} />
-        <box $if={self.counted} position={Position::Absolute} right={(CELL_WIDTH - CELL_HEIGHT) / 2 + 3 / 1.2}
+      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={self.artwork.panel.cell}>
+        <embed frame={self.frame} position={Position.Absolute} left={(CELL_WIDTH - CELL_HEIGHT) / 2} top={0}
+               width={CELL_HEIGHT} height={CELL_HEIGHT} look={EmbedLook.Icon} />
+        <box $if={self.counted} position={Position.Absolute} right={(CELL_WIDTH - CELL_HEIGHT) / 2 + 3 / 1.2}
              bottom={1 / 1.2} zLevel={1}>
           <text value={"%d"} arguments={[self.free]} textSize={14 / 1.2} textColor={WHITE}
-                textFamily={Ordaen::lookArt.fontNumbers} textOutline={1} wrap={false} />
+                textFamily={self.lookArt.fontNumbers} textOutline={1} wrap={false} />
         </box>
       </box>
     }

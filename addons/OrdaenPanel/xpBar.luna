@@ -3,58 +3,71 @@
 // the player's fill; reputation: the watched faction in steel. In the panel one tube: experience, or at the level's
 // cap the watched faction (nothing when none is); as a bar of its own (`both`), the faction under the experience.
 import Game from "$game"
-import Math from "$math"
-import String from "$string"
 import { Align, Art, Edges, Line, Percent, Position, Shadow, Side, Track } from "$ltml"
-import Ordaen from "Ordaen"
+import root Ordaen from "Ordaen"
+import { Artwork, Component, LookArt } from "Ordaen"
 
 // Slim at a third of the screen's width.
-private const TUBE_HEIGHT = 25
+const TUBE_HEIGHT = 25
 // The shortest a tube is, where nothing gives it room: on a panel as long as its items.
-private const LEAST = 240
-private const MARGINS: Edges = { right: 32, left: 32 }
+const LEAST = 240
+const MARGINS: Edges = { right: 32, left: 32 }
 // The trough's inside, as the art draws it.
-private const INSET = TUBE_HEIGHT * 10 / 64
-private const RESTED = $color("#6e96d129")
-private const CLEAR = $color("#00000000")
-private const LABEL = $color("#f3e7cc")
-private const LABEL_SHADOW: Shadow = { color: $color("#000000"), x: 1, y: -1 }
-private const FILL: Array<Track> = [{ fr: 1 }]
+const INSET = TUBE_HEIGHT * 10 / 64
+const RESTED: Color = Color.hex("#6e96d129")
+const CLEAR: Color = Color.hex("#00000000")
+const LABEL: Color = Color.hex("#f3e7cc")
+const LABEL_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
+const FILL: Array<Track> = [{ fr: 1 }]
 // Ten equal cells over the inside, each but the last with a 1 px dark right edge.
-private const CELLS: Array<integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-private const MARK: Line = { width: 1, color: $color("#00000080"), sides: [Side::Right] }
-private const NONE: Percent = { percent: 0 }
+const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const MARK: Line = { width: 1, color: Color.hex("#00000080"), sides: [Side.Right] }
+const NONE: Percent = { percent: 0 }
 
 // One tube: how far it is filled, how far the paler part behind the fill reaches, and what it says.
-public class Tube implements Ordaen::Component {
-  $constructor(
-    private const fill: Art,
-    private share: Reactive<Percent>,
-    private label: Reactive<string>,
+public class Tube implements Component {
+  // Ordaen's art: its root is there before this module loads.
+  derived artwork: Artwork {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.art
+  }
+  const fill: Art
+  share: Signal<Percent>
+  label: Signal<String>
+  behind: Signal<Percent>
+  constructor(
+    fill: Art,
+    share: Signal<Percent>,
+    label: Signal<String>,
     // The rested part: as far as the fill for a tube that has none.
-    private behind: Reactive<Percent> = NONE,
-  ) {}
+    behind: Signal<Percent> = NONE,
+  ) {
+    self.fill = fill
+    self.share = share
+    self.label = label
+    self.behind = behind
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box height={TUBE_HEIGHT}>
-        <box position={Position::Absolute} left={0} top={0} right={0} bottom={0}
-             background={Ordaen::art.panel.xpTrough} />
-        <box position={Position::Absolute} left={INSET} top={INSET} right={INSET} bottom={INSET}>
-          <box position={Position::Absolute} left={0} top={0} bottom={0} width={self.behind} background={RESTED} />
-          <box position={Position::Absolute} left={0} top={0} bottom={0} width={self.share}
+        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+             background={self.artwork.panel.xpTrough} />
+        <box position={Position.Absolute} left={INSET} top={INSET} right={INSET} bottom={INSET}>
+          <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.behind} background={RESTED} />
+          <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.share}
                background={self.fill} />
-          <box position={Position::Absolute} left={0} top={0} right={0} bottom={0} columns={10} rows={FILL}>
+          <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} columns={10} rows={FILL}>
             <box $for={cell of CELLS} border={MARK} />
             <box />
           </box>
         </box>
-        <box position={Position::Absolute} left={0} top={0} right={0} bottom={0}
-             background={Ordaen::art.panel.xpShine} />
-        <box position={Position::Absolute} left={0} top={0} right={0} bottom={0}
-             background={Ordaen::art.panel.xpTube} />
-        <box position={Position::Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align::Center}
-             yAlign={Align::Center}>
+        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+             background={self.artwork.panel.xpShine} />
+        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+             background={self.artwork.panel.xpTube} />
+        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align.Center}
+             yAlign={Align.Center}>
           <text value={self.label} textSize={12.5} textColor={LABEL} textOutline={1} textShadow={LABEL_SHADOW}
                 wrap={false} />
         </box>
@@ -63,43 +76,55 @@ public class Tube implements Ordaen::Component {
   }
 }
 
-public class XpBar implements Ordaen::Component {
+public class XpBar implements Component {
+  // Ordaen's art and the look's fonts: its root is there before this module loads.
+  derived artwork: Artwork {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.art
+  }
+  derived lookArt: LookArt {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.lookArt
+  }
   // Below the level's cap there is experience to gain.
-  private leveling = $computed((): boolean => Game::Player::xpMax > 0)
-  private watched = $computed((): boolean => Game::Reputation::name != "")
-  private showsReputation = $computed((): boolean => self.watched && (!self.leveling || self.both))
-  private xpShare = $computed((): Percent => { percent: self.part(Game::Player::xp) })
-  private restedShare = $computed((): Percent => { percent: self.part(Game::Player::xp + Game::Player::rested) })
-  private xpLabel = $computed((): string => String::format("%d%%", Math::floor(self.part(Game::Player::xp))))
-  private reputationShare = $computed((): Percent => { percent: self.standingPart() })
-  private reputationLabel = $computed((): string => String::format("%s: %s %d%%", Game::Reputation::name,
-    Game::Reputation::standing, Math::floor(self.standingPart())))
+  derived leveling: Boolean = Game.player.xpMax > 0
+  derived watched: Boolean = Game.reputation.name != ""
+  derived showsReputation: Boolean = self.watched && (!self.leveling || self.both)
+  derived xpShare: Percent = { percent: self.part(Game.player.xp) }
+  derived restedShare: Percent = { percent: self.part(Game.player.xp + Game.player.rested) }
+  derived xpLabel: String = "%d%%".format(self.part(Game.player.xp).floor())
+  derived reputationShare: Percent = { percent: self.standingPart() }
+  derived reputationLabel: String = "%s: %s %d%%".format(Game.reputation.name,
+    Game.reputation.standing, self.standingPart().floor())
 
-  $constructor(
+  both: Signal<Boolean>
+  constructor(
     // The watched faction under the experience too: for the bar standing by itself.
-    private both: Reactive<boolean> = false,
-  ) {}
+    both: Signal<Boolean> = false,
+  ) {
+    self.both = both
+  }
 
   // How much of the level `amount` is, in hundredths, never more than all of it.
-  private part(amount: number): number {
-    let most = Game::Player::xpMax
+  part(self, amount: Number): Number {
+    let most = Game.player.xpMax
     if (most <= 0) { return 0 }
-    return 100 * Math::min(amount, most) / most
+    return 100 * amount.min(most) / most
   }
 
   // How far into the standing the watched faction is, in hundredths: all of it at the last standing.
-  private standingPart(): number {
-    let span = Game::Reputation::max - Game::Reputation::min
+  standingPart(self): Number {
+    let span = Game.reputation.max - Game.reputation.min
     if (span <= 0) { return 100 }
-    return 100 * (Game::Reputation::value - Game::Reputation::min) / span
+    return 100 * (Game.reputation.value - Game.reputation.min) / span
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box minWidth={LEAST} padding={MARGINS} yAlign={Align::Center} gap={6 / 1.2}>
-        <Tube $if={self.leveling} fill={Ordaen::lookArt.xpFill} share={self.xpShare} behind={self.restedShare}
+      <box minWidth={LEAST} padding={MARGINS} yAlign={Align.Center} gap={6 / 1.2}>
+        <Tube $if={self.leveling} fill={peek self.lookArt.xpFill} share={self.xpShare} behind={self.restedShare}
               label={self.xpLabel} />
-        <Tube $if={self.showsReputation} fill={Ordaen::art.panel.xpSteel} share={self.reputationShare}
+        <Tube $if={self.showsReputation} fill={peek self.artwork.panel.xpSteel} share={self.reputationShare}
               label={self.reputationLabel} />
       </box>
     }
