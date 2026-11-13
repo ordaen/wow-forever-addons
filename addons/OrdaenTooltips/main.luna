@@ -63,7 +63,7 @@ const NOTHING: Model = {
   desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: [],
 }
 
-public class Tooltips implements Module {
+public class Tooltips implements Module, App {
   public const title: String = "Ordaen Tooltips"
 
   settings: mut Settings<Choices> = new Settings<Choices>({
@@ -126,7 +126,7 @@ public class Tooltips implements Module {
   derived object: String = self.current?.object ?? ""
 
   constructor() {
-    watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }
+    Ordaen.modules.add(self)
     watch { self.keepUnseen() }
     watch { self.follow() }
     watch { self.lockCharged() }

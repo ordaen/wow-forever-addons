@@ -7,7 +7,8 @@ import { Frame } from "$ltml"
 import root Ordaen from "Ordaen"
 import Test from "$test"
 import { Place } from "@/choices"
-import { Tooltips } from "@/main"
+import Runtime from "$runtime"
+import root Tooltips from "OrdaenTooltips"
 
 // The game's tooltip showing `data`, where the game put its own: in `corner`.
 function showing(corner: any Frame, data: Game.TooltipData): Game.ShownTip {
@@ -56,7 +57,7 @@ function frame(kind: String, name: String, x: Number, y: Number, width: Number, 
 
 // The settings window's «Save»: every draft becomes its values.
 function saveAll() {
-  const ordaen = Ordaen ?? panic("Ordaen is needed by name: its root is made before a module's")
+  const ordaen = Ordaen
   ordaen.keeper.saveAll()
 }
 
@@ -70,8 +71,8 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   let button = frame("Button", "CharacterMicroButton", 600, 800, 30, 40)
   let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
 
-  let addon = new Tooltips()
-  Test.mount(addon, { left: 100, top: 50, width: 700, height: 600 })
+  // The module's root, made as its addon loaded and drawn by Ordaen on the screen, which this page is.
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
   Test.shot("the game shows no tooltip: nothing is drawn, and the game's own isn't kept unseen")
 
   Game.character.itemLevel = (): Number | nil => 61.7
@@ -83,17 +84,17 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   Test.shot("a button's text: read, with the item level and the most worn piece, drawn above the button on its left edge")
 
   // A setting as the settings window writes and saves it.
-  addon.settings.draft.anchorToButtons = false
+  Tooltips.settings.draft.anchorToButtons = false
   saveAll()
   Test.shot("«Tooltips at buttons» off: where the game put its own, in the corner")
 
-  addon.settings.draft.textsExtra = false
+  Tooltips.settings.draft.textsExtra = false
   saveAll()
   Test.shot("«More on buttons» off: the button's own lines alone")
 
   Game.bags.roomOf = (bag: Integer): Game.BagRoom => bag == 0 ? { free: 3, slots: 16 } : bag == 1 ? { free: 0, slots: 6 } : { free: 0, slots: 0 }
   Game.bags.roomOfAll = (): Game.BagRoom => ({ free: 3, slots: 22 })
-  addon.settings.draft.textsExtra = true
+  Tooltips.settings.draft.textsExtra = true
   saveAll()
   Game.tooltip.main = {
     ownerName: "MainMenuBarBackpackButton",
@@ -101,7 +102,7 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   }
   Test.shot("the backpack: the free slots of every bag together")
 
-  addon.settings.draft.textsOn = false
+  Tooltips.settings.draft.textsOn = false
   saveAll()
   Test.shot("text tooltips off: the show is the game's again")
 
@@ -115,15 +116,15 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   Game.tooltip.compared = [axe("Worn Axe"), axe("Other Axe")]
   Test.shot("compared with two: the differences on each worn one")
 
-  addon.settings.draft.itemsAnchorBags = Place.Corner
+  Tooltips.settings.draft.itemsAnchorBags = Place.Corner
   saveAll()
   Game.tooltip.compared = []
   Test.shot("bags' items in the corner: where the game put its own")
 
   Game.spells.cooldown = (id: Integer): Number | nil => id == 116 ? 95 : nil
-  addon.settings.draft.spellsId = false
+  Tooltips.settings.draft.spellsId = false
   saveAll()
-  addon.settings.draft.spellsLock = false
+  Tooltips.settings.draft.spellsLock = false
   saveAll()
   Game.tooltip.main = showing(corner, { kind: 1, id: 116, lines: [{ left: "Frostbolt", kind: 13 }] })
   Test.shot("a spell cooling down: how long until it is ready")
@@ -146,7 +147,7 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   Test.shot("the game's tooltip gone")
 
   // The lock.
-  addon.settings.draft.itemsAnchorBags = Place.Anchor
+  Tooltips.settings.draft.itemsAnchorBags = Place.Anchor
   saveAll()
   Game.tooltip.main = inSlot(corner, slot, sword())
   Test.shot("an item under the cursor: the bar's room, nothing in it yet")
@@ -206,7 +207,7 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   Test.shot("the game shows another thing: the locked one goes, and this one starts")
 
   // What a part of a locked tooltip opens.
-  addon.settings.draft.spellsLock = true
+  Tooltips.settings.draft.spellsLock = true
   saveAll()
   Game.spells.cost = (id: Integer): Game.SpellCost | nil => id == 116 ? { amount: 65 } : nil
   Game.tooltip.main = hidden(corner)
@@ -241,7 +242,7 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   Test.pass(0.5)
   Test.shot("off the tooltip for longer than the grace: the lock goes, and the game still shows the spell")
   cursorSaid()
-  addon.settings.draft.itemsLock = false
+  Tooltips.settings.draft.itemsLock = false
   saveAll()
   Game.tooltip.main = hidden(corner)
   Test.pass(0.2)
@@ -252,6 +253,6 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   Game.tooltip.main = hidden(corner)
   Test.pass(0.2)
   Test.expect(Test.idle())
-  destroy addon
+  (Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")).disable()
   Test.expect(Test.blank())
 }

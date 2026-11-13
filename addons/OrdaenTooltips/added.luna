@@ -3,7 +3,7 @@
 // read does, so an entry that follows a cell redraws alone; its lines are drawn as they are, a block of their own.
 import { Art, Edges } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, OrdaenCore } from "Ordaen"
+import { Component } from "Ordaen"
 import { ItemLines, Line, ObjectLines } from "@/extend"
 import { BODY, INDENT, NAME_VALUE, NO_PAD, PX, RULE, SECTION_PAD } from "@/frame"
 
@@ -40,8 +40,7 @@ class AddedLine implements Component {
 // The lines one entry gives: a section of the tooltip, ruled off, or nothing where it gives none.
 class AddedLines implements Component {
   derived some: Boolean = self.lines.length > 0
-  derived ordaen: OrdaenCore = Ordaen ?? panic("Ordaen is needed by name: its root is made before a module's")
-  derived numbers: Art | nil = self.ordaen.lookArt.fontNumbers
+  derived numbers: Art | nil = Ordaen.lookArt.fontNumbers
 
   lines: Signal<Array<Line>>
   constructor(lines: Signal<Array<Line>>) {

@@ -5,7 +5,8 @@ import Game from "$game"
 import { Frame } from "$ltml"
 import Test from "$test"
 import { ItemLines, Line, ObjectLines } from "@/extend"
-import { Tooltips } from "@/main"
+import Runtime from "$runtime"
+import root Tooltips from "OrdaenTooltips"
 
 // A price another module keeps: its row is asked again when the price moves, and only then.
 class Priced implements ItemLines {
@@ -43,11 +44,11 @@ function showing(corner: any Frame, data: Game.TooltipData): Game.ShownTip {
 
 test "a row another module adds stands in its section, follows what it read, and goes with its handle" {
   let corner = frame("GameTooltip", 1300, 720)
-  let addon = new Tooltips()
-  Test.mount(addon, { left: 100, top: 50, width: 700, height: 600 })
+  // The module's root, made as its addon loaded and drawn by Ordaen on the screen, which this page is.
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
   const priced = new Priced()
-  const added = addon.worth.add(priced)
-  const mined = addon.gives.add(new Mined())
+  const added = Tooltips.worth.add(priced)
+  const mined = Tooltips.gives.add(new Mined())
 
   Game.tooltip.main = showing(corner, { kind: 0, id: 2770, about: "item:2770", lines: [{ left: "Copper Ore", kind: 22 }] })
   Test.shot("an item: the row of another module after the body")
@@ -70,6 +71,6 @@ test "a row another module adds stands in its section, follows what it read, and
 
   Game.tooltip.main = { shown: false, ..showing(corner, { lines: [] }) }
   Test.pass(0.2)
-  destroy addon
+  (Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")).disable()
   Test.expect(Test.blank())
 }

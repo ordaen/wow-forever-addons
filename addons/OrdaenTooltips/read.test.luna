@@ -451,7 +451,7 @@ test "an item's numbers are written as Ordaen writes them" {
   }
   _ = showGroup("as Ordaen starts: a space between thousands, two decimals", data)
   // Ordaen's settings as its window writes and saves them: Ordaen's own, changed through its methods.
-  const ordaen = Ordaen ?? panic("Ordaen is needed by name: its root is made before a module's")
+  const ordaen = Ordaen
   ordaen.globals.choose({ numberFormat: .Dot, numberRound: true, ..ordaen.globals.values })
   ordaen.keeper.saveAll()
   _ = showGroup("dots between thousands, whole numbers", data)

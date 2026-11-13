@@ -5,7 +5,7 @@
 // width.
 import { Align, Art, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, OrdaenCore } from "Ordaen"
+import { Component } from "Ordaen"
 import Locale from "@/locales"
 import { Fact, Model, Note, Opens, Part, Picture, TextLine } from "@/model"
 
@@ -336,8 +336,7 @@ public class TipFrame implements Component {
   derived bodyRule: Line | nil = self.hasFacts ? RULE : nil
 
   // Ordaen's art and the files of the look the player chose: Ordaen is needed by name, so its root is there.
-  derived ordaen: OrdaenCore = Ordaen ?? panic("Ordaen is needed by name: its root is made before a module's")
-  derived numbers: Art | nil = self.ordaen.lookArt.fontNumbers
+  derived numbers: Art | nil = Ordaen.lookArt.fontNumbers
 
   // The track shows once the charge starts; its room is there from the start.
   derived track: Color | nil = self.charge > 0 ? TRACK : nil
@@ -453,8 +452,8 @@ public class TipFrame implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={"min"} minWidth={self.width} padding={12 * PX} border={self.ordaen.art.frame.small}
-           background={self.ordaen.art.window.wood} textFamily={self.ordaen.lookArt.font}>
+      <box width={"min"} minWidth={self.width} padding={12 * PX} border={Ordaen.art.frame.small}
+           background={Ordaen.art.window.wood} textFamily={Ordaen.lookArt.font}>
         <box $if={self.hasHeader} height={35 * PX} gap={6 * PX}>
           <box xAlign={Align.Center}>
             <text value={self.header} textColor={HEADING} textSize={15 * PX} wrap={false} />
@@ -468,7 +467,7 @@ public class TipFrame implements Component {
           </box>
           <box gap={2 * PX} yAlign={Align.Center}>
             <text value={self.model.name} textColor={self.model.nameColor} textSize={18 * PX} wrap={false}
-                  textFamily={self.ordaen.lookArt.fontHeader} />
+                  textFamily={Ordaen.lookArt.fontHeader} />
             <box $if={self.hasDesc} columns={self.descColumns} height={18 * PX} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
                         locked={self.locked} numbers={self.numbers}>
