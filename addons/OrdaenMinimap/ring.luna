@@ -3,7 +3,7 @@
 import Game from "$game"
 import { Align, Art, Click, Drag, Frame, MouseButton, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Component, PX } from "Ordaen"
+import { Artwork, Component, PX } from "Ordaen"
 import type { Minimap, Hint } from "@/main"
 
 public enum RingId { Tracking = "tracking", Ordaen = "ordaen", Drawer = "drawer", Mail = "mail", CraftingOrder = "craftingOrder", Landing = "landing" }
@@ -45,7 +45,12 @@ public class RingButton implements Component {
   // The game's button under ours, where there is one.
   derived theirs: any Frame | nil = self.frameOf()
   derived visible: Boolean = self.shownNow()
-  derived art: Art = self.spec.id == RingId.Drawer && self.map.isDrawerOpen() ? ARTWORK.minimap.ringLit : ARTWORK.minimap.ring
+  // Ordaen's art: its root is there before this module loads.
+  derived artwork: Artwork {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.art
+  }
+  derived art: Art = self.spec.id == RingId.Drawer && self.map.isDrawerOpen() ? self.artwork.minimap.ringLit : self.artwork.minimap.ring
   derived count: String = String.of(self.map.holds())
   // The numbers' font the player chose: Ordaen is the addon every module needs, so its root is there.
   derived numbers: Art {
@@ -125,7 +130,7 @@ public class RingButton implements Component {
              @click={self.onClick} @dragStart={self.onDragStart} @drag={self.onDrag} @dragStop={self.onDragStop}
              @enter={self.onEnter} @leave={self.onLeave}>
           <box $if={self.spec.id == RingId.Ordaen} width={22 * PX} height={22 * PX} icon={Ordaen?.icon}
-               mask={ARTWORK.panel.faceRound} />
+               mask={self.artwork.panel.faceRound} />
           <text $elseif={self.spec.id == RingId.Drawer} value={self.count} textColor={GOLD} textSize={14 * PX}
                 textFamily={self.numbers} textShadow={COUNT_SHADOW} wrap={false} />
           <box $elseif={self.spec.glyph != nil} width={self.spec.glyphWidth} height={self.spec.glyphHeight}
