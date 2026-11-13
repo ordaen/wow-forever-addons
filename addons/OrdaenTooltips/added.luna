@@ -57,9 +57,12 @@ class AddedLines implements Component {
   }
 }
 
-// An entry of an item's section: what it gives for the item shown.
+// No line: what an entry gives while the tooltip isn't of its kind.
+const NONE: Array<Line> = []
+
+// An entry of an item's section: what it gives for the item shown, 0 where the tooltip shows none.
 public class AddedToItem implements Component {
-  derived lines: Array<Line> = self.row.lines(self.item, self.link)
+  derived lines: Array<Line> = self.item == 0 ? NONE : self.row.lines(self.item, self.link)
 
   row: Signal<any ItemLines>
   item: Signal<Integer>
@@ -75,9 +78,10 @@ public class AddedToItem implements Component {
   }
 }
 
-// An entry of a world object's section: what it gives for the object shown, by its name.
+// An entry of a world object's section: what it gives for the object shown, by its name, "" where the tooltip shows
+// none.
 public class AddedToObject implements Component {
-  derived lines: Array<Line> = self.row.lines(self.name)
+  derived lines: Array<Line> = self.name == "" ? NONE : self.row.lines(self.name)
 
   row: Signal<any ObjectLines>
   name: Signal<String>

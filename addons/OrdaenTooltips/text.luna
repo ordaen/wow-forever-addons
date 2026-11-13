@@ -18,12 +18,7 @@ public function pluralForm(n: Integer, forms: String): String {
   match (form(n)) {
     1 => return one,
     2 => return few,
-    else => {
-      {
-        if (many == nil || many == "") { return few }
-        return many
-      }
-    },
+    else => return many == nil || many == "" ? few : many,
   }
 }
 

@@ -124,8 +124,6 @@ public class Tooltips implements Module {
   derived item: Integer = self.current?.item ?? 0
   derived link: String = self.current?.link ?? ""
   derived object: String = self.current?.object ?? ""
-  derived anItem: Boolean = self.item != 0
-  derived anObject: Boolean = self.object != ""
 
   constructor() {
     watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }
@@ -334,14 +332,11 @@ public class Tooltips implements Module {
       <TipGroup model={self.model} sides={self.sides} compared={self.compared} standing={self.standing}
                 shown={self.shown} options={self.chosen} charge={self.charge} locked={self.locked} @close={self.close}
                 @enter={self.onEnter} @leave={self.onLeave}>
-        <box $if={self.anItem}>
-          <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.item} link={self.link} />
-          <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.item} link={self.link} />
-          <AddedToItem $for={row of self.held} $key={row} row={row} item={self.item} link={self.link} />
-        </box>
-        <box $if={self.anObject}>
-          <AddedToObject $for={row of self.gives} $key={row} row={row} name={self.object} />
-        </box>
+        // Each entry asks nothing while the tooltip isn't of its kind; with no entry, nothing is drawn or asked.
+        <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.item} link={self.link} />
+        <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.item} link={self.link} />
+        <AddedToItem $for={row of self.held} $key={row} row={row} item={self.item} link={self.link} />
+        <AddedToObject $for={row of self.gives} $key={row} row={row} name={self.object} />
       </TipGroup>
     }
   }
