@@ -1,0 +1,60 @@
+// The library's TreeRow: a recipe's cost as a tree, its rows opened and closed with the mouse.
+import Test from "$test"
+import { Age } from "@/age"
+import { Money } from "@/money"
+import { TreeRow } from "@/treeRow"
+
+class Cost {
+  state axe = true
+  state bar = false
+  state picked = ""
+  state seen: Number | nil = 5 * 86400
+
+  onAxe(mut self) { self.picked = "Bronze Axe" }
+  onTin(mut self) { self.picked = "Tin Ore" }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} width={400}>
+        <TreeRow label={"Bronze Axe"} depth={0} open={mut self.axe} selected={self.picked == "Bronze Axe"}
+                 @pick={self.onAxe}>
+          <Money amount={12345} />
+        </TreeRow>
+        <TreeRow $if={self.axe} label={"Bronze Bar"} depth={1} open={mut self.bar}>
+          <Age seconds={self.seen} />
+        </TreeRow>
+        <TreeRow $if={self.axe && self.bar} label={"Tin Ore"} depth={2} open={mut self.bar} leaf={true}
+                 selected={self.picked == "Tin Ore"} @pick={self.onTin}>
+          <Money amount={80} />
+        </TreeRow>
+        <TreeRow $if={self.axe} label={"Hardwood Handle"} depth={1} open={mut self.axe} leaf={true} />
+      </box>
+    }
+  }
+}
+
+test "a row with children opens and closes under the mouse, a leaf draws no mark, the picked row is marked" {
+  let page = new Cost()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 200 })
+  Test.shot("the axe open, the bar closed: ▼ on the axe, ► on the bar one step in, none on the leaf; the bar's age at its right")
+
+  Test.moveTo(Test.holding("Hardwood Handle", nil))
+  Test.shot("the cursor on the leaf: its shade")
+
+  Test.click(Test.holding("Bronze Bar", nil), nil)
+  Test.expect(page.bar)
+  Test.shot("the bar clicked: open, its ore two steps in")
+
+  Test.click(Test.holding("Tin Ore", nil), nil)
+  Test.expect(page.picked == "Tin Ore")
+  Test.shot("the ore clicked: picked, white, its light along its left; a leaf does not close")
+  Test.expect(page.bar)
+
+  Test.click(Test.holding("Bronze Axe", nil), nil)
+  Test.expect(!page.axe)
+  Test.expect(page.picked == "Bronze Axe")
+  Test.shot("the axe clicked: closed, its children gone, it is the picked row")
+
+  destroy page
+  Test.expect(Test.blank())
+}

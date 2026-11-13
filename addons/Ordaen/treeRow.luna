@@ -1,0 +1,77 @@
+// TreeRow: one row of a tree (a recipe's cost): a gutter as wide as its depth, ► closed or ▼ open where it has
+// children (a leaf keeps the room, draws none), its name, and what its slot holds at the right (an amount, a price's
+// age). The shade under the cursor; selected, a darker shade, the name white and a 3 px light along its left. Left-click
+// opens or closes a row that has children and reports `pick` on any. The owner draws a row's children under it while
+// `open`; the row itself holds no list.
+import { Align, Position, Stated } from "$ltml"
+import { Component } from "@/module"
+import { PX } from "@/units"
+
+const INK: Color = Color.hex("#e8dcc4")
+const WHITE: Color = Color.hex("#ffffff")
+const MARK: Color = Color.hex("#d6a56b")
+const CLEAR: Color = Color.hex("#00000000")
+const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000059") }
+const SELECTED: Color = Color.hex("#00000040")
+// How far each level stands in, and the room the mark has.
+const INDENT = 16 * PX
+const MARK_ROOM = 16 * PX
+const TEXT = 15 * PX
+// The marks are triangles of the narrow Arial, which the client has them in; the text font has none.
+const MARK_FONT: Asset = "Fonts/ARIALN.TTF"
+const MARK_SIZE = 11 * PX
+const MARK_TOP = (TEXT - MARK_SIZE) / 2
+
+public class TreeRow implements Component {
+  public pick: Event<nil> = new Event()
+
+  derived markLeft: Number = self.depth * INDENT
+  derived gutter: Number = self.markLeft + MARK_ROOM
+  derived mark: String = self.open ? "▼" : "►"
+  derived background: Color | Stated<Color> = self.selected ? SELECTED : SHADE
+  derived color: Color = self.selected ? WHITE : INK
+
+  label: Signal<String>
+  depth: Signal<Integer>
+  open: mut Signal<Boolean>
+  leaf: Signal<Boolean>
+  selected: Signal<Boolean>
+  constructor(
+    label: Signal<String>,
+    depth: Signal<Integer>,
+    open: mut Signal<Boolean>,
+    // A row without children: no mark, and a click only reports `pick`.
+    leaf: Signal<Boolean> = false,
+    selected: Signal<Boolean> = false,
+  ) {
+    self.label = label
+    self.depth = depth
+    self.open = open
+    self.leaf = leaf
+    self.selected = selected
+  }
+
+  onClick(mut self) {
+    if (!self.leaf) { self.open = !self.open }
+    self.pick.emit()
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[self.gutter, { fr: 1 }, "auto"]} gap={4 * PX} padding={4 * PX} yAlign={Align.Center}
+           background={self.background} @click={self.onClick}>
+        <box $if={self.selected} position={Position.Absolute} left={0} top={0} bottom={0} width={3 * PX}
+             background={MARK} />
+        <box width={self.gutter} height={TEXT}>
+          <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP}>
+            <text value={self.mark} textColor={MARK} textSize={MARK_SIZE} textFamily={MARK_FONT} wrap={false} />
+          </box>
+        </box>
+        <text value={self.label} textColor={self.color} textSize={TEXT} wrap={false} stateFromParent={true} />
+        <box>
+          <slot />
+        </box>
+      </box>
+    }
+  }
+}
