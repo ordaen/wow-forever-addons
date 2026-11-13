@@ -1,0 +1,22 @@
+// The market's controls on the showcase's page: its third tab holds a row for each.
+import Test from "$test"
+import Runtime from "$runtime"
+import root Showcase from "Showcase"
+
+test "the market tab shows a scan's progress, a price and its age, each following its cell" {
+  const page = Showcase
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+
+  Test.click(Test.holding("Market", nil), nil)
+  Test.shot("the third tab clicked: the scan at two fifths, the price with its age in amber")
+
+  page.scanned = 1
+  page.price = 5
+  page.seen = 12 * 86400
+  Test.shot("the scan done, a price of five copper seen twelve days ago: the age dimmed")
+
+  page.seen = nil
+  Test.shot("no price: the age is gone")
+
+  (Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")).disable()
+}

@@ -2,10 +2,10 @@
 public import { Windowed } from "@/windowed"
 public import { Tinted } from "@/tinted"
 public import { Arranged } from "@/arranged"
-import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "Ordaen"
+import { Age, Checkbox, Choice, Dialog, Dropdown, Input, Module, Money, ProgressBar, PushButton, Section, SettingRow, SettingsPage, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "Ordaen"
 import root Ordaen from "Ordaen"
 
-const TABS: Array<String> = ["Map", "Drawer"]
+const TABS: Array<String> = ["Map", "Drawer", "Market"]
 
 public enum Hide { Never = "never", Combat = "combat", Transport = "transport" }
 
@@ -34,6 +34,11 @@ public class Showcase implements Module, App {
   state tab = 1
   derived onMap: Boolean = self.tab == 1
   derived onDrawer: Boolean = self.tab == 2
+  derived onMarket: Boolean = self.tab == 3
+  // The market's controls: a scan's progress, a price and how old it is.
+  state scanned: Number = 0.4
+  state price: Integer = 12345
+  state seen: Number | nil = 2 * 86400
   derived summary: String = self.describe()
 
   constructor() {
@@ -75,6 +80,19 @@ public class Showcase implements Module, App {
                    disabled={!self.choices.drawer} />
             <text value={self.choices.name} />
             <Toggle value={mut self.choices.drawer} />
+          </Section>
+        </SettingsTab>
+        <SettingsTab title={"Market"} shown={self.onMarket}>
+          <Section title={"Market"}>
+            <SettingRow label={"Scan"}>
+              <ProgressBar fraction={self.scanned} label={"Scanning"} />
+            </SettingRow>
+            <SettingRow label={"Price"}>
+              <box columns={["auto", "auto"]} gap={8}>
+                <Money amount={self.price} />
+                <Age seconds={self.seen} />
+              </box>
+            </SettingRow>
           </Section>
         </SettingsTab>
         <text value={self.summary} />
