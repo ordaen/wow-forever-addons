@@ -1,10 +1,9 @@
 // Ordaen Tooltips' reader: the game's tooltip data as a test writes it, what the game answers about the spells, items,
 // units, auras and talents in it, and the model the reader makes of it, written out as the snapshot.
 import Game from "$game"
-import { Art, Color } from "$ltml"
-import String from "$string"
+import { Art } from "$ltml"
 import Test from "$test"
-import Ordaen from "Ordaen"
+import root Ordaen from "Ordaen"
 import { compare } from "@/item"
 import { Model, Opens, Picture } from "@/model"
 import { Options } from "@/options"
@@ -12,153 +11,151 @@ import { Group, fill, group } from "@/read"
 import { term } from "@/term"
 import { Term } from "@/terms"
 
-private const WHITE: Color = { r: 1, g: 1, b: 1, a: 1 }
-private const GOLD: Color = { r: 1, g: 0.82, b: 0, a: 1 }
-private const RED: Color = { r: 1, g: 0.1, b: 0.1, a: 1 }
-private const GREEN: Color = { r: 0.12, g: 1, b: 0, a: 1 }
-private const BLUE: Color = { r: 0.3, g: 0.6, b: 1, a: 1 }
-private const ORANGE: Color = { r: 1, g: 0.5, b: 0, a: 1 }
-private const EPIC: Color = { r: 0.64, g: 0.21, b: 0.93, a: 1 }
+const WHITE: Color = { r: 1, g: 1, b: 1, a: 1 }
+const GOLD: Color = { r: 1, g: 0.82, b: 0, a: 1 }
+const RED: Color = { r: 1, g: 0.1, b: 0.1, a: 1 }
+const GREEN: Color = { r: 0.12, g: 1, b: 0, a: 1 }
+const BLUE: Color = { r: 0.3, g: 0.6, b: 1, a: 1 }
+const ORANGE: Color = { r: 1, g: 0.5, b: 0, a: 1 }
+const EPIC: Color = { r: 0.64, g: 0.21, b: 0.93, a: 1 }
 
-private const OPTIONS: Options = {
+const OPTIONS: Options = {
   spellsCooldown: true, spellsId: true, spellsNext: true, aurasCaster: true, aurasTotal: true, aurasId: true,
   classNames: true, playersTarget: true, playersRelation: true, npcsLoot: true, npcsParty: true, npcsRep: true,
   itemsIlvl: true, itemsCooldown: true, itemsId: true, itemsCount: true, itemsStack: true,
 }
 
 // What the test says the game knows of a spell, by its number.
-private struct Spell {
+struct Spell {
   texture: Art | nil
-  cost: Game::SpellCost | nil
-  tab: string | nil
-  cooldown: number | nil
-  name: string | nil
-  known: boolean | nil
-  tooltip: Game::TooltipData | nil
+  cost: Game.SpellCost | nil
+  tab: String | nil
+  cooldown: Number | nil
+  name: String | nil
+  known: Boolean | nil
+  tooltip: Game.TooltipData | nil
 }
 
 // What the test says the game knows of an item, by its number.
-private struct Item {
+struct Item {
   icon: Art | nil
-  level: integer | nil
-  cooldown: number | nil
-  maxStack: integer | nil
-  inBags: integer = 0
-  owned: integer = 0
-  tooltip: Game::TooltipData | nil
+  level: Integer | nil
+  cooldown: Number | nil
+  maxStack: Integer | nil
+  inBags: Integer = 0
+  owned: Integer = 0
+  tooltip: Game.TooltipData | nil
 }
 
-private function colour(c: Color | nil): string {
+function colour(c: Color | nil): String {
   if (c == nil) { return "" }
-  return String::format(" #%02x%02x%02x", c.r * 255 + 0.5, c.g * 255 + 0.5, c.b * 255 + 0.5)
+  return " #%02x%02x%02x".format(c.r * 255 + 0.5, c.g * 255 + 0.5, c.b * 255 + 0.5)
 }
 
-private function artOf(art: Art): string {
-  if (art is string) { return art }
-  if (art is number) { return `${art}` }
-  return art.file
+function artOf(art: Art): String {
+  if (art is String) { return art }
+  if (art is Number) { return `${art}` }
+  return `${art.file}`
 }
 
 // What a part opens in a locked tooltip.
-private function opens(what: Opens): string {
-  switch (what) {
-    case Opens::Term:
+function opens(what: Opens): String {
+  match (what) {
+    Opens.Term => {
       let amount = what.amount
       return ` (opens the term ${what.term}${amount != nil ? ` of ${amount}` : ""})`
-    case Opens::Text: return ` (opens «${what.name}»: ${what.text})`
-    case Opens::Unit: return ` (opens the unit ${what.unit})`
-    case Opens::None: return ""
+    },
+    Opens.Text => return ` (opens «${what.name}»: ${what.text})`,
+    Opens.Unit => return ` (opens the unit ${what.unit})`,
+    Opens.None => return "",
   }
 }
 
-private function describe(model: Model) {
+function describe(model: Model) {
   let picture = model.picture
-  let mut shown = ""
-  switch (picture) {
-    case Picture::Icon: shown = ` [${artOf(picture.art)}]`
-    case Picture::Face: shown = ` [the face of ${picture.unit}]`
-    default:
+  let shown = ""
+  match (picture) {
+    Picture.Icon => { shown = ` [${artOf(picture.art)}]` },
+    Picture.Face => { shown = ` [the face of ${picture.unit}]` },
+    else => {},
   }
-  Test::note(`${model.kind}: ${model.name}${colour(model.nameColor)}${shown}${model.timer == true ? " (counts down)" : ""}`)
-  for (part of model.desc) { Test::note(`  desc: ${part.text}${colour(part.color)}${opens(part.opens)}`) }
-  for (part of model.info) { Test::note(`  info: ${part.text}${colour(part.color)}${opens(part.opens)}`) }
+  Test.note(`${model.kind}: ${model.name}${colour(model.nameColor)}${shown}${model.timer == true ? " (counts down)" : ""}`)
+  for (part of model.desc) { Test.note(`  desc: ${part.text}${colour(part.color)}${opens(part.opens)}`) }
+  for (part of model.info) { Test.note(`  info: ${part.text}${colour(part.color)}${opens(part.opens)}`) }
   for (fact of model.facts) {
     let glyph = fact.glyph
-    Test::note(`  fact: ${fact.text}${colour(fact.color)}${glyph != nil ? ` [${artOf(glyph)}]` : ""}${colour(fact.tint)}${opens(fact.opens)}`)
+    Test.note(`  fact: ${fact.text}${colour(fact.color)}${glyph != nil ? ` [glyphs/${glyph}]` : ""}${colour(fact.tint)}${opens(fact.opens)}`)
   }
   for (line of model.body) {
     let right = line.right
-    Test::note($replace(
-      `  body: ${line.left}${colour(line.color)}${right != nil ? ` | ${right}${colour(line.rightColor)}` : ""}${line.desc == true ? " (a description)" : ""}${opens(line.opens)}`,
-      "\n", " / ",
-    ))
+    Test.note(`  body: ${line.left}${colour(line.color)}${right != nil ? ` | ${right}${colour(line.rightColor)}` : ""}${line.desc == true ? " (a description)" : ""}${opens(line.opens)}`.replace("\n", " / "))
   }
   for (line of model.more) {
     let right = line.right
-    Test::note(`  more: ${line.indent == true ? "    " : ""}${line.left}${colour(line.color)}${right != nil ? ` | ${right}${colour(line.rightColor)}` : ""}${opens(line.opens)}`)
+    Test.note(`  more: ${line.indent == true ? "    " : ""}${line.left}${colour(line.color)}${right != nil ? ` | ${right}${colour(line.rightColor)}` : ""}${opens(line.opens)}`)
   }
   for (note of model.foot) {
-    Test::note(`  foot: ${note.left}${opens(note.opens)} | ${note.right ?? "nil"}${colour(note.valueColor)}${opens(note.valueOpens)}`)
+    Test.note(`  foot: ${note.left}${opens(note.opens)} | ${note.right ?? "nil"}${colour(note.valueColor)}${opens(note.valueOpens)}`)
   }
-  for (key of model.keys) { Test::note(`  key: ${key}`) }
+  for (key of model.keys) { Test.note(`  key: ${key}`) }
 }
 
-private function show(title: string, data: Game::TooltipData) {
-  Test::note(`== ${title}`)
+function show(title: String, data: Game.TooltipData) {
+  Test.note(`== ${title}`)
   let model = fill(data, OPTIONS)
-  if (model == nil) { Test::note("left to the game") } else { describe(model) }
-  Test::note("")
+  if (model == nil) { Test.note("left to the game") } else { describe(model) }
+  Test.note("")
 }
 
-private function showGroup(title: string, data: Game::TooltipData): Group | nil {
-  Test::note(`== ${title}`)
+function showGroup(title: String, data: Game.TooltipData): Group | nil {
+  Test.note(`== ${title}`)
   let read = group(data, OPTIONS)
   if (read == nil) {
-    Test::note("left to the game")
-    Test::note("")
+    Test.note("left to the game")
+    Test.note("")
     return nil
   }
   describe(read.model)
   for (side of read.sides) {
-    Test::note("beside it:")
+    Test.note("beside it:")
     describe(side)
   }
-  let mut keys: Array<string> = []
+  let keys: Array<String> = []
   for (key, _ of read.stats) { keys.push(key) }
-  keys.sort((a: string, b: string): boolean => a < b)
-  for (key of keys) { Test::note(`  stat ${key} = ${read.stats[key] ?? 0}`) }
-  Test::note("")
+  keys.sort((a: String, b: String): Boolean => a < b)
+  for (key of keys) { Test.note(`  stat ${key} = ${read.stats[key] ?? 0}`) }
+  Test.note("")
   return read
 }
 
-private function noTalent(data: Game::TooltipData): Game::TalentInfo | nil { return nil }
-private function noAura(data: Game::TooltipData): Game::AuraInfo | nil { return nil }
+function noTalent(data: Game.TooltipData): Game.TalentInfo | nil { return nil }
+function noAura(data: Game.TooltipData): Game.AuraInfo | nil { return nil }
 
 test "the reader's model of each kind of the game's tooltips" {
-  let mut spells: Map<integer, Spell> = {}
-  let mut items: Map<integer, Item> = {}
-  let mut carried: Map<string, integer> = {}
-  let mut units: Map<string, Game::UnitInfo> = {}
-  let mut met: Map<string, Game::Standing> = {}
-  let mut statNames: Map<string, string> = {}
-  Game::Spells::texture = (id: integer): Art | nil => spells[id]?.texture
-  Game::Spells::cost = (id: integer): Game::SpellCost | nil => spells[id]?.cost
-  Game::Spells::tab = (id: integer): string | nil => spells[id]?.tab
-  Game::Spells::cooldown = (id: integer): number | nil => spells[id]?.cooldown
-  Game::Spells::name = (id: integer): string | nil => spells[id]?.name
-  Game::Spells::known = (id: integer): boolean => spells[id]?.known == true
-  Game::Spells::tooltip = (id: integer): Game::TooltipData | nil => spells[id]?.tooltip
-  Game::Items::icon = (id: integer): Art | nil => items[id]?.icon
-  Game::Items::level = (id: integer): integer | nil => items[id]?.level
-  Game::Items::cooldown = (id: integer): number | nil => items[id]?.cooldown
-  Game::Items::maxStack = (id: integer): integer | nil => items[id]?.maxStack
-  Game::Items::inBags = (id: integer): integer => items[id]?.inBags ?? 0
-  Game::Items::owned = (id: integer): integer => items[id]?.owned ?? 0
-  Game::Items::tooltip = (id: integer): Game::TooltipData | nil => items[id]?.tooltip
-  Game::Items::count = (name: string): integer => carried[name] ?? 0
-  Game::Items::statName = (key: string): string | nil => statNames[key]
-  Game::Units::of = (unit: string): Game::UnitInfo | nil => units[unit]
-  Game::Reputation::with = (faction: string): Game::Standing | nil => met[faction]
+  let spells: Map<Integer, Spell> = {}
+  let items: Map<Integer, Item> = {}
+  let carried: Map<String, Integer> = {}
+  let units: Map<String, Game.UnitInfo> = {}
+  let met: Map<String, Game.Standing> = {}
+  let statNames: Map<String, String> = {}
+  Game.spells.texture = (id: Integer): Art | nil => spells[id]?.texture
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => spells[id]?.cost
+  Game.spells.tab = (id: Integer): String | nil => spells[id]?.tab
+  Game.spells.cooldown = (id: Integer): Number | nil => spells[id]?.cooldown
+  Game.spells.name = (id: Integer): String | nil => spells[id]?.name
+  Game.spells.known = (id: Integer): Boolean => spells[id]?.known == true
+  Game.spells.tooltip = (id: Integer): Game.TooltipData | nil => spells[id]?.tooltip
+  Game.items.icon = (id: Integer): Art | nil => items[id]?.icon
+  Game.items.level = (id: Integer): Integer | nil => items[id]?.level
+  Game.items.cooldown = (id: Integer): Number | nil => items[id]?.cooldown
+  Game.items.maxStack = (id: Integer): Integer | nil => items[id]?.maxStack
+  Game.items.inBags = (id: Integer): Integer => items[id]?.inBags ?? 0
+  Game.items.owned = (id: Integer): Integer => items[id]?.owned ?? 0
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => items[id]?.tooltip
+  Game.items.count = (name: String): Integer => carried[name] ?? 0
+  Game.items.statName = (key: String): String | nil => statNames[key]
+  Game.units.of = (unit: String): Game.UnitInfo | nil => units[unit]
+  Game.reputation.with = (faction: String): Game.Standing | nil => met[faction]
   carried["Workshop Key"] = 1
 
   show("a button's text: the key the game appends goes to the hotkeys", {
@@ -196,7 +193,7 @@ test "the reader's model of each kind of the game's tooltips" {
 
   show("an object with no name", { kind: 4, lines: [{ left: "", kind: 0 }] })
 
-  spells[116] = { texture: "icons/frostbolt", cost: { amount: 65, color: BLUE }, tab: "Frost" }
+  spells[116] = { texture: "Interface/Icons/Spell_Frost_FrostBolt02", cost: { amount: 65, color: BLUE }, tab: "Frost" }
   show("a spell: the rank and the tab, the cost and the range, the cast and no cooldown, its description", {
     kind: 1, id: 116,
     lines: [
@@ -208,7 +205,7 @@ test "the reader's model of each kind of the game's tooltips" {
     ],
   })
 
-  spells[2098] = { texture: "icons/eviscerate", cost: { amount: 35, color: GOLD }, cooldown: 95 }
+  spells[2098] = { texture: "Interface/Icons/Ability_Rogue_Eviscerate", cost: { amount: 35, color: GOLD }, cooldown: 95 }
   carried["Flash Powder"] = 1
   show("a finishing move on cooldown: instant, melee range, its list as rows after the sentence, reagents", {
     kind: 1, id: 2098,
@@ -225,8 +222,8 @@ test "the reader's model of each kind of the game's tooltips" {
     ],
   })
 
-  spells[11069] = { name: "Improved Fireball", texture: "icons/fireball" }
-  Game::Talents::shown = (data: Game::TooltipData): Game::TalentInfo | nil => ({
+  spells[11069] = { name: "Improved Fireball", texture: "Interface/Icons/Spell_Fire_FlameBolt" }
+  Game.talents.shown = (data: Game.TooltipData): Game.TalentInfo | nil => ({
     spell: 11069, rank: 2, ranks: 5, current: "Reduces the cast time of Fireball by |cffffffff0.2|r sec.",
     next: "Reduces  the cast time of Fireball by |cffffffff0.3|r sec.", conditions: [], locked: false,
   })
@@ -238,7 +235,7 @@ test "the reader's model of each kind of the game's tooltips" {
     ],
   })
 
-  Game::Talents::shown = (data: Game::TooltipData): Game::TalentInfo | nil => ({
+  Game.talents.shown = (data: Game.TooltipData): Game.TalentInfo | nil => ({
     spell: 11069, rank: 0, ranks: 5, next: "Reduces the cast time.",
     conditions: [{ points: 5, met: false }, { points: 0, met: true }, { points: 10, met: true }], locked: true,
   })
@@ -246,17 +243,17 @@ test "the reader's model of each kind of the game's tooltips" {
     kind: 1, id: 11069, lines: [{ left: "Reduces the cast time of Fireball by 0.1 sec.", kind: 34 }],
   })
 
-  Game::Talents::shown = (data: Game::TooltipData): Game::TalentInfo | nil => ({
+  Game.talents.shown = (data: Game.TooltipData): Game.TalentInfo | nil => ({
     spell: 1, rank: 0, ranks: 1, conditions: [], locked: false,
   })
   show("a talent whose spell the game doesn't name", { kind: 1, lines: [] })
-  Game::Talents::shown = noTalent
+  Game.talents.shown = noTalent
 
   show("a spell with no number and no name line", { kind: 1, lines: [{ left: "?", kind: 0 }] })
 
-  spells[14914] = { texture: "icons/holyfire" }
+  spells[14914] = { texture: "Interface/Icons/Spell_Holy_SearingLight" }
   spells[527] = { name: "Dispel Magic", known: true }
-  Game::Auras::shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({
+  Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => ({
     harmful: true, dispel: "Magic", dispelName: "Magic", source: "target", sourceName: "Scarlet Monk",
     sourceColor: BLUE, stacks: 3, left: 9, own: true, hostile: false,
   })
@@ -270,8 +267,8 @@ test "the reader's model of each kind of the game's tooltips" {
     ],
   })
 
-  spells[1243] = { texture: "icons/fortitude" }
-  Game::Auras::shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({
+  spells[1243] = { texture: "Interface/Icons/Spell_Holy_WordFortitude" }
+  Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => ({
     harmful: false, source: "player", sourceName: "Me", stacks: 1, own: true, hostile: false,
   })
   show("a buff of the player's own: cancelled with a click, no time for one that doesn't end", {
@@ -279,13 +276,13 @@ test "the reader's model of each kind of the game's tooltips" {
     lines: [{ left: "Power Word: Fortitude", kind: 0 }, { left: "Stamina increased by 8.", kind: 34 }],
   })
 
-  Game::Auras::shown = (data: Game::TooltipData): Game::AuraInfo | nil => ({
+  Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => ({
     harmful: false, dispel: "Magic", stacks: 1, left: 4000, own: false, hostile: true,
   })
   show("an enemy's magic buff: the player's class takes it off", {
     kind: 7, id: 1243, lines: [{ left: "Power Word: Fortitude", kind: 0 }],
   })
-  Game::Auras::shown = noAura
+  Game.auras.shown = noAura
 
   show("the camp's bonuses: its paragraphs as rows, a known building's bonus in short", {
     kind: 7, id: 1229741,
@@ -342,7 +339,7 @@ test "the reader's model of each kind of the game's tooltips" {
   })
 
   spells[7001] = {
-    texture: "icons/heal",
+    texture: "Interface/Icons/Spell_Holy_Heal",
     tooltip: {
       kind: 1, id: 7001,
       lines: [
@@ -352,9 +349,9 @@ test "the reader's model of each kind of the game's tooltips" {
       ],
     },
   }
-  items[9001] = { icon: "icons/axe", level: 62, cooldown: 30, maxStack: 1, inBags: 1, owned: 1 }
+  items[9001] = { icon: "Interface/Icons/INV_Axe_01", level: 62, cooldown: 30, maxStack: 1, inBags: 1, owned: 1 }
   // The stats of the item a tooltip is about: the axe's, and the greataxe's it is compared with.
-  Game::Items::stats = (data: Game::TooltipData): Array<Game::ItemStat> => {
+  Game.items.stats = (data: Game.TooltipData): Array<Game.ItemStat> => {
     if (data.id == 9001) {
       return [
         { key: "ITEM_MOD_STRENGTH_SHORT", name: "Strength", value: 21 },
@@ -395,15 +392,15 @@ test "the reader's model of each kind of the game's tooltips" {
     ],
   })
 
-  items[9002] = { icon: "icons/bag", maxStack: 20, inBags: 3, owned: 8 }
+  items[9002] = { icon: "Interface/Icons/INV_Misc_Bag_07", maxStack: 20, inBags: 3, owned: 8 }
   _ = showGroup("a bag that stacks: its slots, how many the player has and where", {
     kind: 0, id: 9002,
     lines: [{ left: "Linen Bag", kind: 22 }, { left: "6 Slot Bag", kind: 0 }, { left: "42 Armor", kind: 0 }],
   })
 
-  items[9003] = { icon: "icons/scroll" }
+  items[9003] = { icon: "Interface/Icons/INV_Scroll_03" }
   items[9004] = {
-    icon: "icons/boots",
+    icon: "Interface/Icons/INV_Boots_01",
     tooltip: { kind: 0, id: 9004, lines: [{ left: "Swift Boots", kind: 22 }, { left: "40 Armor", kind: 0 }] },
   }
   _ = showGroup("a recipe: what it makes beside it, its reagents as rows, not known", {
@@ -422,28 +419,28 @@ test "the reader's model of each kind of the game's tooltips" {
 
   statNames["ITEM_MOD_AGILITY_SHORT"] = "Agility"
   let hovered = group({ kind: 0, lines: [{ left: "Greataxe", kind: 22 }] }, OPTIONS)
-  Test::note("== compared: the hovered item against the worn one, and the worn one against the hovered")
-  $expect(worn != nil && hovered != nil)
+  Test.note("== compared: the hovered item against the worn one, and the worn one against the hovered")
+  Test.expect(worn != nil && hovered != nil)
   if (worn != nil && hovered != nil) {
-    let mut wornStats: Map<string, number> = {}
+    let wornStats: Map<String, Number> = {}
     for (key, value of worn.stats) { wornStats[key] = value }
     wornStats["ITEM_MOD_AGILITY_SHORT"] = 7
     describe(compare(hovered.model, hovered.stats, wornStats, true))
     describe(compare(worn.model, wornStats, hovered.stats, false))
   }
-  Test::note("")
+  Test.note("")
 
-  Test::note("== terms of the glossary: the name and the text, the amount a part speaks of in them")
-  describe(term(Term::Cd, nil))
-  describe(term(Term::Arm, "120"))
-  describe(term(Term::Bag, "16"))
-  Test::note("")
+  Test.note("== terms of the glossary: the name and the text, the amount a part speaks of in them")
+  describe(term(Term.Cd, nil))
+  describe(term(Term.Arm, "120"))
+  describe(term(Term.Bag, "16"))
+  Test.note("")
 
   show("what the game has no kind for", { kind: 9, lines: [{ left: "?", kind: 0 }] })
 }
 
 test "an item's numbers are written as Ordaen writes them" {
-  let data: Game::TooltipData = {
+  let data: Game.TooltipData = {
     kind: 0, id: 9100,
     lines: [
       { left: "Tower Shield", kind: 22 },
@@ -453,8 +450,9 @@ test "an item's numbers are written as Ordaen writes them" {
     ],
   }
   _ = showGroup("as Ordaen starts: a space between thousands, two decimals", data)
-  Ordaen::globals.draft.numberFormat = Ordaen::NumberFormat::Dot
-  Ordaen::globals.draft.numberRound = true
-  Ordaen::saveAll()
+  // Ordaen's settings as its window writes and saves them: Ordaen's own, changed through its methods.
+  const ordaen = Ordaen ?? panic("Ordaen is needed by name: its root is made before a module's")
+  ordaen.globals.choose({ numberFormat: .Dot, numberRound: true, ..ordaen.globals.values })
+  ordaen.keeper.saveAll()
   _ = showGroup("dots between thousands, whole numbers", data)
 }

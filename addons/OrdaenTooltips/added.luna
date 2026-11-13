@@ -1,0 +1,96 @@
+// What other modules add to a tooltip, as Tooltips draws it after the main tooltip's body: each entry of a section
+// is a component whose `lines` asks the entry, again only when the thing shown changes or when something the entry
+// read does, so an entry that follows a cell redraws alone; its lines are drawn as they are, a block of their own.
+import { Art, Edges } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component, OrdaenCore } from "Ordaen"
+import { ItemLines, Line, ObjectLines } from "@/extend"
+import { BODY, INDENT, NAME_VALUE, NO_PAD, PX, RULE, SECTION_PAD } from "@/frame"
+
+// A line, drawn as it is: a name with its value on the right in the numbers' font, never wrapped, or a sentence
+// that wraps; set in where it says so.
+class AddedLine implements Component {
+  derived paired: Boolean = self.line.right != nil
+  derived right: String = self.line.right ?? ""
+  derived leftColor: Color = self.line.color ?? BODY
+  derived rightColor: Color = self.line.rightColor ?? self.line.color ?? BODY
+  derived padding: Edges = self.line.indent ? INDENT : NO_PAD
+
+  line: Signal<Line>
+  numbers: Signal<Art | nil>
+  constructor(line: Signal<Line>, numbers: Signal<Art | nil>) {
+    self.line = line
+    self.numbers = numbers
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.paired} columns={NAME_VALUE} gap={10 * PX} padding={self.padding}>
+        <text value={self.line.left} textColor={self.leftColor} textSize={16 * PX} />
+        <text value={self.right} textColor={self.rightColor} textSize={16 * PX} wrap={false}
+              textFamily={self.numbers} />
+      </box>
+      <box $else padding={self.padding}>
+        <text value={self.line.left} textColor={self.leftColor} textSize={14 * PX} />
+      </box>
+    }
+  }
+}
+
+// The lines one entry gives: a section of the tooltip, ruled off, or nothing where it gives none.
+class AddedLines implements Component {
+  derived some: Boolean = self.lines.length > 0
+  derived ordaen: OrdaenCore = Ordaen ?? panic("Ordaen is needed by name: its root is made before a module's")
+  derived numbers: Art | nil = self.ordaen.lookArt.fontNumbers
+
+  lines: Signal<Array<Line>>
+  constructor(lines: Signal<Array<Line>>) {
+    self.lines = lines
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.some} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
+        <AddedLine $for={line of self.lines} line={line} numbers={self.numbers} />
+      </box>
+    }
+  }
+}
+
+// No line: what an entry gives while the tooltip isn't of its kind.
+const NONE: Array<Line> = []
+
+// An entry of an item's section: what it gives for the item shown, 0 where the tooltip shows none.
+public class AddedToItem implements Component {
+  derived lines: Array<Line> = self.item == 0 ? NONE : self.row.lines(self.item, self.link)
+
+  row: Signal<any ItemLines>
+  item: Signal<Integer>
+  link: Signal<String>
+  constructor(row: Signal<any ItemLines>, item: Signal<Integer>, link: Signal<String>) {
+    self.row = row
+    self.item = item
+    self.link = link
+  }
+
+  public render(self): Template {
+    return $ltml { <AddedLines lines={self.lines} /> }
+  }
+}
+
+// An entry of a world object's section: what it gives for the object shown, by its name, "" where the tooltip shows
+// none.
+public class AddedToObject implements Component {
+  derived lines: Array<Line> = self.name == "" ? NONE : self.row.lines(self.name)
+
+  row: Signal<any ObjectLines>
+  name: Signal<String>
+  constructor(row: Signal<any ObjectLines>, name: Signal<String>) {
+    self.row = row
+    self.name = name
+  }
+
+  public render(self): Template {
+    return $ltml { <AddedLines lines={self.lines} /> }
+  }
+}

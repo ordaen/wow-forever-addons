@@ -1,25 +1,22 @@
 // The colours Ordaen Tooltips writes in, and a colour of the game's as a line's own.
-import { Color } from "$ltml"
-import Math from "$math"
-import String from "$string"
 
-public const RED = $color("#ff4040")
-public const GOLD = $color("#ffd100")
-public const YELLOW = $color("#ffd100")
-public const WHITE = $color("#ffffff")
-public const GREEN = $color("#1eff00")
-public const GREY = $color("#808080")
+public const RED: Color = Color.hex("#ff4040")
+public const GOLD: Color = Color.hex("#ffd100")
+public const YELLOW: Color = Color.hex("#ffd100")
+public const WHITE: Color = Color.hex("#ffffff")
+public const GREEN: Color = Color.hex("#1eff00")
+public const GREY: Color = Color.hex("#808080")
 // A label: quieter than the body.
-public const LABEL = $color("#cbb994")
+public const LABEL: Color = Color.hex("#cbb994")
 
 // A colour as the game's markup takes it: `|c<this>text|r`.
-public function hex(color: Color): string {
-  return String::format("ff%02x%02x%02x", Math::round(color.r * 255), Math::round(color.g * 255),
-    Math::round(color.b * 255))
+public function hex(color: Color): String {
+  return "ff%02x%02x%02x".format((color.r * 255).round(), (color.g * 255).round(),
+    (color.b * 255).round())
 }
 
-private function near(a: number, b: number): boolean {
-  return Math::abs(a - b) < 0.002
+function near(a: Number, b: Number): Boolean {
+  return (a - b).abs() < 0.002
 }
 
 // A colour of the game's as a line's own: white is the body's colour, and stands for none.

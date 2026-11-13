@@ -1,0 +1,26 @@
+// What other modules add to Ordaen Tooltips' tooltips: the contract, imported by type alone
+// (`import type { ItemLines, Line } from "OrdaenTooltips"`). Each section is a registry of Tooltips' root (`worth`,
+// `uses`, `held` for an item, `gives` for a world object), added to in a watch that follows that root; Tooltips
+// draws what was added after its own body, a section after another, each entry's lines together.
+
+// A line another module adds: a label at the left, a value at the right.
+public struct Line {
+  left: String
+  right: String | nil = nil
+  color: Color | nil = nil
+  rightColor: Color | nil = nil
+  indent: Boolean = false
+}
+
+// What a module adds to an item's tooltip. Asked when an item is shown, and again when something it read changes;
+// never asked when the same item shows again. Budget: one map read where nothing changed. The lines it gives are
+// drawn as they are.
+public trait ItemLines {
+  public lines(self, item: Integer, link: String): Array<Line>
+}
+
+// What a module adds to a world object's tooltip (a vein, a herb, a chest), by the object's name. Budget as for
+// `ItemLines`.
+public trait ObjectLines {
+  public lines(self, name: String): Array<Line>
+}

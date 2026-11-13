@@ -4,13 +4,13 @@
 import Client from "$client"
 import Game from "$game"
 import { Frame } from "$ltml"
-import Ordaen from "Ordaen"
+import root Ordaen from "Ordaen"
 import Test from "$test"
 import { Place } from "@/choices"
 import { Tooltips } from "@/main"
 
 // The game's tooltip showing `data`, where the game put its own: in `corner`.
-private function showing(corner: Frame, data: Game::TooltipData): Game::ShownTip {
+function showing(corner: any Frame, data: Game.TooltipData): Game.ShownTip {
   return {
     shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner, below: false,
     right: true,
@@ -18,28 +18,28 @@ private function showing(corner: Frame, data: Game::TooltipData): Game::ShownTip
 }
 
 // The game's tooltip gone.
-private function hidden(corner: Frame): Game::ShownTip {
+function hidden(corner: any Frame): Game.ShownTip {
   return { shown: false, ..showing(corner, { lines: [] }) }
 }
 
 // An item in a bag's slot.
-private function inSlot(corner: Frame, slot: Frame, data: Game::TooltipData): Game::ShownTip {
+function inSlot(corner: any Frame, slot: any Frame, data: Game.TooltipData): Game.ShownTip {
   return {
     owner: slot, ownerName: "ContainerFrame1Item3", placeable: true, ownerHigh: true, ownerRight: true,
     ..showing(corner, data),
   }
 }
 
-private function axe(name: string): Game::TooltipData {
+function axe(name: String): Game.TooltipData {
   return { kind: 0, lines: [{ left: name, kind: 22 }] }
 }
 
-private function sword(): Game::TooltipData {
+function sword(): Game.TooltipData {
   return { kind: 0, id: 9010, about: "item:9010", lines: [{ left: "Sword", kind: 22 }] }
 }
 
 // The strength of each axe, as the game reads an item's stats.
-private function strength(data: Game::TooltipData): Array<Game::ItemStat> {
+function strength(data: Game.TooltipData): Array<Game.ItemStat> {
   let name = data.lines[1]?.left
   let value = name == "Greataxe" ? 30 : name == "Worn Axe" ? 21 : name == "Other Axe" ? 40 : 0
   if (value == 0) { return [] }
@@ -47,15 +47,21 @@ private function strength(data: Game::TooltipData): Array<Game::ItemStat> {
 }
 
 // A frame of the game's, by its name, at a place on the screen.
-private function frame(kind: string, name: string, x: number, y: number, width: number, height: number): Frame {
-  let made = Client::CreateFrame(kind, name, Client::C_UI::GetUIParent(), nil)
+function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Frame {
+  let made = Client.CreateFrame(kind, name, Client.C_UI.GetUIParent(), nil)
   made.SetSize(width, height)
-  made.SetPoint("TOPLEFT", Client::C_UI::GetUIParent(), "TOPLEFT", x, -y)
+  made.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", x, -y)
   return made
 }
 
-private function cursorSaid() {
-  Test::note(`the cursor's look: ${Test::cursor() ?? "nil"}`)
+// The settings window's «Save»: every draft becomes its values.
+function saveAll() {
+  const ordaen = Ordaen ?? panic("Ordaen is needed by name: its root is made before a module's")
+  ordaen.keeper.saveAll()
+}
+
+function cursorSaid() {
+  Test.note(`the cursor's look: ${Test.cursor() ?? "nil"}`)
 }
 
 test "the module reads the game's tooltip, draws it where it belongs, and locks it" {
@@ -64,148 +70,148 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   let button = frame("Button", "CharacterMicroButton", 600, 800, 30, 40)
   let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
 
-  let mut addon = new Tooltips()
-  Test::mount(addon, { left: 100, top: 50, width: 700, height: 600 })
-  Test::shot("the game shows no tooltip: nothing is drawn, and the game's own isn't kept unseen")
+  let addon = new Tooltips()
+  Test.mount(addon, { left: 100, top: 50, width: 700, height: 600 })
+  Test.shot("the game shows no tooltip: nothing is drawn, and the game's own isn't kept unseen")
 
-  Game::Character::itemLevel = (): number | nil => 61.7
-  Game::Character::durability = (): number | nil => 0.2
-  Game::Tooltip::main = {
+  Game.character.itemLevel = (): Number | nil => 61.7
+  Game.character.durability = (): Number | nil => 0.2
+  Game.tooltip.main = {
     owner: button, ownerName: "CharacterMicroButton", placeable: true,
     ..showing(corner, { plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }] }),
   }
-  Test::shot("a button's text: read, with the item level and the most worn piece, drawn above the button on its left edge")
+  Test.shot("a button's text: read, with the item level and the most worn piece, drawn above the button on its left edge")
 
   // A setting as the settings window writes and saves it.
   addon.settings.draft.anchorToButtons = false
-  Ordaen::saveAll()
-  Test::shot("«Tooltips at buttons» off: where the game put its own, in the corner")
+  saveAll()
+  Test.shot("«Tooltips at buttons» off: where the game put its own, in the corner")
 
   addon.settings.draft.textsExtra = false
-  Ordaen::saveAll()
-  Test::shot("«More on buttons» off: the button's own lines alone")
+  saveAll()
+  Test.shot("«More on buttons» off: the button's own lines alone")
 
-  Game::Bags::roomOf = (bag: integer): Game::BagRoom => bag == 0 ? { free: 3, slots: 16 } : bag == 1 ? { free: 0, slots: 6 } : { free: 0, slots: 0 }
-  Game::Bags::roomOfAll = (): Game::BagRoom => ({ free: 3, slots: 22 })
+  Game.bags.roomOf = (bag: Integer): Game.BagRoom => bag == 0 ? { free: 3, slots: 16 } : bag == 1 ? { free: 0, slots: 6 } : { free: 0, slots: 0 }
+  Game.bags.roomOfAll = (): Game.BagRoom => ({ free: 3, slots: 22 })
   addon.settings.draft.textsExtra = true
-  Ordaen::saveAll()
-  Game::Tooltip::main = {
+  saveAll()
+  Game.tooltip.main = {
     ownerName: "MainMenuBarBackpackButton",
     ..showing(corner, { plain: true, lines: [{ left: "Backpack", kind: 0 }] }),
   }
-  Test::shot("the backpack: the free slots of every bag together")
+  Test.shot("the backpack: the free slots of every bag together")
 
   addon.settings.draft.textsOn = false
-  Ordaen::saveAll()
-  Test::shot("text tooltips off: the show is the game's again")
+  saveAll()
+  Test.shot("text tooltips off: the show is the game's again")
 
-  Game::Items::stats = strength
-  Game::Tooltip::main = inSlot(corner, slot, axe("Greataxe"))
-  Test::shot("an item in the bags: beside its slot, under it and on its right edge, though buttons' tooltips aren't")
+  Game.items.stats = strength
+  Game.tooltip.main = inSlot(corner, slot, axe("Greataxe"))
+  Test.shot("an item in the bags: beside its slot, under it and on its right edge, though buttons' tooltips aren't")
 
-  Game::Tooltip::compared = [axe("Worn Axe")]
-  Test::shot("compared with the worn one: its differences on the hovered item, the worn one under «Equipped»")
+  Game.tooltip.compared = [axe("Worn Axe")]
+  Test.shot("compared with the worn one: its differences on the hovered item, the worn one under «Equipped»")
 
-  Game::Tooltip::compared = [axe("Worn Axe"), axe("Other Axe")]
-  Test::shot("compared with two: the differences on each worn one")
+  Game.tooltip.compared = [axe("Worn Axe"), axe("Other Axe")]
+  Test.shot("compared with two: the differences on each worn one")
 
-  addon.settings.draft.itemsAnchorBags = Place::Corner
-  Ordaen::saveAll()
-  Game::Tooltip::compared = []
-  Test::shot("bags' items in the corner: where the game put its own")
+  addon.settings.draft.itemsAnchorBags = Place.Corner
+  saveAll()
+  Game.tooltip.compared = []
+  Test.shot("bags' items in the corner: where the game put its own")
 
-  Game::Spells::cooldown = (id: integer): number | nil => id == 116 ? 95 : nil
+  Game.spells.cooldown = (id: Integer): Number | nil => id == 116 ? 95 : nil
   addon.settings.draft.spellsId = false
-  Ordaen::saveAll()
+  saveAll()
   addon.settings.draft.spellsLock = false
-  Ordaen::saveAll()
-  Game::Tooltip::main = showing(corner, { kind: 1, id: 116, lines: [{ left: "Frostbolt", kind: 13 }] })
-  Test::shot("a spell cooling down: how long until it is ready")
+  saveAll()
+  Game.tooltip.main = showing(corner, { kind: 1, id: 116, lines: [{ left: "Frostbolt", kind: 13 }] })
+  Test.shot("a spell cooling down: how long until it is ready")
 
-  Game::Spells::cooldown = (id: integer): number | nil => id == 116 ? 30 : nil
-  Test::pass(0.5)
-  Test::shot("half a second on: not read again yet")
+  Game.spells.cooldown = (id: Integer): Number | nil => id == 116 ? 30 : nil
+  Test.pass(0.5)
+  Test.shot("half a second on: not read again yet")
 
-  Test::pass(0.6)
-  Test::shot("a second on: read again, the time it shows has moved")
+  Test.pass(0.6)
+  Test.shot("a second on: read again, the time it shows has moved")
 
-  Game::Spells::cooldown = (id: integer): number | nil => nil
-  Test::pass(1.1)
-  Test::shot("ready: nothing counts down, and nothing is waited for")
+  Game.spells.cooldown = (id: Integer): Number | nil => nil
+  Test.pass(1.1)
+  Test.shot("ready: nothing counts down, and nothing is waited for")
 
-  Game::Tooltip::main = showing(corner, { kind: 9, lines: [{ left: "?", kind: 0 }] })
-  Test::shot("a kind Ordaen Tooltips doesn't read: left to the game")
+  Game.tooltip.main = showing(corner, { kind: 9, lines: [{ left: "?", kind: 0 }] })
+  Test.shot("a kind Ordaen Tooltips doesn't read: left to the game")
 
-  Game::Tooltip::main = hidden(corner)
-  Test::shot("the game's tooltip gone")
+  Game.tooltip.main = hidden(corner)
+  Test.shot("the game's tooltip gone")
 
   // The lock.
-  addon.settings.draft.itemsAnchorBags = Place::Anchor
-  Ordaen::saveAll()
-  Game::Tooltip::main = inSlot(corner, slot, sword())
-  Test::shot("an item under the cursor: the bar's room, nothing in it yet")
+  addon.settings.draft.itemsAnchorBags = Place.Anchor
+  saveAll()
+  Game.tooltip.main = inSlot(corner, slot, sword())
+  Test.shot("an item under the cursor: the bar's room, nothing in it yet")
 
-  Test::pass(0.1)
-  Game::Tooltip::main = hidden(corner)
-  Test::pass(0.05)
-  Game::Tooltip::main = inSlot(corner, slot, sword())
-  Test::pass(0.535)
-  Test::shot("half a second into the charge, the game having shown it again on the way: the bar half full")
+  Test.pass(0.1)
+  Game.tooltip.main = hidden(corner)
+  Test.pass(0.05)
+  Game.tooltip.main = inSlot(corner, slot, sword())
+  Test.pass(0.535)
+  Test.shot("half a second into the charge, the game having shown it again on the way: the bar half full")
 
-  Test::pass(0.6)
-  Test::shot("charged: locked, the line in the bar's place and the close button")
+  Test.pass(0.6)
+  Test.shot("charged: locked, the line in the bar's place and the close button")
 
-  Game::Tooltip::main = hidden(corner)
-  Test::pass(1)
-  Test::shot("the game's tooltip gone: the locked one stays")
+  Game.tooltip.main = hidden(corner)
+  Test.pass(1)
+  Test.shot("the game's tooltip gone: the locked one stays")
 
   // The locked group stands at 1068.83,240, 271.17 wide and 76.25 high; its close button at 1316.08,248.92.
-  Test::moveTo({ x: 1100, y: 300 })
-  Test::pass(1)
-  Test::shot("the cursor on the locked group: it stays")
+  Test.moveTo({ x: 1100, y: 300 })
+  Test.pass(1)
+  Test.shot("the cursor on the locked group: it stays")
 
-  Test::moveTo({ x: 1326, y: 258 })
-  Test::pass(1)
-  Test::shot("on its close button: still on the group")
+  Test.moveTo({ x: 1326, y: 258 })
+  Test.pass(1)
+  Test.shot("on its close button: still on the group")
 
-  Test::moveTo({ x: 500, y: 500 })
-  Test::pass(0.1)
-  Test::moveTo({ x: 1100, y: 300 })
-  Test::pass(0.3)
-  Test::shot("off it and back within the grace: it stays")
+  Test.moveTo({ x: 500, y: 500 })
+  Test.pass(0.1)
+  Test.moveTo({ x: 1100, y: 300 })
+  Test.pass(0.3)
+  Test.shot("off it and back within the grace: it stays")
 
-  Test::moveTo({ x: 500, y: 500 })
-  Test::pass(0.3)
-  Test::shot("off it for longer than the grace: gone")
+  Test.moveTo({ x: 500, y: 500 })
+  Test.pass(0.3)
+  Test.shot("off it for longer than the grace: gone")
 
-  Game::Tooltip::main = inSlot(corner, slot, sword())
-  Test::pass(1.3)
-  Test::shot("shown again: charged anew, and locked")
+  Game.tooltip.main = inSlot(corner, slot, sword())
+  Test.pass(1.3)
+  Test.shot("shown again: charged anew, and locked")
 
-  Test::click({ x: 1326, y: 258 }, nil)
-  Test::pass(0.05)
-  Test::shot("its close button clicked while the game still shows it: not locked, the bar empty")
+  Test.click({ x: 1326, y: 258 }, nil)
+  Test.pass(0.05)
+  Test.shot("its close button clicked while the game still shows it: not locked, the bar empty")
 
-  Test::pass(2)
-  Test::shot("held on: what was closed doesn't charge again")
+  Test.pass(2)
+  Test.shot("held on: what was closed doesn't charge again")
 
-  Game::Tooltip::main = hidden(corner)
-  Test::pass(0.2)
-  Game::Tooltip::main = inSlot(corner, slot, sword())
-  Test::pass(1.3)
-  Test::shot("after the cursor left it and came back: locked once more")
+  Game.tooltip.main = hidden(corner)
+  Test.pass(0.2)
+  Game.tooltip.main = inSlot(corner, slot, sword())
+  Test.pass(1.3)
+  Test.shot("after the cursor left it and came back: locked once more")
 
-  Game::Tooltip::main = inSlot(corner, slot, { kind: 0, id: 9011, about: "item:9011", lines: [{ left: "Shield", kind: 22 }] })
-  Test::pass(0.05)
-  Test::shot("the game shows another thing: the locked one goes, and this one starts")
+  Game.tooltip.main = inSlot(corner, slot, { kind: 0, id: 9011, about: "item:9011", lines: [{ left: "Shield", kind: 22 }] })
+  Test.pass(0.05)
+  Test.shot("the game shows another thing: the locked one goes, and this one starts")
 
   // What a part of a locked tooltip opens.
   addon.settings.draft.spellsLock = true
-  Ordaen::saveAll()
-  Game::Spells::cost = (id: integer): Game::SpellCost | nil => id == 116 ? { amount: 65 } : nil
-  Game::Tooltip::main = hidden(corner)
-  Test::pass(0.2)
-  Game::Tooltip::main = inSlot(corner, slot, {
+  saveAll()
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => id == 116 ? { amount: 65 } : nil
+  Game.tooltip.main = hidden(corner)
+  Test.pass(0.2)
+  Game.tooltip.main = inSlot(corner, slot, {
     kind: 1, id: 116, about: "spell:116",
     lines: [
       { left: "Frostbolt", kind: 13 },
@@ -213,39 +219,39 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
       { left: "2.5 sec cast", kind: 0 },
     ],
   })
-  Test::pass(1.3)
-  Test::shot("a spell locked: the cells of its band that open a term are underlined")
+  Test.pass(1.3)
+  Test.shot("a spell locked: the cells of its band that open a term are underlined")
   cursorSaid()
 
-  Test::moveTo({ x: 1160, y: 297 })
-  Test::pass(0.1)
-  Test::shot("the cursor on the range's cell: the term's tooltip beside the cell, under it")
+  Test.moveTo({ x: 1160, y: 297 })
+  Test.pass(0.1)
+  Test.shot("the cursor on the range's cell: the term's tooltip beside the cell, under it")
   cursorSaid()
 
-  Test::moveTo({ x: 1100, y: 270 })
-  Test::pass(0.1)
-  Test::shot("off the cell, still on the tooltip: the term's tooltip gone, the locked one stays")
+  Test.moveTo({ x: 1100, y: 270 })
+  Test.pass(0.1)
+  Test.shot("off the cell, still on the tooltip: the term's tooltip gone, the locked one stays")
   cursorSaid()
 
-  Test::moveTo({ x: 1260, y: 297 })
-  Test::pass(0.1)
-  Test::shot("on the cast's cell: its term")
+  Test.moveTo({ x: 1260, y: 297 })
+  Test.pass(0.1)
+  Test.shot("on the cast's cell: its term")
 
-  Test::moveTo({ x: 500, y: 500 })
-  Test::pass(0.5)
-  Test::shot("off the tooltip for longer than the grace: the lock goes, and the game still shows the spell")
+  Test.moveTo({ x: 500, y: 500 })
+  Test.pass(0.5)
+  Test.shot("off the tooltip for longer than the grace: the lock goes, and the game still shows the spell")
   cursorSaid()
   addon.settings.draft.itemsLock = false
-  Ordaen::saveAll()
-  Game::Tooltip::main = hidden(corner)
-  Test::pass(0.2)
-  Game::Tooltip::main = inSlot(corner, slot, sword())
-  Test::pass(2)
-  Test::shot("«Tooltips in tooltips» off for items: it never charges")
+  saveAll()
+  Game.tooltip.main = hidden(corner)
+  Test.pass(0.2)
+  Game.tooltip.main = inSlot(corner, slot, sword())
+  Test.pass(2)
+  Test.shot("«Tooltips in tooltips» off for items: it never charges")
 
-  Game::Tooltip::main = hidden(corner)
-  Test::pass(0.2)
-  $expect(Test::idle())
+  Game.tooltip.main = hidden(corner)
+  Test.pass(0.2)
+  Test.expect(Test.idle())
   destroy addon
-  $expect(Test::blank())
+  Test.expect(Test.blank())
 }

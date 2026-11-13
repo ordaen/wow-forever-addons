@@ -9,34 +9,34 @@ import { Options } from "@/options"
 import { Term } from "@/terms"
 import { Standing, TipGroup } from "@/view"
 
-private const OPTIONS: Options = {
+const OPTIONS: Options = {
   spellsCooldown: true, spellsId: false, spellsNext: true, aurasCaster: true, aurasTotal: true, aurasId: false,
   classNames: true, playersTarget: true, playersRelation: true, npcsLoot: true, npcsParty: true, npcsRep: true,
   itemsIlvl: true, itemsCooldown: true, itemsId: false, itemsCount: true, itemsStack: true,
 }
 
-private function titled(name: string, header: string | nil): mut Model {
+function titled(name: String, header: String | nil): mut Model {
   return {
-    kind: Kind::Item, header: header, name: name, nameColor: $color("#ffffff"), desc: [], info: [], facts: [],
+    kind: Kind.Item, header: header, name: name, nameColor: Color.hex("#ffffff"), desc: [], info: [], facts: [],
     body: [], more: [], foot: [], keys: [],
   }
 }
 
 // What the group is given, as its owner would hold it.
-private class Stage {
-  public mut model: Reactive<Model> = $reactive(titled("Axe", nil))
-  public mut sides: Reactive<Array<Model>> = $reactive([])
-  public mut compared: Reactive<Array<Model>> = $reactive([])
-  public mut standing: Reactive<Standing>
-  public mut shown: Reactive<boolean> = $reactive(true)
-  public mut locked: Reactive<boolean> = $reactive(false)
-  private charge = $computed((): integer => self.locked ? 100 : 0)
+class Stage {
+  public state model: Model = titled("Axe", nil)
+  public state sides: Array<Model> = []
+  public state compared: Array<Model> = []
+  public state standing: Standing
+  public state shown: Boolean = true
+  public state locked: Boolean = false
+  derived charge: Integer = self.locked ? 100 : 0
 
-  $constructor(owner: Frame) {
-    self.standing = $reactive({ by: owner, below: true, right: false })
+  constructor(owner: any Frame) {
+    self.standing = { by: owner, below: true, right: false }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <TipGroup model={self.model} sides={self.sides} compared={self.compared} standing={self.standing}
                 shown={self.shown} options={OPTIONS} charge={self.charge} locked={self.locked} />
@@ -45,90 +45,90 @@ private class Stage {
 }
 
 // A player as the game knows them: Ann, a level 60 priest, who is the target's own.
-private function ann(unit: string): Game::UnitInfo | nil {
+function ann(unit: String): Game.UnitInfo | nil {
   if (unit != "mouseovertarget") { return nil }
   return {
-    name: "Ann", player: true, className: "Priest", classColor: $color("#ffffff"), dead: false, ghost: false,
+    name: "Ann", player: true, className: "Priest", classColor: Color.hex("#ffffff"), dead: false, ghost: false,
     afk: false, dnd: false, pvp: false, level: 60, race: "Human", faction: "Alliance", factionName: "Alliance",
     sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false, classification: "normal",
   }
 }
 
 test "a locked group: each of its tooltips opens what its parts name, a value the unit it names" {
-  let ui = Client::C_UI::GetUIParent()
-  let owner = Client::CreateFrame("Button", "TipOwner", ui, nil)
+  let ui = Client.C_UI.GetUIParent()
+  let owner = Client.CreateFrame("Button", "TipOwner", ui, nil)
   owner.SetSize(40, 40)
   owner.SetPoint("TOPLEFT", ui, "TOPLEFT", 300, -200)
-  Game::Units::of = ann
+  Game.units.of = ann
 
-  let mut stage = new Stage(owner)
+  let stage = new Stage(owner)
   stage.model = {
     foot: [
-      { left: "Target", right: "Ann", opens: named(Term::Ptarget), valueOpens: Opens::Unit { unit: "mouseovertarget" } },
-      { left: "Caster", right: "Gone", valueOpens: Opens::Unit { unit: "party3" } },
+      { left: "Target", right: "Ann", opens: named(Term.Ptarget), valueOpens: Opens.Unit { unit: "mouseovertarget" } },
+      { left: "Caster", right: "Gone", valueOpens: Opens.Unit { unit: "party3" } },
     ],
-    desc: [{ text: "Two-Hand" }, { text: "Bound", opens: named(Term::Lock) }],
+    desc: [{ text: "Two-Hand" }, { text: "Bound", opens: named(Term.Lock) }],
     ..titled("Axe", nil),
   }
-  let well = Opens::Text { name: "Well", text: "Health regenerates 5% faster." }
+  let well = Opens.Text { name: "Well", text: "Health regenerates 5% faster." }
   stage.sides = [{ body: [{ left: "Well", right: "+5%", opens: well }], ..titled("Use: heals", nil) }]
-  stage.compared = [{ facts: [{ text: "Locked", opens: named(Term::Lock) }], ..titled("Sword", "Equipped") }]
-  Test::mount(stage, { left: 100, top: 50, width: 700, height: 600 })
-  Test::shot("not locked: nothing is underlined")
+  stage.compared = [{ facts: [{ text: "Locked", opens: named(Term.Lock) }], ..titled("Sword", "Equipped") }]
+  Test.mount(stage, { left: 100, top: 50, width: 700, height: 600 })
+  Test.shot("not locked: nothing is underlined")
 
   stage.locked = true
-  Test::shot("locked: the parts that open something are underlined in every tooltip of the group")
+  Test.shot("locked: the parts that open something are underlined in every tooltip of the group")
 
-  Test::moveTo(Test::holding("Bound", nil))
-  Test::pass(0.1)
-  Test::shot("on a piece of the main tooltip's title: its term beside it")
+  Test.moveTo(Test.holding("Bound", nil))
+  Test.pass(0.1)
+  Test.shot("on a piece of the main tooltip's title: its term beside it")
 
-  Test::moveTo(Test::holding("Locked", nil))
-  Test::pass(0.1)
-  Test::shot("on the compared item's fact: its term beside it")
+  Test.moveTo(Test.holding("Locked", nil))
+  Test.pass(0.1)
+  Test.shot("on the compared item's fact: its term beside it")
 
-  Test::moveTo(Test::holding("Well", nil))
-  Test::pass(0.1)
-  Test::shot("on a side's row: the building's whole sentence beside it")
+  Test.moveTo(Test.holding("Well", nil))
+  Test.pass(0.1)
+  Test.shot("on a side's row: the building's whole sentence beside it")
 
-  Test::moveTo(Test::holding("Ann", nil))
-  Test::pass(0.1)
-  Test::shot("on the target's name: the target's own tooltip beside it")
+  Test.moveTo(Test.holding("Ann", nil))
+  Test.pass(0.1)
+  Test.shot("on the target's name: the target's own tooltip beside it")
 
-  Test::moveTo(Test::holding("Gone", nil))
-  Test::pass(0.1)
-  Test::shot("on a unit that is gone: nothing opens")
+  Test.moveTo(Test.holding("Gone", nil))
+  Test.pass(0.1)
+  Test.shot("on a unit that is gone: nothing opens")
 
   destroy stage
-  $expect(Test::blank())
+  Test.expect(Test.blank())
 }
 
 test "the group stands at its owner, the others beside and compared" {
   // What the tooltip explains: a button of the game's, in the screen's middle.
-  let ui = Client::C_UI::GetUIParent()
-  let owner = Client::CreateFrame("Button", "TipOwner", ui, nil)
+  let ui = Client.C_UI.GetUIParent()
+  let owner = Client.CreateFrame("Button", "TipOwner", ui, nil)
   owner.SetSize(40, 40)
   owner.SetPoint("TOPLEFT", ui, "TOPLEFT", 800, -400)
 
-  let mut stage = new Stage(owner)
-  Test::mount(stage, { left: 100, top: 50, width: 700, height: 600 })
-  Test::shot("the tooltip alone, under its owner, on the owner's left edge")
+  let stage = new Stage(owner)
+  Test.mount(stage, { left: 100, top: 50, width: 700, height: 600 })
+  Test.shot("the tooltip alone, under its owner, on the owner's left edge")
 
   stage.sides = [titled("Use: heals", nil), titled("Set: Deep Woods", nil)]
-  Test::shot("two open beside it from the start: one column to its right, tops lined up")
+  Test.shot("two open beside it from the start: one column to its right, tops lined up")
 
   stage.compared = [titled("Sword", "Equipped")]
-  Test::shot("compared with the worn item: the main tooltip lowered by the header's height, so the titles line up")
+  Test.shot("compared with the worn item: the main tooltip lowered by the header's height, so the titles line up")
 
   stage.standing = { by: owner, below: false, right: true }
-  Test::shot("above the owner, on its right edge: the row runs leftwards, the main tooltip still at the owner")
+  Test.shot("above the owner, on its right edge: the row runs leftwards, the main tooltip still at the owner")
 
   stage.compared = []
-  Test::shot("the comparison gone: the bottoms line up on the owner's top")
+  Test.shot("the comparison gone: the bottoms line up on the owner's top")
 
   stage.shown = false
-  Test::shot("hidden: nothing is drawn")
+  Test.shot("hidden: nothing is drawn")
 
   destroy stage
-  $expect(Test::blank())
+  Test.expect(Test.blank())
 }

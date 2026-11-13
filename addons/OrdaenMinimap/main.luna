@@ -1,8 +1,7 @@
 import Game from "$game"
-import Math from "$math"
-import { Align, Anchored, Art, Click, Color, EmbedLook, Line, MouseButton, Point, Position, Shadow } from "$ltml"
-import Ordaen from "Ordaen"
-import { PX, Tip } from "OrdaenLibrary"
+import { Align, Anchored, Art, Click, EmbedLook, Line, MouseButton, Point, Position, Shadow } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Artwork, Component, Module, Placed, PX, Settings, SettingsPage, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { DrawerEntry } from "@/drawer"
 import { RING, DRAWER_BUTTON, ORDAEN_BUTTON, RingButton, RingId, RingSpec, BUTTON, ROOM } from "@/ring"
@@ -14,130 +13,140 @@ import { DrawerPage, MapPage } from "@/settings"
 public enum Hint { None = "none", Zone = "zone", Coords = "coords", Clock = "clock", Ordaen = "ordaen", Drawer = "drawer", Entry = "entry" }
 
 // The map at «Map size» 100%.
-private const MAP = 262 * PX
+const MAP = 262 * PX
 // The zone's strip above, the coordinates' and clock's below.
-private const STRIP = 30 * PX
+const STRIP = 30 * PX
 // From the frame's side to a ring button's centre.
-private const RING_OUT = 16 * PX
-private const CELL = 34 * PX
-private const CELL_GAP = 4 * PX
-private const DRAWER_PAD = 6 * PX
-private const GOLD = $color("#ffd100")
-private const INK = $color("#f3e1b8")
+const RING_OUT = 16 * PX
+const CELL = 34 * PX
+const CELL_GAP = 4 * PX
+const DRAWER_PAD = 6 * PX
+const GOLD: Color = Color.hex("#ffd100")
+const INK: Color = Color.hex("#f3e1b8")
 // The clock while calendar invites wait.
-private const PENDING = $color("#ff9a2e")
+const PENDING: Color = Color.hex("#ff9a2e")
 // Dark up-left, as the windows' titles.
-private const ENGRAVED: Shadow = { color: $color("#000000e6"), x: -1, y: 1 }
-private const RULE = $color("#120c06")
+const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1, y: 1 }
+const RULE: Color = Color.hex("#120c06")
 // A strip's rule towards the map.
-private const RULE_BELOW: Line = { width: 2 * PX, color: RULE, sides: ["bottom"] }
-private const RULE_ABOVE: Line = { width: 2 * PX, color: RULE, sides: ["top"] }
+const RULE_BELOW: Line = { width: 2 * PX, color: RULE, sides: ["bottom"] }
+const RULE_ABOVE: Line = { width: 2 * PX, color: RULE, sides: ["top"] }
 
 // Where the map stands until the player moves it: the screen's top right corner.
-private const HOME: Anchored = { point: Point::TopRight }
+const HOME: Anchored = { point: Point.TopRight }
 
-public class Minimap implements Ordaen::Module {
-  public const title: string = "Ordaen Minimap"
+public class Minimap implements Module {
+  public const title: String = "Ordaen Minimap"
 
-  private mut settings = new Ordaen::Settings<Choices>({
-    scale: 1, showZone: true, showClock: true, showCoords: true, buttonsHover: true, hide: Hide::Never,
+  settings: mut Settings<Choices> = new Settings<Choices>({
+    scale: 1, showZone: true, showClock: true, showCoords: true, buttonsHover: true, hide: Hide.Never,
     drawerOn: true, drawerColumns: 4,
-  }, Ordaen::Scope::Account)
-  public const pages: Array<Ordaen::SettingsPage> = [
-    { title: Locale::TAB_MAP, content: $ltml { <MapPage settings={mut self.settings} /> } },
-    { title: Locale::TAB_DRAWER, content: $ltml { <DrawerPage settings={mut self.settings} /> } },
+  })
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_MAP, content: $ltml { <MapPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_DRAWER, content: $ltml { <DrawerPage settings={mut self.settings} /> } },
   ]
   // The ring buttons' angles as the player left them: degrees from the top, clockwise.
-  private mut angles: Reactive<Map<RingId, number>> = $reactive({})
-  private mut hovered = $reactive(false)
-  private mut drawerOpen = $reactive(false)
+  state angles: mut Map<RingId, Number> = {}
+  state hovered = false
+  state drawerOpen = false
   // The ring button being dragged, and its angle meanwhile.
-  private mut dragging: Reactive<RingId | nil> = $reactive(nil)
-  private mut dragAngle: Reactive<number> = $reactive(0)
-  private mut dragLeft: number = 0
-  private mut dragTop: number = 0
-  private mut hint: Reactive<Hint> = $reactive(Hint::None)
-  private mut entryName = $reactive("")
+  state dragging: RingId | nil = nil
+  state dragAngle: Number = 0
+  dragLeft: Number = 0
+  dragTop: Number = 0
+  state hint: Hint = Hint.None
+  state entryName = ""
 
   // The frame's metal: the map sits inside its wood, the line's width and the wood's inset in from the line.
-  private out = $computed((): number => Ordaen::art.frame.small.width + Ordaen::art.frame.small.inset)
-  private size = $computed((): number => MAP * self.settings.scale)
-  private headHeight = $computed((): number => self.settings.showZone ? STRIP : 0)
-  private hasFoot = $computed((): boolean => self.settings.showCoords || self.settings.showClock)
-  private footHeight = $computed((): number => self.hasFoot ? STRIP : 0)
-  private frameWidth = $computed((): number => self.size + 2 * self.out)
-  private frameHeight = $computed((): number => self.size + 2 * self.out + self.headHeight + self.footHeight)
-  private wholeWidth = $computed((): number => self.frameWidth + 2 * ROOM)
-  private wholeHeight = $computed((): number => self.frameHeight + 2 * ROOM)
+  derived out: Number = self.artwork.frame.small.width + self.artwork.frame.small.inset
+  derived size: Number = MAP * self.settings.values.scale
+  derived headHeight: Number = self.settings.values.showZone ? STRIP : 0
+  derived hasFoot: Boolean = self.settings.values.showCoords || self.settings.values.showClock
+  derived footHeight: Number = self.hasFoot ? STRIP : 0
+  derived frameWidth: Number = self.size + 2 * self.out
+  derived frameHeight: Number = self.size + 2 * self.out + self.headHeight + self.footHeight
+  derived wholeWidth: Number = self.frameWidth + 2 * ROOM
+  derived wholeHeight: Number = self.frameHeight + 2 * ROOM
   // The metal stands past its line, and the frame's box holds it: the box starts that far out.
-  private frameLeft = $computed((): number => ROOM - Ordaen::art.frame.small.reach.left * Ordaen::art.frame.small.scale)
-  private frameTop = $computed((): number => ROOM - Ordaen::art.frame.small.reach.top * Ordaen::art.frame.small.scale)
-  private mapTop = $computed((): number => self.out + self.headHeight)
+  derived frameLeft: Number = ROOM - self.artwork.frame.small.reach.left * self.artwork.frame.small.scale
+  derived frameTop: Number = ROOM - self.artwork.frame.small.reach.top * self.artwork.frame.small.scale
+  derived mapTop: Number = self.out + self.headHeight
 
-  private showsCoords = $computed((): boolean => self.settings.showCoords && Game::Minimap::coords != "")
-  private zoneColor = $computed((): Color => self.colorOf())
-  private clockColor = $computed((): Color => Game::Clock::invites > 0 ? PENDING : INK)
+  derived showsCoords: Boolean = self.settings.values.showCoords && Game.minimap.coords != ""
+  derived zoneColor: Color = self.colorOf()
+  derived clockColor: Color = Game.clock.invites > 0 ? PENDING : INK
   // The map goes back into the game's hidden cluster while the player fights or travels, as chosen.
-  private shown = $computed((): boolean => !self.hiddenNow())
+  derived shown: Boolean = !self.hiddenNow()
 
   // The drawer: its cells, and where it hangs from its button.
-  private held = $computed((): integer => Game::Minimap::buttons.length + Game::Minimap::entries.length)
-  private drawerShown = $computed((): boolean => self.settings.drawerOn && self.drawerOpen)
-  private drawerParked = $computed((): boolean => self.settings.drawerOn && !self.drawerOpen)
+  derived held: Integer = Game.minimap.buttons.length + Game.minimap.entries.length
+  derived drawerShown: Boolean = self.settings.values.drawerOn && self.drawerOpen
+  derived drawerParked: Boolean = self.settings.values.drawerOn && !self.drawerOpen
   // Its cells, the room round them and its frame's line on both sides.
-  private drawerEdge = $computed((): number => 2 * DRAWER_PAD + 2 * Ordaen::art.frame.small.width)
-  private drawerWidth = $computed((): number =>
-    self.settings.drawerColumns * CELL + (self.settings.drawerColumns - 1) * CELL_GAP + self.drawerEdge)
-  private drawerRows = $computed((): integer => Math::max(1, Math::ceil(self.held / self.settings.drawerColumns)))
-  private drawerHeight = $computed((): number => self.drawerRows * CELL + (self.drawerRows - 1) * CELL_GAP + self.drawerEdge)
-  private drawerLeft = $computed((): number => self.ringLeft(DRAWER_BUTTON) + BUTTON - self.drawerWidth)
-  private drawerTop = $computed((): number => self.ringTop(DRAWER_BUTTON) + BUTTON + 2 * PX)
+  derived drawerEdge: Number = 2 * DRAWER_PAD + 2 * self.artwork.frame.small.width
+  derived drawerWidth: Number = self.settings.values.drawerColumns * CELL + (self.settings.values.drawerColumns - 1) * CELL_GAP + self.drawerEdge
+  derived drawerRows: Integer = (1).max((self.held / self.settings.values.drawerColumns).ceil())
+  derived drawerHeight: Number = self.drawerRows * CELL + (self.drawerRows - 1) * CELL_GAP + self.drawerEdge
+  derived drawerLeft: Number = self.ringLeft(DRAWER_BUTTON) + BUTTON - self.drawerWidth
+  derived drawerTop: Number = self.ringTop(DRAWER_BUTTON) + BUTTON + 2 * PX
 
-  private hintShown = $computed((): boolean => self.hint != Hint::None)
-  private hintTitle = $computed((): string => self.titleOf())
-  private hintText = $computed((): string => self.textOf())
-  private hintLeft = $computed((): number => self.leftOf())
-  private hintTop = $computed((): number => self.topOf())
-
-  $constructor() {
-    Game::Minimap::square(true)
-    Game::Minimap::wheelZoom()
+  derived hintShown: Boolean = self.hint != Hint.None
+  derived hintTitle: String = self.titleOf()
+  derived hintText: String = self.textOf()
+  derived hintLeft: Number = self.leftOf()
+  derived hintTop: Number = self.topOf()
+  // Ordaen's art: its root is there before this module loads.
+  derived artwork: Artwork {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.art
+  }
+  // The numbers' font the player chose: Ordaen is the addon every module needs, so its root is there.
+  derived numbers: Art {
+    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
+    return ordaen.lookArt.fontNumbers ?? panic("the look's numbers font is a file")
   }
 
-  $destructor() {
-    Game::Minimap::square(false)
+  constructor() {
+    Game.minimap.square(true)
+    Game.minimap.wheelZoom()
+    watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }
   }
 
-  private hiddenNow(): boolean {
-    switch (self.settings.hide) {
-      case Hide::Combat: return Game::Situation::combat
-      case Hide::Transport: return Game::Situation::taxi || Game::Situation::vehicle
-      case Hide::Never: return false
+  destructor() {
+    Game.minimap.square(false)
+  }
+
+  hiddenNow(self): Boolean {
+    match (self.settings.values.hide) {
+      Hide.Combat => return Game.situation.combat,
+      Hide.Transport => return Game.situation.taxi || Game.situation.vehicle,
+      Hide.Never => return false,
     }
     return false
   }
 
   // The zone's colour by its PvP status: the game's own minimap colours.
-  private colorOf(): Color {
-    let pvp = Game::Location::pvp
+  colorOf(self): Color {
+    let pvp = Game.location.pvp
     if (pvp == nil) { return GOLD }
-    switch (pvp) {
-      case Game::Pvp::Sanctuary: return $color("#69ccf0")
-      case Game::Pvp::Friendly: return $color("#1aff1a")
-      case Game::Pvp::Hostile, Game::Pvp::Combat: return $color("#ff1a1a")
-      case Game::Pvp::Contested: return $color("#ffb300")
+    match (pvp) {
+      Game.Pvp.Sanctuary => return Color.hex("#69ccf0"),
+      Game.Pvp.Friendly => return Color.hex("#1aff1a"),
+      Game.Pvp.Hostile, Game.Pvp.Combat => return Color.hex("#ff1a1a"),
+      Game.Pvp.Contested => return Color.hex("#ffb300"),
     }
     return GOLD
   }
 
-  private zoneLabel(): string {
-    let pvp = Game::Location::pvp
+  zoneLabel(self): String {
+    let pvp = Game.location.pvp
     if (pvp == nil) { return "" }
-    switch (pvp) {
-      case Game::Pvp::Sanctuary: return Locale::ZONE_SANCTUARY
-      case Game::Pvp::Friendly, Game::Pvp::Hostile: return Locale::ZONE_FACTION
-      case Game::Pvp::Contested: return Locale::ZONE_CONTESTED
-      case Game::Pvp::Combat: return Locale::ZONE_COMBAT
+    match (pvp) {
+      Game.Pvp.Sanctuary => return Locale.ZONE_SANCTUARY,
+      Game.Pvp.Friendly, Game.Pvp.Hostile => return Locale.ZONE_FACTION,
+      Game.Pvp.Contested => return Locale.ZONE_CONTESTED,
+      Game.Pvp.Combat => return Locale.ZONE_COMBAT,
     }
     return ""
   }
@@ -145,201 +154,201 @@ public class Minimap implements Ordaen::Module {
   // ---- the ring, for its buttons
 
   // A ring button's angle: as dragged now, as the player left it, or its own.
-  public angle(spec: RingSpec): number {
+  public angle(self, spec: RingSpec): Number {
     if (self.dragging == spec.id) { return self.dragAngle }
     return self.angles[spec.id] ?? spec.angle
   }
 
   // Where a ring button's centre sits, from the frame's centre: along its angle, onto the box RING_OUT round the
   // frame (a square's projection, not a circle's), rounded to hundredths.
-  private offset(spec: RingSpec): (number, number) {
-    let t = Math::rad(self.angle(spec))
-    let x = Math::sin(t)
-    let y = -Math::cos(t)
+  offset(self, spec: RingSpec): (Number, Number) {
+    let t = self.angle(spec).rad()
+    let x = t.sin()
+    let y = -t.cos()
     let halfWidth = self.frameWidth / 2 + RING_OUT
     let halfHeight = self.frameHeight / 2 + RING_OUT
-    let k = Math::min(halfWidth / Math::max(Math::abs(x), 1e-9), halfHeight / Math::max(Math::abs(y), 1e-9))
-    return Math::floor(x * k * 100 + 0.5) / 100, Math::floor(y * k * 100 + 0.5) / 100
+    let k = (halfWidth / x.abs().max(1e-9)).min(halfHeight / y.abs().max(1e-9))
+    return (x * k * 100 + 0.5).floor() / 100, (y * k * 100 + 0.5).floor() / 100
   }
 
-  public ringLeft(spec: RingSpec): number {
+  public ringLeft(self, spec: RingSpec): Number {
     let x, y = self.offset(spec)
     return ROOM + self.frameWidth / 2 + x - BUTTON / 2
   }
 
-  public ringTop(spec: RingSpec): number {
+  public ringTop(self, spec: RingSpec): Number {
     let x, y = self.offset(spec)
     return ROOM + self.frameHeight / 2 + y - BUTTON / 2
   }
 
   // Whether the ring shows: always, or with «Buttons on mouseover» while the cursor is on the minimap, a button is
   // dragged or the drawer is open.
-  public ringOpacity(): number {
-    if (!self.settings.buttonsHover || self.hovered || self.drawerOpen || self.dragging != nil) { return 1 }
+  public ringOpacity(self): Number {
+    if (!self.settings.values.buttonsHover || self.hovered || self.drawerOpen || self.dragging != nil) { return 1 }
     return 0
   }
 
-  public isDrawerOpen(): boolean { return self.drawerOpen }
-  public isDrawerOn(): boolean { return self.settings.drawerOn }
-  public holds(): integer { return self.held }
+  public isDrawerOpen(self): Boolean { return self.drawerOpen }
+  public isDrawerOn(self): Boolean { return self.settings.values.drawerOn }
+  public holds(self): Integer { return self.held }
 
-  public mut startDrag(spec: RingSpec) {
+  public startDrag(mut self, spec: RingSpec) {
     self.dragLeft = self.ringLeft(spec)
     self.dragTop = self.ringTop(spec)
     self.dragAngle = self.angle(spec)
     self.dragging = spec.id
-    self.hint = Hint::None
+    self.hint = Hint.None
   }
 
   // The cursor at `x`, `y` in the dragged button's box as it stood when the drag began.
-  public mut dragTo(x: number, y: number) {
+  public dragTo(mut self, x: Number, y: Number) {
     let cx = self.dragLeft + x - ROOM - self.frameWidth / 2
     let cy = self.dragTop + y - ROOM - self.frameHeight / 2
-    self.dragAngle = Math::floor((Math::deg(Math::atan2(cx, -cy)) + 360) % 360 + 0.5)
+    self.dragAngle = ((cx.atan2(-cy).deg() + 360) % 360 + 0.5).floor()
   }
 
-  public mut stopDrag(spec: RingSpec) {
+  public stopDrag(mut self, spec: RingSpec) {
     self.angles[spec.id] = self.dragAngle
     self.dragging = nil
   }
 
-  public mut toggleDrawer() { self.drawerOpen = !self.drawerOpen }
-  public mut showHint(hint: Hint) { self.hint = hint }
+  public toggleDrawer(mut self) { self.drawerOpen = !self.drawerOpen }
+  public showHint(mut self, hint: Hint) { self.hint = hint }
 
   // ---- what the strips and the drawer report
 
-  private mut onEnter() { self.hovered = true }
-  private mut onLeave() { self.hovered = false }
-  private mut onZoneEnter() { self.hint = Hint::Zone }
-  private mut onCoordsEnter() { self.hint = Hint::Coords }
-  private mut onClockEnter() { self.hint = Hint::Clock }
-  private mut onHintLeave() { self.hint = Hint::None }
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+  onZoneEnter(mut self) { self.hint = Hint.Zone }
+  onCoordsEnter(mut self) { self.hint = Hint.Coords }
+  onClockEnter(mut self) { self.hint = Hint.Clock }
+  onHintLeave(mut self) { self.hint = Hint.None }
 
-  private mut onEntryHover(name: string) {
+  onEntryHover(mut self, name: String) {
     self.entryName = name
-    self.hint = Hint::Entry
+    self.hint = Hint.Entry
   }
 
-  private mut onCoordsClick(click: Click) {
-    if (click.button == MouseButton::Left && Game::Input::shiftDown()) { Game::Minimap::sendCoords() }
+  onCoordsClick(mut self, click: Click) {
+    if (click.button == MouseButton.Left && Game.input.shiftDown()) { Game.minimap.sendCoords() }
   }
 
-  private mut onClockClick(click: Click) {
-    if (click.button == MouseButton::Right) {
-      Ordaen::toggleSettings("minimap")
+  onClockClick(mut self, click: Click) {
+    if (click.button == MouseButton.Right) {
+      Ordaen?.toggleSettings("minimap")
     } else {
-      Game::Clock::toggleCalendar()
+      Game.clock.toggleCalendar()
     }
   }
 
   // ---- the tooltip of our own parts (the game's buttons show their own)
 
-  private titleOf(): string {
-    switch (self.hint) {
-      case Hint::Zone: return Game::Location::realZone
-      case Hint::Coords: return Game::Minimap::coords
-      case Hint::Clock: return Game::Clock::text
-      case Hint::Ordaen: return Ordaen::title
-      case Hint::Drawer: return Locale::DRAWER_TITLE
-      case Hint::Entry: return self.entryName
-      case Hint::None: return ""
+  titleOf(self): String {
+    match (self.hint) {
+      Hint.Zone => return Game.location.realZone,
+      Hint.Coords => return Game.minimap.coords,
+      Hint.Clock => return Game.clock.text,
+      Hint.Ordaen => return Ordaen?.title ?? "",
+      Hint.Drawer => return Locale.DRAWER_TITLE,
+      Hint.Entry => return self.entryName,
+      Hint.None => return "",
     }
     return ""
   }
 
-  private textOf(): string {
-    switch (self.hint) {
-      case Hint::Zone: return self.zoneLabel()
-      case Hint::Coords: return Locale::COORDS_TIP
-      case Hint::Clock: return Locale::CLOCK_TIP
-      case Hint::Ordaen: return Ordaen::dev ? Locale::ORDAEN_TIP_DEV : Locale::ORDAEN_TIP
-      case Hint::Drawer: return Locale::DRAWER_TIP
-      case Hint::Entry, Hint::None: return ""
+  textOf(self): String {
+    match (self.hint) {
+      Hint.Zone => return self.zoneLabel(),
+      Hint.Coords => return Locale.COORDS_TIP,
+      Hint.Clock => return Locale.CLOCK_TIP,
+      Hint.Ordaen => return Ordaen?.dev == true ? Locale.ORDAEN_TIP_DEV : Locale.ORDAEN_TIP,
+      Hint.Drawer => return Locale.DRAWER_TIP,
+      Hint.Entry, Hint.None => return "",
     }
     return ""
   }
 
-  private leftOf(): number {
-    switch (self.hint) {
-      case Hint::Ordaen: return self.ringLeft(ORDAEN_BUTTON) + BUTTON
-      case Hint::Drawer, Hint::Entry: return self.ringLeft(DRAWER_BUTTON) + BUTTON
-      default: return ROOM + self.frameWidth + 4 * PX
+  leftOf(self): Number {
+    match (self.hint) {
+      Hint.Ordaen => return self.ringLeft(ORDAEN_BUTTON) + BUTTON,
+      Hint.Drawer, Hint.Entry => return self.ringLeft(DRAWER_BUTTON) + BUTTON,
+      else => return ROOM + self.frameWidth + 4 * PX,
     }
   }
 
-  private topOf(): number {
-    switch (self.hint) {
-      case Hint::Zone: return ROOM
-      case Hint::Ordaen: return self.ringTop(ORDAEN_BUTTON)
-      case Hint::Drawer: return self.ringTop(DRAWER_BUTTON)
-      case Hint::Entry: return self.ringTop(DRAWER_BUTTON) + BUTTON
-      default: return ROOM + self.frameHeight - STRIP
+  topOf(self): Number {
+    match (self.hint) {
+      Hint.Zone => return ROOM,
+      Hint.Ordaen => return self.ringTop(ORDAEN_BUTTON),
+      Hint.Drawer => return self.ringTop(DRAWER_BUTTON),
+      Hint.Entry => return self.ringTop(DRAWER_BUTTON) + BUTTON,
+      else => return ROOM + self.frameHeight - STRIP,
     }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <frame of={Game::Frames::MinimapCluster} shown={false} />
-      <frame of={Game::Frames::MinimapBackdrop} shown={false} />
+      <frame of={Game.frames.MinimapCluster} shown={false} />
+      <frame of={Game.frames.MinimapBackdrop} shown={false} />
       // The dev addon's own button: the ring's Ordaen button opens its window.
-      <frame of={Game::Frames::OrdaenDevButton} shown={false} />
+      <frame of={Game.frames.OrdaenDevButton} shown={false} />
 
-      <Ordaen::Placed $if={self.shown} id={"OrdaenMinimap.map"} title={Locale::MINIMAP_TITLE} home={HOME}>
+      <Placed $if={self.shown} id={"OrdaenMinimap.map"} title={Locale.MINIMAP_TITLE} home={HOME}>
         <box width={self.wholeWidth} height={self.wholeHeight} hoverWithin={true}
              @enter={self.onEnter} @leave={self.onLeave}>
-          <box position={Position::Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameWidth}
-               height={self.frameHeight} border={Ordaen::art.frame.small} background={Ordaen::art.window.wood}
+          <box position={Position.Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameWidth}
+               height={self.frameHeight} border={self.artwork.frame.small} background={self.artwork.window.wood}
                artOrigin={true}>
-            <embed frame={Game::Minimap::frame} position={Position::Absolute} left={self.out} top={self.mapTop}
+            <embed frame={Game.minimap.frame} position={Position.Absolute} left={self.out} top={self.mapTop}
                    width={self.size} height={self.size} />
 
-            <box $if={self.settings.showZone} position={Position::Absolute} left={self.out} top={self.out}
-                 width={self.size} height={STRIP} background={Ordaen::art.window.wood} border={RULE_BELOW}
-                 xAlign={Align::Center} yAlign={Align::Center}>
+            <box $if={self.settings.values.showZone} position={Position.Absolute} left={self.out} top={self.out}
+                 width={self.size} height={STRIP} background={self.artwork.window.wood} border={RULE_BELOW}
+                 xAlign={Align.Center} yAlign={Align.Center}>
               <box @enter={self.onZoneEnter} @leave={self.onHintLeave}>
-                <text value={Game::Location::zone} textColor={self.zoneColor} textSize={15 * PX} textShadow={ENGRAVED}
+                <text value={Game.location.zone} textColor={self.zoneColor} textSize={15 * PX} textShadow={ENGRAVED}
                       wrap={false} />
               </box>
             </box>
 
-            <box $if={self.hasFoot} position={Position::Absolute} left={self.out} bottom={self.out} width={self.size}
-                 height={STRIP} background={Ordaen::art.window.wood} border={RULE_ABOVE}
-                 columns={[{ fr: 1 }, "auto"]} padding={{ left: 10 * PX, right: 10 * PX }} yAlign={Align::Center}>
+            <box $if={self.hasFoot} position={Position.Absolute} left={self.out} bottom={self.out} width={self.size}
+                 height={STRIP} background={self.artwork.window.wood} border={RULE_ABOVE}
+                 columns={[{ fr: 1 }, "auto"]} padding={{ left: 10 * PX, right: 10 * PX }} yAlign={Align.Center}>
               <box $if={self.showsCoords} @click={self.onCoordsClick} @enter={self.onCoordsEnter}
                    @leave={self.onHintLeave}>
-                <text value={Game::Minimap::coords} textColor={INK} textSize={15 * PX} textShadow={ENGRAVED}
-                      textFamily={Ordaen::lookArt.fontNumbers} wrap={false} />
+                <text value={Game.minimap.coords} textColor={INK} textSize={15 * PX} textShadow={ENGRAVED}
+                      textFamily={self.numbers} wrap={false} />
               </box>
               <box $else width={1} />
-              <box $if={self.settings.showClock} @click={self.onClockClick} @enter={self.onClockEnter}
+              <box $if={self.settings.values.showClock} @click={self.onClockClick} @enter={self.onClockEnter}
                    @leave={self.onHintLeave}>
-                <text value={Game::Clock::text} textColor={self.clockColor} textSize={15 * PX} textShadow={ENGRAVED}
-                      textFamily={Ordaen::lookArt.fontNumbers} wrap={false} />
+                <text value={Game.clock.text} textColor={self.clockColor} textSize={15 * PX} textShadow={ENGRAVED}
+                      textFamily={self.numbers} wrap={false} />
               </box>
             </box>
           </box>
 
           <RingButton $for={spec of RING} spec={spec} map={mut self} />
 
-          <box $if={self.drawerShown} position={Position::Absolute} left={self.drawerLeft} top={self.drawerTop}
-               width={self.drawerWidth} height={self.drawerHeight} columns={self.settings.drawerColumns} gap={CELL_GAP}
-               padding={DRAWER_PAD} border={Ordaen::art.frame.small} background={Ordaen::art.window.wood}
+          <box $if={self.drawerShown} position={Position.Absolute} left={self.drawerLeft} top={self.drawerTop}
+               width={self.drawerWidth} height={self.drawerHeight} columns={self.settings.values.drawerColumns} gap={CELL_GAP}
+               padding={DRAWER_PAD} border={self.artwork.frame.small} background={self.artwork.window.wood}
                artOrigin={true} zLevel={20}>
-            <embed $for={button of Game::Minimap::buttons} frame={button} width={CELL} height={CELL}
-                   look={EmbedLook::Icon} />
-            <DrawerEntry $for={entry of Game::Minimap::entries} entry={entry} @hover={self.onEntryHover}
+            <embed $for={button of Game.minimap.buttons} frame={button} width={CELL} height={CELL}
+                   look={EmbedLook.Icon} />
+            <DrawerEntry $for={entry of Game.minimap.entries} entry={entry} @hover={self.onEntryHover}
                          @leave={self.onHintLeave} />
           </box>
-          <box $elseif={self.drawerParked} position={Position::Absolute} left={0} top={0} width={0} height={0}
+          <box $elseif={self.drawerParked} position={Position.Absolute} left={0} top={0} width={0} height={0}
                opacity={0}>
-            <embed $for={button of Game::Minimap::buttons} frame={button} width={CELL} height={CELL}
-                   look={EmbedLook::Icon} />
+            <embed $for={button of Game.minimap.buttons} frame={button} width={CELL} height={CELL}
+                   look={EmbedLook.Icon} />
           </box>
 
           <Tip $if={self.hintShown} title={self.hintTitle} text={self.hintText} left={self.hintLeft}
                top={self.hintTop} />
         </box>
-      </Ordaen::Placed>
+      </Placed>
     }
   }
 }

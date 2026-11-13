@@ -21,35 +21,35 @@ public enum Combat { Any = "any", Hide = "hide", Only = "only" }
 
 public struct Choices {
   // The parts, each on or off.
-  microOn: boolean
-  statusOn: boolean
-  bottomOn: boolean
+  microOn: Boolean
+  statusOn: Boolean
+  bottomOn: Boolean
   microIcons: MicroIcons
   charButton: CharButton
   // The panel's text.
   outline: Outline
-  shadow: boolean
+  shadow: Boolean
   // The panel: where, how long, how high, what sits in which zone, when it shows.
   edge: Edge
   fit: Fit
-  height: number
+  height: Number
   places: Map<Item, Zone>
   show: Show
   combat: Combat
-  vehicle: boolean
-  petBattle: boolean
-  resting: boolean
+  vehicle: Boolean
+  petBattle: Boolean
+  resting: Boolean
   // How visible the panel is while hidden.
-  fadedAlpha: number
+  fadedAlpha: Number
 }
 
 public const DEFAULTS: Choices = {
-  microOn: true, statusOn: true, bottomOn: true, microIcons: MicroIcons::Upscaled, charButton: CharButton::Portrait,
-  outline: Outline::None, shadow: true, edge: Edge::Bottom, fit: Fit::Full, height: 60,
+  microOn: true, statusOn: true, bottomOn: true, microIcons: MicroIcons.Upscaled, charButton: CharButton.Portrait,
+  outline: Outline.None, shadow: true, edge: Edge.Bottom, fit: Fit.Full, height: 60,
   places: {
-    [Item::Micromenu]: Zone::Left, [Item::Social]: Zone::Left, [Item::Experience]: Zone::Center,
-    [Item::Zone]: Zone::Off, [Item::Clock]: Zone::Off, [Item::Currencies]: Zone::Right, [Item::Bags]: Zone::Right,
+    [Item.Micromenu]: Zone.Left, [Item.Social]: Zone.Left, [Item.Experience]: Zone.Center,
+    [Item.Zone]: Zone.Off, [Item.Clock]: Zone.Off, [Item.Currencies]: Zone.Right, [Item.Bags]: Zone.Right,
   },
-  show: Show::Always, combat: Combat::Any, vehicle: true, petBattle: true, resting: false,
+  show: Show.Always, combat: Combat.Any, vehicle: true, petBattle: true, resting: false,
   fadedAlpha: 0,
 }

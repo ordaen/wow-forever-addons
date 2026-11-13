@@ -1,0 +1,30 @@
+// A window's tabs drawn with Ordaen's own art: each tab's wood is cut by its metal's rounded corners, the open
+// one's as the others', and its picture by the clip at its top left.
+import Test from "$test"
+import { Placing, Window, WindowTabSpec } from "@/window"
+
+class Tabbed {
+  state tabs: Array<WindowTabSpec> = [
+    { title: "Professions", desc: "Tailoring 75", icon: "Interface/Icons/Trade_Tailoring" },
+    { title: "Recipes" },
+  ]
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
+        <text value={"the page"} />
+      </Window>
+    }
+  }
+}
+
+test "the open tab and the others are cut by their metal's corners" {
+  let page = new Tabbed()
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test.shot("the first tab open: its wood and its picture cut at their rounded corners, the second tab's wood too")
+  Test.click(Test.holding("Recipes", nil), nil)
+  Test.shot("the second tab open: cut as the first was")
+  destroy page
+}

@@ -3,12 +3,12 @@
 
 // A tree's name in the two languages, and its place among its class's three.
 public struct Tree {
-  ruRU: string
-  enUS: string
-  order: integer
+  ruRU: String
+  enUS: String
+  order: Integer
 }
 
 // A talent's spell, at any rank, to its tree.
-public tab: Map<integer, integer>
+public tab: Map<Integer, Integer>
 // A tree to its name.
-public name: Map<integer, Tree>
+public name: Map<Integer, Tree>

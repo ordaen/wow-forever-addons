@@ -1,137 +1,148 @@
 // The panel's tabs in the settings window. «General» switches each part on or off; each part has a tab of its own.
 // Each control writes one entry of the settings' draft.
-import Ordaen from "Ordaen"
-import { Checkbox, Choice, Dropdown, Section, Slider, Switch, Unit, ZoneItem, Zones } from "OrdaenLibrary"
+import { Checkbox, Choice, Component, Dropdown, Section, Settings, Slider, Switch, Unit, ZoneItem, Zones } from "Ordaen"
 import Locale from "@/locales"
 import { CharButton, Choices, Combat, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
 
-private const ICONS: Array<Choice<MicroIcons>> = [
-  { value: MicroIcons::Upscaled, label: Locale::PANEL_MICROICONS_UPSCALED },
-  { value: MicroIcons::Gold, label: Locale::PANEL_MICROICONS_GOLD },
+const ICONS: Array<Choice<MicroIcons>> = [
+  { value: MicroIcons.Upscaled, label: Locale.PANEL_MICROICONS_UPSCALED },
+  { value: MicroIcons.Gold, label: Locale.PANEL_MICROICONS_GOLD },
 ]
-private const CHAR_BUTTONS: Array<Choice<CharButton>> = [
-  { value: CharButton::Portrait, label: Locale::PANEL_CHARBUTTON_PORTRAIT },
-  { value: CharButton::Button, label: Locale::PANEL_CHARBUTTON_BUTTON },
+const CHAR_BUTTONS: Array<Choice<CharButton>> = [
+  { value: CharButton.Portrait, label: Locale.PANEL_CHARBUTTON_PORTRAIT },
+  { value: CharButton.Button, label: Locale.PANEL_CHARBUTTON_BUTTON },
 ]
-private const OUTLINES: Array<Choice<Outline>> = [
-  { value: Outline::None, label: Locale::PANEL_OUTLINE_NONE },
-  { value: Outline::Thin, label: Locale::PANEL_OUTLINE_THIN },
-  { value: Outline::Thick, label: Locale::PANEL_OUTLINE_THICK },
+const OUTLINES: Array<Choice<Outline>> = [
+  { value: Outline.None, label: Locale.PANEL_OUTLINE_NONE },
+  { value: Outline.Thin, label: Locale.PANEL_OUTLINE_THIN },
+  { value: Outline.Thick, label: Locale.PANEL_OUTLINE_THICK },
 ]
-private const EDGES: Array<Choice<Edge>> = [
-  { value: Edge::Bottom, label: Locale::PANEL_EDGE_BOTTOM },
-  { value: Edge::Top, label: Locale::PANEL_EDGE_TOP },
-  { value: Edge::Left, label: Locale::PANEL_EDGE_LEFT },
-  { value: Edge::Right, label: Locale::PANEL_EDGE_RIGHT },
+const EDGES: Array<Choice<Edge>> = [
+  { value: Edge.Bottom, label: Locale.PANEL_EDGE_BOTTOM },
+  { value: Edge.Top, label: Locale.PANEL_EDGE_TOP },
+  { value: Edge.Left, label: Locale.PANEL_EDGE_LEFT },
+  { value: Edge.Right, label: Locale.PANEL_EDGE_RIGHT },
 ]
-private const FITS: Array<Choice<Fit>> = [
-  { value: Fit::Full, label: Locale::PANEL_FIT_FULL },
-  { value: Fit::Center, label: Locale::PANEL_FIT_CENTER },
+const FITS: Array<Choice<Fit>> = [
+  { value: Fit.Full, label: Locale.PANEL_FIT_FULL },
+  { value: Fit.Center, label: Locale.PANEL_FIT_CENTER },
 ]
-private const ZONES: Array<Choice<Zone>> = [
-  { value: Zone::Left, label: Locale::SECTION_ITEMS_LEFT },
-  { value: Zone::Center, label: Locale::SECTION_ITEMS_CENTER },
-  { value: Zone::Right, label: Locale::SECTION_ITEMS_RIGHT },
+const ZONES: Array<Choice<Zone>> = [
+  { value: Zone.Left, label: Locale.SECTION_ITEMS_LEFT },
+  { value: Zone.Center, label: Locale.SECTION_ITEMS_CENTER },
+  { value: Zone.Right, label: Locale.SECTION_ITEMS_RIGHT },
 ]
-private const OFF: Choice<Zone> = { value: Zone::Off, label: Locale::SECTION_ITEMS_OFF }
-private const ITEMS: Array<ZoneItem<Item>> = [
-  { key: Item::Micromenu, label: Locale::PANEL_MICROMENU, hint: Locale::PANEL_MICROMENU_TIP },
-  { key: Item::Social, label: Locale::PANEL_SOCIAL, hint: Locale::PANEL_SOCIAL_TIP },
-  { key: Item::Experience, label: Locale::PANEL_EXPERIENCE, hint: Locale::PANEL_EXPERIENCE_TIP },
-  { key: Item::Zone, label: Locale::PANEL_ZONE, hint: Locale::PANEL_ZONE_TIP },
-  { key: Item::Clock, label: Locale::PANEL_CLOCK, hint: Locale::PANEL_CLOCK_TIP },
-  { key: Item::Currencies, label: Locale::PANEL_CURRENCIES, hint: Locale::PANEL_CURRENCIES_TIP },
-  { key: Item::Bags, label: Locale::PANEL_BAGS, hint: Locale::PANEL_BAGS_TIP },
+const OFF: Choice<Zone> = { value: Zone.Off, label: Locale.SECTION_ITEMS_OFF }
+const ITEMS: Array<ZoneItem<Item>> = [
+  { key: Item.Micromenu, label: Locale.PANEL_MICROMENU, hint: Locale.PANEL_MICROMENU_TIP },
+  { key: Item.Social, label: Locale.PANEL_SOCIAL, hint: Locale.PANEL_SOCIAL_TIP },
+  { key: Item.Experience, label: Locale.PANEL_EXPERIENCE, hint: Locale.PANEL_EXPERIENCE_TIP },
+  { key: Item.Zone, label: Locale.PANEL_ZONE, hint: Locale.PANEL_ZONE_TIP },
+  { key: Item.Clock, label: Locale.PANEL_CLOCK, hint: Locale.PANEL_CLOCK_TIP },
+  { key: Item.Currencies, label: Locale.PANEL_CURRENCIES, hint: Locale.PANEL_CURRENCIES_TIP },
+  { key: Item.Bags, label: Locale.PANEL_BAGS, hint: Locale.PANEL_BAGS_TIP },
 ]
-private const SHOWS: Array<Choice<Show>> = [
-  { value: Show::Always, label: Locale::PANEL_SHOW_ALWAYS },
-  { value: Show::Mouseover, label: Locale::PANEL_SHOW_MOUSEOVER },
-  { value: Show::Never, label: Locale::PANEL_SHOW_NEVER },
+const SHOWS: Array<Choice<Show>> = [
+  { value: Show.Always, label: Locale.PANEL_SHOW_ALWAYS },
+  { value: Show.Mouseover, label: Locale.PANEL_SHOW_MOUSEOVER },
+  { value: Show.Never, label: Locale.PANEL_SHOW_NEVER },
 ]
-private const COMBATS: Array<Choice<Combat>> = [
-  { value: Combat::Any, label: Locale::PANEL_COMBAT_ANY },
-  { value: Combat::Hide, label: Locale::PANEL_COMBAT_HIDE },
-  { value: Combat::Only, label: Locale::PANEL_COMBAT_ONLY },
+const COMBATS: Array<Choice<Combat>> = [
+  { value: Combat.Any, label: Locale.PANEL_COMBAT_ANY },
+  { value: Combat.Hide, label: Locale.PANEL_COMBAT_HIDE },
+  { value: Combat.Only, label: Locale.PANEL_COMBAT_ONLY },
 ]
 
-public class GeneralPage implements Ordaen::Component {
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+public class GeneralPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Section title={Locale::SECTION_MICROMENU}>
-        <Switch label={Locale::PANEL_MICROON} hint={Locale::PANEL_MICROON_TIP}
+      <Section title={Locale.SECTION_MICROMENU}>
+        <Switch label={Locale.PANEL_MICROON} hint={Locale.PANEL_MICROON_TIP}
                 value={mut self.settings.draft.microOn} />
       </Section>
-      <Section title={Locale::SECTION_STATUS}>
-        <Switch label={Locale::PANEL_STATUSON} hint={Locale::PANEL_STATUSON_TIP}
+      <Section title={Locale.SECTION_STATUS}>
+        <Switch label={Locale.PANEL_STATUSON} hint={Locale.PANEL_STATUSON_TIP}
                 value={mut self.settings.draft.statusOn} />
       </Section>
-      <Section title={Locale::SECTION_BOTTOM}>
-        <Switch label={Locale::PANEL_BOTTOMON} hint={Locale::PANEL_BOTTOMON_TIP}
+      <Section title={Locale.SECTION_BOTTOM}>
+        <Switch label={Locale.PANEL_BOTTOMON} hint={Locale.PANEL_BOTTOMON_TIP}
                 value={mut self.settings.draft.bottomOn} />
       </Section>
     }
   }
 }
 
-public class MicroPage implements Ordaen::Component {
-  private off = $computed((): boolean => !self.settings.draft.microOn)
+public class MicroPage implements Component {
+  derived off: Boolean = !self.settings.draft.microOn
 
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Dropdown label={Locale::PANEL_MICROICONS} hint={Locale::PANEL_MICROICONS_TIP}
+      <Dropdown label={Locale.PANEL_MICROICONS} hint={Locale.PANEL_MICROICONS_TIP}
                 value={mut self.settings.draft.microIcons} choices={ICONS} disabled={self.off} />
-      <Dropdown label={Locale::PANEL_CHARBUTTON} hint={Locale::PANEL_CHARBUTTON_TIP}
+      <Dropdown label={Locale.PANEL_CHARBUTTON} hint={Locale.PANEL_CHARBUTTON_TIP}
                 value={mut self.settings.draft.charButton} choices={CHAR_BUTTONS} disabled={self.off} />
     }
   }
 }
 
-public class StatusPage implements Ordaen::Component {
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+public class StatusPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Dropdown label={Locale::PANEL_OUTLINE} hint={Locale::PANEL_OUTLINE_TIP}
+      <Dropdown label={Locale.PANEL_OUTLINE} hint={Locale.PANEL_OUTLINE_TIP}
                 value={mut self.settings.draft.outline} choices={OUTLINES} />
-      <Checkbox label={Locale::PANEL_SHADOW} hint={Locale::PANEL_SHADOW_TIP}
+      <Checkbox label={Locale.PANEL_SHADOW} hint={Locale.PANEL_SHADOW_TIP}
                 value={mut self.settings.draft.shadow} />
     }
   }
 }
 
-public class BottomPage implements Ordaen::Component {
-  private off = $computed((): boolean => !self.settings.draft.bottomOn)
+public class BottomPage implements Component {
+  derived off: Boolean = !self.settings.draft.bottomOn
 
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Dropdown label={Locale::PANEL_EDGE} hint={Locale::PANEL_EDGE_TIP} value={mut self.settings.draft.edge}
+      <Dropdown label={Locale.PANEL_EDGE} hint={Locale.PANEL_EDGE_TIP} value={mut self.settings.draft.edge}
                 choices={EDGES} disabled={self.off} />
-      <Dropdown label={Locale::PANEL_FIT} hint={Locale::PANEL_FIT_TIP} value={mut self.settings.draft.fit}
+      <Dropdown label={Locale.PANEL_FIT} hint={Locale.PANEL_FIT_TIP} value={mut self.settings.draft.fit}
                 choices={FITS} disabled={self.off} />
-      <Slider label={Locale::PANEL_HEIGHT} hint={Locale::PANEL_HEIGHT_TIP} value={mut self.settings.draft.height}
-              least={24} most={96} unit={Unit::Px} disabled={self.off} />
-      <Section title={Locale::SECTION_ITEMS}>
+      <Slider label={Locale.PANEL_HEIGHT} hint={Locale.PANEL_HEIGHT_TIP} value={mut self.settings.draft.height}
+              least={24} most={96} unit={Unit.Px} disabled={self.off} />
+      <Section title={Locale.SECTION_ITEMS}>
         <Zones items={ITEMS} zones={ZONES} off={OFF} value={mut self.settings.draft.places} />
       </Section>
-      <Section title={Locale::SECTION_VISIBILITY}>
-        <Dropdown label={Locale::PANEL_SHOW} hint={Locale::PANEL_SHOW_TIP} value={mut self.settings.draft.show}
+      <Section title={Locale.SECTION_VISIBILITY}>
+        <Dropdown label={Locale.PANEL_SHOW} hint={Locale.PANEL_SHOW_TIP} value={mut self.settings.draft.show}
                   choices={SHOWS} disabled={self.off} />
-        <Dropdown label={Locale::PANEL_COMBAT} hint={Locale::PANEL_COMBAT_TIP}
+        <Dropdown label={Locale.PANEL_COMBAT} hint={Locale.PANEL_COMBAT_TIP}
                   value={mut self.settings.draft.combat} choices={COMBATS} disabled={self.off} />
-        <Checkbox label={Locale::PANEL_VEHICLE} hint={Locale::PANEL_VEHICLE_TIP}
+        <Checkbox label={Locale.PANEL_VEHICLE} hint={Locale.PANEL_VEHICLE_TIP}
                   value={mut self.settings.draft.vehicle} disabled={self.off} />
-        <Checkbox label={Locale::PANEL_PETBATTLE} hint={Locale::PANEL_PETBATTLE_TIP}
+        <Checkbox label={Locale.PANEL_PETBATTLE} hint={Locale.PANEL_PETBATTLE_TIP}
                   value={mut self.settings.draft.petBattle} disabled={self.off} />
-        <Checkbox label={Locale::PANEL_RESTING} hint={Locale::PANEL_RESTING_TIP}
+        <Checkbox label={Locale.PANEL_RESTING} hint={Locale.PANEL_RESTING_TIP}
                   value={mut self.settings.draft.resting} disabled={self.off} />
-        <Slider label={Locale::PANEL_FADEDALPHA} hint={Locale::PANEL_FADEDALPHA_TIP}
-                value={mut self.settings.draft.fadedAlpha} least={0} most={1} step={0.05} unit={Unit::Percent}
+        <Slider label={Locale.PANEL_FADEDALPHA} hint={Locale.PANEL_FADEDALPHA_TIP}
+                value={mut self.settings.draft.fadedAlpha} least={0} most={1} step={0.05} unit={Unit.Percent}
                 disabled={self.off} />
       </Section>
     }

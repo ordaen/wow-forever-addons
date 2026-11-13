@@ -1,177 +1,200 @@
 // The tooltips' tabs in the settings window: one for what holds for every tooltip, one for each kind. A kind's
 // switch comes first; off, that kind stays the game's and its rows are greyed. Each control writes one entry of the
 // settings' draft.
-import Ordaen from "Ordaen"
-import { Checkbox, Choice, Dropdown, Section, Switch } from "OrdaenLibrary"
+import { Checkbox, Choice, Component, Dropdown, Section, Settings, Switch } from "Ordaen"
 import Locale from "@/locales"
 import { Choices, Place } from "@/choices"
 
-private const ITEMSANCHORBAGS: Array<Choice<Place>> = [
-  { value: Place::Corner, label: Locale::TOOLTIPS_ITEMSANCHORBAGS_CORNER },
-  { value: Place::Anchor, label: Locale::TOOLTIPS_ITEMSANCHORBAGS_ANCHOR },
+const ITEMSANCHORBAGS: Array<Choice<Place>> = [
+  { value: Place.Corner, label: Locale.TOOLTIPS_ITEMSANCHORBAGS_CORNER },
+  { value: Place.Anchor, label: Locale.TOOLTIPS_ITEMSANCHORBAGS_ANCHOR },
 ]
-private const ITEMSANCHORCHAR: Array<Choice<Place>> = [
-  { value: Place::Corner, label: Locale::TOOLTIPS_ITEMSANCHORCHAR_CORNER },
-  { value: Place::Anchor, label: Locale::TOOLTIPS_ITEMSANCHORCHAR_ANCHOR },
+const ITEMSANCHORCHAR: Array<Choice<Place>> = [
+  { value: Place.Corner, label: Locale.TOOLTIPS_ITEMSANCHORCHAR_CORNER },
+  { value: Place.Anchor, label: Locale.TOOLTIPS_ITEMSANCHORCHAR_ANCHOR },
 ]
 
-public class GeneralPage implements Ordaen::Component {
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+public class GeneralPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Checkbox label={Locale::TOOLTIPS_ANCHORTOBUTTONS} hint={Locale::TOOLTIPS_ANCHORTOBUTTONS_TIP}
+      <Checkbox label={Locale.TOOLTIPS_ANCHORTOBUTTONS} hint={Locale.TOOLTIPS_ANCHORTOBUTTONS_TIP}
                 value={mut self.settings.draft.anchorToButtons} />
     }
   }
 }
 
-public class ItemsPage implements Ordaen::Component {
-  private off = $computed((): boolean => !self.settings.draft.itemsOn)
+public class ItemsPage implements Component {
+  derived off: Boolean = !self.settings.draft.itemsOn
 
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Switch label={Locale::TOOLTIPS_ITEMSON} hint={Locale::TOOLTIPS_ITEMSON_TIP}
+      <Switch label={Locale.TOOLTIPS_ITEMSON} hint={Locale.TOOLTIPS_ITEMSON_TIP}
               value={mut self.settings.draft.itemsOn} />
-      <Checkbox label={Locale::TOOLTIPS_LOCK} hint={Locale::TOOLTIPS_LOCK_TIP}
+      <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.itemsLock} disabled={self.off} />
-      <Dropdown label={Locale::TOOLTIPS_ITEMSANCHORBAGS} hint={Locale::TOOLTIPS_ITEMSANCHORBAGS_TIP} value={mut self.settings.draft.itemsAnchorBags}
+      <Dropdown label={Locale.TOOLTIPS_ITEMSANCHORBAGS} hint={Locale.TOOLTIPS_ITEMSANCHORBAGS_TIP} value={mut self.settings.draft.itemsAnchorBags}
                 choices={ITEMSANCHORBAGS} disabled={self.off} />
-      <Dropdown label={Locale::TOOLTIPS_ITEMSANCHORCHAR} hint={Locale::TOOLTIPS_ITEMSANCHORCHAR_TIP} value={mut self.settings.draft.itemsAnchorChar}
+      <Dropdown label={Locale.TOOLTIPS_ITEMSANCHORCHAR} hint={Locale.TOOLTIPS_ITEMSANCHORCHAR_TIP} value={mut self.settings.draft.itemsAnchorChar}
                 choices={ITEMSANCHORCHAR} disabled={self.off} />
-      <Section title={Locale::SECTION_MORE}>
-        <Checkbox label={Locale::TOOLTIPS_ITEMSILVL} hint={Locale::TOOLTIPS_ITEMSILVL_TIP}
+      <Section title={Locale.SECTION_MORE}>
+        <Checkbox label={Locale.TOOLTIPS_ITEMSILVL} hint={Locale.TOOLTIPS_ITEMSILVL_TIP}
                   value={mut self.settings.draft.itemsIlvl} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_ITEMSID} hint={Locale::TOOLTIPS_ITEMSID_TIP}
+        <Checkbox label={Locale.TOOLTIPS_ITEMSID} hint={Locale.TOOLTIPS_ITEMSID_TIP}
                   value={mut self.settings.draft.itemsId} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_ITEMSCOUNT} hint={Locale::TOOLTIPS_ITEMSCOUNT_TIP}
+        <Checkbox label={Locale.TOOLTIPS_ITEMSCOUNT} hint={Locale.TOOLTIPS_ITEMSCOUNT_TIP}
                   value={mut self.settings.draft.itemsCount} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_ITEMSSTACK} hint={Locale::TOOLTIPS_ITEMSSTACK_TIP}
+        <Checkbox label={Locale.TOOLTIPS_ITEMSSTACK} hint={Locale.TOOLTIPS_ITEMSSTACK_TIP}
                   value={mut self.settings.draft.itemsStack} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_ITEMSCOOLDOWN} hint={Locale::TOOLTIPS_ITEMSCOOLDOWN_TIP}
+        <Checkbox label={Locale.TOOLTIPS_ITEMSCOOLDOWN} hint={Locale.TOOLTIPS_ITEMSCOOLDOWN_TIP}
                   value={mut self.settings.draft.itemsCooldown} disabled={self.off} />
       </Section>
     }
   }
 }
 
-public class SpellsPage implements Ordaen::Component {
-  private off = $computed((): boolean => !self.settings.draft.spellsOn)
+public class SpellsPage implements Component {
+  derived off: Boolean = !self.settings.draft.spellsOn
 
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Switch label={Locale::TOOLTIPS_SPELLSON} hint={Locale::TOOLTIPS_SPELLSON_TIP}
+      <Switch label={Locale.TOOLTIPS_SPELLSON} hint={Locale.TOOLTIPS_SPELLSON_TIP}
               value={mut self.settings.draft.spellsOn} />
-      <Checkbox label={Locale::TOOLTIPS_LOCK} hint={Locale::TOOLTIPS_LOCK_TIP}
+      <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.spellsLock} disabled={self.off} />
-      <Section title={Locale::SECTION_MORE}>
-        <Checkbox label={Locale::TOOLTIPS_SPELLSID} hint={Locale::TOOLTIPS_SPELLSID_TIP}
+      <Section title={Locale.SECTION_MORE}>
+        <Checkbox label={Locale.TOOLTIPS_SPELLSID} hint={Locale.TOOLTIPS_SPELLSID_TIP}
                   value={mut self.settings.draft.spellsId} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_SPELLSNEXT} hint={Locale::TOOLTIPS_SPELLSNEXT_TIP}
+        <Checkbox label={Locale.TOOLTIPS_SPELLSNEXT} hint={Locale.TOOLTIPS_SPELLSNEXT_TIP}
                   value={mut self.settings.draft.spellsNext} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_SPELLSCOOLDOWN} hint={Locale::TOOLTIPS_SPELLSCOOLDOWN_TIP}
+        <Checkbox label={Locale.TOOLTIPS_SPELLSCOOLDOWN} hint={Locale.TOOLTIPS_SPELLSCOOLDOWN_TIP}
                   value={mut self.settings.draft.spellsCooldown} disabled={self.off} />
       </Section>
     }
   }
 }
 
-public class AurasPage implements Ordaen::Component {
-  private off = $computed((): boolean => !self.settings.draft.aurasOn)
+public class AurasPage implements Component {
+  derived off: Boolean = !self.settings.draft.aurasOn
 
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Switch label={Locale::TOOLTIPS_AURASON} hint={Locale::TOOLTIPS_AURASON_TIP}
+      <Switch label={Locale.TOOLTIPS_AURASON} hint={Locale.TOOLTIPS_AURASON_TIP}
               value={mut self.settings.draft.aurasOn} />
-      <Checkbox label={Locale::TOOLTIPS_LOCK} hint={Locale::TOOLTIPS_LOCK_TIP}
+      <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.aurasLock} disabled={self.off} />
-      <Section title={Locale::SECTION_MORE}>
-        <Checkbox label={Locale::TOOLTIPS_AURASID} hint={Locale::TOOLTIPS_AURASID_TIP}
+      <Section title={Locale.SECTION_MORE}>
+        <Checkbox label={Locale.TOOLTIPS_AURASID} hint={Locale.TOOLTIPS_AURASID_TIP}
                   value={mut self.settings.draft.aurasId} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_AURASCASTER} hint={Locale::TOOLTIPS_AURASCASTER_TIP}
+        <Checkbox label={Locale.TOOLTIPS_AURASCASTER} hint={Locale.TOOLTIPS_AURASCASTER_TIP}
                   value={mut self.settings.draft.aurasCaster} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_AURASTOTAL} hint={Locale::TOOLTIPS_AURASTOTAL_TIP}
+        <Checkbox label={Locale.TOOLTIPS_AURASTOTAL} hint={Locale.TOOLTIPS_AURASTOTAL_TIP}
                   value={mut self.settings.draft.aurasTotal} disabled={self.off} />
       </Section>
     }
   }
 }
 
-public class PlayersPage implements Ordaen::Component {
-  private off = $computed((): boolean => !self.settings.draft.playersOn)
+public class PlayersPage implements Component {
+  derived off: Boolean = !self.settings.draft.playersOn
 
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Switch label={Locale::TOOLTIPS_PLAYERSON} hint={Locale::TOOLTIPS_PLAYERSON_TIP}
+      <Switch label={Locale.TOOLTIPS_PLAYERSON} hint={Locale.TOOLTIPS_PLAYERSON_TIP}
               value={mut self.settings.draft.playersOn} />
-      <Checkbox label={Locale::TOOLTIPS_LOCK} hint={Locale::TOOLTIPS_LOCK_TIP}
+      <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.playersLock} disabled={self.off} />
-      <Section title={Locale::SECTION_MORE}>
-        <Checkbox label={Locale::TOOLTIPS_PLAYERSTARGET} hint={Locale::TOOLTIPS_PLAYERSTARGET_TIP}
+      <Section title={Locale.SECTION_MORE}>
+        <Checkbox label={Locale.TOOLTIPS_PLAYERSTARGET} hint={Locale.TOOLTIPS_PLAYERSTARGET_TIP}
                   value={mut self.settings.draft.playersTarget} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_PLAYERSRELATION} hint={Locale::TOOLTIPS_PLAYERSRELATION_TIP}
+        <Checkbox label={Locale.TOOLTIPS_PLAYERSRELATION} hint={Locale.TOOLTIPS_PLAYERSRELATION_TIP}
                   value={mut self.settings.draft.playersRelation} disabled={self.off} />
       </Section>
     }
   }
 }
 
-public class NpcsPage implements Ordaen::Component {
-  private off = $computed((): boolean => !self.settings.draft.npcsOn)
+public class NpcsPage implements Component {
+  derived off: Boolean = !self.settings.draft.npcsOn
 
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Switch label={Locale::TOOLTIPS_NPCSON} hint={Locale::TOOLTIPS_NPCSON_TIP}
+      <Switch label={Locale.TOOLTIPS_NPCSON} hint={Locale.TOOLTIPS_NPCSON_TIP}
               value={mut self.settings.draft.npcsOn} />
-      <Checkbox label={Locale::TOOLTIPS_LOCK} hint={Locale::TOOLTIPS_LOCK_TIP}
+      <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.npcsLock} disabled={self.off} />
-      <Section title={Locale::SECTION_MORE}>
-        <Checkbox label={Locale::TOOLTIPS_NPCSPARTY} hint={Locale::TOOLTIPS_NPCSPARTY_TIP}
+      <Section title={Locale.SECTION_MORE}>
+        <Checkbox label={Locale.TOOLTIPS_NPCSPARTY} hint={Locale.TOOLTIPS_NPCSPARTY_TIP}
                   value={mut self.settings.draft.npcsParty} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_NPCSLOOT} hint={Locale::TOOLTIPS_NPCSLOOT_TIP}
+        <Checkbox label={Locale.TOOLTIPS_NPCSLOOT} hint={Locale.TOOLTIPS_NPCSLOOT_TIP}
                   value={mut self.settings.draft.npcsLoot} disabled={self.off} />
-        <Checkbox label={Locale::TOOLTIPS_NPCSREP} hint={Locale::TOOLTIPS_NPCSREP_TIP}
+        <Checkbox label={Locale.TOOLTIPS_NPCSREP} hint={Locale.TOOLTIPS_NPCSREP_TIP}
                   value={mut self.settings.draft.npcsRep} disabled={self.off} />
       </Section>
     }
   }
 }
 
-public class ObjectsPage implements Ordaen::Component {
-  private off = $computed((): boolean => !self.settings.draft.objectsOn)
+public class ObjectsPage implements Component {
+  derived off: Boolean = !self.settings.draft.objectsOn
 
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Switch label={Locale::TOOLTIPS_OBJECTSON} hint={Locale::TOOLTIPS_OBJECTSON_TIP}
+      <Switch label={Locale.TOOLTIPS_OBJECTSON} hint={Locale.TOOLTIPS_OBJECTSON_TIP}
               value={mut self.settings.draft.objectsOn} />
-      <Checkbox label={Locale::TOOLTIPS_LOCK} hint={Locale::TOOLTIPS_LOCK_TIP}
+      <Checkbox label={Locale.TOOLTIPS_LOCK} hint={Locale.TOOLTIPS_LOCK_TIP}
                 value={mut self.settings.draft.objectsLock} disabled={self.off} />
     }
   }
 }
 
-public class TextsPage implements Ordaen::Component {
-  private off = $computed((): boolean => !self.settings.draft.textsOn)
+public class TextsPage implements Component {
+  derived off: Boolean = !self.settings.draft.textsOn
 
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Switch label={Locale::TOOLTIPS_TEXTSON} hint={Locale::TOOLTIPS_TEXTSON_TIP}
+      <Switch label={Locale.TOOLTIPS_TEXTSON} hint={Locale.TOOLTIPS_TEXTSON_TIP}
               value={mut self.settings.draft.textsOn} />
-      <Checkbox label={Locale::TOOLTIPS_TEXTSEXTRA} hint={Locale::TOOLTIPS_TEXTSEXTRA_TIP}
+      <Checkbox label={Locale.TOOLTIPS_TEXTSEXTRA} hint={Locale.TOOLTIPS_TEXTSEXTRA_TIP}
                 value={mut self.settings.draft.textsExtra} disabled={self.off} />
     }
   }
