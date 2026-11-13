@@ -5,7 +5,7 @@
 import Game from "$game"
 import { Align, Anchored, Docked, Edges, Layer, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Artwork, Component, LookArt, Module, Placed, Settings, SettingsPage } from "Ordaen"
+import { Component, Module, Placed, Settings, SettingsPage } from "Ordaen"
 import Locale from "@/locales"
 import { BagLine, MicroLine, MoneyLine, SocialLine } from "@/items"
 import { CharButton, Choices, Combat, DEFAULTS, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
@@ -41,10 +41,6 @@ const DOWN: Array<Track> = [{ fr: 1 }]
 // One zone of the panel: its items in their order, from the zone's start, in its middle or to its end.
 public class ZoneBox implements Component {
   // Ordaen's art: its root is there before this module loads.
-  derived artwork: Artwork {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.art
-  }
   derived align: Align = self.alignOf()
   derived micro: Boolean = self.panel.microIn(self.zone)
   derived social: Boolean = self.panel.socialIn(self.zone)
@@ -98,10 +94,10 @@ public class ZoneBox implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} rows={self.rows} gap={self.artwork.spacing.md} xAlign={self.along}
+      <box columns={self.columns} rows={self.rows} gap={Ordaen.art.spacing.md} xAlign={self.along}
            yAlign={self.across}>
         <$if={self.micro}>
-          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={self.artwork.spacing.md}
+          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={Ordaen.art.spacing.md}
                yAlign={Align.Center}>
             <box width={PORTRAIT_WIDTH} height={1} />
             <MicroLine gold={self.panel.goldIcons} faced={false} />
@@ -124,22 +120,10 @@ public class ZoneBox implements Component {
   }
 }
 
-public class Panel implements Module {
+public class Panel implements Module, App {
   public const title: String = "Ordaen Panel"
 
   // Ordaen's art, look and fonts: its root is there before this module loads.
-  derived artwork: Artwork {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.art
-  }
-  derived lookArt: LookArt {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.lookArt
-  }
-  derived accent: Color {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.look.values.accent
-  }
 
   settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   public const pages: Array<SettingsPage> = [
@@ -152,7 +136,7 @@ public class Panel implements Module {
   state hovered = false
 
   constructor() {
-    watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }
+    Ordaen.modules.add(self)
   }
 
   // What the zones read.
@@ -269,9 +253,9 @@ public class Panel implements Module {
       <frame of={Game.frames.BackpackFreeSlots} shown={false} />
 
       <surface $if={self.drawn} layer={Layer.Screen} place={self.place} width={self.width} height={self.height}
-               background={self.artwork.panel.wood} border={self.artwork.panel.edge} padding={EDGE_ROOM}
+               background={Ordaen.art.panel.wood} border={Ordaen.art.panel.edge} padding={EDGE_ROOM}
                columns={self.columns} rows={self.rows} xAlign={self.along} yAlign={self.across}
-               opacity={self.opacity} hoverWithin={true} textFamily={self.lookArt.font}
+               opacity={self.opacity} hoverWithin={true} textFamily={Ordaen.lookArt.font}
                @enter={self.onEnter} @leave={self.onLeave}>
         <ZoneBox zone={Zone.Left} panel={self} />
         <ZoneBox zone={Zone.Center} panel={self} />
@@ -280,42 +264,42 @@ public class Panel implements Module {
       // The portrait: the player's face in the corner's shape, the level on a badge on its rim, and the
       // character's button of the game's unseen over all of it.
       <surface $if={self.cornered} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
-               height={PORTRAIT_HEIGHT} portrait={"player"} mask={self.artwork.panel.corner}
-               textFamily={self.lookArt.font}>
+               height={PORTRAIT_HEIGHT} portrait={"player"} mask={Ordaen.art.panel.corner}
+               textFamily={Ordaen.lookArt.font}>
         <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
                width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
         <box position={Position.Absolute} left={86.7} top={5.3} width={36} height={36}
-             background={self.artwork.panel.badge} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={"%d"} arguments={[Game.player.level]} textColor={self.accent} textSize={14}
+             background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent} textSize={14}
                 wrap={false} />
         </box>
       </surface>
 
       <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
-        <box background={self.artwork.window.wood} border={self.artwork.frame.small} padding={self.artwork.spacing.sm}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={Ordaen.art.spacing.sm}>
           <MicroLine gold={self.goldIcons} />
         </box>
       </Placed>
       <Placed $if={self.freeSocial} id={"OrdaenPanel.social"} title={Locale.PANEL_SOCIAL} home={SOCIAL_HOME}>
-        <box background={self.artwork.window.wood} border={self.artwork.frame.small} padding={self.artwork.spacing.sm}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={Ordaen.art.spacing.sm}>
           <SocialLine gold={self.goldIcons} />
         </box>
       </Placed>
       <Placed $if={self.freeExperience} id={"OrdaenPanel.experience"} title={Locale.PANEL_EXPERIENCE}
               home={EXPERIENCE_HOME}>
-        <box width={600} background={self.artwork.window.wood} border={self.artwork.frame.small}
-             padding={self.artwork.spacing.sm}>
+        <box width={600} background={Ordaen.art.window.wood} border={Ordaen.art.frame.small}
+             padding={Ordaen.art.spacing.sm}>
           <XpBar both={true} />
         </box>
       </Placed>
       <Placed $if={self.freeMoney} id={"OrdaenPanel.currencies"} title={Locale.PANEL_CURRENCIES}
               home={MONEY_HOME}>
-        <box background={self.artwork.window.wood} border={self.artwork.frame.small} padding={self.artwork.spacing.sm}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={Ordaen.art.spacing.sm}>
           <MoneyLine outline={self.outline} shadow={self.shadow} />
         </box>
       </Placed>
       <Placed $if={self.freeBags} id={"OrdaenPanel.bags"} title={Locale.PANEL_BAGS} home={BAGS_HOME}>
-        <box background={self.artwork.window.wood} border={self.artwork.frame.small} padding={self.artwork.spacing.sm}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={Ordaen.art.spacing.sm}>
           <BagLine />
         </box>
       </Placed>

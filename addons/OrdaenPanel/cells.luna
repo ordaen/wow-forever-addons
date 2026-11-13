@@ -3,7 +3,7 @@
 import Game from "$game"
 import { Align, Art, Edges, EmbedLook, Frame, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Artwork, Component, LookArt } from "Ordaen"
+import { Component, LookArt } from "Ordaen"
 
 // A cell fills the panel below its metal edge, 1.075 times as wide: the inside between its side rims is square.
 public const CELL_HEIGHT = 53
@@ -25,14 +25,6 @@ const BOLD: Shadow = { color: WHITE, x: 1, y: 0 }
 // A button of the game's menu: our icon on the cell, the game's button unseen over it.
 public class MenuCell implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
-  derived artwork: Artwork {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.art
-  }
-  derived lookArt: LookArt {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.lookArt
-  }
   derived tint: Color = self.gold ? GOLD : WHITE
   derived counted: Boolean = self.count > 0
 
@@ -56,14 +48,14 @@ public class MenuCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={self.artwork.panel.cell}>
+      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={Ordaen.art.panel.cell}>
         <box position={Position.Absolute} left={ICON_LEFT} top={ICON_TOP} width={ICON} height={ICON}
              background={self.icon} desaturate={self.gold} tint={self.tint} stateFromParent={true} />
         <box $if={self.counted} position={Position.Absolute} right={CELL_WIDTH * 0.12} bottom={CELL_HEIGHT * 0.14}
              height={BADGE} minWidth={BADGE} padding={BADGE_PAD} xAlign={Align.Center} yAlign={Align.Center}
-             background={self.artwork.panel.countBadge}>
+             background={Ordaen.art.panel.countBadge}>
           <text value={"%d"} arguments={[self.count]} textSize={11 / 1.2} textColor={WHITE}
-                textFamily={self.lookArt.fontNumbers} textShadow={BOLD} wrap={false} />
+                textFamily={Ordaen.lookArt.fontNumbers} textShadow={BOLD} wrap={false} />
         </box>
         <embed frame={self.frame} position={Position.Absolute} left={0} top={0} width={CELL_WIDTH}
                height={CELL_HEIGHT} opacity={0} />
@@ -76,16 +68,12 @@ public class MenuCell implements Component {
 // others.
 public class FaceCell implements Component {
   // Ordaen's art: its root is there before this module loads.
-  derived artwork: Artwork {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.art
-  }
 
   public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={self.artwork.panel.cell}>
+      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={Ordaen.art.panel.cell}>
         <box position={Position.Absolute} left={(CELL_WIDTH - FACE) / 2} top={(CELL_HEIGHT - FACE) / 2} width={FACE}
-             height={FACE} portrait={"player"} mask={self.artwork.panel.faceRound} />
+             height={FACE} portrait={"player"} mask={Ordaen.art.panel.faceRound} />
         <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
                width={CELL_WIDTH} height={CELL_HEIGHT} opacity={0} />
       </box>
@@ -97,14 +85,6 @@ public class FaceCell implements Component {
 // the free slots of every bag in its lower right.
 public class BagCell implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
-  derived artwork: Artwork {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.art
-  }
-  derived lookArt: LookArt {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.lookArt
-  }
   derived counted: Boolean = self.free > 0
 
   frame: Signal<any Frame | nil>
@@ -120,13 +100,13 @@ public class BagCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={self.artwork.panel.cell}>
+      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={Ordaen.art.panel.cell}>
         <embed frame={self.frame} position={Position.Absolute} left={(CELL_WIDTH - CELL_HEIGHT) / 2} top={0}
                width={CELL_HEIGHT} height={CELL_HEIGHT} look={EmbedLook.Icon} />
         <box $if={self.counted} position={Position.Absolute} right={(CELL_WIDTH - CELL_HEIGHT) / 2 + 3 / 1.2}
              bottom={1 / 1.2} zLevel={1}>
           <text value={"%d"} arguments={[self.free]} textSize={14 / 1.2} textColor={WHITE}
-                textFamily={self.lookArt.fontNumbers} textOutline={1} wrap={false} />
+                textFamily={Ordaen.lookArt.fontNumbers} textOutline={1} wrap={false} />
         </box>
       </box>
     }

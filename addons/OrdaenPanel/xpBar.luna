@@ -5,7 +5,7 @@
 import Game from "$game"
 import { Align, Art, Edges, Line, Percent, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Artwork, Component, LookArt } from "Ordaen"
+import { Component, LookArt } from "Ordaen"
 
 // Slim at a third of the screen's width.
 const TUBE_HEIGHT = 25
@@ -27,10 +27,6 @@ const NONE: Percent = { percent: 0 }
 // One tube: how far it is filled, how far the paler part behind the fill reaches, and what it says.
 public class Tube implements Component {
   // Ordaen's art: its root is there before this module loads.
-  derived artwork: Artwork {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.art
-  }
   const fill: Art
   share: Signal<Percent>
   label: Signal<String>
@@ -52,7 +48,7 @@ public class Tube implements Component {
     return $ltml {
       <box height={TUBE_HEIGHT}>
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
-             background={self.artwork.panel.xpTrough} />
+             background={Ordaen.art.panel.xpTrough} />
         <box position={Position.Absolute} left={INSET} top={INSET} right={INSET} bottom={INSET}>
           <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.behind} background={RESTED} />
           <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.share}
@@ -63,9 +59,9 @@ public class Tube implements Component {
           </box>
         </box>
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
-             background={self.artwork.panel.xpShine} />
+             background={Ordaen.art.panel.xpShine} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
-             background={self.artwork.panel.xpTube} />
+             background={Ordaen.art.panel.xpTube} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align.Center}
              yAlign={Align.Center}>
           <text value={self.label} textSize={12.5} textColor={LABEL} textOutline={1} textShadow={LABEL_SHADOW}
@@ -78,14 +74,6 @@ public class Tube implements Component {
 
 public class XpBar implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
-  derived artwork: Artwork {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.art
-  }
-  derived lookArt: LookArt {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.lookArt
-  }
   // Below the level's cap there is experience to gain.
   derived leveling: Boolean = Game.player.xpMax > 0
   derived watched: Boolean = Game.reputation.name != ""
@@ -122,9 +110,9 @@ public class XpBar implements Component {
   public render(self): Template {
     return $ltml {
       <box minWidth={LEAST} padding={MARGINS} yAlign={Align.Center} gap={6 / 1.2}>
-        <Tube $if={self.leveling} fill={peek self.lookArt.xpFill} share={self.xpShare} behind={self.restedShare}
+        <Tube $if={self.leveling} fill={peek Ordaen.lookArt.xpFill} share={self.xpShare} behind={self.restedShare}
               label={self.xpLabel} />
-        <Tube $if={self.showsReputation} fill={peek self.artwork.panel.xpSteel} share={self.reputationShare}
+        <Tube $if={self.showsReputation} fill={peek Ordaen.art.panel.xpSteel} share={self.reputationShare}
               label={self.reputationLabel} />
       </box>
     }

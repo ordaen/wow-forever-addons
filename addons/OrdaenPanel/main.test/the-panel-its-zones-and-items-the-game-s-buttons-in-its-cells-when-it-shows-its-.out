@@ -2158,5 +2158,5 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
 
 the game's menu: opacity 1, its bag bar shown: false, a menu button's parent: the game's
 
--- destroyed
+-- turned off: its root ended, what it drew gone
 the game's menu: opacity 1, its bag bar shown: true
