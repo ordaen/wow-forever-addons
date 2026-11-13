@@ -1,0 +1,191 @@
+// «Characters»: every recorded character in a sortable table, and «Forget» on each but the one being played, which
+// asks first. A row is built from the records when they change while this tab shows.
+import { Align, Overflow, Track } from "$ltml"
+import { Column, Component, Money, PushButton, PX, Table, TableRow, tracksOf, Dialog } from "Ordaen"
+import { CharacterId, Hour, Place, STALE } from "@/character"
+import Locale from "@/locales"
+import { Records } from "@/records"
+import Style from "@/style"
+
+const COLUMNS: Array<Column> = [
+  { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
+  { title: Locale.COL_LEVEL, width: 44 * PX, align: Align.End, sortable: true },
+  { title: Locale.COL_GOLD, width: 120 * PX, align: Align.End, sortable: true },
+  { title: Locale.COL_PROFESSIONS, width: { fr: 3 } },
+  { title: Locale.COL_BAGS, width: 84 * PX, align: Align.End, sortable: true },
+  { title: Locale.COL_SEEN, width: 90 * PX, align: Align.End, sortable: true },
+  { title: Locale.COL_BANK, width: 92 * PX },
+  { title: Locale.COL_MAIL, width: 92 * PX },
+  { title: " ", width: 84 * PX },
+]
+const TRACKS: Array<Track> = tracksOf(COLUMNS)
+const CONFIRM_WIDTH = 460 * PX
+
+// One character as a row shows it.
+public struct Line {
+  who: CharacterId
+  name: String
+  level: Integer
+  money: Integer
+  professions: String
+  // Free bag slots; -1 for bags never read.
+  free: Integer
+  // Hours since it was played.
+  away: Integer
+  bank: String
+  mail: String
+  // Mail that expires within three days.
+  urgent: Boolean
+  current: Boolean
+  // Not the playing character's realm and side: in no plan.
+  apart: Boolean
+  // Not played for ninety days: the player may forget it.
+  stale: Boolean
+}
+
+// One row of the table: the character's cells, and «Forget» where it may be forgotten.
+public class CharacterRow implements Component {
+  public forget: Event<CharacterId> = new Event()
+
+  derived name: Color = self.line.apart ? Style.AWAY : self.line.current ? Style.GOLD : Style.INK
+  derived seen: Color = self.line.stale ? Style.RED : Style.DIM
+  derived seenText: String = self.line.current ? Locale.NOW : Style.ago(self.line.away)
+  derived bags: String = self.line.free < 0 ? "—" : String.of(self.line.free)
+  derived mail: Color = self.line.urgent ? Style.RED : Style.DIM
+
+  line: Signal<Line>
+  tracks: Signal<Array<Track>>
+  constructor(line: Signal<Line>, tracks: Signal<Array<Track>>) {
+    self.line = line
+    self.tracks = tracks
+  }
+
+  onForget(mut self) { self.forget.emit(self.line.who) }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow tracks={self.tracks}>
+        <text value={self.line.name} textSize={Style.TEXT} textColor={self.name} wrap={false} />
+        <box xAlign={Align.End}>
+          <text value={"%d"} arguments={[self.line.level]} textSize={Style.TEXT} textColor={Style.INK} wrap={false} />
+        </box>
+        <box xAlign={Align.End}>
+          <Money amount={self.line.money} />
+        </box>
+        <text value={self.line.professions} textSize={Style.SMALL} textColor={Style.DIM} />
+        <box xAlign={Align.End}>
+          <text value={self.bags} textSize={Style.TEXT} textColor={Style.INK} wrap={false} />
+        </box>
+        <box xAlign={Align.End}>
+          <text value={self.seenText} textSize={Style.SMALL} textColor={self.seen} wrap={false} />
+        </box>
+        <text value={self.line.bank} textSize={Style.SMALL} textColor={Style.DIM} />
+        <text value={self.line.mail} textSize={Style.SMALL} textColor={self.mail} />
+        <box xAlign={Align.End}>
+          <PushButton $if={!self.line.current} label={Locale.FORGET} width={80 * PX} @click={self.onForget} />
+        </box>
+      </TableRow>
+    }
+  }
+}
+
+public class Characters implements Component {
+  // The character the player asked to forget, until the answer.
+  state asking: CharacterId | nil = nil
+  state sorted = 0
+  state descending = false
+  derived lines: Array<Line> = self.linesOf()
+  derived ordered: Array<Line> = self.order()
+  derived question: String = self.questionOf()
+  derived alone: Boolean = self.lines.length < 2
+
+  const records: Records
+  touched: Signal<Integer>
+  constructor(records: Records, touched: Signal<Integer>) {
+    self.records = records
+    self.touched = touched
+  }
+
+  // Every character as a line; read again when any record changed.
+  linesOf(self): Array<Line> {
+    if (self.touched < 0) { return [] }
+    const now = Hour.now()
+    const list: Array<Line> = []
+    for (who, character of self.records.characters) {
+      const names: Array<String> = []
+      for (known of character.professions) {
+        names.push("%s %d".format(known.name, known.rank))
+      }
+      const bank = character.read[Place.Bank]
+      const mail = character.read[Place.Mail]
+      const expires = character.mailExpires
+      let mailText = mail == nil ? Locale.NEVER_OPENED : "—"
+      if (expires != nil) { mailText = Style.until(expires - now) }
+      list.push({
+        who: who, name: character.name, level: character.level, money: character.money,
+        professions: names.join(", "), free: character.slots == 0 ? -1 : character.free,
+        away: now - character.seen,
+        bank: bank == nil ? Locale.NEVER_OPENED : Style.ago(now - bank),
+        mail: mailText,
+        urgent: expires != nil && expires - now < 72,
+        current: who == self.records.who,
+        apart: !self.records.reaches(who),
+        stale: now - character.seen > STALE,
+      })
+    }
+    list.sort((a, b) => a.name < b.name)
+    return list
+  }
+
+  // The lines by the column the table is sorted by.
+  order(self): Array<Line> {
+    const list: Array<Line> = []
+    for (line of self.lines) { list.push(line) }
+    const column = self.sorted
+    const down = self.descending
+    if (column == 0) { return list }
+    list.sort((a, b) => {
+      if (column == 1) { return down ? a.name > b.name : a.name < b.name }
+      if (column == 2) { return down ? a.level > b.level : a.level < b.level }
+      if (column == 3) { return down ? a.money > b.money : a.money < b.money }
+      if (column == 5) { return down ? a.free > b.free : a.free < b.free }
+      return down ? a.away > b.away : a.away < b.away
+    })
+    return list
+  }
+
+  questionOf(self): String {
+    const who = self.asking
+    if (who == nil) { return "" }
+    return Locale.FORGET_ASK.format(self.records.characters[who]?.name ?? "")
+  }
+
+  ask(mut self, who: CharacterId) { self.asking = who }
+  cancel(mut self) { self.asking = nil }
+
+  public forget: Event<CharacterId> = new Event()
+
+  confirm(mut self) {
+    const who = self.asking
+    self.asking = nil
+    if (who != nil) { self.forget.emit(who) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={10 * PX}>
+        <box overflow={Overflow.Scroll}>
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+            <CharacterRow $for={line of self.ordered} $key={line.who} line={line} tracks={TRACKS} @forget={self.ask} />
+          </Table>
+        </box>
+        <text $if={self.alone} value={Locale.ONLY_ONE} textSize={Style.SMALL} textColor={Style.DIM} />
+        <Dialog $if={self.asking != nil} title={Locale.FORGET_TITLE} width={CONFIRM_WIDTH}>
+          <text value={self.question} textSize={Style.TEXT} textColor={Style.INK} />
+          <PushButton #buttons label={Locale.CANCEL} width={120 * PX} @click={self.cancel} />
+          <PushButton #buttons label={Locale.FORGET} width={140 * PX} @click={self.confirm} />
+        </Dialog>
+      </box>
+    }
+  }
+}

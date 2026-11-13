@@ -1,0 +1,97 @@
+// What the character being played knows and holds, written to its record when a source changes: its level and money
+// as they change, its professions as the game lists them, the recipes of a profession as the game opens it, the
+// bags' room when the bags change, the bank and the mail while their windows are open, the auctions while the house
+// is open. Nothing is read per frame, and every source but the bags' room is a client event that fires rarely.
+//
+// The bags' items aren't recorded: `Game.bags` has no count by item (`next/move.md`, H7, «Blocked»).
+import Game from "$game"
+import { Copper, Hour, ItemId, Place, RecipeId } from "@/character"
+import { Records } from "@/records"
+
+public class Recorder {
+  const records: mut Records
+
+  constructor(records: mut Records) {
+    self.records = records
+    self.onBags()
+    watch (level of Game.player.level) { self.records.setLevel(level) }
+    watch (amount of Game.money.amount) { self.records.setMoney(Copper.of(amount), Hour.now()) }
+    watch (list of Game.professions.list) { self.records.setProfessions(list) }
+    watch { self.readRecipes(Game.tradeSkill.open, Game.tradeSkill.recipes.length) }
+    watch (list of Game.ownedAuctions.list) { self.readAuctions(list) }
+    Game.tradeSkill.learned.listen(self.onLearned)
+    Game.bags.changed.listen(self.onBags)
+    Game.bankObserver.opened.listen(self.onBank)
+    Game.bankObserver.changed.listen(self.onBank)
+    Game.mailObserver.opened.listen(self.onMail)
+    Game.mailObserver.changed.listen(self.onMail)
+  }
+
+  // The open profession's recipes, and the hour each with a cooldown is ready: one client call per recipe for the
+  // cooldown, once a profession is opened and each time its list changes. Nothing while none is open, or where the
+  // game gave no list (the seam says why).
+  readRecipes(mut self, open: Integer | nil, count: Integer) {
+    if (open == nil) { return }
+    const known = Game.recipeReader.known()
+    if (known == nil) { return }
+    const recipes: Array<RecipeId> = []
+    const ready: Map<RecipeId, Hour> = {}
+    for (id of known) {
+      const recipe = RecipeId.of(id)
+      recipes.push(recipe)
+      const left = Game.recipeReader.cooldown(id)
+      if (left != nil) { ready[recipe] = Hour.after(left) }
+    }
+    self.records.setRecipes(open, mut recipes, mut ready)
+  }
+
+  // A recipe learned while a profession is open belongs to it; one learned from a trainer is read the next time the
+  // profession is opened.
+  onLearned(mut self, recipe: Integer) {
+    const open = peek Game.tradeSkill.open
+    if (open != nil) { self.records.learn(open, RecipeId.of(recipe)) }
+  }
+
+  onBags(mut self) {
+    const room = Game.bags.roomOfAll()
+    self.records.setBags(room.free, room.slots)
+  }
+
+  // What the bank holds, by item, while its window is open; where the seam gave nothing, what was kept stays.
+  onBank(mut self) {
+    const held = Game.bankObserver.holdings()
+    if (held == nil) { return }
+    self.records.setPlace(Place.Bank, itemsOf(held), Hour.now())
+  }
+
+  // What the inbox carries, and when its first mail with something expires.
+  onMail(mut self) {
+    const held = Game.mailObserver.holdings()
+    if (held == nil) { return }
+    const now = Hour.now()
+    self.records.setPlace(Place.Mail, itemsOf(held), now)
+    const soonest = Game.mailObserver.soonest()
+    self.records.setMail(soonest == nil ? nil : Hour.after(soonest))
+  }
+
+  // The player's auctions by item. The list is empty before the house first answers, so an empty one counts only while
+  // the house is open.
+  readAuctions(mut self, list: Array<Game.Owned>) {
+    if (list.length == 0 && !peek Game.auctionHouse.open) { return }
+    const items: Map<ItemId, Integer> = {}
+    for (owned of list) {
+      if (!owned.sold) {
+        const item = ItemId.of(owned.item)
+        items[item] = (items[item] ?? 0) + owned.quantity
+      }
+    }
+    self.records.setPlace(Place.Auctions, mut items, nil)
+  }
+}
+
+// A holding as the game's seam gives it, as the records' brands.
+function itemsOf(held: Map<Integer, Integer>): mut Map<ItemId, Integer> {
+  const items: Map<ItemId, Integer> = {}
+  for (id, count of held) { items[ItemId.of(id)] = count }
+  return items
+}

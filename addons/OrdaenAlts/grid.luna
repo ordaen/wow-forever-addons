@@ -1,0 +1,83 @@
+// «Professions»: the characters down the side, the professions across, the skill in each cell.
+import { Overflow, Track } from "$ltml"
+import { Component, PX } from "Ordaen"
+import Locale from "@/locales"
+import { Records } from "@/records"
+import Style from "@/style"
+
+// One cell: its text and its colour (a heading's gold, a profession a character lacks dim).
+public struct Cell {
+  text: String
+  color: Color
+}
+
+public class Grid implements Component {
+  derived names: Array<String> = self.namesOf()
+  derived tracks: Array<Track> = self.tracksOf()
+  derived cells: Array<Cell> = self.cellsOf()
+
+  const records: Records
+  touched: Signal<Integer>
+  constructor(records: Records, touched: Signal<Integer>) {
+    self.records = records
+    self.touched = touched
+  }
+
+  // The professions any character has, by name.
+  namesOf(self): Array<String> {
+    if (self.touched < 0) { return [] }
+    const seen: Map<String, Boolean> = {}
+    const list: Array<String> = []
+    for (_, character of self.records.characters) {
+      for (known of character.professions) {
+        if (seen[known.name] == nil) {
+          seen[known.name] = true
+          list.push(known.name)
+        }
+      }
+    }
+    list.sort((a, b) => a < b)
+    return list
+  }
+
+  tracksOf(self): Array<Track> {
+    const list: Array<Track> = [{ fr: 2 }]
+    for (index of 1..=self.names.length) { list.push({ fr: 1 }) }
+    return list
+  }
+
+  // A heading row, then a row for each character: its skill in each profession, `150 / 300`, or a dash.
+  cellsOf(self): Array<Cell> {
+    const list: Array<Cell> = [{ text: Locale.COL_NAME, color: Style.GOLD }]
+    for (name of self.names) { list.push({ text: name, color: Style.GOLD }) }
+    const characters: Array<String> = []
+    for (_, character of self.records.characters) { characters.push(character.name) }
+    characters.sort((a, b) => a < b)
+    for (line of characters) {
+      list.push({ text: line, color: Style.INK })
+      for (name of self.names) {
+        let text = "—"
+        for (_, character of self.records.characters) {
+          if (character.name == line) {
+            for (known of character.professions) {
+              if (known.name == name) { text = "%d / %d".format(known.rank, known.max) }
+            }
+          }
+        }
+        list.push({ text: text, color: text == "—" ? Style.DIM : Style.INK })
+      }
+    }
+    return list
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box overflow={Overflow.Scroll}>
+        <box columns={self.tracks} gap={8 * PX}>
+          <text $for={cell of self.cells} $key={cell} value={cell.text} textSize={Style.TEXT}
+                textColor={cell.color} wrap={false} />
+        </box>
+      </box>
+    }
+  }
+}

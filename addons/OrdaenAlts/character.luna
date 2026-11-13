@@ -1,0 +1,105 @@
+// What Ordaen Alts keeps of a character, and what it answers of all of them. What is saved is kept on purpose: the
+// recipes a character knows and the items it holds are what no other character's session can read; everything else a
+// reader asks for is built from them (`records.luna`).
+import Game from "$game"
+import Client from "$client"
+
+// A character by its GUID (`Player-6946-005FB73B`): the same across renames of its realm.
+public type CharacterId = brand String {
+  public of(guid: String): CharacterId { return guid }
+}
+
+public type ItemId = brand Integer {
+  public of(id: Integer): ItemId { return id }
+}
+
+public type RecipeId = brand Integer {
+  public of(id: Integer): RecipeId { return id }
+}
+
+public type Copper = brand Integer {
+  public of(amount: Integer): Copper { return amount }
+}
+
+// Hours of the server's clock since 2020-01-01 00:00 UTC: a time kept as one small number.
+public type Hour = brand Integer {
+  public now(): Hour { return (Client.GetServerTime() / 3600).floor() - EPOCH }
+  // The hour that is `seconds` from now, rounded up: what a cooldown or a mail's expiry gives.
+  public after(seconds: Integer): Hour { return ((Client.GetServerTime() + seconds) / 3600).ceil() - EPOCH }
+}
+
+// 2020-01-01 00:00 UTC, in hours.
+const EPOCH: Integer = 438288
+
+// The side a character fights for, as the game's `Faction` is, kept as plain data.
+public enum Faction implements Plain { Alliance = "Alliance", Horde = "Horde", Neutral = "Neutral" }
+
+public function factionOf(side: Game.Faction): Faction {
+  return match (side) { Game.Faction.Alliance => Faction.Alliance, Game.Faction.Horde => Faction.Horde, else => Faction.Neutral }
+}
+
+// Where a character holds items.
+public enum Place { Bags = "bags", Bank = "bank", Mail = "mail", Auctions = "auctions" }
+
+// A profession: its skill, the recipes the character has learned of it, and the hour each of them with a cooldown is
+// ready again.
+public struct Known implements Plain {
+  skillLine: Integer
+  // Its name in the player's language, as the game listed it.
+  name: String = ""
+  rank: Integer = 0
+  max: Integer = 0
+  recipes: mut Array<RecipeId> = []
+  ready: mut Map<RecipeId, Hour> = {}
+}
+
+// One character of the player's account, as it was when last played. What a place holds is counted by item, never
+// slot by slot or as links.
+public struct Character implements Plain {
+  name: String = ""
+  realm: String = ""
+  faction: Faction = .Neutral
+  classTag: String = ""
+  level: Integer = 1
+  money: Copper = 0
+  // When it was last played.
+  seen: Hour = 0
+  professions: mut Array<mut Known> = []
+  held: mut Map<Place, Map<ItemId, Integer>> = {}
+  // When the bank and the mail were last read: none before the first time.
+  read: mut Map<Place, Hour> = {}
+  // The hour the first mail that carries something expires; none for an empty inbox or one never read.
+  mailExpires: Hour | nil
+  // The bags' slots, and how many are free.
+  slots: Integer = 0
+  free: Integer = 0
+}
+
+// What is saved: every character by its GUID.
+public struct Kept implements Plain {
+  characters: mut Map<CharacterId, mut Character> = {}
+}
+
+// Who holds an item, how many, and in which place.
+public struct Held {
+  who: CharacterId
+  place: Place
+  count: Integer
+}
+
+// Who knows a recipe: whether the playing character can send to them (the same realm and side), and the hour they can
+// make it again where it has a cooldown (an hour that has gone is ready now).
+public struct Knower {
+  who: CharacterId
+  reachable: Boolean
+  ready: Hour | nil
+}
+
+// The most characters kept: past it the one played longest ago goes.
+public const MOST_CHARACTERS = 40
+// The most recipes of one profession and the most kinds of items in one place a record takes: a reading with more is
+// refused, as the seam's fault.
+public const MOST_RECIPES = 1500
+public const MOST_ITEMS = 1000
+// Hours unseen after which the window marks a character (90 days): it is never dropped unasked.
+public const STALE: Integer = 90 * 24

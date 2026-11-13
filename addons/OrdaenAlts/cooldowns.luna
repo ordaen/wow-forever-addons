@@ -1,0 +1,95 @@
+// «Cooldowns»: each recipe with a cooldown, per character, ready now or the hour it will be.
+import Game from "$game"
+import { Align, Overflow, Track } from "$ltml"
+import { Column, Component, PX, Table, TableRow, tracksOf } from "Ordaen"
+import { Hour } from "@/character"
+import Locale from "@/locales"
+import { Records } from "@/records"
+import Style from "@/style"
+
+const COLUMNS: Array<Column> = [
+  { title: Locale.COL_RECIPE, width: { fr: 3 }, sortable: true },
+  { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
+  { title: Locale.COL_READY, width: 140 * PX, align: Align.End, sortable: true },
+]
+const TRACKS: Array<Track> = tracksOf(COLUMNS)
+
+// One recipe of one character with a cooldown.
+public struct Wait {
+  recipe: String
+  who: String
+  // Hours until it is ready: nought or less is now.
+  hours: Integer
+  // What the cell says and in which colour.
+  text: String
+  color: Color
+}
+
+function waitOf(recipe: String, who: String, hours: Integer): Wait {
+  return {
+    recipe: recipe, who: who, hours: hours, text: hours <= 0 ? Locale.READY_NOW : Style.until(hours),
+    color: hours <= 0 ? Style.GREEN : Style.DIM,
+  }
+}
+
+public class Cooldowns implements Component {
+  // The column the table is sorted by; the soonest first at first.
+  state sorted = 3
+  state descending = false
+  derived waits: Array<Wait> = self.waitsOf()
+  derived ordered: Array<Wait> = self.order()
+  derived empty: Boolean = self.waits.length == 0
+
+  const records: Records
+  touched: Signal<Integer>
+  constructor(records: Records, touched: Signal<Integer>) {
+    self.records = records
+    self.touched = touched
+  }
+
+  waitsOf(self): Array<Wait> {
+    if (self.touched < 0) { return [] }
+    const now = Hour.now()
+    const list: Array<Wait> = []
+    for (_, character of self.records.characters) {
+      for (known of character.professions) {
+        for (recipe, ready of known.ready) {
+          list.push(waitOf(Game.spells.name(recipe) ?? "#" + String.of(recipe), character.name, ready - now))
+        }
+      }
+    }
+    return list
+  }
+
+  order(self): Array<Wait> {
+    const list: Array<Wait> = []
+    for (wait of self.waits) { list.push(wait) }
+    const column = self.sorted
+    const down = self.descending
+    list.sort((a, b) => {
+      if (column == 1) { return down ? a.recipe > b.recipe : a.recipe < b.recipe }
+      if (column == 2) { return down ? a.who > b.who : a.who < b.who }
+      return down ? a.hours > b.hours : a.hours < b.hours
+    })
+    return list
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={10 * PX}>
+        <text $if={self.empty} value={Locale.NO_COOLDOWNS} textSize={Style.SMALL} textColor={Style.DIM} />
+        <box overflow={Overflow.Scroll}>
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+            <TableRow $for={wait of self.ordered} $key={wait} tracks={TRACKS}>
+              <text value={wait.recipe} textSize={Style.TEXT} textColor={Style.INK} />
+              <text value={wait.who} textSize={Style.TEXT} textColor={Style.INK} wrap={false} />
+              <box xAlign={Align.End}>
+                <text value={wait.text} textSize={Style.SMALL} textColor={wait.color} wrap={false} />
+              </box>
+            </TableRow>
+          </Table>
+        </box>
+      </box>
+    }
+  }
+}

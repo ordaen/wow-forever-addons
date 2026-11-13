@@ -1,0 +1,121 @@
+// The window: the characters with their cells, sorted by a heading, «Forget» asking first and removing the record; the
+// other three tabs on the same records. The root is drawn on the screen as Ordaen draws it. A second character is
+// written through its own `Records` over the root's saved records (a test's `Game` stays the first load's after a
+// login, so the window is tested in the load whose fakes it reads), and the root's records are begun again to index it.
+import Game from "$game"
+import Runtime from "$runtime"
+import Test from "$test"
+import root Alts from "OrdaenAlts"
+import root Ordaen from "Ordaen"
+import { CharacterId, Copper, Faction, Hour, ItemId, Place, RecipeId } from "@/character"
+import { Records } from "@/records"
+
+const REGY = "Player-6946-005FB73B"
+
+// Regy Ironsight: a level 42 Horde mage of another realm, with two professions, a cooldown, a bank and a mail.
+function regy(records: mut Records) {
+  records.begin("Regy Ironsight", "MAGE", 42, Hour.after(-5 * 24 * 3600))
+  records.setMoney(Copper.of(1234567), Hour.after(-5 * 24 * 3600))
+  records.setProfessions([
+    { skillLine: 164, name: "Blacksmithing", icon: "x", rank: 150, max: 300, kind: .Crafting },
+    { skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 300, kind: .Gathering },
+  ])
+  const recipes: Array<RecipeId> = [RecipeId.of(2663), RecipeId.of(3320)]
+  const ready: Map<RecipeId, Hour> = {}
+  ready[RecipeId.of(3320)] = Hour.after(30 * 3600)
+  records.setRecipes(164, mut recipes, mut ready)
+  const bank: Map<ItemId, Integer> = {}
+  bank[ItemId.of(2589)] = 20
+  bank[ItemId.of(2840)] = 7
+  records.setPlace(Place.Bank, mut bank, Hour.after(-5 * 24 * 3600))
+  records.setMail(Hour.after(2 * 24 * 3600))
+}
+
+// The player's own record begun again: the indexes are made from every record, Regy's too.
+function reindex(records: mut Records) {
+  records.begin("Player", "PRIEST", 1, Hour.now())
+}
+
+test "the characters' tab lists every character with its cells, sorted by a heading" {
+  Test.mount(nil, { left: 20, top: 20, width: 1300, height: 720, screen: true })
+  Game.money.amount = 50000
+  Game.professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 225, max: 300, kind: .Crafting }]
+  Test.flush()
+  const other = new Records(mut Alts.kept, CharacterId.of(REGY), "CAMWOW EU5 Realm 4 PvP", Faction.Horde)
+  regy(mut other)
+  reindex(mut Alts.records)
+  Alts.toggle()
+  Test.flush()
+  Test.shot("two characters: the playing one in gold, the other dim and with its bank and mail read")
+
+  Test.click(Test.holding("Level", nil), nil)
+  Test.shot("sorted by level, the lowest first")
+  Test.click(Test.holding("Level", nil), nil)
+  Test.shot("sorted by level again: the highest first")
+}
+
+test "forgetting a character asks first, and the answer decides" {
+  const other = new Records(mut Alts.kept, CharacterId.of(REGY), "CAMWOW EU5 Realm 4 PvP", Faction.Horde)
+  regy(mut other)
+  reindex(mut Alts.records)
+  Test.mount(nil, { left: 20, top: 20, width: 1300, height: 720, screen: true })
+  Alts.toggle()
+  Test.flush()
+  Test.expect(Alts.knowers(RecipeId.of(2663)).length == 1)
+  Test.click(Test.holding("Forget", nil), nil)
+  Test.shot("the question over the window, with the character's name")
+  Test.click(Test.holding("Cancel", nil), nil)
+  Test.expect(Alts.characters[CharacterId.of(REGY)] != nil)
+  Test.click(Test.holding("Forget", nil), nil)
+  Test.click(Test.holding("Forget", 2), nil)
+  Test.expect(Alts.characters[CharacterId.of(REGY)] == nil)
+  Test.expect(Alts.knowers(RecipeId.of(2663)).length == 0)
+  Test.shot("the character forgotten: one row, and the note that only this one is recorded")
+}
+
+test "the other tabs read the same records: items by search, cooldowns, the professions' grid" {
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+    return { lines: [{ left: id == 2589 ? "Linen Cloth" : "Rough Stone", kind: 0 }] }
+  }
+  Game.spells.name = (id: Integer): String | nil => id == 3320 ? "Elemental Sharpening Stone" : nil
+  const other = new Records(mut Alts.kept, CharacterId.of(REGY), "CAMWOW EU5 Realm 4 PvP", Faction.Horde)
+  regy(mut other)
+  reindex(mut Alts.records)
+  Test.mount(nil, { left: 20, top: 20, width: 1300, height: 720, screen: true })
+  Alts.toggle()
+  Test.flush()
+
+  Test.click(Test.holding("Items", nil), nil)
+  Test.shot("items: the most held first, each with its holders by place")
+  Test.click(Test.field(nil), nil)
+  Test.type("linen")
+  Test.flush()
+  Test.shot("items searched for linen: one row")
+
+  Test.click(Test.holding("Cooldowns", nil), nil)
+  Test.shot("cooldowns: the recipe with one, ready in a day")
+
+  Test.click(Test.holding("Professions", nil), nil)
+  Test.shot("professions: each character's skill in each profession, a dash where it has none")
+}
+
+test "the root is among Ordaen's modules, and turned off it is gone from them and the window with it" {
+  Test.mount(nil, { left: 20, top: 20, width: 1300, height: 720, screen: true })
+  let found = 0
+  for (module of Ordaen.modules) {
+    if (module.title == "Ordaen Alts") { found += 1 }
+  }
+  Test.expect(found == 1)
+  Alts.toggle()
+  Test.flush()
+  Test.expect(Test.drawn().length > 0)
+  const addon = Runtime.Addon.of(Alts) ?? panic("the module is an addon")
+  addon.disable()
+  Test.flush()
+  found = 0
+  for (module of Ordaen.modules) {
+    if (module.title == "Ordaen Alts") { found += 1 }
+  }
+  Test.expect(found == 0)
+  Test.expect(Test.drawn().length == 0)
+}

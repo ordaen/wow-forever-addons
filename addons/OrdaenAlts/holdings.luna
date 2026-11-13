@@ -1,0 +1,116 @@
+// «Items»: a search across every character: per item the total and each holder by place. An item's name is the game's,
+// asked once per item the first time a search needs it and kept while the tab shows.
+import Game from "$game"
+import { Align, Overflow, Track } from "$ltml"
+import { Component, ItemButton, PX } from "Ordaen"
+import { Held, ItemId, Place } from "@/character"
+import Locale from "@/locales"
+import { Records } from "@/records"
+import Style from "@/style"
+
+// The most items listed: a search narrows to them.
+const MOST = 50
+const ROW: Array<Track> = [44 * PX, { fr: 2 }, { fr: 5 }]
+
+// One item as a row shows it.
+public struct Entry {
+  id: ItemId
+  name: String
+  total: Integer
+  holders: String
+}
+
+public class Holdings implements Component {
+  state search = ""
+  names: mut Map<ItemId, String> = {}
+  derived entries: Array<Entry> = self.entriesOf()
+  derived empty: Boolean = self.entries.length == 0
+
+  const records: Records
+  touched: Signal<Integer>
+  constructor(records: Records, touched: Signal<Integer>) {
+    self.records = records
+    self.touched = touched
+  }
+
+  // An item's name as the game gives it, its number while the game has none yet.
+  nameOf(mut self, id: ItemId): String {
+    const known = self.names[id]
+    if (known != nil) { return known }
+    const tip = Game.items.tooltip(id)
+    const first = tip == nil ? nil : tip.lines[1]
+    const name = first == nil ? nil : first.left
+    if (name == nil) { return "#" + String.of(id) }
+    self.names[id] = name
+    return name
+  }
+
+  // Who holds the item, as a line: each character with its places and counts.
+  holdersOf(self, list: Array<Held>): String {
+    const parts: Array<String> = []
+    for (held of list) {
+      const character = self.records.characters[held.who]
+      const place = match (held.place) {
+        Place.Bags => Locale.PLACE_BAGS,
+        Place.Bank => Locale.PLACE_BANK,
+        Place.Mail => Locale.PLACE_MAIL,
+        Place.Auctions => Locale.PLACE_AUCTIONS,
+      }
+      parts.push("%s: %s %d".format(character == nil ? "?" : character.name, place, held.count))
+    }
+    return parts.join("; ")
+  }
+
+  // The items that match the search, the most held first while it is empty and by name once it isn't.
+  entriesOf(mut self): Array<Entry> {
+    if (self.touched < 0) { return [] }
+    const sought = self.search.lower()
+    const found: Array<Entry> = []
+    for (id, list of self.records.everything()) {
+      let total = 0
+      for (held of list) { total += held.count }
+      if (sought == "") {
+        found.push({ id: id, name: "", total: total, holders: "" })
+      } else {
+        const name = self.nameOf(id)
+        if (name.lower().contains(sought) || String.of(id) == sought) {
+          found.push({ id: id, name: name, total: total, holders: "" })
+        }
+      }
+    }
+    if (sought == "") {
+      found.sort((a, b) => a.total > b.total || (a.total == b.total && a.id < b.id))
+    } else {
+      found.sort((a, b) => a.name < b.name || (a.name == b.name && a.id < b.id))
+    }
+    const shown: Array<Entry> = []
+    for (index, entry of found) {
+      if (index > MOST) { break }
+      shown.push({
+        id: entry.id, name: self.nameOf(entry.id), total: entry.total,
+        holders: self.holdersOf(self.records.holders(entry.id)),
+      })
+    }
+    return shown
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={10 * PX}>
+        <box height={30 * PX} rows={[{ fr: 1 }]}>
+          <input value={mut self.search} padding={{ left: 10 * PX, right: 10 * PX }} textSize={Style.TEXT}
+                 textColor={Style.INK} background={Color.hex("#00000080")} />
+        </box>
+        <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={Style.SMALL} textColor={Style.DIM} />
+        <box overflow={Overflow.Scroll}>
+          <box $for={entry of self.entries} $key={entry.id} columns={ROW} gap={8 * PX} yAlign={Align.Center}
+               padding={{ top: 3 * PX, bottom: 3 * PX }}>
+            <ItemButton item={entry.id} count={entry.total} />
+            <text value={entry.name} textSize={Style.TEXT} textColor={Style.INK} />
+            <text value={entry.holders} textSize={Style.SMALL} textColor={Style.DIM} />
+          </box>
+        </box>
+      </box>
+    }
+  }
+}
