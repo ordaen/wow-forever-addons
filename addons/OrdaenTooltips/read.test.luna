@@ -49,7 +49,7 @@ struct Item {
 
 function colour(c: Color | nil): String {
   if (c == nil) { return "" }
-  return " #%02x%02x%02x".format(c.r * 255 + 0.5, c.g * 255 + 0.5, c.b * 255 + 0.5)
+  return " #%02x%02x%02x".format((c.r * 255).round(), (c.g * 255).round(), (c.b * 255).round())
 }
 
 function artOf(art: Art): String {

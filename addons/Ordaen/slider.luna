@@ -59,7 +59,7 @@ public class Slider implements Component {
   format(self): String {
     match (self.unit) {
       Unit.Percent => return "%d%%".format((self.value * 100).round()),
-      Unit.Px => return "%d px".format(self.value),
+      Unit.Px => return "%d px".format(self.value.floor()),
       Unit.Sec => return "%s s".format(String.of(self.value)),
       Unit.None => return String.of(self.value),
     }
