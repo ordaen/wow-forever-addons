@@ -3,120 +3,133 @@
 // body, what there is more of, the footer, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
-import { Align, Art, Beside, Color, Cursor, Edges, Layer, Line, Position, Side, Size, Track } from "$ltml"
-import Ordaen from "Ordaen"
+import { Align, Art, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component, OrdaenCore } from "Ordaen"
 import Locale from "@/locales"
 import { Fact, Model, Note, Opens, Part, Picture, TextLine } from "@/model"
 
-private const PX = 1 / 1.2
-private const WIDTH = 314 * PX
+public const PX: Number = 1 / 1.2
+const WIDTH = 314 * PX
 // A tooltip beside another: a little narrower.
-private const SIDE_WIDTH = 264 * PX
-private const ICON = 60 * PX
-private const SECTION = 8 * PX
-private const HEADING = $color("#ffd100")
-private const LABEL = $color("#cbb994")
-private const QUIET = $color("#857a66")
-private const QUIET_VALUE = $color("#a39883")
-private const BODY = $color("#f3e7cc")
-private const FREE = $color("#e6dcc6")
-private const BLACK = $color("#000000")
-private const RULE: Line = { width: 1 * PX, color: $color("#d6a56b2e"), sides: [Side::Top] }
-private const DIVIDER: Line = { width: 1 * PX, color: $color("#d6a56b2e"), sides: [Side::Left] }
-private const GROOVE: Line = { width: 1 * PX, color: $color("#000000d9"), sides: [Side::Top, Side::Bottom] }
-private const RIM: Line = { width: 1 * PX, color: $color("#6c5535") }
-private const FILL: Array<Track> = [{ fr: 1 }]
-private const WITH_ICON: Array<Track> = [ICON, { fr: 1 }]
-private const ALONE: Array<Track> = [{ fr: 1 }]
-private const NAME_VALUE: Array<Track> = [{ fr: 1 }, "auto"]
+const SIDE_WIDTH = 264 * PX
+const ICON = 60 * PX
+const SECTION = 8 * PX
+const HEADING: Color = Color.hex("#ffd100")
+const LABEL: Color = Color.hex("#cbb994")
+const QUIET: Color = Color.hex("#857a66")
+const QUIET_VALUE: Color = Color.hex("#a39883")
+public const BODY: Color = Color.hex("#f3e7cc")
+const FREE: Color = Color.hex("#e6dcc6")
+const BLACK: Color = Color.hex("#000000")
+public const RULE: Line = { width: 1 * PX, color: Color.hex("#d6a56b2e"), sides: [Side.Top] }
+const DIVIDER: Line = { width: 1 * PX, color: Color.hex("#d6a56b2e"), sides: [Side.Left] }
+const GROOVE: Line = { width: 1 * PX, color: Color.hex("#000000d9"), sides: [Side.Top, Side.Bottom] }
+const RIM: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
+const FILL: Array<Track> = [{ fr: 1 }]
+const WITH_ICON: Array<Track> = [ICON, { fr: 1 }]
+const ALONE: Array<Track> = [{ fr: 1 }]
+public const NAME_VALUE: Array<Track> = [{ fr: 1 }, "auto"]
 // A text at its own width, the rest of its row empty.
-private const OWN_WIDTH: Array<Track> = ["auto", { fr: 1 }]
-private const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
+const OWN_WIDTH: Array<Track> = ["auto", { fr: 1 }]
+public const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
 // The lock's bar: the tooltip's last section, a dark track that gold fills as the lock charges, in a hundred steps;
 // quiet, never louder than the text. Its row is as high as the line that stands there once locked, so nothing
 // moves when the lock lands.
-private const BAR_PAD: Edges = { top: SECTION }
-private const BAR_ROW = 16 * PX
-private const BAR_HEIGHT = 3 * PX
-private const TRACK = $color("#00000073")
-private const BAR_GOLD = $color("#d6a56b80")
+const BAR_PAD: Edges = { top: SECTION }
+const BAR_ROW = 16 * PX
+const BAR_HEIGHT = 3 * PX
+const TRACK: Color = Color.hex("#00000073")
+const BAR_GOLD: Color = Color.hex("#d6a56b80")
 // What opens something is underlined while the tooltip is locked, and its tooltip stands beside it.
-private const UNDERLINE = $color("#ffd100b3")
-private const BY_ITS_TEXT: Beside = { beside: "parent" }
+const UNDERLINE: Color = Color.hex("#ffd100b3")
+const BY_ITS_TEXT: Beside = { beside: "parent" }
 // The game's red X.
-private const CLOSE_ART = $asset("Interface/Buttons/UI-Panel-MinimizeButton-Up")
-private const UNDER_TITLE: Edges = { bottom: SECTION }
-private const NO_PAD: Edges = {}
-private const CELL_PAD: Edges = { top: 8 * PX, right: 10 * PX, bottom: 8 * PX, left: 10 * PX }
+const CLOSE_ART: Asset = "Interface/Buttons/UI-Panel-MinimizeButton-Up"
+const UNDER_TITLE: Edges = { bottom: SECTION }
+public const NO_PAD: Edges = {}
+const CELL_PAD: Edges = { top: 8 * PX, right: 10 * PX, bottom: 8 * PX, left: 10 * PX }
 // The band ends the tooltip: no room under it.
-private const CELL_PAD_LAST: Edges = { top: 8 * PX, right: 10 * PX, left: 10 * PX }
-private const INDENT: Edges = { left: 12 * PX }
+const CELL_PAD_LAST: Edges = { top: 8 * PX, right: 10 * PX, left: 10 * PX }
+public const INDENT: Edges = { left: 12 * PX }
 // Where the body turns from rows into sentences or back.
-private const SPACED: Edges = { top: 6 * PX }
+const SPACED: Edges = { top: 6 * PX }
 
 // A line as it is drawn: its texts, their colours, its size, and the room round it.
 public struct Drawn {
-  left: string
-  right: string | nil
+  left: String
+  right: String | nil
   leftColor: Color
   rightColor: Color
-  size: number
+  size: Number
   padding: Edges
   // What its name opens, and what its value does.
   opens: Opens
   valueOpens: Opens
 }
 
-private function opensSomething(opens: Opens): boolean {
-  switch (opens) {
-    case Opens::None: return false
-    default: return true
+function opensSomething(opens: Opens): Boolean {
+  match (opens) {
+    Opens.None => return false,
+    else => return true,
   }
 }
 
 // A text that may open something: in a locked tooltip it is underlined, the cursor on it is the question mark, and
 // what it opens is drawn beside it, by whoever fills `opened`, until the cursor leaves it. Never wrapped; the
 // underline and the cursor's reach are the text's own width.
-public class TermText implements Ordaen::Component {
+public class TermText implements Component {
   public slot opened(opens: Opens)
 
-  private mut over = $reactive(false)
-  private lit = $computed((): boolean => self.locked && self.opensSomething())
-  private open = $computed((): boolean => self.lit && self.over)
+  state over = false
+  derived lit: Boolean = self.locked && self.opensSomething()
+  derived open: Boolean = self.lit && self.over
 
-  $constructor(
-    private text: Reactive<string>,
-    private color: Reactive<Color>,
-    private size: Reactive<number>,
-    private opens: Reactive<Opens>,
-    private locked: Reactive<boolean>,
+  text: Signal<String>
+  color: Signal<Color>
+  size: Signal<Number>
+  opens: Signal<Opens>
+  locked: Signal<Boolean>
+  family: Signal<Art | nil>
+  constructor(
+    text: Signal<String>,
+    color: Signal<Color>,
+    size: Signal<Number>,
+    opens: Signal<Opens>,
+    locked: Signal<Boolean>,
     // A value's text is in the numbers' font; nothing keeps the text's.
-    private family: Reactive<Art | nil> = nil,
+    family: Signal<Art | nil> = nil,
   ) {
-    $watch(self.forgetCursor)
+    self.text = text
+    self.color = color
+    self.size = size
+    self.opens = opens
+    self.locked = locked
+    self.family = family
+    watch { self.forgetCursor() }
   }
 
-  private opensSomething(): boolean { return opensSomething(self.opens) }
+  opensSomething(self): Boolean { return opensSomething(self.opens) }
 
   // What takes the cursor goes with the lock, and says nothing as it goes.
-  private mut forgetCursor() {
+  forgetCursor(mut self) {
     if (!self.lit) { self.over = false }
   }
 
-  private mut onEnter() { self.over = true }
-  private mut onLeave() { self.over = false }
+  onEnter(mut self) { self.over = true }
+  onLeave(mut self) { self.over = false }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box>
         <text value={self.text} textColor={self.color} textSize={self.size} wrap={false}
               textFamily={self.family} />
-        <box $if={self.lit} position={Position::Absolute} left={0} right={0} bottom={0} height={1 * PX}
+        <box $if={self.lit} position={Position.Absolute} left={0} right={0} bottom={0} height={1 * PX}
              background={UNDERLINE} />
-        <box $if={self.lit} position={Position::Absolute} left={0} top={0} right={0} bottom={0}
-             cursor={Cursor::Help} @enter={self.onEnter} @leave={self.onLeave} />
-        <surface $if={self.open} layer={Layer::Tooltip} place={BY_ITS_TEXT}>
-          <slot $name="opened" opens={self.opens} />
+        <box $if={self.lit} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+             cursor={Cursor.Help} @enter={self.onEnter} @leave={self.onLeave} />
+        <surface $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
+          <slot #opened opens={self.opens} />
         </surface>
       </box>
     }
@@ -124,28 +137,41 @@ public class TermText implements Ordaen::Component {
 }
 
 // A piece of a title's line, after the « · » that joins it to the one before.
-public class PartText implements Ordaen::Component {
+public class PartText implements Component {
   public slot opened(opens: Opens)
 
-  private notFirst = $computed((): boolean => self.index > 1)
-  private own = $computed((): Color => self.part.color ?? self.color)
+  derived notFirst: Boolean = self.index > 1
+  derived own: Color = self.part.color ?? self.color
 
-  $constructor(
-    private part: Reactive<Part>,
-    private index: Reactive<integer>,
+  part: Signal<Part>
+  index: Signal<Integer>
+  const color: Color
+  locked: Signal<Boolean>
+  numbers: Signal<Art | nil>
+  constructor(
+    part: Signal<Part>,
+    index: Signal<Integer>,
     // The line's colour, for a piece without its own.
-    private const color: Color,
-    private locked: Reactive<boolean> = false,
-  ) {}
+    color: Color,
+    locked: Signal<Boolean> = false,
+    // The numbers' font of the look.
+    numbers: Signal<Art | nil> = nil,
+  ) {
+    self.part = part
+    self.index = index
+    self.color = color
+    self.locked = locked
+    self.numbers = numbers
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       // In the numbers' font: the client's own for texts has no middle dot.
       <text $if={self.notFirst} value={" · "} textColor={self.color} textSize={14 * PX} wrap={false}
-            textFamily={Ordaen::lookArt.fontNumbers} />
+            textFamily={self.numbers} />
       <TermText text={self.part.text} color={self.own} size={14 * PX} opens={self.part.opens} locked={self.locked}>
         <box #opened={opens}>
-          <slot $name="opened" opens={opens} />
+          <slot #opened opens={opens} />
         </box>
       </TermText>
     }
@@ -155,54 +181,61 @@ public class PartText implements Ordaen::Component {
 // A fact of the band: its glyph before its text, in the cell's middle, never wrapped. In a locked tooltip a fact
 // that opens something is underlined; with the cursor on the cell, what it opens is drawn beside the cell, by
 // whoever fills `opened`, and goes as the cursor leaves. The whole cell is the fact it explains.
-public class FactCell implements Ordaen::Component {
+public class FactCell implements Component {
   public slot opened(opens: Opens)
 
-  private mut over = $reactive(false)
-  private lit = $computed((): boolean => self.locked && self.opensSomething())
-  private open = $computed((): boolean => self.lit && self.over)
+  state over = false
+  derived lit: Boolean = self.locked && self.opensSomething()
+  derived open: Boolean = self.lit && self.over
 
-  private divider = $computed((): Line | nil => self.index > 1 ? DIVIDER : nil)
-  private padding = $computed((): Edges => self.last ? CELL_PAD_LAST : CELL_PAD)
-  private hasGlyph = $computed((): boolean => self.fact.glyph != nil)
-  private glyph = $computed((): Art => self.fact.glyph ?? "")
-  private tint = $computed((): Color => self.fact.tint ?? BODY)
-  private color = $computed((): Color => self.fact.color ?? BODY)
+  derived divider: Line | nil = self.index > 1 ? DIVIDER : nil
+  derived padding: Edges = self.last ? CELL_PAD_LAST : CELL_PAD
+  derived hasGlyph: Boolean = self.fact.glyph != nil
+  derived color: Color = self.fact.color ?? BODY
 
-  $constructor(
-    private fact: Reactive<Fact>,
-    private index: Reactive<integer>,
-    private last: Reactive<boolean>,
-    private locked: Reactive<boolean> = false,
+  fact: Signal<Fact>
+  index: Signal<Integer>
+  last: Signal<Boolean>
+  locked: Signal<Boolean>
+  constructor(
+    fact: Signal<Fact>,
+    index: Signal<Integer>,
+    last: Signal<Boolean>,
+    locked: Signal<Boolean> = false,
   ) {
-    $watch(self.forgetCursor)
+    self.fact = fact
+    self.index = index
+    self.last = last
+    self.locked = locked
+    watch { self.forgetCursor() }
   }
 
-  private opensSomething(): boolean { return opensSomething(self.fact.opens) }
+  opensSomething(self): Boolean { return opensSomething(self.fact.opens) }
 
   // What takes the cursor goes with the lock, and says nothing as it goes.
-  private mut forgetCursor() {
+  forgetCursor(mut self) {
     if (!self.lit) { self.over = false }
   }
 
-  private mut onEnter() { self.over = true }
-  private mut onLeave() { self.over = false }
+  onEnter(mut self) { self.over = true }
+  onLeave(mut self) { self.over = false }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box padding={self.padding} border={self.divider} xAlign={Align::Center}>
-        <box columns={["auto", "auto"]} gap={5 * PX} yAlign={Align::Center}>
-          <box $if={self.hasGlyph} width={16 * PX} height={16 * PX} background={self.glyph} tint={self.tint} />
+      <box padding={self.padding} border={self.divider} xAlign={Align.Center}>
+        <box columns={["auto", "auto"]} gap={5 * PX} yAlign={Align.Center}>
+          // The glyph's room: its picture (`Glyph`, in its tint) isn't shipped yet.
+          <box $if={self.hasGlyph} width={16 * PX} height={16 * PX} />
           <box>
             <text value={self.fact.text} textColor={self.color} textSize={16 * PX} wrap={false} />
-            <box $if={self.lit} position={Position::Absolute} left={0} right={0} bottom={0} height={1 * PX}
+            <box $if={self.lit} position={Position.Absolute} left={0} right={0} bottom={0} height={1 * PX}
                  background={UNDERLINE} />
           </box>
         </box>
-        <box $if={self.lit} position={Position::Absolute} left={0} top={0} right={0} bottom={0}
-             cursor={Cursor::Help} @enter={self.onEnter} @leave={self.onLeave} />
-        <surface $if={self.open} layer={Layer::Tooltip} place={BY_ITS_TEXT}>
-          <slot $name="opened" opens={self.fact.opens} />
+        <box $if={self.lit} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+             cursor={Cursor.Help} @enter={self.onEnter} @leave={self.onLeave} />
+        <surface $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
+          <slot #opened opens={self.fact.opens} />
         </surface>
       </box>
     }
@@ -211,47 +244,56 @@ public class FactCell implements Ordaen::Component {
 
 // A line: a name with its value on the right, never wrapped, or free text that wraps at the tooltip's width. A
 // name that opens something is a `TermText` of its own width, the rest of its row empty.
-public class Row implements Ordaen::Component {
+public class Row implements Component {
   public slot opened(opens: Opens)
 
-  private paired = $computed((): boolean => self.line.right != nil)
-  private right = $computed((): string => self.line.right ?? "")
-  private opening = $computed((): boolean => opensSomething(self.line.opens))
-  private valueOpening = $computed((): boolean => opensSomething(self.line.valueOpens))
+  derived paired: Boolean = self.line.right != nil
+  derived right: String = self.line.right ?? ""
+  derived opening: Boolean = opensSomething(self.line.opens)
+  derived valueOpening: Boolean = opensSomething(self.line.valueOpens)
 
-  $constructor(
-    private line: Reactive<Drawn>,
-    private locked: Reactive<boolean> = false,
-  ) {}
+  line: Signal<Drawn>
+  locked: Signal<Boolean>
+  numbers: Signal<Art | nil>
+  constructor(
+    line: Signal<Drawn>,
+    locked: Signal<Boolean> = false,
+    // The numbers' font of the look.
+    numbers: Signal<Art | nil> = nil,
+  ) {
+    self.line = line
+    self.locked = locked
+    self.numbers = numbers
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box $if={self.paired} columns={NAME_VALUE} gap={10 * PX} padding={self.line.padding}>
         <box $if={self.opening} columns={OWN_WIDTH}>
           <TermText text={self.line.left} color={self.line.leftColor} size={self.line.size} opens={self.line.opens}
                     locked={self.locked}>
             <box #opened={opens}>
-              <slot $name="opened" opens={opens} />
+              <slot #opened opens={opens} />
             </box>
           </TermText>
         </box>
         <text $else value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
         // A value, in the numbers' font: it has the marks a value carries (▲, ▼), which the font for texts lacks.
         <TermText $if={self.valueOpening} text={self.right} color={self.line.rightColor} size={self.line.size}
-                  opens={self.line.valueOpens} locked={self.locked} family={Ordaen::lookArt.fontNumbers}>
+                  opens={self.line.valueOpens} locked={self.locked} family={self.numbers}>
           <box #opened={opens}>
-            <slot $name="opened" opens={opens} />
+            <slot #opened opens={opens} />
           </box>
         </TermText>
         <text $else value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={false}
-              textFamily={Ordaen::lookArt.fontNumbers} />
+              textFamily={self.numbers} />
       </box>
       <box $else padding={self.line.padding}>
         <box $if={self.opening} columns={OWN_WIDTH}>
           <TermText text={self.line.left} color={self.line.leftColor} size={self.line.size} opens={self.line.opens}
                     locked={self.locked}>
             <box #opened={opens}>
-              <slot $name="opened" opens={opens} />
+              <slot #opened opens={opens} />
             </box>
           </TermText>
         </box>
@@ -261,87 +303,101 @@ public class Row implements Ordaen::Component {
   }
 }
 
-public class TipFrame implements Ordaen::Component {
-  private width = $computed((): number => self.side ? SIDE_WIDTH : WIDTH)
-  private hasHeader = $computed((): boolean => self.model.header != nil)
-  private header = $computed((): string => self.model.header ?? "")
+public class TipFrame implements Component {
+  derived width: Number = self.side ? SIDE_WIDTH : WIDTH
+  derived hasHeader: Boolean = self.model.header != nil
+  derived header: String = self.model.header ?? ""
   // The picture by the title: an icon, or a unit's face.
-  private hasIcon = $computed((): boolean => self.pictured())
-  private icon = $computed((): Art | nil => self.iconArt())
-  private face = $computed((): string | nil => self.faceUnit())
-  private titleColumns = $computed((): Array<Track> => self.hasIcon ? WITH_ICON : ALONE)
-  private hasDesc = $computed((): boolean => self.model.desc.length > 0)
-  private hasInfo = $computed((): boolean => self.model.info.length > 0)
-  private descColumns = $computed((): Array<Track> => self.tracks(self.model.desc.length))
-  private infoColumns = $computed((): Array<Track> => self.tracks(self.model.info.length))
+  derived hasIcon: Boolean = self.pictured()
+  derived icon: Art | nil = self.iconArt()
+  derived face: String | nil = self.faceUnit()
+  derived titleColumns: Array<Track> = self.hasIcon ? WITH_ICON : ALONE
+  derived hasDesc: Boolean = self.model.desc.length > 0
+  derived hasInfo: Boolean = self.model.info.length > 0
+  derived descColumns: Array<Track> = self.tracks(self.model.desc.length)
+  derived infoColumns: Array<Track> = self.tracks(self.model.info.length)
 
-  private facts = $computed((): integer => self.model.facts.length)
-  private hasFacts = $computed((): boolean => self.facts > 0)
-  private body = $computed((): Array<Drawn> => self.rows(self.model.body))
-  private more = $computed((): Array<Drawn> => self.rows(self.model.more))
-  private foot = $computed((): Array<Drawn> => self.notes())
-  private keys = $computed((): Array<Drawn> => self.hotkeys())
-  private hasBody = $computed((): boolean => self.body.length > 0)
-  private hasMore = $computed((): boolean => self.more.length > 0)
-  private hasFoot = $computed((): boolean => self.foot.length > 0)
-  private hasKeys = $computed((): boolean => self.keys.length > 0)
+  derived facts: Integer = self.model.facts.length
+  derived hasFacts: Boolean = self.facts > 0
+  derived body: Array<Drawn> = self.rows(self.model.body)
+  derived more: Array<Drawn> = self.rows(self.model.more)
+  derived foot: Array<Drawn> = self.notes()
+  derived keys: Array<Drawn> = self.hotkeys()
+  derived hasBody: Boolean = self.body.length > 0
+  derived hasMore: Boolean = self.more.length > 0
+  derived hasFoot: Boolean = self.foot.length > 0
+  derived hasKeys: Boolean = self.keys.length > 0
   // The band ends the tooltip.
-  private bandLast = $computed((): boolean => !self.hasBody && !self.hasMore && !self.hasFoot && !self.hasKeys)
+  derived bandLast: Boolean = !self.hasBody && !self.hasMore && !self.hasFoot && !self.hasKeys
   // The title alone (a sign): no room under it.
-  private titlePadding = $computed((): Edges =>
-    self.hasFacts || !self.bandLast || self.hasHeader ? UNDER_TITLE : NO_PAD)
+  derived titlePadding: Edges = self.hasFacts || !self.bandLast || self.hasHeader ? UNDER_TITLE : NO_PAD
   // A rule only between two present sections; none between the title and the body. The title is always there,
   // so every section after the body has one.
-  private bodyRule = $computed((): Line | nil => self.hasFacts ? RULE : nil)
+  derived bodyRule: Line | nil = self.hasFacts ? RULE : nil
+
+  // Ordaen's art and the files of the look the player chose: Ordaen is needed by name, so its root is there.
+  derived ordaen: OrdaenCore = Ordaen ?? panic("Ordaen is needed by name: its root is made before a module's")
+  derived numbers: Art | nil = self.ordaen.lookArt.fontNumbers
 
   // The track shows once the charge starts; its room is there from the start.
-  private track = $computed((): Color | nil => self.charge > 0 ? TRACK : nil)
-  private filled = $computed((): Size => ({ percent: self.charge }))
+  derived track: Color | nil = self.charge > 0 ? TRACK : nil
+  derived filled: Size = { percent: self.charge }
 
   // The close button of a locked tooltip was clicked.
-  public close: Event<nil> = $event()
+  public close: Event<nil> = new Event()
   // What a part of the locked tooltip opens, drawn beside the part while the cursor is on it.
   public slot opened(opens: Opens)
 
-  $constructor(
-    private model: Reactive<Model>,
-    private side: Reactive<boolean> = false,
+  model: Signal<Model>
+  side: Signal<Boolean>
+  main: Signal<Boolean>
+  charge: Signal<Integer>
+  locked: Signal<Boolean>
+  constructor(
+    model: Signal<Model>,
+    side: Signal<Boolean> = false,
     // The main tooltip of its group: it has the lock's bar, filled this far of a hundred, and is locked or not.
-    private main: Reactive<boolean> = false,
-    private charge: Reactive<integer> = 0,
-    private locked: Reactive<boolean> = false,
-  ) {}
+    main: Signal<Boolean> = false,
+    charge: Signal<Integer> = 0,
+    locked: Signal<Boolean> = false,
+  ) {
+    self.model = model
+    self.side = side
+    self.main = main
+    self.charge = charge
+    self.locked = locked
+  }
 
-  private mut onClose() { self.close.emit() }
+  onClose(mut self) { self.close.emit() }
 
-  private pictured(): boolean {
+  pictured(self): Boolean {
     let picture = self.model.picture
-    switch (picture) {
-      case Picture::None: return false
-      default: return true
+    match (picture) {
+      Picture.None => return false,
+      else => return true,
     }
   }
 
-  private iconArt(): Art | nil {
+  iconArt(self): Art | nil {
     let picture = self.model.picture
-    switch (picture) {
-      case Picture::Icon: return picture.art
-      default: return nil
+    match (picture) {
+      Picture.Icon => return picture.art,
+      else => return nil,
     }
   }
 
-  private faceUnit(): string | nil {
+  faceUnit(self): String | nil {
     let picture = self.model.picture
-    switch (picture) {
-      case Picture::Face: return picture.unit
-      default: return nil
+    match (picture) {
+      Picture.Face => return picture.unit,
+      else => return nil,
     }
   }
 
   // One column as wide as each piece and each « · » between two, and the rest of the row empty.
-  private tracks(pieces: integer): Array<Track> {
-    let mut list: Array<Track> = []
-    for (let i = 1; i <= pieces; i += 1) {
+  tracks(self, pieces: Integer): Array<Track> {
+    let list: Array<Track> = []
+    for (i of 1..=pieces) {
       if (i > 1) { list.push("auto") }
       list.push("auto")
     }
@@ -351,12 +407,12 @@ public class TipFrame implements Ordaen::Component {
 
   // The body's lines as they are drawn: a row with a value 16 px, a description 15, other free lines 14; 6 px
   // more above a line where rows turn into sentences or back.
-  private rows(lines: Array<TextLine>): Array<Drawn> {
-    let mut list: Array<Drawn> = []
-    let mut pairedBefore = false
+  rows(self, lines: Array<TextLine>): Array<Drawn> {
+    let list: Array<Drawn> = []
+    let pairedBefore = false
     for (index, line of lines) {
       let paired = line.right != nil
-      let mut size = 14 * PX
+      let size = 14 * PX
       if (line.indent != true && paired) { size = 16 * PX } else if (line.indent != true && line.desc == true) { size = 15 * PX }
       let padding = NO_PAD
       if (line.indent == true) { padding = INDENT } else if (index > 1 && paired != pairedBefore) { padding = SPACED }
@@ -364,15 +420,15 @@ public class TipFrame implements Ordaen::Component {
       list.push({
         left: line.left, right: line.right, leftColor: line.color ?? plain,
         rightColor: line.rightColor ?? line.color ?? BODY, size: size, padding: padding, opens: line.opens,
-        valueOpens: Opens::None,
+        valueOpens: Opens.None,
       })
       pairedBefore = paired
     }
     return list
   }
 
-  private notes(): Array<Drawn> {
-    let mut list: Array<Drawn> = []
+  notes(self): Array<Drawn> {
+    let list: Array<Drawn> = []
     for (note of self.model.foot) {
       let alone = note.right == nil
       list.push({
@@ -384,48 +440,48 @@ public class TipFrame implements Ordaen::Component {
     return list
   }
 
-  private hotkeys(): Array<Drawn> {
-    let mut list: Array<Drawn> = []
+  hotkeys(self): Array<Drawn> {
+    let list: Array<Drawn> = []
     for (key of self.model.keys) {
       list.push({
         left: key, right: nil, leftColor: QUIET, rightColor: QUIET, size: 14 * PX, padding: NO_PAD,
-        opens: Opens::None, valueOpens: Opens::None,
+        opens: Opens.None, valueOpens: Opens.None,
       })
     }
     return list
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box width={"min"} minWidth={self.width} padding={12 * PX} border={Ordaen::art.frame.small}
-           background={Ordaen::art.window.wood} textFamily={Ordaen::lookArt.font}>
+      <box width={"min"} minWidth={self.width} padding={12 * PX} border={self.ordaen.art.frame.small}
+           background={self.ordaen.art.window.wood} textFamily={self.ordaen.lookArt.font}>
         <box $if={self.hasHeader} height={35 * PX} gap={6 * PX}>
-          <box xAlign={Align::Center}>
+          <box xAlign={Align.Center}>
             <text value={self.header} textColor={HEADING} textSize={15 * PX} wrap={false} />
           </box>
           <box height={2 * PX} border={GROOVE} />
         </box>
-        <box columns={self.titleColumns} gap={10 * PX} yAlign={Align::Center} padding={self.titlePadding}>
+        <box columns={self.titleColumns} gap={10 * PX} yAlign={Align.Center} padding={self.titlePadding}>
           <box $if={self.hasIcon} width={ICON} height={ICON} border={RIM} padding={1 * PX} background={BLACK}
                rows={FILL}>
             <box icon={self.icon} portrait={self.face} />
           </box>
-          <box gap={2 * PX} yAlign={Align::Center}>
+          <box gap={2 * PX} yAlign={Align.Center}>
             <text value={self.model.name} textColor={self.model.nameColor} textSize={18 * PX} wrap={false}
-                  textFamily={Ordaen::lookArt.fontHeader} />
-            <box $if={self.hasDesc} columns={self.descColumns} height={18 * PX} yAlign={Align::Center}>
+                  textFamily={self.ordaen.lookArt.fontHeader} />
+            <box $if={self.hasDesc} columns={self.descColumns} height={18 * PX} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
-                        locked={self.locked}>
+                        locked={self.locked} numbers={self.numbers}>
                 <box #opened={opens}>
-                  <slot $name="opened" opens={opens} />
+                  <slot #opened opens={opens} />
                 </box>
               </PartText>
             </box>
-            <box $if={self.hasInfo} columns={self.infoColumns} height={18 * PX} yAlign={Align::Center}>
+            <box $if={self.hasInfo} columns={self.infoColumns} height={18 * PX} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.info} part={part} index={index} color={QUIET}
-                        locked={self.locked}>
+                        locked={self.locked} numbers={self.numbers}>
                 <box #opened={opens}>
-                  <slot $name="opened" opens={opens} />
+                  <slot #opened opens={opens} />
                 </box>
               </PartText>
             </box>
@@ -435,48 +491,50 @@ public class TipFrame implements Ordaen::Component {
           <FactCell $for={index, fact of self.model.facts} fact={fact} index={index} last={self.bandLast}
                     locked={self.locked}>
             <box #opened={opens}>
-              <slot $name="opened" opens={opens} />
+              <slot #opened opens={opens} />
             </box>
           </FactCell>
         </box>
         <box $if={self.hasBody} gap={2 * PX} padding={SECTION_PAD} border={self.bodyRule}>
-          <Row $for={line of self.body} line={line} locked={self.locked}>
+          <Row $for={line of self.body} line={line} locked={self.locked} numbers={self.numbers}>
             <box #opened={opens}>
-              <slot $name="opened" opens={opens} />
+              <slot #opened opens={opens} />
             </box>
           </Row>
         </box>
+        // What other modules add, after the body: the main tooltip's owner fills it.
+        <slot />
         <box $if={self.hasMore} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
-          <Row $for={line of self.more} line={line} locked={self.locked}>
+          <Row $for={line of self.more} line={line} locked={self.locked} numbers={self.numbers}>
             <box #opened={opens}>
-              <slot $name="opened" opens={opens} />
+              <slot #opened opens={opens} />
             </box>
           </Row>
         </box>
         <box $if={self.hasFoot} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
-          <Row $for={line of self.foot} line={line} locked={self.locked}>
+          <Row $for={line of self.foot} line={line} locked={self.locked} numbers={self.numbers}>
             <box #opened={opens}>
-              <slot $name="opened" opens={opens} />
+              <slot #opened opens={opens} />
             </box>
           </Row>
         </box>
         <box $if={self.hasKeys} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
-          <Row $for={line of self.keys} line={line} locked={self.locked}>
+          <Row $for={line of self.keys} line={line} locked={self.locked} numbers={self.numbers}>
             <box #opened={opens}>
-              <slot $name="opened" opens={opens} />
+              <slot #opened opens={opens} />
             </box>
           </Row>
         </box>
         <box $if={self.main} padding={BAR_PAD}>
-          <box height={BAR_ROW} yAlign={Align::Center}>
-            <text $if={self.locked} value={Locale::LOCKED_HINT} textColor={QUIET} textSize={13 * PX} wrap={false} />
+          <box height={BAR_ROW} yAlign={Align.Center}>
+            <text $if={self.locked} value={Locale.LOCKED_HINT} textColor={QUIET} textSize={13 * PX} wrap={false} />
             <box $else height={BAR_HEIGHT} background={self.track}>
-              <box position={Position::Absolute} left={0} top={0} bottom={0} width={self.filled}
+              <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.filled}
                    background={BAR_GOLD} />
             </box>
           </box>
         </box>
-        <box $if={self.locked} position={Position::Absolute} right={2 * PX} top={2 * PX} width={24 * PX}
+        <box $if={self.locked} position={Position.Absolute} right={2 * PX} top={2 * PX} width={24 * PX}
              height={24 * PX} background={CLOSE_ART} @click={self.onClose} />
       </box>
     }

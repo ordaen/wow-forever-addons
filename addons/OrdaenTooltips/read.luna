@@ -3,7 +3,6 @@
 // Translated so far: a tooltip that is only text (a button's, any addon's), an object's (a chest, a door), a
 // spell's, a talent's, an aura's, a unit's and an item's, with the tooltips beside an item.
 import Game from "$game"
-import String from "$string"
 import { aura } from "@/aura"
 import { GOLD, RED, WHITE, colorOf, tint } from "@/colors"
 import Locale from "@/locales"
@@ -18,27 +17,27 @@ import { clean } from "@/text"
 import { unit } from "@/unit"
 
 // The game's numbers for what a line of a tooltip is.
-private const BLANK = 1
-private const REQUIREMENT = 43
+const BLANK = 1
+const REQUIREMENT = 43
 
 // What a tooltip is about, or nothing for one Ordaen Tooltips leaves to the game.
-public function kindOf(data: Game::TooltipData): Kind | nil {
-  if (data.plain == true) { return Kind::Text }
+public function kindOf(data: Game.TooltipData): Kind | nil {
+  if (data.plain == true) { return Kind.Text }
   let about = data.kind
   if (about == nil) { return nil }
-  switch (about) {
-    case 0: return Kind::Item
-    case 1: return Kind::Spell
-    case 2: return Kind::Unit
-    case 4: return Kind::Object
-    case 7: return Kind::Aura
-    default: return nil
+  match (about) {
+    0 => return Kind.Item,
+    1 => return Kind.Spell,
+    2 => return Kind.Unit,
+    4 => return Kind.Object,
+    7 => return Kind.Aura,
+    else => return nil,
   }
 }
 
 // «Requires Lockpicking (75)» as the skill and the rank, read back through the game's own format for the line.
-private function skillOf(text: string): (string | nil, string | nil) {
-  let parts = String::unformat(text, Game::Strings::itemMinSkill)
+function skillOf(text: String): (String | nil, String | nil) {
+  let parts = text.unformat(Game.strings.itemMinSkill)
   if (parts == nil) { return nil, nil }
   return parts[1], parts[2]
 }
@@ -46,18 +45,18 @@ private function skillOf(text: string): (string | nil, string | nil) {
 // A tooltip that is only text (a micro menu's or a bag's button, any addon's lines): its first line the title, the
 // rest the body, a line with a right text a row and one without a sentence. The key the game appends to the title
 // («Character |cffffd200(C)|r») goes to the hotkeys. No icon.
-public function plain(data: Game::TooltipData): Model | nil {
+public function plain(data: Game.TooltipData): Model | nil {
   let first = data.lines[1]
   if (first == nil) { return nil }
   let title = first.left
   if (title == nil) { return nil }
-  let mut keys: Array<string> = []
-  let name, key = $match(title, "^(.-)%s*|c%x%x%x%x%x%x%x%x%(([^()]+)%)|r$")
+  let keys: Array<String> = []
+  let name, key = title.match("^(.-)%s*|c%x%x%x%x%x%x%x%x%(([^()]+)%)|r$")
   if (name != nil && key != nil && name != "") {
     title = name
-    keys.push(String::format(Locale::KEY_OPEN, key))
+    keys.push(Locale.KEY_OPEN.format(key))
   }
-  let mut body: Array<TextLine> = []
+  let body: Array<TextLine> = []
   for (i, line of data.lines) {
     if (i == 1) { continue }
     let left = line.left
@@ -74,7 +73,7 @@ public function plain(data: Game::TooltipData): Model | nil {
     }
   }
   return {
-    kind: Kind::Text, name: title, nameColor: colorOf(first.leftColor) ?? WHITE,
+    kind: Kind.Text, name: title, nameColor: colorOf(first.leftColor) ?? WHITE,
     desc: [], info: [], facts: [], body: body, more: [], foot: [], keys: keys,
   }
 }
@@ -82,10 +81,10 @@ public function plain(data: Game::TooltipData): Model | nil {
 // An object's tooltip: its name in gold, what opening it needs in the footer (a skill with its rank, or a key,
 // red while it can't be opened), every other line a sentence in its own colour, the quests it is part of after
 // them.
-public function object(data: Game::TooltipData, options: Options): Model | nil {
-  let name: string | nil = nil
-  let mut body: Array<TextLine> = []
-  let mut foot: Array<Note> = []
+public function object(data: Game.TooltipData, options: Options): Model | nil {
+  let name: String | nil = nil
+  let body: Array<TextLine> = []
+  let foot: Array<Note> = []
   for (i, line of data.lines) {
     let text = clean(line.left)
     if (i == 1) {
@@ -100,43 +99,43 @@ public function object(data: Game::TooltipData, options: Options): Model | nil {
     let locked = line.usable == false
     let skill, rank = skillOf(text)
     if (skill != nil && rank != nil) {
-      foot.push({ left: skill, right: rank, valueColor: locked ? RED : nil, opens: named(Term::Lock) })
+      foot.push({ left: skill, right: rank, valueColor: locked ? RED : nil, opens: named(Term.Lock) })
     } else {
       // A key: «Requires: Defias Chest Key», or «Requires Defias Chest Key».
-      let key = $match(text, "^[^:]+:%s*(.+)$") ?? $replace(text, "^%S+%s+", "")
-      let missing = Game::Items::count(key) == 0
+      let key = text.match("^[^:]+:%s*(.+)$") ?? text.replace("^%S+%s+", "")
+      let missing = Game.items.count(key) == 0
       foot.push({
-        left: Locale::KEY_NEEDED, right: key, valueColor: locked || missing ? RED : nil, opens: named(Term::Lock),
+        left: Locale.KEY_NEEDED, right: key, valueColor: locked || missing ? RED : nil, opens: named(Term.Lock),
       })
     }
   }
   if (name == nil) { return nil }
   return {
-    kind: Kind::Object, name: name, nameColor: GOLD,
+    kind: Kind.Object, name: name, nameColor: GOLD,
     desc: [], info: [], facts: [], body: body, more: quests(data.lines, options.npcsParty), foot: foot, keys: [],
   }
 }
 
 // The tooltip's model from the game's data, or nothing where it can't be read.
-public function fill(data: Game::TooltipData, options: Options): Model | nil {
+public function fill(data: Game.TooltipData, options: Options): Model | nil {
   let kind = kindOf(data)
   if (kind == nil) { return nil }
-  if (kind == Kind::Item) {
+  if (kind == Kind.Item) {
     let read = item(data, options)
     return read != nil ? read.model : nil
   }
-  if (kind == Kind::Spell) {
+  if (kind == Kind.Spell) {
     // A spell on the talent window's button is a talent.
-    let known = Game::Talents::shown(data)
+    let known = Game.talents.shown(data)
     if (known != nil) { return talent(data, known, options) }
   }
-  switch (kind) {
-    case Kind::Text: return plain(data)
-    case Kind::Object: return object(data, options)
-    case Kind::Spell: return spell(data, options)
-    case Kind::Aura: return aura(data, options)
-    case Kind::Unit: return unit(data, options)
-    default: return nil
+  match (kind) {
+    Kind.Text => return plain(data),
+    Kind.Object => return object(data, options),
+    Kind.Spell => return spell(data, options),
+    Kind.Aura => return aura(data, options),
+    Kind.Unit => return unit(data, options),
+    else => return nil,
   }
 }
 
@@ -145,20 +144,20 @@ public struct Group {
   model: Model
   sides: Array<Model>
   // An item's stats by the game's key for each, for a comparison; empty for anything else.
-  stats: Map<string, number>
+  stats: Map<String, Number>
 }
 
 // The tooltip and its sides from the game's data. An item's sides are what using it does, its set, and the item a
 // recipe makes, which is read as an item of its own.
-public function group(data: Game::TooltipData, options: Options): Group | nil {
-  if (kindOf(data) != Kind::Item) {
+public function group(data: Game.TooltipData, options: Options): Group | nil {
+  if (kindOf(data) != Kind.Item) {
     let model = fill(data, options)
     if (model == nil) { return nil }
     return { model: model, sides: [], stats: {} }
   }
   let read = item(data, options)
   if (read == nil) { return nil }
-  let mut sides: Array<Model> = []
+  let sides: Array<Model> = []
   for (side of read.sides) { sides.push(side) }
   for (made of read.makes) {
     let inner = item(made, options)

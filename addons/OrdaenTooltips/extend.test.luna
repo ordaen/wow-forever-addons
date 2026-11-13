@@ -1,0 +1,75 @@
+// What another module adds to Ordaen Tooltips' sections, made up by the test: a price row that follows its own
+// cell, a row of a world object's, each in its section after the main tooltip's body, and gone with its handle.
+import Client from "$client"
+import Game from "$game"
+import { Frame } from "$ltml"
+import Test from "$test"
+import { ItemLines, Line, ObjectLines } from "@/extend"
+import { Tooltips } from "@/main"
+
+// A price another module keeps: its row is asked again when the price moves, and only then.
+class Priced implements ItemLines {
+  public state copper = 1200
+
+  public lines(self, item: Integer, link: String): Array<Line> {
+    const copper = self.copper
+    return [{ left: "Auction", right: `${copper / 100}g · ${item} · ${link}` }]
+  }
+
+  public raise(mut self) { self.copper += 300 }
+}
+
+// What a vein gives, by its name.
+class Mined implements ObjectLines {
+  public lines(self, name: String): Array<Line> {
+    if (name != "Copper Vein") { return [] }
+    return [{ left: "Copper Ore", right: "2–4" }, { left: "Rough Stone", indent: true }]
+  }
+}
+
+function frame(name: String, x: Number, y: Number): any Frame {
+  let made = Client.CreateFrame("Frame", name, Client.C_UI.GetUIParent(), nil)
+  made.SetSize(200, 80)
+  made.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", x, -y)
+  return made
+}
+
+function showing(corner: any Frame, data: Game.TooltipData): Game.ShownTip {
+  return {
+    shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner, below: false,
+    right: true,
+  }
+}
+
+test "a row another module adds stands in its section, follows what it read, and goes with its handle" {
+  let corner = frame("GameTooltip", 1300, 720)
+  let addon = new Tooltips()
+  Test.mount(addon, { left: 100, top: 50, width: 700, height: 600 })
+  const priced = new Priced()
+  const added = addon.worth.add(priced)
+  const mined = addon.gives.add(new Mined())
+
+  Game.tooltip.main = showing(corner, { kind: 0, id: 2770, about: "item:2770", lines: [{ left: "Copper Ore", kind: 22 }] })
+  Test.shot("an item: the row of another module after the body")
+
+  priced.raise()
+  Test.pass(0.02)
+  Test.shot("its price moved: its row drawn again")
+
+  Game.tooltip.main = showing(corner, { kind: 4, lines: [{ left: "Copper Vein", kind: 0 }] })
+  Test.shot("a world object: its section's rows, the item's gone")
+
+  destroy mined
+  Test.pass(0.02)
+  Test.shot("the object's entry ended: its rows gone")
+
+  Game.tooltip.main = showing(corner, { kind: 0, id: 2770, about: "item:2770", lines: [{ left: "Copper Ore", kind: 22 }] })
+  destroy added
+  Test.pass(0.02)
+  Test.shot("the item's entry ended: the tooltip as Tooltips draws it alone")
+
+  Game.tooltip.main = { shown: false, ..showing(corner, { lines: [] }) }
+  Test.pass(0.2)
+  destroy addon
+  Test.expect(Test.blank())
+}

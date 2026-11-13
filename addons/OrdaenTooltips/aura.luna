@@ -2,9 +2,6 @@
 // it harms, what removes it, whose it is, how many times it is stacked and how long it lasts. The band says what
 // the player can do about it: cancel a buff of their own, or the spell of their class that removes it.
 import Game from "$game"
-import { Color } from "$ltml"
-import Math from "$math"
-import String from "$string"
 import { GOLD, RED } from "@/colors"
 import Locale from "@/locales"
 import { Fact, Kind, Model, Note, Opens, Part, TextLine, iconOf, named } from "@/model"
@@ -12,90 +9,93 @@ import { Term } from "@/terms"
 import { Options } from "@/options"
 import { clean, duration } from "@/text"
 
-private const BLANK = 1
+const BLANK = 1
 // The camp's bonuses: an effect of Forever's own, its description a list.
-private const CAMP = 1229741
-private const REMOVE_COLOR = $color("#8fd2ff")
+const CAMP = 1229741
+const REMOVE_COLOR: Color = Color.hex("#8fd2ff")
 
 // What an effect is removed as, in its colour, lifted to read on the wood.
-private const DISPEL: Map<string, Color> = {
-  Magic: $color("#3c9cff"), Curse: $color("#b45cff"), Poison: $color("#2fbf3f"), Disease: $color("#c89040"),
+const DISPEL: Map<String, Color> = {
+  Magic: Color.hex("#3c9cff"), Curse: Color.hex("#b45cff"), Poison: Color.hex("#2fbf3f"), Disease: Color.hex("#c89040"),
 }
 
 // The spells that remove an effect, by the player's class and by what the effect is removed as; and the ones that
 // take a buff off an enemy.
-private const REMOVE: Map<string, Map<string, Array<integer>>> = {
+const REMOVE: Map<String, Map<String, Array<Integer>>> = {
   MAGE: { Curse: [475] },
   DRUID: { Curse: [2782], Poison: [2893, 8946] },
   PRIEST: { Magic: [527, 988], Disease: [552, 528] },
   PALADIN: { Magic: [4987], Poison: [4987, 1152], Disease: [4987, 1152] },
   SHAMAN: { Poison: [526], Disease: [2870] },
 }
-private const PURGE: Map<string, Array<integer>> = { SHAMAN: [8012, 370], PRIEST: [988, 527] }
+const PURGE: Map<String, Array<Integer>> = { SHAMAN: [8012, 370], PRIEST: [988, 527] }
 
 // The first of the spells the player knows, by its name.
-private function remover(spells: Array<integer> | nil): string | nil {
+function remover(spells: Array<Integer> | nil): String | nil {
   if (spells == nil) { return nil }
   for (id of spells) {
-    if (Game::Spells::known(id)) { return Game::Spells::name(id) }
+    if (Game.spells.known(id)) { return Game.spells.name(id) }
   }
   return nil
 }
 
-private function wait(seconds: number): string {
-  return duration(seconds, Game::Strings::hours, Game::Strings::minutes, Game::Strings::seconds)
+function wait(seconds: Number): String {
+  return duration(seconds, Game.strings.hours, Game.strings.minutes, Game.strings.seconds)
 }
 
 // A camp building's bonus in short, by the building's name.
-private function campShort(name: string): string | nil {
-  if (name == Locale::CAMP_WELL_NAME) { return Locale::CAMP_WELL }
-  if (name == Locale::CAMP_AQUA_NAME) { return Locale::CAMP_AQUA }
+function campShort(name: String): String | nil {
+  if (name == Locale.CAMP_WELL_NAME) { return Locale.CAMP_WELL }
+  if (name == Locale.CAMP_AQUA_NAME) { return Locale.CAMP_AQUA }
   return nil
 }
 
 // The camp's bonuses as rows: every paragraph of its description after the first is «Building: effect», the
 // building on the left and its bonus in short on the right, or the sentence itself. The building opens its whole
 // sentence.
-private function campRows(text: string, mut body: Array<TextLine>) {
+function campRows(text: String, body: mut Array<TextLine>) {
   let first = true
-  for (line of String::split(text, "\n")) {
+  for (line of text.split("\n")) {
     if (line == "") { continue }
     if (first) {
       first = false
       continue
     }
-    let name, effect = $match(line, "^%s*([^:]+):%s*(.+)$")
+    let name, effect = line.match("^%s*([^:]+):%s*(.+)$")
     if (name != nil && effect != nil) {
-      body.push({ left: name, right: campShort(name) ?? effect, opens: Opens::Text { name: name, text: effect } })
+      body.push({ left: name, right: campShort(name) ?? effect, opens: Opens.Text { name: name, text: effect } })
     }
   }
 }
 
 // What an effect over time will still deal or heal: the amount and the period its description names, times the
 // ticks left, times the stacks. Its label and its value, or nothing where the description doesn't say so.
-private function total(text: string, left: number | nil, stacks: integer): (string | nil, string | nil) {
+function total(text: String, left: Number | nil, stacks: Integer): (String | nil, String | nil) {
   if (left == nil) { return nil, nil }
-  let found = String::captures(text, Locale::TOTAL_PATTERN)
+  // A locale's text is a `String`: held to the pattern's grammar as it is read.
+  const pattern = Locale.TOTAL_PATTERN
+  if (!(pattern is Pattern)) { return nil, nil }
+  let found = text.captures(pattern)
   if (found == nil) { return nil, nil }
-  let amount = String::toNumber(found[1] ?? "")
-  let period = String::toNumber(found[2] ?? "")
+  let amount = (found[1] ?? "").toNumber()
+  let period = (found[2] ?? "").toNumber()
   if (amount == nil || period == nil || period <= 0) { return nil, nil }
-  let sum = amount * Math::floor(left / period) * Math::max(stacks, 1)
+  let sum = amount * (left / period).floor() * stacks.max(1)
   if (sum <= 0) { return nil, nil }
-  let label = String::contains(text, Locale::HEAL_WORD) ? Locale::TOTAL_HEAL : Locale::TOTAL_DAMAGE
-  return label, String::format(Locale::TOTAL_VALUE, sum, wait(left))
+  let label = text.contains(Locale.HEAL_WORD) ? Locale.TOTAL_HEAL : Locale.TOTAL_DAMAGE
+  return label, Locale.TOTAL_VALUE.format(sum, wait(left))
 }
 
-public function aura(data: Game::TooltipData, options: Options): Model | nil {
+public function aura(data: Game.TooltipData, options: Options): Model | nil {
   let id = data.id
-  let known = Game::Auras::shown(data)
-  let name: string | nil = nil
-  let description: string | nil = nil
-  let mut desc: Array<Part> = []
-  let mut info: Array<Part> = []
-  let mut facts: Array<Fact> = []
-  let mut body: Array<TextLine> = []
-  let mut foot: Array<Note> = []
+  let known = Game.auras.shown(data)
+  let name: String | nil = nil
+  let description: String | nil = nil
+  let desc: Array<Part> = []
+  let info: Array<Part> = []
+  let facts: Array<Fact> = []
+  let body: Array<TextLine> = []
+  let foot: Array<Note> = []
   for (i, line of data.lines) {
     let left = clean(line.left)
     if (i == 1) {
@@ -104,9 +104,9 @@ public function aura(data: Game::TooltipData, options: Options): Model | nil {
     }
     if (left == nil || line.kind == BLANK) { continue }
     // The game's own line with the spell's number and the time left go: the band has the time.
-    if ($match(left, "^ID ") != nil || String::contains(left, Locale::REMAINING_WORD)
-        || String::unformat(left, Game::Strings::timeRemainingMin) != nil
-        || String::unformat(left, Game::Strings::timeRemainingSec) != nil) { continue }
+    if (left.match("^ID ") != nil || left.contains(Locale.REMAINING_WORD)
+        || left.unformat(Game.strings.timeRemainingMin) != nil
+        || left.unformat(Game.strings.timeRemainingSec) != nil) { continue }
     if (id == CAMP) { campRows(left, mut body) } else { body.push({ left: left, desc: true }) }
     description = description ?? left
   }
@@ -114,24 +114,24 @@ public function aura(data: Game::TooltipData, options: Options): Model | nil {
 
   let harmful = known != nil && known.harmful
   if (id == CAMP) {
-    desc.push({ text: Locale::CAMP, opens: named(Term::Camp) })
+    desc.push({ text: Locale.CAMP, opens: named(Term.Camp) })
   } else {
-    desc.push({ text: harmful ? Locale::AURA_DEBUFF : Locale::AURA_BUFF })
+    desc.push({ text: harmful ? Locale.AURA_DEBUFF : Locale.AURA_BUFF })
   }
   let timer = false
   if (known != nil) {
     let dispel = known.dispel
     if (dispel != nil) { desc.push({ text: known.dispelName ?? dispel, color: DISPEL[dispel] }) }
-    if (known.source == "player" || known.source == "pet") { desc.push({ text: Locale::AURA_YOURS, color: GOLD, opens: named(Term::Mine) }) }
-    if (known.stacks > 1) { facts.push({ text: `×${known.stacks}`, opens: named(Term::Stacks) }) }
+    if (known.source == "player" || known.source == "pet") { desc.push({ text: Locale.AURA_YOURS, color: GOLD, opens: named(Term.Mine) }) }
+    if (known.stacks > 1) { facts.push({ text: `×${known.stacks}`, opens: named(Term.Stacks) }) }
     let left = known.left
     if (left != nil) {
-      facts.push({ text: wait(Math::max(0.0, left)), glyph: "glyphs/time", opens: named(Term::Time) })
+      facts.push({ text: wait((0.0).max(left)), glyph: .Time, opens: named(Term.Time) })
       timer = true
     }
     // What the player can do about it.
-    let mine = Game::Player::classTag
-    let by: string | nil = nil
+    let mine = Game.player.classTag
+    let by: String | nil = nil
     if (dispel != nil && harmful) {
       let spells = REMOVE[mine]
       by = remover(spells != nil ? spells[dispel] : nil)
@@ -139,28 +139,28 @@ public function aura(data: Game::TooltipData, options: Options): Model | nil {
       by = remover(PURGE[mine])
     }
     if (known.own && !harmful) {
-      facts.push({ text: Locale::CANCEL_KEY, opens: named(Term::Cancel) })
+      facts.push({ text: Locale.CANCEL_KEY, opens: named(Term.Cancel) })
     } else if (by != nil) {
-      facts.push({ text: by, color: REMOVE_COLOR, opens: named(Term::Removeby) })
+      facts.push({ text: by, color: REMOVE_COLOR, opens: named(Term.Removeby) })
     }
     let caster = known.sourceName
     if (options.aurasCaster && caster != nil) {
       // Someone else's name opens their own tooltip.
       let source = known.source
       foot.push({
-        left: Locale::CASTER, right: source == "player" ? Locale::YOU : caster,
-        valueColor: options.classNames ? known.sourceColor : nil, opens: named(Term::Caster),
-        valueOpens: source != nil && source != "player" ? Opens::Unit { unit: source } : Opens::None,
+        left: Locale.CASTER, right: source == "player" ? Locale.YOU : caster,
+        valueColor: options.classNames ? known.sourceColor : nil, opens: named(Term.Caster),
+        valueOpens: source != nil && source != "player" ? Opens.Unit { unit: source } : Opens.None,
       })
     }
     if (options.aurasTotal && description != nil) {
       let label, value = total(description, left, known.stacks)
-      if (label != nil) { foot.push({ left: label, right: value, opens: named(Term::Total) }) }
+      if (label != nil) { foot.push({ left: label, right: value, opens: named(Term.Total) }) }
     }
   }
   if (id != nil && options.aurasId) { info.push({ text: `ID ${id}` }) }
   return {
-    kind: Kind::Aura, picture: iconOf(id != nil ? Game::Spells::texture(id) : nil), name: name, nameColor: harmful ? RED : GOLD,
+    kind: Kind.Aura, picture: iconOf(id != nil ? Game.spells.texture(id) : nil), name: name, nameColor: harmful ? RED : GOLD,
     desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer,
   }
 }
