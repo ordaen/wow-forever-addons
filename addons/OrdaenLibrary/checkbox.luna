@@ -5,27 +5,36 @@ import Ordaen from "Ordaen"
 import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
 
-private const SIZE = 22 * PX
+const SIZE = 22 * PX
 
-public class Checkbox implements Ordaen::Component {
-  $constructor(
-    private label: Reactive<string>,
+public class Checkbox implements Ordaen.Component {
+  label: Signal<String>
+  value: mut Signal<Boolean>
+  hint: Signal<String>
+  disabled: Signal<Boolean>
+  constructor(
+    label: Signal<String>,
     // The setting it shows and changes.
-    private mut value: Reactive<boolean>,
-    private hint: Reactive<string> = "",
-    private disabled: Reactive<boolean> = false,
-  ) {}
+    value: mut Signal<Boolean>,
+    hint: Signal<String> = "",
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.label = label
+    self.value = value
+    self.hint = hint
+    self.disabled = disabled
+  }
 
-  private mut toggle() {
+  toggle(mut self) {
     if (!self.disabled) { self.value = !self.value }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
-        <box width={SIZE} height={SIZE} background={Ordaen::art.ctl.check} @click={self.toggle}>
-          <box $if={self.value} position={Position::Absolute} left={0} top={0} width={SIZE} height={SIZE}
-               background={Ordaen::art.ctl.tick} />
+        <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @click={self.toggle}>
+          <box $if={self.value} position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
+               background={Ordaen.art.ctl.tick} />
         </box>
       </SettingRow>
     }

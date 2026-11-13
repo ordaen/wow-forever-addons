@@ -5,23 +5,32 @@ import { Position } from "$ltml"
 import Ordaen from "Ordaen"
 import { PX } from "@/units"
 
-private const WIDTH = 314 * PX
-private const NAME = $color("#ffffff")
-private const LABEL = $color("#cbb994")
+const WIDTH = 314 * PX
+const NAME: Color = Color.hex("#ffffff")
+const LABEL: Color = Color.hex("#cbb994")
 
-public class Tip implements Ordaen::Component {
-  $constructor(
-    private title: Reactive<string>,
-    private text: Reactive<string>,
+public class Tip implements Ordaen.Component {
+  title: Signal<String>
+  text: Signal<String>
+  left: Signal<Number>
+  top: Signal<Number>
+  constructor(
+    title: Signal<String>,
+    text: Signal<String>,
     // Where it sits in its owner's box.
-    private left: Reactive<number>,
-    private top: Reactive<number>,
-  ) {}
+    left: Signal<Number>,
+    top: Signal<Number>,
+  ) {
+    self.title = title
+    self.text = text
+    self.left = left
+    self.top = top
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box position={Position::Absolute} left={self.left} top={self.top} width={WIDTH} zLevel={60}
-           border={Ordaen::art.frame.small} background={Ordaen::art.window.wood} artOrigin={true}
+      <box position={Position.Absolute} left={self.left} top={self.top} width={WIDTH} zLevel={60}
+           border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
            padding={12 * PX} columns={1} gap={2 * PX}>
         <text value={self.title} textColor={NAME} textSize={18 * PX} />
         <text value={self.text} textColor={LABEL} textSize={14 * PX} />

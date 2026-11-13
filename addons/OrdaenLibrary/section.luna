@@ -4,19 +4,22 @@ import { Align, Shadow } from "$ltml"
 import Ordaen from "Ordaen"
 import { PX } from "@/units"
 
-private const GOLD = $color("#e8c35a")
+const GOLD: Color = Color.hex("#e8c35a")
 // The design's 700: the same colour one pixel to the right.
-private const BOLD: Shadow = { color: GOLD, x: 1 * PX, y: 0 }
+const BOLD: Shadow = { color: GOLD, x: 1 * PX, y: 0 }
 
-public class Section implements Ordaen::Component {
-  $constructor(private title: Reactive<string>) {}
+public class Section implements Ordaen.Component {
+  title: Signal<String>
+  constructor(title: Signal<String>) {
+    self.title = title
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box columns={1} gap={14 * PX}>
-        <box columns={["auto", { fr: 1 }]} gap={10 * PX} yAlign={Align::Center}>
+        <box columns={["auto", { fr: 1 }]} gap={10 * PX} yAlign={Align.Center}>
           <text value={self.title} textColor={GOLD} textSize={15 * PX} textShadow={BOLD} wrap={false} />
-          <box height={1 * PX} background={Ordaen::art.ctl.rule} />
+          <box height={1 * PX} background={Ordaen.art.ctl.rule} />
         </box>
         <slot />
       </box>

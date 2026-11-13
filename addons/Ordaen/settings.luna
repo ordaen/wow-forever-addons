@@ -6,16 +6,16 @@ import Drafts from "@/drafts"
 public enum Scope { Account = "account", Character = "character" }
 
 // Whether a default entry is a struct of numbers alone (a colour's r, g, b, a), and the kept one lacks one of them.
-private function broken(kept: unknown, like: Map<unknown, unknown>): boolean {
-  let mut any = false
+function broken(kept: Unknown, like: Map<Unknown, Unknown>): Boolean {
+  let any = false
   for (_, entry of like) {
-    if (!(entry is number)) { return false }
+    if (!(entry is Number)) { return false }
     any = true
   }
   if (!any) { return false }
-  if (!(kept is table)) { return true }
+  if (!(kept is Table)) { return true }
   for (key, _ of like) {
-    if (!(kept[key] is number)) { return true }
+    if (!(kept[key] is Number)) { return true }
   }
   return false
 }
@@ -23,16 +23,16 @@ private function broken(kept: unknown, like: Map<unknown, unknown>): boolean {
 // What was kept, with each entry that isn't what its default is put back to the default: a colour without its
 // fields. The runtime takes an entry by its Lua kind; whether an enum's text is one of its members is the runtime's
 // to know (lunatype's next/language.md).
-private function restore<S implements unknown>(character: boolean, name: string, defaults: S): mut S {
-  let mut kept = Runtime::restored(character, name, defaults)
+function restore<S: Unknown>(character: Boolean, name: String, defaults: S): mut S {
+  let kept = Runtime.restored(character, name, defaults)
   mend(mut kept, defaults)
   return kept
 }
 
-private function mend(mut kept: unknown, defaults: unknown) {
-  if (!(kept is table) || !(defaults is table)) { return }
+function mend(kept: mut Unknown, defaults: Unknown) {
+  if (!(kept is Table) || !(defaults is Table)) { return }
   for (key, entry of defaults) {
-    if (key is string && entry is table && broken(kept[key], entry)) { kept[key] = Runtime::copy(entry) }
+    if (key is String && entry is Table && broken(kept[key], entry)) { kept[key] = Runtime.copy(entry) }
   }
 }
 
@@ -42,86 +42,86 @@ private function mend(mut kept: unknown, defaults: unknown) {
 // `draft`, an entry at a time (`value={mut settings.draft.scale}`), and nothing the module reads changes until the
 // draft is saved: every page's changes wait for «Save» together. The values are kept between sessions under the
 // name of the module being made.
-public class Settings<S implements unknown> {
+public class Settings<S: Unknown> {
   public const defaults: S
   public const scope: Scope
-  public mut values: Reactive<S>
-  public mut draft: Reactive<S>
+  public values: mut Signal<S>
+  public draft: mut Signal<S>
   // How many entries of the draft differ from the values.
-  public changed: Reactive<integer> = $computed((): integer => Runtime::differing(self.draft, self.values))
+  public derived changed: Integer = Runtime.differing(self.draft, self.values)
   // What the values were before the last save that changed them.
-  private mut before: S | nil = nil
+  before: mut S | nil = nil
   // What they were before the save that is running, where it changed them.
-  private mut replaced: S | nil = nil
-  private const name: string | nil
-  private const id: integer
+  replaced: mut S | nil = nil
+  const name: String | nil
+  const id: Integer
 
-  $constructor(defaults: S, scope: Scope) {
+  constructor(defaults: S, scope: Scope) {
     self.defaults = defaults
     self.scope = scope
-    self.name = Drafts::nameNow()
+    self.name = Drafts.nameNow()
     let name = self.name
-    let start = name != nil ? restore(scope == Scope::Character, name, defaults) : Runtime::copy(defaults)
-    self.draft = $reactive(Runtime::copy(start))
+    let start = name != nil ? restore(scope == Scope.Character, name, defaults) : Runtime.copy(defaults)
+    self.draft = $reactive(Runtime.copy(start))
     self.values = $reactive(start)
-    self.id = Drafts::join()
-    Drafts::saving.listen(self.save)
-    Drafts::saved.listen(self.settle)
-    Drafts::discarding.listen(self.discard)
-    Drafts::rollingBack.listen(self.rollback)
-    $watch(self.tell)
+    self.id = Drafts.join()
+    Drafts.saving.listen(self.save)
+    Drafts.saved.listen(self.settle)
+    Drafts.discarding.listen(self.discard)
+    Drafts.rollingBack.listen(self.rollback)
+    watch { self.tell() }
   }
 
-  $destructor() {
-    Drafts::leave(self.id)
+  destructor() {
+    Drafts.leave(self.id)
   }
 
-  private tell() {
-    Drafts::count(self.id, self.changed)
+  tell(self) {
+    Drafts.count(self.id, self.changed)
   }
 
-  private keep() {
+  keep(self) {
     let name = self.name
-    if (name != nil) { Runtime::store(self.scope == Scope::Character, name, $peek(self.values)) }
+    if (name != nil) { Runtime.store(self.scope == Scope.Character, name, peek self.values) }
   }
 
-  private mut save() {
+  save(mut self) {
     self.replaced = nil
-    if ($peek(self.changed) == 0) { return }
-    self.replaced = Runtime::copy($peek(self.values))
-    self.values = Runtime::copy($peek(self.draft))
+    if (peek self.changed == 0) { return }
+    self.replaced = Runtime.copy(peek self.values)
+    self.values = Runtime.copy(peek self.draft)
     self.keep()
-    Drafts::changed()
+    Drafts.changed()
   }
 
   // A save changed something somewhere: what a roll back returns to is what this save replaced here, or nothing.
-  private mut settle() {
+  settle(mut self) {
     self.before = self.replaced
     self.replaced = nil
   }
 
-  private mut discard() {
-    self.draft = Runtime::copy($peek(self.values))
+  discard(mut self) {
+    self.draft = Runtime.copy(peek self.values)
   }
 
-  private mut rollback() {
+  rollback(mut self) {
     let was = self.before
     if (was == nil) { return }
-    self.values = Runtime::copy(was)
-    self.draft = Runtime::copy(was)
+    self.values = Runtime.copy(was)
+    self.draft = Runtime.copy(was)
     self.before = nil
     self.keep()
   }
 
   // Every entry of the draft at once (a preset): it waits for «Save» as any other change does.
-  public mut choose(values: S) {
-    self.draft = Runtime::copy(values)
+  public choose(mut self, values: S) {
+    self.draft = Runtime.copy(values)
   }
 
   // Every value back to its default, the draft with them.
-  public mut reset() {
-    self.values = Runtime::copy(self.defaults)
-    self.draft = Runtime::copy(self.defaults)
+  public reset(mut self) {
+    self.values = Runtime.copy(self.defaults)
+    self.draft = Runtime.copy(self.defaults)
     self.keep()
   }
 }
@@ -129,26 +129,26 @@ public class Settings<S implements unknown> {
 // What a module remembers between sessions that the player doesn't choose on a settings page: the profession last
 // open, a list's sort. The module reads and writes `values`, and what it writes is kept at once, under the name
 // of the module being made.
-public class Memory<S implements unknown> {
-  public mut values: Reactive<S>
-  private const defaults: S
-  private const scope: Scope
-  private const name: string | nil
+public class Memory<S: Unknown> {
+  public values: mut Signal<S>
+  const defaults: S
+  const scope: Scope
+  const name: String | nil
 
-  $constructor(defaults: S, scope: Scope) {
+  constructor(defaults: S, scope: Scope) {
     self.defaults = defaults
     self.scope = scope
-    let name = Drafts::nameNow()
+    let name = Drafts.nameNow()
     self.name = name != nil ? name + ":memory" : nil
     let kept = self.name
-    self.values = $reactive(kept != nil ? restore(scope == Scope::Character, kept, defaults) : Runtime::copy(defaults))
-    $watch(self.keep)
+    self.values = $reactive(kept != nil ? restore(scope == Scope.Character, kept, defaults) : Runtime.copy(defaults))
+    watch { self.keep() }
   }
 
   // Every entry is read, so a change to any of them keeps the whole.
-  private keep() {
-    _ = Runtime::differing(self.values, self.defaults)
+  keep(self) {
+    _ = Runtime.differing(self.values, self.defaults)
     let name = self.name
-    if (name != nil) { Runtime::store(self.scope == Scope::Character, name, $peek(self.values)) }
+    if (name != nil) { Runtime.store(self.scope == Scope.Character, name, peek self.values) }
   }
 }

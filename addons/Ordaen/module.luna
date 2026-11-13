@@ -3,34 +3,34 @@
 import { Art } from "$ltml"
 
 // What draws. Its constructor sets it up, its destructor takes it down.
-public abstract class Component {
-  public abstract render(): Template
+public trait Component {
+  public render(self): Template
 }
 
 // One tab of a module's page in the settings window: its name, and its rows.
 public struct SettingsPage {
-  title: string
+  title: String
   content: Template
 }
 
 // A module as Ordaen Core knows it, running or not.
-public abstract class Entry {
+public trait Entry {
   // Its addon's folder: what tells it from the others.
-  public abstract const folder: string
-  public abstract const title: string
-  public abstract const icon: Art
+  public const folder: String
+  public const title: String
+  public const icon: Art
   // Whether it runs: an addon that is off isn't loaded and costs nothing.
-  public abstract on: Reactive<boolean>
+  public on: Signal<Boolean>
   // Its tabs in the settings window; none while it is off.
-  public abstract pages: Reactive<Array<SettingsPage>>
+  public pages: Signal<Array<SettingsPage>>
   // Ask Ordaen to turn it on (it is made and drawn at once) or off (it is ended at once). The entry is Ordaen's:
   // whoever holds it may ask.
-  public abstract enable(on: boolean)
+  public enable(self, on: Boolean)
 }
 
 // An addon's root: a component the player turns on and off.
-public abstract class Module implements Component {
-  public abstract const title: string
+public trait Module: Component {
+  public const title: String
   // Its tabs in the settings window, in order; none for a module with nothing to choose.
-  public abstract const pages: Array<SettingsPage>
+  public const pages: Array<SettingsPage>
 }

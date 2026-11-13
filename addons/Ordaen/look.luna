@@ -2,7 +2,7 @@
 // Ordaen's own settings (`Ordaen::look`), saved, discarded and rolled back with every other. A preset is a whole
 // look by its name: choosing one writes every entry of the draft, and a change after it is a draft like any other.
 // What no preset changes (the metal, the wood, the controls' art, the measures) is Ordaen's art (art.luna).
-import { Art, Color, Piece } from "$ltml"
+import { Art, Piece } from "$ltml"
 import Runtime from "$runtime"
 
 // The fonts Ordaen ships (its media, each with Cyrillic, SIL Open Font License) and the client's own two.
@@ -35,7 +35,7 @@ public enum Hue {
 
 public enum Preset { Ordaen = "ordaen", Blizzard = "blizzard", Minimal = "minimal" }
 // The presets, in the order the settings window lists them.
-public const PRESETS: Array<Preset> = [Preset::Ordaen, Preset::Blizzard, Preset::Minimal]
+public const PRESETS: Array<Preset> = [Preset.Ordaen, Preset.Blizzard, Preset.Minimal]
 
 public struct Look {
   // The text's, the titles' and the numbers' fonts.
@@ -83,10 +83,10 @@ public struct Look {
 }
 
 // Blizzard's look in Ordaen's style: bronze, dark wood, Ordaen's own fonts.
-private const ORDAEN: Look = {
-  font: Font::FiraSans, fontHeader: Font::AlegreyaSC, fontNumbers: Font::FiraCondensed,
+const ORDAEN: Look = {
+  font: Font.FiraSans, fontHeader: Font.AlegreyaSC, fontNumbers: Font.FiraCondensed,
   accent: { r: 0.72, g: 0.56, b: 0.34, a: 1 },
-  barTexture: BarTexture::Flat, xpFill: XpFill::Brushed, barFrame: BarFrame::Bezel, animation: Animation::Smooth,
+  barTexture: BarTexture.Flat, xpFill: XpFill.Brushed, barFrame: BarFrame.Bezel, animation: Animation.Smooth,
   red: { r: 0.737, g: 0.004, b: 0.044, a: 1 }, redText: { r: 0.999, g: 0.631, b: 0.582, a: 1 },
   orange: { r: 0.634, g: 0.256, b: 0.007, a: 1 }, orangeText: { r: 0.996, g: 0.644, b: 0.484, a: 1 },
   yellow: { r: 0.779, g: 0.588, b: 0.032, a: 1 }, yellowText: { r: 1, g: 0.85, b: 0.535, a: 1 },
@@ -98,57 +98,57 @@ private const ORDAEN: Look = {
   tan: { r: 0.494, g: 0.358, b: 0.21, a: 1 }, tanText: { r: 0.865, g: 0.713, b: 0.555, a: 1 },
   white: { r: 0.669, g: 0.669, b: 0.669, a: 1 }, whiteText: { r: 0.934, g: 0.934, b: 0.934, a: 1 },
   grey: { r: 0.389, g: 0.389, b: 0.389, a: 1 }, greyText: { r: 0.743, g: 0.743, b: 0.743, a: 1 },
-  warrior: Hue::Tan, paladin: Hue::Pink, hunter: Hue::Green, rogue: Hue::Yellow, priest: Hue::White,
-  shaman: Hue::Blue, mage: Hue::Cyan, warlock: Hue::Violet, druid: Hue::Orange,
+  warrior: Hue.Tan, paladin: Hue.Pink, hunter: Hue.Green, rogue: Hue.Yellow, priest: Hue.White,
+  shaman: Hue.Blue, mage: Hue.Cyan, warlock: Hue.Violet, druid: Hue.Orange,
 }
 
 // Close to Blizzard's own: its fonts, its bars.
-private const BLIZZARD: Look = {
-  font: Font::Friz, fontHeader: Font::Friz, fontNumbers: Font::ArialNarrow,
+const BLIZZARD: Look = {
+  font: Font.Friz, fontHeader: Font.Friz, fontNumbers: Font.ArialNarrow,
   accent: { r: 1, g: 0.82, b: 0, a: 1 },
-  barTexture: BarTexture::Blizzard, animation: Animation::Fast,
+  barTexture: BarTexture.Blizzard, animation: Animation.Fast,
   ..ORDAEN,
 }
 
 // Flat, thin lines, almost no textures or animations.
-private const MINIMAL: Look = {
-  fontHeader: Font::FiraSans,
+const MINIMAL: Look = {
+  fontHeader: Font.FiraSans,
   accent: { r: 0.62, g: 0.62, b: 0.62, a: 1 },
-  animation: Animation::Off,
+  animation: Animation.Off,
   ..ORDAEN,
 }
 
 // A preset: a whole look.
 public function preset(name: Preset): Look {
-  switch (name) {
-    case Preset::Ordaen: return ORDAEN
-    case Preset::Blizzard: return BLIZZARD
-    case Preset::Minimal: return MINIMAL
+  match (name) {
+    Preset.Ordaen => return ORDAEN,
+    Preset.Blizzard => return BLIZZARD,
+    Preset.Minimal => return MINIMAL,
   }
 }
 
 // The preset a look is, where it is one as it stands.
 public function presetOf(look: Look): Preset | nil {
   for (name of PRESETS) {
-    if (Runtime::differing(look, preset(name)) == 0) { return name }
+    if (Runtime.differing(look, preset(name)) == 0) { return name }
   }
   return nil
 }
 
 // A colour of the palette as a look has it.
 public function hueColor(look: Look, hue: Hue): Color {
-  switch (hue) {
-    case Hue::Red: return look.red
-    case Hue::Orange: return look.orange
-    case Hue::Yellow: return look.yellow
-    case Hue::Green: return look.green
-    case Hue::Cyan: return look.cyan
-    case Hue::Blue: return look.blue
-    case Hue::Violet: return look.violet
-    case Hue::Pink: return look.pink
-    case Hue::Tan: return look.tan
-    case Hue::White: return look.white
-    case Hue::Grey: return look.grey
+  match (hue) {
+    Hue.Red => return look.red,
+    Hue.Orange => return look.orange,
+    Hue.Yellow => return look.yellow,
+    Hue.Green => return look.green,
+    Hue.Cyan => return look.cyan,
+    Hue.Blue => return look.blue,
+    Hue.Violet => return look.violet,
+    Hue.Pink => return look.pink,
+    Hue.Tan => return look.tan,
+    Hue.White => return look.white,
+    Hue.Grey => return look.grey,
   }
 }
 
@@ -164,41 +164,41 @@ public struct LookArt {
 }
 
 public function fontFile(font: Font): Art | nil {
-  switch (font) {
-    case Font::FiraSans: return $asset("@/media/fonts/FiraSans-Regular.ttf")
-    case Font::AlegreyaSans: return $asset("@/media/fonts/AlegreyaSans-Regular.ttf")
-    case Font::PtSans: return $asset("@/media/fonts/PTSans-Regular.ttf")
-    case Font::Philosopher: return $asset("@/media/fonts/Philosopher-Regular.ttf")
-    case Font::AlegreyaSC: return $asset("@/media/fonts/AlegreyaSC-Medium.ttf")
-    case Font::Forum: return $asset("@/media/fonts/Forum-Regular.ttf")
-    case Font::CormorantSC: return $asset("@/media/fonts/CormorantSC-SemiBold.ttf")
-    case Font::FiraCondensed: return $asset("@/media/fonts/FiraSansCondensed-Medium.ttf")
-    case Font::PtSansNarrow: return $asset("@/media/fonts/PTSansNarrow-Regular.ttf")
-    case Font::Friz: return nil
-    case Font::ArialNarrow: return "Fonts\\ARIALN.TTF"
+  match (font) {
+    Font.FiraSans => return "@/media/fonts/FiraSans-Regular.ttf",
+    Font.AlegreyaSans => return "@/media/fonts/AlegreyaSans-Regular.ttf",
+    Font.PtSans => return "@/media/fonts/PTSans-Regular.ttf",
+    Font.Philosopher => return "@/media/fonts/Philosopher-Regular.ttf",
+    Font.AlegreyaSC => return "@/media/fonts/AlegreyaSC-Medium.ttf",
+    Font.Forum => return "@/media/fonts/Forum-Regular.ttf",
+    Font.CormorantSC => return "@/media/fonts/CormorantSC-SemiBold.ttf",
+    Font.FiraCondensed => return "@/media/fonts/FiraSansCondensed-Medium.ttf",
+    Font.PtSansNarrow => return "@/media/fonts/PTSansNarrow-Regular.ttf",
+    Font.Friz => return nil,
+    Font.ArialNarrow => return "Fonts/ARIALN.TTF",
   }
 }
 
-private function barFile(texture: BarTexture): Art {
-  switch (texture) {
-    case BarTexture::Flat: return "Interface\\Buttons\\WHITE8X8"
-    case BarTexture::Blizzard: return "Interface\\TargetingFrame\\UI-StatusBar"
+function barFile(texture: BarTexture): Art {
+  match (texture) {
+    BarTexture.Flat => return "Interface/Buttons/WHITE8X8",
+    BarTexture.Blizzard => return "Interface/TargetingFrame/UI-StatusBar",
   }
 }
 
 // An experience bar's fill: one tile, repeated along the bar.
-private function xpPiece(file: string): Piece {
+function xpPiece(file: String): Piece {
   return { file: file, width: 1024, height: 32, tile: true }
 }
 
-private function xpFillOf(fill: XpFill): Art {
-  switch (fill) {
-    case XpFill::Deep: return xpPiece($asset("@/media/xp-fill-deep.tga"))
-    case XpFill::Grain: return xpPiece($asset("@/media/xp-fill-grain.tga"))
-    case XpFill::Brushed: return xpPiece($asset("@/media/xp-fill-brushed.tga"))
-    case XpFill::Potion: return xpPiece($asset("@/media/xp-fill-potion.tga"))
-    case XpFill::Clouds: return xpPiece($asset("@/media/xp-fill-clouds.tga"))
-    case XpFill::Steel: return xpPiece($asset("@/media/xp-fill-steel.tga"))
+function xpFillOf(fill: XpFill): Art {
+  match (fill) {
+    XpFill.Deep => return xpPiece($asset("@/media/xp-fill-deep.tga")),
+    XpFill.Grain => return xpPiece($asset("@/media/xp-fill-grain.tga")),
+    XpFill.Brushed => return xpPiece($asset("@/media/xp-fill-brushed.tga")),
+    XpFill.Potion => return xpPiece($asset("@/media/xp-fill-potion.tga")),
+    XpFill.Clouds => return xpPiece($asset("@/media/xp-fill-clouds.tga")),
+    XpFill.Steel => return xpPiece($asset("@/media/xp-fill-steel.tga")),
   }
 }
 

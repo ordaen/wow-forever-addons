@@ -6,48 +6,62 @@ import Ordaen from "Ordaen"
 import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
 
-private const WIDTH = 38 * PX
-private const HEIGHT = 20 * PX
+const WIDTH = 38 * PX
+const HEIGHT = 20 * PX
 // The knob's art is a 26 px square, the 14 px knob 6 px in from each side (room for the glow of the one that is
 // on). The knob sits 3 px in from the track's left while off, 21 px while on, and 3 px down.
-private const KNOB = 26 * PX
-private const KNOB_TOP = (3 - 6) * PX
-private const KNOB_OFF = (3 - 6) * PX
-private const KNOB_ON = (21 - 6) * PX
+const KNOB = 26 * PX
+const KNOB_TOP = (3 - 6) * PX
+const KNOB_OFF = (3 - 6) * PX
+const KNOB_ON = (21 - 6) * PX
 
-public class Toggle implements Ordaen::Component {
-  private track = $computed((): Art => self.value ? Ordaen::art.ctl.switchOn : Ordaen::art.ctl.switchOff)
-  private knob = $computed((): Art => self.value ? Ordaen::art.ctl.knobOn : Ordaen::art.ctl.knobOff)
-  private knobLeft = $computed((): number => self.value ? KNOB_ON : KNOB_OFF)
+public class Toggle implements Ordaen.Component {
+  derived track: Art = self.value ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff
+  derived knob: Art = self.value ? Ordaen.art.ctl.knobOn : Ordaen.art.ctl.knobOff
+  derived knobLeft: Number = self.value ? KNOB_ON : KNOB_OFF
 
-  $constructor(
-    private mut value: Reactive<boolean>,
-    private disabled: Reactive<boolean> = false,
-  ) {}
+  value: mut Signal<Boolean>
+  disabled: Signal<Boolean>
+  constructor(
+    value: mut Signal<Boolean>,
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.value = value
+    self.disabled = disabled
+  }
 
-  private mut flip() {
+  flip(mut self) {
     if (!self.disabled) { self.value = !self.value }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box width={WIDTH} height={HEIGHT} background={self.track} @click={self.flip}>
-        <box position={Position::Absolute} left={self.knobLeft} top={KNOB_TOP} width={KNOB} height={KNOB}
+        <box position={Position.Absolute} left={self.knobLeft} top={KNOB_TOP} width={KNOB} height={KNOB}
              background={self.knob} />
       </box>
     }
   }
 }
 
-public class Switch implements Ordaen::Component {
-  $constructor(
-    private label: Reactive<string>,
-    private mut value: Reactive<boolean>,
-    private hint: Reactive<string> = "",
-    private disabled: Reactive<boolean> = false,
-  ) {}
+public class Switch implements Ordaen.Component {
+  label: Signal<String>
+  value: mut Signal<Boolean>
+  hint: Signal<String>
+  disabled: Signal<Boolean>
+  constructor(
+    label: Signal<String>,
+    value: mut Signal<Boolean>,
+    hint: Signal<String> = "",
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.label = label
+    self.value = value
+    self.hint = hint
+    self.disabled = disabled
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <Toggle value={mut self.value} disabled={self.disabled} />

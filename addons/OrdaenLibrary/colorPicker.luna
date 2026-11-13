@@ -2,46 +2,54 @@
 // colour in a fine bronze edge. Left-click opens the game's colour picker on it; each colour picked there is
 // written to the setting, and the picker's Cancel puts back the colour it opened with. Disabled, it takes no click.
 import Game from "$game"
-import { Color, Line } from "$ltml"
+import { Line } from "$ltml"
 import Ordaen from "Ordaen"
 import { SettingRow } from "@/settingRow"
 import { PX } from "@/units"
 
-private const EDGE: Line = { width: 1 * PX, color: $color("#6c5535") }
+const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
 
-public class ColorPicker implements Ordaen::Component {
+public class ColorPicker implements Ordaen.Component {
   // The game's picker as this one opened it: what it reports is for whoever opened it last.
-  private ticket: integer = 0
+  ticket: Integer = 0
   // The colour when the picker opened.
-  private before: Color | nil = nil
+  before: Color | nil = nil
 
-  $constructor(
-    private label: Reactive<string>,
+  label: Signal<String>
+  value: mut Signal<Color>
+  hint: Signal<String>
+  disabled: Signal<Boolean>
+  constructor(
+    label: Signal<String>,
     // The setting it shows and changes.
-    private mut value: Reactive<Color>,
-    private hint: Reactive<string> = "",
-    private disabled: Reactive<boolean> = false,
+    value: mut Signal<Color>,
+    hint: Signal<String> = "",
+    disabled: Signal<Boolean> = false,
   ) {
-    Game::ColorPicker::picked.listen(self.onPicked)
-    Game::ColorPicker::cancelled.listen(self.onCancelled)
+    self.label = label
+    self.value = value
+    self.hint = hint
+    self.disabled = disabled
+    Game.colorPicker.picked.listen(self.onPicked)
+    Game.colorPicker.cancelled.listen(self.onCancelled)
   }
 
-  private mut open() {
+  open(mut self) {
     if (self.disabled) { return }
     self.before = self.value
-    self.ticket = Game::ColorPicker::open(self.value)
+    self.ticket = Game.colorPicker.open(self.value)
   }
 
-  private mut onPicked(picked: Game::PickedColor) {
+  onPicked(mut self, picked: Game.PickedColor) {
     if (picked.ticket == self.ticket) { self.value = picked.color }
   }
 
-  private mut onCancelled(ticket: integer) {
+  onCancelled(mut self, ticket: Integer) {
     let before = self.before
     if (ticket == self.ticket && before != nil) { self.value = before }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={44 * PX} height={22 * PX} border={EDGE} background={self.value} @click={self.open} />

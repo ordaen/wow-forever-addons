@@ -6,22 +6,33 @@ import Ordaen from "Ordaen"
 import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
 
-private const INK = $color("#e8dcc4")
-private const FILL = $color("#0d0a08")
-private const EDGE: Line = { width: 1 * PX, color: $color("#4a3a24") }
-private const PADDING: Edges = { right: 10 * PX, left: 10 * PX }
+const INK: Color = Color.hex("#e8dcc4")
+const FILL: Color = Color.hex("#0d0a08")
+const EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
+const PADDING: Edges = { right: 10 * PX, left: 10 * PX }
 
-public class Input implements Ordaen::Component {
-  $constructor(
-    private label: Reactive<string>,
-    private mut value: Reactive<string>,
+public class Input implements Ordaen.Component {
+  label: Signal<String>
+  value: mut Signal<String>
+  const maxLength: Integer | nil
+  hint: Signal<String>
+  disabled: Signal<Boolean>
+  constructor(
+    label: Signal<String>,
+    value: mut Signal<String>,
     // The most characters it takes; any number when left out.
-    private const maxLength: integer | nil = nil,
-    private hint: Reactive<string> = "",
-    private disabled: Reactive<boolean> = false,
-  ) {}
+    maxLength: Integer | nil = nil,
+    hint: Signal<String> = "",
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.label = label
+    self.value = value
+    self.maxLength = maxLength
+    self.hint = hint
+    self.disabled = disabled
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <input value={mut self.value} width={300 * PX} height={30 * PX} padding={PADDING} background={FILL}

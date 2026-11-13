@@ -2,43 +2,53 @@
 // hover glow over it under the cursor, its pushed row while pressed (the label 2 px lower). The label in gold, white
 // under the cursor, with a dark drop; disabled, the grey plate and a grey label, and no click. With an `action` it
 // is a secure box: the client does the action from the player's click (a spell, an item, a macro).
-import { Action, Align, Art, Color, Position, Shadow, Stated } from "$ltml"
+import { Action, Align, Art, Position, Shadow, Stated } from "$ltml"
 import Ordaen from "Ordaen"
 import { PX } from "@/units"
 
-private const HEIGHT = 34 * PX
-private const LABEL: Stated<Color> = { default: $color("#ffd100"), hover: $color("#ffffff") }
-private const GREY = $color("#808080")
-private const SHADOW: Shadow = { color: $color("#000000"), x: 1 * PX, y: -1 * PX }
+const HEIGHT = 34 * PX
+const LABEL: Stated<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff") }
+const GREY: Color = Color.hex("#808080")
+const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
 // The label while pressed.
-private const DOWN: Stated<number> = { default: 0, pressed: 2 * PX }
+const DOWN: Stated<Number> = { default: 0, pressed: 2 * PX }
 
-public class PushButton implements Ordaen::Component {
-  public click: Event<nil> = $event()
+public class PushButton implements Ordaen.Component {
+  public click: Event<nil> = new Event()
 
-  private art = $computed((): Art =>
-    self.disabled ? Ordaen::art.ctl.buttonDisabled : self.accent ? Ordaen::art.ctl.buttonAccent : Ordaen::art.ctl.button)
-  private color = $computed((): Color | Stated<Color> => self.disabled ? GREY : LABEL)
+  derived art: Art = self.disabled ? Ordaen.art.ctl.buttonDisabled : self.accent ? Ordaen.art.ctl.buttonAccent : Ordaen.art.ctl.button
+  derived color: Color | Stated<Color> = self.disabled ? GREY : LABEL
   // Disabled, it does nothing.
-  private doing = $computed((): Action | nil => self.disabled ? nil : self.action)
+  derived doing: Action | nil = self.disabled ? nil : self.action
 
-  $constructor(
-    private label: Reactive<string>,
-    private width: Reactive<number>,
-    private accent: Reactive<boolean> = false,
-    private disabled: Reactive<boolean> = false,
-    private action: Reactive<Action | nil> = nil,
-  ) {}
+  label: Signal<String>
+  width: Signal<Number>
+  accent: Signal<Boolean>
+  disabled: Signal<Boolean>
+  action: Signal<Action | nil>
+  constructor(
+    label: Signal<String>,
+    width: Signal<Number>,
+    accent: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false,
+    action: Signal<Action | nil> = nil,
+  ) {
+    self.label = label
+    self.width = width
+    self.accent = accent
+    self.disabled = disabled
+    self.action = action
+  }
 
-  private mut onClick() {
+  onClick(mut self) {
     if (!self.disabled) { self.click.emit() }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box width={self.width} height={HEIGHT} background={self.art} action={self.doing} @click={self.onClick}>
-        <box position={Position::Absolute} left={0} right={0} top={DOWN} height={HEIGHT}
-             xAlign={Align::Center} yAlign={Align::Center} stateFromParent={true}>
+        <box position={Position.Absolute} left={0} right={0} top={DOWN} height={HEIGHT}
+             xAlign={Align.Center} yAlign={Align.Center} stateFromParent={true}>
           <text value={self.label} textColor={self.color} textSize={15 * PX} textShadow={SHADOW} wrap={false}
                 stateFromParent={true} />
         </box>

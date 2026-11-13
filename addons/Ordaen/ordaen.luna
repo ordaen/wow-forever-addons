@@ -14,37 +14,46 @@ import { ARTWORK, Artwork } from "@/art"
 import { artOf, Look, LookArt, preset, Preset } from "@/look"
 
 public class ModuleEntry implements Entry {
-  public mut on: Reactive<boolean> = $reactive(false)
-  public mut pages: Reactive<Array<SettingsPage>> = $reactive([])
+  public state on: Boolean = false
+  public state pages: Array<SettingsPage> = []
   // The module while it runs.
-  private mut made: Module | nil = nil
+  made: mut any Module | nil = nil
 
-  $constructor(
-    public const folder: string,
-    public const title: string,
-    public const icon: Art,
-    private const make: () => mut Module | nil,
-  ) {}
-
-  public enable(on: boolean) {
-    Core::turn(self.folder, on)
+  public const folder: String
+  public const title: String
+  public const icon: Art
+  const make: () => mut any Module | nil
+  constructor(
+    folder: String,
+    title: String,
+    icon: Art,
+    make: () => mut any Module | nil,
+  ) {
+    self.folder = folder
+    self.title = title
+    self.icon = icon
+    self.make = make
   }
 
-  public running(): boolean {
+  public enable(self, on: Boolean) {
+    Core.turn(self.folder, on)
+  }
+
+  public running(self): Boolean {
     return self.made != nil
   }
 
   // Made and drawn at once; nothing happens where its addon can't be loaded.
-  public mut begin() {
-    let mut made = self.make()
+  public begin(mut self) {
+    let made = self.make()
     if (made == nil) { return }
     self.made = made
-    Runtime::mount(made, Runtime::screen())
-    self.pages = Runtime::copy(made.pages)
+    Runtime.mount(made, Runtime.screen())
+    self.pages = Runtime.copy(made.pages)
     self.on = true
   }
 
-  public mut stop() {
+  public stop(mut self) {
     let made = self.made
     self.pages = []
     self.made = nil
@@ -55,119 +64,119 @@ public class ModuleEntry implements Entry {
 
 public class OrdaenCore implements App {
   // Before anything that makes a `Settings`: Ordaen's own are kept under its name.
-  private keeper = new Keeper()
-  public const icon: Art = $asset("Interface/Icons/Trade_Engineering")
-  public const title: string = "Ordaen"
-  public mut art: Reactive<Artwork> = $reactive(ARTWORK)
+  keeper = new Keeper()
+  public const icon: Art = "Interface/Icons/Trade_Engineering"
+  public const title: String = "Ordaen"
+  public state art: Artwork = ARTWORK
   // The fonts, colours and bars' art the player chose: Ordaen's own settings, kept apart from `globals`.
   public const look: Settings<Look>
   // The files the look picks, worked out again only when the look's values change.
-  public lookArt: Reactive<LookArt> = $computed((): LookArt => artOf(self.look.values))
-  public mut dev: Reactive<boolean> = $reactive(false)
-  public settingsAsked: Event<string | nil> = $event()
-  public mut modules: Reactive<Array<Entry>> = $reactive([])
-  public const globals: Settings<Globals> = new Settings<Globals>(DEFAULTS, Scope::Account)
-  public mut placing: Reactive<boolean> = $reactive(false)
-  private mut entries: Array<ModuleEntry> = []
+  public derived lookArt: LookArt = artOf(self.look.values)
+  public state dev: Boolean = false
+  public settingsAsked: Event<String | nil> = new Event()
+  public state modules: mut Array<any Entry> = []
+  public const globals: Settings<Globals> = new Settings<Globals>(DEFAULTS, Scope.Account)
+  public state placing: Boolean = false
+  entries: mut Array<ModuleEntry> = []
   // Where the player put each part: read by a part an entry at a time, so a part follows its own place.
-  private mut places: Reactive<Map<string, Anchored>> = $reactive({})
+  state places: mut Map<String, Anchored> = {}
   // Which modules the player turned off; kept from `start` on.
-  private mut chosen: Map<string, boolean> = {}
-  private mut started = false
+  chosen: mut Map<String, Boolean> = {}
+  started = false
   // The folder of the module that draws the settings window.
-  private mut window: string | nil = nil
+  window: String | nil = nil
 
-  $constructor() {
-    Drafts::naming("Ordaen:look")
-    self.look = new Settings<Look>(preset(Preset::Ordaen), Scope::Account)
-    Drafts::naming(nil)
+  constructor() {
+    Drafts.naming("Ordaen:look")
+    self.look = new Settings<Look>(preset(Preset.Ordaen), Scope.Account)
+    Drafts.naming(nil)
     $provide(Core, self)
   }
 
-  public mut toggleDev() { self.dev = !$peek(self.dev) }
-  public mut toggleSettings(page: string | nil) { self.ask(page) }
-  public mut togglePlacing() { self.placing = !$peek(self.placing) }
+  public toggleDev(mut self) { self.dev = !peek self.dev }
+  public toggleSettings(mut self, page: String | nil) { self.ask(page) }
+  public togglePlacing(mut self) { self.placing = !peek self.placing }
 
-  public moved(part: string): Anchored | nil {
+  public moved(self, part: String): Anchored | nil {
     return self.places[part]
   }
 
-  public mut putAt(part: string, place: Anchored | nil) {
+  public putAt(mut self, part: String, place: Anchored | nil) {
     if (place == nil) {
       self.places[part] = nil
     } else {
-      self.places[part] = Runtime::copy(place)
+      self.places[part] = Runtime.copy(place)
     }
   }
 
-  public mut register(folder: string, title: string, icon: Art, make: () => mut Module | nil): Entry {
+  public register(mut self, folder: String, title: String, icon: Art, make: () => mut any Module | nil): any Entry {
     let entry = new ModuleEntry(folder, title, icon, make)
     self.entries.push(entry)
     self.modules.push(entry)
-    Debug::log("module %s told of", folder)
+    Debug.log("module %s told of", folder)
     // A module told of after the start (an addon of its own that loads later) runs as the others do.
     if (self.started && self.chosen[folder] != false) { self.run(folder, true) }
     return entry
   }
 
   // The module that draws the settings window: asked for, the window opens even where that module is off.
-  public mut settingsBy(entry: Entry) {
+  public settingsBy(mut self, entry: any Entry) {
     self.window = entry.folder
   }
 
   // The player's choice: kept, whatever comes of it. A module turned on is on in the client's own list of addons
   // from then, so that it can be loaded.
-  public mut turn(folder: string, on: boolean) {
+  public turn(mut self, folder: String, on: Boolean) {
     self.chosen[folder] = on
-    Debug::log("module %s turned %s by the player", folder, on ? "on" : "off")
-    if (on) { _ = Runtime::enable(folder) }
+    Debug.log("module %s turned %s by the player", folder, on ? "on" : "off")
+    if (on) { _ = Runtime.enable(folder) }
     self.run(folder, on)
   }
 
   // A module made and drawn, or ended. What the player chose isn't touched: a module that can't be loaded now is
   // tried again at the next start.
-  private mut run(folder: string, on: boolean) {
+  run(mut self, folder: String, on: Boolean) {
     for (i, entry of self.entries) {
       if (entry.folder == folder && entry.running() != on) {
         if (on) {
           // What the module's `Settings` are kept under.
-          Drafts::naming(folder)
+          Drafts.naming(folder)
           self.entries[i]?.begin()
-          Drafts::naming(nil)
+          Drafts.naming(nil)
         } else {
           self.entries[i]?.stop()
         }
-        Debug::log("module %s: %s", folder, entry.running() ? "running" : (on ? "not made: its addon didn't load" : "ended"))
+        Debug.log("module %s: %s", folder, entry.running() ? "running" : (on ? "not made: its addon didn't load" : "ended"))
       }
     }
   }
 
   // The settings window asked for: the module that draws it runs first.
-  private mut ask(page: string | nil) {
+  ask(mut self, page: String | nil) {
     let window = self.window
     if (window != nil) {
       for (entry of self.entries) {
         if (entry.folder == window && !entry.running()) { self.turn(window, true) }
       }
     }
-    Debug::log("the settings window asked for, page %s", page ?? "none")
+    Debug.log("the settings window asked for, page %s", page ?? "none")
     self.settingsAsked.emit(page)
   }
 
   // `/ordaen` opens the settings, `/ordaen <module's folder>` on that module's page.
-  private mut command(text: string) {
-    self.ask($match(text, "^%s*(%S+)"))
+  command(mut self, text: String) {
+    self.ask(text.match("^%s*(%S+)"))
   }
 
-  public mut start() {
-    self.chosen = Runtime::kept<Map<string, boolean>>(false, "choices", {})
-    self.places = Runtime::kept<Map<string, Anchored>>(false, "places", {})
+  public start(mut self) {
+    self.chosen = Runtime.kept<Map<string, boolean>>(false, "choices", {})
+    self.places = Runtime.kept<Map<string, Anchored>>(false, "places", {})
     self.started = true
-    Runtime::command("/ordaen", (text: string) => self.command(text))
-    Runtime::options(self.title, Locale::SETTINGS_OPEN, () => self.ask(nil))
+    Runtime.command("/ordaen", (text: String) => self.command(text))
+    Runtime.options(self.title, Locale.SETTINGS_OPEN, () => self.ask(nil))
     for (entry of self.entries) {
       let wanted = self.chosen[entry.folder] != false
-      Debug::log("module %s: %s", entry.folder, wanted ? "to run" : "turned off by the player")
+      Debug.log("module %s: %s", entry.folder, wanted ? "to run" : "turned off by the player")
       if (wanted) { self.run(entry.folder, true) }
     }
   }

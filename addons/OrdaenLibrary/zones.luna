@@ -8,52 +8,61 @@ import { Choice } from "@/dropdown"
 import { Tip } from "@/tip"
 import { PX } from "@/units"
 
-private const DIM = $color("#a3977f")
-private const CHIP_TEXT = $color("#f3e1b8")
-private const BOX = $color("#2a1e10")
-private const BRONZE: Line = { width: 1 * PX, color: $color("#6c5535") }
+const DIM: Color = Color.hex("#a3977f")
+const CHIP_TEXT: Color = Color.hex("#f3e1b8")
+const BOX: Color = Color.hex("#2a1e10")
+const BRONZE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
 // A zone after the first: a line on its left.
-private const DIVIDER: Line = { width: 1 * PX, color: $color("#3e2f1d"), sides: ["left"] }
-private const CHIP = $color("#5a4428")
-private const CHIP_EDGE: Line = { width: 1 * PX, color: $color("#1a1306") }
-private const CHIP_PAD: Edges = { top: 4 * PX, right: 10 * PX, bottom: 4 * PX, left: 10 * PX }
-private const POOL = $color("#00000040")
-private const POOL_EDGE: Line = { width: 1 * PX, color: $color("#4a3a24") }
+const DIVIDER: Line = { width: 1 * PX, color: Color.hex("#3e2f1d"), sides: ["left"] }
+const CHIP: Color = Color.hex("#5a4428")
+const CHIP_EDGE: Line = { width: 1 * PX, color: Color.hex("#1a1306") }
+const CHIP_PAD: Edges = { top: 4 * PX, right: 10 * PX, bottom: 4 * PX, left: 10 * PX }
+const POOL: Color = Color.hex("#00000040")
+const POOL_EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
 
 // One of the items placed: what tells it from the others, its name on its chip, and what the cursor on it says.
-public struct ZoneItem<K implements unknown> {
+public struct ZoneItem<K: Unknown> {
   key: K
-  label: string
-  hint: string | nil
+  label: String
+  hint: String | nil
 }
 
 // An item's chip: dragged from where it is, it is the one a zone takes when it is let go there.
-public class ZoneChip<K implements unknown> implements Ordaen::Component {
-  private opacity = $computed((): number => self.pooled ? 0.8 : 1)
+public class ZoneChip<K: Unknown> implements Ordaen.Component {
+  derived opacity: Number = self.pooled ? 0.8 : 1
 
-  $constructor(
-    private item: Reactive<ZoneItem<K>>,
+  item: Signal<ZoneItem<K>>
+  dragging: mut Signal<K | nil>
+  hinted: mut Signal<K | nil>
+  pooled: Signal<Boolean>
+  constructor(
+    item: Signal<ZoneItem<K>>,
     // The item being dragged, and the one under the cursor: none while there is none.
-    private mut dragging: Reactive<K | nil>,
-    private mut hinted: Reactive<K | nil>,
+    dragging: mut Signal<K | nil>,
+    hinted: mut Signal<K | nil>,
     // In the pool: greyed.
-    private pooled: Reactive<boolean>,
-  ) {}
+    pooled: Signal<Boolean>,
+  ) {
+    self.item = item
+    self.dragging = dragging
+    self.hinted = hinted
+    self.pooled = pooled
+  }
 
-  private mut onGrab() {
+  onGrab(mut self) {
     self.dragging = self.item.key
     self.hinted = nil
   }
 
-  private mut onRelease() { self.dragging = nil }
+  onRelease(mut self) { self.dragging = nil }
 
-  private mut onEnter() {
+  onEnter(mut self) {
     if (self.dragging == nil) { self.hinted = self.item.key }
   }
 
-  private mut onLeave() { self.hinted = nil }
+  onLeave(mut self) { self.hinted = nil }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box padding={CHIP_PAD} background={CHIP} border={CHIP_EDGE} desaturate={self.pooled} opacity={self.opacity}
            @dragStart={self.onGrab} @dragStop={self.onRelease} @enter={self.onEnter} @leave={self.onLeave}>
@@ -65,40 +74,55 @@ public class ZoneChip<K implements unknown> implements Ordaen::Component {
 
 // One zone, or the pool: its name and the chips of the items that sit in it. What is dragged and let go over it is
 // placed in it.
-public class ZoneColumn<K implements unknown, Z implements unknown> implements Ordaen::Component {
+public class ZoneColumn<K: Unknown, Z: Unknown> implements Ordaen.Component {
   // The first zone's chips from the left, the second's in the middle, the third's to the right.
-  private align = $computed((): Align => self.alignOf())
-  private divider = $computed((): Line | nil => self.index > 1 ? DIVIDER : nil)
-  private named = $computed((): boolean => !self.pool)
+  derived align: Align = self.alignOf()
+  derived divider: Line | nil = self.index > 1 ? DIVIDER : nil
+  derived named: Boolean = !self.pool
 
-  $constructor(
-    private zone: Reactive<Choice<Z>>,
+  zone: Signal<Choice<Z>>
+  index: Signal<Integer>
+  const items: Array<ZoneItem<K>>
+  value: mut Signal<Map<K, Z>>
+  dragging: mut Signal<K | nil>
+  hinted: mut Signal<K | nil>
+  pool: Signal<Boolean>
+  constructor(
+    zone: Signal<Choice<Z>>,
     // Its place among the zones.
-    private index: Reactive<integer>,
-    private const items: Array<ZoneItem<K>>,
+    index: Signal<Integer>,
+    items: Array<ZoneItem<K>>,
     // Where each item sits.
-    private mut value: Reactive<Map<K, Z>>,
-    private mut dragging: Reactive<K | nil>,
-    private mut hinted: Reactive<K | nil>,
+    value: mut Signal<Map<K, Z>>,
+    dragging: mut Signal<K | nil>,
+    hinted: mut Signal<K | nil>,
     // The pool has its name over it, not in it.
-    private pool: Reactive<boolean> = false,
-  ) {}
-
-  private alignOf(): Align {
-    if (self.pool) { return Align::Start }
-    if (self.index == 2) { return Align::Center }
-    if (self.index == 3) { return Align::End }
-    return Align::Start
+    pool: Signal<Boolean> = false,
+  ) {
+    self.zone = zone
+    self.index = index
+    self.items = items
+    self.value = value
+    self.dragging = dragging
+    self.hinted = hinted
+    self.pool = pool
   }
 
-  private mut onDrop() {
+  alignOf(self): Align {
+    if (self.pool) { return Align.Start }
+    if (self.index == 2) { return Align.Center }
+    if (self.index == 3) { return Align.End }
+    return Align.Start
+  }
+
+  onDrop(mut self) {
     let key = self.dragging
     if (key != nil && self.value[key] != self.zone.value) { self.value[key] = self.zone.value }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box columns={1} gap={6 * PX} padding={8 * PX} xAlign={self.align} yAlign={Align::Start} border={self.divider}
+      <box columns={1} gap={6 * PX} padding={8 * PX} xAlign={self.align} yAlign={Align.Start} border={self.divider}
            @drop={self.onDrop}>
         <text $if={self.named} value={self.zone.label} textColor={DIM} textSize={12 * PX} />
         <$for={item of self.items}>
@@ -110,23 +134,32 @@ public class ZoneColumn<K implements unknown, Z implements unknown> implements O
   }
 }
 
-public class Zones<K implements unknown, Z implements unknown> implements Ordaen::Component {
-  private mut dragging: Reactive<K | nil> = $reactive(nil)
-  private mut hinted: Reactive<K | nil> = $reactive(nil)
-  private hintTitle = $computed((): string => self.hintedItem()?.label ?? "")
-  private hintText = $computed((): string => self.hintedItem()?.hint ?? "")
-  private hintShown = $computed((): boolean => self.hintText != "")
+public class Zones<K: Unknown, Z: Unknown> implements Ordaen.Component {
+  state dragging: K | nil = nil
+  state hinted: K | nil = nil
+  derived hintTitle: String = self.hintedItem()?.label ?? ""
+  derived hintText: String = self.hintedItem()?.hint ?? ""
+  derived hintShown: Boolean = self.hintText != ""
 
-  $constructor(
-    private const items: Array<ZoneItem<K>>,
+  const items: Array<ZoneItem<K>>
+  const zones: Array<Choice<Z>>
+  const off: Choice<Z>
+  value: mut Signal<Map<K, Z>>
+  constructor(
+    items: Array<ZoneItem<K>>,
     // The zones, in order, and the pool: each a place an item can sit in, with its name.
-    private const zones: Array<Choice<Z>>,
-    private const off: Choice<Z>,
+    zones: Array<Choice<Z>>,
+    off: Choice<Z>,
     // Where each item sits: every item has its place, a zone's or the pool's.
-    private mut value: Reactive<Map<K, Z>>,
-  ) {}
+    value: mut Signal<Map<K, Z>>,
+  ) {
+    self.items = items
+    self.zones = zones
+    self.off = off
+    self.value = value
+  }
 
-  private hintedItem(): ZoneItem<K> | nil {
+  hintedItem(self): ZoneItem<K> | nil {
     let key = self.hinted
     if (key == nil) { return nil }
     for (item of self.items) {
@@ -135,7 +168,7 @@ public class Zones<K implements unknown, Z implements unknown> implements Ordaen
     return nil
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box columns={1} gap={8 * PX}>
         <box columns={self.zones.length} background={BOX} border={BRONZE}>

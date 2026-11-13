@@ -3,9 +3,9 @@
 import { Art, Corners, Curves, Line, Metal, Piece, Radius, Reach, Side } from "$ltml"
 
 public struct Spacing {
-  sm: number
-  md: number
-  lg: number
+  sm: Number
+  md: Number
+  lg: Number
 }
 
 // The art, by what it is for.
@@ -95,81 +95,81 @@ public struct Artwork {
 // The metal frame: the client's window frame at half size. The line is 3 units; the art stands past it by its
 // reach on each side, and the box's background starts 1.5 units into the art. A rounded frame's right side is
 // its left mirrored, so it reaches as far as the left.
-private const FRAME = "ButtonFrameTemplateNoPortrait"
-private const REACH: Reach = { top: 14.5, right: 4.5, bottom: 10, left: 14.5 }
-private const REACH_ROUND: Reach = { top: 14.5, right: 14.5, bottom: 10, left: 14.5 }
-private const CURVES: Curves = { small: 8 / 1.2 / 0.5 + 14, large: 14 / 1.2 / 0.5 + 14, flare: 21 }
-private const TAB_CORNERS: Corners = { topLeft: Radius::Large, topRight: Radius::Large }
-private const ICON_CORNER: Corners = { topLeft: Radius::Large }
+const FRAME = "ButtonFrameTemplateNoPortrait"
+const REACH: Reach = { top: 14.5, right: 4.5, bottom: 10, left: 14.5 }
+const REACH_ROUND: Reach = { top: 14.5, right: 14.5, bottom: 10, left: 14.5 }
+const CURVES: Curves = { small: 8 / 1.2 / 0.5 + 14, large: 14 / 1.2 / 0.5 + 14, flare: 21 }
+const TAB_CORNERS: Corners = { topLeft: Radius.Large, topRight: Radius.Large }
+const ICON_CORNER: Corners = { topLeft: Radius.Large }
 
 // The wood: one tile, repeated at the size the picture had in the design's window.
-private const WOOD: Piece = { file: $asset("@/media/window-wood.tga"), width: 512, height: 512, repeatSize: 746 / 1.2 }
+const WOOD: Piece = { file: "@/media/window-wood.tga", width: 512, height: 512, repeatSize: 746 / 1.2 }
 
 // Ordaen's art: its measures, and its pictures from this addon's `media` and the client.
 public const ARTWORK: Artwork = {
   spacing: { sm: 4, md: 8, lg: 16 },
   frame: {
     small: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, curves: CURVES, lineStart: 10 },
-    tab: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side::Top, Side::Left, Side::Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },
-    tabOpen: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side::Top, Side::Left, Side::Right], radius: TAB_CORNERS, flare: [Side::Left, Side::Right], curves: CURVES, lineStart: 10 },
-    tabOpenFirst: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side::Top, Side::Left, Side::Right], radius: TAB_CORNERS, flare: [Side::Right], curves: CURVES, lineStart: 10 },
+    tab: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },
+    tabOpen: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, flare: [Side.Left, Side.Right], curves: CURVES, lineStart: 10 },
+    tabOpenFirst: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, flare: [Side.Right], curves: CURVES, lineStart: 10 },
     tabIconClip: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
-    tabIconLine: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side::Left], curves: CURVES, lineStart: 10 },
-    tabIconLineOpen: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side::Left], flare: [Side::Left], curves: CURVES, lineStart: 10 },
-    tabIconUnder: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side::Top], curves: CURVES, lineStart: 10 },
+    tabIconLine: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 },
+    tabIconLineOpen: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], flare: [Side.Left], curves: CURVES, lineStart: 10 },
+    tabIconUnder: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Top], curves: CURVES, lineStart: 10 },
   },
-  window: { wood: WOOD, marble: "Interface\\FrameGeneral\\UI-Background-Marble" },
+  window: { wood: WOOD, marble: "Interface/FrameGeneral/UI-Background-Marble" },
   ctl: {
     // The checkbox, drawn whole: the well (the light ring over it under the cursor), and the tick.
-    check: { file: $asset("@/media/ctl-check.tga"), width: 64, height: 256, rows: 4, normal: 0, glow: 1 },
-    tick: { file: $asset("@/media/ctl-check.tga"), width: 64, height: 256, rows: 4, normal: 2 },
+    check: { file: "@/media/ctl-check.tga", width: 64, height: 256, rows: 4, normal: 0, glow: 1 },
+    tick: { file: "@/media/ctl-check.tga", width: 64, height: 256, rows: 4, normal: 2 },
     // The push button and the dropdown's face: rows 0 normal, 1 pushed, 2 disabled, 3 the light over normal, 4 the
     // accent, 5 the accent pushed; caps half as wide as it is high.
-    button: { file: $asset("@/media/button.tga"), width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 0, pressed: 1, glow: 3 },
-    buttonAccent: { file: $asset("@/media/button.tga"), width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 4, pressed: 5, glow: 3 },
-    buttonDisabled: { file: $asset("@/media/button.tga"), width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 2 },
+    button: { file: "@/media/button.tga", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 0, pressed: 1, glow: 3 },
+    buttonAccent: { file: "@/media/button.tga", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 4, pressed: 5, glow: 3 },
+    buttonDisabled: { file: "@/media/button.tga", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 2 },
     // The slider: the groove with its edge, the fill inside it, the knob.
-    groove: { file: $asset("@/media/ctl-slider.tga"), width: 64, height: 128, cap: 4, capHeight: 0.125, rows: 4, normal: 0 },
-    sliderFill: { file: $asset("@/media/ctl-slider.tga"), width: 64, height: 128, rows: 4, normal: 1 },
-    sliderKnob: $asset("@/media/ctl-slider-knob.tga"),
-    rule: $asset("@/media/ctl-rule.tga"),
+    groove: { file: "@/media/ctl-slider.tga", width: 64, height: 128, cap: 4, capHeight: 0.125, rows: 4, normal: 0 },
+    sliderFill: { file: "@/media/ctl-slider.tga", width: 64, height: 128, rows: 4, normal: 1 },
+    sliderKnob: "@/media/ctl-slider-knob.tga",
+    rule: "@/media/ctl-rule.tga",
     // The switch: the track, a pill with round caps (rows 0 off, 1 on, 2 the ring over either), and the knob.
-    switchOff: { file: $asset("@/media/ctl-switch-track.tga"), width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 0, glow: 2 },
-    switchOn: { file: $asset("@/media/ctl-switch-track.tga"), width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 1, glow: 2 },
-    knobOff: { file: $asset("@/media/ctl-switch-knob.tga"), width: 64, height: 128, rows: 2, normal: 0 },
-    knobOn: { file: $asset("@/media/ctl-switch-knob.tga"), width: 64, height: 128, rows: 2, normal: 1 },
-    dropdownArrow: $asset("@/media/dropdown-arrow.tga"),
-    radio: { file: $asset("@/media/ctl-radio.tga"), width: 32, height: 64, rows: 2, normal: 0 },
-    radioOn: { file: $asset("@/media/ctl-radio.tga"), width: 32, height: 64, rows: 2, normal: 1 },
+    switchOff: { file: "@/media/ctl-switch-track.tga", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 0, glow: 2 },
+    switchOn: { file: "@/media/ctl-switch-track.tga", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 1, glow: 2 },
+    knobOff: { file: "@/media/ctl-switch-knob.tga", width: 64, height: 128, rows: 2, normal: 0 },
+    knobOn: { file: "@/media/ctl-switch-knob.tga", width: 64, height: 128, rows: 2, normal: 1 },
+    dropdownArrow: "@/media/dropdown-arrow.tga",
+    radio: { file: "@/media/ctl-radio.tga", width: 32, height: 64, rows: 2, normal: 0 },
+    radioOn: { file: "@/media/ctl-radio.tga", width: 32, height: 64, rows: 2, normal: 1 },
     // A window's corner buttons, each drawn whole: the row by state.
-    cornerExpand: { file: $asset("@/media/ctl-corner-full.tga"), width: 128, height: 512, rows: 8, normal: 0, hover: 1, pressed: 2 },
-    cornerContract: { file: $asset("@/media/ctl-corner-full.tga"), width: 128, height: 512, rows: 8, normal: 3, hover: 4, pressed: 5 },
-    cornerClose: { file: $asset("@/media/ctl-corner-close.tga"), width: 128, height: 256, rows: 4, normal: 0, hover: 1, pressed: 2 },
+    cornerExpand: { file: "@/media/ctl-corner-full.tga", width: 128, height: 512, rows: 8, normal: 0, hover: 1, pressed: 2 },
+    cornerContract: { file: "@/media/ctl-corner-full.tga", width: 128, height: 512, rows: 8, normal: 3, hover: 4, pressed: 5 },
+    cornerClose: { file: "@/media/ctl-corner-close.tga", width: 128, height: 256, rows: 4, normal: 0, hover: 1, pressed: 2 },
     // A window's resize grip: the client's own.
-    grip: "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up",
-    gripHover: "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Highlight",
-    gripDown: "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Down",
+    grip: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up",
+    gripHover: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Highlight",
+    gripDown: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Down",
   },
   panel: {
     // The shapes a face is cut to: a circle, and the screen's corner.
-    faceRound: $asset("@/media/face-round-mask.tga"),
-    corner: $asset("@/media/portrait-mask.tga"),
-    badge: $asset("@/media/level-badge.tga"),
-    slotEdge: { width: 1, color: $color("#6c5535") },
-    xpSteel: { file: $asset("@/media/xp-fill-steel.tga"), width: 1024, height: 32, tile: true },
+    faceRound: "@/media/face-round-mask.tga",
+    corner: "@/media/portrait-mask.tga",
+    badge: "@/media/level-badge.tga",
+    slotEdge: { width: 1, color: Color.hex("#6c5535") },
+    xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: true },
     wood: WOOD,
-    edge: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side::Top], curves: CURVES, lineStart: 10 },
+    edge: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Top], curves: CURVES, lineStart: 10 },
     // A micro menu's or a bag's cell: rows 0 normal, 1 the glow over it, 2 pushed; caps a fifth of its height.
-    cell: { file: $asset("@/media/panel-cell.tga"), width: 256, height: 256, cap: 32, capHeight: 0.2, rows: 4, normal: 0, glow: 1, pressed: 2 },
-    countBadge: { file: $asset("@/media/panel-count-badge.tga"), width: 128, height: 64, cap: 32, capHeight: 0.5 },
+    cell: { file: "@/media/panel-cell.tga", width: 256, height: 256, cap: 32, capHeight: 0.2, rows: 4, normal: 0, glow: 1, pressed: 2 },
+    countBadge: { file: "@/media/panel-count-badge.tga", width: 128, height: 64, cap: 32, capHeight: 0.5 },
     // The experience tube, back to front: the trough, the fill, the shine, the ring.
-    xpTrough: { file: $asset("@/media/xp-tube-trough.tga"), width: 256, height: 64, cap: 64, capHeight: 1 },
-    xpShine: { file: $asset("@/media/xp-tube-shine.tga"), width: 256, height: 64, cap: 64, capHeight: 1 },
-    xpTube: { file: $asset("@/media/xp-tube.tga"), width: 256, height: 64, cap: 64, capHeight: 1 },
+    xpTrough: { file: "@/media/xp-tube-trough.tga", width: 256, height: 64, cap: 64, capHeight: 1 },
+    xpShine: { file: "@/media/xp-tube-shine.tga", width: 256, height: 64, cap: 64, capHeight: 1 },
+    xpTube: { file: "@/media/xp-tube.tga", width: 256, height: 64, cap: 64, capHeight: 1 },
   },
   // A button on the minimap's ring, drawn whole: rows 0 the button, 1 the light ring over it, 2 lit.
   minimap: {
-    ring: { file: $asset("@/media/minimap-ring.tga"), width: 128, height: 512, rows: 4, normal: 0, glow: 1 },
-    ringLit: { file: $asset("@/media/minimap-ring.tga"), width: 128, height: 512, rows: 4, normal: 2, glow: 1 },
+    ring: { file: "@/media/minimap-ring.tga", width: 128, height: 512, rows: 4, normal: 0, glow: 1 },
+    ringLit: { file: "@/media/minimap-ring.tga", width: 128, height: 512, rows: 4, normal: 2, glow: 1 },
   },
 }

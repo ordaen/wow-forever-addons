@@ -7,26 +7,33 @@ import Ordaen from "Ordaen"
 import { PX } from "@/units"
 import { Tip } from "@/tip"
 
-private const LABEL_WIDTH = 280 * PX
-private const LABEL = $color("#cbb994")
+const LABEL_WIDTH = 280 * PX
+const LABEL: Color = Color.hex("#cbb994")
 
-public class SettingRow implements Ordaen::Component {
-  private mut hovered = $reactive(false)
-  private tipShown = $computed((): boolean => self.hovered && self.hint != "")
-  private opacity = $computed((): number => self.disabled ? 0.45 : 1)
+public class SettingRow implements Ordaen.Component {
+  state hovered = false
+  derived tipShown: Boolean = self.hovered && self.hint != ""
+  derived opacity: Number = self.disabled ? 0.45 : 1
 
-  $constructor(
-    private label: Reactive<string>,
-    private hint: Reactive<string> = "",
-    private disabled: Reactive<boolean> = false,
-  ) {}
+  label: Signal<String>
+  hint: Signal<String>
+  disabled: Signal<Boolean>
+  constructor(
+    label: Signal<String>,
+    hint: Signal<String> = "",
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.label = label
+    self.hint = hint
+    self.disabled = disabled
+  }
 
-  private mut onEnter() { self.hovered = true }
-  private mut onLeave() { self.hovered = false }
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box columns={[LABEL_WIDTH, { fr: 1 }]} gap={18 * PX} yAlign={Align::Center} opacity={self.opacity}>
+      <box columns={[LABEL_WIDTH, { fr: 1 }]} gap={18 * PX} yAlign={Align.Center} opacity={self.opacity}>
         <box columns={1} @enter={self.onEnter} @leave={self.onLeave}>
           <text value={self.label} textColor={LABEL} textSize={15 * PX} />
         </box>

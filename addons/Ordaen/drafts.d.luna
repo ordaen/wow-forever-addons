@@ -2,9 +2,9 @@
 // `Settings` joins as it is made, and hears when the drafts are saved, dropped or taken back.
 
 // How many entries wait to be saved, over every module.
-public unsaved: Reactive<integer>
+public unsaved: Signal<Integer>
 // Whether there is a save to take back.
-public rollbackable: Reactive<boolean>
+public rollbackable: Signal<Boolean>
 
 // The drafts become the values.
 public function saveAll()
@@ -22,11 +22,11 @@ public discarding: Event<nil>
 public rollingBack: Event<nil>
 
 // A `Settings` is made: what it is counted by. It says how many of its entries wait, and that it is gone.
-public function join(): integer
-public function count(id: integer, waiting: integer)
-public function leave(id: integer)
+public function join(): Integer
+public function count(id: Integer, waiting: Integer)
+public function leave(id: Integer)
 
 // The name the `Settings` being made are kept under: a module's folder while Ordaen makes the module, `Ordaen`
 // for Ordaen's own, nothing otherwise.
-public function naming(name: string | nil)
-public function nameNow(): string | nil
+public function naming(name: String | nil)
+public function nameNow(): String | nil

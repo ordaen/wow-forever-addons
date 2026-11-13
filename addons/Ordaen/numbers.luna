@@ -5,52 +5,50 @@
 //   whole numbers from 1 up. Under 1 (not 0): at least two digits that aren't nought (0.25, 0.004).
 //   A negative number keeps its sign unless it rounds to 0.
 // What reads it is run again when the settings change.
-import Math from "$math"
-import String from "$string"
 import { globals } from "@/core"
 import { NumberFormat } from "@/globals"
 
-private const NBSP = "\194\160"
+const NBSP = "\194\160"
 // The most decimals a number under 1 takes.
-private const FINEST = 12
+const FINEST = 12
 
-private function decimalsFor(value: number, precision: integer, round: boolean): integer {
+function decimalsFor(value: Number, precision: Integer, round: Boolean): Integer {
   if (value > 0 && value < 1) {
     let scaled = value
     let shifts = 0
-    for (let i = 1; i <= FINEST; i += 1) {
+    for (i of 1..=FINEST) {
       if (scaled >= 1) { break }
       scaled = scaled * 10
       shifts = i
     }
-    return Math::max(precision, shifts + 1)
+    return precision.max(shifts + 1)
   }
   return round ? 0 : precision
 }
 
 // Whole digits with `group` between every three from the right.
-private function grouped(digits: string, group: string): string {
-  let const n = digits.length
+function grouped(digits: String, group: String): String {
+  const n = digits.length
   if (n <= 3) { return digits }
   let first = n % 3
-  let out = first > 0 ? String::sub(digits, 1, first) : ""
-  for (let i = first + 1; i <= n; i += 3) {
-    out = (out == "" ? "" : out + group) + String::sub(digits, i, i + 2)
+  let out = first > 0 ? digits.sub(1, first) : ""
+  for (i of first + 1..=n step 3) {
+    out = (out == "" ? "" : out + group) + digits.sub(i, i + 2)
   }
   return out
 }
 
-public function number(n: number): string {
-  if (!Math::finite(n)) { return String::of(n) }
+public function number(n: Number): String {
+  if (!n.finite()) { return String.of(n) }
   let chosen = globals
-  let thousands = chosen.numberFormat == NumberFormat::Space ? NBSP : chosen.numberFormat == NumberFormat::Comma ? "," : "."
-  let point = chosen.numberFormat == NumberFormat::Dot ? "," : "."
-  let value = Math::abs(n)
-  let text = String::format(`%.${decimalsFor(value, chosen.numberPrecision, chosen.numberRound)}f`, value)
-  if (String::contains(text, ".")) { text = $replace($replace(text, "0+$", ""), "%.$", "") }
-  let whole, fraction = $match(text, "^(%d+)%.?(%d*)$")
+  let thousands = chosen.numberFormat == NumberFormat.Space ? NBSP : chosen.numberFormat == NumberFormat.Comma ? "," : "."
+  let point = chosen.numberFormat == NumberFormat.Dot ? "," : "."
+  let value = n.abs()
+  let text = `%.${decimalsFor(value, chosen.numberPrecision, chosen.numberRound)}f`.format(value)
+  if (text.contains(".")) { text = (text.replace("0+$", "")).replace("%.$", "") }
+  let whole, fraction = text.match("^(%d+)%.?(%d*)$")
   if (whole == nil) { return text }
-  let sign = n < 0 && String::toNumber(text) != 0 ? "-" : ""
+  let sign = n < 0 && text.toNumber() != 0 ? "-" : ""
   let out = sign + grouped(whole, thousands)
   if (fraction != nil && fraction != "") { out = out + point + fraction }
   return out

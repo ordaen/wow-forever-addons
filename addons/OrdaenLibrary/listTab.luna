@@ -1,48 +1,57 @@
 // ListTab: an entry in a list of pages (the settings window's modules, a module page's bars): its icon, its name,
 // and what its slot holds at its right (a switch). The shade under the cursor; selected, a darker shade, the name
 // white and a 3 px light along its left; off, name and icon dimmed. Left-click reports `pick`.
-import { Align, Art, Color, Edges, Position, Stated, Track } from "$ltml"
+import { Align, Art, Edges, Position, Stated, Track } from "$ltml"
 import Ordaen from "Ordaen"
 import { PX } from "@/units"
 
-private const INK = $color("#e8dcc4")
-private const WHITE = $color("#ffffff")
-private const OFF = $color("#7a705f")
-private const CLEAR = $color("#00000000")
-private const SHADE: Stated<Color> = { default: CLEAR, hover: $color("#00000059") }
-private const SELECTED = $color("#00000040")
+const INK: Color = Color.hex("#e8dcc4")
+const WHITE: Color = Color.hex("#ffffff")
+const OFF: Color = Color.hex("#7a705f")
+const CLEAR: Color = Color.hex("#00000000")
+const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000059") }
+const SELECTED: Color = Color.hex("#00000040")
 // An icon that is off: darker.
-private const DIM = $color("#999999")
-private const LIGHT = $color("#d6a56b")
-private const PADDING: Edges = { top: 7 * PX, right: 12 * PX, bottom: 7 * PX, left: 16 * PX }
-private const WITH_ICON: Array<Track> = [22 * PX, { fr: 1 }, "auto"]
+const DIM: Color = Color.hex("#999999")
+const LIGHT: Color = Color.hex("#d6a56b")
+const PADDING: Edges = { top: 7 * PX, right: 12 * PX, bottom: 7 * PX, left: 16 * PX }
+const WITH_ICON: Array<Track> = [22 * PX, { fr: 1 }, "auto"]
 // An entry without an icon: its name from the left.
-private const NO_ICON: Array<Track> = [{ fr: 1 }, "auto"]
+const NO_ICON: Array<Track> = [{ fr: 1 }, "auto"]
 
-public class ListTab implements Ordaen::Component {
-  public pick: Event<nil> = $event()
+public class ListTab implements Ordaen.Component {
+  public pick: Event<nil> = new Event()
 
-  private hasIcon = $computed((): boolean => self.icon != "")
-  private columns = $computed((): Array<Track> => self.hasIcon ? WITH_ICON : NO_ICON)
-  private background = $computed((): Color | Stated<Color> => self.selected ? SELECTED : SHADE)
-  private color = $computed((): Color => self.selected ? WHITE : self.off ? OFF : INK)
-  private tint = $computed((): Color => self.off ? DIM : WHITE)
+  derived hasIcon: Boolean = self.icon != ""
+  derived columns: Array<Track> = self.hasIcon ? WITH_ICON : NO_ICON
+  derived background: Color | Stated<Color> = self.selected ? SELECTED : SHADE
+  derived color: Color = self.selected ? WHITE : self.off ? OFF : INK
+  derived tint: Color = self.off ? DIM : WHITE
 
-  $constructor(
-    private label: Reactive<string>,
-    private selected: Reactive<boolean>,
+  label: Signal<String>
+  selected: Signal<Boolean>
+  icon: Signal<Art>
+  off: Signal<Boolean>
+  constructor(
+    label: Signal<String>,
+    selected: Signal<Boolean>,
     // None for an entry without a picture.
-    private icon: Reactive<Art> = "",
-    private off: Reactive<boolean> = false,
-  ) {}
+    icon: Signal<Art> = "",
+    off: Signal<Boolean> = false,
+  ) {
+    self.label = label
+    self.selected = selected
+    self.icon = icon
+    self.off = off
+  }
 
-  private mut onClick() { self.pick.emit() }
+  onClick(mut self) { self.pick.emit() }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box columns={self.columns} gap={10 * PX} padding={PADDING} yAlign={Align::Center}
+      <box columns={self.columns} gap={10 * PX} padding={PADDING} yAlign={Align.Center}
            background={self.background} @click={self.onClick}>
-        <box $if={self.selected} position={Position::Absolute} left={0} top={0} bottom={0} width={3 * PX}
+        <box $if={self.selected} position={Position.Absolute} left={0} top={0} bottom={0} width={3 * PX}
              background={LIGHT} />
         <box $if={self.hasIcon} width={22 * PX} height={22 * PX} icon={self.icon} tint={self.tint} />
         <text value={self.label} textColor={self.color} textSize={15 * PX} wrap={false} />

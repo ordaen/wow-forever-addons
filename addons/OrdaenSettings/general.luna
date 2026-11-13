@@ -4,66 +4,75 @@ import Ordaen from "Ordaen"
 import { Checkbox, Choice, Dropdown, Slider, Unit } from "OrdaenLibrary"
 import Locale from "@/locales"
 
-private const DENSITIES: Array<Choice<Ordaen::Density>> = [
-  { value: Ordaen::Density::Compact, label: Locale::GLOBAL_DENSITY_COMPACT },
-  { value: Ordaen::Density::Normal, label: Locale::GLOBAL_DENSITY_NORMAL },
-  { value: Ordaen::Density::Roomy, label: Locale::GLOBAL_DENSITY_ROOMY },
+const DENSITIES: Array<Choice<Ordaen.Density>> = [
+  { value: Ordaen.Density.Compact, label: Locale.GLOBAL_DENSITY_COMPACT },
+  { value: Ordaen.Density.Normal, label: Locale.GLOBAL_DENSITY_NORMAL },
+  { value: Ordaen.Density.Roomy, label: Locale.GLOBAL_DENSITY_ROOMY },
 ]
-private const FORMATS: Array<Choice<Ordaen::NumberFormat>> = [
-  { value: Ordaen::NumberFormat::Space, label: Locale::GLOBAL_NUMBERFORMAT_SPACE },
-  { value: Ordaen::NumberFormat::Comma, label: Locale::GLOBAL_NUMBERFORMAT_COMMA },
-  { value: Ordaen::NumberFormat::Dot, label: Locale::GLOBAL_NUMBERFORMAT_DOT },
+const FORMATS: Array<Choice<Ordaen.NumberFormat>> = [
+  { value: Ordaen.NumberFormat.Space, label: Locale.GLOBAL_NUMBERFORMAT_SPACE },
+  { value: Ordaen.NumberFormat.Comma, label: Locale.GLOBAL_NUMBERFORMAT_COMMA },
+  { value: Ordaen.NumberFormat.Dot, label: Locale.GLOBAL_NUMBERFORMAT_DOT },
 ]
-private const LARGE: Array<Choice<Ordaen::LargeNumbers>> = [
-  { value: Ordaen::LargeNumbers::Full, label: Locale::GLOBAL_NUMBERS_FULL },
-  { value: Ordaen::LargeNumbers::Short, label: Locale::GLOBAL_NUMBERS_SHORT },
+const LARGE: Array<Choice<Ordaen.LargeNumbers>> = [
+  { value: Ordaen.LargeNumbers.Full, label: Locale.GLOBAL_NUMBERS_FULL },
+  { value: Ordaen.LargeNumbers.Short, label: Locale.GLOBAL_NUMBERS_SHORT },
 ]
-private const CLOCKS: Array<Choice<Ordaen::Clock>> = [
-  { value: Ordaen::Clock::H24, label: Locale::GLOBAL_CLOCK_24 },
-  { value: Ordaen::Clock::H12, label: Locale::GLOBAL_CLOCK_12 },
+const CLOCKS: Array<Choice<Ordaen.Clock>> = [
+  { value: Ordaen.Clock.H24, label: Locale.GLOBAL_CLOCK_24 },
+  { value: Ordaen.Clock.H12, label: Locale.GLOBAL_CLOCK_12 },
 ]
 
-public class ScalePage implements Ordaen::Component {
-  $constructor(private mut globals: Ordaen::Settings<Ordaen::Globals>) {}
+public class ScalePage implements Ordaen.Component {
+  globals: mut Ordaen.Settings<Ordaen.Globals>
+  constructor(globals: mut Ordaen.Settings<Ordaen.Globals>) {
+    self.globals = globals
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Slider label={Locale::GLOBAL_SCALE} hint={Locale::GLOBAL_SCALE_TIP} value={mut self.globals.draft.scale}
-              least={0.7} most={1.5} step={0.05} unit={Unit::Percent} />
-      <Dropdown label={Locale::GLOBAL_DENSITY} hint={Locale::GLOBAL_DENSITY_TIP}
+      <Slider label={Locale.GLOBAL_SCALE} hint={Locale.GLOBAL_SCALE_TIP} value={mut self.globals.draft.scale}
+              least={0.7} most={1.5} step={0.05} unit={Unit.Percent} />
+      <Dropdown label={Locale.GLOBAL_DENSITY} hint={Locale.GLOBAL_DENSITY_TIP}
                 value={mut self.globals.draft.density} choices={DENSITIES} />
-      <Checkbox label={Locale::GLOBAL_PIXEL} hint={Locale::GLOBAL_PIXEL_TIP} value={mut self.globals.draft.pixel} />
+      <Checkbox label={Locale.GLOBAL_PIXEL} hint={Locale.GLOBAL_PIXEL_TIP} value={mut self.globals.draft.pixel} />
     }
   }
 }
 
-public class NumbersPage implements Ordaen::Component {
+public class NumbersPage implements Ordaen.Component {
   // Rounded numbers have no decimal places to choose.
-  private rounded = $computed((): boolean => self.globals.draft.numberRound)
+  derived rounded: Boolean = self.globals.draft.numberRound
 
-  $constructor(private mut globals: Ordaen::Settings<Ordaen::Globals>) {}
+  globals: mut Ordaen.Settings<Ordaen.Globals>
+  constructor(globals: mut Ordaen.Settings<Ordaen.Globals>) {
+    self.globals = globals
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Dropdown label={Locale::GLOBAL_NUMBERFORMAT} hint={Locale::GLOBAL_NUMBERFORMAT_TIP}
+      <Dropdown label={Locale.GLOBAL_NUMBERFORMAT} hint={Locale.GLOBAL_NUMBERFORMAT_TIP}
                 value={mut self.globals.draft.numberFormat} choices={FORMATS} />
-      <Checkbox label={Locale::GLOBAL_NUMBERROUND} hint={Locale::GLOBAL_NUMBERROUND_TIP}
+      <Checkbox label={Locale.GLOBAL_NUMBERROUND} hint={Locale.GLOBAL_NUMBERROUND_TIP}
                 value={mut self.globals.draft.numberRound} />
-      <Slider label={Locale::GLOBAL_NUMBERPRECISION} hint={Locale::GLOBAL_NUMBERPRECISION_TIP}
+      <Slider label={Locale.GLOBAL_NUMBERPRECISION} hint={Locale.GLOBAL_NUMBERPRECISION_TIP}
               value={mut self.globals.draft.numberPrecision} least={0} most={3} disabled={self.rounded} />
-      <Dropdown label={Locale::GLOBAL_NUMBERS} hint={Locale::GLOBAL_NUMBERS_TIP}
+      <Dropdown label={Locale.GLOBAL_NUMBERS} hint={Locale.GLOBAL_NUMBERS_TIP}
                 value={mut self.globals.draft.numbers} choices={LARGE} />
     }
   }
 }
 
-public class BehaviourPage implements Ordaen::Component {
-  $constructor(private mut globals: Ordaen::Settings<Ordaen::Globals>) {}
+public class BehaviourPage implements Ordaen.Component {
+  globals: mut Ordaen.Settings<Ordaen.Globals>
+  constructor(globals: mut Ordaen.Settings<Ordaen.Globals>) {
+    self.globals = globals
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Checkbox label={Locale::GLOBAL_SOUNDS} hint={Locale::GLOBAL_SOUNDS_TIP} value={mut self.globals.draft.sounds} />
-      <Dropdown label={Locale::GLOBAL_CLOCK} hint={Locale::GLOBAL_CLOCK_TIP} value={mut self.globals.draft.clock}
+      <Checkbox label={Locale.GLOBAL_SOUNDS} hint={Locale.GLOBAL_SOUNDS_TIP} value={mut self.globals.draft.sounds} />
+      <Dropdown label={Locale.GLOBAL_CLOCK} hint={Locale.GLOBAL_CLOCK_TIP} value={mut self.globals.draft.clock}
                 choices={CLOCKS} />
     }
   }

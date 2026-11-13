@@ -10,81 +10,81 @@ import { Windowed } from "Showcase"
 import { Settings } from "@/main"
 
 // The page Ordaen draws its modules in, and where the window is drawn.
-private const PAGE: Test::Page = { left: 20, top: 20, width: 330, height: 380, screen: true }
+const PAGE: Test.Page = { left: 20, top: 20, width: 330, height: 380, screen: true }
 
-private function show(title: string) {
-  Test::shot(title)
-  Test::note(`unsaved: ${Ordaen::unsaved}, a save to take back: ${Ordaen::rollbackable}, placing: ${Ordaen::placing}`)
-  Test::note("")
+function show(title: String) {
+  Test.shot(title)
+  Test.note(`unsaved: ${Ordaen.unsaved}, a save to take back: ${Ordaen.rollbackable}, placing: ${Ordaen.placing}`)
+  Test.note("")
 }
 
 // A click, and what it changed drawn.
-private function click(at: Test::Point) {
-  Test::click(at, nil)
-  Test::flush()
+function click(at: Test.Point) {
+  Test.click(at, nil)
+  Test.flush()
 }
 
 test "the settings window: the list, a module's page, drafts saved and taken back, a module turned off" {
-  let ui = Client::C_UI::GetUIParent()
-  let map = Client::CreateFrame("Button", "Minimap", ui, nil)
+  let ui = Client.C_UI.GetUIParent()
+  let map = Client.CreateFrame("Button", "Minimap", ui, nil)
   map.SetSize(140, 140)
   map.SetPoint("TOPRIGHT", ui, "TOPRIGHT", 0, 0)
-  Game::Minimap::frame = map
-  let mut window = new Settings()
-  Test::mount(window, PAGE)
+  Game.minimap.frame = map
+  let window = new Settings()
+  Test.mount(window, PAGE)
 
   // Ordaen knows two modules: the minimap, and a window of the showcase's as the panel.
-  let minimap = Ordaen::register("OrdaenMinimap", "Ordaen Minimap", "icons/map", (): mut Ordaen::Module | nil => new Minimap())
-  _ = Ordaen::register("OrdaenPanel", "Ordaen Panel", "icons/panel", (): mut Ordaen::Module | nil => new Windowed())
+  let minimap = Ordaen.register("OrdaenMinimap", "Ordaen Minimap", "icons/map", (): any Ordaen.Module | nil => new Minimap())
+  _ = Ordaen.register("OrdaenPanel", "Ordaen Panel", "icons/panel", (): any Ordaen.Module | nil => new Windowed())
   minimap.enable(true)
   show("mounted: the window isn't open, the minimap runs")
 
   window.toggle("")
   show("opened: Ordaen's own page, its three tabs, the modules in the list with their switches")
 
-  click(Test::holding("Numbers", nil))
+  click(Test.holding("Numbers", nil))
   show("its second tab")
 
-  click(Test::holding("Minimap", nil))
+  click(Test.holding("Minimap", nil))
   show("the minimap picked in the list: its two tabs, the first one's rows")
 
-  click(Test::painted("art/ctl.check", nil))
+  click(Test.painted("art/ctl.check", nil))
   show("«Zone name» clicked off: one change waits, Save can be clicked, the map still has its strip")
 
-  click(Test::holding("Save", nil))
+  click(Test.holding("Save", nil))
   show("Save clicked: the map loses its strip, Roll back shows")
 
-  click(Test::holding("Roll back", nil))
+  click(Test.holding("Roll back", nil))
   show("Roll back clicked: the strip is back, nothing waits")
 
-  click(Test::holding("Button drawer", nil))
+  click(Test.holding("Button drawer", nil))
   show("the minimap's second tab")
 
-  click(Test::holding("Move mode", nil))
+  click(Test.holding("Move mode", nil))
   show("Move mode clicked: Ordaen's placing mode is on")
 
-  click(Test::painted("art/ctl.switchOn", nil))
+  click(Test.painted("art/ctl.switchOn", nil))
   show("the minimap's switch in the list clicked: it is ended, its page says it is off")
 
-  click(Test::holding("Panel", nil))
+  click(Test.holding("Panel", nil))
   show("the other module picked, which is off too")
 
-  click(Test::painted("art/ctl.switchOff", 2))
+  click(Test.painted("art/ctl.switchOff", 2))
   show("its switch clicked: it runs (a window of its own opens); it has nothing to choose")
 
-  Test::key(Test::Key::Escape)
+  Test.key(Test.Key.Escape)
   show("Escape: the window made last hears it, the other module's own, and closes")
 
-  click(Test::holding("General", nil))
-  click(Test::painted("art/ctl.check", nil))
-  Test::key(Test::Key::Escape)
+  click(Test.holding("General", nil))
+  click(Test.painted("art/ctl.check", nil))
+  Test.key(Test.Key.Escape)
   show("back on Ordaen's page, a checkbox changed, Escape: the question, the window stays")
 
-  click(Test::holding("Cancel", nil))
+  click(Test.holding("Cancel", nil))
   show("Cancel: back in the window, the change still waits")
 
-  Test::key(Test::Key::Escape)
-  click(Test::holding("Don't save", nil))
+  Test.key(Test.Key.Escape)
+  click(Test.holding("Don't save", nil))
   show("Escape again and «Don't save»: closed, nothing waits")
 
   window.toggle("OrdaenMinimap")
@@ -94,6 +94,6 @@ test "the settings window: the list, a module's page, drafts saved and taken bac
   show("asked for the same page again: closed")
 
   destroy window
-  for (entry of Ordaen::modules) { entry.enable(false) }
-  $expect(Test::blank())
+  for (entry of Ordaen.modules) { entry.enable(false) }
+  Test.expect(Test.blank())
 }

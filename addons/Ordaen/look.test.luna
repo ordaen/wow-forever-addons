@@ -1,30 +1,29 @@
 // The presets as the design site reads them: one line of JSON each, the snapshot of this test. The presets are
 // written once, in look.luna; the site reads this snapshot (`design/.vitepress/theme/themes.js` in wow-dev-tools),
 // and the suite fails where the two part.
-import { Art, Color } from "$ltml"
-import String from "$string"
+import { Art } from "$ltml"
 import Test from "$test"
 import Ordaen from "Ordaen"
 import { artOf } from "@/look"
 
-private function color(c: Color): string {
-  return String::format("[%g, %g, %g]", c.r, c.g, c.b)
+function color(c: Color): String {
+  return "[%g, %g, %g]".format(c.r, c.g, c.b)
 }
 
-private function text(key: string, value: string): string {
+function text(key: String, value: String): String {
   return `"${key}": "${value}"`
 }
 
-private function hue(key: string, value: Ordaen::Hue): string {
+function hue(key: String, value: Ordaen.Hue): String {
   return text(key, `${value}`)
 }
 
-private function paint(key: string, value: Color): string {
+function paint(key: String, value: Color): String {
   return `"${key}": ${color(value)}`
 }
 
-private function json(name: Ordaen::Preset): string {
-  let l = Ordaen::preset(name)
+function json(name: Ordaen.Preset): String {
+  let l = Ordaen.preset(name)
   let entries = [
     text("font", `${l.font}`), text("fontHeader", `${l.fontHeader}`), text("fontNumbers", `${l.fontNumbers}`),
     paint("accent", l.accent), text("barTexture", `${l.barTexture}`), text("xpFill", `${l.xpFill}`),
@@ -44,22 +43,22 @@ private function json(name: Ordaen::Preset): string {
     hue("class.ROGUE", l.rogue), hue("class.PRIEST", l.priest), hue("class.SHAMAN", l.shaman),
     hue("class.MAGE", l.mage), hue("class.WARLOCK", l.warlock), hue("class.DRUID", l.druid),
   ]
-  let mut values = ""
+  let values = ""
   for (i, entry of entries) { values += (i > 1 ? ", " : "") + entry }
   return `{"id": "${name}", "values": {${values}}}`
 }
 
 test "the presets, as the design site reads them" {
-  for (name of Ordaen::PRESETS) { Test::note(json(name)) }
+  for (name of Ordaen.PRESETS) { Test.note(json(name)) }
 }
 
-private function file(font: Art | nil): string {
-  return font is string ? font : "the client's own text font"
+function file(font: Art | nil): String {
+  return font is String ? font : "the client's own text font"
 }
 
 test "the files each preset draws its text, titles and numbers in" {
-  for (name of Ordaen::PRESETS) {
-    let art = artOf(Ordaen::preset(name))
-    Test::note(`${name}: ${file(art.font)}; ${file(art.fontHeader)}; ${file(art.fontNumbers)}`)
+  for (name of Ordaen.PRESETS) {
+    let art = artOf(Ordaen.preset(name))
+    Test.note(`${name}: ${file(art.font)}; ${file(art.fontHeader)}; ${file(art.fontNumbers)}`)
   }
 }

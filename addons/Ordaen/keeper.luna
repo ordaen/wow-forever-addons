@@ -2,42 +2,42 @@
 import Drafts from "@/drafts"
 
 public class Keeper {
-  public unsaved: Reactive<integer> = $computed((): integer => self.sum())
-  public mut rollbackable: Reactive<boolean> = $reactive(false)
-  public saving: Event<nil> = $event()
-  public saved: Event<nil> = $event()
+  public derived unsaved: Integer = self.sum()
+  public state rollbackable: Boolean = false
+  public saving: Event<nil> = new Event()
+  public saved: Event<nil> = new Event()
   // Whether a `Settings` took its draft in the save that is running.
-  private mut any = false
-  public discarding: Event<nil> = $event()
-  public rollingBack: Event<nil> = $event()
+  any = false
+  public discarding: Event<nil> = new Event()
+  public rollingBack: Event<nil> = new Event()
   // How many entries of each `Settings` wait, by what it joined as.
-  private mut counts: Reactive<Map<integer, integer>> = $reactive({})
-  private mut last = 0
-  private mut name: string | nil = "Ordaen"
+  state counts: mut Map<Integer, Integer> = {}
+  last = 0
+  name: String | nil = "Ordaen"
 
-  $constructor() {
+  constructor() {
     $provide(Drafts, self)
   }
 
-  private sum(): integer {
-    let mut total = 0
+  sum(self): Integer {
+    let total = 0
     for (id, waiting of self.counts) { total += waiting }
     return total
   }
 
-  public mut join(): integer {
+  public join(mut self): Integer {
     self.last += 1
     return self.last
   }
 
-  public mut count(id: integer, waiting: integer) { self.counts[id] = waiting }
-  public mut leave(id: integer) { self.counts[id] = 0 }
-  public mut naming(name: string | nil) { self.name = name }
-  public nameNow(): string | nil { return self.name }
+  public count(mut self, id: Integer, waiting: Integer) { self.counts[id] = waiting }
+  public leave(mut self, id: Integer) { self.counts[id] = 0 }
+  public naming(mut self, name: String | nil) { self.name = name }
+  public nameNow(self): String | nil { return self.name }
 
-  public mut changed() { self.any = true }
+  public changed(mut self) { self.any = true }
 
-  public mut saveAll() {
+  public saveAll(mut self) {
     self.any = false
     self.saving.emit()
     if (!self.any) { return }
@@ -45,10 +45,10 @@ public class Keeper {
     self.rollbackable = true
   }
 
-  public mut discardAll() { self.discarding.emit() }
+  public discardAll(mut self) { self.discarding.emit() }
 
-  public mut rollbackAll() {
-    if (!$peek(self.rollbackable)) { return }
+  public rollbackAll(mut self) {
+    if (!peek self.rollbackable) { return }
     self.rollingBack.emit()
     self.rollbackable = false
   }

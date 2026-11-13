@@ -4,13 +4,18 @@
 import Ordaen from "Ordaen"
 import { PX } from "@/units"
 
-public class SettingsTab implements Ordaen::Component {
-  $constructor(
-    public const title: string,
-    private shown: Reactive<boolean> = true,
-  ) {}
+public class SettingsTab implements Ordaen.Component {
+  public const title: String
+  shown: Signal<Boolean>
+  constructor(
+    title: String,
+    shown: Signal<Boolean> = true,
+  ) {
+    self.title = title
+    self.shown = shown
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box columns={1} gap={14 * PX} shown={self.shown}>
         <slot />

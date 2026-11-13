@@ -7,19 +7,19 @@ public enum Clock { H24 = "24", H12 = "12" }
 
 public struct Globals {
   // Ordaen's windows, on top of the game's UI scale.
-  scale: number
+  scale: Number
   density: Density
   // Borders and dividers exactly on the screen's pixels.
-  pixel: boolean
+  pixel: Boolean
   numberFormat: NumberFormat
-  numberRound: boolean
-  numberPrecision: integer
+  numberRound: Boolean
+  numberPrecision: Integer
   numbers: LargeNumbers
-  sounds: boolean
+  sounds: Boolean
   clock: Clock
 }
 
 public const DEFAULTS: Globals = {
-  scale: 1, density: Density::Normal, pixel: true, numberFormat: NumberFormat::Space, numberRound: false,
-  numberPrecision: 2, numbers: LargeNumbers::Short, sounds: true, clock: Clock::H24,
+  scale: 1, density: Density.Normal, pixel: true, numberFormat: NumberFormat.Space, numberRound: false,
+  numberPrecision: 2, numbers: LargeNumbers.Short, sounds: true, clock: Clock.H24,
 }

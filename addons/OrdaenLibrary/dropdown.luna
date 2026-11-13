@@ -2,58 +2,63 @@
 // arrow. Left-click opens the menu under it, each choice with its mark (the picked one's gold), the light under the
 // cursor. Left-click on a choice picks it and closes the menu; a click anywhere else closes it. Disabled, it doesn't
 // open. A choice not built yet (`soon`) is listed dimmed, with «in development» after its name, and takes no click.
-import { Align, Art, Color, Edges, Line, Position, Shadow, Stated } from "$ltml"
+import { Align, Art, Edges, Line, Position, Shadow, Stated } from "$ltml"
 import Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
 
 // One of a dropdown's choices: the value the setting takes, and what the player reads.
-public struct Choice<T implements unknown> {
+public struct Choice<T: Unknown> {
   value: T
-  label: string
-  soon: boolean | nil
+  label: String
+  soon: Boolean | nil
 }
 
-private const WIDTH = 240 * PX
-private const HEIGHT = 34 * PX
-private const TEXT = 15 * PX
-private const GOLD = $color("#f0c860")
-private const WHITE = $color("#ffffff")
-private const DIM = $color("#ffffff73")
+const WIDTH = 240 * PX
+const HEIGHT = 34 * PX
+const TEXT = 15 * PX
+const GOLD: Color = Color.hex("#f0c860")
+const WHITE: Color = Color.hex("#ffffff")
+const DIM: Color = Color.hex("#ffffff73")
 // The design's 700: the same colour one pixel to the right.
-private const BOLD: Shadow = { color: GOLD, x: 1 * PX, y: 0 }
-private const FACE_PAD: Edges = { right: 12 * PX, left: 18 * PX }
-private const ARROW_SHADOW: Shadow = { color: $color("#14141fcc"), x: 1 * PX, y: 1 * PX }
-private const MENU_BACK = $color("#0a0806f7")
-private const MENU_EDGE: Line = { width: 1 * PX, color: $color("#6c5535") }
-private const MENU_PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
-private const ITEM_PAD: Edges = { top: 5 * PX, right: 14 * PX, bottom: 5 * PX, left: 30 * PX }
-private const CLEAR = $color("#00000000")
-private const LIGHT: Stated<Color> = { default: CLEAR, hover: $color("#d6a56b2e") }
+const BOLD: Shadow = { color: GOLD, x: 1 * PX, y: 0 }
+const FACE_PAD: Edges = { right: 12 * PX, left: 18 * PX }
+const ARROW_SHADOW: Shadow = { color: Color.hex("#14141fcc"), x: 1 * PX, y: 1 * PX }
+const MENU_BACK: Color = Color.hex("#0a0806f7")
+const MENU_EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
+const MENU_PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
+const ITEM_PAD: Edges = { top: 5 * PX, right: 14 * PX, bottom: 5 * PX, left: 30 * PX }
+const CLEAR: Color = Color.hex("#00000000")
+const LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e") }
 
 // One choice in the open menu.
-public class DropdownItem<T implements unknown> implements Ordaen::Component {
-  public pick: Event<T> = $event()
+public class DropdownItem<T: Unknown> implements Ordaen.Component {
+  public pick: Event<T> = new Event()
 
-  private mark = $computed((): Art => self.value == self.choice.value ? Ordaen::art.ctl.radioOn : Ordaen::art.ctl.radio)
-  private text = $computed((): string => self.choice.soon == true ? self.choice.label + " — " + Locale::SOON : self.choice.label)
-  private color = $computed((): Color => self.choice.soon == true ? DIM : WHITE)
-  private light = $computed((): Color | Stated<Color> => self.choice.soon == true ? CLEAR : LIGHT)
+  derived mark: Art = self.value == self.choice.value ? Ordaen.art.ctl.radioOn : Ordaen.art.ctl.radio
+  derived text: String = self.choice.soon == true ? self.choice.label + " — " + Locale.SOON : self.choice.label
+  derived color: Color = self.choice.soon == true ? DIM : WHITE
+  derived light: Color | Stated<Color> = self.choice.soon == true ? CLEAR : LIGHT
 
-  $constructor(
-    private const choice: Choice<T>,
-    private value: Reactive<T>,
-  ) {}
+  const choice: Choice<T>
+  value: Signal<T>
+  constructor(
+    choice: Choice<T>,
+    value: Signal<T>,
+  ) {
+    self.choice = choice
+    self.value = value
+  }
 
-  private mut onClick() {
+  onClick(mut self) {
     if (self.choice.soon != true) { self.pick.emit(self.choice.value) }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box padding={ITEM_PAD} background={self.light} @click={self.onClick}>
-        <box position={Position::Absolute} left={10 * PX} top={9 * PX} width={11 * PX} height={11 * PX}
+        <box position={Position.Absolute} left={10 * PX} top={9 * PX} width={11 * PX} height={11 * PX}
              background={self.mark} />
         <text value={self.text} textColor={self.color} textSize={TEXT} />
       </box>
@@ -61,47 +66,58 @@ public class DropdownItem<T implements unknown> implements Ordaen::Component {
   }
 }
 
-public class Dropdown<T implements unknown> implements Ordaen::Component {
-  private mut open = $reactive(false)
-  private shown = $computed((): string => self.labelOf())
+public class Dropdown<T: Unknown> implements Ordaen.Component {
+  state open = false
+  derived shown: String = self.labelOf()
 
-  $constructor(
-    private label: Reactive<string>,
-    private mut value: Reactive<T>,
-    private const choices: Array<Choice<T>>,
-    private hint: Reactive<string> = "",
-    private disabled: Reactive<boolean> = false,
-  ) {}
+  label: Signal<String>
+  value: mut Signal<T>
+  const choices: Array<Choice<T>>
+  hint: Signal<String>
+  disabled: Signal<Boolean>
+  constructor(
+    label: Signal<String>,
+    value: mut Signal<T>,
+    choices: Array<Choice<T>>,
+    hint: Signal<String> = "",
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.label = label
+    self.value = value
+    self.choices = choices
+    self.hint = hint
+    self.disabled = disabled
+  }
 
-  private labelOf(): string {
+  labelOf(self): String {
     for (choice of self.choices) {
       if (choice.value == self.value) { return choice.label }
     }
     return ""
   }
 
-  private mut toggle() {
+  toggle(mut self) {
     if (!self.disabled) { self.open = !self.open }
   }
 
-  private mut close() { self.open = false }
+  close(mut self) { self.open = false }
 
-  private mut onPick(value: T) {
+  onPick(mut self, value: T) {
     self.value = value
     self.open = false
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={WIDTH} height={HEIGHT}>
-          <box position={Position::Absolute} left={0} top={0} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
-               columns={[{ fr: 1 }, 16 * PX]} gap={10 * PX} yAlign={Align::Center}
-               background={Ordaen::art.ctl.button} @click={self.toggle}>
+          <box position={Position.Absolute} left={0} top={0} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
+               columns={[{ fr: 1 }, 16 * PX]} gap={10 * PX} yAlign={Align.Center}
+               background={Ordaen.art.ctl.button} @click={self.toggle}>
             <text value={self.shown} textColor={GOLD} textSize={TEXT} textShadow={BOLD} wrap={false} />
-            <box width={16 * PX} height={16 * PX} background={Ordaen::art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
+            <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
-          <box $if={self.open} position={Position::Absolute} left={0} top={38 * PX} width={WIDTH + 20 * PX}
+          <box $if={self.open} position={Position.Absolute} left={0} top={38 * PX} width={WIDTH + 20 * PX}
                zLevel={50} background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}
                @clickOutside={self.close}>
             <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} @pick={self.onPick} />
