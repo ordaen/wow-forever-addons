@@ -506,7 +506,7 @@ box 0,0 800x1619
 asked: ColorPicker.open #ffd100
 asked: ColorPicker.open #ffd100
 
-unsaved 0; the draft's preset none, the values' none; numbers drawn with Fonts\ARIALN.TTF
+unsaved 0; the draft's preset none, the values' none; numbers drawn with Fonts/ARIALN.TTF
 unsaved 0; the draft's preset ordaen, the values' ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
 -- rolled back: Ordaen's again
 box 0,0 800x1619

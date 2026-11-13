@@ -1,30 +1,29 @@
-// Every `Settings`' draft together: what drafts.d.luna declares.
-import Drafts from "@/drafts"
-
+// Every `Settings`' draft together, as the settings window sees them: Ordaen's root keeps one (`Ordaen.keeper`), a
+// `Settings` joins it as it is made, and hears when the drafts are saved, dropped or taken back.
 public class Keeper {
+  // How many entries wait to be saved, over every module.
   public derived unsaved: Integer = self.sum()
-  public state rollbackable: Boolean = false
-  public saving: Event<nil> = new Event()
-  public saved: Event<nil> = new Event()
+  // Whether there is a save to take back.
+  public state rollbackable = false
+  // A save: each `Settings` whose draft differs takes it and says so (`changed`); where one did, `saved` follows,
+  // and what the values were before is what a roll back returns to.
+  public const saving: Event<nil> = new Event()
+  public const saved: Event<nil> = new Event()
+  public const discarding: Event<nil> = new Event()
+  public const rollingBack: Event<nil> = new Event()
   // Whether a `Settings` took its draft in the save that is running.
   any = false
-  public discarding: Event<nil> = new Event()
-  public rollingBack: Event<nil> = new Event()
   // How many entries of each `Settings` wait, by what it joined as.
   state counts: mut Map<Integer, Integer> = {}
   last = 0
-  name: String | nil = "Ordaen"
-
-  constructor() {
-    $provide(Drafts, self)
-  }
 
   sum(self): Integer {
     let total = 0
-    for (id, waiting of self.counts) { total += waiting }
+    for (_, waiting of self.counts) { total += waiting }
     return total
   }
 
+  // A `Settings` is made: what it is counted by. It says how many of its entries wait, and that it is gone.
   public join(mut self): Integer {
     self.last += 1
     return self.last
@@ -32,11 +31,10 @@ public class Keeper {
 
   public count(mut self, id: Integer, waiting: Integer) { self.counts[id] = waiting }
   public leave(mut self, id: Integer) { self.counts[id] = 0 }
-  public naming(mut self, name: String | nil) { self.name = name }
-  public nameNow(self): String | nil { return self.name }
 
   public changed(mut self) { self.any = true }
 
+  // The drafts become the values.
   public saveAll(mut self) {
     self.any = false
     self.saving.emit()
@@ -45,8 +43,10 @@ public class Keeper {
     self.rollbackable = true
   }
 
+  // The drafts go back to the values.
   public discardAll(mut self) { self.discarding.emit() }
 
+  // The values go back to what they were before the last save, and the drafts with them.
   public rollbackAll(mut self) {
     if (!peek self.rollbackable) { return }
     self.rollingBack.emit()

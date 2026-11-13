@@ -1,3 +1,3 @@
 ordaen: Interface\AddOns\Ordaen\media\fonts\FiraSans-Regular.ttf; Interface\AddOns\Ordaen\media\fonts\AlegreyaSC-Medium.ttf; Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
-blizzard: the client's own text font; the client's own text font; Fonts\ARIALN.TTF
+blizzard: the client's own text font; the client's own text font; Fonts/ARIALN.TTF
 minimal: Interface\AddOns\Ordaen\media\fonts\FiraSans-Regular.ttf; Interface\AddOns\Ordaen\media\fonts\FiraSans-Regular.ttf; Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf

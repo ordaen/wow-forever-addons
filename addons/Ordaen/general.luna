@@ -1,31 +1,36 @@
 // Ordaen's own page in the settings window: the settings every module follows, on three tabs. Each control writes
 // one entry of their draft.
-import Ordaen from "Ordaen"
-import { Checkbox, Choice, Dropdown, Slider, Unit } from "OrdaenLibrary"
+import root Ordaen from "Ordaen"
+import { Clock, Density, Globals, LargeNumbers, NumberFormat } from "@/globals"
+import { Component } from "@/module"
+import { Settings } from "@/settings"
+import { Checkbox } from "@/checkbox"
+import { Choice, Dropdown } from "@/dropdown"
+import { Slider, Unit } from "@/slider"
 import Locale from "@/locales"
 
-const DENSITIES: Array<Choice<Ordaen.Density>> = [
-  { value: Ordaen.Density.Compact, label: Locale.GLOBAL_DENSITY_COMPACT },
-  { value: Ordaen.Density.Normal, label: Locale.GLOBAL_DENSITY_NORMAL },
-  { value: Ordaen.Density.Roomy, label: Locale.GLOBAL_DENSITY_ROOMY },
+const DENSITIES: Array<Choice<Density>> = [
+  { value: Density.Compact, label: Locale.GLOBAL_DENSITY_COMPACT },
+  { value: Density.Normal, label: Locale.GLOBAL_DENSITY_NORMAL },
+  { value: Density.Roomy, label: Locale.GLOBAL_DENSITY_ROOMY },
 ]
-const FORMATS: Array<Choice<Ordaen.NumberFormat>> = [
-  { value: Ordaen.NumberFormat.Space, label: Locale.GLOBAL_NUMBERFORMAT_SPACE },
-  { value: Ordaen.NumberFormat.Comma, label: Locale.GLOBAL_NUMBERFORMAT_COMMA },
-  { value: Ordaen.NumberFormat.Dot, label: Locale.GLOBAL_NUMBERFORMAT_DOT },
+const FORMATS: Array<Choice<NumberFormat>> = [
+  { value: NumberFormat.Space, label: Locale.GLOBAL_NUMBERFORMAT_SPACE },
+  { value: NumberFormat.Comma, label: Locale.GLOBAL_NUMBERFORMAT_COMMA },
+  { value: NumberFormat.Dot, label: Locale.GLOBAL_NUMBERFORMAT_DOT },
 ]
-const LARGE: Array<Choice<Ordaen.LargeNumbers>> = [
-  { value: Ordaen.LargeNumbers.Full, label: Locale.GLOBAL_NUMBERS_FULL },
-  { value: Ordaen.LargeNumbers.Short, label: Locale.GLOBAL_NUMBERS_SHORT },
+const LARGE: Array<Choice<LargeNumbers>> = [
+  { value: LargeNumbers.Full, label: Locale.GLOBAL_NUMBERS_FULL },
+  { value: LargeNumbers.Short, label: Locale.GLOBAL_NUMBERS_SHORT },
 ]
-const CLOCKS: Array<Choice<Ordaen.Clock>> = [
-  { value: Ordaen.Clock.H24, label: Locale.GLOBAL_CLOCK_24 },
-  { value: Ordaen.Clock.H12, label: Locale.GLOBAL_CLOCK_12 },
+const CLOCKS: Array<Choice<Clock>> = [
+  { value: Clock.H24, label: Locale.GLOBAL_CLOCK_24 },
+  { value: Clock.H12, label: Locale.GLOBAL_CLOCK_12 },
 ]
 
-public class ScalePage implements Ordaen.Component {
-  globals: mut Ordaen.Settings<Ordaen.Globals>
-  constructor(globals: mut Ordaen.Settings<Ordaen.Globals>) {
+public class ScalePage implements Component {
+  globals: mut Settings<Globals>
+  constructor(globals: mut Settings<Globals>) {
     self.globals = globals
   }
 
@@ -40,12 +45,12 @@ public class ScalePage implements Ordaen.Component {
   }
 }
 
-public class NumbersPage implements Ordaen.Component {
+public class NumbersPage implements Component {
   // Rounded numbers have no decimal places to choose.
   derived rounded: Boolean = self.globals.draft.numberRound
 
-  globals: mut Ordaen.Settings<Ordaen.Globals>
-  constructor(globals: mut Ordaen.Settings<Ordaen.Globals>) {
+  globals: mut Settings<Globals>
+  constructor(globals: mut Settings<Globals>) {
     self.globals = globals
   }
 
@@ -63,9 +68,9 @@ public class NumbersPage implements Ordaen.Component {
   }
 }
 
-public class BehaviourPage implements Ordaen.Component {
-  globals: mut Ordaen.Settings<Ordaen.Globals>
-  constructor(globals: mut Ordaen.Settings<Ordaen.Globals>) {
+public class BehaviourPage implements Component {
+  globals: mut Settings<Globals>
+  constructor(globals: mut Settings<Globals>) {
     self.globals = globals
   }
 

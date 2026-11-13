@@ -2,7 +2,7 @@
 // text under it in the label colour, wrapped at the tooltip's width. It draws over everything in its window and
 // takes no mouse. Its owner shows it while the cursor is on what it explains.
 import { Position } from "$ltml"
-import { ARTWORK } from "@/art"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
 
@@ -31,7 +31,7 @@ public class Tip implements Component {
   public render(self): Template {
     return $ltml {
       <box position={Position.Absolute} left={self.left} top={self.top} width={WIDTH} zLevel={60}
-           border={ARTWORK.frame.small} background={ARTWORK.window.wood} artOrigin={true}
+           border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
            padding={12 * PX} columns={1} gap={2 * PX}>
         <text value={self.title} textColor={NAME} textSize={18 * PX} />
         <text value={self.text} textColor={LABEL} textSize={14 * PX} />

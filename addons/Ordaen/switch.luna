@@ -2,7 +2,7 @@
 // its knob left and grey while off, right, gold and glowing while on. Left-click flips it; disabled, it takes no
 // click. `Switch` is the setting's row with the switch in it; `Toggle` the switch alone, beside an entry in a list.
 import { Art, Position } from "$ltml"
-import { ARTWORK } from "@/art"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
@@ -17,8 +17,8 @@ const KNOB_OFF = (3 - 6) * PX
 const KNOB_ON = (21 - 6) * PX
 
 public class Toggle implements Component {
-  derived track: Art = self.value ? ARTWORK.ctl.switchOn : ARTWORK.ctl.switchOff
-  derived knob: Art = self.value ? ARTWORK.ctl.knobOn : ARTWORK.ctl.knobOff
+  derived track: Art = self.value ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff
+  derived knob: Art = self.value ? Ordaen.art.ctl.knobOn : Ordaen.art.ctl.knobOff
   derived knobLeft: Number = self.value ? KNOB_ON : KNOB_OFF
 
   value: mut Signal<Boolean>

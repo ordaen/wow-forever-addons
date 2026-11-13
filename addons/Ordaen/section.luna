@@ -1,7 +1,7 @@
 // Section: a group of rows on a settings tab under its heading: the title in gold bold, a bronze rule fading out to
 // its right; the rows 14 px apart below it. Its unnamed slot takes the rows.
 import { Align, Shadow } from "$ltml"
-import { ARTWORK } from "@/art"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
 
@@ -20,7 +20,7 @@ public class Section implements Component {
       <box columns={1} gap={14 * PX}>
         <box columns={["auto", { fr: 1 }]} gap={10 * PX} yAlign={Align.Center}>
           <text value={self.title} textColor={GOLD} textSize={15 * PX} textShadow={BOLD} wrap={false} />
-          <box height={1 * PX} background={ARTWORK.ctl.rule} />
+          <box height={1 * PX} background={Ordaen.art.ctl.rule} />
         </box>
         <slot />
       </box>

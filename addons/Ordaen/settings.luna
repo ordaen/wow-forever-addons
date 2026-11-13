@@ -1,97 +1,78 @@
 // What the player chooses, kept: a module's settings and the draft its settings page writes.
+import Game from "$game"
 import Runtime from "$runtime"
-import Drafts from "@/drafts"
+import root Ordaen from "Ordaen"
+import { Keeper } from "@/keeper"
 
-// Whose the choices are: the account's, or each character's own.
-public enum Scope { Account = "account", Character = "character" }
-
-// Whether a default entry is a struct of numbers alone (a colour's r, g, b, a), and the kept one lacks one of them.
-function broken(kept: Unknown, like: Map<Unknown, Unknown>): Boolean {
-  let any = false
-  for (_, entry of like) {
-    if (!(entry is Number)) { return false }
-    any = true
-  }
-  if (!any) { return false }
-  if (!(kept is Table)) { return true }
-  for (key, _ of like) {
-    if (!(kept[key] is Number)) { return true }
-  }
-  return false
-}
-
-// What was kept, with each entry that isn't what its default is put back to the default: a colour without its
-// fields. The runtime takes an entry by its Lua kind; whether an enum's text is one of its members is the runtime's
-// to know (lunatype's next/language.md).
-function restore<S: Unknown>(character: Boolean, name: String, defaults: S): mut S {
-  let kept = Runtime.restored(character, name, defaults)
-  mend(mut kept, defaults)
-  return kept
-}
-
-function mend(kept: mut Unknown, defaults: Unknown) {
-  if (!(kept is Table) || !(defaults is Table)) { return }
-  for (key, entry of defaults) {
-    if (key is String && entry is Table && broken(kept[key], entry)) { kept[key] = Runtime.copy(entry) }
-  }
+// What a `Settings` or a `Memory` is kept under: the addon of the root that owns it (`OrdaenPanel`), and the part
+// of it where it has more than one (`Ordaen:look`); nothing for one no root owns (a test's own), which isn't kept.
+function keyOf(addon: Runtime.Addon | nil, part: String): String | nil {
+  if (addon == nil) { return nil }
+  return part == "" ? addon.name : addon.name + ":" + part
 }
 
 // A module's settings: a struct `S` of what the player chooses, with the defaults it starts from.
 //
-// The module reads `values` (`settings.scale` reads an entry of it and follows it). The settings page writes
-// `draft`, an entry at a time (`value={mut settings.draft.scale}`), and nothing the module reads changes until the
-// draft is saved: every page's changes wait for «Save» together. The values are kept between sessions under the
-// name of the module being made.
-public class Settings<S: Unknown> {
+// The module reads `values` (`settings.values.scale`, followed). The settings page writes `draft`, an entry at a
+// time (`value={mut settings.draft.scale}`), and nothing the module reads changes until the draft is saved: every
+// page's changes wait for «Save» together. The values are kept between sessions, the account's, under the module's
+// name (`keyOf`).
+public class Settings<S: Plain> {
   public const defaults: S
-  public const scope: Scope
-  public values: mut Signal<S>
-  public draft: mut Signal<S>
+  public state values: S
+  public state draft: mut S
   // How many entries of the draft differ from the values.
-  public derived changed: Integer = Runtime.differing(self.draft, self.values)
+  public derived changed: Integer = self.draft.changes(self.values)
   // What the values were before the last save that changed them.
-  before: mut S | nil = nil
+  before: S | nil = nil
   // What they were before the save that is running, where it changed them.
-  replaced: mut S | nil = nil
-  const name: String | nil
+  replaced: S | nil = nil
+  key: String | nil = nil
+  const keeper: mut Keeper
   const id: Integer
 
-  constructor(defaults: S, scope: Scope) {
+  // `part` tells a module's second `Settings` from its first; `keeper` is Ordaen's root's own, handed in by the root
+  // as it makes its own settings, and Ordaen's `keeper` otherwise.
+  constructor(defaults: S, part: String = "", keeper: mut Keeper | nil = nil) {
     self.defaults = defaults
-    self.scope = scope
-    self.name = Drafts.nameNow()
-    let name = self.name
-    let start = name != nil ? restore(scope == Scope.Character, name, defaults) : Runtime.copy(defaults)
-    self.draft = $reactive(Runtime.copy(start))
-    self.values = $reactive(start)
-    self.id = Drafts.join()
-    Drafts.saving.listen(self.save)
-    Drafts.saved.listen(self.settle)
-    Drafts.discarding.listen(self.discard)
-    Drafts.rollingBack.listen(self.rollback)
+    self.values = defaults.clone()
+    self.draft = defaults.clone()
+    self.keeper = keeper ?? Ordaen.keeper
+    self.id = self.keeper.join()
+    const key = keyOf(Runtime.Addon.of(self), part)
+    self.key = key
+    if (key != nil) {
+      const kept = load(.Account, key, defaults)
+      self.draft = kept.clone()
+      self.values = kept
+    }
+    self.keeper.saving.listen(self.save)
+    self.keeper.saved.listen(self.settle)
+    self.keeper.discarding.listen(self.discard)
+    self.keeper.rollingBack.listen(self.rollback)
     watch { self.tell() }
   }
 
   destructor() {
-    Drafts.leave(self.id)
+    self.keeper.leave(self.id)
   }
 
-  tell(self) {
-    Drafts.count(self.id, self.changed)
+  tell(mut self) {
+    self.keeper.count(self.id, self.changed)
   }
 
   keep(self) {
-    let name = self.name
-    if (name != nil) { Runtime.store(self.scope == Scope.Character, name, peek self.values) }
+    const key = self.key
+    if (key != nil) { Game.saved.store(.Account, key, peek self.values) }
   }
 
   save(mut self) {
     self.replaced = nil
     if (peek self.changed == 0) { return }
-    self.replaced = Runtime.copy(peek self.values)
-    self.values = Runtime.copy(peek self.draft)
+    self.replaced = (peek self.values).clone()
+    self.values = (peek self.draft).clone()
     self.keep()
-    Drafts.changed()
+    self.keeper.changed()
   }
 
   // A save changed something somewhere: what a roll back returns to is what this save replaced here, or nothing.
@@ -101,54 +82,52 @@ public class Settings<S: Unknown> {
   }
 
   discard(mut self) {
-    self.draft = Runtime.copy(peek self.values)
+    self.draft = (peek self.values).clone()
   }
 
   rollback(mut self) {
-    let was = self.before
+    const was = self.before
     if (was == nil) { return }
-    self.values = Runtime.copy(was)
-    self.draft = Runtime.copy(was)
+    self.values = was.clone()
+    self.draft = was.clone()
     self.before = nil
     self.keep()
   }
 
   // Every entry of the draft at once (a preset): it waits for «Save» as any other change does.
   public choose(mut self, values: S) {
-    self.draft = Runtime.copy(values)
+    self.draft = values.clone()
   }
 
   // Every value back to its default, the draft with them.
   public reset(mut self) {
-    self.values = Runtime.copy(self.defaults)
-    self.draft = Runtime.copy(self.defaults)
+    self.values = self.defaults.clone()
+    self.draft = self.defaults.clone()
     self.keep()
   }
 }
 
 // What a module remembers between sessions that the player doesn't choose on a settings page: the profession last
-// open, a list's sort. The module reads and writes `values`, and what it writes is kept at once, under the name
-// of the module being made.
-public class Memory<S: Unknown> {
-  public values: mut Signal<S>
-  const defaults: S
-  const scope: Scope
-  const name: String | nil
+// open, a list's sort. The module reads and writes `values`, and what it writes is kept at once, the account's or
+// this character's, under the module's name and `:memory`.
+public class Memory<S: Plain> {
+  public state values: S
+  const scope: Game.Scope
+  key: String | nil = nil
 
-  constructor(defaults: S, scope: Scope) {
-    self.defaults = defaults
+  constructor(defaults: S, scope: Game.Scope) {
     self.scope = scope
-    let name = Drafts.nameNow()
-    self.name = name != nil ? name + ":memory" : nil
-    let kept = self.name
-    self.values = $reactive(kept != nil ? restore(scope == Scope.Character, kept, defaults) : Runtime.copy(defaults))
+    self.values = defaults.clone()
+    const key = keyOf(Runtime.Addon.of(self), "memory")
+    self.key = key
+    if (key != nil) { self.values = load(scope, key, defaults) }
     watch { self.keep() }
   }
 
   // Every entry is read, so a change to any of them keeps the whole.
   keep(self) {
-    _ = Runtime.differing(self.values, self.defaults)
-    let name = self.name
-    if (name != nil) { Runtime.store(self.scope == Scope.Character, name, peek self.values) }
+    const values = self.values
+    const key = self.key
+    if (key != nil) { Game.saved.store(self.scope, key, values) }
   }
 }

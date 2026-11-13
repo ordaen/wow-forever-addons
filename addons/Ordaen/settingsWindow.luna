@@ -3,12 +3,19 @@
 // tab's rows, which are the module's own. Every page's changes wait in the drafts until «Save»; closing with
 // changes unsaved asks first.
 import { Align, Edges, Overflow, Position, Track } from "$ltml"
-import Ordaen from "Ordaen"
-import { Dialog, ListTab, Placing, PushButton, PX, Tabs, Window, WindowTabSpec } from "OrdaenLibrary"
+import root Ordaen from "Ordaen"
+import { Component, Entry, SettingsPage } from "@/module"
+import { Dialog } from "@/dialog"
+import { ListTab } from "@/listTab"
+import { Placing, Window, WindowTabSpec } from "@/window"
+import { PushButton } from "@/pushButton"
+import { PX } from "@/units"
+import { Tabs } from "@/tabs"
 import Locale from "@/locales"
-import { ModuleRow } from "@/moduleRow"
+import { ModuleEntry, ModuleRow } from "@/moduleRow"
+import Runtime from "$runtime"
 import { BehaviourPage, NumbersPage, ScalePage } from "@/general"
-import { LookPage } from "@/look"
+import { LookPage } from "@/lookPage"
 
 // The window's body at first, and the smallest it resizes to: the list, a row and the foot fit.
 const WIDTH = 1160 * PX
@@ -35,10 +42,9 @@ const ROWS_BOTTOM = (18 + 6) * PX + FOOT_HEIGHT
 const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto"]
 const SAVE_ROW: Array<Track> = ["auto", "auto"]
 
-public class Settings implements Ordaen.Module {
-  public const title: String = "Ordaen Settings"
+public class SettingsWindow implements Component {
   // Ordaen's own page: the settings every module follows.
-  public const pages: Array<Ordaen.SettingsPage> = [
+  public const pages: Array<SettingsPage> = [
     { title: Locale.GLOBAL_TAB_SCALE, content: $ltml { <ScalePage globals={mut Ordaen.globals} /> } },
     { title: Locale.GLOBAL_TAB_NUMBERS, content: $ltml { <NumbersPage globals={mut Ordaen.globals} /> } },
     { title: Locale.GLOBAL_TAB_BEHAVIOR, content: $ltml { <BehaviourPage globals={mut Ordaen.globals} /> } },
@@ -59,16 +65,19 @@ public class Settings implements Ordaen.Module {
   derived onGeneral: Boolean = self.page == GENERAL
   derived onLook: Boolean = self.page == LOOK
   // The module whose page is shown, where it is a module's.
-  derived entry: any Ordaen.Entry | nil = self.entryOf()
+  derived entry: any Entry | nil = self.entryOf()
   derived isOff: Boolean = self.offNow()
-  derived shown: Array<Ordaen.SettingsPage> = self.pagesOf()
+  derived shown: Array<SettingsPage> = self.pagesOf()
   derived names: Array<String> = self.namesOf()
   derived hasTabs: Boolean = self.names.length > 1
   derived content: Template = self.contentOf()
-  derived unchanged: Boolean = Ordaen.unsaved == 0
+  derived unchanged: Boolean = Ordaen.keeper.unsaved == 0
 
-  entryOf(self): any Ordaen.Entry | nil {
-    for (entry of Ordaen.modules) {
+  // Every module the player has, on or off: each addon that needs Ordaen, as the client lists them.
+  const entries: Array<ModuleEntry>
+
+  entryOf(self): any Entry | nil {
+    for (entry of self.entries) {
       if (entry.folder == self.page) { return entry }
     }
     return nil
@@ -80,7 +89,7 @@ public class Settings implements Ordaen.Module {
     return !entry.on
   }
 
-  pagesOf(self): Array<Ordaen.SettingsPage> {
+  pagesOf(self): Array<SettingsPage> {
     let entry = self.entry
     if (entry == nil) { return self.pages }
     return entry.pages
@@ -98,14 +107,13 @@ public class Settings implements Ordaen.Module {
     return page.content
   }
 
-  // /ordaen, /ordaen <module> and every Ordaen button: open on that page, or close when it is the one shown.
   constructor() {
-    Ordaen.settingsAsked.listen(self.asked)
-  }
-
-  // Ordaen was asked for its settings: its button by the minimap, its command.
-  asked(mut self, page: String | nil) {
-    self.toggle(page ?? "")
+    const listed: Array<ModuleEntry> = []
+    const own = Runtime.Addon.of(Ordaen)
+    if (own != nil) {
+      for (addon of own.dependents()) { listed.push(new ModuleEntry(addon)) }
+    }
+    self.entries = listed
   }
 
   public toggle(mut self, page: String) {
@@ -130,26 +138,26 @@ public class Settings implements Ordaen.Module {
 
   // Closing asks first while anything is unsaved.
   onClose(mut self) {
-    if (Ordaen.unsaved > 0) {
+    if (Ordaen.keeper.unsaved > 0) {
       self.closing = true
       return
     }
     self.open = false
   }
 
-  save(mut self) { Ordaen.saveAll() }
-  rollback(mut self) { Ordaen.rollbackAll() }
+  save(mut self) { Ordaen.keeper.saveAll() }
+  rollback(mut self) { Ordaen.keeper.rollbackAll() }
   placingMode(mut self) { Ordaen.togglePlacing() }
   stay(mut self) { self.closing = false }
 
   closeSaving(mut self) {
-    Ordaen.saveAll()
+    Ordaen.keeper.saveAll()
     self.closing = false
     self.open = false
   }
 
   closeDiscarding(mut self) {
-    Ordaen.discardAll()
+    Ordaen.keeper.discardAll()
     self.closing = false
     self.open = false
   }
@@ -168,7 +176,7 @@ public class Settings implements Ordaen.Module {
               <text value={self.heading} textColor={DIM} textSize={12 * PX} textFamily={Ordaen.lookArt.fontNumbers} />
             </box>
             <box columns={1}>
-              <ModuleRow $for={entry of Ordaen.modules} entry={peek entry} shown={self.page} @pick={self.onPick} />
+              <ModuleRow $for={entry of self.entries} entry={peek entry} shown={self.page} @pick={self.onPick} />
             </box>
           </box>
           <box background={PAGE_BACK}>
@@ -190,7 +198,7 @@ public class Settings implements Ordaen.Module {
                 <text $if={self.onGeneral} value={Locale.OPENS_PAGE} textColor={DIM} textSize={13 * PX} />
               </box>
               <box columns={SAVE_ROW} gap={8 * PX}>
-                <PushButton $if={Ordaen.rollbackable} label={Locale.ROLLBACK} width={130 * PX}
+                <PushButton $if={Ordaen.keeper.rollbackable} label={Locale.ROLLBACK} width={130 * PX}
                             @click={self.rollback} />
                 <PushButton label={Locale.SAVE} width={140 * PX} disabled={self.unchanged} @click={self.save} />
               </box>

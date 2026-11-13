@@ -1,18 +1,16 @@
-// Settings restored from what was kept: an entry that isn't what its default is takes the default's value.
-import Runtime from "$runtime"
+// Settings read back from what was kept: an entry that isn't what its default is takes the default's value.
+import Game from "$game"
 import Test from "$test"
-import Drafts from "@/drafts"
 import { Look, preset, Preset } from "@/look"
-import { Scope, Settings } from "@/settings"
 
 // A colour that lost its fields.
-struct Partial {
+struct Partial implements Plain {
   r: Number
 }
 
 // What saved data may hold where the look was kept: the accent without its green, blue and alpha, the red a string,
 // the text's colour whole.
-struct Damaged {
+struct Damaged implements Plain {
   accent: Partial
   red: String
   redText: Color
@@ -23,13 +21,10 @@ function color(c: Color): String {
 }
 
 test "a kept colour without its fields is the default's" {
-  Runtime.store(false, "Probe", Damaged { accent: { r: 0.1 }, red: "red", redText: { r: 0.5, g: 0.25, b: 0, a: 1 } })
-  Drafts.naming("Probe")
-  let look = new Settings<Look>(preset(Preset.Ordaen), Scope.Account)
-  Drafts.naming(nil)
-  Test.note(`accent: ${color(look.values.accent)}`)
-  Test.note(`red: ${color(look.values.red)}`)
-  Test.note(`red's text, kept whole: ${color(look.values.redText)}`)
-  Test.note(`the draft's accent: ${color(look.draft.accent)}`)
-  destroy look
+  Game.saved.store(.Account, "Probe", Damaged { accent: { r: 0.1 }, red: "red", redText: { r: 0.5, g: 0.25, b: 0, a: 1 } })
+  const look: Look = load(.Account, "Probe", preset(Preset.Ordaen))
+  Test.note(`accent: ${color(look.accent)}`)
+  Test.note(`red: ${color(look.red)}`)
+  Test.note(`red's text, kept whole: ${color(look.redText)}`)
+  Test.note(`the draft's accent: ${color(look.clone().accent)}`)
 }

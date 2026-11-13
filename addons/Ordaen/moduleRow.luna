@@ -1,7 +1,10 @@
 // A module's entry in the settings window's list: its icon, its name, its switch; dimmed while it is off.
 import { Art, Position } from "$ltml"
-import Ordaen from "Ordaen"
-import { ListTab, PX } from "OrdaenLibrary"
+import root Ordaen from "Ordaen"
+import { Component, Entry, Module, SettingsPage } from "@/module"
+import Runtime from "$runtime"
+import { ListTab } from "@/listTab"
+import { PX } from "@/units"
 
 const WIDTH = 38 * PX
 const HEIGHT = 20 * PX
@@ -13,14 +16,42 @@ const KNOB_OFF = (3 - 6) * PX
 const KNOB_ON = (21 - 6) * PX
 const PREFIX = "Ordaen "
 
+// A module the player has, as the settings window lists it: its addon's name, title and icon from its TOC; it runs
+// while its root is among Ordaen's `modules`, and its pages are that root's.
+public class ModuleEntry implements Entry {
+  public const folder: String
+  public const title: String
+  public const icon: Art
+  public derived running: any Module | nil = self.find()
+  public derived on: Boolean = self.running != nil
+  public derived pages: Array<SettingsPage> = self.running?.pages ?? []
+  const addon: Runtime.Addon
+
+  constructor(addon: Runtime.Addon) {
+    self.addon = addon
+    self.folder = addon.name
+    self.title = addon.title
+    self.icon = addon.icon ?? Ordaen.icon
+  }
+
+  find(self): any Module | nil {
+    for (module of Ordaen.modules) {
+      if (Runtime.Addon.of(module)?.name == self.folder) { return module }
+    }
+    return nil
+  }
+
+  public enable(self, on: Boolean) { Ordaen.turn(self.addon, on) }
+}
+
 // A module's on and off: Left-click turns it on (it is made and drawn at once) or off (it is ended at once).
-public class ModuleSwitch implements Ordaen.Component {
+public class ModuleSwitch implements Component {
   derived track: Art = self.entry.on ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff
   derived knob: Art = self.entry.on ? Ordaen.art.ctl.knobOn : Ordaen.art.ctl.knobOff
   derived knobLeft: Number = self.entry.on ? KNOB_ON : KNOB_OFF
 
-  entry: any Ordaen.Entry
-  constructor(entry: any Ordaen.Entry) {
+  entry: any Entry
+  constructor(entry: any Entry) {
     self.entry = entry
   }
 
@@ -36,7 +67,7 @@ public class ModuleSwitch implements Ordaen.Component {
   }
 }
 
-public class ModuleRow implements Ordaen.Component {
+public class ModuleRow implements Component {
   // Its folder: the page the window is to show.
   public pick: Event<String> = new Event()
 
@@ -45,10 +76,10 @@ public class ModuleRow implements Ordaen.Component {
   derived selected: Boolean = self.shown == self.entry.folder
   derived off: Boolean = !self.entry.on
 
-  entry: any Ordaen.Entry
+  entry: any Entry
   shown: Signal<String>
   constructor(
-    entry: any Ordaen.Entry,
+    entry: any Entry,
     // The page the window shows.
     shown: Signal<String>,
   ) {

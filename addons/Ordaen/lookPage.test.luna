@@ -2,14 +2,15 @@
 // differs, and «Save» and «Roll back» treat them as any other setting.
 import Game from "$game"
 import Test from "$test"
-import Ordaen from "Ordaen"
-import { LookPage } from "@/look"
+import root Ordaen from "Ordaen"
+import { Look, presetOf } from "@/look"
+import { LookPage } from "@/lookPage"
 
 // The middle of the accent's swatch.
 const ACCENT: Test.Point = { x: 266.67, y: 559.83 }
 
-function presetNow(look: Ordaen.Look): String {
-  let preset = Ordaen.presetOf(look)
+function presetNow(look: Look): String {
+  let preset = presetOf(look)
   if (preset == nil) { return "none" }
   return `${preset}`
 }
@@ -18,7 +19,7 @@ function state(): String {
   Test.flush()
   let file = Ordaen.lookArt.fontNumbers
   let font = file is String ? file : "a piece"
-  return `unsaved ${Ordaen.unsaved}; the draft's preset ${presetNow(Ordaen.look.draft)}, the values' ${presetNow(Ordaen.look.values)}; numbers drawn with ${font}`
+  return `unsaved ${Ordaen.keeper.unsaved}; the draft's preset ${presetNow(Ordaen.look.draft)}, the values' ${presetNow(Ordaen.look.values)}; numbers drawn with ${font}`
 }
 
 test "a preset is chosen whole, a colour changed after it, saved and rolled back" {
@@ -33,18 +34,18 @@ test "a preset is chosen whole, a colour changed after it, saved and rolled back
 
   // The colour the accent already has, picked again: nothing differs.
   Test.click(ACCENT, nil)
-  Game.colorPicker.picked.emit({ ticket: 1, color: { r: 1, g: 0.82, b: 0, a: 1 } })
+  Game.colorPicker.picked.emit(1, { r: 1, g: 0.82, b: 0, a: 1 })
   Test.note(state())
 
   Test.click(ACCENT, nil)
-  Game.colorPicker.picked.emit({ ticket: 2, color: { r: 0, g: 0.5, b: 1, a: 1 } })
+  Game.colorPicker.picked.emit(2, { r: 0, g: 0.5, b: 1, a: 1 })
   Test.note(state())
   Test.shot("Blizzard chosen, then its accent changed: no preset is the draft")
 
-  Ordaen.saveAll()
+  Ordaen.keeper.saveAll()
   Test.note(state())
 
-  Ordaen.rollbackAll()
+  Ordaen.keeper.rollbackAll()
   Test.note(state())
   Test.shot("rolled back: Ordaen's again")
 

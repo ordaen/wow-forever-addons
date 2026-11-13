@@ -1,7 +1,7 @@
 // Checkbox: a boolean setting's row (SettingRow: its label, its hint, greyed while disabled) with a dark well with
 // a bronze edge, a gold tick while on. Left-click toggles it; disabled, it takes no click.
 import { Position } from "$ltml"
-import { ARTWORK } from "@/art"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
@@ -33,9 +33,9 @@ public class Checkbox implements Component {
   public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
-        <box width={SIZE} height={SIZE} background={ARTWORK.ctl.check} @click={self.toggle}>
+        <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @click={self.toggle}>
           <box $if={self.value} position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
-               background={ARTWORK.ctl.tick} />
+               background={Ordaen.art.ctl.tick} />
         </box>
       </SettingRow>
     }

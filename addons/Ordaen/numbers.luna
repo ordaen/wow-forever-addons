@@ -5,7 +5,7 @@
 //   whole numbers from 1 up. Under 1 (not 0): at least two digits that aren't nought (0.25, 0.004).
 //   A negative number keeps its sign unless it rounds to 0.
 // What reads it is run again when the settings change.
-import { globals } from "@/core"
+import root Ordaen from "Ordaen"
 import { NumberFormat } from "@/globals"
 
 const NBSP = "\194\160"
@@ -40,7 +40,7 @@ function grouped(digits: String, group: String): String {
 
 public function number(n: Number): String {
   if (!n.finite()) { return String.of(n) }
-  let chosen = globals
+  let chosen = Ordaen.globals.values
   let thousands = chosen.numberFormat == NumberFormat.Space ? NBSP : chosen.numberFormat == NumberFormat.Comma ? "," : "."
   let point = chosen.numberFormat == NumberFormat.Dot ? "," : "."
   let value = n.abs()

@@ -1,14 +1,14 @@
-// Ordaen Core as the language sees it: what every addon builds on.
+// Ordaen as the language sees it: what every addon builds on. Its root (`OrdaenCore`) a module imports as a root,
+// `import root Ordaen from "Ordaen"`, and adds itself to its `modules`.
 public import { Component, Entry, Module, SettingsPage } from "@/module"
-public import { Settings, Memory, Scope } from "@/settings"
-public import { unsaved, rollbackable, saveAll, discardAll, rollbackAll } from "@/drafts"
+public import { Settings, Memory } from "@/settings"
+public import { Keeper } from "@/keeper"
 public import { Globals, Density, NumberFormat, LargeNumbers, Clock } from "@/globals"
-public import { art, look, lookArt, register, settingsBy, start, modules, globals, placing, togglePlacing, moved, putAt, icon, title, dev, toggleDev, settingsAsked, toggleSettings } from "@/core"
 public import { ARTWORK, Artwork } from "@/art"
 public import { Look, LookArt, Font, BarTexture, XpFill, BarFrame, Animation, Hue, Preset, PRESETS, preset, presetOf, hueColor } from "@/look"
 public import { Placed } from "@/placed"
 public import { number } from "@/numbers"
-public import { OrdaenCore } from "@/ordaen"
+public import { KeptPlace, OrdaenCore } from "@/ordaen"
 // The controls every module draws by name.
 public import { PX } from "@/units"
 public import { Tip } from "@/tip"

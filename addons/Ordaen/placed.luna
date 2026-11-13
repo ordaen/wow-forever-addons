@@ -4,7 +4,7 @@
 // module says. Its unnamed slot takes what it holds.
 import { Align, Anchored, Click, Drag, Layer, Line, MouseButton, Place, Position } from "$ltml"
 import { Component } from "@/module"
-import { lookArt, moved, placing, putAt } from "@/core"
+import root Ordaen from "Ordaen"
 
 const GOLD: Color = Color.hex("#ffd100")
 const SHADE: Color = Color.hex("#00000073")
@@ -12,7 +12,7 @@ const OUTLINE: Line = { width: 1, color: GOLD }
 
 public class Placed implements Component {
   // Where the player put it; nothing while it was never moved.
-  derived kept: Anchored | nil = moved(self.id)
+  derived kept: Anchored | nil = Ordaen.moved(self.id)
   derived place: Place = self.dragged ?? self.kept ?? self.home
   // Where it stood when a drag began, and where the drag has it meanwhile.
   from: Anchored = { point: "CENTER" }
@@ -48,20 +48,20 @@ public class Placed implements Component {
 
   onDrop(mut self) {
     let at = peek self.dragged
-    if (at != nil) { putAt(self.id, at) }
+    if (at != nil) { Ordaen.putAt(self.id, at) }
     self.dragged = nil
   }
 
   // A right click puts it back where its module says.
   onClick(mut self, click: Click) {
-    if (click.button == MouseButton.Right) { putAt(self.id, nil) }
+    if (click.button == MouseButton.Right) { Ordaen.putAt(self.id, nil) }
   }
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Screen} place={self.place} clamp={true} textFamily={lookArt.font}>
+      <surface layer={Layer.Screen} place={self.place} clamp={true} textFamily={Ordaen.lookArt.font}>
         <slot />
-        <box $if={placing} position={Position.Absolute} left={0} top={0} right={0} bottom={0} zLevel={20}
+        <box $if={Ordaen.placing} position={Position.Absolute} left={0} top={0} right={0} bottom={0} zLevel={20}
              background={SHADE} border={OUTLINE} xAlign={Align.Center} yAlign={Align.Center}
              @dragStart={self.onGrab} @drag={self.onDrag} @dragStop={self.onDrop} @click={self.onClick}>
           <text value={self.title} textColor={GOLD} wrap={false} />

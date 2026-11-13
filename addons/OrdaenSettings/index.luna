@@ -1,2 +1,0 @@
-// Ordaen Settings: the one settings window, for Ordaen and every module.
-public import { Settings } from "@/main"

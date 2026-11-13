@@ -1,12 +1,14 @@
 // Numbers as Ordaen writes them, under each of its number settings.
 import Test from "$test"
-import Ordaen from "Ordaen"
+import root Ordaen from "Ordaen"
+import { NumberFormat } from "@/globals"
+import { number } from "@/numbers"
 
 const SAMPLES: Array<Number> = [0, 1795, 2.5, 1234567.089, 0.25, 0.004, -3.14159, -0.0001, 12.999]
 
 function written(title: String) {
   let parts: Array<String> = []
-  for (n of SAMPLES) { parts.push(Ordaen.number(n).replace("\194\160", "_")) }
+  for (n of SAMPLES) { parts.push(number(n).replace("\194\160", "_")) }
   Test.note(`${title}:`)
   for (part of parts) { Test.note(`  ${part}`) }
 }
@@ -14,16 +16,16 @@ function written(title: String) {
 test "a number is written by Ordaen's number settings" {
   written("as it starts (a space between thousands, shown _; two decimals)")
 
-  Ordaen.globals.draft.numberFormat = Ordaen.NumberFormat.Comma
-  Ordaen.saveAll()
+  Ordaen.globals.draft.numberFormat = NumberFormat.Comma
+  Ordaen.keeper.saveAll()
   written("commas between thousands")
 
-  Ordaen.globals.draft.numberFormat = Ordaen.NumberFormat.Dot
+  Ordaen.globals.draft.numberFormat = NumberFormat.Dot
   Ordaen.globals.draft.numberPrecision = 1
-  Ordaen.saveAll()
+  Ordaen.keeper.saveAll()
   written("dots between thousands, a comma before the decimals, one decimal")
 
   Ordaen.globals.draft.numberRound = true
-  Ordaen.saveAll()
+  Ordaen.keeper.saveAll()
   written("whole numbers from 1 up")
 }

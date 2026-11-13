@@ -1,183 +1,129 @@
-// Ordaen's root: what core.d.luna declares. It knows the modules, makes and ends them as the player turns them on
-// and off, and keeps Ordaen's own settings and where the player put each part.
+// Ordaen's root: what Ordaen's own files (`import root Ordaen from "Ordaen"`) and every module (its root, a cell)
+// read of Ordaen. It holds the modules that run, keeps Ordaen's own settings and where the player put each part,
+// turns the modules on and off as the player chooses, and draws the settings window once it is first asked for.
 import Debug from "$debug"
-import { Anchored, Art } from "$ltml"
+import { Anchored, Art, Point } from "$ltml"
+import Game from "$game"
 import Runtime from "$runtime"
-import Core from "@/core"
-import Drafts from "@/drafts"
+import { ARTWORK, Artwork } from "@/art"
 import { DEFAULTS, Globals } from "@/globals"
 import { Keeper } from "@/keeper"
 import Locale from "@/locales"
-import { Entry, Module, SettingsPage } from "@/module"
-import { Scope, Settings } from "@/settings"
-import { ARTWORK, Artwork } from "@/art"
 import { artOf, Look, LookArt, preset, Preset } from "@/look"
+import { Module } from "@/module"
+import { Settings } from "@/settings"
+import { SettingsWindow } from "@/settingsWindow"
 
-public class ModuleEntry implements Entry {
-  public state on: Boolean = false
-  public state pages: Array<SettingsPage> = []
-  // The module while it runs.
-  made: mut any Module | nil = nil
-
-  public const folder: String
-  public const title: String
-  public const icon: Art
-  const make: () => mut any Module | nil
-  constructor(
-    folder: String,
-    title: String,
-    icon: Art,
-    make: () => mut any Module | nil,
-  ) {
-    self.folder = folder
-    self.title = title
-    self.icon = icon
-    self.make = make
-  }
-
-  public enable(self, on: Boolean) {
-    Core.turn(self.folder, on)
-  }
-
-  public running(self): Boolean {
-    return self.made != nil
-  }
-
-  // Made and drawn at once; nothing happens where its addon can't be loaded.
-  public begin(mut self) {
-    let made = self.make()
-    if (made == nil) { return }
-    self.made = made
-    Runtime.mount(made, Runtime.screen())
-    self.pages = Runtime.copy(made.pages)
-    self.on = true
-  }
-
-  public stop(mut self) {
-    let made = self.made
-    self.pages = []
-    self.made = nil
-    self.on = false
-    if (made != nil) { destroy made }
-  }
+// Where the player put a part, as it is kept: a point of it, the screen's point it stands by, and how far from it.
+public struct KeptPlace implements Plain {
+  point: Point = Point.Center
+  to: Point | nil
+  x: Number | nil
+  y: Number | nil
 }
 
 public class OrdaenCore implements App {
-  // Before anything that makes a `Settings`: Ordaen's own are kept under its name.
-  keeper = new Keeper()
   public const icon: Art = "Interface/Icons/Trade_Engineering"
   public const title: String = "Ordaen"
+  // The art everything Ordaen draws with, whatever the player chooses.
   public state art: Artwork = ARTWORK
+  // Every `Settings`' draft together, as the settings window sees them.
+  public const keeper: mut Keeper = new Keeper()
   // The fonts, colours and bars' art the player chose: Ordaen's own settings, kept apart from `globals`.
-  public const look: Settings<Look>
+  public const look: mut Settings<Look>
   // The files the look picks, worked out again only when the look's values change.
   public derived lookArt: LookArt = artOf(self.look.values)
-  public state dev: Boolean = false
-  public settingsAsked: Event<String | nil> = new Event()
-  public state modules: mut Array<any Entry> = []
-  public const globals: Settings<Globals> = new Settings<Globals>(DEFAULTS, Scope.Account)
-  public state placing: Boolean = false
-  entries: mut Array<ModuleEntry> = []
+  // The settings every module follows.
+  public const globals: mut Settings<Globals>
+  // The dev tools' window: whether it is open.
+  public state dev = false
+  // The modules that run: each module's root adds itself, and goes as it is destroyed.
+  public const modules = new Registry<any Module>()
+  // The mode in which the player moves every module's free parts about the screen.
+  public state placing = false
   // Where the player put each part: read by a part an entry at a time, so a part follows its own place.
-  state places: mut Map<String, Anchored> = {}
-  // Which modules the player turned off; kept from `start` on.
+  state places: mut Map<String, KeptPlace> = {}
+  // Which modules the player turned off: the account's, whatever each character's list of addons says.
   chosen: mut Map<String, Boolean> = {}
-  started = false
-  // The folder of the module that draws the settings window.
-  window: String | nil = nil
+  // The settings window, made when it is first asked for.
+  window: mut SettingsWindow | nil = nil
 
   constructor() {
-    Drafts.naming("Ordaen:look")
-    self.look = new Settings<Look>(preset(Preset.Ordaen), Scope.Account)
-    Drafts.naming(nil)
-    $provide(Core, self)
+    self.look = new Settings<Look>(preset(Preset.Ordaen), "look", mut self.keeper)
+    self.globals = new Settings<Globals>(DEFAULTS, "", mut self.keeper)
+    self.chosen = load<Map<String, Boolean>>(.Account, "choices", {})
+    self.places = load<Map<String, KeptPlace>>(.Account, "places", {})
+    Runtime.command("/ordaen", (text: String) => self.command(text))
+    Runtime.options(self.title, Locale.SETTINGS_OPEN, () => self.toggleSettings(nil))
+    self.start()
   }
 
   public toggleDev(mut self) { self.dev = !peek self.dev }
-  public toggleSettings(mut self, page: String | nil) { self.ask(page) }
   public togglePlacing(mut self) { self.placing = !peek self.placing }
 
-  public moved(self, part: String): Anchored | nil {
-    return self.places[part]
+  // The settings window, at a page (a module's folder; Ordaen's own where none is named), or closed where it shows
+  // that page: made and drawn the first time.
+  public toggleSettings(mut self, page: String | nil) {
+    if (self.window == nil) {
+      const made = new SettingsWindow()
+      Runtime.mount(made, Runtime.screen())
+      self.window = made
+    }
+    Debug.log("the settings window asked for, page %s", page ?? "none")
+    self.window?.toggle(page ?? "")
   }
 
+  // Where the player put a part, by the part's name; nothing for one never moved. Read in a `derived`, it is
+  // followed: the part moves when its place is kept anew.
+  public moved(self, part: String): Anchored | nil {
+    const kept = self.places[part]
+    if (kept == nil) { return nil }
+    return { point: kept.point, to: kept.to, x: kept.x, y: kept.y }
+  }
+
+  // Keep a part's place; nothing puts it back where its module says.
   public putAt(mut self, part: String, place: Anchored | nil) {
     if (place == nil) {
       self.places[part] = nil
     } else {
-      self.places[part] = Runtime.copy(place)
+      self.places[part] = { point: place.point, to: place.to, x: place.x, y: place.y }
     }
-  }
-
-  public register(mut self, folder: String, title: String, icon: Art, make: () => mut any Module | nil): any Entry {
-    let entry = new ModuleEntry(folder, title, icon, make)
-    self.entries.push(entry)
-    self.modules.push(entry)
-    Debug.log("module %s told of", folder)
-    // A module told of after the start (an addon of its own that loads later) runs as the others do.
-    if (self.started && self.chosen[folder] != false) { self.run(folder, true) }
-    return entry
-  }
-
-  // The module that draws the settings window: asked for, the window opens even where that module is off.
-  public settingsBy(mut self, entry: any Entry) {
-    self.window = entry.folder
+    Game.saved.store(.Account, "places", peek self.places)
   }
 
   // The player's choice: kept, whatever comes of it. A module turned on is on in the client's own list of addons
-  // from then, so that it can be loaded.
-  public turn(mut self, folder: String, on: Boolean) {
-    self.chosen[folder] = on
-    Debug.log("module %s turned %s by the player", folder, on ? "on" : "off")
-    if (on) { _ = Runtime.enable(folder) }
-    self.run(folder, on)
+  // from then, loaded where it can be, and its root made; turned off, its root is destroyed.
+  public turn(mut self, addon: Runtime.Addon, on: Boolean) {
+    self.chosen[addon.name] = on
+    Game.saved.store(.Account, "choices", self.chosen)
+    Debug.log("module %s turned %s by the player", addon.name, on ? "on" : "off")
+    self.run(addon, on)
   }
 
-  // A module made and drawn, or ended. What the player chose isn't touched: a module that can't be loaded now is
-  // tried again at the next start.
-  run(mut self, folder: String, on: Boolean) {
-    for (i, entry of self.entries) {
-      if (entry.folder == folder && entry.running() != on) {
-        if (on) {
-          // What the module's `Settings` are kept under.
-          Drafts.naming(folder)
-          self.entries[i]?.begin()
-          Drafts.naming(nil)
-        } else {
-          self.entries[i]?.stop()
-        }
-        Debug.log("module %s: %s", folder, entry.running() ? "running" : (on ? "not made: its addon didn't load" : "ended"))
-      }
+  // A module run or ended. What the player chose isn't touched: a module that can't be loaded now is tried again
+  // at the next start.
+  run(self, addon: Runtime.Addon, on: Boolean) {
+    if (!on) {
+      addon.disable()
+      return
     }
+    const refused = addon.enable()
+    if (refused != nil) { Debug.log("module %s: not made, the client says %s", addon.name, refused.reason) }
   }
 
-  // The settings window asked for: the module that draws it runs first.
-  ask(mut self, page: String | nil) {
-    let window = self.window
-    if (window != nil) {
-      for (entry of self.entries) {
-        if (entry.folder == window && !entry.running()) { self.turn(window, true) }
-      }
+  // The modules the player has (each addon that needs Ordaen) run but those the player turned off.
+  start(self) {
+    const own = Runtime.Addon.of(self)
+    if (own == nil) { return }
+    for (addon of own.dependents()) {
+      const wanted = self.chosen[addon.name] != false
+      Debug.log("module %s: %s", addon.name, wanted ? "to run" : "turned off by the player")
+      self.run(addon, wanted)
     }
-    Debug.log("the settings window asked for, page %s", page ?? "none")
-    self.settingsAsked.emit(page)
   }
 
   // `/ordaen` opens the settings, `/ordaen <module's folder>` on that module's page.
   command(mut self, text: String) {
-    self.ask(text.match("^%s*(%S+)"))
-  }
-
-  public start(mut self) {
-    self.chosen = Runtime.kept<Map<string, boolean>>(false, "choices", {})
-    self.places = Runtime.kept<Map<string, Anchored>>(false, "places", {})
-    self.started = true
-    Runtime.command("/ordaen", (text: String) => self.command(text))
-    Runtime.options(self.title, Locale.SETTINGS_OPEN, () => self.ask(nil))
-    for (entry of self.entries) {
-      let wanted = self.chosen[entry.folder] != false
-      Debug.log("module %s: %s", entry.folder, wanted ? "to run" : "turned off by the player")
-      if (wanted) { self.run(entry.folder, true) }
-    }
+    self.toggleSettings(text.match("^%s*(%S+)"))
   }
 }

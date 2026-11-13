@@ -3,7 +3,7 @@
 // cursor. Left-click on a choice picks it and closes the menu; a click anywhere else closes it. Disabled, it doesn't
 // open. A choice not built yet (`soon`) is listed dimmed, with «in development» after its name, and takes no click.
 import { Align, Art, Edges, Line, Position, Shadow, Stated } from "$ltml"
-import { ARTWORK } from "@/art"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import Locale from "@/locales"
 import { PX } from "@/units"
@@ -37,7 +37,7 @@ const LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e") }
 public class DropdownItem<T: Unknown> implements Component {
   public pick: Event<T> = new Event()
 
-  derived mark: Art = self.value == self.choice.value ? ARTWORK.ctl.radioOn : ARTWORK.ctl.radio
+  derived mark: Art = self.value == self.choice.value ? Ordaen.art.ctl.radioOn : Ordaen.art.ctl.radio
   derived text: String = self.choice.soon == true ? self.choice.label + " — " + Locale.SOON : self.choice.label
   derived color: Color = self.choice.soon == true ? DIM : WHITE
   derived light: Color | Stated<Color> = self.choice.soon == true ? CLEAR : LIGHT
@@ -114,9 +114,9 @@ public class Dropdown<T: Unknown> implements Component {
         <box width={WIDTH} height={HEIGHT}>
           <box position={Position.Absolute} left={0} top={0} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
                columns={[{ fr: 1 }, 16 * PX]} gap={10 * PX} yAlign={Align.Center}
-               background={ARTWORK.ctl.button} @click={self.toggle}>
+               background={Ordaen.art.ctl.button} @click={self.toggle}>
             <text value={self.shown} textColor={GOLD} textSize={TEXT} textShadow={BOLD} wrap={false} />
-            <box width={16 * PX} height={16 * PX} background={ARTWORK.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
+            <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
           <box $if={self.open} position={Position.Absolute} left={0} top={38 * PX} width={WIDTH + 20 * PX}
                zLevel={50} background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}

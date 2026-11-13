@@ -1,4 +1,4 @@
-// What every addon builds on: what draws, and what an addon's root is.
+// What every addon builds on: what draws, and what a module's root is.
 
 import { Art } from "$ltml"
 
@@ -13,7 +13,7 @@ public struct SettingsPage {
   content: Template
 }
 
-// A module as Ordaen Core knows it, running or not.
+// A module as the settings window lists it, running or not: an addon the player has that needs Ordaen.
 public trait Entry {
   // Its addon's folder: what tells it from the others.
   public const folder: String
@@ -23,12 +23,13 @@ public trait Entry {
   public on: Signal<Boolean>
   // Its tabs in the settings window; none while it is off.
   public pages: Signal<Array<SettingsPage>>
-  // Ask Ordaen to turn it on (it is made and drawn at once) or off (it is ended at once). The entry is Ordaen's:
-  // whoever holds it may ask.
+  // Ask Ordaen to turn it on (it is made and drawn at once) or off (it is ended at once).
   public enable(self, on: Boolean)
 }
 
-// An addon's root: a component the player turns on and off.
+// A module's root: a component the player turns on and off. It adds itself to Ordaen's `modules` as it is made,
+// in a watch that follows Ordaen's root (`watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }`), and is gone
+// from there as it is destroyed.
 public trait Module: Component {
   public const title: String
   // Its tabs in the settings window, in order; none for a module with nothing to choose.
