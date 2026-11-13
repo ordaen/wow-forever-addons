@@ -1,2 +1,11 @@
 {
+  "TAB_GENERAL": "General",
+  "SCAN_ON_OPEN": "Scan when the auction house opens",
+  "SCAN_ON_OPEN_TIP": "A full scan of the house, at most once every 15 minutes for the account.",
+  "CUT": "Auction house cut, %",
+  "CUT_TIP": "Taken off what an item brings when it sells.",
+  "WINDOW": "Ordaen's auction house window",
+  "WINDOW_TIP": "Off: the game's own window opens, and the prices stay in the tooltips.",
+  "PRICE_LINE": "Price in item tooltips",
+  "PRICE_LINE_TIP": "The Auction line: what one costs on the house, and how old the price is."
 }

@@ -1,0 +1,62 @@
+// Ordaen Auction: the house's prices, homemade (`redesign/market.md`), every Ordaen addon's through `prices`; the
+// merchants' prices; the sales ledger. A module loaded on demand: a player with it off loads none of its data.
+import Game from "$game"
+import { Module, Settings, SettingsPage } from "Ordaen"
+import root Ordaen from "Ordaen"
+import { House } from "@/house"
+import { Kept } from "@/kept"
+import { Ledger } from "@/ledger"
+import Locale from "@/locales"
+import { OrdaenPrices, takeMerchant } from "@/prices"
+import { PriceSource } from "@/quote"
+import { Scanner } from "@/scan"
+import { Choices, DEFAULTS, GeneralPage } from "@/settings"
+
+// What the module keeps, under its own saved variable.
+const KEPT = "kept"
+
+public class Auction implements Module, App {
+  public const title: String = "Ordaen Auction"
+  settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+  ]
+  derived cut: Integer = self.settings.values.cut
+
+  kept: mut Kept
+  house: mut House
+  source: mut OrdaenPrices
+  scanner: mut Scanner
+  // Where every Ordaen addon reads a price.
+  public const prices: any PriceSource
+  // The sales and purchases the mailbox reads.
+  public const ledger: mut Ledger
+
+  constructor() {
+    self.kept = load(.Own, KEPT, Kept {})
+    Game.saved.store(.Own, KEPT, self.kept)
+    // The current realm's house unpacked; the others stay packed.
+    const realm = Game.player.realm
+    self.house = new House(realm, self.kept.houses[realm])
+    self.source = new OrdaenPrices(self.house, self.kept.vendor, self.cut)
+    self.prices = self.source
+    self.scanner = new Scanner(mut self.house, mut self.source, mut self.kept)
+    self.ledger = new Ledger(mut self.kept.ledger)
+    Game.auctionHouse.opened.listen(self.onOpened)
+    Game.merchant.opened.listen(self.onMerchant)
+    Ordaen.modules.add(self)
+  }
+
+  onOpened(mut self) {
+    if (peek self.settings.values.scanOnOpen) { _ = self.scanner.full() }
+  }
+
+  onMerchant(mut self) {
+    const given = Game.merchant.prices()
+    if (given != nil) { takeMerchant(mut self.kept.vendor, given) }
+  }
+
+  public render(self): Template {
+    return $ltml {}
+  }
+}

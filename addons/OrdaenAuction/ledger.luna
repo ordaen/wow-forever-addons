@@ -26,10 +26,9 @@ public class Ledger {
   public state revision = 0
   rows: mut Array<Dealt>
 
-  // `rows` are the module's saved ones, written in place.
+  // `rows` are the module's saved ones, written in place; those past 90 days go as the next is written.
   constructor(rows: mut Array<Dealt>) {
     self.rows = rows
-    self.drop(Hour.now())
   }
 
   // An invoice of the house's, as the mailbox gives it.
