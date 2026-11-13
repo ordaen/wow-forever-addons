@@ -1,0 +1,130 @@
+// The library's Table: a heading click sorts by its column and again reverses it, a column that isn't sortable does
+// nothing, the rows follow their own cells, and every row is drawn (rows drawn only where seen wait for the renderer).
+import { Align, Track } from "$ltml"
+import Test from "$test"
+import { Age } from "@/age"
+import { Money } from "@/money"
+import { Column, Table, TableRow, tracksOf } from "@/table"
+
+public struct Sale {
+  name: String
+  price: Integer
+  seen: Number
+}
+
+const COLUMNS: Array<Column> = [
+  { title: "Item", width: { fr: 1 }, sortable: true },
+  { title: "Price", width: 110, align: Align.End, sortable: true },
+  { title: "Age", width: 50, align: Align.End, sortable: true },
+  { title: "Note", width: 60 },
+]
+const TRACKS: Array<Track> = tracksOf(COLUMNS)
+
+class Sales {
+  public state sales: Array<Sale> = [
+    { name: "Copper Bar", price: 150, seen: 3 * 86400 },
+    { name: "Bronze Axe", price: 12345, seen: 86400 },
+    { name: "Arcane Dust", price: 40, seen: 9 * 86400 },
+  ]
+  public state sorted = 0
+  public state descending = false
+  public state picked = ""
+  public state height: Number | nil = nil
+  public derived ordered: Array<Sale> = self.order()
+
+  order(self): Array<Sale> {
+    let list: Array<Sale> = []
+    for (sale of self.sales) { list.push(sale) }
+    const column = self.sorted
+    const down = self.descending
+    if (column == 0) { return list }
+    list.sort((a, b) => {
+      if (column == 1) { return down ? a.name > b.name : a.name < b.name }
+      if (column == 2) { return down ? a.price > b.price : a.price < b.price }
+      return down ? a.seen > b.seen : a.seen < b.seen
+    })
+    return list
+  }
+
+  onPick(mut self) { self.picked = "row" }
+
+  public render(self): Template {
+    return $ltml {
+      <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={self.height}>
+        <TableRow $for={sale of self.ordered} $key={sale} tracks={TRACKS} @pick={self.onPick}>
+          <text value={peek sale.name} />
+          <box xAlign={Align.End}>
+            <Money amount={peek sale.price} />
+          </box>
+          <box xAlign={Align.End}>
+            <Age seconds={peek sale.seen} />
+          </box>
+          <box />
+        </TableRow>
+      </Table>
+    }
+  }
+}
+
+function names(page: Sales): String {
+  return page.ordered.map((sale: Sale): String => sale.name).join(", ")
+}
+
+test "a heading click sorts by its column and again reverses it, the rows' own cells follow, every row is drawn" {
+  let page = new Sales()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test.shot("unsorted: the rows as given, no heading marked")
+  Test.expect(names(page) == "Copper Bar, Bronze Axe, Arcane Dust")
+
+  Test.click(Test.holding("Price", nil), nil)
+  Test.expect(page.sorted == 2 && !page.descending)
+  Test.expect(names(page) == "Arcane Dust, Copper Bar, Bronze Axe")
+  Test.shot("Price clicked: ordered by it, the cheapest first, its heading gold with ▲ and a light under it")
+
+  Test.click(Test.holding("Price", nil), nil)
+  Test.expect(page.descending)
+  Test.expect(names(page) == "Bronze Axe, Copper Bar, Arcane Dust")
+  Test.shot("Price clicked again: reversed, ▼")
+
+  Test.click(Test.holding("Item", nil), nil)
+  Test.expect(page.sorted == 1 && !page.descending)
+  Test.expect(names(page) == "Arcane Dust, Bronze Axe, Copper Bar")
+  Test.shot("Item clicked: by name, ascending again, the light moved")
+
+  Test.click(Test.holding("Age", nil), nil)
+  Test.expect(names(page) == "Bronze Axe, Copper Bar, Arcane Dust")
+  Test.shot("Age clicked: the youngest first")
+
+  Test.click(Test.holding("Note", nil), nil)
+  Test.expect(page.sorted == 3)
+  Test.shot("Note clicked: it isn't sortable, nothing changes")
+
+  page.sales = [
+    { name: "Copper Bar", price: 150, seen: 3 * 86400 },
+    { name: "Bronze Axe", price: 99, seen: 2 * 86400 },
+    { name: "Arcane Dust", price: 40, seen: 9 * 86400 },
+    { name: "Tin Bar", price: 70, seen: 600 },
+  ]
+  Test.expect(names(page) == "Tin Bar, Bronze Axe, Copper Bar, Arcane Dust")
+  Test.shot("the sales replaced while sorted by Age: four rows, the new one first, nothing was asked to sort")
+
+  Test.click(Test.holding("Bronze Axe", nil), nil)
+  Test.expect(page.picked == "row")
+
+  destroy page
+  Test.expect(Test.blank())
+}
+
+test "a body given a height scrolls past it, the headings stay" {
+  let page = new Sales()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  page.height = 40
+  Test.shot("the body 40 high: the first row and part of the next, the headings over them")
+
+  Test.moveTo(Test.holding("Copper Bar", nil))
+  Test.wheel(-3)
+  Test.shot("the wheel turned down over the rows: they have moved up under the headings")
+
+  destroy page
+  Test.expect(Test.blank())
+}
