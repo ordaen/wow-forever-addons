@@ -1,0 +1,115 @@
+// The market's controls on a page, for the run tests: a scan's progress, a price with its age, a mode, a tree, item
+// slots and a sortable table of sales.
+import { Align, Track } from "$ltml"
+import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, TreeRow, tracksOf } from "Ordaen"
+
+public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
+
+public struct Sale {
+  name: String
+  price: Integer
+  seen: Number
+}
+
+const FLAGS: Array<Marker> = [{ corner: Corner.TopLeft, color: Color.hex("#ffd100") }]
+
+const WORTHS: Array<Choice<Worth>> = [
+  { value: Worth.Auction, label: "Auction" },
+  { value: Worth.Merchant, label: "Merchant" },
+  { value: Worth.Held, label: "Held", soon: true },
+]
+
+const COLUMNS: Array<Column> = [
+  { title: "Item", width: { fr: 1 }, sortable: true },
+  { title: "Each", width: 120, align: Align.End, sortable: true },
+  { title: "Age", width: 60, align: Align.End, sortable: true },
+]
+const TRACKS: Array<Track> = tracksOf(COLUMNS)
+
+public class Market implements Component {
+  state scanned: Number = 0.4
+  state price: Integer = 12345
+  state seen: Number | nil = 2 * 86400
+  state wanted: Integer = 12503
+  state worth: Worth = Worth.Auction
+  state treeOpen = true
+  state chosenItem = 0
+  state sales: Array<Sale> = [
+    { name: "Copper Bar", price: 150, seen: 3 * 86400 },
+    { name: "Bronze Axe", price: 12345, seen: 86400 },
+    { name: "Arcane Dust", price: 40, seen: 9 * 86400 },
+  ]
+  state sorted = 0
+  state descending = false
+  derived ordered: Array<Sale> = self.order()
+
+  // The sales by the column the table is sorted by, as the page keeps them when it is not.
+  order(self): Array<Sale> {
+    let list: Array<Sale> = []
+    for (sale of self.sales) { list.push(sale) }
+    const column = self.sorted
+    const down = self.descending
+    if (column == 0) { return list }
+    list.sort((a, b) => {
+      if (column == 1) { return down ? a.name > b.name : a.name < b.name }
+      if (column == 2) { return down ? a.price > b.price : a.price < b.price }
+      return down ? a.seen > b.seen : a.seen < b.seen
+    })
+    return list
+  }
+
+  onItem(mut self, item: Integer) { self.chosenItem = item }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={14}>
+        <Section title={"Market"}>
+          <SettingRow label={"Scan"}>
+            <ProgressBar fraction={self.scanned} label={"Scanning"} />
+          </SettingRow>
+          <SettingRow label={"Price"}>
+            <box columns={["auto", "auto"]} gap={8}>
+              <Money amount={self.price} />
+              <Age seconds={self.seen} />
+            </box>
+          </SettingRow>
+          <MoneyInput label={"Wanted"} value={mut self.wanted} />
+          <SettingRow label={"Wanted, written"}>
+            <Money amount={self.wanted} />
+          </SettingRow>
+          <SettingRow label={"Sold to"}>
+            <Segmented value={mut self.worth} choices={WORTHS} />
+          </SettingRow>
+          <SettingRow label={"Bought"}>
+            <box columns={["auto", "auto", "auto"]} gap={8}>
+              <ItemButton item={6948} count={5} quality={Quality.Rare} markers={FLAGS} @pick={self.onItem} />
+              <ItemButton item={2589} count={20} quality={Quality.Epic} @pick={self.onItem} />
+              <ItemButton item={nil} />
+            </box>
+          </SettingRow>
+          <box columns={1}>
+            <TreeRow label={"Bronze Axe"} depth={0} open={mut self.treeOpen}>
+              <Money amount={self.price} />
+            </TreeRow>
+            <TreeRow $if={self.treeOpen} label={"Bronze Bar"} depth={1} open={mut self.treeOpen} leaf={true}>
+              <Age seconds={self.seen} />
+            </TreeRow>
+          </box>
+        </Section>
+        <Section title={"Sales"}>
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+            <TableRow $for={sale of self.ordered} $key={sale} tracks={TRACKS}>
+              <text value={peek sale.name} />
+              <box xAlign={Align.End}>
+                <Money amount={peek sale.price} />
+              </box>
+              <box xAlign={Align.End}>
+                <Age seconds={peek sale.seen} />
+              </box>
+            </TableRow>
+          </Table>
+        </Section>
+      </box>
+    }
+  }
+}

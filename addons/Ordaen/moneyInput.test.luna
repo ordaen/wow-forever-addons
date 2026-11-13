@@ -1,0 +1,133 @@
+// The library's MoneyInput: an amount typed as one text, parsed by its rules, written to the cell as it parses and
+// followed when something else writes the cell.
+import Test from "$test"
+import { MoneyField, MoneyInput, copperOf, copperText } from "@/moneyInput"
+
+class Price {
+  state copper: Integer = 12503
+  state off = false
+
+  public render(self): Template {
+    return $ltml {
+      <MoneyInput label={"Price"} value={mut self.copper} disabled={self.off} />
+    }
+  }
+}
+
+// The field alone on a cell, its text written by the test.
+class Bare {
+  state copper: Integer = 5
+  field: mut MoneyField | nil
+
+  constructor() {
+    self.field = new MoneyField(mut self.copper)
+  }
+
+  destructor() {
+    if (self.field != nil) { destroy self.field }
+  }
+}
+
+function read(text: String): String {
+  const copper = copperOf(text)
+  return copper == nil ? "not an amount" : String.of(copper)
+}
+
+test "a text names an amount by its units, in order, each once, and anything else names none" {
+  Test.note("12g 50s 3c: " + read("12g 50s 3c"))
+  Test.note("12G50S3C: " + read("12G50S3C"))
+  Test.note("12: " + read("12"))
+  Test.note("  7 g  : " + read("  7 g  "))
+  Test.note("50s: " + read("50s"))
+  Test.note("250c: " + read("250c"))
+  Test.note("1g 5c: " + read("1g 5c"))
+  Test.note("1g 150s: " + read("1g 150s"))
+  Test.note("1g 100c: " + read("1g 100c"))
+  Test.note("3c 1g: " + read("3c 1g"))
+  Test.note("1g 1g: " + read("1g 1g"))
+  Test.note("1g 5: " + read("1g 5"))
+  Test.note("5 1g: " + read("5 1g"))
+  Test.note("abc: " + read("abc"))
+  Test.note("1.5g: " + read("1.5g"))
+  Test.note("-1g: " + read("-1g"))
+  Test.note("1x: " + read("1x"))
+  Test.note("empty: " + read(""))
+  Test.note("9999999g 99s 99c: " + read("9999999g 99s 99c"))
+  Test.note("10000000g: " + read("10000000g"))
+  Test.note("0: " + read("0"))
+  Test.expect(copperOf("12g 50s 3c") == 125003)
+  Test.expect(copperOf("1g 1g") == nil)
+  Test.expect(copperText(125003) == "12g 50s 3c")
+  Test.expect(copperText(10000) == "1g")
+  Test.expect(copperText(0) == "0c")
+  Test.expect(copperText(5) == "5c")
+  Test.expect(copperText(100005) == "10g 5c")
+  Test.shot("what each text reads as")
+}
+
+test "typing writes the cell as the text parses, the field's edge red while it doesn't, and the cell written elsewhere is typed again" {
+  let page = new Price()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 100 })
+  Test.shot("12503 copper: the row with its field showing 1g 25s 3c")
+  Test.expect(page.copper == 12503)
+
+  Test.click(Test.field(nil), nil)
+  Test.erase(20)
+  Test.flush()
+  Test.type("2g 5s")
+  Test.flush()
+  Test.expect(page.copper == 20500)
+  Test.shot("2g 5s typed: the cell has 20500")
+
+  Test.type("x")
+  Test.flush()
+  Test.expect(page.copper == 20500)
+  Test.shot("an x after it: the cell as it was, the edge red")
+
+  Test.erase(1)
+  Test.flush()
+  Test.type(" 7c")
+  Test.flush()
+  Test.expect(page.copper == 20507)
+  Test.shot("the x taken back and 7c typed: 20507, the edge plain")
+
+  page.copper = 99
+  Test.shot("another writes 99: the field shows 99c")
+
+  page.copper = 100
+  Test.shot("another writes a hundred copper: 1s")
+
+  page.off = true
+  Test.shot("disabled: the row greyed")
+
+  destroy page
+  Test.expect(Test.blank())
+}
+
+test "the field's edge is red while its text names no amount and plain once it does" {
+  let bare = new Bare()
+  const field = bare.field ?? panic("the field is made")
+  Test.expect(!field.bad)
+  Test.note("5 copper: " + field.text + ", bad " + String.of(field.bad))
+
+  field.text = "1g x"
+  Test.flush()
+  Test.expect(field.bad)
+  Test.expect(bare.copper == 5)
+  Test.note("1g x: bad " + String.of(field.bad) + ", the cell " + String.of(bare.copper))
+
+  field.text = "1g 2s"
+  Test.flush()
+  Test.expect(!field.bad)
+  Test.expect(bare.copper == 10200)
+  Test.note("1g 2s: bad " + String.of(field.bad) + ", the cell " + String.of(bare.copper))
+
+  field.text = ""
+  Test.flush()
+  Test.expect(!field.bad)
+  Test.expect(bare.copper == 10200)
+  Test.note("empty: bad " + String.of(field.bad) + ", the cell " + String.of(bare.copper))
+  Test.shot("what the field read")
+
+  destroy bare
+}

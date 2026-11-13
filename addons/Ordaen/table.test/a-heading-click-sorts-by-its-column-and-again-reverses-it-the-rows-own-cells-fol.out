@@ -1,0 +1,283 @@
+-- unsorted: the rows as given, no heading marked
+box 0,0 500x88.03
+  box 0,0 500x24.83 #00000040
+    box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,5 246.67x14
+        text 6.67,5 23.33x14 "Item" #cbb994
+    box 260,0 110x24 #00000000 @click
+      box 337.5,5 32.5x14
+        text 337.5,5 29.17x14 "Price" #cbb994
+    box 376.67,0 50x24 #00000000 @click
+      box 405.83,5 20.83x14
+        text 405.83,5 17.5x14 "Age" #cbb994
+    box 433.33,0 60x24 #00000000 @click
+      box 433.33,5 60x14
+        text 433.33,5 23.33x14 "Note" #a3977f
+  box 0,24.83 500x63.2 scrolled 0 of 0
+    box 0,24.83 500x21.07 #00000000 @click
+      text 6.67,28.17 246.67x14.4 "Copper Bar" #ffffff
+      box 260,28.37 110x14
+        text 317.5,28.37 52.5x14 "0g 1s 50c" #e8dcc4
+      box 376.67,28.87 50x13
+        text 394.17,28.87 32.5x13 "(3 d.)" #ffb02e
+      box 433.33,35.37 60x0
+    box 0,45.9 500x21.07 #00000000 @click
+      text 6.67,49.23 246.67x14.4 "Bronze Axe" #ffffff
+      box 260,49.43 110x14
+        text 311.67,49.43 58.33x14 "1g 23s 45c" #e8dcc4
+      box 376.67,49.93 50x13
+        text 394.17,49.93 32.5x13 "(1 d.)" #ffb02e
+      box 433.33,56.43 60x0
+    box 0,66.97 500x21.07 #00000000 @click
+      text 6.67,70.3 246.67x14.4 "Arcane Dust" #ffffff
+      box 260,70.5 110x14
+        text 317.5,70.5 52.5x14 "0g 0s 40c" #e8dcc4
+      box 376.67,71 50x13
+        text 394.17,71 32.5x13 "(9 d.)" #a3977f
+      box 433.33,77.5 60x0
+
+-- Price clicked: ordered by it, the cheapest first, its heading gold with ▲ and a light under it
+box 0,0 500x88.03
+  box 0,0 500x24.83 #00000040
+    box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,5 246.67x14
+        text 6.67,5 23.33x14 "Item" #cbb994
+    box 260,0 110x24 #00000033 @click
+      box 260,22.33 110x1.67 absolute #d6a56b
+      box 333.33,5 36.67x14
+        text 333.33,5 29.17x14 "Price" #f0c860
+        text 365.83,5 4.17x10 "▲" #f0c860
+    box 376.67,0 50x24 #00000000 @click
+      box 405.83,5 20.83x14
+        text 405.83,5 17.5x14 "Age" #cbb994
+    box 433.33,0 60x24 #00000000 @click
+      box 433.33,5 60x14
+        text 433.33,5 23.33x14 "Note" #a3977f
+  box 0,24.83 500x63.2 scrolled 0 of 0
+    box 0,24.83 500x21.07 #00000000 @click
+      text 6.67,28.17 246.67x14.4 "Arcane Dust" #ffffff
+      box 260,28.37 110x14
+        text 317.5,28.37 52.5x14 "0g 0s 40c" #e8dcc4
+      box 376.67,28.87 50x13
+        text 394.17,28.87 32.5x13 "(9 d.)" #a3977f
+      box 433.33,35.37 60x0
+    box 0,45.9 500x21.07 #00000000 @click
+      text 6.67,49.23 246.67x14.4 "Copper Bar" #ffffff
+      box 260,49.43 110x14
+        text 317.5,49.43 52.5x14 "0g 1s 50c" #e8dcc4
+      box 376.67,49.93 50x13
+        text 394.17,49.93 32.5x13 "(3 d.)" #ffb02e
+      box 433.33,56.43 60x0
+    box 0,66.97 500x21.07 #00000000 @click
+      text 6.67,70.3 246.67x14.4 "Bronze Axe" #ffffff
+      box 260,70.5 110x14
+        text 311.67,70.5 58.33x14 "1g 23s 45c" #e8dcc4
+      box 376.67,71 50x13
+        text 394.17,71 32.5x13 "(1 d.)" #ffb02e
+      box 433.33,77.5 60x0
+
+-- Price clicked again: reversed, ▼
+box 0,0 500x88.03
+  box 0,0 500x24.83 #00000040
+    box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,5 246.67x14
+        text 6.67,5 23.33x14 "Item" #cbb994
+    box 260,0 110x24 #00000033 @click
+      box 260,22.33 110x1.67 absolute #d6a56b
+      box 333.33,5 36.67x14
+        text 333.33,5 29.17x14 "Price" #f0c860
+        text 365.83,5 4.17x10 "▼" #f0c860
+    box 376.67,0 50x24 #00000000 @click
+      box 405.83,5 20.83x14
+        text 405.83,5 17.5x14 "Age" #cbb994
+    box 433.33,0 60x24 #00000000 @click
+      box 433.33,5 60x14
+        text 433.33,5 23.33x14 "Note" #a3977f
+  box 0,24.83 500x63.2 scrolled 0 of 0
+    box 0,24.83 500x21.07 #00000000 @click
+      text 6.67,28.17 246.67x14.4 "Bronze Axe" #ffffff
+      box 260,28.37 110x14
+        text 311.67,28.37 58.33x14 "1g 23s 45c" #e8dcc4
+      box 376.67,28.87 50x13
+        text 394.17,28.87 32.5x13 "(1 d.)" #ffb02e
+      box 433.33,35.37 60x0
+    box 0,45.9 500x21.07 #00000000 @click
+      text 6.67,49.23 246.67x14.4 "Copper Bar" #ffffff
+      box 260,49.43 110x14
+        text 317.5,49.43 52.5x14 "0g 1s 50c" #e8dcc4
+      box 376.67,49.93 50x13
+        text 394.17,49.93 32.5x13 "(3 d.)" #ffb02e
+      box 433.33,56.43 60x0
+    box 0,66.97 500x21.07 #00000000 @click
+      text 6.67,70.3 246.67x14.4 "Arcane Dust" #ffffff
+      box 260,70.5 110x14
+        text 317.5,70.5 52.5x14 "0g 0s 40c" #e8dcc4
+      box 376.67,71 50x13
+        text 394.17,71 32.5x13 "(9 d.)" #a3977f
+      box 433.33,77.5 60x0
+
+-- Item clicked: by name, ascending again, the light moved
+box 0,0 500x88.03
+  box 0,0 500x24.83 #00000040
+    box 6.67,0 246.67x24 #00000033 @click
+      box 6.67,22.33 246.67x1.67 absolute #d6a56b
+      box 6.67,5 246.67x14
+        text 6.67,5 23.33x14 "Item" #f0c860
+        text 33.33,5 4.17x10 "▲" #f0c860
+    box 260,0 110x24 #00000000 @click
+      box 337.5,5 32.5x14
+        text 337.5,5 29.17x14 "Price" #cbb994
+    box 376.67,0 50x24 #00000000 @click
+      box 405.83,5 20.83x14
+        text 405.83,5 17.5x14 "Age" #cbb994
+    box 433.33,0 60x24 #00000000 @click
+      box 433.33,5 60x14
+        text 433.33,5 23.33x14 "Note" #a3977f
+  box 0,24.83 500x63.2 scrolled 0 of 0
+    box 0,24.83 500x21.07 #00000000 @click
+      text 6.67,28.17 246.67x14.4 "Arcane Dust" #ffffff
+      box 260,28.37 110x14
+        text 317.5,28.37 52.5x14 "0g 0s 40c" #e8dcc4
+      box 376.67,28.87 50x13
+        text 394.17,28.87 32.5x13 "(9 d.)" #a3977f
+      box 433.33,35.37 60x0
+    box 0,45.9 500x21.07 #00000000 @click
+      text 6.67,49.23 246.67x14.4 "Bronze Axe" #ffffff
+      box 260,49.43 110x14
+        text 311.67,49.43 58.33x14 "1g 23s 45c" #e8dcc4
+      box 376.67,49.93 50x13
+        text 394.17,49.93 32.5x13 "(1 d.)" #ffb02e
+      box 433.33,56.43 60x0
+    box 0,66.97 500x21.07 #00000000 @click
+      text 6.67,70.3 246.67x14.4 "Copper Bar" #ffffff
+      box 260,70.5 110x14
+        text 317.5,70.5 52.5x14 "0g 1s 50c" #e8dcc4
+      box 376.67,71 50x13
+        text 394.17,71 32.5x13 "(3 d.)" #ffb02e
+      box 433.33,77.5 60x0
+
+-- Age clicked: the youngest first
+box 0,0 500x88.03
+  box 0,0 500x24.83 #00000040
+    box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,5 246.67x14
+        text 6.67,5 23.33x14 "Item" #cbb994
+    box 260,0 110x24 #00000000 @click
+      box 337.5,5 32.5x14
+        text 337.5,5 29.17x14 "Price" #cbb994
+    box 376.67,0 50x24 #00000033 @click
+      box 376.67,22.33 50x1.67 absolute #d6a56b
+      box 401.67,5 25x14
+        text 401.67,5 17.5x14 "Age" #f0c860
+        text 422.5,5 4.17x10 "▲" #f0c860
+    box 433.33,0 60x24 #00000000 @click
+      box 433.33,5 60x14
+        text 433.33,5 23.33x14 "Note" #a3977f
+  box 0,24.83 500x63.2 scrolled 0 of 0
+    box 0,24.83 500x21.07 #00000000 @click
+      text 6.67,28.17 246.67x14.4 "Bronze Axe" #ffffff
+      box 260,28.37 110x14
+        text 311.67,28.37 58.33x14 "1g 23s 45c" #e8dcc4
+      box 376.67,28.87 50x13
+        text 394.17,28.87 32.5x13 "(1 d.)" #ffb02e
+      box 433.33,35.37 60x0
+    box 0,45.9 500x21.07 #00000000 @click
+      text 6.67,49.23 246.67x14.4 "Copper Bar" #ffffff
+      box 260,49.43 110x14
+        text 317.5,49.43 52.5x14 "0g 1s 50c" #e8dcc4
+      box 376.67,49.93 50x13
+        text 394.17,49.93 32.5x13 "(3 d.)" #ffb02e
+      box 433.33,56.43 60x0
+    box 0,66.97 500x21.07 #00000000 @click
+      text 6.67,70.3 246.67x14.4 "Arcane Dust" #ffffff
+      box 260,70.5 110x14
+        text 317.5,70.5 52.5x14 "0g 0s 40c" #e8dcc4
+      box 376.67,71 50x13
+        text 394.17,71 32.5x13 "(9 d.)" #a3977f
+      box 433.33,77.5 60x0
+
+-- Note clicked: it isn't sortable, nothing changes
+box 0,0 500x88.03
+  box 0,0 500x24.83 #00000040
+    box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,5 246.67x14
+        text 6.67,5 23.33x14 "Item" #cbb994
+    box 260,0 110x24 #00000000 @click
+      box 337.5,5 32.5x14
+        text 337.5,5 29.17x14 "Price" #cbb994
+    box 376.67,0 50x24 #00000000 @click
+      box 376.67,22.33 50x1.67 absolute #d6a56b
+      box 401.67,5 25x14
+        text 401.67,5 17.5x14 "Age" #f0c860
+        text 422.5,5 4.17x10 "▲" #f0c860
+    box 433.33,0 60x24 #00000000 @click
+      box 433.33,5 60x14
+        text 433.33,5 23.33x14 "Note" #a3977f
+  box 0,24.83 500x63.2 scrolled 0 of 0
+    box 0,24.83 500x21.07 #00000000 @click
+      text 6.67,28.17 246.67x14.4 "Bronze Axe" #ffffff
+      box 260,28.37 110x14
+        text 311.67,28.37 58.33x14 "1g 23s 45c" #e8dcc4
+      box 376.67,28.87 50x13
+        text 394.17,28.87 32.5x13 "(1 d.)" #ffb02e
+      box 433.33,35.37 60x0
+    box 0,45.9 500x21.07 #00000000 @click
+      text 6.67,49.23 246.67x14.4 "Copper Bar" #ffffff
+      box 260,49.43 110x14
+        text 317.5,49.43 52.5x14 "0g 1s 50c" #e8dcc4
+      box 376.67,49.93 50x13
+        text 394.17,49.93 32.5x13 "(3 d.)" #ffb02e
+      box 433.33,56.43 60x0
+    box 0,66.97 500x21.07 #00000000 @click
+      text 6.67,70.3 246.67x14.4 "Arcane Dust" #ffffff
+      box 260,70.5 110x14
+        text 317.5,70.5 52.5x14 "0g 0s 40c" #e8dcc4
+      box 376.67,71 50x13
+        text 394.17,71 32.5x13 "(9 d.)" #a3977f
+      box 433.33,77.5 60x0
+
+-- the sales replaced while sorted by Age: four rows, the new one first, nothing was asked to sort
+box 0,0 500x109.1
+  box 0,0 500x24.83 #00000040
+    box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,5 246.67x14
+        text 6.67,5 23.33x14 "Item" #cbb994
+    box 260,0 110x24 #00000000 @click
+      box 337.5,5 32.5x14
+        text 337.5,5 29.17x14 "Price" #cbb994
+    box 376.67,0 50x24 #00000000 @click
+      box 376.67,22.33 50x1.67 absolute #d6a56b
+      box 401.67,5 25x14
+        text 401.67,5 17.5x14 "Age" #f0c860
+        text 422.5,5 4.17x10 "▲" #f0c860
+    box 433.33,0 60x24 #00000000 @click
+      box 433.33,5 60x14
+        text 433.33,5 23.33x14 "Note" #a3977f
+  box 0,24.83 500x84.27 scrolled 0 of 0
+    box 0,24.83 500x21.07 #00000000 @click
+      text 6.67,28.17 246.67x14.4 "Tin Bar" #ffffff
+      box 260,28.37 110x14
+        text 317.5,28.37 52.5x14 "0g 0s 70c" #e8dcc4
+      box 376.67,35.37 50x0
+      box 433.33,35.37 60x0
+    box 0,45.9 500x21.07 #00000000 @click
+      text 6.67,49.23 246.67x14.4 "Bronze Axe" #ffffff
+      box 260,49.43 110x14
+        text 317.5,49.43 52.5x14 "0g 0s 99c" #e8dcc4
+      box 376.67,49.93 50x13
+        text 394.17,49.93 32.5x13 "(2 d.)" #ffb02e
+      box 433.33,56.43 60x0
+    box 0,66.97 500x21.07 #00000000 @click
+      text 6.67,70.3 246.67x14.4 "Copper Bar" #ffffff
+      box 260,70.5 110x14
+        text 317.5,70.5 52.5x14 "0g 1s 50c" #e8dcc4
+      box 376.67,71 50x13
+        text 394.17,71 32.5x13 "(3 d.)" #ffb02e
+      box 433.33,77.5 60x0
+    box 0,88.03 500x21.07 #00000000 @click
+      text 6.67,91.37 246.67x14.4 "Arcane Dust" #ffffff
+      box 260,91.57 110x14
+        text 317.5,91.57 52.5x14 "0g 0s 40c" #e8dcc4
+      box 376.67,92.07 50x13
+        text 394.17,92.07 32.5x13 "(9 d.)" #a3977f
+      box 433.33,98.57 60x0

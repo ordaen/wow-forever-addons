@@ -2,10 +2,11 @@
 public import { Windowed } from "@/windowed"
 public import { Tinted } from "@/tinted"
 public import { Arranged } from "@/arranged"
+public import { Market, Worth, Sale } from "@/market"
 import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "Ordaen"
 import root Ordaen from "Ordaen"
 
-const TABS: Array<String> = ["Map", "Drawer"]
+const TABS: Array<String> = ["Map", "Drawer", "Market"]
 
 public enum Hide { Never = "never", Combat = "combat", Transport = "transport" }
 
@@ -34,6 +35,7 @@ public class Showcase implements Module, App {
   state tab = 1
   derived onMap: Boolean = self.tab == 1
   derived onDrawer: Boolean = self.tab == 2
+  derived onMarket: Boolean = self.tab == 3
   derived summary: String = self.describe()
 
   constructor() {
@@ -76,6 +78,9 @@ public class Showcase implements Module, App {
             <text value={self.choices.name} />
             <Toggle value={mut self.choices.drawer} />
           </Section>
+        </SettingsTab>
+        <SettingsTab title={"Market"} shown={self.onMarket}>
+          <Market />
         </SettingsTab>
         <text value={self.summary} />
         <PushButton label={"Save"} width={120} @click={self.onSave} />

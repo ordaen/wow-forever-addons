@@ -7,6 +7,8 @@ box 0,0 700x289.73 @enter @leave
     box 45.42,0 62.5x26.67 #00000059 @click
       box 46.25,0.83 60.83x1.67 absolute #d6a56b
       text 57.92,6.67 37.5x15 "Drawer" #ffffff
+    box 111.25,0 60.83x25.83 #00000000 @click
+      text 122.92,5.83 37.5x15 "Market" #a3977f
   box 0,34.67 700x160
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -51,6 +53,8 @@ box 0,0 700x289.73 @enter @leave
     box 45.42,0 62.5x26.67 #00000059 @click
       box 46.25,0.83 60.83x1.67 absolute #d6a56b
       text 57.92,6.67 37.5x15 "Drawer" #ffffff
+    box 111.25,0 60.83x25.83 #00000000 @click
+      text 122.92,5.83 37.5x15 "Market" #a3977f
   box 0,34.67 700x160
     box 0,34.67 700x160
       box 0,34.67 700x15

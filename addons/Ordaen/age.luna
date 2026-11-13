@@ -1,0 +1,40 @@
+// Age: how old a price is, in its colour, as the market's rule has it: nothing under a day; «(2 d.)» in amber from a
+// day to three; dimmed beyond; nothing past thirty days (a price that old isn't one). The days are read from a
+// number of seconds, or nothing where there is no price.
+import { Component } from "@/module"
+import Locale from "@/locales"
+import { PX } from "@/units"
+
+const DAY = 86400
+const AMBER_DAYS = 3
+const LAST_DAY = 30
+const AMBER: Color = Color.hex("#ffb02e")
+const DIM: Color = Color.hex("#a3977f")
+
+public class Age implements Component {
+  derived days: Integer {
+    const seconds = self.seconds
+    if (seconds == nil) { return 0 }
+    return (seconds / DAY).floor()
+  }
+  derived shown: Boolean = self.days >= 1 && self.days <= LAST_DAY
+  derived text: String = self.shown ? Locale.AGE_DAYS.format(self.days) : ""
+  derived color: Color = self.days <= AMBER_DAYS ? AMBER : DIM
+
+  seconds: Signal<Number | nil>
+  size: Signal<Number>
+  constructor(
+    // How long ago the price was seen; none for a price there isn't.
+    seconds: Signal<Number | nil>,
+    size: Signal<Number> = 13 * PX,
+  ) {
+    self.seconds = seconds
+    self.size = size
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <text $if={self.shown} value={self.text} textColor={self.color} textSize={self.size} wrap={false} />
+    }
+  }
+}

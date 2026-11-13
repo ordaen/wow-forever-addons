@@ -1,0 +1,129 @@
+// The library's ItemButton: icon, quality's border, count, markers, dimmed; the tooltip beside it only while the cursor
+// is on it; Left-click picks and Shift+Left-click links.
+import { Art } from "$ltml"
+import Test from "$test"
+import Game from "$game"
+import { Corner, ItemButton, Marker, Quality } from "@/itemButton"
+
+const SHOPPING: Marker = { corner: Corner.TopLeft, color: Color.hex("#ffd100") }
+const REAGENT: Marker = { corner: Corner.BottomLeft, color: Color.hex("#4fd1ff") }
+const BOTH: Array<Marker> = [SHOPPING, REAGENT]
+
+class Bag {
+  state picked = 0
+  state linked = 0
+  state dimmed = false
+
+  onPick(mut self, item: Integer) { self.picked = item }
+  onLink(mut self, item: Integer) { self.linked = item }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["auto", "auto", "auto", "auto", "auto", "auto"]} gap={8}>
+        <ItemButton item={nil} />
+        <ItemButton item={6948} @pick={self.onPick} @link={self.onLink} />
+        <ItemButton item={2589} count={20} quality={Quality.Epic} dimmed={self.dimmed} />
+        <ItemButton item={2592} count={5} quality={Quality.Uncommon} markers={BOTH} />
+        <ItemButton item={774} quality={Quality.Poor} />
+        <ItemButton item={9999} quality={Quality.Legendary} />
+      </box>
+    }
+  }
+}
+
+test "an item's slot draws its icon, its quality's border, its count and markers, and a click or a Shift+click reports the item" {
+  Game.items.icon = (id: Integer): Art | nil => id == 9999 ? nil : "Interface/Icons/INV_Misc_Bag_08"
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+    if (id != 6948) { return nil }
+    return {
+      lines: [
+        { left: "Hearthstone", kind: 1 },
+        { left: "Binds when picked up", right: "Unique", kind: 2 },
+        { left: "Use: Returns you to your home location.", kind: 3 },
+      ],
+    }
+  }
+  let page = new Bag()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  Test.shot("six slots: empty, common with an icon, an epic twenty, an uncommon five with two pips, a poor one, a legendary the game has no icon for")
+
+  Test.moveTo({ x: 58, y: 16 })
+  Test.shot("the cursor on the common slot: the light over its icon, its tooltip beside it")
+
+  Test.moveTo({ x: 590, y: 190 })
+  Test.shot("the cursor away: the light and the tooltip gone")
+
+  Test.moveTo({ x: 100, y: 16 })
+  Test.shot("the cursor on the slot the game has no tooltip for: the light, no tooltip")
+
+  page.dimmed = true
+  Test.shot("the epic dimmed by a search")
+
+  Test.click({ x: 58, y: 16 }, nil)
+  Test.expect(page.picked == 6948)
+  Test.expect(page.linked == 0)
+
+  Game.input.shiftDown = (): Boolean => true
+  Test.click({ x: 58, y: 16 }, nil)
+  Test.expect(page.linked == 6948)
+
+  destroy page
+  Test.expect(Test.blank())
+}
+
+// The slot as cells a test changes, to read what the snapshot's tree leaves out (a line's colour).
+class Slot {
+  state item: Integer | nil = 1
+  state quality: Quality = Quality.Poor
+  state count = 1
+  button: ItemButton | nil
+
+  constructor() {
+    self.button = new ItemButton(self.item, self.count, self.quality)
+  }
+
+  destructor() {
+    if (self.button != nil) { destroy self.button }
+  }
+
+  look(self): String {
+    const button = self.button
+    if (button == nil) { return "" }
+    return "%.2f %.2f %.2f".format(button.edge.color.r, button.edge.color.g, button.edge.color.b)
+  }
+}
+
+test "each quality has its own border colour, a slot with no item the plain one" {
+  let slot = new Slot()
+  const qualities = [Quality.Poor, Quality.Common, Quality.Uncommon, Quality.Rare, Quality.Epic, Quality.Legendary,
+    Quality.Artifact, Quality.Heirloom]
+  let seen: Array<String> = []
+  for (quality of qualities) {
+    slot.quality = quality
+    const look = slot.look()
+    Test.expect(!seen.any(other => other == look))
+    seen.push(look)
+    Test.note("%s: %s".format(String.of(quality), look))
+  }
+  slot.quality = Quality.Epic
+  slot.item = nil
+  Test.note("an empty slot of the epic quality: " + slot.look())
+  slot.quality = Quality.Common
+  Test.expect(slot.look() == seen[2])
+  Test.shot("the borders' colours")
+  destroy slot
+}
+
+test "an icon is drawn for each slot that has one" {
+  Game.items.icon = (id: Integer): Art | nil => id == 9999 ? nil : "Interface/Icons/INV_Misc_Bag_08"
+  let page = new Bag()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  let icons = 0
+  for (shown of Test.drawn()) {
+    if (shown.file == "Interface/Icons/INV_Misc_Bag_08") { icons += 1 }
+  }
+  Test.expect(icons == 4)
+  Test.note("textures drawn with the icon's file: " + String.of(icons))
+  Test.shot("six slots, four of them with an icon (the empty one and the one with none to draw have no texture)")
+  destroy page
+}

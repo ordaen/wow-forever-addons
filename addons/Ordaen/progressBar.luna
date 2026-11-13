@@ -1,0 +1,43 @@
+// ProgressBar: how far something has got (a scan, a craft's «3 of 10»): the slider's dark groove with the bronze
+// fill up to the fraction, and the label above it in the label colour. Nothing sits on the fill, so the
+// label's contrast is the page's. A fraction outside 0 to 1 is held to it. It takes no input.
+import { Position } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component } from "@/module"
+import { PX } from "@/units"
+
+const LENGTH = 240 * PX
+const GROOVE = 8 * PX
+const EDGE = 1 * PX
+const LABEL: Color = Color.hex("#cbb994")
+
+public class ProgressBar implements Component {
+  // The fill's width: the fraction of the groove inside its edges.
+  derived fillWidth: Number = (0).max((1).min(self.fraction)) * (self.width - 2 * EDGE)
+  derived hasLabel: Boolean = self.label != ""
+
+  fraction: Signal<Number>
+  label: Signal<String>
+  width: Signal<Number>
+  constructor(
+    fraction: Signal<Number>,
+    label: Signal<String> = "",
+    width: Signal<Number> = LENGTH,
+  ) {
+    self.fraction = fraction
+    self.label = label
+    self.width = width
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={4 * PX} width={self.width}>
+        <text $if={self.hasLabel} value={self.label} textColor={LABEL} textSize={14 * PX} wrap={false} />
+        <box height={GROOVE} background={Ordaen.art.ctl.groove}>
+          <box position={Position.Absolute} left={EDGE} top={EDGE} height={GROOVE - 2 * EDGE} width={self.fillWidth}
+               background={Ordaen.art.ctl.sliderFill} />
+        </box>
+      </box>
+    }
+  }
+}

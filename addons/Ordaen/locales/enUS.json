@@ -1,6 +1,11 @@
 {
   "SETTINGS_OPEN": "Open Ordaen's settings",
   "SOON": "in development",
+  "AGE_DAYS": "(%d d.)",
+  "MONEY_GOLD": "g",
+  "MONEY_SILVER": "s",
+  "MONEY_COPPER": "c",
+  "MONEY_HINT": "Type an amount: 12g 50s 3c. A number alone is gold.",
   "UNIT_PX": "%d px",
   "UNIT_SEC": "%.1f s",
   "LIST_GLOBAL": "General",

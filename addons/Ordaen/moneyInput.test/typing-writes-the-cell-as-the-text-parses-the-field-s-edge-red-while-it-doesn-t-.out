@@ -1,0 +1,41 @@
+-- 12503 copper: the row with its field showing 1g 25s 3c
+box 0,0 600x25 opacity=1
+  box 0,5 233.33x15 @enter @leave
+    text 0,5 233.33x15 "Price" #cbb994
+  box 248.33,0 150x25 #0d0a08 input "1g 25s 3c" @change
+
+-- 2g 5s typed: the cell has 20500
+box 0,0 600x25 opacity=1
+  box 0,5 233.33x15 @enter @leave
+    text 0,5 233.33x15 "Price" #cbb994
+  box 248.33,0 150x25 #0d0a08 input "2g 5s" typing @change
+
+-- an x after it: the cell as it was, the edge red
+box 0,0 600x25 opacity=1
+  box 0,5 233.33x15 @enter @leave
+    text 0,5 233.33x15 "Price" #cbb994
+  box 248.33,0 150x25 #0d0a08 input "2g 5sx" typing @change
+
+-- the x taken back and 7c typed: 20507, the edge plain
+box 0,0 600x25 opacity=1
+  box 0,5 233.33x15 @enter @leave
+    text 0,5 233.33x15 "Price" #cbb994
+  box 248.33,0 150x25 #0d0a08 input "2g 5s 7c" typing @change
+
+-- another writes 99: the field shows 99c
+box 0,0 600x25 opacity=1
+  box 0,5 233.33x15 @enter @leave
+    text 0,5 233.33x15 "Price" #cbb994
+  box 248.33,0 150x25 #0d0a08 input "99c" typing @change
+
+-- another writes a hundred copper: 1s
+box 0,0 600x25 opacity=1
+  box 0,5 233.33x15 @enter @leave
+    text 0,5 233.33x15 "Price" #cbb994
+  box 248.33,0 150x25 #0d0a08 input "1s" typing @change
+
+-- disabled: the row greyed
+box 0,0 600x25 opacity=0.45
+  box 0,5 233.33x15 @enter @leave
+    text 0,5 233.33x15 "Price" #cbb994
+  box 248.33,0 150x25 #0d0a08 input "1s" @change

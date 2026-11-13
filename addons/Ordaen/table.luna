@@ -1,0 +1,154 @@
+// Table: columns under headings, and the rows the page draws under them. The headings are the table's; a click on a
+// sortable heading sorts by it, again reverses (the cells `sorted`, the column's number from 1, and `descending`, which
+// the page handed with `mut` and orders its rows by: the table keeps no list of rows, so a row follows its own cells
+// and nothing is made for it when another changes). The rows are `TableRow`s in the table's slot, each laid out in the
+// columns' tracks (`tracksOf(columns)`, made once where the columns are). Every row is drawn; the body scrolls where
+// it is given a `height`.
+import { Align, Edges, Line, Overflow, Position, Side, Stated, Track } from "$ltml"
+import { Component } from "@/module"
+import { PX } from "@/units"
+
+// A column: its heading, its width, where its heading and its cells stand, and whether a heading click sorts by it.
+public struct Column {
+  title: String
+  width: Track
+  align: Align | nil
+  sortable: Boolean | nil
+}
+
+const TEXT = 14 * PX
+const NAME: Stated<Color> = { default: Color.hex("#cbb994"), hover: Color.hex("#ffffff") }
+const PLAIN: Color = Color.hex("#a3977f")
+const GOLD: Color = Color.hex("#f0c860")
+const RULE: Line = { width: 1 * PX, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
+const LIGHT: Color = Color.hex("#d6a56b")
+const CLEAR: Color = Color.hex("#00000000")
+const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000033") }
+const BACK: Color = Color.hex("#00000040")
+const PADDING: Edges = { top: 6 * PX, bottom: 6 * PX }
+const ROW_PADDING: Edges = { top: 4 * PX, right: 8 * PX, bottom: 4 * PX, left: 8 * PX }
+const MARK_FONT: Asset = "Fonts/ARIALN.TTF"
+const MARK_SIZE = 10 * PX
+const SIDES: Edges = { left: 8 * PX, right: 8 * PX }
+const HEAD: Array<Track> = ["auto", "auto"]
+
+// The tracks of a table's columns: one per column, as wide as its `width`.
+public function tracksOf(columns: Array<Column>): Array<Track> {
+  let list: Array<Track> = []
+  for (column of columns) { list.push(column.width) }
+  return list
+}
+
+// One heading.
+public class Heading implements Component {
+  derived picked: Boolean = self.sorted == self.index
+  derived mark: String = self.descending ? "▼" : "▲"
+  derived sortable: Boolean = self.column.sortable == true
+  derived color: Color | Stated<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
+  derived shade: Color | Stated<Color> = self.sortable ? SHADE : CLEAR
+
+  const column: Column
+  const index: Integer
+  sorted: mut Signal<Integer>
+  descending: mut Signal<Boolean>
+  constructor(
+    column: Column,
+    index: Integer,
+    sorted: mut Signal<Integer>,
+    descending: mut Signal<Boolean>,
+  ) {
+    self.column = column
+    self.index = index
+    self.sorted = sorted
+    self.descending = descending
+  }
+
+  onClick(mut self) {
+    if (!self.sortable) { return }
+    if (self.picked) {
+      self.descending = !self.descending
+    } else {
+      self.sorted = self.index
+      self.descending = false
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={PADDING} xAlign={self.column.align} background={self.shade} @click={self.onClick}>
+        <box $if={self.picked} position={Position.Absolute} left={0} right={0} bottom={0} height={2 * PX}
+             background={LIGHT} />
+        <box columns={HEAD} gap={4 * PX} stateFromParent={true}>
+          <text value={self.column.title} textColor={self.color} textSize={TEXT} stateFromParent={true} wrap={false} />
+          <text $if={self.picked} value={self.mark} textColor={GOLD} textSize={MARK_SIZE} textFamily={MARK_FONT}
+                wrap={false} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// One row of a table: its cells in the slot, laid out in the columns' tracks. The shade under the cursor; selected, a
+// darker one. Left-click reports `pick`.
+public class TableRow implements Component {
+  public pick: Event<nil> = new Event()
+
+  derived background: Color | Stated<Color> = self.selected ? BACK : SHADE
+
+  tracks: Signal<Array<Track>>
+  selected: Signal<Boolean>
+  constructor(
+    tracks: Signal<Array<Track>>,
+    selected: Signal<Boolean> = false,
+  ) {
+    self.tracks = tracks
+    self.selected = selected
+  }
+
+  onClick(mut self) { self.pick.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.tracks} gap={8 * PX} padding={ROW_PADDING} yAlign={Align.Center} background={self.background}
+           @click={self.onClick}>
+        <slot />
+      </box>
+    }
+  }
+}
+
+public class Table implements Component {
+  derived tracks: Array<Track> = tracksOf(self.columns)
+
+  const columns: Array<Column>
+  sorted: mut Signal<Integer>
+  descending: mut Signal<Boolean>
+  height: Signal<Number | nil>
+  constructor(
+    columns: Array<Column>,
+    // The column the rows are ordered by, from 1; 0 for none.
+    sorted: mut Signal<Integer>,
+    descending: mut Signal<Boolean>,
+    // The body's height: it scrolls past it. None: as high as its rows.
+    height: Signal<Number | nil> = nil,
+  ) {
+    self.columns = columns
+    self.sorted = sorted
+    self.descending = descending
+    self.height = height
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <box columns={self.tracks} gap={8 * PX} padding={SIDES} background={BACK} border={RULE}>
+          <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
+                   descending={mut self.descending} />
+        </box>
+        <box columns={1} height={self.height} overflow={Overflow.Scroll}>
+          <slot />
+        </box>
+      </box>
+    }
+  }
+}

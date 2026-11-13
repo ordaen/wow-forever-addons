@@ -1,0 +1,22 @@
+12g 50s 3c: 125003
+12G50S3C: 125003
+12: 120000
+  7 g  : 70000
+50s: 5000
+250c: 250
+1g 5c: 10005
+1g 150s: not an amount
+1g 100c: not an amount
+3c 1g: not an amount
+1g 1g: not an amount
+1g 5: not an amount
+5 1g: 510000
+abc: not an amount
+1.5g: not an amount
+-1g: not an amount
+1x: not an amount
+empty: not an amount
+9999999g 99s 99c: 99999999999
+10000000g: not an amount
+0: 0
+-- what each text reads as

@@ -1,0 +1,34 @@
+// The library's ProgressBar: the fill follows the fraction, held to the groove, and the label shows when there is one.
+import Test from "$test"
+import { ProgressBar } from "@/progressBar"
+
+class Scan {
+  state done: Number = 0.25
+  state label = "Scanning 25%"
+
+  public render(self): Template {
+    return $ltml {
+      <ProgressBar fraction={self.done} label={self.label} width={200} />
+    }
+  }
+}
+
+test "the fill follows the fraction, a fraction past either end is held to the groove, no label draws none" {
+  let page = new Scan()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  Test.shot("a quarter done: the fill a quarter of the groove, the label above it")
+
+  page.done = 0.5
+  page.label = "Crafting 5 of 10"
+  Test.shot("half done: the fill half the groove, the label changed")
+
+  page.done = 1.7
+  Test.shot("past the end: the fill holds at the groove's full width")
+
+  page.done = -0.3
+  page.label = ""
+  Test.shot("below nought, no label: no fill and no label line")
+
+  destroy page
+  Test.expect(Test.blank())
+}
