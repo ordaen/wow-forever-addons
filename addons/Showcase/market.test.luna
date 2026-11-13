@@ -26,6 +26,10 @@ test "the market tab holds a row for each of the market's controls, each followi
   Test.click(Test.holding("Held — in development", nil), nil)
   Test.expect(page.worth == Worth.Merchant)
 
+  Test.click(Test.holding("20", nil), nil)
+  Test.expect(page.chosenItem == 2589)
+  Test.shot("the epic item clicked: the page has its number")
+
   Test.click(Test.holding("Bronze Axe", nil), nil)
   Test.expect(!page.treeOpen)
   Test.shot("the tree's root clicked: closed, its child gone")
