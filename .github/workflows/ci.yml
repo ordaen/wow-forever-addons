@@ -65,8 +65,13 @@ jobs:
           repository: ordaen/wow-dev-tools
           token: ${{ steps.token.outputs.token }}
           path: wow-dev-tools
-          sparse-checkout: modules
-      - run: ln -s "$GITHUB_WORKSPACE/wow-dev-tools/modules/OrdaenDev" wow-forever-addons/addons/OrdaenDev
+          sparse-checkout: |
+            modules
+            addons
+      # The two dev addons, as README's setup links them: the suite builds and tests them with the addons.
+      - run: |
+          ln -s "$GITHUB_WORKSPACE/wow-dev-tools/modules/OrdaenDev" wow-forever-addons/addons/OrdaenDev
+          ln -s "$GITHUB_WORKSPACE/wow-dev-tools/addons/OrdaenCore_Debug" wow-forever-addons/addons/OrdaenCore_Debug
       - uses: mlugg/setup-zig@v2
         with:
           version: 0.17.1
