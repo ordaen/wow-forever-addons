@@ -3,7 +3,7 @@
 import Game from "$game"
 import { Align, Art, Edges, EmbedLook, Frame, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, LookArt } from "Ordaen"
+import { Component } from "Ordaen"
 
 // A cell fills the panel below its metal edge, 1.075 times as wide: the inside between its side rims is square.
 public const CELL_HEIGHT = 53
