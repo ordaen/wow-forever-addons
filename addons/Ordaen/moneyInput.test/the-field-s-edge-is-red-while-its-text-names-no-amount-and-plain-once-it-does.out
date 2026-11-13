@@ -1,0 +1,5 @@
+5 copper: 5c, bad false
+1g x: bad true, the cell 5
+1g 2s: bad false, the cell 10200
+empty: bad false, the cell 10200
+-- what the field read
