@@ -10,21 +10,21 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       text 729.58,469.42 145.83x14 "Choose a profession above" #a3977f
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 459.5x55.25
-    box 358.33,133.88 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,141.12 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 405.33,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,133.88 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,141.12 44.75x44.75 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 405.33,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 421.67,144.12 56.25x41.75
         text 421.67,151.58 56.25x15 "Tailoring" #b3a690
         text 433.75,167.42 32.08x11 "31 / 75" #8f8470
-    box 506.5,133.88 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 513.75,141.12 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 553.5,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 506.5,133.88 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 513.75,141.12 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 553.5,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 569.83,144.12 56.25x41.75
         text 569.83,151.58 56.25x15 "Herbalism" #b3a690
         text 581.92,167.42 32.08x11 "12 / 75" #8f8470
-    box 654.67,133.88 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 661.92,141.12 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 701.67,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 654.67,133.88 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 661.92,141.12 44.75x44.75 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 701.67,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 718,144.12 81.25x41.75
         text 718,151.58 81.25x15 "Blacksmithing" #b3a690
         text 738,167.42 41.25x11 "120 / 150" #8f8470
@@ -92,7 +92,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 813.58,363.88 0x0 "" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
           box 843.58,283.04 369.5x43.33
-            box 843.58,283.04 43.33x43.33
+            box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
             box 895.25,289.38 317.83x30.67
               text 895.25,289.38 317.83x17 "Linen Cloak" #ffffff
               text 895.25,308.04 317.83x12 "Always raises the skill" #ff8040
@@ -101,43 +101,43 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
 |cffff4040Needs: Loom|r" #a3977f
           box 843.58,385.38 369.5x314.42 scrolled 0 of 0
             box 843.58,385.38 369.5x31.67
-              box 843.58,387.88 26.67x26.67
+              box 843.58,387.88 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
               text 876.92,394.71 297.42x13 "Bolt of Linen Cloth" #e8dcc4
               text 1181,394.71 27.08x13 "3 / 1" #e8dcc4
             box 843.58,417.04 369.5x32.5
-              box 843.58,420.38 26.67x26.67
+              box 843.58,420.38 26.67x26.67 icon=Interface/Icons/INV_Misc_Thread_01
               text 876.92,427.21 297.42x13 "Coarse Thread" #e8dcc4
               text 1181,427.21 27.08x13 "0 / 1" #ff4040
           box 843.58,706.46 369.5x28.33
-            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 843.58,706.46 25x28.33 absolute
                 text 852.96,713.13 6.25x15 "-" #ffd100
             text 875.25,713.63 5.83x14 "1" #ffffff
-            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 887.75,706.46 25x28.33 absolute
                 text 897.12,713.13 6.25x15 "+" #ffd100
             box 919.42,720.13 170.33x1
-            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1096.42,706.46 116.67x28.33 absolute
                 text 1136,713.13 37.5x15 "Create" #ffd100
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
-    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,141.12 48.92x50.42 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait
-      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
       box 425.83,144.12 56.25x49.17
         text 425.83,155.29 56.25x15 "Tailoring" #ffd100
         text 437.92,171.12 32.08x11 "31 / 75" #8f8470
-    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 517.92,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 517.92,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 574,148.29 56.25x41.75
         text 574,155.75 56.25x15 "Herbalism" #b3a690
         text 586.08,171.58 32.08x11 "12 / 75" #8f8470
-    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 666.08,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 666.08,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 722.17,148.29 81.25x41.75
         text 722.17,155.75 81.25x15 "Blacksmithing" #b3a690
         text 742.17,171.58 41.25x11 "120 / 150" #8f8470
@@ -204,7 +204,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 813.58,340.04 0x0 "" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
           box 843.58,283.04 369.5x43.33
-            box 843.58,283.04 43.33x43.33
+            box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
             box 895.25,289.38 317.83x30.67
               text 895.25,289.38 317.83x17 "Linen Bag" #ffffff
               text 895.25,308.04 317.83x12 "Usually raises the skill" #ffd100
@@ -212,44 +212,44 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           text 843.58,352.71 369.5x0 "" #a3977f
           box 843.58,359.38 369.5x340.42 scrolled 0 of 0
             box 843.58,359.38 369.5x31.67
-              box 843.58,361.88 26.67x26.67
+              box 843.58,361.88 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
               text 876.92,368.71 297.42x13 "Bolt of Linen Cloth" #e8dcc4
               text 1181,368.71 27.08x13 "6 / 3" #e8dcc4
           box 843.58,706.46 369.5x28.33
-            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 843.58,706.46 25x28.33 absolute
                 text 852.96,713.13 6.25x15 "-" #ffd100
             text 875.25,713.63 5.83x14 "1" #ffffff
-            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 887.75,706.46 25x28.33 absolute
                 text 897.12,713.13 6.25x15 "+" #ffd100
             box 919.42,720.13 170.33x1
-            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1096.42,706.46 116.67x28.33 absolute
                 text 1136,713.13 37.5x15 "Create" #ffd100
     box 1182.75,194.63 52.5x26.67 absolute clipped
       box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full
+        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
-    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,141.12 48.92x50.42 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait
-      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
       box 425.83,144.12 56.25x49.17
         text 425.83,155.29 56.25x15 "Tailoring" #ffd100
         text 437.92,171.12 32.08x11 "31 / 75" #8f8470
-    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 517.92,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 517.92,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 574,148.29 56.25x41.75
         text 574,155.75 56.25x15 "Herbalism" #b3a690
         text 586.08,171.58 32.08x11 "12 / 75" #8f8470
-    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 666.08,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 666.08,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 722.17,148.29 81.25x41.75
         text 722.17,155.75 81.25x15 "Blacksmithing" #b3a690
         text 742.17,171.58 41.25x11 "120 / 150" #8f8470
@@ -314,7 +314,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 813.58,340.04 0x0 "" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
           box 843.58,283.04 369.5x43.33
-            box 843.58,283.04 43.33x43.33
+            box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
             box 895.25,289.38 317.83x30.67
               text 895.25,289.38 317.83x17 "Woolen Bag" #ffffff
               text 895.25,308.04 317.83x12 "Always raises the skill" #ff8040
@@ -322,40 +322,40 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           text 843.58,339.71 369.5x0 "" #a3977f
           box 843.58,346.38 369.5x353.42 scrolled 0 of 0
           box 843.58,706.46 369.5x28.33
-            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 843.58,706.46 25x28.33 absolute
                 text 852.96,713.13 6.25x15 "-" #ffd100
             text 875.25,713.63 5.83x14 "1" #ffffff
-            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 887.75,706.46 25x28.33 absolute
                 text 897.12,713.13 6.25x15 "+" #ffd100
             box 919.42,720.13 170.33x1
-            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
               box 1096.42,706.46 116.67x28.33 absolute
                 text 1136,713.13 37.5x15 "Create" #808080
     box 1182.75,194.63 52.5x26.67 absolute clipped
       box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full
+        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
-    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,141.12 48.92x50.42 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait
-      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
       box 425.83,144.12 56.25x49.17
         text 425.83,155.29 56.25x15 "Tailoring" #ffd100
         text 437.92,171.12 32.08x11 "31 / 75" #8f8470
-    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 517.92,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 517.92,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 574,148.29 56.25x41.75
         text 574,155.75 56.25x15 "Herbalism" #b3a690
         text 586.08,171.58 32.08x11 "12 / 75" #8f8470
-    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 666.08,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 666.08,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 722.17,148.29 81.25x41.75
         text 722.17,155.75 81.25x15 "Blacksmithing" #b3a690
         text 742.17,171.58 41.25x11 "120 / 150" #8f8470
@@ -418,7 +418,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 813.58,340.04 0x0 "" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
           box 843.58,283.04 369.5x43.33
-            box 843.58,283.04 43.33x43.33
+            box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
             box 895.25,289.38 317.83x30.67
               text 895.25,289.38 317.83x17 "Linen Cloak" #ffffff
               text 895.25,308.04 317.83x12 "Always raises the skill" #ff8040
@@ -427,48 +427,48 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
 |cffff4040Needs: Loom|r" #a3977f
           box 843.58,385.38 369.5x314.42 scrolled 0 of 0
             box 843.58,385.38 369.5x31.67
-              box 843.58,387.88 26.67x26.67
+              box 843.58,387.88 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
               text 876.92,394.71 297.42x13 "Bolt of Linen Cloth" #e8dcc4
               text 1181,394.71 27.08x13 "3 / 1" #e8dcc4
             box 843.58,417.04 369.5x32.5
-              box 843.58,420.38 26.67x26.67
+              box 843.58,420.38 26.67x26.67 icon=Interface/Icons/INV_Misc_Thread_01
               text 876.92,427.21 297.42x13 "Coarse Thread" #e8dcc4
               text 1181,427.21 27.08x13 "0 / 1" #ff4040
           box 843.58,706.46 369.5x28.33
-            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 843.58,706.46 25x28.33 absolute
                 text 852.96,713.13 6.25x15 "-" #ffd100
             text 875.25,713.63 5.83x14 "1" #ffffff
-            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 887.75,706.46 25x28.33 absolute
                 text 897.12,713.13 6.25x15 "+" #ffd100
             box 919.42,720.13 170.33x1
-            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1096.42,706.46 116.67x28.33 absolute
                 text 1136,713.13 37.5x15 "Create" #ffd100
     box 1182.75,194.63 52.5x26.67 absolute clipped
       box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full
+        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
-    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,141.12 48.92x50.42 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait
-      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
       box 425.83,144.12 56.25x49.17
         text 425.83,155.29 56.25x15 "Tailoring" #ffd100
         text 437.92,171.12 32.08x11 "31 / 75" #8f8470
-    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 517.92,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 517.92,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 574,148.29 56.25x41.75
         text 574,155.75 56.25x15 "Herbalism" #b3a690
         text 586.08,171.58 32.08x11 "12 / 75" #8f8470
-    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 666.08,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 666.08,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 722.17,148.29 81.25x41.75
         text 722.17,155.75 81.25x15 "Blacksmithing" #b3a690
         text 742.17,171.58 41.25x11 "120 / 150" #8f8470
@@ -536,7 +536,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 813.58,363.88 0x0 "" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
           box 843.58,283.04 369.5x43.33
-            box 843.58,283.04 43.33x43.33
+            box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
             box 895.25,289.38 317.83x30.67
               text 895.25,289.38 317.83x17 "Linen Cloak" #ffffff
               text 895.25,308.04 317.83x12 "Always raises the skill" #ff8040
@@ -545,48 +545,48 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
 |cffff4040Needs: Loom|r" #a3977f
           box 843.58,385.38 369.5x314.42 scrolled 0 of 0
             box 843.58,385.38 369.5x31.67
-              box 843.58,387.88 26.67x26.67
+              box 843.58,387.88 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
               text 876.92,394.71 297.42x13 "Bolt of Linen Cloth" #e8dcc4
               text 1181,394.71 27.08x13 "3 / 1" #e8dcc4
             box 843.58,417.04 369.5x32.5
-              box 843.58,420.38 26.67x26.67
+              box 843.58,420.38 26.67x26.67 icon=Interface/Icons/INV_Misc_Thread_01
               text 876.92,427.21 297.42x13 "Coarse Thread" #e8dcc4
               text 1181,427.21 27.08x13 "0 / 1" #ff4040
           box 843.58,706.46 369.5x28.33
-            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 843.58,706.46 25x28.33 absolute
                 text 852.96,713.13 6.25x15 "-" #ffd100
             text 875.25,713.63 5.83x14 "3" #ffffff
-            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 887.75,706.46 25x28.33 absolute
                 text 897.12,713.13 6.25x15 "+" #ffd100
             box 919.42,720.13 170.33x1
-            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1096.42,706.46 116.67x28.33 absolute
                 text 1136,713.13 37.5x15 "Create" #ffffff
     box 1182.75,194.63 52.5x26.67 absolute clipped
       box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full
+        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
-    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,141.12 48.92x50.42 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait
-      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
       box 425.83,144.12 56.25x49.17
         text 425.83,155.29 56.25x15 "Tailoring" #ffd100
         text 437.92,171.12 32.08x11 "31 / 75" #8f8470
-    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 517.92,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 517.92,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 574,148.29 56.25x41.75
         text 574,155.75 56.25x15 "Herbalism" #b3a690
         text 586.08,171.58 32.08x11 "12 / 75" #8f8470
-    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 666.08,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 666.08,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 722.17,148.29 81.25x41.75
         text 722.17,155.75 81.25x15 "Blacksmithing" #b3a690
         text 742.17,171.58 41.25x11 "120 / 150" #8f8470
@@ -637,7 +637,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 798.58,310.21 15x12 "[4]" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
           box 843.58,283.04 369.5x43.33
-            box 843.58,283.04 43.33x43.33
+            box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
             box 895.25,289.38 317.83x30.67
               text 895.25,289.38 317.83x17 "Linen Bandage" #ffffff
               text 895.25,308.04 317.83x12 "Rarely raises the skill" #40c040
@@ -645,40 +645,40 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           text 843.58,339.71 369.5x0 "" #a3977f
           box 843.58,346.38 369.5x353.42 scrolled 0 of 0
           box 843.58,706.46 369.5x28.33
-            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 843.58,706.46 25x28.33 absolute
                 text 852.96,713.13 6.25x15 "-" #ffd100
             text 875.25,713.63 5.83x14 "3" #ffffff
-            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 887.75,706.46 25x28.33 absolute
                 text 897.12,713.13 6.25x15 "+" #ffd100
             box 919.42,720.13 170.33x1
-            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1096.42,706.46 116.67x28.33 absolute
                 text 1136,713.13 37.5x15 "Create" #ffd100
     box 1182.75,194.63 52.5x26.67 absolute clipped
       box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full
+        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
-    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,141.12 48.92x50.42 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait
-      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
       box 425.83,144.12 56.25x49.17
         text 425.83,155.29 56.25x15 "Tailoring" #ffd100
         text 437.92,171.12 32.08x11 "31 / 75" #8f8470
-    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 517.92,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 517.92,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 574,148.29 56.25x41.75
         text 574,155.75 56.25x15 "Herbalism" #b3a690
         text 586.08,171.58 32.08x11 "12 / 75" #8f8470
-    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 666.08,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 658.83,138.04 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 666.08,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 705.83,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 722.17,148.29 81.25x41.75
         text 722.17,155.75 81.25x15 "Blacksmithing" #b3a690
         text 742.17,171.58 41.25x11 "120 / 150" #8f8470
@@ -728,7 +728,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 798.58,310.21 15x12 "[4]" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
           box 843.58,283.04 369.5x43.33
-            box 843.58,283.04 43.33x43.33
+            box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
             box 895.25,289.38 317.83x30.67
               text 895.25,289.38 317.83x17 "Linen Bandage" #ffffff
               text 895.25,308.04 317.83x12 "Rarely raises the skill" #40c040
@@ -736,40 +736,40 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           text 843.58,339.71 369.5x0 "" #a3977f
           box 843.58,346.38 369.5x353.42 scrolled 0 of 0
           box 843.58,706.46 369.5x28.33
-            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 843.58,706.46 25x28.33 absolute
                 text 852.96,713.13 6.25x15 "-" #ffd100
             text 875.25,713.63 5.83x14 "3" #ffffff
-            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 887.75,706.46 25x28.33 absolute
                 text 897.12,713.13 6.25x15 "+" #ffd100
             box 919.42,720.13 170.33x1
-            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1096.42,706.46 116.67x28.33 absolute
                 text 1136,713.13 37.5x15 "Create" #ffd100
     box 1182.75,194.63 52.5x26.67 absolute clipped
       box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full
+        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
-    box 358.33,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 405.33,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,145.29 44.75x44.75 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 405.33,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 421.67,148.29 56.25x41.75
         text 421.67,155.75 56.25x15 "Tailoring" #b3a690
         text 433.75,171.58 32.08x11 "31 / 75" #8f8470
-    box 506.5,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 513.75,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 553.5,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 506.5,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 513.75,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 553.5,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 569.83,148.29 56.25x41.75
         text 569.83,155.75 56.25x15 "Herbalism" #b3a690
         text 581.92,171.58 32.08x11 "12 / 75" #8f8470
-    box 654.67,133.88 167.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 661.92,141.12 48.92x50.42 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 661.92,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait
-      box 705.83,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait
+    box 654.67,133.88 167.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=left,right @click @drag @dragStart @dragStop
+      box 661.92,141.12 48.92x50.42 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 661.92,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 705.83,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
       box 722.17,144.12 81.25x49.17
         text 722.17,155.29 81.25x15 "Blacksmithing" #ffd100
         text 742.17,171.12 41.25x11 "120 / 150" #8f8470
@@ -825,7 +825,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 813.58,316.21 0x0 "" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
           box 843.58,283.04 369.5x43.33
-            box 843.58,283.04 43.33x43.33
+            box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
             box 895.25,289.38 317.83x30.67
               text 895.25,289.38 317.83x17 "Copper Mace" #ffffff
               text 895.25,308.04 317.83x12 "Doesn't raise the skill" #9a9a9a
@@ -833,40 +833,40 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           text 843.58,339.71 369.5x0 "" #a3977f
           box 843.58,346.38 369.5x353.42 scrolled 0 of 0
           box 843.58,706.46 369.5x28.33
-            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 843.58,706.46 25x28.33 absolute
                 text 852.96,713.13 6.25x15 "-" #ffd100
             text 875.25,713.63 5.83x14 "3" #ffffff
-            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 887.75,706.46 25x28.33 absolute
                 text 897.12,713.13 6.25x15 "+" #ffd100
             box 919.42,720.13 170.33x1
-            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
               box 1096.42,706.46 116.67x28.33 absolute
                 text 1136,713.13 37.5x15 "Create" #808080
     box 1182.75,194.63 52.5x26.67 absolute clipped
       box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full
+        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
-    box 358.33,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 405.33,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,145.29 44.75x44.75 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 405.33,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 421.67,148.29 56.25x41.75
         text 421.67,155.75 56.25x15 "Tailoring" #b3a690
         text 433.75,171.58 32.08x11 "31 / 75" #8f8470
-    box 506.5,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 513.75,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 553.5,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 506.5,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 513.75,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 553.5,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 569.83,148.29 56.25x41.75
         text 569.83,155.75 56.25x15 "Herbalism" #b3a690
         text 581.92,171.58 32.08x11 "12 / 75" #8f8470
-    box 654.67,133.88 167.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 661.92,141.12 48.92x50.42 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 661.92,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait
-      box 705.83,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait
+    box 654.67,133.88 167.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=left,right @click @drag @dragStart @dragStop
+      box 661.92,141.12 48.92x50.42 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 661.92,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 705.83,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
       box 722.17,144.12 81.25x49.17
         text 722.17,155.29 81.25x15 "Blacksmithing" #ffd100
         text 742.17,171.12 41.25x11 "120 / 150" #8f8470
@@ -921,7 +921,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 813.58,316.21 0x0 "" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
           box 843.58,283.04 369.5x43.33
-            box 843.58,283.04 43.33x43.33
+            box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
             box 895.25,289.38 317.83x30.67
               text 895.25,289.38 317.83x17 "Copper Mace" #ffffff
               text 895.25,308.04 317.83x12 "Doesn't raise the skill" #9a9a9a
@@ -929,40 +929,40 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           text 843.58,339.71 369.5x0 "" #a3977f
           box 843.58,346.38 369.5x353.42 scrolled 0 of 0
           box 843.58,706.46 369.5x28.33
-            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 843.58,706.46 25x28.33 absolute
                 text 852.96,713.13 6.25x15 "-" #ffd100
             text 875.25,713.63 5.83x14 "3" #ffffff
-            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 887.75,706.46 25x28.33 absolute
                 text 897.12,713.13 6.25x15 "+" #ffd100
             box 919.42,720.13 170.33x1
-            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button @click
+            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
               box 1096.42,706.46 116.67x28.33 absolute
                 text 1136,713.13 37.5x15 "Create" #808080
     box 1182.75,194.63 52.5x26.67 absolute clipped
       box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full
+        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
-    box 358.33,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 405.33,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,145.29 44.75x44.75 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 405.33,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 421.67,148.29 56.25x41.75
         text 421.67,155.75 56.25x15 "Tailoring" #b3a690
         text 433.75,171.58 32.08x11 "31 / 75" #8f8470
-    box 506.5,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 513.75,145.29 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 553.5,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 506.5,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 513.75,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 553.5,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 569.83,148.29 56.25x41.75
         text 569.83,155.75 56.25x15 "Herbalism" #b3a690
         text 581.92,171.58 32.08x11 "12 / 75" #8f8470
-    box 654.67,133.88 167.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 661.92,141.12 48.92x50.42 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 661.92,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait
-      box 705.83,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait
+    box 654.67,133.88 167.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=left,right @click @drag @dragStart @dragStop
+      box 661.92,141.12 48.92x50.42 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 661.92,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 705.83,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
       box 722.17,144.12 81.25x49.17
         text 722.17,155.29 81.25x15 "Blacksmithing" #ffd100
         text 742.17,171.12 41.25x11 "120 / 150" #8f8470
@@ -983,21 +983,21 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       text 729.58,469.42 145.83x14 "Choose a profession above" #a3977f
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 459.5x55.25
-    box 358.33,133.88 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 365.58,141.12 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 405.33,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 358.33,133.88 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,141.12 44.75x44.75 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 405.33,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 421.67,144.12 56.25x41.75
         text 421.67,151.58 56.25x15 "Tailoring" #b3a690
         text 433.75,167.42 32.08x11 "31 / 75" #8f8470
-    box 506.5,133.88 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 513.75,141.12 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 553.5,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 506.5,133.88 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 513.75,141.12 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 553.5,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 569.83,144.12 56.25x41.75
         text 569.83,151.58 56.25x15 "Herbalism" #b3a690
         text 581.92,167.42 32.08x11 "12 / 75" #8f8470
-    box 654.67,133.88 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait @click @drag @dragStart @dragStop
-      box 661.92,141.12 44.75x44.75 absolute cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait
-      box 701.67,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait
+    box 654.67,133.88 163.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 661.92,141.12 44.75x44.75 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 701.67,141.12 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 718,144.12 81.25x41.75
         text 718,151.58 81.25x15 "Blacksmithing" #b3a690
         text 738,167.42 41.25x11 "120 / 150" #8f8470
