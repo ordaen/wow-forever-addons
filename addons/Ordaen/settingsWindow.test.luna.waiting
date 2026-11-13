@@ -49,7 +49,7 @@ test "the settings window: the list, a module's page, drafts saved and taken bac
   click(Test.holding("Minimap", nil))
   show("the minimap picked in the list: its two tabs, the first one's rows")
 
-  click(Test.painted("art/ctl.check", nil))
+  click(Test.painted(Ordaen.art.ctl.check, nil))
   show("«Zone name» clicked off: one change waits, Save can be clicked, the map still has its strip")
 
   click(Test.holding("Save", nil))
@@ -64,20 +64,20 @@ test "the settings window: the list, a module's page, drafts saved and taken bac
   click(Test.holding("Move mode", nil))
   show("Move mode clicked: Ordaen's placing mode is on")
 
-  click(Test.painted("art/ctl.switchOn", nil))
+  click(Test.painted(Ordaen.art.ctl.switchOn, nil))
   show("the minimap's switch in the list clicked: it is ended, its page says it is off")
 
   click(Test.holding("Panel", nil))
   show("the other module picked, which is off too")
 
-  click(Test.painted("art/ctl.switchOff", 2))
+  click(Test.painted(Ordaen.art.ctl.switchOff, 2))
   show("its switch clicked: it runs (a window of its own opens); it has nothing to choose")
 
   Test.key(Test.Key.Escape)
   show("Escape: the window made last hears it, the other module's own, and closes")
 
   click(Test.holding("General", nil))
-  click(Test.painted("art/ctl.check", nil))
+  click(Test.painted(Ordaen.art.ctl.check, nil))
   Test.key(Test.Key.Escape)
   show("back on Ordaen's page, a checkbox changed, Escape: the question, the window stays")
 
