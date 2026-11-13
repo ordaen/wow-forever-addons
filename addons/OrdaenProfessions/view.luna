@@ -1,0 +1,98 @@
+// What the professions window's lists share: the views of a profession's recipes, how they are ordered, what a click on
+// a row asks of the window, and the groups the recipes fall into.
+import Game from "$game"
+
+// How the recipes are laid out: the categories beside the category's recipes (ours, the default), one list with the
+// categories as headings, one flat list, a table.
+public enum View { Columns = "columns", Categories = "categories", List = "list", Table = "table" }
+
+// How the recipes of a group are ordered: the game's (by difficulty, the ones learned first), by name, by how many
+// the bags can make.
+public enum SortBy { Difficulty = "difficulty", Name = "name", Makeable = "makeable" }
+
+// What a row of a list asks of the window: it names a recipe by its number.
+public enum Act { Pick = 1, Menu = 2, Favorite = 3, Track = 4, Make = 5, Close = 6 }
+
+// The group of the recipes the player starred: it stands first, with no category of the game's number.
+public const FAVORITES = -1
+
+// A category of the game's with the recipes of it the search and the filter let through, and how many of those the
+// bags can make now; or the favorites.
+public struct Group {
+  id: Integer
+  name: String
+  total: Integer
+  makeable: Integer
+}
+
+function rank(difficulty: Game.Difficulty): Integer {
+  return match (difficulty) {
+    Game.Difficulty.Always => 0,
+    Game.Difficulty.Usually => 1,
+    Game.Difficulty.Rarely => 2,
+    Game.Difficulty.Never => 3,
+  }
+}
+
+// Whether `a` stands before `b`: a total order (the name and then the number settle a tie), as Lua's sort asks.
+public function before(sort: SortBy, a: Game.Recipe, b: Game.Recipe): Boolean {
+  if (sort == SortBy.Makeable && a.craftable != b.craftable) { return a.craftable > b.craftable }
+  if (sort == SortBy.Difficulty) {
+    if (a.learned != b.learned) { return a.learned }
+    if (rank(a.difficulty) != rank(b.difficulty)) { return rank(a.difficulty) < rank(b.difficulty) }
+  }
+  if (a.name != b.name) { return a.name < b.name }
+  return a.id < b.id
+}
+
+// The table's order: by its column (1 the name, 2 how many can be made now), then by name, then by number.
+public function tableBefore(column: Integer, descending: Boolean, a: Game.Recipe, b: Game.Recipe): Boolean {
+  if (descending) { return tableLess(column, b, a) }
+  return tableLess(column, a, b)
+}
+
+function tableLess(column: Integer, a: Game.Recipe, b: Game.Recipe): Boolean {
+  if (column == 2 && a.craftable != b.craftable) { return a.craftable < b.craftable }
+  if (a.name != b.name) { return a.name < b.name }
+  return a.id < b.id
+}
+
+// Whether a number is among the ones listed.
+public function has(list: Array<Integer>, id: Integer): Boolean {
+  for (entry of list) {
+    if (entry == id) { return true }
+  }
+  return false
+}
+
+// The recipes of a group, in the order they are given in.
+public function members(recipes: Array<Game.Recipe>, group: Integer, starred: Array<Integer>): Array<Game.Recipe> {
+  let list: Array<Game.Recipe> = []
+  for (recipe of recipes) {
+    if (group == FAVORITES ? has(starred, recipe.id) : recipe.categoryID == group) { list.push(recipe) }
+  }
+  return list
+}
+
+// The last category and recipe the player had chosen in a profession.
+public struct Seen implements Plain {
+  category: Integer
+  recipe: Integer
+}
+
+// What the window remembers for the character, kept at once: the profession last open (by its skill line, 0 before
+// any was), what was last chosen in each profession, the recipes starred and the ones tracked (each capped, the oldest
+// dropped first), and where the window stands: its centre, and its body's size (0 wide: never moved).
+public struct Kept implements Plain {
+  last: Integer
+  seen: Map<Integer, Seen>
+  favorites: Array<Integer>
+  tracked: Array<Integer>
+  x: Number
+  y: Number
+  width: Number
+  height: Number
+}
+
+// The most recipes starred, or tracked.
+public const MOST_MARKED = 100

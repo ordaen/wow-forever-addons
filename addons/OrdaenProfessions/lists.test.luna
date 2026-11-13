@@ -1,0 +1,454 @@
+// The professions window's lists: the four views, the sort, the filter, the search, the marks on a recipe, the right-click
+// menu, what the window remembers, its settings page. Each test opens Tailoring on a stand-in game (its prelude is the
+// same six lines: only a test says what the game reports) and says what the lists hold in the order they are drawn.
+import Client from "$client"
+import Game from "$game"
+import { Art, MouseButton } from "$ltml"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import root Professions from "OrdaenProfessions"
+import { Group, SortBy, View } from "@/view"
+
+// The screen Ordaen draws its modules on.
+const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
+const TAILORING = 197
+const HERBALISM = 182
+
+function recipe(
+  id: Integer, name: String, category: Integer, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean,
+): Game.Recipe {
+  return {
+    id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: learned, difficulty: difficulty,
+    craftable: craftable,
+  }
+}
+
+function reagent(name: String, item: Integer, have: Integer, need: Integer): Game.Reagent {
+  return { itemID: item, name: name, icon: "Interface/Icons/INV_Fabric_Linen_01", have: have, need: need }
+}
+
+function reagents(id: Integer): Array<Game.Reagent> {
+  if (id == 110) { return [reagent("Bolt of Linen Cloth", 2589, 3, 1), reagent("Coarse Thread", 2320, 0, 1)] }
+  if (id == 111) { return [reagent("Coarse Thread", 2320, 0, 2)] }
+  if (id == 120) { return [reagent("Bolt of Linen Cloth", 2589, 6, 3)] }
+  if (id == 121) { return [reagent("Bolt of Woolen Cloth", 2997, 0, 3)] }
+  return []
+}
+
+// Every recipe makes an item but Woolen Bag's, which makes none (as an enchant makes none).
+function schematic(id: Integer): Game.Schematic | nil {
+  if (id == 121) { return nil }
+  return { recipe: id, makes: 1000 + id, least: 1, most: 1, parts: [] }
+}
+
+// The game's own window, which ours stands in the place of.
+function ownFrame(): any Client.Frame {
+  return Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+}
+
+function professions(): Array<Game.Profession> {
+  return [
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: HERBALISM, name: "Herbalism", icon: "Interface/Icons/Trade_Herbalism", rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
+  ]
+}
+
+// Tailoring's camp, «Cloth armour» with a recipe not learned, and «Bags».
+function categories(): Array<Game.Category> {
+  return [
+    { id: 1, name: "Tailoring" },
+    { id: 10, name: "Resting at camp", parentID: 1 },
+    { id: 11, name: "Cloth armour", parentID: 1 },
+    { id: 12, name: "Bags", parentID: 1 },
+  ]
+}
+
+function recipes(): Array<Game.Recipe> {
+  return [
+    recipe(100, "Linen Bandage", 10, Game.Difficulty.Rarely, 4, true),
+    recipe(110, "Linen Cloak", 11, Game.Difficulty.Always, 1, true),
+    recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true),
+    recipe(112, "Woolen Cape", 11, Game.Difficulty.Never, 0, false),
+    recipe(120, "Linen Bag", 12, Game.Difficulty.Usually, 2, true),
+    recipe(121, "Woolen Bag", 12, Game.Difficulty.Always, 0, true),
+  ]
+}
+
+function names(list: Array<Game.Recipe>): String {
+  return list.map(r => r.name).join(", ")
+}
+
+function click(at: Test.Point) {
+  Test.click(at, nil)
+  Test.flush()
+}
+
+function rightClick(at: Test.Point) {
+  Test.click(at, MouseButton.Right)
+  Test.flush()
+}
+
+// The choice picked from a tool row's menu: its face, then the choice.
+function pickFrom(face: String, choice: String) {
+  click(Test.holding(face, nil))
+  click(Test.holding(choice, nil))
+}
+
+function groupsText(groups: Array<Group>): String {
+  return groups.map(g => "%s %d (%d)".format(g.name, g.total, g.makeable)).join(", ")
+}
+
+// Whether the client draws a texture of this file now.
+function drawnFile(file: String): Boolean {
+  for (texture of Test.drawn()) {
+    if (texture.file == file) { return true }
+  }
+  return false
+}
+
+function below(upper: String, lower: String): Boolean {
+  return Test.holding(upper, nil).y < Test.holding(lower, nil).y
+}
+
+test "the four views list the recipes: in columns, by category, in one list, in a table" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  Test.expect(Professions.view == View.Columns)
+  Test.note("columns: groups " + groupsText(Professions.groups) + "; recipes " + names(Professions.listing))
+  Test.expect(below("Cloth armour", "Bags"))
+
+  // One list with the categories as headings: a heading closes its recipes.
+  pickFrom("In columns", "By category")
+  Test.expect(Professions.view == View.Categories)
+  Test.note("by category: " + names(Professions.listing))
+  Test.expect(below("Cloth armour", "Linen Cloak"))
+  Test.expect(below("Linen Cloak", "Bags"))
+  const bags = Test.holding("Bags", nil).y
+  click(Test.holding("Cloth armour", nil))
+  Test.expect(Test.holding("Bags", nil).y < bags)
+  click(Test.holding("Woolen Bag", nil))
+  Test.expect(Professions.chosenRecipe == 121)
+
+  pickFrom("By category", "One list")
+  Test.expect(Professions.view == View.List)
+  Test.note("one list: " + names(Professions.listing))
+  Test.expect(below("Linen Cloak", "Woolen Bag"))
+  Test.expect(below("Brown Linen Vest", "Woolen Cape"))
+  click(Test.holding("Linen Bag", nil))
+  Test.expect(Professions.chosenRecipe == 120)
+
+  // A table: the library's headings sort it, a click on the same heading again turns it round.
+  pickFrom("One list", "Table")
+  Test.expect(Professions.view == View.Table)
+  Test.note("table by name: " + names(Professions.listing))
+  Test.expect(Professions.tableColumn == 1)
+  click(Test.holding("Can make", nil))
+  Test.note("table by how many can be made, fewest first: " + names(Professions.listing))
+  click(Test.holding("Can make", nil))
+  Test.note("table by how many can be made, most first: " + names(Professions.listing))
+  Test.expect(Professions.tableDescending)
+  click(Test.holding("Linen Cloak", nil))
+  Test.expect(Professions.chosenRecipe == 110)
+
+  // The camp has one list whatever the view.
+  pickFrom("Table", "In columns")
+  click(Test.holding("Camp", nil))
+  Test.note("camp: " + names(Professions.listing))
+}
+
+test "the sort orders each list: by difficulty with the unlearned last, by name, by how many can be made" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  pickFrom("In columns", "One list")
+  Test.note("by difficulty: " + names(Professions.listing))
+  pickFrom("By difficulty", "By name")
+  Test.expect(Professions.sort == SortBy.Name)
+  Test.note("by name: " + names(Professions.listing))
+  Test.expect(below("Brown Linen Vest", "Linen Bag"))
+  pickFrom("By name", "Can make")
+  Test.note("by how many can be made: " + names(Professions.listing))
+  Test.expect(Professions.listing[1]?.name == "Linen Bag")
+}
+
+test "the filter lets through what the game's own options say; a dot on its button says one is on" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  pickFrom("In columns", "One list")
+  Test.expect(!Professions.filtered)
+  click(Test.holding("Filter", nil))
+  click(Test.holding("Can make", 1))
+  Test.expect(Professions.onlyMake)
+  Test.note("can make: " + names(Professions.listing))
+  Test.expect(Professions.filtered)
+  click(Test.holding("Raises the skill", nil))
+  Test.note("can make and raises the skill: " + names(Professions.listing))
+  // «Reset» turns every option back.
+  click(Test.holding("Reset", nil))
+  Test.expect(!Professions.filtered)
+  Test.note("reset: " + names(Professions.listing))
+  // Not learned off: the recipe not learned goes; learned off: only it is left.
+  click(Test.holding("Not learned", nil))
+  Test.note("not learned off: " + names(Professions.listing))
+  click(Test.holding("Not learned", nil))
+  click(Test.holding("Learned", nil))
+  Test.note("learned off: " + names(Professions.listing))
+  // A click anywhere else closes the menu.
+  click({ x: 5, y: 5 })
+  Test.expect(!Professions.filterOpen)
+}
+
+test "the search finds a recipe by its name or by a reagent, in any case" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  pickFrom("In columns", "One list")
+  click(Test.field(nil))
+  Test.type("BAG")
+  Test.flush()
+  Test.note("name: " + names(Professions.listing))
+  Test.erase(3)
+  Test.type("woolen cloth")
+  Test.flush()
+  Test.note("reagent: " + names(Professions.listing))
+  Test.erase(12)
+  Test.type("coarse")
+  Test.flush()
+  Test.note("a reagent two recipes use: " + names(Professions.listing))
+  Test.erase(6)
+  Test.flush()
+  Test.note("emptied: " + names(Professions.listing))
+}
+
+test "a recipe not learned is dim, after the learned ones" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  Test.expect(Professions.listing[3]?.learned == false)
+  Test.expect(below("Brown Linen Vest", "Woolen Cape"))
+  Test.shot("Woolen Cape is not learned: its name is #7a7060, the learned ones' their difficulty's colour")
+}
+
+test "the chosen recipe's icon is the library's item button: the item's tooltip beside it, a recipe with no item keeps its own icon" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Game.items.icon = (id: Integer): Art | nil => "Interface/Icons/INV_Chest_Cloth_01"
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+    return { lines: [{ left: "Linen Cloak", kind: 0 }, { left: "A plain cloak of linen.", kind: 1 }] }
+  }
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  Test.expect(drawnFile("Interface/Icons/INV_Chest_Cloth_01"))
+  // The icon stands at the head's left, 190 to the left of the middle of the line under the name.
+  const line = Test.holding("Always raises the skill", nil)
+  Test.moveTo({ x: line.x - 190, y: line.y - 8 })
+  Test.flush()
+  Test.expect(Test.surfaceHolding("A plain cloak of linen.").y > 0)
+  Test.moveTo({ x: 5, y: 5 })
+  Test.flush()
+  // «Woolen Bag» makes no item: its own icon, no item button.
+  pickFrom("In columns", "One list")
+  click(Test.holding("Woolen Bag", nil))
+  Test.expect(Professions.chosenRecipe == 121)
+  Test.expect(drawnFile("Interface/Icons/INV_Misc_Note_01"))
+}
+
+test "a recipe starred stands first in «Favorites» with a pip, one tracked is kept; both are kept for the character" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  Test.note("before: " + groupsText(Professions.groups))
+  click(Test.painted(Ordaen.art.ctl.switchOff, 1))
+  Test.note("Linen Cloak starred: " + groupsText(Professions.groups) + "; recipes " + names(Professions.listing))
+  Test.expect(Professions.kept.favorites.length == 1)
+  click(Test.painted(Ordaen.art.ctl.switchOff, 1))
+  Test.expect(Professions.kept.tracked.length == 1)
+  Test.shot("Linen Cloak starred and tracked: «Favorites» heads the categories, its pip in the row, both switches on")
+  // Starred again: it is taken off.
+  click(Test.painted(Ordaen.art.ctl.switchOn, 1))
+  Test.expect(Professions.kept.favorites.length == 0)
+  Test.note("starred again: " + groupsText(Professions.groups))
+  click(Test.painted(Ordaen.art.ctl.switchOff, 1))
+  Test.expect(Professions.kept.favorites.length == 1)
+}
+
+test "the recipes starred and tracked are there after a reload, for the character" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  click(Test.painted(Ordaen.art.ctl.switchOff, 1))
+  click(Test.painted(Ordaen.art.ctl.switchOff, 1))
+  Test.reload()
+  Test.flush()
+  Test.expect(Professions.kept.favorites[1] == 110)
+  Test.expect(Professions.kept.tracked[1] == 110)
+}
+
+test "each profession opens at the category and recipe it was left at, where the window remembers; after a reload too" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  Test.note("first opened: category " + String.of(Professions.chosenCategory) + ", recipe " + String.of(Professions.chosenRecipe))
+  click(Test.holding("Bags", nil))
+  click(Test.holding("Linen Bag", nil))
+  Test.expect(Professions.chosenRecipe == 120)
+  // Another profession, and back.
+  Game.tradeSkill.open = HERBALISM
+  Test.flush()
+  Test.note("herbalism: category " + String.of(Professions.category) + ", recipe " + String.of(Professions.recipe))
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  Test.note("tailoring again: category " + String.of(Professions.chosenCategory) + ", recipe " + String.of(Professions.chosenRecipe))
+  Test.expect(Professions.chosenCategory == 12)
+  Test.expect(Professions.chosenRecipe == 120)
+  Test.expect(Professions.kept.last == TAILORING)
+
+  // With the setting off nothing is chosen again.
+  Professions.settings.draft.remember = false
+  Ordaen.keeper.saveAll()
+  Game.tradeSkill.open = HERBALISM
+  Test.flush()
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  Test.note("remembering off: category " + String.of(Professions.chosenCategory) + ", recipe " + String.of(Professions.chosenRecipe))
+  Test.expect(Professions.chosenCategory == 11)
+}
+
+test "the window's place and size are kept once it has been still, and are there after a reload" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  Test.expect(Professions.kept.width == 0)
+  // Each step of a drag changes the place; nothing is kept until it has been still for a second.
+  Professions.placing = { x: 40, y: 30, width: 700, height: 500 }
+  Test.pass(0.5)
+  Professions.placing = { x: 60, y: 30, width: 720, height: 520 }
+  Test.pass(0.5)
+  Test.expect(Professions.kept.width == 0)
+  Test.pass(1)
+  Test.expect(Professions.kept.x == 60 && Professions.kept.width == 720 && Professions.kept.height == 520)
+  Test.reload()
+  Test.flush()
+  Test.expect(Professions.placing.x == 60 && Professions.placing.y == 30)
+  Test.expect(Professions.placing.width == 720 && Professions.placing.height == 520)
+}
+
+test "the ⚙ opens the module's page in the settings window; a setting saved changes the filter's start" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  click(Test.holding("Settings", nil))
+  Test.expect(Test.holding("Remember the last recipe", nil).y > 0)
+  Test.expect(Test.holding("Show recipes you haven't learned", nil).y > 0)
+  Test.note("the page's rows are drawn: «Remember the last recipe», «Show recipes you haven't learned»")
+  Test.expect(Professions.showUnlearned)
+  Professions.settings.draft.showUnlearned = false
+  Ordaen.keeper.saveAll()
+  Test.flush()
+  Test.expect(!Professions.showUnlearned)
+  Test.expect(!Professions.filtered)
+  Test.note("not learned off in the settings: " + names(Professions.listing))
+  // The filter can still turn it on for the session: that is a filter on.
+  Ordaen.toggleSettings("OrdaenProfessions")
+  Test.flush()
+  click(Test.holding("Filter", nil))
+  click(Test.holding("Not learned", nil))
+  Test.expect(Professions.filtered)
+}
+
+test "the right-click menu stands under the recipe: «Create [N]», and its two switches" {
+  Game.frames.Professions = ownFrame()
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  rightClick(Test.holding("Brown Linen Vest", nil))
+  Test.expect(Professions.menuFor == 111)
+  Test.expect(Test.surfaceHolding("Create [0]").y > 0)
+  Test.expect(Professions.chosenRecipe == 110)
+  // A click elsewhere closes it.
+  click({ x: 5, y: 5 })
+  Test.expect(Professions.menuFor == 0)
+  rightClick(Test.holding("Linen Cloak", nil))
+  Test.expect(Professions.menuFor == 110)
+  Test.shot("the menu of Linen Cloak open under its row")
+  click(Test.holding("Create [1]", nil))
+  Test.expect(Professions.menuFor == 0)
+  // A switch of the menu stars the recipe; the menu stays.
+  rightClick(Test.holding("Linen Cloak", nil))
+  // The first two switches are the chosen recipe's, the menu's follow.
+  click(Test.painted(Ordaen.art.ctl.switchOff, 3))
+  Test.expect(Professions.kept.favorites.length == 1)
+  Test.expect(Professions.menuFor == 110)
+  click({ x: 5, y: 5 })
+  // The table's rows have the menu too.
+  pickFrom("In columns", "Table")
+  rightClick(Test.holding("Linen Bag", nil))
+  Test.expect(Professions.menuFor == 120)
+  // The menu doesn't choose the recipe. A click closes it and goes no further; the next one chooses.
+  Test.expect(Professions.chosenRecipe != 120)
+  click(Test.holding("Linen Bag", nil))
+  Test.expect(Professions.menuFor == 0)
+  click(Test.holding("Linen Bag", nil))
+  Test.expect(Professions.chosenRecipe == 120)
+}

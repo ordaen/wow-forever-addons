@@ -1,0 +1,135 @@
+// The filter's button and menu: the game's own options, each a check (the ones it can answer from what the window
+// reads), and «Reset». The button says a filter is on with a dot; the menu stands under it, and a click anywhere else
+// closes it.
+import { Align, Edges, Layer, Line, Position, Beside } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component, PushButton, PX } from "Ordaen"
+import Locale from "@/locales"
+
+const WIDTH = 230 * PX
+const BACK: Color = Color.hex("#0a0806f7")
+const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
+const PAD: Edges = { top: 10 * PX, right: 10 * PX, bottom: 10 * PX, left: 10 * PX }
+const RULE: Line = { width: 1 * PX, color: Color.hex("#d6a56b33"), sides: ["top"] }
+const INK: Color = Color.hex("#e8dcc4")
+const SIZE = 22 * PX
+const BUTTON = 100 * PX
+
+// One option: a well with a gold tick while it is on, and its name.
+public class Check implements Component {
+  label: Signal<String>
+  value: mut Signal<Boolean>
+  constructor(
+    label: Signal<String>,
+    value: mut Signal<Boolean>,
+  ) {
+    self.label = label
+    self.value = value
+  }
+
+  toggle(mut self) { self.value = !self.value }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[SIZE, { fr: 1 }]} gap={10 * PX} yAlign={Align.Center} @click={self.toggle}>
+        <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check}>
+          <box $if={self.value} position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
+               background={Ordaen.art.ctl.tick} />
+        </box>
+        <text value={self.label} textColor={INK} textSize={14 * PX} wrap={false} />
+      </box>
+    }
+  }
+}
+
+public class FilterMenu implements Component {
+  public reset: Event<nil> = new Event()
+  public close: Event<nil> = new Event()
+
+  makeable: mut Signal<Boolean>
+  skillUp: mut Signal<Boolean>
+  learned: mut Signal<Boolean>
+  unlearned: mut Signal<Boolean>
+  filtered: Signal<Boolean>
+  constructor(
+    makeable: mut Signal<Boolean>,
+    skillUp: mut Signal<Boolean>,
+    learned: mut Signal<Boolean>,
+    unlearned: mut Signal<Boolean>,
+    // Whether any option is off its default: «Reset» does something then.
+    filtered: Signal<Boolean>,
+  ) {
+    self.makeable = makeable
+    self.skillUp = skillUp
+    self.learned = learned
+    self.unlearned = unlearned
+    self.filtered = filtered
+  }
+
+  onReset(self) { self.reset.emit() }
+  onClose(self) { self.close.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
+               border={EDGE} padding={PAD} columns={1} gap={8 * PX} @clickOutside={self.onClose}>
+        <Check label={Locale.FILTER_MAKEABLE} value={mut self.makeable} />
+        <Check label={Locale.FILTER_SKILLUP} value={mut self.skillUp} />
+        <box columns={1} gap={8 * PX} padding={{ top: 8 * PX }} border={RULE}>
+          <Check label={Locale.FILTER_LEARNED} value={mut self.learned} />
+          <Check label={Locale.FILTER_UNLEARNED} value={mut self.unlearned} />
+        </box>
+        <box columns={1} padding={{ top: 8 * PX }} border={RULE}>
+          <PushButton label={Locale.FILTER_RESET} width={120 * PX} disabled={!self.filtered}
+                      @click={self.onReset} />
+        </box>
+      </surface>
+    }
+  }
+}
+
+// The filter's button, and its menu under it while `open`.
+public class FilterButton implements Component {
+  derived label: String = self.filtered ? Locale.FILTER + " •" : Locale.FILTER
+
+  open: mut Signal<Boolean>
+  makeable: mut Signal<Boolean>
+  skillUp: mut Signal<Boolean>
+  learned: mut Signal<Boolean>
+  unlearned: mut Signal<Boolean>
+  filtered: Signal<Boolean>
+  constructor(
+    open: mut Signal<Boolean>,
+    makeable: mut Signal<Boolean>,
+    skillUp: mut Signal<Boolean>,
+    learned: mut Signal<Boolean>,
+    unlearned: mut Signal<Boolean>,
+    filtered: Signal<Boolean>,
+  ) {
+    self.open = open
+    self.makeable = makeable
+    self.skillUp = skillUp
+    self.learned = learned
+    self.unlearned = unlearned
+    self.filtered = filtered
+  }
+
+  toggle(mut self) { self.open = !self.open }
+  close(mut self) { self.open = false }
+
+  // «Reset»: every option back to what the window starts with. `unlearned` starts as the settings say, which the
+  // window knows: it hears `reset`.
+  public reset: Event<nil> = new Event()
+  onReset(self) { self.reset.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <box width={BUTTON}>
+        <PushButton label={self.label} width={BUTTON} @click={self.toggle} />
+        <FilterMenu $if={self.open} makeable={mut self.makeable} skillUp={mut self.skillUp}
+                    learned={mut self.learned} unlearned={mut self.unlearned} filtered={self.filtered}
+                    @reset={self.onReset} @close={self.close} />
+      </box>
+    }
+  }
+}
