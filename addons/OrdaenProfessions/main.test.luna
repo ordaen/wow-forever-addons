@@ -149,7 +149,7 @@ test "the professions window: the open profession, its lists, the search, a reci
   const ordaen = Ordaen ?? panic("Ordaen runs in this test")
   let bar = Test.edges(ordaen.lookArt.xpFill, 2)
   let corner = Test.edges(ordaen.art.ctl.cornerClose, 2)
-  Test.note("the skill bar ends %d before the corner's buttons".format(corner.left - bar.right + 0.5))
+  Test.note("the skill bar ends %d before the corner's buttons".format((corner.left - bar.right + 0.5).floor()))
   Test.moveTo({ x: -10, y: -10 })
   Test.flush()
 
