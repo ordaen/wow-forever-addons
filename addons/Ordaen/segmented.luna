@@ -1,0 +1,104 @@
+// Segmented: a mode chosen of a few, side by side in one outline (not a setting's row: the page puts it where the mode
+// reads). The picked segment is white on the chip's bronze with a light along its top, the others dim, lighter with
+// a shade under the cursor. Left-click picks; a segment not built yet (`soon`) is dimmed with «in development» after
+// its name and takes no click. Disabled, none takes a click and the whole draws at 45%.
+import { Edges, Line, Position, Side, Stated, Track } from "$ltml"
+import { Component } from "@/module"
+import { Choice } from "@/dropdown"
+import Locale from "@/locales"
+import { PX } from "@/units"
+
+const TEXT = 14 * PX
+const FILL: Stated<Color> = { default: Color.hex("#0d0a08"), hover: Color.hex("#1c1610") }
+const PICKED: Color = Color.hex("#5a4428")
+const BLANK: Color = Color.hex("#0d0a08")
+const QUIET: Color = Color.hex("#a3977f")
+const NAME: Stated<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4") }
+const WHITE: Color = Color.hex("#ffffff")
+const DIM: Color = Color.hex("#ffffff73")
+const LIGHT: Color = Color.hex("#d6a56b")
+const EDGE: Color = Color.hex("#4a3a24")
+const PADDING: Edges = { top: 7 * PX, right: 14 * PX, bottom: 7 * PX, left: 14 * PX }
+const WHOLE: Line = { width: 1 * PX, color: EDGE }
+// The segments after the first share the one before's right line.
+const AFTER: Line = { width: 1 * PX, color: EDGE, sides: [Side.Top, Side.Right, Side.Bottom] }
+
+// One segment of the strip.
+public class Segment<T: Unknown> implements Component {
+  public pick: Event<T> = new Event()
+
+  derived picked: Boolean = self.value == self.choice.value
+  derived soon: Boolean = self.choice.soon == true
+  derived text: String = self.soon ? self.choice.label + " — " + Locale.SOON : self.choice.label
+  derived still: Boolean = self.soon || self.disabled
+  derived color: Color | Stated<Color> = self.soon ? DIM : self.picked ? WHITE : self.still ? QUIET : NAME
+  derived fill: Color | Stated<Color> = self.picked ? PICKED : self.still ? BLANK : FILL
+  derived edge: Line = self.first ? WHOLE : AFTER
+
+  const choice: Choice<T>
+  value: Signal<T>
+  const first: Boolean
+  disabled: Signal<Boolean>
+  constructor(
+    choice: Choice<T>,
+    value: Signal<T>,
+    first: Boolean,
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.choice = choice
+    self.value = value
+    self.first = first
+    self.disabled = disabled
+  }
+
+  onClick(mut self) {
+    if (!self.soon && !self.disabled) { self.pick.emit(self.choice.value) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={PADDING} background={self.fill}
+           border={self.edge} @click={self.onClick}>
+        <box $if={self.picked} position={Position.Absolute} left={0} right={0} top={0} height={2 * PX}
+             background={LIGHT} />
+        <text value={self.text} textColor={self.color} textSize={TEXT} stateFromParent={true} wrap={false} />
+      </box>
+    }
+  }
+}
+
+public class Segmented<T: Unknown> implements Component {
+  // One column as wide as each segment.
+  derived columns: Array<Track> = self.tracks()
+  derived opacity: Number = self.disabled ? 0.45 : 1
+
+  value: mut Signal<T>
+  const choices: Array<Choice<T>>
+  disabled: Signal<Boolean>
+  constructor(
+    value: mut Signal<T>,
+    choices: Array<Choice<T>>,
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.value = value
+    self.choices = choices
+    self.disabled = disabled
+  }
+
+  tracks(self): Array<Track> {
+    let list: Array<Track> = []
+    for (choice of self.choices) { list.push("auto") }
+    return list
+  }
+
+  onPick(mut self, value: T) { self.value = value }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.columns} opacity={self.opacity}>
+        <Segment $for={index, choice of self.choices} choice={choice} value={self.value} first={index == 1}
+                 disabled={self.disabled} @pick={self.onPick} />
+      </box>
+    }
+  }
+}

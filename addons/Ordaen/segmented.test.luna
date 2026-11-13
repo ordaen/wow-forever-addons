@@ -1,0 +1,54 @@
+// The library's Segmented: one of a few modes picked with the mouse; a segment not built yet and a disabled strip
+// take no click.
+import Test from "$test"
+import { Choice } from "@/dropdown"
+import { Segmented } from "@/segmented"
+
+enum Mode { Auction = "auction", Merchant = "merchant", Held = "held", Cooldowns = "cooldowns" }
+
+const MODES: Array<Choice<Mode>> = [
+  { value: Mode.Auction, label: "Auction" },
+  { value: Mode.Merchant, label: "Merchant" },
+  { value: Mode.Held, label: "From what is held" },
+  { value: Mode.Cooldowns, label: "Cooldowns", soon: true },
+]
+
+class Pick {
+  state mode: Mode = Mode.Auction
+  state off = false
+
+  public render(self): Template {
+    return $ltml {
+      <Segmented value={mut self.mode} choices={MODES} disabled={self.off} />
+    }
+  }
+}
+
+test "a segment is picked with the mouse, one not built yet takes no click, a disabled strip none" {
+  let page = new Pick()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 100 })
+  Test.shot("the first segment picked: white on bronze with its light, the others dim")
+
+  Test.moveTo(Test.holding("Merchant", nil))
+  Test.shot("the cursor on the second segment: lighter on a shade")
+
+  Test.click(Test.holding("Merchant", nil), nil)
+  Test.shot("the second segment clicked: it is the picked one, the first is dim")
+  Test.expect(page.mode == Mode.Merchant)
+
+  Test.click(Test.holding("Cooldowns — in development", nil), nil)
+  Test.expect(page.mode == Mode.Merchant)
+  Test.shot("the segment not built yet clicked: nothing changes")
+
+  page.off = true
+  Test.click(Test.holding("From what is held", nil), nil)
+  Test.expect(page.mode == Mode.Merchant)
+  Test.shot("disabled: the strip at 45%, a click changes nothing")
+
+  page.off = false
+  Test.click(Test.holding("From what is held", nil), nil)
+  Test.expect(page.mode == Mode.Held)
+
+  destroy page
+  Test.expect(Test.blank())
+}
