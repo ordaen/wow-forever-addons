@@ -1,0 +1,31 @@
+-- two hours: nothing under the price
+box 0,0 200x14.4
+  text 0,0 200x14.4 "price" #ffffff
+
+-- one day: «(1 d.)» in amber
+box 0,0 200x27.4
+  text 0,0 200x14.4 "price" #ffffff
+  text 0,14.4 200x13 "(1 d.)" #ffb02e
+
+-- three days and a bit: «(3 d.)», still amber
+box 0,0 200x27.4
+  text 0,0 200x14.4 "price" #ffffff
+  text 0,14.4 200x13 "(3 d.)" #ffb02e
+
+-- four days: «(4 d.)» dimmed
+box 0,0 200x27.4
+  text 0,0 200x14.4 "price" #ffffff
+  text 0,14.4 200x13 "(4 d.)" #a3977f
+
+-- thirty days: «(30 d.)» dimmed, the last one shown
+box 0,0 200x27.4
+  text 0,0 200x14.4 "price" #ffffff
+  text 0,14.4 200x13 "(30 d.)" #a3977f
+
+-- thirty-one days: nothing, a price that old isn't one
+box 0,0 200x14.4
+  text 0,0 200x14.4 "price" #ffffff
+
+-- no price: nothing
+box 0,0 200x14.4
+  text 0,0 200x14.4 "price" #ffffff

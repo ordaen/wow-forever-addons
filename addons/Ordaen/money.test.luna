@@ -1,0 +1,37 @@
+// The library's Money: an amount of copper written by the game, again when the amount changes.
+import Test from "$test"
+import Game from "$game"
+import { Money } from "@/money"
+
+class Priced {
+  state copper: Integer = 12345
+
+  public render(self): Template {
+    return $ltml {
+      <Money amount={self.copper} />
+    }
+  }
+}
+
+test "an amount is written as the game writes it and follows its cell" {
+  let page = new Priced()
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  Test.shot("12345 copper: the game's text for it")
+
+  page.copper = 0
+  Test.shot("nothing: the game's text for nought")
+
+  let asked: Array<Integer> = []
+  Game.money.format = (copper: Integer): String => {
+    asked.push(copper)
+    return "coins"
+  }
+  page.copper = 99
+  Test.shot("another amount: asked of the game once, written as it answered")
+  Test.expect(asked.length == 1)
+  Test.pass(1)
+  Test.expect(asked.length == 1)
+
+  destroy page
+  Test.expect(Test.blank())
+}

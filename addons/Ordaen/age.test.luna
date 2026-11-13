@@ -1,0 +1,43 @@
+// The library's Age: a price's age by the market's rule, read from seconds.
+import Test from "$test"
+import { Age } from "@/age"
+
+class Priced {
+  state seconds: Number | nil = 7200
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <text value={"price"} />
+        <Age seconds={self.seconds} />
+      </box>
+    }
+  }
+}
+
+test "an age draws nothing under a day, amber to the third day, dimmed after, and nothing past thirty days" {
+  let page = new Priced()
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  Test.shot("two hours: nothing under the price")
+
+  page.seconds = 86400
+  Test.shot("one day: «(1 d.)» in amber")
+
+  page.seconds = 3 * 86400 + 86399
+  Test.shot("three days and a bit: «(3 d.)», still amber")
+
+  page.seconds = 4 * 86400
+  Test.shot("four days: «(4 d.)» dimmed")
+
+  page.seconds = 30 * 86400 + 5
+  Test.shot("thirty days: «(30 d.)» dimmed, the last one shown")
+
+  page.seconds = 31 * 86400
+  Test.shot("thirty-one days: nothing, a price that old isn't one")
+
+  page.seconds = nil
+  Test.shot("no price: nothing")
+
+  destroy page
+  Test.expect(Test.blank())
+}

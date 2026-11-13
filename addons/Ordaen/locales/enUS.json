@@ -1,6 +1,7 @@
 {
   "SETTINGS_OPEN": "Open Ordaen's settings",
   "SOON": "in development",
+  "AGE_DAYS": "(%d d.)",
   "UNIT_PX": "%d px",
   "UNIT_SEC": "%.1f s",
   "LIST_GLOBAL": "General",

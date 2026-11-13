@@ -1,0 +1,8 @@
+-- 12345 copper: the game's text for it
+text 0,0 200x14 "1g 23s 45c" #e8dcc4
+
+-- nothing: the game's text for nought
+text 0,0 200x14 "0g 0s 0c" #e8dcc4
+
+-- another amount: asked of the game once, written as it answered
+text 0,0 200x14 "coins" #e8dcc4
