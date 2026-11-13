@@ -1,64 +1,70 @@
 // The rows of the professions window's lists: a category, a recipe, a reagent. A faint rule between rows; a row of
 // the lists lights under the cursor, and the chosen one more, with a 2 px gold edge at its left.
 import Game from "$game"
-import String from "$string"
-import { Align, Art, Color, Edges, Line, Overflow, Position, Stated, Track } from "$ltml"
-import Ordaen from "Ordaen"
-import { PX } from "OrdaenLibrary"
+import { Align, Art, Edges, Line, Overflow, Position, Stated, Track } from "$ltml"
+import { Component, PX } from "Ordaen"
+import root Ordaen from "Ordaen"
 import Style from "@/style"
 
-private const NAME_COUNT: Array<Track> = [{ fr: 1 }, "auto"]
-private const CATEGORY_PAD: Edges = { top: 7 * PX, right: 10 * PX, bottom: 7 * PX, left: 10 * PX }
-private const RECIPE_PAD: Edges = { top: 6 * PX, right: 10 * PX, bottom: 6 * PX, left: 10 * PX }
-private const SLOT = 32 * PX
-private const REAGENT: Array<Track> = [SLOT, { fr: 1 }, "auto"]
-private const REAGENT_PAD: Edges = { top: 3 * PX, right: 6 * PX, bottom: 3 * PX }
+const NAME_COUNT: Array<Track> = [{ fr: 1 }, "auto"]
+const CATEGORY_PAD: Edges = { top: 7 * PX, right: 10 * PX, bottom: 7 * PX, left: 10 * PX }
+const RECIPE_PAD: Edges = { top: 6 * PX, right: 10 * PX, bottom: 6 * PX, left: 10 * PX }
+const SLOT = 32 * PX
+const REAGENT: Array<Track> = [SLOT, { fr: 1 }, "auto"]
+const REAGENT_PAD: Edges = { top: 3 * PX, right: 6 * PX, bottom: 3 * PX }
 
 // A category in the recipes' first column: its name in gold, and `N (M)` at the right, N its recipes, M how many of
 // them the bags can make now (white when any).
-public class CategoryRow implements Ordaen::Component {
+public class CategoryRow implements Component {
   // Its id.
-  public pick: Event<integer> = $event()
+  public pick: Event<Integer> = new Event()
 
-  private isChosen = $computed((): boolean => self.chosen == self.category.id)
-  private background = $computed((): Color | Stated<Color> => self.isChosen ? Style::ROW_CHOSEN : Style::ROW_LIGHT)
-  private rule = $computed((): Line | nil => self.index > 1 ? Style::ROW_RULE : nil)
-  private total = $computed((): integer => self.count(false))
-  private makeable = $computed((): integer => self.count(true))
-  private makeableColor = $computed((): Color => self.makeable > 0 ? Style::WHITE : Style::DIM)
+  derived isChosen: Boolean = self.chosen == self.category.id
+  derived background: Color | Stated<Color> = self.isChosen ? Style.ROW_CHOSEN : Style.ROW_LIGHT
+  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
+  derived total: Integer = self.count(false)
+  derived makeable: Integer = self.count(true)
+  derived makeableColor: Color = self.makeable > 0 ? Style.WHITE : Style.DIM
 
-  $constructor(
-    private category: Reactive<Game::Category>,
+  category: Signal<Game.Category>
+  index: Signal<Integer>
+  chosen: Signal<Integer>
+  constructor(
+    category: Signal<Game.Category>,
     // Its place in the list: the first has no rule above it.
-    private index: Reactive<integer>,
+    index: Signal<Integer>,
     // The chosen category's id.
-    private chosen: Reactive<integer>,
-  ) {}
+    chosen: Signal<Integer>,
+  ) {
+    self.category = category
+    self.index = index
+    self.chosen = chosen
+  }
 
   // How many recipes it has: all of them, or those the bags can make now.
-  private count(makeableOnly: boolean): integer {
-    let mut n = 0
-    for (recipe of Game::TradeSkill::recipes) {
+  count(self, makeableOnly: Boolean): Integer {
+    let n = 0
+    for (recipe of Game.tradeSkill.recipes) {
       if (recipe.categoryID == self.category.id && (!makeableOnly || recipe.craftable > 0)) { n += 1 }
     }
     return n
   }
 
-  private mut onClick() { self.pick.emit(self.category.id) }
+  onClick(mut self) { self.pick.emit(self.category.id) }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box columns={NAME_COUNT} gap={8 * PX} padding={CATEGORY_PAD} yAlign={Align::Center} border={self.rule}
+      <box columns={NAME_COUNT} gap={8 * PX} padding={CATEGORY_PAD} yAlign={Align.Center} border={self.rule}
            background={self.background} @click={self.onClick}>
-        <box $if={self.isChosen} position={Position::Absolute} left={0} top={0} bottom={0} width={2 * PX}
-             background={Style::CHOSEN_EDGE} />
-        <text value={self.category.name} textSize={Style::TEXT} textColor={Style::GOLD}
-              textShadow={Style::SHADOW} />
-        <box columns={["auto", "auto"]} gap={3 * PX} yAlign={Align::Center}>
-          <text value={"%d"} arguments={[self.total]} textSize={Style::SMALL} textColor={Style::DIM} wrap={false}
-                textFamily={Ordaen::lookArt.fontNumbers} />
-          <text value={"(%d)"} arguments={[self.makeable]} textSize={Style::SMALL} textColor={self.makeableColor}
-                wrap={false} textFamily={Ordaen::lookArt.fontNumbers} />
+        <box $if={self.isChosen} position={Position.Absolute} left={0} top={0} bottom={0} width={2 * PX}
+             background={Style.CHOSEN_EDGE} />
+        <text value={self.category.name} textSize={Style.TEXT} textColor={Style.GOLD}
+              textShadow={Style.SHADOW} />
+        <box columns={["auto", "auto"]} gap={3 * PX} yAlign={Align.Center}>
+          <text value={"%d"} arguments={[self.total]} textSize={Style.SMALL} textColor={Style.DIM} wrap={false}
+                textFamily={Ordaen?.lookArt?.fontNumbers} />
+          <text value={"(%d)"} arguments={[self.makeable]} textSize={Style.SMALL} textColor={self.makeableColor}
+                wrap={false} textFamily={Ordaen?.lookArt?.fontNumbers} />
         </box>
       </box>
     }
@@ -67,60 +73,70 @@ public class CategoryRow implements Ordaen::Component {
 
 // A recipe in the recipes' second column: its name in its difficulty's colour (an unlearned one dim), `[N]` at the
 // right for how many the bags can make now.
-public class RecipeRow implements Ordaen::Component {
+public class RecipeRow implements Component {
   // Its id.
-  public pick: Event<integer> = $event()
+  public pick: Event<Integer> = new Event()
 
-  private isChosen = $computed((): boolean => self.chosen == self.recipe.id)
-  private background = $computed((): Color | Stated<Color> => self.isChosen ? Style::ROW_CHOSEN : Style::ROW_LIGHT)
-  private rule = $computed((): Line | nil => self.index > 1 ? Style::ROW_RULE : nil)
-  private color = $computed((): Color =>
-    self.recipe.learned ? Style::difficultyColor(self.recipe.difficulty) : Style::OFF)
-  private count = $computed((): string =>
-    self.recipe.craftable > 0 ? String::format("[%d]", self.recipe.craftable) : "")
+  derived isChosen: Boolean = self.chosen == self.recipe.id
+  derived background: Color | Stated<Color> = self.isChosen ? Style.ROW_CHOSEN : Style.ROW_LIGHT
+  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
+  derived color: Color = self.recipe.learned ? Style.difficultyColor(self.recipe.difficulty) : Style.OFF
+  derived count: String = self.recipe.craftable > 0 ? "[%d]".format(self.recipe.craftable) : ""
 
-  $constructor(
-    private recipe: Reactive<Game::Recipe>,
-    private index: Reactive<integer>,
+  recipe: Signal<Game.Recipe>
+  index: Signal<Integer>
+  chosen: Signal<Integer>
+  constructor(
+    recipe: Signal<Game.Recipe>,
+    index: Signal<Integer>,
     // The chosen recipe's id.
-    private chosen: Reactive<integer>,
-  ) {}
+    chosen: Signal<Integer>,
+  ) {
+    self.recipe = recipe
+    self.index = index
+    self.chosen = chosen
+  }
 
-  private mut onClick() { self.pick.emit(self.recipe.id) }
+  onClick(mut self) { self.pick.emit(self.recipe.id) }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box columns={NAME_COUNT} gap={8 * PX} padding={RECIPE_PAD} yAlign={Align::Center} border={self.rule}
-           background={self.background} overflow={Overflow::Hidden} @click={self.onClick}>
-        <box $if={self.isChosen} position={Position::Absolute} left={0} top={0} bottom={0} width={2 * PX}
-             background={Style::CHOSEN_EDGE} />
-        <text value={self.recipe.name} textSize={Style::RECIPE_TEXT} textColor={self.color}
-              textShadow={Style::SHADOW} wrap={false} />
-        <text value={self.count} textSize={Style::SMALL} textColor={Style::WHITE} wrap={false}
-              textFamily={Ordaen::lookArt.fontNumbers} />
+      <box columns={NAME_COUNT} gap={8 * PX} padding={RECIPE_PAD} yAlign={Align.Center} border={self.rule}
+           background={self.background} overflow={Overflow.Hidden} @click={self.onClick}>
+        <box $if={self.isChosen} position={Position.Absolute} left={0} top={0} bottom={0} width={2 * PX}
+             background={Style.CHOSEN_EDGE} />
+        <text value={self.recipe.name} textSize={Style.RECIPE_TEXT} textColor={self.color}
+              textShadow={Style.SHADOW} wrap={false} />
+        <text value={self.count} textSize={Style.SMALL} textColor={Style.WHITE} wrap={false}
+              textFamily={Ordaen?.lookArt?.fontNumbers} />
       </box>
     }
   }
 }
 
 // A reagent of the chosen recipe: its icon in a slot, its name, have / need (red when short).
-public class ReagentRow implements Ordaen::Component {
-  private rule = $computed((): Line | nil => self.index > 1 ? Style::ROW_RULE : nil)
-  private icon = $computed((): Art => self.reagent.icon)
-  private color = $computed((): Color => self.reagent.have < self.reagent.need ? Style::RED : Style::INK)
+public class ReagentRow implements Component {
+  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
+  derived icon: Art = self.reagent.icon
+  derived color: Color = self.reagent.have < self.reagent.need ? Style.RED : Style.INK
 
-  $constructor(
-    private reagent: Reactive<Game::Reagent>,
-    private index: Reactive<integer>,
-  ) {}
+  reagent: Signal<Game.Reagent>
+  index: Signal<Integer>
+  constructor(
+    reagent: Signal<Game.Reagent>,
+    index: Signal<Integer>,
+  ) {
+    self.reagent = reagent
+    self.index = index
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box columns={REAGENT} gap={8 * PX} yAlign={Align::Center} padding={REAGENT_PAD} border={self.rule}>
-        <box width={SLOT} height={SLOT} border={Style::BRONZE} icon={self.icon} />
-        <text value={self.reagent.name} textSize={Style::RECIPE_TEXT} textColor={Style::INK} />
-        <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} textSize={Style::RECIPE_TEXT}
-              wrap={false} textColor={self.color} textFamily={Ordaen::lookArt.fontNumbers} />
+      <box columns={REAGENT} gap={8 * PX} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}>
+        <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
+        <text value={self.reagent.name} textSize={Style.RECIPE_TEXT} textColor={Style.INK} />
+        <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} textSize={Style.RECIPE_TEXT}
+              wrap={false} textColor={self.color} textFamily={Ordaen?.lookArt?.fontNumbers} />
       </box>
     }
   }

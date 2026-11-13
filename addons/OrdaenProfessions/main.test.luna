@@ -3,26 +3,24 @@
 import Client from "$client"
 import Game from "$game"
 import { Art } from "$ltml"
-import Math from "$math"
-import String from "$string"
 import Test from "$test"
-import Ordaen from "Ordaen"
+import root Ordaen from "Ordaen"
 import { Professions } from "@/index"
 
-private const PAGE: Test::Page = { left: 20, top: 20, width: 200, height: 100 }
+const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100 }
 
 // What the game sends when it opens a profession.
-private function recipe(
-  id: integer, name: string, category: integer, difficulty: Game::Difficulty, craftable: integer, learned: boolean,
-): Game::Recipe {
+function recipe(
+  id: Integer, name: String, category: Integer, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean,
+): Game.Recipe {
   return {
-    id: id, name: name, icon: `icons/recipe${id}`, categoryID: category, learned: learned, difficulty: difficulty,
+    id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: learned, difficulty: difficulty,
     craftable: craftable,
   }
 }
 
 // Tailoring as the game opens it: its categories, its recipes, and what it says of a recipe.
-private function tailoringCategories(): Array<Game::Category> {
+function tailoringCategories(): Array<Game.Category> {
   return [
     { id: 1, name: "Tailoring" },
     { id: 10, name: "Resting at camp", parentID: 1 },
@@ -32,39 +30,39 @@ private function tailoringCategories(): Array<Game::Category> {
   ]
 }
 
-private function tailoringRecipes(): Array<Game::Recipe> {
+function tailoringRecipes(): Array<Game.Recipe> {
   return [
-    recipe(100, "Linen Bandage", 10, Game::Difficulty::Rarely, 4, true),
-    recipe(110, "Linen Cloak", 11, Game::Difficulty::Always, 1, true),
-    recipe(111, "Brown Linen Vest", 11, Game::Difficulty::Usually, 0, true),
-    recipe(112, "Woolen Cape", 11, Game::Difficulty::Never, 0, false),
-    recipe(120, "Linen Bag", 12, Game::Difficulty::Usually, 2, true),
-    recipe(121, "Woolen Bag", 12, Game::Difficulty::Always, 0, true),
+    recipe(100, "Linen Bandage", 10, Game.Difficulty.Rarely, 4, true),
+    recipe(110, "Linen Cloak", 11, Game.Difficulty.Always, 1, true),
+    recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true),
+    recipe(112, "Woolen Cape", 11, Game.Difficulty.Never, 0, false),
+    recipe(120, "Linen Bag", 12, Game.Difficulty.Usually, 2, true),
+    recipe(121, "Woolen Bag", 12, Game.Difficulty.Always, 0, true),
   ]
 }
 
-private function description(id: integer): string {
+function description(id: Integer): String {
   return id == 110 ? "A plain cloak of linen." : id == 120 ? "Holds six things." : ""
 }
 
-private function requirements(id: integer): Array<Game::Requirement> {
+function requirements(id: Integer): Array<Game.Requirement> {
   if (id == 110) { return [{ name: "Sewing kit", met: true }, { name: "Loom", met: false }] }
   return []
 }
 
-private function reagents(id: integer): Array<Game::Reagent> {
+function reagents(id: Integer): Array<Game.Reagent> {
   if (id == 110) {
     return [
-      { name: "Bolt of Linen Cloth", icon: "icons/bolt", have: 3, need: 1 },
-      { name: "Coarse Thread", icon: "icons/thread", have: 0, need: 1 },
+      { name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 3, need: 1 },
+      { name: "Coarse Thread", icon: "Interface/Icons/INV_Misc_Thread_01", have: 0, need: 1 },
     ]
   }
-  if (id == 120) { return [{ name: "Bolt of Linen Cloth", icon: "icons/bolt", have: 6, need: 3 }] }
+  if (id == 120) { return [{ name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 6, need: 3 }] }
   return []
 }
 
 // Blacksmithing has no camp recipes: the camp's category stands first all the same, and has no tab.
-private function blacksmithingCategories(): Array<Game::Category> {
+function blacksmithingCategories(): Array<Game.Category> {
   return [
     { id: 2, name: "Blacksmithing" },
     { id: 20, name: "Resting at camp", parentID: 2 },
@@ -72,122 +70,123 @@ private function blacksmithingCategories(): Array<Game::Category> {
   ]
 }
 
-private function show(title: string, own: Client::Frame) {
-  Test::shot(title)
-  let left = Math::floor(own.GetLeft() ?? 0)
-  let top = Math::floor(Client::GetScreenHeight() - (own.GetTop() ?? 0))
-  Test::note(`the game's own window: at ${left},${top}, opacity ${own.GetAlpha()}`)
-  Test::note("")
+function show(title: String, own: any Client.Frame) {
+  Test.shot(title)
+  let left = (own.GetLeft() ?? 0).floor()
+  let top = (Client.GetScreenHeight() - (own.GetTop() ?? 0)).floor()
+  Test.note(`the game's own window: at ${left},${top}, opacity ${own.GetAlpha()}`)
+  Test.note("")
 }
 
 // A click, and what it changed drawn.
-private function click(at: Test::Point) {
-  Test::click(at, nil)
-  Test::flush()
+function click(at: Test.Point) {
+  Test.click(at, nil)
+  Test.flush()
 }
 
-private function isIcon(file: string | integer): boolean {
-  if (file is string) { return $match(file, "^icons/") != nil }
+function isIcon(file: String | Integer): Boolean {
+  if (file is String) { return file.match("^icons/") != nil }
   return file == 136249
 }
 
 test "the professions window: the open profession, its lists, the search, a recipe made" {
   // The game's own professions window: ours shows in its place.
-  let ui = Client::C_UI::GetUIParent()
-  let own = Client::CreateFrame("Frame", "ProfessionsFrame", ui, nil)
+  let ui = Client.C_UI.GetUIParent()
+  let own = Client.CreateFrame("Frame", "ProfessionsFrame", ui, nil)
   own.SetSize(400, 500)
   own.SetPoint("TOPLEFT", ui, "TOPLEFT", 16, -116)
-  Game::Frames::Professions = own
-  Game::Professions::list = [
+  Game.frames.Professions = own
+  Game.professions.list = [
     // The game gives an icon as its file's number, or as its path.
-    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game::ProfessionKind::Crafting },
-    { skillLine: 182, name: "Herbalism", icon: "icons/herbalism", rank: 12, max: 75, kind: Game::ProfessionKind::Gathering },
+    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: 182, name: "Herbalism", icon: "Interface/Icons/Trade_Herbalism", rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
     {
-      skillLine: 164, name: "Blacksmithing", icon: "icons/blacksmithing", rank: 120, max: 150,
-      kind: Game::ProfessionKind::Crafting,
+      skillLine: 164, name: "Blacksmithing", icon: "Interface/Icons/Trade_BlackSmithing", rank: 120, max: 150,
+      kind: Game.ProfessionKind.Crafting,
     },
   ]
 
-  let mut module = new Professions()
-  Test::mount(module, PAGE)
+  let module = new Professions()
+  Test.mount(module, PAGE)
   show("mounted: no profession is open, nothing is drawn", own)
 
-  Game::TradeSkill::shownEmpty.emit()
+  Game.tradeSkill.shownEmpty.emit()
   show("the game's own window came up with no profession open: ours stands in its place, its tabs to choose from", own)
 
-  Game::TradeSkill::categories = tailoringCategories()
-  Game::TradeSkill::recipes = tailoringRecipes()
-  Game::TradeSkill::description = description
-  Game::TradeSkill::requirements = requirements
-  Game::TradeSkill::reagents = reagents
-  Game::TradeSkill::open = 197
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.description = description
+  Game.tradeSkill.requirements = requirements
+  Game.tradeSkill.reagents = reagents
+  Game.tradeSkill.open = 197
   show("the game opened Tailoring: its tab picked, its skill, its first category's recipes, the first recipe's details", own)
 
   // Every icon is drawn without the rim the client's icons carry: a file by its number as one by its path.
-  let mut icons = 0
-  let mut whole = 0
-  for (texture of Test::drawn()) {
+  let icons = 0
+  let whole = 0
+  for (texture of Test.drawn()) {
     if (isIcon(texture.file)) {
       icons += 1
       if (texture.left == 0 && texture.right == 1) { whole += 1 }
     }
   }
-  Test::note(`icons drawn: ${icons > 0 ? "some" : "none"}; with their own rim left on: ${whole}`)
+  Test.note(`icons drawn: ${icons > 0 ? "some" : "none"}; with their own rim left on: ${whole}`)
 
   // With the cursor over the window its corner's buttons show: the skill bar ends before them.
-  Test::moveTo(Test::holding("Bags", nil))
-  Test::flush()
-  let bar = Test::edges(Ordaen::lookArt.xpFill, 2)
-  let corner = Test::edges(Ordaen::art.ctl.cornerClose, 2)
-  Test::note(String::format("the skill bar ends %d before the corner's buttons", corner.left - bar.right + 0.5))
-  Test::moveTo({ x: -10, y: -10 })
-  Test::flush()
+  Test.moveTo(Test.holding("Bags", nil))
+  Test.flush()
+  const ordaen = Ordaen ?? panic("Ordaen runs in this test")
+  let bar = Test.edges(ordaen.lookArt.xpFill, 2)
+  let corner = Test.edges(ordaen.art.ctl.cornerClose, 2)
+  Test.note("the skill bar ends %d before the corner's buttons".format(corner.left - bar.right + 0.5))
+  Test.moveTo({ x: -10, y: -10 })
+  Test.flush()
 
-  click(Test::holding("Bags", nil))
+  click(Test.holding("Bags", nil))
   show("«Bags» picked: its recipes, the first of them chosen", own)
 
-  click(Test::holding("Woolen Bag", nil))
+  click(Test.holding("Woolen Bag", nil))
   show("a recipe picked that the bags can't make: Create is disabled", own)
 
-  click(Test::holding("Cloth armour", nil))
-  click(Test::field(nil))
-  Test::type("LINEN")
+  click(Test.holding("Cloth armour", nil))
+  click(Test.field(nil))
+  Test.type("LINEN")
   show("back in «Cloth armour», «LINEN» typed into the search: the recipes with it in their names, in any case", own)
 
-  Test::erase(5)
-  Test::flush()
-  click(Test::holding("+", nil))
-  click(Test::holding("+", nil))
-  click(Test::holding("Create", nil))
+  Test.erase(5)
+  Test.flush()
+  click(Test.holding("+", nil))
+  click(Test.holding("+", nil))
+  click(Test.holding("Create", nil))
   show("the search emptied, + clicked twice and Create: three asked for, the one the bags can make is made", own)
 
-  click(Test::holding("Camp", nil))
+  click(Test.holding("Camp", nil))
   show("the profession's «Camp» tab: the camp's recipes in one column", own)
 
-  click(Test::holding("Blacksmithing", nil))
+  click(Test.holding("Blacksmithing", nil))
   show("the Blacksmithing tab clicked: it shows picked, and the game is asked to open it", own)
 
-  Game::TradeSkill::categories = blacksmithingCategories()
-  Game::TradeSkill::recipes = [recipe(200, "Copper Mace", 21, Game::Difficulty::Never, 0, true)]
-  Game::TradeSkill::open = 164
+  Game.tradeSkill.categories = blacksmithingCategories()
+  Game.tradeSkill.recipes = [recipe(200, "Copper Mace", 21, Game.Difficulty.Never, 0, true)]
+  Game.tradeSkill.open = 164
   show("the game opened Blacksmithing: its lists, back on «Recipes» with no «Camp» tab, its one recipe", own)
 
-  Test::key(Test::Key::Escape)
+  Test.key(Test.Key.Escape)
   show("Escape: the game is asked to close the profession", own)
 
   // The game hides its own window as the profession closes: given back, it stays hidden. Shown again, it would
   // come up with no profession open, and the first profession would be opened in its place.
   own.Hide()
-  Game::TradeSkill::open = nil
+  Game.tradeSkill.open = nil
   show("the game closed it: our window is gone, the game's own stands where it stood", own)
-  Test::note(`the game's own window shows: ${own.IsShown()}`)
+  Test.note(`the game's own window shows: ${own.IsShown()}`)
 
   // The player's key brings the game's own window up again with no profession open: the one last open is asked
   // for, in the key's own call.
   own.Show()
-  Test::inKey((): nil => Game::TradeSkill::shownEmpty.emit())
+  Test.inKey((): nil => Game.tradeSkill.shownEmpty.emit())
   show("the game's own window came up again on the player's key: the profession last open is asked for", own)
 
   destroy module
-  $expect(Test::blank())
+  Test.expect(Test.blank())
 }

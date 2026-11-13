@@ -1,0 +1,43 @@
+-- the checkbox clicked: off, its tick gone, the second slider greyed
+box 0,0 700x231.4 @enter @leave
+  box 0,0 700x26.67
+    box 0,25.83 700x0.83 absolute #3e2f1d
+    box 0,0 43.75x26.67 #00000059 @click
+      box 0.83,0.83 42.08x1.67 absolute #d6a56b
+      text 12.5,6.67 18.75x15 "Map" #ffffff
+    box 47.08,0 60.83x25.83 #00000000 @click
+      text 58.75,5.83 37.5x15 "Drawer" #a3977f
+  box 0,34.67 700x101.67
+    box 0,34.67 700x101.67
+      box 0,34.67 700x15
+        text 0,34.67 18.75x15 "Map" #e8c35a
+        box 27.08,41.75 672.92x0.83 art/ctl.rule
+      box 0,61.33 700x18.33 opacity=1
+        box 0,63 233.33x15 @enter @leave
+          text 0,63 233.33x15 "Show the zone" #cbb994
+        box 248.33,61.33 18.33x18.33 art/ctl.check @click
+      box 0,91.33 700x16.67 opacity=1
+        box 0,92.17 233.33x15 @enter @leave
+          text 0,92.17 233.33x15 "Size" #cbb994
+        box 248.33,91.33 451.67x16.67
+          box 248.33,91.33 200x16.67 @click @drag @dragStart
+            box 248.33,96.33 200x6.67 absolute art/ctl.groove
+            box 249.17,97.17 49.58x5 absolute art/ctl.sliderFill
+            box 291.67,89.67 13.33x26.67 absolute art/ctl.sliderKnob
+          text 458.33,92.47 24x14.4 "100%" #ffffff
+      box 0,119.67 700x16.67 opacity=0.45
+        box 0,120.5 233.33x15 @enter @leave
+          text 0,120.5 233.33x15 "Columns" #cbb994
+        box 248.33,119.67 451.67x16.67
+          box 248.33,119.67 200x16.67 @click @drag @dragStart
+            box 248.33,124.67 200x6.67 absolute art/ctl.groove
+            box 249.17,125.5 39.67x5 absolute art/ctl.sliderFill
+            box 281.67,118 13.33x26.67 absolute art/ctl.sliderKnob
+          text 458.33,120.8 6x14.4 "4" #ffffff
+  text 0,144.33 700x14.4 "zone hidden" #ffffff
+  box 0,166.73 120x28.33 art/ctl.button @click
+    box 0,166.73 120x28.33 absolute
+      text 47.5,173.4 25x15 "Save" #ffd100
+  box 0,203.07 120x28.33 art/ctl.buttonDisabled @click
+    box 0,203.07 120x28.33 absolute
+      text 44.38,209.73 31.25x15 "Reset" #808080

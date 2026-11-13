@@ -3,62 +3,65 @@
 // made item's description; what the work needs besides reagents (red while missing); the reagents, one ruled row
 // each, scrolling in what room is left; and at the bottom the make row: the count with − and +, and «Create».
 import Game from "$game"
-import Math from "$math"
-import { Align, Art, Color, Line, Overflow, Track } from "$ltml"
-import Ordaen from "Ordaen"
-import { PushButton, PX } from "OrdaenLibrary"
+import { Align, Art, Line, Overflow, Track } from "$ltml"
+import { Component, PushButton, PX } from "Ordaen"
+import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { ReagentRow } from "@/rows"
 import Style from "@/style"
 
-private const RIM: Line = { width: 1 * PX, color: Style::LINE }
+const RIM: Line = { width: 1 * PX, color: Style.LINE }
 // The head, the description, the needs, the reagents in the rest, the make row.
-private const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto"]
-private const SLOT = 52 * PX
-private const HEAD: Array<Track> = [SLOT, { fr: 1 }]
-private const MAKE: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto"]
-private const STEP = 30 * PX
-private const NOTHING: Game::Recipe = {
-  id: 0, name: "", icon: "", categoryID: 0, learned: false, difficulty: Game::Difficulty::Never, craftable: 0,
+const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto"]
+const SLOT = 52 * PX
+const HEAD: Array<Track> = [SLOT, { fr: 1 }]
+const MAKE: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto"]
+const STEP = 30 * PX
+const NOTHING: Game.Recipe = {
+  id: 0, name: "", icon: "Interface/Icons/INV_Misc_QuestionMark", categoryID: 0, learned: false, difficulty: Game.Difficulty.Never, craftable: 0,
 }
 
-public class RecipeDetails implements Ordaen::Component {
+public class RecipeDetails implements Component {
   // «Create» clicked, with how many: making must start in the click.
-  public create: Event<integer> = $event()
+  public create: Event<Integer> = new Event()
 
-  private has = $computed((): boolean => self.recipe != nil)
+  derived has: Boolean = self.recipe != nil
   // The recipe shown: where none is chosen nothing is drawn, and this stands for it.
-  private shown = $computed((): Game::Recipe => self.recipe ?? NOTHING)
-  private icon = $computed((): Art => self.shown.icon)
-  private skill = $computed((): string => self.skillOf())
-  private skillColor = $computed((): Color =>
-    self.shown.learned ? Style::difficultyColor(self.shown.difficulty) : Style::RED)
-  private description = $computed((): string => Game::TradeSkill::description(self.shown.id))
-  private needs = $computed((): string => self.needsOf())
-  private reagents = $computed((): Array<Game::Reagent> => Game::TradeSkill::reagents(self.shown.id))
-  private cannot = $computed((): boolean => self.shown.craftable < 1)
+  derived shown: Game.Recipe = self.recipe ?? NOTHING
+  derived icon: Art = self.shown.icon
+  derived skill: String = self.skillOf()
+  derived skillColor: Color = self.shown.learned ? Style.difficultyColor(self.shown.difficulty) : Style.RED
+  derived description: String = Game.tradeSkill.description(self.shown.id)
+  derived needs: String = self.needsOf()
+  derived reagents: Array<Game.Reagent> = Game.tradeSkill.reagents(self.shown.id)
+  derived cannot: Boolean = self.shown.craftable < 1
 
-  $constructor(
-    private recipe: Reactive<Game::Recipe | nil>,
+  recipe: Signal<Game.Recipe | nil>
+  count: mut Signal<Integer>
+  constructor(
+    recipe: Signal<Game.Recipe | nil>,
     // How many to make.
-    private mut count: Reactive<integer>,
-  ) {}
+    count: mut Signal<Integer>,
+  ) {
+    self.recipe = recipe
+    self.count = count
+  }
 
-  private skillOf(): string {
-    if (!self.shown.learned) { return Locale::NOT_LEARNED }
-    switch (self.shown.difficulty) {
-      case Game::Difficulty::Always: return Locale::DIFFICULTY_0
-      case Game::Difficulty::Usually: return Locale::DIFFICULTY_1
-      case Game::Difficulty::Rarely: return Locale::DIFFICULTY_2
-      case Game::Difficulty::Never: return Locale::DIFFICULTY_3
+  skillOf(self): String {
+    if (!self.shown.learned) { return Locale.NOT_LEARNED }
+    match (self.shown.difficulty) {
+      Game.Difficulty.Always => return Locale.DIFFICULTY_0,
+      Game.Difficulty.Usually => return Locale.DIFFICULTY_1,
+      Game.Difficulty.Rarely => return Locale.DIFFICULTY_2,
+      Game.Difficulty.Never => return Locale.DIFFICULTY_3,
     }
   }
 
   // What the work needs, a line each, red while missing: «Needs: Blacksmith Hammer».
-  private needsOf(): string {
-    let mut text = ""
-    for (need of Game::TradeSkill::requirements(self.shown.id)) {
-      let mut line = Locale::TOOLS + ": " + need.name
+  needsOf(self): String {
+    let text = ""
+    for (need of Game.tradeSkill.requirements(self.shown.id)) {
+      let line = Locale.TOOLS + ": " + need.name
       if (!need.met) { line = "|cffff4040" + line + "|r" }
       if (text != "") { text = text + "\n" }
       text = text + line
@@ -66,38 +69,38 @@ public class RecipeDetails implements Ordaen::Component {
     return text
   }
 
-  private mut less() { self.count = Math::max(1, self.count - 1) }
-  private mut more() { self.count += 1 }
+  less(mut self) { self.count = (1).max(self.count - 1) }
+  more(mut self) { self.count += 1 }
 
-  private mut onCreate() {
-    if (self.shown.craftable > 0) { self.create.emit(Math::min(self.count, self.shown.craftable)) }
+  onCreate(mut self) {
+    if (self.shown.craftable > 0) { self.create.emit(self.count.min(self.shown.craftable)) }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box rows={PANEL} gap={8 * PX} padding={12 * PX} border={RIM} background={Ordaen::art.window.marble}
-           overflow={Overflow::Hidden}>
+      <box rows={PANEL} gap={8 * PX} padding={12 * PX} border={RIM} background={Ordaen?.art?.window?.marble}
+           overflow={Overflow.Hidden}>
         <$if={self.has}>
-          <box columns={HEAD} gap={10 * PX} yAlign={Align::Center}>
-            <box width={SLOT} height={SLOT} border={Style::BRONZE} icon={self.icon} />
+          <box columns={HEAD} gap={10 * PX} yAlign={Align.Center}>
+            <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
             <box gap={2 * PX}>
-              <text value={self.shown.name} textSize={Style::NAME} textColor={Style::WHITE}
-                    textShadow={Style::SHADOW} />
-              <text value={self.skill} textSize={Style::SMALL} textColor={self.skillColor} />
+              <text value={self.shown.name} textSize={Style.NAME} textColor={Style.WHITE}
+                    textShadow={Style.SHADOW} />
+              <text value={self.skill} textSize={Style.SMALL} textColor={self.skillColor} />
             </box>
           </box>
-          <text value={self.description} textSize={Style::RECIPE_TEXT} textColor={Style::INK} />
-          <text value={self.needs} textSize={Style::RECIPE_TEXT} textColor={Style::DIM} />
-          <box overflow={Overflow::Scroll}>
+          <text value={self.description} textSize={Style.RECIPE_TEXT} textColor={Style.INK} />
+          <text value={self.needs} textSize={Style.RECIPE_TEXT} textColor={Style.DIM} />
+          <box overflow={Overflow.Scroll}>
             <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
           </box>
-          <box columns={MAKE} gap={8 * PX} yAlign={Align::Center}>
+          <box columns={MAKE} gap={8 * PX} yAlign={Align.Center}>
             <PushButton label={"-"} width={STEP} @click={self.less} />
-            <text value={"%d"} arguments={[self.count]} textSize={Style::TEXT} textColor={Style::WHITE}
-                  textFamily={Ordaen::lookArt.fontNumbers} wrap={false} />
+            <text value={"%d"} arguments={[self.count]} textSize={Style.TEXT} textColor={Style.WHITE}
+                  textFamily={Ordaen?.lookArt?.fontNumbers} wrap={false} />
             <PushButton label={"+"} width={STEP} @click={self.more} />
             <box height={1} />
-            <PushButton label={Locale::CREATE} width={140 * PX} disabled={self.cannot} @click={self.onCreate} />
+            <PushButton label={Locale.CREATE} width={140 * PX} disabled={self.cannot} @click={self.onCreate} />
           </box>
         </>
       </box>

@@ -1,70 +1,71 @@
 // The profession's skill bar, hanging from the window's top line: the experience bar's fill in a dark trough with a
 // bronze rim, a notch every 10%, and on it the rank and the skill: «Apprentice · 31 / 75».
 import Game from "$game"
-import Math from "$math"
-import String from "$string"
 import { Align, Edges, Line, Overflow, Percent, Position, Side, Track } from "$ltml"
-import Ordaen from "Ordaen"
-import { PX } from "OrdaenLibrary"
+import { Component, PX } from "Ordaen"
+import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
-private const HEIGHT = 30 * PX
-private const RIM = 3 * PX
-private const PADDING: Edges = { right: RIM, bottom: RIM, left: RIM }
-private const TROUGH = $color("#0b0805")
-private const RIM_COLOR = $color("#3d2710")
+const HEIGHT = 30 * PX
+const RIM = 3 * PX
+const PADDING: Edges = { right: RIM, bottom: RIM, left: RIM }
+const TROUGH: Color = Color.hex("#0b0805")
+const RIM_COLOR: Color = Color.hex("#3d2710")
 // Ten equal cells, each but the last with a 1 px dark right edge.
-private const CELLS: Array<integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-private const NOTCH: Line = { width: 1 * PX, color: $color("#000000bf"), sides: [Side::Right] }
-private const FILL: Array<Track> = [{ fr: 1 }]
+const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const NOTCH: Line = { width: 1 * PX, color: Color.hex("#000000bf"), sides: [Side.Right] }
+const FILL: Array<Track> = [{ fr: 1 }]
 
-public class SkillBar implements Ordaen::Component {
+public class SkillBar implements Component {
   // How much of the trough is filled.
-  private share = $computed((): Percent => { percent: self.shareOf() * 100 })
-  private label = $computed((): string => self.labelOf())
+  derived share: Percent = { percent: self.shareOf() * 100 }
+  derived label: String = self.labelOf()
 
-  $constructor(private profession: Reactive<Game::Profession | nil>) {}
-
-  private shareOf(): number {
-    let profession = self.profession
-    if (profession == nil || profession.max <= 0) { return 0 }
-    return Math::min(1, profession.rank / profession.max)
+  profession: Signal<Game.Profession | nil>
+  constructor(profession: Signal<Game.Profession | nil>) {
+    self.profession = profession
   }
 
-  private rankOf(most: integer): string {
-    switch (most) {
-      case 75: return Locale::RANK_75
-      case 150: return Locale::RANK_150
-      case 225: return Locale::RANK_225
-      case 300: return Locale::RANK_300
-      default: return ""
+  shareOf(self): Number {
+    let profession = self.profession
+    if (profession == nil || profession.max <= 0) { return 0 }
+    return (1).min(profession.rank / profession.max)
+  }
+
+  rankOf(self, most: Integer): String {
+    match (most) {
+      75 => return Locale.RANK_75,
+      150 => return Locale.RANK_150,
+      225 => return Locale.RANK_225,
+      300 => return Locale.RANK_300,
+      else => return "",
     }
   }
 
-  private labelOf(): string {
+  labelOf(self): String {
     let profession = self.profession
     if (profession == nil) { return "" }
-    let skill = String::format("%d / %d", profession.rank, profession.max)
+    let skill = "%d / %d".format(profession.rank, profession.max)
     let rank = self.rankOf(profession.max)
     if (rank == "") { return skill }
     return rank + " · " + skill
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box height={HEIGHT} padding={PADDING} background={RIM_COLOR} rows={FILL}>
-        <box background={TROUGH} overflow={Overflow::Hidden}>
-          <box position={Position::Absolute} left={0} top={0} bottom={0} width={self.share}
-               background={Ordaen::lookArt.xpFill} />
-          <box position={Position::Absolute} left={0} right={0} top={0} bottom={0} columns={10} rows={FILL}>
+        <box background={TROUGH} overflow={Overflow.Hidden}>
+          <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.share}
+               background={Ordaen?.lookArt?.xpFill} />
+          <box position={Position.Absolute} left={0} right={0} top={0} bottom={0} columns={10} rows={FILL}>
             <box $for={cell of CELLS} border={NOTCH} />
             <box />
           </box>
-          <box position={Position::Absolute} left={0} right={0} top={0} bottom={0} xAlign={Align::Center}
-               yAlign={Align::Center}>
-            <text value={self.label} textSize={14 * PX} textColor={Style::WHITE} textShadow={Style::SHADOW}
-                  textFamily={Ordaen::lookArt.fontNumbers} wrap={false} />
+          <box position={Position.Absolute} left={0} right={0} top={0} bottom={0} xAlign={Align.Center}
+               yAlign={Align.Center}>
+            <text value={self.label} textSize={14 * PX} textColor={Style.WHITE} textShadow={Style.SHADOW}
+                  textFamily={Ordaen?.lookArt?.fontNumbers} wrap={false} />
           </box>
         </box>
       </box>

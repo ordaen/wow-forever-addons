@@ -1,46 +1,46 @@
 // The professions window's look, shared by its parts: sizes at the user's scale and colours.
 import Game from "$game"
-import { Color, Line, Shadow, Side, Stated } from "$ltml"
-import { PX } from "OrdaenLibrary"
+import { Line, Shadow, Side, Stated } from "$ltml"
+import { PX } from "Ordaen"
 
 // The body, and its parts: the recipes' side (the search and the lists), the categories' column.
-public const WIDTH = 1060 * PX
-public const HEIGHT = 700 * PX
-public const LEFT = 530 * PX
-public const CATEGORIES = 250 * PX
-public const GAP = 12 * PX
+public const WIDTH: Number = 1060 * PX
+public const HEIGHT: Number = 700 * PX
+public const LEFT: Number = 530 * PX
+public const CATEGORIES: Number = 250 * PX
+public const GAP: Number = 12 * PX
 // A category's name, a recipe's, the small print, the chosen recipe's name.
-public const TEXT = 14 * PX
-public const RECIPE_TEXT = 13 * PX
-public const SMALL = 12 * PX
-public const NAME = 17 * PX
+public const TEXT: Number = 14 * PX
+public const RECIPE_TEXT: Number = 13 * PX
+public const SMALL: Number = 12 * PX
+public const NAME: Number = 17 * PX
 
-public const INK = $color("#e8dcc4")
-public const DIM = $color("#a3977f")
-public const GOLD = $color("#ffd100")
-public const WHITE = $color("#ffffff")
-public const RED = $color("#ff4040")
+public const INK: Color = Color.hex("#e8dcc4")
+public const DIM: Color = Color.hex("#a3977f")
+public const GOLD: Color = Color.hex("#ffd100")
+public const WHITE: Color = Color.hex("#ffffff")
+public const RED: Color = Color.hex("#ff4040")
 // An unlearned recipe.
-public const OFF = $color("#7a7060")
+public const OFF: Color = Color.hex("#7a7060")
 // The lists' frame and the rule between their columns.
-public const LINE = $color("#3e2f1d")
-public const CLEAR = $color("#00000000")
-public const ROW_CHOSEN = $color("#d6a56b3d")
-public const ROW_LIGHT: Stated<Color> = { default: CLEAR, hover: $color("#d6a56b1f") }
+public const LINE: Color = Color.hex("#3e2f1d")
+public const CLEAR: Color = Color.hex("#00000000")
+public const ROW_CHOSEN: Color = Color.hex("#d6a56b3d")
+public const ROW_LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f") }
 // The chosen row's 2 px at its left.
-public const CHOSEN_EDGE = $color("#f0c860")
-public const LISTS_BACK = $color("#0000004d")
-public const SHADOW: Shadow = { color: $color("#000000"), x: 1 * PX, y: -1 * PX }
+public const CHOSEN_EDGE: Color = Color.hex("#f0c860")
+public const LISTS_BACK: Color = Color.hex("#0000004d")
+public const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
 // Between rows, and round an item's slot.
-public const ROW_RULE: Line = { width: 1 * PX, color: $color("#d6a56b14"), sides: [Side::Top] }
-public const BRONZE: Line = { width: 1 * PX, color: $color("#6c5535") }
+public const ROW_RULE: Line = { width: 1 * PX, color: Color.hex("#d6a56b14"), sides: [Side.Top] }
+public const BRONZE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
 
 // A recipe's name in its difficulty's colour.
-public function difficultyColor(difficulty: Game::Difficulty): Color {
-  switch (difficulty) {
-    case Game::Difficulty::Always: return $color("#ff8040")
-    case Game::Difficulty::Usually: return $color("#ffd100")
-    case Game::Difficulty::Rarely: return $color("#40c040")
-    case Game::Difficulty::Never: return $color("#9a9a9a")
+public function difficultyColor(difficulty: Game.Difficulty): Color {
+  match (difficulty) {
+    Game.Difficulty.Always => return Color.hex("#ff8040"),
+    Game.Difficulty.Usually => return Color.hex("#ffd100"),
+    Game.Difficulty.Rarely => return Color.hex("#40c040"),
+    Game.Difficulty.Never => return Color.hex("#9a9a9a"),
   }
 }
