@@ -1,0 +1,121 @@
+// The player's choices, named: a profile holds every module's settings, and each character uses one, found by its
+// picks. Profiles are the account's, kept by Ordaen (`profiles` in the game's saved data). A section is one
+// `Settings`' values as the client packs them (CBOR, `Game.encoding`): Ordaen knows no module's type, and a module
+// decodes its own (`S.decode`). Which modules are on, what a module remembers (`Memory`) and data aren't in one.
+import Game from "$game"
+
+public type ProfileName = brand String
+
+// The profile every account has, made from what was kept before profiles were.
+public const DEFAULT_PROFILE: ProfileName = "Default"
+
+public struct Profile implements Plain {
+  // Each `Settings`' values, packed, by what the `Settings` is kept under (`OrdaenPanel`, `Ordaen:look`).
+  sections: mut Map<String, String> = {}
+}
+
+public struct Picks implements Plain {
+  account: ProfileName = DEFAULT_PROFILE
+  // By the class's tag (`MAGE`).
+  byClass: mut Map<String, ProfileName> = {}
+  // By the character's GUID.
+  byCharacter: mut Map<String, ProfileName> = {}
+  // By the character's GUID, then the specialisation's index.
+  bySpec: mut Map<String, mut Map<Integer, ProfileName>> = {}
+}
+
+public struct Kept implements Plain {
+  profiles: mut Map<String, mut Profile> = {}
+  picks: mut Picks = Picks {}
+}
+
+// Who the character is, as far as the picks ask: its GUID and specialisation where the game says them.
+public struct Who {
+  character: String | nil
+  spec: Integer | nil
+  classTag: String
+}
+
+// The profile a character uses: the one picked for its specialisation, for it, for its class, or the account's.
+public function picked(picks: Picks, who: Who): ProfileName {
+  const character = who.character
+  if (character != nil) {
+    const spec = who.spec
+    const bySpec = picks.bySpec[character]
+    if (spec != nil && bySpec != nil) {
+      const forSpec = bySpec[spec]
+      if (forSpec != nil) { return forSpec }
+    }
+    const own = picks.byCharacter[character]
+    if (own != nil) { return own }
+  }
+  return picks.byClass[who.classTag] ?? picks.account
+}
+
+public class Profiles {
+  public state kept: Kept
+  // The profile this character uses now: a `Settings` follows it, and takes its section anew when it changes.
+  public derived active: ProfileName = picked(self.kept.picks, self.who())
+
+  constructor() {
+    self.kept = load(.Account, "profiles", Kept {})
+  }
+
+  // The game says the class; the character's GUID and specialisation wait for the part of the game that says who the
+  // player is.
+  who(self): Who {
+    return { character: nil, spec: nil, classTag: Game.player.classTag }
+  }
+
+  // A `Settings`' section in a profile, unpacked for its `decode`; nil where the profile has none. A `Settings` kept
+  // before profiles were (`Game.saved` under its key) is moved into «Default» as it is first read.
+  public section(mut self, name: ProfileName, key: String): Unknown {
+    const before = Game.saved.stored(.Account, key)
+    if (before != nil) {
+      const packed = Game.encoding.serialize(before)
+      // A client that can't pack it: it is read as it was kept, and stays there.
+      if (packed == nil) { return before }
+      self.put(DEFAULT_PROFILE, key, packed)
+      Game.saved.forget(.Account, key)
+    }
+    const profile = (peek self.kept).profiles[name]
+    if (profile == nil) { return nil }
+    const raw = profile.sections[key]
+    if (raw == nil) { return nil }
+    return Game.encoding.deserialize(raw)
+  }
+
+  // A `Settings`' values kept in the active profile.
+  public write(mut self, key: String, values: Unknown) {
+    const packed = Game.encoding.serialize(values)
+    if (packed != nil) { self.put(peek self.active, key, packed) }
+  }
+
+  put(mut self, name: ProfileName, key: String, packed: String) {
+    const next = (peek self.kept).clone()
+    const profile = next.profiles[name] ?? Profile {}
+    profile.sections[key] = packed
+    next.profiles[name] = profile
+    self.kept = next
+    Game.saved.store(.Account, "profiles", next)
+  }
+
+  // A new profile, a copy of the active one: false where the name is empty or taken.
+  public make(mut self, name: ProfileName): Boolean {
+    const kept = peek self.kept
+    if (name == "" || kept.profiles[name] != nil) { return false }
+    const next = kept.clone()
+    next.profiles[name] = (kept.profiles[peek self.active] ?? Profile {}).clone()
+    self.kept = next
+    Game.saved.store(.Account, "profiles", next)
+    return true
+  }
+
+  // The account's default pick: every character that has no pick of its own switches to it at once.
+  public use(mut self, name: ProfileName) {
+    const next = (peek self.kept).clone()
+    next.picks.account = name
+    self.kept = next
+    Game.saved.store(.Account, "profiles", next)
+  }
+}

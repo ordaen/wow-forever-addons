@@ -3,6 +3,7 @@ import Game from "$game"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { Keeper } from "@/keeper"
+import { ProfileName } from "@/profiles"
 
 // What a `Settings` or a `Memory` is kept under: the addon of the root that owns it (`OrdaenPanel`), and the part
 // of it where it has more than one (`Ordaen:look`); nothing for one no root owns (a test's own), which isn't kept.
@@ -15,8 +16,8 @@ function keyOf(addon: Runtime.Addon | nil, part: String): String | nil {
 //
 // The module reads `values` (`settings.values.scale`, followed). The settings page writes `draft`, an entry at a
 // time (`value={mut settings.draft.scale}`), and nothing the module reads changes until the draft is saved: every
-// page's changes wait for «Save» together. The values are kept between sessions, the account's, under the module's
-// name (`keyOf`).
+// page's changes wait for «Save» together. The values are kept in the active profile (`Profiles`), as a section
+// under the module's name (`keyOf`), and follow a switch to another profile.
 public class Settings<S: Plain> {
   public const defaults: S
   public state values: S
@@ -42,9 +43,8 @@ public class Settings<S: Plain> {
     const key = keyOf(Runtime.Addon.of(self), part)
     self.key = key
     if (key != nil) {
-      const kept = load(.Account, key, defaults)
-      self.draft = kept.clone()
-      self.values = kept
+      // The active profile's section: read now, and again when the character switches to another profile.
+      watch (name of self.keeper.profiles.active) { self.take(name, key) }
     }
     self.keeper.saving.listen(self.save)
     self.keeper.saved.listen(self.settle)
@@ -61,9 +61,16 @@ public class Settings<S: Plain> {
     self.keeper.count(self.id, self.changed)
   }
 
-  keep(self) {
+  // A profile's section becomes the values, and the draft with them: what follows the values draws again.
+  take(mut self, profile: ProfileName, key: String) {
+    const values = S.decode(self.keeper.profiles.section(profile, key), self.defaults)
+    self.draft = values.clone()
+    self.values = values
+  }
+
+  keep(mut self) {
     const key = self.key
-    if (key != nil) { Game.saved.store(.Account, key, peek self.values) }
+    if (key != nil) { self.keeper.profiles.write(key, peek self.values) }
   }
 
   save(mut self) {
@@ -122,6 +129,12 @@ public class Memory<S: Plain> {
     self.key = key
     if (key != nil) { self.values = load(scope, key, defaults) }
     watch { self.keep() }
+  }
+
+  // What the module remembers now, every entry at once: kept at once. The module's own way to write it, as
+  // another addon's field is never assigned.
+  public write(mut self, values: S) {
+    self.values = values.clone()
   }
 
   // Every entry is read, so a change to any of them keeps the whole.
