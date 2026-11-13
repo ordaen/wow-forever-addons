@@ -2,6 +2,7 @@
 // resizing, closing. Time passes as the client lets it, the runtime's frame with the client's.
 import Client from "$client"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { Windowed } from "@/windowed"
 
 const PAGE: Test.Page = { left: 100, top: 50, width: 300, height: 100 }
@@ -45,6 +46,7 @@ test "a frame moved from under a still cursor hears the cursor leave, the next f
 }
 
 test "the window: its tabs, moved, full screen, resized, closed" {
+  const art = (Ordaen ?? panic("Ordaen runs in this test")).art
   let page = new Windowed()
   Test.mount(page, PAGE)
   show("drawn: the window in the screen's middle, its first tab open over the body, the second behind it")
@@ -58,10 +60,10 @@ test "the window: its tabs, moved, full screen, resized, closed" {
   Test.moveTo(Test.holding("the second tab's page", nil))
   show("the cursor in the body: the corner's buttons show")
 
-  Test.click(Test.painted("art/ctl.cornerExpand", nil), nil)
+  Test.click(Test.painted(art.ctl.cornerExpand, nil), nil)
   show("full screen clicked: the window covers the screen, its grip gone")
 
-  Test.click(Test.painted("art/ctl.cornerContract", nil), nil)
+  Test.click(Test.painted(art.ctl.cornerContract, nil), nil)
   show("clicked again: back where it was")
 
   // The cursor stood still where the button was, now off the window: the next frame the client finds the window
@@ -69,10 +71,10 @@ test "the window: its tabs, moved, full screen, resized, closed" {
   Test.pass(0.02)
   show("a frame later: the cursor is off the window, the corner's buttons hidden")
 
-  dragBy(Test.painted("art/ctl.grip", nil), 60, 20)
+  dragBy(Test.painted(art.ctl.grip, nil), 60, 20)
   show("the grip dragged 60 right and 20 down: larger, its top left corner where it was")
 
-  dragBy(Test.painted("art/ctl.gripHover", nil), 500, -600)
+  dragBy(Test.painted(art.ctl.gripHover, nil), 500, -600)
   show("the grip dragged far right and far up: held at the widest and the smallest it may be")
 
   Test.key(Test.Key.Escape)
