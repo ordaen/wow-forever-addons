@@ -2,7 +2,8 @@
 // knob; the value beside it in its unit (70%, 48 px, 3). A click or a drag anywhere along it sets the value, in its
 // steps. Disabled, it takes no input.
 import { Align, Click, Drag, Position, Shadow } from "$ltml"
-import Ordaen from "Ordaen"
+import { ARTWORK } from "@/art"
+import { Component } from "@/module"
 import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
 
@@ -19,7 +20,7 @@ const KNOB_H = 32 * PX
 const KNOB_SHADOW: Shadow = { color: Color.hex("#0000008c"), x: 0, y: 2 * PX, size: 3 * PX }
 const WHITE: Color = Color.hex("#ffffff")
 
-public class Slider implements Ordaen.Component {
+public class Slider implements Component {
   // Where the value sits along the range, from 0 to 1.
   derived fraction: Number = self.most > self.least ? (self.value - self.least) / (self.most - self.least) : 0
   derived fillWidth: Number = self.fraction * (LENGTH - 2 * EDGE)
@@ -81,11 +82,11 @@ public class Slider implements Ordaen.Component {
         <box columns={[LENGTH, "auto"]} gap={12 * PX} yAlign={Align.Center}>
           <box width={LENGTH} height={BAND} @click={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag}>
             <box position={Position.Absolute} left={0} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
-                 background={Ordaen.art.ctl.groove} />
+                 background={ARTWORK.ctl.groove} />
             <box position={Position.Absolute} left={EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
-                 width={self.fillWidth} background={Ordaen.art.ctl.sliderFill} />
+                 width={self.fillWidth} background={ARTWORK.ctl.sliderFill} />
             <box position={Position.Absolute} left={self.knobLeft} top={-2 * PX} width={KNOB_W} height={KNOB_H}
-                 background={Ordaen.art.ctl.sliderKnob} shadow={KNOB_SHADOW} />
+                 background={ARTWORK.ctl.sliderKnob} shadow={KNOB_SHADOW} />
           </box>
           <text value={self.shown} textColor={WHITE} />
         </box>

@@ -1,10 +1,10 @@
 // SettingsTab: one tab of a module's settings page: its rows, sections and editors one under another, 14 px apart.
 // The tab strip is the settings window's, which draws one tab at a time and reads `title` for it. `shown` false
 // hides the tab while its part is off. Its unnamed slot takes the rows.
-import Ordaen from "Ordaen"
+import { Component } from "@/module"
 import { PX } from "@/units"
 
-public class SettingsTab implements Ordaen.Component {
+public class SettingsTab implements Component {
   public const title: String
   shown: Signal<Boolean>
   constructor(

@@ -1,11 +1,11 @@
 // Ordaen's own settings: what every module follows.
 
-public enum Density { Compact = "compact", Normal = "normal", Roomy = "roomy" }
-public enum NumberFormat { Space = "space", Comma = "comma", Dot = "dot" }
-public enum LargeNumbers { Full = "full", Short = "short" }
-public enum Clock { H24 = "24", H12 = "12" }
+public enum Density implements Plain { Compact = "compact", Normal = "normal", Roomy = "roomy" }
+public enum NumberFormat implements Plain { Space = "space", Comma = "comma", Dot = "dot" }
+public enum LargeNumbers implements Plain { Full = "full", Short = "short" }
+public enum Clock implements Plain { H24 = "24", H12 = "12" }
 
-public struct Globals {
+public struct Globals implements Plain {
   // Ordaen's windows, on top of the game's UI scale.
   scale: Number
   density: Density

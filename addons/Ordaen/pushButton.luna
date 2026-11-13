@@ -3,7 +3,8 @@
 // under the cursor, with a dark drop; disabled, the grey plate and a grey label, and no click. With an `action` it
 // is a secure box: the client does the action from the player's click (a spell, an item, a macro).
 import { Action, Align, Art, Position, Shadow, Stated } from "$ltml"
-import Ordaen from "Ordaen"
+import { ARTWORK } from "@/art"
+import { Component } from "@/module"
 import { PX } from "@/units"
 
 const HEIGHT = 34 * PX
@@ -13,10 +14,10 @@ const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
 // The label while pressed.
 const DOWN: Stated<Number> = { default: 0, pressed: 2 * PX }
 
-public class PushButton implements Ordaen.Component {
+public class PushButton implements Component {
   public click: Event<nil> = new Event()
 
-  derived art: Art = self.disabled ? Ordaen.art.ctl.buttonDisabled : self.accent ? Ordaen.art.ctl.buttonAccent : Ordaen.art.ctl.button
+  derived art: Art = self.disabled ? ARTWORK.ctl.buttonDisabled : self.accent ? ARTWORK.ctl.buttonAccent : ARTWORK.ctl.button
   derived color: Color | Stated<Color> = self.disabled ? GREY : LABEL
   // Disabled, it does nothing.
   derived doing: Action | nil = self.disabled ? nil : self.action

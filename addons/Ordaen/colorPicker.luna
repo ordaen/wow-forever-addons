@@ -3,13 +3,13 @@
 // written to the setting, and the picker's Cancel puts back the colour it opened with. Disabled, it takes no click.
 import Game from "$game"
 import { Line } from "$ltml"
-import Ordaen from "Ordaen"
+import { Component } from "@/module"
 import { SettingRow } from "@/settingRow"
 import { PX } from "@/units"
 
 const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
 
-public class ColorPicker implements Ordaen.Component {
+public class ColorPicker implements Component {
   // The game's picker as this one opened it: what it reports is for whoever opened it last.
   ticket: Integer = 0
   // The colour when the picker opened.
@@ -40,13 +40,13 @@ public class ColorPicker implements Ordaen.Component {
     self.ticket = Game.colorPicker.open(self.value)
   }
 
-  onPicked(mut self, picked: Game.PickedColor) {
-    if (picked.ticket == self.ticket) { self.value = picked.color }
+  onPicked(mut self, ticket: Integer, color: Color) {
+    if (ticket == self.ticket) { self.value = color.clone() }
   }
 
   onCancelled(mut self, ticket: Integer) {
     let before = self.before
-    if (ticket == self.ticket && before != nil) { self.value = before }
+    if (ticket == self.ticket && before != nil) { self.value = before.clone() }
   }
 
   public render(self): Template {

@@ -6,7 +6,7 @@ import { Art, Piece } from "$ltml"
 import Runtime from "$runtime"
 
 // The fonts Ordaen ships (its media, each with Cyrillic, SIL Open Font License) and the client's own two.
-public enum Font {
+public enum Font implements Plain {
   FiraSans = "firaSans",
   AlegreyaSans = "alegreyaSans",
   PtSans = "ptSans",
@@ -21,14 +21,14 @@ public enum Font {
 }
 
 // What a plain bar is filled with.
-public enum BarTexture { Flat = "flat", Blizzard = "blizzard" }
+public enum BarTexture implements Plain { Flat = "flat", Blizzard = "blizzard" }
 // What fills the experience bar, and every bar that looks like it.
-public enum XpFill { Deep = "deep", Grain = "grain", Brushed = "brushed", Potion = "potion", Clouds = "clouds", Steel = "steel" }
+public enum XpFill implements Plain { Deep = "deep", Grain = "grain", Brushed = "brushed", Potion = "potion", Clouds = "clouds", Steel = "steel" }
 // A bar's edge.
-public enum BarFrame { Bezel = "bezel", Groove = "groove" }
-public enum Animation { Smooth = "smooth", Fast = "fast", Off = "off" }
+public enum BarFrame implements Plain { Bezel = "bezel", Groove = "groove" }
+public enum Animation implements Plain { Smooth = "smooth", Fast = "fast", Off = "off" }
 // A colour of the palette, by its name: what a class is coloured with.
-public enum Hue {
+public enum Hue implements Plain {
   Red = "red", Orange = "orange", Yellow = "yellow", Green = "green", Cyan = "cyan", Blue = "blue",
   Violet = "violet", Pink = "pink", Tan = "tan", White = "white", Grey = "grey",
 }
@@ -37,7 +37,7 @@ public enum Preset { Ordaen = "ordaen", Blizzard = "blizzard", Minimal = "minima
 // The presets, in the order the settings window lists them.
 public const PRESETS: Array<Preset> = [Preset.Ordaen, Preset.Blizzard, Preset.Minimal]
 
-public struct Look {
+public struct Look implements Plain {
   // The text's, the titles' and the numbers' fonts.
   font: Font
   fontHeader: Font
@@ -130,7 +130,7 @@ public function preset(name: Preset): Look {
 // The preset a look is, where it is one as it stands.
 public function presetOf(look: Look): Preset | nil {
   for (name of PRESETS) {
-    if (Runtime.differing(look, preset(name)) == 0) { return name }
+    if (look.equal(preset(name))) { return name }
   }
   return nil
 }
@@ -187,18 +187,18 @@ function barFile(texture: BarTexture): Art {
 }
 
 // An experience bar's fill: one tile, repeated along the bar.
-function xpPiece(file: String): Piece {
+function xpPiece(file: Asset): Piece {
   return { file: file, width: 1024, height: 32, tile: true }
 }
 
 function xpFillOf(fill: XpFill): Art {
   match (fill) {
-    XpFill.Deep => return xpPiece($asset("@/media/xp-fill-deep.tga")),
-    XpFill.Grain => return xpPiece($asset("@/media/xp-fill-grain.tga")),
-    XpFill.Brushed => return xpPiece($asset("@/media/xp-fill-brushed.tga")),
-    XpFill.Potion => return xpPiece($asset("@/media/xp-fill-potion.tga")),
-    XpFill.Clouds => return xpPiece($asset("@/media/xp-fill-clouds.tga")),
-    XpFill.Steel => return xpPiece($asset("@/media/xp-fill-steel.tga")),
+    XpFill.Deep => return xpPiece("@/media/xp-fill-deep.tga"),
+    XpFill.Grain => return xpPiece("@/media/xp-fill-grain.tga"),
+    XpFill.Brushed => return xpPiece("@/media/xp-fill-brushed.tga"),
+    XpFill.Potion => return xpPiece("@/media/xp-fill-potion.tga"),
+    XpFill.Clouds => return xpPiece("@/media/xp-fill-clouds.tga"),
+    XpFill.Steel => return xpPiece("@/media/xp-fill-steel.tga"),
   }
 }
 

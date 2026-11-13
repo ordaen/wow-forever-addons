@@ -95,7 +95,7 @@ public struct Artwork {
 // The metal frame: the client's window frame at half size. The line is 3 units; the art stands past it by its
 // reach on each side, and the box's background starts 1.5 units into the art. A rounded frame's right side is
 // its left mirrored, so it reaches as far as the left.
-const FRAME = "ButtonFrameTemplateNoPortrait"
+const FRAME: Atlas = "ButtonFrameTemplateNoPortrait"
 const REACH: Reach = { top: 14.5, right: 4.5, bottom: 10, left: 14.5 }
 const REACH_ROUND: Reach = { top: 14.5, right: 14.5, bottom: 10, left: 14.5 }
 const CURVES: Curves = { small: 8 / 1.2 / 0.5 + 14, large: 14 / 1.2 / 0.5 + 14, flare: 21 }

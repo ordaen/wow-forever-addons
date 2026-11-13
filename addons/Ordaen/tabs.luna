@@ -2,7 +2,7 @@
 // a shade under the cursor; the picked one white on a darker shade, outlined, with a 2 px light along its top
 // inside. Left-click picks a tab: the strip writes the picked tab's index into the cell it was handed.
 import { Edges, Line, Position, Side, Stated, Track } from "$ltml"
-import Ordaen from "Ordaen"
+import { Component } from "@/module"
 import { PX } from "@/units"
 
 const TEXT = 15 * PX
@@ -17,7 +17,7 @@ const PADDING: Edges = { top: 7 * PX, right: 14 * PX, bottom: 6 * PX, left: 14 *
 const LIGHT: Color = Color.hex("#d6a56b")
 
 // One tab of the strip.
-public class Tab implements Ordaen.Component {
+public class Tab implements Component {
   derived picked: Boolean = self.selected == self.index
   derived background: Color | Stated<Color> = self.picked ? PICKED : SHADE
   derived border: Line | nil = self.picked ? OUTLINE : nil
@@ -49,7 +49,7 @@ public class Tab implements Ordaen.Component {
   }
 }
 
-public class Tabs implements Ordaen.Component {
+public class Tabs implements Component {
   // One column as wide as each tab, and the rest of the strip.
   derived columns: Array<Track> = self.tracks()
 

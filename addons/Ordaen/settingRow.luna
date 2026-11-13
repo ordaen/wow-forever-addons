@@ -3,14 +3,14 @@
 // A disabled row draws at 45%. Every settings control draws its row with it, so the rows line up. Its unnamed slot
 // takes the control.
 import { Align } from "$ltml"
-import Ordaen from "Ordaen"
+import { Component } from "@/module"
 import { PX } from "@/units"
 import { Tip } from "@/tip"
 
 const LABEL_WIDTH = 280 * PX
 const LABEL: Color = Color.hex("#cbb994")
 
-public class SettingRow implements Ordaen.Component {
+public class SettingRow implements Component {
   state hovered = false
   derived tipShown: Boolean = self.hovered && self.hint != ""
   derived opacity: Number = self.disabled ? 0.45 : 1

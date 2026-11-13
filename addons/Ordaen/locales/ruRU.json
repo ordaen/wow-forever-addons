@@ -1,3 +1,6 @@
 {
-  "SETTINGS_OPEN": "Открыть настройки Ordaen"
+  "SETTINGS_OPEN": "Открыть настройки Ordaen",
+  "SOON": "в разработке",
+  "UNIT_PX": "%d пикс.",
+  "UNIT_SEC": "%.1f сек."
 }

@@ -4,7 +4,8 @@
 // resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
 // the window: full screen (and back) and close. Its unnamed slot takes the body's content, which fills the body.
 import { Align, Anchored, Art, Drag, Edges, Layer, Metal, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
-import Ordaen from "Ordaen"
+import { ARTWORK } from "@/art"
+import { Component } from "@/module"
 import { PX } from "@/units"
 
 // One of a window's tabs: its name, a second line under it, a picture at its left end.
@@ -57,7 +58,7 @@ const OPEN_LEVEL = 10
 
 // One of a window's tabs, framed with the body's own metal, its top corners rounded. The open one stands over the
 // body, its sides curving out into the body's top line; a closed one stands lower, behind the body, darker.
-public class WindowTab implements Ordaen.Component {
+public class WindowTab implements Component {
   public grab: Event<nil> = new Event()
   public move: Event<Drag> = new Event()
   public drop: Event<nil> = new Event()
@@ -66,11 +67,11 @@ public class WindowTab implements Ordaen.Component {
   public picked: Event<Integer> = new Event()
 
   derived open: Boolean = self.selected == self.index
-  derived frame: Metal = !self.open ? Ordaen.art.frame.tab : self.index > 1 ? Ordaen.art.frame.tabOpen : Ordaen.art.frame.tabOpenFirst
+  derived frame: Metal = !self.open ? ARTWORK.frame.tab : self.index > 1 ? ARTWORK.frame.tabOpen : ARTWORK.frame.tabOpenFirst
   // The frame's measures at its scale: its art above its line, its flare, where its line starts.
-  derived reachTop: Number = Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale
-  derived flare: Number = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale
-  derived lineStart: Number = Ordaen.art.frame.tab.lineStart * Ordaen.art.frame.tab.scale
+  derived reachTop: Number = ARTWORK.frame.tab.reach.top * ARTWORK.frame.tab.scale
+  derived flare: Number = ARTWORK.frame.tab.curves.flare * ARTWORK.frame.tab.scale
+  derived lineStart: Number = ARTWORK.frame.tab.lineStart * ARTWORK.frame.tab.scale
   // The tab's height with its frame's art, and the height it is given: a framed box grows by its art's reach.
   derived whole: Number = self.open ? self.height : self.height - DROP
   derived given: Number = self.whole - self.reachTop
@@ -79,7 +80,7 @@ public class WindowTab implements Ordaen.Component {
   derived titleColor: Color = self.open ? TITLE_OPEN : TITLE_CLOSED
   derived hasIcon: Boolean = self.tab.icon != nil
   derived hasDesc: Boolean = self.tab.desc != nil
-  derived icon: Art = self.tab.icon ?? ""
+  derived icon: Art | nil = self.tab.icon
   derived desc: String = self.tab.desc ?? ""
 
   // The picture is a square at the tab's left end, as tall as what shows of the tab: from the tab's own line
@@ -88,12 +89,12 @@ public class WindowTab implements Ordaen.Component {
   // right, and on the open tab curves out at the bottom into the body's top line, which runs on under the
   // picture.
   derived side: Number = self.whole - self.flare
-  derived underReach: Number = Ordaen.art.frame.tabIconUnder.reach.top * Ordaen.art.frame.tabIconUnder.scale
+  derived underReach: Number = ARTWORK.frame.tabIconUnder.reach.top * ARTWORK.frame.tabIconUnder.scale
   // The open tab's picture ends under the line that runs under it.
-  derived pictureHeight: Number = self.open ? self.side + Ordaen.art.frame.tabIconUnder.width * Ordaen.art.frame.tabIconUnder.scale : self.side
-  derived iconLine: Metal = self.open ? Ordaen.art.frame.tabIconLineOpen : Ordaen.art.frame.tabIconLine
+  derived pictureHeight: Number = self.open ? self.side + ARTWORK.frame.tabIconUnder.width * ARTWORK.frame.tabIconUnder.scale : self.side
+  derived iconLine: Metal = self.open ? ARTWORK.frame.tabIconLineOpen : ARTWORK.frame.tabIconLine
   derived lineLeft: Number = self.side - self.lineStart
-  derived lineWidth: Number = self.flare - Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale + 1
+  derived lineWidth: Number = self.flare - ARTWORK.frame.tabIconLine.reach.left * ARTWORK.frame.tabIconLine.scale + 1
   // The line under the open tab's picture: on the body's line, which is `side` below the tab's.
   derived underTop: Number = self.side - self.underReach
   derived underWidth: Number = self.side - self.lineStart
@@ -122,8 +123,8 @@ public class WindowTab implements Ordaen.Component {
   paddingOf(self): Edges {
     let foot = self.open ? 0 : self.flare - self.reachTop
     if (!self.hasIcon) { return { left: LABEL_PAD, right: LABEL_PAD, bottom: foot } }
-    let line = Ordaen.art.frame.tabIconLine
-    let frame = Ordaen.art.frame.tab
+    let line = ARTWORK.frame.tabIconLine
+    let frame = ARTWORK.frame.tab
     let lineEnd = line.width + line.reach.left * line.scale
     let frameEnd = frame.width + frame.reach.left * frame.scale
     let left = self.side + lineEnd - frameEnd + LABEL_PAD
@@ -140,14 +141,14 @@ public class WindowTab implements Ordaen.Component {
 
   public render(self): Template {
     return $ltml {
-      <box minWidth={MIN_TAB} height={self.given} border={self.frame} background={Ordaen.art.window.wood}
+      <box minWidth={MIN_TAB} height={self.given} border={self.frame} background={ARTWORK.window.wood}
            tint={self.tint} padding={self.padding} rows={BODY_ROWS} zLevel={self.level} @click={self.pick}
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
         <$if={self.hasIcon}>
           <box position={Position.Absolute} left={0} top={0} width={self.side} height={self.pictureHeight}
-               icon={self.icon} tint={self.tint} border={Ordaen.art.frame.tabIconClip} />
+               icon={self.icon} tint={self.tint} border={ARTWORK.frame.tabIconClip} />
           <box $if={self.open} position={Position.Absolute} left={0} top={self.underTop} width={self.underWidth}
-               height={self.underHeight} border={Ordaen.art.frame.tabIconUnder} />
+               height={self.underHeight} border={ARTWORK.frame.tabIconUnder} />
           <box position={Position.Absolute} left={self.lineLeft} top={0} width={self.lineWidth}
                height={self.given} border={self.iconLine} />
         </>
@@ -162,7 +163,7 @@ public class WindowTab implements Ordaen.Component {
   }
 }
 
-public class Window implements Ordaen.Component {
+public class Window implements Component {
   // The close button, and Escape.
   public close: Event<nil> = new Event()
   // A tab was clicked: its place among the tabs, in the click's own call.
@@ -177,16 +178,16 @@ public class Window implements Ordaen.Component {
   h0: Number = 0
 
   // The tab row's height: the design's, from a tab's own line down to the body, and the tab's art above its line.
-  derived tabHeight: Number = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale
+  derived tabHeight: Number = self.tabHeightOf() + ARTWORK.frame.tab.reach.top * ARTWORK.frame.tab.scale
   // The body's top line, inside its box, as far as the open tab's curves into it reach.
-  derived lineTop: Number = Ordaen.art.frame.tabOpen.curves.flare * Ordaen.art.frame.tabOpen.scale
+  derived lineTop: Number = ARTWORK.frame.tabOpen.curves.flare * ARTWORK.frame.tabOpen.scale
   derived openTab: Number = self.tabHeight + self.lineTop
   derived columns: Array<Track> = self.tabColumns()
   derived place: Place = self.placeOf()
   derived width: Number | nil = self.full ? nil : self.placing.width
   derived height: Number | nil = self.full ? nil : self.tabHeight + self.placing.height
   derived sized: Boolean = !self.full
-  derived fullArt: Art = self.full ? Ordaen.art.ctl.cornerContract : Ordaen.art.ctl.cornerExpand
+  derived fullArt: Art = self.full ? ARTWORK.ctl.cornerContract : ARTWORK.ctl.cornerExpand
   derived grip: Stated<Art> = self.gripOf()
 
   tabs: Signal<Array<WindowTabSpec>>
@@ -239,7 +240,7 @@ public class Window implements Ordaen.Component {
   }
 
   gripOf(self): Stated<Art> {
-    return { default: Ordaen.art.ctl.grip, hover: Ordaen.art.ctl.gripHover, pressed: Ordaen.art.ctl.gripDown }
+    return { default: ARTWORK.ctl.grip, hover: ARTWORK.ctl.gripHover, pressed: ARTWORK.ctl.gripDown }
   }
 
   onEnter(mut self) { self.hovered = true }
@@ -283,7 +284,7 @@ public class Window implements Ordaen.Component {
         <box position={Position.Absolute} left={0} right={0} top={0} height={self.tabHeight}
              @dragStart={self.onGrab} @drag={self.onMove} />
         <box position={Position.Absolute} left={0} right={0} top={self.tabHeight} bottom={0}
-             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PADDING}
+             border={ARTWORK.frame.small} background={ARTWORK.window.wood} padding={PADDING}
              rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>
           <slot />
           <box $if={self.hovered} position={Position.Absolute} top={5.5 * PX} right={CORNER_RIGHT}
@@ -298,7 +299,7 @@ public class Window implements Ordaen.Component {
             <box position={Position.Absolute} left={35 * PX} top={0} width={28 * PX} height={32 * PX}
                  overflow={Overflow.Hidden} @click={self.onClose}>
               <box position={Position.Absolute} left={0} top={0} width={64 * PX} height={32 * PX}
-                   background={Ordaen.art.ctl.cornerClose} stateFromParent={true} />
+                   background={ARTWORK.ctl.cornerClose} stateFromParent={true} />
             </box>
           </box>
           <box $if={self.sized} position={Position.Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}

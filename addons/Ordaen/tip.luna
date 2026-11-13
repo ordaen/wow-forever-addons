@@ -2,14 +2,15 @@
 // text under it in the label colour, wrapped at the tooltip's width. It draws over everything in its window and
 // takes no mouse. Its owner shows it while the cursor is on what it explains.
 import { Position } from "$ltml"
-import Ordaen from "Ordaen"
+import { ARTWORK } from "@/art"
+import { Component } from "@/module"
 import { PX } from "@/units"
 
 const WIDTH = 314 * PX
 const NAME: Color = Color.hex("#ffffff")
 const LABEL: Color = Color.hex("#cbb994")
 
-public class Tip implements Ordaen.Component {
+public class Tip implements Component {
   title: Signal<String>
   text: Signal<String>
   left: Signal<Number>
@@ -30,7 +31,7 @@ public class Tip implements Ordaen.Component {
   public render(self): Template {
     return $ltml {
       <box position={Position.Absolute} left={self.left} top={self.top} width={WIDTH} zLevel={60}
-           border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
+           border={ARTWORK.frame.small} background={ARTWORK.window.wood} artOrigin={true}
            padding={12 * PX} columns={1} gap={2 * PX}>
         <text value={self.title} textColor={NAME} textSize={18 * PX} />
         <text value={self.text} textColor={LABEL} textSize={14 * PX} />

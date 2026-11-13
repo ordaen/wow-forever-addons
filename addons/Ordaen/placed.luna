@@ -15,7 +15,7 @@ public class Placed implements Component {
   derived kept: Anchored | nil = moved(self.id)
   derived place: Place = self.dragged ?? self.kept ?? self.home
   // Where it stood when a drag began, and where the drag has it meanwhile.
-  from: mut Anchored = { point: "CENTER" }
+  from: Anchored = { point: "CENTER" }
   state dragged: Anchored | nil = nil
 
   const id: String

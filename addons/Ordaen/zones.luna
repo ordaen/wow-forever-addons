@@ -3,7 +3,7 @@
 // in; a chip dragged into another zone, or into the pool, is placed there. The cursor on a chip shows the item's
 // hint.
 import { Align, Edges, Line } from "$ltml"
-import Ordaen from "Ordaen"
+import { Component } from "@/module"
 import { Choice } from "@/dropdown"
 import { Tip } from "@/tip"
 import { PX } from "@/units"
@@ -28,7 +28,7 @@ public struct ZoneItem<K: Unknown> {
 }
 
 // An item's chip: dragged from where it is, it is the one a zone takes when it is let go there.
-public class ZoneChip<K: Unknown> implements Ordaen.Component {
+public class ZoneChip<K: Unknown> implements Component {
   derived opacity: Number = self.pooled ? 0.8 : 1
 
   item: Signal<ZoneItem<K>>
@@ -74,7 +74,7 @@ public class ZoneChip<K: Unknown> implements Ordaen.Component {
 
 // One zone, or the pool: its name and the chips of the items that sit in it. What is dragged and let go over it is
 // placed in it.
-public class ZoneColumn<K: Unknown, Z: Unknown> implements Ordaen.Component {
+public class ZoneColumn<K: Unknown, Z: Unknown> implements Component {
   // The first zone's chips from the left, the second's in the middle, the third's to the right.
   derived align: Align = self.alignOf()
   derived divider: Line | nil = self.index > 1 ? DIVIDER : nil
@@ -134,7 +134,7 @@ public class ZoneColumn<K: Unknown, Z: Unknown> implements Ordaen.Component {
   }
 }
 
-public class Zones<K: Unknown, Z: Unknown> implements Ordaen.Component {
+public class Zones<K: Unknown, Z: Unknown> implements Component {
   state dragging: K | nil = nil
   state hinted: K | nil = nil
   derived hintTitle: String = self.hintedItem()?.label ?? ""

@@ -2,7 +2,7 @@
 // and what its slot holds at its right (a switch). The shade under the cursor; selected, a darker shade, the name
 // white and a 3 px light along its left; off, name and icon dimmed. Left-click reports `pick`.
 import { Align, Art, Edges, Position, Stated, Track } from "$ltml"
-import Ordaen from "Ordaen"
+import { Component } from "@/module"
 import { PX } from "@/units"
 
 const INK: Color = Color.hex("#e8dcc4")
@@ -19,10 +19,10 @@ const WITH_ICON: Array<Track> = [22 * PX, { fr: 1 }, "auto"]
 // An entry without an icon: its name from the left.
 const NO_ICON: Array<Track> = [{ fr: 1 }, "auto"]
 
-public class ListTab implements Ordaen.Component {
+public class ListTab implements Component {
   public pick: Event<nil> = new Event()
 
-  derived hasIcon: Boolean = self.icon != ""
+  derived hasIcon: Boolean = self.icon != nil
   derived columns: Array<Track> = self.hasIcon ? WITH_ICON : NO_ICON
   derived background: Color | Stated<Color> = self.selected ? SELECTED : SHADE
   derived color: Color = self.selected ? WHITE : self.off ? OFF : INK
@@ -30,13 +30,13 @@ public class ListTab implements Ordaen.Component {
 
   label: Signal<String>
   selected: Signal<Boolean>
-  icon: Signal<Art>
+  icon: Signal<Art | nil>
   off: Signal<Boolean>
   constructor(
     label: Signal<String>,
     selected: Signal<Boolean>,
     // None for an entry without a picture.
-    icon: Signal<Art> = "",
+    icon: Signal<Art | nil> = nil,
     off: Signal<Boolean> = false,
   ) {
     self.label = label
