@@ -3,7 +3,6 @@ public import { Windowed } from "@/windowed"
 public import { Tinted } from "@/tinted"
 public import { Arranged } from "@/arranged"
 import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "Ordaen"
-import root Ordaen from "Ordaen"
 
 const TABS: Array<String> = ["Map", "Drawer"]
 
@@ -24,7 +23,9 @@ public struct Choices {
   name: String
 }
 
-public class Showcase implements Module, App {
+// A module's page, made by the tests and added to Ordaen's modules there: in the game nothing makes it (the
+// addon has no root, so a build linked into the game leaves it out).
+public class Showcase implements Module {
   public const title: String = "Showcase"
   public const pages: Array<SettingsPage> = []
 
@@ -35,10 +36,6 @@ public class Showcase implements Module, App {
   derived onMap: Boolean = self.tab == 1
   derived onDrawer: Boolean = self.tab == 2
   derived summary: String = self.describe()
-
-  constructor() {
-    Ordaen.modules.add(self)
-  }
 
   describe(self): String {
     return self.choices.showZone ? "zone shown" : "zone hidden"
