@@ -1,23 +1,22 @@
 // A window with two tabs over a page, for the run tests: what a module with a window of its own does.
-import Ordaen from "Ordaen"
-import { Placing, Window, WindowTabSpec } from "OrdaenLibrary"
+import { Module, Placing, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 
-public class Windowed implements Ordaen::Module {
-  public const title: string = "Windowed"
-  public const pages: Array<Ordaen::SettingsPage> = []
+public class Windowed implements Module {
+  public const title: String = "Windowed"
+  public const pages: Array<SettingsPage> = []
 
-  private mut tabs: Reactive<Array<WindowTabSpec>> = $reactive([
-    { title: "Professions", desc: "Tailoring 75", icon: "icons/tailoring" },
+  state tabs: Array<WindowTabSpec> = [
+    { title: "Professions", desc: "Tailoring 75", icon: "Interface/Icons/Trade_Tailoring" },
     { title: "Recipes" },
-  ])
-  private mut tab = $reactive(1)
-  private mut placing: Reactive<Placing> = $reactive({ x: 0, y: 0, width: 400, height: 300 })
-  private mut open = $reactive(true)
-  private body = $computed((): string => self.tab == 1 ? "the first tab's page" : "the second tab's page")
+  ]
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
+  state open = true
+  derived body: String = self.tab == 1 ? "the first tab's page" : "the second tab's page"
 
-  private mut onClose() { self.open = false }
+  onClose(mut self) { self.open = false }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box padding={4}>
         <text value={"a page under the window"} />

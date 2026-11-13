@@ -2,82 +2,84 @@
 // resizing, closing. Time passes as the client lets it, the runtime's frame with the client's.
 import Client from "$client"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { Windowed } from "@/windowed"
 
-private const PAGE: Test::Page = { left: 100, top: 50, width: 300, height: 100 }
+const PAGE: Test.Page = { left: 100, top: 50, width: 300, height: 100 }
 
 // Take what is at `at` and let it go `dx`, `dy` further.
-private function dragBy(at: Test::Point, dx: number, dy: number) {
-  Test::moveTo(at)
-  Test::press(nil)
-  Test::moveTo({ x: at.x + 1, y: at.y })
-  Test::pass(0.05)
-  Test::moveTo({ x: at.x + 1 + dx, y: at.y + dy })
-  Test::pass(0.05)
-  Test::release(nil)
+function dragBy(at: Test.Point, dx: Number, dy: Number) {
+  Test.moveTo(at)
+  Test.press(nil)
+  Test.moveTo({ x: at.x + 1, y: at.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: at.x + 1 + dx, y: at.y + dy })
+  Test.pass(0.05)
+  Test.release(nil)
 }
 
-private function show(title: string) {
-  Test::shot(title)
+function show(title: String) {
+  Test.shot(title)
 }
 
 // The client finds what is under the cursor anew each frame: a frame that moves from under a cursor standing still
 // hears OnLeave, and one that moves under it OnEnter, with no move of the mouse.
 test "a frame moved from under a still cursor hears the cursor leave, the next frame" {
-  let ui = Client::C_UI::GetUIParent()
-  let frame = Client::CreateFrame("Frame", nil, ui, nil)
+  let ui = Client.C_UI.GetUIParent()
+  let frame = Client.CreateFrame("Frame", nil, ui, nil)
   frame.SetSize(100, 100)
   frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 0, 0)
   frame.EnableMouse(true)
-  let mut heard: Map<string, integer> = {}
+  let heard: Map<String, Integer> = {}
   frame.SetScript("OnEnter", (): nil => { heard["enter"] = (heard["enter"] ?? 0) + 1 })
   frame.SetScript("OnLeave", (): nil => { heard["leave"] = (heard["leave"] ?? 0) + 1 })
-  Test::moveTo({ x: 50, y: 50 })
-  $expect(heard["enter"] == 1)
+  Test.moveTo({ x: 50, y: 50 })
+  Test.expect(heard["enter"] == 1)
   frame.ClearAllPoints()
   frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 300, 0)
-  Test::pass(0.02)
-  $expect(heard["leave"] == 1)
+  Test.pass(0.02)
+  Test.expect(heard["leave"] == 1)
   frame.ClearAllPoints()
   frame.SetPoint("TOPLEFT", ui, "TOPLEFT", 0, 0)
-  Test::pass(0.02)
-  $expect(heard["enter"] == 2)
+  Test.pass(0.02)
+  Test.expect(heard["enter"] == 2)
 }
 
 test "the window: its tabs, moved, full screen, resized, closed" {
-  let mut page = new Windowed()
-  Test::mount(page, PAGE)
+  const art = (Ordaen ?? panic("Ordaen runs in this test")).art
+  let page = new Windowed()
+  Test.mount(page, PAGE)
   show("drawn: the window in the screen's middle, its first tab open over the body, the second behind it")
 
-  Test::click(Test::holding("Recipes", nil), nil)
+  Test.click(Test.holding("Recipes", nil), nil)
   show("the second tab clicked: it is the open one, the body shows its page")
 
-  dragBy(Test::holding("Recipes", nil), 40, 30)
+  dragBy(Test.holding("Recipes", nil), 40, 30)
   show("the open tab dragged 40 right and 30 down: the window follows")
 
-  Test::moveTo(Test::holding("the second tab's page", nil))
+  Test.moveTo(Test.holding("the second tab's page", nil))
   show("the cursor in the body: the corner's buttons show")
 
-  Test::click(Test::painted("art/ctl.cornerExpand", nil), nil)
+  Test.click(Test.painted(art.ctl.cornerExpand, nil), nil)
   show("full screen clicked: the window covers the screen, its grip gone")
 
-  Test::click(Test::painted("art/ctl.cornerContract", nil), nil)
+  Test.click(Test.painted(art.ctl.cornerContract, nil), nil)
   show("clicked again: back where it was")
 
   // The cursor stood still where the button was, now off the window: the next frame the client finds the window
   // gone from under it, and the corner's buttons hide.
-  Test::pass(0.02)
+  Test.pass(0.02)
   show("a frame later: the cursor is off the window, the corner's buttons hidden")
 
-  dragBy(Test::painted("art/ctl.grip", nil), 60, 20)
+  dragBy(Test.painted(art.ctl.grip, nil), 60, 20)
   show("the grip dragged 60 right and 20 down: larger, its top left corner where it was")
 
-  dragBy(Test::painted("art/ctl.gripHover", nil), 500, -600)
+  dragBy(Test.painted(art.ctl.gripHover, nil), 500, -600)
   show("the grip dragged far right and far up: held at the widest and the smallest it may be")
 
-  Test::key(Test::Key::Escape)
+  Test.key(Test.Key.Escape)
   show("Escape: the window closes, the page stays")
 
   destroy page
-  $expect(Test::blank())
+  Test.expect(Test.blank())
 }

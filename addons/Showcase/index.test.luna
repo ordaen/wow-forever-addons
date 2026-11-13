@@ -1,71 +1,174 @@
 // The library's controls on a page that uses them all, worked with the mouse and the keyboard.
 import Test from "$test"
 import { Key } from "$test"
+import root Ordaen from "Ordaen"
 import { Showcase } from "@/index"
 
 test "every control of the library answers the mouse and the keyboard" {
-  let mut page = new Showcase()
-  Test::mount(page, { left: 100, top: 50, width: 700, height: 600 })
-  Test::shot("drawn: the first tab picked, the second tab's rows not shown")
+  const art = (Ordaen ?? panic("Ordaen runs in this test")).art
+  let page = new Showcase()
+  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  Test.shot("drawn: the first tab picked, the second tab's rows not shown")
 
-  Test::moveTo(Test::holding("Drawer", nil))
-  Test::shot("the cursor on the second tab: its name lighter, on a shade")
+  Test.moveTo(Test.holding("Drawer", nil))
+  Test.shot("the cursor on the second tab: its name lighter, on a shade")
 
-  Test::click(Test::holding("Drawer", nil), nil)
-  Test::shot("the second tab clicked: its rows shown, the first tab's gone; the drawer off, so the dropdown's row is greyed")
+  Test.click(Test.holding("Drawer", nil), nil)
+  Test.shot("the second tab clicked: its rows shown, the first tab's gone; the drawer off, so the dropdown's row is greyed")
 
-  Test::moveTo(Test::holding("Button drawer", nil))
-  Test::shot("the cursor on the switch's label: its hint in a tip")
+  Test.moveTo(Test.holding("Button drawer", nil))
+  Test.shot("the cursor on the switch's label: its hint in a tip")
 
-  Test::click(Test::painted("art/ctl.switchOff", nil), nil)
-  Test::shot("the switch clicked: on, both switches follow the one setting, the dropdown's row no longer greyed")
+  Test.click(Test.painted(art.ctl.switchOff, nil), nil)
+  Test.shot("the switch clicked: on, both switches follow the one setting, the dropdown's row no longer greyed")
 
-  Test::click(Test::painted("art/ctl.button", nil), nil)
-  Test::shot("the dropdown's plate clicked: the menu under it, the picked choice's mark lit")
+  Test.click(Test.painted(art.ctl.button, nil), nil)
+  Test.shot("the dropdown's plate clicked: the menu under it, the picked choice's mark lit")
 
-  Test::moveTo(Test::holding("In combat", nil))
-  Test::shot("the cursor on a choice: the light under it")
+  Test.moveTo(Test.holding("In combat", nil))
+  Test.shot("the cursor on a choice: the light under it")
 
-  Test::click({ x: 700, y: 550 }, nil)
-  Test::shot("a click elsewhere: the menu closed, nothing picked")
+  Test.click({ x: 700, y: 550 }, nil)
+  Test.shot("a click elsewhere: the menu closed, nothing picked")
 
-  Test::click(Test::painted("art/ctl.button", nil), nil)
-  Test::click(Test::holding("On a mount — in development", nil), nil)
-  Test::shot("opened again and a choice not built yet clicked: nothing happens")
+  Test.click(Test.painted(art.ctl.button, nil), nil)
+  Test.click(Test.holding("On a mount — in development", nil), nil)
+  Test.shot("opened again and a choice not built yet clicked: nothing happens")
 
-  Test::click(Test::holding("In combat", nil), nil)
-  Test::shot("a choice clicked: picked, the menu closed, the plate shows it")
+  Test.click(Test.holding("In combat", nil), nil)
+  Test.shot("a choice clicked: picked, the menu closed, the plate shows it")
 
-  Test::click(Test::painted("art/ctl.switchOn", 2), nil)
-  Test::shot("the bare switch clicked: off again")
+  Test.click(Test.painted(art.ctl.switchOn, 2), nil)
+  Test.shot("the bare switch clicked: off again")
 
-  Test::click(Test::painted("art/ctl.button", nil), nil)
-  Test::shot("the dropdown's plate clicked while its row is disabled: it stays shut")
+  Test.click(Test.painted(art.ctl.button, nil), nil)
+  Test.shot("the dropdown's plate clicked while its row is disabled: it stays shut")
 
-  Test::click(Test::painted("art/ctl.switchOff", nil), nil)
-  Test::click(Test::field(nil), nil)
-  Test::type("The long drawer of things")
-  Test::shot("the drawer on again, its name's field clicked and typed into: twelve characters taken, the text under it follows")
+  Test.click(Test.painted(art.ctl.switchOff, nil), nil)
+  Test.click(Test.field(nil), nil)
+  Test.type("The long drawer of things")
+  Test.shot("the drawer on again, its name's field clicked and typed into: twelve characters taken, the text under it follows")
 
-  Test::key(Key::Enter)
-  Test::shot("Enter: the field lets the keyboard go")
+  Test.key(Key.Enter)
+  Test.shot("Enter: the field lets the keyboard go")
 
-  Test::click(Test::holding("Save", nil), nil)
-  Test::shot("Save clicked: Reset can be clicked")
+  Test.click(Test.holding("Save", nil), nil)
+  Test.shot("Save clicked: Reset can be clicked")
 
-  Test::click(Test::holding("Reset", nil), nil)
-  Test::shot("Reset clicked: the question over the dimmed screen")
+  Test.click(Test.holding("Reset", nil), nil)
+  Test.shot("Reset clicked: the question over the dimmed screen")
 
-  Test::click({ x: 105, y: 55 }, nil)
-  Test::shot("a click on the dimmed screen, over the first tab: nothing under it hears")
+  Test.click({ x: 105, y: 55 }, nil)
+  Test.shot("a click on the dimmed screen, over the first tab: nothing under it hears")
 
-  Test::click(Test::holding("Keep", nil), nil)
-  Test::shot("«Keep» clicked: the question goes, nothing forgotten")
+  Test.click(Test.holding("Keep", nil), nil)
+  Test.shot("«Keep» clicked: the question goes, nothing forgotten")
 
-  Test::click(Test::holding("Reset", nil), nil)
-  Test::click(Test::holding("Forget", nil), nil)
-  Test::shot("asked again and «Forget» clicked: Reset is disabled again")
+  Test.click(Test.holding("Reset", nil), nil)
+  Test.click(Test.holding("Forget", nil), nil)
+  Test.shot("asked again and «Forget» clicked: Reset is disabled again")
 
   destroy page
-  $expect(Test::blank())
+  Test.expect(Test.blank())
+}
+
+test "the checkbox's well clicked: off, the tick gone, the text following, the second slider greyed" {
+  const art = (Ordaen ?? panic("Ordaen runs in this test")).art
+  let page = new Showcase()
+  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  Test.expect(page.choices.showZone)
+  Test.expect(page.summary == "zone shown")
+
+  Test.click(Test.painted(art.ctl.check, nil), nil)
+  Test.shot("the checkbox clicked: off, its tick gone, the second slider greyed")
+  Test.expect(!page.choices.showZone)
+  Test.expect(page.summary == "zone hidden")
+
+  Test.click(Test.painted(art.ctl.groove, 2), nil)
+  Test.expect(page.choices.columns == 4)
+
+  destroy page
+}
+
+test "the first slider clicked halfway reads 120%, and dragged past its end it is held at 160%" {
+  const art = (Ordaen ?? panic("Ordaen runs in this test")).art
+  let page = new Showcase()
+  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  let groove = Test.painted(art.ctl.groove, nil)
+
+  Test.click(groove, nil)
+  Test.shot("the first slider clicked halfway: 120%")
+  Test.expect(page.choices.scale > 1.19 && page.choices.scale < 1.21)
+
+  Test.moveTo(groove)
+  Test.press(nil)
+  Test.moveTo({ x: groove.x + 1, y: groove.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: groove.x + 400, y: groove.y })
+  Test.pass(0.05)
+  Test.release(nil)
+  Test.shot("dragged past its end: held at 160%")
+  Test.expect(page.choices.scale > 1.59 && page.choices.scale < 1.61)
+
+  destroy page
+}
+
+test "Save clicked: Reset can be clicked, and Reset asks before it forgets" {
+  let page = new Showcase()
+  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+
+  Test.click(Test.holding("Reset", nil), nil)
+  Test.expect(!page.asking)
+
+  Test.click(Test.holding("Save", nil), nil)
+  Test.expect(page.saved == 1)
+  Test.click(Test.holding("Reset", nil), nil)
+  Test.shot("Save then Reset clicked: the question over the page")
+  Test.expect(page.asking)
+
+  destroy page
+}
+
+test "the cursor on a setting's label shows its hint in a tip, and leaving it hides the tip" {
+  let page = new Showcase()
+  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  Test.click(Test.holding("Drawer", nil), nil)
+
+  Test.moveTo(Test.holding("Button drawer", nil))
+  Test.pass(0.02)
+  Test.shot("the cursor on the switch's label: the tip shows its hint")
+  _ = Test.holding("Other addons' buttons in one place.", nil)
+
+  Test.moveTo({ x: 5, y: 5 })
+  Test.pass(0.02)
+  Test.shot("the cursor away: the tip is gone")
+
+  destroy page
+}
+
+// A control over the page takes the mouse, so the page's own box hears the cursor where nothing else does: on
+// its summary.
+test "the cursor over the page itself shows the page's tip, and leaving it hides the tip" {
+  let page = new Showcase()
+  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  Test.expect(!page.hint)
+
+  Test.moveTo(Test.holding("zone shown", nil))
+  Test.pass(0.02)
+  Test.expect(page.hint)
+  _ = Test.holding("Showcase", nil)
+
+  Test.moveTo({ x: 5, y: 5 })
+  Test.pass(0.02)
+  Test.expect(!page.hint)
+
+  destroy page
+}
+
+test "the page destroyed leaves nothing drawn" {
+  let page = new Showcase()
+  Test.mount(page, { left: 100, top: 50, width: 700, height: 600 })
+  Test.expect(!Test.blank())
+  destroy page
+  Test.expect(Test.blank())
 }

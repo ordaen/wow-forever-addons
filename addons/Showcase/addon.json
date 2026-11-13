@@ -1,5 +1,6 @@
 {
   "title": "Ordaen Showcase",
   "icon": "Interface/Icons/INV_Misc_Gear_01",
-  "notes": "A page of the library's controls, for the tests."
+  "notes": "A page of the library's controls, for the tests.",
+  "dependencies": { "Ordaen": "^1.0.0" }
 }

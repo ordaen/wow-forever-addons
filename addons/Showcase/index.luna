@@ -1,65 +1,69 @@
 // A page that uses every control of the library, for the run tests: what a settings page of a real addon does.
-import Ordaen from "Ordaen"
-export { Windowed } from "@/windowed"
-export { Tinted } from "@/tinted"
-export { Arranged } from "@/arranged"
-import { Checkbox, Choice, Dialog, Dropdown, Input, PushButton, Section, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "OrdaenLibrary"
+public import { Windowed } from "@/windowed"
+public import { Tinted } from "@/tinted"
+public import { Arranged } from "@/arranged"
+import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "Ordaen"
+import root Ordaen from "Ordaen"
 
-private const TABS: Array<string> = ["Map", "Drawer"]
+const TABS: Array<String> = ["Map", "Drawer"]
 
 public enum Hide { Never = "never", Combat = "combat", Transport = "transport" }
 
-private const HIDES: Array<Choice<Hide>> = [
-  { value: Hide::Never, label: "Never" },
-  { value: Hide::Combat, label: "In combat" },
-  { value: Hide::Transport, label: "On a mount", soon: true },
+const HIDES: Array<Choice<Hide>> = [
+  { value: Hide.Never, label: "Never" },
+  { value: Hide.Combat, label: "In combat" },
+  { value: Hide.Transport, label: "On a mount", soon: true },
 ]
 
 public struct Choices {
-  showZone: boolean
-  scale: number
-  columns: integer
-  drawer: boolean
+  showZone: Boolean
+  scale: Number
+  columns: Integer
+  drawer: Boolean
   hide: Hide
-  name: string
+  name: String
 }
 
-public class Showcase implements Ordaen::Module {
-  public const title: string = "Showcase"
-  public const pages: Array<Ordaen::SettingsPage> = []
+public class Showcase implements Module, App {
+  public const title: String = "Showcase"
+  public const pages: Array<SettingsPage> = []
 
-  private mut choices: Reactive<Choices> = $reactive({ showZone: true, scale: 1, columns: 4, drawer: false, hide: Hide::Never, name: "" })
-  private mut saved = $reactive(0)
-  private mut hint = $reactive(false)
-  private mut tab = $reactive(1)
-  private onMap = $computed((): boolean => self.tab == 1)
-  private onDrawer = $computed((): boolean => self.tab == 2)
-  private summary = $computed((): string => self.describe())
+  state choices: mut Choices = { showZone: true, scale: 1, columns: 4, drawer: false, hide: Hide.Never, name: "" }
+  state saved = 0
+  state hint = false
+  state tab = 1
+  derived onMap: Boolean = self.tab == 1
+  derived onDrawer: Boolean = self.tab == 2
+  derived summary: String = self.describe()
 
-  private describe(): string {
+  constructor() {
+    watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }
+  }
+
+  describe(self): String {
     return self.choices.showZone ? "zone shown" : "zone hidden"
   }
 
-  private mut asking = $reactive(false)
+  state asking = false
 
-  private mut onSave() { self.saved += 1 }
-  private mut onReset() { self.asking = true }
-  private mut onKeep() { self.asking = false }
-  private mut onDiscard() {
+  onSave(mut self) { self.saved += 1 }
+  onReset(mut self) { self.asking = true }
+  onKeep(mut self) { self.asking = false }
+  onDiscard(mut self) {
     self.saved = 0
     self.asking = false
   }
-  private mut onEnter() { self.hint = true }
-  private mut onLeave() { self.hint = false }
+  onEnter(mut self) { self.hint = true }
+  onLeave(mut self) { self.hint = false }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <box columns={1} gap={8} @enter={self.onEnter} @leave={self.onLeave}>
         <Tabs tabs={TABS} selected={mut self.tab} />
         <SettingsTab title={"Map"} shown={self.onMap}>
           <Section title={"Map"}>
             <Checkbox label={"Show the zone"} value={mut self.choices.showZone} />
-            <Slider label={"Size"} value={mut self.choices.scale} least={0.8} most={1.6} step={0.05} unit={Unit::Percent} />
+            <Slider label={"Size"} value={mut self.choices.scale} least={0.8} most={1.6} step={0.05} unit={Unit.Percent} />
             <Slider label={"Columns"} value={mut self.choices.columns} least={2} most={12} disabled={!self.choices.showZone} />
           </Section>
         </SettingsTab>
