@@ -1,28 +1,30 @@
 // One entry of the addon menu in the drawer: its icon in a cell, its name reported while the cursor is on it.
 import Game from "$game"
 import { Align, Art, Click } from "$ltml"
-import Ordaen from "Ordaen"
-import { PX } from "OrdaenLibrary"
+import { ARTWORK, Component, PX } from "Ordaen"
 
-private const CELL = 34 * PX
-private const ICON = CELL - 4 * PX
+const CELL = 34 * PX
+const ICON = CELL - 4 * PX
 
-public class DrawerEntry implements Ordaen::Component {
-  public hover: Event<string> = $event()
-  public leave: Event<nil> = $event()
+public class DrawerEntry implements Component {
+  public hover: Event<String> = new Event()
+  public leave: Event<nil> = new Event()
 
-  private icon = $computed((): Art => self.entry.icon ?? $asset("Interface/Icons/INV_Misc_QuestionMark"))
+  derived icon: Art = self.entry.icon ?? "Interface/Icons/INV_Misc_QuestionMark"
 
-  $constructor(private entry: Reactive<Game::Entry>) {}
+  entry: Signal<Game.Entry>
+  constructor(entry: Signal<Game.Entry>) {
+    self.entry = entry
+  }
 
-  private mut onClick(click: Click) { Game::Minimap::runEntry(self.entry, click.button) }
-  private mut onEnter() { self.hover.emit(self.entry.text) }
-  private mut onLeave() { self.leave.emit() }
+  onClick(mut self, click: Click) { Game.minimap.runEntry(self.entry, click.button) }
+  onEnter(mut self) { self.hover.emit(self.entry.text) }
+  onLeave(mut self) { self.leave.emit() }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <box width={CELL} height={CELL} xAlign={Align::Center} yAlign={Align::Center}
-           border={Ordaen::art.panel.slotEdge} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+      <box width={CELL} height={CELL} xAlign={Align.Center} yAlign={Align.Center}
+           border={ARTWORK.panel.slotEdge} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
         <box width={ICON} height={ICON} background={self.icon} />
       </box>
     }

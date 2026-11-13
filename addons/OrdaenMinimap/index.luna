@@ -1,6 +1,6 @@
 // Ordaen Minimap: the square map in Ordaen's metal border, the zone in a strip above it, coordinates and the clock in a
 // strip below, buttons on a ring round it, and a drawer that holds every other addon's minimap button and the
 // addon menu's entries.
-export { Minimap } from "@/main"
-export { Choices, Hide } from "@/choices"
-export { MapPage, DrawerPage } from "@/settings"
+public import { Minimap } from "@/main"
+public import { Choices, Hide } from "@/choices"
+public import { MapPage, DrawerPage } from "@/settings"

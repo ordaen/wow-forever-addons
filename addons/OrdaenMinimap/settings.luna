@@ -1,47 +1,52 @@
 // The minimap's tabs in the settings window: «Map» and «Button drawer». Each control writes one entry of the
 // settings' draft.
-import Ordaen from "Ordaen"
-import { Checkbox, Choice, Dropdown, Slider, Switch, Unit } from "OrdaenLibrary"
+import { Checkbox, Choice, Component, Dropdown, Settings, Slider, Switch, Unit } from "Ordaen"
 import Locale from "@/locales"
 import { Choices, Hide } from "@/choices"
 
-private const HIDES: Array<Choice<Hide>> = [
-  { value: Hide::Never, label: Locale::MINIMAP_HIDE_NEVER },
-  { value: Hide::Combat, label: Locale::MINIMAP_HIDE_COMBAT },
-  { value: Hide::Transport, label: Locale::MINIMAP_HIDE_TRANSPORT },
+const HIDES: Array<Choice<Hide>> = [
+  { value: Hide.Never, label: Locale.MINIMAP_HIDE_NEVER },
+  { value: Hide.Combat, label: Locale.MINIMAP_HIDE_COMBAT },
+  { value: Hide.Transport, label: Locale.MINIMAP_HIDE_TRANSPORT },
 ]
 
-public class MapPage implements Ordaen::Component {
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+public class MapPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Slider label={Locale::MINIMAP_SCALE} hint={Locale::MINIMAP_SCALE_TIP} value={mut self.settings.draft.scale}
-              least={0.8} most={1.6} step={0.05} unit={Unit::Percent} />
-      <Checkbox label={Locale::MINIMAP_SHOWZONE} hint={Locale::MINIMAP_SHOWZONE_TIP}
+      <Slider label={Locale.MINIMAP_SCALE} hint={Locale.MINIMAP_SCALE_TIP} value={mut self.settings.draft.scale}
+              least={0.8} most={1.6} step={0.05} unit={Unit.Percent} />
+      <Checkbox label={Locale.MINIMAP_SHOWZONE} hint={Locale.MINIMAP_SHOWZONE_TIP}
                 value={mut self.settings.draft.showZone} />
-      <Checkbox label={Locale::MINIMAP_SHOWCLOCK} hint={Locale::MINIMAP_SHOWCLOCK_TIP}
+      <Checkbox label={Locale.MINIMAP_SHOWCLOCK} hint={Locale.MINIMAP_SHOWCLOCK_TIP}
                 value={mut self.settings.draft.showClock} />
-      <Checkbox label={Locale::MINIMAP_SHOWCOORDS} hint={Locale::MINIMAP_SHOWCOORDS_TIP}
+      <Checkbox label={Locale.MINIMAP_SHOWCOORDS} hint={Locale.MINIMAP_SHOWCOORDS_TIP}
                 value={mut self.settings.draft.showCoords} />
-      <Checkbox label={Locale::MINIMAP_BUTTONSHOVER} hint={Locale::MINIMAP_BUTTONSHOVER_TIP}
+      <Checkbox label={Locale.MINIMAP_BUTTONSHOVER} hint={Locale.MINIMAP_BUTTONSHOVER_TIP}
                 value={mut self.settings.draft.buttonsHover} />
-      <Dropdown label={Locale::MINIMAP_HIDE} hint={Locale::MINIMAP_HIDE_TIP} value={mut self.settings.draft.hide}
+      <Dropdown label={Locale.MINIMAP_HIDE} hint={Locale.MINIMAP_HIDE_TIP} value={mut self.settings.draft.hide}
                 choices={HIDES} />
     }
   }
 }
 
-public class DrawerPage implements Ordaen::Component {
-  private drawerOff = $computed((): boolean => !self.settings.draft.drawerOn)
+public class DrawerPage implements Component {
+  derived drawerOff: Boolean = !self.settings.draft.drawerOn
 
-  $constructor(private mut settings: Ordaen::Settings<Choices>) {}
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <Switch label={Locale::MINIMAP_DRAWERON} hint={Locale::MINIMAP_DRAWERON_TIP}
+      <Switch label={Locale.MINIMAP_DRAWERON} hint={Locale.MINIMAP_DRAWERON_TIP}
               value={mut self.settings.draft.drawerOn} />
-      <Slider label={Locale::MINIMAP_DRAWERCOLUMNS} hint={Locale::MINIMAP_DRAWERCOLUMNS_TIP}
+      <Slider label={Locale.MINIMAP_DRAWERCOLUMNS} hint={Locale.MINIMAP_DRAWERCOLUMNS_TIP}
               value={mut self.settings.draft.drawerColumns} least={2} most={12} disabled={self.drawerOff} />
     }
   }

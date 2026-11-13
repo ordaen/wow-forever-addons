@@ -1,14 +1,14 @@
 // What the player chooses on the minimap's settings page.
 
-public enum Hide { Never = "never", Combat = "combat", Transport = "transport" }
+public enum Hide implements Plain { Never = "never", Combat = "combat", Transport = "transport" }
 
-public struct Choices {
-  scale: number
-  showZone: boolean
-  showClock: boolean
-  showCoords: boolean
-  buttonsHover: boolean
+public struct Choices implements Plain {
+  scale: Number
+  showZone: Boolean
+  showClock: Boolean
+  showCoords: Boolean
+  buttonsHover: Boolean
   hide: Hide
-  drawerOn: boolean
-  drawerColumns: integer
+  drawerOn: Boolean
+  drawerColumns: Integer
 }
