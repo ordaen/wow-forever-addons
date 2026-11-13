@@ -2,7 +2,6 @@
 // the look (fonts, bars, animation, the accent and the palette, the class colours). Every row writes one entry of
 // the look's draft and a preset all of them, so «Save», leaving unsaved and «Roll back» treat both alike.
 import { Align, Track } from "$ltml"
-import root Ordaen from "Ordaen"
 import { Animation, BarFrame, BarTexture, Font, Hue, Look, Preset, PRESETS, presetOf, XpFill } from "@/look"
 import Looks from "@/look"
 import { Component } from "@/module"
