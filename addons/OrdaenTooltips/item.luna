@@ -125,7 +125,7 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
   let hasStats = false
   for (stat of Game.items.stats(data)) {
     stats[stat.key] = stat.value
-    body.push({ left: stat.name, right: "%+d".format(stat.value), stat: stat.key })
+    body.push({ left: stat.name, right: "%+d".format(stat.value.round()), stat: stat.key })
     hasStats = true
   }
 
@@ -261,7 +261,7 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
         let now = number(current) ?? 0
         let whole = number(most) ?? 1
         foot.push({
-          left: Locale.DURABILITY, right: "%d / %d".format(now, whole),
+          left: Locale.DURABILITY, right: "%d / %d".format(now.floor(), whole.floor()),
           valueColor: durabilityColor(now, whole), opens: named(Term.Dur),
         })
       } else if (classes != nil) {

@@ -2,5 +2,6 @@
   "title": "Ordaen Professions",
   "icon": "Interface/Icons/Trade_BlackSmithing",
   "notes": "The professions window.",
+  "loadOnDemand": true,
   "dependencies": { "Ordaen": "^1.0.0" }
 }

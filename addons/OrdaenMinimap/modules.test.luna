@@ -1,0 +1,46 @@
+// The minimap as a module loaded on demand (its `addon.json` says `"loadOnDemand": true`): Ordaen loads it at login
+// where it is on, the player's switch loads it with no reload, and turned off it is off at the next login. Here, as
+// a module's tests are built with Ordaen and not the other way: Ordaen's own tests have no module to turn on.
+import Client from "$client"
+import Game from "$game"
+import Runtime from "$runtime"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+
+function minimapAddon(): Runtime.Addon {
+  const ordaen = Runtime.Addon.of(Ordaen) ?? panic("Ordaen is installed")
+  for (addon of ordaen.dependents()) {
+    if (addon.name == "OrdaenMinimap") { return addon }
+  }
+  panic("OrdaenMinimap needs Ordaen")
+}
+
+// Whether the client has loaded the module's files.
+function loaded(): Boolean {
+  let held, _ = Client.C_AddOns.IsAddOnLoaded("OrdaenMinimap")
+  return held
+}
+
+test "a module off at login, turned on, is loaded without a reload" {
+  const choices: Map<String, Boolean> = {}
+  choices["OrdaenMinimap"] = false
+  Game.saved.store(.Account, "choices", choices)
+  Test.reload()
+  Test.expect(!loaded())
+  Ordaen?.turn(minimapAddon(), true)
+  Test.expect(loaded())
+  Test.expect(minimapAddon().isEnabled())
+}
+
+test "a module on at login is loaded with Ordaen" {
+  Test.expect(loaded())
+  Test.expect(minimapAddon().isEnabled())
+}
+
+test "a module turned off is off in the client's list, and isn't loaded at the next login" {
+  Ordaen?.turn(minimapAddon(), false)
+  Test.expect(!minimapAddon().isEnabled())
+  Test.reload()
+  Test.expect(!minimapAddon().isEnabled())
+  Test.expect(!loaded())
+}

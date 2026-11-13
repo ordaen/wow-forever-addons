@@ -83,7 +83,7 @@ function total(text: String, left: Number | nil, stacks: Integer): (String | nil
   let sum = amount * (left / period).floor() * stacks.max(1)
   if (sum <= 0) { return nil, nil }
   let label = text.contains(Locale.HEAL_WORD) ? Locale.TOTAL_HEAL : Locale.TOTAL_DAMAGE
-  return label, Locale.TOTAL_VALUE.format(sum, wait(left))
+  return label, Locale.TOTAL_VALUE.format(sum.floor(), wait(left))
 }
 
 public function aura(data: Game.TooltipData, options: Options): Model | nil {

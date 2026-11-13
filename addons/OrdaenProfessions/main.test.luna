@@ -90,6 +90,7 @@ function isIcon(file: String | Integer): Boolean {
 }
 
 test "loaded by Ordaen, the module's root is made and is among Ordaen's modules" {
+  Test.flush()
   const ordaen = Ordaen ?? panic("Ordaen runs in this test")
   let found = 0
   for (entry of ordaen.modules) {
