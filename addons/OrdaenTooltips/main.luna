@@ -5,7 +5,9 @@
 import Game from "$game"
 import root Ordaen from "Ordaen"
 import { Module, Settings, SettingsPage } from "Ordaen"
+import { AddedToItem, AddedToObject } from "@/added"
 import { extras } from "@/buttons"
+import { ItemLines, ObjectLines } from "@/extend"
 import { Choices, Place } from "@/choices"
 import { compare, item } from "@/item"
 import Locale from "@/locales"
@@ -42,6 +44,11 @@ struct Shown {
   // The tooltips beside it from the start, and the worn items it is compared with.
   sides: Array<Model>
   compared: Array<Model>
+  // What other modules' sections are asked about: the item by its number and its link (0 and "" for anything
+  // else), the world object by its name ("" for anything else).
+  item: Integer
+  link: String
+  object: String
 }
 
 // A locked tooltip: what was shown when it locked, and where.
@@ -87,21 +94,38 @@ public class Tooltips implements Module {
   // The player closed the locked tooltip: its target doesn't charge again.
   state closed = false
   // Locked: what was shown then and where, which stays once the game's tooltip is gone.
-  state held: Held | nil = nil
+  state kept: Held | nil = nil
   // When the game's tooltip went, while it is gone; when the cursor left the locked group, while it is away.
   state hiddenAt: Number | nil = nil
   state leftAt: Number | nil = nil
-  derived locked: Boolean = self.held != nil
+  derived locked: Boolean = self.kept != nil
   derived charge: Integer = self.chargeNow()
   derived gone: Boolean = self.goneNow()
   derived away: Boolean = self.awayNow()
-  derived current: Shown | nil = self.read ?? self.held?.shown
+  derived current: Shown | nil = self.read ?? self.kept?.shown
   derived shown: Boolean = self.current != nil
   derived model: Model = self.current?.model ?? NOTHING
   derived sides: Array<Model> = self.current?.sides ?? []
   derived compared: Array<Model> = self.current?.compared ?? []
-  derived standing: Standing = self.held?.standing ?? self.where()
+  derived standing: Standing = self.kept?.standing ?? self.where()
   derived chosen: Options = self.options()
+
+  // The sections other modules add to, drawn after the main tooltip's body in this order (`@/extend`).
+  // What an item is worth: the auction's price.
+  public const worth = new Registry<any ItemLines>()
+  // What an item is for: the recipes that take it.
+  public const uses = new Registry<any ItemLines>()
+  // Where an item is, and how many are still wanted: the characters who hold it, the shopping list.
+  public const held = new Registry<any ItemLines>()
+  // What a world object gives.
+  public const gives = new Registry<any ObjectLines>()
+
+  // The item the tooltip shows, 0 where it shows none; the world object, "" where it shows none.
+  derived item: Integer = self.current?.item ?? 0
+  derived link: String = self.current?.link ?? ""
+  derived object: String = self.current?.object ?? ""
+  derived anItem: Boolean = self.item != 0
+  derived anObject: Boolean = self.object != ""
 
   constructor() {
     watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }
@@ -114,7 +138,7 @@ public class Tooltips implements Module {
 
   // How far the lock is charged, of `STEPS`. The time is read only while a target charges.
   chargeNow(self): Integer {
-    if (self.held != nil) { return STEPS }
+    if (self.kept != nil) { return STEPS }
     let target = self.target
     if (target == nil || !target.locks || self.closed) { return 0 }
     let steps = ((Game.clock.time - target.since - DELAY) / CHARGE * STEPS).floor()
@@ -125,7 +149,7 @@ public class Tooltips implements Module {
   // The game's tooltip has been gone for longer than a refresh takes.
   goneNow(self): Boolean {
     let at = self.hiddenAt
-    return at != nil && self.held == nil && Game.clock.time >= at + REFRESH
+    return at != nil && self.kept == nil && Game.clock.time >= at + REFRESH
   }
 
   // The cursor has been off the locked group for longer than the grace.
@@ -147,7 +171,7 @@ public class Tooltips implements Module {
     let target = peek self.target
     if (target != nil && target.kind == data.kind && target.about == data.about) { return }
     let kind = kindOf(data)
-    self.held = nil
+    self.kept = nil
     self.leftAt = nil
     self.closed = false
     self.target = {
@@ -158,16 +182,13 @@ public class Tooltips implements Module {
 
   // Charged in full: what is shown stays.
   lockCharged(mut self) {
-    if (self.charge < STEPS || peek self.held != nil) { return }
+    if (self.charge < STEPS || peek self.kept != nil) { return }
     let read = peek self.read
     if (read == nil) {
       self.closed = true
       return
     }
-    self.held = {
-      shown: { model: read.model, sides: read.sides, compared: read.compared },
-      standing: peek self.standing,
-    }
+    self.kept = { shown: read, standing: peek self.standing }
   }
 
   // Gone for good and not locked: nothing is kept of it.
@@ -185,7 +206,7 @@ public class Tooltips implements Module {
 
   close(mut self) {
     self.closed = true
-    self.held = nil
+    self.kept = nil
     self.leftAt = nil
   }
 
@@ -260,7 +281,10 @@ public class Tooltips implements Module {
     if (read.model.timer == true) { _ = Game.clock.seconds }
     // What a button of the menu or of the bags adds to its tooltip.
     let told = self.settings.values.textsExtra ? extras(tip.ownerName, read.model) : read.model
-    if (told.kind != Kind.Item) { return { model: told, sides: read.sides, compared: [] } }
+    if (told.kind != Kind.Item) {
+      const object = told.kind == Kind.Object ? told.name : ""
+      return { model: told, sides: read.sides, compared: [], item: 0, link: "", object: object }
+    }
 
     // The worn items it is compared with, each under «Equipped». With one, the differences stand on the hovered
     // item; with two, on each worn one.
@@ -277,7 +301,10 @@ public class Tooltips implements Module {
         compared.push({ header: Locale.EQUIPPED, ..compare(other.model, read.stats, other.stats, false) })
       }
     }
-    return { model: model, sides: read.sides, compared: compared }
+    return {
+      model: model, sides: read.sides, compared: compared, item: tip.data.id ?? 0, link: tip.data.about ?? "",
+      object: "",
+    }
   }
 
   // Whether the tooltip stands beside what it belongs to: a button, a slot of the bags or of the character.
@@ -306,7 +333,16 @@ public class Tooltips implements Module {
     return $ltml {
       <TipGroup model={self.model} sides={self.sides} compared={self.compared} standing={self.standing}
                 shown={self.shown} options={self.chosen} charge={self.charge} locked={self.locked} @close={self.close}
-                @enter={self.onEnter} @leave={self.onLeave} />
+                @enter={self.onEnter} @leave={self.onLeave}>
+        <box $if={self.anItem}>
+          <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.item} link={self.link} />
+          <AddedToItem $for={row of self.uses} $key={row} row={row} item={self.item} link={self.link} />
+          <AddedToItem $for={row of self.held} $key={row} row={row} item={self.item} link={self.link} />
+        </box>
+        <box $if={self.anObject}>
+          <AddedToObject $for={row of self.gives} $key={row} row={row} name={self.object} />
+        </box>
+      </TipGroup>
     }
   }
 }

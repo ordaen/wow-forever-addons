@@ -175,6 +175,8 @@ public class TipGroup implements Component {
               <TipFrame model={piece.model} main={true} charge={self.charge} locked={self.locked}
                         @close={self.onClose}>
                 <Opened #opened={opens} opens={opens} options={self.options} />
+                // What other modules add, after the main tooltip's body: the group's owner fills it.
+                <slot />
               </TipFrame>
             </box>
             // Every tooltip of a locked group opens what its parts name.

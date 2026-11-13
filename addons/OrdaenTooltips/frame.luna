@@ -9,7 +9,7 @@ import { Component, OrdaenCore } from "Ordaen"
 import Locale from "@/locales"
 import { Fact, Model, Note, Opens, Part, Picture, TextLine } from "@/model"
 
-const PX = 1 / 1.2
+public const PX: Number = 1 / 1.2
 const WIDTH = 314 * PX
 // A tooltip beside another: a little narrower.
 const SIDE_WIDTH = 264 * PX
@@ -19,20 +19,20 @@ const HEADING: Color = Color.hex("#ffd100")
 const LABEL: Color = Color.hex("#cbb994")
 const QUIET: Color = Color.hex("#857a66")
 const QUIET_VALUE: Color = Color.hex("#a39883")
-const BODY: Color = Color.hex("#f3e7cc")
+public const BODY: Color = Color.hex("#f3e7cc")
 const FREE: Color = Color.hex("#e6dcc6")
 const BLACK: Color = Color.hex("#000000")
-const RULE: Line = { width: 1 * PX, color: Color.hex("#d6a56b2e"), sides: [Side.Top] }
+public const RULE: Line = { width: 1 * PX, color: Color.hex("#d6a56b2e"), sides: [Side.Top] }
 const DIVIDER: Line = { width: 1 * PX, color: Color.hex("#d6a56b2e"), sides: [Side.Left] }
 const GROOVE: Line = { width: 1 * PX, color: Color.hex("#000000d9"), sides: [Side.Top, Side.Bottom] }
 const RIM: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
 const FILL: Array<Track> = [{ fr: 1 }]
 const WITH_ICON: Array<Track> = [ICON, { fr: 1 }]
 const ALONE: Array<Track> = [{ fr: 1 }]
-const NAME_VALUE: Array<Track> = [{ fr: 1 }, "auto"]
+public const NAME_VALUE: Array<Track> = [{ fr: 1 }, "auto"]
 // A text at its own width, the rest of its row empty.
 const OWN_WIDTH: Array<Track> = ["auto", { fr: 1 }]
-const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
+public const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
 // The lock's bar: the tooltip's last section, a dark track that gold fills as the lock charges, in a hundred steps;
 // quiet, never louder than the text. Its row is as high as the line that stands there once locked, so nothing
 // moves when the lock lands.
@@ -47,11 +47,11 @@ const BY_ITS_TEXT: Beside = { beside: "parent" }
 // The game's red X.
 const CLOSE_ART: Asset = "Interface/Buttons/UI-Panel-MinimizeButton-Up"
 const UNDER_TITLE: Edges = { bottom: SECTION }
-const NO_PAD: Edges = {}
+public const NO_PAD: Edges = {}
 const CELL_PAD: Edges = { top: 8 * PX, right: 10 * PX, bottom: 8 * PX, left: 10 * PX }
 // The band ends the tooltip: no room under it.
 const CELL_PAD_LAST: Edges = { top: 8 * PX, right: 10 * PX, left: 10 * PX }
-const INDENT: Edges = { left: 12 * PX }
+public const INDENT: Edges = { left: 12 * PX }
 // Where the body turns from rows into sentences or back.
 const SPACED: Edges = { top: 6 * PX }
 
@@ -502,6 +502,8 @@ public class TipFrame implements Component {
             </box>
           </Row>
         </box>
+        // What other modules add, after the body: the main tooltip's owner fills it.
+        <slot />
         <box $if={self.hasMore} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
           <Row $for={line of self.more} line={line} locked={self.locked} numbers={self.numbers}>
             <box #opened={opens}>
