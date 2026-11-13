@@ -1,37 +1,37 @@
 // What the player asked a tooltip to show besides the game's lines: the module's settings, as its reader takes them.
 public struct Options {
   // How long until a spell is ready, while it cools down.
-  spellsCooldown: boolean
+  spellsCooldown: Boolean
   // A spell's number.
-  spellsId: boolean
+  spellsId: Boolean
   // A talent's next rank, with what changes lit.
-  spellsNext: boolean
+  spellsNext: Boolean
   // Who cast an aura.
-  aurasCaster: boolean
+  aurasCaster: Boolean
   // What an effect over time will still deal or heal.
-  aurasTotal: boolean
+  aurasTotal: Boolean
   // An aura's number.
-  aurasId: boolean
+  aurasId: Boolean
   // A player's name in the colour of their class.
-  classNames: boolean
+  classNames: Boolean
   // Whom a player has targeted.
-  playersTarget: boolean
+  playersTarget: Boolean
   // What a player is to the player: in the raid or the group, a friend, ignored.
-  playersRelation: boolean
+  playersRelation: Boolean
   // An NPC someone else hit first: its loot isn't the player's.
-  npcsLoot: boolean
+  npcsLoot: Boolean
   // The party's quest objectives under the player's.
-  npcsParty: boolean
+  npcsParty: Boolean
   // The player's standing with an NPC's faction.
-  npcsRep: boolean
+  npcsRep: Boolean
   // An item's level, as a row.
-  itemsIlvl: boolean
+  itemsIlvl: Boolean
   // How long until an item can be used again.
-  itemsCooldown: boolean
+  itemsCooldown: Boolean
   // An item's number.
-  itemsId: boolean
+  itemsId: Boolean
   // How many the player has, in the bags and in the bank.
-  itemsCount: boolean
+  itemsCount: Boolean
   // How many go in one stack.
-  itemsStack: boolean
+  itemsStack: Boolean
 }

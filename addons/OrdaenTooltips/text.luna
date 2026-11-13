@@ -1,11 +1,9 @@
 // The game's texts as Ordaen Tooltips reads them: the grammar codes the game leaves in some lines, numbers as the
 // game writes them, a line of the form «Label: value», and a duration.
-import Math from "$math"
-import String from "$string"
 
 // The Russian plural rule, which the game's codes follow: 1 for one (1, 21), 2 for a few (2-4, 22-24), 3 for many
 // (the rest, 11-14 among them).
-public function form(n: integer): integer {
+public function form(n: Integer): Integer {
   let ones = n % 10
   let tens = n % 100
   if (ones == 1 && tens != 11) { return 1 }
@@ -14,60 +12,62 @@ public function form(n: integer): integer {
 }
 
 // The word for `n` out of the game's `one:few:many`, or `one:many` where it gives two.
-public function pluralForm(n: integer, forms: string): string {
-  let one, few, many = $match(forms, "^([^:]*):([^:]*):?(.*)$")
+public function pluralForm(n: Integer, forms: String): String {
+  let one, few, many = forms.match("^([^:]*):([^:]*):?(.*)$")
   if (one == nil || few == nil) { return forms }
-  switch (form(n)) {
-    case 1: return one
-    case 2: return few
-    default: {
-      if (many == nil || many == "") { return few }
-      return many
-    }
+  match (form(n)) {
+    1 => return one,
+    2 => return few,
+    else => {
+      {
+        if (many == nil || many == "") { return few }
+        return many
+      }
+    },
   }
 }
 
 // A line with the game's grammar codes worked out: the plural code `|4one:few:many;` takes the form for the number
 // before it, and the case code `|3-6(word)` is the word. A line without either comes back as it is.
-public function grammar(text: string): string {
-  if (!String::contains(text, "|3") && !String::contains(text, "|4")) { return text }
-  let counted = $replace(text, "(%d+)([^|%d]*)|4([^;]*);", (n: string, between: string, forms: string): string => {
-    return n + between + pluralForm(Math::floor(String::toNumber(n) ?? 0), forms)
+public function grammar(text: String): String {
+  if (!text.contains("|3") && !text.contains("|4")) { return text }
+  let counted = text.replace("(%d+)([^|%d]*)|4([^;]*);", (n: String, between: String, forms: String): String => {
+    return n + between + pluralForm((n.toNumber() ?? 0).floor(), forms)
   })
-  return $replace(counted, "|3%-%d+%((.-)%)", "%1")
+  return counted.replace("|3%-%d+%((.-)%)", "%1")
 }
 
 // A text of the game's with its grammar codes worked out, or nothing for an empty one.
-public function clean(text: string | nil): string | nil {
+public function clean(text: String | nil): String | nil {
   if (text == nil || text == "") { return nil }
   return grammar(text)
 }
 
 // A number as the game wrote it («2,60», «1 234», with a space that doesn't break between the thousands), or
 // nothing where the text isn't one.
-public function number(text: string): number | nil {
-  let digits = $replace($replace(text, "[%s\194\160]", ""), ",", ".")
-  return String::toNumber(digits)
+public function number(text: String): Number | nil {
+  let digits = (text.replace("[%s\194\160]", "")).replace(",", ".")
+  return digits.toNumber()
 }
 
 // The number a line ends with, or nothing.
-public function last(text: string): number | nil {
-  let found = $match(text, "([%d%.,]+)%s*$")
+public function last(text: String): Number | nil {
+  let found = text.match("([%d%.,]+)%s*$")
   if (found == nil) { return nil }
   return number(found)
 }
 
 // A line the game writes «Label: value», as its two parts; a line of another form as itself, with no value.
-public function labelled(line: string): (string, string | nil) {
-  let label, value = $match(line, "^([^:|]+):%s+(.+)$")
+public function labelled(line: String): (String, String | nil) {
+  let label, value = line.match("^([^:|]+):%s+(.+)$")
   if (label == nil) { return line, nil }
   return label, value
 }
 
 // Seconds as a duration: whole hours from an hour on, whole minutes from a minute on, seconds below. Each of the
 // three formats takes the number («%d h»).
-public function duration(seconds: number, hours: string, minutes: string, short: string): string {
-  if (seconds >= 3600) { return String::format(hours, Math::round(seconds / 3600)) }
-  if (seconds >= 60) { return String::format(minutes, Math::round(seconds / 60)) }
-  return String::format(short, Math::round(seconds))
+public function duration(seconds: Number, hours: String, minutes: String, short: String): String {
+  if (seconds >= 3600) { return hours.format((seconds / 3600).round()) }
+  if (seconds >= 60) { return minutes.format((seconds / 60).round()) }
+  return short.format(seconds.round())
 }

@@ -1,21 +1,22 @@
 // A term of the glossary as a tooltip.
+import Test from "$test"
 import { Kind } from "@/model"
 import { term } from "@/term"
 import { Term } from "@/terms"
 
 test "a term's tooltip has its name and its text" {
-  let model = term(Term::Cd, nil)
-  $expect(model.kind == Kind::Term)
-  $expect(model.name == "Cooldown")
-  $expect(model.body.length == 1)
-  $expect(model.body[1]?.left == "How long to wait before using it again.")
+  let model = term(Term.Cd, nil)
+  Test.expect(model.kind == Kind.Term)
+  Test.expect(model.name == "Cooldown")
+  Test.expect(model.body.length == 1)
+  Test.expect(model.body[1]?.left == "How long to wait before using it again.")
 }
 
 test "the amount a part speaks of stands in the name and in the text" {
-  $expect(term(Term::Arm, "120").name == "Armour 120")
-  $expect(term(Term::Bag, "16").body[1]?.left == "A bag with 16 slots: how many items it holds.")
+  Test.expect(term(Term.Arm, "120").name == "Armour 120")
+  Test.expect(term(Term.Bag, "16").body[1]?.left == "A bag with 16 slots: how many items it holds.")
 }
 
 test "a term named without an amount leaves its place empty" {
-  $expect(term(Term::Arm, nil).name == "Armour ")
+  Test.expect(term(Term.Arm, nil).name == "Armour ")
 }

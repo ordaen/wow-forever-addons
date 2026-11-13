@@ -1,19 +1,18 @@
 // A term of the glossary as a tooltip: its name in gold, its text under it. A «%s» in either is the amount the
 // part that named the term speaks of.
-import String from "$string"
 import { GOLD } from "@/colors"
 import { Kind, Model } from "@/model"
 import { Term, glossary } from "@/terms"
 
-private function with(text: string, amount: string): string {
-  return String::contains(text, "%s") ? String::format(text, amount) : text
+function with(text: String, amount: String): String {
+  return text.contains("%s") ? text.format(amount) : text
 }
 
-public function term(which: Term, amount: string | nil): Model {
+public function term(which: Term, amount: String | nil): Model {
   let entry = glossary(which)
   let spoken = amount ?? ""
   return {
-    kind: Kind::Term, name: with(entry.name, spoken), nameColor: GOLD,
+    kind: Kind.Term, name: with(entry.name, spoken), nameColor: GOLD,
     desc: [], info: [], facts: [], body: [{ left: with(entry.text, spoken) }], more: [], foot: [], keys: [],
   }
 }

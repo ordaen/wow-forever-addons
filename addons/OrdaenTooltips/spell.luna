@@ -2,52 +2,49 @@
 // facts in the design's short form (the cost as a dot in its resource's colour and the number, the range, the cast,
 // the cooldown as «CD 10 sec»), the description with a finishing move's list as rows, what it needs in the footer.
 import Game from "$game"
-import { Art, Color } from "$ltml"
-import Math from "$math"
-import String from "$string"
 import { RED, WHITE, YELLOW, colorOf } from "@/colors"
 import Locale from "@/locales"
-import { Fact, Kind, Model, Note, Opens, Part, TextLine, iconOf, named } from "@/model"
+import { Fact, Glyph, Kind, Model, Note, Opens, Part, TextLine, iconOf, named } from "@/model"
 import { Term } from "@/terms"
 import { Options } from "@/options"
 import { clean, duration, form, labelled } from "@/text"
 
 // The game's numbers for what a line of a tooltip is.
-private const BLANK = 1
-private const SPELL_NAME = 13
-private const PASSIVE = 33
-private const DESCRIPTION = 34
-private const REQUIREMENT = 43
+const BLANK = 1
+const SPELL_NAME = 13
+const PASSIVE = 33
+const DESCRIPTION = 34
+const REQUIREMENT = 43
 
 // What follows a label's colon («Cooldown: 10 sec» is «10 sec»), or the text.
-private function valueOf(text: string): string {
-  return $match(text, "^[^:]+:%s*(.+)$") ?? text
+function valueOf(text: String): String {
+  return text.match("^[^:]+:%s*(.+)$") ?? text
 }
 
 // «%d points», in the form the number takes: the Russian rule on a Russian client, one and the rest elsewhere.
-private function combo(points: integer): string {
-  let which = Game::Client::locale == "ruRU" ? form(points) : (points == 1 ? 1 : 3)
-  switch (which) {
-    case 1: return String::format(Locale::COMBO_ONE, points)
-    case 2: return String::format(Locale::COMBO_FEW, points)
-    default: return String::format(Locale::COMBO_MANY, points)
+function combo(points: Integer): String {
+  let which = Game.client.locale == "ruRU" ? form(points) : (points == 1 ? 1 : 3)
+  match (which) {
+    1 => return Locale.COMBO_ONE.format(points),
+    2 => return Locale.COMBO_FEW.format(points),
+    else => return Locale.COMBO_MANY.format(points),
   }
 }
 
 // The spell's reagents («Reagents: Rune of Teleportation, Powder (2)») as footer rows: the reagent, how many it
 // takes, red where the player carries fewer. Whether the line was the reagents'.
-private function reagents(text: string, mut foot: Array<Note>): boolean {
-  let parts = String::unformat(text, Game::Strings::spellReagents)
+function reagents(text: String, foot: mut Array<Note>): Boolean {
+  let parts = text.unformat(Game.strings.spellReagents)
   if (parts == nil) { return false }
   let list = parts[1]
   if (list == nil) { return false }
-  for (part of String::split(list, ",")) {
-    let counted, count = $match(part, "^%s*(.-)%s*%((%d+)%)%s*$")
-    let name = counted ?? $match(part, "^%s*(.-)%s*$") ?? ""
-    let need = Math::floor(String::toNumber(count ?? "") ?? 1)
+  for (part of list.split(",")) {
+    let counted, count = part.match("^%s*(.-)%s*%((%d+)%)%s*$")
+    let name = counted ?? part.match("^%s*(.-)%s*$") ?? ""
+    let need = ((count ?? "").toNumber() ?? 1).floor()
     if (name != "") {
-      let have = Game::Items::count(name)
-      foot.push({ left: name, right: String::format(Locale::COUNT, need), valueColor: have < need ? RED : nil })
+      let have = Game.items.count(name)
+      foot.push({ left: name, right: Locale.COUNT.format(need), valueColor: have < need ? RED : nil })
     }
   }
   return true
@@ -55,31 +52,31 @@ private function reagents(text: string, mut foot: Array<Note>): boolean {
 
 // What a line of a finishing move's list gives: the range it names («46-66», «46 – 66») as «46–66», or its first
 // number.
-private function comboValue(effect: string): string | nil {
-  let low, high = $match(effect, "(%d+)%s*%-%s*(%d+)")
+function comboValue(effect: String): String | nil {
+  let low, high = effect.match("(%d+)%s*%-%s*(%d+)")
   if (low != nil && high != nil) { return low + "–" + high }
-  let from, to = $match(effect, "(%d+)%s*–%s*(%d+)")
+  let from, to = effect.match("(%d+)%s*–%s*(%d+)")
   if (from != nil && to != nil) { return from + "–" + to }
-  return $match(effect, "%d+")
+  return effect.match("%d+")
 }
 
 // A description into the body. A finishing move's («1 point: 46-66 damage» on a line each) gives its sentence
 // first and then a row for each line of the list.
-private function describe(text: string, mut body: Array<TextLine>) {
-  if ($match(text, "^%s*%d%s") == nil && $match(text, "\n%s*%d%s") == nil) {
+function describe(text: String, body: mut Array<TextLine>) {
+  if (text.match("^%s*%d%s") == nil && text.match("\n%s*%d%s") == nil) {
     body.push({ left: text, desc: true })
     return
   }
-  let mut rows: Array<TextLine> = []
-  let first: string | nil = nil
-  let rest: string | nil = nil
-  for (line of String::split(text, "\n")) {
+  let rows: Array<TextLine> = []
+  let first: String | nil = nil
+  let rest: String | nil = nil
+  for (line of text.split("\n")) {
     if (line == "") { continue }
-    let points, effect = $match(line, "^%s*(%d)%s+[^%d:]-:%s*(.+)$")
+    let points, effect = line.match("^%s*(%d)%s+[^%d:]-:%s*(.+)$")
     let value = effect != nil ? comboValue(effect) : nil
     if (points != nil && value != nil) {
       rows.push({
-        left: combo(Math::floor(String::toNumber(points) ?? 0)), right: value, opens: named(Term::Combo),
+        left: combo((points.toNumber() ?? 0).floor()), right: value, opens: named(Term.Combo),
       })
     } else if (first == nil) {
       first = line
@@ -94,68 +91,68 @@ private function describe(text: string, mut body: Array<TextLine>) {
 // A cell of the band from one side of one of the spell's first lines. `first`: the line is the band's first, where
 // the cost and the range stand; `right`: the line's right side; `cast`: its left side was the cast, so this is the
 // cooldown. Whether this side was the cast.
-private function cell(
-  text: string, first: boolean, right: boolean, cost: Game::SpellCost | nil, cast: boolean, mut facts: Array<Fact>,
-): boolean {
-  let glyph: Art | nil = nil
+function cell(
+  text: String, first: Boolean, right: Boolean, cost: Game.SpellCost | nil, cast: Boolean, facts: mut Array<Fact>,
+): Boolean {
+  let glyph: Glyph | nil = nil
   let tint: Color | nil = nil
   let shown = text
   let isCast = false
-  let opens: Opens = Opens::None
-  let digits = $match(text, "%d[%d%s\194\160]*")
-  if (text == Game::Strings::castInstant || text == Game::Strings::castInstantNoMana) {
-    shown = Locale::CAST_INSTANT
-    glyph = "glyphs/castNow"
-    opens = named(Term::Castnow)
+  let opens: Opens = Opens.None
+  let digits = text.match("%d[%d%s\194\160]*")
+  if (text == Game.strings.castInstant || text == Game.strings.castInstantNoMana) {
+    shown = Locale.CAST_INSTANT
+    glyph = .CastNow
+    opens = named(Term.Castnow)
     isCast = true
-  } else if (String::contains(text, Game::Strings::castChanneled)) {
-    glyph = "glyphs/castChan"
-    opens = named(Term::Castchan)
+  } else if (text.contains(Game.strings.castChanneled)) {
+    glyph = .CastChan
+    opens = named(Term.Castchan)
     isCast = true
-  } else if (String::unformat(text, Game::Strings::castTimeSec) != nil
-      || String::unformat(text, Game::Strings::castTimeMin) != nil) {
-    glyph = "glyphs/castTime"
-    opens = named(Term::Casttime)
+  } else if (text.unformat(Game.strings.castTimeSec) != nil
+      || text.unformat(Game.strings.castTimeMin) != nil) {
+    glyph = .CastTime
+    opens = named(Term.Casttime)
     isCast = true
-  } else if (text == Game::Strings::onNextSwing || text == Game::Strings::onNextRanged) {
-    shown = Locale::CAST_NEXT
-    glyph = "glyphs/castNext"
-    opens = named(Term::Castnext)
+  } else if (text == Game.strings.onNextSwing || text == Game.strings.onNextRanged) {
+    shown = Locale.CAST_NEXT
+    glyph = .CastNext
+    opens = named(Term.Castnext)
     isCast = true
   } else if (!right && first && cost != nil && digits != nil
-      && String::toNumber($replace(digits, "%D", "")) == cost.amount) {
+      && (digits.replace("%D", "")).toNumber() == cost.amount) {
     // The cost: a dot in its resource's colour and the number.
-    glyph = "glyphs/cost"
+    glyph = .Cost
     tint = cost.color
-    shown = $replace(digits, "%s+$", "")
+    shown = digits.replace("%s+$", "")
   } else if (right && cast) {
     if (digits != nil) {
       shown = "CD " + valueOf(text)
-      opens = named(Term::Cd)
+      opens = named(Term.Cd)
     }
   } else if (first) {
     // The range, beside the cost or alone: its value only, the closing full stop dropped.
-    if (text == Game::Strings::meleeRange || text == Locale::MELEE_RANGE_TEXT) {
-      shown = Locale::MELEE_RANGE_SHORT
-      opens = named(Term::Melee)
+    if (text == Game.strings.meleeRange || text == Locale.MELEE_RANGE_TEXT) {
+      shown = Locale.MELEE_RANGE_SHORT
+      opens = named(Term.Melee)
     } else {
-      shown = $replace(valueOf(text), "%.$", "")
-      opens = named(Term::Range)
+      shown = valueOf(text).replace("%.$", "")
+      opens = named(Term.Range)
     }
   }
   facts.push({ text: shown, glyph: glyph, tint: tint, opens: opens })
   return isCast
 }
 
-public function spell(data: Game::TooltipData, options: Options): Model | nil {
+public function spell(data: Game.TooltipData, options: Options): Model | nil {
   let id = data.id
-  let cost = id != nil ? Game::Spells::cost(id) : nil
-  let name: string | nil = nil
-  let mut desc: Array<Part> = []
-  let mut info: Array<Part> = []
-  let mut facts: Array<Fact> = []
-  let mut body: Array<TextLine> = []
-  let mut foot: Array<Note> = []
+  let cost = id != nil ? Game.spells.cost(id) : nil
+  let name: String | nil = nil
+  let desc: Array<Part> = []
+  let info: Array<Part> = []
+  let facts: Array<Fact> = []
+  let body: Array<TextLine> = []
+  let foot: Array<Note> = []
   // The band's lines read so far.
   let band = 0
   for (i, line of data.lines) {
@@ -165,7 +162,7 @@ public function spell(data: Game::TooltipData, options: Options): Model | nil {
       name = left
       // The rank, then the spellbook's tab.
       if (right != nil) { desc.push({ text: right }) }
-      let tab = id != nil ? Game::Spells::tab(id) : nil
+      let tab = id != nil ? Game.spells.tab(id) : nil
       if (tab != nil) { desc.push({ text: tab }) }
     } else if (line.kind == REQUIREMENT) {
       if (left != nil) {
@@ -194,17 +191,17 @@ public function spell(data: Game::TooltipData, options: Options): Model | nil {
   }
   let timer = false
   if (id != nil && options.spellsCooldown) {
-    let left = Game::Spells::cooldown(id)
+    let left = Game.spells.cooldown(id)
     if (left != nil) {
-      let wait = duration(left, Game::Strings::hours, Game::Strings::minutes, Game::Strings::seconds)
-      foot.push({ left: Locale::READY_IN, right: wait, valueColor: YELLOW, opens: named(Term::Ready) })
+      let wait = duration(left, Game.strings.hours, Game.strings.minutes, Game.strings.seconds)
+      foot.push({ left: Locale.READY_IN, right: wait, valueColor: YELLOW, opens: named(Term.Ready) })
       timer = true
     }
   }
   if (id != nil && options.spellsId) { info.push({ text: `ID ${id}` }) }
   if (name == nil) { return nil }
   return {
-    kind: Kind::Spell, picture: iconOf(id != nil ? Game::Spells::texture(id) : nil), name: name, nameColor: WHITE,
+    kind: Kind.Spell, picture: iconOf(id != nil ? Game.spells.texture(id) : nil), name: name, nameColor: WHITE,
     desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer,
   }
 }

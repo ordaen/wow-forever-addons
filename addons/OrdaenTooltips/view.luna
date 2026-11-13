@@ -7,7 +7,7 @@
 // always the one at the frame; the others follow it in one row, lined up on the edge that faces the frame, so no
 // tooltip floats off it.
 import { Align, Edges, Frame, Layer, Place, Point, Position, Track } from "$ltml"
-import Ordaen from "Ordaen"
+import { Component } from "Ordaen"
 import { GOLD } from "@/colors"
 import { TipFrame } from "@/frame"
 import { Kind, Model, Opens } from "@/model"
@@ -15,155 +15,175 @@ import { Options } from "@/options"
 import { term } from "@/term"
 import { unitOf } from "@/unit"
 
-private const PX = 1 / 1.2
-private const GAP = 4 * PX
+const PX = 1 / 1.2
+const GAP = 4 * PX
 // With a comparison shown the main tooltip sits this much lower, so its title lines up with the worn item's under
 // its «Equipped» header.
-private const LOWERED: Edges = { top: 35 * PX }
-private const LEVEL: Edges = {}
+const LOWERED: Edges = { top: 35 * PX }
+const LEVEL: Edges = {}
 
 // Where a group stands by a frame of the game's.
 public struct Standing {
-  by: Frame
+  by: any Frame
   // Under the frame; above it otherwise.
-  below: boolean
+  below: Boolean
   // On the frame's right edge, the group running leftwards; on its left edge otherwise.
-  right: boolean
+  right: Boolean
 }
 
 // What a place in the group's row holds.
-private enum Slot { Main = "main", Sides = "sides", Compared = "compared" }
+enum Slot { Main = "main", Sides = "sides", Compared = "compared" }
 
-private struct Piece {
+struct Piece {
   slot: Slot
   // The tooltip drawn there; the main one's for the column of sides.
   model: Model
 }
 
 // What stands in an opened tooltip's place while it opens nothing.
-private const NOTHING: Model = {
-  kind: Kind::Text, name: "", nameColor: $color("#ffffff"),
+const NOTHING: Model = {
+  kind: Kind.Text, name: "", nameColor: Color.hex("#ffffff"),
   desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: [],
 }
 
 // The tooltip a part of a locked tooltip opens. It takes no cursor, and opens nothing further. A unit that is gone
 // opens nothing.
-private class Opened implements Ordaen::Component {
-  private read = $computed((): Model | nil => self.readNow())
-  private some = $computed((): boolean => self.read != nil)
-  private model = $computed((): Model => self.read ?? NOTHING)
+class Opened implements Component {
+  derived read: Model | nil = self.readNow()
+  derived some: Boolean = self.read != nil
+  derived model: Model = self.read ?? NOTHING
 
-  $constructor(private opens: Reactive<Opens>, private options: Reactive<Options>) {}
+  opens: Signal<Opens>
+  options: Signal<Options>
+  constructor(opens: Signal<Opens>, options: Signal<Options>) {
+    self.opens = opens
+    self.options = options
+  }
 
-  private readNow(): Model | nil {
+  readNow(self): Model | nil {
     let opens = self.opens
-    switch (opens) {
-      case Opens::Term: return term(opens.term, opens.amount)
-      case Opens::Text: {
-        return {
-          kind: Kind::Text, name: opens.name, nameColor: GOLD,
-          desc: [], info: [], facts: [], body: [{ left: opens.text, desc: true }], more: [], foot: [], keys: [],
-        }
-      }
-      case Opens::Unit: return unitOf(opens.unit, self.options)
-      case Opens::None: return nil
+    match (opens) {
+      Opens.Term => return term(opens.term, opens.amount),
+      Opens.Text => return {
+        kind: Kind.Text, name: opens.name, nameColor: GOLD,
+        desc: [], info: [], facts: [], body: [{ left: opens.text, desc: true }], more: [], foot: [], keys: [],
+      },
+      Opens.Unit => return unitOf(opens.unit, self.options),
+      Opens.None => return nil,
     }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
       <TipFrame $if={self.some} model={self.model} side={true} />
     }
   }
 }
 
-public class TipGroup implements Ordaen::Component {
-  private comparing = $computed((): boolean => self.compared.length > 0)
-  private pieces = $computed((): Array<Piece> => self.inOrder())
-  private columns = $computed((): Array<Track> => self.autos(self.pieces.length))
-  private place = $computed((): Place => self.at())
+public class TipGroup implements Component {
+  derived comparing: Boolean = self.compared.length > 0
+  derived pieces: Array<Piece> = self.inOrder()
+  derived columns: Array<Track> = self.autos(self.pieces.length)
+  derived place: Place = self.at()
   // Every tooltip's edge on the frame's side lined up; compared, their titles are, at the top.
-  private across = $computed((): Align => self.standing.below || self.comparing ? Align::Start : Align::End)
-  private lowered = $computed((): Edges => self.comparing ? LOWERED : LEVEL)
+  derived across: Align = self.standing.below || self.comparing ? Align.Start : Align.End
+  derived lowered: Edges = self.comparing ? LOWERED : LEVEL
 
   // A locked group: its close button was clicked; the cursor came onto it, and left it.
-  public close: Event<nil> = $event()
-  public enter: Event<nil> = $event()
-  public leave: Event<nil> = $event()
+  public close: Event<nil> = new Event()
+  public enter: Event<nil> = new Event()
+  public leave: Event<nil> = new Event()
 
-  $constructor(
-    private model: Reactive<Model>,
+  model: Signal<Model>
+  sides: Signal<Array<Model>>
+  compared: Signal<Array<Model>>
+  standing: Signal<Standing>
+  shown: Signal<Boolean>
+  options: Signal<Options>
+  charge: Signal<Integer>
+  locked: Signal<Boolean>
+  constructor(
+    model: Signal<Model>,
     // The tooltips open beside it from the start, top to bottom.
-    private sides: Reactive<Array<Model>>,
+    sides: Signal<Array<Model>>,
     // The items it is compared with, from the main tooltip outwards.
-    private compared: Reactive<Array<Model>>,
-    private standing: Reactive<Standing>,
-    private shown: Reactive<boolean>,
+    compared: Signal<Array<Model>>,
+    standing: Signal<Standing>,
+    shown: Signal<Boolean>,
     // What the player asked a tooltip to show: a unit a part opens is read with it.
-    private options: Reactive<Options>,
+    options: Signal<Options>,
     // The main tooltip's lock: how far it is charged, of a hundred, and whether it is locked. A locked group
     // takes the cursor; one that isn't lets it through to what is under it.
-    private charge: Reactive<integer> = 0,
-    private locked: Reactive<boolean> = false,
-  ) {}
+    charge: Signal<Integer> = 0,
+    locked: Signal<Boolean> = false,
+  ) {
+    self.model = model
+    self.sides = sides
+    self.compared = compared
+    self.standing = standing
+    self.shown = shown
+    self.options = options
+    self.charge = charge
+    self.locked = locked
+  }
 
-  private mut onClose() { self.close.emit() }
-  private mut onEnter() { self.enter.emit() }
-  private mut onLeave() { self.leave.emit() }
+  onClose(mut self) { self.close.emit() }
+  onEnter(mut self) { self.enter.emit() }
+  onLeave(mut self) { self.leave.emit() }
 
   // The group's row from the screen's left to its right: the main tooltip at the frame, the rest away from it.
-  private inOrder(): Array<Piece> {
-    let mut outwards: Array<Piece> = [{ slot: Slot::Main, model: self.model }]
-    if (self.sides.length > 0) { outwards.push({ slot: Slot::Sides, model: self.model }) }
-    for (model of self.compared) { outwards.push({ slot: Slot::Compared, model: model }) }
+  inOrder(self): Array<Piece> {
+    let outwards: Array<Piece> = [{ slot: Slot.Main, model: self.model }]
+    if (self.sides.length > 0) { outwards.push({ slot: Slot.Sides, model: self.model }) }
+    for (model of self.compared) { outwards.push({ slot: Slot.Compared, model: model }) }
     if (!self.standing.right) { return outwards }
-    let mut leftwards: Array<Piece> = []
-    for (let i = outwards.length; i >= 1; i -= 1) {
+    let leftwards: Array<Piece> = []
+    for (i of outwards.length..=1 step -1) {
       let piece = outwards[i]
       if (piece != nil) { leftwards.push(piece) }
     }
     return leftwards
   }
 
-  private autos(count: integer): Array<Track> {
-    let mut list: Array<Track> = []
-    for (let i = 1; i <= count; i += 1) { list.push("auto") }
+  autos(self, count: Integer): Array<Track> {
+    let list: Array<Track> = []
+    for (i of 1..=count) { list.push("auto") }
     return list
   }
 
-  private at(): Place {
+  at(self): Place {
     let standing = self.standing
     if (standing.below) {
       return standing.right
-        ? { point: Point::TopRight, to: Point::BottomRight, by: standing.by }
-        : { point: Point::TopLeft, to: Point::BottomLeft, by: standing.by }
+        ? { point: Point.TopRight, to: Point.BottomRight, by: standing.by }
+        : { point: Point.TopLeft, to: Point.BottomLeft, by: standing.by }
     }
     return standing.right
-      ? { point: Point::BottomRight, to: Point::TopRight, by: standing.by }
-      : { point: Point::BottomLeft, to: Point::TopLeft, by: standing.by }
+      ? { point: Point.BottomRight, to: Point.TopRight, by: standing.by }
+      : { point: Point.BottomLeft, to: Point.TopLeft, by: standing.by }
   }
 
-  public render(): Template {
+  public render(self): Template {
     return $ltml {
-      <surface $if={self.shown} layer={Layer::Tooltip} place={self.place} columns={self.columns} gap={GAP}
+      <surface $if={self.shown} layer={Layer.Tooltip} place={self.place} columns={self.columns} gap={GAP}
                yAlign={self.across}>
-        <box $if={self.locked} position={Position::Absolute} left={0} top={0} right={0} bottom={0}
+        <box $if={self.locked} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
              hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave} />
         <$for={piece of self.pieces}>
-          <$switch={piece.slot}>
-            <box $case={Slot::Main} padding={self.lowered}>
+          <$match={piece.slot}>
+            <box $case={Slot.Main} padding={self.lowered}>
               <TipFrame model={piece.model} main={true} charge={self.charge} locked={self.locked}
                         @close={self.onClose}>
                 <Opened #opened={opens} opens={opens} options={self.options} />
               </TipFrame>
             </box>
             // Every tooltip of a locked group opens what its parts name.
-            <box $case={Slot::Sides} gap={GAP} yAlign={self.across}>
+            <box $case={Slot.Sides} gap={GAP} yAlign={self.across}>
               <TipFrame $for={side of self.sides} model={side} side={true} locked={self.locked}>
                 <Opened #opened={opens} opens={opens} options={self.options} />
               </TipFrame>
             </box>
-            <TipFrame $case={Slot::Compared} model={piece.model} side={true} locked={self.locked}>
+            <TipFrame $case={Slot.Compared} model={piece.model} side={true} locked={self.locked}>
               <Opened #opened={opens} opens={opens} options={self.options} />
             </TipFrame>
           </>
