@@ -2,7 +2,7 @@
 public import { Windowed } from "@/windowed"
 public import { Tinted } from "@/tinted"
 public import { Arranged } from "@/arranged"
-import { Age, Checkbox, Choice, Dialog, Dropdown, Input, Module, Money, ProgressBar, PushButton, Section, SettingRow, SettingsPage, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "Ordaen"
+import { Age, Checkbox, Choice, Dialog, Dropdown, Input, Module, Money, ProgressBar, PushButton, Section, Segmented, SettingRow, SettingsPage, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "Ordaen"
 import root Ordaen from "Ordaen"
 
 const TABS: Array<String> = ["Map", "Drawer", "Market"]
@@ -13,6 +13,14 @@ const HIDES: Array<Choice<Hide>> = [
   { value: Hide.Never, label: "Never" },
   { value: Hide.Combat, label: "In combat" },
   { value: Hide.Transport, label: "On a mount", soon: true },
+]
+
+public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
+
+const WORTHS: Array<Choice<Worth>> = [
+  { value: Worth.Auction, label: "Auction" },
+  { value: Worth.Merchant, label: "Merchant" },
+  { value: Worth.Held, label: "Held", soon: true },
 ]
 
 public struct Choices {
@@ -39,6 +47,7 @@ public class Showcase implements Module, App {
   state scanned: Number = 0.4
   state price: Integer = 12345
   state seen: Number | nil = 2 * 86400
+  state worth: Worth = Worth.Auction
   derived summary: String = self.describe()
 
   constructor() {
@@ -92,6 +101,9 @@ public class Showcase implements Module, App {
                 <Money amount={self.price} />
                 <Age seconds={self.seen} />
               </box>
+            </SettingRow>
+            <SettingRow label={"Sold to"}>
+              <Segmented value={mut self.worth} choices={WORTHS} />
             </SettingRow>
           </Section>
         </SettingsTab>

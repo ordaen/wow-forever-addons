@@ -1,0 +1,189 @@
+-- the third tab clicked: the scan at two fifths, the price with its age in amber
+box 0,0 700x246.07 @enter @leave
+  box 0,0 700x26.67
+    box 0,25.83 700x0.83 absolute #3e2f1d
+    box 0,0 42.08x25.83 #00000000 @click
+      text 11.67,5.83 18.75x15 "Map" #a3977f
+    box 45.42,0 60.83x25.83 #00000000 @click
+      text 57.08,5.83 37.5x15 "Drawer" #a3977f
+    box 109.58,0 62.5x26.67 #00000059 @click
+      box 110.42,0.83 60.83x1.67 absolute #d6a56b
+      text 122.08,6.67 37.5x15 "Market" #ffffff
+  box 0,34.67 700x116.33
+    box 0,34.67 700x116.33
+      box 0,34.67 700x15
+        text 0,34.67 37.5x15 "Market" #e8c35a
+        box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,61.33 700x24 opacity=1
+        box 0,65.83 233.33x15 @enter @leave
+          text 0,65.83 233.33x15 "Scan" #cbb994
+        box 248.33,61.33 200x24
+          text 248.33,61.33 200x14 "Scanning" #cbb994
+          box 248.33,78.67 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
+            box 249.17,79.5 79.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+      box 0,97 700x15 opacity=1
+        box 0,97 233.33x15 @enter @leave
+          text 0,97 233.33x15 "Price" #cbb994
+        box 248.33,97.5 451.67x14
+          text 248.33,97.5 58.33x14 "1g 23s 45c" #e8dcc4
+          text 314.67,97.5 32.5x13 "(2 d.)" #ffb02e
+      box 0,123.67 700x27.33 opacity=1
+        box 0,129.83 233.33x15 @enter @leave
+          text 0,129.83 233.33x15 "Sold to" #cbb994
+        box 248.33,123.67 451.67x27.33 opacity=1
+          box 248.33,123.67 65.83x27.33 #5a4428 @click
+            box 248.33,123.67 65.83x1.67 absolute #d6a56b
+            text 260.83,130.33 40.83x14 "Auction" #ffffff
+          box 314.17,123.67 70.83x27.33 #0d0a08 @click
+            text 325.83,130.33 46.67x14 "Merchant" #a3977f
+          box 385,123.67 146.67x27.33 #0d0a08 @click
+            text 396.67,130.33 122.5x14 "Held — in development" #ffffff
+  text 0,159 700x14.4 "zone shown" #ffffff
+  box 0,181.4 120x28.33 Interface\AddOns\Ordaen\media\button @click
+    box 0,181.4 120x28.33 absolute
+      text 47.5,188.07 25x15 "Save" #ffd100
+  box 0,217.73 120x28.33 Interface\AddOns\Ordaen\media\button @click
+    box 0,217.73 120x28.33 absolute
+      text 44.38,224.4 31.25x15 "Reset" #808080
+
+-- the scan done, a price of five copper seen twelve days ago: the age dimmed
+box 0,0 700x246.07 @enter @leave
+  box 0,0 700x26.67
+    box 0,25.83 700x0.83 absolute #3e2f1d
+    box 0,0 42.08x25.83 #00000000 @click
+      text 11.67,5.83 18.75x15 "Map" #a3977f
+    box 45.42,0 60.83x25.83 #00000000 @click
+      text 57.08,5.83 37.5x15 "Drawer" #a3977f
+    box 109.58,0 62.5x26.67 #00000059 @click
+      box 110.42,0.83 60.83x1.67 absolute #d6a56b
+      text 122.08,6.67 37.5x15 "Market" #ffffff
+  box 0,34.67 700x116.33
+    box 0,34.67 700x116.33
+      box 0,34.67 700x15
+        text 0,34.67 37.5x15 "Market" #e8c35a
+        box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,61.33 700x24 opacity=1
+        box 0,65.83 233.33x15 @enter @leave
+          text 0,65.83 233.33x15 "Scan" #cbb994
+        box 248.33,61.33 200x24
+          text 248.33,61.33 200x14 "Scanning" #cbb994
+          box 248.33,78.67 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
+            box 249.17,79.5 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+      box 0,97 700x15 opacity=1
+        box 0,97 233.33x15 @enter @leave
+          text 0,97 233.33x15 "Price" #cbb994
+        box 248.33,97.5 451.67x14
+          text 248.33,97.5 46.67x14 "0g 0s 5c" #e8dcc4
+          text 303,97.5 37.92x13 "(12 d.)" #a3977f
+      box 0,123.67 700x27.33 opacity=1
+        box 0,129.83 233.33x15 @enter @leave
+          text 0,129.83 233.33x15 "Sold to" #cbb994
+        box 248.33,123.67 451.67x27.33 opacity=1
+          box 248.33,123.67 65.83x27.33 #5a4428 @click
+            box 248.33,123.67 65.83x1.67 absolute #d6a56b
+            text 260.83,130.33 40.83x14 "Auction" #ffffff
+          box 314.17,123.67 70.83x27.33 #0d0a08 @click
+            text 325.83,130.33 46.67x14 "Merchant" #a3977f
+          box 385,123.67 146.67x27.33 #0d0a08 @click
+            text 396.67,130.33 122.5x14 "Held — in development" #ffffff
+  text 0,159 700x14.4 "zone shown" #ffffff
+  box 0,181.4 120x28.33 Interface\AddOns\Ordaen\media\button @click
+    box 0,181.4 120x28.33 absolute
+      text 47.5,188.07 25x15 "Save" #ffd100
+  box 0,217.73 120x28.33 Interface\AddOns\Ordaen\media\button @click
+    box 0,217.73 120x28.33 absolute
+      text 44.38,224.4 31.25x15 "Reset" #808080
+
+-- no price: the age is gone
+box 0,0 700x246.07 @enter @leave
+  box 0,0 700x26.67
+    box 0,25.83 700x0.83 absolute #3e2f1d
+    box 0,0 42.08x25.83 #00000000 @click
+      text 11.67,5.83 18.75x15 "Map" #a3977f
+    box 45.42,0 60.83x25.83 #00000000 @click
+      text 57.08,5.83 37.5x15 "Drawer" #a3977f
+    box 109.58,0 62.5x26.67 #00000059 @click
+      box 110.42,0.83 60.83x1.67 absolute #d6a56b
+      text 122.08,6.67 37.5x15 "Market" #ffffff
+  box 0,34.67 700x116.33
+    box 0,34.67 700x116.33
+      box 0,34.67 700x15
+        text 0,34.67 37.5x15 "Market" #e8c35a
+        box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,61.33 700x24 opacity=1
+        box 0,65.83 233.33x15 @enter @leave
+          text 0,65.83 233.33x15 "Scan" #cbb994
+        box 248.33,61.33 200x24
+          text 248.33,61.33 200x14 "Scanning" #cbb994
+          box 248.33,78.67 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
+            box 249.17,79.5 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+      box 0,97 700x15 opacity=1
+        box 0,97 233.33x15 @enter @leave
+          text 0,97 233.33x15 "Price" #cbb994
+        box 248.33,97.5 451.67x14
+          text 248.33,97.5 46.67x14 "0g 0s 5c" #e8dcc4
+      box 0,123.67 700x27.33 opacity=1
+        box 0,129.83 233.33x15 @enter @leave
+          text 0,129.83 233.33x15 "Sold to" #cbb994
+        box 248.33,123.67 451.67x27.33 opacity=1
+          box 248.33,123.67 65.83x27.33 #5a4428 @click
+            box 248.33,123.67 65.83x1.67 absolute #d6a56b
+            text 260.83,130.33 40.83x14 "Auction" #ffffff
+          box 314.17,123.67 70.83x27.33 #0d0a08 @click
+            text 325.83,130.33 46.67x14 "Merchant" #a3977f
+          box 385,123.67 146.67x27.33 #0d0a08 @click
+            text 396.67,130.33 122.5x14 "Held — in development" #ffffff
+  text 0,159 700x14.4 "zone shown" #ffffff
+  box 0,181.4 120x28.33 Interface\AddOns\Ordaen\media\button @click
+    box 0,181.4 120x28.33 absolute
+      text 47.5,188.07 25x15 "Save" #ffd100
+  box 0,217.73 120x28.33 Interface\AddOns\Ordaen\media\button @click
+    box 0,217.73 120x28.33 absolute
+      text 44.38,224.4 31.25x15 "Reset" #808080
+
+-- the second segment clicked: the mode is the merchant's
+box 0,0 700x246.07 @enter @leave
+  box 0,0 700x26.67
+    box 0,25.83 700x0.83 absolute #3e2f1d
+    box 0,0 42.08x25.83 #00000000 @click
+      text 11.67,5.83 18.75x15 "Map" #a3977f
+    box 45.42,0 60.83x25.83 #00000000 @click
+      text 57.08,5.83 37.5x15 "Drawer" #a3977f
+    box 109.58,0 62.5x26.67 #00000059 @click
+      box 110.42,0.83 60.83x1.67 absolute #d6a56b
+      text 122.08,6.67 37.5x15 "Market" #ffffff
+  box 0,34.67 700x116.33
+    box 0,34.67 700x116.33
+      box 0,34.67 700x15
+        text 0,34.67 37.5x15 "Market" #e8c35a
+        box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,61.33 700x24 opacity=1
+        box 0,65.83 233.33x15 @enter @leave
+          text 0,65.83 233.33x15 "Scan" #cbb994
+        box 248.33,61.33 200x24
+          text 248.33,61.33 200x14 "Scanning" #cbb994
+          box 248.33,78.67 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
+            box 249.17,79.5 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+      box 0,97 700x15 opacity=1
+        box 0,97 233.33x15 @enter @leave
+          text 0,97 233.33x15 "Price" #cbb994
+        box 248.33,97.5 451.67x14
+          text 248.33,97.5 46.67x14 "0g 0s 5c" #e8dcc4
+      box 0,123.67 700x27.33 opacity=1
+        box 0,129.83 233.33x15 @enter @leave
+          text 0,129.83 233.33x15 "Sold to" #cbb994
+        box 248.33,123.67 451.67x27.33 opacity=1
+          box 248.33,123.67 65.83x27.33 #0d0a08 @click
+            text 260.83,130.33 40.83x14 "Auction" #a3977f
+          box 314.17,123.67 70.83x27.33 #5a4428 @click
+            box 314.17,123.67 70.83x1.67 absolute #d6a56b
+            text 325.83,130.33 46.67x14 "Merchant" #ffffff
+          box 385,123.67 146.67x27.33 #0d0a08 @click
+            text 396.67,130.33 122.5x14 "Held — in development" #ffffff
+  text 0,159 700x14.4 "zone shown" #ffffff
+  box 0,181.4 120x28.33 Interface\AddOns\Ordaen\media\button @click
+    box 0,181.4 120x28.33 absolute
+      text 47.5,188.07 25x15 "Save" #ffd100
+  box 0,217.73 120x28.33 Interface\AddOns\Ordaen\media\button @click
+    box 0,217.73 120x28.33 absolute
+      text 44.38,224.4 31.25x15 "Reset" #808080

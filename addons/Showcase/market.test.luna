@@ -2,8 +2,9 @@
 import Test from "$test"
 import Runtime from "$runtime"
 import root Showcase from "Showcase"
+import { Worth } from "Showcase"
 
-test "the market tab shows a scan's progress, a price and its age, each following its cell" {
+test "the market tab holds a row for each of the market's controls, each following its cell" {
   const page = Showcase
   Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
 
@@ -17,6 +18,13 @@ test "the market tab shows a scan's progress, a price and its age, each followin
 
   page.seen = nil
   Test.shot("no price: the age is gone")
+
+  Test.click(Test.holding("Merchant", nil), nil)
+  Test.expect(page.worth == Worth.Merchant)
+  Test.shot("the second segment clicked: the mode is the merchant's")
+
+  Test.click(Test.holding("Held — in development", nil), nil)
+  Test.expect(page.worth == Worth.Merchant)
 
   (Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")).disable()
 }
