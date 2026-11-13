@@ -3,7 +3,8 @@
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
-import { Minimap } from "@/main"
+import Runtime from "$runtime"
+import root Minimap from "OrdaenMinimap"
 
 // One of the game's own frames, in the screen's top right corner.
 function blizzard(name: String, width: Number, height: Number, shown: Boolean): any Client.Frame {
@@ -37,8 +38,8 @@ test "the minimap takes the game's map, and its ring and drawer answer the curso
   Game.minimap.entries = [{ text: "Details", icon: "Interface/Icons/Details" }, { text: "Plater" }]
   let shown = (): String => `cluster shown: ${cluster.IsShown()}, backdrop shown: ${backdrop.IsShown()}`
 
-  let addon = new Minimap()
-  Test.mount(addon, { left: 100, top: 50, width: 600, height: 800 })
+  // The module's root, made as its addon loaded and drawn by Ordaen on the screen, which this page is.
+  Test.mount(nil, { left: 100, top: 50, width: 600, height: 800, screen: true })
   Test.shot("drawn in the screen's top right corner: the game's cluster hidden, its map in our frame, the ring not shown")
   Test.note(shown())
 
@@ -65,8 +66,8 @@ test "the minimap takes the game's map, and its ring and drawer answer the curso
   Test.shot("nothing left for the drawer to hold: its button goes, and the drawer with it")
   Test.note(shown())
 
-  destroy addon
+  (Runtime.Addon.of(Minimap) ?? panic("the minimap is installed")).disable()
   Test.expect(Test.blank())
-  Test.shot("destroyed")
+  Test.shot("turned off: its root ended, what it drew gone")
   Test.note(`${shown()}, the map's parent is the game's again: ${map.GetParent() == Client.C_UI.GetUIParent()}`)
 }

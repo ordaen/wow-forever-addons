@@ -1,7 +1,7 @@
 import Game from "$game"
-import { Align, Anchored, Art, Click, EmbedLook, Line, MouseButton, Point, Position, Shadow } from "$ltml"
+import { Align, Anchored, Click, EmbedLook, Line, MouseButton, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Artwork, Component, Module, Placed, PX, Settings, SettingsPage, Tip } from "Ordaen"
+import { Component, Module, Placed, PX, Settings, SettingsPage, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { DrawerEntry } from "@/drawer"
 import { RING, DRAWER_BUTTON, ORDAEN_BUTTON, RingButton, RingId, RingSpec, BUTTON, ROOM } from "@/ring"
@@ -35,7 +35,7 @@ const RULE_ABOVE: Line = { width: 2 * PX, color: RULE, sides: ["top"] }
 // Where the map stands until the player moves it: the screen's top right corner.
 const HOME: Anchored = { point: Point.TopRight }
 
-public class Minimap implements Module {
+public class Minimap implements Module, App {
   public const title: String = "Ordaen Minimap"
 
   settings: mut Settings<Choices> = new Settings<Choices>({
@@ -59,7 +59,7 @@ public class Minimap implements Module {
   state entryName = ""
 
   // The frame's metal: the map sits inside its wood, the line's width and the wood's inset in from the line.
-  derived out: Number = self.artwork.frame.small.width + self.artwork.frame.small.inset
+  derived out: Number = Ordaen.art.frame.small.width + Ordaen.art.frame.small.inset
   derived size: Number = MAP * self.settings.values.scale
   derived headHeight: Number = self.settings.values.showZone ? STRIP : 0
   derived hasFoot: Boolean = self.settings.values.showCoords || self.settings.values.showClock
@@ -69,8 +69,8 @@ public class Minimap implements Module {
   derived wholeWidth: Number = self.frameWidth + 2 * ROOM
   derived wholeHeight: Number = self.frameHeight + 2 * ROOM
   // The metal stands past its line, and the frame's box holds it: the box starts that far out.
-  derived frameLeft: Number = ROOM - self.artwork.frame.small.reach.left * self.artwork.frame.small.scale
-  derived frameTop: Number = ROOM - self.artwork.frame.small.reach.top * self.artwork.frame.small.scale
+  derived frameLeft: Number = ROOM - Ordaen.art.frame.small.reach.left * Ordaen.art.frame.small.scale
+  derived frameTop: Number = ROOM - Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
   derived mapTop: Number = self.out + self.headHeight
 
   derived showsCoords: Boolean = self.settings.values.showCoords && Game.minimap.coords != ""
@@ -84,7 +84,7 @@ public class Minimap implements Module {
   derived drawerShown: Boolean = self.settings.values.drawerOn && self.drawerOpen
   derived drawerParked: Boolean = self.settings.values.drawerOn && !self.drawerOpen
   // Its cells, the room round them and its frame's line on both sides.
-  derived drawerEdge: Number = 2 * DRAWER_PAD + 2 * self.artwork.frame.small.width
+  derived drawerEdge: Number = 2 * DRAWER_PAD + 2 * Ordaen.art.frame.small.width
   derived drawerWidth: Number = self.settings.values.drawerColumns * CELL + (self.settings.values.drawerColumns - 1) * CELL_GAP + self.drawerEdge
   derived drawerRows: Integer = (1).max((self.held / self.settings.values.drawerColumns).ceil())
   derived drawerHeight: Number = self.drawerRows * CELL + (self.drawerRows - 1) * CELL_GAP + self.drawerEdge
@@ -97,20 +97,11 @@ public class Minimap implements Module {
   derived hintLeft: Number = self.leftOf()
   derived hintTop: Number = self.topOf()
   // Ordaen's art: its root is there before this module loads.
-  derived artwork: Artwork {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.art
-  }
-  // The numbers' font the player chose: Ordaen is the addon every module needs, so its root is there.
-  derived numbers: Art {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.lookArt.fontNumbers ?? panic("the look's numbers font is a file")
-  }
 
   constructor() {
     Game.minimap.square(true)
     Game.minimap.wheelZoom()
-    watch (ordaen of Ordaen) { ordaen?.modules?.add(self) }
+    Ordaen.modules.add(self)
   }
 
   destructor() {
@@ -235,7 +226,7 @@ public class Minimap implements Module {
 
   onClockClick(mut self, click: Click) {
     if (click.button == MouseButton.Right) {
-      Ordaen?.toggleSettings("minimap")
+      Ordaen.toggleSettings("minimap")
     } else {
       Game.clock.toggleCalendar()
     }
@@ -248,7 +239,7 @@ public class Minimap implements Module {
       Hint.Zone => return Game.location.realZone,
       Hint.Coords => return Game.minimap.coords,
       Hint.Clock => return Game.clock.text,
-      Hint.Ordaen => return Ordaen?.title ?? "",
+      Hint.Ordaen => return Ordaen.title,
       Hint.Drawer => return Locale.DRAWER_TITLE,
       Hint.Entry => return self.entryName,
       Hint.None => return "",
@@ -261,7 +252,7 @@ public class Minimap implements Module {
       Hint.Zone => return self.zoneLabel(),
       Hint.Coords => return Locale.COORDS_TIP,
       Hint.Clock => return Locale.CLOCK_TIP,
-      Hint.Ordaen => return Ordaen?.dev == true ? Locale.ORDAEN_TIP_DEV : Locale.ORDAEN_TIP,
+      Hint.Ordaen => return Ordaen.dev == true ? Locale.ORDAEN_TIP_DEV : Locale.ORDAEN_TIP,
       Hint.Drawer => return Locale.DRAWER_TIP,
       Hint.Entry, Hint.None => return "",
     }
@@ -297,13 +288,13 @@ public class Minimap implements Module {
         <box width={self.wholeWidth} height={self.wholeHeight} hoverWithin={true}
              @enter={self.onEnter} @leave={self.onLeave}>
           <box position={Position.Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameWidth}
-               height={self.frameHeight} border={self.artwork.frame.small} background={self.artwork.window.wood}
+               height={self.frameHeight} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
                artOrigin={true}>
             <embed frame={Game.minimap.frame} position={Position.Absolute} left={self.out} top={self.mapTop}
                    width={self.size} height={self.size} />
 
             <box $if={self.settings.values.showZone} position={Position.Absolute} left={self.out} top={self.out}
-                 width={self.size} height={STRIP} background={self.artwork.window.wood} border={RULE_BELOW}
+                 width={self.size} height={STRIP} background={Ordaen.art.window.wood} border={RULE_BELOW}
                  xAlign={Align.Center} yAlign={Align.Center}>
               <box @enter={self.onZoneEnter} @leave={self.onHintLeave}>
                 <text value={Game.location.zone} textColor={self.zoneColor} textSize={15 * PX} textShadow={ENGRAVED}
@@ -312,18 +303,18 @@ public class Minimap implements Module {
             </box>
 
             <box $if={self.hasFoot} position={Position.Absolute} left={self.out} bottom={self.out} width={self.size}
-                 height={STRIP} background={self.artwork.window.wood} border={RULE_ABOVE}
+                 height={STRIP} background={Ordaen.art.window.wood} border={RULE_ABOVE}
                  columns={[{ fr: 1 }, "auto"]} padding={{ left: 10 * PX, right: 10 * PX }} yAlign={Align.Center}>
               <box $if={self.showsCoords} @click={self.onCoordsClick} @enter={self.onCoordsEnter}
                    @leave={self.onHintLeave}>
                 <text value={Game.minimap.coords} textColor={INK} textSize={15 * PX} textShadow={ENGRAVED}
-                      textFamily={self.numbers} wrap={false} />
+                      textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
               </box>
               <box $else width={1} />
               <box $if={self.settings.values.showClock} @click={self.onClockClick} @enter={self.onClockEnter}
                    @leave={self.onHintLeave}>
                 <text value={Game.clock.text} textColor={self.clockColor} textSize={15 * PX} textShadow={ENGRAVED}
-                      textFamily={self.numbers} wrap={false} />
+                      textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
               </box>
             </box>
           </box>
@@ -332,7 +323,7 @@ public class Minimap implements Module {
 
           <box $if={self.drawerShown} position={Position.Absolute} left={self.drawerLeft} top={self.drawerTop}
                width={self.drawerWidth} height={self.drawerHeight} columns={self.settings.values.drawerColumns} gap={CELL_GAP}
-               padding={DRAWER_PAD} border={self.artwork.frame.small} background={self.artwork.window.wood}
+               padding={DRAWER_PAD} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
                artOrigin={true} zLevel={20}>
             <embed $for={button of Game.minimap.buttons} frame={button} width={CELL} height={CELL}
                    look={EmbedLook.Icon} />

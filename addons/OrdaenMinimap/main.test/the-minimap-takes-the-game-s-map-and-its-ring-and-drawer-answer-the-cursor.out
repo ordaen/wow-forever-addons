@@ -20,8 +20,6 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
       text 1334.92,280.17 5.83x14 "3" #ffd100
     box 1323.67,0 0x0 absolute opacity=0
       embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
-asked: Minimap.square true
-asked: Minimap.wheelZoom
 
 cluster shown: false, backdrop shown: false
 -- the cursor on the map: the ring shows
@@ -163,7 +161,7 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
 Drag: move it round the map" #cbb994
 
 cluster shown: false, backdrop shown: false
--- destroyed
+-- turned off: its root ended, what it drew gone
 asked: Minimap.square false
 
 cluster shown: true, backdrop shown: true, the map's parent is the game's again: true

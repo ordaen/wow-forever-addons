@@ -2,7 +2,7 @@
 import Game from "$game"
 import { Align, Art, Click } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Artwork, Component, PX } from "Ordaen"
+import { Component, PX } from "Ordaen"
 
 const CELL = 34 * PX
 const ICON = CELL - 4 * PX
@@ -12,10 +12,6 @@ public class DrawerEntry implements Component {
   public leave: Event<nil> = new Event()
 
   // Ordaen's art: its root is there before this module loads.
-  derived artwork: Artwork {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.art
-  }
   derived icon: Art = self.entry.icon ?? "Interface/Icons/INV_Misc_QuestionMark"
 
   entry: Signal<Game.Entry>
@@ -30,7 +26,7 @@ public class DrawerEntry implements Component {
   public render(self): Template {
     return $ltml {
       <box width={CELL} height={CELL} xAlign={Align.Center} yAlign={Align.Center}
-           border={self.artwork.panel.slotEdge} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+           border={Ordaen.art.panel.slotEdge} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
         <box width={ICON} height={ICON} background={self.icon} />
       </box>
     }

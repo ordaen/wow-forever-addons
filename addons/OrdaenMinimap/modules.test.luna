@@ -1,6 +1,7 @@
 // The minimap as a module loaded on demand (its `addon.json` says `"loadOnDemand": true`): Ordaen loads it at login
-// where it is on, the player's switch loads it with no reload, and turned off it is off at the next login. Here, as
-// a module's tests are built with Ordaen and not the other way: Ordaen's own tests have no module to turn on.
+// where it is on, the player's switch loads it with no reload, and turned off it is off at the next login. Loaded,
+// its root is made, joins Ordaen's modules and Ordaen draws it; turned off, its root ends and what it drew goes.
+// Here, as a module's tests are built with Ordaen and not the other way: Ordaen's own tests have no module to turn on.
 import Client from "$client"
 import Game from "$game"
 import Runtime from "$runtime"
@@ -21,26 +22,52 @@ function loaded(): Boolean {
   return held
 }
 
-test "a module off at login, turned on, is loaded without a reload" {
+// Whether the module's root is made: it is among Ordaen's modules from then until it ends.
+function made(): Boolean {
+  let found = 0
+  for (module of Ordaen.modules) {
+    if (module.title == "Ordaen Minimap") { found += 1 }
+  }
+  return found == 1
+}
+
+// Whether anything is drawn on the screen once a frame has gone: Ordaen draws nothing of its own until asked, so
+// what shows is the module's.
+function drawn(): Boolean {
+  Test.pass(0.02)
+  return Test.drawn().length > 0
+}
+
+test "a module off at login, turned on, is loaded without a reload, made and drawn" {
   const choices: Map<String, Boolean> = {}
   choices["OrdaenMinimap"] = false
   Game.saved.store(.Account, "choices", choices)
   Test.reload()
   Test.expect(!loaded())
-  Ordaen?.turn(minimapAddon(), true)
+  Test.expect(!made())
+  Test.expect(!drawn())
+  Ordaen.turn(minimapAddon(), true)
   Test.expect(loaded())
   Test.expect(minimapAddon().isEnabled())
+  Test.expect(made())
+  Test.expect(drawn())
 }
 
-test "a module on at login is loaded with Ordaen" {
+test "a module on at login is loaded with Ordaen, made and drawn" {
   Test.expect(loaded())
   Test.expect(minimapAddon().isEnabled())
+  Test.expect(made())
+  Test.expect(drawn())
 }
 
-test "a module turned off is off in the client's list, and isn't loaded at the next login" {
-  Ordaen?.turn(minimapAddon(), false)
+test "a module turned off is ended, what it drew gone, off in the client's list, and isn't loaded at the next login" {
+  Test.expect(drawn())
+  Ordaen.turn(minimapAddon(), false)
+  Test.expect(!made())
+  Test.expect(!drawn())
   Test.expect(!minimapAddon().isEnabled())
   Test.reload()
   Test.expect(!minimapAddon().isEnabled())
   Test.expect(!loaded())
+  Test.expect(!made())
 }

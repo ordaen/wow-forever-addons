@@ -3,7 +3,7 @@
 import Game from "$game"
 import { Align, Art, Click, Drag, Frame, MouseButton, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Artwork, Component, PX } from "Ordaen"
+import { Component, PX } from "Ordaen"
 import type { Minimap, Hint } from "@/main"
 
 public enum RingId { Tracking = "tracking", Ordaen = "ordaen", Drawer = "drawer", Mail = "mail", CraftingOrder = "craftingOrder", Landing = "landing" }
@@ -46,17 +46,8 @@ public class RingButton implements Component {
   derived theirs: any Frame | nil = self.frameOf()
   derived visible: Boolean = self.shownNow()
   // Ordaen's art: its root is there before this module loads.
-  derived artwork: Artwork {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.art
-  }
-  derived art: Art = self.spec.id == RingId.Drawer && self.map.isDrawerOpen() ? self.artwork.minimap.ringLit : self.artwork.minimap.ring
+  derived art: Art = self.spec.id == RingId.Drawer && self.map.isDrawerOpen() ? Ordaen.art.minimap.ringLit : Ordaen.art.minimap.ring
   derived count: String = String.of(self.map.holds())
-  // The numbers' font the player chose: Ordaen is the addon every module needs, so its root is there.
-  derived numbers: Art {
-    const ordaen = Ordaen ?? panic("Ordaen is a dependency: its root is loaded before this module")
-    return ordaen.lookArt.fontNumbers ?? panic("the look's numbers font is a file")
-  }
 
   const spec: RingSpec
   map: mut Minimap
@@ -93,7 +84,7 @@ public class RingButton implements Component {
   onClick(mut self, click: Click) {
     let frame = self.theirs
     match (self.spec.id) {
-      RingId.Ordaen => { if (click.button == MouseButton.Right) { Ordaen?.toggleDev() } else { Ordaen?.toggleSettings(nil) } },
+      RingId.Ordaen => { if (click.button == MouseButton.Right) { Ordaen.toggleDev() } else { Ordaen.toggleSettings(nil) } },
       RingId.Drawer => { self.map.toggleDrawer() },
       else => { if (frame != nil) { Game.minimap.press(frame, click.button) } },
     }
@@ -129,10 +120,10 @@ public class RingButton implements Component {
              zLevel={1} opacity={self.opacity} xAlign={Align.Center} yAlign={Align.Center} background={self.art}
              @click={self.onClick} @dragStart={self.onDragStart} @drag={self.onDrag} @dragStop={self.onDragStop}
              @enter={self.onEnter} @leave={self.onLeave}>
-          <box $if={self.spec.id == RingId.Ordaen} width={22 * PX} height={22 * PX} icon={Ordaen?.icon}
-               mask={self.artwork.panel.faceRound} />
+          <box $if={self.spec.id == RingId.Ordaen} width={22 * PX} height={22 * PX} icon={Ordaen.icon}
+               mask={Ordaen.art.panel.faceRound} />
           <text $elseif={self.spec.id == RingId.Drawer} value={self.count} textColor={GOLD} textSize={14 * PX}
-                textFamily={self.numbers} textShadow={COUNT_SHADOW} wrap={false} />
+                textFamily={Ordaen.lookArt.fontNumbers} textShadow={COUNT_SHADOW} wrap={false} />
           <box $elseif={self.spec.glyph != nil} width={self.spec.glyphWidth} height={self.spec.glyphHeight}
                background={self.spec.glyph} />
         </box>
