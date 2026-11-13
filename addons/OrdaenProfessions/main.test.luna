@@ -2,7 +2,6 @@
 // search, the chosen recipe and making it.
 import Client from "$client"
 import Game from "$game"
-import { Art } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"

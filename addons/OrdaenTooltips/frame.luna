@@ -7,7 +7,7 @@ import { Align, Art, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, T
 import root Ordaen from "Ordaen"
 import { Component } from "Ordaen"
 import Locale from "@/locales"
-import { Fact, Model, Note, Opens, Part, Picture, TextLine } from "@/model"
+import { Fact, Model, Opens, Part, Picture, TextLine } from "@/model"
 
 public const PX: Number = 1 / 1.2
 const WIDTH = 314 * PX

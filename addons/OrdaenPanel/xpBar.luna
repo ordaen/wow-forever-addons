@@ -5,7 +5,7 @@
 import Game from "$game"
 import { Align, Art, Edges, Line, Percent, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, LookArt } from "Ordaen"
+import { Component } from "Ordaen"
 
 // Slim at a third of the screen's width.
 const TUBE_HEIGHT = 25

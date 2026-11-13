@@ -1,6 +1,5 @@
 // Ordaen's own page in the settings window: the settings every module follows, on three tabs. Each control writes
 // one entry of their draft.
-import root Ordaen from "Ordaen"
 import { Clock, Density, Globals, LargeNumbers, NumberFormat } from "@/globals"
 import { Component } from "@/module"
 import { Settings } from "@/settings"

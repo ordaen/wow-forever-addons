@@ -3,7 +3,7 @@
 // on the screen at first; dragging its tab row moves it, Escape closes it, the grip in its bottom right corner
 // resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
 // the window: full screen (and back) and close. Its unnamed slot takes the body's content, which fills the body.
-import { Align, Anchored, Art, Drag, Edges, Layer, Metal, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
+import { Align, Art, Drag, Edges, Layer, Metal, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
