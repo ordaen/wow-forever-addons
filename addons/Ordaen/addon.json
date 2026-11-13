@@ -1,5 +1,6 @@
 {
   "title": "Ordaen",
   "icon": "Interface/Icons/Trade_Engineering",
-  "notes": "Ordaen Core: what every Ordaen module runs in. Its settings: /ordaen."
+  "notes": "Ordaen Core: what every Ordaen module runs in. Its settings: /ordaen.",
+  "version": "1.0.0"
 }
