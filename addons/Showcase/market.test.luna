@@ -30,6 +30,13 @@ test "the market holds a row for each of the market's controls, each following i
   page.seen = nil
   Test.shot("no price: the age is gone")
 
+  Test.click(Test.field(nil), nil)
+  Test.erase(20)
+  Test.type("3g 4c")
+  Test.flush()
+  Test.expect(page.wanted == 30004)
+  Test.shot("3g 4c typed into the wanted price: the row under it writes it with its coins")
+
   Test.click(Test.holding("Merchant", nil), nil)
   Test.expect(page.worth == Worth.Merchant)
   Test.shot("the second segment clicked: the mode is the merchant's")

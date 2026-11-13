@@ -1,7 +1,7 @@
 // The market's controls on a page, for the run tests: a scan's progress, a price with its age, a mode, a tree, item
 // slots and a sortable table of sales.
 import { Align, Track } from "$ltml"
-import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Money, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, TreeRow, tracksOf } from "Ordaen"
+import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, TreeRow, tracksOf } from "Ordaen"
 
 public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
 
@@ -30,6 +30,7 @@ public class Market implements Component {
   state scanned: Number = 0.4
   state price: Integer = 12345
   state seen: Number | nil = 2 * 86400
+  state wanted: Integer = 12503
   state worth: Worth = Worth.Auction
   state treeOpen = true
   state chosenItem = 0
@@ -71,6 +72,10 @@ public class Market implements Component {
               <Money amount={self.price} />
               <Age seconds={self.seen} />
             </box>
+          </SettingRow>
+          <MoneyInput label={"Wanted"} value={mut self.wanted} />
+          <SettingRow label={"Wanted, written"}>
+            <Money amount={self.wanted} />
           </SettingRow>
           <SettingRow label={"Sold to"}>
             <Segmented value={mut self.worth} choices={WORTHS} />
