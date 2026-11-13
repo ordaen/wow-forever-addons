@@ -9,8 +9,8 @@ box 0,0 700x408.37
         text 0,31.17 233.33x15 "Scan" #cbb994
       box 248.33,26.67 200x24
         text 248.33,26.67 200x14 "Scanning" #cbb994
-        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
-          box 249.17,44.83 79.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+          box 249.17,44.83 79.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
     box 0,62.33 700x15 opacity=1
       box 0,62.33 233.33x15 @enter @leave
         text 0,62.33 233.33x15 "Price" #cbb994
@@ -113,8 +113,8 @@ box 0,0 700x408.37
         text 0,31.17 233.33x15 "Scan" #cbb994
       box 248.33,26.67 200x24
         text 248.33,26.67 200x14 "Scanning" #cbb994
-        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
-          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
     box 0,62.33 700x15 opacity=1
       box 0,62.33 233.33x15 @enter @leave
         text 0,62.33 233.33x15 "Price" #cbb994
@@ -217,8 +217,8 @@ box 0,0 700x408.37
         text 0,31.17 233.33x15 "Scan" #cbb994
       box 248.33,26.67 200x24
         text 248.33,26.67 200x14 "Scanning" #cbb994
-        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
-          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
     box 0,62.33 700x15 opacity=1
       box 0,62.33 233.33x15 @enter @leave
         text 0,62.33 233.33x15 "Price" #cbb994
@@ -319,8 +319,8 @@ box 0,0 700x408.37
         text 0,31.17 233.33x15 "Scan" #cbb994
       box 248.33,26.67 200x24
         text 248.33,26.67 200x14 "Scanning" #cbb994
-        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
-          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
     box 0,62.33 700x15 opacity=1
       box 0,62.33 233.33x15 @enter @leave
         text 0,62.33 233.33x15 "Price" #cbb994
@@ -421,8 +421,8 @@ box 0,0 700x408.37
         text 0,31.17 233.33x15 "Scan" #cbb994
       box 248.33,26.67 200x24
         text 248.33,26.67 200x14 "Scanning" #cbb994
-        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
-          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
     box 0,62.33 700x15 opacity=1
       box 0,62.33 233.33x15 @enter @leave
         text 0,62.33 233.33x15 "Price" #cbb994
@@ -523,8 +523,8 @@ box 0,0 700x408.37
         text 0,31.17 233.33x15 "Scan" #cbb994
       box 248.33,26.67 200x24
         text 248.33,26.67 200x14 "Scanning" #cbb994
-        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
-          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
     box 0,62.33 700x15 opacity=1
       box 0,62.33 233.33x15 @enter @leave
         text 0,62.33 233.33x15 "Price" #cbb994
@@ -625,8 +625,8 @@ box 0,0 700x386.7
         text 0,31.17 233.33x15 "Scan" #cbb994
       box 248.33,26.67 200x24
         text 248.33,26.67 200x14 "Scanning" #cbb994
-        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
-          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
     box 0,62.33 700x15 opacity=1
       box 0,62.33 233.33x15 @enter @leave
         text 0,62.33 233.33x15 "Price" #cbb994
@@ -723,8 +723,8 @@ box 0,0 700x386.7
         text 0,31.17 233.33x15 "Scan" #cbb994
       box 248.33,26.67 200x24
         text 248.33,26.67 200x14 "Scanning" #cbb994
-        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
-          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
     box 0,62.33 700x15 opacity=1
       box 0,62.33 233.33x15 @enter @leave
         text 0,62.33 233.33x15 "Price" #cbb994
@@ -823,8 +823,8 @@ box 0,0 700x386.7
         text 0,31.17 233.33x15 "Scan" #cbb994
       box 248.33,26.67 200x24
         text 248.33,26.67 200x14 "Scanning" #cbb994
-        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider
-          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider
+        box 248.33,44 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+          box 249.17,44.83 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
     box 0,62.33 700x15 opacity=1
       box 0,62.33 233.33x15 @enter @leave
         text 0,62.33 233.33x15 "Price" #cbb994

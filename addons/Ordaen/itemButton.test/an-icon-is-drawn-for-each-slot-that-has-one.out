@@ -5,22 +5,22 @@ box 0,0 600x33.33
     box 0,0 33.33x33.33 absolute
     box 0,0 33.33x33.33 absolute #00000000
   box 41.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
-    box 41.33,0 33.33x33.33 absolute
+    box 41.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
     box 41.33,0 33.33x33.33 absolute #00000000
   box 82.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
-    box 82.67,0 33.33x33.33 absolute
+    box 82.67,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
     box 82.67,0 33.33x33.33 absolute #00000000
     box 82.67,0 33.33x33.33 absolute
       text 102.67,18.67 10.83x13 "20" #ffffff
   box 124,0 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
-    box 124,0 33.33x33.33 absolute
+    box 124,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
     box 124,0 33.33x33.33 absolute #00000000
     box 124,0 5.83x5.83 absolute #ffd100
     box 124,27.5 5.83x5.83 absolute #4fd1ff
     box 124,0 33.33x33.33 absolute
       text 149.42,18.67 5.42x13 "5" #ffffff
   box 165.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
-    box 165.33,0 33.33x33.33 absolute
+    box 165.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
     box 165.33,0 33.33x33.33 absolute #00000000
   box 206.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
     box 206.67,0 33.33x33.33 absolute

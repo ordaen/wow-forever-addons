@@ -1,23 +1,23 @@
 // The market's controls on the showcase's page: its third tab holds a row for each, and each follows its cell.
 import Test from "$test"
-import Runtime from "$runtime"
-import root Showcase from "Showcase"
-import { Market, Worth } from "Showcase"
+import root Ordaen from "Ordaen"
+import { Showcase } from "@/index"
+import { Market, Worth } from "@/market"
 
 test "the third tab of the page holds the market's controls" {
-  const page = Showcase
+  // The showcase made and added to Ordaen's modules: Ordaen draws it on the screen, which the page is.
+  const page = new Showcase()
+  const added = Ordaen.modules.add(page)
   Test.mount(nil, { left: 100, top: 50, width: 700, height: 700, screen: true })
 
   Test.click(Test.holding("Market", nil), nil)
   Test.shot("the third tab clicked: the market's rows, the sales table under them")
 
-  (Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")).disable()
+  destroy added
+  destroy page
 }
 
 test "the market holds a row for each of the market's controls, each following its cell" {
-  // The page's own market is not drawn under this one.
-  const showcase = Runtime.Addon.of(Showcase) ?? panic("the showcase is installed")
-  showcase.disable()
   let page = new Market()
   Test.mount(page, { left: 0, top: 0, width: 700, height: 500 })
   Test.shot("the market as the page shows it: the scan at two fifths, the price with its age in amber")
