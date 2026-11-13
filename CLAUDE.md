@@ -183,7 +183,8 @@ addons/OrdaenDev/               the Ordaen Dev window: private (`../wow-dev-tool
                                 here so the build has it; ignored by git
 addons/OrdaenCore_Debug/        the dev addon: private (`../wow-dev-tools/addons/OrdaenCore_Debug`), a junction
                                 as OrdaenDev's; a dev build alone builds it
-addons/Showcase/                a page of the library's controls and a windowed module, for the tests
+addons/Showcase/                a page of the library's controls and a windowed module, for the tests; `"dev": true`
+                                as the dev addon's, so a release build leaves it out
 art/                            how every texture of addons/ came to be and the steps that make it again: pieces,
                                 ComfyUI sets and workflows, sources (README.md; skill `art`)
 _old/lua/                       the Lua addons these replace, with their tests
