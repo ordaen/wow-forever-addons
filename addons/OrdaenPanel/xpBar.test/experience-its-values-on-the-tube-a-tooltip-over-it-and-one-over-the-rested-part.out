@@ -229,20 +229,20 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 96.92,791.5 15.56x15.6 "10" #b88f57 centred
-surface 52,45 271.17x109.25 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 72.25,65.25 235.67x19.2 "Level 10" #ffffff
-  box 72.25,86.12 235.67x15.6
-    box 72.25,86.12 96.78x15.6
-      text 72.25,86.12 47.78x15.6 "Current" #cbb994
-    text 175.69,86.12 132.22x15.6 "2 500 (25%) / 10 000" #ffffff
-  box 72.25,103.38 235.67x15.6
-    box 72.25,103.38 154.56x15.6
-      text 72.25,103.38 74.44x15.6 "To level 11" #cbb994
-    text 233.47,103.38 74.44x15.6 "7 500 (75%)" #ffffff
-  box 72.25,120.65 235.67x15.6
-    box 72.25,120.65 154.56x15.6
-      text 72.25,120.65 81.11x15.6 "Rested bonus" #cbb994
-    text 233.47,120.65 74.44x15.6 "1 500 (15%)" #ffffff
+surface 52,45 271.17x120.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 75.58,68.58 229x19.2 "Level 10" #ffffff
+  box 75.58,91.12 229x15.6
+    box 75.58,91.12 90.11x15.6
+      text 75.58,91.12 47.78x15.6 "Current" #cbb994
+    text 172.36,91.12 132.22x15.6 "2 500 (25%) / 10 000" #ffffff
+  box 75.58,110.05 229x15.6
+    box 75.58,110.05 147.89x15.6
+      text 75.58,110.05 74.44x15.6 "To level 11" #cbb994
+    text 230.14,110.05 74.44x15.6 "7 500 (75%)" #ffffff
+  box 75.58,128.98 229x15.6
+    box 75.58,128.98 147.89x15.6
+      text 75.58,128.98 81.11x15.6 "Rested bonus" #cbb994
+    text 230.14,128.98 74.44x15.6 "1 500 (15%)" #ffffff
 
 -- over the rested part: what rested means, the bonus, resting now, the room for more
 box 0,0 500x25
@@ -359,21 +359,21 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 96.92,791.5 15.56x15.6 "10" #b88f57 centred
-surface 52,45 271.17x173.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 72.25,65.25 235.67x19.2 "Rested" #ffffff
-  text 72.25,86.12 235.67x62.4 "Kills give double experience until the bar reaches the end of the blue part. Log out in an inn or a city to rest up to a level and a half." #cbb994
-  box 72.25,150.18 235.67x15.6
-    box 72.25,150.18 154.56x15.6
-      text 72.25,150.18 81.11x15.6 "Rested bonus" #cbb994
-    text 233.47,150.18 74.44x15.6 "1 500 (15%)" #ffffff
-  box 72.25,167.45 235.67x15.6
-    box 72.25,167.45 206.78x15.6
-      text 72.25,167.45 74.44x15.6 "Resting now" #cbb994
-    text 285.69,167.45 22.22x15.6 "Yes" #ffffff
-  box 72.25,184.72 235.67x15.6
-    box 72.25,184.72 186.78x15.6
-      text 72.25,184.72 87.78x15.6 "Room for more" #cbb994
-    text 265.69,184.72 42.22x15.6 "13 500" #ffffff
+surface 52,45 271.17x186.65 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 75.58,68.58 229x19.2 "Rested" #ffffff
+  text 75.58,91.12 229x62.4 "Kills give double experience until the bar reaches the end of the blue part. Log out in an inn or a city to rest up to a level and a half." #cbb994
+  box 75.58,156.85 229x15.6
+    box 75.58,156.85 147.89x15.6
+      text 75.58,156.85 81.11x15.6 "Rested bonus" #cbb994
+    text 230.14,156.85 74.44x15.6 "1 500 (15%)" #ffffff
+  box 75.58,175.78 229x15.6
+    box 75.58,175.78 200.11x15.6
+      text 75.58,175.78 74.44x15.6 "Resting now" #cbb994
+    text 282.36,175.78 22.22x15.6 "Yes" #ffffff
+  box 75.58,194.72 229x15.6
+    box 75.58,194.72 180.11x15.6
+      text 75.58,194.72 87.78x15.6 "Room for more" #cbb994
+    text 262.36,194.72 42.22x15.6 "13 500" #ffffff
 
 -- past the rested part: the bar's tooltip again
 box 0,0 500x25
@@ -490,20 +490,20 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 96.92,791.5 15.56x15.6 "10" #b88f57 centred
-surface 52,45 271.17x109.25 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 72.25,65.25 235.67x19.2 "Level 10" #ffffff
-  box 72.25,86.12 235.67x15.6
-    box 72.25,86.12 96.78x15.6
-      text 72.25,86.12 47.78x15.6 "Current" #cbb994
-    text 175.69,86.12 132.22x15.6 "2 500 (25%) / 10 000" #ffffff
-  box 72.25,103.38 235.67x15.6
-    box 72.25,103.38 154.56x15.6
-      text 72.25,103.38 74.44x15.6 "To level 11" #cbb994
-    text 233.47,103.38 74.44x15.6 "7 500 (75%)" #ffffff
-  box 72.25,120.65 235.67x15.6
-    box 72.25,120.65 154.56x15.6
-      text 72.25,120.65 81.11x15.6 "Rested bonus" #cbb994
-    text 233.47,120.65 74.44x15.6 "1 500 (15%)" #ffffff
+surface 52,45 271.17x120.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 75.58,68.58 229x19.2 "Level 10" #ffffff
+  box 75.58,91.12 229x15.6
+    box 75.58,91.12 90.11x15.6
+      text 75.58,91.12 47.78x15.6 "Current" #cbb994
+    text 172.36,91.12 132.22x15.6 "2 500 (25%) / 10 000" #ffffff
+  box 75.58,110.05 229x15.6
+    box 75.58,110.05 147.89x15.6
+      text 75.58,110.05 74.44x15.6 "To level 11" #cbb994
+    text 230.14,110.05 74.44x15.6 "7 500 (75%)" #ffffff
+  box 75.58,128.98 229x15.6
+    box 75.58,128.98 147.89x15.6
+      text 75.58,128.98 81.11x15.6 "Rested bonus" #cbb994
+    text 230.14,128.98 74.44x15.6 "1 500 (15%)" #ffffff
 
 -- 264 rested of 29 000: 0.9 % of the level
 box 0,0 500x25
@@ -620,20 +620,20 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 96.92,791.5 15.56x15.6 "31" #b88f57 centred
-surface 52,45 271.17x109.25 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 72.25,65.25 235.67x19.2 "Level 31" #ffffff
-  box 72.25,86.12 235.67x15.6
-    box 72.25,86.12 96.78x15.6
-      text 72.25,86.12 47.78x15.6 "Current" #cbb994
-    text 175.69,86.12 132.22x15.6 "7 250 (25%) / 29 000" #ffffff
-  box 72.25,103.38 235.67x15.6
-    box 72.25,103.38 147.89x15.6
-      text 72.25,103.38 74.44x15.6 "To level 32" #cbb994
-    text 226.81,103.38 81.11x15.6 "21 750 (75%)" #ffffff
-  box 72.25,120.65 235.67x15.6
-    box 72.25,120.65 161.22x15.6
-      text 72.25,120.65 81.11x15.6 "Rested bonus" #cbb994
-    text 240.14,120.65 67.78x15.6 "264 (0.9%)" #ffffff
+surface 52,45 271.17x120.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 75.58,68.58 229x19.2 "Level 31" #ffffff
+  box 75.58,91.12 229x15.6
+    box 75.58,91.12 90.11x15.6
+      text 75.58,91.12 47.78x15.6 "Current" #cbb994
+    text 172.36,91.12 132.22x15.6 "7 250 (25%) / 29 000" #ffffff
+  box 75.58,110.05 229x15.6
+    box 75.58,110.05 141.22x15.6
+      text 75.58,110.05 74.44x15.6 "To level 32" #cbb994
+    text 223.47,110.05 81.11x15.6 "21 750 (75%)" #ffffff
+  box 75.58,128.98 229x15.6
+    box 75.58,128.98 154.56x15.6
+      text 75.58,128.98 81.11x15.6 "Rested bonus" #cbb994
+    text 236.81,128.98 67.78x15.6 "264 (0.9%)" #ffffff
 
 -- no rested bonus: two lines
 box 0,0 500x25
@@ -750,13 +750,13 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 96.92,791.5 15.56x15.6 "31" #b88f57 centred
-surface 52,45 271.17x91.98 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 72.25,65.25 235.67x19.2 "Level 31" #ffffff
-  box 72.25,86.12 235.67x15.6
-    box 72.25,86.12 96.78x15.6
-      text 72.25,86.12 47.78x15.6 "Current" #cbb994
-    text 175.69,86.12 132.22x15.6 "7 250 (25%) / 29 000" #ffffff
-  box 72.25,103.38 235.67x15.6
-    box 72.25,103.38 147.89x15.6
-      text 72.25,103.38 74.44x15.6 "To level 32" #cbb994
-    text 226.81,103.38 81.11x15.6 "21 750 (75%)" #ffffff
+surface 52,45 271.17x101.98 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 75.58,68.58 229x19.2 "Level 31" #ffffff
+  box 75.58,91.12 229x15.6
+    box 75.58,91.12 90.11x15.6
+      text 75.58,91.12 47.78x15.6 "Current" #cbb994
+    text 172.36,91.12 132.22x15.6 "7 250 (25%) / 29 000" #ffffff
+  box 75.58,110.05 229x15.6
+    box 75.58,110.05 141.22x15.6
+      text 75.58,110.05 74.44x15.6 "To level 32" #cbb994
+    text 223.47,110.05 81.11x15.6 "21 750 (75%)" #ffffff

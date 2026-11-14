@@ -325,17 +325,17 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 96.92,791.5 15.56x15.6 "20" #b88f57 centred
-surface 52,73 271.17x91.98 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 72.25,93.25 235.67x19.2 "Stormwind" #ffffff
-  box 72.25,114.12 235.67x15.6
-    box 72.25,114.12 96.78x15.6
-      text 72.25,114.12 47.78x15.6 "Current" #cbb994
-    text 175.69,114.12 132.22x15.6 "4 800 (40%) / 12 000" #ffffff
-  box 72.25,131.38 235.67x15.6
-    box 72.25,131.38 154.56x15.6
-      text 72.25,131.38 15.56x15.6 "To" #cbb994
-      text 91.14,131.38 47.78x15.6 "Revered" #e6b300
-    text 233.47,131.38 74.44x15.6 "7 200 (60%)" #ffffff
+surface 52,73 271.17x101.98 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 75.58,96.58 229x19.2 "Stormwind" #ffffff
+  box 75.58,119.12 229x15.6
+    box 75.58,119.12 90.11x15.6
+      text 75.58,119.12 47.78x15.6 "Current" #cbb994
+    text 172.36,119.12 132.22x15.6 "4 800 (40%) / 12 000" #ffffff
+  box 75.58,138.05 229x15.6
+    box 75.58,138.05 147.89x15.6
+      text 75.58,138.05 15.56x15.6 "To" #cbb994
+      text 94.47,138.05 47.78x15.6 "Revered" #e6b300
+    text 230.14,138.05 74.44x15.6 "7 200 (60%)" #ffffff
 
 the next standing's colour changed, the client told: SetTextColor=1
 a standing changed, the client told: ClearAllPoints=12 EnableMouse=5 EnableMouseWheel=5 GetFrameStrata=1 GetHeight=1 GetStringHeight=1 GetUnboundedStringWidth=1 GetWidth=2 Hide=12 IsVisible=12 SetAllPoints=2 SetClampedToScreen=2 SetFixedFrameStrata=1 SetParent=5 SetPoint=1 SetScript=50 SetShown=13 SetSize=1 SetText=8 SetVertexColor=2
@@ -710,12 +710,12 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 96.92,791.5 15.56x15.6 "20" #b88f57 centred
-surface 52,45 271.17x74.72 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 72.25,65.25 235.67x19.2 "Stormwind" #ffffff
-  box 72.25,86.12 235.67x15.6
-    box 72.25,86.12 129x15.6
-      text 72.25,86.12 47.78x15.6 "Current" #cbb994
-    text 207.92,86.12 100x15.6 "500 (50%) / 999" #ffffff
+surface 52,45 271.17x83.05 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 75.58,68.58 229x19.2 "Stormwind" #ffffff
+  box 75.58,91.12 229x15.6
+    box 75.58,91.12 122.33x15.6
+      text 75.58,91.12 47.78x15.6 "Current" #cbb994
+    text 204.58,91.12 100x15.6 "500 (50%) / 999" #ffffff
 
 -- at the cap, no faction watched: no tube
 box 0,0 500x0
