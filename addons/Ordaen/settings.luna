@@ -119,6 +119,18 @@ public class Settings<S: Plain> implements Sectioned {
     self.draft = values.clone()
   }
 
+  // What the player chose outside the settings page (a part taken to another side in the placing mode): `apply`
+  // changes the values at once, kept, and the draft the same way; the draft's other changes still wait for «Save».
+  public change(mut self, apply: (values: mut S) => nil) {
+    const values = (peek self.values).clone()
+    apply(mut values)
+    self.values = values
+    const draft = (peek self.draft).clone()
+    apply(mut draft)
+    self.draft = draft
+    self.keep()
+  }
+
   // Every value back to its default, the draft with them.
   public reset(mut self) {
     self.values = self.defaults.clone()

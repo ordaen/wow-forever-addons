@@ -1,0 +1,72 @@
+// The placing mode reaches every part the modules draw: each surface on the screen's layer holds a `Mover`, so in the
+// placing mode it is shaded with its name, a drag moves it and a right click puts it back. Built with Ordaen alone
+// (`--addon Ordaen`) no module runs and there is nothing to place; the build runs this file again with every addon of
+// the folder (`zig build test`'s run of the whole folder), so a module that draws a part placing doesn't know fails
+// here, whoever wrote it.
+import { Layer } from "$ltml"
+import Runtime from "$runtime"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+
+// The modules the player has: every addon that needs Ordaen.
+function modules(): Integer {
+  const own = Runtime.Addon.of(Ordaen) ?? panic("Ordaen is installed")
+  return own.dependents().length
+}
+
+// How far a part's middle went: the first surface that holds its name, before and after.
+function apart(one: Test.Point, other: Test.Point): Number {
+  return ((one.x - other.x) ** 2 + (one.y - other.y) ** 2).sqrt()
+}
+
+// A drag from a part's middle to a place across the screen, as the player's mouse does it.
+function dragged(from: Test.Point, to: Test.Point) {
+  Test.moveTo(from)
+  Test.press(nil)
+  // The client starts the drag once the cursor has moved.
+  Test.moveTo({ x: from.x + 1, y: from.y })
+  Test.pass(0.02)
+  Test.moveTo(to)
+  Test.pass(0.02)
+  Test.release(nil)
+  Test.pass(0.02)
+}
+
+test "in the placing mode every part the modules draw on the screen is shaded with its name, moves and goes back" {
+  Test.mount(nil, SCREEN)
+  Ordaen.togglePlacing()
+  Test.flush()
+  const names: Map<String, Boolean> = {}
+  for (part of Ordaen.parts) { names[part.title] = true }
+  Test.expect(modules() == 0 || Ordaen.parts.length > 0)
+
+  // Each surface on the screen's layer holds a part's name: the mover over it.
+  for (shown of Test.surfaces()) {
+    if (shown.layer == Layer.Screen) {
+      Test.expect(shown.texts.any(text => names[text] == true))
+    }
+  }
+
+  // Each part, once (a part may hold a mover in more than one surface): dragged across the screen it moves,
+  // right-clicked it goes back.
+  const titles: Array<String> = []
+  const seen: Map<String, Boolean> = {}
+  for (part of Ordaen.parts) {
+    if (seen[part.id] != true) {
+      seen[part.id] = true
+      titles.push(part.title)
+    }
+  }
+  for (title of titles) {
+    const home = Test.surfaceHolding(title)
+    const across: Test.Point = home.x < 800 ? { x: 1500, y: 450 } : { x: 100, y: 450 }
+    dragged(home, across)
+    const moved = Test.surfaceHolding(title)
+    Test.expect(apart(home, moved) > 100)
+    Test.click(moved, .Right)
+    Test.pass(0.02)
+    Test.expect(apart(home, Test.surfaceHolding(title)) < 1)
+  }
+}

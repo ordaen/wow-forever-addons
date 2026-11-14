@@ -77,7 +77,7 @@ public class Tabs implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} gap={4 * PX}>
-        <box position={Position.Absolute} left={0} right={0} bottom={0} height={1 * PX} background={LINE} />
+        <box position={Position.Absolute} left={0} right={0} bottom={0} height={1 * PX} background={LINE} zLevel={1} />
         <Tab $for={index, name of self.tabs} label={name} index={index} selected={mut self.selected} />
       </box>
     }

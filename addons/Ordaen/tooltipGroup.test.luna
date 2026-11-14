@@ -73,6 +73,11 @@ test "the gap between a group's tooltips is the group's: the cursor crossing it 
   // Under the group, off it: the button behind hears its click.
   Test.click({ x: 301.5, y: 200 }, nil)
   Test.expect(clicked == 1)
+  // In the group's rectangle, in the corner beside the shorter tooltip (under the secondary's 50 units, beside the
+  // primary's 80): no gap, the world's. The button behind hears the click, and the group nothing.
+  Test.click({ x: 310, y: 165 }, nil)
+  Test.expect(clicked == 2)
+  Test.expect(page.told() == "")
 
   page.leftwards = true
   Test.shot("running leftwards: the secondary on the primary's left")

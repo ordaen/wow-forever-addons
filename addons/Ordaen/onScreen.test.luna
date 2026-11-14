@@ -91,7 +91,7 @@ test "a drag is held to its surface's room: moved, at each edge and corner; size
     { dx: -500, dy: -500, hold: Hold.Size, x: -500, y: -500 },
   ]
   for (c of cases) {
-    let x, y = kept({ x: 0, y: 0, dx: c.dx, dy: c.dy, room: room }, c.hold)
+    let x, y = kept({ x: 0, y: 0, dx: c.dx, dy: c.dy, room: room, shareX: 0.5, shareY: 0.5 }, c.hold)
     Test.expect(x == c.x && y == c.y)
   }
 }

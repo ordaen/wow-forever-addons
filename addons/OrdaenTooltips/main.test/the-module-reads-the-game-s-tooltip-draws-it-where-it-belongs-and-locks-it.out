@@ -441,6 +441,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
             box 1086,292.42 30x15
               box 1086,293.25 13.33x13.33
                 box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+                  box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
               box 1103.5,292.42 12.5x15
                 text 1103.5,292.42 12.5x15 "65" #f3e7cc
           box 1124.33,285.75 90.42x21.67
@@ -478,6 +479,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
             box 1086,292.42 30x15
               box 1086,293.25 13.33x13.33
                 box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+                  box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
               box 1103.5,292.42 12.5x15
                 text 1103.5,292.42 12.5x15 "65" #f3e7cc
           box 1124.33,285.75 90.42x21.67
@@ -522,6 +524,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
             box 1086,292.42 30x15
               box 1086,293.25 13.33x13.33
                 box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+                  box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
               box 1103.5,292.42 12.5x15
                 text 1103.5,292.42 12.5x15 "65" #f3e7cc
           box 1124.33,285.75 90.42x21.67
@@ -557,6 +560,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
             box 1086,292.42 30x15
               box 1086,293.25 13.33x13.33
                 box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+                  box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
               box 1103.5,292.42 12.5x15
                 text 1103.5,292.42 12.5x15 "65" #f3e7cc
           box 1124.33,285.75 90.42x21.67

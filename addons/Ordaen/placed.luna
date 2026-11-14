@@ -1,8 +1,8 @@
-// A free part of a module: something that stands on the screen where the player put it. It is drawn at its saved
-// place, or where its module says while it was never moved. In the placing mode it shows an outline with its name
-// over what it holds: dragged, it moves, and where it is let go is kept; right-clicked, it goes back to where its
-// module says. Its unnamed slot takes what it holds.
-import { Align, Anchored, Click, Drag, Layer, Line, MouseButton, Place, Position } from "$ltml"
+// The parts of the modules the player places, and what the placing mode shows of each: a part is a surface on the
+// screen's layer that holds a `Mover`. A free part is a `Placed`: drawn at its saved place, or where its module says
+// while it was never moved. A part held to a side of the screen (the bottom panel) draws its own surface, holds a
+// `Mover` itself and goes to the side nearest where it is let go (`sideNear`).
+import { Align, Anchored, Click, Drag, Layer, Line, MouseButton, Place, Position, Side } from "$ltml"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
 import root Ordaen from "Ordaen"
@@ -11,6 +11,60 @@ const GOLD: Color = Color.hex("#ffd100")
 const SHADE: Color = Color.hex("#00000073")
 const OUTLINE: Line = { width: 1, color: GOLD }
 
+// What the player takes a part by in the placing mode: an outline over the whole of the part's surface, shaded, with
+// the part's name. Dragged, it says so to its part; right-clicked, it asks its part back where its module says. Each
+// one made joins Ordaen's parts, and leaves them as it ends: the parts placing knows are the movers drawn.
+public class Mover implements Component {
+  // What tells the part from every other: its module's folder and its own name (`OrdaenPanel.bags`).
+  public const id: String
+  // Its name in the placing mode.
+  public const title: String
+  public grab: Event<nil> = new Event()
+  public drag: Event<Drag> = new Event()
+  public drop: Event<nil> = new Event()
+  // A right click: the part goes back where its module says.
+  public reset: Event<nil> = new Event()
+
+  constructor(id: String, title: String) {
+    self.id = id
+    self.title = title
+    Ordaen.parts.add(self)
+  }
+
+  onGrab(mut self) { self.grab.emit() }
+  onDrag(mut self, moved: Drag) { self.drag.emit(moved) }
+  onDrop(mut self) { self.drop.emit() }
+
+  onClick(mut self, click: Click) {
+    if (click.button == MouseButton.Right) { self.reset.emit() }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={Ordaen.placing} position={Position.Absolute} left={0} top={0} right={0} bottom={0} zLevel={20}
+           background={SHADE} border={OUTLINE} xAlign={Align.Center} yAlign={Align.Center}
+           @dragStart={self.onGrab} @drag={self.onDrag} @dragStop={self.onDrop} @click={self.onClick}>
+        <text value={self.title} textColor={GOLD} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// The side of the screen nearest the cursor of a drag: where a part held to a side goes.
+public function sideNear(drag: Drag): Side {
+  const left = drag.shareX
+  const right = 1 - drag.shareX
+  const top = drag.shareY
+  const bottom = 1 - drag.shareY
+  const least = left.min(right).min(top).min(bottom)
+  if (least == bottom) { return Side.Bottom }
+  if (least == top) { return Side.Top }
+  if (least == left) { return Side.Left }
+  return Side.Right
+}
+
+// A free part: it stands where the player put it; dragged in the placing mode, it moves, and where it is let go is
+// kept. Its unnamed slot takes what it holds.
 public class Placed implements Component {
   // Where the player put it; nothing while it was never moved.
   derived kept: Anchored | nil = Ordaen.moved(self.id)
@@ -52,20 +106,14 @@ public class Placed implements Component {
     self.dragged = nil
   }
 
-  // A right click puts it back where its module says.
-  onClick(mut self, click: Click) {
-    if (click.button == MouseButton.Right) { Ordaen.putAt(self.id, nil) }
-  }
+  onReset(mut self) { Ordaen.putAt(self.id, nil) }
 
   public render(self): Template {
     return $ltml {
       <surface layer={Layer.Screen} place={self.place} clamp={true} textFamily={Ordaen.lookArt.font}>
         <slot />
-        <box $if={Ordaen.placing} position={Position.Absolute} left={0} top={0} right={0} bottom={0} zLevel={20}
-             background={SHADE} border={OUTLINE} xAlign={Align.Center} yAlign={Align.Center}
-             @dragStart={self.onGrab} @drag={self.onDrag} @dragStop={self.onDrop} @click={self.onClick}>
-          <text value={self.title} textColor={GOLD} wrap={false} />
-        </box>
+        <Mover id={self.id} title={self.title} @grab={self.onGrab} @drag={self.onDrag} @drop={self.onDrop}
+               @reset={self.onReset} />
       </surface>
     }
   }

@@ -3,14 +3,15 @@
 // bags) sits in the zone its setting names, or not on the panel. The menu's buttons and the bags are the game's own,
 // standing in the panel's cells, so their clicks, menus and alerts stay the game's.
 import Game from "$game"
-import { Align, Anchored, Docked, Edges, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
+import { Align, Anchored, Docked, Drag, Edges, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Module, Placed, Settings, SettingsPage } from "Ordaen"
+import { Component, Module, Mover, Placed, Settings, SettingsPage, sideNear } from "Ordaen"
 import Locale from "@/locales"
 import { BagLine, MicroLine, MoneyLine, SocialLine } from "@/items"
 import { CharButton, Choices, Combat, DEFAULTS, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
 import { BottomPage, GeneralPage, MicroPage, StatusPage } from "@/settings"
 import { XpBar } from "@/xpBar"
+import { ExperienceGains, ReputationGains } from "@/gains"
 
 const INK: Color = Color.hex("#e8dcc4")
 // The time while calendar invites wait.
@@ -18,7 +19,10 @@ const PENDING: Color = Color.hex("#ff9933")
 const TEXT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
 const NO_SHADOW: Shadow = { color: Color.hex("#00000000"), x: 0, y: 0 }
 // Under the metal along its inner side the content starts 4 further in.
-const EDGE_ROOM: Edges = { top: 4 }
+const EDGE_ROOM_TOP = 4
+const EDGE_ROOM: Edges = { top: EDGE_ROOM_TOP }
+// The metal's width along the inner side (Ordaen's `panel.edge`).
+const METAL = 3
 // A panel shown on mouseover, hidden: unseen, yet under the cursor.
 const MOUSEOVER_LEAST = 1 / 255
 // Where the free parts stand until the player moves them: above the bottom of the screen.
@@ -40,12 +44,24 @@ const CORNER: Anchored = { point: Point.BottomLeft }
 // Down a side of the screen: one column, the zones one under another.
 const DOWN: Array<Track> = [{ fr: 1 }]
 
+// The side of the screen an edge setting names, and the setting that names a side.
+function sideOf(edge: Edge): Side {
+  return match (edge) { Edge.Bottom => Side.Bottom, Edge.Top => Side.Top, Edge.Left => Side.Left, Edge.Right => Side.Right }
+}
+
+function edgeOf(side: Side): Edge {
+  return match (side) { Side.Bottom => Edge.Bottom, Side.Top => Edge.Top, Side.Left => Edge.Left, Side.Right => Edge.Right }
+}
+
 // One zone of the panel: its items in their order, from the zone's start, in its middle or to its end.
 public class ZoneBox implements Component {
   // Ordaen's art: its root is there before this module loads.
   derived align: Align = self.alignOf()
   derived micro: Boolean = self.panel.microIn(self.zone)
+  // Friends and guild with the menu in one zone stand in the menu, before its game menu's button; elsewhere, on
+  // their own.
   derived social: Boolean = self.panel.socialIn(self.zone)
+  derived socialAlone: Boolean = self.social && !self.micro
   // The experience bar lies along a panel that runs across the screen: down a side there is no room for it.
   derived experience: Boolean = self.panel.experienceIn(self.zone) && !self.panel.vertical
   derived zoneName: Boolean = self.panel.zoneIn(self.zone)
@@ -81,7 +97,7 @@ public class ZoneBox implements Component {
 
   tracks(self): Array<Track> {
     let list: Array<Track> = []
-    for (here of [self.micro, self.social]) {
+    for (here of [self.micro, self.socialAlone]) {
       if (here) { list.push("auto") }
     }
     // The experience bar takes what the others leave.
@@ -102,12 +118,13 @@ public class ZoneBox implements Component {
           <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={Ordaen.art.spacing.md}
                yAlign={Align.Center}>
             <box width={PORTRAIT_WIDTH} height={1} />
-            <MicroLine gold={self.panel.goldIcons} faced={false} />
+            <MicroLine gold={self.panel.goldIcons} faced={false} social={self.social} />
           </box>
-          <MicroLine $else gold={self.panel.goldIcons} vertical={self.panel.vertical} />
+          <MicroLine $else gold={self.panel.goldIcons} vertical={self.panel.vertical} social={self.social} />
         </>
-        <SocialLine $if={self.social} gold={self.panel.goldIcons} vertical={self.panel.vertical} />
-        <XpBar $if={self.experience} />
+        <SocialLine $if={self.socialAlone} gold={self.panel.goldIcons} vertical={self.panel.vertical} />
+        <XpBar $if={self.experience} experience={self.panel.experienceGains} reputation={self.panel.reputationGains}
+               room={self.panel.inside} />
         <text $if={self.zoneName} value={Game.location.zone} textColor={INK}
               textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
         <box $if={self.clock} @click={self.onClock}>
@@ -136,6 +153,9 @@ public class Panel implements Module, App {
   ]
 
   state hovered = false
+  // What the player gains while the module runs, for the bars' tooltips: kept here, so a bar drawn again keeps it.
+  public const experienceGains: ExperienceGains = new ExperienceGains()
+  public const reputationGains: ReputationGains = new ReputationGains()
 
   constructor() {
     Ordaen.modules.add(self)
@@ -146,9 +166,12 @@ public class Panel implements Module, App {
   // The player's portrait stands in the screen's corner: asked for, with the menu at the start of a panel
   // along the bottom. The character's button is then the portrait, and the menu has no cell for it.
   public derived portraitShown: Boolean = self.settings.values.charButton == CharButton.Portrait && self.settings.values.microOn && self.settings.values.bottomOn
-    && self.settings.values.edge == Edge.Bottom && self.at(Item.Micromenu) == Zone.Left
+    && self.side == Side.Bottom && self.at(Item.Micromenu) == Zone.Left
+  // The side it stands along: its edge, or, while the player drags it in the placing mode, the side nearest the cursor.
+  derived side: Side = self.docking ?? sideOf(self.settings.values.edge)
+  state docking: Side | nil = nil
   // The panel runs down a side of the screen: its zones one under another, each item's cells too.
-  public derived vertical: Boolean = self.settings.values.edge == Edge.Left || self.settings.values.edge == Edge.Right
+  public derived vertical: Boolean = self.side == Side.Left || self.side == Side.Right
   public derived outline: Integer = self.outlineOf()
   public derived shadow: Shadow = self.settings.values.shadow ? TEXT_SHADOW : NO_SHADOW
   public derived clockColor: Color = Game.clock.invites > 0 ? PENDING : INK
@@ -174,6 +197,8 @@ public class Panel implements Module, App {
   derived thirds: Array<Track> = self.settings.values.fit == Fit.Full ? THIRDS : FITTED
   derived columns: Array<Track> = self.vertical ? DOWN : self.thirds
   derived rows: Array<Track> | nil = self.vertical ? self.thirds : nil
+  // How high its inside is across the screen: under the metal and the room along it.
+  public derived inside: Number = self.settings.values.height - METAL - EDGE_ROOM_TOP
   // How far it reaches in from its edge.
   derived width: Number | nil = self.vertical ? self.settings.values.height : nil
   derived height: Number | nil = self.vertical ? nil : self.settings.values.height
@@ -207,6 +232,8 @@ public class Panel implements Module, App {
   // Whether the panel is hidden now: never shown, or only while the cursor is on it, or by combat, a vehicle, a
   // pet battle or resting.
   hiddenNow(self): Boolean {
+    // In the placing mode it shows, to be taken to another side.
+    if (Ordaen.placing) { return false }
     if (self.settings.values.show == Show.Never) { return true }
     let fighting = Game.situation.combat
     if (self.settings.values.combat == Combat.Hide && fighting) { return true }
@@ -226,13 +253,23 @@ public class Panel implements Module, App {
   }
 
   placeOf(self): Docked {
-    let whole = self.settings.values.fit == Fit.Full
-    match (self.settings.values.edge) {
-      Edge.Bottom => return { side: Side.Bottom, whole: whole },
-      Edge.Top => return { side: Side.Top, whole: whole },
-      Edge.Left => return { side: Side.Left, whole: whole },
-      Edge.Right => return { side: Side.Right, whole: whole },
-    }
+    return { side: self.side, whole: self.settings.values.fit == Fit.Full }
+  }
+
+  // Dragged in the placing mode, it stands along the side nearest the cursor; let go, that side is its edge from
+  // then, as if chosen on its page. Right-clicked, it goes back to the edge it starts at.
+  onDock(mut self, drag: Drag) { self.docking = sideNear(drag) }
+
+  onDocked(mut self) {
+    const side = peek self.docking
+    self.docking = nil
+    if (side != nil) { self.putOn(edgeOf(side)) }
+  }
+
+  onUndock(mut self) { self.putOn(self.settings.defaults.edge) }
+
+  putOn(mut self, edge: Edge) {
+    self.settings.change((values: mut Choices) => { values.edge = edge })
   }
 
   onEnter(mut self) { self.hovered = true }
@@ -264,6 +301,8 @@ public class Panel implements Module, App {
         <ZoneBox zone={Zone.Left} panel={self} />
         <ZoneBox zone={Zone.Center} panel={self} />
         <ZoneBox zone={Zone.Right} panel={self} />
+        <Mover id={"OrdaenPanel.panel"} title={Locale.TAB_BOTTOM} @drag={self.onDock} @drop={self.onDocked}
+               @reset={self.onUndock} />
       </surface>
       // The portrait: the player's face in the corner's shape, the level on a badge on its rim, and the
       // character's button of the game's unseen over all of it.
@@ -272,11 +311,17 @@ public class Panel implements Module, App {
                textFamily={Ordaen.lookArt.font}>
         <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
                width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
+        // The rim along the top and down the right, over the face: drawn over the box its shape is cut to.
+        <box position={Position.Absolute} left={0} top={0} width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT}
+             background={Ordaen.art.panel.cornerRim} />
         <box position={Position.Absolute} left={86.7} top={5.3} width={36} height={36}
-             background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center}>
+             background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center} zLevel={1}>
           <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
                 wrap={false} />
         </box>
+        // The panel's corner: in the placing mode it takes the panel to another side too.
+        <Mover id={"OrdaenPanel.panel"} title={Locale.TAB_BOTTOM} @drag={self.onDock} @drop={self.onDocked}
+               @reset={self.onUndock} />
       </surface>
 
       <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
@@ -293,7 +338,7 @@ public class Panel implements Module, App {
               home={EXPERIENCE_HOME}>
         <box width={600} background={Ordaen.art.window.wood} border={Ordaen.art.frame.small}
              padding={Ordaen.art.spacing.sm}>
-          <XpBar both={true} />
+          <XpBar experience={self.experienceGains} reputation={self.reputationGains} />
         </box>
       </Placed>
       <Placed $if={self.freeMoney} id={"OrdaenPanel.currencies"} title={Locale.PANEL_CURRENCIES}
