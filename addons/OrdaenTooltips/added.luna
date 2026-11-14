@@ -26,12 +26,11 @@ class AddedLine implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.paired} columns={NAME_VALUE} gap={10 * PX} padding={self.padding}>
-        <text value={self.line.left} textColor={self.leftColor} textSize={16 * PX} />
-        <text value={self.right} textColor={self.rightColor} textSize={16 * PX} wrap={false}
-              textFamily={self.numbers} />
+        <text value={self.line.left} textColor={self.leftColor} />
+        <text value={self.right} textColor={self.rightColor} wrap={false} textFamily={self.numbers} />
       </box>
       <box $else padding={self.padding}>
-        <text value={self.line.left} textColor={self.leftColor} textSize={14 * PX} />
+        <text value={self.line.left} textColor={self.leftColor} />
       </box>
     }
   }

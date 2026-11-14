@@ -3,7 +3,7 @@
 // body, what there is more of, the footer, what other modules add, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
-import { Align, Art, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, Track } from "$ltml"
+import { Align, Art, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, TextSize, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "Ordaen"
 import Locale from "@/locales"
@@ -61,7 +61,7 @@ public struct Drawn {
   right: String | nil
   leftColor: Color
   rightColor: Color
-  size: Number
+  size: TextSize
   padding: Edges
   // What its name opens, and what its value does.
   opens: Opens
@@ -87,14 +87,14 @@ public class TermText implements Component {
 
   text: Signal<String>
   color: Signal<Color>
-  size: Signal<Number>
+  size: Signal<TextSize>
   opens: Signal<Opens>
   locked: Signal<Boolean>
   family: Signal<Art | nil>
   constructor(
     text: Signal<String>,
     color: Signal<Color>,
-    size: Signal<Number>,
+    size: Signal<TextSize>,
     opens: Signal<Opens>,
     locked: Signal<Boolean>,
     // A value's text is in the numbers' font; nothing keeps the text's.
@@ -167,9 +167,9 @@ public class PartText implements Component {
   public render(self): Template {
     return $ltml {
       // In the numbers' font: the client's own for texts has no middle dot.
-      <text $if={self.notFirst} value={" · "} textColor={self.color} textSize={14 * PX} wrap={false}
+      <text $if={self.notFirst} value={" · "} textColor={self.color} textSize={.Secondary} wrap={false}
             textFamily={self.numbers} />
-      <TermText text={self.part.text} color={self.own} size={14 * PX} opens={self.part.opens} locked={self.locked}>
+      <TermText text={self.part.text} color={self.own} size={TextSize.Secondary} opens={self.part.opens} locked={self.locked}>
         <box #opened={opens}>
           <slot #opened opens={opens} />
         </box>
@@ -227,7 +227,7 @@ public class FactCell implements Component {
           // The glyph's room: its picture (`Glyph`, in its tint) isn't shipped yet.
           <box $if={self.hasGlyph} width={16 * PX} height={16 * PX} />
           <box>
-            <text value={self.fact.text} textColor={self.color} textSize={16 * PX} wrap={false} />
+            <text value={self.fact.text} textColor={self.color} wrap={false} />
             <box $if={self.lit} position={Position.Absolute} left={0} right={0} bottom={0} height={1 * PX}
                  background={UNDERLINE} />
           </box>
@@ -404,21 +404,19 @@ public class TipFrame implements Component {
     return list
   }
 
-  // The body's lines as they are drawn: a row with a value 16 px, a description 15, other free lines 14; 6 px
-  // more above a line where rows turn into sentences or back.
+  // The body's lines as they are drawn, each the ladder's `Primary`: a row with a value and a description in the
+  // body's colour, other free lines in their own; 6 px more above a line where rows turn into sentences or back.
   rows(self, lines: Array<TextLine>): Array<Drawn> {
     let list: Array<Drawn> = []
     let pairedBefore = false
     for (index, line of lines) {
       let paired = line.right != nil
-      let size = 14 * PX
-      if (line.indent != true && paired) { size = 16 * PX } else if (line.indent != true && line.desc == true) { size = 15 * PX }
       let padding = NO_PAD
       if (line.indent == true) { padding = INDENT } else if (index > 1 && paired != pairedBefore) { padding = SPACED }
       let plain = paired || line.desc == true ? BODY : FREE
       list.push({
         left: line.left, right: line.right, leftColor: line.color ?? plain,
-        rightColor: line.rightColor ?? line.color ?? BODY, size: size, padding: padding, opens: line.opens,
+        rightColor: line.rightColor ?? line.color ?? BODY, size: TextSize.Primary, padding: padding, opens: line.opens,
         valueOpens: Opens.None,
       })
       pairedBefore = paired
@@ -432,7 +430,7 @@ public class TipFrame implements Component {
       let alone = note.right == nil
       list.push({
         left: note.left, right: note.right, leftColor: alone ? note.valueColor ?? QUIET : QUIET,
-        rightColor: note.valueColor ?? QUIET_VALUE, size: 14 * PX, padding: NO_PAD, opens: note.opens,
+        rightColor: note.valueColor ?? QUIET_VALUE, size: TextSize.Secondary, padding: NO_PAD, opens: note.opens,
         valueOpens: note.valueOpens,
       })
     }
@@ -443,7 +441,7 @@ public class TipFrame implements Component {
     let list: Array<Drawn> = []
     for (key of self.model.keys) {
       list.push({
-        left: key, right: nil, leftColor: QUIET, rightColor: QUIET, size: 14 * PX, padding: NO_PAD,
+        left: key, right: nil, leftColor: QUIET, rightColor: QUIET, size: TextSize.Secondary, padding: NO_PAD,
         opens: Opens.None, valueOpens: Opens.None,
       })
     }
@@ -456,7 +454,7 @@ public class TipFrame implements Component {
            background={Ordaen.art.window.wood} textFamily={Ordaen.lookArt.font}>
         <box $if={self.hasHeader} height={35 * PX} gap={6 * PX}>
           <box xAlign={Align.Center}>
-            <text value={self.header} textColor={HEADING} textSize={15 * PX} wrap={false} />
+            <text value={self.header} textColor={HEADING} wrap={false} />
           </box>
           <box height={2 * PX} border={GROOVE} />
         </box>
@@ -466,7 +464,7 @@ public class TipFrame implements Component {
             <box icon={self.icon} portrait={self.face} />
           </box>
           <box gap={2 * PX} yAlign={Align.Center}>
-            <text value={self.model.name} textColor={self.model.nameColor} textSize={18 * PX} wrap={false}
+            <text value={self.model.name} textColor={self.model.nameColor} textSize={.Title} wrap={false}
                   textFamily={Ordaen.lookArt.fontHeader} />
             <box $if={self.hasDesc} columns={self.descColumns} height={18 * PX} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
@@ -526,7 +524,7 @@ public class TipFrame implements Component {
         </box>
         <box $if={self.main} padding={BAR_PAD}>
           <box height={BAR_ROW} yAlign={Align.Center}>
-            <text $if={self.locked} value={Locale.LOCKED_HINT} textColor={QUIET} textSize={13 * PX} wrap={false} />
+            <text $if={self.locked} value={Locale.LOCKED_HINT} textColor={QUIET} textSize={.Secondary} wrap={false} />
             <box $else height={BAR_HEIGHT} background={self.track}>
               <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.filled}
                    background={BAR_GOLD} />
