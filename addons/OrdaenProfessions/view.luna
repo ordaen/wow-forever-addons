@@ -81,11 +81,21 @@ public function members(recipes: Array<Game.Recipe>, group: Integer, starred: Ar
 // The profession's own tabs: the camp's while it has recipes.
 public enum Page { Recipes = "recipes", Camp = "camp", Queue = "queue", Overview = "overview" }
 
-// A recipe waiting in the queue: what «Create» couldn't start at once, with how many, under its profession.
+// A recipe in the queue: what «Create» asked for, with how many are still to make, under its profession, and its name
+// (the queue shows every profession's, and the game names only the open one's recipes).
 public struct Queued implements Plain {
   skillLine: Integer
   recipe: Integer
+  name: String
   count: Integer
+}
+
+// Why the queue waits for the player's click to go on: for nothing (its next recipe is ready, or nothing is left);
+// the client interrupted the run (the player moved, cancelled it); it refused a craft (a reagent, a tool, a place);
+// a fight began; the next recipe's profession isn't the one open; the bags hold no reagents for the next.
+public enum Pause implements Plain {
+  None = "none", Interrupted = "interrupted", Failed = "failed", Combat = "combat", Closed = "closed",
+  Missing = "missing",
 }
 
 // The most recipes waiting: past it the oldest goes.
@@ -95,8 +105,8 @@ public const MOST_QUEUED = 50
 public const MOST_COUNT = 999
 
 // What a line of the queue asks of the window: the recipe taken out, the recipe opened in its list; and the queue's
-// first recipe made.
-public enum QueueAct { Drop = 1, Open = 2, Run = 3 }
+// next run started.
+public enum QueueAct { Drop = 1, Open = 2, Next = 3 }
 
 // The last category and recipe the player had chosen in a profession.
 public struct Seen implements Plain {
@@ -106,14 +116,15 @@ public struct Seen implements Plain {
 
 // What the window remembers for the character, kept at once: the profession last open (by its skill line, 0 before
 // any was), what was last chosen in each profession, the recipes starred and the ones tracked (each capped, the oldest
-// dropped first), the queue (every profession's, in the order it was asked for), and where the window stands: its
-// centre, and its body's size (0 wide: never moved).
+// dropped first), the queue (every profession's, in the order it was asked for) and why it waits, and where the
+// window stands: its centre, and its body's size (0 wide: never moved).
 public struct Kept implements Plain {
   last: Integer
   seen: Map<Integer, Seen>
   favorites: Array<Integer>
   tracked: Array<Integer>
   queue: Array<Queued>
+  paused: Pause
   x: Number
   y: Number
   width: Number
