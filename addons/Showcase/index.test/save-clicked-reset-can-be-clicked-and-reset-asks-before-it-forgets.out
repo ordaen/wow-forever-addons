@@ -1,5 +1,5 @@
 -- Save then Reset clicked: the question over the page
-box 0,0 700x226.67
+box 0,0 700x256.67
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000059 @click
@@ -11,8 +11,8 @@ box 0,0 700x226.67
     box 112.92,0 62.5x26.67 #00000000 @click
       box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
-  box 0,33.33 700x101.67
-    box 0,33.33 700x101.67
+  box 0,33.33 700x131.67
+    box 0,33.33 700x131.67
       box 0,33.33 700x15
         text 0,33.33 18.75x15 "Map" #e8c35a
         box 27.08,40.42 672.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -21,32 +21,34 @@ box 0,0 700x226.67
           text 0,61.67 233.33x15 "Show the zone" #cbb994
         box 248.33,60 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
           box 248.33,60 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,90 700x16.67 opacity=1
-        box 0,90.83 233.33x15 @enter @leave
-          text 0,90.83 233.33x15 "Size" #cbb994
-        box 248.33,90 451.67x16.67
-          box 248.33,90 200x16.67 @click @drag @dragStart @key
-            box 248.33,95 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-            box 249.17,95.83 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
-            box 291.67,88.33 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-          text 458.33,90.83 25x15 "100%" #ffffff
-      box 0,118.33 700x16.67 opacity=1
-        box 0,119.17 233.33x15 @enter @leave
-          text 0,119.17 233.33x15 "Columns" #cbb994
-        box 248.33,118.33 451.67x16.67
-          box 248.33,118.33 200x16.67 @click @drag @dragStart @key
-            box 248.33,123.33 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-            box 249.17,124.17 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
-            box 281.67,116.67 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-          text 458.33,119.17 6.25x15 "4" #ffffff
-  box 0,141.67 700x15 @enter @leave
-    text 0,141.67 700x15 "zone shown" #ffffff
-  box 0,163.33 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,163.33 120x28.33 absolute
-      text 47.5,170 25x15 "Save" #ffd100
-  box 0,198.33 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-    box 0,198.33 120x28.33 absolute
-      text 44.38,205 31.25x15 "Reset" #ffffff
+      box 0,90 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 0,90 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 0,120 700x16.67 opacity=1
+        box 0,120.83 233.33x15 @enter @leave
+          text 0,120.83 233.33x15 "Size" #cbb994
+        box 248.33,120 451.67x16.67
+          box 248.33,120 200x16.67 @click @drag @dragStart @key
+            box 248.33,125 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+            box 249.17,125.83 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+            box 291.67,118.33 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+          text 458.33,120.83 25x15 "100%" #ffffff
+      box 0,148.33 700x16.67 opacity=1
+        box 0,149.17 233.33x15 @enter @leave
+          text 0,149.17 233.33x15 "Columns" #cbb994
+        box 248.33,148.33 451.67x16.67
+          box 248.33,148.33 200x16.67 @click @drag @dragStart @key
+            box 248.33,153.33 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+            box 249.17,154.17 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+            box 281.67,146.67 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+          text 458.33,149.17 6.25x15 "4" #ffffff
+  box 0,171.67 700x15 @enter @leave
+    text 0,171.67 700x15 "zone shown" #ffffff
+  box 0,193.33 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,193.33 120x28.33 absolute
+      text 47.5,200 25x15 "Save" #ffd100
+  box 0,228.33 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+    box 0,228.33 120x28.33 absolute
+      text 44.38,235 31.25x15 "Reset" #ffffff
 surface 0,0 1600x900 on DIALOG #0000008c
   box 615.25,385.04 369.5x129.92 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     text 645.5,431.96 314x15 "Forget what was saved?" #ffffff

@@ -56,6 +56,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
     box 458.33,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 476.92,183.29 77.33x34.25
         text 493.71,192.92 43.75x15 "Trainer" #ffd100
+asked: Trainer.watch true
 
 -- one picked: its card, the price and the disabled button
 surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click

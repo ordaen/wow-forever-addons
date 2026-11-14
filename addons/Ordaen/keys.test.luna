@@ -4,7 +4,7 @@
 import { Align, Key } from "$ltml"
 import Test from "$test"
 import { Move } from "$test"
-import { Checkbox } from "@/checkbox"
+import { Checkbox, Tick } from "@/checkbox"
 import { Choice, CompactDropdown, Dropdown } from "@/dropdown"
 import { Menu, MenuEntry } from "@/menu"
 import { MoneyInput } from "@/moneyInput"
@@ -28,6 +28,8 @@ class Controls {
   state placing: Placing = { x: 0, y: 0, width: 760, height: 620 }
   state pixel = false
   state sounds = false
+  state ticked = false
+  state shut = false
   state side = "left"
   state size = 1
   state compact = "left"
@@ -71,6 +73,8 @@ class Controls {
             <text value={"menu"} />
             <Menu $if={self.menu} entries={ENTRIES} @pick={self.onPick} @close={self.hideMenu} />
           </box>
+          <Tick value={mut self.ticked} />
+          <Tick value={mut self.shut} disabled={true} />
         </box>
       </Window>
     }
@@ -148,6 +152,14 @@ test "every kind of control works from the keyboard alone" {
   Test.key(Key.Down)
   Test.key(Key.Enter)
   Test.expect(page.picked == 2)
+  // The bare tick: Space ticks it; the disabled one beside it takes no focus and no click, so Tab goes past it round to
+  // whatever follows.
+  Test.key(Move.Next)
+  Test.key(Key.Space)
+  Test.expect(page.ticked)
+  Test.key(Move.Next)
+  Test.expect(Test.focused().contains("«Controls»"))
+  Test.expect(!page.shut)
   // Escape closes the window, kept drawn and hidden.
   Test.key(Key.Escape)
   Test.expect(!page.open)

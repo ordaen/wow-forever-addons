@@ -23,7 +23,7 @@ box 0,0 1000x278.67
         box 0,58.33 516.67x34.67 #00000066 @click
           box 5,66.5 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
             box 5,66.5 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-          box 31.67,64 23.33x23.33
+          box 31.67,64 23.33x23.33 icon=Interface/Icons/INV_Letter_15
           box 63.33,61.67 333.75x28
             text 63.33,61.67 333.75x15 "Auction successful: Linen Cloth" #e8dcc4
             text 63.33,76.67 333.75x13 "Auction House" #a3977f
@@ -68,7 +68,7 @@ box 0,0 1000x278.67
         box 0,209 516.67x34.67 #00000066 @click
           box 5,217.17 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
             box 5,217.17 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-          box 31.67,214.67 23.33x23.33
+          box 31.67,214.67 23.33x23.33 icon=Interface/Icons/INV_Letter_15
           box 63.33,212.33 390x28
             text 63.33,212.33 390x15 "Welcome" #e8dcc4
             text 63.33,227.33 390x13 "System" #a3977f
