@@ -4,7 +4,7 @@ import { PX } from "Ordaen"
 
 public const WIDTH: Number = 1000 * PX
 public const HEIGHT: Number = 600 * PX
-public const LIST: Number = 520 * PX
+public const LIST: Number = 620 * PX
 public const GAP: Number = 10 * PX
 
 public const INK: Color = Color.hex("#e8dcc4")

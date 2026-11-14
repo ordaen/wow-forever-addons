@@ -4,7 +4,7 @@ import { Align, Overflow, Track } from "$ltml"
 import { Choice, Component, PX, Tabs, Toolbar, ToolPick } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
-import { Line, Spell } from "@/spells"
+import Game from "$game"
 import Style from "@/style"
 
 public enum SortBy { Name = "name", Level = "level", Active = "active" }
@@ -18,14 +18,14 @@ const ROW: Array<Track> = [36 * PX, { fr: 1 }]
 const PAGE: Array<Track> = ["auto", "auto", { fr: 1 }]
 
 // Whether the spell stands before another in the sort's order; equal ones by name.
-function before(a: Spell, b: Spell, by: SortBy): Boolean {
+function before(a: Game.SpellEntry, b: Game.SpellEntry, by: SortBy): Boolean {
   if (by == SortBy.Level && a.level != b.level) { return a.level < b.level }
   if (by == SortBy.Active && a.passive != b.passive) { return !a.passive }
   return a.name < b.name || (a.name == b.name && a.level < b.level)
 }
 
 // The name of the skill line a spell stands on.
-function lineName(lines: Array<Line>, index: Integer): String {
+function lineName(lines: Array<Game.SpellLine>, index: Integer): String {
   for (line of lines) {
     if (line.index == index) { return line.name }
   }
@@ -37,9 +37,9 @@ public class SpellRow implements Component {
   derived kind: String = self.spell.passive ? Locale.PASSIVE : Locale.ACTIVE
   derived detail: String = Locale.SPELL_DETAIL.format(lineName(self.lines, self.spell.line), self.kind, self.spell.level)
 
-  spell: Signal<Spell>
-  lines: Signal<Array<Line>>
-  constructor(spell: Signal<Spell>, lines: Signal<Array<Line>>) {
+  spell: Signal<Game.SpellEntry>
+  lines: Signal<Array<Game.SpellLine>>
+  constructor(spell: Signal<Game.SpellEntry>, lines: Signal<Array<Game.SpellLine>>) {
     self.spell = spell
     self.lines = lines
   }
@@ -62,12 +62,12 @@ public class SpellbookPage implements Component {
   state search = ""
   state sort: SortBy = SortBy.Name
   derived names: Array<String> = self.namesOf()
-  derived shown: Array<Spell> = self.shownOf()
+  derived shown: Array<Game.SpellEntry> = self.shownOf()
   derived empty: Boolean = self.shown.length == 0
 
-  spells: Signal<Array<Spell>>
-  lines: Signal<Array<Line>>
-  constructor(spells: Signal<Array<Spell>>, lines: Signal<Array<Line>>) {
+  spells: Signal<Array<Game.SpellEntry>>
+  lines: Signal<Array<Game.SpellLine>>
+  constructor(spells: Signal<Array<Game.SpellEntry>>, lines: Signal<Array<Game.SpellLine>>) {
     self.spells = spells
     self.lines = lines
   }
@@ -85,8 +85,8 @@ public class SpellbookPage implements Component {
     return ""
   }
 
-  shownOf(self): Array<Spell> {
-    const list: Array<Spell> = []
+  shownOf(self): Array<Game.SpellEntry> {
+    const list: Array<Game.SpellEntry> = []
     const sought = self.search.lower()
     const wanted = self.tab == 1 ? 0 : (self.lines[self.tab - 1]?.index ?? 0)
     for (spell of self.spells) {

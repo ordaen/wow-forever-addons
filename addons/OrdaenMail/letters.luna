@@ -1,34 +1,13 @@
 // What the mailbox holds, as the window shows it: a letter, what is attached to it, what was sent, and the ways the
-// inbox is narrowed. `readLetters` reads the client's inbox; the window never reads the client itself.
-import Client from "$client"
+// inbox is narrowed.
+import Game from "$game"
 
 // The most attachments one letter holds.
 public const ATTACHMENTS = 12
 // A letter with this many days left or fewer is shown red.
 public const URGENT_DAYS = 3
 
-public enum Kind { Player = "player", Auction = "auction", System = "system" }
-
 public enum Filter { All = "all", Players = "players", Auction = "auction", System = "system", Money = "money", Items = "items" }
-
-public struct Attachment {
-  item: Integer
-  name: String
-  count: Integer
-}
-
-public struct Letter {
-  // Its place in the client's inbox.
-  index: Integer
-  kind: Kind
-  subject: String
-  sender: String
-  copper: Integer
-  // What the player pays to take it; 0 for none.
-  cod: Integer
-  days: Number
-  items: Array<Attachment>
-}
 
 public enum SentState { Waiting = "waiting", Sending = "sending", Sent = "sent", Stopped = "stopped" }
 
@@ -44,41 +23,13 @@ public struct Sent {
   why: String
 }
 
-// The kind of letter a header describes: the house's mail has an invoice, the world's has no sender.
-function kindOf(index: Integer, sender: String | nil): Kind {
-  const invoice, _, _, _, _, _, _, _, _, _, _ = Client.GetInboxInvoiceInfo(index)
-  if (invoice != nil) { return Kind.Auction }
-  return sender == nil ? Kind.System : Kind.Player
-}
-
-// Every letter the inbox shows, with its attachments.
-public function readLetters(): Array<Letter> {
-  const list: Array<Letter> = []
-  const shown, _ = Client.GetInboxNumItems()
-  for (index of 1..=shown.floor()) {
-    const _, _, sender, subject, money, cod, days, _, _, _, _, _, _ = Client.GetInboxHeaderInfo(index)
-    const items: Array<Attachment> = []
-    for (slot of 1..=ATTACHMENTS) {
-      const name, item, _, count, _, _ = Client.GetInboxItem(index, slot)
-      if (name != nil && item != nil) {
-        items.push({ item: item.floor(), name: name, count: (count ?? 1).floor() })
-      }
-    }
-    list.push({
-      index: index, kind: kindOf(index, sender), subject: subject ?? "", sender: sender ?? "",
-      copper: money.floor(), cod: cod.floor(), days: days, items: items,
-    })
-  }
-  return list
-}
-
 // Whether a letter passes the filter and the search (a part of its subject or its sender).
-public function matches(letter: Letter, filter: Filter, search: String): Boolean {
+public function matches(letter: Game.MailLetter, filter: Filter, search: String): Boolean {
   const kept = match (filter) {
     Filter.All => true,
-    Filter.Players => letter.kind == Kind.Player,
-    Filter.Auction => letter.kind == Kind.Auction,
-    Filter.System => letter.kind == Kind.System,
+    Filter.Players => letter.kind == Game.MailKind.Player,
+    Filter.Auction => letter.kind == Game.MailKind.Auction,
+    Filter.System => letter.kind == Game.MailKind.System,
     Filter.Money => letter.copper > 0,
     Filter.Items => letter.items.length > 0,
   }
@@ -89,6 +40,6 @@ public function matches(letter: Letter, filter: Filter, search: String): Boolean
 }
 
 // How many letters «Collect all» would open: those with money or items and nothing to pay.
-public function collectable(letters: Array<Letter>): Integer {
+public function collectable(letters: Array<Game.MailLetter>): Integer {
   return letters.count(l => l.cod == 0 && (l.copper > 0 || l.items.length > 0))
 }

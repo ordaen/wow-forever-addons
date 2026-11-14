@@ -2,14 +2,13 @@
 // characters. The window shows while the mailbox is open; the letters are read from the client as the mailbox opens
 // and each time it is read again. The client's declarations hold no call that takes mail, returns it, deletes it or
 // sends it, so the window reads and shows and its buttons for those are drawn disabled (`CAN_ACT`).
-import Client from "$client"
 import Game from "$game"
 import Runtime from "$runtime"
 import { Module, Placing, SettingsPage, Settings, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import root Alts from "OrdaenAlts"
 import { Inbox } from "@/inbox"
-import { Letter, readLetters, Sent } from "@/letters"
+import { Sent } from "@/letters"
 import Locale from "@/locales"
 import { OwnTab } from "@/own"
 import { Outbox } from "@/outbox"
@@ -30,7 +29,7 @@ public class Mail implements Module, App {
   state tab = 1
   state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   // The letters the inbox shows, and how many the server says wait in all.
-  state letters: Array<Letter> = []
+  state letters: Array<Game.MailLetter> = []
   state total = 0
   state sent: Array<Sent> = []
   // The player shut the window while the mailbox stays open.
@@ -50,9 +49,9 @@ public class Mail implements Module, App {
   }
 
   public refresh(mut self) {
-    self.letters = readLetters()
-    const _, total = Client.GetInboxNumItems()
-    self.total = total.floor()
+    self.letters = Game.mailbox.letters()
+
+    self.total = Game.mailbox.waiting()
   }
 
   onOpened(mut self) {

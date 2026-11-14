@@ -3,9 +3,9 @@
 // checkbox; Shift+click on one ticks the range from the last ticked.
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
-import { ARTWORK, Choice, Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, Toolbar, ToolPick, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, Tick, Toolbar, ToolPick, tracksOf } from "Ordaen"
 import root Ordaen from "Ordaen"
-import { Attachment, collectable, Filter, Kind, Letter, matches, URGENT_DAYS } from "@/letters"
+import { collectable, Filter, matches, URGENT_DAYS } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -27,7 +27,7 @@ const VIEWS: Array<Choice<View>> = [
 const COLUMNS: Array<Column> = [
   { title: Locale.COL_SUBJECT, width: { fr: 3 }, sortable: true },
   { title: Locale.COL_FROM, width: { fr: 2 }, sortable: true },
-  { title: Locale.COL_ATTACHED, width: 150 * PX },
+  { title: Locale.COL_ATTACHED, width: 130 * PX },
   { title: Locale.COL_DAYS, width: 70 * PX, align: Align.End, sortable: true },
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
@@ -41,18 +41,18 @@ const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
 
 // The letters of one kind, under their caption.
 public struct Group {
-  kind: Kind
+  kind: Game.MailKind
   title: String
-  letters: Array<Letter>
+  letters: Array<Game.MailLetter>
 }
 
-function daysColor(letter: Letter): Color { return letter.days < URGENT_DAYS ? Style.RED : Style.DIM }
+function daysColor(letter: Game.MailLetter): Color { return letter.days < URGENT_DAYS ? Style.RED : Style.DIM }
 
-function daysText(letter: Letter): String {
+function daysText(letter: Game.MailLetter): String {
   return letter.days < 1 ? Locale.LESS_THAN_A_DAY : Locale.DAYS_LEFT.format(letter.days.floor())
 }
 
-function attachedText(letter: Letter): String {
+function attachedText(letter: Game.MailLetter): String {
   const parts: Array<String> = []
   if (letter.items.length > 0) { parts.push(Locale.ITEMS_COUNT.format(letter.items.length)) }
   if (letter.copper > 0) { parts.push(Game.money.format(letter.copper)) }
@@ -65,7 +65,7 @@ public class LetterRow implements Component {
   public tick: Event<Integer> = new Event()
 
   derived background: Color = self.picked == self.letter.index ? Style.PICKED : Style.BACK
-  derived mark: String = self.ticked.any(i => i == self.letter.index) ? "x" : ""
+  state checked = false
   derived days: Color = daysColor(self.letter)
   derived daysLabel: String = daysText(self.letter)
   derived first: Integer | nil = self.letter.items[1]?.item
@@ -76,26 +76,36 @@ public class LetterRow implements Component {
   derived hasMoney: Boolean = self.letter.copper > 0
   derived hasCod: Boolean = self.letter.cod > 0
 
-  letter: Signal<Letter>
+  letter: Signal<Game.MailLetter>
   picked: Signal<Integer>
   ticked: Signal<Array<Integer>>
-  constructor(letter: Signal<Letter>, picked: Signal<Integer>, ticked: Signal<Array<Integer>>) {
+  constructor(letter: Signal<Game.MailLetter>, picked: Signal<Integer>, ticked: Signal<Array<Integer>>) {
     self.letter = letter
     self.picked = picked
     self.ticked = ticked
+    watch (value of self.ticked) { self.syncChecked() }
+    watch (value of self.checked) { self.tickChanged() }
   }
 
   onPick(mut self) { self.pick.emit(self.letter.index) }
-  onTick(mut self) { self.tick.emit(self.letter.index) }
+  // The list ticked a letter (or a range): the box follows.
+  syncChecked(mut self) {
+    const held = peek self.ticked
+    const on = held.any(i => i == self.letter.index)
+    if (on != peek self.checked) { self.checked = on }
+  }
+
+  // The player ticked the box: the list is told if it does not hold it so yet.
+  tickChanged(self) {
+    const held = peek self.ticked
+    if (self.checked != held.any(i => i == self.letter.index)) { self.tick.emit(self.letter.index) }
+  }
 
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={8 * PX} yAlign={Align.Center} background={self.background}
            padding={{ top: 4 * PX, bottom: 4 * PX, left: 6 * PX, right: 6 * PX }} @click={self.onPick}>
-        <box width={18 * PX} height={18 * PX} border={{ width: 1 * PX, color: Style.DIM }} xAlign={Align.Center}
-             yAlign={Align.Center} @click={self.onTick}>
-          <text value={self.mark} textColor={Style.GOLD} wrap={false} />
-        </box>
+        <Tick value={mut self.checked} />
         <ItemButton $if={self.hasItems} item={self.first} size={28 * PX} />
         <box $else width={28 * PX} height={28 * PX} />
         <box columns={1}>
@@ -121,9 +131,9 @@ public class LetterTableRow implements Component {
   derived attached: String = attachedText(self.letter)
   derived sender: String = self.letter.sender == "" ? Locale.SYSTEM_SENDER : self.letter.sender
 
-  letter: Signal<Letter>
+  letter: Signal<Game.MailLetter>
   tracks: Signal<Array<Track>>
-  constructor(letter: Signal<Letter>, tracks: Signal<Array<Track>>) {
+  constructor(letter: Signal<Game.MailLetter>, tracks: Signal<Array<Track>>) {
     self.letter = letter
     self.tracks = tracks
   }
@@ -133,7 +143,7 @@ public class LetterTableRow implements Component {
       <TableRow tracks={self.tracks}>
         <text value={self.letter.subject} textColor={Style.INK} wrap={false} />
         <text value={self.sender} textColor={Style.DIM} wrap={false} />
-        <text value={self.attached} textColor={Style.DIM} wrap={false} />
+        <text value={self.attached} textColor={Style.DIM} />
         <box xAlign={Align.End}>
           <text value={self.daysLabel} textColor={self.days} wrap={false} />
         </box>
@@ -151,7 +161,7 @@ public class LetterView implements Component {
   derived subject: String = self.letter?.subject ?? ""
   derived sender: String = self.letter?.sender ?? ""
   derived days: String = self.daysOf()
-  derived items: Array<Attachment> = self.letter?.items ?? []
+  derived items: Array<Game.MailItem> = self.letter?.items ?? []
   derived money: Integer = self.letter?.copper ?? 0
   derived hasMoney: Boolean = self.money > 0
   derived cod: Integer = self.letter?.cod ?? 0
@@ -159,9 +169,9 @@ public class LetterView implements Component {
   derived takeLabel: String = self.hasCod ? Locale.PAY_AND_COLLECT : Locale.COLLECT
   derived empty: Boolean = self.has && self.items.length == 0 && !self.hasMoney
 
-  letter: Signal<Letter | nil>
+  letter: Signal<Game.MailLetter | nil>
   canAct: Signal<Boolean>
-  constructor(letter: Signal<Letter | nil>, canAct: Signal<Boolean>) {
+  constructor(letter: Signal<Game.MailLetter | nil>, canAct: Signal<Boolean>) {
     self.letter = letter
     self.canAct = canAct
   }
@@ -229,10 +239,10 @@ public class Inbox implements Component {
   state ticked: mut Array<Integer> = []
   state tableColumn = 1
   state tableDescending = false
-  derived shown: Array<Letter> = self.shownOf()
+  derived shown: Array<Game.MailLetter> = self.shownOf()
   derived groups: Array<Group> = self.groupsOf()
-  derived rows: Array<Letter> = self.rowsOf()
-  derived current: Letter | nil = self.currentOf()
+  derived rows: Array<Game.MailLetter> = self.rowsOf()
+  derived current: Game.MailLetter | nil = self.currentOf()
   derived count: Integer = collectable(self.shown)
   derived collectLabel: String = Locale.COLLECT_ALL.format(self.count)
   derived tickedLabel: String = Locale.COLLECT_TICKED.format(self.ticked.length)
@@ -245,24 +255,24 @@ public class Inbox implements Component {
   derived narrowed: Boolean = self.filter != Filter.All
   derived nothingToCollect: Boolean = !self.canAct || self.count == 0
 
-  letters: Signal<Array<Letter>>
+  letters: Signal<Array<Game.MailLetter>>
   total: Signal<Integer>
   canAct: Signal<Boolean>
-  constructor(letters: Signal<Array<Letter>>, total: Signal<Integer>, canAct: Signal<Boolean>) {
+  constructor(letters: Signal<Array<Game.MailLetter>>, total: Signal<Integer>, canAct: Signal<Boolean>) {
     self.letters = letters
     self.total = total
     self.canAct = canAct
   }
 
-  currentOf(self): Letter | nil {
+  currentOf(self): Game.MailLetter | nil {
     for (letter of self.letters) {
       if (letter.index == self.picked) { return letter }
     }
     return nil
   }
 
-  shownOf(self): Array<Letter> {
-    const list: Array<Letter> = []
+  shownOf(self): Array<Game.MailLetter> {
+    const list: Array<Game.MailLetter> = []
     for (letter of self.letters) {
       if (matches(letter, self.filter, self.search)) { list.push(letter) }
     }
@@ -271,17 +281,17 @@ public class Inbox implements Component {
 
   groupsOf(self): Array<Group> {
     const list: Array<Group> = []
-    const kinds: Array<Kind> = [Kind.Auction, Kind.Player, Kind.System]
+    const kinds: Array<Game.MailKind> = [Game.MailKind.Auction, Game.MailKind.Player, Game.MailKind.System]
     for (kind of kinds) {
-      const part: Array<Letter> = []
+      const part: Array<Game.MailLetter> = []
       for (letter of self.shown) {
         if (letter.kind == kind) { part.push(letter) }
       }
       if (part.length > 0) {
         const title = match (kind) {
-          Kind.Auction => Locale.GROUP_AUCTION,
-          Kind.Player => Locale.GROUP_PLAYERS,
-          Kind.System => Locale.GROUP_SYSTEM,
+          Game.MailKind.Auction => Locale.GROUP_AUCTION,
+          Game.MailKind.Player => Locale.GROUP_PLAYERS,
+          Game.MailKind.System => Locale.GROUP_SYSTEM,
         }
         list.push({ kind: kind, title: "%s (%d)".format(title, part.length), letters: part })
       }
@@ -290,8 +300,8 @@ public class Inbox implements Component {
   }
 
   // The letters of the table, by the column that was clicked.
-  rowsOf(self): Array<Letter> {
-    const list: Array<Letter> = []
+  rowsOf(self): Array<Game.MailLetter> {
+    const list: Array<Game.MailLetter> = []
     for (letter of self.shown) { list.push(letter) }
     const column = self.tableColumn
     const down = self.tableDescending
