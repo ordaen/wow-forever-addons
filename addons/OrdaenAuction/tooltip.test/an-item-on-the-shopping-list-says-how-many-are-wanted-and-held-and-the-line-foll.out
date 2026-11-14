@@ -44,4 +44,5 @@ surface 1228.83,578.75 271.17x141.25 on TOOLTIP
           box 1249.08,688.67 235.67x13.33
             box 1249.08,694.08 235.67x2.5
               box 1249.08,694.08 0x2.5 absolute #d6a56b80
+asked: Tooltip.hide false
 asked: Tooltip.hide true
