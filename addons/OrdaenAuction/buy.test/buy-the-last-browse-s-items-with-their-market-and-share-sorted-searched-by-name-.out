@@ -129,10 +129,10 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         text 46.14,19.57 22.22x15.6 "Buy" #ffd100 centred
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
-        text 167.31,19.57 28.89x15.6 "Sell" #b3a690 centred
+        text 167.31,19.57 28.89x15.6 "Sell" #a3977f centred
     box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 267.58,10.25 77.33x34.25
-        text 291.81,19.57 28.89x15.6 "Data" #b3a690 centred
+        text 291.81,19.57 28.89x15.6 "Data" #a3977f centred
 
 -- sorted by the lowest: linen first
 surface 0,0 1600x900 on DIALOG clamped raised by a click
@@ -275,10 +275,10 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         text 46.14,19.57 22.22x15.6 "Buy" #ffd100 centred
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
-        text 167.31,19.57 28.89x15.6 "Sell" #b3a690 centred
+        text 167.31,19.57 28.89x15.6 "Sell" #a3977f centred
     box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 267.58,10.25 77.33x34.25
-        text 291.81,19.57 28.89x15.6 "Data" #b3a690 centred
+        text 291.81,19.57 28.89x15.6 "Data" #a3977f centred
 
 the typing settled, the house busy: nothing sent yet
 -- filtered: linen alone; the house searched for «lin» once it took a query
@@ -401,10 +401,10 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         text 46.14,19.57 22.22x15.6 "Buy" #ffd100 centred
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
-        text 167.31,19.57 28.89x15.6 "Sell" #b3a690 centred
+        text 167.31,19.57 28.89x15.6 "Sell" #a3977f centred
     box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 267.58,10.25 77.33x34.25
-        text 291.81,19.57 28.89x15.6 "Data" #b3a690 centred
+        text 291.81,19.57 28.89x15.6 "Data" #a3977f centred
 asked: AuctionQuery.search lin -1 -1 -1 -1 0
 
 -- the filter's menu under the funnel: the classes, the level bands, the qualities, each under a rule
@@ -527,10 +527,10 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         text 46.14,19.57 22.22x15.6 "Buy" #ffd100 centred
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
-        text 167.31,19.57 28.89x15.6 "Sell" #b3a690 centred
+        text 167.31,19.57 28.89x15.6 "Sell" #a3977f centred
     box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 267.58,10.25 77.33x34.25
-        text 291.81,19.57 28.89x15.6 "Data" #b3a690 centred
+        text 291.81,19.57 28.89x15.6 "Data" #a3977f centred
 surface 1265.58,98.33 175x304.7 on FULLSCREEN_DIALOG #0a0806f7
   box 1266.42,104.17 173.33x23.93 #00000000 @click
     box 1274.75,111.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2

@@ -93,10 +93,10 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         text 46.14,19.57 22.22x15.6 "Buy" #ffd100 centred
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
-        text 167.31,19.57 28.89x15.6 "Sell" #b3a690 centred
+        text 167.31,19.57 28.89x15.6 "Sell" #a3977f centred
     box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 267.58,10.25 77.33x34.25
-        text 291.81,19.57 28.89x15.6 "Data" #b3a690 centred
+        text 291.81,19.57 28.89x15.6 "Data" #a3977f centred
 
 the game's own window: at -10000,0, opacity 0
 key: ESCAPE → none

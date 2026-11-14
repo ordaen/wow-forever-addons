@@ -234,25 +234,25 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         text 46.14,19.57 22.22x15.6 "Buy" #ffd100 centred
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
-        text 167.31,19.57 28.89x15.6 "Sell" #b3a690 centred
+        text 167.31,19.57 28.89x15.6 "Sell" #a3977f centred
     box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 267.58,10.25 77.33x34.25
-        text 291.81,19.57 28.89x15.6 "Data" #b3a690 centred
-surface 1301.08,606.78 271.17x142.12 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 1321.33,627.03 235.67x19.2 "More" #ffffff
-  text 1321.33,647.9 235.67x31.2 "Hold to keep stepping, up to the limit." #cbb994
-  box 1321.33,680.77 235.67x15.6
-    box 1321.33,680.77 213.44x15.6
-      text 1321.33,680.77 67.78x15.6 "Left-click" #cbb994
-    text 1541.44,680.77 15.56x15.6 "+1" #ffffff
-  box 1321.33,698.03 235.67x15.6
-    box 1321.33,698.03 206.78x15.6
-      text 1321.33,698.03 106.67x15.6 "Shift+Left-click" #cbb994
-    text 1534.78,698.03 22.22x15.6 "+10" #ffffff
-  box 1321.33,715.3 235.67x15.6
-    box 1321.33,715.3 200.11x15.6
-      text 1321.33,715.3 93.33x15.6 "Alt+Left-click" #cbb994
-    text 1528.11,715.3 28.89x15.6 "+100" #ffffff
+        text 291.81,19.57 28.89x15.6 "Data" #a3977f centred
+surface 1301.08,593.45 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 1324.67,617.03 229x19.2 "More" #ffffff
+  text 1324.67,639.57 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
+  box 1324.67,674.1 229x15.6
+    box 1324.67,674.1 206.78x15.6
+      text 1324.67,674.1 67.78x15.6 "Left-click" #cbb994
+    text 1538.11,674.1 15.56x15.6 "+1" #ffffff
+  box 1324.67,693.03 229x15.6
+    box 1324.67,693.03 200.11x15.6
+      text 1324.67,693.03 106.67x15.6 "Shift+Left-click" #cbb994
+    text 1531.44,693.03 22.22x15.6 "+10" #ffffff
+  box 1324.67,711.97 229x15.6
+    box 1324.67,711.97 193.44x15.6
+      text 1324.67,711.97 93.33x15.6 "Alt+Left-click" #cbb994
+    text 1524.78,711.97 28.89x15.6 "+100" #ffffff
 asked: AuctionQuery.listings 2589
 
 -- the client's price for 15: «Confirm»
@@ -491,10 +491,10 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         text 46.14,19.57 22.22x15.6 "Buy" #ffd100 centred
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
-        text 167.31,19.57 28.89x15.6 "Sell" #b3a690 centred
+        text 167.31,19.57 28.89x15.6 "Sell" #a3977f centred
     box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 267.58,10.25 77.33x34.25
-        text 291.81,19.57 28.89x15.6 "Data" #b3a690 centred
+        text 291.81,19.57 28.89x15.6 "Data" #a3977f centred
 asked: AuctionActions.startPurchase 2589 15
 
 -- bought: the listings asked again; 15 on the list; the house shut
