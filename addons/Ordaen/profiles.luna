@@ -1,7 +1,9 @@
 // The player's choices, named: a profile holds every module's settings, and each character uses one, found by its
 // picks. Profiles are the account's, kept by Ordaen (`profiles` in the game's saved data). A section is one
 // `Settings`' values as the client packs them (CBOR, `Game.encoding`): Ordaen knows no module's type, and a module
-// decodes its own (`S.decode`). Which modules are on, what a module remembers (`Memory`) and data aren't in one.
+// decodes its own (`S.decode`). A profile also holds where the player left the windows (a `Memory` of the
+// profile's, packed the same way). Which modules are on, what a character remembers and data aren't in one.
+import Debug from "$debug"
 import Game from "$game"
 
 public type ProfileName = brand String
@@ -12,7 +14,14 @@ public const DEFAULT_PROFILE: ProfileName = "Default"
 public struct Profile implements Plain {
   // Each `Settings`' values, packed, by what the `Settings` is kept under (`OrdaenPanel`, `Ordaen:look`).
   sections: mut Map<String, String> = {}
+  // Each profile's `Memory`'s values, packed, by its key (`OrdaenAuction:window:main`): where the player left a
+  // window or a list. Never a draft, nor in an export.
+  memory: mut Map<String, String> = {}
 }
+
+// How long a memory kept in a profile may be, packed: a struct of a few numbers, flags and enum members is a tenth
+// of it. One that grew past it is a module's mistake, and isn't kept.
+public const MEMORY_BOUND = 512
 
 public struct Picks implements Plain {
   account: ProfileName = DEFAULT_PROFILE
@@ -227,6 +236,34 @@ public class Profiles {
   public write(mut self, key: String, values: Unknown) {
     const packed = Game.encoding.serialize(values)
     if (packed != nil) { self.put(peek self.active, key, packed) }
+  }
+
+  // A `Memory`'s values in a profile, unpacked for its `decode`; nil where the profile keeps none under the key.
+  public recalled(self, name: ProfileName, key: String): Unknown {
+    const profile = (peek self.kept).profiles[name]
+    if (profile == nil) { return nil }
+    const raw = profile.memory[key]
+    if (raw == nil) { return nil }
+    return Game.encoding.deserialize(raw)
+  }
+
+  // A `Memory`'s values kept in the active profile; nil (its defaults) lets its entry go. Past the bound, nothing
+  // changes.
+  public remember(mut self, key: String, values: Unknown | nil) {
+    const packed = values == nil ? nil : Game.encoding.serialize(values)
+    if (values != nil && packed == nil) { return }
+    if (packed != nil && packed.length > MEMORY_BOUND) {
+      Debug.log("memory %s: %d bytes packed, past the bound of %d: not kept", key, packed.length, MEMORY_BOUND)
+      return
+    }
+    const name = peek self.active
+    const was = (peek self.kept).profiles[name]
+    if (packed == nil && (was == nil || was.memory[key] == nil)) { return }
+    const next = self.edit()
+    const profile = next.profiles[name] ?? Profile {}
+    profile.memory[key] = packed
+    next.profiles[name] = profile
+    self.apply(next)
   }
 
   put(mut self, name: ProfileName, key: String, packed: String) {

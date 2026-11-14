@@ -54,7 +54,7 @@ class Controls {
 
   public render(self): Template {
     return $ltml {
-      <Window shown={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}
+      <Window keep={"test"} shown={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}
               @close={self.close}>
         <box columns={1} gap={6}>
           <Checkbox label={"Pixel"} value={mut self.pixel} />

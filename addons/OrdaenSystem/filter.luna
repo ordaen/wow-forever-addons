@@ -9,15 +9,15 @@ import Locale from "@/locales"
 import Style from "@/style"
 
 // Performance: every addon, or the ten heaviest by CPU now.
-public enum Heat { All = "all", Heavy = "heavy" }
+public enum Heat implements Plain { All = "all", Heavy = "heavy" }
 // State: on, off, or on and not loading for a reason other than off.
-public enum Standing { All = "all", On = "on", Off = "off", Failed = "failed" }
+public enum Standing implements Plain { All = "all", On = "on", Off = "off", Failed = "failed" }
 // Version: built for an older client than this one (its TOC's interface), or for this one.
-public enum Age { All = "all", Outdated = "outdated", Current = "current" }
+public enum Age implements Plain { All = "all", Outdated = "outdated", Current = "current" }
 // Loading: on demand, or at login.
-public enum Loading { All = "all", Demand = "demand", Login = "login" }
+public enum Loading implements Plain { All = "all", Demand = "demand", Login = "login" }
 // Runtime: written in LunaType (it is the runtime or needs it), or not.
-public enum Written { All = "all", LunaType = "lunatype", Other = "other" }
+public enum Written implements Plain { All = "all", LunaType = "lunatype", Other = "other" }
 
 const HEATS: Array<Choice<Heat>> = [
   { value: Heat.All, label: Locale.FILTER_ALL },

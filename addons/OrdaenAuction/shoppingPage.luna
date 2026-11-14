@@ -7,7 +7,7 @@
 // removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Age, Column, Component, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, tracksOf, space } from "Ordaen"
+import { Age, Column, Component, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, tracksOf, space, Memory } from "Ordaen"
 import { ageOf } from "@/buy"
 import { nameOf } from "@/house"
 import Locale from "@/locales"
@@ -149,9 +149,16 @@ class ShoppingRow implements Component {
   }
 }
 
+// How the player left the shopping list: the column it is sorted by (0: as it comes) and which way.
+public struct ShoppingView implements Plain {
+  sorted: Integer = 0
+  descending: Boolean = false
+}
+const SHOPPING_VIEW: ShoppingView = {}
+
 public class ShoppingPage implements Component {
-  state sorted = 0
-  state descending = false
+  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  public kept: mut Memory<ShoppingView> = new Memory<ShoppingView>(SHOPPING_VIEW, .Profile, "shopping")
   state picked: ItemId | nil = nil
   // The purchase of the row picked: its listings, then what the player's clicks buy.
   state purchase: mut Purchase | nil = nil
@@ -234,7 +241,7 @@ public class ShoppingPage implements Component {
           </box>
         </box>
         <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+          <Table columns={COLUMNS} sorted={mut self.kept.values.sorted} descending={mut self.kept.values.descending}
                  rowHeight={Style.BUTTON_ROW}>
             <ShoppingRow $for={row of self.list.rows} $key={row} row={row} prices={self.prices}
                          selected={self.picked == row.item}

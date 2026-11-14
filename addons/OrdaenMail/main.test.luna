@@ -79,24 +79,24 @@ test "each filter keeps its letters and each view draws them" {
   Test.mount(inbox, AREA)
   Test.flush()
   Test.expect(inbox.shown.length == 4)
-  inbox.filter = Filter.Players
+  inbox.list.values.filter = Filter.Players
   Test.expect(inbox.shown.length == 2)
-  inbox.filter = Filter.Auction
+  inbox.list.values.filter = Filter.Auction
   Test.expect(inbox.shown.length == 1)
-  inbox.filter = Filter.System
+  inbox.list.values.filter = Filter.System
   Test.expect(inbox.shown.length == 1)
-  inbox.filter = Filter.Money
+  inbox.list.values.filter = Filter.Money
   Test.expect(inbox.shown.length == 1)
-  inbox.filter = Filter.Items
+  inbox.list.values.filter = Filter.Items
   Test.expect(inbox.shown.length == 2)
-  inbox.filter = Filter.All
+  inbox.list.values.filter = Filter.All
   inbox.search = "sword"
   Test.expect(inbox.shown.length == 1)
   inbox.search = ""
-  inbox.view = View.Categories
+  inbox.list.values.view = View.Categories
   Test.flush()
   Test.shot("by kind: the captions with their counts")
-  inbox.view = View.Table
+  inbox.list.values.view = View.Table
   Test.flush()
   Test.shot("the table")
 }

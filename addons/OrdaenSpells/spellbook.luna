@@ -1,13 +1,19 @@
 // «Spells»: the player's spells in tabs, «All» and one per skill line of the spellbook, each with the search and the
 // sort. «All» is one flat list: under each name the skill line, the kind and the level the spell was learned at.
 import { Align, Overflow, Track } from "$ltml"
-import { Choice, Component, PX, Tabs, Toolbar, ToolPick } from "Ordaen"
+import { Choice, Component, Memory, PX, Tabs, Toolbar, ToolPick } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import Game from "$game"
 import Style from "@/style"
 
-public enum SortBy { Name = "name", Level = "level", Active = "active" }
+public enum SortBy implements Plain { Name = "name", Level = "level", Active = "active" }
+
+// How the player left the spellbook's list: its sort.
+public struct BookView implements Plain {
+  sort: SortBy = SortBy.Name
+}
+const BOOK_VIEW: BookView = {}
 
 const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Name, label: Locale.SORT_NAME },
@@ -60,7 +66,8 @@ public class SpellRow implements Component {
 public class SpellbookPage implements Component {
   state tab = 1
   state search = ""
-  state sort: SortBy = SortBy.Name
+  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  public list: mut Memory<BookView> = new Memory<BookView>(BOOK_VIEW, .Profile, "book")
   derived names: Array<String> = self.namesOf()
   derived shown: Array<Game.SpellEntry> = self.shownOf()
   derived empty: Boolean = self.shown.length == 0
@@ -94,7 +101,7 @@ public class SpellbookPage implements Component {
         list.push(spell)
       }
     }
-    const by = self.sort
+    const by = self.list.values.sort
     list.sort((a, b) => before(a, b, by))
     return list
   }
@@ -104,7 +111,7 @@ public class SpellbookPage implements Component {
       <box rows={PAGE} gap={8 * PX}>
         <Tabs tabs={self.names} selected={mut self.tab} />
         <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-          <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+          <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
         </Toolbar>
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} />

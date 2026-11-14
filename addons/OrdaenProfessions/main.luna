@@ -4,11 +4,10 @@
 // them the recipes in one of four views) and the chosen recipe beside it. The profession shown is the one the game
 // has open (it has one open at a time): a tab opens its profession through the game, and the window shows while one
 // is open. The game's own window stays open with it, unseen and off the screen: hiding it would close the profession.
-import Client from "$client"
 import Game from "$game"
-import { Action, Align, Edges, Line, Overflow, Side, Track } from "$ltml"
+import { Action, Align, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
-import { ARTWORK, Choice, Column, cornerRoom, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, space, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec } from "Ordaen"
+import { ARTWORK, Choice, Column, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, space, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { RecipeDetails } from "@/details"
@@ -21,7 +20,7 @@ import { SkillBar } from "@/skillBar"
 import { Thresholds, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
 import {
-  Act, before, FAVORITES, Group, Kept, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, Seen, SortBy,
+  Act, before, FAVORITES, Group, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, Seen, SortBy,
   tableBefore, View,
 } from "@/view"
 import { CraftQueue } from "@/crafting"
@@ -34,7 +33,6 @@ const SIDE: Array<Track> = ["auto", { fr: 1 }]
 const LISTS: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const COLUMN_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Left] }
-const BAR_ROOM: Edges = { right: cornerRoom(true) }
 const TRACK_WIDTH = 170 * PX
 // The footer: the profession's spell, and what the page puts beside it; the queue's status and «Create next».
 const TRACK_FOOT: Array<Track> = ["auto", { fr: 1 }]
@@ -69,10 +67,8 @@ const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Makeable, label: Locale.SORT_MAKEABLE },
 ]
 const NOTHING_KEPT: Kept = {
-  last: 0, seen: {}, favorites: [], tracked: [], queue: [], paused: Pause.None, x: 0, y: 0, width: 0, height: 0,
+  last: 0, seen: {}, favorites: [], tracked: [], queue: [], paused: Pause.None,
 }
-// How long a window being moved or sized waits before its place is kept: seconds.
-const SETTLE = 1
 
 public class Professions implements Module, App {
   public const title: String = "Ordaen Professions"
@@ -95,6 +91,8 @@ public class Professions implements Module, App {
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ remember: true, showUnlearned: true })
   public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
+  // How the player left the recipe list: its view, its sort and the table's order, the profile's (`redesign/kept.md`).
+  public list: mut Memory<ListView> = new Memory<ListView>(LIST_VIEW)
   // The queue, the root's and not the window's: it runs while the window is shut.
   public crafting: mut CraftQueue
 
@@ -110,11 +108,6 @@ public class Professions implements Module, App {
   state makeMode: MakeMode = MakeMode.Count
   public state search = ""
   public state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
-  public state view: View = View.Columns
-  public state sort: SortBy = SortBy.Difficulty
-  // The table's order: its column from 1, and which way.
-  public state tableColumn = 1
-  public state tableDescending = false
   // The filter: the menu, and each option.
   public state filterOpen = false
   public state onlyMake = false
@@ -130,11 +123,8 @@ public class Professions implements Module, App {
   skillLine: Integer = 0
   // Each recipe's name and reagents' names, lower case: what the search looks in, made as the search first asks.
   texts: mut Map<Integer, String> = {}
-  // Whether the window's place is waiting to be kept, and the place that was kept last (or the window started at).
-  settling = false
   // A recipe opened from elsewhere chose itself as its page changed: the page's change keeps it.
   opening = false
-  known: Placing = { x: 0, y: 0, width: 0, height: 0 }
 
   // The game's own window came up with no profession open (its overview): this window stands in its place with
   // nothing chosen, and a tab opens its profession. The client opens a profession from nothing but a click.
@@ -170,7 +160,7 @@ public class Professions implements Module, App {
   // run ends, so nothing of the window's closing reaches the craft.
   state hidden = false
   derived drawn: Boolean = !self.hidden
-  derived isTable: Boolean = self.view == View.Table
+  derived isTable: Boolean = self.list.values.view == View.Table
   // Whether any option of the filter is off what the window starts with.
   public derived filtered: Boolean = self.onlyMake || self.onlySkill || !self.showLearned || self.showUnlearned != self.settings.values.showUnlearned
   // The same but the camp's: what the lists but the camp's page hold.
@@ -192,9 +182,9 @@ public class Professions implements Module, App {
   derived chosenYellow: Integer | nil = self.thresholds.yellow[self.chosenRecipe]
   derived chosenGrey: Integer | nil = self.thresholds.grey[self.chosenRecipe]
   derived empty: Boolean = self.listing.length == 0
-  derived inColumns: Boolean = self.view == View.Columns
-  derived inGroups: Boolean = self.view == View.Categories
-  derived inList: Boolean = self.view == View.List
+  derived inColumns: Boolean = self.list.values.view == View.Columns
+  derived inGroups: Boolean = self.list.values.view == View.Categories
+  derived inList: Boolean = self.list.values.view == View.List
 
   constructor() {
     self.crafting = new CraftQueue(mut self.memory)
@@ -210,12 +200,6 @@ public class Professions implements Module, App {
     watch (recipe of self.chosenRecipe) { self.count = 1 }
     watch (open of Game.tradeSkill.open) { self.count = 1 }
     watch (values of self.settings.values) { self.showUnlearned = values.showUnlearned }
-    const place = (peek self.memory.values)
-    if (place.width > 0) {
-      self.placing = { x: place.x, y: place.y, width: place.width, height: place.height }
-    }
-    self.known = peek self.placing
-    watch { self.placed() }
     Game.tradeSkill.shownEmpty.listen(self.onShownEmpty)
   }
 
@@ -305,7 +289,7 @@ public class Professions implements Module, App {
     for (recipe of Game.tradeSkill.recipes) {
       if (self.passes(recipe, sought)) { list.push(recipe) }
     }
-    const sort = self.sort
+    const sort = self.list.values.sort
     list.sort((a, b) => before(sort, a, b))
     return list
   }
@@ -353,15 +337,15 @@ public class Professions implements Module, App {
   tableRowsOf(self): Array<Game.Recipe> {
     let list: Array<Game.Recipe> = []
     for (recipe of self.mains) { list.push(recipe) }
-    const column = self.tableColumn
-    const descending = self.tableDescending
+    const column = self.list.values.tableColumn
+    const descending = self.list.values.tableDescending
     list.sort((a, b) => tableBefore(column, descending, a, b))
     return list
   }
 
   listingOf(self): Array<Game.Recipe> {
     if (self.onCamp) { return self.recipes }
-    return match (self.view) {
+    return match (self.list.values.view) {
       View.Columns => self.recipes,
       View.Categories => self.grouped(),
       View.List => self.mains,
@@ -606,24 +590,6 @@ public class Professions implements Module, App {
     self.pickRecipe(id)
   }
 
-  // The window moved or was sized: its place is kept once it has been still for a moment, never at each step.
-  placed(mut self) {
-    const place = self.placing
-    const same = self.known.x == place.x && self.known.y == place.y && self.known.width == place.width
-      && self.known.height == place.height
-    if (same || self.settling) { return }
-    self.settling = true
-    Client.C_Timer.After(SETTLE, () => self.settle())
-  }
-
-  settle(mut self) {
-    self.settling = false
-    const place = peek self.placing
-    self.known = place
-    const now = peek self.memory.values
-    self.memory.write({ x: place.x, y: place.y, width: place.width, height: place.height, ..now })
-  }
-
   // The settings window, at this module's page.
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
@@ -642,16 +608,13 @@ public class Professions implements Module, App {
     return $ltml {
       <$if={self.isOpen}>
         <frame of={Game.frames.Professions} opacity={0} away={true} />
-        <Window $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} placing={mut self.placing} withSettings={true}
+        <Window keep={"main"} $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} placing={mut self.placing} withSettings={true}
                 footer={self.footer} @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>
             <text value={Locale.PICK} textColor={Style.DIM} />
           </box>
           <box $else rows={BODY} gap={space(.Group)}>
-            // The bar stops short of the window's corner buttons.
-            <box padding={BAR_ROOM}>
-              <SkillBar profession={self.profession} />
-            </box>
+            <SkillBar profession={self.profession} />
             <Tabs tabs={self.pageNames} selected={mut self.page} />
             <QueuePage $if={self.queueShown} queued={self.queued} @act={self.onQueueAct} @counted={self.onQueueCount} />
             <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
@@ -662,9 +625,9 @@ public class Professions implements Module, App {
                   <FilterButton open={mut self.filterOpen} makeable={mut self.onlyMake} skillUp={mut self.onlySkill}
                                 learned={mut self.showLearned} unlearned={mut self.showUnlearned}
                                 filtered={self.filtered} @reset={self.resetFilter} />
-                  <ToolPick $if={!self.isTable} value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}
+                  <ToolPick $if={!self.isTable} value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}
                             title={Locale.SORT} />
-                  <ToolPick $if={!self.onCamp} value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns}
+                  <ToolPick $if={!self.onCamp} value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns}
                             title={Locale.VIEW} />
                 </Toolbar>
                 <box $if={self.onCamp} rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
@@ -701,7 +664,7 @@ public class Professions implements Module, App {
                   </box>
                 </box>
                 <box $else rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
-                  <Table columns={COLUMNS} sorted={mut self.tableColumn} descending={mut self.tableDescending}>
+                  <Table columns={COLUMNS} sorted={mut self.list.values.tableColumn} descending={mut self.list.values.tableDescending}>
                     <RecipeTableRow $for={recipe of self.tableRows} $key={recipe.id} recipe={recipe}
                                     tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
                                     menuFor={self.menuFor} @act={self.onAct} />

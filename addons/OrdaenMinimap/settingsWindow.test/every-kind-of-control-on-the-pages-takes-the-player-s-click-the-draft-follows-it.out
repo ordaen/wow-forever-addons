@@ -3,96 +3,98 @@ the minimap hides: combat
 all of it: unsaved 5
 -- saved: every change kept
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 329.42,189.71 946.17x560.08
       box 349.42,209.71 906.17x481.75
-        box 349.42,209.71 137.78x481.75
-          box 349.42,209.71 137.78x30 #00000000 @click
+        box 349.42,209.71 133.75x481.75
+          box 349.42,209.71 133.75x30 #00000000 @click
             box 349.42,209.71 2.5x30 absolute #00000000
             box 362.75,215.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
-            text 389.42,216.91 79.44x15.6 "General" #e8dcc4
-            box 477.19,224.71 0x0
-          box 349.42,239.71 137.78x30 #00000000 @click
+            text 389.42,217.21 75.42x15 "General" #e8dcc4
+            box 473.17,224.71 0x0
+          box 349.42,239.71 133.75x30 #00000000 @click
             box 349.42,239.71 2.5x30 absolute #00000000
             box 362.75,245.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
-            text 389.42,246.91 79.44x15.6 "Themes" #e8dcc4
-            box 477.19,254.71 0x0
-          box 349.42,269.71 137.78x30 #00000000 @click
+            text 389.42,247.21 75.42x15 "Themes" #e8dcc4
+            box 473.17,254.71 0x0
+          box 349.42,269.71 133.75x30 #00000000 @click
             box 349.42,269.71 2.5x30 absolute #00000000
             box 362.75,275.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
-            text 389.42,276.91 79.44x15.6 "Profiles" #e8dcc4
-            box 477.19,284.71 0x0
-          box 349.42,299.71 137.78x34.4
-            text 362.75,313.04 111.11x14.4 "MODULES" #a3977f
-          box 349.42,334.11 137.78x30
-            box 349.42,334.11 137.78x30 #00000040 @click
-              box 349.42,334.11 2.5x30 absolute #d6a56b
-              box 362.75,339.94 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-              text 389.42,341.31 47.78x15.6 "Minimap" #ffffff
-              box 445.53,340.78 31.67x16.67
-                box 445.53,340.78 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                  box 443.03,338.28 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-                  box 458.03,338.28 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-        box 503.86,209.71 751.72x481.75 #00000040
-          box 503.86,209.71 751.72x481.75 absolute scrolled 0 of 0
-            box 517.19,223.04 725.06x27.27
-              box 517.19,249.47 725.06x0.83 absolute #3e2f1d
-              box 517.19,223.04 47.22x27.27 #00000000 @click
-                box 518.03,223.88 45.56x1.67 absolute #00000000
-                text 529.69,229.71 22.22x15.6 "Map" #a3977f
-              box 567.75,223.04 112.78x27.27 #00000059 @click
-                box 568.58,223.88 111.11x1.67 absolute #d6a56b
-                text 580.25,229.71 87.78x15.6 "Button drawer" #ffffff
-            box 517.19,266.97 725.06x50
-              box 517.19,266.97 725.06x16.67 opacity=1
-                box 517.19,267.51 233.33x15.6 @enter @leave
-                  text 517.19,267.51 233.33x15.6 "Button drawer" #cbb994
-                box 765.53,266.97 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                  box 763.03,264.47 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                  box 778.03,264.47 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-              box 517.19,300.31 725.06x16.67 opacity=0.45
-                box 517.19,300.84 233.33x15.6 @enter @leave
-                  text 517.19,300.84 233.33x15.6 "Columns" #cbb994
-                box 765.53,300.31 476.72x16.67
-                  box 765.53,300.31 200x16.67 @click @drag @dragStart @key
-                    box 765.53,305.31 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-                    box 766.36,306.14 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
-                    box 798.86,298.64 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                  text 975.53,300.84 8.89x15.6 "4" #ffffff
+            text 389.42,277.21 75.42x15 "Profiles" #e8dcc4
+            box 473.17,284.71 0x0
+          box 349.42,299.71 133.75x33
+            text 362.75,313.04 107.08x13 "MODULES" #a3977f
+          box 349.42,332.71 133.75x30
+            box 349.42,332.71 133.75x30 #00000040 @click
+              box 349.42,332.71 2.5x30 absolute #d6a56b
+              box 362.75,338.54 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+              text 389.42,340.21 43.75x15 "Minimap" #ffffff
+              box 441.5,339.38 31.67x16.67
+                box 441.5,339.38 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                  box 439,336.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+                  box 454,336.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+        box 499.83,209.71 755.75x481.75 #00000040
+          box 499.83,209.71 755.75x481.75 absolute scrolled 0 of 0
+            box 513.17,223.04 729.08x26.67
+              box 513.17,248.88 729.08x0.83 absolute #3e2f1d
+              box 513.17,223.04 43.75x26.67 #00000000 @click
+                box 514,223.88 42.08x1.67 absolute #00000000
+                text 525.67,229.71 18.75x15 "Map" #a3977f
+              box 560.25,223.04 106.25x26.67 #00000059 @click
+                box 561.08,223.88 104.58x1.67 absolute #d6a56b
+                text 572.75,229.71 81.25x15 "Button drawer" #ffffff
+            box 513.17,266.38 729.08x50
+              box 513.17,266.38 729.08x16.67 opacity=1
+                box 513.17,267.21 233.33x15 @enter @leave
+                  text 513.17,267.21 233.33x15 "Button drawer" #cbb994
+                box 761.5,266.38 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
+                  box 759,263.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                  box 774,263.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+              box 513.17,299.71 729.08x16.67 opacity=0.45
+                box 513.17,300.54 233.33x15 @enter @leave
+                  text 513.17,300.54 233.33x15 "Columns" #cbb994
+                box 761.5,299.71 480.75x16.67
+                  box 761.5,299.71 200x16.67 @click @drag @dragStart @key
+                    box 761.5,304.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+                    box 762.33,305.54 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+                    box 794.83,298.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+                  text 971.5,300.54 6.25x15 "4" #ffffff
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
           box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
-              text 402.19,714.49 61.11x15.6 "Move mode" #ffd100 centred
+              text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 474.5x0
           box 1023.92,708.12 231.67x28.33
             box 1023.92,708.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 1023.92,708.12 108.33x28.33 absolute
-                text 1047.53,714.49 61.11x15.6 "Roll back" #ffd100 centred
+                text 1049.96,714.79 56.25x15 "Roll back" #ffd100
             box 1138.92,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1138.92,708.12 116.67x28.33 absolute
-                text 1182.81,714.49 28.89x15.6 "Save" #808080 centred
-    box 1224.42,188.79 52.5x26.67 absolute clipped
-      box 1224.42,188.79 29.17x26.67 absolute clipped @click
-        box 1224.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1234.42,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1253.58,188.79 23.33x26.67 absolute clipped @click
-        box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1259.83,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-    box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 316.67,139.71 114.5x47.75
-    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 335.25,149.96 77.33x34.25
-        text 352.81,159.28 42.22x15.6 "Ordaen" #ffd100 centred
+                text 1184.75,714.79 25x15 "Save" #808080
+    box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 316.67,139.71 966.67x47.75
+    box 316.67,139.71 907.5x47.75
+      box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 335.25,149.96 77.33x34.25
+          text 355.17,159.58 37.5x15 "Ordaen" #ffd100
+    box 1230.83,152.79 52.5x34.67
+      box 1230.83,152.79 52.5x26.67 clipped
+        box 1230.83,152.79 29.17x26.67 absolute clipped @click
+          box 1230.83,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1240.83,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1260,152.79 23.33x26.67 absolute clipped @click
+          box 1260,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1266.25,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 1323.67,0 276.33x301.33 on MEDIUM clamped
   box 1323.67,0 276.33x301.33
     box 1343.92,20.25 230.83x258.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
       embed 1352.67,29 218.33x218.33 absolute frame=none
       box 1352.67,247.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,252.87 166.11x15.6 @click @enter @leave
-          text 1361,252.87 166.11x15.6 "42.1, 63.0" #f3e1b8
-        box 1527.11,252.87 35.56x15.6 @click @enter @leave
-          text 1527.11,252.87 35.56x15.6 "12:30" #f3e1b8
+        box 1361,253.17 170.42x15 @click @enter @leave
+          text 1361,253.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,253.17 31.25x15 @click @enter @leave
+          text 1531.42,253.17 31.25x15 "12:30" #f3e1b8
       box 1323.67,91.37 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
         box 1331.17,99.29 13.33x12.5 ui-hud-minimap-tracking-up
       box 1323.67,181.63 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave

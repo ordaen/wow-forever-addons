@@ -5,7 +5,7 @@
 // a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, space, Table, TableRow, tracksOf } from "Ordaen"
+import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, space, Table, TableRow, tracksOf, Memory } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House, nameOf } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -99,12 +99,19 @@ class OfferedRow implements Component {
   }
 }
 
+// How the player left «Sell»'s list: the column it is sorted by (0: as it comes) and which way.
+public struct SellView implements Plain {
+  sorted: Integer = 0
+  descending: Boolean = false
+}
+const SELL_VIEW: SellView = {}
+
 public class SellPage implements Component {
   // «My auctions» was clicked: its window opens, or closes.
   public openOwned: Event<nil> = new Event()
 
-  state sorted = 0
-  state descending = false
+  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  public list: mut Memory<SellView> = new Memory<SellView>(SELL_VIEW, .Profile, "sell")
   state picked: ItemId | nil = nil
   // Moves as the bags change: what the house takes is read again.
   state bags = 0
@@ -156,8 +163,8 @@ public class SellPage implements Component {
         at[item] = list.length
       }
     }
-    const column = self.sorted
-    const down = self.descending
+    const column = self.list.values.sorted
+    const down = self.list.values.descending
     if (column != 0) { list.sort((a, b) => down ? before(b, a, column) : before(a, b, column)) }
     return list
   }
@@ -182,7 +189,7 @@ public class SellPage implements Component {
             <PushButton label={Locale.PAGE_OWNED} width={Style.OPENER} @click={self.onOpenOwned} />
           </box>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-            <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+            <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
                    rowHeight={Style.ITEM_ROW}>
               <OfferedRow $for={row of self.rows} $key={row.item} offered={row}
                           selected={self.picked == row.item} @pick={self.onPick} />

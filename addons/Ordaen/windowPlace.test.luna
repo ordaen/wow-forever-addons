@@ -13,7 +13,7 @@ class Shown {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} shown={self.open}>
+      <Window keep={"test"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} shown={self.open}>
         <text value={"the page"} />
       </Window>
     }
