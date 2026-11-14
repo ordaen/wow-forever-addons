@@ -103,7 +103,7 @@ test "«Sell»: the bags' items the house takes; one picked is posted from the c
   ]
   // The client's deposit: 4 copper each of a commodity, an item's auction 150, whatever the duration.
   Game.auctionActions.deposit = (from: Game.Sellable, quantity: Integer, duration: Game.Duration): Integer | nil =>
-    from.commodity ? quantity * 4 : 150
+  from.commodity ? quantity * 4 : 150
   Game.clock.server = 1790002800
   Game.auctionHouse.open = true
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
@@ -170,4 +170,3 @@ test "«Data» before any scan: none, nothing at rest, an empty ledger, the sett
   Test.shot("«Data»")
   Game.auctionHouse.open = false
 }
-
