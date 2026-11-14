@@ -26,11 +26,11 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                   box 873.92,70 33.33x28.33
                     box 878.92,70 28.33x28.33
                       box 878.92,70 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                        box 886.42,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                        box 886.42,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
                   box 907.25,70 33.33x28.33
                     box 912.25,70 28.33x28.33
                       box 912.25,70 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                        box 919.75,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 8
+                        box 919.75,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
               box 947.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 947.25,70 125x28.33 absolute
                   text 969.12,76.67 81.25x15 "Shopping list" #ffffff

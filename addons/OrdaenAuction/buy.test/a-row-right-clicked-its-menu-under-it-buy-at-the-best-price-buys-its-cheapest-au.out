@@ -26,11 +26,11 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                   box 1090.33,70 33.33x28.33
                     box 1095.33,70 28.33x28.33
                       box 1095.33,70 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                        box 1102.83,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                        box 1102.83,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
                   box 1123.67,70 33.33x28.33
                     box 1128.67,70 28.33x28.33
                       box 1128.67,70 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                        box 1136.17,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 8
+                        box 1136.17,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
               box 1163.67,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1163.67,70 125x28.33 absolute
                   text 1185.54,76.67 81.25x15 "Shopping list" #ffd100
@@ -80,7 +80,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                 box 223.58,135 1064.25x695.33 scrolled 0 of 0
                   box 223.58,135 1064.25x26.67 #00000040 @click
                     box 230.25,138.33 639.25x20
-                      box 230.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
+                      box 230.25,138.33 20x20 #0d0a08 opacity=1 @click @enter @leave
                         box 230.25,138.33 20x20 absolute
                         box 230.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                         box 230.25,138.33 20x20 absolute #00000000
@@ -108,7 +108,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         box 1338.92,70 233.33x806.17
           box 1338.92,70 233.33x806.17
             box 1338.92,70 233.33x33.33
-              box 1338.92,70 33.33x33.33 #0d0a08 opacity=1 @click @enter
+              box 1338.92,70 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
                 box 1338.92,70 33.33x33.33 absolute
                 box 1338.92,70 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                 box 1338.92,70 33.33x33.33 absolute #00000000

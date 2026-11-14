@@ -1,0 +1,79 @@
+// Every character's gold, for the footer's tip: kept for the account because a character's gold can be read only while
+// it is logged in. Each character's own entry is written as its money changes; at most `MOST` are kept, the one seen
+// longest ago let go first (a deleted character's goes that way).
+import Game from "$game"
+import { Memory, TipRow } from "Ordaen"
+import Locale from "@/locales"
+
+const MOST = 50
+
+// One character's gold, and when it was last seen (the server's time).
+public struct Purse implements Plain {
+  name: String
+  realm: String
+  copper: Integer
+  seen: Integer
+}
+
+public struct Purses implements Plain {
+  // By the character's GUID.
+  characters: Map<String, Purse>
+}
+
+const NONE: Purses = { characters: {} }
+
+public class Gold {
+  public memory: mut Memory<Purses> = new Memory<Purses>(NONE, .Account)
+  // Every character's on this realm, this one's first, then by how much, and the total.
+  public derived rows: Array<TipRow> = self.rowsOf()
+
+  constructor() {
+    watch (copper of Game.money.amount) { self.keep(copper) }
+  }
+
+  keep(mut self, copper: Integer) {
+    const own = Game.player.guid
+    let characters: Map<String, Purse> = {}
+    let count = 1
+    for (guid, purse of (peek self.memory.values).characters) {
+      if (guid != own) {
+        characters[guid] = purse
+        count += 1
+      }
+    }
+    characters[own] = { name: Game.player.name, realm: Game.player.realm, copper: copper, seen: peek Game.clock.server }
+    // Past the most kept: the one seen longest ago goes.
+    if (count > MOST) {
+      let oldest = ""
+      let when = 0
+      for (guid, purse of characters) {
+        if (oldest == "" || purse.seen < when) {
+          oldest = guid
+          when = purse.seen
+        }
+      }
+      characters[oldest] = nil
+    }
+    self.memory.write({ characters: characters })
+  }
+
+  rowsOf(self): Array<TipRow> {
+    const own = Game.player.guid
+    const realm = Game.player.realm
+    let others: Array<Purse> = []
+    let total = 0
+    let mine: Purse | nil = nil
+    for (guid, purse of self.memory.values.characters) {
+      if (purse.realm == realm) {
+        total += purse.copper
+        if (guid == own) { mine = purse } else { others.push(purse) }
+      }
+    }
+    others.sort((a: Purse, b: Purse): Boolean => a.copper > b.copper || (a.copper == b.copper && a.name < b.name))
+    let rows: Array<TipRow> = []
+    if (mine != nil) { rows.push({ label: mine.name, value: Game.money.format(mine.copper) }) }
+    for (purse of others) { rows.push({ label: purse.name, value: Game.money.format(purse.copper) }) }
+    rows.push({ label: Locale.GOLD_TOTAL, value: Game.money.format(total) })
+    return rows
+  }
+}

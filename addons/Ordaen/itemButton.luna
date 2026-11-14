@@ -1,12 +1,14 @@
 // ItemButton: an item's slot: its icon on a dark well, the border in its quality's colour (from uncommon up, lit inside
 // in it: the rim's light), its count at the bottom
 // right (from two up), and corner markers (a coloured pip each, in the top left, the top right or the bottom left)
-// that other modules put on it. A slot with no item draws the well alone. Dimmed (by a search) it draws at 35%.
+// that other modules put on it; what its slot holds stands over the icon (a bag's mark of a new item, a lock). A slot
+// with no item draws the well alone. Dimmed (by a search) it draws at 35%.
 // Under the cursor the light of the other controls over the icon, and the game's own tooltip of the item beside it
-// (Ordaen's tooltips draw it where they are on), gone when the cursor leaves. Left-click reports `pick` with the
-// item's number; Shift+Left-click puts the item's link into the chat instead, as the game's own slots do. Nothing runs
-// per frame.
-import { Align, Art, Click, Edges, Frame, Line, MouseButton, Position, Shadow, Stated } from "$ltml"
+// (Ordaen's tooltips draw it where they are on), gone when the cursor leaves; `entered` and `left` are told. Left-click reports
+// `pick` with the item's number; Shift+Left-click puts the item's link into the chat instead, as the game's own slots
+// do. Every click, of an empty slot too, is told as `pressed` (a bag's slot picks up and puts down there). With an
+// `action` the right button is the client's own (a bag's item used: `Action.UseBagItem`). Nothing runs per frame.
+import { Action, Align, Art, Click, Edges, Frame, Line, MouseButton, Position, Shadow, Stated } from "$ltml"
 import Game from "$game"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
@@ -73,6 +75,9 @@ public class Pip implements Component {
 
 public class ItemButton implements Component {
   public pick: Event<Integer> = new Event()
+  public pressed: Event<Click> = new Event()
+  public entered: Event<nil> = new Event()
+  public left: Event<nil> = new Event()
 
   derived icon: Art | nil = self.iconOf()
   // The border: its quality's colour, the plain one for an empty slot.
@@ -90,6 +95,7 @@ public class ItemButton implements Component {
   dimmed: Signal<Boolean>
   markers: Signal<Array<Marker>>
   size: Signal<Number>
+  action: Signal<Action | nil>
   constructor(
     // The game's number of the item; none for an empty slot.
     item: Signal<Integer | nil>,
@@ -98,6 +104,8 @@ public class ItemButton implements Component {
     dimmed: Signal<Boolean> = false,
     markers: Signal<Array<Marker>> = NONE,
     size: Signal<Number> = 40 * PX,
+    // What the client does on the player's click itself: none where the slot's clicks are its own alone.
+    action: Signal<Action | nil> = nil,
   ) {
     self.item = item
     self.count = count
@@ -105,6 +113,7 @@ public class ItemButton implements Component {
     self.dimmed = dimmed
     self.markers = markers
     self.size = size
+    self.action = action
   }
 
   iconOf(self): Art | nil {
@@ -131,22 +140,25 @@ public class ItemButton implements Component {
   onEnter(self, frame: any Frame) {
     const item = self.item
     if (item != nil) { Game.items.show(frame, item) }
+    self.entered.emit()
   }
+
+  onLeave(self) { self.left.emit() }
 
   onClick(self, click: Click) {
     const item = self.item
-    if (item == nil || click.button != MouseButton.Left) { return }
-    if (Game.input.shiftDown()) {
+    if (item != nil && click.button == MouseButton.Left && Game.input.shiftDown()) {
       Game.chat.link(item)
-    } else {
-      self.pick.emit(item)
+      return
     }
+    self.pressed.emit(click)
+    if (item != nil && click.button == MouseButton.Left) { self.pick.emit(item) }
   }
 
   public render(self): Template {
     return $ltml {
       <box width={self.size} height={self.size} background={WELL} border={self.edge} opacity={self.opacity}
-           @click={self.onClick} @enter={self.onEnter}>
+           action={self.action} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} icon={self.icon} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
              background={Ordaen.art.ctl.qualityRim} tint={self.edge.color} opacity={self.rim}
@@ -154,6 +166,7 @@ public class ItemButton implements Component {
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} background={SHINE}
              stateFromParent={true} />
         <Pip $for={marker of self.markers} marker={peek marker} />
+        <slot />
         <box $if={self.counted} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
              xAlign={Align.End} yAlign={Align.End} padding={COUNT_PAD}>
           <text value={self.count} textColor={INK} textSize={.Secondary} textShadow={COUNT_SHADOW} wrap={false} />

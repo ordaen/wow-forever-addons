@@ -1,0 +1,2 @@
+// Ordaen Bags: every bag in one window.
+public import { Bags } from "@/main"

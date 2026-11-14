@@ -7,7 +7,7 @@ import root Ordaen from "Ordaen"
 import { Module, Settings, SettingsPage } from "Ordaen"
 import { AddedToItem, AddedToObject } from "@/added"
 import { extras } from "@/buttons"
-import { ItemLines, ObjectLines } from "@/extend"
+import { ItemKeys, ItemLines, ObjectLines } from "@/extend"
 import { Choices, Place } from "@/choices"
 import { compare, item } from "@/item"
 import Locale from "@/locales"
@@ -122,7 +122,7 @@ public class Tooltips implements Module, App {
   derived drawn: Shown | nil = self.current ?? self.last
   // The group is drawn from the first show on.
   derived ever: Boolean = self.drawn != nil
-  derived model: Model = self.drawn?.model ?? NOTHING
+  derived model: Model = self.withKeys(self.drawn?.model ?? NOTHING)
   derived sides: Array<Model> = self.drawn?.sides ?? []
   derived compared: Array<Model> = self.drawn?.compared ?? []
   derived standing: Standing = self.kept?.standing ?? self.where()
@@ -135,6 +135,8 @@ public class Tooltips implements Module, App {
   public const uses = new Registry<any ItemLines>()
   // Where an item is, and how many are still wanted: the characters who hold it, the shopping list.
   public const held = new Registry<any ItemLines>()
+  // How the item can be handled where it is shown: a hotkey line each, after the tooltip's own.
+  public const keys = new Registry<any ItemKeys>()
   // What a world object gives.
   public const gives = new Registry<any ObjectLines>()
 
@@ -152,6 +154,23 @@ public class Tooltips implements Module, App {
     watch { self.trackAway() }
     watch { self.graceOut() }
     watch { self.keepLast() }
+  }
+
+  // The model drawn, its hotkeys followed by what other modules add for the item it shows: the model as it is where
+  // they add none.
+  withKeys(self, model: Model): Model {
+    const shownItem = self.drawn?.item ?? 0
+    if (shownItem == 0 || self.keys.length == 0) { return model }
+    const link = self.drawn?.link ?? ""
+    let added: Array<String> = []
+    for (row of self.keys) {
+      for (key of row.keys(shownItem, link)) { added.push(key) }
+    }
+    if (added.length == 0) { return model }
+    let keys: Array<String> = []
+    for (key of model.keys) { keys.push(key) }
+    for (key of added) { keys.push(key) }
+    return { keys: keys, ..model }
   }
 
   keepLast(mut self) {

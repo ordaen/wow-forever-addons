@@ -1,0 +1,211 @@
+// The window's rows: a row of section captions or of slots, each place what its cell holds. A slot is the library's
+// item slot: its item, its count, its quality's rim; dimmed where the search or the place leaves it out or another bag
+// is lit; a new item's glow inside it until it is hovered; a lock on a protected one. Its right button is the client's
+// own use of the item (secure); every other click and the cursor's coming and going are told to the window.
+import Game from "$game"
+import { Action, Align, Click, Position, Shadow, Track } from "$ltml"
+import { Component, ItemButton, PX, Quality } from "Ordaen"
+import root Ordaen from "Ordaen"
+import { Cell, GAP, Row, Section, SLOT } from "@/layout"
+import { Slot } from "@/model"
+
+const CAPTION: Color = Color.hex("#e8c35a")
+const LABEL: Color = Color.hex("#a3977f")
+const NEW_GLOW: Color = Color.hex("#ffd65a")
+const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
+const MARK = 12 * PX
+const LOCK = 14 * PX
+const CAPTION_TRACKS: Array<Track> = [MARK, "auto", { fr: 1 }]
+// The client's padlock, small, over a protected slot's top left corner.
+const PADLOCK: Atlas = "QuestSharing-Padlock"
+// The classes of items crafting takes (`Enum.ItemClass`: trade goods, reagents).
+const TRADE = 7
+const REAGENT = 5
+const QUEST = 12
+
+// What leaves a slot dimmed: the search's text (lower case), where the player stands, and the bag lit in the bag
+// slots' window (-1 for none).
+public struct Filter {
+  const query: String
+  const place: Game.BagPlace
+  const lit: Integer
+}
+
+// Whether the place keeps the slot's item lit: at the auction house what isn't bound, at crafting the reagents, at a
+// merchant what isn't a quest's.
+function fits(slot: Slot, place: Game.BagPlace): Boolean {
+  return match (place) {
+    .AuctionHouse => !slot.read.bound,
+    .Crafting => slot.read.kind == TRADE || slot.read.kind == REAGENT,
+    .Merchant => slot.read.kind != QUEST,
+    else => true,
+  }
+}
+
+class BagSlot implements Component {
+  public pressed: Event<(Slot, Click)> = new Event()
+  public entered: Event<Slot> = new Event()
+  public left: Event<Slot> = new Event()
+
+  derived item: Integer | nil = self.slot.id == 0 ? nil : self.slot.id
+  derived dimmed: Boolean = self.dimmedOf()
+  derived count: Integer = self.slot.count
+  derived quality: Quality = self.slot.quality
+  derived action: Action | nil = Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index }
+
+  slot: Signal<Slot>
+  filter: Signal<Filter>
+  constructor(slot: Signal<Slot>, filter: Signal<Filter>) {
+    self.slot = slot
+    self.filter = filter
+  }
+
+  dimmedOf(self): Boolean {
+    const slot = self.slot
+    const filter = self.filter
+    if (filter.lit >= 0 && slot.bag != filter.lit) { return true }
+    if (slot.id == 0) { return false }
+    if (filter.query != "" && !slot.lower.contains(filter.query)) { return true }
+    return !fits(slot, filter.place)
+  }
+
+  onPressed(self, click: Click) { self.pressed.emit(self.slot, click) }
+  onEnter(self) { self.entered.emit(self.slot) }
+  onLeave(self) { self.left.emit(self.slot) }
+
+  public render(self): Template {
+    return $ltml {
+      <ItemButton item={self.item} count={self.count} quality={self.quality} dimmed={self.dimmed} size={SLOT}
+                  action={self.action} @pressed={self.onPressed} @entered={self.onEnter} @left={self.onLeave}>
+        <box $if={self.slot.isNew} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+             background={Ordaen.art.ctl.qualityRim} tint={NEW_GLOW} zLevel={2} />
+        <box $if={self.slot.guarded} position={Position.Absolute} left={2 * PX} top={2 * PX} width={LOCK} height={LOCK}
+             background={PADLOCK} zLevel={3} />
+      </ItemButton>
+    }
+  }
+}
+
+// A section's caption: its mark (open or shut), its name, a bag's fill after it; a click shuts or opens it.
+class Caption implements Component {
+  public toggled: Event<String> = new Event()
+
+  derived shut: Boolean = self.collapsed[self.section.key] == true
+  derived mark = self.shut ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
+  derived fill: String = self.section.bag >= 0 ? self.fills[self.section.bag] ?? "" : ""
+  derived plain: Boolean = self.section.free
+  derived markOpacity: Number = self.plain ? 0 : 1
+  derived titleColor: Color = self.plain ? LABEL : CAPTION
+
+  section: Signal<Section>
+  collapsed: Signal<Map<String, Boolean>>
+  fills: Signal<Map<Integer, String>>
+  constructor(section: Signal<Section>, collapsed: Signal<Map<String, Boolean>>, fills: Signal<Map<Integer, String>>) {
+    self.section = section
+    self.collapsed = collapsed
+    self.fills = fills
+  }
+
+  onClick(self) {
+    if (!self.plain) { self.toggled.emit(self.section.key) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={CAPTION_TRACKS} gap={6 * PX} yAlign={Align.End} @click={self.onClick}>
+        <box width={MARK} height={MARK} background={self.mark} opacity={self.markOpacity} />
+        <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={false} />
+        <text value={self.fill} textColor={LABEL} textSize={.Secondary} textFont={.Numbers} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// One place of a row.
+class Place implements Component {
+  public pressed: Event<(Slot, Click)> = new Event()
+  public entered: Event<Slot> = new Event()
+  public left: Event<Slot> = new Event()
+  public toggled: Event<String> = new Event()
+
+  const cell: Cell
+  filter: Signal<Filter>
+  free: Signal<Integer>
+  collapsed: Signal<Map<String, Boolean>>
+  fills: Signal<Map<Integer, String>>
+  constructor(
+    cell: Cell,
+    filter: Signal<Filter>,
+    free: Signal<Integer>,
+    collapsed: Signal<Map<String, Boolean>>,
+    fills: Signal<Map<Integer, String>>,
+  ) {
+    self.cell = cell
+    self.filter = filter
+    self.free = free
+    self.collapsed = collapsed
+    self.fills = fills
+  }
+
+  onPressed(self, slot: Slot, click: Click) { self.pressed.emit(slot, click) }
+  onEnter(self, slot: Slot) { self.entered.emit(slot) }
+  onLeave(self, slot: Slot) { self.left.emit(slot) }
+  onToggle(self, key: String) { self.toggled.emit(key) }
+
+  // What a template draws reads `self`: the cell is told by its own field.
+  public render(self): Template {
+    match (self.cell) {
+      .Item => return $ltml {
+        <BagSlot slot={self.cell.slot} filter={self.filter} @pressed={self.onPressed} @entered={self.onEnter}
+                 @left={self.onLeave} />
+      },
+      .Caption => return $ltml {
+        <Caption section={self.cell.section} collapsed={self.collapsed} fills={self.fills} @toggled={self.onToggle} />
+      },
+      .Free => return $ltml { <ItemButton item={nil} count={self.free} size={SLOT} /> },
+      .Space => return $ltml { <box /> },
+    }
+  }
+}
+
+// A row of the window's grid.
+public class BagRow implements Component {
+  public pressed: Event<(Slot, Click)> = new Event()
+  public entered: Event<Slot> = new Event()
+  public left: Event<Slot> = new Event()
+  public toggled: Event<String> = new Event()
+
+  row: Signal<Row>
+  filter: Signal<Filter>
+  free: Signal<Integer>
+  collapsed: Signal<Map<String, Boolean>>
+  fills: Signal<Map<Integer, String>>
+  constructor(
+    row: Signal<Row>,
+    filter: Signal<Filter>,
+    free: Signal<Integer>,
+    collapsed: Signal<Map<String, Boolean>>,
+    fills: Signal<Map<Integer, String>>,
+  ) {
+    self.row = row
+    self.filter = filter
+    self.free = free
+    self.collapsed = collapsed
+    self.fills = fills
+  }
+
+  onPressed(self, slot: Slot, click: Click) { self.pressed.emit(slot, click) }
+  onEnter(self, slot: Slot) { self.entered.emit(slot) }
+  onLeave(self, slot: Slot) { self.left.emit(slot) }
+  onToggle(self, key: String) { self.toggled.emit(key) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.row.tracks} gap={GAP} height={SLOT}>
+        <Place $for={cell of self.row.cells} $key={cell} cell={peek cell} filter={self.filter} free={self.free}
+               collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed} @entered={self.onEnter}
+               @left={self.onLeave} @toggled={self.onToggle} />
+      </box>
+    }
+  }
+}

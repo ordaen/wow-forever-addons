@@ -1,7 +1,7 @@
 // Ordaen Tooltips: every tooltip in the one Ordaen skeleton.
 public import { Tooltips } from "@/main"
 // What other modules add to a tooltip: the contract, imported by type alone.
-public import { Line, ItemLines, ObjectLines } from "@/extend"
+public import { Line, ItemKeys, ItemLines, ObjectLines } from "@/extend"
 public import { form, pluralForm, grammar, number, last, labelled, duration } from "@/text"
 public import { Kind, Part, Fact, TextLine, Note, Model } from "@/model"
 public import { TipFrame } from "@/frame"
