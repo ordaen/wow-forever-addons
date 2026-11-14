@@ -64,7 +64,6 @@
   "COLUMN_BETTER": "Pays more",
   "COLUMN_COUNT": "Count",
   "COLUMN_UNIT": "Each",
-  "COLUMN_LOWEST": "Lowest?",
   "COLUMN_LEFT": "Left",
   "UNKNOWN_ITEM": "Item %d",
   "NO_RESULTS": "Nothing found. Find an item by name.",
@@ -97,8 +96,6 @@
   "SECTION_SETTINGS": "Settings",
   "SETTINGS": "Settings",
   "PAGE_SHOPPING": "Shopping list",
-  "COLUMN_NEEDED": "Needed",
-  "COLUMN_HELD": "Held",
   "COLUMN_TO_BUY": "To buy",
   "COLUMN_PRICE": "Price",
   "COLUMN_TOTAL": "Total",
@@ -114,5 +111,9 @@
   "TO_LIST": "Add to shopping list",
   "IN_LIST": "On the shopping list",
   "IN_LIST_HELD": "%d (bought %d)",
-  "AUCTION": "Auction"
+  "AUCTION": "Auction",
+  "SELLABLE": "What your bags can put up",
+  "VENDOR_PRICE": "Vendor price each",
+  "IN_BAGS": "In bags: %d",
+  "HELD_OF": "%d of %d held"
 }

@@ -29,6 +29,8 @@ const ROW_PADDING: Edges = { top: 4 * PX, right: 8 * PX, bottom: 4 * PX, left: 8
 const MARK_FONT: Asset = "Fonts/ARIALN.TTF"
 const SIDES: Edges = { left: 8 * PX, right: 8 * PX }
 const HEAD: Array<Track> = ["auto", "auto"]
+const HUGGED: Array<Track> = ["auto", "auto"]
+const FILLED: Array<Track> = ["auto", { fr: 1 }]
 
 // The tracks of a table's columns: one per column, as wide as its `width`.
 public function tracksOf(columns: Array<Column>): Array<Track> {
@@ -132,6 +134,8 @@ public class Table implements Component {
   sorted: mut Signal<Integer>
   descending: mut Signal<Boolean>
   height: Signal<Number | nil>
+  // The headings' row and the body's: the body as high as its rows, or the rest of the table's height.
+  const rows: Array<Track>
   constructor(
     columns: Array<Column>,
     // The column the rows are ordered by, from 1; 0 for none.
@@ -139,16 +143,19 @@ public class Table implements Component {
     descending: mut Signal<Boolean>,
     // The body's height: it scrolls past it. None: as high as its rows.
     height: Signal<Number | nil> = nil,
+    // The body takes the height the table is given, under the headings, and scrolls past it.
+    fills: Boolean = false,
   ) {
     self.columns = columns
     self.sorted = sorted
     self.descending = descending
     self.height = height
+    self.rows = fills ? FILLED : HUGGED
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={1}>
+      <box columns={1} rows={self.rows}>
         <box columns={self.tracks} gap={8 * PX} padding={SIDES} background={BACK} border={RULE}>
           <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
                    descending={mut self.descending} />

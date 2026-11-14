@@ -6,7 +6,7 @@
 // click alone) and «Add to shopping list».
 import Game from "$game"
 import { Align, Beside, Edges, Layer, Line, Side, Track } from "$ltml"
-import { Age, Choice, Column, Component, Copper, CountInput, CountLook, DropdownItem, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, ToolButton, Toolbar, tracksOf } from "Ordaen"
+import { Age, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, ToolButton, Toolbar, tracksOf } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { House } from "@/house"
 import Locale from "@/locales"
@@ -51,8 +51,15 @@ const LISTING_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_LEFT, width: 56 * PX, align: Align.End },
 ]
 const LISTING_TRACKS: Array<Track> = tracksOf(LISTING_COLUMNS)
-const PAGE: Array<Track> = [{ fr: 1 }, Style.BUY_PANEL]
+// The results' side, and the picked row's panel at the right, the page's whole height.
+const PAGE: Array<Track> = [{ fr: 1 }, Style.PANEL]
+const FILL: Array<Track> = [{ fr: 1 }]
+const SIDE: Array<Track> = ["auto", { fr: 1 }]
+// The toolbar, and the shopping list's window at the row's right end.
+const TOOLS: Array<Track> = [{ fr: 1 }, "auto"]
 const ITEM: Array<Track> = ["auto", { fr: 1 }]
+// The panel: the item, its listings (the rest of the height), the quantity and the total, a refusal, the buttons.
+const PANEL: Array<Track> = ["auto", { fr: 1 }, "auto", "auto", "auto", "auto"]
 const PAIR: Array<Track> = [{ fr: 1 }, "auto"]
 const MENU_WIDTH = 210 * PX
 const MENU_BACK: Color = Color.hex("#0a0806f7")
@@ -61,9 +68,10 @@ const MENU_PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
 const MENU_RULE: Line = { width: 1 * PX, color: Color.hex("#d6a56b33"), sides: [Side.Top] }
 const AFTER_RULE: Edges = { top: 6 * PX }
 // The most of a commodity the quantity takes: the shopping list takes more than is listed, so the listings don't bound
-// it («Buy» asks that they hold it); six digits fill the field.
+// it («Buy» asks that they hold it).
 const MOST_COUNT = 999999
-const PANEL_BUTTON = 208 * PX
+const STEP = 28 * PX
+const PANEL_BUTTON: Number = Style.PANEL - 2 * Style.PANEL_PAD
 // The pip of an item on the shopping list.
 const LISTED_PIP: Color = Color.hex("#40c0ff")
 // The share's colours: a bargain under 90% of the market, dear over 100%.
@@ -217,6 +225,9 @@ class FoundRow implements Component {
 }
 
 public class BuyPage implements Component {
+  // «Shopping list» was clicked: its window opens, or closes.
+  public openList: Event<nil> = new Event()
+
   state search = ""
   state itemClass = ANY
   state level = ANY
@@ -312,24 +323,34 @@ public class BuyPage implements Component {
   onPick(mut self, key: PriceKey) { self.picked = key }
   closeFilter(mut self) { self.filterOpen = false }
 
+  onOpenList(mut self) { self.openList.emit() }
+
   public render(self): Template {
     return $ltml {
-      <box columns={PAGE} gap={Style.GAP}>
-        <box rows={["auto", "auto", { fr: 1 }]} gap={8 * PX}>
-          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-            <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.filterText}
-                        open={mut self.filterOpen} lit={self.filtered}>
-              <FilterMenu $if={self.filterOpen} itemClass={mut self.itemClass} level={mut self.level}
-                          quality={mut self.quality} @close={self.closeFilter} />
-            </ToolButton>
-          </Toolbar>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST}>
-            <FoundRow $for={row of self.rows} $key={row.key} found={peek row} selected={self.picked == row.key}
-                      wanted={self.shopping.needed[row.item] != nil} @pick={self.onPick} />
-          </Table>
-          <text $if={self.rows.length == 0} value={self.empty} textColor={Style.DIM} />
+      <box columns={PAGE} rows={FILL} gap={Style.GAP}>
+        <box rows={SIDE} gap={Style.ROW_GAP}>
+          // The toolbar (the search, the filter), and the shopping list's window at the row's right end.
+          <box columns={TOOLS} gap={Style.ROW_GAP} yAlign={Align.Center}>
+            <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+              <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.filterText}
+                          open={mut self.filterOpen} lit={self.filtered}>
+                <FilterMenu $if={self.filterOpen} itemClass={mut self.itemClass} level={mut self.level}
+                            quality={mut self.quality} @close={self.closeFilter} />
+              </ToolButton>
+            </Toolbar>
+            <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
+          </box>
+          <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
+            <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} fills={true}>
+              <FoundRow $for={row of self.rows} $key={row.key} found={peek row} selected={self.picked == row.key}
+                        wanted={self.shopping.needed[row.item] != nil} @pick={self.onPick} />
+              <box $if={self.rows.length == 0} padding={Style.PANEL_PAD}>
+                <text value={self.empty} textColor={Style.DIM} />
+              </box>
+            </Table>
+          </box>
         </box>
-        <box rows={["auto"]} gap={10 * PX} padding={10 * PX} border={Style.FRAME} background={Style.LISTS_BACK}>
+        <box rows={FILL} padding={Style.PANEL_PAD} border={Style.FRAME} background={Ordaen.art.window.marble}>
           <text $if={self.chosen.length == 0} value={Locale.PICK_ROW} textColor={Style.DIM} />
           <Chosen $for={found of self.chosen} $key={found.key} found={peek found} shopping={mut self.shopping} />
         </box>
@@ -422,21 +443,21 @@ class Chosen implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={["auto"]} gap={10 * PX}>
+      <box rows={PANEL} gap={Style.ROW_GAP}>
         <box columns={ITEM} gap={10 * PX} yAlign={Align.Center}>
           <ItemButton item={self.found.item} size={Style.BIG_SLOT} />
           <text value={self.found.name} textColor={self.found.color} textSize={.Title} />
         </box>
-        <Table columns={LISTING_COLUMNS} sorted={mut self.listSorted} descending={mut self.listDescending}
-               height={Style.LISTINGS}>
-          <ListingRow $for={index, listing of self.listings} $key={index} listing={peek listing}
-                      index={index} first={self.first} last={self.last} />
-        </Table>
-        <box columns={PAIR} gap={8 * PX} yAlign={Align.Center}>
+        <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
+          <Table columns={LISTING_COLUMNS} sorted={mut self.listSorted} descending={mut self.listDescending}
+                 fills={true}>
+            <ListingRow $for={index, listing of self.listings} $key={index} listing={peek listing}
+                        index={index} first={self.first} last={self.last} />
+          </Table>
+        </box>
+        <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
           <text value={Locale.QUANTITY} textColor={Style.INK} />
-          <box $if={self.commodity} width={80 * PX} height={30 * PX} rows={[{ fr: 1 }]}>
-            <CountInput value={mut self.count} least={1} most={MOST_COUNT} look={CountLook.Field} />
-          </box>
+          <CountInput $if={self.commodity} value={mut self.count} least={1} most={MOST_COUNT} step={STEP} />
           <text $else value={self.auctionCount} textColor={Style.INK} />
           <text value={Locale.TOTAL} textColor={Style.INK} />
           <box xAlign={Align.End}>

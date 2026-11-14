@@ -2,9 +2,9 @@
 // merchants' prices; the sales ledger; the house's window (`redesign/market-ux.md` §1), shown while the house is open.
 // A module loaded on demand: a player with it off loads none of its data.
 import Game from "$game"
-import { Track } from "$ltml"
+import { Edges, Side, Track } from "$ltml"
 import Runtime from "$runtime"
-import { Module, Placing, PX, Settings, SettingsPage, Window, WindowTabSpec } from "Ordaen"
+import { cornerRoom, Module, Placing, Settings, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { BuyPage } from "@/buy"
 import { DataPage } from "@/dataPage"
@@ -27,17 +27,18 @@ import Style from "@/style"
 // What the module keeps, under its own saved variable.
 const KEPT = "kept"
 
-// The window's pages: its own tabs, as every Ordaen window's.
+// The window's pages: its own tabs, as every Ordaen window's. «Shopping list» and «My auctions» are windows of their
+// own, docked at the screen's right, opened from «Buy» and «Sell».
 const BUY = 1
 const SELL = 2
-const OWNED = 3
-const SHOPPING = 4
-const DATA = 5
-const TABS: Array<WindowTabSpec> = [
-  { title: Locale.PAGE_BUY }, { title: Locale.PAGE_SELL }, { title: Locale.PAGE_OWNED },
-  { title: Locale.PAGE_SHOPPING }, { title: Locale.PAGE_DATA },
-]
+const DATA = 3
+const TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_BUY }, { title: Locale.PAGE_SELL }, { title: Locale.PAGE_DATA }]
+const SHOPPING_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_SHOPPING }]
+const OWNED_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_OWNED }]
 const BODY: Array<Track> = ["auto", { fr: 1 }]
+const FILL: Array<Track> = [{ fr: 1 }]
+// The status line stops short of the window's corner buttons.
+const STATUS_ROOM: Edges = { right: cornerRoom(true) }
 
 public class Auction implements Module, App {
   public const title: String = "Ordaen Auction"
@@ -61,10 +62,18 @@ public class Auction implements Module, App {
   // The lines in Ordaen Tooltips' item tooltip, while Tooltips is on.
   lines: TooltipLines
 
-  // The window: its page (the window's tab) and where it stands. It shows while the house is open, and goes with it.
+  // The window: its page (the window's tab) and where it stands while it isn't full screen. It shows while the house
+  // is open, and goes with it; so do the docked windows, each open from its button until it is closed.
   state page = BUY
   state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   derived shown: Boolean = Game.auctionHouse.open && self.settings.values.window
+  state shoppingOpen = false
+  state ownedOpen = false
+  // A docked window's one tab, and its width (it stands the screen's height).
+  state sideTab = 1
+  state sidePlacing: Placing = { x: 0, y: 0, width: Style.SIDE_WIDTH, height: Style.HEIGHT }
+  // What the full-screen window leaves clear at the screen's right: the docked windows' width, while one is open.
+  derived room: Number = self.shoppingOpen || self.ownedOpen ? Style.SIDE_WIDTH : 0
 
   constructor() {
     self.kept = load(.Own, KEPT, Kept {})
@@ -97,26 +106,40 @@ public class Auction implements Module, App {
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
+  // «Shopping list» on «Buy», «My auctions» on «Sell»: each opens its window, or closes it.
+  onShopping(mut self) { self.shoppingOpen = !self.shoppingOpen }
+  onOwned(mut self) { self.ownedOpen = !self.ownedOpen }
+  closeShopping(mut self) { self.shoppingOpen = false }
+  closeOwned(mut self) { self.ownedOpen = false }
+
   public render(self): Template {
     return $ltml {
       <$if={self.shown}>
         // The game's own window stays open, unseen and off the screen: hiding it would close the house.
         <frame of={Game.frames.AuctionHouse} opacity={0} away={true} />
-        <Window tabs={TABS} selected={mut self.page} placing={mut self.placing} withSettings={true}
-                @close={self.onClose} @settings={self.onSettings}>
-          <box rows={BODY} gap={8 * PX}>
-            <Status house={self.house.name} items={self.scanner.known} lastFull={self.scanner.lastFull}
-                    scanner={mut self.scanner} />
-            <box $match={self.page}>
+        <Window tabs={TABS} selected={mut self.page} placing={mut self.placing} withSettings={true} full={true}
+                room={self.room} @close={self.onClose} @settings={self.onSettings}>
+          <box rows={BODY} gap={Style.ROW_GAP}>
+            <box padding={STATUS_ROOM}>
+              <Status house={self.house.name} items={self.scanner.known} lastFull={self.scanner.lastFull}
+                      scanner={mut self.scanner} />
+            </box>
+            <box $match={self.page} rows={FILL}>
               <BuyPage $case={BUY} house={self.house} prices={self.prices} offers={self.scanner.offers}
-                       items={self.scanner.known} shopping={mut self.shopping} />
-              <SellPage $case={SELL} house={self.house} prices={self.prices} />
-              <OwnedPage $case={OWNED} house={self.house} revision={self.source.revision} />
-              <ShoppingPage $case={SHOPPING} prices={self.prices} list={mut self.shopping} />
+                       items={self.scanner.known} shopping={mut self.shopping} @openList={self.onShopping} />
+              <SellPage $case={SELL} house={self.house} prices={self.prices} @openOwned={self.onOwned} />
               <DataPage $case={DATA} scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
                         items={self.scanner.known} settings={mut self.settings} />
             </box>
           </box>
+        </Window>
+        <Window $if={self.shoppingOpen} tabs={SHOPPING_TABS} selected={mut self.sideTab}
+                placing={mut self.sidePlacing} docked={Side.Right} @close={self.closeShopping}>
+          <ShoppingPage prices={self.prices} list={mut self.shopping} />
+        </Window>
+        <Window $if={self.ownedOpen} tabs={OWNED_TABS} selected={mut self.sideTab} placing={mut self.sidePlacing}
+                docked={Side.Right} @close={self.closeOwned}>
+          <OwnedPage house={self.house} revision={self.source.revision} />
         </Window>
       </>
     }

@@ -1,10 +1,12 @@
 // «Sell» (design `auction`): the bags' items the house takes (`Game.auctionActions.sellable()`, read again as the bags
 // change), each with how many, its market, its merchant's price and which pays more (the market after the house's cut
-// against the merchant). The one picked: a quantity, a price for one (the lowest listed less a copper, or the market),
-// the duration, the deposit and «Post», one auction a click (the client's from a click alone).
+// against the merchant). The one picked: a quantity (the counter Professions has), a price for one (the lowest listed
+// less a copper, or the market), the duration, the merchant's price and the deposit as money, and «Post», one auction
+// a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Choice, Column, Component, Copper, CountInput, CountLook, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, Table, TableRow, tracksOf } from "Ordaen"
+import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, Table, TableRow, tracksOf } from "Ordaen"
+import root Ordaen from "Ordaen"
 import { nameOf } from "@/buy"
 import { House } from "@/house"
 import Locale from "@/locales"
@@ -36,9 +38,16 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_BETTER, width: 90 * PX },
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
-const PAGE: Array<Track> = [{ fr: 1 }, Style.SELL_PANEL]
+// The bags' side, and the picked item's panel at the right, the page's whole height.
+const PAGE: Array<Track> = [{ fr: 1 }, Style.PANEL]
+const FILL: Array<Track> = [{ fr: 1 }]
+const SIDE: Array<Track> = ["auto", { fr: 1 }]
+const TOOLS: Array<Track> = [{ fr: 1 }, "auto"]
 const ITEM: Array<Track> = ["auto", { fr: 1 }]
-const PAIR: Array<Track> = ["auto", { fr: 1 }]
+// A label at the left, its value or control at the right.
+const PAIR: Array<Track> = [{ fr: 1 }, "auto"]
+const STEP = 28 * PX
+const POST_WIDTH: Number = Style.PANEL - 2 * Style.PANEL_PAD
 const DURATIONS: Array<Choice<Game.Duration>> = [
   { value: Game.Duration.Short, label: Locale.HOURS.format(12) },
   { value: Game.Duration.Medium, label: Locale.HOURS.format(24) },
@@ -89,6 +98,9 @@ class OfferedRow implements Component {
 }
 
 public class SellPage implements Component {
+  // «My auctions» was clicked: its window opens, or closes.
+  public openOwned: Event<nil> = new Event()
+
   state sorted = 0
   state descending = false
   state picked: ItemId | nil = nil
@@ -147,18 +159,28 @@ public class SellPage implements Component {
 
   onPick(mut self, item: ItemId) { self.picked = item }
 
+  onOpenOwned(mut self) { self.openOwned.emit() }
+
   public render(self): Template {
     return $ltml {
-      <box columns={PAGE} gap={Style.GAP}>
-        <box rows={["auto", "auto"]} gap={8 * PX}>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST}>
-            <OfferedRow $for={row of self.rows} $key={row.item} offered={peek row} selected={self.picked == row.item}
-                        @pick={self.onPick} />
-          </Table>
-          <text $if={self.rows.length == 0} value={Locale.NOTHING_TO_SELL} textColor={Style.DIM}
-                textSize={.Secondary} />
+      <box columns={PAGE} rows={FILL} gap={Style.GAP}>
+        <box rows={SIDE} gap={Style.ROW_GAP}>
+          // The row over the bags' items: «My auctions» at its right end.
+          <box columns={TOOLS} gap={Style.ROW_GAP} yAlign={Align.Center}>
+            <text value={Locale.SELLABLE} textColor={Style.DIM} wrap={false} />
+            <PushButton label={Locale.PAGE_OWNED} width={Style.OPENER} @click={self.onOpenOwned} />
+          </box>
+          <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
+            <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} fills={true}>
+              <OfferedRow $for={row of self.rows} $key={row.item} offered={peek row}
+                          selected={self.picked == row.item} @pick={self.onPick} />
+              <box $if={self.rows.length == 0} padding={Style.PANEL_PAD}>
+                <text value={Locale.NOTHING_TO_SELL} textColor={Style.DIM} />
+              </box>
+            </Table>
+          </box>
         </box>
-        <box rows={["auto"]} gap={10 * PX} padding={10 * PX} border={Style.FRAME} background={Style.LISTS_BACK}>
+        <box rows={FILL} padding={Style.PANEL_PAD} border={Style.FRAME} background={Ordaen.art.window.marble}>
           <text $if={self.chosen.length == 0} value={Locale.PICK_ROW} textColor={Style.DIM} />
           <Posting $for={offered of self.chosen} $key={offered.item} offered={peek offered} house={self.house} />
         </box>
@@ -181,6 +203,7 @@ class Posting implements Component {
   // A commodity is posted from every stack at once; an item's auction from its first stack.
   derived most: Integer = self.offered.from.commodity ? self.offered.count : self.offered.from.count
   derived canPost: Boolean = !Game.auctionActions.busy && self.count <= self.most && self.unit > 0
+  derived heldText: String = Locale.IN_BAGS.format(self.offered.count)
 
   const offered: Offered
   constructor(offered: Offered, house: House) {
@@ -213,31 +236,36 @@ class Posting implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={["auto"]} gap={10 * PX}>
+      <box gap={Style.ROW_GAP}>
         <box columns={ITEM} gap={10 * PX} yAlign={Align.Center}>
           <ItemButton item={self.offered.item} size={Style.BIG_SLOT} />
-          <text value={self.offered.name} textColor={self.offered.color} textSize={.Title} />
-        </box>
-        <box columns={PAIR} gap={8 * PX} yAlign={Align.Center}>
-          <text value={Locale.QUANTITY} textColor={Style.INK} />
-          <box width={80 * PX} height={26 * PX} rows={[{ fr: 1 }]}>
-            <CountInput value={mut self.count} least={1} most={self.most} look={CountLook.Field} />
+          <box gap={2 * PX}>
+            <text value={self.offered.name} textColor={self.offered.color} textSize={.Title} />
+            <text value={self.heldText} textColor={Style.DIM} textSize={.Secondary} />
           </box>
+        </box>
+        <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
+          <text value={Locale.QUANTITY} textColor={Style.INK} />
+          <CountInput value={mut self.count} least={1} most={self.most} step={STEP} />
         </box>
         <text value={Locale.UNIT_PRICE} textColor={Style.INK} />
         <MoneyField value={mut self.unit} />
         <text value={Locale.DURATION} textColor={Style.INK} />
         <Segmented value={mut self.duration} choices={DURATIONS} />
-        <box columns={PAIR} gap={8 * PX}>
+        // The merchant's price for one, and the deposit, as money.
+        <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
+          <text value={Locale.VENDOR_PRICE} textColor={Style.INK} />
+          <Money $if={self.offered.vendor != nil} amount={self.offered.vendor} />
+          <text $else value={"—"} textColor={Style.DIM} />
           <text value={Locale.DEPOSIT} textColor={Style.INK} />
-          // The client's deposit (`C_AuctionHouse.CalculateItemDeposit`) is no part of `"$game"`.
-          <box xAlign={Align.End}>
-            <text value={"—"} textColor={Style.DIM} />
-          </box>
+          // The client's deposit (`C_AuctionHouse.CalculateItemDeposit`, `CalculateCommodityDeposit`) is no part of
+          // `"$game"` yet: until it is, none is known.
+          <text value={"—"} textColor={Style.DIM} />
         </box>
         <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={.Secondary} />
         <text $if={self.hasRefused} value={self.refusedText} textColor={Style.RED} textSize={.Secondary} />
-        <PushButton label={Locale.POST} width={228 * PX} accent={true} disabled={!self.canPost} @click={self.onPost} />
+        <PushButton label={Locale.POST} width={POST_WIDTH} accent={true} disabled={!self.canPost}
+                    @click={self.onPost} />
       </box>
     }
   }
