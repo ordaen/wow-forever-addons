@@ -4,10 +4,13 @@ box 0,0 600x28.33 opacity=1
     box 0,0 68.75x1.67 absolute #d6a56b
     text 12.5,6.67 43.75x15 "Auction" #ffffff
   box 68.75,0 74.17x28.33 #0d0a08 @click
+    box 68.75,0 74.17x1.67 absolute #00000000
     text 80.42,6.67 50x15 "Merchant" #a3977f
   box 142.92,0 130.42x28.33 #0d0a08 @click
+    box 142.92,0 130.42x1.67 absolute #00000000
     text 154.58,6.67 106.25x15 "From what is held" #a3977f
   box 273.33,0 186.67x28.33 #0d0a08 @click
+    box 273.33,0 186.67x1.67 absolute #00000000
     text 285,6.67 162.5x15 "Cooldowns — in development" #ffffff
 
 -- the cursor on the second segment: lighter on a shade
@@ -16,44 +19,56 @@ box 0,0 600x28.33 opacity=1
     box 0,0 68.75x1.67 absolute #d6a56b
     text 12.5,6.67 43.75x15 "Auction" #ffffff
   box 68.75,0 74.17x28.33 #1c1610 @click
+    box 68.75,0 74.17x1.67 absolute #00000000
     text 80.42,6.67 50x15 "Merchant" #e8dcc4
   box 142.92,0 130.42x28.33 #0d0a08 @click
+    box 142.92,0 130.42x1.67 absolute #00000000
     text 154.58,6.67 106.25x15 "From what is held" #a3977f
   box 273.33,0 186.67x28.33 #0d0a08 @click
+    box 273.33,0 186.67x1.67 absolute #00000000
     text 285,6.67 162.5x15 "Cooldowns — in development" #ffffff
 
 -- the second segment clicked: it is the picked one, the first is dim
 box 0,0 600x28.33 opacity=1
   box 0,0 68.75x28.33 #0d0a08 @click
+    box 0,0 68.75x1.67 absolute #00000000
     text 12.5,6.67 43.75x15 "Auction" #a3977f
   box 68.75,0 74.17x28.33 #5a4428 @click
     box 68.75,0 74.17x1.67 absolute #d6a56b
     text 80.42,6.67 50x15 "Merchant" #ffffff
   box 142.92,0 130.42x28.33 #0d0a08 @click
+    box 142.92,0 130.42x1.67 absolute #00000000
     text 154.58,6.67 106.25x15 "From what is held" #a3977f
   box 273.33,0 186.67x28.33 #0d0a08 @click
+    box 273.33,0 186.67x1.67 absolute #00000000
     text 285,6.67 162.5x15 "Cooldowns — in development" #ffffff
 
 -- the segment not built yet clicked: nothing changes
 box 0,0 600x28.33 opacity=1
   box 0,0 68.75x28.33 #0d0a08 @click
+    box 0,0 68.75x1.67 absolute #00000000
     text 12.5,6.67 43.75x15 "Auction" #a3977f
   box 68.75,0 74.17x28.33 #5a4428 @click
     box 68.75,0 74.17x1.67 absolute #d6a56b
     text 80.42,6.67 50x15 "Merchant" #ffffff
   box 142.92,0 130.42x28.33 #0d0a08 @click
+    box 142.92,0 130.42x1.67 absolute #00000000
     text 154.58,6.67 106.25x15 "From what is held" #a3977f
   box 273.33,0 186.67x28.33 #0d0a08 @click
+    box 273.33,0 186.67x1.67 absolute #00000000
     text 285,6.67 162.5x15 "Cooldowns — in development" #ffffff
 
 -- disabled: the strip at 45%, a click changes nothing
 box 0,0 600x28.33 opacity=0.45
   box 0,0 68.75x28.33 #0d0a08 @click
+    box 0,0 68.75x1.67 absolute #00000000
     text 12.5,6.67 43.75x15 "Auction" #a3977f
   box 68.75,0 74.17x28.33 #5a4428 @click
     box 68.75,0 74.17x1.67 absolute #d6a56b
     text 80.42,6.67 50x15 "Merchant" #ffffff
   box 142.92,0 130.42x28.33 #0d0a08 @click
+    box 142.92,0 130.42x1.67 absolute #00000000
     text 154.58,6.67 106.25x15 "From what is held" #a3977f
   box 273.33,0 186.67x28.33 #0d0a08 @click
+    box 273.33,0 186.67x1.67 absolute #00000000
     text 285,6.67 162.5x15 "Cooldowns — in development" #ffffff

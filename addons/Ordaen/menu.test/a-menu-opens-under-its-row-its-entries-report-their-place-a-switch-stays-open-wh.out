@@ -12,11 +12,13 @@ surface 0,31 183.33x120.83 on FULLSCREEN_DIALOG #0a0806f7
   box 0.83,86.83 181.67x32.5 #00000000 @click
     text 12.5,98.5 118.33x15 "Favorite" #e8dcc4
     box 139.17,97.67 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-      box 136.67,95.17 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+      box 136.67,95.17 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+      box 151.67,95.17 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
   box 0.83,119.33 181.67x26.67 #00000000 @click
     text 12.5,125.17 118.33x15 "Track" #6f6552
     box 139.17,124.33 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-      box 136.67,121.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+      box 136.67,121.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+      box 151.67,121.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
 
 -- the first switch clicked: it shows on, the menu is still open
 box 0,0 500x31
@@ -32,8 +34,10 @@ surface 0,31 183.33x120.83 on FULLSCREEN_DIALOG #0a0806f7
   box 0.83,86.83 181.67x32.5 #d6a56b2e @click
     text 12.5,98.5 118.33x15 "Favorite" #ffffff
     box 139.17,97.67 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
-      box 151.67,95.17 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+      box 136.67,95.17 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+      box 151.67,95.17 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
   box 0.83,119.33 181.67x26.67 #00000000 @click
     text 12.5,125.17 118.33x15 "Track" #6f6552
     box 139.17,124.33 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-      box 136.67,121.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+      box 136.67,121.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+      box 151.67,121.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0

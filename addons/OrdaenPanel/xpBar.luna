@@ -9,7 +9,8 @@ import { Component } from "Ordaen"
 
 // Slim at a third of the screen's width.
 const TUBE_HEIGHT = 25
-// The shortest a tube is, where nothing gives it room: on a panel as long as its items.
+// The shortest a tube is, with its margins: on a panel as long as its items, and the least the panel's middle gives
+// way to on a short screen.
 const LEAST = 240
 const MARGINS: Edges = { right: 32, left: 32 }
 // The trough's inside, as the art draws it.

@@ -1,5 +1,5 @@
 import Game from "$game"
-import { Align, Anchored, Click, EmbedLook, Line, MouseButton, Point, Position, Shadow } from "$ltml"
+import { Align, Anchored, Click, EmbedLook, Frame, Line, MouseButton, Point, Position, Shadow } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { Module, Placed, PX, Settings, SettingsPage, Tip } from "Ordaen"
@@ -79,6 +79,10 @@ public class Minimap implements Module, App {
   derived clockColor: Color = Game.clock.invites > 0 ? PENDING : INK
   // The map goes back into the game's hidden cluster while the player fights or travels, as chosen.
   derived shown: Boolean = !self.hiddenNow()
+  // The game's parts the minimap takes the place of, the one list of them: its cluster and backdrop, the map's zoom
+  // buttons and the area that shows them (the wheel zooms), and the dev addon's own button (the ring's Ordaen button
+  // opens its window).
+  public derived hidden: Array<any Frame> = self.hiddenParts()
 
   // The drawer: its cells, and where it hangs from its button.
   derived held: Integer = Game.minimap.buttons.length + Game.minimap.entries.length
@@ -105,6 +109,21 @@ public class Minimap implements Module, App {
 
   destructor() {
     Game.minimap.square(false)
+  }
+
+  hiddenParts(self): Array<any Frame> {
+    const parts: Array<any Frame> = []
+    Minimap.hide(mut parts, Game.frames.MinimapCluster)
+    Minimap.hide(mut parts, Game.frames.MinimapBackdrop)
+    Minimap.hide(mut parts, Game.frames.MinimapZoomIn)
+    Minimap.hide(mut parts, Game.frames.MinimapZoomOut)
+    Minimap.hide(mut parts, Game.frames.MinimapZoomHitArea)
+    Minimap.hide(mut parts, Game.frames.OrdaenDevButton)
+    return parts
+  }
+
+  hide(parts: mut Array<any Frame>, part: any Frame | nil) {
+    if (part != nil) { parts.push(part) }
   }
 
   hiddenNow(self): Boolean {
@@ -263,10 +282,9 @@ public class Minimap implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <frame of={Game.frames.MinimapCluster} shown={false} />
-      <frame of={Game.frames.MinimapBackdrop} shown={false} />
-      // The dev addon's own button: the ring's Ordaen button opens its window.
-      <frame of={Game.frames.OrdaenDevButton} shown={false} />
+      // Each of the game's parts the minimap replaces: hidden and sent off the screen, so the game showing one again
+      // (the zoom buttons as the cursor comes onto the map) puts nothing in sight and nothing under the cursor.
+      <frame $for={part of self.hidden} of={part} shown={false} away={true} />
 
       <Placed $if={self.shown} id={"OrdaenMinimap.map"} title={Locale.MINIMAP_TITLE} home={HOME}>
         <box width={self.wholeWidth} height={self.wholeHeight} hoverWithin={true}

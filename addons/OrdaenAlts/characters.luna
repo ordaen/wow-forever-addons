@@ -12,7 +12,7 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COL_LEVEL, width: 56 * PX, align: Align.End, sortable: true },
   { title: Locale.COL_GOLD, width: 120 * PX, align: Align.End, sortable: true },
   { title: Locale.COL_PROFESSIONS, width: { fr: 3 } },
-  { title: Locale.COL_BAGS, width: 84 * PX, align: Align.End, sortable: true },
+  { title: Locale.COL_BAGS, width: 96 * PX, align: Align.End, sortable: true },
   { title: Locale.COL_SEEN, width: 90 * PX, align: Align.End, sortable: true },
   { title: Locale.COL_BANK, width: 92 * PX },
   { title: Locale.COL_MAIL, width: 92 * PX },

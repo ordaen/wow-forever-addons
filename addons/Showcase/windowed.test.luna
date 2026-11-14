@@ -60,16 +60,16 @@ test "the window: its tabs, moved, full screen, resized, closed" {
   show("the open tab dragged 40 right and 30 down: the window follows")
 
   Test.moveTo(Test.holding("the second tab's page", nil))
-  show("the cursor in the body: the corner's buttons show")
+  show("the cursor in the body: the corner's group shows, settings, full screen and close")
 
-  Test.click(Test.holding("☼", nil), nil)
+  Test.click(Test.painted(art.ctl.corner.gear, nil), nil)
   Test.expect(page.settingsOpened == 1)
-  show("the settings glyph clicked: the owner heard it, the window as it was")
+  show("the settings plate clicked: the owner heard it, the window as it was")
 
-  Test.click(Test.painted(art.ctl.cornerExpand, nil), nil)
+  Test.click(Test.painted(art.ctl.corner.expand, nil), nil)
   show("full screen clicked: the window covers the screen, its grip gone")
 
-  Test.click(Test.painted(art.ctl.cornerContract, nil), nil)
+  Test.click(Test.painted(art.ctl.corner.contract, nil), nil)
   show("clicked again: back where it was")
 
   // The cursor stood still where the button was, now off the window: the next frame the client finds the window

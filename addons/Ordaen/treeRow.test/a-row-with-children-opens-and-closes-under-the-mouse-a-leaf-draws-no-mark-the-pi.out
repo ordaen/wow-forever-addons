@@ -1,20 +1,27 @@
 -- the axe open, the bar closed: ▼ on the axe, ► on the bar one step in, none on the leaf; the bar's age at its right
 box 0,0 400x65
   box 0,0 400x21.67 #00000000 @click
+    box 0,0 2.5x21.67 absolute #00000000
     box 3.33,4.58 13.33x12.5
-      box 3.33,5.42 5.42x13 absolute
+      box 3.33,5.42 5.42x13 absolute opacity=0
+        text 3.33,5.42 5.42x13 "►" #d6a56b
+      box 3.33,5.42 5.42x13 absolute opacity=1
         text 3.33,5.42 5.42x13 "▼" #d6a56b
     text 20,3.33 310.83x15 "Bronze Axe" #e8dcc4
     box 334.17,3.33 62.5x15
       text 334.17,3.33 62.5x15 "1g 23s 45c" #e8dcc4
   box 0,21.67 400x21.67 #00000000 @click
+    box 0,21.67 2.5x21.67 absolute #00000000
     box 3.33,26.25 26.67x12.5
-      box 16.67,27.08 5.42x13 absolute
+      box 16.67,27.08 5.42x13 absolute opacity=1
         text 16.67,27.08 5.42x13 "►" #d6a56b
+      box 16.67,27.08 5.42x13 absolute opacity=0
+        text 16.67,27.08 5.42x13 "▼" #d6a56b
     text 33.33,25 322.5x15 "Bronze Bar" #e8dcc4
     box 359.17,25 37.5x15
       text 359.17,25 37.5x15 "(5 d.)" #a3977f
   box 0,43.33 400x21.67 #00000000 @click
+    box 0,43.33 2.5x21.67 absolute #00000000
     box 3.33,47.92 26.67x12.5
     text 33.33,46.67 360x15 "Hardwood Handle" #e8dcc4
     box 396.67,54.17 0x0
@@ -22,20 +29,27 @@ box 0,0 400x65
 -- the cursor on the leaf: its shade
 box 0,0 400x65
   box 0,0 400x21.67 #00000000 @click
+    box 0,0 2.5x21.67 absolute #00000000
     box 3.33,4.58 13.33x12.5
-      box 3.33,5.42 5.42x13 absolute
+      box 3.33,5.42 5.42x13 absolute opacity=0
+        text 3.33,5.42 5.42x13 "►" #d6a56b
+      box 3.33,5.42 5.42x13 absolute opacity=1
         text 3.33,5.42 5.42x13 "▼" #d6a56b
     text 20,3.33 310.83x15 "Bronze Axe" #e8dcc4
     box 334.17,3.33 62.5x15
       text 334.17,3.33 62.5x15 "1g 23s 45c" #e8dcc4
   box 0,21.67 400x21.67 #00000000 @click
+    box 0,21.67 2.5x21.67 absolute #00000000
     box 3.33,26.25 26.67x12.5
-      box 16.67,27.08 5.42x13 absolute
+      box 16.67,27.08 5.42x13 absolute opacity=1
         text 16.67,27.08 5.42x13 "►" #d6a56b
+      box 16.67,27.08 5.42x13 absolute opacity=0
+        text 16.67,27.08 5.42x13 "▼" #d6a56b
     text 33.33,25 322.5x15 "Bronze Bar" #e8dcc4
     box 359.17,25 37.5x15
       text 359.17,25 37.5x15 "(5 d.)" #a3977f
   box 0,43.33 400x21.67 #00000059 @click
+    box 0,43.33 2.5x21.67 absolute #00000000
     box 3.33,47.92 26.67x12.5
     text 33.33,46.67 360x15 "Hardwood Handle" #e8dcc4
     box 396.67,54.17 0x0
@@ -43,25 +57,33 @@ box 0,0 400x65
 -- the bar clicked: open, its ore two steps in
 box 0,0 400x86.67
   box 0,0 400x21.67 #00000000 @click
+    box 0,0 2.5x21.67 absolute #00000000
     box 3.33,4.58 13.33x12.5
-      box 3.33,5.42 5.42x13 absolute
+      box 3.33,5.42 5.42x13 absolute opacity=0
+        text 3.33,5.42 5.42x13 "►" #d6a56b
+      box 3.33,5.42 5.42x13 absolute opacity=1
         text 3.33,5.42 5.42x13 "▼" #d6a56b
     text 20,3.33 310.83x15 "Bronze Axe" #e8dcc4
     box 334.17,3.33 62.5x15
       text 334.17,3.33 62.5x15 "1g 23s 45c" #e8dcc4
   box 0,21.67 400x21.67 #00000059 @click
+    box 0,21.67 2.5x21.67 absolute #00000000
     box 3.33,26.25 26.67x12.5
-      box 16.67,27.08 5.42x13 absolute
+      box 16.67,27.08 5.42x13 absolute opacity=0
+        text 16.67,27.08 5.42x13 "►" #d6a56b
+      box 16.67,27.08 5.42x13 absolute opacity=1
         text 16.67,27.08 5.42x13 "▼" #d6a56b
     text 33.33,25 322.5x15 "Bronze Bar" #e8dcc4
     box 359.17,25 37.5x15
       text 359.17,25 37.5x15 "(5 d.)" #a3977f
   box 0,43.33 400x21.67 #00000000 @click
+    box 0,43.33 2.5x21.67 absolute #00000000
     box 3.33,47.92 40x12.5
     text 46.67,46.67 290.42x15 "Tin Ore" #e8dcc4
     box 340.42,46.67 56.25x15
       text 340.42,46.67 56.25x15 "0g 0s 80c" #e8dcc4
   box 0,65 400x21.67 #00000000 @click
+    box 0,65 2.5x21.67 absolute #00000000
     box 3.33,69.58 26.67x12.5
     text 33.33,68.33 360x15 "Hardwood Handle" #e8dcc4
     box 396.67,75.83 0x0
@@ -69,15 +91,21 @@ box 0,0 400x86.67
 -- the ore clicked: picked, white, its light along its left; a leaf does not close
 box 0,0 400x86.67
   box 0,0 400x21.67 #00000000 @click
+    box 0,0 2.5x21.67 absolute #00000000
     box 3.33,4.58 13.33x12.5
-      box 3.33,5.42 5.42x13 absolute
+      box 3.33,5.42 5.42x13 absolute opacity=0
+        text 3.33,5.42 5.42x13 "►" #d6a56b
+      box 3.33,5.42 5.42x13 absolute opacity=1
         text 3.33,5.42 5.42x13 "▼" #d6a56b
     text 20,3.33 310.83x15 "Bronze Axe" #e8dcc4
     box 334.17,3.33 62.5x15
       text 334.17,3.33 62.5x15 "1g 23s 45c" #e8dcc4
   box 0,21.67 400x21.67 #00000000 @click
+    box 0,21.67 2.5x21.67 absolute #00000000
     box 3.33,26.25 26.67x12.5
-      box 16.67,27.08 5.42x13 absolute
+      box 16.67,27.08 5.42x13 absolute opacity=0
+        text 16.67,27.08 5.42x13 "►" #d6a56b
+      box 16.67,27.08 5.42x13 absolute opacity=1
         text 16.67,27.08 5.42x13 "▼" #d6a56b
     text 33.33,25 322.5x15 "Bronze Bar" #e8dcc4
     box 359.17,25 37.5x15
@@ -89,6 +117,7 @@ box 0,0 400x86.67
     box 340.42,46.67 56.25x15
       text 340.42,46.67 56.25x15 "0g 0s 80c" #e8dcc4
   box 0,65 400x21.67 #00000000 @click
+    box 0,65 2.5x21.67 absolute #00000000
     box 3.33,69.58 26.67x12.5
     text 33.33,68.33 360x15 "Hardwood Handle" #e8dcc4
     box 396.67,75.83 0x0
@@ -98,8 +127,10 @@ box 0,0 400x21.67
   box 0,0 400x21.67 #00000040 @click
     box 0,0 2.5x21.67 absolute #d6a56b
     box 3.33,4.58 13.33x12.5
-      box 3.33,5.42 5.42x13 absolute
+      box 3.33,5.42 5.42x13 absolute opacity=1
         text 3.33,5.42 5.42x13 "►" #d6a56b
+      box 3.33,5.42 5.42x13 absolute opacity=0
+        text 3.33,5.42 5.42x13 "▼" #d6a56b
     text 20,3.33 310.83x15 "Bronze Axe" #ffffff
     box 334.17,3.33 62.5x15
       text 334.17,3.33 62.5x15 "1g 23s 45c" #e8dcc4

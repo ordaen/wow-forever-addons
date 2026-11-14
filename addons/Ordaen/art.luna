@@ -12,22 +12,34 @@ public struct Spacing {
 public struct ArtFrame {
   // A window's or a small surface's metal on all four sides: windows, dialogs, tooltips, the minimap.
   small: Metal
-  // A window tab's: the metal on its top and sides, its top corners rounded. The open tab's sides curve out into
-  // the body's top line; the first tab's left runs straight down the body's own.
+  // A window tab's: the metal on its top and sides, its top corners rounded, open or closed alike.
   tab: Metal
-  tabOpen: Metal
-  tabOpenFirst: Metal
-  // A tab's icon: its picture cut by the tab's top-left curve, the line on its right, the line under it.
+  // A tab's icon: its picture cut by the tab's top-left curve, and the line on its right.
   tabIconClip: Metal
   tabIconLine: Metal
-  tabIconLineOpen: Metal
-  tabIconUnder: Metal
 }
 
 public struct ArtWindow {
   wood: Art
   // The game's dark marble, under a chosen thing's details.
   marble: Art
+}
+
+// One tone of the corner group's plates: the first of the group, with the group's rim round its left and bottom
+// and its corner rounded; and one after another, a divider on its left and the rim under it.
+public struct CornerPlates {
+  first: Art
+  next: Art
+}
+
+// A window's corner group: every control a plate of one tone with its glyph on it.
+public struct CornerArt {
+  bronze: CornerPlates
+  red: CornerPlates
+  gear: Art
+  expand: Art
+  contract: Art
+  close: Art
 }
 
 public struct ArtControls {
@@ -47,10 +59,8 @@ public struct ArtControls {
   dropdownArrow: Art
   radio: Art
   radioOn: Art
-  // A window's corner: full screen and back, close; its resize grip.
-  cornerExpand: Art
-  cornerContract: Art
-  cornerClose: Art
+  // A window's corner group; its resize grip.
+  corner: CornerArt
   grip: Art
   gripHover: Art
   gripDown: Art
@@ -111,12 +121,8 @@ public const ARTWORK: Artwork = {
   frame: {
     small: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, curves: CURVES, lineStart: 10 },
     tab: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },
-    tabOpen: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, flare: [Side.Left, Side.Right], curves: CURVES, lineStart: 10 },
-    tabOpenFirst: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, flare: [Side.Right], curves: CURVES, lineStart: 10 },
     tabIconClip: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
     tabIconLine: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 },
-    tabIconLineOpen: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], flare: [Side.Left], curves: CURVES, lineStart: 10 },
-    tabIconUnder: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Top], curves: CURVES, lineStart: 10 },
   },
   window: { wood: WOOD, marble: "Interface/FrameGeneral/UI-Background-Marble" },
   ctl: {
@@ -141,10 +147,22 @@ public const ARTWORK: Artwork = {
     dropdownArrow: "@/media/dropdown-arrow.tga",
     radio: { file: "@/media/ctl-radio.tga", width: 32, height: 64, rows: 2, normal: 0 },
     radioOn: { file: "@/media/ctl-radio.tga", width: 32, height: 64, rows: 2, normal: 1 },
-    // A window's corner buttons, each drawn whole: the row by state.
-    cornerExpand: { file: "@/media/ctl-corner-full.tga", width: 128, height: 512, rows: 8, normal: 0, hover: 1, pressed: 2 },
-    cornerContract: { file: "@/media/ctl-corner-full.tga", width: 128, height: 512, rows: 8, normal: 3, hover: 4, pressed: 5 },
-    cornerClose: { file: "@/media/ctl-corner-close.tga", width: 128, height: 256, rows: 4, normal: 0, hover: 1, pressed: 2 },
+    // A window's corner group (art/pieces/corner.json): the plates by tone and place, the glyphs; the row by state
+    // (a glyph pressed is its hover's: the mouse is on it).
+    corner: {
+      bronze: {
+        first: { file: "@/media/ctl-corner-plate.tga", width: 128, height: 1024, rows: 16, normal: 0, hover: 1, pressed: 2 },
+        next: { file: "@/media/ctl-corner-plate.tga", width: 128, height: 1024, rows: 16, normal: 3, hover: 4, pressed: 5 },
+      },
+      red: {
+        first: { file: "@/media/ctl-corner-plate.tga", width: 128, height: 1024, rows: 16, normal: 6, hover: 7, pressed: 8 },
+        next: { file: "@/media/ctl-corner-plate.tga", width: 128, height: 1024, rows: 16, normal: 9, hover: 10, pressed: 11 },
+      },
+      gear: { file: "@/media/ctl-corner-glyph.tga", width: 32, height: 256, rows: 8, normal: 0, hover: 1, pressed: 1 },
+      expand: { file: "@/media/ctl-corner-glyph.tga", width: 32, height: 256, rows: 8, normal: 2, hover: 3, pressed: 3 },
+      contract: { file: "@/media/ctl-corner-glyph.tga", width: 32, height: 256, rows: 8, normal: 4, hover: 5, pressed: 5 },
+      close: { file: "@/media/ctl-corner-glyph.tga", width: 32, height: 256, rows: 8, normal: 6, hover: 7, pressed: 7 },
+    },
     // A window's resize grip: the client's own.
     grip: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up",
     gripHover: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Highlight",

@@ -3,11 +3,13 @@ box 0,0 700x388.67 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
+      box 0.83,0.83 42.08x1.67 absolute #00000000
       text 12.5,6.67 18.75x15 "Map" #a3977f
     box 47.08,0 62.5x26.67 #00000059 @click
       box 47.92,0.83 60.83x1.67 absolute #d6a56b
       text 59.58,6.67 37.5x15 "Drawer" #ffffff
     box 112.92,0 62.5x26.67 #00000000 @click
+      box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
@@ -18,7 +20,8 @@ box 0,0 700x388.67 @enter @leave
         box 0,62.17 233.33x15 @enter @leave
           text 0,62.17 233.33x15 "Button drawer" #cbb994
         box 248.33,61.33 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-          box 245.83,58.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+          box 245.83,58.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+          box 260.83,58.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
       box 0,89.67 700x28.33 opacity=0.45
         box 0,96.33 233.33x15 @enter @leave
           text 0,96.33 233.33x15 "Hide the map" #cbb994
@@ -32,7 +35,8 @@ box 0,0 700x388.67 @enter @leave
         box 248.33,129.67 250x25 #0d0a08 input "" @change
       text 0,166.33 700x0 "" #ffffff
       box 0,178 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-        box -2.5,175.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+        box -2.5,175.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+        box 12.5,175.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
     box 0,206.33 700x86.67
       box 0,206.33 700x15
         text 0,206.33 37.5x15 "Export" #e8c35a
@@ -52,11 +56,13 @@ box 0,0 700x388.67 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
+      box 0.83,0.83 42.08x1.67 absolute #00000000
       text 12.5,6.67 18.75x15 "Map" #a3977f
     box 47.08,0 62.5x26.67 #00000059 @click
       box 47.92,0.83 60.83x1.67 absolute #d6a56b
       text 59.58,6.67 37.5x15 "Drawer" #ffffff
     box 112.92,0 62.5x26.67 #00000000 @click
+      box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
@@ -67,7 +73,8 @@ box 0,0 700x388.67 @enter @leave
         box 0,62.17 233.33x15 @enter @leave
           text 0,62.17 233.33x15 "Button drawer" #cbb994
         box 248.33,61.33 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-          box 245.83,58.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+          box 245.83,58.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+          box 260.83,58.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
       box 0,89.67 700x28.33 opacity=0.45
         box 0,96.33 233.33x15 @enter @leave
           text 0,96.33 233.33x15 "Hide the map" #cbb994
@@ -81,7 +88,8 @@ box 0,0 700x388.67 @enter @leave
         box 248.33,129.67 250x25 #0d0a08 input "" @change
       text 0,166.33 700x0 "" #ffffff
       box 0,178 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-        box -2.5,175.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+        box -2.5,175.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+        box 12.5,175.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
     box 0,206.33 700x86.67
       box 0,206.33 700x15
         text 0,206.33 37.5x15 "Export" #e8c35a

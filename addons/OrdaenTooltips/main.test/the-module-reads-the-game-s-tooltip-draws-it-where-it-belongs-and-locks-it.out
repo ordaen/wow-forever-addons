@@ -440,6 +440,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
           box 1077.67,285.75 46.67x21.67
             box 1086,292.42 30x15
               box 1086,293.25 13.33x13.33
+                box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
               box 1103.5,292.42 12.5x15
                 text 1103.5,292.42 12.5x15 "65" #f3e7cc
           box 1124.33,285.75 90.42x21.67
@@ -451,6 +452,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
           box 1214.75,285.75 110x21.67
             box 1223.92,292.42 92.5x15
               box 1223.92,293.25 13.33x13.33
+                box 1222.25,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
               box 1241.42,292.42 75x15
                 text 1241.42,292.42 75x15 "2.5 sec cast" #f3e7cc
                 box 1241.42,306.58 75x0.83 absolute #ffd100b3
@@ -475,6 +477,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
           box 1077.67,285.75 46.67x21.67
             box 1086,292.42 30x15
               box 1086,293.25 13.33x13.33
+                box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
               box 1103.5,292.42 12.5x15
                 text 1103.5,292.42 12.5x15 "65" #f3e7cc
           box 1124.33,285.75 90.42x21.67
@@ -486,6 +489,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
           box 1214.75,285.75 110x21.67
             box 1223.92,292.42 92.5x15
               box 1223.92,293.25 13.33x13.33
+                box 1222.25,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
               box 1241.42,292.42 75x15
                 text 1241.42,292.42 75x15 "2.5 sec cast" #f3e7cc
                 box 1241.42,306.58 75x0.83 absolute #ffd100b3
@@ -517,6 +521,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
           box 1077.67,285.75 46.67x21.67
             box 1086,292.42 30x15
               box 1086,293.25 13.33x13.33
+                box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
               box 1103.5,292.42 12.5x15
                 text 1103.5,292.42 12.5x15 "65" #f3e7cc
           box 1124.33,285.75 90.42x21.67
@@ -528,6 +533,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
           box 1214.75,285.75 110x21.67
             box 1223.92,292.42 92.5x15
               box 1223.92,293.25 13.33x13.33
+                box 1222.25,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
               box 1241.42,292.42 75x15
                 text 1241.42,292.42 75x15 "2.5 sec cast" #f3e7cc
                 box 1241.42,306.58 75x0.83 absolute #ffd100b3
@@ -550,6 +556,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
           box 1077.67,285.75 46.67x21.67
             box 1086,292.42 30x15
               box 1086,293.25 13.33x13.33
+                box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
               box 1103.5,292.42 12.5x15
                 text 1103.5,292.42 12.5x15 "65" #f3e7cc
           box 1124.33,285.75 90.42x21.67
@@ -561,6 +568,7 @@ surface 1057.42,240 282.58x105.42 on TOOLTIP
           box 1214.75,285.75 110x21.67
             box 1223.92,292.42 92.5x15
               box 1223.92,293.25 13.33x13.33
+                box 1222.25,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
               box 1241.42,292.42 75x15
                 text 1241.42,292.42 75x15 "2.5 sec cast" #f3e7cc
                 box 1241.42,306.58 75x0.83 absolute #ffd100b3
@@ -579,33 +587,8 @@ surface 1095.25,307.42 229.5x121.25 on TOOLTIP
         box 1115.5,359 194x45
           text 1115.5,359 194x45 "The seconds you stand still while it's cast. Damage taken can slow it." #e6dcc6
 
--- off the tooltip for longer than the grace: the lock goes, and the game still shows the spell
-surface 1057.42,240 282.58x105.42 on TOOLTIP
-  box 1057.42,240 282.58x105.42 @enter @leave
-    box 1057.42,240 282.58x105.42
-      box 1057.42,240 282.58x105.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1077.67,260.25 247.08x24.67
-          box 1077.67,260.25 247.08x18
-            text 1077.67,260.25 247.08x18 "Frostbolt" #ffffff
-        box 1077.67,284.92 247.08x22.5
-          box 1077.67,285.75 46.67x21.67
-            box 1086,292.42 30x15
-              box 1086,293.25 13.33x13.33
-              box 1103.5,292.42 12.5x15
-                text 1103.5,292.42 12.5x15 "65" #f3e7cc
-          box 1124.33,285.75 90.42x21.67
-            box 1133.5,292.42 72.92x15
-              box 1133.5,292.42 68.75x15
-                text 1133.5,292.42 68.75x15 "30 yd range" #f3e7cc
-          box 1214.75,285.75 110x21.67
-            box 1223.92,292.42 92.5x15
-              box 1223.92,293.25 13.33x13.33
-              box 1241.42,292.42 75x15
-                text 1241.42,292.42 75x15 "2.5 sec cast" #f3e7cc
-        box 1077.67,307.42 247.08x20
-          box 1077.67,314.08 247.08x13.33
-            box 1077.67,319.5 247.08x2.5
-              box 1077.67,319.5 0x2.5 absolute #d6a56b80
+-- off the tooltip for longer than the grace: the lock goes
+asked: Tooltip.hide false
 
 the cursor's look: nil
 -- «Tooltips in tooltips» off for items: it never charges
@@ -620,5 +603,4 @@ surface 1068.83,240 271.17x76.25 on TOOLTIP
           box 1089.08,284.92 235.67x13.33
             box 1089.08,290.33 235.67x2.5
               box 1089.08,290.33 0x2.5 absolute #d6a56b80
-asked: Tooltip.hide false
 asked: Tooltip.hide true

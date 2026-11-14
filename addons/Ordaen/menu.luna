@@ -7,7 +7,7 @@ import { Align, Art, Beside, Edges, Layer, Line, Position, Side, Stated, Track }
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
-import { SWITCH_KNOB, KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_WIDTH } from "@/switch"
+import { SWITCH_KNOB, KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_WIDTH, knobShown } from "@/switch"
 
 // One line of a menu.
 public struct MenuEntry {
@@ -45,8 +45,8 @@ public class MenuItem implements Component {
   derived switched: Boolean = self.entry.on != nil
   derived on: Boolean = self.entry.on == true
   derived track: Art = self.on ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff
-  derived knob: Art = self.on ? Ordaen.art.ctl.knobOn : Ordaen.art.ctl.knobOff
-  derived knobLeft: Number = self.on ? KNOB_ON : KNOB_OFF
+  derived onOpacity: Number = knobShown(self.on)
+  derived offOpacity: Number = knobShown(!self.on)
 
   entry: Signal<MenuEntry>
   index: Signal<Integer>
@@ -68,8 +68,10 @@ public class MenuItem implements Component {
            background={self.light} @click={self.onClick}>
         <text value={self.entry.label} textColor={self.color} wrap={false} stateFromParent={true} />
         <box $if={self.switched} width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track}>
-          <box position={Position.Absolute} left={self.knobLeft} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
-               background={self.knob} />
+          <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
+               background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />
+          <box position={Position.Absolute} left={KNOB_ON} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
+               background={Ordaen.art.ctl.knobOn} opacity={self.onOpacity} />
         </box>
       </box>
     }

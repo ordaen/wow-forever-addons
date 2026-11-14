@@ -10,10 +10,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           text 379.42,208.87 50x15 "General" #ffffff
           box 437.75,216.37 0x0
         box 339.42,231.37 108.33x30 #00000000 @click
+          box 339.42,231.37 2.5x30 absolute #00000000
           box 352.75,237.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,238.87 50x15 "Themes" #e8dcc4
           box 437.75,246.37 0x0
         box 339.42,261.38 108.33x30 #00000000 @click
+          box 339.42,261.38 2.5x30 absolute #00000000
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 50x15 "Profiles" #e8dcc4
           box 437.75,276.38 0x0
@@ -28,8 +30,10 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 463.58,213.87 54.58x1.67 absolute #d6a56b
               text 475.25,219.71 31.25x15 "Scale" #ffffff
             box 522.33,213.04 68.75x26.67 #00000000 @click
+              box 523.17,213.87 67.08x1.67 absolute #00000000
               text 534.83,219.71 43.75x15 "Numbers" #a3977f
             box 594.42,213.04 81.25x26.67 #00000000 @click
+              box 595.25,213.87 79.58x1.67 absolute #00000000
               text 606.92,219.71 56.25x15 "Behaviour" #a3977f
           box 462.75,251.37 787.83x86.67
             box 462.75,251.37 787.83x16.67 opacity=1
@@ -52,7 +56,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 462.75,321.38 233.33x15 @enter @leave
                 text 462.75,321.38 233.33x15 "One-pixel lines" #cbb994
               box 711.08,319.71 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-                box 711.08,319.71 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4
+                box 711.08,319.71 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
         box 462.75,696.46 787.83x28.33 absolute
           box 462.75,696.46 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             box 462.75,696.46 166.67x28.33 absolute
@@ -65,7 +69,6 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                 text 1173.08,703.12 25x15 "Save" #808080
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 316.67,139.71 114.5x47.75
-    box 316.67,139.71 114.5x47.75 @click @drag @dragStart @dragStop
-      box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
-        box 335.25,149.96 77.33x37.5
-          text 355.17,161.21 37.5x15 "Ordaen" #ffd100
+    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 335.25,149.96 77.33x34.25
+        text 355.17,159.58 37.5x15 "Ordaen" #ffd100

@@ -224,6 +224,8 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   Test.shot("a spell locked: the cells of its band that open a term are underlined")
   cursorSaid()
 
+  // The cursor leaves the slot for the locked tooltip: the game's goes.
+  Game.tooltip.main = hidden(corner)
   Test.moveTo({ x: 1160, y: 297 })
   Test.pass(0.1)
   Test.shot("the cursor on the range's cell: the term's tooltip beside the cell, under it")
@@ -240,7 +242,7 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
 
   Test.moveTo({ x: 500, y: 500 })
   Test.pass(0.5)
-  Test.shot("off the tooltip for longer than the grace: the lock goes, and the game still shows the spell")
+  Test.shot("off the tooltip for longer than the grace: the lock goes")
   cursorSaid()
   Tooltips.settings.draft.itemsLock = false
   saveAll()
@@ -273,4 +275,98 @@ test "a tooltip shown again is drawn by changing what differs: nothing of the gr
   // No frame is taken from the pool and dressed anew: the group's frames stay, and the one text that differs is set.
   Test.expect(!said.contains("SetParent") && !said.contains("SetAtlas") && !said.contains("SetScript"))
   Test.expect(said.contains("SetText=1"))
+}
+
+// A spell in a bag's slot whose band opens terms: the range's cell stands at 1160,297 once it is locked.
+function frostbolt(corner: any Frame, slot: any Frame): Game.ShownTip {
+  return inSlot(corner, slot, {
+    kind: 1, id: 116, about: "spell:116",
+    lines: [
+      { left: "Frostbolt", kind: 13 },
+      { left: "65 Mana", right: "30 yd range", kind: 0 },
+      { left: "2.5 sec cast", kind: 0 },
+    ],
+  })
+}
+
+// Where the cursor is while a tooltip is locked: on its source (the game shows the tooltip it is about), on the
+// locked group, on a part of it that opens a tooltip of its own, on another thing with a tooltip, or elsewhere. Off
+// the source the game's tooltip goes; on another thing it shows that.
+const PLACES: Array<String> = ["source", "tooltip", "nested", "another", "elsewhere"]
+
+// The cursor moved to `place`, and what the game's tooltip shows then.
+function goTo(place: String, corner: any Frame, slot: any Frame): Game.ShownTip {
+  if (place == "source") {
+    Test.moveTo({ x: 1320, y: 220 })
+    return frostbolt(corner, slot)
+  } else if (place == "another") {
+    Test.moveTo({ x: 600, y: 820 })
+    return inSlot(corner, slot, sword())
+  } else {
+    if (place == "tooltip") {
+      Test.moveTo({ x: 1100, y: 270 })
+    } else if (place == "nested") {
+      Test.moveTo({ x: 1160, y: 297 })
+    } else {
+      Test.moveTo({ x: 500, y: 500 })
+    }
+  }
+  return hidden(corner)
+}
+
+// The locked tooltip stays while the cursor is on it, on what it opens or on its source, for as long as it likes,
+// and goes at once on another thing with a tooltip. Anywhere else it goes after the grace once the cursor has been on
+// it, and stays until then: the cursor finds its way to it.
+function stays(place: String, touched: Boolean): Boolean {
+  return place == "source" || place == "tooltip" || place == "nested" || (place == "elsewhere" && !touched)
+}
+
+function onIt(place: String): Boolean {
+  return place == "tooltip" || place == "nested"
+}
+
+test "a locked tooltip goes only when the cursor goes onto something other than it and its source: every move between the places" {
+  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
+  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+  Tooltips.settings.draft.itemsAnchorBags = Place.Anchor
+  Tooltips.settings.draft.spellsLock = true
+  saveAll()
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => id == 116 ? { amount: 65 } : nil
+  let moves = 0
+  for (visit of [false, true]) {
+    for (from of PLACES) {
+      if (from == "another") { continue }
+      for (to of PLACES) {
+        const walked = `${visit ? "on it, then " : ""}${from} to ${to}`
+        // Locked anew on the source, from nothing held.
+        Tooltips.close()
+        Test.moveTo({ x: 500, y: 500 })
+        Game.tooltip.main = hidden(corner)
+        Test.pass(0.3)
+        Game.tooltip.main = goTo("source", corner, slot)
+        Test.pass(1.3)
+        if (!Tooltips.locked) { panic(`${walked}: not locked on its source`) }
+        if (visit) {
+          Game.tooltip.main = goTo("tooltip", corner, slot)
+          Test.pass(0.1)
+        }
+        // A while at `from`: longer than the grace, but off everything only within it.
+        Game.tooltip.main = goTo(from, corner, slot)
+        Test.pass(from == "elsewhere" ? 0.1 : 0.5)
+        if (!Tooltips.locked) { panic(`${walked}: not locked at ${from}`) }
+        if (visit && from == "nested" && to == "nested") {
+          Test.shot("the cursor on a part of the locked tooltip that opens a term: the term's tooltip, and the lock stays")
+        }
+        const touched = visit || onIt(from)
+        Game.tooltip.main = goTo(to, corner, slot)
+        Test.pass(0.1)
+        if (Tooltips.locked != (to != "another")) { panic(`${walked}: locked ${Tooltips.locked} at once`) }
+        Test.pass(0.5)
+        if (Tooltips.locked != stays(to, touched)) { panic(`${walked}: locked ${Tooltips.locked} after the grace`) }
+        moves += 1
+      }
+    }
+  }
+  Test.expect(moves == 40)
 }

@@ -4,22 +4,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 703.75,210.96 125x15 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 702.92,210.96 125x15 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -27,10 +27,13 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 381.92,239.71 67.08x1.67 absolute #d6a56b
             text 393.58,245.54 43.75x15 "Recipes" #ffffff
           box 453.17,238.88 50x26.67 #00000000 @click
+            box 454,239.71 48.33x1.67 absolute #00000000
             text 465.67,245.54 25x15 "Camp" #a3977f
           box 506.5,238.88 56.25x26.67 #00000000 @click
+            box 507.33,239.71 54.58x1.67 absolute #00000000
             text 519,245.54 31.25x15 "Queue" #a3977f
           box 566.08,238.88 75x26.67 #00000000 @click
+            box 566.92,239.71 73.33x1.67 absolute #00000000
             text 578.58,245.54 50x15 "Overview" #a3977f
       box 381.08,272.21 842.83x473.42
         box 381.08,272.21 441.67x473.42
@@ -96,11 +99,13 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 843.58,668.96 174.75x16.67
               text 843.58,669.79 134.75x15 "Favorite" #e8dcc4
               box 986.67,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+                box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 999.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
             box 1038.33,668.96 174.75x16.67
               text 1038.33,669.79 134.75x15 "Track" #e8dcc4
               box 1181.42,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+                box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 1193.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
           box 843.58,692.29 369.5x35.83
             box 843.58,699.79 141.67x28.33
               box 843.58,699.79 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
@@ -112,9 +117,9 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                   text 1000.46,706.46 6.25x15 "-" #808080
               box 1020.25,706.46 18.33x15
                 text 1026.29,706.46 6.25x15 "1" #ffffff
-              box 1043.58,699.79 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1043.58,699.79 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
                 box 1043.58,699.79 23.33x28.33 absolute
-                  text 1052.13,706.46 6.25x15 "+" #ffd100
+                  text 1052.13,706.46 6.25x15 "+" #808080
             box 1073.58,713.96 38.33x0
               text 1073.58,713.96 38.33x0 "" #a3977f
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
@@ -122,18 +127,15 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 1148.5,706.46 37.5x15 "Create" #ffd100
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 294.67x59.42
-    box 358.33,133.88 142.33x59.42 @click @drag @dragStart @dragStop
-      box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
-        box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
-        box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
-        box 425.83,144.12 56.25x49.17
-          text 425.83,154.29 56.25x15 "Tailoring" #ffd100
-          text 435,170.12 37.92x13 "31 / 75" #8f8470
-    box 510.67,133.88 142.33x59.42 @click @drag @dragStart @dragStop
-      box 510.67,138.04 142.33x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
-        box 517.92,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
-        box 574,148.29 56.25x41.75
-          text 574,154.75 56.25x15 "Herbalism" #b3a690
-          text 583.17,170.58 37.92x13 "12 / 75" #8f8470
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 425.83,144.12 56.25x45.92
+        text 425.83,152.67 56.25x15 "Tailoring" #ffd100
+        text 435,168.5 37.92x13 "31 / 75" #8f8470
+    box 510.67,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 517.92,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 561.83,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 578.17,144.12 56.25x45.92
+        text 578.17,152.67 56.25x15 "Herbalism" #b3a690
+        text 587.33,168.5 37.92x13 "12 / 75" #8f8470

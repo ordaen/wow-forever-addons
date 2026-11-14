@@ -5,12 +5,13 @@ surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
     text 622.75,343.04 359.5x15 "the page" #ffffff
     box 941.08,330.46 52.5x26.67 absolute clipped
       box 941.08,330.46 29.17x26.67 absolute clipped @click
-        box 941.08,330.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+        box 941.08,330.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 951.08,335.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 970.25,330.46 23.33x26.67 absolute clipped @click
-        box 970.25,330.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
+        box 970.25,330.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 976.5,335.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 982.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 600,281.38 114.5x47.75
-    box 600,281.38 114.5x47.75 @click @drag @dragStart @dragStop
-      box 600,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
-        box 618.58,291.62 77.33x37.5
-          text 635.38,302.88 43.75x15 "Recipes" #ffd100
+    box 600,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 618.58,291.62 77.33x34.25
+        text 635.38,301.25 43.75x15 "Recipes" #ffd100

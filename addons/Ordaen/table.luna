@@ -40,7 +40,11 @@ public function tracksOf(columns: Array<Column>): Array<Track> {
 // One heading.
 public class Heading implements Component {
   derived picked: Boolean = self.sorted == self.index
-  derived mark: String = self.descending ? "▼" : "▲"
+  // The light under it and both marks are always drawn, what isn't the state clear or at no opacity: only colours
+  // tell the heading the rows are ordered by, and which way.
+  derived light: Color = self.picked ? LIGHT : CLEAR
+  derived up: Number = self.picked && !self.descending ? 1 : 0
+  derived down: Number = self.picked && self.descending ? 1 : 0
   derived sortable: Boolean = self.column.sortable == true
   derived color: Color | Stated<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
   derived shade: Color | Stated<Color> = self.sortable ? SHADE : CLEAR
@@ -74,12 +78,17 @@ public class Heading implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={PADDING} xAlign={self.column.align} background={self.shade} @click={self.onClick}>
-        <box $if={self.picked} position={Position.Absolute} left={0} right={0} bottom={0} height={2 * PX}
-             background={LIGHT} />
+        <box position={Position.Absolute} left={0} right={0} bottom={0} height={2 * PX} background={self.light} />
         <box columns={HEAD} gap={4 * PX} stateFromParent={true}>
           <text value={self.column.title} textColor={self.color} stateFromParent={true} wrap={false} />
-          <text $if={self.picked} value={self.mark} textColor={GOLD} textSize={.Secondary} textFamily={MARK_FONT}
-                wrap={false} />
+          <box $if={self.sortable}>
+            <box opacity={self.up}>
+              <text value={"▲"} textColor={GOLD} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
+            </box>
+            <box position={Position.Absolute} left={0} top={0} opacity={self.down}>
+              <text value={"▼"} textColor={GOLD} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
+            </box>
+          </box>
         </box>
       </box>
     }

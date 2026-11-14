@@ -28,9 +28,13 @@ public class TreeRow implements Component {
 
   derived markLeft: Number = self.depth * INDENT
   derived gutter: Number = self.markLeft + MARK_ROOM
-  derived mark: String = self.open ? "▼" : "►"
   derived background: Color | Stated<Color> = self.selected ? SELECTED : SHADE
   derived color: Color = self.selected ? WHITE : INK
+  // The light along the left and both marks are always drawn, what isn't the state clear or at no opacity: only
+  // colours tell a row selected or open.
+  derived light: Color = self.selected ? MARK : CLEAR
+  derived openMark: Number = self.open ? 1 : 0
+  derived closedMark: Number = self.open ? 0 : 1
 
   label: Signal<String>
   depth: Signal<Integer>
@@ -61,11 +65,13 @@ public class TreeRow implements Component {
     return $ltml {
       <box columns={[self.gutter, { fr: 1 }, "auto"]} gap={4 * PX} padding={4 * PX} yAlign={Align.Center}
            background={self.background} @click={self.onClick}>
-        <box $if={self.selected} position={Position.Absolute} left={0} top={0} bottom={0} width={3 * PX}
-             background={MARK} />
+        <box position={Position.Absolute} left={0} top={0} bottom={0} width={3 * PX} background={self.light} />
         <box width={self.gutter} height={LINE}>
-          <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP}>
-            <text value={self.mark} textColor={MARK} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
+          <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} opacity={self.closedMark}>
+            <text value={"►"} textColor={MARK} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
+          </box>
+          <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} opacity={self.openMark}>
+            <text value={"▼"} textColor={MARK} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
           </box>
         </box>
         <text value={self.label} textColor={self.color} wrap={false} stateFromParent={true} />
