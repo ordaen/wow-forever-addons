@@ -1,9 +1,11 @@
 // Ordaen Spells: the spellbook and the talents in one window with three tabs, and the class trainer's window. The
-// spellbook window opens with `/spellbook`; the trainer's shows while the client's class trainer is open. What each
-// page shows is read from the client as the window opens (`refresh`). The client's declarations hold no talent calls
-// and no call that learns a service, so the talents are given by `trees` (none are read) and those buttons are drawn
-// disabled (`CAN_ACT`).
+// spellbook window opens with `/spellbook`, and with the game's own button for it (the micro menu's): the game's
+// window opens all the same, unseen and off the screen, and this one stands in its place while it shows. The
+// trainer's shows while the client's class trainer is open. What each page shows is read from `"$game"` as the
+// window opens and when it says it changed.
+import Client from "$client"
 import Game from "$game"
+import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import { Module, Placing, Settings, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
@@ -11,11 +13,8 @@ import Locale from "@/locales"
 import { Choices, GeneralPage } from "@/settings"
 import { SpellbookPage } from "@/spellbook"
 import Style from "@/style"
-import { Tree, TalentsPage } from "@/talents"
+import { TalentsPage } from "@/talents"
 import { TrainerPage } from "@/trainer"
-
-// Whether anything the client's declarations lack is there: spending talent points and learning a service.
-const CAN_ACT = false
 
 public class Spells implements Module, App {
   public const title: String = "Ordaen Spells"
@@ -32,7 +31,12 @@ public class Spells implements Module, App {
   state trainerPlacing: Placing = { x: 0, y: 0, width: Style.TRAINER_WIDTH, height: Style.HEIGHT }
   state spells: Array<Game.SpellEntry> = []
   state lines: Array<Game.SpellLine> = []
-  state trees: Array<Tree> = []
+  state trees: Array<Game.TalentTree> = []
+  state unspent = 0
+  state staged = false
+  // The game's own window shows (the micro menu's button opened it), and its frame was hooked.
+  state gameShown = false
+  hooked = false
   state services: Array<Game.TrainerService> = []
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_SPELLS },
@@ -40,7 +44,6 @@ public class Spells implements Module, App {
     { title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo },
   ]
   derived trainerTabs: Array<WindowTabSpec> = [{ title: Locale.TAB_TRAINER }]
-  derived unspent: Integer = Game.character.unspentTalents()
   derived level: Integer = Game.player.level
   state trainerClosed = false
   derived trainerShown: Boolean = Game.trainer.open && !self.trainerClosed && self.settings.values.trainer
@@ -48,6 +51,8 @@ public class Spells implements Module, App {
   constructor() {
     Ordaen.modules.add(self)
     Game.trainer.changed.listen(self.onTrainer)
+    Game.talentTrees.changed.listen(self.refreshTalents)
+    watch (frame of Game.frames.PlayerSpells) { self.hook(frame) }
     Runtime.command("/spellbook", (text: String): nil => {
       for (module of Ordaen.modules) {
         if (module == self) { self.toggle() }
@@ -64,7 +69,46 @@ public class Spells implements Module, App {
   public refresh(mut self) {
     self.spells = Game.spellbook.entries()
     self.lines = Game.spellbook.lines()
+    self.refreshTalents()
   }
+
+  // The game's spellbook window: ours opens and closes with it. Hooked once, on its show and hide, which are rare.
+  hook(mut self, frame: any Frame | nil) {
+    if (frame == nil || self.hooked) { return }
+    self.hooked = true
+    const window: any Client.Frame = frame
+    _ = window.HookScript("OnShow", (): nil => {
+      self.onGameShown()
+      return nil
+    })
+    _ = window.HookScript("OnHide", (): nil => {
+      self.onGameHidden()
+      return nil
+    })
+    if (window.IsShown()) { self.onGameShown() }
+  }
+
+  onGameShown(mut self) {
+    self.gameShown = true
+    self.open = true
+    self.refresh()
+  }
+
+  onGameHidden(mut self) {
+    self.gameShown = false
+    self.open = false
+  }
+
+  public refreshTalents(mut self) {
+    self.trees = Game.talentTrees.trees()
+    self.unspent = Game.talentTrees.unspent()
+    self.staged = Game.talentTrees.staged()
+  }
+
+  onSpend(mut self, node: Integer) { _ = Game.talentTrees.spend(node) }
+  onRefund(mut self, node: Integer) { _ = Game.talentTrees.refund(node) }
+  onApply(mut self) { _ = Game.talentTrees.commit() }
+  onCancel(mut self) { _ = Game.talentTrees.rollback() }
 
   // The client's class trainer, not a profession's or a pet's, taught its services.
   onTrainer(mut self) {
@@ -82,7 +126,8 @@ public class Spells implements Module, App {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
               @close={self.onClose} @settings={self.onSettings}>
         <SpellbookPage $if={self.tab == 1} spells={self.spells} lines={self.lines} />
-        <TalentsPage $else trees={self.trees} unspent={self.unspent} canAct={CAN_ACT} />
+        <TalentsPage $else trees={self.trees} unspent={self.unspent} staged={self.staged} @spend={self.onSpend}
+                     @refund={self.onRefund} @apply={self.onApply} @cancel={self.onCancel} />
       </Window>
       <Window $if={self.trainerShown} tabs={self.trainerTabs} selected={mut self.trainerTab}
               placing={mut self.trainerPlacing} withSettings={true} @close={self.onTrainerClose}
