@@ -1,17 +1,15 @@
-// Waits for the server's time on `Game.clock` (being added on `market/alts-2`, with a fake `Test.pass` moves):
-// Ordaen Auction reads the hour in one function, `serverSeconds`, and these tests set the time as `redesign/market.md`
-// §6 has a test set it. A full scan read in batches into the cheapest fifth's price, pruning at 30 days, a browse
-// taken in, a scan the house closed on dropped, `buy` and `sell` by age, the ledger; «Buy» with a browse's rows, the
-// status line and «Data» after a scan; the tooltip's Auction line by age.
-import Client from "$client"
+// What hangs on the server's time (`Game.clock.server`, which a test sets and `Test.pass` moves): a full scan read in
+// batches into the cheapest fifth's price, pruning at 30 days, a browse taken in, a scan the house closed on dropped,
+// `buy` and `sell` by age, the ledger; the status line and «Data» after a scan.
 import Game from "$game"
 import Test from "$test"
+import { Hour } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import { House } from "@/house"
 import { Kept } from "@/kept"
 import { Ledger } from "@/ledger"
 import { OrdaenPrices } from "@/prices"
-import { Hour, ItemId, PriceKey } from "@/quote"
+import { PriceKey } from "@/quote"
 import { Scanner } from "@/scan"
 
 // 2026-09-21, in the server's seconds: a whole hour.
@@ -55,7 +53,7 @@ function quoted(house: House, item: Integer): Integer {
 }
 
 test "a full scan sets each item's price from the cheapest fifth of what is listed" {
-  Client.GetServerTime = (): Number => START
+  Game.clock.server = START
   Game.auctionHouse.open = true
   let stand = new Stand()
   const auctions: Array<Sale> = [
@@ -91,7 +89,7 @@ test "a full scan sets each item's price from the cheapest fifth of what is list
 }
 
 test "buy is the fresh lowest, then the market; sell is the lesser less the cut; a price past 30 days isn't one" {
-  Client.GetServerTime = (): Number => START
+  Game.clock.server = START
   let stand = new Stand()
   const key = PriceKey.of(COPPER_ORE)
   stand.house.observe(key, 1000, 800, 5, Hour.now())
@@ -100,21 +98,21 @@ test "buy is the fresh lowest, then the market; sell is the lesser less the cut;
   stand.cut = 10
   Test.expect(stand.prices.sell(key)?.copper() == 720)
   stand.cut = 5
-  Client.GetServerTime = (): Number => START + 49 * HOUR
+  Game.clock.server = START + 49 * HOUR
   Test.expect(stand.prices.buy(key)?.copper() == 1000)
   Test.expect(stand.prices.buy(key)?.age() == 49)
   Test.expect(stand.prices.sell(key)?.copper() == 950)
-  Client.GetServerTime = (): Number => START + 721 * HOUR
+  Game.clock.server = START + 721 * HOUR
   Test.expect(stand.prices.buy(key) == nil && stand.prices.sell(key) == nil)
 }
 
 test "a full scan drops what was unseen for 30 days" {
-  Client.GetServerTime = (): Number => START
+  Game.clock.server = START
   Game.auctionHouse.open = true
   let stand = new Stand()
   stand.house.observe(PriceKey.of(LINEN), 40, 40, 1, Hour.now())
   stand.house.observe(PriceKey.of(BLADE), 9000, 9000, 1, Hour.now().after(20))
-  Client.GetServerTime = (): Number => START + 731 * HOUR
+  Game.clock.server = START + 731 * HOUR
   Game.auctionScan.read = reader([{ key: COPPER_ORE, unit: 100, many: 1 }])
   Test.expect(stand.scanner.full())
   Game.auctionScan.finished.emit(1)
@@ -125,7 +123,7 @@ test "a full scan drops what was unseen for 30 days" {
 }
 
 test "a browse's lowest prices are observations; the house closing puts them at rest" {
-  Client.GetServerTime = (): Number => START
+  Game.clock.server = START
   Game.auctionHouse.open = true
   let stand = new Stand()
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 45, quantity: 12 }, { key: 0, copper: 5, quantity: 1 }])
@@ -138,7 +136,7 @@ test "a browse's lowest prices are observations; the house closing puts them at 
 }
 
 test "a scan the house closes on is dropped" {
-  Client.GetServerTime = (): Number => START
+  Game.clock.server = START
   Game.auctionHouse.open = true
   let stand = new Stand()
   let auctions: Array<Sale> = []
@@ -154,7 +152,7 @@ test "a scan the house closes on is dropped" {
 }
 
 test "the ledger counts what sold of what was offered, and keeps 90 days" {
-  Client.GetServerTime = (): Number => START
+  Game.clock.server = START
   let kept = Kept {}
   let ledger = new Ledger(mut kept.ledger)
   ledger.record({ kind: "seller", item: "Linen Cloth", other: "Regron", copper: 500, count: 9 })
@@ -164,47 +162,19 @@ test "the ledger counts what sold of what was offered, and keeps 90 days" {
   Test.expect(sold == 9 && offered == 12 && ledger.revision == 3)
   const bought, spent = ledger.total(.Bought)
   Test.expect(bought == 1 && spent == 300 && kept.ledger.length == 3)
-  Client.GetServerTime = (): Number => START + 2161 * HOUR
+  Game.clock.server = START + 2161 * HOUR
   ledger.expired("Copper Bar", 1)
   Test.expect(kept.ledger.length == 1)
 }
 
-test "«Buy»: the last browse's items with their market and share, filtered by name, a row picked and listed" {
-  Client.GetServerTime = (): Number => START
-  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
-  Game.auctionHouse.open = true
-  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
-    const name = id == LINEN ? "Linen Cloth" : id == COPPER_ORE ? "Copper Ore" : nil
-    if (name == nil) { return nil }
-    return { lines: [{ left: name, kind: 0 }] }
-  }
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 45, quantity: 12 }, { key: COPPER_ORE, copper: 90, quantity: 40 }])
-  Client.GetServerTime = (): Number => START + 30 * HOUR
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: COPPER_ORE, copper: 100, quantity: 25 }])
-  Test.pass(0.02)
-  Test.shot("two items: listed, lowest, market, the lowest's share of it, a day old in amber")
-  Test.click(Test.holding("Lowest", nil), nil)
-  Test.shot("sorted by the lowest: linen first")
-  Test.type("lin")
-  Test.pass(0.02)
-  Test.shot("filtered: linen alone")
-  Test.click(Test.holding("Linen Cloth", nil), nil)
-  Test.click(Test.holding("+", nil), nil)
-  Test.click(Test.holding("Add to shopping list", nil), nil)
-  Test.pass(0.02)
-  Test.expect(Auction.shopping.needed[ItemId.of(LINEN)] == 2)
-  Test.shot("picked, two added to the list: the row's pip")
-  Game.auctionHouse.open = false
-}
-
 test "the status line and «Data» after a full scan: the prices' age, the next scan, the counts, the size" {
-  Client.GetServerTime = (): Number => START
+  Game.clock.server = START
   Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
   Game.auctionHouse.open = true
   Game.auctionScan.read = reader([{ key: LINEN, unit: 40, many: 20 }])
   Test.click(Test.holding("Scan", nil), nil)
   Game.auctionScan.finished.emit(1)
-  Client.GetServerTime = (): Number => START + 300
+  Game.clock.server = START + 300
   Test.pass(1.1)
   Test.shot("five minutes on: prices 5 min ago, one item, the next full scan in 10 min")
   Auction.page = 5

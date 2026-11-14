@@ -1,0 +1,99 @@
+// Ordaen Alts: the records of the player's characters, and the window that shows them. The module records the
+// character being played as it plays (`recorder.luna`), keeps every character's record in its own saved variable for
+// the account, and answers other modules by type alone: `knowers(recipe)` and `holders(item)`, one map read each.
+// The window (`/alts`) is made only while it shows.
+import Game from "$game"
+import Runtime from "$runtime"
+import { Hour, ItemId, Module, Placing, SettingsPage, Window, WindowTabSpec } from "Ordaen"
+import root Ordaen from "Ordaen"
+import { Character, CharacterId, factionOf, Held, Kept, Knower, RecipeId } from "@/character"
+import { Characters } from "@/characters"
+import { Cooldowns } from "@/cooldowns"
+import { Grid } from "@/grid"
+import { Holdings } from "@/holdings"
+import Locale from "@/locales"
+import { Recorder } from "@/recorder"
+import { Records } from "@/records"
+import Style from "@/style"
+
+// Where the records are in the module's own saved variable: written as they stand when the session ends, which is
+// the only time they are written.
+const KEY = "characters"
+
+const TABS: Array<WindowTabSpec> = [
+  { title: Locale.TAB_CHARACTERS },
+  { title: Locale.TAB_ITEMS },
+  { title: Locale.TAB_COOLDOWNS },
+  { title: Locale.TAB_PROFESSIONS },
+]
+
+public class Alts implements Module, App {
+  public const title: String = "Ordaen Alts"
+  public const pages: Array<SettingsPage> = []
+  // The character being played.
+  public const current: CharacterId
+  // Every character of the account that was recorded, by its GUID.
+  public const characters: Map<CharacterId, Character>
+  // Moves when what `knowers` and `holders` answer may have changed.
+  public derived revision: Integer = self.records.revision
+
+  // Whether the window shows, and its tab and place.
+  state open = false
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+  const kept: mut Kept
+  const records: mut Records
+  const recorder: mut Recorder
+
+  constructor() {
+    self.kept = load<Kept>(.Own, KEY, Kept {})
+    Game.saved.store(.Own, KEY, self.kept)
+    self.current = CharacterId.of(Game.player.guid)
+    self.records = new Records(mut self.kept, self.current, Game.player.realm, factionOf(Game.player.faction))
+    self.characters = self.records.characters
+    const surname = Game.player.surname
+    self.records.begin(
+      surname == nil ? Game.player.name : Game.player.name + " " + surname, Game.player.classTag,
+      peek Game.player.level, Hour.now(),
+    )
+    self.recorder = new Recorder(mut self.records)
+    Ordaen.modules.add(self)
+    // A command can't be taken back: once the module is turned off it does nothing.
+    Runtime.command("/alts", (text: String): nil => {
+      for (module of Ordaen.modules) {
+        if (module == self) { self.toggle() }
+      }
+      return nil
+    })
+  }
+
+  // Who of the characters knows a recipe: whether the character being played can send to them, and the hour they can
+  // make it again where it has a cooldown.
+  public knowers(self, recipe: RecipeId): Array<Knower> { return self.records.knowers(recipe) }
+
+  // Who holds an item, how many, and where.
+  public holders(self, item: ItemId): Array<Held> { return self.records.holders(item) }
+
+  // Whether the character being played can send to another: the same realm and side.
+  public reaches(self, who: CharacterId): Boolean { return self.records.reaches(who) }
+
+  // A character's record removed, the indexes without it; never the character being played. Whether it was removed.
+  @discardable
+  public forget(mut self, who: CharacterId): Boolean { return self.records.forget(who) }
+
+  public toggle(mut self) { self.open = !self.open }
+  onClose(mut self) { self.open = false }
+
+  onForget(mut self, who: CharacterId) { _ = self.forget(who) }
+
+  public render(self): Template {
+    return $ltml {
+      <Window $if={self.open} tabs={TABS} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}>
+        <Characters $if={self.tab == 1} records={self.records} touched={self.records.touched} @forget={self.onForget} />
+        <Holdings $elseif={self.tab == 2} records={self.records} touched={self.records.touched} />
+        <Cooldowns $elseif={self.tab == 3} records={self.records} touched={self.records.touched} />
+        <Grid $else records={self.records} touched={self.records.touched} />
+      </Window>
+    }
+  }
+}

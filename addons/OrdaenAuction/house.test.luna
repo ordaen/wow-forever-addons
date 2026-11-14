@@ -2,10 +2,11 @@
 // the house at rest and what 10,000 keys cost, the merchants' prices with their cap. What reads the server's hour is
 // `clock.test.luna.waiting`.
 import Test from "$test"
+import { Copper, Hour, ItemId } from "Ordaen"
 import { House } from "@/house"
 import { Kept } from "@/kept"
 import { OrdaenPrices, takeMerchant } from "@/prices"
-import { Copper, Hour, ItemId, Listing, PriceKey } from "@/quote"
+import { Listing, PriceKey } from "@/quote"
 import { fifth } from "@/scan"
 
 const LINEN: Integer = 2589

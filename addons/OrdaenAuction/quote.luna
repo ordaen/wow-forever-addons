@@ -1,23 +1,11 @@
-// What every reader of Ordaen Auction's prices names: an item, an amount, a key, an hour, a price with its hour, the
-// last observation's lowest with its quantity, and the trait every price is read through. Each is a number, never a
-// table: two halves packed into one below 2^53 (`redesign/market.md`, «What is kept per item»).
+// What every reader of Ordaen Auction's prices names besides Ordaen's item, amount and hour: a key, a price with its
+// hour, the last observation's lowest with its quantity, and the trait every price is read through. Each is a number,
+// never a table: two halves packed into one below 2^53 (`redesign/market.md`, «What is kept per item»).
 import Game from "$game"
-
-// An item, by the game's number for it.
-public type ItemId = brand Integer {
-  // The game's number, as `"$game"` gives one.
-  public of(id: Integer): ItemId { return id }
-}
-
-// An amount of money.
-public type Copper = brand Integer {
-  public of(amount: Integer): Copper { return amount }
-}
+import { Copper, Hour, ItemId } from "Ordaen"
 
 // The place of a number's second half: 2^20.
 const HALF: Integer = 1048576
-// 2020-01-01 00:00 UTC, in hours since 1970.
-const EPOCH: Integer = 438288
 // 2^33 − 1: a price above it is clamped.
 const MOST: Integer = 8589934591
 
@@ -34,26 +22,19 @@ public type PriceKey = brand Integer {
     const by = (suffix ?? "").toNumber() ?? 0
     return item + by.abs().floor() * HALF
   }
-  public item(self): ItemId { return self % HALF }
+  public item(self): ItemId { return ItemId.of(self % HALF) }
 }
 
-// The server's time, in seconds: every hour and age of the module, and the account's 15 minutes between full scans,
-// are read here and nowhere else. Read once, never followed: a price read in a `derived` isn't read again each second.
-// `Game.clock.seconds` is the game's time until `Game.clock` gives the server's (`next/move.md`, H6).
-public function serverSeconds(): Integer { return peek Game.clock.seconds }
-
-// Hours since 2020-01-01.
-public type Hour = brand Integer {
-  public now(): Hour { return (serverSeconds() / 3600).floor() - EPOCH }
-  // The hour so many hours after this one (before it, for a negative count).
-  public after(self, hours: Integer): Hour { return self + hours }
-}
+// The server's time, in seconds: the account's 15 minutes between full scans and a scan's age are counted in it (an
+// hour, `Hour.now()`, reads the same clock). Read once, never followed: a price read in a `derived` isn't read again
+// each second.
+public function serverSeconds(): Integer { return peek Game.clock.server }
 
 // A price and the hour it was seen, in one number: a price is never read without its age.
 public type Quote = brand Integer {
   public of(copper: Integer, seen: Hour): Quote { return copper.min(MOST).max(0) * HALF + seen }
-  public copper(self): Copper { return (self / HALF).floor() }
-  public seen(self): Hour { return self % HALF }
+  public copper(self): Copper { return Copper.of((self / HALF).floor()) }
+  public seen(self): Hour { return Hour.of(self % HALF) }
   // Hours since it was seen.
   public age(self): Integer { return Hour.now() - self.seen() }
 }
@@ -63,7 +44,7 @@ public type Listing = brand Integer {
   public of(low: Integer, quantity: Integer): Listing {
     return low.min(MOST).max(0) * HALF + quantity.min(HALF - 1).max(0)
   }
-  public low(self): Copper { return (self / HALF).floor() }
+  public low(self): Copper { return Copper.of((self / HALF).floor()) }
   public quantity(self): Integer { return self % HALF }
 }
 

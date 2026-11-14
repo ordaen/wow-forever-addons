@@ -3,9 +3,8 @@
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Settings } from "Ordaen"
+import { ItemId, Settings } from "Ordaen"
 import root Auction from "OrdaenAuction"
-import { ItemId } from "@/quote"
 import { Choices, DEFAULTS, GeneralPage } from "@/settings"
 
 function made(): Boolean {

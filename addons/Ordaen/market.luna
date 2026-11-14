@@ -1,0 +1,28 @@
+// What the market's modules (Ordaen Auction, Ordaen Alts, Ordaen Professions) name alike: an item, an amount of money,
+// an hour of the server's clock. Each is a number of its own kind, here so that no module imports another for a type.
+import Game from "$game"
+
+// An item, by the game's number for it.
+public type ItemId = brand Integer {
+  // The game's number, as `"$game"` gives one.
+  public of(id: Integer): ItemId { return id }
+}
+
+// An amount of money.
+public type Copper = brand Integer {
+  public of(amount: Integer): Copper { return amount }
+}
+
+// 2020-01-01 00:00 UTC, in hours since 1970.
+const EPOCH: Integer = 438288
+
+// Hours of the server's clock since 2020-01-01 00:00 UTC: a time kept as one small number. The clock is read, not
+// followed: what reads an hour isn't run again each second.
+public type Hour = brand Integer {
+  public of(hours: Integer): Hour { return hours }
+  public now(): Hour { return ((peek Game.clock.server) / 3600).floor() - EPOCH }
+  // The hour `seconds` from now ends in, rounded up: what a cooldown or a mail's expiry gives.
+  public fromNow(seconds: Integer): Hour { return (((peek Game.clock.server) + seconds) / 3600).ceil() - EPOCH }
+  // The hour so many hours after this one (before it, for a negative count).
+  public after(self, hours: Integer): Hour { return self + hours }
+}

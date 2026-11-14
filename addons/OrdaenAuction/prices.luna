@@ -1,8 +1,9 @@
+import { Copper, ItemId } from "Ordaen"
 // Ordaen Auction's own price source: the current house's maps, read with no table, closure or string made. Every
 // reader holds it as `any PriceSource` and never knows which source it is.
 import { House, KEPT_HOURS } from "@/house"
 import { VENDOR_MOST } from "@/kept"
-import { Copper, ItemId, PriceKey, PriceSource, Quote } from "@/quote"
+import { PriceKey, PriceSource, Quote } from "@/quote"
 
 // A listing this young (hours) is what one costs now; past it the market is.
 const FRESH = 48

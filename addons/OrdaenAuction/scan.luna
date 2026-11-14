@@ -2,10 +2,11 @@
 // shows (ours or the game's) as it comes. The house closing drops a scan not yet read through (its answer is all or
 // nothing) and puts the house at rest.
 import Game from "$game"
+import { Hour } from "Ordaen"
 import { House } from "@/house"
 import { Kept } from "@/kept"
 import { OrdaenPrices } from "@/prices"
-import { Hour, Listing, PriceKey, serverSeconds } from "@/quote"
+import { Listing, PriceKey, serverSeconds } from "@/quote"
 
 // Auctions read a frame.
 const BATCH = 500

@@ -3,8 +3,8 @@
 // removed, the rows bought cleared; an item added from «Buy».
 import Game from "$game"
 import Test from "$test"
+import { ItemId } from "Ordaen"
 import root Auction from "OrdaenAuction"
-import { ItemId } from "@/quote"
 
 const COPPER_BAR: Integer = 2840
 const LINEN: Integer = 2589

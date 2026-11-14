@@ -4,10 +4,10 @@
 // «Buy N» is the client's from a click alone and has no part of `"$game"` yet: it is off.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Age, Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
+import { Age, Column, Component, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
 import { ageOf, nameOf } from "@/buy"
 import Locale from "@/locales"
-import { ItemId, PriceKey, PriceSource, Quote } from "@/quote"
+import { PriceKey, PriceSource, Quote } from "@/quote"
 import { Row, ShoppingList } from "@/shopping"
 import Style from "@/style"
 

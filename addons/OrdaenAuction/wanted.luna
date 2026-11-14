@@ -1,5 +1,5 @@
+import { ItemId } from "Ordaen"
 // A line of the shopping list: an item, how many, and what asked for it.
-import { ItemId } from "@/quote"
 
 public struct Wanted implements Plain {
   item: ItemId = 0

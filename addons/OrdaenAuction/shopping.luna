@@ -2,8 +2,8 @@
 // what asked for an item (a recipe's missing parts from Professions, the player by hand); its rows sum them per item,
 // against what this character holds in its bags and bank, into what is left to buy.
 import Game from "$game"
+import { ItemId } from "Ordaen"
 import { Kept } from "@/kept"
-import { ItemId } from "@/quote"
 import { Wanted } from "@/wanted"
 
 // One item of the list: what is needed in all, what this character holds, what is left to buy, and the lines that

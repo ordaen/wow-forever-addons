@@ -3,7 +3,8 @@
 // write, and nothing draws one price's change (the source's `revision` is what readers follow). At rest a house is
 // one string (`pack`): its two maps as CBOR, deflated, one constant to the client's parser however many keys it has.
 import Game from "$game"
-import { Hour, Listing, PriceKey, Quote } from "@/quote"
+import { Hour } from "Ordaen"
+import { Listing, PriceKey, Quote } from "@/quote"
 
 // A house's two maps, as they are packed.
 public struct Packed implements Plain {

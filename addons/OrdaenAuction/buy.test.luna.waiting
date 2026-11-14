@@ -1,0 +1,44 @@
+// Waits for a name that can't push the page past the window: with two short names the «Buy» table's least width (its
+// fixed columns, 400 px, and the widest name) is 470.83 where the page leaves it 466.17, and the panel stands 4.67 past
+// the page's edge (the stand-in's check: «a box at 928.58,317.21 stands outside its box's content»). A box that clips
+// (`overflow={.Hidden}`) around the name doesn't help: the renderer's least width counts what a clipping box holds
+// (`next/move.md`, H6, «blocked»). «Buy» with a browse's rows, sorted, filtered, a row picked and listed.
+import Game from "$game"
+import Test from "$test"
+import { ItemId } from "Ordaen"
+import root Auction from "OrdaenAuction"
+
+// 2026-09-21, in the server's seconds: a whole hour.
+const START = 1790002800
+const HOUR = 3600
+const COPPER_ORE: Integer = 2770
+const LINEN: Integer = 2589
+
+test "«Buy»: the last browse's items with their market and share, filtered by name, a row picked and listed" {
+  Game.clock.server = START
+  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Game.auctionHouse.open = true
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+    const name = id == LINEN ? "Linen Cloth" : id == COPPER_ORE ? "Copper Ore" : nil
+    if (name == nil) { return nil }
+    return { lines: [{ left: name, kind: 0 }] }
+  }
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 45, quantity: 12 }, { key: COPPER_ORE, copper: 90, quantity: 40 }])
+  Game.clock.server = START + 30 * HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: COPPER_ORE, copper: 100, quantity: 25 }])
+  Test.pass(0.02)
+  Test.shot("two items: listed, lowest, market, the lowest's share of it, a day old in amber")
+  Test.click(Test.holding("Lowest", nil), nil)
+  Test.shot("sorted by the lowest: linen first")
+  Test.click(Test.field(nil), nil)
+  Test.type("lin")
+  Test.pass(0.02)
+  Test.shot("filtered: linen alone")
+  Test.click(Test.holding("Linen Cloth", nil), nil)
+  Test.click(Test.holding("+", nil), nil)
+  Test.click(Test.holding("Add to shopping list", nil), nil)
+  Test.pass(0.02)
+  Test.expect(Auction.shopping.needed[ItemId.of(LINEN)] == 2)
+  Test.shot("picked, two added to the list: the row's pip")
+  Game.auctionHouse.open = false
+}

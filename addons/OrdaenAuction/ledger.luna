@@ -3,7 +3,7 @@
 // item. Saved with the module's data, at most `MOST` rows, none older than 90 days: older rows say nothing of the
 // market now.
 import Game from "$game"
-import { Hour } from "@/quote"
+import { Hour } from "Ordaen"
 
 public enum Deal implements Plain { Sold = "sold", Bought = "bought", Expired = "expired" }
 

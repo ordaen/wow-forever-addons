@@ -4,10 +4,10 @@
 // and «Buy», which the client takes from a click alone (`redesign/market-ux.md` §1).
 import Game from "$game"
 import { Align, Edges, Track } from "$ltml"
-import { Age, Column, Component, Corner, ItemButton, Marker, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
+import { Age, Column, Component, Copper, Corner, ItemButton, ItemId, Marker, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
 import { House } from "@/house"
 import Locale from "@/locales"
-import { Copper, ItemId, PriceKey, PriceSource, Quote } from "@/quote"
+import { PriceKey, PriceSource, Quote } from "@/quote"
 import { ShoppingList } from "@/shopping"
 import Style from "@/style"
 

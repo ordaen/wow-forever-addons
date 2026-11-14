@@ -8,10 +8,11 @@
 // many are wanted, and how many this character holds of them). Each is asked once per item shown, and again when a
 // cell it read moves: a price's `revision`, the list's.
 import Game from "$game"
+import { ItemId } from "Ordaen"
 import root Tooltips from "OrdaenTooltips"
 import type { ItemLines, Line } from "OrdaenTooltips"
 import Locale from "@/locales"
-import { ItemId, PriceKey, PriceSource } from "@/quote"
+import { PriceKey, PriceSource } from "@/quote"
 import { ShoppingList } from "@/shopping"
 import Style from "@/style"
 

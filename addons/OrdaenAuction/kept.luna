@@ -1,7 +1,7 @@
+import { Copper, ItemId } from "Ordaen"
 // What Ordaen Auction keeps between sessions, in its own saved variable (`Game.Scope.Own`: loaded with the module, so
 // a player with it off loads none of it). Every part is data the game can't give back cheaply.
 import { Dealt } from "@/ledger"
-import { Copper, ItemId } from "@/quote"
 import { Wanted } from "@/wanted"
 
 public struct Kept implements Plain {
