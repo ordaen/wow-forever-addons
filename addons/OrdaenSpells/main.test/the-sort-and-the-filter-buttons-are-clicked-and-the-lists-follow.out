@@ -74,6 +74,8 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
     box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 692.58,183.29 77.33x34.25
         text 703.12,192.92 56.25x15 "Secondary" #b3a690
+asked: Spellbook.watch true
+asked: TalentTrees.watch true
 
 -- the services by price
 surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
@@ -138,6 +140,9 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
     box 458.33,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 476.92,183.29 77.33x34.25
         text 493.71,192.92 43.75x15 "Trainer" #ffd100
+asked: Spellbook.watch false
+asked: TalentTrees.watch false
+asked: Trainer.watch true
 
 -- the services narrowed to the unavailable
 surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click

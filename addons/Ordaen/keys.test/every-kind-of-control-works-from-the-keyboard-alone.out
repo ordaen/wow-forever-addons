@@ -1,8 +1,9 @@
 key: TAB → #12 «Name» (click)
 key: TAB → #13 «a row» (click)
 key: TAB → #14 «menu» (click)
-key: TAB → #15 «Controls» (click)
-key: TAB → #16 «More» (click)
+key: TAB → #15 «» (click)
+key: TAB → #16 «Controls» (click)
+key: TAB → #17 «More» (click)
 key: TAB → #1 «» (click)
 key: SPACE → #1 «» (click)
 key: TAB → #2 «» (click)
@@ -82,6 +83,10 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
               text 459.42,506.21 686.17x15 "a row" #ffffff
         box 452.75,530.54 699.5x20 @click
           text 452.75,530.54 699.5x15 "menu" #ffffff
+        box 452.75,556.54 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 452.75,556.54 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+        box 452.75,580.88 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 opacity=0.45
+          box 452.75,580.88 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 1162.75,758.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 420,121.38 239x47.75
     box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -118,5 +123,8 @@ key: ESCAPE → #14 «menu» (click)
 key: ENTER → #14 > #1 «Copy» (click)
 key: DOWN → #14 > #2 «Paste» (click)
 key: ENTER → #14 «menu» (click)
+key: TAB → #15 «» (click)
+key: SPACE → #15 «» (click)
+key: TAB → #16 «Controls» (click)
 key: ESCAPE → none
 key: ESCAPE → none

@@ -3,7 +3,7 @@ public import { Windowed } from "@/windowed"
 public import { Tinted } from "@/tinted"
 public import { Arranged } from "@/arranged"
 public import { Market, Worth, Sale } from "@/market"
-import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, space, Switch, Tabs, TextBox, Tip, Toggle, Unit } from "Ordaen"
+import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, space, Switch, Tabs, TextBox, Tick, Tip, Toggle, Unit } from "Ordaen"
 
 const TABS: Array<String> = ["Map", "Drawer", "Market"]
 
@@ -65,6 +65,7 @@ public class Showcase implements Module {
         <SettingsTab title={"Map"} shown={self.onMap}>
           <Section title={"Map"}>
             <Checkbox label={"Show the zone"} value={mut self.choices.showZone} />
+            <Tick value={mut self.choices.showZone} />
             <Slider label={"Size"} value={mut self.choices.scale} least={0.8} most={1.6} step={0.05} unit={Unit.Percent} />
             <Slider label={"Columns"} value={mut self.choices.columns} least={2} most={12} disabled={!self.choices.showZone} />
           </Section>

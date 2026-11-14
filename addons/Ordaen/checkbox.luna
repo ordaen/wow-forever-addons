@@ -23,12 +23,16 @@ public class Tick implements Component {
   }
 
   toggle(mut self) {
-    if (!self.disabled) { self.value = !self.value }
+    self.value = !self.value
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @click={self.toggle}>
+      <box $if={self.disabled} width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} opacity={0.45}>
+        <box position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
+             background={Ordaen.art.ctl.tick} opacity={self.tick} />
+      </box>
+      <box $else width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @click={self.toggle}>
         <box position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
              background={Ordaen.art.ctl.tick} opacity={self.tick} />
       </box>

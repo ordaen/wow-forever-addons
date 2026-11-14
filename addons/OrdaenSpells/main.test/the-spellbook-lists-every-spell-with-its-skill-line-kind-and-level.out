@@ -64,3 +64,5 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
     box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 692.58,183.29 77.33x34.25
         text 703.12,192.92 56.25x15 "Secondary" #b3a690
+asked: Spellbook.watch true
+asked: TalentTrees.watch true

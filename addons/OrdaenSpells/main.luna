@@ -57,6 +57,12 @@ public class Spells implements Module, App {
     Game.trainer.changed.listen(self.onTrainer)
     Game.talentTrees.changed.listen(self.refreshTalents)
     watch (value of self.tab) { self.refreshTalents() }
+    // The game's words about spells and talents are heard while their windows show.
+    watch (opened of self.open) {
+      Game.spellbook.watch(opened)
+      Game.talentTrees.watch(opened)
+    }
+    watch (shown of self.trainerShown) { Game.trainer.watch(shown) }
     watch (frame of Game.frames.PlayerSpells) { self.hook(frame) }
     Runtime.command("/spellbook", (text: String): nil => {
       for (module of Ordaen.modules) {
@@ -117,6 +123,7 @@ public class Spells implements Module, App {
   onRefund(mut self, node: Integer) { _ = Game.talentTrees.refund(node) }
   onApply(mut self) { _ = Game.talentTrees.commit() }
   onCancel(mut self) { _ = Game.talentTrees.rollback() }
+  // The spec switch is the player's: it runs in the click of «Activate».
   onActivate(mut self) { _ = Game.talentTrees.activate(peek self.group) }
 
   // The client's class trainer, not a profession's or a pet's, taught its services.

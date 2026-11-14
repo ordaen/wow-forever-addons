@@ -102,7 +102,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
             box 332.75,286.38 516.67x34.67 #00000066 @click
               box 337.75,294.54 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
                 box 337.75,294.54 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-              box 364.42,292.04 23.33x23.33
+              box 364.42,292.04 23.33x23.33 icon=Interface/Icons/INV_Letter_15
               box 396.08,289.71 333.75x28
                 text 396.08,289.71 333.75x15 "Auction successful: Linen Cloth" #e8dcc4
                 text 396.08,304.71 333.75x13 "Auction House" #a3977f
@@ -167,7 +167,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
               box 332.75,309.71 516.67x34.67 #00000066 @click
                 box 337.75,317.88 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
                   box 337.75,317.88 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-                box 364.42,315.38 23.33x23.33
+                box 364.42,315.38 23.33x23.33 icon=Interface/Icons/INV_Letter_15
                 box 396.08,313.04 333.75x28
                   text 396.08,313.04 333.75x15 "Auction successful: Linen Cloth" #e8dcc4
                   text 396.08,328.04 333.75x13 "Auction House" #a3977f
@@ -212,7 +212,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
               box 332.75,460.37 516.67x34.67 #00000066 @click
                 box 337.75,468.54 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
                   box 337.75,468.54 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-                box 364.42,466.04 23.33x23.33
+                box 364.42,466.04 23.33x23.33 icon=Interface/Icons/INV_Letter_15
                 box 396.08,463.71 390x28
                   text 396.08,463.71 390x15 "Welcome" #e8dcc4
                   text 396.08,478.71 390x13 "System" #a3977f
