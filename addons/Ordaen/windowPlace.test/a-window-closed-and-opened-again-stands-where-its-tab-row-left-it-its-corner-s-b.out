@@ -1,7 +1,8 @@
 -- opened again where it was left, the cursor in its body: full screen and close at the body's top right
 surface 400,361.38 400x337.25 on DIALOG clamped raised by a click
   box 400,398.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    text 432.75,431.38 339.5x15 "the page" #ffffff
+    box 412.75,411.38 379.5x276.75
+      text 432.75,431.38 339.5x15 "the page" #ffffff
     box 741.08,410.46 52.5x26.67 absolute clipped
       box 741.08,410.46 29.17x26.67 absolute clipped @click
         box 741.08,410.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

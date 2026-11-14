@@ -5,7 +5,7 @@
 import Game from "$game"
 import { Align, Anchored, Docked, Drag, Edges, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Module, Mover, Placed, Settings, SettingsPage, sideNear } from "Ordaen"
+import { Component, Module, Mover, Placed, Settings, SettingsPage, sideNear, space } from "Ordaen"
 import Locale from "@/locales"
 import { BagLine, MicroLine, MoneyLine, SocialLine } from "@/items"
 import { CharButton, Choices, Combat, DEFAULTS, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
@@ -112,10 +112,10 @@ public class ZoneBox implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} rows={self.rows} gap={Ordaen.art.spacing.md} xAlign={self.along}
+      <box columns={self.columns} rows={self.rows} gap={space(.Item)} xAlign={self.along}
            yAlign={self.across}>
         <$if={self.micro}>
-          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={Ordaen.art.spacing.md}
+          <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={space(.Item)}
                yAlign={Align.Center}>
             <box width={PORTRAIT_WIDTH} height={1} />
             <MicroLine gold={self.panel.goldIcons} faced={false} social={self.social} />
@@ -324,30 +324,30 @@ public class Panel implements Module, App {
       </surface>
 
       <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
-        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={Ordaen.art.spacing.sm}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={space(.Item)}>
           <MicroLine gold={self.goldIcons} />
         </box>
       </Placed>
       <Placed $if={self.freeSocial} id={"OrdaenPanel.social"} title={Locale.PANEL_SOCIAL} home={SOCIAL_HOME}>
-        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={Ordaen.art.spacing.sm}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={space(.Item)}>
           <SocialLine gold={self.goldIcons} />
         </box>
       </Placed>
       <Placed $if={self.freeExperience} id={"OrdaenPanel.experience"} title={Locale.PANEL_EXPERIENCE}
               home={EXPERIENCE_HOME}>
         <box width={600} background={Ordaen.art.window.wood} border={Ordaen.art.frame.small}
-             padding={Ordaen.art.spacing.sm}>
+             padding={space(.Item)}>
           <XpBar experience={self.experienceGains} reputation={self.reputationGains} />
         </box>
       </Placed>
       <Placed $if={self.freeMoney} id={"OrdaenPanel.currencies"} title={Locale.PANEL_CURRENCIES}
               home={MONEY_HOME}>
-        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={Ordaen.art.spacing.sm}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={space(.Item)}>
           <MoneyLine outline={self.outline} shadow={self.shadow} />
         </box>
       </Placed>
       <Placed $if={self.freeBags} id={"OrdaenPanel.bags"} title={Locale.PANEL_BAGS} home={BAGS_HOME}>
-        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={Ordaen.art.spacing.sm}>
+        <box background={Ordaen.art.window.wood} border={Ordaen.art.frame.small} padding={space(.Item)}>
           <BagLine />
         </box>
       </Placed>

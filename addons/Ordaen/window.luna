@@ -39,13 +39,13 @@ const WHITE: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000cc"), x: 1 * PX, y: -1 * PX }
 const LABEL_PAD = 10 * PX
 const MIN_TAB = 120 * PX
-// The body's wood inside the metal, and the room its content keeps: the ladder's `Window` step from the line on every
-// side; with a footer, the footer stands on the bottom line, the ladder's `Panel` step above it, and keeps a `Group`
-// step from the content over it.
+// The body's wood inside the metal, and the room each of its sections keeps: the ladder's `Window` step from the line
+// on every side; with a footer, the footer stands on the bottom line, the ladder's `Panel` step above it, and keeps a
+// `Group` step from the content over it.
 const INSET = 3 * PX
 const ROOM: Number = space(.Window) + INSET
-const PADDING: Edges = { top: ROOM, right: ROOM, bottom: ROOM, left: ROOM }
-const PADDING_FOOTED: Edges = { top: ROOM, right: ROOM, bottom: space(.Panel) + INSET, left: ROOM }
+const PADDING: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Window), left: space(.Window) }
+const PADDING_FOOTED: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Panel), left: space(.Window) }
 const FOOTER_PAD: Edges = { top: space(.Group) }
 // The corner's group in the body's top right (the design's `CTRLS`): its controls from its left, each one kind of
 // plate with its glyph. How far from the body's line the group stands, and how high it is with its rim.
@@ -86,8 +86,18 @@ public const function cornerRoom(withSettings: Boolean): Number {
   const count = cornerControls(withSettings).length
   return CORNER_RIGHT + plateLeft(count + 1, count) + space(.Item) - ROOM
 }
-// The content's row takes what the footer's leaves.
-const BODY_ROWS: Array<Track> = [{ fr: 1 }, "auto"]
+// The main section's content takes what its footer's row leaves; the body's one row is as high as the body.
+const MAIN_ROWS: Array<Track> = [{ fr: 1 }, "auto"]
+const BODY_ROWS: Array<Track> = [{ fr: 1 }]
+const ONE: Array<Track> = [{ fr: 1 }]
+
+// A window's side section: a column at the body's right, running from its top line to its bottom one, the frame's
+// line between it and the main section (as the trainer's card beside its list). It shares neither the main section's
+// head nor its footer: it lays out its own top and bottom.
+public struct WindowSide {
+  width: Number
+  content: Template
+}
 // The smallest body unless the window names one: room for the tab row and a few lines.
 const MIN_W = 320 * PX
 const MIN_H = 200 * PX
@@ -284,6 +294,10 @@ public class Window implements Component {
   const footer: Template
   const footed: Boolean
   const padding: Edges
+  // The side section, and the body's columns with it or without.
+  const side: Template
+  const sided: Boolean
+  const bodyColumns: Array<Track>
   constructor(
     tabs: Signal<Array<WindowTabSpec>>,
     selected: mut Signal<Integer>,
@@ -299,10 +313,15 @@ public class Window implements Component {
     shown: Signal<Boolean> = true,
     // The footer row's groups on the body's bottom line: none where it is left out.
     footer: Template | nil = nil,
+    // The side section at the body's right, the full height beside the main one: none where it is left out.
+    side: WindowSide | nil = nil,
   ) {
     self.footer = footer ?? $ltml {}
     self.footed = footer != nil
     self.padding = footer != nil ? PADDING_FOOTED : PADDING
+    self.side = side?.content ?? $ltml {}
+    self.sided = side != nil
+    self.bodyColumns = side != nil ? [{ fr: 1 }, side.width] : ONE
     self.controls = cornerControls(withSettings)
     self.cornerWidth = plateLeft(self.controls.length + 1, self.controls.length)
     self.shown = shown
@@ -394,11 +413,17 @@ public class Window implements Component {
                raise={true} xAlign={Align.Start} focusLine={self.focusLine}
                @escape={self.onClose}>
         <box position={Position.Absolute} left={0} right={0} top={self.tabHeight} bottom={0}
-             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={self.padding}
-             rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>
-          <slot />
-          <box $if={self.footed} padding={FOOTER_PAD}>
-            {self.footer}
+             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={INSET}
+             columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true}
+             @enter={self.onEnter} @leave={self.onLeave}>
+          <box rows={MAIN_ROWS} padding={self.padding}>
+            <slot />
+            <box $if={self.footed} padding={FOOTER_PAD}>
+              {self.footer}
+            </box>
+          </box>
+          <box $if={self.sided} border={Ordaen.art.frame.tabIconLine} rows={ONE} padding={self.padding}>
+            {self.side}
           </box>
           <box $if={self.hovered} position={Position.Absolute} top={CORNER_TOP} right={CORNER_RIGHT}
                width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>
