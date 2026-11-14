@@ -12,6 +12,7 @@ import { Keeper } from "@/keeper"
 import Locale from "@/locales"
 import { artOf, Look, LookArt, preset, Preset } from "@/look"
 import { Module } from "@/module"
+import { Mover } from "@/placed"
 import { Settings } from "@/settings"
 import { SettingsWindow } from "@/settingsWindow"
 
@@ -42,8 +43,10 @@ public class OrdaenCore implements App {
   public const modules = new Registry<any Module>()
   // The modules drawn on the screen: each once, until it ends and what it drew goes with it.
   drawn: mut WeakMap<any Module, Boolean> = {}
-  // The mode in which the player moves every module's free parts about the screen.
+  // The mode in which the player moves every module's parts about the screen.
   public state placing = false
+  // The parts drawn that the player can move: each part's `Mover` joins as it is made and leaves as it ends.
+  public const parts = new Registry<Mover>()
   // Where the player put each part: read by a part an entry at a time, so a part follows its own place.
   state places: mut Map<String, KeptPlace> = {}
   // Which modules the player turned off: the account's, whatever each character's list of addons says.
