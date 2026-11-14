@@ -1,13 +1,13 @@
 // ItemButton: an item's slot: its icon on a dark well, the border in its quality's colour, its count at the bottom
 // right (from two up), and corner markers (a coloured pip each, in the top left, the top right or the bottom left)
 // that other modules put on it. A slot with no item draws the well alone. Dimmed (by a search) it draws at 35%.
-// Under the cursor the light of the other controls over the icon and the item's tooltip beside it, drawn only while
-// the cursor is on it. Left-click reports `pick` with the item's number; Shift+Left-click reports `link` instead (what
-// links it into the chat). Nothing runs per frame.
-import { Align, Art, Click, Edges, Line, MouseButton, Position, Shadow, Stated } from "$ltml"
+// Under the cursor the light of the other controls over the icon, and the game's own tooltip of the item beside it
+// (Ordaen's tooltips draw it where they are on), gone when the cursor leaves. Left-click reports `pick` with the
+// item's number; Shift+Left-click puts the item's link into the chat instead, as the game's own slots do. Nothing runs
+// per frame.
+import { Align, Art, Click, Edges, Frame, Line, MouseButton, Position, Shadow, Stated } from "$ltml"
 import Game from "$game"
 import { Component } from "@/module"
-import { Tip } from "@/tip"
 import { PX } from "@/units"
 
 // The game's numbers for an item's quality.
@@ -48,8 +48,6 @@ const HEIRLOOM: Line = { width: EDGE, color: Color.hex("#00ccff") }
 const PIP = 7 * PX
 const PIP_EDGE: Line = { width: 1 * PX, color: Color.hex("#000000") }
 const NONE: Array<Marker> = []
-// The tooltip stands this far from the slot.
-const TIP_GAP = 4 * PX
 
 // One pip.
 public class Pip implements Component {
@@ -71,69 +69,14 @@ public class Pip implements Component {
   }
 }
 
-// The game's tooltip of an item as lines of text in our tip, made when the cursor comes to the slot.
-public class ItemTip implements Component {
-  derived data: Game.TooltipData | nil = self.dataOf()
-  derived title: String = self.lineOf(0)
-  derived text: String = self.rest()
-  derived known: Boolean = self.data != nil
-
-  item: Signal<Integer | nil>
-  left: Signal<Number>
-  constructor(
-    item: Signal<Integer | nil>,
-    left: Signal<Number>,
-  ) {
-    self.item = item
-    self.left = left
-  }
-
-  dataOf(self): Game.TooltipData | nil {
-    const item = self.item
-    if (item == nil) { return nil }
-    return Game.items.tooltip(item)
-  }
-
-  // A line as it reads: its left text, then its right.
-  lineOf(self, at: Integer): String {
-    const data = self.data
-    if (data == nil) { return "" }
-    const line = data.lines[at + 1]
-    if (line == nil) { return "" }
-    const left = line.left ?? ""
-    const right = line.right
-    return right == nil ? left : left + "  " + right
-  }
-
-  rest(self): String {
-    const data = self.data
-    if (data == nil) { return "" }
-    let text = ""
-    for (index of 2..=data.lines.length) {
-      text = text + (index == 2 ? "" : "\n") + self.lineOf(index - 1)
-    }
-    return text
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <Tip $if={self.known} title={self.title} text={self.text} left={self.left} top={0} />
-    }
-  }
-}
-
 public class ItemButton implements Component {
   public pick: Event<Integer> = new Event()
-  public link: Event<Integer> = new Event()
 
-  state hovered = false
   derived icon: Art | nil = self.iconOf()
   // The border: its quality's colour, the plain one for an empty slot.
   public derived edge: Line = self.edgeOf()
   derived opacity: Number = self.dimmed ? 0.35 : 1
   derived counted: Boolean = self.count > 1
-  derived tipLeft: Number = self.size + TIP_GAP
-  derived tipped: Boolean = self.hovered && self.item != nil
 
   item: Signal<Integer | nil>
   count: Signal<Integer>
@@ -178,14 +121,17 @@ public class ItemButton implements Component {
     }
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
+  // The game's tooltip of the item beside the slot; the game hides it when the cursor leaves.
+  onEnter(self, frame: any Frame) {
+    const item = self.item
+    if (item != nil) { Game.items.show(frame, item) }
+  }
 
   onClick(self, click: Click) {
     const item = self.item
     if (item == nil || click.button != MouseButton.Left) { return }
     if (Game.input.shiftDown()) {
-      self.link.emit(item)
+      Game.chat.link(item)
     } else {
       self.pick.emit(item)
     }
@@ -194,7 +140,7 @@ public class ItemButton implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.size} height={self.size} background={WELL} border={self.edge} opacity={self.opacity}
-           @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+           @click={self.onClick} @enter={self.onEnter}>
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} icon={self.icon} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} background={SHINE}
              stateFromParent={true} />
@@ -203,7 +149,6 @@ public class ItemButton implements Component {
              xAlign={Align.End} yAlign={Align.End} padding={COUNT_PAD}>
           <text value={self.count} textColor={INK} textSize={13 * PX} textShadow={COUNT_SHADOW} wrap={false} />
         </box>
-        <ItemTip $if={self.tipped} item={self.item} left={self.tipLeft} />
       </box>
     }
   }
