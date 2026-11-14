@@ -37,22 +37,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 707.08,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -183,29 +183,29 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
 the game's own window: at -10000,0, opacity 0
 
 icons drawn: some; with their own rim left on: 0
-the skill bar ends 31 before the corner's buttons
+the skill bar ends 8 before the corner's group
 -- «Bags» picked: its recipes, the first of them chosen
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 707.08,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -300,13 +300,16 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #808080
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 472x59.42
     box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -336,22 +339,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 707.08,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -446,13 +449,16 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #808080
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 472x59.42
     box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -482,22 +488,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 707.08,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -599,13 +605,16 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #ffd100
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 472x59.42
     box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -635,22 +644,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 707.08,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -757,13 +766,16 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #ffffff
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 472x59.42
     box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -794,22 +806,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 707.08,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -885,13 +897,16 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #ffd100
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 472x59.42
     box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -921,22 +936,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 707.08,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -1042,22 +1057,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 612.27x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 702.08,211.46 128.33x14 "Journeyman · 120 / 150" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 610.93x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 701.25,211.46 128.33x14 "Journeyman · 120 / 150" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
