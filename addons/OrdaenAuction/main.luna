@@ -45,6 +45,7 @@ public class Auction implements Module, App {
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
   ]
   derived cut: Integer = self.settings.values.cut
+  derived priceLine: Boolean = self.settings.values.priceLine
 
   kept: mut Kept
   house: mut House
