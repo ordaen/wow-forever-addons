@@ -1,0 +1,119 @@
+// CountInput: a whole number the player sets, held between its least and its most. Both bounds are required and may
+// be cells another moves (the reagents in the bags, the stacks of an item): the value never stands outside them, and
+// where a bound moves past it the value is written back to that bound. Where the most is under the least there is
+// nothing to choose: the value is the least and the control is disabled. Two looks: `Steps`, − and + either side of
+// the number (each disabled at its bound), and `Field`, the number typed in, which fills the box it stands in (a
+// number past a bound is written as that bound; a text that isn't a number leaves the value and turns the edge red).
+import { Align, Edges, Line, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component } from "@/module"
+import { PushButton } from "@/pushButton"
+import { PX } from "@/units"
+
+public enum CountLook { Steps = "steps", Field = "field" }
+
+const NUMBER = 14 * PX
+const WHITE: Color = Color.hex("#ffffff")
+const INK: Color = Color.hex("#e8dcc4")
+const FILL: Color = Color.hex("#00000080")
+const EDGE: Line = { width: 1 * PX, color: Color.hex("#3e2f1d") }
+const BAD: Line = { width: 1 * PX, color: Color.hex("#c0463c") }
+const PADDING: Edges = { right: 10 * PX, left: 10 * PX }
+// The −, the number in the room of three digits, the +.
+const STEPS: Array<Track> = ["auto", 22 * PX, "auto"]
+const DIGITS = 6
+
+// `value` held between `least` and `most`; the least where the most is under it.
+public function held(value: Integer, least: Integer, most: Integer): Integer {
+  return least.max(value.min(most))
+}
+
+// The whole number a text is, or nothing.
+function countOf(text: String): Integer | nil {
+  const digits = text.match("^%s*(%d+)%s*$")
+  if (digits == nil) { return nil }
+  return (digits.toNumber() ?? 0).floor()
+}
+
+public class CountInput implements Component {
+  derived off: Boolean = self.disabled || self.most < self.least
+  derived fewer: Boolean = !self.off && self.value > self.least
+  derived more: Boolean = !self.off && self.value < self.most
+  derived stepped: Boolean = self.look == CountLook.Steps
+  public state text: String
+  public derived bad: Boolean = countOf(self.text) == nil
+  derived edge: Line = self.bad ? BAD : EDGE
+
+  value: mut Signal<Integer>
+  least: Signal<Integer>
+  most: Signal<Integer>
+  const look: CountLook
+  // The width of − and +.
+  const step: Number
+  disabled: Signal<Boolean>
+  constructor(
+    value: mut Signal<Integer>,
+    least: Signal<Integer>,
+    most: Signal<Integer>,
+    look: CountLook = CountLook.Steps,
+    step: Number = 28 * PX,
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.value = value
+    self.least = least
+    self.most = most
+    self.look = look
+    self.step = step
+    self.disabled = disabled
+    self.text = String.of(peek self.value)
+    watch { self.hold(self.value, self.least, self.most) }
+    watch (typed of self.text) { self.take(typed) }
+    watch (count of self.value) { self.show(count) }
+  }
+
+  // A bound moved past the value, or another wrote one outside them: the value is the bound.
+  hold(mut self, value: Integer, least: Integer, most: Integer) {
+    const kept = held(value, least, most)
+    if (kept != value) { self.value = kept }
+  }
+
+  // What was typed is a number: the value is it, held to the bounds.
+  take(mut self, typed: String) {
+    const count = countOf(typed)
+    if (count == nil) { return }
+    const kept = held(count, peek self.least, peek self.most)
+    if (kept != peek self.value) {
+      self.value = kept
+    } else if (kept != count) {
+      self.text = String.of(kept)
+    }
+  }
+
+  // The value changed: the text says it, unless it already does.
+  show(mut self, count: Integer) {
+    if (countOf(peek self.text) != count) { self.text = String.of(count) }
+  }
+
+  less(mut self) {
+    if (self.fewer) { self.value = held(self.value - 1, self.least, self.most) }
+  }
+
+  raise(mut self) {
+    if (self.more) { self.value = held(self.value + 1, self.least, self.most) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.stepped} columns={STEPS} gap={6 * PX} yAlign={Align.Center}>
+        <PushButton label={"-"} width={self.step} disabled={!self.fewer} @click={self.less} />
+        <box xAlign={Align.Center}>
+          <text value={"%d"} arguments={[self.value]} textSize={NUMBER} textColor={WHITE}
+                textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
+        </box>
+        <PushButton label={"+"} width={self.step} disabled={!self.more} @click={self.raise} />
+      </box>
+      <input $else value={mut self.text} padding={PADDING} textSize={NUMBER} textColor={INK} background={FILL}
+             border={self.edge} maxLength={DIGITS} disabled={self.off} />
+    }
+  }
+}
