@@ -11,17 +11,19 @@ import { Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
 
 public const PX: Number = 1 / 1.2
 // The glyphs' pictures (art/pieces/tooltip-glyphs.json): a column of 20 px cells, a row each in the order of
-// `Glyph`, the 16 px glyph 2 px in from its cell's top left, its shadow inside the cell.
+// `Glyph`, the 16 px glyph 2 px in from its cell's top left, its shadow inside the cell; then the cost's dot's light
+// and shade alone, drawn over the tinted dot.
 const GLYPH_FILE: Asset = "@/assets/tooltip-glyphs.tga"
 const GLYPH = 16 * PX
 const GLYPH_CELL = 20 * PX
 const GLYPH_IN = -2 * PX
 const function glyphPieces(): Array<Piece> {
   let list: Array<Piece> = []
-  for (row of 0..=12) { list.push({ file: GLYPH_FILE, width: 32, height: 512, rows: 16, normal: row }) }
+  for (row of 0..=13) { list.push({ file: GLYPH_FILE, width: 32, height: 512, rows: 16, normal: row }) }
   return list
 }
 const GLYPH_ART: Array<Piece> = glyphPieces()
+const DOT_LIGHT: Piece = GLYPH_ART[14] ?? panic("the dot's light is the last row")
 // A glyph's picture.
 public function glyphArt(glyph: Glyph): Piece {
   const row = match (glyph) {
@@ -211,6 +213,7 @@ public class FactCell implements Component {
   derived divider: Line | nil = self.index > 1 ? DIVIDER : nil
   derived padding: Edges = self.last ? CELL_PAD_LAST : CELL_PAD
   derived glyph: Piece | nil = self.glyphOf()
+  derived dot: Boolean = self.fact.glyph == .Cost
   derived color: Color = self.fact.color ?? BODY
 
   fact: Signal<Fact>
@@ -253,7 +256,11 @@ public class FactCell implements Component {
           // its shadow.
           <box $if={self.glyph != nil} width={GLYPH} height={GLYPH}>
             <box position={Position.Absolute} left={GLYPH_IN} top={GLYPH_IN} width={GLYPH_CELL} height={GLYPH_CELL}
-                 background={self.glyph} tint={self.fact.tint} />
+                 background={self.glyph} tint={self.fact.tint}>
+              // The cost's dot keeps the design's light: its light and shade, untinted, over the tinted dot.
+              <box $if={self.dot} position={Position.Absolute} left={0} top={0} width={GLYPH_CELL}
+                   height={GLYPH_CELL} background={DOT_LIGHT} />
+            </box>
           </box>
           <box>
             <text value={self.fact.text} textColor={self.color} textSize={16 * PX} wrap={false} />

@@ -47,7 +47,7 @@ public class Toggle implements Component {
         <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
              background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />
         <box position={Position.Absolute} left={KNOB_ON} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
-             background={Ordaen.art.ctl.knobOn} opacity={self.onOpacity} />
+             background={Ordaen.art.ctl.knobOn} opacity={self.onOpacity} zLevel={1} />
       </box>
     }
   }

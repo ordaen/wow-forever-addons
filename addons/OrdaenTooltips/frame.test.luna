@@ -126,7 +126,8 @@ test "every glyph of the band is drawn with its picture, the cost's in its resou
     let file = drawn.file
     if (file is String && file.contains("tooltip-glyphs")) { rows.push(String.of((drawn.top * 16 + 0.5).floor())) }
   }
-  Test.expect(rows.join(" ") == "0 1 2 3 4 5 6 7 8 9 10 11 12")
+  // The cost's dot, row 8, has its light, row 13, over it.
+  Test.expect(rows.join(" ") == "0 1 2 3 4 5 6 7 8 13 9 10 11 12")
   Test.expect(Test.painted(glyphArt(.Dmg), nil).x < Test.holding("1", nil).x)
   Test.expect(Test.painted(glyphArt(.Cost), nil).x < Test.holding("9", nil).x)
   Test.shot("a band of every glyph: each before its fact, the cost's dot blue")

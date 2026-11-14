@@ -50,21 +50,25 @@ public class Tube implements Component {
       <box height={TUBE_HEIGHT}>
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
              background={Ordaen.art.panel.xpTrough} />
-        <box position={Position.Absolute} left={INSET} top={INSET} right={INSET} bottom={INSET}>
+        // Over one another by their levels, each over all that is in the one under it: the trough, the fills (the
+        // rested part, the experience, the marks), the shine, the glass, the label. At one level the client draws
+        // either on top.
+        <box position={Position.Absolute} left={INSET} top={INSET} right={INSET} bottom={INSET} zLevel={1}>
           <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.behind} background={RESTED} />
           <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.share}
-               background={self.fill} />
-          <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} columns={10} rows={FILL}>
+               background={self.fill} zLevel={1} />
+          <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} columns={10} rows={FILL}
+               zLevel={2}>
             <box $for={cell of CELLS} border={MARK} />
             <box />
           </box>
         </box>
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
-             background={Ordaen.art.panel.xpShine} />
+             background={Ordaen.art.panel.xpShine} zLevel={5} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
-             background={Ordaen.art.panel.xpTube} />
+             background={Ordaen.art.panel.xpTube} zLevel={6} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align.Center}
-             yAlign={Align.Center}>
+             yAlign={Align.Center} zLevel={7}>
           <text value={self.label} textSize={12.5} textColor={LABEL} textOutline={1} textShadow={LABEL_SHADOW}
                 wrap={false} />
         </box>

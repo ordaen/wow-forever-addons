@@ -56,6 +56,7 @@ box 0,0 603x86.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTe
       box 361.92,52.42 24.17x16
         box 361.92,53.75 13.33x13.33
           box 360.25,52.08 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+            box 360.25,52.08 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
         box 379.42,52.42 6.67x16
           text 379.42,52.42 6.67x16 "9" #f3e7cc
     box 394.42,45.75 48.33x22.67
