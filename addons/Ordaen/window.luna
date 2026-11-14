@@ -7,6 +7,7 @@
 import { Align, Art, Drag, Edges, Layer, Line, Metal, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
+import { Hold, kept } from "@/onScreen"
 import { PX } from "@/units"
 
 // One of a window's tabs: its name, a second line under it, a picture at its left end.
@@ -289,17 +290,20 @@ public class Window implements Component {
     self.h0 = (peek self.placing).height
   }
 
-  // The tab row moves the window, its tabs too.
+  // The tab row moves the window, its tabs too, as far as it stays on the screen.
   onMove(mut self, drag: Drag) {
     if (self.full) { return }
-    self.placing.x = self.x0 + drag.dx
-    self.placing.y = self.y0 + drag.dy
+    const dx, dy = kept(drag, Hold.Move)
+    self.placing.x = self.x0 + dx
+    self.placing.y = self.y0 + dy
   }
 
-  // The grip follows the cursor. The window is placed by its centre, so the centre moves half as far.
+  // The grip follows the cursor up to the screen's edges. The window is placed by its centre, so the centre moves half
+  // as far.
   onSize(mut self, drag: Drag) {
-    let width = self.minWidth.max(self.w0 + drag.dx)
-    let height = self.minHeight.max(self.h0 + drag.dy)
+    const dx, dy = kept(drag, Hold.Size)
+    let width = self.minWidth.max(self.w0 + dx)
+    let height = self.minHeight.max(self.h0 + dy)
     if (self.maxWidth != nil) { width = self.maxWidth.min(width) }
     if (self.maxHeight != nil) { height = self.maxHeight.min(height) }
     self.placing.width = width

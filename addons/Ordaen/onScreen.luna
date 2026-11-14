@@ -1,0 +1,19 @@
+// What keeps a window on the screen: the one rule its move and its resize both take, from the room its surface had on
+// the screen as the drag began (`Drag.room`). The window's own numbers never go where the client's clamp would have
+// to push it: a clamped frame placed past an edge is moved back in whole, which would move the edge the player
+// isn't dragging.
+import { Drag } from "$ltml"
+
+// What a drag does to a window: moves it whole, or sizes it by its bottom right corner (its top left stays).
+public enum Hold { Move = "move", Size = "size" }
+
+// How far right and down a drag takes the window, held to the screen. Moved, it goes no further than its surface
+// can and stay on the screen: at an edge it stops along that axis and goes on along the other. Sized, its right and
+// bottom edges stop at the screen's; it shrinks freely, and its top left never moves.
+public function kept(drag: Drag, hold: Hold): (Number, Number) {
+  const room = drag.room
+  if (hold == Hold.Size) {
+    return drag.dx.min(room.right), drag.dy.min(room.down)
+  }
+  return drag.dx.max(-room.left).min(room.right), drag.dy.max(-room.up).min(room.down)
+}

@@ -1,0 +1,70 @@
+// Where a window stands, as the Lua windows' tests had it: a resize in steps of a fraction of a pixel holds its tab and
+// its body still, and a window closed and opened again stands where its tab row left it, its corner's buttons in
+// place.
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Placing, Window, WindowTabSpec } from "@/window"
+
+class Shown {
+  state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
+  state open = true
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} shown={self.open}>
+        <text value={"the page"} />
+      </Window>
+    }
+  }
+}
+
+function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+
+test "a window resized a fraction of a pixel at a time holds its tab and its body's top left still" {
+  let page = new Shown()
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const body = Test.edges(Ordaen.art.window.wood, 0)
+  const tab = Test.holding("Recipes", nil)
+  const grip = Test.painted(Ordaen.art.ctl.grip, nil)
+  Test.moveTo(grip)
+  Test.press(nil)
+  Test.moveTo({ x: grip.x + 1, y: grip.y })
+  Test.pass(0.05)
+  for (step of 1..=12) {
+    Test.moveTo({ x: grip.x + 1 + step * 0.25, y: grip.y + step * 0.25 })
+    Test.pass(0.02)
+    const now = Test.edges(Ordaen.art.window.wood, 0)
+    const at = Test.holding("Recipes", nil)
+    Test.expect(near(now.left, body.left) && near(now.top, body.top))
+    Test.expect(near(at.x, tab.x) && near(at.y, tab.y))
+  }
+  Test.release(nil)
+  const grown = Test.edges(Ordaen.art.window.wood, 0)
+  Test.expect(near(grown.right, body.right + 3) && near(grown.bottom, body.bottom + 3))
+  destroy page
+}
+
+test "a window closed and opened again stands where its tab row left it, its corner's buttons in place" {
+  let page = new Shown()
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const tab = Test.holding("Recipes", nil)
+  Test.moveTo(tab)
+  Test.press(nil)
+  Test.moveTo({ x: tab.x + 1, y: tab.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: tab.x - 199, y: tab.y + 80 })
+  Test.pass(0.05)
+  Test.release(nil)
+  const moved = Test.edges(Ordaen.art.window.wood, 1)
+  page.open = false
+  Test.flush()
+  page.open = true
+  Test.flush()
+  const again = Test.edges(Ordaen.art.window.wood, 1)
+  Test.expect(near(again.left, moved.left) && near(again.top, moved.top))
+  Test.moveTo(Test.holding("the page", nil))
+  Test.shot("opened again where it was left, the cursor in its body: full screen and close at the body's top right")
+  destroy page
+}
