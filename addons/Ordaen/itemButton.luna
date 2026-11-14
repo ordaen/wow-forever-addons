@@ -7,7 +7,8 @@
 // (Ordaen's tooltips draw it where they are on), gone when the cursor leaves; `entered` and `left` are told. Left-click reports
 // `pick` with the item's number; Shift+Left-click puts the item's link into the chat instead, as the game's own slots
 // do. Every click, of an empty slot too, is told as `pressed` (a bag's slot picks up and puts down there). With an
-// `action` the right button is the client's own (a bag's item used: `Action.UseBagItem`). Nothing runs per frame.
+// `action` the right button is the client's own (a bag's item used: `Action.UseBagItem`, whose slot's own tooltip
+// the cursor shows). Nothing runs per frame.
 import { Action, Align, Art, Click, Edges, Frame, Line, MouseButton, Position, Shadow, Stated } from "$ltml"
 import Game from "$game"
 import root Ordaen from "Ordaen"
@@ -136,10 +137,16 @@ public class ItemButton implements Component {
     }
   }
 
-  // The game's tooltip of the item beside the slot; the game hides it when the cursor leaves.
+  // The game's tooltip of the item beside the slot; the game hides it when the cursor leaves. A slot of the bags (its
+  // action uses a bag's item) shows the client's own tooltip of that slot: its count, charges and binding as it lies.
   onEnter(self, frame: any Frame) {
     const item = self.item
-    if (item != nil) { Game.items.show(frame, item) }
+    const action = self.action
+    if (item != nil && action is Action.UseBagItem) {
+      Game.items.showSlot(frame, action.bag, action.slot)
+    } else if (item != nil) {
+      Game.items.show(frame, item)
+    }
     self.entered.emit()
   }
 

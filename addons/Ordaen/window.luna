@@ -292,9 +292,10 @@ public class Window implements Component {
   tabs: Signal<Array<WindowTabSpec>>
   selected: mut Signal<Integer>
   placing: mut Signal<Placing>
-  const minWidth: Number
+  // The width's bounds may follow what the window shows (a view's own): the window is fitted into them as they change.
+  minWidth: Signal<Number>
   const minHeight: Number
-  const maxWidth: Number | nil
+  maxWidth: Signal<Number | nil>
   const maxHeight: Number | nil
   // The corner group's controls from its left, and its width.
   const controls: Array<CornerControl>
@@ -317,9 +318,9 @@ public class Window implements Component {
     tabs: Signal<Array<WindowTabSpec>>,
     selected: mut Signal<Integer>,
     placing: mut Signal<Placing>,
-    minWidth: Number = MIN_W,
+    minWidth: Signal<Number> = MIN_W,
     minHeight: Number = MIN_H,
-    maxWidth: Number | nil = nil,
+    maxWidth: Signal<Number | nil> = nil,
     maxHeight: Number | nil = nil,
     // A settings plate first in the corner's group, before full screen and close.
     withSettings: Boolean = false,
@@ -358,6 +359,19 @@ public class Window implements Component {
     self.minHeight = minHeight
     self.maxWidth = maxWidth
     self.maxHeight = maxHeight
+    watch { self.fit() }
+  }
+
+  // The width kept within its bounds as they change, its left edge where it stands.
+  fit(mut self) {
+    const least = self.minWidth
+    const most = self.maxWidth
+    const place = peek self.placing
+    let width = least.max(place.width)
+    if (most != nil) { width = most.min(width) }
+    if (width == place.width) { return }
+    self.placing.x = place.x + (width - place.width) / 2
+    self.placing.width = width
   }
 
   columnsOf(self): Array<Track> {
@@ -439,9 +453,10 @@ public class Window implements Component {
   // as far.
   onSize(mut self, drag: Drag) {
     const dx, dy = kept(drag, Hold.Size)
-    let width = self.minWidth.max(self.w0 + dx)
+    let width = (peek self.minWidth).max(self.w0 + dx)
     let height = self.minHeight.max(self.h0 + dy)
-    if (self.maxWidth != nil) { width = self.maxWidth.min(width) }
+    const most = peek self.maxWidth
+    if (most != nil) { width = most.min(width) }
     if (self.maxHeight != nil) { height = self.maxHeight.min(height) }
     self.placing.width = width
     self.placing.height = height

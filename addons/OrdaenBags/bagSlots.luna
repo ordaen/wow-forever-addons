@@ -1,8 +1,9 @@
 // The bag slots: a small window of their own beside the bags, opened by the header's bag button. Each bag with its
 // icon, its name and its fill («5/16»), the backpack first; the cursor on one shows its tooltip and lights its items in
-// the bags' window, the rest faded.
+// the bags' window, the rest faded. A bag dragged onto another changes slots with it, each with what it holds (the
+// client's own swap); the backpack is neither dragged nor dropped on.
 import Game from "$game"
-import { Align, Frame, Track } from "$ltml"
+import { Align, Drag, Frame, Track } from "$ltml"
 import { Component, Placing, PX, space, Window, WindowTabSpec } from "Ordaen"
 import Locale from "@/locales"
 
@@ -23,6 +24,9 @@ public struct BagLine {
 
 class BagEntry implements Component {
   public lit: Event<Integer> = new Event()
+  public grabbed: Event<Integer> = new Event()
+  public dropped: Event<Integer> = new Event()
+  public released: Event<nil> = new Event()
   state hovered = false
   derived fill: String = Locale.FILL.format(self.line.used, self.line.info.slots)
   derived back: Color = self.hovered ? SHADE : CLEAR
@@ -42,10 +46,14 @@ class BagEntry implements Component {
     self.lit.emit(-1)
   }
 
+  onGrab(self, drag: Drag) { self.grabbed.emit(self.line.info.bag) }
+  onDrop(self) { self.dropped.emit(self.line.info.bag) }
+  onRelease(self) { self.released.emit() }
+
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={space(.Item)} yAlign={Align.Center} background={self.back} @enter={self.onEnter}
-           @leave={self.onLeave}>
+           @leave={self.onLeave} @dragStart={self.onGrab} @drop={self.onDrop} @dragStop={self.onRelease}>
         <box width={ICON} height={ICON} background={WELL} icon={self.line.info.icon} />
         <text value={self.line.info.name} textColor={INK} />
         <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={.Secondary} wrap={false} />
@@ -59,6 +67,8 @@ public class BagSlotsWindow implements Component {
   public lit: Event<Integer> = new Event()
   state tab = 1
   derived tabs: Array<WindowTabSpec> = [{ title: Locale.BAG_SLOTS }]
+  // The bag being dragged, none (-1) while none is.
+  dragging = -1
 
   lines: Signal<Array<BagLine>>
   placing: mut Signal<Placing>
@@ -69,12 +79,22 @@ public class BagSlotsWindow implements Component {
 
   onClose(self) { self.close.emit() }
   onLit(self, bag: Integer) { self.lit.emit(bag) }
+  onGrabbed(mut self, bag: Integer) { self.dragging = bag > 0 ? bag : -1 }
+  onReleased(mut self) { self.dragging = -1 }
+
+  // Let go over another bag: the two change slots. Over the backpack, or over itself, nothing.
+  onDropped(mut self, bag: Integer) {
+    const from = self.dragging
+    self.dragging = -1
+    if (from > 0 && bag > 0 && bag != from) { _ = Game.bags.swapBags(from, bag) }
+  }
 
   public render(self): Template {
     return $ltml {
       <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} minWidth={WIDTH} @close={self.onClose}>
         <box columns={1} gap={space(.Item)}>
-          <BagEntry $for={line of self.lines} line={line} @lit={self.onLit} />
+          <BagEntry $for={line of self.lines} line={line} @lit={self.onLit} @grabbed={self.onGrabbed}
+                    @dropped={self.onDropped} @released={self.onReleased} />
         </box>
       </Window>
     }
