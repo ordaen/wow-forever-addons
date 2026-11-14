@@ -1,0 +1,137 @@
+// How the window's sections are laid out as rows of one height: sections side by side in their fixed order while they
+// fit the grid's width, each line of them a row of their captions and then rows of their slots. A box with
+// `rowHeight` builds only the rows in view.
+import { Track } from "$ltml"
+import { PX } from "Ordaen"
+import { Slot } from "@/model"
+
+// A slot's size and the room between two slots; between two sections side by side, more.
+public const SLOT: Number = 37 * PX
+public const GAP: Number = 4 * PX
+public const SECTION_GAP: Number = 16 * PX
+// A section with a caption is at least this many slots wide, so its caption fits.
+const CAPTION_SPAN = 4
+
+// A section: its caption (none where it has none: the one-bag view, a tab grouped in one), what stands after it (a
+// bag's fill), its slots in their order; the bag it is (-1 for none); the «Free» section, one slot with the free count.
+public struct Section {
+  const key: String
+  const title: String
+  const bag: Integer
+  const slots: Array<Slot>
+  const free: Boolean
+}
+
+// What one place of a row holds, and where in the row it stands: each is a table of its own, which a row's places are
+// keyed by.
+public enum Cell {
+  Item { slot: Slot },
+  Free { at: Integer },
+  Caption { section: Section },
+  Space { at: Integer },
+}
+
+// A row: what each of its places holds, and how wide each is.
+public struct Row {
+  const cells: Array<Cell>
+  const tracks: Array<Track>
+}
+
+// How many slots a row of `width` holds.
+public function columnsIn(width: Number): Integer {
+  return ((width + GAP) / (SLOT + GAP)).floor().max(1)
+}
+
+function spanOf(section: Section, columns: Integer): Integer {
+  const count = section.free ? 1 : section.slots.length
+  const least = section.title != "" ? CAPTION_SPAN : 1
+  return count.max(least).min(columns)
+}
+
+function widthOf(span: Integer): Number {
+  return span * SLOT + (span - 1) * GAP
+}
+
+// The room between two sections, past the row's own gap on each side.
+const BETWEEN: Number = SECTION_GAP - 2 * GAP
+
+// The rows of `sections` in `columns` slots, those `collapsed` (by key) with their caption alone.
+public function rowsOf(sections: Array<Section>, columns: Integer, collapsed: Map<String, Boolean>): Array<Row> {
+  let rows: Array<Row> = []
+  let line: Array<Section> = []
+  let spans: Array<Integer> = []
+  let used: Number = 0
+  const room = widthOf(columns)
+  for (section of sections) {
+    const span = spanOf(section, columns)
+    const width = widthOf(span)
+    const needed = line.length == 0 ? width : used + SECTION_GAP + width
+    if (line.length > 0 && needed > room) {
+      lineRows(mut rows, line, spans, collapsed)
+      line = []
+      spans = []
+      used = 0
+    }
+    used = line.length == 0 ? width : used + SECTION_GAP + width
+    line.push(section)
+    spans.push(span)
+  }
+  if (line.length > 0) { lineRows(mut rows, line, spans, collapsed) }
+  return rows
+}
+
+// One line of sections: its captions' row where one has a caption, then as many rows as its tallest section needs.
+function lineRows(rows: mut Array<Row>, line: Array<Section>, spans: Array<Integer>, collapsed: Map<String, Boolean>) {
+  let titled = false
+  let height = 0
+  for (index, section of line) {
+    const span = spans[index] ?? 1
+    if (section.title != "") { titled = true }
+    if (collapsed[section.key] != true) {
+      const count = section.free ? 1 : section.slots.length
+      height = height.max(((count + span - 1) / span).floor())
+    }
+  }
+  if (titled) {
+    let cells: Array<Cell> = []
+    let tracks: Array<Track> = []
+    for (index, section of line) {
+      if (index > 1) {
+        cells.push(Cell.Space { at: cells.length + 1 })
+        tracks.push(BETWEEN)
+      }
+      if (section.title != "") {
+        cells.push(Cell.Caption { section: section })
+      } else {
+        cells.push(Cell.Space { at: cells.length + 1 })
+      }
+      tracks.push(widthOf(spans[index] ?? 1))
+    }
+    rows.push({ cells: cells, tracks: tracks })
+  }
+  for (row of 1..=height) {
+    let cells: Array<Cell> = []
+    let tracks: Array<Track> = []
+    for (index, section of line) {
+      const span = spans[index] ?? 1
+      if (index > 1) {
+        cells.push(Cell.Space { at: cells.length + 1 })
+        tracks.push(BETWEEN)
+      }
+      const shown = collapsed[section.key] != true
+      for (place of 1..=span) {
+        const at = (row - 1) * span + place
+        const slot = shown && !section.free ? section.slots[at] : nil
+        if (shown && section.free && at == 1) {
+          cells.push(Cell.Free { at: cells.length + 1 })
+        } else if (slot != nil) {
+          cells.push(Cell.Item { slot: slot })
+        } else {
+          cells.push(Cell.Space { at: cells.length + 1 })
+        }
+        tracks.push(SLOT)
+      }
+    }
+    rows.push({ cells: cells, tracks: tracks })
+  }
+}

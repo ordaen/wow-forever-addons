@@ -1,0 +1,146 @@
+// The sections each view shows, and the order of the items in them: by type in a tab, a section per bag, or every slot
+// in one grid. Worked out again only when what lies in the bags changes where they are, or when a choice of the window's
+// does; a count or a lock changing is drawn by its slot alone.
+import Runtime from "$runtime"
+import Locale from "@/locales"
+import { Section } from "@/layout"
+import { Grouping, KINDS, rankOf, Slot, SortBy, Tab } from "@/model"
+
+// A tab's name.
+public function tabName(tab: Tab): String {
+  return match (tab) {
+    .All => Locale.TAB_ALL,
+    .New => Locale.TAB_NEW,
+    .Quest => Locale.TAB_QUEST,
+    .Consumables => Locale.TAB_CONSUMABLES,
+    .Equipment => Locale.TAB_EQUIPMENT,
+    .Trade => Locale.TAB_TRADE,
+    .Recipes => Locale.TAB_RECIPES,
+    .Other => Locale.TAB_OTHER,
+    .Junk => Locale.TAB_JUNK,
+  }
+}
+
+// Whether `a` comes before `b` in the sort's order: each sort's own first, then the name, then the place in the bags,
+// so no two items are ever equal and the order holds from one update to the next.
+public function before(a: Slot, b: Slot, by: SortBy): Boolean {
+  const x = a.read
+  const y = b.read
+  if (by == .Quality && x.quality != y.quality) { return x.quality > y.quality }
+  if (by == .Level && x.level != y.level) { return x.level > y.level }
+  if (by == .Count && x.count != y.count) { return x.count > y.count }
+  if (by == .Type && x.kind != y.kind) { return x.kind < y.kind }
+  if (by == .Type && x.subkind != y.subkind) { return x.subkind < y.subkind }
+  if (by != .Bags && x.name != y.name) { return x.name < y.name }
+  if (a.bag != b.bag) { return a.bag < b.bag }
+  return a.index < b.index
+}
+
+// Whether the slot's item is in the tab.
+public function inTab(slot: Slot, tab: Tab): Boolean {
+  if (peek slot.id == 0) { return false }
+  return match (tab) {
+    .All => true,
+    .New => peek slot.isNew,
+    else => slot.tab == tab,
+  }
+}
+
+// One section of a tab grouped by type: the items of one kind and one subclass.
+struct Group {
+  key: String
+  title: String
+  rank: Integer
+  subkind: Integer
+  slots: mut Array<Slot>
+}
+
+// The categories view's sections for a tab: grouped as its setting says (the new items always in one), each sorted,
+// in the kinds' fixed order whatever the sort; no section without items; then «Free».
+public function tabSections(slots: Array<Slot>, tab: Tab, grouping: Grouping, by: SortBy): Array<Section> {
+  let groups: Array<mut Group> = []
+  let found: Map<String, mut Group> = {}
+  const how = tab == .New ? Grouping.None : grouping
+  for (slot of slots) {
+    if (inTab(slot, tab)) {
+      const key = keyOf(slot, how)
+      const group = found[key]
+      if (group != nil) {
+        group.slots.push(slot)
+      } else {
+        const made: Group = {
+          key: key, title: titleOf(slot, how), rank: rankOf(slot.tab), subkind: how == .Type ? slot.read.subkind : 0,
+          slots: [slot],
+        }
+        found[key] = made
+        groups.push(mut made)
+      }
+    }
+  }
+  groups.sort((a: Group, b: Group): Boolean => groupBefore(a, b))
+  let sections: Array<Section> = []
+  for (group of groups) {
+    group.slots.sort((a: Slot, b: Slot): Boolean => before(a, b, by))
+    sections.push({ key: group.key, title: group.title, bag: -1, slots: group.slots, free: false })
+  }
+  sections.push({ key: "free", title: Locale.FREE, bag: -1, slots: [], free: true })
+  return sections
+}
+
+function groupBefore(a: Group, b: Group): Boolean {
+  if (a.rank != b.rank) { return a.rank < b.rank }
+  if (a.subkind != b.subkind) { return a.subkind < b.subkind }
+  return a.key < b.key
+}
+
+function keyOf(slot: Slot, how: Grouping): String {
+  return match (how) {
+    .None => "all",
+    .Type => `${slot.tab}/${slot.read.subkind}`,
+    .Worn => `worn/${slot.read.worn}`,
+  }
+}
+
+// A section's caption: none for all in one; the subclass's name as the game says it; where an item is worn as the
+// game names it (`INVTYPE_HEAD`), what isn't worn under its tab's name.
+function titleOf(slot: Slot, how: Grouping): String {
+  return match (how) {
+    .None => "",
+    .Type => slot.read.subkindName != "" ? slot.read.subkindName : tabName(slot.tab),
+    .Worn => slot.read.worn != "" ? Runtime.text(slot.read.worn) ?? slot.read.worn : tabName(slot.tab),
+  }
+}
+
+// A section for each bag, in the bags' order, every slot of it with the empty ones, its name for a caption.
+public function bagSections(bags: Array<Array<Slot>>, names: Array<String>): Array<Section> {
+  let sections: Array<Section> = []
+  for (index, slots of bags) {
+    if (slots.length > 0) {
+      sections.push({ key: `bag/${index}`, title: names[index] ?? "", bag: index - 1, slots: slots, free: false })
+    }
+  }
+  return sections
+}
+
+// Every slot in one grid, in the bags' order, the empty ones too.
+public function oneSection(bags: Array<Array<Slot>>): Array<Section> {
+  let slots: Array<Slot> = []
+  for (bag of bags) {
+    for (slot of bag) { slots.push(slot) }
+  }
+  return [{ key: "one", title: "", bag: -1, slots: slots, free: false }]
+}
+
+// How many items each tab has, the kinds' in their order after «All» and «New».
+public function countsOf(slots: Array<Slot>): Map<Tab, Integer> {
+  let counts: Map<Tab, Integer> = { [Tab.All]: 0, [Tab.New]: 0 }
+  for (kind of KINDS) { counts[kind] = 0 }
+  for (slot of slots) {
+    if (peek slot.id != 0) {
+      counts[Tab.All] = (counts[Tab.All] ?? 0) + 1
+      counts[slot.tab] = (counts[slot.tab] ?? 0) + 1
+      if (peek slot.isNew) { counts[Tab.New] = (counts[Tab.New] ?? 0) + 1 }
+    }
+  }
+  return counts
+}

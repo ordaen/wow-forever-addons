@@ -1,0 +1,30 @@
+// Every character's gold, kept for the account: this one's written as its money changes, at most fifty kept, the one
+// seen longest ago let go first; the tip's rows, this realm's alone, this character's first.
+import Game from "$game"
+import Test from "$test"
+import { Gold, Purse } from "@/gold"
+
+test "past fifty characters the one seen longest ago is let go; the rows: this realm's, this one's first, the total" {
+  let gold = new Gold()
+  let characters: Map<String, Purse> = {}
+  for (index of 1..=50) {
+    characters[`Player-1-${index}`] = { name: `Alt${index}`, realm: index % 2 == 0 ? "Stand-in" : "Elsewhere", copper: index * 100, seen: 1000 + index }
+  }
+  gold.memory.write({ characters: characters })
+  Game.money.amount = 5000
+  Test.flush()
+  const kept = (peek gold.memory.values).characters
+  let count = 0
+  for (guid, _ of kept) {
+    if (guid != "") { count += 1 }
+  }
+  Test.expect(count == 50)
+  Test.expect(kept["Player-1-1"] == nil)
+  Test.expect(kept["Player-1-2"] != nil)
+  Test.expect(kept[Game.player.guid]?.copper == 5000)
+  const rows = gold.rows
+  Test.expect(rows[1]?.label == Game.player.name)
+  Test.expect(rows[2]?.label == "Alt50")
+  Test.expect(rows.length == 1 + 25 + 1)
+  Test.expect(rows[rows.length]?.label == "Total")
+}
