@@ -22,16 +22,16 @@ box 0,0 760x678.33
       box 248.33,130 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
         box 248.33,130 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,160 760x28.33
-      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 0,160 125x28.33 absolute
           text 53.12,166.67 18.75x15 "New" #ffd100
-      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 131.67,160 125x28.33 absolute
           text 175.42,166.67 37.5x15 "Rename" #ffd100
-      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 263.33,160 125x28.33 absolute
           text 307.08,166.67 37.5x15 "Delete" #ffd100
-      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 395,160 125x28.33 absolute
           text 441.88,166.67 31.25x15 "Reset" #ffd100
   box 0,203.33 760x105
@@ -76,7 +76,7 @@ box 0,0 760x678.33
         box 248.33,420 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
           box 248.33,420 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 0,450 760x28.33
-        box 0,450 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 0,450 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 0,450 125x28.33 absolute
             text 50,456.67 25x15 "Copy" #ffd100
   box 0,493.33 760x185
@@ -86,13 +86,13 @@ box 0,0 760x678.33
     text 0,520 760x15 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
     box 0,546.67 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,650 760x28.33
-      box 0,650 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 0,650 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 0,650 125x28.33 absolute
           text 43.75,656.67 37.5x15 "Export" #ffd100
-      box 131.67,650 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 131.67,650 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 131.67,650 125x28.33 absolute
           text 175.42,656.67 37.5x15 "Import" #ffd100
-      box 263.33,650 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 263.33,650 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
         box 263.33,650 125x28.33 absolute
           text 307.08,656.67 37.5x15 "Create" #808080
 
@@ -120,16 +120,16 @@ box 0,0 760x735
       box 248.33,130 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
         box 248.33,130 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,160 760x28.33
-      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 0,160 125x28.33 absolute
           text 53.12,166.67 18.75x15 "New" #ffd100
-      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 131.67,160 125x28.33 absolute
           text 175.42,166.67 37.5x15 "Rename" #ffd100
-      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 263.33,160 125x28.33 absolute
           text 307.08,166.67 37.5x15 "Delete" #ffd100
-      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 395,160 125x28.33 absolute
           text 441.88,166.67 31.25x15 "Reset" #ffd100
     text 0,200 760x15 "Copied: 2. Copied settings wait for Save." #a3977f
@@ -175,7 +175,7 @@ box 0,0 760x735
         box 248.33,446.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
           box 248.33,446.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 0,476.67 760x28.33
-        box 0,476.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 0,476.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 0,476.67 125x28.33 absolute
             text 50,483.33 25x15 "Copy" #ffffff
   box 0,520 760x215
@@ -190,12 +190,12 @@ box 0,0 760x735
         box 248.33,573.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
     box 0,603.33 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,706.67 760x28.33
-      box 0,706.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 0,706.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 0,706.67 125x28.33 absolute
           text 43.75,713.33 37.5x15 "Export" #ffd100
-      box 131.67,706.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 131.67,706.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 131.67,706.67 125x28.33 absolute
           text 175.42,713.33 37.5x15 "Import" #ffd100
-      box 263.33,706.67 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 263.33,706.67 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
         box 263.33,706.67 125x28.33 absolute
           text 307.08,713.33 37.5x15 "Create" #808080

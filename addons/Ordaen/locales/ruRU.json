@@ -1,6 +1,12 @@
 {
   "SETTINGS_OPEN": "Открыть настройки Ordaen",
   "SOON": "в разработке",
+  "COUNT_FEWER": "Меньше",
+  "COUNT_MORE": "Больше",
+  "COUNT_HOLD": "Удерживайте, чтобы шаги повторялись до предела.",
+  "COUNT_CLICK": "ЛКМ",
+  "COUNT_SHIFT": "Shift+ЛКМ",
+  "COUNT_ALT": "Alt+ЛКМ",
   "AGE_DAYS": "(%d д.)",
   "MONEY_GOLD": "з",
   "MONEY_SILVER": "с",

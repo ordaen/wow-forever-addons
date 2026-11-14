@@ -10,7 +10,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
             text 470.25,249.71 18.75x15 "All" #ffffff
         box 457.75,276.37 689.5x28.33
           box 457.75,276.37 656.17x28.33
-            box 457.75,276.37 656.17x28.33 #00000080 input "" @change
+            box 457.75,276.37 656.17x28.33 #00000080 input "" @change @submit
             box 457.75,276.37 656.17x28.33 absolute
               text 466.08,283.04 639.5x15 "Search" #a3977f
           box 1113.92,276.37 33.33x28.33

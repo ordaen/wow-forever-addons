@@ -32,6 +32,13 @@ public struct TipRow {
   const mark: TipMark = { text: "", color: { r: 1, g: 1, b: 1, a: 1 } }
 }
 
+// What a control's Tip says, for a control that draws its own (a push button): its name, its text and its rows.
+public struct TipText {
+  const title: String
+  const text: String
+  const rows: Array<TipRow>
+}
+
 public class Tip implements Component {
   derived hasText: Boolean = self.text != ""
 

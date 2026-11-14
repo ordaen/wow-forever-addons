@@ -43,10 +43,10 @@ box 0,0 700x256.67
           text 458.33,149.17 6.25x15 "4" #ffffff
   box 0,171.67 700x15 @enter @leave
     text 0,171.67 700x15 "zone shown" #ffffff
-  box 0,193.33 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+  box 0,193.33 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
     box 0,193.33 120x28.33 absolute
       text 47.5,200 25x15 "Save" #ffd100
-  box 0,228.33 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+  box 0,228.33 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
     box 0,228.33 120x28.33 absolute
       text 44.38,235 31.25x15 "Reset" #ffffff
 surface 0,0 1600x900 on DIALOG #0000008c
@@ -55,10 +55,10 @@ surface 0,0 1600x900 on DIALOG #0000008c
     box 645.5,458.62 314x28.33
       box 645.5,458.62 100.67x0
       box 746.17,458.62 213.33x28.33
-        box 746.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+        box 746.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
           box 746.17,458.62 100x28.33 absolute
             text 777.42,465.29 37.5x15 "Forget" #ffd100
-        box 852.83,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 852.83,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 852.83,458.62 100x28.33 absolute
             text 890.33,465.29 25x15 "Keep" #ffd100
     box 622.5,403.96 360x18 absolute

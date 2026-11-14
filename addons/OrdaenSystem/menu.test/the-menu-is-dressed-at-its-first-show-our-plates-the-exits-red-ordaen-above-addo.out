@@ -5,7 +5,7 @@ surface 703.25,252.08 193.5x301.92 on DIALOG Interface\AddOns\Ordaen\media\windo
   box 743.83,286 117.33x0.83 absolute #000000d9
   box 743.83,286.83 117.33x0.83 absolute #d6a56b8c
   box 710.5,296 184x28.33 absolute
-    box 730.5,296 144x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 730.5,296 144x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
       box 730.5,296 144x28.33 absolute
         text 783.75,302.67 37.5x15 "Ordaen" #ffd100
 surface 728,378 144x26 on DIALOG Interface\AddOns\Ordaen\media\button row 0 of 8
@@ -29,6 +29,6 @@ surface 728,512 144x26 on DIALOG Interface\AddOns\Ordaen\media\button row 0 of 8
   box 728,512 144x26 absolute
     text 756.25,517.5 87.5x15 "Return to Game" #ffd100
 surface 728,414 144x28.33 on DIALOG
-  box 728,414 144x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+  box 728,414 144x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
     box 728,414 144x28.33 absolute
       text 781.25,420.67 37.5x15 "AddOns" #ffd100

@@ -148,3 +148,23 @@ test "− and + held down step again after a wait, then at a pace, until let go 
   Test.expect(page.count == 11)
   destroy page
 }
+
+test "− and + under the cursor name their keys: a click, Shift, Alt, and holding" {
+  let page = new Pair()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  Test.moveTo(Test.holding("+", nil))
+  Test.flush()
+  Test.shot("the cursor on +: its Tip, each key and how far it steps")
+  Test.expect(Test.surfaceHolding("More").x > 0)
+  Test.expect(Test.surfaceHolding("Shift+Left-click").x > 0)
+  Test.expect(Test.surfaceHolding("+100").x > 0)
+  Test.expect(Test.surfaceHolding("Hold to keep stepping, up to the limit.").x > 0)
+  Test.moveTo(Test.holding("-", nil))
+  Test.flush()
+  Test.expect(Test.surfaceHolding("Fewer").x > 0)
+  Test.expect(Test.surfaceHolding("-10").x > 0)
+  Test.moveTo({ x: -10, y: -10 })
+  Test.flush()
+  Test.shot("the cursor away: no Tip")
+  destroy page
+}

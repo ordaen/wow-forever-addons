@@ -61,15 +61,15 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   text 971.5,300.54 6.25x15 "4" #ffffff
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 474.5x0
           box 1023.92,708.12 231.67x28.33
-            box 1023.92,708.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 1023.92,708.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 1023.92,708.12 108.33x28.33 absolute
                 text 1049.96,714.79 56.25x15 "Roll back" #ffd100
-            box 1138.92,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1138.92,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1138.92,708.12 116.67x28.33 absolute
                 text 1184.75,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped

@@ -32,7 +32,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                     box 1412.25,70 28.33x28.33
                       box 1412.25,70 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                         box 1419.75,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
-              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1447.25,70 125x28.33 absolute
                   text 1469.12,76.67 81.25x15 "Shopping list" #ffd100
             box 222.75,105 1349.5x741.5 #0000004d
@@ -172,7 +172,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                   box 278.58,382.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
                   box 293.58,382.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
               box 32.75,413.33 1539.5x28.33
-                box 32.75,413.33 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                box 32.75,413.33 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                   box 32.75,413.33 116.67x28.33 absolute
                     text 66.08,420 50x15 "Settings" #ffd100
       box 32.75,846.5 1539.5x29.67

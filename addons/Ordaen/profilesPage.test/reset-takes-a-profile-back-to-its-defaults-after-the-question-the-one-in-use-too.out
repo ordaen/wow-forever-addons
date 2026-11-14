@@ -22,16 +22,16 @@ box 0,0 760x678.33
       box 248.33,130 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
         box 248.33,130 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,160 760x28.33
-      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 0,160 125x28.33 absolute
           text 53.12,166.67 18.75x15 "New" #ffd100
-      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 131.67,160 125x28.33 absolute
           text 175.42,166.67 37.5x15 "Rename" #ffd100
-      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 263.33,160 125x28.33 absolute
           text 307.08,166.67 37.5x15 "Delete" #ffd100
-      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 395,160 125x28.33 absolute
           text 441.88,166.67 31.25x15 "Reset" #ffffff
   box 0,203.33 760x105
@@ -71,7 +71,7 @@ box 0,0 760x678.33
         box 248.33,390 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
           box 248.33,390 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 0,420 760x28.33
-        box 0,420 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 0,420 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 0,420 125x28.33 absolute
             text 50,426.67 25x15 "Copy" #ffd100
   box 0,463.33 760x215
@@ -86,13 +86,13 @@ box 0,0 760x678.33
         box 248.33,516.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
     box 0,546.67 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,650 760x28.33
-      box 0,650 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 0,650 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 0,650 125x28.33 absolute
           text 43.75,656.67 37.5x15 "Export" #ffd100
-      box 131.67,650 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 131.67,650 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 131.67,650 125x28.33 absolute
           text 175.42,656.67 37.5x15 "Import" #ffd100
-      box 263.33,650 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 263.33,650 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
         box 263.33,650 125x28.33 absolute
           text 307.08,656.67 37.5x15 "Create" #808080
 surface 0,0 1600x900 on DIALOG #0000008c
@@ -101,10 +101,10 @@ surface 0,0 1600x900 on DIALOG #0000008c
     box 623.83,458.62 357.33x28.33
       box 623.83,458.62 127.33x0
       box 751.17,458.62 230x28.33
-        box 751.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 751.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 751.17,458.62 100x28.33 absolute
             text 782.42,465.29 37.5x15 "Cancel" #ffd100
-        box 857.83,458.62 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 857.83,458.62 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 857.83,458.62 116.67x28.33 absolute
             text 900.54,465.29 31.25x15 "Reset" #ffd100
     box 600.83,403.96 403.33x18 absolute

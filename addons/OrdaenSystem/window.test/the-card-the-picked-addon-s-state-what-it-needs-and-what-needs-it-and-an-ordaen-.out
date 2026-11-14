@@ -5,7 +5,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
       box 424.42,273.88 455.92x365.08
         box 424.42,273.88 455.92x28.33
           box 424.42,273.88 303x28.33
-            box 424.42,273.88 303x28.33 #00000080 input "" @change
+            box 424.42,273.88 303x28.33 #00000080 input "" @change @submit
             box 424.42,273.88 303x28.33 absolute
               text 432.75,280.54 286.33x15 "Search by title, folder, author, notes" #a3977f
           box 727.42,273.88 152.92x28.33
@@ -93,11 +93,11 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
       box 424.42,638.96 455.92x45
         box 424.42,655.62 455.92x28.33
           box 424.42,655.62 206.67x28.33
-            box 424.42,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 424.42,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 424.42,655.62 100x28.33 absolute
                 text 458.79,662.29 31.25x15 "Reset" #ffd100
             box 531.08,655.62 100x28.33
-              box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 531.08,655.62 100x28.33 absolute
                   text 562.33,662.29 37.5x15 "Sets ▾" #ffd100
           box 647.75,669.79 75.92x0
@@ -105,7 +105,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
             box 740.33,669.79 0x0 @enter @leave
               text 740.33,669.79 0x0 "" #f0c860
             box 747,655.62 133.33x28.33 @enter @leave
-              box 747,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click
+              box 747,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click @enter @leave
                 box 747,655.62 133.33x28.33 absolute
                   text 794.92,662.29 37.5x15 "Reload" #ffd100
     box 900.33,253.88 300.25x443.42 border=ButtonFrameTemplateNoPortrait sides=left
@@ -161,7 +161,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
             box 969.75,651.54 210.83x13
               text 1158.92,651.54 21.67x13 "0 KB" #e8e0d0
           box 930.58,671.21 250x35
-            box 930.58,677.88 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 930.58,677.88 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 930.58,677.88 141.67x28.33 absolute
                 text 954.54,684.54 93.75x15 "Ordaen settings" #ffd100
     box 1149.42,252.96 52.5x26.67 absolute clipped
@@ -190,7 +190,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
       box 424.42,273.88 455.92x365.08
         box 424.42,273.88 455.92x28.33
           box 424.42,273.88 303x28.33
-            box 424.42,273.88 303x28.33 #00000080 input "" @change
+            box 424.42,273.88 303x28.33 #00000080 input "" @change @submit
             box 424.42,273.88 303x28.33 absolute
               text 432.75,280.54 286.33x15 "Search by title, folder, author, notes" #a3977f
           box 727.42,273.88 152.92x28.33
@@ -278,11 +278,11 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
       box 424.42,638.96 455.92x45
         box 424.42,655.62 455.92x28.33
           box 424.42,655.62 206.67x28.33
-            box 424.42,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 424.42,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 424.42,655.62 100x28.33 absolute
                 text 458.79,662.29 31.25x15 "Reset" #ffd100
             box 531.08,655.62 100x28.33
-              box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 531.08,655.62 100x28.33 absolute
                   text 562.33,662.29 37.5x15 "Sets ▾" #ffd100
           box 647.75,669.79 75.92x0
@@ -290,7 +290,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
             box 740.33,669.79 0x0 @enter @leave
               text 740.33,669.79 0x0 "" #f0c860
             box 747,655.62 133.33x28.33 @enter @leave
-              box 747,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click
+              box 747,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click @enter @leave
                 box 747,655.62 133.33x28.33 absolute
                   text 794.92,662.29 37.5x15 "Reload" #ffd100
     box 900.33,253.88 300.25x443.42 border=ButtonFrameTemplateNoPortrait sides=left
@@ -345,7 +345,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
             box 969.75,616.88 210.83x13
               text 1158.92,616.88 21.67x13 "0 KB" #e8e0d0
           box 930.58,636.54 250x35
-            box 930.58,643.21 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 930.58,643.21 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 930.58,643.21 100x28.33 absolute
                 text 958.71,649.88 43.75x15 "Disable" #ffd100
     box 1149.42,252.96 52.5x26.67 absolute clipped

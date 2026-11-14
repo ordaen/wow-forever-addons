@@ -44,10 +44,10 @@ box 0,0 700x383.33
       box 0,231.67 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
   box 0,298.33 700x15 @enter @leave
     text 0,298.33 700x15 "zone shown" #ffffff
-  box 0,320 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+  box 0,320 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
     box 0,320 120x28.33 absolute
       text 47.5,326.67 25x15 "Save" #ffd100
-  box 0,355 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+  box 0,355 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
     box 0,355 120x28.33 absolute
       text 44.38,361.67 31.25x15 "Reset" #808080
 surface 100,125.83 271.17x72.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
@@ -100,9 +100,9 @@ box 0,0 700x383.33
       box 0,231.67 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
   box 0,298.33 700x15 @enter @leave
     text 0,298.33 700x15 "zone shown" #ffffff
-  box 0,320 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+  box 0,320 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
     box 0,320 120x28.33 absolute
       text 47.5,326.67 25x15 "Save" #ffd100
-  box 0,355 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+  box 0,355 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
     box 0,355 120x28.33 absolute
       text 44.38,361.67 31.25x15 "Reset" #808080
