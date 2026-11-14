@@ -1,16 +1,26 @@
 // One auction house's prices: per key, the market with the hour it last moved, and the last observation's lowest with
-// the quantity listed then. Plain maps, never cells: ten thousand cells would cost a table each and a notice per
-// write, and nothing draws one price's change (the source's `revision` is what readers follow). At rest a house is
-// one string (`pack`): its two maps as CBOR, deflated, one constant to the client's parser however many keys it has.
+// the quantity listed then, and its lowest's history. Plain maps, never cells: ten thousand cells would cost a table
+// each and a notice per write, and nothing draws one price's change (the source's `revision` is what readers follow).
+// At rest a house is one string (`pack`): its maps as CBOR, deflated, one constant to the client's parser however many
+// keys it has; it is the account's (`Kept`), so whichever character scans last moves it.
 import Game from "$game"
 import { Hour } from "Ordaen"
+import { HourPrice } from "@/history"
 import { Listing, PriceKey, Quote } from "@/quote"
 
-// A house's two maps, as they are packed.
+// A house's maps, as they are packed.
 public struct Packed implements Plain {
   market: mut Map<PriceKey, Quote> = {}
   listing: mut Map<PriceKey, Listing> = {}
+  history: mut Map<PriceKey, mut Array<Quote>> = {}
 }
+
+const DAY = 24
+// A key's history keeps its hours for a day and its days for 30.
+const HISTORY_DAYS = 30
+// The keys a house keeps a history for at most: past it a key not yet in the history gets none. A key's full history
+// (24 hours and 29 days) is about 160 bytes at rest, so the most is about 1.3 MB of the saved variable.
+public const HISTORY_MOST = 8000
 
 // Each observation moves the market by `1 − 2^(−Δ/72)`, Δ the hours since it last moved.
 const HALF_LIFE: Number = 72
@@ -22,8 +32,14 @@ public class House {
   public const name: String
   market: mut Map<PriceKey, Quote>
   listing: mut Map<PriceKey, Listing>
-  // How many keys it holds.
+  // Per key, its lowest price over time, oldest first, each a `Quote` (the lowest and its hour): before the last day,
+  // a point a day (the day's lowest, at the day's first hour) for 30 days; in the last day, a point an hour it was
+  // seen in. Kept with the house between sessions because nothing else can give it: the client says what is listed
+  // now, never what was. At most 24 + 30 points a key, and `HISTORY_MOST` keys.
+  history: mut Map<PriceKey, mut Array<Quote>>
+  // How many keys it holds; how many have a history.
   public count: Integer = 0
+  histories: Integer = 0
 
   // `packed` is the house as `pack` left it; none for a house never scanned, or one the client couldn't read.
   constructor(name: String, packed: String | nil) {
@@ -31,7 +47,21 @@ public class House {
     const maps = unpacked(packed)
     self.market = maps.market
     self.listing = maps.listing
+    self.history = maps.history
     for (_, quote of self.market) { self.count += 1 }
+    for (_, points of self.history) { self.histories += 1 }
+  }
+
+  // A key's history from `from` to `to`, both ends kept, oldest first, as it is kept (`PriceHistory.hours`).
+  public hours(self, key: PriceKey, from: Hour, to: Hour): Array<HourPrice> {
+    let points: Array<HourPrice> = []
+    const all = self.history[key]
+    if (all == nil) { return points }
+    for (point of all) {
+      const hour = point.seen()
+      if (hour >= from && hour <= to) { points.push(HourPrice { hour: hour, copper: point.copper() }) }
+    }
+    return points
   }
 
   public quote(self, key: PriceKey): Quote | nil { return self.market[key] }
@@ -50,6 +80,26 @@ public class House {
     }
     self.market[key] = Quote.of(value.round(), at)
     self.listing[key] = Listing.of(low, quantity)
+    self.record(key, low, at)
+  }
+
+  // The lowest seen at an hour into the key's history: the hour's lowest so far, or a new point, the older ones
+  // rolled up into their days and those past 30 days dropped.
+  record(mut self, key: PriceKey, low: Integer, at: Hour) {
+    const points = self.history[key]
+    if (points == nil) {
+      if (self.histories >= HISTORY_MOST) { return }
+      self.history[key] = [Quote.of(low, at)]
+      self.histories += 1
+      return
+    }
+    const last = points[points.length]
+    if (last != nil && last.seen() == at) {
+      if (low < last.copper()) { points[points.length] = Quote.of(low, at) }
+      return
+    }
+    points.push(Quote.of(low, at))
+    rolled(mut points, at)
   }
 
   // Drops every key unseen for 30 days; says how many went.
@@ -61,6 +111,10 @@ public class House {
     for (key of gone) {
       self.market[key] = nil
       self.listing[key] = nil
+      if (self.history[key] != nil) {
+        self.history[key] = nil
+        self.histories -= 1
+      }
     }
     self.count -= gone.length
     return gone.length
@@ -68,10 +122,31 @@ public class House {
 
   // The house at rest: none where the client refused to pack it (the game's side says why).
   public pack(self): String | nil {
-    const raw = Game.encoding.serialize(Packed { market: self.market, listing: self.listing })
+    const raw = Game.encoding.serialize(Packed { market: self.market, listing: self.listing, history: self.history })
     if (raw == nil) { return nil }
     return Game.encoding.compress(raw)
   }
+}
+
+// A key's history as of `now`, in place: a point older than a day stands for its day (the day's lowest, at its first
+// hour), one older than 30 days is dropped. The points are oldest first, so a day's are side by side.
+function rolled(points: mut Array<Quote>, now: Hour) {
+  let kept = 0
+  for (at of 1..=points.length) {
+    const point = points[at] ?? panic("a point of the history")
+    let seen: Integer = point.seen()
+    if (now - seen >= DAY) { seen -= seen % DAY }
+    if (now - seen < HISTORY_DAYS * DAY) {
+      const before = points[kept]
+      if (kept > 0 && before != nil && before.seen() == seen) {
+        if (point.copper() < before.copper()) { points[kept] = Quote.of(point.copper(), Hour.of(seen)) }
+      } else {
+        kept += 1
+        points[kept] = Quote.of(point.copper(), Hour.of(seen))
+      }
+    }
+  }
+  for (step of kept + 1..=points.length) { _ = points.pop() }
 }
 
 function unpacked(packed: String | nil): mut Packed {
