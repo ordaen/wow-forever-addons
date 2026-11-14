@@ -2,7 +2,7 @@
 // how many show, for whom, the filter, the sort, the view), the columns' headings, the list (by category, an addon's
 // group under it, or one table), the strip of the last step's extras with «Undo»; the picked addon's card at the
 // right; on the footer row «Reset» and «Sets» at the left, what waits for a reload and «Reload» at the right.
-import { Action, Align, Art, Edges, Overflow, Track } from "$ltml"
+import { Action, Align, Edges, Overflow, Track } from "$ltml"
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
@@ -39,8 +39,8 @@ const VIEWS: Array<Choice<View>> = [
   { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
   { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table },
 ]
-// The glyph of «for whom»: the client's own, tinted as a toolbar's glyphs are.
-const WHO_GLYPH: Art = "Interface/Icons/Achievement_Character_Human_Male"
+// The memory column's refresh: a toolbar glyph's 16 px cell, drawn 1:1.
+const REFRESH = 16 * PX
 const BODY: Array<Track> = ["auto", "auto", { fr: 1 }, "auto", "auto"]
 const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto"]
 const GROUP: Array<Track> = ["auto", "auto"]
@@ -430,7 +430,7 @@ public class AddOnsWindow implements Component {
             <box padding={HEADING}>
               <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
             </box>
-            <ToolPick value={mut self.everyone} choices={self.whom} icon={WHO_GLYPH} title={Locale.WHO} />
+            <ToolPick value={mut self.everyone} choices={self.whom} icon={ARTWORK.ctl.tool.whom} title={Locale.WHO} />
             <ToolPick value={mut self.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
                       lit={self.filtered} />
             <ToolPick $if={!self.tabled} value={mut self.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort}
@@ -456,9 +456,8 @@ public class AddOnsWindow implements Component {
               <box @click={self.onHeadMemory}>
                 <text value={Locale.COL_MEMORY} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
               </box>
-              <box @click={self.onRefresh}>
-                <text value={"↻"} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
-              </box>
+              <box width={REFRESH} height={REFRESH} background={ARTWORK.ctl.tool.refresh} tint={Style.GOLD}
+                   @click={self.onRefresh} />
             </box>
           </box>
           <box overflow={Overflow.Scroll} rowHeight={Style.ROW}>

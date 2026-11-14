@@ -4,9 +4,9 @@
 // the notes. Left-click picks it for the card; on the checkbox it switches the addon, with Ctrl on a group's parent
 // the whole group. An Ordaen module has no checkbox: Ordaen's switch is its one, and its state's text opens Ordaen's
 // settings at it.
-import { Align, Edges, Position, Stated, Track } from "$ltml"
+import { Align, Art, Edges, Position, Stated, Track } from "$ltml"
 import Game from "$game"
-import { Component, space, Tip } from "Ordaen"
+import { Component, PX, space, Tip } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { AddOn, Catalog, plain, Status, Switch } from "@/catalog"
 import Locale from "@/locales"
@@ -35,6 +35,8 @@ public struct Hot {
 
 public const COLUMNS: Array<Track> = [Style.CHECK, { fr: 1 }, "auto", Style.NUMBER, Style.NUMBER, Style.MEMORY]
 const CAPTION: Array<Track> = ["auto", "auto", { fr: 1 }]
+// The fold's mark (ctl.markClosed, ctl.markOpen), as TreeRow draws it: a 16 px cell, its triangle in the middle.
+const MARK = 16 * PX
 const PAD: Edges = { left: space(.Item), right: space(.Item) }
 const LIGHT: Stated<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f") }
 const DASH = "—"
@@ -89,7 +91,7 @@ public class LineRow implements Component {
   derived tipShown: Boolean = self.hovered && self.notes != ""
   derived plainTitle: String = plain(self.title)
   derived countText: String = "%d".format(self.line.count)
-  derived arrow: String = self.line.folded ? "▶" : "▼"
+  derived mark: Art = self.line.folded ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
 
   line: Signal<Line>
   const catalog: Catalog
@@ -144,7 +146,7 @@ public class LineRow implements Component {
     return $ltml {
       <box $if={self.line.caption} columns={CAPTION} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
            @click={self.onPick}>
-        <text value={self.arrow} textColor={Style.GOLD} wrap={false} />
+        <box width={MARK} height={MARK} background={self.mark} tint={Style.GOLD} />
         <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={false} />
         <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
       </box>

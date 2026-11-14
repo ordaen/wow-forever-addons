@@ -191,49 +191,49 @@ public class Card implements Component {
   public render(self): Template {
     return $ltml {
       <box overflow={Overflow.Scroll}>
-      <box columns={1} gap={space(.Item)}>
-        <box columns={HEAD} gap={space(.Item)} yAlign={Align.Center}>
-          <box width={ICON} height={ICON} icon={self.icon} />
-          <box columns={1}>
-            <text value={self.title} textColor={Style.GOLD} textFont={.Title} />
-            <text value={self.byline} textColor={Style.DIM} textSize={.Secondary} />
+        <box columns={1} gap={space(.Item)}>
+          <box columns={HEAD} gap={space(.Item)} yAlign={Align.Center}>
+            <box width={ICON} height={ICON} icon={self.icon} />
+            <box columns={1}>
+              <text value={self.title} textColor={Style.GOLD} textFont={.Title} />
+              <text value={self.byline} textColor={Style.DIM} textSize={.Secondary} />
+            </box>
+          </box>
+          <text $if={self.notes != ""} value={self.notes} textColor={Style.INK} textSize={.Secondary} />
+          <box columns={PAIR} gap={space(.Item)}>
+            <text value={Locale.CARD_STATE} textColor={Style.DIM} textSize={.Secondary} />
+            <box xAlign={Align.End}>
+              <text value={self.stateText} textColor={self.stateColor} textSize={.Secondary} />
+            </box>
+          </box>
+          <text $if={self.failed != ""} value={self.failed} textColor={Style.RED} textSize={.Secondary} />
+          <text value={Locale.CARD_NEEDS} textColor={Style.DIM} textSize={.Secondary} />
+          <NamedLink $for={named of self.needs} named={named} @pick={self.onPick} />
+          <text $if={self.needs.length == 0} value={DASH} textColor={Style.DIM} />
+          <text value={Locale.CARD_WANTS} textColor={Style.DIM} textSize={.Secondary} />
+          <NamedLink $for={named of self.wants} named={named} @pick={self.onPick} />
+          <text $if={self.wants.length == 0} value={DASH} textColor={Style.DIM} />
+          <text value={Locale.CARD_NEEDED_BY} textColor={Style.DIM} textSize={.Secondary} />
+          <NamedLink $for={named of self.neededBy} named={named} @pick={self.onPick} />
+          <text $if={self.neededBy.length == 0} value={DASH} textColor={Style.DIM} />
+          <box padding={SECTION}>
+            <text value={Locale.CARD_LOAD} textColor={Style.GOLD} />
+          </box>
+          <box $for={pair of self.loads} columns={PAIR} gap={space(.Item)}>
+            <text value={pair.label} textColor={Style.DIM} textSize={.Secondary} />
+            <box xAlign={Align.End}>
+              <text value={pair.value} textColor={Style.INK} textFont={.Numbers} textSize={.Secondary} />
+            </box>
+          </box>
+          <box columns={["auto", "auto"]} gap={space(.Item)} padding={SECTION}>
+            <PushButton $if={self.module} label={Locale.ORDAEN_SETTINGS} width={170 * PX} @click={self.onSettings} />
+            <PushButton $else label={self.switchLabel} width={120 * PX} @click={self.onSwitch} />
+            <box $if={self.loadable} @enter={self.onLoadEnter} @leave={self.onLoadLeave}>
+              <PushButton label={Locale.LOAD_NOW} width={120 * PX} disabled={self.fighting} @click={self.onLoad} />
+              <Tip $if={self.loadTip} title={Locale.LOAD_NOW} text={Locale.IN_COMBAT} />
+            </box>
           </box>
         </box>
-        <text $if={self.notes != ""} value={self.notes} textColor={Style.INK} textSize={.Secondary} />
-        <box columns={PAIR} gap={space(.Item)}>
-          <text value={Locale.CARD_STATE} textColor={Style.DIM} textSize={.Secondary} />
-          <box xAlign={Align.End}>
-            <text value={self.stateText} textColor={self.stateColor} textSize={.Secondary} />
-          </box>
-        </box>
-        <text $if={self.failed != ""} value={self.failed} textColor={Style.RED} textSize={.Secondary} />
-        <text value={Locale.CARD_NEEDS} textColor={Style.DIM} textSize={.Secondary} />
-        <NamedLink $for={named of self.needs} named={named} @pick={self.onPick} />
-        <text $if={self.needs.length == 0} value={DASH} textColor={Style.DIM} />
-        <text value={Locale.CARD_WANTS} textColor={Style.DIM} textSize={.Secondary} />
-        <NamedLink $for={named of self.wants} named={named} @pick={self.onPick} />
-        <text $if={self.wants.length == 0} value={DASH} textColor={Style.DIM} />
-        <text value={Locale.CARD_NEEDED_BY} textColor={Style.DIM} textSize={.Secondary} />
-        <NamedLink $for={named of self.neededBy} named={named} @pick={self.onPick} />
-        <text $if={self.neededBy.length == 0} value={DASH} textColor={Style.DIM} />
-        <box padding={SECTION}>
-          <text value={Locale.CARD_LOAD} textColor={Style.GOLD} />
-        </box>
-        <box $for={pair of self.loads} columns={PAIR} gap={space(.Item)}>
-          <text value={pair.label} textColor={Style.DIM} textSize={.Secondary} />
-          <box xAlign={Align.End}>
-            <text value={pair.value} textColor={Style.INK} textFont={.Numbers} textSize={.Secondary} />
-          </box>
-        </box>
-        <box columns={["auto", "auto"]} gap={space(.Item)} padding={SECTION}>
-          <PushButton $if={self.module} label={Locale.ORDAEN_SETTINGS} width={170 * PX} @click={self.onSettings} />
-          <PushButton $else label={self.switchLabel} width={120 * PX} @click={self.onSwitch} />
-          <box $if={self.loadable} @enter={self.onLoadEnter} @leave={self.onLoadLeave}>
-            <PushButton label={Locale.LOAD_NOW} width={120 * PX} disabled={self.fighting} @click={self.onLoad} />
-            <Tip $if={self.loadTip} title={Locale.LOAD_NOW} text={Locale.IN_COMBAT} />
-          </box>
-        </box>
-      </box>
       </box>
     }
   }

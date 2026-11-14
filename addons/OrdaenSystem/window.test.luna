@@ -248,7 +248,7 @@ test "the numbers: CPU sampled once a second only while the window shows, memory
   Test.shot("Ordaen the heaviest: 10.0 % now, 2.0 MB, in the accent; all addons 14.0 %")
   Test.pass(1.1)
   Test.expect(samples > first)
-  Test.click(Test.holding("↻", nil), nil)
+  Test.click(Test.painted(Ordaen.art.ctl.tool.refresh, nil), nil)
   Test.expect(weighed == 2)
   System.closeWindow()
   Test.flush()
