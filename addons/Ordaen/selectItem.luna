@@ -1,0 +1,69 @@
+// SelectItem: one item of a sidebar list that selects (a profession's categories and recipes, the auction's
+// categories): what its slot holds, laid out in its columns, with a faint rule above it unless it is the first. A light
+// shade under the cursor; selected, its colour's fill and a 2 px edge of its colour along its left, so a green recipe
+// is selected in green. Without a colour, the gold the lists are drawn in. A click of either button reports `pick`
+// with the click (a right-click opens the item's menu).
+import { Align, Click, Edges, Line, Overflow, Position, Side, Stated, Track } from "$ltml"
+import { Component } from "@/module"
+import { PX, space } from "@/units"
+
+const CLEAR: Color = Color.hex("#00000000")
+// The list's gold: an item without a colour of its own is selected in it.
+const GOLD: Color = Color.hex("#f0c860")
+const GOLD_FILL: Color = Color.hex("#d6a56b3d")
+const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f") }
+const RULE: Line = { width: 1 * PX, color: Color.hex("#d6a56b14"), sides: [Side.Top] }
+// How strong a colour's selected fill is.
+const FILL_ALPHA = 0.24
+const EDGE = 2 * PX
+const PADDING: Edges = { top: 6 * PX, right: space(.Panel), bottom: 6 * PX, left: space(.Panel) }
+const ONE: Array<Track> = [{ fr: 1 }]
+
+// The selected fill of an item of this colour.
+public function selectedFill(color: Color | nil): Color {
+  if (color == nil) { return GOLD_FILL }
+  return { r: color.r, g: color.g, b: color.b, a: FILL_ALPHA }
+}
+
+public class SelectItem implements Component {
+  public pick: Event<Click> = new Event()
+
+  derived background: Color | Stated<Color> = self.selected ? selectedFill(self.color) : SHADE
+  derived edge: Color = self.color ?? GOLD
+  derived rule: Line | nil = self.first ? nil : RULE
+
+  selected: Signal<Boolean>
+  color: Signal<Color | nil>
+  first: Signal<Boolean>
+  columns: Signal<Array<Track>>
+  padding: Signal<Edges>
+  constructor(
+    selected: Signal<Boolean>,
+    // The item's own colour (a recipe's difficulty): its selected fill and edge. None for the lists' gold.
+    color: Signal<Color | nil> = nil,
+    // The list's first item: no rule above it.
+    first: Signal<Boolean> = false,
+    // How what the slot holds is laid out: one column, or its own tracks (a name and a count).
+    columns: Signal<Array<Track>> = ONE,
+    padding: Signal<Edges> = PADDING,
+  ) {
+    self.selected = selected
+    self.color = color
+    self.first = first
+    self.columns = columns
+    self.padding = padding
+  }
+
+  onClick(mut self, click: Click) { self.pick.emit(click) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.columns} gap={8 * PX} padding={self.padding} yAlign={Align.Center} border={self.rule}
+           background={self.background} overflow={Overflow.Hidden} @click={self.onClick}>
+        <box $if={self.selected} position={Position.Absolute} left={0} top={0} bottom={0} width={EDGE}
+             background={self.edge} />
+        <slot />
+      </box>
+    }
+  }
+}

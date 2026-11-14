@@ -7,7 +7,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
           box 32.75,70 1539.5x761.17
             box 32.75,70 1539.5x28.33
               text 32.75,76.67 1407.83x15 "What your bags can put up" #a3977f
-              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1447.25,70 125x28.33 absolute
                   text 1475.38,76.67 68.75x15 "My auctions" #ffd100
             box 32.75,105 1539.5x726.17 #0000004d
@@ -73,7 +73,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 32.75,831.17 1539.5x45
         box 32.75,847.83 1539.5x28.33
           text 32.75,855.5 1414.5x13 "1 item" #a3977f
-          box 1463.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 1463.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 1463.92,847.83 108.33x28.33 absolute
               text 1505.58,854.5 25x15 "Scan" #ffd100
   box 0,0 363.5x47.75
@@ -96,7 +96,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
           box 32.75,70 1255.92x761.17
             box 32.75,70 1255.92x28.33
               text 32.75,76.67 1124.25x15 "What your bags can put up" #a3977f
-              box 1163.67,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1163.67,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1163.67,70 125x28.33 absolute
                   text 1191.79,76.67 68.75x15 "My auctions" #ffd100
             box 32.75,105 1255.92x726.17 #0000004d
@@ -162,7 +162,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 32.75,831.17 1255.92x45
         box 32.75,847.83 1255.92x28.33
           text 32.75,855.5 1130.92x13 "1 item" #a3977f
-          box 1180.33,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 1180.33,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 1180.33,847.83 108.33x28.33 absolute
               text 1222,854.5 25x15 "Scan" #ffd100
     box 1308.67,50 283.58x839.5 border=ButtonFrameTemplateNoPortrait sides=left
@@ -231,12 +231,12 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                 box 1338.92,325 233.33x28.33
                   text 1338.92,331.67 151.67x15 "Quantity" #e8dcc4
                   box 1497.25,325 75x28.33
-                    box 1497.25,325 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                    box 1497.25,325 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
                       box 1497.25,325 23.33x28.33 absolute
                         text 1505.79,331.67 6.25x15 "-" #ffd100
                     box 1525.58,331.67 18.33x15
                       text 1528.5,331.67 12.5x15 "25" #ffffff
-                    box 1548.92,325 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                    box 1548.92,325 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
                       box 1548.92,325 23.33x28.33 absolute
                         text 1557.46,331.67 6.25x15 "+" #ffd100
                 text 1338.92,360 233.33x15 "Price each" #e8dcc4
@@ -257,7 +257,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                   text 1522.25,470 50x15 "0g 1s 0c" #e8dcc4
                 text 1338.92,491.67 233.33x13 "Price: 1 copper under the lowest listed." #a3977f
                 box 1338.92,511.33 233.33x0
-                box 1338.92,518 233.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+                box 1338.92,518 233.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
                   box 1338.92,518 233.33x28.33 absolute
                     text 1443.08,524.67 25x15 "Post" #ffd100
     box 1516.08,49.08 77.5x26.67 absolute clipped
@@ -290,7 +290,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
           box 32.75,70 1255.92x761.17
             box 32.75,70 1255.92x28.33
               text 32.75,76.67 1124.25x15 "What your bags can put up" #a3977f
-              box 1163.67,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1163.67,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1163.67,70 125x28.33 absolute
                   text 1191.79,76.67 68.75x15 "My auctions" #ffd100
             box 32.75,105 1255.92x726.17 #0000004d
@@ -356,7 +356,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 32.75,831.17 1255.92x45
         box 32.75,847.83 1255.92x28.33
           text 32.75,855.5 1130.92x13 "1 item" #a3977f
-          box 1180.33,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 1180.33,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 1180.33,847.83 108.33x28.33 absolute
               text 1222,854.5 25x15 "Scan" #ffd100
     box 1308.67,50 283.58x839.5 border=ButtonFrameTemplateNoPortrait sides=left
@@ -425,12 +425,12 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                 box 1338.92,325 233.33x28.33
                   text 1338.92,331.67 151.67x15 "Quantity" #e8dcc4
                   box 1497.25,325 75x28.33
-                    box 1497.25,325 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                    box 1497.25,325 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
                       box 1497.25,325 23.33x28.33 absolute
                         text 1505.79,331.67 6.25x15 "-" #ffd100
                     box 1525.58,331.67 18.33x15
                       text 1528.5,331.67 12.5x15 "25" #ffffff
-                    box 1548.92,325 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                    box 1548.92,325 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
                       box 1548.92,325 23.33x28.33 absolute
                         text 1557.46,331.67 6.25x15 "+" #ffd100
                 text 1338.92,360 233.33x15 "Price each" #e8dcc4
@@ -452,7 +452,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                 text 1338.92,491.67 233.33x13 "Price: 1 copper under the lowest listed." #a3977f
                 box 1338.92,511.33 233.33x13
                   text 1338.92,511.33 233.33x13 "Not enough money for the deposit" #ff4040
-                box 1338.92,531 233.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+                box 1338.92,531 233.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
                   box 1338.92,531 233.33x28.33 absolute
                     text 1443.08,537.67 25x15 "Post" #ffffff
     box 1516.08,49.08 77.5x26.67 absolute clipped

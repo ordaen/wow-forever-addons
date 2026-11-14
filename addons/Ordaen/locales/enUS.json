@@ -1,6 +1,12 @@
 {
   "SETTINGS_OPEN": "Open Ordaen's settings",
   "SOON": "in development",
+  "COUNT_FEWER": "Fewer",
+  "COUNT_MORE": "More",
+  "COUNT_HOLD": "Hold to keep stepping, up to the limit.",
+  "COUNT_CLICK": "Left-click",
+  "COUNT_SHIFT": "Shift+Left-click",
+  "COUNT_ALT": "Alt+Left-click",
   "AGE_DAYS": "(%d d.)",
   "MONEY_GOLD": "g",
   "MONEY_SILVER": "s",

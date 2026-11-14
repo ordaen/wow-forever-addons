@@ -7,7 +7,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
           box 332.75,251.38 516.67x48
             box 332.75,251.38 516.67x28.33
               box 332.75,251.38 450x28.33
-                box 332.75,251.38 450x28.33 #00000080 input "" @change
+                box 332.75,251.38 450x28.33 #00000080 input "" @change @submit
                 box 332.75,251.38 450x28.33 absolute
                   text 341.08,258.04 433.33x15 "Search subject or sender" #a3977f
               box 782.75,251.38 66.67x28.33
@@ -51,7 +51,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 text 819.42,350.54 25x15 "10 d" #a3977f
           box 332.75,659.79 516.67x28.33
             box 332.75,673.96 343.33x0
-            box 682.75,659.79 166.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 682.75,659.79 166.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 682.75,659.79 166.67x28.33 absolute
                 text 719.21,666.46 93.75x15 "Collect all (1)" #808080
         box 857.75,251.38 414.5x436.75

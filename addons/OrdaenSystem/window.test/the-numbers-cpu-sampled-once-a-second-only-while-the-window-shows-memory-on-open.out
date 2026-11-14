@@ -92,11 +92,11 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
       box 424.42,638.96 756.17x45
         box 424.42,655.62 756.17x28.33
           box 424.42,655.62 206.67x28.33
-            box 424.42,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 424.42,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 424.42,655.62 100x28.33 absolute
                 text 458.79,662.29 31.25x15 "Reset" #ffd100
             box 531.08,655.62 100x28.33
-              box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 531.08,655.62 100x28.33 absolute
                   text 562.33,662.29 37.5x15 "Sets ▾" #ffd100
           box 647.75,669.79 376.17x0
@@ -104,7 +104,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
             box 1040.58,669.79 0x0 @enter @leave
               text 1040.58,669.79 0x0 "" #f0c860
             box 1047.25,655.62 133.33x28.33 @enter @leave
-              box 1047.25,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click
+              box 1047.25,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click @enter @leave
                 box 1047.25,655.62 133.33x28.33 absolute
                   text 1095.17,662.29 37.5x15 "Reload" #ffd100
     box 1191.08,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart

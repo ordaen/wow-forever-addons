@@ -32,7 +32,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                     box 1412.25,70 28.33x28.33
                       box 1412.25,70 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                         box 1419.75,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
-              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1447.25,70 125x28.33 absolute
                   text 1469.12,76.67 81.25x15 "Shopping list" #ffd100
             box 222.75,105 1349.5x726.17 #0000004d
@@ -120,7 +120,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 32.75,831.17 1539.5x45
         box 32.75,847.83 1539.5x28.33
           text 32.75,855.5 1414.5x13 "2 items" #a3977f
-          box 1463.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 1463.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 1463.92,847.83 108.33x28.33 absolute
               text 1505.58,854.5 25x15 "Scan" #ffd100
   box 0,0 363.5x47.75
@@ -177,7 +177,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                     box 1412.25,70 28.33x28.33
                       box 1412.25,70 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                         box 1419.75,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
-              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1447.25,70 125x28.33 absolute
                   text 1469.12,76.67 81.25x15 "Shopping list" #ffd100
             box 222.75,105 1349.5x726.17 #0000004d
@@ -265,7 +265,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 32.75,831.17 1539.5x45
         box 32.75,847.83 1539.5x28.33
           text 32.75,855.5 1414.5x13 "2 items" #a3977f
-          box 1463.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 1463.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 1463.92,847.83 108.33x28.33 absolute
               text 1505.58,854.5 25x15 "Scan" #ffd100
     box 1516.08,49.08 77.5x26.67 absolute clipped
@@ -324,7 +324,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                     box 1412.25,70 28.33x28.33
                       box 1412.25,70 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                         box 1419.75,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
-              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1447.25,70 125x28.33 absolute
                   text 1469.12,76.67 81.25x15 "Shopping list" #ffd100
             box 222.75,105 1349.5x726.17 #0000004d
@@ -412,7 +412,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 32.75,831.17 1539.5x45
         box 32.75,847.83 1539.5x28.33
           text 32.75,855.5 1414.5x13 "2 items" #a3977f
-          box 1463.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 1463.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 1463.92,847.83 108.33x28.33 absolute
               text 1505.58,854.5 25x15 "Scan" #ffd100
     box 1516.08,49.08 77.5x26.67 absolute clipped

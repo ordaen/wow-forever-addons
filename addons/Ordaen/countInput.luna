@@ -3,12 +3,15 @@
 // where a bound moves past it the value is written back to that bound. Where the most is under the least there is
 // nothing to choose: the value is the least and the control is disabled. Two looks: `Steps`, − and + either side of
 // the number (each disabled at its bound; a click steps 1, 10 with Shift held, 100 with Alt, held to the bounds; held
-// down, a button steps again after 0.4 s and then every 0.05 s until it is let go or reaches its bound), and `Field`, the number typed in, which fills the box it stands in (a
+// down, a button steps again after 0.4 s and then every 0.05 s until it is let go or reaches its bound; under the
+// cursor, a Tip names those keys), and `Field`, the number typed in, which fills the box it stands in (a
 // number past a bound is written as that bound; a text that isn't a number leaves the value and turns the edge red).
 import Game from "$game"
 import { Align, Edges, Line, Track } from "$ltml"
 import { Component } from "@/module"
+import Locale from "@/locales"
 import { PushButton } from "@/pushButton"
+import { TipText } from "@/tip"
 import { PX } from "@/units"
 
 public enum CountLook { Steps = "steps", Field = "field" }
@@ -28,12 +31,32 @@ public function held(value: Integer, least: Integer, most: Integer): Integer {
   return least.max(value.min(most))
 }
 
-// How far − or + steps, by the keys held at the click: 100 with Alt, 10 with Shift, else 1.
+// How far − or + steps, by the keys held at the click: 100 with Alt, 10 with Shift, else 1. Their Tips say these.
+const ONE = 1
+const SHIFTED = 10
+const ALTERED = 100
+
 function stride(): Integer {
-  if (Game.input.altDown()) { return 100 }
-  if (Game.input.shiftDown()) { return 10 }
-  return 1
+  if (Game.input.altDown()) { return ALTERED }
+  if (Game.input.shiftDown()) { return SHIFTED }
+  return ONE
 }
+
+// What − or + says under the cursor: each key and how far it steps, and holding.
+function tipOf(title: String, sign: String): TipText {
+  return {
+    title: title,
+    text: Locale.COUNT_HOLD,
+    rows: [
+      { label: Locale.COUNT_CLICK, value: sign + String.of(ONE) },
+      { label: Locale.COUNT_SHIFT, value: sign + String.of(SHIFTED) },
+      { label: Locale.COUNT_ALT, value: sign + String.of(ALTERED) },
+    ],
+  }
+}
+
+const FEWER_TIP: TipText = tipOf(Locale.COUNT_FEWER, "-")
+const MORE_TIP: TipText = tipOf(Locale.COUNT_MORE, "+")
 
 // The whole number a text is, or nothing.
 function countOf(text: String): Integer | nil {
@@ -112,12 +135,14 @@ public class CountInput implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.stepped} columns={STEPS} gap={6 * PX} yAlign={Align.Center}>
-        <PushButton label={"-"} width={self.step} disabled={!self.fewer} repeats={true} @click={self.less} />
+        <PushButton label={"-"} width={self.step} disabled={!self.fewer} repeats={true} tip={FEWER_TIP}
+                    @click={self.less} />
         <box xAlign={Align.Center}>
           <text value={"%d"} arguments={[self.value]} textColor={WHITE}
                 textFont={.Numbers} wrap={false} />
         </box>
-        <PushButton label={"+"} width={self.step} disabled={!self.more} repeats={true} @click={self.raise} />
+        <PushButton label={"+"} width={self.step} disabled={!self.more} repeats={true} tip={MORE_TIP}
+                    @click={self.raise} />
       </box>
       <input $else value={mut self.text} padding={PADDING} textColor={INK} background={FILL}
              border={self.edge} maxLength={DIGITS} disabled={self.off} />

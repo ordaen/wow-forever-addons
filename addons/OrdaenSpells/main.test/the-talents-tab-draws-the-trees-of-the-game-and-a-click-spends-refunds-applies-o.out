@@ -8,13 +8,13 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
         box 457.75,278.04 689.5x383.42
           text 708.75,462.25 187.5x15 "The talents are not available." #a3977f
         box 457.75,668.12 689.5x28.33
-          box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 457.75,668.12 158.33x28.33 absolute
               text 493.17,674.79 87.5x15 "Cancel changes" #808080
           box 622.75,682.29 0x0
           box 629.42,674.79 352.83x15
             text 755.83,674.79 100x15 "Talent points: 0" #e8dcc4
-          box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
               text 1027.46,674.79 81.25x15 "Apply changes" #808080
     box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
@@ -54,13 +54,13 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
               box 785.83,304.71 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
                 text 802.08,324.21 16.25x13 "5/5" #ffd100
         box 457.75,668.12 689.5x28.33
-          box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 457.75,668.12 158.33x28.33 absolute
               text 493.17,674.79 87.5x15 "Cancel changes" #ffd100
           box 622.75,682.29 0x0
           box 629.42,674.79 352.83x15
             text 755.83,674.79 100x15 "Talent points: 3" #e8dcc4
-          box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+          box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
               text 1027.46,674.79 81.25x15 "Apply changes" #ffd100
     box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
@@ -98,13 +98,13 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
               box 785.83,304.71 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
                 text 802.08,324.21 16.25x13 "5/5" #ffd100
         box 457.75,668.12 689.5x28.33
-          box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 457.75,668.12 158.33x28.33 absolute
               text 493.17,674.79 87.5x15 "Cancel changes" #ffffff
           box 622.75,682.29 0x0
           box 629.42,674.79 352.83x15
             text 755.83,674.79 100x15 "Talent points: 3" #e8dcc4
-          box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+          box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
               text 1027.46,674.79 81.25x15 "Apply changes" #ffd100
     box 1091.08,222.12 77.5x26.67 absolute clipped
@@ -156,15 +156,15 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
               box 785.83,304.71 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
                 text 802.08,324.21 16.25x13 "5/5" #ffd100
         box 457.75,668.12 689.5x28.33
-          box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 457.75,668.12 158.33x28.33 absolute
               text 493.17,674.79 87.5x15 "Cancel changes" #808080
-          box 622.75,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 622.75,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 622.75,668.12 125x28.33 absolute
               text 660.25,674.79 50x15 "Activate" #ffffff
           box 754.42,674.79 227.83x15
             text 818.33,674.79 100x15 "Talent points: 3" #e8dcc4
-          box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
               text 1027.46,674.79 81.25x15 "Apply changes" #808080
     box 1091.08,222.12 77.5x26.67 absolute clipped

@@ -20,10 +20,8 @@ public const OFF: Color = Color.hex("#7a7060")
 // The lists' frame and the rule between their columns.
 public const LINE: Color = Color.hex("#3e2f1d")
 public const CLEAR: Color = Color.hex("#00000000")
-public const ROW_CHOSEN: Color = Color.hex("#d6a56b3d")
+// A heading under the cursor (a row that selects is the library's `SelectItem`).
 public const ROW_LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b1f") }
-// The chosen row's 2 px at its left.
-public const CHOSEN_EDGE: Color = Color.hex("#f0c860")
 public const LISTS_BACK: Color = Color.hex("#0000004d")
 public const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
 // Between rows, and round an item's slot.
