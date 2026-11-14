@@ -2,8 +2,10 @@
 // be cells another moves (the reagents in the bags, the stacks of an item): the value never stands outside them, and
 // where a bound moves past it the value is written back to that bound. Where the most is under the least there is
 // nothing to choose: the value is the least and the control is disabled. Two looks: `Steps`, − and + either side of
-// the number (each disabled at its bound), and `Field`, the number typed in, which fills the box it stands in (a
+// the number (each disabled at its bound; a click steps 1, 10 with Shift held, 100 with Alt, held to the bounds; held
+// down, a button steps again after 0.4 s and then every 0.05 s until it is let go or reaches its bound), and `Field`, the number typed in, which fills the box it stands in (a
 // number past a bound is written as that bound; a text that isn't a number leaves the value and turns the edge red).
+import Game from "$game"
 import { Align, Edges, Line, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
@@ -26,6 +28,13 @@ const DIGITS = 6
 // `value` held between `least` and `most`; the least where the most is under it.
 public function held(value: Integer, least: Integer, most: Integer): Integer {
   return least.max(value.min(most))
+}
+
+// How far − or + steps, by the keys held at the click: 100 with Alt, 10 with Shift, else 1.
+function stride(): Integer {
+  if (Game.input.altDown()) { return 100 }
+  if (Game.input.shiftDown()) { return 10 }
+  return 1
 }
 
 // The whole number a text is, or nothing.
@@ -95,22 +104,22 @@ public class CountInput implements Component {
   }
 
   less(mut self) {
-    if (self.fewer) { self.value = held(self.value - 1, self.least, self.most) }
+    if (self.fewer) { self.value = held(self.value - stride(), self.least, self.most) }
   }
 
   raise(mut self) {
-    if (self.more) { self.value = held(self.value + 1, self.least, self.most) }
+    if (self.more) { self.value = held(self.value + stride(), self.least, self.most) }
   }
 
   public render(self): Template {
     return $ltml {
       <box $if={self.stepped} columns={STEPS} gap={6 * PX} yAlign={Align.Center}>
-        <PushButton label={"-"} width={self.step} disabled={!self.fewer} @click={self.less} />
+        <PushButton label={"-"} width={self.step} disabled={!self.fewer} repeats={true} @click={self.less} />
         <box xAlign={Align.Center}>
           <text value={"%d"} arguments={[self.value]} textSize={NUMBER} textColor={WHITE}
                 textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
         </box>
-        <PushButton label={"+"} width={self.step} disabled={!self.more} @click={self.raise} />
+        <PushButton label={"+"} width={self.step} disabled={!self.more} repeats={true} @click={self.raise} />
       </box>
       <input $else value={mut self.text} padding={PADDING} textSize={NUMBER} textColor={INK} background={FILL}
              border={self.edge} maxLength={DIGITS} disabled={self.off} />

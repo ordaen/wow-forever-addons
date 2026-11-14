@@ -1,0 +1,14 @@
+held 0.3 s: 1; at 0.42 s: 2; at 0.52 s: 4; let go: 4
+-- held to 12, the most: + disabled, let go
+box 0,0 300x64.33
+  box 0,0 75x28.33
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+      box 0,0 23.33x28.33 absolute
+        text 8.54,6.67 6.25x15 "-" #ffd100
+    box 28.33,7.17 18.33x14
+      text 31.67,7.17 11.67x14 "12" #ffffff
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 51.67,0 23.33x28.33 absolute
+        text 60.21,6.67 6.25x15 "+" #808080
+  box 0,38.33 80x26
+    box 0,38.33 80x26 #00000080 input "12" @change
