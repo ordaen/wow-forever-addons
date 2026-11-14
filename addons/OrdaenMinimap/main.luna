@@ -1,7 +1,7 @@
 import Game from "$game"
 import { Align, Anchored, Click, EmbedLook, Line, MouseButton, Point, Position, Shadow } from "$ltml"
-import root Ordaen from "Ordaen"
 import Runtime from "$runtime"
+import root Ordaen from "Ordaen"
 import { Module, Placed, PX, Settings, SettingsPage, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { DrawerEntry } from "@/drawer"

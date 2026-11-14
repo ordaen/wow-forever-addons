@@ -1,6 +1,7 @@
 // Settings read back from what was kept (`decode`): a field that isn't there, or isn't of its type, is the default's.
 import Game from "$game"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { Look, preset, Preset } from "@/look"
 
 // A colour that lost its fields.
@@ -18,6 +19,16 @@ struct Damaged implements Plain {
 
 function color(c: Color): String {
   return "%g, %g, %g, %g".format(c.r, c.g, c.b, c.a)
+}
+
+test "`/ordaen` with a name no module has opens the settings on Ordaen's own page, marked in the list" {
+  Test.mount(nil, { left: 20, top: 20, width: 200, height: 100, screen: true })
+  Ordaen.command("minimap")
+  Test.flush()
+  Test.expect(Ordaen.window?.page == "")
+  Test.shot("/ordaen minimap: no module is named so, Ordaen's own page shows with «General» marked")
+  Ordaen.command("minimap")
+  Test.flush()
 }
 
 test "a kept colour without some of its fields takes them from the default" {

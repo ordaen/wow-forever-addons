@@ -3,9 +3,9 @@
 // window: one place to change them.
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
+import Runtime from "$runtime"
 import { Component, Money, number, PushButton, PX, Section, Settings } from "Ordaen"
 import root Ordaen from "Ordaen"
-import Runtime from "$runtime"
 import { Deal, Ledger } from "@/ledger"
 import Locale from "@/locales"
 import { serverSeconds } from "@/quote"

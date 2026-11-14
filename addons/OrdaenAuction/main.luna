@@ -3,9 +3,9 @@
 // A module loaded on demand: a player with it off loads none of its data.
 import Game from "$game"
 import { Track } from "$ltml"
+import Runtime from "$runtime"
 import { Module, Placing, PX, Settings, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
-import Runtime from "$runtime"
 import { BuyPage } from "@/buy"
 import { DataPage } from "@/dataPage"
 import { House } from "@/house"
