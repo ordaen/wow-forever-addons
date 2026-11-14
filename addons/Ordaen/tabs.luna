@@ -12,7 +12,10 @@ const WHITE: Color = Color.hex("#ffffff")
 const CLEAR: Color = Color.hex("#00000000")
 const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000033") }
 const PICKED: Color = Color.hex("#00000059")
+// The picked tab's outline; the others keep its room with a line that draws nothing, so a tab's box is the same
+// picked or not.
 const OUTLINE: Line = { width: 1 * PX, color: LINE, sides: [Side.Top, Side.Left, Side.Right] }
+const NO_OUTLINE: Line = { width: 1 * PX, color: CLEAR, sides: [Side.Top, Side.Left, Side.Right] }
 const PADDING: Edges = { top: 7 * PX, right: 14 * PX, bottom: 6 * PX, left: 14 * PX }
 const LIGHT: Color = Color.hex("#d6a56b")
 
@@ -20,7 +23,7 @@ const LIGHT: Color = Color.hex("#d6a56b")
 public class Tab implements Component {
   derived picked: Boolean = self.selected == self.index
   derived background: Color | Stated<Color> = self.picked ? PICKED : SHADE
-  derived border: Line | nil = self.picked ? OUTLINE : nil
+  derived border: Line = self.picked ? OUTLINE : NO_OUTLINE
   derived color: Color | Stated<Color> = self.picked ? WHITE : NAME
 
   label: Signal<String>

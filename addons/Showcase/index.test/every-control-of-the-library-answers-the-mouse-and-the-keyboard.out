@@ -5,10 +5,10 @@ box 0,0 700x231.4 @enter @leave
     box 0,0 43.75x26.67 #00000059 @click
       box 0.83,0.83 42.08x1.67 absolute #d6a56b
       text 12.5,6.67 18.75x15 "Map" #ffffff
-    box 47.08,0 60.83x25.83 #00000000 @click
-      text 58.75,5.83 37.5x15 "Drawer" #a3977f
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 47.08,0 62.5x26.67 #00000000 @click
+      text 59.58,6.67 37.5x15 "Drawer" #a3977f
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x101.67
     box 0,34.67 700x101.67
       box 0,34.67 700x15
@@ -52,10 +52,10 @@ box 0,0 700x231.4 @enter @leave
     box 0,0 43.75x26.67 #00000059 @click
       box 0.83,0.83 42.08x1.67 absolute #d6a56b
       text 12.5,6.67 18.75x15 "Map" #ffffff
-    box 47.08,0 60.83x25.83 #00000033 @click
-      text 58.75,5.83 37.5x15 "Drawer" #e8dcc4
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 47.08,0 62.5x26.67 #00000033 @click
+      text 59.58,6.67 37.5x15 "Drawer" #e8dcc4
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x101.67
     box 0,34.67 700x101.67
       box 0,34.67 700x15
@@ -96,13 +96,13 @@ box 0,0 700x231.4 @enter @leave
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -144,13 +144,13 @@ box 0,0 700x388.07 @enter @leave
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -195,13 +195,13 @@ box 0,0 700x388.07 @enter @leave
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -243,13 +243,13 @@ box 0,0 700x388.07 @enter @leave
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -301,13 +301,13 @@ box 0,0 700x388.07 @enter @leave
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -359,13 +359,13 @@ box 0,0 700x388.07 @enter @leave
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -407,13 +407,13 @@ box 0,0 700x388.07 @enter @leave
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -465,13 +465,13 @@ box 0,0 700x388.07 @enter @leave
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -513,13 +513,13 @@ box 0,0 700x388.07 @enter @leave
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -561,13 +561,13 @@ box 0,0 700x388.07 @enter @leave
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
@@ -609,13 +609,13 @@ box 0,0 700x388.07 @enter @leave
 box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x272.73
     box 0,34.67 700x174.4
       box 0,34.67 700x15
@@ -658,13 +658,13 @@ key: ENTER → none
 box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x272.73
     box 0,34.67 700x174.4
       box 0,34.67 700x15
@@ -706,13 +706,13 @@ box 0,0 700x402.47 @enter @leave
 box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x272.73
     box 0,34.67 700x174.4
       box 0,34.67 700x15
@@ -754,13 +754,13 @@ box 0,0 700x402.47 @enter @leave
 box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x272.73
     box 0,34.67 700x174.4
       box 0,34.67 700x15
@@ -816,13 +816,13 @@ surface 0,0 1600x900 on DIALOG #0000008c
 box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x272.73
     box 0,34.67 700x174.4
       box 0,34.67 700x15
@@ -878,13 +878,13 @@ surface 0,0 1600x900 on DIALOG #0000008c
 box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x272.73
     box 0,34.67 700x174.4
       box 0,34.67 700x15
@@ -926,13 +926,13 @@ box 0,0 700x402.47 @enter @leave
 box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
-    box 0,0 42.08x25.83 #00000000 @click
-      text 11.67,5.83 18.75x15 "Map" #a3977f
-    box 45.42,0 62.5x26.67 #00000059 @click
-      box 46.25,0.83 60.83x1.67 absolute #d6a56b
-      text 57.92,6.67 37.5x15 "Drawer" #ffffff
-    box 111.25,0 60.83x25.83 #00000000 @click
-      text 122.92,5.83 37.5x15 "Market" #a3977f
+    box 0,0 43.75x26.67 #00000000 @click
+      text 12.5,6.67 18.75x15 "Map" #a3977f
+    box 47.08,0 62.5x26.67 #00000059 @click
+      box 47.92,0.83 60.83x1.67 absolute #d6a56b
+      text 59.58,6.67 37.5x15 "Drawer" #ffffff
+    box 112.92,0 62.5x26.67 #00000000 @click
+      text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x272.73
     box 0,34.67 700x174.4
       box 0,34.67 700x15

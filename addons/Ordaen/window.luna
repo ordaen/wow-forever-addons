@@ -86,6 +86,7 @@ public class WindowTab implements Component {
   // The tab's height with its frame's art, and the height it is given: a framed box grows by its art's reach.
   derived whole: Number = self.open ? self.height : self.height - DROP
   derived given: Number = self.whole - self.reachTop
+  derived lower: Edges = { top: self.open ? 0 : DROP }
   derived level: Integer = self.open ? OPEN_LEVEL : 0
   derived tint: Color = self.open ? WHITE : SHADE
   derived titleColor: Color = self.open ? TITLE_OPEN : TITLE_CLOSED
@@ -130,7 +131,9 @@ public class WindowTab implements Component {
     self.height = height
   }
 
-  // A closed tab's foot stands behind the body's line: its label keeps to what shows of it.
+  // A closed tab's foot stands behind the body's line: its label keeps to what shows of it. Its picture is shorter
+  // by the drop, and its label starts that much further left: the drop is given back at the right, so the tab is
+  // as wide closed as open.
   paddingOf(self): Edges {
     let foot = self.open ? 0 : self.flare - self.reachTop
     if (!self.hasIcon) { return { left: LABEL_PAD, right: LABEL_PAD, bottom: foot } }
@@ -139,7 +142,7 @@ public class WindowTab implements Component {
     let lineEnd = line.width + line.reach.left * line.scale
     let frameEnd = frame.width + frame.reach.left * frame.scale
     let left = self.side + lineEnd - frameEnd + LABEL_PAD
-    return { left: left, right: LABEL_PAD, bottom: foot }
+    return { left: left, right: self.open ? LABEL_PAD : LABEL_PAD + DROP, bottom: foot }
   }
 
   pick(mut self) {
@@ -152,22 +155,26 @@ public class WindowTab implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box minWidth={MIN_TAB} height={self.given} border={self.frame} background={Ordaen.art.window.wood}
-           tint={self.tint} padding={self.padding} rows={BODY_ROWS} zLevel={self.level} @click={self.pick}
+      // The tab's box, as high as the open tab's whether it is open or not: a closed tab's frame stands the drop
+      // lower in it.
+      <box height={self.height} padding={self.lower} zLevel={self.level} @click={self.pick}
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
-        <$if={self.hasIcon}>
-          <box position={Position.Absolute} left={0} top={0} width={self.side} height={self.pictureHeight}
-               icon={self.icon} tint={self.tint} border={Ordaen.art.frame.tabIconClip} />
-          <box $if={self.open} position={Position.Absolute} left={0} top={self.underTop} width={self.underWidth}
-               height={self.underHeight} border={Ordaen.art.frame.tabIconUnder} />
-          <box position={Position.Absolute} left={self.lineLeft} top={0} width={self.lineWidth}
-               height={self.given} border={self.iconLine} />
-        </>
-        <box xAlign={Align.Center} yAlign={Align.Center} gap={1 * PX}>
-          <text value={self.tab.title} textSize={15 * PX} wrap={false} textColor={self.titleColor}
-                textShadow={SHADOW} />
-          <text $if={self.hasDesc} value={self.desc} textSize={11 * PX} wrap={false} textColor={DESC}
-                textShadow={SHADOW} />
+        <box minWidth={MIN_TAB} height={self.given} border={self.frame} background={Ordaen.art.window.wood}
+             tint={self.tint} padding={self.padding} rows={BODY_ROWS}>
+          <$if={self.hasIcon}>
+            <box position={Position.Absolute} left={0} top={0} width={self.side} height={self.pictureHeight}
+                 icon={self.icon} tint={self.tint} border={Ordaen.art.frame.tabIconClip} />
+            <box $if={self.open} position={Position.Absolute} left={0} top={self.underTop} width={self.underWidth}
+                 height={self.underHeight} border={Ordaen.art.frame.tabIconUnder} />
+            <box position={Position.Absolute} left={self.lineLeft} top={0} width={self.lineWidth}
+                 height={self.given} border={self.iconLine} />
+          </>
+          <box xAlign={Align.Center} yAlign={Align.Center} gap={1 * PX}>
+            <text value={self.tab.title} textSize={15 * PX} wrap={false} textColor={self.titleColor}
+                  textShadow={SHADOW} />
+            <text $if={self.hasDesc} value={self.desc} textSize={11 * PX} wrap={false} textColor={DESC}
+                  textShadow={SHADOW} />
+          </box>
         </box>
       </box>
     }

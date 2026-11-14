@@ -58,9 +58,10 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
         box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 316.67,139.71 114.5x47.75
-    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
-      box 335.25,149.96 77.33x37.5
-        text 355.17,161.21 37.5x15 "Ordaen" #ffd100
+    box 316.67,139.71 114.5x47.75 @click @drag @dragStart @dragStop
+      box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 335.25,149.96 77.33x37.5
+          text 355.17,161.21 37.5x15 "Ordaen" #ffd100
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
@@ -88,12 +89,12 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           box 381.08,238.88 68.75x26.67 #00000059 @click
             box 381.92,239.71 67.08x1.67 absolute #d6a56b
             text 393.58,245.54 43.75x15 "Recipes" #ffffff
-          box 453.17,238.88 48.33x25.83 #00000000 @click
-            text 464.83,244.71 25x15 "Camp" #a3977f
-          box 504.83,238.88 54.58x25.83 #00000000 @click
-            text 516.5,244.71 31.25x15 "Queue" #a3977f
-          box 562.75,238.88 73.33x25.83 #00000000 @click
-            text 574.42,244.71 50x15 "Overview" #a3977f
+          box 453.17,238.88 50x26.67 #00000000 @click
+            text 465.67,245.54 25x15 "Camp" #a3977f
+          box 506.5,238.88 56.25x26.67 #00000000 @click
+            text 519,245.54 31.25x15 "Queue" #a3977f
+          box 566.08,238.88 75x26.67 #00000000 @click
+            text 578.58,245.54 50x15 "Overview" #a3977f
       box 381.08,272.21 842.83x473.42
         box 381.08,272.21 441.67x473.42
           box 381.08,272.21 441.67x28.33
@@ -176,10 +177,11 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 1148.5,706.46 37.5x15 "Create" #ffd100
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 142.33x59.42
-    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
-      box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
-      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
-      box 425.83,144.12 56.25x49.17
-        text 425.83,155.29 56.25x15 "Tailoring" #ffd100
-        text 437.92,171.12 32.08x11 "31 / 75" #8f8470
+    box 358.33,133.88 142.33x59.42 @click @drag @dragStart @dragStop
+      box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+        box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
+        box 425.83,144.12 56.25x49.17
+          text 425.83,155.29 56.25x15 "Tailoring" #ffd100
+          text 437.92,171.12 32.08x11 "31 / 75" #8f8470

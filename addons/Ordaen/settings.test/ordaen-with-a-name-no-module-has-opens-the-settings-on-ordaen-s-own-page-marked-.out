@@ -27,10 +27,10 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
             box 462.75,213.04 56.25x26.67 #00000059 @click
               box 463.58,213.87 54.58x1.67 absolute #d6a56b
               text 475.25,219.71 31.25x15 "Scale" #ffffff
-            box 522.33,213.04 67.08x25.83 #00000000 @click
-              text 534,218.87 43.75x15 "Numbers" #a3977f
-            box 592.75,213.04 79.58x25.83 #00000000 @click
-              text 604.42,218.87 56.25x15 "Behaviour" #a3977f
+            box 522.33,213.04 68.75x26.67 #00000000 @click
+              text 534.83,219.71 43.75x15 "Numbers" #a3977f
+            box 594.42,213.04 81.25x26.67 #00000000 @click
+              text 606.92,219.71 56.25x15 "Behaviour" #a3977f
           box 462.75,251.37 787.83x86.67
             box 462.75,251.37 787.83x16.67 opacity=1
               box 462.75,252.21 233.33x15 @enter @leave
@@ -65,6 +65,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                 text 1173.08,703.12 25x15 "Save" #808080
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 316.67,139.71 114.5x47.75
-    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
-      box 335.25,149.96 77.33x37.5
-        text 355.17,161.21 37.5x15 "Ordaen" #ffd100
+    box 316.67,139.71 114.5x47.75 @click @drag @dragStart @dragStop
+      box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 335.25,149.96 77.33x37.5
+          text 355.17,161.21 37.5x15 "Ordaen" #ffd100
