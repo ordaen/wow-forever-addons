@@ -359,7 +359,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
       box 335.25,149.96 77.33x37.5
         text 355.17,161.21 37.5x15 "Ordaen" #ffd100
 
-key: SHIFT-TAB → #1 «General» (click)
+key: UP → #1 «General» (click)
 key: ENTER → #1 «General» (click)
 key: ESCAPE → none
 key: ESCAPE → none

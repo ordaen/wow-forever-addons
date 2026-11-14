@@ -16,7 +16,8 @@ test "the settings window is walked with the keyboard" {
   Test.key(Move.Next)
   Test.key(Key.Enter)
   Test.shot("Themes picked by Enter")
-  Test.key(Move.Back)
+  // Back up the list by Up (the companion presses no Shift+Tab: the game reads Shift from the real keyboard).
+  Test.key(Key.Up)
   Test.key(Key.Enter)
   Test.key(Key.Escape)
   Test.expect(Ordaen.window?.open == false)
