@@ -1,5 +1,5 @@
 -- the cursor on the switch's label: the tip shows its hint
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.67
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -42,7 +42,8 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
+  box 0,301 700x15 @enter @leave
+    text 0,301 700x15 "zone shown" #ffffff
   box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
     box 0,324 120x28.33 absolute
       text 47.5,330.67 25x15 "Save" #ffd100
@@ -54,7 +55,7 @@ surface 100,127.17 271.17x72.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-
   text 120.25,167.08 235.67x15 "Other addons' buttons in one place." #cbb994
 
 -- the cursor away: the tip is gone
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.67
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -97,7 +98,8 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
+  box 0,301 700x15 @enter @leave
+    text 0,301 700x15 "zone shown" #ffffff
   box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
     box 0,324 120x28.33 absolute
       text 47.5,330.67 25x15 "Save" #ffd100

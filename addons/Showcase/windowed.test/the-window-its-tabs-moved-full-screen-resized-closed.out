@@ -2,7 +2,6 @@
 box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
-  box 600,275.54 400x48.92 absolute @drag @dragStart
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 622.75,348.88 359.5x255.08
       text 622.75,348.88 359.5x15 "the first tab's page" #ffffff
@@ -22,7 +21,6 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
 box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
-  box 600,275.54 400x48.92 absolute @drag @dragStart
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 622.75,348.88 359.5x255.08
       text 622.75,348.88 359.5x15 "the second tab's page" #ffffff
@@ -42,7 +40,6 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
 box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
-  box 640,305.54 400x48.92 absolute @drag @dragStart
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 662.75,378.88 359.5x255.08
       text 662.75,378.88 359.5x15 "the second tab's page" #ffffff
@@ -62,7 +59,6 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
 box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
-  box 640,305.54 400x48.92 absolute @drag @dragStart
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 662.75,378.88 359.5x255.08
       text 662.75,378.88 359.5x15 "the second tab's page" #ffffff
@@ -92,7 +88,6 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
 box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
-  box 640,305.54 400x48.92 absolute @drag @dragStart
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 662.75,378.88 359.5x255.08
       text 662.75,378.88 359.5x15 "the second tab's page" #ffffff
@@ -122,7 +117,6 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
 box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 0,0 1600x900 on DIALOG clamped raised by a click
-  box 0,0 1600x48.92 absolute @drag @dragStart
   box 0,48.92 1600x851.08 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 22.75,73.33 1559.5x806.17
       text 22.75,73.33 1559.5x15 "the second tab's page" #ffffff
@@ -151,7 +145,6 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
 box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
-  box 640,305.54 400x48.92 absolute @drag @dragStart
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 662.75,378.88 359.5x255.08
       text 662.75,378.88 359.5x15 "the second tab's page" #ffffff
@@ -181,7 +174,6 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
 box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
-  box 640,305.54 400x48.92 absolute @drag @dragStart
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 662.75,378.88 359.5x255.08
       text 662.75,378.88 359.5x15 "the second tab's page" #ffffff
@@ -201,7 +193,6 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
 box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 460x368.92 on DIALOG clamped raised by a click
-  box 640,305.54 460x48.92 absolute @drag @dragStart
   box 640,354.46 460x320 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 662.75,378.88 419.5x275.08
       text 662.75,378.88 419.5x15 "the second tab's page" #ffffff
@@ -231,7 +222,6 @@ surface 640,305.54 460x368.92 on DIALOG clamped raised by a click
 box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 600x215.58 on DIALOG clamped raised by a click
-  box 640,305.54 600x48.92 absolute @drag @dragStart
   box 640,354.46 600x166.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 662.75,378.88 559.5x121.75
       text 662.75,378.88 559.5x15 "the second tab's page" #ffffff

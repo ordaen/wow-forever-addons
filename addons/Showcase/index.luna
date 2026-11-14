@@ -60,7 +60,7 @@ public class Showcase implements Module {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={8} @enter={self.onEnter} @leave={self.onLeave}>
+      <box columns={1} gap={8}>
         <Tabs tabs={TABS} selected={mut self.tab} />
         <SettingsTab title={"Map"} shown={self.onMap}>
           <Section title={"Map"}>
@@ -85,7 +85,11 @@ public class Showcase implements Module {
         <SettingsTab title={"Market"} shown={self.onMarket}>
           <Market />
         </SettingsTab>
-        <text value={self.summary} />
+        // The summary hears the cursor, not the page: the page draws nothing between its controls, where a click
+        // goes on to what shows under it.
+        <box @enter={self.onEnter} @leave={self.onLeave}>
+          <text value={self.summary} />
+        </box>
         <PushButton label={"Save"} width={120} @click={self.onSave} />
         <PushButton label={"Reset"} width={120} accent={true} disabled={self.saved == 0} @click={self.onReset} />
         <Dialog $if={self.asking} width={360} title={"Reset"}>

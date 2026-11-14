@@ -1,5 +1,5 @@
 -- Save then Reset clicked: the question over the page
-box 0,0 700x232 @enter @leave
+box 0,0 700x232
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000059 @click
@@ -39,7 +39,8 @@ box 0,0 700x232 @enter @leave
             box 249.17,125.5 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 281.67,118 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
           text 458.33,120.5 6.25x15 "4" #ffffff
-  text 0,144.33 700x15 "zone shown" #ffffff
+  box 0,144.33 700x15 @enter @leave
+    text 0,144.33 700x15 "zone shown" #ffffff
   box 0,167.33 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
     box 0,167.33 120x28.33 absolute
       text 47.5,174 25x15 "Save" #ffd100
