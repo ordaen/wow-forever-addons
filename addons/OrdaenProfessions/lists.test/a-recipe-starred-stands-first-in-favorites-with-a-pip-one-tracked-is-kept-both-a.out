@@ -72,7 +72,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 599.42,348.04 192.5x13 "Linen Cloak" #ff8040
                 text 798.58,348.54 15x12 "[1]" #ffffff
                 box 776.92,349.71 6.67x6.67 absolute #ffd100
-        box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
+        box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble
           box 843.58,283.04 369.5x43.33
             box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
             box 895.25,289.38 317.83x30.67
@@ -80,7 +80,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
               text 895.25,308.04 317.83x12 "Always raises the skill" #ff8040
           text 843.58,333.04 369.5x0 "" #e8dcc4
           text 843.58,339.71 369.5x0 "" #a3977f
-          box 843.58,346.38 369.5x322.58 scrolled 0 of 0
+          box 843.58,346.38 369.5x315.08 scrolled 0 of 0
             box 843.58,346.38 369.5x31.67
               box 843.58,348.88 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
               text 876.92,355.71 297.42x13 "Bolt of Linen Cloth" #e8dcc4
@@ -89,27 +89,34 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
               box 843.58,381.38 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
               text 876.92,388.21 297.42x13 "Coarse Thread" #e8dcc4
               text 1181,388.21 27.08x13 "0 / 1" #ff4040
-          box 843.58,675.63 369.5x24.17
-            box 843.58,683.13 174.75x16.67
-              text 843.58,684.46 134.75x14 "Favorite" #e8dcc4
-              box 986.67,683.13 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 999.17,680.63 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
-            box 1038.33,683.13 174.75x16.67
-              text 1038.33,684.46 134.75x14 "Track" #e8dcc4
-              box 1181.42,683.13 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 1193.92,680.63 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
-          box 843.58,706.46 369.5x28.33
-            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-              box 843.58,706.46 25x28.33 absolute
-                text 852.96,713.13 6.25x15 "-" #ffd100
-            text 875.25,713.63 5.83x14 "1" #ffffff
-            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-              box 887.75,706.46 25x28.33 absolute
-                text 897.12,713.13 6.25x15 "+" #ffd100
-            box 919.42,720.13 170.33x1
-            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-              box 1096.42,706.46 116.67x28.33 absolute
-                text 1136,713.13 37.5x15 "Create" #ffd100
+          box 843.58,668.13 369.5x24.17
+            box 843.58,675.63 174.75x16.67
+              text 843.58,676.96 134.75x14 "Favorite" #e8dcc4
+              box 986.67,675.63 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 999.17,673.13 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+            box 1038.33,675.63 174.75x16.67
+              text 1038.33,676.96 134.75x14 "Track" #e8dcc4
+              box 1181.42,675.63 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 1193.92,673.13 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+          box 843.58,698.96 369.5x35.83
+            box 843.58,706.46 141.67x28.33
+              box 843.58,706.46 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                text 853.58,713.63 106.67x14 "Quantity" #f0c860
+                box 965.25,713.96 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+            box 991.92,706.46 75x28.33
+              box 991.92,706.46 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                box 991.92,706.46 23.33x28.33 absolute
+                  text 1000.46,713.13 6.25x15 "-" #ffd100
+              box 1020.25,713.63 18.33x14
+                text 1026.5,713.63 5.83x14 "1" #ffffff
+              box 1043.58,706.46 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                box 1043.58,706.46 23.33x28.33 absolute
+                  text 1052.13,713.13 6.25x15 "+" #ffd100
+            box 1073.58,720.63 38.33x0
+              text 1073.58,720.63 38.33x0 "" #a3977f
+            box 1121.42,706.46 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1121.42,706.46 91.67x28.33 absolute
+                text 1148.5,713.13 37.5x15 "Create" #ffd100
     box 1182.75,194.63 52.5x26.67 absolute clipped
       box 1182.75,194.63 29.17x26.67 absolute clipped @click
         box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8

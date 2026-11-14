@@ -1,0 +1,83 @@
+// Making a recipe: the make row's three ways of saying how many (a count, the skill points to gain, all the bags
+// allow) and what «Create» asks of the game. The recipes are Tailoring's own, by their numbers, so the client's table
+// of where each turns yellow and grey (`levels.lua`) answers for them.
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import { MakeMode } from "@/view"
+import root Professions from "OrdaenProfessions"
+
+const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
+const TAILORING = 197
+// Linen Cloak turns yellow at 35 and grey at 60; Bolt of Linen Cloth at 25 and 50.
+const CLOAK = 2387
+const BOLT = 2963
+
+function recipe(id: Integer, name: String, difficulty: Game.Difficulty, craftable: Integer): Game.Recipe {
+  return {
+    id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 11, learned: true,
+    difficulty: difficulty, craftable: craftable,
+  }
+}
+
+function click(at: Test.Point) {
+  Test.click(at, nil)
+  Test.flush()
+}
+
+function pickFrom(face: String, choice: String) {
+  click(Test.holding(face, nil))
+  click(Test.holding(choice, nil))
+}
+
+function times(count: Integer, text: String) {
+  for (step of 1..=count) { click(Test.holding(text, nil)) }
+}
+
+// Tailoring at 31 of 75, with its two recipes in «Cloth armour».
+function tailoring(): Array<Game.Profession> {
+  return [{ skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }]
+}
+
+function categories(): Array<Game.Category> {
+  // The camp's category stands first under the heading, as the game gives it.
+  return [
+    { id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 },
+    { id: 11, name: "Cloth armour", parentID: 1 },
+  ]
+}
+
+function recipes(): Array<Game.Recipe> {
+  return [recipe(CLOAK, "Linen Cloak", Game.Difficulty.Always, 5), recipe(BOLT, "Bolt of Linen Cloth", Game.Difficulty.Rarely, 9)]
+}
+
+test "the make row: a count, the skill points to gain, or all the bags allow" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.professions.list = tailoring()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  Test.shot("Linen Cloak chosen: «Quantity», one, «Create»")
+
+  // Ten points from 31: four while the cloak is orange, then (60 - 35) / (60 - skill) makings a point.
+  pickFrom("Quantity", "Raise skill")
+  times(9, "+")
+  Test.note(`the mode: ${Professions.makeMode}, the count: ${Professions.count}`)
+  Test.expect(Test.holding("≈ 11 pcs.", nil).x > 0)
+  click(Test.holding("Create", nil))
+  Test.shot("«Raise skill» by 10: about 11 makings; «Create» makes the 5 the bags allow")
+
+  // The bolt is green at 31: ten points take 18 makings, twenty would reach its grey at 50.
+  click(Test.holding("Bolt of Linen Cloth", nil))
+  Test.expect(Test.holding("≈ 18 pcs.", nil).x > 0)
+  times(10, "+")
+  Test.shot("the bolt by 20 points: it turns grey first, «Create» is disabled")
+  click(Test.holding("Create", nil))
+
+  pickFrom("Raise skill", "All")
+  click(Test.holding("Create", nil))
+  Test.shot("«All»: no count, the 9 the bags allow, made")
+  Test.expect(Professions.makeMode == MakeMode.All)
+}

@@ -10,6 +10,10 @@ public enum View { Columns = "columns", Categories = "categories", List = "list"
 // the bags can make.
 public enum SortBy { Difficulty = "difficulty", Name = "name", Makeable = "makeable" }
 
+// How many «Create» makes: the count written, as many as it takes to raise the skill by the count, or all the
+// bags allow.
+public enum MakeMode { Count = "count", Skill = "skill", All = "all" }
+
 // What a row of a list asks of the window: it names a recipe by its number.
 public enum Act { Pick = 1, Menu = 2, Favorite = 3, Track = 4, Make = 5, Close = 6, Link = 7 }
 

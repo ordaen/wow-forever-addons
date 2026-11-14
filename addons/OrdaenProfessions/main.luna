@@ -15,8 +15,9 @@ import { FilterButton } from "@/filter"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
 import { SkillBar } from "@/skillBar"
+import { Thresholds, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
-import { Act, before, FAVORITES, Group, Kept, members, MOST_MARKED, Seen, SortBy, tableBefore, View } from "@/view"
+import { Act, before, FAVORITES, Group, Kept, MakeMode, members, MOST_MARKED, Seen, SortBy, tableBefore, View } from "@/view"
 
 // The profession's own tabs.
 const RECIPES = 1
@@ -72,6 +73,7 @@ public class Professions implements Module, App {
   public state category = 0
   public state recipe = 0
   state count = 1
+  state makeMode: MakeMode = MakeMode.Count
   public state search = ""
   public state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   public state view: View = View.Columns
@@ -127,6 +129,10 @@ public class Professions implements Module, App {
   public derived listing: Array<Game.Recipe> = self.listingOf()
   public derived chosenRecipe: Integer = self.chosenRecipeOf()
   derived chosen: Game.Recipe | nil = self.chosenOf()
+  // Where the open profession's recipes turn yellow and grey: read once each time another profession opens.
+  derived thresholds: Thresholds = thresholdsOf(Game.tradeSkill.open)
+  derived chosenYellow: Integer | nil = self.thresholds.yellow[self.chosenRecipe]
+  derived chosenGrey: Integer | nil = self.thresholds.grey[self.chosenRecipe]
   derived searching: Boolean = self.search != ""
   derived empty: Boolean = self.listing.length == 0
   derived inColumns: Boolean = self.view == View.Columns
@@ -546,8 +552,9 @@ public class Professions implements Module, App {
                   </Table>
                 </box>
               </box>
-              <RecipeDetails recipe={self.chosen} count={mut self.count} kept={self.kept} @create={self.onCreate}
-                             @act={self.onAct} />
+              <RecipeDetails recipe={self.chosen} count={mut self.count} mode={mut self.makeMode}
+                             profession={self.profession} yellow={self.chosenYellow} grey={self.chosenGrey}
+                             kept={self.kept} @create={self.onCreate} @act={self.onAct} />
             </box>
           </box>
         </Window>
