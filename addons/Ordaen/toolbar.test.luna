@@ -1,6 +1,7 @@
 // The window toolbar: the search field and the icon-only buttons on one row. A button's Tip names what it does and
 // what it is set to; a click opens its list under it, a choice picks and closes it; a view's button shows the picked
-// view's glyph; a filter that narrows has its glyph gold.
+// view's glyph; a filter that narrows has its glyph gold; Enter in the search reports `submit`.
+import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Choice } from "@/dropdown"
@@ -25,11 +26,14 @@ class Window {
   public state look: Look = Look.Columns
   public state filterOpen = false
   public state narrowed = false
+  public submitted = 0
+
+  onSubmit(mut self) { self.submitted += 1 }
 
   public render(self): Template {
     return $ltml {
       <box width={400}>
-        <Toolbar search={mut self.search} placeholder={"Search by name"}>
+        <Toolbar search={mut self.search} placeholder={"Search by name"} @submit={self.onSubmit}>
           <ToolButton icon={Ordaen.art.ctl.tool.filter} title={"Filter"} text={"Nothing ticked"}
                       open={mut self.filterOpen} lit={self.narrowed} />
           <ToolPick value={mut self.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort} title={"Sort"} />
@@ -92,6 +96,14 @@ test "the toolbar's buttons stand on the search's row; each Tip says what it doe
   Test.moveTo({ x: 590, y: 390 })
   Test.flush()
   Test.shot("a filter on: the funnel gold, the view's button the list's glyph")
+
+  // Enter in the search reports `submit`, Escape doesn't.
+  Test.click(Test.field(nil), nil)
+  Test.type("ore")
+  _ = Test.key(Key.Escape)
+  Test.click(Test.field(nil), nil)
+  _ = Test.key(Key.Enter)
+  Test.expect(page.submitted == 1 && page.search == "ore")
   destroy page
   Test.expect(Test.blank())
 }

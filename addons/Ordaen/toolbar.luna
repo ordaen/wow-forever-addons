@@ -38,6 +38,8 @@ const LIST_WIDTH = 210 * PX
 
 public class Toolbar implements Component {
   derived searching: Boolean = self.search != ""
+  // Enter in the search field: what searches at once, where typing searches only once it settles.
+  public submit: Event<nil> = new Event()
 
   search: mut Signal<String>
   placeholder: Signal<String>
@@ -50,12 +52,14 @@ public class Toolbar implements Component {
     self.placeholder = placeholder
   }
 
+  onSubmit(mut self) { self.submit.emit() }
+
   public render(self): Template {
     return $ltml {
       <box columns={ROW} yAlign={Align.Center}>
         <box height={SIZE} rows={FILL}>
           <input value={mut self.search} padding={FIELD_PAD} textColor={INK} background={FIELD_BACK}
-                 border={FIELD_EDGE} />
+                 border={FIELD_EDGE} @submit={self.onSubmit} />
           <box $if={!self.searching} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
                padding={FIELD_PAD} yAlign={Align.Center}>
             <text value={self.placeholder} textColor={DIM} wrap={false} />
