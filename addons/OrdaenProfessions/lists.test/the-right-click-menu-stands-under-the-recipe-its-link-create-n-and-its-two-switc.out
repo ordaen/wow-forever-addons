@@ -82,6 +82,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           box 843.58,283.04 369.5x43.33
             box 843.58,283.04 43.33x43.33 #0d0a08 opacity=1 @click @enter
               box 843.58,283.04 43.33x43.33 absolute
+              box 843.58,283.04 43.33x43.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 843.58,283.04 43.33x43.33 absolute #00000000
             box 895.25,288.38 317.83x32.67
               text 895.25,288.38 317.83x18 "Linen Cloak" #ffffff
@@ -251,6 +252,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           box 843.58,283.04 369.5x43.33
             box 843.58,283.04 43.33x43.33 #0d0a08 opacity=1 @click @enter
               box 843.58,283.04 43.33x43.33 absolute
+              box 843.58,283.04 43.33x43.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 843.58,283.04 43.33x43.33 absolute #00000000
             box 895.25,288.38 317.83x32.67
               text 895.25,288.38 317.83x18 "Linen Cloak" #ffffff
@@ -419,6 +421,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           box 843.58,283.04 369.5x43.33
             box 843.58,283.04 43.33x43.33 #0d0a08 opacity=1 @click @enter
               box 843.58,283.04 43.33x43.33 absolute
+              box 843.58,283.04 43.33x43.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 843.58,283.04 43.33x43.33 absolute #00000000
             box 895.25,288.38 317.83x32.67
               text 895.25,288.38 317.83x18 "Linen Bag" #ffffff

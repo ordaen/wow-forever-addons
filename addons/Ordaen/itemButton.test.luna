@@ -79,11 +79,12 @@ class Slot {
   look(self): String {
     const button = self.button
     if (button == nil) { return "" }
-    return "%.2f %.2f %.2f".format(button.edge.color.r, button.edge.color.g, button.edge.color.b)
+    const lit = button.lit ? ", lit" : ""
+    return "%.2f %.2f %.2f%s".format(button.edge.color.r, button.edge.color.g, button.edge.color.b, lit)
   }
 }
 
-test "each quality has its own border colour, a slot with no item the plain one" {
+test "each quality has its own border colour, lit inside from uncommon up, a slot with no item the plain one" {
   let slot = new Slot()
   const qualities = [Quality.Poor, Quality.Common, Quality.Uncommon, Quality.Rare, Quality.Epic, Quality.Legendary,
     Quality.Artifact, Quality.Heirloom]
