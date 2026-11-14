@@ -1,4 +1,4 @@
-the default profile's text: 1161 characters, 3 sections
+the default profile's text: 1185 characters, 3 sections
 -- Export: the text of the active profile in the box
 box 0,0 760x681.67
   box 0,0 760x215
@@ -35,7 +35,7 @@ box 0,0 760x681.67
       box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
         box 395,160 125x28.33 absolute
           text 441.88,166.67 31.25x15 "Reset" #ffd100
-    text 0,200 760x15 "Text made: 1161 characters." #a3977f
+    text 0,200 760x15 "Text made: 1185 characters." #a3977f
   box 0,230 760x105
     box 0,230 760x15
       text 0,230 43.75x15 "Use for" #e8c35a
@@ -80,7 +80,7 @@ box 0,0 760x681.67
         text 0,521.67 233.33x15 "OrdaenGhost" #cbb994
       box 248.33,520 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
         box 248.33,520 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,550 760x91.67 #0d0a08 input "ORDAEN:1:bVR7iA1RGGdtkuQPbQh5JZS0eSWkm7B2y5uEJOfO+Wbm3HvumXFmZvfeG0rSJkmS/IFYz9QmSZIkr4S80npuHvtgsa1NbB6LnO/Mnbt3y/lj7jdzf9/v+37f4xylgqTAmgcmCbhve2D4zBHeseQSSQmImdxxkmuKH14cl8gA507VSkj7xwnpSeKdsYbhF5e1bh9BrM5Y6xR9iOxJjQwREeLtPTz3EVF/61T7oXMTieyM7d+15M0sutaO8wAK+dpb+M65+7YiurmHPoh+srX3mFelQ21LQqYQ3ZIjtLpMmTdtl4lkIfrDsWd9Z7vHEd10piTbsOAMottXfH/wYmC1HSeyTKo6QByywE07ED5IUBFBmI4kwoKIZ1Ntn0ljP2aQ51F80eMvp38jT3PFpfXTYpsNCTQCnqyeUNSv4hIC3S5gyz6txqoiUjJHGj4RZtotY5xbcRl4NlBGBEsRbAI1iecnVGqoI5Cg6sWyWSIpNR3hU1OyrOlKBp4PVTbzwQw7FCVwJBdVJdD46N2GOTumYwIf2vbY8uwokxgGiFx1eiDm02wXS6Q6CNKxgoiN6SJ063rpkMNXKu9on/k1d69uG4C8jbqmJSgoAt7FD9kGBD79mK778/UCAt+o7vRfVQxUBozmiptAQeVAKEgty1Is3UJe371ufMcNZHrfJaU17CNNEQv01JmeTVJEUJwr/Yj83+noZej/RKvciP7pvf7lxJZflks4oUxQHBmmK1kYu60JZ2QQ+kamzJsUhzJCPteZLURkZMq8mUSJi4NUHKSXJJIRvliNgFOlo0YML1Hm9d3IcP/rBVXca8jQhGn+rA+bnJekujjy5kGERqbMmzhe3DGSZiVzOPi5n8i1eeTNAyeaVqLrYzW1m9r2oOtrbeGW0UL5jarXt8/P0DupBj9d91fvjV6bCYmQuNsO07XD1IrovHKDovCfVhUPVtW2sUuF6M9C3wV6lvrpHUJ0naYYF+7ffxavvkhjEVoTCk6Ec1RI/fpn/Wg1KzpxJXfF94c6cbx4htWa4e22uvJ0UuieLHcCQb+BZxAOnbEf4e3Dw//KHKkWEjyXGGBREB7zM6bAj9wKER54tiN9J3xbKsFgnlrgIjCwC/HJU8FlaeAdpodhvI7c5brAdjy/vCaM2usf" lines typing selected 0..1161 clipped @change
+    box 0,550 760x91.67 #0d0a08 input "ORDAEN:1:bVRtaBRHGG7SIKVIfxRppQ01LWIEEbEfFCtySGyMoFWbEFRK6dzOO7tzNzezzu4md8EKQUREREKR/lBp02iLEIJIEZFS2jSUNtRWJFHboDYfGjXEIBrUppbOO3t7uYDzY+/dved93q/nna+oJDlw1wEjkQi9AJyQKxl0ZTdrSkC+J5TKbq8aO1ubKYAQqrUJ8uFxQipIeiY1/NrZrRN7FxF3JjXxlj1EV1CnQGSC+Ps3POcRMfTzN1PHTi8neib1+cHN11fTHV5aRFDONzUuDtQdbkf02DP2IHqwfd7iqyte9VwNhXL0eJHQnTV1yfR8LrPl6Ftdl59f4x9H9GjPgrbh9T2Inmp8+PufL+3z0kTXa9MHSEMbCOZFMgQNJiJIpjSRLiQ8u7qfW7nkdgF5LqQ3Xbx38l/kGdtw7uN3Up86GmgC/Hrfssr5G84h0J8Fjh+21bitRGuutBMSyfJ+PRfCTeso8IByInmO4BAcxVjGZIZlRIaZCRJSpmToMa5JI5EB8zWHIIRWj4fA4gEl8b8sBjXxRy7c+GTt/ncx/q3JDk+fep0RxwFZas4o9qbrsm1O0dQlE7Ryo4Sd257MEcGKV774vuVX9L3zfmf/D3teRN8R2+IFWF8C7McPbcMIvHQ7P/Dk/hkEXjfDeqG5CqiOOC32OoNFNgChoEuluoZpTtjeQx8tnf4J2W7OljcRj5bmiAtWiCzwSI5IilKzj8T/hs2gHv0HfdTGTvTPfxZ+l9n9j+sTQSiXFFXEbXfLY0+OomxeRt/E1CWTok4T5BWb2UZEJqYumVks84MolwYd5LDOOiUpyACojZtw/IWF9h5CjvP3z5gW/2iHg4k+HopHXyrKzLam7yhCE1OXTNScUE6WtXAlICz+JK5jNX1HTow2oetFI+Vdkx3oes1auHq0vAEjZuK/fLvKLqrZhvzAf3aZ7C4ty8TEcxab7qg2e2PzKsrF4O80Vy00/fZwTuXou9JeEFZR8+1iIXrAUtTGS/mUbRyqtFiEdsYFZ2I1lVNfezz0hlGLTdyU2/jwD5s43kbV3Sy+8ra1nMxKO5UPVSTpAwgcImAm9Si+kkT8X73SZksh8IkDLk6NhwUm8aNwY0QAgad0qOK3LRocHpitrgQHp5B+823weR7ENAswTDBdvHHXeyoIGzrjqM/+Dw==" lines typing selected 0..1185 clipped @change
     box 0,653.33 760x28.33
       box 0,653.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
         box 0,653.33 125x28.33 absolute
@@ -173,7 +173,7 @@ box 0,0 760x761.67
         text 0,521.67 233.33x15 "OrdaenGhost" #cbb994
       box 248.33,520 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
         box 248.33,520 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,550 760x91.67 #0d0a08 input "ORDAEN:1:bVR7iA1RGGdtkuQPbQh5JZS0eSWkm7B2y5uEJOfO+Wbm3HvumXFmZvfeG0rSJkmS/IFYz9QmSZIkr4S80npuHvtgsa1NbB6LnO/Mnbt3y/lj7jdzf9/v+37f4xylgqTAmgcmCbhve2D4zBHeseQSSQmImdxxkmuKH14cl8gA507VSkj7xwnpSeKdsYbhF5e1bh9BrM5Y6xR9iOxJjQwREeLtPTz3EVF/61T7oXMTieyM7d+15M0sutaO8wAK+dpb+M65+7YiurmHPoh+srX3mFelQ21LQqYQ3ZIjtLpMmTdtl4lkIfrDsWd9Z7vHEd10piTbsOAMottXfH/wYmC1HSeyTKo6QByywE07ED5IUBFBmI4kwoKIZ1Ntn0ljP2aQ51F80eMvp38jT3PFpfXTYpsNCTQCnqyeUNSv4hIC3S5gyz6txqoiUjJHGj4RZtotY5xbcRl4NlBGBEsRbAI1iecnVGqoI5Cg6sWyWSIpNR3hU1OyrOlKBp4PVTbzwQw7FCVwJBdVJdD46N2GOTumYwIf2vbY8uwokxgGiFx1eiDm02wXS6Q6CNKxgoiN6SJ063rpkMNXKu9on/k1d69uG4C8jbqmJSgoAt7FD9kGBD79mK778/UCAt+o7vRfVQxUBozmiptAQeVAKEgty1Is3UJe371ufMcNZHrfJaU17CNNEQv01JmeTVJEUJwr/Yj83+noZej/RKvciP7pvf7lxJZflks4oUxQHBmmK1kYu60JZ2QQ+kamzJsUhzJCPteZLURkZMq8mUSJi4NUHKSXJJIRvliNgFOlo0YML1Hm9d3IcP/rBVXca8jQhGn+rA+bnJekujjy5kGERqbMmzhe3DGSZiVzOPi5n8i1eeTNAyeaVqLrYzW1m9r2oOtrbeGW0UL5jarXt8/P0DupBj9d91fvjV6bCYmQuNsO07XD1IrovHKDovCfVhUPVtW2sUuF6M9C3wV6lvrpHUJ0naYYF+7ffxavvkhjEVoTCk6Ec1RI/fpn/Wg1KzpxJXfF94c6cbx4htWa4e22uvJ0UuieLHcCQb+BZxAOnbEf4e3Dw//KHKkWEjyXGGBREB7zM6bAj9wKER54tiN9J3xbKsFgnlrgIjCwC/HJU8FlaeAdpodhvI7c5brAdjy/vCaM2usf" lines selected 0..1161 clipped @change
+    box 0,550 760x91.67 #0d0a08 input "ORDAEN:1:bVRtaBRHGG7SIKVIfxRppQ01LWIEEbEfFCtySGyMoFWbEFRK6dzOO7tzNzezzu4md8EKQUREREKR/lBp02iLEIJIEZFS2jSUNtRWJFHboDYfGjXEIBrUppbOO3t7uYDzY+/dved93q/nna+oJDlw1wEjkQi9AJyQKxl0ZTdrSkC+J5TKbq8aO1ubKYAQqrUJ8uFxQipIeiY1/NrZrRN7FxF3JjXxlj1EV1CnQGSC+Ps3POcRMfTzN1PHTi8neib1+cHN11fTHV5aRFDONzUuDtQdbkf02DP2IHqwfd7iqyte9VwNhXL0eJHQnTV1yfR8LrPl6Ftdl59f4x9H9GjPgrbh9T2Inmp8+PufL+3z0kTXa9MHSEMbCOZFMgQNJiJIpjSRLiQ8u7qfW7nkdgF5LqQ3Xbx38l/kGdtw7uN3Up86GmgC/Hrfssr5G84h0J8Fjh+21bitRGuutBMSyfJ+PRfCTeso8IByInmO4BAcxVjGZIZlRIaZCRJSpmToMa5JI5EB8zWHIIRWj4fA4gEl8b8sBjXxRy7c+GTt/ncx/q3JDk+fep0RxwFZas4o9qbrsm1O0dQlE7Ryo4Sd257MEcGKV774vuVX9L3zfmf/D3teRN8R2+IFWF8C7McPbcMIvHQ7P/Dk/hkEXjfDeqG5CqiOOC32OoNFNgChoEuluoZpTtjeQx8tnf4J2W7OljcRj5bmiAtWiCzwSI5IilKzj8T/hs2gHv0HfdTGTvTPfxZ+l9n9j+sTQSiXFFXEbXfLY0+OomxeRt/E1CWTok4T5BWb2UZEJqYumVks84MolwYd5LDOOiUpyACojZtw/IWF9h5CjvP3z5gW/2iHg4k+HopHXyrKzLam7yhCE1OXTNScUE6WtXAlICz+JK5jNX1HTow2oetFI+Vdkx3oes1auHq0vAEjZuK/fLvKLqrZhvzAf3aZ7C4ty8TEcxab7qg2e2PzKsrF4O80Vy00/fZwTuXou9JeEFZR8+1iIXrAUtTGS/mUbRyqtFiEdsYFZ2I1lVNfezz0hlGLTdyU2/jwD5s43kbV3Sy+8ra1nMxKO5UPVSTpAwgcImAm9Si+kkT8X73SZksh8IkDLk6NhwUm8aNwY0QAgad0qOK3LRocHpitrgQHp5B+823weR7ENAswTDBdvHHXeyoIGzrjqM/+Dw==" lines selected 0..1185 clipped @change
     box 0,653.33 760x28.33
       box 0,653.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
         box 0,653.33 125x28.33 absolute

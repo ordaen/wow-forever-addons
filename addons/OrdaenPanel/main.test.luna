@@ -177,11 +177,11 @@ test "the panel: its zones and items, the game's buttons in its cells, when it s
   Test.note(`boxes that take the mouse: ${mouse.boxes > 0 ? "some" : "none"}; with part of their face under another frame: ${mouse.covered}${covered != nil ? ` (${covered})` : ""}`)
   Test.note("")
 
-  // The look chosen: the level on the badge is its accent, Blizzard's gold here; rolled back, Ordaen's bronze.
+  // The look chosen: the level on the badge is its accent, Minimal's grey here; rolled back, Ordaen's bronze.
   const ordaen = Ordaen
-  ordaen.look.choose(preset(Preset.Blizzard))
+  ordaen.look.choose(preset(Preset.Minimal))
   Ordaen.keeper.saveAll()
-  shown("Blizzard's look saved: the level in its accent")
+  shown("Minimal's look saved: the level in its accent")
   Ordaen.keeper.rollbackAll()
 
   Game.friends.online = 3

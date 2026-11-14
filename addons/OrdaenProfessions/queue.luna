@@ -6,7 +6,6 @@
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
 import { Component, CountInput, PushButton, PX } from "Ordaen"
-import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 import { MOST_COUNT, Queued, QueueAct } from "@/view"
@@ -161,15 +160,15 @@ public class NeedRow implements Component {
         <text value={self.need.name} textColor={Style.INK} wrap={false} />
         <box xAlign={Align.End}>
           <text value={"%d"} arguments={[self.need.need]} textColor={Style.INK}
-                textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
+                textFont={.Numbers} wrap={false} />
         </box>
         <box xAlign={Align.End}>
           <text value={"%d"} arguments={[self.need.have]} textColor={Style.INK}
-                textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
+                textFont={.Numbers} wrap={false} />
         </box>
         <box xAlign={Align.End}>
           <text value={self.missing} textColor={self.missingColor}
-                textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
+                textFont={.Numbers} wrap={false} />
         </box>
       </box>
     }

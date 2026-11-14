@@ -2,7 +2,7 @@
 // Ordaen's own settings (`Ordaen::look`), saved, discarded and rolled back with every other. A preset is a whole
 // look by its name: choosing one writes every entry of the draft, and a change after it is a draft like any other.
 // What no preset changes (the metal, the wood, the controls' art, the measures) is Ordaen's art (art.luna).
-import { Art, Piece } from "$ltml"
+import { Art, Fonts, Piece } from "$ltml"
 
 // The fonts Ordaen ships (its media, each with Cyrillic, SIL Open Font License) and the client's own two.
 public enum Font implements Plain {
@@ -32,9 +32,9 @@ public enum Hue implements Plain {
   Violet = "violet", Pink = "pink", Tan = "tan", White = "white", Grey = "grey",
 }
 
-public enum Preset { Ordaen = "ordaen", Blizzard = "blizzard", Minimal = "minimal" }
+public enum Preset { Ordaen = "ordaen", Minimal = "minimal" }
 // The presets, in the order the settings window lists them.
-public const PRESETS: Array<Preset> = [Preset.Ordaen, Preset.Blizzard, Preset.Minimal]
+public const PRESETS: Array<Preset> = [Preset.Ordaen, Preset.Minimal]
 
 public struct Look implements Plain {
   // The text's, the titles' and the numbers' fonts.
@@ -81,7 +81,7 @@ public struct Look implements Plain {
   druid: Hue
 }
 
-// Blizzard's look in Ordaen's style: bronze, dark wood, Ordaen's own fonts.
+// Ordaen's own look: bronze, dark wood, Ordaen's own fonts.
 const ORDAEN: Look = {
   font: Font.FiraSans, fontHeader: Font.AlegreyaSC, fontNumbers: Font.FiraCondensed,
   accent: { r: 0.72, g: 0.56, b: 0.34, a: 1 },
@@ -101,14 +101,6 @@ const ORDAEN: Look = {
   shaman: Hue.Blue, mage: Hue.Cyan, warlock: Hue.Violet, druid: Hue.Orange,
 }
 
-// Close to Blizzard's own: its fonts, its bars.
-const BLIZZARD: Look = {
-  font: Font.Friz, fontHeader: Font.Friz, fontNumbers: Font.ArialNarrow,
-  accent: { r: 1, g: 0.82, b: 0, a: 1 },
-  barTexture: BarTexture.Blizzard, animation: Animation.Fast,
-  ..ORDAEN,
-}
-
 // Flat, thin lines, almost no textures or animations.
 const MINIMAL: Look = {
   fontHeader: Font.FiraSans,
@@ -121,9 +113,21 @@ const MINIMAL: Look = {
 public function preset(name: Preset): Look {
   match (name) {
     Preset.Ordaen => return ORDAEN,
-    Preset.Blizzard => return BLIZZARD,
     Preset.Minimal => return MINIMAL,
   }
+}
+
+// The look a player who chose the Blizzard preset has saved: Ordaen offers no such preset, and loads it as Ordaen's.
+const BLIZZARD: Look = {
+  font: Font.Friz, fontHeader: Font.Friz, fontNumbers: Font.ArialNarrow,
+  accent: { r: 1, g: 0.82, b: 0, a: 1 },
+  barTexture: BarTexture.Blizzard, animation: Animation.Fast,
+  ..ORDAEN,
+}
+
+// Whether a look loaded is one of a preset Ordaen doesn't offer, to be loaded as Ordaen's.
+public function unoffered(look: Look): Boolean {
+  return look.equal(BLIZZARD)
 }
 
 // The preset a look is, where it is one as it stands.
@@ -152,17 +156,16 @@ public function hueColor(look: Look, hue: Hue): Color {
 }
 
 // The files a look picks, as what draws them takes them: read through `Ordaen::lookArt`, worked out once a save.
-// A font that is nil is the client's own text font, the one for the client's language (Cyrillic on ruRU): a
-// text with no family is drawn in it.
+// Its fonts are the renderer's (`Runtime.fonts`, given by Ordaen's root): every text an addon draws takes the one
+// its `textFont` names, `Body` where it names none.
 public struct LookArt {
-  font: Art | nil
-  fontHeader: Art | nil
-  fontNumbers: Art | nil
+  fonts: Fonts
   bar: Art
   xpFill: Art
 }
 
-public function fontFile(font: Font): Art | nil {
+// A font's file; nil for the client's own text font, the one for the client's language (Cyrillic on ruRU).
+function fontFile(font: Font): Asset | nil {
   match (font) {
     Font.FiraSans => return "@/media/fonts/FiraSans-Regular.ttf",
     Font.AlegreyaSans => return "@/media/fonts/AlegreyaSans-Regular.ttf",
@@ -203,7 +206,7 @@ function xpFillOf(fill: XpFill): Art {
 
 public function artOf(look: Look): LookArt {
   return {
-    font: fontFile(look.font), fontHeader: fontFile(look.fontHeader), fontNumbers: fontFile(look.fontNumbers),
+    fonts: { body: fontFile(look.font), title: fontFile(look.fontHeader), numbers: fontFile(look.fontNumbers) },
     bar: barFile(look.barTexture), xpFill: xpFillOf(look.xpFill),
   }
 }

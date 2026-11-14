@@ -1,10 +1,10 @@
--- the axe open, the bar closed: ▼ on the axe, ► on the bar one step in, none on the leaf; the bar's age at its right
+-- the axe open, the bar closed: ▼ on the axe, ▶ on the bar one step in, none on the leaf; the bar's age at its right
 box 0,0 400x65
   box 0,0 400x21.67 #00000000 @click
     box 0,0 2.5x21.67 absolute #00000000
     box 3.33,4.58 13.33x12.5
       box 3.33,5.42 5.42x13 absolute opacity=0
-        text 3.33,5.42 5.42x13 "►" #d6a56b
+        text 3.33,5.42 5.42x13 "▶" #d6a56b
       box 3.33,5.42 5.42x13 absolute opacity=1
         text 3.33,5.42 5.42x13 "▼" #d6a56b
     text 20,3.33 310.83x15 "Bronze Axe" #e8dcc4
@@ -14,7 +14,7 @@ box 0,0 400x65
     box 0,21.67 2.5x21.67 absolute #00000000
     box 3.33,26.25 26.67x12.5
       box 16.67,27.08 5.42x13 absolute opacity=1
-        text 16.67,27.08 5.42x13 "►" #d6a56b
+        text 16.67,27.08 5.42x13 "▶" #d6a56b
       box 16.67,27.08 5.42x13 absolute opacity=0
         text 16.67,27.08 5.42x13 "▼" #d6a56b
     text 33.33,25 322.5x15 "Bronze Bar" #e8dcc4
@@ -32,7 +32,7 @@ box 0,0 400x65
     box 0,0 2.5x21.67 absolute #00000000
     box 3.33,4.58 13.33x12.5
       box 3.33,5.42 5.42x13 absolute opacity=0
-        text 3.33,5.42 5.42x13 "►" #d6a56b
+        text 3.33,5.42 5.42x13 "▶" #d6a56b
       box 3.33,5.42 5.42x13 absolute opacity=1
         text 3.33,5.42 5.42x13 "▼" #d6a56b
     text 20,3.33 310.83x15 "Bronze Axe" #e8dcc4
@@ -42,7 +42,7 @@ box 0,0 400x65
     box 0,21.67 2.5x21.67 absolute #00000000
     box 3.33,26.25 26.67x12.5
       box 16.67,27.08 5.42x13 absolute opacity=1
-        text 16.67,27.08 5.42x13 "►" #d6a56b
+        text 16.67,27.08 5.42x13 "▶" #d6a56b
       box 16.67,27.08 5.42x13 absolute opacity=0
         text 16.67,27.08 5.42x13 "▼" #d6a56b
     text 33.33,25 322.5x15 "Bronze Bar" #e8dcc4
@@ -60,7 +60,7 @@ box 0,0 400x86.67
     box 0,0 2.5x21.67 absolute #00000000
     box 3.33,4.58 13.33x12.5
       box 3.33,5.42 5.42x13 absolute opacity=0
-        text 3.33,5.42 5.42x13 "►" #d6a56b
+        text 3.33,5.42 5.42x13 "▶" #d6a56b
       box 3.33,5.42 5.42x13 absolute opacity=1
         text 3.33,5.42 5.42x13 "▼" #d6a56b
     text 20,3.33 310.83x15 "Bronze Axe" #e8dcc4
@@ -70,7 +70,7 @@ box 0,0 400x86.67
     box 0,21.67 2.5x21.67 absolute #00000000
     box 3.33,26.25 26.67x12.5
       box 16.67,27.08 5.42x13 absolute opacity=0
-        text 16.67,27.08 5.42x13 "►" #d6a56b
+        text 16.67,27.08 5.42x13 "▶" #d6a56b
       box 16.67,27.08 5.42x13 absolute opacity=1
         text 16.67,27.08 5.42x13 "▼" #d6a56b
     text 33.33,25 322.5x15 "Bronze Bar" #e8dcc4
@@ -94,7 +94,7 @@ box 0,0 400x86.67
     box 0,0 2.5x21.67 absolute #00000000
     box 3.33,4.58 13.33x12.5
       box 3.33,5.42 5.42x13 absolute opacity=0
-        text 3.33,5.42 5.42x13 "►" #d6a56b
+        text 3.33,5.42 5.42x13 "▶" #d6a56b
       box 3.33,5.42 5.42x13 absolute opacity=1
         text 3.33,5.42 5.42x13 "▼" #d6a56b
     text 20,3.33 310.83x15 "Bronze Axe" #e8dcc4
@@ -104,7 +104,7 @@ box 0,0 400x86.67
     box 0,21.67 2.5x21.67 absolute #00000000
     box 3.33,26.25 26.67x12.5
       box 16.67,27.08 5.42x13 absolute opacity=0
-        text 16.67,27.08 5.42x13 "►" #d6a56b
+        text 16.67,27.08 5.42x13 "▶" #d6a56b
       box 16.67,27.08 5.42x13 absolute opacity=1
         text 16.67,27.08 5.42x13 "▼" #d6a56b
     text 33.33,25 322.5x15 "Bronze Bar" #e8dcc4
@@ -128,7 +128,7 @@ box 0,0 400x21.67
     box 0,0 2.5x21.67 absolute #d6a56b
     box 3.33,4.58 13.33x12.5
       box 3.33,5.42 5.42x13 absolute opacity=1
-        text 3.33,5.42 5.42x13 "►" #d6a56b
+        text 3.33,5.42 5.42x13 "▶" #d6a56b
       box 3.33,5.42 5.42x13 absolute opacity=0
         text 3.33,5.42 5.42x13 "▼" #d6a56b
     text 20,3.33 310.83x15 "Bronze Axe" #ffffff

@@ -26,7 +26,6 @@ const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000033") }
 const BACK: Color = Color.hex("#00000040")
 const PADDING: Edges = { top: 6 * PX, bottom: 6 * PX }
 const ROW_PADDING: Edges = { top: 4 * PX, right: 8 * PX, bottom: 4 * PX, left: 8 * PX }
-const MARK_FONT: Asset = "Fonts/ARIALN.TTF"
 const SIDES: Edges = { left: 8 * PX, right: 8 * PX }
 const HEAD: Array<Track> = ["auto", "auto"]
 
@@ -81,12 +80,14 @@ public class Heading implements Component {
         <box position={Position.Absolute} left={0} right={0} bottom={0} height={2 * PX} background={self.light} />
         <box columns={HEAD} gap={4 * PX} stateFromParent={true}>
           <text value={self.column.title} textColor={self.color} stateFromParent={true} wrap={false} />
+          // The marks are triangles of the title's font, which Ordaen's preset has them in; drawn as art once there
+          // is art for them (design: general/art-needed).
           <box $if={self.sortable}>
             <box opacity={self.up}>
-              <text value={"▲"} textColor={GOLD} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
+              <text value={"▲"} textColor={GOLD} textSize={.Secondary} textFont={.Title} wrap={false} />
             </box>
             <box position={Position.Absolute} left={0} top={0} opacity={self.down}>
-              <text value={"▼"} textColor={GOLD} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
+              <text value={"▼"} textColor={GOLD} textSize={.Secondary} textFont={.Title} wrap={false} />
             </box>
           </box>
         </box>

@@ -110,7 +110,7 @@ public class Placed implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Screen} place={self.place} clamp={true} textFamily={Ordaen.lookArt.font}>
+      <surface layer={Layer.Screen} place={self.place} clamp={true}>
         <slot />
         <Mover id={self.id} title={self.title} @grab={self.onGrab} @drag={self.onDrag} @drop={self.onDrop}
                @reset={self.onReset} />

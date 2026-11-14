@@ -135,7 +135,7 @@ the portrait's rim painted, its middle at 64, 838
 points where two frames would both take the mouse: 0
 boxes that take the mouse: some; with part of their face under another frame: 0
 
--- Blizzard's look saved: the level in its accent
+-- Minimal's look saved: the level in its accent
 box 0,0 0x0
   embed 0,0 0x0 frame=StoreMicroButton opacity=0
   embed 0,0 0x0 frame=HelpMicroButton opacity=0
@@ -263,7 +263,7 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #ffd100
+    text 101.58,791.8 6.25x15 "1" #9e9e9e
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
