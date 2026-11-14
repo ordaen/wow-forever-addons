@@ -61,6 +61,24 @@ test "a ring button dragged round the frame follows the cursor, frame after fram
   Test.shot("the tracking button dragged down the frame's left side, short of the Ordaen button: it stands where it was let go")
 }
 
+// The room round the frame holds the ring and nothing else: past the frame and off a ring button, nothing of the
+// minimap's takes the mouse, and a click there reaches the world. The cursor on a ring button is on the minimap.
+test "the room round the minimap's frame takes no mouse; the frame and the ring buttons do" {
+  let map = blizzard("Minimap", 140, 140, true)
+  let tracking = blizzard("MinimapTrackingButton", 32, 32, true)
+  Game.minimap.frame = map
+  Game.frames.MinimapTrackingButton = tracking
+  Test.mount(nil, { left: 100, top: 50, width: 600, height: 800, screen: true })
+  Test.flush()
+  Test.moveTo(MAP)
+  Test.expect(Minimap.hovered)
+  Test.moveTo(TRACKING)
+  Test.expect(Minimap.hovered && Client.GetMouseFoci().length == 1)
+  // The room's top right corner, beside no ring button.
+  Test.moveTo({ x: 1595, y: 5 })
+  Test.expect(!Minimap.hovered && Client.GetMouseFoci().length == 0)
+}
+
 // The one list of the game's parts the minimap replaces: each hidden and off the screen, where the game showing it
 // again (the zoom buttons as the cursor comes onto the map) puts nothing in sight or under the cursor; the wheel
 // zooms instead.
