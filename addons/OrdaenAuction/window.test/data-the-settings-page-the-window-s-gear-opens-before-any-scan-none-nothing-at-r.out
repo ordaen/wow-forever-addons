@@ -154,6 +154,9 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 591.5,223.04 50x26.67 #00000059 @click
                 box 592.33,223.88 48.33x1.67 absolute #d6a56b
                 text 604,229.71 25x15 "Data" #ffffff
+              box 644.83,223.04 68.75x26.67 #00000000 @click
+                box 645.67,223.88 67.08x1.67 absolute #00000000
+                text 657.33,229.71 43.75x15 "Windows" #a3977f
             box 519.42,266.38 722.83x196.67
               box 519.42,266.38 722.83x196.67
                 box 519.42,266.38 722.83x121.67

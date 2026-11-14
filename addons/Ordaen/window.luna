@@ -12,6 +12,7 @@
 // side of the screen from its top to its bottom, as wide as its placing says: it isn't moved or resized, and its
 // full-screen toggle still covers the screen.
 import { Align, Art, Docked, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Stated, Track } from "$ltml"
+import Game from "$game"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
@@ -27,16 +28,23 @@ public struct WindowTabSpec {
 
 // Where a window is: its centre from the screen's (y down), and its body's size. Its owner holds it, and the window
 // keeps it in its memory.
-public struct Placing {
+public struct Placing implements Plain {
   x: Number
   y: Number
   width: Number
   height: Number
 }
 
+// What the player is in the middle of that hides a window, and after which it shows again: a fight; travel (riding a
+// mount, in a vehicle, on a flight); moving.
+public enum Occasion implements Plain { Combat = "combat", Travel = "travel", Moving = "moving" }
+
 // What the player did with a window, kept in the active profile (`Memory`, `redesign/kept.md`): its place and its
-// body's size, full screen or not, the open tab, and the width the side section was dragged to (0: the width the
-// side is given). The defaults are what the window is made with.
+// body's size, full screen or not, the tab last open, and the width the side section was dragged to (0: the width
+// the side is given); and what the player chose on its settings page («Окна»): whether any of that is kept
+// (`remember`; off, the window opens as it is declared), the tab it opens on (`openOn`: 0, the one last open), what
+// hides it (`hideDuring`) and, of that, after which it shows again (`showAfter`; a window hidden by anything else is
+// closed). The defaults are the window's declaration's (`KeptWindow`): hidden in a fight, never shown again by itself.
 public struct WindowView implements Plain {
   x: Number = 0
   y: Number = 0
@@ -45,6 +53,61 @@ public struct WindowView implements Plain {
   full: Boolean = false
   tab: Integer = 1
   side: Number = 0
+  remember: Boolean = true
+  openOn: Integer = 0
+  hideDuring: Array<Occasion> = [Occasion.Combat]
+  showAfter: Array<Occasion> = []
+}
+
+// One of a module's windows, declared once in its root: its name (what it is kept under), its title on the
+// settings' «Окна» page, and where it opens and whether full screen until the player changes it. What the player
+// does with it is its `memory`, the profile's; `placing` is where it stands now. The `Window` drawn for it and its
+// settings page (`WindowsPage`) both read and write this one: they can't disagree.
+public class KeptWindow {
+  public const title: String
+  public const defaults: WindowView
+  public memory: mut Memory<WindowView>
+  public state placing: mut Placing
+  // The window's tabs' titles, as it last drew them: the settings page offers each as the tab to open on.
+  public state tabs: Array<String> = []
+
+  constructor(name: String, title: String, placing: Placing, full: Boolean = false) {
+    self.title = title
+    self.placing = placing.clone()
+    self.defaults = {
+      x: placing.x, y: placing.y, width: placing.width, height: placing.height, full: full, tab: 1, side: 0,
+      remember: true, openOn: 0, hideDuring: [Occasion.Combat], showAfter: [],
+    }
+    self.memory = new Memory<WindowView>(self.defaults, .Profile, "window:" + name)
+  }
+
+  // What the window is to be: the kept view, or, where nothing is to be kept, the declaration's with the page's
+  // choices.
+  public used(self, view: WindowView): WindowView {
+    if (view.remember) { return view }
+    const declared = self.defaults.clone()
+    declared.remember = false
+    declared.openOn = view.openOn
+    declared.hideDuring = view.hideDuring.clone()
+    declared.showAfter = view.showAfter.clone()
+    return declared
+  }
+}
+
+// While a shown window asks for it, the player's situation follows what it doesn't follow otherwise (a mount,
+// moving): heeded as it is made, let go as it ends (`Game.situation.heed`).
+class Heeding {
+  const what: Game.Heeded
+  constructor(what: Game.Heeded) {
+    self.what = what
+    Game.situation.heed(what)
+  }
+  destructor() { Game.situation.unheed(self.what) }
+}
+
+// Whether a list of occasions holds one.
+function holds(list: Array<Occasion>, occasion: Occasion): Boolean {
+  return list.any((each: Occasion) => each == occasion)
 }
 // How far the side section's line is dragged: from two thirds of the width it is given to twice it.
 const SIDE_LEAST = 2 / 3
@@ -296,9 +359,9 @@ public class Window implements Component {
   derived columns: Array<Track> = self.tabColumns()
   derived place: Place = self.placeOf()
   // The main section keeps the width the player gave it: a side section widens the window by its own column.
-  derived width: Number | nil = self.full ? nil : self.placing.width + self.sideWide
+  derived width: Number | nil = self.full ? nil : self.declared.placing.width + self.sideWide
   derived sideWide: Number = self.sideWideOf()
-  derived height: Number | nil = self.full || self.docked != nil ? nil : self.tabHeight + self.placing.height
+  derived height: Number | nil = self.full || self.docked != nil ? nil : self.tabHeight + self.declared.placing.height
   // Moved by a tab and resized by its grip: neither full screen nor docked.
   derived free: Boolean = !self.full && self.docked == nil
   // The screen's right side kept clear while full screen.
@@ -313,7 +376,6 @@ public class Window implements Component {
 
   tabs: Signal<Array<WindowTabSpec>>
   selected: mut Signal<Integer>
-  placing: mut Signal<Placing>
   const minWidth: Number
   const minHeight: Number
   const maxWidth: Number | nil
@@ -337,18 +399,28 @@ public class Window implements Component {
   const docked: Side | nil
   const asks: Boolean
   room: Signal<Number>
-  // What the player did with the window, kept in the active profile under its name.
-  memory: mut Memory<WindowView>
+  // Its declaration: where it stands, and what the player did with it, kept in the active profile.
+  declared: mut KeptWindow
+  // What this window kept last: a change of the memory that is not its own (a switch of profile, its settings
+  // page) is taken whole, the tab with it.
+  written: WindowView | nil = nil
+  // Whether what is kept was taken once: the first time, as the window is made.
+  made = false
   // The side's width as a drag of its line began, and while it is dragged (0 otherwise): kept as the drag ends.
   side0: Number = 0
   state sideDrag: Number = 0
+  // What hid the window while it is shown, each to show it again as it ends (none: it shows); what the player is in
+  // the middle of now, while it is shown; and what it was at the last change.
+  state away: Array<Occasion> = []
+  derived occasions: Array<Occasion> = self.occasionsOf()
+  derived seen: Boolean = self.shown && self.away.length == 0
+  was: Array<Occasion> = []
+  opened = false
   constructor(
     tabs: Signal<Array<WindowTabSpec>>,
     selected: mut Signal<Integer>,
-    placing: mut Signal<Placing>,
-    // The window's name among its module's windows: what the player does with it is kept under it, in the active
-    // profile (`Memory`), and read back as the window is made and at a switch of profile.
-    keep: String,
+    // The window as its module declares it (`KeptWindow`): where it stands and what is kept of it.
+    declared: mut KeptWindow,
     minWidth: Number = MIN_W,
     minHeight: Number = MIN_H,
     maxWidth: Number | nil = nil,
@@ -358,8 +430,6 @@ public class Window implements Component {
     // Hidden, it stays drawn: a window opened often is shown again at the cost of a surface shown, not of being
     // drawn anew (`$if` on it builds it at each open).
     shown: Signal<Boolean> = true,
-    // Opens full screen.
-    full: Boolean = false,
     // Stands along this side of the screen, its whole length.
     docked: Side | nil = nil,
     // The width kept clear at the screen's right side while full screen: the windows docked there.
@@ -377,7 +447,7 @@ public class Window implements Component {
     self.footed = footer != nil
     self.padding = footer != nil ? PADDING_FOOTED : PADDING
     self.side = side
-    self.full = full
+    self.full = declared.defaults.full
     self.docked = docked
     self.room = room
     self.controls = cornerControls(withSettings)
@@ -385,49 +455,123 @@ public class Window implements Component {
     self.shown = shown
     self.tabs = tabs
     self.selected = selected
-    self.placing = placing
+    self.declared = declared
     self.minWidth = minWidth
     self.minHeight = minHeight
     self.maxWidth = maxWidth
     self.maxHeight = maxHeight
-    const was = peek placing
-    const defaults: WindowView = {
-      x: was.x, y: was.y, width: was.width, height: was.height, full: full, tab: peek selected, side: 0,
+    // Its tabs' titles, for its settings page.
+    watch (list of self.tabs) { self.declared.tabs = list.map((tab: WindowTabSpec) => tab.title) }
+    // What is kept becomes the window's, as it is made, at a switch of profile and as its settings page changes it.
+    watch (view of self.declared.memory.values) { self.recall(view) }
+    // Shown, it opens on the tab the player fixed, where there is one; otherwise on the one its owner says (the
+    // last one open this session, or the one an action asks for).
+    watch (open of self.shown) {
+      if (open) { self.openTab(true, false) }
     }
-    self.memory = new Memory<WindowView>(defaults, .Profile, "window:" + keep)
-    // What is kept becomes the window's, as it is made and at a switch of profile.
-    watch (view of self.memory.values) { self.recall(view) }
     // A tab picked is kept; a window that only asks shows the game's tab, which isn't the player's to keep.
     if (!asks) {
       watch (tab of self.selected) { self.remember((view: mut WindowView) => { view.tab = tab }) }
     }
+    // Shown, it follows what it is to hide for, and what may show it again: a mount and moving are heard only then.
+    watch {
+      if (!self.shown) { return }
+      const view = self.declared.used(self.declared.memory.values)
+      const asked = self.away.length > 0 ? view.showAfter : view.hideDuring
+      if (holds(asked, .Travel)) { self.heed(new Heeding(.Mount)) }
+      if (holds(asked, .Moving)) { self.heed(new Heeding(.Moving)) }
+    }
+    watch { self.follow(self.occasions, self.shown) }
+  }
+
+  // What a watch's run made is the run's: it ends before the next run, and with the window.
+  heed(self, heeding: Heeding) {}
+
+  // What the player is in the middle of, of what can hide a window: read while the window is shown alone.
+  occasionsOf(self): Array<Occasion> {
+    const list: Array<Occasion> = []
+    if (!self.shown) { return list }
+    const situation = Game.situation
+    if (situation.combat) { list.push(.Combat) }
+    if (situation.taxi || situation.vehicle || situation.mounted) { list.push(.Travel) }
+    if (situation.moving) { list.push(.Moving) }
+    return list
+  }
+
+  // What began hides the window where the player chose so: until it ends, where it is to show again after it;
+  // closed otherwise, as the player closes it. What ended shows it again, once nothing else holds it hidden. A window
+  // the player opens in the middle of something stays: what goes on as it opens hides it not.
+  follow(mut self, now: Array<Occasion>, shown: Boolean) {
+    const was = self.was
+    self.was = now
+    if (!shown) {
+      self.opened = false
+      if ((peek self.away).length > 0) { self.away = [] }
+      return
+    }
+    if (!self.opened) {
+      self.opened = true
+      return
+    }
+    const view = self.declared.used(peek self.declared.memory.values)
+    const away = (peek self.away).filter((each: Occasion) => holds(now, each))
+    for (occasion of now) {
+      if (!holds(was, occasion) && holds(view.hideDuring, occasion)) {
+        if (!holds(view.showAfter, occasion)) {
+          self.away = []
+          self.close.emit()
+          return
+        }
+        if (!holds(away, occasion)) { away.push(occasion) }
+      }
+    }
+    if (!away.equal(peek self.away)) { self.away = away }
+  }
+
+  // The tab it opens on: the one fixed on its settings page, or (as it is made, or its memory is changed from
+  // elsewhere) the one last open.
+  openTab(mut self, showing: Boolean, first: Boolean) {
+    if (self.asks) { return }
+    const view = self.declared.used(peek self.declared.memory.values)
+    if (showing && view.openOn == 0) { return }
+    // Made with no tab ever picked, it leaves the one its owner holds (an action may have asked for another before
+    // the window was made).
+    if (first && view.openOn == 0 && view.tab == self.declared.defaults.tab) { return }
+    const tab = view.openOn > 0 ? view.openOn : view.tab
+    if (tab >= 1 && tab <= (peek self.tabs).length) { self.selected = tab }
   }
 
   // What is kept becomes the window's: a size outside the window's own bounds (kept on a larger screen, or before
   // they changed) is held to them, its top left corner where it was; below what its content needs the renderer
   // raises it (`Room`'s least size), and the grip starts from there.
   recall(mut self, view: WindowView) {
-    let width = self.minWidth.max(view.width)
-    let height = self.minHeight.max(view.height)
+    const written = self.written
+    const own = written != nil && written.equal(view)
+    const used = self.declared.used(view)
+    let width = self.minWidth.max(used.width)
+    let height = self.minHeight.max(used.height)
     if (self.maxWidth != nil) { width = self.maxWidth.min(width) }
     if (self.maxHeight != nil) { height = self.maxHeight.min(height) }
-    self.placing = {
-      x: view.x + (width - view.width) / 2, y: view.y + (height - view.height) / 2, width: width, height: height,
+    self.declared.placing = {
+      x: used.x + (width - used.width) / 2, y: used.y + (height - used.height) / 2, width: width, height: height,
     }
-    self.full = view.full
-    if (!self.asks && view.tab >= 1 && view.tab <= (peek self.tabs).length) { self.selected = view.tab }
+    self.full = used.full
+    if (!own) { self.openTab(false, !self.made) }
+    self.made = true
   }
 
-  // A change to what is kept, every entry at once.
+  // A change to what is kept, every entry at once; nothing is kept while the player chose so on its settings page.
   remember(mut self, change: (view: mut WindowView) => nil) {
-    const view = (peek self.memory.values).clone()
+    const view = (peek self.declared.memory.values).clone()
+    if (!view.remember) { return }
     change(mut view)
-    self.memory.write(view)
+    self.written = view.clone()
+    self.declared.memory.write(view)
   }
 
   // Where the window is now, kept: a drag of a tab or of the grip ended.
   onSettle(mut self) {
-    const at = peek self.placing
+    const at = peek self.declared.placing
     self.remember((view: mut WindowView) => {
       view.x = at.x
       view.y = at.y
@@ -439,7 +583,7 @@ public class Window implements Component {
   sideWidthOf(self): Number {
     const side = self.side
     if (side == nil) { return 0 }
-    const dragged = self.sideDrag > 0 ? self.sideDrag : self.memory.values.side
+    const dragged = self.sideDrag > 0 ? self.sideDrag : self.declared.used(self.declared.memory.values).side
     if (dragged <= 0) { return side.width }
     return (side.width * SIDE_LEAST).max((side.width * SIDE_MOST).min(dragged))
   }
@@ -478,8 +622,8 @@ public class Window implements Component {
     if (side != nil) { return Docked { side: side, whole: true } }
     return {
       point: Point.TopLeft, to: Point.Center,
-      x: self.placing.x - self.placing.width / 2,
-      y: self.placing.y - (self.tabHeight + self.placing.height) / 2,
+      x: self.declared.placing.x - self.declared.placing.width / 2,
+      y: self.declared.placing.y - (self.tabHeight + self.declared.placing.height) / 2,
     }
   }
 
@@ -506,10 +650,10 @@ public class Window implements Component {
   }
 
   onGrab(mut self) {
-    self.x0 = (peek self.placing).x
-    self.y0 = (peek self.placing).y
-    self.w0 = (peek self.placing).width
-    self.h0 = (peek self.placing).height
+    self.x0 = (peek self.declared.placing).x
+    self.y0 = (peek self.declared.placing).y
+    self.w0 = (peek self.declared.placing).width
+    self.h0 = (peek self.declared.placing).height
   }
 
   // A tab dragged moves the window, as far as it stays on the screen. The tab row takes the mouse on its tabs alone:
@@ -517,8 +661,8 @@ public class Window implements Component {
   onMove(mut self, drag: Drag) {
     if (self.full || self.docked != nil) { return }
     const dx, dy = kept(drag, Hold.Move)
-    self.placing.x = self.x0 + dx
-    self.placing.y = self.y0 + dy
+    self.declared.placing.x = self.x0 + dx
+    self.declared.placing.y = self.y0 + dy
   }
 
   // The grip taken: the body is never sized below what its content needs (the surface's least size, its tab row
@@ -546,10 +690,10 @@ public class Window implements Component {
     let height = self.minHeight.max(self.leastH).max(self.h0 + dy)
     if (self.maxWidth != nil) { width = self.maxWidth.min(width) }
     if (self.maxHeight != nil) { height = self.maxHeight.min(height) }
-    self.placing.width = width
-    self.placing.height = height
-    self.placing.x = self.x0 + (width - self.w0) / 2
-    self.placing.y = self.y0 + (height - self.h0) / 2
+    self.declared.placing.width = width
+    self.declared.placing.height = height
+    self.declared.placing.x = self.x0 + (width - self.w0) / 2
+    self.declared.placing.y = self.y0 + (height - self.h0) / 2
   }
 
   // The side's line dragged left widens the side, right narrows it, within its bounds (`sideWidthOf`).
@@ -557,15 +701,15 @@ public class Window implements Component {
   // follows the cursor; the window's place and the side's width are kept as the drag ends.
   onSideGrab(mut self) {
     self.side0 = peek self.sideWidth
-    self.x0 = (peek self.placing).x
+    self.x0 = (peek self.declared.placing).x
   }
   onSide(mut self, drag: Drag) {
     self.sideDrag = (self.side0 - drag.dx).max(1)
-    self.placing.x = self.x0 - (peek self.sideWidth - self.side0)
+    self.declared.placing.x = self.x0 - (peek self.sideWidth - self.side0)
   }
   onSideSettle(mut self) {
     const width = peek self.sideWidth
-    const x = (peek self.placing).x
+    const x = (peek self.declared.placing).x
     self.sideDrag = 0
     self.remember((view: mut WindowView) => {
       view.side = width
@@ -577,7 +721,7 @@ public class Window implements Component {
     return $ltml {
       // As wide as the player made it, and never narrower than its tab row (its tabs and its control group): the
       // row is the one thing in its grid, and the width it keeps is its least.
-      <surface shown={self.shown} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
+      <surface shown={self.seen} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
                raise={true} focusLine={self.focusLine}
                @escape={self.onClose}>
         <box position={Position.Absolute} left={0} right={self.inset} top={self.tabHeight} bottom={0}

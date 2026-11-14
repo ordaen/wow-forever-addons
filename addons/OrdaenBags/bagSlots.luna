@@ -3,7 +3,7 @@
 // the bags' window, the rest faded.
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { Component, Placing, PX, space, Window, WindowTabSpec } from "Ordaen"
+import { Component, KeptWindow, PX, space, Window, WindowTabSpec } from "Ordaen"
 import Locale from "@/locales"
 
 const ROW: Array<Track> = [32 * PX, { fr: 1 }, "auto"]
@@ -61,10 +61,10 @@ public class BagSlotsWindow implements Component {
   derived tabs: Array<WindowTabSpec> = [{ title: Locale.BAG_SLOTS }]
 
   lines: Signal<Array<BagLine>>
-  placing: mut Signal<Placing>
-  constructor(lines: Signal<Array<BagLine>>, placing: mut Signal<Placing>) {
+  declared: mut KeptWindow
+  constructor(lines: Signal<Array<BagLine>>, declared: mut KeptWindow) {
     self.lines = lines
-    self.placing = placing
+    self.declared = declared
   }
 
   onClose(self) { self.close.emit() }
@@ -72,7 +72,7 @@ public class BagSlotsWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"slots"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} minWidth={WIDTH} @close={self.onClose}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} minWidth={WIDTH} @close={self.onClose}>
         <box columns={1} gap={space(.Item)}>
           <BagEntry $for={line of self.lines} line={line} @lit={self.onLit} />
         </box>

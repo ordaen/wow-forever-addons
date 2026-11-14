@@ -12,7 +12,7 @@ import Game from "$game"
 import { Align, Click, MouseButton, Overflow, Track } from "$ltml"
 import Runtime from "$runtime"
 import {
-  Choice, Component, ListTab, Memory, Module, Money, Placing, PX, Settings, SettingsPage, space, Tip, TipRow, Toolbar,
+  Choice, Component, KeptWindow, ListTab, Memory, Module, Money, PX, Settings, SettingsPage, space, Tip, TipRow, Toolbar, windowsTitle, WindowsPage,
   ToolAct, ToolButton, ToolPick, Window, WindowTabSpec,
 } from "Ordaen"
 import root Ordaen from "Ordaen"
@@ -105,7 +105,13 @@ class TabEntry implements Component {
 
 public class Bags implements Module, App {
   public const title: String = "Ordaen Bags"
-  public const pages: Array<SettingsPage> = []
+  // Its windows, declared: where each stands and what the player does with it, kept in the profile.
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0, y: 0, width: WIDTH, height: HEIGHT })
+  public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale.BAG_SLOTS, { x: 0, y: 0, width: 250 * PX, height: 300 * PX })
+  public const windows: mut Array<mut KeptWindow> = [self.window, self.slotsWindow]
+  public const pages: Array<SettingsPage> = [
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+  ]
   public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
   public gold: Gold
@@ -137,8 +143,6 @@ public class Bags implements Module, App {
   public state goldShown = false
   // The window is built the first time the bags open, and kept drawn, shown or hidden, from then on.
   state ever = false
-  public state placing: Placing = { x: 0, y: 0, width: WIDTH, height: HEIGHT }
-  public state slotsPlacing: Placing = { x: 0, y: 0, width: 250 * PX, height: 300 * PX }
 
   public derived shown: Boolean = Game.bags.open
   // The header's picks: the view and the sort, kept in the profile as they are picked.
@@ -347,7 +351,7 @@ public class Bags implements Module, App {
 
   gridWidth(self): Number {
     const tabs = self.categories ? TABS_WIDTH + space(.Group) : 0
-    return self.placing.width - 2 * space(.Window) - tabs - SCROLL_ROOM
+    return self.window.placing.width - 2 * space(.Window) - tabs - SCROLL_ROOM
   }
 
   bagLinesOf(self): Array<BagLine> {
@@ -417,15 +421,15 @@ public class Bags implements Module, App {
   onLit(mut self, bag: Integer) { self.lit = bag }
   onSlotsClosed(mut self) { self.slotsOpen = false }
 
-  // The bag slots open beside the window, at its right, level with its top.
+  // The bag slots open beside the window, at its right, level with its top, at the size they were left at.
   placeSlots(mut self, open: Boolean) {
     if (!open) { return }
-    const at = peek self.placing
-    const size = peek self.slotsPlacing
-    self.slotsPlacing = {
+    const at = peek self.window.placing
+    const size = peek self.slotsWindow.memory.values
+    self.slotsWindow.memory.write({
       x: at.x + at.width / 2 + space(.Group) + size.width / 2, y: at.y - at.height / 2 + size.height / 2,
-      width: size.width, height: size.height,
-    }
+      ..size,
+    })
   }
 
   onGoldEnter(mut self) { self.goldShown = true }
@@ -452,7 +456,7 @@ public class Bags implements Module, App {
     return $ltml {
       <frame $for={window of Game.bags.windows} of={window} opacity={0} away={true} />
       <$if={self.ever}>
-        <Window keep={"main"} tabs={self.windowTabs} selected={mut self.windowTab} placing={mut self.placing} shown={self.shown}
+        <Window tabs={self.windowTabs} selected={mut self.windowTab} declared={mut self.window} shown={self.shown}
                 withSettings={true} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
           <box rows={BODY} gap={space(.Group)}>
             <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
@@ -481,7 +485,7 @@ public class Bags implements Module, App {
             </box>
           </box>
         </Window>
-        <BagSlotsWindow $if={self.slotsOpen && self.shown} lines={self.bagLines} placing={mut self.slotsPlacing}
+        <BagSlotsWindow $if={self.slotsOpen && self.shown} lines={self.bagLines} declared={mut self.slotsWindow}
                         @close={self.onSlotsClosed} @lit={self.onLit} />
       </>
     }

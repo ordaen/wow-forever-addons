@@ -8,7 +8,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Density } from "@/globals"
 import Locale from "@/locales"
-import { Placing, Window, WindowTabSpec, WindowView } from "@/window"
+import { KeptWindow, Occasion, Window, WindowTabSpec, WindowView } from "@/window"
 
 function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
 
@@ -139,12 +139,12 @@ function body(): Test.Rect { return Test.edges(Ordaen.art.window.wood, 0) }
 class Crowded {
   state tabs: Array<WindowTabSpec> = [{ title: "Crowded" }]
   state tab = 1
-  public state placing: Placing = { x: 0, y: 0, width: 800, height: 600 }
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 800, height: 600 })
   const footer: Template = $ltml { <text value={"the footer"} /> }
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"crowded"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} footer={self.footer}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}>
         <box width={500} height={400} background={Ordaen.art.window.wood} />
       </Window>
     }
@@ -165,7 +165,7 @@ test "the grip stops where the content would be cut, and the window grows again 
   const grown = Test.edges(Ordaen.art.window.wood, 0)
   Test.expect(grown.right > least.right + 20 && grown.bottom > least.bottom + 10)
   // A place handed to it smaller than its content needs (what a restore hands it) is drawn at the least.
-  page.placing = { x: 0, y: 0, width: 280, height: 170 }
+  page.placing.placing = { x: 0, y: 0, width: 280, height: 170 }
   Test.flush()
   const handed = Test.edges(Ordaen.art.window.wood, 0)
   Test.expect(near(handed.right - handed.left, least.right - least.left))
@@ -190,4 +190,51 @@ test "a size kept below what the content needs is raised to it as the window ope
   Test.expect(near(raised.right - raised.left, least.right - least.left))
   Test.expect(near(raised.bottom - raised.top, least.bottom - least.top))
   Test.expect(near(tab().x, corner.x))
+}
+
+test "a number typed on the «Windows» page moves the window, and is kept" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  Test.click(Test.holding(Locale.WINDOWS_TAB, nil), nil)
+  Test.flush()
+  const before = tab()
+  // The first field is the place across, from the screen's centre: 0 as the window starts.
+  Test.click(Test.field(nil), nil)
+  Test.erase(6)
+  Test.type("-100")
+  Test.flush()
+  const moved = tab()
+  Test.expect(near(moved.x, before.x - 100) && near(moved.y, before.y))
+  Test.shot("the place across typed: -100, the window 100 to the left")
+  const kept = WindowView.decode(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:window:settings"),
+    WindowView {})
+  Test.expect(kept.x == -100)
+}
+
+test "a window that keeps nothing opens where it is declared, whatever it was moved to" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  const before = tab()
+  drag(before, -80, 0)
+  const settings = Ordaen.window ?? panic("the settings window is made as it opens")
+  const view: WindowView = { remember: false, ..settings.window.memory.values }
+  settings.window.memory.write(view)
+  Test.flush()
+  Test.expect(near(tab().x, before.x))
+}
+
+test "the «Windows» page says «never» where nothing shows a window again, and a choice picked there is kept" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  Test.click(Test.holding(Locale.WINDOWS_TAB, nil), nil)
+  Test.flush()
+  Test.click(Test.holding(Locale.WINDOW_NEVER, nil), nil)
+  Test.flush()
+  // The menu lists the occasions after the plate «Hide during» shows its own: the second «Combat» is this menu's.
+  Test.click(Test.holding(Locale.OCCASION_COMBAT, 2), nil)
+  Test.flush()
+  Test.shot("«Show again after» opened and «Combat» picked: the plate names it, the menu stays open")
+  const settings = Ordaen.window ?? panic("the settings window is made as it opens")
+  Test.expect(settings.window.memory.values.showAfter.equal([Occasion.Combat]))
+  Test.expect(settings.window.memory.values.hideDuring.equal([Occasion.Combat]))
 }

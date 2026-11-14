@@ -7,7 +7,7 @@
 import Game from "$game"
 import { Action, Align, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
-import { ARTWORK, Choice, Column, ItemId, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, space, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec } from "Ordaen"
+import { ARTWORK, Choice, Column, ItemId, Memory, Module, PushButton, PX, SettingsPage, Settings, space, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, KeptWindow, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
@@ -83,8 +83,12 @@ const NOTHING_KEPT: Kept = {
 
 public class Professions implements Module, App {
   public const title: String = "Ordaen Professions"
+  // Its window, declared: where it stands and what the player does with it, kept in the profile.
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
   ]
   // The window's footer: the profession's own spell («Find Minerals») at its left; on the queue's page what the queue
   // is doing and «Create next». The make row is the chosen recipe's card's (`RecipeDetails`).
@@ -121,7 +125,6 @@ public class Professions implements Module, App {
   state count = 1
   state makeMode: MakeMode = MakeMode.Count
   public state search = ""
-  public state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   // The filter: the menu, and each option.
   public state filterOpen = false
   public state onlyMake = false
@@ -669,7 +672,7 @@ public class Professions implements Module, App {
     return $ltml {
       <$if={self.isOpen}>
         <frame of={Game.frames.Professions} opacity={0} away={true} />
-        <Window keep={"main"} $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} placing={mut self.placing} withSettings={true}
+        <Window $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} declared={mut self.window} withSettings={true}
                 footer={self.footer} @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>
             <text value={Locale.PICK} textColor={Style.DIM} />

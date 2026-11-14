@@ -7,7 +7,7 @@ import Client from "$client"
 import Game from "$game"
 import { Frame } from "$ltml"
 import Runtime from "$runtime"
-import { Module, Placing, Settings, SettingsPage, Window, WindowTabSpec } from "Ordaen"
+import { Module, Settings, SettingsPage, Window, WindowTabSpec, KeptWindow, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { Choices, GeneralPage } from "@/settings"
@@ -18,17 +18,20 @@ import { TrainerPage } from "@/trainer"
 
 public class Spells implements Module, App {
   public const title: String = "Ordaen Spells"
+  // Its windows, declared: where each stands and what the player does with it, kept in the profile.
+  public window: mut KeptWindow = new KeptWindow("book", self.title, { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT })
+  public trainerWindow: mut KeptWindow = new KeptWindow("trainer", Locale.TAB_TRAINER, { x: 0, y: 0, width: Style.TRAINER_WIDTH, height: Style.HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
   ]
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ specOne: "", specTwo: "", trainer: true })
 
   state open = false
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   state trainerTab = 1
-  state trainerPlacing: Placing = { x: 0, y: 0, width: Style.TRAINER_WIDTH, height: Style.HEIGHT }
   state spells: Array<Game.SpellEntry> = []
   state lines: Array<Game.SpellLine> = []
   state trees: Array<Game.TalentTree> = []
@@ -140,14 +143,14 @@ public class Spells implements Module, App {
   public render(self): Template {
     return $ltml {
       <frame $if={self.gameShown} of={Game.frames.PlayerSpells} opacity={0} away={true} />
-      <Window keep={"book"} $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
+      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               @close={self.onClose} @settings={self.onSettings}>
         <SpellbookPage $if={self.tab == 1} spells={self.spells} lines={self.lines} />
         <TalentsPage $else trees={self.trees} unspent={self.unspent} staged={self.staged} active={self.groupActive} @spend={self.onSpend}
                      @refund={self.onRefund} @apply={self.onApply} @cancel={self.onCancel} @activate={self.onActivate} />
       </Window>
-      <Window keep={"trainer"} $if={self.trainerShown} tabs={self.trainerTabs} selected={mut self.trainerTab}
-              placing={mut self.trainerPlacing} withSettings={true} @close={self.onTrainerClose}
+      <Window $if={self.trainerShown} tabs={self.trainerTabs} selected={mut self.trainerTab}
+              declared={mut self.trainerWindow} withSettings={true} @close={self.onTrainerClose}
               @settings={self.onSettings}>
         <TrainerPage services={self.services} level={self.level} />
       </Window>

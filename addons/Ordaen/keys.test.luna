@@ -14,7 +14,7 @@ import { Switch } from "@/switch"
 import { Column, Table, TableRow } from "@/table"
 import { Tabs } from "@/tabs"
 import { TextBox } from "@/textBox"
-import { Placing, Window, WindowTabSpec } from "@/window"
+import { KeptWindow, Window, WindowTabSpec } from "@/window"
 
 const SIDES: Array<Choice<String>> = [{ value: "left", label: "Left" }, { value: "right", label: "Right" }]
 const SIZES: Array<Choice<Integer>> = [{ value: 1, label: "Small" }, { value: 2, label: "Large" }]
@@ -25,7 +25,7 @@ class Controls {
   state open = true
   state tabs: Array<WindowTabSpec> = [{ title: "Controls" }, { title: "More" }]
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: 760, height: 620 }
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 760, height: 620 })
   state pixel = false
   state sounds = false
   state ticked = false
@@ -54,7 +54,7 @@ class Controls {
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"test"} shown={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}
+      <Window shown={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}
               @close={self.close}>
         <box columns={1} gap={6}>
           <Checkbox label={"Pixel"} value={mut self.pixel} />

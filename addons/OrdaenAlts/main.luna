@@ -4,7 +4,7 @@
 // The window (`/alts`) is made only while it shows.
 import Game from "$game"
 import Runtime from "$runtime"
-import { Hour, ItemId, Module, Placing, SettingsPage, Window, WindowTabSpec } from "Ordaen"
+import { Hour, ItemId, Module, SettingsPage, Window, WindowTabSpec, KeptWindow, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { Character, CharacterId, factionOf, Held, Kept, Knower, RecipeId } from "@/character"
 import { Characters } from "@/characters"
@@ -29,7 +29,12 @@ const TABS: Array<WindowTabSpec> = [
 
 public class Alts implements Module, App {
   public const title: String = "Ordaen Alts"
-  public const pages: Array<SettingsPage> = []
+  // Its window, declared: where it stands and what the player does with it, kept in the profile.
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window]
+  public const pages: Array<SettingsPage> = [
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+  ]
   // The character being played.
   public const current: CharacterId
   // Every character of the account that was recorded, by its GUID.
@@ -40,7 +45,6 @@ public class Alts implements Module, App {
   // Whether the window shows, and its tab and place.
   state open = false
   public state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   const kept: mut Kept
   const records: mut Records
   const recorder: mut Recorder
@@ -88,7 +92,7 @@ public class Alts implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"main"} $if={self.open} tabs={TABS} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}>
+      <Window $if={self.open} tabs={TABS} selected={mut self.tab} declared={mut self.window} @close={self.onClose}>
         <Characters $if={self.tab == 1} records={self.records} touched={self.records.touched} @forget={self.onForget} />
         <Holdings $elseif={self.tab == 2} records={self.records} touched={self.records.touched} />
         <Cooldowns $elseif={self.tab == 3} records={self.records} touched={self.records.touched} />

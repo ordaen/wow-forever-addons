@@ -36,6 +36,9 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 619.42,223.04 81.25x26.67 #00000000 @click
                 box 620.25,223.88 79.58x1.67 absolute #00000000
                 text 631.92,229.71 56.25x15 "Behaviour" #a3977f
+              box 704,223.04 68.75x26.67 #00000000 @click
+                box 704.83,223.88 67.08x1.67 absolute #00000000
+                text 716.5,229.71 43.75x15 "Windows" #a3977f
             box 487.75,266.38 754.5x96.67
               box 487.75,266.38 754.5x16.67 opacity=1
                 box 487.75,267.21 233.33x15 @enter @leave

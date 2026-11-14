@@ -147,7 +147,7 @@ test "a short window's list scrolls: each switch switches what its line shows, a
   const window = new AddOnsWindow("Ordaen")
   Test.mount(window, SCREEN)
   Test.flush()
-  window.placing = { x: 0, y: 0, width: Style.WIDTH, height: 260 }
+  window.declared.memory.write({ x: 0, y: 0, width: Style.WIDTH, height: 260, ..window.declared.memory.values })
   Test.flush()
   Test.moveTo(Test.holding("Ordaen", nil))
   for (round of 1..=3) {
