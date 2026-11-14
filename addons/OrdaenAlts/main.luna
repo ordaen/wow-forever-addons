@@ -39,7 +39,7 @@ public class Alts implements Module, App {
 
   // Whether the window shows, and its tab and place.
   state open = false
-  state tab = 1
+  public state tab = 1
   state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   const kept: mut Kept
   const records: mut Records
