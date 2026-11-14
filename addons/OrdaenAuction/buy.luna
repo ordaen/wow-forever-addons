@@ -9,7 +9,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Beside, Edges, Layer, Line, Overflow, Side, Track } from "$ltml"
-import { ageText, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, ListTab, Money, PushButton, PX, space, Table, TableRow, ToolButton, Toolbar, tracksOf } from "Ordaen"
+import { ageText, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, ListTab, Money, PushButton, PX, space, Table, TableRow, ToolButton, Toolbar, tracksOf, Memory } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
@@ -116,6 +116,16 @@ function labelOf(choices: Array<Choice<Integer>>, value: Integer): String {
 // The filter's menu under the toolbar's funnel: the level bands and the qualities, each a list of its choices (the
 // first lets every one through), the second under a rule. A choice picked stays in the open menu; a click anywhere
 // else closes it. The classes are the categories at the page's left.
+// How the player left «Buy»'s list: the filter's level band and quality, the column it is sorted by (0: as the
+// house gives it) and which way.
+public struct BuyView implements Plain {
+  level: Integer = ANY
+  quality: Integer = ANY
+  sorted: Integer = 0
+  descending: Boolean = false
+}
+const BUY_VIEW: BuyView = {}
+
 class FilterMenu implements Component {
   public close: Event<nil> = new Event()
 
@@ -305,13 +315,11 @@ public class BuyPage implements Component {
   // The category picked at the left: a class and one of its subclasses, `ANY` for none.
   state itemClass = ANY
   state itemSubclass = ANY
-  state level = ANY
-  state quality = ANY
   state filterOpen = false
   // The filter's Tip: the level band and the quality it lets through.
-  derived filterText: String = [labelOf(LEVELS, self.level), labelOf(QUALITIES, self.quality)].join(", ")
-  state sorted = 0
-  state descending = false
+  derived filterText: String = [labelOf(LEVELS, self.list.values.level), labelOf(QUALITIES, self.list.values.quality)].join(", ")
+  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  public list: mut Memory<BuyView> = new Memory<BuyView>(BUY_VIEW, .Profile, "buy")
   state picked: PriceKey | nil = nil
   // What the house was last searched for, as `wanted` says it.
   state sent = ""
@@ -321,9 +329,9 @@ public class BuyPage implements Component {
   derived rows: Array<Found> = self.matching()
   // The row picked, while it is shown: one or none, handed to the window's side section.
   derived picks: Array<Found> = self.chosenOf()
-  derived filtered: Boolean = self.level != ANY || self.quality != ANY
-  derived wanted: String = "%s|%d|%d|%d|%d".format(self.search, self.itemClass, self.itemSubclass, self.level,
-    self.quality)
+  derived filtered: Boolean = self.list.values.level != ANY || self.list.values.quality != ANY
+  derived wanted: String = "%s|%d|%d|%d|%d".format(self.search, self.itemClass, self.itemSubclass, self.list.values.level,
+    self.list.values.quality)
   derived empty: String = self.items > 0 ? Locale.NO_RESULTS : Locale.NO_PRICES_FIND
   derived anyClass: Boolean = self.itemClass == ANY
   // The typing's turn: a settle that comes after a later key, or after Enter, is stale.
@@ -386,13 +394,13 @@ public class BuyPage implements Component {
   }
 
   filters(self): Game.SearchFilters {
-    const level = self.level
+    const level = self.list.values.level
     return {
       itemClass: self.itemClass != ANY ? self.itemClass : nil,
       itemSubclass: self.itemClass != ANY && self.itemSubclass != ANY ? self.itemSubclass : nil,
       minLevel: level != ANY ? level : nil,
       maxLevel: level != ANY ? level + 9 : nil,
-      qualities: self.quality != ANY ? [self.quality] : [],
+      qualities: self.list.values.quality != ANY ? [self.list.values.quality] : [],
     }
   }
 
@@ -410,8 +418,8 @@ public class BuyPage implements Component {
         low: Copper.of(offer.copper), market: market, share: share,
       })
     }
-    const column = self.sorted
-    const down = self.descending
+    const column = self.list.values.sorted
+    const down = self.list.values.descending
     if (column != 0) { list.sort((a, b) => down ? before(b, a, column) : before(a, b, column)) }
     return list
   }
@@ -459,14 +467,14 @@ public class BuyPage implements Component {
             <Toolbar search={mut self.typed} placeholder={Locale.SEARCH} @submit={self.searchNow}>
               <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.filterText}
                           open={mut self.filterOpen} lit={self.filtered}>
-                <FilterMenu $if={self.filterOpen} level={mut self.level} quality={mut self.quality}
+                <FilterMenu $if={self.filterOpen} level={mut self.list.values.level} quality={mut self.list.values.quality}
                             @close={self.closeFilter} />
               </ToolButton>
             </Toolbar>
             <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
           </box>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-            <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+            <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
                    rowHeight={Style.ITEM_ROW}>
               <FoundRow $for={row of self.rows} $key={row.key} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil} @pick={self.onPick} />

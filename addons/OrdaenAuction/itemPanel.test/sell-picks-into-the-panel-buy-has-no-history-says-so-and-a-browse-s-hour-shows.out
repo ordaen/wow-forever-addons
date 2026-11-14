@@ -127,6 +127,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                 box 1338.92,499.67 233.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                   box 1338.92,499.67 233.33x28.33 absolute
                     text 1443.08,506.33 25x15 "Post" #808080
+      box 1315.92,50 6.67x839.5 absolute @drag @dragStart @dragStop
     box 1516.08,49.08 77.5x26.67 absolute clipped
       box 1516.08,49.08 29.17x26.67 absolute clipped @click
         box 1516.08,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -306,6 +307,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                 box 1338.92,518 233.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                   box 1338.92,518 233.33x28.33 absolute
                     text 1443.08,524.67 25x15 "Post" #808080
+      box 1315.92,50 6.67x839.5 absolute @drag @dragStart @dragStop
     box 1516.08,49.08 77.5x26.67 absolute clipped
       box 1516.08,49.08 29.17x26.67 absolute clipped @click
         box 1516.08,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
