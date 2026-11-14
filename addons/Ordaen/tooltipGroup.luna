@@ -16,6 +16,9 @@ const GAP = 4 * PX
 
 public class TooltipGroup implements Component {
   derived columns: Array<Track> = TooltipGroup.autos(1 + self.beside)
+  // The secondary tooltips stand on the primary's left: with none beside it there is nothing to turn round, and
+  // nothing is drawn again as the side the group runs to changes.
+  derived turned: Boolean = self.leftwards && self.beside > 0
 
   public enter: Event<nil> = new Event()
   public leave: Event<nil> = new Event()
@@ -54,12 +57,12 @@ public class TooltipGroup implements Component {
       <surface shown={self.shown} layer={Layer.Tooltip} place={self.place}>
         <box columns={self.columns} gap={GAP} yAlign={self.across} ownsGaps={true} hoverWithin={true}
              @enter={self.onEnter} @leave={self.onLeave}>
-          <$if={self.leftwards}>
+          // The primary tooltip stays where it is drawn: the group turning round moves the secondary ones alone.
+          <$if={self.turned}>
             <slot #secondary />
-            <slot #primary />
           </>
-          <$else>
-            <slot #primary />
+          <slot #primary />
+          <$if={!self.turned}>
             <slot #secondary />
           </>
         </box>
