@@ -44,17 +44,20 @@ box 0,0 700x543.5
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x43.33
       box 0,238.33 700x21.67 #00000000 @click
@@ -187,17 +190,20 @@ box 0,0 700x543.5
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x43.33
       box 0,238.33 700x21.67 #00000000 @click
@@ -329,17 +335,20 @@ box 0,0 700x543.5
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x43.33
       box 0,238.33 700x21.67 #00000000 @click
@@ -470,17 +479,20 @@ box 0,0 700x543.5
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x43.33
       box 0,238.33 700x21.67 #00000000 @click
@@ -611,17 +623,20 @@ box 0,0 700x543.5
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x43.33
       box 0,238.33 700x21.67 #00000000 @click
@@ -752,17 +767,20 @@ box 0,0 700x543.5
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #ffffff26
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x43.33
       box 0,238.33 700x21.67 #00000000 @click
@@ -894,17 +912,20 @@ box 0,0 700x521.83
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x21.67
       box 0,238.33 700x21.67 #00000059 @click
@@ -1030,17 +1051,20 @@ box 0,0 700x521.83
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x21.67
       box 0,238.33 700x21.67 #00000000 @click
@@ -1166,17 +1190,20 @@ box 0,0 700x521.83
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x21.67
       box 0,238.33 700x21.67 #00000000 @click
@@ -1302,17 +1329,20 @@ box 0,0 700x521.83
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x21.67
       box 0,238.33 700x21.67 #00000000 @click
@@ -1438,17 +1468,20 @@ box 0,0 700x521.83
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x21.67
       box 0,238.33 700x21.67 #00000000 @click
@@ -1574,17 +1607,20 @@ box 0,0 700x521.83
       box 248.33,193.33 451.67x33.33
         box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,193.33 33.33x33.33 absolute
+          box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
         box 289.67,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,193.33 33.33x33.33 absolute
+          box 289.67,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 289.67,193.33 33.33x33.33 absolute #00000000
           box 289.67,193.33 33.33x33.33 absolute
             text 309.67,212 10.83x13 "20" #ffffff
         box 331,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,193.33 33.33x33.33 absolute
+          box 331,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 331,193.33 33.33x33.33 absolute #00000000
     box 0,238.33 700x21.67
       box 0,238.33 700x21.67 #00000000 @click

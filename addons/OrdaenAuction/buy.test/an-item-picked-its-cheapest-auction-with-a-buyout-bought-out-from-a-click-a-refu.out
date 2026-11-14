@@ -69,6 +69,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                   box 471.08,364.71 49.5x20
                     box 471.08,364.71 20x20 #0d0a08 opacity=1 @click @enter
                       box 471.08,364.71 20x20 absolute
+                      box 471.08,364.71 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                       box 471.08,364.71 20x20 absolute #00000000
                     box 497.75,367.21 22.83x15 clipped
                       text 497.75,367.21 62.5x15 "Bronze Axe" #e8dcc4
@@ -87,6 +88,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
               box 958.08,309.71 173.33x33.33
                 box 958.08,309.71 33.33x33.33 #0d0a08 opacity=1 @click @enter
                   box 958.08,309.71 33.33x33.33 absolute
+                  box 958.08,309.71 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                   box 958.08,309.71 33.33x33.33 absolute #00000000
                 text 999.75,317.38 131.67x18 "Bronze Axe" #e8dcc4
               box 958.08,351.38 173.33x134.17
@@ -237,6 +239,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                   box 471.08,364.71 49.5x20
                     box 471.08,364.71 20x20 #0d0a08 opacity=1 @click @enter
                       box 471.08,364.71 20x20 absolute
+                      box 471.08,364.71 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                       box 471.08,364.71 20x20 absolute #00000000
                     box 497.75,367.21 22.83x15 clipped
                       text 497.75,367.21 62.5x15 "Bronze Axe" #e8dcc4
@@ -255,6 +258,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
               box 958.08,309.71 173.33x33.33
                 box 958.08,309.71 33.33x33.33 #0d0a08 opacity=1 @click @enter
                   box 958.08,309.71 33.33x33.33 absolute
+                  box 958.08,309.71 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                   box 958.08,309.71 33.33x33.33 absolute #00000000
                 text 999.75,317.38 131.67x18 "Bronze Axe" #e8dcc4
               box 958.08,351.38 173.33x134.17

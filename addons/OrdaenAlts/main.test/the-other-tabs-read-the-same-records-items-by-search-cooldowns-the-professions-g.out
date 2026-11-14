@@ -8,6 +8,7 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
         box 364.42,293.04 876.17x38.33
           box 364.42,295.54 33.33x33.33 #0d0a08 opacity=1 @click @enter
             box 364.42,295.54 33.33x33.33 absolute
+            box 364.42,295.54 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
             box 364.42,295.54 33.33x33.33 absolute #00000000
             box 364.42,295.54 33.33x33.33 absolute
               text 384.42,314.21 10.83x13 "20" #ffffff
@@ -16,6 +17,7 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
         box 364.42,331.37 876.17x38.33
           box 364.42,333.87 33.33x33.33 #0d0a08 opacity=1 @click @enter
             box 364.42,333.87 33.33x33.33 absolute
+            box 364.42,333.87 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
             box 364.42,333.87 33.33x33.33 absolute #00000000
             box 364.42,333.87 33.33x33.33 absolute
               text 389.83,352.54 5.42x13 "7" #ffffff
@@ -46,6 +48,7 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
         box 364.42,293.04 876.17x38.33
           box 364.42,295.54 33.33x33.33 #0d0a08 opacity=1 @click @enter
             box 364.42,295.54 33.33x33.33 absolute
+            box 364.42,295.54 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
             box 364.42,295.54 33.33x33.33 absolute #00000000
             box 364.42,295.54 33.33x33.33 absolute
               text 384.42,314.21 10.83x13 "20" #ffffff

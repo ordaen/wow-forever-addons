@@ -81,6 +81,8 @@ public struct ArtControls {
   // A compared stat's more and less: the triangle filling its cell, outlined black, white inside, tinted by its box.
   compareUp: Art
   compareDown: Art
+  // The light inside an item slot's quality rim, white, stretched over the slot and tinted with the quality's colour.
+  qualityRim: Art
   grip: Art
   gripHover: Art
   gripDown: Art
@@ -182,6 +184,8 @@ public const ARTWORK: Artwork = {
     markOpen: { file: "@/media/ctl-marks.tga", width: 32, height: 256, rows: 8, normal: 3 },
     compareUp: { file: "@/media/ctl-marks.tga", width: 32, height: 256, rows: 8, normal: 4 },
     compareDown: { file: "@/media/ctl-marks.tga", width: 32, height: 256, rows: 8, normal: 5 },
+    // An item slot's rim light (art/pieces/quality-rim.json): a 40 px slot's inner glow.
+    qualityRim: "@/media/ctl-quality-rim.tga",
     // A window's corner group (art/pieces/corner.json): the plates by tone and place, the glyphs; the row by state
     // (a glyph pressed is its hover's: the mouse is on it).
     corner: {
