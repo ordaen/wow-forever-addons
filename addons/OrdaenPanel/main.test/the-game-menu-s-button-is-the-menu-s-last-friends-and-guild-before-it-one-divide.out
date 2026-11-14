@@ -48,21 +48,21 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 494,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 543.67,873.5 524.33x0
-    box 543.67,873.5 524.33x0
-  box 1068,847 532x53
-    box 1068,847 101x53
-      box 1068,847 49.67x53
-        box 1068,847 49.67x53 #00000000
-          box 1075.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          embed 1068,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1117.67,847 51.33x53
-        box 1117.67,857.6 1.67x31.8 #0a0603d9
-        box 1119.33,847 49.67x53 #00000000
-          box 1126.67,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1119.33,847 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1175.67,866 60x15
-      text 1175.67,866 50x15 "0g 0s 0c" #e8dcc4
+  box 543.67,873.5 519.89x0
+    box 543.67,873.5 519.89x0
+  box 1063.56,847 536.44x53
+    box 1063.56,847 101x53
+      box 1063.56,847 49.67x53
+        box 1063.56,847 49.67x53 #00000000
+          box 1070.89,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          embed 1063.56,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1113.22,847 51.33x53
+        box 1113.22,857.6 1.67x31.8 #0a0603d9
+        box 1114.89,847 49.67x53 #00000000
+          box 1122.22,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1114.89,847 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1171.22,865.7 64.44x15.6
+      text 1171.22,865.7 54.44x15.6 "0g 0s 0c" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
@@ -102,4 +102,4 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   embed 0,776 128x124 absolute frame=none opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred

@@ -1,91 +1,91 @@
 -- two colours, the third row disabled
 box 0,0 700x68.33
   box 0,0 700x18.33 opacity=1
-    box 0,1.67 233.33x15 @enter @leave
-      text 0,1.67 233.33x15 "The frame" #cbb994
+    box 0,1.37 233.33x15.6 @enter @leave
+      text 0,1.37 233.33x15.6 "The frame" #cbb994
     box 248.33,0 36.67x18.33 #804020 @click
   box 0,25 700x18.33 opacity=1
-    box 0,26.67 233.33x15 @enter @leave
-      text 0,26.67 233.33x15 "The text" #cbb994
+    box 0,26.37 233.33x15.6 @enter @leave
+      text 0,26.37 233.33x15.6 "The text" #cbb994
     box 248.33,25 36.67x18.33 #f3e1b8 @click
   box 0,50 700x18.33 opacity=0.45
-    box 0,51.67 233.33x15 @enter @leave
-      text 0,51.67 233.33x15 "Greyed" #cbb994
+    box 0,51.37 233.33x15.6 @enter @leave
+      text 0,51.37 233.33x15.6 "Greyed" #cbb994
     box 248.33,50 36.67x18.33 #f3e1b8 @click
 
 -- the first swatch clicked: the game's picker opens on its colour
 box 0,0 700x68.33
   box 0,0 700x18.33 opacity=1
-    box 0,1.67 233.33x15 @enter @leave
-      text 0,1.67 233.33x15 "The frame" #cbb994
+    box 0,1.37 233.33x15.6 @enter @leave
+      text 0,1.37 233.33x15.6 "The frame" #cbb994
     box 248.33,0 36.67x18.33 #804020 @click
   box 0,25 700x18.33 opacity=1
-    box 0,26.67 233.33x15 @enter @leave
-      text 0,26.67 233.33x15 "The text" #cbb994
+    box 0,26.37 233.33x15.6 @enter @leave
+      text 0,26.37 233.33x15.6 "The text" #cbb994
     box 248.33,25 36.67x18.33 #f3e1b8 @click
   box 0,50 700x18.33 opacity=0.45
-    box 0,51.67 233.33x15 @enter @leave
-      text 0,51.67 233.33x15 "Greyed" #cbb994
+    box 0,51.37 233.33x15.6 @enter @leave
+      text 0,51.37 233.33x15.6 "Greyed" #cbb994
     box 248.33,50 36.67x18.33 #f3e1b8 @click
 asked: ColorPicker.open #804020
 
 -- green picked there: the first setting is green, the second as it was
 box 0,0 700x68.33
   box 0,0 700x18.33 opacity=1
-    box 0,1.67 233.33x15 @enter @leave
-      text 0,1.67 233.33x15 "The frame" #cbb994
+    box 0,1.37 233.33x15.6 @enter @leave
+      text 0,1.37 233.33x15.6 "The frame" #cbb994
     box 248.33,0 36.67x18.33 #00ff00 @click
   box 0,25 700x18.33 opacity=1
-    box 0,26.67 233.33x15 @enter @leave
-      text 0,26.67 233.33x15 "The text" #cbb994
+    box 0,26.37 233.33x15.6 @enter @leave
+      text 0,26.37 233.33x15.6 "The text" #cbb994
     box 248.33,25 36.67x18.33 #f3e1b8 @click
   box 0,50 700x18.33 opacity=0.45
-    box 0,51.67 233.33x15 @enter @leave
-      text 0,51.67 233.33x15 "Greyed" #cbb994
+    box 0,51.37 233.33x15.6 @enter @leave
+      text 0,51.37 233.33x15.6 "Greyed" #cbb994
     box 248.33,50 36.67x18.33 #f3e1b8 @click
 
 -- the second opened and blue picked: only the second changes
 box 0,0 700x68.33
   box 0,0 700x18.33 opacity=1
-    box 0,1.67 233.33x15 @enter @leave
-      text 0,1.67 233.33x15 "The frame" #cbb994
+    box 0,1.37 233.33x15.6 @enter @leave
+      text 0,1.37 233.33x15.6 "The frame" #cbb994
     box 248.33,0 36.67x18.33 #00ff00 @click
   box 0,25 700x18.33 opacity=1
-    box 0,26.67 233.33x15 @enter @leave
-      text 0,26.67 233.33x15 "The text" #cbb994
+    box 0,26.37 233.33x15.6 @enter @leave
+      text 0,26.37 233.33x15.6 "The text" #cbb994
     box 248.33,25 36.67x18.33 #0000ff @click
   box 0,50 700x18.33 opacity=0.45
-    box 0,51.67 233.33x15 @enter @leave
-      text 0,51.67 233.33x15 "Greyed" #cbb994
+    box 0,51.37 233.33x15.6 @enter @leave
+      text 0,51.37 233.33x15.6 "Greyed" #cbb994
     box 248.33,50 36.67x18.33 #0000ff @click
 asked: ColorPicker.open #f3e1b8
 
 -- the picker's Cancel: the second is back to the colour it opened with
 box 0,0 700x68.33
   box 0,0 700x18.33 opacity=1
-    box 0,1.67 233.33x15 @enter @leave
-      text 0,1.67 233.33x15 "The frame" #cbb994
+    box 0,1.37 233.33x15.6 @enter @leave
+      text 0,1.37 233.33x15.6 "The frame" #cbb994
     box 248.33,0 36.67x18.33 #00ff00 @click
   box 0,25 700x18.33 opacity=1
-    box 0,26.67 233.33x15 @enter @leave
-      text 0,26.67 233.33x15 "The text" #cbb994
+    box 0,26.37 233.33x15.6 @enter @leave
+      text 0,26.37 233.33x15.6 "The text" #cbb994
     box 248.33,25 36.67x18.33 #f3e1b8 @click
   box 0,50 700x18.33 opacity=0.45
-    box 0,51.67 233.33x15 @enter @leave
-      text 0,51.67 233.33x15 "Greyed" #cbb994
+    box 0,51.37 233.33x15.6 @enter @leave
+      text 0,51.37 233.33x15.6 "Greyed" #cbb994
     box 248.33,50 36.67x18.33 #f3e1b8 @click
 
 -- the disabled one clicked: the picker isn't opened
 box 0,0 700x68.33
   box 0,0 700x18.33 opacity=1
-    box 0,1.67 233.33x15 @enter @leave
-      text 0,1.67 233.33x15 "The frame" #cbb994
+    box 0,1.37 233.33x15.6 @enter @leave
+      text 0,1.37 233.33x15.6 "The frame" #cbb994
     box 248.33,0 36.67x18.33 #00ff00 @click
   box 0,25 700x18.33 opacity=1
-    box 0,26.67 233.33x15 @enter @leave
-      text 0,26.67 233.33x15 "The text" #cbb994
+    box 0,26.37 233.33x15.6 @enter @leave
+      text 0,26.37 233.33x15.6 "The text" #cbb994
     box 248.33,25 36.67x18.33 #f3e1b8 @click
   box 0,50 700x18.33 opacity=0.45
-    box 0,51.67 233.33x15 @enter @leave
-      text 0,51.67 233.33x15 "Greyed" #cbb994
+    box 0,51.37 233.33x15.6 @enter @leave
+      text 0,51.37 233.33x15.6 "Greyed" #cbb994
     box 248.33,50 36.67x18.33 #f3e1b8 @click

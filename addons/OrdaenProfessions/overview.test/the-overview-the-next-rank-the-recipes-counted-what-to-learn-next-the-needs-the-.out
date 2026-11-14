@@ -19,46 +19,46 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 box 995.18,215.54 75.2x22.5
                 box 1070.38,215.54 75.2x22.5
               box 393.58,215.54 752x22.5 absolute
-                text 707.08,219.29 125x15 "Apprentice · 70 / 75" #ffffff
-        box 391.08,257.21 822.83x26.67
-          box 391.08,283.04 822.83x0.83 absolute #3e2f1d
-          box 391.08,257.21 68.75x26.67 #00000000 @click
-            box 391.92,258.04 67.08x1.67 absolute #00000000
-            text 403.58,263.88 43.75x15 "Recipes" #a3977f
-          box 463.17,257.21 56.25x26.67 #00000000 @click
-            box 464,258.04 54.58x1.67 absolute #00000000
-            text 475.67,263.88 31.25x15 "Queue" #a3977f
-          box 522.75,257.21 75x26.67 #00000059 @click
-            box 523.58,258.04 73.33x1.67 absolute #d6a56b
-            text 535.25,263.88 50x15 "Overview" #ffffff
-        box 391.08,300.54 822.83x396.75 scrolled 0 of 0
-          box 391.08,300.54 822.83x43.33 #0000004d
-            box 405.25,314.71 777.83x15
-              text 405.25,314.71 777.83x15 "Next rank: Journeyman, from skill 50 and level 10" #e8dcc4
-          box 391.08,360.54 822.83x108.33
-            box 391.08,360.54 263.17x108.33 #0000004d
-              text 405.25,374.71 234.83x15 "Recipes" #ffd100
-              text 405.25,396.38 234.83x15 "Learned: 3 · not learned: 2" #a3977f
-              text 405.25,418.04 234.83x15 "Can make now: 1" #a3977f
-              text 405.25,439.71 234.83x15 "Raise the skill: 3" #a3977f
-            box 670.92,360.54 263.17x86.67 #0000004d
-              text 685.08,374.71 234.83x15 "What to learn next" #ffd100
-              box 685.08,396.38 234.83x15 @click
-                text 685.08,396.38 234.83x15 "Smelt Silver" #e8dcc4
-              box 685.08,418.04 234.83x15 @click
-                text 685.08,418.04 234.83x15 "Smelt Gold" #e8dcc4
-            box 950.75,360.54 263.17x65 #0000004d
-              text 964.92,374.71 234.83x15 "Needed for the work" #ffd100
-              text 964.92,396.38 234.83x15 "Forge" #a3977f
-          box 391.08,485.54 822.83x65 #0000004d
-            text 405.25,499.71 794.5x15 "Tracked recipes" #ffd100
-            box 405.25,521.38 794.5x15 @click
-              text 405.25,521.38 794.5x15 "Smelt Bronze — missing: Tin Bar ×1" #e8dcc4
+                text 703.47,218.99 132.22x15.6 "Apprentice · 70 / 75" #ffffff centred
+        box 391.08,257.21 822.83x27.27
+          box 391.08,283.64 822.83x0.83 absolute #3e2f1d
+          box 391.08,257.21 72.78x27.27 #00000000 @click
+            box 391.92,258.04 71.11x1.67 absolute #00000000
+            text 403.58,263.88 47.78x15.6 "Recipes" #a3977f
+          box 467.19,257.21 60.56x27.27 #00000000 @click
+            box 468.03,258.04 58.89x1.67 absolute #00000000
+            text 479.69,263.88 35.56x15.6 "Queue" #a3977f
+          box 531.08,257.21 79.44x27.27 #00000059 @click
+            box 531.92,258.04 77.78x1.67 absolute #d6a56b
+            text 543.58,263.88 54.44x15.6 "Overview" #ffffff
+        box 391.08,301.14 822.83x396.15 scrolled 0 of 0
+          box 391.08,301.14 822.83x43.93 #0000004d
+            box 405.25,315.31 777.83x15.6
+              text 405.25,315.31 777.83x15.6 "Next rank: Journeyman, from skill 50 and level 10" #e8dcc4
+          box 391.08,361.74 822.83x110.73
+            box 391.08,361.74 263.17x110.73 #0000004d
+              text 405.25,375.91 234.83x15.6 "Recipes" #ffd100
+              text 405.25,398.18 234.83x15.6 "Learned: 3 · not learned: 2" #a3977f
+              text 405.25,420.44 234.83x15.6 "Can make now: 1" #a3977f
+              text 405.25,442.71 234.83x15.6 "Raise the skill: 3" #a3977f
+            box 670.92,361.74 263.17x88.47 #0000004d
+              text 685.08,375.91 234.83x15.6 "What to learn next" #ffd100
+              box 685.08,398.18 234.83x15.6 @click
+                text 685.08,398.18 234.83x15.6 "Smelt Silver" #e8dcc4
+              box 685.08,420.44 234.83x15.6 @click
+                text 685.08,420.44 234.83x15.6 "Smelt Gold" #e8dcc4
+            box 950.75,361.74 263.17x66.2 #0000004d
+              text 964.92,375.91 234.83x15.6 "Needed for the work" #ffd100
+              text 964.92,398.18 234.83x15.6 "Forge" #a3977f
+          box 391.08,489.14 822.83x66.2 #0000004d
+            text 405.25,503.31 794.5x15.6 "Tracked recipes" #ffd100
+            box 405.25,525.58 794.5x15.6 @click
+              text 405.25,525.58 794.5x15.6 "Smelt Bronze — missing: Tin Bar ×1" #e8dcc4
       box 391.08,697.29 822.83x45
         box 391.08,713.96 822.83x28.33
           box 391.08,713.96 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 secure @click @enter @leave
             box 391.08,713.96 141.67x28.33 absolute
-              text 421.29,720.62 81.25x15 "Find Minerals" #ffd100
+              text 418.03,720.33 87.78x15.6 "Find Minerals" #ffd100 centred
           box 549.42,728.12 664.5x0
     box 1157.75,194.63 77.5x26.67 absolute clipped
       box 1157.75,194.63 29.17x26.67 absolute clipped @click
@@ -71,19 +71,19 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
         box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 358.33,133.88 268.83x59.42
-    box 358.33,133.88 124x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+  box 358.33,133.88 283.28x59.42
+    box 358.33,133.88 130.53x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 365.58,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Mining cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
-      box 425.83,144.12 37.92x45.92
-        text 426.04,152.67 37.5x15 "Mining" #ffd100
-        text 425.83,168.5 37.92x13 "70 / 75" #8f8470
-    box 492.33,133.88 134.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 499.58,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Fishing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 543.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
-      box 559.83,144.12 48.75x45.92
-        text 562.33,152.67 43.75x15 "Fishing" #b3a690
-        text 559.83,168.5 48.75x13 "120 / 150" #8f8470
+      box 425.83,144.12 44.44x45.92
+        text 426.94,151.67 42.22x15.6 "Mining" #ffd100 centred
+        text 425.83,168.1 44.44x14.4 "70 / 75" #8f8470 centred
+    box 498.86,133.88 142.75x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 506.11,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Fishing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 550.03,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 566.36,144.12 56.67x45.92
+        text 570.81,151.67 47.78x15.6 "Fishing" #a3977f centred
+        text 566.36,168.1 56.67x14.4 "120 / 150" #8f8470 centred
 
 opened: page 1, recipe 2658
 -- Fishing's overview: a secondary profession, Expert next, «Fish» casting from its secure button
@@ -107,41 +107,41 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 box 995.18,215.54 75.2x22.5
                 box 1070.38,215.54 75.2x22.5
               box 393.58,215.54 752x22.5 absolute
-                text 700.83,219.29 137.5x15 "Journeyman · 120 / 150" #ffffff
-        box 391.08,257.21 822.83x26.67
-          box 391.08,283.04 822.83x0.83 absolute #3e2f1d
-          box 391.08,257.21 68.75x26.67 #00000000 @click
-            box 391.92,258.04 67.08x1.67 absolute #00000000
-            text 403.58,263.88 43.75x15 "Recipes" #a3977f
-          box 463.17,257.21 56.25x26.67 #00000000 @click
-            box 464,258.04 54.58x1.67 absolute #00000000
-            text 475.67,263.88 31.25x15 "Queue" #a3977f
-          box 522.75,257.21 75x26.67 #00000059 @click
-            box 523.58,258.04 73.33x1.67 absolute #d6a56b
-            text 535.25,263.88 50x15 "Overview" #ffffff
-        box 391.08,300.54 822.83x425.08 scrolled 0 of 0
-          box 391.08,300.54 822.83x60.5 #0000004d
-            box 405.25,314.71 661.17x32.17
-              text 405.25,314.71 661.17x15 "Next rank: Expert, from skill 125 and level 20" #e8dcc4
-              text 405.25,333.88 661.17x13 "Secondary profession" #a3977f
-            box 1083.08,316.62 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 secure @click @enter @leave
-              box 1083.08,316.62 116.67x28.33 absolute
-                text 1128.92,323.29 25x15 "Fish" #ffd100
-          box 391.08,377.71 822.83x108.33
-            box 391.08,377.71 263.17x108.33 #0000004d
-              text 405.25,391.88 234.83x15 "Recipes" #ffd100
-              text 405.25,413.54 234.83x15 "Learned: 0 · not learned: 0" #a3977f
-              text 405.25,435.21 234.83x15 "Can make now: 0" #a3977f
-              text 405.25,456.88 234.83x15 "Raise the skill: 0" #a3977f
-            box 670.92,377.71 263.17x65 #0000004d
-              text 685.08,391.88 234.83x15 "What to learn next" #ffd100
-              text 685.08,413.54 234.83x15 "Every recipe is learned." #a3977f
-            box 950.75,377.71 263.17x65 #0000004d
-              text 964.92,391.88 234.83x15 "Needed for the work" #ffd100
-              text 964.92,413.54 234.83x15 "Nothing but reagents." #a3977f
-          box 391.08,502.71 822.83x65 #0000004d
-            text 405.25,516.88 794.5x15 "Tracked recipes" #ffd100
-            text 405.25,538.54 794.5x15 "None. Switch on «Track» on a recipe." #a3977f
+                text 696.81,218.99 145.56x15.6 "Journeyman · 120 / 150" #ffffff centred
+        box 391.08,257.21 822.83x27.27
+          box 391.08,283.64 822.83x0.83 absolute #3e2f1d
+          box 391.08,257.21 72.78x27.27 #00000000 @click
+            box 391.92,258.04 71.11x1.67 absolute #00000000
+            text 403.58,263.88 47.78x15.6 "Recipes" #a3977f
+          box 467.19,257.21 60.56x27.27 #00000000 @click
+            box 468.03,258.04 58.89x1.67 absolute #00000000
+            text 479.69,263.88 35.56x15.6 "Queue" #a3977f
+          box 531.08,257.21 79.44x27.27 #00000059 @click
+            box 531.92,258.04 77.78x1.67 absolute #d6a56b
+            text 543.58,263.88 54.44x15.6 "Overview" #ffffff
+        box 391.08,301.14 822.83x424.48 scrolled 0 of 0
+          box 391.08,301.14 822.83x62.5 #0000004d
+            box 405.25,315.31 661.17x34.17
+              text 405.25,315.31 661.17x15.6 "Next rank: Expert, from skill 125 and level 20" #e8dcc4
+              text 405.25,335.08 661.17x14.4 "Secondary profession" #a3977f
+            box 1083.08,318.23 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 secure @click @enter @leave
+              box 1083.08,318.23 116.67x28.33 absolute
+                text 1126.97,324.59 28.89x15.6 "Fish" #ffd100 centred
+          box 391.08,380.31 822.83x110.73
+            box 391.08,380.31 263.17x110.73 #0000004d
+              text 405.25,394.48 234.83x15.6 "Recipes" #ffd100
+              text 405.25,416.74 234.83x15.6 "Learned: 0 · not learned: 0" #a3977f
+              text 405.25,439.01 234.83x15.6 "Can make now: 0" #a3977f
+              text 405.25,461.28 234.83x15.6 "Raise the skill: 0" #a3977f
+            box 670.92,380.31 263.17x66.2 #0000004d
+              text 685.08,394.48 234.83x15.6 "What to learn next" #ffd100
+              text 685.08,416.74 234.83x15.6 "Every recipe is learned." #a3977f
+            box 950.75,380.31 263.17x66.2 #0000004d
+              text 964.92,394.48 234.83x15.6 "Needed for the work" #ffd100
+              text 964.92,416.74 234.83x15.6 "Nothing but reagents." #a3977f
+          box 391.08,507.71 822.83x66.2 #0000004d
+            text 405.25,521.88 794.5x15.6 "Tracked recipes" #ffd100
+            text 405.25,544.14 794.5x15.6 "None. Switch on «Track» on a recipe." #a3977f
       box 391.08,725.62 822.83x16.67
         box 391.08,742.29 822.83x0
           box 391.08,742.29 822.83x0
@@ -156,16 +156,16 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
         box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 358.33,133.88 268.83x59.42
-    box 358.33,133.88 124x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+  box 358.33,133.88 283.28x59.42
+    box 358.33,133.88 130.53x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 365.58,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Mining cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
-      box 425.83,144.12 37.92x45.92
-        text 426.04,152.67 37.5x15 "Mining" #b3a690
-        text 425.83,168.5 37.92x13 "70 / 75" #8f8470
-    box 492.33,133.88 134.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 499.58,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Fishing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 543.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
-      box 559.83,144.12 48.75x45.92
-        text 562.33,152.67 43.75x15 "Fishing" #ffd100
-        text 559.83,168.5 48.75x13 "120 / 150" #8f8470
+      box 425.83,144.12 44.44x45.92
+        text 426.94,151.67 42.22x15.6 "Mining" #a3977f centred
+        text 425.83,168.1 44.44x14.4 "70 / 75" #8f8470 centred
+    box 498.86,133.88 142.75x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 506.11,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Fishing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 550.03,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 566.36,144.12 56.67x45.92
+        text 570.81,151.67 47.78x15.6 "Fishing" #ffd100 centred
+        text 566.36,168.1 56.67x14.4 "120 / 150" #8f8470 centred

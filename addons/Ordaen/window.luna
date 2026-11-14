@@ -36,10 +36,11 @@ public struct Placing {
 const TAB = 36 * PX
 const TAB_DESC = 50 * PX
 const TITLE_OPEN: Color = Color.hex("#ffd100")
-const TITLE_CLOSED: Color = Color.hex("#b3a690")
+// A closed tab's title: the look's dim ink.
+const TITLE_CLOSED: Color = Color.hex("#a3977f")
 const DESC: Color = Color.hex("#8f8470")
-// A closed tab's wood and picture, darker.
-const SHADE: Color = Color.hex("#999999")
+// A closed tab's wood and picture: half as bright.
+const SHADE: Color = Color.hex("#808080")
 const WHITE: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000cc"), x: 1 * PX, y: -1 * PX }
 const LABEL_PAD = 10 * PX

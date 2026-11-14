@@ -16,6 +16,8 @@ const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
 const MARK = 12 * PX
 const LOCK = 14 * PX
 const CAPTION_TRACKS: Array<Track> = [MARK, "auto", { fr: 1 }]
+// A row of the grid is one row as high as a slot: a caption stands at its bottom, on its items.
+const ROW: Array<Track> = [{ fr: 1 }]
 // The client's padlock, small, over a protected slot's top left corner.
 const PADLOCK: Atlas = "QuestSharing-Padlock"
 // The classes of items crafting takes (`Enum.ItemClass`: trade goods, reagents).
@@ -201,7 +203,7 @@ public class BagRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.row.tracks} gap={GAP} height={SLOT}>
+      <box columns={self.row.tracks} rows={ROW} gap={GAP} height={SLOT}>
         <Place $for={cell of self.row.cells} $key={cell} cell={peek cell} filter={self.filter} free={self.free}
                collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed} @entered={self.onEnter}
                @left={self.onLeave} @toggled={self.onToggle} />

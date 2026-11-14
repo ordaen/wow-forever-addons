@@ -1,0 +1,480 @@
+open: Ordaen
+-- opened: the list and the general page
+surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
+  box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 329.42,189.71 946.17x560.08
+      box 349.42,209.71 906.17x481.75
+        box 349.42,209.71 106.11x481.75
+          box 349.42,209.71 106.11x30 #00000040 @click focus ring
+            box 349.42,209.71 2.5x30 absolute #d6a56b
+            box 362.75,215.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 389.42,216.91 47.78x15.6 "Общие" #ffffff
+            box 445.53,224.71 0x0
+          box 349.42,239.71 106.11x30 #00000000 @click
+            box 349.42,239.71 2.5x30 absolute #00000000
+            box 362.75,245.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 389.42,246.91 47.78x15.6 "Темы" #e8dcc4
+            box 445.53,254.71 0x0
+          box 349.42,269.71 106.11x30 #00000000 @click
+            box 349.42,269.71 2.5x30 absolute #00000000
+            box 362.75,275.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 389.42,276.91 47.78x15.6 "Профили" #e8dcc4
+            box 445.53,284.71 0x0
+          box 349.42,299.71 106.11x34.4
+            text 362.75,313.04 79.44x14.4 "Модули" #a3977f
+          box 349.42,334.11 106.11x0
+        box 472.19,209.71 783.39x481.75 #00000040
+          box 472.19,209.71 783.39x481.75 absolute scrolled 0 of 0
+            box 485.53,223.04 756.72x27.27
+              box 485.53,249.47 756.72x0.83 absolute #3e2f1d
+              box 485.53,223.04 72.78x27.27 #00000059 @click
+                box 486.36,223.88 71.11x1.67 absolute #d6a56b
+                text 498.03,229.71 47.78x15.6 "Масштаб" #ffffff
+              box 561.64,223.04 60.56x27.27 #00000000 @click
+                box 562.47,223.88 58.89x1.67 absolute #00000000
+                text 574.14,229.71 35.56x15.6 "Числа" #a3977f
+              box 625.53,223.04 86.11x27.27 #00000000 @click
+                box 626.36,223.88 84.44x1.67 absolute #00000000
+                text 638.03,229.71 61.11x15.6 "Поведение" #a3977f
+            box 485.53,266.97 756.72x96.67
+              box 485.53,266.97 756.72x16.67 opacity=1
+                box 485.53,267.51 233.33x15.6 @enter @leave
+                  text 485.53,267.51 233.33x15.6 "Масштаб окон Ordaen" #cbb994
+                box 733.86,266.97 508.39x16.67
+                  box 733.86,266.97 200x16.67 @click @drag @dragStart @key
+                    box 733.86,271.97 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+                    box 734.69,272.81 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+                    box 802.19,265.31 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+                  text 943.86,267.51 28.89x15.6 "100%" #ffffff
+              box 485.53,300.31 756.72x28.33 opacity=1
+                box 485.53,306.67 233.33x15.6 @enter @leave
+                  text 485.53,306.67 233.33x15.6 "Отступы" #cbb994
+                box 733.86,300.31 200x28.33
+                  box 733.86,300.31 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                    text 748.86,306.67 153.33x15.6 "Обычно" #f0c860
+                    box 910.53,307.81 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+              box 485.53,345.31 756.72x18.33 opacity=1
+                box 485.53,346.67 233.33x15.6 @enter @leave
+                  text 485.53,346.67 233.33x15.6 "Линии в один пиксель" #cbb994
+                box 733.86,345.31 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+                  box 733.86,345.31 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 349.42,691.46 906.17x45
+        box 349.42,708.12 906.17x28.33
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+            box 349.42,708.12 166.67x28.33 absolute
+              text 376.08,714.49 113.33x15.6 "Режим перемещения" #ffd100 centred
+          box 532.75,715.09 582.83x14.4
+            text 532.75,715.09 582.83x14.4 "/ordaen открывает эту страницу" #a3977f
+          box 1132.25,708.12 123.33x28.33
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+              box 1132.25,708.12 116.67x28.33 absolute
+                text 1160.03,714.49 61.11x15.6 "Сохранить" #808080 centred
+    box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 316.67,139.71 114.5x47.75
+    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 335.25,149.96 77.33x34.25
+        text 352.81,159.28 42.22x15.6 "Ordaen" #ffd100 centred
+
+key: TAB → #2 «Темы» (click)
+key: ENTER → #2 «Темы» (click)
+-- the themes
+surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
+  box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 329.42,189.71 946.17x560.08
+      box 349.42,209.71 906.17x481.75
+        box 349.42,209.71 106.11x481.75
+          box 349.42,209.71 106.11x30 #00000000 @click
+            box 349.42,209.71 2.5x30 absolute #00000000
+            box 362.75,215.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 389.42,216.91 47.78x15.6 "Общие" #e8dcc4
+            box 445.53,224.71 0x0
+          box 349.42,239.71 106.11x30 #00000040 @click focus ring
+            box 349.42,239.71 2.5x30 absolute #d6a56b
+            box 362.75,245.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 389.42,246.91 47.78x15.6 "Темы" #ffffff
+            box 445.53,254.71 0x0
+          box 349.42,269.71 106.11x30 #00000000 @click
+            box 349.42,269.71 2.5x30 absolute #00000000
+            box 362.75,275.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 389.42,276.91 47.78x15.6 "Профили" #e8dcc4
+            box 445.53,284.71 0x0
+          box 349.42,299.71 106.11x34.4
+            text 362.75,313.04 79.44x14.4 "Модули" #a3977f
+          box 349.42,334.11 106.11x0
+        box 472.19,209.71 783.39x481.75 #00000040
+          box 472.19,209.71 783.39x481.75 absolute scrolled 0 of 1130.18
+            box 485.53,223.04 756.72x1585.27
+              box 485.53,223.04 756.72x102.27
+                box 485.53,223.04 756.72x15.6
+                  text 485.53,223.04 28.89x15.6 "Темы" #e8c35a
+                  box 522.75,230.42 719.5x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                box 485.53,250.31 756.72x31.67
+                  box 485.53,250.31 621.72x31.67
+                    text 485.53,250.31 621.72x15.6 "Ordaen" #ffffff
+                    text 485.53,267.57 621.72x14.4 "Оформление Blizzard в нашем стиле: бронза, тёмное дерево, свои шрифты" #a3977f
+                  text 1117.25,258.94 125x14.4 "Используется" #a6e39a
+                box 485.53,293.64 756.72x31.67
+                  box 485.53,293.64 621.72x31.67
+                    text 485.53,293.64 621.72x15.6 "Минимализм" #ffffff
+                    text 485.53,310.91 621.72x14.4 "Плоско, тонкие линии, почти без текстур и анимаций" #a3977f
+                  box 1117.25,295.31 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
+                    box 1117.25,295.31 125x28.33 absolute
+                      text 1139.19,301.68 81.11x15.6 "Использовать" #ffd100 centred
+              box 485.53,340.31 756.72x135.6
+                box 485.53,340.31 756.72x15.6
+                  text 485.53,340.31 42.22x15.6 "Шрифты" #e8c35a
+                  box 536.08,347.69 706.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                box 485.53,367.57 756.72x28.33 opacity=1
+                  box 485.53,373.94 233.33x15.6 @enter @leave
+                    text 485.53,373.94 233.33x15.6 "Шрифт текста" #cbb994
+                  box 733.86,367.57 200x28.33
+                    box 733.86,367.57 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,373.94 153.33x15.6 "Fira Sans" #f0c860
+                      box 910.53,375.07 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,407.57 756.72x28.33 opacity=1
+                  box 485.53,413.94 233.33x15.6 @enter @leave
+                    text 485.53,413.94 233.33x15.6 "Шрифт заголовков" #cbb994
+                  box 733.86,407.57 200x28.33
+                    box 733.86,407.57 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,413.94 153.33x15.6 "Alegreya SC" #f0c860
+                      box 910.53,415.07 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,447.57 756.72x28.33 opacity=1
+                  box 485.53,453.94 233.33x15.6 @enter @leave
+                    text 485.53,453.94 233.33x15.6 "Шрифт чисел" #cbb994
+                  box 733.86,447.57 200x28.33
+                    box 733.86,447.57 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,453.94 153.33x15.6 "Fira Sans Condensed" #f0c860
+                      box 910.53,455.07 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+              box 485.53,490.91 756.72x135.6
+                box 485.53,490.91 756.72x15.6
+                  text 485.53,490.91 54.44x15.6 "Текстуры" #e8c35a
+                  box 548.31,498.29 693.94x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                box 485.53,518.17 756.72x28.33 opacity=1
+                  box 485.53,524.54 233.33x15.6 @enter @leave
+                    text 485.53,524.54 233.33x15.6 "Текстура полос" #cbb994
+                  box 733.86,518.17 200x28.33
+                    box 733.86,518.17 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,524.54 153.33x15.6 "Плоская" #f0c860
+                      box 910.53,525.67 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,558.17 756.72x28.33 opacity=1
+                  box 485.53,564.54 233.33x15.6 @enter @leave
+                    text 485.53,564.54 233.33x15.6 "Текстура полосы опыта" #cbb994
+                  box 733.86,558.17 200x28.33
+                    box 733.86,558.17 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,564.54 153.33x15.6 "Шлифовка" #f0c860
+                      box 910.53,565.67 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,598.17 756.72x28.33 opacity=1
+                  box 485.53,604.54 233.33x15.6 @enter @leave
+                    text 485.53,604.54 233.33x15.6 "Рамка полос" #cbb994
+                  box 733.86,598.17 200x28.33
+                    box 733.86,598.17 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,604.54 153.33x15.6 "Бронзовая рамка" #f0c860
+                      box 910.53,605.67 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+              box 485.53,641.51 756.72x55.6
+                box 485.53,641.51 756.72x15.6
+                  text 485.53,641.51 54.44x15.6 "Анимации" #e8c35a
+                  box 548.31,648.89 693.94x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                box 485.53,668.77 756.72x28.33 opacity=1
+                  box 485.53,675.14 233.33x15.6 @enter @leave
+                    text 485.53,675.14 233.33x15.6 "Анимации" #cbb994
+                  box 733.86,668.77 200x28.33
+                    box 733.86,668.77 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,675.14 153.33x15.6 "Плавно" #f0c860
+                      box 910.53,676.27 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+              box 485.53,712.11 756.72x705.6
+                box 485.53,712.11 756.72x15.6
+                  text 485.53,712.11 35.56x15.6 "Цвета" #e8c35a
+                  box 529.42,719.49 712.83x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                box 485.53,739.38 756.72x18.33 opacity=1
+                  box 485.53,740.74 233.33x15.6 @enter @leave
+                    text 485.53,740.74 233.33x15.6 "Акцентный цвет" #cbb994
+                  box 733.86,739.38 36.67x18.33 #b88f57 @click
+                box 485.53,769.38 756.72x18.33 opacity=1
+                  box 485.53,770.74 233.33x15.6 @enter @leave
+                    text 485.53,770.74 233.33x15.6 "Красный: полоса" #cbb994
+                  box 733.86,769.38 36.67x18.33 #bc010b @click
+                box 485.53,799.38 756.72x18.33 opacity=1
+                  box 485.53,800.74 233.33x15.6 @enter @leave
+                    text 485.53,800.74 233.33x15.6 "Красный: текст" #cbb994
+                  box 733.86,799.38 36.67x18.33 #ffa194 @click
+                box 485.53,829.38 756.72x18.33 opacity=1
+                  box 485.53,830.74 233.33x15.6 @enter @leave
+                    text 485.53,830.74 233.33x15.6 "Оранжевый: полоса" #cbb994
+                  box 733.86,829.38 36.67x18.33 #a24102 @click
+                box 485.53,859.38 756.72x18.33 opacity=1
+                  box 485.53,860.74 233.33x15.6 @enter @leave
+                    text 485.53,860.74 233.33x15.6 "Оранжевый: текст" #cbb994
+                  box 733.86,859.38 36.67x18.33 #fea47b @click
+                box 485.53,889.38 756.72x18.33 opacity=1
+                  box 485.53,890.74 233.33x15.6 @enter @leave
+                    text 485.53,890.74 233.33x15.6 "Жёлтый: полоса" #cbb994
+                  box 733.86,889.38 36.67x18.33 #c79608 @click
+                box 485.53,919.38 756.72x18.33 opacity=1
+                  box 485.53,920.74 233.33x15.6 @enter @leave
+                    text 485.53,920.74 233.33x15.6 "Жёлтый: текст" #cbb994
+                  box 733.86,919.38 36.67x18.33 #ffd988 @click
+                box 485.53,949.38 756.72x18.33 opacity=1
+                  box 485.53,950.74 233.33x15.6 @enter @leave
+                    text 485.53,950.74 233.33x15.6 "Зелёный: полоса" #cbb994
+                  box 733.86,949.38 36.67x18.33 #096c02 @click
+                box 485.53,979.38 756.72x18.33 opacity=1
+                  box 485.53,980.74 233.33x15.6 @enter @leave
+                    text 485.53,980.74 233.33x15.6 "Зелёный: текст" #cbb994
+                  box 733.86,979.38 36.67x18.33 #90d189 @click
+                box 485.53,1009.38 756.72x18.33 opacity=1
+                  box 485.53,1010.74 233.33x15.6 @enter @leave
+                    text 485.53,1010.74 233.33x15.6 "Голубой: полоса" #cbb994
+                  box 733.86,1009.38 36.67x18.33 #066f86 @click
+                box 485.53,1039.38 756.72x18.33 opacity=1
+                  box 485.53,1040.74 233.33x15.6 @enter @leave
+                    text 485.53,1040.74 233.33x15.6 "Голубой: текст" #cbb994
+                  box 733.86,1039.38 36.67x18.33 #51d0f3 @click
+                box 485.53,1069.38 756.72x18.33 opacity=1
+                  box 485.53,1070.74 233.33x15.6 @enter @leave
+                    text 485.53,1070.74 233.33x15.6 "Синий: полоса" #cbb994
+                  box 733.86,1069.38 36.67x18.33 #0255ab @click
+                box 485.53,1099.38 756.72x18.33 opacity=1
+                  box 485.53,1100.74 233.33x15.6 @enter @leave
+                    text 485.53,1100.74 233.33x15.6 "Синий: текст" #cbb994
+                  box 733.86,1099.38 36.67x18.33 #569ffe @click
+                box 485.53,1129.38 756.72x18.33 opacity=1
+                  box 485.53,1130.74 233.33x15.6 @enter @leave
+                    text 485.53,1130.74 233.33x15.6 "Фиолетовый: полоса" #cbb994
+                  box 733.86,1129.38 36.67x18.33 #7849a0 @click
+                box 485.53,1159.38 756.72x18.33 opacity=1
+                  box 485.53,1160.74 233.33x15.6 @enter @leave
+                    text 485.53,1160.74 233.33x15.6 "Фиолетовый: текст" #cbb994
+                  box 733.86,1159.38 36.67x18.33 #d2a9fa @click
+                box 485.53,1189.38 756.72x18.33 opacity=1
+                  box 485.53,1190.74 233.33x15.6 @enter @leave
+                    text 485.53,1190.74 233.33x15.6 "Розовый: полоса" #cbb994
+                  box 733.86,1189.38 36.67x18.33 #9b3c6a @click
+                box 485.53,1219.38 756.72x18.33 opacity=1
+                  box 485.53,1220.74 233.33x15.6 @enter @leave
+                    text 485.53,1220.74 233.33x15.6 "Розовый: текст" #cbb994
+                  box 733.86,1219.38 36.67x18.33 #fa9dc4 @click
+                box 485.53,1249.38 756.72x18.33 opacity=1
+                  box 485.53,1250.74 233.33x15.6 @enter @leave
+                    text 485.53,1250.74 233.33x15.6 "Бежевый: полоса" #cbb994
+                  box 733.86,1249.38 36.67x18.33 #7e5b36 @click
+                box 485.53,1279.38 756.72x18.33 opacity=1
+                  box 485.53,1280.74 233.33x15.6 @enter @leave
+                    text 485.53,1280.74 233.33x15.6 "Бежевый: текст" #cbb994
+                  box 733.86,1279.38 36.67x18.33 #ddb68e @click
+                box 485.53,1309.38 756.72x18.33 opacity=1
+                  box 485.53,1310.74 233.33x15.6 @enter @leave
+                    text 485.53,1310.74 233.33x15.6 "Белый: полоса" #cbb994
+                  box 733.86,1309.38 36.67x18.33 #ababab @click
+                box 485.53,1339.38 756.72x18.33 opacity=1
+                  box 485.53,1340.74 233.33x15.6 @enter @leave
+                    text 485.53,1340.74 233.33x15.6 "Белый: текст" #cbb994
+                  box 733.86,1339.38 36.67x18.33 #eeeeee @click
+                box 485.53,1369.38 756.72x18.33 opacity=1
+                  box 485.53,1370.74 233.33x15.6 @enter @leave
+                    text 485.53,1370.74 233.33x15.6 "Серый: полоса" #cbb994
+                  box 733.86,1369.38 36.67x18.33 #636363 @click
+                box 485.53,1399.38 756.72x18.33 opacity=1
+                  box 485.53,1400.74 233.33x15.6 @enter @leave
+                    text 485.53,1400.74 233.33x15.6 "Серый: текст" #cbb994
+                  box 733.86,1399.38 36.67x18.33 #bdbdbd @click
+              box 485.53,1432.71 756.72x375.6
+                box 485.53,1432.71 756.72x15.6
+                  text 485.53,1432.71 87.78x15.6 "Цвета классов" #e8c35a
+                  box 581.64,1440.09 660.61x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                box 485.53,1459.98 756.72x28.33 opacity=1
+                  box 485.53,1466.34 233.33x15.6 @enter @leave
+                    text 485.53,1466.34 233.33x15.6 "Воин" #cbb994
+                  box 733.86,1459.98 200x28.33
+                    box 733.86,1459.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,1466.34 153.33x15.6 "Бежевый" #f0c860
+                      box 910.53,1467.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,1499.98 756.72x28.33 opacity=1
+                  box 485.53,1506.34 233.33x15.6 @enter @leave
+                    text 485.53,1506.34 233.33x15.6 "Паладин" #cbb994
+                  box 733.86,1499.98 200x28.33
+                    box 733.86,1499.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,1506.34 153.33x15.6 "Розовый" #f0c860
+                      box 910.53,1507.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,1539.98 756.72x28.33 opacity=1
+                  box 485.53,1546.34 233.33x15.6 @enter @leave
+                    text 485.53,1546.34 233.33x15.6 "Охотник" #cbb994
+                  box 733.86,1539.98 200x28.33
+                    box 733.86,1539.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,1546.34 153.33x15.6 "Зелёный" #f0c860
+                      box 910.53,1547.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,1579.98 756.72x28.33 opacity=1
+                  box 485.53,1586.34 233.33x15.6 @enter @leave
+                    text 485.53,1586.34 233.33x15.6 "Разбойник" #cbb994
+                  box 733.86,1579.98 200x28.33
+                    box 733.86,1579.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,1586.34 153.33x15.6 "Жёлтый" #f0c860
+                      box 910.53,1587.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,1619.98 756.72x28.33 opacity=1
+                  box 485.53,1626.34 233.33x15.6 @enter @leave
+                    text 485.53,1626.34 233.33x15.6 "Жрец" #cbb994
+                  box 733.86,1619.98 200x28.33
+                    box 733.86,1619.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,1626.34 153.33x15.6 "Белый" #f0c860
+                      box 910.53,1627.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,1659.98 756.72x28.33 opacity=1
+                  box 485.53,1666.34 233.33x15.6 @enter @leave
+                    text 485.53,1666.34 233.33x15.6 "Шаман" #cbb994
+                  box 733.86,1659.98 200x28.33
+                    box 733.86,1659.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,1666.34 153.33x15.6 "Синий" #f0c860
+                      box 910.53,1667.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,1699.98 756.72x28.33 opacity=1
+                  box 485.53,1706.34 233.33x15.6 @enter @leave
+                    text 485.53,1706.34 233.33x15.6 "Маг" #cbb994
+                  box 733.86,1699.98 200x28.33
+                    box 733.86,1699.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,1706.34 153.33x15.6 "Голубой" #f0c860
+                      box 910.53,1707.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,1739.98 756.72x28.33 opacity=1
+                  box 485.53,1746.34 233.33x15.6 @enter @leave
+                    text 485.53,1746.34 233.33x15.6 "Чернокнижник" #cbb994
+                  box 733.86,1739.98 200x28.33
+                    box 733.86,1739.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,1746.34 153.33x15.6 "Фиолетовый" #f0c860
+                      box 910.53,1747.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,1779.98 756.72x28.33 opacity=1
+                  box 485.53,1786.34 233.33x15.6 @enter @leave
+                    text 485.53,1786.34 233.33x15.6 "Друид" #cbb994
+                  box 733.86,1779.98 200x28.33
+                    box 733.86,1779.98 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,1786.34 153.33x15.6 "Оранжевый" #f0c860
+                      box 910.53,1787.48 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 349.42,691.46 906.17x45
+        box 349.42,708.12 906.17x28.33
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+            box 349.42,708.12 166.67x28.33 absolute
+              text 376.08,714.49 113.33x15.6 "Режим перемещения" #ffd100 centred
+          box 532.75,722.29 582.83x0
+          box 1132.25,708.12 123.33x28.33
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+              box 1132.25,708.12 116.67x28.33 absolute
+                text 1160.03,714.49 61.11x15.6 "Сохранить" #808080 centred
+    box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 316.67,139.71 114.5x47.75
+    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 335.25,149.96 77.33x34.25
+        text 352.81,159.28 42.22x15.6 "Ordaen" #ffd100 centred
+
+key: TAB → #3 «Профили» (click)
+key: ENTER → #3 «Профили» (click)
+-- the profiles
+surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
+  box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 329.42,189.71 946.17x560.08
+      box 349.42,209.71 906.17x481.75
+        box 349.42,209.71 106.11x481.75
+          box 349.42,209.71 106.11x30 #00000000 @click
+            box 349.42,209.71 2.5x30 absolute #00000000
+            box 362.75,215.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 389.42,216.91 47.78x15.6 "Общие" #e8dcc4
+            box 445.53,224.71 0x0
+          box 349.42,239.71 106.11x30 #00000000 @click
+            box 349.42,239.71 2.5x30 absolute #00000000
+            box 362.75,245.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 389.42,246.91 47.78x15.6 "Темы" #e8dcc4
+            box 445.53,254.71 0x0
+          box 349.42,269.71 106.11x30 #00000040 @click focus ring
+            box 349.42,269.71 2.5x30 absolute #d6a56b
+            box 362.75,275.54 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+            text 389.42,276.91 47.78x15.6 "Профили" #ffffff
+            box 445.53,284.71 0x0
+          box 349.42,299.71 106.11x34.4
+            text 362.75,313.04 79.44x14.4 "Модули" #a3977f
+          box 349.42,334.11 106.11x0
+        box 472.19,209.71 783.39x481.75 #00000040
+          box 472.19,209.71 783.39x481.75 absolute scrolled 0 of 114.12
+            box 485.53,223.04 756.72x569.2
+              box 485.53,223.04 756.72x189.53
+                box 485.53,223.04 756.72x15.6
+                  text 485.53,223.04 47.78x15.6 "Профиль" #e8c35a
+                  box 541.64,230.42 700.61x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                text 485.53,250.31 756.72x15.6 "Используется: Default, по умолчанию" #e8dcc4
+                box 485.53,277.57 756.72x28.33 opacity=1
+                  box 485.53,283.94 233.33x15.6 @enter @leave
+                    text 485.53,283.94 233.33x15.6 "Профиль" #cbb994
+                  box 733.86,277.57 200x28.33
+                    box 733.86,277.57 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                      text 748.86,283.94 153.33x15.6 "Default" #f0c860
+                      box 910.53,285.07 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                box 485.53,317.57 756.72x25 opacity=1
+                  box 485.53,322.27 233.33x15.6 @enter @leave
+                    text 485.53,322.27 233.33x15.6 "Название" #cbb994
+                  box 733.86,317.57 250x25 #0d0a08 input "" @change
+                box 485.53,354.24 756.72x18.33 opacity=1
+                  box 485.53,355.61 233.33x15.6 @enter @leave
+                    text 485.53,355.61 233.33x15.6 "Новый из значений по умолчанию" #cbb994
+                  box 733.86,354.24 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+                    box 733.86,354.24 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+                box 485.53,384.24 756.72x28.33
+                  box 485.53,384.24 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 485.53,384.24 125x28.33 absolute
+                      text 524.14,390.61 47.78x15.6 "Создать" #ffd100 centred
+                  box 617.19,384.24 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 617.19,384.24 125x28.33 absolute
+                      text 635.81,390.61 87.78x15.6 "Переименовать" #ffd100 centred
+                  box 748.86,384.24 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+                    box 748.86,384.24 125x28.33 absolute
+                      text 787.47,390.61 47.78x15.6 "Удалить" #808080 centred
+                  box 880.53,384.24 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 880.53,384.24 125x28.33 absolute
+                      text 915.81,390.61 54.44x15.6 "Сбросить" #ffd100 centred
+              box 485.53,427.58 756.72x105.6
+                box 485.53,427.58 756.72x15.6
+                  text 485.53,427.58 106.67x15.6 "Использовать для" #e8c35a
+                  box 600.53,434.96 641.72x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                box 485.53,454.84 756.72x18.33 opacity=1
+                  box 485.53,456.21 233.33x15.6 @enter @leave
+                    text 485.53,456.21 233.33x15.6 "Этот персонаж" #cbb994
+                  box 733.86,454.84 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+                    box 733.86,454.84 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+                box 485.53,484.84 756.72x18.33 opacity=1
+                  box 485.53,486.21 233.33x15.6 @enter @leave
+                    text 485.53,486.21 233.33x15.6 "Все персонажи класса" #cbb994
+                  box 733.86,484.84 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+                    box 733.86,484.84 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+                box 485.53,514.84 756.72x18.33 opacity=1
+                  box 485.53,516.21 233.33x15.6 @enter @leave
+                    text 485.53,516.21 233.33x15.6 "По умолчанию для учётной записи" #cbb994
+                  box 733.86,514.84 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+                    box 733.86,514.84 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+              box 485.53,548.18 756.72x42.87
+                box 485.53,548.18 756.72x15.6
+                  text 485.53,548.18 145.56x15.6 "Скопировать из профиля" #e8c35a
+                  box 639.42,555.56 602.83x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                text 485.53,575.44 756.72x15.6 "Других профилей, откуда можно копировать, нет." #a3977f
+              box 485.53,606.04 756.72x186.2
+                box 485.53,606.04 756.72x15.6
+                  text 485.53,606.04 67.78x15.6 "Поделиться" #e8c35a
+                  box 561.64,613.43 680.61x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+                text 485.53,633.31 756.72x15.6 "Экспорт показывает профиль текстом: Ctrl+C копирует его. Для импорта вставьте текст сюда." #a3977f
+                box 485.53,660.58 756.72x91.67 #0d0a08 input "" lines typing clipped @change
+                box 485.53,763.91 756.72x28.33
+                  box 485.53,763.91 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 485.53,763.91 125x28.33 absolute
+                      text 524.14,770.28 47.78x15.6 "Экспорт" #ffd100 centred
+                  box 617.19,763.91 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 617.19,763.91 125x28.33 absolute
+                      text 658.58,770.28 42.22x15.6 "Импорт" #ffd100 centred
+                  box 748.86,763.91 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+                    box 748.86,763.91 125x28.33 absolute
+                      text 787.47,770.28 47.78x15.6 "Создать" #808080 centred
+      box 349.42,691.46 906.17x45
+        box 349.42,708.12 906.17x28.33
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+            box 349.42,708.12 166.67x28.33 absolute
+              text 376.08,714.49 113.33x15.6 "Режим перемещения" #ffd100 centred
+          box 532.75,722.29 582.83x0
+          box 1132.25,708.12 123.33x28.33
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+              box 1132.25,708.12 116.67x28.33 absolute
+                text 1160.03,714.49 61.11x15.6 "Сохранить" #808080 centred
+    box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 316.67,139.71 114.5x47.75
+    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 335.25,149.96 77.33x34.25
+        text 352.81,159.28 42.22x15.6 "Ordaen" #ffd100 centred

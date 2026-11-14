@@ -1,85 +1,85 @@
 -- a band of every glyph: each before its fact, the cost's dot blue
-box 0,0 595.92x85.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-  box 20.25,20.25 560.42x24.67
-    box 20.25,20.25 560.42x18
-      text 20.25,20.25 560.42x18 "Every glyph" #ffffff
-  box 20.25,44.92 560.42x22.5
-    box 20.25,45.75 40.42x21.67
-      box 28.58,52.42 23.75x15
-        box 28.58,53.25 13.33x13.33
-          box 26.92,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 0 of 16
-        box 46.08,52.42 6.25x15
-          text 46.08,52.42 6.25x15 "1" #f3e7cc
-    box 60.67,45.75 41.25x21.67
-      box 69.83,52.42 23.75x15
-        box 69.83,53.25 13.33x13.33
-          box 68.17,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 1 of 16
-        box 87.33,52.42 6.25x15
-          text 87.33,52.42 6.25x15 "2" #f3e7cc
-    box 101.92,45.75 41.25x21.67
-      box 111.08,52.42 23.75x15
-        box 111.08,53.25 13.33x13.33
-          box 109.42,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 2 of 16
-        box 128.58,52.42 6.25x15
-          text 128.58,52.42 6.25x15 "3" #f3e7cc
-    box 143.17,45.75 41.25x21.67
-      box 152.33,52.42 23.75x15
-        box 152.33,53.25 13.33x13.33
-          box 150.67,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 3 of 16
-        box 169.83,52.42 6.25x15
-          text 169.83,52.42 6.25x15 "4" #f3e7cc
-    box 184.42,45.75 41.25x21.67
-      box 193.58,52.42 23.75x15
-        box 193.58,53.25 13.33x13.33
-          box 191.92,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 4 of 16
-        box 211.08,52.42 6.25x15
-          text 211.08,52.42 6.25x15 "5" #f3e7cc
-    box 225.67,45.75 41.25x21.67
-      box 234.83,52.42 23.75x15
-        box 234.83,53.25 13.33x13.33
-          box 233.17,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 5 of 16
-        box 252.33,52.42 6.25x15
-          text 252.33,52.42 6.25x15 "6" #f3e7cc
-    box 266.92,45.75 41.25x21.67
-      box 276.08,52.42 23.75x15
-        box 276.08,53.25 13.33x13.33
-          box 274.42,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 6 of 16
-        box 293.58,52.42 6.25x15
-          text 293.58,52.42 6.25x15 "7" #f3e7cc
-    box 308.17,45.75 41.25x21.67
-      box 317.33,52.42 23.75x15
-        box 317.33,53.25 13.33x13.33
-          box 315.67,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 7 of 16
-        box 334.83,52.42 6.25x15
-          text 334.83,52.42 6.25x15 "8" #f3e7cc
-    box 349.42,45.75 41.25x21.67
-      box 358.58,52.42 23.75x15
-        box 358.58,53.25 13.33x13.33
-          box 356.92,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
-            box 356.92,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
-        box 376.08,52.42 6.25x15
-          text 376.08,52.42 6.25x15 "9" #f3e7cc
-    box 390.67,45.75 47.5x21.67
-      box 399.83,52.42 30x15
-        box 399.83,53.25 13.33x13.33
-          box 398.17,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 9 of 16
-        box 417.33,52.42 12.5x15
-          text 417.33,52.42 12.5x15 "10" #f3e7cc
-    box 438.17,45.75 47.5x21.67
-      box 447.33,52.42 30x15
-        box 447.33,53.25 13.33x13.33
-          box 445.67,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
-        box 464.83,52.42 12.5x15
-          text 464.83,52.42 12.5x15 "11" #f3e7cc
-    box 485.67,45.75 47.5x21.67
-      box 494.83,52.42 30x15
-        box 494.83,53.25 13.33x13.33
-          box 493.17,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 11 of 16
-        box 512.33,52.42 12.5x15
-          text 512.33,52.42 12.5x15 "12" #f3e7cc
-    box 533.17,45.75 47.5x21.67
-      box 542.33,52.42 30x15
-        box 542.33,53.25 13.33x13.33
-          box 540.67,51.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 12 of 16
-        box 559.83,52.42 12.5x15
-          text 559.83,52.42 12.5x15 "13" #f3e7cc
+box 0,0 638.56x93.88 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 23.58,23.58 596.39x25.87
+    box 23.58,23.58 596.39x19.2
+      text 23.58,23.58 596.39x19.2 "Every glyph" #ffffff
+  box 23.58,49.45 596.39x23.1
+    box 23.58,50.28 43.06x22.27
+      box 31.92,56.95 26.39x15.6
+        box 31.92,58.08 13.33x13.33
+          box 30.25,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 0 of 16
+        box 49.42,56.95 8.89x15.6
+          text 49.42,56.95 8.89x15.6 "1" #f3e7cc
+    box 66.64,50.28 43.89x22.27
+      box 75.81,56.95 26.39x15.6
+        box 75.81,58.08 13.33x13.33
+          box 74.14,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 1 of 16
+        box 93.31,56.95 8.89x15.6
+          text 93.31,56.95 8.89x15.6 "2" #f3e7cc
+    box 110.53,50.28 43.89x22.27
+      box 119.69,56.95 26.39x15.6
+        box 119.69,58.08 13.33x13.33
+          box 118.03,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 2 of 16
+        box 137.19,56.95 8.89x15.6
+          text 137.19,56.95 8.89x15.6 "3" #f3e7cc
+    box 154.42,50.28 43.89x22.27
+      box 163.58,56.95 26.39x15.6
+        box 163.58,58.08 13.33x13.33
+          box 161.92,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 3 of 16
+        box 181.08,56.95 8.89x15.6
+          text 181.08,56.95 8.89x15.6 "4" #f3e7cc
+    box 198.31,50.28 43.89x22.27
+      box 207.47,56.95 26.39x15.6
+        box 207.47,58.08 13.33x13.33
+          box 205.81,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 4 of 16
+        box 224.97,56.95 8.89x15.6
+          text 224.97,56.95 8.89x15.6 "5" #f3e7cc
+    box 242.19,50.28 43.89x22.27
+      box 251.36,56.95 26.39x15.6
+        box 251.36,58.08 13.33x13.33
+          box 249.69,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 5 of 16
+        box 268.86,56.95 8.89x15.6
+          text 268.86,56.95 8.89x15.6 "6" #f3e7cc
+    box 286.08,50.28 43.89x22.27
+      box 295.25,56.95 26.39x15.6
+        box 295.25,58.08 13.33x13.33
+          box 293.58,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 6 of 16
+        box 312.75,56.95 8.89x15.6
+          text 312.75,56.95 8.89x15.6 "7" #f3e7cc
+    box 329.97,50.28 43.89x22.27
+      box 339.14,56.95 26.39x15.6
+        box 339.14,58.08 13.33x13.33
+          box 337.47,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 7 of 16
+        box 356.64,56.95 8.89x15.6
+          text 356.64,56.95 8.89x15.6 "8" #f3e7cc
+    box 373.86,50.28 43.89x22.27
+      box 383.03,56.95 26.39x15.6
+        box 383.03,58.08 13.33x13.33
+          box 381.36,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+            box 381.36,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
+        box 400.53,56.95 8.89x15.6
+          text 400.53,56.95 8.89x15.6 "9" #f3e7cc
+    box 417.75,50.28 50.56x22.27
+      box 426.92,56.95 33.06x15.6
+        box 426.92,58.08 13.33x13.33
+          box 425.25,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 9 of 16
+        box 444.42,56.95 15.56x15.6
+          text 444.42,56.95 15.56x15.6 "10" #f3e7cc
+    box 468.31,50.28 50.56x22.27
+      box 477.47,56.95 33.06x15.6
+        box 477.47,58.08 13.33x13.33
+          box 475.81,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
+        box 494.97,56.95 15.56x15.6
+          text 494.97,56.95 15.56x15.6 "11" #f3e7cc
+    box 518.86,50.28 50.56x22.27
+      box 528.03,56.95 33.06x15.6
+        box 528.03,58.08 13.33x13.33
+          box 526.36,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 11 of 16
+        box 545.53,56.95 15.56x15.6
+          text 545.53,56.95 15.56x15.6 "12" #f3e7cc
+    box 569.42,50.28 50.56x22.27
+      box 578.58,56.95 33.06x15.6
+        box 578.58,58.08 13.33x13.33
+          box 576.92,56.42 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 12 of 16
+        box 596.08,56.95 15.56x15.6
+          text 596.08,56.95 15.56x15.6 "13" #f3e7cc

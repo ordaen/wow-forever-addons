@@ -1,0 +1,54 @@
+// The bags window on a client in Russian: the tabs' names and the sections' captions are longer than in English, and
+// the window holds them whole, as the check of every shot says (nothing stands past its box).
+import Game from "$game"
+import Test from "$test"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
+
+// A quest's deed in the backpack, cloth and a recipe in a linen bag.
+function bagOf(bag: Integer): Game.BagInfo {
+  if (bag == 0) { return { bag: 0, item: nil, name: "Рюкзак", icon: 130716, slots: 16, general: true } }
+  if (bag == 1) { return { bag: 1, item: 4238, name: "Льняная сумка", icon: 133647, slots: 6, general: true } }
+  return { bag: bag, item: nil, name: "", icon: nil, slots: 0, general: true }
+}
+
+function readSlot(bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
+  into.id = 0
+  if (bag == 0 && slot == 1) {
+    into.id = 1972
+    into.kind = 12
+    into.subkindName = "Задание"
+  } else if (bag == 1 && slot == 1) {
+    into.id = 2589
+    into.kind = 7
+    into.subkind = 5
+    into.subkindName = "Ткань"
+  } else if (bag == 1 && slot == 2) {
+    into.id = 2408
+    into.kind = 9
+    into.subkind = 1
+    into.subkindName = "Кожевничество"
+  }
+  if (into.id == 0) { return false }
+  into.count = 1
+  into.quality = 1
+  into.icon = 134400
+  into.name = "Предмет"
+  into.link = "[Предмет]"
+  into.level = 5
+  into.worn = ""
+  into.bound = false
+  into.locked = false
+  into.isNew = false
+  into.price = 10
+  return true
+}
+
+test "opened by category: every tab's name and every caption whole beside its count" {
+  Game.bags.bag = bagOf
+  Game.bags.readSlot = readSlot
+  Test.mount(nil, PAGE)
+  Game.bags.open = true
+  Test.flush()
+  Test.shot("opened: the tabs as wide as their longest name, the sections' captions whole")
+}

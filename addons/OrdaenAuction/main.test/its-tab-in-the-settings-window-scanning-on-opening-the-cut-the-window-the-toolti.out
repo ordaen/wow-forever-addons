@@ -1,57 +1,57 @@
 -- the defaults
 box 0,0 560x16.67 opacity=1
-  box 0,0.83 233.33x15 @enter @leave
-    text 0,0.83 233.33x15 "Scan when the auction house opens" #cbb994
+  box 0,0.53 233.33x15.6 @enter @leave
+    text 0,0.53 233.33x15.6 "Scan when the auction house opens" #cbb994
   box 248.33,0 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
     box 245.83,-2.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
     box 260.83,-2.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
 box 0,16.67 560x16.67 opacity=1
-  box 0,17.5 233.33x15 @enter @leave
-    text 0,17.5 233.33x15 "Auction house cut, %" #cbb994
+  box 0,17.2 233.33x15.6 @enter @leave
+    text 0,17.2 233.33x15.6 "Auction house cut, %" #cbb994
   box 248.33,16.67 311.67x16.67
     box 248.33,16.67 200x16.67 @click @drag @dragStart @key
       box 248.33,21.67 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
       box 249.17,22.5 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
       box 291.67,15 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-    text 458.33,17.5 6.25x15 "5" #ffffff
+    text 458.33,17.2 8.89x15.6 "5" #ffffff
 box 0,33.33 560x16.67 opacity=1
-  box 0,34.17 233.33x15 @enter @leave
-    text 0,34.17 233.33x15 "Ordaen's auction house window" #cbb994
+  box 0,33.87 233.33x15.6 @enter @leave
+    text 0,33.87 233.33x15.6 "Ordaen's auction house window" #cbb994
   box 248.33,33.33 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
     box 245.83,30.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
     box 260.83,30.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
 box 0,50 560x16.67 opacity=1
-  box 0,50.83 233.33x15 @enter @leave
-    text 0,50.83 233.33x15 "Price in item tooltips" #cbb994
+  box 0,50.53 233.33x15.6 @enter @leave
+    text 0,50.53 233.33x15.6 "Price in item tooltips" #cbb994
   box 248.33,50 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
     box 245.83,47.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
     box 260.83,47.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
 
 -- the window switched off in the draft
 box 0,0 560x16.67 opacity=1
-  box 0,0.83 233.33x15 @enter @leave
-    text 0,0.83 233.33x15 "Scan when the auction house opens" #cbb994
+  box 0,0.53 233.33x15.6 @enter @leave
+    text 0,0.53 233.33x15.6 "Scan when the auction house opens" #cbb994
   box 248.33,0 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
     box 245.83,-2.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
     box 260.83,-2.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
 box 0,16.67 560x16.67 opacity=1
-  box 0,17.5 233.33x15 @enter @leave
-    text 0,17.5 233.33x15 "Auction house cut, %" #cbb994
+  box 0,17.2 233.33x15.6 @enter @leave
+    text 0,17.2 233.33x15.6 "Auction house cut, %" #cbb994
   box 248.33,16.67 311.67x16.67
     box 248.33,16.67 200x16.67 @click @drag @dragStart @key
       box 248.33,21.67 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
       box 249.17,22.5 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
       box 291.67,15 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-    text 458.33,17.5 6.25x15 "5" #ffffff
+    text 458.33,17.2 8.89x15.6 "5" #ffffff
 box 0,33.33 560x16.67 opacity=1
-  box 0,34.17 233.33x15 @enter @leave
-    text 0,34.17 233.33x15 "Ordaen's auction house window" #cbb994
+  box 0,33.87 233.33x15.6 @enter @leave
+    text 0,33.87 233.33x15.6 "Ordaen's auction house window" #cbb994
   box 248.33,33.33 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
     box 245.83,30.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
     box 260.83,30.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
 box 0,50 560x16.67 opacity=1
-  box 0,50.83 233.33x15 @enter @leave
-    text 0,50.83 233.33x15 "Price in item tooltips" #cbb994
+  box 0,50.53 233.33x15.6 @enter @leave
+    text 0,50.53 233.33x15.6 "Price in item tooltips" #cbb994
   box 248.33,50 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
     box 245.83,47.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
     box 260.83,47.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1

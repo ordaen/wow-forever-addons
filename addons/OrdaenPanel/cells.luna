@@ -21,8 +21,8 @@ const GOLD: Color = Color.hex("#ffb847")
 const WHITE: Color = Color.hex("#ffffff")
 // The cell under the cursor: a warm light over the wood; pushed, a shade.
 const LIT: Stated<Color> = { default: Color.hex("#00000000"), hover: Color.hex("#ffd9a01f"), pressed: Color.hex("#00000040") }
-// The friends online: a green pill in the cell's lower right, 16 px high and at least as wide.
-const BADGE = 16 * PX
+// The friends online: a green pill in the cell's lower right, 18 px high (a line of `Secondary`) and at least as wide.
+const BADGE = 18 * PX
 const BADGE_PAD: Edges = { right: 4 * PX, left: 4 * PX }
 // The design's bold number: a white shadow one pixel to the right.
 const BOLD: Shadow = { color: WHITE, x: 1, y: 0 }

@@ -1,227 +1,215 @@
 -- the headings, the body in the rest of the 200 down to the foot, its first rows built
 box 0,0 500x200
-  text 0,0 500x15 "head" #ffffff
-  box 0,15 500x170
-    box 0,15 500x29.17 #00000040
-      box 6.67,15 246.67x28.33 #00000000 @click
-        box 6.67,41.67 246.67x1.67 absolute #00000000
-        box 6.67,21.67 246.67x15
-          text 6.67,21.67 25x15 "Item" #cbb994
-          box 35,26.67 6.67x5
-            box 31.67,22.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-      box 260,15 110x28.33 #00000000 @click
-        box 260,41.67 110x1.67 absolute #00000000
-        box 328.75,21.67 41.25x15
-          text 328.75,21.67 31.25x15 "Price" #cbb994
-          box 363.33,26.67 6.67x5
-            box 360,22.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-      box 376.67,15 50x28.33 #00000000 @click
-        box 376.67,41.67 50x1.67 absolute #00000000
-        box 397.92,21.67 28.75x15
-          text 397.92,21.67 18.75x15 "Age" #cbb994
-          box 420,26.67 6.67x5
-            box 416.67,22.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-      box 433.33,15 60x28.33 #00000000 @click
-        box 433.33,41.67 60x1.67 absolute #00000000
-        box 433.33,21.67 60x15
-          text 433.33,21.67 25x15 "Note" #a3977f
-    box 0,44.17 500x140.83 scrolled 0 of 12859.17
-      box 0,44.17 500x21.67 #00000000 @click
-        text 6.67,47.5 246.67x15 "Ware 1" #ffffff
-        box 260,47.5 110x15
-          text 313.75,47.5 56.25x15 "0g 0s 37c" #e8dcc4
-        box 376.67,55 50x0
-        box 433.33,55 60x0
-      box 0,65.83 500x21.67 #00000000 @click
-        text 6.67,69.17 246.67x15 "Ware 2" #ffffff
-        box 260,69.17 110x15
-          text 313.75,69.17 56.25x15 "0g 0s 74c" #e8dcc4
-        box 376.67,76.67 50x0
-        box 433.33,76.67 60x0
-      box 0,87.5 500x21.67 #00000000 @click
-        text 6.67,90.83 246.67x15 "Ware 3" #ffffff
-        box 260,90.83 110x15
-          text 313.75,90.83 56.25x15 "0g 1s 11c" #e8dcc4
-        box 376.67,98.33 50x0
-        box 433.33,98.33 60x0
-      box 0,109.17 500x21.67 #00000000 @click
-        text 6.67,112.5 246.67x15 "Ware 4" #ffffff
-        box 260,112.5 110x15
-          text 313.75,112.5 56.25x15 "0g 1s 48c" #e8dcc4
-        box 376.67,120 50x0
-        box 433.33,120 60x0
-      box 0,130.83 500x21.67 #00000000 @click
-        text 6.67,134.17 246.67x15 "Ware 5" #ffffff
-        box 260,134.17 110x15
-          text 313.75,134.17 56.25x15 "0g 1s 85c" #e8dcc4
-        box 376.67,141.67 50x0
-        box 433.33,141.67 60x0
-      box 0,152.5 500x21.67 #00000000 @click
-        text 6.67,155.83 246.67x15 "Ware 6" #ffffff
-        box 260,155.83 110x15
-          text 313.75,155.83 56.25x15 "0g 2s 22c" #e8dcc4
-        box 376.67,163.33 50x0
-        box 433.33,163.33 60x0
-      box 0,174.17 500x21.67 #00000000 @click
-        text 6.67,177.5 246.67x15 "Ware 7" #ffffff
-        box 260,177.5 110x15
-          text 313.75,177.5 56.25x15 "0g 2s 59c" #e8dcc4
-        box 376.67,185 50x0
-        box 433.33,185 60x0
-      box 0,195.83 500x21.67 #00000000 @click
-        text 6.67,199.17 246.67x15 "Ware 8" #ffffff
-        box 260,199.17 110x15
-          text 313.75,199.17 56.25x15 "0g 2s 96c" #e8dcc4
-        box 376.67,206.67 50x0
-        box 433.33,206.67 60x0
-      box 0,217.5 500x21.67 #00000000 @click
-        text 6.67,220.83 246.67x15 "Ware 9" #ffffff
-        box 260,220.83 110x15
-          text 313.75,220.83 56.25x15 "0g 3s 33c" #e8dcc4
-        box 376.67,228.33 50x0
-        box 433.33,228.33 60x0
-      box 0,239.17 500x21.67 #00000000 @click
-        text 6.67,242.5 246.67x15 "Ware 10" #ffffff
-        box 260,242.5 110x15
-          text 313.75,242.5 56.25x15 "0g 3s 70c" #e8dcc4
-        box 376.67,250 50x0
-        box 433.33,250 60x0
-      box 0,260.83 500x21.67 #00000000 @click
-        text 6.67,264.17 246.67x15 "Ware 11" #ffffff
-        box 260,264.17 110x15
-          text 320,264.17 50x15 "0g 4s 7c" #e8dcc4
-        box 376.67,271.67 50x0
-        box 433.33,271.67 60x0
-      box 0,282.5 500x21.67 #00000000 @click
-        text 6.67,285.83 246.67x15 "Ware 12" #ffffff
-        box 260,285.83 110x15
-          text 313.75,285.83 56.25x15 "0g 4s 44c" #e8dcc4
-        box 376.67,293.33 50x0
-        box 433.33,293.33 60x0
-      box 0,304.17 500x21.67 #00000000 @click
-        text 6.67,307.5 246.67x15 "Ware 13" #ffffff
-        box 260,307.5 110x15
-          text 313.75,307.5 56.25x15 "0g 4s 81c" #e8dcc4
-        box 376.67,315 50x0
-        box 433.33,315 60x0
-      box 0,325.83 500x21.67 #00000000 @click
-        text 6.67,329.17 246.67x15 "Ware 14" #ffffff
-        box 260,329.17 110x15
-          text 313.75,329.17 56.25x15 "0g 5s 18c" #e8dcc4
-        box 376.67,336.67 50x0
-        box 433.33,336.67 60x0
-  text 0,185 500x15 "foot" #ffffff
+  text 0,0 500x15.6 "head" #ffffff
+  box 0,15.6 500x168.8
+    box 0,15.6 500x29.77 #00000040
+      box 6.67,15.6 246.67x28.93 #00000000 @click
+        box 6.67,42.87 246.67x1.67 absolute #00000000
+        box 6.67,22.27 246.67x15.6
+          text 6.67,22.27 28.89x15.6 "Item" #cbb994
+          box 38.89,27.57 6.67x5
+            box 35.56,23.4 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+      box 260,15.6 110x28.93 #00000000 @click
+        box 260,42.87 110x1.67 absolute #00000000
+        box 324.44,22.27 45.56x15.6
+          text 324.44,22.27 35.56x15.6 "Price" #cbb994
+          box 363.33,27.57 6.67x5
+            box 360,23.4 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+      box 376.67,15.6 50x28.93 #00000000 @click
+        box 376.67,42.87 50x1.67 absolute #00000000
+        box 394.44,22.27 32.22x15.6
+          text 394.44,22.27 22.22x15.6 "Age" #cbb994
+          box 420,27.57 6.67x5
+            box 416.67,23.4 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+      box 433.33,15.6 60x28.93 #00000000 @click
+        box 433.33,42.87 60x1.67 absolute #00000000
+        box 433.33,22.27 60x15.6
+          text 433.33,22.27 28.89x15.6 "Note" #a3977f
+    box 0,45.37 500x139.03 scrolled 0 of 13860.97
+      box 0,45.37 500x23.33 #00000000 @click
+        text 6.67,49.23 246.67x15.6 "Ware 1" #ffffff
+        box 260,49.23 110x15.6
+          text 308.89,49.23 61.11x15.6 "0g 0s 37c" #e8dcc4 right
+        box 376.67,57.03 50x0
+        box 433.33,57.03 60x0
+      box 0,68.7 500x23.33 #00000000 @click
+        text 6.67,72.57 246.67x15.6 "Ware 2" #ffffff
+        box 260,72.57 110x15.6
+          text 308.89,72.57 61.11x15.6 "0g 0s 74c" #e8dcc4 right
+        box 376.67,80.37 50x0
+        box 433.33,80.37 60x0
+      box 0,92.03 500x23.33 #00000000 @click
+        text 6.67,95.9 246.67x15.6 "Ware 3" #ffffff
+        box 260,95.9 110x15.6
+          text 308.89,95.9 61.11x15.6 "0g 1s 11c" #e8dcc4 right
+        box 376.67,103.7 50x0
+        box 433.33,103.7 60x0
+      box 0,115.37 500x23.33 #00000000 @click
+        text 6.67,119.23 246.67x15.6 "Ware 4" #ffffff
+        box 260,119.23 110x15.6
+          text 308.89,119.23 61.11x15.6 "0g 1s 48c" #e8dcc4 right
+        box 376.67,127.03 50x0
+        box 433.33,127.03 60x0
+      box 0,138.7 500x23.33 #00000000 @click
+        text 6.67,142.57 246.67x15.6 "Ware 5" #ffffff
+        box 260,142.57 110x15.6
+          text 308.89,142.57 61.11x15.6 "0g 1s 85c" #e8dcc4 right
+        box 376.67,150.37 50x0
+        box 433.33,150.37 60x0
+      box 0,162.03 500x23.33 #00000000 @click
+        text 6.67,165.9 246.67x15.6 "Ware 6" #ffffff
+        box 260,165.9 110x15.6
+          text 308.89,165.9 61.11x15.6 "0g 2s 22c" #e8dcc4 right
+        box 376.67,173.7 50x0
+        box 433.33,173.7 60x0
+      box 0,185.37 500x23.33 #00000000 @click
+        text 6.67,189.23 246.67x15.6 "Ware 7" #ffffff
+        box 260,189.23 110x15.6
+          text 308.89,189.23 61.11x15.6 "0g 2s 59c" #e8dcc4 right
+        box 376.67,197.03 50x0
+        box 433.33,197.03 60x0
+      box 0,208.7 500x23.33 #00000000 @click
+        text 6.67,212.57 246.67x15.6 "Ware 8" #ffffff
+        box 260,212.57 110x15.6
+          text 308.89,212.57 61.11x15.6 "0g 2s 96c" #e8dcc4 right
+        box 376.67,220.37 50x0
+        box 433.33,220.37 60x0
+      box 0,232.03 500x23.33 #00000000 @click
+        text 6.67,235.9 246.67x15.6 "Ware 9" #ffffff
+        box 260,235.9 110x15.6
+          text 308.89,235.9 61.11x15.6 "0g 3s 33c" #e8dcc4 right
+        box 376.67,243.7 50x0
+        box 433.33,243.7 60x0
+      box 0,255.37 500x23.33 #00000000 @click
+        text 6.67,259.23 246.67x15.6 "Ware 10" #ffffff
+        box 260,259.23 110x15.6
+          text 308.89,259.23 61.11x15.6 "0g 3s 70c" #e8dcc4 right
+        box 376.67,267.03 50x0
+        box 433.33,267.03 60x0
+      box 0,278.7 500x23.33 #00000000 @click
+        text 6.67,282.57 246.67x15.6 "Ware 11" #ffffff
+        box 260,282.57 110x15.6
+          text 315.56,282.57 54.44x15.6 "0g 4s 7c" #e8dcc4 right
+        box 376.67,290.37 50x0
+        box 433.33,290.37 60x0
+      box 0,302.03 500x23.33 #00000000 @click
+        text 6.67,305.9 246.67x15.6 "Ware 12" #ffffff
+        box 260,305.9 110x15.6
+          text 308.89,305.9 61.11x15.6 "0g 4s 44c" #e8dcc4 right
+        box 376.67,313.7 50x0
+        box 433.33,313.7 60x0
+      box 0,325.37 500x23.33 #00000000 @click
+        text 6.67,329.23 246.67x15.6 "Ware 13" #ffffff
+        box 260,329.23 110x15.6
+          text 308.89,329.23 61.11x15.6 "0g 4s 81c" #e8dcc4 right
+        box 376.67,337.03 50x0
+        box 433.33,337.03 60x0
+  text 0,184.4 500x15.6 "foot" #ffffff
 
 -- fifty notches down: the same boxes hold the wares now in view
 box 0,0 500x200
-  text 0,0 500x15 "head" #ffffff
-  box 0,15 500x170
-    box 0,15 500x29.17 #00000040
-      box 6.67,15 246.67x28.33 #00000000 @click
-        box 6.67,41.67 246.67x1.67 absolute #00000000
-        box 6.67,21.67 246.67x15
-          text 6.67,21.67 25x15 "Item" #cbb994
-          box 35,26.67 6.67x5
-            box 31.67,22.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-      box 260,15 110x28.33 #00000000 @click
-        box 260,41.67 110x1.67 absolute #00000000
-        box 328.75,21.67 41.25x15
-          text 328.75,21.67 31.25x15 "Price" #cbb994
-          box 363.33,26.67 6.67x5
-            box 360,22.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-      box 376.67,15 50x28.33 #00000000 @click
-        box 376.67,41.67 50x1.67 absolute #00000000
-        box 397.92,21.67 28.75x15
-          text 397.92,21.67 18.75x15 "Age" #cbb994
-          box 420,26.67 6.67x5
-            box 416.67,22.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-      box 433.33,15 60x28.33 #00000000 @click
-        box 433.33,41.67 60x1.67 absolute #00000000
-        box 433.33,21.67 60x15
-          text 433.33,21.67 25x15 "Note" #a3977f
-    box 0,44.17 500x140.83 scrolled 1800 of 12859.17
-      box 0,-22.5 500x21.67 #00000000 @click
-        text 6.67,-19.17 246.67x15 "Ware 81" #ffffff
-        box 260,-19.17 110x15
-          text 307.5,-19.17 62.5x15 "0g 29s 97c" #e8dcc4
-        box 376.67,-11.67 50x0
-        box 433.33,-11.67 60x0
-      box 0,-0.83 500x21.67 #00000033 @click
-        text 6.67,2.5 246.67x15 "Ware 82" #ffffff
-        box 260,2.5 110x15
-          text 307.5,2.5 62.5x15 "0g 30s 34c" #e8dcc4
-        box 376.67,10 50x0
-        box 433.33,10 60x0
-      box 0,20.83 500x21.67 #00000000 @click
-        text 6.67,24.17 246.67x15 "Ware 83" #ffffff
-        box 260,24.17 110x15
-          text 307.5,24.17 62.5x15 "0g 30s 71c" #e8dcc4
-        box 376.67,31.67 50x0
-        box 433.33,31.67 60x0
-      box 0,42.5 500x21.67 #00000000 @click
-        text 6.67,45.83 246.67x15 "Ware 84" #ffffff
-        box 260,45.83 110x15
-          text 313.75,45.83 56.25x15 "0g 31s 8c" #e8dcc4
-        box 376.67,53.33 50x0
-        box 433.33,53.33 60x0
-      box 0,64.17 500x21.67 #00000000 @click
-        text 6.67,67.5 246.67x15 "Ware 85" #ffffff
-        box 260,67.5 110x15
-          text 307.5,67.5 62.5x15 "0g 31s 45c" #e8dcc4
-        box 376.67,75 50x0
-        box 433.33,75 60x0
-      box 0,85.83 500x21.67 #00000000 @click
-        text 6.67,89.17 246.67x15 "Ware 86" #ffffff
-        box 260,89.17 110x15
-          text 307.5,89.17 62.5x15 "0g 31s 82c" #e8dcc4
-        box 376.67,96.67 50x0
-        box 433.33,96.67 60x0
-      box 0,107.5 500x21.67 #00000000 @click
-        text 6.67,110.83 246.67x15 "Ware 87" #ffffff
-        box 260,110.83 110x15
-          text 307.5,110.83 62.5x15 "0g 32s 19c" #e8dcc4
-        box 376.67,118.33 50x0
-        box 433.33,118.33 60x0
-      box 0,129.17 500x21.67 #00000000 @click
-        text 6.67,132.5 246.67x15 "Ware 88" #ffffff
-        box 260,132.5 110x15
-          text 307.5,132.5 62.5x15 "0g 32s 56c" #e8dcc4
-        box 376.67,140 50x0
-        box 433.33,140 60x0
-      box 0,150.83 500x21.67 #00000000 @click
-        text 6.67,154.17 246.67x15 "Ware 89" #ffffff
-        box 260,154.17 110x15
-          text 307.5,154.17 62.5x15 "0g 32s 93c" #e8dcc4
-        box 376.67,161.67 50x0
-        box 433.33,161.67 60x0
-      box 0,172.5 500x21.67 #00000000 @click
-        text 6.67,175.83 246.67x15 "Ware 90" #ffffff
-        box 260,175.83 110x15
-          text 307.5,175.83 62.5x15 "0g 33s 30c" #e8dcc4
-        box 376.67,183.33 50x0
-        box 433.33,183.33 60x0
-      box 0,194.17 500x21.67 #00000000 @click
-        text 6.67,197.5 246.67x15 "Ware 91" #ffffff
-        box 260,197.5 110x15
-          text 307.5,197.5 62.5x15 "0g 33s 67c" #e8dcc4
-        box 376.67,205 50x0
-        box 433.33,205 60x0
-      box 0,215.83 500x21.67 #00000000 @click
-        text 6.67,219.17 246.67x15 "Ware 92" #ffffff
-        box 260,219.17 110x15
-          text 313.75,219.17 56.25x15 "0g 34s 4c" #e8dcc4
-        box 376.67,226.67 50x0
-        box 433.33,226.67 60x0
-      box 0,237.5 500x21.67 #00000000 @click
-        text 6.67,240.83 246.67x15 "Ware 93" #ffffff
-        box 260,240.83 110x15
-          text 307.5,240.83 62.5x15 "0g 34s 41c" #e8dcc4
-        box 376.67,248.33 50x0
-        box 433.33,248.33 60x0
-      box 0,259.17 500x21.67 #00000000 @click
-        text 6.67,262.5 246.67x15 "Ware 94" #ffffff
-        box 260,262.5 110x15
-          text 307.5,262.5 62.5x15 "0g 34s 78c" #e8dcc4
-        box 376.67,270 50x0
-        box 433.33,270 60x0
-  text 0,185 500x15 "foot" #ffffff
+  text 0,0 500x15.6 "head" #ffffff
+  box 0,15.6 500x168.8
+    box 0,15.6 500x29.77 #00000040
+      box 6.67,15.6 246.67x28.93 #00000000 @click
+        box 6.67,42.87 246.67x1.67 absolute #00000000
+        box 6.67,22.27 246.67x15.6
+          text 6.67,22.27 28.89x15.6 "Item" #cbb994
+          box 38.89,27.57 6.67x5
+            box 35.56,23.4 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+      box 260,15.6 110x28.93 #00000000 @click
+        box 260,42.87 110x1.67 absolute #00000000
+        box 324.44,22.27 45.56x15.6
+          text 324.44,22.27 35.56x15.6 "Price" #cbb994
+          box 363.33,27.57 6.67x5
+            box 360,23.4 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+      box 376.67,15.6 50x28.93 #00000000 @click
+        box 376.67,42.87 50x1.67 absolute #00000000
+        box 394.44,22.27 32.22x15.6
+          text 394.44,22.27 22.22x15.6 "Age" #cbb994
+          box 420,27.57 6.67x5
+            box 416.67,23.4 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+      box 433.33,15.6 60x28.93 #00000000 @click
+        box 433.33,42.87 60x1.67 absolute #00000000
+        box 433.33,22.27 60x15.6
+          text 433.33,22.27 28.89x15.6 "Note" #a3977f
+    box 0,45.37 500x139.03 scrolled 1800 of 13860.97
+      box 0,-27.97 500x23.33 #00000000 @click
+        text 6.67,-24.1 246.67x15.6 "Ware 75" #ffffff
+        box 260,-24.1 110x15.6
+          text 302.22,-24.1 67.78x15.6 "0g 27s 75c" #e8dcc4 right
+        box 376.67,-16.3 50x0
+        box 433.33,-16.3 60x0
+      box 0,-4.63 500x23.33 #00000033 @click
+        text 6.67,-0.77 246.67x15.6 "Ware 76" #ffffff
+        box 260,-0.77 110x15.6
+          text 302.22,-0.77 67.78x15.6 "0g 28s 12c" #e8dcc4 right
+        box 376.67,7.03 50x0
+        box 433.33,7.03 60x0
+      box 0,18.7 500x23.33 #00000000 @click
+        text 6.67,22.57 246.67x15.6 "Ware 77" #ffffff
+        box 260,22.57 110x15.6
+          text 302.22,22.57 67.78x15.6 "0g 28s 49c" #e8dcc4 right
+        box 376.67,30.37 50x0
+        box 433.33,30.37 60x0
+      box 0,42.03 500x23.33 #00000000 @click
+        text 6.67,45.9 246.67x15.6 "Ware 78" #ffffff
+        box 260,45.9 110x15.6
+          text 302.22,45.9 67.78x15.6 "0g 28s 86c" #e8dcc4 right
+        box 376.67,53.7 50x0
+        box 433.33,53.7 60x0
+      box 0,65.37 500x23.33 #00000000 @click
+        text 6.67,69.23 246.67x15.6 "Ware 79" #ffffff
+        box 260,69.23 110x15.6
+          text 302.22,69.23 67.78x15.6 "0g 29s 23c" #e8dcc4 right
+        box 376.67,77.03 50x0
+        box 433.33,77.03 60x0
+      box 0,88.7 500x23.33 #00000000 @click
+        text 6.67,92.57 246.67x15.6 "Ware 80" #ffffff
+        box 260,92.57 110x15.6
+          text 302.22,92.57 67.78x15.6 "0g 29s 60c" #e8dcc4 right
+        box 376.67,100.37 50x0
+        box 433.33,100.37 60x0
+      box 0,112.03 500x23.33 #00000000 @click
+        text 6.67,115.9 246.67x15.6 "Ware 81" #ffffff
+        box 260,115.9 110x15.6
+          text 302.22,115.9 67.78x15.6 "0g 29s 97c" #e8dcc4 right
+        box 376.67,123.7 50x0
+        box 433.33,123.7 60x0
+      box 0,135.37 500x23.33 #00000000 @click
+        text 6.67,139.23 246.67x15.6 "Ware 82" #ffffff
+        box 260,139.23 110x15.6
+          text 302.22,139.23 67.78x15.6 "0g 30s 34c" #e8dcc4 right
+        box 376.67,147.03 50x0
+        box 433.33,147.03 60x0
+      box 0,158.7 500x23.33 #00000000 @click
+        text 6.67,162.57 246.67x15.6 "Ware 83" #ffffff
+        box 260,162.57 110x15.6
+          text 302.22,162.57 67.78x15.6 "0g 30s 71c" #e8dcc4 right
+        box 376.67,170.37 50x0
+        box 433.33,170.37 60x0
+      box 0,182.03 500x23.33 #00000000 @click
+        text 6.67,185.9 246.67x15.6 "Ware 84" #ffffff
+        box 260,185.9 110x15.6
+          text 308.89,185.9 61.11x15.6 "0g 31s 8c" #e8dcc4 right
+        box 376.67,193.7 50x0
+        box 433.33,193.7 60x0
+      box 0,205.37 500x23.33 #00000000 @click
+        text 6.67,209.23 246.67x15.6 "Ware 85" #ffffff
+        box 260,209.23 110x15.6
+          text 302.22,209.23 67.78x15.6 "0g 31s 45c" #e8dcc4 right
+        box 376.67,217.03 50x0
+        box 433.33,217.03 60x0
+      box 0,228.7 500x23.33 #00000000 @click
+        text 6.67,232.57 246.67x15.6 "Ware 86" #ffffff
+        box 260,232.57 110x15.6
+          text 302.22,232.57 67.78x15.6 "0g 31s 82c" #e8dcc4 right
+        box 376.67,240.37 50x0
+        box 433.33,240.37 60x0
+      box 0,252.03 500x23.33 #00000000 @click
+        text 6.67,255.9 246.67x15.6 "Ware 87" #ffffff
+        box 260,255.9 110x15.6
+          text 302.22,255.9 67.78x15.6 "0g 32s 19c" #e8dcc4 right
+        box 376.67,263.7 50x0
+        box 433.33,263.7 60x0
+  text 0,184.4 500x15.6 "foot" #ffffff

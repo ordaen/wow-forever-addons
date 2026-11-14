@@ -59,8 +59,8 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
   box 646.33,873.5 476.83x0
     box 646.33,873.5 476.83x0
   box 1123.17,847 476.83x53
-    box 1175.67,866 60x15
-      text 1175.67,866 50x15 "0g 0s 0c" #e8dcc4
+    box 1171.22,865.7 64.44x15.6
+      text 1171.22,865.7 54.44x15.6 "0g 0s 0c" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
@@ -100,6 +100,6 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   embed 0,776 128x124 absolute frame=none opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 
 the game's bag buttons' own opacity: MainMenuBarBackpackButton 0, CharacterBag0Slot 0, CharacterBag1Slot 0, CharacterBag2Slot 0, CharacterBag3Slot 0, CharacterReagentBag0Slot 0, KeyRingButton 0

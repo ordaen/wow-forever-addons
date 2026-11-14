@@ -1,13 +1,14 @@
 // Tip: our tooltip beside what it explains: the small metal frame round the windows' wood, its name in white, its
 // text under it in the label colour, wrapped at the tooltip's width, and under that its rows, each a label at the
-// start in the label colour and its value at the end in white. It stands on the screen over everything and takes no
+// start in the label colour and its value at the end in white; a panel's room round it and a line's between its
+// lines (`space`). It stands on the screen over everything and takes no
 // mouse. Its owner writes it in the box it explains and shows it while the cursor is on that box: it stands beside
 // that box as the game's tooltip stands beside a button (under it, or over it in the screen's lower half; by its left
 // edge, or by its right edge in the screen's right third), kept on the screen.
 import { Align, Beside, Layer, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { PX } from "@/units"
+import { PX, space } from "@/units"
 
 const WIDTH = 314 * PX
 const NAME: Color = Color.hex("#ffffff")
@@ -55,11 +56,11 @@ public class Tip implements Component {
     return $ltml {
       <surface layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={WIDTH}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
-               padding={12 * PX} columns={1} gap={2 * PX}>
+               padding={space(.Panel)} columns={1} gap={space(.Line)}>
         <text value={self.title} textColor={NAME} textSize={.Title} />
         <text $if={self.hasText} value={self.text} textColor={LABEL} />
-        <box $for={row of self.rows} columns={ROW} gap={8 * PX} yAlign={Align.Center}>
-          <box columns={MARKED} gap={4 * PX} yAlign={Align.Center}>
+        <box $for={row of self.rows} columns={ROW} gap={space(.Item)} yAlign={Align.Center}>
+          <box columns={MARKED} gap={space(.Line)} yAlign={Align.Center}>
             <text value={row.label} textColor={LABEL} />
             <text $if={row.mark.text != ""} value={row.mark.text} textColor={row.mark.color} />
           </box>

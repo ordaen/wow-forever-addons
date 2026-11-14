@@ -16,7 +16,7 @@ surface 450,331.38 400x237.25 on DIALOG clamped raised by a click
   box 450,331.38 114.5x47.75
     box 450,331.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 468.58,341.62 77.33x34.25
-        text 491.62,351.25 31.25x15 "Alpha" #ffd100
+        text 489.47,350.95 35.56x15.6 "Alpha" #ffd100 centred
 surface 600,331.38 400x437.25 on DIALOG clamped raised by a click
   box 600,368.62 400x400 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 612.75,381.38 379.5x376.75
@@ -25,7 +25,7 @@ surface 600,331.38 400x437.25 on DIALOG clamped raised by a click
   box 600,331.38 114.5x47.75
     box 600,331.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 618.58,341.62 77.33x34.25
-        text 644.75,351.25 25x15 "Beta" #ffd100
+        text 642.81,350.95 28.89x15.6 "Beta" #ffd100 centred
 surface 750,331.38 400x237.25 on DIALOG clamped raised by a click
   box 750,368.62 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 762.75,381.38 379.5x176.75
@@ -34,7 +34,7 @@ surface 750,331.38 400x237.25 on DIALOG clamped raised by a click
   box 750,331.38 114.5x47.75
     box 750,331.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 768.58,341.62 77.33x34.25
-        text 791.62,351.25 31.25x15 "Gamma" #ffd100
+        text 789.47,350.95 35.56x15.6 "Gamma" #ffd100 centred
 
 key: ESCAPE → none
 key: ESCAPE → none
