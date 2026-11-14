@@ -2,5 +2,18 @@
   "title": "Ordaen",
   "icon": "Interface/Icons/Trade_Engineering",
   "notes": "Ordaen Core: what every Ordaen module runs in. Its settings: /ordaen.",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "category": {
+    "enUS": "User Interface",
+    "deDE": "Benutzerinterface",
+    "esES": "Interfaz de usuario",
+    "esMX": "Interfaz de usuario",
+    "frFR": "Interface utilisateur",
+    "itIT": "Interfaccia utente",
+    "koKR": "사용자 인터페이스",
+    "ptBR": "Interface do usuário",
+    "ruRU": "Интерфейс пользователя",
+    "zhCN": "用户界面",
+    "zhTW": "使用者介面"
+  }
 }

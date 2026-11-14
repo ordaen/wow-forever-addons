@@ -1,0 +1,389 @@
+// The client's list of addons as the AddOns window shows it: what each addon's TOC says, read in one pass when the
+// window opens, and what the client says of each now (on or off for whom the header says, loaded, why it doesn't
+// load), read again after every change. The client's state is the truth: a checkbox switches the addon in the client
+// at once and saves (`SaveAddOns`); nothing is kept here but the last step, for «Undo».
+import Client from "$client"
+import Game from "$game"
+
+// On or off, for whom the header says: with «All characters», `Some` where the account's characters differ.
+public enum Switch implements Plain { Off = "off", Some = "some", On = "on" }
+
+// One addon as its TOC says it.
+public struct AddOn {
+  // Its folder: what the client names it by.
+  name: String
+  // Its title as the TOC writes it, with its colour codes.
+  title: String
+  // Its title without colour codes, in lower case: what the list sorts by.
+  key: String
+  // What the search looks in: title, folder, author and notes, in lower case.
+  words: String
+  notes: String
+  author: String
+  version: String
+  icon: String
+  // The category the client groups it under (`## Category-<locale>` first), `""` for none.
+  category: String
+  // The addon it stands under (`## Group`), `""` for none.
+  group: String
+  // What it needs (`## Dependencies`) and what it would like (`## OptionalDeps`), by folder.
+  needs: Array<String>
+  wants: Array<String>
+  demand: Boolean
+}
+
+// What the client says of an addon now.
+public struct Status {
+  // On or off for whom the header says.
+  enabled: Switch
+  // On for this character: what the next session loads.
+  mine: Boolean
+  loaded: Boolean
+  // Why the client doesn't load it for this character, where it doesn't; never «on demand».
+  reason: Client.AddOnReason | nil
+}
+
+// One addon a step changed, and how it was before.
+public struct Change {
+  name: String
+  before: Switch
+  // On for this character before: how «Some» is put back.
+  mine: Boolean
+}
+
+// What one switch changed: «Undo» puts back each addon in it; `also` are the titles of those that came with it.
+public struct Step {
+  changes: Array<Change>
+  also: Array<String>
+}
+
+// The values a client's call gives, one after another, as a list.
+function listOf(...names: String): Array<String> {
+  const list: Array<String> = []
+  for (i of 1..=names.length) {
+    const name = names[i]
+    if (name != nil) { list.push(name) }
+  }
+  return list
+}
+
+// A title without the client's colour codes.
+public function plain(title: String): String {
+  return title.replace("|c%x%x%x%x%x%x%x%x", "").replace("|r", "")
+}
+
+public class Catalog {
+  // Every addon of the client's list, in its order.
+  public state addons: Array<AddOn> = []
+  public state statuses: Map<String, Status> = {}
+  // «All characters» in the header, or this character.
+  public state everyone = true
+  // The last step that switched addons on with others, until the next change: the strip under the list.
+  public state step: Step | nil = nil
+  public derived byName: Map<String, AddOn> = self.indexOf()
+  // Who names each addon as one it needs.
+  public derived neededBy: Map<String, Array<String>> = self.reverseOf()
+  // Who stands under each addon (`## Group`).
+  public derived members: Map<String, Array<String>> = self.membersOf()
+  // Addons whose next session differs from this one: on and not loaded (but on demand), or off and loaded.
+  public derived waiting: Integer = self.waitingOf()
+
+  // The whole list read again: one pass over the client's addons.
+  public read(mut self) {
+    const locale = Game.client.locale
+    const count = Client.C_AddOns.GetNumAddOns()
+    const list: Array<AddOn> = []
+    for (index of 1..=count) {
+      const name = Client.C_AddOns.GetAddOnName(index)
+      const title = Client.C_AddOns.GetAddOnMetadata(name, "Title") ?? name
+      const notes = Client.C_AddOns.GetAddOnMetadata(name, "Notes") ?? ""
+      const author = Client.C_AddOns.GetAddOnMetadata(name, "Author") ?? ""
+      list.push({
+        name: name,
+        title: title,
+        key: plain(title).lower(),
+        words: "%s %s %s %s".format(plain(title), name, author, plain(notes)).lower(),
+        notes: notes,
+        author: author,
+        version: Client.C_AddOns.GetAddOnMetadata(name, "Version") ?? "",
+        icon: Client.C_AddOns.GetAddOnMetadata(name, "IconTexture") ?? "",
+        category: Client.C_AddOns.GetAddOnMetadata(name, "Category-" + locale) ??
+          Client.C_AddOns.GetAddOnMetadata(name, "Category") ?? "",
+        group: Client.C_AddOns.GetAddOnMetadata(name, "Group") ?? "",
+        needs: listOf(...Client.C_AddOns.GetAddOnDependencies(name)),
+        wants: listOf(...Client.C_AddOns.GetAddOnOptionalDependencies(name)),
+        demand: Client.C_AddOns.IsAddOnLoadOnDemand(name),
+      })
+    }
+    self.addons = list
+    self.step = nil
+    self.refresh()
+  }
+
+  // What the client says of every addon now.
+  public refresh(mut self) {
+    const player = Game.player.name
+    const character = self.character()
+    const map: Map<String, Status> = {}
+    for (addon of peek self.addons) {
+      const state = Client.C_AddOns.GetAddOnEnableState(addon.name, character)
+      const _, loaded = Client.C_AddOns.IsAddOnLoaded(addon.name)
+      const _, reason = Client.C_AddOns.IsAddOnLoadable(addon.name, player, true)
+      map[addon.name] = {
+        enabled: state == .All ? Switch.On : state == .Some ? Switch.Some : Switch.Off,
+        mine: Client.C_AddOns.GetAddOnEnableState(addon.name, player) != .None,
+        loaded: loaded,
+        reason: reason,
+      }
+    }
+    self.statuses = map
+  }
+
+  // The character the header's choice switches for: nil for all of them.
+  public character(self): String | nil { return (peek self.everyone) ? nil : Game.player.name }
+
+  indexOf(self): Map<String, AddOn> {
+    const map: Map<String, AddOn> = {}
+    for (addon of self.addons) { map[addon.name] = addon }
+    return map
+  }
+
+  reverseOf(self): Map<String, Array<String>> {
+    const map: Map<String, mut Array<String>> = {}
+    for (addon of self.addons) {
+      for (need of addon.needs) {
+        const held = map[need]
+        if (held == nil) {
+          map[need] = [addon.name]
+        } else {
+          held.push(addon.name)
+        }
+      }
+    }
+    return map
+  }
+
+  membersOf(self): Map<String, Array<String>> {
+    const map: Map<String, mut Array<String>> = {}
+    for (addon of self.addons) {
+      if (addon.group != "" && addon.group != addon.name) {
+        const held = map[addon.group]
+        if (held == nil) {
+          map[addon.group] = [addon.name]
+        } else {
+          held.push(addon.name)
+        }
+      }
+    }
+    return map
+  }
+
+  waitingOf(self): Integer {
+    let count = 0
+    for (addon of self.addons) {
+      const status = self.statuses[addon.name]
+      if (status != nil) {
+        if (status.mine && !status.loaded && !addon.demand && status.reason == nil) { count += 1 }
+        if (!status.mine && status.loaded) { count += 1 }
+      }
+    }
+    return count
+  }
+
+  // Whether an addon is on for whom the header says (all of them or some).
+  public isOn(self, name: String): Boolean {
+    const status = (peek self.statuses)[name]
+    return status != nil && status.enabled != .Off
+  }
+
+  // What an addon needs, and what those need in turn, that is in the folder: each once, a ring followed once.
+  public needsOf(self, name: String): Array<String> {
+    const seen: Map<String, Boolean> = {}
+    seen[name] = true
+    const list: Array<String> = []
+    self.gather(name, mut seen, mut list)
+    return list
+  }
+
+  gather(self, name: String, seen: mut Map<String, Boolean>, list: mut Array<String>) {
+    const addon = (peek self.byName)[name]
+    if (addon == nil) { return }
+    for (need of addon.needs) {
+      if (seen[need] == nil) {
+        seen[need] = true
+        if ((peek self.byName)[need] != nil) {
+          list.push(need)
+          self.gather(need, mut seen, mut list)
+        }
+      }
+    }
+  }
+
+  // Every addon that is on and needs one of `names`, directly or through another: what stops loading when they go.
+  public dependentsOf(self, names: Array<String>): Array<String> {
+    const seen: Map<String, Boolean> = {}
+    for (name of names) { seen[name] = true }
+    const list: Array<String> = []
+    const queue: Array<String> = []
+    for (name of names) { queue.push(name) }
+    for (turn of 1..=Number.huge) {
+      if (queue.length == 0) { break }
+      const name = queue.pop() ?? panic("the queue isn't empty")
+      for (other of (peek self.neededBy)[name] ?? []) {
+        if (seen[other] == nil) {
+          seen[other] = true
+          if (self.isOn(other)) { list.push(other) }
+          queue.push(other)
+        }
+      }
+    }
+    return list
+  }
+
+  // An addon's title as it reads without colour codes, by its folder: the folder itself where it isn't listed.
+  public titleOf(self, name: String): String {
+    const addon = (peek self.byName)[name]
+    return addon == nil ? name : plain(addon.title)
+  }
+
+  // `names` switched on for whom the header says, each with what it needs that is in the folder and off, in one
+  // step; optional dependencies are never switched. A needed addon missing from the folder is left to the client,
+  // which then says why it doesn't load.
+  public switchOn(mut self, names: Array<String>) {
+    const character = self.character()
+    const asked: Map<String, Boolean> = {}
+    for (name of names) { asked[name] = true }
+    const targets: Array<String> = []
+    const listed: Map<String, Boolean> = {}
+    for (name of names) {
+      if (listed[name] == nil) {
+        listed[name] = true
+        targets.push(name)
+      }
+      for (need of self.needsOf(name)) {
+        if (listed[need] == nil) {
+          listed[need] = true
+          targets.push(need)
+        }
+      }
+    }
+    const changes: Array<Change> = []
+    const also: Array<String> = []
+    const statuses = peek self.statuses
+    for (name of targets) {
+      const status = statuses[name]
+      if (status != nil && status.enabled != .On) {
+        changes.push({ name: name, before: status.enabled, mine: status.mine })
+        Client.C_AddOns.EnableAddOn(name, character)
+        if (asked[name] == nil) { also.push(self.titleOf(name)) }
+      }
+    }
+    self.finish(changes, also)
+  }
+
+  // `names` switched off for whom the header says, alone: what needs them stays on and reads the client's reason.
+  public switchOff(mut self, names: Array<String>) {
+    const character = self.character()
+    const changes: Array<Change> = []
+    const statuses = peek self.statuses
+    for (name of names) {
+      const status = statuses[name]
+      if (status != nil && status.enabled != .Off) {
+        changes.push({ name: name, before: status.enabled, mine: status.mine })
+        Client.C_AddOns.DisableAddOn(name, character)
+      }
+    }
+    self.finish(changes, [])
+  }
+
+  // A step saved once; the strip shows it where others came with what was asked.
+  finish(mut self, changes: Array<Change>, also: Array<String>) {
+    if (changes.length > 0) { Client.C_AddOns.SaveAddOns() }
+    self.step = also.length > 0 ? { changes: changes, also: also } : nil
+    self.refresh()
+  }
+
+  // The last step put back: each addon it changed to the state it had before, and nothing else; saved once.
+  public undo(mut self) {
+    const step = peek self.step
+    if (step == nil) { return }
+    const character = self.character()
+    const player = Game.player.name
+    for (index of step.changes.length..=1 step -1) {
+      const change = step.changes[index] ?? panic("an index of the list")
+      match (change.before) {
+        .On => Client.C_AddOns.EnableAddOn(change.name, character),
+        .Off => Client.C_AddOns.DisableAddOn(change.name, character),
+        // On for some characters: this one as it was, the others the other way (the client names no other).
+        .Some => {
+          if (change.mine) {
+            Client.C_AddOns.DisableAddOn(change.name, nil)
+            Client.C_AddOns.EnableAddOn(change.name, player)
+          } else {
+            Client.C_AddOns.EnableAddOn(change.name, nil)
+            Client.C_AddOns.DisableAddOn(change.name, player)
+          }
+        },
+      }
+    }
+    Client.C_AddOns.SaveAddOns()
+    self.step = nil
+    self.refresh()
+  }
+
+  // Every addon back as the client last saved them.
+  public reset(mut self) {
+    Client.C_AddOns.ResetAddOns()
+    self.step = nil
+    self.refresh()
+  }
+
+  // The header's choice: all characters, or this one.
+  public setEveryone(mut self, all: Boolean) {
+    self.everyone = all
+    self.step = nil
+    self.refresh()
+  }
+
+  // An addon loaded on demand, loaded now: nil where it loaded, else the client's reason.
+  public load(mut self, name: String): String | nil {
+    const loaded, reason = Client.C_AddOns.LoadAddOn(name)
+    self.refresh()
+    return loaded == true ? nil : reason ?? ""
+  }
+
+  // A set applied: every addon it names that is in the folder on, every other off, for whom the header says. Gives
+  // the names it lists that aren't in the folder.
+  public apply(mut self, names: Array<String>): Array<String> {
+    const character = self.character()
+    const wanted: Map<String, Boolean> = {}
+    const skipped: Array<String> = []
+    for (name of names) {
+      if ((peek self.byName)[name] == nil) {
+        skipped.push(name)
+      } else {
+        wanted[name] = true
+      }
+    }
+    for (addon of peek self.addons) {
+      if (wanted[addon.name] == true) {
+        Client.C_AddOns.EnableAddOn(addon.name, character)
+      } else {
+        Client.C_AddOns.DisableAddOn(addon.name, character)
+      }
+    }
+    Client.C_AddOns.SaveAddOns()
+    self.step = nil
+    self.refresh()
+    return skipped
+  }
+
+  // The addons on for whom the header says: what a set saves.
+  public onNames(self): Array<String> {
+    const list: Array<String> = []
+    for (addon of peek self.addons) {
+      if (self.isOn(addon.name)) { list.push(addon.name) }
+    }
+    return list
+  }
+}

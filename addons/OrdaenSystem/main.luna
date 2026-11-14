@@ -1,0 +1,51 @@
+// Ordaen System: what belongs to the game client rather than to playing. The game menu dressed in Ordaen's look, and
+// the AddOns window that its «AddOns» opens in place of Blizzard's list. At login it costs one script hook on the
+// game menu and nothing else: the dress is made the first time the menu shows, the window the first time it opens.
+import Client from "$client"
+import Runtime from "$runtime"
+import { Module, SettingsPage } from "Ordaen"
+import root Ordaen from "Ordaen"
+import { AddOnsWindow } from "@/addonsWindow"
+import { MenuDress } from "@/menu"
+
+public class System implements Module, App {
+  public const title: String = "Ordaen System"
+  public const pages: Array<SettingsPage> = []
+
+  // The AddOns window: whether it shows, and whether it was ever made.
+  public state open = false
+  state made = false
+  // The game menu has shown once since the module started: its dress is made.
+  state dressed = false
+  // Ordaen's folder: the addon its modules stand under.
+  const framework: String
+  // Whether the module runs: the menu's hook can't be taken back, so it finds the module ended.
+  live = true
+
+  constructor() {
+    self.framework = Runtime.Addon.of(Ordaen)?.name ?? "Ordaen"
+    Ordaen.modules.add(self)
+    _ = Client.GameMenuFrame.HookScript("OnShow", (...args: Unknown): nil => self.onMenu())
+  }
+
+  destructor() { self.live = false }
+
+  onMenu(mut self) {
+    if (self.live) { self.dressed = true }
+  }
+
+  // The AddOns window opened: made the first time.
+  public openWindow(mut self) {
+    self.made = true
+    self.open = true
+  }
+
+  public closeWindow(mut self) { self.open = false }
+
+  public render(self): Template {
+    return $ltml {
+      <MenuDress $if={self.dressed} @addons={self.openWindow} />
+      <AddOnsWindow $if={self.made} shown={self.open} framework={self.framework} @close={self.closeWindow} />
+    }
+  }
+}

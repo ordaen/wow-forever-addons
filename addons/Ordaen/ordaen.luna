@@ -97,8 +97,11 @@ public class OrdaenCore implements App {
     self.toggleNamed(page?.name ?? "")
   }
 
-  // The settings window at the page of a module's folder (`""`: Ordaen's own).
-  toggleNamed(mut self, folder: String) {
+  // Whether the player has a module on, by its folder: Ordaen's own switch, whatever the client's list says.
+  public isChosen(self, folder: String): Boolean { return self.chosen[folder] != false }
+
+  // The settings window at the page of a module's folder (`""`: Ordaen's own), or closed where it shows that page.
+  public toggleNamed(mut self, folder: String) {
     if (self.window == nil) {
       const made = new SettingsWindow()
       Runtime.mount(made, Runtime.screen())

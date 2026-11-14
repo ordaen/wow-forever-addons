@@ -1,0 +1,66 @@
+// The AddOns window's measures and colours, and the client's own words for why an addon doesn't load.
+import Client from "$client"
+import { PX } from "Ordaen"
+
+public const WIDTH: Number = 980 * PX
+public const HEIGHT: Number = 560 * PX
+// The card's column at the window's right.
+public const CARD: Number = 300 * PX
+// Every line of the list, a category's caption too, is this high.
+public const ROW: Number = 26 * PX
+public const CHECK: Number = 22 * PX
+// The numbers' columns: now, peak, memory.
+public const NUMBER: Number = 70 * PX
+public const MEMORY: Number = 80 * PX
+// How far an addon under its group's parent stands in.
+public const INDENT: Number = 18 * PX
+
+public const INK: Color = Color.hex("#e8e0d0")
+public const DIM: Color = Color.hex("#9a9080")
+public const GOLD: Color = Color.hex("#f0c860")
+public const RED: Color = Color.hex("#ff6a55")
+public const GREEN: Color = Color.hex("#6fd46f")
+// The heaviest third of a column.
+public const HOT: Color = Color.hex("#ffb040")
+public const CLEAR: Color = Color.hex("#00000000")
+// The picked row.
+public const PICKED: Color = Color.hex("#f0c86024")
+
+// The client's text for why it doesn't load an addon, in the player's language.
+public function reasonText(reason: Client.AddOnReason): String {
+  return match (reason) {
+    "BANNED" => Client.ADDON_BANNED,
+    "CORRUPT" => Client.ADDON_CORRUPT,
+    "DEMAND_LOADED" => Client.ADDON_DEMAND_LOADED,
+    "DISABLED" => Client.ADDON_DISABLED,
+    "EXCLUDED_FROM_BUILD" => Client.ADDON_EXCLUDED_FROM_BUILD,
+    "INCOMPATIBLE" => Client.ADDON_INCOMPATIBLE,
+    "INSECURE" => Client.ADDON_INSECURE,
+    "INTERFACE_VERSION" => Client.ADDON_INTERFACE_VERSION,
+    "MISSING" => Client.ADDON_MISSING,
+    "NOT_AVAILABLE" => Client.ADDON_NOT_AVAILABLE,
+    "NO_ACTIVE_INTERFACE" => Client.ADDON_NO_ACTIVE_INTERFACE,
+    "USER_ADDONS_DISABLED" => Client.ADDON_USER_ADDONS_DISABLED,
+    "WRONG_ACTIVE_INTERFACE" => Client.ADDON_WRONG_ACTIVE_INTERFACE,
+    "WRONG_GAME_TYPE" => Client.ADDON_WRONG_GAME_TYPE,
+    "WRONG_LOAD_PHASE" => Client.ADDON_WRONG_LOAD_PHASE,
+    "DEP_BANNED" => Client.ADDON_DEP_BANNED,
+    "DEP_CORRUPT" => Client.ADDON_DEP_CORRUPT,
+    "DEP_DEMAND_LOADED" => Client.ADDON_DEP_DEMAND_LOADED,
+    "DEP_DISABLED" => Client.ADDON_DEP_DISABLED,
+    "DEP_EXCLUDED_FROM_BUILD" => Client.ADDON_DEP_EXCLUDED_FROM_BUILD,
+    "DEP_INCOMPATIBLE" => Client.ADDON_DEP_INCOMPATIBLE,
+    "DEP_INSECURE" => Client.ADDON_DEP_INSECURE,
+    "DEP_INTERFACE_VERSION" => Client.ADDON_DEP_INTERFACE_VERSION,
+    "DEP_MISSING" => Client.ADDON_DEP_MISSING,
+    "DEP_NOT_AVAILABLE" => Client.ADDON_DEP_NOT_AVAILABLE,
+    "DEP_NO_ACTIVE_INTERFACE" => Client.ADDON_DEP_NO_ACTIVE_INTERFACE,
+    "DEP_USER_ADDONS_DISABLED" => Client.ADDON_DEP_USER_ADDONS_DISABLED,
+    "DEP_WRONG_ACTIVE_INTERFACE" => Client.ADDON_DEP_WRONG_ACTIVE_INTERFACE,
+    "DEP_WRONG_GAME_TYPE" => Client.ADDON_DEP_WRONG_GAME_TYPE,
+    "DEP_WRONG_LOAD_PHASE" => Client.ADDON_DEP_WRONG_LOAD_PHASE,
+  }
+}
+
+// Whether a reason is one of a dependency's: the card names which.
+public function ofDependency(reason: Client.AddOnReason): Boolean { return reason.sub(1, 4) == "DEP_" }

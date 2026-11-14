@@ -1,0 +1,238 @@
+// The picked addon's card, the window's side section: its icon, title, version and author, its notes; its state in
+// the client's own words (for a dependency's reason, which one); what it needs and would like, each a link to its row
+// with its state («not in the folder» where it is missing), and what needs it; its load (now, on average, in the last
+// encounter, peak, the frames it took over 5 to 1000 ms) and memory; and its buttons: «Enable» or «Disable», «Load»
+// for one on demand that isn't loaded and can be, «Ordaen settings» for an Ordaen module.
+import { Align, Art, Edges, Track } from "$ltml"
+import Client from "$client"
+import Game from "$game"
+import { Component, PushButton, PX, space, Tip } from "Ordaen"
+import { AddOn, Catalog, plain, Status } from "@/catalog"
+import Locale from "@/locales"
+import { Load, memory, percent, Profiler, SPIKES } from "@/perf"
+import Style from "@/style"
+
+const ICON = 40 * PX
+const HEAD: Array<Track> = [ICON, { fr: 1 }]
+const PAIR: Array<Track> = ["auto", { fr: 1 }]
+const SECTION: Edges = { top: space(.Item) }
+const LINK: Color = Color.hex("#d6b878")
+const DASH = "—"
+
+// An addon the card names (one it needs, would like, or that needs it), with its state.
+public struct Named {
+  name: String
+  title: String
+  state: String
+  color: Color
+}
+
+// One label and its value on the card.
+public struct Pair {
+  label: String
+  value: String
+}
+
+// A link to another addon's row.
+public class NamedLink implements Component {
+  public pick: Event<String> = new Event()
+
+  named: Signal<Named>
+  constructor(named: Signal<Named>) { self.named = named }
+
+  onClick(mut self) { self.pick.emit(self.named.name) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={PAIR} gap={space(.Item)} @click={self.onClick}>
+        <text value={self.named.title} textColor={LINK} wrap={false} />
+        <box xAlign={Align.End}>
+          <text value={self.named.state} textColor={self.named.color} textSize={.Secondary} wrap={false} />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class Card implements Component {
+  public pick: Event<String> = new Event()
+  public toggle: Event<String> = new Event()
+  public settings: Event<String> = new Event()
+
+  state loadHovered = false
+  // The client's answer where «Load» failed.
+  state failed = ""
+  derived addon: AddOn | nil = self.catalog.byName[self.name]
+  derived status: Status | nil = self.catalog.statuses[self.name]
+  derived load: Load | nil = self.profiler.loads[self.name]
+  derived title: String = self.addon?.title ?? self.name
+  derived byline: String = self.bylineOf()
+  derived notes: String = plain(self.addon?.notes ?? "")
+  derived icon: Art = self.iconOf()
+  derived stateText: String = self.stateTextOf()
+  derived stateColor: Color = self.status?.reason != nil && self.status?.enabled != .Off ? Style.RED : Style.GREEN
+  derived needs: Array<Named> = self.namedOf(self.addon?.needs ?? [])
+  derived wants: Array<Named> = self.namedOf(self.addon?.wants ?? [])
+  derived neededBy: Array<Named> = self.namedOf(self.catalog.neededBy[self.name] ?? [])
+  derived loads: Array<Pair> = self.loadsOf()
+  derived on: Boolean = self.status?.enabled != .Off
+  derived switchLabel: String = self.on ? Locale.DISABLE : Locale.ENABLE
+  derived loadable: Boolean = self.addon?.demand == true && self.status?.loaded != true && self.status?.mine == true &&
+    self.status?.reason == nil
+  derived fighting: Boolean = Game.situation.combat
+  derived loadTip: Boolean = self.loadHovered && self.fighting
+
+  name: Signal<String>
+  const catalog: mut Catalog
+  const profiler: Profiler
+  module: Signal<Boolean>
+  constructor(name: Signal<String>, catalog: mut Catalog, profiler: Profiler, module: Signal<Boolean>) {
+    self.name = name
+    self.catalog = catalog
+    self.profiler = profiler
+    self.module = module
+  }
+
+  bylineOf(self): String {
+    const addon = self.addon
+    if (addon == nil) { return "" }
+    if (addon.version == "") { return addon.author }
+    if (addon.author == "") { return addon.version }
+    return "%s · %s".format(addon.version, addon.author)
+  }
+
+  iconOf(self): Art {
+    const given = self.addon?.icon ?? ""
+    if (given != "" && given is Asset) { return given }
+    return "Interface/Icons/INV_Misc_QuestionMark"
+  }
+
+  // Loaded, loaded on demand, waiting to be asked for or for a reload, off, or why it can't load: for a
+  // dependency's reason, which dependency.
+  stateTextOf(self): String {
+    const addon = self.addon
+    const status = self.status
+    if (addon == nil || status == nil) { return "" }
+    if (status.enabled == .Off) { return Locale.OFF }
+    const reason = status.reason
+    if (reason != nil) {
+      const text = Style.reasonText(reason)
+      if (!Style.ofDependency(reason)) { return text }
+      for (need of addon.needs) {
+        const other = self.catalog.statuses[need]
+        if (other == nil || other.reason != nil || other.enabled == .Off) {
+          return Locale.NOT_LOADING_BECAUSE.format(text, self.catalog.titleOf(need))
+        }
+      }
+      return text
+    }
+    if (status.loaded) { return addon.demand ? Locale.LOADED_DEMAND : Locale.LOADED }
+    return addon.demand ? Locale.WAITING_DEMAND : Locale.WAITING_RELOAD
+  }
+
+  namedOf(self, names: Array<String>): Array<Named> {
+    const list: Array<Named> = []
+    for (name of names) {
+      const status = self.catalog.statuses[name]
+      if (status == nil) {
+        list.push({ name: name, title: name, state: Locale.MISSING_HERE, color: Style.RED })
+      } else {
+        const loaded = status.loaded
+        list.push({
+          name: name,
+          title: self.catalog.titleOf(name),
+          state: loaded ? Locale.IS_LOADED : status.enabled == .Off ? Locale.IS_OFF : "",
+          color: loaded ? Style.GREEN : Style.DIM,
+        })
+      }
+    }
+    return list
+  }
+
+  loadsOf(self): Array<Pair> {
+    const load = self.load
+    const kb = self.profiler.memory[self.name] ?? 0
+    const weight = self.status?.loaded == true ? memory(kb) : DASH
+    if (load == nil) {
+      return [
+        { label: Locale.CARD_NOW, value: DASH }, { label: Locale.CARD_AVERAGE, value: DASH },
+        { label: Locale.CARD_ENCOUNTER, value: DASH }, { label: Locale.CARD_PEAK, value: DASH },
+        { label: Locale.CARD_SPIKES, value: DASH }, { label: Locale.CARD_MEMORY, value: weight },
+      ]
+    }
+    const spikes: Array<String> = []
+    for (index, over of SPIKES) {
+      const count = load.spikes[index] ?? 0
+      if (count > 0) { spikes.push(Locale.SPIKE.format(over, count)) }
+    }
+    return [
+      { label: Locale.CARD_NOW, value: percent(load.now) },
+      { label: Locale.CARD_AVERAGE, value: percent(load.average) },
+      { label: Locale.CARD_ENCOUNTER, value: percent(load.encounter) },
+      { label: Locale.CARD_PEAK, value: percent(load.peak) },
+      { label: Locale.CARD_SPIKES, value: spikes.length == 0 ? DASH : spikes.join(" · ") },
+      { label: Locale.CARD_MEMORY, value: weight },
+    ]
+  }
+
+  onPick(mut self, name: String) { self.pick.emit(name) }
+  onSwitch(mut self) { self.toggle.emit(self.name) }
+  onSettings(mut self) { self.settings.emit(self.name) }
+  onLoadEnter(mut self) { self.loadHovered = true }
+  onLoadLeave(mut self) { self.loadHovered = false }
+
+  // Loaded now, out of a fight alone: the client's refusal shows on the card.
+  onLoad(mut self) {
+    if (self.fighting) { return }
+    const refused = self.catalog.load(self.name)
+    self.failed = refused == nil ? "" : Client.ADDON_LOAD_FAILED.format(self.catalog.titleOf(self.name), refused)
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={space(.Item)}>
+        <box columns={HEAD} gap={space(.Item)} yAlign={Align.Center}>
+          <box width={ICON} height={ICON} icon={self.icon} />
+          <box columns={1}>
+            <text value={self.title} textColor={Style.GOLD} textFont={.Title} />
+            <text value={self.byline} textColor={Style.DIM} textSize={.Secondary} />
+          </box>
+        </box>
+        <text $if={self.notes != ""} value={self.notes} textColor={Style.INK} textSize={.Secondary} />
+        <box columns={PAIR} gap={space(.Item)}>
+          <text value={Locale.CARD_STATE} textColor={Style.DIM} textSize={.Secondary} />
+          <box xAlign={Align.End}>
+            <text value={self.stateText} textColor={self.stateColor} textSize={.Secondary} />
+          </box>
+        </box>
+        <text $if={self.failed != ""} value={self.failed} textColor={Style.RED} textSize={.Secondary} />
+        <text value={Locale.CARD_NEEDS} textColor={Style.DIM} textSize={.Secondary} />
+        <NamedLink $for={named of self.needs} named={named} @pick={self.onPick} />
+        <text $if={self.needs.length == 0} value={DASH} textColor={Style.DIM} />
+        <text value={Locale.CARD_WANTS} textColor={Style.DIM} textSize={.Secondary} />
+        <NamedLink $for={named of self.wants} named={named} @pick={self.onPick} />
+        <text $if={self.wants.length == 0} value={DASH} textColor={Style.DIM} />
+        <text value={Locale.CARD_NEEDED_BY} textColor={Style.DIM} textSize={.Secondary} />
+        <NamedLink $for={named of self.neededBy} named={named} @pick={self.onPick} />
+        <text $if={self.neededBy.length == 0} value={DASH} textColor={Style.DIM} />
+        <box padding={SECTION}>
+          <text value={Locale.CARD_LOAD} textColor={Style.GOLD} />
+        </box>
+        <box $for={pair of self.loads} columns={PAIR} gap={space(.Item)}>
+          <text value={pair.label} textColor={Style.DIM} textSize={.Secondary} />
+          <box xAlign={Align.End}>
+            <text value={pair.value} textColor={Style.INK} textFont={.Numbers} textSize={.Secondary} />
+          </box>
+        </box>
+        <box columns={["auto", "auto"]} gap={space(.Item)} padding={SECTION}>
+          <PushButton $if={self.module} label={Locale.ORDAEN_SETTINGS} width={170 * PX} @click={self.onSettings} />
+          <PushButton $else label={self.switchLabel} width={120 * PX} @click={self.onSwitch} />
+          <box $if={self.loadable} @enter={self.onLoadEnter} @leave={self.onLoadLeave}>
+            <PushButton label={Locale.LOAD_NOW} width={120 * PX} disabled={self.fighting} @click={self.onLoad} />
+            <Tip $if={self.loadTip} title={Locale.LOAD_NOW} text={Locale.IN_COMBAT} />
+          </box>
+        </box>
+      </box>
+    }
+  }
+}

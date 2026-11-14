@@ -1,7 +1,7 @@
 // Dialog: a question over everything, the screen dimmed behind it. The small metal frame round the windows' wood,
 // its title in gold at the top, the question under it, and its buttons at the bottom right, 8 px apart. A click on
 // the dimmed screen does nothing: the question needs an answer. The unnamed slot takes the question, the slot
-// `buttons` its PushButtons, up to three.
+// `buttons` its PushButtons, up to four.
 import { Align, Edges, Layer, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
@@ -39,7 +39,7 @@ public class Dialog implements Component {
           <slot />
           <box columns={[{ fr: 1 }, "auto"]}>
             <box />
-            <box columns={["auto", "auto", "auto"]} gap={8 * PX}>
+            <box columns={["auto", "auto", "auto", "auto"]} gap={8 * PX}>
               <slot #buttons />
             </box>
           </box>
