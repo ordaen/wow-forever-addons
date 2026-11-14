@@ -374,6 +374,13 @@ public class AddOnsWindow implements Component {
 
   onCardToggle(mut self, name: String) { self.onToggle(name, false) }
 
+  // «Load» from a row's menu: the addon loads now, its card opens to say how it went (the client's reason, where it
+  // refused, is its row's and its card's state).
+  onLoadNow(mut self, name: String) {
+    self.picked = name
+    _ = self.catalog.load(name)
+  }
+
   cancelAsk(mut self) { self.asking = [] }
 
   confirmAsk(mut self) {
@@ -497,7 +504,7 @@ public class AddOnsWindow implements Component {
             <LineRow $for={line of self.lines} line={line} catalog={self.catalog} profiler={self.profiler}
                      hot={self.hot} picked={self.picked} framework={self.framework} @pick={self.onPick}
                      @toggle={self.onToggle} @toggleGroup={self.onToggleGroup} @fold={self.onFold}
-                     @settings={self.onSettings} />
+                     @settings={self.onSettings} @loadNow={self.onLoadNow} />
           </box>
           <box $if={self.stepShown} columns={STRIP} gap={space(.Item)} yAlign={Align.Center}>
             <box xAlign={Align.End}>

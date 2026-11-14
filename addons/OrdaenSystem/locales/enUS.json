@@ -57,6 +57,7 @@
   "ENABLE": "Enable",
   "DISABLE": "Disable",
   "LOAD_NOW": "Load",
+  "MENU_DETAILS": "Details",
   "ORDAEN_SETTINGS": "Ordaen settings",
   "ALSO": "Also enabled: %s",
   "UNDO": "Undo",

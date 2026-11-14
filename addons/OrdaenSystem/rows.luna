@@ -5,9 +5,9 @@
 // off where none is, on for some between. Hover: our Tip with the notes. Left-click picks a row for the card; the
 // switch switches the addon, with Ctrl on a group's parent the whole group. An Ordaen module has no switch: Ordaen's
 // own is its one, and its state's text opens Ordaen's settings at it.
-import { Align, Art, Edges, Stated, Track } from "$ltml"
+import { Align, Art, Click, Edges, MouseButton, Stated, Track } from "$ltml"
 import Game from "$game"
-import { Component, PX, Shown, ShownToggle, space, SWITCH_WIDTH, Tip } from "Ordaen"
+import { Component, Menu, MenuEntry, PX, Shown, ShownToggle, space, SWITCH_WIDTH, Tip } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { AddOn, Catalog, plain, Status, Switch } from "@/catalog"
 import Locale from "@/locales"
@@ -44,6 +44,9 @@ const PAD: Edges = { left: space(.Item), right: space(.Item) }
 const LIGHT: Stated<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f") }
 const DASH = "—"
 
+// What a row's menu of quick actions offers.
+enum RowAction { Switch, Load, Settings, Details }
+
 // An addon's switch as the client has it for whom the header says.
 function shownOf(switched: Switch): Shown {
   return match (switched) {
@@ -73,11 +76,17 @@ public class LineRow implements Component {
   public toggle: Event<(String, Boolean)> = new Event()
   // A caption's switch: every addon of its group.
   public toggleGroup: Event<Array<String>> = new Event()
+  // The row's menu: «Load» (an addon on demand, not loaded, that can be).
+  public loadNow: Event<String> = new Event()
   public fold: Event<String> = new Event()
   // An Ordaen module's state: its page in Ordaen's settings.
   public settings: Event<String> = new Event()
 
   state hovered = false
+  // Right-click opened the row's menu of quick actions.
+  state menuOpen = false
+  derived actions: Array<RowAction> = self.actionsOf()
+  derived entries: Array<MenuEntry> = self.actions.map(action => self.entryOf(action))
   derived addon: AddOn | nil = self.line.caption ? nil : self.catalog.byName[self.line.name]
   derived status: Status | nil = self.catalog.statuses[self.line.name]
   derived load: Load | nil = self.profiler.loads[self.line.name]
@@ -155,13 +164,52 @@ public class LineRow implements Component {
     return reason != nil && reason != "DISABLED" && (self.status?.enabled != .Off || self.module)
   }
 
-  onPick(mut self) {
+  onPick(mut self, click: Click) {
     if (self.line.caption) {
       self.fold.emit(self.line.name)
+    } else if (click.button == MouseButton.Right) {
+      self.menuOpen = true
     } else {
       self.pick.emit(self.line.name)
     }
   }
+
+  // The row's quick actions: its switch (but a module's, whose switch is Ordaen's), «Load» where it can be loaded
+  // now, a module's page in Ordaen's settings, and its card.
+  actionsOf(self): Array<RowAction> {
+    const list: Array<RowAction> = []
+    if (!self.module) { list.push(.Switch) }
+    const status = self.status
+    if (self.addon?.demand == true && status != nil && !status.loaded && status.mine && status.reason == nil) {
+      list.push(.Load)
+    }
+    if (self.module) { list.push(.Settings) }
+    list.push(.Details)
+    return list
+  }
+
+  entryOf(self, action: RowAction): MenuEntry {
+    return match (action) {
+      .Switch => { label: self.switched == .Off ? Locale.ENABLE : Locale.DISABLE },
+      .Load => { label: Locale.LOAD_NOW, disabled: Game.situation.combat },
+      .Settings => { label: Locale.ORDAEN_SETTINGS },
+      .Details => { label: Locale.MENU_DETAILS, group: true },
+    }
+  }
+
+  onMenu(mut self, index: Integer) {
+    self.menuOpen = false
+    const action = self.actions[index]
+    if (action == nil) { return }
+    match (action) {
+      .Switch => self.toggle.emit(self.line.name, false),
+      .Load => self.loadNow.emit(self.line.name),
+      .Settings => self.settings.emit(self.line.name),
+      .Details => self.pick.emit(self.line.name),
+    }
+  }
+
+  closeMenu(mut self) { self.menuOpen = false }
 
   // Ctrl is read here, in the click's own handler.
   onCheck(mut self) { self.toggle.emit(self.line.name, Game.input.controlDown()) }
@@ -201,6 +249,7 @@ public class LineRow implements Component {
         </box>
         <ShownToggle $if={!self.module} state={self.shown} @flip={self.onCheck} />
         <box $else />
+        <Menu $if={self.menuOpen} entries={self.entries} @pick={self.onMenu} @close={self.closeMenu} />
         <Tip $if={self.tipShown} title={self.plainTitle} text={self.notes} />
       </box>
     }

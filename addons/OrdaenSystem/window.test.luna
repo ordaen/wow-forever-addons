@@ -4,7 +4,7 @@
 // filter and the table; the card; sets; the reload's secure box; the numbers read only while it shows.
 import Client from "$client"
 import Game from "$game"
-import { Key } from "$ltml"
+import { Key, MouseButton } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
@@ -213,6 +213,31 @@ test "the question comes at every switching off that stops another addon, and ne
   Test.expect(window.asking.length == 0)
   window.onToggle("Showcase", false)
   Test.flush()
+  destroy window
+}
+
+test "right-click on a row opens its quick actions: its switch, a module's settings, its card" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  Test.click(Test.holding("LunaType", nil), MouseButton.Right)
+  Test.flush()
+  Test.shot("the runtime's row: Disable, then Details")
+  Test.click(Test.holding(Locale.DISABLE, nil), nil)
+  Test.flush()
+  // Every addon here needs the runtime: the question first, as from its switch.
+  Test.expect(window.asking.length == 1)
+  Test.click(Test.holding(Locale.DISABLE, nil), nil)
+  Test.flush()
+  Test.expect(!window.catalog.isOn("LunaType"))
+  // A module: no switch of its own, Ordaen's settings in its place.
+  Test.click(Test.holding("Ordaen System", nil), MouseButton.Right)
+  Test.flush()
+  _ = Test.holding(Locale.ORDAEN_SETTINGS, nil)
+  Test.click(Test.holding(Locale.MENU_DETAILS, nil), nil)
+  Test.flush()
+  Test.expect(window.picked == "OrdaenSystem")
+  window.catalog.switchOn(["LunaType"])
   destroy window
 }
 
