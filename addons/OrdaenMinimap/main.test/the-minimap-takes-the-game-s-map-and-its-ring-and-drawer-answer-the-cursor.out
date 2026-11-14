@@ -93,9 +93,9 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
         text 1333.39,279.37 8.89x15.6 "3" #ffd100 centred
     box 1323.67,0 0x0 absolute opacity=0
       embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
-surface 1255.94,293.47 271.17x74.72 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 1276.19,313.72 235.67x19.2 "42.1, 63.0" #ffffff
-  text 1276.19,334.58 235.67x15.6 "Shift+Left-click: send to chat" #cbb994
+surface 1255.94,293.47 271.17x83.05 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 1279.53,317.05 229x19.2 "42.1, 63.0" #ffffff
+  text 1279.53,339.58 229x15.6 "Shift+Left-click: send to chat" #cbb994
 asked: Minimap.hover MinimapTrackingButton false
 
 -- the cursor on the clock: its tooltip under it, by its right edge
@@ -120,9 +120,9 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
         text 1333.39,279.37 8.89x15.6 "3" #ffd100 centred
     box 1323.67,0 0x0 absolute opacity=0
       embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
-surface 1291.5,293.47 271.17x90.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 1311.75,313.72 235.67x19.2 "12:30" #ffffff
-  text 1311.75,334.58 235.67x31.2 "Left-click: calendar
+surface 1291.5,293.47 271.17x98.65 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 1315.08,317.05 229x19.2 "12:30" #ffffff
+  text 1315.08,339.58 229x31.2 "Left-click: calendar
 Right-click: minimap settings" #cbb994
 
 -- the drawer's button clicked: the drawer hangs under it with another addon's button and the addon menu's entries
@@ -151,9 +151,9 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
         box 1261.25,319.92 25x25 Interface/Icons/Details
       box 1291.25,318.25 28.33x28.33 @click @enter @leave
         box 1292.92,319.92 25x25 Interface/Icons/INV_Misc_QuestionMark
-surface 1080.83,301.33 271.17x90.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 1101.08,321.58 235.67x19.2 "Addons" #ffffff
-  text 1101.08,342.45 235.67x31.2 "Left-click: open or close the drawer
+surface 1080.83,301.33 271.17x114.25 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 1104.42,324.92 229x19.2 "Addons" #ffffff
+  text 1104.42,347.45 229x46.8 "Left-click: open or close the drawer
 Drag: move it round the map" #cbb994
 
 cluster shown: false, backdrop shown: false
@@ -183,9 +183,9 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
         box 1261.25,319.92 25x25 Interface/Icons/Details
       box 1291.25,318.25 28.33x28.33 @click @enter @leave
         box 1292.92,319.92 25x25 Interface/Icons/INV_Misc_QuestionMark
-surface 1080.83,301.33 271.17x90.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 1101.08,321.58 235.67x19.2 "Addons" #ffffff
-  text 1101.08,342.45 235.67x31.2 "Left-click: open or close the drawer
+surface 1080.83,301.33 271.17x114.25 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 1104.42,324.92 229x19.2 "Addons" #ffffff
+  text 1104.42,347.45 229x46.8 "Left-click: open or close the drawer
 Drag: move it round the map" #cbb994
 
 cluster shown: false, backdrop shown: false
