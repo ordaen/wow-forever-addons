@@ -315,7 +315,7 @@ public class Panel implements Module, App {
         <box position={Position.Absolute} left={0} top={0} width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT}
              background={Ordaen.art.panel.cornerRim} />
         <box position={Position.Absolute} left={86.7} top={5.3} width={36} height={36}
-             background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center}>
+             background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center} zLevel={1}>
           <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
                 wrap={false} />
         </box>
