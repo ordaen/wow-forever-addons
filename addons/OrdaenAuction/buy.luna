@@ -5,7 +5,7 @@
 // click alone) and «Add to shopping list».
 import Game from "$game"
 import { Align, Edges, Track } from "$ltml"
-import { Age, Choice, Column, CompactDropdown, Component, Copper, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
+import { Age, Choice, Column, CompactDropdown, Component, Copper, CountInput, CountLook, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
 import { House } from "@/house"
 import Locale from "@/locales"
 import { Purchase } from "@/purchase"
@@ -56,6 +56,9 @@ const ITEM: Array<Track> = ["auto", { fr: 1 }]
 const PAIR: Array<Track> = [{ fr: 1 }, "auto"]
 const FIELD_PAD: Edges = { right: 10 * PX, left: 10 * PX }
 const FIELD_BACK: Color = Color.hex("#00000080")
+// The most of a commodity the quantity takes: the shopping list takes more than is listed, so the listings don't bound
+// it («Buy» asks that they hold it); six digits fill the field.
+const MOST_COUNT = 999999
 const PANEL_BUTTON = 208 * PX
 // The pip of an item on the shopping list.
 const LISTED_PIP: Color = Color.hex("#40c0ff")
@@ -323,10 +326,9 @@ class ListingRow implements Component {
 // auction is bought whole), the total, «Buy» (a commodity's second click confirms the price the client gave) and
 // «Add to shopping list».
 class Chosen implements Component {
-  state countText = "1"
+  state count = 1
   state listSorted = 0
   state listDescending = false
-  derived count: Integer = ((self.countText.toNumber() ?? 0).floor()).max(0)
   derived listings: Array<Game.Listing> = self.purchase.listings ?? []
   derived commodity: Boolean = self.purchase.commodity
   // The listings the next click buys from: a commodity's first so many, an item's one auction.
@@ -338,8 +340,8 @@ class Chosen implements Component {
   derived quoted: Boolean = self.purchase.quotedCount > 0 && self.purchase.quotedCount == self.count
   derived total: Integer = self.totalOf()
   derived buyLabel: String = self.quoted ? Locale.CONFIRM : Locale.BUY
-  derived canBuy: Boolean = !Game.auctionActions.busy && (self.commodity ? self.count > 0 &&
-      self.count <= self.purchase.held : self.auction != nil)
+  derived canBuy: Boolean = !Game.auctionActions.busy && (self.commodity ? self.count <= self.purchase.held :
+      self.auction != nil)
   derived auctionCount: String = String.of(self.auction?.quantity ?? 0)
 
   const found: Found
@@ -361,7 +363,7 @@ class Chosen implements Component {
   onBuy(mut self) { _ = self.purchase.buy(peek self.count) }
 
   // The quantity on the shopping list, as the player's own line.
-  onList(mut self) { self.shopping.add(self.found.item, (peek self.count).max(1), .ByHand) }
+  onList(mut self) { self.shopping.add(self.found.item, peek self.count, .ByHand) }
 
   public render(self): Template {
     return $ltml {
@@ -378,8 +380,7 @@ class Chosen implements Component {
         <box columns={PAIR} gap={8 * PX} yAlign={Align.Center}>
           <text value={Locale.QUANTITY} textColor={Style.INK} textSize={Style.TEXT} />
           <box $if={self.commodity} width={80 * PX} height={30 * PX} rows={[{ fr: 1 }]}>
-            <input value={mut self.countText} padding={FIELD_PAD} textSize={Style.TEXT} textColor={Style.INK}
-                   background={FIELD_BACK} border={Style.FRAME} maxLength={6} />
+            <CountInput value={mut self.count} least={1} most={MOST_COUNT} look={CountLook.Field} />
           </box>
           <text $else value={self.auctionCount} textColor={Style.INK} textSize={Style.TEXT} />
           <text value={Locale.TOTAL} textColor={Style.INK} textSize={Style.TEXT} />
