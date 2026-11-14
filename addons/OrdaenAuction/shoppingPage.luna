@@ -114,20 +114,26 @@ class ShoppingRow implements Component {
         <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
           <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} />
           <box rows={["auto", "auto"]} overflow={.Hidden}>
-            <text value={self.name} textColor={self.color} textSize={Style.TEXT} wrap={false} />
-            <text value={self.from} textColor={Style.DIM} textSize={Style.SMALL} wrap={false} />
+            <text value={self.name} textColor={self.color} wrap={false} />
+            <text value={self.from} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
           </box>
         </box>
-        <text value={"%d"} arguments={[self.row.needed]} textColor={self.ink} textSize={Style.TEXT} />
-        <text value={"%d"} arguments={[self.row.held]} textColor={self.ink} textSize={Style.TEXT} />
-        <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} textSize={Style.TEXT} />
+        <box xAlign={Align.End}>
+          <text value={"%d"} arguments={[self.row.needed]} textColor={self.ink} />
+        </box>
+        <box xAlign={Align.End}>
+          <text value={"%d"} arguments={[self.row.held]} textColor={self.ink} />
+        </box>
+        <box xAlign={Align.End}>
+          <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} />
+        </box>
         <box xAlign={Align.End}>
           <Money $if={self.priced} amount={self.unit} />
-          <text $else value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
+          <text $else value={"—"} textColor={Style.DIM} />
         </box>
         <box xAlign={Align.End}>
           <Money $if={self.priced} amount={self.sum} />
-          <text $else value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
+          <text $else value={"—"} textColor={Style.DIM} />
         </box>
         <box xAlign={Align.End}>
           <Age seconds={self.age} />
@@ -217,14 +223,14 @@ public class ShoppingPage implements Component {
     return $ltml {
       <box rows={["auto", "auto", "auto"]} gap={8 * PX}>
         <box columns={HEAD} gap={8 * PX} yAlign={Align.Center}>
-          <text value={Locale.HELD_HERE} textColor={Style.DIM} textSize={Style.SMALL} />
-          <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} textSize={Style.TEXT} wrap={false} />
+          <text value={Locale.HELD_HERE} textColor={Style.DIM} textSize={.Secondary} />
+          <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} wrap={false} />
           <box columns={["auto", "auto"]} yAlign={Align.Center}>
-            <text value={self.totalText} textColor={Style.INK} textSize={Style.TEXT} wrap={false} />
+            <text value={self.totalText} textColor={Style.INK} wrap={false} />
             <Money amount={self.total} />
           </box>
         </box>
-        <text $if={self.empty} value={Locale.SHOPPING_EMPTY} textColor={Style.DIM} textSize={Style.TEXT} />
+        <text $if={self.empty} value={Locale.SHOPPING_EMPTY} textColor={Style.DIM} />
         <Table $else columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST}>
           <ShoppingRow $for={row of self.list.rows} $key={row} row={peek row} prices={self.prices}
                        selected={self.picked == row.item}

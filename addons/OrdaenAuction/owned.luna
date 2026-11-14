@@ -64,15 +64,19 @@ class OwnedRow implements Component {
         <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
           <ItemButton item={self.shown.item} size={Style.SLOT} />
           <box overflow={.Hidden}>
-            <text value={self.shown.name} textColor={self.shown.color} textSize={Style.TEXT} wrap={false} />
+            <text value={self.shown.name} textColor={self.shown.color} wrap={false} />
           </box>
         </box>
-        <text value={"%d"} arguments={[self.shown.quantity]} textColor={Style.INK} textSize={Style.TEXT} />
+        <box xAlign={Align.End}>
+          <text value={"%d"} arguments={[self.shown.quantity]} textColor={Style.INK} />
+        </box>
         <box xAlign={Align.End}>
           <Money $if={self.priced} amount={self.unit} />
         </box>
-        <text value={self.lowest} textColor={self.lowestColor} textSize={Style.TEXT} wrap={false} />
-        <text value={self.shown.left} textColor={Style.INK} textSize={Style.TEXT} />
+        <text value={self.lowest} textColor={self.lowestColor} wrap={false} />
+        <box xAlign={Align.End}>
+          <text value={self.shown.left} textColor={Style.INK} />
+        </box>
         <box xAlign={Align.End}>
           <PushButton $if={!self.shown.sold} label={Locale.CANCEL_AUCTION} width={104 * PX} disabled={self.busy}
                       @click={self.onCancel} />
@@ -143,10 +147,10 @@ public class OwnedPage implements Component {
           <OwnedRow $for={row of self.rows} $key={row} shown={peek row} busy={Game.auctionActions.busy}
                     @cancel={self.onCancel} />
         </Table>
-        <text $if={self.rows.length == 0} value={Locale.NO_AUCTIONS} textColor={Style.DIM} textSize={Style.TEXT} />
+        <text $if={self.rows.length == 0} value={Locale.NO_AUCTIONS} textColor={Style.DIM} />
         <box columns={BUTTONS} gap={8 * PX} yAlign={Align.Center}>
           <PushButton label={Locale.CHECK} width={140 * PX} @click={self.onCheck} />
-          <text value={Locale.CHECK_NOTE} textColor={Style.DIM} textSize={Style.SMALL} />
+          <text value={Locale.CHECK_NOTE} textColor={Style.DIM} textSize={.Secondary} />
         </box>
       </box>
     }

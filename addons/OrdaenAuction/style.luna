@@ -1,4 +1,5 @@
-// The house window's look, shared by its parts: sizes at the player's scale, colours, and how a time is said.
+// The house window's look, shared by its parts: sizes at the player's scale, colours, and how a time is said. A text's
+// size is a step of the ladder (`$ltml`'s `TextSize`).
 import { Line, Side } from "$ltml"
 import { number, plural, PX } from "Ordaen"
 import Locale from "@/locales"
@@ -6,9 +7,6 @@ import Locale from "@/locales"
 public const WIDTH: Number = 860 * PX
 public const HEIGHT: Number = 560 * PX
 public const GAP: Number = 12 * PX
-public const TEXT: Number = 14 * PX
-public const SMALL: Number = 12 * PX
-public const NAME: Number = 17 * PX
 // An item's slot in a row, and the chosen item's.
 public const SLOT: Number = 24 * PX
 public const BIG_SLOT: Number = 40 * PX
