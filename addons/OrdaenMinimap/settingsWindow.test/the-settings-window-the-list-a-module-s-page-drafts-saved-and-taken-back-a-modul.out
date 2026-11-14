@@ -55,15 +55,15 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000000 @click
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #e8dcc4
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000000 @click
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #e8dcc4
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -84,7 +84,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 804.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,252.51 24x14.4 "100%" #ffffff
+                text 946.5,252.21 25x15 "100%" #ffffff
             box 488.17,279.71 762.42x28.33 opacity=1
               box 488.17,286.38 233.33x15 @enter @leave
                 text 488.17,286.38 233.33x15 "Spacing" #cbb994
@@ -152,15 +152,15 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000000 @click
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #e8dcc4
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000000 @click
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #e8dcc4
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -192,7 +192,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,326.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,327.21 132.22x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 863.17,319.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,322.51 6x14.4 "2" #ffffff
+                text 946.5,322.21 6.25x15 "2" #ffffff
             box 488.17,349.71 762.42x28.33 opacity=1
               box 488.17,356.38 233.33x15 @enter @leave
                 text 488.17,356.38 233.33x15 "Large numbers" #cbb994
@@ -259,16 +259,16 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000040 @click
-            box 339.42,315.04 2.5x30 absolute #d6a56b
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #ffffff
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000040 @click
+            box 339.42,316.04 2.5x30 absolute #d6a56b
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #ffffff
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -287,7 +287,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,252.51 24x14.4 "100%" #ffffff
+                text 946.5,252.21 25x15 "100%" #ffffff
             box 488.17,279.71 762.42x18.33 opacity=1
               box 488.17,281.38 233.33x15 @enter @leave
                 text 488.17,281.38 233.33x15 "Zone name" #cbb994
@@ -373,16 +373,16 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000040 @click
-            box 339.42,315.04 2.5x30 absolute #d6a56b
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #ffffff
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000040 @click
+            box 339.42,316.04 2.5x30 absolute #d6a56b
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #ffffff
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -401,7 +401,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,252.51 24x14.4 "100%" #ffffff
+                text 946.5,252.21 25x15 "100%" #ffffff
             box 488.17,279.71 762.42x18.33 opacity=1
               box 488.17,281.38 233.33x15 @enter @leave
                 text 488.17,281.38 233.33x15 "Zone name" #cbb994
@@ -483,16 +483,16 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000040 @click
-            box 339.42,315.04 2.5x30 absolute #d6a56b
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #ffffff
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000040 @click
+            box 339.42,316.04 2.5x30 absolute #d6a56b
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #ffffff
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -511,7 +511,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,252.51 24x14.4 "100%" #ffffff
+                text 946.5,252.21 25x15 "100%" #ffffff
             box 488.17,279.71 762.42x18.33 opacity=1
               box 488.17,281.38 233.33x15 @enter @leave
                 text 488.17,281.38 233.33x15 "Zone name" #cbb994
@@ -599,16 +599,16 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000040 @click
-            box 339.42,315.04 2.5x30 absolute #d6a56b
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #ffffff
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000040 @click
+            box 339.42,316.04 2.5x30 absolute #d6a56b
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #ffffff
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -627,7 +627,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,252.51 24x14.4 "100%" #ffffff
+                text 946.5,252.21 25x15 "100%" #ffffff
             box 488.17,279.71 762.42x18.33 opacity=1
               box 488.17,281.38 233.33x15 @enter @leave
                 text 488.17,281.38 233.33x15 "Zone name" #cbb994
@@ -713,16 +713,16 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000040 @click
-            box 339.42,315.04 2.5x30 absolute #d6a56b
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #ffffff
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000040 @click
+            box 339.42,316.04 2.5x30 absolute #d6a56b
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #ffffff
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -746,7 +746,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,284.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,285.54 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 769.83,278.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,280.84 6x14.4 "4" #ffffff
+                text 946.5,280.54 6.25x15 "4" #ffffff
         box 488.17,696.46 762.42x28.33 absolute
           box 488.17,696.46 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             box 488.17,696.46 166.67x28.33 absolute
@@ -789,7 +789,7 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
       box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
     box 1323.67,0 0x0 absolute opacity=0
   box 1323.67,0 276.33x326.33 absolute #00000073 @click @drag @dragStart @dragStop
-    text 1440.83,155.97 42x14.4 "Minimap" #ffd100
+    text 1439.96,155.67 43.75x15 "Minimap" #ffd100
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
   box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
@@ -807,16 +807,16 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000040 @click
-            box 339.42,315.04 2.5x30 absolute #d6a56b
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #ffffff
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000040 @click
+            box 339.42,316.04 2.5x30 absolute #d6a56b
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #ffffff
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -840,7 +840,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,284.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,285.54 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 769.83,278.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,280.84 6x14.4 "4" #ffffff
+                text 946.5,280.54 6.25x15 "4" #ffffff
         box 488.17,696.46 762.42x28.33 absolute
           box 488.17,696.46 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             box 488.17,696.46 166.67x28.33 absolute
@@ -899,16 +899,16 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000040 @click
-            box 339.42,315.04 2.5x30 absolute #d6a56b
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #ffffff
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000040 @click
+            box 339.42,316.04 2.5x30 absolute #d6a56b
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #ffffff
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -932,7 +932,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,284.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,285.54 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 769.83,278.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,280.84 6x14.4 "4" #ffffff
+                text 946.5,280.54 6.25x15 "4" #ffffff
         box 488.17,696.46 762.42x28.33 absolute
           box 488.17,696.46 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             box 488.17,696.46 166.67x28.33 absolute
@@ -974,16 +974,16 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000040 @click
-            box 339.42,315.04 2.5x30 absolute #d6a56b
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #ffffff
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 429,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000040 @click
+            box 339.42,316.04 2.5x30 absolute #d6a56b
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #ffffff
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
+                box 429,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           text 488.17,213.04 762.42x15 "The module is off: it isn't loaded and costs nothing. Its settings are kept." #a3977f
@@ -1029,16 +1029,16 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000040 @click
-            box 339.42,315.04 2.5x30 absolute #d6a56b
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #ffffff
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000040 @click
+            box 339.42,316.04 2.5x30 absolute #d6a56b
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #ffffff
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -1062,7 +1062,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,284.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,285.54 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 769.83,278.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,280.84 6x14.4 "4" #ffffff
+                text 946.5,280.54 6.25x15 "4" #ffffff
         box 488.17,696.46 762.42x28.33 absolute
           box 488.17,696.46 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             box 488.17,696.46 166.67x28.33 absolute
@@ -1125,15 +1125,15 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000000 @click
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #e8dcc4
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000000 @click
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #e8dcc4
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -1154,7 +1154,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 804.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,252.51 24x14.4 "100%" #ffffff
+                text 946.5,252.21 25x15 "100%" #ffffff
             box 488.17,279.71 762.42x28.33 opacity=1
               box 488.17,286.38 233.33x15 @enter @leave
                 text 488.17,286.38 233.33x15 "Spacing" #cbb994
@@ -1219,8 +1219,8 @@ surface 0,0 1600x900 on DIALOG #0000008c
         box 864.5,458.62 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
           box 864.5,458.62 116.67x28.33 absolute
             text 910.33,465.29 25x15 "Save" #ffd100
-    box 600.83,403.96 403.33x15 absolute
-      text 755.62,403.96 93.75x15 "Unsaved changes" #ffd100
+    box 600.83,403.96 403.33x18 absolute
+      text 746.25,403.96 112.5x18 "Unsaved changes" #ffd100
 
 unsaved: 1, a save to take back: false, placing: false
 
@@ -1243,15 +1243,15 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000000 @click
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #e8dcc4
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000000 @click
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #e8dcc4
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -1272,7 +1272,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 804.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,252.51 24x14.4 "100%" #ffffff
+                text 946.5,252.21 25x15 "100%" #ffffff
             box 488.17,279.71 762.42x28.33 opacity=1
               box 488.17,286.38 233.33x15 @enter @leave
                 text 488.17,286.38 233.33x15 "Spacing" #cbb994
@@ -1360,16 +1360,16 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
           box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
           text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
           box 463.17,276.38 0x0
-        box 339.42,291.38 133.75x23.67
-          text 352.75,299.71 107.08x12 "MODULES" #a3977f
-        box 339.42,315.04 133.75x30
-          box 339.42,315.04 133.75x30 #00000040 @click
-            box 339.42,315.04 2.5x30 absolute #d6a56b
-            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
-            text 379.42,322.54 43.75x15 "Minimap" #ffffff
-            box 431.5,321.71 31.67x16.67
-              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+        box 339.42,291.38 133.75x24.67
+          text 352.75,299.71 107.08x13 "MODULES" #a3977f
+        box 339.42,316.04 133.75x30
+          box 339.42,316.04 133.75x30 #00000040 @click
+            box 339.42,316.04 2.5x30 absolute #d6a56b
+            box 352.75,321.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,323.54 43.75x15 "Minimap" #ffffff
+            box 431.5,322.71 31.67x16.67
+              box 431.5,322.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,320.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
       box 473.17,201.37 792.42x538.42 #00000040
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
@@ -1388,7 +1388,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                text 946.5,252.51 24x14.4 "100%" #ffffff
+                text 946.5,252.21 25x15 "100%" #ffffff
             box 488.17,279.71 762.42x18.33 opacity=1
               box 488.17,281.38 233.33x15 @enter @leave
                 text 488.17,281.38 233.33x15 "Zone name" #cbb994
