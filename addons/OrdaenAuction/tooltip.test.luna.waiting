@@ -7,10 +7,10 @@ import Game from "$game"
 import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
+import { ItemId } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import root Ordaen from "Ordaen"
 import root Tooltips from "OrdaenTooltips"
-import { ItemId } from "@/quote"
 
 const COPPER_ORE: Integer = 2770
 const PAGE: Test.Page = { left: 100, top: 50, width: 700, height: 600, screen: true }
