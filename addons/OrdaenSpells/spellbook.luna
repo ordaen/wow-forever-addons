@@ -1,0 +1,118 @@
+// «Spells»: the player's spells in tabs, «All» and one per skill line of the spellbook, each with the search and the
+// sort. «All» is one flat list: under each name the skill line, the kind and the level the spell was learned at.
+import { Align, Overflow, Track } from "$ltml"
+import { Choice, Component, PX, Tabs, Toolbar, ToolPick } from "Ordaen"
+import root Ordaen from "Ordaen"
+import Locale from "@/locales"
+import { Line, Spell } from "@/spells"
+import Style from "@/style"
+
+public enum SortBy { Name = "name", Level = "level", Active = "active" }
+
+const SORTS: Array<Choice<SortBy>> = [
+  { value: SortBy.Name, label: Locale.SORT_NAME },
+  { value: SortBy.Level, label: Locale.SORT_LEVEL },
+  { value: SortBy.Active, label: Locale.SORT_ACTIVE },
+]
+const ROW: Array<Track> = [36 * PX, { fr: 1 }]
+const PAGE: Array<Track> = ["auto", "auto", { fr: 1 }]
+
+// Whether the spell stands before another in the sort's order; equal ones by name.
+function before(a: Spell, b: Spell, by: SortBy): Boolean {
+  if (by == SortBy.Level && a.level != b.level) { return a.level < b.level }
+  if (by == SortBy.Active && a.passive != b.passive) { return !a.passive }
+  return a.name < b.name || (a.name == b.name && a.level < b.level)
+}
+
+// The name of the skill line a spell stands on.
+function lineName(lines: Array<Line>, index: Integer): String {
+  for (line of lines) {
+    if (line.index == index) { return line.name }
+  }
+  return ""
+}
+
+public class SpellRow implements Component {
+  derived title: String = self.spell.rank == "" ? self.spell.name : "%s (%s)".format(self.spell.name, self.spell.rank)
+  derived kind: String = self.spell.passive ? Locale.PASSIVE : Locale.ACTIVE
+  derived detail: String = Locale.SPELL_DETAIL.format(lineName(self.lines, self.spell.line), self.kind, self.spell.level)
+
+  spell: Signal<Spell>
+  lines: Signal<Array<Line>>
+  constructor(spell: Signal<Spell>, lines: Signal<Array<Line>>) {
+    self.spell = spell
+    self.lines = lines
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} gap={8 * PX} yAlign={Align.Center} padding={{ top: 3 * PX, bottom: 3 * PX }}>
+        <box width={32 * PX} height={32 * PX} border={{ width: 1 * PX, color: Style.LINE }} icon={self.spell.icon} />
+        <box columns={1}>
+          <text value={self.title} textColor={Style.INK} wrap={false} />
+          <text value={self.detail} textSize={.Secondary} textColor={Style.DIM} wrap={false} />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class SpellbookPage implements Component {
+  state tab = 1
+  state search = ""
+  state sort: SortBy = SortBy.Name
+  derived names: Array<String> = self.namesOf()
+  derived shown: Array<Spell> = self.shownOf()
+  derived empty: Boolean = self.shown.length == 0
+
+  spells: Signal<Array<Spell>>
+  lines: Signal<Array<Line>>
+  constructor(spells: Signal<Array<Spell>>, lines: Signal<Array<Line>>) {
+    self.spells = spells
+    self.lines = lines
+  }
+
+  namesOf(self): Array<String> {
+    const list: Array<String> = [Locale.TAB_ALL]
+    for (line of self.lines) { list.push(line.name) }
+    return list
+  }
+
+  lineName(self, index: Integer): String {
+    for (line of self.lines) {
+      if (line.index == index) { return line.name }
+    }
+    return ""
+  }
+
+  shownOf(self): Array<Spell> {
+    const list: Array<Spell> = []
+    const sought = self.search.lower()
+    const wanted = self.tab == 1 ? 0 : (self.lines[self.tab - 1]?.index ?? 0)
+    for (spell of self.spells) {
+      if ((wanted == 0 || spell.line == wanted) && (sought == "" || spell.name.lower().contains(sought))) {
+        list.push(spell)
+      }
+    }
+    const by = self.sort
+    list.sort((a, b) => before(a, b, by))
+    return list
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={PAGE} gap={8 * PX}>
+        <Tabs tabs={self.names} selected={mut self.tab} />
+        <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+          <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+        </Toolbar>
+        <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
+        </box>
+        <box $else overflow={Overflow.Scroll}>
+          <SpellRow $for={spell of self.shown} $key={spell.id} spell={spell} lines={self.lines} />
+        </box>
+      </box>
+    }
+  }
+}

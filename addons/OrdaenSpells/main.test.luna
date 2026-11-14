@@ -1,0 +1,79 @@
+// The windows on the stand-in game: the spellbook with its tabs and a search, the talents with the trees given to it,
+// and the class trainer with a service picked. The root is drawn on the screen as Ordaen draws it.
+import Game from "$game"
+import Test from "$test"
+import root Spells from "OrdaenSpells"
+import { Line, Spell } from "@/spells"
+import { Status } from "@/trainer"
+
+const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
+const ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
+
+function lines(): Array<Line> {
+  return [{ index: 1, name: "General" }, { index: 2, name: "Warrior" }, { index: 3, name: "Arms" }]
+}
+
+function spells(): Array<Spell> {
+  return [
+    { id: 78, name: "Heroic Strike", rank: "Rank 2", icon: ICON, level: 8, passive: false, line: 2 },
+    { id: 772, name: "Rend", rank: "Rank 1", icon: ICON, level: 4, passive: false, line: 2 },
+    { id: 3127, name: "Parry", rank: "", icon: ICON, level: 6, passive: true, line: 2 },
+    { id: 12294, name: "Mortal Strike", rank: "", icon: ICON, level: 40, passive: false, line: 3 },
+    { id: 2481, name: "Find Treasure", rank: "", icon: ICON, level: 1, passive: false, line: 1 },
+  ]
+}
+
+test "the spellbook lists every spell with its skill line, kind and level" {
+  Test.mount(nil, PAGE)
+  Spells.spells = spells()
+  Spells.lines = lines()
+  Spells.open = true
+  Test.flush()
+  Test.shot("all spells, by name")
+  Spells.tab = 1
+  Test.flush()
+  Test.expect(Spells.spells.length == 5)
+}
+
+test "the talents tab draws the trees it is given and says when it has none" {
+  Test.mount(nil, PAGE)
+  Spells.open = true
+  Spells.tab = 2
+  Test.flush()
+  Test.shot("no trees: it says so, the buttons are disabled")
+  Spells.trees = [
+    {
+      name: "Arms",
+      talents: [
+        { name: "Deflection", icon: ICON, tier: 1, column: 2, rank: 2, ranks: 5 },
+        { name: "Improved Rend", icon: ICON, tier: 1, column: 3, rank: 0, ranks: 3 },
+        { name: "Tactical Mastery", icon: ICON, tier: 2, column: 1, rank: 5, ranks: 5 },
+      ],
+    },
+    { name: "Fury", talents: [{ name: "Booming Voice", icon: ICON, tier: 1, column: 1, rank: 1, ranks: 5 }] },
+    { name: "Protection", talents: [{ name: "Shield Specialization", icon: ICON, tier: 1, column: 1, rank: 0, ranks: 5 }] },
+  ]
+  Test.flush()
+  Test.shot("three trees with their ranks")
+}
+
+test "the class trainer lists its services and a click shows one's card" {
+  Test.mount(nil, PAGE)
+  Game.money.amount = 5000
+  Spells.services = [
+    {
+      index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Status.Available, level: 8, cost: 400,
+      description: "A strong attack.",
+    },
+    {
+      index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Status.Unavailable, level: 50, cost: 90000,
+      description: "Charge an enemy.",
+    },
+    { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Status.Learned, level: 4, cost: 0, description: "" },
+  ]
+  Spells.trainerOpen = true
+  Test.flush()
+  Test.shot("three services: nothing picked")
+  Test.click(Test.holding("Heroic Strike (Rank 3)", nil), nil)
+  Test.shot("one picked: its card, the price and the disabled button")
+}

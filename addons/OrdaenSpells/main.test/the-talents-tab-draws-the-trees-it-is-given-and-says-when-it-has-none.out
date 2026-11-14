@@ -1,0 +1,98 @@
+-- no trees: it says so, the buttons are disabled
+surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
+  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 447.75,234.71 709.5x471.75
+      box 447.75,234.71 709.5x28.33
+        box 447.75,234.71 709.5x28.33 #00000080 input "" @change
+      box 447.75,269.71 709.5x401.75
+        text 708.75,463.08 187.5x15 "The talents are not available." #a3977f
+      box 447.75,678.12 709.5x28.33
+        box 447.75,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 447.75,678.12 158.33x28.33 absolute
+            text 483.17,684.79 87.5x15 "Cancel changes" #808080
+        box 612.75,678.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 612.75,678.12 125x28.33 absolute
+            text 650.25,684.79 50x15 "Activate" #808080
+        box 744.42,684.79 247.83x15
+          text 818.33,684.79 100x15 "Talent points: 0" #e8dcc4
+        box 998.92,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 998.92,678.12 158.33x28.33 absolute
+            text 1037.46,684.79 81.25x15 "Apply changes" #808080
+    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 425,173.04 363.5x47.75
+    box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 443.58,183.29 77.33x34.25
+        text 463.5,192.92 37.5x15 "Spells" #b3a690
+    box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 568.08,183.29 77.33x34.25
+        text 584.88,192.92 43.75x15 "Primary" #ffd100
+    box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 692.58,183.29 77.33x34.25
+        text 703.12,192.92 56.25x15 "Secondary" #b3a690
+
+-- three trees with their ranks
+surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
+  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 447.75,234.71 709.5x471.75
+      box 447.75,234.71 709.5x28.33
+        box 447.75,234.71 709.5x28.33 #00000080 input "" @change
+      box 447.75,269.71 709.5x401.75
+        box 447.75,269.71 234.28x91.67
+          text 543.01,269.71 43.75x15 "Arms: 7" #ffd100
+          box 484.06,289.71 161.67x33.33
+            box 484.06,289.71 33.33x33.33
+            box 525.72,289.71 33.33x33.33
+              box 525.72,289.71 33.33x33.33 icon=Interface/Icons/INV_Misc_Note_01 opacity=1
+                text 541.97,309.21 16.25x13 "2/5" #ffd100
+            box 567.39,289.71 33.33x33.33
+              box 567.39,289.71 33.33x33.33 icon=Interface/Icons/INV_Misc_Note_01 opacity=1
+                text 583.64,309.21 16.25x13 "0/3" #ffd100
+            box 609.06,289.71 33.33x33.33
+          box 484.06,328.04 161.67x33.33
+            box 484.06,328.04 33.33x33.33
+              box 484.06,328.04 33.33x33.33 icon=Interface/Icons/INV_Misc_Note_01 opacity=1
+                text 500.31,347.54 16.25x13 "5/5" #ffd100
+            box 525.72,328.04 33.33x33.33
+            box 567.39,328.04 33.33x33.33
+            box 609.06,328.04 33.33x33.33
+        box 685.36,269.71 234.28x53.33
+          text 780.62,269.71 43.75x15 "Fury: 1" #ffd100
+          box 721.67,289.71 161.67x33.33
+            box 721.67,289.71 33.33x33.33
+              box 721.67,289.71 33.33x33.33 icon=Interface/Icons/INV_Misc_Note_01 opacity=1
+                text 737.92,309.21 16.25x13 "1/5" #ffd100
+            box 763.33,289.71 33.33x33.33
+            box 805,289.71 33.33x33.33
+            box 846.67,289.71 33.33x33.33
+        box 922.97,269.71 234.28x53.33
+          text 999.49,269.71 81.25x15 "Protection: 0" #ffd100
+          box 959.28,289.71 161.67x33.33
+            box 959.28,289.71 33.33x33.33
+              box 959.28,289.71 33.33x33.33 icon=Interface/Icons/INV_Misc_Note_01 opacity=1
+                text 975.53,309.21 16.25x13 "0/5" #ffd100
+            box 1000.94,289.71 33.33x33.33
+            box 1042.61,289.71 33.33x33.33
+            box 1084.28,289.71 33.33x33.33
+      box 447.75,678.12 709.5x28.33
+        box 447.75,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 447.75,678.12 158.33x28.33 absolute
+            text 483.17,684.79 87.5x15 "Cancel changes" #808080
+        box 612.75,678.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 612.75,678.12 125x28.33 absolute
+            text 650.25,684.79 50x15 "Activate" #808080
+        box 744.42,684.79 247.83x15
+          text 818.33,684.79 100x15 "Talent points: 0" #e8dcc4
+        box 998.92,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 998.92,678.12 158.33x28.33 absolute
+            text 1037.46,684.79 81.25x15 "Apply changes" #808080
+    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 425,173.04 363.5x47.75
+    box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 443.58,183.29 77.33x34.25
+        text 463.5,192.92 37.5x15 "Spells" #b3a690
+    box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 568.08,183.29 77.33x34.25
+        text 584.88,192.92 43.75x15 "Primary" #ffd100
+    box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 692.58,183.29 77.33x34.25
+        text 703.12,192.92 56.25x15 "Secondary" #b3a690
