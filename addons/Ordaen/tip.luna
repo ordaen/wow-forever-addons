@@ -1,9 +1,10 @@
-// Tip: our tooltip beside what it explains: the small metal frame round the windows' wood, its name in white and its
-// text under it in the label colour, wrapped at the tooltip's width. It stands on the screen over everything and
-// takes no mouse. Its owner writes it in the box it explains and shows it while the cursor is on that box: it stands
-// beside that box as the game's tooltip stands beside a button (under it, or over it in the screen's lower half; by
-// its left edge, or by its right edge in the screen's right third), kept on the screen.
-import { Beside, Layer } from "$ltml"
+// Tip: our tooltip beside what it explains: the small metal frame round the windows' wood, its name in white, its
+// text under it in the label colour, wrapped at the tooltip's width, and under that its rows, each a label at the
+// start in the label colour and its value at the end in white. It stands on the screen over everything and takes no
+// mouse. Its owner writes it in the box it explains and shows it while the cursor is on that box: it stands beside
+// that box as the game's tooltip stands beside a button (under it, or over it in the screen's lower half; by its left
+// edge, or by its right edge in the screen's right third), kept on the screen.
+import { Align, Beside, Layer, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
@@ -12,13 +13,24 @@ const WIDTH = 314 * PX
 const NAME: Color = Color.hex("#ffffff")
 const LABEL: Color = Color.hex("#cbb994")
 const BY_ITS_BOX: Beside = { beside: "parent" }
+const ROW: Array<Track> = [{ fr: 1 }, "auto"]
+
+// One row of a Tip: what it is, and how much.
+public struct TipRow {
+  const label: String
+  const value: String
+}
 
 public class Tip implements Component {
+  derived hasText: Boolean = self.text != ""
+
   title: Signal<String>
   text: Signal<String>
-  constructor(title: Signal<String>, text: Signal<String>) {
+  rows: Signal<Array<TipRow>>
+  constructor(title: Signal<String>, text: Signal<String>, rows: Signal<Array<TipRow>> = []) {
     self.title = title
     self.text = text
+    self.rows = rows
   }
 
   public render(self): Template {
@@ -27,7 +39,11 @@ public class Tip implements Component {
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
                padding={12 * PX} columns={1} gap={2 * PX}>
         <text value={self.title} textColor={NAME} textSize={18 * PX} />
-        <text value={self.text} textColor={LABEL} textSize={14 * PX} />
+        <text $if={self.hasText} value={self.text} textColor={LABEL} textSize={14 * PX} />
+        <box $for={row of self.rows} columns={ROW} gap={8 * PX} yAlign={Align.Center}>
+          <text value={row.label} textColor={LABEL} textSize={14 * PX} />
+          <text value={row.value} textColor={NAME} textSize={14 * PX} wrap={false} />
+        </box>
       </surface>
     }
   }
