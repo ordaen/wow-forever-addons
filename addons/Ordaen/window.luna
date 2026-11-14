@@ -147,12 +147,12 @@ public class WindowTab implements Component {
 
   tab: Signal<WindowTabSpec>
   const index: Integer
-  selected: mut Signal<Integer>
+  selected: Signal<Integer>
   height: Signal<Number>
   constructor(
     tab: Signal<WindowTabSpec>,
     index: Integer,
-    selected: mut Signal<Integer>,
+    selected: Signal<Integer>,
     // The tab's height: from the window's top to the inner side of the body's top line.
     height: Signal<Number>,
   ) {
@@ -175,7 +175,6 @@ public class WindowTab implements Component {
   }
 
   pick(mut self) {
-    self.selected = self.index
     self.picked.emit(self.index)
   }
   onGrab(mut self) { self.grab.emit() }
@@ -310,6 +309,7 @@ public class Window implements Component {
   derived bodyColumns: Array<Track> = self.columnsOf()
   const nothing: Template = $ltml {}
   const docked: Side | nil
+  const asks: Boolean
   room: Signal<Number>
   constructor(
     tabs: Signal<Array<WindowTabSpec>>,
@@ -334,7 +334,11 @@ public class Window implements Component {
     footer: Template | nil = nil,
     // The side section at the body's right, the full height beside the main one: none where it is left out.
     side: Signal<WindowSide | nil> = nil,
+    // A tab's click only asks (`@picked`): the picked tab is what `selected` says, which follows what the window
+    // shows (the profession the game has open), and the click doesn't write it.
+    asks: Boolean = false,
   ) {
+    self.asks = asks
     self.footer = footer ?? $ltml {}
     self.footed = footer != nil
     self.padding = footer != nil ? PADDING_FOOTED : PADDING
@@ -394,7 +398,10 @@ public class Window implements Component {
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
   toggleFull(mut self) { self.full = !self.full }
-  onPicked(mut self, index: Integer) { self.picked.emit(index) }
+  onPicked(mut self, index: Integer) {
+    if (!self.asks) { self.selected = index }
+    self.picked.emit(index)
+  }
   onClose(mut self) { self.close.emit() }
   onCorner(mut self, control: CornerControl) {
     match (control) {
@@ -463,7 +470,7 @@ public class Window implements Component {
                height={16 * PX} background={self.grip} @dragStart={self.onGrab} @drag={self.onSize} />
         </box>
         <box columns={self.columns} gap={12 * PX} yAlign={Align.End}>
-          <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={mut self.selected}
+          <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={self.selected}
                      height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @picked={self.onPicked} />
         </box>
       </surface>

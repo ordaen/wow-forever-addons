@@ -101,8 +101,10 @@ public class Professions implements Module, App {
   // The queue, the root's and not the window's: it runs while the window is shut.
   public crafting: mut CraftQueue
 
-  // The window's tab: the open profession's place among the character's.
-  state tab = 0
+  // The window's tab: the open profession's place among the character's, and nothing else. It is a cell the window
+  // is handed (`mut`, which a `derived` can't be) written by its one watch alone; a tab's click only asks the game.
+  public state tab = 0
+  derived openTab: Integer = self.openTabOf()
   state page = 1
   // What the player chose, by id; 0 while nothing was: the first one there is stands for it.
   public state category = 0
@@ -205,6 +207,7 @@ public class Professions implements Module, App {
     // The run the window was closed during ended: the profession closes now; another opened shows the window.
     watch (running of self.crafting.running) { self.runEnded(running) }
     watch (open of Game.tradeSkill.open) { self.hidden = false }
+    watch (at of self.openTab) { self.tab = at }
     watch { self.followOpen() }
     watch { self.onPage() }
     watch { self.shown = self.shownOf() }
@@ -231,6 +234,13 @@ public class Professions implements Module, App {
       })
     }
     return list
+  }
+
+  openTabOf(self): Integer {
+    for (index, profession of Game.professions.list) {
+      if (profession.skillLine == Game.tradeSkill.open) { return index }
+    }
+    return 0
   }
 
   professionOf(self): Game.Profession | nil {
@@ -389,15 +399,10 @@ public class Professions implements Module, App {
     return nil
   }
 
-  // The game opened another profession: its tab is the picked one, and what the player had chosen in it, if the
-  // window remembers that, is chosen again.
+  // The game opened another profession: what the player had chosen in it, if the window remembers that, is chosen
+  // again.
   followOpen(mut self) {
     const open = Game.tradeSkill.open
-    let at = 0
-    for (index, profession of Game.professions.list) {
-      if (profession.skillLine == open) { at = index }
-    }
-    self.tab = at
     if (open != nil) {
       self.waiting = false
       const now = peek self.memory.values
@@ -420,7 +425,7 @@ public class Professions implements Module, App {
   }
 
   // A tab opens its profession through the game, in the click's own call: the client takes it from nothing
-  // else. The tab shows picked at once; the lists fill when the game has sent them.
+  // else. The tab shows picked once the game has opened it, with its lists.
   onTab(mut self, index: Integer) {
     const picked = (peek Game.professions.list)[index]
     if (picked != nil && picked.skillLine != peek Game.tradeSkill.open) {
@@ -642,7 +647,7 @@ public class Professions implements Module, App {
     return $ltml {
       <$if={self.isOpen}>
         <frame of={Game.frames.Professions} opacity={0} away={true} />
-        <Window $if={self.drawn} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
+        <Window $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} placing={mut self.placing} withSettings={true}
                 footer={self.footer} @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>
             <text value={Locale.PICK} textColor={Style.DIM} />

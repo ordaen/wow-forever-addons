@@ -212,7 +212,7 @@ test "the professions window: the open profession, its lists, the search, a reci
   show("the profession's «Camp» tab: the camp's recipes in one column", own)
 
   click(Test.holding("Blacksmithing", nil))
-  show("the Blacksmithing tab clicked: it shows picked, and the game is asked to open it", own)
+  show("the Blacksmithing tab clicked: the game is asked to open it, and Tailoring's tab stays picked till it has", own)
 
   Game.tradeSkill.categories = blacksmithingCategories()
   Game.tradeSkill.recipes = [recipe(200, "Copper Mace", 21, Game.Difficulty.Never, 0, true)]
@@ -264,6 +264,49 @@ test "a long description wraps in the details panel, which stays inside the wind
   Test.flush()
   click(Test.holding("Cloth armour", nil))
   Test.shot("«Linen Cloak» chosen: its description wraps in the panel, the panel ends inside the window")
+  (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
+  Test.expect(Test.blank())
+}
+
+test "the profession the game opens picks its tab, every time: after the window closed on another, and while it is open" {
+  let own = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  own.SetSize(400, 500)
+  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+  Game.frames.Professions = own
+  Game.professions.list = [
+    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: 182, name: "Herbalism", icon: "Interface/Icons/Trade_Herbalism", rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
+    { skillLine: 129, name: "First Aid", icon: "Interface/Icons/Spell_Holy_SealOfSacrifice", rank: 40, max: 75, kind: Game.ProfessionKind.Crafting },
+  ]
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = 197
+  Test.flush()
+  Test.expect(Professions.tab == 1)
+
+  // Closed on Tailoring; the game opens First Aid from its spell on the action bar.
+  Test.key(Key.Escape)
+  own.Hide()
+  Game.tradeSkill.open = nil
+  Test.flush()
+  own.Show()
+  Game.tradeSkill.categories = []
+  Game.tradeSkill.recipes = []
+  Game.tradeSkill.open = 129
+  Test.flush()
+  Test.expect(Professions.tab == 3)
+
+  // The Herbalism tab clicked: the game is asked, and till it opens Herbalism the tab is First Aid's.
+  click(Test.holding("Herbalism", nil))
+  Test.expect(Professions.tab == 3)
+  // While the window is open, the game opens Tailoring from its spell: Tailoring's tab.
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = 197
+  Test.flush()
+  Test.expect(Professions.tab == 1)
+  Test.shot("Tailoring opened by the game while First Aid was open: its tab picked")
   (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
   Test.expect(Test.blank())
 }
