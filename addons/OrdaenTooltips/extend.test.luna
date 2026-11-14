@@ -4,7 +4,7 @@ import Client from "$client"
 import Game from "$game"
 import { Frame } from "$ltml"
 import Test from "$test"
-import { ItemLines, Line, ObjectLines } from "@/extend"
+import { ItemKeys, ItemLines, Line, ObjectLines } from "@/extend"
 import Runtime from "$runtime"
 import root Tooltips from "OrdaenTooltips"
 
@@ -73,6 +73,40 @@ test "a row another module adds stands in its section, follows what it read, and
   Test.pass(0.2)
   (Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")).disable()
   Test.expect(Test.blank())
+}
+
+// A hotkey another module has for an item where it shows it: asked again when what it read moves.
+class Keyed implements ItemKeys {
+  public state held = false
+
+  public keys(self, item: Integer, link: String): Array<String> {
+    return [self.held ? `Alt+Left-click: let ${item} go` : `Alt+Left-click: hold ${item}`]
+  }
+
+  public hold(mut self) { self.held = true }
+}
+
+test "a hotkey another module adds stands after the tooltip's own, follows what it read, and goes with its handle" {
+  let corner = frame("GameTooltip", 1300, 720)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+  const keyed = new Keyed()
+  const added = Tooltips.keys.add(keyed)
+  Game.tooltip.main = showing(corner, { kind: 0, id: 2770, about: "item:2770", lines: [{ left: "Copper Ore", kind: 22 }] })
+  Test.expect(Tooltips.model.keys.length == 1 && Tooltips.model.keys[1] == "Alt+Left-click: hold 2770")
+  Test.shot("an item: the module's hotkey in the hotkeys")
+  keyed.hold()
+  Test.pass(0.02)
+  Test.expect(Tooltips.model.keys[1] == "Alt+Left-click: let 2770 go")
+  // A world object is no item: no hotkey of the item's.
+  Game.tooltip.main = showing(corner, { kind: 4, lines: [{ left: "Copper Vein", kind: 0 }] })
+  Test.pass(0.02)
+  Test.expect(Tooltips.model.keys.length == 0)
+  Game.tooltip.main = showing(corner, { kind: 0, id: 2770, about: "item:2770", lines: [{ left: "Copper Ore", kind: 22 }] })
+  destroy added
+  Test.pass(0.02)
+  Test.expect(Tooltips.model.keys.length == 0)
+  Game.tooltip.main = { shown: false, ..showing(corner, { lines: [] }) }
+  Test.pass(0.2)
 }
 
 test "what another module adds comes after the tooltip's own footer" {
