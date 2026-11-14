@@ -3,87 +3,87 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
   box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 354.42,248.04 896.17x443.42
       box 374.42,268.04 856.17x403.42
-        box 374.42,268.04 856.17x87.5 scrolled 0 of 0
-          box 374.42,268.04 856.17x87.5
-            box 374.42,268.04 856.17x29.17 #00000040
-              box 381.08,268.04 105.8x28.33 #00000000 @click
-                box 381.08,294.71 105.8x1.67 absolute #00000000
-                box 381.08,274.71 105.8x15
-                  text 381.08,274.71 56.25x15 "Character" #cbb994
-                  box 440.67,279.71 6.67x5
-                    box 437.33,275.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-              box 493.55,268.04 46.67x28.33 #00000000 @click
-                box 493.55,294.71 46.67x1.67 absolute #00000000
-                box 498.97,274.71 41.25x15
-                  text 498.97,274.71 31.25x15 "Level" #cbb994
-                  box 533.55,279.71 6.67x5
-                    box 530.22,275.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-              box 546.88,268.04 100x28.33 #00000000 @click
-                box 546.88,294.71 100x1.67 absolute #00000000
-                box 611.88,274.71 35x15
-                  text 611.88,274.71 25x15 "Gold" #cbb994
-                  box 640.22,279.71 6.67x5
-                    box 636.88,275.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-              box 653.55,268.04 158.7x28.33 #00000000 @click
-                box 653.55,294.71 158.7x1.67 absolute #00000000
-                box 653.55,274.71 158.7x15
-                  text 653.55,274.71 68.75x15 "Professions" #a3977f
-              box 818.92,268.04 80x28.33 #00000000 @click
-                box 818.92,294.71 80x1.67 absolute #00000000
-                box 826.42,274.71 72.5x15
-                  text 826.42,274.71 62.5x15 "Free slots" #cbb994
-                  box 892.25,279.71 6.67x5
-                    box 888.92,275.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-              box 905.58,268.04 75x28.33 #00000000 @click
-                box 905.58,294.71 75x1.67 absolute #00000000
-                box 933.08,274.71 47.5x15
-                  text 933.08,274.71 37.5x15 "Played" #cbb994
-                  box 973.92,279.71 6.67x5
-                    box 970.58,275.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-              box 987.25,268.04 76.67x28.33 #00000000 @click
-                box 987.25,294.71 76.67x1.67 absolute #00000000
-                box 987.25,274.71 76.67x15
-                  text 987.25,274.71 56.25x15 "Bank read" #a3977f
-              box 1070.58,268.04 76.67x28.33 #00000000 @click
-                box 1070.58,294.71 76.67x1.67 absolute #00000000
-                box 1070.58,274.71 76.67x15
-                  text 1070.58,274.71 75x15 "Mail expires" #a3977f
-              box 1153.92,268.04 70x28.33 #00000000 @click
-                box 1153.92,294.71 70x1.67 absolute #00000000
-                box 1153.92,274.71 70x15
-                  text 1153.92,274.71 6.25x15 " " #a3977f
-            box 374.42,297.21 856.17x58.33 scrolled 0 of 0
-              box 374.42,297.21 856.17x21.67 #00000000 @click
-                text 381.08,300.54 105.8x15 "Player" #ffd100
-                box 493.55,300.54 46.67x15
-                  text 533.97,300.54 6.25x15 "1" #e8dcc4
-                box 546.88,300.54 100x15
-                  text 596.88,300.54 50x15 "0g 0s 0c" #e8dcc4
-                text 653.55,308.04 158.7x0 "" #a3977f
-                box 818.92,300.54 80x15
-                  text 892.67,300.54 6.25x15 "—" #e8dcc4
-                box 905.58,300.54 75x15
-                  text 961.83,300.54 18.75x15 "now" #a3977f
-                text 987.25,300.54 76.67x15 "never opened" #a3977f
-                text 1070.58,300.54 76.67x15 "never opened" #a3977f
-                box 1153.92,308.04 70x0
-              box 374.42,318.88 856.17x36.67 #00000000 @click
-                text 381.08,329.71 105.8x15 "Regy Ironsight" #7a7060
-                box 493.55,329.71 46.67x15
-                  text 527.72,329.71 12.5x15 "42" #e8dcc4
-                box 546.88,329.71 100x15
-                  text 571.88,329.71 75x15 "123g 45s 67c" #e8dcc4
-                text 653.55,322.21 158.7x30 "Blacksmithing 150, Mining 75" #a3977f
-                box 818.92,329.71 80x15
-                  text 892.67,329.71 6.25x15 "—" #e8dcc4
-                box 905.58,329.71 75x15
-                  text 930.58,329.71 50x15 "5 d. ago" #a3977f
-                text 987.25,329.71 76.67x15 "5 d. ago" #a3977f
-                text 1070.58,329.71 76.67x15 "in 2 d." #ff4040
-                box 1153.92,323.04 70x28.33
-                  box 1157.25,323.04 66.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                    box 1157.25,323.04 66.67x28.33 absolute
-                      text 1171.83,329.71 37.5x15 "Forget" #ffffff
+        box 374.42,268.04 856.17x89.9 scrolled 0 of 0
+          box 374.42,268.04 856.17x89.9
+            box 374.42,268.04 856.17x29.77 #00000040
+              box 381.08,268.04 85.13x28.93 #00000000 @click
+                box 381.08,295.31 85.13x1.67 absolute #00000000
+                box 381.08,274.71 85.13x15.6
+                  text 381.08,274.71 61.11x15.6 "Character" #cbb994
+                  box 445.53,280.01 6.67x5
+                    box 442.19,275.84 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+              box 472.88,268.04 46.67x28.93 #00000000 @click
+                box 472.88,295.31 46.67x1.67 absolute #00000000
+                box 473.99,274.71 45.56x15.6
+                  text 473.99,274.71 35.56x15.6 "Level" #cbb994
+                  box 512.88,280.01 6.67x5
+                    box 509.55,275.84 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+              box 526.22,268.04 100x28.93 #00000000 @click
+                box 526.22,295.31 100x1.67 absolute #00000000
+                box 587.33,274.71 38.89x15.6
+                  text 587.33,274.71 28.89x15.6 "Gold" #cbb994
+                  box 619.55,280.01 6.67x5
+                    box 616.22,275.84 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+              box 632.88,268.04 127.7x28.93 #00000000 @click
+                box 632.88,295.31 127.7x1.67 absolute #00000000
+                box 632.88,274.71 127.7x15.6
+                  text 632.88,274.71 74.44x15.6 "Professions" #a3977f
+              box 767.25,268.04 80x28.93 #00000000 @click
+                box 767.25,295.31 80x1.67 absolute #00000000
+                box 769.47,274.71 77.78x15.6
+                  text 769.47,274.71 67.78x15.6 "Free slots" #cbb994
+                  box 840.58,280.01 6.67x5
+                    box 837.25,275.84 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+              box 853.92,268.04 75x28.93 #00000000 @click
+                box 853.92,295.31 75x1.67 absolute #00000000
+                box 876.69,274.71 52.22x15.6
+                  text 876.69,274.71 42.22x15.6 "Played" #cbb994
+                  box 922.25,280.01 6.67x5
+                    box 918.92,275.84 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+              box 935.58,268.04 98.33x28.93 #00000000 @click
+                box 935.58,295.31 98.33x1.67 absolute #00000000
+                box 935.58,274.71 98.33x15.6
+                  text 935.58,274.71 61.11x15.6 "Bank read" #a3977f
+              box 1040.58,268.04 106.67x28.93 #00000000 @click
+                box 1040.58,295.31 106.67x1.67 absolute #00000000
+                box 1040.58,274.71 106.67x15.6
+                  text 1040.58,274.71 81.11x15.6 "Mail expires" #a3977f
+              box 1153.92,268.04 70x28.93 #00000000 @click
+                box 1153.92,295.31 70x1.67 absolute #00000000
+                box 1153.92,274.71 70x15.6
+                  text 1153.92,274.71 8.89x15.6 " " #a3977f
+            box 374.42,297.81 856.17x60.13 scrolled 0 of 0
+              box 374.42,297.81 856.17x22.27 #00000000 @click
+                text 381.08,301.14 85.13x15.6 "Player" #ffd100
+                box 472.88,301.14 46.67x15.6
+                  text 510.66,301.14 8.89x15.6 "1" #e8dcc4 right
+                box 526.22,301.14 100x15.6
+                  text 571.77,301.14 54.44x15.6 "0g 0s 0c" #e8dcc4 right
+                text 632.88,308.94 127.7x0 "" #a3977f
+                box 767.25,301.14 80x15.6
+                  text 838.36,301.14 8.89x15.6 "—" #e8dcc4 right
+                box 853.92,301.14 75x15.6
+                  text 906.69,301.14 22.22x15.6 "now" #a3977f right
+                text 935.58,301.14 98.33x15.6 "never opened" #a3977f
+                text 1040.58,301.14 106.67x15.6 "never opened" #a3977f
+                box 1153.92,308.94 70x0
+              box 374.42,320.07 856.17x37.87 #00000000 @click
+                text 381.08,331.21 93.33x15.6 "Regy Ironsight" #7a7060
+                box 481.08,331.21 46.67x15.6
+                  text 512.19,331.21 15.56x15.6 "42" #e8dcc4 right
+                box 534.42,331.21 100x15.6
+                  text 553.31,331.21 81.11x15.6 "123g 45s 67c" #e8dcc4 right
+                text 641.08,323.41 119.5x31.2 "Blacksmithing 150, Mining 75" #a3977f
+                box 767.25,331.21 80x15.6
+                  text 838.36,331.21 8.89x15.6 "—" #e8dcc4 right
+                box 853.92,331.21 75x15.6
+                  text 874.47,331.21 54.44x15.6 "5 d. ago" #a3977f right
+                text 935.58,331.21 98.33x15.6 "5 d. ago" #a3977f
+                text 1040.58,331.21 106.67x15.6 "in 2 d." #ff4040
+                box 1153.92,324.84 70x28.33
+                  box 1157.25,324.84 66.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 1157.25,324.84 66.67x28.33 absolute
+                      text 1169.47,331.21 42.22x15.6 "Forget" #ffffff centred
     box 1199.42,247.12 52.5x26.67 absolute clipped
       box 1199.42,247.12 29.17x26.67 absolute clipped @click
         box 1199.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -95,101 +95,101 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
   box 341.67,198.04 488x47.75
     box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 360.25,208.29 77.33x34.25
-        text 367.67,217.92 62.5x15 "Characters" #ffd100
+        text 365.03,217.62 67.78x15.6 "Characters" #ffd100 centred
     box 466.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 484.75,208.29 77.33x34.25
-        text 507.79,217.92 31.25x15 "Items" #b3a690
+        text 505.64,217.62 35.56x15.6 "Items" #b3a690 centred
     box 590.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 609.25,208.29 77.33x34.25
-        text 619.79,217.92 56.25x15 "Cooldowns" #b3a690
+        text 617.36,217.62 61.11x15.6 "Cooldowns" #b3a690 centred
     box 715.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 733.75,208.29 77.33x34.25
-        text 738.04,217.92 68.75x15 "Professions" #b3a690
+        text 735.19,217.62 74.44x15.6 "Professions" #b3a690 centred
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 603.58,377.54 392.83x144.92 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    text 633.83,424.46 337.33x30 "Forget Regy Ironsight? Its recipes and items leave the lists and come back when you play it again." #e8dcc4
-    box 633.83,466.12 337.33x28.33
-      box 633.83,466.12 107.33x0
-      box 741.17,466.12 230x28.33
-        box 741.17,466.12 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-          box 741.17,466.12 100x28.33 absolute
-            text 772.42,472.79 37.5x15 "Cancel" #ffd100
-        box 847.83,466.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-          box 847.83,466.12 116.67x28.33 absolute
-            text 887.42,472.79 37.5x15 "Forget" #ffd100
-    box 610.83,396.46 383.33x18 absolute
-      text 742.5,396.46 120x18 "Forget character" #ffd100
+  box 603.58,376.94 392.83x146.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+    text 633.83,423.86 337.33x31.2 "Forget Regy Ironsight? Its recipes and items leave the lists and come back when you play it again." #e8dcc4
+    box 633.83,466.73 337.33x28.33
+      box 633.83,466.73 107.33x0
+      box 741.17,466.73 230x28.33
+        box 741.17,466.73 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+          box 741.17,466.73 100x28.33 absolute
+            text 770.06,473.09 42.22x15.6 "Cancel" #ffd100 centred
+        box 847.83,466.73 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+          box 847.83,466.73 116.67x28.33 absolute
+            text 885.06,473.09 42.22x15.6 "Forget" #ffd100 centred
+    box 610.83,395.86 383.33x19.2 absolute
+      text 736.94,395.86 131.11x19.2 "Forget character" #ffd100 centred
 
 -- the character forgotten: one row, and the note that only this one is recorded
 surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
   box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 354.42,248.04 896.17x443.42
       box 374.42,268.04 856.17x403.42
-        box 374.42,268.04 856.17x50.83 scrolled 0 of 0
-          box 374.42,268.04 856.17x50.83
-            box 374.42,268.04 856.17x29.17 #00000040
-              box 381.08,268.04 105.8x28.33 #00000000 @click
-                box 381.08,294.71 105.8x1.67 absolute #00000000
-                box 381.08,274.71 105.8x15
-                  text 381.08,274.71 56.25x15 "Character" #cbb994
-                  box 440.67,279.71 6.67x5
-                    box 437.33,275.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-              box 493.55,268.04 46.67x28.33 #00000000 @click
-                box 493.55,294.71 46.67x1.67 absolute #00000000
-                box 498.97,274.71 41.25x15
-                  text 498.97,274.71 31.25x15 "Level" #cbb994
-                  box 533.55,279.71 6.67x5
-                    box 530.22,275.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-              box 546.88,268.04 100x28.33 #00000000 @click
-                box 546.88,294.71 100x1.67 absolute #00000000
-                box 611.88,274.71 35x15
-                  text 611.88,274.71 25x15 "Gold" #cbb994
-                  box 640.22,279.71 6.67x5
-                    box 636.88,275.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-              box 653.55,268.04 158.7x28.33 #00000000 @click
-                box 653.55,294.71 158.7x1.67 absolute #00000000
-                box 653.55,274.71 158.7x15
-                  text 653.55,274.71 68.75x15 "Professions" #a3977f
-              box 818.92,268.04 80x28.33 #00000000 @click
-                box 818.92,294.71 80x1.67 absolute #00000000
-                box 826.42,274.71 72.5x15
-                  text 826.42,274.71 62.5x15 "Free slots" #cbb994
-                  box 892.25,279.71 6.67x5
-                    box 888.92,275.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-              box 905.58,268.04 75x28.33 #00000000 @click
-                box 905.58,294.71 75x1.67 absolute #00000000
-                box 933.08,274.71 47.5x15
-                  text 933.08,274.71 37.5x15 "Played" #cbb994
-                  box 973.92,279.71 6.67x5
-                    box 970.58,275.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-              box 987.25,268.04 76.67x28.33 #00000000 @click
-                box 987.25,294.71 76.67x1.67 absolute #00000000
-                box 987.25,274.71 76.67x15
-                  text 987.25,274.71 56.25x15 "Bank read" #a3977f
-              box 1070.58,268.04 76.67x28.33 #00000000 @click
-                box 1070.58,294.71 76.67x1.67 absolute #00000000
-                box 1070.58,274.71 76.67x15
-                  text 1070.58,274.71 75x15 "Mail expires" #a3977f
-              box 1153.92,268.04 70x28.33 #00000000 @click
-                box 1153.92,294.71 70x1.67 absolute #00000000
-                box 1153.92,274.71 70x15
-                  text 1153.92,274.71 6.25x15 " " #a3977f
-            box 374.42,297.21 856.17x21.67 scrolled 0 of 0
-              box 374.42,297.21 856.17x21.67 #00000000 @click
-                text 381.08,300.54 105.8x15 "Player" #ffd100
-                box 493.55,300.54 46.67x15
-                  text 533.97,300.54 6.25x15 "1" #e8dcc4
-                box 546.88,300.54 100x15
-                  text 596.88,300.54 50x15 "0g 0s 0c" #e8dcc4
-                text 653.55,308.04 158.7x0 "" #a3977f
-                box 818.92,300.54 80x15
-                  text 892.67,300.54 6.25x15 "—" #e8dcc4
-                box 905.58,300.54 75x15
-                  text 961.83,300.54 18.75x15 "now" #a3977f
-                text 987.25,300.54 76.67x15 "never opened" #a3977f
-                text 1070.58,300.54 76.67x15 "never opened" #a3977f
-                box 1153.92,308.04 70x0
-        text 374.42,335.54 856.17x13 "Only this character is recorded. Play another to see it here." #a3977f
+        box 374.42,268.04 856.17x52.03 scrolled 0 of 0
+          box 374.42,268.04 856.17x52.03
+            box 374.42,268.04 856.17x29.77 #00000040
+              box 381.08,268.04 85.13x28.93 #00000000 @click
+                box 381.08,295.31 85.13x1.67 absolute #00000000
+                box 381.08,274.71 85.13x15.6
+                  text 381.08,274.71 61.11x15.6 "Character" #cbb994
+                  box 445.53,280.01 6.67x5
+                    box 442.19,275.84 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+              box 472.88,268.04 46.67x28.93 #00000000 @click
+                box 472.88,295.31 46.67x1.67 absolute #00000000
+                box 473.99,274.71 45.56x15.6
+                  text 473.99,274.71 35.56x15.6 "Level" #cbb994
+                  box 512.88,280.01 6.67x5
+                    box 509.55,275.84 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+              box 526.22,268.04 100x28.93 #00000000 @click
+                box 526.22,295.31 100x1.67 absolute #00000000
+                box 587.33,274.71 38.89x15.6
+                  text 587.33,274.71 28.89x15.6 "Gold" #cbb994
+                  box 619.55,280.01 6.67x5
+                    box 616.22,275.84 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+              box 632.88,268.04 127.7x28.93 #00000000 @click
+                box 632.88,295.31 127.7x1.67 absolute #00000000
+                box 632.88,274.71 127.7x15.6
+                  text 632.88,274.71 74.44x15.6 "Professions" #a3977f
+              box 767.25,268.04 80x28.93 #00000000 @click
+                box 767.25,295.31 80x1.67 absolute #00000000
+                box 769.47,274.71 77.78x15.6
+                  text 769.47,274.71 67.78x15.6 "Free slots" #cbb994
+                  box 840.58,280.01 6.67x5
+                    box 837.25,275.84 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+              box 853.92,268.04 75x28.93 #00000000 @click
+                box 853.92,295.31 75x1.67 absolute #00000000
+                box 876.69,274.71 52.22x15.6
+                  text 876.69,274.71 42.22x15.6 "Played" #cbb994
+                  box 922.25,280.01 6.67x5
+                    box 918.92,275.84 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+              box 935.58,268.04 98.33x28.93 #00000000 @click
+                box 935.58,295.31 98.33x1.67 absolute #00000000
+                box 935.58,274.71 98.33x15.6
+                  text 935.58,274.71 61.11x15.6 "Bank read" #a3977f
+              box 1040.58,268.04 106.67x28.93 #00000000 @click
+                box 1040.58,295.31 106.67x1.67 absolute #00000000
+                box 1040.58,274.71 106.67x15.6
+                  text 1040.58,274.71 81.11x15.6 "Mail expires" #a3977f
+              box 1153.92,268.04 70x28.93 #00000000 @click
+                box 1153.92,295.31 70x1.67 absolute #00000000
+                box 1153.92,274.71 70x15.6
+                  text 1153.92,274.71 8.89x15.6 " " #a3977f
+            box 374.42,297.81 856.17x22.27 scrolled 0 of 0
+              box 374.42,297.81 856.17x22.27 #00000000 @click
+                text 381.08,301.14 85.13x15.6 "Player" #ffd100
+                box 472.88,301.14 46.67x15.6
+                  text 510.66,301.14 8.89x15.6 "1" #e8dcc4 right
+                box 526.22,301.14 100x15.6
+                  text 571.77,301.14 54.44x15.6 "0g 0s 0c" #e8dcc4 right
+                text 632.88,308.94 127.7x0 "" #a3977f
+                box 767.25,301.14 80x15.6
+                  text 838.36,301.14 8.89x15.6 "—" #e8dcc4 right
+                box 853.92,301.14 75x15.6
+                  text 906.69,301.14 22.22x15.6 "now" #a3977f right
+                text 935.58,301.14 98.33x15.6 "never opened" #a3977f
+                text 1040.58,301.14 106.67x15.6 "never opened" #a3977f
+                box 1153.92,308.94 70x0
+        text 374.42,336.74 856.17x14.4 "Only this character is recorded. Play another to see it here." #a3977f
     box 1199.42,247.12 52.5x26.67 absolute clipped
       box 1199.42,247.12 29.17x26.67 absolute clipped @click
         box 1199.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -201,13 +201,13 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
   box 341.67,198.04 488x47.75
     box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 360.25,208.29 77.33x34.25
-        text 367.67,217.92 62.5x15 "Characters" #ffd100
+        text 365.03,217.62 67.78x15.6 "Characters" #ffd100 centred
     box 466.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 484.75,208.29 77.33x34.25
-        text 507.79,217.92 31.25x15 "Items" #b3a690
+        text 505.64,217.62 35.56x15.6 "Items" #b3a690 centred
     box 590.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 609.25,208.29 77.33x34.25
-        text 619.79,217.92 56.25x15 "Cooldowns" #b3a690
+        text 617.36,217.62 61.11x15.6 "Cooldowns" #b3a690 centred
     box 715.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 733.75,208.29 77.33x34.25
-        text 738.04,217.92 68.75x15 "Professions" #b3a690
+        text 735.19,217.62 74.44x15.6 "Professions" #b3a690 centred
