@@ -141,11 +141,11 @@ public class LetterTableRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={self.tracks}>
-        <text value={self.letter.subject} textColor={Style.INK} wrap={false} />
-        <text value={self.sender} textColor={Style.DIM} wrap={false} />
+        <text value={self.letter.subject} textColor={Style.INK} />
+        <text value={self.sender} textColor={Style.DIM} />
         <text value={self.attached} textColor={Style.DIM} />
         <box xAlign={Align.End}>
-          <text value={self.daysLabel} textColor={self.days} wrap={false} />
+          <text value={self.daysLabel} textColor={self.days} />
         </box>
       </TableRow>
     }
@@ -389,7 +389,7 @@ public class Inbox implements Component {
             </box>
           </box>
           <box $else overflow={Overflow.Scroll}>
-            <Table columns={COLUMNS} sorted={mut self.tableColumn} descending={mut self.tableDescending}>
+            <Table columns={COLUMNS} sorted={mut self.tableColumn} descending={mut self.tableDescending} rowHeight={"auto"}>
               <LetterTableRow $for={letter of self.rows} $key={letter.index} letter={letter} tracks={TRACKS} />
             </Table>
           </box>

@@ -1,24 +1,25 @@
 -- the game's window shown: ours stands in its place
 surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
   box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 447.75,234.71 709.5x471.75
-      box 447.75,234.71 709.5x26.67
-        box 447.75,260.54 709.5x0.83 absolute #3e2f1d
-        box 447.75,234.71 43.75x26.67 #00000059 @click
-          box 448.58,235.54 42.08x1.67 absolute #d6a56b
-          text 460.25,241.37 18.75x15 "All" #ffffff
-      box 447.75,268.04 709.5x28.33
-        box 447.75,268.04 676.17x28.33
-          box 447.75,268.04 676.17x28.33 #00000080 input "" @change
-          box 447.75,268.04 676.17x28.33 absolute
-            text 456.08,274.71 659.5x15 "Search" #a3977f
-        box 1123.92,268.04 33.33x28.33
-          box 1123.92,268.04 33.33x28.33
-            box 1128.92,268.04 28.33x28.33
-              box 1128.92,268.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                box 1136.42,275.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
-      box 447.75,303.04 709.5x403.42
-        text 758.75,497.25 87.5x15 "Nothing found." #a3977f
+    box 437.75,223.04 729.5x493.42
+      box 457.75,243.04 689.5x453.42
+        box 457.75,243.04 689.5x26.67
+          box 457.75,268.87 689.5x0.83 absolute #3e2f1d
+          box 457.75,243.04 43.75x26.67 #00000059 @click
+            box 458.58,243.87 42.08x1.67 absolute #d6a56b
+            text 470.25,249.71 18.75x15 "All" #ffffff
+        box 457.75,276.37 689.5x28.33
+          box 457.75,276.37 656.17x28.33
+            box 457.75,276.37 656.17x28.33 #00000080 input "" @change
+            box 457.75,276.37 656.17x28.33 absolute
+              text 466.08,283.04 639.5x15 "Search" #a3977f
+          box 1113.92,276.37 33.33x28.33
+            box 1113.92,276.37 33.33x28.33
+              box 1118.92,276.37 28.33x28.33
+                box 1118.92,276.37 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 1126.42,283.87 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+        box 457.75,311.38 689.5x385.08
+          text 758.75,496.42 87.5x15 "Nothing found." #a3977f
     box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 425,173.04 363.5x47.75
     box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop

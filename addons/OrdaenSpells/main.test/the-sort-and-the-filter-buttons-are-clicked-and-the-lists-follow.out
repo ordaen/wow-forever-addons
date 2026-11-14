@@ -1,57 +1,58 @@
 -- the spells by level
 surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
   box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 447.75,234.71 709.5x471.75
-      box 447.75,234.71 709.5x26.67
-        box 447.75,260.54 709.5x0.83 absolute #3e2f1d
-        box 447.75,234.71 43.75x26.67 #00000059 @click
-          box 448.58,235.54 42.08x1.67 absolute #d6a56b
-          text 460.25,241.37 18.75x15 "All" #ffffff
-        box 494.83,234.71 68.75x26.67 #00000000 @click
-          box 495.67,235.54 67.08x1.67 absolute #00000000
-          text 507.33,241.37 43.75x15 "General" #a3977f
-        box 566.92,234.71 68.75x26.67 #00000000 @click
-          box 567.75,235.54 67.08x1.67 absolute #00000000
-          text 579.42,241.37 43.75x15 "Warrior" #a3977f
-        box 639,234.71 50x26.67 #00000000 @click
-          box 639.83,235.54 48.33x1.67 absolute #00000000
-          text 651.5,241.37 25x15 "Arms" #a3977f
-      box 447.75,268.04 709.5x28.33
-        box 447.75,268.04 676.17x28.33
-          box 447.75,268.04 676.17x28.33 #00000080 input "" @change
-          box 447.75,268.04 676.17x28.33 absolute
-            text 456.08,274.71 659.5x15 "Search" #a3977f
-        box 1123.92,268.04 33.33x28.33
-          box 1123.92,268.04 33.33x28.33
-            box 1128.92,268.04 28.33x28.33
-              box 1128.92,268.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                box 1136.42,275.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
-      box 447.75,303.04 709.5x403.42 scrolled 0 of 0
-        box 447.75,303.04 709.5x33
-          box 447.75,306.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
-          box 484.42,305.54 672.83x28
-            text 484.42,305.54 672.83x15 "Find Treasure" #e8dcc4
-            text 484.42,320.54 672.83x13 "General. Active. Level 1" #a3977f
-        box 447.75,336.04 709.5x33
-          box 447.75,339.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
-          box 484.42,338.54 672.83x28
-            text 484.42,338.54 672.83x15 "Rend (Rank 1)" #e8dcc4
-            text 484.42,353.54 672.83x13 "Warrior. Active. Level 4" #a3977f
-        box 447.75,369.04 709.5x33
-          box 447.75,372.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
-          box 484.42,371.54 672.83x28
-            text 484.42,371.54 672.83x15 "Parry" #e8dcc4
-            text 484.42,386.54 672.83x13 "Warrior. Passive. Level 6" #a3977f
-        box 447.75,402.04 709.5x33
-          box 447.75,405.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
-          box 484.42,404.54 672.83x28
-            text 484.42,404.54 672.83x15 "Heroic Strike (Rank 2)" #e8dcc4
-            text 484.42,419.54 672.83x13 "Warrior. Active. Level 8" #a3977f
-        box 447.75,435.04 709.5x33
-          box 447.75,438.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
-          box 484.42,437.54 672.83x28
-            text 484.42,437.54 672.83x15 "Mortal Strike" #e8dcc4
-            text 484.42,452.54 672.83x13 "Arms. Active. Level 40" #a3977f
+    box 437.75,223.04 729.5x493.42
+      box 457.75,243.04 689.5x453.42
+        box 457.75,243.04 689.5x26.67
+          box 457.75,268.87 689.5x0.83 absolute #3e2f1d
+          box 457.75,243.04 43.75x26.67 #00000059 @click
+            box 458.58,243.87 42.08x1.67 absolute #d6a56b
+            text 470.25,249.71 18.75x15 "All" #ffffff
+          box 504.83,243.04 68.75x26.67 #00000000 @click
+            box 505.67,243.87 67.08x1.67 absolute #00000000
+            text 517.33,249.71 43.75x15 "General" #a3977f
+          box 576.92,243.04 68.75x26.67 #00000000 @click
+            box 577.75,243.87 67.08x1.67 absolute #00000000
+            text 589.42,249.71 43.75x15 "Warrior" #a3977f
+          box 649,243.04 50x26.67 #00000000 @click
+            box 649.83,243.87 48.33x1.67 absolute #00000000
+            text 661.5,249.71 25x15 "Arms" #a3977f
+        box 457.75,276.37 689.5x28.33
+          box 457.75,276.37 656.17x28.33
+            box 457.75,276.37 656.17x28.33 #00000080 input "" @change
+            box 457.75,276.37 656.17x28.33 absolute
+              text 466.08,283.04 639.5x15 "Search" #a3977f
+          box 1113.92,276.37 33.33x28.33
+            box 1113.92,276.37 33.33x28.33
+              box 1118.92,276.37 28.33x28.33
+                box 1118.92,276.37 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 1126.42,283.87 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+        box 457.75,311.38 689.5x385.08 scrolled 0 of 0
+          box 457.75,311.38 689.5x33
+            box 457.75,314.54 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+            box 494.42,313.88 652.83x28
+              text 494.42,313.88 652.83x15 "Find Treasure" #e8dcc4
+              text 494.42,328.88 652.83x13 "General. Active. Level 1" #a3977f
+          box 457.75,344.38 689.5x33
+            box 457.75,347.54 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+            box 494.42,346.88 652.83x28
+              text 494.42,346.88 652.83x15 "Rend (Rank 1)" #e8dcc4
+              text 494.42,361.88 652.83x13 "Warrior. Active. Level 4" #a3977f
+          box 457.75,377.38 689.5x33
+            box 457.75,380.54 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+            box 494.42,379.88 652.83x28
+              text 494.42,379.88 652.83x15 "Parry" #e8dcc4
+              text 494.42,394.88 652.83x13 "Warrior. Passive. Level 6" #a3977f
+          box 457.75,410.38 689.5x33
+            box 457.75,413.54 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+            box 494.42,412.88 652.83x28
+              text 494.42,412.88 652.83x15 "Heroic Strike (Rank 2)" #e8dcc4
+              text 494.42,427.88 652.83x13 "Warrior. Active. Level 8" #a3977f
+          box 457.75,443.38 689.5x33
+            box 457.75,446.54 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+            box 494.42,445.88 652.83x28
+              text 494.42,445.88 652.83x15 "Mortal Strike" #e8dcc4
+              text 494.42,460.88 652.83x13 "Arms. Active. Level 40" #a3977f
     box 1091.08,222.12 77.5x26.67 absolute clipped
       box 1091.08,222.12 29.17x26.67 absolute clipped @click
         box 1091.08,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -77,50 +78,51 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
 -- the services by price
 surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
   box 458.33,210.29 683.33x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 481.08,234.71 642.83x471.75
-      box 481.08,234.71 383.33x471.75
-        box 481.08,234.71 383.33x28.33
-          box 481.08,234.71 316.67x28.33
-            box 481.08,234.71 316.67x28.33 #00000080 input "" @change
-            box 481.08,234.71 316.67x28.33 absolute
-              text 489.42,241.37 300x15 "Search" #a3977f
-          box 797.75,234.71 66.67x28.33
-            box 797.75,234.71 33.33x28.33
-              box 802.75,234.71 28.33x28.33
-                box 802.75,234.71 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 810.25,242.21 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
-            box 831.08,234.71 33.33x28.33
-              box 836.08,234.71 28.33x28.33
-                box 836.08,234.71 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 843.58,242.21 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
-        box 481.08,269.71 383.33x436.75 scrolled 0 of 0
-          box 481.08,269.71 383.33x33 #00000066 @click
-            box 486.08,274.54 23.33x23.33
-            box 519.42,272.21 283.33x28
-              text 519.42,272.21 283.33x15 "Heroic Strike (Rank 3)" #e8dcc4
-              text 519.42,287.21 283.33x13 "Requires level 8" #ff4040
-            text 809.42,278.71 50x15 "0g 4s 0c" #ff4040
-          box 481.08,302.71 383.33x33 #00000066 @click
-            box 486.08,307.54 23.33x23.33
-            box 519.42,305.21 283.33x28
-              text 519.42,305.21 283.33x15 "Charge (Rank 2)" #e8dcc4
-              text 519.42,320.21 283.33x13 "Requires level 50" #ff4040
-            text 809.42,311.71 50x15 "9g 0s 0c" #ff4040
-      box 872.75,234.71 251.17x471.75
-        box 872.75,234.71 251.17x33
-          text 872.75,234.71 251.17x15 "Pick a skill." #a3977f
-          text 872.75,254.71 251.17x13 "Available: 1. Unavailable: 1. Learned: 0." #a3977f
-        box 872.75,274.37 251.17x0
-        box 872.75,281.04 251.17x370.42
-        box 872.75,658.12 251.17x48.33
-          box 872.75,658.12 251.17x15
-            text 872.75,658.12 194.5x15 "Your money" #a3977f
-            text 1073.92,658.12 50x15 "0g 0s 0c" #e8dcc4
-          box 872.75,678.12 251.17x28.33
-            box 872.75,692.29 119.5x0
-            box 998.92,678.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-              box 998.92,678.12 125x28.33 absolute
-                text 1045.79,684.79 31.25x15 "Learn" #808080
+    box 471.08,223.04 662.83x493.42
+      box 491.08,243.04 622.83x453.42
+        box 491.08,243.04 383.33x453.42
+          box 491.08,243.04 383.33x28.33
+            box 491.08,243.04 316.67x28.33
+              box 491.08,243.04 316.67x28.33 #00000080 input "" @change
+              box 491.08,243.04 316.67x28.33 absolute
+                text 499.42,249.71 300x15 "Search" #a3977f
+            box 807.75,243.04 66.67x28.33
+              box 807.75,243.04 33.33x28.33
+                box 812.75,243.04 28.33x28.33
+                  box 812.75,243.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 820.25,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+              box 841.08,243.04 33.33x28.33
+                box 846.08,243.04 28.33x28.33
+                  box 846.08,243.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 853.58,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+          box 491.08,278.04 383.33x418.42 scrolled 0 of 0
+            box 491.08,278.04 383.33x33 #00000066 @click
+              box 496.08,282.87 23.33x23.33
+              box 529.42,280.54 283.33x28
+                text 529.42,280.54 283.33x15 "Heroic Strike (Rank 3)" #e8dcc4
+                text 529.42,295.54 283.33x13 "Requires level 8" #ff4040
+              text 819.42,287.04 50x15 "0g 4s 0c" #ff4040
+            box 491.08,311.04 383.33x33 #00000066 @click
+              box 496.08,315.87 23.33x23.33
+              box 529.42,313.54 283.33x28
+                text 529.42,313.54 283.33x15 "Charge (Rank 2)" #e8dcc4
+                text 529.42,328.54 283.33x13 "Requires level 50" #ff4040
+              text 819.42,320.04 50x15 "9g 0s 0c" #ff4040
+        box 882.75,243.04 231.17x453.42
+          box 882.75,243.04 231.17x33
+            text 882.75,243.04 231.17x15 "Pick a skill." #a3977f
+            text 882.75,263.04 231.17x13 "Available: 1. Unavailable: 1. Learned: 0." #a3977f
+          box 882.75,282.71 231.17x0
+          box 882.75,289.37 231.17x352.08
+          box 882.75,648.12 231.17x48.33
+            box 882.75,648.12 231.17x15
+              text 882.75,648.12 174.5x15 "Your money" #a3977f
+              text 1063.92,648.12 50x15 "0g 0s 0c" #e8dcc4
+            box 882.75,668.12 231.17x28.33
+              box 882.75,682.29 99.5x0
+              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+                box 988.92,668.12 125x28.33 absolute
+                  text 1035.79,674.79 31.25x15 "Learn" #808080
     box 1057.75,222.12 77.5x26.67 absolute clipped
       box 1057.75,222.12 29.17x26.67 absolute clipped @click
         box 1057.75,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -140,44 +142,45 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
 -- the services narrowed to the unavailable
 surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
   box 458.33,210.29 683.33x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 481.08,234.71 642.83x471.75
-      box 481.08,234.71 383.33x471.75
-        box 481.08,234.71 383.33x28.33
-          box 481.08,234.71 316.67x28.33
-            box 481.08,234.71 316.67x28.33 #00000080 input "" @change
-            box 481.08,234.71 316.67x28.33 absolute
-              text 489.42,241.37 300x15 "Search" #a3977f
-          box 797.75,234.71 66.67x28.33
-            box 797.75,234.71 33.33x28.33
-              box 802.75,234.71 28.33x28.33
-                box 802.75,234.71 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 810.25,242.21 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
-            box 831.08,234.71 33.33x28.33
-              box 836.08,234.71 28.33x28.33
-                box 836.08,234.71 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 843.58,242.21 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
-        box 481.08,269.71 383.33x436.75 scrolled 0 of 0
-          box 481.08,269.71 383.33x33 #00000066 @click
-            box 486.08,274.54 23.33x23.33
-            box 519.42,272.21 283.33x28
-              text 519.42,272.21 283.33x15 "Charge (Rank 2)" #e8dcc4
-              text 519.42,287.21 283.33x13 "Requires level 50" #ff4040
-            text 809.42,278.71 50x15 "9g 0s 0c" #ff4040
-      box 872.75,234.71 251.17x471.75
-        box 872.75,234.71 251.17x33
-          text 872.75,234.71 251.17x15 "Pick a skill." #a3977f
-          text 872.75,254.71 251.17x13 "Available: 1. Unavailable: 1. Learned: 0." #a3977f
-        box 872.75,274.37 251.17x0
-        box 872.75,281.04 251.17x370.42
-        box 872.75,658.12 251.17x48.33
-          box 872.75,658.12 251.17x15
-            text 872.75,658.12 194.5x15 "Your money" #a3977f
-            text 1073.92,658.12 50x15 "0g 0s 0c" #e8dcc4
-          box 872.75,678.12 251.17x28.33
-            box 872.75,692.29 119.5x0
-            box 998.92,678.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-              box 998.92,678.12 125x28.33 absolute
-                text 1045.79,684.79 31.25x15 "Learn" #808080
+    box 471.08,223.04 662.83x493.42
+      box 491.08,243.04 622.83x453.42
+        box 491.08,243.04 383.33x453.42
+          box 491.08,243.04 383.33x28.33
+            box 491.08,243.04 316.67x28.33
+              box 491.08,243.04 316.67x28.33 #00000080 input "" @change
+              box 491.08,243.04 316.67x28.33 absolute
+                text 499.42,249.71 300x15 "Search" #a3977f
+            box 807.75,243.04 66.67x28.33
+              box 807.75,243.04 33.33x28.33
+                box 812.75,243.04 28.33x28.33
+                  box 812.75,243.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 820.25,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+              box 841.08,243.04 33.33x28.33
+                box 846.08,243.04 28.33x28.33
+                  box 846.08,243.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 853.58,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+          box 491.08,278.04 383.33x418.42 scrolled 0 of 0
+            box 491.08,278.04 383.33x33 #00000066 @click
+              box 496.08,282.87 23.33x23.33
+              box 529.42,280.54 283.33x28
+                text 529.42,280.54 283.33x15 "Charge (Rank 2)" #e8dcc4
+                text 529.42,295.54 283.33x13 "Requires level 50" #ff4040
+              text 819.42,287.04 50x15 "9g 0s 0c" #ff4040
+        box 882.75,243.04 231.17x453.42
+          box 882.75,243.04 231.17x33
+            text 882.75,243.04 231.17x15 "Pick a skill." #a3977f
+            text 882.75,263.04 231.17x13 "Available: 1. Unavailable: 1. Learned: 0." #a3977f
+          box 882.75,282.71 231.17x0
+          box 882.75,289.37 231.17x352.08
+          box 882.75,648.12 231.17x48.33
+            box 882.75,648.12 231.17x15
+              text 882.75,648.12 174.5x15 "Your money" #a3977f
+              text 1063.92,648.12 50x15 "0g 0s 0c" #e8dcc4
+            box 882.75,668.12 231.17x28.33
+              box 882.75,682.29 99.5x0
+              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+                box 988.92,668.12 125x28.33 absolute
+                  text 1035.79,674.79 31.25x15 "Learn" #808080
     box 1057.75,222.12 77.5x26.67 absolute clipped
       box 1057.75,222.12 29.17x26.67 absolute clipped @click
         box 1057.75,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
