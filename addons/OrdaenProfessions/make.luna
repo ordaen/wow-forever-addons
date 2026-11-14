@@ -1,4 +1,4 @@
-// The make row, in the window's footer while a learned recipe is chosen: how many (a count, the skill points to gain,
+// The make row, at the foot of the chosen recipe's card while the recipe is learned: how many (a count, the skill points to gain,
 // or all the bags allow), the count with − and + unless «All» (one at least; by «Quantity» what the bags make now;
 // by «Raise skill» the points left before the rank's most), what that comes to in small dim text, and «Create», which
 // never makes more than the bags make now: with nothing to make, the count and «Create» are disabled.
