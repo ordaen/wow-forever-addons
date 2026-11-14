@@ -213,9 +213,9 @@ left to the game
 
 == compared: the hovered item against the worn one, and the worn one against the hovered
 item: Greataxe #ffffff
-  body: Strength | +30 |cff1eff00(▲9)|r
+  body: Strength | +30 (9 more)
   body: Stamina | +12
-  body: Agility #808080 | — |cffff4040(▼7)|r
+  body: Agility #808080 | — (7 less)
 item: Axe of the Deep Woods #a336ed [Interface/Icons/INV_Axe_01] (counts down)
   desc: Unique (opens the term uni)
   desc: Two-Hand
@@ -225,8 +225,8 @@ item: Axe of the Deep Woods #a336ed [Interface/Icons/INV_Axe_01] (counts down)
   fact: 216–325 [glyphs/dmg] (opens the term dmg)
   fact: 3.4/s [glyphs/spd] (opens the term spd)
   fact: 78.3 DPS (opens the term dps)
-  body: Item level | 62 |cff1eff00(▲62)|r
-  body: Strength | +21 |cffff4040(▼9)|r
+  body: Item level | 62 (62 more)
+  body: Strength | +21 (9 less)
   body: Stamina | +12
   body: +5 Fire Resistance #1fff00
   body: Chance on hit: Blasts the target. #1eff00

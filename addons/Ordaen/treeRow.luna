@@ -1,9 +1,10 @@
-// TreeRow: one row of a tree (a recipe's cost): a gutter as wide as its depth, ► closed or ▼ open where it has
+// TreeRow: one row of a tree (a recipe's cost): a gutter as wide as its depth, a mark closed or open where it has
 // children (a leaf keeps the room, draws none), its name, and what its slot holds at the right (an amount, a price's
 // age). The shade under the cursor; selected, a darker shade, the name white and a 3 px light along its left. Left-click
 // opens or closes a row that has children and reports `pick` on any. The owner draws a row's children under it while
 // `open`; the row itself holds no list.
-import { Align, Position, Stated } from "$ltml"
+import { Align, Art, Position, Stated } from "$ltml"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
 
@@ -18,10 +19,10 @@ const INDENT = 16 * PX
 const MARK_ROOM = 16 * PX
 // The label's line: the ladder's `Primary`, 15 px.
 const LINE = 15 * PX
-// The marks are triangles of the narrow Arial, which the client has them in; the text font has none. They are the
-// ladder's `Secondary`, 13 px, in the middle of the label's line.
-const MARK_FONT: Asset = "Fonts/ARIALN.TTF"
-const MARK_TOP = (LINE - 13 * PX) / 2
+// The mark (ctl.markClosed, ctl.markOpen): a 16 px cell, its triangle in the middle, the cell's middle on the label's
+// line's.
+const MARK_CELL = 16 * PX
+const MARK_TOP = (LINE - MARK_CELL) / 2
 
 public class TreeRow implements Component {
   public pick: Event<nil> = new Event()
@@ -30,11 +31,9 @@ public class TreeRow implements Component {
   derived gutter: Number = self.markLeft + MARK_ROOM
   derived background: Color | Stated<Color> = self.selected ? SELECTED : SHADE
   derived color: Color = self.selected ? WHITE : INK
-  // The light along the left and both marks are always drawn, what isn't the state clear or at no opacity: only
-  // colours tell a row selected or open.
+  // The light along the left is always drawn, clear when the row isn't selected; the mark's art tells it open.
   derived light: Color = self.selected ? MARK : CLEAR
-  derived openMark: Number = self.open ? 1 : 0
-  derived closedMark: Number = self.open ? 0 : 1
+  derived mark: Art = self.open ? Ordaen.art.ctl.markOpen : Ordaen.art.ctl.markClosed
 
   label: Signal<String>
   depth: Signal<Integer>
@@ -67,12 +66,8 @@ public class TreeRow implements Component {
            background={self.background} @click={self.onClick}>
         <box position={Position.Absolute} left={0} top={0} bottom={0} width={3 * PX} background={self.light} />
         <box width={self.gutter} height={LINE}>
-          <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} opacity={self.closedMark}>
-            <text value={"►"} textColor={MARK} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
-          </box>
-          <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} opacity={self.openMark}>
-            <text value={"▼"} textColor={MARK} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
-          </box>
+          <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} width={MARK_CELL}
+               height={MARK_CELL} background={self.mark} tint={MARK} />
         </box>
         <text value={self.label} textColor={self.color} wrap={false} stateFromParent={true} />
         <box>

@@ -4,7 +4,7 @@
 // own beside it.
 import Game from "$game"
 import Ordaen from "Ordaen"
-import { GOLD, GREEN, GREY, RED, WHITE, YELLOW, colorOf, hex } from "@/colors"
+import { GOLD, GREEN, GREY, RED, WHITE, YELLOW, colorOf } from "@/colors"
 import Locale from "@/locales"
 import { Fact, Kind, Model, Note, Opens, Part, TextLine, iconOf, named, namedWith } from "@/model"
 import { Options } from "@/options"
@@ -312,8 +312,9 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
 }
 
 // An item against the one it is compared with: each stat row of `target` gets the difference `better - worse` in
-// brackets, a green ▲ when it is more and a red ▼ when it is less, nothing when they are equal. With `lacks`, the
-// stats only `worse` has follow as «—» with what is lost: the hovered item against the worn one.
+// brackets (its `compared`: the frame draws it green with the up mark when it is more, red with the down mark when it
+// is less), nothing when they are equal. With `lacks`, the stats only `worse` has follow as «—» with what is lost:
+// the hovered item against the worn one.
 public function compare(
   target: Model, better: Map<String, Number>, worse: Map<String, Number>, lacks: Boolean,
 ): Model {
@@ -325,15 +326,14 @@ public function compare(
     if (right == nil || diff == 0) {
       body.push(row)
     } else {
-      let mark = diff > 0 ? `|c${hex(GREEN)}(▲${shown(diff)})|r` : `|c${hex(RED)}(▼${shown(-diff)})|r`
-      body.push({ right: `${right} ${mark}`, ..row })
+      body.push({ compared: { more: diff > 0, by: shown(diff > 0 ? diff : -diff) }, ..row })
     }
   }
   if (lacks) {
     for (key, value of worse) {
       if (better[key] == nil && key.match("^ITEM_MOD_") != nil) {
         body.push({
-          left: Game.items.statName(key) ?? key, right: `— |c${hex(RED)}(▼${shown(value)})|r`, color: GREY,
+          left: Game.items.statName(key) ?? key, right: "—", compared: { more: false, by: shown(value) }, color: GREY,
         })
       }
     }

@@ -17,8 +17,8 @@ function presetNow(look: Look): String {
 
 function state(): String {
   Test.flush()
-  let file = Ordaen.lookArt.fontNumbers
-  let font = file is String ? file : "a piece"
+  let file = Ordaen.lookArt.fonts.numbers
+  let font = file != nil ? file : "the client's own text font"
   return `unsaved ${Ordaen.keeper.unsaved}; the draft's preset ${presetNow(Ordaen.look.draft)}, the values' ${presetNow(Ordaen.look.values)}; numbers drawn with ${font}`
 }
 
@@ -28,19 +28,19 @@ test "a preset is chosen whole, a colour changed after it, saved and rolled back
   Test.note(state())
   Test.shot("Ordaen's preset in use")
 
-  // The first «Use» is Blizzard's: the presets are listed Ordaen, Blizzard, Minimal.
+  // The one «Use» is Minimal's: the presets are listed Ordaen, Minimal.
   Test.click(Test.holding("Use", nil), nil)
   Test.note(state())
 
   // The colour the accent already has, picked again: nothing differs.
   Test.click(ACCENT, nil)
-  Game.colorPicker.picked.emit(1, { r: 1, g: 0.82, b: 0, a: 1 })
+  Game.colorPicker.picked.emit(1, { r: 0.62, g: 0.62, b: 0.62, a: 1 })
   Test.note(state())
 
   Test.click(ACCENT, nil)
   Game.colorPicker.picked.emit(2, { r: 0, g: 0.5, b: 1, a: 1 })
   Test.note(state())
-  Test.shot("Blizzard chosen, then its accent changed: no preset is the draft")
+  Test.shot("Minimal chosen, then its accent changed: no preset is the draft")
 
   Ordaen.keeper.saveAll()
   Test.note(state())

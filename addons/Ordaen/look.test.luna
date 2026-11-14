@@ -1,10 +1,10 @@
 // The presets as the design site reads them: one line of JSON each, the snapshot of this test. The presets are
 // written once, in look.luna; the site reads this snapshot (`design/.vitepress/theme/themes.js` in wow-dev-tools),
 // and the suite fails where the two part.
-import { Art } from "$ltml"
 import Test from "$test"
 import Ordaen from "Ordaen"
-import { artOf } from "@/look"
+import root Core from "Ordaen"
+import { artOf, presetOf } from "@/look"
 
 function color(c: Color): String {
   return "[%g, %g, %g]".format(c.r, c.g, c.b)
@@ -52,13 +52,34 @@ test "the presets, as the design site reads them" {
   for (name of Ordaen.PRESETS) { Test.note(json(name)) }
 }
 
-function file(font: Art | nil): String {
-  return font is String ? font : "the client's own text font"
+function file(font: Asset | nil): String {
+  if (font == nil) { return "the client's own text font" }
+  return font
 }
 
 test "the files each preset draws its text, titles and numbers in" {
   for (name of Ordaen.PRESETS) {
-    let art = artOf(Ordaen.preset(name))
-    Test.note(`${name}: ${file(art.font)}; ${file(art.fontHeader)}; ${file(art.fontNumbers)}`)
+    let fonts = artOf(Ordaen.preset(name)).fonts
+    Test.note(`${name}: ${file(fonts.body)}; ${file(fonts.title)}; ${file(fonts.numbers)}`)
   }
+}
+
+// The Blizzard preset isn't offered: a player who chose it has its look saved, and it loads as Ordaen's.
+test "a look saved as the Blizzard preset loads as Ordaen's" {
+  let blizzard: Ordaen.Look = {
+    font: Ordaen.Font.Friz, fontHeader: Ordaen.Font.Friz, fontNumbers: Ordaen.Font.ArialNarrow,
+    accent: Color.hex("#ffd100"), barTexture: Ordaen.BarTexture.Blizzard, animation: Ordaen.Animation.Fast,
+    ..Ordaen.preset(Ordaen.Preset.Ordaen),
+  }
+  Core.look.choose(blizzard)
+  Core.keeper.saveAll()
+  Test.expect(Core.look.values.font == Ordaen.Font.Friz)
+  Test.reload()
+  Test.expect(presetOf(Core.look.values) == Ordaen.Preset.Ordaen)
+  // A look of the player's own that differs from it in anything is kept.
+  blizzard.animation = Ordaen.Animation.Smooth
+  Core.look.choose(blizzard)
+  Core.keeper.saveAll()
+  Test.reload()
+  Test.expect(Core.look.values.font == Ordaen.Font.Friz)
 }

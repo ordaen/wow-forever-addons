@@ -69,7 +69,6 @@ const HUES: Array<Choice<Hue>> = [
 function nameOf(named: Preset): String {
   match (named) {
     Preset.Ordaen => return Locale.THEME_NAME_ORDAEN,
-    Preset.Blizzard => return Locale.THEME_NAME_BLIZZARD,
     Preset.Minimal => return Locale.THEME_NAME_MINIMAL,
   }
 }
@@ -77,7 +76,6 @@ function nameOf(named: Preset): String {
 function aboutOf(named: Preset): String {
   match (named) {
     Preset.Ordaen => return Locale.THEME_ABOUT_ORDAEN,
-    Preset.Blizzard => return Locale.THEME_ABOUT_BLIZZARD,
     Preset.Minimal => return Locale.THEME_ABOUT_MINIMAL,
   }
 }

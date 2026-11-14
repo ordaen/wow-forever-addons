@@ -190,7 +190,7 @@ public class SettingsWindow implements Component {
             <ListTab label={Locale.LIST_PROFILES} icon={Ordaen.icon} selected={self.onProfiles}
                      @pick={self.pickProfiles} />
             <box padding={HEADING}>
-              <text value={self.heading} textColor={DIM} textSize={.Secondary} textFamily={Ordaen.lookArt.fontNumbers} />
+              <text value={self.heading} textColor={DIM} textSize={.Secondary} textFont={.Numbers} />
             </box>
             <box columns={1}>
               <ModuleRow $for={entry of self.entries} entry={peek entry} shown={self.page} @pick={self.onPick} />

@@ -296,7 +296,7 @@ public class Panel implements Module, App {
       <surface $if={self.drawn} layer={Layer.Screen} place={self.place} width={self.width} height={self.height}
                background={Ordaen.art.panel.wood} border={Ordaen.art.panel.edge} padding={EDGE_ROOM}
                columns={self.columns} rows={self.rows} xAlign={self.along} yAlign={self.across}
-               opacity={self.opacity} overflow={self.overflow} hoverWithin={true} textFamily={Ordaen.lookArt.font}
+               opacity={self.opacity} overflow={self.overflow} hoverWithin={true}
                @enter={self.onEnter} @leave={self.onLeave}>
         <ZoneBox zone={Zone.Left} panel={self} />
         <ZoneBox zone={Zone.Center} panel={self} />
@@ -307,8 +307,7 @@ public class Panel implements Module, App {
       // The portrait: the player's face in the corner's shape, the level on a badge on its rim, and the
       // character's button of the game's unseen over all of it.
       <surface $if={self.cornered} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
-               height={PORTRAIT_HEIGHT} portrait={"player"} mask={Ordaen.art.panel.corner}
-               textFamily={Ordaen.lookArt.font}>
+               height={PORTRAIT_HEIGHT} portrait={"player"} mask={Ordaen.art.panel.corner}>
         <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
                width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
         // The rim along the top and down the right, over the face: drawn over the box its shape is cut to.

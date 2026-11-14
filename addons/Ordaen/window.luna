@@ -394,7 +394,7 @@ public class Window implements Component {
       // As wide as the player made it, and never narrower than its tabs: the tab row is the one thing in its
       // grid, and the width it keeps is its least.
       <surface shown={self.shown} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
-               raise={true} xAlign={Align.Start} textFamily={Ordaen.lookArt.font} focusLine={self.focusLine}
+               raise={true} xAlign={Align.Start} focusLine={self.focusLine}
                @escape={self.onClose}>
         <box position={Position.Absolute} left={0} right={self.inset} top={self.tabHeight} bottom={0}
              border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PADDING}
