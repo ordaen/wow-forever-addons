@@ -1,6 +1,7 @@
 // Age: how old a price is, in its colour, as the market's rule has it: nothing under a day; «(2 d.)» in amber from a
 // day to three; dimmed beyond; nothing past thirty days (a price that old isn't one). The days are read from a
-// number of seconds, or nothing where there is no price.
+// number of seconds, or nothing where there is no price. `ageText` is the rule itself, for what draws an age as text
+// of its own (a tooltip's line).
 import { Component } from "@/module"
 import Locale from "@/locales"
 import { PX } from "@/units"
@@ -11,15 +12,19 @@ const LAST_DAY = 30
 const AMBER: Color = Color.hex("#ffb02e")
 const DIM: Color = Color.hex("#a3977f")
 
+// An age as the market says it: its text («(2 d.)») and its colour; an empty text and no colour where none is said
+// (under a day, past thirty days, no price).
+public function ageText(seconds: Number | nil): (String, Color | nil) {
+  if (seconds == nil) { return "", nil }
+  const days = (seconds / DAY).floor()
+  if (days < 1 || days > LAST_DAY) { return "", nil }
+  return Locale.AGE_DAYS.format(days), days <= AMBER_DAYS ? AMBER : DIM
+}
+
 public class Age implements Component {
-  derived days: Integer {
-    const seconds = self.seconds
-    if (seconds == nil) { return 0 }
-    return (seconds / DAY).floor()
-  }
-  derived shown: Boolean = self.days >= 1 && self.days <= LAST_DAY
-  derived text: String = self.shown ? Locale.AGE_DAYS.format(self.days) : ""
-  derived color: Color = self.days <= AMBER_DAYS ? AMBER : DIM
+  derived text: String = self.textOf()
+  derived color: Color = self.colorOf()
+  derived shown: Boolean = self.text != ""
 
   seconds: Signal<Number | nil>
   size: Signal<Number>
@@ -30,6 +35,16 @@ public class Age implements Component {
   ) {
     self.seconds = seconds
     self.size = size
+  }
+
+  textOf(self): String {
+    const text, _ = ageText(self.seconds)
+    return text
+  }
+
+  colorOf(self): Color {
+    const _, color = ageText(self.seconds)
+    return color ?? DIM
   }
 
   public render(self): Template {

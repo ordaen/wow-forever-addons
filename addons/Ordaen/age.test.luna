@@ -1,6 +1,6 @@
 // The library's Age: a price's age by the market's rule, read from seconds.
 import Test from "$test"
-import { Age } from "@/age"
+import { Age, ageText } from "@/age"
 
 class Priced {
   state seconds: Number | nil = 7200
@@ -40,4 +40,15 @@ test "an age draws nothing under a day, amber to the third day, dimmed after, an
 
   destroy page
   Test.expect(Test.blank())
+}
+
+test "the rule as text: what a tooltip's line says and its colour, as the control draws them" {
+  const ages: Array<Number> = [7200, 86400, 3 * 86400 + 86399, 4 * 86400, 30 * 86400 + 5, 31 * 86400]
+  for (seconds of ages) {
+    const text, color = ageText(seconds)
+    const shade = color != nil ? "%.2f %.2f %.2f".format(color.r, color.g, color.b) : "none"
+    Test.note(`${seconds}: «${text}» ${shade}`)
+  }
+  const none, noColor = ageText(nil)
+  Test.expect(none == "" && noColor == nil)
 }
