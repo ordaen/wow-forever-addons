@@ -1,4 +1,4 @@
-// TreeRow: one row of a tree (a recipe's cost): a gutter as wide as its depth, ► closed or ▼ open where it has
+// TreeRow: one row of a tree (a recipe's cost): a gutter as wide as its depth, ▶ closed or ▼ open where it has
 // children (a leaf keeps the room, draws none), its name, and what its slot holds at the right (an amount, a price's
 // age). The shade under the cursor; selected, a darker shade, the name white and a 3 px light along its left. Left-click
 // opens or closes a row that has children and reports `pick` on any. The owner draws a row's children under it while
@@ -18,9 +18,9 @@ const INDENT = 16 * PX
 const MARK_ROOM = 16 * PX
 // The label's line: the ladder's `Primary`, 15 px.
 const LINE = 15 * PX
-// The marks are triangles of the narrow Arial, which the client has them in; the text font has none. They are the
-// ladder's `Secondary`, 13 px, in the middle of the label's line.
-const MARK_FONT: Asset = "Fonts/ARIALN.TTF"
+// The marks are triangles of the title's font, which Ordaen's preset has them in (the text font has none); drawn as
+// art once there is art for them (design: general/art-needed). They are the ladder's `Secondary`, 13 px, in the
+// middle of the label's line.
 const MARK_TOP = (LINE - 13 * PX) / 2
 
 public class TreeRow implements Component {
@@ -68,10 +68,10 @@ public class TreeRow implements Component {
         <box position={Position.Absolute} left={0} top={0} bottom={0} width={3 * PX} background={self.light} />
         <box width={self.gutter} height={LINE}>
           <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} opacity={self.closedMark}>
-            <text value={"►"} textColor={MARK} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
+            <text value={"▶"} textColor={MARK} textSize={.Secondary} textFont={.Title} wrap={false} />
           </box>
           <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} opacity={self.openMark}>
-            <text value={"▼"} textColor={MARK} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
+            <text value={"▼"} textColor={MARK} textSize={.Secondary} textFont={.Title} wrap={false} />
           </box>
         </box>
         <text value={self.label} textColor={self.color} wrap={false} stateFromParent={true} />

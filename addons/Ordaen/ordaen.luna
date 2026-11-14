@@ -10,8 +10,9 @@ import { ARTWORK, Artwork } from "@/art"
 import { DEFAULTS, Globals } from "@/globals"
 import { Keeper } from "@/keeper"
 import Locale from "@/locales"
-import { artOf, Look, LookArt, preset, Preset } from "@/look"
+import { artOf, Look, LookArt, preset, Preset, unoffered } from "@/look"
 import { Module } from "@/module"
+import { ProfileName } from "@/profiles"
 import { Settings } from "@/settings"
 import { SettingsWindow } from "@/settingsWindow"
 
@@ -59,6 +60,10 @@ public class OrdaenCore implements App {
     Runtime.command("/ordaen", (text: String) => self.command(text))
     Runtime.options(self.title, Locale.SETTINGS_OPEN, () => self.toggleSettings(nil))
     watch (running of self.modules) { self.draw(running) }
+    // Every text any addon draws is in the look's fonts: given once here, and again when the look's change.
+    watch { Runtime.fonts(self.lookArt.fonts) }
+    // A look loaded (at the start, at a switch of profile) that is a preset Ordaen doesn't offer is Ordaen's.
+    watch (profile of self.keeper.profiles.active) { self.offered(profile) }
     self.start()
   }
 
@@ -69,6 +74,14 @@ public class OrdaenCore implements App {
         self.drawn[module] = true
         Runtime.mount(module, Runtime.screen())
       }
+    }
+  }
+
+  // The look a profile holds, as it is read: one of a preset Ordaen doesn't offer is Ordaen's, kept so.
+  offered(mut self, profile: ProfileName) {
+    if (unoffered(peek self.look.values)) {
+      Debug.log("the look of profile %s is a preset not offered: Ordaen's is used", profile)
+      self.look.reset()
     }
   }
 

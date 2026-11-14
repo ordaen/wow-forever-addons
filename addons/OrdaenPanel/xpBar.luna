@@ -66,7 +66,7 @@ public class Tube implements Component {
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align.Center}
              yAlign={Align.Center}>
           <text value={self.label} textColor={LABEL} textOutline={1} textShadow={LABEL_SHADOW}
-                wrap={false} />
+                wrap={false} textFont={.Numbers} />
         </box>
       </box>
     }

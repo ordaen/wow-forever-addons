@@ -74,7 +74,7 @@ box 0,0 700x673.83 @enter @leave
             box 0,273 2.5x21.67 absolute #00000000
             box 3.33,277.58 13.33x12.5
               box 3.33,278.42 5.42x13 absolute opacity=0
-                text 3.33,278.42 5.42x13 "►" #d6a56b
+                text 3.33,278.42 5.42x13 "▶" #d6a56b
               box 3.33,278.42 5.42x13 absolute opacity=1
                 text 3.33,278.42 5.42x13 "▼" #d6a56b
             text 20,276.33 610.83x15 "Bronze Axe" #e8dcc4

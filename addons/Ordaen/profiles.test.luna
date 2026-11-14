@@ -57,7 +57,7 @@ test "a switch to another profile takes effect at once, and is kept" {
 
 test "what develop's build kept reads back: its settings as «Default», what modules remember, choices and places" {
   const globals: Globals = { scale: 1.25, density: Density.Compact, ..DEFAULTS }
-  const look = preset(Preset.Blizzard)
+  const look = preset(Preset.Minimal)
   const settings: Map<String, Unknown> = {}
   settings["Ordaen"] = globals
   settings["Ordaen:look"] = look

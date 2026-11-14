@@ -1,7 +1,7 @@
 unsaved 0; the draft's preset ordaen, the values' ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
 -- Ordaen's preset in use
-box 0,0 800x1619
-  box 0,0 800x139
+box 0,0 800x1577.67
+  box 0,0 800x97.67
     box 0,0 800x15
       text 0,0 37.5x15 "Themes" #e8c35a
       box 45.83,7.08 754.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -12,249 +12,242 @@ box 0,0 800x1619
       text 675,35 125x13 "In use" #a6e39a
     box 0,68 800x29.67
       box 0,68 665x29.67
-        text 0,68 665x15 "Blizzard" #ffffff
-        text 0,84.67 665x13 "Almost Blizzard's default: its fonts, its textures" #a3977f
+        text 0,68 665x15 "Minimal" #ffffff
+        text 0,84.67 665x13 "Flat, fine lines, hardly any textures or animations" #a3977f
       box 675,68.67 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
         box 675,68.67 125x28.33 absolute
           text 728.12,75.33 18.75x15 "Use" #ffd100
-    box 0,109.33 800x29.67
-      box 0,109.33 665x29.67
-        text 0,109.33 665x15 "Minimal" #ffffff
-        text 0,126 665x13 "Flat, fine lines, hardly any textures or animations" #a3977f
-      box 675,110 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-        box 675,110 125x28.33 absolute
-          text 728.12,116.67 18.75x15 "Use" #ffd100
-  box 0,154 800x135
-    box 0,154 800x15
-      text 0,154 31.25x15 "Fonts" #e8c35a
-      box 39.58,161.08 760.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,180.67 800x28.33 opacity=1
-      box 0,187.33 233.33x15 @enter @leave
-        text 0,187.33 233.33x15 "Text font" #cbb994
-      box 248.33,180.67 200x28.33
-        box 248.33,180.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,187.33 153.33x15 "Fira Sans" #f0c860
-          box 425,188.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,220.67 800x28.33 opacity=1
-      box 0,227.33 233.33x15 @enter @leave
-        text 0,227.33 233.33x15 "Title font" #cbb994
-      box 248.33,220.67 200x28.33
-        box 248.33,220.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,227.33 153.33x15 "Alegreya SC" #f0c860
-          box 425,228.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,260.67 800x28.33 opacity=1
-      box 0,267.33 233.33x15 @enter @leave
-        text 0,267.33 233.33x15 "Number font" #cbb994
-      box 248.33,260.67 200x28.33
-        box 248.33,260.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,267.33 153.33x15 "Fira Sans Condensed" #f0c860
-          box 425,268.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,304 800x135
-    box 0,304 800x15
-      text 0,304 50x15 "Textures" #e8c35a
-      box 58.33,311.08 741.67x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,330.67 800x28.33 opacity=1
-      box 0,337.33 233.33x15 @enter @leave
-        text 0,337.33 233.33x15 "Bar texture" #cbb994
-      box 248.33,330.67 200x28.33
-        box 248.33,330.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,337.33 153.33x15 "Flat" #f0c860
-          box 425,338.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,370.67 800x28.33 opacity=1
-      box 0,377.33 233.33x15 @enter @leave
-        text 0,377.33 233.33x15 "Experience bar texture" #cbb994
-      box 248.33,370.67 200x28.33
-        box 248.33,370.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,377.33 153.33x15 "Brushed" #f0c860
-          box 425,378.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,410.67 800x28.33 opacity=1
-      box 0,417.33 233.33x15 @enter @leave
-        text 0,417.33 233.33x15 "Bar frame" #cbb994
-      box 248.33,410.67 200x28.33
-        box 248.33,410.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,417.33 153.33x15 "Bronze bezel" #f0c860
-          box 425,418.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,454 800x55
-    box 0,454 800x15
-      text 0,454 62.5x15 "Animations" #e8c35a
-      box 70.83,461.08 729.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,480.67 800x28.33 opacity=1
-      box 0,487.33 233.33x15 @enter @leave
-        text 0,487.33 233.33x15 "Animations" #cbb994
-      box 248.33,480.67 200x28.33
-        box 248.33,480.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,487.33 153.33x15 "Smooth" #f0c860
-          box 425,488.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,524 800x705
-    box 0,524 800x15
-      text 0,524 43.75x15 "Colours" #e8c35a
-      box 52.08,531.08 747.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,550.67 800x18.33 opacity=1
-      box 0,552.33 233.33x15 @enter @leave
-        text 0,552.33 233.33x15 "Accent colour" #cbb994
-      box 248.33,550.67 36.67x18.33 #b88f57 @click
-    box 0,580.67 800x18.33 opacity=1
-      box 0,582.33 233.33x15 @enter @leave
-        text 0,582.33 233.33x15 "Red: bar" #cbb994
-      box 248.33,580.67 36.67x18.33 #bc010b @click
-    box 0,610.67 800x18.33 opacity=1
-      box 0,612.33 233.33x15 @enter @leave
-        text 0,612.33 233.33x15 "Red: text" #cbb994
-      box 248.33,610.67 36.67x18.33 #ffa194 @click
-    box 0,640.67 800x18.33 opacity=1
-      box 0,642.33 233.33x15 @enter @leave
-        text 0,642.33 233.33x15 "Orange: bar" #cbb994
-      box 248.33,640.67 36.67x18.33 #a24102 @click
-    box 0,670.67 800x18.33 opacity=1
-      box 0,672.33 233.33x15 @enter @leave
-        text 0,672.33 233.33x15 "Orange: text" #cbb994
-      box 248.33,670.67 36.67x18.33 #fea47b @click
-    box 0,700.67 800x18.33 opacity=1
-      box 0,702.33 233.33x15 @enter @leave
-        text 0,702.33 233.33x15 "Yellow: bar" #cbb994
-      box 248.33,700.67 36.67x18.33 #c79608 @click
-    box 0,730.67 800x18.33 opacity=1
-      box 0,732.33 233.33x15 @enter @leave
-        text 0,732.33 233.33x15 "Yellow: text" #cbb994
-      box 248.33,730.67 36.67x18.33 #ffd988 @click
-    box 0,760.67 800x18.33 opacity=1
-      box 0,762.33 233.33x15 @enter @leave
-        text 0,762.33 233.33x15 "Green: bar" #cbb994
-      box 248.33,760.67 36.67x18.33 #096c02 @click
-    box 0,790.67 800x18.33 opacity=1
-      box 0,792.33 233.33x15 @enter @leave
-        text 0,792.33 233.33x15 "Green: text" #cbb994
-      box 248.33,790.67 36.67x18.33 #90d189 @click
-    box 0,820.67 800x18.33 opacity=1
-      box 0,822.33 233.33x15 @enter @leave
-        text 0,822.33 233.33x15 "Cyan: bar" #cbb994
-      box 248.33,820.67 36.67x18.33 #066f86 @click
-    box 0,850.67 800x18.33 opacity=1
-      box 0,852.33 233.33x15 @enter @leave
-        text 0,852.33 233.33x15 "Cyan: text" #cbb994
-      box 248.33,850.67 36.67x18.33 #51d0f3 @click
-    box 0,880.67 800x18.33 opacity=1
-      box 0,882.33 233.33x15 @enter @leave
-        text 0,882.33 233.33x15 "Blue: bar" #cbb994
-      box 248.33,880.67 36.67x18.33 #0255ab @click
-    box 0,910.67 800x18.33 opacity=1
-      box 0,912.33 233.33x15 @enter @leave
-        text 0,912.33 233.33x15 "Blue: text" #cbb994
-      box 248.33,910.67 36.67x18.33 #569ffe @click
-    box 0,940.67 800x18.33 opacity=1
-      box 0,942.33 233.33x15 @enter @leave
-        text 0,942.33 233.33x15 "Violet: bar" #cbb994
-      box 248.33,940.67 36.67x18.33 #7849a0 @click
-    box 0,970.67 800x18.33 opacity=1
-      box 0,972.33 233.33x15 @enter @leave
-        text 0,972.33 233.33x15 "Violet: text" #cbb994
-      box 248.33,970.67 36.67x18.33 #d2a9fa @click
-    box 0,1000.67 800x18.33 opacity=1
-      box 0,1002.33 233.33x15 @enter @leave
-        text 0,1002.33 233.33x15 "Pink: bar" #cbb994
-      box 248.33,1000.67 36.67x18.33 #9b3c6a @click
-    box 0,1030.67 800x18.33 opacity=1
-      box 0,1032.33 233.33x15 @enter @leave
-        text 0,1032.33 233.33x15 "Pink: text" #cbb994
-      box 248.33,1030.67 36.67x18.33 #fa9dc4 @click
-    box 0,1060.67 800x18.33 opacity=1
-      box 0,1062.33 233.33x15 @enter @leave
-        text 0,1062.33 233.33x15 "Tan: bar" #cbb994
-      box 248.33,1060.67 36.67x18.33 #7e5b36 @click
-    box 0,1090.67 800x18.33 opacity=1
-      box 0,1092.33 233.33x15 @enter @leave
-        text 0,1092.33 233.33x15 "Tan: text" #cbb994
-      box 248.33,1090.67 36.67x18.33 #ddb68e @click
-    box 0,1120.67 800x18.33 opacity=1
-      box 0,1122.33 233.33x15 @enter @leave
-        text 0,1122.33 233.33x15 "White: bar" #cbb994
-      box 248.33,1120.67 36.67x18.33 #ababab @click
-    box 0,1150.67 800x18.33 opacity=1
-      box 0,1152.33 233.33x15 @enter @leave
-        text 0,1152.33 233.33x15 "White: text" #cbb994
-      box 248.33,1150.67 36.67x18.33 #eeeeee @click
-    box 0,1180.67 800x18.33 opacity=1
-      box 0,1182.33 233.33x15 @enter @leave
-        text 0,1182.33 233.33x15 "Grey: bar" #cbb994
-      box 248.33,1180.67 36.67x18.33 #636363 @click
-    box 0,1210.67 800x18.33 opacity=1
-      box 0,1212.33 233.33x15 @enter @leave
-        text 0,1212.33 233.33x15 "Grey: text" #cbb994
-      box 248.33,1210.67 36.67x18.33 #bdbdbd @click
-  box 0,1244 800x375
-    box 0,1244 800x15
-      text 0,1244 81.25x15 "Class colours" #e8c35a
-      box 89.58,1251.08 710.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,1270.67 800x28.33 opacity=1
-      box 0,1277.33 233.33x15 @enter @leave
-        text 0,1277.33 233.33x15 "Warrior" #cbb994
-      box 248.33,1270.67 200x28.33
-        box 248.33,1270.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1277.33 153.33x15 "Tan" #f0c860
-          box 425,1278.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1310.67 800x28.33 opacity=1
-      box 0,1317.33 233.33x15 @enter @leave
-        text 0,1317.33 233.33x15 "Paladin" #cbb994
-      box 248.33,1310.67 200x28.33
-        box 248.33,1310.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1317.33 153.33x15 "Pink" #f0c860
-          box 425,1318.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1350.67 800x28.33 opacity=1
-      box 0,1357.33 233.33x15 @enter @leave
-        text 0,1357.33 233.33x15 "Hunter" #cbb994
-      box 248.33,1350.67 200x28.33
-        box 248.33,1350.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1357.33 153.33x15 "Green" #f0c860
-          box 425,1358.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1390.67 800x28.33 opacity=1
-      box 0,1397.33 233.33x15 @enter @leave
-        text 0,1397.33 233.33x15 "Rogue" #cbb994
-      box 248.33,1390.67 200x28.33
-        box 248.33,1390.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1397.33 153.33x15 "Yellow" #f0c860
-          box 425,1398.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1430.67 800x28.33 opacity=1
-      box 0,1437.33 233.33x15 @enter @leave
-        text 0,1437.33 233.33x15 "Priest" #cbb994
-      box 248.33,1430.67 200x28.33
-        box 248.33,1430.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1437.33 153.33x15 "White" #f0c860
-          box 425,1438.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1470.67 800x28.33 opacity=1
-      box 0,1477.33 233.33x15 @enter @leave
-        text 0,1477.33 233.33x15 "Shaman" #cbb994
-      box 248.33,1470.67 200x28.33
-        box 248.33,1470.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1477.33 153.33x15 "Blue" #f0c860
-          box 425,1478.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1510.67 800x28.33 opacity=1
-      box 0,1517.33 233.33x15 @enter @leave
-        text 0,1517.33 233.33x15 "Mage" #cbb994
-      box 248.33,1510.67 200x28.33
-        box 248.33,1510.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1517.33 153.33x15 "Cyan" #f0c860
-          box 425,1518.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1550.67 800x28.33 opacity=1
-      box 0,1557.33 233.33x15 @enter @leave
-        text 0,1557.33 233.33x15 "Warlock" #cbb994
-      box 248.33,1550.67 200x28.33
-        box 248.33,1550.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1557.33 153.33x15 "Violet" #f0c860
-          box 425,1558.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1590.67 800x28.33 opacity=1
-      box 0,1597.33 233.33x15 @enter @leave
-        text 0,1597.33 233.33x15 "Druid" #cbb994
-      box 248.33,1590.67 200x28.33
-        box 248.33,1590.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1597.33 153.33x15 "Orange" #f0c860
-          box 425,1598.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,112.67 800x135
+    box 0,112.67 800x15
+      text 0,112.67 31.25x15 "Fonts" #e8c35a
+      box 39.58,119.75 760.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,139.33 800x28.33 opacity=1
+      box 0,146 233.33x15 @enter @leave
+        text 0,146 233.33x15 "Text font" #cbb994
+      box 248.33,139.33 200x28.33
+        box 248.33,139.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,146 153.33x15 "Fira Sans" #f0c860
+          box 425,146.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,179.33 800x28.33 opacity=1
+      box 0,186 233.33x15 @enter @leave
+        text 0,186 233.33x15 "Title font" #cbb994
+      box 248.33,179.33 200x28.33
+        box 248.33,179.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,186 153.33x15 "Alegreya SC" #f0c860
+          box 425,186.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,219.33 800x28.33 opacity=1
+      box 0,226 233.33x15 @enter @leave
+        text 0,226 233.33x15 "Number font" #cbb994
+      box 248.33,219.33 200x28.33
+        box 248.33,219.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,226 153.33x15 "Fira Sans Condensed" #f0c860
+          box 425,226.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,262.67 800x135
+    box 0,262.67 800x15
+      text 0,262.67 50x15 "Textures" #e8c35a
+      box 58.33,269.75 741.67x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,289.33 800x28.33 opacity=1
+      box 0,296 233.33x15 @enter @leave
+        text 0,296 233.33x15 "Bar texture" #cbb994
+      box 248.33,289.33 200x28.33
+        box 248.33,289.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,296 153.33x15 "Flat" #f0c860
+          box 425,296.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,329.33 800x28.33 opacity=1
+      box 0,336 233.33x15 @enter @leave
+        text 0,336 233.33x15 "Experience bar texture" #cbb994
+      box 248.33,329.33 200x28.33
+        box 248.33,329.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,336 153.33x15 "Brushed" #f0c860
+          box 425,336.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,369.33 800x28.33 opacity=1
+      box 0,376 233.33x15 @enter @leave
+        text 0,376 233.33x15 "Bar frame" #cbb994
+      box 248.33,369.33 200x28.33
+        box 248.33,369.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,376 153.33x15 "Bronze bezel" #f0c860
+          box 425,376.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,412.67 800x55
+    box 0,412.67 800x15
+      text 0,412.67 62.5x15 "Animations" #e8c35a
+      box 70.83,419.75 729.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,439.33 800x28.33 opacity=1
+      box 0,446 233.33x15 @enter @leave
+        text 0,446 233.33x15 "Animations" #cbb994
+      box 248.33,439.33 200x28.33
+        box 248.33,439.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,446 153.33x15 "Smooth" #f0c860
+          box 425,446.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,482.67 800x705
+    box 0,482.67 800x15
+      text 0,482.67 43.75x15 "Colours" #e8c35a
+      box 52.08,489.75 747.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,509.33 800x18.33 opacity=1
+      box 0,511 233.33x15 @enter @leave
+        text 0,511 233.33x15 "Accent colour" #cbb994
+      box 248.33,509.33 36.67x18.33 #b88f57 @click
+    box 0,539.33 800x18.33 opacity=1
+      box 0,541 233.33x15 @enter @leave
+        text 0,541 233.33x15 "Red: bar" #cbb994
+      box 248.33,539.33 36.67x18.33 #bc010b @click
+    box 0,569.33 800x18.33 opacity=1
+      box 0,571 233.33x15 @enter @leave
+        text 0,571 233.33x15 "Red: text" #cbb994
+      box 248.33,569.33 36.67x18.33 #ffa194 @click
+    box 0,599.33 800x18.33 opacity=1
+      box 0,601 233.33x15 @enter @leave
+        text 0,601 233.33x15 "Orange: bar" #cbb994
+      box 248.33,599.33 36.67x18.33 #a24102 @click
+    box 0,629.33 800x18.33 opacity=1
+      box 0,631 233.33x15 @enter @leave
+        text 0,631 233.33x15 "Orange: text" #cbb994
+      box 248.33,629.33 36.67x18.33 #fea47b @click
+    box 0,659.33 800x18.33 opacity=1
+      box 0,661 233.33x15 @enter @leave
+        text 0,661 233.33x15 "Yellow: bar" #cbb994
+      box 248.33,659.33 36.67x18.33 #c79608 @click
+    box 0,689.33 800x18.33 opacity=1
+      box 0,691 233.33x15 @enter @leave
+        text 0,691 233.33x15 "Yellow: text" #cbb994
+      box 248.33,689.33 36.67x18.33 #ffd988 @click
+    box 0,719.33 800x18.33 opacity=1
+      box 0,721 233.33x15 @enter @leave
+        text 0,721 233.33x15 "Green: bar" #cbb994
+      box 248.33,719.33 36.67x18.33 #096c02 @click
+    box 0,749.33 800x18.33 opacity=1
+      box 0,751 233.33x15 @enter @leave
+        text 0,751 233.33x15 "Green: text" #cbb994
+      box 248.33,749.33 36.67x18.33 #90d189 @click
+    box 0,779.33 800x18.33 opacity=1
+      box 0,781 233.33x15 @enter @leave
+        text 0,781 233.33x15 "Cyan: bar" #cbb994
+      box 248.33,779.33 36.67x18.33 #066f86 @click
+    box 0,809.33 800x18.33 opacity=1
+      box 0,811 233.33x15 @enter @leave
+        text 0,811 233.33x15 "Cyan: text" #cbb994
+      box 248.33,809.33 36.67x18.33 #51d0f3 @click
+    box 0,839.33 800x18.33 opacity=1
+      box 0,841 233.33x15 @enter @leave
+        text 0,841 233.33x15 "Blue: bar" #cbb994
+      box 248.33,839.33 36.67x18.33 #0255ab @click
+    box 0,869.33 800x18.33 opacity=1
+      box 0,871 233.33x15 @enter @leave
+        text 0,871 233.33x15 "Blue: text" #cbb994
+      box 248.33,869.33 36.67x18.33 #569ffe @click
+    box 0,899.33 800x18.33 opacity=1
+      box 0,901 233.33x15 @enter @leave
+        text 0,901 233.33x15 "Violet: bar" #cbb994
+      box 248.33,899.33 36.67x18.33 #7849a0 @click
+    box 0,929.33 800x18.33 opacity=1
+      box 0,931 233.33x15 @enter @leave
+        text 0,931 233.33x15 "Violet: text" #cbb994
+      box 248.33,929.33 36.67x18.33 #d2a9fa @click
+    box 0,959.33 800x18.33 opacity=1
+      box 0,961 233.33x15 @enter @leave
+        text 0,961 233.33x15 "Pink: bar" #cbb994
+      box 248.33,959.33 36.67x18.33 #9b3c6a @click
+    box 0,989.33 800x18.33 opacity=1
+      box 0,991 233.33x15 @enter @leave
+        text 0,991 233.33x15 "Pink: text" #cbb994
+      box 248.33,989.33 36.67x18.33 #fa9dc4 @click
+    box 0,1019.33 800x18.33 opacity=1
+      box 0,1021 233.33x15 @enter @leave
+        text 0,1021 233.33x15 "Tan: bar" #cbb994
+      box 248.33,1019.33 36.67x18.33 #7e5b36 @click
+    box 0,1049.33 800x18.33 opacity=1
+      box 0,1051 233.33x15 @enter @leave
+        text 0,1051 233.33x15 "Tan: text" #cbb994
+      box 248.33,1049.33 36.67x18.33 #ddb68e @click
+    box 0,1079.33 800x18.33 opacity=1
+      box 0,1081 233.33x15 @enter @leave
+        text 0,1081 233.33x15 "White: bar" #cbb994
+      box 248.33,1079.33 36.67x18.33 #ababab @click
+    box 0,1109.33 800x18.33 opacity=1
+      box 0,1111 233.33x15 @enter @leave
+        text 0,1111 233.33x15 "White: text" #cbb994
+      box 248.33,1109.33 36.67x18.33 #eeeeee @click
+    box 0,1139.33 800x18.33 opacity=1
+      box 0,1141 233.33x15 @enter @leave
+        text 0,1141 233.33x15 "Grey: bar" #cbb994
+      box 248.33,1139.33 36.67x18.33 #636363 @click
+    box 0,1169.33 800x18.33 opacity=1
+      box 0,1171 233.33x15 @enter @leave
+        text 0,1171 233.33x15 "Grey: text" #cbb994
+      box 248.33,1169.33 36.67x18.33 #bdbdbd @click
+  box 0,1202.67 800x375
+    box 0,1202.67 800x15
+      text 0,1202.67 81.25x15 "Class colours" #e8c35a
+      box 89.58,1209.75 710.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,1229.33 800x28.33 opacity=1
+      box 0,1236 233.33x15 @enter @leave
+        text 0,1236 233.33x15 "Warrior" #cbb994
+      box 248.33,1229.33 200x28.33
+        box 248.33,1229.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1236 153.33x15 "Tan" #f0c860
+          box 425,1236.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1269.33 800x28.33 opacity=1
+      box 0,1276 233.33x15 @enter @leave
+        text 0,1276 233.33x15 "Paladin" #cbb994
+      box 248.33,1269.33 200x28.33
+        box 248.33,1269.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1276 153.33x15 "Pink" #f0c860
+          box 425,1276.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1309.33 800x28.33 opacity=1
+      box 0,1316 233.33x15 @enter @leave
+        text 0,1316 233.33x15 "Hunter" #cbb994
+      box 248.33,1309.33 200x28.33
+        box 248.33,1309.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1316 153.33x15 "Green" #f0c860
+          box 425,1316.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1349.33 800x28.33 opacity=1
+      box 0,1356 233.33x15 @enter @leave
+        text 0,1356 233.33x15 "Rogue" #cbb994
+      box 248.33,1349.33 200x28.33
+        box 248.33,1349.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1356 153.33x15 "Yellow" #f0c860
+          box 425,1356.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1389.33 800x28.33 opacity=1
+      box 0,1396 233.33x15 @enter @leave
+        text 0,1396 233.33x15 "Priest" #cbb994
+      box 248.33,1389.33 200x28.33
+        box 248.33,1389.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1396 153.33x15 "White" #f0c860
+          box 425,1396.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1429.33 800x28.33 opacity=1
+      box 0,1436 233.33x15 @enter @leave
+        text 0,1436 233.33x15 "Shaman" #cbb994
+      box 248.33,1429.33 200x28.33
+        box 248.33,1429.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1436 153.33x15 "Blue" #f0c860
+          box 425,1436.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1469.33 800x28.33 opacity=1
+      box 0,1476 233.33x15 @enter @leave
+        text 0,1476 233.33x15 "Mage" #cbb994
+      box 248.33,1469.33 200x28.33
+        box 248.33,1469.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1476 153.33x15 "Cyan" #f0c860
+          box 425,1476.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1509.33 800x28.33 opacity=1
+      box 0,1516 233.33x15 @enter @leave
+        text 0,1516 233.33x15 "Warlock" #cbb994
+      box 248.33,1509.33 200x28.33
+        box 248.33,1509.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1516 153.33x15 "Violet" #f0c860
+          box 425,1516.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1549.33 800x28.33 opacity=1
+      box 0,1556 233.33x15 @enter @leave
+        text 0,1556 233.33x15 "Druid" #cbb994
+      box 248.33,1549.33 200x28.33
+        box 248.33,1549.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1556 153.33x15 "Orange" #f0c860
+          box 425,1556.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
 
-unsaved 6; the draft's preset blizzard, the values' ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
-unsaved 6; the draft's preset blizzard, the values' ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
-unsaved 6; the draft's preset none, the values' ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
--- Blizzard chosen, then its accent changed: no preset is the draft
-box 0,0 800x1619
-  box 0,0 800x139
+unsaved 3; the draft's preset minimal, the values' ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
+unsaved 3; the draft's preset minimal, the values' ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
+unsaved 3; the draft's preset minimal, the values' ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
+-- Minimal chosen, then its accent changed: no preset is the draft
+box 0,0 800x1577.67
+  box 0,0 800x97.67
     box 0,0 800x15
       text 0,0 37.5x15 "Themes" #e8c35a
       box 45.83,7.08 754.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -267,250 +260,239 @@ box 0,0 800x1619
           text 728.12,34 18.75x15 "Use" #ffd100
     box 0,68 800x29.67
       box 0,68 665x29.67
-        text 0,68 665x15 "Blizzard" #ffffff
-        text 0,84.67 665x13 "Almost Blizzard's default: its fonts, its textures" #a3977f
-      box 675,68.67 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-        box 675,68.67 125x28.33 absolute
-          text 728.12,75.33 18.75x15 "Use" #ffd100
-    box 0,109.33 800x29.67
-      box 0,109.33 665x29.67
-        text 0,109.33 665x15 "Minimal" #ffffff
-        text 0,126 665x13 "Flat, fine lines, hardly any textures or animations" #a3977f
-      box 675,110 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-        box 675,110 125x28.33 absolute
-          text 728.12,116.67 18.75x15 "Use" #ffd100
-  box 0,154 800x135
-    box 0,154 800x15
-      text 0,154 31.25x15 "Fonts" #e8c35a
-      box 39.58,161.08 760.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,180.67 800x28.33 opacity=1
-      box 0,187.33 233.33x15 @enter @leave
-        text 0,187.33 233.33x15 "Text font" #cbb994
-      box 248.33,180.67 200x28.33
-        box 248.33,180.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,187.33 153.33x15 "Friz Quadrata (Blizzard)" #f0c860
-          box 425,188.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,220.67 800x28.33 opacity=1
-      box 0,227.33 233.33x15 @enter @leave
-        text 0,227.33 233.33x15 "Title font" #cbb994
-      box 248.33,220.67 200x28.33
-        box 248.33,220.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,227.33 153.33x15 "Friz Quadrata (Blizzard)" #f0c860
-          box 425,228.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,260.67 800x28.33 opacity=1
-      box 0,267.33 233.33x15 @enter @leave
-        text 0,267.33 233.33x15 "Number font" #cbb994
-      box 248.33,260.67 200x28.33
-        box 248.33,260.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,267.33 153.33x15 "Arial Narrow (Blizzard)" #f0c860
-          box 425,268.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,304 800x135
-    box 0,304 800x15
-      text 0,304 50x15 "Textures" #e8c35a
-      box 58.33,311.08 741.67x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,330.67 800x28.33 opacity=1
-      box 0,337.33 233.33x15 @enter @leave
-        text 0,337.33 233.33x15 "Bar texture" #cbb994
-      box 248.33,330.67 200x28.33
-        box 248.33,330.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,337.33 153.33x15 "Blizzard" #f0c860
-          box 425,338.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,370.67 800x28.33 opacity=1
-      box 0,377.33 233.33x15 @enter @leave
-        text 0,377.33 233.33x15 "Experience bar texture" #cbb994
-      box 248.33,370.67 200x28.33
-        box 248.33,370.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,377.33 153.33x15 "Brushed" #f0c860
-          box 425,378.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,410.67 800x28.33 opacity=1
-      box 0,417.33 233.33x15 @enter @leave
-        text 0,417.33 233.33x15 "Bar frame" #cbb994
-      box 248.33,410.67 200x28.33
-        box 248.33,410.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,417.33 153.33x15 "Bronze bezel" #f0c860
-          box 425,418.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,454 800x55
-    box 0,454 800x15
-      text 0,454 62.5x15 "Animations" #e8c35a
-      box 70.83,461.08 729.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,480.67 800x28.33 opacity=1
-      box 0,487.33 233.33x15 @enter @leave
-        text 0,487.33 233.33x15 "Animations" #cbb994
-      box 248.33,480.67 200x28.33
-        box 248.33,480.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,487.33 153.33x15 "Fast" #f0c860
-          box 425,488.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,524 800x705
-    box 0,524 800x15
-      text 0,524 43.75x15 "Colours" #e8c35a
-      box 52.08,531.08 747.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,550.67 800x18.33 opacity=1
-      box 0,552.33 233.33x15 @enter @leave
-        text 0,552.33 233.33x15 "Accent colour" #cbb994
-      box 248.33,550.67 36.67x18.33 #0080ff @click
-    box 0,580.67 800x18.33 opacity=1
-      box 0,582.33 233.33x15 @enter @leave
-        text 0,582.33 233.33x15 "Red: bar" #cbb994
-      box 248.33,580.67 36.67x18.33 #bc010b @click
-    box 0,610.67 800x18.33 opacity=1
-      box 0,612.33 233.33x15 @enter @leave
-        text 0,612.33 233.33x15 "Red: text" #cbb994
-      box 248.33,610.67 36.67x18.33 #ffa194 @click
-    box 0,640.67 800x18.33 opacity=1
-      box 0,642.33 233.33x15 @enter @leave
-        text 0,642.33 233.33x15 "Orange: bar" #cbb994
-      box 248.33,640.67 36.67x18.33 #a24102 @click
-    box 0,670.67 800x18.33 opacity=1
-      box 0,672.33 233.33x15 @enter @leave
-        text 0,672.33 233.33x15 "Orange: text" #cbb994
-      box 248.33,670.67 36.67x18.33 #fea47b @click
-    box 0,700.67 800x18.33 opacity=1
-      box 0,702.33 233.33x15 @enter @leave
-        text 0,702.33 233.33x15 "Yellow: bar" #cbb994
-      box 248.33,700.67 36.67x18.33 #c79608 @click
-    box 0,730.67 800x18.33 opacity=1
-      box 0,732.33 233.33x15 @enter @leave
-        text 0,732.33 233.33x15 "Yellow: text" #cbb994
-      box 248.33,730.67 36.67x18.33 #ffd988 @click
-    box 0,760.67 800x18.33 opacity=1
-      box 0,762.33 233.33x15 @enter @leave
-        text 0,762.33 233.33x15 "Green: bar" #cbb994
-      box 248.33,760.67 36.67x18.33 #096c02 @click
-    box 0,790.67 800x18.33 opacity=1
-      box 0,792.33 233.33x15 @enter @leave
-        text 0,792.33 233.33x15 "Green: text" #cbb994
-      box 248.33,790.67 36.67x18.33 #90d189 @click
-    box 0,820.67 800x18.33 opacity=1
-      box 0,822.33 233.33x15 @enter @leave
-        text 0,822.33 233.33x15 "Cyan: bar" #cbb994
-      box 248.33,820.67 36.67x18.33 #066f86 @click
-    box 0,850.67 800x18.33 opacity=1
-      box 0,852.33 233.33x15 @enter @leave
-        text 0,852.33 233.33x15 "Cyan: text" #cbb994
-      box 248.33,850.67 36.67x18.33 #51d0f3 @click
-    box 0,880.67 800x18.33 opacity=1
-      box 0,882.33 233.33x15 @enter @leave
-        text 0,882.33 233.33x15 "Blue: bar" #cbb994
-      box 248.33,880.67 36.67x18.33 #0255ab @click
-    box 0,910.67 800x18.33 opacity=1
-      box 0,912.33 233.33x15 @enter @leave
-        text 0,912.33 233.33x15 "Blue: text" #cbb994
-      box 248.33,910.67 36.67x18.33 #569ffe @click
-    box 0,940.67 800x18.33 opacity=1
-      box 0,942.33 233.33x15 @enter @leave
-        text 0,942.33 233.33x15 "Violet: bar" #cbb994
-      box 248.33,940.67 36.67x18.33 #7849a0 @click
-    box 0,970.67 800x18.33 opacity=1
-      box 0,972.33 233.33x15 @enter @leave
-        text 0,972.33 233.33x15 "Violet: text" #cbb994
-      box 248.33,970.67 36.67x18.33 #d2a9fa @click
-    box 0,1000.67 800x18.33 opacity=1
-      box 0,1002.33 233.33x15 @enter @leave
-        text 0,1002.33 233.33x15 "Pink: bar" #cbb994
-      box 248.33,1000.67 36.67x18.33 #9b3c6a @click
-    box 0,1030.67 800x18.33 opacity=1
-      box 0,1032.33 233.33x15 @enter @leave
-        text 0,1032.33 233.33x15 "Pink: text" #cbb994
-      box 248.33,1030.67 36.67x18.33 #fa9dc4 @click
-    box 0,1060.67 800x18.33 opacity=1
-      box 0,1062.33 233.33x15 @enter @leave
-        text 0,1062.33 233.33x15 "Tan: bar" #cbb994
-      box 248.33,1060.67 36.67x18.33 #7e5b36 @click
-    box 0,1090.67 800x18.33 opacity=1
-      box 0,1092.33 233.33x15 @enter @leave
-        text 0,1092.33 233.33x15 "Tan: text" #cbb994
-      box 248.33,1090.67 36.67x18.33 #ddb68e @click
-    box 0,1120.67 800x18.33 opacity=1
-      box 0,1122.33 233.33x15 @enter @leave
-        text 0,1122.33 233.33x15 "White: bar" #cbb994
-      box 248.33,1120.67 36.67x18.33 #ababab @click
-    box 0,1150.67 800x18.33 opacity=1
-      box 0,1152.33 233.33x15 @enter @leave
-        text 0,1152.33 233.33x15 "White: text" #cbb994
-      box 248.33,1150.67 36.67x18.33 #eeeeee @click
-    box 0,1180.67 800x18.33 opacity=1
-      box 0,1182.33 233.33x15 @enter @leave
-        text 0,1182.33 233.33x15 "Grey: bar" #cbb994
-      box 248.33,1180.67 36.67x18.33 #636363 @click
-    box 0,1210.67 800x18.33 opacity=1
-      box 0,1212.33 233.33x15 @enter @leave
-        text 0,1212.33 233.33x15 "Grey: text" #cbb994
-      box 248.33,1210.67 36.67x18.33 #bdbdbd @click
-  box 0,1244 800x375
-    box 0,1244 800x15
-      text 0,1244 81.25x15 "Class colours" #e8c35a
-      box 89.58,1251.08 710.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,1270.67 800x28.33 opacity=1
-      box 0,1277.33 233.33x15 @enter @leave
-        text 0,1277.33 233.33x15 "Warrior" #cbb994
-      box 248.33,1270.67 200x28.33
-        box 248.33,1270.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1277.33 153.33x15 "Tan" #f0c860
-          box 425,1278.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1310.67 800x28.33 opacity=1
-      box 0,1317.33 233.33x15 @enter @leave
-        text 0,1317.33 233.33x15 "Paladin" #cbb994
-      box 248.33,1310.67 200x28.33
-        box 248.33,1310.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1317.33 153.33x15 "Pink" #f0c860
-          box 425,1318.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1350.67 800x28.33 opacity=1
-      box 0,1357.33 233.33x15 @enter @leave
-        text 0,1357.33 233.33x15 "Hunter" #cbb994
-      box 248.33,1350.67 200x28.33
-        box 248.33,1350.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1357.33 153.33x15 "Green" #f0c860
-          box 425,1358.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1390.67 800x28.33 opacity=1
-      box 0,1397.33 233.33x15 @enter @leave
-        text 0,1397.33 233.33x15 "Rogue" #cbb994
-      box 248.33,1390.67 200x28.33
-        box 248.33,1390.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1397.33 153.33x15 "Yellow" #f0c860
-          box 425,1398.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1430.67 800x28.33 opacity=1
-      box 0,1437.33 233.33x15 @enter @leave
-        text 0,1437.33 233.33x15 "Priest" #cbb994
-      box 248.33,1430.67 200x28.33
-        box 248.33,1430.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1437.33 153.33x15 "White" #f0c860
-          box 425,1438.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1470.67 800x28.33 opacity=1
-      box 0,1477.33 233.33x15 @enter @leave
-        text 0,1477.33 233.33x15 "Shaman" #cbb994
-      box 248.33,1470.67 200x28.33
-        box 248.33,1470.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1477.33 153.33x15 "Blue" #f0c860
-          box 425,1478.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1510.67 800x28.33 opacity=1
-      box 0,1517.33 233.33x15 @enter @leave
-        text 0,1517.33 233.33x15 "Mage" #cbb994
-      box 248.33,1510.67 200x28.33
-        box 248.33,1510.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1517.33 153.33x15 "Cyan" #f0c860
-          box 425,1518.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1550.67 800x28.33 opacity=1
-      box 0,1557.33 233.33x15 @enter @leave
-        text 0,1557.33 233.33x15 "Warlock" #cbb994
-      box 248.33,1550.67 200x28.33
-        box 248.33,1550.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1557.33 153.33x15 "Violet" #f0c860
-          box 425,1558.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1590.67 800x28.33 opacity=1
-      box 0,1597.33 233.33x15 @enter @leave
-        text 0,1597.33 233.33x15 "Druid" #cbb994
-      box 248.33,1590.67 200x28.33
-        box 248.33,1590.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1597.33 153.33x15 "Orange" #f0c860
-          box 425,1598.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-asked: ColorPicker.open #ffd100
-asked: ColorPicker.open #ffd100
+        text 0,68 665x15 "Minimal" #ffffff
+        text 0,84.67 665x13 "Flat, fine lines, hardly any textures or animations" #a3977f
+      text 675,76.33 125x13 "In use" #a6e39a
+  box 0,112.67 800x135
+    box 0,112.67 800x15
+      text 0,112.67 31.25x15 "Fonts" #e8c35a
+      box 39.58,119.75 760.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,139.33 800x28.33 opacity=1
+      box 0,146 233.33x15 @enter @leave
+        text 0,146 233.33x15 "Text font" #cbb994
+      box 248.33,139.33 200x28.33
+        box 248.33,139.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,146 153.33x15 "Fira Sans" #f0c860
+          box 425,146.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,179.33 800x28.33 opacity=1
+      box 0,186 233.33x15 @enter @leave
+        text 0,186 233.33x15 "Title font" #cbb994
+      box 248.33,179.33 200x28.33
+        box 248.33,179.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,186 153.33x15 "Fira Sans" #f0c860
+          box 425,186.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,219.33 800x28.33 opacity=1
+      box 0,226 233.33x15 @enter @leave
+        text 0,226 233.33x15 "Number font" #cbb994
+      box 248.33,219.33 200x28.33
+        box 248.33,219.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,226 153.33x15 "Fira Sans Condensed" #f0c860
+          box 425,226.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,262.67 800x135
+    box 0,262.67 800x15
+      text 0,262.67 50x15 "Textures" #e8c35a
+      box 58.33,269.75 741.67x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,289.33 800x28.33 opacity=1
+      box 0,296 233.33x15 @enter @leave
+        text 0,296 233.33x15 "Bar texture" #cbb994
+      box 248.33,289.33 200x28.33
+        box 248.33,289.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,296 153.33x15 "Flat" #f0c860
+          box 425,296.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,329.33 800x28.33 opacity=1
+      box 0,336 233.33x15 @enter @leave
+        text 0,336 233.33x15 "Experience bar texture" #cbb994
+      box 248.33,329.33 200x28.33
+        box 248.33,329.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,336 153.33x15 "Brushed" #f0c860
+          box 425,336.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,369.33 800x28.33 opacity=1
+      box 0,376 233.33x15 @enter @leave
+        text 0,376 233.33x15 "Bar frame" #cbb994
+      box 248.33,369.33 200x28.33
+        box 248.33,369.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,376 153.33x15 "Bronze bezel" #f0c860
+          box 425,376.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,412.67 800x55
+    box 0,412.67 800x15
+      text 0,412.67 62.5x15 "Animations" #e8c35a
+      box 70.83,419.75 729.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,439.33 800x28.33 opacity=1
+      box 0,446 233.33x15 @enter @leave
+        text 0,446 233.33x15 "Animations" #cbb994
+      box 248.33,439.33 200x28.33
+        box 248.33,439.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,446 153.33x15 "Off" #f0c860
+          box 425,446.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,482.67 800x705
+    box 0,482.67 800x15
+      text 0,482.67 43.75x15 "Colours" #e8c35a
+      box 52.08,489.75 747.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,509.33 800x18.33 opacity=1
+      box 0,511 233.33x15 @enter @leave
+        text 0,511 233.33x15 "Accent colour" #cbb994
+      box 248.33,509.33 36.67x18.33 #9e9e9e @click
+    box 0,539.33 800x18.33 opacity=1
+      box 0,541 233.33x15 @enter @leave
+        text 0,541 233.33x15 "Red: bar" #cbb994
+      box 248.33,539.33 36.67x18.33 #bc010b @click
+    box 0,569.33 800x18.33 opacity=1
+      box 0,571 233.33x15 @enter @leave
+        text 0,571 233.33x15 "Red: text" #cbb994
+      box 248.33,569.33 36.67x18.33 #ffa194 @click
+    box 0,599.33 800x18.33 opacity=1
+      box 0,601 233.33x15 @enter @leave
+        text 0,601 233.33x15 "Orange: bar" #cbb994
+      box 248.33,599.33 36.67x18.33 #a24102 @click
+    box 0,629.33 800x18.33 opacity=1
+      box 0,631 233.33x15 @enter @leave
+        text 0,631 233.33x15 "Orange: text" #cbb994
+      box 248.33,629.33 36.67x18.33 #fea47b @click
+    box 0,659.33 800x18.33 opacity=1
+      box 0,661 233.33x15 @enter @leave
+        text 0,661 233.33x15 "Yellow: bar" #cbb994
+      box 248.33,659.33 36.67x18.33 #c79608 @click
+    box 0,689.33 800x18.33 opacity=1
+      box 0,691 233.33x15 @enter @leave
+        text 0,691 233.33x15 "Yellow: text" #cbb994
+      box 248.33,689.33 36.67x18.33 #ffd988 @click
+    box 0,719.33 800x18.33 opacity=1
+      box 0,721 233.33x15 @enter @leave
+        text 0,721 233.33x15 "Green: bar" #cbb994
+      box 248.33,719.33 36.67x18.33 #096c02 @click
+    box 0,749.33 800x18.33 opacity=1
+      box 0,751 233.33x15 @enter @leave
+        text 0,751 233.33x15 "Green: text" #cbb994
+      box 248.33,749.33 36.67x18.33 #90d189 @click
+    box 0,779.33 800x18.33 opacity=1
+      box 0,781 233.33x15 @enter @leave
+        text 0,781 233.33x15 "Cyan: bar" #cbb994
+      box 248.33,779.33 36.67x18.33 #066f86 @click
+    box 0,809.33 800x18.33 opacity=1
+      box 0,811 233.33x15 @enter @leave
+        text 0,811 233.33x15 "Cyan: text" #cbb994
+      box 248.33,809.33 36.67x18.33 #51d0f3 @click
+    box 0,839.33 800x18.33 opacity=1
+      box 0,841 233.33x15 @enter @leave
+        text 0,841 233.33x15 "Blue: bar" #cbb994
+      box 248.33,839.33 36.67x18.33 #0255ab @click
+    box 0,869.33 800x18.33 opacity=1
+      box 0,871 233.33x15 @enter @leave
+        text 0,871 233.33x15 "Blue: text" #cbb994
+      box 248.33,869.33 36.67x18.33 #569ffe @click
+    box 0,899.33 800x18.33 opacity=1
+      box 0,901 233.33x15 @enter @leave
+        text 0,901 233.33x15 "Violet: bar" #cbb994
+      box 248.33,899.33 36.67x18.33 #7849a0 @click
+    box 0,929.33 800x18.33 opacity=1
+      box 0,931 233.33x15 @enter @leave
+        text 0,931 233.33x15 "Violet: text" #cbb994
+      box 248.33,929.33 36.67x18.33 #d2a9fa @click
+    box 0,959.33 800x18.33 opacity=1
+      box 0,961 233.33x15 @enter @leave
+        text 0,961 233.33x15 "Pink: bar" #cbb994
+      box 248.33,959.33 36.67x18.33 #9b3c6a @click
+    box 0,989.33 800x18.33 opacity=1
+      box 0,991 233.33x15 @enter @leave
+        text 0,991 233.33x15 "Pink: text" #cbb994
+      box 248.33,989.33 36.67x18.33 #fa9dc4 @click
+    box 0,1019.33 800x18.33 opacity=1
+      box 0,1021 233.33x15 @enter @leave
+        text 0,1021 233.33x15 "Tan: bar" #cbb994
+      box 248.33,1019.33 36.67x18.33 #7e5b36 @click
+    box 0,1049.33 800x18.33 opacity=1
+      box 0,1051 233.33x15 @enter @leave
+        text 0,1051 233.33x15 "Tan: text" #cbb994
+      box 248.33,1049.33 36.67x18.33 #ddb68e @click
+    box 0,1079.33 800x18.33 opacity=1
+      box 0,1081 233.33x15 @enter @leave
+        text 0,1081 233.33x15 "White: bar" #cbb994
+      box 248.33,1079.33 36.67x18.33 #ababab @click
+    box 0,1109.33 800x18.33 opacity=1
+      box 0,1111 233.33x15 @enter @leave
+        text 0,1111 233.33x15 "White: text" #cbb994
+      box 248.33,1109.33 36.67x18.33 #eeeeee @click
+    box 0,1139.33 800x18.33 opacity=1
+      box 0,1141 233.33x15 @enter @leave
+        text 0,1141 233.33x15 "Grey: bar" #cbb994
+      box 248.33,1139.33 36.67x18.33 #636363 @click
+    box 0,1169.33 800x18.33 opacity=1
+      box 0,1171 233.33x15 @enter @leave
+        text 0,1171 233.33x15 "Grey: text" #cbb994
+      box 248.33,1169.33 36.67x18.33 #bdbdbd @click
+  box 0,1202.67 800x375
+    box 0,1202.67 800x15
+      text 0,1202.67 81.25x15 "Class colours" #e8c35a
+      box 89.58,1209.75 710.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,1229.33 800x28.33 opacity=1
+      box 0,1236 233.33x15 @enter @leave
+        text 0,1236 233.33x15 "Warrior" #cbb994
+      box 248.33,1229.33 200x28.33
+        box 248.33,1229.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1236 153.33x15 "Tan" #f0c860
+          box 425,1236.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1269.33 800x28.33 opacity=1
+      box 0,1276 233.33x15 @enter @leave
+        text 0,1276 233.33x15 "Paladin" #cbb994
+      box 248.33,1269.33 200x28.33
+        box 248.33,1269.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1276 153.33x15 "Pink" #f0c860
+          box 425,1276.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1309.33 800x28.33 opacity=1
+      box 0,1316 233.33x15 @enter @leave
+        text 0,1316 233.33x15 "Hunter" #cbb994
+      box 248.33,1309.33 200x28.33
+        box 248.33,1309.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1316 153.33x15 "Green" #f0c860
+          box 425,1316.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1349.33 800x28.33 opacity=1
+      box 0,1356 233.33x15 @enter @leave
+        text 0,1356 233.33x15 "Rogue" #cbb994
+      box 248.33,1349.33 200x28.33
+        box 248.33,1349.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1356 153.33x15 "Yellow" #f0c860
+          box 425,1356.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1389.33 800x28.33 opacity=1
+      box 0,1396 233.33x15 @enter @leave
+        text 0,1396 233.33x15 "Priest" #cbb994
+      box 248.33,1389.33 200x28.33
+        box 248.33,1389.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1396 153.33x15 "White" #f0c860
+          box 425,1396.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1429.33 800x28.33 opacity=1
+      box 0,1436 233.33x15 @enter @leave
+        text 0,1436 233.33x15 "Shaman" #cbb994
+      box 248.33,1429.33 200x28.33
+        box 248.33,1429.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1436 153.33x15 "Blue" #f0c860
+          box 425,1436.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1469.33 800x28.33 opacity=1
+      box 0,1476 233.33x15 @enter @leave
+        text 0,1476 233.33x15 "Mage" #cbb994
+      box 248.33,1469.33 200x28.33
+        box 248.33,1469.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1476 153.33x15 "Cyan" #f0c860
+          box 425,1476.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1509.33 800x28.33 opacity=1
+      box 0,1516 233.33x15 @enter @leave
+        text 0,1516 233.33x15 "Warlock" #cbb994
+      box 248.33,1509.33 200x28.33
+        box 248.33,1509.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1516 153.33x15 "Violet" #f0c860
+          box 425,1516.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1549.33 800x28.33 opacity=1
+      box 0,1556 233.33x15 @enter @leave
+        text 0,1556 233.33x15 "Druid" #cbb994
+      box 248.33,1549.33 200x28.33
+        box 248.33,1549.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1556 153.33x15 "Orange" #f0c860
+          box 425,1556.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
 
-unsaved 0; the draft's preset none, the values' none; numbers drawn with Fonts/ARIALN.TTF
+unsaved 0; the draft's preset minimal, the values' minimal; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
 unsaved 0; the draft's preset ordaen, the values' ordaen; numbers drawn with Interface\AddOns\Ordaen\media\fonts\FiraSansCondensed-Medium.ttf
 -- rolled back: Ordaen's again
-box 0,0 800x1619
-  box 0,0 800x139
+box 0,0 800x1577.67
+  box 0,0 800x97.67
     box 0,0 800x15
       text 0,0 37.5x15 "Themes" #e8c35a
       box 45.83,7.08 754.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -521,239 +503,232 @@ box 0,0 800x1619
       text 675,35 125x13 "In use" #a6e39a
     box 0,68 800x29.67
       box 0,68 665x29.67
-        text 0,68 665x15 "Blizzard" #ffffff
-        text 0,84.67 665x13 "Almost Blizzard's default: its fonts, its textures" #a3977f
+        text 0,68 665x15 "Minimal" #ffffff
+        text 0,84.67 665x13 "Flat, fine lines, hardly any textures or animations" #a3977f
       box 675,68.67 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
         box 675,68.67 125x28.33 absolute
           text 728.12,75.33 18.75x15 "Use" #ffd100
-    box 0,109.33 800x29.67
-      box 0,109.33 665x29.67
-        text 0,109.33 665x15 "Minimal" #ffffff
-        text 0,126 665x13 "Flat, fine lines, hardly any textures or animations" #a3977f
-      box 675,110 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-        box 675,110 125x28.33 absolute
-          text 728.12,116.67 18.75x15 "Use" #ffd100
-  box 0,154 800x135
-    box 0,154 800x15
-      text 0,154 31.25x15 "Fonts" #e8c35a
-      box 39.58,161.08 760.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,180.67 800x28.33 opacity=1
-      box 0,187.33 233.33x15 @enter @leave
-        text 0,187.33 233.33x15 "Text font" #cbb994
-      box 248.33,180.67 200x28.33
-        box 248.33,180.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,187.33 153.33x15 "Fira Sans" #f0c860
-          box 425,188.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,220.67 800x28.33 opacity=1
-      box 0,227.33 233.33x15 @enter @leave
-        text 0,227.33 233.33x15 "Title font" #cbb994
-      box 248.33,220.67 200x28.33
-        box 248.33,220.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,227.33 153.33x15 "Alegreya SC" #f0c860
-          box 425,228.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,260.67 800x28.33 opacity=1
-      box 0,267.33 233.33x15 @enter @leave
-        text 0,267.33 233.33x15 "Number font" #cbb994
-      box 248.33,260.67 200x28.33
-        box 248.33,260.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,267.33 153.33x15 "Fira Sans Condensed" #f0c860
-          box 425,268.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,304 800x135
-    box 0,304 800x15
-      text 0,304 50x15 "Textures" #e8c35a
-      box 58.33,311.08 741.67x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,330.67 800x28.33 opacity=1
-      box 0,337.33 233.33x15 @enter @leave
-        text 0,337.33 233.33x15 "Bar texture" #cbb994
-      box 248.33,330.67 200x28.33
-        box 248.33,330.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,337.33 153.33x15 "Flat" #f0c860
-          box 425,338.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,370.67 800x28.33 opacity=1
-      box 0,377.33 233.33x15 @enter @leave
-        text 0,377.33 233.33x15 "Experience bar texture" #cbb994
-      box 248.33,370.67 200x28.33
-        box 248.33,370.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,377.33 153.33x15 "Brushed" #f0c860
-          box 425,378.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,410.67 800x28.33 opacity=1
-      box 0,417.33 233.33x15 @enter @leave
-        text 0,417.33 233.33x15 "Bar frame" #cbb994
-      box 248.33,410.67 200x28.33
-        box 248.33,410.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,417.33 153.33x15 "Bronze bezel" #f0c860
-          box 425,418.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,454 800x55
-    box 0,454 800x15
-      text 0,454 62.5x15 "Animations" #e8c35a
-      box 70.83,461.08 729.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,480.67 800x28.33 opacity=1
-      box 0,487.33 233.33x15 @enter @leave
-        text 0,487.33 233.33x15 "Animations" #cbb994
-      box 248.33,480.67 200x28.33
-        box 248.33,480.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,487.33 153.33x15 "Smooth" #f0c860
-          box 425,488.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 0,524 800x705
-    box 0,524 800x15
-      text 0,524 43.75x15 "Colours" #e8c35a
-      box 52.08,531.08 747.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,550.67 800x18.33 opacity=1
-      box 0,552.33 233.33x15 @enter @leave
-        text 0,552.33 233.33x15 "Accent colour" #cbb994
-      box 248.33,550.67 36.67x18.33 #b88f57 @click
-    box 0,580.67 800x18.33 opacity=1
-      box 0,582.33 233.33x15 @enter @leave
-        text 0,582.33 233.33x15 "Red: bar" #cbb994
-      box 248.33,580.67 36.67x18.33 #bc010b @click
-    box 0,610.67 800x18.33 opacity=1
-      box 0,612.33 233.33x15 @enter @leave
-        text 0,612.33 233.33x15 "Red: text" #cbb994
-      box 248.33,610.67 36.67x18.33 #ffa194 @click
-    box 0,640.67 800x18.33 opacity=1
-      box 0,642.33 233.33x15 @enter @leave
-        text 0,642.33 233.33x15 "Orange: bar" #cbb994
-      box 248.33,640.67 36.67x18.33 #a24102 @click
-    box 0,670.67 800x18.33 opacity=1
-      box 0,672.33 233.33x15 @enter @leave
-        text 0,672.33 233.33x15 "Orange: text" #cbb994
-      box 248.33,670.67 36.67x18.33 #fea47b @click
-    box 0,700.67 800x18.33 opacity=1
-      box 0,702.33 233.33x15 @enter @leave
-        text 0,702.33 233.33x15 "Yellow: bar" #cbb994
-      box 248.33,700.67 36.67x18.33 #c79608 @click
-    box 0,730.67 800x18.33 opacity=1
-      box 0,732.33 233.33x15 @enter @leave
-        text 0,732.33 233.33x15 "Yellow: text" #cbb994
-      box 248.33,730.67 36.67x18.33 #ffd988 @click
-    box 0,760.67 800x18.33 opacity=1
-      box 0,762.33 233.33x15 @enter @leave
-        text 0,762.33 233.33x15 "Green: bar" #cbb994
-      box 248.33,760.67 36.67x18.33 #096c02 @click
-    box 0,790.67 800x18.33 opacity=1
-      box 0,792.33 233.33x15 @enter @leave
-        text 0,792.33 233.33x15 "Green: text" #cbb994
-      box 248.33,790.67 36.67x18.33 #90d189 @click
-    box 0,820.67 800x18.33 opacity=1
-      box 0,822.33 233.33x15 @enter @leave
-        text 0,822.33 233.33x15 "Cyan: bar" #cbb994
-      box 248.33,820.67 36.67x18.33 #066f86 @click
-    box 0,850.67 800x18.33 opacity=1
-      box 0,852.33 233.33x15 @enter @leave
-        text 0,852.33 233.33x15 "Cyan: text" #cbb994
-      box 248.33,850.67 36.67x18.33 #51d0f3 @click
-    box 0,880.67 800x18.33 opacity=1
-      box 0,882.33 233.33x15 @enter @leave
-        text 0,882.33 233.33x15 "Blue: bar" #cbb994
-      box 248.33,880.67 36.67x18.33 #0255ab @click
-    box 0,910.67 800x18.33 opacity=1
-      box 0,912.33 233.33x15 @enter @leave
-        text 0,912.33 233.33x15 "Blue: text" #cbb994
-      box 248.33,910.67 36.67x18.33 #569ffe @click
-    box 0,940.67 800x18.33 opacity=1
-      box 0,942.33 233.33x15 @enter @leave
-        text 0,942.33 233.33x15 "Violet: bar" #cbb994
-      box 248.33,940.67 36.67x18.33 #7849a0 @click
-    box 0,970.67 800x18.33 opacity=1
-      box 0,972.33 233.33x15 @enter @leave
-        text 0,972.33 233.33x15 "Violet: text" #cbb994
-      box 248.33,970.67 36.67x18.33 #d2a9fa @click
-    box 0,1000.67 800x18.33 opacity=1
-      box 0,1002.33 233.33x15 @enter @leave
-        text 0,1002.33 233.33x15 "Pink: bar" #cbb994
-      box 248.33,1000.67 36.67x18.33 #9b3c6a @click
-    box 0,1030.67 800x18.33 opacity=1
-      box 0,1032.33 233.33x15 @enter @leave
-        text 0,1032.33 233.33x15 "Pink: text" #cbb994
-      box 248.33,1030.67 36.67x18.33 #fa9dc4 @click
-    box 0,1060.67 800x18.33 opacity=1
-      box 0,1062.33 233.33x15 @enter @leave
-        text 0,1062.33 233.33x15 "Tan: bar" #cbb994
-      box 248.33,1060.67 36.67x18.33 #7e5b36 @click
-    box 0,1090.67 800x18.33 opacity=1
-      box 0,1092.33 233.33x15 @enter @leave
-        text 0,1092.33 233.33x15 "Tan: text" #cbb994
-      box 248.33,1090.67 36.67x18.33 #ddb68e @click
-    box 0,1120.67 800x18.33 opacity=1
-      box 0,1122.33 233.33x15 @enter @leave
-        text 0,1122.33 233.33x15 "White: bar" #cbb994
-      box 248.33,1120.67 36.67x18.33 #ababab @click
-    box 0,1150.67 800x18.33 opacity=1
-      box 0,1152.33 233.33x15 @enter @leave
-        text 0,1152.33 233.33x15 "White: text" #cbb994
-      box 248.33,1150.67 36.67x18.33 #eeeeee @click
-    box 0,1180.67 800x18.33 opacity=1
-      box 0,1182.33 233.33x15 @enter @leave
-        text 0,1182.33 233.33x15 "Grey: bar" #cbb994
-      box 248.33,1180.67 36.67x18.33 #636363 @click
-    box 0,1210.67 800x18.33 opacity=1
-      box 0,1212.33 233.33x15 @enter @leave
-        text 0,1212.33 233.33x15 "Grey: text" #cbb994
-      box 248.33,1210.67 36.67x18.33 #bdbdbd @click
-  box 0,1244 800x375
-    box 0,1244 800x15
-      text 0,1244 81.25x15 "Class colours" #e8c35a
-      box 89.58,1251.08 710.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,1270.67 800x28.33 opacity=1
-      box 0,1277.33 233.33x15 @enter @leave
-        text 0,1277.33 233.33x15 "Warrior" #cbb994
-      box 248.33,1270.67 200x28.33
-        box 248.33,1270.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1277.33 153.33x15 "Tan" #f0c860
-          box 425,1278.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1310.67 800x28.33 opacity=1
-      box 0,1317.33 233.33x15 @enter @leave
-        text 0,1317.33 233.33x15 "Paladin" #cbb994
-      box 248.33,1310.67 200x28.33
-        box 248.33,1310.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1317.33 153.33x15 "Pink" #f0c860
-          box 425,1318.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1350.67 800x28.33 opacity=1
-      box 0,1357.33 233.33x15 @enter @leave
-        text 0,1357.33 233.33x15 "Hunter" #cbb994
-      box 248.33,1350.67 200x28.33
-        box 248.33,1350.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1357.33 153.33x15 "Green" #f0c860
-          box 425,1358.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1390.67 800x28.33 opacity=1
-      box 0,1397.33 233.33x15 @enter @leave
-        text 0,1397.33 233.33x15 "Rogue" #cbb994
-      box 248.33,1390.67 200x28.33
-        box 248.33,1390.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1397.33 153.33x15 "Yellow" #f0c860
-          box 425,1398.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1430.67 800x28.33 opacity=1
-      box 0,1437.33 233.33x15 @enter @leave
-        text 0,1437.33 233.33x15 "Priest" #cbb994
-      box 248.33,1430.67 200x28.33
-        box 248.33,1430.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1437.33 153.33x15 "White" #f0c860
-          box 425,1438.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1470.67 800x28.33 opacity=1
-      box 0,1477.33 233.33x15 @enter @leave
-        text 0,1477.33 233.33x15 "Shaman" #cbb994
-      box 248.33,1470.67 200x28.33
-        box 248.33,1470.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1477.33 153.33x15 "Blue" #f0c860
-          box 425,1478.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1510.67 800x28.33 opacity=1
-      box 0,1517.33 233.33x15 @enter @leave
-        text 0,1517.33 233.33x15 "Mage" #cbb994
-      box 248.33,1510.67 200x28.33
-        box 248.33,1510.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1517.33 153.33x15 "Cyan" #f0c860
-          box 425,1518.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1550.67 800x28.33 opacity=1
-      box 0,1557.33 233.33x15 @enter @leave
-        text 0,1557.33 233.33x15 "Warlock" #cbb994
-      box 248.33,1550.67 200x28.33
-        box 248.33,1550.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1557.33 153.33x15 "Violet" #f0c860
-          box 425,1558.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,1590.67 800x28.33 opacity=1
-      box 0,1597.33 233.33x15 @enter @leave
-        text 0,1597.33 233.33x15 "Druid" #cbb994
-      box 248.33,1590.67 200x28.33
-        box 248.33,1590.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,1597.33 153.33x15 "Orange" #f0c860
-          box 425,1598.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,112.67 800x135
+    box 0,112.67 800x15
+      text 0,112.67 31.25x15 "Fonts" #e8c35a
+      box 39.58,119.75 760.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,139.33 800x28.33 opacity=1
+      box 0,146 233.33x15 @enter @leave
+        text 0,146 233.33x15 "Text font" #cbb994
+      box 248.33,139.33 200x28.33
+        box 248.33,139.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,146 153.33x15 "Fira Sans" #f0c860
+          box 425,146.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,179.33 800x28.33 opacity=1
+      box 0,186 233.33x15 @enter @leave
+        text 0,186 233.33x15 "Title font" #cbb994
+      box 248.33,179.33 200x28.33
+        box 248.33,179.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,186 153.33x15 "Alegreya SC" #f0c860
+          box 425,186.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,219.33 800x28.33 opacity=1
+      box 0,226 233.33x15 @enter @leave
+        text 0,226 233.33x15 "Number font" #cbb994
+      box 248.33,219.33 200x28.33
+        box 248.33,219.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,226 153.33x15 "Fira Sans Condensed" #f0c860
+          box 425,226.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,262.67 800x135
+    box 0,262.67 800x15
+      text 0,262.67 50x15 "Textures" #e8c35a
+      box 58.33,269.75 741.67x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,289.33 800x28.33 opacity=1
+      box 0,296 233.33x15 @enter @leave
+        text 0,296 233.33x15 "Bar texture" #cbb994
+      box 248.33,289.33 200x28.33
+        box 248.33,289.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,296 153.33x15 "Flat" #f0c860
+          box 425,296.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,329.33 800x28.33 opacity=1
+      box 0,336 233.33x15 @enter @leave
+        text 0,336 233.33x15 "Experience bar texture" #cbb994
+      box 248.33,329.33 200x28.33
+        box 248.33,329.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,336 153.33x15 "Brushed" #f0c860
+          box 425,336.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,369.33 800x28.33 opacity=1
+      box 0,376 233.33x15 @enter @leave
+        text 0,376 233.33x15 "Bar frame" #cbb994
+      box 248.33,369.33 200x28.33
+        box 248.33,369.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,376 153.33x15 "Bronze bezel" #f0c860
+          box 425,376.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,412.67 800x55
+    box 0,412.67 800x15
+      text 0,412.67 62.5x15 "Animations" #e8c35a
+      box 70.83,419.75 729.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,439.33 800x28.33 opacity=1
+      box 0,446 233.33x15 @enter @leave
+        text 0,446 233.33x15 "Animations" #cbb994
+      box 248.33,439.33 200x28.33
+        box 248.33,439.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,446 153.33x15 "Smooth" #f0c860
+          box 425,446.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+  box 0,482.67 800x705
+    box 0,482.67 800x15
+      text 0,482.67 43.75x15 "Colours" #e8c35a
+      box 52.08,489.75 747.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,509.33 800x18.33 opacity=1
+      box 0,511 233.33x15 @enter @leave
+        text 0,511 233.33x15 "Accent colour" #cbb994
+      box 248.33,509.33 36.67x18.33 #b88f57 @click
+    box 0,539.33 800x18.33 opacity=1
+      box 0,541 233.33x15 @enter @leave
+        text 0,541 233.33x15 "Red: bar" #cbb994
+      box 248.33,539.33 36.67x18.33 #bc010b @click
+    box 0,569.33 800x18.33 opacity=1
+      box 0,571 233.33x15 @enter @leave
+        text 0,571 233.33x15 "Red: text" #cbb994
+      box 248.33,569.33 36.67x18.33 #ffa194 @click
+    box 0,599.33 800x18.33 opacity=1
+      box 0,601 233.33x15 @enter @leave
+        text 0,601 233.33x15 "Orange: bar" #cbb994
+      box 248.33,599.33 36.67x18.33 #a24102 @click
+    box 0,629.33 800x18.33 opacity=1
+      box 0,631 233.33x15 @enter @leave
+        text 0,631 233.33x15 "Orange: text" #cbb994
+      box 248.33,629.33 36.67x18.33 #fea47b @click
+    box 0,659.33 800x18.33 opacity=1
+      box 0,661 233.33x15 @enter @leave
+        text 0,661 233.33x15 "Yellow: bar" #cbb994
+      box 248.33,659.33 36.67x18.33 #c79608 @click
+    box 0,689.33 800x18.33 opacity=1
+      box 0,691 233.33x15 @enter @leave
+        text 0,691 233.33x15 "Yellow: text" #cbb994
+      box 248.33,689.33 36.67x18.33 #ffd988 @click
+    box 0,719.33 800x18.33 opacity=1
+      box 0,721 233.33x15 @enter @leave
+        text 0,721 233.33x15 "Green: bar" #cbb994
+      box 248.33,719.33 36.67x18.33 #096c02 @click
+    box 0,749.33 800x18.33 opacity=1
+      box 0,751 233.33x15 @enter @leave
+        text 0,751 233.33x15 "Green: text" #cbb994
+      box 248.33,749.33 36.67x18.33 #90d189 @click
+    box 0,779.33 800x18.33 opacity=1
+      box 0,781 233.33x15 @enter @leave
+        text 0,781 233.33x15 "Cyan: bar" #cbb994
+      box 248.33,779.33 36.67x18.33 #066f86 @click
+    box 0,809.33 800x18.33 opacity=1
+      box 0,811 233.33x15 @enter @leave
+        text 0,811 233.33x15 "Cyan: text" #cbb994
+      box 248.33,809.33 36.67x18.33 #51d0f3 @click
+    box 0,839.33 800x18.33 opacity=1
+      box 0,841 233.33x15 @enter @leave
+        text 0,841 233.33x15 "Blue: bar" #cbb994
+      box 248.33,839.33 36.67x18.33 #0255ab @click
+    box 0,869.33 800x18.33 opacity=1
+      box 0,871 233.33x15 @enter @leave
+        text 0,871 233.33x15 "Blue: text" #cbb994
+      box 248.33,869.33 36.67x18.33 #569ffe @click
+    box 0,899.33 800x18.33 opacity=1
+      box 0,901 233.33x15 @enter @leave
+        text 0,901 233.33x15 "Violet: bar" #cbb994
+      box 248.33,899.33 36.67x18.33 #7849a0 @click
+    box 0,929.33 800x18.33 opacity=1
+      box 0,931 233.33x15 @enter @leave
+        text 0,931 233.33x15 "Violet: text" #cbb994
+      box 248.33,929.33 36.67x18.33 #d2a9fa @click
+    box 0,959.33 800x18.33 opacity=1
+      box 0,961 233.33x15 @enter @leave
+        text 0,961 233.33x15 "Pink: bar" #cbb994
+      box 248.33,959.33 36.67x18.33 #9b3c6a @click
+    box 0,989.33 800x18.33 opacity=1
+      box 0,991 233.33x15 @enter @leave
+        text 0,991 233.33x15 "Pink: text" #cbb994
+      box 248.33,989.33 36.67x18.33 #fa9dc4 @click
+    box 0,1019.33 800x18.33 opacity=1
+      box 0,1021 233.33x15 @enter @leave
+        text 0,1021 233.33x15 "Tan: bar" #cbb994
+      box 248.33,1019.33 36.67x18.33 #7e5b36 @click
+    box 0,1049.33 800x18.33 opacity=1
+      box 0,1051 233.33x15 @enter @leave
+        text 0,1051 233.33x15 "Tan: text" #cbb994
+      box 248.33,1049.33 36.67x18.33 #ddb68e @click
+    box 0,1079.33 800x18.33 opacity=1
+      box 0,1081 233.33x15 @enter @leave
+        text 0,1081 233.33x15 "White: bar" #cbb994
+      box 248.33,1079.33 36.67x18.33 #ababab @click
+    box 0,1109.33 800x18.33 opacity=1
+      box 0,1111 233.33x15 @enter @leave
+        text 0,1111 233.33x15 "White: text" #cbb994
+      box 248.33,1109.33 36.67x18.33 #eeeeee @click
+    box 0,1139.33 800x18.33 opacity=1
+      box 0,1141 233.33x15 @enter @leave
+        text 0,1141 233.33x15 "Grey: bar" #cbb994
+      box 248.33,1139.33 36.67x18.33 #636363 @click
+    box 0,1169.33 800x18.33 opacity=1
+      box 0,1171 233.33x15 @enter @leave
+        text 0,1171 233.33x15 "Grey: text" #cbb994
+      box 248.33,1169.33 36.67x18.33 #bdbdbd @click
+  box 0,1202.67 800x375
+    box 0,1202.67 800x15
+      text 0,1202.67 81.25x15 "Class colours" #e8c35a
+      box 89.58,1209.75 710.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,1229.33 800x28.33 opacity=1
+      box 0,1236 233.33x15 @enter @leave
+        text 0,1236 233.33x15 "Warrior" #cbb994
+      box 248.33,1229.33 200x28.33
+        box 248.33,1229.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1236 153.33x15 "Tan" #f0c860
+          box 425,1236.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1269.33 800x28.33 opacity=1
+      box 0,1276 233.33x15 @enter @leave
+        text 0,1276 233.33x15 "Paladin" #cbb994
+      box 248.33,1269.33 200x28.33
+        box 248.33,1269.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1276 153.33x15 "Pink" #f0c860
+          box 425,1276.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1309.33 800x28.33 opacity=1
+      box 0,1316 233.33x15 @enter @leave
+        text 0,1316 233.33x15 "Hunter" #cbb994
+      box 248.33,1309.33 200x28.33
+        box 248.33,1309.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1316 153.33x15 "Green" #f0c860
+          box 425,1316.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1349.33 800x28.33 opacity=1
+      box 0,1356 233.33x15 @enter @leave
+        text 0,1356 233.33x15 "Rogue" #cbb994
+      box 248.33,1349.33 200x28.33
+        box 248.33,1349.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1356 153.33x15 "Yellow" #f0c860
+          box 425,1356.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1389.33 800x28.33 opacity=1
+      box 0,1396 233.33x15 @enter @leave
+        text 0,1396 233.33x15 "Priest" #cbb994
+      box 248.33,1389.33 200x28.33
+        box 248.33,1389.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1396 153.33x15 "White" #f0c860
+          box 425,1396.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1429.33 800x28.33 opacity=1
+      box 0,1436 233.33x15 @enter @leave
+        text 0,1436 233.33x15 "Shaman" #cbb994
+      box 248.33,1429.33 200x28.33
+        box 248.33,1429.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1436 153.33x15 "Blue" #f0c860
+          box 425,1436.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1469.33 800x28.33 opacity=1
+      box 0,1476 233.33x15 @enter @leave
+        text 0,1476 233.33x15 "Mage" #cbb994
+      box 248.33,1469.33 200x28.33
+        box 248.33,1469.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1476 153.33x15 "Cyan" #f0c860
+          box 425,1476.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1509.33 800x28.33 opacity=1
+      box 0,1516 233.33x15 @enter @leave
+        text 0,1516 233.33x15 "Warlock" #cbb994
+      box 248.33,1509.33 200x28.33
+        box 248.33,1509.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1516 153.33x15 "Violet" #f0c860
+          box 425,1516.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,1549.33 800x28.33 opacity=1
+      box 0,1556 233.33x15 @enter @leave
+        text 0,1556 233.33x15 "Druid" #cbb994
+      box 248.33,1549.33 200x28.33
+        box 248.33,1549.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,1556 153.33x15 "Orange" #f0c860
+          box 425,1556.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow

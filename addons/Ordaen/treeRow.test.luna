@@ -36,7 +36,7 @@ class Cost {
 test "a row with children opens and closes under the mouse, a leaf draws no mark, the picked row is marked" {
   let page = new Cost()
   Test.mount(page, { left: 0, top: 0, width: 400, height: 200 })
-  Test.shot("the axe open, the bar closed: ▼ on the axe, ► on the bar one step in, none on the leaf; the bar's age at its right")
+  Test.shot("the axe open, the bar closed: ▼ on the axe, ▶ on the bar one step in, none on the leaf; the bar's age at its right")
 
   Test.moveTo(Test.holding("Hardwood Handle", nil))
   Test.shot("the cursor on the leaf: its shade")

@@ -222,9 +222,12 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
 - **Design previews are pages of the design site** (`../wow-dev-tools/design`, one folder per topic, `addons:`
   frontmatter), never loose HTML files. The user views the built site on port 47860: build it (`npm run build`) after a
   design change.
-- **Presets of the look:** there is no theme of its own: Ordaen, Blizzard and Minimal are presets of Ordaen's look
-  settings (`look.luna`: `preset`), and choosing one writes every entry of the draft. The site reads them from
+- **Presets of the look:** there is no theme of its own: Ordaen and Minimal are presets of Ordaen's look settings
+  (`look.luna`: `preset`), and choosing one writes every entry of the draft. The site reads them from
   `Ordaen/look.test/` (the snapshot of `look.test.luna`).
+- **Fonts are the look's:** a text names one of its roles (`textFont={.Numbers}`, `.Title`; `.Body` where it names
+  none), never a file; Ordaen gives the renderer the look's files once (`Runtime.fonts`), and every text of every
+  addon draws in them.
 - **Release:** one CurseForge project and one zip with every module folder (packaging isn't built).
 - Open: module on/off per account or per character (with profiles); which new globals to add.
 

@@ -61,7 +61,7 @@ box 0,0 700x543.5
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=1
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 610.83x15 "Bronze Axe" #e8dcc4
@@ -209,7 +209,7 @@ box 0,0 700x543.5
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=1
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
@@ -356,7 +356,7 @@ box 0,0 700x543.5
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=1
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
@@ -502,7 +502,7 @@ box 0,0 700x543.5
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=1
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
@@ -648,7 +648,7 @@ box 0,0 700x543.5
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=1
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
@@ -794,7 +794,7 @@ box 0,0 700x543.5
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=1
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
@@ -941,7 +941,7 @@ box 0,0 700x521.83
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=0
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
@@ -1082,7 +1082,7 @@ box 0,0 700x521.83
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=0
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
@@ -1223,7 +1223,7 @@ box 0,0 700x521.83
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=0
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
@@ -1364,7 +1364,7 @@ box 0,0 700x521.83
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=0
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
@@ -1505,7 +1505,7 @@ box 0,0 700x521.83
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=0
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
@@ -1646,7 +1646,7 @@ box 0,0 700x521.83
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
           box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "►" #d6a56b
+            text 3.33,243.75 5.42x13 "▶" #d6a56b
           box 3.33,243.75 5.42x13 absolute opacity=0
             text 3.33,243.75 5.42x13 "▼" #d6a56b
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4

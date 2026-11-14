@@ -59,7 +59,7 @@ public class Placed implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Screen} place={self.place} clamp={true} textFamily={Ordaen.lookArt.font}>
+      <surface layer={Layer.Screen} place={self.place} clamp={true}>
         <slot />
         <box $if={Ordaen.placing} position={Position.Absolute} left={0} top={0} right={0} bottom={0} zLevel={20}
              background={SHADE} border={OUTLINE} xAlign={Align.Center} yAlign={Align.Center}
