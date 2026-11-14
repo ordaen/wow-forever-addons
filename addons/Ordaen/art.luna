@@ -70,14 +70,13 @@ public struct ArtPanel {
   // The panel's surface, and the metal along its inner side.
   wood: Art
   edge: Metal
-  // A cell of the panel: its side rims on the wood.
-  cell: Art
   // The pill a count stands on.
   countBadge: Art
-  // The shapes a face is cut to: round on a cell, the screen's corner under the panel's rim; and the badge the
-  // level stands on.
+  // The shapes a face is cut to: round on a cell, the screen's corner under the panel's rim; the rim over the corner's
+  // face, drawn over the same box as its shape; and the badge the level stands on.
   faceRound: Art
   corner: Art
+  cornerRim: Art
   badge: Art
   // A bag button's edge on the wood: one line.
   slotEdge: Line
@@ -169,16 +168,15 @@ public const ARTWORK: Artwork = {
     gripDown: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Down",
   },
   panel: {
-    // The shapes a face is cut to: a circle, and the screen's corner.
+    // The shapes a face is cut to: a circle, and the screen's corner; the corner's rim, from the same render.
     faceRound: "@/media/face-round-mask.tga",
     corner: "@/media/portrait-mask.tga",
+    cornerRim: "@/media/portrait-rim.tga",
     badge: "@/media/level-badge.tga",
     slotEdge: { width: 1, color: Color.hex("#6c5535") },
     xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: true },
     wood: WOOD,
     edge: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Top], curves: CURVES, lineStart: 10 },
-    // A micro menu's or a bag's cell: rows 0 normal, 1 the glow over it, 2 pushed; caps a fifth of its height.
-    cell: { file: "@/media/panel-cell.tga", width: 256, height: 256, cap: 32, capHeight: 0.2, rows: 4, normal: 0, glow: 1, pressed: 2 },
     countBadge: { file: "@/media/panel-count-badge.tga", width: 128, height: 64, cap: 32, capHeight: 0.5 },
     // The experience tube, back to front: the trough, the fill, the shine, the ring.
     xpTrough: { file: "@/media/xp-tube-trough.tga", width: 256, height: 64, cap: 64, capHeight: 1 },

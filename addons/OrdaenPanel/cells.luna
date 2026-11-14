@@ -1,24 +1,29 @@
 // The panel's cells: a button of the game's menu or a bag, each a cell of the panel with the game's own button in
-// it, so its click, its menus and its alerts stay the game's.
+// it, so its click, its menus and its alerts stay the game's. A cell draws no edge of its own: the group it stands
+// in parts it from its neighbours (`group.luna`).
 import Game from "$game"
-import { Align, Art, Edges, EmbedLook, Frame, Position, Shadow, Stated } from "$ltml"
+import { Align, Art, Edges, Frame, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component } from "Ordaen"
+import { Component, PX } from "Ordaen"
 
-// A cell fills the panel below its metal edge, 1.075 times as wide: the inside between its side rims is square.
+// A cell fills the panel below its metal edge, and is a divider's width narrower on each side than it is high: the
+// panel with the whole menu, seven bag buttons and the money still fits a 1366 x 768 screen at a UI scale of 1.
 public const CELL_HEIGHT = 53
-public const CELL_WIDTH: Number = CELL_HEIGHT * 1.075
+public const DIVIDER: Number = 2 * PX
+public const CELL_WIDTH: Number = CELL_HEIGHT - 2 * DIVIDER
 // The face on the character's cell.
-const FACE = 40 / 1.2
+const FACE = 40 * PX
 const ICON = 35
 const ICON_LEFT = (CELL_WIDTH - ICON) / 2
 // The icon sits a pixel lower while its cell is pushed.
-const ICON_TOP: Stated<Number> = { default: (CELL_HEIGHT - ICON) / 2, pressed: (CELL_HEIGHT - ICON) / 2 + 1 / 1.2 }
+const ICON_TOP: Stated<Number> = { default: (CELL_HEIGHT - ICON) / 2, pressed: (CELL_HEIGHT - ICON) / 2 + 1 * PX }
 const GOLD: Color = Color.hex("#ffb847")
 const WHITE: Color = Color.hex("#ffffff")
+// The cell under the cursor: a warm light over the wood; pushed, a shade.
+const LIT: Stated<Color> = { default: Color.hex("#00000000"), hover: Color.hex("#ffd9a01f"), pressed: Color.hex("#00000040") }
 // The friends online: a green pill in the cell's lower right, 16 px high and at least as wide.
-const BADGE = 16 / 1.2
-const BADGE_PAD: Edges = { right: 4 / 1.2, left: 4 / 1.2 }
+const BADGE = 16 * PX
+const BADGE_PAD: Edges = { right: 4 * PX, left: 4 * PX }
 // The design's bold number: a white shadow one pixel to the right.
 const BOLD: Shadow = { color: WHITE, x: 1, y: 0 }
 
@@ -48,7 +53,7 @@ public class MenuCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={Ordaen.art.panel.cell}>
+      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={LIT}>
         <box position={Position.Absolute} left={ICON_LEFT} top={ICON_TOP} width={ICON} height={ICON}
              background={self.icon} desaturate={self.gold} tint={self.tint} stateFromParent={true} />
         <box $if={self.counted} position={Position.Absolute} right={CELL_WIDTH * 0.12} bottom={CELL_HEIGHT * 0.14}
@@ -71,7 +76,7 @@ public class FaceCell implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={Ordaen.art.panel.cell}>
+      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={LIT}>
         <box position={Position.Absolute} left={(CELL_WIDTH - FACE) / 2} top={(CELL_HEIGHT - FACE) / 2} width={FACE}
              height={FACE} portrait={"player"} mask={Ordaen.art.panel.faceRound} />
         <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
@@ -81,33 +86,30 @@ public class FaceCell implements Component {
   }
 }
 
-// A bag: the game's button in a cell, showing only its icon, square and as high as the cell. The backpack's has
-// the free slots of every bag in its lower right.
+// A bag button of the game's: the icon the game shows on it, on the cell as the menu's icons stand, in a slot's edge,
+// and the game's button unseen over the cell: its click opens the bag, a drag picks it up, its tooltip names it. The
+// backpack's has the free slots of every bag in its lower right.
 public class BagCell implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
-  derived counted: Boolean = self.free > 0
+  derived counted: Boolean = self.button.kind == Game.BagKind.Backpack && Game.bags.free > 0
 
-  frame: Signal<any Frame | nil>
-  free: Signal<Integer>
-  constructor(
-    frame: Signal<any Frame | nil>,
-    // 0 for a bag that shows no count.
-    free: Signal<Integer> = 0,
-  ) {
-    self.frame = frame
-    self.free = free
+  const button: Game.BagButton
+  constructor(button: Game.BagButton) {
+    self.button = button
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={Ordaen.art.panel.cell}>
-        <embed frame={self.frame} position={Position.Absolute} left={(CELL_WIDTH - CELL_HEIGHT) / 2} top={0}
-               width={CELL_HEIGHT} height={CELL_HEIGHT} look={EmbedLook.Icon} />
-        <box $if={self.counted} position={Position.Absolute} right={(CELL_WIDTH - CELL_HEIGHT) / 2 + 3 / 1.2}
-             bottom={1 / 1.2} zLevel={1}>
-          <text value={"%d"} arguments={[self.free]} textSize={.Secondary} textColor={WHITE}
+      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={LIT}>
+        <box position={Position.Absolute} left={ICON_LEFT} top={ICON_TOP} width={ICON} height={ICON}
+             icon={self.button.icon} border={Ordaen.art.panel.slotEdge} stateFromParent={true} />
+        <box $if={self.counted} position={Position.Absolute} right={ICON_LEFT - 3 * PX} bottom={ICON_LEFT - 6 * PX}
+             zLevel={1}>
+          <text value={"%d"} arguments={[Game.bags.free]} textSize={.Secondary} textColor={WHITE}
                 textFamily={Ordaen.lookArt.fontNumbers} textOutline={1} wrap={false} />
         </box>
+        <embed frame={self.button.frame} position={Position.Absolute} left={0} top={0} width={CELL_WIDTH}
+               height={CELL_HEIGHT} opacity={0} />
       </box>
     }
   }

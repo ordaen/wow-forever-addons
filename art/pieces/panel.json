@@ -1,7 +1,6 @@
 {
-  "says": "The bottom panel's art: a cell (theme panel.cell, the button's side rims alone, rows normal, glow, pushed), the level badge (panel.badge), the experience tube back to front (panel.xpTrough, xpShine, xpTube; caps x 0-64 and 192-256) and its six fills (panel.xpFill brushed, panel.xpSteel steel, and deep, grain, potion, clouds), 1024 x 32, their ends matching so they tile.",
+  "says": "The bottom panel's art: the level badge (panel.badge), the experience tube back to front (panel.xpTrough, xpShine, xpTube; caps x 0-64 and 192-256) and its six fills (panel.xpFill brushed, panel.xpSteel steel, and deep, grain, potion, clouds), 1024 x 32, their ends matching so they tile.",
   "ships": [
-    "addons/Ordaen/media/panel-cell.tga",
     "addons/Ordaen/media/level-badge.tga",
     "addons/Ordaen/media/xp-tube.tga",
     "addons/Ordaen/media/xp-tube-trough.tga",
@@ -13,5 +12,5 @@
     "addons/Ordaen/media/xp-fill-potion.tga",
     "addons/Ordaen/media/xp-fill-steel.tga"
   ],
-  "origin": "Drawn by code: art/panel.py (numpy and Pillow; the cell is cut from button.tga, see piece button; the fills' noise is numpy's default_rng with fixed seeds). `git show bfe156f:art/panel.py > panel.py`, run with button.tga in addons/OrdaenCore/media beside it, makes these eleven files byte for byte (Python 3.14.4, Pillow 13.0.0, numpy 2.5.4); it also writes portrait-ring, portrait-shadow and circle-mask, which no addon ships. No `lunatype art` step draws them: a new look is drawn on the design page and rendered (`lunatype art matte`)."
+  "origin": "Drawn by code: art/panel.py (numpy and Pillow; the fills' noise is numpy's default_rng with fixed seeds). `git show bfe156f:art/panel.py > panel.py`, run with button.tga in addons/OrdaenCore/media beside it, makes these ten files byte for byte (Python 3.14.4, Pillow 13.0.0, numpy 2.5.4); it also writes the panel's old cell, portrait-ring, portrait-shadow and circle-mask, which no addon ships. No `lunatype art` step draws them: a new look is drawn on the design page and rendered (`lunatype art matte`)."
 }

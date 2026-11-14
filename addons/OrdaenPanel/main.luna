@@ -54,7 +54,10 @@ public class ZoneBox implements Component {
   // Ordaen's art: its root is there before this module loads.
   derived align: Align = self.alignOf()
   derived micro: Boolean = self.panel.microIn(self.zone)
+  // Friends and guild with the menu in one zone stand in the menu, before its game menu's button; elsewhere, on
+  // their own.
   derived social: Boolean = self.panel.socialIn(self.zone)
+  derived socialAlone: Boolean = self.social && !self.micro
   // The experience bar lies along a panel that runs across the screen: down a side there is no room for it.
   derived experience: Boolean = self.panel.experienceIn(self.zone) && !self.panel.vertical
   derived zoneName: Boolean = self.panel.zoneIn(self.zone)
@@ -90,7 +93,7 @@ public class ZoneBox implements Component {
 
   tracks(self): Array<Track> {
     let list: Array<Track> = []
-    for (here of [self.micro, self.social]) {
+    for (here of [self.micro, self.socialAlone]) {
       if (here) { list.push("auto") }
     }
     // The experience bar takes what the others leave.
@@ -111,11 +114,11 @@ public class ZoneBox implements Component {
           <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={Ordaen.art.spacing.md}
                yAlign={Align.Center}>
             <box width={PORTRAIT_WIDTH} height={1} />
-            <MicroLine gold={self.panel.goldIcons} faced={false} />
+            <MicroLine gold={self.panel.goldIcons} faced={false} social={self.social} />
           </box>
-          <MicroLine $else gold={self.panel.goldIcons} vertical={self.panel.vertical} />
+          <MicroLine $else gold={self.panel.goldIcons} vertical={self.panel.vertical} social={self.social} />
         </>
-        <SocialLine $if={self.social} gold={self.panel.goldIcons} vertical={self.panel.vertical} />
+        <SocialLine $if={self.socialAlone} gold={self.panel.goldIcons} vertical={self.panel.vertical} />
         <XpBar $if={self.experience} />
         <text $if={self.zoneName} value={Game.location.zone} textColor={INK}
               textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
@@ -298,6 +301,9 @@ public class Panel implements Module, App {
                textFamily={Ordaen.lookArt.font}>
         <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
                width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
+        // The rim along the top and down the right, over the face: drawn over the box its shape is cut to.
+        <box position={Position.Absolute} left={0} top={0} width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT}
+             background={Ordaen.art.panel.cornerRim} />
         <box position={Position.Absolute} left={86.7} top={5.3} width={36} height={36}
              background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
