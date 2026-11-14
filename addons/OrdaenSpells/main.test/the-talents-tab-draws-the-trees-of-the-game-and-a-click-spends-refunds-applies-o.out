@@ -10,8 +10,9 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
         box 447.75,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
           box 447.75,678.12 158.33x28.33 absolute
             text 483.17,684.79 87.5x15 "Cancel changes" #808080
-        box 612.75,684.79 379.5x15
-          text 752.5,684.79 100x15 "Talent points: 0" #e8dcc4
+        box 612.75,692.29 0x0
+        box 619.42,684.79 372.83x15
+          text 755.83,684.79 100x15 "Talent points: 0" #e8dcc4
         box 998.92,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
           box 998.92,678.12 158.33x28.33 absolute
             text 1037.46,684.79 81.25x15 "Apply changes" #808080
@@ -37,6 +38,8 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
         box 447.75,269.71 234.28x104.17
           text 543.01,269.71 43.75x15 "Arms: 2" #ffd100
           box 522.81,289.71 84.17x84.17
+            box 546.14,311.79 37.5x2.5 absolute #4a3a24
+            box 582.39,313.04 2.5x37.5 absolute #4a3a24
             box 529.47,296.37 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
               text 545.72,315.87 16.25x13 "2/5" #40d060
             box 566.97,333.87 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=0.55 @click
@@ -50,8 +53,9 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
         box 447.75,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
           box 447.75,678.12 158.33x28.33 absolute
             text 483.17,684.79 87.5x15 "Cancel changes" #ffd100
-        box 612.75,684.79 379.5x15
-          text 752.5,684.79 100x15 "Talent points: 3" #e8dcc4
+        box 612.75,692.29 0x0
+        box 619.42,684.79 372.83x15
+          text 755.83,684.79 100x15 "Talent points: 3" #e8dcc4
         box 998.92,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
           box 998.92,678.12 158.33x28.33 absolute
             text 1037.46,684.79 81.25x15 "Apply changes" #ffd100
@@ -77,6 +81,8 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
         box 447.75,269.71 234.28x104.17
           text 543.01,269.71 43.75x15 "Arms: 2" #ffd100
           box 522.81,289.71 84.17x84.17
+            box 546.14,311.79 37.5x2.5 absolute #4a3a24
+            box 582.39,313.04 2.5x37.5 absolute #4a3a24
             box 529.47,296.37 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
               text 545.72,315.87 16.25x13 "2/5" #40d060
             box 566.97,333.87 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=0.55 @click
@@ -90,8 +96,9 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
         box 447.75,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
           box 447.75,678.12 158.33x28.33 absolute
             text 483.17,684.79 87.5x15 "Cancel changes" #ffffff
-        box 612.75,684.79 379.5x15
-          text 752.5,684.79 100x15 "Talent points: 3" #e8dcc4
+        box 612.75,692.29 0x0
+        box 619.42,684.79 372.83x15
+          text 755.83,684.79 100x15 "Talent points: 3" #e8dcc4
         box 998.92,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
           box 998.92,678.12 158.33x28.33 absolute
             text 1037.46,684.79 81.25x15 "Apply changes" #ffd100
@@ -120,3 +127,59 @@ asked: TalentTrees.spend 10
 asked: TalentTrees.refund 10
 asked: TalentTrees.commit
 asked: TalentTrees.rollback
+
+-- the second spec: Activate asks the game to switch
+surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
+  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 447.75,234.71 709.5x471.75
+      box 447.75,234.71 709.5x28.33
+        box 447.75,234.71 709.5x28.33 #00000080 input "" @change
+      box 447.75,269.71 709.5x401.75
+        box 447.75,269.71 234.28x104.17
+          text 543.01,269.71 43.75x15 "Arms: 2" #ffd100
+          box 522.81,289.71 84.17x84.17
+            box 546.14,311.79 37.5x2.5 absolute #4a3a24
+            box 582.39,313.04 2.5x37.5 absolute #4a3a24
+            box 529.47,296.37 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
+              text 545.72,315.87 16.25x13 "2/5" #40d060
+            box 566.97,333.87 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=0.55 @click
+              text 583.22,353.37 16.25x13 "0/3" #a3977f
+        box 685.36,269.71 234.28x66.67
+          text 780.62,269.71 43.75x15 "Fury: 5" #ffd100
+          box 779.17,289.71 46.67x46.67
+            box 785.83,296.37 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
+              text 802.08,315.87 16.25x13 "5/5" #ffd100
+      box 447.75,678.12 709.5x28.33
+        box 447.75,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 447.75,678.12 158.33x28.33 absolute
+            text 483.17,684.79 87.5x15 "Cancel changes" #808080
+        box 612.75,678.12 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 612.75,678.12 125x28.33 absolute
+            text 650.25,684.79 50x15 "Activate" #ffffff
+        box 744.42,684.79 247.83x15
+          text 818.33,684.79 100x15 "Talent points: 3" #e8dcc4
+        box 998.92,678.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 998.92,678.12 158.33x28.33 absolute
+            text 1037.46,684.79 81.25x15 "Apply changes" #808080
+    box 1091.08,222.12 77.5x26.67 absolute clipped
+      box 1091.08,222.12 29.17x26.67 absolute clipped @click
+        box 1091.08,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1101.08,227.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1120.25,222.12 25x26.67 absolute clipped @click
+        box 1120.25,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1126.5,227.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1145.25,222.12 23.33x26.67 absolute clipped @click
+        box 1145.25,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1151.5,227.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 425,173.04 363.5x47.75
+    box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 443.58,183.29 77.33x34.25
+        text 463.5,192.92 37.5x15 "Spells" #b3a690
+    box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 568.08,183.29 77.33x34.25
+        text 584.88,192.92 43.75x15 "Primary" #b3a690
+    box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 692.58,183.29 77.33x34.25
+        text 703.12,192.92 56.25x15 "Secondary" #ffd100
+asked: TalentTrees.activate 2

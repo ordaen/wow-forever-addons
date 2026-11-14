@@ -34,9 +34,13 @@ public class Spells implements Module, App {
   state trees: Array<Game.TalentTree> = []
   state unspent = 0
   state staged = false
+  // The spec group the player has active: 1 or 2.
+  state activeGroup = 1
+  derived group: Integer = self.tab - 1
+  derived groupActive: Boolean = self.group == self.activeGroup
   // The game's own window shows (the micro menu's button opened it), and its frame was hooked.
   state gameShown = false
-  hooked = false
+  hooked: any Frame | nil = nil
   state services: Array<Game.TrainerService> = []
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_SPELLS },
@@ -52,6 +56,7 @@ public class Spells implements Module, App {
     Ordaen.modules.add(self)
     Game.trainer.changed.listen(self.onTrainer)
     Game.talentTrees.changed.listen(self.refreshTalents)
+    watch (value of self.tab) { self.refreshTalents() }
     watch (frame of Game.frames.PlayerSpells) { self.hook(frame) }
     Runtime.command("/spellbook", (text: String): nil => {
       for (module of Ordaen.modules) {
@@ -74,8 +79,8 @@ public class Spells implements Module, App {
 
   // The game's spellbook window: ours opens and closes with it. Hooked once, on its show and hide, which are rare.
   hook(mut self, frame: any Frame | nil) {
-    if (frame == nil || self.hooked) { return }
-    self.hooked = true
+    if (frame == nil || frame == self.hooked) { return }
+    self.hooked = frame
     const window: any Client.Frame = frame
     _ = window.HookScript("OnShow", (): nil => {
       self.onGameShown()
@@ -100,8 +105,11 @@ public class Spells implements Module, App {
   }
 
   public refreshTalents(mut self) {
-    self.trees = Game.talentTrees.trees()
-    self.unspent = Game.talentTrees.unspent()
+    const group = (peek self.tab) - 1
+    if (group < 1) { return }
+    self.trees = Game.talentTrees.trees(group)
+    self.unspent = Game.talentTrees.unspent(group)
+    self.activeGroup = Game.talentTrees.activeGroup()
     self.staged = Game.talentTrees.staged()
   }
 
@@ -109,6 +117,7 @@ public class Spells implements Module, App {
   onRefund(mut self, node: Integer) { _ = Game.talentTrees.refund(node) }
   onApply(mut self) { _ = Game.talentTrees.commit() }
   onCancel(mut self) { _ = Game.talentTrees.rollback() }
+  onActivate(mut self) { _ = Game.talentTrees.activate(peek self.group) }
 
   // The client's class trainer, not a profession's or a pet's, taught its services.
   onTrainer(mut self) {
@@ -127,8 +136,8 @@ public class Spells implements Module, App {
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
               @close={self.onClose} @settings={self.onSettings}>
         <SpellbookPage $if={self.tab == 1} spells={self.spells} lines={self.lines} />
-        <TalentsPage $else trees={self.trees} unspent={self.unspent} staged={self.staged} @spend={self.onSpend}
-                     @refund={self.onRefund} @apply={self.onApply} @cancel={self.onCancel} />
+        <TalentsPage $else trees={self.trees} unspent={self.unspent} staged={self.staged} active={self.groupActive} @spend={self.onSpend}
+                     @refund={self.onRefund} @apply={self.onApply} @cancel={self.onCancel} @activate={self.onActivate} />
       </Window>
       <Window $if={self.trainerShown} tabs={self.trainerTabs} selected={mut self.trainerTab}
               placing={mut self.trainerPlacing} withSettings={true} @close={self.onTrainerClose}

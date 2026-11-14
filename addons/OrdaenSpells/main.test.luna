@@ -1,5 +1,6 @@
 // The windows on the stand-in game: the spellbook with its tabs and a search, the talents with the trees given to it,
 // and the class trainer with a service picked. The root is drawn on the screen as Ordaen draws it.
+import Client from "$client"
 import Game from "$game"
 import { Art, MouseButton } from "$ltml"
 import Test from "$test"
@@ -44,7 +45,7 @@ test "the talents tab draws the trees of the game, and a click spends, refunds, 
   Spells.tab = 2
   Test.flush()
   Test.shot("no trees: it says so")
-  Game.talentTrees.trees = (): Array<Game.TalentTree> => {
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => {
     return [
       {
         id: 1, name: "Arms",
@@ -62,7 +63,7 @@ test "the talents tab draws the trees of the game, and a click spends, refunds, 
       },
     ]
   }
-  Game.talentTrees.unspent = (): Integer => 3
+  Game.talentTrees.unspent = (group: Integer): Integer => 3
   Game.talentTrees.staged = (): Boolean => true
   Spells.refreshTalents()
   Test.flush()
@@ -72,6 +73,10 @@ test "the talents tab draws the trees of the game, and a click spends, refunds, 
   Test.click(Test.holding("Apply changes", nil), nil)
   Test.click(Test.holding("Cancel changes", nil), nil)
   Test.shot("what was asked of the game")
+  Spells.tab = 3
+  Test.flush()
+  Test.click(Test.holding("Activate", nil), nil)
+  Test.shot("the second spec: Activate asks the game to switch")
 }
 
 test "the class trainer lists its services and a click shows one's card" {
@@ -185,4 +190,27 @@ test "the sort and the filter buttons are clicked and the lists follow" {
   Test.shot("the services by price")
   pickFrom(Ordaen.art.ctl.tool.filter, "Unavailable")
   Test.shot("the services narrowed to the unavailable")
+}
+
+test "the game's spellbook window opens ours, and one the game makes again does too" {
+  Test.mount(nil, PAGE)
+  const first = Client.CreateFrame("Frame", "PlayerSpellsFrame", Client.UIParent, nil)
+  first.Hide()
+  Game.frames.PlayerSpells = first
+  Test.flush()
+  Test.expect(!Spells.open)
+  first.Show()
+  Test.flush()
+  Test.expect(Spells.open && Spells.gameShown)
+  Test.shot("the game's window shown: ours stands in its place")
+  first.Hide()
+  Test.flush()
+  Test.expect(!Spells.open && !Spells.gameShown)
+  const second = Client.CreateFrame("Frame", "PlayerSpellsFrameAgain", Client.UIParent, nil)
+  second.Hide()
+  Game.frames.PlayerSpells = second
+  Test.flush()
+  second.Show()
+  Test.flush()
+  Test.expect(Spells.open)
 }
