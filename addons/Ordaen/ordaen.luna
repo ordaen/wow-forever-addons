@@ -75,16 +75,21 @@ public class OrdaenCore implements App {
   public toggleDev(mut self) { self.dev = !peek self.dev }
   public togglePlacing(mut self) { self.placing = !peek self.placing }
 
-  // The settings window, at a page (a module's folder; Ordaen's own where none is named), or closed where it shows
-  // that page: made and drawn the first time.
-  public toggleSettings(mut self, page: String | nil) {
+  // The settings window, at a module's page (`Runtime.Addon.of(self)` in the module; Ordaen's own page where none is
+  // given), or closed where it shows that page: made and drawn the first time.
+  public toggleSettings(mut self, page: Runtime.Addon | nil) {
+    self.toggleNamed(page?.name ?? "")
+  }
+
+  // The settings window at the page of a module's folder (`""`: Ordaen's own).
+  toggleNamed(mut self, folder: String) {
     if (self.window == nil) {
       const made = new SettingsWindow()
       Runtime.mount(made, Runtime.screen())
       self.window = made
     }
-    Debug.log("the settings window asked for, page %s", page ?? "none")
-    self.window?.toggle(page ?? "")
+    Debug.log("the settings window asked for, page %s", folder == "" ? "none" : folder)
+    self.window?.toggle(folder)
   }
 
   // Where the player put a part, by the part's name; nothing for one never moved. Read in a `derived`, it is
@@ -125,19 +130,39 @@ public class OrdaenCore implements App {
     if (refused != nil) { Debug.log("module %s: not made, the client says %s", addon.name, refused.reason) }
   }
 
-  // The modules the player has (each addon that needs Ordaen) run but those the player turned off.
+  // The modules the player has (each addon that needs Ordaen) run but those the player turned off, as the client's
+  // list of addons has them: a start never changes that list. A module the list has off is refused by the client
+  // and tried again at the next start; one the player turned off is left unloaded, wherever the list has it.
   start(self) {
     const own = Runtime.Addon.of(self)
     if (own == nil) { return }
     for (addon of own.dependents()) {
-      const wanted = self.chosen[addon.name] != false
-      Debug.log("module %s: %s", addon.name, wanted ? "to run" : "turned off by the player")
-      self.run(addon, wanted)
+      if (self.chosen[addon.name] == false) {
+        Debug.log("module %s: turned off by the player", addon.name)
+        // Loaded as another module needs it: its root ends.
+        addon.stop()
+        continue
+      }
+      Debug.log("module %s: to run", addon.name)
+      const refused = addon.load()
+      if (refused != nil) { Debug.log("module %s: not made, the client says %s", addon.name, refused.reason) }
     }
   }
 
-  // `/ordaen` opens the settings, `/ordaen <module's folder>` on that module's page.
+  // `/ordaen` opens the settings, `/ordaen <module>` on that module's page: its folder or its name in the list, in
+  // any case (`/ordaen minimap`). A word that names no module the player has opens Ordaen's own page.
   command(mut self, text: String) {
-    self.toggleSettings(text.match("^%s*(%S+)"))
+    const word = (text.match("^%s*(%S+)") ?? "").lower()
+    self.toggleSettings(word == "" ? nil : self.moduleNamed(word))
+  }
+
+  moduleNamed(self, word: String): Runtime.Addon | nil {
+    const own = Runtime.Addon.of(self)
+    if (own == nil) { return nil }
+    for (addon of own.dependents()) {
+      const folder = addon.name.lower()
+      if (folder == word || folder == "ordaen" + word) { return addon }
+    }
+    return nil
   }
 }

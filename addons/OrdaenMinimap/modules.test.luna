@@ -53,6 +53,27 @@ test "a module off at login, turned on, is loaded without a reload, made and dra
   Test.expect(drawn())
 }
 
+test "a start leaves the client's list as it is: a module the player turned off stays on there, and isn't loaded" {
+  const choices: Map<String, Boolean> = {}
+  choices["OrdaenMinimap"] = false
+  Game.saved.store(.Account, "choices", choices)
+  Test.reload()
+  Test.expect(minimapAddon().isEnabled())
+  Test.expect(!loaded())
+  Test.expect(!made())
+}
+
+test "a start leaves the client's list as it is: a module the list has off isn't loaded until the player turns it on" {
+  Test.disable("OrdaenMinimap")
+  Test.reload()
+  Test.expect(!minimapAddon().isEnabled())
+  Test.expect(!loaded())
+  Test.expect(!made())
+  Ordaen.turn(minimapAddon(), true)
+  Test.expect(minimapAddon().isEnabled())
+  Test.expect(made())
+}
+
 test "a module on at login is loaded with Ordaen, made and drawn" {
   Test.expect(loaded())
   Test.expect(minimapAddon().isEnabled())

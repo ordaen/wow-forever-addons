@@ -1327,7 +1327,7 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
 
 unsaved: 0, a save to take back: false, placing: false
 
--- opened on the minimap's page by its name
+-- opened on the minimap's page by its addon
 surface 1323.67,0 276.33x326.33 on MEDIUM clamped
   box 1323.67,0 276.33x326.33 @enter @leave
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait

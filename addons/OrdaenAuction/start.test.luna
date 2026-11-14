@@ -1,0 +1,30 @@
+// Ordaen's start with a module another module needs as an optional one (Ordaen Tooltips, which Ordaen Auction
+// names): the client loads its files with Auction's, before Ordaen's start reaches it, and its root is made once,
+// after Ordaen's. Ordaen's own root, being made as it starts its modules, is never asked for again.
+import Game from "$game"
+import Test from "$test"
+
+test "a module the player turned off that another's load brings in has no root made" {
+  const choices: Map<String, Boolean> = {}
+  choices["OrdaenTooltips"] = false
+  Game.saved.store(.Account, "choices", choices)
+  _ = Test.debugLog()
+  Test.reload()
+  const log = Test.debugLog()
+  Test.expect(log.any(line => line.contains("OrdaenTooltips: first file")))
+  Test.expect(!log.any(line => line.contains("OrdaenTooltips: root made")))
+  Test.expect(log.any(line => line.contains("OrdaenAuction: root made")))
+  choices["OrdaenTooltips"] = nil
+  Game.saved.store(.Account, "choices", choices)
+}
+
+test "a start that loads a module another needs makes each root once, and never asks for Ordaen's while it is made" {
+  _ = Test.debugLog()
+  Test.reload()
+  const log = Test.debugLog()
+  // The client loaded Tooltips with Auction: the start finds it loaded.
+  Test.expect(log.any(line => line.contains("OrdaenTooltips: on by")))
+  Test.expect(!log.any(line => line.contains("Ordaen: turned on")))
+  Test.expect(!log.any(line => line.contains("Ordaen: held back behind Ordaen")))
+  Test.expect(log.count(line => line.contains("OrdaenTooltips: root made")) == 1)
+}

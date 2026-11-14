@@ -5,6 +5,7 @@ import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
 import { Component, Money, number, PushButton, PX, Section, Settings } from "Ordaen"
 import root Ordaen from "Ordaen"
+import Runtime from "$runtime"
 import { Deal, Ledger } from "@/ledger"
 import Locale from "@/locales"
 import { serverSeconds } from "@/quote"
@@ -105,7 +106,7 @@ public class DataPage implements Component {
     return agoText(serverSeconds() - self.lastFull)
   }
 
-  onSettings(self) { Ordaen.toggleSettings("OrdaenAuction") }
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
   public render(self): Template {
     return $ltml {
