@@ -129,9 +129,9 @@ test "an hour is the server's clock, as the game gives it" {
 
 test "the player's auctions are recorded while the house is open, and an empty list before it answers keeps what was" {
   Game.ownedAuctions.list = [
-    { item: 2840, quantity: 20, buyout: 5000, sold: false, left: nil },
-    { item: 2840, quantity: 5, buyout: 900, sold: false, left: nil },
-    { item: 2841, quantity: 1, buyout: 100, sold: true, left: nil },
+    { auction: 1, item: 2840, quantity: 20, buyout: 5000, sold: false, left: nil },
+    { auction: 2, item: 2840, quantity: 5, buyout: 900, sold: false, left: nil },
+    { auction: 3, item: 2841, quantity: 1, buyout: 100, sold: true, left: nil },
   ]
   Test.flush()
   const held = Alts.holders(ItemId.of(2840))[1] ?? panic("auctioned")
@@ -141,7 +141,7 @@ test "the player's auctions are recorded while the house is open, and an empty l
   Test.expect(Alts.holders(ItemId.of(2840)).length == 1)
   Game.auctionHouse.open = true
   Game.ownedAuctions.list = []
-  Game.ownedAuctions.list = [{ item: 2842, quantity: 1, buyout: nil, sold: false, left: nil }]
+  Game.ownedAuctions.list = [{ auction: 4, item: 2842, quantity: 1, buyout: nil, sold: false, left: nil }]
   Test.flush()
   Game.ownedAuctions.list = []
   Test.flush()
