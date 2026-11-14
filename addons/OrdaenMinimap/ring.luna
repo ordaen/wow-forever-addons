@@ -52,9 +52,9 @@ public class RingButton implements Component {
   // Ours shows its tooltip beside it (the game's buttons show their own).
   derived hinted: Boolean = self.hintNow()
 
-  const spec: RingSpec
+  spec: Signal<RingSpec>
   map: mut Minimap
-  constructor(spec: RingSpec, map: mut Minimap) {
+  constructor(spec: Signal<RingSpec>, map: mut Minimap) {
     self.spec = spec
     self.map = map
   }
