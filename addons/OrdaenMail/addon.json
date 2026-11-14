@@ -1,0 +1,7 @@
+{
+  "title": "Ordaen Mail",
+  "icon": "Interface/Icons/INV_Letter_15",
+  "notes": "The mailbox in one window: the inbox with filters, ticked letters and collect all, the letters sent, and quick sends between your characters.",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0", "OrdaenAlts": "^1.0.0" }
+}

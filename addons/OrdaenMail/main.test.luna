@@ -1,0 +1,66 @@
+// The mail window on the stand-in game: the inbox with a letter picked, the letters
+// sent and the player's own characters. The root is drawn on the screen as Ordaen draws it.
+import Game from "$game"
+import Test from "$test"
+import root Mail from "OrdaenMail"
+import { Letter, Kind, SentState } from "@/letters"
+
+const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
+
+function letters(): Array<Letter> {
+  return [
+    {
+      index: 1, kind: Kind.Auction, subject: "Auction successful: Linen Cloth", sender: "Auction House", copper: 12500,
+      cod: 0, days: 29, items: [],
+    },
+    {
+      index: 2, kind: Kind.Player, subject: "Bolts for you", sender: "Regy", copper: 0, cod: 0, days: 2,
+      items: [{ item: 2589, name: "Linen Cloth", count: 20 }, { item: 2592, name: "Wool Cloth", count: 5 }],
+    },
+    {
+      index: 3, kind: Kind.Player, subject: "Pay for the sword", sender: "Dorn", copper: 0, cod: 40000, days: 10,
+      items: [{ item: 12, name: "Sword", count: 1 }],
+    },
+    { index: 4, kind: Kind.System, subject: "Welcome", sender: "", copper: 0, cod: 0, days: 30, items: [] },
+  ]
+}
+
+test "the inbox lists the letters and shows the picked one" {
+  Test.mount(nil, PAGE)
+  Game.mailObserver.open = true
+  Mail.letters = letters()
+  Mail.total = 4
+  Test.flush()
+  Test.shot("the list: days left red under three, cash on delivery in orange")
+  Test.click(Test.holding("Bolts for you", nil), nil)
+  Test.shot("a letter picked: its attachments and its buttons")
+}
+
+test "the list shows only the letters it is given" {
+  Test.mount(nil, PAGE)
+  Game.mailObserver.open = true
+  Mail.letters = letters()
+  Mail.total = 4
+  Test.flush()
+  Mail.letters = letters().filter(l => l.kind == Kind.Player)
+  Test.flush()
+  Test.shot("only the letters from players")
+}
+
+test "the sent tab and the own characters' tab say what they hold" {
+  Test.mount(nil, PAGE)
+  Game.mailObserver.open = true
+  Mail.letters = letters()
+  Mail.total = 4
+  Test.flush()
+  Mail.sent = [
+    { number: 1, subject: "Reagents (1/2)", to: "Regy", items: 12, copper: 0, state: SentState.Sent, why: "" },
+    { number: 2, subject: "Reagents (2/2)", to: "Regy", items: 3, copper: 100, state: SentState.Stopped, why: "Mailbox closed" },
+  ]
+  Mail.tab = 2
+  Test.flush()
+  Test.shot("two letters: one sent, one stopped with its reason")
+  Mail.tab = 3
+  Test.flush()
+  Test.shot("the own characters' tab with Ordaen Alts loaded and no other character")
+}

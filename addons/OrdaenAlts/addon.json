@@ -2,6 +2,7 @@
   "title": "Ordaen Alts",
   "icon": "Interface/Icons/Achievement_Character_Human_Male",
   "notes": "Your characters' professions, recipes and what they hold: who can make what, who has what.",
+  "version": "1.0.0",
   "loadOnDemand": true,
   "dependencies": { "Ordaen": "^1.0.0" }
 }

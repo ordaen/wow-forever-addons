@@ -1,0 +1,3 @@
+// Ordaen Mail: the mailbox in one window. Its root is `Mail`.
+public import { Mail } from "@/main"
+public import { Attachment, Filter, Kind, Letter, Sent, SentState } from "@/letters"

@@ -1,0 +1,28 @@
+// Ordaen Mail's page in the settings window: what collecting and sending do. Each control writes one entry of the
+// settings' draft.
+import { Checkbox, Component, Settings, Slider } from "Ordaen"
+import Locale from "@/locales"
+
+// What the player chooses.
+public struct Choices implements Plain {
+  // Bag slots «Collect all» leaves free; an item that stacks onto one the player has still comes.
+  keepFree: Number
+  // The game's trade requests are refused while the mailbox is open.
+  blockTrades: Boolean
+}
+
+public class GeneralPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Slider label={Locale.SETTING_KEEP_FREE} hint={Locale.SETTING_KEEP_FREE_TIP}
+              value={mut self.settings.draft.keepFree} least={0} most={20} />
+      <Checkbox label={Locale.SETTING_BLOCK_TRADES} hint={Locale.SETTING_BLOCK_TRADES_TIP}
+                value={mut self.settings.draft.blockTrades} />
+    }
+  }
+}
