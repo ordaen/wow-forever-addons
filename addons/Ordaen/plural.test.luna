@@ -1,0 +1,16 @@
+// A word by its number: Russian's three forms, English's two.
+import Test from "$test"
+import { formIn, plural } from "@/plural"
+
+const COUNTS: Array<Integer> = [0, 1, 2, 4, 5, 11, 12, 14, 21, 22, 25, 101, 111, 1000]
+const RU: Array<String> = ["предмет", "предмета", "предметов"]
+const EN: Array<String> = ["item", "items", "items"]
+
+test "the form of a word for each number, in Russian and in English" {
+  for (n of COUNTS) {
+    const ru = RU[formIn("ruRU", n)] ?? "?"
+    const en = EN[formIn("enUS", n)] ?? "?"
+    Test.note(`${n}: ${ru} · ${en}`)
+  }
+  Test.note(`the game's language (the stand-in's): 2 ${plural(2, "item", "items (few)", "items")}`)
+}
