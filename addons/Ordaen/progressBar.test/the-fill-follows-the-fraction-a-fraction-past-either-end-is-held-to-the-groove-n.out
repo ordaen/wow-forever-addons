@@ -1,20 +1,20 @@
 -- a quarter done: the fill a quarter of the groove, the label above it
-box 0,0 200x25
-  text 0,0 200x15 "Scanning 25%" #cbb994
-  box 0,18.33 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-    box 0.83,19.17 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+box 0,0 200x25.6
+  text 0,0 200x15.6 "Scanning 25%" #cbb994
+  box 0,18.93 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+    box 0.83,19.77 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
 
 -- half done: the fill half the groove, the label changed
-box 0,0 200x25
-  text 0,0 200x15 "Crafting 5 of 10" #cbb994
-  box 0,18.33 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-    box 0.83,19.17 99.17x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+box 0,0 200x25.6
+  text 0,0 200x15.6 "Crafting 5 of 10" #cbb994
+  box 0,18.93 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+    box 0.83,19.77 99.17x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
 
 -- past the end: the fill holds at the groove's full width
-box 0,0 200x25
-  text 0,0 200x15 "Crafting 5 of 10" #cbb994
-  box 0,18.33 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-    box 0.83,19.17 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+box 0,0 200x25.6
+  text 0,0 200x15.6 "Crafting 5 of 10" #cbb994
+  box 0,18.93 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+    box 0.83,19.77 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
 
 -- below nought, no label: no fill and no label line
 box 0,0 200x6.67

@@ -175,7 +175,7 @@ public class CompactDropdown<T: Unknown> implements Component {
           <text value={self.shown} textColor={GOLD} wrap={false} />
           <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
-        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listWidth}
+        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} minWidth={self.listWidth}
                  background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} @clickOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />

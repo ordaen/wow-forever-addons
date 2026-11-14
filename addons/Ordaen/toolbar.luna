@@ -159,7 +159,7 @@ public class ToolPick<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <ToolButton icon={self.glyph} title={self.title} text={self.shown} open={mut self.open} lit={self.lit}>
-        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listWidth}
+        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} minWidth={self.listWidth}
                  background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @clickOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />

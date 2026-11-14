@@ -1,32 +1,32 @@
 -- «Bags» selected, without a colour: the gold fill and edge; no rule over the first
-box 0,0 300x76.67
-  box 0,0 300x25 #d6a56b3d clipped @click
-    box 0,0 1.67x25 absolute #f0c860
-    text 13.33,5 247.92x15 "Bags" #ffffff
-    text 267.92,5 18.75x15 "[2]" #ffffff
-  box 0,25 300x25.83 #00000000 clipped @click
-    text 13.33,30.83 273.33x15 "Linen Cloak" #ffffff
-  box 0,50.83 300x25.83 #00000000 clipped @click
-    text 13.33,56.67 273.33x15 "Brown Linen Vest" #ffffff
+box 0,0 300x78.47
+  box 0,0 300x25.6 #d6a56b3d clipped @click
+    box 0,0 1.67x25.6 absolute #f0c860
+    text 13.33,5 244.44x15.6 "Bags" #ffffff
+    text 264.44,5 22.22x15.6 "[2]" #ffffff
+  box 0,25.6 300x26.43 #00000000 clipped @click
+    text 13.33,31.43 273.33x15.6 "Linen Cloak" #ffffff
+  box 0,52.03 300x26.43 #00000000 clipped @click
+    text 13.33,57.87 273.33x15.6 "Brown Linen Vest" #ffffff
 
 -- the green «Linen Cloak» selected: a green fill and a green edge
-box 0,0 300x76.67
-  box 0,0 300x25 #00000000 clipped @click
-    text 13.33,5 247.92x15 "Bags" #ffffff
-    text 267.92,5 18.75x15 "[2]" #ffffff
-  box 0,25 300x25.83 #40c0403d clipped @click
-    box 0,25 1.67x25.83 absolute #40c040
-    text 13.33,30.83 273.33x15 "Linen Cloak" #ffffff
-  box 0,50.83 300x25.83 #00000000 clipped @click
-    text 13.33,56.67 273.33x15 "Brown Linen Vest" #ffffff
+box 0,0 300x78.47
+  box 0,0 300x25.6 #00000000 clipped @click
+    text 13.33,5 244.44x15.6 "Bags" #ffffff
+    text 264.44,5 22.22x15.6 "[2]" #ffffff
+  box 0,25.6 300x26.43 #40c0403d clipped @click
+    box 0,25.6 1.67x26.43 absolute #40c040
+    text 13.33,31.43 273.33x15.6 "Linen Cloak" #ffffff
+  box 0,52.03 300x26.43 #00000000 clipped @click
+    text 13.33,57.87 273.33x15.6 "Brown Linen Vest" #ffffff
 
 -- the cursor on «Bags»: its light
-box 0,0 300x76.67
-  box 0,0 300x25 #d6a56b1f clipped @click
-    text 13.33,5 247.92x15 "Bags" #ffffff
-    text 267.92,5 18.75x15 "[2]" #ffffff
-  box 0,25 300x25.83 #40c0403d clipped @click
-    box 0,25 1.67x25.83 absolute #40c040
-    text 13.33,30.83 273.33x15 "Linen Cloak" #ffffff
-  box 0,50.83 300x25.83 #00000000 clipped @click
-    text 13.33,56.67 273.33x15 "Brown Linen Vest" #ffffff
+box 0,0 300x78.47
+  box 0,0 300x25.6 #d6a56b1f clipped @click
+    text 13.33,5 244.44x15.6 "Bags" #ffffff
+    text 264.44,5 22.22x15.6 "[2]" #ffffff
+  box 0,25.6 300x26.43 #40c0403d clipped @click
+    box 0,25.6 1.67x26.43 absolute #40c040
+    text 13.33,31.43 273.33x15.6 "Linen Cloak" #ffffff
+  box 0,52.03 300x26.43 #00000000 clipped @click
+    text 13.33,57.87 273.33x15.6 "Brown Linen Vest" #ffffff

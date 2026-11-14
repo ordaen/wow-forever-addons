@@ -34,7 +34,7 @@ const HEAD: Array<Track> = ["auto", "auto"]
 // The headings, and the body in what is left of a height the table is given.
 const PARTS: Array<Track> = ["auto", { fr: 1 }]
 // A row of one line of text: the text and the row's padding.
-public const ROW: Number = 26 * PX
+public const ROW: Number = 28 * PX
 // A sorted heading's mark (ctl.markUp, ctl.markDown): a triangle 8 px wide and 6 high in the middle of a 16 px cell.
 const MARK_WIDTH = 8 * PX
 const MARK_HEIGHT = 6 * PX
