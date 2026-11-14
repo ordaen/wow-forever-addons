@@ -223,8 +223,10 @@ class CornerPlate implements Component {
            overflow={Overflow.Hidden} @click={self.press}>
         <box position={Position.Absolute} left={0} top={0} width={PLATE_ART} height={CORNER_HEIGHT}
              background={self.plate} stateFromParent={true} />
+        // Over the plate by a level: at one level the client draws either on top, and a frame the renderer's pool
+        // gives back may come under the plate.
         <box position={Position.Absolute} left={self.glyphLeft} top={GLYPH_TOP} width={GLYPH} height={GLYPH}
-             background={self.glyph} stateFromParent={true} />
+             background={self.glyph} stateFromParent={true} zLevel={1} />
       </box>
     }
   }

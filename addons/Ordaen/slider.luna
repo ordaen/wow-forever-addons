@@ -103,9 +103,9 @@ public class Slider implements Component {
             <box position={Position.Absolute} left={0} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
                  background={Ordaen.art.ctl.groove} />
             <box position={Position.Absolute} left={EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}
-                 width={self.fillWidth} background={Ordaen.art.ctl.sliderFill} />
+                 width={self.fillWidth} background={Ordaen.art.ctl.sliderFill} zLevel={1} />
             <box position={Position.Absolute} left={self.knobLeft} top={-2 * PX} width={KNOB_W} height={KNOB_H}
-                 background={Ordaen.art.ctl.sliderKnob} shadow={KNOB_SHADOW} />
+                 background={Ordaen.art.ctl.sliderKnob} shadow={KNOB_SHADOW} zLevel={2} />
           </box>
           <text value={self.shown} textColor={WHITE} />
         </box>

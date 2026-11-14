@@ -1,9 +1,9 @@
 {
-  "says": "The tooltips' glyphs, drawn before a fact of a tooltip's band (OrdaenTooltips' `Glyph`, frame.luna's GLYPH_ART): one column of 20 x 20 px cells (32 x 32 texels), each a 16 px glyph 2 px in from its cell's top left with its shadow, in the order of `Glyph`: dmg, spd, arm, blk, alliance, horde, elite, time, the cost's dot (white, tinted with the resource's colour), castNow, castTime, castChan, castNext; three rows empty.",
+  "says": "The tooltips' glyphs, drawn before a fact of a tooltip's band (OrdaenTooltips' `Glyph`, frame.luna's GLYPH_ART): one column of 20 x 20 px cells (32 x 32 texels), each a 16 px glyph 2 px in from its cell's top left with its shadow, in the order of `Glyph`: dmg, spd, arm, blk, alliance, horde, elite, time, the cost's dot (white, tinted with the resource's colour), castNow, castTime, castChan, castNext; then the dot's light and shade alone, drawn untinted over the tinted dot; two rows empty.",
   "ships": [
     "addons/OrdaenTooltips/assets/tooltip-glyphs.tga"
   ],
-  "origin": "Drawn by the design's own glyphs: wow-dev-tools `design/scripts/tooltip-glyphs.mjs <page> dmg spd arm blk alliance horde elite time res castNow castTime castChan castNext` writes a page from theme/tooltips/data.js's GLYPHS, TooltipGlyph.vue's style and TooltipColumns.vue's `.res` (the cost's dot, drawn white); the page shot at 1.6x on black and on white with `design/scripts/shot.mjs --width 400 --height 600 --scale 1.6` (`?bg=black`, `?bg=white`), then matted.",
+  "origin": "Drawn by the design's own glyphs: wow-dev-tools `design/scripts/tooltip-glyphs.mjs <page> dmg spd arm blk alliance horde elite time res castNow castTime castChan castNext resLight` writes a page from theme/tooltips/data.js's GLYPHS, TooltipGlyph.vue's style and TooltipColumns.vue's `.res` (the cost's dot, drawn white, and its light and shade alone); the page shot at 1.6x on black and on white with `design/scripts/shot.mjs --width 400 --height 600 --scale 1.6` (`?bg=black`, `?bg=white`), then matted.",
   "steps": [
     { "matte": { "black": "art/sources/tooltip-glyphs-black.png", "white": "art/sources/tooltip-glyphs-white.png", "out": "addons/OrdaenTooltips/assets/tooltip-glyphs.tga", "width": 32, "height": 512 } }
   ]
