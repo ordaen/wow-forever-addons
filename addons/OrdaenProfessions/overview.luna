@@ -1,0 +1,244 @@
+// The profession's «Overview» tab: nothing the tab and the skill bar already say. A card with the next rank and what
+// it needs (a secondary profession says so), and the profession's own spell where it has one on this tab («Fish»,
+// «Disenchant»); under it, three sections: the recipes counted (learned, not learned, makeable now, raising the
+// skill), «What to learn next» (the recipes not learned by the skill they turn yellow at; a click opens one), and
+// what the work needs (each tool or place any recipe asks for), then the tracked recipes with what each still lacks.
+import Game from "$game"
+import { Action, Align, Line, Overflow, Track } from "$ltml"
+import { Component, PushButton, PX } from "Ordaen"
+import Locale from "@/locales"
+import Style from "@/style"
+import { Thresholds } from "@/skillUps"
+import { has, Kept } from "@/view"
+
+const FRAME: Line = { width: 1 * PX, color: Style.LINE }
+const BACK: Color = Color.hex("#0000004d")
+const PAD = 12 * PX
+const CARD: Array<Track> = [{ fr: 1 }, "auto"]
+const GRID: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
+// The most recipes «What to learn next» lists.
+const NEXT_MOST = 6
+// Secondary professions: Cooking, First Aid, Fishing, by their skill lines.
+const COOKING = 185
+const FIRST_AID = 129
+const FISHING = 356
+const ENCHANTING = 333
+// The spells a profession's overview casts: Fishing's, and Enchanting's Disenchant.
+const FISH_SPELL = 7620
+const DISENCHANT_SPELL = 13262
+
+// The rank after the one whose most is `most`, the skill it is learned from and the level it needs; none after the
+// last.
+public struct NextRank {
+  name: String
+  skill: Integer
+  level: Integer
+}
+
+public function nextRankOf(most: Integer): NextRank | nil {
+  return match (most) {
+    75 => { name: Locale.RANK_150, skill: 50, level: 10 },
+    150 => { name: Locale.RANK_225, skill: 125, level: 20 },
+    225 => { name: Locale.RANK_300, skill: 200, level: 35 },
+    else => nil,
+  }
+}
+
+// The profession's own spell on its overview, by its name as the client has it; none for one that has none.
+public function overviewSpellOf(skillLine: Integer): Integer | nil {
+  return match (skillLine) {
+    FISHING => FISH_SPELL,
+    ENCHANTING => DISENCHANT_SPELL,
+    else => nil,
+  }
+}
+
+// The spell's name as the client has it, where the player knows it; empty for none.
+public function knownSpellName(spell: Integer | nil): String {
+  if (spell == nil || !Game.spells.known(spell)) { return "" }
+  return Game.spells.name(spell) ?? ""
+}
+
+function secondary(skillLine: Integer): Boolean {
+  return skillLine == COOKING || skillLine == FIRST_AID || skillLine == FISHING
+}
+
+// A line of a section: a text, and the recipe a click on it opens (0: none).
+public struct OverviewLine {
+  text: String
+  recipe: Integer
+}
+
+public class OverviewLineRow implements Component {
+  public pick: Event<Integer> = new Event()
+
+  // A line of a recipe opens it: it alone takes the mouse.
+  derived opens: Boolean = self.line.recipe != 0
+  derived color: Color = self.opens ? Style.INK : Style.DIM
+
+  line: Signal<OverviewLine>
+  constructor(line: Signal<OverviewLine>) {
+    self.line = line
+  }
+
+  onClick(self) {
+    if (self.line.recipe != 0) { self.pick.emit(self.line.recipe) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.opens} @click={self.onClick}>
+        <text value={self.line.text} textSize={Style.RECIPE_TEXT} textColor={self.color} />
+      </box>
+      <text $else value={self.line.text} textSize={Style.RECIPE_TEXT} textColor={self.color} />
+    }
+  }
+}
+
+// A section of the overview: its title in gold and its lines.
+public class OverviewSection implements Component {
+  public pick: Event<Integer> = new Event()
+
+  title: Signal<String>
+  lines: Signal<Array<OverviewLine>>
+  constructor(title: Signal<String>, lines: Signal<Array<OverviewLine>>) {
+    self.title = title
+    self.lines = lines
+  }
+
+  onPick(self, recipe: Integer) { self.pick.emit(recipe) }
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={PAD} border={FRAME} background={BACK} gap={6 * PX}>
+        <text value={self.title} textSize={Style.TEXT} textColor={Style.GOLD} />
+        <OverviewLineRow $for={line of self.lines} $key={line.text} line={line} @pick={self.onPick} />
+      </box>
+    }
+  }
+}
+
+public class OverviewPage implements Component {
+  // A recipe's line clicked: its number.
+  public pick: Event<Integer> = new Event()
+
+  derived next: NextRank | nil = nextRankOf(self.profession?.max ?? 0)
+  derived hasNext: Boolean = self.next != nil
+  derived nextText: String = self.nextTextOf()
+  derived isSecondary: Boolean = secondary(self.profession?.skillLine ?? 0)
+  derived spell: Integer | nil = overviewSpellOf(self.profession?.skillLine ?? 0)
+  derived spellName: String = knownSpellName(self.spell)
+  derived hasSpell: Boolean = self.spellName != ""
+  derived spellLabel: String = self.profession?.skillLine == FISHING ? Locale.ACTION_FISH : Locale.ACTION_DISENCHANT
+  derived spellAction: Action | nil = Action.CastSpell { spell: self.spellName }
+  derived counts: Array<OverviewLine> = self.countsOf()
+  derived toLearn: Array<OverviewLine> = self.toLearnOf()
+  derived needs: Array<OverviewLine> = self.needsOf()
+  derived tracked: Array<OverviewLine> = self.trackedOf()
+
+  profession: Signal<Game.Profession | nil>
+  thresholds: Signal<Thresholds>
+  kept: Signal<Kept>
+  constructor(
+    profession: Signal<Game.Profession | nil>,
+    // Where the profession's recipes turn yellow and grey.
+    thresholds: Signal<Thresholds>,
+    kept: Signal<Kept>,
+  ) {
+    self.profession = profession
+    self.thresholds = thresholds
+    self.kept = kept
+  }
+
+  nextTextOf(self): String {
+    const next = self.next
+    if (next == nil) { return "" }
+    return Locale.NEXT_RANK.format(next.name, next.skill, next.level)
+  }
+
+  countsOf(self): Array<OverviewLine> {
+    const recipes = Game.tradeSkill.recipes
+    const learned = recipes.count(r => r.learned)
+    return [
+      { text: Locale.COUNT_LEARNED.format(learned, recipes.length - learned), recipe: 0 },
+      { text: Locale.COUNT_MAKEABLE.format(recipes.count(r => r.craftable > 0)), recipe: 0 },
+      { text: Locale.COUNT_SKILLUP.format(recipes.count(r => r.learned && r.difficulty != Game.Difficulty.Never)), recipe: 0 },
+    ]
+  }
+
+  // The recipes not learned, by the skill they turn yellow at (the client's table has no skill they are learned at),
+  // the nearest first; one the table hasn't goes last.
+  toLearnOf(self): Array<OverviewLine> {
+    const yellow = self.thresholds.yellow
+    let list: Array<Game.Recipe> = Game.tradeSkill.recipes.filter(r => !r.learned)
+    list.sort((a, b) => {
+      const x = yellow[a.id] ?? 1000
+      const y = yellow[b.id] ?? 1000
+      if (x != y) { return x < y }
+      return a.name < b.name
+    })
+    let lines: Array<OverviewLine> = []
+    for (recipe of list) {
+      if (lines.length >= NEXT_MOST) { break }
+      lines.push({ text: recipe.name, recipe: recipe.id })
+    }
+    if (lines.length == 0) { lines.push({ text: Locale.NOTHING_TO_LEARN, recipe: 0 }) }
+    return lines
+  }
+
+  // Each tool or place a learned recipe asks for, once, in the order met.
+  needsOf(self): Array<OverviewLine> {
+    let lines: Array<OverviewLine> = []
+    for (recipe of Game.tradeSkill.recipes) {
+      if (recipe.learned) {
+        for (need of Game.tradeSkill.requirements(recipe.id)) {
+          if (!lines.any(l => l.text == need.name)) { lines.push({ text: need.name, recipe: 0 }) }
+        }
+      }
+    }
+    if (lines.length == 0) { lines.push({ text: Locale.NOTHING_NEEDED, recipe: 0 }) }
+    return lines
+  }
+
+  // The tracked recipes of this profession, each with what its bags still lack for one making.
+  trackedOf(self): Array<OverviewLine> {
+    let lines: Array<OverviewLine> = []
+    for (recipe of Game.tradeSkill.recipes) {
+      if (has(self.kept.tracked, recipe.id)) {
+        let missing = ""
+        for (reagent of Game.tradeSkill.reagents(recipe.id)) {
+          if (reagent.have < reagent.need) {
+            const part = "%s ×%d".format(reagent.name, reagent.need - reagent.have)
+            missing = missing == "" ? part : missing + ", " + part
+          }
+        }
+        const lacks = missing == "" ? Locale.TRACKED_ALL : Locale.TRACKED_MISSING.format(missing)
+        lines.push({ text: "%s — %s".format(recipe.name, lacks), recipe: recipe.id })
+      }
+    }
+    if (lines.length == 0) { lines.push({ text: Locale.TRACKED_NONE, recipe: 0 }) }
+    return lines
+  }
+
+  onPick(self, recipe: Integer) { self.pick.emit(recipe) }
+
+  public render(self): Template {
+    return $ltml {
+      <box overflow={Overflow.Scroll} gap={12 * PX}>
+        <box columns={CARD} gap={14 * PX} yAlign={Align.Center} padding={PAD} border={FRAME} background={BACK}>
+          <box gap={5 * PX}>
+            <text $if={self.hasNext} value={self.nextText} textSize={Style.TEXT} textColor={Style.INK} />
+            <text $if={self.isSecondary} value={Locale.SECONDARY} textSize={Style.SMALL} textColor={Style.DIM} />
+          </box>
+          <PushButton $if={self.hasSpell} label={self.spellLabel} width={140 * PX} action={self.spellAction} />
+        </box>
+        <box columns={GRID} gap={12 * PX}>
+          <OverviewSection title={Locale.TAB_RECIPES} lines={self.counts} />
+          <OverviewSection title={Locale.LEARN_NEXT} lines={self.toLearn} @pick={self.onPick} />
+          <OverviewSection title={Locale.WORK_NEEDS} lines={self.needs} />
+        </box>
+        <OverviewSection title={Locale.TRACKED} lines={self.tracked} @pick={self.onPick} />
+      </box>
+    }
+  }
+}

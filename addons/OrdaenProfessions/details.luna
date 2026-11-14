@@ -1,27 +1,42 @@
 // The chosen recipe, beside the lists, on the game's dark marble with its own rim: its icon in a slot and its name
 // in white, with what making it does for the skill in its difficulty's colour («Not learned» while it isn't); the
 // made item's description; what the work needs besides reagents (red while missing); the reagents, one ruled row
-// each, scrolling in what room is left; and at the bottom the make row: the count with − and +, and «Create».
+// each, scrolling in what room is left; and at the bottom, under a rule, the make row: how many (a count, the skill
+// points to gain, or all the bags allow), the count with − and + unless «All», what that comes to, and «Create».
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
-import { Component, ItemButton, PushButton, PX } from "Ordaen"
+import { Choice, CompactDropdown, Component, ItemButton, PushButton, PX } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { Flag } from "@/flag"
 import Locale from "@/locales"
 import { ReagentRow } from "@/rows"
+import { expectedMakings } from "@/skillUps"
 import Style from "@/style"
-import { Act, has, Kept } from "@/view"
+import { Act, has, Kept, MakeMode } from "@/view"
 
 const RIM: Line = { width: 1 * PX, color: Style.LINE }
 const SWITCHES: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
 const SWITCHES_PAD: Edges = { top: 8 * PX }
 const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
-// The head, the description, the needs, the reagents in the rest, the switches, the make row.
-const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto"]
+// The head, the description, the needs, the reagents in the rest, the switches, the make row, its note.
+const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto", "auto"]
+const NOTE: Color = Color.hex("#c8b48a")
 const SLOT = 52 * PX
 const HEAD: Array<Track> = [SLOT, { fr: 1 }]
-const MAKE: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto"]
-const STEP = 30 * PX
+// The mode, the count with its − and +, what it comes to, «Create».
+const MAKE: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
+const MAKE_PAD: Edges = { top: 8 * PX }
+const COUNT: Array<Track> = ["auto", 22 * PX, "auto"]
+// The room the hint has: what the row leaves at the panel's width; a longer one wraps in it (a text in a grid's share
+// is as wide as its one line).
+const HINT = 46 * PX
+const STEP = 28 * PX
+const MODE_WIDTH = 170 * PX
+const MODES: Array<Choice<MakeMode>> = [
+  { value: MakeMode.Count, label: Locale.MAKE_COUNT },
+  { value: MakeMode.Skill, label: Locale.MAKE_SKILL },
+  { value: MakeMode.All, label: Locale.MAKE_ALL },
+]
 const NOTHING: Game.Recipe = {
   id: 0, name: "", icon: "Interface/Icons/INV_Misc_QuestionMark", categoryID: 0, learned: false, difficulty: Game.Difficulty.Never, craftable: 0,
 }
@@ -41,26 +56,75 @@ public class RecipeDetails implements Component {
   derived description: String = Game.tradeSkill.description(self.shown.id)
   derived needs: String = self.needsOf()
   derived reagents: Array<Game.Reagent> = Game.tradeSkill.reagents(self.shown.id)
-  derived cannot: Boolean = self.shown.craftable < 1
   // The item it makes, which the icon is the slot of; none for what makes no item (an enchant).
   derived made: Integer | nil = self.madeOf()
   derived hasItem: Boolean = self.made != nil
   derived favorite: Boolean = has(self.kept.favorites, self.shown.id)
   derived tracked: Boolean = has(self.kept.tracked, self.shown.id)
   derived cannotTrack: Boolean = !self.shown.learned
+  derived counted: Boolean = self.mode != MakeMode.All
+  // How many making the recipe raises the skill by the count takes; none once it would turn grey first.
+  derived expected: Integer | nil = self.expectedOf()
+  // How many «Create» makes.
+  derived making: Integer = self.makingOf()
+  derived hint: String = self.hintOf()
+  derived cannot: Boolean = self.making < 1
+  derived noted: Boolean = self.note != ""
 
   recipe: Signal<Game.Recipe | nil>
   count: mut Signal<Integer>
+  mode: mut Signal<MakeMode>
+  profession: Signal<Game.Profession | nil>
+  yellow: Signal<Integer | nil>
+  grey: Signal<Integer | nil>
   kept: Signal<Kept>
+  note: Signal<String>
   constructor(
     recipe: Signal<Game.Recipe | nil>,
-    // How many to make.
+    // How many to make, or skill points to gain.
     count: mut Signal<Integer>,
+    mode: mut Signal<MakeMode>,
+    // The profession open: its skill, and the most its rank allows.
+    profession: Signal<Game.Profession | nil>,
+    // The skill at which the recipe turns yellow and grey; none where the client's table hasn't it.
+    yellow: Signal<Integer | nil>,
+    grey: Signal<Integer | nil>,
     kept: Signal<Kept>,
+    // What became of the last «Create» that waits in the queue; empty for none.
+    note: Signal<String>,
   ) {
     self.recipe = recipe
     self.count = count
+    self.mode = mode
+    self.profession = profession
+    self.yellow = yellow
+    self.grey = grey
     self.kept = kept
+    self.note = note
+  }
+
+  expectedOf(self): Integer | nil {
+    const profession = self.profession
+    const yellow = self.yellow
+    const grey = self.grey
+    if (profession == nil || yellow == nil || grey == nil) { return nil }
+    return expectedMakings(profession.rank, profession.max, yellow, grey, self.count)
+  }
+
+  makingOf(self): Integer {
+    return match (self.mode) {
+      MakeMode.Count => self.count,
+      MakeMode.Skill => self.expected ?? 0,
+      MakeMode.All => self.shown.craftable,
+    }
+  }
+
+  hintOf(self): String {
+    return match (self.mode) {
+      MakeMode.Count => "",
+      MakeMode.Skill => self.expected == nil ? Locale.MAKE_NO_SKILL : Locale.MAKE_ABOUT.format(self.making),
+      MakeMode.All => Locale.MAKE_PIECES.format(self.making),
+    }
   }
 
   madeOf(self): Integer | nil {
@@ -98,13 +162,13 @@ public class RecipeDetails implements Component {
   more(mut self) { self.count += 1 }
 
   onCreate(mut self) {
-    if (self.shown.craftable > 0) { self.create.emit(self.count.min(self.shown.craftable)) }
+    if (!self.cannot) { self.create.emit(self.making) }
   }
 
   public render(self): Template {
     return $ltml {
-      <box rows={PANEL} gap={8 * PX} padding={12 * PX} border={RIM} background={Ordaen.art.window.marble}
-           overflow={Overflow.Hidden}>
+      // Not clipped: the make row's list opens under it, past the panel's foot.
+      <box rows={PANEL} gap={8 * PX} padding={12 * PX} border={RIM} background={Ordaen.art.window.marble}>
         <$if={self.has}>
           <box columns={HEAD} gap={10 * PX} yAlign={Align.Center}>
             <ItemButton $if={self.hasItem} item={self.made} size={SLOT} dimmed={!self.shown.learned} />
@@ -124,14 +188,25 @@ public class RecipeDetails implements Component {
             <Flag label={Locale.FAVORITE} on={self.favorite} @flipped={self.onFavorite} />
             <Flag $if={self.shown.learned} label={Locale.TRACK} on={self.tracked} @flipped={self.onTrack} />
           </box>
-          <box columns={MAKE} gap={8 * PX} yAlign={Align.Center}>
-            <PushButton label={"-"} width={STEP} @click={self.less} />
-            <text value={"%d"} arguments={[self.count]} textSize={Style.TEXT} textColor={Style.WHITE}
-                  textFamily={Ordaen.lookArt?.fontNumbers} wrap={false} />
-            <PushButton label={"+"} width={STEP} @click={self.more} />
-            <box height={1} />
-            <PushButton label={Locale.CREATE} width={140 * PX} disabled={self.cannot} @click={self.onCreate} />
+          <box $if={self.shown.learned} columns={MAKE} gap={8 * PX} yAlign={Align.Center} padding={MAKE_PAD}
+               border={SWITCHES}>
+            <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} />
+            <box $if={self.counted} columns={COUNT} gap={6 * PX} yAlign={Align.Center}>
+              <PushButton label={"-"} width={STEP} @click={self.less} />
+              <box xAlign={Align.Center}>
+                <text value={"%d"} arguments={[self.count]} textSize={Style.TEXT} textColor={Style.WHITE}
+                      textFamily={Ordaen.lookArt?.fontNumbers} wrap={false} />
+              </box>
+              <PushButton label={"+"} width={STEP} @click={self.more} />
+            </box>
+            <box $else />
+            // The hint, wrapping in its room.
+            <box width={HINT}>
+              <text value={self.hint} textSize={Style.SMALL} textColor={Style.DIM} />
+            </box>
+            <PushButton label={Locale.CREATE} width={110 * PX} disabled={self.cannot} @click={self.onCreate} />
           </box>
+          <text $if={self.noted} value={self.note} textSize={Style.SMALL} textColor={NOTE} />
         </>
       </box>
     }

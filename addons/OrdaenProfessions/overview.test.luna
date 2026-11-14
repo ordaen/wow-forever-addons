@@ -1,0 +1,105 @@
+// A profession's «Overview» tab and its own spells: Mining's «Find Minerals» at the right end of the tabs' line, the
+// next rank, the recipes counted, what to learn next (a click opens it), what the work needs, the tracked recipes;
+// Fishing's «Fish» on its overview. The recipes are the client's own, by their numbers, so its table of where each
+// turns yellow orders what to learn next.
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import root Professions from "OrdaenProfessions"
+
+const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
+const MINING = 186
+const FISHING = 356
+// Smelting: copper (learned), tin and bronze (learned), silver and gold (not), by their spells.
+const COPPER = 2657
+const TIN = 3304
+const BRONZE = 2659
+const SILVER = 2658
+const GOLD = 3308
+
+function recipe(id: Integer, name: String, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean): Game.Recipe {
+  return {
+    id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 21, learned: learned,
+    difficulty: difficulty, craftable: craftable,
+  }
+}
+
+function professions(): Array<Game.Profession> {
+  return [
+    { skillLine: MINING, name: "Mining", icon: "Interface/Icons/Trade_Mining", rank: 70, max: 75, kind: Game.ProfessionKind.Gathering },
+    { skillLine: FISHING, name: "Fishing", icon: "Interface/Icons/Trade_Fishing", rank: 120, max: 150, kind: Game.ProfessionKind.Gathering },
+  ]
+}
+
+function categories(): Array<Game.Category> {
+  return [
+    { id: 2, name: "Mining" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Smelting", parentID: 2 },
+  ]
+}
+
+function recipes(): Array<Game.Recipe> {
+  return [
+    recipe(COPPER, "Smelt Copper", Game.Difficulty.Rarely, 4, true),
+    recipe(TIN, "Smelt Tin", Game.Difficulty.Always, 0, true),
+    recipe(BRONZE, "Smelt Bronze", Game.Difficulty.Always, 0, true),
+    recipe(GOLD, "Smelt Gold", Game.Difficulty.Always, 0, false),
+    recipe(SILVER, "Smelt Silver", Game.Difficulty.Always, 0, false),
+  ]
+}
+
+function requirements(id: Integer): Array<Game.Requirement> {
+  return [{ name: "Forge", met: false }]
+}
+
+function reagents(id: Integer): Array<Game.Reagent> {
+  if (id == BRONZE) {
+    return [
+      { itemID: 2840, name: "Copper Bar", icon: "Interface/Icons/INV_Ingot_02", have: 3, need: 1 },
+      { itemID: 3576, name: "Tin Bar", icon: "Interface/Icons/INV_Ingot_01", have: 0, need: 1 },
+    ]
+  }
+  return []
+}
+
+function spellName(id: Integer): String | nil {
+  return id == 2580 ? "Find Minerals" : id == 7620 ? "Fishing" : nil
+}
+
+function click(at: Test.Point) {
+  Test.click(at, nil)
+  Test.flush()
+}
+
+test "the overview: the next rank, the recipes counted, what to learn next, the needs, the tracked; the profession's spells" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.requirements = requirements
+  Game.tradeSkill.reagents = reagents
+  Game.spells.name = spellName
+  Game.spells.known = (id: Integer): Boolean => true
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = MINING
+  Test.flush()
+  Professions.starTracked(BRONZE)
+  Test.flush()
+
+  click(Test.holding("Overview", nil))
+  Test.shot("Mining's overview: «Find Minerals» on the tabs' line, Journeyman next, silver before gold to learn")
+
+  // A click on the minerals' button is the client's: its secure button casts the spell.
+  Test.click(Test.holding("Find Minerals", nil), nil)
+  Test.flush()
+
+  click(Test.holding("Smelt Silver", nil))
+  Test.note(`opened: page ${Professions.page}, recipe ${Professions.chosenRecipe}`)
+  Test.expect(Professions.page == 1 && Professions.chosenRecipe == SILVER)
+
+  Game.tradeSkill.categories = [{ id: 3, name: "Fishing" }, { id: 30, name: "Resting at camp", parentID: 3 }]
+  Game.tradeSkill.recipes = []
+  Game.tradeSkill.open = FISHING
+  Test.flush()
+  click(Test.holding("Overview", nil))
+  Test.shot("Fishing's overview: a secondary profession, Expert next, «Fish» casting from its secure button")
+}

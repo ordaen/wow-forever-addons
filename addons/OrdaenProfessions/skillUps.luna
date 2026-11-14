@@ -1,0 +1,41 @@
+// How making a recipe raises the skill: where it turns yellow and grey (the client's table, read for the profession
+// open alone), and how many makings, on average, raise the skill by a number of points, by classic's chance: always
+// while the recipe is orange, (grey − skill) / (grey − yellow) while it is yellow or green, never once it is grey.
+import Levels from "@/levels"
+
+// The open profession's recipes by number: the skill each turns yellow at, and grey at.
+public struct Thresholds {
+  yellow: Map<Integer, Integer>
+  grey: Map<Integer, Integer>
+}
+
+// The profession's thresholds; none for one the table hasn't (a skill line of no recipes).
+public function thresholdsOf(skillLine: Integer | nil): Thresholds {
+  const yellow: Map<Integer, Integer> = {}
+  const grey: Map<Integer, Integer> = {}
+  const text = skillLine == nil ? nil : Levels.lines[skillLine]
+  if (text == nil) { return { yellow: yellow, grey: grey } }
+  for (entry of text.split(";")) {
+    const spell, low, high = entry.match("^(%d+),(%d+),(%d+)$")
+    const id = spell?.toNumber()
+    const from = low?.toNumber()
+    const to = high?.toNumber()
+    if (id != nil && from != nil && to != nil) {
+      yellow[id.floor()] = from.floor()
+      grey[id.floor()] = to.floor()
+    }
+  }
+  return { yellow: yellow, grey: grey }
+}
+
+// How many makings it takes, on average, to raise the skill by `points` from `skill`: none where the skill would
+// reach the recipe's grey, or the most the rank allows, first.
+public function expectedMakings(skill: Integer, most: Integer, yellow: Integer, grey: Integer, points: Integer): Integer | nil {
+  let total: Number = 0
+  for (step of 0..=points - 1) {
+    const at = skill + step
+    if (at >= grey || at >= most) { return nil }
+    total += at < yellow ? 1 : (grey - yellow) / (grey - at)
+  }
+  return total.ceil()
+}
