@@ -94,7 +94,7 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
         text 450.03,140.95 54.44x15.6 "Controls" #ffd100 centred
     box 544.5,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 563.08,131.62 77.33x34.25
-        text 587.31,140.95 28.89x15.6 "More" #b3a690 centred
+        text 587.31,140.95 28.89x15.6 "More" #a3977f centred
 surface 701.08,334.91 216.67x59.53 on FULLSCREEN_DIALOG #0a0806f7
   box 701.92,340.74 215x23.93 #d6a56b2e @click focus ring
     box 710.25,348.24 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
