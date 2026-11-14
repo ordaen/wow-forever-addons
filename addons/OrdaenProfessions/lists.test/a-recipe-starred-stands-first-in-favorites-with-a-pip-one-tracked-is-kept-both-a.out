@@ -39,46 +39,47 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 381.08,272.21 842.83x473.42
         box 381.08,272.21 441.67x473.42
           box 381.08,272.21 441.67x28.33
-            box 381.08,272.21 441.67x28.33 #00000080 input "" @change
-            box 381.08,272.21 441.67x28.33 absolute
-              text 389.42,278.88 425x15 "Search by name or reagent" #a3977f
-          box 381.08,307.21 441.67x28.33
-            box 381.08,307.21 83.33x28.33
-              box 381.08,307.21 83.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                box 381.08,307.21 83.33x28.33 absolute
-                  text 404,313.88 37.5x15 "Filter" #ffd100
-            box 469.42,307.21 141.67x28.33
-              box 469.42,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 479.42,313.88 106.67x15 "By difficulty" #f0c860
-                box 591.08,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-            box 616.08,307.21 141.67x28.33
-              box 616.08,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 626.08,313.88 106.67x15 "In columns" #f0c860
-                box 737.75,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 381.08,342.21 441.67x403.42 #0000004d
-            box 381.92,343.04 208.33x401.75 scrolled 0 of 0
-              box 381.92,343.04 208.33x26.67 #d6a56b3d @click
-                box 381.92,343.04 1.67x26.67 absolute #f0c860
-                text 390.25,348.88 157.5x15 "Favorites" #ffffff
-                box 554.42,348.88 27.5x15
-                  text 554.42,348.88 6.25x15 "1" #a3977f
-                  text 563.17,348.88 18.75x15 "(1)" #ffffff
-              box 381.92,369.71 208.33x26.67 #00000000 @click
-                text 390.25,375.54 157.5x15 "Cloth armour" #ffd100
-                box 554.42,375.54 27.5x15
-                  text 554.42,375.54 6.25x15 "3" #a3977f
-                  text 563.17,375.54 18.75x15 "(1)" #ffffff
-              box 381.92,396.38 208.33x27.5 #00000000 @click
-                text 390.25,403.04 157.5x15 "Bags" #ffd100
-                box 554.42,403.04 27.5x15
-                  text 554.42,403.04 6.25x15 "2" #a3977f
-                  text 563.17,403.04 18.75x15 "(1)" #ffffff
-            box 590.25,343.04 231.67x401.75 scrolled 0 of 0
-              box 591.08,343.04 230.83x25 #d6a56b3d clipped @click
-                box 591.08,343.04 1.67x25 absolute #f0c860
-                text 599.42,348.04 188.75x15 "Linen Cloak" #ff8040
-                text 794.83,348.04 18.75x15 "[1]" #ffffff
-                box 776.92,349.71 6.67x6.67 absolute #ffd100
+            box 381.08,272.21 341.67x28.33
+              box 381.08,272.21 341.67x28.33 #00000080 input "" @change
+              box 381.08,272.21 341.67x28.33 absolute
+                text 389.42,278.88 325x15 "Search by name or reagent" #a3977f
+            box 722.75,272.21 100x28.33
+              box 722.75,272.21 33.33x28.33
+                box 727.75,272.21 28.33x28.33
+                  box 727.75,272.21 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 735.25,279.71 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+              box 756.08,272.21 33.33x28.33
+                box 761.08,272.21 28.33x28.33
+                  box 761.08,272.21 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 768.58,279.71 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+              box 789.42,272.21 33.33x28.33
+                box 794.42,272.21 28.33x28.33
+                  box 794.42,272.21 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 801.92,279.71 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 8
+          box 381.08,307.21 441.67x438.42 #0000004d
+            box 381.92,308.04 208.33x436.75 scrolled 0 of 0
+              box 381.92,308.04 208.33x26.67 #d6a56b3d @click
+                box 381.92,308.04 1.67x26.67 absolute #f0c860
+                text 390.25,313.88 157.5x15 "Favorites" #ffffff
+                box 554.42,313.88 27.5x15
+                  text 554.42,313.88 6.25x15 "1" #a3977f
+                  text 563.17,313.88 18.75x15 "(1)" #ffffff
+              box 381.92,334.71 208.33x26.67 #00000000 @click
+                text 390.25,340.54 157.5x15 "Cloth armour" #ffd100
+                box 554.42,340.54 27.5x15
+                  text 554.42,340.54 6.25x15 "3" #a3977f
+                  text 563.17,340.54 18.75x15 "(1)" #ffffff
+              box 381.92,361.38 208.33x27.5 #00000000 @click
+                text 390.25,368.04 157.5x15 "Bags" #ffd100
+                box 554.42,368.04 27.5x15
+                  text 554.42,368.04 6.25x15 "2" #a3977f
+                  text 563.17,368.04 18.75x15 "(1)" #ffffff
+            box 590.25,308.04 231.67x436.75 scrolled 0 of 0
+              box 591.08,308.04 230.83x25 #d6a56b3d clipped @click
+                box 591.08,308.04 1.67x25 absolute #f0c860
+                text 599.42,313.04 188.75x15 "Linen Cloak" #ff8040
+                text 794.83,313.04 18.75x15 "[1]" #ffffff
+                box 776.92,314.71 6.67x6.67 absolute #ffd100
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble
           box 843.58,283.04 369.5x43.33
             box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01

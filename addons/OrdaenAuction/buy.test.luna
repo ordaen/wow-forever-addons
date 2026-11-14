@@ -5,6 +5,7 @@ import Game from "$game"
 import Test from "$test"
 import { ItemId } from "Ordaen"
 import root Auction from "OrdaenAuction"
+import root Ordaen from "Ordaen"
 
 // 2026-09-21, in the server's seconds: a whole hour.
 const START = 1790002800
@@ -42,10 +43,16 @@ test "«Buy»: the last browse's items with their market and share, sorted, sear
   Test.pass(0.02)
   Test.shot("filtered: linen alone; the house searched for «lin» once it took a query")
   Game.auctionQuery.ready = false
-  Test.click(Test.holding("Any quality", nil), nil)
+  Test.click(Test.painted(Ordaen.art.ctl.tool.filter, nil), nil)
+  Test.shot("the filter's menu under the funnel: the classes, the level bands, the qualities, each under a rule")
   Test.click(Test.holding("Uncommon", nil), nil)
   Game.auctionQuery.ready = true
   Test.pass(0.02)
+  // A click anywhere else closes the menu; the funnel's Tip says what it lets through.
+  Test.click({ x: 5, y: 5 }, nil)
+  Test.moveTo(Test.painted(Ordaen.art.ctl.tool.filter, nil))
+  Test.flush()
+  Test.expect(Test.surfaces().any(shown => shown.texts.join("|") == "Filter|All classes, Any level, Uncommon"))
   Game.auctionQuery.ready = false
   Game.auctionHouse.open = false
   Test.pass(0.02)

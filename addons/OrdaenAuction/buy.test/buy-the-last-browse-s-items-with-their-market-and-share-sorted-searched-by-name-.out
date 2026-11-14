@@ -13,22 +13,15 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
         box 464.42,300.54 676.17x317.5
           box 464.42,300.54 474.5x317.5
             box 464.42,300.54 474.5x28.33
-              box 464.42,302.21 112.83x25
-                box 464.42,302.21 112.83x25 #00000080 input "" @change
-                box 464.42,302.21 112.83x25 absolute
-                  text 472.75,307.21 96.17x15 "Item name" #a3977f
-              box 583.92,300.54 125x28.33
-                box 583.92,300.54 125x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  text 593.92,307.21 90x15 "All classes" #f0c860
-                  box 688.92,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-              box 715.58,300.54 108.33x28.33
-                box 715.58,300.54 108.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  text 725.58,307.21 73.33x15 "Any level" #f0c860
-                  box 803.92,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-              box 830.58,300.54 108.33x28.33
-                box 830.58,300.54 108.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  text 840.58,307.21 73.33x15 "Any quality" #f0c860
-                  box 918.92,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+              box 464.42,300.54 441.17x28.33
+                box 464.42,300.54 441.17x28.33 #00000080 input "" @change
+                box 464.42,300.54 441.17x28.33 absolute
+                  text 472.75,307.21 424.5x15 "Item name" #a3977f
+              box 905.58,300.54 33.33x28.33
+                box 905.58,300.54 33.33x28.33
+                  box 910.58,300.54 28.33x28.33
+                    box 910.58,300.54 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                      box 918.08,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
             box 464.42,335.54 474.5x275.83
               box 464.42,335.54 474.5x25.83 #00000040
                 box 471.08,335.54 49.5x25 #00000000 @click
@@ -161,22 +154,15 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
         box 464.42,300.54 676.17x317.5
           box 464.42,300.54 474.5x317.5
             box 464.42,300.54 474.5x28.33
-              box 464.42,302.21 112.83x25
-                box 464.42,302.21 112.83x25 #00000080 input "" @change
-                box 464.42,302.21 112.83x25 absolute
-                  text 472.75,307.21 96.17x15 "Item name" #a3977f
-              box 583.92,300.54 125x28.33
-                box 583.92,300.54 125x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  text 593.92,307.21 90x15 "All classes" #f0c860
-                  box 688.92,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-              box 715.58,300.54 108.33x28.33
-                box 715.58,300.54 108.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  text 725.58,307.21 73.33x15 "Any level" #f0c860
-                  box 803.92,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-              box 830.58,300.54 108.33x28.33
-                box 830.58,300.54 108.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  text 840.58,307.21 73.33x15 "Any quality" #f0c860
-                  box 918.92,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+              box 464.42,300.54 441.17x28.33
+                box 464.42,300.54 441.17x28.33 #00000080 input "" @change
+                box 464.42,300.54 441.17x28.33 absolute
+                  text 472.75,307.21 424.5x15 "Item name" #a3977f
+              box 905.58,300.54 33.33x28.33
+                box 905.58,300.54 33.33x28.33
+                  box 910.58,300.54 28.33x28.33
+                    box 910.58,300.54 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                      box 918.08,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
             box 464.42,335.54 474.5x275.83
               box 464.42,335.54 474.5x25.83 #00000040
                 box 471.08,335.54 49.5x25 #00000000 @click
@@ -320,20 +306,13 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
         box 464.42,300.54 676.17x317.5
           box 464.42,300.54 474.5x317.5
             box 464.42,300.54 474.5x28.33
-              box 464.42,302.21 112.83x25
-                box 464.42,302.21 112.83x25 #00000080 input "lin" typing @change
-              box 583.92,300.54 125x28.33
-                box 583.92,300.54 125x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  text 593.92,307.21 90x15 "All classes" #f0c860
-                  box 688.92,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-              box 715.58,300.54 108.33x28.33
-                box 715.58,300.54 108.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  text 725.58,307.21 73.33x15 "Any level" #f0c860
-                  box 803.92,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-              box 830.58,300.54 108.33x28.33
-                box 830.58,300.54 108.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  text 840.58,307.21 73.33x15 "Any quality" #f0c860
-                  box 918.92,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+              box 464.42,300.54 441.17x28.33
+                box 464.42,300.54 441.17x28.33 #00000080 input "lin" typing @change
+              box 905.58,300.54 33.33x28.33
+                box 905.58,300.54 33.33x28.33
+                  box 910.58,300.54 28.33x28.33
+                    box 910.58,300.54 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                      box 918.08,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
             box 464.42,335.54 474.5x275.83
               box 464.42,335.54 474.5x25.83 #00000040
                 box 471.08,335.54 49.5x25 #00000000 @click
@@ -443,6 +422,191 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
       box 962.17,208.29 77.33x34.25
         text 988.33,217.92 25x15 "Data" #b3a690
 asked: AuctionQuery.search lin -1 -1 -1 0
+
+-- the filter's menu under the funnel: the classes, the level bands, the qualities, each under a rule
+surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
+  box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 464.42,259.71 676.17x421.75
+      box 464.42,259.71 676.17x34.17
+        box 464.42,266.38 557.83x15
+          text 464.42,266.38 50x15 "Stand-in" #ffd100
+          text 524.42,266.38 497.83x15 "2 items" #e8dcc4
+        box 1032.25,259.71 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 1032.25,259.71 108.33x28.33 absolute
+            text 1073.92,266.38 25x15 "Scan" #ffd100
+      box 464.42,300.54 676.17x380.92
+        box 464.42,300.54 676.17x317.5
+          box 464.42,300.54 474.5x317.5
+            box 464.42,300.54 474.5x28.33
+              box 464.42,300.54 441.17x28.33
+                box 464.42,300.54 441.17x28.33 #00000080 input "lin" @change
+              box 905.58,300.54 33.33x28.33
+                box 905.58,300.54 33.33x28.33
+                  box 910.58,300.54 28.33x28.33
+                    box 910.58,300.54 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                      box 918.08,308.04 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+            box 464.42,335.54 474.5x275.83
+              box 464.42,335.54 474.5x25.83 #00000040
+                box 471.08,335.54 49.5x25 #00000000 @click
+                  box 471.08,358.87 49.5x1.67 absolute #00000000
+                  box 471.08,340.54 49.5x15
+                    text 471.08,340.54 25x15 "Item" #cbb994
+                    box 499.42,340.54 5.42x13
+                      box 499.42,340.54 5.42x13 opacity=0
+                        text 499.42,340.54 5.42x13 "▲" #f0c860
+                      box 499.42,340.54 5.42x13 absolute opacity=0
+                        text 499.42,340.54 5.42x13 "▼" #f0c860
+                box 527.25,335.54 36.67x10 #00000000 @click
+                  box 527.25,343.87 36.67x1.67 absolute #00000000
+                  box 527.25,340.54 36.67x0
+                    text 527.25,340.54 0x0 "" #a3977f
+                box 570.58,335.54 75x25 #00000000 @click
+                  box 570.58,358.87 75x1.67 absolute #00000000
+                  box 599.33,340.54 46.25x15
+                    text 599.33,340.54 37.5x15 "Listed" #cbb994
+                    box 640.17,340.54 5.42x13
+                      box 640.17,340.54 5.42x13 opacity=0
+                        text 640.17,340.54 5.42x13 "▲" #f0c860
+                      box 640.17,340.54 5.42x13 absolute opacity=0
+                        text 640.17,340.54 5.42x13 "▼" #f0c860
+                box 652.25,335.54 80x25 #00000000 @click
+                  box 652.25,358.87 80x1.67 absolute #d6a56b
+                  box 686,340.54 46.25x15
+                    text 686,340.54 37.5x15 "Lowest" #f0c860
+                    box 726.83,340.54 5.42x13
+                      box 726.83,340.54 5.42x13 opacity=1
+                        text 726.83,340.54 5.42x13 "▲" #f0c860
+                      box 726.83,340.54 5.42x13 absolute opacity=0
+                        text 726.83,340.54 5.42x13 "▼" #f0c860
+                box 738.92,335.54 75x25 #00000000 @click
+                  box 738.92,358.87 75x1.67 absolute #00000000
+                  box 767.67,340.54 46.25x15
+                    text 767.67,340.54 37.5x15 "Market" #cbb994
+                    box 808.5,340.54 5.42x13
+                      box 808.5,340.54 5.42x13 opacity=0
+                        text 808.5,340.54 5.42x13 "▲" #f0c860
+                      box 808.5,340.54 5.42x13 absolute opacity=0
+                        text 808.5,340.54 5.42x13 "▼" #f0c860
+                box 820.58,335.54 46.67x25 #00000000 @click
+                  box 820.58,358.87 46.67x1.67 absolute #00000000
+                  box 852.25,340.54 15x15
+                    text 852.25,340.54 6.25x15 "%" #cbb994
+                    box 861.83,340.54 5.42x13
+                      box 861.83,340.54 5.42x13 opacity=0
+                        text 861.83,340.54 5.42x13 "▲" #f0c860
+                      box 861.83,340.54 5.42x13 absolute opacity=0
+                        text 861.83,340.54 5.42x13 "▼" #f0c860
+                box 873.92,335.54 58.33x25 #00000000 @click
+                  box 873.92,358.87 58.33x1.67 absolute #00000000
+                  box 904.75,340.54 27.5x15
+                    text 904.75,340.54 18.75x15 "Age" #cbb994
+                    box 926.83,340.54 5.42x13
+                      box 926.83,340.54 5.42x13 opacity=0
+                        text 926.83,340.54 5.42x13 "▲" #f0c860
+                      box 926.83,340.54 5.42x13 absolute opacity=0
+                        text 926.83,340.54 5.42x13 "▼" #f0c860
+              box 464.42,361.37 474.5x250 scrolled 0 of 0
+                box 464.42,361.37 474.5x26.67 #00000000 @click
+                  box 471.08,364.71 49.5x20
+                    box 471.08,364.71 20x20 #0d0a08 opacity=1 @click @enter
+                      box 471.08,364.71 20x20 absolute
+                      box 471.08,364.71 20x20 absolute #00000000
+                    box 497.75,367.21 22.83x15 clipped
+                      text 497.75,367.21 68.75x15 "Linen Cloth" #e8dcc4
+                  box 527.25,374.71 36.67x0
+                  box 570.58,367.21 75x15
+                    text 633.08,367.21 12.5x15 "30" #e8dcc4
+                  box 652.25,367.21 80x15
+                    text 676,367.21 56.25x15 "0g 0s 36c" #e8dcc4
+                  box 738.92,367.21 75x15
+                    text 757.67,367.21 56.25x15 "0g 0s 43c" #e8dcc4
+                  box 820.58,367.21 46.67x15
+                    text 848.5,367.21 18.75x15 "84%" #40c040
+                  box 873.92,367.21 58.33x15
+                    text 894.75,367.21 37.5x15 "(1 d.)" #ffb02e
+          box 948.92,300.54 191.67x33.33 #0000004d
+            text 958.08,309.71 173.33x15 "Pick an item on the left." #a3977f
+    box 1074.42,247.12 77.5x26.67 absolute clipped
+      box 1074.42,247.12 29.17x26.67 absolute clipped @click
+        box 1074.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1084.42,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1103.58,247.12 25x26.67 absolute clipped @click
+        box 1103.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1109.83,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1128.58,247.12 23.33x26.67 absolute clipped @click
+        box 1128.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1134.83,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1141.08,681.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 441.67,198.04 616.42x47.75
+    box 441.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 460.25,208.29 77.33x34.25
+        text 489.54,217.92 18.75x15 "Buy" #ffd100
+    box 566.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 584.75,208.29 77.33x34.25
+        text 610.92,217.92 25x15 "Sell" #b3a690
+    box 690.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 709.25,208.29 77.33x34.25
+        text 713.54,217.92 68.75x15 "My auctions" #b3a690
+    box 815.17,198.04 118.42x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 833.75,208.29 81.25x34.25
+        text 833.75,217.92 81.25x15 "Shopping list" #b3a690
+    box 943.58,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 962.17,208.29 77.33x34.25
+        text 988.33,217.92 25x15 "Data" #b3a690
+surface 910.58,328.87 175x420 on FULLSCREEN_DIALOG #0a0806f7
+  box 911.42,334.71 173.33x23.33 #00000000 @click
+    box 919.75,342.21 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 936.42,338.87 136.67x15 "All classes" #ffffff
+  box 911.42,358.04 173.33x23.33 #00000000 @click
+    box 919.75,365.54 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 936.42,362.21 136.67x15 "Trade Goods" #ffffff
+  box 911.42,381.37 173.33x23.33 #00000000 @click
+    box 919.75,388.87 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 936.42,385.54 136.67x15 "Weapon" #ffffff
+  box 911.42,404.71 173.33x23.33 #00000000 @click
+    box 919.75,412.21 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 936.42,408.87 136.67x15 "Armor" #ffffff
+  box 911.42,428.04 173.33x23.33 #00000000 @click
+    box 919.75,435.54 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 936.42,432.21 136.67x15 "Consumable" #ffffff
+  box 911.42,451.38 173.33x169.17
+    box 911.42,457.21 173.33x23.33 #00000000 @click
+      box 919.75,464.71 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+      text 936.42,461.38 136.67x15 "Any level" #ffffff
+    box 911.42,480.54 173.33x23.33 #00000000 @click
+      box 919.75,488.04 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 936.42,484.71 136.67x15 "1–10" #ffffff
+    box 911.42,503.88 173.33x23.33 #00000000 @click
+      box 919.75,511.38 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 936.42,508.04 136.67x15 "11–20" #ffffff
+    box 911.42,527.21 173.33x23.33 #00000000 @click
+      box 919.75,534.71 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 936.42,531.38 136.67x15 "21–30" #ffffff
+    box 911.42,550.54 173.33x23.33 #00000000 @click
+      box 919.75,558.04 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 936.42,554.71 136.67x15 "31–40" #ffffff
+    box 911.42,573.88 173.33x23.33 #00000000 @click
+      box 919.75,581.38 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 936.42,578.04 136.67x15 "41–50" #ffffff
+    box 911.42,597.21 173.33x23.33 #00000000 @click
+      box 919.75,604.71 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 936.42,601.38 136.67x15 "51–60" #ffffff
+  box 911.42,620.54 173.33x122.5
+    box 911.42,626.38 173.33x23.33 #00000000 @click
+      box 919.75,633.88 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+      text 936.42,630.54 136.67x15 "Any quality" #ffffff
+    box 911.42,649.71 173.33x23.33 #00000000 @click
+      box 919.75,657.21 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 936.42,653.88 136.67x15 "Common" #ffffff
+    box 911.42,673.04 173.33x23.33 #00000000 @click
+      box 919.75,680.54 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 936.42,677.21 136.67x15 "Uncommon" #ffffff
+    box 911.42,696.38 173.33x23.33 #00000000 @click
+      box 919.75,703.88 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 936.42,700.54 136.67x15 "Rare" #ffffff
+    box 911.42,719.71 173.33x23.33 #00000000 @click
+      box 919.75,727.21 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+      text 936.42,723.88 136.67x15 "Epic" #ffffff
 
 -- the quality picked: searched again with it; the house shut
 asked: AuctionQuery.search lin -1 -1 -1 1

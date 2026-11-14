@@ -1,11 +1,13 @@
-// «Buy» (design `auction`): a search by name and three filters (class, level, quality) sent to the house, and what the
+// «Buy» (design `auction`): a search by name and, on its row, the filter's funnel holding three filters (class, level,
+// quality), sent to the house, and what the
 // house showed last (ours, the shopping list's «Search all», or the game's), each item with its markers, how many are
 // listed, its lowest price for one, its market, the lowest as a share of the market (green under 90%, red over 100%)
 // and the price's age. A row picked: at the right its listings, a quantity, the total, «Buy» (the client's from a
 // click alone) and «Add to shopping list».
 import Game from "$game"
-import { Align, Edges, Track } from "$ltml"
-import { Age, Choice, Column, CompactDropdown, Component, Copper, CountInput, CountLook, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
+import { Align, Beside, Edges, Layer, Line, Side, Track } from "$ltml"
+import { Age, Choice, Column, Component, Copper, CountInput, CountLook, DropdownItem, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, ToolButton, Toolbar, tracksOf } from "Ordaen"
+import root Ordaen from "Ordaen"
 import { House } from "@/house"
 import Locale from "@/locales"
 import { Purchase } from "@/purchase"
@@ -50,12 +52,14 @@ const LISTING_COLUMNS: Array<Column> = [
 ]
 const LISTING_TRACKS: Array<Track> = tracksOf(LISTING_COLUMNS)
 const PAGE: Array<Track> = [{ fr: 1 }, Style.BUY_PANEL]
-// The search box takes what the three filters leave of the page's width.
-const TOOLS: Array<Track> = [{ fr: 1 }, 150 * PX, 130 * PX, 130 * PX]
 const ITEM: Array<Track> = ["auto", { fr: 1 }]
 const PAIR: Array<Track> = [{ fr: 1 }, "auto"]
-const FIELD_PAD: Edges = { right: 10 * PX, left: 10 * PX }
-const FIELD_BACK: Color = Color.hex("#00000080")
+const MENU_WIDTH = 210 * PX
+const MENU_BACK: Color = Color.hex("#0a0806f7")
+const MENU_EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
+const MENU_PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
+const MENU_RULE: Line = { width: 1 * PX, color: Color.hex("#d6a56b33"), sides: [Side.Top] }
+const AFTER_RULE: Edges = { top: 6 * PX }
 // The most of a commodity the quantity takes: the shopping list takes more than is listed, so the listings don't bound
 // it («Buy» asks that they hold it); six digits fill the field.
 const MOST_COUNT = 999999
@@ -92,6 +96,50 @@ const QUALITIES: Array<Choice<Integer>> = [
   { value: 3, label: Locale.QUALITY_RARE },
   { value: 4, label: Locale.QUALITY_EPIC },
 ]
+
+// The label of the choice a filter's value is.
+function labelOf(choices: Array<Choice<Integer>>, value: Integer): String {
+  return choices.find(choice => choice.value == value)?.label ?? ""
+}
+
+// The filter's menu under the toolbar's funnel: the classes, the level bands and the qualities, each a list of its
+// choices (the first lets every one through) under a rule. A choice picked stays in the open menu; a click anywhere
+// else closes it.
+class FilterMenu implements Component {
+  public close: Event<nil> = new Event()
+
+  itemClass: mut Signal<Integer>
+  level: mut Signal<Integer>
+  quality: mut Signal<Integer>
+  constructor(itemClass: mut Signal<Integer>, level: mut Signal<Integer>, quality: mut Signal<Integer>) {
+    self.itemClass = itemClass
+    self.level = level
+    self.quality = quality
+  }
+
+  onClass(mut self, value: Integer) { self.itemClass = value }
+  onLevel(mut self, value: Integer) { self.level = value }
+  onQuality(mut self, value: Integer) { self.quality = value }
+  onClose(self) { self.close.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={MENU_WIDTH} background={MENU_BACK}
+               border={MENU_EDGE} padding={MENU_PAD} columns={1} @clickOutside={self.onClose}>
+        <DropdownItem $for={choice of CLASSES} choice={choice} value={self.itemClass} compact={true}
+                      @pick={self.onClass} />
+        <box columns={1} padding={AFTER_RULE} border={MENU_RULE}>
+          <DropdownItem $for={choice of LEVELS} choice={choice} value={self.level} compact={true}
+                        @pick={self.onLevel} />
+        </box>
+        <box columns={1} padding={AFTER_RULE} border={MENU_RULE}>
+          <DropdownItem $for={choice of QUALITIES} choice={choice} value={self.quality} compact={true}
+                        @pick={self.onQuality} />
+        </box>
+      </surface>
+    }
+  }
+}
 
 // What the game says of an item: its name and its quality's colour, from its tooltip's first line.
 public function nameOf(item: Integer): (String, Color) {
@@ -173,6 +221,10 @@ public class BuyPage implements Component {
   state itemClass = ANY
   state level = ANY
   state quality = ANY
+  state filterOpen = false
+  // The filter's Tip: the class, the level band and the quality it lets through.
+  derived filterText: String = [labelOf(CLASSES, self.itemClass), labelOf(LEVELS, self.level),
+    labelOf(QUALITIES, self.quality)].join(", ")
   state sorted = 0
   state descending = false
   state picked: PriceKey | nil = nil
@@ -258,24 +310,19 @@ public class BuyPage implements Component {
   }
 
   onPick(mut self, key: PriceKey) { self.picked = key }
+  closeFilter(mut self) { self.filterOpen = false }
 
   public render(self): Template {
     return $ltml {
       <box columns={PAGE} gap={Style.GAP}>
         <box rows={["auto", "auto", { fr: 1 }]} gap={8 * PX}>
-          <box columns={TOOLS} gap={8 * PX} yAlign={Align.Center}>
-            <box height={30 * PX} rows={[{ fr: 1 }]}>
-              <input value={mut self.search} padding={FIELD_PAD} textColor={Style.INK}
-                     background={FIELD_BACK} border={Style.FRAME} />
-              <box $if={!self.searching} position={.Absolute} left={0} top={0} right={0} bottom={0}
-                   padding={FIELD_PAD} yAlign={Align.Center}>
-                <text value={Locale.SEARCH} textColor={Style.DIM} wrap={false} />
-              </box>
-            </box>
-            <CompactDropdown value={mut self.itemClass} choices={CLASSES} width={150 * PX} />
-            <CompactDropdown value={mut self.level} choices={LEVELS} width={130 * PX} />
-            <CompactDropdown value={mut self.quality} choices={QUALITIES} width={130 * PX} />
-          </box>
+          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+            <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.filterText}
+                        open={mut self.filterOpen} lit={self.filtered}>
+              <FilterMenu $if={self.filterOpen} itemClass={mut self.itemClass} level={mut self.level}
+                          quality={mut self.quality} @close={self.closeFilter} />
+            </ToolButton>
+          </Toolbar>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST}>
             <FoundRow $for={row of self.rows} $key={row.key} found={peek row} selected={self.picked == row.key}
                       wanted={self.shopping.needed[row.item] != nil} @pick={self.onPick} />

@@ -148,11 +148,18 @@ box 0,0 700x673.83
           box 39.58,495.58 660.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
         box 0,515.17 700x28.33 opacity=1
           box 0,521.83 233.33x15 @enter @leave
-            text 0,521.83 233.33x15 "Compact dropdown" #cbb994
-          box 248.33,515.17 170x28.33
-            box 248.33,515.17 170x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-              text 258.33,521.83 135x15 "By difficulty" #f0c860
-              box 398.33,522.67 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+            text 0,521.83 233.33x15 "Toolbar" #cbb994
+          box 248.33,515.17 300x28.33
+            box 248.33,515.17 300x28.33
+              box 248.33,515.17 266.67x28.33
+                box 248.33,515.17 266.67x28.33 #00000080 input "" @change
+                box 248.33,515.17 266.67x28.33 absolute
+                  text 256.67,521.83 250x15 "Search" #a3977f
+              box 515,515.17 33.33x28.33
+                box 515,515.17 33.33x28.33
+                  box 520,515.17 28.33x28.33
+                    box 520,515.17 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                      box 527.5,522.67 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
         box 0,555.17 700x23 opacity=1
           box 0,559.17 233.33x15 @enter @leave
             text 0,559.17 233.33x15 "Context menu" #cbb994
