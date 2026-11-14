@@ -381,20 +381,14 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                   box 388.58,331.38 353.33x1.67 absolute #d6a56b
                   box 388.58,313.04 353.33x15
                     text 388.58,313.04 37.5x15 "Recipe" #f0c860
-                    box 429.42,313.04 5.42x13
-                      box 429.42,313.04 5.42x13 opacity=1
-                        text 429.42,313.04 5.42x13 "▲" #f0c860
-                      box 429.42,313.04 5.42x13 absolute opacity=0
-                        text 429.42,313.04 5.42x13 "▼" #f0c860
+                    box 429.42,318.04 6.67x5
+                      box 426.08,313.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=1
                 box 748.58,308.04 66.67x25 #00000000 @click
                   box 748.58,331.38 66.67x1.67 absolute #00000000
-                  box 756.5,313.04 58.75x15
-                    text 756.5,313.04 50x15 "Can make" #cbb994
-                    box 809.83,313.04 5.42x13
-                      box 809.83,313.04 5.42x13 opacity=0
-                        text 809.83,313.04 5.42x13 "▲" #f0c860
-                      box 809.83,313.04 5.42x13 absolute opacity=0
-                        text 809.83,313.04 5.42x13 "▼" #f0c860
+                  box 755.25,313.04 60x15
+                    text 755.25,313.04 50x15 "Can make" #cbb994
+                    box 808.58,318.04 6.67x5
+                      box 805.25,313.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
               box 381.92,333.88 440x108.33 scrolled 0 of 0
                 box 381.92,333.88 440x21.67
                   box 381.92,333.88 440x21.67 #00000000 @click
