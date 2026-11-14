@@ -1,5 +1,6 @@
 import Game from "$game"
 import { Align, Anchored, Click, EmbedLook, Line, MouseButton, Point, Position, Shadow } from "$ltml"
+import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { Module, Placed, PX, Settings, SettingsPage, Tip } from "Ordaen"
 import Locale from "@/locales"
@@ -226,7 +227,7 @@ public class Minimap implements Module, App {
 
   onClockClick(mut self, click: Click) {
     if (click.button == MouseButton.Right) {
-      Ordaen.toggleSettings("minimap")
+      Ordaen.toggleSettings(Runtime.Addon.of(self))
     } else {
       Game.clock.toggleCalendar()
     }

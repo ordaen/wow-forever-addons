@@ -75,16 +75,22 @@ public class OrdaenCore implements App {
   public toggleDev(mut self) { self.dev = !peek self.dev }
   public togglePlacing(mut self) { self.placing = !peek self.placing }
 
-  // The settings window, at a page (a module's folder; Ordaen's own where none is named), or closed where it shows
-  // that page: made and drawn the first time.
-  public toggleSettings(mut self, page: String | nil) {
+  // The settings window, at a module's page (`Runtime.Addon.of(self)` in the module; Ordaen's own page where none
+  // is named), or closed where it shows that page: made and drawn the first time. The module is its addon, never
+  // a name written out: a name that is no module's would open on no page of the list.
+  public toggleSettings(mut self, module: Runtime.Addon | nil) {
+    self.openSettings(module?.name ?? "")
+  }
+
+  // The settings window at a page by its folder, as the player names it in `/ordaen <folder>`.
+  openSettings(mut self, page: String) {
     if (self.window == nil) {
       const made = new SettingsWindow()
       Runtime.mount(made, Runtime.screen())
       self.window = made
     }
-    Debug.log("the settings window asked for, page %s", page ?? "none")
-    self.window?.toggle(page ?? "")
+    Debug.log("the settings window asked for, page %s", page == "" ? "none" : page)
+    self.window?.toggle(page)
   }
 
   // Where the player put a part, by the part's name; nothing for one never moved. Read in a `derived`, it is
@@ -138,6 +144,6 @@ public class OrdaenCore implements App {
 
   // `/ordaen` opens the settings, `/ordaen <module's folder>` on that module's page.
   command(mut self, text: String) {
-    self.toggleSettings(text.match("^%s*(%S+)"))
+    self.openSettings(text.match("^%s*(%S+)") ?? "")
   }
 }

@@ -3,6 +3,7 @@
 // window: one place to change them.
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
+import Runtime from "$runtime"
 import { Component, Money, number, PushButton, PX, Section, Settings } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { Deal, Ledger } from "@/ledger"
@@ -105,7 +106,7 @@ public class DataPage implements Component {
     return agoText(serverSeconds() - self.lastFull)
   }
 
-  onSettings(self) { Ordaen.toggleSettings("OrdaenAuction") }
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
   public render(self): Template {
     return $ltml {

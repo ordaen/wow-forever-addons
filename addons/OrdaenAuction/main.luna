@@ -3,6 +3,7 @@
 // A module loaded on demand: a player with it off loads none of its data.
 import Game from "$game"
 import { Track } from "$ltml"
+import Runtime from "$runtime"
 import { Module, Placing, PX, Settings, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { BuyPage } from "@/buy"
@@ -94,7 +95,7 @@ public class Auction implements Module, App {
   // The window closed (its button, Escape): the player leaves the house, as the game's own window's close does.
   onClose(self) { Game.auctionHouse.close() }
 
-  onSettings(self) { Ordaen.toggleSettings("OrdaenAuction") }
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
   public render(self): Template {
     return $ltml {

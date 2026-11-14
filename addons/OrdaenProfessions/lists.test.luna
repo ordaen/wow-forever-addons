@@ -4,6 +4,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Art, MouseButton } from "$ltml"
+import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Professions from "OrdaenProfessions"
@@ -406,7 +407,7 @@ test "the ⚙ opens the module's page in the settings window; a setting saved ch
   Test.expect(!Professions.filtered)
   Test.note("not learned off in the settings: " + names(Professions.listing))
   // The filter can still turn it on for the session: that is a filter on.
-  Ordaen.toggleSettings("OrdaenProfessions")
+  Ordaen.toggleSettings(Runtime.Addon.of(Professions))
   Test.flush()
   click(Test.holding("Filter", nil))
   click(Test.holding("Not learned", nil))

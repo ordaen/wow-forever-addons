@@ -119,13 +119,24 @@ public class SettingsWindow implements Component {
     self.entries = listed
   }
 
-  public toggle(mut self, page: String) {
+  // `page` is Ordaen's own page (`""` or its name), or a module's folder; one that is neither (the player's
+  // `/ordaen` with a name no module has) is Ordaen's own, so the list always marks the page shown.
+  public toggle(mut self, asked: String) {
+    const page = self.known(asked) ? asked : GENERAL
     if (self.open && self.page == page) {
       self.onClose()
       return
     }
     self.show(page)
     self.open = true
+  }
+
+  known(self, page: String): Boolean {
+    if (page == GENERAL || page == LOOK || page == PROFILES) { return true }
+    for (entry of self.entries) {
+      if (entry.folder == page) { return true }
+    }
+    return false
   }
 
   show(mut self, page: String) {
