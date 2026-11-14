@@ -1,0 +1,92 @@
+Ordaen's page: unsaved 2
+the minimap hides: combat
+all of it: unsaved 5
+-- saved: every change kept
+surface 1323.67,0 276.33x301.33 on MEDIUM clamped
+  box 1323.67,0 276.33x301.33 @enter @leave
+    box 1343.92,20.25 230.83x258.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      embed 1352.67,29 218.33x218.33 absolute frame=none
+      box 1352.67,247.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1361,253.17 170.42x15 @click @enter @leave
+          text 1361,253.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,253.17 31.25x15 @click @enter @leave
+          text 1531.42,253.17 31.25x15 "12:30" #f3e1b8
+    box 1323.67,91.37 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      box 1331.17,99.29 13.33x12.5 ui-hud-minimap-tracking-up
+    box 1323.67,181.63 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      box 1328.67,186.63 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
+surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
+  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
+  box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 339.42,201.37 926.17x538.42
+      box 339.42,201.37 133.75x538.42
+        box 339.42,201.37 133.75x30 #00000000 @click
+          box 352.75,207.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+          text 379.42,208.87 75.42x15 "General" #e8dcc4
+          box 463.17,216.37 0x0
+        box 339.42,231.37 133.75x30 #00000000 @click
+          box 352.75,237.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+          text 379.42,238.87 75.42x15 "Themes" #e8dcc4
+          box 463.17,246.37 0x0
+        box 339.42,261.38 133.75x30 #00000000 @click
+          box 352.75,267.21 18.33x18.33 icon=Interface/Icons/Trade_Engineering
+          text 379.42,268.88 75.42x15 "Profiles" #e8dcc4
+          box 463.17,276.38 0x0
+        box 339.42,291.38 133.75x23.67
+          text 352.75,299.71 107.08x12 "MODULES" #a3977f
+        box 339.42,315.04 133.75x30
+          box 339.42,315.04 133.75x30 #00000040 @click
+            box 339.42,315.04 2.5x30 absolute #d6a56b
+            box 352.75,320.88 18.33x18.33 icon=Interface/Icons/INV_Misc_Map_01
+            text 379.42,322.54 43.75x15 "Minimap" #ffffff
+            box 431.5,321.71 31.67x16.67
+              box 431.5,321.71 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 444,319.21 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+      box 473.17,201.37 792.42x538.42 #00000040
+        box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
+          box 488.17,213.04 762.42x26.67
+            box 488.17,238.87 762.42x0.83 absolute #3e2f1d
+            box 488.17,213.04 42.08x25.83 #00000000 @click
+              text 499.83,218.87 18.75x15 "Map" #a3977f
+            box 533.58,213.04 106.25x26.67 #00000059 @click
+              box 534.42,213.87 104.58x1.67 absolute #d6a56b
+              text 546.08,219.71 81.25x15 "Button drawer" #ffffff
+          box 488.17,251.37 762.42x45
+            box 488.17,251.37 762.42x16.67 opacity=1
+              box 488.17,252.21 233.33x15 @enter @leave
+                text 488.17,252.21 233.33x15 "Button drawer" #cbb994
+              box 736.5,251.37 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
+                box 734,248.87 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+            box 488.17,279.71 762.42x16.67 opacity=0.45
+              box 488.17,280.54 233.33x15 @enter @leave
+                text 488.17,280.54 233.33x15 "Columns" #cbb994
+              box 736.5,279.71 514.08x16.67
+                box 736.5,279.71 200x16.67 @click @drag @dragStart
+                  box 736.5,284.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+                  box 737.33,285.54 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+                  box 769.83,278.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+                text 946.5,280.84 6x14.4 "4" #ffffff
+        box 488.17,696.46 762.42x28.33 absolute
+          box 488.17,696.46 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 488.17,696.46 166.67x28.33 absolute
+              text 543.38,703.12 56.25x15 "Move mode" #ffd100
+          box 664.83,710.62 344.08x0
+          box 1018.92,696.46 231.67x28.33
+            box 1018.92,696.46 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1018.92,696.46 108.33x28.33 absolute
+                text 1044.96,703.12 56.25x15 "Roll back" #ffd100
+            box 1133.92,696.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+              box 1133.92,696.46 116.67x28.33 absolute
+                text 1179.75,703.12 25x15 "Save" #808080
+    box 1224.42,188.79 52.5x26.67 absolute clipped
+      box 1224.42,188.79 29.17x26.67 absolute clipped @click
+        box 1224.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+      box 1253.58,188.79 23.33x26.67 absolute clipped @click
+        box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
+    box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 316.67,139.71 114.5x47.75
+    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
+      box 335.25,149.96 77.33x37.5
+        text 355.17,161.21 37.5x15 "Ordaen" #ffd100
+
+unsaved: 0, a save to take back: true, placing: false

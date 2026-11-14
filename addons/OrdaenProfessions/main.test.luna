@@ -100,6 +100,40 @@ test "loaded by Ordaen, the module's root is made and is among Ordaen's modules"
   Test.expect(found == 1)
 }
 
+test "the settings opened from the professions window stand over it, though they were made before it" {
+  let own = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  own.SetSize(400, 500)
+  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+  Game.frames.Professions = own
+  Game.professions.list = [
+    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+  ]
+  Test.mount(nil, PAGE)
+  // The settings window, made and closed before the professions window is.
+  Ordaen.toggleSettings(nil)
+  Test.flush()
+  Ordaen.toggleSettings(nil)
+  Test.flush()
+  Game.tradeSkill.shownEmpty.emit()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = 197
+  Test.flush()
+
+  // The settings glyph shows while the cursor is on the window.
+  Test.moveTo(Test.holding("Bags", nil))
+  Test.flush()
+  click(Test.holding("☼", nil))
+  // The cursor on a setting's label: its hint shows where the settings stand over the professions window.
+  Test.moveTo(Test.holding("Remember the last recipe", nil))
+  Test.flush()
+  Test.shot("the settings opened from the professions window: over it, the label's hint shown")
+  Test.expect(Test.surfaceHolding("Opens each profession at the recipe you left it at.").x > 0)
+  Ordaen.toggleSettings(nil)
+  (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
+  Test.flush()
+}
+
 test "the professions window: the open profession, its lists, the search, a recipe made" {
   // The game's own professions window: ours shows in its place.
   let ui = Client.C_UI.GetUIParent()
