@@ -1,6 +1,5 @@
 -- empty: what to do
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17
@@ -49,7 +48,6 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
 
 -- two items, no prices yet; linen held in full, dimmed
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17
@@ -179,7 +177,6 @@ by hand" #a3977f
 
 -- «Search all» browsed both; copper bars picked: «Buy 12» off, «Remove» on
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17
@@ -320,7 +317,6 @@ asked: AuctionQuery.browse 2
 
 -- both gone: empty again
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17

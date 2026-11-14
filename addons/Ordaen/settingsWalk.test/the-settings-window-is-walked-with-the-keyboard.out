@@ -1,7 +1,6 @@
 open: Ordaen
 -- opened by the picker: the first entry of the list focused
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 108.33x538.42
@@ -78,7 +77,6 @@ key: TAB → #2 «Themes» (click)
 key: ENTER → #2 «Themes» (click)
 -- Themes picked by Enter
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 108.33x538.42

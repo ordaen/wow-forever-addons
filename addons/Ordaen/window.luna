@@ -1,6 +1,6 @@
 // Window: a window whose open tab is its title. The small metal frame round its body, the windows' wood, its tabs
 // standing on the body's top line from its left, the open one over the body and the closed ones behind it. Centred
-// on the screen at first; dragging its tab row moves it, Escape closes it, the grip in its bottom right corner
+// on the screen at first; dragging a tab moves it, Escape closes it, the grip in its bottom right corner
 // resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
 // the window: one group of plates, settings where the window is made `withSettings` (its `settings` event), full
 // screen (and back) and close. Its unnamed slot takes the body's content, which fills the body.
@@ -345,7 +345,8 @@ public class Window implements Component {
     self.h0 = (peek self.placing).height
   }
 
-  // The tab row moves the window, its tabs too, as far as it stays on the screen.
+  // A tab dragged moves the window, as far as it stays on the screen. The tab row takes the mouse on its tabs alone:
+  // the room right of them passes a click on to what shows there.
   onMove(mut self, drag: Drag) {
     if (self.full) { return }
     const dx, dy = kept(drag, Hold.Move)
@@ -374,8 +375,6 @@ public class Window implements Component {
       <surface shown={self.shown} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
                raise={true} xAlign={Align.Start} textFamily={Ordaen.lookArt.font} focusLine={self.focusLine}
                @escape={self.onClose}>
-        <box position={Position.Absolute} left={0} right={0} top={0} height={self.tabHeight}
-             @dragStart={self.onGrab} @drag={self.onMove} />
         <box position={Position.Absolute} left={0} right={0} top={self.tabHeight} bottom={0}
              border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PADDING}
              rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>

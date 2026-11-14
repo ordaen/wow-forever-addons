@@ -17,7 +17,6 @@ key: TAB → #7 «Small» (click)
 key: ENTER → #8 > #1 «Small» (click)
 -- the dropdown opened by Enter: the focus in its list
 surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
-  box 420,121.38 760x37.25 absolute @drag @dragStart
   box 420,158.62 760x620 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 442.75,183.04 719.5x575.08
       box 442.75,183.04 719.5x18.33 opacity=1

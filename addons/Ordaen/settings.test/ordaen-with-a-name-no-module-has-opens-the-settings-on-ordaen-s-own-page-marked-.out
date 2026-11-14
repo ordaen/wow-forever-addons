@@ -1,6 +1,5 @@
 -- /ordaen minimap: no module is named so, Ordaen's own page shows with «General» marked
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 108.33x538.42

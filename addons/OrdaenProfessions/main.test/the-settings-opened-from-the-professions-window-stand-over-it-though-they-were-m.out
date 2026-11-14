@@ -1,6 +1,5 @@
 -- the settings opened from the professions window: over it, the label's hint shown
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 158.75x538.42
@@ -65,7 +64,6 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
       box 335.25,149.96 77.33x34.25
         text 355.17,159.58 37.5x15 "Ordaen" #ffd100
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
-  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25

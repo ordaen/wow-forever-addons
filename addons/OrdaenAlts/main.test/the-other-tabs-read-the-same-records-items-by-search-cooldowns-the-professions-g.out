@@ -1,6 +1,5 @@
 -- items: the most held first, each with its holders by place
 surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
-  box 341.67,198.04 916.67x37.25 absolute @drag @dragStart
   box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 364.42,259.71 876.17x421.75
       box 364.42,259.71 876.17x25
@@ -39,7 +38,6 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
 
 -- items searched for linen: one row
 surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
-  box 341.67,198.04 916.67x37.25 absolute @drag @dragStart
   box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 364.42,259.71 876.17x421.75
       box 364.42,259.71 876.17x25
@@ -70,7 +68,6 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
 
 -- cooldowns: the recipe with one, ready in a day
 surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
-  box 341.67,198.04 916.67x37.25 absolute @drag @dragStart
   box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 364.42,259.71 876.17x421.75
       box 364.42,259.71 876.17x47.5 scrolled 0 of 0
@@ -126,7 +123,6 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
 
 -- professions: each character's skill in each profession, a dash where it has none
 surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
-  box 341.67,198.04 916.67x37.25 absolute @drag @dragStart
   box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 364.42,259.71 876.17x421.75 scrolled 0 of 0
       box 364.42,259.71 876.17x58.33

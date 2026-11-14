@@ -1,6 +1,5 @@
 -- «Sell»: linen's two stacks as one row with its market, the axe; none picked
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17
@@ -101,7 +100,6 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
 
 -- linen picked: 25 of its 26, a copper under the lowest, 12 hours
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17
@@ -242,7 +240,6 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
 
 -- the client refused the post: its words in red
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17

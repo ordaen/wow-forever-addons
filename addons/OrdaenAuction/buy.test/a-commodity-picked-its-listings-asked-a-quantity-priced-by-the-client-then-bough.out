@@ -1,6 +1,5 @@
 -- 15 of linen: both listings marked, 10 at 36 and 5 at 40
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17
@@ -188,7 +187,6 @@ asked: AuctionQuery.listings 2589
 
 -- the client's price for 15: «Confirm»
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17
