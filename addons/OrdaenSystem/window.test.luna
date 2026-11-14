@@ -10,9 +10,16 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import root System from "OrdaenSystem"
 import { AddOnsWindow } from "@/addonsWindow"
+import Locale from "@/locales"
 import Style from "@/style"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1300, height: 760, screen: true }
+
+// Ordaen's switch: the second of its state's painted, after its caption's (the caption's group is Ordaen alone, its
+// modules having no switch of their own, so the two show the same).
+function ordaenSwitch(on: Boolean): Test.Point {
+  return Test.painted(on ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff, 2)
+}
 
 test "at login the module holds one hook and nothing else: no dress, no window, no data" {
   Test.mount(nil, SCREEN)
@@ -57,14 +64,13 @@ test "switching off what others need asks first: «Cancel» changes nothing, «D
   const window = new AddOnsWindow("Ordaen")
   Test.mount(window, SCREEN)
   Test.flush()
-  // Ordaen's checkbox: the first, its modules have none.
-  Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
+  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
   Test.flush()
   Test.shot("the question: Ordaen System stops loading")
   Test.click(Test.holding("Cancel", nil), nil)
   Test.flush()
   Test.expect(window.catalog.isOn("Ordaen"))
-  Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
+  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
   Test.click(Test.holding("Disable", nil), nil)
   Test.flush()
   Test.expect(!window.catalog.isOn("Ordaen"))
@@ -105,11 +111,11 @@ test "Ctrl on a group's parent switches the parent and its group together, the p
   const window = new AddOnsWindow("Ordaen")
   Test.mount(window, SCREEN)
   Test.flush()
-  Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
+  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
   Test.flush()
   Test.expect(!window.catalog.isOn("Ordaen") && !window.catalog.isOn("OrdaenSystem"))
   Test.shot("the group off: Ordaen and every module folder")
-  Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
+  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
   Test.flush()
   Test.expect(window.catalog.isOn("Ordaen") && window.catalog.isOn("OrdaenSystem"))
   destroy window
@@ -123,7 +129,7 @@ test "folding, switching and unfolding again: every row keeps its line, a switch
   Test.flush()
   Test.click(Test.holding("User Interface", nil), nil)
   Test.flush()
-  Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
+  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
   Test.flush()
   Test.click(Test.holding("Cancel", nil), nil)
   Test.flush()
@@ -137,7 +143,7 @@ test "folding, switching and unfolding again: every row keeps its line, a switch
   destroy window
 }
 
-test "a short window's list scrolls: each checkbox switches the addon its row shows, at every scroll" {
+test "a short window's list scrolls: each switch switches what its line shows, at every scroll" {
   const window = new AddOnsWindow("Ordaen")
   Test.mount(window, SCREEN)
   Test.flush()
@@ -147,23 +153,66 @@ test "a short window's list scrolls: each checkbox switches the addon its row sh
   for (round of 1..=3) {
     for (i of 1..=4) { Test.wheel(-1) }
     Test.pass(0.04)
-    // The first checkbox in view, and the addon its row shows.
-    const box = Test.painted(Ordaen.art.ctl.check, nil)
-    const before = peek window.catalog.statuses
-    Test.click(box, nil)
+    // The first switch on in view.
+    Test.click(Test.painted(Ordaen.art.ctl.switchOn, nil), nil)
     Test.flush()
     if (window.asking.length > 0) {
       Test.click(Test.holding("Cancel", nil), nil)
       Test.flush()
     }
-    const after = peek window.catalog.statuses
-    let changed = 0
-    for (name, status of after) {
-      if (before[name]?.enabled != status.enabled) { changed += 1 }
-    }
-    Test.expect(changed <= 1)
   }
   Test.expect(Test.errors().length == 0)
+  destroy window
+}
+
+test "a caption's switch switches its whole group: off where all of it is on, on where any of it is off" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  // «Other»: the runtime and the addons with no category, all on; its switch the third on (User Interface, Ordaen).
+  const other = Test.painted(Ordaen.art.ctl.switchOn, 3)
+  Test.click(other, nil)
+  Test.flush()
+  if (window.asking.length > 0) {
+    Test.click(Test.holding("Disable", nil), nil)
+    Test.flush()
+  }
+  Test.expect(!window.catalog.isOn("LunaType"))
+  Test.shot("«Other» off whole: its caption's switch and every row's off")
+  // On for this character alone: for all characters, the group is on for some, its knob halfway; clicked, it is on
+  // for all.
+  window.everyone = false
+  Test.flush()
+  window.catalog.switchOn(["LunaType"])
+  window.everyone = true
+  Test.flush()
+  Test.shot("«Other» on for some characters: the caption's switch and the row's, their knobs halfway")
+  Test.click(Test.painted(Ordaen.art.ctl.switchOn, 3), nil)
+  Test.flush()
+  Test.expect((peek window.catalog.statuses)["LunaType"]?.enabled == .On)
+  destroy window
+}
+
+test "the question comes at every switching off that stops another addon, and never otherwise" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  for (round of 1..=3) {
+    // Ordaen: its modules need it.
+    Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
+    Test.flush()
+    Test.expect(window.asking.length == 1)
+    _ = Test.surfaceHolding(Locale.CANCEL)
+    Test.click(Test.holding(Locale.CANCEL, nil), nil)
+    Test.flush()
+    Test.expect(window.asking.length == 0 && window.catalog.isOn("Ordaen"))
+  }
+  // Nothing needs the runtime's own listing here: off without a question, and on again.
+  window.onToggle("Showcase", false)
+  Test.flush()
+  Test.expect(window.asking.length == 0)
+  window.onToggle("Showcase", false)
+  Test.flush()
   destroy window
 }
 

@@ -1,12 +1,13 @@
-// The list's lines: a category's caption (▼ folds it) or an addon's row. A row: the checkbox (three states with
-// «All characters»: on, off, on for some), the title with its colour codes, and at the right its state where it isn't
-// plainly loaded, CPU now, CPU peak and memory, the heaviest third of each column in the accent. Hover: our Tip with
-// the notes. Left-click picks it for the card; on the checkbox it switches the addon, with Ctrl on a group's parent
-// the whole group. An Ordaen module has no checkbox: Ordaen's switch is its one, and its state's text opens Ordaen's
-// settings at it.
-import { Align, Art, Edges, Position, Stated, Track } from "$ltml"
+// The list's lines: a category's caption (its mark folds it) or an addon's row, each with a switch at the right, the
+// switches of all lines one column. A row: the title with its colour codes, its state where it isn't plainly loaded,
+// CPU now, CPU peak and memory (the heaviest third of each column in the accent), and the switch (three states with
+// «All characters»: on, off, on for some). A caption's switch is its whole group's: on where every addon of it is,
+// off where none is, on for some between. Hover: our Tip with the notes. Left-click picks a row for the card; the
+// switch switches the addon, with Ctrl on a group's parent the whole group. An Ordaen module has no switch: Ordaen's
+// own is its one, and its state's text opens Ordaen's settings at it.
+import { Align, Art, Edges, Stated, Track } from "$ltml"
 import Game from "$game"
-import { Component, PX, space, Tip } from "Ordaen"
+import { Component, PX, Shown, ShownToggle, space, SWITCH_WIDTH, Tip } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { AddOn, Catalog, plain, Status, Switch } from "@/catalog"
 import Locale from "@/locales"
@@ -24,6 +25,8 @@ public struct Line {
   folded: Boolean
   // An addon under its group's parent, which stands right above it.
   child: Boolean
+  // A caption's: the addons its switch switches, every one of its group (none for an addon's row).
+  names: Array<String>
 }
 
 // From which value each numbers' column is lit: its heaviest third.
@@ -33,13 +36,22 @@ public struct Hot {
   memory: Number
 }
 
-public const COLUMNS: Array<Track> = [Style.CHECK, { fr: 1 }, "auto", Style.NUMBER, Style.NUMBER, Style.MEMORY]
-const CAPTION: Array<Track> = ["auto", "auto", { fr: 1 }]
+public const COLUMNS: Array<Track> = [{ fr: 1 }, "auto", Style.NUMBER, Style.NUMBER, Style.MEMORY, SWITCH_WIDTH]
+const CAPTION: Array<Track> = ["auto", "auto", { fr: 1 }, SWITCH_WIDTH]
 // The fold's mark (ctl.markClosed, ctl.markOpen), as TreeRow draws it: a 16 px cell, its triangle in the middle.
 const MARK = 16 * PX
 const PAD: Edges = { left: space(.Item), right: space(.Item) }
 const LIGHT: Stated<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f") }
 const DASH = "—"
+
+// An addon's switch as the client has it for whom the header says.
+function shownOf(switched: Switch): Shown {
+  return match (switched) {
+    .On => Shown.On,
+    .Off => Shown.Off,
+    .Some => Shown.Some,
+  }
+}
 
 // What a row's state says: nothing for an addon plainly loaded.
 public function stateOf(addon: AddOn, status: Status, module: Boolean): String {
@@ -57,8 +69,10 @@ public function stateOf(addon: AddOn, status: Status, module: Boolean): String {
 
 public class LineRow implements Component {
   public pick: Event<String> = new Event()
-  // The checkbox: the addon, and whether Ctrl was held.
+  // The switch: the addon, and whether Ctrl was held.
   public toggle: Event<(String, Boolean)> = new Event()
+  // A caption's switch: every addon of its group.
+  public toggleGroup: Event<Array<String>> = new Event()
   public fold: Event<String> = new Event()
   // An Ordaen module's state: its page in Ordaen's settings.
   public settings: Event<String> = new Event()
@@ -70,7 +84,7 @@ public class LineRow implements Component {
   derived title: String = self.addon?.title ?? (self.line.name == "" ? Locale.OTHER : self.line.name)
   derived module: Boolean = self.addon?.group == self.framework && self.line.name != self.framework
   derived switched: Switch = self.status?.enabled ?? Switch.Off
-  derived tick: Number = self.switched == .On ? 1 : self.switched == .Some ? 0.4 : 0
+  derived shown: Shown = self.line.caption ? self.groupShown() : shownOf(self.switched)
   derived said: String = self.sayOf()
   derived bad: Boolean = self.badOf()
   derived stateColor: Color = self.bad ? Style.RED : Style.DIM
@@ -116,6 +130,19 @@ public class LineRow implements Component {
     self.framework = framework
   }
 
+  // A caption's switch: on where every addon of its group is on, off where none is, on for some between.
+  groupShown(self): Shown {
+    let on = 0
+    let off = 0
+    for (name of self.line.names) {
+      const enabled = self.catalog.statuses[name]?.enabled ?? Switch.Off
+      if (enabled == .On) { on += 1 }
+      if (enabled == .Off) { off += 1 }
+    }
+    const count = self.line.names.length
+    return on == count ? Shown.On : off == count ? Shown.Off : Shown.Some
+  }
+
   sayOf(self): String {
     const addon = self.addon
     const status = self.status
@@ -138,6 +165,7 @@ public class LineRow implements Component {
 
   // Ctrl is read here, in the click's own handler.
   onCheck(mut self) { self.toggle.emit(self.line.name, Game.input.controlDown()) }
+  onGroup(mut self) { self.toggleGroup.emit(self.line.names) }
   onSettings(mut self) { self.settings.emit(self.line.name) }
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
@@ -149,15 +177,10 @@ public class LineRow implements Component {
         <box width={MARK} height={MARK} background={self.mark} tint={Style.GOLD} />
         <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={false} />
         <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+        <ShownToggle state={self.shown} @flip={self.onGroup} />
       </box>
       <box $else columns={COLUMNS} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
            background={self.background} @click={self.onPick} @enter={self.onEnter} @leave={self.onLeave}>
-        <box $if={!self.module} width={Style.CHECK} height={Style.CHECK} background={Ordaen.art.ctl.check}
-             @click={self.onCheck}>
-          <box position={Position.Absolute} left={0} top={0} width={Style.CHECK} height={Style.CHECK}
-               background={Ordaen.art.ctl.tick} opacity={self.tick} />
-        </box>
-        <box $else />
         <box padding={self.indent}>
           <text value={self.title} textColor={Style.INK} wrap={false} />
         </box>
@@ -176,6 +199,8 @@ public class LineRow implements Component {
         <box xAlign={Align.End}>
           <text value={self.weight} textColor={self.weightColor} textFont={.Numbers} wrap={false} />
         </box>
+        <ShownToggle $if={!self.module} state={self.shown} @flip={self.onCheck} />
+        <box $else />
         <Tip $if={self.tipShown} title={self.plainTitle} text={self.notes} />
       </box>
     }

@@ -238,8 +238,22 @@ public class AddOnsWindow implements Component {
   linesOf(self): Array<Line> {
     const list: Array<Line> = []
     if (self.view == .Table) {
-      for (addon of self.visible) { list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false }) }
+      for (addon of self.visible) {
+        list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false, names: [] })
+      }
       return list
+    }
+    // Each group whole, whatever the search and the filter show of it: what its caption's switch switches.
+    const groups: Map<String, mut Array<String>> = {}
+    for (addon of self.catalog.addons) {
+      if (addon.group != self.framework || addon.name == self.framework) {
+        const held = groups[addon.category]
+        if (held == nil) {
+          groups[addon.category] = [addon.name]
+        } else {
+          held.push(addon.name)
+        }
+      }
     }
     const byCategory: Map<String, mut Array<AddOn>> = {}
     const categories: Array<String> = []
@@ -256,16 +270,18 @@ public class AddOnsWindow implements Component {
     for (category of categories) {
       const members = byCategory[category] ?? []
       const folded = self.folded[category] == true
-      list.push({ caption: true, name: category, count: members.length, folded: folded, child: false })
+      list.push({
+        caption: true, name: category, count: members.length, folded: folded, child: false, names: groups[category] ?? [],
+      })
       if (!folded) {
         const here: Map<String, Boolean> = {}
         for (addon of members) { here[addon.name] = true }
         for (addon of members) {
           if (addon.group == "" || addon.group == addon.name || here[addon.group] != true) {
-            list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false })
+            list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false, names: [] })
             for (member of members) {
               if (member.group == addon.name && member.name != addon.name) {
-                list.push({ caption: false, name: member.name, count: 0, folded: false, child: true })
+                list.push({ caption: false, name: member.name, count: 0, folded: false, child: true, names: [] })
               }
             }
           }
@@ -324,7 +340,7 @@ public class AddOnsWindow implements Component {
 
   // The checkbox: on with what it needs; off alone, after asking where others need it. With Ctrl on a group's
   // parent, the parent and every addon of its group to the parent's new state together.
-  onToggle(mut self, name: String, control: Boolean) {
+  public onToggle(mut self, name: String, control: Boolean) {
     const names: Array<String> = [name]
     if (control) {
       for (member of (peek self.catalog.members)[name] ?? []) { names.push(member) }
@@ -333,6 +349,22 @@ public class AddOnsWindow implements Component {
       self.catalog.switchOn(names)
       return
     }
+    self.switchOff(names)
+  }
+
+  // A caption's switch: its whole group on for all where any of it isn't, else off, after asking where others need it.
+  onToggleGroup(mut self, names: Array<String>) {
+    if (names.length == 0) { return }
+    const statuses = peek self.catalog.statuses
+    if (!names.all(name => statuses[name]?.enabled == .On)) {
+      self.catalog.switchOn(names)
+      return
+    }
+    self.switchOff(names)
+  }
+
+  // Off alone, or after asking where others that stay on need what goes.
+  switchOff(mut self, names: Array<String>) {
     if (self.catalog.dependentsOf(names).length == 0) {
       self.catalog.switchOff(names)
     } else {
@@ -440,7 +472,6 @@ public class AddOnsWindow implements Component {
                       title={Locale.VIEW} />
           </Toolbar>
           <box columns={COLUMNS} gap={space(.Item)} padding={HEADING} yAlign={Align.Center}>
-            <box />
             <box @click={self.onHeadName}>
               <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
             </box>
@@ -460,11 +491,13 @@ public class AddOnsWindow implements Component {
               <box width={REFRESH} height={REFRESH} background={ARTWORK.ctl.tool.refresh} tint={Style.GOLD}
                    @click={self.onRefresh} />
             </box>
+            <box />
           </box>
           <box overflow={Overflow.Scroll} rowHeight={Style.ROW}>
             <LineRow $for={line of self.lines} line={line} catalog={self.catalog} profiler={self.profiler}
                      hot={self.hot} picked={self.picked} framework={self.framework} @pick={self.onPick}
-                     @toggle={self.onToggle} @fold={self.onFold} @settings={self.onSettings} />
+                     @toggle={self.onToggle} @toggleGroup={self.onToggleGroup} @fold={self.onFold}
+                     @settings={self.onSettings} />
           </box>
           <box $if={self.stepShown} columns={STRIP} gap={space(.Item)} yAlign={Align.Center}>
             <box xAlign={Align.End}>
