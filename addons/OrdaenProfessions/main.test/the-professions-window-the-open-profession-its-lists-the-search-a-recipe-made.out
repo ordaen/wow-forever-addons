@@ -939,7 +939,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
 
 the game's own window: at -10000,0, opacity 0
 
--- the Blacksmithing tab clicked: it shows picked, and the game is asked to open it
+-- the Blacksmithing tab clicked: the game is asked to open it, and Tailoring's tab stays picked till it has
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 371.08,195.54 862.83x560.08
@@ -1043,7 +1043,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 425.83,144.12 56.25x45.92
-        text 425.83,152.67 56.25x15 "Tailoring" #b3a690
+        text 425.83,152.67 56.25x15 "Tailoring" #ffd100
         text 435,168.5 37.92x13 "31 / 75" #8f8470
     box 510.67,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 517.92,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
@@ -1055,7 +1055,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 670.25,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_BlackSmithing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 714.17,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 730.5,144.12 81.25x45.92
-        text 730.5,152.67 81.25x15 "Blacksmithing" #ffd100
+        text 730.5,152.67 81.25x15 "Blacksmithing" #b3a690
         text 746.75,168.5 48.75x13 "120 / 150" #8f8470
 asked: TradeSkill.show 164
 
