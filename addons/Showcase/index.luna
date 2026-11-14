@@ -93,7 +93,7 @@ public class Showcase implements Module {
           <PushButton #buttons label={"Forget"} width={100} accent={true} @click={self.onDiscard} />
           <PushButton #buttons label={"Keep"} width={100} @click={self.onKeep} />
         </Dialog>
-        <Tip $if={self.hint} title={"Showcase"} text={self.summary} left={0} top={0} />
+        <Tip $if={self.hint} title={"Showcase"} text={self.summary} />
       </box>
     }
   }
