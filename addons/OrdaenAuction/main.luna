@@ -142,7 +142,7 @@ public class Auction implements Module, App {
       <$if={self.shown}>
         // The game's own window stays open, unseen and off the screen: hiding it would close the house.
         <frame of={Game.frames.AuctionHouse} opacity={0} away={true} />
-        <Window tabs={TABS} selected={mut self.page} placing={mut self.placing} withSettings={true} full={true}
+        <Window keep={"main"} tabs={TABS} selected={mut self.page} placing={mut self.placing} withSettings={true} full={true}
                 room={self.room} footer={self.footer} side={self.side} @close={self.onClose}
                 @settings={self.onSettings}>
           <box $match={self.page} rows={FILL}>
@@ -155,11 +155,11 @@ public class Auction implements Module, App {
                       items={self.scanner.known} settings={mut self.settings} />
           </box>
         </Window>
-        <Window $if={self.shoppingOpen} tabs={SHOPPING_TABS} selected={mut self.sideTab}
+        <Window keep={"shopping"} $if={self.shoppingOpen} tabs={SHOPPING_TABS} selected={mut self.sideTab}
                 placing={mut self.sidePlacing} docked={Side.Right} @close={self.closeShopping}>
           <ShoppingPage prices={self.prices} list={mut self.shopping} />
         </Window>
-        <Window $if={self.ownedOpen} tabs={OWNED_TABS} selected={mut self.sideTab} placing={mut self.sidePlacing}
+        <Window keep={"owned"} $if={self.ownedOpen} tabs={OWNED_TABS} selected={mut self.sideTab} placing={mut self.sidePlacing}
                 docked={Side.Right} @close={self.closeOwned}>
           <OwnedPage house={self.house} revision={self.source.revision} />
         </Window>

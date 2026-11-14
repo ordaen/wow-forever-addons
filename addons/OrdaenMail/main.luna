@@ -65,7 +65,7 @@ public class Mail implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
+      <Window keep={"main"} $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
               @close={self.onClose} @settings={self.onSettings}>
         <Inbox $if={self.tab == 1} letters={self.letters} total={self.total} canAct={CAN_ACT} />
         <Outbox $elseif={self.tab == 2} sent={self.sent} canWrite={CAN_ACT} />

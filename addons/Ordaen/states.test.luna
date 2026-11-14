@@ -202,7 +202,7 @@ class Tabbed {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
+      <Window keep={"test"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
         <text value={"the page"} />
       </Window>
     }

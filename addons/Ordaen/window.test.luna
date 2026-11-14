@@ -17,7 +17,7 @@ class Tabbed {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
+      <Window keep={"test20"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
         <text value={"the page"} />
       </Window>
     }
@@ -40,7 +40,7 @@ class Gearbox {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={self.withSettings}
+      <Window keep={"test43"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={self.withSettings}
               @settings={self.onSettings} @close={self.onClose}>
         <text value={"the page"} />
       </Window>
@@ -86,15 +86,15 @@ class Desk {
   public render(self): Template {
     return $ltml {
       <box>
-        <Window shown={self.alphaOpen} tabs={self.alphaTabs} selected={mut self.tab} placing={mut self.alpha}
+        <Window keep={"test89"} shown={self.alphaOpen} tabs={self.alphaTabs} selected={mut self.tab} placing={mut self.alpha}
                 @close={self.closeAlpha}>
           <box background={FACE} @click={self.onAlpha} />
         </Window>
-        <Window $if={self.betaOpen} tabs={self.betaTabs} selected={mut self.tab} placing={mut self.beta}
+        <Window keep={"test93"} $if={self.betaOpen} tabs={self.betaTabs} selected={mut self.tab} placing={mut self.beta}
                 @close={self.closeBeta}>
           <box background={FACE} @click={self.onBeta} />
         </Window>
-        <Window $if={self.gammaOpen} tabs={self.gammaTabs} selected={mut self.tab} placing={mut self.gamma}
+        <Window keep={"test97"} $if={self.gammaOpen} tabs={self.gammaTabs} selected={mut self.tab} placing={mut self.gamma}
                 @close={self.closeGamma}>
           <box background={FACE} @click={self.onGamma} />
         </Window>
@@ -277,7 +277,7 @@ class Footed {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} footer={self.footer}>
+      <Window keep={"test280"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} footer={self.footer}>
         <box background={FACE}>
           <text value={"the page"} />
         </box>
@@ -318,7 +318,7 @@ class Sided {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} footer={self.footer}
+      <Window keep={"test321"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} footer={self.footer}
               side={self.details}>
         <box background={FACE}>
           <text value={"the list"} />

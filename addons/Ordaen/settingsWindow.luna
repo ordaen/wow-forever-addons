@@ -191,7 +191,7 @@ public class SettingsWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window shown={self.open} tabs={self.titles} selected={mut self.titleTab} placing={mut self.placing}
+      <Window keep={"settings"} shown={self.open} tabs={self.titles} selected={mut self.titleTab} placing={mut self.placing}
               minWidth={MIN_WIDTH} minHeight={MIN_HEIGHT} footer={self.footer} @close={self.onClose}>
         <box columns={BODY} rows={FILL} gap={space(.Group)}>
           <box columns={1}>

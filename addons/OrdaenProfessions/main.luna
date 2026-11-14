@@ -642,7 +642,7 @@ public class Professions implements Module, App {
     return $ltml {
       <$if={self.isOpen}>
         <frame of={Game.frames.Professions} opacity={0} away={true} />
-        <Window $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} placing={mut self.placing} withSettings={true}
+        <Window keep={"main"} $if={self.drawn} tabs={self.tabs} selected={mut self.tab} asks={true} placing={mut self.placing} withSettings={true}
                 footer={self.footer} @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>
             <text value={Locale.PICK} textColor={Style.DIM} />

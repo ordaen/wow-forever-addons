@@ -88,7 +88,7 @@ public class Alts implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <Window $if={self.open} tabs={TABS} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}>
+      <Window keep={"main"} $if={self.open} tabs={TABS} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}>
         <Characters $if={self.tab == 1} records={self.records} touched={self.records.touched} @forget={self.onForget} />
         <Holdings $elseif={self.tab == 2} records={self.records} touched={self.records.touched} />
         <Cooldowns $elseif={self.tab == 3} records={self.records} touched={self.records.touched} />

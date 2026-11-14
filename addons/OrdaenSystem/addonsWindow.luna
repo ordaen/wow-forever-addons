@@ -423,7 +423,7 @@ public class AddOnsWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} shown={self.shown}
+      <Window keep={"addons"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} shown={self.shown}
               footer={self.footer} side={self.side} @close={self.onClose}>
         <box rows={BODY} gap={space(.Item)}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>

@@ -87,7 +87,7 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
           box 452.75,556.54 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
         box 452.75,580.88 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 opacity=0.45
           box 452.75,580.88 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 1162.75,758.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+    box 1162.75,758.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 420,121.38 239x47.75
     box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 438.58,131.62 77.33x34.25
