@@ -1,0 +1,112 @@
+// The shopping list (`redesign/market-ux.md` §2): one for the account, kept with the module's data. Its lines say
+// what asked for an item (a recipe's missing parts from Professions, the player by hand); its rows sum them per item,
+// against what this character holds in its bags and bank, into what is left to buy.
+import Game from "$game"
+import { Kept } from "@/kept"
+import { ItemId } from "@/quote"
+import { Wanted } from "@/wanted"
+
+// One item of the list: what is needed in all, what this character holds, what is left to buy, and the lines that
+// asked for it.
+public struct Row {
+  item: ItemId
+  needed: Integer
+  held: Integer
+  toBuy: Integer
+  lines: Array<Wanted>
+}
+
+// Lines kept at most: a list is tens of rows; past it the oldest line goes.
+const MOST = 500
+
+public class ShoppingList {
+  // Moves with every change of the list: a reader of it follows it.
+  public state revision = 0
+  // Moves when the bags change: what is held is read again.
+  state bags = 0
+  // What is needed of each item, all lines summed.
+  public derived needed: Map<ItemId, Integer> = self.neededOf()
+  public derived rows: Array<Row> = self.rowsOf()
+  kept: mut Kept
+
+  constructor(kept: mut Kept) {
+    self.kept = kept
+    Game.bags.changed.listen(self.onBags)
+  }
+
+  // The lines as they stand.
+  public lines(self): Array<Wanted> {
+    _ = self.revision
+    return self.kept.shopping
+  }
+
+  // So many of an item, asked for by `from` (none: by hand).
+  public add(mut self, item: ItemId, count: Integer, from: String | nil) {
+    if (count <= 0) { return }
+    if (self.kept.shopping.length >= MOST) { _ = self.kept.shopping.remove(1) }
+    self.kept.shopping.push({ item: item, count: count, from: from })
+    self.revision += 1
+  }
+
+  // Every line of an item.
+  public remove(mut self, item: ItemId) {
+    self.keep(line => line.item != item)
+  }
+
+  // Every item there is no more to buy of.
+  public clearBought(mut self) {
+    const done: Map<ItemId, Boolean> = {}
+    for (row of peek self.rows) {
+      if (row.toBuy == 0) { done[row.item] = true }
+    }
+    self.keep(line => done[line.item] == nil)
+  }
+
+  // Every item on the list browsed in one query: their prices come back as the house's results.
+  public searchAll(self): Boolean {
+    let items: Array<Integer> = []
+    for (row of peek self.rows) { items.push(row.item) }
+    if (items.length == 0) { return false }
+    return Game.auctionQuery.browse(items)
+  }
+
+  keep(mut self, kept: (line: Wanted) => Boolean) {
+    let left: Array<Wanted> = []
+    for (line of self.kept.shopping) {
+      if (kept(line)) { left.push(line) }
+    }
+    self.kept.shopping = left
+    self.revision += 1
+  }
+
+  onBags(mut self) { self.bags += 1 }
+
+  neededOf(self): Map<ItemId, Integer> {
+    const made: Map<ItemId, Integer> = {}
+    for (line of self.lines()) { made[line.item] = (made[line.item] ?? 0) + line.count }
+    return made
+  }
+
+  rowsOf(self): Array<Row> {
+    _ = self.bags
+    // The items in the order they were first asked for, and each one's lines.
+    let order: Array<ItemId> = []
+    const byItem: Map<ItemId, mut Array<Wanted>> = {}
+    for (line of self.lines()) {
+      const lines = byItem[line.item]
+      if (lines == nil) {
+        order.push(line.item)
+        byItem[line.item] = [line]
+      } else {
+        lines.push(line)
+      }
+    }
+    let list: Array<Row> = []
+    for (item of order) {
+      const needed = self.needed[item] ?? 0
+      const held = Game.items.owned(item)
+      list.push({ item: item, needed: needed, held: held, toBuy: (needed - held).max(0), lines: byItem[item] ?? [] })
+    }
+    return list
+  }
+}

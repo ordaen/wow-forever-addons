@@ -13,9 +13,11 @@ import { Ledger } from "@/ledger"
 import Locale from "@/locales"
 import { OwnedPage } from "@/owned"
 import { OrdaenPrices, takeMerchant } from "@/prices"
-import { ItemId, PriceSource } from "@/quote"
+import { PriceSource } from "@/quote"
 import { Scanner } from "@/scan"
 import { SellPage } from "@/sell"
+import { ShoppingList } from "@/shopping"
+import { ShoppingPage } from "@/shoppingPage"
 import { Choices, DEFAULTS, GeneralPage } from "@/settings"
 import { Status } from "@/status"
 import Style from "@/style"
@@ -28,8 +30,11 @@ const ICON: Asset = "Interface/Icons/INV_Misc_Coin_02"
 const BUY = 1
 const SELL = 2
 const OWNED = 3
-const DATA = 4
-const PAGES: Array<String> = [Locale.PAGE_BUY, Locale.PAGE_SELL, Locale.PAGE_OWNED, Locale.PAGE_DATA]
+const SHOPPING = 4
+const DATA = 5
+const PAGES: Array<String> = [
+  Locale.PAGE_BUY, Locale.PAGE_SELL, Locale.PAGE_OWNED, Locale.PAGE_SHOPPING, Locale.PAGE_DATA,
+]
 const TABS: Array<WindowTabSpec> = [{ title: Locale.WINDOW_TITLE, icon: ICON }]
 const BODY: Array<Track> = ["auto", "auto", { fr: 1 }]
 
@@ -49,6 +54,8 @@ public class Auction implements Module, App {
   public const prices: any PriceSource
   // The sales and purchases the mailbox reads.
   public const ledger: mut Ledger
+  // The shopping list: what Professions and the player ask to buy.
+  public const shopping: mut ShoppingList
 
   // The window: its one tab, its page, where it stands; closed by the player until the house opens again.
   state tab = 1
@@ -56,7 +63,6 @@ public class Auction implements Module, App {
   state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   state dismissed = false
   derived shown: Boolean = Game.auctionHouse.open && self.settings.values.window && !self.dismissed
-  derived wanted: Map<ItemId, Integer> = {}
 
   constructor() {
     self.kept = load(.Own, KEPT, Kept {})
@@ -68,6 +74,7 @@ public class Auction implements Module, App {
     self.prices = self.source
     self.scanner = new Scanner(mut self.house, mut self.source, mut self.kept)
     self.ledger = new Ledger(mut self.kept.ledger)
+    self.shopping = new ShoppingList(mut self.kept)
     Game.auctionHouse.opened.listen(self.onOpened)
     Game.merchant.opened.listen(self.onMerchant)
     Ordaen.modules.add(self)
@@ -96,9 +103,10 @@ public class Auction implements Module, App {
           <Tabs tabs={PAGES} selected={mut self.page} />
           <box $match={self.page}>
             <BuyPage $case={BUY} house={self.house} prices={self.prices} offers={self.scanner.offers}
-                     wanted={self.wanted} />
+                     shopping={mut self.shopping} />
             <SellPage $case={SELL} />
             <OwnedPage $case={OWNED} house={self.house} revision={self.source.revision} />
+            <ShoppingPage $case={SHOPPING} prices={self.prices} list={mut self.shopping} />
             <DataPage $case={DATA} scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
                       items={self.scanner.known} values={self.settings.values} />
           </box>

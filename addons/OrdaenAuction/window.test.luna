@@ -64,7 +64,7 @@ test "«Sell» and «My auctions» are drawn; their restricted calls are off, «
 test "«Data» before any scan: none, nothing at rest, an empty ledger, the settings" {
   Test.mount(nil, PAGE)
   Game.auctionHouse.open = true
-  Auction.page = 4
+  Auction.page = 5
   Test.pass(0.02)
   Test.shot("«Data»")
   Game.auctionHouse.open = false

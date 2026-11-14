@@ -19,8 +19,10 @@ surface 425,181.38 750x537.25 on DIALOG clamped raised by a click
           text 505.67,290.54 25x15 "Sell" #ffffff
         box 546.5,283.88 92.08x25.83 #00000000 @click
           text 558.17,289.71 68.75x15 "My auctions" #a3977f
-        box 641.92,283.88 48.33x25.83 #00000000 @click
-          text 653.58,289.71 25x15 "Data" #a3977f
+        box 641.92,283.88 104.58x25.83 #00000000 @click
+          text 653.58,289.71 81.25x15 "Shopping list" #a3977f
+        box 749.83,283.88 48.33x25.83 #00000000 @click
+          text 761.5,289.71 25x15 "Data" #a3977f
       box 447.75,317.21 709.5x380.92
         box 447.75,317.21 709.5x274.83
           box 447.75,317.21 466.17x274.83
@@ -90,8 +92,10 @@ surface 425,181.38 750x537.25 on DIALOG clamped raised by a click
         box 544.83,283.88 93.75x26.67 #00000059 @click
           box 545.67,284.71 92.08x1.67 absolute #d6a56b
           text 557.33,290.54 68.75x15 "My auctions" #ffffff
-        box 641.92,283.88 48.33x25.83 #00000000 @click
-          text 653.58,289.71 25x15 "Data" #a3977f
+        box 641.92,283.88 104.58x25.83 #00000000 @click
+          text 653.58,289.71 81.25x15 "Shopping list" #a3977f
+        box 749.83,283.88 48.33x25.83 #00000000 @click
+          text 761.5,289.71 25x15 "Data" #a3977f
       box 447.75,317.21 709.5x380.92
         box 447.75,317.21 709.5x309.83
           box 447.75,317.21 709.5x274.83
@@ -182,8 +186,10 @@ surface 425,181.38 750x537.25 on DIALOG clamped raised by a click
         box 544.83,283.88 93.75x26.67 #00000059 @click
           box 545.67,284.71 92.08x1.67 absolute #d6a56b
           text 557.33,290.54 68.75x15 "My auctions" #ffffff
-        box 641.92,283.88 48.33x25.83 #00000000 @click
-          text 653.58,289.71 25x15 "Data" #a3977f
+        box 641.92,283.88 104.58x25.83 #00000000 @click
+          text 653.58,289.71 81.25x15 "Shopping list" #a3977f
+        box 749.83,283.88 48.33x25.83 #00000000 @click
+          text 761.5,289.71 25x15 "Data" #a3977f
       box 447.75,317.21 709.5x380.92
         box 447.75,317.21 709.5x309.83
           box 447.75,317.21 709.5x274.83

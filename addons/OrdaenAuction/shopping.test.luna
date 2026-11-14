@@ -1,0 +1,52 @@
+// The shopping list: lines from two sources summed per item, against what this character holds, into what is left to
+// buy; kept for the account across a reload; its page with «Search all» browsing every item in one query, a row
+// removed, the rows bought cleared; an item added from «Buy».
+import Game from "$game"
+import Test from "$test"
+import root Auction from "OrdaenAuction"
+import { ItemId } from "@/quote"
+
+const COPPER_BAR: Integer = 2840
+const LINEN: Integer = 2589
+const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
+
+test "lines of one item are summed, held is taken off, and the list is kept across a reload" {
+  Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 4 : 0
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 12, "Bronze Axe ×6 — Regron's queue")
+  Auction.shopping.add(ItemId.of(LINEN), 20, nil)
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 2, nil)
+  Auction.shopping.add(ItemId.of(LINEN), 0, nil)
+  const rows = Auction.shopping.rows
+  Test.expect(rows.length == 2)
+  const bars = rows[1] ?? panic("two rows")
+  Test.expect(bars.item == COPPER_BAR && bars.needed == 14 && bars.held == 4 && bars.toBuy == 10 && bars.lines.length == 2)
+  Test.expect(Auction.shopping.needed[ItemId.of(LINEN)] == 20)
+  Test.reload()
+  Test.expect(Auction.shopping.rows.length == 2)
+  Test.expect(Auction.shopping.needed[ItemId.of(COPPER_BAR)] == 14)
+}
+
+test "the page: every item browsed in one query, a row removed, what is bought cleared" {
+  Test.mount(nil, PAGE)
+  Game.auctionHouse.open = true
+  Auction.page = 4
+  Test.pass(0.02)
+  Test.shot("empty: what to do")
+  Game.items.owned = (id: Integer): Integer => id == LINEN ? 25 : 0
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 12, "Bronze Axe ×6 — Regron's queue")
+  Auction.shopping.add(ItemId.of(LINEN), 20, nil)
+  Test.pass(0.02)
+  Test.shot("two items, no prices yet; linen held in full, dimmed")
+  Test.click(Test.holding("Search all", nil), nil)
+  Test.click(Test.holding("Item 2840", nil), nil)
+  Test.pass(0.02)
+  Test.shot("«Search all» browsed both; copper bars picked: «Buy 12» off, «Remove» on")
+  Test.click(Test.holding("Remove bought", nil), nil)
+  Test.pass(0.02)
+  Test.expect(Auction.shopping.rows.length == 1)
+  Test.click(Test.holding("Remove", nil), nil)
+  Test.pass(0.02)
+  Test.expect(Auction.shopping.rows.length == 0)
+  Test.shot("both gone: empty again")
+  Game.auctionHouse.open = false
+}
