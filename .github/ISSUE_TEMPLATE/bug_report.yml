@@ -8,15 +8,13 @@ body:
       label: Addon
       # Keep in sync with addons/ (one entry per addon).
       options:
+        - Ordaen
+        - OrdaenAlts
+        - OrdaenAuction
         - OrdaenMinimap
-        - OrdaenTooltips
-        - OrdaenChat
         - OrdaenPanel
-        - OrdaenMeter
-        - OrdaenQoL
-        - OrdaenBags
-        - OrdaenReskin
-        - OrdaenCore
+        - OrdaenProfessions
+        - OrdaenTooltips
         - Not sure
     validations:
       required: true
