@@ -104,6 +104,11 @@ public class GameMenu {
     Client.hooksecurefunc(menu, "InitButtons", (...args: Unknown): nil => {
       if (live.on) { self.onInit() }
     })
+    // Blizzard's menu is a layout frame: its buttons get their places and the menu its size on the next frame's
+    // update, a pooled button standing where its last entry stood till then. Measured again once laid out.
+    Client.hooksecurefunc(menu, "Layout", (...args: Unknown): nil => {
+      if (live.on) { self.onInit() }
+    })
   }
 
   destructor() {
@@ -162,12 +167,13 @@ public class GameMenu {
     self.buttons = list
     self.width = menu.GetWidth()
     self.height = menu.GetHeight()
-    self.lead = 0
-    const first = list[1]
-    if (first != nil) {
-      const point, relative, to, _, y = first.button.GetPoint(1, nil)
-      if (relative == menu && point == to && y != nil) { self.lead = -y }
+    // The topmost of Blizzard's buttons, whichever its pool handed first: the least way down from the menu's top.
+    let lead: Number | nil = nil
+    for (dressed of list) {
+      const point, relative, to, _, y = dressed.button.GetPoint(1, nil)
+      if (relative == menu && point == to && y != nil && (lead == nil || -y < lead)) { lead = -y }
     }
+    self.lead = lead ?? 0
   }
 
   // The cursor and the press on a button of Blizzard's: hooked once, read by the plate drawn there.
