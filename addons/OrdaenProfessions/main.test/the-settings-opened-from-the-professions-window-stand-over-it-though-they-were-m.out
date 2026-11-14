@@ -193,6 +193,6 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 425.83,144.12 61.11x45.92
         text 425.83,151.67 61.11x15.6 "Tailoring" #ffd100 centred
         text 434.17,168.1 44.44x14.4 "31 / 75" #8f8470 centred
-surface 543.86,240.01 271.17x90.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 564.11,260.26 235.67x19.2 "Remember the last recipe" #ffffff
-  text 564.11,281.12 235.67x31.2 "Opens each profession at the recipe you left it at." #cbb994
+surface 543.86,240.01 271.17x98.65 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 567.44,263.59 229x19.2 "Remember the last recipe" #ffffff
+  text 567.44,286.12 229x31.2 "Opens each profession at the recipe you left it at." #cbb994

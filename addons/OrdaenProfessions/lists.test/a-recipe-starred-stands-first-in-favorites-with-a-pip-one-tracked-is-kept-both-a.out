@@ -151,7 +151,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 522.78,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 566.69,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 583.03,144.12 61.11x45.92
-        text 583.03,151.67 61.11x15.6 "Herbalism" #b3a690 centred
+        text 583.03,151.67 61.11x15.6 "Herbalism" #a3977f centred
         text 591.36,168.1 44.44x14.4 "12 / 75" #8f8470 centred
 
 starred again: Cloth armour 3 (1), Bags 2 (1)

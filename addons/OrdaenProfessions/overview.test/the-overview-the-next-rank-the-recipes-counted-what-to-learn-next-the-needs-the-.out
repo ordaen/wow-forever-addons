@@ -82,7 +82,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 506.11,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Fishing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 550.03,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 566.36,144.12 56.67x45.92
-        text 570.81,151.67 47.78x15.6 "Fishing" #b3a690 centred
+        text 570.81,151.67 47.78x15.6 "Fishing" #a3977f centred
         text 566.36,168.1 56.67x14.4 "120 / 150" #8f8470 centred
 
 opened: page 1, recipe 2658
@@ -161,7 +161,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 365.58,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Mining cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 425.83,144.12 44.44x45.92
-        text 426.94,151.67 42.22x15.6 "Mining" #b3a690 centred
+        text 426.94,151.67 42.22x15.6 "Mining" #a3977f centred
         text 425.83,168.1 44.44x14.4 "70 / 75" #8f8470 centred
     box 498.86,133.88 142.75x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 506.11,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Fishing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none

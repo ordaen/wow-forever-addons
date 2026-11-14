@@ -125,6 +125,6 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 522.78,141.12 48.92x48.92 absolute icon=136241 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 566.69,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 583.03,144.12 87.78x45.92
-        text 583.03,151.67 87.78x15.6 "Blacksmithing" #b3a690 centred
+        text 583.03,151.67 87.78x15.6 "Blacksmithing" #a3977f centred
         text 604.69,168.1 44.44x14.4 "40 / 75" #8f8470 centred
 asked: TradeSkill.close

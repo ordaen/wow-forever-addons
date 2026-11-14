@@ -132,13 +132,13 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 522.78,141.12 48.92x48.92 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 566.69,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 583.03,144.12 61.11x45.92
-        text 583.03,151.67 61.11x15.6 "Herbalism" #b3a690 centred
+        text 583.03,151.67 61.11x15.6 "Herbalism" #a3977f centred
         text 591.36,168.1 44.44x14.4 "12 / 75" #8f8470 centred
     box 672.72,133.88 147.19x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 679.97,141.12 48.92x48.92 absolute icon=Interface/Icons/Spell_Holy_SealOfSacrifice cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 723.89,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 740.22,144.12 61.11x45.92
-        text 740.22,151.67 61.11x15.6 "First Aid" #b3a690 centred
+        text 740.22,151.67 61.11x15.6 "First Aid" #a3977f centred
         text 748.56,168.1 44.44x14.4 "40 / 75" #8f8470 centred
 asked: TradeSkill.close
 asked: TradeSkill.show 182
