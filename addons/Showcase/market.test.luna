@@ -69,10 +69,10 @@ test "the market holds a row for each of the market's controls, each following i
   Test.expect(page.clicked == "right")
   Test.shot("a row clicked with the left button, then another with the right: the page told them apart")
 
-  Test.click(Test.holding("By difficulty", nil), nil)
+  Test.click(Test.painted(Ordaen.art.ctl.tool.sort, nil), nil)
   Test.click(Test.holding("By name", nil), nil)
   Test.expect(page.sortBy == Order.Name)
-  Test.shot("the compact dropdown opened and a choice picked: its plate says «By name»")
+  Test.shot("the toolbar's sort opened and a choice picked: the list closed, the search's row as it was")
 
   Test.click(Test.holding("Right-click here", nil), MouseButton.Right)
   Test.expect(page.menuOpen)

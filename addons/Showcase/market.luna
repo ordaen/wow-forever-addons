@@ -1,7 +1,8 @@
 // The market's controls on a page, for the run tests: a scan's progress, a price with its age, a mode, a tree, item
 // slots and a sortable table of sales.
 import { Align, Click, MouseButton, Track } from "$ltml"
-import { Age, Choice, Column, Component, CompactDropdown, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, TreeRow, tracksOf } from "Ordaen"
+import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, ToolPick, Toolbar, TreeRow, tracksOf } from "Ordaen"
+import root Ordaen from "Ordaen"
 
 public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
 
@@ -52,6 +53,7 @@ public class Market implements Component {
   // The button of the last click on a row of the sales.
   state clicked = "none"
   state sortBy: Order = Order.Difficulty
+  state search = ""
   // The context menu: open under its box, the switch's state, the place of the last entry clicked.
   state menuOpen = false
   state menuOn = false
@@ -149,8 +151,12 @@ public class Market implements Component {
           </Table>
         </Section>
         <Section title={"Menus"}>
-          <SettingRow label={"Compact dropdown"}>
-            <CompactDropdown value={mut self.sortBy} choices={ORDERS} width={170} />
+          <SettingRow label={"Toolbar"}>
+            <box width={300}>
+              <Toolbar search={mut self.search} placeholder={"Search"}>
+                <ToolPick value={mut self.sortBy} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort} title={"Sort"} />
+              </Toolbar>
+            </box>
           </SettingRow>
           <SettingRow label={"Context menu"}>
             <box padding={4} @click={self.onMenuBox}>
