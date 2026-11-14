@@ -1,0 +1,191 @@
+-- six slots: empty, common with an icon, an epic twenty, an uncommon five with two pips, a poor one, a legendary the game has no icon for
+box 0,0 600x33.33
+  box 0,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 0,0 33.33x33.33 absolute
+    box 0,0 33.33x33.33 absolute #00000000
+  box 41.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 41.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 41.33,0 33.33x33.33 absolute #00000000
+  box 82.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 82.67,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 82.67,0 33.33x33.33 absolute #00000000
+    box 82.67,0 33.33x33.33 absolute
+      text 102.67,18.67 10.83x13 "20" #ffffff
+  box 124,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 124,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 124,0 33.33x33.33 absolute #00000000
+    box 124,0 5.83x5.83 absolute #ffd100
+    box 124,27.5 5.83x5.83 absolute #4fd1ff
+    box 124,0 33.33x33.33 absolute
+      text 149.42,18.67 5.42x13 "5" #ffffff
+  box 165.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 165.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 165.33,0 33.33x33.33 absolute #00000000
+  box 206.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 206.67,0 33.33x33.33 absolute
+    box 206.67,0 33.33x33.33 absolute #00000000
+
+-- the cursor on the common slot: the light over its icon, the game's tooltip of the item asked for
+box 0,0 600x33.33
+  box 0,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 0,0 33.33x33.33 absolute
+    box 0,0 33.33x33.33 absolute #00000000
+  box 41.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 41.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 41.33,0 33.33x33.33 absolute #ffffff26
+  box 82.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 82.67,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 82.67,0 33.33x33.33 absolute #00000000
+    box 82.67,0 33.33x33.33 absolute
+      text 102.67,18.67 10.83x13 "20" #ffffff
+  box 124,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 124,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 124,0 33.33x33.33 absolute #00000000
+    box 124,0 5.83x5.83 absolute #ffd100
+    box 124,27.5 5.83x5.83 absolute #4fd1ff
+    box 124,0 33.33x33.33 absolute
+      text 149.42,18.67 5.42x13 "5" #ffffff
+  box 165.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 165.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 165.33,0 33.33x33.33 absolute #00000000
+  box 206.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 206.67,0 33.33x33.33 absolute
+    box 206.67,0 33.33x33.33 absolute #00000000
+asked: Items.show 6948
+
+-- the cursor away: the light gone, nothing asked (the game hides its tooltip)
+box 0,0 600x33.33
+  box 0,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 0,0 33.33x33.33 absolute
+    box 0,0 33.33x33.33 absolute #00000000
+  box 41.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 41.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 41.33,0 33.33x33.33 absolute #00000000
+  box 82.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 82.67,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 82.67,0 33.33x33.33 absolute #00000000
+    box 82.67,0 33.33x33.33 absolute
+      text 102.67,18.67 10.83x13 "20" #ffffff
+  box 124,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 124,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 124,0 33.33x33.33 absolute #00000000
+    box 124,0 5.83x5.83 absolute #ffd100
+    box 124,27.5 5.83x5.83 absolute #4fd1ff
+    box 124,0 33.33x33.33 absolute
+      text 149.42,18.67 5.42x13 "5" #ffffff
+  box 165.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 165.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 165.33,0 33.33x33.33 absolute #00000000
+  box 206.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 206.67,0 33.33x33.33 absolute
+    box 206.67,0 33.33x33.33 absolute #00000000
+
+-- the cursor on the empty slot: the light, no tooltip asked for
+box 0,0 600x33.33
+  box 0,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 0,0 33.33x33.33 absolute
+    box 0,0 33.33x33.33 absolute #ffffff26
+  box 41.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 41.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 41.33,0 33.33x33.33 absolute #00000000
+  box 82.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 82.67,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 82.67,0 33.33x33.33 absolute #00000000
+    box 82.67,0 33.33x33.33 absolute
+      text 102.67,18.67 10.83x13 "20" #ffffff
+  box 124,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 124,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 124,0 33.33x33.33 absolute #00000000
+    box 124,0 5.83x5.83 absolute #ffd100
+    box 124,27.5 5.83x5.83 absolute #4fd1ff
+    box 124,0 33.33x33.33 absolute
+      text 149.42,18.67 5.42x13 "5" #ffffff
+  box 165.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 165.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 165.33,0 33.33x33.33 absolute #00000000
+  box 206.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 206.67,0 33.33x33.33 absolute
+    box 206.67,0 33.33x33.33 absolute #00000000
+
+-- the epic dimmed by a search
+box 0,0 600x33.33
+  box 0,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 0,0 33.33x33.33 absolute
+    box 0,0 33.33x33.33 absolute #ffffff26
+  box 41.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 41.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 41.33,0 33.33x33.33 absolute #00000000
+  box 82.67,0 33.33x33.33 #0d0a08 opacity=0.35 @click @enter
+    box 82.67,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 82.67,0 33.33x33.33 absolute #00000000
+    box 82.67,0 33.33x33.33 absolute
+      text 102.67,18.67 10.83x13 "20" #ffffff
+  box 124,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 124,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 124,0 33.33x33.33 absolute #00000000
+    box 124,0 5.83x5.83 absolute #ffd100
+    box 124,27.5 5.83x5.83 absolute #4fd1ff
+    box 124,0 33.33x33.33 absolute
+      text 149.42,18.67 5.42x13 "5" #ffffff
+  box 165.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 165.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 165.33,0 33.33x33.33 absolute #00000000
+  box 206.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 206.67,0 33.33x33.33 absolute
+    box 206.67,0 33.33x33.33 absolute #00000000
+
+-- the common slot clicked: picked, nothing put into the chat
+box 0,0 600x33.33
+  box 0,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 0,0 33.33x33.33 absolute
+    box 0,0 33.33x33.33 absolute #00000000
+  box 41.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 41.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 41.33,0 33.33x33.33 absolute #ffffff26
+  box 82.67,0 33.33x33.33 #0d0a08 opacity=0.35 @click @enter
+    box 82.67,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 82.67,0 33.33x33.33 absolute #00000000
+    box 82.67,0 33.33x33.33 absolute
+      text 102.67,18.67 10.83x13 "20" #ffffff
+  box 124,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 124,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 124,0 33.33x33.33 absolute #00000000
+    box 124,0 5.83x5.83 absolute #ffd100
+    box 124,27.5 5.83x5.83 absolute #4fd1ff
+    box 124,0 33.33x33.33 absolute
+      text 149.42,18.67 5.42x13 "5" #ffffff
+  box 165.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 165.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 165.33,0 33.33x33.33 absolute #00000000
+  box 206.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 206.67,0 33.33x33.33 absolute
+    box 206.67,0 33.33x33.33 absolute #00000000
+asked: Items.show 6948
+
+-- Shift+clicked: the item's link put into the chat, nothing picked
+box 0,0 600x33.33
+  box 0,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 0,0 33.33x33.33 absolute
+    box 0,0 33.33x33.33 absolute #00000000
+  box 41.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 41.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 41.33,0 33.33x33.33 absolute #ffffff26
+  box 82.67,0 33.33x33.33 #0d0a08 opacity=0.35 @click @enter
+    box 82.67,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 82.67,0 33.33x33.33 absolute #00000000
+    box 82.67,0 33.33x33.33 absolute
+      text 102.67,18.67 10.83x13 "20" #ffffff
+  box 124,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 124,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 124,0 33.33x33.33 absolute #00000000
+    box 124,0 5.83x5.83 absolute #ffd100
+    box 124,27.5 5.83x5.83 absolute #4fd1ff
+    box 124,0 33.33x33.33 absolute
+      text 149.42,18.67 5.42x13 "5" #ffffff
+  box 165.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 165.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
+    box 165.33,0 33.33x33.33 absolute #00000000
+  box 206.67,0 33.33x33.33 #0d0a08 opacity=1 @click @enter
+    box 206.67,0 33.33x33.33 absolute
+    box 206.67,0 33.33x33.33 absolute #00000000
+asked: Chat.link 6948

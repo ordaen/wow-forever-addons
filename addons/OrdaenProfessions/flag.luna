@@ -1,0 +1,44 @@
+// Flag: one of a recipe's switches, «Favorite» or «Track»: its label at the left and the library's switch at the right.
+// The switch shows what the window remembers (`on`); a click on it reports `flipped`, and the window writes what it
+// remembers, which the switch then follows.
+import { Align } from "$ltml"
+import { Component, PX, Toggle } from "Ordaen"
+
+const LABEL: Color = Color.hex("#e8dcc4")
+const TEXT = 14 * PX
+
+public class Flag implements Component {
+  public flipped: Event<nil> = new Event()
+
+  // What the switch shows: the library's switch writes it, and it follows `on` whenever that changes.
+  state value = false
+
+  label: Signal<String>
+  on: Signal<Boolean>
+  disabled: Signal<Boolean>
+  constructor(
+    label: Signal<String>,
+    on: Signal<Boolean>,
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.label = label
+    self.on = on
+    self.disabled = disabled
+    watch { self.value = self.on }
+    watch (shown of self.value) { self.flip(shown) }
+  }
+
+  // A click put the switch at `shown`: told, unless that is what the window already remembers.
+  flip(self, shown: Boolean) {
+    if (shown != peek self.on) { self.flipped.emit() }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={[{ fr: 1 }, "auto"]} gap={10 * PX} yAlign={Align.Center}>
+        <text value={self.label} textColor={LABEL} textSize={TEXT} wrap={false} />
+        <Toggle value={mut self.value} disabled={self.disabled} />
+      </box>
+    }
+  }
+}

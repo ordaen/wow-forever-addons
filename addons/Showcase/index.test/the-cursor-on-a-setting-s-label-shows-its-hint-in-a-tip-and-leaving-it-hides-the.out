@@ -1,5 +1,5 @@
 -- the cursor on the switch's label: the tip shows its hint
-box 0,0 700x289.73 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 42.08x25.83 #00000000 @click
@@ -9,7 +9,7 @@ box 0,0 700x289.73 @enter @leave
       text 57.92,6.67 37.5x15 "Drawer" #ffffff
     box 111.25,0 60.83x25.83 #00000000 @click
       text 122.92,5.83 37.5x15 "Market" #a3977f
-  box 0,34.67 700x160
+  box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
         text 0,34.67 37.5x15 "Drawer" #e8c35a
@@ -36,16 +36,21 @@ box 0,0 700x289.73 @enter @leave
       text 0,166.33 700x0 "" #ffffff
       box 0,178 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
         box -2.5,175.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
-  text 0,202.67 700x14.4 "zone shown" #ffffff
-  box 0,225.07 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,225.07 120x28.33 absolute
-      text 47.5,231.73 25x15 "Save" #ffd100
-  box 0,261.4 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,261.4 120x28.33 absolute
-      text 44.38,268.07 31.25x15 "Reset" #808080
+    box 0,206.33 700x86.67
+      box 0,206.33 700x15
+        text 0,206.33 37.5x15 "Export" #e8c35a
+        box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
 
 -- the cursor away: the tip is gone
-box 0,0 700x289.73 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 42.08x25.83 #00000000 @click
@@ -55,7 +60,7 @@ box 0,0 700x289.73 @enter @leave
       text 57.92,6.67 37.5x15 "Drawer" #ffffff
     box 111.25,0 60.83x25.83 #00000000 @click
       text 122.92,5.83 37.5x15 "Market" #a3977f
-  box 0,34.67 700x160
+  box 0,34.67 700x258.33
     box 0,34.67 700x160
       box 0,34.67 700x15
         text 0,34.67 37.5x15 "Drawer" #e8c35a
@@ -79,10 +84,15 @@ box 0,0 700x289.73 @enter @leave
       text 0,166.33 700x0 "" #ffffff
       box 0,178 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
         box -2.5,175.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
-  text 0,202.67 700x14.4 "zone shown" #ffffff
-  box 0,225.07 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,225.07 120x28.33 absolute
-      text 47.5,231.73 25x15 "Save" #ffd100
-  box 0,261.4 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,261.4 120x28.33 absolute
-      text 44.38,268.07 31.25x15 "Reset" #808080
+    box 0,206.33 700x86.67
+      box 0,206.33 700x15
+        text 0,206.33 37.5x15 "Export" #e8c35a
+        box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080

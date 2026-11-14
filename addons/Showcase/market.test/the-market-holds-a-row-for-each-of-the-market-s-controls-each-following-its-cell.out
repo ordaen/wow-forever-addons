@@ -40,18 +40,18 @@ box 0,0 700x408.37
       box 0,200.5 233.33x15 @enter @leave
         text 0,200.5 233.33x15 "Bought" #cbb994
       box 248.33,191.33 451.67x33.33
-        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,191.33 33.33x33.33 absolute
           box 248.33,191.33 33.33x33.33 absolute #00000000
           box 248.33,191.33 5.83x5.83 absolute #ffd100
           box 248.33,191.33 33.33x33.33 absolute
             text 273.75,210 5.42x13 "5" #ffffff
-        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,191.33 33.33x33.33 absolute
           box 289.67,191.33 33.33x33.33 absolute #00000000
           box 289.67,191.33 33.33x33.33 absolute
             text 309.67,210 10.83x13 "20" #ffffff
-        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,191.33 33.33x33.33 absolute
           box 331,191.33 33.33x33.33 absolute #00000000
     box 0,236.33 700x43.33
@@ -144,18 +144,18 @@ box 0,0 700x408.37
       box 0,200.5 233.33x15 @enter @leave
         text 0,200.5 233.33x15 "Bought" #cbb994
       box 248.33,191.33 451.67x33.33
-        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,191.33 33.33x33.33 absolute
           box 248.33,191.33 33.33x33.33 absolute #00000000
           box 248.33,191.33 5.83x5.83 absolute #ffd100
           box 248.33,191.33 33.33x33.33 absolute
             text 273.75,210 5.42x13 "5" #ffffff
-        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,191.33 33.33x33.33 absolute
           box 289.67,191.33 33.33x33.33 absolute #00000000
           box 289.67,191.33 33.33x33.33 absolute
             text 309.67,210 10.83x13 "20" #ffffff
-        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,191.33 33.33x33.33 absolute
           box 331,191.33 33.33x33.33 absolute #00000000
     box 0,236.33 700x43.33
@@ -247,18 +247,18 @@ box 0,0 700x408.37
       box 0,200.5 233.33x15 @enter @leave
         text 0,200.5 233.33x15 "Bought" #cbb994
       box 248.33,191.33 451.67x33.33
-        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,191.33 33.33x33.33 absolute
           box 248.33,191.33 33.33x33.33 absolute #00000000
           box 248.33,191.33 5.83x5.83 absolute #ffd100
           box 248.33,191.33 33.33x33.33 absolute
             text 273.75,210 5.42x13 "5" #ffffff
-        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,191.33 33.33x33.33 absolute
           box 289.67,191.33 33.33x33.33 absolute #00000000
           box 289.67,191.33 33.33x33.33 absolute
             text 309.67,210 10.83x13 "20" #ffffff
-        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,191.33 33.33x33.33 absolute
           box 331,191.33 33.33x33.33 absolute #00000000
     box 0,236.33 700x43.33
@@ -349,18 +349,18 @@ box 0,0 700x408.37
       box 0,200.5 233.33x15 @enter @leave
         text 0,200.5 233.33x15 "Bought" #cbb994
       box 248.33,191.33 451.67x33.33
-        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,191.33 33.33x33.33 absolute
           box 248.33,191.33 33.33x33.33 absolute #00000000
           box 248.33,191.33 5.83x5.83 absolute #ffd100
           box 248.33,191.33 33.33x33.33 absolute
             text 273.75,210 5.42x13 "5" #ffffff
-        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,191.33 33.33x33.33 absolute
           box 289.67,191.33 33.33x33.33 absolute #00000000
           box 289.67,191.33 33.33x33.33 absolute
             text 309.67,210 10.83x13 "20" #ffffff
-        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,191.33 33.33x33.33 absolute
           box 331,191.33 33.33x33.33 absolute #00000000
     box 0,236.33 700x43.33
@@ -451,18 +451,18 @@ box 0,0 700x408.37
       box 0,200.5 233.33x15 @enter @leave
         text 0,200.5 233.33x15 "Bought" #cbb994
       box 248.33,191.33 451.67x33.33
-        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,191.33 33.33x33.33 absolute
           box 248.33,191.33 33.33x33.33 absolute #00000000
           box 248.33,191.33 5.83x5.83 absolute #ffd100
           box 248.33,191.33 33.33x33.33 absolute
             text 273.75,210 5.42x13 "5" #ffffff
-        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,191.33 33.33x33.33 absolute
           box 289.67,191.33 33.33x33.33 absolute #00000000
           box 289.67,191.33 33.33x33.33 absolute
             text 309.67,210 10.83x13 "20" #ffffff
-        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,191.33 33.33x33.33 absolute
           box 331,191.33 33.33x33.33 absolute #00000000
     box 0,236.33 700x43.33
@@ -553,18 +553,18 @@ box 0,0 700x408.37
       box 0,200.5 233.33x15 @enter @leave
         text 0,200.5 233.33x15 "Bought" #cbb994
       box 248.33,191.33 451.67x33.33
-        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,191.33 33.33x33.33 absolute
           box 248.33,191.33 33.33x33.33 absolute #00000000
           box 248.33,191.33 5.83x5.83 absolute #ffd100
           box 248.33,191.33 33.33x33.33 absolute
             text 273.75,210 5.42x13 "5" #ffffff
-        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,191.33 33.33x33.33 absolute
           box 289.67,191.33 33.33x33.33 absolute #ffffff26
           box 289.67,191.33 33.33x33.33 absolute
             text 309.67,210 10.83x13 "20" #ffffff
-        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,191.33 33.33x33.33 absolute
           box 331,191.33 33.33x33.33 absolute #00000000
     box 0,236.33 700x43.33
@@ -613,6 +613,7 @@ box 0,0 700x408.37
             text 574.17,390.83 52.5x14 "0g 0s 40c" #e8dcc4
           box 633.33,391.33 60x13
             text 660.83,391.33 32.5x13 "(9 d.)" #a3977f
+asked: Items.show 2589
 
 -- the tree's root clicked: closed, its child gone
 box 0,0 700x386.7
@@ -655,18 +656,18 @@ box 0,0 700x386.7
       box 0,200.5 233.33x15 @enter @leave
         text 0,200.5 233.33x15 "Bought" #cbb994
       box 248.33,191.33 451.67x33.33
-        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,191.33 33.33x33.33 absolute
           box 248.33,191.33 33.33x33.33 absolute #00000000
           box 248.33,191.33 5.83x5.83 absolute #ffd100
           box 248.33,191.33 33.33x33.33 absolute
             text 273.75,210 5.42x13 "5" #ffffff
-        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,191.33 33.33x33.33 absolute
           box 289.67,191.33 33.33x33.33 absolute #00000000
           box 289.67,191.33 33.33x33.33 absolute
             text 309.67,210 10.83x13 "20" #ffffff
-        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,191.33 33.33x33.33 absolute
           box 331,191.33 33.33x33.33 absolute #00000000
     box 0,236.33 700x21.67
@@ -753,18 +754,18 @@ box 0,0 700x386.7
       box 0,200.5 233.33x15 @enter @leave
         text 0,200.5 233.33x15 "Bought" #cbb994
       box 248.33,191.33 451.67x33.33
-        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,191.33 33.33x33.33 absolute
           box 248.33,191.33 33.33x33.33 absolute #00000000
           box 248.33,191.33 5.83x5.83 absolute #ffd100
           box 248.33,191.33 33.33x33.33 absolute
             text 273.75,210 5.42x13 "5" #ffffff
-        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,191.33 33.33x33.33 absolute
           box 289.67,191.33 33.33x33.33 absolute #00000000
           box 289.67,191.33 33.33x33.33 absolute
             text 309.67,210 10.83x13 "20" #ffffff
-        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,191.33 33.33x33.33 absolute
           box 331,191.33 33.33x33.33 absolute #00000000
     box 0,236.33 700x21.67
@@ -853,18 +854,18 @@ box 0,0 700x386.7
       box 0,200.5 233.33x15 @enter @leave
         text 0,200.5 233.33x15 "Bought" #cbb994
       box 248.33,191.33 451.67x33.33
-        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 248.33,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 248.33,191.33 33.33x33.33 absolute
           box 248.33,191.33 33.33x33.33 absolute #00000000
           box 248.33,191.33 5.83x5.83 absolute #ffd100
           box 248.33,191.33 33.33x33.33 absolute
             text 273.75,210 5.42x13 "5" #ffffff
-        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 289.67,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 289.67,191.33 33.33x33.33 absolute
           box 289.67,191.33 33.33x33.33 absolute #00000000
           box 289.67,191.33 33.33x33.33 absolute
             text 309.67,210 10.83x13 "20" #ffffff
-        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
+        box 331,191.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
           box 331,191.33 33.33x33.33 absolute
           box 331,191.33 33.33x33.33 absolute #00000000
     box 0,236.33 700x21.67

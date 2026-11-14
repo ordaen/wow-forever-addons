@@ -1,0 +1,45 @@
+// The library's TextBox: many lines, all its text selected each time it is shown and each time its text is written
+// while it shows; what is typed or pasted takes the place of the selection.
+import Test from "$test"
+import { TextBox } from "@/textBox"
+
+class Export {
+  state text = "Ordaen:1:look\nscale=100"
+  state open = true
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={10} shown={self.open}>
+        <TextBox value={mut self.text} height={80} />
+      </box>
+    }
+  }
+}
+
+test "a text box takes the keyboard with all its text selected when shown, and its lines follow what is typed" {
+  let page = new Export()
+  Test.mount(page, { left: 0, top: 0, width: 400, height: 200 })
+  Test.shot("shown: many lines, the keyboard taken, all the text selected")
+
+  Test.type("pasted")
+  Test.flush()
+  Test.expect(page.text == "pasted")
+  Test.key(.Enter)
+  Test.type("more")
+  Test.flush()
+  Test.expect(page.text == "pasted\nmore")
+  Test.shot("pasted over the selection, then Enter and more: two lines, the keyboard kept")
+
+  Test.key(.Escape)
+  page.open = false
+  Test.flush()
+  page.open = true
+  Test.shot("hidden and shown again: the keyboard taken, all selected")
+
+  Test.key(.Escape)
+  page.text = "Ordaen:1:look\nscale=90"
+  Test.shot("its text written while it shows: all of the new text selected")
+
+  destroy page
+  Test.expect(Test.blank())
+}
