@@ -22,7 +22,8 @@ const UNIT_NAME = 2
 
 // The lock: a tooltip held under the cursor charges, then locks, and stays for the cursor to come onto it. The
 // charge starts `DELAY` seconds into the show (a passing cursor sees no bar) and takes `CHARGE` seconds, in
-// `STEPS`. A locked group goes `GRACE` seconds after the cursor left it, unless it came back. The game hides and
+// `STEPS`. A locked group goes `GRACE` seconds after the cursor went onto anything but the group and its source,
+// unless it came back to either; onto another thing with a tooltip, at once. The game hides and
 // shows a button's tooltip again as it refreshes it: only a hide longer than `REFRESH` is the cursor leaving.
 const DELAY = 0.18
 const CHARGE = 1
@@ -95,13 +96,19 @@ public class Tooltips implements Module, App {
   state closed = false
   // Locked: what was shown then and where, which stays once the game's tooltip is gone.
   state kept: Held | nil = nil
-  // When the game's tooltip went, while it is gone; when the cursor left the locked group, while it is away.
+  // When the game's tooltip went, while it is gone; since when the cursor has been on neither the locked group nor
+  // its source, while it is away.
   state hiddenAt: Number | nil = nil
   state leftAt: Number | nil = nil
+  // The cursor is on the group (on a part of it that opens another tooltip too); it has been on it since it locked.
+  state over = false
+  state visited = false
   derived locked: Boolean = self.kept != nil
   derived charge: Integer = self.chargeNow()
   derived gone: Boolean = self.goneNow()
   derived away: Boolean = self.awayNow()
+  // The game's tooltip shows what is locked: the cursor is back on its source.
+  derived onSource: Boolean = self.onSourceNow()
   derived current: Shown | nil = self.read ?? self.kept?.shown
   derived shown: Boolean = self.current != nil
   // The last show, kept while nothing shows: the group is drawn once, and a show changes only what differs from
@@ -137,6 +144,7 @@ public class Tooltips implements Module, App {
     watch { self.follow() }
     watch { self.lockCharged() }
     watch { self.forget() }
+    watch { self.trackAway() }
     watch { self.graceOut() }
     watch { self.keepLast() }
   }
@@ -183,6 +191,7 @@ public class Tooltips implements Module, App {
     let kind = kindOf(data)
     self.kept = nil
     self.leftAt = nil
+    self.visited = false
     self.closed = false
     self.target = {
       kind: data.kind, about: data.about, since: peek Game.clock.time,
@@ -218,10 +227,37 @@ public class Tooltips implements Module, App {
     self.closed = true
     self.kept = nil
     self.leftAt = nil
+    self.visited = false
   }
 
-  onEnter(mut self) { self.leftAt = nil }
-  onLeave(mut self) { self.leftAt = peek Game.clock.time }
+  onEnter(mut self) { self.over = true }
+  onLeave(mut self) { self.over = false }
+
+  onSourceNow(self): Boolean {
+    let tip = Game.tooltip.main
+    let target = self.target
+    return tip.shown && target != nil && target.kind == tip.data.kind && target.about == tip.data.about
+  }
+
+  // A locked group the cursor has been on is away while the cursor is on neither it nor its source: the grace runs
+  // from then, and the cursor coming back onto either stops it. Until the cursor first comes onto it, it stays.
+  trackAway(mut self) {
+    if (self.kept == nil) {
+      self.leftAt = nil
+    } else if (self.over) {
+      self.visited = true
+      self.leftAt = nil
+    } else if (!(peek self.visited) || self.onSource) {
+      self.leftAt = nil
+    } else if (peek self.leftAt == nil) {
+      self.leftAt = peek Game.clock.time
+    }
+  }
+
+  destructor() {
+    // Nothing here draws the game's tooltip any more: it is seen again.
+    Game.tooltip.hide(false)
+  }
 
   // The game's own tooltip is unseen for a show drawn here, and seen for one left to it.
   keepUnseen(self) {
