@@ -72,10 +72,10 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
         text 326.69,200.95 61.11x15.6 "Inbox (4)" #ffd100 centred
     box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.08,191.62 77.33x34.25
-        text 467.31,200.95 28.89x15.6 "Sent" #b3a690 centred
+        text 467.31,200.95 28.89x15.6 "Sent" #a3977f centred
     box 549,181.38 143.83x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 567.58,191.62 106.67x34.25
-        text 567.58,200.95 106.67x15.6 "To my characters" #b3a690 centred
+        text 567.58,200.95 106.67x15.6 "To my characters" #a3977f centred
 
 -- filtered to the letters with money
 surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
@@ -134,10 +134,10 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
         text 326.69,200.95 61.11x15.6 "Inbox (4)" #ffd100 centred
     box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.08,191.62 77.33x34.25
-        text 467.31,200.95 28.89x15.6 "Sent" #b3a690 centred
+        text 467.31,200.95 28.89x15.6 "Sent" #a3977f centred
     box 549,181.38 143.83x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 567.58,191.62 106.67x34.25
-        text 567.58,200.95 106.67x15.6 "To my characters" #b3a690 centred
+        text 567.58,200.95 106.67x15.6 "To my characters" #a3977f centred
 
 -- by kind
 surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
@@ -243,10 +243,10 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
         text 326.69,200.95 61.11x15.6 "Inbox (4)" #ffd100 centred
     box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.08,191.62 77.33x34.25
-        text 467.31,200.95 28.89x15.6 "Sent" #b3a690 centred
+        text 467.31,200.95 28.89x15.6 "Sent" #a3977f centred
     box 549,181.38 143.83x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 567.58,191.62 106.67x34.25
-        text 567.58,200.95 106.67x15.6 "To my characters" #b3a690 centred
+        text 567.58,200.95 106.67x15.6 "To my characters" #a3977f centred
 
 -- as a table
 surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
@@ -343,7 +343,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
         text 326.69,200.95 61.11x15.6 "Inbox (4)" #ffd100 centred
     box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.08,191.62 77.33x34.25
-        text 467.31,200.95 28.89x15.6 "Sent" #b3a690 centred
+        text 467.31,200.95 28.89x15.6 "Sent" #a3977f centred
     box 549,181.38 143.83x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 567.58,191.62 106.67x34.25
-        text 567.58,200.95 106.67x15.6 "To my characters" #b3a690 centred
+        text 567.58,200.95 106.67x15.6 "To my characters" #a3977f centred
