@@ -1,168 +1,168 @@
 -- an item with every section: the header, the title beside its icon, the band, the body, more, the footer, a hotkey
-box 0,0 276.06x382.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-  box 20.25,20.25 240.56x29.17
-    box 20.25,20.25 240.56x15.6
-      text 113.31,20.25 54.44x15.6 "Equipped" #ffd100 centred
-    box 20.25,40.85 240.56x1.67
-  box 20.25,49.42 240.56x59.2
-    box 20.25,50.68 50x50 #000000
-      box 21.92,52.35 46.67x46.67 icon=Interface/Icons/INV_Axe_01
-    box 78.58,49.42 182.22x52.53
-      text 78.58,49.42 182.22x19.2 "Axe of the Deep Woods" #a336ed
-      box 78.58,70.28 182.22x15
-        box 78.58,70.58 62.22x14.4
-          text 78.58,70.58 62.22x14.4 "Two-handed" #cbb994
-        text 140.81,70.58 21.11x14.4 " · " #cbb994
-        box 161.92,70.58 21.11x14.4
-          text 161.92,70.58 21.11x14.4 "Axe" #cbb994
-        text 183.03,70.58 21.11x14.4 " · " #cbb994
-        box 204.14,70.58 56.67x14.4
-          text 204.14,70.58 56.67x14.4 "Soulbound" #ffd100
-      box 78.58,86.95 182.22x15
-        box 78.58,87.25 81.11x14.4
-          text 78.58,87.25 81.11x14.4 "Item level 62" #857a66
-  box 20.25,108.62 240.56x29.77
-    box 20.25,109.45 72.22x28.93
-      box 33.17,116.12 46.39x15.6
-        box 33.17,117.25 13.33x13.33
-          box 31.5,115.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 0 of 16
-        box 50.67,116.12 28.89x15.6
-          text 50.67,116.12 28.89x15.6 "78.3" #f3e7cc
-    box 92.47,109.45 72.22x28.93
-      box 105.81,116.12 46.39x15.6
-        box 105.81,117.25 13.33x13.33
-          box 104.14,115.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 1 of 16
-        box 123.31,116.12 28.89x15.6
-          text 123.31,116.12 28.89x15.6 "3.40" #f3e7cc
-    box 164.69,109.45 96.11x28.93
-      box 173.86,116.12 78.61x15.6
-        box 173.86,117.25 13.33x13.33
-          box 172.19,115.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 2 of 16
-        box 191.36,116.12 61.11x15.6
-          text 191.36,116.12 61.11x15.6 "120 / 120" #1fff00
-  box 20.25,138.38 240.56x107.17
-    box 20.25,145.88 240.56x15.6
-      text 20.25,145.88 171.11x15.6 "Damage" #f3e7cc
-      text 199.69,145.88 61.11x15.6 "216 - 325" #f3e7cc
-    box 20.25,163.15 240.56x15.6
-      text 20.25,163.15 210x15.6 "Strength" #f3e7cc
-      text 238.58,163.15 22.22x15.6 "+21" #1fff00
-    box 20.25,180.42 240.56x36.2
-      text 20.25,185.42 240.56x31.2 "Chance on hit: Blasts a target for 90 to 126 Nature damage." #1fff00
-    box 20.25,218.28 240.56x20.6
-      text 20.25,223.28 210x15.6 "Stamina" #f3e7cc
-      text 238.58,223.28 22.22x15.6 "+12" #f3e7cc
-  box 20.25,245.55 240.56x29.77
-    box 20.25,253.05 240.56x15.6
-      text 20.25,253.05 216.67x15.6 "Dropped by: Kirtonos the Herald" #f3e7cc
-      text 245.25,253.05 15.56x15.6 "2%" #f3e7cc
-  box 20.25,275.32 240.56x60.7
-    box 20.25,282.82 240.56x14.4
-      text 20.25,282.82 181.11x14.4 "Requires" #857a66
-      text 209.69,282.82 51.11x14.4 "Level 57" #a39883
-    box 20.25,298.88 240.56x14.4
-      text 20.25,298.88 193.33x14.4 "Sell price" #857a66
-      text 221.92,298.88 38.89x14.4 "5g 12s" #a39883
-    box 20.25,314.95 240.56x14.4
-      text 20.25,314.95 240.56x14.4 "Can't be used in an arena" #ff4040
-  box 20.25,336.02 240.56x28.57
-    box 20.25,343.52 240.56x14.4
-      text 20.25,343.52 240.56x14.4 "Shift-click: link in chat" #857a66
+box 0,0 282.72x400.92 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 23.58,23.58 240.56x29.17
+    box 23.58,23.58 240.56x15.6
+      text 116.64,23.58 54.44x15.6 "Equipped" #ffd100 centred
+    box 23.58,44.18 240.56x1.67
+  box 23.58,52.75 240.56x62.53
+    box 23.58,55.68 50x50 #000000
+      box 25.25,57.35 46.67x46.67 icon=Interface/Icons/INV_Axe_01
+    box 81.92,52.75 182.22x55.87
+      text 81.92,52.75 182.22x19.2 "Axe of the Deep Woods" #a336ed
+      box 81.92,75.28 182.22x15
+        box 81.92,75.58 62.22x14.4
+          text 81.92,75.58 62.22x14.4 "Two-handed" #cbb994
+        text 144.14,75.58 21.11x14.4 " · " #cbb994
+        box 165.25,75.58 21.11x14.4
+          text 165.25,75.58 21.11x14.4 "Axe" #cbb994
+        text 186.36,75.58 21.11x14.4 " · " #cbb994
+        box 207.47,75.58 56.67x14.4
+          text 207.47,75.58 56.67x14.4 "Soulbound" #ffd100
+      box 81.92,93.62 182.22x15
+        box 81.92,93.92 81.11x14.4
+          text 81.92,93.92 81.11x14.4 "Item level 62" #857a66
+  box 23.58,115.28 240.56x29.77
+    box 23.58,116.12 72.22x28.93
+      box 36.5,122.78 46.39x15.6
+        box 36.5,123.92 13.33x13.33
+          box 34.83,122.25 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 0 of 16
+        box 54,122.78 28.89x15.6
+          text 54,122.78 28.89x15.6 "78.3" #f3e7cc
+    box 95.81,116.12 72.22x28.93
+      box 109.14,122.78 46.39x15.6
+        box 109.14,123.92 13.33x13.33
+          box 107.47,122.25 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 1 of 16
+        box 126.64,122.78 28.89x15.6
+          text 126.64,122.78 28.89x15.6 "3.40" #f3e7cc
+    box 168.03,116.12 96.11x28.93
+      box 177.19,122.78 78.61x15.6
+        box 177.19,123.92 13.33x13.33
+          box 175.53,122.25 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 2 of 16
+        box 194.69,122.78 61.11x15.6
+          text 194.69,122.78 61.11x15.6 "120 / 120" #1fff00
+  box 23.58,145.05 240.56x112.17
+    box 23.58,152.55 240.56x15.6
+      text 23.58,152.55 171.11x15.6 "Damage" #f3e7cc
+      text 203.03,152.55 61.11x15.6 "216 - 325" #f3e7cc
+    box 23.58,171.48 240.56x15.6
+      text 23.58,171.48 210x15.6 "Strength" #f3e7cc
+      text 241.92,171.48 22.22x15.6 "+21" #1fff00
+    box 23.58,190.42 240.56x36.2
+      text 23.58,195.42 240.56x31.2 "Chance on hit: Blasts a target for 90 to 126 Nature damage." #1fff00
+    box 23.58,229.95 240.56x20.6
+      text 23.58,234.95 210x15.6 "Stamina" #f3e7cc
+      text 241.92,234.95 22.22x15.6 "+12" #f3e7cc
+  box 23.58,257.22 240.56x29.77
+    box 23.58,264.72 240.56x15.6
+      text 23.58,264.72 216.67x15.6 "Dropped by: Kirtonos the Herald" #f3e7cc
+      text 248.58,264.72 15.56x15.6 "2%" #f3e7cc
+  box 23.58,286.98 240.56x64.03
+    box 23.58,294.48 240.56x14.4
+      text 23.58,294.48 181.11x14.4 "Requires" #857a66
+      text 213.03,294.48 51.11x14.4 "Level 57" #a39883
+    box 23.58,312.22 240.56x14.4
+      text 23.58,312.22 193.33x14.4 "Sell price" #857a66
+      text 225.25,312.22 38.89x14.4 "5g 12s" #a39883
+    box 23.58,329.95 240.56x14.4
+      text 23.58,329.95 240.56x14.4 "Can't be used in an arena" #ff4040
+  box 23.58,351.02 240.56x28.57
+    box 23.58,358.52 240.56x14.4
+      text 23.58,358.52 240.56x14.4 "Shift-click: link in chat" #857a66
 
 -- a sign: the title alone, 314 px wide at least, no room under it
-box 0,0 271.17x57.45 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-  box 20.25,20.25 235.67x19.2
-    box 20.25,20.25 235.67x19.2
-      text 20.25,20.25 235.67x19.2 "Mailbox" #ffffff
+box 0,0 271.17x64.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 23.58,23.58 229x19.2
+    box 23.58,23.58 229x19.2
+      text 23.58,23.58 229x19.2 "Mailbox" #ffffff
 
 -- a spell: its cost's glyph in the resource's colour, its description wrapped at the tooltip's width, a line set in
-box 0,0 271.17x247.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-  box 20.25,20.25 235.67x56.67
-    box 20.25,20.25 50x50 #000000
-      box 21.92,21.92 46.67x46.67 icon=Interface/Icons/Spell_Frost_FrostBolt02
-    box 78.58,27.32 177.33x35.87
-      text 78.58,27.32 177.33x19.2 "Frostbolt" #ffffff
-      box 78.58,48.18 177.33x15
-        box 78.58,48.48 38.89x14.4
-          text 78.58,48.48 38.89x14.4 "Rank 4" #cbb994
-        text 117.47,48.48 21.11x14.4 " · " #cbb994
-        box 138.58,48.48 32.22x14.4
-          text 138.58,48.48 32.22x14.4 "Frost" #4d99ff
-  box 20.25,76.92 235.67x29.77
-    box 20.25,77.75 117.83x28.93
-      box 62.64,84.42 33.06x15.6
-        box 62.64,85.55 13.33x13.33
-          box 60.97,83.88 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
-            box 60.97,83.88 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
-        box 80.14,84.42 15.56x15.6
-          text 80.14,84.42 15.56x15.6 "65" #f3e7cc
-    box 138.08,77.75 117.83x28.93
-      box 177.56,84.42 39.72x15.6
-        box 177.56,84.42 35.56x15.6
-          text 177.56,84.42 35.56x15.6 "30 yd" #f3e7cc
-  box 20.25,106.68 235.67x93.83
-    box 20.25,114.18 235.67x62.4
-      text 20.25,114.18 235.67x62.4 "Launches a bolt of frost at the enemy, causing 74 to 83 Frost damage and slowing movement speed by 40% for 7 sec." #f3e7cc
-    box 20.25,178.25 235.67x15.6
-      text 30.25,178.25 225.67x15.6 "Party member: 3 / 8" #e6dcc6
-  box 20.25,200.52 235.67x28.57
-    box 20.25,208.02 235.67x14.4
-      text 20.25,208.02 182.89x14.4 "Cast time" #857a66
-      text 211.47,208.02 44.44x14.4 "2.5 sec" #a39883
+box 0,0 271.17x255.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 23.58,23.58 229x56.67
+    box 23.58,23.58 50x50 #000000
+      box 25.25,25.25 46.67x46.67 icon=Interface/Icons/Spell_Frost_FrostBolt02
+    box 81.92,29.82 170.67x37.53
+      text 81.92,29.82 170.67x19.2 "Frostbolt" #ffffff
+      box 81.92,52.35 170.67x15
+        box 81.92,52.65 38.89x14.4
+          text 81.92,52.65 38.89x14.4 "Rank 4" #cbb994
+        text 120.81,52.65 21.11x14.4 " · " #cbb994
+        box 141.92,52.65 32.22x14.4
+          text 141.92,52.65 32.22x14.4 "Frost" #4d99ff
+  box 23.58,80.25 229x29.77
+    box 23.58,81.08 114.5x28.93
+      box 64.31,87.75 33.06x15.6
+        box 64.31,88.88 13.33x13.33
+          box 62.64,87.22 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+            box 62.64,87.22 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
+        box 81.81,87.75 15.56x15.6
+          text 81.81,87.75 15.56x15.6 "65" #f3e7cc
+    box 138.08,81.08 114.5x28.93
+      box 175.89,87.75 39.72x15.6
+        box 175.89,87.75 35.56x15.6
+          text 175.89,87.75 35.56x15.6 "30 yd" #f3e7cc
+  box 23.58,110.02 229x95.5
+    box 23.58,117.52 229x62.4
+      text 23.58,117.52 229x62.4 "Launches a bolt of frost at the enemy, causing 74 to 83 Frost damage and slowing movement speed by 40% for 7 sec." #f3e7cc
+    box 23.58,183.25 229x15.6
+      text 33.58,183.25 219x15.6 "Party member: 3 / 8" #e6dcc6
+  box 23.58,205.52 229x28.57
+    box 23.58,213.02 229x14.4
+      text 23.58,213.02 176.22x14.4 "Cast time" #857a66
+      text 208.14,213.02 44.44x14.4 "2.5 sec" #a39883
 
 -- beside another tooltip: narrower
-box 0,0 229.5x262.68 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-  box 20.25,20.25 194x56.67
-    box 20.25,20.25 50x50 #000000
-      box 21.92,21.92 46.67x46.67 icon=Interface/Icons/Spell_Frost_FrostBolt02
-    box 78.58,27.32 135.67x35.87
-      text 78.58,27.32 135.67x19.2 "Frostbolt" #ffffff
-      box 78.58,48.18 135.67x15
-        box 78.58,48.48 38.89x14.4
-          text 78.58,48.48 38.89x14.4 "Rank 4" #cbb994
-        text 117.47,48.48 21.11x14.4 " · " #cbb994
-        box 138.58,48.48 32.22x14.4
-          text 138.58,48.48 32.22x14.4 "Frost" #4d99ff
-  box 20.25,76.92 194x29.77
-    box 20.25,77.75 97x28.93
-      box 52.22,84.42 33.06x15.6
-        box 52.22,85.55 13.33x13.33
-          box 50.56,83.88 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
-            box 50.56,83.88 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
-        box 69.72,84.42 15.56x15.6
-          text 69.72,84.42 15.56x15.6 "65" #f3e7cc
-    box 117.25,77.75 97x28.93
-      box 146.31,84.42 39.72x15.6
-        box 146.31,84.42 35.56x15.6
-          text 146.31,84.42 35.56x15.6 "30 yd" #f3e7cc
-  box 20.25,106.68 194x109.43
-    box 20.25,114.18 194x78
-      text 20.25,114.18 194x78 "Launches a bolt of frost at the enemy, causing 74 to 83 Frost damage and slowing movement speed by 40% for 7 sec." #f3e7cc
-    box 20.25,193.85 194x15.6
-      text 30.25,193.85 184x15.6 "Party member: 3 / 8" #e6dcc6
-  box 20.25,216.12 194x28.57
-    box 20.25,223.62 194x14.4
-      text 20.25,223.62 141.22x14.4 "Cast time" #857a66
-      text 169.81,223.62 44.44x14.4 "2.5 sec" #a39883
+box 0,0 229.5x271.02 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 23.58,23.58 187.33x56.67
+    box 23.58,23.58 50x50 #000000
+      box 25.25,25.25 46.67x46.67 icon=Interface/Icons/Spell_Frost_FrostBolt02
+    box 81.92,29.82 129x37.53
+      text 81.92,29.82 129x19.2 "Frostbolt" #ffffff
+      box 81.92,52.35 129x15
+        box 81.92,52.65 38.89x14.4
+          text 81.92,52.65 38.89x14.4 "Rank 4" #cbb994
+        text 120.81,52.65 21.11x14.4 " · " #cbb994
+        box 141.92,52.65 32.22x14.4
+          text 141.92,52.65 32.22x14.4 "Frost" #4d99ff
+  box 23.58,80.25 187.33x29.77
+    box 23.58,81.08 93.67x28.93
+      box 53.89,87.75 33.06x15.6
+        box 53.89,88.88 13.33x13.33
+          box 52.22,87.22 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+            box 52.22,87.22 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
+        box 71.39,87.75 15.56x15.6
+          text 71.39,87.75 15.56x15.6 "65" #f3e7cc
+    box 117.25,81.08 93.67x28.93
+      box 144.64,87.75 39.72x15.6
+        box 144.64,87.75 35.56x15.6
+          text 144.64,87.75 35.56x15.6 "30 yd" #f3e7cc
+  box 23.58,110.02 187.33x111.1
+    box 23.58,117.52 187.33x78
+      text 23.58,117.52 187.33x78 "Launches a bolt of frost at the enemy, causing 74 to 83 Frost damage and slowing movement speed by 40% for 7 sec." #f3e7cc
+    box 23.58,198.85 187.33x15.6
+      text 33.58,198.85 177.33x15.6 "Party member: 3 / 8" #e6dcc6
+  box 23.58,221.12 187.33x28.57
+    box 23.58,228.62 187.33x14.4
+      text 23.58,228.62 134.56x14.4 "Cast time" #857a66
+      text 166.47,228.62 44.44x14.4 "2.5 sec" #a39883
 
 -- a unit: its face where an icon would stand
-box 0,0 271.17x88.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-  box 20.25,20.25 235.67x50
-    box 20.25,20.25 50x50 #000000
-      box 21.92,21.92 46.67x46.67 face:mouseover
-    box 78.58,27.32 177.33x35.87
-      text 78.58,27.32 177.33x19.2 "Jaina" #4d99ff
-      box 78.58,48.18 177.33x15
-        box 78.58,48.48 116.67x14.4
-          text 78.58,48.48 116.67x14.4 "Level 60 Human Mage" #cbb994
+box 0,0 271.17x94.92 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 23.58,23.58 229x50
+    box 23.58,23.58 50x50 #000000
+      box 25.25,25.25 46.67x46.67 face:mouseover
+    box 81.92,29.82 170.67x37.53
+      text 81.92,29.82 170.67x19.2 "Jaina" #4d99ff
+      box 81.92,52.35 170.67x15
+        box 81.92,52.65 116.67x14.4
+          text 81.92,52.65 116.67x14.4 "Level 60 Human Mage" #cbb994
 
 -- the unit under the cursor is another: the face too
-box 0,0 271.17x88.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-  box 20.25,20.25 235.67x50
-    box 20.25,20.25 50x50 #000000
-      box 21.92,21.92 46.67x46.67 face:another under the cursor
-    box 78.58,27.32 177.33x35.87
-      text 78.58,27.32 177.33x19.2 "Jaina" #4d99ff
-      box 78.58,48.18 177.33x15
-        box 78.58,48.48 116.67x14.4
-          text 78.58,48.48 116.67x14.4 "Level 60 Human Mage" #cbb994
+box 0,0 271.17x94.92 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+  box 23.58,23.58 229x50
+    box 23.58,23.58 50x50 #000000
+      box 25.25,25.25 46.67x46.67 face:another under the cursor
+    box 81.92,29.82 170.67x37.53
+      text 81.92,29.82 170.67x19.2 "Jaina" #4d99ff
+      box 81.92,52.35 170.67x15
+        box 81.92,52.65 116.67x14.4
+          text 81.92,52.65 116.67x14.4 "Level 60 Human Mage" #cbb994

@@ -1,23 +1,23 @@
 -- an item held in the bank: the footer's «In the bank», then the added row
-surface 1228.83,575.88 271.17x144.12 on TOOLTIP
-  box 1228.83,575.88 271.17x144.12 @enter @leave
-    box 1228.83,575.88 271.17x144.12
-      box 1228.83,575.88 271.17x144.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1249.08,596.13 235.67x25.87
-          box 1249.08,596.13 235.67x19.2
-            text 1249.08,596.13 235.67x19.2 "Copper Ore" #ffffff
-        box 1249.08,622 235.67x28.57
-          box 1249.08,629.5 235.67x14.4
-            box 1249.08,629.5 218.44x14.4
-              box 1249.08,629.5 68.89x14.4
-                text 1249.08,629.5 68.89x14.4 "In the bank" #857a66
-            text 1475.86,629.5 8.89x14.4 "4" #a39883
-        box 1249.08,650.57 235.67x29.77
-          box 1249.08,658.07 235.67x15.6
-            text 1249.08,658.07 81.78x15.6 "Auction" #f3e7cc
-            text 1339.19,658.07 145.56x15.6 "12g · 2770 · item:2770" #f3e7cc
-        box 1249.08,680.33 235.67x21.67
-          box 1249.08,687 235.67x15
-            box 1249.08,693.25 235.67x2.5
-              box 1249.08,693.25 0x2.5 absolute #d6a56b80
+surface 1228.83,569.22 271.17x150.78 on TOOLTIP
+  box 1228.83,569.22 271.17x150.78 @enter @leave
+    box 1228.83,569.22 271.17x150.78
+      box 1228.83,569.22 271.17x150.78 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1252.42,592.8 229x25.87
+          box 1252.42,592.8 229x19.2
+            text 1252.42,592.8 229x19.2 "Copper Ore" #ffffff
+        box 1252.42,618.67 229x28.57
+          box 1252.42,626.17 229x14.4
+            box 1252.42,626.17 211.78x14.4
+              box 1252.42,626.17 68.89x14.4
+                text 1252.42,626.17 68.89x14.4 "In the bank" #857a66
+            text 1472.53,626.17 8.89x14.4 "4" #a39883
+        box 1252.42,647.23 229x29.77
+          box 1252.42,654.73 229x15.6
+            text 1252.42,654.73 75.11x15.6 "Auction" #f3e7cc
+            text 1335.86,654.73 145.56x15.6 "12g · 2770 · item:2770" #f3e7cc
+        box 1252.42,677 229x21.67
+          box 1252.42,683.67 229x15
+            box 1252.42,689.92 229x2.5
+              box 1252.42,689.92 0x2.5 absolute #d6a56b80
 asked: Tooltip.hide true

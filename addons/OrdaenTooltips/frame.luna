@@ -1,11 +1,11 @@
-// One Ordaen tooltip's frame: the small metal frame round the windows' wood, 12 px inside, and the sections in the
+// One Ordaen tooltip's frame: the small metal frame round the windows' wood, a panel's room inside, and the sections in the
 // one order, each left out when empty: the header, the title (the icon beside three lines), the band of facts, the
 // body, what there is more of, the footer, what other modules add, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
 import { Align, Art, Piece, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, TextFont, TextSize, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component } from "Ordaen"
+import { Component, space } from "Ordaen"
 import Locale from "@/locales"
 import { GREEN, RED } from "@/colors"
 import { Compared, Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
@@ -37,7 +37,11 @@ const WIDTH = 314 * PX
 // A tooltip beside another: a little narrower.
 const SIDE_WIDTH = 264 * PX
 const ICON = 60 * PX
-const SECTION = 8 * PX
+// The ladder's steps (`space`): a line's between the lines of a section, an item's round a section, a panel's
+// inside the frame.
+const LINE: Number = space(.Line)
+const SECTION: Number = space(.Item)
+const INSIDE: Number = space(.Panel)
 const HEADING: Color = Color.hex("#ffd100")
 const LABEL: Color = Color.hex("#cbb994")
 const QUIET: Color = Color.hex("#857a66")
@@ -69,8 +73,12 @@ const BAR_ROW = 18 * PX
 const BAR_HEIGHT = 3 * PX
 const TRACK: Color = Color.hex("#00000073")
 const BAR_GOLD: Color = Color.hex("#d6a56b80")
-// What opens something is underlined while the tooltip is locked, and its tooltip stands beside it.
-const UNDERLINE: Color = Color.hex("#ffd100b3")
+// What opens something is underlined while the tooltip is locked, dashed and dim, and its tooltip stands beside
+// it. The underline stands half the gap between the lines under its text: it moves with that gap.
+const UNDERLINE: Color = Color.hex("#ffd10080")
+public const DASH: Piece = { file: "@/assets/dash.tga", width: 8, height: 1, tile: true }
+const UNDERLINE_HEIGHT: Number = 1 * PX
+const UNDER_TEXT: Number = -(LINE / 2 + UNDERLINE_HEIGHT)
 const BY_ITS_TEXT: Beside = { beside: "parent" }
 // The game's red X.
 const CLOSE_ART: Asset = "Interface/Buttons/UI-Panel-MinimizeButton-Up"
@@ -154,8 +162,8 @@ public class TermText implements Component {
       <box>
         <text value={self.text} textColor={self.color} textSize={self.size} wrap={false}
               textFont={self.font} />
-        <box $if={self.lit} position={Position.Absolute} left={0} right={0} bottom={0} height={1 * PX}
-             background={UNDERLINE} />
+        <box $if={self.lit} position={Position.Absolute} left={0} right={0} bottom={UNDER_TEXT} height={UNDERLINE_HEIGHT}
+             background={DASH} tint={UNDERLINE} />
         <box $if={self.lit} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
              cursor={Cursor.Help} @enter={self.onEnter} @leave={self.onLeave} />
         <surface $if={self.open} layer={Layer.Tooltip} place={BY_ITS_TEXT}>
@@ -268,8 +276,8 @@ public class FactCell implements Component {
           </box>
           <box>
             <text value={self.fact.text} textColor={self.color} wrap={false} />
-            <box $if={self.lit} position={Position.Absolute} left={0} right={0} bottom={0} height={1 * PX}
-                 background={UNDERLINE} />
+            <box $if={self.lit} position={Position.Absolute} left={0} right={0} bottom={UNDER_TEXT} height={UNDERLINE_HEIGHT}
+                 background={DASH} tint={UNDERLINE} />
           </box>
         </box>
         <box $if={self.lit} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
@@ -497,7 +505,7 @@ public class TipFrame implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={"min"} minWidth={self.width} padding={12 * PX} border={Ordaen.art.frame.small}
+      <box width={"min"} minWidth={self.width} padding={INSIDE} border={Ordaen.art.frame.small}
            background={Ordaen.art.window.wood}>
         <box $if={self.hasHeader} height={35 * PX} gap={6 * PX}>
           <box xAlign={Align.Center}>
@@ -510,7 +518,7 @@ public class TipFrame implements Component {
                rows={FILL}>
             <box icon={self.icon} portrait={self.face} />
           </box>
-          <box gap={2 * PX} yAlign={Align.Center}>
+          <box gap={LINE} yAlign={Align.Center}>
             <text value={self.model.name} textColor={self.model.nameColor} textSize={.Title} wrap={false}
                   textFont={.Title} />
             <box $if={self.hasDesc} columns={self.descColumns} height={18 * PX} yAlign={Align.Center}>
@@ -539,21 +547,21 @@ public class TipFrame implements Component {
             </box>
           </FactCell>
         </box>
-        <box $if={self.hasBody} gap={2 * PX} padding={SECTION_PAD} border={self.bodyRule}>
+        <box $if={self.hasBody} gap={LINE} padding={SECTION_PAD} border={self.bodyRule}>
           <Row $for={line of self.body} line={line} locked={self.locked}>
             <box #opened={opens}>
               <slot #opened opens={opens} />
             </box>
           </Row>
         </box>
-        <box $if={self.hasMore} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
+        <box $if={self.hasMore} gap={LINE} padding={SECTION_PAD} border={RULE}>
           <Row $for={line of self.more} line={line} locked={self.locked}>
             <box #opened={opens}>
               <slot #opened opens={opens} />
             </box>
           </Row>
         </box>
-        <box $if={self.hasFoot} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
+        <box $if={self.hasFoot} gap={LINE} padding={SECTION_PAD} border={RULE}>
           <Row $for={line of self.foot} line={line} locked={self.locked}>
             <box #opened={opens}>
               <slot #opened opens={opens} />
@@ -562,7 +570,7 @@ public class TipFrame implements Component {
         </box>
         // What other modules add, after the footer: the main tooltip's owner fills it.
         <slot />
-        <box $if={self.hasKeys} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
+        <box $if={self.hasKeys} gap={LINE} padding={SECTION_PAD} border={RULE}>
           <Row $for={line of self.keys} line={line} locked={self.locked}>
             <box #opened={opens}>
               <slot #opened opens={opens} />

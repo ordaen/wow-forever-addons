@@ -1,520 +1,521 @@
 -- not locked: nothing is underlined
-surface 300,240 736.83x176.25 on TOOLTIP
-  box 300,240 736.83x176.25 @enter @leave
-    box 300,240 271.17x176.25
-      box 300,269.17 271.17x147.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 320.25,289.42 235.67x42.53
-          box 320.25,289.42 235.67x35.87
-            text 320.25,289.42 235.67x19.2 "Axe" #ffffff
-            box 320.25,310.28 235.67x15
-              box 320.25,310.58 51.11x14.4
-                text 320.25,310.58 51.11x14.4 "Two-Hand" #cbb994
-              text 371.36,310.58 21.11x14.4 " · " #cbb994
-              box 392.47,310.58 32.22x14.4
-                text 392.47,310.58 32.22x14.4 "Bound" #cbb994
-        box 320.25,331.95 235.67x44.63
-          box 320.25,339.45 235.67x14.4
-            box 320.25,339.45 206.22x14.4
-              box 320.25,339.45 38.89x14.4
-                text 320.25,339.45 38.89x14.4 "Target" #857a66
-            box 534.81,339.45 21.11x14.4
-              text 534.81,339.45 21.11x14.4 "Ann" #a39883
-          box 320.25,355.52 235.67x14.4
-            text 320.25,355.52 200.67x14.4 "Caster" #857a66
-            box 529.25,355.52 26.67x14.4
-              text 529.25,355.52 26.67x14.4 "Gone" #a39883
-        box 320.25,376.58 235.67x21.67
-          box 320.25,383.25 235.67x15
-            box 320.25,389.5 235.67x2.5
-              box 320.25,389.5 0x2.5 absolute #d6a56b80
-    box 574.5,240 229.5x93.05
-      box 574.5,240 229.5x93.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 594.75,260.25 194x25.87
-          box 594.75,260.25 194x19.2
-            text 594.75,260.25 194x19.2 "Use: heals" #ffffff
-        box 594.75,286.12 194x28.93
-          box 594.75,292.78 194x15.6
-            box 594.75,292.78 163.44x15.6
-              box 594.75,292.78 28.89x15.6
-                text 594.75,292.78 28.89x15.6 "Well" #f3e7cc
-            text 766.53,292.78 22.22x15.6 "+5%" #f3e7cc
-    box 807.33,240 229.5x116.38 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 827.58,260.25 194x29.17
-        box 827.58,260.25 194x15.6
-          text 897.36,260.25 54.44x15.6 "Equipped" #ffd100 centred
-        box 827.58,280.85 194x1.67
-      box 827.58,289.42 194x25.87
-        box 827.58,289.42 194x19.2
-          text 827.58,289.42 194x19.2 "Sword" #ffffff
-      box 827.58,315.28 194x23.1
-        box 827.58,316.12 194x22.27
-          box 901.39,322.78 46.39x15.6
-            box 901.39,322.78 42.22x15.6
-              text 901.39,322.78 42.22x15.6 "Locked" #f3e7cc
+surface 300,240 736.83x186.25 on TOOLTIP
+  box 300,240 736.83x186.25 @enter @leave
+    box 300,240 271.17x186.25
+      box 300,269.17 271.17x157.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 323.58,292.75 229x44.2
+          box 323.58,292.75 229x37.53
+            text 323.58,292.75 229x19.2 "Axe" #ffffff
+            box 323.58,315.28 229x15
+              box 323.58,315.58 51.11x14.4
+                text 323.58,315.58 51.11x14.4 "Two-Hand" #cbb994
+              text 374.69,315.58 21.11x14.4 " · " #cbb994
+              box 395.81,315.58 32.22x14.4
+                text 395.81,315.58 32.22x14.4 "Bound" #cbb994
+        box 323.58,336.95 229x46.3
+          box 323.58,344.45 229x14.4
+            box 323.58,344.45 199.56x14.4
+              box 323.58,344.45 38.89x14.4
+                text 323.58,344.45 38.89x14.4 "Target" #857a66
+            box 531.47,344.45 21.11x14.4
+              text 531.47,344.45 21.11x14.4 "Ann" #a39883
+          box 323.58,362.18 229x14.4
+            text 323.58,362.18 194x14.4 "Caster" #857a66
+            box 525.92,362.18 26.67x14.4
+              text 525.92,362.18 26.67x14.4 "Gone" #a39883
+        box 323.58,383.25 229x21.67
+          box 323.58,389.92 229x15
+            box 323.58,396.17 229x2.5
+              box 323.58,396.17 0x2.5 absolute #d6a56b80
+    box 574.5,240 229.5x99.72
+      box 574.5,240 229.5x99.72 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 598.08,263.58 187.33x25.87
+          box 598.08,263.58 187.33x19.2
+            text 598.08,263.58 187.33x19.2 "Use: heals" #ffffff
+        box 598.08,289.45 187.33x28.93
+          box 598.08,296.12 187.33x15.6
+            box 598.08,296.12 156.78x15.6
+              box 598.08,296.12 28.89x15.6
+                text 598.08,296.12 28.89x15.6 "Well" #f3e7cc
+            text 763.19,296.12 22.22x15.6 "+5%" #f3e7cc
+    box 807.33,240 229.5x123.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 830.92,263.58 187.33x29.17
+        box 830.92,263.58 187.33x15.6
+          text 897.36,263.58 54.44x15.6 "Equipped" #ffd100 centred
+        box 830.92,284.18 187.33x1.67
+      box 830.92,292.75 187.33x25.87
+        box 830.92,292.75 187.33x19.2
+          text 830.92,292.75 187.33x19.2 "Sword" #ffffff
+      box 830.92,318.62 187.33x23.1
+        box 830.92,319.45 187.33x22.27
+          box 901.39,326.12 46.39x15.6
+            box 901.39,326.12 42.22x15.6
+              text 901.39,326.12 42.22x15.6 "Locked" #f3e7cc
 
 -- locked: the parts that open something are underlined in every tooltip of the group
-surface 300,240 736.83x176.25 on TOOLTIP
-  box 300,240 736.83x176.25 @enter @leave
-    box 300,240 271.17x176.25
-      box 300,269.17 271.17x147.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 320.25,289.42 235.67x42.53
-          box 320.25,289.42 235.67x35.87
-            text 320.25,289.42 235.67x19.2 "Axe" #ffffff
-            box 320.25,310.28 235.67x15
-              box 320.25,310.58 51.11x14.4
-                text 320.25,310.58 51.11x14.4 "Two-Hand" #cbb994
-              text 371.36,310.58 21.11x14.4 " · " #cbb994
-              box 392.47,310.58 32.22x14.4
-                text 392.47,310.58 32.22x14.4 "Bound" #cbb994
-                box 392.47,324.15 32.22x0.83 absolute #ffd100b3
-                box 392.47,310.58 32.22x14.4 absolute @enter @leave
-        box 320.25,331.95 235.67x44.63
-          box 320.25,339.45 235.67x14.4
-            box 320.25,339.45 206.22x14.4
-              box 320.25,339.45 38.89x14.4
-                text 320.25,339.45 38.89x14.4 "Target" #857a66
-                box 320.25,353.02 38.89x0.83 absolute #ffd100b3
-                box 320.25,339.45 38.89x14.4 absolute @enter @leave
-            box 534.81,339.45 21.11x14.4
-              text 534.81,339.45 21.11x14.4 "Ann" #a39883
-              box 534.81,353.02 21.11x0.83 absolute #ffd100b3
-              box 534.81,339.45 21.11x14.4 absolute @enter @leave
-          box 320.25,355.52 235.67x14.4
-            text 320.25,355.52 200.67x14.4 "Caster" #857a66
-            box 529.25,355.52 26.67x14.4
-              text 529.25,355.52 26.67x14.4 "Gone" #a39883
-              box 529.25,369.08 26.67x0.83 absolute #ffd100b3
-              box 529.25,355.52 26.67x14.4 absolute @enter @leave
-        box 320.25,376.58 235.67x21.67
-          box 320.25,383.25 235.67x15
-            text 320.25,383.55 235.67x14.4 "Locked — hover the underlined parts" #857a66
+surface 300,240 736.83x186.25 on TOOLTIP
+  box 300,240 736.83x186.25 @enter @leave
+    box 300,240 271.17x186.25
+      box 300,269.17 271.17x157.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 323.58,292.75 229x44.2
+          box 323.58,292.75 229x37.53
+            text 323.58,292.75 229x19.2 "Axe" #ffffff
+            box 323.58,315.28 229x15
+              box 323.58,315.58 51.11x14.4
+                text 323.58,315.58 51.11x14.4 "Two-Hand" #cbb994
+              text 374.69,315.58 21.11x14.4 " · " #cbb994
+              box 395.81,315.58 32.22x14.4
+                text 395.81,315.58 32.22x14.4 "Bound" #cbb994
+                box 395.81,331.65 32.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 395.81,315.58 32.22x14.4 absolute @enter @leave
+        box 323.58,336.95 229x46.3
+          box 323.58,344.45 229x14.4
+            box 323.58,344.45 199.56x14.4
+              box 323.58,344.45 38.89x14.4
+                text 323.58,344.45 38.89x14.4 "Target" #857a66
+                box 323.58,360.52 38.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 323.58,344.45 38.89x14.4 absolute @enter @leave
+            box 531.47,344.45 21.11x14.4
+              text 531.47,344.45 21.11x14.4 "Ann" #a39883
+              box 531.47,360.52 21.11x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 531.47,344.45 21.11x14.4 absolute @enter @leave
+          box 323.58,362.18 229x14.4
+            text 323.58,362.18 194x14.4 "Caster" #857a66
+            box 525.92,362.18 26.67x14.4
+              text 525.92,362.18 26.67x14.4 "Gone" #a39883
+              box 525.92,378.25 26.67x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 525.92,362.18 26.67x14.4 absolute @enter @leave
+        box 323.58,383.25 229x21.67
+          box 323.58,389.92 229x15
+            text 323.58,390.22 229x14.4 "Locked — hover the underlined parts" #857a66
         box 547.25,278.08 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 574.5,240 229.5x93.05
-      box 574.5,240 229.5x93.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 594.75,260.25 194x25.87
-          box 594.75,260.25 194x19.2
-            text 594.75,260.25 194x19.2 "Use: heals" #ffffff
-        box 594.75,286.12 194x28.93
-          box 594.75,292.78 194x15.6
-            box 594.75,292.78 163.44x15.6
-              box 594.75,292.78 28.89x15.6
-                text 594.75,292.78 28.89x15.6 "Well" #f3e7cc
-                box 594.75,307.55 28.89x0.83 absolute #ffd100b3
-                box 594.75,292.78 28.89x15.6 absolute @enter @leave
-            text 766.53,292.78 22.22x15.6 "+5%" #f3e7cc
+    box 574.5,240 229.5x99.72
+      box 574.5,240 229.5x99.72 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 598.08,263.58 187.33x25.87
+          box 598.08,263.58 187.33x19.2
+            text 598.08,263.58 187.33x19.2 "Use: heals" #ffffff
+        box 598.08,289.45 187.33x28.93
+          box 598.08,296.12 187.33x15.6
+            box 598.08,296.12 156.78x15.6
+              box 598.08,296.12 28.89x15.6
+                text 598.08,296.12 28.89x15.6 "Well" #f3e7cc
+                box 598.08,313.38 28.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 598.08,296.12 28.89x15.6 absolute @enter @leave
+            text 763.19,296.12 22.22x15.6 "+5%" #f3e7cc
         box 780.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 807.33,240 229.5x116.38 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 827.58,260.25 194x29.17
-        box 827.58,260.25 194x15.6
-          text 897.36,260.25 54.44x15.6 "Equipped" #ffd100 centred
-        box 827.58,280.85 194x1.67
-      box 827.58,289.42 194x25.87
-        box 827.58,289.42 194x19.2
-          text 827.58,289.42 194x19.2 "Sword" #ffffff
-      box 827.58,315.28 194x23.1
-        box 827.58,316.12 194x22.27
-          box 901.39,322.78 46.39x15.6
-            box 901.39,322.78 42.22x15.6
-              text 901.39,322.78 42.22x15.6 "Locked" #f3e7cc
-              box 901.39,337.55 42.22x0.83 absolute #ffd100b3
-          box 827.58,316.12 194x22.27 absolute @enter @leave
+    box 807.33,240 229.5x123.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 830.92,263.58 187.33x29.17
+        box 830.92,263.58 187.33x15.6
+          text 897.36,263.58 54.44x15.6 "Equipped" #ffd100 centred
+        box 830.92,284.18 187.33x1.67
+      box 830.92,292.75 187.33x25.87
+        box 830.92,292.75 187.33x19.2
+          text 830.92,292.75 187.33x19.2 "Sword" #ffffff
+      box 830.92,318.62 187.33x23.1
+        box 830.92,319.45 187.33x22.27
+          box 901.39,326.12 46.39x15.6
+            box 901.39,326.12 42.22x15.6
+              text 901.39,326.12 42.22x15.6 "Locked" #f3e7cc
+              box 901.39,343.38 42.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+          box 830.92,319.45 187.33x22.27 absolute @enter @leave
       box 1012.92,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
 
+the underline 1.6666666666667 under its text, 0.83333333333331 high
 -- on a piece of the main tooltip's title: its term beside it
-surface 300,240 736.83x176.25 on TOOLTIP
-  box 300,240 736.83x176.25 @enter @leave
-    box 300,240 271.17x176.25
-      box 300,269.17 271.17x147.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 320.25,289.42 235.67x42.53
-          box 320.25,289.42 235.67x35.87
-            text 320.25,289.42 235.67x19.2 "Axe" #ffffff
-            box 320.25,310.28 235.67x15
-              box 320.25,310.58 51.11x14.4
-                text 320.25,310.58 51.11x14.4 "Two-Hand" #cbb994
-              text 371.36,310.58 21.11x14.4 " · " #cbb994
-              box 392.47,310.58 32.22x14.4
-                text 392.47,310.58 32.22x14.4 "Bound" #cbb994
-                box 392.47,324.15 32.22x0.83 absolute #ffd100b3
-                box 392.47,310.58 32.22x14.4 absolute @enter @leave
-        box 320.25,331.95 235.67x44.63
-          box 320.25,339.45 235.67x14.4
-            box 320.25,339.45 206.22x14.4
-              box 320.25,339.45 38.89x14.4
-                text 320.25,339.45 38.89x14.4 "Target" #857a66
-                box 320.25,353.02 38.89x0.83 absolute #ffd100b3
-                box 320.25,339.45 38.89x14.4 absolute @enter @leave
-            box 534.81,339.45 21.11x14.4
-              text 534.81,339.45 21.11x14.4 "Ann" #a39883
-              box 534.81,353.02 21.11x0.83 absolute #ffd100b3
-              box 534.81,339.45 21.11x14.4 absolute @enter @leave
-          box 320.25,355.52 235.67x14.4
-            text 320.25,355.52 200.67x14.4 "Caster" #857a66
-            box 529.25,355.52 26.67x14.4
-              text 529.25,355.52 26.67x14.4 "Gone" #a39883
-              box 529.25,369.08 26.67x0.83 absolute #ffd100b3
-              box 529.25,355.52 26.67x14.4 absolute @enter @leave
-        box 320.25,376.58 235.67x21.67
-          box 320.25,383.25 235.67x15
-            text 320.25,383.55 235.67x14.4 "Locked — hover the underlined parts" #857a66
+surface 300,240 736.83x186.25 on TOOLTIP
+  box 300,240 736.83x186.25 @enter @leave
+    box 300,240 271.17x186.25
+      box 300,269.17 271.17x157.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 323.58,292.75 229x44.2
+          box 323.58,292.75 229x37.53
+            text 323.58,292.75 229x19.2 "Axe" #ffffff
+            box 323.58,315.28 229x15
+              box 323.58,315.58 51.11x14.4
+                text 323.58,315.58 51.11x14.4 "Two-Hand" #cbb994
+              text 374.69,315.58 21.11x14.4 " · " #cbb994
+              box 395.81,315.58 32.22x14.4
+                text 395.81,315.58 32.22x14.4 "Bound" #cbb994
+                box 395.81,331.65 32.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 395.81,315.58 32.22x14.4 absolute @enter @leave
+        box 323.58,336.95 229x46.3
+          box 323.58,344.45 229x14.4
+            box 323.58,344.45 199.56x14.4
+              box 323.58,344.45 38.89x14.4
+                text 323.58,344.45 38.89x14.4 "Target" #857a66
+                box 323.58,360.52 38.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 323.58,344.45 38.89x14.4 absolute @enter @leave
+            box 531.47,344.45 21.11x14.4
+              text 531.47,344.45 21.11x14.4 "Ann" #a39883
+              box 531.47,360.52 21.11x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 531.47,344.45 21.11x14.4 absolute @enter @leave
+          box 323.58,362.18 229x14.4
+            text 323.58,362.18 194x14.4 "Caster" #857a66
+            box 525.92,362.18 26.67x14.4
+              text 525.92,362.18 26.67x14.4 "Gone" #a39883
+              box 525.92,378.25 26.67x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 525.92,362.18 26.67x14.4 absolute @enter @leave
+        box 323.58,383.25 229x21.67
+          box 323.58,389.92 229x15
+            text 323.58,390.22 229x14.4 "Locked — hover the underlined parts" #857a66
         box 547.25,278.08 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 574.5,240 229.5x93.05
-      box 574.5,240 229.5x93.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 594.75,260.25 194x25.87
-          box 594.75,260.25 194x19.2
-            text 594.75,260.25 194x19.2 "Use: heals" #ffffff
-        box 594.75,286.12 194x28.93
-          box 594.75,292.78 194x15.6
-            box 594.75,292.78 163.44x15.6
-              box 594.75,292.78 28.89x15.6
-                text 594.75,292.78 28.89x15.6 "Well" #f3e7cc
-                box 594.75,307.55 28.89x0.83 absolute #ffd100b3
-                box 594.75,292.78 28.89x15.6 absolute @enter @leave
-            text 766.53,292.78 22.22x15.6 "+5%" #f3e7cc
+    box 574.5,240 229.5x99.72
+      box 574.5,240 229.5x99.72 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 598.08,263.58 187.33x25.87
+          box 598.08,263.58 187.33x19.2
+            text 598.08,263.58 187.33x19.2 "Use: heals" #ffffff
+        box 598.08,289.45 187.33x28.93
+          box 598.08,296.12 187.33x15.6
+            box 598.08,296.12 156.78x15.6
+              box 598.08,296.12 28.89x15.6
+                text 598.08,296.12 28.89x15.6 "Well" #f3e7cc
+                box 598.08,313.38 28.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 598.08,296.12 28.89x15.6 absolute @enter @leave
+            text 763.19,296.12 22.22x15.6 "+5%" #f3e7cc
         box 780.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 807.33,240 229.5x116.38 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 827.58,260.25 194x29.17
-        box 827.58,260.25 194x15.6
-          text 897.36,260.25 54.44x15.6 "Equipped" #ffd100 centred
-        box 827.58,280.85 194x1.67
-      box 827.58,289.42 194x25.87
-        box 827.58,289.42 194x19.2
-          text 827.58,289.42 194x19.2 "Sword" #ffffff
-      box 827.58,315.28 194x23.1
-        box 827.58,316.12 194x22.27
-          box 901.39,322.78 46.39x15.6
-            box 901.39,322.78 42.22x15.6
-              text 901.39,322.78 42.22x15.6 "Locked" #f3e7cc
-              box 901.39,337.55 42.22x0.83 absolute #ffd100b3
-          box 827.58,316.12 194x22.27 absolute @enter @leave
+    box 807.33,240 229.5x123.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 830.92,263.58 187.33x29.17
+        box 830.92,263.58 187.33x15.6
+          text 897.36,263.58 54.44x15.6 "Equipped" #ffd100 centred
+        box 830.92,284.18 187.33x1.67
+      box 830.92,292.75 187.33x25.87
+        box 830.92,292.75 187.33x19.2
+          text 830.92,292.75 187.33x19.2 "Sword" #ffffff
+      box 830.92,318.62 187.33x23.1
+        box 830.92,319.45 187.33x22.27
+          box 901.39,326.12 46.39x15.6
+            box 901.39,326.12 42.22x15.6
+              text 901.39,326.12 42.22x15.6 "Locked" #f3e7cc
+              box 901.39,343.38 42.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+          box 830.92,319.45 187.33x22.27 absolute @enter @leave
       box 1012.92,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-surface 392.47,324.98 229.5x139.85 on TOOLTIP
-  box 392.47,324.98 229.5x139.85
-    box 392.47,324.98 229.5x139.85
-      box 392.47,324.98 229.5x139.85 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 412.72,345.23 194x25.87
-          box 412.72,345.23 194x19.2
-            text 412.72,345.23 194x19.2 "Lock" #ffd100
-        box 412.72,371.1 194x75.73
-          box 412.72,377.77 194x62.4
-            text 412.72,377.77 194x62.4 "How to open it: lockpicking (a rogue's skill) or a key. In red: you can't open it yet." #e6dcc6
+surface 395.81,329.98 229.5x146.52 on TOOLTIP
+  box 395.81,329.98 229.5x146.52
+    box 395.81,329.98 229.5x146.52
+      box 395.81,329.98 229.5x146.52 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 419.39,353.57 187.33x25.87
+          box 419.39,353.57 187.33x19.2
+            text 419.39,353.57 187.33x19.2 "Lock" #ffd100
+        box 419.39,379.43 187.33x75.73
+          box 419.39,386.1 187.33x62.4
+            text 419.39,386.1 187.33x62.4 "How to open it: lockpicking (a rogue's skill) or a key. In red: you can't open it yet." #e6dcc6
 
 -- on the compared item's fact: its term beside it
-surface 300,240 736.83x176.25 on TOOLTIP
-  box 300,240 736.83x176.25 @enter @leave
-    box 300,240 271.17x176.25
-      box 300,269.17 271.17x147.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 320.25,289.42 235.67x42.53
-          box 320.25,289.42 235.67x35.87
-            text 320.25,289.42 235.67x19.2 "Axe" #ffffff
-            box 320.25,310.28 235.67x15
-              box 320.25,310.58 51.11x14.4
-                text 320.25,310.58 51.11x14.4 "Two-Hand" #cbb994
-              text 371.36,310.58 21.11x14.4 " · " #cbb994
-              box 392.47,310.58 32.22x14.4
-                text 392.47,310.58 32.22x14.4 "Bound" #cbb994
-                box 392.47,324.15 32.22x0.83 absolute #ffd100b3
-                box 392.47,310.58 32.22x14.4 absolute @enter @leave
-        box 320.25,331.95 235.67x44.63
-          box 320.25,339.45 235.67x14.4
-            box 320.25,339.45 206.22x14.4
-              box 320.25,339.45 38.89x14.4
-                text 320.25,339.45 38.89x14.4 "Target" #857a66
-                box 320.25,353.02 38.89x0.83 absolute #ffd100b3
-                box 320.25,339.45 38.89x14.4 absolute @enter @leave
-            box 534.81,339.45 21.11x14.4
-              text 534.81,339.45 21.11x14.4 "Ann" #a39883
-              box 534.81,353.02 21.11x0.83 absolute #ffd100b3
-              box 534.81,339.45 21.11x14.4 absolute @enter @leave
-          box 320.25,355.52 235.67x14.4
-            text 320.25,355.52 200.67x14.4 "Caster" #857a66
-            box 529.25,355.52 26.67x14.4
-              text 529.25,355.52 26.67x14.4 "Gone" #a39883
-              box 529.25,369.08 26.67x0.83 absolute #ffd100b3
-              box 529.25,355.52 26.67x14.4 absolute @enter @leave
-        box 320.25,376.58 235.67x21.67
-          box 320.25,383.25 235.67x15
-            text 320.25,383.55 235.67x14.4 "Locked — hover the underlined parts" #857a66
+surface 300,240 736.83x186.25 on TOOLTIP
+  box 300,240 736.83x186.25 @enter @leave
+    box 300,240 271.17x186.25
+      box 300,269.17 271.17x157.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 323.58,292.75 229x44.2
+          box 323.58,292.75 229x37.53
+            text 323.58,292.75 229x19.2 "Axe" #ffffff
+            box 323.58,315.28 229x15
+              box 323.58,315.58 51.11x14.4
+                text 323.58,315.58 51.11x14.4 "Two-Hand" #cbb994
+              text 374.69,315.58 21.11x14.4 " · " #cbb994
+              box 395.81,315.58 32.22x14.4
+                text 395.81,315.58 32.22x14.4 "Bound" #cbb994
+                box 395.81,331.65 32.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 395.81,315.58 32.22x14.4 absolute @enter @leave
+        box 323.58,336.95 229x46.3
+          box 323.58,344.45 229x14.4
+            box 323.58,344.45 199.56x14.4
+              box 323.58,344.45 38.89x14.4
+                text 323.58,344.45 38.89x14.4 "Target" #857a66
+                box 323.58,360.52 38.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 323.58,344.45 38.89x14.4 absolute @enter @leave
+            box 531.47,344.45 21.11x14.4
+              text 531.47,344.45 21.11x14.4 "Ann" #a39883
+              box 531.47,360.52 21.11x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 531.47,344.45 21.11x14.4 absolute @enter @leave
+          box 323.58,362.18 229x14.4
+            text 323.58,362.18 194x14.4 "Caster" #857a66
+            box 525.92,362.18 26.67x14.4
+              text 525.92,362.18 26.67x14.4 "Gone" #a39883
+              box 525.92,378.25 26.67x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 525.92,362.18 26.67x14.4 absolute @enter @leave
+        box 323.58,383.25 229x21.67
+          box 323.58,389.92 229x15
+            text 323.58,390.22 229x14.4 "Locked — hover the underlined parts" #857a66
         box 547.25,278.08 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 574.5,240 229.5x93.05
-      box 574.5,240 229.5x93.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 594.75,260.25 194x25.87
-          box 594.75,260.25 194x19.2
-            text 594.75,260.25 194x19.2 "Use: heals" #ffffff
-        box 594.75,286.12 194x28.93
-          box 594.75,292.78 194x15.6
-            box 594.75,292.78 163.44x15.6
-              box 594.75,292.78 28.89x15.6
-                text 594.75,292.78 28.89x15.6 "Well" #f3e7cc
-                box 594.75,307.55 28.89x0.83 absolute #ffd100b3
-                box 594.75,292.78 28.89x15.6 absolute @enter @leave
-            text 766.53,292.78 22.22x15.6 "+5%" #f3e7cc
+    box 574.5,240 229.5x99.72
+      box 574.5,240 229.5x99.72 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 598.08,263.58 187.33x25.87
+          box 598.08,263.58 187.33x19.2
+            text 598.08,263.58 187.33x19.2 "Use: heals" #ffffff
+        box 598.08,289.45 187.33x28.93
+          box 598.08,296.12 187.33x15.6
+            box 598.08,296.12 156.78x15.6
+              box 598.08,296.12 28.89x15.6
+                text 598.08,296.12 28.89x15.6 "Well" #f3e7cc
+                box 598.08,313.38 28.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 598.08,296.12 28.89x15.6 absolute @enter @leave
+            text 763.19,296.12 22.22x15.6 "+5%" #f3e7cc
         box 780.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 807.33,240 229.5x116.38 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 827.58,260.25 194x29.17
-        box 827.58,260.25 194x15.6
-          text 897.36,260.25 54.44x15.6 "Equipped" #ffd100 centred
-        box 827.58,280.85 194x1.67
-      box 827.58,289.42 194x25.87
-        box 827.58,289.42 194x19.2
-          text 827.58,289.42 194x19.2 "Sword" #ffffff
-      box 827.58,315.28 194x23.1
-        box 827.58,316.12 194x22.27
-          box 901.39,322.78 46.39x15.6
-            box 901.39,322.78 42.22x15.6
-              text 901.39,322.78 42.22x15.6 "Locked" #f3e7cc
-              box 901.39,337.55 42.22x0.83 absolute #ffd100b3
-          box 827.58,316.12 194x22.27 absolute @enter @leave
+    box 807.33,240 229.5x123.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 830.92,263.58 187.33x29.17
+        box 830.92,263.58 187.33x15.6
+          text 897.36,263.58 54.44x15.6 "Equipped" #ffd100 centred
+        box 830.92,284.18 187.33x1.67
+      box 830.92,292.75 187.33x25.87
+        box 830.92,292.75 187.33x19.2
+          text 830.92,292.75 187.33x19.2 "Sword" #ffffff
+      box 830.92,318.62 187.33x23.1
+        box 830.92,319.45 187.33x22.27
+          box 901.39,326.12 46.39x15.6
+            box 901.39,326.12 42.22x15.6
+              text 901.39,326.12 42.22x15.6 "Locked" #f3e7cc
+              box 901.39,343.38 42.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+          box 830.92,319.45 187.33x22.27 absolute @enter @leave
       box 1012.92,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-surface 827.58,338.38 229.5x139.85 on TOOLTIP
-  box 827.58,338.38 229.5x139.85
-    box 827.58,338.38 229.5x139.85 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 847.83,358.63 194x25.87
-        box 847.83,358.63 194x19.2
-          text 847.83,358.63 194x19.2 "Lock" #ffd100
-      box 847.83,384.5 194x75.73
-        box 847.83,391.17 194x62.4
-          text 847.83,391.17 194x62.4 "How to open it: lockpicking (a rogue's skill) or a key. In red: you can't open it yet." #e6dcc6
+surface 830.92,341.72 229.5x146.52 on TOOLTIP
+  box 830.92,341.72 229.5x146.52
+    box 830.92,341.72 229.5x146.52 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 854.5,365.3 187.33x25.87
+        box 854.5,365.3 187.33x19.2
+          text 854.5,365.3 187.33x19.2 "Lock" #ffd100
+      box 854.5,391.17 187.33x75.73
+        box 854.5,397.83 187.33x62.4
+          text 854.5,397.83 187.33x62.4 "How to open it: lockpicking (a rogue's skill) or a key. In red: you can't open it yet." #e6dcc6
 
 -- on a side's row: the building's whole sentence beside it
-surface 300,240 736.83x176.25 on TOOLTIP
-  box 300,240 736.83x176.25 @enter @leave
-    box 300,240 271.17x176.25
-      box 300,269.17 271.17x147.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 320.25,289.42 235.67x42.53
-          box 320.25,289.42 235.67x35.87
-            text 320.25,289.42 235.67x19.2 "Axe" #ffffff
-            box 320.25,310.28 235.67x15
-              box 320.25,310.58 51.11x14.4
-                text 320.25,310.58 51.11x14.4 "Two-Hand" #cbb994
-              text 371.36,310.58 21.11x14.4 " · " #cbb994
-              box 392.47,310.58 32.22x14.4
-                text 392.47,310.58 32.22x14.4 "Bound" #cbb994
-                box 392.47,324.15 32.22x0.83 absolute #ffd100b3
-                box 392.47,310.58 32.22x14.4 absolute @enter @leave
-        box 320.25,331.95 235.67x44.63
-          box 320.25,339.45 235.67x14.4
-            box 320.25,339.45 206.22x14.4
-              box 320.25,339.45 38.89x14.4
-                text 320.25,339.45 38.89x14.4 "Target" #857a66
-                box 320.25,353.02 38.89x0.83 absolute #ffd100b3
-                box 320.25,339.45 38.89x14.4 absolute @enter @leave
-            box 534.81,339.45 21.11x14.4
-              text 534.81,339.45 21.11x14.4 "Ann" #a39883
-              box 534.81,353.02 21.11x0.83 absolute #ffd100b3
-              box 534.81,339.45 21.11x14.4 absolute @enter @leave
-          box 320.25,355.52 235.67x14.4
-            text 320.25,355.52 200.67x14.4 "Caster" #857a66
-            box 529.25,355.52 26.67x14.4
-              text 529.25,355.52 26.67x14.4 "Gone" #a39883
-              box 529.25,369.08 26.67x0.83 absolute #ffd100b3
-              box 529.25,355.52 26.67x14.4 absolute @enter @leave
-        box 320.25,376.58 235.67x21.67
-          box 320.25,383.25 235.67x15
-            text 320.25,383.55 235.67x14.4 "Locked — hover the underlined parts" #857a66
+surface 300,240 736.83x186.25 on TOOLTIP
+  box 300,240 736.83x186.25 @enter @leave
+    box 300,240 271.17x186.25
+      box 300,269.17 271.17x157.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 323.58,292.75 229x44.2
+          box 323.58,292.75 229x37.53
+            text 323.58,292.75 229x19.2 "Axe" #ffffff
+            box 323.58,315.28 229x15
+              box 323.58,315.58 51.11x14.4
+                text 323.58,315.58 51.11x14.4 "Two-Hand" #cbb994
+              text 374.69,315.58 21.11x14.4 " · " #cbb994
+              box 395.81,315.58 32.22x14.4
+                text 395.81,315.58 32.22x14.4 "Bound" #cbb994
+                box 395.81,331.65 32.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 395.81,315.58 32.22x14.4 absolute @enter @leave
+        box 323.58,336.95 229x46.3
+          box 323.58,344.45 229x14.4
+            box 323.58,344.45 199.56x14.4
+              box 323.58,344.45 38.89x14.4
+                text 323.58,344.45 38.89x14.4 "Target" #857a66
+                box 323.58,360.52 38.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 323.58,344.45 38.89x14.4 absolute @enter @leave
+            box 531.47,344.45 21.11x14.4
+              text 531.47,344.45 21.11x14.4 "Ann" #a39883
+              box 531.47,360.52 21.11x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 531.47,344.45 21.11x14.4 absolute @enter @leave
+          box 323.58,362.18 229x14.4
+            text 323.58,362.18 194x14.4 "Caster" #857a66
+            box 525.92,362.18 26.67x14.4
+              text 525.92,362.18 26.67x14.4 "Gone" #a39883
+              box 525.92,378.25 26.67x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 525.92,362.18 26.67x14.4 absolute @enter @leave
+        box 323.58,383.25 229x21.67
+          box 323.58,389.92 229x15
+            text 323.58,390.22 229x14.4 "Locked — hover the underlined parts" #857a66
         box 547.25,278.08 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 574.5,240 229.5x93.05
-      box 574.5,240 229.5x93.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 594.75,260.25 194x25.87
-          box 594.75,260.25 194x19.2
-            text 594.75,260.25 194x19.2 "Use: heals" #ffffff
-        box 594.75,286.12 194x28.93
-          box 594.75,292.78 194x15.6
-            box 594.75,292.78 163.44x15.6
-              box 594.75,292.78 28.89x15.6
-                text 594.75,292.78 28.89x15.6 "Well" #f3e7cc
-                box 594.75,307.55 28.89x0.83 absolute #ffd100b3
-                box 594.75,292.78 28.89x15.6 absolute @enter @leave
-            text 766.53,292.78 22.22x15.6 "+5%" #f3e7cc
+    box 574.5,240 229.5x99.72
+      box 574.5,240 229.5x99.72 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 598.08,263.58 187.33x25.87
+          box 598.08,263.58 187.33x19.2
+            text 598.08,263.58 187.33x19.2 "Use: heals" #ffffff
+        box 598.08,289.45 187.33x28.93
+          box 598.08,296.12 187.33x15.6
+            box 598.08,296.12 156.78x15.6
+              box 598.08,296.12 28.89x15.6
+                text 598.08,296.12 28.89x15.6 "Well" #f3e7cc
+                box 598.08,313.38 28.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 598.08,296.12 28.89x15.6 absolute @enter @leave
+            text 763.19,296.12 22.22x15.6 "+5%" #f3e7cc
         box 780.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 807.33,240 229.5x116.38 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 827.58,260.25 194x29.17
-        box 827.58,260.25 194x15.6
-          text 897.36,260.25 54.44x15.6 "Equipped" #ffd100 centred
-        box 827.58,280.85 194x1.67
-      box 827.58,289.42 194x25.87
-        box 827.58,289.42 194x19.2
-          text 827.58,289.42 194x19.2 "Sword" #ffffff
-      box 827.58,315.28 194x23.1
-        box 827.58,316.12 194x22.27
-          box 901.39,322.78 46.39x15.6
-            box 901.39,322.78 42.22x15.6
-              text 901.39,322.78 42.22x15.6 "Locked" #f3e7cc
-              box 901.39,337.55 42.22x0.83 absolute #ffd100b3
-          box 827.58,316.12 194x22.27 absolute @enter @leave
+    box 807.33,240 229.5x123.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 830.92,263.58 187.33x29.17
+        box 830.92,263.58 187.33x15.6
+          text 897.36,263.58 54.44x15.6 "Equipped" #ffd100 centred
+        box 830.92,284.18 187.33x1.67
+      box 830.92,292.75 187.33x25.87
+        box 830.92,292.75 187.33x19.2
+          text 830.92,292.75 187.33x19.2 "Sword" #ffffff
+      box 830.92,318.62 187.33x23.1
+        box 830.92,319.45 187.33x22.27
+          box 901.39,326.12 46.39x15.6
+            box 901.39,326.12 42.22x15.6
+              text 901.39,326.12 42.22x15.6 "Locked" #f3e7cc
+              box 901.39,343.38 42.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+          box 830.92,319.45 187.33x22.27 absolute @enter @leave
       box 1012.92,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-surface 594.75,308.38 229.5x93.05 on TOOLTIP
-  box 594.75,308.38 229.5x93.05
-    box 594.75,308.38 229.5x93.05
-      box 594.75,308.38 229.5x93.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 615,328.63 194x25.87
-          box 615,328.63 194x19.2
-            text 615,328.63 194x19.2 "Well" #ffd100
-        box 615,354.5 194x28.93
-          box 615,361.17 194x15.6
-            text 615,361.17 194x15.6 "Health regenerates 5% faster." #f3e7cc
+surface 598.08,311.72 229.5x115.32 on TOOLTIP
+  box 598.08,311.72 229.5x115.32
+    box 598.08,311.72 229.5x115.32
+      box 598.08,311.72 229.5x115.32 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 621.67,335.3 187.33x25.87
+          box 621.67,335.3 187.33x19.2
+            text 621.67,335.3 187.33x19.2 "Well" #ffd100
+        box 621.67,361.17 187.33x44.53
+          box 621.67,367.83 187.33x31.2
+            text 621.67,367.83 187.33x31.2 "Health regenerates 5% faster." #f3e7cc
 
 -- on the target's name: the target's own tooltip beside it
-surface 300,240 736.83x176.25 on TOOLTIP
-  box 300,240 736.83x176.25 @enter @leave
-    box 300,240 271.17x176.25
-      box 300,269.17 271.17x147.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 320.25,289.42 235.67x42.53
-          box 320.25,289.42 235.67x35.87
-            text 320.25,289.42 235.67x19.2 "Axe" #ffffff
-            box 320.25,310.28 235.67x15
-              box 320.25,310.58 51.11x14.4
-                text 320.25,310.58 51.11x14.4 "Two-Hand" #cbb994
-              text 371.36,310.58 21.11x14.4 " · " #cbb994
-              box 392.47,310.58 32.22x14.4
-                text 392.47,310.58 32.22x14.4 "Bound" #cbb994
-                box 392.47,324.15 32.22x0.83 absolute #ffd100b3
-                box 392.47,310.58 32.22x14.4 absolute @enter @leave
-        box 320.25,331.95 235.67x44.63
-          box 320.25,339.45 235.67x14.4
-            box 320.25,339.45 206.22x14.4
-              box 320.25,339.45 38.89x14.4
-                text 320.25,339.45 38.89x14.4 "Target" #857a66
-                box 320.25,353.02 38.89x0.83 absolute #ffd100b3
-                box 320.25,339.45 38.89x14.4 absolute @enter @leave
-            box 534.81,339.45 21.11x14.4
-              text 534.81,339.45 21.11x14.4 "Ann" #a39883
-              box 534.81,353.02 21.11x0.83 absolute #ffd100b3
-              box 534.81,339.45 21.11x14.4 absolute @enter @leave
-          box 320.25,355.52 235.67x14.4
-            text 320.25,355.52 200.67x14.4 "Caster" #857a66
-            box 529.25,355.52 26.67x14.4
-              text 529.25,355.52 26.67x14.4 "Gone" #a39883
-              box 529.25,369.08 26.67x0.83 absolute #ffd100b3
-              box 529.25,355.52 26.67x14.4 absolute @enter @leave
-        box 320.25,376.58 235.67x21.67
-          box 320.25,383.25 235.67x15
-            text 320.25,383.55 235.67x14.4 "Locked — hover the underlined parts" #857a66
+surface 300,240 736.83x186.25 on TOOLTIP
+  box 300,240 736.83x186.25 @enter @leave
+    box 300,240 271.17x186.25
+      box 300,269.17 271.17x157.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 323.58,292.75 229x44.2
+          box 323.58,292.75 229x37.53
+            text 323.58,292.75 229x19.2 "Axe" #ffffff
+            box 323.58,315.28 229x15
+              box 323.58,315.58 51.11x14.4
+                text 323.58,315.58 51.11x14.4 "Two-Hand" #cbb994
+              text 374.69,315.58 21.11x14.4 " · " #cbb994
+              box 395.81,315.58 32.22x14.4
+                text 395.81,315.58 32.22x14.4 "Bound" #cbb994
+                box 395.81,331.65 32.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 395.81,315.58 32.22x14.4 absolute @enter @leave
+        box 323.58,336.95 229x46.3
+          box 323.58,344.45 229x14.4
+            box 323.58,344.45 199.56x14.4
+              box 323.58,344.45 38.89x14.4
+                text 323.58,344.45 38.89x14.4 "Target" #857a66
+                box 323.58,360.52 38.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 323.58,344.45 38.89x14.4 absolute @enter @leave
+            box 531.47,344.45 21.11x14.4
+              text 531.47,344.45 21.11x14.4 "Ann" #a39883
+              box 531.47,360.52 21.11x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 531.47,344.45 21.11x14.4 absolute @enter @leave
+          box 323.58,362.18 229x14.4
+            text 323.58,362.18 194x14.4 "Caster" #857a66
+            box 525.92,362.18 26.67x14.4
+              text 525.92,362.18 26.67x14.4 "Gone" #a39883
+              box 525.92,378.25 26.67x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 525.92,362.18 26.67x14.4 absolute @enter @leave
+        box 323.58,383.25 229x21.67
+          box 323.58,389.92 229x15
+            text 323.58,390.22 229x14.4 "Locked — hover the underlined parts" #857a66
         box 547.25,278.08 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 574.5,240 229.5x93.05
-      box 574.5,240 229.5x93.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 594.75,260.25 194x25.87
-          box 594.75,260.25 194x19.2
-            text 594.75,260.25 194x19.2 "Use: heals" #ffffff
-        box 594.75,286.12 194x28.93
-          box 594.75,292.78 194x15.6
-            box 594.75,292.78 163.44x15.6
-              box 594.75,292.78 28.89x15.6
-                text 594.75,292.78 28.89x15.6 "Well" #f3e7cc
-                box 594.75,307.55 28.89x0.83 absolute #ffd100b3
-                box 594.75,292.78 28.89x15.6 absolute @enter @leave
-            text 766.53,292.78 22.22x15.6 "+5%" #f3e7cc
+    box 574.5,240 229.5x99.72
+      box 574.5,240 229.5x99.72 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 598.08,263.58 187.33x25.87
+          box 598.08,263.58 187.33x19.2
+            text 598.08,263.58 187.33x19.2 "Use: heals" #ffffff
+        box 598.08,289.45 187.33x28.93
+          box 598.08,296.12 187.33x15.6
+            box 598.08,296.12 156.78x15.6
+              box 598.08,296.12 28.89x15.6
+                text 598.08,296.12 28.89x15.6 "Well" #f3e7cc
+                box 598.08,313.38 28.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 598.08,296.12 28.89x15.6 absolute @enter @leave
+            text 763.19,296.12 22.22x15.6 "+5%" #f3e7cc
         box 780.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 807.33,240 229.5x116.38 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 827.58,260.25 194x29.17
-        box 827.58,260.25 194x15.6
-          text 897.36,260.25 54.44x15.6 "Equipped" #ffd100 centred
-        box 827.58,280.85 194x1.67
-      box 827.58,289.42 194x25.87
-        box 827.58,289.42 194x19.2
-          text 827.58,289.42 194x19.2 "Sword" #ffffff
-      box 827.58,315.28 194x23.1
-        box 827.58,316.12 194x22.27
-          box 901.39,322.78 46.39x15.6
-            box 901.39,322.78 42.22x15.6
-              text 901.39,322.78 42.22x15.6 "Locked" #f3e7cc
-              box 901.39,337.55 42.22x0.83 absolute #ffd100b3
-          box 827.58,316.12 194x22.27 absolute @enter @leave
+    box 807.33,240 229.5x123.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 830.92,263.58 187.33x29.17
+        box 830.92,263.58 187.33x15.6
+          text 897.36,263.58 54.44x15.6 "Equipped" #ffd100 centred
+        box 830.92,284.18 187.33x1.67
+      box 830.92,292.75 187.33x25.87
+        box 830.92,292.75 187.33x19.2
+          text 830.92,292.75 187.33x19.2 "Sword" #ffffff
+      box 830.92,318.62 187.33x23.1
+        box 830.92,319.45 187.33x22.27
+          box 901.39,326.12 46.39x15.6
+            box 901.39,326.12 42.22x15.6
+              text 901.39,326.12 42.22x15.6 "Locked" #f3e7cc
+              box 901.39,343.38 42.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+          box 830.92,319.45 187.33x22.27 absolute @enter @leave
       box 1012.92,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-surface 534.81,353.85 257.44x118.02 on TOOLTIP
-  box 534.81,353.85 257.44x118.02
-    box 534.81,353.85 257.44x118.02
-      box 534.81,353.85 257.44x118.02 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 555.06,374.1 221.94x56.67
-          box 555.06,374.1 50x50 #000000
-            box 556.72,375.77 46.67x46.67 face:mouseovertarget
-          box 613.39,381.17 163.61x35.87
-            text 613.39,381.17 163.61x19.2 "Ann" #ffffff
-            box 613.39,402.03 163.61x15
-              box 613.39,402.33 38.89x14.4
-                text 613.39,402.33 38.89x14.4 "Priest" #857a66
-        box 555.06,430.77 221.94x23.1
-          box 555.06,431.6 75.28x22.27
-            box 563.39,438.27 58.61x15.6
-              box 563.39,438.27 54.44x15.6
-                text 563.39,438.27 54.44x15.6 "Level 60" #f3e7cc
-          box 630.33,431.6 57.22x22.27
-            box 639.5,438.27 39.72x15.6
-              box 639.5,438.27 35.56x15.6
-                text 639.5,438.27 35.56x15.6 "Human" #f3e7cc
-          box 687.56,431.6 89.44x22.27
-            box 696.72,438.27 71.94x15.6
-              box 696.72,439.4 13.33x13.33
-                box 695.06,437.73 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 4 of 16
-              box 714.22,438.27 54.44x15.6
-                text 714.22,438.27 54.44x15.6 "Alliance" #1eff00
+surface 531.47,358.85 264.11x124.68 on TOOLTIP
+  box 531.47,358.85 264.11x124.68
+    box 531.47,358.85 264.11x124.68
+      box 531.47,358.85 264.11x124.68 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 555.06,382.43 221.94x56.67
+          box 555.06,382.43 50x50 #000000
+            box 556.72,384.1 46.67x46.67 face:mouseovertarget
+          box 613.39,388.67 163.61x37.53
+            text 613.39,388.67 163.61x19.2 "Ann" #ffffff
+            box 613.39,411.2 163.61x15
+              box 613.39,411.5 38.89x14.4
+                text 613.39,411.5 38.89x14.4 "Priest" #857a66
+        box 555.06,439.1 221.94x23.1
+          box 555.06,439.93 75.28x22.27
+            box 563.39,446.6 58.61x15.6
+              box 563.39,446.6 54.44x15.6
+                text 563.39,446.6 54.44x15.6 "Level 60" #f3e7cc
+          box 630.33,439.93 57.22x22.27
+            box 639.5,446.6 39.72x15.6
+              box 639.5,446.6 35.56x15.6
+                text 639.5,446.6 35.56x15.6 "Human" #f3e7cc
+          box 687.56,439.93 89.44x22.27
+            box 696.72,446.6 71.94x15.6
+              box 696.72,447.73 13.33x13.33
+                box 695.06,446.07 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 4 of 16
+              box 714.22,446.6 54.44x15.6
+                text 714.22,446.6 54.44x15.6 "Alliance" #1eff00
 
 -- on a unit that is gone: nothing opens
-surface 300,240 736.83x176.25 on TOOLTIP
-  box 300,240 736.83x176.25 @enter @leave
-    box 300,240 271.17x176.25
-      box 300,269.17 271.17x147.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 320.25,289.42 235.67x42.53
-          box 320.25,289.42 235.67x35.87
-            text 320.25,289.42 235.67x19.2 "Axe" #ffffff
-            box 320.25,310.28 235.67x15
-              box 320.25,310.58 51.11x14.4
-                text 320.25,310.58 51.11x14.4 "Two-Hand" #cbb994
-              text 371.36,310.58 21.11x14.4 " · " #cbb994
-              box 392.47,310.58 32.22x14.4
-                text 392.47,310.58 32.22x14.4 "Bound" #cbb994
-                box 392.47,324.15 32.22x0.83 absolute #ffd100b3
-                box 392.47,310.58 32.22x14.4 absolute @enter @leave
-        box 320.25,331.95 235.67x44.63
-          box 320.25,339.45 235.67x14.4
-            box 320.25,339.45 206.22x14.4
-              box 320.25,339.45 38.89x14.4
-                text 320.25,339.45 38.89x14.4 "Target" #857a66
-                box 320.25,353.02 38.89x0.83 absolute #ffd100b3
-                box 320.25,339.45 38.89x14.4 absolute @enter @leave
-            box 534.81,339.45 21.11x14.4
-              text 534.81,339.45 21.11x14.4 "Ann" #a39883
-              box 534.81,353.02 21.11x0.83 absolute #ffd100b3
-              box 534.81,339.45 21.11x14.4 absolute @enter @leave
-          box 320.25,355.52 235.67x14.4
-            text 320.25,355.52 200.67x14.4 "Caster" #857a66
-            box 529.25,355.52 26.67x14.4
-              text 529.25,355.52 26.67x14.4 "Gone" #a39883
-              box 529.25,369.08 26.67x0.83 absolute #ffd100b3
-              box 529.25,355.52 26.67x14.4 absolute @enter @leave
-        box 320.25,376.58 235.67x21.67
-          box 320.25,383.25 235.67x15
-            text 320.25,383.55 235.67x14.4 "Locked — hover the underlined parts" #857a66
+surface 300,240 736.83x186.25 on TOOLTIP
+  box 300,240 736.83x186.25 @enter @leave
+    box 300,240 271.17x186.25
+      box 300,269.17 271.17x157.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 323.58,292.75 229x44.2
+          box 323.58,292.75 229x37.53
+            text 323.58,292.75 229x19.2 "Axe" #ffffff
+            box 323.58,315.28 229x15
+              box 323.58,315.58 51.11x14.4
+                text 323.58,315.58 51.11x14.4 "Two-Hand" #cbb994
+              text 374.69,315.58 21.11x14.4 " · " #cbb994
+              box 395.81,315.58 32.22x14.4
+                text 395.81,315.58 32.22x14.4 "Bound" #cbb994
+                box 395.81,331.65 32.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 395.81,315.58 32.22x14.4 absolute @enter @leave
+        box 323.58,336.95 229x46.3
+          box 323.58,344.45 229x14.4
+            box 323.58,344.45 199.56x14.4
+              box 323.58,344.45 38.89x14.4
+                text 323.58,344.45 38.89x14.4 "Target" #857a66
+                box 323.58,360.52 38.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 323.58,344.45 38.89x14.4 absolute @enter @leave
+            box 531.47,344.45 21.11x14.4
+              text 531.47,344.45 21.11x14.4 "Ann" #a39883
+              box 531.47,360.52 21.11x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 531.47,344.45 21.11x14.4 absolute @enter @leave
+          box 323.58,362.18 229x14.4
+            text 323.58,362.18 194x14.4 "Caster" #857a66
+            box 525.92,362.18 26.67x14.4
+              text 525.92,362.18 26.67x14.4 "Gone" #a39883
+              box 525.92,378.25 26.67x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+              box 525.92,362.18 26.67x14.4 absolute @enter @leave
+        box 323.58,383.25 229x21.67
+          box 323.58,389.92 229x15
+            text 323.58,390.22 229x14.4 "Locked — hover the underlined parts" #857a66
         box 547.25,278.08 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 574.5,240 229.5x93.05
-      box 574.5,240 229.5x93.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 594.75,260.25 194x25.87
-          box 594.75,260.25 194x19.2
-            text 594.75,260.25 194x19.2 "Use: heals" #ffffff
-        box 594.75,286.12 194x28.93
-          box 594.75,292.78 194x15.6
-            box 594.75,292.78 163.44x15.6
-              box 594.75,292.78 28.89x15.6
-                text 594.75,292.78 28.89x15.6 "Well" #f3e7cc
-                box 594.75,307.55 28.89x0.83 absolute #ffd100b3
-                box 594.75,292.78 28.89x15.6 absolute @enter @leave
-            text 766.53,292.78 22.22x15.6 "+5%" #f3e7cc
+    box 574.5,240 229.5x99.72
+      box 574.5,240 229.5x99.72 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 598.08,263.58 187.33x25.87
+          box 598.08,263.58 187.33x19.2
+            text 598.08,263.58 187.33x19.2 "Use: heals" #ffffff
+        box 598.08,289.45 187.33x28.93
+          box 598.08,296.12 187.33x15.6
+            box 598.08,296.12 156.78x15.6
+              box 598.08,296.12 28.89x15.6
+                text 598.08,296.12 28.89x15.6 "Well" #f3e7cc
+                box 598.08,313.38 28.89x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+                box 598.08,296.12 28.89x15.6 absolute @enter @leave
+            text 763.19,296.12 22.22x15.6 "+5%" #f3e7cc
         box 780.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-    box 807.33,240 229.5x116.38 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 827.58,260.25 194x29.17
-        box 827.58,260.25 194x15.6
-          text 897.36,260.25 54.44x15.6 "Equipped" #ffd100 centred
-        box 827.58,280.85 194x1.67
-      box 827.58,289.42 194x25.87
-        box 827.58,289.42 194x19.2
-          text 827.58,289.42 194x19.2 "Sword" #ffffff
-      box 827.58,315.28 194x23.1
-        box 827.58,316.12 194x22.27
-          box 901.39,322.78 46.39x15.6
-            box 901.39,322.78 42.22x15.6
-              text 901.39,322.78 42.22x15.6 "Locked" #f3e7cc
-              box 901.39,337.55 42.22x0.83 absolute #ffd100b3
-          box 827.58,316.12 194x22.27 absolute @enter @leave
+    box 807.33,240 229.5x123.05 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 830.92,263.58 187.33x29.17
+        box 830.92,263.58 187.33x15.6
+          text 897.36,263.58 54.44x15.6 "Equipped" #ffd100 centred
+        box 830.92,284.18 187.33x1.67
+      box 830.92,292.75 187.33x25.87
+        box 830.92,292.75 187.33x19.2
+          text 830.92,292.75 187.33x19.2 "Sword" #ffffff
+      box 830.92,318.62 187.33x23.1
+        box 830.92,319.45 187.33x22.27
+          box 901.39,326.12 46.39x15.6
+            box 901.39,326.12 42.22x15.6
+              text 901.39,326.12 42.22x15.6 "Locked" #f3e7cc
+              box 901.39,343.38 42.22x0.83 absolute Interface\AddOns\OrdaenTooltips\assets\dash
+          box 830.92,319.45 187.33x22.27 absolute @enter @leave
       box 1012.92,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-surface 529.25,369.92 0x0 on TOOLTIP
-  box 529.25,369.92 0x0
-    box 529.25,369.92 0x0
+surface 525.92,376.58 0x0 on TOOLTIP
+  box 525.92,376.58 0x0
+    box 525.92,376.58 0x0

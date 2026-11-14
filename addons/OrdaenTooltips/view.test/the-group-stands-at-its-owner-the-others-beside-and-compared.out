@@ -1,118 +1,118 @@
 -- the tooltip alone, under its owner, on the owner's left edge
-surface 800,440 271.17x79.12 on TOOLTIP
-  box 800,440 271.17x79.12 @enter @leave
-    box 800,440 271.17x79.12
-      box 800,440 271.17x79.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 820.25,460.25 235.67x19.2
-          box 820.25,460.25 235.67x19.2
-            text 820.25,460.25 235.67x19.2 "Axe" #ffffff
-        box 820.25,479.45 235.67x21.67
-          box 820.25,486.12 235.67x15
-            box 820.25,492.37 235.67x2.5
-              box 820.25,492.37 0x2.5 absolute #d6a56b80
+surface 800,440 271.17x85.78 on TOOLTIP
+  box 800,440 271.17x85.78 @enter @leave
+    box 800,440 271.17x85.78
+      box 800,440 271.17x85.78 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 823.58,463.58 229x19.2
+          box 823.58,463.58 229x19.2
+            text 823.58,463.58 229x19.2 "Axe" #ffffff
+        box 823.58,482.78 229x21.67
+          box 823.58,489.45 229x15
+            box 823.58,495.7 229x2.5
+              box 823.58,495.7 0x2.5 absolute #d6a56b80
 
 -- two open beside it from the start: one column to its right, tops lined up
-surface 800,440 504x118.23 on TOOLTIP
-  box 800,440 504x118.23 @enter @leave
-    box 800,440 271.17x79.12
-      box 800,440 271.17x79.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 820.25,460.25 235.67x19.2
-          box 820.25,460.25 235.67x19.2
-            text 820.25,460.25 235.67x19.2 "Axe" #ffffff
-        box 820.25,479.45 235.67x21.67
-          box 820.25,486.12 235.67x15
-            box 820.25,492.37 235.67x2.5
-              box 820.25,492.37 0x2.5 absolute #d6a56b80
-    box 1074.5,440 229.5x118.23
-      box 1074.5,440 229.5x57.45 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1094.75,460.25 194x19.2
-          box 1094.75,460.25 194x19.2
-            text 1094.75,460.25 194x19.2 "Use: heals" #ffffff
-      box 1074.5,500.78 229.5x57.45 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1094.75,521.03 194x19.2
-          box 1094.75,521.03 194x19.2
-            text 1094.75,521.03 194x19.2 "Set: Deep Woods" #ffffff
+surface 800,440 504x131.57 on TOOLTIP
+  box 800,440 504x131.57 @enter @leave
+    box 800,440 271.17x85.78
+      box 800,440 271.17x85.78 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 823.58,463.58 229x19.2
+          box 823.58,463.58 229x19.2
+            text 823.58,463.58 229x19.2 "Axe" #ffffff
+        box 823.58,482.78 229x21.67
+          box 823.58,489.45 229x15
+            box 823.58,495.7 229x2.5
+              box 823.58,495.7 0x2.5 absolute #d6a56b80
+    box 1074.5,440 229.5x131.57
+      box 1074.5,440 229.5x64.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1098.08,463.58 187.33x19.2
+          box 1098.08,463.58 187.33x19.2
+            text 1098.08,463.58 187.33x19.2 "Use: heals" #ffffff
+      box 1074.5,507.45 229.5x64.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1098.08,531.03 187.33x19.2
+          box 1098.08,531.03 187.33x19.2
+            text 1098.08,531.03 187.33x19.2 "Set: Deep Woods" #ffffff
 
 -- compared with the worn item: the main tooltip lowered by the header's height, so the titles line up
-surface 800,440 736.83x118.23 on TOOLTIP
-  box 800,440 736.83x118.23 @enter @leave
-    box 800,440 271.17x108.28
-      box 800,469.17 271.17x79.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 820.25,489.42 235.67x19.2
-          box 820.25,489.42 235.67x19.2
-            text 820.25,489.42 235.67x19.2 "Axe" #ffffff
-        box 820.25,508.62 235.67x21.67
-          box 820.25,515.28 235.67x15
-            box 820.25,521.53 235.67x2.5
-              box 820.25,521.53 0x2.5 absolute #d6a56b80
-    box 1074.5,440 229.5x118.23
-      box 1074.5,440 229.5x57.45 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1094.75,460.25 194x19.2
-          box 1094.75,460.25 194x19.2
-            text 1094.75,460.25 194x19.2 "Use: heals" #ffffff
-      box 1074.5,500.78 229.5x57.45 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1094.75,521.03 194x19.2
-          box 1094.75,521.03 194x19.2
-            text 1094.75,521.03 194x19.2 "Set: Deep Woods" #ffffff
-    box 1307.33,440 229.5x93.28 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 1327.58,460.25 194x29.17
-        box 1327.58,460.25 194x15.6
-          text 1397.36,460.25 54.44x15.6 "Equipped" #ffd100 centred
-        box 1327.58,480.85 194x1.67
-      box 1327.58,489.42 194x25.87
-        box 1327.58,489.42 194x19.2
-          text 1327.58,489.42 194x19.2 "Sword" #ffffff
+surface 800,440 736.83x131.57 on TOOLTIP
+  box 800,440 736.83x131.57 @enter @leave
+    box 800,440 271.17x114.95
+      box 800,469.17 271.17x85.78 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 823.58,492.75 229x19.2
+          box 823.58,492.75 229x19.2
+            text 823.58,492.75 229x19.2 "Axe" #ffffff
+        box 823.58,511.95 229x21.67
+          box 823.58,518.62 229x15
+            box 823.58,524.87 229x2.5
+              box 823.58,524.87 0x2.5 absolute #d6a56b80
+    box 1074.5,440 229.5x131.57
+      box 1074.5,440 229.5x64.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1098.08,463.58 187.33x19.2
+          box 1098.08,463.58 187.33x19.2
+            text 1098.08,463.58 187.33x19.2 "Use: heals" #ffffff
+      box 1074.5,507.45 229.5x64.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1098.08,531.03 187.33x19.2
+          box 1098.08,531.03 187.33x19.2
+            text 1098.08,531.03 187.33x19.2 "Set: Deep Woods" #ffffff
+    box 1307.33,440 229.5x99.95 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 1330.92,463.58 187.33x29.17
+        box 1330.92,463.58 187.33x15.6
+          text 1397.36,463.58 54.44x15.6 "Equipped" #ffd100 centred
+        box 1330.92,484.18 187.33x1.67
+      box 1330.92,492.75 187.33x25.87
+        box 1330.92,492.75 187.33x19.2
+          text 1330.92,492.75 187.33x19.2 "Sword" #ffffff
 
 -- above the owner, on its right edge: the row runs leftwards, the main tooltip still at the owner
-surface 103.17,281.77 736.83x118.23 on TOOLTIP
-  box 103.17,281.77 736.83x118.23 @enter @leave
-    box 103.17,281.77 229.5x93.28 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 123.42,302.02 194x29.17
-        box 123.42,302.02 194x15.6
-          text 193.19,302.02 54.44x15.6 "Equipped" #ffd100 centred
-        box 123.42,322.62 194x1.67
-      box 123.42,331.18 194x25.87
-        box 123.42,331.18 194x19.2
-          text 123.42,331.18 194x19.2 "Sword" #ffffff
-    box 336,281.77 229.5x118.23
-      box 336,281.77 229.5x57.45 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 356.25,302.02 194x19.2
-          box 356.25,302.02 194x19.2
-            text 356.25,302.02 194x19.2 "Use: heals" #ffffff
-      box 336,342.55 229.5x57.45 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 356.25,362.8 194x19.2
-          box 356.25,362.8 194x19.2
-            text 356.25,362.8 194x19.2 "Set: Deep Woods" #ffffff
-    box 568.83,281.77 271.17x108.28
-      box 568.83,310.93 271.17x79.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 589.08,331.18 235.67x19.2
-          box 589.08,331.18 235.67x19.2
-            text 589.08,331.18 235.67x19.2 "Axe" #ffffff
-        box 589.08,350.38 235.67x21.67
-          box 589.08,357.05 235.67x15
-            box 589.08,363.3 235.67x2.5
-              box 589.08,363.3 0x2.5 absolute #d6a56b80
+surface 103.17,268.43 736.83x131.57 on TOOLTIP
+  box 103.17,268.43 736.83x131.57 @enter @leave
+    box 103.17,268.43 229.5x99.95 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 126.75,292.02 187.33x29.17
+        box 126.75,292.02 187.33x15.6
+          text 193.19,292.02 54.44x15.6 "Equipped" #ffd100 centred
+        box 126.75,312.62 187.33x1.67
+      box 126.75,321.18 187.33x25.87
+        box 126.75,321.18 187.33x19.2
+          text 126.75,321.18 187.33x19.2 "Sword" #ffffff
+    box 336,268.43 229.5x131.57
+      box 336,268.43 229.5x64.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 359.58,292.02 187.33x19.2
+          box 359.58,292.02 187.33x19.2
+            text 359.58,292.02 187.33x19.2 "Use: heals" #ffffff
+      box 336,335.88 229.5x64.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 359.58,359.47 187.33x19.2
+          box 359.58,359.47 187.33x19.2
+            text 359.58,359.47 187.33x19.2 "Set: Deep Woods" #ffffff
+    box 568.83,268.43 271.17x114.95
+      box 568.83,297.6 271.17x85.78 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 592.42,321.18 229x19.2
+          box 592.42,321.18 229x19.2
+            text 592.42,321.18 229x19.2 "Axe" #ffffff
+        box 592.42,340.38 229x21.67
+          box 592.42,347.05 229x15
+            box 592.42,353.3 229x2.5
+              box 592.42,353.3 0x2.5 absolute #d6a56b80
 
 -- the comparison gone: the bottoms line up on the owner's top
-surface 336,281.77 504x118.23 on TOOLTIP
-  box 336,281.77 504x118.23 @enter @leave
-    box 336,281.77 229.5x118.23
-      box 336,281.77 229.5x57.45 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 356.25,302.02 194x19.2
-          box 356.25,302.02 194x19.2
-            text 356.25,302.02 194x19.2 "Use: heals" #ffffff
-      box 336,342.55 229.5x57.45 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 356.25,362.8 194x19.2
-          box 356.25,362.8 194x19.2
-            text 356.25,362.8 194x19.2 "Set: Deep Woods" #ffffff
-    box 568.83,320.88 271.17x79.12
-      box 568.83,320.88 271.17x79.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 589.08,341.13 235.67x19.2
-          box 589.08,341.13 235.67x19.2
-            text 589.08,341.13 235.67x19.2 "Axe" #ffffff
-        box 589.08,360.33 235.67x21.67
-          box 589.08,367 235.67x15
-            box 589.08,373.25 235.67x2.5
-              box 589.08,373.25 0x2.5 absolute #d6a56b80
+surface 336,268.43 504x131.57 on TOOLTIP
+  box 336,268.43 504x131.57 @enter @leave
+    box 336,268.43 229.5x131.57
+      box 336,268.43 229.5x64.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 359.58,292.02 187.33x19.2
+          box 359.58,292.02 187.33x19.2
+            text 359.58,292.02 187.33x19.2 "Use: heals" #ffffff
+      box 336,335.88 229.5x64.12 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 359.58,359.47 187.33x19.2
+          box 359.58,359.47 187.33x19.2
+            text 359.58,359.47 187.33x19.2 "Set: Deep Woods" #ffffff
+    box 568.83,314.22 271.17x85.78
+      box 568.83,314.22 271.17x85.78 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 592.42,337.8 229x19.2
+          box 592.42,337.8 229x19.2
+            text 592.42,337.8 229x19.2 "Axe" #ffffff
+        box 592.42,357 229x21.67
+          box 592.42,363.67 229x15
+            box 592.42,369.92 229x2.5
+              box 592.42,369.92 0x2.5 absolute #d6a56b80
 
 -- hidden: nothing is drawn
