@@ -118,9 +118,11 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                 text 1173.08,703.12 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
       box 1224.42,188.79 29.17x26.67 absolute clipped @click
-        box 1224.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+        box 1224.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1234.42,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1253.58,188.79 23.33x26.67 absolute clipped @click
-        box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
+        box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1259.83,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 316.67,139.71 114.5x47.75
     box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -277,9 +279,11 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                 text 1173.08,703.12 25x15 "Save" #ffd100
     box 1224.42,188.79 52.5x26.67 absolute clipped
       box 1224.42,188.79 29.17x26.67 absolute clipped @click
-        box 1224.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+        box 1224.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1234.42,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1253.58,188.79 23.33x26.67 absolute clipped @click
-        box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
+        box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1259.83,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 316.67,139.71 114.5x47.75
     box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -453,9 +457,11 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                 text 1173.08,703.12 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
       box 1224.42,188.79 29.17x26.67 absolute clipped @click
-        box 1224.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+        box 1224.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1234.42,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1253.58,188.79 23.33x26.67 absolute clipped @click
-        box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
+        box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1259.83,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 316.67,139.71 114.5x47.75
     box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop

@@ -25,16 +25,19 @@ box 0,0 271.17x378.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFra
     box 20.25,108.25 70.33x29.33
       box 33.33,114.92 44.17x16
         box 33.33,116.25 13.33x13.33
+          box 31.67,114.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 0 of 16
         box 50.83,114.92 26.67x16
           text 50.83,114.92 26.67x16 "78.3" #f3e7cc
     box 90.58,108.25 70.33x29.33
       box 104.08,114.92 44.17x16
         box 104.08,116.25 13.33x13.33
+          box 102.42,114.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 1 of 16
         box 121.58,114.92 26.67x16
           text 121.58,114.92 26.67x16 "3.40" #f3e7cc
     box 160.92,108.25 95x29.33
       box 170.08,114.92 77.5x16
         box 170.08,116.25 13.33x13.33
+          box 168.42,114.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 2 of 16
         box 187.58,114.92 60x16
           text 187.58,114.92 60x16 "120 / 120" #1fff00
   box 20.25,137.58 235.67x105.17
@@ -89,6 +92,7 @@ box 0,0 271.17x243.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFra
     box 20.25,77.75 117.83x29.33
       box 63.75,84.42 30.83x16
         box 63.75,85.75 13.33x13.33
+          box 62.08,84.08 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
         box 81.25,84.42 13.33x16
           text 81.25,84.42 13.33x16 "65" #f3e7cc
     box 138.08,77.75 117.83x29.33
@@ -122,6 +126,7 @@ box 0,0 229.5x243.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFram
     box 20.25,77.75 97x29.33
       box 53.33,84.42 30.83x16
         box 53.33,85.75 13.33x13.33
+          box 51.67,84.08 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
         box 70.83,84.42 13.33x16
           text 70.83,84.42 13.33x16 "65" #f3e7cc
     box 117.25,77.75 97x29.33

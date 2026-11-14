@@ -121,10 +121,10 @@ test "the settings opened from the professions window stand over it, though they
   Game.tradeSkill.open = 197
   Test.flush()
 
-  // The settings glyph shows while the cursor is on the window.
+  // The settings plate shows while the cursor is on the window.
   Test.moveTo(Test.holding("Bags", nil))
   Test.flush()
-  click(Test.holding("☼", nil))
+  click(Test.painted(Ordaen.art.ctl.corner.gear, nil))
   // The cursor on a setting's label: its hint shows where the settings stand over the professions window.
   Test.moveTo(Test.holding("Remember the last recipe", nil))
   Test.flush()
@@ -179,15 +179,14 @@ test "the professions window: the open profession, its lists, the search, a reci
   }
   Test.note(`icons drawn: ${icons > 0 ? "some" : "none"}; with their own rim left on: ${whole}`)
 
-  // With the cursor over the window its corner's buttons show: the skill bar ends before them.
+  // With the cursor over the window its corner's group shows: the skill bar ends before its first plate, settings.
   Test.moveTo(Test.holding("Bags", nil))
   Test.flush()
   const ordaen = Ordaen
   let bar = Test.edges(ordaen.lookArt.xpFill, 2)
-  let corner = Test.edges(ordaen.art.ctl.cornerClose, 2)
-  Test.note("the skill bar ends %d before the corner's buttons".format((corner.left - bar.right + 0.5).floor()))
-  // The settings glyph stands between them: the bar ends before it too.
-  Test.expect(Test.holding("☼", nil).x > bar.right)
+  let corner = Test.edges(ordaen.art.ctl.corner.bronze.first, 0)
+  Test.note("the skill bar ends %d before the corner's group".format((corner.left - bar.right + 0.5).floor()))
+  Test.expect(Test.painted(ordaen.art.ctl.corner.gear, nil).x > bar.right)
   Test.moveTo({ x: -10, y: -10 })
   Test.flush()
 

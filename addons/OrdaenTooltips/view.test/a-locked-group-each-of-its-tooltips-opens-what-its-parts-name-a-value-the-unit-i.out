@@ -444,6 +444,7 @@ surface 538.42,352.25 253x118.42 on TOOLTIP
           box 687.83,430 88.33x22.67
             box 697,436.67 70.83x16
               box 697,438 13.33x13.33
+                box 695.33,436.33 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 4 of 16
               box 714.5,436.67 53.33x16
                 text 714.5,436.67 53.33x16 "Alliance" #1eff00
 

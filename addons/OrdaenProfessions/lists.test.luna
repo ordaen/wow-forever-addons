@@ -392,10 +392,10 @@ test "the ⚙ opens the module's page in the settings window; a setting saved ch
   Test.mount(nil, PAGE)
   Game.tradeSkill.open = TAILORING
   Test.flush()
-  // The window's corner buttons show while the cursor is over it: the settings button is its first.
+  // The window's corner group shows while the cursor is over it: the settings plate is its first.
   Test.moveTo(Test.holding("Linen Cloak", nil))
   Test.flush()
-  click(Test.holding("☼", nil))
+  click(Test.painted(Ordaen.art.ctl.corner.gear, nil))
   Test.expect(Test.holding("Remember the last recipe", nil).y > 0)
   Test.expect(Test.holding("Show recipes you haven't learned", nil).y > 0)
   Test.note("the page's rows are drawn: «Remember the last recipe», «Show recipes you haven't learned»")

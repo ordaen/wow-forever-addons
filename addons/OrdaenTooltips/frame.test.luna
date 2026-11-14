@@ -2,7 +2,7 @@
 // sign that is a title alone, a spell with its description, a unit with its face.
 import { Align } from "$ltml"
 import Test from "$test"
-import { TipFrame } from "@/frame"
+import { glyphArt, TipFrame } from "@/frame"
 import { Kind, Model, Picture } from "@/model"
 
 const EPIC: Color = { r: 0.64, g: 0.21, b: 0.93, a: 1 }
@@ -101,4 +101,34 @@ test "the frame draws each kind of model" {
 
   destroy stage
   Test.expect(Test.blank())
+}
+
+// A band with a fact for every glyph the design names, in the order of `Glyph`.
+function glyphs(): mut Model {
+  return {
+    kind: Kind.Spell, name: "Every glyph", nameColor: { r: 1, g: 1, b: 1, a: 1 }, desc: [], info: [],
+    facts: [
+      { text: "1", glyph: .Dmg }, { text: "2", glyph: .Spd }, { text: "3", glyph: .Arm }, { text: "4", glyph: .Blk },
+      { text: "5", glyph: .Alliance }, { text: "6", glyph: .Horde }, { text: "7", glyph: .Elite },
+      { text: "8", glyph: .Time }, { text: "9", glyph: .Cost, tint: BLUE }, { text: "10", glyph: .CastNow },
+      { text: "11", glyph: .CastTime }, { text: "12", glyph: .CastChan }, { text: "13", glyph: .CastNext },
+    ],
+    body: [], more: [], foot: [], keys: [],
+  }
+}
+
+test "every glyph of the band is drawn with its picture, the cost's in its resource's colour" {
+  let stage = new Stage()
+  stage.model = glyphs()
+  Test.mount(stage, { left: 0, top: 0, width: 1400, height: 600, xAlign: Align.Start })
+  let rows: Array<String> = []
+  for (drawn of Test.drawn()) {
+    let file = drawn.file
+    if (file is String && file.contains("tooltip-glyphs")) { rows.push(String.of((drawn.top * 16 + 0.5).floor())) }
+  }
+  Test.expect(rows.join(" ") == "0 1 2 3 4 5 6 7 8 9 10 11 12")
+  Test.expect(Test.painted(glyphArt(.Dmg), nil).x < Test.holding("1", nil).x)
+  Test.expect(Test.painted(glyphArt(.Cost), nil).x < Test.holding("9", nil).x)
+  Test.shot("a band of every glyph: each before its fact, the cost's dot blue")
+  destroy stage
 }
