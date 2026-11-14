@@ -14,6 +14,7 @@ public import { KeptPlace, OrdaenCore } from "@/ordaen"
 // The controls every module draws by name.
 public import { PX } from "@/units"
 public import { Tip } from "@/tip"
+public import { TooltipGroup } from "@/tooltipGroup"
 public import { Section } from "@/section"
 public import { PushButton } from "@/pushButton"
 public import { Checkbox } from "@/checkbox"

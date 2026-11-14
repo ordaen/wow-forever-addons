@@ -370,3 +370,38 @@ test "a locked tooltip goes only when the cursor goes onto something other than 
   }
   Test.expect(moves == 40)
 }
+
+test "a locked item compared with a worn one: the cursor crossing the gap between them keeps it, and a click there is the group's" {
+  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
+  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+  Tooltips.settings.draft.itemsAnchorBags = Place.Anchor
+  saveAll()
+  Game.items.stats = strength
+  Game.tooltip.compared = [axe("Worn Axe")]
+  Game.tooltip.main = inSlot(corner, slot, sword())
+  Test.pass(1.3)
+  Test.expect(Tooltips.locked)
+  Test.shot("locked, the worn axe beside it")
+
+  // A button of the game's under the gap (1065.5 to 1068.83 between the worn axe and the sword), which would hear a
+  // click that went through.
+  let clicked = 0
+  const behind = Client.CreateFrame("Button", "Behind", Client.C_UI.GetUIParent(), nil)
+  behind.SetSize(40, 40)
+  behind.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1050, -280)
+  behind.SetScript("OnClick", (button: any Client.Frame): nil => { clicked += 1 })
+  // Off the slot onto the sword, into the gap, onto the worn axe: each longer than the grace.
+  Game.tooltip.main = hidden(corner)
+  Test.moveTo({ x: 1200, y: 320 })
+  Test.pass(0.5)
+  Test.moveTo({ x: 1067.2, y: 300 })
+  Test.pass(0.5)
+  Test.expect(Tooltips.locked)
+  Test.click({ x: 1067.2, y: 300 }, nil)
+  Test.pass(0.1)
+  Test.expect(clicked == 0 && Tooltips.locked)
+  Test.moveTo({ x: 950, y: 300 })
+  Test.pass(0.5)
+  Test.expect(Tooltips.locked)
+}

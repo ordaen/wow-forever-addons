@@ -1,0 +1,81 @@
+// The library's TooltipGroup: a primary tooltip and one beside it, over a button of the game's that lies under the
+// gap between them. The cursor crossing the gap stays on the group, and a click there is the group's.
+import Client from "$client"
+import { Frame, Place, Point } from "$ltml"
+import Test from "$test"
+import { TooltipGroup } from "@/tooltipGroup"
+
+const WOOD: Color = Color.hex("#2a1d12")
+
+class Pair {
+  state leftwards = false
+  derived place: Place = { point: Point.TopLeft, to: Point.TopLeft, by: self.by }
+  heard: mut Array<String> = []
+  const by: any Frame
+
+  constructor(by: any Frame) {
+    self.by = by
+  }
+
+  onEnter(mut self) { self.heard.push("entered") }
+  onLeave(mut self) { self.heard.push("left") }
+  // What was heard since it was last asked, in order.
+  public told(mut self): String {
+    let said = self.heard.join(", ")
+    self.heard.clear()
+    return said
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <TooltipGroup shown={true} place={self.place} beside={1} leftwards={self.leftwards} @enter={self.onEnter}
+                    @leave={self.onLeave}>
+        <box #primary width={100} height={80} background={WOOD}>
+          <text value={"Primary"} />
+        </box>
+        <box #secondary width={100} height={50} background={WOOD}>
+          <text value={"Secondary"} />
+        </box>
+      </TooltipGroup>
+    }
+  }
+}
+
+// A frame of the game's at a place on the screen.
+function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Client.Frame {
+  let made = Client.CreateFrame(kind, name, Client.C_UI.GetUIParent(), nil)
+  made.SetSize(width, height)
+  made.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", x, -y)
+  return made
+}
+
+test "the gap between a group's tooltips is the group's: the cursor crossing it stays on it, a click there is its" {
+  let clicked = 0
+  const by = frame("Frame", "Owner", 200, 100, 10, 10)
+  // A button of the game's under the gap, which would hear a click that went through.
+  const behind = frame("Button", "Behind", 280, 100, 40, 120)
+  behind.SetScript("OnClick", (button: any Client.Frame): nil => { clicked += 1 })
+  const page = new Pair(by)
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 400 })
+  Test.shot("the primary at its owner, the secondary beside it, 4 px apart")
+
+  Test.moveTo({ x: 250, y: 120 })
+  Test.expect(page.told() == "entered")
+  // The gap: from the primary's right edge (300) to the secondary's left (303.33).
+  Test.moveTo({ x: 301.5, y: 120 })
+  Test.expect(page.told() == "")
+  Test.click({ x: 301.5, y: 120 }, nil)
+  Test.expect(clicked == 0)
+  Test.moveTo({ x: 350, y: 120 })
+  Test.expect(page.told() == "")
+  Test.moveTo({ x: 500, y: 300 })
+  Test.expect(page.told() == "left")
+  // Under the group, off it: the button behind hears its click.
+  Test.click({ x: 301.5, y: 200 }, nil)
+  Test.expect(clicked == 1)
+
+  page.leftwards = true
+  Test.shot("running leftwards: the secondary on the primary's left")
+  destroy page
+  Test.expect(Test.blank())
+}
