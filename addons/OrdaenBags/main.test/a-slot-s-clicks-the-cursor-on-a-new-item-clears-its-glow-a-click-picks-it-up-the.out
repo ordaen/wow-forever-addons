@@ -73,27 +73,27 @@ surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
                 text 693.86,567.61 8.89x14.4 "1" #a3977f
           box 729.42,329.71 317.83x299.48 scrolled 0 of 0
             box 729.42,329.71 317.83x30.83
-              box 729.42,329.71 30.83x0
-              box 763.58,329.71 6.67x0
-              box 773.58,329.71 133.33x15.6 @click
-                box 773.58,335.31 10x10 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 opacity=0
-                text 788.58,329.71 28.89x15.6 "Free" #a3977f
-                text 822.47,345.31 84.44x0 "" #a3977f
+              box 729.42,329.71 30.83x30.83
+              box 763.58,329.71 6.67x30.83
+              box 773.58,329.71 133.33x30.83 @click
+                box 773.58,350.54 10x10 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 opacity=0
+                text 788.58,344.94 28.89x15.6 "Free" #a3977f
+                text 822.47,360.54 84.44x0 "" #a3977f
             box 729.42,363.88 317.83x30.83
               box 729.42,363.88 30.83x30.83 #0d0a08 opacity=1 secure @click @enter @leave
                 box 729.42,363.88 30.83x30.83 absolute
                 box 729.42,363.88 30.83x30.83 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
                 box 729.42,363.88 30.83x30.83 absolute #ffffff26
-              box 763.58,363.88 6.67x0
+              box 763.58,363.88 6.67x30.83
               box 773.58,363.88 30.83x30.83 #0d0a08 opacity=1 @click @enter @leave
                 box 773.58,363.88 30.83x30.83 absolute
                 box 773.58,363.88 30.83x30.83 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                 box 773.58,363.88 30.83x30.83 absolute #00000000
                 box 773.58,363.88 30.83x30.83 absolute
                   text 787.47,378.64 14.44x14.4 "13" #ffffff right
-              box 807.75,363.88 30.83x0
-              box 841.92,363.88 30.83x0
-              box 876.08,363.88 30.83x0
+              box 807.75,363.88 30.83x30.83
+              box 841.92,363.88 30.83x30.83
+              box 876.08,363.88 30.83x30.83
       box 557.75,629.19 489.5x32.27
         box 557.75,645.86 489.5x15.6
           text 557.75,646.46 81.11x14.4 "Free 13 of 22" #a3977f
@@ -196,27 +196,27 @@ surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
                 text 693.86,567.61 8.89x14.4 "1" #a3977f
           box 729.42,329.71 317.83x299.48 scrolled 0 of 0
             box 729.42,329.71 317.83x30.83
-              box 729.42,329.71 30.83x0
-              box 763.58,329.71 6.67x0
-              box 773.58,329.71 133.33x15.6 @click
-                box 773.58,335.31 10x10 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 opacity=0
-                text 788.58,329.71 28.89x15.6 "Free" #a3977f
-                text 822.47,345.31 84.44x0 "" #a3977f
+              box 729.42,329.71 30.83x30.83
+              box 763.58,329.71 6.67x30.83
+              box 773.58,329.71 133.33x30.83 @click
+                box 773.58,350.54 10x10 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 opacity=0
+                text 788.58,344.94 28.89x15.6 "Free" #a3977f
+                text 822.47,360.54 84.44x0 "" #a3977f
             box 729.42,363.88 317.83x30.83
               box 729.42,363.88 30.83x30.83 #0d0a08 opacity=1 secure @click @enter @leave
                 box 729.42,363.88 30.83x30.83 absolute
                 box 729.42,363.88 30.83x30.83 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
                 box 729.42,363.88 30.83x30.83 absolute #ffffff26
-              box 763.58,363.88 6.67x0
+              box 763.58,363.88 6.67x30.83
               box 773.58,363.88 30.83x30.83 #0d0a08 opacity=1 @click @enter @leave
                 box 773.58,363.88 30.83x30.83 absolute
                 box 773.58,363.88 30.83x30.83 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                 box 773.58,363.88 30.83x30.83 absolute #00000000
                 box 773.58,363.88 30.83x30.83 absolute
                   text 787.47,378.64 14.44x14.4 "13" #ffffff right
-              box 807.75,363.88 30.83x0
-              box 841.92,363.88 30.83x0
-              box 876.08,363.88 30.83x0
+              box 807.75,363.88 30.83x30.83
+              box 841.92,363.88 30.83x30.83
+              box 876.08,363.88 30.83x30.83
       box 557.75,629.19 489.5x32.27
         box 557.75,645.86 489.5x15.6
           text 557.75,646.46 81.11x14.4 "Free 13 of 22" #a3977f

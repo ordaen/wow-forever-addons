@@ -26,10 +26,10 @@ surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
                   box 1026.42,292.21 13.33x13.33 130716
         box 557.75,329.71 489.5x299.48 scrolled 0 of 0
           box 557.75,329.71 489.5x30.83
-            box 557.75,329.71 475x15.6 @click
-              box 557.75,335.31 10x10 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 opacity=1
-              text 572.75,329.71 54.44x15.6 "Backpack" #e8c35a
-              text 632.19,330.91 400.56x14.4 "7/16" #a3977f
+            box 557.75,329.71 475x30.83 @click
+              box 557.75,350.54 10x10 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 opacity=1
+              text 572.75,344.94 54.44x15.6 "Backpack" #e8c35a
+              text 632.19,346.14 400.56x14.4 "7/16" #a3977f
           box 557.75,363.88 489.5x30.83
             box 557.75,363.88 30.83x30.83 #0d0a08 opacity=1 secure @click @enter @leave
               box 557.75,363.88 30.83x30.83 absolute
@@ -103,23 +103,23 @@ surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
               box 591.92,398.04 30.83x30.83 absolute
               box 591.92,398.04 30.83x30.83 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 591.92,398.04 30.83x30.83 absolute #00000000
-            box 626.08,398.04 30.83x0
-            box 660.25,398.04 30.83x0
-            box 694.42,398.04 30.83x0
-            box 728.58,398.04 30.83x0
-            box 762.75,398.04 30.83x0
-            box 796.92,398.04 30.83x0
-            box 831.08,398.04 30.83x0
-            box 865.25,398.04 30.83x0
-            box 899.42,398.04 30.83x0
-            box 933.58,398.04 30.83x0
-            box 967.75,398.04 30.83x0
-            box 1001.92,398.04 30.83x0
+            box 626.08,398.04 30.83x30.83
+            box 660.25,398.04 30.83x30.83
+            box 694.42,398.04 30.83x30.83
+            box 728.58,398.04 30.83x30.83
+            box 762.75,398.04 30.83x30.83
+            box 796.92,398.04 30.83x30.83
+            box 831.08,398.04 30.83x30.83
+            box 865.25,398.04 30.83x30.83
+            box 899.42,398.04 30.83x30.83
+            box 933.58,398.04 30.83x30.83
+            box 967.75,398.04 30.83x30.83
+            box 1001.92,398.04 30.83x30.83
           box 557.75,432.21 489.5x30.83
-            box 557.75,432.21 201.67x15.6 @click
-              box 557.75,437.81 10x10 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 opacity=1
-              text 572.75,432.21 61.11x15.6 "Linen Bag" #e8c35a
-              text 638.86,433.41 120.56x14.4 "2/6" #a3977f
+            box 557.75,432.21 201.67x30.83 @click
+              box 557.75,453.04 10x10 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8 opacity=1
+              text 572.75,447.44 61.11x15.6 "Linen Bag" #e8c35a
+              text 638.86,448.64 120.56x14.4 "2/6" #a3977f
           box 557.75,466.38 489.5x30.83
             box 557.75,466.38 30.83x30.83 #0d0a08 opacity=1 secure @click @enter @leave
               box 557.75,466.38 30.83x30.83 absolute
@@ -297,12 +297,12 @@ surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
               box 796.92,363.88 30.83x30.83 absolute
               box 796.92,363.88 30.83x30.83 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 796.92,363.88 30.83x30.83 absolute #00000000
-            box 831.08,363.88 30.83x0
-            box 865.25,363.88 30.83x0
-            box 899.42,363.88 30.83x0
-            box 933.58,363.88 30.83x0
-            box 967.75,363.88 30.83x0
-            box 1001.92,363.88 30.83x0
+            box 831.08,363.88 30.83x30.83
+            box 865.25,363.88 30.83x30.83
+            box 899.42,363.88 30.83x30.83
+            box 933.58,363.88 30.83x30.83
+            box 967.75,363.88 30.83x30.83
+            box 1001.92,363.88 30.83x30.83
       box 557.75,629.19 489.5x32.27
         box 557.75,645.86 489.5x15.6
           text 557.75,646.46 81.11x14.4 "Free 13 of 22" #a3977f
