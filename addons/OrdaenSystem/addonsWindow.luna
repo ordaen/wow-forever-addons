@@ -7,7 +7,7 @@ import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import { ARTWORK, Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, PushButton, PX, space, Tip, TipRow, Toolbar,
-  ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
+  Memory, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { AddOn, Catalog, plain, Status } from "@/catalog"
 import { Card } from "@/card"
@@ -18,8 +18,26 @@ import { COLUMNS, Hot, Line, LineRow, TABLE_COLUMNS } from "@/rows"
 import { MOST, Sets } from "@/sets"
 import Style from "@/style"
 
-public enum Order { Name = "name", Now = "now", Peak = "peak", Memory = "memory" }
-public enum View { Categories = "categories", Table = "table" }
+public enum Order implements Plain { Name = "name", Now = "now", Peak = "peak", Memory = "memory" }
+public enum View implements Plain { Categories = "categories", Table = "table" }
+
+// How the player left the list, the profile's (`Memory`, `redesign/kept.md`): whose addons it shows, the filter (a
+// choice in each kind, `@/filter`), the order and which way (the heaviest first for a number's column, reversed by a
+// second click on a table's heading), the view, and the addon whose card stands beside it. The search isn't kept: a
+// list cut short by an old search at the next opening says nothing of why.
+public struct ListView implements Plain {
+  everyone: Boolean = true
+  heat: Heat = Heat.All
+  standing: Standing = Standing.All
+  age: Age = Age.All
+  loading: Loading = Loading.All
+  written: Written = Written.All
+  order: Order = Order.Name
+  descending: Boolean = false
+  view: View = View.Categories
+  picked: String = ""
+}
+const LIST_VIEW: ListView = {}
 
 const ORDERS: Array<Choice<Order>> = [
   { value: Order.Name, label: Locale.SORT_NAME },
@@ -74,18 +92,7 @@ public class AddOnsWindow implements Component {
   // Where it stands and how large: the player moves and resizes it.
   public state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   state search = ""
-  // The filter, a choice in each kind (`@/filter`).
-  public state heat: Heat = Heat.All
-  public state standing: Standing = Standing.All
-  public state age: Age = Age.All
-  public state loading: Loading = Loading.All
-  public state written: Written = Written.All
-  state order: Order = Order.Name
-  // The heaviest first for a number's column; reversed by a second click on a table's heading.
-  state descending = false
-  state view: View = View.Categories
-  state everyone = true
-  state picked = ""
+  public list: mut Memory<ListView> = new Memory<ListView>(LIST_VIEW, .Profile, "addons")
   state folded: mut Map<String, Boolean> = {}
   // What is to be switched off once the player answers, with the question's title.
   public state asking: Array<String> = []
@@ -103,10 +110,10 @@ public class AddOnsWindow implements Component {
   derived countText: String = self.visible.length == self.catalog.addons.length ? "%d".format(self.visible.length) :
     Locale.COUNT_OF.format(self.visible.length, self.catalog.addons.length)
   derived tabs: Array<WindowTabSpec> = [{ title: Client.ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01" }]
-  derived side: WindowSide | nil = self.picked != "" && self.catalog.byName[self.picked] != nil ?
+  derived side: WindowSide | nil = self.list.values.picked != "" && self.catalog.byName[self.list.values.picked] != nil ?
     { width: Style.CARD, content: self.card } : nil
-  derived pickedModule: Boolean = self.catalog.byName[self.picked]?.group == self.framework
-  derived tabled: Boolean = self.view == .Table
+  derived pickedModule: Boolean = self.catalog.byName[self.list.values.picked]?.group == self.framework
+  derived tabled: Boolean = self.list.values.view == .Table
   derived columns: Array<Track> = self.tabled ? TABLE_COLUMNS : COLUMNS
   derived overall: String = self.profiler.measuring ? Locale.ALL_ADDONS.format(percent(self.profiler.overall)) : ""
   derived notMeasuring: Boolean = !self.profiler.measuring
@@ -124,7 +131,7 @@ public class AddOnsWindow implements Component {
   derived waitTip: Boolean = self.waitHovered && self.waitText != ""
 
   const card: Template = $ltml {
-    <Card name={self.picked} catalog={mut self.catalog} profiler={self.profiler} module={self.pickedModule}
+    <Card name={self.list.values.picked} catalog={mut self.catalog} profiler={self.profiler} module={self.pickedModule}
           @pick={self.onPick} @toggle={self.onCardToggle} @settings={self.onSettings} />
   }
   const footer: Template = $ltml {
@@ -164,7 +171,7 @@ public class AddOnsWindow implements Component {
     self.framework = framework
     self.whom = [{ value: true, label: Locale.WHO_ALL }, { value: false, label: Game.player.name }]
     watch (open of self.shown) { self.follow(open) }
-    watch (all of self.everyone) { self.catalog.setEveryone(all) }
+    watch { self.catalog.setEveryone(self.list.values.everyone) }
   }
 
   // Each open reads the list in one pass and samples once a second, hearing `ADDON_LOADED` while it shows; a close
@@ -197,27 +204,27 @@ public class AddOnsWindow implements Component {
   matches(self, addon: AddOn, status: Status | nil): Boolean {
     const query = self.search.lower()
     if (query != "" && !addon.words.contains(query)) { return false }
-    const hot = match (self.heat) {
+    const hot = match (self.list.values.heat) {
       .All => true,
       .Heavy => self.profiler.heavy[addon.name] == true,
     }
-    const standing = match (self.standing) {
+    const standing = match (self.list.values.standing) {
       .All => true,
       .On => status != nil && status.enabled != .Off,
       .Off => status == nil || status.enabled == .Off,
       .Failed => status != nil && status.reason != nil && status.reason != "DISABLED" && status.enabled != .Off,
     }
-    const age = match (self.age) {
+    const age = match (self.list.values.age) {
       .All => true,
       .Outdated => addon.outdated,
       .Current => !addon.outdated,
     }
-    const loading = match (self.loading) {
+    const loading = match (self.list.values.loading) {
       .All => true,
       .Demand => addon.demand,
       .Login => !addon.demand,
     }
-    const written = match (self.written) {
+    const written = match (self.list.values.written) {
       .All => true,
       .LunaType => addon.lunatype,
       .Other => !addon.lunatype,
@@ -231,8 +238,8 @@ public class AddOnsWindow implements Component {
     for (addon of self.catalog.addons) {
       if (self.matches(addon, self.catalog.statuses[addon.name])) { list.push(addon) }
     }
-    const order = self.order
-    const down = self.descending
+    const order = self.list.values.order
+    const down = self.list.values.descending
     const profiler = self.profiler
     // Read so the list follows the numbers it sorts by.
     _ = self.profiler.loads
@@ -252,7 +259,7 @@ public class AddOnsWindow implements Component {
   // last) and its addons, each group's members right under their parent, indented.
   linesOf(self): Array<Line> {
     const list: Array<Line> = []
-    if (self.view == .Table) {
+    if (self.list.values.view == .Table) {
       for (addon of self.visible) {
         list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false, names: [], tabled: true })
       }
@@ -346,7 +353,7 @@ public class AddOnsWindow implements Component {
     return list
   }
 
-  onPick(mut self, name: String) { self.picked = name }
+  onPick(mut self, name: String) { self.list.values.picked = name }
 
   onFold(mut self, category: String) {
     self.folded[category] = self.folded[category] == true ? nil : true
@@ -393,7 +400,7 @@ public class AddOnsWindow implements Component {
   // «Load» from a row's menu: the addon loads now, its card opens to say how it went (the client's reason, where it
   // refused, is its row's and its card's state).
   onLoadNow(mut self, name: String) {
-    self.picked = name
+    self.list.values.picked = name
     _ = self.catalog.load(name)
   }
 
@@ -458,12 +465,12 @@ public class AddOnsWindow implements Component {
 
   // A heading of a table sorts by its column, again the other way.
   sortBy(mut self, order: Order) {
-    if (self.view != .Table) { return }
-    if (self.order == order) {
-      self.descending = !self.descending
+    if (self.list.values.view != .Table) { return }
+    if (self.list.values.order == order) {
+      self.list.values.descending = !self.list.values.descending
     } else {
-      self.order = order
-      self.descending = false
+      self.list.values.order = order
+      self.list.values.descending = false
     }
   }
 
@@ -479,19 +486,19 @@ public class AddOnsWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} shown={self.shown}
+      <Window keep={"addons"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} shown={self.shown}
               footer={self.footer} side={self.side} @close={self.onClose}>
         <box rows={BODY} gap={space(.Item)}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
             <box padding={HEADING}>
               <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
             </box>
-            <ToolPick value={mut self.everyone} choices={self.whom} icon={ARTWORK.ctl.tool.whom} title={Locale.WHO} />
-            <FilterPick heat={mut self.heat} standing={mut self.standing} age={mut self.age} loading={mut self.loading}
-                        written={mut self.written} />
-            <ToolPick $if={!self.tabled} value={mut self.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort}
+            <ToolPick value={mut self.list.values.everyone} choices={self.whom} icon={ARTWORK.ctl.tool.whom} title={Locale.WHO} />
+            <FilterPick heat={mut self.list.values.heat} standing={mut self.list.values.standing} age={mut self.list.values.age} loading={mut self.list.values.loading}
+                        written={mut self.list.values.written} />
+            <ToolPick $if={!self.tabled} value={mut self.list.values.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort}
                       title={Locale.SORT} />
-            <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories}
+            <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories}
                       title={Locale.VIEW} />
           </Toolbar>
           <box columns={self.columns} gap={space(.Item)} padding={HEADING} yAlign={Align.Center}>
@@ -520,7 +527,7 @@ public class AddOnsWindow implements Component {
           </box>
           <box overflow={Overflow.Scroll} rowHeight={Style.ROW}>
             <LineRow $for={line of self.lines} line={line} catalog={self.catalog} profiler={self.profiler}
-                     hot={self.hot} picked={self.picked} framework={self.framework} @pick={self.onPick}
+                     hot={self.hot} picked={self.list.values.picked} framework={self.framework} @pick={self.onPick}
                      @toggle={self.onToggle} @toggleGroup={self.onToggleGroup} @fold={self.onFold}
                      @settings={self.onSettings} @loadNow={self.onLoadNow} />
           </box>

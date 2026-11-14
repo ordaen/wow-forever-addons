@@ -186,16 +186,11 @@ test "the professions window: the open profession, its lists, the search, a reci
   }
   Test.note(`icons drawn: ${icons > 0 ? "some" : "none"}; with their own rim left on: ${whole}`)
 
-  // With the cursor over the window its corner's group shows: the skill bar ends before its first plate, settings.
-  Test.moveTo(Test.holding("Bags", nil))
-  Test.flush()
+  // The control group stands in the tab row, above the body: the skill bar runs under it, nothing between them.
   const ordaen = Ordaen
-  let bar = Test.edges(ordaen.lookArt.xpFill, 2)
-  let corner = Test.edges(ordaen.art.ctl.corner.bronze.first, 0)
-  Test.note("the skill bar ends %d before the corner's group".format((corner.left - bar.right + 0.5).floor()))
-  Test.expect(Test.painted(ordaen.art.ctl.corner.gear, nil).x > bar.right)
-  Test.moveTo({ x: -10, y: -10 })
-  Test.flush()
+  const bar = Test.edges(ordaen.lookArt.xpFill, 2)
+  const corner = Test.edges(ordaen.art.ctl.corner.bronze.first, 0)
+  Test.expect(corner.bottom < bar.top && Test.painted(ordaen.art.ctl.corner.gear, nil).y < bar.top)
 
   click(Test.holding("Bags", nil))
   show("«Bags» picked: its recipes, the first of them chosen", own)

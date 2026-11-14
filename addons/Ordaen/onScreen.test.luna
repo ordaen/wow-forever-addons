@@ -20,7 +20,7 @@ class Framed {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
+      <Window keep={"test"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
         <text value={"the page"} />
       </Window>
     }
@@ -73,7 +73,7 @@ function said(rect: Test.Rect): String {
 }
 
 test "a drag is held to its surface's room: moved, at each edge and corner; sized, at the right and the bottom" {
-  const room: Room = { left: 10, right: 20, up: 30, down: 40 }
+  const room: Room = { left: 10, right: 20, up: 30, down: 40, leastWidth: 0, leastHeight: 0 }
   const cases: Array<Case> = [
     { dx: -50, dy: 5, hold: Hold.Move, x: -10, y: 5 },
     { dx: 50, dy: -5, hold: Hold.Move, x: 20, y: -5 },

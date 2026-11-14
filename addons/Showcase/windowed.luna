@@ -37,7 +37,7 @@ public class Windowed implements Module {
     return $ltml {
       <box padding={4}>
         <text value={"a page under the window"} />
-        <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}
+        <Window keep={"windowed"} $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}
                 maxWidth={600} withSettings={true} footer={self.footer} @close={self.onClose}
                 @settings={self.onSettings}>
           <box>

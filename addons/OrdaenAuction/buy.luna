@@ -11,7 +11,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Beside, Click, Edges, Layer, Line, MouseButton, Overflow, Side, Track } from "$ltml"
-import { ageText, ARTWORK, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, Money, PushButton, PX, SelectItem, space, Table, TableRow, ToolButton, ToolPick, Toolbar, tracksOf } from "Ordaen"
+import { ageText, ARTWORK, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, Money, PushButton, PX, SelectItem, space, Table, TableRow, ToolButton, ToolPick, Toolbar, tracksOf, Memory } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
@@ -42,7 +42,7 @@ public struct Found {
 }
 
 // The two views: a row a variant, or a row an item with its variants folded.
-public enum View { Variants = "variants", Items = "items" }
+public enum View implements Plain { Variants = "variants", Items = "items" }
 const VIEWS: Array<Choice<View>> = [
   { value: View.Variants, label: Locale.VIEW_VARIANTS, icon: ARTWORK.ctl.tool.list },
   { value: View.Items, label: Locale.VIEW_ITEMS, icon: ARTWORK.ctl.tool.categories },
@@ -142,6 +142,17 @@ function labelOf(choices: Array<Choice<Integer>>, value: Integer): String {
 // The filter's menu under the toolbar's funnel: the level bands and the qualities, each a list of its choices (the
 // first lets every one through), the second under a rule. A choice picked stays in the open menu; a click anywhere
 // else closes it. The classes are the categories at the page's left.
+// How the player left «Buy»'s list: the filter's level band and quality, the column it is sorted by (0: as the
+// house gives it) and which way, and whether it shows each variant or each item.
+public struct BuyView implements Plain {
+  level: Integer = ANY
+  quality: Integer = ANY
+  sorted: Integer = 0
+  descending: Boolean = false
+  view: View = View.Variants
+}
+const BUY_VIEW: BuyView = {}
+
 class FilterMenu implements Component {
   public close: Event<nil> = new Event()
 
@@ -415,14 +426,11 @@ public class BuyPage implements Component {
   // The category picked at the left: a class and one of its subclasses, `ANY` for none.
   state itemClass = ANY
   state itemSubclass = ANY
-  state level = ANY
-  state quality = ANY
   state filterOpen = false
   // The filter's Tip: the level band and the quality it lets through.
-  derived filterText: String = [labelOf(LEVELS, self.level), labelOf(QUALITIES, self.quality)].join(", ")
-  state sorted = 0
-  state descending = false
-  state view: View = View.Variants
+  derived filterText: String = [labelOf(LEVELS, self.list.values.level), labelOf(QUALITIES, self.list.values.quality)].join(", ")
+  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  public list: mut Memory<BuyView> = new Memory<BuyView>(BUY_VIEW, .Profile, "buy")
   state picked: PriceKey | nil = nil
   // The row whose menu shows; none.
   state menuFor: PriceKey | nil = nil
@@ -433,13 +441,13 @@ public class BuyPage implements Component {
   // shown are the view's whose lowercased name holds the search.
   derived variants: Array<Found> = self.variantsOf()
   derived folded: Array<Found> = self.foldedOf()
-  derived byItem: Boolean = self.view == View.Items
+  derived byItem: Boolean = self.list.values.view == View.Items
   derived rows: Array<Found> = self.matching()
   // The row picked, while it is shown: one or none, handed to the window's side section.
   derived picks: Array<Found> = self.chosenOf()
-  derived filtered: Boolean = self.level != ANY || self.quality != ANY
-  derived wanted: String = "%s|%d|%d|%d|%d".format(self.search, self.itemClass, self.itemSubclass, self.level,
-    self.quality)
+  derived filtered: Boolean = self.list.values.level != ANY || self.list.values.quality != ANY
+  derived wanted: String = "%s|%d|%d|%d|%d".format(self.search, self.itemClass, self.itemSubclass, self.list.values.level,
+    self.list.values.quality)
   derived empty: String = self.items > 0 ? Locale.NO_RESULTS : Locale.NO_PRICES_FIND
   derived anyClass: Boolean = self.itemClass == ANY
   // The typing's turn: a settle that comes after a later key, or after Enter, is stale.
@@ -502,13 +510,13 @@ public class BuyPage implements Component {
   }
 
   filters(self): Game.SearchFilters {
-    const level = self.level
+    const level = self.list.values.level
     return {
       itemClass: self.itemClass != ANY ? self.itemClass : nil,
       itemSubclass: self.itemClass != ANY && self.itemSubclass != ANY ? self.itemSubclass : nil,
       minLevel: level != ANY ? level : nil,
       maxLevel: level != ANY ? level + 9 : nil,
-      qualities: self.quality != ANY ? [self.quality] : [],
+      qualities: self.list.values.quality != ANY ? [self.list.values.quality] : [],
     }
   }
 
@@ -563,8 +571,8 @@ public class BuyPage implements Component {
   }
 
   sortedOf(self, list: mut Array<Found>): Array<Found> {
-    const column = self.sorted
-    const down = self.descending
+    const column = self.list.values.sorted
+    const down = self.list.values.descending
     if (column != 0) { list.sort((a, b) => down ? before(b, a, column) : before(a, b, column)) }
     return list
   }
@@ -632,15 +640,15 @@ public class BuyPage implements Component {
             <Toolbar search={mut self.typed} placeholder={Locale.SEARCH} @submit={self.searchNow}>
               <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.filterText}
                           open={mut self.filterOpen} lit={self.filtered}>
-                <FilterMenu $if={self.filterOpen} level={mut self.level} quality={mut self.quality}
+                <FilterMenu $if={self.filterOpen} level={mut self.list.values.level} quality={mut self.list.values.quality}
                             @close={self.closeFilter} />
               </ToolButton>
-              <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.list} title={Locale.VIEW} />
+              <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.list} title={Locale.VIEW} />
             </Toolbar>
             <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
           </box>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-            <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+            <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
                    rowHeight={Style.ITEM_ROW}>
               <FoundRow $for={row of self.rows} $key={row.item} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil} tracks={ITEM_TRACKS}
@@ -650,7 +658,7 @@ public class BuyPage implements Component {
                 <text value={self.empty} textColor={Style.DIM} />
               </box>
             </Table>
-            <Table $else columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+            <Table $else columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
                    rowHeight={Style.ITEM_ROW}>
               <FoundRow $for={row of self.rows} $key={row.key} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil} tracks={TRACKS}

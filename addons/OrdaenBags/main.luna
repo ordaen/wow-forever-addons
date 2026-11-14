@@ -26,29 +26,30 @@ import { COUNTED, Grouping, KINDS, MARKED, MOVED, Slot, SortBy, Tab, View } from
 import { BagRow, Filter } from "@/rows"
 import { bagSections, countsOf, oneSection, tabName, tabSections } from "@/sections"
 
-// What the module keeps of the player's choices (its page in the settings window is designed, not built): the view
-// and the sort, which the header picks; the tabs hidden; whether a tab with nothing in it hides; each tab's grouping
-// (by type where none is said).
+// What the module keeps of the player's choices (its page in the settings window is designed, not built): the tabs
+// hidden; whether a tab with nothing in it hides; each tab's grouping (by type where none is said).
 public struct Choices implements Plain {
-  view: View
-  sort: SortBy
   hidden: Array<Tab>
   hideEmpty: Boolean
   grouping: Map<Tab, Grouping>
 }
 
-// What the module remembers for the character: where the window stands and its size, and the protected slots (at
-// most `MOST_GUARDS`, which no bags reach).
+// What the module remembers for the character: the protected slots (at most `MOST_GUARDS`, which no bags reach).
+// Where the window stands is the window's own (`Window`, the profile's).
 public struct Kept implements Plain {
-  x: Number
-  y: Number
-  width: Number
-  height: Number
   guards: Array<Guard>
 }
 
-const DEFAULTS: Choices = { view: View.Categories, sort: SortBy.Bags, hidden: [], hideEmpty: false, grouping: {} }
-const NOTHING_KEPT: Kept = { x: 0, y: 0, width: 0, height: 0, guards: [] }
+// How the player left the bags' view, the profile's (`Memory`, `redesign/kept.md`): the view and the sort the header
+// picks. The search isn't kept.
+public struct BagsView implements Plain {
+  view: View = View.Categories
+  sort: SortBy = SortBy.Bags
+}
+const BAGS_VIEW: BagsView = {}
+
+const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {} }
+const NOTHING_KEPT: Kept = { guards: [] }
 const MOST_GUARDS = 200
 // The window's body: wide enough for the tabs and ten slots, tall enough for ten rows.
 const WIDTH = 660 * PX
@@ -56,8 +57,7 @@ const HEIGHT = 520 * PX
 const TABS_WIDTH = 186 * PX
 // The room the body's scroll bar takes at its right.
 const SCROLL_ROOM = 16 * PX
-// How long a window moved or sized waits before its place is kept: seconds.
-const SETTLE = 1
+
 const BODY: Array<Track> = ["auto", { fr: 1 }]
 const WITH_TABS: Array<Track> = [TABS_WIDTH, { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -139,14 +139,11 @@ public class Bags implements Module, App {
   state ever = false
   public state placing: Placing = { x: 0, y: 0, width: WIDTH, height: HEIGHT }
   public state slotsPlacing: Placing = { x: 0, y: 0, width: 250 * PX, height: 300 * PX }
-  settling = false
-  known: Placing = { x: 0, y: 0, width: 0, height: 0 }
 
   public derived shown: Boolean = Game.bags.open
-  // The header's picks, which are the module's settings: each written there as it is picked, and read from there.
-  public state view: View = View.Categories
-  public state sort: SortBy = SortBy.Bags
-  public derived categories: Boolean = self.view == View.Categories
+  // The header's picks: the view and the sort, kept in the profile as they are picked.
+  public list: mut Memory<BagsView> = new Memory<BagsView>(BAGS_VIEW, .Profile, "view")
+  public derived categories: Boolean = self.list.values.view == View.Categories
   derived query: String = self.search.lower()
   public derived counts: Map<Tab, Integer> = self.countsOf()
   public derived tabs: Array<Tab> = self.tabsOf()
@@ -161,7 +158,7 @@ public class Bags implements Module, App {
   derived goldRows: Array<TipRow> = self.gold.rows
   derived windowTabs: Array<WindowTabSpec> = [{ title: Locale.TITLE }]
   state windowTab = 1
-  derived sortName: String = SORTS.find(choice => choice.value == self.sort)?.label ?? ""
+  derived sortName: String = SORTS.find(choice => choice.value == self.list.values.sort)?.label ?? ""
   // The view's glyphs: categories in tabs, sections side by side, one grid. Ordaen's art is read once its root is
   // made, as this one is.
   views: Array<Choice<View>> = [
@@ -177,15 +174,8 @@ public class Bags implements Module, App {
     self.tips = new GuardTips(self.hovered)
     Ordaen.modules.add(self)
     Game.bags.updated.listen(self.onUpdated)
-    watch (values of self.settings.values) { self.chosen(values) }
-    watch (view of self.view) { self.pickView(view) }
-    watch (sort of self.sort) { self.pickSort(sort) }
     watch (open of self.slotsOpen) { self.placeSlots(open) }
     watch (open of Game.bags.open) { self.onOpen(open) }
-    const place = peek self.memory.values
-    if (place.width > 0) { self.placing = { x: place.x, y: place.y, width: place.width, height: place.height } }
-    self.known = peek self.placing
-    watch { self.placed() }
   }
 
   destructor() {
@@ -263,7 +253,7 @@ public class Bags implements Module, App {
     if (Client.bit.band(changed, MOVED) != 0) { self.follow() }
     self.count()
     const regroup = Client.bit.band(changed, MOVED) != 0
-      || (Client.bit.band(changed, COUNTED) != 0 && peek self.sort == SortBy.Count)
+      || (Client.bit.band(changed, COUNTED) != 0 && peek self.list.values.sort == SortBy.Count)
       || Client.bit.band(changed, MARKED) != 0
     if (regroup) { self.revision += 1 }
   }
@@ -348,8 +338,8 @@ public class Bags implements Module, App {
 
   sectionsOf(self): Array<Section> {
     _ = self.revision
-    return match (self.view) {
-      .Categories => tabSections(self.all, self.shownTab, self.settings.values.grouping[self.shownTab] ?? .Type, self.sort),
+    return match (self.list.values.view) {
+      .Categories => tabSections(self.all, self.shownTab, self.settings.values.grouping[self.shownTab] ?? .Type, self.list.values.sort),
       .Bags => bagSections(self.bags, self.infos.map(info => info.name)),
       .One => oneSection(self.bags),
     }
@@ -418,24 +408,10 @@ public class Bags implements Module, App {
 
   onTab(mut self, tab: Tab) { self.tab = tab }
 
-  chosen(mut self, values: Choices) {
-    self.view = values.view
-    self.sort = values.sort
-  }
-
-  // The header's view and sort are the module's settings, chosen outside its page.
-  pickView(mut self, view: View) {
-    if ((peek self.settings.values).view != view) { self.settings.change((values: mut Choices): nil => { values.view = view }) }
-  }
-
-  pickSort(mut self, sort: SortBy) {
-    if ((peek self.settings.values).sort != sort) { self.settings.change((values: mut Choices): nil => { values.sort = sort }) }
-  }
-
   // «Sort the bags»: the bags that take any item, their unprotected slots, into the sort's order.
   arrange(mut self) {
     const infos = peek self.infos
-    self.arranger.start(self.all, (bag: Integer): Boolean => infos[bag + 1]?.general == true, peek self.sort)
+    self.arranger.start(self.all, (bag: Integer): Boolean => infos[bag + 1]?.general == true, peek self.list.values.sort)
   }
 
   onLit(mut self, bag: Integer) { self.lit = bag }
@@ -460,24 +436,6 @@ public class Bags implements Module, App {
 
   onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
 
-  // The window moved or was sized: its place is kept once it has been still for a moment.
-  placed(mut self) {
-    const place = self.placing
-    const same = self.known.x == place.x && self.known.y == place.y && self.known.width == place.width
-      && self.known.height == place.height
-    if (same || self.settling) { return }
-    self.settling = true
-    Client.C_Timer.After(SETTLE, () => self.keepPlace())
-  }
-
-  keepPlace(mut self) {
-    self.settling = false
-    const place = peek self.placing
-    self.known = place
-    const now = peek self.memory.values
-    self.memory.write({ x: place.x, y: place.y, width: place.width, height: place.height, ..now })
-  }
-
   const footer: Template = $ltml {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
       <text value={self.freeText} textColor={LABEL} textSize={.Secondary} />
@@ -494,14 +452,14 @@ public class Bags implements Module, App {
     return $ltml {
       <frame $for={window of Game.bags.windows} of={window} opacity={0} away={true} />
       <$if={self.ever}>
-        <Window tabs={self.windowTabs} selected={mut self.windowTab} placing={mut self.placing} shown={self.shown}
+        <Window keep={"main"} tabs={self.windowTabs} selected={mut self.windowTab} placing={mut self.placing} shown={self.shown}
                 withSettings={true} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
           <box rows={BODY} gap={space(.Group)}>
             <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-              <ToolPick value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+              <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
               <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
                        disabled={self.arranger.running} @pressed={self.arrange} />
-              <ToolPick value={mut self.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
+              <ToolPick value={mut self.list.values.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
               <ToolButton icon={BACKPACK} title={Locale.BAG_SLOTS} text={Locale.BAG_SLOTS_TIP}
                           open={mut self.slotsOpen} tinted={false} />
             </Toolbar>

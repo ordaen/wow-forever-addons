@@ -108,9 +108,9 @@ test "a skill line's tab, the search and each sort order the spellbook's list" {
   Test.flush()
   Test.expect(page.shown.length == 5)
   Test.expect(page.shown[1]?.name == "Find Treasure")
-  page.sort = SortBy.Level
+  page.list.values.sort = SortBy.Level
   Test.expect(page.shown[1]?.name == "Find Treasure" && page.shown[5]?.name == "Mortal Strike")
-  page.sort = SortBy.Active
+  page.list.values.sort = SortBy.Active
   Test.expect(page.shown[5]?.name == "Parry")
   page.tab = 3
   Test.expect(page.shown.length == 3)
@@ -126,14 +126,14 @@ test "the trainer's filter, sort and search narrow its services" {
   Test.mount(page, AREA)
   Test.flush()
   Test.expect(page.shown.length == 3)
-  page.show = Show.Available
+  page.list.values.show = Show.Available
   Test.expect(page.shown.length == 1)
-  page.show = Show.Unavailable
+  page.list.values.show = Show.Unavailable
   Test.expect(page.shown.length == 1 && page.shown[1]?.name == "Charge")
-  page.show = Show.Learned
+  page.list.values.show = Show.Learned
   Test.expect(page.shown.length == 1 && page.shown[1]?.name == "Rend")
-  page.show = Show.All
-  page.order = Order.Price
+  page.list.values.show = Show.All
+  page.list.values.order = Order.Price
   Test.expect(page.shown[1]?.name == "Rend" && page.shown[3]?.name == "Charge")
   page.search = "heroic"
   Test.expect(page.shown.length == 1)

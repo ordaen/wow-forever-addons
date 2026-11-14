@@ -105,7 +105,7 @@ test "the table lists each recipe's cost and profit, and sorts by them; one with
   Test.mount(nil, PAGE)
   Game.tradeSkill.open = TAILORING
   Test.flush()
-  Professions.view = View.Table
+  Professions.list.values.view = View.Table
   Test.flush()
   Test.shot("the table: the cloak's cost and profit; the bolt's linen unpriced, «—»")
   click(Test.holding("Profit", nil))

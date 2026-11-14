@@ -72,7 +72,7 @@ public class BagSlotsWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} minWidth={WIDTH} @close={self.onClose}>
+      <Window keep={"slots"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} minWidth={WIDTH} @close={self.onClose}>
         <box columns={1} gap={space(.Item)}>
           <BagEntry $for={line of self.lines} line={line} @lit={self.onLit} />
         </box>

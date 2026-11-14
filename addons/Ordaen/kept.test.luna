@@ -1,0 +1,193 @@
+// What the player does with a window is kept in the active profile (`Memory`, `redesign/kept.md`): its place, its
+// size from the grip and full screen or not come back after a reload, and a switch of profile takes the other
+// profile's at once. Ordaen's own settings window stands for every window: they keep through the same `Window`.
+// Where it stands is read by its texts, which a reload's window draws anew: its tab's title (its top left) and its
+// footer's «Save» (its bottom right).
+import { Art } from "$ltml"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Density } from "@/globals"
+import Locale from "@/locales"
+import { Placing, Window, WindowTabSpec, WindowView } from "@/window"
+
+function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+
+// The settings window opened on Ordaen's own page, drawn.
+function open() {
+  Ordaen.toggleNamed("")
+  Test.flush()
+}
+
+function tab(): Test.Point { return Test.holding(Ordaen.title, nil) }
+function save(): Test.Point { return Test.holding(Locale.SAVE, nil) }
+
+// A drag of the mouse from `from` by (dx, dy), in steps the client's drag takes as one.
+function drag(from: Test.Point, dx: Number, dy: Number) {
+  Test.moveTo(from)
+  Test.press(nil)
+  Test.moveTo({ x: from.x + 1, y: from.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: from.x + dx, y: from.y + dy })
+  Test.pass(0.05)
+  Test.release(nil)
+  Test.flush()
+}
+
+// The corner's control painted with `art` pressed, the cursor in the window's body first so the group shows.
+function press(art: Art) {
+  const at = tab()
+  Test.moveTo({ x: at.x, y: at.y + 60 })
+  Test.flush()
+  Test.click(Test.painted(art, nil), nil)
+  Test.flush()
+}
+
+test "a window moved by its tab stands where it was left after a reload" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  const before = tab()
+  drag(before, -120, 40)
+  const moved = tab()
+  Test.expect(moved.x < before.x - 100 && moved.y > before.y + 30)
+  Test.reload()
+  open()
+  const again = tab()
+  Test.expect(near(again.x, moved.x) && near(again.y, moved.y))
+}
+
+test "a window sized by its grip keeps its size after a reload" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  const before = save()
+  drag(Test.painted(Ordaen.art.ctl.grip, nil), 60, 30)
+  const grown = save()
+  Test.expect(grown.x > before.x + 50 && grown.y > before.y + 20)
+  const at = tab()
+  Test.reload()
+  open()
+  const again = save()
+  Test.expect(near(again.x, grown.x) && near(again.y, grown.y) && near(tab().x, at.x))
+}
+
+test "a window left full screen opens full screen after a reload, and back" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  const normal = save()
+  press(Ordaen.art.ctl.corner.expand)
+  const full = save()
+  Test.expect(full.x > normal.x + 100)
+  Test.reload()
+  open()
+  const again = save()
+  Test.expect(near(again.x, full.x) && near(again.y, full.y))
+  press(Ordaen.art.ctl.corner.contract)
+  const back = save()
+  Test.expect(near(back.x, normal.x) && near(back.y, normal.y))
+}
+
+test "a switch of profile takes that profile's place at once, and back, without a reload" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  const before = tab()
+  const first = Ordaen.keeper.profiles.active
+  Test.expect(Ordaen.keeper.profiles.make("Elsewhere", nil))
+  drag(before, -100, 0)
+  const moved = tab()
+  Ordaen.keeper.profiles.use("Elsewhere")
+  Test.flush()
+  const other = tab()
+  Test.expect(near(other.x, before.x) && near(other.y, before.y))
+  Ordaen.keeper.profiles.use(first)
+  Test.flush()
+  Test.expect(near(tab().x, moved.x))
+}
+
+test "a window never moved keeps nothing, and moving one leaves a settings draft waiting" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  const name = Ordaen.keeper.profiles.active
+  Test.expect(Ordaen.keeper.profiles.recalled(name, "Ordaen:window:settings") == nil)
+  Ordaen.globals.draft.density = Density.Roomy
+  Test.flush()
+  const waiting = Ordaen.keeper.unsaved
+  Test.expect(waiting > 0)
+  drag(tab(), -50, 0)
+  Test.expect(Ordaen.keeper.profiles.recalled(name, "Ordaen:window:settings") != nil)
+  Test.expect(Ordaen.globals.draft.density == Density.Roomy && Ordaen.keeper.unsaved == waiting)
+  Ordaen.globals.draft.density = Ordaen.globals.values.density
+  Test.flush()
+}
+
+// What a module's mistake might keep: a list that grows with play.
+struct Grown implements Plain {
+  names: Array<String> = []
+}
+
+test "a memory past its bound isn't kept" {
+  const names: Array<String> = []
+  for (i of 1..=100) { names.push("name number %d".format(i)) }
+  Ordaen.keeper.profiles.remember("Ordaen:grown", Grown { names: names })
+  Test.expect(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:grown") == nil)
+  Ordaen.keeper.profiles.remember("Ordaen:grown", Grown { names: ["one"] })
+  Test.expect(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:grown") != nil)
+}
+
+// Where the window's wood is now: the body's edges.
+function body(): Test.Rect { return Test.edges(Ordaen.art.window.wood, 0) }
+
+// A window whose content needs more than its least size says: a block of 500 by 400 over a footer.
+class Crowded {
+  state tabs: Array<WindowTabSpec> = [{ title: "Crowded" }]
+  state tab = 1
+  public state placing: Placing = { x: 0, y: 0, width: 800, height: 600 }
+  const footer: Template = $ltml { <text value={"the footer"} /> }
+
+  public render(self): Template {
+    return $ltml {
+      <Window keep={"crowded"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} footer={self.footer}>
+        <box width={500} height={400} background={Ordaen.art.window.wood} />
+      </Window>
+    }
+  }
+}
+
+test "the grip stops where the content would be cut, and the window grows again at once" {
+  const page = new Crowded()
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  drag(Test.painted(Ordaen.art.ctl.grip, nil), -2000, -2000)
+  const least = Test.edges(Ordaen.art.window.wood, 0)
+  const block = Test.edges(Ordaen.art.window.wood, 1)
+  const foot = Test.holding("the footer", nil)
+  Test.expect(least.right - least.left < 800 && least.right >= block.right && least.bottom > foot.y)
+  Test.expect(block.right - block.left > 499 && block.bottom - block.top > 399)
+  Test.shot("sized down past what it holds: held at its content's least size, the footer under the block")
+  drag(Test.painted(Ordaen.art.ctl.grip, nil), 30, 20)
+  const grown = Test.edges(Ordaen.art.window.wood, 0)
+  Test.expect(grown.right > least.right + 20 && grown.bottom > least.bottom + 10)
+  // A place handed to it smaller than its content needs (what a restore hands it) is drawn at the least.
+  page.placing = { x: 0, y: 0, width: 280, height: 170 }
+  Test.flush()
+  const handed = Test.edges(Ordaen.art.window.wood, 0)
+  Test.expect(near(handed.right - handed.left, least.right - least.left))
+  Test.expect(near(handed.bottom - handed.top, least.bottom - least.top))
+  destroy page
+}
+
+test "a size kept below what the content needs is raised to it as the window opens" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  drag(Test.painted(Ordaen.art.ctl.grip, nil), -2000, -2000)
+  const least = body()
+  const corner = tab()
+  const kept = Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:window:settings")
+  const view = WindowView.decode(kept, WindowView {})
+  Ordaen.keeper.profiles.remember("Ordaen:window:settings", WindowView {
+    x: view.x - (view.width - 40) / 2, y: view.y, width: 40, height: 30, full: false, tab: 1, side: 0,
+  })
+  Test.reload()
+  open()
+  const raised = body()
+  Test.expect(near(raised.right - raised.left, least.right - least.left))
+  Test.expect(near(raised.bottom - raised.top, least.bottom - least.top))
+  Test.expect(near(tab().x, corner.x))
+}

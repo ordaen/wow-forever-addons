@@ -120,13 +120,13 @@ test "the four views list the recipes: in columns, by category, in one list, in 
   Test.mount(nil, PAGE)
   Game.tradeSkill.open = TAILORING
   Test.flush()
-  Test.expect(Professions.view == View.Columns)
+  Test.expect(Professions.list.values.view == View.Columns)
   Test.note("columns: groups " + groupsText(Professions.groups) + "; recipes " + names(Professions.listing))
   Test.expect(below("Cloth armour", "Bags"))
 
   // One list with the categories as headings: a heading closes its recipes.
   pickFrom(Ordaen.art.ctl.tool.columns, "By category")
-  Test.expect(Professions.view == View.Categories)
+  Test.expect(Professions.list.values.view == View.Categories)
   Test.note("by category: " + names(Professions.listing))
   Test.expect(below("Cloth armour", "Linen Cloak"))
   Test.expect(below("Linen Cloak", "Bags"))
@@ -137,7 +137,7 @@ test "the four views list the recipes: in columns, by category, in one list, in 
   Test.expect(Professions.chosenRecipe == 121)
 
   pickFrom(Ordaen.art.ctl.tool.categories, "One list")
-  Test.expect(Professions.view == View.List)
+  Test.expect(Professions.list.values.view == View.List)
   Test.note("one list: " + names(Professions.listing))
   Test.expect(below("Linen Cloak", "Woolen Bag"))
   Test.expect(below("Brown Linen Vest", "Woolen Cape"))
@@ -146,14 +146,14 @@ test "the four views list the recipes: in columns, by category, in one list, in 
 
   // A table: the library's headings sort it, a click on the same heading again turns it round.
   pickFrom(Ordaen.art.ctl.tool.list, "Table")
-  Test.expect(Professions.view == View.Table)
+  Test.expect(Professions.list.values.view == View.Table)
   Test.note("table by name: " + names(Professions.listing))
-  Test.expect(Professions.tableColumn == 1)
+  Test.expect(Professions.list.values.tableColumn == 1)
   click(Test.holding("Can make", nil))
   Test.note("table by how many can be made, fewest first: " + names(Professions.listing))
   click(Test.holding("Can make", nil))
   Test.note("table by how many can be made, most first: " + names(Professions.listing))
-  Test.expect(Professions.tableDescending)
+  Test.expect(Professions.list.values.tableDescending)
   click(Test.holding("Linen Cloak", nil))
   Test.expect(Professions.chosenRecipe == 110)
 
@@ -175,7 +175,7 @@ test "the sort orders each list: by difficulty with the unlearned last, by name,
   pickFrom(Ordaen.art.ctl.tool.columns, "One list")
   Test.note("by difficulty: " + names(Professions.listing))
   pickFrom(Ordaen.art.ctl.tool.sort, "By name")
-  Test.expect(Professions.sort == SortBy.Name)
+  Test.expect(Professions.list.values.sort == SortBy.Name)
   Test.note("by name: " + names(Professions.listing))
   Test.expect(below("Brown Linen Vest", "Linen Bag"))
   pickFrom(Ordaen.art.ctl.tool.sort, "Can make")
@@ -363,7 +363,7 @@ test "each profession opens at the category and recipe it was left at, where the
   Test.expect(Professions.chosenCategory == 11)
 }
 
-test "the window's place and size are kept once it has been still, and are there after a reload" {
+test "the list's view, sort and the table's order are the profile's: there after a reload, and switched with it" {
   Game.frames.Professions = ownFrame()
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -372,19 +372,23 @@ test "the window's place and size are kept once it has been still, and are there
   Test.mount(nil, PAGE)
   Game.tradeSkill.open = TAILORING
   Test.flush()
-  Test.expect(Professions.kept.width == 0)
-  // Each step of a drag changes the place; nothing is kept until it has been still for a second.
-  Professions.placing = { x: 40, y: 30, width: 700, height: 500 }
-  Test.pass(0.5)
-  Professions.placing = { x: 60, y: 30, width: 720, height: 520 }
-  Test.pass(0.5)
-  Test.expect(Professions.kept.width == 0)
-  Test.pass(1)
-  Test.expect(Professions.kept.x == 60 && Professions.kept.width == 720 && Professions.kept.height == 520)
+  Professions.list.values.sort = SortBy.Name
+  Professions.list.values.view = View.Table
+  Professions.list.values.tableColumn = 2
+  Professions.list.values.tableDescending = true
+  Test.flush()
   Test.reload()
   Test.flush()
-  Test.expect(Professions.placing.x == 60 && Professions.placing.y == 30)
-  Test.expect(Professions.placing.width == 720 && Professions.placing.height == 520)
+  const kept = Professions.list.values
+  Test.expect(kept.sort == SortBy.Name && kept.view == View.Table && kept.tableColumn == 2 && kept.tableDescending)
+  const first = Ordaen.keeper.profiles.active
+  Test.expect(Ordaen.keeper.profiles.make("Other", nil))
+  Ordaen.keeper.profiles.use("Other")
+  Test.flush()
+  Test.expect(Professions.list.values.view == View.Columns && Professions.list.values.sort == SortBy.Difficulty)
+  Ordaen.keeper.profiles.use(first)
+  Test.flush()
+  Test.expect(Professions.list.values.view == View.Table && Professions.list.values.tableColumn == 2)
 }
 
 test "the ⚙ opens the module's page in the settings window; a setting saved changes the filter's start" {

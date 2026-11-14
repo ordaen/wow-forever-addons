@@ -1,6 +1,6 @@
 -- no trees: it says so
 surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
-  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 437.75,223.04 729.5x493.42
       box 457.75,243.04 689.5x453.42
         box 457.75,243.04 689.5x28.33
@@ -17,23 +17,35 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
           box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
               text 1027.46,674.79 81.25x15 "Apply changes" #808080
-    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 425,173.04 363.5x47.75
-    box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 443.58,183.29 77.33x34.25
-        text 463.5,192.92 37.5x15 "Spells" #b3a690
-    box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 568.08,183.29 77.33x34.25
-        text 584.88,192.92 43.75x15 "Primary" #ffd100
-    box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 692.58,183.29 77.33x34.25
-        text 703.12,192.92 56.25x15 "Secondary" #b3a690
+    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 425,173.04 750x47.75
+    box 425,173.04 665.83x47.75
+      box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 443.58,183.29 77.33x34.25
+          text 463.5,192.92 37.5x15 "Spells" #b3a690
+      box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 568.08,183.29 77.33x34.25
+          text 584.88,192.92 43.75x15 "Primary" #ffd100
+      box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 692.58,183.29 77.33x34.25
+          text 703.12,192.92 56.25x15 "Secondary" #b3a690
+    box 1097.5,186.12 77.5x34.67
+      box 1097.5,186.12 77.5x26.67 clipped
+        box 1097.5,186.12 29.17x26.67 absolute clipped @click
+          box 1097.5,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1107.5,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1126.67,186.12 25x26.67 absolute clipped @click
+          box 1126.67,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1132.92,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1151.67,186.12 23.33x26.67 absolute clipped @click
+          box 1151.67,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1157.92,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: Spellbook.watch true
 asked: TalentTrees.watch true
 
 -- two trees with their nodes where the client puts them, three points left
 surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
-  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 437.75,223.04 729.5x493.42
       box 457.75,243.04 689.5x453.42
         box 457.75,243.04 689.5x28.33
@@ -63,21 +75,33 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
           box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
               text 1027.46,674.79 81.25x15 "Apply changes" #ffd100
-    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 425,173.04 363.5x47.75
-    box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 443.58,183.29 77.33x34.25
-        text 463.5,192.92 37.5x15 "Spells" #b3a690
-    box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 568.08,183.29 77.33x34.25
-        text 584.88,192.92 43.75x15 "Primary" #ffd100
-    box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 692.58,183.29 77.33x34.25
-        text 703.12,192.92 56.25x15 "Secondary" #b3a690
+    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 425,173.04 750x47.75
+    box 425,173.04 665.83x47.75
+      box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 443.58,183.29 77.33x34.25
+          text 463.5,192.92 37.5x15 "Spells" #b3a690
+      box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 568.08,183.29 77.33x34.25
+          text 584.88,192.92 43.75x15 "Primary" #ffd100
+      box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 692.58,183.29 77.33x34.25
+          text 703.12,192.92 56.25x15 "Secondary" #b3a690
+    box 1097.5,186.12 77.5x34.67
+      box 1097.5,186.12 77.5x26.67 clipped
+        box 1097.5,186.12 29.17x26.67 absolute clipped @click
+          box 1097.5,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1107.5,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1126.67,186.12 25x26.67 absolute clipped @click
+          box 1126.67,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1132.92,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1151.67,186.12 23.33x26.67 absolute clipped @click
+          box 1151.67,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1157.92,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 -- what was asked of the game
 surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
-  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 437.75,223.04 729.5x493.42
       box 457.75,243.04 689.5x453.42
         box 457.75,243.04 689.5x28.33
@@ -107,27 +131,29 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
           box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
               text 1027.46,674.79 81.25x15 "Apply changes" #ffd100
-    box 1091.08,222.12 77.5x26.67 absolute clipped
-      box 1091.08,222.12 29.17x26.67 absolute clipped @click
-        box 1091.08,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1101.08,227.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-      box 1120.25,222.12 25x26.67 absolute clipped @click
-        box 1120.25,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-        box 1126.5,227.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1145.25,222.12 23.33x26.67 absolute clipped @click
-        box 1145.25,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1151.5,227.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 425,173.04 363.5x47.75
-    box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 443.58,183.29 77.33x34.25
-        text 463.5,192.92 37.5x15 "Spells" #b3a690
-    box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 568.08,183.29 77.33x34.25
-        text 584.88,192.92 43.75x15 "Primary" #ffd100
-    box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 692.58,183.29 77.33x34.25
-        text 703.12,192.92 56.25x15 "Secondary" #b3a690
+    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 425,173.04 750x47.75
+    box 425,173.04 665.83x47.75
+      box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 443.58,183.29 77.33x34.25
+          text 463.5,192.92 37.5x15 "Spells" #b3a690
+      box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 568.08,183.29 77.33x34.25
+          text 584.88,192.92 43.75x15 "Primary" #ffd100
+      box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 692.58,183.29 77.33x34.25
+          text 703.12,192.92 56.25x15 "Secondary" #b3a690
+    box 1097.5,186.12 77.5x34.67
+      box 1097.5,186.12 77.5x26.67 clipped
+        box 1097.5,186.12 29.17x26.67 absolute clipped @click
+          box 1097.5,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1107.5,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1126.67,186.12 25x26.67 absolute clipped @click
+          box 1126.67,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1132.92,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1151.67,186.12 23.33x26.67 absolute clipped @click
+          box 1151.67,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1157.92,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: TalentTrees.spend 10
 asked: TalentTrees.refund 10
 asked: TalentTrees.commit
@@ -135,7 +161,7 @@ asked: TalentTrees.rollback
 
 -- the second spec: Activate asks the game to switch
 surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
-  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 437.75,223.04 729.5x493.42
       box 457.75,243.04 689.5x453.42
         box 457.75,243.04 689.5x28.33
@@ -167,25 +193,27 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
           box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
               text 1027.46,674.79 81.25x15 "Apply changes" #808080
-    box 1091.08,222.12 77.5x26.67 absolute clipped
-      box 1091.08,222.12 29.17x26.67 absolute clipped @click
-        box 1091.08,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1101.08,227.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-      box 1120.25,222.12 25x26.67 absolute clipped @click
-        box 1120.25,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-        box 1126.5,227.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1145.25,222.12 23.33x26.67 absolute clipped @click
-        box 1145.25,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1151.5,227.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 425,173.04 363.5x47.75
-    box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 443.58,183.29 77.33x34.25
-        text 463.5,192.92 37.5x15 "Spells" #b3a690
-    box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 568.08,183.29 77.33x34.25
-        text 584.88,192.92 43.75x15 "Primary" #b3a690
-    box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 692.58,183.29 77.33x34.25
-        text 703.12,192.92 56.25x15 "Secondary" #ffd100
+    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 425,173.04 750x47.75
+    box 425,173.04 665.83x47.75
+      box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 443.58,183.29 77.33x34.25
+          text 463.5,192.92 37.5x15 "Spells" #b3a690
+      box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 568.08,183.29 77.33x34.25
+          text 584.88,192.92 43.75x15 "Primary" #b3a690
+      box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 692.58,183.29 77.33x34.25
+          text 703.12,192.92 56.25x15 "Secondary" #ffd100
+    box 1097.5,186.12 77.5x34.67
+      box 1097.5,186.12 77.5x26.67 clipped
+        box 1097.5,186.12 29.17x26.67 absolute clipped @click
+          box 1097.5,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1107.5,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1126.67,186.12 25x26.67 absolute clipped @click
+          box 1126.67,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1132.92,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1151.67,186.12 23.33x26.67 absolute clipped @click
+          box 1151.67,186.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1157.92,191.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: TalentTrees.activate 2

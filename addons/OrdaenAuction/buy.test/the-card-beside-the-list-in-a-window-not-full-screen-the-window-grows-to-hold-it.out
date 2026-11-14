@@ -1,6 +1,6 @@
 -- a row picked: the card at the body's right, the window wider and every box inside it
 surface 358.33,139.71 1166.92x620.58 on DIALOG clamped raised by a click
-  box 358.33,176.96 1166.92x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 358.33,176.96 1166.92x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 371.08,189.71 862.83x560.08
       box 391.08,209.71 822.83x481.75
         box 391.08,209.71 822.83x481.75
@@ -195,21 +195,24 @@ surface 358.33,139.71 1166.92x620.58 on DIALOG clamped raised by a click
                 box 1264.17,708.12 233.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                   box 1264.17,708.12 233.33x28.33 absolute
                     text 1318.33,714.79 125x15 "Add to shopping list" #ffd100
-    box 1441.33,188.79 77.5x26.67 absolute clipped
-      box 1441.33,188.79 29.17x26.67 absolute clipped @click
-        box 1441.33,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1451.33,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-      box 1470.5,188.79 25x26.67 absolute clipped @click
-        box 1470.5,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-        box 1476.75,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1495.5,188.79 23.33x26.67 absolute clipped @click
-        box 1495.5,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1501.75,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-    box 1508,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 358.33,139.71 239x47.75
-    box 358.33,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 376.92,149.96 77.33x34.25
-        text 406.21,159.58 18.75x15 "Buy" #ffd100
-    box 482.83,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 501.42,149.96 77.33x34.25
-        text 527.58,159.58 25x15 "Sell" #b3a690
+      box 1241.17,189.71 6.67x560.08 absolute @drag @dragStart @dragStop
+    box 1508,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 358.33,139.71 1166.92x47.75
+    box 358.33,139.71 1082.75x47.75
+      box 358.33,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 376.92,149.96 77.33x34.25
+          text 406.21,159.58 18.75x15 "Buy" #ffd100
+      box 482.83,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 501.42,149.96 77.33x34.25
+          text 527.58,159.58 25x15 "Sell" #b3a690
+    box 1447.75,152.79 77.5x34.67
+      box 1447.75,152.79 77.5x26.67 clipped
+        box 1447.75,152.79 29.17x26.67 absolute clipped @click
+          box 1447.75,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1457.75,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1476.92,152.79 25x26.67 absolute clipped @click
+          box 1476.92,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1483.17,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1501.92,152.79 23.33x26.67 absolute clipped @click
+          box 1501.92,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1508.17,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

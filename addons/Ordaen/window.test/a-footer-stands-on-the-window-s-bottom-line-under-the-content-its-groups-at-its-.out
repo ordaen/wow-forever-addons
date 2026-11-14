@@ -1,6 +1,6 @@
 -- the content over the footer, a group's step between them; «Reset» left, «Save» right, the panel's step over the line
 surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
-  box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 612.75,331.38 379.5x276.75
       box 632.75,351.38 339.5x198.42 #30302a
         text 632.75,351.38 339.5x15 "the page" #ffffff
@@ -13,8 +13,17 @@ surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
           box 872.25,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 872.25,566.46 100x28.33 absolute
               text 909.75,573.12 25x15 "Save" #ffd100
-    box 982.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 600,281.38 114.5x47.75
-    box 600,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 618.58,291.62 77.33x34.25
-        text 635.38,301.25 43.75x15 "Recipes" #ffd100
+    box 982.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 600,281.38 400x47.75
+    box 600,281.38 340.83x47.75
+      box 600,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 618.58,291.62 77.33x34.25
+          text 635.38,301.25 43.75x15 "Recipes" #ffd100
+    box 947.5,294.46 52.5x34.67
+      box 947.5,294.46 52.5x26.67 clipped
+        box 947.5,294.46 29.17x26.67 absolute clipped @click
+          box 947.5,294.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 957.5,299.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 976.67,294.46 23.33x26.67 absolute clipped @click
+          box 976.67,294.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 982.92,299.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

@@ -1,7 +1,7 @@
 // Ordaen as the language sees it: what every addon builds on. Its root (`OrdaenCore`) a module imports as a root,
 // `import root Ordaen from "Ordaen"`, and adds itself to its `modules`.
 public import { Component, Entry, Module, SettingsPage } from "@/module"
-public import { Settings, Memory } from "@/settings"
+public import { Settings, Memory, Whose } from "@/settings"
 public import { Keeper } from "@/keeper"
 public import { Globals, Density, NumberFormat, LargeNumbers, Clock } from "@/globals"
 public import { ARTWORK, Artwork } from "@/art"
@@ -27,7 +27,7 @@ public import { Menu, MenuEntry } from "@/menu"
 public import { Tabs, Tab } from "@/tabs"
 public import { SettingsTab } from "@/settingsTab"
 public import { Dialog } from "@/dialog"
-public import { Window, WindowSide, WindowTab, WindowTabSpec, Placing, cornerRoom } from "@/window"
+public import { Window, WindowSide, WindowTab, WindowTabSpec, WindowView, Placing } from "@/window"
 public import { ListTab } from "@/listTab"
 public import { Input } from "@/input"
 public import { TextBox } from "@/textBox"

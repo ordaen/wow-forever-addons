@@ -140,13 +140,13 @@ public class Spells implements Module, App {
   public render(self): Template {
     return $ltml {
       <frame $if={self.gameShown} of={Game.frames.PlayerSpells} opacity={0} away={true} />
-      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
+      <Window keep={"book"} $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
               @close={self.onClose} @settings={self.onSettings}>
         <SpellbookPage $if={self.tab == 1} spells={self.spells} lines={self.lines} />
         <TalentsPage $else trees={self.trees} unspent={self.unspent} staged={self.staged} active={self.groupActive} @spend={self.onSpend}
                      @refund={self.onRefund} @apply={self.onApply} @cancel={self.onCancel} @activate={self.onActivate} />
       </Window>
-      <Window $if={self.trainerShown} tabs={self.trainerTabs} selected={mut self.trainerTab}
+      <Window keep={"trainer"} $if={self.trainerShown} tabs={self.trainerTabs} selected={mut self.trainerTab}
               placing={mut self.trainerPlacing} withSettings={true} @close={self.onTrainerClose}
               @settings={self.onSettings}>
         <TrainerPage services={self.services} level={self.level} />
