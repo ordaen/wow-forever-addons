@@ -118,7 +118,7 @@ public class QueueRow implements Component {
       <box columns={LINE} gap={10 * PX} yAlign={Align.Center} padding={LINE_PAD} border={self.rule}>
         <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
         <box @click={self.onOpen}>
-          <text value={self.line.recipe.name} textSize={Style.TEXT} textColor={self.color} textShadow={Style.SHADOW}
+          <text value={self.line.recipe.name} textColor={self.color} textShadow={Style.SHADOW}
                 wrap={false} />
         </box>
         <CountInput value={mut self.count} least={0} most={MOST_COUNT} step={STEP} />
@@ -143,17 +143,17 @@ public class NeedRow implements Component {
     return $ltml {
       <box columns={NEED} gap={6 * PX} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
         <box width={28 * PX} height={28 * PX} border={Style.BRONZE} icon={self.icon} />
-        <text value={self.need.name} textSize={Style.RECIPE_TEXT} textColor={Style.INK} wrap={false} />
+        <text value={self.need.name} textColor={Style.INK} wrap={false} />
         <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.need.need]} textSize={Style.RECIPE_TEXT} textColor={Style.INK}
+          <text value={"%d"} arguments={[self.need.need]} textColor={Style.INK}
                 textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
         </box>
         <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.need.have]} textSize={Style.RECIPE_TEXT} textColor={Style.INK}
+          <text value={"%d"} arguments={[self.need.have]} textColor={Style.INK}
                 textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
         </box>
         <box xAlign={Align.End}>
-          <text value={self.missing} textSize={Style.RECIPE_TEXT} textColor={self.missingColor}
+          <text value={self.missing} textColor={self.missingColor}
                 textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
         </box>
       </box>
@@ -188,7 +188,7 @@ public class QueuePage implements Component {
     return $ltml {
       <box padding={PAD} border={FRAME} background={BACK} rows={PAGE} gap={10 * PX}>
         <box $if={self.empty} padding={10 * PX}>
-          <text value={Locale.QUEUE_EMPTY} textSize={Style.SMALL} textColor={Style.DIM} />
+          <text value={Locale.QUEUE_EMPTY} textSize={.Secondary} textColor={Style.DIM} />
         </box>
         <$else>
           <box overflow={Overflow.Scroll} gap={10 * PX}>
@@ -201,13 +201,13 @@ public class QueuePage implements Component {
                 <box />
                 <box />
                 <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_NEED} textSize={Style.SMALL} textColor={Style.DIM} wrap={false} />
+                  <text value={Locale.QUEUE_NEED} textColor={Style.DIM} wrap={false} />
                 </box>
                 <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_HAVE} textSize={Style.SMALL} textColor={Style.DIM} wrap={false} />
+                  <text value={Locale.QUEUE_HAVE} textColor={Style.DIM} wrap={false} />
                 </box>
                 <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_MISSING} textSize={Style.SMALL} textColor={Style.DIM} wrap={false} />
+                  <text value={Locale.QUEUE_MISSING} textColor={Style.DIM} wrap={false} />
                 </box>
               </box>
               <NeedRow $for={need of self.needs} $key={need.name} need={need} />

@@ -179,13 +179,13 @@ public class RecipeDetails implements Component {
             <ItemButton $if={self.hasItem} item={self.made} size={SLOT} dimmed={!self.shown.learned} />
             <box $else width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
             <box gap={2 * PX}>
-              <text value={self.shown.name} textSize={Style.NAME} textColor={Style.WHITE}
+              <text value={self.shown.name} textSize={.Title} textColor={Style.WHITE}
                     textShadow={Style.SHADOW} />
-              <text value={self.skill} textSize={Style.SMALL} textColor={self.skillColor} />
+              <text value={self.skill} textSize={.Secondary} textColor={self.skillColor} />
             </box>
           </box>
-          <text value={self.description} textSize={Style.RECIPE_TEXT} textColor={Style.INK} />
-          <text value={self.needs} textSize={Style.RECIPE_TEXT} textColor={Style.DIM} />
+          <text value={self.description} textSize={.Secondary} textColor={Style.INK} />
+          <text value={self.needs} textSize={.Secondary} textColor={Style.DIM} />
           <box overflow={Overflow.Scroll}>
             <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
           </box>
@@ -200,11 +200,11 @@ public class RecipeDetails implements Component {
             <box $else />
             // The hint, wrapping in its room.
             <box width={HINT}>
-              <text value={self.hint} textSize={Style.SMALL} textColor={Style.DIM} />
+              <text value={self.hint} textSize={.Secondary} textColor={Style.DIM} />
             </box>
             <PushButton label={Locale.CREATE} width={110 * PX} disabled={self.cannot} @click={self.onCreate} />
           </box>
-          <text $if={self.noted} value={self.note} textSize={Style.SMALL} textColor={NOTE} />
+          <text $if={self.noted} value={self.note} textSize={.Secondary} textColor={NOTE} />
         </>
       </box>
     }

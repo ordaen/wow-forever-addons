@@ -616,7 +616,7 @@ public class Professions implements Module, App {
         <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
                 @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>
-            <text value={Locale.PICK} textSize={Style.TEXT} textColor={Style.DIM} />
+            <text value={Locale.PICK} textColor={Style.DIM} />
           </box>
           <box $else rows={BODY} gap={8 * PX}>
             // The bar stops short of the window's corner buttons.
@@ -636,11 +636,11 @@ public class Professions implements Module, App {
             <box $else columns={GRID} rows={FILL} gap={Style.GAP}>
               <box rows={SIDE} gap={8 * PX}>
                 <box height={SEARCH_HEIGHT} rows={FILL}>
-                  <input value={mut self.search} padding={SEARCH_PAD} textSize={Style.TEXT}
+                  <input value={mut self.search} padding={SEARCH_PAD}
                          textColor={Style.INK} background={SEARCH_BACK} border={SEARCH_EDGE} />
                   <box $if={!self.searching} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
                        padding={SEARCH_PAD} yAlign={Align.Center}>
-                    <text value={Locale.SEARCH} textSize={Style.TEXT} textColor={Style.DIM} wrap={false} />
+                    <text value={Locale.SEARCH} textColor={Style.DIM} wrap={false} />
                   </box>
                 </box>
                 <box columns={TOOLS} gap={6 * PX} yAlign={Align.Center}>
