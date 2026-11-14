@@ -7,7 +7,7 @@ public const ATTACHMENTS = 12
 // A letter with this many days left or fewer is shown red.
 public const URGENT_DAYS = 3
 
-public enum Filter { All = "all", Players = "players", Auction = "auction", System = "system", Money = "money", Items = "items" }
+public enum Filter implements Plain { All = "all", Players = "players", Auction = "auction", System = "system", Money = "money", Items = "items" }
 
 public enum SentState { Waiting = "waiting", Sending = "sending", Sent = "sent", Stopped = "stopped" }
 
