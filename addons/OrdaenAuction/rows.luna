@@ -1,8 +1,3 @@
-// Waits for a version in `OrdaenTooltips/addon.json` (`lunatype check`: «`OrdaenTooltips` says no version, so the
-// range this addon lists for it holds to nothing»). With it: this file is `rows.luna`, `addon.json` lists
-// `"OrdaenTooltips": "^1.0.0"`, and the root holds `lines: TooltipLines`, made in its constructor after the shopping
-// list: `self.lines = new TooltipLines(self.prices, self.priceLine, self.shopping)`.
-
 // Ordaen Auction's lines in an item's tooltip, added to Ordaen Tooltips' sections (`redesign/extend.md`, case 1): the
 // «Auction» line in `worth` (what one costs on the house, and how old the price is), the shopping list's in `held` (how
 // many are wanted, and how many this character holds of them). Each is asked once per item shown, and again when a

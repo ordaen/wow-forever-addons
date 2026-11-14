@@ -1,7 +1,5 @@
-// Waits for a version in `OrdaenTooltips/addon.json` (a range of it holds to nothing without one): Ordaen Auction's
-// lines in Ordaen Tooltips' item tooltip: the shopping list's in `held`, gone with Tooltips turned off and back with
-// it on; with Tooltips not installed, nothing is added and nothing breaks; the Auction line by age, which waits for
-// `Game.clock`'s server time too. Built and passed (but the line by age) on a copy with Tooltips at 1.0.0.
+// Ordaen Auction's lines in Ordaen Tooltips' item tooltip: the shopping list's in `held`, gone with Tooltips turned
+// off and back with it on; with Tooltips not installed, nothing is added and nothing breaks; the Auction line by age.
 import Client from "$client"
 import Game from "$game"
 import { Frame } from "$ltml"
@@ -61,22 +59,21 @@ test "an item off the list has no line of the list's" {
   Test.pass(0.2)
 }
 
-// Waits also for the server's time on `Game.clock` (`clock.test.luna.waiting`), to be set through its fake.
 test "the Auction line: what one costs on the house, its age amber from a day, dim past three; off by the setting" {
-  Client.GetServerTime = (): Number => 1790002800
+  Game.clock.server = 1790002800
   const at = corner()
   Test.mount(nil, PAGE)
   Game.auctionQuery.results.emit([{ key: COPPER_ORE, copper: 125, quantity: 12 }])
   Game.tooltip.main = ore(at)
   Test.pass(0.02)
   Test.shot("copper ore seen now: the Auction line, no age")
-  Client.GetServerTime = (): Number => 1790002800 + 50 * 3600
+  Game.clock.server = 1790002800 + 50 * 3600
   Game.tooltip.main = { shown: false, ..ore(at) }
   Test.pass(0.2)
   Game.tooltip.main = ore(at)
   Test.pass(0.02)
   Test.shot("50 hours on: the market, «(2 d.)» in amber")
-  Client.GetServerTime = (): Number => 1790002800 + 100 * 3600
+  Game.clock.server = 1790002800 + 100 * 3600
   Game.tooltip.main = { shown: false, ..ore(at) }
   Test.pass(0.2)
   Game.tooltip.main = ore(at)
