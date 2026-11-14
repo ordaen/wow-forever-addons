@@ -14,17 +14,17 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 box 782.75,251.38 33.33x28.33
                   box 787.75,251.38 28.33x28.33
                     box 787.75,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
                 box 816.08,251.38 33.33x28.33
                   box 821.08,251.38 28.33x28.33
                     box 821.08,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 8
+                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
             text 332.75,286.38 516.67x13 "Letters in the mailbox: 4" #a3977f
           box 332.75,306.04 516.67x347.08 scrolled 0 of 0
             box 332.75,306.04 516.67x34.67 #00000066 @click
               box 337.75,314.21 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
                 box 337.75,314.21 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-              box 364.42,311.71 23.33x23.33 #0d0a08 opacity=1 @click @enter
+              box 364.42,311.71 23.33x23.33 #0d0a08 opacity=1 @click @enter @leave
                 box 364.42,311.71 23.33x23.33 absolute
                 box 364.42,311.71 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                 box 364.42,311.71 23.33x23.33 absolute #00000000
@@ -38,7 +38,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
             box 332.75,340.71 516.67x34.67 #00000066 @click
               box 337.75,348.88 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
                 box 337.75,348.88 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-              box 364.42,346.38 23.33x23.33 #0d0a08 opacity=1 @click @enter
+              box 364.42,346.38 23.33x23.33 #0d0a08 opacity=1 @click @enter @leave
                 box 364.42,346.38 23.33x23.33 absolute
                 box 364.42,346.38 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                 box 364.42,346.38 23.33x23.33 absolute #00000000

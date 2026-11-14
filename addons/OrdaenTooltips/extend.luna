@@ -2,7 +2,7 @@
 // (`import type { ItemLines, Line } from "OrdaenTooltips"`). Each section is a registry of Tooltips' root (`worth`,
 // `uses`, `held` for an item, `gives` for a world object), added to in a watch that follows that root; Tooltips
 // draws what was added after its own footer (before the hotkeys), a section after another, each entry's lines
-// together.
+// together. An item's hotkeys take what `keys` gives after their own.
 
 // A line another module adds: a label at the left, a value at the right.
 public struct Line {
@@ -18,6 +18,12 @@ public struct Line {
 // drawn as they are.
 public trait ItemLines {
   public lines(self, item: Integer, link: String): Array<Line>
+}
+
+// What a module adds to an item tooltip's hotkeys («Alt+Left-click: protect the slot from sorting»): drawn after the
+// tooltip's own, as they are. Budget as for `ItemLines`.
+public trait ItemKeys {
+  public keys(self, item: Integer, link: String): Array<String>
 }
 
 // What a module adds to a world object's tooltip (a vein, a herb, a chest), by the object's name. Budget as for

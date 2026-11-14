@@ -58,16 +58,13 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 1070.25,49.08 23.33x26.67 absolute clipped @click
         box 1070.25,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1076.5,54.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-  box 0,0 363.5x47.75
+  box 0,0 239x47.75
     box 0,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 18.58,10.25 77.33x34.25
         text 47.87,19.88 18.75x15 "Buy" #b3a690
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
         text 169.25,19.88 25x15 "Sell" #ffd100
-    box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 267.58,10.25 77.33x34.25
-        text 293.75,19.88 25x15 "Data" #b3a690
 surface 1100,0 500x900 on DIALOG clamped raised by a click
   box 1100,37.25 500x862.75 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 1112.75,50 479.5x839.5
@@ -98,7 +95,7 @@ surface 1100,0 500x900 on DIALOG clamped raised by a click
             box 1133.58,100 437.83x733.67 scrolled 0 of 0
               box 1133.58,100 437.83x35 #00000000 @click
                 box 1140.25,103.5 156.17x28
-                  box 1140.25,107.5 20x20 #0d0a08 opacity=1 @click @enter
+                  box 1140.25,107.5 20x20 #0d0a08 opacity=1 @click @enter @leave
                     box 1140.25,107.5 20x20 absolute
                     box 1140.25,107.5 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                     box 1140.25,107.5 20x20 absolute #00000000
@@ -117,7 +114,7 @@ surface 1100,0 500x900 on DIALOG clamped raised by a click
                       text 1506,110 37.5x15 "Cancel" #ffd100
               box 1133.58,135 437.83x35 #00000000 @click
                 box 1140.25,138.5 156.17x28
-                  box 1140.25,142.5 20x20 #0d0a08 opacity=1 @click @enter
+                  box 1140.25,142.5 20x20 #0d0a08 opacity=1 @click @enter @leave
                     box 1140.25,142.5 20x20 absolute
                     box 1140.25,142.5 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                     box 1140.25,142.5 20x20 absolute #00000000
@@ -135,7 +132,7 @@ surface 1100,0 500x900 on DIALOG clamped raised by a click
                       text 1506,145 37.5x15 "Cancel" #ffd100
               box 1133.58,170 437.83x35 #00000000 @click
                 box 1140.25,173.5 156.17x28
-                  box 1140.25,177.5 20x20 #0d0a08 opacity=1 @click @enter
+                  box 1140.25,177.5 20x20 #0d0a08 opacity=1 @click @enter @leave
                     box 1140.25,177.5 20x20 absolute
                     box 1140.25,177.5 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                     box 1140.25,177.5 20x20 absolute #00000000

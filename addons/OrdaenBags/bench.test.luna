@@ -1,0 +1,86 @@
+// What opening the bags and a full update of them cost on the stand-in, as a dev build's spans count it: the garbage
+// the module's code makes (kilobytes), and how often each of its parts ran. The stand-in's clock is the test's, so the
+// time is read off the run itself (`lunatype test ... bench`, the tests' milliseconds) and not here.
+import Build from "$build"
+import Debug from "$debug"
+import Game from "$game"
+import Test from "$test"
+
+const NAMES: Array<String> = ["Copper Ore", "Linen Cloth", "Silk Cloth"]
+
+// Four bags of twenty slots and the backpack's, three slots of four holding something.
+function bagOf(bag: Integer): Game.BagInfo {
+  return { bag: bag, item: nil, name: `Bag ${bag}`, icon: nil, slots: bag <= 4 ? 20 : 0, general: true }
+}
+
+function sizeOf(bag: Integer): Integer {
+  return bag <= 4 ? 20 : 0
+}
+
+function readSlot(bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
+  if (slot % 4 == 0) {
+    into.id = 0
+    return false
+  }
+  into.id = 1000 + bag * 50 + slot
+  into.count = slot
+  into.quality = slot % 5
+  into.icon = 134400
+  // Texts the game keeps: reading them makes nothing.
+  into.name = NAMES[slot % 3 + 1] ?? ""
+  into.link = ""
+  into.level = slot
+  into.kind = slot % 13
+  into.subkind = slot % 3
+  into.subkindName = NAMES[slot % 3 + 1] ?? ""
+  into.worn = ""
+  into.bound = false
+  into.locked = false
+  into.isNew = false
+  into.price = 1
+  return true
+}
+
+// The module's spans since the last call, summed: kilobytes made.
+function made(): Number {
+  let kb: Number = 0
+  if (Build.dev) {
+    for (span of Debug.spans()) {
+      if (span.addon == "OrdaenBags") { kb += span.kb }
+    }
+  }
+  return kb
+}
+
+test "the bags opened, shut and opened again, and every bag updated with nothing moved: the garbage the module made" {
+  Game.bags.bag = bagOf
+  Game.bags.readSlot = readSlot
+  Game.bags.size = sizeOf
+  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Test.flush()
+  _ = made()
+  Game.bags.open = true
+  Test.flush()
+  // The first open builds the window (about 885 KB on the stand-in in a dev build, the renderer's frames counted).
+  _ = made()
+  Game.bags.open = false
+  Test.flush()
+  _ = made()
+  for (round of 1..=20) {
+    Game.bags.open = round > 0
+    Test.flush()
+    Game.bags.open = false
+    Test.flush()
+  }
+  // Opened again: every bag read anew, each bag's description made (about 4 KB).
+  Test.expect(made() / 20 < 8)
+  Game.bags.open = true
+  Test.flush()
+  _ = made()
+  for (round of 1..=100) {
+    for (bag of 0..=round % 1 + 4) { Game.bags.updated.emit(bag) }
+    Test.flush()
+  }
+  // A full update with nothing moved makes nothing: a hundred of them under a kilobyte.
+  Test.expect(made() < 1)
+}

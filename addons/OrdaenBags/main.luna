@@ -1,0 +1,489 @@
+// Ordaen Bags: every bag in one window, in place of the game's bag windows. The window shows while the game has its
+// bags open (a bag button, the backpack's key, the game's own toggle), and the game's windows are held unseen and off
+// the screen meanwhile; its close shuts the game's bags. Its header: the search (it dims what doesn't match), the
+// sort, «Sort the bags», the view, the bag slots; its corner's settings plate opens the module's place in the settings
+// window. Three views: by category (the tabs at the left with their counts, the tab's items in sections side by side
+// in the kinds' fixed order, «Free» last), a section per bag (its empty slots shown, its fill), and every slot in one
+// grid. Its footer: the free slots of the total, the currencies the player follows, the gold (the cursor on it: every
+// character's gold and the total). The window keeps its size whatever it shows; the body scrolls, building only the
+// rows in view. While it is shut nothing is read and the bags' events aren't heard.
+import Client from "$client"
+import Game from "$game"
+import { Align, Click, MouseButton, Overflow, Track } from "$ltml"
+import Runtime from "$runtime"
+import {
+  Choice, Component, ListTab, Memory, Module, Money, Placing, PX, Settings, SettingsPage, space, Tip, TipRow, Toolbar,
+  ToolAct, ToolButton, ToolPick, Window, WindowTabSpec,
+} from "Ordaen"
+import root Ordaen from "Ordaen"
+import Locale from "@/locales"
+import { Arranger } from "@/arrange"
+import { BagLine, BagSlotsWindow } from "@/bagSlots"
+import { Gold } from "@/gold"
+import { Guard, GuardTips, Hovered } from "@/guard"
+import { columnsIn, GAP, Row, rowsOf, Section, SLOT } from "@/layout"
+import { COUNTED, Grouping, KINDS, MARKED, MOVED, Slot, SortBy, Tab, View } from "@/model"
+import { BagRow, Filter } from "@/rows"
+import { bagSections, countsOf, oneSection, tabName, tabSections } from "@/sections"
+
+// What the module keeps of the player's choices (its page in the settings window is designed, not built): the tabs
+// hidden; whether a tab with nothing in it hides; each tab's grouping (by type where none is said).
+public struct Choices implements Plain {
+  hidden: Array<Tab>
+  hideEmpty: Boolean
+  grouping: Map<Tab, Grouping>
+}
+
+// What the module remembers for the character: the protected slots (at most `MOST_GUARDS`, which no bags reach).
+// Where the window stands is the window's own (`Window`, the profile's).
+public struct Kept implements Plain {
+  guards: Array<Guard>
+}
+
+// How the player left the bags' view, the profile's (`Memory`, `redesign/kept.md`): the view and the sort the header
+// picks. The search isn't kept.
+public struct BagsView implements Plain {
+  view: View = View.Categories
+  sort: SortBy = SortBy.Bags
+}
+const BAGS_VIEW: BagsView = {}
+
+const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {} }
+const NOTHING_KEPT: Kept = { guards: [] }
+const MOST_GUARDS = 200
+// The window's body: wide enough for the tabs and ten slots, tall enough for ten rows.
+const WIDTH = 660 * PX
+const HEIGHT = 520 * PX
+const TABS_WIDTH = 186 * PX
+// The room the body's scroll bar takes at its right.
+const SCROLL_ROOM = 16 * PX
+
+const BODY: Array<Track> = ["auto", { fr: 1 }]
+const WITH_TABS: Array<Track> = [TABS_WIDTH, { fr: 1 }]
+const FILL: Array<Track> = [{ fr: 1 }]
+const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto", "auto"]
+const LABEL: Color = Color.hex("#a3977f")
+const COUNT: Color = Color.hex("#a3977f")
+const SORTS: Array<Choice<SortBy>> = [
+  { value: SortBy.Bags, label: Locale.SORT_BAGS },
+  { value: SortBy.Quality, label: Locale.SORT_QUALITY },
+  { value: SortBy.Name, label: Locale.SORT_NAME },
+  { value: SortBy.Level, label: Locale.SORT_LEVEL },
+  { value: SortBy.Count, label: Locale.SORT_COUNT },
+  { value: SortBy.Type, label: Locale.SORT_TYPE },
+]
+// The backpack's icon of the game's, on the bag slots' button.
+const BACKPACK: FileId = 130716
+
+// A tab of the list at the window's left: its name and how many items it has.
+class TabEntry implements Component {
+  public picked: Event<Tab> = new Event()
+  derived name: String = tabName(self.tab)
+  derived selected: Boolean = self.current == self.tab
+  derived count: Integer = self.counts[self.tab] ?? 0
+  derived off: Boolean = self.count == 0
+
+  const tab: Tab
+  current: Signal<Tab>
+  counts: Signal<Map<Tab, Integer>>
+  constructor(tab: Tab, current: Signal<Tab>, counts: Signal<Map<Tab, Integer>>) {
+    self.tab = tab
+    self.current = current
+    self.counts = counts
+  }
+
+  onPick(self) { self.picked.emit(self.tab) }
+
+  public render(self): Template {
+    return $ltml {
+      <ListTab label={self.name} selected={self.selected} off={self.off} @pick={self.onPick}>
+        <text value={"%d"} arguments={[self.count]} textColor={COUNT} textSize={.Secondary} textFont={.Numbers} />
+      </ListTab>
+    }
+  }
+}
+
+public class Bags implements Module, App {
+  public const title: String = "Ordaen Bags"
+  public const pages: Array<SettingsPage> = []
+  public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
+  public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
+  public gold: Gold
+  public arranger: mut Arranger
+  public hovered: mut Hovered
+  tips: GuardTips
+
+  // Every slot of the bags, a list for each bag from the backpack, and all of them in the bags' order: made again only
+  // when a bag's size changes.
+  public bags: mut Array<mut Array<mut Slot>> = []
+  public all: mut Array<mut Slot> = []
+  // What changed where the items lie (another item in a slot, a bag's size), and a count where the sort is by count:
+  // what the sections are worked out again for.
+  public state revision = 0
+  public state infos: Array<Game.BagInfo> = []
+  public state fills: Map<Integer, String> = {}
+  // How many items each bag held at the last count: its fill's text is made again when this changes.
+  used: mut Array<Integer> = []
+  public state free = 0
+  public state total = 0
+  // The slots that took another item in the last update: a protection follows its item there.
+  arrived: mut Array<Slot> = []
+
+  public state tab: Tab = Tab.All
+  public state search = ""
+  public state collapsed: Map<String, Boolean> = {}
+  public state slotsOpen = false
+  public state lit = -1
+  public state goldShown = false
+  // The window is built the first time the bags open, and kept drawn, shown or hidden, from then on.
+  state ever = false
+  public state placing: Placing = { x: 0, y: 0, width: WIDTH, height: HEIGHT }
+  public state slotsPlacing: Placing = { x: 0, y: 0, width: 250 * PX, height: 300 * PX }
+
+  public derived shown: Boolean = Game.bags.open
+  // The header's picks: the view and the sort, kept in the profile as they are picked.
+  public list: mut Memory<BagsView> = new Memory<BagsView>(BAGS_VIEW, .Profile, "view")
+  public derived categories: Boolean = self.list.values.view == View.Categories
+  derived query: String = self.search.lower()
+  public derived counts: Map<Tab, Integer> = self.countsOf()
+  public derived tabs: Array<Tab> = self.tabsOf()
+  derived shownTab: Tab = self.tabs.any(tab => tab == self.tab) ? self.tab : Tab.All
+  public derived sections: Array<Section> = self.sectionsOf()
+  // The grid's width: the body's but for the window's room, the tabs where they show, the scroll bar.
+  public derived columns: Integer = columnsIn(self.gridWidth())
+  public derived rows: Array<Row> = rowsOf(self.sections, self.columns, self.collapsed)
+  public derived filter: Filter = { query: self.query, place: Game.bags.place, lit: self.lit }
+  derived freeText: String = Locale.FREE_OF.format(self.free, self.total)
+  derived bagLines: Array<BagLine> = self.bagLinesOf()
+  derived goldRows: Array<TipRow> = self.gold.rows
+  derived windowTabs: Array<WindowTabSpec> = [{ title: Locale.TITLE }]
+  state windowTab = 1
+  derived sortName: String = SORTS.find(choice => choice.value == self.list.values.sort)?.label ?? ""
+  // The view's glyphs: categories in tabs, sections side by side, one grid. Ordaen's art is read once its root is
+  // made, as this one is.
+  views: Array<Choice<View>> = [
+    { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: Ordaen.art.ctl.tool.categories },
+    { value: View.Bags, label: Locale.VIEW_BAGS, icon: Ordaen.art.ctl.tool.table },
+    { value: View.One, label: Locale.VIEW_ONE, icon: Ordaen.art.ctl.tool.one },
+  ]
+
+  constructor() {
+    self.gold = new Gold()
+    self.arranger = new Arranger()
+    self.hovered = new Hovered()
+    self.tips = new GuardTips(self.hovered)
+    Ordaen.modules.add(self)
+    Game.bags.updated.listen(self.onUpdated)
+    watch (open of self.slotsOpen) { self.placeSlots(open) }
+    watch (open of Game.bags.open) { self.onOpen(open) }
+  }
+
+  destructor() {
+    Game.bags.follow(false)
+  }
+
+  // The bags opened: everything read anew and followed while they are; shut, nothing is heard.
+  onOpen(mut self, open: Boolean) {
+    Game.bags.follow(open)
+    if (!open) {
+      self.arranger.stop()
+      self.lit = -1
+      self.hovered.slot = nil
+      return
+    }
+    self.ever = true
+    self.readAll()
+  }
+
+  // Every bag read: a bag whose size changed gets its slots made again.
+  public readAll(mut self) {
+    let infos: Array<Game.BagInfo> = []
+    let sized = false
+    for (bag of 0..=Game.bags.last) {
+      const info = Game.bags.bag(bag)
+      infos.push(info)
+      const had = self.bags[bag + 1]
+      if (had == nil || had.length != info.slots) { sized = true }
+    }
+    if (sized) {
+      let bags: Array<mut Array<mut Slot>> = []
+      let all: Array<mut Slot> = []
+      for (info of infos) {
+        let slots: Array<mut Slot> = []
+        for (index of 1..=info.slots) {
+          const slot = new Slot(info.bag, index)
+          slots.push(mut slot)
+          all.push(mut slot)
+        }
+        bags.push(mut slots)
+      }
+      self.bags = bags
+      self.all = all
+    }
+    self.infos = infos
+    let changed = sized ? MOVED : 0
+    self.arrived.clear()
+    for (slot of self.all) { changed = Client.bit.bor(changed, self.refreshSlot(mut slot)) }
+    self.settle(changed)
+  }
+
+  // A bag the game told changed: its slots read again; another size, every bag.
+  onUpdated(mut self, bag: Integer) {
+    const slots = self.bags[bag + 1]
+    if (slots == nil || slots.length != Game.bags.size(bag)) {
+      self.readAll()
+    } else {
+      self.arrived.clear()
+      let changed = 0
+      for (slot of slots) { changed = Client.bit.bor(changed, self.refreshSlot(mut slot)) }
+      self.settle(changed)
+    }
+    self.arranger.step()
+  }
+
+  refreshSlot(mut self, slot: mut Slot): Integer {
+    const changed = slot.refresh()
+    if (Client.bit.band(changed, MOVED) != 0 && peek slot.id != 0) { self.arrived.push(slot) }
+    return changed
+  }
+
+  // What an update changed: the protections follow their items, the counts are told, and the sections are worked out
+  // again where it changed where items lie (or a count, with the sort by count, or what is new).
+  settle(mut self, changed: Integer) {
+    if (Client.bit.band(changed, MOVED) != 0) { self.follow() }
+    self.count()
+    const regroup = Client.bit.band(changed, MOVED) != 0
+      || (Client.bit.band(changed, COUNTED) != 0 && peek self.list.values.sort == SortBy.Count)
+      || Client.bit.band(changed, MARKED) != 0
+    if (regroup) { self.revision += 1 }
+  }
+
+  // Each bag's fill and every bag's free slots: the fills' texts made again only where a bag's count of items changed.
+  count(mut self) {
+    let free = 0
+    let total = 0
+    let same = self.used.length == self.bags.length
+    for (index, slots of self.bags) {
+      let used = 0
+      for (slot of slots) {
+        if (peek slot.id != 0) { used += 1 }
+      }
+      if (self.used[index] != used) {
+        self.used[index] = used
+        same = false
+      }
+      free += slots.length - used
+      total += slots.length
+    }
+    if (!same) {
+      let fills: Map<Integer, String> = {}
+      for (index, slots of self.bags) { fills[index - 1] = Locale.FILL.format(self.used[index] ?? 0, slots.length) }
+      self.fills = fills
+    }
+    self.free = free
+    self.total = total
+  }
+
+  // The protections where their items are: one whose slot holds its item stays; one whose item came into another slot
+  // goes with it; one whose item is gone from the bags is dropped. A slot is drawn protected where one stays.
+  follow(mut self) {
+    const kept = peek self.memory.values
+    let guards: Array<Guard> = []
+    let changed = false
+    for (guard of kept.guards) {
+      const slot = self.slotAt(guard.bag, guard.slot)
+      if (slot != nil && peek slot.id == guard.id) {
+        guards.push(guard)
+      } else {
+        changed = true
+        const moved = self.arrived.find(found => peek found.id == guard.id && !self.guardedIn(guards, found))
+        if (moved != nil) { guards.push({ bag: moved.bag, slot: moved.index, id: guard.id }) }
+      }
+    }
+    if (changed) { self.memory.write({ guards: guards, ..kept }) }
+    self.markGuards(guards)
+  }
+
+  guardedIn(self, guards: Array<Guard>, slot: Slot): Boolean {
+    return guards.any(guard => guard.bag == slot.bag && guard.slot == slot.index)
+  }
+
+  markGuards(mut self, guards: Array<Guard>) {
+    for (slot of self.all) { slot.guarded = self.guardedIn(guards, slot) }
+  }
+
+  slotAt(self, bag: Integer, index: Integer): Slot | nil {
+    const slots = self.bags[bag + 1]
+    if (slots == nil) { return nil }
+    return slots[index]
+  }
+
+  countsOf(self): Map<Tab, Integer> {
+    _ = self.revision
+    return countsOf(self.all)
+  }
+
+  // «All», «New» while something is new, then the kinds' tabs but those hidden, or empty where empty ones hide.
+  tabsOf(self): Array<Tab> {
+    const choices = self.settings.values
+    let tabs: Array<Tab> = [Tab.All]
+    if ((self.counts[Tab.New] ?? 0) > 0) { tabs.push(Tab.New) }
+    for (kind of KINDS) {
+      const empty = (self.counts[kind] ?? 0) == 0
+      const hidden = choices.hidden.any(tab => tab == kind)
+      if (!hidden && !(choices.hideEmpty && empty)) { tabs.push(kind) }
+    }
+    return tabs
+  }
+
+  sectionsOf(self): Array<Section> {
+    _ = self.revision
+    return match (self.list.values.view) {
+      .Categories => tabSections(self.all, self.shownTab, self.settings.values.grouping[self.shownTab] ?? .Type, self.list.values.sort),
+      .Bags => bagSections(self.bags, self.infos.map(info => info.name)),
+      .One => oneSection(self.bags),
+    }
+  }
+
+  gridWidth(self): Number {
+    const tabs = self.categories ? TABS_WIDTH + space(.Group) : 0
+    return self.placing.width - 2 * space(.Window) - tabs - SCROLL_ROOM
+  }
+
+  bagLinesOf(self): Array<BagLine> {
+    _ = self.revision
+    let lines: Array<BagLine> = []
+    for (index, info of self.infos) {
+      if (info.slots > 0) {
+        const slots = self.bags[index] ?? []
+        lines.push({ info: info, used: slots.count(slot => peek slot.id != 0) })
+      }
+    }
+    return lines
+  }
+
+  // A click on a slot: Alt protects it from sorting (or takes the protection off), Ctrl sends its item where the place
+  // takes it, a plain one picks up or puts down. The right button is the client's own.
+  onPressed(mut self, slot: mut Slot, click: Click) {
+    if (click.button != MouseButton.Left) { return }
+    if (Game.input.altDown()) {
+      self.guard(slot)
+    } else if (Game.input.controlDown()) {
+      _ = Game.bags.send(slot.bag, slot.index)
+    } else {
+      Game.bags.pickup(slot.bag, slot.index)
+    }
+  }
+
+  // An item's slot protected, or no more: an empty slot has nothing to protect.
+  public guard(mut self, slot: Slot) {
+    if (peek slot.id == 0) { return }
+    const kept = peek self.memory.values
+    let guards: Array<Guard> = []
+    let was = false
+    for (guard of kept.guards) {
+      if (guard.bag == slot.bag && guard.slot == slot.index) { was = true } else { guards.push(guard) }
+    }
+    if (!was && guards.length < MOST_GUARDS) { guards.push({ bag: slot.bag, slot: slot.index, id: peek slot.id }) }
+    self.memory.write({ guards: guards, ..kept })
+    self.markGuards(guards)
+  }
+
+  // The cursor on a slot: its item new no more, and the tooltip's lines about it.
+  onEnter(mut self, slot: mut Slot) {
+    slot.see()
+    self.hovered.slot = slot
+  }
+
+  onLeave(mut self, slot: Slot) {
+    if (peek self.hovered.slot == slot) { self.hovered.slot = nil }
+  }
+
+  onToggle(mut self, key: String) {
+    let collapsed: Map<String, Boolean> = {}
+    for (name, shut of peek self.collapsed) { collapsed[name] = shut }
+    collapsed[key] = collapsed[key] == true ? nil : true
+    self.collapsed = collapsed
+  }
+
+  onTab(mut self, tab: Tab) { self.tab = tab }
+
+  // «Sort the bags»: the bags that take any item, their unprotected slots, into the sort's order.
+  arrange(mut self) {
+    const infos = peek self.infos
+    self.arranger.start(self.all, (bag: Integer): Boolean => infos[bag + 1]?.general == true, peek self.list.values.sort)
+  }
+
+  onLit(mut self, bag: Integer) { self.lit = bag }
+  onSlotsClosed(mut self) { self.slotsOpen = false }
+
+  // The bag slots open beside the window, at its right, level with its top.
+  placeSlots(mut self, open: Boolean) {
+    if (!open) { return }
+    const at = peek self.placing
+    const size = peek self.slotsPlacing
+    self.slotsPlacing = {
+      x: at.x + at.width / 2 + space(.Group) + size.width / 2, y: at.y - at.height / 2 + size.height / 2,
+      width: size.width, height: size.height,
+    }
+  }
+
+  onGoldEnter(mut self) { self.goldShown = true }
+  onGoldLeave(mut self) { self.goldShown = false }
+
+  // The window's close shuts the game's bags, which hides it.
+  onClose(mut self) { Game.bags.close() }
+
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+
+  const footer: Template = $ltml {
+    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
+      <text value={self.freeText} textColor={LABEL} textSize={.Secondary} />
+      <box />
+      <text value={Game.money.tracked} textFont={.Numbers} />
+      <box @enter={self.onGoldEnter} @leave={self.onGoldLeave}>
+        <Money amount={Game.money.amount} />
+        <Tip $if={self.goldShown} title={Locale.GOLD} text={""} rows={self.goldRows} />
+      </box>
+    </box>
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <frame $for={window of Game.bags.windows} of={window} opacity={0} away={true} />
+      <$if={self.ever}>
+        <Window keep={"main"} tabs={self.windowTabs} selected={mut self.windowTab} placing={mut self.placing} shown={self.shown}
+                withSettings={true} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
+          <box rows={BODY} gap={space(.Group)}>
+            <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+              <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+              <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
+                       disabled={self.arranger.running} @pressed={self.arrange} />
+              <ToolPick value={mut self.list.values.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
+              <ToolButton icon={BACKPACK} title={Locale.BAG_SLOTS} text={Locale.BAG_SLOTS_TIP}
+                          open={mut self.slotsOpen} tinted={false} />
+            </Toolbar>
+            <box $if={self.categories} columns={WITH_TABS} rows={FILL} gap={space(.Group)}>
+              <box columns={1} gap={2 * PX}>
+                <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab}
+                          counts={self.counts} @picked={self.onTab} />
+              </box>
+              <box rowHeight={SLOT} gap={GAP} overflow={Overflow.Scroll}>
+                <BagRow $for={row of self.rows} row={row} filter={self.filter} free={self.free}
+                        collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed}
+                        @entered={self.onEnter} @left={self.onLeave} @toggled={self.onToggle} />
+              </box>
+            </box>
+            <box $else rowHeight={SLOT} gap={GAP} overflow={Overflow.Scroll}>
+              <BagRow $for={row of self.rows} row={row} filter={self.filter} free={self.free}
+                      collapsed={self.collapsed} fills={self.fills} @pressed={self.onPressed}
+                      @entered={self.onEnter} @left={self.onLeave} @toggled={self.onToggle} />
+            </box>
+          </box>
+        </Window>
+        <BagSlotsWindow $if={self.slotsOpen && self.shown} lines={self.bagLines} placing={mut self.slotsPlacing}
+                        @close={self.onSlotsClosed} @lit={self.onLit} />
+      </>
+    }
+  }
+}

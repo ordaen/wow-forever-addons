@@ -23,6 +23,8 @@ public type PriceKey = brand Integer {
     return item + by.abs().floor() * HALF
   }
   public item(self): ItemId { return ItemId.of(self % HALF) }
+  // Its random suffix: 0 for a plain item.
+  public suffix(self): Integer { return (self / HALF).floor() }
 }
 
 // The server's time, in seconds: the account's 15 minutes between full scans and a scan's age are counted in it (an
