@@ -92,7 +92,7 @@ test "the overview: the next rank, the recipes counted, what to learn next, the 
   Test.click(Test.holding("Find Minerals", nil), nil)
   Test.flush()
 
-  click(Test.holding("Smelt Silver", nil))
+  click(Test.holding("Smelt Silver · not seen at a trainer", nil))
   Test.note(`opened: page ${Professions.page}, recipe ${Professions.chosenRecipe}`)
   Test.expect(Professions.page == 1 && Professions.chosenRecipe == SILVER)
 
@@ -102,4 +102,40 @@ test "the overview: the next rank, the recipes counted, what to learn next, the 
   Test.flush()
   click(Test.holding("Overview", nil))
   Test.shot("Fishing's overview: a secondary profession, Expert next, «Fish» casting from its secure button")
+}
+
+// What a mining trainer says: gold from 155 for 1s, silver from 75 for 50c (as the classic trainer asks).
+function services(): Array<Game.TrainerService> {
+  return [
+    { index: 1, name: "Smelt Gold", rank: "", status: Game.ServiceStatus.Unavailable, level: 0, cost: 100, description: "", skill: 155 },
+    { index: 2, name: "Smelt Silver", rank: "", status: Game.ServiceStatus.Available, level: 0, cost: 50, description: "", skill: 75 },
+  ]
+}
+
+test "what to learn next: the skill and price a profession's trainer said, kept; the recipes by the skill they are learned at" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.requirements = requirements
+  Game.tradeSkill.reagents = reagents
+  // A class trainer's services are no recipe's.
+  Game.trainer.teachesClass = (): Boolean => true
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Test.expect(Professions.learning.values.recipes["Smelt Silver"] == nil)
+  Game.trainer.teachesClass = (): Boolean => false
+  Game.trainer.changed.emit()
+  Game.trainer.open = false
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = MINING
+  Test.flush()
+  click(Test.holding("Overview", nil))
+  Test.shot("what to learn next: silver from 75 for 50c, then gold from 155 for 1s, at the trainer")
+  const silver = Test.holding("Smelt Silver · trainer, from 75, 50c", nil)
+  const gold = Test.holding("Smelt Gold · trainer, from 155, 1s", nil)
+  Test.expect(silver.y < gold.y)
+  Test.reload()
+  Test.expect((Professions.learning.values.recipes["Smelt Gold"] ?? panic("kept")).skill == 155)
 }

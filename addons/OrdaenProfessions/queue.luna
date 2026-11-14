@@ -5,8 +5,11 @@
 // starts the next run (the client starts a craft from nothing else), stand in the window's footer.
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Track } from "$ltml"
-import { Component, CountInput, PushButton, PX, space } from "Ordaen"
+import { Component, CountInput, Money, PushButton, PX, space } from "Ordaen"
+import type { PriceSource } from "OrdaenAuction"
+import { partOf, Way } from "@/cost"
 import Locale from "@/locales"
+import { wayText } from "@/priceRows"
 import Style from "@/style"
 import { MOST_COUNT, Queued, QueueAct } from "@/view"
 
@@ -21,6 +24,9 @@ const LINE_PAD: Edges = { top: 4 * PX, bottom: 4 * PX }
 const STEP = 24 * PX
 const SLOT = 32 * PX
 const NEED: Array<Track> = [28 * PX, { fr: 1 }, 70 * PX, 70 * PX, 90 * PX]
+// With prices: what the missing part costs, and where it is cheaper.
+const NEED_PRICED: Array<Track> = [28 * PX, { fr: 1 }, 70 * PX, 70 * PX, 90 * PX, 100 * PX, 80 * PX]
+const BUY_ROW: Array<Track> = [{ fr: 1 }, "auto", "auto"]
 const NEED_PAD: Edges = { top: 3 * PX, right: 6 * PX, bottom: 3 * PX }
 const SHORT: Color = Color.hex("#ff6a5a")
 
@@ -33,8 +39,11 @@ public struct QueueLine {
   count: Integer
 }
 
-// A reagent the queue needs: all of it, what the bags hold, and what is missing.
+// A reagent the queue needs: all of it, what the bags hold, and what is missing; the first line that needs it.
 public struct Need {
+  item: Integer
+  recipe: Integer
+  crafts: Integer
   name: String
   icon: Art
   need: Integer
@@ -77,7 +86,8 @@ public function needsOf(lines: Array<QueueLine>): Array<Need> {
       if (!found) {
         const total = reagent.need * line.count
         list.push({
-          name: reagent.name, icon: reagent.icon, need: total, have: reagent.have,
+          item: reagent.itemID ?? 0, recipe: line.recipe, crafts: line.count, name: reagent.name, icon: reagent.icon,
+          need: total, have: reagent.have,
           missing: (0).max(total - reagent.have),
         })
       }
@@ -138,20 +148,60 @@ public class QueueRow implements Component {
   }
 }
 
-// A reagent of the queue's table.
+// What the missing part of a need costs by its cheaper way; none where nothing is missing.
+public struct NeedPrice {
+  need: Need
+  // The missing part's price; none where nothing is missing or no price is known.
+  copper: Integer | nil
+  way: Way
+}
+
+// Each need's missing part priced: the cheaper of the house and a merchant.
+public function needPricesOf(prices: any PriceSource, needs: Array<Need>): Array<NeedPrice> {
+  return needs.map((need: Need): NeedPrice => {
+    if (need.missing == 0) { return { need: need, copper: nil, way: Way.None } }
+    const reagent: Game.Reagent = { itemID: need.item, name: need.name, icon: need.icon, have: 0, need: need.missing }
+    const part = partOf(prices, reagent, 1)
+    const unit = part.unit
+    return { need: need, copper: unit == nil ? nil : unit * need.missing, way: part.way }
+  })
+}
+
+// What all the missing parts cost; none where one has no price.
+public function toBuyOf(priced: Array<NeedPrice>): Integer | nil {
+  let total = 0
+  for (entry of priced) {
+    const copper = entry.copper
+    if (entry.need.missing > 0) {
+      if (copper == nil) { return nil }
+      total += copper
+    }
+  }
+  return total
+}
+
+// A reagent of the queue's table; with prices, what its missing part costs and where.
 public class NeedRow implements Component {
+  derived need: Need = self.entry.need
   derived icon: Art = self.need.icon
   derived missing: String = self.need.missing > 0 ? "%d".format(self.need.missing) : "-"
   derived missingColor: Color = self.need.missing > 0 ? SHORT : Style.INK
+  derived columns: Array<Track> = self.priced ? NEED_PRICED : NEED
+  derived hasPrice: Boolean = self.entry.copper != nil
+  derived copper: Integer = self.entry.copper ?? 0
+  derived way: String = self.need.missing == 0 ? "" : wayText(self.entry.way)
+  derived wayColor: Color = self.entry.way == Way.None ? SHORT : Style.INK
 
-  need: Signal<Need>
-  constructor(need: Signal<Need>) {
-    self.need = need
+  entry: Signal<NeedPrice>
+  priced: Signal<Boolean>
+  constructor(entry: Signal<NeedPrice>, priced: Signal<Boolean>) {
+    self.entry = entry
+    self.priced = priced
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={NEED} gap={space(.Item)} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
+      <box columns={self.columns} gap={space(.Item)} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
         <box width={28 * PX} height={28 * PX} border={Style.BRONZE} icon={self.icon} />
         <text value={self.need.name} textColor={Style.INK} wrap={false} />
         <box xAlign={Align.End}>
@@ -166,6 +216,12 @@ public class NeedRow implements Component {
           <text value={self.missing} textColor={self.missingColor}
                 textFont={.Numbers} wrap={false} />
         </box>
+        <$if={self.priced}>
+          <box xAlign={Align.End}>
+            <Money $if={self.hasPrice} amount={self.copper} />
+          </box>
+          <text value={self.way} textColor={self.wayColor} wrap={false} />
+        </>
       </box>
     }
   }
@@ -176,17 +232,41 @@ public class QueuePage implements Component {
   // A line's stepper set its recipe's count; nought takes it out.
   public counted: Event<(Integer, Integer)> = new Event()
 
+  // «To the shopping list»: what is missing, each need with what it lacks.
+  public shop: Event<Array<Need>> = new Event()
+
   derived lines: Array<QueueLine> = linesOf(self.queued, Game.tradeSkill.recipes, Game.professions.list)
   derived needs: Array<Need> = needsOf(self.lines)
   derived empty: Boolean = self.lines.length == 0
+  derived priced: Boolean = self.prices != nil
+  derived entries: Array<NeedPrice> = self.entriesOf()
+  derived toBuy: Integer | nil = toBuyOf(self.entries)
+  derived hasToBuy: Boolean = self.toBuy != nil
+  derived toBuyCopper: Integer = self.toBuy ?? 0
+  derived lacking: Boolean = self.needs.count(need => need.missing > 0) > 0
+  derived headColumns: Array<Track> = self.priced ? NEED_PRICED : NEED
 
   queued: Signal<Array<Queued>>
+  prices: Signal<any PriceSource | nil>
   constructor(
     // The queue, every profession's, in the order it runs.
     queued: Signal<Array<Queued>>,
+    // Ordaen Auction's prices while they are shown; none for none.
+    prices: Signal<any PriceSource | nil> = nil,
   ) {
     self.queued = queued
+    self.prices = prices
   }
+
+  // Read again when a price may have moved; without prices each need stands alone.
+  entriesOf(self): Array<NeedPrice> {
+    const prices = self.prices
+    if (prices == nil) { return self.needs.map(need => ({ need: need, copper: nil, way: Way.None })) }
+    _ = prices.revision
+    return needPricesOf(prices, self.needs)
+  }
+
+  onShop(self) { self.shop.emit(self.needs.filter(need => need.missing > 0)) }
 
   onAct(self, act: QueueAct, id: Integer) { self.act.emit(act, id) }
   onCounted(self, recipe: Integer, count: Integer) { self.counted.emit(recipe, count) }
@@ -202,7 +282,7 @@ public class QueuePage implements Component {
                         @act={self.onAct} @counted={self.onCounted} />
             </box>
             <box columns={1}>
-              <box columns={NEED} gap={space(.Item)} padding={NEED_PAD}>
+              <box columns={self.headColumns} gap={space(.Item)} padding={NEED_PAD}>
                 <box />
                 <box />
                 <box xAlign={Align.End}>
@@ -214,8 +294,21 @@ public class QueuePage implements Component {
                 <box xAlign={Align.End}>
                   <text value={Locale.QUEUE_MISSING} textColor={Style.DIM} wrap={false} />
                 </box>
+                <$if={self.priced}>
+                  <box xAlign={Align.End}>
+                    <text value={Locale.QUEUE_PRICE} textColor={Style.DIM} wrap={false} />
+                  </box>
+                  <text value={Locale.PRICE_BEST} textColor={Style.DIM} wrap={false} />
+                </>
               </box>
-              <NeedRow $for={need of self.needs} $key={need.name} need={need} />
+              <NeedRow $for={entry of self.entries} $key={entry.need.name} entry={entry} priced={self.priced} />
+            </box>
+            // What the missing parts cost, and «To the shopping list» (Ordaen Auction's), while prices show.
+            <box $if={self.priced} columns={BUY_ROW} gap={space(.Item)} yAlign={Align.Center}>
+              <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} />
+              <Money $if={self.hasToBuy} amount={self.toBuyCopper} />
+              <text $else value={"—"} textColor={Style.DIM} />
+              <PushButton label={Locale.TO_SHOPPING} width={180 * PX} disabled={!self.lacking} @click={self.onShop} />
             </box>
           </box>
         </>

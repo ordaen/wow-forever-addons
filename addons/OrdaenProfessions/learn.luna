@@ -1,0 +1,32 @@
+// Where the recipes not learned are learned: what a profession's trainer said of each while its window was open (the
+// skill it is learned at, which the client's own table hasn't, and its price), kept for the account by the recipe's
+// name, as the trainer names it.
+import Game from "$game"
+
+// A recipe a trainer teaches: from what skill, for how much.
+public struct Taught implements Plain {
+  skill: Integer
+  cost: Integer
+}
+
+// What the trainers met have taught, by the recipe's name.
+public struct Learning implements Plain {
+  recipes: Map<String, Taught>
+}
+
+// `known` with the services of a profession's trainer laid over it: each asking for a skill.
+public function learnedFrom(known: Map<String, Taught>, services: Array<Game.TrainerService>): Map<String, Taught> {
+  const recipes = known.clone()
+  for (service of services) {
+    const skill = service.skill
+    if (skill != nil) { recipes[service.name] = { skill: skill, cost: service.cost } }
+  }
+  return recipes
+}
+
+// The skill a recipe not learned is ordered by: the one a trainer teaches it from where one was met, else the one it
+// turns yellow at (the nearest the client's table tells); one with neither last.
+public function learnSkillOf(taught: Taught | nil, yellow: Integer | nil): Integer {
+  if (taught != nil) { return taught.skill }
+  return yellow ?? 1000
+}

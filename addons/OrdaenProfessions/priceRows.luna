@@ -1,0 +1,148 @@
+// The chosen recipe's reagents with Ordaen Auction's prices, and the totals under them (`cost.luna`): a reagent's
+// icon, name, have / need for the make row's count (red when short), its price at «Auction» and at «Merchant» for
+// that quantity («—» where none is known) and «Best», the way taken (red «—» where none is). The totals: «Cost»,
+// «Left to buy», «Sale» («doesn't sell» for what makes no item), «Profit» (red under nought), and how old the
+// oldest price taken is, in its age's colour; «—» where a part has no price.
+import { Align, Art, Edges, Line, Side, Track } from "$ltml"
+import { ageText, Component, Money, PX, space } from "Ordaen"
+import { PartPrice, Totals, Way } from "@/cost"
+import Locale from "@/locales"
+import Style from "@/style"
+
+const SLOT = 32 * PX
+const PRICE = 70 * PX
+const BEST = 76 * PX
+public const PRICED: Array<Track> = [SLOT, { fr: 1 }, "auto", PRICE, PRICE, BEST]
+const PAD: Edges = { top: 3 * PX, right: 6 * PX, bottom: 3 * PX }
+const TOTALS: Array<Track> = [{ fr: 1 }, "auto"]
+const TOTALS_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
+const TOTALS_PAD: Edges = { top: space(.Item) }
+const NONE = "—"
+// The cheaper way, on a green ground.
+const CHEAPER: Color = Color.hex("#40c0402e")
+const CLEAR: Color = Color.hex("#00000000")
+const HOUR = 3600
+const DAY = 24
+
+// The text of a way.
+public function wayText(way: Way): String {
+  return match (way) {
+    Way.Buy => Locale.WAY_BUY,
+    Way.Vendor => Locale.WAY_VENDOR,
+    Way.None => NONE,
+  }
+}
+
+// The heading over the priced reagents.
+public class PriceHead implements Component {
+  public render(self): Template {
+    return $ltml {
+      <box columns={PRICED} gap={8 * PX} padding={PAD}>
+        <box />
+        <box />
+        <box />
+        <text value={Locale.PRICE_AUCTION} textSize={.Secondary} textColor={Style.DIM} wrap={false} />
+        <text value={Locale.PRICE_VENDOR} textSize={.Secondary} textColor={Style.DIM} wrap={false} />
+        <text value={Locale.PRICE_BEST} textSize={.Secondary} textColor={Style.DIM} wrap={false} />
+      </box>
+    }
+  }
+}
+
+public class PricedReagentRow implements Component {
+  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
+  derived icon: Art = self.price.icon
+  derived color: Color = self.price.have < self.price.need ? Style.RED : Style.INK
+  derived hasAuction: Boolean = self.price.auction != nil
+  derived hasVendor: Boolean = self.price.vendor != nil
+  derived auction: Integer = self.price.auction ?? 0
+  derived vendor: Integer = self.price.vendor ?? 0
+  derived best: String = wayText(self.price.way)
+  derived bestColor: Color = self.price.way == Way.None ? Style.RED : Style.INK
+  derived auctionBack: Color = self.price.way == Way.Buy ? CHEAPER : CLEAR
+  derived vendorBack: Color = self.price.way == Way.Vendor ? CHEAPER : CLEAR
+
+  price: Signal<PartPrice>
+  index: Signal<Integer>
+  constructor(price: Signal<PartPrice>, index: Signal<Integer>) {
+    self.price = price
+    self.index = index
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={PRICED} gap={8 * PX} yAlign={Align.Center} padding={PAD} border={self.rule}>
+        <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
+        <text value={self.price.name} textColor={Style.INK} />
+        <text value={"%d / %d"} arguments={[self.price.have, self.price.need]} wrap={false} textColor={self.color}
+              textFont={.Numbers} />
+        <box background={self.auctionBack} xAlign={Align.End}>
+          <Money $if={self.hasAuction} amount={self.auction} />
+          <text $else value={NONE} textColor={Style.DIM} />
+        </box>
+        <box background={self.vendorBack} xAlign={Align.End}>
+          <Money $if={self.hasVendor} amount={self.vendor} />
+          <text $else value={NONE} textColor={Style.DIM} />
+        </box>
+        <text value={self.best} textColor={self.bestColor} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// The text of how old the oldest price is: in hours under two days, then in days.
+function ageLine(hours: Integer | nil): String {
+  if (hours == nil) { return "" }
+  if (hours < 2 * DAY) { return Locale.PRICES_AGE_HOURS.format(hours) }
+  return Locale.PRICES_AGE_DAYS.format((hours / DAY).floor())
+}
+
+public class TotalsBlock implements Component {
+  derived hasCost: Boolean = self.totals.cost != nil
+  derived hasToBuy: Boolean = self.totals.toBuy != nil
+  derived hasSale: Boolean = self.totals.sale != nil
+  derived hasProfit: Boolean = self.totals.profit != nil
+  derived cost: Integer = self.totals.cost ?? 0
+  derived toBuy: Integer = self.totals.toBuy ?? 0
+  derived sale: Integer = self.totals.sale ?? 0
+  derived profit: Integer = (self.totals.profit ?? 0).abs()
+  derived losing: Boolean = (self.totals.profit ?? 0) < 0
+  derived profitColor: Color = self.losing ? Style.RED : Style.WHITE
+  derived age: String = ageLine(self.totals.oldest)
+  derived aged: Boolean = self.age != ""
+  derived ageColor: Color = self.ageColorOf()
+  derived saleText: String = self.totals.sellable ? NONE : Locale.NOT_SOLD
+
+  totals: Signal<Totals>
+  constructor(totals: Signal<Totals>) {
+    self.totals = totals
+  }
+
+  ageColorOf(self): Color {
+    const _, color = ageText((self.totals.oldest ?? 0) * HOUR)
+    return color ?? Style.DIM
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={TOTALS} gap={space(.Item)} padding={TOTALS_PAD} border={TOTALS_RULE}>
+        <text value={Locale.TOTAL_COST} textColor={Style.DIM} />
+        <Money $if={self.hasCost} amount={self.cost} />
+        <text $else value={NONE} textColor={Style.DIM} />
+        <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} />
+        <Money $if={self.hasToBuy} amount={self.toBuy} />
+        <text $else value={NONE} textColor={Style.DIM} />
+        <text value={Locale.TOTAL_SALE} textColor={Style.DIM} />
+        <Money $if={self.hasSale} amount={self.sale} />
+        <text $else value={self.saleText} textColor={Style.DIM} />
+        <text value={Locale.TOTAL_PROFIT} textColor={Style.DIM} />
+        <box $if={self.hasProfit} columns={["auto", "auto"]} gap={2 * PX} xAlign={Align.End}>
+          <text $if={self.losing} value={"-"} textColor={Style.RED} />
+          <Money amount={self.profit} color={self.profitColor} />
+        </box>
+        <text $else value={NONE} textColor={Style.DIM} />
+        <text $if={self.aged} value={self.age} textSize={.Secondary} textColor={self.ageColor} />
+      </box>
+    }
+  }
+}

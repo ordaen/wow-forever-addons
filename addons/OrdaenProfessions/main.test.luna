@@ -80,6 +80,13 @@ function show(title: String, own: any Client.Frame) {
   Test.note("")
 }
 
+// The module off draws nothing. The page isn't blank: Ordaen Auction, which it loads with it where it is installed,
+// stands on the screen as a module of its own, showing nothing while the house is shut.
+function nothingDrawn(): Boolean {
+  Test.flush()
+  return Test.drawn().length == 0
+}
+
 // A click, and what it changed drawn.
 function click(at: Test.Point) {
   Test.click(at, nil)
@@ -236,7 +243,7 @@ test "the professions window: the open profession, its lists, the search, a reci
   show("the game's own window came up again on the player's key: the profession last open is asked for", own)
 
   (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
-  Test.expect(Test.blank())
+  Test.expect(nothingDrawn())
 }
 
 // A description longer than the details panel is wide, as the game's are.
@@ -265,7 +272,7 @@ test "a long description wraps in the details panel, which stays inside the wind
   click(Test.holding("Cloth armour", nil))
   Test.shot("«Linen Cloak» chosen: its description wraps in the panel, the panel ends inside the window")
   (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
-  Test.expect(Test.blank())
+  Test.expect(nothingDrawn())
 }
 
 test "the profession the game opens picks its tab, every time: after the window closed on another, and while it is open" {
@@ -308,5 +315,5 @@ test "the profession the game opens picks its tab, every time: after the window 
   Test.expect(Professions.tab == 1)
   Test.shot("Tailoring opened by the game while First Aid was open: its tab picked")
   (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
-  Test.expect(Test.blank())
+  Test.expect(nothingDrawn())
 }

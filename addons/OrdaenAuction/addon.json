@@ -1,5 +1,6 @@
 {
   "title": "Ordaen Auction",
+  "version": "1.0.0",
   "icon": "Interface/Icons/INV_Misc_Coin_02",
   "notes": "Auction prices, the house window and the shopping list.",
   "loadOnDemand": true,

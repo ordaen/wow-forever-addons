@@ -8,12 +8,16 @@ import Client from "$client"
 import Game from "$game"
 import { Action, Align, Edges, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
-import { ARTWORK, Choice, Column, cornerRoom, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, space, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec } from "Ordaen"
+import { ARTWORK, Choice, Column, cornerRoom, ItemId, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, space, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
+import root Auction from "OrdaenAuction"
+import type { PriceSource } from "OrdaenAuction"
 import Locale from "@/locales"
 import { RecipeDetails } from "@/details"
-import { QueuePage } from "@/queue"
+import { Need, QueuePage } from "@/queue"
+import { makesOf, partsOf, Totals, totalsOf, yieldOf } from "@/cost"
 import { knownSpellName, OverviewPage } from "@/overview"
+import { learnedFrom, Learning, Taught } from "@/learn"
 import { FilterButton } from "@/filter"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
@@ -57,6 +61,13 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_MAKEABLE, width: 80 * PX, align: Align.End, sortable: true },
 ]
+// With Ordaen Auction's prices: one making's cost and profit.
+const PRICED_COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
+  { title: Locale.COLUMN_MAKEABLE, width: 80 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_COST, width: 110 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_PROFIT, width: 110 * PX, align: Align.End, sortable: true },
+]
 const VIEWS: Array<Choice<View>> = [
   { value: View.Columns, label: Locale.VIEW_COLUMNS, icon: ARTWORK.ctl.tool.columns },
   { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
@@ -93,8 +104,11 @@ public class Professions implements Module, App {
     </box>
   }
 
-  public settings: mut Settings<Choices> = new Settings<Choices>({ remember: true, showUnlearned: true })
+  public settings: mut Settings<Choices> = new Settings<Choices>({ prices: true, remember: true, showUnlearned: true })
   public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
+  // What the profession trainers met teach, the account's: every character meets the same trainers.
+  public learning: mut Memory<Learning> = new Memory<Learning>({ recipes: {} }, .Account)
+  derived taught: Map<String, Taught> = self.learning.values.recipes
   // The queue, the root's and not the window's: it runs while the window is shut.
   public crafting: mut CraftQueue
 
@@ -180,13 +194,19 @@ public class Professions implements Module, App {
   // The recipes of the chosen category, and the table's rows in the table's order.
   public derived recipes: Array<Game.Recipe> = members(self.shown, self.listed, self.kept.favorites)
   derived tableRows: Array<Game.Recipe> = self.tableRowsOf()
-  derived tracks: Array<Track> = tracksOf(COLUMNS)
+  derived priced: Boolean = self.prices != nil
+  derived tableColumns: Array<Column> = self.priced ? PRICED_COLUMNS : COLUMNS
+  derived tracks: Array<Track> = tracksOf(self.tableColumns)
+  // One making's totals of each recipe the table lists, worked out while the table shows with prices.
+  derived worth: Map<Integer, Totals> = self.worthOf()
   // The category whose recipes are listed.
   derived listed: Integer = self.onCamp ? self.camp : self.chosenCategory
   // The recipes the lists hold in the order they are drawn, of which one is the chosen.
   public derived listing: Array<Game.Recipe> = self.listingOf()
   public derived chosenRecipe: Integer = self.chosenRecipeOf()
   derived chosen: Game.Recipe | nil = self.chosenOf()
+  // Ordaen Auction's prices, while it is on and «Prices» is: nothing of it is read while it is off.
+  derived prices: any PriceSource | nil = self.pricesOf()
   // Where the open profession's recipes turn yellow and grey: read once each time another profession opens.
   derived thresholds: Thresholds = thresholdsOf(Game.tradeSkill.open)
   derived chosenYellow: Integer | nil = self.thresholds.yellow[self.chosenRecipe]
@@ -217,6 +237,14 @@ public class Professions implements Module, App {
     self.known = peek self.placing
     watch { self.placed() }
     Game.tradeSkill.shownEmpty.listen(self.onShownEmpty)
+    Game.trainer.changed.listen(self.onTrainer)
+  }
+
+  // A profession's trainer shows, or its services change: the skill and the price of each recipe it teaches are kept.
+  onTrainer(mut self) {
+    if (!Game.trainer.open || Game.trainer.teachesClass()) { return }
+    const now = peek self.learning.values
+    self.learning.write({ recipes: learnedFrom(now.recipes, Game.trainer.services()) })
   }
 
   // Each profession the character has: its icon, its name and its skill (`31 / 75`).
@@ -229,6 +257,25 @@ public class Professions implements Module, App {
       })
     }
     return list
+  }
+
+  // «To the shopping list» on «Queue»: each missing reagent onto Ordaen Auction's list, as asked by the first line
+  // that needs it.
+  onShop(self, needs: Array<Need>) {
+    const auction = Auction
+    if (auction == nil) { return }
+    for (need of needs) {
+      if (need.item > 0) {
+        auction.shopping.add(ItemId.of(need.item), need.missing,
+          .Queue { recipe: need.recipe, crafts: need.crafts, character: Game.player.name })
+      }
+    }
+  }
+
+  pricesOf(self): any PriceSource | nil {
+    const auction = Auction
+    if (auction == nil || !self.settings.values.prices) { return nil }
+    return auction.prices
   }
 
   openTabOf(self): Integer {
@@ -355,8 +402,22 @@ public class Professions implements Module, App {
     for (recipe of self.mains) { list.push(recipe) }
     const column = self.tableColumn
     const descending = self.tableDescending
-    list.sort((a, b) => tableBefore(column, descending, a, b))
+    const worth = self.worth
+    list.sort((a, b) => tableBefore(column, descending, worth, a, b))
     return list
+  }
+
+  // Read again when a price may have moved; nothing while the table doesn't show or prices are off.
+  worthOf(self): Map<Integer, Totals> {
+    const prices = self.prices
+    const worth: Map<Integer, Totals> = {}
+    if (prices == nil || self.view != View.Table || self.onCamp) { return worth }
+    _ = prices.revision
+    for (recipe of self.mains) {
+      const parts = partsOf(prices, Game.tradeSkill.reagents(recipe.id), 1)
+      worth[recipe.id] = totalsOf(prices, parts, makesOf(recipe.id), yieldOf(recipe.id), 1)
+    }
+    return worth
   }
 
   listingOf(self): Array<Game.Recipe> {
@@ -653,9 +714,10 @@ public class Professions implements Module, App {
               <SkillBar profession={self.profession} />
             </box>
             <Tabs tabs={self.pageNames} selected={mut self.page} />
-            <QueuePage $if={self.queueShown} queued={self.queued} @act={self.onQueueAct} @counted={self.onQueueCount} />
+            <QueuePage $if={self.queueShown} queued={self.queued} prices={self.prices} @act={self.onQueueAct}
+                       @counted={self.onQueueCount} @shop={self.onShop} />
             <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
-                          kept={self.kept} @pick={self.openRecipe} />
+                          kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
             <box $else columns={GRID} rows={FILL} gap={space(.Group)}>
               <box rows={SIDE} gap={space(.Item)}>
                 <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
@@ -701,14 +763,21 @@ public class Professions implements Module, App {
                   </box>
                 </box>
                 <box $else rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
-                  <Table columns={COLUMNS} sorted={mut self.tableColumn} descending={mut self.tableDescending}>
+                  <Table $if={self.priced} columns={PRICED_COLUMNS} sorted={mut self.tableColumn}
+                         descending={mut self.tableDescending}>
+                    <RecipeTableRow $for={recipe of self.tableRows} $key={recipe.id} recipe={recipe}
+                                    tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
+                                    menuFor={self.menuFor} worth={self.worth} priced={true} @act={self.onAct} />
+                  </Table>
+                  <Table $else columns={COLUMNS} sorted={mut self.tableColumn} descending={mut self.tableDescending}>
                     <RecipeTableRow $for={recipe of self.tableRows} $key={recipe.id} recipe={recipe}
                                     tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
                                     menuFor={self.menuFor} @act={self.onAct} />
                   </Table>
                 </box>
               </box>
-              <RecipeDetails recipe={self.chosen} note={self.note} kept={self.kept} count={mut self.count}
+              <RecipeDetails recipe={self.chosen} note={self.note} kept={self.kept} prices={self.prices}
+                             count={mut self.count}
                              mode={mut self.makeMode} profession={self.profession} yellow={self.chosenYellow}
                              grey={self.chosenGrey} @act={self.onAct} @create={self.onCreate} />
             </box>

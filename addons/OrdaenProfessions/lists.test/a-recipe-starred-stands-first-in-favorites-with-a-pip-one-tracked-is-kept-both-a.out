@@ -88,15 +88,43 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 920.25,339.71 279.5x13 "Always raises the skill" #ff8040
             text 863.58,364.71 336.17x0 "" #e8dcc4
             text 863.58,371.38 336.17x0 "" #a3977f
-            box 863.58,378.04 336.17x260.92 scrolled 0 of 0
-              box 863.58,378.04 336.17x31.67
-                box 863.58,380.54 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
-                text 896.92,386.38 259.92x15 "Bolt of Linen Cloth" #e8dcc4
-                text 1163.5,386.38 31.25x15 "3 / 1" #e8dcc4
-              box 863.58,409.71 336.17x32.5
-                box 863.58,413.04 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
-                text 896.92,418.88 259.92x15 "Coarse Thread" #e8dcc4
-                text 1163.5,418.88 31.25x15 "0 / 1" #ff4040
+            box 863.58,378.04 336.17x147.08 scrolled 0 of 0
+              box 863.58,378.04 336.17x18
+                box 863.58,380.54 26.67x0
+                box 896.92,380.54 91.17x0
+                box 994.75,380.54 0x0
+                text 1001.42,380.54 58.33x13 "Auction" #a3977f
+                text 1066.42,380.54 58.33x13 "Merchant" #a3977f
+                text 1131.42,380.54 63.33x13 "Best" #a3977f
+              box 863.58,396.04 336.17x50
+                box 863.58,407.71 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
+                text 896.92,398.54 59.92x45 "Bolt of Linen Cloth" #e8dcc4
+                text 963.5,413.54 31.25x15 "3 / 1" #e8dcc4
+                box 1001.42,413.54 58.33x15 #00000000
+                  text 1053.5,413.54 6.25x15 "—" #a3977f
+                box 1066.42,413.54 58.33x15 #00000000
+                  text 1118.5,413.54 6.25x15 "—" #a3977f
+                text 1131.42,413.54 63.33x15 "—" #ff4040
+              box 863.58,446.04 336.17x35.83
+                box 863.58,451.04 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
+                text 896.92,449.38 59.92x30 "Coarse Thread" #e8dcc4
+                text 963.5,456.88 31.25x15 "0 / 1" #ff4040
+                box 1001.42,456.88 58.33x15 #00000000
+                  text 1053.5,456.88 6.25x15 "—" #a3977f
+                box 1066.42,456.88 58.33x15 #00000000
+                  text 1118.5,456.88 6.25x15 "—" #a3977f
+                text 1131.42,456.88 63.33x15 "—" #ff4040
+            box 863.58,531.79 336.17x107.17
+              text 863.58,531.79 336.17x13 "No prices: open the auction house." #a3977f
+              box 863.58,551.46 336.17x87.5
+                text 863.58,558.96 254.5x15 "Cost" #a3977f
+                text 1124.75,558.96 75x15 "—" #a3977f
+                text 863.58,580.62 254.5x15 "Left to buy" #a3977f
+                text 1124.75,580.62 75x15 "—" #a3977f
+                text 863.58,602.29 254.5x15 "Sale" #a3977f
+                text 1124.75,602.29 75x15 "doesn't sell" #a3977f
+                text 863.58,623.96 254.5x15 "Profit" #a3977f
+                text 1124.75,623.96 75x15 "—" #a3977f
             box 863.58,645.62 336.17x24.17
               box 863.58,653.12 159.75x16.67
                 text 863.58,653.96 119.75x15 "Favorite" #e8dcc4
