@@ -3,7 +3,7 @@
 import Game from "$game"
 import { Align, Art, Click, Drag, Frame, MouseButton, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, PX } from "Ordaen"
+import { Component, PX, Tip } from "Ordaen"
 import type { Minimap, Hint } from "@/main"
 
 public enum RingId { Tracking = "tracking", Ordaen = "ordaen", Drawer = "drawer", Mail = "mail", CraftingOrder = "craftingOrder", Landing = "landing" }
@@ -48,6 +48,8 @@ public class RingButton implements Component {
   // Ordaen's art: its root is there before this module loads.
   derived art: Art = self.spec.id == RingId.Drawer && self.map.isDrawerOpen() ? Ordaen.art.minimap.ringLit : Ordaen.art.minimap.ring
   derived count: String = String.of(self.map.holds())
+  // Ours shows its tooltip beside it (the game's buttons show their own).
+  derived hinted: Boolean = self.hintNow()
 
   const spec: RingSpec
   map: mut Minimap
@@ -79,6 +81,15 @@ public class RingButton implements Component {
       },
     }
     return true
+  }
+
+  hintNow(self): Boolean {
+    match (self.spec.id) {
+      RingId.Ordaen => return self.map.hinting(Hint.Ordaen),
+      RingId.Drawer => return self.map.hinting(Hint.Drawer),
+      else => return false,
+    }
+    return false
   }
 
   onClick(mut self, click: Click) {
@@ -126,6 +137,7 @@ public class RingButton implements Component {
                 textFamily={Ordaen.lookArt.fontNumbers} textShadow={COUNT_SHADOW} wrap={false} />
           <box $elseif={self.spec.glyph != nil} width={self.spec.glyphWidth} height={self.spec.glyphHeight}
                background={self.spec.glyph} />
+          <Tip $if={self.hinted} title={self.map.hintTitle} text={self.map.hintText} />
         </box>
       </>
     }

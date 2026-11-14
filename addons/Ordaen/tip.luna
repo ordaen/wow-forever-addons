@@ -1,7 +1,9 @@
 // Tip: our tooltip beside what it explains: the small metal frame round the windows' wood, its name in white and its
-// text under it in the label colour, wrapped at the tooltip's width. It draws over everything in its window and
-// takes no mouse. Its owner shows it while the cursor is on what it explains.
-import { Position } from "$ltml"
+// text under it in the label colour, wrapped at the tooltip's width. It stands on the screen over everything and
+// takes no mouse. Its owner writes it in the box it explains and shows it while the cursor is on that box: it stands
+// beside that box as the game's tooltip stands beside a button (under it, or over it in the screen's lower half; by
+// its left edge, or by its right edge in the screen's right third), kept on the screen.
+import { Beside, Layer } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
@@ -9,33 +11,24 @@ import { PX } from "@/units"
 const WIDTH = 314 * PX
 const NAME: Color = Color.hex("#ffffff")
 const LABEL: Color = Color.hex("#cbb994")
+const BY_ITS_BOX: Beside = { beside: "parent" }
 
 public class Tip implements Component {
   title: Signal<String>
   text: Signal<String>
-  left: Signal<Number>
-  top: Signal<Number>
-  constructor(
-    title: Signal<String>,
-    text: Signal<String>,
-    // Where it sits in its owner's box.
-    left: Signal<Number>,
-    top: Signal<Number>,
-  ) {
+  constructor(title: Signal<String>, text: Signal<String>) {
     self.title = title
     self.text = text
-    self.left = left
-    self.top = top
   }
 
   public render(self): Template {
     return $ltml {
-      <box position={Position.Absolute} left={self.left} top={self.top} width={WIDTH} zLevel={60}
-           border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
-           padding={12 * PX} columns={1} gap={2 * PX}>
+      <surface layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={WIDTH} textFamily={Ordaen.lookArt.font}
+               border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
+               padding={12 * PX} columns={1} gap={2 * PX}>
         <text value={self.title} textColor={NAME} textSize={18 * PX} />
         <text value={self.text} textColor={LABEL} textSize={14 * PX} />
-      </box>
+      </surface>
     }
   }
 }

@@ -148,7 +148,7 @@ test "the cursor on a setting's label shows its hint in a tip, and leaving it hi
   Test.moveTo(Test.holding("Button drawer", nil))
   Test.pass(0.02)
   Test.shot("the cursor on the switch's label: the tip shows its hint")
-  _ = Test.holding("Other addons' buttons in one place.", nil)
+  _ = Test.surfaceHolding("Other addons' buttons in one place.")
 
   Test.moveTo({ x: 5, y: 5 })
   Test.pass(0.02)
@@ -169,7 +169,7 @@ test "the cursor over the page itself shows the page's tip, and leaving it hides
   Test.moveTo(Test.holding("zone shown", nil))
   Test.pass(0.02)
   Test.expect(page.hint)
-  _ = Test.holding("Showcase", nil)
+  _ = Test.surfaceHolding("Showcase")
 
   Test.moveTo({ x: 5, y: 5 })
   Test.pass(0.02)

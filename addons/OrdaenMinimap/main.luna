@@ -5,7 +5,7 @@ import root Ordaen from "Ordaen"
 import { Module, Placed, PX, Settings, SettingsPage, Tip } from "Ordaen"
 import Locale from "@/locales"
 import { DrawerEntry } from "@/drawer"
-import { RING, DRAWER_BUTTON, ORDAEN_BUTTON, RingButton, RingId, RingSpec, BUTTON, ROOM } from "@/ring"
+import { RING, DRAWER_BUTTON, RingButton, RingId, RingSpec, BUTTON, ROOM } from "@/ring"
 
 import { Choices, Hide } from "@/choices"
 import { DrawerPage, MapPage } from "@/settings"
@@ -92,11 +92,9 @@ public class Minimap implements Module, App {
   derived drawerLeft: Number = self.ringLeft(DRAWER_BUTTON) + BUTTON - self.drawerWidth
   derived drawerTop: Number = self.ringTop(DRAWER_BUTTON) + BUTTON + 2 * PX
 
-  derived hintShown: Boolean = self.hint != Hint.None
-  derived hintTitle: String = self.titleOf()
-  derived hintText: String = self.textOf()
-  derived hintLeft: Number = self.leftOf()
-  derived hintTop: Number = self.topOf()
+  // The tooltip of what the cursor is on: written in that part's box, it stands beside it on the screen.
+  public derived hintTitle: String = self.titleOf()
+  public derived hintText: String = self.textOf()
   // Ordaen's art: its root is there before this module loads.
 
   constructor() {
@@ -260,23 +258,8 @@ public class Minimap implements Module, App {
     return ""
   }
 
-  leftOf(self): Number {
-    match (self.hint) {
-      Hint.Ordaen => return self.ringLeft(ORDAEN_BUTTON) + BUTTON,
-      Hint.Drawer, Hint.Entry => return self.ringLeft(DRAWER_BUTTON) + BUTTON,
-      else => return ROOM + self.frameWidth + 4 * PX,
-    }
-  }
-
-  topOf(self): Number {
-    match (self.hint) {
-      Hint.Zone => return ROOM,
-      Hint.Ordaen => return self.ringTop(ORDAEN_BUTTON),
-      Hint.Drawer => return self.ringTop(DRAWER_BUTTON),
-      Hint.Entry => return self.ringTop(DRAWER_BUTTON) + BUTTON,
-      else => return ROOM + self.frameHeight - STRIP,
-    }
-  }
+  // The tooltip shown is this part's.
+  public hinting(self, hint: Hint): Boolean { return self.hint == hint }
 
   public render(self): Template {
     return $ltml {
@@ -300,6 +283,7 @@ public class Minimap implements Module, App {
               <box @enter={self.onZoneEnter} @leave={self.onHintLeave}>
                 <text value={Game.location.zone} textColor={self.zoneColor} textSize={15 * PX} textShadow={ENGRAVED}
                       wrap={false} />
+                <Tip $if={self.hint == Hint.Zone} title={self.hintTitle} text={self.hintText} />
               </box>
             </box>
 
@@ -310,12 +294,14 @@ public class Minimap implements Module, App {
                    @leave={self.onHintLeave}>
                 <text value={Game.minimap.coords} textColor={INK} textSize={15 * PX} textShadow={ENGRAVED}
                       textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
+                <Tip $if={self.hint == Hint.Coords} title={self.hintTitle} text={self.hintText} />
               </box>
               <box $else width={1} />
               <box $if={self.settings.values.showClock} @click={self.onClockClick} @enter={self.onClockEnter}
                    @leave={self.onHintLeave}>
                 <text value={Game.clock.text} textColor={self.clockColor} textSize={15 * PX} textShadow={ENGRAVED}
                       textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
+                <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} />
               </box>
             </box>
           </box>
@@ -330,15 +316,13 @@ public class Minimap implements Module, App {
                    look={EmbedLook.Icon} />
             <DrawerEntry $for={entry of Game.minimap.entries} entry={entry} @hover={self.onEntryHover}
                          @leave={self.onHintLeave} />
+            <Tip $if={self.hint == Hint.Entry} title={self.hintTitle} text={self.hintText} />
           </box>
           <box $elseif={self.drawerParked} position={Position.Absolute} left={0} top={0} width={0} height={0}
                opacity={0}>
             <embed $for={button of Game.minimap.buttons} frame={button} width={CELL} height={CELL}
                    look={EmbedLook.Icon} />
           </box>
-
-          <Tip $if={self.hintShown} title={self.hintTitle} text={self.hintText} left={self.hintLeft}
-               top={self.hintTop} />
         </box>
       </Placed>
     }
