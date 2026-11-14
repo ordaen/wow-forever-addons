@@ -53,9 +53,11 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                 text 1173.08,703.12 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
       box 1224.42,188.79 29.17x26.67 absolute clipped @click
-        box 1224.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+        box 1224.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1234.42,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1253.58,188.79 23.33x26.67 absolute clipped @click
-        box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
+        box 1253.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1259.83,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 316.67,139.71 114.5x47.75
     box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
@@ -66,22 +68,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 707.08,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d

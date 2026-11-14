@@ -115,13 +115,16 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
               box 958.08,572.54 173.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
                 box 958.08,572.54 173.33x28.33 absolute
                   text 982.25,579.21 125x15 "Add to shopping list" #ffd100
-    box 1099.42,247.12 52.5x26.67 absolute clipped
-      box 1099.42,247.12 29.17x26.67 absolute clipped @click
-        box 1099.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+    box 1074.42,247.12 77.5x26.67 absolute clipped
+      box 1074.42,247.12 29.17x26.67 absolute clipped @click
+        box 1074.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1084.42,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1103.58,247.12 25x26.67 absolute clipped @click
+        box 1103.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1109.83,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1128.58,247.12 23.33x26.67 absolute clipped @click
-        box 1128.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1076.08,247.12 23.33x26.67 absolute @click
-      text 1083.58,250.46 8.33x20 "☼" #c9a05a
+        box 1128.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1134.83,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1141.08,681.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 441.67,198.04 616.42x47.75
     box 441.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
@@ -259,13 +262,16 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
               box 958.08,592.88 173.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
                 box 958.08,592.88 173.33x28.33 absolute
                   text 982.25,599.54 125x15 "Add to shopping list" #ffd100
-    box 1099.42,247.12 52.5x26.67 absolute clipped
-      box 1099.42,247.12 29.17x26.67 absolute clipped @click
-        box 1099.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+    box 1074.42,247.12 77.5x26.67 absolute clipped
+      box 1074.42,247.12 29.17x26.67 absolute clipped @click
+        box 1074.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1084.42,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1103.58,247.12 25x26.67 absolute clipped @click
+        box 1103.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1109.83,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1128.58,247.12 23.33x26.67 absolute clipped @click
-        box 1128.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1076.08,247.12 23.33x26.67 absolute @click
-      text 1083.58,250.46 8.33x20 "☼" #c9a05a
+        box 1128.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1134.83,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1141.08,681.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 441.67,198.04 616.42x47.75
     box 441.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop

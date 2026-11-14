@@ -1,0 +1,12 @@
+{
+  "says": "A window's corner group (ctl.corner in Ordaen/art.luna): every control a plate with a glyph on it. ctl-corner-plate.tga: rows of 64 x 32 px (128 x 64 texels), each a plate with what lies left of and under it: bronze first of the group (the group's rim round its left and bottom, the corner rounded), bronze after another (a divider on its left, the rim under it), red first, red after another; each normal, hover, pressed. ctl-corner-glyph.tga: rows of 16 x 16 px, the 14 px glyph with its shadow: the gear (settings), expand and contract (full screen), the cross (close); each normal, then hover.",
+  "ships": [
+    "addons/Ordaen/media/ctl-corner-plate.tga",
+    "addons/Ordaen/media/ctl-corner-glyph.tga"
+  ],
+  "origin": "Drawn by the design's TabbedWindow (its `cs-plates` corner group, `CTRLS`): wow-dev-tools `design/scripts/corner-plates.mjs` writes a page from the component's own styles and glyphs, each state forced by a class; the page shot at 2x on black and on white with `design/scripts/shot.mjs --width 400 --height 600 --scale 2` (`?atlas=plates&bg=black`, `bg=white`, then `atlas=glyphs`), then matted.",
+  "steps": [
+    { "matte": { "black": "art/sources/corner-plates-black.png", "white": "art/sources/corner-plates-white.png", "out": "addons/Ordaen/media/ctl-corner-plate.tga", "width": 128, "height": 1024 } },
+    { "matte": { "black": "art/sources/corner-glyphs-black.png", "white": "art/sources/corner-glyphs-white.png", "out": "addons/Ordaen/media/ctl-corner-glyph.tga", "width": 32, "height": 256 } }
+  ]
+}
