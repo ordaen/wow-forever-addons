@@ -136,6 +136,9 @@ public class Table implements Component {
   height: Signal<Number | nil>
   // The headings' row and the body's: the body as high as its rows, or the rest of the table's height.
   const rows: Array<Track>
+  // Filling, the body scrolls in a box placed by its edges in its row: what it holds asks no height of the row
+  // (among several rows, a share is never lower than what stands in it).
+  const fills: Boolean
   constructor(
     columns: Array<Column>,
     // The column the rows are ordered by, from 1; 0 for none.
@@ -151,6 +154,7 @@ public class Table implements Component {
     self.descending = descending
     self.height = height
     self.rows = fills ? FILLED : HUGGED
+    self.fills = fills
   }
 
   public render(self): Template {
@@ -160,7 +164,13 @@ public class Table implements Component {
           <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
                    descending={mut self.descending} />
         </box>
-        <box columns={1} height={self.height} overflow={Overflow.Scroll}>
+        <box $if={self.fills}>
+          <box columns={1} overflow={Overflow.Scroll} position={Position.Absolute} left={0} top={0} right={0}
+               bottom={0}>
+            <slot />
+          </box>
+        </box>
+        <box $else columns={1} height={self.height} overflow={Overflow.Scroll}>
           <slot />
         </box>
       </box>

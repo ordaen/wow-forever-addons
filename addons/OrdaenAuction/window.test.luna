@@ -167,3 +167,4 @@ test "«Data» before any scan: none, nothing at rest, an empty ledger, the sett
   Test.shot("«Data»")
   Game.auctionHouse.open = false
 }
+

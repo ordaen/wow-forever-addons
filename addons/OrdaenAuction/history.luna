@@ -3,8 +3,8 @@
 import { Hour } from "Ordaen"
 import { PriceKey } from "@/quote"
 
-// One hour of an item's prices on the house: the hour (Ordaen's `Hour`, whole hours since 1970) and the lowest price
-// for one seen in it, in copper.
+// One hour of an item's prices on the house: the hour (Ordaen's `Hour`, whole hours since 2020-01-01) and the
+// lowest price for one seen in it, in copper.
 public struct HourPrice {
   hour: Hour
   copper: Integer

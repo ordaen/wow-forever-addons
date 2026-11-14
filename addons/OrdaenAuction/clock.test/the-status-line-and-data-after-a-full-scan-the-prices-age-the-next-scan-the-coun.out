@@ -86,9 +86,10 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                           text 1569.33,130 5.42x13 "▲" #f0c860
                         box 1569.33,130 5.42x13 absolute opacity=0
                           text 1569.33,130 5.42x13 "▼" #f0c860
-                box 23.58,150.83 1557.83x727.83 scrolled 0 of 0
-                  box 23.58,150.83 1557.83x35
-                    text 33.58,160.83 1537.83x15 "Nothing found. Find an item by name." #a3977f
+                box 23.58,150.83 1557.83x727.83
+                  box 23.58,150.83 1557.83x727.83 absolute scrolled 0 of 0
+                    box 23.58,150.83 1557.83x35
+                      text 33.58,160.83 1537.83x15 "Nothing found. Find an item by name." #a3977f
     box 1516.08,49.08 77.5x26.67 absolute clipped
       box 1516.08,49.08 29.17x26.67 absolute clipped @click
         box 1516.08,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

@@ -88,9 +88,10 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                           text 1569.33,143.33 5.42x13 "▲" #f0c860
                         box 1569.33,143.33 5.42x13 absolute opacity=0
                           text 1569.33,143.33 5.42x13 "▼" #f0c860
-                box 23.58,164.17 1557.83x714.5 scrolled 0 of 0
-                  box 23.58,164.17 1557.83x35
-                    text 33.58,174.17 1537.83x15 "No prices for this realm: the first scan is under way. Find an item by name." #a3977f
+                box 23.58,164.17 1557.83x714.5
+                  box 23.58,164.17 1557.83x714.5 absolute scrolled 0 of 0
+                    box 23.58,164.17 1557.83x35
+                      text 33.58,174.17 1537.83x15 "No prices for this realm: the first scan is under way. Find an item by name." #a3977f
   box 0,0 363.5x47.75
     box 0,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 18.58,10.25 77.33x34.25

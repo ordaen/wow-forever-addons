@@ -88,43 +88,44 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                           text 1569.33,143.33 5.42x13 "▲" #f0c860
                         box 1569.33,143.33 5.42x13 absolute opacity=0
                           text 1569.33,143.33 5.42x13 "▼" #f0c860
-                box 23.58,164.17 1557.83x714.5 scrolled 0 of 0
-                  box 23.58,164.17 1557.83x26.67 #00000000 @click
-                    box 30.25,167.5 1132.83x20
-                      box 30.25,167.5 20x20 #0d0a08 opacity=1 @click @enter
-                        box 30.25,167.5 20x20 absolute
-                        box 30.25,167.5 20x20 absolute #00000000
-                      box 56.92,170 1106.17x15 clipped
-                        text 56.92,170 1106.17x15 "Linen Cloth" #e8dcc4
-                    box 1169.75,177.5 36.67x0
-                    box 1213.08,170 75x15
-                      text 1275.58,170 12.5x15 "30" #e8dcc4
-                    box 1294.75,170 80x15
-                      text 1318.5,170 56.25x15 "0g 0s 36c" #e8dcc4
-                    box 1381.42,170 75x15
-                      text 1400.17,170 56.25x15 "0g 0s 43c" #e8dcc4
-                    box 1463.08,170 46.67x15
-                      text 1491,170 18.75x15 "84%" #40c040
-                    box 1516.42,170 58.33x15
-                      text 1537.25,170 37.5x15 "(1 d.)" #ffb02e
-                  box 23.58,190.83 1557.83x26.67 #00000000 @click
-                    box 30.25,194.17 1132.83x20
-                      box 30.25,194.17 20x20 #0d0a08 opacity=1 @click @enter
-                        box 30.25,194.17 20x20 absolute
-                        box 30.25,194.17 20x20 absolute #00000000
-                      box 56.92,196.67 1106.17x15 clipped
-                        text 56.92,196.67 1106.17x15 "Copper Ore" #e8dcc4
-                    box 1169.75,204.17 36.67x0
-                    box 1213.08,196.67 75x15
-                      text 1275.58,196.67 12.5x15 "25" #e8dcc4
-                    box 1294.75,196.67 80x15
-                      text 1324.75,196.67 50x15 "0g 1s 0c" #e8dcc4
-                    box 1381.42,196.67 75x15
-                      text 1400.17,196.67 56.25x15 "0g 0s 93c" #e8dcc4
-                    box 1463.08,196.67 46.67x15
-                      text 1484.75,196.67 25x15 "108%" #ff4040
-                    box 1516.42,196.67 58.33x15
-                      text 1537.25,196.67 37.5x15 "(1 d.)" #ffb02e
+                box 23.58,164.17 1557.83x714.5
+                  box 23.58,164.17 1557.83x714.5 absolute scrolled 0 of 0
+                    box 23.58,164.17 1557.83x26.67 #00000000 @click
+                      box 30.25,167.5 1132.83x20
+                        box 30.25,167.5 20x20 #0d0a08 opacity=1 @click @enter
+                          box 30.25,167.5 20x20 absolute
+                          box 30.25,167.5 20x20 absolute #00000000
+                        box 56.92,170 1106.17x15 clipped
+                          text 56.92,170 1106.17x15 "Linen Cloth" #e8dcc4
+                      box 1169.75,177.5 36.67x0
+                      box 1213.08,170 75x15
+                        text 1275.58,170 12.5x15 "30" #e8dcc4
+                      box 1294.75,170 80x15
+                        text 1318.5,170 56.25x15 "0g 0s 36c" #e8dcc4
+                      box 1381.42,170 75x15
+                        text 1400.17,170 56.25x15 "0g 0s 43c" #e8dcc4
+                      box 1463.08,170 46.67x15
+                        text 1491,170 18.75x15 "84%" #40c040
+                      box 1516.42,170 58.33x15
+                        text 1537.25,170 37.5x15 "(1 d.)" #ffb02e
+                    box 23.58,190.83 1557.83x26.67 #00000000 @click
+                      box 30.25,194.17 1132.83x20
+                        box 30.25,194.17 20x20 #0d0a08 opacity=1 @click @enter
+                          box 30.25,194.17 20x20 absolute
+                          box 30.25,194.17 20x20 absolute #00000000
+                        box 56.92,196.67 1106.17x15 clipped
+                          text 56.92,196.67 1106.17x15 "Copper Ore" #e8dcc4
+                      box 1169.75,204.17 36.67x0
+                      box 1213.08,196.67 75x15
+                        text 1275.58,196.67 12.5x15 "25" #e8dcc4
+                      box 1294.75,196.67 80x15
+                        text 1324.75,196.67 50x15 "0g 1s 0c" #e8dcc4
+                      box 1381.42,196.67 75x15
+                        text 1400.17,196.67 56.25x15 "0g 0s 93c" #e8dcc4
+                      box 1463.08,196.67 46.67x15
+                        text 1484.75,196.67 25x15 "108%" #ff4040
+                      box 1516.42,196.67 58.33x15
+                        text 1537.25,196.67 37.5x15 "(1 d.)" #ffb02e
   box 0,0 363.5x47.75
     box 0,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 18.58,10.25 77.33x34.25
@@ -226,43 +227,44 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                           text 1569.33,143.33 5.42x13 "▲" #f0c860
                         box 1569.33,143.33 5.42x13 absolute opacity=0
                           text 1569.33,143.33 5.42x13 "▼" #f0c860
-                box 23.58,164.17 1557.83x714.5 scrolled 0 of 0
-                  box 23.58,164.17 1557.83x26.67 #00000000 @click
-                    box 30.25,167.5 1132.83x20
-                      box 30.25,167.5 20x20 #0d0a08 opacity=1 @click @enter
-                        box 30.25,167.5 20x20 absolute
-                        box 30.25,167.5 20x20 absolute #00000000
-                      box 56.92,170 1106.17x15 clipped
-                        text 56.92,170 1106.17x15 "Linen Cloth" #e8dcc4
-                    box 1169.75,177.5 36.67x0
-                    box 1213.08,170 75x15
-                      text 1275.58,170 12.5x15 "30" #e8dcc4
-                    box 1294.75,170 80x15
-                      text 1318.5,170 56.25x15 "0g 0s 36c" #e8dcc4
-                    box 1381.42,170 75x15
-                      text 1400.17,170 56.25x15 "0g 0s 43c" #e8dcc4
-                    box 1463.08,170 46.67x15
-                      text 1491,170 18.75x15 "84%" #40c040
-                    box 1516.42,170 58.33x15
-                      text 1537.25,170 37.5x15 "(1 d.)" #ffb02e
-                  box 23.58,190.83 1557.83x26.67 #00000000 @click
-                    box 30.25,194.17 1132.83x20
-                      box 30.25,194.17 20x20 #0d0a08 opacity=1 @click @enter
-                        box 30.25,194.17 20x20 absolute
-                        box 30.25,194.17 20x20 absolute #00000000
-                      box 56.92,196.67 1106.17x15 clipped
-                        text 56.92,196.67 1106.17x15 "Copper Ore" #e8dcc4
-                    box 1169.75,204.17 36.67x0
-                    box 1213.08,196.67 75x15
-                      text 1275.58,196.67 12.5x15 "25" #e8dcc4
-                    box 1294.75,196.67 80x15
-                      text 1324.75,196.67 50x15 "0g 1s 0c" #e8dcc4
-                    box 1381.42,196.67 75x15
-                      text 1400.17,196.67 56.25x15 "0g 0s 93c" #e8dcc4
-                    box 1463.08,196.67 46.67x15
-                      text 1484.75,196.67 25x15 "108%" #ff4040
-                    box 1516.42,196.67 58.33x15
-                      text 1537.25,196.67 37.5x15 "(1 d.)" #ffb02e
+                box 23.58,164.17 1557.83x714.5
+                  box 23.58,164.17 1557.83x714.5 absolute scrolled 0 of 0
+                    box 23.58,164.17 1557.83x26.67 #00000000 @click
+                      box 30.25,167.5 1132.83x20
+                        box 30.25,167.5 20x20 #0d0a08 opacity=1 @click @enter
+                          box 30.25,167.5 20x20 absolute
+                          box 30.25,167.5 20x20 absolute #00000000
+                        box 56.92,170 1106.17x15 clipped
+                          text 56.92,170 1106.17x15 "Linen Cloth" #e8dcc4
+                      box 1169.75,177.5 36.67x0
+                      box 1213.08,170 75x15
+                        text 1275.58,170 12.5x15 "30" #e8dcc4
+                      box 1294.75,170 80x15
+                        text 1318.5,170 56.25x15 "0g 0s 36c" #e8dcc4
+                      box 1381.42,170 75x15
+                        text 1400.17,170 56.25x15 "0g 0s 43c" #e8dcc4
+                      box 1463.08,170 46.67x15
+                        text 1491,170 18.75x15 "84%" #40c040
+                      box 1516.42,170 58.33x15
+                        text 1537.25,170 37.5x15 "(1 d.)" #ffb02e
+                    box 23.58,190.83 1557.83x26.67 #00000000 @click
+                      box 30.25,194.17 1132.83x20
+                        box 30.25,194.17 20x20 #0d0a08 opacity=1 @click @enter
+                          box 30.25,194.17 20x20 absolute
+                          box 30.25,194.17 20x20 absolute #00000000
+                        box 56.92,196.67 1106.17x15 clipped
+                          text 56.92,196.67 1106.17x15 "Copper Ore" #e8dcc4
+                      box 1169.75,204.17 36.67x0
+                      box 1213.08,196.67 75x15
+                        text 1275.58,196.67 12.5x15 "25" #e8dcc4
+                      box 1294.75,196.67 80x15
+                        text 1324.75,196.67 50x15 "0g 1s 0c" #e8dcc4
+                      box 1381.42,196.67 75x15
+                        text 1400.17,196.67 56.25x15 "0g 0s 93c" #e8dcc4
+                      box 1463.08,196.67 46.67x15
+                        text 1484.75,196.67 25x15 "108%" #ff4040
+                      box 1516.42,196.67 58.33x15
+                        text 1537.25,196.67 37.5x15 "(1 d.)" #ffb02e
     box 1516.08,49.08 77.5x26.67 absolute clipped
       box 1516.08,49.08 29.17x26.67 absolute clipped @click
         box 1516.08,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -373,25 +375,26 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                           text 1569.33,143.33 5.42x13 "▲" #f0c860
                         box 1569.33,143.33 5.42x13 absolute opacity=0
                           text 1569.33,143.33 5.42x13 "▼" #f0c860
-                box 23.58,164.17 1557.83x714.5 scrolled 0 of 0
-                  box 23.58,164.17 1557.83x26.67 #00000000 @click
-                    box 30.25,167.5 1132.83x20
-                      box 30.25,167.5 20x20 #0d0a08 opacity=1 @click @enter
-                        box 30.25,167.5 20x20 absolute
-                        box 30.25,167.5 20x20 absolute #00000000
-                      box 56.92,170 1106.17x15 clipped
-                        text 56.92,170 1106.17x15 "Linen Cloth" #e8dcc4
-                    box 1169.75,177.5 36.67x0
-                    box 1213.08,170 75x15
-                      text 1275.58,170 12.5x15 "30" #e8dcc4
-                    box 1294.75,170 80x15
-                      text 1318.5,170 56.25x15 "0g 0s 36c" #e8dcc4
-                    box 1381.42,170 75x15
-                      text 1400.17,170 56.25x15 "0g 0s 43c" #e8dcc4
-                    box 1463.08,170 46.67x15
-                      text 1491,170 18.75x15 "84%" #40c040
-                    box 1516.42,170 58.33x15
-                      text 1537.25,170 37.5x15 "(1 d.)" #ffb02e
+                box 23.58,164.17 1557.83x714.5
+                  box 23.58,164.17 1557.83x714.5 absolute scrolled 0 of 0
+                    box 23.58,164.17 1557.83x26.67 #00000000 @click
+                      box 30.25,167.5 1132.83x20
+                        box 30.25,167.5 20x20 #0d0a08 opacity=1 @click @enter
+                          box 30.25,167.5 20x20 absolute
+                          box 30.25,167.5 20x20 absolute #00000000
+                        box 56.92,170 1106.17x15 clipped
+                          text 56.92,170 1106.17x15 "Linen Cloth" #e8dcc4
+                      box 1169.75,177.5 36.67x0
+                      box 1213.08,170 75x15
+                        text 1275.58,170 12.5x15 "30" #e8dcc4
+                      box 1294.75,170 80x15
+                        text 1318.5,170 56.25x15 "0g 0s 36c" #e8dcc4
+                      box 1381.42,170 75x15
+                        text 1400.17,170 56.25x15 "0g 0s 43c" #e8dcc4
+                      box 1463.08,170 46.67x15
+                        text 1491,170 18.75x15 "84%" #40c040
+                      box 1516.42,170 58.33x15
+                        text 1537.25,170 37.5x15 "(1 d.)" #ffb02e
     box 1516.08,49.08 77.5x26.67 absolute clipped
       box 1516.08,49.08 29.17x26.67 absolute clipped @click
         box 1516.08,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -502,25 +505,26 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                           text 1569.33,143.33 5.42x13 "▲" #f0c860
                         box 1569.33,143.33 5.42x13 absolute opacity=0
                           text 1569.33,143.33 5.42x13 "▼" #f0c860
-                box 23.58,164.17 1557.83x714.5 scrolled 0 of 0
-                  box 23.58,164.17 1557.83x26.67 #00000000 @click
-                    box 30.25,167.5 1132.83x20
-                      box 30.25,167.5 20x20 #0d0a08 opacity=1 @click @enter
-                        box 30.25,167.5 20x20 absolute
-                        box 30.25,167.5 20x20 absolute #00000000
-                      box 56.92,170 1106.17x15 clipped
-                        text 56.92,170 1106.17x15 "Linen Cloth" #e8dcc4
-                    box 1169.75,177.5 36.67x0
-                    box 1213.08,170 75x15
-                      text 1275.58,170 12.5x15 "30" #e8dcc4
-                    box 1294.75,170 80x15
-                      text 1318.5,170 56.25x15 "0g 0s 36c" #e8dcc4
-                    box 1381.42,170 75x15
-                      text 1400.17,170 56.25x15 "0g 0s 43c" #e8dcc4
-                    box 1463.08,170 46.67x15
-                      text 1491,170 18.75x15 "84%" #40c040
-                    box 1516.42,170 58.33x15
-                      text 1537.25,170 37.5x15 "(1 d.)" #ffb02e
+                box 23.58,164.17 1557.83x714.5
+                  box 23.58,164.17 1557.83x714.5 absolute scrolled 0 of 0
+                    box 23.58,164.17 1557.83x26.67 #00000000 @click
+                      box 30.25,167.5 1132.83x20
+                        box 30.25,167.5 20x20 #0d0a08 opacity=1 @click @enter
+                          box 30.25,167.5 20x20 absolute
+                          box 30.25,167.5 20x20 absolute #00000000
+                        box 56.92,170 1106.17x15 clipped
+                          text 56.92,170 1106.17x15 "Linen Cloth" #e8dcc4
+                      box 1169.75,177.5 36.67x0
+                      box 1213.08,170 75x15
+                        text 1275.58,170 12.5x15 "30" #e8dcc4
+                      box 1294.75,170 80x15
+                        text 1318.5,170 56.25x15 "0g 0s 36c" #e8dcc4
+                      box 1381.42,170 75x15
+                        text 1400.17,170 56.25x15 "0g 0s 43c" #e8dcc4
+                      box 1463.08,170 46.67x15
+                        text 1491,170 18.75x15 "84%" #40c040
+                      box 1516.42,170 58.33x15
+                        text 1537.25,170 37.5x15 "(1 d.)" #ffb02e
     box 1516.08,49.08 77.5x26.67 absolute clipped
       box 1516.08,49.08 29.17x26.67 absolute clipped @click
         box 1516.08,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
