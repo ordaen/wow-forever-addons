@@ -6,7 +6,7 @@
 // click alone) and «Add to shopping list».
 import Game from "$game"
 import { Align, Beside, Edges, Layer, Line, Side, Track } from "$ltml"
-import { Age, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, ToolButton, Toolbar, tracksOf } from "Ordaen"
+import { Age, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Money, PushButton, PX, space, Table, TableRow, ToolButton, Toolbar, tracksOf } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
@@ -249,14 +249,12 @@ public class BuyPage implements Component {
   // What the house was last searched for, as `wanted` says it.
   state sent = ""
   derived rows: Array<Found> = self.found()
-  // The row picked, while it is shown: one or none.
-  derived chosen: Array<Found> = self.chosenOf()
+  // The row picked, while it is shown: one or none, handed to the window's side section.
+  derived picks: Array<Found> = self.chosenOf()
   derived searching: Boolean = self.search != ""
   derived filtered: Boolean = self.itemClass != ANY || self.level != ANY || self.quality != ANY
   derived wanted: String = "%s|%d|%d|%d".format(self.search, self.itemClass, self.level, self.quality)
   derived empty: String = self.items > 0 ? Locale.NO_RESULTS : Locale.NO_PRICES_FIND
-  // The item panel stands at the right while a row is picked.
-  derived columns: Array<Track> = self.chosen.length > 0 ? PAGE : FILL
 
   const house: House
   const prices: any PriceSource
@@ -264,24 +262,25 @@ public class BuyPage implements Component {
   items: Signal<Integer>
   // The shopping list: its items marked, the row picked added to it.
   shopping: mut ShoppingList
-  const history: any PriceHistory | nil
+  chosen: mut Signal<Array<Found>>
   constructor(
     house: House,
     prices: any PriceSource,
-    // The prices hour by hour, the item panel's chart.
-    history: any PriceHistory | nil,
     // What the house showed last.
     offers: Signal<Array<Game.Offer>>,
     // How many items the house's prices cover.
     items: Signal<Integer>,
     shopping: mut ShoppingList,
+    // The row picked, while it is shown: the window's side section draws it.
+    chosen: mut Signal<Array<Found>>,
   ) {
     self.house = house
     self.prices = prices
     self.offers = offers
     self.items = items
     self.shopping = shopping
-    self.history = history
+    self.chosen = chosen
+    watch (picks of self.picks) { self.chosen = picks.map(found => found) }
     self.sent = peek self.wanted
     // The box or a filter moved: the house searched as soon as it takes a query; what is typed meanwhile is sent
     // whole after.
@@ -340,10 +339,10 @@ public class BuyPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} rows={FILL} gap={Style.GAP}>
-        <box rows={SIDE} gap={Style.ROW_GAP}>
+      <box rows={FILL}>
+        <box rows={SIDE} gap={space(.Item)}>
           // The toolbar (the search, the filter), and the shopping list's window at the row's right end.
-          <box columns={TOOLS} gap={Style.ROW_GAP} yAlign={Align.Center}>
+          <box columns={TOOLS} gap={space(.Item)} yAlign={Align.Center}>
             <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
               <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.filterText}
                           open={mut self.filterOpen} lit={self.filtered}>
@@ -364,8 +363,6 @@ public class BuyPage implements Component {
             </Table>
           </box>
         </box>
-        <Chosen $for={found of self.chosen} $key={found.key} found={peek found} house={self.house} prices={self.prices}
-                history={self.history} shopping={mut self.shopping} />
       </box>
     }
   }
@@ -413,7 +410,7 @@ class ListingRow implements Component {
 // The row picked: its listings (those the next click buys from marked), a quantity of a commodity (an item's
 // auction is bought whole), the total, «Buy» (a commodity's second click confirms the price the client gave) and
 // «Add to shopping list».
-class Chosen implements Component {
+public class Chosen implements Component {
   state count = 1
   state listSorted = 0
   state listDescending = false
@@ -472,14 +469,14 @@ class Chosen implements Component {
     return $ltml {
       <ItemPanel item={self.found.item} name={self.found.name} color={self.found.color} detail={self.detail}
                  house={self.house} prices={self.prices} history={self.history}>
-        <box rows={PANEL} gap={Style.ROW_GAP}>
+        <box rows={PANEL} gap={space(.Item)}>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
             <Table columns={LISTING_COLUMNS} sorted={mut self.listSorted} descending={mut self.listDescending}>
               <ListingRow $for={index, listing of self.listings} $key={index} listing={peek listing}
                           index={index} first={self.first} last={self.last} />
             </Table>
           </box>
-          <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
+          <box columns={PAIR} gap={space(.Item)} yAlign={Align.Center}>
             <text value={Locale.QUANTITY} textColor={Style.INK} />
             <CountInput $if={self.commodity} value={mut self.count} least={1} most={MOST_COUNT} step={STEP} />
             <text $else value={self.auctionCount} textColor={Style.INK} />

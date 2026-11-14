@@ -1,6 +1,6 @@
 // «Professions»: the characters down the side, the professions across, the skill in each cell.
 import { Align, Overflow, Track } from "$ltml"
-import { Component, PX } from "Ordaen"
+import { Component, space } from "Ordaen"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
@@ -75,7 +75,7 @@ public class Grid implements Component {
   public render(self): Template {
     return $ltml {
       <box overflow={Overflow.Scroll}>
-        <box columns={self.tracks} gap={8 * PX}>
+        <box columns={self.tracks} gap={space(.Item)}>
           <box $for={cell of self.cells} $key={cell} xAlign={cell.align}>
             <text value={cell.text} textColor={cell.color} wrap={false} />
           </box>

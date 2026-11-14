@@ -6,12 +6,13 @@
 // is open. The game's own window stays open with it, unseen and off the screen: hiding it would close the profession.
 import Client from "$client"
 import Game from "$game"
-import { Action, Align, Edges, Line, Overflow, Position, Side, Track } from "$ltml"
+import { Action, Align, Edges, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
-import { ARTWORK, Choice, Column, cornerRoom, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec } from "Ordaen"
+import { ARTWORK, Choice, Column, cornerRoom, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, space, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { RecipeDetails } from "@/details"
+import { MakeRow } from "@/make"
 import { QueuePage } from "@/queue"
 import { knownSpellName, OverviewPage } from "@/overview"
 import { FilterButton } from "@/filter"
@@ -36,6 +37,9 @@ const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const COLUMN_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Left] }
 const BAR_ROOM: Edges = { right: cornerRoom(true) }
 const TRACK_WIDTH = 170 * PX
+// The footer: the profession's spell, and what the page puts beside it; the queue's status and «Create next».
+const TRACK_FOOT: Array<Track> = ["auto", { fr: 1 }]
+const QUEUE_FOOT: Array<Track> = [{ fr: 1 }, "auto"]
 // Mining's and Herbalism's finding on the minimap, by their skill lines: Find Minerals, Find Herbs.
 const MINING = 186
 const HERBALISM = 182
@@ -76,6 +80,21 @@ public class Professions implements Module, App {
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
   ]
+  // The window's footer: the profession's own spell («Find Minerals») at its left; on the queue's page what the queue
+  // is doing and «Create next», on the recipes' the make row of a learned recipe chosen.
+  const footer: Template = $ltml {
+    <box columns={self.footColumns} gap={space(.Group)} yAlign={Align.Center}>
+      <PushButton $if={self.hasTrack} label={self.trackName} width={TRACK_WIDTH} action={self.trackAction} />
+      <box $if={self.queueShown} columns={QUEUE_FOOT} gap={space(.Group)} yAlign={Align.Center}>
+        <text value={self.queueStatus} textSize={.Secondary} textColor={Style.DIM} />
+        <PushButton label={Locale.QUEUE_NEXT_BUTTON} width={180 * PX} disabled={!self.queueReady}
+                    @click={self.onNext} />
+      </box>
+      <MakeRow $elseif={self.makes} recipe={self.chosen} count={mut self.count} mode={mut self.makeMode}
+               profession={self.profession} yellow={self.chosenYellow} grey={self.chosenGrey} @create={self.onCreate} />
+      <box $else />
+    </box>
+  }
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ remember: true, showUnlearned: true })
   public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
@@ -139,6 +158,9 @@ public class Professions implements Module, App {
   derived trackSpell: Integer | nil = trackSpellOf(Game.tradeSkill.open)
   derived trackName: String = knownSpellName(self.trackSpell)
   derived hasTrack: Boolean = self.trackName != ""
+  derived footColumns: Array<Track> = self.hasTrack ? TRACK_FOOT : FILL
+  // The make row shows on the recipes' pages, while a learned recipe is chosen.
+  derived makes: Boolean = !self.queueShown && !self.overviewShown && self.chosen?.learned == true
   derived trackAction: Action | nil = Action.CastSpell { spell: self.trackName }
   // The queue, every profession's, in the order it was asked for; what it is doing, or why it waits; whether «Create
   // next» starts its next run.
@@ -531,6 +553,9 @@ public class Professions implements Module, App {
   onQueueCount(mut self, recipe: Integer, count: Integer) { self.crafting.recount(recipe, count) }
 
   // A line of the queue asked for something; «Create next» starts the next run, in the click.
+  // «Create next», in the player's click: the client starts a craft from nothing else.
+  onNext(mut self) { self.onQueueAct(QueueAct.Next, 0) }
+
   onQueueAct(mut self, act: QueueAct, id: Integer) {
     match (act) {
       QueueAct.Drop => { self.crafting.recount(id, 0) },
@@ -618,28 +643,21 @@ public class Professions implements Module, App {
       <$if={self.isOpen}>
         <frame of={Game.frames.Professions} opacity={0} away={true} />
         <Window $if={self.drawn} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
-                @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
+                footer={self.footer} @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>
             <text value={Locale.PICK} textColor={Style.DIM} />
           </box>
-          <box $else rows={BODY} gap={8 * PX}>
+          <box $else rows={BODY} gap={space(.Group)}>
             // The bar stops short of the window's corner buttons.
             <box padding={BAR_ROOM}>
               <SkillBar profession={self.profession} />
             </box>
-            // The profession's own tabs, and its own spell at the line's right end («Find Minerals»).
-            <box>
-              <Tabs tabs={self.pageNames} selected={mut self.page} />
-              <box $if={self.hasTrack} position={Position.Absolute} right={0} bottom={2 * PX}>
-                <PushButton label={self.trackName} width={TRACK_WIDTH} action={self.trackAction} />
-              </box>
-            </box>
-            <QueuePage $if={self.queueShown} queued={self.queued} status={self.queueStatus} ready={self.queueReady}
-                       @act={self.onQueueAct} @counted={self.onQueueCount} />
+            <Tabs tabs={self.pageNames} selected={mut self.page} />
+            <QueuePage $if={self.queueShown} queued={self.queued} @act={self.onQueueAct} @counted={self.onQueueCount} />
             <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
                           kept={self.kept} @pick={self.openRecipe} />
-            <box $else columns={GRID} rows={FILL} gap={Style.GAP}>
-              <box rows={SIDE} gap={8 * PX}>
+            <box $else columns={GRID} rows={FILL} gap={space(.Group)}>
+              <box rows={SIDE} gap={space(.Item)}>
                 <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
                   <FilterButton open={mut self.filterOpen} makeable={mut self.onlyMake} skillUp={mut self.onlySkill}
                                 learned={mut self.showLearned} unlearned={mut self.showUnlearned}
@@ -690,9 +708,7 @@ public class Professions implements Module, App {
                   </Table>
                 </box>
               </box>
-              <RecipeDetails recipe={self.chosen} count={mut self.count} mode={mut self.makeMode}
-                             profession={self.profession} yellow={self.chosenYellow} grey={self.chosenGrey}
-                             note={self.note} kept={self.kept} @create={self.onCreate} @act={self.onAct} />
+              <RecipeDetails recipe={self.chosen} note={self.note} kept={self.kept} @act={self.onAct} />
             </box>
           </box>
         </Window>

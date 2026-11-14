@@ -1,0 +1,20 @@
+-- the content over the footer, a group's step between them; «Reset» left, «Save» right, the panel's step over the line
+surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
+  box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 612.75,331.38 379.5x276.75
+      box 632.75,351.38 339.5x198.42 #30302a
+        text 632.75,351.38 339.5x15 "the page" #ffffff
+      box 632.75,549.79 339.5x45
+        box 632.75,566.46 339.5x28.33
+          box 632.75,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 632.75,566.46 100x28.33 absolute
+              text 667.12,573.12 31.25x15 "Reset" #ffd100
+          text 749.42,573.12 106.17x15 "2 waiting" #ffffff
+          box 872.25,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 872.25,566.46 100x28.33 absolute
+              text 909.75,573.12 25x15 "Save" #ffd100
+    box 982.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 600,281.38 114.5x47.75
+    box 600,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 618.58,291.62 77.33x34.25
+        text 635.38,301.25 43.75x15 "Recipes" #ffd100

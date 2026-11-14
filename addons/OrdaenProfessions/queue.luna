@@ -1,11 +1,11 @@
 // The «Queue» tab: what «Create» asked for, every profession's, in the order it runs, a line each (its icon, its name
 // in its difficulty's colour (a recipe of a profession that isn't open: dim, its profession's icon), which opens it,
 // its count still to make with − and +, ✕ to take it out); one table of the reagents they all need (need, have,
-// missing, red while short); and under a rule what the queue is doing or why it waits, and «Create next», the
-// player's click that starts the next run (the client starts a craft from nothing else).
+// missing, red while short). What the queue is doing or why it waits, and «Create next», the player's click that
+// starts the next run (the client starts a craft from nothing else), stand in the window's footer.
 import Game from "$game"
-import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
-import { Component, CountInput, PushButton, PX } from "Ordaen"
+import { Align, Art, Edges, Line, Overflow, Track } from "$ltml"
+import { Component, CountInput, PushButton, PX, space } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 import { MOST_COUNT, Queued, QueueAct } from "@/view"
@@ -14,18 +14,14 @@ const NO_ICON: Art = "Interface/Icons/INV_Misc_QuestionMark"
 
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const BACK: Color = Color.hex("#0000004d")
-const PAD = 12 * PX
-// The lines and the table scrolling in the room there is, the foot under them.
-const PAGE: Array<Track> = [{ fr: 1 }, "auto"]
+// The lines and the table scrolling in the room there is.
+const PAGE: Array<Track> = [{ fr: 1 }]
 const LINE: Array<Track> = [32 * PX, { fr: 1 }, "auto", "auto"]
 const LINE_PAD: Edges = { top: 4 * PX, bottom: 4 * PX }
 const STEP = 24 * PX
 const SLOT = 32 * PX
 const NEED: Array<Track> = [28 * PX, { fr: 1 }, 70 * PX, 70 * PX, 90 * PX]
 const NEED_PAD: Edges = { top: 3 * PX, right: 6 * PX, bottom: 3 * PX }
-const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
-const FOOT_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
-const FOOT_PAD: Edges = { top: 8 * PX }
 const SHORT: Color = Color.hex("#ff6a5a")
 
 // A queued recipe as its line draws it, with its count still to make.
@@ -129,7 +125,7 @@ public class QueueRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={LINE} gap={10 * PX} yAlign={Align.Center} padding={LINE_PAD} border={self.rule}>
+      <box columns={LINE} gap={space(.Item)} yAlign={Align.Center} padding={LINE_PAD} border={self.rule}>
         <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
         <box @click={self.onOpen}>
           <text value={self.line.name} textColor={self.color} textShadow={Style.SHADOW}
@@ -155,7 +151,7 @@ public class NeedRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={NEED} gap={6 * PX} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
+      <box columns={NEED} gap={space(.Item)} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
         <box width={28 * PX} height={28 * PX} border={Style.BRONZE} icon={self.icon} />
         <text value={self.need.name} textColor={Style.INK} wrap={false} />
         <box xAlign={Align.End}>
@@ -183,43 +179,30 @@ public class QueuePage implements Component {
   derived lines: Array<QueueLine> = linesOf(self.queued, Game.tradeSkill.recipes, Game.professions.list)
   derived needs: Array<Need> = needsOf(self.lines)
   derived empty: Boolean = self.lines.length == 0
-  derived waiting: Boolean = !self.ready
 
   queued: Signal<Array<Queued>>
-  status: Signal<String>
-  ready: Signal<Boolean>
   constructor(
     // The queue, every profession's, in the order it runs.
     queued: Signal<Array<Queued>>,
-    // What the queue is doing, or why it waits.
-    status: Signal<String>,
-    // Whether «Create next» starts the next run: no run goes, a line waits, no fight.
-    ready: Signal<Boolean>,
   ) {
     self.queued = queued
-    self.status = status
-    self.ready = ready
   }
 
   onAct(self, act: QueueAct, id: Integer) { self.act.emit(act, id) }
   onCounted(self, recipe: Integer, count: Integer) { self.counted.emit(recipe, count) }
-  // From the player's click: the client starts a craft from nothing else.
-  onNext(self) { self.act.emit(QueueAct.Next, 0) }
 
   public render(self): Template {
     return $ltml {
-      <box padding={PAD} border={FRAME} background={BACK} rows={PAGE} gap={10 * PX}>
-        <box $if={self.empty} padding={10 * PX}>
-          <text value={Locale.QUEUE_EMPTY} textSize={.Secondary} textColor={Style.DIM} />
-        </box>
+      <box padding={space(.Panel)} border={FRAME} background={BACK} rows={PAGE}>
+        <text $if={self.empty} value={Locale.QUEUE_EMPTY} textSize={.Secondary} textColor={Style.DIM} />
         <$else>
-          <box overflow={Overflow.Scroll} gap={10 * PX}>
+          <box overflow={Overflow.Scroll} gap={space(.Group)}>
             <box columns={1}>
               <QueueRow $for={index, line of self.lines} $key={line.recipe} line={line} index={index}
                         @act={self.onAct} @counted={self.onCounted} />
             </box>
             <box columns={1}>
-              <box columns={NEED} gap={6 * PX} padding={NEED_PAD}>
+              <box columns={NEED} gap={space(.Item)} padding={NEED_PAD}>
                 <box />
                 <box />
                 <box xAlign={Align.End}>
@@ -234,10 +217,6 @@ public class QueuePage implements Component {
               </box>
               <NeedRow $for={need of self.needs} $key={need.name} need={need} />
             </box>
-          </box>
-          <box columns={FOOT} gap={10 * PX} yAlign={Align.Center} padding={FOOT_PAD} border={FOOT_RULE}>
-            <text value={self.status} textSize={.Secondary} textColor={Style.INK} />
-            <PushButton label={Locale.QUEUE_NEXT_BUTTON} width={180 * PX} disabled={self.waiting} @click={self.onNext} />
           </box>
         </>
       </box>

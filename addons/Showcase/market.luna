@@ -1,7 +1,7 @@
 // The market's controls on a page, for the run tests: a scan's progress, a price with its age, a mode, a tree, item
 // slots and a sortable table of sales.
 import { Align, Click, MouseButton, Track } from "$ltml"
-import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, ToolPick, Toolbar, TreeRow, tracksOf } from "Ordaen"
+import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, space, Table, TableRow, ToolPick, Toolbar, TreeRow, tracksOf } from "Ordaen"
 import root Ordaen from "Ordaen"
 
 public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
@@ -100,13 +100,13 @@ public class Market implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={14}>
+      <box columns={1} gap={space(.Group)}>
         <Section title={"Market"}>
           <SettingRow label={"Scan"}>
             <ProgressBar fraction={self.scanned} label={"Scanning"} />
           </SettingRow>
           <SettingRow label={"Price"}>
-            <box columns={["auto", "auto"]} gap={8}>
+            <box columns={["auto", "auto"]} gap={space(.Item)}>
               <Money amount={self.price} />
               <Age seconds={self.seen} />
             </box>
@@ -119,7 +119,7 @@ public class Market implements Component {
             <Segmented value={mut self.worth} choices={WORTHS} />
           </SettingRow>
           <SettingRow label={"Bought"}>
-            <box columns={["auto", "auto", "auto"]} gap={8}>
+            <box columns={["auto", "auto", "auto"]} gap={space(.Item)}>
               <ItemButton item={6948} count={5} quality={Quality.Rare} markers={FLAGS} @pick={self.onItem} />
               <ItemButton item={2589} count={20} quality={Quality.Epic} @pick={self.onItem} />
               <ItemButton item={nil} />

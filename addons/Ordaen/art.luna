@@ -2,12 +2,6 @@
 // chooses. What the player chooses of the look (fonts, colours, a bar's fill) is Ordaen's settings (look.luna).
 import { Art, Corners, Curves, Line, Metal, Piece, Radius, Reach, Side } from "$ltml"
 
-public struct Spacing {
-  sm: Number
-  md: Number
-  lg: Number
-}
-
 // The art, by what it is for.
 public struct ArtFrame {
   // A window's or a small surface's metal on all four sides: windows, dialogs, tooltips, the minimap.
@@ -115,7 +109,6 @@ public struct ArtMinimap {
 }
 
 public struct Artwork {
-  spacing: Spacing
   frame: ArtFrame
   window: ArtWindow
   ctl: ArtControls
@@ -138,7 +131,6 @@ const WOOD: Piece = { file: "@/media/window-wood.tga", width: 512, height: 512, 
 
 // Ordaen's art: its measures, and its pictures from this addon's `media` and the client.
 public const ARTWORK: Artwork = {
-  spacing: { sm: 4, md: 8, lg: 16 },
   frame: {
     small: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, curves: CURVES, lineStart: 10 },
     tab: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },

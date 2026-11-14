@@ -1,8 +1,8 @@
 // «Items»: a search across every character: per item the total and each holder by place. An item's name is the game's,
 // asked once per item the first time a search needs it and kept while the tab shows.
 import Game from "$game"
-import { Align, Overflow, Track } from "$ltml"
-import { Component, ItemButton, ItemId, PX } from "Ordaen"
+import { Align, Edges, Overflow, Track } from "$ltml"
+import { Component, ItemButton, ItemId, PX, space } from "Ordaen"
 import { Held, Place } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
@@ -11,6 +11,8 @@ import Style from "@/style"
 // The most items listed: a search narrows to them.
 const MOST = 50
 const ROW: Array<Track> = [44 * PX, { fr: 2 }, { fr: 5 }]
+// The search's letters an item's step in from its sides.
+const FIELD_PAD: Edges = { left: space(.Item), right: space(.Item) }
 
 // One item as a row shows it.
 public struct Entry {
@@ -96,14 +98,14 @@ public class Holdings implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={10 * PX}>
+      <box columns={1} gap={space(.Group)}>
         <box height={30 * PX} rows={[{ fr: 1 }]}>
-          <input value={mut self.search} padding={{ left: 10 * PX, right: 10 * PX }}
+          <input value={mut self.search} padding={FIELD_PAD}
                  textColor={Style.INK} background={Color.hex("#00000080")} />
         </box>
         <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={.Secondary} textColor={Style.DIM} />
         <box overflow={Overflow.Scroll}>
-          <box $for={entry of self.entries} $key={entry.id} columns={ROW} gap={8 * PX} yAlign={Align.Center}
+          <box $for={entry of self.entries} $key={entry.id} columns={ROW} gap={space(.Item)} yAlign={Align.Center}
                padding={{ top: 3 * PX, bottom: 3 * PX }}>
             <ItemButton item={entry.id} count={entry.total} />
             <text value={entry.name} textColor={Style.INK} />

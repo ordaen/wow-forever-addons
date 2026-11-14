@@ -1,10 +1,11 @@
-// The house window's status line, over every page: the house's name; how old the prices are and how many items they
-// cover, or that a first scan is wanted; a full scan's progress, or the server awaited; when the next full scan may
-// go, or «Scan» once it may; the full scan's last fault, in red.
+// The house window's status, in its footer under every page, small and dim (none of it is what the page is about):
+// how old the prices are and how many items they cover, or that a first scan is wanted; a full scan's progress, or
+// the server awaited; the full scan's last fault, in red; and at the right when the next full scan may go, or «Scan»
+// once it may. The realm isn't named: the player knows it, and the prices are kept per realm all the same.
 import Debug from "$debug"
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Component, ProgressBar, PushButton, PX } from "Ordaen"
+import { Component, ProgressBar, PushButton, PX, space } from "Ordaen"
 import Locale from "@/locales"
 import { serverSeconds } from "@/quote"
 import { Scanner } from "@/scan"
@@ -12,7 +13,6 @@ import Style from "@/style"
 import { agoText, itemsText, leftText } from "@/style"
 
 const COLUMNS: Array<Track> = [{ fr: 1 }, "auto"]
-const FIRST: Array<Track> = ["auto", { fr: 1 }]
 
 public class Status implements Component {
   // The server's time, read again once a second while the line shows: what counts down follows it.
@@ -30,19 +30,16 @@ public class Status implements Component {
   derived faultText: String = Locale.FAULT.format(self.fault ?? "")
   derived percent: String = Locale.SCANNING.format((self.scanner.progress * 100).floor())
 
-  const house: String
   items: Signal<Integer>
   lastFull: Signal<Integer>
   scanner: mut Scanner
   constructor(
-    house: String,
     // How many items the house's prices cover.
     items: Signal<Integer>,
     // The server's time of the account's last full scan; 0 for none.
     lastFull: Signal<Integer>,
     scanner: mut Scanner,
   ) {
-    self.house = house
     self.items = items
     self.lastFull = lastFull
     self.scanner = scanner
@@ -59,16 +56,13 @@ public class Status implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={COLUMNS} gap={Style.GAP} yAlign={Align.Center} border={Style.RULE} padding={{ bottom: 6 * PX }}>
-        <box columns={FIRST} gap={Style.GAP} yAlign={Align.Center}>
-          <text value={self.house} textColor={Style.GOLD} wrap={false} />
-          <box $if={self.scanner.reading}>
-            <ProgressBar fraction={self.scanner.progress} label={self.percent} />
-          </box>
-          <text $elseif={self.waiting} value={Locale.WAITING} textColor={Style.AMBER} />
-          <text $elseif={self.fault != nil} value={self.faultText} textColor={Style.RED} />
-          <text $else value={self.prices} textColor={Style.INK} />
+      <box columns={COLUMNS} gap={space(.Group)} yAlign={Align.Center}>
+        <box $if={self.scanner.reading}>
+          <ProgressBar fraction={self.scanner.progress} label={self.percent} />
         </box>
+        <text $elseif={self.waiting} value={Locale.WAITING} textColor={Style.AMBER} textSize={.Secondary} />
+        <text $elseif={self.fault != nil} value={self.faultText} textColor={Style.RED} textSize={.Secondary} />
+        <text $else value={self.prices} textColor={Style.DIM} textSize={.Secondary} />
         <text $if={self.wait > 0} value={self.next} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
         <PushButton $else label={Locale.SCAN} width={130 * PX} disabled={self.scanner.reading || self.waiting}
                     @click={self.onScan} />

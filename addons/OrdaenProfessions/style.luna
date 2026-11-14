@@ -9,7 +9,6 @@ public const WIDTH: Number = 1060 * PX
 public const HEIGHT: Number = 700 * PX
 public const LEFT: Number = 530 * PX
 public const CATEGORIES: Number = 250 * PX
-public const GAP: Number = 12 * PX
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")

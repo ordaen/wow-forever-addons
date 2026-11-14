@@ -1,7 +1,8 @@
 -- the cursor over the window: the group's plates, settings first, then full screen and close
 surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
   box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    text 622.75,343.04 359.5x15 "the page" #ffffff
+    box 612.75,331.38 379.5x276.75
+      text 632.75,351.38 339.5x15 "the page" #ffffff
     box 916.08,330.46 77.5x26.67 absolute clipped
       box 916.08,330.46 29.17x26.67 absolute clipped @click
         box 916.08,330.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

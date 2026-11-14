@@ -3,15 +3,19 @@
 // on the screen at first; dragging a tab moves it, Escape closes it, the grip in its bottom right corner
 // resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
 // the window: one group of plates, settings where the window is made `withSettings` (its `settings` event), full
-// screen (and back) and close. Its unnamed slot takes the body's content, which fills the body. A window made `full`
-// opens full screen; full screen, it keeps `room` clear at the screen's right side, where the windows docked there
-// stand. A window made `docked` stands along that side of the screen from its top to its bottom, as wide as its
-// placing says: it isn't moved or resized, and its full-screen toggle still covers the screen.
+// screen (and back) and close. Its unnamed slot takes the body's content, which fills the body. Its `footer`, where
+// it is given one, is the footer row: the window's action groups, its secondary actions and what isn't important
+// (counts, how long ago, in small dim text) standing on the body's bottom line under the content; the template lays
+// its groups out with the ladder's steps. Its `side`, where it is given one, is a section of its own at the body's
+// right, the full height beside the main one. A window made `full` opens full screen; full screen, it keeps `room`
+// clear at the screen's right side, where the windows docked there stand. A window made `docked` stands along that
+// side of the screen from its top to its bottom, as wide as its placing says: it isn't moved or resized, and its
+// full-screen toggle still covers the screen.
 import { Align, Art, Docked, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
-import { PX } from "@/units"
+import { PX, space } from "@/units"
 
 // One of a window's tabs: its name, a second line under it, a picture at its left end.
 public struct WindowTabSpec {
@@ -40,9 +44,14 @@ const WHITE: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000cc"), x: 1 * PX, y: -1 * PX }
 const LABEL_PAD = 10 * PX
 const MIN_TAB = 120 * PX
-// The body's wood inside the metal, and the room its content keeps.
+// The body's wood inside the metal, and the room each of its sections keeps: the ladder's `Window` step from the line
+// on every side; with a footer, the footer stands on the bottom line, the ladder's `Panel` step above it, and keeps a
+// `Group` step from the content over it.
 const INSET = 3 * PX
-const PADDING: Edges = { top: 14 * PX + INSET, right: 12 * PX + INSET, bottom: 12 * PX + INSET, left: 12 * PX + INSET }
+const ROOM: Number = space(.Window) + INSET
+const PADDING: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Window), left: space(.Window) }
+const PADDING_FOOTED: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Panel), left: space(.Window) }
+const FOOTER_PAD: Edges = { top: space(.Group) }
 // The corner's group in the body's top right (the design's `CTRLS`): its controls from its left, each one kind of
 // plate with its glyph. How far from the body's line the group stands, and how high it is with its rim.
 public enum CornerControl { Settings = "settings", Full = "full", Close = "close" }
@@ -80,10 +89,21 @@ const function plateLeft(index: Integer, count: Integer): Number {
 // the right (a bar across the window) ends this much short, and the group never lies over it.
 public const function cornerRoom(withSettings: Boolean): Number {
   const count = cornerControls(withSettings).length
-  return CORNER_RIGHT + plateLeft(count + 1, count) + 6 * PX - (12 * PX + INSET)
+  return CORNER_RIGHT + plateLeft(count + 1, count) + space(.Item) - ROOM
 }
-// One row as high as the box: what stands in it fills it.
+// The main section's content takes what its footer's row leaves; the body's one row is as high as the body.
+const MAIN_ROWS: Array<Track> = [{ fr: 1 }, "auto"]
 const BODY_ROWS: Array<Track> = [{ fr: 1 }]
+const ONE: Array<Track> = [{ fr: 1 }]
+
+// A window's side section: a column at the body's right, running from its top line to its bottom one, the frame's
+// line between it and the main section (as the trainer's card beside its list). It shares neither the main section's
+// head nor its footer: it lays out its own top and bottom.
+public struct WindowSide {
+  // How wide its content is: the section adds its room on both sides and the frame's line.
+  width: Number
+  content: Template
+}
 // The smallest body unless the window names one: room for the tab row and a few lines.
 const MIN_W = 320 * PX
 const MIN_H = 200 * PX
@@ -279,6 +299,16 @@ public class Window implements Component {
   const controls: Array<CornerControl>
   const cornerWidth: Number
   shown: Signal<Boolean>
+  // The footer row, and the body's room with it or without.
+  const footer: Template
+  const footed: Boolean
+  const padding: Edges
+  // The side section while there is one (it may come and go: a row picked), and the body's columns with it or without.
+  side: Signal<WindowSide | nil>
+  derived sided: Boolean = self.side != nil
+  derived sideContent: Template = self.side?.content ?? self.nothing
+  derived bodyColumns: Array<Track> = self.columnsOf()
+  const nothing: Template = $ltml {}
   const docked: Side | nil
   room: Signal<Number>
   constructor(
@@ -300,7 +330,15 @@ public class Window implements Component {
     docked: Side | nil = nil,
     // The width kept clear at the screen's right side while full screen: the windows docked there.
     room: Signal<Number> = 0,
+    // The footer row's groups on the body's bottom line: none where it is left out.
+    footer: Template | nil = nil,
+    // The side section at the body's right, the full height beside the main one: none where it is left out.
+    side: Signal<WindowSide | nil> = nil,
   ) {
+    self.footer = footer ?? $ltml {}
+    self.footed = footer != nil
+    self.padding = footer != nil ? PADDING_FOOTED : PADDING
+    self.side = side
     self.full = full
     self.docked = docked
     self.room = room
@@ -314,6 +352,13 @@ public class Window implements Component {
     self.minHeight = minHeight
     self.maxWidth = maxWidth
     self.maxHeight = maxHeight
+  }
+
+  columnsOf(self): Array<Track> {
+    const side = self.side
+    if (side == nil) { return ONE }
+    const line = Ordaen.art.frame.tabIconLine
+    return [{ fr: 1 }, side.width + 2 * space(.Window) + line.width + line.reach.left * line.scale]
   }
 
   tabHeightOf(self): Number {
@@ -397,9 +442,18 @@ public class Window implements Component {
                raise={true} xAlign={Align.Start} focusLine={self.focusLine}
                @escape={self.onClose}>
         <box position={Position.Absolute} left={0} right={self.inset} top={self.tabHeight} bottom={0}
-             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PADDING}
-             rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>
-          <slot />
+             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={INSET}
+             columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true}
+             @enter={self.onEnter} @leave={self.onLeave}>
+          <box rows={MAIN_ROWS} padding={self.padding}>
+            <slot />
+            <box $if={self.footed} padding={FOOTER_PAD}>
+              {self.footer}
+            </box>
+          </box>
+          <box $if={self.sided} border={Ordaen.art.frame.tabIconLine} rows={ONE} padding={self.padding}>
+            {self.sideContent}
+          </box>
           <box $if={self.hovered} position={Position.Absolute} top={CORNER_TOP} right={CORNER_RIGHT}
                width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>
             <CornerPlate $for={index, control of self.controls} control={control} index={index}

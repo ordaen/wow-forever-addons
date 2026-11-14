@@ -3,8 +3,15 @@ box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 622.75,348.88 359.5x255.08
-      text 622.75,348.88 359.5x15 "the first tab's page" #ffffff
+    box 612.75,337.21 379.5x276.75
+      box 632.75,357.21 339.5x198.42
+        text 632.75,357.21 339.5x15 "the first tab's page" #ffffff
+      box 632.75,555.62 339.5x45
+        box 632.75,572.29 339.5x28.33
+          text 632.75,579.96 222.83x13 "saved 0 times" #a3977f
+          box 872.25,572.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 872.25,572.29 100x28.33 absolute
+              text 909.75,578.96 25x15 "Save" #ffd100
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 600,275.54 279.33x59.42
     box 600,275.54 154.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -22,8 +29,15 @@ box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 622.75,348.88 359.5x255.08
-      text 622.75,348.88 359.5x15 "the second tab's page" #ffffff
+    box 612.75,337.21 379.5x276.75
+      box 632.75,357.21 339.5x198.42
+        text 632.75,357.21 339.5x15 "the second tab's page" #ffffff
+      box 632.75,555.62 339.5x45
+        box 632.75,572.29 339.5x28.33
+          text 632.75,579.96 222.83x13 "saved 0 times" #a3977f
+          box 872.25,572.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 872.25,572.29 100x28.33 absolute
+              text 909.75,578.96 25x15 "Save" #ffd100
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 600,275.54 279.33x59.42
     box 600,275.54 154.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -41,8 +55,15 @@ box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 662.75,378.88 359.5x255.08
-      text 662.75,378.88 359.5x15 "the second tab's page" #ffffff
+    box 652.75,367.21 379.5x276.75
+      box 672.75,387.21 339.5x198.42
+        text 672.75,387.21 339.5x15 "the second tab's page" #ffffff
+      box 672.75,585.62 339.5x45
+        box 672.75,602.29 339.5x28.33
+          text 672.75,609.96 222.83x13 "saved 0 times" #a3977f
+          box 912.25,602.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 912.25,602.29 100x28.33 absolute
+              text 949.75,608.96 25x15 "Save" #ffd100
     box 1022.75,634.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 640,305.54 279.33x59.42
     box 640,305.54 154.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -60,8 +81,15 @@ box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 662.75,378.88 359.5x255.08
-      text 662.75,378.88 359.5x15 "the second tab's page" #ffffff
+    box 652.75,367.21 379.5x276.75
+      box 672.75,387.21 339.5x198.42
+        text 672.75,387.21 339.5x15 "the second tab's page" #ffffff
+      box 672.75,585.62 339.5x45
+        box 672.75,602.29 339.5x28.33
+          text 672.75,609.96 222.83x13 "saved 0 times" #a3977f
+          box 912.25,602.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 912.25,602.29 100x28.33 absolute
+              text 949.75,608.96 25x15 "Save" #ffd100
     box 956.08,366.29 77.5x26.67 absolute clipped
       box 956.08,366.29 29.17x26.67 absolute clipped @click
         box 956.08,366.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -89,8 +117,15 @@ box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 662.75,378.88 359.5x255.08
-      text 662.75,378.88 359.5x15 "the second tab's page" #ffffff
+    box 652.75,367.21 379.5x276.75
+      box 672.75,387.21 339.5x198.42
+        text 672.75,387.21 339.5x15 "the second tab's page" #ffffff
+      box 672.75,585.62 339.5x45
+        box 672.75,602.29 339.5x28.33
+          text 672.75,609.96 222.83x13 "saved 0 times" #a3977f
+          box 912.25,602.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 912.25,602.29 100x28.33 absolute
+              text 949.75,608.96 25x15 "Save" #ffd100
     box 956.08,366.29 77.5x26.67 absolute clipped
       box 956.08,366.29 29.17x26.67 absolute clipped @click
         box 956.08,366.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -118,8 +153,15 @@ box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 0,0 1600x900 on DIALOG clamped raised by a click
   box 0,48.92 1600x851.08 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 22.75,73.33 1559.5x806.17
-      text 22.75,73.33 1559.5x15 "the second tab's page" #ffffff
+    box 12.75,61.67 1579.5x827.83
+      box 32.75,81.67 1539.5x749.5
+        text 32.75,81.67 1539.5x15 "the second tab's page" #ffffff
+      box 32.75,831.17 1539.5x45
+        box 32.75,847.83 1539.5x28.33
+          text 32.75,855.5 1422.83x13 "saved 0 times" #a3977f
+          box 1472.25,847.83 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 1472.25,847.83 100x28.33 absolute
+              text 1509.75,854.5 25x15 "Save" #ffd100
     box 1516.08,60.75 77.5x26.67 absolute clipped
       box 1516.08,60.75 29.17x26.67 absolute clipped @click
         box 1516.08,60.75 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -146,8 +188,15 @@ box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 662.75,378.88 359.5x255.08
-      text 662.75,378.88 359.5x15 "the second tab's page" #ffffff
+    box 652.75,367.21 379.5x276.75
+      box 672.75,387.21 339.5x198.42
+        text 672.75,387.21 339.5x15 "the second tab's page" #ffffff
+      box 672.75,585.62 339.5x45
+        box 672.75,602.29 339.5x28.33
+          text 672.75,609.96 222.83x13 "saved 0 times" #a3977f
+          box 912.25,602.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 912.25,602.29 100x28.33 absolute
+              text 949.75,608.96 25x15 "Save" #ffd100
     box 956.08,366.29 77.5x26.67 absolute clipped
       box 956.08,366.29 29.17x26.67 absolute clipped @click
         box 956.08,366.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -175,8 +224,15 @@ box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
   box 640,354.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 662.75,378.88 359.5x255.08
-      text 662.75,378.88 359.5x15 "the second tab's page" #ffffff
+    box 652.75,367.21 379.5x276.75
+      box 672.75,387.21 339.5x198.42
+        text 672.75,387.21 339.5x15 "the second tab's page" #ffffff
+      box 672.75,585.62 339.5x45
+        box 672.75,602.29 339.5x28.33
+          text 672.75,609.96 222.83x13 "saved 0 times" #a3977f
+          box 912.25,602.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 912.25,602.29 100x28.33 absolute
+              text 949.75,608.96 25x15 "Save" #ffd100
     box 1022.75,634.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 640,305.54 279.33x59.42
     box 640,305.54 154.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -194,8 +250,15 @@ box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 460x368.92 on DIALOG clamped raised by a click
   box 640,354.46 460x320 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 662.75,378.88 419.5x275.08
-      text 662.75,378.88 419.5x15 "the second tab's page" #ffffff
+    box 652.75,367.21 439.5x296.75
+      box 672.75,387.21 399.5x218.42
+        text 672.75,387.21 399.5x15 "the second tab's page" #ffffff
+      box 672.75,605.62 399.5x45
+        box 672.75,622.29 399.5x28.33
+          text 672.75,629.96 282.83x13 "saved 0 times" #a3977f
+          box 972.25,622.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 972.25,622.29 100x28.33 absolute
+              text 1009.75,628.96 25x15 "Save" #ffd100
     box 1016.08,366.29 77.5x26.67 absolute clipped
       box 1016.08,366.29 29.17x26.67 absolute clipped @click
         box 1016.08,366.29 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -223,8 +286,15 @@ box 0,0 300x23
   text 4,4 292x15 "a page under the window" #ffffff
 surface 640,305.54 600x215.58 on DIALOG clamped raised by a click
   box 640,354.46 600x166.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 662.75,378.88 559.5x121.75
-      text 662.75,378.88 559.5x15 "the second tab's page" #ffffff
+    box 652.75,367.21 579.5x143.42
+      box 672.75,387.21 539.5x65.08
+        text 672.75,387.21 539.5x15 "the second tab's page" #ffffff
+      box 672.75,452.29 539.5x45
+        box 672.75,468.96 539.5x28.33
+          text 672.75,476.63 422.83x13 "saved 0 times" #a3977f
+          box 1112.25,468.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 1112.25,468.96 100x28.33 absolute
+              text 1149.75,475.63 25x15 "Save" #ffd100
     box 1222.75,501.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 640,305.54 279.33x59.42
     box 640,305.54 154.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop

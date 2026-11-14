@@ -9,7 +9,7 @@
 import { Align, Art, Click, Edges, Line, Overflow, Position, Side, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { PX } from "@/units"
+import { PX, space } from "@/units"
 
 // A column: its heading, its width, where its heading and its cells stand, and whether a heading click sorts by it.
 public struct Column {
@@ -27,9 +27,9 @@ const LIGHT: Color = Color.hex("#d6a56b")
 const CLEAR: Color = Color.hex("#00000000")
 const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000033") }
 const BACK: Color = Color.hex("#00000040")
-const PADDING: Edges = { top: 6 * PX, bottom: 6 * PX }
-const ROW_PADDING: Edges = { top: 4 * PX, right: 8 * PX, bottom: 4 * PX, left: 8 * PX }
-const SIDES: Edges = { left: 8 * PX, right: 8 * PX }
+const PADDING: Edges = { top: space(.Item), bottom: space(.Item) }
+const ROW_PADDING: Edges = { top: 4 * PX, right: space(.Item), bottom: 4 * PX, left: space(.Item) }
+const SIDES: Edges = { left: space(.Item), right: space(.Item) }
 const HEAD: Array<Track> = ["auto", "auto"]
 // The headings, and the body in what is left of a height the table is given.
 const PARTS: Array<Track> = ["auto", { fr: 1 }]
@@ -127,7 +127,7 @@ public class TableRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.tracks} gap={8 * PX} padding={ROW_PADDING} yAlign={Align.Center} background={self.background}
+      <box columns={self.tracks} gap={space(.Item)} padding={ROW_PADDING} yAlign={Align.Center} background={self.background}
            @click={self.onClick}>
         <slot />
       </box>
@@ -164,7 +164,7 @@ public class Table implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} rows={PARTS}>
-        <box columns={self.tracks} gap={8 * PX} padding={SIDES} background={BACK} border={RULE}>
+        <box columns={self.tracks} gap={space(.Item)} padding={SIDES} background={BACK} border={RULE}>
           <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
                    descending={mut self.descending} />
         </box>

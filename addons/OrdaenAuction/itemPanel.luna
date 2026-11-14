@@ -1,11 +1,10 @@
-// The item panel (design `auction`): what opens at a page's right when the player picks an item, on «Buy» and on «Sell»
+// The item panel (design `auction`): the window's side section while the player has picked an item, on «Buy» and on «Sell»
 // alike: one layout. The item (its slot, its name in its quality's colour, a detail under it); its price's trend, a
 // chart of the day (a bar an hour), the week or the month (a bar a day), the player's pick; its prices (the market with
 // its age, the lowest listed, the merchant's); then what the page does with it (its slot: «Buy»'s listings and «Buy»,
 // «Sell»'s quantity and «Post»), in the rest of the panel's height.
-import { Age, Choice, Component, Copper, Hour, ItemButton, ItemId, Money, PX, Segmented } from "Ordaen"
+import { Age, Choice, Component, Copper, Hour, ItemButton, ItemId, Money, PX, Segmented, space } from "Ordaen"
 import { Align, Track } from "$ltml"
-import root Ordaen from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import Locale from "@/locales"
@@ -111,14 +110,14 @@ class PriceChart implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box gap={Style.ROW_GAP}>
+      <box gap={space(.Item)}>
         <Segmented value={mut self.span} choices={SPANS} />
         <box $if={self.priced} gap={4 * PX}>
           <box columns={self.columns} gap={1 * PX} height={CHART_HEIGHT} yAlign={Align.End} background={CHART_BACK}>
             <box $for={bar of self.bars} height={bar.height}
                  background={bar.color} />
           </box>
-          <box columns={ENDS} gap={Style.ROW_GAP} yAlign={Align.Center}>
+          <box columns={ENDS} gap={space(.Item)} yAlign={Align.Center}>
             <Money amount={self.low} />
             <box />
             <Money amount={self.high} />
@@ -187,8 +186,7 @@ public class ItemPanel implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PANEL} gap={Style.GAP} padding={Style.PANEL_PAD} border={Style.FRAME}
-           background={Ordaen.art.window.marble}>
+      <box rows={PANEL} gap={space(.Group)}>
         <box columns={HEAD} gap={10 * PX} yAlign={Align.Center}>
           <ItemButton item={self.item} size={Style.BIG_SLOT} />
           <box gap={2 * PX} overflow={.Hidden}>
@@ -197,7 +195,7 @@ public class ItemPanel implements Component {
           </box>
         </box>
         <PriceChart key={self.key} history={self.history} />
-        <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
+        <box columns={PAIR} gap={space(.Item)} yAlign={Align.Center}>
           <text value={Locale.COLUMN_MARKET} textColor={Style.INK} />
           <box $if={self.market != nil} columns={PRICE} gap={4 * PX} yAlign={Align.Center}>
             <Money amount={self.marketAmount} />
