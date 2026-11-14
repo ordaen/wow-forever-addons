@@ -3,6 +3,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Art, MouseButton } from "$ltml"
+import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Spells from "OrdaenSpells"
@@ -194,8 +195,9 @@ test "the sort and the filter buttons are clicked and the lists follow" {
 
 test "the game's spellbook window opens ours, and one the game makes again does too" {
   Test.mount(nil, PAGE)
-  const first = Client.CreateFrame("Frame", "PlayerSpellsFrame", Client.UIParent, nil)
-  first.Hide()
+  Test.clientFrames()
+  const found = Runtime.frame("PlayerSpellsFrame") ?? panic("the client has its spellbook window")
+  const first: any Client.Frame = found
   Game.frames.PlayerSpells = first
   Test.flush()
   Test.expect(!Spells.open)
