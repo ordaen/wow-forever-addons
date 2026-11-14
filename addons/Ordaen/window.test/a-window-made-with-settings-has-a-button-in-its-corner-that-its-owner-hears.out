@@ -1,0 +1,17 @@
+-- the cursor over the window: the settings glyph stands left of full screen and close
+surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
+  box 600,281.38 400x37.25 absolute @drag @dragStart
+  box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    text 622.75,343.04 359.5x14.4 "the page" #ffffff
+    box 941.08,330.46 52.5x26.67 absolute clipped
+      box 941.08,330.46 29.17x26.67 absolute clipped @click
+        box 941.08,330.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+      box 970.25,330.46 23.33x26.67 absolute clipped @click
+        box 970.25,330.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
+    box 917.75,330.46 23.33x26.67 absolute @click
+      text 925.25,333.79 8.33x20 "☼" #c9a05a
+    box 982.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 600,281.38 114.5x47.75
+    box 600,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
+      box 618.58,291.62 77.33x37.5
+        text 635.38,302.88 43.75x15 "Recipes" #ffd100

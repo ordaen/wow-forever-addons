@@ -221,8 +221,8 @@ public class RecipeTableRow implements Component {
     self.menuFor = menuFor
   }
 
-  // The library's row reports `pick` without saying which button: a box over the row's cells hears the click instead.
-  onClick(self, click: Click) {
+  // The library's row says which button picked it: the left one chooses the recipe, the right one opens its menu.
+  onPick(self, click: Click) {
     self.act.emit(click.button == MouseButton.Right ? Act.Menu : Act.Pick, self.recipe.id)
   }
 
@@ -231,13 +231,11 @@ public class RecipeTableRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1}>
-        <TableRow tracks={self.tracks} selected={self.isChosen}>
+        <TableRow tracks={self.tracks} selected={self.isChosen} @pick={self.onPick}>
           <text value={self.recipe.name} textSize={Style.RECIPE_TEXT} textColor={self.color}
                 textShadow={Style.SHADOW} wrap={false} />
           <text value={self.count} textSize={Style.SMALL} textColor={Style.WHITE} wrap={false}
                 textFamily={Ordaen.lookArt.fontNumbers} />
-          <box position={Position.Absolute} left={0} right={0} top={0} bottom={0} stateFromParent={true}
-               @click={self.onClick} />
         </TableRow>
         <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
       </box>

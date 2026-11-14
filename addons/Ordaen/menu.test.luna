@@ -1,0 +1,96 @@
+// The context menu under a row: a right-click opens it, an entry reports its place, a switch shows its state and stays
+// open while the page flips it, a rule stands above a group, a disabled entry is dim and deaf, and a click outside
+// closes it without reaching what is under it.
+import { Click, MouseButton } from "$ltml"
+import Test from "$test"
+import { Menu, MenuEntry } from "@/menu"
+
+class Rows {
+  public state open = false
+  public state favorite = false
+  public state picked = 0
+  public state closed = 0
+  // Clicks that reached the box beside the row.
+  public state beside = 0
+  public derived entries: Array<MenuEntry> = self.entriesOf()
+
+  entriesOf(self): Array<MenuEntry> {
+    return [
+      { label: "Link in chat" },
+      { label: "Create [0]", disabled: true },
+      { label: "Favorite", on: self.favorite, group: true },
+      { label: "Track", on: false, disabled: true },
+    ]
+  }
+
+  onRow(mut self, click: Click) {
+    if (click.button == MouseButton.Right) { self.open = true }
+  }
+
+  onBeside(mut self) { self.beside += 1 }
+
+  onPick(mut self, index: Integer) {
+    self.picked = index
+    if (index == 3) { self.favorite = !self.favorite } else { self.open = false }
+  }
+
+  onClose(mut self) {
+    self.closed += 1
+    self.open = false
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["auto", "auto"]} gap={40}>
+        <box padding={8} @click={self.onRow}>
+          <text value={"Recipe row"} />
+          <Menu $if={self.open} entries={self.entries} @pick={self.onPick} @close={self.onClose} />
+        </box>
+        <box padding={8} @click={self.onBeside}>
+          <text value={"Beside"} />
+        </box>
+      </box>
+    }
+  }
+}
+
+test "a menu opens under its row, its entries report their place, a switch stays open while it is flipped" {
+  let page = new Rows()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test.click(Test.holding("Recipe row", nil), MouseButton.Right)
+  Test.expect(page.open)
+  Test.shot("opened by a right-click: four lines, a rule above the switches, the second line and the second switch dim")
+
+  Test.click(Test.holding("Create [0]", nil), nil)
+  Test.expect(page.picked == 0)
+  Test.click(Test.holding("Track", nil), nil)
+  Test.expect(page.picked == 0)
+  Test.expect(page.open)
+
+  Test.click(Test.holding("Favorite", nil), nil)
+  Test.expect(page.picked == 3)
+  Test.expect(page.favorite)
+  Test.expect(page.open)
+  Test.shot("the first switch clicked: it shows on, the menu is still open")
+
+  Test.click(Test.holding("Link in chat", nil), nil)
+  Test.expect(page.picked == 1)
+  Test.expect(!page.open)
+  destroy page
+}
+
+test "a click outside closes the menu and reaches nothing under it" {
+  let page = new Rows()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test.click(Test.holding("Recipe row", nil), MouseButton.Right)
+  Test.expect(page.open)
+
+  Test.click(Test.holding("Beside", nil), nil)
+  Test.expect(page.closed == 1)
+  Test.expect(!page.open)
+  Test.expect(page.beside == 0)
+
+  Test.click(Test.holding("Beside", nil), nil)
+  Test.expect(page.beside == 1)
+  destroy page
+}

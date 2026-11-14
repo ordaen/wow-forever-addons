@@ -7,14 +7,14 @@ import { Component } from "@/module"
 import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
 
-const WIDTH = 38 * PX
-const HEIGHT = 20 * PX
+public const SWITCH_WIDTH: Number = 38 * PX
+public const SWITCH_HEIGHT: Number = 20 * PX
 // The knob's art is a 26 px square, the 14 px knob 6 px in from each side (room for the glow of the one that is
 // on). The knob sits 3 px in from the track's left while off, 21 px while on, and 3 px down.
-const KNOB = 26 * PX
-const KNOB_TOP = (3 - 6) * PX
-const KNOB_OFF = (3 - 6) * PX
-const KNOB_ON = (21 - 6) * PX
+public const SWITCH_KNOB: Number = 26 * PX
+public const KNOB_TOP: Number = (3 - 6) * PX
+public const KNOB_OFF: Number = (3 - 6) * PX
+public const KNOB_ON: Number = (21 - 6) * PX
 
 public class Toggle implements Component {
   derived track: Art = self.value ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff
@@ -37,8 +37,8 @@ public class Toggle implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={WIDTH} height={HEIGHT} background={self.track} @click={self.flip}>
-        <box position={Position.Absolute} left={self.knobLeft} top={KNOB_TOP} width={KNOB} height={KNOB}
+      <box width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track} @click={self.flip}>
+        <box position={Position.Absolute} left={self.knobLeft} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
              background={self.knob} />
       </box>
     }

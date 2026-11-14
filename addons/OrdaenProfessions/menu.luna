@@ -1,30 +1,18 @@
-// A recipe's right-click menu, standing under the row that was clicked: «Create [N]» (the ones the bags can make), a
-// rule, and the recipe's two switches. A click anywhere else closes it.
+// A recipe's right-click menu, the library's `Menu` under the row that was clicked: «Link in chat» (the item the
+// recipe makes; dim for one that makes none), «Create [N]» (the ones the bags can make), then after a rule the recipe's
+// two switches. It says which `Act` the line clicked is and which recipe it is of; the window does it.
 import Game from "$game"
-import { Beside, Edges, Layer, Line, Side, Stated } from "$ltml"
-import { Component, PX } from "Ordaen"
-import { Flag } from "@/flag"
+import { Component, Menu, MenuEntry } from "Ordaen"
 import Locale from "@/locales"
 import { Act, has, Kept } from "@/view"
 
-const WIDTH = 220 * PX
-const BACK: Color = Color.hex("#0a0806f7")
-const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
-const PAD: Edges = { top: 6 * PX, right: 12 * PX, bottom: 8 * PX, left: 12 * PX }
-const ITEM_PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
-const RULE: Line = { width: 1 * PX, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
-const SWITCHES_PAD: Edges = { top: 8 * PX, bottom: 2 * PX }
-const NAME: Stated<Color> = { default: Color.hex("#e8dcc4"), hover: Color.hex("#ffffff") }
-const DIM: Color = Color.hex("#6f6552")
+// What each line asks, by its place in the menu.
+const ACTS: Array<Act> = [Act.Link, Act.Make, Act.Favorite, Act.Track]
 
 public class RecipeMenu implements Component {
   public act: Event<(Act, Integer)> = new Event()
 
-  derived favorite: Boolean = has(self.kept.favorites, self.recipe.id)
-  derived tracked: Boolean = has(self.kept.tracked, self.recipe.id)
-  derived make: String = Locale.MENU_CREATE.format(self.recipe.craftable)
-  derived color: Color | Stated<Color> = self.recipe.craftable > 0 ? NAME : DIM
-  derived cannotTrack: Boolean = !self.recipe.learned
+  derived entries: Array<MenuEntry> = self.entriesOf()
 
   recipe: Signal<Game.Recipe>
   kept: Signal<Kept>
@@ -36,26 +24,25 @@ public class RecipeMenu implements Component {
     self.kept = kept
   }
 
-  onMake(self) {
-    if (self.recipe.craftable > 0) { self.act.emit(Act.Make, self.recipe.id) }
+  entriesOf(self): Array<MenuEntry> {
+    const schematic = Game.recipeReader.schematic(self.recipe.id)
+    return [
+      { label: Locale.MENU_LINK, disabled: schematic == nil || schematic.makes == nil },
+      { label: Locale.MENU_CREATE.format(self.recipe.craftable), disabled: self.recipe.craftable == 0 },
+      { label: Locale.FAVORITE, on: has(self.kept.favorites, self.recipe.id), group: true },
+      { label: Locale.TRACK, on: has(self.kept.tracked, self.recipe.id), disabled: !self.recipe.learned },
+    ]
   }
 
-  onFavorite(self) { self.act.emit(Act.Favorite, self.recipe.id) }
-  onTrack(self) { self.act.emit(Act.Track, self.recipe.id) }
+  onPick(self, index: Integer) {
+    self.act.emit(ACTS[index] ?? panic("a menu line the recipe's menu doesn't have"), self.recipe.id)
+  }
+
   onClose(self) { self.act.emit(Act.Close, self.recipe.id) }
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
-               border={EDGE} padding={PAD} columns={1} @clickOutside={self.onClose}>
-        <box padding={ITEM_PAD} @click={self.onMake}>
-          <text value={self.make} textColor={self.color} textSize={14 * PX} wrap={false} stateFromParent={true} />
-        </box>
-        <box columns={1} gap={8 * PX} padding={SWITCHES_PAD} border={RULE}>
-          <Flag label={Locale.FAVORITE} on={self.favorite} @flipped={self.onFavorite} />
-          <Flag label={Locale.TRACK} on={self.tracked} disabled={self.cannotTrack} @flipped={self.onTrack} />
-        </box>
-      </surface>
+      <Menu entries={self.entries} @pick={self.onPick} @close={self.onClose} />
     }
   }
 }

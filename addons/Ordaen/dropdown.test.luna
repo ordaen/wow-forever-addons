@@ -1,0 +1,56 @@
+// The compact dropdown: the bronze plate alone in a tool row. Left-click opens its list under it, a choice picks and
+// closes it, a click anywhere else closes it and reaches nothing under it, a choice that isn't built yet is dim and deaf.
+import Test from "$test"
+import { Choice, CompactDropdown } from "@/dropdown"
+
+enum Order { Difficulty = "difficulty", Name = "name", Price = "price" }
+
+const ORDERS: Array<Choice<Order>> = [
+  { value: Order.Difficulty, label: "By difficulty" },
+  { value: Order.Name, label: "By name" },
+  { value: Order.Price, label: "By price", soon: true },
+]
+
+class Tools {
+  public state order: Order = Order.Difficulty
+  // Clicks that reached the box beside the plate.
+  public state beside = 0
+
+  onBeside(mut self) { self.beside += 1 }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={["auto", "auto"]} gap={40}>
+        <CompactDropdown value={mut self.order} choices={ORDERS} width={170} />
+        <box padding={8} @click={self.onBeside}>
+          <text value={"Beside"} />
+        </box>
+      </box>
+    }
+  }
+}
+
+test "the compact dropdown opens its list, picks a choice and closes, a click outside closes it alone" {
+  let page = new Tools()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test.shot("closed: the plate with the picked choice in gold")
+
+  Test.click(Test.holding("By difficulty", nil), nil)
+  Test.shot("opened: the three choices under the plate, the picked one's mark lit, the third dim with its note")
+
+  Test.click(Test.holding("By price — in development", nil), nil)
+  Test.expect(page.order == Order.Difficulty)
+
+  Test.click(Test.holding("By name", nil), nil)
+  Test.expect(page.order == Order.Name)
+  Test.shot("a choice clicked: it is the plate's now, the list closed")
+
+  Test.click(Test.holding("By name", nil), nil)
+  Test.click(Test.holding("Beside", nil), nil)
+  Test.expect(page.beside == 0)
+  Test.expect(page.order == Order.Name)
+  Test.click(Test.holding("Beside", nil), nil)
+  Test.expect(page.beside == 1)
+  destroy page
+  Test.expect(Test.blank())
+}

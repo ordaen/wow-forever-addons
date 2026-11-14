@@ -1,5 +1,5 @@
 -- the third tab clicked: the market's rows, the sales table under them
-box 0,0 700x538.1 @enter @leave
+box 0,0 700x667.83 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 42.08x25.83 #00000000 @click
@@ -9,8 +9,8 @@ box 0,0 700x538.1 @enter @leave
     box 109.58,0 62.5x26.67 #00000059 @click
       box 110.42,0.83 60.83x1.67 absolute #d6a56b
       text 122.08,6.67 37.5x15 "Market" #ffffff
-  box 0,34.67 700x408.37
-    box 0,34.67 700x408.37
+  box 0,34.67 700x538.1
+    box 0,34.67 700x538.1
       box 0,34.67 700x279.67
         box 0,34.67 700x15
           text 0,34.67 37.5x15 "Market" #e8c35a
@@ -78,44 +78,64 @@ box 0,0 700x538.1 @enter @leave
             text 33.33,296 627.5x15 "Bronze Bar" #e8dcc4
             box 664.17,297 32.5x13
               text 664.17,297 32.5x13 "(2 d.)" #ffb02e
-      box 0,328.33 700x114.7
+      box 0,328.33 700x141.37
         box 0,328.33 700x15
           text 0,328.33 31.25x15 "Sales" #e8c35a
           box 39.58,335.42 660.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-        box 0,355 700x88.03
-          box 0,355 700x24.83 #00000040
-            box 6.67,355 493.33x24 #00000000 @click
-              box 6.67,360 493.33x14
-                text 6.67,360 23.33x14 "Item" #cbb994
-            box 506.67,355 120x24 #00000000 @click
-              box 600,360 26.67x14
-                text 600,360 23.33x14 "Each" #cbb994
-            box 633.33,355 60x24 #00000000 @click
-              box 672.5,360 20.83x14
-                text 672.5,360 17.5x14 "Age" #cbb994
-          box 0,379.83 700x63.2 scrolled 0 of 0
-            box 0,379.83 700x21.07 #00000000 @click
-              text 6.67,383.17 493.33x14.4 "Copper Bar" #ffffff
-              box 506.67,383.37 120x14
-                text 574.17,383.37 52.5x14 "0g 1s 50c" #e8dcc4
-              box 633.33,383.87 60x13
-                text 660.83,383.87 32.5x13 "(3 d.)" #ffb02e
-            box 0,400.9 700x21.07 #00000000 @click
-              text 6.67,404.23 493.33x14.4 "Bronze Axe" #ffffff
-              box 506.67,404.43 120x14
-                text 568.33,404.43 58.33x14 "1g 23s 45c" #e8dcc4
-              box 633.33,404.93 60x13
-                text 660.83,404.93 32.5x13 "(1 d.)" #ffb02e
-            box 0,421.97 700x21.07 #00000000 @click
-              text 6.67,425.3 493.33x14.4 "Arcane Dust" #ffffff
-              box 506.67,425.5 120x14
-                text 574.17,425.5 52.5x14 "0g 0s 40c" #e8dcc4
-              box 633.33,426 60x13
-                text 660.83,426 32.5x13 "(9 d.)" #a3977f
-  text 0,451.03 700x14.4 "zone shown" #ffffff
-  box 0,473.43 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,473.43 120x28.33 absolute
-      text 47.5,480.1 25x15 "Save" #ffd100
-  box 0,509.77 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,509.77 120x28.33 absolute
-      text 44.38,516.43 31.25x15 "Reset" #808080
+        box 0,355 700x15 opacity=1
+          box 0,355 233.33x15 @enter @leave
+            text 0,355 233.33x15 "Last click on a row" #cbb994
+          text 248.33,355.3 451.67x14.4 "none" #ffffff
+        box 0,381.67 700x88.03
+          box 0,381.67 700x24.83 #00000040
+            box 6.67,381.67 493.33x24 #00000000 @click
+              box 6.67,386.67 493.33x14
+                text 6.67,386.67 23.33x14 "Item" #cbb994
+            box 506.67,381.67 120x24 #00000000 @click
+              box 600,386.67 26.67x14
+                text 600,386.67 23.33x14 "Each" #cbb994
+            box 633.33,381.67 60x24 #00000000 @click
+              box 672.5,386.67 20.83x14
+                text 672.5,386.67 17.5x14 "Age" #cbb994
+          box 0,406.5 700x63.2 scrolled 0 of 0
+            box 0,406.5 700x21.07 #00000000 @click
+              text 6.67,409.83 493.33x14.4 "Copper Bar" #ffffff
+              box 506.67,410.03 120x14
+                text 574.17,410.03 52.5x14 "0g 1s 50c" #e8dcc4
+              box 633.33,410.53 60x13
+                text 660.83,410.53 32.5x13 "(3 d.)" #ffb02e
+            box 0,427.57 700x21.07 #00000000 @click
+              text 6.67,430.9 493.33x14.4 "Bronze Axe" #ffffff
+              box 506.67,431.1 120x14
+                text 568.33,431.1 58.33x14 "1g 23s 45c" #e8dcc4
+              box 633.33,431.6 60x13
+                text 660.83,431.6 32.5x13 "(1 d.)" #ffb02e
+            box 0,448.63 700x21.07 #00000000 @click
+              text 6.67,451.97 493.33x14.4 "Arcane Dust" #ffffff
+              box 506.67,452.17 120x14
+                text 574.17,452.17 52.5x14 "0g 0s 40c" #e8dcc4
+              box 633.33,452.67 60x13
+                text 660.83,452.67 32.5x13 "(9 d.)" #a3977f
+      box 0,483.7 700x89.07
+        box 0,483.7 700x15
+          text 0,483.7 31.25x15 "Menus" #e8c35a
+          box 39.58,490.78 660.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+        box 0,510.37 700x28.33 opacity=1
+          box 0,517.03 233.33x15 @enter @leave
+            text 0,517.03 233.33x15 "Compact dropdown" #cbb994
+          box 248.33,510.37 170x28.33
+            box 248.33,510.37 170x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              text 258.33,517.53 135x14 "By difficulty" #f0c860
+              box 398.33,517.87 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+        box 0,550.37 700x22.4 opacity=1
+          box 0,554.07 233.33x15 @enter @leave
+            text 0,554.07 233.33x15 "Context menu" #cbb994
+          box 248.33,550.37 451.67x22.4 @click
+            text 252.33,554.37 443.67x14.4 "Right-click here" #ffffff
+  text 0,580.77 700x14.4 "zone shown" #ffffff
+  box 0,603.17 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,603.17 120x28.33 absolute
+      text 47.5,609.83 25x15 "Save" #ffd100
+  box 0,639.5 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,639.5 120x28.33 absolute
+      text 44.38,646.17 31.25x15 "Reset" #808080

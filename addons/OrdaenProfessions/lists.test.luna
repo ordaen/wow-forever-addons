@@ -391,7 +391,10 @@ test "the ⚙ opens the module's page in the settings window; a setting saved ch
   Test.mount(nil, PAGE)
   Game.tradeSkill.open = TAILORING
   Test.flush()
-  click(Test.holding("Settings", nil))
+  // The window's corner buttons show while the cursor is over it: the settings button is its first.
+  Test.moveTo(Test.holding("Linen Cloak", nil))
+  Test.flush()
+  click(Test.holding("☼", nil))
   Test.expect(Test.holding("Remember the last recipe", nil).y > 0)
   Test.expect(Test.holding("Show recipes you haven't learned", nil).y > 0)
   Test.note("the page's rows are drawn: «Remember the last recipe», «Show recipes you haven't learned»")
@@ -410,12 +413,13 @@ test "the ⚙ opens the module's page in the settings window; a setting saved ch
   Test.expect(Professions.filtered)
 }
 
-test "the right-click menu stands under the recipe: «Create [N]», and its two switches" {
+test "the right-click menu stands under the recipe: its link, «Create [N]» and its two switches" {
   Game.frames.Professions = ownFrame()
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
   Test.mount(nil, PAGE)
   Game.tradeSkill.open = TAILORING
   Test.flush()
@@ -429,6 +433,10 @@ test "the right-click menu stands under the recipe: «Create [N]», and its two 
   rightClick(Test.holding("Linen Cloak", nil))
   Test.expect(Professions.menuFor == 110)
   Test.shot("the menu of Linen Cloak open under its row")
+  click(Test.holding("Link in chat", nil))
+  Test.expect(Professions.menuFor == 0)
+  Test.shot("«Link in chat» clicked: the item Linen Cloak makes is put into the chat, the menu is closed")
+  rightClick(Test.holding("Linen Cloak", nil))
   click(Test.holding("Create [1]", nil))
   Test.expect(Professions.menuFor == 0)
   // A switch of the menu stars the recipe; the menu stays.
@@ -448,4 +456,10 @@ test "the right-click menu stands under the recipe: «Create [N]», and its two 
   Test.expect(Professions.menuFor == 0)
   click(Test.holding("Linen Bag", nil))
   Test.expect(Professions.chosenRecipe == 120)
+  // A recipe that makes no item has no link: the line is dim and takes no click, so nothing is put into the chat.
+  rightClick(Test.holding("Woolen Bag", nil))
+  Test.expect(Professions.menuFor == 121)
+  click(Test.holding("Link in chat", nil))
+  Test.expect(Professions.menuFor == 121)
+  Test.shot("Woolen Bag's menu: «Link in chat» dim and deaf, nothing asked of the chat")
 }

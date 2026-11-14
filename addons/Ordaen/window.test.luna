@@ -20,6 +20,53 @@ class Tabbed {
   }
 }
 
+class Gearbox {
+  state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
+  state opened = 0
+  state closed = 0
+  // Whether the window has the button: a window made without it has none.
+  const withSettings: Boolean
+
+  constructor(withSettings: Boolean) { self.withSettings = withSettings }
+
+  onSettings(mut self) { self.opened += 1 }
+  onClose(mut self) { self.closed += 1 }
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={self.withSettings}
+              @settings={self.onSettings} @close={self.onClose}>
+        <text value={"the page"} />
+      </Window>
+    }
+  }
+}
+
+test "a window made with settings has a button in its corner that its owner hears" {
+  let page = new Gearbox(true)
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test.moveTo(Test.holding("the page", nil))
+  Test.flush()
+  Test.shot("the cursor over the window: the settings glyph stands left of full screen and close")
+  Test.click(Test.holding("☼", nil), nil)
+  Test.expect(page.opened == 1)
+  Test.expect(page.closed == 0)
+  Test.click(Test.holding("☼", nil), nil)
+  Test.expect(page.opened == 2)
+  destroy page
+}
+
+test "a window made without settings has no button" {
+  let page = new Gearbox(false)
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test.moveTo(Test.holding("the page", nil))
+  Test.flush()
+  Test.shot("the cursor over the window: full screen and close alone")
+  destroy page
+}
+
 test "the open tab and the others are cut by their metal's corners" {
   let page = new Tabbed()
   Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })

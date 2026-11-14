@@ -12,16 +12,20 @@ public class Windowed implements Module {
   state tab = 1
   state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
   state open = true
+  // How many times the window's settings button was clicked.
+  state settingsOpened = 0
   derived body: String = self.tab == 1 ? "the first tab's page" : "the second tab's page"
 
   onClose(mut self) { self.open = false }
+  onSettings(mut self) { self.settingsOpened += 1 }
 
   public render(self): Template {
     return $ltml {
       <box padding={4}>
         <text value={"a page under the window"} />
         <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}
-                maxWidth={600} @close={self.onClose}>
+                maxWidth={600} withSettings={true} @close={self.onClose}
+                @settings={self.onSettings}>
           <box>
             <text value={self.body} />
           </box>

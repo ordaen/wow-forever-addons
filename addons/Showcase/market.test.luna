@@ -1,8 +1,9 @@
 // The market's controls on the showcase's page: its third tab holds a row for each, and each follows its cell.
+import { MouseButton } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Showcase } from "@/index"
-import { Market, Worth } from "@/market"
+import { Market, Order, Worth } from "@/market"
 
 test "the third tab of the page holds the market's controls" {
   // The showcase made and added to Ordaen's modules: Ordaen draws it on the screen, which the page is.
@@ -19,7 +20,7 @@ test "the third tab of the page holds the market's controls" {
 
 test "the market holds a row for each of the market's controls, each following its cell" {
   let page = new Market()
-  Test.mount(page, { left: 0, top: 0, width: 700, height: 500 })
+  Test.mount(page, { left: 0, top: 0, width: 700, height: 700 })
   Test.shot("the market as the page shows it: the scan at two fifths, the price with its age in amber")
 
   page.scanned = 1
@@ -61,6 +62,25 @@ test "the market holds a row for each of the market's controls, each following i
   Test.click(Test.holding("Each", nil), nil)
   Test.expect(page.descending)
   Test.shot("clicked again: reversed")
+
+  Test.click(Test.holding("Copper Bar", nil), nil)
+  Test.expect(page.clicked == "left")
+  Test.click(Test.holding("Arcane Dust", nil), MouseButton.Right)
+  Test.expect(page.clicked == "right")
+  Test.shot("a row clicked with the left button, then another with the right: the page told them apart")
+
+  Test.click(Test.holding("By difficulty", nil), nil)
+  Test.click(Test.holding("By name", nil), nil)
+  Test.expect(page.sortBy == Order.Name)
+  Test.shot("the compact dropdown opened and a choice picked: its plate says «By name»")
+
+  Test.click(Test.holding("Right-click here", nil), MouseButton.Right)
+  Test.expect(page.menuOpen)
+  Test.click(Test.holding("Favorite", nil), nil)
+  Test.expect(page.menuOn && page.menuOpen && page.menuPicked == 3)
+  Test.shot("the context menu opened by a right-click, its switch clicked: it shows on, the menu stays open")
+  Test.click(Test.holding("Link in chat", nil), nil)
+  Test.expect(!page.menuOpen && page.menuPicked == 1)
 
   destroy page
   Test.expect(Test.blank())
