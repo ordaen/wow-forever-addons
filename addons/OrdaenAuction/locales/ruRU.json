@@ -115,5 +115,10 @@
   "SELLABLE": "Что можно выставить из сумок",
   "VENDOR_PRICE": "У торговца за шт.",
   "IN_BAGS": "В сумках: %d",
-  "HELD_OF": "есть %d из %d"
+  "HELD_OF": "есть %d из %d",
+  "SPAN_DAY": "День",
+  "SPAN_WEEK": "Неделя",
+  "SPAN_MONTH": "Месяц",
+  "NO_HISTORY": "Истории цен пока нет.",
+  "LISTED_COUNT": "Выставлено: %d"
 }

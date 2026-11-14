@@ -8,6 +8,7 @@ import { cornerRoom, Module, Placing, Settings, SettingsPage, Window, WindowTabS
 import root Ordaen from "Ordaen"
 import { BuyPage } from "@/buy"
 import { DataPage } from "@/dataPage"
+import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import { Kept } from "@/kept"
 import { Ledger } from "@/ledger"
@@ -61,6 +62,8 @@ public class Auction implements Module, App {
   public const shopping: mut ShoppingList
   // The lines in Ordaen Tooltips' item tooltip, while Tooltips is on.
   lines: TooltipLines
+  // The prices hour by hour, the item panel's chart: none until the scan keeps them (the chart says so).
+  history: any PriceHistory | nil = nil
 
   // The window: its page (the window's tab) and where it stands while it isn't full screen. It shows while the house
   // is open, and goes with it; so do the docked windows, each open from its button until it is closed.
@@ -125,9 +128,10 @@ public class Auction implements Module, App {
                       scanner={mut self.scanner} />
             </box>
             <box $match={self.page} rows={FILL}>
-              <BuyPage $case={BUY} house={self.house} prices={self.prices} offers={self.scanner.offers}
+              <BuyPage $case={BUY} house={self.house} prices={self.prices} history={self.history} offers={self.scanner.offers}
                        items={self.scanner.known} shopping={mut self.shopping} @openList={self.onShopping} />
-              <SellPage $case={SELL} house={self.house} prices={self.prices} @openOwned={self.onOwned} />
+              <SellPage $case={SELL} house={self.house} prices={self.prices} history={self.history}
+                        @openOwned={self.onOwned} />
               <DataPage $case={DATA} scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
                         items={self.scanner.known} settings={mut self.settings} />
             </box>

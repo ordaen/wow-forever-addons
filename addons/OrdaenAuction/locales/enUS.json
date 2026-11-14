@@ -115,5 +115,10 @@
   "SELLABLE": "What your bags can put up",
   "VENDOR_PRICE": "Vendor price each",
   "IN_BAGS": "In bags: %d",
-  "HELD_OF": "%d of %d held"
+  "HELD_OF": "%d of %d held",
+  "SPAN_DAY": "Day",
+  "SPAN_WEEK": "Week",
+  "SPAN_MONTH": "Month",
+  "NO_HISTORY": "No price history yet.",
+  "LISTED_COUNT": "Listed: %d"
 }

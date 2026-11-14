@@ -6,9 +6,10 @@
 import Game from "$game"
 import { Align, Track } from "$ltml"
 import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, Table, TableRow, tracksOf } from "Ordaen"
-import root Ordaen from "Ordaen"
 import { nameOf } from "@/buy"
+import { PriceHistory } from "@/history"
 import { House } from "@/house"
+import { ItemPanel } from "@/itemPanel"
 import Locale from "@/locales"
 import { PriceKey, PriceSource } from "@/quote"
 import Style from "@/style"
@@ -47,7 +48,6 @@ const ITEM: Array<Track> = ["auto", { fr: 1 }]
 // A label at the left, its value or control at the right.
 const PAIR: Array<Track> = [{ fr: 1 }, "auto"]
 const STEP = 28 * PX
-const POST_WIDTH: Number = Style.PANEL - 2 * Style.PANEL_PAD
 const DURATIONS: Array<Choice<Game.Duration>> = [
   { value: Game.Duration.Short, label: Locale.HOURS.format(12) },
   { value: Game.Duration.Medium, label: Locale.HOURS.format(24) },
@@ -108,12 +108,21 @@ public class SellPage implements Component {
   state bags = 0
   derived rows: Array<Offered> = self.rowsOf()
   derived chosen: Array<Offered> = self.chosenOf()
+  // The item panel stands at the right while a row is picked.
+  derived columns: Array<Track> = self.chosen.length > 0 ? PAGE : FILL
 
   const house: House
   const prices: any PriceSource
-  constructor(house: House, prices: any PriceSource) {
+  const history: any PriceHistory | nil
+  constructor(
+    house: House,
+    prices: any PriceSource,
+    // The prices hour by hour, the item panel's chart.
+    history: any PriceHistory | nil,
+  ) {
     self.house = house
     self.prices = prices
+    self.history = history
     Game.bags.changed.listen(self.onBags)
   }
 
@@ -163,7 +172,7 @@ public class SellPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={PAGE} rows={FILL} gap={Style.GAP}>
+      <box columns={self.columns} rows={FILL} gap={Style.GAP}>
         <box rows={SIDE} gap={Style.ROW_GAP}>
           // The row over the bags' items: «My auctions» at its right end.
           <box columns={TOOLS} gap={Style.ROW_GAP} yAlign={Align.Center}>
@@ -180,16 +189,14 @@ public class SellPage implements Component {
             </Table>
           </box>
         </box>
-        <box rows={FILL} padding={Style.PANEL_PAD} border={Style.FRAME} background={Ordaen.art.window.marble}>
-          <text $if={self.chosen.length == 0} value={Locale.PICK_ROW} textColor={Style.DIM} />
-          <Posting $for={offered of self.chosen} $key={offered.item} offered={peek offered} house={self.house} />
-        </box>
+        <Posting $for={offered of self.chosen} $key={offered.item} offered={peek offered} house={self.house}
+                 prices={self.prices} history={self.history} />
       </box>
     }
   }
 }
 
-// The item picked: how many, the price for one, how long, the deposit, and «Post».
+// The item picked, in the item panel: how many, the price for one, how long, the deposit, and «Post».
 class Posting implements Component {
   state count = 1
   state unit: Integer
@@ -203,11 +210,19 @@ class Posting implements Component {
   // A commodity is posted from every stack at once; an item's auction from its first stack.
   derived most: Integer = self.offered.from.commodity ? self.offered.count : self.offered.from.count
   derived canPost: Boolean = !Game.auctionActions.busy && self.count <= self.most && self.unit > 0
-  derived heldText: String = Locale.IN_BAGS.format(self.offered.count)
 
   const offered: Offered
-  constructor(offered: Offered, house: House) {
+  const house: House
+  const prices: any PriceSource
+  const history: any PriceHistory | nil
+  // Under the item's name in its panel: how many the bags hold.
+  const detail: String
+  constructor(offered: Offered, house: House, prices: any PriceSource, history: any PriceHistory | nil) {
     self.offered = offered
+    self.house = house
+    self.prices = prices
+    self.history = history
+    self.detail = Locale.IN_BAGS.format(offered.count)
     // The posting rule: a copper under the lowest listed; the market where nothing is listed.
     const listed = house.listed(PriceKey.of(offered.item))
     self.unit = listed != nil ? (listed.low() - 1).max(1) : offered.market ?? 0
@@ -236,37 +251,31 @@ class Posting implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box gap={Style.ROW_GAP}>
-        <box columns={ITEM} gap={10 * PX} yAlign={Align.Center}>
-          <ItemButton item={self.offered.item} size={Style.BIG_SLOT} />
-          <box gap={2 * PX}>
-            <text value={self.offered.name} textColor={self.offered.color} textSize={.Title} />
-            <text value={self.heldText} textColor={Style.DIM} textSize={.Secondary} />
+      <ItemPanel item={self.offered.item} name={self.offered.name} color={self.offered.color} detail={self.detail}
+                 house={self.house} prices={self.prices} history={self.history}>
+        <box gap={Style.ROW_GAP}>
+          <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
+            <text value={Locale.QUANTITY} textColor={Style.INK} />
+            <CountInput value={mut self.count} least={1} most={self.most} step={STEP} />
           </box>
+          <text value={Locale.UNIT_PRICE} textColor={Style.INK} />
+          <MoneyField value={mut self.unit} />
+          <text value={Locale.DURATION} textColor={Style.INK} />
+          <Segmented value={mut self.duration} choices={DURATIONS} />
+          <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
+            <text value={Locale.DEPOSIT} textColor={Style.INK} />
+            // The client's deposit (`C_AuctionHouse.CalculateItemDeposit`, `CalculateCommodityDeposit`) is no part
+            // of `"$game"` yet: until it is, none is known.
+            <text value={"—"} textColor={Style.DIM} />
+          </box>
+          <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={.Secondary} />
+          <box>
+            <text $if={self.hasRefused} value={self.refusedText} textColor={Style.RED} textSize={.Secondary} />
+          </box>
+          <PushButton label={Locale.POST} width={Style.PANEL_BUTTON} accent={true} disabled={!self.canPost}
+                      @click={self.onPost} />
         </box>
-        <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
-          <text value={Locale.QUANTITY} textColor={Style.INK} />
-          <CountInput value={mut self.count} least={1} most={self.most} step={STEP} />
-        </box>
-        <text value={Locale.UNIT_PRICE} textColor={Style.INK} />
-        <MoneyField value={mut self.unit} />
-        <text value={Locale.DURATION} textColor={Style.INK} />
-        <Segmented value={mut self.duration} choices={DURATIONS} />
-        // The merchant's price for one, and the deposit, as money.
-        <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
-          <text value={Locale.VENDOR_PRICE} textColor={Style.INK} />
-          <Money $if={self.offered.vendor != nil} amount={self.offered.vendor} />
-          <text $else value={"—"} textColor={Style.DIM} />
-          <text value={Locale.DEPOSIT} textColor={Style.INK} />
-          // The client's deposit (`C_AuctionHouse.CalculateItemDeposit`, `CalculateCommodityDeposit`) is no part of
-          // `"$game"` yet: until it is, none is known.
-          <text value={"—"} textColor={Style.DIM} />
-        </box>
-        <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={.Secondary} />
-        <text $if={self.hasRefused} value={self.refusedText} textColor={Style.RED} textSize={.Secondary} />
-        <PushButton label={Locale.POST} width={POST_WIDTH} accent={true} disabled={!self.canPost}
-                    @click={self.onPost} />
-      </box>
+      </ItemPanel>
     }
   }
 }

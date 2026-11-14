@@ -20,8 +20,8 @@ import Style from "@/style"
 // price's age beside the price.
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
-  { title: Locale.COLUMN_TO_BUY, width: 72 * PX, align: Align.End },
-  { title: Locale.COLUMN_PRICE, width: 110 * PX, align: Align.End },
+  { title: Locale.COLUMN_TO_BUY, width: 100 * PX, align: Align.End },
+  { title: Locale.COLUMN_PRICE, width: 100 * PX, align: Align.End },
   { title: Locale.COLUMN_TOTAL, width: 90 * PX, align: Align.End },
   { title: "", width: 96 * PX, align: Align.End },
 ]

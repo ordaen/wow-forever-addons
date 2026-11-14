@@ -1,6 +1,6 @@
 // The house window's look, shared by its parts: sizes at the player's scale, colours, and how a time is said, as the
 // professions window has them. A text's size is a step of the ladder (`$ltml`'s `TextSize`).
-import { Edges, Line, Side } from "$ltml"
+import { Line, Side } from "$ltml"
 import { number, plural, PX } from "Ordaen"
 import Locale from "@/locales"
 
@@ -18,11 +18,8 @@ public const BIG_SLOT: Number = 40 * PX
 // The panel at a page's right: «Buy»'s picked row, «Sell»'s.
 public const PANEL: Number = 280 * PX
 public const PANEL_PAD: Number = 12 * PX
-// The search field at a page's top left, and the buttons on its row.
-public const SEARCH_HEIGHT: Number = 34 * PX
-public const SEARCH_EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
-public const SEARCH_BACK: Color = Color.hex("#00000080")
-public const SEARCH_PAD: Edges = { right: 10 * PX, left: 10 * PX }
+// A button as wide as the panel holds: inside its padding and its frame's line.
+public const PANEL_BUTTON: Number = PANEL - 2 * PANEL_PAD - 2 * PX
 // A button that opens a docked window, at the search's row's right end.
 public const OPENER: Number = 150 * PX
 

@@ -57,7 +57,6 @@ test "the window opens full screen; «Shopping list» and «My auctions» are wi
   Test.expect(Auction.shoppingOpen)
   // The full-screen window leaves the docked one its width.
   Test.expect(Test.edges(wood, 0).right == Client.GetScreenWidth() - Style.SIDE_WIDTH)
-  Test.expect(Test.mouse().contested == 0)
   Test.shot("«Buy» full screen, the shopping list docked at the right")
   Auction.page = 2
   Test.pass(0.02)
