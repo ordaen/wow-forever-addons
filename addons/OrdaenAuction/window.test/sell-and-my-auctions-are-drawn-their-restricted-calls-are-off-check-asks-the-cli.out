@@ -118,7 +118,7 @@ surface 425,181.38 750x537.25 on DIALOG clamped raised by a click
             box 447.75,342.04 709.5x250 scrolled 0 of 0
               box 447.75,342.04 709.5x26.67 #00000000 @click
                 box 454.42,345.37 377.83x20
-                  box 454.42,345.37 20x20 #0d0a08 opacity=1 @click @enter @leave
+                  box 454.42,345.37 20x20 #0d0a08 opacity=1 @click @enter
                     box 454.42,345.37 20x20 absolute
                     box 454.42,345.37 20x20 absolute #00000000
                   text 481.08,348.37 351.17x14 "Item 2589" #e8dcc4
@@ -129,7 +129,7 @@ surface 425,181.38 750x537.25 on DIALOG clamped raised by a click
                 text 1092.25,348.37 58.33x14 "2 h" #e8dcc4
               box 447.75,368.71 709.5x26.67 #00000000 @click
                 box 454.42,372.04 377.83x20
-                  box 454.42,372.04 20x20 #0d0a08 opacity=1 @click @enter @leave
+                  box 454.42,372.04 20x20 #0d0a08 opacity=1 @click @enter
                     box 454.42,372.04 20x20 absolute
                     box 454.42,372.04 20x20 absolute #00000000
                   text 481.08,375.04 351.17x14 "Item 2770" #e8dcc4
@@ -139,7 +139,7 @@ surface 425,181.38 750x537.25 on DIALOG clamped raised by a click
                 text 1092.25,375.04 58.33x14 "—" #e8dcc4
               box 447.75,395.37 709.5x26.67 #00000000 @click
                 box 454.42,398.71 377.83x20
-                  box 454.42,398.71 20x20 #0d0a08 opacity=1 @click @enter @leave
+                  box 454.42,398.71 20x20 #0d0a08 opacity=1 @click @enter
                     box 454.42,398.71 20x20 absolute
                     box 454.42,398.71 20x20 absolute #00000000
                   text 481.08,401.71 351.17x14 "Item 2592" #e8dcc4
@@ -212,7 +212,7 @@ surface 425,181.38 750x537.25 on DIALOG clamped raised by a click
             box 447.75,342.04 709.5x250 scrolled 0 of 0
               box 447.75,342.04 709.5x26.67 #00000000 @click
                 box 454.42,345.37 377.83x20
-                  box 454.42,345.37 20x20 #0d0a08 opacity=1 @click @enter @leave
+                  box 454.42,345.37 20x20 #0d0a08 opacity=1 @click @enter
                     box 454.42,345.37 20x20 absolute
                     box 454.42,345.37 20x20 absolute #00000000
                   text 481.08,348.37 351.17x14 "Item 2589" #e8dcc4
@@ -223,7 +223,7 @@ surface 425,181.38 750x537.25 on DIALOG clamped raised by a click
                 text 1092.25,348.37 58.33x14 "2 h" #e8dcc4
               box 447.75,368.71 709.5x26.67 #00000000 @click
                 box 454.42,372.04 377.83x20
-                  box 454.42,372.04 20x20 #0d0a08 opacity=1 @click @enter @leave
+                  box 454.42,372.04 20x20 #0d0a08 opacity=1 @click @enter
                     box 454.42,372.04 20x20 absolute
                     box 454.42,372.04 20x20 absolute #00000000
                   text 481.08,375.04 351.17x14 "Item 2770" #e8dcc4
@@ -233,7 +233,7 @@ surface 425,181.38 750x537.25 on DIALOG clamped raised by a click
                 text 1092.25,375.04 58.33x14 "—" #e8dcc4
               box 447.75,395.37 709.5x26.67 #00000000 @click
                 box 454.42,398.71 377.83x20
-                  box 454.42,398.71 20x20 #0d0a08 opacity=1 @click @enter @leave
+                  box 454.42,398.71 20x20 #0d0a08 opacity=1 @click @enter
                     box 454.42,398.71 20x20 absolute
                     box 454.42,398.71 20x20 absolute #00000000
                   text 481.08,401.71 351.17x14 "Item 2592" #e8dcc4
