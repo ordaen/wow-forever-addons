@@ -12,7 +12,7 @@ public import { plural } from "@/plural"
 public import { Copper, Hour, ItemId } from "@/market"
 public import { KeptPlace, OrdaenCore } from "@/ordaen"
 // The controls every module draws by name.
-public import { PX } from "@/units"
+public import { PX, Space, space } from "@/units"
 public import { Tip, TipRow } from "@/tip"
 public import { Section } from "@/section"
 public import { PushButton } from "@/pushButton"

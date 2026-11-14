@@ -3,12 +3,14 @@
 // on the screen at first; dragging a tab moves it, Escape closes it, the grip in its bottom right corner
 // resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
 // the window: one group of plates, settings where the window is made `withSettings` (its `settings` event), full
-// screen (and back) and close. Its unnamed slot takes the body's content, which fills the body.
+// screen (and back) and close. Its unnamed slot takes the body's content, which fills the body. Its `footer`, where
+// it is given one, is the footer row: the window's action groups (and a status beside them) standing on the body's
+// bottom line under the content, across the body's width; the template lays its groups out with the ladder's steps.
 import { Align, Art, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
-import { PX } from "@/units"
+import { PX, space } from "@/units"
 
 // One of a window's tabs: its name, a second line under it, a picture at its left end.
 public struct WindowTabSpec {
@@ -37,9 +39,14 @@ const WHITE: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000cc"), x: 1 * PX, y: -1 * PX }
 const LABEL_PAD = 10 * PX
 const MIN_TAB = 120 * PX
-// The body's wood inside the metal, and the room its content keeps.
+// The body's wood inside the metal, and the room its content keeps: the ladder's `Window` step from the line on every
+// side; with a footer, the footer stands on the bottom line, the ladder's `Panel` step above it, and keeps a `Group`
+// step from the content over it.
 const INSET = 3 * PX
-const PADDING: Edges = { top: 14 * PX + INSET, right: 12 * PX + INSET, bottom: 12 * PX + INSET, left: 12 * PX + INSET }
+const ROOM: Number = space(.Window) + INSET
+const PADDING: Edges = { top: ROOM, right: ROOM, bottom: ROOM, left: ROOM }
+const PADDING_FOOTED: Edges = { top: ROOM, right: ROOM, bottom: space(.Panel) + INSET, left: ROOM }
+const FOOTER_PAD: Edges = { top: space(.Group) }
 // The corner's group in the body's top right (the design's `CTRLS`): its controls from its left, each one kind of
 // plate with its glyph. How far from the body's line the group stands, and how high it is with its rim.
 public enum CornerControl { Settings = "settings", Full = "full", Close = "close" }
@@ -77,10 +84,10 @@ const function plateLeft(index: Integer, count: Integer): Number {
 // the right (a bar across the window) ends this much short, and the group never lies over it.
 public const function cornerRoom(withSettings: Boolean): Number {
   const count = cornerControls(withSettings).length
-  return CORNER_RIGHT + plateLeft(count + 1, count) + 6 * PX - (12 * PX + INSET)
+  return CORNER_RIGHT + plateLeft(count + 1, count) + space(.Item) - ROOM
 }
-// One row as high as the box: what stands in it fills it.
-const BODY_ROWS: Array<Track> = [{ fr: 1 }]
+// The content's row takes what the footer's leaves.
+const BODY_ROWS: Array<Track> = [{ fr: 1 }, "auto"]
 // The smallest body unless the window names one: room for the tab row and a few lines.
 const MIN_W = 320 * PX
 const MIN_H = 200 * PX
@@ -273,6 +280,10 @@ public class Window implements Component {
   const controls: Array<CornerControl>
   const cornerWidth: Number
   shown: Signal<Boolean>
+  // The footer row, and the body's room with it or without.
+  const footer: Template
+  const footed: Boolean
+  const padding: Edges
   constructor(
     tabs: Signal<Array<WindowTabSpec>>,
     selected: mut Signal<Integer>,
@@ -286,7 +297,12 @@ public class Window implements Component {
     // Hidden, it stays drawn: a window opened often is shown again at the cost of a surface shown, not of being
     // drawn anew (`$if` on it builds it at each open).
     shown: Signal<Boolean> = true,
+    // The footer row's groups on the body's bottom line: none where it is left out.
+    footer: Template | nil = nil,
   ) {
+    self.footer = footer ?? $ltml {}
+    self.footed = footer != nil
+    self.padding = footer != nil ? PADDING_FOOTED : PADDING
     self.controls = cornerControls(withSettings)
     self.cornerWidth = plateLeft(self.controls.length + 1, self.controls.length)
     self.shown = shown
@@ -378,9 +394,12 @@ public class Window implements Component {
                raise={true} xAlign={Align.Start} focusLine={self.focusLine}
                @escape={self.onClose}>
         <box position={Position.Absolute} left={0} right={0} top={self.tabHeight} bottom={0}
-             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PADDING}
+             border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={self.padding}
              rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>
           <slot />
+          <box $if={self.footed} padding={FOOTER_PAD}>
+            {self.footer}
+          </box>
           <box $if={self.hovered} position={Position.Absolute} top={CORNER_TOP} right={CORNER_RIGHT}
                width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>
             <CornerPlate $for={index, control of self.controls} control={control} index={index}

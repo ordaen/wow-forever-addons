@@ -9,7 +9,7 @@ import { Dialog } from "@/dialog"
 import { ListTab } from "@/listTab"
 import { Placing, Window, WindowTabSpec } from "@/window"
 import { PushButton } from "@/pushButton"
-import { PX } from "@/units"
+import { PX, space } from "@/units"
 import { Tabs } from "@/tabs"
 import Locale from "@/locales"
 import { ModuleEntry, ModuleRow } from "@/moduleRow"
@@ -36,11 +36,10 @@ const INK: Color = Color.hex("#e8dcc4")
 const PAGE_BACK: Color = Color.hex("#00000040")
 const FILL: Array<Track> = [{ fr: 1 }]
 const BODY: Array<Track> = ["auto", { fr: 1 }]
-// The list's heading over the modules: 10 px above, 4 below.
-const HEADING: Edges = { top: 10 * PX, right: 16 * PX, bottom: 4 * PX, left: 16 * PX }
-const FOOT_HEIGHT = 34 * PX
-const ROWS_PAD: Edges = { top: 14 * PX, right: 18 * PX, left: 18 * PX }
-const ROWS_BOTTOM = (18 + 6) * PX + FOOT_HEIGHT
+// The list's heading over the modules: a panel's step from the list's sides and the rows above, an item's to the
+// modules under it.
+const HEADING: Edges = { top: space(.Panel), right: space(.Panel), bottom: space(.Item), left: space(.Panel) }
+// The footer: the placing mode at its left, a hint, the rollback and «Save» at its right.
 const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto"]
 const SAVE_ROW: Array<Track> = ["auto", "auto"]
 
@@ -63,6 +62,19 @@ public class SettingsWindow implements Component {
   state titleTab = 1
 
   const nothing: Template = $ltml {}
+  const footer: Template = $ltml {
+    <box columns={FOOT} yAlign={Align.Center} gap={space(.Group)}>
+      <PushButton label={Locale.PLACING} width={200 * PX} @click={self.placingMode} />
+      <box>
+        <text $if={self.onGeneral} value={Locale.OPENS_PAGE} textColor={DIM} textSize={.Secondary} />
+      </box>
+      <box columns={SAVE_ROW} gap={space(.Item)}>
+        <PushButton $if={Ordaen.keeper.rollbackable} label={Locale.ROLLBACK} width={130 * PX}
+                    @click={self.rollback} />
+        <PushButton label={Locale.SAVE} width={140 * PX} disabled={self.unchanged} @click={self.save} />
+      </box>
+    </box>
+  }
   derived heading: String = Locale.LIST_MODULES.upper()
   derived onGeneral: Boolean = self.page == GENERAL
   derived onLook: Boolean = self.page == LOOK
@@ -180,8 +192,8 @@ public class SettingsWindow implements Component {
   public render(self): Template {
     return $ltml {
       <Window shown={self.open} tabs={self.titles} selected={mut self.titleTab} placing={mut self.placing}
-              minWidth={MIN_WIDTH} minHeight={MIN_HEIGHT} @close={self.onClose}>
-        <box columns={BODY} rows={FILL}>
+              minWidth={MIN_WIDTH} minHeight={MIN_HEIGHT} footer={self.footer} @close={self.onClose}>
+        <box columns={BODY} rows={FILL} gap={space(.Group)}>
           <box columns={1}>
             <ListTab label={Locale.LIST_GLOBAL} icon={Ordaen.icon} selected={self.onGeneral}
                      @pick={self.pickGeneral} />
@@ -197,29 +209,17 @@ public class SettingsWindow implements Component {
             </box>
           </box>
           <box background={PAGE_BACK}>
-            <box position={Position.Absolute} left={0} right={0} top={0} bottom={ROWS_BOTTOM}
-                 padding={ROWS_PAD} columns={1} gap={14 * PX} overflow={Overflow.Scroll}>
+            <box position={Position.Absolute} left={0} right={0} top={0} bottom={0}
+                 padding={space(.Panel)} columns={1} gap={space(.Group)} overflow={Overflow.Scroll}>
               <LookPage $if={self.onLook} look={mut Ordaen.look} />
               <ProfilesPage $elseif={self.onProfiles} />
               <text $elseif={self.isOff} value={Locale.MODULE_OFF} textColor={DIM} />
               <$else>
                 <Tabs $if={self.hasTabs} tabs={self.names} selected={mut self.tab} />
-                <box columns={1} gap={14 * PX}>
+                <box columns={1} gap={space(.Group)}>
                   {self.content}
                 </box>
               </>
-            </box>
-            <box position={Position.Absolute} left={18 * PX} right={18 * PX} bottom={18 * PX}
-                 height={FOOT_HEIGHT} columns={FOOT} yAlign={Align.Center} gap={12 * PX}>
-              <PushButton label={Locale.PLACING} width={200 * PX} @click={self.placingMode} />
-              <box>
-                <text $if={self.onGeneral} value={Locale.OPENS_PAGE} textColor={DIM} textSize={.Secondary} />
-              </box>
-              <box columns={SAVE_ROW} gap={8 * PX}>
-                <PushButton $if={Ordaen.keeper.rollbackable} label={Locale.ROLLBACK} width={130 * PX}
-                            @click={self.rollback} />
-                <PushButton label={Locale.SAVE} width={140 * PX} disabled={self.unchanged} @click={self.save} />
-              </box>
             </box>
           </box>
         </box>

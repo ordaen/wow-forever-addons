@@ -1,2 +1,23 @@
 // UI units a design px is at the user's scale (a 1440p screen).
 public const PX: Number = 1 / 1.2
+
+// The spacing ladder: every room a window keeps round and between what it shows is one of these steps, and nothing
+// else. In design px (at the user's 2560×1440, one of them a screen pixel), each on the 4 px grid and each a clear
+// step from the next, so the eye reads which things belong together:
+// `Item` (8): between the things of one group (the buttons of a row, a label and its value, the rows of a list's
+// lines); the least room anything keeps from a frame's line, which the drawn rules hold every text to.
+// `Panel` (16): inside a panel or a list's frame, from its line to what it holds.
+// `Group` (20): between groups (the toolbar and the list under it, the list and the details beside it, the body
+// and the footer); more than a line of body text (15), so groups read apart.
+// `Window` (24): inside a window's frame, from its line to its content, more than any gap inside it.
+public enum Space { Item, Panel, Group, Window }
+
+// A step of the ladder in UI units: a constant where the step is written out (`space(.Panel)` is built as a number).
+public const function space(step: Space): Number {
+  return match (step) {
+    .Item => 8 * PX,
+    .Panel => 16 * PX,
+    .Group => 20 * PX,
+    .Window => 24 * PX,
+  }
+}

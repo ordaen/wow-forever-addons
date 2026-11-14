@@ -1,9 +1,11 @@
 // A window's tabs drawn with Ordaen's own art: each tab's wood is cut by its metal's rounded corners, the open
 // one's as the others', and its picture by the clip at its top left.
-import { Key } from "$ltml"
+import { Align, Key, Track } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Placing, Window, WindowTabSpec } from "@/window"
+import { PushButton } from "@/pushButton"
+import { space } from "@/units"
 
 class Tabbed {
   state tabs: Array<WindowTabSpec> = [
@@ -58,6 +60,7 @@ const BETA_ONLY: Test.Point = { x: 800, y: 720 }
 // With Gamma 120 lower: its tab row's room right of its tab, over Beta's body.
 const ROOM_RIGHT_OF_TABS: Test.Point = { x: 950, y: 470 }
 const FACE: Color = Color.hex("#30302a")
+const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto"]
 
 class Desk {
   state alphaTabs: Array<WindowTabSpec> = [{ title: "Alpha" }]
@@ -253,5 +256,41 @@ test "the open tab and the others are cut by their metal's corners" {
   Test.shot("the first tab open: its wood and its picture cut at their rounded corners, the second tab's wood too")
   Test.click(Test.holding("Recipes", nil), nil)
   Test.shot("the second tab open: cut as the first was")
+  destroy page
+}
+
+// A window with a footer: «Reset» at its left, a status, «Save» at its right, on the body's bottom line.
+class Footed {
+  state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
+  state saved = 0
+  const footer: Template = $ltml {
+    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
+      <PushButton label={"Reset"} width={100} />
+      <text value={"2 waiting"} />
+      <PushButton label={"Save"} width={100} @click={self.onSave} />
+    </box>
+  }
+
+  onSave(mut self) { self.saved += 1 }
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} footer={self.footer}>
+        <box background={FACE}>
+          <text value={"the page"} />
+        </box>
+      </Window>
+    }
+  }
+}
+
+test "a footer stands on the window's bottom line under the content, its groups at its ends" {
+  let page = new Footed()
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test.shot("the content over the footer, a group's step between them; «Reset» left, «Save» right, the panel's step over the line")
+  Test.click(Test.holding("Save", nil), nil)
+  Test.expect(page.saved == 1)
   destroy page
 }
