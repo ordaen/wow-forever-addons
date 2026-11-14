@@ -70,10 +70,9 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                       text 1546,143.33 18.75x15 "Age" #cbb994
                       box 1568.08,148.33 6.67x5
                         box 1564.75,144.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 23.58,164.17 1557.83x714.5
-                  box 23.58,164.17 1557.83x714.5 absolute scrolled 0 of 0
-                    box 23.58,164.17 1557.83x35
-                      text 33.58,174.17 1537.83x15 "No prices for this realm: the first scan is under way. Find an item by name." #a3977f
+                box 23.58,164.17 1557.83x714.5 scrolled 0 of 0
+                  box 23.58,164.17 1557.83x26.67
+                    text 33.58,170 1537.83x15 "No prices for this realm: the first scan is under way. Find an item by name." #a3977f
   box 0,0 363.5x47.75
     box 0,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 18.58,10.25 77.33x34.25

@@ -2,8 +2,10 @@
 // sortable heading sorts by it, again reverses (the cells `sorted`, the column's number from 1, and `descending`, which
 // the page handed with `mut` and orders its rows by: the table keeps no list of rows, so a row follows its own cells
 // and nothing is made for it when another changes). The rows are `TableRow`s in the table's slot, each laid out in the
-// columns' tracks (`tracksOf(columns)`, made once where the columns are). Every row is drawn; the body scrolls where
-// it is given a `height`.
+// columns' tracks (`tracksOf(columns)`, made once where the columns are), each `rowHeight` high (a row of text, `ROW`,
+// unless the table is told another). The body is a box of rows: it scrolls where it is given a `height`, or where the
+// table is given a height (its headings, then the body in the rest of it), and a `$for` of rows in it builds only the
+// rows in view, handing on the rows that leave to the items that come in: a row follows its item's cell.
 import { Align, Art, Click, Edges, Line, Overflow, Position, Side, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
@@ -29,8 +31,10 @@ const PADDING: Edges = { top: 6 * PX, bottom: 6 * PX }
 const ROW_PADDING: Edges = { top: 4 * PX, right: 8 * PX, bottom: 4 * PX, left: 8 * PX }
 const SIDES: Edges = { left: 8 * PX, right: 8 * PX }
 const HEAD: Array<Track> = ["auto", "auto"]
-const HUGGED: Array<Track> = ["auto", "auto"]
-const FILLED: Array<Track> = ["auto", { fr: 1 }]
+// The headings, and the body in what is left of a height the table is given.
+const PARTS: Array<Track> = ["auto", { fr: 1 }]
+// A row of one line of text: the text and the row's padding.
+public const ROW: Number = 26 * PX
 // A sorted heading's mark (ctl.markUp, ctl.markDown): a triangle 8 px wide and 6 high in the middle of a 16 px cell.
 const MARK_WIDTH = 8 * PX
 const MARK_HEIGHT = 6 * PX
@@ -138,43 +142,33 @@ public class Table implements Component {
   sorted: mut Signal<Integer>
   descending: mut Signal<Boolean>
   height: Signal<Number | nil>
-  // The headings' row and the body's: the body as high as its rows, or the rest of the table's height.
-  const rows: Array<Track>
-  // Filling, the body scrolls in a box placed by its edges in its row: what it holds asks no height of the row
-  // (among several rows, a share is never lower than what stands in it).
-  const fills: Boolean
+  // The body's `rowHeight`: none where the rows are as high as what they hold.
+  const fixedRows: Number | nil
   constructor(
     columns: Array<Column>,
     // The column the rows are ordered by, from 1; 0 for none.
     sorted: mut Signal<Integer>,
     descending: mut Signal<Boolean>,
-    // The body's height: it scrolls past it. None: as high as its rows.
+    // The body's height: it scrolls past it. None: as high as its rows, or the rest of a height the table is given.
     height: Signal<Number | nil> = nil,
-    // The body takes the height the table is given, under the headings, and scrolls past it.
-    fills: Boolean = false,
+    // How high each row is; `"auto"`: each as high as what it holds, and every row built (rows whose height varies).
+    rowHeight: Number | "auto" = ROW,
   ) {
     self.columns = columns
     self.sorted = sorted
     self.descending = descending
     self.height = height
-    self.rows = fills ? FILLED : HUGGED
-    self.fills = fills
+    self.fixedRows = rowHeight is Number ? rowHeight : nil
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} rows={self.rows}>
+      <box columns={1} rows={PARTS}>
         <box columns={self.tracks} gap={8 * PX} padding={SIDES} background={BACK} border={RULE}>
           <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
                    descending={mut self.descending} />
         </box>
-        <box $if={self.fills}>
-          <box columns={1} overflow={Overflow.Scroll} position={Position.Absolute} left={0} top={0} right={0}
-               bottom={0}>
-            <slot />
-          </box>
-        </box>
-        <box $else columns={1} height={self.height} overflow={Overflow.Scroll}>
+        <box columns={1} height={self.height} rowHeight={self.fixedRows} overflow={Overflow.Scroll}>
           <slot />
         </box>
       </box>

@@ -44,11 +44,11 @@ function sourceText(source: Source): String {
   }
 }
 
-// Under the item's name, one line a source.
+// Under the item's name, its sources on one line: every row is as high as the others (`Style.BUTTON_ROW`).
 function linesText(row: Row): String {
   let text = ""
   for (index, line of row.lines) {
-    text = text + (index == 1 ? "" : "\n") + sourceText(line.source)
+    text = text + (index == 1 ? "" : ", ") + sourceText(line.source)
   }
   return text
 }
@@ -78,13 +78,14 @@ class ShoppingRow implements Component {
     Locale.BUY_COUNT.format(self.row.toBuy)
   derived canBuy: Boolean = self.priced && !self.bought && !Game.auctionActions.busy
 
-  const row: Row
+  // The row's line of the list: the table hands the row to another line as it scrolls.
+  row: Signal<Row>
   const prices: any PriceSource
   selected: Signal<Boolean>
   quotedItem: Signal<Integer>
   quotedTotal: Signal<Integer>
   constructor(
-    row: Row,
+    row: Signal<Row>,
     prices: any PriceSource,
     selected: Signal<Boolean>,
     // The item whose purchase the client priced (0 for none), and what it asked, in copper.
@@ -232,12 +233,13 @@ public class ShoppingPage implements Component {
           </box>
         </box>
         <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} fills={true}>
-            <ShoppingRow $for={row of self.list.rows} $key={row} row={peek row} prices={self.prices}
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+                 rowHeight={Style.BUTTON_ROW}>
+            <ShoppingRow $for={row of self.list.rows} $key={row} row={row} prices={self.prices}
                          selected={self.picked == row.item}
                          quotedItem={self.quotedItem} quotedTotal={self.quotedTotal} @pick={self.onPick}
                          @buy={self.onBuy} />
-            <box $if={self.empty} padding={Style.PANEL_PAD}>
+            <box $if={self.empty} padding={Style.NOTE_PAD} yAlign={Align.Center}>
               <text value={Locale.SHOPPING_EMPTY} textColor={Style.DIM} />
             </box>
           </Table>

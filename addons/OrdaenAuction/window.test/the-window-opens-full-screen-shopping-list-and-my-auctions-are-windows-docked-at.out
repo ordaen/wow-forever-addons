@@ -70,10 +70,9 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                       text 1046,143.33 18.75x15 "Age" #cbb994
                       box 1068.08,148.33 6.67x5
                         box 1064.75,144.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 23.58,164.17 1057.83x714.5
-                  box 23.58,164.17 1057.83x714.5 absolute scrolled 0 of 0
-                    box 23.58,164.17 1057.83x35
-                      text 33.58,174.17 1037.83x15 "No prices for this realm: the first scan is under way. Find an item by name." #a3977f
+                box 23.58,164.17 1057.83x714.5 scrolled 0 of 0
+                  box 23.58,164.17 1057.83x26.67
+                    text 33.58,170 1037.83x15 "No prices for this realm: the first scan is under way. Find an item by name." #a3977f
     box 1016.08,49.08 77.5x26.67 absolute clipped
       box 1016.08,49.08 29.17x26.67 absolute clipped @click
         box 1016.08,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -126,10 +125,9 @@ surface 1100,0 500x900 on DIALOG clamped raised by a click
               box 1494.75,92.5 80x1.67 absolute #00000000
               box 1571.42,89.17 3.33x0
                 text 1571.42,89.17 0x0 "" #a3977f
-          box 1123.58,110 457.83x733.67
-            box 1123.58,110 457.83x733.67 absolute scrolled 0 of 0
-              box 1123.58,110 457.83x35
-                text 1133.58,120 437.83x15 "Add a recipe from Professions, or an item on the Buy page." #a3977f
+          box 1123.58,110 457.83x733.67 scrolled 0 of 0
+            box 1123.58,110 457.83x35
+              text 1133.58,120 437.83x15 "Add a recipe from Professions, or an item on the Buy page." #a3977f
       box 1122.75,851.17 459.5x28.33
         box 1122.75,851.17 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
           box 1122.75,851.17 125x28.33 absolute

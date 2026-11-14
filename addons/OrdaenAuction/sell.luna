@@ -61,10 +61,13 @@ class OfferedRow implements Component {
     Locale.BETTER_VENDOR
   derived betterInk: Color = self.offered.house == nil ? Style.DIM : self.offered.house == true ? Style.GREEN :
     Style.GOLD
+  derived market: Integer = self.offered.market ?? 0
+  derived vendor: Integer = self.offered.vendor ?? 0
 
-  const offered: Offered
+  // The row's item: the table hands the row to another item as it scrolls.
+  offered: Signal<Offered>
   selected: Signal<Boolean>
-  constructor(offered: Offered, selected: Signal<Boolean>) {
+  constructor(offered: Signal<Offered>, selected: Signal<Boolean>) {
     self.offered = offered
     self.selected = selected
   }
@@ -84,11 +87,11 @@ class OfferedRow implements Component {
           <text value={"%d"} arguments={[self.offered.count]} textColor={Style.INK} />
         </box>
         <box xAlign={Align.End}>
-          <Money $if={self.offered.market != nil} amount={self.offered.market} />
+          <Money $if={self.offered.market != nil} amount={self.market} />
           <text $else value={"—"} textColor={Style.DIM} />
         </box>
         <box xAlign={Align.End}>
-          <Money $if={self.offered.vendor != nil} amount={self.offered.vendor} />
+          <Money $if={self.offered.vendor != nil} amount={self.vendor} />
           <text $else value={"—"} textColor={Style.DIM} />
         </box>
         <text value={self.better} textColor={self.betterInk} wrap={false} />
@@ -180,10 +183,11 @@ public class SellPage implements Component {
             <PushButton label={Locale.PAGE_OWNED} width={Style.OPENER} @click={self.onOpenOwned} />
           </box>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-            <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} fills={true}>
-              <OfferedRow $for={row of self.rows} $key={row.item} offered={peek row}
+            <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+                   rowHeight={Style.ITEM_ROW}>
+              <OfferedRow $for={row of self.rows} $key={row.item} offered={row}
                           selected={self.picked == row.item} @pick={self.onPick} />
-              <box $if={self.rows.length == 0} padding={Style.PANEL_PAD}>
+              <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
                 <text value={Locale.NOTHING_TO_SELL} textColor={Style.DIM} />
               </box>
             </Table>

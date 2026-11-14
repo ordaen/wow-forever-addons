@@ -172,6 +172,11 @@ function shareColor(share: Integer | nil): Color {
   return Style.INK
 }
 
+// The share as a row writes it: a dash where there is none.
+function shareText(share: Integer | nil): String {
+  return share != nil ? "%d%%".format(share) : "—"
+}
+
 // One row. Its name is cut where its column is narrower than it, so a long name never pushes the table past the page.
 class FoundRow implements Component {
   public pick: Event<PriceKey> = new Event()
@@ -179,13 +184,14 @@ class FoundRow implements Component {
   derived age: Number | nil = ageOf(self.found.market)
   derived priced: Boolean = self.found.market != nil
   derived market: Integer = self.found.market?.copper() ?? 0
-  derived share: String = self.found.share != nil ? "%d%%".format(self.found.share) : "—"
+  derived share: String = shareText(self.found.share)
   derived shareInk: Color = shareColor(self.found.share)
 
-  const found: Found
+  // The row's line: the table hands the row to another line as it scrolls.
+  found: Signal<Found>
   selected: Signal<Boolean>
   wanted: Signal<Boolean>
-  constructor(found: Found, selected: Signal<Boolean>, wanted: Signal<Boolean>) {
+  constructor(found: Signal<Found>, selected: Signal<Boolean>, wanted: Signal<Boolean>) {
     self.found = found
     self.selected = selected
     self.wanted = wanted
@@ -348,10 +354,11 @@ public class BuyPage implements Component {
             <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
           </box>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-            <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} fills={true}>
-              <FoundRow $for={row of self.rows} $key={row.key} found={peek row} selected={self.picked == row.key}
+            <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+                   rowHeight={Style.ITEM_ROW}>
+              <FoundRow $for={row of self.rows} $key={row.key} found={row} selected={self.picked == row.key}
                         wanted={self.shopping.needed[row.item] != nil} @pick={self.onPick} />
-              <box $if={self.rows.length == 0} padding={Style.PANEL_PAD}>
+              <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
                 <text value={self.empty} textColor={Style.DIM} />
               </box>
             </Table>
@@ -467,8 +474,7 @@ class Chosen implements Component {
                  house={self.house} prices={self.prices} history={self.history}>
         <box rows={PANEL} gap={Style.ROW_GAP}>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-            <Table columns={LISTING_COLUMNS} sorted={mut self.listSorted} descending={mut self.listDescending}
-                   fills={true}>
+            <Table columns={LISTING_COLUMNS} sorted={mut self.listSorted} descending={mut self.listDescending}>
               <ListingRow $for={index, listing of self.listings} $key={index} listing={peek listing}
                           index={index} first={self.first} last={self.last} />
             </Table>
