@@ -1,22 +1,27 @@
-// The house window's look, shared by its parts: sizes at the player's scale, colours, and how a time is said. A text's
-// size is a step of the ladder (`$ltml`'s `TextSize`).
+// The house window's look, shared by its parts: sizes at the player's scale, colours, and how a time is said, as the
+// professions window has them. A text's size is a step of the ladder (`$ltml`'s `TextSize`).
 import { Line, Side } from "$ltml"
 import { number, plural, PX } from "Ordaen"
 import Locale from "@/locales"
 
-public const WIDTH: Number = 860 * PX
-public const HEIGHT: Number = 560 * PX
+// The window's body while it isn't full screen (it opens full screen), and the windows docked at the screen's right
+// («Shopping list», «My auctions»).
+public const WIDTH: Number = 1060 * PX
+public const HEIGHT: Number = 700 * PX
+public const SIDE_WIDTH: Number = 600 * PX
+// Between a page's columns, and between its rows.
 public const GAP: Number = 12 * PX
+public const ROW_GAP: Number = 8 * PX
 // An item's slot in a row, and the chosen item's.
 public const SLOT: Number = 24 * PX
 public const BIG_SLOT: Number = 40 * PX
-// A list's height in a page: it scrolls past it.
-public const LIST: Number = 300 * PX
 // The panel at a page's right: «Buy»'s picked row, «Sell»'s.
-public const BUY_PANEL: Number = 230 * PX
-public const SELL_PANEL: Number = 250 * PX
-// The picked row's listings: they scroll past it.
-public const LISTINGS: Number = 130 * PX
+public const PANEL: Number = 280 * PX
+public const PANEL_PAD: Number = 12 * PX
+// A button as wide as the panel holds: inside its padding and its frame's line.
+public const PANEL_BUTTON: Number = PANEL - 2 * PANEL_PAD - 2 * PX
+// A button that opens a docked window, at the search's row's right end.
+public const OPENER: Number = 150 * PX
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")

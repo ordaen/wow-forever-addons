@@ -1,5 +1,6 @@
-// «Shopping list», the window's page of the list (design `auction/shopping`): each item with what asked for it, what is
-// needed, what this character holds, what is left to buy (dim at 0), its price and the sum with the price's age, and
+// «Shopping list», a window docked at the screen's right, opened from «Buy» (design `auction/shopping`): each item with
+// what asked for it, what is left to buy (dim at 0) over what this character holds of what is needed, its price with
+// the price's age, the sum, and
 // at the house «Buy N»: a commodity bought as one purchase of N in two clicks (the second confirms the price the
 // client gave, which the row's sum shows), an item one auction a click, the cheapest first. A row's listings are asked
 // as it is picked or its «Buy N» first clicked. «Search all» browses every item in one query; a row picked can be
@@ -15,20 +16,24 @@ import { Row, ShoppingList } from "@/shopping"
 import { Source } from "@/wanted"
 import Style from "@/style"
 
+// A window docked at the screen's right is narrow: what is held and needed stands under what is left to buy, the
+// price's age beside the price.
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
-  { title: Locale.COLUMN_NEEDED, width: 60 * PX, align: Align.End },
-  { title: Locale.COLUMN_HELD, width: 56 * PX, align: Align.End },
-  { title: Locale.COLUMN_TO_BUY, width: 64 * PX, align: Align.End },
-  { title: Locale.COLUMN_PRICE, width: 84 * PX, align: Align.End },
-  { title: Locale.COLUMN_TOTAL, width: 96 * PX, align: Align.End },
-  { title: "", width: 52 * PX, align: Align.End },
-  { title: "", width: 120 * PX, align: Align.End },
+  { title: Locale.COLUMN_TO_BUY, width: 100 * PX, align: Align.End },
+  { title: Locale.COLUMN_PRICE, width: 100 * PX, align: Align.End },
+  { title: Locale.COLUMN_TOTAL, width: 90 * PX, align: Align.End },
+  { title: "", width: 96 * PX, align: Align.End },
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const ITEM: Array<Track> = ["auto", { fr: 1 }]
+const LINES: Array<Track> = ["auto", "auto"]
+const PRICE: Array<Track> = ["auto", "auto"]
+// The total over the list, the list (the rest of the window's height), the buttons under it.
+const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
+const FILL: Array<Track> = [{ fr: 1 }]
 const HEAD: Array<Track> = [{ fr: 1 }, "auto", "auto"]
-const BUTTONS: Array<Track> = ["auto", "auto", "auto", { fr: 1 }]
+const BUTTONS: Array<Track> = ["auto", "auto", "auto"]
 
 // What asked for a line, as the row says it: «Bronze Axe ×5 — Regron's queue», «by hand».
 function sourceText(source: Source): String {
@@ -118,17 +123,16 @@ class ShoppingRow implements Component {
             <text value={self.from} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
           </box>
         </box>
-        <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.row.needed]} textColor={self.ink} />
-        </box>
-        <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.row.held]} textColor={self.ink} />
-        </box>
-        <box xAlign={Align.End}>
+        <box rows={LINES} xAlign={Align.End}>
           <text value={"%d"} arguments={[self.row.toBuy]} textColor={self.ink} />
+          <text value={Locale.HELD_OF} arguments={[self.row.held, self.row.needed]} textColor={Style.DIM}
+                textSize={.Secondary} wrap={false} />
         </box>
         <box xAlign={Align.End}>
-          <Money $if={self.priced} amount={self.unit} />
+          <box $if={self.priced} columns={PRICE} gap={4 * PX} yAlign={Align.Center}>
+            <Money amount={self.unit} />
+            <Age seconds={self.age} />
+          </box>
           <text $else value={"—"} textColor={Style.DIM} />
         </box>
         <box xAlign={Align.End}>
@@ -136,10 +140,7 @@ class ShoppingRow implements Component {
           <text $else value={"—"} textColor={Style.DIM} />
         </box>
         <box xAlign={Align.End}>
-          <Age seconds={self.age} />
-        </box>
-        <box xAlign={Align.End}>
-          <PushButton label={self.buyLabel} width={104 * PX} disabled={!self.canBuy} @click={self.onBuy} />
+          <PushButton label={self.buyLabel} width={96 * PX} disabled={!self.canBuy} @click={self.onBuy} />
         </box>
       </TableRow>
     }
@@ -221,23 +222,27 @@ public class ShoppingPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={["auto", "auto", "auto"]} gap={8 * PX}>
-        <box columns={HEAD} gap={8 * PX} yAlign={Align.Center}>
+      <box rows={PAGE} gap={Style.ROW_GAP}>
+        <box columns={HEAD} gap={Style.ROW_GAP} yAlign={Align.Center}>
           <text value={Locale.HELD_HERE} textColor={Style.DIM} textSize={.Secondary} />
           <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} wrap={false} />
-          <box columns={["auto", "auto"]} yAlign={Align.Center}>
+          <box columns={PRICE} yAlign={Align.Center}>
             <text value={self.totalText} textColor={Style.INK} wrap={false} />
             <Money amount={self.total} />
           </box>
         </box>
-        <text $if={self.empty} value={Locale.SHOPPING_EMPTY} textColor={Style.DIM} />
-        <Table $else columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST}>
-          <ShoppingRow $for={row of self.list.rows} $key={row} row={peek row} prices={self.prices}
-                       selected={self.picked == row.item}
-                       quotedItem={self.quotedItem} quotedTotal={self.quotedTotal} @pick={self.onPick}
-                       @buy={self.onBuy} />
-        </Table>
-        <box columns={BUTTONS} gap={8 * PX}>
+        <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} fills={true}>
+            <ShoppingRow $for={row of self.list.rows} $key={row} row={peek row} prices={self.prices}
+                         selected={self.picked == row.item}
+                         quotedItem={self.quotedItem} quotedTotal={self.quotedTotal} @pick={self.onPick}
+                         @buy={self.onBuy} />
+            <box $if={self.empty} padding={Style.PANEL_PAD}>
+              <text value={Locale.SHOPPING_EMPTY} textColor={Style.DIM} />
+            </box>
+          </Table>
+        </box>
+        <box columns={BUTTONS} gap={Style.ROW_GAP}>
           <PushButton label={Locale.SEARCH_ALL} width={150 * PX} accent={true} disabled={self.shut || self.empty}
                       @click={self.onSearch} />
           <PushButton label={Locale.REMOVE_BOUGHT} width={170 * PX} disabled={self.empty} @click={self.onClear} />
