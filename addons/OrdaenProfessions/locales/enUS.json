@@ -71,6 +71,8 @@
   "COUNT_SKILLUP": "Raise the skill: %d",
   "LEARN_NEXT": "What to learn next",
   "NOTHING_TO_LEARN": "Every recipe is learned.",
+  "LEARN_AT_TRAINER": "%s · trainer, from %d, %s",
+  "LEARN_UNSEEN": "%s · not seen at a trainer",
   "WORK_NEEDS": "Needed for the work",
   "NOTHING_NEEDED": "Nothing but reagents.",
   "TRACKED": "Tracked recipes",

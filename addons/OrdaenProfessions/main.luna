@@ -17,6 +17,7 @@ import { RecipeDetails } from "@/details"
 import { Need, QueuePage } from "@/queue"
 import { makesOf, partsOf, Totals, totalsOf, yieldOf } from "@/cost"
 import { knownSpellName, OverviewPage } from "@/overview"
+import { learnedFrom, Learning, Taught } from "@/learn"
 import { FilterButton } from "@/filter"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
@@ -105,6 +106,9 @@ public class Professions implements Module, App {
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ prices: true, remember: true, showUnlearned: true })
   public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
+  // What the profession trainers met teach, the account's: every character meets the same trainers.
+  public learning: mut Memory<Learning> = new Memory<Learning>({ recipes: {} }, .Account)
+  derived taught: Map<String, Taught> = self.learning.values.recipes
   // The queue, the root's and not the window's: it runs while the window is shut.
   public crafting: mut CraftQueue
 
@@ -233,6 +237,14 @@ public class Professions implements Module, App {
     self.known = peek self.placing
     watch { self.placed() }
     Game.tradeSkill.shownEmpty.listen(self.onShownEmpty)
+    Game.trainer.changed.listen(self.onTrainer)
+  }
+
+  // A profession's trainer shows, or its services change: the skill and the price of each recipe it teaches are kept.
+  onTrainer(mut self) {
+    if (!Game.trainer.open || Game.trainer.teachesClass()) { return }
+    const now = peek self.learning.values
+    self.learning.write({ recipes: learnedFrom(now.recipes, Game.trainer.services()) })
   }
 
   // Each profession the character has: its icon, its name and its skill (`31 / 75`).
@@ -255,7 +267,7 @@ public class Professions implements Module, App {
     for (need of needs) {
       if (need.item > 0) {
         auction.shopping.add(ItemId.of(need.item), need.missing,
-                             .Queue { recipe: need.recipe, crafts: need.crafts, character: Game.player.name })
+          .Queue { recipe: need.recipe, crafts: need.crafts, character: Game.player.name })
       }
     }
   }
@@ -705,7 +717,7 @@ public class Professions implements Module, App {
             <QueuePage $if={self.queueShown} queued={self.queued} prices={self.prices} @act={self.onQueueAct}
                        @counted={self.onQueueCount} @shop={self.onShop} />
             <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
-                          kept={self.kept} @pick={self.openRecipe} />
+                          kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
             <box $else columns={GRID} rows={FILL} gap={space(.Group)}>
               <box rows={SIDE} gap={space(.Item)}>
                 <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>

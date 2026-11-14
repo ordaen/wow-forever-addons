@@ -1,11 +1,13 @@
 // The profession's «Overview» tab: nothing the tab and the skill bar already say. A card with the next rank and what
 // it needs (a secondary profession says so), and the profession's own spell where it has one on this tab («Fish»,
 // «Disenchant»); under it, three sections: the recipes counted (learned, not learned, makeable now, raising the
-// skill), «What to learn next» (the recipes not learned by the skill they turn yellow at; a click opens one), and
+// skill), «What to learn next» (the recipes not learned by the skill they are learned at, and where; a click opens
+// one), and
 // what the work needs (each tool or place any recipe asks for), then the tracked recipes with what each still lacks.
 import Game from "$game"
 import { Action, Align, Line, Overflow, Track } from "$ltml"
-import { Component, PushButton, PX, space } from "Ordaen"
+import { Component, copperText, PushButton, PX, space } from "Ordaen"
+import { learnSkillOf, Taught } from "@/learn"
 import Locale from "@/locales"
 import Style from "@/style"
 import { Thresholds } from "@/skillUps"
@@ -139,15 +141,19 @@ public class OverviewPage implements Component {
   profession: Signal<Game.Profession | nil>
   thresholds: Signal<Thresholds>
   kept: Signal<Kept>
+  taught: Signal<Map<String, Taught>>
   constructor(
     profession: Signal<Game.Profession | nil>,
     // Where the profession's recipes turn yellow and grey.
     thresholds: Signal<Thresholds>,
     kept: Signal<Kept>,
+    // What the trainers met teach, by the recipe's name.
+    taught: Signal<Map<String, Taught>> = {},
   ) {
     self.profession = profession
     self.thresholds = thresholds
     self.kept = kept
+    self.taught = taught
   }
 
   nextTextOf(self): String {
@@ -166,21 +172,26 @@ public class OverviewPage implements Component {
     ]
   }
 
-  // The recipes not learned, by the skill they turn yellow at (the client's table has no skill they are learned at),
-  // the nearest first; one the table hasn't goes last.
+  // The recipes not learned, by the skill they are learned at, the nearest first: the one a trainer said, else the
+  // one they turn yellow at (the client's table has no skill they are learned at). Each says where it is learned.
   toLearnOf(self): Array<OverviewLine> {
     const yellow = self.thresholds.yellow
+    const taught = self.taught
     let list: Array<Game.Recipe> = Game.tradeSkill.recipes.filter(r => !r.learned)
     list.sort((a, b) => {
-      const x = yellow[a.id] ?? 1000
-      const y = yellow[b.id] ?? 1000
+      const x = learnSkillOf(taught[a.name], yellow[a.id])
+      const y = learnSkillOf(taught[b.name], yellow[b.id])
       if (x != y) { return x < y }
       return a.name < b.name
     })
     let lines: Array<OverviewLine> = []
     for (recipe of list) {
       if (lines.length >= NEXT_MOST) { break }
-      lines.push({ text: recipe.name, recipe: recipe.id })
+      const from = taught[recipe.name]
+      const text = from == nil
+        ? Locale.LEARN_UNSEEN.format(recipe.name)
+        : Locale.LEARN_AT_TRAINER.format(recipe.name, from.skill, copperText(from.cost))
+      lines.push({ text: text, recipe: recipe.id })
     }
     if (lines.length == 0) { lines.push({ text: Locale.NOTHING_TO_LEARN, recipe: 0 }) }
     return lines
