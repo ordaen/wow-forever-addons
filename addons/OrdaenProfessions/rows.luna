@@ -1,9 +1,10 @@
-// The rows of the professions window's lists: a category, a recipe, a reagent. A faint rule between rows; a row of
-// the lists lights under the cursor, and the chosen one more, with a 2 px gold edge at its left. A recipe's row says
+// The rows of the professions window's lists: a category, a recipe, a reagent. A category and a recipe are the
+// library's `SelectItem`: a faint rule between them, a light under the cursor, the chosen one filled in its colour
+// with a 2 px edge of it at its left (a recipe's, its difficulty's; a category's, the gold). A recipe's row says
 // what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
-import { Align, Art, Click, Edges, Line, MouseButton, Overflow, Position, Stated, Track } from "$ltml"
-import { Component, PX, space, TableRow } from "Ordaen"
+import { Align, Art, Click, Edges, Line, MouseButton, Position, Track } from "$ltml"
+import { Component, PX, SelectItem, space, TableRow } from "Ordaen"
 import { RecipeMenu } from "@/menu"
 import Style from "@/style"
 import { Act, FAVORITES, Group, has, Kept, members } from "@/view"
@@ -30,8 +31,7 @@ public class CategoryRow implements Component {
   public pick: Event<Integer> = new Event()
 
   derived isChosen: Boolean = self.chosen == self.group.id
-  derived background: Color | Stated<Color> = self.isChosen ? Style.ROW_CHOSEN : Style.ROW_LIGHT
-  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
+  derived first: Boolean = self.index == 1
   derived nameColor: Color = self.group.id == FAVORITES ? Style.WHITE : Style.GOLD
   derived makeableColor: Color = self.group.makeable > 0 ? Style.WHITE : Style.DIM
 
@@ -50,14 +50,12 @@ public class CategoryRow implements Component {
     self.chosen = chosen
   }
 
-  onClick(mut self) { self.pick.emit(self.group.id) }
+  onClick(mut self, click: Click) { self.pick.emit(self.group.id) }
 
   public render(self): Template {
     return $ltml {
-      <box columns={NAME_COUNT} gap={8 * PX} padding={CATEGORY_PAD} yAlign={Align.Center} border={self.rule}
-           background={self.background} @click={self.onClick}>
-        <box $if={self.isChosen} position={Position.Absolute} left={0} top={0} bottom={0} width={2 * PX}
-             background={Style.CHOSEN_EDGE} />
+      <SelectItem selected={self.isChosen} first={self.first} columns={NAME_COUNT} padding={CATEGORY_PAD}
+                  @pick={self.onClick}>
         <text value={self.group.name} textColor={self.nameColor} textShadow={Style.SHADOW} />
         <box columns={MARKS} gap={3 * PX} yAlign={Align.Center}>
           <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={false}
@@ -65,7 +63,7 @@ public class CategoryRow implements Component {
           <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={false}
                 textFont={.Numbers} />
         </box>
-      </box>
+      </SelectItem>
     }
   }
 }
@@ -76,8 +74,9 @@ public class RecipeRow implements Component {
   public act: Event<(Act, Integer)> = new Event()
 
   derived isChosen: Boolean = self.chosen == self.recipe.id
-  derived background: Color | Stated<Color> = self.isChosen ? Style.ROW_CHOSEN : Style.ROW_LIGHT
-  derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
+  derived first: Boolean = self.index == 1
+  // Chosen, it is filled in its own colour.
+  derived tint: Color | nil = self.color
   derived color: Color = self.recipe.learned ? Style.difficultyColor(self.recipe.difficulty) : Style.OFF
   derived count: String = self.recipe.craftable > 0 ? "[%d]".format(self.recipe.craftable) : ""
   derived starred: Boolean = has(self.kept.favorites, self.recipe.id)
@@ -117,16 +116,14 @@ public class RecipeRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={NAME_COUNT} gap={8 * PX} padding={self.padding} yAlign={Align.Center} border={self.rule}
-           background={self.background} overflow={Overflow.Hidden} @click={self.onClick}>
-        <box $if={self.isChosen} position={Position.Absolute} left={0} top={0} bottom={0} width={2 * PX}
-             background={Style.CHOSEN_EDGE} />
+      <SelectItem selected={self.isChosen} color={self.tint} first={self.first} columns={NAME_COUNT}
+                  padding={self.padding} @pick={self.onClick}>
         <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={false} />
         <text value={self.count} textColor={Style.WHITE} wrap={false} textFont={.Numbers} />
         <box $if={self.starred} position={Position.Absolute} right={STAR_RIGHT} top={STAR_TOP} width={STAR}
              height={STAR} background={Style.GOLD} />
         <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
-      </box>
+      </SelectItem>
     }
   }
 }

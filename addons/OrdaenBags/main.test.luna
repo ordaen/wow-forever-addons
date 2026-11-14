@@ -265,9 +265,9 @@ test "Ctrl-click sends an item where the place takes it; at a merchant what he w
   Test.mount(nil, PAGE)
   Game.bags.open = true
   Test.flush()
-  Game.input.ctrlDown = (): Boolean => true
+  Game.input.controlDown = (): Boolean => true
   click(Test.holding("20", nil))
-  Game.input.ctrlDown = (): Boolean => false
+  Game.input.controlDown = (): Boolean => false
   Game.bags.place = Game.BagPlace.Merchant
   Test.flush()
   Test.shot("asked to send the cloth; at a merchant, the quest's deed dimmed")

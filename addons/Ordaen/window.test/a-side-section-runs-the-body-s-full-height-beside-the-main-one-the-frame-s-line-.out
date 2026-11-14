@@ -8,7 +8,7 @@ surface 500,281.38 600x337.25 on DIALOG clamped raised by a click
         box 532.75,566.46 289.25x28.33
           text 532.75,573.12 43.75x15 "5 items" #ffffff
           box 593.17,580.62 112.17x0
-          box 722,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 722,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 722,566.46 100x28.33 absolute
               text 759.5,573.12 25x15 "Scan" #ffd100
     box 842,331.38 250.25x276.75 border=ButtonFrameTemplateNoPortrait sides=left

@@ -1,0 +1,54 @@
+// Sets of addons the player saved: each a name and the folders it switches on. Kept for the account, at most ten,
+// because the client keeps nothing like them; the addons' own state is the client's (`AddOns.txt`) and never copied.
+import Game from "$game"
+
+public const MOST = 10
+const KEY = "systemSets"
+
+public struct AddOnSet implements Plain {
+  name: String = ""
+  addons: Array<String> = []
+}
+
+struct Kept implements Plain {
+  sets: Array<AddOnSet> = []
+}
+
+public class Sets {
+  public state list: mut Array<AddOnSet> = []
+
+  constructor() {
+    self.list = load<Kept>(.Account, KEY, Kept {}).sets.clone()
+  }
+
+  store(self) { Game.saved.store(.Account, KEY, Kept { sets: peek self.list }) }
+
+  // A set saved under a name, in place of one of that name: false where ten are kept already.
+  public save(mut self, name: String, addons: Array<String>): Boolean {
+    const sets = peek self.list
+    for (index, kept of sets) {
+      if (kept.name == name) {
+        self.list[index] = { name: name, addons: addons }
+        self.store()
+        return true
+      }
+    }
+    if (sets.length >= MOST) { return false }
+    self.list.push({ name: name, addons: addons })
+    self.store()
+    return true
+  }
+
+  public rename(mut self, index: Integer, name: String) {
+    const kept = (peek self.list)[index]
+    if (kept == nil || name == "") { return }
+    self.list[index] = { name: name, addons: kept.addons }
+    self.store()
+  }
+
+  public remove(mut self, index: Integer) {
+    if ((peek self.list)[index] == nil) { return }
+    _ = self.list.remove(index)
+    self.store()
+  }
+}

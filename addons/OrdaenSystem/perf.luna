@@ -1,0 +1,114 @@
+// What each addon costs, as the client measures it (`C_AddOnProfiler`): the window only reads it. Every CPU number is
+// the addon's share of the client's own time over the same metric, the formula of Blizzard's list
+// (`AddonListMixin.GetAddonMetricPercent`), so the two never disagree. Sampled once a second while the window shows,
+// never while it is closed; memory is read on open and on «Refresh» alone (`UpdateAddOnMemoryUsage` walks every
+// addon's memory).
+import Client from "$client"
+
+// The frames over 5, 10, 50, 100, 500 and 1000 ms: the card's «Spikes».
+public const SPIKES: Array<Integer> = [5, 10, 50, 100, 500, 1000]
+
+// One addon's load: its shares of the client's time, in per cent.
+public struct Load {
+  now: Number
+  peak: Number
+  average: Number
+  encounter: Number
+  // How many frames it took over each of `SPIKES`.
+  spikes: Array<Integer>
+}
+
+// An addon's share of the client's time over a metric: 0 where the client's is 0.
+function share(name: String, metric: Client.AddOnProfilerMetric): Number {
+  const whole = Client.C_AddOnProfiler.GetApplicationMetric(metric)
+  if (whole <= 0) { return 0 }
+  return Client.C_AddOnProfiler.GetAddOnMetric(name, metric) / whole * 100
+}
+
+function spikesOf(name: String): Array<Integer> {
+  return [
+    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver5Ms).floor(),
+    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver10Ms).floor(),
+    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver50Ms).floor(),
+    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver100Ms).floor(),
+    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver500Ms).floor(),
+    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver1000Ms).floor(),
+  ]
+}
+
+// A share as the columns write it.
+public function percent(value: Number): String { return "%.1f %%".format(value) }
+
+// Memory in KB as the columns write it: MB from 1024.
+public function memory(kb: Number): String {
+  if (kb >= 1024) { return "%.1f MB".format(kb / 1024) }
+  return "%d KB".format(kb.floor())
+}
+
+public class Profiler {
+  // Whether the client measures addons at all; where not, the columns read «—».
+  public state measuring = false
+  // Each loaded addon's load, by folder.
+  public state loads: Map<String, Load> = {}
+  // Every addon together, now.
+  public state overall: Number = 0
+  // The ten heaviest now (the filter «Heaviest»), by folder.
+  public state heavy: Map<String, Boolean> = {}
+  // Each loaded addon's memory in KB, as last read.
+  public state memory: Map<String, Number> = {}
+  // Which run of the sampling is the live one: a run left from an earlier open stops at its next turn.
+  run = 0
+  sampling = false
+  // The addons sampled: the loaded ones of the list as it was read.
+  names: Array<String> = []
+
+  // Sampling begins: now, then once a second until `stop`.
+  public start(mut self, names: Array<String>) {
+    self.names = names
+    self.sampling = true
+    self.run += 1
+    self.weigh()
+    self.turn(self.run)
+  }
+
+  public stop(mut self) {
+    self.sampling = false
+    self.run += 1
+  }
+
+  turn(mut self, run: Integer) {
+    if (!self.sampling || run != self.run) { return }
+    self.sample()
+    Client.C_Timer.After(1, (): nil => self.turn(run))
+  }
+
+  // The four shares and the spikes of every addon sampled, and the whole's.
+  public sample(mut self) {
+    self.measuring = Client.C_AddOnProfiler.IsEnabled()
+    if (!(peek self.measuring)) { return }
+    const map: Map<String, Load> = {}
+    for (name of self.names) {
+      map[name] = {
+        now: share(name, .RecentAverageTime),
+        peak: share(name, .PeakTime),
+        average: share(name, .SessionAverageTime),
+        encounter: share(name, .EncounterAverageTime),
+        spikes: spikesOf(name),
+      }
+    }
+    self.loads = map
+    const whole = Client.C_AddOnProfiler.GetApplicationMetric(.RecentAverageTime)
+    self.overall = whole <= 0 ? 0 : Client.C_AddOnProfiler.GetOverallMetric(.RecentAverageTime) / whole * 100
+    const top: Map<String, Boolean> = {}
+    for (result of Client.C_AddOnProfiler.GetTopKAddOnsForMetric(.RecentAverageTime, 10)) { top[result.addOnName] = true }
+    self.heavy = top
+  }
+
+  // Every addon's memory, read anew.
+  public weigh(mut self) {
+    Client.UpdateAddOnMemoryUsage()
+    const map: Map<String, Number> = {}
+    for (name of self.names) { map[name] = Client.GetAddOnMemoryUsage(name) }
+    self.memory = map
+  }
+}

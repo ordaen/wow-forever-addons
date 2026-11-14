@@ -71,7 +71,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 text 819.42,400.21 25x15 "30 d" #a3977f
           box 332.75,659.79 516.67x28.33
             box 332.75,673.96 343.33x0
-            box 682.75,659.79 166.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 682.75,659.79 166.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 682.75,659.79 166.67x28.33 absolute
                 text 719.21,666.46 93.75x15 "Collect all (2)" #808080
         box 857.75,251.38 414.5x436.75
@@ -161,7 +161,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 text 819.42,400.21 25x15 "30 d" #a3977f
           box 332.75,659.79 516.67x28.33
             box 332.75,673.96 343.33x0
-            box 682.75,659.79 166.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 682.75,659.79 166.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 682.75,659.79 166.67x28.33 absolute
                 text 719.21,666.46 93.75x15 "Collect all (2)" #808080
         box 857.75,251.38 414.5x436.75
@@ -184,10 +184,10 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
           box 857.75,329.04 414.5x324.08
           box 857.75,659.79 414.5x28.33
             box 857.75,659.79 266.17x28.33
-              box 857.75,659.79 100x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+              box 857.75,659.79 100x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                 box 857.75,659.79 100x28.33 absolute
                   text 889,666.46 37.5x15 "Return" #808080
-            box 1130.58,659.79 141.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1130.58,659.79 141.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1130.58,659.79 141.67x28.33 absolute
                 text 1167.04,666.46 68.75x15 "Collect all" #808080
     box 1216.08,230.46 77.5x26.67 absolute clipped

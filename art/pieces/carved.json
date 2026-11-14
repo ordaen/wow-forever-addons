@@ -1,0 +1,8 @@
+{
+  "says": "A dialog title's rule (ctl.carved in Ordaen/art.luna), stretched along it under the engraved title: a groove cut into the wood, 4 px tall (8 texels), one row a pixel: the upper wall in shade, the floor dark, the lower lip lit in warm light, the light dying out under it; both ends fade out over a fifth of the length.",
+  "ships": ["addons/Ordaen/media/ctl-carved.tga"],
+  "origin": "Drawn by the design: wow-dev-tools `design/scripts/carved-rule.mjs` writes a page of the rows of the dialog title's groove (`CARVED` in its Window.vue); the page shot at 2x on black and on white with `design/scripts/shot.mjs --width 400 --height 600 --scale 2` (`?bg=black`, `bg=white`), then matted.",
+  "steps": [
+    { "matte": { "black": "art/sources/carved-rule-black.png", "white": "art/sources/carved-rule-white.png", "out": "addons/Ordaen/media/ctl-carved.tga", "width": 256, "height": 8 } }
+  ]
+}

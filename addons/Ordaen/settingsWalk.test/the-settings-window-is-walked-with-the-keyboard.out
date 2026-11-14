@@ -60,13 +60,13 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 736.08,344.71 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,715.79 582.83x13
             text 532.75,715.79 582.83x13 "/ordaen opens this page" #a3977f
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
@@ -117,7 +117,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 487.75,291.04 619.5x29.67
                     text 487.75,291.04 619.5x15 "Minimal" #ffffff
                     text 487.75,307.71 619.5x13 "Flat, fine lines, hardly any textures or animations" #a3977f
-                  box 1117.25,291.71 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+                  box 1117.25,291.71 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
                     box 1117.25,291.71 125x28.33 absolute
                       text 1170.38,298.38 18.75x15 "Use" #ffd100
               box 487.75,335.71 754.5x135
@@ -346,12 +346,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                       box 912.75,1779.88 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 582.83x0
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart

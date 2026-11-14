@@ -77,7 +77,7 @@ box 0,0 1000x278.67
             text 486.67,218.83 25x15 "30 d" #a3977f
     box 0,250.33 516.67x28.33
       box 0,264.5 343.33x0
-      box 350,250.33 166.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+      box 350,250.33 166.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
         box 350,250.33 166.67x28.33 absolute
           text 386.46,257 93.75x15 "Collect all (2)" #ffd100
   box 525,0 475x15
@@ -153,7 +153,7 @@ box 0,0 1000x215.83
               text 485,162.5 25x15 "30 d" #a3977f
     box 0,187.5 516.67x28.33
       box 0,201.67 343.33x0
-      box 350,187.5 166.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+      box 350,187.5 166.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
         box 350,187.5 166.67x28.33 absolute
           text 386.46,194.17 93.75x15 "Collect all (2)" #ffd100
   box 525,0 475x15

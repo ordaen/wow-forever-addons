@@ -14,7 +14,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 box 1112.25,251.38 28.33x28.33
                   box 1112.25,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                     box 1119.75,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
-          box 1147.25,251.38 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+          box 1147.25,251.38 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 1147.25,251.38 125x28.33 absolute
               text 1194.12,258.04 31.25x15 "Write" #808080
         box 332.75,286.38 939.5x395.08 scrolled 0 of 0

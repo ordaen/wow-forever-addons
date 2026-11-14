@@ -1,0 +1,496 @@
+// The AddOns window: one tab, «AddOns» (the client's `ADDONS`), its line how many are on. The header (the search,
+// how many show, for whom, the filter, the sort, the view), the columns' headings, the list (by category, an addon's
+// group under it, or one table), the strip of the last step's extras with «Undo»; the picked addon's card at the
+// right; on the footer row «Reset» and «Sets» at the left, what waits for a reload and «Reload» at the right.
+import { Action, Align, Edges, Overflow, Track } from "$ltml"
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import { ARTWORK, Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, PushButton, PX, space, Tip, TipRow, Toolbar,
+  ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
+import root Ordaen from "Ordaen"
+import { AddOn, Catalog, plain, Status } from "@/catalog"
+import { Card } from "@/card"
+import Locale from "@/locales"
+import { percent, Profiler } from "@/perf"
+import { COLUMNS, Hot, Line, LineRow } from "@/rows"
+import { MOST, Sets } from "@/sets"
+import Style from "@/style"
+
+public enum Filter { All = "all", On = "on", Off = "off", Failed = "failed", Demand = "demand", Heavy = "heavy" }
+public enum Order { Name = "name", Now = "now", Peak = "peak", Memory = "memory" }
+public enum View { Categories = "categories", Table = "table" }
+
+const FILTERS: Array<Choice<Filter>> = [
+  { value: Filter.All, label: Locale.FILTER_ALL },
+  { value: Filter.On, label: Locale.FILTER_ON },
+  { value: Filter.Off, label: Locale.FILTER_OFF },
+  { value: Filter.Failed, label: Locale.FILTER_FAILED },
+  { value: Filter.Demand, label: Locale.FILTER_DEMAND },
+  { value: Filter.Heavy, label: Locale.FILTER_HEAVY },
+]
+const ORDERS: Array<Choice<Order>> = [
+  { value: Order.Name, label: Locale.SORT_NAME },
+  { value: Order.Now, label: Locale.SORT_NOW },
+  { value: Order.Peak, label: Locale.SORT_PEAK },
+  { value: Order.Memory, label: Locale.SORT_MEMORY },
+]
+const VIEWS: Array<Choice<View>> = [
+  { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
+  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table },
+]
+// The memory column's refresh: a toolbar glyph's 16 px cell, drawn 1:1.
+const REFRESH = 16 * PX
+const BODY: Array<Track> = ["auto", "auto", { fr: 1 }, "auto", "auto"]
+const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto"]
+const GROUP: Array<Track> = ["auto", "auto"]
+const STRIP: Array<Track> = [{ fr: 1 }, "auto"]
+const HEADING: Edges = { left: space(.Item), right: space(.Item) }
+const HALF: Number = space(.Item) / 2
+// «Reload»: the client does it from the player's click (Forever refuses `ReloadUI` from addon code).
+const RELOAD: Action = Action.RunMacro { macro: "/reload" }
+const CONFIRM_WIDTH = 460 * PX
+// The set's dialog: room for its name's row, the label and the field.
+const SET_WIDTH = 700 * PX
+const BUTTON = 120 * PX
+
+// The value of the column `order` sorts by.
+function weightOf(order: Order, name: String, profiler: Profiler): Number {
+  return match (order) {
+    .Name => 0,
+    .Now => (peek profiler.loads)[name]?.now ?? -1,
+    .Peak => (peek profiler.loads)[name]?.peak ?? -1,
+    .Memory => (peek profiler.memory)[name] ?? -1,
+  }
+}
+
+// From which value a column is lit: its heaviest third, of the values above nought.
+function thirdOf(values: Array<Number>): Number {
+  const list: Array<Number> = []
+  for (value of values) {
+    if (value > 0) { list.push(value) }
+  }
+  if (list.length == 0) { return Number.huge }
+  list.sort((a, b) => a > b)
+  return list[(list.length / 3).ceil()] ?? Number.huge
+}
+
+public class AddOnsWindow implements Component {
+  public close: Event<nil> = new Event()
+
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+  state search = ""
+  state filter: Filter = Filter.All
+  state order: Order = Order.Name
+  // The heaviest first for a number's column; reversed by a second click on a table's heading.
+  state descending = false
+  state view: View = View.Categories
+  state everyone = true
+  state picked = ""
+  state folded: mut Map<String, Boolean> = {}
+  // What is to be switched off once the player answers, with the question's title.
+  state asking: Array<String> = []
+  // The sets' menu, and the set being saved (-1) or looked at (its place); 0: none.
+  state setsOpen = false
+  state editing = 0
+  state setName = ""
+  state setNote = ""
+  state reloadHovered = false
+  state waitHovered = false
+
+  derived visible: Array<AddOn> = self.visibleOf()
+  derived lines: Array<Line> = self.linesOf()
+  derived hot: Hot = self.hotOf()
+  derived countText: String = self.visible.length == self.catalog.addons.length ? "%d".format(self.visible.length) :
+    Locale.COUNT_OF.format(self.visible.length, self.catalog.addons.length)
+  derived tabs: Array<WindowTabSpec> = [{ title: Client.ADDONS, desc: self.onText(), icon: "Interface/Icons/INV_Misc_Wrench_01" }]
+  derived side: WindowSide | nil = self.picked != "" && self.catalog.byName[self.picked] != nil ?
+    { width: Style.CARD, content: self.card } : nil
+  derived pickedModule: Boolean = self.catalog.byName[self.picked]?.group == self.framework
+  derived tabled: Boolean = self.view == .Table
+  derived filtered: Boolean = self.filter != .All
+  derived overall: String = self.profiler.measuring ? Locale.ALL_ADDONS.format(percent(self.profiler.overall)) : ""
+  derived notMeasuring: Boolean = !self.profiler.measuring
+  derived also: String = Locale.ALSO.format((self.catalog.step?.also ?? []).join(", "))
+  derived stepShown: Boolean = self.catalog.step != nil
+  derived question: String = Locale.DISABLE_ASK.format(self.dependentsText())
+  derived questionTitle: String = Locale.DISABLE_TITLE.format(self.catalog.titleOf(self.asking[1] ?? ""))
+  derived setEntries: Array<MenuEntry> = self.setEntriesOf()
+  derived setTitle: String = self.editing < 0 ? Locale.SET_NEW :
+    Locale.SET_TITLE.format(self.sets.list[self.editing]?.name ?? "")
+  derived waitText: String = self.catalog.waiting > 0 ? Locale.RELOAD_NEEDED.format(self.catalog.waiting) : ""
+  derived waitRows: Array<TipRow> = self.waitRowsOf()
+  derived fighting: Boolean = Game.situation.combat
+  derived reloadTip: Boolean = self.reloadHovered && self.fighting
+  derived waitTip: Boolean = self.waitHovered && self.waitText != ""
+
+  const card: Template = $ltml {
+    <Card name={self.picked} catalog={mut self.catalog} profiler={self.profiler} module={self.pickedModule}
+          @pick={self.onPick} @toggle={self.onCardToggle} @settings={self.onSettings} />
+  }
+  const footer: Template = $ltml {
+    <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
+      <box columns={GROUP} gap={space(.Item)} yAlign={Align.Center}>
+        <PushButton label={Locale.RESET} width={BUTTON} @click={self.onReset} />
+        <box>
+          <PushButton label={Locale.SETS} width={BUTTON} @click={self.onSets} />
+          <Menu $if={self.setsOpen} entries={self.setEntries} @pick={self.onSet} @close={self.closeSets} />
+        </box>
+      </box>
+      <box />
+      <box columns={GROUP} gap={space(.Item)} yAlign={Align.Center}>
+        <box @enter={self.onWaitEnter} @leave={self.onWaitLeave}>
+          <text value={self.waitText} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+          <Tip $if={self.waitTip} title={self.waitText} text={""} rows={self.waitRows} />
+        </box>
+        <box @enter={self.onReloadEnter} @leave={self.onReloadLeave}>
+          <PushButton label={Locale.RELOAD} width={160 * PX} accent={true} disabled={self.fighting}
+                      action={RELOAD} />
+          <Tip $if={self.reloadTip} title={Locale.RELOAD} text={Locale.IN_COMBAT} />
+        </box>
+      </box>
+    </box>
+  }
+
+  // Closed, it stays drawn: it opens again at the cost of a surface shown.
+  shown: Signal<Boolean>
+  const catalog: mut Catalog = new Catalog()
+  const profiler: mut Profiler = new Profiler()
+  const sets: mut Sets = new Sets()
+  // Ordaen's folder: the addon its modules stand under.
+  const framework: String
+  const whom: Array<Choice<Boolean>>
+  constructor(framework: String, shown: Signal<Boolean> = true) {
+    self.shown = shown
+    self.framework = framework
+    self.whom = [{ value: true, label: Locale.WHO_ALL }, { value: false, label: Game.player.name }]
+    watch (open of self.shown) { self.follow(open) }
+    watch (all of self.everyone) { self.catalog.setEveryone(all) }
+  }
+
+  // Each open reads the list in one pass and samples once a second, hearing `ADDON_LOADED` while it shows; a close
+  // stops both.
+  follow(mut self, open: Boolean) {
+    if (!open) {
+      self.profiler.stop()
+      return
+    }
+    self.catalog.read()
+    const loaded: Array<String> = []
+    for (addon of peek self.catalog.addons) {
+      if ((peek self.catalog.statuses)[addon.name]?.loaded == true) { loaded.push(addon.name) }
+    }
+    self.profiler.start(loaded)
+    Events.ADDON_LOADED.listen(self.onLoaded)
+  }
+
+  onLoaded(mut self, name: String, fromUser: Boolean) { self.catalog.refresh() }
+
+  onText(self): String {
+    let on = 0
+    for (addon of self.catalog.addons) {
+      if (self.catalog.statuses[addon.name]?.enabled != .Off) { on += 1 }
+    }
+    return Locale.COUNT_OF.format(on, self.catalog.addons.length)
+  }
+
+  // Whether an addon shows with the search and the filter as they are.
+  matches(self, addon: AddOn, status: Status | nil): Boolean {
+    const query = self.search.lower()
+    if (query != "" && !addon.words.contains(query)) { return false }
+    return match (self.filter) {
+      .All => true,
+      .On => status != nil && status.enabled != .Off,
+      .Off => status == nil || status.enabled == .Off,
+      .Failed => status != nil && status.reason != nil && status.reason != "DISABLED" && status.enabled != .Off,
+      .Demand => addon.demand,
+      .Heavy => self.profiler.heavy[addon.name] == true,
+    }
+  }
+
+  // The addons that show, in the order the sort says.
+  visibleOf(self): Array<AddOn> {
+    const list: Array<AddOn> = []
+    for (addon of self.catalog.addons) {
+      if (self.matches(addon, self.catalog.statuses[addon.name])) { list.push(addon) }
+    }
+    const order = self.order
+    const down = self.descending
+    const profiler = self.profiler
+    // Read so the list follows the numbers it sorts by.
+    _ = self.profiler.loads
+    _ = self.profiler.memory
+    list.sort((a, b) => {
+      if (order != .Name) {
+        const x = weightOf(order, a.name, profiler)
+        const y = weightOf(order, b.name, profiler)
+        if (x != y) { return down ? x < y : x > y }
+      }
+      return down && order == .Name ? a.key > b.key : a.key < b.key
+    })
+    return list
+  }
+
+  // The lines: in a table, every addon shown; by category, a caption for each category (by its exact text, «Other»
+  // last) and its addons, each group's members right under their parent, indented.
+  linesOf(self): Array<Line> {
+    const list: Array<Line> = []
+    if (self.view == .Table) {
+      for (addon of self.visible) { list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false }) }
+      return list
+    }
+    const byCategory: Map<String, mut Array<AddOn>> = {}
+    const categories: Array<String> = []
+    for (addon of self.visible) {
+      const held = byCategory[addon.category]
+      if (held == nil) {
+        categories.push(addon.category)
+        byCategory[addon.category] = [addon]
+      } else {
+        held.push(addon)
+      }
+    }
+    categories.sort((a, b) => a == "" ? false : b == "" ? true : a < b)
+    for (category of categories) {
+      const members = byCategory[category] ?? []
+      const folded = self.folded[category] == true
+      list.push({ caption: true, name: category, count: members.length, folded: folded, child: false })
+      if (!folded) {
+        const here: Map<String, Boolean> = {}
+        for (addon of members) { here[addon.name] = true }
+        for (addon of members) {
+          if (addon.group == "" || addon.group == addon.name || here[addon.group] != true) {
+            list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false })
+            for (member of members) {
+              if (member.group == addon.name && member.name != addon.name) {
+                list.push({ caption: false, name: member.name, count: 0, folded: false, child: true })
+              }
+            }
+          }
+        }
+      }
+    }
+    return list
+  }
+
+  hotOf(self): Hot {
+    const now: Array<Number> = []
+    const peak: Array<Number> = []
+    for (_, load of self.profiler.loads) {
+      now.push(load.now)
+      peak.push(load.peak)
+    }
+    const weights: Array<Number> = []
+    for (_, kb of self.profiler.memory) { weights.push(kb) }
+    return { now: thirdOf(now), peak: thirdOf(peak), memory: thirdOf(weights) }
+  }
+
+  dependentsText(self): String {
+    const names: Array<String> = []
+    for (name of self.catalog.dependentsOf(self.asking)) { names.push(self.catalog.titleOf(name)) }
+    return names.join(", ")
+  }
+
+  setEntriesOf(self): Array<MenuEntry> {
+    const list: Array<MenuEntry> = [{ label: Locale.SET_SAVE }]
+    for (index, kept of self.sets.list) { list.push({ label: kept.name, group: index == 1 }) }
+    return list
+  }
+
+  waitRowsOf(self): Array<TipRow> {
+    const list: Array<TipRow> = []
+    for (addon of self.catalog.addons) {
+      const status = self.catalog.statuses[addon.name]
+      if (status != nil) {
+        if (status.mine && !status.loaded && !addon.demand && status.reason == nil) {
+          list.push({ label: plain(addon.title), value: Locale.STATE_WAITS })
+        } else if (!status.mine && status.loaded) {
+          list.push({ label: plain(addon.title), value: Locale.STATE_UNTIL })
+        }
+      }
+    }
+    return list
+  }
+
+  onPick(mut self, name: String) { self.picked = name }
+
+  onFold(mut self, category: String) {
+    self.folded[category] = self.folded[category] == true ? nil : true
+  }
+
+  onSettings(self, name: String) { Ordaen.toggleNamed(name) }
+
+  // The checkbox: on with what it needs; off alone, after asking where others need it. With Ctrl on a group's
+  // parent, the parent and every addon of its group to the parent's new state together.
+  onToggle(mut self, name: String, control: Boolean) {
+    const names: Array<String> = [name]
+    if (control) {
+      for (member of (peek self.catalog.members)[name] ?? []) { names.push(member) }
+    }
+    if (!self.catalog.isOn(name)) {
+      self.catalog.switchOn(names)
+      return
+    }
+    if (self.catalog.dependentsOf(names).length == 0) {
+      self.catalog.switchOff(names)
+    } else {
+      self.asking = names
+    }
+  }
+
+  onCardToggle(mut self, name: String) { self.onToggle(name, false) }
+
+  cancelAsk(mut self) { self.asking = [] }
+
+  confirmAsk(mut self) {
+    const names = peek self.asking
+    self.asking = []
+    self.catalog.switchOff(names)
+  }
+
+  onUndo(mut self) { self.catalog.undo() }
+  onReset(mut self) { self.catalog.reset() }
+  onRefresh(mut self) { self.profiler.weigh() }
+  onSets(mut self) { self.setsOpen = !self.setsOpen }
+  closeSets(mut self) { self.setsOpen = false }
+
+  onSet(mut self, index: Integer) {
+    self.setsOpen = false
+    self.setNote = ""
+    if (index == 1) {
+      self.editing = -1
+      self.setName = ""
+    } else {
+      self.editing = index - 1
+      self.setName = (peek self.sets.list)[index - 1]?.name ?? ""
+    }
+  }
+
+  closeSet(mut self) { self.editing = 0 }
+
+  saveSet(mut self) {
+    const name = peek self.setName
+    if (name == "") { return }
+    if (self.sets.save(name, self.catalog.onNames())) {
+      self.editing = 0
+    } else {
+      self.setNote = Locale.SETS_FULL.format(MOST)
+    }
+  }
+
+  applySet(mut self) {
+    const kept = (peek self.sets.list)[peek self.editing]
+    if (kept == nil) { return }
+    const skipped = self.catalog.apply(kept.addons)
+    if (skipped.length > 0) {
+      self.setNote = Locale.SET_SKIPPED.format(skipped.join(", "))
+    } else {
+      self.editing = 0
+    }
+  }
+
+  renameSet(mut self) {
+    self.sets.rename(peek self.editing, peek self.setName)
+    self.editing = 0
+  }
+
+  deleteSet(mut self) {
+    self.sets.remove(peek self.editing)
+    self.editing = 0
+  }
+
+  // A heading of a table sorts by its column, again the other way.
+  sortBy(mut self, order: Order) {
+    if (self.view != .Table) { return }
+    if (self.order == order) {
+      self.descending = !self.descending
+    } else {
+      self.order = order
+      self.descending = false
+    }
+  }
+
+  onHeadName(mut self) { self.sortBy(.Name) }
+  onHeadNow(mut self) { self.sortBy(.Now) }
+  onHeadPeak(mut self) { self.sortBy(.Peak) }
+  onHeadMemory(mut self) { self.sortBy(.Memory) }
+  onWaitEnter(mut self) { self.waitHovered = true }
+  onWaitLeave(mut self) { self.waitHovered = false }
+  onReloadEnter(mut self) { self.reloadHovered = true }
+  onReloadLeave(mut self) { self.reloadHovered = false }
+  onClose(mut self) { self.close.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} shown={self.shown}
+              footer={self.footer} side={self.side} @close={self.onClose}>
+        <box rows={BODY} gap={space(.Item)}>
+          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+            <box padding={HEADING}>
+              <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+            </box>
+            <ToolPick value={mut self.everyone} choices={self.whom} icon={ARTWORK.ctl.tool.whom} title={Locale.WHO} />
+            <ToolPick value={mut self.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
+                      lit={self.filtered} />
+            <ToolPick $if={!self.tabled} value={mut self.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort}
+                      title={Locale.SORT} />
+            <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories}
+                      title={Locale.VIEW} />
+          </Toolbar>
+          <box columns={COLUMNS} gap={space(.Item)} padding={HEADING} yAlign={Align.Center}>
+            <box />
+            <box @click={self.onHeadName}>
+              <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+            </box>
+            <box xAlign={Align.End}>
+              <text value={self.overall} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+            </box>
+            <box xAlign={Align.End} @click={self.onHeadNow}>
+              <text value={Locale.COL_NOW} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+            </box>
+            <box xAlign={Align.End} @click={self.onHeadPeak}>
+              <text value={Locale.COL_PEAK} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+            </box>
+            <box columns={GROUP} gap={HALF} xAlign={Align.End}>
+              <box @click={self.onHeadMemory}>
+                <text value={Locale.COL_MEMORY} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+              </box>
+              <box width={REFRESH} height={REFRESH} background={ARTWORK.ctl.tool.refresh} tint={Style.GOLD}
+                   @click={self.onRefresh} />
+            </box>
+          </box>
+          <box overflow={Overflow.Scroll} rowHeight={Style.ROW}>
+            <LineRow $for={line of self.lines} line={line} catalog={self.catalog} profiler={self.profiler}
+                     hot={self.hot} picked={self.picked} framework={self.framework} @pick={self.onPick}
+                     @toggle={self.onToggle} @fold={self.onFold} @settings={self.onSettings} />
+          </box>
+          <box $if={self.stepShown} columns={STRIP} gap={space(.Item)} yAlign={Align.Center}>
+            <box xAlign={Align.End}>
+              <text value={self.also} textColor={Style.INK} textSize={.Secondary} />
+            </box>
+            <PushButton label={Locale.UNDO} width={BUTTON} @click={self.onUndo} />
+          </box>
+          <box $else />
+          <text $if={self.notMeasuring} value={Locale.NOT_MEASURING} textColor={Style.DIM} textSize={.Secondary} />
+        </box>
+        <Dialog $if={self.asking.length > 0} title={self.questionTitle} width={CONFIRM_WIDTH}>
+          <text value={self.question} textColor={Style.INK} />
+          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.cancelAsk} />
+          <PushButton #buttons label={Locale.DISABLE} width={BUTTON} @click={self.confirmAsk} />
+        </Dialog>
+        <Dialog $if={self.editing != 0} title={self.setTitle} width={SET_WIDTH}>
+          <Input label={Locale.SET_NAME} value={mut self.setName} maxLength={40} />
+          <text $if={self.setNote != ""} value={self.setNote} textColor={Style.RED} textSize={.Secondary} />
+          <box $if={self.editing > 0} xAlign={Align.Start}>
+            <PushButton label={Locale.DELETE} width={BUTTON} @click={self.deleteSet} />
+          </box>
+          <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.closeSet} />
+          <PushButton #buttons $if={self.editing < 0} label={Locale.SAVE} width={BUTTON} @click={self.saveSet} />
+          <PushButton #buttons $if={self.editing > 0} label={Locale.RENAME} width={BUTTON} @click={self.renameSet} />
+          <PushButton #buttons $if={self.editing > 0} label={Locale.APPLY} width={BUTTON} @click={self.applySet} />
+        </Dialog>
+      </Window>
+    }
+  }
+}

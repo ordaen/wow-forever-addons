@@ -19,7 +19,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
             text 661.5,249.71 25x15 "Arms" #a3977f
         box 457.75,276.37 689.5x28.33
           box 457.75,276.37 656.17x28.33
-            box 457.75,276.37 656.17x28.33 #00000080 input "" @change
+            box 457.75,276.37 656.17x28.33 #00000080 input "" @change @submit
             box 457.75,276.37 656.17x28.33 absolute
               text 466.08,283.04 639.5x15 "Search" #a3977f
           box 1113.92,276.37 33.33x28.33
@@ -85,7 +85,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
         box 491.08,243.04 383.33x453.42
           box 491.08,243.04 383.33x28.33
             box 491.08,243.04 316.67x28.33
-              box 491.08,243.04 316.67x28.33 #00000080 input "" @change
+              box 491.08,243.04 316.67x28.33 #00000080 input "" @change @submit
               box 491.08,243.04 316.67x28.33 absolute
                 text 499.42,249.71 300x15 "Search" #a3977f
             box 807.75,243.04 66.67x28.33
@@ -122,7 +122,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
               text 1063.92,648.12 50x15 "0g 0s 0c" #e8dcc4
             box 882.75,668.12 231.17x28.33
               box 882.75,682.29 99.5x0
-              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                 box 988.92,668.12 125x28.33 absolute
                   text 1035.79,674.79 31.25x15 "Learn" #808080
     box 1057.75,222.12 77.5x26.67 absolute clipped
@@ -152,7 +152,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
         box 491.08,243.04 383.33x453.42
           box 491.08,243.04 383.33x28.33
             box 491.08,243.04 316.67x28.33
-              box 491.08,243.04 316.67x28.33 #00000080 input "" @change
+              box 491.08,243.04 316.67x28.33 #00000080 input "" @change @submit
               box 491.08,243.04 316.67x28.33 absolute
                 text 499.42,249.71 300x15 "Search" #a3977f
             box 807.75,243.04 66.67x28.33
@@ -183,7 +183,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
               text 1063.92,648.12 50x15 "0g 0s 0c" #e8dcc4
             box 882.75,668.12 231.17x28.33
               box 882.75,682.29 99.5x0
-              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                 box 988.92,668.12 125x28.33 absolute
                   text 1035.79,674.79 31.25x15 "Learn" #808080
     box 1057.75,222.12 77.5x26.67 absolute clipped

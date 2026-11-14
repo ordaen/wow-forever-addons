@@ -6,7 +6,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
         box 491.08,243.04 383.33x453.42
           box 491.08,243.04 383.33x28.33
             box 491.08,243.04 316.67x28.33
-              box 491.08,243.04 316.67x28.33 #00000080 input "" @change
+              box 491.08,243.04 316.67x28.33 #00000080 input "" @change @submit
               box 491.08,243.04 316.67x28.33 absolute
                 text 499.42,249.71 300x15 "Search" #a3977f
             box 807.75,243.04 66.67x28.33
@@ -48,7 +48,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
               text 1057.67,648.12 56.25x15 "0g 50s 0c" #e8dcc4
             box 882.75,668.12 231.17x28.33
               box 882.75,682.29 99.5x0
-              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                 box 988.92,668.12 125x28.33 absolute
                   text 1035.79,674.79 31.25x15 "Learn" #808080
     box 1124.42,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
@@ -66,7 +66,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
         box 491.08,243.04 383.33x453.42
           box 491.08,243.04 383.33x28.33
             box 491.08,243.04 316.67x28.33
-              box 491.08,243.04 316.67x28.33 #00000080 input "" @change
+              box 491.08,243.04 316.67x28.33 #00000080 input "" @change @submit
               box 491.08,243.04 316.67x28.33 absolute
                 text 499.42,249.71 300x15 "Search" #a3977f
             box 807.75,243.04 66.67x28.33
@@ -109,7 +109,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
             box 882.75,668.12 231.17x28.33
               box 882.75,674.79 99.5x15
                 text 882.75,674.79 99.5x15 "0g 4s 0c" #e8dcc4
-              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                 box 988.92,668.12 125x28.33 absolute
                   text 1035.79,674.79 31.25x15 "Learn" #808080
     box 1057.75,222.12 77.5x26.67 absolute clipped

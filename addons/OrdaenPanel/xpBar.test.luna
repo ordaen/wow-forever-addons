@@ -1,20 +1,18 @@
-// The status bars by themselves: the values on each tube, the tooltip over each part, the faction's tube under the
-// experience's where the room holds both, the faction alone at the level's cap, and what was gained this session.
+// The status bars by themselves: the values on each tube, the tooltip over each part (each count with its part of the
+// level's or the standing's whole), the faction's tube under the experience's where the room holds both, and the
+// faction alone at the level's cap.
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { ExperienceGains, ReputationGains } from "@/gains"
-import { XpBar } from "@/xpBar"
+import { XpBar, partOf } from "@/xpBar"
 
-// The bars as the panel draws them: in its inside, with what it follows for the session.
+// The bars as the panel draws them: in its inside.
 class Bars {
   state room: Number = 53
-  const experience: ExperienceGains = new ExperienceGains()
-  const reputation: ReputationGains = new ReputationGains()
 
   public render(self): Template {
     return $ltml {
-      <XpBar experience={self.experience} reputation={self.reputation} room={self.room} />
+      <XpBar room={self.room} />
     }
   }
 }
@@ -29,7 +27,20 @@ function away() {
   Test.moveTo({ x: 1000, y: 1000 })
 }
 
-test "experience: its values on the tube, a tooltip over it and one over the rested part, the session's gains in it" {
+test "a part is of the whole, whole from ten percent, with one decimal under it" {
+  // The game's: 264 rested of a level of 29 000 is 0.9 %, not 4 % and not 0 %.
+  Test.expect(partOf(264, 29000) == "0.9%")
+  Test.expect(partOf(100, 1000) == "10%")
+  Test.expect(partOf(900, 1000) == "90%")
+  Test.expect(partOf(250, 10000) == "2.5%")
+  Test.expect(partOf(500, 10000) == "5%")
+  // Cut, never rounded up: 99.9 % is not yet the whole.
+  Test.expect(partOf(9999, 10000) == "99%")
+  Test.expect(partOf(0, 1000) == "0%")
+  Test.expect(partOf(10, 0) == "0%")
+}
+
+test "experience: its values on the tube, a tooltip over it and one over the rested part" {
   Game.player.level = 10
   Game.player.xpMax = 10000
   Game.player.xp = 2500
@@ -40,7 +51,7 @@ test "experience: its values on the tube, a tooltip over it and one over the res
   Test.shot("2 500 of 10 000: the values and the part on the tube, the rested part pale past the fill")
 
   Test.moveTo(Test.painted(Ordaen.lookArt.xpFill, nil))
-  Test.shot("over the fill: the level, the experience, what is left to the next, the rested bonus")
+  Test.shot("over the fill: the level; current, to the next level and the rested bonus, each with its part")
 
   // From the fill (to 25 %) to the rested part's end (40 %): its own tooltip.
   along(0.32)
@@ -50,32 +61,27 @@ test "experience: its values on the tube, a tooltip over it and one over the res
   Test.shot("past the rested part: the bar's tooltip again")
   away()
 
-  // Two kills a minute apart, then a level's end crossed.
-  Test.pass(61)
-  Game.player.xp = 2800
-  Test.flush()
-  Game.player.xp = 2900
-  Test.flush()
-  Test.expect(bars.experience.gains.gained == 400)
-  Test.expect(bars.experience.gains.last == 100)
-  Test.expect(bars.experience.gains.timesTo(7100) == 71)
+  // The game's numbers: 264 rested of 29 000 is 0.9 % of the level.
+  Game.player.level = 31
+  Game.player.xpMax = 29000
+  Game.player.xp = 7250
+  Game.player.rested = 264
   Test.moveTo(Test.painted(Ordaen.lookArt.xpFill, nil))
-  Test.shot("400 gained in a minute: the pace an hour, the time to the level, the kills like the last to it")
+  Test.shot("264 rested of 29 000: 0.9 % of the level")
   away()
 
-  Game.player.level = 11
-  Game.player.xpMax = 11000
-  Game.player.xp = 200
-  Test.flush()
-  Test.expect(bars.experience.gains.gained == 7700)
-  Test.expect(bars.experience.gains.last == 7300)
+  Game.player.rested = 0
+  Test.moveTo(Test.painted(Ordaen.lookArt.xpFill, nil))
+  Test.shot("no rested bonus: two lines")
+  away()
   Test.expect(Test.errors().length == 0)
 }
 
-test "reputation: under the experience where the room holds both, alone at the cap, its gains counted per faction" {
+test "reputation: under the experience where the room holds both, alone at the cap" {
   Game.player.level = 20
   Game.player.xpMax = 10000
   Game.player.xp = 6000
+  Game.player.rested = 0
   let bars = new Bars()
   Test.mount(bars, { left: 20, top: 20, width: 500, height: 60 })
   Game.reputation.name = "Stormwind"
@@ -86,25 +92,19 @@ test "reputation: under the experience where the room holds both, alone at the c
   Game.reputation.value = 13800
   Test.shot("a faction watched: its tube under the experience's, the standing and its values on it")
 
-  Test.pass(61)
-  Game.reputation.value = 13850
-  Test.flush()
   Test.moveTo(Test.painted(Ordaen.art.panel.xpSteel, nil))
-  Test.shot("over the faction: its standing, its values, what is left to the next, the session's 50")
+  Test.shot("over the faction: current and what is left to the next standing, each with its part")
+  // The next standing named in its own colour, as its bar is drawn.
+  let told = Test.calls((): nil => {
+    Game.reputation.nextColor = Color.hex("#00991a")
+    Test.flush()
+  })
+  Test.note(`the next standing's colour changed, the client told: ${told}`)
+  Test.expect(told.contains("SetTextColor"))
   away()
 
-  // Another faction watched and back: what was gained with each is kept.
-  Game.reputation.name = "Ironforge"
-  Game.reputation.value = 4000
-  Test.flush()
-  Test.expect(bars.reputation.gains.gained == 0)
-  Game.reputation.name = "Stormwind"
-  Game.reputation.value = 13900
-  Test.flush()
-  Test.expect(bars.reputation.gains.gained == 100)
-
   // The fill is the standing's colour: another standing's tells the client a colour for it, nothing else changing.
-  let told = Test.calls((): nil => {
+  told = Test.calls((): nil => {
     Game.reputation.standing = "Hostile"
     Game.reputation.color = Color.hex("#cc4d38")
     Test.flush()
@@ -126,7 +126,7 @@ test "reputation: under the experience where the room holds both, alone at the c
   Game.reputation.value = 42500
   Test.shot("at the level's cap: the faction alone")
   Test.moveTo(Test.painted(Ordaen.art.panel.xpSteel, nil))
-  Test.shot("exalted: no standing after it, nothing left to gain")
+  Test.shot("exalted: no standing after it, only where the reputation is")
   away()
 
   Game.reputation.name = ""

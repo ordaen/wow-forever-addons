@@ -1,10 +1,12 @@
 // PushButton: our push button, the bronze plate three-sliced from its art, or the red one with `accent`; the art's
 // hover glow over it under the cursor, its pushed row while pressed (the label 2 px lower). The label in gold, white
 // under the cursor, with a dark drop; disabled, the grey plate and a grey label, and no click. With an `action` it
-// is a secure box: the client does the action from the player's click (a spell, an item, a macro).
+// is a secure box: the client does the action from the player's click (a spell, an item, a macro). With a `tip`, a Tip
+// says it while the cursor is on it.
 import { Action, Align, Art, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
+import { Tip, TipText } from "@/tip"
 import { PX } from "@/units"
 
 const HEIGHT = 34 * PX
@@ -13,6 +15,7 @@ const GREY: Color = Color.hex("#808080")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
 // The label while pressed.
 const DOWN: Stated<Number> = { default: 0, pressed: 2 * PX }
+const NO_TIP: TipText = { title: "", text: "", rows: [] }
 
 public class PushButton implements Component {
   public click: Event<nil> = new Event()
@@ -22,6 +25,9 @@ public class PushButton implements Component {
   // Disabled, it does nothing.
   derived doing: Action | nil = self.disabled ? nil : self.action
   derived repeating: Boolean = self.repeats && !self.disabled
+  state hovered = false
+  derived tipShown: Boolean = self.hovered && self.tip != nil
+  derived tipText: TipText = self.tip ?? NO_TIP
 
   label: Signal<String>
   width: Signal<Number>
@@ -29,6 +35,7 @@ public class PushButton implements Component {
   disabled: Signal<Boolean>
   action: Signal<Action | nil>
   repeats: Signal<Boolean>
+  tip: Signal<TipText | nil>
   constructor(
     label: Signal<String>,
     width: Signal<Number>,
@@ -37,6 +44,8 @@ public class PushButton implements Component {
     action: Signal<Action | nil> = nil,
     // Held down, its click comes again until it is let go or disabled (a stepper's − and +).
     repeats: Signal<Boolean> = false,
+    // What a Tip says of it under the cursor (its keys); none for none.
+    tip: Signal<TipText | nil> = nil,
   ) {
     self.label = label
     self.width = width
@@ -44,16 +53,21 @@ public class PushButton implements Component {
     self.disabled = disabled
     self.action = action
     self.repeats = repeats
+    self.tip = tip
   }
 
   onClick(mut self) {
     if (!self.disabled) { self.click.emit() }
   }
 
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
   public render(self): Template {
     return $ltml {
       <box width={self.width} height={HEIGHT} background={self.art} action={self.doing} repeats={self.repeating}
-           @click={self.onClick}>
+           @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+        <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
         <box position={Position.Absolute} left={0} right={0} top={DOWN} height={HEIGHT}
              xAlign={Align.Center} yAlign={Align.Center} stateFromParent={true}>
           <text value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false}

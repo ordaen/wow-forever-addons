@@ -378,7 +378,7 @@ public class Bags implements Module, App {
     if (click.button != MouseButton.Left) { return }
     if (Game.input.altDown()) {
       self.guard(slot)
-    } else if (Game.input.ctrlDown()) {
+    } else if (Game.input.controlDown()) {
       _ = Game.bags.send(slot.bag, slot.index)
     } else {
       Game.bags.pickup(slot.bag, slot.index)

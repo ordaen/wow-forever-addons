@@ -240,8 +240,10 @@ finds them all. One CurseForge project, **Ordaen**, ships every module in one zi
 comes from `addon-categories.json` (the Warcraft Wiki's list with every translation: the in-game list groups by exact text, so these names share a group with other addons in every language). Never invent a category or a translation; CurseForge's own categories
 are set per project on the website (e.g. "Miscellaneous", "Bags & Inventory"), not in the TOC. Ordaen (TOC title
 `Ordaen`) and every module are `User Interface`, the modules grouped under Ordaen (`## Group:`). The build writes
-`## Title`, `## IconTexture`, `## Notes`, `## Category` and `## Version` from the addon's `addon.json`; no addon says
-a category yet, and `## Group` isn't written.
+`## Title`, `## IconTexture`, `## Notes`, `## Category` and `## Version` from the addon's `addon.json`, and for a
+module (`"loadOnDemand": true`) `## Group: <the one addon it needs that loads at the start>`, Ordaen, with that
+addon's category: Ordaen's `addon.json` names `User Interface` with its translations, a module names none (one that
+names another is a finding). Ordaen System's AddOns window reads both, and its tests hold every module to them.
 
 ## Build (`lunatype`, in `../lunatype`)
 

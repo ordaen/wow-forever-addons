@@ -105,13 +105,13 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 761.5,344.71 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,715.79 582.83x13
             text 532.75,715.79 582.83x13 "/ordaen opens this page" #a3977f
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
@@ -215,13 +215,13 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                     box 938.17,387.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,715.79 582.83x13
             text 532.75,715.79 582.83x13 "/ordaen opens this page" #a3977f
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -337,12 +337,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                     box 938.17,447.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 582.83x0
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -458,12 +458,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                     box 938.17,447.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 582.83x0
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #ffd100
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -576,15 +576,15 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                     box 938.17,447.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 474.5x0
           box 1023.92,708.12 231.67x28.33
-            box 1023.92,708.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 1023.92,708.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 1023.92,708.12 108.33x28.33 absolute
                 text 1049.96,714.79 56.25x15 "Roll back" #ffd100
-            box 1138.92,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1138.92,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1138.92,708.12 116.67x28.33 absolute
                 text 1184.75,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -700,12 +700,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                     box 938.17,447.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 582.83x0
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -800,12 +800,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   text 971.5,300.54 6.25x15 "4" #ffffff
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 582.83x0
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -902,12 +902,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   text 971.5,300.54 6.25x15 "4" #ffffff
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffffff
           box 532.75,722.29 582.83x0
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -1002,12 +1002,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   text 971.5,300.54 6.25x15 "4" #ffffff
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffffff
           box 532.75,722.29 582.83x0
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -1062,12 +1062,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
             text 513.17,223.04 729.08x15 "The module is off: it isn't loaded and costs nothing. Its settings are kept." #a3977f
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 582.83x0
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -1146,12 +1146,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   text 971.5,300.54 6.25x15 "4" #ffffff
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 582.83x0
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -1258,13 +1258,13 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 761.5,344.71 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,715.79 582.83x13
             text 532.75,715.79 582.83x13 "/ordaen opens this page" #a3977f
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #ffd100
     box 1224.42,188.79 52.5x26.67 absolute clipped
@@ -1302,13 +1302,13 @@ surface 0,0 1600x900 on DIALOG #0000008c
     box 623.83,458.62 357.33x28.33
       box 623.83,458.62 2.33x0
       box 626.17,458.62 355x28.33
-        box 626.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click focus ring
+        box 626.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave focus ring
           box 626.17,458.62 100x28.33 absolute
             text 657.42,465.29 37.5x15 "Cancel" #ffffff
-        box 732.83,458.62 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 732.83,458.62 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 732.83,458.62 125x28.33 absolute
             text 764.08,465.29 62.5x15 "Don't save" #ffd100
-        box 864.5,458.62 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 864.5,458.62 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 864.5,458.62 116.67x28.33 absolute
             text 910.33,465.29 25x15 "Save" #ffd100
     box 600.83,403.96 403.33x18 absolute
@@ -1385,13 +1385,13 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 761.5,344.71 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,715.79 582.83x13
             text 532.75,715.79 582.83x13 "/ordaen opens this page" #a3977f
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #ffd100
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
@@ -1522,12 +1522,12 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                     box 938.17,447.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,722.29 582.83x0
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart

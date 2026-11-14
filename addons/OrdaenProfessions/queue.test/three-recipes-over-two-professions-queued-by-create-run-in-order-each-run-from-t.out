@@ -40,15 +40,15 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 box 438.58,324.71 659.5x15 @click
                   text 438.58,324.71 659.5x15 "Bolt of Linen Cloth" #a3977f
                 box 1104.75,318.04 68.33x28.33
-                  box 1104.75,318.04 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1104.75,318.04 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
                     box 1104.75,318.04 20x28.33 absolute
                       text 1111.62,324.71 6.25x15 "-" #ffd100
                   box 1129.75,324.71 18.33x15
                     text 1135.79,324.71 6.25x15 "3" #ffffff
-                  box 1153.08,318.04 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1153.08,318.04 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
                     box 1153.08,318.04 20x28.33 absolute
                       text 1159.96,324.71 6.25x15 "+" #ffd100
-                box 1179.75,318.04 20x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+                box 1179.75,318.04 20x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
                   box 1179.75,318.04 20x28.33 absolute
                     text 1186.62,324.71 6.25x15 "x" #ffd100
               box 405.25,349.71 794.5x35.83
@@ -56,15 +56,15 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 box 438.58,360.54 659.5x15 @click
                   text 438.58,360.54 659.5x15 "Rough Sharpening Stone" #ff8040
                 box 1104.75,353.88 68.33x28.33
-                  box 1104.75,353.88 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1104.75,353.88 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
                     box 1104.75,353.88 20x28.33 absolute
                       text 1111.62,360.54 6.25x15 "-" #ffd100
                   box 1129.75,360.54 18.33x15
                     text 1135.79,360.54 6.25x15 "1" #ffffff
-                  box 1153.08,353.88 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1153.08,353.88 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
                     box 1153.08,353.88 20x28.33 absolute
                       text 1159.96,360.54 6.25x15 "+" #ffd100
-                box 1179.75,353.88 20x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+                box 1179.75,353.88 20x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
                   box 1179.75,353.88 20x28.33 absolute
                     text 1186.62,360.54 6.25x15 "x" #ffd100
             box 405.25,402.21 794.5x20
@@ -81,7 +81,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
         box 391.08,713.96 822.83x28.33
           box 391.08,713.96 822.83x28.33
             text 391.08,721.62 656.17x13 "Paused: open Tailoring, then click «Create next»." #a3977f
-            box 1063.92,713.96 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 1063.92,713.96 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 1063.92,713.96 150x28.33 absolute
                 text 1104.54,720.62 68.75x15 "Create next" #ffffff
     box 1157.75,194.63 77.5x26.67 absolute clipped

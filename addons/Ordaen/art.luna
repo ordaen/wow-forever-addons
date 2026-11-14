@@ -37,7 +37,8 @@ public struct CornerArt {
 }
 
 // A window toolbar's glyphs, white for the box's `tint`: the filter, the sort, a view's by what it shows (one grid:
-// `one`), and sorting now (`arrange`: arrows up and down).
+// `one`), refresh (a circling arrow), whom (a figure: for whom a list is), and sorting now (`arrange`: arrows up and
+// down).
 public struct ToolGlyphs {
   filter: Art
   sort: Art
@@ -45,6 +46,8 @@ public struct ToolGlyphs {
   categories: Art
   list: Art
   table: Art
+  refresh: Art
+  whom: Art
   one: Art
   arrange: Art
 }
@@ -55,10 +58,19 @@ public struct ArtControls {
   button: Art
   buttonAccent: Art
   buttonDisabled: Art
+  // The push button's rows by themselves, for a plate dressed over a button of the client's, which keeps the mouse:
+  // pushed, the accent pushed, and the light over it.
+  buttonDown: Art
+  buttonAccentDown: Art
+  buttonLight: Art
+  // The «new» gem at a push button's left end.
+  newGem: Art
   groove: Art
   sliderFill: Art
   sliderKnob: Art
   rule: Art
+  // A dialog title's rule: a groove cut into the wood, 4 px tall, stretched along it.
+  carved: Art
   switchOn: Art
   switchOff: Art
   knobOn: Art
@@ -150,11 +162,16 @@ public const ARTWORK: Artwork = {
     button: { file: "@/media/button.tga", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 0, pressed: 1, glow: 3 },
     buttonAccent: { file: "@/media/button.tga", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 4, pressed: 5, glow: 3 },
     buttonDisabled: { file: "@/media/button.tga", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 2 },
+    buttonDown: { file: "@/media/button.tga", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 1 },
+    buttonAccentDown: { file: "@/media/button.tga", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 5 },
+    buttonLight: { file: "@/media/button.tga", width: 256, height: 512, cap: 32, capHeight: 0.5, rows: 8, normal: 3 },
+    newGem: "@/media/ctl-new-gem.tga",
     // The slider: the groove with its edge, the fill inside it, the knob.
     groove: { file: "@/media/ctl-slider.tga", width: 64, height: 128, cap: 4, capHeight: 0.125, rows: 4, normal: 0 },
     sliderFill: { file: "@/media/ctl-slider.tga", width: 64, height: 128, rows: 4, normal: 1 },
     sliderKnob: "@/media/ctl-slider-knob.tga",
     rule: "@/media/ctl-rule.tga",
+    carved: "@/media/ctl-carved.tga",
     // The switch: the track, a pill with round caps (rows 0 off, 1 on, 2 the ring over either), and the knob.
     switchOff: { file: "@/media/ctl-switch-track.tga", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 0, glow: 2 },
     switchOn: { file: "@/media/ctl-switch-track.tga", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 1, glow: 2 },
@@ -165,14 +182,16 @@ public const ARTWORK: Artwork = {
     radioOn: { file: "@/media/ctl-radio.tga", width: 32, height: 64, rows: 2, normal: 1 },
     // A toolbar's glyphs (art/pieces/tool.json): rows of 16 x 16 px, white with their shadow.
     tool: {
-      filter: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 0 },
-      sort: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 1 },
-      columns: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 2 },
-      categories: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 3 },
-      list: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 4 },
-      table: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 5 },
-      one: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 6 },
-      arrange: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 7 },
+      filter: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 0 },
+      sort: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 1 },
+      columns: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 2 },
+      categories: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 3 },
+      list: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 4 },
+      table: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 5 },
+      refresh: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 6 },
+      whom: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 7 },
+      one: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 8 },
+      arrange: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 9 },
     },
     // The marks (art/pieces/marks.json): 16 px cells, each triangle in its middle; the compared stat's two fill theirs.
     markUp: { file: "@/media/ctl-marks.tga", width: 32, height: 256, rows: 8, normal: 0 },

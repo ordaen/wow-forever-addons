@@ -1,0 +1,7 @@
+{
+  "title": "Ordaen System",
+  "icon": "Interface/Icons/INV_Misc_Wrench_01",
+  "notes": "The game menu and the AddOns list in Ordaen's look: what each addon needs, why one doesn't load, its CPU and memory, sets of addons.",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0" }
+}
