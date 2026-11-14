@@ -10,6 +10,7 @@ surface 1047,240 293x106.42 on TOOLTIP
           box 1067.25,285.75 47.5x22.67
             box 1075.58,292.42 30.83x16
               box 1075.58,293.75 13.33x13.33
+                box 1073.92,292.08 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
               box 1093.08,292.42 13.33x16
                 text 1093.08,292.42 13.33x16 "65" #f3e7cc
           box 1114.75,285.75 95x22.67
@@ -21,6 +22,7 @@ surface 1047,240 293x106.42 on TOOLTIP
           box 1209.75,285.75 115x22.67
             box 1218.92,292.42 97.5x16
               box 1218.92,293.75 13.33x13.33
+                box 1217.25,292.08 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
               box 1236.42,292.42 80x16
                 text 1236.42,292.42 80x16 "2.5 sec cast" #f3e7cc
                 box 1236.42,307.58 80x0.83 absolute #ffd100b3
