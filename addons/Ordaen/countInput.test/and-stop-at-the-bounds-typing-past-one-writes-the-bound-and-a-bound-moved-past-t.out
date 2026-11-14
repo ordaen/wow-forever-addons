@@ -25,21 +25,21 @@ box 0,0 300x64.33
         text 58.89,6.37 8.89x15.6 "+" #808080 centred
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "5" @change
-surface 51.67,28.33 271.17x142.12 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 71.92,48.58 235.67x19.2 "More" #ffffff
-  text 71.92,69.45 235.67x31.2 "Hold to keep stepping, up to the limit." #cbb994
-  box 71.92,102.32 235.67x15.6
-    box 71.92,102.32 213.44x15.6
-      text 71.92,102.32 67.78x15.6 "Left-click" #cbb994
-    text 292.03,102.32 15.56x15.6 "+1" #ffffff
-  box 71.92,119.58 235.67x15.6
-    box 71.92,119.58 206.78x15.6
-      text 71.92,119.58 106.67x15.6 "Shift+Left-click" #cbb994
-    text 285.36,119.58 22.22x15.6 "+10" #ffffff
-  box 71.92,136.85 235.67x15.6
-    box 71.92,136.85 200.11x15.6
-      text 71.92,136.85 93.33x15.6 "Alt+Left-click" #cbb994
-    text 278.69,136.85 28.89x15.6 "+100" #ffffff
+surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 75.25,51.92 229x19.2 "More" #ffffff
+  text 75.25,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
+  box 75.25,108.98 229x15.6
+    box 75.25,108.98 206.78x15.6
+      text 75.25,108.98 67.78x15.6 "Left-click" #cbb994
+    text 288.69,108.98 15.56x15.6 "+1" #ffffff
+  box 75.25,127.92 229x15.6
+    box 75.25,127.92 200.11x15.6
+      text 75.25,127.92 106.67x15.6 "Shift+Left-click" #cbb994
+    text 282.03,127.92 22.22x15.6 "+10" #ffffff
+  box 75.25,146.85 229x15.6
+    box 75.25,146.85 193.44x15.6
+      text 75.25,146.85 93.33x15.6 "Alt+Left-click" #cbb994
+    text 275.36,146.85 28.89x15.6 "+100" #ffffff
 
 -- - six times: 1, the least, - disabled
 box 0,0 300x64.33
@@ -54,21 +54,21 @@ box 0,0 300x64.33
         text 58.89,6.37 8.89x15.6 "+" #ffd100 centred
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "1" @change
-surface 0,28.33 271.17x142.12 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 20.25,48.58 235.67x19.2 "Fewer" #ffffff
-  text 20.25,69.45 235.67x31.2 "Hold to keep stepping, up to the limit." #cbb994
-  box 20.25,102.32 235.67x15.6
-    box 20.25,102.32 213.44x15.6
-      text 20.25,102.32 67.78x15.6 "Left-click" #cbb994
-    text 240.36,102.32 15.56x15.6 "-1" #ffffff
-  box 20.25,119.58 235.67x15.6
-    box 20.25,119.58 206.78x15.6
-      text 20.25,119.58 106.67x15.6 "Shift+Left-click" #cbb994
-    text 233.69,119.58 22.22x15.6 "-10" #ffffff
-  box 20.25,136.85 235.67x15.6
-    box 20.25,136.85 200.11x15.6
-      text 20.25,136.85 93.33x15.6 "Alt+Left-click" #cbb994
-    text 227.03,136.85 28.89x15.6 "-100" #ffffff
+surface 0,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 23.58,51.92 229x19.2 "Fewer" #ffffff
+  text 23.58,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
+  box 23.58,108.98 229x15.6
+    box 23.58,108.98 206.78x15.6
+      text 23.58,108.98 67.78x15.6 "Left-click" #cbb994
+    text 237.03,108.98 15.56x15.6 "-1" #ffffff
+  box 23.58,127.92 229x15.6
+    box 23.58,127.92 200.11x15.6
+      text 23.58,127.92 106.67x15.6 "Shift+Left-click" #cbb994
+    text 230.36,127.92 22.22x15.6 "-10" #ffffff
+  box 23.58,146.85 229x15.6
+    box 23.58,146.85 193.44x15.6
+      text 23.58,146.85 93.33x15.6 "Alt+Left-click" #cbb994
+    text 223.69,146.85 28.89x15.6 "-100" #ffffff
 
 -- 42 typed: the most, 5, written in the field
 box 0,0 300x64.33
@@ -125,21 +125,21 @@ box 0,0 300x64.33
         text 58.89,6.37 8.89x15.6 "+" #808080 centred
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "1" @change
-surface 51.67,28.33 271.17x142.12 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 71.92,48.58 235.67x19.2 "More" #ffffff
-  text 71.92,69.45 235.67x31.2 "Hold to keep stepping, up to the limit." #cbb994
-  box 71.92,102.32 235.67x15.6
-    box 71.92,102.32 213.44x15.6
-      text 71.92,102.32 67.78x15.6 "Left-click" #cbb994
-    text 292.03,102.32 15.56x15.6 "+1" #ffffff
-  box 71.92,119.58 235.67x15.6
-    box 71.92,119.58 206.78x15.6
-      text 71.92,119.58 106.67x15.6 "Shift+Left-click" #cbb994
-    text 285.36,119.58 22.22x15.6 "+10" #ffffff
-  box 71.92,136.85 235.67x15.6
-    box 71.92,136.85 200.11x15.6
-      text 71.92,136.85 93.33x15.6 "Alt+Left-click" #cbb994
-    text 278.69,136.85 28.89x15.6 "+100" #ffffff
+surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 75.25,51.92 229x19.2 "More" #ffffff
+  text 75.25,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
+  box 75.25,108.98 229x15.6
+    box 75.25,108.98 206.78x15.6
+      text 75.25,108.98 67.78x15.6 "Left-click" #cbb994
+    text 288.69,108.98 15.56x15.6 "+1" #ffffff
+  box 75.25,127.92 229x15.6
+    box 75.25,127.92 200.11x15.6
+      text 75.25,127.92 106.67x15.6 "Shift+Left-click" #cbb994
+    text 282.03,127.92 22.22x15.6 "+10" #ffffff
+  box 75.25,146.85 229x15.6
+    box 75.25,146.85 193.44x15.6
+      text 75.25,146.85 93.33x15.6 "Alt+Left-click" #cbb994
+    text 275.36,146.85 28.89x15.6 "+100" #ffffff
 
 -- another writes 20 where the most is 9: 9
 box 0,0 300x64.33
@@ -154,18 +154,18 @@ box 0,0 300x64.33
         text 58.89,6.37 8.89x15.6 "+" #808080 centred
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "9" @change
-surface 51.67,28.33 271.17x142.12 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 71.92,48.58 235.67x19.2 "More" #ffffff
-  text 71.92,69.45 235.67x31.2 "Hold to keep stepping, up to the limit." #cbb994
-  box 71.92,102.32 235.67x15.6
-    box 71.92,102.32 213.44x15.6
-      text 71.92,102.32 67.78x15.6 "Left-click" #cbb994
-    text 292.03,102.32 15.56x15.6 "+1" #ffffff
-  box 71.92,119.58 235.67x15.6
-    box 71.92,119.58 206.78x15.6
-      text 71.92,119.58 106.67x15.6 "Shift+Left-click" #cbb994
-    text 285.36,119.58 22.22x15.6 "+10" #ffffff
-  box 71.92,136.85 235.67x15.6
-    box 71.92,136.85 200.11x15.6
-      text 71.92,136.85 93.33x15.6 "Alt+Left-click" #cbb994
-    text 278.69,136.85 28.89x15.6 "+100" #ffffff
+surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 75.25,51.92 229x19.2 "More" #ffffff
+  text 75.25,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
+  box 75.25,108.98 229x15.6
+    box 75.25,108.98 206.78x15.6
+      text 75.25,108.98 67.78x15.6 "Left-click" #cbb994
+    text 288.69,108.98 15.56x15.6 "+1" #ffffff
+  box 75.25,127.92 229x15.6
+    box 75.25,127.92 200.11x15.6
+      text 75.25,127.92 106.67x15.6 "Shift+Left-click" #cbb994
+    text 282.03,127.92 22.22x15.6 "+10" #ffffff
+  box 75.25,146.85 229x15.6
+    box 75.25,146.85 193.44x15.6
+      text 75.25,146.85 93.33x15.6 "Alt+Left-click" #cbb994
+    text 275.36,146.85 28.89x15.6 "+100" #ffffff
