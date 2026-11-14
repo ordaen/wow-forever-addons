@@ -1,6 +1,6 @@
 -- the list: days left red under three, cash on delivery in orange
 surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
-  box 300,218.62 1000x500 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 300,218.62 1000x500 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 312.75,231.38 979.5x476.75
       box 332.75,251.38 939.5x436.75
         box 332.75,251.38 516.67x436.75
@@ -77,20 +77,32 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
         box 857.75,251.38 414.5x436.75
           text 1021.25,462.25 87.5x15 "Pick a letter." #a3977f
     box 1282.75,698.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 300,181.38 386.17x47.75
-    box 300,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 318.58,191.62 77.33x34.25
-        text 329.12,201.25 56.25x15 "Inbox (4)" #ffd100
-    box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 443.08,191.62 77.33x34.25
-        text 469.25,201.25 25x15 "Sent" #b3a690
-    box 549,181.38 137.17x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 567.58,191.62 100x34.25
-        text 567.58,201.25 100x15 "To my characters" #b3a690
+  box 300,181.38 1000x47.75
+    box 300,181.38 915.83x47.75
+      box 300,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 318.58,191.62 77.33x34.25
+          text 329.12,201.25 56.25x15 "Inbox (4)" #ffd100
+      box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 443.08,191.62 77.33x34.25
+          text 469.25,201.25 25x15 "Sent" #b3a690
+      box 549,181.38 137.17x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 567.58,191.62 100x34.25
+          text 567.58,201.25 100x15 "To my characters" #b3a690
+    box 1222.5,194.46 77.5x34.67
+      box 1222.5,194.46 77.5x26.67 clipped
+        box 1222.5,194.46 29.17x26.67 absolute clipped @click
+          box 1222.5,194.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1232.5,199.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1251.67,194.46 25x26.67 absolute clipped @click
+          box 1251.67,194.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1257.92,199.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1276.67,194.46 23.33x26.67 absolute clipped @click
+          box 1276.67,194.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1282.92,199.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 -- a letter picked: its attachments and its buttons
 surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
-  box 300,218.62 1000x500 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 300,218.62 1000x500 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 312.75,231.38 979.5x476.75
       box 332.75,251.38 939.5x436.75
         box 332.75,251.38 516.67x436.75
@@ -190,24 +202,26 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
             box 1130.58,659.79 141.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1130.58,659.79 141.67x28.33 absolute
                 text 1167.04,666.46 68.75x15 "Collect all" #808080
-    box 1216.08,230.46 77.5x26.67 absolute clipped
-      box 1216.08,230.46 29.17x26.67 absolute clipped @click
-        box 1216.08,230.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1226.08,235.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-      box 1245.25,230.46 25x26.67 absolute clipped @click
-        box 1245.25,230.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-        box 1251.5,235.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1270.25,230.46 23.33x26.67 absolute clipped @click
-        box 1270.25,230.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1276.5,235.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1282.75,698.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 300,181.38 386.17x47.75
-    box 300,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 318.58,191.62 77.33x34.25
-        text 329.12,201.25 56.25x15 "Inbox (4)" #ffd100
-    box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 443.08,191.62 77.33x34.25
-        text 469.25,201.25 25x15 "Sent" #b3a690
-    box 549,181.38 137.17x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 567.58,191.62 100x34.25
-        text 567.58,201.25 100x15 "To my characters" #b3a690
+  box 300,181.38 1000x47.75
+    box 300,181.38 915.83x47.75
+      box 300,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 318.58,191.62 77.33x34.25
+          text 329.12,201.25 56.25x15 "Inbox (4)" #ffd100
+      box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 443.08,191.62 77.33x34.25
+          text 469.25,201.25 25x15 "Sent" #b3a690
+      box 549,181.38 137.17x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 567.58,191.62 100x34.25
+          text 567.58,201.25 100x15 "To my characters" #b3a690
+    box 1222.5,194.46 77.5x34.67
+      box 1222.5,194.46 77.5x26.67 clipped
+        box 1222.5,194.46 29.17x26.67 absolute clipped @click
+          box 1222.5,194.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1232.5,199.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1251.67,194.46 25x26.67 absolute clipped @click
+          box 1251.67,194.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1257.92,199.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1276.67,194.46 23.33x26.67 absolute clipped @click
+          box 1276.67,194.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1282.92,199.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

@@ -5,9 +5,9 @@
 // has open (it has one open at a time): a tab opens its profession through the game, and the window shows while one
 // is open. The game's own window stays open with it, unseen and off the screen: hiding it would close the profession.
 import Game from "$game"
-import { Action, Align, Edges, Line, Overflow, Side, Track } from "$ltml"
+import { Action, Align, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
-import { ARTWORK, Choice, Column, cornerRoom, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, space, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec } from "Ordaen"
+import { ARTWORK, Choice, Column, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, space, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { RecipeDetails } from "@/details"
@@ -33,7 +33,6 @@ const SIDE: Array<Track> = ["auto", { fr: 1 }]
 const LISTS: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const COLUMN_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Left] }
-const BAR_ROOM: Edges = { right: cornerRoom(true) }
 const TRACK_WIDTH = 170 * PX
 // The footer: the profession's spell, and what the page puts beside it; the queue's status and «Create next».
 const TRACK_FOOT: Array<Track> = ["auto", { fr: 1 }]
@@ -615,10 +614,7 @@ public class Professions implements Module, App {
             <text value={Locale.PICK} textColor={Style.DIM} />
           </box>
           <box $else rows={BODY} gap={space(.Group)}>
-            // The bar stops short of the window's corner buttons.
-            <box padding={BAR_ROOM}>
-              <SkillBar profession={self.profession} />
-            </box>
+            <SkillBar profession={self.profession} />
             <Tabs tabs={self.pageNames} selected={mut self.page} />
             <QueuePage $if={self.queueShown} queued={self.queued} @act={self.onQueueAct} @counted={self.onQueueCount} />
             <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}

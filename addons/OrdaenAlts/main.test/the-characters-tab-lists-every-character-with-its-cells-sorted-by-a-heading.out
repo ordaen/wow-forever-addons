@@ -1,6 +1,6 @@
 -- two characters: the playing one in gold, the other dim and with its bank and mail read
 surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
-  box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 354.42,248.04 896.17x443.42
       box 374.42,268.04 856.17x403.42
         box 374.42,268.04 856.17x87.5 scrolled 0 of 0
@@ -85,23 +85,32 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
                     box 1157.25,323.04 66.67x28.33 absolute
                       text 1171.83,329.71 37.5x15 "Forget" #ffd100
     box 1241.08,681.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 341.67,198.04 488x47.75
-    box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 360.25,208.29 77.33x34.25
-        text 367.67,217.92 62.5x15 "Characters" #ffd100
-    box 466.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 484.75,208.29 77.33x34.25
-        text 507.79,217.92 31.25x15 "Items" #b3a690
-    box 590.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 609.25,208.29 77.33x34.25
-        text 619.79,217.92 56.25x15 "Cooldowns" #b3a690
-    box 715.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 733.75,208.29 77.33x34.25
-        text 738.04,217.92 68.75x15 "Professions" #b3a690
+  box 341.67,198.04 916.67x47.75
+    box 341.67,198.04 857.5x47.75
+      box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 360.25,208.29 77.33x34.25
+          text 367.67,217.92 62.5x15 "Characters" #ffd100
+      box 466.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 484.75,208.29 77.33x34.25
+          text 507.79,217.92 31.25x15 "Items" #b3a690
+      box 590.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 609.25,208.29 77.33x34.25
+          text 619.79,217.92 56.25x15 "Cooldowns" #b3a690
+      box 715.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 733.75,208.29 77.33x34.25
+          text 738.04,217.92 68.75x15 "Professions" #b3a690
+    box 1205.83,211.12 52.5x34.67
+      box 1205.83,211.12 52.5x26.67 clipped
+        box 1205.83,211.12 29.17x26.67 absolute clipped @click
+          box 1205.83,211.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1215.83,216.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1235,211.12 23.33x26.67 absolute clipped @click
+          box 1235,211.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1241.25,216.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 -- sorted by level, the lowest first
 surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
-  box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 354.42,248.04 896.17x443.42
       box 374.42,268.04 856.17x403.42
         box 374.42,268.04 856.17x87.5 scrolled 0 of 0
@@ -185,31 +194,33 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
                   box 1157.25,323.04 66.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                     box 1157.25,323.04 66.67x28.33 absolute
                       text 1171.83,329.71 37.5x15 "Forget" #ffd100
-    box 1199.42,247.12 52.5x26.67 absolute clipped
-      box 1199.42,247.12 29.17x26.67 absolute clipped @click
-        box 1199.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1209.42,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1228.58,247.12 23.33x26.67 absolute clipped @click
-        box 1228.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1234.83,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1241.08,681.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 341.67,198.04 488x47.75
-    box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 360.25,208.29 77.33x34.25
-        text 367.67,217.92 62.5x15 "Characters" #ffd100
-    box 466.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 484.75,208.29 77.33x34.25
-        text 507.79,217.92 31.25x15 "Items" #b3a690
-    box 590.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 609.25,208.29 77.33x34.25
-        text 619.79,217.92 56.25x15 "Cooldowns" #b3a690
-    box 715.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 733.75,208.29 77.33x34.25
-        text 738.04,217.92 68.75x15 "Professions" #b3a690
+  box 341.67,198.04 916.67x47.75
+    box 341.67,198.04 857.5x47.75
+      box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 360.25,208.29 77.33x34.25
+          text 367.67,217.92 62.5x15 "Characters" #ffd100
+      box 466.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 484.75,208.29 77.33x34.25
+          text 507.79,217.92 31.25x15 "Items" #b3a690
+      box 590.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 609.25,208.29 77.33x34.25
+          text 619.79,217.92 56.25x15 "Cooldowns" #b3a690
+      box 715.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 733.75,208.29 77.33x34.25
+          text 738.04,217.92 68.75x15 "Professions" #b3a690
+    box 1205.83,211.12 52.5x34.67
+      box 1205.83,211.12 52.5x26.67 clipped
+        box 1205.83,211.12 29.17x26.67 absolute clipped @click
+          box 1205.83,211.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1215.83,216.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1235,211.12 23.33x26.67 absolute clipped @click
+          box 1235,211.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1241.25,216.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 -- sorted by level again: the highest first
 surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
-  box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 354.42,248.04 896.17x443.42
       box 374.42,268.04 856.17x403.42
         box 374.42,268.04 856.17x87.5 scrolled 0 of 0
@@ -293,24 +304,26 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
                 text 987.25,337.21 76.67x15 "never opened" #a3977f
                 text 1070.58,337.21 76.67x15 "never opened" #a3977f
                 box 1153.92,344.71 70x0
-    box 1199.42,247.12 52.5x26.67 absolute clipped
-      box 1199.42,247.12 29.17x26.67 absolute clipped @click
-        box 1199.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1209.42,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1228.58,247.12 23.33x26.67 absolute clipped @click
-        box 1228.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1234.83,252.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1241.08,681.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 341.67,198.04 488x47.75
-    box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 360.25,208.29 77.33x34.25
-        text 367.67,217.92 62.5x15 "Characters" #ffd100
-    box 466.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 484.75,208.29 77.33x34.25
-        text 507.79,217.92 31.25x15 "Items" #b3a690
-    box 590.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 609.25,208.29 77.33x34.25
-        text 619.79,217.92 56.25x15 "Cooldowns" #b3a690
-    box 715.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 733.75,208.29 77.33x34.25
-        text 738.04,217.92 68.75x15 "Professions" #b3a690
+  box 341.67,198.04 916.67x47.75
+    box 341.67,198.04 857.5x47.75
+      box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 360.25,208.29 77.33x34.25
+          text 367.67,217.92 62.5x15 "Characters" #ffd100
+      box 466.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 484.75,208.29 77.33x34.25
+          text 507.79,217.92 31.25x15 "Items" #b3a690
+      box 590.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 609.25,208.29 77.33x34.25
+          text 619.79,217.92 56.25x15 "Cooldowns" #b3a690
+      box 715.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 733.75,208.29 77.33x34.25
+          text 738.04,217.92 68.75x15 "Professions" #b3a690
+    box 1205.83,211.12 52.5x34.67
+      box 1205.83,211.12 52.5x26.67 clipped
+        box 1205.83,211.12 29.17x26.67 absolute clipped @click
+          box 1205.83,211.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1215.83,216.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1235,211.12 23.33x26.67 absolute clipped @click
+          box 1235,211.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1241.25,216.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

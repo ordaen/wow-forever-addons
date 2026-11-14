@@ -1,6 +1,6 @@
 -- the strip: also enabled, Ordaen, with «Undo»
 surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
-  box 391.67,241.12 816.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 391.67,241.12 816.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 404.42,253.88 796.17x443.42
       box 424.42,273.88 756.17x365.08
         box 424.42,273.88 756.17x28.33
@@ -118,10 +118,19 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
                 box 1047.25,655.62 133.33x28.33 absolute
                   text 1095.17,662.29 37.5x15 "Reload" #ffd100
     box 1191.08,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 391.67,192.21 123.58x59.42
-    box 391.67,192.21 123.58x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 398.92,199.46 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 442.83,199.46 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
-      box 459.17,202.46 37.5x45.92
-        text 459.17,211 37.5x15 "AddOns" #ffd100
-        text 461.67,226.83 32.5x13 "3 of 3" #8f8470
+  box 391.67,192.21 816.67x59.42
+    box 391.67,192.21 757.5x59.42
+      box 391.67,192.21 123.58x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 398.92,199.46 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 442.83,199.46 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 459.17,202.46 37.5x45.92
+          text 459.17,211 37.5x15 "AddOns" #ffd100
+          text 461.67,226.83 32.5x13 "3 of 3" #8f8470
+    box 1155.83,216.96 52.5x34.67
+      box 1155.83,216.96 52.5x26.67 clipped
+        box 1155.83,216.96 29.17x26.67 absolute clipped @click
+          box 1155.83,216.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1165.83,222.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1185,216.96 23.33x26.67 absolute clipped @click
+          box 1185,216.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1191.25,222.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

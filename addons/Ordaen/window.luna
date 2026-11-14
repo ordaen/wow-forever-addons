@@ -1,9 +1,9 @@
 // Window: a window whose open tab is its title. The small metal frame round its body, the windows' wood, its tabs
 // standing on the body's top line from its left, the open one over the body and the closed ones behind it. Centred
 // on the screen at first; dragging a tab moves it, Escape closes it, the grip in its bottom right corner
-// resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
-// the window: one group of plates, settings where the window is made `withSettings` (its `settings` event), full
-// screen (and back) and close. Its unnamed slot takes the body's content, which fills the body. Its `footer`, where
+// resizes it with its top left corner staying where it is. At the tab row's right end, standing on the body's
+// top line as the tabs do: one group of plates, settings where the window is made `withSettings` (its `settings`
+// event), full screen (and back) and close; the window is never narrower than its tabs and that group. Its unnamed slot takes the body's content, which fills the body. Its `footer`, where
 // it is given one, is the footer row: the window's action groups, its secondary actions and what isn't important
 // (counts, how long ago, in small dim text) standing on the body's bottom line under the content; the template lays
 // its groups out with the ladder's steps. Its `side`, where it is given one, is a section of its own at the body's
@@ -72,12 +72,12 @@ const ROOM: Number = space(.Window) + INSET
 const PADDING: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Window), left: space(.Window) }
 const PADDING_FOOTED: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Panel), left: space(.Window) }
 const FOOTER_PAD: Edges = { top: space(.Group) }
-// The corner's group in the body's top right (the design's `CTRLS`): its controls from its left, each one kind of
-// plate with its glyph. How far from the body's line the group stands, and how high it is with its rim.
+// The control group at the tab row's right end (the design's `CTRLS`): its controls from its left, each one kind of
+// plate with its glyph; how high it is with its rim.
 public enum CornerControl { Settings = "settings", Full = "full", Close = "close" }
-const CORNER_TOP = 5.5 * PX
-const CORNER_RIGHT = 5 * PX
 const CORNER_HEIGHT = 32 * PX
+// How far below the body's top the group's foot stands: the middle of the frame's line.
+const CORNER_FOOT = 3 * PX
 // A plate's width; the first's rim and its shadow, left of its plate; the last is the design's 2 px wider, and the
 // frame's line covers its right end, which the group's box leaves out.
 const PLATE = 30 * PX
@@ -105,16 +105,12 @@ const function plateLeft(index: Integer, count: Integer): Number {
   for (i of 1..=index - 1) { left += plateWidth(i, count) }
   return left
 }
-// How much of the content's first row the corner's group takes, from its right end: what stands in that row at
-// the right (a bar across the window) ends this much short, and the group never lies over it.
-public const function cornerRoom(withSettings: Boolean): Number {
-  const count = cornerControls(withSettings).length
-  return CORNER_RIGHT + plateLeft(count + 1, count) + space(.Item) - ROOM
-}
 // The main section's content takes what its footer's row leaves; the body's one row is as high as the body.
 const MAIN_ROWS: Array<Track> = [{ fr: 1 }, "auto"]
 const BODY_ROWS: Array<Track> = [{ fr: 1 }]
 const ONE: Array<Track> = [{ fr: 1 }]
+// The tab row: the tabs, and the control group at its right end.
+const ROW: Array<Track> = [{ fr: 1 }, "auto"]
 
 // A window's side section: a column at the body's right, running from its top line to its bottom one, the frame's
 // line between it and the main section (as the trainer's card beside its list). It shares neither the main section's
@@ -283,7 +279,6 @@ public class Window implements Component {
   public picked: Event<Integer> = new Event()
 
   state full: Boolean
-  state hovered = false
   // Where the window and its body were when a drag began.
   x0: Number = 0
   y0: Number = 0
@@ -308,6 +303,10 @@ public class Window implements Component {
   derived free: Boolean = !self.full && self.docked == nil
   // The screen's right side kept clear while full screen.
   derived inset: Number = self.full ? self.room : 0
+  // The tab row ends where the body does: short of that side while full screen.
+  derived rowPad: Edges = { right: self.inset }
+  // The control group's foot stands in the middle of the body's top line, which covers it.
+  derived cornerFoot: Edges = { bottom: self.lineTop - CORNER_FOOT }
   derived grip: Stated<Art> = self.gripOf()
   // The ring round the control the keyboard has focused: the look's accent.
   derived focusLine: Line = { width: 1 * PX, color: Ordaen.look.values.accent, sides: nil }
@@ -488,8 +487,6 @@ public class Window implements Component {
     return { default: Ordaen.art.ctl.grip, hover: Ordaen.art.ctl.gripHover, pressed: Ordaen.art.ctl.gripDown }
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
   toggleFull(mut self) {
     const full = !self.full
     self.full = full
@@ -578,15 +575,14 @@ public class Window implements Component {
 
   public render(self): Template {
     return $ltml {
-      // As wide as the player made it, and never narrower than its tabs: the tab row is the one thing in its
-      // grid, and the width it keeps is its least.
+      // As wide as the player made it, and never narrower than its tab row (its tabs and its control group): the
+      // row is the one thing in its grid, and the width it keeps is its least.
       <surface shown={self.shown} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
-               raise={true} xAlign={Align.Start} focusLine={self.focusLine}
+               raise={true} focusLine={self.focusLine}
                @escape={self.onClose}>
         <box position={Position.Absolute} left={0} right={self.inset} top={self.tabHeight} bottom={0}
              border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={INSET}
-             columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true}
-             @enter={self.onEnter} @leave={self.onLeave}>
+             columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL}>
           <box rows={MAIN_ROWS} padding={self.padding}>
             <slot />
             <box $if={self.footed} padding={FOOTER_PAD}>
@@ -598,19 +594,24 @@ public class Window implements Component {
             <box position={Position.Absolute} left={0} top={0} bottom={0} width={SIDE_HANDLE}
                  @dragStart={self.onSideGrab} @drag={self.onSide} @dragStop={self.onSideSettle} />
           </box>
-          <box $if={self.hovered} position={Position.Absolute} top={CORNER_TOP} right={CORNER_RIGHT}
-               width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>
-            <CornerPlate $for={index, control of self.controls} control={control} index={index}
-                         count={self.controls.length} full={self.full} @pressed={self.onCorner} />
-          </box>
           <box $if={self.free} position={Position.Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}
                height={16 * PX} background={self.grip} @dragStart={self.onGrabSize} @drag={self.onSize}
                @dragStop={self.onSettle} />
         </box>
-        <box columns={self.columns} gap={12 * PX} yAlign={Align.End}>
-          <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={self.selected}
-                     height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @drop={self.onSettle}
-                     @picked={self.onPicked} />
+        // The tab row: the tabs from the left, the control group at the right, standing on the body's top line as the
+        // tabs do. The row is the surface's least width: the window is never narrower than its tabs and its controls.
+        <box columns={ROW} gap={space(.Item)} padding={self.rowPad} yAlign={Align.End}>
+          <box columns={self.columns} gap={12 * PX} yAlign={Align.End}>
+            <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={self.selected}
+                       height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @drop={self.onSettle}
+                       @picked={self.onPicked} />
+          </box>
+          <box padding={self.cornerFoot}>
+            <box width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>
+              <CornerPlate $for={index, control of self.controls} control={control} index={index}
+                           count={self.controls.length} full={self.full} @pressed={self.onCorner} />
+            </box>
+          </box>
         </box>
       </surface>
     }
