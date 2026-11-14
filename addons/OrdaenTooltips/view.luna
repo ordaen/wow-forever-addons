@@ -89,7 +89,7 @@ public class TipGroup implements Component {
   derived across: Align = self.standing.below || self.comparing ? Align.Start : Align.End
   derived lowered: Edges = self.comparing ? LOWERED : LEVEL
 
-  // A locked group: its close button was clicked; the cursor came onto it, and left it.
+  // A locked group's close button was clicked; the cursor came onto the group, and left it.
   public close: Event<nil> = new Event()
   public enter: Event<nil> = new Event()
   public leave: Event<nil> = new Event()
@@ -114,7 +114,7 @@ public class TipGroup implements Component {
     options: Signal<Options>,
     // The main tooltip's lock: how far it is charged, of a hundred, and whether it is locked. The group takes the
     // cursor locked or not: what holds the tooltips listens for it always (a listener is bound for good), and
-    // tells the lock only while it is locked.
+    // tells it always.
     charge: Signal<Integer> = 0,
     locked: Signal<Boolean> = false,
   ) {
@@ -129,13 +129,9 @@ public class TipGroup implements Component {
   }
 
   onClose(mut self) { self.close.emit() }
-  // The cursor on the group and off it is the lock's alone: an unlocked group is told nothing.
-  onEnter(mut self) {
-    if (self.locked) { self.enter.emit() }
-  }
-  onLeave(mut self) {
-    if (self.locked) { self.leave.emit() }
-  }
+  // The cursor on the group and off it, locked or not: a group that locks under a cursor already on it is told so.
+  onEnter(mut self) { self.enter.emit() }
+  onLeave(mut self) { self.leave.emit() }
 
   // The group's row from the screen's left to its right: the main tooltip at the frame, the rest away from it.
   inOrder(self): Array<Piece> {

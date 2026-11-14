@@ -1,0 +1,105 @@
+-- the cursor on a part of the locked tooltip that opens a term: the term's tooltip, and the lock stays
+surface 1047,240 293x106.42 on TOOLTIP
+  box 1047,240 293x106.42 @enter @leave
+    box 1047,240 293x106.42
+      box 1047,240 293x106.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1067.25,260.25 257.5x24.67
+          box 1067.25,260.25 257.5x18
+            text 1067.25,260.25 257.5x18 "Frostbolt" #ffffff
+        box 1067.25,284.92 257.5x23.5
+          box 1067.25,285.75 47.5x22.67
+            box 1075.58,292.42 30.83x16
+              box 1075.58,293.75 13.33x13.33
+              box 1093.08,292.42 13.33x16
+                text 1093.08,292.42 13.33x16 "65" #f3e7cc
+          box 1114.75,285.75 95x22.67
+            box 1123.92,292.42 77.5x16
+              box 1123.92,292.42 73.33x16
+                text 1123.92,292.42 73.33x16 "30 yd range" #f3e7cc
+                box 1123.92,307.58 73.33x0.83 absolute #ffd100b3
+            box 1114.75,285.75 95x22.67 absolute @enter @leave
+          box 1209.75,285.75 115x22.67
+            box 1218.92,292.42 97.5x16
+              box 1218.92,293.75 13.33x13.33
+              box 1236.42,292.42 80x16
+                text 1236.42,292.42 80x16 "2.5 sec cast" #f3e7cc
+                box 1236.42,307.58 80x0.83 absolute #ffd100b3
+            box 1209.75,285.75 115x22.67 absolute @enter @leave
+        box 1067.25,308.42 257.5x20
+          box 1067.25,315.08 257.5x13.33
+            text 1067.25,315.25 257.5x13 "Locked — hover the underlined parts" #857a66
+        box 1316.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
+surface 980.25,308.42 229.5x104.25 on TOOLTIP
+  box 980.25,308.42 229.5x104.25
+    box 980.25,308.42 229.5x104.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 1000.5,328.67 194x24.67
+        box 1000.5,328.67 194x18
+          text 1000.5,328.67 194x18 "Range" #ffd100
+      box 1000.5,353.33 194x41.33
+        box 1000.5,360 194x28
+          text 1000.5,360 194x28 "How far from the target you can use it." #e6dcc6
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
+asked: Tooltip.hide false
+asked: Tooltip.hide true
