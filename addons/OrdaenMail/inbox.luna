@@ -2,7 +2,7 @@
 // the counts, a table), the picked letter beside them, and the footer with «Collect all». A letter is ticked on its
 // checkbox; Shift+click on one ticks the range from the last ticked.
 import Game from "$game"
-import { Align, Overflow, Track } from "$ltml"
+import { Align, Art, Overflow, Track } from "$ltml"
 import { ARTWORK, Choice, Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, Tick, Toolbar, ToolPick, tracksOf } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { collectable, Filter, matches, URGENT_DAYS } from "@/letters"
@@ -10,6 +10,9 @@ import Locale from "@/locales"
 import Style from "@/style"
 
 public enum View { List = "list", Categories = "categories", Table = "table" }
+
+// A letter with nothing attached: the client's letter icon where an item's would stand.
+const LETTER: Art = "Interface/Icons/INV_Letter_15"
 
 const FILTERS: Array<Choice<Filter>> = [
   { value: Filter.All, label: Locale.FILTER_ALL },
@@ -107,7 +110,7 @@ public class LetterRow implements Component {
            padding={{ top: 4 * PX, bottom: 4 * PX, left: 6 * PX, right: 6 * PX }} @click={self.onPick}>
         <Tick value={mut self.checked} />
         <ItemButton $if={self.hasItems} item={self.first} size={28 * PX} />
-        <box $else width={28 * PX} height={28 * PX} />
+        <box $else width={28 * PX} height={28 * PX} icon={LETTER} />
         <box columns={1}>
           <text value={self.letter.subject} textColor={Style.INK} wrap={false} />
           <text value={self.sender} textSize={.Secondary} textColor={Style.DIM} wrap={false} />
