@@ -79,7 +79,7 @@ public function members(recipes: Array<Game.Recipe>, group: Integer, starred: Ar
 }
 
 // The profession's own tabs: the camp's while it has recipes.
-public enum Page { Recipes = "recipes", Camp = "camp", Queue = "queue" }
+public enum Page { Recipes = "recipes", Camp = "camp", Queue = "queue", Overview = "overview" }
 
 // A recipe waiting in the queue: what «Create» couldn't start at once, with how many, under its profession.
 public struct Queued implements Plain {
