@@ -12,16 +12,11 @@ public struct Spacing {
 public struct ArtFrame {
   // A window's or a small surface's metal on all four sides: windows, dialogs, tooltips, the minimap.
   small: Metal
-  // A window tab's: the metal on its top and sides, its top corners rounded. The open tab's sides curve out into
-  // the body's top line; the first tab's left runs straight down the body's own.
+  // A window tab's: the metal on its top and sides, its top corners rounded, open or closed alike.
   tab: Metal
-  tabOpen: Metal
-  tabOpenFirst: Metal
-  // A tab's icon: its picture cut by the tab's top-left curve, the line on its right, the line under it.
+  // A tab's icon: its picture cut by the tab's top-left curve, and the line on its right.
   tabIconClip: Metal
   tabIconLine: Metal
-  tabIconLineOpen: Metal
-  tabIconUnder: Metal
 }
 
 public struct ArtWindow {
@@ -111,12 +106,8 @@ public const ARTWORK: Artwork = {
   frame: {
     small: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, curves: CURVES, lineStart: 10 },
     tab: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },
-    tabOpen: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, flare: [Side.Left, Side.Right], curves: CURVES, lineStart: 10 },
-    tabOpenFirst: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, flare: [Side.Right], curves: CURVES, lineStart: 10 },
     tabIconClip: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
     tabIconLine: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 },
-    tabIconLineOpen: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], flare: [Side.Left], curves: CURVES, lineStart: 10 },
-    tabIconUnder: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Top], curves: CURVES, lineStart: 10 },
   },
   window: { wood: WOOD, marble: "Interface/FrameGeneral/UI-Background-Marble" },
   ctl: {

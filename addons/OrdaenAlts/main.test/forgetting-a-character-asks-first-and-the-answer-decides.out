@@ -7,30 +7,64 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
         box 364.42,259.71 876.17x80.5
           box 364.42,259.71 876.17x24.83 #00000040
             box 371.08,259.71 121.8x24 #00000000 @click
+              box 371.08,282.04 121.8x1.67 absolute #00000000
               box 371.08,264.71 121.8x14
                 text 371.08,264.71 52.5x14 "Character" #cbb994
+                box 426.92,264.71 4.17x10
+                  box 426.92,264.71 4.17x10 opacity=0
+                    text 426.92,264.71 4.17x10 "▲" #f0c860
+                  box 426.92,264.71 4.17x10 absolute opacity=0
+                    text 426.92,264.71 4.17x10 "▼" #f0c860
             box 499.55,259.71 36.67x24 #00000000 @click
-              box 503.72,264.71 32.5x14
-                text 503.72,264.71 29.17x14 "Level" #cbb994
+              box 499.55,282.04 36.67x1.67 absolute #00000000
+              box 499.55,264.71 36.67x14
+                text 499.55,264.71 29.17x14 "Level" #cbb994
+                box 532.05,264.71 4.17x10
+                  box 532.05,264.71 4.17x10 opacity=0
+                    text 532.05,264.71 4.17x10 "▲" #f0c860
+                  box 532.05,264.71 4.17x10 absolute opacity=0
+                    text 532.05,264.71 4.17x10 "▼" #f0c860
             box 542.88,259.71 100x24 #00000000 @click
-              box 616.22,264.71 26.67x14
-                text 616.22,264.71 23.33x14 "Gold" #cbb994
+              box 542.88,282.04 100x1.67 absolute #00000000
+              box 612.05,264.71 30.83x14
+                text 612.05,264.71 23.33x14 "Gold" #cbb994
+                box 638.72,264.71 4.17x10
+                  box 638.72,264.71 4.17x10 opacity=0
+                    text 638.72,264.71 4.17x10 "▲" #f0c860
+                  box 638.72,264.71 4.17x10 absolute opacity=0
+                    text 638.72,264.71 4.17x10 "▼" #f0c860
             box 649.55,259.71 182.7x24 #00000000 @click
+              box 649.55,282.04 182.7x1.67 absolute #00000000
               box 649.55,264.71 182.7x14
                 text 649.55,264.71 64.17x14 "Professions" #a3977f
             box 838.92,259.71 70x24 #00000000 @click
-              box 847.25,264.71 61.67x14
-                text 847.25,264.71 58.33x14 "Free slots" #cbb994
+              box 838.92,282.04 70x1.67 absolute #00000000
+              box 843.08,264.71 65.83x14
+                text 843.08,264.71 58.33x14 "Free slots" #cbb994
+                box 904.75,264.71 4.17x10
+                  box 904.75,264.71 4.17x10 opacity=0
+                    text 904.75,264.71 4.17x10 "▲" #f0c860
+                  box 904.75,264.71 4.17x10 absolute opacity=0
+                    text 904.75,264.71 4.17x10 "▼" #f0c860
             box 915.58,259.71 75x24 #00000000 @click
-              box 952.25,264.71 38.33x14
-                text 952.25,264.71 35x14 "Played" #cbb994
+              box 915.58,282.04 75x1.67 absolute #00000000
+              box 948.08,264.71 42.5x14
+                text 948.08,264.71 35x14 "Played" #cbb994
+                box 986.42,264.71 4.17x10
+                  box 986.42,264.71 4.17x10 opacity=0
+                    text 986.42,264.71 4.17x10 "▲" #f0c860
+                  box 986.42,264.71 4.17x10 absolute opacity=0
+                    text 986.42,264.71 4.17x10 "▼" #f0c860
             box 997.25,259.71 76.67x24 #00000000 @click
+              box 997.25,282.04 76.67x1.67 absolute #00000000
               box 997.25,264.71 76.67x14
                 text 997.25,264.71 52.5x14 "Bank read" #a3977f
             box 1080.58,259.71 76.67x24 #00000000 @click
+              box 1080.58,282.04 76.67x1.67 absolute #00000000
               box 1080.58,264.71 76.67x14
                 text 1080.58,264.71 70x14 "Mail expires" #a3977f
             box 1163.92,259.71 70x24 #00000000 @click
+              box 1163.92,282.04 70x1.67 absolute #00000000
               box 1163.92,264.71 70x14
                 text 1163.92,264.71 5.83x14 " " #a3977f
           box 364.42,284.54 876.17x55.67 scrolled 0 of 0
@@ -72,22 +106,18 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
         box 1228.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1241.08,681.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 341.67,198.04 488x47.75
-    box 341.67,198.04 114.5x47.75 @click @drag @dragStart @dragStop
-      box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
-        box 360.25,208.29 77.33x37.5
-          text 367.67,219.54 62.5x15 "Characters" #ffd100
-    box 466.17,198.04 114.5x47.75 @click @drag @dragStart @dragStop
-      box 466.17,202.21 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
-        box 484.75,212.46 77.33x30.08
-          text 507.79,220 31.25x15 "Items" #b3a690
-    box 590.67,198.04 114.5x47.75 @click @drag @dragStart @dragStop
-      box 590.67,202.21 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
-        box 609.25,212.46 77.33x30.08
-          text 619.79,220 56.25x15 "Cooldowns" #b3a690
-    box 715.17,198.04 114.5x47.75 @click @drag @dragStart @dragStop
-      box 715.17,202.21 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
-        box 733.75,212.46 77.33x30.08
-          text 738.04,220 68.75x15 "Professions" #b3a690
+    box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 360.25,208.29 77.33x34.25
+        text 367.67,217.92 62.5x15 "Characters" #ffd100
+    box 466.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 484.75,208.29 77.33x34.25
+        text 507.79,217.92 31.25x15 "Items" #b3a690
+    box 590.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 609.25,208.29 77.33x34.25
+        text 619.79,217.92 56.25x15 "Cooldowns" #b3a690
+    box 715.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 733.75,208.29 77.33x34.25
+        text 738.04,217.92 68.75x15 "Professions" #b3a690
 surface 0,0 1600x900 on DIALOG #0000008c
   box 603.58,378.54 392.83x142.92 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     text 633.83,425.46 337.33x28 "Forget Regy Ironsight? Its recipes and items leave the lists and come back when you play it again." #e8dcc4
@@ -112,30 +142,64 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
         box 364.42,259.71 876.17x45.5
           box 364.42,259.71 876.17x24.83 #00000040
             box 371.08,259.71 121.8x24 #00000000 @click
+              box 371.08,282.04 121.8x1.67 absolute #00000000
               box 371.08,264.71 121.8x14
                 text 371.08,264.71 52.5x14 "Character" #cbb994
+                box 426.92,264.71 4.17x10
+                  box 426.92,264.71 4.17x10 opacity=0
+                    text 426.92,264.71 4.17x10 "▲" #f0c860
+                  box 426.92,264.71 4.17x10 absolute opacity=0
+                    text 426.92,264.71 4.17x10 "▼" #f0c860
             box 499.55,259.71 36.67x24 #00000000 @click
-              box 503.72,264.71 32.5x14
-                text 503.72,264.71 29.17x14 "Level" #cbb994
+              box 499.55,282.04 36.67x1.67 absolute #00000000
+              box 499.55,264.71 36.67x14
+                text 499.55,264.71 29.17x14 "Level" #cbb994
+                box 532.05,264.71 4.17x10
+                  box 532.05,264.71 4.17x10 opacity=0
+                    text 532.05,264.71 4.17x10 "▲" #f0c860
+                  box 532.05,264.71 4.17x10 absolute opacity=0
+                    text 532.05,264.71 4.17x10 "▼" #f0c860
             box 542.88,259.71 100x24 #00000000 @click
-              box 616.22,264.71 26.67x14
-                text 616.22,264.71 23.33x14 "Gold" #cbb994
+              box 542.88,282.04 100x1.67 absolute #00000000
+              box 612.05,264.71 30.83x14
+                text 612.05,264.71 23.33x14 "Gold" #cbb994
+                box 638.72,264.71 4.17x10
+                  box 638.72,264.71 4.17x10 opacity=0
+                    text 638.72,264.71 4.17x10 "▲" #f0c860
+                  box 638.72,264.71 4.17x10 absolute opacity=0
+                    text 638.72,264.71 4.17x10 "▼" #f0c860
             box 649.55,259.71 182.7x24 #00000000 @click
+              box 649.55,282.04 182.7x1.67 absolute #00000000
               box 649.55,264.71 182.7x14
                 text 649.55,264.71 64.17x14 "Professions" #a3977f
             box 838.92,259.71 70x24 #00000000 @click
-              box 847.25,264.71 61.67x14
-                text 847.25,264.71 58.33x14 "Free slots" #cbb994
+              box 838.92,282.04 70x1.67 absolute #00000000
+              box 843.08,264.71 65.83x14
+                text 843.08,264.71 58.33x14 "Free slots" #cbb994
+                box 904.75,264.71 4.17x10
+                  box 904.75,264.71 4.17x10 opacity=0
+                    text 904.75,264.71 4.17x10 "▲" #f0c860
+                  box 904.75,264.71 4.17x10 absolute opacity=0
+                    text 904.75,264.71 4.17x10 "▼" #f0c860
             box 915.58,259.71 75x24 #00000000 @click
-              box 952.25,264.71 38.33x14
-                text 952.25,264.71 35x14 "Played" #cbb994
+              box 915.58,282.04 75x1.67 absolute #00000000
+              box 948.08,264.71 42.5x14
+                text 948.08,264.71 35x14 "Played" #cbb994
+                box 986.42,264.71 4.17x10
+                  box 986.42,264.71 4.17x10 opacity=0
+                    text 986.42,264.71 4.17x10 "▲" #f0c860
+                  box 986.42,264.71 4.17x10 absolute opacity=0
+                    text 986.42,264.71 4.17x10 "▼" #f0c860
             box 997.25,259.71 76.67x24 #00000000 @click
+              box 997.25,282.04 76.67x1.67 absolute #00000000
               box 997.25,264.71 76.67x14
                 text 997.25,264.71 52.5x14 "Bank read" #a3977f
             box 1080.58,259.71 76.67x24 #00000000 @click
+              box 1080.58,282.04 76.67x1.67 absolute #00000000
               box 1080.58,264.71 76.67x14
                 text 1080.58,264.71 70x14 "Mail expires" #a3977f
             box 1163.92,259.71 70x24 #00000000 @click
+              box 1163.92,282.04 70x1.67 absolute #00000000
               box 1163.92,264.71 70x14
                 text 1163.92,264.71 5.83x14 " " #a3977f
           box 364.42,284.54 876.17x20.67 scrolled 0 of 0
@@ -161,19 +225,15 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
         box 1228.58,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 1241.08,681.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 341.67,198.04 488x47.75
-    box 341.67,198.04 114.5x47.75 @click @drag @dragStart @dragStop
-      box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
-        box 360.25,208.29 77.33x37.5
-          text 367.67,219.54 62.5x15 "Characters" #ffd100
-    box 466.17,198.04 114.5x47.75 @click @drag @dragStart @dragStop
-      box 466.17,202.21 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
-        box 484.75,212.46 77.33x30.08
-          text 507.79,220 31.25x15 "Items" #b3a690
-    box 590.67,198.04 114.5x47.75 @click @drag @dragStart @dragStop
-      box 590.67,202.21 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
-        box 609.25,212.46 77.33x30.08
-          text 619.79,220 56.25x15 "Cooldowns" #b3a690
-    box 715.17,198.04 114.5x47.75 @click @drag @dragStart @dragStop
-      box 715.17,202.21 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
-        box 733.75,212.46 77.33x30.08
-          text 738.04,220 68.75x15 "Professions" #b3a690
+    box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 360.25,208.29 77.33x34.25
+        text 367.67,217.92 62.5x15 "Characters" #ffd100
+    box 466.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 484.75,208.29 77.33x34.25
+        text 507.79,217.92 31.25x15 "Items" #b3a690
+    box 590.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 609.25,208.29 77.33x34.25
+        text 619.79,217.92 56.25x15 "Cooldowns" #b3a690
+    box 715.17,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 733.75,208.29 77.33x34.25
+        text 738.04,217.92 68.75x15 "Professions" #b3a690

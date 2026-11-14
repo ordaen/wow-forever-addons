@@ -5,10 +5,14 @@ import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
+import { knobShown } from "@/switch"
 
 const SIZE = 22 * PX
 
 public class Checkbox implements Component {
+  // The tick is always drawn, at no opacity while off: on and off differ in their colours alone.
+  derived tick: Number = knobShown(self.value)
+
   label: Signal<String>
   value: mut Signal<Boolean>
   hint: Signal<String>
@@ -34,8 +38,8 @@ public class Checkbox implements Component {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @click={self.toggle}>
-          <box $if={self.value} position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
-               background={Ordaen.art.ctl.tick} />
+          <box position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
+               background={Ordaen.art.ctl.tick} opacity={self.tick} />
         </box>
       </SettingRow>
     }

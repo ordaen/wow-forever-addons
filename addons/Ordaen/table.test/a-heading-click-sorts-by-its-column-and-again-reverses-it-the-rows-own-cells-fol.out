@@ -2,15 +2,34 @@
 box 0,0 500x88.03
   box 0,0 500x24.83 #00000040
     box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,22.33 246.67x1.67 absolute #00000000
       box 6.67,5 246.67x14
         text 6.67,5 23.33x14 "Item" #cbb994
+        box 33.33,5 4.17x10
+          box 33.33,5 4.17x10 opacity=0
+            text 33.33,5 4.17x10 "▲" #f0c860
+          box 33.33,5 4.17x10 absolute opacity=0
+            text 33.33,5 4.17x10 "▼" #f0c860
     box 260,0 110x24 #00000000 @click
-      box 337.5,5 32.5x14
-        text 337.5,5 29.17x14 "Price" #cbb994
+      box 260,22.33 110x1.67 absolute #00000000
+      box 333.33,5 36.67x14
+        text 333.33,5 29.17x14 "Price" #cbb994
+        box 365.83,5 4.17x10
+          box 365.83,5 4.17x10 opacity=0
+            text 365.83,5 4.17x10 "▲" #f0c860
+          box 365.83,5 4.17x10 absolute opacity=0
+            text 365.83,5 4.17x10 "▼" #f0c860
     box 376.67,0 50x24 #00000000 @click
-      box 405.83,5 20.83x14
-        text 405.83,5 17.5x14 "Age" #cbb994
+      box 376.67,22.33 50x1.67 absolute #00000000
+      box 401.67,5 25x14
+        text 401.67,5 17.5x14 "Age" #cbb994
+        box 422.5,5 4.17x10
+          box 422.5,5 4.17x10 opacity=0
+            text 422.5,5 4.17x10 "▲" #f0c860
+          box 422.5,5 4.17x10 absolute opacity=0
+            text 422.5,5 4.17x10 "▼" #f0c860
     box 433.33,0 60x24 #00000000 @click
+      box 433.33,22.33 60x1.67 absolute #00000000
       box 433.33,5 60x14
         text 433.33,5 23.33x14 "Note" #a3977f
   box 0,24.83 500x63.2 scrolled 0 of 0
@@ -40,17 +59,34 @@ box 0,0 500x88.03
 box 0,0 500x88.03
   box 0,0 500x24.83 #00000040
     box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,22.33 246.67x1.67 absolute #00000000
       box 6.67,5 246.67x14
         text 6.67,5 23.33x14 "Item" #cbb994
+        box 33.33,5 4.17x10
+          box 33.33,5 4.17x10 opacity=0
+            text 33.33,5 4.17x10 "▲" #f0c860
+          box 33.33,5 4.17x10 absolute opacity=0
+            text 33.33,5 4.17x10 "▼" #f0c860
     box 260,0 110x24 #00000033 @click
       box 260,22.33 110x1.67 absolute #d6a56b
       box 333.33,5 36.67x14
         text 333.33,5 29.17x14 "Price" #f0c860
-        text 365.83,5 4.17x10 "▲" #f0c860
+        box 365.83,5 4.17x10
+          box 365.83,5 4.17x10 opacity=1
+            text 365.83,5 4.17x10 "▲" #f0c860
+          box 365.83,5 4.17x10 absolute opacity=0
+            text 365.83,5 4.17x10 "▼" #f0c860
     box 376.67,0 50x24 #00000000 @click
-      box 405.83,5 20.83x14
-        text 405.83,5 17.5x14 "Age" #cbb994
+      box 376.67,22.33 50x1.67 absolute #00000000
+      box 401.67,5 25x14
+        text 401.67,5 17.5x14 "Age" #cbb994
+        box 422.5,5 4.17x10
+          box 422.5,5 4.17x10 opacity=0
+            text 422.5,5 4.17x10 "▲" #f0c860
+          box 422.5,5 4.17x10 absolute opacity=0
+            text 422.5,5 4.17x10 "▼" #f0c860
     box 433.33,0 60x24 #00000000 @click
+      box 433.33,22.33 60x1.67 absolute #00000000
       box 433.33,5 60x14
         text 433.33,5 23.33x14 "Note" #a3977f
   box 0,24.83 500x63.2 scrolled 0 of 0
@@ -80,17 +116,34 @@ box 0,0 500x88.03
 box 0,0 500x88.03
   box 0,0 500x24.83 #00000040
     box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,22.33 246.67x1.67 absolute #00000000
       box 6.67,5 246.67x14
         text 6.67,5 23.33x14 "Item" #cbb994
+        box 33.33,5 4.17x10
+          box 33.33,5 4.17x10 opacity=0
+            text 33.33,5 4.17x10 "▲" #f0c860
+          box 33.33,5 4.17x10 absolute opacity=0
+            text 33.33,5 4.17x10 "▼" #f0c860
     box 260,0 110x24 #00000033 @click
       box 260,22.33 110x1.67 absolute #d6a56b
       box 333.33,5 36.67x14
         text 333.33,5 29.17x14 "Price" #f0c860
-        text 365.83,5 4.17x10 "▼" #f0c860
+        box 365.83,5 4.17x10
+          box 365.83,5 4.17x10 opacity=0
+            text 365.83,5 4.17x10 "▲" #f0c860
+          box 365.83,5 4.17x10 absolute opacity=1
+            text 365.83,5 4.17x10 "▼" #f0c860
     box 376.67,0 50x24 #00000000 @click
-      box 405.83,5 20.83x14
-        text 405.83,5 17.5x14 "Age" #cbb994
+      box 376.67,22.33 50x1.67 absolute #00000000
+      box 401.67,5 25x14
+        text 401.67,5 17.5x14 "Age" #cbb994
+        box 422.5,5 4.17x10
+          box 422.5,5 4.17x10 opacity=0
+            text 422.5,5 4.17x10 "▲" #f0c860
+          box 422.5,5 4.17x10 absolute opacity=0
+            text 422.5,5 4.17x10 "▼" #f0c860
     box 433.33,0 60x24 #00000000 @click
+      box 433.33,22.33 60x1.67 absolute #00000000
       box 433.33,5 60x14
         text 433.33,5 23.33x14 "Note" #a3977f
   box 0,24.83 500x63.2 scrolled 0 of 0
@@ -123,14 +176,31 @@ box 0,0 500x88.03
       box 6.67,22.33 246.67x1.67 absolute #d6a56b
       box 6.67,5 246.67x14
         text 6.67,5 23.33x14 "Item" #f0c860
-        text 33.33,5 4.17x10 "▲" #f0c860
+        box 33.33,5 4.17x10
+          box 33.33,5 4.17x10 opacity=1
+            text 33.33,5 4.17x10 "▲" #f0c860
+          box 33.33,5 4.17x10 absolute opacity=0
+            text 33.33,5 4.17x10 "▼" #f0c860
     box 260,0 110x24 #00000000 @click
-      box 337.5,5 32.5x14
-        text 337.5,5 29.17x14 "Price" #cbb994
+      box 260,22.33 110x1.67 absolute #00000000
+      box 333.33,5 36.67x14
+        text 333.33,5 29.17x14 "Price" #cbb994
+        box 365.83,5 4.17x10
+          box 365.83,5 4.17x10 opacity=0
+            text 365.83,5 4.17x10 "▲" #f0c860
+          box 365.83,5 4.17x10 absolute opacity=0
+            text 365.83,5 4.17x10 "▼" #f0c860
     box 376.67,0 50x24 #00000000 @click
-      box 405.83,5 20.83x14
-        text 405.83,5 17.5x14 "Age" #cbb994
+      box 376.67,22.33 50x1.67 absolute #00000000
+      box 401.67,5 25x14
+        text 401.67,5 17.5x14 "Age" #cbb994
+        box 422.5,5 4.17x10
+          box 422.5,5 4.17x10 opacity=0
+            text 422.5,5 4.17x10 "▲" #f0c860
+          box 422.5,5 4.17x10 absolute opacity=0
+            text 422.5,5 4.17x10 "▼" #f0c860
     box 433.33,0 60x24 #00000000 @click
+      box 433.33,22.33 60x1.67 absolute #00000000
       box 433.33,5 60x14
         text 433.33,5 23.33x14 "Note" #a3977f
   box 0,24.83 500x63.2 scrolled 0 of 0
@@ -160,17 +230,34 @@ box 0,0 500x88.03
 box 0,0 500x88.03
   box 0,0 500x24.83 #00000040
     box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,22.33 246.67x1.67 absolute #00000000
       box 6.67,5 246.67x14
         text 6.67,5 23.33x14 "Item" #cbb994
+        box 33.33,5 4.17x10
+          box 33.33,5 4.17x10 opacity=0
+            text 33.33,5 4.17x10 "▲" #f0c860
+          box 33.33,5 4.17x10 absolute opacity=0
+            text 33.33,5 4.17x10 "▼" #f0c860
     box 260,0 110x24 #00000000 @click
-      box 337.5,5 32.5x14
-        text 337.5,5 29.17x14 "Price" #cbb994
+      box 260,22.33 110x1.67 absolute #00000000
+      box 333.33,5 36.67x14
+        text 333.33,5 29.17x14 "Price" #cbb994
+        box 365.83,5 4.17x10
+          box 365.83,5 4.17x10 opacity=0
+            text 365.83,5 4.17x10 "▲" #f0c860
+          box 365.83,5 4.17x10 absolute opacity=0
+            text 365.83,5 4.17x10 "▼" #f0c860
     box 376.67,0 50x24 #00000033 @click
       box 376.67,22.33 50x1.67 absolute #d6a56b
       box 401.67,5 25x14
         text 401.67,5 17.5x14 "Age" #f0c860
-        text 422.5,5 4.17x10 "▲" #f0c860
+        box 422.5,5 4.17x10
+          box 422.5,5 4.17x10 opacity=1
+            text 422.5,5 4.17x10 "▲" #f0c860
+          box 422.5,5 4.17x10 absolute opacity=0
+            text 422.5,5 4.17x10 "▼" #f0c860
     box 433.33,0 60x24 #00000000 @click
+      box 433.33,22.33 60x1.67 absolute #00000000
       box 433.33,5 60x14
         text 433.33,5 23.33x14 "Note" #a3977f
   box 0,24.83 500x63.2 scrolled 0 of 0
@@ -200,17 +287,34 @@ box 0,0 500x88.03
 box 0,0 500x88.03
   box 0,0 500x24.83 #00000040
     box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,22.33 246.67x1.67 absolute #00000000
       box 6.67,5 246.67x14
         text 6.67,5 23.33x14 "Item" #cbb994
+        box 33.33,5 4.17x10
+          box 33.33,5 4.17x10 opacity=0
+            text 33.33,5 4.17x10 "▲" #f0c860
+          box 33.33,5 4.17x10 absolute opacity=0
+            text 33.33,5 4.17x10 "▼" #f0c860
     box 260,0 110x24 #00000000 @click
-      box 337.5,5 32.5x14
-        text 337.5,5 29.17x14 "Price" #cbb994
+      box 260,22.33 110x1.67 absolute #00000000
+      box 333.33,5 36.67x14
+        text 333.33,5 29.17x14 "Price" #cbb994
+        box 365.83,5 4.17x10
+          box 365.83,5 4.17x10 opacity=0
+            text 365.83,5 4.17x10 "▲" #f0c860
+          box 365.83,5 4.17x10 absolute opacity=0
+            text 365.83,5 4.17x10 "▼" #f0c860
     box 376.67,0 50x24 #00000000 @click
       box 376.67,22.33 50x1.67 absolute #d6a56b
       box 401.67,5 25x14
         text 401.67,5 17.5x14 "Age" #f0c860
-        text 422.5,5 4.17x10 "▲" #f0c860
+        box 422.5,5 4.17x10
+          box 422.5,5 4.17x10 opacity=1
+            text 422.5,5 4.17x10 "▲" #f0c860
+          box 422.5,5 4.17x10 absolute opacity=0
+            text 422.5,5 4.17x10 "▼" #f0c860
     box 433.33,0 60x24 #00000000 @click
+      box 433.33,22.33 60x1.67 absolute #00000000
       box 433.33,5 60x14
         text 433.33,5 23.33x14 "Note" #a3977f
   box 0,24.83 500x63.2 scrolled 0 of 0
@@ -240,17 +344,34 @@ box 0,0 500x88.03
 box 0,0 500x109.1
   box 0,0 500x24.83 #00000040
     box 6.67,0 246.67x24 #00000000 @click
+      box 6.67,22.33 246.67x1.67 absolute #00000000
       box 6.67,5 246.67x14
         text 6.67,5 23.33x14 "Item" #cbb994
+        box 33.33,5 4.17x10
+          box 33.33,5 4.17x10 opacity=0
+            text 33.33,5 4.17x10 "▲" #f0c860
+          box 33.33,5 4.17x10 absolute opacity=0
+            text 33.33,5 4.17x10 "▼" #f0c860
     box 260,0 110x24 #00000000 @click
-      box 337.5,5 32.5x14
-        text 337.5,5 29.17x14 "Price" #cbb994
+      box 260,22.33 110x1.67 absolute #00000000
+      box 333.33,5 36.67x14
+        text 333.33,5 29.17x14 "Price" #cbb994
+        box 365.83,5 4.17x10
+          box 365.83,5 4.17x10 opacity=0
+            text 365.83,5 4.17x10 "▲" #f0c860
+          box 365.83,5 4.17x10 absolute opacity=0
+            text 365.83,5 4.17x10 "▼" #f0c860
     box 376.67,0 50x24 #00000000 @click
       box 376.67,22.33 50x1.67 absolute #d6a56b
       box 401.67,5 25x14
         text 401.67,5 17.5x14 "Age" #f0c860
-        text 422.5,5 4.17x10 "▲" #f0c860
+        box 422.5,5 4.17x10
+          box 422.5,5 4.17x10 opacity=1
+            text 422.5,5 4.17x10 "▲" #f0c860
+          box 422.5,5 4.17x10 absolute opacity=0
+            text 422.5,5 4.17x10 "▼" #f0c860
     box 433.33,0 60x24 #00000000 @click
+      box 433.33,22.33 60x1.67 absolute #00000000
       box 433.33,5 60x14
         text 433.33,5 23.33x14 "Note" #a3977f
   box 0,24.83 500x84.27 scrolled 0 of 0

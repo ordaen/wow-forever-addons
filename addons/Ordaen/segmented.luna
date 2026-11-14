@@ -17,6 +17,7 @@ const NAME: Stated<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#
 const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#ffffff73")
 const LIGHT: Color = Color.hex("#d6a56b")
+const CLEAR: Color = Color.hex("#00000000")
 const EDGE: Color = Color.hex("#4a3a24")
 const PADDING: Edges = { top: 7 * PX, right: 14 * PX, bottom: 7 * PX, left: 14 * PX }
 const WHOLE: Line = { width: 1 * PX, color: EDGE }
@@ -34,6 +35,8 @@ public class Segment<T: Unknown> implements Component {
   derived color: Color | Stated<Color> = self.soon ? DIM : self.picked ? WHITE : self.still ? QUIET : NAME
   derived fill: Color | Stated<Color> = self.picked ? PICKED : self.still ? BLANK : FILL
   derived edge: Line = self.first ? WHOLE : AFTER
+  // The light along the top: on every segment, clear on the others, so only colours tell the picked one.
+  derived light: Color = self.picked ? LIGHT : CLEAR
 
   const choice: Choice<T>
   value: Signal<T>
@@ -59,8 +62,7 @@ public class Segment<T: Unknown> implements Component {
     return $ltml {
       <box padding={PADDING} background={self.fill}
            border={self.edge} @click={self.onClick}>
-        <box $if={self.picked} position={Position.Absolute} left={0} right={0} top={0} height={2 * PX}
-             background={LIGHT} />
+        <box position={Position.Absolute} left={0} right={0} top={0} height={2 * PX} background={self.light} />
         <text value={self.text} textColor={self.color} textSize={TEXT} stateFromParent={true} wrap={false} />
       </box>
     }
