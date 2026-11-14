@@ -1,0 +1,162 @@
+// «Talents»: the three trees side by side, each as rows of four slots (its tiers), the search that dims what doesn't
+// match, the unspent points, and «Cancel changes» / «Apply changes» for points not applied yet. The client's
+// declarations hold no talent calls (`trees` is what a caller gives), so the buttons that change points are drawn
+// disabled.
+import { Align, Art, Track } from "$ltml"
+import { Component, PushButton, PX } from "Ordaen"
+import Locale from "@/locales"
+import Style from "@/style"
+
+// The slots of a tier.
+const COLUMNS = 4
+
+public struct Talent {
+  name: String
+  icon: Art
+  // Its row in the tree from 1, and its column from 1.
+  tier: Integer
+  column: Integer
+  rank: Integer
+  ranks: Integer
+}
+
+public struct Tree {
+  name: String
+  talents: Array<Talent>
+}
+
+// One slot of a row: the talent standing there, if any.
+public struct Slot {
+  has: Boolean
+  name: String
+  icon: Art | nil
+  // «1/3».
+  rank: String
+  // Whether the search lets it be seen at full strength.
+  lit: Boolean
+}
+
+public struct Tier {
+  tier: Integer
+  slots: Array<Slot>
+}
+
+const NO_SLOT: Slot = { has: false, name: "", icon: nil, rank: "", lit: true }
+const TREES: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
+const SLOTS: Array<Track> = [44 * PX, 44 * PX, 44 * PX, 44 * PX]
+const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
+const FOOT: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
+
+// The rows of a tree, the top tier first, each of four slots; a talent the search doesn't match is not lit.
+public function tiersOf(tree: Tree, search: String): Array<Tier> {
+  let most = 0
+  for (talent of tree.talents) { most = most.max(talent.tier) }
+  const sought = search.lower()
+  const list: Array<Tier> = []
+  for (tier of 1..=most) {
+    const slots: Array<Slot> = []
+    for (column of 1..=COLUMNS) {
+      let slot = NO_SLOT
+      for (talent of tree.talents) {
+        if (talent.tier == tier && talent.column == column) {
+          slot = {
+            has: true, name: talent.name, icon: talent.icon, rank: "%d/%d".format(talent.rank, talent.ranks),
+            lit: sought == "" || talent.name.lower().contains(sought),
+          }
+        }
+      }
+      slots.push(slot)
+    }
+    list.push({ tier: tier, slots: slots })
+  }
+  return list
+}
+
+public function spent(tree: Tree): Integer {
+  let sum = 0
+  for (talent of tree.talents) { sum += talent.rank }
+  return sum
+}
+
+public class TalentSlot implements Component {
+  derived opacity: Number = self.slot.lit ? 1 : 0.3
+
+  slot: Signal<Slot>
+  constructor(slot: Signal<Slot>) {
+    self.slot = slot
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box width={40 * PX} height={40 * PX}>
+        <box $if={self.slot.has} width={40 * PX} height={40 * PX} border={{ width: 1 * PX, color: Style.LINE }}
+             icon={self.slot.icon} opacity={self.opacity} xAlign={Align.End} yAlign={Align.End}>
+          <text value={self.slot.rank} textSize={.Secondary} textColor={Style.GOLD} wrap={false} />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class TreeView implements Component {
+  derived tiers: Array<Tier> = tiersOf(self.tree, self.search)
+  derived title: String = Locale.TREE_POINTS.format(self.tree.name, spent(self.tree))
+
+  tree: Signal<Tree>
+  search: Signal<String>
+  constructor(tree: Signal<Tree>, search: Signal<String>) {
+    self.tree = tree
+    self.search = search
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={6 * PX} xAlign={Align.Center}>
+        <text value={self.title} textColor={Style.GOLD} wrap={false} />
+        <box $for={tier of self.tiers} $key={tier.tier} columns={SLOTS} gap={6 * PX}>
+          <TalentSlot $for={index, slot of tier.slots} $key={index} slot={slot} />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class TalentsPage implements Component {
+  state search = ""
+  derived points: String = Locale.TALENT_POINTS.format(self.unspent)
+  derived empty: Boolean = self.trees.length == 0
+
+  trees: Signal<Array<Tree>>
+  unspent: Signal<Integer>
+  canAct: Signal<Boolean>
+  constructor(trees: Signal<Array<Tree>>, unspent: Signal<Integer>, canAct: Signal<Boolean>) {
+    self.trees = trees
+    self.unspent = unspent
+    self.canAct = canAct
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={PAGE} gap={8 * PX}>
+        <box height={34 * PX} rows={[{ fr: 1 }]}>
+          <input value={mut self.search} padding={{ left: 10 * PX, right: 10 * PX }} textColor={Style.INK}
+                 background={Color.hex("#00000080")} />
+        </box>
+        <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={Locale.NO_TALENTS} textColor={Style.DIM} />
+        </box>
+        <box $else columns={TREES} gap={4 * PX}>
+          <TreeView $for={tree of self.trees} $key={tree.name} tree={tree} search={self.search} />
+        </box>
+        <box columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
+          <PushButton label={Locale.CANCEL_CHANGES} width={190 * PX} disabled={!self.canAct} />
+          <PushButton label={Locale.ACTIVATE} width={150 * PX} disabled={!self.canAct} />
+          <box xAlign={Align.Center}>
+            <text value={self.points} textColor={Style.INK} wrap={false} />
+          </box>
+          <PushButton label={Locale.APPLY_CHANGES} width={190 * PX} accent={true} disabled={!self.canAct} />
+        </box>
+      </box>
+    }
+  }
+}

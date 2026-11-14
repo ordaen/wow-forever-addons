@@ -1,0 +1,2 @@
+// Ordaen Spells: the spellbook, the talents and the class trainer. Its root is `Spells`.
+public import { Spells } from "@/main"

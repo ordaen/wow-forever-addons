@@ -1,0 +1,101 @@
+// Ordaen Spells: the spellbook and the talents in one window with three tabs, and the class trainer's window. The
+// spellbook window opens with `/spellbook`; the trainer's shows while the client's class trainer is open. What each
+// page shows is read from the client as the window opens (`refresh`). The client's declarations hold no talent calls
+// and no call that learns a service, so the talents are given by `trees` (none are read) and those buttons are drawn
+// disabled (`CAN_ACT`).
+import Client from "$client"
+import Events from "$events"
+import Game from "$game"
+import Runtime from "$runtime"
+import { Module, Placing, Settings, SettingsPage, Window, WindowTabSpec } from "Ordaen"
+import root Ordaen from "Ordaen"
+import Locale from "@/locales"
+import { Choices, GeneralPage } from "@/settings"
+import { Line, readLines, readSpells, Spell } from "@/spells"
+import { SpellbookPage } from "@/spellbook"
+import Style from "@/style"
+import { Tree, TalentsPage } from "@/talents"
+import { readServices, Service, TrainerPage } from "@/trainer"
+
+// Whether anything the client's declarations lack is there: spending talent points and learning a service.
+const CAN_ACT = false
+
+public class Spells implements Module, App {
+  public const title: String = "Ordaen Spells"
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+  ]
+
+  public settings: mut Settings<Choices> = new Settings<Choices>({ specOne: "", specTwo: "", trainer: true })
+
+  state open = false
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+  state trainerOpen = false
+  state trainerTab = 1
+  state trainerPlacing: Placing = { x: 0, y: 0, width: Style.TRAINER_WIDTH, height: Style.HEIGHT }
+  state spells: Array<Spell> = []
+  state lines: Array<Line> = []
+  state trees: Array<Tree> = []
+  state services: Array<Service> = []
+  derived tabs: Array<WindowTabSpec> = [
+    { title: Locale.TAB_SPELLS },
+    { title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne },
+    { title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo },
+  ]
+  derived trainerTabs: Array<WindowTabSpec> = [{ title: Locale.TAB_TRAINER }]
+  derived unspent: Integer = Game.character.unspentTalents()
+  derived level: Integer = Game.player.level
+  derived trainerShown: Boolean = self.trainerOpen && self.settings.values.trainer
+
+  constructor() {
+    Ordaen.modules.add(self)
+    Events.TRAINER_SHOW.listen(self.onTrainer)
+    Events.TRAINER_UPDATE.listen(self.onTrainer)
+    Events.TRAINER_CLOSED.listen(self.onTrainerClosed)
+    Runtime.command("/spellbook", (text: String): nil => {
+      for (module of Ordaen.modules) {
+        if (module == self) { self.toggle() }
+      }
+      return nil
+    })
+  }
+
+  public toggle(mut self) {
+    self.open = !self.open
+    if (self.open) { self.refresh() }
+  }
+
+  public refresh(mut self) {
+    self.spells = readSpells()
+    self.lines = readLines()
+  }
+
+  // The client's class trainer, not a profession's or a pet's, taught its services.
+  onTrainer(mut self) {
+    if (Client.C_Trainer.GetTrainerType() != Client.TrainerType.General) { return }
+    self.services = readServices()
+    self.trainerOpen = true
+  }
+
+  onTrainerClosed(mut self) { self.trainerOpen = false }
+
+  onClose(mut self) { self.open = false }
+  onTrainerClose(mut self) { self.trainerOpen = false }
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+
+  public render(self): Template {
+    return $ltml {
+      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
+              @close={self.onClose} @settings={self.onSettings}>
+        <SpellbookPage $if={self.tab == 1} spells={self.spells} lines={self.lines} />
+        <TalentsPage $else trees={self.trees} unspent={self.unspent} canAct={CAN_ACT} />
+      </Window>
+      <Window $if={self.trainerShown} tabs={self.trainerTabs} selected={mut self.trainerTab}
+              placing={mut self.trainerPlacing} withSettings={true} @close={self.onTrainerClose}
+              @settings={self.onSettings}>
+        <TrainerPage services={self.services} level={self.level} />
+      </Window>
+    }
+  }
+}

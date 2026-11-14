@@ -1,0 +1,65 @@
+-- all spells, by name
+surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
+  box 425,210.29 750x516.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 447.75,234.71 709.5x471.75
+      box 447.75,234.71 709.5x26.67
+        box 447.75,260.54 709.5x0.83 absolute #3e2f1d
+        box 447.75,234.71 43.75x26.67 #00000059 @click
+          box 448.58,235.54 42.08x1.67 absolute #d6a56b
+          text 460.25,241.37 18.75x15 "All" #ffffff
+        box 494.83,234.71 68.75x26.67 #00000000 @click
+          box 495.67,235.54 67.08x1.67 absolute #00000000
+          text 507.33,241.37 43.75x15 "General" #a3977f
+        box 566.92,234.71 68.75x26.67 #00000000 @click
+          box 567.75,235.54 67.08x1.67 absolute #00000000
+          text 579.42,241.37 43.75x15 "Warrior" #a3977f
+        box 639,234.71 50x26.67 #00000000 @click
+          box 639.83,235.54 48.33x1.67 absolute #00000000
+          text 651.5,241.37 25x15 "Arms" #a3977f
+      box 447.75,268.04 709.5x28.33
+        box 447.75,268.04 676.17x28.33
+          box 447.75,268.04 676.17x28.33 #00000080 input "" @change
+          box 447.75,268.04 676.17x28.33 absolute
+            text 456.08,274.71 659.5x15 "Search" #a3977f
+        box 1123.92,268.04 33.33x28.33
+          box 1123.92,268.04 33.33x28.33
+            box 1128.92,268.04 28.33x28.33
+              box 1128.92,268.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                box 1136.42,275.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+      box 447.75,303.04 709.5x403.42 scrolled 0 of 0
+        box 447.75,303.04 709.5x33
+          box 447.75,306.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+          box 484.42,305.54 672.83x28
+            text 484.42,305.54 672.83x15 "Find Treasure" #e8dcc4
+            text 484.42,320.54 672.83x13 "General. Active. Level 1" #a3977f
+        box 447.75,336.04 709.5x33
+          box 447.75,339.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+          box 484.42,338.54 672.83x28
+            text 484.42,338.54 672.83x15 "Heroic Strike (Rank 2)" #e8dcc4
+            text 484.42,353.54 672.83x13 "Warrior. Active. Level 8" #a3977f
+        box 447.75,369.04 709.5x33
+          box 447.75,372.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+          box 484.42,371.54 672.83x28
+            text 484.42,371.54 672.83x15 "Mortal Strike" #e8dcc4
+            text 484.42,386.54 672.83x13 "Arms. Active. Level 40" #a3977f
+        box 447.75,402.04 709.5x33
+          box 447.75,405.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+          box 484.42,404.54 672.83x28
+            text 484.42,404.54 672.83x15 "Parry" #e8dcc4
+            text 484.42,419.54 672.83x13 "Warrior. Passive. Level 6" #a3977f
+        box 447.75,435.04 709.5x33
+          box 447.75,438.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+          box 484.42,437.54 672.83x28
+            text 484.42,437.54 672.83x15 "Rend (Rank 1)" #e8dcc4
+            text 484.42,452.54 672.83x13 "Warrior. Active. Level 4" #a3977f
+    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 425,173.04 363.5x47.75
+    box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 443.58,183.29 77.33x34.25
+        text 463.5,192.92 37.5x15 "Spells" #ffd100
+    box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 568.08,183.29 77.33x34.25
+        text 584.88,192.92 43.75x15 "Primary" #b3a690
+    box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 692.58,183.29 77.33x34.25
+        text 703.12,192.92 56.25x15 "Secondary" #b3a690
