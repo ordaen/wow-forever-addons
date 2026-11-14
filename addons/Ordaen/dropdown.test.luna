@@ -54,3 +54,29 @@ test "the compact dropdown opens its list, picks a choice and closes, a click ou
   destroy page
   Test.expect(Test.blank())
 }
+
+// The row round the dropdown, painted again while its list is open (it stands over its neighbours by another level).
+class Lifted {
+  public state order: Order = Order.Difficulty
+  public state lift = 0
+
+  public render(self): Template {
+    return $ltml {
+      <box zLevel={self.lift}>
+        <CompactDropdown value={mut self.order} choices={ORDERS} width={170} />
+      </box>
+    }
+  }
+}
+
+test "the list keeps its own layer over the click catcher when the box round it is painted again" {
+  let page = new Lifted()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  Test.click(Test.holding("By difficulty", nil), nil)
+  page.lift = 5
+  Test.flush()
+  Test.click(Test.holding("By name", nil), nil)
+  Test.expect(page.order == Order.Name)
+  destroy page
+  Test.expect(Test.blank())
+}

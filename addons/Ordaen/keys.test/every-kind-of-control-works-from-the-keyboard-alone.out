@@ -38,11 +38,11 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
           text 502.75,236.71 29.17x14 "Right" #ffffff
       box 442.75,263.38 719.5x26.67
         box 442.75,289.21 719.5x0.83 absolute #3e2f1d
-        box 442.75,263.38 42.08x25.83 #00000000 @click
-          text 454.42,269.21 18.75x15 "One" #a3977f
-        box 488.17,263.38 43.75x26.67 #00000059 @click
-          box 489,264.21 42.08x1.67 absolute #d6a56b
-          text 500.67,270.04 18.75x15 "Two" #ffffff
+        box 442.75,263.38 43.75x26.67 #00000000 @click
+          text 455.25,270.04 18.75x15 "One" #a3977f
+        box 489.83,263.38 43.75x26.67 #00000059 @click
+          box 490.67,264.21 42.08x1.67 absolute #d6a56b
+          text 502.33,270.04 18.75x15 "Two" #ffffff
       box 442.75,296.04 719.5x28.33 opacity=1
         box 442.75,302.71 233.33x15 @enter @leave
           text 442.75,302.71 233.33x15 "Size" #cbb994
@@ -89,12 +89,14 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
         text 442.75,516.27 719.5x14.4 "menu" #ffffff
     box 1162.75,758.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 420,121.38 239x47.75
-    box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
-      box 438.58,131.62 77.33x37.5
-        text 452.25,142.88 50x15 "Controls" #ffd100
-    box 544.5,125.54 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 563.08,135.79 77.33x30.08
-        text 589.25,143.33 25x15 "More" #b3a690
+    box 420,121.38 114.5x47.75 @click @drag @dragStart @dragStop
+      box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 438.58,131.62 77.33x37.5
+          text 452.25,142.88 50x15 "Controls" #ffd100
+    box 544.5,121.38 114.5x47.75 @click @drag @dragStart @dragStop
+      box 544.5,125.54 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
+        box 563.08,135.79 77.33x30.08
+          text 589.25,143.33 25x15 "More" #b3a690
 
 key: DOWN → #8 > #2 «Large» (click)
 key: ENTER → #7 «Large» (click)

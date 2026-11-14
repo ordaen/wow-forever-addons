@@ -1,0 +1,179 @@
+-- the queue: the cloaks and the bolt, the reagents they need, four bolts of linen missing
+surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
+  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
+  box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 381.08,207.21 842.83x538.42
+      box 381.08,207.21 842.83x25
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 707.08,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+      box 381.08,238.88 842.83x26.67
+        box 381.08,238.88 842.83x26.67
+          box 381.08,264.71 842.83x0.83 absolute #3e2f1d
+          box 381.08,238.88 68.75x26.67 #00000000 @click
+            text 393.58,245.54 43.75x15 "Recipes" #a3977f
+          box 453.17,238.88 81.25x26.67 #00000059 @click
+            box 454,239.71 79.58x1.67 absolute #d6a56b
+            text 465.67,245.54 56.25x15 "Queue (2)" #ffffff
+          box 537.75,238.88 75x26.67 #00000000 @click
+            text 550.25,245.54 50x15 "Overview" #a3977f
+      box 381.08,272.21 842.83x473.42 #0000004d
+        box 391.92,283.04 821.17x407.58 scrolled 0 of 0
+          box 391.92,283.04 821.17x70.83
+            box 391.92,283.04 821.17x35
+              box 391.92,287.21 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+              box 426.92,293.54 681.17x14 @click
+                text 426.92,293.54 681.17x14 "Linen Cloak" #ff8040
+              box 1116.42,286.38 68.33x28.33
+                box 1116.42,286.38 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1116.42,286.38 20x28.33 absolute
+                    text 1123.29,293.04 6.25x15 "-" #ffd100
+                box 1141.42,293.54 18.33x14
+                  text 1147.67,293.54 5.83x14 "7" #ffffff
+                box 1164.75,286.38 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1164.75,286.38 20x28.33 absolute
+                    text 1171.62,293.04 6.25x15 "+" #ffd100
+              box 1193.08,286.38 20x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+                box 1193.08,286.38 20x28.33 absolute
+                  text 1199.96,293.04 6.25x15 "x" #ffd100
+            box 391.92,318.04 821.17x35.83
+              box 391.92,323.04 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+              box 426.92,329.38 681.17x14 @click
+                text 426.92,329.38 681.17x14 "Bolt of Linen Cloth" #40c040
+              box 1116.42,322.21 68.33x28.33
+                box 1116.42,322.21 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1116.42,322.21 20x28.33 absolute
+                    text 1123.29,328.88 6.25x15 "-" #ffd100
+                box 1141.42,329.38 18.33x14
+                  text 1147.67,329.38 5.83x14 "1" #ffffff
+                box 1164.75,322.21 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1164.75,322.21 20x28.33 absolute
+                    text 1171.62,328.88 6.25x15 "+" #ffd100
+              box 1193.08,322.21 20x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+                box 1193.08,322.21 20x28.33 absolute
+                  text 1199.96,328.88 6.25x15 "x" #ffd100
+          box 391.92,362.21 821.17x75.33
+            box 391.92,362.21 821.17x17
+              box 391.92,364.71 23.33x0
+              box 420.25,364.71 581.17x0
+              box 1006.42,364.71 58.33x12
+                text 1044.75,364.71 20x12 "Need" #a3977f
+              box 1069.75,364.71 58.33x12
+                text 1108.08,364.71 20x12 "Have" #a3977f
+              box 1133.08,364.71 75x12
+                text 1173.08,364.71 35x12 "Missing" #a3977f
+            box 391.92,379.21 821.17x29.17
+              box 391.92,382.54 23.33x23.33 icon=Interface/Icons/INV_Fabric_Linen_02
+              text 420.25,387.71 581.17x13 "Bolt of Linen Cloth" #e8dcc4
+              box 1006.42,387.71 58.33x13
+                text 1059.33,387.71 5.42x13 "7" #e8dcc4
+              box 1069.75,387.71 58.33x13
+                text 1122.67,387.71 5.42x13 "3" #e8dcc4
+              box 1133.08,387.71 75x13
+                text 1202.67,387.71 5.42x13 "4" #ff6a5a
+            box 391.92,408.38 821.17x29.17
+              box 391.92,411.71 23.33x23.33 icon=Interface/Icons/INV_Fabric_Linen_01
+              text 420.25,416.88 581.17x13 "Linen Cloth" #e8dcc4
+              box 1006.42,416.88 58.33x13
+                text 1059.33,416.88 5.42x13 "2" #e8dcc4
+              box 1069.75,416.88 58.33x13
+                text 1117.25,416.88 10.83x13 "18" #e8dcc4
+              box 1133.08,416.88 75x13
+                text 1202.67,416.88 5.42x13 "-" #e8dcc4
+        box 391.92,698.96 821.17x35.83
+          box 391.92,720.63 662.83x0
+          box 1063.08,706.46 150x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1063.08,706.46 150x28.33 absolute
+              text 1094.33,713.13 87.5x15 "Create in turn" #808080
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1211.92,194.63 23.33x26.67 absolute clipped @click
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 358.33,133.88 142.33x59.42
+    box 358.33,133.88 142.33x59.42 @click @drag @dragStart @dragStop
+      box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+        box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
+        box 425.83,144.12 56.25x49.17
+          text 425.83,155.29 56.25x15 "Tailoring" #ffd100
+          text 437.92,171.12 32.08x11 "31 / 75" #8f8470
+asked: TradeSkill.craft 2387 5
+
+left: 1, recipe 2963 x 1
+-- the cloaks taken out, nothing missing: «Create in turn» makes the bolt, and the queue is empty
+surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
+  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
+  box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 381.08,207.21 842.83x538.42
+      box 381.08,207.21 842.83x25
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 707.08,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+      box 381.08,238.88 842.83x26.67
+        box 381.08,238.88 842.83x26.67
+          box 381.08,264.71 842.83x0.83 absolute #3e2f1d
+          box 381.08,238.88 68.75x26.67 #00000000 @click
+            text 393.58,245.54 43.75x15 "Recipes" #a3977f
+          box 453.17,238.88 56.25x26.67 #00000059 @click
+            box 454,239.71 54.58x1.67 absolute #d6a56b
+            text 465.67,245.54 31.25x15 "Queue" #ffffff
+          box 512.75,238.88 75x26.67 #00000000 @click
+            text 525.25,245.54 50x15 "Overview" #a3977f
+      box 381.08,272.21 842.83x473.42 #0000004d
+        box 391.92,283.04 821.17x443.42
+          text 400.25,291.38 804.5x12 "The queue is empty: what «Create» can't start at once waits here." #a3977f
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1211.92,194.63 23.33x26.67 absolute clipped @click
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 358.33,133.88 142.33x59.42
+    box 358.33,133.88 142.33x59.42 @click @drag @dragStart @dragStop
+      box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+        box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
+        box 425.83,144.12 56.25x49.17
+          text 425.83,155.29 56.25x15 "Tailoring" #ffd100
+          text 437.92,171.12 32.08x11 "31 / 75" #8f8470
+asked: TradeSkill.craft 2963 1

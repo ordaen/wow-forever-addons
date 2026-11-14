@@ -69,8 +69,10 @@ test "the make row: a count, the skill points to gain, or all the bags allow" {
   click(Test.holding("Create", nil))
   Test.shot("«Raise skill» by 10: about 11 makings; «Create» makes the 5 the bags allow")
 
-  // The bolt is green at 31: ten points take 18 makings, twenty would reach its grey at 50.
+  // The bolt is green at 31: ten points take 18 makings, twenty would reach its grey at 50. Another recipe: the count
+  // starts at one.
   click(Test.holding("Bolt of Linen Cloth", nil))
+  times(9, "+")
   Test.expect(Test.holding("≈ 18 pcs.", nil).x > 0)
   times(10, "+")
   Test.shot("the bolt by 20 points: it turns grey first, «Create» is disabled")
@@ -82,6 +84,90 @@ test "the make row: a count, the skill points to gain, or all the bags allow" {
   Test.expect(Professions.makeMode == MakeMode.All)
 }
 
+// The recipes with the bags making `craftable` cloaks.
+function cloaks(craftable: Integer): Array<Game.Recipe> {
+  return [recipe(CLOAK, "Linen Cloak", Game.Difficulty.Always, craftable), recipe(BOLT, "Bolt of Linen Cloth", Game.Difficulty.Rarely, 9)]
+}
+
+test "the count stays within its bounds: one at least, what the bags make by «Quantity», the points left by «Raise skill», as they move" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.professions.list = tailoring()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+
+  // «Quantity»: one to the five the bags make.
+  times(3, "-")
+  Test.expect(Professions.count == 1)
+  times(6, "+")
+  Test.expect(Professions.count == 5)
+  Test.shot("«Quantity» at 5, what the bags make: + disabled")
+
+  // The reagents run out while the window is open: the count falls to what the bags make; with none, the count and
+  // «Create» are disabled.
+  Game.tradeSkill.recipes = cloaks(2)
+  Test.flush()
+  Test.expect(Professions.count == 2)
+  Game.tradeSkill.recipes = cloaks(0)
+  Test.flush()
+  Test.expect(Professions.count == 1)
+  click(Test.holding("Create", nil))
+  Test.shot("nothing to make: the count at one, −, + and «Create» disabled")
+  Game.tradeSkill.recipes = cloaks(5)
+  Test.flush()
+
+  // «Raise skill» from 31 of 75: 44 points at most.
+  pickFrom("Quantity", "Raise skill")
+  times(50, "+")
+  Test.expect(Professions.count == 44)
+  Test.shot("«Raise skill» at 44, the points left before 75: + disabled")
+
+  // The skill rises while the window is open: the count falls to the points left.
+  Game.professions.list = [{ skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 70, max: 75, kind: Game.ProfessionKind.Crafting }]
+  Test.flush()
+  Test.note(`at 70 of 75: the count ${Professions.count}`)
+  Test.expect(Professions.count == 5)
+
+  // «All»: what the bags make, as the bags change; none left, «Create» is disabled.
+  pickFrom("Raise skill", "All")
+  Test.expect(Test.holding("5 pcs.", nil).x > 0)
+  Game.tradeSkill.recipes = cloaks(2)
+  Test.flush()
+  Test.expect(Test.holding("2 pcs.", nil).x > 0)
+  Game.tradeSkill.recipes = cloaks(0)
+  Test.flush()
+  click(Test.holding("Create", nil))
+  Test.shot("«All» with the bags emptied: 0 pcs., «Create» disabled")
+}
+
+test "the count starts again at one for another recipe and for another profession" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.professions.list = [
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: 164, name: "Blacksmithing", icon: 136241, rank: 10, max: 75, kind: Game.ProfessionKind.Crafting },
+  ]
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+
+  times(2, "+")
+  Test.expect(Professions.count == 3)
+  click(Test.holding("Bolt of Linen Cloth", nil))
+  Test.note(`another recipe: the count ${Professions.count}`)
+  Test.expect(Professions.count == 1)
+
+  times(3, "+")
+  Test.expect(Professions.count == 4)
+  Game.tradeSkill.open = 164
+  Test.flush()
+  Test.note(`another profession: the count ${Professions.count}`)
+  Test.expect(Professions.count == 1)
+}
+
 function reagents(id: Integer): Array<Game.Reagent> {
   if (id == CLOAK) {
     return [{ itemID: 2996, name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_02", have: 3, need: 1 }]
@@ -89,7 +175,7 @@ function reagents(id: Integer): Array<Game.Reagent> {
   return [{ itemID: 2589, name: "Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 18, need: 2 }]
 }
 
-test "«Create» goes through the queue: what can't start waits on the «Queue» tab, made in turn" {
+test "what waits in the queue is on the «Queue» tab, made in turn; «Create» makes no more than the bags make" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
   Game.professions.list = tailoring()
   Game.tradeSkill.categories = categories()
@@ -99,14 +185,17 @@ test "«Create» goes through the queue: what can't start waits on the «Queue»
   Game.tradeSkill.open = TAILORING
   Test.flush()
 
-  // Seven cloaks where the bags make five: all seven wait. A bolt then waits behind them.
+  // «Create» with the count at the five the bags make: made at once, nothing waits.
   times(6, "+")
   click(Test.holding("Create", nil))
-  click(Test.holding("Bolt of Linen Cloth", nil))
-  times(6, "-")
-  click(Test.holding("Create", nil))
-  Test.shot("seven cloaks and then a bolt asked for: both wait, the tab says two, the note why the bolt does")
+  Test.expect(Professions.queued.length == 0)
 
+  // Seven cloaks and a bolt kept waiting from before.
+  const kept = peek Professions.memory.values
+  Professions.memory.write({
+    queue: [{ skillLine: TAILORING, recipe: CLOAK, count: 7 }, { skillLine: TAILORING, recipe: BOLT, count: 1 }], ..kept,
+  })
+  Test.flush()
   click(Test.holding("Queue (2)", nil))
   Test.shot("the queue: the cloaks and the bolt, the reagents they need, four bolts of linen missing")
 
@@ -118,13 +207,10 @@ test "«Create» goes through the queue: what can't start waits on the «Queue»
   Test.shot("the cloaks taken out, nothing missing: «Create in turn» makes the bolt, and the queue is empty")
   Test.expect(Professions.queued.length == 0)
 
-  // One cloak starts at once, nothing waiting; ten wait. A line of the queue opens its recipe.
-  click(Test.holding("Recipes", nil))
-  click(Test.holding("Create", nil))
-  Test.expect(Professions.queued.length == 0)
-  times(9, "+")
-  click(Test.holding("Create", nil))
-  click(Test.holding("Queue (1)", nil))
+  // A line of the queue opens its recipe.
+  const now = peek Professions.memory.values
+  Professions.memory.write({ queue: [{ skillLine: TAILORING, recipe: CLOAK, count: 3 }], ..now })
+  Test.flush()
   click(Test.holding("Linen Cloak", nil))
   Test.expect(Professions.chosenRecipe == CLOAK && Professions.page == 1)
 }

@@ -1,0 +1,111 @@
+-- 3 of 1 to 5: both looks show 3
+box 0,0 300x64.33
+  box 0,0 75x28.33
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+      box 0,0 23.33x28.33 absolute
+        text 8.54,6.67 6.25x15 "-" #ffd100
+    box 28.33,7.17 18.33x14
+      text 34.58,7.17 5.83x14 "3" #ffffff
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+      box 51.67,0 23.33x28.33 absolute
+        text 60.21,6.67 6.25x15 "+" #ffd100
+  box 0,38.33 80x26
+    box 0,38.33 80x26 #00000080 input "3" @change
+
+-- + four times: 5, the most, + disabled
+box 0,0 300x64.33
+  box 0,0 75x28.33
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+      box 0,0 23.33x28.33 absolute
+        text 8.54,6.67 6.25x15 "-" #ffd100
+    box 28.33,7.17 18.33x14
+      text 34.58,7.17 5.83x14 "5" #ffffff
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 51.67,0 23.33x28.33 absolute
+        text 60.21,6.67 6.25x15 "+" #808080
+  box 0,38.33 80x26
+    box 0,38.33 80x26 #00000080 input "5" @change
+
+-- - six times: 1, the least, - disabled
+box 0,0 300x64.33
+  box 0,0 75x28.33
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 0,0 23.33x28.33 absolute
+        text 8.54,6.67 6.25x15 "-" #808080
+    box 28.33,7.17 18.33x14
+      text 34.58,7.17 5.83x14 "1" #ffffff
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+      box 51.67,0 23.33x28.33 absolute
+        text 60.21,6.67 6.25x15 "+" #ffd100
+  box 0,38.33 80x26
+    box 0,38.33 80x26 #00000080 input "1" @change
+
+-- 42 typed: the most, 5, written in the field
+box 0,0 300x64.33
+  box 0,0 75x28.33
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+      box 0,0 23.33x28.33 absolute
+        text 8.54,6.67 6.25x15 "-" #ffd100
+    box 28.33,7.17 18.33x14
+      text 34.58,7.17 5.83x14 "5" #ffffff
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 51.67,0 23.33x28.33 absolute
+        text 60.21,6.67 6.25x15 "+" #808080
+  box 0,38.33 80x26
+    box 0,38.33 80x26 #00000080 input "5" typing @change
+
+-- x typed: the value as it was, the edge red
+box 0,0 300x64.33
+  box 0,0 75x28.33
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+      box 0,0 23.33x28.33 absolute
+        text 8.54,6.67 6.25x15 "-" #ffd100
+    box 28.33,7.17 18.33x14
+      text 34.58,7.17 5.83x14 "5" #ffffff
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 51.67,0 23.33x28.33 absolute
+        text 60.21,6.67 6.25x15 "+" #808080
+  box 0,38.33 80x26
+    box 0,38.33 80x26 #00000080 input "x" typing @change
+
+-- the most falls to 2: the value with it
+box 0,0 300x64.33
+  box 0,0 75x28.33
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+      box 0,0 23.33x28.33 absolute
+        text 8.54,6.67 6.25x15 "-" #ffd100
+    box 28.33,7.17 18.33x14
+      text 34.58,7.17 5.83x14 "2" #ffffff
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 51.67,0 23.33x28.33 absolute
+        text 60.21,6.67 6.25x15 "+" #808080
+  box 0,38.33 80x26
+    box 0,38.33 80x26 #00000080 input "2" typing @change
+
+-- the most under the least: the least, everything disabled
+box 0,0 300x64.33
+  box 0,0 75x28.33
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 0,0 23.33x28.33 absolute
+        text 8.54,6.67 6.25x15 "-" #808080
+    box 28.33,7.17 18.33x14
+      text 34.58,7.17 5.83x14 "1" #ffffff
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 51.67,0 23.33x28.33 absolute
+        text 60.21,6.67 6.25x15 "+" #808080
+  box 0,38.33 80x26
+    box 0,38.33 80x26 #00000080 input "1" @change
+
+-- another writes 20 where the most is 9: 9
+box 0,0 300x64.33
+  box 0,0 75x28.33
+    box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+      box 0,0 23.33x28.33 absolute
+        text 8.54,6.67 6.25x15 "-" #ffd100
+    box 28.33,7.17 18.33x14
+      text 34.58,7.17 5.83x14 "9" #ffffff
+    box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 51.67,0 23.33x28.33 absolute
+        text 60.21,6.67 6.25x15 "+" #808080
+  box 0,38.33 80x26
+    box 0,38.33 80x26 #00000080 input "9" @change

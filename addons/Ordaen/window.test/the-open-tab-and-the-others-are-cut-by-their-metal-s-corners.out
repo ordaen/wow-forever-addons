@@ -5,16 +5,18 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
     text 622.75,348.88 359.5x14.4 "the page" #ffffff
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 600,275.54 279.33x59.42
-    box 600,275.54 154.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
-      box 607.25,282.79 48.92x50.42 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 607.25,324.46 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
-      box 651.17,282.79 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
-      box 667.5,285.79 68.75x49.17
-        text 667.5,296.96 68.75x15 "Professions" #ffd100
-        text 674.38,312.79 55x11 "Tailoring 75" #8f8470
-    box 764.83,279.71 114.5x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 783.42,289.96 77.33x41.75
-        text 800.21,303.33 43.75x15 "Recipes" #b3a690
+    box 600,275.54 154.83x59.42 @click @drag @dragStart @dragStop
+      box 600,275.54 154.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 607.25,282.79 48.92x50.42 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 607.25,324.46 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+        box 651.17,282.79 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
+        box 667.5,285.79 68.75x49.17
+          text 667.5,296.96 68.75x15 "Professions" #ffd100
+          text 674.38,312.79 55x11 "Tailoring 75" #8f8470
+    box 764.83,275.54 114.5x59.42 @click @drag @dragStart @dragStop
+      box 764.83,279.71 114.5x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
+        box 783.42,289.96 77.33x41.75
+          text 800.21,303.33 43.75x15 "Recipes" #b3a690
 
 -- the second tab open: cut as the first was
 surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
@@ -22,13 +24,15 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     text 622.75,348.88 359.5x14.4 "the page" #ffffff
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 600,275.54 275.17x59.42
-    box 600,279.71 150.67x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 607.25,286.96 44.75x44.75 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 647,286.96 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
-      box 663.33,289.96 68.75x41.75
-        text 663.33,297.42 68.75x15 "Professions" #b3a690
-        text 670.21,313.25 55x11 "Tailoring 75" #8f8470
-    box 760.67,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=left,right @click @drag @dragStart @dragStop
-      box 779.25,285.79 77.33x49.17
-        text 796.04,302.87 43.75x15 "Recipes" #ffd100
+  box 600,275.54 279.33x59.42
+    box 600,275.54 154.83x59.42 @click @drag @dragStart @dragStop
+      box 600,279.71 154.83x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
+        box 607.25,286.96 44.75x44.75 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 647,286.96 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 663.33,289.96 68.75x41.75
+          text 663.33,297.42 68.75x15 "Professions" #b3a690
+          text 670.21,313.25 55x11 "Tailoring 75" #8f8470
+    box 764.83,275.54 114.5x59.42 @click @drag @dragStart @dragStop
+      box 764.83,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=left,right
+        box 783.42,285.79 77.33x49.17
+          text 800.21,302.87 43.75x15 "Recipes" #ffd100

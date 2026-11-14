@@ -33,10 +33,10 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
             box 488.17,213.04 56.25x26.67 #00000059 @click
               box 489,213.87 54.58x1.67 absolute #d6a56b
               text 500.67,219.71 31.25x15 "Scale" #ffffff
-            box 547.75,213.04 67.08x25.83 #00000000 @click
-              text 559.42,218.87 43.75x15 "Numbers" #a3977f
-            box 618.17,213.04 79.58x25.83 #00000000 @click
-              text 629.83,218.87 56.25x15 "Behaviour" #a3977f
+            box 547.75,213.04 68.75x26.67 #00000000 @click
+              text 560.25,219.71 43.75x15 "Numbers" #a3977f
+            box 619.83,213.04 81.25x26.67 #00000000 @click
+              text 632.33,219.71 56.25x15 "Behaviour" #a3977f
           box 488.17,251.37 762.42x86.67
             box 488.17,251.37 762.42x16.67 opacity=1
               box 488.17,252.21 233.33x15 @enter @leave
@@ -78,9 +78,10 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
         box 1259.83,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 316.67,139.71 114.5x47.75
-    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
-      box 335.25,149.96 77.33x37.5
-        text 355.17,161.21 37.5x15 "Ordaen" #ffd100
+    box 316.67,139.71 114.5x47.75 @click @drag @dragStart @dragStop
+      box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 335.25,149.96 77.33x37.5
+          text 355.17,161.21 37.5x15 "Ordaen" #ffd100
 surface 1323.67,0 276.33x326.33 on MEDIUM clamped
   box 1323.67,0 276.33x326.33 @enter @leave
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait

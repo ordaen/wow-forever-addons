@@ -2,10 +2,13 @@
 // in white, with what making it does for the skill in its difficulty's colour («Not learned» while it isn't); the
 // made item's description; what the work needs besides reagents (red while missing); the reagents, one ruled row
 // each, scrolling in what room is left; and at the bottom, under a rule, the make row: how many (a count, the skill
-// points to gain, or all the bags allow), the count with − and + unless «All», what that comes to, and «Create».
+// points to gain, or all the bags allow), the count with − and + unless «All» (one at least; by «Quantity» what the
+// bags make now; by «Raise skill» the points left before the rank's most), what that comes to, and «Create», which
+// never makes more than the bags make now: with nothing to make, the count and «Create» are disabled. The count
+// starts again at one for another recipe or another profession.
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
-import { Choice, CompactDropdown, Component, ItemButton, PushButton, PX } from "Ordaen"
+import { Choice, CompactDropdown, Component, CountInput, ItemButton, PushButton, PX } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { Flag } from "@/flag"
 import Locale from "@/locales"
@@ -26,7 +29,6 @@ const HEAD: Array<Track> = [SLOT, { fr: 1 }]
 // The mode, the count with its − and +, what it comes to, «Create».
 const MAKE: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
 const MAKE_PAD: Edges = { top: 8 * PX }
-const COUNT: Array<Track> = ["auto", 22 * PX, "auto"]
 // The room the hint has: what the row leaves at the panel's width; a longer one wraps in it.
 const HINT = 46 * PX
 const STEP = 28 * PX
@@ -62,6 +64,9 @@ public class RecipeDetails implements Component {
   derived tracked: Boolean = has(self.kept.tracked, self.shown.id)
   derived cannotTrack: Boolean = !self.shown.learned
   derived counted: Boolean = self.mode != MakeMode.All
+  // The most the count may be: by «Quantity», what the bags make now; by «Raise skill», the points left before the
+  // rank's most.
+  derived most: Integer = self.mostOf()
   // How many making the recipe raises the skill by the count takes; none once it would turn grey first.
   derived expected: Integer | nil = self.expectedOf()
   // How many «Create» makes.
@@ -110,18 +115,26 @@ public class RecipeDetails implements Component {
     return expectedMakings(profession.rank, profession.max, yellow, grey, self.count)
   }
 
+  mostOf(self): Integer {
+    if (self.mode != MakeMode.Skill) { return self.shown.craftable }
+    const profession = self.profession
+    return profession == nil ? 0 : profession.max - profession.rank
+  }
+
+  // What «Create» makes: never more than the bags make now.
   makingOf(self): Integer {
+    const craftable = self.shown.craftable
     return match (self.mode) {
-      MakeMode.Count => self.count,
-      MakeMode.Skill => self.expected ?? 0,
-      MakeMode.All => self.shown.craftable,
+      MakeMode.Count => self.count.min(craftable),
+      MakeMode.Skill => (self.expected ?? 0).min(craftable),
+      MakeMode.All => craftable,
     }
   }
 
   hintOf(self): String {
     return match (self.mode) {
       MakeMode.Count => "",
-      MakeMode.Skill => self.expected == nil ? Locale.MAKE_NO_SKILL : Locale.MAKE_ABOUT.format(self.making),
+      MakeMode.Skill => self.expected == nil ? Locale.MAKE_NO_SKILL : Locale.MAKE_ABOUT.format(self.expected ?? 0),
       MakeMode.All => Locale.MAKE_PIECES.format(self.making),
     }
   }
@@ -157,9 +170,6 @@ public class RecipeDetails implements Component {
     return text
   }
 
-  less(mut self) { self.count = (1).max(self.count - 1) }
-  more(mut self) { self.count += 1 }
-
   onCreate(mut self) {
     if (!self.cannot) { self.create.emit(self.making) }
   }
@@ -190,14 +200,7 @@ public class RecipeDetails implements Component {
           <box $if={self.shown.learned} columns={MAKE} gap={8 * PX} yAlign={Align.Center} padding={MAKE_PAD}
                border={SWITCHES}>
             <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} />
-            <box $if={self.counted} columns={COUNT} gap={6 * PX} yAlign={Align.Center}>
-              <PushButton label={"-"} width={STEP} @click={self.less} />
-              <box xAlign={Align.Center}>
-                <text value={"%d"} arguments={[self.count]} textSize={Style.TEXT} textColor={Style.WHITE}
-                      textFamily={Ordaen.lookArt?.fontNumbers} wrap={false} />
-              </box>
-              <PushButton label={"+"} width={STEP} @click={self.more} />
-            </box>
+            <CountInput $if={self.counted} value={mut self.count} least={1} most={self.most} step={STEP} />
             <box $else />
             // The hint, wrapping in its room.
             <box width={HINT}>

@@ -21,24 +21,29 @@ public class PushButton implements Component {
   derived color: Color | Stated<Color> = self.disabled ? GREY : LABEL
   // Disabled, it does nothing.
   derived doing: Action | nil = self.disabled ? nil : self.action
+  derived repeating: Boolean = self.repeats && !self.disabled
 
   label: Signal<String>
   width: Signal<Number>
   accent: Signal<Boolean>
   disabled: Signal<Boolean>
   action: Signal<Action | nil>
+  repeats: Signal<Boolean>
   constructor(
     label: Signal<String>,
     width: Signal<Number>,
     accent: Signal<Boolean> = false,
     disabled: Signal<Boolean> = false,
     action: Signal<Action | nil> = nil,
+    // Held down, its click comes again until it is let go or disabled (a stepper's − and +).
+    repeats: Signal<Boolean> = false,
   ) {
     self.label = label
     self.width = width
     self.accent = accent
     self.disabled = disabled
     self.action = action
+    self.repeats = repeats
   }
 
   onClick(mut self) {
@@ -47,7 +52,8 @@ public class PushButton implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={self.width} height={HEIGHT} background={self.art} action={self.doing} @click={self.onClick}>
+      <box width={self.width} height={HEIGHT} background={self.art} action={self.doing} repeats={self.repeating}
+           @click={self.onClick}>
         <box position={Position.Absolute} left={0} right={0} top={DOWN} height={HEIGHT}
              xAlign={Align.Center} yAlign={Align.Center} stateFromParent={true}>
           <text value={self.label} textColor={self.color} textSize={15 * PX} textShadow={SHADOW} wrap={false}

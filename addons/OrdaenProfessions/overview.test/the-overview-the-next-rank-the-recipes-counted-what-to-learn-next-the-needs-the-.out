@@ -23,13 +23,13 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
-          box 381.08,238.88 67.08x25.83 #00000000 @click
-            text 392.75,244.71 43.75x15 "Recipes" #a3977f
-          box 451.5,238.88 54.58x25.83 #00000000 @click
-            text 463.17,244.71 31.25x15 "Queue" #a3977f
-          box 509.42,238.88 75x26.67 #00000059 @click
-            box 510.25,239.71 73.33x1.67 absolute #d6a56b
-            text 521.92,245.54 50x15 "Overview" #ffffff
+          box 381.08,238.88 68.75x26.67 #00000000 @click
+            text 393.58,245.54 43.75x15 "Recipes" #a3977f
+          box 453.17,238.88 56.25x26.67 #00000000 @click
+            text 465.67,245.54 31.25x15 "Queue" #a3977f
+          box 512.75,238.88 75x26.67 #00000059 @click
+            box 513.58,239.71 73.33x1.67 absolute #d6a56b
+            text 525.25,245.54 50x15 "Overview" #ffffff
         box 1082.25,235.54 141.67x28.33 absolute
           box 1082.25,235.54 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 secure @click
             box 1082.25,235.54 141.67x28.33 absolute
@@ -68,20 +68,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
         box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 358.33,133.88 259.25x59.42
-    box 358.33,133.88 123.58x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
-      box 365.58,141.12 48.92x50.42 absolute icon=Interface/Icons/Trade_Mining cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
-      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
-      box 425.83,144.12 37.5x49.17
-        text 425.83,155.29 37.5x15 "Mining" #ffd100
-        text 428.54,171.12 32.08x11 "70 / 75" #8f8470
-    box 491.92,138.04 125.67x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 499.17,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Fishing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 538.92,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
-      box 555.25,148.29 43.75x41.75
-        text 555.25,155.75 43.75x15 "Fishing" #b3a690
-        text 556.5,171.58 41.25x11 "120 / 150" #8f8470
+  box 358.33,133.88 263.42x59.42
+    box 358.33,133.88 123.58x59.42 @click @drag @dragStart @dragStop
+      box 358.33,133.88 123.58x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 365.58,141.12 48.92x50.42 absolute icon=Interface/Icons/Trade_Mining cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+        box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
+        box 425.83,144.12 37.5x49.17
+          text 425.83,155.29 37.5x15 "Mining" #ffd100
+          text 428.54,171.12 32.08x11 "70 / 75" #8f8470
+    box 491.92,133.88 129.83x59.42 @click @drag @dragStart @dragStop
+      box 491.92,138.04 129.83x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
+        box 499.17,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Fishing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 538.92,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 555.25,148.29 43.75x41.75
+          text 555.25,155.75 43.75x15 "Fishing" #b3a690
+          text 556.5,171.58 41.25x11 "120 / 150" #8f8470
 
 opened: page 1, recipe 2658
 -- Fishing's overview: a secondary profession, Expert next, «Fish» casting from its secure button
@@ -109,13 +111,13 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
-          box 381.08,238.88 67.08x25.83 #00000000 @click
-            text 392.75,244.71 43.75x15 "Recipes" #a3977f
-          box 451.5,238.88 54.58x25.83 #00000000 @click
-            text 463.17,244.71 31.25x15 "Queue" #a3977f
-          box 509.42,238.88 75x26.67 #00000059 @click
-            box 510.25,239.71 73.33x1.67 absolute #d6a56b
-            text 521.92,245.54 50x15 "Overview" #ffffff
+          box 381.08,238.88 68.75x26.67 #00000000 @click
+            text 393.58,245.54 43.75x15 "Recipes" #a3977f
+          box 453.17,238.88 56.25x26.67 #00000000 @click
+            text 465.67,245.54 31.25x15 "Queue" #a3977f
+          box 512.75,238.88 75x26.67 #00000059 @click
+            box 513.58,239.71 73.33x1.67 absolute #d6a56b
+            text 525.25,245.54 50x15 "Overview" #ffffff
       box 381.08,272.21 842.83x473.42 scrolled 0 of 0
         box 381.08,272.21 842.83x51.83 #0000004d
           box 391.92,283.04 692.83x30.17
@@ -150,17 +152,19 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
         box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 358.33,133.88 259.25x59.42
-    box 358.33,138.04 119.42x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 365.58,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Mining cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 405.33,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
-      box 421.67,148.29 37.5x41.75
-        text 421.67,155.75 37.5x15 "Mining" #b3a690
-        text 424.37,171.58 32.08x11 "70 / 75" #8f8470
-    box 487.75,133.88 129.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=left,right @click @drag @dragStart @dragStop
-      box 495,141.12 48.92x50.42 absolute icon=Interface/Icons/Trade_Fishing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 495,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
-      box 538.92,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
-      box 555.25,144.12 43.75x49.17
-        text 555.25,155.29 43.75x15 "Fishing" #ffd100
-        text 556.5,171.12 41.25x11 "120 / 150" #8f8470
+  box 358.33,133.88 263.42x59.42
+    box 358.33,133.88 123.58x59.42 @click @drag @dragStart @dragStop
+      box 358.33,138.04 123.58x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
+        box 365.58,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Mining cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 405.33,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 421.67,148.29 37.5x41.75
+          text 421.67,155.75 37.5x15 "Mining" #b3a690
+          text 424.37,171.58 32.08x11 "70 / 75" #8f8470
+    box 491.92,133.88 129.83x59.42 @click @drag @dragStart @dragStop
+      box 491.92,133.88 129.83x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=left,right
+        box 499.17,141.12 48.92x50.42 absolute icon=Interface/Icons/Trade_Fishing cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 499.17,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+        box 543.08,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
+        box 559.42,144.12 43.75x49.17
+          text 559.42,155.29 43.75x15 "Fishing" #ffd100
+          text 560.67,171.12 41.25x11 "120 / 150" #8f8470

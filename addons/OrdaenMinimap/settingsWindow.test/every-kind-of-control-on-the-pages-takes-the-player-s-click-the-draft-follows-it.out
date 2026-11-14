@@ -33,11 +33,11 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
         box 473.17,201.37 792.42x490.08 absolute scrolled 0 of 0
           box 488.17,213.04 762.42x26.67
             box 488.17,238.87 762.42x0.83 absolute #3e2f1d
-            box 488.17,213.04 42.08x25.83 #00000000 @click
-              text 499.83,218.87 18.75x15 "Map" #a3977f
-            box 533.58,213.04 106.25x26.67 #00000059 @click
-              box 534.42,213.87 104.58x1.67 absolute #d6a56b
-              text 546.08,219.71 81.25x15 "Button drawer" #ffffff
+            box 488.17,213.04 43.75x26.67 #00000000 @click
+              text 500.67,219.71 18.75x15 "Map" #a3977f
+            box 535.25,213.04 106.25x26.67 #00000059 @click
+              box 536.08,213.87 104.58x1.67 absolute #d6a56b
+              text 547.75,219.71 81.25x15 "Button drawer" #ffffff
           box 488.17,251.37 762.42x45
             box 488.17,251.37 762.42x16.67 opacity=1
               box 488.17,252.21 233.33x15 @enter @leave
@@ -74,9 +74,10 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
         box 1259.83,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 316.67,139.71 114.5x47.75
-    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
-      box 335.25,149.96 77.33x37.5
-        text 355.17,161.21 37.5x15 "Ordaen" #ffd100
+    box 316.67,139.71 114.5x47.75 @click @drag @dragStart @dragStop
+      box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 335.25,149.96 77.33x37.5
+          text 355.17,161.21 37.5x15 "Ordaen" #ffd100
 surface 1323.67,0 276.33x301.33 on MEDIUM clamped
   box 1323.67,0 276.33x301.33 @enter @leave
     box 1343.92,20.25 230.83x258.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait

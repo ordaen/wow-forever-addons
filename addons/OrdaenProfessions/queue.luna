@@ -4,11 +4,11 @@
 // nothing is missing. The queue is the open profession's: its recipes and reagents are what the game has open.
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
-import { Component, PushButton, PX } from "Ordaen"
+import { Component, CountInput, PushButton, PX } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
-import { Queued, QueueAct } from "@/view"
+import { MOST_COUNT, Queued, QueueAct } from "@/view"
 
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const BACK: Color = Color.hex("#0000004d")
@@ -17,7 +17,6 @@ const PAD = 12 * PX
 const PAGE: Array<Track> = [{ fr: 1 }, "auto"]
 const LINE: Array<Track> = [32 * PX, { fr: 1 }, "auto", "auto"]
 const LINE_PAD: Edges = { top: 4 * PX, bottom: 4 * PX }
-const COUNT: Array<Track> = ["auto", 22 * PX, "auto"]
 const STEP = 24 * PX
 const SLOT = 32 * PX
 const NEED: Array<Track> = [28 * PX, { fr: 1 }, 70 * PX, 70 * PX, 90 * PX]
@@ -80,21 +79,38 @@ public function needsOf(lines: Array<QueueLine>): Array<Need> {
 // A queued recipe's line.
 public class QueueRow implements Component {
   public act: Event<(QueueAct, Integer)> = new Event()
+  // The stepper set the recipe's count; nought takes it out.
+  public counted: Event<(Integer, Integer)> = new Event()
 
   derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
   derived color: Color = Style.difficultyColor(self.line.recipe.difficulty)
   derived icon: Art = self.line.recipe.icon
+
+  // The count as the stepper sets it: nought takes the line out.
+  state count: Integer
 
   line: Signal<QueueLine>
   index: Signal<Integer>
   constructor(line: Signal<QueueLine>, index: Signal<Integer>) {
     self.line = line
     self.index = index
+    self.count = (peek self.line).count
+    watch (queued of self.line) { self.follow(queued.count) }
+    watch (count of self.count) { self.recount(count) }
+  }
+
+  // The queue's count changed: the stepper shows it.
+  follow(mut self, queued: Integer) {
+    if (queued != peek self.count) { self.count = queued }
+  }
+
+  // The stepper moved: the queue's count is its.
+  recount(self, count: Integer) {
+    const line = peek self.line
+    if (count != line.count) { self.counted.emit(line.recipe.id, count) }
   }
 
   onOpen(self) { self.act.emit(QueueAct.Open, self.line.recipe.id) }
-  onLess(self) { self.act.emit(QueueAct.Less, self.line.recipe.id) }
-  onMore(self) { self.act.emit(QueueAct.More, self.line.recipe.id) }
   onDrop(self) { self.act.emit(QueueAct.Drop, self.line.recipe.id) }
 
   public render(self): Template {
@@ -105,14 +121,7 @@ public class QueueRow implements Component {
           <text value={self.line.recipe.name} textSize={Style.TEXT} textColor={self.color} textShadow={Style.SHADOW}
                 wrap={false} />
         </box>
-        <box columns={COUNT} gap={6 * PX} yAlign={Align.Center}>
-          <PushButton label={"-"} width={STEP} @click={self.onLess} />
-          <box xAlign={Align.Center}>
-            <text value={"%d"} arguments={[self.line.count]} textSize={Style.TEXT} textColor={Style.WHITE}
-                  textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
-          </box>
-          <PushButton label={"+"} width={STEP} @click={self.onMore} />
-        </box>
+        <CountInput value={mut self.count} least={0} most={MOST_COUNT} step={STEP} />
         <PushButton label={"x"} width={STEP} accent={true} @click={self.onDrop} />
       </box>
     }
@@ -154,6 +163,8 @@ public class NeedRow implements Component {
 
 public class QueuePage implements Component {
   public act: Event<(QueueAct, Integer)> = new Event()
+  // A line's stepper set its recipe's count; nought takes it out.
+  public counted: Event<(Integer, Integer)> = new Event()
 
   derived lines: Array<QueueLine> = linesOf(self.queued, Game.tradeSkill.recipes)
   derived needs: Array<Need> = needsOf(self.lines)
@@ -170,6 +181,7 @@ public class QueuePage implements Component {
   }
 
   onAct(self, act: QueueAct, id: Integer) { self.act.emit(act, id) }
+  onCounted(self, recipe: Integer, count: Integer) { self.counted.emit(recipe, count) }
   onRun(self) { self.act.emit(QueueAct.Run, 0) }
 
   public render(self): Template {
@@ -182,7 +194,7 @@ public class QueuePage implements Component {
           <box overflow={Overflow.Scroll} gap={10 * PX}>
             <box columns={1}>
               <QueueRow $for={index, line of self.lines} $key={line.recipe.id} line={line} index={index}
-                        @act={self.onAct} />
+                        @act={self.onAct} @counted={self.onCounted} />
             </box>
             <box columns={1}>
               <box columns={NEED} gap={6 * PX} padding={NEED_PAD}>

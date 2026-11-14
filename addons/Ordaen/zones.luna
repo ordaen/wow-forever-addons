@@ -180,7 +180,7 @@ public class Zones<K: Unknown, Z: Unknown> implements Component {
           <ZoneColumn zone={self.off} index={1} items={self.items} value={mut self.value}
                       dragging={mut self.dragging} hinted={mut self.hinted} pool={true} />
         </box>
-        <Tip $if={self.hintShown} title={self.hintTitle} text={self.hintText} left={0} top={0} />
+        <Tip $if={self.hintShown} title={self.hintTitle} text={self.hintText} />
       </box>
     }
   }
