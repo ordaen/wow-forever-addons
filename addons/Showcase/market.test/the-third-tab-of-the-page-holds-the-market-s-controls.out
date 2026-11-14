@@ -1,5 +1,5 @@
 -- the third tab clicked: the market's rows, the sales table under them
-box 0,0 700x673.83 @enter @leave
+box 0,0 700x673.83
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -158,7 +158,8 @@ box 0,0 700x673.83 @enter @leave
             text 0,559.17 233.33x15 "Context menu" #cbb994
           box 248.33,555.17 451.67x23 @click
             text 252.33,559.17 443.67x15 "Right-click here" #ffffff
-  text 0,586.17 700x15 "zone shown" #ffffff
+  box 0,586.17 700x15 @enter @leave
+    text 0,586.17 700x15 "zone shown" #ffffff
   box 0,609.17 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
     box 0,609.17 120x28.33 absolute
       text 47.5,615.83 25x15 "Save" #ffd100

@@ -1,6 +1,5 @@
 -- Linen Cloak chosen: «Quantity», one, «Create»
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
-  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
@@ -118,7 +117,6 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
 the mode: skill, the count: 10
 -- «Raise skill» by 10: about 11 makings; «Create» makes the 5 the bags allow
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
-  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
@@ -246,7 +244,6 @@ asked: TradeSkill.craft 2387 5
 
 -- the bolt by 20 points: it turns grey first, «Create» is disabled
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
-  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
@@ -373,7 +370,6 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
 
 -- «All»: no count, the 9 the bags allow, made
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
-  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25

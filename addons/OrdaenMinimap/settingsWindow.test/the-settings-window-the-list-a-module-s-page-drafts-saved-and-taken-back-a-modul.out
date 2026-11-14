@@ -38,7 +38,6 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
       box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
     box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -140,7 +139,6 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
       box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
     box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -256,7 +254,6 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
       box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
     box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -376,7 +373,6 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
       box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
     box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -493,7 +489,6 @@ surface 1323.67,0 276.33x301.33 on MEDIUM clamped
       box 1328.67,186.63 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
     box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -616,7 +611,6 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
       box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
     box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -736,7 +730,6 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
       box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
     box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -837,7 +830,6 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
   box 1323.67,0 276.33x326.33 absolute #00000073 @click @drag @dragStart @dragStop
     text 1439.96,155.67 43.75x15 "Minimap" #ffd100
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -936,7 +928,6 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
       box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
     box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -1018,7 +1009,6 @@ unsaved: 0, a save to take back: false, placing: false
 
 -- the minimap's switch in the list clicked: it is ended, its page says it is off
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -1078,7 +1068,6 @@ unsaved: 0, a save to take back: false, placing: false
 
 -- its switch clicked again: it runs, drawn on the screen
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -1180,7 +1169,6 @@ unsaved: 0, a save to take back: false, placing: false
 key: ESCAPE → #1 «Cancel» (click)
 -- back on Ordaen's page, a checkbox changed, Escape: the question, the window stays
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -1306,7 +1294,6 @@ unsaved: 1, a save to take back: false, placing: false
 
 -- Cancel: back in the window, the change still waits
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42
@@ -1430,7 +1417,6 @@ unsaved: 0, a save to take back: false, placing: false
 
 -- opened on the minimap's page by its addon
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 339.42,201.37 926.17x538.42
       box 339.42,201.37 133.75x538.42

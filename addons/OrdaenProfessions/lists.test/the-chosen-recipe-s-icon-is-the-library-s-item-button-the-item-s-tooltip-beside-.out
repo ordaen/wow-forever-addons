@@ -1,6 +1,5 @@
 -- the cursor on the icon: the game's tooltip of the item it makes asked for
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
-  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25

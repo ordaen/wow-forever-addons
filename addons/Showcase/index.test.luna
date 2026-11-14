@@ -157,8 +157,7 @@ test "the cursor on a setting's label shows its hint in a tip, and leaving it hi
   destroy added
 }
 
-// A control over the page takes the mouse, so the page's own box hears the cursor where nothing else does: on
-// its summary.
+// The page's summary hears the cursor; the page's room between its controls takes no mouse.
 test "the cursor over the page itself shows the page's tip, and leaving it hides the tip" {
   // The showcase made and added to Ordaen's modules: Ordaen draws it on the screen, which the page is.
   const page = new Showcase()

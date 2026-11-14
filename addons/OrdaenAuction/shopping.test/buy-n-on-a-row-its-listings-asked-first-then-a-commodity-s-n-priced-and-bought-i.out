@@ -1,6 +1,5 @@
 -- the client's price for 18 in the row's sum: «Confirm»
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17
@@ -118,7 +117,6 @@ asked: AuctionActions.startPurchase 2840 18
 
 -- bought: the row at 0, «Bought» off
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17

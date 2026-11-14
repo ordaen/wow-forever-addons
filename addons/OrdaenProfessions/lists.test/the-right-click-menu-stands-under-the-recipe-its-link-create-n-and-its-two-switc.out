@@ -1,6 +1,5 @@
 -- the menu of Linen Cloak open under its row
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
-  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
@@ -169,7 +168,6 @@ surface 591.08,368.04 183.33x120.83 on FULLSCREEN_DIALOG #0a0806f7
 
 -- «Link in chat» clicked: the item Linen Cloak makes is put into the chat, the menu is closed
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
-  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
@@ -324,7 +322,6 @@ asked: Chat.link 1110
 
 -- Woolen Bag's menu: «Link in chat» dim and deaf, nothing asked of the chat
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
-  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25

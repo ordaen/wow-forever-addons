@@ -1,6 +1,5 @@
 -- the first tab open: its wood and its picture cut at their rounded corners, the second tab's wood too
 surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
-  box 600,275.54 400x48.92 absolute @drag @dragStart
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     text 622.75,348.88 359.5x15 "the page" #ffffff
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
@@ -17,7 +16,6 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
 
 -- the second tab open: cut as the first was
 surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
-  box 600,275.54 400x48.92 absolute @drag @dragStart
   box 600,324.46 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     text 622.75,348.88 359.5x15 "the page" #ffffff
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart

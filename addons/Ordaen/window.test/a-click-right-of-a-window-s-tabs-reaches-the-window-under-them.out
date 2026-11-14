@@ -1,0 +1,25 @@
+-- Beta clicked through the room right of Gamma's tab
+box 0,0 10x0
+surface 600,331.38 400x437.25 on DIALOG clamped raised by a click
+  box 600,368.62 400x400 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 622.75,393.04 359.5x355.08 #30302a @click
+    box 941.08,380.46 52.5x26.67 absolute clipped
+      box 941.08,380.46 29.17x26.67 absolute clipped @click
+        box 941.08,380.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 951.08,385.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 970.25,380.46 23.33x26.67 absolute clipped @click
+        box 970.25,380.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 976.5,385.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 982.75,748.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 600,331.38 114.5x47.75
+    box 600,331.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 618.58,341.62 77.33x34.25
+        text 644.75,351.25 25x15 "Beta" #ffd100
+surface 750,451.38 400x237.25 on DIALOG clamped raised by a click
+  box 750,488.62 400x200 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 772.75,513.04 359.5x155.08 #30302a @click
+    box 1132.75,668.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 750,451.38 114.5x47.75
+    box 750,451.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 768.58,461.62 77.33x34.25
+        text 791.62,471.25 31.25x15 "Gamma" #ffd100

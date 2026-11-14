@@ -1,6 +1,5 @@
 -- two items: listed, lowest, market, the lowest's share of it (green under 90%, red over 100%), a day old
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17
@@ -149,7 +148,6 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
 
 -- sorted by the lowest: linen first
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17
@@ -309,7 +307,6 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
 the house busy: nothing sent yet
 -- filtered: linen alone; the house searched for «lin» once it took a query
 surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
-  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
   box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 464.42,259.71 676.17x421.75
       box 464.42,259.71 676.17x34.17

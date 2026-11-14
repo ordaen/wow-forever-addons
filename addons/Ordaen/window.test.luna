@@ -1,5 +1,6 @@
 // A window's tabs drawn with Ordaen's own art: each tab's wood is cut by its metal's rounded corners, the open
 // one's as the others', and its picture by the clip at its top left.
+import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Placing, Window, WindowTabSpec } from "@/window"
@@ -43,6 +44,68 @@ class Gearbox {
       </Window>
     }
   }
+}
+
+// Three windows over one another (`Desk`): Alpha left, Gamma right, Beta between them and reaching further down.
+// Alpha stays drawn while hidden, as the settings window does; Beta and Gamma are drawn as they open. Each body is a
+// face that says which window a click reached. Where all three overlap, the click reaches the one in front.
+const SCREEN_W = 1600
+const SCREEN_H = 900
+const SHARED: Test.Point = { x: 800, y: 470 }
+const ALPHA_ONLY: Test.Point = { x: 480, y: 470 }
+const GAMMA_ONLY: Test.Point = { x: 1120, y: 470 }
+const BETA_ONLY: Test.Point = { x: 800, y: 720 }
+// With Gamma 120 lower: its tab row's room right of its tab, over Beta's body.
+const ROOM_RIGHT_OF_TABS: Test.Point = { x: 950, y: 470 }
+const FACE: Color = Color.hex("#30302a")
+
+class Desk {
+  state alphaTabs: Array<WindowTabSpec> = [{ title: "Alpha" }]
+  state betaTabs: Array<WindowTabSpec> = [{ title: "Beta" }]
+  state gammaTabs: Array<WindowTabSpec> = [{ title: "Gamma" }]
+  state tab = 1
+  state alpha: Placing = { x: -150, y: 0, width: 400, height: 200 }
+  state beta: Placing = { x: 0, y: 100, width: 400, height: 400 }
+  state gamma: Placing = { x: 150, y: 0, width: 400, height: 200 }
+  state alphaOpen = false
+  state betaOpen = false
+  state gammaOpen = false
+  // The window the last click on a body reached.
+  public state hit: String = ""
+
+  onAlpha(mut self) { self.hit = "Alpha" }
+  onBeta(mut self) { self.hit = "Beta" }
+  onGamma(mut self) { self.hit = "Gamma" }
+  closeAlpha(mut self) { self.alphaOpen = false }
+  closeBeta(mut self) { self.betaOpen = false }
+  closeGamma(mut self) { self.gammaOpen = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box>
+        <Window shown={self.alphaOpen} tabs={self.alphaTabs} selected={mut self.tab} placing={mut self.alpha}
+                @close={self.closeAlpha}>
+          <box background={FACE} @click={self.onAlpha} />
+        </Window>
+        <Window $if={self.betaOpen} tabs={self.betaTabs} selected={mut self.tab} placing={mut self.beta}
+                @close={self.closeBeta}>
+          <box background={FACE} @click={self.onBeta} />
+        </Window>
+        <Window $if={self.gammaOpen} tabs={self.gammaTabs} selected={mut self.tab} placing={mut self.gamma}
+                @close={self.closeGamma}>
+          <box background={FACE} @click={self.onGamma} />
+        </Window>
+      </box>
+    }
+  }
+}
+
+// The window a click where all three overlap reaches: the one in front. A frame passes first, as one always does
+// between two clicks of the player's.
+function front(desk: Desk): String {
+  Test.pass(0.02)
+  Test.click(SHARED, nil)
+  return desk.hit
 }
 
 // The corner group's textures drawn now, in the order they were made: each control's plate, then its glyph, each by
@@ -94,6 +157,94 @@ test "a window made without settings has no button" {
   // Full screen is then the group's first plate.
   Test.expect(corner() == "plate 0, glyph 2, plate 9, glyph 6")
   destroy page
+}
+
+// A window that opens, or is clicked, comes in front of the others and is the one Escape closes: however often the
+// player went from one to another before.
+test "windows opened and clicked in turn each come to the front and take Escape" {
+  Test.screen(SCREEN_W, SCREEN_H)
+  let desk = new Desk()
+  Test.mount(desk, { left: 0, top: 0, width: 10, height: 10 })
+  desk.alphaOpen = true
+  Test.flush()
+  desk.betaOpen = true
+  Test.flush()
+  Test.expect(front(desk) == "Beta")
+  // Opened last, Beta is the one Escape closes; Alpha then.
+  Test.expect(Test.key(Key.Escape))
+  Test.expect(!desk.betaOpen)
+  Test.expect(front(desk) == "Alpha")
+  desk.betaOpen = true
+  Test.flush()
+  Test.expect(front(desk) == "Beta")
+  // Clicked where it shows alone, a window comes in front, again and again.
+  for (turn of 1..=12) {
+    Test.click(ALPHA_ONLY, nil)
+    Test.expect(desk.hit == "Alpha")
+    Test.expect(front(desk) == "Alpha")
+    Test.click(BETA_ONLY, nil)
+    Test.expect(desk.hit == "Beta")
+    Test.expect(front(desk) == "Beta")
+  }
+  Test.click(ALPHA_ONLY, nil)
+  // Opened after all that, Gamma stands over both and takes Escape first.
+  desk.gammaOpen = true
+  Test.flush()
+  Test.shot("Gamma opened over Alpha and Beta")
+  Test.expect(front(desk) == "Gamma")
+  Test.expect(Test.key(Key.Escape))
+  Test.expect(!desk.gammaOpen)
+  Test.expect(front(desk) == "Alpha")
+  // Alpha hidden and shown again (kept drawn) comes in front as one opened does.
+  desk.gammaOpen = true
+  Test.flush()
+  desk.alphaOpen = false
+  Test.flush()
+  desk.alphaOpen = true
+  Test.flush()
+  Test.expect(front(desk) == "Alpha")
+  Test.click(GAMMA_ONLY, nil)
+  Test.expect(front(desk) == "Gamma")
+  Test.expect(Test.key(Key.Escape))
+  Test.expect(!desk.gammaOpen)
+  Test.expect(Test.key(Key.Escape))
+  Test.expect(!desk.alphaOpen)
+  Test.expect(Test.key(Key.Escape))
+  Test.expect(!desk.betaOpen)
+  destroy desk
+}
+
+// The tab row takes the mouse on its tabs alone: a click on its room right of them reaches the window under it, and
+// the tab still moves its window.
+test "a click right of a window's tabs reaches the window under them" {
+  Test.screen(SCREEN_W, SCREEN_H)
+  let desk = new Desk()
+  Test.mount(desk, { left: 0, top: 0, width: 10, height: 10 })
+  // Gamma lower, its tab row over Beta's body.
+  desk.gamma = { x: 150, y: 120, width: 400, height: 200 }
+  desk.betaOpen = true
+  Test.flush()
+  desk.gammaOpen = true
+  Test.flush()
+  Test.click(ROOM_RIGHT_OF_TABS, nil)
+  Test.expect(desk.hit == "Beta")
+  Test.shot("Beta clicked through the room right of Gamma's tab")
+  // Beta clicked came in front, over Gamma's tab; Gamma clicked comes back, and its tab moves it.
+  Test.click({ x: 1100, y: 600 }, nil)
+  Test.expect(desk.hit == "Gamma")
+  Test.pass(0.02)
+  const was = desk.gamma.x
+  const tab = Test.holding("Gamma", nil)
+  Test.moveTo(tab)
+  Test.press(nil)
+  // The client starts the drag once the cursor has moved: from there on the window follows it.
+  Test.moveTo({ x: tab.x + 1, y: tab.y })
+  Test.pass(0.02)
+  Test.moveTo({ x: tab.x + 31, y: tab.y })
+  Test.pass(0.1)
+  Test.release(nil)
+  Test.expect((desk.gamma.x - was - 30).abs() < 1)
+  destroy desk
 }
 
 test "the open tab and the others are cut by their metal's corners" {

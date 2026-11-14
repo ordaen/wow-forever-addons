@@ -1,6 +1,5 @@
 -- opened again where it was left, the cursor in its body: full screen and close at the body's top right
 surface 400,361.38 400x337.25 on DIALOG clamped raised by a click
-  box 400,361.38 400x37.25 absolute @drag @dragStart
   box 400,398.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     text 422.75,423.04 359.5x15 "the page" #ffffff
     box 741.08,410.46 52.5x26.67 absolute clipped
