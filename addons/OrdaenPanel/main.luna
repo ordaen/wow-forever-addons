@@ -3,9 +3,9 @@
 // bags) sits in the zone its setting names, or not on the panel. The menu's buttons and the bags are the game's own,
 // standing in the panel's cells, so their clicks, menus and alerts stay the game's.
 import Game from "$game"
-import { Align, Anchored, Docked, Edges, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
+import { Align, Anchored, Docked, Drag, Edges, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Module, Placed, Settings, SettingsPage } from "Ordaen"
+import { Component, Module, Mover, Placed, Settings, SettingsPage, sideNear } from "Ordaen"
 import Locale from "@/locales"
 import { BagLine, MicroLine, MoneyLine, SocialLine } from "@/items"
 import { CharButton, Choices, Combat, DEFAULTS, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
@@ -39,6 +39,15 @@ const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "auto"]
 const CORNER: Anchored = { point: Point.BottomLeft }
 // Down a side of the screen: one column, the zones one under another.
 const DOWN: Array<Track> = [{ fr: 1 }]
+
+// The side of the screen an edge setting names, and the setting that names a side.
+function sideOf(edge: Edge): Side {
+  return match (edge) { Edge.Bottom => Side.Bottom, Edge.Top => Side.Top, Edge.Left => Side.Left, Edge.Right => Side.Right }
+}
+
+function edgeOf(side: Side): Edge {
+  return match (side) { Side.Bottom => Edge.Bottom, Side.Top => Edge.Top, Side.Left => Edge.Left, Side.Right => Edge.Right }
+}
 
 // One zone of the panel: its items in their order, from the zone's start, in its middle or to its end.
 public class ZoneBox implements Component {
@@ -146,9 +155,12 @@ public class Panel implements Module, App {
   // The player's portrait stands in the screen's corner: asked for, with the menu at the start of a panel
   // along the bottom. The character's button is then the portrait, and the menu has no cell for it.
   public derived portraitShown: Boolean = self.settings.values.charButton == CharButton.Portrait && self.settings.values.microOn && self.settings.values.bottomOn
-    && self.settings.values.edge == Edge.Bottom && self.at(Item.Micromenu) == Zone.Left
+    && self.side == Side.Bottom && self.at(Item.Micromenu) == Zone.Left
+  // The side it stands along: its edge, or, while the player drags it in the placing mode, the side nearest the cursor.
+  derived side: Side = self.docking ?? sideOf(self.settings.values.edge)
+  state docking: Side | nil = nil
   // The panel runs down a side of the screen: its zones one under another, each item's cells too.
-  public derived vertical: Boolean = self.settings.values.edge == Edge.Left || self.settings.values.edge == Edge.Right
+  public derived vertical: Boolean = self.side == Side.Left || self.side == Side.Right
   public derived outline: Integer = self.outlineOf()
   public derived shadow: Shadow = self.settings.values.shadow ? TEXT_SHADOW : NO_SHADOW
   public derived clockColor: Color = Game.clock.invites > 0 ? PENDING : INK
@@ -207,6 +219,8 @@ public class Panel implements Module, App {
   // Whether the panel is hidden now: never shown, or only while the cursor is on it, or by combat, a vehicle, a
   // pet battle or resting.
   hiddenNow(self): Boolean {
+    // In the placing mode it shows, to be taken to another side.
+    if (Ordaen.placing) { return false }
     if (self.settings.values.show == Show.Never) { return true }
     let fighting = Game.situation.combat
     if (self.settings.values.combat == Combat.Hide && fighting) { return true }
@@ -226,13 +240,23 @@ public class Panel implements Module, App {
   }
 
   placeOf(self): Docked {
-    let whole = self.settings.values.fit == Fit.Full
-    match (self.settings.values.edge) {
-      Edge.Bottom => return { side: Side.Bottom, whole: whole },
-      Edge.Top => return { side: Side.Top, whole: whole },
-      Edge.Left => return { side: Side.Left, whole: whole },
-      Edge.Right => return { side: Side.Right, whole: whole },
-    }
+    return { side: self.side, whole: self.settings.values.fit == Fit.Full }
+  }
+
+  // Dragged in the placing mode, it stands along the side nearest the cursor; let go, that side is its edge from
+  // then, as if chosen on its page. Right-clicked, it goes back to the edge it starts at.
+  onDock(mut self, drag: Drag) { self.docking = sideNear(drag) }
+
+  onDocked(mut self) {
+    const side = peek self.docking
+    self.docking = nil
+    if (side != nil) { self.putOn(edgeOf(side)) }
+  }
+
+  onUndock(mut self) { self.putOn(self.settings.defaults.edge) }
+
+  putOn(mut self, edge: Edge) {
+    self.settings.change((values: mut Choices) => { values.edge = edge })
   }
 
   onEnter(mut self) { self.hovered = true }
@@ -264,6 +288,8 @@ public class Panel implements Module, App {
         <ZoneBox zone={Zone.Left} panel={self} />
         <ZoneBox zone={Zone.Center} panel={self} />
         <ZoneBox zone={Zone.Right} panel={self} />
+        <Mover id={"OrdaenPanel.panel"} title={Locale.TAB_BOTTOM} @drag={self.onDock} @drop={self.onDocked}
+               @reset={self.onUndock} />
       </surface>
       // The portrait: the player's face in the corner's shape, the level on a badge on its rim, and the
       // character's button of the game's unseen over all of it.
@@ -277,6 +303,9 @@ public class Panel implements Module, App {
           <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
                 wrap={false} />
         </box>
+        // The panel's corner: in the placing mode it takes the panel to another side too.
+        <Mover id={"OrdaenPanel.panel"} title={Locale.TAB_BOTTOM} @drag={self.onDock} @drop={self.onDocked}
+               @reset={self.onUndock} />
       </surface>
 
       <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
