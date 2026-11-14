@@ -2,6 +2,7 @@
   "title": "Ordaen Tooltips",
   "icon": "Interface/Icons/INV_Misc_Book_09",
   "notes": "Tooltips drawn by Ordaen.",
+  "version": "1.0.0",
   "loadOnDemand": true,
   "dependencies": { "Ordaen": "^1.0.0" }
 }
