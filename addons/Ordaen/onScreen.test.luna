@@ -1,0 +1,175 @@
+// A window kept on the screen. Dragged by its tab row into each edge and corner it stops there and goes on along the
+// other axis; sized by its grip, its right and bottom edges stop at the screen's and its top left never moves. With
+// the cursor on the screen, and past the game's window, where the client gives the other axis at its end.
+import { Room } from "$ltml"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Hold, kept } from "@/onScreen"
+import { Placing, Window, WindowTabSpec } from "@/window"
+
+// The stand-in's screen.
+const SCREEN_W = 1600
+const SCREEN_H = 900
+// Where each drag starts: in the screen's middle, 400 by 300. A new one each time: the window writes the one it holds.
+function start(): Placing { return { x: 0, y: 0, width: 400, height: 300 } }
+
+class Framed {
+  state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
+  state tab = 1
+  state placing: Placing = start()
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
+        <text value={"the page"} />
+      </Window>
+    }
+  }
+}
+
+// Where the cursor is taken to: a point of the screen, an axis left out staying where the drag took it.
+struct Goal {
+  name: String
+  x: Number | nil
+  y: Number | nil
+}
+
+// A drag of `kept`'s and what it should give.
+struct Case {
+  dx: Number
+  dy: Number
+  hold: Hold
+  x: Number
+  y: Number
+}
+
+// Take what is at `at` and let it go at `to`: the drag begins a pixel to the right, and goes as far as `to` is from
+// `at`.
+function drag(at: Test.Point, to: Test.Point) {
+  Test.moveTo(at)
+  Test.press(nil)
+  Test.moveTo({ x: at.x + 1, y: at.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: to.x + 1, y: to.y })
+  Test.pass(0.05)
+  Test.release(nil)
+}
+
+// The window's edges on the screen: its surface's, the body's box one level out.
+function edges(): Test.Rect { return Test.edges(Ordaen.art.window.wood, 1) }
+
+function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.5 }
+
+// Which way a goal takes an axis from `from`: -1, 0 or 1.
+function way(goal: Number | nil, from: Number): Number {
+  if (goal == nil) { return 0 }
+  return goal < from ? -1 : 1
+}
+
+function on(goal: Number | nil, from: Number): Number { return goal ?? from }
+
+function said(rect: Test.Rect): String {
+  return "%d %d %d %d".format(rect.left.round(), rect.top.round(), rect.right.round(), rect.bottom.round())
+}
+
+test "a drag is held to its surface's room: moved, at each edge and corner; sized, at the right and the bottom" {
+  const room: Room = { left: 10, right: 20, up: 30, down: 40 }
+  const cases: Array<Case> = [
+    { dx: -50, dy: 5, hold: Hold.Move, x: -10, y: 5 },
+    { dx: 50, dy: -5, hold: Hold.Move, x: 20, y: -5 },
+    { dx: 5, dy: -50, hold: Hold.Move, x: 5, y: -30 },
+    { dx: -5, dy: 50, hold: Hold.Move, x: -5, y: 40 },
+    { dx: -50, dy: -50, hold: Hold.Move, x: -10, y: -30 },
+    { dx: 50, dy: -50, hold: Hold.Move, x: 20, y: -30 },
+    { dx: -50, dy: 50, hold: Hold.Move, x: -10, y: 40 },
+    { dx: 50, dy: 50, hold: Hold.Move, x: 20, y: 40 },
+    { dx: 3, dy: -4, hold: Hold.Move, x: 3, y: -4 },
+    // Sized: its right and bottom stop at the screen's; it shrinks as far as the cursor goes.
+    { dx: 50, dy: 5, hold: Hold.Size, x: 20, y: 5 },
+    { dx: 5, dy: 50, hold: Hold.Size, x: 5, y: 40 },
+    { dx: 50, dy: 50, hold: Hold.Size, x: 20, y: 40 },
+    { dx: -500, dy: -500, hold: Hold.Size, x: -500, y: -500 },
+  ]
+  for (c of cases) {
+    let x, y = kept({ x: 0, y: 0, dx: c.dx, dy: c.dy, room: room }, c.hold)
+    Test.expect(x == c.x && y == c.y)
+  }
+}
+
+test "a window dragged into each edge and corner stops there, keeps the other axis, and comes back at once" {
+  let page = new Framed()
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const goals: Array<Goal> = [
+    // The cursor on the screen: the window meets the edge before the cursor does.
+    { name: "left", x: 5, y: nil },
+    { name: "right", x: SCREEN_W - 5, y: nil },
+    { name: "top", x: nil, y: 5 },
+    { name: "bottom", x: nil, y: SCREEN_H - 5 },
+    { name: "top left", x: 5, y: 5 },
+    { name: "top right", x: SCREEN_W - 5, y: 5 },
+    { name: "bottom left", x: 5, y: SCREEN_H - 5 },
+    { name: "bottom right", x: SCREEN_W - 5, y: SCREEN_H - 5 },
+    // Past the game's window: the client gives the other axis at its end, and the drag keeps where it had it.
+    { name: "past the left", x: -400, y: nil },
+    { name: "past the right", x: SCREEN_W + 400, y: nil },
+    { name: "past the top", x: nil, y: -400 },
+    { name: "past the bottom", x: nil, y: SCREEN_H + 400 },
+    { name: "past the top left", x: -400, y: -400 },
+    { name: "past the bottom right", x: SCREEN_W + 400, y: SCREEN_H + 400 },
+  ]
+  for (goal of goals) {
+    page.placing = start()
+    Test.flush()
+    const was = edges()
+    const at = Test.holding("Recipes", nil)
+    drag(at, { x: on(goal.x, at.x), y: on(goal.y, at.y) })
+    const now = edges()
+    const sx = way(goal.x, at.x)
+    const sy = way(goal.y, at.y)
+    // Back 50 from the edge: it comes 50 away at once, its own place the one drawn.
+    const back = Test.holding("Recipes", nil)
+    drag(back, { x: back.x - sx * 50, y: back.y - sy * 50 })
+    const after = edges()
+    Test.note(`${goal.name}: ${said(was)} → ${said(now)} → back ${said(after)}`)
+    Test.expect(near(now.right - now.left, was.right - was.left) && near(now.bottom - now.top, was.bottom - was.top))
+    Test.expect(sx != -1 || near(now.left, 0))
+    Test.expect(sx != 1 || near(now.right, SCREEN_W))
+    Test.expect(sx != 0 || near(now.left, was.left))
+    Test.expect(sy != -1 || near(now.top, 0))
+    Test.expect(sy != 1 || near(now.bottom, SCREEN_H))
+    Test.expect(sy != 0 || near(now.top, was.top))
+    Test.expect(near(after.left, now.left - sx * 50) && near(after.top, now.top - sy * 50))
+  }
+  destroy page
+}
+
+test "a window sized by its grip to each edge stops there, its top left where it was" {
+  let page = new Framed()
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const goals: Array<Goal> = [
+    { name: "right", x: SCREEN_W - 5, y: nil },
+    { name: "bottom", x: nil, y: SCREEN_H - 5 },
+    { name: "bottom right", x: SCREEN_W - 5, y: SCREEN_H - 5 },
+    { name: "top left: as small as it may be", x: 5, y: 5 },
+    { name: "past the right", x: SCREEN_W + 400, y: nil },
+    { name: "past the bottom", x: nil, y: SCREEN_H + 400 },
+    { name: "past the bottom right", x: SCREEN_W + 400, y: SCREEN_H + 400 },
+    { name: "past the left", x: -400, y: nil },
+    { name: "past the top", x: nil, y: -400 },
+  ]
+  for (goal of goals) {
+    page.placing = start()
+    Test.moveTo({ x: 1, y: 1 })
+    Test.flush()
+    const was = edges()
+    const at = Test.painted(Ordaen.art.ctl.grip, nil)
+    drag(at, { x: on(goal.x, at.x), y: on(goal.y, at.y) })
+    const now = edges()
+    Test.note(`${goal.name}: ${said(was)} → ${said(now)}`)
+    Test.expect(near(now.left, was.left) && near(now.top, was.top))
+    Test.expect(now.right <= SCREEN_W + 0.5 && now.bottom <= SCREEN_H + 0.5)
+    Test.expect(way(goal.x, at.x) != 1 || near(now.right, SCREEN_W))
+    Test.expect(way(goal.y, at.y) != 1 || near(now.bottom, SCREEN_H))
+  }
+  destroy page
+}

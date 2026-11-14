@@ -4,6 +4,7 @@
 // module says. Its unnamed slot takes what it holds.
 import { Align, Anchored, Click, Drag, Layer, Line, MouseButton, Place, Position } from "$ltml"
 import { Component } from "@/module"
+import { Hold, kept } from "@/onScreen"
 import root Ordaen from "Ordaen"
 
 const GOLD: Color = Color.hex("#ffd100")
@@ -39,11 +40,10 @@ public class Placed implements Component {
     self.dragged = self.from
   }
 
-  // It keeps the point it is placed by, and moves as far as the cursor went.
+  // It keeps the point it is placed by, and moves as far as the cursor went and it stays on the screen.
   onDrag(mut self, drag: Drag) {
-    self.dragged = {
-      point: self.from.point, to: self.from.to, x: (self.from.x ?? 0) + drag.dx, y: (self.from.y ?? 0) + drag.dy,
-    }
+    const dx, dy = kept(drag, Hold.Move)
+    self.dragged = { point: self.from.point, to: self.from.to, x: (self.from.x ?? 0) + dx, y: (self.from.y ?? 0) + dy }
   }
 
   onDrop(mut self) {
