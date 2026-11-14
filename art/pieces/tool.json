@@ -1,0 +1,8 @@
+{
+  "says": "A window toolbar's glyphs (ctl.tool in Ordaen/art.luna), drawn on Ordaen's ToolButton and ToolPick: rows of 16 x 16 px (32 x 32 texels), each a white glyph with its black shadow 1 px under it, for the box's tint to colour: the filter (a funnel), the sort (three lines shortening), then the views: columns, categories, list, table; the last two rows clear.",
+  "ships": ["addons/Ordaen/media/ctl-tool-glyph.tga"],
+  "origin": "Drawn by the design's Dropdown (its `GLYPHS`): wow-dev-tools `design/scripts/tool-glyphs.mjs` writes a page of them; the page shot at 2x on black and on white with `design/scripts/shot.mjs --width 400 --height 600 --scale 2` (`?bg=black`, `bg=white`), then matted.",
+  "steps": [
+    { "matte": { "black": "art/sources/tool-glyphs-black.png", "white": "art/sources/tool-glyphs-white.png", "out": "addons/Ordaen/media/ctl-tool-glyph.tga", "width": 32, "height": 256 } }
+  ]
+}

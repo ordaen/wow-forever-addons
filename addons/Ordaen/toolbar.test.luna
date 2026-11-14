@@ -1,0 +1,97 @@
+// The window toolbar: the search field and the icon-only buttons on one row. A button's Tip names what it does and
+// what it is set to; a click opens its list under it, a choice picks and closes it; a view's button shows the picked
+// view's glyph; a filter that narrows has its glyph gold.
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Choice } from "@/dropdown"
+import { ARTWORK } from "@/art"
+import { Toolbar, ToolButton, ToolPick } from "@/toolbar"
+
+enum Order { Difficulty = "difficulty", Name = "name" }
+enum Look { Columns = "columns", List = "list" }
+
+const ORDERS: Array<Choice<Order>> = [
+  { value: Order.Difficulty, label: "By difficulty" },
+  { value: Order.Name, label: "By name" },
+]
+const LOOKS: Array<Choice<Look>> = [
+  { value: Look.Columns, label: "In columns", icon: ARTWORK.ctl.tool.columns },
+  { value: Look.List, label: "One list", icon: ARTWORK.ctl.tool.list },
+]
+
+class Window {
+  public state search = ""
+  public state order: Order = Order.Difficulty
+  public state look: Look = Look.Columns
+  public state filterOpen = false
+  public state narrowed = false
+
+  public render(self): Template {
+    return $ltml {
+      <box width={400}>
+        <Toolbar search={mut self.search} placeholder={"Search by name"}>
+          <ToolButton icon={Ordaen.art.ctl.tool.filter} title={"Filter"} text={"Nothing ticked"}
+                      open={mut self.filterOpen} lit={self.narrowed} />
+          <ToolPick value={mut self.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort} title={"Sort"} />
+          <ToolPick value={mut self.look} choices={LOOKS} icon={Ordaen.art.ctl.tool.columns} title={"View"} />
+        </Toolbar>
+      </box>
+    }
+  }
+}
+
+// Whether a surface shown holds these texts, in this order.
+function tipSays(title: String, text: String): Boolean {
+  for (shown of Test.surfaces()) {
+    if (shown.texts.length == 2 && shown.texts[1] == title && shown.texts[2] == text) { return true }
+  }
+  return false
+}
+
+test "the toolbar's buttons stand on the search's row; each Tip says what it does and its choice; a list picks" {
+  let page = new Window()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 400 })
+  Test.shot("the row: the search's hint, then the funnel, the sort and the columns' glyph, 6 apart")
+  const field = Test.field(nil)
+  const sort = Test.painted(Ordaen.art.ctl.tool.sort, nil)
+  Test.expect(sort.y == field.y)
+  Test.expect(Test.painted(Ordaen.art.ctl.tool.filter, nil).x < sort.x)
+  Test.expect(sort.x < Test.painted(Ordaen.art.ctl.tool.columns, nil).x)
+
+  Test.moveTo(sort)
+  Test.flush()
+  Test.expect(tipSays("Sort", "By difficulty"))
+  Test.moveTo(Test.painted(Ordaen.art.ctl.tool.filter, nil))
+  Test.flush()
+  Test.expect(tipSays("Filter", "Nothing ticked"))
+
+  // Open, the Tip gives way to the list; a choice picks it and closes the list.
+  Test.click(sort, nil)
+  Test.flush()
+  Test.expect(!tipSays("Sort", "By difficulty"))
+  Test.shot("the sort's list open under its button, the picked choice's mark lit")
+  Test.click(Test.holding("By name", nil), nil)
+  Test.expect(page.order == Order.Name)
+  Test.flush()
+  Test.moveTo({ x: 590, y: 390 })
+  Test.flush()
+  Test.moveTo(sort)
+  Test.flush()
+  Test.expect(tipSays("Sort", "By name"))
+
+  // The view's button shows the picked view's glyph.
+  Test.click(Test.painted(Ordaen.art.ctl.tool.columns, nil), nil)
+  Test.click(Test.holding("One list", nil), nil)
+  Test.expect(page.look == Look.List)
+  Test.moveTo(Test.painted(Ordaen.art.ctl.tool.list, nil))
+  Test.flush()
+  Test.expect(tipSays("View", "One list"))
+
+  // A filter that narrows: its funnel gold.
+  page.narrowed = true
+  Test.moveTo({ x: 590, y: 390 })
+  Test.flush()
+  Test.shot("a filter on: the funnel gold, the view's button the list's glyph")
+  destroy page
+  Test.expect(Test.blank())
+}
