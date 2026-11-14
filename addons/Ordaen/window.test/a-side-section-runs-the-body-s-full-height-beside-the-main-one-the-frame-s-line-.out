@@ -1,20 +1,20 @@
 -- the list over its footer at the left; the details from the top line to the bottom one at the right
-surface 500,281.38 600x337.25 on DIALOG clamped raised by a click
-  box 500,318.62 600x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 512.75,331.38 329.25x276.75
-      box 532.75,351.38 289.25x198.42 #30302a
-        text 532.75,351.38 289.25x15 "the list" #ffffff
-      box 532.75,549.79 289.25x45
-        box 532.75,566.46 289.25x28.33
+surface 500,281.38 850.25x337.25 on DIALOG clamped raised by a click
+  box 500,318.62 850.25x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 512.75,331.38 579.5x276.75
+      box 532.75,351.38 539.5x198.42 #30302a
+        text 532.75,351.38 539.5x15 "the list" #ffffff
+      box 532.75,549.79 539.5x45
+        box 532.75,566.46 539.5x28.33
           text 532.75,573.12 43.75x15 "5 items" #ffffff
-          box 593.17,580.62 112.17x0
-          box 722,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 722,566.46 100x28.33 absolute
-              text 759.5,573.12 25x15 "Scan" #ffd100
-    box 842,331.38 250.25x276.75 border=ButtonFrameTemplateNoPortrait sides=left
-      box 872.25,351.38 200x243.42 #30302a
-        text 872.25,351.38 200x15 "the details" #ffffff
-    box 1082.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+          box 593.17,580.62 362.42x0
+          box 972.25,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+            box 972.25,566.46 100x28.33 absolute
+              text 1009.75,573.12 25x15 "Scan" #ffd100
+    box 1092.25,331.38 250.25x276.75 border=ButtonFrameTemplateNoPortrait sides=left
+      box 1122.5,351.38 200x243.42 #30302a
+        text 1122.5,351.38 200x15 "the details" #ffffff
+    box 1333,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 500,281.38 114.5x47.75
     box 500,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 518.58,291.62 77.33x34.25

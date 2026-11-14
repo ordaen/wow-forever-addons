@@ -10,6 +10,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import root System from "OrdaenSystem"
 import { AddOnsWindow } from "@/addonsWindow"
+import Style from "@/style"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1300, height: 760, screen: true }
 
@@ -133,6 +134,51 @@ test "folding, switching and unfolding again: every row keeps its line, a switch
   window.catalog.switchOn(["OrdaenSystem"])
   Test.flush()
   Test.expect(Test.errors().length == 0)
+  destroy window
+}
+
+test "a short window's list scrolls: each checkbox switches the addon its row shows, at every scroll" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  window.placing = { x: 0, y: 0, width: Style.WIDTH, height: 260 }
+  Test.flush()
+  Test.moveTo(Test.holding("Ordaen", nil))
+  for (round of 1..=3) {
+    for (i of 1..=4) { Test.wheel(-1) }
+    Test.pass(0.04)
+    // The first checkbox in view, and the addon its row shows.
+    const box = Test.painted(Ordaen.art.ctl.check, nil)
+    const before = peek window.catalog.statuses
+    Test.click(box, nil)
+    Test.flush()
+    if (window.asking.length > 0) {
+      Test.click(Test.holding("Cancel", nil), nil)
+      Test.flush()
+    }
+    const after = peek window.catalog.statuses
+    let changed = 0
+    for (name, status of after) {
+      if (before[name]?.enabled != status.enabled) { changed += 1 }
+    }
+    Test.expect(changed <= 1)
+  }
+  Test.expect(Test.errors().length == 0)
+  destroy window
+}
+
+test "the card widens the window by its column: the list keeps its width" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  const before = Test.edges(Ordaen.art.window.wood, 0)
+  const listBefore = Test.edges(Ordaen.art.ctl.tool.refresh, 2)
+  Test.click(Test.holding("Ordaen System", nil), nil)
+  Test.flush()
+  const after = Test.edges(Ordaen.art.window.wood, 0)
+  const listAfter = Test.edges(Ordaen.art.ctl.tool.refresh, 2)
+  Test.expect(after.left == before.left && after.right - before.right >= Style.CARD)
+  Test.expect(listAfter.right - listAfter.left == listBefore.right - listBefore.left)
   destroy window
 }
 

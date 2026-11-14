@@ -79,7 +79,8 @@ public class AddOnsWindow implements Component {
   public close: Event<nil> = new Event()
 
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+  // Where it stands and how large: the player moves and resizes it.
+  public state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   state search = ""
   state filter: Filter = Filter.All
   state order: Order = Order.Name
@@ -90,7 +91,7 @@ public class AddOnsWindow implements Component {
   state picked = ""
   state folded: mut Map<String, Boolean> = {}
   // What is to be switched off once the player answers, with the question's title.
-  state asking: Array<String> = []
+  public state asking: Array<String> = []
   // The sets' menu, and the set being saved (-1) or looked at (its place); 0: none.
   state setsOpen = false
   state editing = 0
