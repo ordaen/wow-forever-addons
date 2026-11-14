@@ -91,9 +91,13 @@ public struct Queued implements Plain {
 // The most recipes waiting: past it the oldest goes.
 public const MOST_QUEUED = 50
 
-// What a line of the queue asks of the window: a recipe's count one less or one more, the recipe taken out, the
-// recipe opened in its list; and the queue's first recipe made.
-public enum QueueAct { Less = 1, More = 2, Drop = 3, Open = 4, Run = 5 }
+// The most of a recipe made or waiting at once: what doesn't start waits in the queue, so the bags don't bound the
+// count; three digits fill the count's room.
+public const MOST_COUNT = 999
+
+// What a line of the queue asks of the window: the recipe taken out, the recipe opened in its list; and the queue's
+// first recipe made.
+public enum QueueAct { Drop = 1, Open = 2, Run = 3 }
 
 // The last category and recipe the player had chosen in a profession.
 public struct Seen implements Plain {

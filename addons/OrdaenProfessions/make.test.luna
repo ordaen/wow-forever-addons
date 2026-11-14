@@ -82,6 +82,45 @@ test "the make row: a count, the skill points to gain, or all the bags allow" {
   Test.expect(Professions.makeMode == MakeMode.All)
 }
 
+test "the count stays within its bounds: one at least, the points left by «Raise skill», the bags' by «All», as they move" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.professions.list = tailoring()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+
+  // «Quantity» never goes under one; past what the bags make it waits in the queue (the design's «Create»).
+  times(3, "-")
+  Test.expect(Professions.count == 1)
+  times(6, "+")
+  Test.expect(Professions.count == 7)
+
+  // «Raise skill» from 31 of 75: 44 points at most.
+  pickFrom("Quantity", "Raise skill")
+  times(40, "+")
+  Test.expect(Professions.count == 44)
+  Test.shot("«Raise skill» at 44, the points left before 75: + disabled")
+
+  // The skill rises while the window is open: the count falls to the points left.
+  Game.professions.list = [{ skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 70, max: 75, kind: Game.ProfessionKind.Crafting }]
+  Test.flush()
+  Test.note(`at 70 of 75: the count ${Professions.count}`)
+  Test.expect(Professions.count == 5)
+
+  // «All»: what the bags make, as the bags change; none left, «Create» is disabled.
+  pickFrom("Raise skill", "All")
+  Test.expect(Test.holding("5 pcs.", nil).x > 0)
+  Game.tradeSkill.recipes = [recipe(CLOAK, "Linen Cloak", Game.Difficulty.Always, 2), recipe(BOLT, "Bolt of Linen Cloth", Game.Difficulty.Rarely, 9)]
+  Test.flush()
+  Test.expect(Test.holding("2 pcs.", nil).x > 0)
+  Game.tradeSkill.recipes = [recipe(CLOAK, "Linen Cloak", Game.Difficulty.Always, 0), recipe(BOLT, "Bolt of Linen Cloth", Game.Difficulty.Rarely, 9)]
+  Test.flush()
+  click(Test.holding("Create", nil))
+  Test.shot("«All» with the bags emptied: 0 pcs., «Create» disabled")
+}
+
 function reagents(id: Integer): Array<Game.Reagent> {
   if (id == CLOAK) {
     return [{ itemID: 2996, name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_02", have: 3, need: 1 }]

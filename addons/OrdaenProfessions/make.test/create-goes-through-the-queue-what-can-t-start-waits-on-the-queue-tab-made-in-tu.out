@@ -93,9 +93,9 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 853.58,694.96 106.67x14 "Quantity" #f0c860
                 box 965.25,695.29 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
             box 991.92,687.79 75x28.33
-              box 991.92,687.79 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 991.92,687.79 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
                 box 991.92,687.79 23.33x28.33 absolute
-                  text 1000.46,694.46 6.25x15 "-" #ffd100
+                  text 1000.46,694.46 6.25x15 "-" #808080
               box 1020.25,694.96 18.33x14
                 text 1026.5,694.96 5.83x14 "1" #ffffff
               box 1043.58,687.79 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
