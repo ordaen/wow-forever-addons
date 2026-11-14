@@ -14,11 +14,11 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 box 782.75,251.38 33.33x28.33
                   box 787.75,251.38 28.33x28.33
                     box 787.75,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
                 box 816.08,251.38 33.33x28.33
                   box 821.08,251.38 28.33x28.33
                     box 821.08,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 8
+                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
           box 332.75,286.38 516.67x366.75 scrolled 0 of 0
             box 332.75,286.38 516.67x34.67 #00000066 @click
               box 337.75,294.54 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
@@ -93,11 +93,11 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 box 782.75,251.38 33.33x28.33
                   box 787.75,251.38 28.33x28.33
                     box 787.75,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
                 box 816.08,251.38 33.33x28.33
                   box 821.08,251.38 28.33x28.33
                     box 821.08,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 8
+                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
           box 332.75,286.38 516.67x366.75 scrolled 0 of 0
             box 332.75,286.38 516.67x34.67 #00000066 @click
               box 337.75,294.54 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
@@ -155,11 +155,11 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 box 782.75,251.38 33.33x28.33
                   box 787.75,251.38 28.33x28.33
                     box 787.75,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
                 box 816.08,251.38 33.33x28.33
                   box 821.08,251.38 28.33x28.33
                     box 821.08,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 8
+                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
           box 332.75,286.38 516.67x366.75 scrolled 0 of 0
             box 332.75,286.38 516.67x58
               box 332.75,286.38 516.67x23.33
@@ -264,11 +264,11 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 box 782.75,251.38 33.33x28.33
                   box 787.75,251.38 28.33x28.33
                     box 787.75,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
                 box 816.08,251.38 33.33x28.33
                   box 821.08,251.38 28.33x28.33
                     box 821.08,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 5 of 8
+                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 5 of 16
           box 332.75,286.38 516.67x366.75 scrolled 0 of 0
             box 332.75,286.38 516.67x145.83
               box 332.75,286.38 516.67x29.17 #00000040

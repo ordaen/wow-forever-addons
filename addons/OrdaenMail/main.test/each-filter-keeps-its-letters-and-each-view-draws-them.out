@@ -11,11 +11,11 @@ box 0,0 1000x278.67
           box 450,0 33.33x28.33
             box 455,0 28.33x28.33
               box 455,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                box 462.5,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                box 462.5,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
           box 483.33,0 33.33x28.33
             box 488.33,0 28.33x28.33
               box 488.33,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                box 495.83,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 8
+                box 495.83,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
     box 0,35 516.67x208.67 scrolled 0 of 0
       box 0,35 516.67x58
         box 0,35 516.67x23.33
@@ -96,11 +96,11 @@ box 0,0 1000x215.83
           box 450,0 33.33x28.33
             box 455,0 28.33x28.33
               box 455,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                box 462.5,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                box 462.5,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
           box 483.33,0 33.33x28.33
             box 488.33,0 28.33x28.33
               box 488.33,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                box 495.83,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 5 of 8
+                box 495.83,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 5 of 16
     box 0,35 516.67x145.83 scrolled 0 of 0
       box 0,35 516.67x145.83
         box 0,35 516.67x29.17 #00000040
