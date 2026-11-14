@@ -15,7 +15,7 @@ const MARGIN = 8 * PX
 
 const TREES: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
-const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto"]
+const FOOT: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
 
 // Where a tree's nodes begin: the smallest x or y.
 function leastOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Number {
@@ -30,6 +30,46 @@ public function extentOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Numb
   let most = first
   for (node of nodes) { most = most.max(vertical ? node.y : node.x) }
   return (most - first) * UNIT + SIZE + 2 * MARGIN
+}
+
+// The thickness of an arrow's line.
+const LINE = 3 * PX
+
+// A straight piece of an arrow, where it lies in its tree's box.
+public struct Segment {
+  left: Number
+  top: Number
+  width: Number
+  height: Number
+  // Gold where the node it leads to has a rank.
+  color: Color
+  // The frame level it is drawn at: the across piece under the down piece, which meet at the elbow.
+  level: Integer
+}
+
+// The arrows of a tree: from the middle of a node, across and then down to the one it leads to.
+public function segmentsOf(nodes: Array<Game.TalentNode>, leastX: Number, leastY: Number): Array<Segment> {
+  const list: Array<Segment> = []
+  for (node of nodes) {
+    for (edge of node.edges) {
+      for (target of nodes) {
+        if (target.id == edge) {
+          const fromX = (node.x - leastX) * UNIT + MARGIN + SIZE / 2
+          const fromY = (node.y - leastY) * UNIT + MARGIN + SIZE / 2
+          const toX = (target.x - leastX) * UNIT + MARGIN + SIZE / 2
+          const toY = (target.y - leastY) * UNIT + MARGIN + SIZE / 2
+          const color = target.rank > 0 ? Style.GOLD : Style.LINE
+          if ((toX - fromX).abs() >= 1) {
+            list.push({ left: fromX.min(toX), top: fromY - LINE / 2, width: (toX - fromX).abs(), height: LINE, color: color, level: 0 })
+          }
+          if ((toY - fromY).abs() >= 1) {
+            list.push({ left: toX - LINE / 2, top: fromY.min(toY), width: LINE, height: (toY - fromY).abs(), color: color, level: 1 })
+          }
+        }
+      }
+    }
+  }
+  return list
 }
 
 public function spent(tree: Game.TalentTree): Integer {
@@ -88,6 +128,7 @@ public class TreeView implements Component {
   derived leastY: Number = leastOf(self.tree.nodes, true)
   derived width: Number = extentOf(self.tree.nodes, false)
   derived height: Number = extentOf(self.tree.nodes, true)
+  derived segments: Array<Segment> = segmentsOf(self.tree.nodes, self.leastX, self.leastY)
 
   tree: Signal<Game.TalentTree>
   search: Signal<String>
@@ -104,6 +145,9 @@ public class TreeView implements Component {
       <box columns={1} gap={6 * PX} xAlign={Align.Center}>
         <text value={self.title} textColor={Style.GOLD} wrap={false} />
         <box width={self.width} height={self.height}>
+          <box $for={index, segment of self.segments} $key={index} position={Position.Absolute} left={segment.left}
+               top={segment.top} width={segment.width} height={segment.height}
+               background={segment.color} zLevel={segment.level} />
           <NodeView $for={node of self.tree.nodes} $key={node.id} node={node} search={self.search}
                     leastX={self.leastX} leastY={self.leastY} @spend={self.onSpend} @refund={self.onRefund} />
         </box>
@@ -117,25 +161,36 @@ public class TalentsPage implements Component {
   public refund: Event<Integer> = new Event()
   public apply: Event<nil> = new Event()
   public cancel: Event<nil> = new Event()
+  public activate: Event<nil> = new Event()
 
   state search = ""
   derived points: String = Locale.TALENT_POINTS.format(self.unspent)
   derived empty: Boolean = self.trees.length == 0
-  derived waiting: Boolean = !self.staged
+  derived waiting: Boolean = !self.staged || !self.active
+  derived inactive: Boolean = !self.active
 
   trees: Signal<Array<Game.TalentTree>>
   unspent: Signal<Integer>
   staged: Signal<Boolean>
-  constructor(trees: Signal<Array<Game.TalentTree>>, unspent: Signal<Integer>, staged: Signal<Boolean>) {
+  active: Signal<Boolean>
+  constructor(
+    trees: Signal<Array<Game.TalentTree>>,
+    unspent: Signal<Integer>,
+    staged: Signal<Boolean>,
+    // The spec group shown is the one the player has active.
+    active: Signal<Boolean>,
+  ) {
     self.trees = trees
     self.unspent = unspent
     self.staged = staged
+    self.active = active
   }
 
   onSpend(mut self, id: Integer) { self.spend.emit(id) }
   onRefund(mut self, id: Integer) { self.refund.emit(id) }
   onApply(mut self) { self.apply.emit() }
   onCancel(mut self) { self.cancel.emit() }
+  onActivate(mut self) { self.activate.emit() }
 
   public render(self): Template {
     return $ltml {
@@ -153,6 +208,8 @@ public class TalentsPage implements Component {
         </box>
         <box columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
           <PushButton label={Locale.CANCEL_CHANGES} width={190 * PX} disabled={self.waiting} @click={self.onCancel} />
+          <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={150 * PX} @click={self.onActivate} />
+          <box $else />
           <box xAlign={Align.Center}>
             <text value={self.points} textColor={Style.INK} wrap={false} />
           </box>
