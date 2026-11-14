@@ -201,7 +201,6 @@ public class XpBar implements Component {
   // The faction's fill takes its standing's colour, as the client's reputation bar does.
   derived standingTint: Color | nil = Game.reputation.color
 
-
   // How high the bar may be: the panel's inside.
   room: Signal<Number>
   constructor(room: Signal<Number> = UNBOUNDED) {
