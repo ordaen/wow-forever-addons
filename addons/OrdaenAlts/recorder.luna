@@ -1,11 +1,10 @@
 // What the character being played knows and holds, written to its record when a source changes: its level and money
 // as they change, its professions as the game lists them, the recipes of a profession as the game opens it, the
-// bags' room when the bags change, the bank and the mail while their windows are open, the auctions while the house
-// is open. Nothing is read per frame, and every source but the bags' room is a client event that fires rarely.
-//
-// The bags' items aren't recorded: `Game.bags` has no count by item (`next/move.md`, H7, «Blocked»).
+// bags' room and items when the bags change, the bank and the mail while their windows are open, the auctions while
+// the house is open. Nothing is read per frame, and every source but the bags is a client event that fires rarely.
 import Game from "$game"
-import { Copper, Hour, ItemId, Place, RecipeId } from "@/character"
+import { Copper, Hour, ItemId } from "Ordaen"
+import { Place, RecipeId } from "@/character"
 import { Records } from "@/records"
 
 public class Recorder {
@@ -40,7 +39,7 @@ public class Recorder {
       const recipe = RecipeId.of(id)
       recipes.push(recipe)
       const left = Game.recipeReader.cooldown(id)
-      if (left != nil) { ready[recipe] = Hour.after(left) }
+      if (left != nil) { ready[recipe] = Hour.fromNow(left) }
     }
     self.records.setRecipes(open, mut recipes, mut ready)
   }
@@ -52,9 +51,14 @@ public class Recorder {
     if (open != nil) { self.records.learn(open, RecipeId.of(recipe)) }
   }
 
+  // The bags' room and what they hold, by item, each time they change; where the game gave no count (the part says
+  // why), what was kept stays.
   onBags(mut self) {
     const room = Game.bags.roomOfAll()
     self.records.setBags(room.free, room.slots)
+    const held = Game.bags.holdings()
+    if (held == nil) { return }
+    self.records.setPlace(Place.Bags, itemsOf(held), nil)
   }
 
   // What the bank holds, by item, while its window is open; where the seam gave nothing, what was kept stays.
@@ -71,7 +75,7 @@ public class Recorder {
     const now = Hour.now()
     self.records.setPlace(Place.Mail, itemsOf(held), now)
     const soonest = Game.mailObserver.soonest()
-    self.records.setMail(soonest == nil ? nil : Hour.after(soonest))
+    self.records.setMail(soonest == nil ? nil : Hour.fromNow(soonest))
   }
 
   // The player's auctions by item. The list is empty before the house first answers, so an empty one counts only while

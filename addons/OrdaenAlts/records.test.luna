@@ -4,8 +4,9 @@
 import Debug from "$debug"
 import Game from "$game"
 import Test from "$test"
+import { Hour, ItemId } from "Ordaen"
 import root Alts from "OrdaenAlts"
-import { CharacterId, Faction, Hour, ItemId, Kept, Place, RecipeId, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES } from "@/character"
+import { CharacterId, Faction, Kept, Place, RecipeId, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES } from "@/character"
 import { Records } from "@/records"
 
 const SMITHING = 164
@@ -23,6 +24,12 @@ function professions(): Array<Game.Profession> {
 function counts(pairs: Array<Integer>): Map<Integer, Integer> {
   const held: Map<Integer, Integer> = {}
   for (i of 1..=pairs.length step 2) { held[pairs[i] ?? 0] = pairs[i + 1] ?? 0 }
+  return held
+}
+
+function linen(): mut Map<ItemId, Integer> {
+  const held: Map<ItemId, Integer> = {}
+  held[ItemId.of(2589)] = 1
   return held
 }
 
@@ -79,6 +86,45 @@ test "a place read while it is open is counted by item, with the hour it was rea
   Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => nil
   Game.bankObserver.changed.emit()
   Test.expect(total == 4 && Alts.holders(ItemId.of(2589)).length == 2)
+}
+
+test "the bags are counted by item each time they change, and a change of nothing moves nothing" {
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([2589, 12, 2840, 3])
+  Game.bags.changed.emit()
+  const held = Alts.holders(ItemId.of(2589))[1] ?? panic("in the bags")
+  Test.expect(held.who == Alts.current && held.place == Place.Bags && held.count == 12)
+  const me = Alts.characters[Alts.current] ?? panic("the player is recorded")
+  Test.expect(me.read[Place.Bags] == nil)
+  const before = Alts.revision
+  Game.bags.changed.emit()
+  Test.expect(Alts.revision == before)
+  // The game gave no count (its guess about the client failed): what was kept stays.
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => nil
+  Game.bags.changed.emit()
+  Test.expect(Alts.holders(ItemId.of(2840))[1]?.count == 3)
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([2840, 4])
+  Game.bags.changed.emit()
+  Test.expect(Alts.holders(ItemId.of(2589)).length == 0)
+  Test.expect(Alts.holders(ItemId.of(2840))[1]?.count == 4)
+}
+
+test "the bags read again with nothing changed leave the window be" {
+  const kept = Kept {}
+  const records = new Records(mut kept, CharacterId.of("Player-1-bags"), "Realm", Faction.Alliance)
+  records.begin("Bags", "MAGE", 10, Hour.now())
+  _ = records.setPlace(Place.Bags, linen(), nil)
+  const touched = records.touched
+  _ = records.setPlace(Place.Bags, linen(), nil)
+  Test.expect(records.touched == touched)
+  _ = records.setPlace(Place.Bank, linen(), Hour.now())
+  Test.expect(records.touched > touched)
+}
+
+test "an hour is the server's clock, as the game gives it" {
+  Game.clock.server = 1577836800 + 5 * 3600 + 10
+  Test.expect(Hour.now() == 5 && Hour.fromNow(3590) == 6 && Hour.fromNow(3591) == 7)
+  Test.pass(3600)
+  Test.expect(Hour.now() == 6)
 }
 
 test "the player's auctions are recorded while the house is open, and an empty list before it answers keeps what was" {
@@ -138,7 +184,7 @@ test "two characters across logins: each one's record kept, the indexes answerin
   // The second character's own.
   const recipes: Array<RecipeId> = [RecipeId.of(2663), RecipeId.of(3320)]
   const ready: Map<RecipeId, Hour> = {}
-  ready[RecipeId.of(3320)] = Hour.after(86400)
+  ready[RecipeId.of(3320)] = Hour.fromNow(86400)
   Test.expect(Alts.records.setRecipes(SMITHING, mut recipes, mut ready))
   Test.expect(Alts.knowers(RecipeId.of(2663)).length == 2)
   Test.expect(Alts.knowers(RecipeId.of(3320)).length == 1)
@@ -189,7 +235,7 @@ test "past the most characters the one played longest ago goes, never the one be
   const kept = Kept {}
   for (i of 1..=MOST_CHARACTERS) {
     const records = new Records(mut kept, CharacterId.of("Player-1-" + String.of(i)), "Realm", Faction.Alliance)
-    records.begin("Alt " + String.of(i), "MAGE", 10, Hour.after((i - 1000) * 3600))
+    records.begin("Alt " + String.of(i), "MAGE", 10, Hour.fromNow((i - 1000) * 3600))
   }
   Test.expect(kept.characters[CharacterId.of("Player-1-1")] != nil)
   const newest = new Records(mut kept, CharacterId.of("Player-1-new"), "Realm", Faction.Alliance)

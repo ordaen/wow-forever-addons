@@ -5,30 +5,31 @@
 import Game from "$game"
 import Runtime from "$runtime"
 import Test from "$test"
+import { Copper, Hour, ItemId } from "Ordaen"
 import root Alts from "OrdaenAlts"
 import root Ordaen from "Ordaen"
-import { CharacterId, Copper, Faction, Hour, ItemId, Place, RecipeId } from "@/character"
+import { CharacterId, Faction, Place, RecipeId } from "@/character"
 import { Records } from "@/records"
 
 const REGY = "Player-6946-005FB73B"
 
 // Regy Ironsight: a level 42 Horde mage of another realm, with two professions, a cooldown, a bank and a mail.
 function regy(records: mut Records) {
-  records.begin("Regy Ironsight", "MAGE", 42, Hour.after(-5 * 24 * 3600))
-  records.setMoney(Copper.of(1234567), Hour.after(-5 * 24 * 3600))
+  records.begin("Regy Ironsight", "MAGE", 42, Hour.fromNow(-5 * 24 * 3600))
+  records.setMoney(Copper.of(1234567), Hour.fromNow(-5 * 24 * 3600))
   records.setProfessions([
     { skillLine: 164, name: "Blacksmithing", icon: "x", rank: 150, max: 300, kind: .Crafting },
     { skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 300, kind: .Gathering },
   ])
   const recipes: Array<RecipeId> = [RecipeId.of(2663), RecipeId.of(3320)]
   const ready: Map<RecipeId, Hour> = {}
-  ready[RecipeId.of(3320)] = Hour.after(30 * 3600)
+  ready[RecipeId.of(3320)] = Hour.fromNow(30 * 3600)
   records.setRecipes(164, mut recipes, mut ready)
   const bank: Map<ItemId, Integer> = {}
   bank[ItemId.of(2589)] = 20
   bank[ItemId.of(2840)] = 7
-  records.setPlace(Place.Bank, mut bank, Hour.after(-5 * 24 * 3600))
-  records.setMail(Hour.after(2 * 24 * 3600))
+  records.setPlace(Place.Bank, mut bank, Hour.fromNow(-5 * 24 * 3600))
+  records.setMail(Hour.fromNow(2 * 24 * 3600))
 }
 
 // The player's own record begun again: the indexes are made from every record, Regy's too.

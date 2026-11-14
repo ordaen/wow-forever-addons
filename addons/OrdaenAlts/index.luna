@@ -1,4 +1,4 @@
 // Ordaen Alts: the player's characters, what each knows and holds. Another module reads `knowers(recipe)` and
 // `holders(item)` of the root (`import root Alts from "OrdaenAlts"`), and the types they answer with.
 public import { Alts } from "@/main"
-public import { Character, CharacterId, Copper, Held, Hour, ItemId, Kept, Known, Knower, Place, RecipeId, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES, STALE } from "@/character"
+public import { Character, CharacterId, Held, Kept, Known, Knower, Place, RecipeId, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES, STALE } from "@/character"

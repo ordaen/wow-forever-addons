@@ -2,8 +2,8 @@
 // asked once per item the first time a search needs it and kept while the tab shows.
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
-import { Component, ItemButton, PX } from "Ordaen"
-import { Held, ItemId, Place } from "@/character"
+import { Component, ItemButton, ItemId, PX } from "Ordaen"
+import { Held, Place } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"

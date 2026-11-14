@@ -3,8 +3,9 @@
 // so a question is one map read. Nothing here is a cell but the two counters: a reader follows `revision` where it
 // asks about recipes and items, the window follows `touched`.
 import Debug from "$debug"
-import { Character, CharacterId, Copper, Faction, Held, Hour, ItemId, Kept, Knower, Known, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES, Place, RecipeId } from "@/character"
+import { Character, CharacterId, Faction, Held, Kept, Knower, Known, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES, Place, RecipeId } from "@/character"
 import Game from "$game"
+import { Copper, Hour, ItemId } from "Ordaen"
 
 // What a question about nobody answers.
 const NOBODY: Array<Knower> = []
@@ -185,13 +186,18 @@ public class Records {
       Debug.fault("Alts", "a place of " + String.of(kinds) + " kinds of items is more than the " + String.of(MOST_ITEMS) + " kept")
       return false
     }
-    if (now != nil) { found.read[place] = now }
-    self.touched += 1
+    // The hour a place was read moves the record; the bags, read on every change of theirs, move it only with what
+    // they hold.
+    if (now != nil) {
+      found.read[place] = now
+      self.touched += 1
+    }
     const before = found.held[place]
     if (before != nil) {
       if (before.equal(items)) { return false }
       for (item, _ of before) { self.drop(self.who, place, item) }
     }
+    if (now == nil) { self.touched += 1 }
     found.held[place] = items
     for (item, count of items) { self.holdingOf(item).push({ who: self.who, place: place, count: count }) }
     self.revision += 1

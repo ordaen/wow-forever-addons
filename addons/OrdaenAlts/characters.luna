@@ -1,8 +1,8 @@
 // «Characters»: every recorded character in a sortable table, and «Forget» on each but the one being played, which
 // asks first. A row is built from the records when they change while this tab shows.
 import { Align, Overflow, Track } from "$ltml"
-import { Column, Component, Money, PushButton, PX, Table, TableRow, tracksOf, Dialog } from "Ordaen"
-import { CharacterId, Hour, Place, STALE } from "@/character"
+import { Column, Component, Dialog, Hour, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
+import { CharacterId, Place, STALE } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"

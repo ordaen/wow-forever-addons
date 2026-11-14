@@ -1,8 +1,7 @@
 // «Cooldowns»: each recipe with a cooldown, per character, ready now or the hour it will be.
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
-import { Column, Component, PX, Table, TableRow, tracksOf } from "Ordaen"
-import { Hour } from "@/character"
+import { Column, Component, Hour, PX, Table, TableRow, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"

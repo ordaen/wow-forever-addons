@@ -1,35 +1,19 @@
 // What Ordaen Alts keeps of a character, and what it answers of all of them. What is saved is kept on purpose: the
 // recipes a character knows and the items it holds are what no other character's session can read; everything else a
 // reader asks for is built from them (`records.luna`).
+//
+// An item, an amount of money and an hour are Ordaen's (`Ordaen/market.luna`), named alike by every market module.
 import Game from "$game"
-import Client from "$client"
+import { Copper, Hour, ItemId } from "Ordaen"
 
 // A character by its GUID (`Player-6946-005FB73B`): the same across renames of its realm.
 public type CharacterId = brand String {
   public of(guid: String): CharacterId { return guid }
 }
 
-public type ItemId = brand Integer {
-  public of(id: Integer): ItemId { return id }
-}
-
 public type RecipeId = brand Integer {
   public of(id: Integer): RecipeId { return id }
 }
-
-public type Copper = brand Integer {
-  public of(amount: Integer): Copper { return amount }
-}
-
-// Hours of the server's clock since 2020-01-01 00:00 UTC: a time kept as one small number.
-public type Hour = brand Integer {
-  public now(): Hour { return (Client.GetServerTime() / 3600).floor() - EPOCH }
-  // The hour that is `seconds` from now, rounded up: what a cooldown or a mail's expiry gives.
-  public after(seconds: Integer): Hour { return ((Client.GetServerTime() + seconds) / 3600).ceil() - EPOCH }
-}
-
-// 2020-01-01 00:00 UTC, in hours.
-const EPOCH: Integer = 438288
 
 // The side a character fights for, as the game's `Faction` is, kept as plain data.
 public enum Faction implements Plain { Alliance = "Alliance", Horde = "Horde", Neutral = "Neutral" }
