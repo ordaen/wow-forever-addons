@@ -11,17 +11,17 @@ import { Choice, Column, CompactDropdown, cornerRoom, Memory, Module, Placing, P
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { RecipeDetails } from "@/details"
+import { QueuePage } from "@/queue"
 import { FilterButton } from "@/filter"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
 import { SkillBar } from "@/skillBar"
 import { Thresholds, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
-import { Act, before, FAVORITES, Group, Kept, MakeMode, members, MOST_MARKED, Seen, SortBy, tableBefore, View } from "@/view"
-
-// The profession's own tabs.
-const RECIPES = 1
-const CAMP = 2
+import {
+  Act, before, FAVORITES, Group, Kept, MakeMode, members, MOST_MARKED, MOST_QUEUED, Page, Queued, QueueAct, Seen, SortBy,
+  tableBefore, View,
+} from "@/view"
 
 const FILL: Array<Track> = [{ fr: 1 }]
 // The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.
@@ -53,7 +53,7 @@ const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Name, label: Locale.SORT_NAME },
   { value: SortBy.Makeable, label: Locale.SORT_MAKEABLE },
 ]
-const NOTHING_KEPT: Kept = { last: 0, seen: {}, favorites: [], tracked: [], x: 0, y: 0, width: 0, height: 0 }
+const NOTHING_KEPT: Kept = { last: 0, seen: {}, favorites: [], tracked: [], queue: [], x: 0, y: 0, width: 0, height: 0 }
 // How long a window being moved or sized waits before its place is kept: seconds.
 const SETTLE = 1
 
@@ -68,7 +68,7 @@ public class Professions implements Module, App {
 
   // The window's tab: the open profession's place among the character's.
   state tab = 0
-  state page = RECIPES
+  state page = 1
   // What the player chose, by id; 0 while nothing was: the first one there is stands for it.
   public state category = 0
   public state recipe = 0
@@ -98,6 +98,8 @@ public class Professions implements Module, App {
   texts: mut Map<Integer, String> = {}
   // Whether the window's place is waiting to be kept, and the place that was kept last (or the window started at).
   settling = false
+  // A recipe opened from elsewhere chose itself as its page changed: the page's change keeps it.
+  opening = false
   known: Placing = { x: 0, y: 0, width: 0, height: 0 }
 
   // The game's own window came up with no profession open (its overview): this window stands in its place with
@@ -110,8 +112,16 @@ public class Professions implements Module, App {
   derived profession: Game.Profession | nil = self.professionOf()
   // The camp category: the first under the profession's heading, by its place and never its name; 0 for none.
   derived camp: Integer = self.campOf()
-  derived onCamp: Boolean = self.page == CAMP
+  // The profession's own tabs, and which the picked one is.
+  derived pageKinds: Array<Page> = self.pageKindsOf()
   derived pageNames: Array<String> = self.pageNamesOf()
+  derived pageKind: Page = self.pageKinds[self.page] ?? Page.Recipes
+  derived onCamp: Boolean = self.pageKind == Page.Camp
+  derived queueShown: Boolean = self.pageKind == Page.Queue
+  // The open profession's queue, in the order it was asked for.
+  public derived queued: Array<Queued> = self.kept.queue.filter(q => q.skillLine == Game.tradeSkill.open)
+  // What became of the last «Create» that didn't start: it waits in the queue, and why.
+  state note = ""
   derived isTable: Boolean = self.view == View.Table
   // Whether any option of the filter is off what the window starts with.
   public derived filtered: Boolean = self.onlyMake || self.onlySkill || !self.showLearned || self.showUnlearned != self.settings.values.showUnlearned
@@ -187,9 +197,24 @@ public class Professions implements Module, App {
     return false
   }
 
+  pageKindsOf(self): Array<Page> {
+    let kinds: Array<Page> = [Page.Recipes]
+    if (self.camp != 0 && self.hasRecipes(self.camp)) { kinds.push(Page.Camp) }
+    kinds.push(Page.Queue)
+    return kinds
+  }
+
+  // «Queue (2)» while two of the profession's recipes wait.
   pageNamesOf(self): Array<String> {
-    let names: Array<String> = [Locale.TAB_RECIPES]
-    if (self.camp != 0 && self.hasRecipes(self.camp)) { names.push(Locale.TAB_CAMP) }
+    const waiting = self.queued.length
+    let names: Array<String> = []
+    for (kind of self.pageKinds) {
+      names.push(match (kind) {
+        Page.Recipes => Locale.TAB_RECIPES,
+        Page.Camp => Locale.TAB_CAMP,
+        Page.Queue => waiting > 0 ? Locale.TAB_QUEUE_COUNT.format(waiting) : Locale.TAB_QUEUE,
+      })
+    }
     return names
   }
 
@@ -324,8 +349,9 @@ public class Professions implements Module, App {
       self.texts = {}
       self.category = 0
       self.recipe = 0
-      self.page = RECIPES
+      self.page = 1
       self.menuFor = 0
+      self.note = ""
       const seen = (peek self.memory.values).seen[open]
       if (seen != nil && (peek self.settings.values).remember) {
         self.category = seen.category
@@ -343,9 +369,11 @@ public class Professions implements Module, App {
     }
   }
 
-  // Another page of the profession: nothing in it is chosen yet.
+  // Another page of the profession: nothing in it is chosen yet, unless a recipe opened from elsewhere chose it.
   onPage(mut self) {
-    if (self.page != 0) { self.recipe = 0 }
+    if (self.page != 0 && !self.opening) { self.recipe = 0 }
+    self.note = ""
+    self.opening = false
   }
 
   // The game's own window came up with no profession open, on the player's key: the profession last open is
@@ -395,6 +423,7 @@ public class Professions implements Module, App {
 
   pickRecipe(mut self, id: Integer) {
     self.recipe = id
+    self.note = ""
     self.menuFor = 0
     self.remember()
   }
@@ -449,8 +478,82 @@ public class Professions implements Module, App {
     self.showUnlearned = (peek self.settings.values).showUnlearned
   }
 
-  // From the button's click: the game takes making only from one.
-  onCreate(mut self, count: Integer) { Game.tradeSkill.craft(self.chosenRecipe, count) }
+  // «Create», from the button's click, where the game takes making from: it starts at once where nothing of the
+  // profession waits ahead of it and the bags hold the reagents; else it joins the queue, and the note says why.
+  onCreate(mut self, count: Integer) {
+    const recipe = self.chosen
+    const open = peek Game.tradeSkill.open
+    if (recipe == nil || open == nil) { return }
+    const ahead = (peek self.queued).any(q => q.recipe != recipe.id)
+    if (!ahead && recipe.craftable >= count) {
+      self.note = ""
+      Game.tradeSkill.craft(recipe.id, count)
+      return
+    }
+    self.note = recipe.craftable < count ? Locale.QUEUED_SHORT.format(count - recipe.craftable) : Locale.QUEUED_AFTER
+    self.enqueue(open, recipe.id, count)
+  }
+
+  // A recipe joins the queue, or its count grows where it is there; the oldest goes where the queue is full.
+  enqueue(mut self, skillLine: Integer, recipe: Integer, count: Integer) {
+    const now = peek self.memory.values
+    let queue: Array<Queued> = []
+    let found = false
+    for (entry of now.queue) {
+      if (entry.skillLine == skillLine && entry.recipe == recipe) {
+        queue.push({ skillLine: skillLine, recipe: recipe, count: entry.count + count })
+        found = true
+      } else {
+        queue.push(entry)
+      }
+    }
+    if (!found) { queue.push({ skillLine: skillLine, recipe: recipe, count: count }) }
+    if (queue.length > MOST_QUEUED) { _ = queue.remove(1) }
+    self.memory.write({ queue: queue, ..now })
+  }
+
+  // The open profession's recipe's count changed by `by` (none: taken out); at nought it leaves the queue.
+  requeue(mut self, recipe: Integer, by: Integer | nil) {
+    const open = peek Game.tradeSkill.open
+    const now = peek self.memory.values
+    let queue: Array<Queued> = []
+    for (entry of now.queue) {
+      const counted = entry.skillLine == open && entry.recipe == recipe ? (by == nil ? 0 : entry.count + by) : entry.count
+      if (counted > 0) { queue.push({ skillLine: entry.skillLine, recipe: entry.recipe, count: counted }) }
+    }
+    self.memory.write({ queue: queue, ..now })
+  }
+
+  // A line of the queue asked for something; «Create in turn» makes the profession's first, in the click.
+  onQueueAct(mut self, act: QueueAct, id: Integer) {
+    match (act) {
+      QueueAct.Less => { self.requeue(id, -1) },
+      QueueAct.More => { self.requeue(id, 1) },
+      QueueAct.Drop => { self.requeue(id, nil) },
+      QueueAct.Open => { self.openRecipe(id) },
+      QueueAct.Run => { self.runQueue() },
+    }
+  }
+
+  runQueue(mut self) {
+    const first = (peek self.queued)[1]
+    if (first == nil) { return }
+    Game.tradeSkill.craft(first.recipe, first.count)
+    self.requeue(first.recipe, nil)
+  }
+
+  // A recipe opened from elsewhere: the recipes' tab (the camp's for one of the camp), its category and it chosen.
+  openRecipe(mut self, id: Integer) {
+    const recipe = (peek Game.tradeSkill.recipes).find(r => r.id == id)
+    if (recipe == nil) { return }
+    const hasCamp = (peek self.pageKinds).any(k => k == Page.Camp)
+    const inCamp = hasCamp && recipe.categoryID == peek self.camp
+    const page = inCamp ? 2 : 1
+    self.opening = page != peek self.page
+    self.page = page
+    self.category = recipe.categoryID
+    self.pickRecipe(id)
+  }
 
   // The window moved or was sized: its place is kept once it has been still for a moment, never at each step.
   placed(mut self) {
@@ -494,7 +597,8 @@ public class Professions implements Module, App {
               <SkillBar profession={self.profession} />
             </box>
             <Tabs tabs={self.pageNames} selected={mut self.page} />
-            <box columns={GRID} rows={FILL} gap={Style.GAP}>
+            <QueuePage $if={self.queueShown} queued={self.queued} @act={self.onQueueAct} />
+            <box $else columns={GRID} rows={FILL} gap={Style.GAP}>
               <box rows={SIDE} gap={8 * PX}>
                 <box height={SEARCH_HEIGHT} rows={FILL}>
                   <input value={mut self.search} padding={SEARCH_PAD} textSize={Style.TEXT}
@@ -554,7 +658,7 @@ public class Professions implements Module, App {
               </box>
               <RecipeDetails recipe={self.chosen} count={mut self.count} mode={mut self.makeMode}
                              profession={self.profession} yellow={self.chosenYellow} grey={self.chosenGrey}
-                             kept={self.kept} @create={self.onCreate} @act={self.onAct} />
+                             note={self.note} kept={self.kept} @create={self.onCreate} @act={self.onAct} />
             </box>
           </box>
         </Window>

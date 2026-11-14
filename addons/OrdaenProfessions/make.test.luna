@@ -81,3 +81,50 @@ test "the make row: a count, the skill points to gain, or all the bags allow" {
   Test.shot("«All»: no count, the 9 the bags allow, made")
   Test.expect(Professions.makeMode == MakeMode.All)
 }
+
+function reagents(id: Integer): Array<Game.Reagent> {
+  if (id == CLOAK) {
+    return [{ itemID: 2996, name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_02", have: 3, need: 1 }]
+  }
+  return [{ itemID: 2589, name: "Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 18, need: 2 }]
+}
+
+test "«Create» goes through the queue: what can't start waits on the «Queue» tab, made in turn" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.professions.list = tailoring()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+
+  // Seven cloaks where the bags make five: all seven wait. A bolt then waits behind them.
+  times(6, "+")
+  click(Test.holding("Create", nil))
+  click(Test.holding("Bolt of Linen Cloth", nil))
+  times(6, "-")
+  click(Test.holding("Create", nil))
+  Test.shot("seven cloaks and then a bolt asked for: both wait, the tab says two, the note why the bolt does")
+
+  click(Test.holding("Queue (2)", nil))
+  Test.shot("the queue: the cloaks and the bolt, the reagents they need, four bolts of linen missing")
+
+  click(Test.holding("+", nil))
+  click(Test.holding("x", nil))
+  const first = Professions.queued[1]
+  Test.note(`left: ${Professions.queued.length}, recipe ${first?.recipe ?? 0} x ${first?.count ?? 0}`)
+  click(Test.holding("Create in turn", nil))
+  Test.shot("the cloaks taken out, nothing missing: «Create in turn» makes the bolt, and the queue is empty")
+  Test.expect(Professions.queued.length == 0)
+
+  // One cloak starts at once, nothing waiting; ten wait. A line of the queue opens its recipe.
+  click(Test.holding("Recipes", nil))
+  click(Test.holding("Create", nil))
+  Test.expect(Professions.queued.length == 0)
+  times(9, "+")
+  click(Test.holding("Create", nil))
+  click(Test.holding("Queue (1)", nil))
+  click(Test.holding("Linen Cloak", nil))
+  Test.expect(Professions.chosenRecipe == CLOAK && Professions.page == 1)
+}

@@ -18,8 +18,9 @@ const RIM: Line = { width: 1 * PX, color: Style.LINE }
 const SWITCHES: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
 const SWITCHES_PAD: Edges = { top: 8 * PX }
 const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
-// The head, the description, the needs, the reagents in the rest, the switches, the make row.
-const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto"]
+// The head, the description, the needs, the reagents in the rest, the switches, the make row, its note.
+const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto", "auto"]
+const NOTE: Color = Color.hex("#c8b48a")
 const SLOT = 52 * PX
 const HEAD: Array<Track> = [SLOT, { fr: 1 }]
 // The mode, the count with its − and +, what it comes to, «Create».
@@ -67,7 +68,8 @@ public class RecipeDetails implements Component {
   // How many «Create» makes.
   derived making: Integer = self.makingOf()
   derived hint: String = self.hintOf()
-  derived cannot: Boolean = self.making < 1 || self.shown.craftable < 1
+  derived cannot: Boolean = self.making < 1
+  derived noted: Boolean = self.note != ""
 
   recipe: Signal<Game.Recipe | nil>
   count: mut Signal<Integer>
@@ -76,6 +78,7 @@ public class RecipeDetails implements Component {
   yellow: Signal<Integer | nil>
   grey: Signal<Integer | nil>
   kept: Signal<Kept>
+  note: Signal<String>
   constructor(
     recipe: Signal<Game.Recipe | nil>,
     // How many to make, or skill points to gain.
@@ -87,6 +90,8 @@ public class RecipeDetails implements Component {
     yellow: Signal<Integer | nil>,
     grey: Signal<Integer | nil>,
     kept: Signal<Kept>,
+    // What became of the last «Create» that waits in the queue; empty for none.
+    note: Signal<String>,
   ) {
     self.recipe = recipe
     self.count = count
@@ -95,6 +100,7 @@ public class RecipeDetails implements Component {
     self.yellow = yellow
     self.grey = grey
     self.kept = kept
+    self.note = note
   }
 
   expectedOf(self): Integer | nil {
@@ -156,7 +162,7 @@ public class RecipeDetails implements Component {
   more(mut self) { self.count += 1 }
 
   onCreate(mut self) {
-    if (!self.cannot) { self.create.emit(self.making.min(self.shown.craftable)) }
+    if (!self.cannot) { self.create.emit(self.making) }
   }
 
   public render(self): Template {
@@ -182,7 +188,8 @@ public class RecipeDetails implements Component {
             <Flag label={Locale.FAVORITE} on={self.favorite} @flipped={self.onFavorite} />
             <Flag $if={self.shown.learned} label={Locale.TRACK} on={self.tracked} @flipped={self.onTrack} />
           </box>
-          <box columns={MAKE} gap={8 * PX} yAlign={Align.Center} padding={MAKE_PAD} border={SWITCHES}>
+          <box $if={self.shown.learned} columns={MAKE} gap={8 * PX} yAlign={Align.Center} padding={MAKE_PAD}
+               border={SWITCHES}>
             <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} />
             <box $if={self.counted} columns={COUNT} gap={6 * PX} yAlign={Align.Center}>
               <PushButton label={"-"} width={STEP} @click={self.less} />
@@ -199,6 +206,7 @@ public class RecipeDetails implements Component {
             </box>
             <PushButton label={Locale.CREATE} width={110 * PX} disabled={self.cannot} @click={self.onCreate} />
           </box>
+          <text $if={self.noted} value={self.note} textSize={Style.SMALL} textColor={NOTE} />
         </>
       </box>
     }

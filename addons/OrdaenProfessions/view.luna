@@ -78,6 +78,23 @@ public function members(recipes: Array<Game.Recipe>, group: Integer, starred: Ar
   return list
 }
 
+// The profession's own tabs: the camp's while it has recipes.
+public enum Page { Recipes = "recipes", Camp = "camp", Queue = "queue" }
+
+// A recipe waiting in the queue: what «Create» couldn't start at once, with how many, under its profession.
+public struct Queued implements Plain {
+  skillLine: Integer
+  recipe: Integer
+  count: Integer
+}
+
+// The most recipes waiting: past it the oldest goes.
+public const MOST_QUEUED = 50
+
+// What a line of the queue asks of the window: a recipe's count one less or one more, the recipe taken out, the
+// recipe opened in its list; and the queue's first recipe made.
+public enum QueueAct { Less = 1, More = 2, Drop = 3, Open = 4, Run = 5 }
+
 // The last category and recipe the player had chosen in a profession.
 public struct Seen implements Plain {
   category: Integer
@@ -86,12 +103,14 @@ public struct Seen implements Plain {
 
 // What the window remembers for the character, kept at once: the profession last open (by its skill line, 0 before
 // any was), what was last chosen in each profession, the recipes starred and the ones tracked (each capped, the oldest
-// dropped first), and where the window stands: its centre, and its body's size (0 wide: never moved).
+// dropped first), the queue (every profession's, in the order it was asked for), and where the window stands: its
+// centre, and its body's size (0 wide: never moved).
 public struct Kept implements Plain {
   last: Integer
   seen: Map<Integer, Seen>
   favorites: Array<Integer>
   tracked: Array<Integer>
+  queue: Array<Queued>
   x: Number
   y: Number
   width: Number
