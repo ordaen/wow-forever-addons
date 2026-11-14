@@ -11,24 +11,16 @@ import { ARTWORK, Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, Pu
 import root Ordaen from "Ordaen"
 import { AddOn, Catalog, plain, Status } from "@/catalog"
 import { Card } from "@/card"
+import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
 import Locale from "@/locales"
 import { percent, Profiler } from "@/perf"
-import { COLUMNS, Hot, Line, LineRow } from "@/rows"
+import { COLUMNS, Hot, Line, LineRow, TABLE_COLUMNS } from "@/rows"
 import { MOST, Sets } from "@/sets"
 import Style from "@/style"
 
-public enum Filter { All = "all", On = "on", Off = "off", Failed = "failed", Demand = "demand", Heavy = "heavy" }
 public enum Order { Name = "name", Now = "now", Peak = "peak", Memory = "memory" }
 public enum View { Categories = "categories", Table = "table" }
 
-const FILTERS: Array<Choice<Filter>> = [
-  { value: Filter.All, label: Locale.FILTER_ALL },
-  { value: Filter.On, label: Locale.FILTER_ON },
-  { value: Filter.Off, label: Locale.FILTER_OFF },
-  { value: Filter.Failed, label: Locale.FILTER_FAILED },
-  { value: Filter.Demand, label: Locale.FILTER_DEMAND },
-  { value: Filter.Heavy, label: Locale.FILTER_HEAVY },
-]
 const ORDERS: Array<Choice<Order>> = [
   { value: Order.Name, label: Locale.SORT_NAME },
   { value: Order.Now, label: Locale.SORT_NOW },
@@ -82,7 +74,12 @@ public class AddOnsWindow implements Component {
   // Where it stands and how large: the player moves and resizes it.
   public state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   state search = ""
-  state filter: Filter = Filter.All
+  // The filter, a choice in each kind (`@/filter`).
+  public state heat: Heat = Heat.All
+  public state standing: Standing = Standing.All
+  public state age: Age = Age.All
+  public state loading: Loading = Loading.All
+  public state written: Written = Written.All
   state order: Order = Order.Name
   // The heaviest first for a number's column; reversed by a second click on a table's heading.
   state descending = false
@@ -110,7 +107,7 @@ public class AddOnsWindow implements Component {
     { width: Style.CARD, content: self.card } : nil
   derived pickedModule: Boolean = self.catalog.byName[self.picked]?.group == self.framework
   derived tabled: Boolean = self.view == .Table
-  derived filtered: Boolean = self.filter != .All
+  derived columns: Array<Track> = self.tabled ? TABLE_COLUMNS : COLUMNS
   derived overall: String = self.profiler.measuring ? Locale.ALL_ADDONS.format(percent(self.profiler.overall)) : ""
   derived notMeasuring: Boolean = !self.profiler.measuring
   derived also: String = Locale.ALSO.format((self.catalog.step?.also ?? []).join(", "))
@@ -196,18 +193,36 @@ public class AddOnsWindow implements Component {
     return Locale.COUNT_OF.format(on, self.catalog.addons.length)
   }
 
-  // Whether an addon shows with the search and the filter as they are.
+  // Whether an addon shows with the search and the filter as they are: it matches every kind.
   matches(self, addon: AddOn, status: Status | nil): Boolean {
     const query = self.search.lower()
     if (query != "" && !addon.words.contains(query)) { return false }
-    return match (self.filter) {
+    const hot = match (self.heat) {
+      .All => true,
+      .Heavy => self.profiler.heavy[addon.name] == true,
+    }
+    const standing = match (self.standing) {
       .All => true,
       .On => status != nil && status.enabled != .Off,
       .Off => status == nil || status.enabled == .Off,
       .Failed => status != nil && status.reason != nil && status.reason != "DISABLED" && status.enabled != .Off,
-      .Demand => addon.demand,
-      .Heavy => self.profiler.heavy[addon.name] == true,
     }
+    const age = match (self.age) {
+      .All => true,
+      .Outdated => addon.outdated,
+      .Current => !addon.outdated,
+    }
+    const loading = match (self.loading) {
+      .All => true,
+      .Demand => addon.demand,
+      .Login => !addon.demand,
+    }
+    const written = match (self.written) {
+      .All => true,
+      .LunaType => addon.lunatype,
+      .Other => !addon.lunatype,
+    }
+    return hot && standing && age && loading && written
   }
 
   // The addons that show, in the order the sort says.
@@ -239,7 +254,7 @@ public class AddOnsWindow implements Component {
     const list: Array<Line> = []
     if (self.view == .Table) {
       for (addon of self.visible) {
-        list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false, names: [] })
+        list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false, names: [], tabled: true })
       }
       return list
     }
@@ -272,16 +287,17 @@ public class AddOnsWindow implements Component {
       const folded = self.folded[category] == true
       list.push({
         caption: true, name: category, count: members.length, folded: folded, child: false, names: groups[category] ?? [],
+        tabled: false,
       })
       if (!folded) {
         const here: Map<String, Boolean> = {}
         for (addon of members) { here[addon.name] = true }
         for (addon of members) {
           if (addon.group == "" || addon.group == addon.name || here[addon.group] != true) {
-            list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false, names: [] })
+            list.push({ caption: false, name: addon.name, count: 0, folded: false, child: false, names: [], tabled: false })
             for (member of members) {
               if (member.group == addon.name && member.name != addon.name) {
-                list.push({ caption: false, name: member.name, count: 0, folded: false, child: true, names: [] })
+                list.push({ caption: false, name: member.name, count: 0, folded: false, child: true, names: [], tabled: false })
               }
             }
           }
@@ -471,20 +487,22 @@ public class AddOnsWindow implements Component {
               <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
             </box>
             <ToolPick value={mut self.everyone} choices={self.whom} icon={ARTWORK.ctl.tool.whom} title={Locale.WHO} />
-            <ToolPick value={mut self.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
-                      lit={self.filtered} />
+            <FilterPick heat={mut self.heat} standing={mut self.standing} age={mut self.age} loading={mut self.loading}
+                        written={mut self.written} />
             <ToolPick $if={!self.tabled} value={mut self.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort}
                       title={Locale.SORT} />
             <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.categories}
                       title={Locale.VIEW} />
           </Toolbar>
-          <box columns={COLUMNS} gap={space(.Item)} padding={HEADING} yAlign={Align.Center}>
+          <box columns={self.columns} gap={space(.Item)} padding={HEADING} yAlign={Align.Center}>
             <box @click={self.onHeadName}>
               <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
             </box>
             <box xAlign={Align.End}>
               <text value={self.overall} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
             </box>
+            <text $if={self.tabled} value={Locale.COL_CATEGORY} textColor={Style.DIM} textSize={.Secondary}
+                  wrap={false} />
             <box xAlign={Align.End} @click={self.onHeadNow}>
               <text value={Locale.COL_NOW} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
             </box>

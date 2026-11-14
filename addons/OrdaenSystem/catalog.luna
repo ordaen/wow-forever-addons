@@ -30,7 +30,14 @@ public struct AddOn {
   needs: Array<String>
   wants: Array<String>
   demand: Boolean
+  // Built for an older client than this one: its TOC's interface below the client's.
+  outdated: Boolean
+  // Written in LunaType: the runtime itself, or an addon that needs it.
+  lunatype: Boolean
 }
+
+// The runtime's folder: what an addon written in LunaType needs.
+const RUNTIME = "LunaType"
 
 // What the client says of an addon now.
 public struct Status {
@@ -67,6 +74,14 @@ function listOf(...names: String): Array<String> {
   return list
 }
 
+// Whether an addon's dependencies hold the runtime: it is written in LunaType.
+function needsRuntime(needs: Array<String>): Boolean {
+  for (name of needs) {
+    if (name == RUNTIME) { return true }
+  }
+  return false
+}
+
 // A title without the client's colour codes.
 public function plain(title: String): String {
   return title.replace("|c%x%x%x%x%x%x%x%x", "").replace("|r", "")
@@ -91,10 +106,12 @@ public class Catalog {
   // The whole list read again: one pass over the client's addons.
   public read(mut self) {
     const locale = Game.client.locale
+    const _, _, _, interface, _, _ = Client.GetBuildInfo()
     const count = Client.C_AddOns.GetNumAddOns()
     const list: Array<AddOn> = []
     for (index of 1..=count) {
       const name = Client.C_AddOns.GetAddOnName(index)
+      const needs = listOf(...Client.C_AddOns.GetAddOnDependencies(name))
       const title = Client.C_AddOns.GetAddOnMetadata(name, "Title") ?? name
       const notes = Client.C_AddOns.GetAddOnMetadata(name, "Notes") ?? ""
       const author = Client.C_AddOns.GetAddOnMetadata(name, "Author") ?? ""
@@ -110,9 +127,11 @@ public class Catalog {
         category: Client.C_AddOns.GetAddOnMetadata(name, "Category-" + locale) ??
           Client.C_AddOns.GetAddOnMetadata(name, "Category") ?? "",
         group: Client.C_AddOns.GetAddOnMetadata(name, "Group") ?? "",
-        needs: listOf(...Client.C_AddOns.GetAddOnDependencies(name)),
+        needs: needs,
         wants: listOf(...Client.C_AddOns.GetAddOnOptionalDependencies(name)),
         demand: Client.C_AddOns.IsAddOnLoadOnDemand(name),
+        outdated: Client.C_AddOns.GetAddOnInterfaceVersion(name) < interface,
+        lunatype: name == RUNTIME || needsRuntime(needs),
       })
     }
     self.addons = list

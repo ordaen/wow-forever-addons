@@ -27,6 +27,8 @@ public struct Line {
   child: Boolean
   // A caption's: the addons its switch switches, every one of its group (none for an addon's row).
   names: Array<String>
+  // An addon's row in the table, which shows its category in a column after its title.
+  tabled: Boolean
 }
 
 // From which value each numbers' column is lit: its heaviest third.
@@ -38,6 +40,10 @@ public struct Hot {
 
 public const COLUMNS: Array<Track> = [{ fr: 1 }, "auto", Style.NUMBER, Style.NUMBER, Style.MEMORY, SWITCH_WIDTH]
 const CAPTION: Array<Track> = ["auto", "auto", { fr: 1 }, SWITCH_WIDTH]
+// The table's: the category in a column of its own, among the fixed ones so that it lines up from row to row.
+public const TABLE_COLUMNS: Array<Track> = [
+  { fr: 1 }, "auto", Style.CATEGORY, Style.NUMBER, Style.NUMBER, Style.MEMORY, SWITCH_WIDTH,
+]
 // The fold's mark (ctl.markClosed, ctl.markOpen), as TreeRow draws it: a 16 px cell, its triangle in the middle.
 const MARK = 16 * PX
 const PAD: Edges = { left: space(.Item), right: space(.Item) }
@@ -91,6 +97,8 @@ public class LineRow implements Component {
   derived status: Status | nil = self.catalog.statuses[self.line.name]
   derived load: Load | nil = self.profiler.loads[self.line.name]
   derived title: String = self.addon?.title ?? (self.line.name == "" ? Locale.OTHER : self.line.name)
+  derived category: String = (self.addon?.category ?? "") == "" ? Locale.OTHER : self.addon?.category ?? ""
+  derived columns: Array<Track> = self.line.tabled ? TABLE_COLUMNS : COLUMNS
   derived module: Boolean = self.addon?.group == self.framework && self.line.name != self.framework
   derived switched: Switch = self.status?.enabled ?? Switch.Off
   derived shown: Shown = self.line.caption ? self.groupShown() : shownOf(self.switched)
@@ -227,7 +235,7 @@ public class LineRow implements Component {
         <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
         <ShownToggle state={self.shown} @flip={self.onGroup} />
       </box>
-      <box $else columns={COLUMNS} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
+      <box $else columns={self.columns} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
            background={self.background} @click={self.onPick} @enter={self.onEnter} @leave={self.onLeave}>
         <box padding={self.indent}>
           <text value={self.title} textColor={Style.INK} wrap={false} />
@@ -238,6 +246,7 @@ public class LineRow implements Component {
         <box $else>
           <text value={self.said} textColor={self.stateColor} textSize={.Secondary} wrap={false} />
         </box>
+        <text $if={self.line.tabled} value={self.category} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
         <box xAlign={Align.End}>
           <text value={self.now} textColor={self.nowColor} textFont={.Numbers} wrap={false} />
         </box>
