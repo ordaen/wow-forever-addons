@@ -193,7 +193,7 @@ test "the panel: its zones and items, the game's buttons in its cells, when it s
   Game.reputation.min = 9000
   Game.reputation.max = 21000
   Game.reputation.value = 13800
-  shown("more experience, a faction watched: the fill grows, the rested part stops at the level's end; one tube in the panel")
+  shown("more experience, a faction watched: the fill grows, the rested part stops at the level's end; the faction's tube under it")
 
   Game.player.xpMax = 0
   shown("at the level's cap: the watched faction's tube in its place")

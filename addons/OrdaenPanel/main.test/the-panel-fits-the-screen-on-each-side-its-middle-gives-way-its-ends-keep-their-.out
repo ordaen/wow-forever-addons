@@ -40,7 +40,7 @@ surface 0,1120.75 1920x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood
         embed 656.78,1141 56.97x53 absolute frame=GuildMicroButton opacity=0
   box 713.75,1155 603.12x25
     box 713.75,1155 603.12x25
-      box 745.75,1155 539.12x25
+      box 745.75,1155 539.12x25 @enter @leave
         box 745.75,1155 539.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
         box 749.66,1158.91 531.31x17.19 absolute
           box 749.66,1158.91 132.83x17.19 absolute #6e96d129
@@ -59,7 +59,11 @@ surface 0,1120.75 1920x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood
         box 745.75,1155 539.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 745.75,1155 539.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 745.75,1155 539.12x25 absolute
-          text 1005.94,1160 18.75x15 "25%" #f3e7cc
+          text 952.81,1160 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+        box 749.66,1158.91 531.31x17.19 absolute
+          box 749.66,1158.91 132.83x17.19
+          box 882.48,1158.91 0x17.19 @enter @leave
+          box 882.48,1158.91 398.48x17.19
   box 1316.88,1141 603.12x53
     box 1545.12,1160.3 82x14.4
       text 1545.12,1160.3 72x14.4 "123g 45s 67c" #e8dcc4
@@ -123,7 +127,7 @@ surface 0,688.75 1366x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         embed 656.78,709 56.97x53 absolute frame=GuildMicroButton opacity=0
   box 713.75,723 277.38x25
     box 713.75,723 277.38x25
-      box 745.75,723 213.38x25
+      box 745.75,723 213.38x25 @enter @leave
         box 745.75,723 213.38x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
         box 749.66,726.91 205.56x17.19 absolute
           box 749.66,726.91 51.39x17.19 absolute #6e96d129
@@ -142,7 +146,11 @@ surface 0,688.75 1366x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 745.75,723 213.38x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 745.75,723 213.38x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 745.75,723 213.38x25 absolute
-          text 843.06,728 18.75x15 "25%" #f3e7cc
+          text 789.94,728 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+        box 749.66,726.91 205.56x17.19 absolute
+          box 749.66,726.91 51.39x17.19
+          box 801.05,726.91 0x17.19 @enter @leave
+          box 801.05,726.91 154.17x17.19
   box 991.12,709 374.88x53
     box 991.12,728.3 82x14.4
       text 991.12,728.3 72x14.4 "123g 45s 67c" #e8dcc4
@@ -207,7 +215,7 @@ surface 0,0 1920x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opaci
         embed 577.75,20.25 56.97x53 absolute frame=GuildMicroButton opacity=0
   box 640,34.25 640x25
     box 640,34.25 640x25
-      box 672,34.25 576x25
+      box 672,34.25 576x25 @enter @leave
         box 672,34.25 576x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
         box 675.91,38.16 568.19x17.19 absolute
           box 675.91,38.16 142.05x17.19 absolute #6e96d129
@@ -226,7 +234,11 @@ surface 0,0 1920x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opaci
         box 672,34.25 576x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 672,34.25 576x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 672,34.25 576x25 absolute
-          text 950.62,39.25 18.75x15 "25%" #f3e7cc
+          text 897.5,39.25 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+        box 675.91,38.16 568.19x17.19 absolute
+          box 675.91,38.16 142.05x17.19
+          box 817.95,38.16 0x17.19 @enter @leave
+          box 817.95,38.16 426.14x17.19
   box 1280,20.25 640x53
     box 1545.12,39.55 82x14.4
       text 1545.12,39.55 72x14.4 "123g 45s 67c" #e8dcc4
@@ -287,7 +299,7 @@ surface 0,0 1366x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opaci
         embed 577.75,20.25 56.97x53 absolute frame=GuildMicroButton opacity=0
   box 634.73,34.25 356.4x25
     box 634.73,34.25 356.4x25
-      box 666.73,34.25 292.4x25
+      box 666.73,34.25 292.4x25 @enter @leave
         box 666.73,34.25 292.4x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
         box 670.63,38.16 284.59x17.19 absolute
           box 670.63,38.16 71.15x17.19 absolute #6e96d129
@@ -306,7 +318,11 @@ surface 0,0 1366x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opaci
         box 666.73,34.25 292.4x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 666.73,34.25 292.4x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 666.73,34.25 292.4x25 absolute
-          text 803.55,39.25 18.75x15 "25%" #f3e7cc
+          text 750.43,39.25 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+        box 670.63,38.16 284.59x17.19 absolute
+          box 670.63,38.16 71.15x17.19
+          box 741.78,38.16 0x17.19 @enter @leave
+          box 741.78,38.16 213.44x17.19
   box 991.12,20.25 374.88x53
     box 991.12,39.55 82x14.4
       text 991.12,39.55 72x14.4 "123g 45s 67c" #e8dcc4
@@ -602,7 +618,7 @@ surface 295.69,1120.75 1328.62x79.25 on MEDIUM Interface\AddOns\Ordaen\media\win
         embed 952.46,1141 56.97x53 absolute frame=GuildMicroButton opacity=0
   box 1009.44,1155 240x25
     box 1009.44,1155 240x25
-      box 1041.44,1155 176x25
+      box 1041.44,1155 176x25 @enter @leave
         box 1041.44,1155 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
         box 1045.34,1158.91 168.19x17.19 absolute
           box 1045.34,1158.91 42.05x17.19 absolute #6e96d129
@@ -621,7 +637,11 @@ surface 295.69,1120.75 1328.62x79.25 on MEDIUM Interface\AddOns\Ordaen\media\win
         box 1041.44,1155 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 1041.44,1155 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 1041.44,1155 176x25 absolute
-          text 1120.06,1160 18.75x15 "25%" #f3e7cc
+          text 1066.94,1160 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+        box 1045.34,1158.91 168.19x17.19 absolute
+          box 1045.34,1158.91 42.05x17.19
+          box 1087.39,1158.91 0x17.19 @enter @leave
+          box 1087.39,1158.91 126.14x17.19
   box 1249.44,1141 374.88x53
     box 1249.44,1160.3 82x14.4
       text 1249.44,1160.3 72x14.4 "123g 45s 67c" #e8dcc4
@@ -685,7 +705,7 @@ surface 18.69,688.75 1328.62x79.25 on MEDIUM Interface\AddOns\Ordaen\media\windo
         embed 675.46,709 56.97x53 absolute frame=GuildMicroButton opacity=0
   box 732.44,723 240x25
     box 732.44,723 240x25
-      box 764.44,723 176x25
+      box 764.44,723 176x25 @enter @leave
         box 764.44,723 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
         box 768.34,726.91 168.19x17.19 absolute
           box 768.34,726.91 42.05x17.19 absolute #6e96d129
@@ -704,7 +724,11 @@ surface 18.69,688.75 1328.62x79.25 on MEDIUM Interface\AddOns\Ordaen\media\windo
         box 764.44,723 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 764.44,723 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 764.44,723 176x25 absolute
-          text 843.06,728 18.75x15 "25%" #f3e7cc
+          text 789.94,728 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+        box 768.34,726.91 168.19x17.19 absolute
+          box 768.34,726.91 42.05x17.19
+          box 810.39,726.91 0x17.19 @enter @leave
+          box 810.39,726.91 126.14x17.19
   box 972.44,709 374.88x53
     box 972.44,728.3 82x14.4
       text 972.44,728.3 72x14.4 "123g 45s 67c" #e8dcc4
@@ -769,7 +793,7 @@ surface 335.2,0 1249.6x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood
         embed 912.95,20.25 56.97x53 absolute frame=GuildMicroButton opacity=0
   box 969.93,34.25 240x25
     box 969.93,34.25 240x25
-      box 1001.93,34.25 176x25
+      box 1001.93,34.25 176x25 @enter @leave
         box 1001.93,34.25 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
         box 1005.83,38.16 168.19x17.19 absolute
           box 1005.83,38.16 42.05x17.19 absolute #6e96d129
@@ -788,7 +812,11 @@ surface 335.2,0 1249.6x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood
         box 1001.93,34.25 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 1001.93,34.25 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 1001.93,34.25 176x25 absolute
-          text 1080.55,39.25 18.75x15 "25%" #f3e7cc
+          text 1027.43,39.25 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+        box 1005.83,38.16 168.19x17.19 absolute
+          box 1005.83,38.16 42.05x17.19
+          box 1047.88,38.16 0x17.19 @enter @leave
+          box 1047.88,38.16 126.14x17.19
   box 1209.93,20.25 374.88x53
     box 1209.93,39.55 82x14.4
       text 1209.93,39.55 72x14.4 "123g 45s 67c" #e8dcc4
@@ -849,7 +877,7 @@ surface 58.2,0 1249.6x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         embed 635.95,20.25 56.97x53 absolute frame=GuildMicroButton opacity=0
   box 692.93,34.25 240x25
     box 692.93,34.25 240x25
-      box 724.93,34.25 176x25
+      box 724.93,34.25 176x25 @enter @leave
         box 724.93,34.25 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
         box 728.83,38.16 168.19x17.19 absolute
           box 728.83,38.16 42.05x17.19 absolute #6e96d129
@@ -868,7 +896,11 @@ surface 58.2,0 1249.6x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 724.93,34.25 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 724.93,34.25 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 724.93,34.25 176x25 absolute
-          text 803.55,39.25 18.75x15 "25%" #f3e7cc
+          text 750.43,39.25 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+        box 728.83,38.16 168.19x17.19 absolute
+          box 728.83,38.16 42.05x17.19
+          box 770.88,38.16 0x17.19 @enter @leave
+          box 770.88,38.16 126.14x17.19
   box 932.93,20.25 374.88x53
     box 932.93,39.55 82x14.4
       text 932.93,39.55 72x14.4 "123g 45s 67c" #e8dcc4

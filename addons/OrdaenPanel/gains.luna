@@ -1,0 +1,113 @@
+// What the player gains this session, followed for as long as the module runs, for the bars' tooltips: experience
+// across the levels, and reputation with the watched faction. Nothing is kept between sessions.
+import Game from "$game"
+
+// Less than this long and a rate per hour says nothing yet.
+const LEAST_SECONDS = 60
+const HOUR = 3600
+
+// A count gained since a moment of the session: how much, and the last gain.
+public class Gains {
+  public state gained = 0
+  public state last = 0
+  // The game's seconds when counting began.
+  public state since: Integer
+
+  constructor() {
+    self.since = peek Game.clock.seconds
+  }
+
+  public add(mut self, amount: Integer) {
+    if (amount == 0) { return }
+    self.gained += amount
+    self.last = amount
+  }
+
+  // Counting from another start: another faction watched.
+  public restart(mut self, gained: Integer, since: Integer) {
+    self.gained = gained
+    self.last = 0
+    self.since = since
+  }
+
+  // Gained in an hour at the pace since counting began, at `now` (the game's seconds); none before a minute has gone
+  // by, or with nothing gained.
+  public perHour(self, now: Integer): Number | nil {
+    let elapsed = now - self.since
+    if (elapsed < LEAST_SECONDS || self.gained <= 0) { return nil }
+    return self.gained * HOUR / elapsed
+  }
+
+  // How many more gains like the last reach `left`; none where the last was no gain.
+  public timesTo(self, left: Integer): Integer | nil {
+    if (self.last <= 0 || left <= 0) { return nil }
+    return (left / self.last).ceil()
+  }
+
+  // The seconds until `left` is gained at the pace so far, at `now`; none without a pace.
+  public secondsTo(self, left: Integer, now: Integer): Number | nil {
+    let rate = self.perHour(now)
+    if (rate == nil || left <= 0) { return nil }
+    return left * HOUR / rate
+  }
+}
+
+// Experience: the gain across a level's end is what was left of the old level and what is into the new one.
+public class ExperienceGains {
+  public const gains: mut Gains = new Gains()
+  xp: Integer
+  max: Integer
+  level: Integer
+
+  constructor() {
+    self.xp = peek Game.player.xp
+    self.max = peek Game.player.xpMax
+    self.level = peek Game.player.level
+    watch { self.heard(Game.player.xp, Game.player.level) }
+  }
+
+  heard(mut self, xp: Integer, level: Integer) {
+    if (level > self.level && self.max > 0) {
+      self.gains.add(self.max - self.xp + xp)
+    } else if (level == self.level && xp > self.xp) {
+      self.gains.add(xp - self.xp)
+    }
+    self.xp = xp
+    self.level = level
+    self.max = peek Game.player.xpMax
+  }
+}
+
+// Reputation with the watched faction: from where it stood when this session first saw it watched, so watching another
+// and back keeps what was gained with each.
+public class ReputationGains {
+  public const gains: mut Gains = new Gains()
+  name: String = ""
+  value = 0
+  // Each faction watched this session: where it stood and when it was first seen. As many as the factions watched.
+  starts: mut Map<String, Integer> = {}
+  seen: mut Map<String, Integer> = {}
+
+  constructor() {
+    watch { self.heard(Game.reputation.name, Game.reputation.value) }
+  }
+
+  heard(mut self, name: String, value: Integer) {
+    if (name == "") { return }
+    if (name == self.name) {
+      self.gains.add(value - self.value)
+    } else {
+      let start = self.starts[name]
+      let at = self.seen[name]
+      if (start == nil || at == nil) {
+        self.starts[name] = value
+        self.seen[name] = peek Game.clock.seconds
+        self.gains.restart(0, peek Game.clock.seconds)
+      } else {
+        self.gains.restart(value - start, at)
+      }
+    }
+    self.name = name
+    self.value = value
+  }
+}
