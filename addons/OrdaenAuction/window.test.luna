@@ -101,6 +101,9 @@ test "«Sell»: the bags' items the house takes; one picked is posted from the c
     { item: AXE, count: 1, bag: 0, slot: 2, commodity: false },
     { item: LINEN, count: 6, bag: 1, slot: 4, commodity: true },
   ]
+  // The client's deposit: 4 copper each of a commodity, an item's auction 150, whatever the duration.
+  Game.auctionActions.deposit = (from: Game.Sellable, quantity: Integer, duration: Game.Duration): Integer | nil =>
+    from.commodity ? quantity * 4 : 150
   Game.clock.server = 1790002800
   Game.auctionHouse.open = true
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
@@ -116,7 +119,7 @@ test "«Sell»: the bags' items the house takes; one picked is posted from the c
   Test.click(Test.holding("-", nil), nil)
   Test.click(Test.holding("12 h", nil), nil)
   Test.pass(0.02)
-  Test.shot("linen picked: 25 of its 26, a copper under the lowest, 12 hours")
+  Test.shot("linen picked: 25 of its 26, a copper under the lowest, 12 hours, a deposit of 1s")
   Test.click(Test.holding("Post", nil), nil)
   Game.auctionActions.answered.emit(.Refused { reason: "Not enough money for the deposit" })
   Test.pass(0.02)

@@ -210,6 +210,9 @@ class Posting implements Component {
   // A commodity is posted from every stack at once; an item's auction from its first stack.
   derived most: Integer = self.offered.from.commodity ? self.offered.count : self.offered.from.count
   derived canPost: Boolean = !Game.auctionActions.busy && self.count <= self.most && self.unit > 0
+  // What the house holds back for this many for this long, as the client says it; «—» where it doesn't.
+  derived deposit: Integer | nil = Game.auctionActions.deposit(self.offered.from, self.count, self.duration)
+  derived depositAmount: Integer = self.deposit ?? 0
 
   const offered: Offered
   const house: House
@@ -264,9 +267,8 @@ class Posting implements Component {
           <Segmented value={mut self.duration} choices={DURATIONS} />
           <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
             <text value={Locale.DEPOSIT} textColor={Style.INK} />
-            // The client's deposit (`C_AuctionHouse.CalculateItemDeposit`, `CalculateCommodityDeposit`) is no part
-            // of `"$game"` yet: until it is, none is known.
-            <text value={"—"} textColor={Style.DIM} />
+            <Money $if={self.deposit != nil} amount={self.depositAmount} />
+            <text $else value={"—"} textColor={Style.DIM} />
           </box>
           <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={.Secondary} />
           <box>

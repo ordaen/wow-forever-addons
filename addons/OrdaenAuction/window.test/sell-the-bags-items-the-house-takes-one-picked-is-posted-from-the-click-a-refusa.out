@@ -88,7 +88,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 267.58,10.25 77.33x34.25
         text 293.75,19.88 25x15 "Data" #b3a690
 
--- linen picked: 25 of its 26, a copper under the lowest, 12 hours
+-- linen picked: 25 of its 26, a copper under the lowest, 12 hours, a deposit of 1s
 surface 0,0 1600x900 on DIALOG clamped raised by a click
   box 0,37.25 1600x862.75 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 22.75,61.67 1559.5x817.83
@@ -251,8 +251,8 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                     box 1458.92,458.33 49.17x1.67 absolute #00000000
                     text 1470.58,465 25x15 "48 h" #a3977f
                 box 1359.75,493.33 211.67x15
-                  text 1359.75,493.33 198.75x15 "Deposit" #e8dcc4
-                  text 1565.17,493.33 6.25x15 "—" #a3977f
+                  text 1359.75,493.33 155x15 "Deposit" #e8dcc4
+                  text 1521.42,493.33 50x15 "0g 1s 0c" #e8dcc4
                 text 1359.75,515 211.67x26 "Price: 1 copper under the lowest listed." #a3977f
                 box 1359.75,547.67 211.67x0
                 box 1359.75,554.33 211.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
@@ -442,8 +442,8 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                     box 1458.92,458.33 49.17x1.67 absolute #00000000
                     text 1470.58,465 25x15 "48 h" #a3977f
                 box 1359.75,493.33 211.67x15
-                  text 1359.75,493.33 198.75x15 "Deposit" #e8dcc4
-                  text 1565.17,493.33 6.25x15 "—" #a3977f
+                  text 1359.75,493.33 155x15 "Deposit" #e8dcc4
+                  text 1521.42,493.33 50x15 "0g 1s 0c" #e8dcc4
                 text 1359.75,515 211.67x26 "Price: 1 copper under the lowest listed." #a3977f
                 box 1359.75,547.67 211.67x13
                   text 1359.75,547.67 211.67x13 "Not enough money for the deposit" #ff4040
