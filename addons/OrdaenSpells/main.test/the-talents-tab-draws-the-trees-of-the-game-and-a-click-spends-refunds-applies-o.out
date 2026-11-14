@@ -21,13 +21,13 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
   box 425,173.04 363.5x47.75
     box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.58,183.29 77.33x34.25
-        text 461.14,192.62 42.22x15.6 "Spells" #b3a690 centred
+        text 461.14,192.62 42.22x15.6 "Spells" #a3977f centred
     box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 568.08,183.29 77.33x34.25
         text 582.86,192.62 47.78x15.6 "Primary" #ffd100 centred
     box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 692.58,183.29 77.33x34.25
-        text 700.69,192.62 61.11x15.6 "Secondary" #b3a690 centred
+        text 700.69,192.62 61.11x15.6 "Secondary" #a3977f centred
 asked: Spellbook.watch true
 asked: TalentTrees.watch true
 
@@ -67,13 +67,13 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
   box 425,173.04 363.5x47.75
     box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.58,183.29 77.33x34.25
-        text 461.14,192.62 42.22x15.6 "Spells" #b3a690 centred
+        text 461.14,192.62 42.22x15.6 "Spells" #a3977f centred
     box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 568.08,183.29 77.33x34.25
         text 582.86,192.62 47.78x15.6 "Primary" #ffd100 centred
     box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 692.58,183.29 77.33x34.25
-        text 700.69,192.62 61.11x15.6 "Secondary" #b3a690 centred
+        text 700.69,192.62 61.11x15.6 "Secondary" #a3977f centred
 
 -- what was asked of the game
 surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
@@ -121,13 +121,13 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
   box 425,173.04 363.5x47.75
     box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.58,183.29 77.33x34.25
-        text 461.14,192.62 42.22x15.6 "Spells" #b3a690 centred
+        text 461.14,192.62 42.22x15.6 "Spells" #a3977f centred
     box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 568.08,183.29 77.33x34.25
         text 582.86,192.62 47.78x15.6 "Primary" #ffd100 centred
     box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 692.58,183.29 77.33x34.25
-        text 700.69,192.62 61.11x15.6 "Secondary" #b3a690 centred
+        text 700.69,192.62 61.11x15.6 "Secondary" #a3977f centred
 asked: TalentTrees.spend 10
 asked: TalentTrees.refund 10
 asked: TalentTrees.commit
@@ -181,10 +181,10 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
   box 425,173.04 363.5x47.75
     box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.58,183.29 77.33x34.25
-        text 461.14,192.62 42.22x15.6 "Spells" #b3a690 centred
+        text 461.14,192.62 42.22x15.6 "Spells" #a3977f centred
     box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 568.08,183.29 77.33x34.25
-        text 582.86,192.62 47.78x15.6 "Primary" #b3a690 centred
+        text 582.86,192.62 47.78x15.6 "Primary" #a3977f centred
     box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 692.58,183.29 77.33x34.25
         text 700.69,192.62 61.11x15.6 "Secondary" #ffd100 centred
