@@ -233,6 +233,7 @@ surface 640,305.54 600x215.58 on DIALOG clamped raised by a click
       box 819.25,315.79 77.33x49.17
         text 836.04,332.87 43.75x15 "Recipes" #ffd100
 
+key: ESCAPE → none
 -- Escape: the window closes, the page stays
 box 0,0 300x22.4
   text 4,4 292x14.4 "a page under the window" #ffffff

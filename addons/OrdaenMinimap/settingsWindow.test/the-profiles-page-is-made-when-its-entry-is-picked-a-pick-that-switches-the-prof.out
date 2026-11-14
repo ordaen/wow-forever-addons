@@ -1,21 +1,4 @@
 -- Profiles picked in the list: the page of profiles, made now
-surface 1323.67,0 276.33x326.33 on MEDIUM clamped
-  box 1323.67,0 276.33x326.33 @enter @leave
-    box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      embed 1352.67,54 218.33x218.33 absolute frame=none
-      box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1421.21,33.17 81.25x15 @enter @leave
-          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
-      box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
-    box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
-      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
-    box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
-      box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
-    box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
   box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
@@ -136,10 +119,6 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
     box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
       box 335.25,149.96 77.33x37.5
         text 355.17,161.21 37.5x15 "Ordaen" #ffd100
-
-unsaved: 0, a save to take back: false, placing: false
-
--- this character picked for «Raid» with a change unsaved on the general page: the question over the window
 surface 1323.67,0 276.33x326.33 on MEDIUM clamped
   box 1323.67,0 276.33x326.33 @enter @leave
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
@@ -157,6 +136,10 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
     box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
       box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
     box 1323.67,0 0x0 absolute opacity=0
+
+unsaved: 0, a save to take back: false, placing: false
+
+-- this character picked for «Raid» with a change unsaved on the general page: the question over the window
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
   box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
@@ -288,6 +271,23 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
     box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
       box 335.25,149.96 77.33x37.5
         text 355.17,161.21 37.5x15 "Ordaen" #ffd100
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 @enter @leave
+    box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      embed 1352.67,54 218.33x218.33 absolute frame=none
+      box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1421.21,33.17 81.25x15 @enter @leave
+          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+      box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1361,278.17 170.42x15 @click @enter @leave
+          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,278.17 31.25x15 @click @enter @leave
+          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+    box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+    box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
+    box 1323.67,0 0x0 absolute opacity=0
 surface 0,0 1600x900 on DIALOG #0000008c
   box 593.58,385.04 412.83x129.92 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     text 623.83,431.96 357.33x15 "Save the changes in profile «Default»?" #e8dcc4
@@ -309,23 +309,6 @@ surface 0,0 1600x900 on DIALOG #0000008c
 unsaved: 1, a save to take back: false, placing: false
 
 -- Don't save: the character uses «Raid», nothing waits
-surface 1323.67,0 276.33x326.33 on MEDIUM clamped
-  box 1323.67,0 276.33x326.33 @enter @leave
-    box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      embed 1352.67,54 218.33x218.33 absolute frame=none
-      box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1421.21,33.17 81.25x15 @enter @leave
-          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
-      box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
-    box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
-      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
-    box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
-      box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
-    box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
   box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
@@ -457,5 +440,22 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
     box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
       box 335.25,149.96 77.33x37.5
         text 355.17,161.21 37.5x15 "Ordaen" #ffd100
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 @enter @leave
+    box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      embed 1352.67,54 218.33x218.33 absolute frame=none
+      box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1421.21,33.17 81.25x15 @enter @leave
+          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+      box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1361,278.17 170.42x15 @click @enter @leave
+          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,278.17 31.25x15 @click @enter @leave
+          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+    box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+    box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
+    box 1323.67,0 0x0 absolute opacity=0
 
 unsaved: 0, a save to take back: false, placing: false

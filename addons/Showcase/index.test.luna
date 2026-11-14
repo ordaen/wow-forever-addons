@@ -1,6 +1,6 @@
 // The library's controls on a page that uses them all, worked with the mouse and the keyboard.
 import Test from "$test"
-import { Key } from "$test"
+import { Key } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Showcase } from "@/index"
 

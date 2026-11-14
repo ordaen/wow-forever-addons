@@ -133,7 +133,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                 box 464.42,539.38 233.33x15 @enter @leave
                   text 464.42,539.38 233.33x15 "Auction house cut, %" #cbb994
                 box 712.75,538.54 427.83x16.67
-                  box 712.75,538.54 200x16.67 @click @drag @dragStart
+                  box 712.75,538.54 200x16.67 @click @drag @dragStart @key
                     box 712.75,543.54 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                     box 713.58,544.38 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                     box 756.08,536.88 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob

@@ -8,7 +8,7 @@ box 0,16.67 560x16.67 opacity=1
   box 0,17.5 233.33x15 @enter @leave
     text 0,17.5 233.33x15 "Auction house cut, %" #cbb994
   box 248.33,16.67 311.67x16.67
-    box 248.33,16.67 200x16.67 @click @drag @dragStart
+    box 248.33,16.67 200x16.67 @click @drag @dragStart @key
       box 248.33,21.67 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
       box 249.17,22.5 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
       box 291.67,15 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -34,7 +34,7 @@ box 0,16.67 560x16.67 opacity=1
   box 0,17.5 233.33x15 @enter @leave
     text 0,17.5 233.33x15 "Auction house cut, %" #cbb994
   box 248.33,16.67 311.67x16.67
-    box 248.33,16.67 200x16.67 @click @drag @dragStart
+    box 248.33,16.67 200x16.67 @click @drag @dragStart @key
       box 248.33,21.67 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
       box 249.17,22.5 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
       box 291.67,15 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob

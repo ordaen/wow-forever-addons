@@ -80,7 +80,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,252.21 233.33x15 @enter @leave
                 text 488.17,252.21 233.33x15 "Ordaen window scale" #cbb994
               box 736.5,251.37 514.08x16.67
-                box 736.5,251.37 200x16.67 @click @drag @dragStart
+                box 736.5,251.37 200x16.67 @click @drag @dragStart @key
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 804.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -187,7 +187,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,322.21 233.33x15 @enter @leave
                 text 488.17,322.21 233.33x15 "Decimal places" #cbb994
               box 736.5,321.38 514.08x16.67
-                box 736.5,321.38 200x16.67 @click @drag @dragStart
+                box 736.5,321.38 200x16.67 @click @drag @dragStart @key
                   box 736.5,326.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,327.21 132.22x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 863.17,319.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -281,7 +281,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,252.21 233.33x15 @enter @leave
                 text 488.17,252.21 233.33x15 "Map size" #cbb994
               box 736.5,251.37 514.08x16.67
-                box 736.5,251.37 200x16.67 @click @drag @dragStart
+                box 736.5,251.37 200x16.67 @click @drag @dragStart @key
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -394,7 +394,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,252.21 233.33x15 @enter @leave
                 text 488.17,252.21 233.33x15 "Map size" #cbb994
               box 736.5,251.37 514.08x16.67
-                box 736.5,251.37 200x16.67 @click @drag @dragStart
+                box 736.5,251.37 200x16.67 @click @drag @dragStart @key
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -503,7 +503,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,252.21 233.33x15 @enter @leave
                 text 488.17,252.21 233.33x15 "Map size" #cbb994
               box 736.5,251.37 514.08x16.67
-                box 736.5,251.37 200x16.67 @click @drag @dragStart
+                box 736.5,251.37 200x16.67 @click @drag @dragStart @key
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -618,7 +618,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,252.21 233.33x15 @enter @leave
                 text 488.17,252.21 233.33x15 "Map size" #cbb994
               box 736.5,251.37 514.08x16.67
-                box 736.5,251.37 200x16.67 @click @drag @dragStart
+                box 736.5,251.37 200x16.67 @click @drag @dragStart @key
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -736,7 +736,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,280.54 233.33x15 @enter @leave
                 text 488.17,280.54 233.33x15 "Columns" #cbb994
               box 736.5,279.71 514.08x16.67
-                box 736.5,279.71 200x16.67 @click @drag @dragStart
+                box 736.5,279.71 200x16.67 @click @drag @dragStart @key
                   box 736.5,284.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,285.54 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 769.83,278.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -829,7 +829,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,280.54 233.33x15 @enter @leave
                 text 488.17,280.54 233.33x15 "Columns" #cbb994
               box 736.5,279.71 514.08x16.67
-                box 736.5,279.71 200x16.67 @click @drag @dragStart
+                box 736.5,279.71 200x16.67 @click @drag @dragStart @key
                   box 736.5,284.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,285.54 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 769.83,278.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -920,7 +920,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,280.54 233.33x15 @enter @leave
                 text 488.17,280.54 233.33x15 "Columns" #cbb994
               box 736.5,279.71 514.08x16.67
-                box 736.5,279.71 200x16.67 @click @drag @dragStart
+                box 736.5,279.71 200x16.67 @click @drag @dragStart @key
                   box 736.5,284.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,285.54 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 769.83,278.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -1048,7 +1048,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,280.54 233.33x15 @enter @leave
                 text 488.17,280.54 233.33x15 "Columns" #cbb994
               box 736.5,279.71 514.08x16.67
-                box 736.5,279.71 200x16.67 @click @drag @dragStart
+                box 736.5,279.71 200x16.67 @click @drag @dragStart @key
                   box 736.5,284.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,285.54 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 769.83,278.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -1094,6 +1094,7 @@ asked: Minimap.wheelZoom
 
 unsaved: 0, a save to take back: false, placing: false
 
+key: ESCAPE → #1 «Cancel» (click)
 -- back on Ordaen's page, a checkbox changed, Escape: the question, the window stays
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
   box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
@@ -1138,7 +1139,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,252.21 233.33x15 @enter @leave
                 text 488.17,252.21 233.33x15 "Ordaen window scale" #cbb994
               box 736.5,251.37 514.08x16.67
-                box 736.5,251.37 200x16.67 @click @drag @dragStart
+                box 736.5,251.37 200x16.67 @click @drag @dragStart @key
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 804.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -1197,9 +1198,9 @@ surface 0,0 1600x900 on DIALOG #0000008c
     box 623.83,458.62 357.33x28.33
       box 623.83,458.62 2.33x0
       box 626.17,458.62 355x28.33
-        box 626.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 626.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click focus ring
           box 626.17,458.62 100x28.33 absolute
-            text 657.42,465.29 37.5x15 "Cancel" #ffd100
+            text 657.42,465.29 37.5x15 "Cancel" #ffffff
         box 732.83,458.62 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
           box 732.83,458.62 125x28.33 absolute
             text 764.08,465.29 62.5x15 "Don't save" #ffd100
@@ -1255,7 +1256,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,252.21 233.33x15 @enter @leave
                 text 488.17,252.21 233.33x15 "Ordaen window scale" #cbb994
               box 736.5,251.37 514.08x16.67
-                box 736.5,251.37 200x16.67 @click @drag @dragStart
+                box 736.5,251.37 200x16.67 @click @drag @dragStart @key
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 804.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -1306,6 +1307,7 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
 
 unsaved: 1, a save to take back: false, placing: false
 
+key: ESCAPE → #1 «Cancel» (click)
 -- Escape again and «Don't save»: closed, nothing waits
 surface 1323.67,0 276.33x326.33 on MEDIUM clamped
   box 1323.67,0 276.33x326.33 @enter @leave
@@ -1328,23 +1330,6 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
 unsaved: 0, a save to take back: false, placing: false
 
 -- opened on the minimap's page by its addon
-surface 1323.67,0 276.33x326.33 on MEDIUM clamped
-  box 1323.67,0 276.33x326.33 @enter @leave
-    box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      embed 1352.67,54 218.33x218.33 absolute frame=none
-      box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1421.21,33.17 81.25x15 @enter @leave
-          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
-      box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
-    box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
-      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
-    box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
-      box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
-    box 1323.67,0 0x0 absolute opacity=0
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
   box 316.67,139.71 966.67x37.25 absolute @drag @dragStart
   box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
@@ -1386,7 +1371,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 488.17,252.21 233.33x15 @enter @leave
                 text 488.17,252.21 233.33x15 "Map size" #cbb994
               box 736.5,251.37 514.08x16.67
-                box 736.5,251.37 200x16.67 @click @drag @dragStart
+                box 736.5,251.37 200x16.67 @click @drag @dragStart @key
                   box 736.5,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 737.33,257.21 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.83,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -1432,6 +1417,23 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
     box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
       box 335.25,149.96 77.33x37.5
         text 355.17,161.21 37.5x15 "Ordaen" #ffd100
+surface 1323.67,0 276.33x326.33 on MEDIUM clamped
+  box 1323.67,0 276.33x326.33 @enter @leave
+    box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      embed 1352.67,54 218.33x218.33 absolute frame=none
+      box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1421.21,33.17 81.25x15 @enter @leave
+          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+      box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
+        box 1361,278.17 170.42x15 @click @enter @leave
+          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
+        box 1531.42,278.17 31.25x15 @click @enter @leave
+          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+    box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
+    box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
+      box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
+    box 1323.67,0 0x0 absolute opacity=0
 
 unsaved: 0, a save to take back: false, placing: false
 

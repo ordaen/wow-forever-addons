@@ -1,6 +1,7 @@
 // The library's window over a page, worked with the mouse and the keyboard: its tabs, moving it, full screen,
 // resizing, closing. Time passes as the client lets it, the runtime's frame with the client's.
 import Client from "$client"
+import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Windowed } from "@/windowed"
@@ -82,7 +83,7 @@ test "the window: its tabs, moved, full screen, resized, closed" {
   dragBy(Test.painted(art.ctl.gripHover, nil), 500, -600)
   show("the grip dragged far right and far up: held at the widest and the smallest it may be")
 
-  Test.key(Test.Key.Escape)
+  Test.key(Key.Escape)
   show("Escape: the window closes, the page stays")
 
   destroy page

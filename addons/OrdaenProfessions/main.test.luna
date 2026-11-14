@@ -2,6 +2,7 @@
 // search, the chosen recipe and making it.
 import Client from "$client"
 import Game from "$game"
+import { Key } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
@@ -219,7 +220,7 @@ test "the professions window: the open profession, its lists, the search, a reci
   Game.tradeSkill.open = 164
   show("the game opened Blacksmithing: its lists, back on «Recipes» with no «Camp» tab, its one recipe", own)
 
-  Test.key(Test.Key.Escape)
+  Test.key(Key.Escape)
   show("Escape: the game is asked to close the profession", own)
 
   // The game hides its own window as the profession closes: given back, it stays hidden. Shown again, it would

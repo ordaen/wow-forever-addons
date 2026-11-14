@@ -22,7 +22,7 @@ box 0,0 700x231.4 @enter @leave
         box 0,92.17 233.33x15 @enter @leave
           text 0,92.17 233.33x15 "Size" #cbb994
         box 248.33,91.33 451.67x16.67
-          box 248.33,91.33 200x16.67 @click @drag @dragStart
+          box 248.33,91.33 200x16.67 @click @drag @dragStart @key
             box 248.33,96.33 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,97.17 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 291.67,89.67 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -31,7 +31,7 @@ box 0,0 700x231.4 @enter @leave
         box 0,120.5 233.33x15 @enter @leave
           text 0,120.5 233.33x15 "Columns" #cbb994
         box 248.33,119.67 451.67x16.67
-          box 248.33,119.67 200x16.67 @click @drag @dragStart
+          box 248.33,119.67 200x16.67 @click @drag @dragStart @key
             box 248.33,124.67 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,125.5 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 281.67,118 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob

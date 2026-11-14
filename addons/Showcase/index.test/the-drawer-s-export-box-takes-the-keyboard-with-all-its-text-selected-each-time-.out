@@ -46,6 +46,7 @@ box 0,0 700x388.07 @enter @leave
     box 0,359.73 120x28.33 absolute
       text 44.38,366.4 31.25x15 "Reset" #808080
 
+key: ESCAPE → none
 -- the first tab and the second again: the export box selects all its text anew
 box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67

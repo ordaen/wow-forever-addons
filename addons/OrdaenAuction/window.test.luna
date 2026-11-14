@@ -5,6 +5,7 @@
 // is `clock.test.luna`.
 import Client from "$client"
 import Game from "$game"
+import { Key } from "$ltml"
 import Test from "$test"
 import root Auction from "OrdaenAuction"
 import root Ordaen from "Ordaen"
@@ -37,7 +38,7 @@ test "the window shows while the house is open, the game's own put away; its clo
   Test.click(Test.holding("Sell", nil), nil)
   Test.pass(0.02)
   Test.expect(Auction.page == 2)
-  Test.key(.Escape)
+  Test.key(Key.Escape)
   Test.pass(0.02)
   Test.expect(!Game.auctionHouse.open)
   Test.expect(!Auction.shown)
@@ -89,7 +90,7 @@ test "«Sell»: the bags' items the house takes; one picked is posted from the c
   Test.click(Test.field(2), nil)
   Test.erase(20)
   Test.type("20s")
-  Test.key(.Enter)
+  Test.key(Key.Enter)
   Test.pass(0.02)
   Test.click(Test.holding("Post", nil), nil)
   Game.auctionHouse.open = false
