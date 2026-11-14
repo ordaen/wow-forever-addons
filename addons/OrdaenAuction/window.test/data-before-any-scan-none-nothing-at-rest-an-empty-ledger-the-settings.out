@@ -4,81 +4,81 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
     box 12.75,50 1579.5x839.5
       box 32.75,70 1539.5x761.17
         box 32.75,70 1539.5x761.17 scrolled 0 of 0
-          box 32.75,70 1539.5x371.67
-            box 32.75,70 1539.5x121.67
-              box 32.75,70 1539.5x15
-                text 32.75,70 31.25x15 "Scans" #e8c35a
-                box 72.33,77.08 1499.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-              box 32.75,96.67 1539.5x15
-                text 32.75,96.67 1501.58x15 "Last full scan" #a3977f
-                text 1541,96.67 31.25x15 "never" #e8dcc4
-              box 32.75,123.33 1539.5x15
-                text 32.75,123.33 1526.58x15 "Auctions and items in it" #a3977f
-                text 1566,123.33 6.25x15 "—" #e8dcc4
-              box 32.75,150 1539.5x15
-                text 32.75,150 1526.58x15 "Items with a price" #a3977f
-                text 1566,150 6.25x15 "0" #e8dcc4
-              box 32.75,176.67 1539.5x15
-                text 32.75,176.67 1507.83x15 "Saved size" #a3977f
-                text 1547.25,176.67 25x15 "0 KB" #e8dcc4
-            box 32.75,198.33 1539.5x68.33
-              box 32.75,198.33 1539.5x15
-                text 32.75,198.33 75x15 "Sales ledger" #e8c35a
-                box 116.08,205.42 1456.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-              box 32.75,225 1539.5x15
-                text 32.75,225 1482.83x15 "Sold: 0" #a3977f
-                text 1522.25,225 50x15 "0g 0s 0c" #e8dcc4
-              box 32.75,251.67 1539.5x15
-                text 32.75,251.67 1482.83x15 "Bought: 0" #a3977f
-                text 1522.25,251.67 50x15 "0g 0s 0c" #e8dcc4
-            box 32.75,273.33 1539.5x168.33
-              box 32.75,273.33 1539.5x15
-                text 32.75,273.33 50x15 "Settings" #e8c35a
-                box 91.08,280.42 1481.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-              box 32.75,300 1539.5x16.67 opacity=0.45
-                box 32.75,300.83 233.33x15 @enter @leave
-                  text 32.75,300.83 233.33x15 "Scan when the auction house opens" #cbb994
-                box 281.08,300 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                  box 278.58,297.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-                  box 293.58,297.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-              box 32.75,328.33 1539.5x16.67 opacity=0.45
-                box 32.75,329.17 233.33x15 @enter @leave
-                  text 32.75,329.17 233.33x15 "Auction house cut, %" #cbb994
-                box 281.08,328.33 1291.17x16.67
-                  box 281.08,328.33 200x16.67 @click @drag @dragStart @key
-                    box 281.08,333.33 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-                    box 281.92,334.17 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
-                    box 324.42,326.67 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-                  text 491.08,329.17 6.25x15 "5" #ffffff
-              box 32.75,356.67 1539.5x16.67 opacity=0.45
-                box 32.75,357.5 233.33x15 @enter @leave
-                  text 32.75,357.5 233.33x15 "Ordaen's auction house window" #cbb994
-                box 281.08,356.67 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                  box 278.58,354.17 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-                  box 293.58,354.17 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-              box 32.75,385 1539.5x16.67 opacity=0.45
-                box 32.75,385.83 233.33x15 @enter @leave
-                  text 32.75,385.83 233.33x15 "Price in item tooltips" #cbb994
-                box 281.08,385 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-                  box 278.58,382.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-                  box 293.58,382.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-              box 32.75,413.33 1539.5x28.33
-                box 32.75,413.33 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 32.75,413.33 116.67x28.33 absolute
-                    text 66.08,420 50x15 "Settings" #ffd100
+          box 32.75,70 1539.5x377.07
+            box 32.75,70 1539.5x124.67
+              box 32.75,70 1539.5x15.6
+                text 32.75,70 35.56x15.6 "Scans" #e8c35a
+                box 76.64,77.38 1495.61x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+              box 32.75,97.27 1539.5x15.6
+                text 32.75,97.27 1497.28x15.6 "Last full scan" #a3977f
+                text 1536.69,97.27 35.56x15.6 "never" #e8dcc4
+              box 32.75,124.53 1539.5x15.6
+                text 32.75,124.53 1523.94x15.6 "Auctions and items in it" #a3977f
+                text 1563.36,124.53 8.89x15.6 "—" #e8dcc4
+              box 32.75,151.8 1539.5x15.6
+                text 32.75,151.8 1523.94x15.6 "Items with a price" #a3977f
+                text 1563.36,151.8 8.89x15.6 "0" #e8dcc4
+              box 32.75,179.07 1539.5x15.6
+                text 32.75,179.07 1503.94x15.6 "Saved size" #a3977f
+                text 1543.36,179.07 28.89x15.6 "0 KB" #e8dcc4
+            box 32.75,201.33 1539.5x70.13
+              box 32.75,201.33 1539.5x15.6
+                text 32.75,201.33 81.11x15.6 "Sales ledger" #e8c35a
+                box 122.19,208.72 1450.06x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+              box 32.75,228.6 1539.5x15.6
+                text 32.75,228.6 1478.39x15.6 "Sold: 0" #a3977f
+                text 1517.81,228.6 54.44x15.6 "0g 0s 0c" #e8dcc4
+              box 32.75,255.87 1539.5x15.6
+                text 32.75,255.87 1478.39x15.6 "Bought: 0" #a3977f
+                text 1517.81,255.87 54.44x15.6 "0g 0s 0c" #e8dcc4
+            box 32.75,278.13 1539.5x168.93
+              box 32.75,278.13 1539.5x15.6
+                text 32.75,278.13 54.44x15.6 "Settings" #e8c35a
+                box 95.53,285.52 1476.72x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+              box 32.75,305.4 1539.5x16.67 opacity=0.45
+                box 32.75,305.93 233.33x15.6 @enter @leave
+                  text 32.75,305.93 233.33x15.6 "Scan when the auction house opens" #cbb994
+                box 281.08,305.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                  box 278.58,302.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+                  box 293.58,302.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+              box 32.75,333.73 1539.5x16.67 opacity=0.45
+                box 32.75,334.27 233.33x15.6 @enter @leave
+                  text 32.75,334.27 233.33x15.6 "Auction house cut, %" #cbb994
+                box 281.08,333.73 1291.17x16.67
+                  box 281.08,333.73 200x16.67 @click @drag @dragStart @key
+                    box 281.08,338.73 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+                    box 281.92,339.57 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+                    box 324.42,332.07 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+                  text 491.08,334.27 8.89x15.6 "5" #ffffff
+              box 32.75,362.07 1539.5x16.67 opacity=0.45
+                box 32.75,362.6 233.33x15.6 @enter @leave
+                  text 32.75,362.6 233.33x15.6 "Ordaen's auction house window" #cbb994
+                box 281.08,362.07 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                  box 278.58,359.57 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+                  box 293.58,359.57 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+              box 32.75,390.4 1539.5x16.67 opacity=0.45
+                box 32.75,390.93 233.33x15.6 @enter @leave
+                  text 32.75,390.93 233.33x15.6 "Price in item tooltips" #cbb994
+                box 281.08,390.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                  box 278.58,387.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+                  box 293.58,387.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+              box 32.75,418.73 1539.5x28.33
+                box 32.75,418.73 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 32.75,418.73 116.67x28.33 absolute
+                    text 63.86,425.1 54.44x15.6 "Settings" #ffd100 centred
       box 32.75,831.17 1539.5x45
         box 32.75,847.83 1539.5x28.33
-          text 32.75,855.5 1414.5x13 "No prices for this realm: the first scan is under way" #a3977f
+          text 32.75,854.8 1414.5x14.4 "No prices for this realm: the first scan is under way" #a3977f
           box 1463.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 1463.92,847.83 108.33x28.33 absolute
-              text 1505.58,854.5 25x15 "Scan" #ffd100
+              text 1503.64,854.2 28.89x15.6 "Scan" #ffd100 centred
   box 0,0 363.5x47.75
     box 0,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 18.58,10.25 77.33x34.25
-        text 47.87,19.88 18.75x15 "Buy" #b3a690
+        text 46.14,19.57 22.22x15.6 "Buy" #b3a690 centred
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
-        text 169.25,19.88 25x15 "Sell" #b3a690
+        text 167.31,19.57 28.89x15.6 "Sell" #b3a690 centred
     box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 267.58,10.25 77.33x34.25
-        text 293.75,19.88 25x15 "Data" #ffd100
+        text 291.81,19.57 28.89x15.6 "Data" #ffd100 centred

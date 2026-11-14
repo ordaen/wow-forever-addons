@@ -6,27 +6,27 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         box 32.75,70 1255.92x761.17
           box 32.75,70 183.33x761.17 #0000004d
             box 33.58,70.83 181.67x759.5 scrolled 0 of 0
-              box 33.58,70.83 181.67x26.67 #00000040 @click
-                box 33.58,70.83 2.5x26.67 absolute #d6a56b
-                text 46.92,76.67 150x15 "All items" #ffffff
-                box 205.25,84.17 0x0
-              box 33.58,97.5 181.67x26.67
-                box 33.58,97.5 181.67x26.67 #00000000 @click
-                  box 33.58,97.5 2.5x26.67 absolute #00000000
-                  text 46.92,103.33 150x15 "Weapon" #e8dcc4
-                  box 205.25,110.83 0x0
-              box 33.58,124.17 181.67x26.67
-                box 33.58,124.17 181.67x26.67 #00000000 @click
-                  box 33.58,124.17 2.5x26.67 absolute #00000000
-                  text 46.92,130 150x15 "Trade Goods" #e8dcc4
-                  box 205.25,137.5 0x0
+              box 33.58,70.83 181.67x27.27 #00000040 @click
+                box 33.58,70.83 2.5x27.27 absolute #d6a56b
+                text 46.92,76.67 150x15.6 "All items" #ffffff
+                box 205.25,84.47 0x0
+              box 33.58,98.1 181.67x27.27
+                box 33.58,98.1 181.67x27.27 #00000000 @click
+                  box 33.58,98.1 2.5x27.27 absolute #00000000
+                  text 46.92,103.93 150x15.6 "Weapon" #e8dcc4
+                  box 205.25,111.73 0x0
+              box 33.58,125.37 181.67x27.27
+                box 33.58,125.37 181.67x27.27 #00000000 @click
+                  box 33.58,125.37 2.5x27.27 absolute #00000000
+                  text 46.92,131.2 150x15.6 "Trade Goods" #e8dcc4
+                  box 205.25,139 0x0
           box 222.75,70 1065.92x761.17
             box 222.75,70 1065.92x28.33
               box 222.75,70 934.25x28.33
                 box 222.75,70 900.92x28.33
                   box 222.75,70 900.92x28.33 #00000080 input "" @change @submit
                   box 222.75,70 900.92x28.33 absolute
-                    text 231.08,76.67 884.25x15 "Item name" #a3977f
+                    text 231.08,76.37 884.25x15.6 "Item name" #a3977f
                 box 1123.67,70 33.33x28.33
                   box 1123.67,70 33.33x28.33
                     box 1128.67,70 28.33x28.33
@@ -34,189 +34,189 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                         box 1136.17,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
               box 1163.67,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1163.67,70 125x28.33 absolute
-                  text 1185.54,76.67 81.25x15 "Shopping list" #ffd100
+                  text 1182.28,76.37 87.78x15.6 "Shopping list" #ffd100 centred
             box 222.75,105 1065.92x726.17 #0000004d
               box 223.58,105.83 1064.25x724.5
-                box 223.58,105.83 1064.25x29.17 #00000040
-                  box 230.25,105.83 639.25x28.33 #00000000 @click
-                    box 230.25,132.5 639.25x1.67 absolute #00000000
-                    box 230.25,112.5 639.25x15
-                      text 230.25,112.5 25x15 "Item" #cbb994
-                      box 258.58,117.5 6.67x5
-                        box 255.25,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                box 223.58,105.83 1064.25x29.77 #00000040
+                  box 230.25,105.83 639.25x28.93 #00000000 @click
+                    box 230.25,133.1 639.25x1.67 absolute #00000000
+                    box 230.25,112.5 639.25x15.6
+                      text 230.25,112.5 28.89x15.6 "Item" #cbb994
+                      box 262.47,117.8 6.67x5
+                        box 259.14,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                   box 876.17,105.83 36.67x13.33 #00000000 @click
                     box 876.17,117.5 36.67x1.67 absolute #00000000
                     box 876.17,112.5 36.67x0
                       text 876.17,112.5 0x0 "" #a3977f
-                  box 919.5,105.83 75x28.33 #00000000 @click
-                    box 919.5,132.5 75x1.67 absolute #00000000
-                    box 947,112.5 47.5x15
-                      text 947,112.5 37.5x15 "Listed" #cbb994
-                      box 987.83,117.5 6.67x5
-                        box 984.5,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 1001.17,105.83 80x28.33 #00000000 @click
-                    box 1001.17,132.5 80x1.67 absolute #00000000
-                    box 1033.67,112.5 47.5x15
-                      text 1033.67,112.5 37.5x15 "Lowest" #cbb994
-                      box 1074.5,117.5 6.67x5
-                        box 1071.17,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 1087.83,105.83 75x28.33 #00000000 @click
-                    box 1087.83,132.5 75x1.67 absolute #00000000
-                    box 1115.33,112.5 47.5x15
-                      text 1115.33,112.5 37.5x15 "Market" #cbb994
-                      box 1156.17,117.5 6.67x5
-                        box 1152.83,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 1169.5,105.83 46.67x28.33 #00000000 @click
-                    box 1169.5,132.5 46.67x1.67 absolute #00000000
-                    box 1199.92,112.5 16.25x15
-                      text 1199.92,112.5 6.25x15 "%" #cbb994
-                      box 1209.5,117.5 6.67x5
-                        box 1206.17,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 1222.83,105.83 58.33x28.33 #00000000 @click
-                    box 1222.83,132.5 58.33x1.67 absolute #00000000
-                    box 1252.42,112.5 28.75x15
-                      text 1252.42,112.5 18.75x15 "Age" #cbb994
-                      box 1274.5,117.5 6.67x5
-                        box 1271.17,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 223.58,135 1064.25x695.33 scrolled 0 of 0
-                  box 223.58,135 1064.25x26.67 #00000040 @click
-                    box 230.25,138.33 639.25x20
-                      box 230.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
-                        box 230.25,138.33 20x20 absolute
-                        box 230.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                        box 230.25,138.33 20x20 absolute #00000000
-                      box 256.92,140.83 612.58x15 clipped
-                        text 256.92,140.83 612.58x15 "Bronze Axe" #e8dcc4
-                    box 876.17,148.33 36.67x0
-                    box 919.5,140.83 75x15
-                      text 988.25,140.83 6.25x15 "3" #e8dcc4
-                    box 1001.17,140.83 80x15
-                      text 1024.92,140.83 56.25x15 "0g 21s 0c" #e8dcc4
-                    box 1087.83,140.83 75x15
-                      text 1106.58,140.83 56.25x15 "0g 21s 0c" #e8dcc4
-                    box 1169.5,140.83 46.67x15
-                      text 1191.17,140.83 25x15 "100%" #e8dcc4
-                    box 1222.83,140.83 58.33x15
-                      text 1249.92,140.83 31.25x15 "< 1 h" #e8dcc4
+                  box 919.5,105.83 75x28.93 #00000000 @click
+                    box 919.5,133.1 75x1.67 absolute #00000000
+                    box 942.28,112.5 52.22x15.6
+                      text 942.28,112.5 42.22x15.6 "Listed" #cbb994
+                      box 987.83,117.8 6.67x5
+                        box 984.5,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1001.17,105.83 80x28.93 #00000000 @click
+                    box 1001.17,133.1 80x1.67 absolute #00000000
+                    box 1028.94,112.5 52.22x15.6
+                      text 1028.94,112.5 42.22x15.6 "Lowest" #cbb994
+                      box 1074.5,117.8 6.67x5
+                        box 1071.17,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1087.83,105.83 75x28.93 #00000000 @click
+                    box 1087.83,133.1 75x1.67 absolute #00000000
+                    box 1110.61,112.5 52.22x15.6
+                      text 1110.61,112.5 42.22x15.6 "Market" #cbb994
+                      box 1156.17,117.8 6.67x5
+                        box 1152.83,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1169.5,105.83 46.67x28.93 #00000000 @click
+                    box 1169.5,133.1 46.67x1.67 absolute #00000000
+                    box 1197.28,112.5 18.89x15.6
+                      text 1197.28,112.5 8.89x15.6 "%" #cbb994
+                      box 1209.5,117.8 6.67x5
+                        box 1206.17,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1222.83,105.83 58.33x28.93 #00000000 @click
+                    box 1222.83,133.1 58.33x1.67 absolute #00000000
+                    box 1248.94,112.5 32.22x15.6
+                      text 1248.94,112.5 22.22x15.6 "Age" #cbb994
+                      box 1274.5,117.8 6.67x5
+                        box 1271.17,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                box 223.58,135.6 1064.25x694.73 scrolled 0 of 0
+                  box 223.58,135.6 1064.25x26.67 #00000040 @click
+                    box 230.25,138.93 639.25x20
+                      box 230.25,138.93 20x20 #0d0a08 opacity=1 @click @enter
+                        box 230.25,138.93 20x20 absolute
+                        box 230.25,138.93 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                        box 230.25,138.93 20x20 absolute #00000000
+                      box 256.92,141.13 612.58x15.6 clipped
+                        text 256.92,141.13 612.58x15.6 "Bronze Axe" #e8dcc4
+                    box 876.17,148.93 36.67x0
+                    box 919.5,141.13 75x15.6
+                      text 985.61,141.13 8.89x15.6 "3" #e8dcc4 right
+                    box 1001.17,141.13 80x15.6
+                      text 1020.06,141.13 61.11x15.6 "0g 21s 0c" #e8dcc4 right
+                    box 1087.83,141.13 75x15.6
+                      text 1101.72,141.13 61.11x15.6 "0g 21s 0c" #e8dcc4 right
+                    box 1169.5,141.13 46.67x15.6
+                      text 1187.28,141.13 28.89x15.6 "100%" #e8dcc4 right
+                    box 1222.83,141.13 58.33x15.6
+                      text 1245.61,141.13 35.56x15.6 "< 1 h" #e8dcc4 right
       box 32.75,831.17 1255.92x45
         box 32.75,847.83 1255.92x28.33
-          text 32.75,855.5 1130.92x13 "1 item" #a3977f
+          text 32.75,854.8 1130.92x14.4 "1 item" #a3977f
           box 1180.33,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 1180.33,847.83 108.33x28.33 absolute
-              text 1222,854.5 25x15 "Scan" #ffd100
+              text 1220.06,854.2 28.89x15.6 "Scan" #ffd100 centred
     box 1308.67,50 283.58x839.5 border=ButtonFrameTemplateNoPortrait sides=left
       box 1338.92,70 233.33x806.17
         box 1338.92,70 233.33x806.17
           box 1338.92,70 233.33x806.17
-            box 1338.92,70 233.33x33.33
-              box 1338.92,70 33.33x33.33 #0d0a08 opacity=1 @click @enter
-                box 1338.92,70 33.33x33.33 absolute
-                box 1338.92,70 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                box 1338.92,70 33.33x33.33 absolute #00000000
-              box 1380.58,70.33 191.67x32.67 clipped
-                text 1380.58,70.33 191.67x18 "Bronze Axe" #e8dcc4
-                text 1380.58,90 191.67x13 "Listed: 3" #a3977f
-            box 1338.92,120 233.33x113.33
-              box 1338.92,120 233.33x28.33 opacity=1
-                box 1338.92,120 43.75x28.33 #5a4428 @click
-                  box 1338.92,120 43.75x1.67 absolute #d6a56b
-                  text 1351.42,126.67 18.75x15 "Day" #ffffff
-                box 1382.67,120 49.17x28.33 #0d0a08 @click
-                  box 1382.67,120 49.17x1.67 absolute #00000000
-                  text 1394.33,126.67 25x15 "Week" #a3977f
-                box 1431.83,120 55.42x28.33 #0d0a08 @click
-                  box 1431.83,120 55.42x1.67 absolute #00000000
-                  text 1443.5,126.67 31.25x15 "Month" #a3977f
-              box 1338.92,155 233.33x78.33
-                box 1338.92,155 233.33x60 #00000040
-                  box 1338.92,215 8.92x0 #d6a56b
-                  box 1348.67,215 8.92x0 #d6a56b
-                  box 1358.43,215 8.92x0 #d6a56b
-                  box 1368.19,215 8.92x0 #d6a56b
-                  box 1377.94,215 8.92x0 #d6a56b
-                  box 1387.7,215 8.92x0 #d6a56b
-                  box 1397.46,215 8.92x0 #d6a56b
-                  box 1407.22,215 8.92x0 #d6a56b
-                  box 1416.97,215 8.92x0 #d6a56b
-                  box 1426.73,215 8.92x0 #d6a56b
-                  box 1436.49,215 8.92x0 #d6a56b
-                  box 1446.24,215 8.92x0 #d6a56b
-                  box 1456,215 8.92x0 #d6a56b
-                  box 1465.76,215 8.92x0 #d6a56b
-                  box 1475.51,215 8.92x0 #d6a56b
-                  box 1485.27,215 8.92x0 #d6a56b
-                  box 1495.03,215 8.92x0 #d6a56b
-                  box 1504.78,215 8.92x0 #d6a56b
-                  box 1514.54,215 8.92x0 #d6a56b
-                  box 1524.3,215 8.92x0 #d6a56b
-                  box 1534.06,215 8.92x0 #d6a56b
-                  box 1543.81,215 8.92x0 #d6a56b
-                  box 1553.57,215 8.92x0 #d6a56b
-                  box 1563.33,155 8.92x60 #f0c860
-                box 1338.92,218.33 233.33x15
-                  text 1338.92,218.33 56.25x15 "0g 21s 0c" #e8dcc4
-                  box 1401.83,225.83 107.5x0
-                  text 1516,218.33 56.25x15 "0g 21s 0c" #e8dcc4
-            box 1338.92,250 233.33x58.33
-              text 1338.92,250 167.08x15 "Market" #e8dcc4
-              box 1512.67,250 59.58x15
-                text 1512.67,250 56.25x15 "0g 21s 0c" #e8dcc4
-              text 1338.92,271.67 167.08x15 "Lowest" #e8dcc4
-              text 1512.67,271.67 59.58x15 "0g 21s 0c" #e8dcc4
-              text 1338.92,293.33 167.08x15 "Vendor price each" #e8dcc4
-              text 1512.67,293.33 59.58x15 "—" #a3977f
-            box 1338.92,325 233.33x551.17
-              box 1338.92,325 233.33x551.17
-                box 1338.92,325 233.33x431.17 #0000004d
-                  box 1339.75,325.83 231.67x429.5
-                    box 1339.75,325.83 231.67x29.17 #00000040
-                      box 1346.42,325.83 118.33x28.33 #00000000 @click
-                        box 1346.42,352.5 118.33x1.67 absolute #00000000
-                        box 1436.42,332.5 28.33x15
-                          text 1436.42,332.5 25x15 "Each" #a3977f
-                      box 1471.42,325.83 40x28.33 #00000000 @click
-                        box 1471.42,352.5 40x1.67 absolute #00000000
-                        box 1476.83,332.5 34.58x15
-                          text 1476.83,332.5 31.25x15 "Count" #a3977f
-                      box 1518.08,325.83 46.67x28.33 #00000000 @click
-                        box 1518.08,352.5 46.67x1.67 absolute #00000000
-                        box 1536.42,332.5 28.33x15
-                          text 1536.42,332.5 25x15 "Left" #a3977f
-                    box 1339.75,355 231.67x400.33 scrolled 0 of 0
-                      box 1339.75,355 231.67x21.67 #00000000 @click
-                        box 1346.42,358.33 118.33x15
-                          text 1414.75,358.33 50x15 "0g 0s 0c" #e8dcc4
-                        box 1471.42,358.33 40x15
-                          text 1505.17,358.33 6.25x15 "1" #e8dcc4
-                        box 1518.08,358.33 46.67x15
-                          text 1527.25,358.33 37.5x15 "60 min" #e8dcc4
-                      box 1339.75,376.67 231.67x21.67 #00000000 @click
-                        box 1346.42,380 118.33x15
-                          text 1408.5,380 56.25x15 "0g 21s 0c" #e8dcc4
-                        box 1471.42,380 40x15
-                          text 1505.17,380 6.25x15 "1" #e8dcc4
-                        box 1518.08,380 46.67x15
-                          text 1546,380 18.75x15 "2 h" #e8dcc4
-                      box 1339.75,398.33 231.67x21.67 #00000040 @click
-                        box 1346.42,401.67 118.33x15
-                          text 1408.5,401.67 56.25x15 "0g 22s 0c" #e8dcc4
-                        box 1471.42,401.67 40x15
-                          text 1505.17,401.67 6.25x15 "1" #e8dcc4
-                        box 1518.08,401.67 46.67x15
-                          text 1546,401.67 18.75x15 "2 h" #e8dcc4
-                box 1338.92,762.83 233.33x36.67
-                  text 1338.92,762.83 170.42x15 "Quantity" #e8dcc4
-                  text 1516,762.83 56.25x15 "1" #e8dcc4
-                  text 1338.92,784.5 170.42x15 "Total" #e8dcc4
-                  box 1516,784.5 56.25x15
-                    text 1516,784.5 56.25x15 "0g 22s 0c" #e8dcc4
+            box 1338.92,70 233.33x35.27
+              box 1338.92,70.97 33.33x33.33 #0d0a08 opacity=1 @click @enter
+                box 1338.92,70.97 33.33x33.33 absolute
+                box 1338.92,70.97 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                box 1338.92,70.97 33.33x33.33 absolute #00000000
+              box 1380.58,70 191.67x35.27 clipped
+                text 1380.58,70 191.67x19.2 "Bronze Axe" #e8dcc4
+                text 1380.58,90.87 191.67x14.4 "Listed: 3" #a3977f
+            box 1338.92,121.93 233.33x114.53
+              box 1338.92,121.93 233.33x28.93 opacity=1
+                box 1338.92,121.93 47.22x28.93 #5a4428 @click
+                  box 1338.92,121.93 47.22x1.67 absolute #d6a56b
+                  text 1351.42,128.6 22.22x15.6 "Day" #ffffff centred
+                box 1386.14,121.93 53.06x28.93 #0d0a08 @click
+                  box 1386.14,121.93 53.06x1.67 absolute #00000000
+                  text 1397.81,128.6 28.89x15.6 "Week" #a3977f centred
+                box 1439.19,121.93 59.72x28.93 #0d0a08 @click
+                  box 1439.19,121.93 59.72x1.67 absolute #00000000
+                  text 1450.86,128.6 35.56x15.6 "Month" #a3977f centred
+              box 1338.92,157.53 233.33x78.93
+                box 1338.92,157.53 233.33x60 #00000040
+                  box 1338.92,217.53 8.92x0 #d6a56b
+                  box 1348.67,217.53 8.92x0 #d6a56b
+                  box 1358.43,217.53 8.92x0 #d6a56b
+                  box 1368.19,217.53 8.92x0 #d6a56b
+                  box 1377.94,217.53 8.92x0 #d6a56b
+                  box 1387.7,217.53 8.92x0 #d6a56b
+                  box 1397.46,217.53 8.92x0 #d6a56b
+                  box 1407.22,217.53 8.92x0 #d6a56b
+                  box 1416.97,217.53 8.92x0 #d6a56b
+                  box 1426.73,217.53 8.92x0 #d6a56b
+                  box 1436.49,217.53 8.92x0 #d6a56b
+                  box 1446.24,217.53 8.92x0 #d6a56b
+                  box 1456,217.53 8.92x0 #d6a56b
+                  box 1465.76,217.53 8.92x0 #d6a56b
+                  box 1475.51,217.53 8.92x0 #d6a56b
+                  box 1485.27,217.53 8.92x0 #d6a56b
+                  box 1495.03,217.53 8.92x0 #d6a56b
+                  box 1504.78,217.53 8.92x0 #d6a56b
+                  box 1514.54,217.53 8.92x0 #d6a56b
+                  box 1524.3,217.53 8.92x0 #d6a56b
+                  box 1534.06,217.53 8.92x0 #d6a56b
+                  box 1543.81,217.53 8.92x0 #d6a56b
+                  box 1553.57,217.53 8.92x0 #d6a56b
+                  box 1563.33,157.53 8.92x60 #f0c860
+                box 1338.92,220.87 233.33x15.6
+                  text 1338.92,220.87 61.11x15.6 "0g 21s 0c" #e8dcc4
+                  box 1406.69,228.67 97.78x0
+                  text 1511.14,220.87 61.11x15.6 "0g 21s 0c" #e8dcc4
+            box 1338.92,253.13 233.33x60.13
+              text 1338.92,253.13 162.22x15.6 "Market" #e8dcc4
+              box 1507.81,253.13 64.44x15.6
+                text 1507.81,253.13 61.11x15.6 "0g 21s 0c" #e8dcc4
+              text 1338.92,275.4 162.22x15.6 "Lowest" #e8dcc4
+              text 1507.81,275.4 64.44x15.6 "0g 21s 0c" #e8dcc4
+              text 1338.92,297.67 162.22x15.6 "Vendor price each" #e8dcc4
+              text 1507.81,297.67 64.44x15.6 "—" #a3977f
+            box 1338.92,329.93 233.33x546.23
+              box 1338.92,329.93 233.33x546.23
+                box 1338.92,329.93 233.33x425.03 #0000004d
+                  box 1339.75,330.77 231.67x423.37
+                    box 1339.75,330.77 231.67x29.77 #00000040
+                      box 1346.42,330.77 118.33x28.93 #00000000 @click
+                        box 1346.42,358.03 118.33x1.67 absolute #00000000
+                        box 1432.53,337.43 32.22x15.6
+                          text 1432.53,337.43 28.89x15.6 "Each" #a3977f
+                      box 1471.42,330.77 40x28.93 #00000000 @click
+                        box 1471.42,358.03 40x1.67 absolute #00000000
+                        box 1472.53,337.43 38.89x15.6
+                          text 1472.53,337.43 35.56x15.6 "Count" #a3977f
+                      box 1518.08,330.77 46.67x28.93 #00000000 @click
+                        box 1518.08,358.03 46.67x1.67 absolute #00000000
+                        box 1532.53,337.43 32.22x15.6
+                          text 1532.53,337.43 28.89x15.6 "Left" #a3977f
+                    box 1339.75,360.53 231.67x393.6 scrolled 0 of 0
+                      box 1339.75,360.53 231.67x23.33 #00000000 @click
+                        box 1346.42,364.4 118.33x15.6
+                          text 1410.31,364.4 54.44x15.6 "0g 0s 0c" #e8dcc4 right
+                        box 1471.42,364.4 40x15.6
+                          text 1502.53,364.4 8.89x15.6 "1" #e8dcc4 right
+                        box 1518.08,364.4 46.67x15.6
+                          text 1522.53,364.4 42.22x15.6 "60 min" #e8dcc4 right
+                      box 1339.75,383.87 231.67x23.33 #00000000 @click
+                        box 1346.42,387.73 118.33x15.6
+                          text 1403.64,387.73 61.11x15.6 "0g 21s 0c" #e8dcc4 right
+                        box 1471.42,387.73 40x15.6
+                          text 1502.53,387.73 8.89x15.6 "1" #e8dcc4 right
+                        box 1518.08,387.73 46.67x15.6
+                          text 1542.53,387.73 22.22x15.6 "2 h" #e8dcc4 right
+                      box 1339.75,407.2 231.67x23.33 #00000040 @click
+                        box 1346.42,411.07 118.33x15.6
+                          text 1403.64,411.07 61.11x15.6 "0g 22s 0c" #e8dcc4 right
+                        box 1471.42,411.07 40x15.6
+                          text 1502.53,411.07 8.89x15.6 "1" #e8dcc4 right
+                        box 1518.08,411.07 46.67x15.6
+                          text 1542.53,411.07 22.22x15.6 "2 h" #e8dcc4 right
+                box 1338.92,761.63 233.33x37.87
+                  text 1338.92,761.63 165.56x15.6 "Quantity" #e8dcc4
+                  text 1511.14,761.63 61.11x15.6 "1" #e8dcc4
+                  text 1338.92,783.9 165.56x15.6 "Total" #e8dcc4
+                  box 1511.14,783.9 61.11x15.6
+                    text 1511.14,783.9 61.11x15.6 "0g 22s 0c" #e8dcc4 right
                 box 1338.92,806.17 233.33x0
                 box 1338.92,812.83 233.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
                   box 1338.92,812.83 233.33x28.33 absolute
-                    text 1446.21,819.5 18.75x15 "Buy" #ffd100
+                    text 1444.47,819.2 22.22x15.6 "Buy" #ffd100 centred
                 box 1338.92,847.83 233.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                   box 1338.92,847.83 233.33x28.33 absolute
-                    text 1393.08,854.5 125x15 "Add to shopping list" #ffd100
+                    text 1389.47,854.2 132.22x15.6 "Add to shopping list" #ffd100 centred
     box 1516.08,49.08 77.5x26.67 absolute clipped
       box 1516.08,49.08 29.17x26.67 absolute clipped @click
         box 1516.08,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -230,13 +230,13 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
   box 0,0 363.5x47.75
     box 0,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 18.58,10.25 77.33x34.25
-        text 47.87,19.88 18.75x15 "Buy" #ffd100
+        text 46.14,19.57 22.22x15.6 "Buy" #ffd100 centred
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
-        text 169.25,19.88 25x15 "Sell" #b3a690
+        text 167.31,19.57 28.89x15.6 "Sell" #b3a690 centred
     box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 267.58,10.25 77.33x34.25
-        text 293.75,19.88 25x15 "Data" #b3a690
+        text 291.81,19.57 28.89x15.6 "Data" #b3a690 centred
 asked: AuctionQuery.listings 2847
 
 -- refused: the client's words
@@ -247,27 +247,27 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         box 32.75,70 1255.92x761.17
           box 32.75,70 183.33x761.17 #0000004d
             box 33.58,70.83 181.67x759.5 scrolled 0 of 0
-              box 33.58,70.83 181.67x26.67 #00000040 @click
-                box 33.58,70.83 2.5x26.67 absolute #d6a56b
-                text 46.92,76.67 150x15 "All items" #ffffff
-                box 205.25,84.17 0x0
-              box 33.58,97.5 181.67x26.67
-                box 33.58,97.5 181.67x26.67 #00000000 @click
-                  box 33.58,97.5 2.5x26.67 absolute #00000000
-                  text 46.92,103.33 150x15 "Weapon" #e8dcc4
-                  box 205.25,110.83 0x0
-              box 33.58,124.17 181.67x26.67
-                box 33.58,124.17 181.67x26.67 #00000000 @click
-                  box 33.58,124.17 2.5x26.67 absolute #00000000
-                  text 46.92,130 150x15 "Trade Goods" #e8dcc4
-                  box 205.25,137.5 0x0
+              box 33.58,70.83 181.67x27.27 #00000040 @click
+                box 33.58,70.83 2.5x27.27 absolute #d6a56b
+                text 46.92,76.67 150x15.6 "All items" #ffffff
+                box 205.25,84.47 0x0
+              box 33.58,98.1 181.67x27.27
+                box 33.58,98.1 181.67x27.27 #00000000 @click
+                  box 33.58,98.1 2.5x27.27 absolute #00000000
+                  text 46.92,103.93 150x15.6 "Weapon" #e8dcc4
+                  box 205.25,111.73 0x0
+              box 33.58,125.37 181.67x27.27
+                box 33.58,125.37 181.67x27.27 #00000000 @click
+                  box 33.58,125.37 2.5x27.27 absolute #00000000
+                  text 46.92,131.2 150x15.6 "Trade Goods" #e8dcc4
+                  box 205.25,139 0x0
           box 222.75,70 1065.92x761.17
             box 222.75,70 1065.92x28.33
               box 222.75,70 934.25x28.33
                 box 222.75,70 900.92x28.33
                   box 222.75,70 900.92x28.33 #00000080 input "" @change @submit
                   box 222.75,70 900.92x28.33 absolute
-                    text 231.08,76.67 884.25x15 "Item name" #a3977f
+                    text 231.08,76.37 884.25x15.6 "Item name" #a3977f
                 box 1123.67,70 33.33x28.33
                   box 1123.67,70 33.33x28.33
                     box 1128.67,70 28.33x28.33
@@ -275,190 +275,190 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                         box 1136.17,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
               box 1163.67,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1163.67,70 125x28.33 absolute
-                  text 1185.54,76.67 81.25x15 "Shopping list" #ffd100
+                  text 1182.28,76.37 87.78x15.6 "Shopping list" #ffd100 centred
             box 222.75,105 1065.92x726.17 #0000004d
               box 223.58,105.83 1064.25x724.5
-                box 223.58,105.83 1064.25x29.17 #00000040
-                  box 230.25,105.83 639.25x28.33 #00000000 @click
-                    box 230.25,132.5 639.25x1.67 absolute #00000000
-                    box 230.25,112.5 639.25x15
-                      text 230.25,112.5 25x15 "Item" #cbb994
-                      box 258.58,117.5 6.67x5
-                        box 255.25,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                box 223.58,105.83 1064.25x29.77 #00000040
+                  box 230.25,105.83 639.25x28.93 #00000000 @click
+                    box 230.25,133.1 639.25x1.67 absolute #00000000
+                    box 230.25,112.5 639.25x15.6
+                      text 230.25,112.5 28.89x15.6 "Item" #cbb994
+                      box 262.47,117.8 6.67x5
+                        box 259.14,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                   box 876.17,105.83 36.67x13.33 #00000000 @click
                     box 876.17,117.5 36.67x1.67 absolute #00000000
                     box 876.17,112.5 36.67x0
                       text 876.17,112.5 0x0 "" #a3977f
-                  box 919.5,105.83 75x28.33 #00000000 @click
-                    box 919.5,132.5 75x1.67 absolute #00000000
-                    box 947,112.5 47.5x15
-                      text 947,112.5 37.5x15 "Listed" #cbb994
-                      box 987.83,117.5 6.67x5
-                        box 984.5,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 1001.17,105.83 80x28.33 #00000000 @click
-                    box 1001.17,132.5 80x1.67 absolute #00000000
-                    box 1033.67,112.5 47.5x15
-                      text 1033.67,112.5 37.5x15 "Lowest" #cbb994
-                      box 1074.5,117.5 6.67x5
-                        box 1071.17,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 1087.83,105.83 75x28.33 #00000000 @click
-                    box 1087.83,132.5 75x1.67 absolute #00000000
-                    box 1115.33,112.5 47.5x15
-                      text 1115.33,112.5 37.5x15 "Market" #cbb994
-                      box 1156.17,117.5 6.67x5
-                        box 1152.83,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 1169.5,105.83 46.67x28.33 #00000000 @click
-                    box 1169.5,132.5 46.67x1.67 absolute #00000000
-                    box 1199.92,112.5 16.25x15
-                      text 1199.92,112.5 6.25x15 "%" #cbb994
-                      box 1209.5,117.5 6.67x5
-                        box 1206.17,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 1222.83,105.83 58.33x28.33 #00000000 @click
-                    box 1222.83,132.5 58.33x1.67 absolute #00000000
-                    box 1252.42,112.5 28.75x15
-                      text 1252.42,112.5 18.75x15 "Age" #cbb994
-                      box 1274.5,117.5 6.67x5
-                        box 1271.17,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 223.58,135 1064.25x695.33 scrolled 0 of 0
-                  box 223.58,135 1064.25x26.67 #00000040 @click
-                    box 230.25,138.33 639.25x20
-                      box 230.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
-                        box 230.25,138.33 20x20 absolute
-                        box 230.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                        box 230.25,138.33 20x20 absolute #00000000
-                      box 256.92,140.83 612.58x15 clipped
-                        text 256.92,140.83 612.58x15 "Bronze Axe" #e8dcc4
-                    box 876.17,148.33 36.67x0
-                    box 919.5,140.83 75x15
-                      text 988.25,140.83 6.25x15 "3" #e8dcc4
-                    box 1001.17,140.83 80x15
-                      text 1024.92,140.83 56.25x15 "0g 21s 0c" #e8dcc4
-                    box 1087.83,140.83 75x15
-                      text 1106.58,140.83 56.25x15 "0g 21s 0c" #e8dcc4
-                    box 1169.5,140.83 46.67x15
-                      text 1191.17,140.83 25x15 "100%" #e8dcc4
-                    box 1222.83,140.83 58.33x15
-                      text 1249.92,140.83 31.25x15 "< 1 h" #e8dcc4
+                  box 919.5,105.83 75x28.93 #00000000 @click
+                    box 919.5,133.1 75x1.67 absolute #00000000
+                    box 942.28,112.5 52.22x15.6
+                      text 942.28,112.5 42.22x15.6 "Listed" #cbb994
+                      box 987.83,117.8 6.67x5
+                        box 984.5,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1001.17,105.83 80x28.93 #00000000 @click
+                    box 1001.17,133.1 80x1.67 absolute #00000000
+                    box 1028.94,112.5 52.22x15.6
+                      text 1028.94,112.5 42.22x15.6 "Lowest" #cbb994
+                      box 1074.5,117.8 6.67x5
+                        box 1071.17,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1087.83,105.83 75x28.93 #00000000 @click
+                    box 1087.83,133.1 75x1.67 absolute #00000000
+                    box 1110.61,112.5 52.22x15.6
+                      text 1110.61,112.5 42.22x15.6 "Market" #cbb994
+                      box 1156.17,117.8 6.67x5
+                        box 1152.83,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1169.5,105.83 46.67x28.93 #00000000 @click
+                    box 1169.5,133.1 46.67x1.67 absolute #00000000
+                    box 1197.28,112.5 18.89x15.6
+                      text 1197.28,112.5 8.89x15.6 "%" #cbb994
+                      box 1209.5,117.8 6.67x5
+                        box 1206.17,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1222.83,105.83 58.33x28.93 #00000000 @click
+                    box 1222.83,133.1 58.33x1.67 absolute #00000000
+                    box 1248.94,112.5 32.22x15.6
+                      text 1248.94,112.5 22.22x15.6 "Age" #cbb994
+                      box 1274.5,117.8 6.67x5
+                        box 1271.17,113.63 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                box 223.58,135.6 1064.25x694.73 scrolled 0 of 0
+                  box 223.58,135.6 1064.25x26.67 #00000040 @click
+                    box 230.25,138.93 639.25x20
+                      box 230.25,138.93 20x20 #0d0a08 opacity=1 @click @enter
+                        box 230.25,138.93 20x20 absolute
+                        box 230.25,138.93 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                        box 230.25,138.93 20x20 absolute #00000000
+                      box 256.92,141.13 612.58x15.6 clipped
+                        text 256.92,141.13 612.58x15.6 "Bronze Axe" #e8dcc4
+                    box 876.17,148.93 36.67x0
+                    box 919.5,141.13 75x15.6
+                      text 985.61,141.13 8.89x15.6 "3" #e8dcc4 right
+                    box 1001.17,141.13 80x15.6
+                      text 1020.06,141.13 61.11x15.6 "0g 21s 0c" #e8dcc4 right
+                    box 1087.83,141.13 75x15.6
+                      text 1101.72,141.13 61.11x15.6 "0g 21s 0c" #e8dcc4 right
+                    box 1169.5,141.13 46.67x15.6
+                      text 1187.28,141.13 28.89x15.6 "100%" #e8dcc4 right
+                    box 1222.83,141.13 58.33x15.6
+                      text 1245.61,141.13 35.56x15.6 "< 1 h" #e8dcc4 right
       box 32.75,831.17 1255.92x45
         box 32.75,847.83 1255.92x28.33
-          text 32.75,855.5 1130.92x13 "1 item" #a3977f
+          text 32.75,854.8 1130.92x14.4 "1 item" #a3977f
           box 1180.33,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 1180.33,847.83 108.33x28.33 absolute
-              text 1222,854.5 25x15 "Scan" #ffd100
+              text 1220.06,854.2 28.89x15.6 "Scan" #ffd100 centred
     box 1308.67,50 283.58x839.5 border=ButtonFrameTemplateNoPortrait sides=left
       box 1338.92,70 233.33x806.17
         box 1338.92,70 233.33x806.17
           box 1338.92,70 233.33x806.17
-            box 1338.92,70 233.33x33.33
-              box 1338.92,70 33.33x33.33 #0d0a08 opacity=1 @click @enter
-                box 1338.92,70 33.33x33.33 absolute
-                box 1338.92,70 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                box 1338.92,70 33.33x33.33 absolute #00000000
-              box 1380.58,70.33 191.67x32.67 clipped
-                text 1380.58,70.33 191.67x18 "Bronze Axe" #e8dcc4
-                text 1380.58,90 191.67x13 "Listed: 3" #a3977f
-            box 1338.92,120 233.33x113.33
-              box 1338.92,120 233.33x28.33 opacity=1
-                box 1338.92,120 43.75x28.33 #5a4428 @click
-                  box 1338.92,120 43.75x1.67 absolute #d6a56b
-                  text 1351.42,126.67 18.75x15 "Day" #ffffff
-                box 1382.67,120 49.17x28.33 #0d0a08 @click
-                  box 1382.67,120 49.17x1.67 absolute #00000000
-                  text 1394.33,126.67 25x15 "Week" #a3977f
-                box 1431.83,120 55.42x28.33 #0d0a08 @click
-                  box 1431.83,120 55.42x1.67 absolute #00000000
-                  text 1443.5,126.67 31.25x15 "Month" #a3977f
-              box 1338.92,155 233.33x78.33
-                box 1338.92,155 233.33x60 #00000040
-                  box 1338.92,215 8.92x0 #d6a56b
-                  box 1348.67,215 8.92x0 #d6a56b
-                  box 1358.43,215 8.92x0 #d6a56b
-                  box 1368.19,215 8.92x0 #d6a56b
-                  box 1377.94,215 8.92x0 #d6a56b
-                  box 1387.7,215 8.92x0 #d6a56b
-                  box 1397.46,215 8.92x0 #d6a56b
-                  box 1407.22,215 8.92x0 #d6a56b
-                  box 1416.97,215 8.92x0 #d6a56b
-                  box 1426.73,215 8.92x0 #d6a56b
-                  box 1436.49,215 8.92x0 #d6a56b
-                  box 1446.24,215 8.92x0 #d6a56b
-                  box 1456,215 8.92x0 #d6a56b
-                  box 1465.76,215 8.92x0 #d6a56b
-                  box 1475.51,215 8.92x0 #d6a56b
-                  box 1485.27,215 8.92x0 #d6a56b
-                  box 1495.03,215 8.92x0 #d6a56b
-                  box 1504.78,215 8.92x0 #d6a56b
-                  box 1514.54,215 8.92x0 #d6a56b
-                  box 1524.3,215 8.92x0 #d6a56b
-                  box 1534.06,215 8.92x0 #d6a56b
-                  box 1543.81,215 8.92x0 #d6a56b
-                  box 1553.57,215 8.92x0 #d6a56b
-                  box 1563.33,155 8.92x60 #f0c860
-                box 1338.92,218.33 233.33x15
-                  text 1338.92,218.33 56.25x15 "0g 21s 0c" #e8dcc4
-                  box 1401.83,225.83 107.5x0
-                  text 1516,218.33 56.25x15 "0g 21s 0c" #e8dcc4
-            box 1338.92,250 233.33x58.33
-              text 1338.92,250 167.08x15 "Market" #e8dcc4
-              box 1512.67,250 59.58x15
-                text 1512.67,250 56.25x15 "0g 21s 0c" #e8dcc4
-              text 1338.92,271.67 167.08x15 "Lowest" #e8dcc4
-              text 1512.67,271.67 59.58x15 "0g 21s 0c" #e8dcc4
-              text 1338.92,293.33 167.08x15 "Vendor price each" #e8dcc4
-              text 1512.67,293.33 59.58x15 "—" #a3977f
-            box 1338.92,325 233.33x551.17
-              box 1338.92,325 233.33x551.17
-                box 1338.92,325 233.33x418.17 #0000004d
-                  box 1339.75,325.83 231.67x416.5
-                    box 1339.75,325.83 231.67x29.17 #00000040
-                      box 1346.42,325.83 118.33x28.33 #00000000 @click
-                        box 1346.42,352.5 118.33x1.67 absolute #00000000
-                        box 1436.42,332.5 28.33x15
-                          text 1436.42,332.5 25x15 "Each" #a3977f
-                      box 1471.42,325.83 40x28.33 #00000000 @click
-                        box 1471.42,352.5 40x1.67 absolute #00000000
-                        box 1476.83,332.5 34.58x15
-                          text 1476.83,332.5 31.25x15 "Count" #a3977f
-                      box 1518.08,325.83 46.67x28.33 #00000000 @click
-                        box 1518.08,352.5 46.67x1.67 absolute #00000000
-                        box 1536.42,332.5 28.33x15
-                          text 1536.42,332.5 25x15 "Left" #a3977f
-                    box 1339.75,355 231.67x387.33 scrolled 0 of 0
-                      box 1339.75,355 231.67x21.67 #00000000 @click
-                        box 1346.42,358.33 118.33x15
-                          text 1414.75,358.33 50x15 "0g 0s 0c" #e8dcc4
-                        box 1471.42,358.33 40x15
-                          text 1505.17,358.33 6.25x15 "1" #e8dcc4
-                        box 1518.08,358.33 46.67x15
-                          text 1527.25,358.33 37.5x15 "60 min" #e8dcc4
-                      box 1339.75,376.67 231.67x21.67 #00000000 @click
-                        box 1346.42,380 118.33x15
-                          text 1408.5,380 56.25x15 "0g 21s 0c" #e8dcc4
-                        box 1471.42,380 40x15
-                          text 1505.17,380 6.25x15 "1" #e8dcc4
-                        box 1518.08,380 46.67x15
-                          text 1546,380 18.75x15 "2 h" #e8dcc4
-                      box 1339.75,398.33 231.67x21.67 #00000040 @click
-                        box 1346.42,401.67 118.33x15
-                          text 1408.5,401.67 56.25x15 "0g 22s 0c" #e8dcc4
-                        box 1471.42,401.67 40x15
-                          text 1505.17,401.67 6.25x15 "1" #e8dcc4
-                        box 1518.08,401.67 46.67x15
-                          text 1546,401.67 18.75x15 "2 h" #e8dcc4
-                box 1338.92,749.83 233.33x36.67
-                  text 1338.92,749.83 170.42x15 "Quantity" #e8dcc4
-                  text 1516,749.83 56.25x15 "1" #e8dcc4
-                  text 1338.92,771.5 170.42x15 "Total" #e8dcc4
-                  box 1516,771.5 56.25x15
-                    text 1516,771.5 56.25x15 "0g 22s 0c" #e8dcc4
-                box 1338.92,793.17 233.33x13
-                  text 1338.92,793.17 233.33x13 "You don't have enough money" #ff4040
+            box 1338.92,70 233.33x35.27
+              box 1338.92,70.97 33.33x33.33 #0d0a08 opacity=1 @click @enter
+                box 1338.92,70.97 33.33x33.33 absolute
+                box 1338.92,70.97 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                box 1338.92,70.97 33.33x33.33 absolute #00000000
+              box 1380.58,70 191.67x35.27 clipped
+                text 1380.58,70 191.67x19.2 "Bronze Axe" #e8dcc4
+                text 1380.58,90.87 191.67x14.4 "Listed: 3" #a3977f
+            box 1338.92,121.93 233.33x114.53
+              box 1338.92,121.93 233.33x28.93 opacity=1
+                box 1338.92,121.93 47.22x28.93 #5a4428 @click
+                  box 1338.92,121.93 47.22x1.67 absolute #d6a56b
+                  text 1351.42,128.6 22.22x15.6 "Day" #ffffff centred
+                box 1386.14,121.93 53.06x28.93 #0d0a08 @click
+                  box 1386.14,121.93 53.06x1.67 absolute #00000000
+                  text 1397.81,128.6 28.89x15.6 "Week" #a3977f centred
+                box 1439.19,121.93 59.72x28.93 #0d0a08 @click
+                  box 1439.19,121.93 59.72x1.67 absolute #00000000
+                  text 1450.86,128.6 35.56x15.6 "Month" #a3977f centred
+              box 1338.92,157.53 233.33x78.93
+                box 1338.92,157.53 233.33x60 #00000040
+                  box 1338.92,217.53 8.92x0 #d6a56b
+                  box 1348.67,217.53 8.92x0 #d6a56b
+                  box 1358.43,217.53 8.92x0 #d6a56b
+                  box 1368.19,217.53 8.92x0 #d6a56b
+                  box 1377.94,217.53 8.92x0 #d6a56b
+                  box 1387.7,217.53 8.92x0 #d6a56b
+                  box 1397.46,217.53 8.92x0 #d6a56b
+                  box 1407.22,217.53 8.92x0 #d6a56b
+                  box 1416.97,217.53 8.92x0 #d6a56b
+                  box 1426.73,217.53 8.92x0 #d6a56b
+                  box 1436.49,217.53 8.92x0 #d6a56b
+                  box 1446.24,217.53 8.92x0 #d6a56b
+                  box 1456,217.53 8.92x0 #d6a56b
+                  box 1465.76,217.53 8.92x0 #d6a56b
+                  box 1475.51,217.53 8.92x0 #d6a56b
+                  box 1485.27,217.53 8.92x0 #d6a56b
+                  box 1495.03,217.53 8.92x0 #d6a56b
+                  box 1504.78,217.53 8.92x0 #d6a56b
+                  box 1514.54,217.53 8.92x0 #d6a56b
+                  box 1524.3,217.53 8.92x0 #d6a56b
+                  box 1534.06,217.53 8.92x0 #d6a56b
+                  box 1543.81,217.53 8.92x0 #d6a56b
+                  box 1553.57,217.53 8.92x0 #d6a56b
+                  box 1563.33,157.53 8.92x60 #f0c860
+                box 1338.92,220.87 233.33x15.6
+                  text 1338.92,220.87 61.11x15.6 "0g 21s 0c" #e8dcc4
+                  box 1406.69,228.67 97.78x0
+                  text 1511.14,220.87 61.11x15.6 "0g 21s 0c" #e8dcc4
+            box 1338.92,253.13 233.33x60.13
+              text 1338.92,253.13 162.22x15.6 "Market" #e8dcc4
+              box 1507.81,253.13 64.44x15.6
+                text 1507.81,253.13 61.11x15.6 "0g 21s 0c" #e8dcc4
+              text 1338.92,275.4 162.22x15.6 "Lowest" #e8dcc4
+              text 1507.81,275.4 64.44x15.6 "0g 21s 0c" #e8dcc4
+              text 1338.92,297.67 162.22x15.6 "Vendor price each" #e8dcc4
+              text 1507.81,297.67 64.44x15.6 "—" #a3977f
+            box 1338.92,329.93 233.33x546.23
+              box 1338.92,329.93 233.33x546.23
+                box 1338.92,329.93 233.33x410.63 #0000004d
+                  box 1339.75,330.77 231.67x408.97
+                    box 1339.75,330.77 231.67x29.77 #00000040
+                      box 1346.42,330.77 118.33x28.93 #00000000 @click
+                        box 1346.42,358.03 118.33x1.67 absolute #00000000
+                        box 1432.53,337.43 32.22x15.6
+                          text 1432.53,337.43 28.89x15.6 "Each" #a3977f
+                      box 1471.42,330.77 40x28.93 #00000000 @click
+                        box 1471.42,358.03 40x1.67 absolute #00000000
+                        box 1472.53,337.43 38.89x15.6
+                          text 1472.53,337.43 35.56x15.6 "Count" #a3977f
+                      box 1518.08,330.77 46.67x28.93 #00000000 @click
+                        box 1518.08,358.03 46.67x1.67 absolute #00000000
+                        box 1532.53,337.43 32.22x15.6
+                          text 1532.53,337.43 28.89x15.6 "Left" #a3977f
+                    box 1339.75,360.53 231.67x379.2 scrolled 0 of 0
+                      box 1339.75,360.53 231.67x23.33 #00000000 @click
+                        box 1346.42,364.4 118.33x15.6
+                          text 1410.31,364.4 54.44x15.6 "0g 0s 0c" #e8dcc4 right
+                        box 1471.42,364.4 40x15.6
+                          text 1502.53,364.4 8.89x15.6 "1" #e8dcc4 right
+                        box 1518.08,364.4 46.67x15.6
+                          text 1522.53,364.4 42.22x15.6 "60 min" #e8dcc4 right
+                      box 1339.75,383.87 231.67x23.33 #00000000 @click
+                        box 1346.42,387.73 118.33x15.6
+                          text 1403.64,387.73 61.11x15.6 "0g 21s 0c" #e8dcc4 right
+                        box 1471.42,387.73 40x15.6
+                          text 1502.53,387.73 8.89x15.6 "1" #e8dcc4 right
+                        box 1518.08,387.73 46.67x15.6
+                          text 1542.53,387.73 22.22x15.6 "2 h" #e8dcc4 right
+                      box 1339.75,407.2 231.67x23.33 #00000040 @click
+                        box 1346.42,411.07 118.33x15.6
+                          text 1403.64,411.07 61.11x15.6 "0g 22s 0c" #e8dcc4 right
+                        box 1471.42,411.07 40x15.6
+                          text 1502.53,411.07 8.89x15.6 "1" #e8dcc4 right
+                        box 1518.08,411.07 46.67x15.6
+                          text 1542.53,411.07 22.22x15.6 "2 h" #e8dcc4 right
+                box 1338.92,747.23 233.33x37.87
+                  text 1338.92,747.23 165.56x15.6 "Quantity" #e8dcc4
+                  text 1511.14,747.23 61.11x15.6 "1" #e8dcc4
+                  text 1338.92,769.5 165.56x15.6 "Total" #e8dcc4
+                  box 1511.14,769.5 61.11x15.6
+                    text 1511.14,769.5 61.11x15.6 "0g 22s 0c" #e8dcc4 right
+                box 1338.92,791.77 233.33x14.4
+                  text 1338.92,791.77 233.33x14.4 "You don't have enough money" #ff4040
                 box 1338.92,812.83 233.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
                   box 1338.92,812.83 233.33x28.33 absolute
-                    text 1446.21,819.5 18.75x15 "Buy" #ffffff
+                    text 1444.47,819.2 22.22x15.6 "Buy" #ffffff centred
                 box 1338.92,847.83 233.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                   box 1338.92,847.83 233.33x28.33 absolute
-                    text 1393.08,854.5 125x15 "Add to shopping list" #ffd100
+                    text 1389.47,854.2 132.22x15.6 "Add to shopping list" #ffd100 centred
     box 1516.08,49.08 77.5x26.67 absolute clipped
       box 1516.08,49.08 29.17x26.67 absolute clipped @click
         box 1516.08,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -472,11 +472,11 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
   box 0,0 363.5x47.75
     box 0,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 18.58,10.25 77.33x34.25
-        text 47.87,19.88 18.75x15 "Buy" #ffd100
+        text 46.14,19.57 22.22x15.6 "Buy" #ffd100 centred
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
-        text 169.25,19.88 25x15 "Sell" #b3a690
+        text 167.31,19.57 28.89x15.6 "Sell" #b3a690 centred
     box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 267.58,10.25 77.33x34.25
-        text 293.75,19.88 25x15 "Data" #b3a690
+        text 291.81,19.57 28.89x15.6 "Data" #b3a690 centred
 asked: AuctionActions.bid 73 2200

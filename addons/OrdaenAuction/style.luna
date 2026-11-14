@@ -14,7 +14,7 @@ public const SLOT: Number = 24 * PX
 public const BIG_SLOT: Number = 40 * PX
 // A table's row (`Table`'s `rowHeight`) with an item's slot, and one with a button: the row's padding round them.
 public const ITEM_ROW: Number = SLOT + 8 * PX
-public const BUTTON_ROW: Number = 42 * PX
+public const BUTTON_ROW: Number = 46 * PX
 // A list's note where it has no rows: a row of the list itself, its text in the row's middle (`yAlign`), a panel's
 // space at its sides.
 public const NOTE_PAD: Edges = { left: space(.Panel), right: space(.Panel) }
