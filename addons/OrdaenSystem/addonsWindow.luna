@@ -6,7 +6,7 @@ import { Action, Align, Art, Edges, Overflow, Track } from "$ltml"
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, PushButton, PX, space, Tip, TipRow, Toolbar,
+import { ARTWORK, Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, PushButton, PX, space, Tip, TipRow, Toolbar,
   ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { AddOn, Catalog, plain, Status } from "@/catalog"
@@ -36,8 +36,8 @@ const ORDERS: Array<Choice<Order>> = [
   { value: Order.Memory, label: Locale.SORT_MEMORY },
 ]
 const VIEWS: Array<Choice<View>> = [
-  { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: Ordaen.art.ctl.tool.categories },
-  { value: View.Table, label: Locale.VIEW_TABLE, icon: Ordaen.art.ctl.tool.table },
+  { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
+  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table },
 ]
 // The glyph of «for whom»: the client's own, tinted as a toolbar's glyphs are.
 const WHO_GLYPH: Art = "Interface/Icons/Achievement_Character_Human_Male"

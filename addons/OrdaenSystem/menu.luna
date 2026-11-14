@@ -61,6 +61,11 @@ function fade(alpha: Number, ...regions: any Client.Region) {
   }
 }
 
+// Whether what a hook of the client's calls still runs: the hook holds this, and calls nothing once it is off.
+public struct Live {
+  on: Boolean
+}
+
 // The game menu as the dress sees it: whether it shows, its buttons and its size, read again at each show and each
 // time Blizzard builds its buttons anew.
 public class GameMenu {
@@ -73,37 +78,43 @@ public class GameMenu {
   public state held: any Client.Button | nil = nil
   // The buttons already hooked: a pooled button is hooked once, whatever it holds later.
   hooked: mut WeakMap<any Client.Button, Boolean> = {}
-  // Whether the dress is on: a hook of the client's can't be taken back, so a hook finds it off once the module ends.
-  live = true
+  // Whether the dress is on: a hook of the client's can't be taken back, so a hook finds it off once the dress ends,
+  // and calls nothing of it.
+  const live: mut Live = { on: true }
 
   constructor() {
     const menu = Client.GameMenuFrame
-    _ = menu.HookScript("OnShow", (...args: Unknown): nil => self.onShow())
-    _ = menu.HookScript("OnHide", (...args: Unknown): nil => self.onHide())
-    Client.hooksecurefunc(menu, "InitButtons", (...args: Unknown): nil => self.onInit())
+    const live = self.live
+    _ = menu.HookScript("OnShow", (...args: Unknown): nil => {
+      if (live.on) { self.onShow() }
+    })
+    _ = menu.HookScript("OnHide", (...args: Unknown): nil => {
+      if (live.on) { self.onHide() }
+    })
+    Client.hooksecurefunc(menu, "InitButtons", (...args: Unknown): nil => {
+      if (live.on) { self.onInit() }
+    })
   }
 
   destructor() {
-    self.live = false
+    self.live.on = false
     self.restore()
   }
 
   // The menu shows (its `OnShow`, after Blizzard built its buttons).
   public onShow(mut self) {
-    if (!self.live) { return }
     self.shown = true
     self.match()
   }
 
   onHide(mut self) {
-    if (!self.live) { return }
     self.shown = false
     self.hovered = nil
     self.held = nil
   }
 
   onInit(mut self) {
-    if (self.live && peek self.shown) { self.match() }
+    if (peek self.shown) { self.match() }
   }
 
   // Blizzard's buttons by their text against the client's own strings, in every language; Blizzard's art at alpha 0.
@@ -145,26 +156,23 @@ public class GameMenu {
   hook(mut self, button: any Client.Button) {
     if (self.hooked[button] == true) { return }
     self.hooked[button] = true
-    _ = button.HookScript("OnEnter", (...args: Unknown): nil => self.onEnter(button))
-    _ = button.HookScript("OnLeave", (...args: Unknown): nil => self.onLeave(button))
-    _ = button.HookScript("OnMouseDown", (...args: Unknown): nil => self.onDown(button))
-    _ = button.HookScript("OnMouseUp", (...args: Unknown): nil => self.onUp(button))
-  }
-
-  onEnter(mut self, button: any Client.Button) {
-    if (self.live) { self.hovered = button }
+    const live = self.live
+    _ = button.HookScript("OnEnter", (...args: Unknown): nil => {
+      if (live.on) { self.hovered = button }
+    })
+    _ = button.HookScript("OnLeave", (...args: Unknown): nil => {
+      if (live.on) { self.onLeave(button) }
+    })
+    _ = button.HookScript("OnMouseDown", (...args: Unknown): nil => {
+      if (live.on) { self.held = button }
+    })
+    _ = button.HookScript("OnMouseUp", (...args: Unknown): nil => {
+      if (live.on) { self.held = nil }
+    })
   }
 
   onLeave(mut self, button: any Client.Button) {
-    if (self.live && peek self.hovered == button) { self.hovered = nil }
-  }
-
-  onDown(mut self, button: any Client.Button) {
-    if (self.live) { self.held = button }
-  }
-
-  onUp(mut self, button: any Client.Button) {
-    if (self.live) { self.held = nil }
+    if (peek self.hovered == button) { self.hovered = nil }
   }
 
   // Every widget as Blizzard had it.
@@ -213,7 +221,7 @@ public class Plate implements Component {
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} background={Ordaen.art.ctl.buttonLight}
              opacity={self.light} />
         <box position={Position.Absolute} left={GEM_LEFT} top={self.gemTop} width={GEM} height={GEM}
-             background={Ordaen.art.ctl.newGem} opacity={self.gem} />
+             background={Ordaen.art.ctl.newGem} opacity={self.gem} zLevel={1} />
         <box position={Position.Absolute} left={0} right={0} top={self.drop} height={self.dressed.height}
              xAlign={Align.Center} yAlign={Align.Center}>
           <text value={self.dressed.label} textColor={self.color} textShadow={SHADOW} wrap={false} />

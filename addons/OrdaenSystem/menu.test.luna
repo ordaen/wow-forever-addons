@@ -1,0 +1,96 @@
+// The game menu dressed: made at its first show, Blizzard's buttons under our plates with their own clicks, «AddOns»
+// ours, «Ordaen» above them; the dress follows Blizzard's rebuilt buttons at every show, and goes with the module.
+import Client from "$client"
+import Runtime from "$runtime"
+import Test from "$test"
+import root System from "OrdaenSystem"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1300, height: 760, screen: true }
+
+// The menu's buttons that show, with their text.
+function buttonsOf(...frames: any Client.Frame): Array<any Client.Button> {
+  const list: Array<any Client.Button> = []
+  for (i of 1..=frames.length) {
+    const frame = frames[i]
+    if (frame is Client.Button) {
+      if (frame.IsShown()) { list.push(frame) }
+    }
+  }
+  return list
+}
+
+// Whether every button of Blizzard's is at this alpha, and takes the mouse but «AddOns» while dressed.
+function blizzards(alpha: Number, dressed: Boolean): Boolean {
+  const list = buttonsOf(...Client.GameMenuFrame.GetChildren())
+  if (list.length == 0) { return false }
+  for (button of list) {
+    if (button.GetAlpha() != alpha) { return false }
+    const mouse = !(dressed && button.GetText() == Client.ADDONS)
+    if (button.IsMouseEnabled() != mouse) { return false }
+  }
+  return true
+}
+
+test "the menu is dressed at its first show: our plates, the exits red, «Ordaen» above, «AddOns» ours" {
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  Test.expect(!System.dressed)
+  Client.ToggleGameMenu()
+  Test.flush()
+  Test.expect(System.dressed)
+  Test.expect(blizzards(0, true))
+  Test.shot("the menu dressed: the dialog's frame, the engraved title, Ordaen's group above Blizzard's")
+
+  // «AddOns» opens Ordaen's window and closes the menu.
+  Test.click(Test.holding("AddOns", nil), nil)
+  Test.flush()
+  Test.expect(System.open)
+  Test.expect(!Client.GameMenuFrame.IsShown())
+  Test.expect(!Client.AddonList.IsShown())
+}
+
+test "Blizzard's buttons keep their clicks under the plates, and «new» is the gem" {
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  Client.GameMenuFrame.NewOptionsFrame.Show()
+  Client.ToggleGameMenu()
+  Test.flush()
+  Test.shot("the options' plate carries the gem")
+  Test.click(Test.holding("Return to Game", nil), nil)
+  Test.flush()
+  Test.expect(!Client.GameMenuFrame.IsShown())
+  // Shown again, the buttons are Blizzard's anew: the dress follows them.
+  Client.GameMenuFrame.NewOptionsFrame.Hide()
+  Client.ToggleGameMenu()
+  Test.flush()
+  Test.shot("shown again: no gem, the same plates")
+}
+
+test "turned off, the module puts every widget of the menu back" {
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  Client.ToggleGameMenu()
+  Test.flush()
+  Client.ToggleGameMenu()
+  Test.flush()
+  const addon = Runtime.Addon.of(System) ?? panic("the module is an addon")
+  addon.disable()
+  Test.flush()
+  Client.ToggleGameMenu()
+  Test.flush()
+  Test.expect(blizzards(1, false))
+  Test.shot("nothing of ours: Blizzard's menu as it is")
+}
+
+test "«Ordaen» opens Ordaen's settings and closes the menu" {
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  Client.ToggleGameMenu()
+  Test.flush()
+  Test.click(Test.holding("Ordaen", nil), nil)
+  Test.flush()
+  Test.expect(!Client.GameMenuFrame.IsShown())
+  // The dress is gone with the menu: what holds «Ordaen» now is the settings window.
+  _ = Test.surfaceHolding("Ordaen")
+  Test.shot("Ordaen's settings open, the menu closed")
+}
