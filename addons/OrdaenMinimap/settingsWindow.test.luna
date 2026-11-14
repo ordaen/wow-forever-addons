@@ -74,3 +74,24 @@ test "the settings window: the list, a module's page, drafts saved and taken bac
   Ordaen.toggleSettings("OrdaenMinimap")
   show("asked for the same page again: closed")
 }
+
+test "the profiles page is made when its entry is picked; a pick that switches the profile asks about the unsaved change" {
+  Test.mount(nil, PAGE)
+  Ordaen.toggleSettings(nil)
+  click(Test.holding("Profiles", nil))
+  show("Profiles picked in the list: the page of profiles, made now")
+
+  click(Test.holding("General", nil))
+  click(Test.painted(Ordaen.art.ctl.check, nil))
+  click(Test.holding("Profiles", nil))
+  click(Test.field(1))
+  Test.type("Raid")
+  click(Test.holding("New", nil))
+  click(Test.painted(Ordaen.art.ctl.check, 2))
+  show("this character picked for «Raid» with a change unsaved on the general page: the question over the window")
+
+  click(Test.holding("Don't save", nil))
+  show("Don't save: the character uses «Raid», nothing waits")
+  Ordaen.toggleSettings(nil)
+  Test.flush()
+}

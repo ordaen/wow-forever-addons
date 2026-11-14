@@ -16,15 +16,17 @@ import { ModuleEntry, ModuleRow } from "@/moduleRow"
 import Runtime from "$runtime"
 import { BehaviourPage, NumbersPage, ScalePage } from "@/general"
 import { LookPage } from "@/lookPage"
+import { ProfilesPage } from "@/profilesPage"
 
 // The window's body at first, and the smallest it resizes to: the list, a row and the foot fit.
 const WIDTH = 1160 * PX
 const HEIGHT = 700 * PX
 const MIN_WIDTH = 900 * PX
 const MIN_HEIGHT = 480 * PX
-// The pages that aren't a module's: Ordaen's own, and its look.
+// The pages that aren't a module's: Ordaen's own, its look and its profiles.
 const GENERAL = ""
 const LOOK = "look"
+const PROFILES = "profiles"
 
 // The question on closing with unsaved changes: as wide as its three buttons, the room round them and its frame.
 const CONFIRM_WIDTH = 484 * PX
@@ -64,6 +66,7 @@ public class SettingsWindow implements Component {
   derived heading: String = Locale.LIST_MODULES.upper()
   derived onGeneral: Boolean = self.page == GENERAL
   derived onLook: Boolean = self.page == LOOK
+  derived onProfiles: Boolean = self.page == PROFILES
   // The module whose page is shown, where it is a module's.
   derived entry: any Entry | nil = self.entryOf()
   derived isOff: Boolean = self.offNow()
@@ -134,6 +137,7 @@ public class SettingsWindow implements Component {
 
   pickGeneral(mut self) { self.show(GENERAL) }
   pickLook(mut self) { self.show(LOOK) }
+  pickProfiles(mut self) { self.show(PROFILES) }
   onPick(mut self, folder: String) { self.show(folder) }
 
   // Closing asks first while anything is unsaved.
@@ -172,6 +176,8 @@ public class SettingsWindow implements Component {
                      @pick={self.pickGeneral} />
             <ListTab label={Locale.LIST_THEMES} icon={Ordaen.icon} selected={self.onLook}
                      @pick={self.pickLook} />
+            <ListTab label={Locale.LIST_PROFILES} icon={Ordaen.icon} selected={self.onProfiles}
+                     @pick={self.pickProfiles} />
             <box padding={HEADING}>
               <text value={self.heading} textColor={DIM} textSize={12 * PX} textFamily={Ordaen.lookArt.fontNumbers} />
             </box>
@@ -183,6 +189,7 @@ public class SettingsWindow implements Component {
             <box position={Position.Absolute} left={0} right={0} top={0} bottom={ROWS_BOTTOM}
                  padding={ROWS_PAD} columns={1} gap={14 * PX} overflow={Overflow.Scroll}>
               <LookPage $if={self.onLook} look={mut Ordaen.look} />
+              <ProfilesPage $elseif={self.onProfiles} />
               <text $elseif={self.isOff} value={Locale.MODULE_OFF} textColor={DIM} textSize={15 * PX} />
               <$else>
                 <Tabs $if={self.hasTabs} tabs={self.names} selected={mut self.tab} />

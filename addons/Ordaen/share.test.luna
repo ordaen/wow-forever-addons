@@ -1,0 +1,67 @@
+// A profile as a text: written, read back equal, and every text that isn't one refused with its reason.
+import Game from "$game"
+import Test from "$test"
+import { read, Refused, Refusal, Shared, write } from "@/share"
+
+struct Probe implements Plain {
+  scale: Number = 1
+}
+
+function sample(): Shared {
+  const shared = Shared { name: "Raid" }
+  shared.sections["OrdaenMinimap"] = Game.encoding.serialize(Probe { scale: 1.5 }) ?? panic("the client packs")
+  shared.sections["OrdaenNotInstalled"] = Game.encoding.serialize(Probe { scale: 2 }) ?? panic("the client packs")
+  return shared
+}
+
+// The text for a body of the client's packing, as a text of this build is made.
+function textOf(raw: String): String {
+  const packed = Game.encoding.compress(raw) ?? panic("the client packs")
+  return "ORDAEN:1:" + (Game.encoding.toBase64(packed) ?? panic("the client packs"))
+}
+
+function why(result: Shared | Refused): Refusal | nil {
+  if (result is Refused) { return result.reason }
+  return nil
+}
+
+test "a profile written as text reads back equal, with the sections of modules nobody knows" {
+  const shared = sample()
+  const text = write(shared) ?? panic("written")
+  Test.expect(text.sub(1, 9) == "ORDAEN:1:")
+  const back = read(text)
+  Test.expect(back is Shared)
+  if (back is Shared) {
+    Test.expect(back.equal(shared))
+    Test.expect(back.name == "Raid" && back.sections["OrdaenNotInstalled"] == shared.sections["OrdaenNotInstalled"])
+  }
+  // Line breaks and spaces from a chat line or a window are ignored.
+  const broken = read(text.sub(1, 20) + "\n  " + text.sub(21, text.length) + "\n")
+  Test.expect(broken is Shared)
+}
+
+test "a text that isn't a profile is refused, each with its reason" {
+  const text = write(sample()) ?? panic("written")
+  Test.expect(why(read("")) == Refusal.NotProfile)
+  Test.expect(why(read("hello")) == Refusal.NotProfile)
+  Test.expect(why(read("ORDAEN:x:abcd")) == Refusal.NotProfile)
+  const unknown = read("ORDAEN:2:" + text.sub(10, text.length))
+  Test.expect(why(unknown) == Refusal.Version)
+  if (unknown is Refused) { Test.expect(unknown.version == "2") }
+  Test.expect(why(read("ORDAEN:1:***not base64***")) == Refusal.Damaged)
+  Test.expect(why(read("ORDAEN:1:QUJD")) == Refusal.Damaged)
+  // Base64 of something that isn't deflated, and deflate cut short.
+  Test.expect(why(read(text.sub(1, text.length - 6))) == Refusal.Damaged)
+  // CBOR cut short, packed and encoded right.
+  const raw = Game.encoding.serialize(sample()) ?? panic("the client packs")
+  Test.expect(why(read(textOf(raw.sub(1, raw.length - 5)))) == Refusal.Damaged)
+  // A section that is not CBOR (a text string whose length is cut off).
+  const bad = Shared { name: "Bad" }
+  bad.sections["OrdaenMinimap"] = "{{{{"
+  Test.expect(why(read(write(bad) ?? panic("written"))) == Refusal.Damaged)
+  // CBOR that is a number, or a table with no sections.
+  Test.expect(why(read(textOf(Game.encoding.serialize(5) ?? panic("the client packs")))) == Refusal.Damaged)
+  Test.expect(why(read(textOf(Game.encoding.serialize(Probe {}) ?? panic("the client packs")))) == Refusal.NotProfile)
+  // 64 KB and more.
+  Test.expect(why(read("ORDAEN:1:" + "A".rep(70000))) == Refusal.TooLong)
+}
