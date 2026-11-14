@@ -1,0 +1,285 @@
+// The game menu (Escape's `GameMenuFrame`), dressed. Blizzard's buttons stay Blizzard's, each with its own click: the
+// dress draws a plate of ours where each stands (Blizzard's at alpha 0, its mouse kept), the exits in red, a «new»
+// label of Blizzard's as the gem on its button. «AddOns» is ours, laid over Blizzard's in its slot (Blizzard's at
+// alpha 0, the mouse off it), and opens Ordaen's AddOns window. One group of Ordaen's stands above Blizzard's,
+// «Ordaen», which opens Ordaen's settings. The dialog's frame round both, its title engraved inside near its top with
+// a groove under it. Nothing is written on Blizzard's frames but their alpha and mouse; what is kept per button is
+// this file's own weak table, and every widget is put back as the dress ends.
+import { Align, Anchored, Art, Layer, Point, Position, Shadow } from "$ltml"
+import Client from "$client"
+import { Component, PushButton, PX, space } from "Ordaen"
+import root Ordaen from "Ordaen"
+
+// How much higher the dress stands than Blizzard's menu: its title, the groove under it, and Ordaen's group.
+const TITLE_TOP = 14 * PX
+const GROOVE_TOP = 32 * PX
+const GROOVE_SIDE = 40 * PX
+const GROUP_TOP = 44 * PX
+const BUTTON = 34 * PX
+const EXTRA: Number = GROUP_TOP + BUTTON + space(.Group)
+const TITLE: Color = Color.hex("#ffd100")
+const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1 * PX, y: 1 * PX }
+const DARK: Color = Color.hex("#000000d9")
+const LIT: Color = Color.hex("#d6a56b8c")
+const LABEL: Color = Color.hex("#ffd100")
+const LABEL_HOVER: Color = Color.hex("#ffffff")
+const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
+const GEM = 16 * PX
+const GEM_LEFT = 12 * PX
+const DOWN = 2 * PX
+
+// One of Blizzard's buttons as the dress draws it.
+public struct Dressed {
+  button: any Client.Button
+  label: String
+  // One of the exits: in red.
+  accent: Boolean
+  // Blizzard's «new» label hangs by it.
+  gem: Boolean
+  // «AddOns»: ours stands over it.
+  addons: Boolean
+  width: Number
+  height: Number
+}
+
+// The values a client's call gives, one after another, as a list.
+function framesOf(...frames: any Client.Frame): Array<any Client.Frame> {
+  const list: Array<any Client.Frame> = []
+  for (i of 1..=frames.length) {
+    const frame = frames[i]
+    if (frame != nil) { list.push(frame) }
+  }
+  return list
+}
+
+// A frame's own textures and texts at an alpha: its art.
+function fade(alpha: Number, ...regions: any Client.Region) {
+  for (i of 1..=regions.length) {
+    const region = regions[i]
+    if (region is Client.Texture) { region.SetAlpha(alpha) }
+    if (region is Client.FontString) { region.SetAlpha(alpha) }
+  }
+}
+
+// Whether what a hook of the client's calls still runs: the hook holds this, and calls nothing once it is off.
+public struct Live {
+  on: Boolean
+}
+
+// The game menu as the dress sees it: whether it shows, its buttons and its size, read again at each show and each
+// time Blizzard builds its buttons anew.
+public class GameMenu {
+  public state shown = false
+  public state buttons: Array<Dressed> = []
+  public state width: Number = 0
+  public state height: Number = 0
+  // The button under the cursor and the one held down: Blizzard's, which keep the mouse.
+  public state hovered: any Client.Button | nil = nil
+  public state held: any Client.Button | nil = nil
+  // The buttons already hooked: a pooled button is hooked once, whatever it holds later.
+  hooked: mut WeakMap<any Client.Button, Boolean> = {}
+  // Whether the dress is on: a hook of the client's can't be taken back, so a hook finds it off once the dress ends,
+  // and calls nothing of it.
+  const live: mut Live = { on: true }
+
+  constructor() {
+    const menu = Client.GameMenuFrame
+    const live = self.live
+    _ = menu.HookScript("OnShow", (...args: Unknown): nil => {
+      if (live.on) { self.onShow() }
+    })
+    _ = menu.HookScript("OnHide", (...args: Unknown): nil => {
+      if (live.on) { self.onHide() }
+    })
+    Client.hooksecurefunc(menu, "InitButtons", (...args: Unknown): nil => {
+      if (live.on) { self.onInit() }
+    })
+  }
+
+  destructor() {
+    self.live.on = false
+    self.restore()
+  }
+
+  // The menu shows (its `OnShow`, after Blizzard built its buttons).
+  public onShow(mut self) {
+    self.shown = true
+    self.match()
+  }
+
+  onHide(mut self) {
+    self.shown = false
+    self.hovered = nil
+    self.held = nil
+  }
+
+  onInit(mut self) {
+    if (peek self.shown) { self.match() }
+  }
+
+  // Blizzard's buttons by their text against the client's own strings, in every language; Blizzard's art at alpha 0.
+  match(mut self) {
+    const menu = Client.GameMenuFrame
+    const options = menu.NewOptionsFrame.IsShown()
+    const event = menu.NewExternalEventFrame.IsShown()
+    fade(0, ...menu.GetRegions())
+    const list: Array<Dressed> = []
+    for (child of framesOf(...menu.GetChildren())) {
+      if (child is Client.Button) {
+        if (child.IsShown()) {
+          const label = child.GetText()
+          const addons = label == Client.ADDONS
+          child.SetAlpha(0)
+          child.EnableMouse(!addons)
+          self.hook(child)
+          list.push({
+            button: child,
+            label: label,
+            accent: label == Client.LOG_OUT || label == Client.EXIT_GAME,
+            gem: (options && label == Client.GAMEMENU_OPTIONS) || (event && label == Client.GAMEMENU_EXTERNALEVENT),
+            addons: addons,
+            width: child.GetWidth(),
+            height: child.GetHeight(),
+          })
+        }
+      } else {
+        // Blizzard's frame, its title and its «new» labels: the dress draws its own.
+        child.SetAlpha(0)
+      }
+    }
+    self.buttons = list
+    self.width = menu.GetWidth()
+    self.height = menu.GetHeight()
+  }
+
+  // The cursor and the press on a button of Blizzard's: hooked once, read by the plate drawn there.
+  hook(mut self, button: any Client.Button) {
+    if (self.hooked[button] == true) { return }
+    self.hooked[button] = true
+    const live = self.live
+    _ = button.HookScript("OnEnter", (...args: Unknown): nil => {
+      if (live.on) { self.hovered = button }
+    })
+    _ = button.HookScript("OnLeave", (...args: Unknown): nil => {
+      if (live.on) { self.onLeave(button) }
+    })
+    _ = button.HookScript("OnMouseDown", (...args: Unknown): nil => {
+      if (live.on) { self.held = button }
+    })
+    _ = button.HookScript("OnMouseUp", (...args: Unknown): nil => {
+      if (live.on) { self.held = nil }
+    })
+  }
+
+  onLeave(mut self, button: any Client.Button) {
+    if (peek self.hovered == button) { self.hovered = nil }
+  }
+
+  // Every widget as Blizzard had it.
+  restore(self) {
+    const menu = Client.GameMenuFrame
+    fade(1, ...menu.GetRegions())
+    for (child of framesOf(...menu.GetChildren())) {
+      child.SetAlpha(1)
+      if (child is Client.Button) { child.EnableMouse(true) }
+    }
+  }
+
+  // «Ordaen», ours: Ordaen's settings, as `/ordaen` opens them; the menu closes.
+  public onOrdaen(self) {
+    Ordaen.toggleSettings(nil)
+    self.close()
+  }
+
+  public close(self) { Client.HideUIPanel(Client.GameMenuFrame) }
+}
+
+// A plate of ours where one of Blizzard's buttons stands: the button keeps the mouse, so the plate follows its cursor
+// and its press as the menu hears them.
+public class Plate implements Component {
+  derived over: Boolean = self.menu.hovered == self.dressed.button
+  derived down: Boolean = self.menu.held == self.dressed.button
+  derived art: Art = self.dressed.accent ? (self.down ? Ordaen.art.ctl.buttonAccentDown : Ordaen.art.ctl.buttonAccent) :
+    self.down ? Ordaen.art.ctl.buttonDown : Ordaen.art.ctl.button
+  derived light: Number = self.over ? 1 : 0
+  derived color: Color = self.over ? LABEL_HOVER : LABEL
+  derived drop: Number = self.down ? DOWN : 0
+  derived gem: Number = self.dressed.gem ? 1 : 0
+  derived gemTop: Number = (self.dressed.height - GEM) / 2
+  derived place: Anchored = { point: Point.TopLeft, to: Point.TopLeft, by: self.dressed.button }
+
+  dressed: Signal<Dressed>
+  const menu: GameMenu
+  constructor(dressed: Signal<Dressed>, menu: GameMenu) {
+    self.dressed = dressed
+    self.menu = menu
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <surface layer={Layer.Dialog} place={self.place} width={self.dressed.width} height={self.dressed.height} background={self.art}>
+        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} background={Ordaen.art.ctl.buttonLight}
+             opacity={self.light} />
+        <box position={Position.Absolute} left={GEM_LEFT} top={self.gemTop} width={GEM} height={GEM}
+             background={Ordaen.art.ctl.newGem} opacity={self.gem} zLevel={1} />
+        <box position={Position.Absolute} left={0} right={0} top={self.drop} height={self.dressed.height}
+             xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={self.dressed.label} textColor={self.color} textShadow={SHADOW} wrap={false} />
+        </box>
+      </surface>
+    }
+  }
+}
+
+// The dress: the dialog's frame round Ordaen's group and Blizzard's menu, its engraved title and groove; a plate on
+// each of Blizzard's buttons; Ordaen's «Ordaen» and «AddOns».
+public class MenuDress implements Component {
+  // «AddOns» was clicked.
+  public addons: Event<nil> = new Event()
+
+  derived wide: Number = self.menu.width
+  derived high: Number = self.menu.height + EXTRA
+  derived buttonWidth: Number = self.menu.buttons[1]?.width ?? 144 * PX
+  derived plates: Array<Dressed> = self.menu.buttons.filter(dressed => !dressed.addons)
+  derived slotted: Boolean = self.slot != nil
+  derived slot: Dressed | nil = self.menu.buttons.find(dressed => dressed.addons)
+  derived slotWidth: Number = self.slot?.width ?? 0
+  derived slotPlace: Anchored = { point: Point.TopLeft, to: Point.TopLeft, by: self.slot?.button }
+
+  // Made as the menu first shows: dressed at once, then at each show.
+  const menu: mut GameMenu = new GameMenu()
+  constructor() { self.menu.onShow() }
+
+  onOrdaen(self) { self.menu.onOrdaen() }
+
+  onAddons(mut self) {
+    self.addons.emit()
+    self.menu.close()
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <$if={self.menu.shown}>
+        <surface layer={Layer.Dialog} place={{ point: Point.Bottom, to: Point.Bottom, by: Client.GameMenuFrame }}
+                 width={self.wide} height={self.high} border={Ordaen.art.frame.small}
+                 background={Ordaen.art.window.wood} artOrigin={true}>
+          <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={TITLE_TOP}
+               xAlign={Align.Center}>
+            <text value={Client.MAINMENU_BUTTON} textColor={TITLE} textShadow={ENGRAVED} wrap={false} />
+          </box>
+          <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={GROOVE_TOP} height={1 * PX}
+               background={DARK} />
+          <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={GROOVE_TOP + 1 * PX}
+               height={1 * PX} background={LIT} />
+          <box position={Position.Absolute} left={0} right={0} top={GROUP_TOP} xAlign={Align.Center}>
+            <PushButton label={"Ordaen"} width={self.buttonWidth} @click={self.onOrdaen} />
+          </box>
+        </surface>
+        <Plate $for={dressed of self.plates} dressed={dressed} menu={self.menu} />
+        <surface $if={self.slotted} layer={Layer.Dialog} place={self.slotPlace}>
+          <PushButton label={Client.ADDONS} width={self.slotWidth} @click={self.onAddons} />
+        </surface>
+      </>
+    }
+  }
+}

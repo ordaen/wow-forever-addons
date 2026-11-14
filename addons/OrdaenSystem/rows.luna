@@ -1,0 +1,183 @@
+// The list's lines: a category's caption (▼ folds it) or an addon's row. A row: the checkbox (three states with
+// «All characters»: on, off, on for some), the title with its colour codes, and at the right its state where it isn't
+// plainly loaded, CPU now, CPU peak and memory, the heaviest third of each column in the accent. Hover: our Tip with
+// the notes. Left-click picks it for the card; on the checkbox it switches the addon, with Ctrl on a group's parent
+// the whole group. An Ordaen module has no checkbox: Ordaen's switch is its one, and its state's text opens Ordaen's
+// settings at it.
+import { Align, Art, Edges, Position, Stated, Track } from "$ltml"
+import Game from "$game"
+import { Component, PX, space, Tip } from "Ordaen"
+import root Ordaen from "Ordaen"
+import { AddOn, Catalog, plain, Status, Switch } from "@/catalog"
+import Locale from "@/locales"
+import { Load, memory, percent, Profiler } from "@/perf"
+import Style from "@/style"
+
+// One line of the list.
+public struct Line {
+  // A category's caption, or an addon.
+  caption: Boolean
+  // The addon's folder, or the category as the client groups by it.
+  name: String
+  // A caption's: how many addons it holds, and whether it is folded.
+  count: Integer
+  folded: Boolean
+  // An addon under its group's parent, which stands right above it.
+  child: Boolean
+}
+
+// From which value each numbers' column is lit: its heaviest third.
+public struct Hot {
+  now: Number
+  peak: Number
+  memory: Number
+}
+
+public const COLUMNS: Array<Track> = [Style.CHECK, { fr: 1 }, "auto", Style.NUMBER, Style.NUMBER, Style.MEMORY]
+const CAPTION: Array<Track> = ["auto", "auto", { fr: 1 }]
+// The fold's mark (ctl.markClosed, ctl.markOpen), as TreeRow draws it: a 16 px cell, its triangle in the middle.
+const MARK = 16 * PX
+const PAD: Edges = { left: space(.Item), right: space(.Item) }
+const LIGHT: Stated<Color> = { default: Style.CLEAR, hover: Color.hex("#d6a56b1f") }
+const DASH = "—"
+
+// What a row's state says: nothing for an addon plainly loaded.
+public function stateOf(addon: AddOn, status: Status, module: Boolean): String {
+  const reason = status.reason
+  if (module) {
+    if (reason != nil && reason != "DISABLED") { return Style.reasonText(reason) }
+    return Ordaen.isChosen(addon.name) ? Locale.MODULE_ON : Locale.MODULE_OFF
+  }
+  if (!status.mine && status.loaded) { return Locale.STATE_UNTIL }
+  if (status.enabled == .Off) { return Locale.STATE_OFF }
+  if (reason != nil && reason != "DISABLED") { return Style.reasonText(reason) }
+  if (!status.loaded && status.mine) { return addon.demand ? Locale.STATE_DEMAND : Locale.STATE_WAITS }
+  return ""
+}
+
+public class LineRow implements Component {
+  public pick: Event<String> = new Event()
+  // The checkbox: the addon, and whether Ctrl was held.
+  public toggle: Event<(String, Boolean)> = new Event()
+  public fold: Event<String> = new Event()
+  // An Ordaen module's state: its page in Ordaen's settings.
+  public settings: Event<String> = new Event()
+
+  state hovered = false
+  derived addon: AddOn | nil = self.line.caption ? nil : self.catalog.byName[self.line.name]
+  derived status: Status | nil = self.catalog.statuses[self.line.name]
+  derived load: Load | nil = self.profiler.loads[self.line.name]
+  derived title: String = self.addon?.title ?? (self.line.name == "" ? Locale.OTHER : self.line.name)
+  derived module: Boolean = self.addon?.group == self.framework && self.line.name != self.framework
+  derived switched: Switch = self.status?.enabled ?? Switch.Off
+  derived tick: Number = self.switched == .On ? 1 : self.switched == .Some ? 0.4 : 0
+  derived said: String = self.sayOf()
+  derived bad: Boolean = self.badOf()
+  derived stateColor: Color = self.bad ? Style.RED : Style.DIM
+  // A share, or -1 where the addon isn't measured.
+  derived nowShare: Number = self.load?.now ?? -1
+  derived peakShare: Number = self.load?.peak ?? -1
+  derived now: String = self.nowShare < 0 ? DASH : percent(self.nowShare)
+  derived peak: String = self.peakShare < 0 ? DASH : percent(self.peakShare)
+  derived kb: Number = self.profiler.memory[self.line.name] ?? 0
+  derived weight: String = self.loaded ? memory(self.kb) : DASH
+  derived loaded: Boolean = self.status?.loaded == true
+  derived nowColor: Color = self.nowShare > 0 && self.nowShare >= self.hot.now ? Style.HOT : Style.INK
+  derived peakColor: Color = self.peakShare > 0 && self.peakShare >= self.hot.peak ? Style.HOT : Style.INK
+  derived weightColor: Color = self.loaded && self.kb > 0 && self.kb >= self.hot.memory ? Style.HOT : Style.INK
+  derived background: Color | Stated<Color> = self.line.name == self.picked ? Style.PICKED : LIGHT
+  derived indent: Edges = { left: self.line.child ? Style.INDENT : 0 }
+  derived notes: String = plain(self.addon?.notes ?? "")
+  derived tipShown: Boolean = self.hovered && self.notes != ""
+  derived plainTitle: String = plain(self.title)
+  derived countText: String = "%d".format(self.line.count)
+  derived mark: Art = self.line.folded ? Ordaen.art.ctl.markClosed : Ordaen.art.ctl.markOpen
+
+  line: Signal<Line>
+  const catalog: Catalog
+  const profiler: Profiler
+  hot: Signal<Hot>
+  picked: Signal<String>
+  const framework: String
+  constructor(
+    line: Signal<Line>,
+    catalog: Catalog,
+    profiler: Profiler,
+    hot: Signal<Hot>,
+    picked: Signal<String>,
+    // Ordaen's folder: the addon its modules stand under.
+    framework: String,
+  ) {
+    self.line = line
+    self.catalog = catalog
+    self.profiler = profiler
+    self.hot = hot
+    self.picked = picked
+    self.framework = framework
+  }
+
+  sayOf(self): String {
+    const addon = self.addon
+    const status = self.status
+    if (addon == nil || status == nil) { return "" }
+    return stateOf(addon, status, self.module)
+  }
+
+  badOf(self): Boolean {
+    const reason = self.status?.reason
+    return reason != nil && reason != "DISABLED" && (self.status?.enabled != .Off || self.module)
+  }
+
+  onPick(mut self) {
+    if (self.line.caption) {
+      self.fold.emit(self.line.name)
+    } else {
+      self.pick.emit(self.line.name)
+    }
+  }
+
+  // Ctrl is read here, in the click's own handler.
+  onCheck(mut self) { self.toggle.emit(self.line.name, Game.input.controlDown()) }
+  onSettings(mut self) { self.settings.emit(self.line.name) }
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.line.caption} columns={CAPTION} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
+           @click={self.onPick}>
+        <box width={MARK} height={MARK} background={self.mark} tint={Style.GOLD} />
+        <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={false} />
+        <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
+      </box>
+      <box $else columns={COLUMNS} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
+           background={self.background} @click={self.onPick} @enter={self.onEnter} @leave={self.onLeave}>
+        <box $if={!self.module} width={Style.CHECK} height={Style.CHECK} background={Ordaen.art.ctl.check}
+             @click={self.onCheck}>
+          <box position={Position.Absolute} left={0} top={0} width={Style.CHECK} height={Style.CHECK}
+               background={Ordaen.art.ctl.tick} opacity={self.tick} />
+        </box>
+        <box $else />
+        <box padding={self.indent}>
+          <text value={self.title} textColor={Style.INK} wrap={false} />
+        </box>
+        <box $if={self.module} @click={self.onSettings}>
+          <text value={self.said} textColor={self.stateColor} textSize={.Secondary} wrap={false} />
+        </box>
+        <box $else>
+          <text value={self.said} textColor={self.stateColor} textSize={.Secondary} wrap={false} />
+        </box>
+        <box xAlign={Align.End}>
+          <text value={self.now} textColor={self.nowColor} textFont={.Numbers} wrap={false} />
+        </box>
+        <box xAlign={Align.End}>
+          <text value={self.peak} textColor={self.peakColor} textFont={.Numbers} wrap={false} />
+        </box>
+        <box xAlign={Align.End}>
+          <text value={self.weight} textColor={self.weightColor} textFont={.Numbers} wrap={false} />
+        </box>
+        <Tip $if={self.tipShown} title={self.plainTitle} text={self.notes} />
+      </box>
+    }
+  }
+}

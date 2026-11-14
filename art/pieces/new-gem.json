@@ -1,0 +1,5 @@
+{
+  "says": "The «new» gem on a push button that holds something new (the game menu's options while Blizzard's «New» label hangs by it): 32 x 32, drawn at 16 px at the button's left end.",
+  "ships": ["addons/Ordaen/media/ctl-new-gem.tga"],
+  "origin": "The design site's controls/new-gem.png (wow-dev-tools design/public/controls, as of c9ed728), turned into the client's TGA by `lunatype art convert`. The file is the source."
+}
