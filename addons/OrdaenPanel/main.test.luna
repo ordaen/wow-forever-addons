@@ -37,6 +37,87 @@ function placed(now: Map<Item, Zone>, item: Item, zone: Zone): Map<Item, Zone> {
   return places
 }
 
+// Along the panel: across the screen at its bottom or top, down it at a side.
+function along(frame: any Client.Frame, vertical: Boolean): Number {
+  let at = Test.centre(frame)
+  return vertical ? at.y : at.x
+}
+
+// The panel on a screen of this size, drawn: `Test.shot` holds everything drawn, the panel too, to the screen. How
+// long its start, its middle and its end are, from the middle of the first cell to the middle of the menu's last (the
+// guild's), to the backpack's, to the last bag's.
+function measured(
+  cells: Array<any Client.Frame>,
+  named: String,
+  vertical: Boolean,
+  width: Number,
+  height: Number,
+): Array<Number> {
+  Test.screen(width, height)
+  Test.shot(`${named}, the screen ${width}x${height}`)
+  let at: Array<Number> = []
+  for (cell of cells) { at.push(along(cell, vertical)) }
+  let first = at[1] ?? 0
+  let guild = at[2] ?? 0
+  let backpack = at[3] ?? 0
+  let last = at[4] ?? 0
+  Test.note(`from the first cell to the guild's ${guild - first}, from there to the backpack ${backpack - guild}, from there to the last bag ${last - backpack}`)
+  Test.note("")
+  return [guild - first, backpack - guild, last - backpack]
+}
+
+test "the panel fits the screen on each side: its middle gives way, its ends keep their length" {
+  Game.frames.MicroMenuContainer = blizzard("MicroMenuContainer", 1)
+  Game.frames.CharacterMicroButton = blizzard("CharacterMicroButton", 2)
+  let first = blizzard("ProfessionMicroButton", 3)
+  Game.frames.ProfessionMicroButton = first
+  Game.frames.SpellbookMicroButton = blizzard("SpellbookMicroButton", 4)
+  Game.frames.TalentMicroButton = blizzard("TalentMicroButton", 5)
+  Game.frames.LegacyMicroButton = blizzard("LegacyMicroButton", 6)
+  Game.frames.QuestLogMicroButton = blizzard("QuestLogMicroButton", 7)
+  Game.frames.LFDMicroButton = blizzard("LFDMicroButton", 8)
+  Game.frames.CollectionsMicroButton = blizzard("CollectionsMicroButton", 9)
+  Game.frames.MainMenuMicroButton = blizzard("MainMenuMicroButton", 10)
+  let guild = blizzard("GuildMicroButton", 11)
+  Game.frames.GuildMicroButton = guild
+  Game.frames.StoreMicroButton = blizzard("StoreMicroButton", 12)
+  Game.frames.HelpMicroButton = blizzard("HelpMicroButton", 13)
+  Game.frames.QuickJoinToastButton = blizzard("QuickJoinToastButton", 14)
+  Game.frames.BagsBar = blizzard("BagsBar", 15)
+  let backpack = blizzard("MainMenuBarBackpackButton", 16)
+  Game.frames.MainMenuBarBackpackButton = backpack
+  Game.frames.BackpackFreeSlots = blizzard("BackpackFreeSlots", 17)
+  Game.frames.CharacterBag0Slot = blizzard("CharacterBag0Slot", 18)
+  Game.frames.CharacterBag1Slot = blizzard("CharacterBag1Slot", 19)
+  Game.frames.CharacterBag2Slot = blizzard("CharacterBag2Slot", 20)
+  let lastBag = blizzard("CharacterBag3Slot", 21)
+  Game.frames.CharacterBag3Slot = lastBag
+  Game.money.amount = 1234567
+  Game.player.xp = 2500
+  Game.player.xpMax = 10000
+  let cells = [first, guild, backpack, lastBag]
+  Test.mount(nil, PAGE)
+  // As wide as the money's text down a side.
+  Panel.settings.draft.height = 72
+  Ordaen.keeper.saveAll()
+  for (fit of [Fit.Full, Fit.Center]) {
+    Panel.settings.draft.fit = fit
+    Ordaen.keeper.saveAll()
+    for (edge of [Edge.Bottom, Edge.Top, Edge.Left, Edge.Right]) {
+      Panel.settings.draft.edge = edge
+      Ordaen.keeper.saveAll()
+      let vertical = edge == Edge.Left || edge == Edge.Right
+      let named = `docked ${String.of(edge)}, ${String.of(fit)}`
+      // A screen at a UI scale of 1 is 768 high; a large one, 1200.
+      let large = measured(cells, named, vertical, 1920, 1200)
+      let small = measured(cells, named, vertical, 1366, 768)
+      Test.expect(((large[1] ?? 0) - (small[1] ?? 1)).abs() < 0.01 && ((large[3] ?? 0) - (small[3] ?? 1)).abs() < 0.01)
+      // Across the whole edge the middle is what gives way.
+      Test.expect(fit == Fit.Center || (small[2] ?? 0) < (large[2] ?? 0))
+    }
+  }
+}
+
 test "the panel: its zones and items, the game's buttons in its cells, when it shows, its parts placed" {
   let menu = blizzard("MicroMenuContainer", 1)
   Game.frames.MicroMenuContainer = menu
