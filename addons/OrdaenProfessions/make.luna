@@ -13,7 +13,7 @@ import { MakeMode } from "@/view"
 // The mode, the count with its − and +, what it comes to, «Create».
 const MAKE: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
 const STEP = 28 * PX
-const MODE_WIDTH = 170 * PX
+const MODE_WIDTH = 140 * PX
 const MODES: Array<Choice<MakeMode>> = [
   { value: MakeMode.Count, label: Locale.MAKE_COUNT },
   { value: MakeMode.Skill, label: Locale.MAKE_SKILL },
