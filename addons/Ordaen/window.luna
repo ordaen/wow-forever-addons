@@ -100,6 +100,7 @@ const ONE: Array<Track> = [{ fr: 1 }]
 // line between it and the main section (as the trainer's card beside its list). It shares neither the main section's
 // head nor its footer: it lays out its own top and bottom.
 public struct WindowSide {
+  // How wide its content is: the section adds its room on both sides and the frame's line.
   width: Number
   content: Template
 }
@@ -302,10 +303,12 @@ public class Window implements Component {
   const footer: Template
   const footed: Boolean
   const padding: Edges
-  // The side section, and the body's columns with it or without.
-  const side: Template
-  const sided: Boolean
-  const bodyColumns: Array<Track>
+  // The side section while there is one (it may come and go: a row picked), and the body's columns with it or without.
+  side: Signal<WindowSide | nil>
+  derived sided: Boolean = self.side != nil
+  derived sideContent: Template = self.side?.content ?? self.nothing
+  derived bodyColumns: Array<Track> = self.columnsOf()
+  const nothing: Template = $ltml {}
   const docked: Side | nil
   room: Signal<Number>
   constructor(
@@ -330,14 +333,12 @@ public class Window implements Component {
     // The footer row's groups on the body's bottom line: none where it is left out.
     footer: Template | nil = nil,
     // The side section at the body's right, the full height beside the main one: none where it is left out.
-    side: WindowSide | nil = nil,
+    side: Signal<WindowSide | nil> = nil,
   ) {
     self.footer = footer ?? $ltml {}
     self.footed = footer != nil
     self.padding = footer != nil ? PADDING_FOOTED : PADDING
-    self.side = side?.content ?? $ltml {}
-    self.sided = side != nil
-    self.bodyColumns = side != nil ? [{ fr: 1 }, side.width] : ONE
+    self.side = side
     self.full = full
     self.docked = docked
     self.room = room
@@ -351,6 +352,13 @@ public class Window implements Component {
     self.minHeight = minHeight
     self.maxWidth = maxWidth
     self.maxHeight = maxHeight
+  }
+
+  columnsOf(self): Array<Track> {
+    const side = self.side
+    if (side == nil) { return ONE }
+    const line = Ordaen.art.frame.tabIconLine
+    return [{ fr: 1 }, side.width + 2 * space(.Window) + line.width + line.reach.left * line.scale]
   }
 
   tabHeightOf(self): Number {
@@ -444,7 +452,7 @@ public class Window implements Component {
             </box>
           </box>
           <box $if={self.sided} border={Ordaen.art.frame.tabIconLine} rows={ONE} padding={self.padding}>
-            {self.side}
+            {self.sideContent}
           </box>
           <box $if={self.hovered} position={Position.Absolute} top={CORNER_TOP} right={CORNER_RIGHT}
                width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>

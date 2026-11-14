@@ -2,11 +2,11 @@
 // merchants' prices; the sales ledger; the house's window (`redesign/market-ux.md` §1), shown while the house is open.
 // A module loaded on demand: a player with it off loads none of its data.
 import Game from "$game"
-import { Edges, Side, Track } from "$ltml"
+import { Side, Track } from "$ltml"
 import Runtime from "$runtime"
-import { cornerRoom, Module, Placing, Settings, SettingsPage, Window, WindowTabSpec } from "Ordaen"
+import { Module, Placing, Settings, SettingsPage, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
-import { BuyPage } from "@/buy"
+import { BuyPage, Chosen, Found } from "@/buy"
 import { DataPage } from "@/dataPage"
 import { House } from "@/house"
 import { Kept } from "@/kept"
@@ -17,7 +17,7 @@ import { OrdaenPrices, takeMerchant } from "@/prices"
 import { PriceSource } from "@/quote"
 import { TooltipLines } from "@/rows"
 import { Scanner } from "@/scan"
-import { SellPage } from "@/sell"
+import { Offered, Posting, SellPage } from "@/sell"
 import { ShoppingList } from "@/shopping"
 import { ShoppingPage } from "@/shoppingPage"
 import { Choices, DEFAULTS, GeneralPage } from "@/settings"
@@ -35,10 +35,7 @@ const DATA = 3
 const TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_BUY }, { title: Locale.PAGE_SELL }, { title: Locale.PAGE_DATA }]
 const SHOPPING_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_SHOPPING }]
 const OWNED_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_OWNED }]
-const BODY: Array<Track> = ["auto", { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
-// The status line stops short of the window's corner buttons.
-const STATUS_ROOM: Edges = { right: cornerRoom(true) }
 
 public class Auction implements Module, App {
   public const title: String = "Ordaen Auction"
@@ -74,6 +71,29 @@ public class Auction implements Module, App {
   state sidePlacing: Placing = { x: 0, y: 0, width: Style.SIDE_WIDTH, height: Style.HEIGHT }
   // What the full-screen window leaves clear at the screen's right: the docked windows' width, while one is open.
   derived room: Number = self.shoppingOpen || self.ownedOpen ? Style.SIDE_WIDTH : 0
+  // The row picked on «Buy» and on «Sell»: the item's section at the window's right, the full height beside the
+  // page, while the page shows one.
+  state buyChosen: Array<Found> = []
+  state sellChosen: Array<Offered> = []
+  derived side: WindowSide | nil = self.sideOf()
+  // The window's footer: the status under every page.
+  const footer: Template = $ltml {
+    <Status items={self.scanner.known} lastFull={self.scanner.lastFull} scanner={mut self.scanner} />
+  }
+  // The side section: the row picked on the page shown.
+  const chosenPanel: Template = $ltml {
+    <box $match={self.page} rows={FILL}>
+      <box $case={BUY} rows={FILL}>
+        <Chosen $for={found of self.buyChosen} $key={found.key} found={peek found} house={self.house}
+                prices={self.prices} history={self.source} shopping={mut self.shopping} />
+      </box>
+      <box $case={SELL} rows={FILL}>
+        <Posting $for={offered of self.sellChosen} $key={offered.item} offered={peek offered} house={self.house}
+                 prices={self.prices} history={self.source} />
+      </box>
+      <box $else />
+    </box>
+  }
 
   constructor() {
     self.kept = load(.Own, KEPT, Kept {})
@@ -112,26 +132,27 @@ public class Auction implements Module, App {
   closeShopping(mut self) { self.shoppingOpen = false }
   closeOwned(mut self) { self.ownedOpen = false }
 
+  sideOf(self): WindowSide | nil {
+    const picked = self.page == BUY ? self.buyChosen.length > 0 : self.page == SELL && self.sellChosen.length > 0
+    return picked ? { width: Style.PANEL, content: self.chosenPanel } : nil
+  }
+
   public render(self): Template {
     return $ltml {
       <$if={self.shown}>
         // The game's own window stays open, unseen and off the screen: hiding it would close the house.
         <frame of={Game.frames.AuctionHouse} opacity={0} away={true} />
         <Window tabs={TABS} selected={mut self.page} placing={mut self.placing} withSettings={true} full={true}
-                room={self.room} @close={self.onClose} @settings={self.onSettings}>
-          <box rows={BODY} gap={Style.ROW_GAP}>
-            <box padding={STATUS_ROOM}>
-              <Status house={self.house.name} items={self.scanner.known} lastFull={self.scanner.lastFull}
-                      scanner={mut self.scanner} />
-            </box>
-            <box $match={self.page} rows={FILL}>
-              <BuyPage $case={BUY} house={self.house} prices={self.prices} history={self.source} offers={self.scanner.offers}
-                       items={self.scanner.known} shopping={mut self.shopping} @openList={self.onShopping} />
-              <SellPage $case={SELL} house={self.house} prices={self.prices} history={self.source}
-                        @openOwned={self.onOwned} />
-              <DataPage $case={DATA} scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
-                        items={self.scanner.known} settings={mut self.settings} />
-            </box>
+                room={self.room} footer={self.footer} side={self.side} @close={self.onClose}
+                @settings={self.onSettings}>
+          <box $match={self.page} rows={FILL}>
+            <BuyPage $case={BUY} house={self.house} prices={self.prices} offers={self.scanner.offers}
+                     items={self.scanner.known} shopping={mut self.shopping} chosen={mut self.buyChosen}
+                     @openList={self.onShopping} />
+            <SellPage $case={SELL} house={self.house} prices={self.prices} chosen={mut self.sellChosen}
+                      @openOwned={self.onOwned} />
+            <DataPage $case={DATA} scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
+                      items={self.scanner.known} settings={mut self.settings} />
           </box>
         </Window>
         <Window $if={self.shoppingOpen} tabs={SHOPPING_TABS} selected={mut self.sideTab}

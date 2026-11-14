@@ -5,7 +5,7 @@
 // a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, Table, TableRow, tracksOf } from "Ordaen"
+import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, space, Table, TableRow, tracksOf } from "Ordaen"
 import { nameOf } from "@/buy"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
@@ -107,22 +107,22 @@ public class SellPage implements Component {
   // Moves as the bags change: what the house takes is read again.
   state bags = 0
   derived rows: Array<Offered> = self.rowsOf()
-  derived chosen: Array<Offered> = self.chosenOf()
-  // The item panel stands at the right while a row is picked.
-  derived columns: Array<Track> = self.chosen.length > 0 ? PAGE : FILL
+  // The row picked, while it is shown: one or none, handed to the window's side section.
+  derived picks: Array<Offered> = self.chosenOf()
 
   const house: House
   const prices: any PriceSource
-  const history: any PriceHistory | nil
+  chosen: mut Signal<Array<Offered>>
   constructor(
     house: House,
     prices: any PriceSource,
-    // The prices hour by hour, the item panel's chart.
-    history: any PriceHistory | nil,
+    // The row picked, while it is shown: the window's side section draws it.
+    chosen: mut Signal<Array<Offered>>,
   ) {
     self.house = house
     self.prices = prices
-    self.history = history
+    self.chosen = chosen
+    watch (picks of self.picks) { self.chosen = picks.map(offered => offered) }
     Game.bags.changed.listen(self.onBags)
   }
 
@@ -172,10 +172,10 @@ public class SellPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={self.columns} rows={FILL} gap={Style.GAP}>
-        <box rows={SIDE} gap={Style.ROW_GAP}>
+      <box rows={FILL}>
+        <box rows={SIDE} gap={space(.Item)}>
           // The row over the bags' items: «My auctions» at its right end.
-          <box columns={TOOLS} gap={Style.ROW_GAP} yAlign={Align.Center}>
+          <box columns={TOOLS} gap={space(.Item)} yAlign={Align.Center}>
             <text value={Locale.SELLABLE} textColor={Style.DIM} wrap={false} />
             <PushButton label={Locale.PAGE_OWNED} width={Style.OPENER} @click={self.onOpenOwned} />
           </box>
@@ -183,21 +183,19 @@ public class SellPage implements Component {
             <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} fills={true}>
               <OfferedRow $for={row of self.rows} $key={row.item} offered={peek row}
                           selected={self.picked == row.item} @pick={self.onPick} />
-              <box $if={self.rows.length == 0} padding={Style.PANEL_PAD}>
+              <box $if={self.rows.length == 0} padding={space(.Panel)}>
                 <text value={Locale.NOTHING_TO_SELL} textColor={Style.DIM} />
               </box>
             </Table>
           </box>
         </box>
-        <Posting $for={offered of self.chosen} $key={offered.item} offered={peek offered} house={self.house}
-                 prices={self.prices} history={self.history} />
       </box>
     }
   }
 }
 
 // The item picked, in the item panel: how many, the price for one, how long, the deposit, and «Post».
-class Posting implements Component {
+public class Posting implements Component {
   state count = 1
   state unit: Integer
   state duration: Game.Duration = Game.Duration.Medium
@@ -256,8 +254,8 @@ class Posting implements Component {
     return $ltml {
       <ItemPanel item={self.offered.item} name={self.offered.name} color={self.offered.color} detail={self.detail}
                  house={self.house} prices={self.prices} history={self.history}>
-        <box gap={Style.ROW_GAP}>
-          <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
+        <box gap={space(.Item)}>
+          <box columns={PAIR} gap={space(.Item)} yAlign={Align.Center}>
             <text value={Locale.QUANTITY} textColor={Style.INK} />
             <CountInput value={mut self.count} least={1} most={self.most} step={STEP} />
           </box>
@@ -265,7 +263,7 @@ class Posting implements Component {
           <MoneyField value={mut self.unit} />
           <text value={Locale.DURATION} textColor={Style.INK} />
           <Segmented value={mut self.duration} choices={DURATIONS} />
-          <box columns={PAIR} gap={Style.ROW_GAP} yAlign={Align.Center}>
+          <box columns={PAIR} gap={space(.Item)} yAlign={Align.Center}>
             <text value={Locale.DEPOSIT} textColor={Style.INK} />
             <Money $if={self.deposit != nil} amount={self.depositAmount} />
             <text $else value={"—"} textColor={Style.DIM} />

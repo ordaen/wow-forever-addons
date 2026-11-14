@@ -9,17 +9,13 @@ import Locale from "@/locales"
 public const WIDTH: Number = 1060 * PX
 public const HEIGHT: Number = 700 * PX
 public const SIDE_WIDTH: Number = 600 * PX
-// Between a page's columns, and between its rows.
-public const GAP: Number = 12 * PX
-public const ROW_GAP: Number = 8 * PX
 // An item's slot in a row, and the chosen item's.
 public const SLOT: Number = 24 * PX
 public const BIG_SLOT: Number = 40 * PX
-// The panel at a page's right: «Buy»'s picked row, «Sell»'s.
+// What the item's section at the window's right holds, how wide: «Buy»'s picked row, «Sell»'s.
 public const PANEL: Number = 280 * PX
-public const PANEL_PAD: Number = 12 * PX
-// A button as wide as the panel holds: inside its padding and its frame's line.
-public const PANEL_BUTTON: Number = PANEL - 2 * PANEL_PAD - 2 * PX
+// A button as wide as the section holds.
+public const PANEL_BUTTON: Number = PANEL
 // A button that opens a docked window, at the search's row's right end.
 public const OPENER: Number = 150 * PX
 

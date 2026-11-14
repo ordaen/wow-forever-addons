@@ -1,79 +1,77 @@
 -- «Buy» full screen, the shopping list docked at the right
 surface 0,0 1600x900 on DIALOG clamped raised by a click
   box 0,37.25 1100x862.75 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 22.75,61.67 1059.5x817.83
-      box 22.75,61.67 1059.5x34.17
-        box 22.75,61.67 985.33x34.17
-          box 22.75,68.33 867x15
-            text 22.75,68.33 50x15 "Stand-in" #ffd100
-            text 82.75,68.33 807x15 "No prices for this realm: the first scan is under way" #e8dcc4
-          box 899.75,61.67 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-            box 899.75,61.67 108.33x28.33 absolute
-              text 941.42,68.33 25x15 "Scan" #ffd100
-      box 22.75,102.5 1059.5x777
-        box 22.75,102.5 1059.5x777
-          box 22.75,102.5 1059.5x777
-            box 22.75,102.5 1059.5x28.33
-              box 22.75,102.5 927.83x28.33
-                box 22.75,102.5 894.5x28.33
-                  box 22.75,102.5 894.5x28.33 #00000080 input "" @change
-                  box 22.75,102.5 894.5x28.33 absolute
-                    text 31.08,109.17 877.83x15 "Item name" #a3977f
-                box 917.25,102.5 33.33x28.33
-                  box 917.25,102.5 33.33x28.33
-                    box 922.25,102.5 28.33x28.33
-                      box 922.25,102.5 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                        box 929.75,110 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
-              box 957.25,102.5 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                box 957.25,102.5 125x28.33 absolute
-                  text 979.12,109.17 81.25x15 "Shopping list" #ffffff
-            box 22.75,137.5 1059.5x742 #0000004d
-              box 23.58,138.33 1057.83x740.33
-                box 23.58,138.33 1057.83x25.83 #00000040
-                  box 30.25,138.33 632.83x25 #00000000 @click
-                    box 30.25,161.67 632.83x1.67 absolute #00000000
-                    box 30.25,143.33 632.83x15
-                      text 30.25,143.33 25x15 "Item" #cbb994
-                      box 58.58,148.33 6.67x5
-                        box 55.25,144.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 669.75,138.33 36.67x10 #00000000 @click
-                    box 669.75,146.67 36.67x1.67 absolute #00000000
-                    box 669.75,143.33 36.67x0
-                      text 669.75,143.33 0x0 "" #a3977f
-                  box 713.08,138.33 75x25 #00000000 @click
-                    box 713.08,161.67 75x1.67 absolute #00000000
-                    box 740.58,143.33 47.5x15
-                      text 740.58,143.33 37.5x15 "Listed" #cbb994
-                      box 781.42,148.33 6.67x5
-                        box 778.08,144.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 794.75,138.33 80x25 #00000000 @click
-                    box 794.75,161.67 80x1.67 absolute #00000000
-                    box 827.25,143.33 47.5x15
-                      text 827.25,143.33 37.5x15 "Lowest" #cbb994
-                      box 868.08,148.33 6.67x5
-                        box 864.75,144.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 881.42,138.33 75x25 #00000000 @click
-                    box 881.42,161.67 75x1.67 absolute #00000000
-                    box 908.92,143.33 47.5x15
-                      text 908.92,143.33 37.5x15 "Market" #cbb994
-                      box 949.75,148.33 6.67x5
-                        box 946.42,144.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 963.08,138.33 46.67x25 #00000000 @click
-                    box 963.08,161.67 46.67x1.67 absolute #00000000
-                    box 993.5,143.33 16.25x15
-                      text 993.5,143.33 6.25x15 "%" #cbb994
-                      box 1003.08,148.33 6.67x5
-                        box 999.75,144.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                  box 1016.42,138.33 58.33x25 #00000000 @click
-                    box 1016.42,161.67 58.33x1.67 absolute #00000000
-                    box 1046,143.33 28.75x15
-                      text 1046,143.33 18.75x15 "Age" #cbb994
-                      box 1068.08,148.33 6.67x5
-                        box 1064.75,144.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 23.58,164.17 1057.83x714.5
-                  box 23.58,164.17 1057.83x714.5 absolute scrolled 0 of 0
-                    box 23.58,164.17 1057.83x35
-                      text 33.58,174.17 1037.83x15 "No prices for this realm: the first scan is under way. Find an item by name." #a3977f
+    box 12.75,50 1079.5x839.5
+      box 32.75,70 1039.5x761.17
+        box 32.75,70 1039.5x761.17
+          box 32.75,70 1039.5x761.17
+            box 32.75,70 1039.5x28.33
+              box 32.75,70 907.83x28.33
+                box 32.75,70 874.5x28.33
+                  box 32.75,70 874.5x28.33 #00000080 input "" @change
+                  box 32.75,70 874.5x28.33 absolute
+                    text 41.08,76.67 857.83x15 "Item name" #a3977f
+                box 907.25,70 33.33x28.33
+                  box 907.25,70 33.33x28.33
+                    box 912.25,70 28.33x28.33
+                      box 912.25,70 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                        box 919.75,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+              box 947.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                box 947.25,70 125x28.33 absolute
+                  text 969.12,76.67 81.25x15 "Shopping list" #ffffff
+            box 32.75,105 1039.5x726.17 #0000004d
+              box 33.58,105.83 1037.83x724.5
+                box 33.58,105.83 1037.83x29.17 #00000040
+                  box 40.25,105.83 612.83x28.33 #00000000 @click
+                    box 40.25,132.5 612.83x1.67 absolute #00000000
+                    box 40.25,112.5 612.83x15
+                      text 40.25,112.5 25x15 "Item" #cbb994
+                      box 68.58,117.5 6.67x5
+                        box 65.25,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 659.75,105.83 36.67x13.33 #00000000 @click
+                    box 659.75,117.5 36.67x1.67 absolute #00000000
+                    box 659.75,112.5 36.67x0
+                      text 659.75,112.5 0x0 "" #a3977f
+                  box 703.08,105.83 75x28.33 #00000000 @click
+                    box 703.08,132.5 75x1.67 absolute #00000000
+                    box 730.58,112.5 47.5x15
+                      text 730.58,112.5 37.5x15 "Listed" #cbb994
+                      box 771.42,117.5 6.67x5
+                        box 768.08,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 784.75,105.83 80x28.33 #00000000 @click
+                    box 784.75,132.5 80x1.67 absolute #00000000
+                    box 817.25,112.5 47.5x15
+                      text 817.25,112.5 37.5x15 "Lowest" #cbb994
+                      box 858.08,117.5 6.67x5
+                        box 854.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 871.42,105.83 75x28.33 #00000000 @click
+                    box 871.42,132.5 75x1.67 absolute #00000000
+                    box 898.92,112.5 47.5x15
+                      text 898.92,112.5 37.5x15 "Market" #cbb994
+                      box 939.75,117.5 6.67x5
+                        box 936.42,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 953.08,105.83 46.67x28.33 #00000000 @click
+                    box 953.08,132.5 46.67x1.67 absolute #00000000
+                    box 983.5,112.5 16.25x15
+                      text 983.5,112.5 6.25x15 "%" #cbb994
+                      box 993.08,117.5 6.67x5
+                        box 989.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1006.42,105.83 58.33x28.33 #00000000 @click
+                    box 1006.42,132.5 58.33x1.67 absolute #00000000
+                    box 1036,112.5 28.75x15
+                      text 1036,112.5 18.75x15 "Age" #cbb994
+                      box 1058.08,117.5 6.67x5
+                        box 1054.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                box 33.58,135 1037.83x695.33
+                  box 33.58,135 1037.83x695.33 absolute scrolled 0 of 0
+                    box 33.58,135 1037.83x41.67
+                      text 46.92,148.33 1011.17x15 "No prices for this realm: the first scan is under way. Find an item by name." #a3977f
+      box 32.75,831.17 1039.5x45
+        box 32.75,847.83 1039.5x28.33
+          text 32.75,855.5 914.5x13 "No prices for this realm: the first scan is under way" #a3977f
+          box 963.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 963.92,847.83 108.33x28.33 absolute
+              text 1005.58,854.5 25x15 "Scan" #ffd100
     box 1016.08,49.08 77.5x26.67 absolute clipped
       box 1016.08,49.08 29.17x26.67 absolute clipped @click
         box 1016.08,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -96,50 +94,51 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         text 293.75,19.88 25x15 "Data" #b3a690
 surface 1100,0 500x900 on DIALOG clamped raised by a click
   box 1100,37.25 500x862.75 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 1122.75,61.67 459.5x817.83
-      box 1122.75,61.67 459.5x15
-        text 1122.75,62.67 308.67x13 "Held: this character's bags and bank." #a3977f
-        text 1438.08,61.67 87.5x15 "To buy, in all" #a3977f
-        box 1532.25,61.67 50x15
-          text 1532.25,69.17 0x0 "" #e8dcc4
-          text 1532.25,61.67 50x15 "0g 0s 0c" #e8dcc4
-      box 1122.75,83.33 459.5x761.17 #0000004d
-        box 1123.58,84.17 457.83x759.5
-          box 1123.58,84.17 457.83x25.83 #00000040
-            box 1130.25,84.17 96.17x25 #00000000 @click
-              box 1130.25,107.5 96.17x1.67 absolute #00000000
-              box 1130.25,89.17 96.17x15
-                text 1130.25,89.17 25x15 "Item" #a3977f
-            box 1233.08,84.17 83.33x25 #00000000 @click
-              box 1233.08,107.5 83.33x1.67 absolute #00000000
-              box 1275.58,89.17 40.83x15
-                text 1275.58,89.17 37.5x15 "To buy" #a3977f
-            box 1323.08,84.17 83.33x25 #00000000 @click
-              box 1323.08,107.5 83.33x1.67 absolute #00000000
-              box 1371.83,89.17 34.58x15
-                text 1371.83,89.17 31.25x15 "Price" #a3977f
-            box 1413.08,84.17 75x25 #00000000 @click
-              box 1413.08,107.5 75x1.67 absolute #00000000
-              box 1453.5,89.17 34.58x15
-                text 1453.5,89.17 31.25x15 "Total" #a3977f
-            box 1494.75,84.17 80x10 #00000000 @click
-              box 1494.75,92.5 80x1.67 absolute #00000000
-              box 1571.42,89.17 3.33x0
-                text 1571.42,89.17 0x0 "" #a3977f
-          box 1123.58,110 457.83x733.67
-            box 1123.58,110 457.83x733.67 absolute scrolled 0 of 0
-              box 1123.58,110 457.83x35
-                text 1133.58,120 437.83x15 "Add a recipe from Professions, or an item on the Buy page." #a3977f
-      box 1122.75,851.17 459.5x28.33
-        box 1122.75,851.17 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-          box 1122.75,851.17 125x28.33 absolute
-            text 1154,857.83 62.5x15 "Search all" #808080
-        box 1254.42,851.17 141.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-          box 1254.42,851.17 141.67x28.33 absolute
-            text 1284.62,857.83 81.25x15 "Remove bought" #808080
-        box 1402.75,851.17 108.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-          box 1402.75,851.17 108.33x28.33 absolute
-            text 1438.17,857.83 37.5x15 "Remove" #808080
+    box 1112.75,50 479.5x839.5
+      box 1132.75,70 439.5x799.5
+        box 1132.75,70 439.5x15
+          text 1132.75,71 288.67x13 "Held: this character's bags and bank." #a3977f
+          text 1428.08,70 87.5x15 "To buy, in all" #a3977f
+          box 1522.25,70 50x15
+            text 1522.25,77.5 0x0 "" #e8dcc4
+            text 1522.25,70 50x15 "0g 0s 0c" #e8dcc4
+        box 1132.75,91.67 439.5x742.83 #0000004d
+          box 1133.58,92.5 437.83x741.17
+            box 1133.58,92.5 437.83x29.17 #00000040
+              box 1140.25,92.5 76.17x28.33 #00000000 @click
+                box 1140.25,119.17 76.17x1.67 absolute #00000000
+                box 1140.25,99.17 76.17x15
+                  text 1140.25,99.17 25x15 "Item" #a3977f
+              box 1223.08,92.5 83.33x28.33 #00000000 @click
+                box 1223.08,119.17 83.33x1.67 absolute #00000000
+                box 1265.58,99.17 40.83x15
+                  text 1265.58,99.17 37.5x15 "To buy" #a3977f
+              box 1313.08,92.5 83.33x28.33 #00000000 @click
+                box 1313.08,119.17 83.33x1.67 absolute #00000000
+                box 1361.83,99.17 34.58x15
+                  text 1361.83,99.17 31.25x15 "Price" #a3977f
+              box 1403.08,92.5 75x28.33 #00000000 @click
+                box 1403.08,119.17 75x1.67 absolute #00000000
+                box 1443.5,99.17 34.58x15
+                  text 1443.5,99.17 31.25x15 "Total" #a3977f
+              box 1484.75,92.5 80x13.33 #00000000 @click
+                box 1484.75,104.17 80x1.67 absolute #00000000
+                box 1561.42,99.17 3.33x0
+                  text 1561.42,99.17 0x0 "" #a3977f
+            box 1133.58,121.67 437.83x712
+              box 1133.58,121.67 437.83x712 absolute scrolled 0 of 0
+                box 1133.58,121.67 437.83x41.67
+                  text 1146.92,135 411.17x15 "Add a recipe from Professions, or an item on the Buy page." #a3977f
+        box 1132.75,841.17 439.5x28.33
+          box 1132.75,841.17 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.75,841.17 125x28.33 absolute
+              text 1164,847.83 62.5x15 "Search all" #808080
+          box 1264.42,841.17 141.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1264.42,841.17 141.67x28.33 absolute
+              text 1294.62,847.83 81.25x15 "Remove bought" #808080
+          box 1412.75,841.17 108.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1412.75,841.17 108.33x28.33 absolute
+              text 1448.17,847.83 37.5x15 "Remove" #808080
   box 1100,0 118.42x47.75
     box 1100,0 118.42x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 1118.58,10.25 81.25x34.25

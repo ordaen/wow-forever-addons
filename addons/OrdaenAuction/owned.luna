@@ -4,7 +4,7 @@
 // the client's from a click alone). «Check» asks the client for them again and browses their items.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
+import { Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, tracksOf, space } from "Ordaen"
 import { nameOf } from "@/buy"
 import { House } from "@/house"
 import Locale from "@/locales"
@@ -147,17 +147,17 @@ public class OwnedPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={Style.ROW_GAP}>
+      <box rows={PAGE} gap={space(.Item)}>
         <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} fills={true}>
             <OwnedRow $for={row of self.rows} $key={row} shown={peek row} busy={Game.auctionActions.busy}
                       @cancel={self.onCancel} />
-            <box $if={self.rows.length == 0} padding={Style.PANEL_PAD}>
+            <box $if={self.rows.length == 0} padding={space(.Panel)}>
               <text value={Locale.NO_AUCTIONS} textColor={Style.DIM} />
             </box>
           </Table>
         </box>
-        <box columns={BUTTONS} gap={Style.GAP} yAlign={Align.Center}>
+        <box columns={BUTTONS} gap={space(.Group)} yAlign={Align.Center}>
           <PushButton label={Locale.CHECK} width={140 * PX} @click={self.onCheck} />
           <text value={Locale.CHECK_NOTE} textColor={Style.DIM} textSize={.Secondary} />
         </box>
