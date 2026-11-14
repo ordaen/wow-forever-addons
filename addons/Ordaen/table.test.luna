@@ -1,6 +1,6 @@
 // The library's Table: a heading click sorts by its column and again reverses it, a column that isn't sortable does
 // nothing, the rows follow their own cells, and every row is drawn (rows drawn only where seen wait for the renderer).
-import { Align, Track } from "$ltml"
+import { Align, Click, MouseButton, Track } from "$ltml"
 import Test from "$test"
 import { Age } from "@/age"
 import { Money } from "@/money"
@@ -29,6 +29,7 @@ class Sales {
   public state sorted = 0
   public state descending = false
   public state picked = ""
+  public state clicks = 0
   public state height: Number | nil = nil
   public derived ordered: Array<Sale> = self.order()
 
@@ -46,7 +47,10 @@ class Sales {
     return list
   }
 
-  onPick(mut self) { self.picked = "row" }
+  onPick(mut self, click: Click) {
+    self.picked = click.button == MouseButton.Right ? "right" : "row"
+    self.clicks += 1
+  }
 
   public render(self): Template {
     return $ltml {
@@ -110,6 +114,10 @@ test "a heading click sorts by its column and again reverses it, the rows' own c
 
   Test.click(Test.holding("Bronze Axe", nil), nil)
   Test.expect(page.picked == "row")
+
+  Test.click(Test.holding("Copper Bar", nil), MouseButton.Right)
+  Test.expect(page.picked == "right")
+  Test.expect(page.clicks == 2)
 
   destroy page
   Test.expect(Test.blank())

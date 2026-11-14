@@ -1,6 +1,6 @@
 // The market's controls on a page, for the run tests: a scan's progress, a price with its age, a mode, a tree, item
 // slots and a sortable table of sales.
-import { Align, Track } from "$ltml"
+import { Align, Click, MouseButton, Track } from "$ltml"
 import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, TreeRow, tracksOf } from "Ordaen"
 
 public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
@@ -41,6 +41,8 @@ public class Market implements Component {
   ]
   state sorted = 0
   state descending = false
+  // The button of the last click on a row of the sales.
+  state clicked = "none"
   derived ordered: Array<Sale> = self.order()
 
   // The sales by the column the table is sorted by, as the page keeps them when it is not.
@@ -59,6 +61,7 @@ public class Market implements Component {
   }
 
   onItem(mut self, item: Integer) { self.chosenItem = item }
+  onSale(mut self, click: Click) { self.clicked = click.button == MouseButton.Right ? "right" : "left" }
 
   public render(self): Template {
     return $ltml {
@@ -97,8 +100,11 @@ public class Market implements Component {
           </box>
         </Section>
         <Section title={"Sales"}>
+          <SettingRow label={"Last click on a row"}>
+            <text value={self.clicked} />
+          </SettingRow>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
-            <TableRow $for={sale of self.ordered} $key={sale} tracks={TRACKS}>
+            <TableRow $for={sale of self.ordered} $key={sale} tracks={TRACKS} @pick={self.onSale}>
               <text value={peek sale.name} />
               <box xAlign={Align.End}>
                 <Money amount={peek sale.price} />

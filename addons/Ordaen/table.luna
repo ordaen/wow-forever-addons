@@ -4,7 +4,7 @@
 // and nothing is made for it when another changes). The rows are `TableRow`s in the table's slot, each laid out in the
 // columns' tracks (`tracksOf(columns)`, made once where the columns are). Every row is drawn; the body scrolls where
 // it is given a `height`.
-import { Align, Edges, Line, Overflow, Position, Side, Stated, Track } from "$ltml"
+import { Align, Click, Edges, Line, Overflow, Position, Side, Stated, Track } from "$ltml"
 import { Component } from "@/module"
 import { PX } from "@/units"
 
@@ -89,9 +89,10 @@ public class Heading implements Component {
 }
 
 // One row of a table: its cells in the slot, laid out in the columns' tracks. The shade under the cursor; selected, a
-// darker one. Left-click reports `pick`.
+// darker one. A click of any button reports `pick` with the click (its button and where it was in the row), as a
+// box's `click` does: the page tells a left-click from a right-click.
 public class TableRow implements Component {
-  public pick: Event<nil> = new Event()
+  public pick: Event<Click> = new Event()
 
   derived background: Color | Stated<Color> = self.selected ? BACK : SHADE
 
@@ -105,7 +106,7 @@ public class TableRow implements Component {
     self.selected = selected
   }
 
-  onClick(mut self) { self.pick.emit() }
+  onClick(mut self, click: Click) { self.pick.emit(click) }
 
   public render(self): Template {
     return $ltml {

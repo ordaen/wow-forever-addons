@@ -1,4 +1,5 @@
 // The market's controls on the showcase's page: its third tab holds a row for each, and each follows its cell.
+import { MouseButton } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Showcase } from "@/index"
@@ -61,6 +62,12 @@ test "the market holds a row for each of the market's controls, each following i
   Test.click(Test.holding("Each", nil), nil)
   Test.expect(page.descending)
   Test.shot("clicked again: reversed")
+
+  Test.click(Test.holding("Copper Bar", nil), nil)
+  Test.expect(page.clicked == "left")
+  Test.click(Test.holding("Arcane Dust", nil), MouseButton.Right)
+  Test.expect(page.clicked == "right")
+  Test.shot("a row clicked with the left button, then another with the right: the page told them apart")
 
   destroy page
   Test.expect(Test.blank())
