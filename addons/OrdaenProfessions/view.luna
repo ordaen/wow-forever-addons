@@ -11,7 +11,7 @@ public enum View { Columns = "columns", Categories = "categories", List = "list"
 public enum SortBy { Difficulty = "difficulty", Name = "name", Makeable = "makeable" }
 
 // What a row of a list asks of the window: it names a recipe by its number.
-public enum Act { Pick = 1, Menu = 2, Favorite = 3, Track = 4, Make = 5, Close = 6 }
+public enum Act { Pick = 1, Menu = 2, Favorite = 3, Track = 4, Make = 5, Close = 6, Link = 7 }
 
 // The group of the recipes the player starred: it stands first, with no category of the game's number.
 public const FAVORITES = -1

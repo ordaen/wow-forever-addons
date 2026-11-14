@@ -6,32 +6,29 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 793.67x25 #3d2710
-          box 383.58,207.21 788.67x22.5 #0b0805 clipped
-            box 383.58,207.21 325.98x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 788.67x22.5 absolute
-              box 383.58,207.21 78.87x22.5
-              box 462.45,207.21 78.87x22.5
-              box 541.32,207.21 78.87x22.5
-              box 620.18,207.21 78.87x22.5
-              box 699.05,207.21 78.87x22.5
-              box 777.92,207.21 78.87x22.5
-              box 856.78,207.21 78.87x22.5
-              box 935.65,207.21 78.87x22.5
-              box 1014.52,207.21 78.87x22.5
-              box 1093.38,207.21 78.87x22.5
-            box 383.58,207.21 788.67x22.5 absolute
-              text 719.58,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 770.33x25 #3d2710
+          box 383.58,207.21 765.33x22.5 #0b0805 clipped
+            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 765.33x22.5 absolute
+              box 383.58,207.21 76.53x22.5
+              box 460.12,207.21 76.53x22.5
+              box 536.65,207.21 76.53x22.5
+              box 613.18,207.21 76.53x22.5
+              box 689.72,207.21 76.53x22.5
+              box 766.25,207.21 76.53x22.5
+              box 842.78,207.21 76.53x22.5
+              box 919.32,207.21 76.53x22.5
+              box 995.85,207.21 76.53x22.5
+              box 1072.38,207.21 76.53x22.5
+            box 383.58,207.21 765.33x22.5 absolute
+              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
-        box 381.08,238.88 772.83x26.67
-          box 381.08,264.71 772.83x0.83 absolute #3e2f1d
-          box 381.08,238.88 68.75x26.67 #00000059 @click
-            box 381.92,239.71 67.08x1.67 absolute #d6a56b
-            text 393.58,245.54 43.75x15 "Recipes" #ffffff
-          box 453.17,238.88 48.33x25.83 #00000000 @click
-            text 464.83,244.71 25x15 "Camp" #a3977f
-        box 1160.58,251.54 63.33x14 @click
-          text 1168.92,251.54 46.67x14 "Settings" #a3977f
+        box 381.08,264.71 842.83x0.83 absolute #3e2f1d
+        box 381.08,238.88 68.75x26.67 #00000059 @click
+          box 381.92,239.71 67.08x1.67 absolute #d6a56b
+          text 393.58,245.54 43.75x15 "Recipes" #ffffff
+        box 453.17,238.88 48.33x25.83 #00000000 @click
+          text 464.83,244.71 25x15 "Camp" #a3977f
       box 381.08,272.21 842.83x473.42
         box 381.08,272.21 441.67x473.42
           box 381.08,272.21 441.67x28.33
@@ -118,6 +115,8 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
         box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
         box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
+    box 1159.42,194.63 23.33x26.67 absolute @click
+      text 1166.92,197.96 8.33x20 "☼" #c9a05a
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 290.5x59.42
     box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop

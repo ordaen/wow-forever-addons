@@ -7,12 +7,11 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Edges, Line, Overflow, Position, Side, Track } from "$ltml"
-import { Choice, Column, cornerRoom, Memory, Module, Placing, PX, SettingsPage, Settings, Table, tracksOf, Tabs, Window, WindowTabSpec } from "Ordaen"
+import { Choice, Column, CompactDropdown, cornerRoom, Memory, Module, Placing, PX, SettingsPage, Settings, Table, tracksOf, Tabs, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { RecipeDetails } from "@/details"
 import { FilterButton } from "@/filter"
-import { Pick } from "@/pick"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
 import { SkillBar } from "@/skillBar"
@@ -30,10 +29,9 @@ const GRID: Array<Track> = [Style.LEFT, { fr: 1 }]
 const SIDE: Array<Track> = ["auto", "auto", { fr: 1 }]
 const LISTS: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
 const TOOLS: Array<Track> = ["auto", "auto", "auto"]
-const PAGES: Array<Track> = [{ fr: 1 }, "auto"]
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const COLUMN_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Left] }
-const BAR_ROOM: Edges = { right: cornerRoom(false) }
+const BAR_ROOM: Edges = { right: cornerRoom(true) }
 const SEARCH_HEIGHT = 34 * PX
 const SEARCH_EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
 const SEARCH_BACK: Color = Color.hex("#00000080")
@@ -385,6 +383,7 @@ public class Professions implements Module, App {
       Act.Track => { self.starTracked(id) },
       Act.Make => { self.onMake(id) },
       Act.Close => { self.closeMenu(id) },
+      Act.Link => { self.onLink(id) },
     }
   }
 
@@ -419,6 +418,13 @@ public class Professions implements Module, App {
   starTracked(mut self, id: Integer) {
     const now = peek self.memory.values
     self.memory.write({ tracked: self.toggled(now.tracked, id), ..now })
+  }
+
+  // The item the recipe makes put into the chat's line; a recipe that makes none has no link.
+  onLink(mut self, id: Integer) {
+    self.menuFor = 0
+    const schematic = Game.recipeReader.schematic(id)
+    if (schematic != nil && schematic.makes != nil) { Game.chat.link(schematic.makes) }
   }
 
   // From the menu's click: the game takes making only from one.
@@ -471,8 +477,8 @@ public class Professions implements Module, App {
     return $ltml {
       <$if={self.isOpen}>
         <frame of={Game.frames.Professions} opacity={0} away={true} />
-        <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}
-                @picked={self.onTab}>
+        <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
+                @close={self.onClose} @picked={self.onTab} @settings={self.onSettings}>
           <box $if={!self.hasOpen} xAlign={Align.Center} yAlign={Align.Center}>
             <text value={Locale.PICK} textSize={Style.TEXT} textColor={Style.DIM} />
           </box>
@@ -481,12 +487,7 @@ public class Professions implements Module, App {
             <box padding={BAR_ROOM}>
               <SkillBar profession={self.profession} />
             </box>
-            <box columns={PAGES} gap={8 * PX} yAlign={Align.End}>
-              <Tabs tabs={self.pageNames} selected={mut self.page} />
-              <box padding={SEARCH_PAD} @click={self.onSettings}>
-                <text value={Locale.SETTINGS} textSize={Style.TEXT} textColor={Style.DIM} wrap={false} />
-              </box>
-            </box>
+            <Tabs tabs={self.pageNames} selected={mut self.page} />
             <box columns={GRID} rows={FILL} gap={Style.GAP}>
               <box rows={SIDE} gap={8 * PX}>
                 <box height={SEARCH_HEIGHT} rows={FILL}>
@@ -501,8 +502,8 @@ public class Professions implements Module, App {
                   <FilterButton open={mut self.filterOpen} makeable={mut self.onlyMake} skillUp={mut self.onlySkill}
                                 learned={mut self.showLearned} unlearned={mut self.showUnlearned}
                                 filtered={self.filtered} @reset={self.resetFilter} />
-                  <Pick $if={!self.isTable} value={mut self.sort} choices={SORTS} width={PICK_WIDTH} />
-                  <Pick $if={!self.onCamp} value={mut self.view} choices={VIEWS} width={PICK_WIDTH} />
+                  <CompactDropdown $if={!self.isTable} value={mut self.sort} choices={SORTS} width={PICK_WIDTH} />
+                  <CompactDropdown $if={!self.onCamp} value={mut self.view} choices={VIEWS} width={PICK_WIDTH} />
                 </box>
                 <box $if={self.onCamp} rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
                   <box overflow={Overflow.Scroll}>

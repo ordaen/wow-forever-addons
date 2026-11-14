@@ -151,6 +151,8 @@ test "the professions window: the open profession, its lists, the search, a reci
   let bar = Test.edges(ordaen.lookArt.xpFill, 2)
   let corner = Test.edges(ordaen.art.ctl.cornerClose, 2)
   Test.note("the skill bar ends %d before the corner's buttons".format((corner.left - bar.right + 0.5).floor()))
+  // The settings glyph stands between them: the bar ends before it too.
+  Test.expect(Test.holding("☼", nil).x > bar.right)
   Test.moveTo({ x: -10, y: -10 })
   Test.flush()
 
