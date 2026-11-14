@@ -1,27 +1,34 @@
 // The game menu (Escape's `GameMenuFrame`), dressed. Blizzard's buttons stay Blizzard's, each with its own click: the
 // dress draws a plate of ours where each stands (Blizzard's at alpha 0, its mouse kept), the exits in red, a «new»
-// label of Blizzard's as the gem on its button. «AddOns» is ours, laid over Blizzard's in its slot (Blizzard's at
-// alpha 0, the mouse off it), and opens Ordaen's AddOns window. One group of Ordaen's stands above Blizzard's,
-// «Ordaen», which opens Ordaen's settings. The dialog's frame round both, its title engraved inside near its top with
-// a groove under it. Nothing is written on Blizzard's frames but their alpha and mouse; what is kept per button is
-// this file's own weak table, and every widget is put back as the dress ends.
-import { Align, Anchored, Art, Layer, Point, Position, Shadow } from "$ltml"
+// label of Blizzard's as the gem on its button. «AddOns» is ours, a plate laid over Blizzard's in its slot
+// (Blizzard's at alpha 0, the mouse off it), and opens Ordaen's AddOns window. The plates stand `space(.Item)` apart:
+// each is its button less half the gap above and below, and the button's mouse is cut to it (its hit insets). The
+// dialog's frame round the menu, its title engraved inside near its top with a carved groove under it. The menu
+// itself takes no mouse while dressed: shown, the client raises it over everything of its strata, ours too, and it
+// would take the click meant for our «AddOns». Nothing is written on Blizzard's frames but their alpha, mouse and hit
+// insets; what is kept per button is this file's own weak table, and every widget is put back as the dress ends.
+import { Align, Anchored, Art, Layer, Point, Position, Shadow, Stated } from "$ltml"
 import Client from "$client"
-import { Component, PushButton, PX, space } from "Ordaen"
+import { Component, PX, space } from "Ordaen"
 import root Ordaen from "Ordaen"
 
-// How much higher the dress stands than Blizzard's menu: its title, the groove under it, and Ordaen's group.
-const TITLE_TOP = 14 * PX
-const GROOVE_TOP = 32 * PX
+// The dress's head, from its top: the frame's band, a gap, the title's line, a gap, the carved groove, the gap to
+// Blizzard's first button.
+const TITLE_TOP: Number = 14 * PX + space(.Item)
+// The title's text, as tall as it is drawn.
+const TITLE_LINE = 18 * PX
+const GROOVE_TOP: Number = TITLE_TOP + TITLE_LINE + space(.Item)
+const GROOVE = 4 * PX
 const GROOVE_SIDE = 40 * PX
-const GROUP_TOP = 44 * PX
-const BUTTON = 34 * PX
-const EXTRA: Number = GROUP_TOP + BUTTON + space(.Group)
+const HEAD: Number = GROOVE_TOP + GROOVE + space(.Group)
+// Half the gap between two plates: taken off each plate above and below.
+const HALF_GAP: Number = space(.Item) / 2
 const TITLE: Color = Color.hex("#ffd100")
 const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1 * PX, y: 1 * PX }
-const DARK: Color = Color.hex("#000000d9")
-const LIT: Color = Color.hex("#d6a56b8c")
 const LABEL: Color = Color.hex("#ffd100")
+// «AddOns», ours: its label white under the cursor and down while pressed, as a PushButton's.
+const OWN_DROP: Stated<Number> = { default: 0, pressed: 2 * PX }
+const OWN_LABEL: Stated<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff") }
 const LABEL_HOVER: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
 const GEM = 16 * PX
@@ -73,6 +80,9 @@ public class GameMenu {
   public state buttons: Array<Dressed> = []
   public state width: Number = 0
   public state height: Number = 0
+  // How far Blizzard's first button stands under the menu's top (its point on the menu's), nothing when it stands by
+  // something else.
+  public state lead: Number = 0
   // The button under the cursor and the one held down: Blizzard's, which keep the mouse.
   public state hovered: any Client.Button | nil = nil
   public state held: any Client.Button | nil = nil
@@ -123,6 +133,7 @@ public class GameMenu {
     const options = menu.NewOptionsFrame.IsShown()
     const event = menu.NewExternalEventFrame.IsShown()
     fade(0, ...menu.GetRegions())
+    menu.EnableMouse(false)
     const list: Array<Dressed> = []
     for (child of framesOf(...menu.GetChildren())) {
       if (child is Client.Button) {
@@ -131,6 +142,7 @@ public class GameMenu {
           const addons = label == Client.ADDONS
           child.SetAlpha(0)
           child.EnableMouse(!addons)
+          child.SetHitRectInsets(0, 0, HALF_GAP, HALF_GAP)
           self.hook(child)
           list.push({
             button: child,
@@ -150,6 +162,12 @@ public class GameMenu {
     self.buttons = list
     self.width = menu.GetWidth()
     self.height = menu.GetHeight()
+    self.lead = 0
+    const first = list[1]
+    if (first != nil) {
+      const point, relative, to, _, y = first.button.GetPoint(1, nil)
+      if (relative == menu && point == to && y != nil) { self.lead = -y }
+    }
   }
 
   // The cursor and the press on a button of Blizzard's: hooked once, read by the plate drawn there.
@@ -179,24 +197,26 @@ public class GameMenu {
   restore(self) {
     const menu = Client.GameMenuFrame
     fade(1, ...menu.GetRegions())
+    menu.EnableMouse(true)
     for (child of framesOf(...menu.GetChildren())) {
       child.SetAlpha(1)
-      if (child is Client.Button) { child.EnableMouse(true) }
+      if (child is Client.Button) {
+        child.EnableMouse(true)
+        child.SetHitRectInsets(0, 0, 0, 0)
+      }
     }
-  }
-
-  // «Ordaen», ours: Ordaen's settings, as `/ordaen` opens them; the menu closes.
-  public onOrdaen(self) {
-    Ordaen.toggleSettings(nil)
-    self.close()
   }
 
   public close(self) { Client.HideUIPanel(Client.GameMenuFrame) }
 }
 
-// A plate of ours where one of Blizzard's buttons stands: the button keeps the mouse, so the plate follows its cursor
-// and its press as the menu hears them.
+// A plate of ours where one of Blizzard's buttons stands, half the gap shorter above and below. Blizzard's button
+// keeps the mouse, so the plate follows its cursor and its press as the menu hears them; on «AddOns» the plate is
+// ours alone and hears them itself.
 public class Plate implements Component {
+  // «AddOns» was clicked.
+  public pick: Event<nil> = new Event()
+
   derived over: Boolean = self.menu.hovered == self.dressed.button
   derived down: Boolean = self.menu.held == self.dressed.button
   derived art: Art = self.dressed.accent ? (self.down ? Ordaen.art.ctl.buttonAccentDown : Ordaen.art.ctl.buttonAccent) :
@@ -205,8 +225,12 @@ public class Plate implements Component {
   derived color: Color = self.over ? LABEL_HOVER : LABEL
   derived drop: Number = self.down ? DOWN : 0
   derived gem: Number = self.dressed.gem ? 1 : 0
-  derived gemTop: Number = (self.dressed.height - GEM) / 2
-  derived place: Anchored = { point: Point.TopLeft, to: Point.TopLeft, by: self.dressed.button }
+  derived high: Number = self.dressed.height - 2 * HALF_GAP
+  derived gemTop: Number = (self.high - GEM) / 2
+  derived place: Anchored = { point: Point.TopLeft, to: Point.TopLeft, y: HALF_GAP, by: self.dressed.button }
+  // «AddOns», ours: lit while the cursor is on it.
+  derived ownLight: Number = self.ownOver ? 1 : 0
+  state ownOver = false
 
   dressed: Signal<Dressed>
   const menu: GameMenu
@@ -215,42 +239,51 @@ public class Plate implements Component {
     self.menu = menu
   }
 
+  onClick(self) { self.pick.emit() }
+  onEnter(mut self) { self.ownOver = true }
+  onLeave(mut self) { self.ownOver = false }
+
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Dialog} place={self.place} width={self.dressed.width} height={self.dressed.height} background={self.art}>
-        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} background={Ordaen.art.ctl.buttonLight}
-             opacity={self.light} />
-        <box position={Position.Absolute} left={GEM_LEFT} top={self.gemTop} width={GEM} height={GEM}
-             background={Ordaen.art.ctl.newGem} opacity={self.gem} zLevel={1} />
-        <box position={Position.Absolute} left={0} right={0} top={self.drop} height={self.dressed.height}
-             xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={self.dressed.label} textColor={self.color} textShadow={SHADOW} wrap={false} />
+      <surface layer={Layer.Dialog} place={self.place} width={self.dressed.width} height={self.high}>
+        <box $if={self.dressed.addons} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+             background={Ordaen.art.ctl.button} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+          <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} background={Ordaen.art.ctl.buttonLight}
+               opacity={self.ownLight} />
+          <box position={Position.Absolute} left={0} right={0} top={OWN_DROP} height={self.high}
+               xAlign={Align.Center} yAlign={Align.Center} stateFromParent={true}>
+            <text value={self.dressed.label} textColor={OWN_LABEL} textShadow={SHADOW} wrap={false}
+                  stateFromParent={true} />
+          </box>
+        </box>
+        <box $else position={Position.Absolute} left={0} top={0} right={0} bottom={0} background={self.art}>
+          <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+               background={Ordaen.art.ctl.buttonLight} opacity={self.light} />
+          <box position={Position.Absolute} left={GEM_LEFT} top={self.gemTop} width={GEM} height={GEM}
+               background={Ordaen.art.ctl.newGem} opacity={self.gem} zLevel={1} />
+          <box position={Position.Absolute} left={0} right={0} top={self.drop} height={self.high}
+               xAlign={Align.Center} yAlign={Align.Center}>
+            <text value={self.dressed.label} textColor={self.color} textShadow={SHADOW} wrap={false} />
+          </box>
         </box>
       </surface>
     }
   }
 }
 
-// The dress: the dialog's frame round Ordaen's group and Blizzard's menu, its engraved title and groove; a plate on
-// each of Blizzard's buttons; Ordaen's «Ordaen» and «AddOns».
+// The dress: the dialog's frame round Blizzard's menu, grown upward to hold its engraved title and carved groove; a
+// plate on each of Blizzard's buttons, «AddOns» ours.
 public class MenuDress implements Component {
   // «AddOns» was clicked.
   public addons: Event<nil> = new Event()
 
   derived wide: Number = self.menu.width
-  derived high: Number = self.menu.height + EXTRA
-  derived buttonWidth: Number = self.menu.buttons[1]?.width ?? 144 * PX
-  derived plates: Array<Dressed> = self.menu.buttons.filter(dressed => !dressed.addons)
-  derived slotted: Boolean = self.slot != nil
-  derived slot: Dressed | nil = self.menu.buttons.find(dressed => dressed.addons)
-  derived slotWidth: Number = self.slot?.width ?? 0
-  derived slotPlace: Anchored = { point: Point.TopLeft, to: Point.TopLeft, by: self.slot?.button }
+  // The head stands over Blizzard's first button, which stands `lead` under the menu's top.
+  derived high: Number = self.menu.height - self.menu.lead + HEAD
 
   // Made as the menu first shows: dressed at once, then at each show.
   const menu: mut GameMenu = new GameMenu()
   constructor() { self.menu.onShow() }
-
-  onOrdaen(self) { self.menu.onOrdaen() }
 
   onAddons(mut self) {
     self.addons.emit()
@@ -262,23 +295,15 @@ public class MenuDress implements Component {
       <$if={self.menu.shown}>
         <surface layer={Layer.Dialog} place={{ point: Point.Bottom, to: Point.Bottom, by: Client.GameMenuFrame }}
                  width={self.wide} height={self.high} border={Ordaen.art.frame.small}
-                 background={Ordaen.art.window.wood} artOrigin={true}>
+                 background={Ordaen.art.window.wood} artOrigin={true} ownsGaps={true}>
           <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={TITLE_TOP}
                xAlign={Align.Center}>
             <text value={Client.MAINMENU_BUTTON} textColor={TITLE} textShadow={ENGRAVED} wrap={false} />
           </box>
-          <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={GROOVE_TOP} height={1 * PX}
-               background={DARK} />
-          <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={GROOVE_TOP + 1 * PX}
-               height={1 * PX} background={LIT} />
-          <box position={Position.Absolute} left={0} right={0} top={GROUP_TOP} xAlign={Align.Center}>
-            <PushButton label={"Ordaen"} width={self.buttonWidth} @click={self.onOrdaen} />
-          </box>
+          <box position={Position.Absolute} left={GROOVE_SIDE} right={GROOVE_SIDE} top={GROOVE_TOP} height={GROOVE}
+               background={Ordaen.art.ctl.carved} />
         </surface>
-        <Plate $for={dressed of self.plates} dressed={dressed} menu={self.menu} />
-        <surface $if={self.slotted} layer={Layer.Dialog} place={self.slotPlace}>
-          <PushButton label={Client.ADDONS} width={self.slotWidth} @click={self.onAddons} />
-        </surface>
+        <Plate $for={dressed of self.menu.buttons} dressed={dressed} menu={self.menu} @pick={self.onAddons} />
       </>
     }
   }

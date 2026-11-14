@@ -5,7 +5,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
       box 424.42,273.88 756.17x365.08
         box 424.42,273.88 756.17x28.33
           box 424.42,273.88 603.25x28.33
-            box 424.42,273.88 603.25x28.33 #00000080 input "" @change
+            box 424.42,273.88 603.25x28.33 #00000080 input "" @change @submit
             box 424.42,273.88 603.25x28.33 absolute
               text 432.75,280.54 586.58x15 "Search by title, folder, author, notes" #a3977f
           box 1027.67,273.88 152.92x28.33
