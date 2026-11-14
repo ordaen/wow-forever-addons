@@ -3,8 +3,8 @@
 // against the merchant). The one picked: a quantity, a price for one (the lowest listed less a copper, or the market),
 // the duration, the deposit and «Post», one auction a click (the client's from a click alone).
 import Game from "$game"
-import { Align, Edges, Track } from "$ltml"
-import { Choice, Column, Component, Copper, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, Table, TableRow, tracksOf } from "Ordaen"
+import { Align, Track } from "$ltml"
+import { Choice, Column, Component, Copper, CountInput, CountLook, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, Table, TableRow, tracksOf } from "Ordaen"
 import { nameOf } from "@/buy"
 import { House } from "@/house"
 import Locale from "@/locales"
@@ -39,8 +39,6 @@ const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const PAGE: Array<Track> = [{ fr: 1 }, Style.SELL_PANEL]
 const ITEM: Array<Track> = ["auto", { fr: 1 }]
 const PAIR: Array<Track> = ["auto", { fr: 1 }]
-const FIELD_PAD: Edges = { right: 10 * PX, left: 10 * PX }
-const FIELD_BACK: Color = Color.hex("#00000080")
 const DURATIONS: Array<Choice<Game.Duration>> = [
   { value: Game.Duration.Short, label: Locale.HOURS.format(12) },
   { value: Game.Duration.Medium, label: Locale.HOURS.format(24) },
@@ -169,7 +167,7 @@ public class SellPage implements Component {
 
 // The item picked: how many, the price for one, how long, the deposit, and «Post».
 class Posting implements Component {
-  state countText = "1"
+  state count = 1
   state unit: Integer
   state duration: Game.Duration = Game.Duration.Medium
   // The client's refusal of the last post, in its words.
@@ -178,10 +176,9 @@ class Posting implements Component {
   state sending = false
   derived hasRefused: Boolean = self.refused != nil
   derived refusedText: String = self.refused ?? ""
-  derived count: Integer = ((self.countText.toNumber() ?? 0).floor()).max(0)
   // A commodity is posted from every stack at once; an item's auction from its first stack.
   derived most: Integer = self.offered.from.commodity ? self.offered.count : self.offered.from.count
-  derived canPost: Boolean = !Game.auctionActions.busy && self.count > 0 && self.count <= self.most && self.unit > 0
+  derived canPost: Boolean = !Game.auctionActions.busy && self.count <= self.most && self.unit > 0
 
   const offered: Offered
   constructor(offered: Offered, house: House) {
@@ -222,8 +219,7 @@ class Posting implements Component {
         <box columns={PAIR} gap={8 * PX} yAlign={Align.Center}>
           <text value={Locale.QUANTITY} textColor={Style.INK} textSize={Style.TEXT} />
           <box width={80 * PX} height={26 * PX} rows={[{ fr: 1 }]}>
-            <input value={mut self.countText} padding={FIELD_PAD} textSize={Style.TEXT} textColor={Style.INK}
-                   background={FIELD_BACK} border={Style.FRAME} maxLength={6} />
+            <CountInput value={mut self.count} least={1} most={self.most} look={CountLook.Field} />
           </box>
         </box>
         <text value={Locale.UNIT_PRICE} textColor={Style.INK} textSize={Style.TEXT} />

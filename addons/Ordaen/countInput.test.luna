@@ -1,0 +1,87 @@
+// The library's CountInput: a whole number the player sets, never outside its least and its most, which may move.
+import Test from "$test"
+import { Align } from "$ltml"
+import { CountInput, CountLook, held } from "@/countInput"
+
+// Both looks on one cell, between bounds the test moves.
+class Pair {
+  state count = 3
+  state least = 1
+  state most = 5
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={["auto", "auto"]} gap={10} xAlign={Align.Start}>
+        <CountInput value={mut self.count} least={self.least} most={self.most} />
+        <box width={80} height={26} rows={[{ fr: 1 }]}>
+          <CountInput value={mut self.count} least={self.least} most={self.most} look={CountLook.Field} />
+        </box>
+      </box>
+    }
+  }
+}
+
+function click(text: String) {
+  Test.click(Test.holding(text, nil), nil)
+  Test.flush()
+}
+
+test "a value is held between its bounds: the least where the most is under it" {
+  Test.expect(held(3, 1, 5) == 3)
+  Test.expect(held(9, 1, 5) == 5)
+  Test.expect(held(-2, 1, 5) == 1)
+  Test.expect(held(4, 1, 0) == 1)
+}
+
+test "− and + stop at the bounds, typing past one writes the bound, and a bound moved past the value takes it along" {
+  let page = new Pair()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  Test.shot("3 of 1 to 5: both looks show 3")
+
+  for (step of 1..=4) { click("+") }
+  Test.expect(page.count == 5)
+  Test.shot("+ four times: 5, the most, + disabled")
+
+  for (step of 1..=6) { click("-") }
+  Test.expect(page.count == 1)
+  Test.shot("- six times: 1, the least, - disabled")
+
+  Test.click(Test.field(nil), nil)
+  Test.erase(6)
+  Test.type("42")
+  Test.flush()
+  Test.expect(page.count == 5)
+  Test.shot("42 typed: the most, 5, written in the field")
+
+  Test.erase(6)
+  Test.type("x")
+  Test.flush()
+  Test.expect(page.count == 5)
+  Test.shot("x typed: the value as it was, the edge red")
+
+  // The bags emptied while the window is open: the most falls under the value, which follows it.
+  page.most = 2
+  Test.flush()
+  Test.expect(page.count == 2)
+  Test.shot("the most falls to 2: the value with it")
+
+  page.least = 0
+  page.most = 0
+  Test.flush()
+  Test.expect(page.count == 0)
+  page.least = 1
+  Test.flush()
+  Test.expect(page.count == 1)
+  click("+")
+  Test.expect(page.count == 1)
+  Test.shot("the most under the least: the least, everything disabled")
+
+  page.most = 9
+  page.count = 20
+  Test.flush()
+  Test.expect(page.count == 9)
+  Test.shot("another writes 20 where the most is 9: 9")
+
+  destroy page
+  Test.expect(Test.blank())
+}

@@ -2,17 +2,19 @@
 // in white, with what making it does for the skill in its difficulty's colour («Not learned» while it isn't); the
 // made item's description; what the work needs besides reagents (red while missing); the reagents, one ruled row
 // each, scrolling in what room is left; and at the bottom, under a rule, the make row: how many (a count, the skill
-// points to gain, or all the bags allow), the count with − and + unless «All», what that comes to, and «Create».
+// points to gain, or all the bags allow), the count with − and + unless «All» (one at least; by «Raise skill» the points
+// left before the rank's most; by «Quantity» what the bags don't make waits in the queue), what that comes to, and
+// «Create».
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
-import { Choice, CompactDropdown, Component, ItemButton, PushButton, PX } from "Ordaen"
+import { Choice, CompactDropdown, Component, CountInput, ItemButton, PushButton, PX } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { Flag } from "@/flag"
 import Locale from "@/locales"
 import { ReagentRow } from "@/rows"
 import { expectedMakings } from "@/skillUps"
 import Style from "@/style"
-import { Act, has, Kept, MakeMode } from "@/view"
+import { Act, has, Kept, MakeMode, MOST_COUNT } from "@/view"
 
 const RIM: Line = { width: 1 * PX, color: Style.LINE }
 const SWITCHES: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
@@ -26,7 +28,6 @@ const HEAD: Array<Track> = [SLOT, { fr: 1 }]
 // The mode, the count with its − and +, what it comes to, «Create».
 const MAKE: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
 const MAKE_PAD: Edges = { top: 8 * PX }
-const COUNT: Array<Track> = ["auto", 22 * PX, "auto"]
 // The room the hint has: what the row leaves at the panel's width; a longer one wraps in it.
 const HINT = 46 * PX
 const STEP = 28 * PX
@@ -62,6 +63,8 @@ public class RecipeDetails implements Component {
   derived tracked: Boolean = has(self.kept.tracked, self.shown.id)
   derived cannotTrack: Boolean = !self.shown.learned
   derived counted: Boolean = self.mode != MakeMode.All
+  // The most the count may be: by «Raise skill», the points left before the rank's most.
+  derived most: Integer = self.mostOf()
   // How many making the recipe raises the skill by the count takes; none once it would turn grey first.
   derived expected: Integer | nil = self.expectedOf()
   // How many «Create» makes.
@@ -108,6 +111,12 @@ public class RecipeDetails implements Component {
     const grey = self.grey
     if (profession == nil || yellow == nil || grey == nil) { return nil }
     return expectedMakings(profession.rank, profession.max, yellow, grey, self.count)
+  }
+
+  mostOf(self): Integer {
+    if (self.mode != MakeMode.Skill) { return MOST_COUNT }
+    const profession = self.profession
+    return profession == nil ? 0 : profession.max - profession.rank
   }
 
   makingOf(self): Integer {
@@ -157,9 +166,6 @@ public class RecipeDetails implements Component {
     return text
   }
 
-  less(mut self) { self.count = (1).max(self.count - 1) }
-  more(mut self) { self.count += 1 }
-
   onCreate(mut self) {
     if (!self.cannot) { self.create.emit(self.making) }
   }
@@ -190,14 +196,7 @@ public class RecipeDetails implements Component {
           <box $if={self.shown.learned} columns={MAKE} gap={8 * PX} yAlign={Align.Center} padding={MAKE_PAD}
                border={SWITCHES}>
             <CompactDropdown value={mut self.mode} choices={MODES} width={MODE_WIDTH} />
-            <box $if={self.counted} columns={COUNT} gap={6 * PX} yAlign={Align.Center}>
-              <PushButton label={"-"} width={STEP} @click={self.less} />
-              <box xAlign={Align.Center}>
-                <text value={"%d"} arguments={[self.count]} textSize={Style.TEXT} textColor={Style.WHITE}
-                      textFamily={Ordaen.lookArt?.fontNumbers} wrap={false} />
-              </box>
-              <PushButton label={"+"} width={STEP} @click={self.more} />
-            </box>
+            <CountInput $if={self.counted} value={mut self.count} least={1} most={self.most} step={STEP} />
             <box $else />
             // The hint, wrapping in its room.
             <box width={HINT}>

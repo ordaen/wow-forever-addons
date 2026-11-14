@@ -21,7 +21,7 @@ import { SkillBar } from "@/skillBar"
 import { Thresholds, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
 import {
-  Act, before, FAVORITES, Group, Kept, MakeMode, members, MOST_MARKED, MOST_QUEUED, Page, Queued, QueueAct, Seen, SortBy,
+  Act, before, FAVORITES, Group, Kept, MakeMode, members, MOST_COUNT, MOST_MARKED, MOST_QUEUED, Page, Queued, QueueAct, Seen, SortBy,
   tableBefore, View,
 } from "@/view"
 
@@ -519,42 +519,44 @@ public class Professions implements Module, App {
     self.enqueue(open, recipe.id, count)
   }
 
-  // A recipe joins the queue, or its count grows where it is there; the oldest goes where the queue is full.
+  // A recipe joins the queue, or its count grows where it is there, never past the most; the oldest goes where the
+  // queue is full.
   enqueue(mut self, skillLine: Integer, recipe: Integer, count: Integer) {
     const now = peek self.memory.values
     let queue: Array<Queued> = []
     let found = false
     for (entry of now.queue) {
       if (entry.skillLine == skillLine && entry.recipe == recipe) {
-        queue.push({ skillLine: skillLine, recipe: recipe, count: entry.count + count })
+        queue.push({ skillLine: skillLine, recipe: recipe, count: (entry.count + count).min(MOST_COUNT) })
         found = true
       } else {
         queue.push(entry)
       }
     }
-    if (!found) { queue.push({ skillLine: skillLine, recipe: recipe, count: count }) }
+    if (!found) { queue.push({ skillLine: skillLine, recipe: recipe, count: count.min(MOST_COUNT) }) }
     if (queue.length > MOST_QUEUED) { _ = queue.remove(1) }
     self.memory.write({ queue: queue, ..now })
   }
 
-  // The open profession's recipe's count changed by `by` (none: taken out); at nought it leaves the queue.
-  requeue(mut self, recipe: Integer, by: Integer | nil) {
+  // The open profession's recipe's count is `count`, held to the most; at nought it leaves the queue.
+  requeue(mut self, recipe: Integer, count: Integer) {
     const open = peek Game.tradeSkill.open
     const now = peek self.memory.values
     let queue: Array<Queued> = []
     for (entry of now.queue) {
-      const counted = entry.skillLine == open && entry.recipe == recipe ? (by == nil ? 0 : entry.count + by) : entry.count
+      const counted = entry.skillLine == open && entry.recipe == recipe ? count.min(MOST_COUNT) : entry.count
       if (counted > 0) { queue.push({ skillLine: entry.skillLine, recipe: entry.recipe, count: counted }) }
     }
     self.memory.write({ queue: queue, ..now })
   }
 
+  // A line's stepper set its recipe's count.
+  onQueueCount(mut self, recipe: Integer, count: Integer) { self.requeue(recipe, count) }
+
   // A line of the queue asked for something; «Create in turn» makes the profession's first, in the click.
   onQueueAct(mut self, act: QueueAct, id: Integer) {
     match (act) {
-      QueueAct.Less => { self.requeue(id, -1) },
-      QueueAct.More => { self.requeue(id, 1) },
-      QueueAct.Drop => { self.requeue(id, nil) },
+      QueueAct.Drop => { self.requeue(id, 0) },
       QueueAct.Open => { self.openRecipe(id) },
       QueueAct.Run => { self.runQueue() },
     }
@@ -564,7 +566,7 @@ public class Professions implements Module, App {
     const first = (peek self.queued)[1]
     if (first == nil) { return }
     Game.tradeSkill.craft(first.recipe, first.count)
-    self.requeue(first.recipe, nil)
+    self.requeue(first.recipe, 0)
   }
 
   // A recipe opened from elsewhere: the recipes' tab (the camp's for one of the camp), its category and it chosen.
@@ -628,7 +630,7 @@ public class Professions implements Module, App {
                 <PushButton label={self.trackName} width={TRACK_WIDTH} action={self.trackAction} />
               </box>
             </box>
-            <QueuePage $if={self.queueShown} queued={self.queued} @act={self.onQueueAct} />
+            <QueuePage $if={self.queueShown} queued={self.queued} @act={self.onQueueAct} @counted={self.onQueueCount} />
             <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
                           kept={self.kept} @pick={self.openRecipe} />
             <box $else columns={GRID} rows={FILL} gap={Style.GAP}>
