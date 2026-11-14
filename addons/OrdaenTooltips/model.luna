@@ -43,8 +43,8 @@ public struct Part {
   opens: Opens = Opens.None
 }
 
-// The tooltips' glyphs, by their names in the design (`tooltips`): what a fact is about, drawn before its text.
-// Their picture isn't shipped yet: the frame keeps a glyph's room and draws none.
+// The tooltips' glyphs, by their names in the design (`tooltips`): what a fact is about, drawn before its text
+// (frame.luna's `glyphArt`; the cost's is the design's dot, in its resource's colour).
 public enum Glyph {
   Dmg = "dmg", Spd = "spd", Arm = "arm", Blk = "blk", Alliance = "alliance", Horde = "horde", Elite = "elite",
   Time = "time", Cost = "cost", CastNow = "castNow", CastTime = "castTime", CastChan = "castChan",

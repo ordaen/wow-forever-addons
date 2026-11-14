@@ -3,13 +3,33 @@
 // body, what there is more of, the footer, what other modules add, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
-import { Align, Art, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, Track } from "$ltml"
+import { Align, Art, Piece, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "Ordaen"
 import Locale from "@/locales"
-import { Fact, Model, Opens, Part, Picture, TextLine } from "@/model"
+import { Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
 
 public const PX: Number = 1 / 1.2
+// The glyphs' pictures (art/pieces/tooltip-glyphs.json): a column of 20 px cells, a row each in the order of
+// `Glyph`, the 16 px glyph 2 px in from its cell's top left, its shadow inside the cell.
+const GLYPH_FILE: Asset = "@/assets/tooltip-glyphs.tga"
+const GLYPH = 16 * PX
+const GLYPH_CELL = 20 * PX
+const GLYPH_IN = -2 * PX
+const function glyphPieces(): Array<Piece> {
+  let list: Array<Piece> = []
+  for (row of 0..=12) { list.push({ file: GLYPH_FILE, width: 32, height: 512, rows: 16, normal: row }) }
+  return list
+}
+const GLYPH_ART: Array<Piece> = glyphPieces()
+// A glyph's picture.
+public function glyphArt(glyph: Glyph): Piece {
+  const row = match (glyph) {
+    .Dmg => 1, .Spd => 2, .Arm => 3, .Blk => 4, .Alliance => 5, .Horde => 6, .Elite => 7, .Time => 8, .Cost => 9,
+    .CastNow => 10, .CastTime => 11, .CastChan => 12, .CastNext => 13,
+  }
+  return GLYPH_ART[row] ?? panic("a row for every glyph")
+}
 const WIDTH = 314 * PX
 // A tooltip beside another: a little narrower.
 const SIDE_WIDTH = 264 * PX
@@ -190,7 +210,7 @@ public class FactCell implements Component {
 
   derived divider: Line | nil = self.index > 1 ? DIVIDER : nil
   derived padding: Edges = self.last ? CELL_PAD_LAST : CELL_PAD
-  derived hasGlyph: Boolean = self.fact.glyph != nil
+  derived glyph: Piece | nil = self.glyphOf()
   derived color: Color = self.fact.color ?? BODY
 
   fact: Signal<Fact>
@@ -212,6 +232,11 @@ public class FactCell implements Component {
 
   opensSomething(self): Boolean { return opensSomething(self.fact.opens) }
 
+  glyphOf(self): Piece | nil {
+    const glyph = self.fact.glyph
+    return glyph != nil ? glyphArt(glyph) : nil
+  }
+
   // What takes the cursor goes with the lock, and says nothing as it goes.
   forgetCursor(mut self) {
     if (!self.lit) { self.over = false }
@@ -224,8 +249,12 @@ public class FactCell implements Component {
     return $ltml {
       <box padding={self.padding} border={self.divider} xAlign={Align.Center}>
         <box columns={["auto", "auto"]} gap={5 * PX} yAlign={Align.Center}>
-          // The glyph's room: its picture (`Glyph`, in its tint) isn't shipped yet.
-          <box $if={self.hasGlyph} width={16 * PX} height={16 * PX} />
+          // The glyph, in its tint (a cost's dot in its resource's colour): its cell reaches past its room to hold
+          // its shadow.
+          <box $if={self.glyph != nil} width={GLYPH} height={GLYPH}>
+            <box position={Position.Absolute} left={GLYPH_IN} top={GLYPH_IN} width={GLYPH_CELL} height={GLYPH_CELL}
+                 background={self.glyph} tint={self.fact.tint} />
+          </box>
           <box>
             <text value={self.fact.text} textColor={self.color} textSize={16 * PX} wrap={false} />
             <box $if={self.lit} position={Position.Absolute} left={0} right={0} bottom={0} height={1 * PX}
