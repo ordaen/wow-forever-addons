@@ -79,7 +79,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                 box 223.58,135 1347.83x695.33 scrolled 0 of 0
                   box 223.58,135 1347.83x26.67 #00000000 @click
                     box 230.25,138.33 922.83x20
-                      box 230.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
+                      box 230.25,138.33 20x20 #0d0a08 opacity=1 @click @enter @leave
                         box 230.25,138.33 20x20 absolute
                         box 230.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                         box 230.25,138.33 20x20 absolute #00000000

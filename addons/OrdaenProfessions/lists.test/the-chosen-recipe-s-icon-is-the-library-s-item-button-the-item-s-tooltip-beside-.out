@@ -80,7 +80,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                   text 818.58,400.54 0x0 "" #ffffff
           box 849.42,300.54 364.5x396.75 Interface/FrameGeneral/UI-Background-Marble
             box 863.58,314.71 336.17x43.33
-              box 863.58,314.71 43.33x43.33 #0d0a08 opacity=1 @click @enter
+              box 863.58,314.71 43.33x43.33 #0d0a08 opacity=1 @click @enter @leave
                 box 863.58,314.71 43.33x43.33 absolute icon=Interface/Icons/INV_Chest_Cloth_01
                 box 863.58,314.71 43.33x43.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                 box 863.58,314.71 43.33x43.33 absolute #ffffff26

@@ -4,7 +4,7 @@ box 0,0 1000x278.67
     box 0,0 516.67x28.33
       box 0,0 516.67x28.33
         box 0,0 450x28.33
-          box 0,0 450x28.33 #00000080 input "" @change
+          box 0,0 450x28.33 #00000080 input "" @change @submit
           box 0,0 450x28.33 absolute
             text 8.33,6.67 433.33x15 "Search subject or sender" #a3977f
         box 450,0 66.67x28.33
@@ -37,7 +37,7 @@ box 0,0 1000x278.67
         box 0,116.33 516.67x34.67 #00000066 @click
           box 5,124.5 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
             box 5,124.5 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-          box 31.67,122 23.33x23.33 #0d0a08 opacity=1 @click @enter
+          box 31.67,122 23.33x23.33 #0d0a08 opacity=1 @click @enter @leave
             box 31.67,122 23.33x23.33 absolute
             box 31.67,122 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
             box 31.67,122 23.33x23.33 absolute #00000000
@@ -51,7 +51,7 @@ box 0,0 1000x278.67
         box 0,151 516.67x34.67 #00000066 @click
           box 5,159.17 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
             box 5,159.17 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-          box 31.67,156.67 23.33x23.33 #0d0a08 opacity=1 @click @enter
+          box 31.67,156.67 23.33x23.33 #0d0a08 opacity=1 @click @enter @leave
             box 31.67,156.67 23.33x23.33 absolute
             box 31.67,156.67 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
             box 31.67,156.67 23.33x23.33 absolute #00000000
@@ -89,7 +89,7 @@ box 0,0 1000x215.83
     box 0,0 516.67x28.33
       box 0,0 516.67x28.33
         box 0,0 450x28.33
-          box 0,0 450x28.33 #00000080 input "" @change
+          box 0,0 450x28.33 #00000080 input "" @change @submit
           box 0,0 450x28.33 absolute
             text 8.33,6.67 433.33x15 "Search subject or sender" #a3977f
         box 450,0 66.67x28.33

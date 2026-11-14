@@ -42,20 +42,20 @@ box 0,0 700x552.17
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -188,20 +188,20 @@ box 0,0 700x552.17
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -333,20 +333,20 @@ box 0,0 700x552.17
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -477,20 +477,20 @@ box 0,0 700x552.17
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -621,20 +621,20 @@ box 0,0 700x552.17
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -765,20 +765,20 @@ box 0,0 700x552.17
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #ffffff26
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -910,20 +910,20 @@ box 0,0 700x530.5
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -1049,20 +1049,20 @@ box 0,0 700x530.5
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -1188,20 +1188,20 @@ box 0,0 700x530.5
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -1327,20 +1327,20 @@ box 0,0 700x530.5
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -1466,20 +1466,20 @@ box 0,0 700x530.5
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
@@ -1605,20 +1605,20 @@ box 0,0 700x530.5
       box 0,202.5 233.33x15 @enter @leave
         text 0,202.5 233.33x15 "Bought" #cbb994
       box 248.33,193.33 451.67x33.33
-        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,193.33 33.33x33.33 absolute
           box 248.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,193.33 33.33x33.33 absolute #00000000
           box 248.33,193.33 5.83x5.83 absolute #ffd100
           box 248.33,193.33 33.33x33.33 absolute
             text 273.75,212 5.42x13 "5" #ffffff
-        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,193.33 33.33x33.33 absolute
           box 288.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,193.33 33.33x33.33 absolute #00000000
           box 288.33,193.33 33.33x33.33 absolute
             text 308.33,212 10.83x13 "20" #ffffff
-        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,193.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,193.33 33.33x33.33 absolute
           box 328.33,193.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,193.33 33.33x33.33 absolute #00000000
