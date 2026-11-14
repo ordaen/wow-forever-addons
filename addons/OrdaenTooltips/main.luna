@@ -104,9 +104,15 @@ public class Tooltips implements Module, App {
   derived away: Boolean = self.awayNow()
   derived current: Shown | nil = self.read ?? self.kept?.shown
   derived shown: Boolean = self.current != nil
-  derived model: Model = self.current?.model ?? NOTHING
-  derived sides: Array<Model> = self.current?.sides ?? []
-  derived compared: Array<Model> = self.current?.compared ?? []
+  // The last show, kept while nothing shows: the group is drawn once, and a show changes only what differs from
+  // the one before.
+  state last: Shown | nil = nil
+  derived drawn: Shown | nil = self.current ?? self.last
+  // The group is drawn from the first show on.
+  derived ever: Boolean = self.drawn != nil
+  derived model: Model = self.drawn?.model ?? NOTHING
+  derived sides: Array<Model> = self.drawn?.sides ?? []
+  derived compared: Array<Model> = self.drawn?.compared ?? []
   derived standing: Standing = self.kept?.standing ?? self.where()
   derived chosen: Options = self.options()
 
@@ -132,6 +138,12 @@ public class Tooltips implements Module, App {
     watch { self.lockCharged() }
     watch { self.forget() }
     watch { self.graceOut() }
+    watch { self.keepLast() }
+  }
+
+  keepLast(mut self) {
+    let current = self.current
+    if (current != nil) { self.last = current }
   }
 
   // How far the lock is charged, of `STEPS`. The time is read only while a target charges.
@@ -329,7 +341,7 @@ public class Tooltips implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <TipGroup model={self.model} sides={self.sides} compared={self.compared} standing={self.standing}
+      <TipGroup $if={self.ever} model={self.model} sides={self.sides} compared={self.compared} standing={self.standing}
                 shown={self.shown} options={self.chosen} charge={self.charge} locked={self.locked} @close={self.close}
                 @enter={self.onEnter} @leave={self.onLeave}>
         // Each entry asks nothing while the tooltip isn't of its kind; with no entry, nothing is drawn or asked.

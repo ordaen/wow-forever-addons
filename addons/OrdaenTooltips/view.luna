@@ -171,7 +171,7 @@ public class TipGroup implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface $if={self.shown} layer={Layer.Tooltip} place={self.place}>
+      <surface shown={self.shown} layer={Layer.Tooltip} place={self.place}>
         // What holds the tooltips hears the cursor come onto any of them and leave the last: the lock's.
         <box columns={self.columns} gap={GAP} yAlign={self.across} hoverWithin={true} @enter={self.onEnter}
              @leave={self.onLeave}>
