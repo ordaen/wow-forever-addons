@@ -63,7 +63,7 @@ public function ageOf(quote: Quote | nil): Number | nil {
   return quote.age() * 3600
 }
 
-// One row.
+// One row. Its name is cut where its column is narrower than it, so a long name never pushes the table past the page.
 class FoundRow implements Component {
   public pick: Event<PriceKey> = new Event()
 
@@ -89,7 +89,9 @@ class FoundRow implements Component {
       <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
         <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
           <ItemButton item={self.found.item} size={Style.SLOT} markers={self.markers} />
-          <text value={self.found.name} textColor={self.found.color} textSize={Style.TEXT} wrap={false} />
+          <box overflow={.Hidden}>
+            <text value={self.found.name} textColor={self.found.color} textSize={Style.TEXT} wrap={false} />
+          </box>
         </box>
         <text value={"%d"} arguments={[self.found.listed]} textColor={Style.INK} textSize={Style.TEXT} />
         <box xAlign={Align.End}>
