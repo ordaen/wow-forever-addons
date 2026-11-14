@@ -983,13 +983,6 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #ffd100
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
-      box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
     box 358.33,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -1116,13 +1109,6 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #ffd100
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
-      box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
     box 358.33,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -1248,13 +1234,6 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #ffd100
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
-      box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 463.67x59.42
     box 358.33,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop

@@ -6,7 +6,7 @@
 // bottom; on the frame's left edge, or on its right edge with the group running leftwards. The main tooltip is
 // always the one at the frame; the others follow it in one row, lined up on the edge that faces the frame, so no
 // tooltip floats off it.
-import { Align, Edges, Frame, Layer, Place, Point, Position, Track } from "$ltml"
+import { Align, Edges, Frame, Layer, Place, Point, Track } from "$ltml"
 import { Component } from "Ordaen"
 import { GOLD } from "@/colors"
 import { TipFrame } from "@/frame"
@@ -112,8 +112,9 @@ public class TipGroup implements Component {
     shown: Signal<Boolean>,
     // What the player asked a tooltip to show: a unit a part opens is read with it.
     options: Signal<Options>,
-    // The main tooltip's lock: how far it is charged, of a hundred, and whether it is locked. A locked group
-    // takes the cursor; one that isn't lets it through to what is under it.
+    // The main tooltip's lock: how far it is charged, of a hundred, and whether it is locked. The group takes the
+    // cursor locked or not: what holds the tooltips listens for it always (a listener is bound for good), and
+    // tells the lock only while it is locked.
     charge: Signal<Integer> = 0,
     locked: Signal<Boolean> = false,
   ) {
@@ -128,8 +129,13 @@ public class TipGroup implements Component {
   }
 
   onClose(mut self) { self.close.emit() }
-  onEnter(mut self) { self.enter.emit() }
-  onLeave(mut self) { self.leave.emit() }
+  // The cursor on the group and off it is the lock's alone: an unlocked group is told nothing.
+  onEnter(mut self) {
+    if (self.locked) { self.enter.emit() }
+  }
+  onLeave(mut self) {
+    if (self.locked) { self.leave.emit() }
+  }
 
   // The group's row from the screen's left to its right: the main tooltip at the frame, the rest away from it.
   inOrder(self): Array<Piece> {
@@ -165,31 +171,32 @@ public class TipGroup implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface $if={self.shown} layer={Layer.Tooltip} place={self.place} columns={self.columns} gap={GAP}
-               yAlign={self.across}>
-        <box $if={self.locked} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
-             hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave} />
-        <$for={piece of self.pieces}>
-          <$match={piece.slot}>
-            <box $case={Slot.Main} padding={self.lowered}>
-              <TipFrame model={piece.model} main={true} charge={self.charge} locked={self.locked}
-                        @close={self.onClose}>
+      <surface $if={self.shown} layer={Layer.Tooltip} place={self.place}>
+        // What holds the tooltips hears the cursor come onto any of them and leave the last: the lock's.
+        <box columns={self.columns} gap={GAP} yAlign={self.across} hoverWithin={true} @enter={self.onEnter}
+             @leave={self.onLeave}>
+          <$for={piece of self.pieces}>
+            <$match={piece.slot}>
+              <box $case={Slot.Main} padding={self.lowered}>
+                <TipFrame model={piece.model} main={true} charge={self.charge} locked={self.locked}
+                          @close={self.onClose}>
+                  <Opened #opened={opens} opens={opens} options={self.options} />
+                  // What other modules add, after the main tooltip's body: the group's owner fills it.
+                  <slot />
+                </TipFrame>
+              </box>
+              // Every tooltip of a locked group opens what its parts name.
+              <box $case={Slot.Sides} gap={GAP} yAlign={self.across}>
+                <TipFrame $for={side of self.sides} model={side} side={true} locked={self.locked}>
+                  <Opened #opened={opens} opens={opens} options={self.options} />
+                </TipFrame>
+              </box>
+              <TipFrame $case={Slot.Compared} model={piece.model} side={true} locked={self.locked}>
                 <Opened #opened={opens} opens={opens} options={self.options} />
-                // What other modules add, after the main tooltip's body: the group's owner fills it.
-                <slot />
               </TipFrame>
-            </box>
-            // Every tooltip of a locked group opens what its parts name.
-            <box $case={Slot.Sides} gap={GAP} yAlign={self.across}>
-              <TipFrame $for={side of self.sides} model={side} side={true} locked={self.locked}>
-                <Opened #opened={opens} opens={opens} options={self.options} />
-              </TipFrame>
-            </box>
-            <TipFrame $case={Slot.Compared} model={piece.model} side={true} locked={self.locked}>
-              <Opened #opened={opens} opens={opens} options={self.options} />
-            </TipFrame>
+            </>
           </>
-        </>
+        </box>
       </surface>
     }
   }
