@@ -1,0 +1,32 @@
+// TextBox: a field of many lines sunk into the page, as `Input`'s field is (dark, with a fine bronze edge), for a text
+// the player copies out or pastes in whole: each time it is shown, and each time its text is written while it shows,
+// it takes the keyboard with all its text selected, so Ctrl+C or Ctrl+V takes all of it at once. Its lines wrap at
+// its width; Enter starts a new line and Escape leaves it. What doesn't fit its height is cut at its bottom.
+import { Edges, Line, Overflow } from "$ltml"
+import { Component } from "@/module"
+import { PX } from "@/units"
+
+const INK: Color = Color.hex("#e8dcc4")
+const FILL: Color = Color.hex("#0d0a08")
+const EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
+const PADDING: Edges = { top: 8 * PX, right: 10 * PX, bottom: 8 * PX, left: 10 * PX }
+
+public class TextBox implements Component {
+  value: mut Signal<String>
+  height: Signal<Number>
+  constructor(
+    value: mut Signal<String>,
+    // As high as this; as wide as where it stands.
+    height: Signal<Number> = 160 * PX,
+  ) {
+    self.value = value
+    self.height = height
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <input value={mut self.value} height={self.height} padding={PADDING} background={FILL} border={EDGE}
+             textColor={INK} textSize={14 * PX} overflow={Overflow.Hidden} multiline={true} selectOnShow={true} />
+    }
+  }
+}

@@ -1,0 +1,50 @@
+// Ordaen Auction as a module: made as it loads with Ordaen, among Ordaen's modules, its prices read through
+// `PriceSource`; what a merchant asks kept in its own saved variable across a reload; its tab in the settings window.
+import Game from "$game"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Settings } from "Ordaen"
+import root Auction from "OrdaenAuction"
+import { ItemId } from "@/quote"
+import { Choices, DEFAULTS, GeneralPage } from "@/settings"
+
+function made(): Boolean {
+  let found = 0
+  for (module of Ordaen.modules) {
+    if (module.title == "Ordaen Auction") { found += 1 }
+  }
+  return found == 1
+}
+
+test "the module is made with Ordaen, among its modules, and its prices are Ordaen's own" {
+  Test.expect(made())
+  Test.expect(Auction.prices.name == "Ordaen")
+  Test.expect(Auction.prices.revision == 0)
+  Test.expect(Auction.house.name == Game.player.realm && Auction.house.count == 0)
+  Test.expect(Auction.prices.vendor(ItemId.of(2320)) == nil)
+}
+
+test "what a merchant asks is kept in the module's own saved variable and read back after a reload" {
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [2320]: 10, [2604]: 50 } }
+  Game.merchant.opened.emit()
+  Test.expect(Auction.prices.vendor(ItemId.of(2604)) == 50)
+  Test.reload()
+  Test.expect(made())
+  Test.expect(Auction.prices.vendor(ItemId.of(2320)) == 10)
+}
+
+test "a merchant whose prices the client didn't give changes nothing" {
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => nil
+  Game.merchant.opened.emit()
+  Test.expect(Auction.prices.vendor(ItemId.of(2320)) == nil)
+}
+
+test "its tab in the settings window: scanning on opening, the cut, the window, the tooltip line" {
+  let settings = new Settings<Choices>(DEFAULTS)
+  Test.mount(new GeneralPage(mut settings), { left: 0, top: 0, width: 560, height: 300 })
+  Test.shot("the defaults")
+  // The switches on: scanning, the window, the line; the second is the window's.
+  Test.click(Test.painted(Ordaen.art.ctl.switchOn, 2), nil)
+  Test.expect(!settings.draft.window && settings.values.window)
+  Test.shot("the window switched off in the draft")
+}

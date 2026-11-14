@@ -1,0 +1,118 @@
+// Ordaen Auction: the house's prices, homemade (`redesign/market.md`), every Ordaen addon's through `prices`; the
+// merchants' prices; the sales ledger; the house's window (`redesign/market-ux.md` §1), shown while the house is open.
+// A module loaded on demand: a player with it off loads none of its data.
+import Game from "$game"
+import { Track } from "$ltml"
+import { Module, Placing, PX, Settings, SettingsPage, Tabs, Window, WindowTabSpec } from "Ordaen"
+import root Ordaen from "Ordaen"
+import { BuyPage } from "@/buy"
+import { DataPage } from "@/dataPage"
+import { House } from "@/house"
+import { Kept } from "@/kept"
+import { Ledger } from "@/ledger"
+import Locale from "@/locales"
+import { OwnedPage } from "@/owned"
+import { OrdaenPrices, takeMerchant } from "@/prices"
+import { PriceSource } from "@/quote"
+import { Scanner } from "@/scan"
+import { SellPage } from "@/sell"
+import { ShoppingList } from "@/shopping"
+import { ShoppingPage } from "@/shoppingPage"
+import { Choices, DEFAULTS, GeneralPage } from "@/settings"
+import { Status } from "@/status"
+import Style from "@/style"
+
+// What the module keeps, under its own saved variable.
+const KEPT = "kept"
+const ICON: Asset = "Interface/Icons/INV_Misc_Coin_02"
+
+// The window's pages.
+const BUY = 1
+const SELL = 2
+const OWNED = 3
+const SHOPPING = 4
+const DATA = 5
+const PAGES: Array<String> = [
+  Locale.PAGE_BUY, Locale.PAGE_SELL, Locale.PAGE_OWNED, Locale.PAGE_SHOPPING, Locale.PAGE_DATA,
+]
+const TABS: Array<WindowTabSpec> = [{ title: Locale.WINDOW_TITLE, icon: ICON }]
+const BODY: Array<Track> = ["auto", "auto", { fr: 1 }]
+
+public class Auction implements Module, App {
+  public const title: String = "Ordaen Auction"
+  settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+  ]
+  derived cut: Integer = self.settings.values.cut
+  derived priceLine: Boolean = self.settings.values.priceLine
+
+  kept: mut Kept
+  house: mut House
+  source: mut OrdaenPrices
+  scanner: mut Scanner
+  // Where every Ordaen addon reads a price.
+  public const prices: any PriceSource
+  // The sales and purchases the mailbox reads.
+  public const ledger: mut Ledger
+  // The shopping list: what Professions and the player ask to buy.
+  public const shopping: mut ShoppingList
+
+  // The window: its one tab, its page, where it stands; closed by the player until the house opens again.
+  state tab = 1
+  state page = BUY
+  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+  state dismissed = false
+  derived shown: Boolean = Game.auctionHouse.open && self.settings.values.window && !self.dismissed
+
+  constructor() {
+    self.kept = load(.Own, KEPT, Kept {})
+    Game.saved.store(.Own, KEPT, self.kept)
+    // The current realm's house unpacked; the others stay packed.
+    const realm = Game.player.realm
+    self.house = new House(realm, self.kept.houses[realm])
+    self.source = new OrdaenPrices(self.house, self.kept.vendor, self.cut)
+    self.prices = self.source
+    self.scanner = new Scanner(mut self.house, mut self.source, mut self.kept)
+    self.ledger = new Ledger(mut self.kept.ledger)
+    self.shopping = new ShoppingList(mut self.kept)
+    Game.auctionHouse.opened.listen(self.onOpened)
+    Game.merchant.opened.listen(self.onMerchant)
+    Ordaen.modules.add(self)
+  }
+
+  onOpened(mut self) {
+    self.dismissed = false
+    if (peek self.settings.values.scanOnOpen) { _ = self.scanner.full() }
+  }
+
+  onMerchant(mut self) {
+    const given = Game.merchant.prices()
+    if (given != nil) { takeMerchant(mut self.kept.vendor, given) }
+  }
+
+  // The window closed (its button, Escape): it stays shut until the house opens again. `"$game"` has no part that
+  // closes the house itself.
+  onClose(mut self) { self.dismissed = true }
+
+  public render(self): Template {
+    return $ltml {
+      <Window $if={self.shown} tabs={TABS} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}>
+        <box rows={BODY} gap={8 * PX}>
+          <Status house={self.house.name} items={self.scanner.known} lastFull={self.scanner.lastFull}
+                  scanner={mut self.scanner} />
+          <Tabs tabs={PAGES} selected={mut self.page} />
+          <box $match={self.page}>
+            <BuyPage $case={BUY} house={self.house} prices={self.prices} offers={self.scanner.offers}
+                     shopping={mut self.shopping} />
+            <SellPage $case={SELL} />
+            <OwnedPage $case={OWNED} house={self.house} revision={self.source.revision} />
+            <ShoppingPage $case={SHOPPING} prices={self.prices} list={mut self.shopping} />
+            <DataPage $case={DATA} scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
+                      items={self.scanner.known} values={self.settings.values} />
+          </box>
+        </box>
+      </Window>
+    }
+  }
+}

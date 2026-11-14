@@ -1,0 +1,63 @@
+// Ordaen Auction's own price source: the current house's maps, read with no table, closure or string made. Every
+// reader holds it as `any PriceSource` and never knows which source it is.
+import { House, KEPT_HOURS } from "@/house"
+import { VENDOR_MOST } from "@/kept"
+import { Copper, ItemId, PriceKey, PriceSource, Quote } from "@/quote"
+
+// A listing this young (hours) is what one costs now; past it the market is.
+const FRESH = 48
+
+public class OrdaenPrices implements PriceSource {
+  public const name: String = "Ordaen"
+  public state revision = 0
+  const house: House
+  const vendors: Map<ItemId, Copper>
+  // The house's cut of a sale, in percent.
+  const cut: Signal<Integer>
+
+  constructor(house: House, vendors: Map<ItemId, Copper>, cut: Signal<Integer>) {
+    self.house = house
+    self.vendors = vendors
+    self.cut = cut
+  }
+
+  public buy(self, key: PriceKey): Quote | nil {
+    const market = self.house.quote(key)
+    if (market == nil) { return nil }
+    const age = market.age()
+    if (age > KEPT_HOURS) { return nil }
+    const listing = self.house.listed(key)
+    if (listing != nil && age <= FRESH) { return Quote.of(listing.low(), market.seen()) }
+    return market
+  }
+
+  public sell(self, key: PriceKey): Quote | nil {
+    const market = self.house.quote(key)
+    if (market == nil) { return nil }
+    const age = market.age()
+    if (age > KEPT_HOURS) { return nil }
+    let copper: Integer = market.copper()
+    const listing = self.house.listed(key)
+    if (listing != nil && age <= FRESH) { copper = copper.min(listing.low()) }
+    return Quote.of((copper * (100 - self.cut) / 100).floor(), market.seen())
+  }
+
+  public vendor(self, item: ItemId): Copper | nil { return self.vendors[item] }
+
+  // A price may have moved: whatever follows prices reads them again.
+  public moved(mut self) { self.revision += 1 }
+}
+
+// What an open merchant sells for money, by item, into the kept prices: a price seen before is written again, a new
+// one while fewer than `VENDOR_MOST` are kept.
+public function takeMerchant(vendor: mut Map<ItemId, Copper>, given: Map<Integer, Integer>) {
+  let count = 0
+  for (_, kept of vendor) { count += 1 }
+  for (id, copper of given) {
+    const item = ItemId.of(id)
+    if (vendor[item] != nil || count < VENDOR_MOST) {
+      if (vendor[item] == nil) { count += 1 }
+      vendor[item] = Copper.of(copper)
+    }
+  }
+}

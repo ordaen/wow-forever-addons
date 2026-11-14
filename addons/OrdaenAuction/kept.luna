@@ -1,0 +1,22 @@
+// What Ordaen Auction keeps between sessions, in its own saved variable (`Game.Scope.Own`: loaded with the module, so
+// a player with it off loads none of it). Every part is data the game can't give back cheaply.
+import { Dealt } from "@/ledger"
+import { Copper, ItemId } from "@/quote"
+import { Wanted } from "@/wanted"
+
+public struct Kept implements Plain {
+  // Each house's prices at rest, by its realm's name: its two maps as CBOR, deflated (`House.pack`). One string a
+  // house: one constant to the client's parser.
+  houses: mut Map<String, String> = {}
+  // What merchants ask for an item, as their windows showed it: they don't change prices. At most `VENDOR_MOST`.
+  vendor: mut Map<ItemId, Copper> = {}
+  // The server's time, in seconds, of the account's last full scan: the client answers one each 15 minutes.
+  lastFull: Integer = 0
+  // The shopping list, the account's: the player buys on whichever character stands at the house.
+  shopping: mut Array<Wanted> = []
+  // The sales ledger.
+  ledger: mut Array<Dealt> = []
+}
+
+// The merchants' prices kept at most: every item a merchant sells for money is a few thousand; past it no new one is.
+public const VENDOR_MOST = 5000

@@ -1,0 +1,136 @@
+// «Data»: the last full scan (when, how many auctions and items), the house's size at rest, the sales ledger's
+// totals, and the settings as they stand, with «Settings» to change them in Ordaen's settings window.
+import Game from "$game"
+import { Align, Track } from "$ltml"
+import { Component, Money, number, PushButton, PX, Section } from "Ordaen"
+import root Ordaen from "Ordaen"
+import { Deal, Ledger } from "@/ledger"
+import Locale from "@/locales"
+import { serverSeconds } from "@/quote"
+import { Scanner } from "@/scan"
+import { Choices } from "@/settings"
+import Style from "@/style"
+import { agoText } from "@/style"
+
+const ROW: Array<Track> = [{ fr: 1 }, "auto"]
+
+// A line: what at the left, how much at the right.
+class Fact implements Component {
+  label: Signal<String>
+  value: Signal<String>
+  constructor(label: Signal<String>, value: Signal<String>) {
+    self.label = label
+    self.value = value
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} gap={8 * PX}>
+        <text value={self.label} textColor={Style.DIM} textSize={Style.TEXT} />
+        <text value={self.value} textColor={Style.INK} textSize={Style.TEXT} wrap={false} />
+      </box>
+    }
+  }
+}
+
+// The money of a kind of the ledger's rows, at the right of a line.
+class DealtLine implements Component {
+  derived rows: Integer = self.counted()
+  derived text: String = self.label.format(self.rows)
+  derived copper: Integer = self.money()
+
+  label: Signal<String>
+  const deal: Deal
+  const ledger: Ledger
+  constructor(label: Signal<String>, deal: Deal, ledger: Ledger) {
+    self.label = label
+    self.deal = deal
+    self.ledger = ledger
+  }
+
+  counted(self): Integer {
+    _ = self.ledger.revision
+    const rows, _ = self.ledger.total(self.deal)
+    return rows
+  }
+
+  money(self): Integer {
+    _ = self.ledger.revision
+    const _, copper = self.ledger.total(self.deal)
+    return copper
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} gap={8 * PX}>
+        <text value={self.text} textColor={Style.DIM} textSize={Style.TEXT} />
+        <Money amount={self.copper} />
+      </box>
+    }
+  }
+}
+
+public class DataPage implements Component {
+  derived scanned: Boolean = self.lastFull > 0
+  derived last: String = self.lastText()
+  derived counted: String = self.scanner.auctions > 0 ?
+    Locale.SCAN_COUNTS.format(number(self.scanner.auctions), number(self.scanner.items)) : "—"
+  derived size: String = Locale.KB.format((self.scanner.size / 1024).ceil())
+  derived known: String = number(self.items)
+  derived scanOn: String = self.values.scanOnOpen ? Locale.ON : Locale.OFF
+  derived cut: String = String.of(self.values.cut)
+  derived lineOn: String = self.values.priceLine ? Locale.ON : Locale.OFF
+
+  const scanner: Scanner
+  const ledger: Ledger
+  lastFull: Signal<Integer>
+  items: Signal<Integer>
+  values: Signal<Choices>
+  constructor(
+    scanner: Scanner,
+    ledger: Ledger,
+    lastFull: Signal<Integer>,
+    items: Signal<Integer>,
+    // The settings as they stand.
+    values: Signal<Choices>,
+  ) {
+    self.scanner = scanner
+    self.ledger = ledger
+    self.lastFull = lastFull
+    self.items = items
+    self.values = values
+  }
+
+  lastText(self): String {
+    if (!self.scanned) { return Locale.NEVER }
+    _ = Game.clock.seconds
+    return agoText(serverSeconds() - self.lastFull)
+  }
+
+  onSettings(self) { Ordaen.toggleSettings("OrdaenAuction") }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={["auto"]} gap={8 * PX} width={520 * PX}>
+        <Section title={Locale.SECTION_SCANS}>
+          <Fact label={Locale.LAST_FULL} value={self.last} />
+          <Fact label={Locale.LAST_FULL_COUNTS} value={self.counted} />
+          <Fact label={Locale.ITEMS_KNOWN} value={self.known} />
+          <Fact label={Locale.SIZE} value={self.size} />
+        </Section>
+        <Section title={Locale.SECTION_LEDGER}>
+          <DealtLine label={Locale.SOLD_ROWS} deal={Deal.Sold} ledger={self.ledger} />
+          <DealtLine label={Locale.BOUGHT_ROWS} deal={Deal.Bought} ledger={self.ledger} />
+        </Section>
+        <Section title={Locale.SECTION_SETTINGS}>
+          <Fact label={Locale.SCAN_ON_OPEN} value={self.scanOn} />
+          <Fact label={Locale.CUT} value={self.cut} />
+          <Fact label={Locale.PRICE_LINE} value={self.lineOn} />
+          <box xAlign={Align.Start}>
+            <PushButton label={Locale.SETTINGS} width={140 * PX} @click={self.onSettings} />
+          </box>
+        </Section>
+      </box>
+    }
+  }
+}

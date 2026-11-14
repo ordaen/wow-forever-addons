@@ -1,0 +1,78 @@
+-- «Data»
+surface 425,181.38 750x537.25 on DIALOG clamped raised by a click
+  box 425,181.38 750x37.25 absolute @drag @dragStart
+  box 425,218.62 750x500 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 447.75,243.04 709.5x455.08
+      box 447.75,243.04 709.5x34.17
+        box 447.75,250.21 591.17x14
+          text 447.75,250.21 46.67x14 "Stand-in" #ffd100
+          text 504.42,250.21 534.5x14 "No prices for this realm: the first scan is under way" #e8dcc4
+        box 1048.92,243.04 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 1048.92,243.04 108.33x28.33 absolute
+            text 1090.58,249.71 25x15 "Scan" #ffd100
+      box 447.75,283.88 709.5x26.67
+        box 447.75,309.71 709.5x0.83 absolute #3e2f1d
+        box 447.75,283.88 42.08x25.83 #00000000 @click
+          text 459.42,289.71 18.75x15 "Buy" #a3977f
+        box 493.17,283.88 48.33x25.83 #00000000 @click
+          text 504.83,289.71 25x15 "Sell" #a3977f
+        box 544.83,283.88 92.08x25.83 #00000000 @click
+          text 556.5,289.71 68.75x15 "My auctions" #a3977f
+        box 640.25,283.88 104.58x25.83 #00000000 @click
+          text 651.92,289.71 81.25x15 "Shopping list" #a3977f
+        box 748.17,283.88 50x26.67 #00000059 @click
+          box 749,284.71 48.33x1.67 absolute #d6a56b
+          text 760.67,290.54 25x15 "Data" #ffffff
+      box 447.75,317.21 709.5x380.92
+        box 447.75,317.21 433.33x329.33
+          box 447.75,317.21 433.33x117.67
+            box 447.75,317.21 433.33x15
+              text 447.75,317.21 31.25x15 "Scans" #e8c35a
+              box 487.33,324.29 393.75x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+            box 447.75,343.88 433.33x14
+              text 447.75,343.88 397.5x14 "Last full scan" #a3977f
+              text 851.92,343.88 29.17x14 "never" #e8dcc4
+            box 447.75,369.54 433.33x14
+              text 447.75,369.54 420.83x14 "Auctions and items in it" #a3977f
+              text 875.25,369.54 5.83x14 "—" #e8dcc4
+            box 447.75,395.21 433.33x14
+              text 447.75,395.21 420.83x14 "Items with a price" #a3977f
+              text 875.25,395.21 5.83x14 "0" #e8dcc4
+            box 447.75,420.88 433.33x14
+              text 447.75,420.88 403.33x14 "Saved size" #a3977f
+              text 857.75,420.88 23.33x14 "0 KB" #e8dcc4
+          box 447.75,441.54 433.33x66.33
+            box 447.75,441.54 433.33x15
+              text 447.75,441.54 75x15 "Sales ledger" #e8c35a
+              box 531.08,448.62 350x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+            box 447.75,468.21 433.33x14
+              text 447.75,468.21 380x14 "Sold: 0" #a3977f
+              text 834.42,468.21 46.67x14 "0g 0s 0c" #e8dcc4
+            box 447.75,493.88 433.33x14
+              text 447.75,493.88 380x14 "Bought: 0" #a3977f
+              text 834.42,493.88 46.67x14 "0g 0s 0c" #e8dcc4
+          box 447.75,514.54 433.33x132
+            box 447.75,514.54 433.33x15
+              text 447.75,514.54 50x15 "Settings" #e8c35a
+              box 506.08,521.63 375x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+            box 447.75,541.21 433.33x14
+              text 447.75,541.21 415x14 "Scan when the auction house opens" #a3977f
+              text 869.42,541.21 11.67x14 "on" #e8dcc4
+            box 447.75,566.88 433.33x14
+              text 447.75,566.88 420.83x14 "Auction house cut, %" #a3977f
+              text 875.25,566.88 5.83x14 "5" #e8dcc4
+            box 447.75,592.54 433.33x14
+              text 447.75,592.54 415x14 "Price in item tooltips" #a3977f
+              text 869.42,592.54 11.67x14 "on" #e8dcc4
+            box 447.75,618.21 433.33x28.33
+              box 447.75,618.21 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                box 447.75,618.21 116.67x28.33 absolute
+                  text 481.08,624.88 50x15 "Settings" #ffd100
+    box 1157.75,698.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 425,181.38 155.67x47.75
+    box 425,181.38 155.67x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
+      box 432.25,188.62 37.25x38.75 absolute icon=Interface/Icons/INV_Misc_Coin_02 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 432.25,218.62 32.25x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 464.5,188.62 11.5x40.5 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
+      box 480.83,191.62 81.25x37.5
+        text 480.83,202.88 81.25x15 "Auction House" #ffd100

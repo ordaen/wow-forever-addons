@@ -1,0 +1,92 @@
+// Ordaen Auction's data where no clock is read: the cheapest fifth of what is listed, the market's decay over hours,
+// the house at rest and what 10,000 keys cost, the merchants' prices with their cap. What reads the server's hour is
+// `clock.test.luna.waiting`.
+import Test from "$test"
+import { House } from "@/house"
+import { Kept } from "@/kept"
+import { OrdaenPrices, takeMerchant } from "@/prices"
+import { Copper, Hour, ItemId, Listing, PriceKey } from "@/quote"
+import { fifth } from "@/scan"
+
+const LINEN: Integer = 2589
+// An hour of 2026.
+const FIRST: Hour = 59000
+
+// The house's cut, as a setting holds it.
+class Cut {
+  public state percent = 5
+}
+
+function quoted(house: House, item: Integer): Integer {
+  return (house.quote(PriceKey.of(item)) ?? panic("the item has a price")).copper()
+}
+
+test "a fifth: one unit far below the rest moves it little; a single auction is its own price" {
+  const one, _, _ = fifth([Listing.of(500, 1)])
+  Test.expect(one == 500)
+  const unit, low, total = fifth([Listing.of(1, 1), Listing.of(200, 30), Listing.of(250, 20)])
+  Test.note(`one at 1 under 50 at 200 and more: unit ${unit}, lowest ${low}, listed ${total}`)
+  Test.expect(unit == 182 && low == 1 && total == 51)
+  const four, _, _ = fifth([Listing.of(100, 2), Listing.of(120, 1), Listing.of(300, 10)])
+  Test.note(`13 listed, the cheapest 3: two at 100, one at 120: ${four}`)
+  Test.expect(four == 107)
+}
+
+test "the market decays toward each observation with a half-life of three days; the same hour moves it once" {
+  let house = new House("Realm 4", nil)
+  const key = PriceKey.of(LINEN)
+  house.observe(key, 1000, 1000, 5, FIRST)
+  house.observe(key, 2000, 2000, 5, FIRST)
+  Test.expect(quoted(house, LINEN) == 1000)
+  house.observe(key, 2000, 2000, 5, FIRST.after(24))
+  // A day weighs 1 − 2^(−24/72): 21%.
+  Test.note(`a day later at 2000: ${quoted(house, LINEN)}`)
+  Test.expect(quoted(house, LINEN) == 1206)
+  house.observe(key, 2000, 2000, 5, FIRST.after(96))
+  Test.note(`three days after that at 2000: ${quoted(house, LINEN)}`)
+  Test.expect(quoted(house, LINEN) == 1603)
+  Test.expect((house.quote(key) ?? panic("kept")).seen() == FIRST.after(96))
+  Test.expect(house.listed(key)?.low() == 2000)
+  Test.expect(house.listed(key)?.quantity() == 5)
+  Test.expect(house.count == 1)
+  // Thirty days on, the key goes; a day short of it, it stays.
+  Test.expect(house.prune(FIRST.after(96 + 719)) == 0)
+  Test.expect(house.prune(FIRST.after(96 + 721)) == 1)
+  Test.expect(house.quote(key) == nil && house.listed(key) == nil && house.count == 0)
+}
+
+test "the house at rest reads back the same, and what 10,000 keys cost" {
+  let house = new House("Realm 4", nil)
+  for (index of 1..=10000) {
+    house.observe(PriceKey.of(1000 + index * 3), 37 * index + (index * index) % 997, 30 * index, index % 400 + 1,
+      FIRST.after(-(index % 300)))
+  }
+  const packed = house.pack() ?? panic("the stand-in packs")
+  Test.note(`10,000 keys at rest: ${packed.length} bytes`)
+  let back = new House("Realm 4", packed)
+  Test.expect(back.count == 10000)
+  for (index of 1..=10000 step 997) {
+    const key = PriceKey.of(1000 + index * 3)
+    Test.expect(back.quote(key) == house.quote(key))
+    Test.expect(back.listed(key) == house.listed(key))
+  }
+  Test.expect(new House("Realm 4", "not a house").count == 0)
+}
+
+test "a merchant's prices are kept per item, at most 5,000, and read through the source" {
+  let kept = Kept {}
+  takeMerchant(mut kept.vendor, { [2320]: 10, [2604]: 50 })
+  Test.expect(kept.vendor[ItemId.of(2604)] == Copper.of(50))
+  let many: Map<Integer, Integer> = {}
+  for (index of 1..=6000) { many[10000 + index] = index }
+  takeMerchant(mut kept.vendor, many)
+  let count = 0
+  for (_, copper of kept.vendor) { count += 1 }
+  Test.expect(count == 5000)
+  takeMerchant(mut kept.vendor, { [2320]: 12 })
+  Test.expect(kept.vendor[ItemId.of(2320)] == Copper.of(12))
+  let house = new House("Realm 4", nil)
+  let cut = new Cut()
+  let source = new OrdaenPrices(house, kept.vendor, cut.percent)
+  Test.expect(source.vendor(ItemId.of(2320)) == Copper.of(12) && source.vendor(ItemId.of(1)) == nil)
+}

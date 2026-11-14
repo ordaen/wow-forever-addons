@@ -3,7 +3,7 @@ public import { Windowed } from "@/windowed"
 public import { Tinted } from "@/tinted"
 public import { Arranged } from "@/arranged"
 public import { Market, Worth, Sale } from "@/market"
-import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, Switch, Tabs, Tip, Toggle, Unit } from "Ordaen"
+import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, Switch, Tabs, TextBox, Tip, Toggle, Unit } from "Ordaen"
 
 const TABS: Array<String> = ["Map", "Drawer", "Market"]
 
@@ -22,6 +22,8 @@ public struct Choices {
   drawer: Boolean
   hide: Hide
   name: String
+  // What the drawer's export box holds.
+  exported: String
 }
 
 // A module's page, made by the tests and added to Ordaen's modules there: in the game nothing makes it (the
@@ -30,7 +32,8 @@ public class Showcase implements Module {
   public const title: String = "Showcase"
   public const pages: Array<SettingsPage> = []
 
-  state choices: mut Choices = { showZone: true, scale: 1, columns: 4, drawer: false, hide: Hide.Never, name: "" }
+  state choices: mut Choices = { showZone: true, scale: 1, columns: 4, drawer: false, hide: Hide.Never, name: "",
+    exported: "Ordaen:1:drawer\nhide=never" }
   state saved = 0
   state hint = false
   state tab = 1
@@ -74,6 +77,9 @@ public class Showcase implements Module {
                    disabled={!self.choices.drawer} />
             <text value={self.choices.name} />
             <Toggle value={mut self.choices.drawer} />
+          </Section>
+          <Section title={"Export"}>
+            <TextBox value={mut self.choices.exported} height={60} />
           </Section>
         </SettingsTab>
         <SettingsTab title={"Market"} shown={self.onMarket}>

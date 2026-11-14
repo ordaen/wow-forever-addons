@@ -1,0 +1,10 @@
+// A line of the shopping list: an item, how many, and what asked for it.
+import { ItemId } from "@/quote"
+
+public struct Wanted implements Plain {
+  item: ItemId = 0
+  count: Integer = 0
+  // What asked for it, as the module that added it words it («Bronze Axe ×5 — Regron's queue»); none for a line the
+  // player added by hand.
+  from: String | nil = nil
+}

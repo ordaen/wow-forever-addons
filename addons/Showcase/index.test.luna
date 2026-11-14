@@ -178,6 +178,23 @@ test "the cursor over the page itself shows the page's tip, and leaving it hides
   destroy added
 }
 
+test "the drawer's export box takes the keyboard with all its text selected each time its tab is shown" {
+  const page = new Showcase()
+  const added = Ordaen.modules.add(page)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+
+  Test.click(Test.holding("Drawer", nil), nil)
+  Test.shot("the second tab clicked: its export box of two lines takes the keyboard, all its text selected")
+
+  Test.key(Key.Escape)
+  Test.click(Test.holding("Map", nil), nil)
+  Test.click(Test.holding("Drawer", nil), nil)
+  Test.shot("the first tab and the second again: the export box selects all its text anew")
+
+  destroy added
+  destroy page
+}
+
 test "the page destroyed leaves nothing drawn" {
   // The showcase made and added to Ordaen's modules: Ordaen draws it on the screen, which the page is.
   const page = new Showcase()

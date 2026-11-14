@@ -1,0 +1,46 @@
+// The house window's look, shared by its parts: sizes at the player's scale, colours, and how a time is said.
+import { Line, Side } from "$ltml"
+import { PX } from "Ordaen"
+import Locale from "@/locales"
+
+public const WIDTH: Number = 900 * PX
+public const HEIGHT: Number = 600 * PX
+public const GAP: Number = 12 * PX
+public const TEXT: Number = 14 * PX
+public const SMALL: Number = 12 * PX
+public const NAME: Number = 17 * PX
+// An item's slot in a row, and the chosen item's.
+public const SLOT: Number = 24 * PX
+public const BIG_SLOT: Number = 40 * PX
+// A list's height in a page: it scrolls past it.
+public const LIST: Number = 300 * PX
+// The panel at a page's right: the chosen row's.
+public const PANEL: Number = 280 * PX
+
+public const INK: Color = Color.hex("#e8dcc4")
+public const DIM: Color = Color.hex("#a3977f")
+public const GOLD: Color = Color.hex("#ffd100")
+public const RED: Color = Color.hex("#ff4040")
+public const GREEN: Color = Color.hex("#40c040")
+public const AMBER: Color = Color.hex("#ffb02e")
+public const LISTS_BACK: Color = Color.hex("#0000004d")
+public const FRAME: Line = { width: 1 * PX, color: Color.hex("#3e2f1d") }
+public const RULE: Line = { width: 1 * PX, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
+
+const MINUTE = 60
+const HOUR = 3600
+const DAY = 86400
+
+// How long ago, in the largest whole unit: «12 min ago», «2 h ago», «3 d ago»; under a minute «just now».
+public function agoText(seconds: Integer): String {
+  if (seconds < MINUTE) { return Locale.AGO_NOW }
+  if (seconds < HOUR) { return Locale.AGO_MINUTES.format((seconds / MINUTE).floor()) }
+  if (seconds < DAY) { return Locale.AGO_HOURS.format((seconds / HOUR).floor()) }
+  return Locale.AGO_DAYS.format((seconds / DAY).floor())
+}
+
+// How long is left, rounded up to a whole minute, or an hour past one: «9 min», «2 h».
+public function leftText(seconds: Integer): String {
+  if (seconds <= HOUR) { return Locale.LEFT_MINUTES.format((seconds / MINUTE).ceil()) }
+  return Locale.LEFT_HOURS.format((seconds / HOUR).ceil())
+}
