@@ -13,7 +13,7 @@ public import { Copper, Hour, ItemId } from "@/market"
 public import { KeptPlace, OrdaenCore } from "@/ordaen"
 // The controls every module draws by name.
 public import { PX } from "@/units"
-public import { Tip } from "@/tip"
+public import { Tip, TipRow } from "@/tip"
 public import { Section } from "@/section"
 public import { PushButton } from "@/pushButton"
 public import { Checkbox } from "@/checkbox"

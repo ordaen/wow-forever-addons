@@ -1,59 +1,158 @@
 // The status bars: glass tubes with margins on the wood, back to front the trough, the fill, engraved marks every
-// tenth, the glass shine, the bronze ring, and the text in the middle. Experience: the rested part in pale blue under
-// the player's fill; reputation: the watched faction in steel. In the panel one tube: experience, or at the level's
-// cap the watched faction (nothing when none is); as a bar of its own (`both`), the faction under the experience.
+// tenth, the glass shine, the bronze ring, and the values in the middle. Experience: the rested part in pale blue past
+// the player's fill; reputation: the watched faction in steel. Both tracked, the faction's tube stands under the
+// experience's where the room holds two; else experience alone, and at the level's cap the faction alone (nothing when
+// none is watched). Each tube explains itself in our Tip while the cursor is on it, the rested part on its own.
 import Game from "$game"
 import { Align, Art, Edges, Line, Percent, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component } from "Ordaen"
+import { Component, Tip, TipRow, number } from "Ordaen"
+import Locale from "@/locales"
+import { ExperienceGains, Gains, ReputationGains } from "@/gains"
 
 // Slim at a third of the screen's width.
-const TUBE_HEIGHT = 25
+const TUBE_HEIGHT: Number = 25
+// The least a tube is high stacked under another: its values still read.
+const LEAST_HEIGHT = 16
+const GAP = 5
+// Room enough for anything: a bar standing by itself.
+const UNBOUNDED = 1000
 // The shortest a tube is, with its margins: on a panel as long as its items, and the least the panel's middle gives
 // way to on a short screen.
 const LEAST = 240
 const MARGINS: Edges = { right: 32, left: 32 }
-// The trough's inside, as the art draws it.
-const INSET = TUBE_HEIGHT * 10 / 64
 const RESTED: Color = Color.hex("#6e96d129")
-const CLEAR: Color = Color.hex("#00000000")
 const LABEL: Color = Color.hex("#f3e7cc")
 const LABEL_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
 const FILL: Array<Track> = [{ fr: 1 }]
 // Ten equal cells over the inside, each but the last with a 1 px dark right edge.
 const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const MARK: Line = { width: 1, color: Color.hex("#00000080"), sides: [Side.Right] }
-const NONE: Percent = { percent: 0 }
+// Rested experience grows to a level and a half at most (the client's rule).
+const RESTED_MOST = 1.5
+const HOUR = 3600
+const MINUTE = 60
 
-// One tube: how far it is filled, how far the paler part behind the fill reaches, and what it says.
+// Where the cursor is on a tube: off it, on it, or on the part past its fill.
+enum Over { Off = "off", Bar = "bar", Ahead = "ahead" }
+
+// A value between its least and its most, as the start and the end of the bar.
+function share(value: Integer, least: Integer, most: Integer): Number {
+  let span = most - least
+  if (span <= 0) { return 100 }
+  return 100 * (0).max((value - least).min(span)) / span
+}
+
+// The values of a tube: how far into its span and how long the span is, and the part of it.
+function valuesOf(value: Integer, least: Integer, most: Integer): String {
+  return "%s / %s (%d%%)".format(number(value - least), number(most - least), share(value, least, most).floor())
+}
+
+// A span of seconds, in hours and minutes.
+function lasting(seconds: Number): String {
+  let minutes = (seconds / MINUTE).ceil()
+  if (minutes < 60) { return Locale.TIME_MINUTES.format(minutes) }
+  return Locale.TIME_HOURS.format((minutes / 60).floor(), minutes % 60)
+}
+
+// The rows every tube's tooltip ends with: what was gained this session, at what pace, and how long `left` takes at
+// it.
+function paceRows(rows: mut Array<TipRow>, gains: Gains, left: Integer, now: Integer, timeLabel: String) {
+  if (gains.gained != 0) {
+    rows.push({ label: Locale.TIP_SESSION, value: (gains.gained > 0 ? "+" : "") + number(gains.gained) })
+  }
+  let rate = gains.perHour(now)
+  if (rate != nil) {
+    rows.push({ label: Locale.TIP_PER_HOUR, value: number(rate.floor()) })
+  }
+  let seconds = gains.secondsTo(left, now)
+  if (seconds != nil) {
+    rows.push({ label: timeLabel, value: lasting(seconds) })
+  }
+  let times = gains.timesTo(left)
+  if (times != nil) {
+    rows.push({ label: Locale.TIP_AT_A_TIME.format(number(gains.last)), value: Locale.TIP_TIMES.format(times) })
+  }
+}
+
+// One tube: a value between its least and its most, required as a count's bounds are, so every bar says its values
+// the same way; how far the paler part reaches past the value; a tooltip over the bar and one over the paler part.
 public class Tube implements Component {
+  state over: Over = Over.Off
+  derived inset: Number = self.height * 10 / 64
+  derived filled: Percent = { percent: share(self.value, self.least, self.most) }
+  derived behind: Percent = { percent: share(self.value + self.ahead, self.least, self.most) }
+  // The part past the fill alone, where the cursor finds the paler part's tooltip; the rest of the tube is the bar's.
+  derived parts: Array<Track> = [self.filled, { percent: self.behind.percent - self.filled.percent }, { fr: 1 }]
+  // The values and their part; with words before them, the words take the part's room, so the longest standing's
+  // name with its values still fits a tube at its least (the part stays in the tooltip).
+  derived label: String = self.words == "" ? valuesOf(self.value, self.least, self.most)
+    : "%s %s / %s".format(self.words, number(self.value - self.least), number(self.most - self.least))
+  derived overBar: Boolean = self.over == Over.Bar
+  derived overAhead: Boolean = self.over == Over.Ahead
+  derived tinted: Boolean = self.tint != nil
+
   // Ordaen's art: its root is there before this module loads.
   const fill: Art
-  share: Signal<Percent>
-  label: Signal<String>
-  behind: Signal<Percent>
+  value: Signal<Integer>
+  least: Signal<Integer>
+  most: Signal<Integer>
+  words: Signal<String>
+  ahead: Signal<Integer>
+  height: Signal<Number>
+  tint: Signal<Color | nil>
+  title: Signal<String>
+  rows: Signal<Array<TipRow>>
+  aheadTitle: Signal<String>
+  aheadText: Signal<String>
+  aheadRows: Signal<Array<TipRow>>
   constructor(
     fill: Art,
-    share: Signal<Percent>,
-    label: Signal<String>,
-    // The rested part: as far as the fill for a tube that has none.
-    behind: Signal<Percent> = NONE,
+    value: Signal<Integer>,
+    least: Signal<Integer>,
+    most: Signal<Integer>,
+    // The tooltip over the bar.
+    title: Signal<String>,
+    rows: Signal<Array<TipRow>>,
+    // What the bar says before its values: the standing.
+    words: Signal<String> = "",
+    // The paler part past the fill (rested experience), and its tooltip.
+    ahead: Signal<Integer> = 0,
+    aheadTitle: Signal<String> = "",
+    aheadText: Signal<String> = "",
+    aheadRows: Signal<Array<TipRow>> = [],
+    height: Signal<Number> = TUBE_HEIGHT,
+    // A colour the fill takes, its art made grey under it: the standing's.
+    tint: Signal<Color | nil> = nil,
   ) {
+    self.tint = tint
     self.fill = fill
-    self.share = share
-    self.label = label
-    self.behind = behind
+    self.value = value
+    self.least = least
+    self.most = most
+    self.title = title
+    self.rows = rows
+    self.words = words
+    self.ahead = ahead
+    self.aheadTitle = aheadTitle
+    self.aheadText = aheadText
+    self.aheadRows = aheadRows
+    self.height = height
   }
+
+  onBar(mut self) { self.over = Over.Bar }
+  onAhead(mut self) { self.over = Over.Ahead }
+  onOff(mut self) { self.over = Over.Off }
 
   public render(self): Template {
     return $ltml {
-      <box height={TUBE_HEIGHT}>
+      <box height={self.height} @enter={self.onBar} @leave={self.onOff}>
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
              background={Ordaen.art.panel.xpTrough} />
-        <box position={Position.Absolute} left={INSET} top={INSET} right={INSET} bottom={INSET}>
+        <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}>
           <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.behind} background={RESTED} />
-          <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.share}
-               background={self.fill} />
+          <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.filled}
+               background={self.fill} tint={self.tint} desaturate={self.tinted} />
           <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} columns={10} rows={FILL}>
             <box $for={cell of CELLS} border={MARK} />
             <box />
@@ -65,9 +164,18 @@ public class Tube implements Component {
              background={Ordaen.art.panel.xpTube} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align.Center}
              yAlign={Align.Center}>
-          <text value={self.label} textColor={LABEL} textOutline={1} textShadow={LABEL_SHADOW}
-                wrap={false} />
+          // Secondary: the values with the longest standing's name fit a tube at its least.
+          <text value={self.label} textSize={.Secondary} textColor={LABEL} textOutline={1}
+                textShadow={LABEL_SHADOW} wrap={false} />
         </box>
+        <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
+             columns={self.parts} rows={FILL}>
+          <box />
+          <box @enter={self.onAhead} @leave={self.onOff} />
+          <box />
+        </box>
+        <Tip $if={self.overBar} title={self.title} text={""} rows={self.rows} />
+        <Tip $if={self.overAhead} title={self.aheadTitle} text={self.aheadText} rows={self.aheadRows} />
       </box>
     }
   }
@@ -78,43 +186,90 @@ public class XpBar implements Component {
   // Below the level's cap there is experience to gain.
   derived leveling: Boolean = Game.player.xpMax > 0
   derived watched: Boolean = Game.reputation.name != ""
-  derived showsReputation: Boolean = self.watched && (!self.leveling || self.both)
-  derived xpShare: Percent = { percent: self.part(Game.player.xp) }
-  derived restedShare: Percent = { percent: self.part(Game.player.xp + Game.player.rested) }
-  derived xpLabel: String = "%d%%".format(self.part(Game.player.xp).floor())
-  derived reputationShare: Percent = { percent: self.standingPart() }
-  derived reputationLabel: String = "%s: %s %d%%".format(Game.reputation.name,
-    Game.reputation.standing, self.standingPart().floor())
+  // Two tubes share the room, each no higher than one alone.
+  derived pairHeight: Number = TUBE_HEIGHT.min((self.room - GAP) / 2)
+  derived stacked: Boolean = self.leveling && self.watched && self.pairHeight >= LEAST_HEIGHT
+  derived showsReputation: Boolean = self.watched && (!self.leveling || self.stacked)
+  derived tubeHeight: Number = self.stacked ? self.pairHeight : TUBE_HEIGHT
+  derived toLevel: Integer = Game.player.xpMax - Game.player.xp
+  derived toNext: Integer = Game.reputation.max - Game.reputation.value
+  derived restedMost: Integer = (Game.player.xpMax * RESTED_MOST).floor()
+  derived xpTitle: String = Locale.XP_TIP_TITLE.format(Game.player.level)
+  derived xpRows: Array<TipRow> = self.experienceRows()
+  derived restedRows: Array<TipRow> = self.restRows()
+  derived reputationRows: Array<TipRow> = self.standingRows()
+  // The faction's fill takes its standing's colour, as the client's reputation bar does.
+  derived standingTint: Color | nil = Game.reputation.color
 
-  both: Signal<Boolean>
+  // What the player gained this session: the panel's, which outlasts a bar drawn again.
+  experience: ExperienceGains
+  reputation: ReputationGains
+  // How high the bar may be: the panel's inside.
+  room: Signal<Number>
   constructor(
-    // The watched faction under the experience too: for the bar standing by itself.
-    both: Signal<Boolean> = false,
+    experience: ExperienceGains,
+    reputation: ReputationGains,
+    room: Signal<Number> = UNBOUNDED,
   ) {
-    self.both = both
+    self.experience = experience
+    self.reputation = reputation
+    self.room = room
   }
 
-  // How much of the level `amount` is, in hundredths, never more than all of it.
-  part(self, amount: Number): Number {
+  // The rested bonus and how much of a level it is.
+  restedValue(self): String {
     let most = Game.player.xpMax
-    if (most <= 0) { return 0 }
-    return 100 * amount.min(most) / most
+    let part = most > 0 ? 100 * Game.player.rested / most : 0
+    return Locale.XP_TIP_RESTED_VALUE.format(number(Game.player.rested), part.floor())
   }
 
-  // How far into the standing the watched faction is, in hundredths: all of it at the last standing.
-  standingPart(self): Number {
-    let span = Game.reputation.max - Game.reputation.min
-    if (span <= 0) { return 100 }
-    return 100 * (Game.reputation.value - Game.reputation.min) / span
+  experienceRows(self): Array<TipRow> {
+    let rows: Array<TipRow> = [
+      { label: Locale.XP_TIP_EXPERIENCE, value: valuesOf(Game.player.xp, 0, Game.player.xpMax) },
+      { label: Locale.XP_TIP_TO_LEVEL.format(Game.player.level + 1), value: number(self.toLevel) },
+    ]
+    if (Game.player.rested > 0) {
+      rows.push({ label: Locale.XP_TIP_RESTED, value: self.restedValue() })
+    }
+    paceRows(mut rows, self.experience.gains, self.toLevel, Game.clock.seconds, Locale.XP_TIP_TIME_TO_LEVEL)
+    return rows
+  }
+
+  restRows(self): Array<TipRow> {
+    return [
+      { label: Locale.XP_TIP_RESTED, value: self.restedValue() },
+      { label: Locale.RESTED_TIP_RESTING, value: Game.situation.resting ? Locale.YES : Locale.NO },
+      { label: Locale.RESTED_TIP_ROOM, value: number((0).max(self.restedMost - Game.player.rested)) },
+    ]
+  }
+
+  standingRows(self): Array<TipRow> {
+    let rows: Array<TipRow> = [
+      { label: Locale.REPUTATION_TIP_STANDING, value: Game.reputation.standing },
+      {
+        label: Locale.REPUTATION_TIP_VALUE,
+        value: valuesOf(Game.reputation.value, Game.reputation.min, Game.reputation.max),
+      },
+    ]
+    if (Game.reputation.next == "") { return rows }
+    let toNext = Locale.REPUTATION_TIP_TO_NEXT.format(Game.reputation.next)
+    rows.push({ label: toNext, value: number(self.toNext) })
+    paceRows(mut rows, self.reputation.gains, self.toNext, Game.clock.seconds,
+      Locale.REPUTATION_TIP_TIME.format(Game.reputation.next))
+    return rows
   }
 
   public render(self): Template {
     return $ltml {
-      <box minWidth={LEAST} padding={MARGINS} yAlign={Align.Center} gap={6 / 1.2}>
-        <Tube $if={self.leveling} fill={peek Ordaen.lookArt.xpFill} share={self.xpShare} behind={self.restedShare}
-              label={self.xpLabel} />
-        <Tube $if={self.showsReputation} fill={peek Ordaen.art.panel.xpSteel} share={self.reputationShare}
-              label={self.reputationLabel} />
+      <box minWidth={LEAST} padding={MARGINS} yAlign={Align.Center} gap={GAP}>
+        <Tube $if={self.leveling} fill={peek Ordaen.lookArt.xpFill} value={Game.player.xp} least={0}
+              most={Game.player.xpMax} ahead={Game.player.rested} height={self.tubeHeight} title={self.xpTitle}
+              rows={self.xpRows} aheadTitle={Locale.RESTED_TIP_TITLE} aheadText={Locale.RESTED_TIP}
+              aheadRows={self.restedRows} />
+        <Tube $if={self.showsReputation} fill={peek Ordaen.art.panel.xpSteel} value={Game.reputation.value}
+              least={Game.reputation.min} most={Game.reputation.max} words={Game.reputation.standing}
+              height={self.tubeHeight} title={Game.reputation.name} rows={self.reputationRows}
+              tint={self.standingTint} />
       </box>
     }
   }
