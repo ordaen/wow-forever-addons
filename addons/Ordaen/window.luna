@@ -2,7 +2,8 @@
 // standing on the body's top line from its left, the open one over the body and the closed ones behind it. Centred
 // on the screen at first; dragging its tab row moves it, Escape closes it, the grip in its bottom right corner
 // resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
-// the window: full screen (and back) and close. Its unnamed slot takes the body's content, which fills the body.
+// the window: full screen (and back) and close, and left of them a settings button where the window is made
+// `withSettings` (its `settings` event). Its unnamed slot takes the body's content, which fills the body.
 import { Align, Art, Drag, Edges, Layer, Metal, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
@@ -44,9 +45,19 @@ const PADDING: Edges = { top: 14 * PX + INSET, right: 12 * PX + INSET, bottom: 1
 // how wide the two are together.
 const CORNER_RIGHT = 5 * PX
 const CORNER_WIDTH = (5 + 30 + 28) * PX
+// The settings button of a window that has one: a glyph on the wood, left of the pair. Its art is a text glyph of the
+// narrow Arial, which carries the sun with rays and no gear; the corner's plates have no cell for it.
+const GEAR_WIDTH = 28 * PX
+const GEAR_GLYPH = "☼"
+const GEAR_FONT: Asset = "Fonts/ARIALN.TTF"
+const GEAR_SIZE = 20 * PX
+const GEAR: Stated<Color> = { default: Color.hex("#c9a05a"), hover: Color.hex("#ffd98a") }
 // How much of the content's first row the corner's buttons take, from its right end: what stands in that row at
 // the right (a bar across the window) ends this much short, and the buttons never lie over it.
-public const CORNER_ROOM: Number = CORNER_RIGHT + CORNER_WIDTH + 6 * PX - (12 * PX + INSET)
+public const function cornerRoom(withSettings: Boolean): Number {
+  const room = CORNER_RIGHT + CORNER_WIDTH + 6 * PX - (12 * PX + INSET)
+  return withSettings ? room + GEAR_WIDTH : room
+}
 // One row as high as the box: what stands in it fills it.
 const BODY_ROWS: Array<Track> = [{ fr: 1 }]
 // The smallest body unless the window names one: room for the tab row and a few lines.
@@ -166,11 +177,14 @@ public class WindowTab implements Component {
 public class Window implements Component {
   // The close button, and Escape.
   public close: Event<nil> = new Event()
+  // The settings button was clicked (a window made `withSettings`): the owner opens its settings.
+  public settings: Event<nil> = new Event()
   // A tab was clicked: its place among the tabs, in the click's own call.
   public picked: Event<Integer> = new Event()
 
   state full = false
   state hovered = false
+  derived gear: Boolean = self.hovered && self.withSettings
   // Where the window and its body were when a drag began.
   x0: Number = 0
   y0: Number = 0
@@ -197,6 +211,7 @@ public class Window implements Component {
   const minHeight: Number
   const maxWidth: Number | nil
   const maxHeight: Number | nil
+  const withSettings: Boolean
   constructor(
     tabs: Signal<Array<WindowTabSpec>>,
     selected: mut Signal<Integer>,
@@ -205,7 +220,10 @@ public class Window implements Component {
     minHeight: Number = MIN_H,
     maxWidth: Number | nil = nil,
     maxHeight: Number | nil = nil,
+    // A settings button in the corner, left of full screen and close.
+    withSettings: Boolean = false,
   ) {
+    self.withSettings = withSettings
     self.tabs = tabs
     self.selected = selected
     self.placing = placing
@@ -248,6 +266,7 @@ public class Window implements Component {
   toggleFull(mut self) { self.full = !self.full }
   onPicked(mut self, index: Integer) { self.picked.emit(index) }
   onClose(mut self) { self.close.emit() }
+  onSettings(mut self) { self.settings.emit() }
 
   onGrab(mut self) {
     self.x0 = (peek self.placing).x
@@ -301,6 +320,12 @@ public class Window implements Component {
               <box position={Position.Absolute} left={0} top={0} width={64 * PX} height={32 * PX}
                    background={Ordaen.art.ctl.cornerClose} stateFromParent={true} />
             </box>
+          </box>
+          <box $if={self.gear} position={Position.Absolute} top={5.5 * PX} right={CORNER_RIGHT + CORNER_WIDTH}
+               width={GEAR_WIDTH} height={32 * PX} xAlign={Align.Center} yAlign={Align.Center}
+               @click={self.onSettings}>
+            <text value={GEAR_GLYPH} textSize={GEAR_SIZE} textFamily={GEAR_FONT} textColor={GEAR} wrap={false}
+                  stateFromParent={true} />
           </box>
           <box $if={self.sized} position={Position.Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}
                height={16 * PX} background={self.grip} @dragStart={self.onGrab} @drag={self.onSize} />

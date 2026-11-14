@@ -61,6 +61,10 @@ test "the window: its tabs, moved, full screen, resized, closed" {
   Test.moveTo(Test.holding("the second tab's page", nil))
   show("the cursor in the body: the corner's buttons show")
 
+  Test.click(Test.holding("☼", nil), nil)
+  Test.expect(page.settingsOpened == 1)
+  show("the settings glyph clicked: the owner heard it, the window as it was")
+
   Test.click(Test.painted(art.ctl.cornerExpand, nil), nil)
   show("full screen clicked: the window covers the screen, its grip gone")
 
