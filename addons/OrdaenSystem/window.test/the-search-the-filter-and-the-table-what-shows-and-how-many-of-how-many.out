@@ -5,7 +5,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
       box 424.42,273.88 756.17x365.08
         box 424.42,273.88 756.17x28.33
           box 424.42,273.88 572x28.33
-            box 424.42,273.88 572x28.33 #00000080 input "system" typing @change
+            box 424.42,273.88 572x28.33 #00000080 input "system" typing @change @submit
           box 996.42,273.88 184.17x28.33
             box 996.42,280.54 50.83x15
               text 1003.08,280.54 37.5x15 "1 of 3" #9a9080
@@ -92,7 +92,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
       box 424.42,273.88 756.17x365.08
         box 424.42,273.88 756.17x28.33
           box 424.42,273.88 636.58x28.33
-            box 424.42,273.88 636.58x28.33 #00000080 input "" typing @change
+            box 424.42,273.88 636.58x28.33 #00000080 input "" typing @change @submit
             box 424.42,273.88 636.58x28.33 absolute
               text 432.75,280.54 619.92x15 "Search by title, folder, author, notes" #a3977f
           box 1061,273.88 119.58x28.33

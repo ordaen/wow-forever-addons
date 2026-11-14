@@ -66,6 +66,8 @@ public struct ArtControls {
   sliderFill: Art
   sliderKnob: Art
   rule: Art
+  // A dialog title's rule: a groove cut into the wood, 4 px tall, stretched along it.
+  carved: Art
   switchOn: Art
   switchOff: Art
   knobOn: Art
@@ -166,6 +168,7 @@ public const ARTWORK: Artwork = {
     sliderFill: { file: "@/media/ctl-slider.tga", width: 64, height: 128, rows: 4, normal: 1 },
     sliderKnob: "@/media/ctl-slider-knob.tga",
     rule: "@/media/ctl-rule.tga",
+    carved: "@/media/ctl-carved.tga",
     // The switch: the track, a pill with round caps (rows 0 off, 1 on, 2 the ring over either), and the knob.
     switchOff: { file: "@/media/ctl-switch-track.tga", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 0, glow: 2 },
     switchOn: { file: "@/media/ctl-switch-track.tga", width: 128, height: 256, cap: 32, capHeight: 0.5, rows: 4, normal: 1, glow: 2 },
