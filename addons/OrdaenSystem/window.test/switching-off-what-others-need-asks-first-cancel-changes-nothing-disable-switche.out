@@ -28,66 +28,70 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
                 box 1152.25,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                   box 1159.75,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
         box 424.42,308.88 756.17x13.33
-          box 431.08,315.54 18.33x0
-          box 456.08,309.04 507.83x13 @click
-            text 456.08,309.04 507.83x13 "AddOn" #9a9080
-          box 970.58,315.54 0x0
-            text 970.58,315.54 0x0 "" #9a9080
-          box 977.25,309.04 58.33x13 @click
-            text 1019.33,309.04 16.25x13 "Now" #9a9080
-          box 1042.25,309.04 58.33x13 @click
-            text 1078.92,309.04 21.67x13 "Peak" #9a9080
-          box 1107.25,308.88 66.67x13.33
-            box 1124.75,308.88 32.5x13 @click
-              text 1124.75,308.88 32.5x13 "Memory" #9a9080
-            box 1160.58,308.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 16 @click
+          box 431.08,309.04 494.5x13 @click
+            text 431.08,309.04 494.5x13 "AddOn" #9a9080
+          box 932.25,315.54 0x0
+            text 932.25,315.54 0x0 "" #9a9080
+          box 938.92,309.04 58.33x13 @click
+            text 981,309.04 16.25x13 "Now" #9a9080
+          box 1003.92,309.04 58.33x13 @click
+            text 1040.58,309.04 21.67x13 "Peak" #9a9080
+          box 1068.92,308.88 66.67x13.33
+            box 1086.42,308.88 32.5x13 @click
+              text 1086.42,308.88 32.5x13 "Memory" #9a9080
+            box 1122.25,308.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 16 @click
+          box 1142.25,315.54 31.67x0
         box 424.42,328.88 756.17x283.75 scrolled 0 of 0
           box 424.42,328.88 756.17x21.67 @click
             box 431.08,333.04 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
             text 451.08,332.21 87.5x15 "User Interface" #f0c860
-            text 545.25,332.21 628.67x15 "2" #9a9080
+            text 545.25,332.21 590.33x15 "2" #9a9080
+            box 1142.25,331.38 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,328.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
           box 424.42,350.54 756.17x21.67 #00000000 @click @enter @leave
-            box 431.08,352.21 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-              box 431.08,352.21 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-            box 456.08,353.88 507.83x15
-              text 456.08,353.88 507.83x15 "Ordaen" #e8e0d0
-            box 970.58,361.38 0x0
-              text 970.58,361.38 0x0 "" #9a9080
-            box 977.25,353.88 58.33x15
-              text 1029.33,353.88 6.25x15 "—" #e8e0d0
-            box 1042.25,353.88 58.33x15
-              text 1094.33,353.88 6.25x15 "—" #e8e0d0
-            box 1107.25,353.88 66.67x15
-              text 1148.92,353.88 25x15 "0 KB" #e8e0d0
+            box 431.08,353.88 494.5x15
+              text 431.08,353.88 494.5x15 "Ordaen" #e8e0d0
+            box 932.25,361.38 0x0
+              text 932.25,361.38 0x0 "" #9a9080
+            box 938.92,353.88 58.33x15
+              text 991,353.88 6.25x15 "—" #e8e0d0
+            box 1003.92,353.88 58.33x15
+              text 1056,353.88 6.25x15 "—" #e8e0d0
+            box 1068.92,353.88 66.67x15
+              text 1110.58,353.88 25x15 "0 KB" #e8e0d0
+            box 1142.25,353.04 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,350.54 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
           box 424.42,372.21 756.17x21.67 #00000000 @click @enter @leave
-            box 431.08,383.04 18.33x0
-            box 456.08,375.54 442.83x15
-              text 471.08,375.54 427.83x15 "Ordaen System" #e8e0d0
-            box 905.58,376.54 65x13 @click
-              text 905.58,376.54 65x13 "on in Ordaen" #9a9080
-            box 977.25,375.54 58.33x15
-              text 1029.33,375.54 6.25x15 "—" #e8e0d0
-            box 1042.25,375.54 58.33x15
-              text 1094.33,375.54 6.25x15 "—" #e8e0d0
-            box 1107.25,375.54 66.67x15
-              text 1148.92,375.54 25x15 "0 KB" #e8e0d0
+            box 431.08,375.54 429.5x15
+              text 446.08,375.54 414.5x15 "Ordaen System" #e8e0d0
+            box 867.25,376.54 65x13 @click
+              text 867.25,376.54 65x13 "on in Ordaen" #9a9080
+            box 938.92,375.54 58.33x15
+              text 991,375.54 6.25x15 "—" #e8e0d0
+            box 1003.92,375.54 58.33x15
+              text 1056,375.54 6.25x15 "—" #e8e0d0
+            box 1068.92,375.54 66.67x15
+              text 1110.58,375.54 25x15 "0 KB" #e8e0d0
+            box 1142.25,383.04 31.67x0
           box 424.42,393.88 756.17x21.67 @click
             box 431.08,398.04 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
             text 451.08,397.21 31.25x15 "Other" #f0c860
-            text 489,397.21 684.92x15 "1" #9a9080
+            text 489,397.21 646.58x15 "1" #9a9080
+            box 1142.25,396.38 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,393.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
           box 424.42,415.54 756.17x21.67 #00000000 @click @enter @leave
-            box 431.08,417.21 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-              box 431.08,417.21 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-            box 456.08,418.88 507.83x15
-              text 456.08,418.88 507.83x15 "LunaType" #e8e0d0
-            box 970.58,426.38 0x0
-              text 970.58,426.38 0x0 "" #9a9080
-            box 977.25,418.88 58.33x15
-              text 1029.33,418.88 6.25x15 "—" #e8e0d0
-            box 1042.25,418.88 58.33x15
-              text 1094.33,418.88 6.25x15 "—" #e8e0d0
-            box 1107.25,418.88 66.67x15
-              text 1148.92,418.88 25x15 "0 KB" #e8e0d0
+            box 431.08,418.88 494.5x15
+              text 431.08,418.88 494.5x15 "LunaType" #e8e0d0
+            box 932.25,426.38 0x0
+              text 932.25,426.38 0x0 "" #9a9080
+            box 938.92,418.88 58.33x15
+              text 991,418.88 6.25x15 "—" #e8e0d0
+            box 1003.92,418.88 58.33x15
+              text 1056,418.88 6.25x15 "—" #e8e0d0
+            box 1068.92,418.88 66.67x15
+              text 1110.58,418.88 25x15 "0 KB" #e8e0d0
+            box 1142.25,418.04 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,415.54 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
         box 424.42,619.29 756.17x0
         text 424.42,625.96 756.17x13 "The client isn't measuring addons." #9a9080
       box 424.42,638.96 756.17x45
@@ -168,66 +172,70 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
                 box 1152.25,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                   box 1159.75,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
         box 424.42,308.88 756.17x13.33
-          box 431.08,315.54 18.33x0
-          box 456.08,309.04 507.83x13 @click
-            text 456.08,309.04 507.83x13 "AddOn" #9a9080
-          box 970.58,315.54 0x0
-            text 970.58,315.54 0x0 "" #9a9080
-          box 977.25,309.04 58.33x13 @click
-            text 1019.33,309.04 16.25x13 "Now" #9a9080
-          box 1042.25,309.04 58.33x13 @click
-            text 1078.92,309.04 21.67x13 "Peak" #9a9080
-          box 1107.25,308.88 66.67x13.33
-            box 1124.75,308.88 32.5x13 @click
-              text 1124.75,308.88 32.5x13 "Memory" #9a9080
-            box 1160.58,308.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 16 @click
+          box 431.08,309.04 494.5x13 @click
+            text 431.08,309.04 494.5x13 "AddOn" #9a9080
+          box 932.25,315.54 0x0
+            text 932.25,315.54 0x0 "" #9a9080
+          box 938.92,309.04 58.33x13 @click
+            text 981,309.04 16.25x13 "Now" #9a9080
+          box 1003.92,309.04 58.33x13 @click
+            text 1040.58,309.04 21.67x13 "Peak" #9a9080
+          box 1068.92,308.88 66.67x13.33
+            box 1086.42,308.88 32.5x13 @click
+              text 1086.42,308.88 32.5x13 "Memory" #9a9080
+            box 1122.25,308.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 16 @click
+          box 1142.25,315.54 31.67x0
         box 424.42,328.88 756.17x283.75 scrolled 0 of 0
           box 424.42,328.88 756.17x21.67 @click
             box 431.08,333.04 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
             text 451.08,332.21 87.5x15 "User Interface" #f0c860
-            text 545.25,332.21 628.67x15 "2" #9a9080
+            text 545.25,332.21 590.33x15 "2" #9a9080
+            box 1142.25,331.38 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
+              box 1139.75,328.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
           box 424.42,350.54 756.17x21.67 #00000000 @click @enter @leave
-            box 431.08,352.21 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-              box 431.08,352.21 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-            box 456.08,353.88 394.08x15
-              text 456.08,353.88 394.08x15 "Ordaen" #e8e0d0
-            box 856.83,354.88 113.75x13
-              text 856.83,354.88 113.75x13 "loaded until a reload" #9a9080
-            box 977.25,353.88 58.33x15
-              text 1029.33,353.88 6.25x15 "—" #e8e0d0
-            box 1042.25,353.88 58.33x15
-              text 1094.33,353.88 6.25x15 "—" #e8e0d0
-            box 1107.25,353.88 66.67x15
-              text 1148.92,353.88 25x15 "0 KB" #e8e0d0
+            box 431.08,353.88 380.75x15
+              text 431.08,353.88 380.75x15 "Ordaen" #e8e0d0
+            box 818.5,354.88 113.75x13
+              text 818.5,354.88 113.75x13 "loaded until a reload" #9a9080
+            box 938.92,353.88 58.33x15
+              text 991,353.88 6.25x15 "—" #e8e0d0
+            box 1003.92,353.88 58.33x15
+              text 1056,353.88 6.25x15 "—" #e8e0d0
+            box 1068.92,353.88 66.67x15
+              text 1110.58,353.88 25x15 "0 KB" #e8e0d0
+            box 1142.25,353.04 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
+              box 1139.75,350.54 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
           box 424.42,372.21 756.17x21.67 #00000000 @click @enter @leave
-            box 431.08,383.04 18.33x0
-            box 456.08,375.54 399.5x15
-              text 471.08,375.54 384.5x15 "Ordaen System" #e8e0d0
-            box 862.25,376.54 108.33x13 @click
-              text 862.25,376.54 108.33x13 "Dependency: disabled" #ff6a55
-            box 977.25,375.54 58.33x15
-              text 1029.33,375.54 6.25x15 "—" #e8e0d0
-            box 1042.25,375.54 58.33x15
-              text 1094.33,375.54 6.25x15 "—" #e8e0d0
-            box 1107.25,375.54 66.67x15
-              text 1148.92,375.54 25x15 "0 KB" #e8e0d0
+            box 431.08,375.54 386.17x15
+              text 446.08,375.54 371.17x15 "Ordaen System" #e8e0d0
+            box 823.92,376.54 108.33x13 @click
+              text 823.92,376.54 108.33x13 "Dependency: disabled" #ff6a55
+            box 938.92,375.54 58.33x15
+              text 991,375.54 6.25x15 "—" #e8e0d0
+            box 1003.92,375.54 58.33x15
+              text 1056,375.54 6.25x15 "—" #e8e0d0
+            box 1068.92,375.54 66.67x15
+              text 1110.58,375.54 25x15 "0 KB" #e8e0d0
+            box 1142.25,383.04 31.67x0
           box 424.42,393.88 756.17x21.67 @click
             box 431.08,398.04 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
             text 451.08,397.21 31.25x15 "Other" #f0c860
-            text 489,397.21 684.92x15 "1" #9a9080
+            text 489,397.21 646.58x15 "1" #9a9080
+            box 1142.25,396.38 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,393.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
           box 424.42,415.54 756.17x21.67 #00000000 @click @enter @leave
-            box 431.08,417.21 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-              box 431.08,417.21 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-            box 456.08,418.88 507.83x15
-              text 456.08,418.88 507.83x15 "LunaType" #e8e0d0
-            box 970.58,426.38 0x0
-              text 970.58,426.38 0x0 "" #9a9080
-            box 977.25,418.88 58.33x15
-              text 1029.33,418.88 6.25x15 "—" #e8e0d0
-            box 1042.25,418.88 58.33x15
-              text 1094.33,418.88 6.25x15 "—" #e8e0d0
-            box 1107.25,418.88 66.67x15
-              text 1148.92,418.88 25x15 "0 KB" #e8e0d0
+            box 431.08,418.88 494.5x15
+              text 431.08,418.88 494.5x15 "LunaType" #e8e0d0
+            box 932.25,426.38 0x0
+              text 932.25,426.38 0x0 "" #9a9080
+            box 938.92,418.88 58.33x15
+              text 991,418.88 6.25x15 "—" #e8e0d0
+            box 1003.92,418.88 58.33x15
+              text 1056,418.88 6.25x15 "—" #e8e0d0
+            box 1068.92,418.88 66.67x15
+              text 1110.58,418.88 25x15 "0 KB" #e8e0d0
+            box 1142.25,418.04 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,415.54 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
         box 424.42,619.29 756.17x0
         text 424.42,625.96 756.17x13 "The client isn't measuring addons." #9a9080
       box 424.42,638.96 756.17x45

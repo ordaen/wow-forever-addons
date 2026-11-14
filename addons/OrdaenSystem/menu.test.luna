@@ -4,6 +4,7 @@ import Client from "$client"
 import Runtime from "$runtime"
 import Test from "$test"
 import { space } from "Ordaen"
+import root Ordaen from "Ordaen"
 import root System from "OrdaenSystem"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1300, height: 760, screen: true }
@@ -32,12 +33,43 @@ function blizzards(alpha: Number, dressed: Boolean): Boolean {
   return true
 }
 
+// Escape's menu toggled, and a frame passed: the client lays the menu out on the frame after it shows.
+function toggleMenu() {
+  Client.ToggleGameMenu()
+  Test.pass(0.02)
+  Test.flush()
+}
+
+// How far the first and the last of our plates stand from the dress's top: the same at every show.
+function placed(): (Number, Number) {
+  // The dress: what holds its carved groove.
+  const dress = Test.edges(Ordaen.art.ctl.carved, 1)
+  return Test.holding("Options", nil).y - dress.top, dress.bottom - Test.holding("Return to Game", nil).y
+}
+
+test "shown again after «AddOns», the dress stands round Blizzard's buttons as at first" {
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  toggleMenu()
+  const head, foot = placed()
+  Test.expect(head > 0 && foot > 0)
+  Test.click(Test.holding("AddOns", nil), nil)
+  Test.flush()
+  System.closeWindow()
+  Test.flush()
+  // Shown again: Blizzard's pool hands its buttons back the other way round, each where its last entry stood till
+  // the menu is laid out on the next frame.
+  toggleMenu()
+  const again, under = placed()
+  Test.expect(again == head && under == foot)
+  Test.shot("shown again after «AddOns»: the title above the plates, every plate in the dialog")
+}
+
 test "the menu is dressed at its first show: our plates a gap apart, the exits red, «AddOns» ours, no «Ordaen»" {
   Test.mount(nil, SCREEN)
   Test.flush()
   Test.expect(!System.dressed)
-  Client.ToggleGameMenu()
-  Test.flush()
+  toggleMenu()
   Test.expect(System.dressed)
   Test.expect(blizzards(0, true))
   // The menu takes no mouse while dressed: shown, the client raised it over our «AddOns».
@@ -62,31 +94,26 @@ test "Blizzard's buttons keep their clicks under the plates, and «new» is the 
   Test.mount(nil, SCREEN)
   Test.flush()
   Client.GameMenuFrame.NewOptionsFrame.Show()
-  Client.ToggleGameMenu()
-  Test.flush()
+  toggleMenu()
   Test.shot("the options' plate carries the gem")
   Test.click(Test.holding("Return to Game", nil), nil)
   Test.flush()
   Test.expect(!Client.GameMenuFrame.IsShown())
   // Shown again, the buttons are Blizzard's anew: the dress follows them.
   Client.GameMenuFrame.NewOptionsFrame.Hide()
-  Client.ToggleGameMenu()
-  Test.flush()
+  toggleMenu()
   Test.shot("shown again: no gem, the same plates")
 }
 
 test "turned off, the module puts every widget of the menu back" {
   Test.mount(nil, SCREEN)
   Test.flush()
-  Client.ToggleGameMenu()
-  Test.flush()
-  Client.ToggleGameMenu()
-  Test.flush()
+  toggleMenu()
+  toggleMenu()
   const addon = Runtime.Addon.of(System) ?? panic("the module is an addon")
   addon.disable()
   Test.flush()
-  Client.ToggleGameMenu()
-  Test.flush()
+  toggleMenu()
   Test.expect(blizzards(1, false))
   Test.expect(Client.GameMenuFrame.IsMouseEnabled())
   Test.shot("nothing of ours: Blizzard's menu as it is")
