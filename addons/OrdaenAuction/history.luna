@@ -1,0 +1,20 @@
+// An item's prices hour by hour, as the item panel's chart reads them. The scan keeps them (what it saw each hour);
+// the chart reads them through this trait alone, and draws what is there.
+import { Hour } from "Ordaen"
+import { PriceKey } from "@/quote"
+
+// One hour of an item's prices on the house: the hour (Ordaen's `Hour`, whole hours since 1970) and the lowest price
+// for one seen in it, in copper.
+public struct HourPrice {
+  hour: Hour
+  copper: Integer
+}
+
+public trait PriceHistory {
+  // Moves when a scan keeps another hour: a chart that follows prices reads it.
+  public revision: Signal<Integer>
+  // The item's prices from `from` to `to`, both ends kept, oldest first; an hour with no price seen is left out. The
+  // last 24 hours are kept an hour a point; older ones one point a day, the day's lowest, at the day's first hour (the
+  // saved variable stays small). A day's lowest of the points in it is the same on both.
+  public hours(self, key: PriceKey, from: Hour, to: Hour): Array<HourPrice>
+}
