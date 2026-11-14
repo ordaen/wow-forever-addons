@@ -1,0 +1,8 @@
+{
+  "says": "The marks no font carries (ctl.markUp ... ctl.compareDown in Ordaen/art.luna): one column of 16 x 16 px cells (32 x 32 texels), each white, tinted by its box: a sorted heading's up and down and a tree row's closed and open, each a triangle in the middle of its cell; a compared stat's more and less (Ordaen Tooltips), a triangle filling its cell, outlined black; two rows empty.",
+  "ships": ["addons/Ordaen/media/ctl-marks.tga"],
+  "origin": "Drawn by the design's own rules and glyphs: wow-dev-tools `design/scripts/marks.mjs` writes a page from MarketTable's `.mark` and `.twisty` rules and the tooltips' `up` and `down` glyphs (theme/tooltips/data.js), drawn white; the page shot at 2x on black and on white with `design/scripts/shot.mjs --width 400 --height 600 --scale 2` (`?bg=black`, `?bg=white`), then matted.",
+  "steps": [
+    { "matte": { "black": "art/sources/marks-black.png", "white": "art/sources/marks-white.png", "out": "addons/Ordaen/media/ctl-marks.tga", "width": 32, "height": 256 } }
+  ]
+}

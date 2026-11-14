@@ -60,10 +60,7 @@ box 0,0 700x543.5
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
         text 20,241.67 610.83x15 "Bronze Axe" #e8dcc4
         box 634.17,241.67 62.5x15
           text 634.17,241.67 62.5x15 "1g 23s 45c" #e8dcc4
@@ -87,29 +84,20 @@ box 0,0 700x543.5
           box 6.67,372.33 493.33x1.67 absolute #00000000
           box 6.67,354 493.33x15
             text 6.67,354 25x15 "Item" #cbb994
-            box 35,354 5.42x13
-              box 35,354 5.42x13 opacity=0
-                text 35,354 5.42x13 "▲" #f0c860
-              box 35,354 5.42x13 absolute opacity=0
-                text 35,354 5.42x13 "▼" #f0c860
+            box 35,359 6.67x5
+              box 31.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 506.67,349 120x25 #00000000 @click
           box 506.67,372.33 120x1.67 absolute #00000000
-          box 592.92,354 33.75x15
-            text 592.92,354 25x15 "Each" #cbb994
-            box 621.25,354 5.42x13
-              box 621.25,354 5.42x13 opacity=0
-                text 621.25,354 5.42x13 "▲" #f0c860
-              box 621.25,354 5.42x13 absolute opacity=0
-                text 621.25,354 5.42x13 "▼" #f0c860
+          box 591.67,354 35x15
+            text 591.67,354 25x15 "Each" #cbb994
+            box 620,359 6.67x5
+              box 616.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 633.33,349 60x25 #00000000 @click
           box 633.33,372.33 60x1.67 absolute #00000000
-          box 665.83,354 27.5x15
-            text 665.83,354 18.75x15 "Age" #cbb994
-            box 687.92,354 5.42x13
-              box 687.92,354 5.42x13 opacity=0
-                text 687.92,354 5.42x13 "▲" #f0c860
-              box 687.92,354 5.42x13 absolute opacity=0
-                text 687.92,354 5.42x13 "▼" #f0c860
+          box 664.58,354 28.75x15
+            text 664.58,354 18.75x15 "Age" #cbb994
+            box 686.67,359 6.67x5
+              box 683.33,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
       box 0,374.83 700x65 scrolled 0 of 0
         box 0,374.83 700x21.67 #00000000 @click
           text 6.67,378.17 493.33x15 "Copper Bar" #ffffff
@@ -208,10 +196,7 @@ box 0,0 700x543.5
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -235,29 +220,20 @@ box 0,0 700x543.5
           box 6.67,372.33 493.33x1.67 absolute #00000000
           box 6.67,354 493.33x15
             text 6.67,354 25x15 "Item" #cbb994
-            box 35,354 5.42x13
-              box 35,354 5.42x13 opacity=0
-                text 35,354 5.42x13 "▲" #f0c860
-              box 35,354 5.42x13 absolute opacity=0
-                text 35,354 5.42x13 "▼" #f0c860
+            box 35,359 6.67x5
+              box 31.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 506.67,349 120x25 #00000000 @click
           box 506.67,372.33 120x1.67 absolute #00000000
-          box 592.92,354 33.75x15
-            text 592.92,354 25x15 "Each" #cbb994
-            box 621.25,354 5.42x13
-              box 621.25,354 5.42x13 opacity=0
-                text 621.25,354 5.42x13 "▲" #f0c860
-              box 621.25,354 5.42x13 absolute opacity=0
-                text 621.25,354 5.42x13 "▼" #f0c860
+          box 591.67,354 35x15
+            text 591.67,354 25x15 "Each" #cbb994
+            box 620,359 6.67x5
+              box 616.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 633.33,349 60x25 #00000000 @click
           box 633.33,372.33 60x1.67 absolute #00000000
-          box 665.83,354 27.5x15
-            text 665.83,354 18.75x15 "Age" #cbb994
-            box 687.92,354 5.42x13
-              box 687.92,354 5.42x13 opacity=0
-                text 687.92,354 5.42x13 "▲" #f0c860
-              box 687.92,354 5.42x13 absolute opacity=0
-                text 687.92,354 5.42x13 "▼" #f0c860
+          box 664.58,354 28.75x15
+            text 664.58,354 18.75x15 "Age" #cbb994
+            box 686.67,359 6.67x5
+              box 683.33,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
       box 0,374.83 700x65 scrolled 0 of 0
         box 0,374.83 700x21.67 #00000000 @click
           text 6.67,378.17 493.33x15 "Copper Bar" #ffffff
@@ -355,10 +331,7 @@ box 0,0 700x543.5
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -381,29 +354,20 @@ box 0,0 700x543.5
           box 6.67,372.33 493.33x1.67 absolute #00000000
           box 6.67,354 493.33x15
             text 6.67,354 25x15 "Item" #cbb994
-            box 35,354 5.42x13
-              box 35,354 5.42x13 opacity=0
-                text 35,354 5.42x13 "▲" #f0c860
-              box 35,354 5.42x13 absolute opacity=0
-                text 35,354 5.42x13 "▼" #f0c860
+            box 35,359 6.67x5
+              box 31.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 506.67,349 120x25 #00000000 @click
           box 506.67,372.33 120x1.67 absolute #00000000
-          box 592.92,354 33.75x15
-            text 592.92,354 25x15 "Each" #cbb994
-            box 621.25,354 5.42x13
-              box 621.25,354 5.42x13 opacity=0
-                text 621.25,354 5.42x13 "▲" #f0c860
-              box 621.25,354 5.42x13 absolute opacity=0
-                text 621.25,354 5.42x13 "▼" #f0c860
+          box 591.67,354 35x15
+            text 591.67,354 25x15 "Each" #cbb994
+            box 620,359 6.67x5
+              box 616.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 633.33,349 60x25 #00000000 @click
           box 633.33,372.33 60x1.67 absolute #00000000
-          box 665.83,354 27.5x15
-            text 665.83,354 18.75x15 "Age" #cbb994
-            box 687.92,354 5.42x13
-              box 687.92,354 5.42x13 opacity=0
-                text 687.92,354 5.42x13 "▲" #f0c860
-              box 687.92,354 5.42x13 absolute opacity=0
-                text 687.92,354 5.42x13 "▼" #f0c860
+          box 664.58,354 28.75x15
+            text 664.58,354 18.75x15 "Age" #cbb994
+            box 686.67,359 6.67x5
+              box 683.33,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
       box 0,374.83 700x65 scrolled 0 of 0
         box 0,374.83 700x21.67 #00000000 @click
           text 6.67,378.17 493.33x15 "Copper Bar" #ffffff
@@ -501,10 +465,7 @@ box 0,0 700x543.5
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -527,29 +488,20 @@ box 0,0 700x543.5
           box 6.67,372.33 493.33x1.67 absolute #00000000
           box 6.67,354 493.33x15
             text 6.67,354 25x15 "Item" #cbb994
-            box 35,354 5.42x13
-              box 35,354 5.42x13 opacity=0
-                text 35,354 5.42x13 "▲" #f0c860
-              box 35,354 5.42x13 absolute opacity=0
-                text 35,354 5.42x13 "▼" #f0c860
+            box 35,359 6.67x5
+              box 31.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 506.67,349 120x25 #00000000 @click
           box 506.67,372.33 120x1.67 absolute #00000000
-          box 592.92,354 33.75x15
-            text 592.92,354 25x15 "Each" #cbb994
-            box 621.25,354 5.42x13
-              box 621.25,354 5.42x13 opacity=0
-                text 621.25,354 5.42x13 "▲" #f0c860
-              box 621.25,354 5.42x13 absolute opacity=0
-                text 621.25,354 5.42x13 "▼" #f0c860
+          box 591.67,354 35x15
+            text 591.67,354 25x15 "Each" #cbb994
+            box 620,359 6.67x5
+              box 616.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 633.33,349 60x25 #00000000 @click
           box 633.33,372.33 60x1.67 absolute #00000000
-          box 665.83,354 27.5x15
-            text 665.83,354 18.75x15 "Age" #cbb994
-            box 687.92,354 5.42x13
-              box 687.92,354 5.42x13 opacity=0
-                text 687.92,354 5.42x13 "▲" #f0c860
-              box 687.92,354 5.42x13 absolute opacity=0
-                text 687.92,354 5.42x13 "▼" #f0c860
+          box 664.58,354 28.75x15
+            text 664.58,354 18.75x15 "Age" #cbb994
+            box 686.67,359 6.67x5
+              box 683.33,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
       box 0,374.83 700x65 scrolled 0 of 0
         box 0,374.83 700x21.67 #00000000 @click
           text 6.67,378.17 493.33x15 "Copper Bar" #ffffff
@@ -647,10 +599,7 @@ box 0,0 700x543.5
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -673,29 +622,20 @@ box 0,0 700x543.5
           box 6.67,372.33 493.33x1.67 absolute #00000000
           box 6.67,354 493.33x15
             text 6.67,354 25x15 "Item" #cbb994
-            box 35,354 5.42x13
-              box 35,354 5.42x13 opacity=0
-                text 35,354 5.42x13 "▲" #f0c860
-              box 35,354 5.42x13 absolute opacity=0
-                text 35,354 5.42x13 "▼" #f0c860
+            box 35,359 6.67x5
+              box 31.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 506.67,349 120x25 #00000000 @click
           box 506.67,372.33 120x1.67 absolute #00000000
-          box 592.92,354 33.75x15
-            text 592.92,354 25x15 "Each" #cbb994
-            box 621.25,354 5.42x13
-              box 621.25,354 5.42x13 opacity=0
-                text 621.25,354 5.42x13 "▲" #f0c860
-              box 621.25,354 5.42x13 absolute opacity=0
-                text 621.25,354 5.42x13 "▼" #f0c860
+          box 591.67,354 35x15
+            text 591.67,354 25x15 "Each" #cbb994
+            box 620,359 6.67x5
+              box 616.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 633.33,349 60x25 #00000000 @click
           box 633.33,372.33 60x1.67 absolute #00000000
-          box 665.83,354 27.5x15
-            text 665.83,354 18.75x15 "Age" #cbb994
-            box 687.92,354 5.42x13
-              box 687.92,354 5.42x13 opacity=0
-                text 687.92,354 5.42x13 "▲" #f0c860
-              box 687.92,354 5.42x13 absolute opacity=0
-                text 687.92,354 5.42x13 "▼" #f0c860
+          box 664.58,354 28.75x15
+            text 664.58,354 18.75x15 "Age" #cbb994
+            box 686.67,359 6.67x5
+              box 683.33,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
       box 0,374.83 700x65 scrolled 0 of 0
         box 0,374.83 700x21.67 #00000000 @click
           text 6.67,378.17 493.33x15 "Copper Bar" #ffffff
@@ -793,10 +733,7 @@ box 0,0 700x543.5
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -819,29 +756,20 @@ box 0,0 700x543.5
           box 6.67,372.33 493.33x1.67 absolute #00000000
           box 6.67,354 493.33x15
             text 6.67,354 25x15 "Item" #cbb994
-            box 35,354 5.42x13
-              box 35,354 5.42x13 opacity=0
-                text 35,354 5.42x13 "▲" #f0c860
-              box 35,354 5.42x13 absolute opacity=0
-                text 35,354 5.42x13 "▼" #f0c860
+            box 35,359 6.67x5
+              box 31.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 506.67,349 120x25 #00000000 @click
           box 506.67,372.33 120x1.67 absolute #00000000
-          box 592.92,354 33.75x15
-            text 592.92,354 25x15 "Each" #cbb994
-            box 621.25,354 5.42x13
-              box 621.25,354 5.42x13 opacity=0
-                text 621.25,354 5.42x13 "▲" #f0c860
-              box 621.25,354 5.42x13 absolute opacity=0
-                text 621.25,354 5.42x13 "▼" #f0c860
+          box 591.67,354 35x15
+            text 591.67,354 25x15 "Each" #cbb994
+            box 620,359 6.67x5
+              box 616.67,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 633.33,349 60x25 #00000000 @click
           box 633.33,372.33 60x1.67 absolute #00000000
-          box 665.83,354 27.5x15
-            text 665.83,354 18.75x15 "Age" #cbb994
-            box 687.92,354 5.42x13
-              box 687.92,354 5.42x13 opacity=0
-                text 687.92,354 5.42x13 "▲" #f0c860
-              box 687.92,354 5.42x13 absolute opacity=0
-                text 687.92,354 5.42x13 "▼" #f0c860
+          box 664.58,354 28.75x15
+            text 664.58,354 18.75x15 "Age" #cbb994
+            box 686.67,359 6.67x5
+              box 683.33,354.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
       box 0,374.83 700x65 scrolled 0 of 0
         box 0,374.83 700x21.67 #00000000 @click
           text 6.67,378.17 493.33x15 "Copper Bar" #ffffff
@@ -940,10 +868,7 @@ box 0,0 700x521.83
       box 0,238.33 700x21.67 #00000059 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -961,29 +886,20 @@ box 0,0 700x521.83
           box 6.67,350.67 493.33x1.67 absolute #00000000
           box 6.67,332.33 493.33x15
             text 6.67,332.33 25x15 "Item" #cbb994
-            box 35,332.33 5.42x13
-              box 35,332.33 5.42x13 opacity=0
-                text 35,332.33 5.42x13 "▲" #f0c860
-              box 35,332.33 5.42x13 absolute opacity=0
-                text 35,332.33 5.42x13 "▼" #f0c860
+            box 35,337.33 6.67x5
+              box 31.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 506.67,327.33 120x25 #00000000 @click
           box 506.67,350.67 120x1.67 absolute #00000000
-          box 592.92,332.33 33.75x15
-            text 592.92,332.33 25x15 "Each" #cbb994
-            box 621.25,332.33 5.42x13
-              box 621.25,332.33 5.42x13 opacity=0
-                text 621.25,332.33 5.42x13 "▲" #f0c860
-              box 621.25,332.33 5.42x13 absolute opacity=0
-                text 621.25,332.33 5.42x13 "▼" #f0c860
+          box 591.67,332.33 35x15
+            text 591.67,332.33 25x15 "Each" #cbb994
+            box 620,337.33 6.67x5
+              box 616.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 633.33,327.33 60x25 #00000000 @click
           box 633.33,350.67 60x1.67 absolute #00000000
-          box 665.83,332.33 27.5x15
-            text 665.83,332.33 18.75x15 "Age" #cbb994
-            box 687.92,332.33 5.42x13
-              box 687.92,332.33 5.42x13 opacity=0
-                text 687.92,332.33 5.42x13 "▲" #f0c860
-              box 687.92,332.33 5.42x13 absolute opacity=0
-                text 687.92,332.33 5.42x13 "▼" #f0c860
+          box 664.58,332.33 28.75x15
+            text 664.58,332.33 18.75x15 "Age" #cbb994
+            box 686.67,337.33 6.67x5
+              box 683.33,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
       box 0,353.17 700x65 scrolled 0 of 0
         box 0,353.17 700x21.67 #00000000 @click
           text 6.67,356.5 493.33x15 "Copper Bar" #ffffff
@@ -1081,10 +997,7 @@ box 0,0 700x521.83
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -1102,29 +1015,20 @@ box 0,0 700x521.83
           box 6.67,350.67 493.33x1.67 absolute #00000000
           box 6.67,332.33 493.33x15
             text 6.67,332.33 25x15 "Item" #cbb994
-            box 35,332.33 5.42x13
-              box 35,332.33 5.42x13 opacity=0
-                text 35,332.33 5.42x13 "▲" #f0c860
-              box 35,332.33 5.42x13 absolute opacity=0
-                text 35,332.33 5.42x13 "▼" #f0c860
+            box 35,337.33 6.67x5
+              box 31.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
         box 506.67,327.33 120x25 #00000033 @click
           box 506.67,350.67 120x1.67 absolute #d6a56b
-          box 592.92,332.33 33.75x15
-            text 592.92,332.33 25x15 "Each" #f0c860
-            box 621.25,332.33 5.42x13
-              box 621.25,332.33 5.42x13 opacity=1
-                text 621.25,332.33 5.42x13 "▲" #f0c860
-              box 621.25,332.33 5.42x13 absolute opacity=0
-                text 621.25,332.33 5.42x13 "▼" #f0c860
+          box 591.67,332.33 35x15
+            text 591.67,332.33 25x15 "Each" #f0c860
+            box 620,337.33 6.67x5
+              box 616.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=1
         box 633.33,327.33 60x25 #00000000 @click
           box 633.33,350.67 60x1.67 absolute #00000000
-          box 665.83,332.33 27.5x15
-            text 665.83,332.33 18.75x15 "Age" #cbb994
-            box 687.92,332.33 5.42x13
-              box 687.92,332.33 5.42x13 opacity=0
-                text 687.92,332.33 5.42x13 "▲" #f0c860
-              box 687.92,332.33 5.42x13 absolute opacity=0
-                text 687.92,332.33 5.42x13 "▼" #f0c860
+          box 664.58,332.33 28.75x15
+            text 664.58,332.33 18.75x15 "Age" #cbb994
+            box 686.67,337.33 6.67x5
+              box 683.33,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
       box 0,353.17 700x65 scrolled 0 of 0
         box 0,353.17 700x21.67 #00000000 @click
           text 6.67,356.5 493.33x15 "Arcane Dust" #ffffff
@@ -1222,10 +1126,7 @@ box 0,0 700x521.83
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -1243,29 +1144,20 @@ box 0,0 700x521.83
           box 6.67,350.67 493.33x1.67 absolute #00000000
           box 6.67,332.33 493.33x15
             text 6.67,332.33 25x15 "Item" #cbb994
-            box 35,332.33 5.42x13
-              box 35,332.33 5.42x13 opacity=0
-                text 35,332.33 5.42x13 "▲" #f0c860
-              box 35,332.33 5.42x13 absolute opacity=0
-                text 35,332.33 5.42x13 "▼" #f0c860
+            box 35,337.33 6.67x5
+              box 31.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
         box 506.67,327.33 120x25 #00000033 @click
           box 506.67,350.67 120x1.67 absolute #d6a56b
-          box 592.92,332.33 33.75x15
-            text 592.92,332.33 25x15 "Each" #f0c860
-            box 621.25,332.33 5.42x13
-              box 621.25,332.33 5.42x13 opacity=0
-                text 621.25,332.33 5.42x13 "▲" #f0c860
-              box 621.25,332.33 5.42x13 absolute opacity=1
-                text 621.25,332.33 5.42x13 "▼" #f0c860
+          box 591.67,332.33 35x15
+            text 591.67,332.33 25x15 "Each" #f0c860
+            box 620,337.33 6.67x5
+              box 616.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
         box 633.33,327.33 60x25 #00000000 @click
           box 633.33,350.67 60x1.67 absolute #00000000
-          box 665.83,332.33 27.5x15
-            text 665.83,332.33 18.75x15 "Age" #cbb994
-            box 687.92,332.33 5.42x13
-              box 687.92,332.33 5.42x13 opacity=0
-                text 687.92,332.33 5.42x13 "▲" #f0c860
-              box 687.92,332.33 5.42x13 absolute opacity=0
-                text 687.92,332.33 5.42x13 "▼" #f0c860
+          box 664.58,332.33 28.75x15
+            text 664.58,332.33 18.75x15 "Age" #cbb994
+            box 686.67,337.33 6.67x5
+              box 683.33,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
       box 0,353.17 700x65 scrolled 0 of 0
         box 0,353.17 700x21.67 #00000000 @click
           text 6.67,356.5 493.33x15 "Bronze Axe" #ffffff
@@ -1363,10 +1255,7 @@ box 0,0 700x521.83
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -1384,29 +1273,20 @@ box 0,0 700x521.83
           box 6.67,350.67 493.33x1.67 absolute #00000000
           box 6.67,332.33 493.33x15
             text 6.67,332.33 25x15 "Item" #cbb994
-            box 35,332.33 5.42x13
-              box 35,332.33 5.42x13 opacity=0
-                text 35,332.33 5.42x13 "▲" #f0c860
-              box 35,332.33 5.42x13 absolute opacity=0
-                text 35,332.33 5.42x13 "▼" #f0c860
+            box 35,337.33 6.67x5
+              box 31.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
         box 506.67,327.33 120x25 #00000000 @click
           box 506.67,350.67 120x1.67 absolute #d6a56b
-          box 592.92,332.33 33.75x15
-            text 592.92,332.33 25x15 "Each" #f0c860
-            box 621.25,332.33 5.42x13
-              box 621.25,332.33 5.42x13 opacity=0
-                text 621.25,332.33 5.42x13 "▲" #f0c860
-              box 621.25,332.33 5.42x13 absolute opacity=1
-                text 621.25,332.33 5.42x13 "▼" #f0c860
+          box 591.67,332.33 35x15
+            text 591.67,332.33 25x15 "Each" #f0c860
+            box 620,337.33 6.67x5
+              box 616.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
         box 633.33,327.33 60x25 #00000000 @click
           box 633.33,350.67 60x1.67 absolute #00000000
-          box 665.83,332.33 27.5x15
-            text 665.83,332.33 18.75x15 "Age" #cbb994
-            box 687.92,332.33 5.42x13
-              box 687.92,332.33 5.42x13 opacity=0
-                text 687.92,332.33 5.42x13 "▲" #f0c860
-              box 687.92,332.33 5.42x13 absolute opacity=0
-                text 687.92,332.33 5.42x13 "▼" #f0c860
+          box 664.58,332.33 28.75x15
+            text 664.58,332.33 18.75x15 "Age" #cbb994
+            box 686.67,337.33 6.67x5
+              box 683.33,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
       box 0,353.17 700x65 scrolled 0 of 0
         box 0,353.17 700x21.67 #00000000 @click
           text 6.67,356.5 493.33x15 "Bronze Axe" #ffffff
@@ -1504,10 +1384,7 @@ box 0,0 700x521.83
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -1525,29 +1402,20 @@ box 0,0 700x521.83
           box 6.67,350.67 493.33x1.67 absolute #00000000
           box 6.67,332.33 493.33x15
             text 6.67,332.33 25x15 "Item" #cbb994
-            box 35,332.33 5.42x13
-              box 35,332.33 5.42x13 opacity=0
-                text 35,332.33 5.42x13 "▲" #f0c860
-              box 35,332.33 5.42x13 absolute opacity=0
-                text 35,332.33 5.42x13 "▼" #f0c860
+            box 35,337.33 6.67x5
+              box 31.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
         box 506.67,327.33 120x25 #00000000 @click
           box 506.67,350.67 120x1.67 absolute #d6a56b
-          box 592.92,332.33 33.75x15
-            text 592.92,332.33 25x15 "Each" #f0c860
-            box 621.25,332.33 5.42x13
-              box 621.25,332.33 5.42x13 opacity=0
-                text 621.25,332.33 5.42x13 "▲" #f0c860
-              box 621.25,332.33 5.42x13 absolute opacity=1
-                text 621.25,332.33 5.42x13 "▼" #f0c860
+          box 591.67,332.33 35x15
+            text 591.67,332.33 25x15 "Each" #f0c860
+            box 620,337.33 6.67x5
+              box 616.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
         box 633.33,327.33 60x25 #00000000 @click
           box 633.33,350.67 60x1.67 absolute #00000000
-          box 665.83,332.33 27.5x15
-            text 665.83,332.33 18.75x15 "Age" #cbb994
-            box 687.92,332.33 5.42x13
-              box 687.92,332.33 5.42x13 opacity=0
-                text 687.92,332.33 5.42x13 "▲" #f0c860
-              box 687.92,332.33 5.42x13 absolute opacity=0
-                text 687.92,332.33 5.42x13 "▼" #f0c860
+          box 664.58,332.33 28.75x15
+            text 664.58,332.33 18.75x15 "Age" #cbb994
+            box 686.67,337.33 6.67x5
+              box 683.33,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
       box 0,353.17 700x65 scrolled 0 of 0
         box 0,353.17 700x21.67 #00000000 @click
           text 6.67,356.5 493.33x15 "Bronze Axe" #ffffff
@@ -1645,10 +1513,7 @@ box 0,0 700x521.83
       box 0,238.33 700x21.67 #00000000 @click
         box 0,238.33 2.5x21.67 absolute #00000000
         box 3.33,242.92 13.33x12.5
-          box 3.33,243.75 5.42x13 absolute opacity=1
-            text 3.33,243.75 5.42x13 "▶" #d6a56b
-          box 3.33,243.75 5.42x13 absolute opacity=0
-            text 3.33,243.75 5.42x13 "▼" #d6a56b
+          box 3.33,242.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 2 of 8
         text 20,241.67 623.33x15 "Bronze Axe" #e8dcc4
         box 646.67,241.67 50x15
           text 646.67,241.67 50x15 "0g 0s 5c" #e8dcc4
@@ -1666,29 +1531,20 @@ box 0,0 700x521.83
           box 6.67,350.67 493.33x1.67 absolute #00000000
           box 6.67,332.33 493.33x15
             text 6.67,332.33 25x15 "Item" #cbb994
-            box 35,332.33 5.42x13
-              box 35,332.33 5.42x13 opacity=0
-                text 35,332.33 5.42x13 "▲" #f0c860
-              box 35,332.33 5.42x13 absolute opacity=0
-                text 35,332.33 5.42x13 "▼" #f0c860
+            box 35,337.33 6.67x5
+              box 31.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
         box 506.67,327.33 120x25 #00000000 @click
           box 506.67,350.67 120x1.67 absolute #d6a56b
-          box 592.92,332.33 33.75x15
-            text 592.92,332.33 25x15 "Each" #f0c860
-            box 621.25,332.33 5.42x13
-              box 621.25,332.33 5.42x13 opacity=0
-                text 621.25,332.33 5.42x13 "▲" #f0c860
-              box 621.25,332.33 5.42x13 absolute opacity=1
-                text 621.25,332.33 5.42x13 "▼" #f0c860
+          box 591.67,332.33 35x15
+            text 591.67,332.33 25x15 "Each" #f0c860
+            box 620,337.33 6.67x5
+              box 616.67,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=1
         box 633.33,327.33 60x25 #00000000 @click
           box 633.33,350.67 60x1.67 absolute #00000000
-          box 665.83,332.33 27.5x15
-            text 665.83,332.33 18.75x15 "Age" #cbb994
-            box 687.92,332.33 5.42x13
-              box 687.92,332.33 5.42x13 opacity=0
-                text 687.92,332.33 5.42x13 "▲" #f0c860
-              box 687.92,332.33 5.42x13 absolute opacity=0
-                text 687.92,332.33 5.42x13 "▼" #f0c860
+          box 664.58,332.33 28.75x15
+            text 664.58,332.33 18.75x15 "Age" #cbb994
+            box 686.67,337.33 6.67x5
+              box 683.33,333.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 1 of 8 opacity=0
       box 0,353.17 700x65 scrolled 0 of 0
         box 0,353.17 700x21.67 #00000000 @click
           text 6.67,356.5 493.33x15 "Bronze Axe" #ffffff

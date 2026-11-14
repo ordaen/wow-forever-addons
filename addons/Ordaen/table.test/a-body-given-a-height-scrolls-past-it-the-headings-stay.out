@@ -5,29 +5,20 @@ box 0,0 500x65.83
       box 6.67,23.33 246.67x1.67 absolute #00000000
       box 6.67,5 246.67x15
         text 6.67,5 25x15 "Item" #cbb994
-        box 35,5 5.42x13
-          box 35,5 5.42x13 opacity=0
-            text 35,5 5.42x13 "▲" #f0c860
-          box 35,5 5.42x13 absolute opacity=0
-            text 35,5 5.42x13 "▼" #f0c860
+        box 35,10 6.67x5
+          box 31.67,5.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
     box 260,0 110x25 #00000000 @click
       box 260,23.33 110x1.67 absolute #00000000
-      box 330,5 40x15
-        text 330,5 31.25x15 "Price" #cbb994
-        box 364.58,5 5.42x13
-          box 364.58,5 5.42x13 opacity=0
-            text 364.58,5 5.42x13 "▲" #f0c860
-          box 364.58,5 5.42x13 absolute opacity=0
-            text 364.58,5 5.42x13 "▼" #f0c860
+      box 328.75,5 41.25x15
+        text 328.75,5 31.25x15 "Price" #cbb994
+        box 363.33,10 6.67x5
+          box 360,5.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
     box 376.67,0 50x25 #00000000 @click
       box 376.67,23.33 50x1.67 absolute #00000000
-      box 399.17,5 27.5x15
-        text 399.17,5 18.75x15 "Age" #cbb994
-        box 421.25,5 5.42x13
-          box 421.25,5 5.42x13 opacity=0
-            text 421.25,5 5.42x13 "▲" #f0c860
-          box 421.25,5 5.42x13 absolute opacity=0
-            text 421.25,5 5.42x13 "▼" #f0c860
+      box 397.92,5 28.75x15
+        text 397.92,5 18.75x15 "Age" #cbb994
+        box 420,10 6.67x5
+          box 416.67,5.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
     box 433.33,0 60x25 #00000000 @click
       box 433.33,23.33 60x1.67 absolute #00000000
       box 433.33,5 60x15
@@ -62,29 +53,20 @@ box 0,0 500x65.83
       box 6.67,23.33 246.67x1.67 absolute #00000000
       box 6.67,5 246.67x15
         text 6.67,5 25x15 "Item" #cbb994
-        box 35,5 5.42x13
-          box 35,5 5.42x13 opacity=0
-            text 35,5 5.42x13 "▲" #f0c860
-          box 35,5 5.42x13 absolute opacity=0
-            text 35,5 5.42x13 "▼" #f0c860
+        box 35,10 6.67x5
+          box 31.67,5.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
     box 260,0 110x25 #00000000 @click
       box 260,23.33 110x1.67 absolute #00000000
-      box 330,5 40x15
-        text 330,5 31.25x15 "Price" #cbb994
-        box 364.58,5 5.42x13
-          box 364.58,5 5.42x13 opacity=0
-            text 364.58,5 5.42x13 "▲" #f0c860
-          box 364.58,5 5.42x13 absolute opacity=0
-            text 364.58,5 5.42x13 "▼" #f0c860
+      box 328.75,5 41.25x15
+        text 328.75,5 31.25x15 "Price" #cbb994
+        box 363.33,10 6.67x5
+          box 360,5.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
     box 376.67,0 50x25 #00000000 @click
       box 376.67,23.33 50x1.67 absolute #00000000
-      box 399.17,5 27.5x15
-        text 399.17,5 18.75x15 "Age" #cbb994
-        box 421.25,5 5.42x13
-          box 421.25,5 5.42x13 opacity=0
-            text 421.25,5 5.42x13 "▲" #f0c860
-          box 421.25,5 5.42x13 absolute opacity=0
-            text 421.25,5 5.42x13 "▼" #f0c860
+      box 397.92,5 28.75x15
+        text 397.92,5 18.75x15 "Age" #cbb994
+        box 420,10 6.67x5
+          box 416.67,5.83 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
     box 433.33,0 60x25 #00000000 @click
       box 433.33,23.33 60x1.67 absolute #00000000
       box 433.33,5 60x15

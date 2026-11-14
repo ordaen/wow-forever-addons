@@ -73,8 +73,17 @@ public struct TextLine {
   indent: Boolean | nil
   // On an item's stat: the game's key for it, which a comparison finds it by.
   stat: String | nil
+  // An item's stat against the one it is compared with: after its value, in brackets.
+  compared: Compared | nil
   // What its name opens.
   opens: Opens = Opens.None
+}
+
+// A stat's difference from the compared item's: more or less, and by how much as shown (never signed: the mark says
+// which way).
+public struct Compared {
+  more: Boolean
+  by: String
 }
 
 // A line of the footer: a label and its value, quiet.
