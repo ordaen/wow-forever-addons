@@ -123,6 +123,7 @@ public class Spells implements Module, App {
 
   public render(self): Template {
     return $ltml {
+      <frame $if={self.gameShown} of={Game.frames.PlayerSpells} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
               @close={self.onClose} @settings={self.onSettings}>
         <SpellbookPage $if={self.tab == 1} spells={self.spells} lines={self.lines} />
