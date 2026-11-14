@@ -1,0 +1,55 @@
+// The panel in Ordaen's placing mode: shown whatever hides it, shaded with its name, taken to another side by a drag
+// (its «Edge» from then, kept at once, the settings page's other changes left waiting), back to the bottom by a right
+// click.
+import { MouseButton } from "$ltml"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Edge, Show } from "@/choices"
+import Locale from "@/locales"
+import root Panel from "OrdaenPanel"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+
+function drag(from: Test.Point, to: Test.Point) {
+  Test.moveTo(from)
+  Test.press(nil)
+  // The client starts the drag once the cursor has moved.
+  Test.moveTo({ x: from.x + 1, y: from.y })
+  Test.pass(0.02)
+  Test.moveTo(to)
+  Test.pass(0.02)
+  Test.release(nil)
+  Test.pass(0.02)
+}
+
+test "in the placing mode the panel shows, goes to the side it is dragged to and keeps it, and a right click puts it back" {
+  Test.mount(nil, SCREEN)
+  // Never shown, and a change on its page not saved yet.
+  Panel.settings.draft.show = Show.Never
+  Ordaen.keeper.saveAll()
+  Panel.settings.draft.height = 47
+  Test.flush()
+  Test.expect(Panel.hidden)
+  Ordaen.togglePlacing()
+  Test.flush()
+  Test.expect(!Panel.hidden)
+  const bottom = Test.surfaceHolding(Locale.TAB_BOTTOM)
+
+  drag(bottom, { x: 800, y: 40 })
+  Test.expect(Panel.settings.values.edge == Edge.Top && Panel.settings.draft.edge == Edge.Top)
+  Test.expect(Panel.settings.draft.height == 47 && Panel.settings.values.height != 47)
+  const top = Test.surfaceHolding(Locale.TAB_BOTTOM)
+  Test.expect(top.y < 100)
+
+  drag(top, { x: 1560, y: 450 })
+  Test.expect(Panel.settings.values.edge == Edge.Right && Panel.vertical)
+
+  Test.click(Test.surfaceHolding(Locale.TAB_BOTTOM), MouseButton.Right)
+  Test.pass(0.02)
+  Test.expect(Panel.settings.values.edge == Edge.Bottom && Panel.settings.draft.edge == Edge.Bottom)
+  Test.expect((Test.surfaceHolding(Locale.TAB_BOTTOM).y - bottom.y).abs() < 1)
+
+  Ordaen.togglePlacing()
+  Test.flush()
+  Test.expect(Panel.hidden)
+}

@@ -1582,10 +1582,14 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
     box 1470,866.3 130x14.4
       text 1470,866.3 72x14.4 "123g 45s 67c" #e8dcc4
       text 1552,866.3 48x14.4 "12 Marks" #e8dcc4
+  box 0,840 1600x60 absolute #00000073 @click @drag @dragStart @dragStop
+    text 764,862.8 72x14.4 "Bottom panel" #ffd100
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 101.2,790.9 7x16.8 "1" #b88f57
+  box 0,776 128x124 absolute #00000073 @click @drag @dragStart @dragStop
+    text 28,830.8 72x14.4 "Bottom panel" #ffd100
 surface 495.25,828.75 609.5x51.25 on MEDIUM clamped
   box 495.25,828.75 609.5x51.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 509.5,843 586x25
@@ -1681,10 +1685,14 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
     box 1470,866.3 130x14.4
       text 1470,866.3 72x14.4 "123g 45s 67c" #e8dcc4
       text 1552,866.3 48x14.4 "12 Marks" #e8dcc4
+  box 0,840 1600x60 absolute #00000073 @click @drag @dragStart @dragStop
+    text 764,862.8 72x14.4 "Bottom panel" #ffd100
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 101.2,790.9 7x16.8 "1" #b88f57
+  box 0,776 128x124 absolute #00000073 @click @drag @dragStart @dragStop
+    text 28,830.8 72x14.4 "Bottom panel" #ffd100
 surface 495.25,828.75 609.5x51.25 on MEDIUM clamped
   box 495.25,828.75 609.5x51.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 509.5,843 586x25
@@ -1780,10 +1788,14 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
     box 1470,866.3 130x14.4
       text 1470,866.3 72x14.4 "123g 45s 67c" #e8dcc4
       text 1552,866.3 48x14.4 "12 Marks" #e8dcc4
+  box 0,840 1600x60 absolute #00000073 @click @drag @dragStart @dragStop
+    text 764,862.8 72x14.4 "Bottom panel" #ffd100
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
     text 101.2,790.9 7x16.8 "1" #b88f57
+  box 0,776 128x124 absolute #00000073 @click @drag @dragStart @dragStop
+    text 28,830.8 72x14.4 "Bottom panel" #ffd100
 surface 495.25,828.75 609.5x51.25 on MEDIUM clamped
   box 495.25,828.75 609.5x51.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 509.5,843 586x25
