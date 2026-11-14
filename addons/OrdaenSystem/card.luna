@@ -3,7 +3,7 @@
 // with its state («not in the folder» where it is missing), and what needs it; its load (now, on average, in the last
 // encounter, peak, the frames it took over 5 to 1000 ms) and memory; and its buttons: «Enable» or «Disable», «Load»
 // for one on demand that isn't loaded and can be, «Ordaen settings» for an Ordaen module.
-import { Align, Art, Edges, Track } from "$ltml"
+import { Align, Art, Edges, Overflow, Track } from "$ltml"
 import Client from "$client"
 import Game from "$game"
 import { Component, PushButton, PX, space, Tip } from "Ordaen"
@@ -190,6 +190,7 @@ public class Card implements Component {
 
   public render(self): Template {
     return $ltml {
+      <box overflow={Overflow.Scroll}>
       <box columns={1} gap={space(.Item)}>
         <box columns={HEAD} gap={space(.Item)} yAlign={Align.Center}>
           <box width={ICON} height={ICON} icon={self.icon} />
@@ -232,6 +233,7 @@ public class Card implements Component {
             <Tip $if={self.loadTip} title={Locale.LOAD_NOW} text={Locale.IN_COMBAT} />
           </box>
         </box>
+      </box>
       </box>
     }
   }

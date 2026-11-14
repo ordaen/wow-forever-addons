@@ -50,6 +50,8 @@ const HALF: Number = space(.Item) / 2
 // «Reload»: the client does it from the player's click (Forever refuses `ReloadUI` from addon code).
 const RELOAD: Action = Action.RunMacro { macro: "/reload" }
 const CONFIRM_WIDTH = 460 * PX
+// The set's dialog: room for its name's row, the label and the field.
+const SET_WIDTH = 700 * PX
 const BUTTON = 120 * PX
 
 // The value of the column `order` sorts by.
@@ -159,7 +161,7 @@ public class AddOnsWindow implements Component {
   // Ordaen's folder: the addon its modules stand under.
   const framework: String
   const whom: Array<Choice<Boolean>>
-  constructor(shown: Signal<Boolean>, framework: String) {
+  constructor(framework: String, shown: Signal<Boolean> = true) {
     self.shown = shown
     self.framework = framework
     self.whom = [{ value: true, label: Locale.WHO_ALL }, { value: false, label: Game.player.name }]
@@ -478,12 +480,14 @@ public class AddOnsWindow implements Component {
           <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.cancelAsk} />
           <PushButton #buttons label={Locale.DISABLE} width={BUTTON} @click={self.confirmAsk} />
         </Dialog>
-        <Dialog $if={self.editing != 0} title={self.setTitle} width={CONFIRM_WIDTH}>
+        <Dialog $if={self.editing != 0} title={self.setTitle} width={SET_WIDTH}>
           <Input label={Locale.SET_NAME} value={mut self.setName} maxLength={40} />
           <text $if={self.setNote != ""} value={self.setNote} textColor={Style.RED} textSize={.Secondary} />
+          <box $if={self.editing > 0} xAlign={Align.Start}>
+            <PushButton label={Locale.DELETE} width={BUTTON} @click={self.deleteSet} />
+          </box>
           <PushButton #buttons label={Locale.CANCEL} width={BUTTON} @click={self.closeSet} />
           <PushButton #buttons $if={self.editing < 0} label={Locale.SAVE} width={BUTTON} @click={self.saveSet} />
-          <PushButton #buttons $if={self.editing > 0} label={Locale.DELETE} width={BUTTON} @click={self.deleteSet} />
           <PushButton #buttons $if={self.editing > 0} label={Locale.RENAME} width={BUTTON} @click={self.renameSet} />
           <PushButton #buttons $if={self.editing > 0} label={Locale.APPLY} width={BUTTON} @click={self.applySet} />
         </Dialog>
