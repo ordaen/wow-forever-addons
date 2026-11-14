@@ -137,16 +137,13 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 1570.25,49.08 23.33x26.67 absolute clipped @click
         box 1570.25,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1576.5,54.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-  box 0,0 363.5x47.75
+  box 0,0 239x47.75
     box 0,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 18.58,10.25 77.33x34.25
         text 47.87,19.88 18.75x15 "Buy" #b3a690
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
         text 169.25,19.88 25x15 "Sell" #ffd100
-    box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 267.58,10.25 77.33x34.25
-        text 293.75,19.88 25x15 "Data" #b3a690
 
 -- a browse kept this hour: one gold bar at the right
 surface 0,0 1600x900 on DIALOG clamped raised by a click
@@ -316,13 +313,10 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 1570.25,49.08 23.33x26.67 absolute clipped @click
         box 1570.25,49.08 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1576.5,54.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-  box 0,0 363.5x47.75
+  box 0,0 239x47.75
     box 0,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 18.58,10.25 77.33x34.25
         text 47.87,19.88 18.75x15 "Buy" #b3a690
     box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 143.08,10.25 77.33x34.25
         text 169.25,19.88 25x15 "Sell" #ffd100
-    box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 267.58,10.25 77.33x34.25
-        text 293.75,19.88 25x15 "Data" #b3a690

@@ -1,15 +1,17 @@
 // «Buy» (design `auction`): at the left the house's categories (the classes of items as the game's own window lists
-// them, a class picked showing its subclasses); a search by name and, on its row, the filter's funnel (level, quality);
-// what the house showed last (ours, the shopping list's «Search all», or the game's), each item with its markers, how
-// many are listed, its lowest price for one, its market, the lowest as a share of the market (green under 90%, red
-// over 100%) and the price's age. A category, the funnel and the search are sent to the house; what is typed is sent
-// once the typing settles (`SETTLE`), or at once on Enter, and filters the rows already shown by the names the house
-// keeps lowercased. A row picked: at the right its listings, a quantity, the total, «Buy» (the client's from a click
-// alone) and «Add to shopping list».
+// them, a class picked showing its subclasses); a search by name and, on its row, the filter's funnel (level, quality)
+// and the view; what the house showed last (ours, the shopping list's «Search all», or the game's). In the first view a
+// row a variant (a weapon's or armour's random suffix its own row, named with it), in the second a row an item, its
+// variants folded and their lowest prices as a range. Each row: its markers, how many are listed, its lowest price for
+// one, its market, the lowest as a share of its own market (green under 90%, red over 100%) and the price's age. A
+// category, the funnel and the search are sent to the house; what is typed is sent once the typing settles (`SETTLE`),
+// or at once on Enter, and filters the rows already shown by the names the house keeps lowercased. A row picked: at
+// the right its listings, a quantity, the total, «Buy» (the client's from a click alone) and «Add to shopping list». A
+// row right-clicked: its menu (`RowMenu`).
 import Client from "$client"
 import Game from "$game"
-import { Align, Beside, Edges, Layer, Line, Overflow, Side, Track } from "$ltml"
-import { ageText, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, ListTab, Money, PushButton, PX, space, Table, TableRow, ToolButton, Toolbar, tracksOf } from "Ordaen"
+import { Align, Beside, Click, Edges, Layer, Line, MouseButton, Overflow, Side, Track } from "$ltml"
+import { ageText, ARTWORK, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Menu, MenuEntry, Money, PushButton, PX, SelectItem, space, Table, TableRow, ToolButton, ToolPick, Toolbar, tracksOf } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
@@ -30,11 +32,21 @@ public struct Found {
   lower: String
   color: Color
   listed: Integer
+  // The lowest price for one, and in a row of an item's folded variants the highest of their lowest (the lowest
+  // itself in a variant's row).
   low: Copper
+  high: Copper
   market: Quote | nil
   // The lowest as a share of the market, in percent; none without a market.
   share: Integer | nil
 }
+
+// The two views: a row a variant, or a row an item with its variants folded.
+public enum View { Variants = "variants", Items = "items" }
+const VIEWS: Array<Choice<View>> = [
+  { value: View.Variants, label: Locale.VIEW_VARIANTS, icon: ARTWORK.ctl.tool.list },
+  { value: View.Items, label: Locale.VIEW_ITEMS, icon: ARTWORK.ctl.tool.categories },
+]
 
 const NAME_COLUMN = 1
 const LISTED_COLUMN = 3
@@ -52,6 +64,22 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_AGE, width: 70 * PX, align: Align.End, sortable: true },
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
+// A row an item: its range in the lowest's place, sorted by the lowest.
+const ITEM_COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
+  { title: "", width: 44 * PX },
+  { title: Locale.COLUMN_LISTED, width: 90 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_RANGE, width: 190 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_MARKET, width: 90 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_SHARE, width: 56 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_AGE, width: 70 * PX, align: Align.End, sortable: true },
+]
+const ITEM_TRACKS: Array<Track> = tracksOf(ITEM_COLUMNS)
+const RANGE: Array<Track> = ["auto", "auto", "auto"]
+// A category's name and nothing at its right; a subclass stands in under its class.
+const CATEGORY: Array<Track> = [{ fr: 1 }]
+const CLASS_PAD: Edges = { top: 6 * PX, right: space(.Panel), bottom: 6 * PX, left: space(.Panel) }
+const SUBCLASS_PAD: Edges = { top: 5 * PX, right: space(.Panel), bottom: 5 * PX, left: space(.Panel) + 14 * PX }
 const LISTING_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_UNIT, width: { fr: 1 }, align: Align.End },
   { title: Locale.COLUMN_COUNT, width: 48 * PX, align: Align.End },
@@ -60,8 +88,6 @@ const LISTING_COLUMNS: Array<Column> = [
 const LISTING_TRACKS: Array<Track> = tracksOf(LISTING_COLUMNS)
 // The categories at the left, the results at the right.
 const PAGE: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
-// A subclass stands in under its class.
-const SUBCLASS_PAD: Edges = { left: 14 * PX }
 // How long the typing settles before what is typed is searched for, in seconds.
 const SETTLE = 0.25
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -162,14 +188,16 @@ class CategoryEntry implements Component {
     self.itemSubclass = itemSubclass
   }
 
-  onClass(self) { self.pick.emit(self.category.itemClass, ANY) }
+  onClass(self, click: Click) { self.pick.emit(self.category.itemClass, ANY) }
   onSubclass(self, subclass: Integer) { self.pick.emit(self.category.itemClass, subclass) }
 
   public render(self): Template {
     return $ltml {
       <box columns={1}>
-        <ListTab label={self.category.name} selected={self.whole} @pick={self.onClass} />
-        <box $if={self.open} columns={1} padding={SUBCLASS_PAD}>
+        <SelectItem selected={self.whole} columns={CATEGORY} padding={CLASS_PAD} @pick={self.onClass}>
+          <text value={self.category.name} textColor={Style.GOLD} wrap={false} />
+        </SelectItem>
+        <box $if={self.open} columns={1}>
           <SubclassEntry $for={sub of self.category.subclasses} $key={sub.itemSubclass} subclass={sub}
                          itemSubclass={self.itemSubclass} @pick={self.onSubclass} />
         </box>
@@ -178,7 +206,7 @@ class CategoryEntry implements Component {
   }
 }
 
-// A subclass under its class: picking reports its number.
+// A subclass under its class, stood in: picking reports its number.
 class SubclassEntry implements Component {
   public pick: Event<Integer> = new Event()
 
@@ -191,11 +219,13 @@ class SubclassEntry implements Component {
     self.itemSubclass = itemSubclass
   }
 
-  onPick(self) { self.pick.emit(self.subclass.itemSubclass) }
+  onPick(self, click: Click) { self.pick.emit(self.subclass.itemSubclass) }
 
   public render(self): Template {
     return $ltml {
-      <ListTab label={self.subclass.name} selected={self.selected} @pick={self.onPick} />
+      <SelectItem selected={self.selected} columns={CATEGORY} padding={SUBCLASS_PAD} @pick={self.onPick}>
+        <text value={self.subclass.name} textColor={Style.INK} wrap={false} />
+      </SelectItem>
     }
   }
 }
@@ -225,14 +255,71 @@ function shareColor(share: Integer | nil): Color {
   return Style.INK
 }
 
+// The lowest as a share of its own market, in percent; none without one.
+function shareOf(low: Copper, market: Quote | nil): Integer | nil {
+  if (market == nil || market.copper() <= 0) { return nil }
+  return (low * 100 / market.copper()).round()
+}
+
 // The share as a row writes it: a dash where there is none.
 function shareText(share: Integer | nil): String {
   return share != nil ? "%d%%".format(share) : "—"
 }
 
-// One row. Its name is cut where its column is narrower than it, so a long name never pushes the table past the page.
+// What a row's menu asks of the page: the item put on the shopping list, its name searched for, the menu closed.
+public enum RowAct { List = "list", Search = "search", Close = "close" }
+
+// A row's right-click menu, the library's `Menu` under the row: «Buy at the best price» (an item's cheapest auction
+// bought out; a commodity's one priced by the client, then «Confirm the price» buys it), dim until its listings come;
+// after a rule «Add to shopping list» and «Search for this item». Its purchase is its own (`Purchase`), from the
+// player's click alone.
+class RowMenu implements Component {
+  public act: Event<RowAct> = new Event()
+
+  derived entries: Array<MenuEntry> = self.entriesOf()
+
+  purchase: mut Purchase
+  constructor(key: PriceKey) {
+    self.purchase = new Purchase(key)
+  }
+
+  entriesOf(self): Array<MenuEntry> {
+    const quoted = self.purchase.quotedCount == 1
+    const buyable = self.purchase.commodity ? self.purchase.held > 0 : self.purchase.next > 0
+    return [
+      { label: quoted ? Locale.MENU_QUICK_CONFIRM : Locale.MENU_QUICK_BUY,
+        disabled: !self.purchase.listed || !buyable || Game.auctionActions.busy },
+      { label: Locale.TO_LIST, group: true },
+      { label: Locale.MENU_SEARCH },
+    ]
+  }
+
+  // A commodity's first click has the client price one: its menu stays for the second, which buys it.
+  onPick(mut self, index: Integer) {
+    if (index == 1) {
+      const last = peek self.purchase.quotedCount == 1 || !(peek self.purchase.commodity)
+      if (self.purchase.buy(1) && last) { self.act.emit(RowAct.Close) }
+    } else {
+      self.act.emit(index == 2 ? RowAct.List : RowAct.Search)
+    }
+  }
+
+  onClose(self) { self.act.emit(RowAct.Close) }
+
+  public render(self): Template {
+    return $ltml {
+      <Menu entries={self.entries} @pick={self.onPick} @close={self.onClose} />
+    }
+  }
+}
+
+// One row: a variant's, or an item's with its variants folded (its lowest a range where they differ). Its name is cut
+// where its column is narrower than it, so a long name never pushes the table past the page. A left click picks it; a
+// right click picks it and opens its menu.
 class FoundRow implements Component {
   public pick: Event<PriceKey> = new Event()
+  public menu: Event<PriceKey> = new Event()
+  public act: Event<(RowAct, Found)> = new Event()
 
   derived age: String = self.ageTextOf()
   derived ageInk: Color = self.ageInkOf()
@@ -240,18 +327,35 @@ class FoundRow implements Component {
   derived market: Integer = self.found.market?.copper() ?? 0
   derived share: String = shareText(self.found.share)
   derived shareInk: Color = shareColor(self.found.share)
+  derived ranged: Boolean = self.found.high > self.found.low
 
   // The row's line: the table hands the row to another line as it scrolls.
   found: Signal<Found>
   selected: Signal<Boolean>
   wanted: Signal<Boolean>
-  constructor(found: Signal<Found>, selected: Signal<Boolean>, wanted: Signal<Boolean>) {
+  tracks: Signal<Array<Track>>
+  menuOpen: Signal<Boolean>
+  constructor(
+    found: Signal<Found>,
+    selected: Signal<Boolean>,
+    wanted: Signal<Boolean>,
+    tracks: Signal<Array<Track>>,
+    // Its menu shows, under it.
+    menuOpen: Signal<Boolean>,
+  ) {
     self.found = found
     self.selected = selected
     self.wanted = wanted
+    self.tracks = tracks
+    self.menuOpen = menuOpen
   }
 
-  onPick(self) { self.pick.emit(self.found.key) }
+  onPick(self, click: Click) {
+    self.pick.emit(self.found.key)
+    if (click.button == MouseButton.Right) { self.menu.emit(self.found.key) }
+  }
+
+  onAct(self, act: RowAct) { self.act.emit(act, self.found) }
 
   ageTextOf(self): String {
     const text, _ = ageCell(self.found.market)
@@ -265,7 +369,8 @@ class FoundRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
+      <TableRow tracks={self.tracks} selected={self.selected} @pick={self.onPick}>
+        <RowMenu $if={self.menuOpen} key={peek self.found.key} @act={self.onAct} />
         <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
           <ItemButton item={self.found.item} size={Style.SLOT} />
           <box overflow={.Hidden}>
@@ -279,7 +384,12 @@ class FoundRow implements Component {
           <text value={"%d"} arguments={[self.found.listed]} textColor={Style.INK} />
         </box>
         <box xAlign={Align.End}>
-          <Money amount={self.found.low} />
+          <box $if={self.ranged} columns={RANGE} gap={4 * PX} yAlign={Align.Center}>
+            <Money amount={self.found.low} />
+            <text value={"–"} textColor={Style.DIM} />
+            <Money amount={self.found.high} />
+          </box>
+          <Money $else amount={self.found.low} />
         </box>
         <box xAlign={Align.End}>
           <Money $if={self.priced} amount={self.market} />
@@ -312,12 +422,18 @@ public class BuyPage implements Component {
   derived filterText: String = [labelOf(LEVELS, self.level), labelOf(QUALITIES, self.quality)].join(", ")
   state sorted = 0
   state descending = false
+  state view: View = View.Variants
   state picked: PriceKey | nil = nil
+  // The row whose menu shows; none.
+  state menuFor: PriceKey | nil = nil
   // What the house was last searched for, as `wanted` says it.
   state sent = ""
-  // Every row of what the house showed, sorted: rebuilt as the house shows other items, its prices move or the sort
-  // changes, never as the player types. The rows shown are those whose lowercased name holds the search.
-  derived all: Array<Found> = self.allOf()
+  // Every row of what the house showed, a row a variant, and the same with each item's variants folded, each sorted:
+  // rebuilt as the house shows other items, its prices move or the sort changes, never as the player types. The rows
+  // shown are the view's whose lowercased name holds the search.
+  derived variants: Array<Found> = self.variantsOf()
+  derived folded: Array<Found> = self.foldedOf()
+  derived byItem: Boolean = self.view == View.Items
   derived rows: Array<Found> = self.matching()
   // The row picked, while it is shown: one or none, handed to the window's side section.
   derived picks: Array<Found> = self.chosenOf()
@@ -396,31 +512,69 @@ public class BuyPage implements Component {
     }
   }
 
-  allOf(mut self): Array<Found> {
+  // A row a key the house showed: a variant named with its suffix, its own lowest over its own market.
+  variantsOf(mut self): Array<Found> {
     _ = self.prices.revision
     let list: Array<Found> = []
     for (offer of self.offers) {
       const key = PriceKey.given(offer.key)
-      const item = key.item()
-      const named = self.house.named(item)
+      const named = self.house.named(key)
+      const low = Copper.of(offer.copper)
       const market = self.house.quote(key)
-      const share = market != nil && market.copper() > 0 ? (offer.copper * 100 / market.copper()).round() : nil
       list.push({
-        key: key, item: item, name: named.name, lower: named.lower, color: named.color, listed: offer.quantity,
-        low: Copper.of(offer.copper), market: market, share: share,
+        key: key, item: key.item(), name: named.name, lower: named.lower, color: named.color, listed: offer.quantity,
+        low: low, high: low, market: market, share: shareOf(low, market),
       })
     }
+    return self.sortedOf(mut list)
+  }
+
+  // A row an item: its variants' listings summed, their lowest prices as a range; named as the item, its market and age
+  // those of its cheapest variant, which a pick or the menu takes.
+  foldedOf(mut self): Array<Found> {
+    _ = self.prices.revision
+    let at: Map<ItemId, Integer> = {}
+    let list: Array<Found> = []
+    for (offer of self.offers) {
+      const key = PriceKey.given(offer.key)
+      const item = key.item()
+      const low = Copper.of(offer.copper)
+      const place = at[item]
+      const row = place != nil ? list[place] : nil
+      if (row == nil) {
+        const named = self.house.named(PriceKey.of(item))
+        const market = self.house.quote(key)
+        at[item] = list.length + 1
+        list.push({
+          key: key, item: item, name: named.name, lower: named.lower, color: named.color, listed: offer.quantity,
+          low: low, high: low, market: market, share: shareOf(low, market),
+        })
+      } else {
+        const cheaper = low < row.low
+        const market = cheaper ? self.house.quote(key) : row.market
+        list[place ?? 0] = {
+          key: cheaper ? key : row.key, listed: row.listed + offer.quantity, low: cheaper ? low : row.low,
+          high: low > row.high ? low : row.high, market: market, share: cheaper ? shareOf(low, market) : row.share,
+          ..row,
+        }
+      }
+    }
+    return self.sortedOf(mut list)
+  }
+
+  sortedOf(self, list: mut Array<Found>): Array<Found> {
     const column = self.sorted
     const down = self.descending
     if (column != 0) { list.sort((a, b) => down ? before(b, a, column) : before(a, b, column)) }
     return list
   }
 
-  // The rows whose lowercased name holds the search: all of them for none.
+  // The view's rows whose lowercased name holds the search: all of them for none.
   matching(self): Array<Found> {
+    const all = self.byItem ? self.folded : self.variants
     const sought = self.search.lower()
-    if (sought == "") { return self.all }
-    return self.all.filter(row => row.lower.contains(sought))
+    if (sought == "") { return all }
+    return all.filter(row => row.lower.contains(sought))
   }
 
   chosenOf(self): Array<Found> {
@@ -430,6 +584,22 @@ public class BuyPage implements Component {
   }
 
   onPick(mut self, key: PriceKey) { self.picked = key }
+  onMenu(mut self, key: PriceKey) { self.menuFor = key }
+
+  // A line of a row's menu: one of the item on the shopping list, its name searched for at once; the menu closes.
+  onAct(mut self, act: RowAct, found: Found) {
+    self.menuFor = nil
+    match (act) {
+      .List => self.shopping.add(found.item, 1, .ByHand),
+      .Search => {
+        // The item's own name: a variant's suffix isn't what the house searches by.
+        self.typed = self.house.named(PriceKey.of(found.item)).name
+        self.searchNow()
+      },
+      .Close => {},
+    }
+  }
+
   closeFilter(mut self) { self.filterOpen = false }
   pickAll(mut self) {
     self.itemClass = ANY
@@ -448,7 +618,10 @@ public class BuyPage implements Component {
         // The categories: every item, then each class.
         <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
           <box overflow={Overflow.Scroll}>
-            <ListTab label={Locale.ALL_CLASSES} selected={self.anyClass} @pick={self.pickAll} />
+            <SelectItem selected={self.anyClass} first={true} columns={CATEGORY} padding={CLASS_PAD}
+                        @pick={self.pickAll}>
+              <text value={Locale.ALL_CLASSES} textColor={Style.GOLD} wrap={false} />
+            </SelectItem>
             <CategoryEntry $for={category of self.categories} $key={category.itemClass} category={category}
                            itemClass={self.itemClass} itemSubclass={self.itemSubclass} @pick={self.pickCategory} />
           </box>
@@ -462,14 +635,27 @@ public class BuyPage implements Component {
                 <FilterMenu $if={self.filterOpen} level={mut self.level} quality={mut self.quality}
                             @close={self.closeFilter} />
               </ToolButton>
+              <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.list} title={Locale.VIEW} />
             </Toolbar>
             <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
           </box>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-            <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+            <Table $if={self.byItem} columns={ITEM_COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+                   rowHeight={Style.ITEM_ROW}>
+              <FoundRow $for={row of self.rows} $key={row.item} found={row} selected={self.picked == row.key}
+                        wanted={self.shopping.needed[row.item] != nil} tracks={ITEM_TRACKS}
+                        menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
+                        @act={self.onAct} />
+              <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
+                <text value={self.empty} textColor={Style.DIM} />
+              </box>
+            </Table>
+            <Table $else columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
                    rowHeight={Style.ITEM_ROW}>
               <FoundRow $for={row of self.rows} $key={row.key} found={row} selected={self.picked == row.key}
-                        wanted={self.shopping.needed[row.item] != nil} @pick={self.onPick} />
+                        wanted={self.shopping.needed[row.item] != nil} tracks={TRACKS}
+                        menuOpen={self.menuFor == row.key} @pick={self.onPick} @menu={self.onMenu}
+                        @act={self.onAct} />
               <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
                 <text value={self.empty} textColor={Style.DIM} />
               </box>

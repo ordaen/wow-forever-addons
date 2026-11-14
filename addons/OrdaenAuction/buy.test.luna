@@ -262,3 +262,119 @@ test "an item picked: its cheapest auction with a buyout bought out from a click
   Game.auctionQuery.ready = false
   Game.auctionHouse.open = false
 }
+
+// The player's case: a warhammer whose random suffixes are variants of their own, three of them on the house. A key is
+// the item's id and its suffix × 2^20.
+const WARHAMMER: Integer = 15216
+const SUFFIXED: Integer = 1048576
+const BEAR: Integer = 1017
+const EAGLE: Integer = 1018
+const MONKEY: Integer = 1019
+
+function hammer(id: Integer): Game.TooltipData | nil {
+  if (id == WARHAMMER) { return { lines: [{ left: "Sergeant's Warhammer", kind: 0 }] } }
+  return names(id)
+}
+
+function variants(id: Integer, suffix: Integer): Game.TooltipData | nil {
+  if (id != WARHAMMER) { return nil }
+  const of = suffix == BEAR ? "the Bear" : suffix == EAGLE ? "the Eagle" : suffix == MONKEY ? "the Monkey" : nil
+  if (of == nil) { return nil }
+  return { lines: [{ left: "Sergeant's Warhammer of %s".format(of), kind: 0 }] }
+}
+
+test "variants: each named with its suffix, each with its own lowest and its share of its own market; folded, one row" {
+  Game.clock.server = START
+  Test.mount(nil, { left: 0, top: 0, width: 1400, height: 800, screen: true })
+  Game.auctionHouse.open = true
+  Game.items.tooltip = hammer
+  Game.items.variant = variants
+  // A day apart: each variant's market its own, the second browse's lowest mostly 9 s 33 c, the monkey's 12 s 50 c.
+  Game.auctionQuery.results.emit([
+    { key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 },
+    { key: WARHAMMER + EAGLE * SUFFIXED, copper: 800, quantity: 1 },
+    { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1500, quantity: 1 },
+  ])
+  Game.clock.server = START + 24 * HOUR
+  Game.auctionQuery.results.emit([
+    { key: WARHAMMER + BEAR * SUFFIXED, copper: 933, quantity: 3 },
+    { key: WARHAMMER + EAGLE * SUFFIXED, copper: 933, quantity: 1 },
+    { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1250, quantity: 2 },
+  ])
+  Test.pass(0.02)
+  Test.expect(Test.holding("Sergeant's Warhammer of the Bear", nil).y < Test.holding("Sergeant's Warhammer of the Eagle", nil).y)
+  Test.expect(Test.holding("Sergeant's Warhammer of the Monkey", nil).x > 0)
+  Test.shot("three variants: each named with its suffix, its own lowest, its own market and its share of it")
+  Test.click(Test.painted(Ordaen.art.ctl.tool.list, nil), nil)
+  Test.click(Test.holding("One row an item", nil), nil)
+  Test.pass(0.02)
+  Test.expect(Test.holding("Sergeant's Warhammer", nil).x > 0)
+  Test.shot("one row an item: the warhammer once, 6 listed, its lowest 9 s 33 c to 12 s 50 c")
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+}
+
+// The auctions bought out: the last one's number, each taken from the player's own click alone.
+class Bids {
+  public last = 0
+
+  public heard(mut self, auction: Integer, copper: Integer): Boolean {
+    Test.input("AuctionActions.bid", auction, copper)
+    self.last = auction
+    return true
+  }
+}
+
+test "a row right-clicked: its menu under it; «Buy at the best price» buys its cheapest auction out from the click" {
+  Game.clock.server = START
+  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Game.auctionHouse.open = true
+  Game.auctionQuery.ready = true
+  Game.items.tooltip = names
+  let bids = new Bids()
+  Game.auctionActions.bid = (auction: Integer, copper: Integer): Boolean => bids.heard(auction, copper)
+  Game.auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
+  Test.pass(0.02)
+  Test.click(Test.holding("Bronze Axe", nil), .Right)
+  Test.pass(0.02)
+  Game.auctionQuery.listed.emit(AXE, [
+    { auction: 72, unit: 2100, quantity: 1, buyout: 2100, left: 7200, own: true, commodity: false },
+    { auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false },
+  ])
+  Test.pass(0.02)
+  Test.shot("the menu under the row: «Buy at the best price», then «Add to shopping list» and «Search for this item»")
+  Test.click(Test.holding("Buy at the best price", nil), nil)
+  Test.pass(0.02)
+  Test.expect(bids.last == 73)
+  Test.expect(!Test.surfaces().any(shown => shown.texts.any(text => text == "Search for this item")))
+  Game.auctionActions.answered.emit(.Bought)
+  Test.click(Test.holding("Bronze Axe", nil), .Right)
+  Test.pass(0.02)
+  // The second: the first is the card's button.
+  Test.click(Test.holding("Add to shopping list", 2), nil)
+  Test.pass(0.02)
+  Test.expect(Auction.shopping.needed[ItemId.of(AXE)] == 1)
+  Game.auctionQuery.ready = false
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+}
+
+test "the card beside the list in a window not full screen: the window grows to hold it" {
+  Game.clock.server = START
+  Test.mount(nil, { left: 0, top: 0, width: 1600, height: 900, screen: true })
+  Game.auctionHouse.open = true
+  Game.items.tooltip = names
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Test.pass(0.02)
+  Test.moveTo(Test.holding("Linen Cloth", nil))
+  Test.flush()
+  Test.click(Test.painted(Ordaen.art.ctl.corner.contract, nil), nil)
+  Test.pass(0.02)
+  const narrow = Test.surfaceHolding("Linen Cloth").x
+  Test.click(Test.holding("Linen Cloth", nil), nil)
+  Test.pass(0.02)
+  Test.shot("a row picked: the card at the body's right, the window wider and every box inside it")
+  Test.expect(Test.surfaceHolding("Linen Cloth").x > narrow)
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+}
