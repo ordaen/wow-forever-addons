@@ -10,6 +10,9 @@ public const GAP: Number = 12 * PX
 // An item's slot in a row, and the chosen item's.
 public const SLOT: Number = 24 * PX
 public const BIG_SLOT: Number = 40 * PX
+// A table's row (`Table`'s `rowHeight`) with an item's slot, and one with a button: the row's padding round them.
+public const ITEM_ROW: Number = SLOT + 8 * PX
+public const BUTTON_ROW: Number = 42 * PX
 // A list's height in a page: it scrolls past it.
 public const LIST: Number = 300 * PX
 // The panel at a page's right: «Buy»'s picked row, «Sell»'s.

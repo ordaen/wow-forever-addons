@@ -1,7 +1,9 @@
 // The library's Table: a heading click sorts by its column and again reverses it, a column that isn't sortable does
-// nothing, the rows follow their own cells, and every row is drawn (rows drawn only where seen wait for the renderer).
+// nothing, the rows follow their own cells, and a body given a height builds only the rows in view: a row handed
+// another item follows its cell.
 import { Align, Click, MouseButton, Track } from "$ltml"
 import Test from "$test"
+import Wow from "LunaTypeRenderer"
 import { Age } from "@/age"
 import { Money } from "@/money"
 import { Column, Table, TableRow, tracksOf } from "@/table"
@@ -56,12 +58,12 @@ class Sales {
     return $ltml {
       <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={self.height}>
         <TableRow $for={sale of self.ordered} $key={sale} tracks={TRACKS} @pick={self.onPick}>
-          <text value={peek sale.name} />
+          <text value={sale.name} />
           <box xAlign={Align.End}>
-            <Money amount={peek sale.price} />
+            <Money amount={sale.price} />
           </box>
           <box xAlign={Align.End}>
-            <Age seconds={peek sale.seen} />
+            <Age seconds={sale.seen} />
           </box>
           <box />
         </TableRow>
@@ -119,6 +121,58 @@ test "a heading click sorts by its column and again reverses it, the rows' own c
   Test.expect(page.picked == "right")
   Test.expect(page.clicks == 2)
 
+  destroy page
+  Test.expect(Test.blank())
+}
+
+const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
+
+function many(count: Integer): Array<Sale> {
+  let list: Array<Sale> = []
+  for (i of 1..=count) { list.push({ name: `Ware ${i}`, price: i * 37, seen: i * 600 }) }
+  return list
+}
+
+// A table in a row that shares what is left of a page 200 high, between a head and a foot: six hundred sales.
+class Long {
+  public state sales: Array<Sale> = many(600)
+  public state sorted = 0
+  public state descending = false
+
+  public render(self): Template {
+    return $ltml {
+      <box height={200} rows={PAGE}>
+        <text value={"head"} />
+        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+          <TableRow $for={sale of self.sales} $key={sale} tracks={TRACKS}>
+            <text value={sale.name} />
+            <box xAlign={Align.End}>
+              <Money amount={sale.price} />
+            </box>
+            <box xAlign={Align.End}>
+              <Age seconds={sale.seen} />
+            </box>
+            <box />
+          </TableRow>
+        </Table>
+        <text value={"foot"} />
+      </box>
+    }
+  }
+}
+
+test "a table in a row that shares takes what is left, its body scrolls, and of six hundred rows builds those in view" {
+  const before = Wow.made()
+  let page = new Long()
+  Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
+  const built = Wow.made() - before
+  // Each row is a handful of boxes: those in view and a few past them, never six hundred rows' worth.
+  Test.expect(built < 200)
+  Test.shot("the headings, the body in the rest of the 200 down to the foot, its first rows built")
+  Test.moveTo(Test.holding("Ware 2", nil))
+  for (i of 1..=50) { Test.wheel(-1) }
+  Test.expect(Wow.made() - before == built)
+  Test.shot("fifty notches down: the same boxes hold the wares now in view")
   destroy page
   Test.expect(Test.blank())
 }

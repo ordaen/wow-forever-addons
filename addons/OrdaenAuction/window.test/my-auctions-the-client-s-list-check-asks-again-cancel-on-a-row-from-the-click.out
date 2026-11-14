@@ -73,21 +73,21 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                   box 1047.25,364.71 86.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
                     box 1047.25,364.71 86.67x28.33 absolute
                       text 1071.83,371.37 37.5x15 "Cancel" #ffd100
-              box 464.42,396.37 676.17x26.67 #00000000 @click
-                box 471.08,399.71 237.83x20
-                  box 471.08,399.71 20x20 #0d0a08 opacity=1 @click @enter
-                    box 471.08,399.71 20x20 absolute
-                    box 471.08,399.71 20x20 absolute #00000000
-                  box 497.75,402.21 211.17x15 clipped
-                    text 497.75,402.21 211.17x15 "Item 2592" #e8dcc4
-                box 715.58,402.21 53.33x15
-                  text 762.67,402.21 6.25x15 "1" #e8dcc4
-                box 775.58,402.21 80x15
-                  text 805.58,402.21 50x15 "0g 3s 0c" #e8dcc4
-                text 862.25,402.21 100x15 "Sold" #ffd100
-                box 968.92,402.21 66.67x15
-                  text 1029.33,402.21 6.25x15 "—" #e8dcc4
-                box 1042.25,409.71 91.67x0
+              box 464.42,396.37 676.17x35 #00000000 @click
+                box 471.08,403.87 237.83x20
+                  box 471.08,403.87 20x20 #0d0a08 opacity=1 @click @enter
+                    box 471.08,403.87 20x20 absolute
+                    box 471.08,403.87 20x20 absolute #00000000
+                  box 497.75,406.37 211.17x15 clipped
+                    text 497.75,406.37 211.17x15 "Item 2592" #e8dcc4
+                box 715.58,406.37 53.33x15
+                  text 762.67,406.37 6.25x15 "1" #e8dcc4
+                box 775.58,406.37 80x15
+                  text 805.58,406.37 50x15 "0g 3s 0c" #e8dcc4
+                text 862.25,406.37 100x15 "Sold" #ffd100
+                box 968.92,406.37 66.67x15
+                  text 1029.33,406.37 6.25x15 "—" #e8dcc4
+                box 1042.25,413.87 91.67x0
           box 464.42,583.04 676.17x28.33
             box 464.42,583.04 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 464.42,583.04 116.67x28.33 absolute
