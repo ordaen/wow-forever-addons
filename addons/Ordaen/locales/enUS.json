@@ -229,5 +229,13 @@
   "WINDOW_WIDTH": "Width",
   "WINDOW_HEIGHT": "Height",
   "WINDOW_OPEN_ON": "Opens on",
-  "WINDOW_LAST_TAB": "The tab last open"
+  "WINDOW_LAST_TAB": "The tab last open",
+  "WINDOW_HIDE_DURING": "Hide during",
+  "WINDOW_HIDE_DURING_TIP": "Hides the window when this begins. Travel: riding a mount, in a vehicle or on a flight.",
+  "WINDOW_SHOW_AFTER": "Show again after",
+  "WINDOW_SHOW_AFTER_TIP": "Shows the window again when this ends, if it was hidden for it. Hidden for anything else, the window closes. A window you close stays closed.",
+  "WINDOW_NEVER": "Never",
+  "OCCASION_COMBAT": "Combat",
+  "OCCASION_TRAVEL": "Travel",
+  "OCCASION_MOVING": "Movement"
 }

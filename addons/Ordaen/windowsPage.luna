@@ -1,18 +1,18 @@
 // The settings' «Окна» page of a module that has windows: a sidebar of its windows, and the one picked's settings:
 // whether what the player does with it is kept, where it stands and how large it is (as numbers), full screen or not,
-// and the tab it opens on (the one last open, or a fixed one). It is fed by the windows' declarations (`KeptWindow`)
+// the tab it opens on (the one last open, or a fixed one), what hides it and after what it shows again. It is fed by the windows' declarations (`KeptWindow`)
 // and writes their memory, which the windows read: a window and its page can't disagree. What it changes is kept at
 // once, as a window moved by its tab is: it is where the window is, not a choice waiting for «Save».
 import { Click, Track } from "$ltml"
 import { Checkbox } from "@/checkbox"
 import { CountInput, CountLook } from "@/countInput"
-import { Choice, Dropdown } from "@/dropdown"
+import { Choice, Dropdown, ManyDropdown } from "@/dropdown"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { SelectItem } from "@/selectItem"
 import { SettingRow } from "@/settingRow"
 import { PX, space } from "@/units"
-import { KeptWindow, WindowView } from "@/window"
+import { KeptWindow, Occasion, WindowView } from "@/window"
 
 const SIDEBAR = 200 * PX
 const COLUMNS: Array<Track> = [SIDEBAR, { fr: 1 }]
@@ -25,6 +25,12 @@ const FIELD_WIDTH = 120 * PX
 const FIELD_HEIGHT = 26 * PX
 const FILL: Array<Track> = [{ fr: 1 }]
 const MOST_SIZE = 4000
+// What can hide a window, and show it again.
+const OCCASIONS: Array<Choice<Occasion>> = [
+  { value: Occasion.Combat, label: Locale.OCCASION_COMBAT },
+  { value: Occasion.Travel, label: Locale.OCCASION_TRAVEL },
+  { value: Occasion.Moving, label: Locale.OCCASION_MOVING },
+]
 
 // The title of a module's page of its windows, in its `pages`:
 // `{ title: windowsTitle(), content: $ltml { <WindowsPage windows={[self.window]} /> } }`.
@@ -72,6 +78,8 @@ public class WindowsPage implements Component {
   state width = 0
   state height = 0
   state openOn = 0
+  state hideDuring: Array<Occasion> = []
+  state showAfter: Array<Occasion> = []
   // The tab it opens on: «the one last open», then each of its tabs.
   derived tabChoices: Array<Choice<Integer>> = self.tabChoicesOf()
   // The dropdown is made anew when the tabs it offers change.
@@ -109,6 +117,8 @@ public class WindowsPage implements Component {
     self.width = view.width.round()
     self.height = view.height.round()
     self.openOn = view.openOn
+    self.hideDuring = view.hideDuring
+    self.showAfter = view.showAfter
   }
 
   // What the controls hold, written where it differs from the memory (a whole number differs from a place only where
@@ -121,6 +131,8 @@ public class WindowsPage implements Component {
     const width = self.width
     const height = self.height
     const openOn = self.openOn
+    const hideDuring = self.hideDuring
+    const showAfter = self.showAfter
     const window = self.windows[peek self.current]
     if (window == nil) { return }
     const was = peek window.memory.values
@@ -128,6 +140,8 @@ public class WindowsPage implements Component {
     next.remember = remember
     next.full = full
     next.openOn = openOn
+    next.hideDuring = hideDuring.clone()
+    next.showAfter = showAfter.clone()
     if (x != was.x.round()) { next.x = x }
     if (y != was.y.round()) { next.y = y }
     if (width != was.width.round()) { next.width = width }
@@ -171,6 +185,10 @@ public class WindowsPage implements Component {
           </SettingRow>
           <Dropdown $for={each of self.offers} $key={each.key} label={Locale.WINDOW_OPEN_ON}
                     value={mut self.openOn} choices={peek each.choices} />
+          <ManyDropdown label={Locale.WINDOW_HIDE_DURING} hint={Locale.WINDOW_HIDE_DURING_TIP}
+                        value={mut self.hideDuring} choices={OCCASIONS} none={Locale.WINDOW_NEVER} />
+          <ManyDropdown label={Locale.WINDOW_SHOW_AFTER} hint={Locale.WINDOW_SHOW_AFTER_TIP}
+                        value={mut self.showAfter} choices={OCCASIONS} none={Locale.WINDOW_NEVER} />
         </box>
       </box>
     }

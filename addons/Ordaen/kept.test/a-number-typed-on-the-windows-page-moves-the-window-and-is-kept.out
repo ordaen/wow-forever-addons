@@ -38,13 +38,13 @@ surface 216.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 604,223.04 68.75x26.67 #00000059 @click
                 box 604.83,223.88 67.08x1.67 absolute #d6a56b
                 text 616.5,229.71 43.75x15 "Windows" #ffffff
-            box 387.75,266.38 754.5x191.67
-              box 387.75,266.38 754.5x191.67
+            box 387.75,266.38 754.5x261.67
+              box 387.75,266.38 754.5x261.67
                 box 387.75,266.38 166.67x25
                   box 387.75,266.38 166.67x25 #d6a56b3d clipped @click
                     box 387.75,266.38 1.67x25 absolute #f0c860
                     text 401.08,271.38 140x15 "Settings" #e8dcc4
-                box 571.08,266.38 571.17x191.67
+                box 571.08,266.38 571.17x261.67
                   box 571.08,266.38 571.17x18.33 opacity=1
                     box 571.08,268.04 233.33x15 @enter @leave
                       text 571.08,268.04 233.33x15 "Remember its place and size" #cbb994
@@ -82,6 +82,20 @@ surface 216.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                       box 819.42,429.71 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
                         text 834.42,436.38 153.33x15 "The tab last open" #f0c860
                         box 996.08,437.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                  box 571.08,464.71 571.17x28.33 opacity=1
+                    box 571.08,471.38 233.33x15 @enter @leave
+                      text 571.08,471.38 233.33x15 "Hide during" #cbb994
+                    box 819.42,464.71 200x28.33
+                      box 819.42,464.71 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                        text 834.42,471.38 153.33x15 "Combat" #f0c860
+                        box 996.08,472.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+                  box 571.08,499.71 571.17x28.33 opacity=1
+                    box 571.08,506.38 233.33x15 @enter @leave
+                      text 571.08,506.38 233.33x15 "Show again after" #cbb994
+                    box 819.42,499.71 200x28.33
+                      box 819.42,499.71 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                        text 834.42,506.38 153.33x15 "Never" #ffffff
+                        box 996.08,507.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 249.42,691.46 906.17x45
         box 249.42,708.12 906.17x28.33
           box 249.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave

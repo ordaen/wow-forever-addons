@@ -8,7 +8,7 @@ import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Density } from "@/globals"
 import Locale from "@/locales"
-import { KeptWindow, Window, WindowTabSpec, WindowView } from "@/window"
+import { KeptWindow, Occasion, Window, WindowTabSpec, WindowView } from "@/window"
 
 function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
 
@@ -221,4 +221,20 @@ test "a window that keeps nothing opens where it is declared, whatever it was mo
   settings.window.memory.write(view)
   Test.flush()
   Test.expect(near(tab().x, before.x))
+}
+
+test "the «Windows» page says «never» where nothing shows a window again, and a choice picked there is kept" {
+  Test.mount(nil, { left: 0, top: 0, width: 200, height: 100, screen: true })
+  open()
+  Test.click(Test.holding(Locale.WINDOWS_TAB, nil), nil)
+  Test.flush()
+  Test.click(Test.holding(Locale.WINDOW_NEVER, nil), nil)
+  Test.flush()
+  // The menu lists the occasions after the plate «Hide during» shows its own: the second «Combat» is this menu's.
+  Test.click(Test.holding(Locale.OCCASION_COMBAT, 2), nil)
+  Test.flush()
+  Test.shot("«Show again after» opened and «Combat» picked: the plate names it, the menu stays open")
+  const settings = Ordaen.window ?? panic("the settings window is made as it opens")
+  Test.expect(settings.window.memory.values.showAfter.equal([Occasion.Combat]))
+  Test.expect(settings.window.memory.values.hideDuring.equal([Occasion.Combat]))
 }

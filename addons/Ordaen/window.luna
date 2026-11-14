@@ -12,6 +12,7 @@
 // side of the screen from its top to its bottom, as wide as its placing says: it isn't moved or resized, and its
 // full-screen toggle still covers the screen.
 import { Align, Art, Docked, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Stated, Track } from "$ltml"
+import Game from "$game"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
@@ -34,11 +35,16 @@ public struct Placing implements Plain {
   height: Number
 }
 
+// What the player is in the middle of that hides a window, and after which it shows again: a fight; travel (riding a
+// mount, in a vehicle, on a flight); moving.
+public enum Occasion implements Plain { Combat = "combat", Travel = "travel", Moving = "moving" }
+
 // What the player did with a window, kept in the active profile (`Memory`, `redesign/kept.md`): its place and its
 // body's size, full screen or not, the tab last open, and the width the side section was dragged to (0: the width
 // the side is given); and what the player chose on its settings page («Окна»): whether any of that is kept
-// (`remember`; off, the window opens as it is declared), and the tab it opens on (`openOn`: 0, the one last open).
-// The defaults are the window's declaration's (`KeptWindow`).
+// (`remember`; off, the window opens as it is declared), the tab it opens on (`openOn`: 0, the one last open), what
+// hides it (`hideDuring`) and, of that, after which it shows again (`showAfter`; a window hidden by anything else is
+// closed). The defaults are the window's declaration's (`KeptWindow`): hidden in a fight, never shown again by itself.
 public struct WindowView implements Plain {
   x: Number = 0
   y: Number = 0
@@ -49,6 +55,8 @@ public struct WindowView implements Plain {
   side: Number = 0
   remember: Boolean = true
   openOn: Integer = 0
+  hideDuring: Array<Occasion> = [Occasion.Combat]
+  showAfter: Array<Occasion> = []
 }
 
 // One of a module's windows, declared once in its root: its name (what it is kept under), its title on the
@@ -68,7 +76,7 @@ public class KeptWindow {
     self.placing = placing.clone()
     self.defaults = {
       x: placing.x, y: placing.y, width: placing.width, height: placing.height, full: full, tab: 1, side: 0,
-      remember: true, openOn: 0,
+      remember: true, openOn: 0, hideDuring: [Occasion.Combat], showAfter: [],
     }
     self.memory = new Memory<WindowView>(self.defaults, .Profile, "window:" + name)
   }
@@ -80,8 +88,26 @@ public class KeptWindow {
     const declared = self.defaults.clone()
     declared.remember = false
     declared.openOn = view.openOn
+    declared.hideDuring = view.hideDuring.clone()
+    declared.showAfter = view.showAfter.clone()
     return declared
   }
+}
+
+// While a shown window asks for it, the player's situation follows what it doesn't follow otherwise (a mount,
+// moving): heeded as it is made, let go as it ends (`Game.situation.heed`).
+class Heeding {
+  const what: Game.Heeded
+  constructor(what: Game.Heeded) {
+    self.what = what
+    Game.situation.heed(what)
+  }
+  destructor() { Game.situation.unheed(self.what) }
+}
+
+// Whether a list of occasions holds one.
+function holds(list: Array<Occasion>, occasion: Occasion): Boolean {
+  return list.any((each: Occasion) => each == occasion)
 }
 // How far the side section's line is dragged: from two thirds of the width it is given to twice it.
 const SIDE_LEAST = 2 / 3
@@ -382,6 +408,13 @@ public class Window implements Component {
   // The side's width as a drag of its line began, and while it is dragged (0 otherwise): kept as the drag ends.
   side0: Number = 0
   state sideDrag: Number = 0
+  // What hid the window while it is shown, each to show it again as it ends (none: it shows); what the player is in
+  // the middle of now, while it is shown; and what it was at the last change.
+  state away: Array<Occasion> = []
+  derived occasions: Array<Occasion> = self.occasionsOf()
+  derived seen: Boolean = self.shown && self.away.length == 0
+  was: Array<Occasion> = []
+  opened = false
   constructor(
     tabs: Signal<Array<WindowTabSpec>>,
     selected: mut Signal<Integer>,
@@ -439,6 +472,59 @@ public class Window implements Component {
     if (!asks) {
       watch (tab of self.selected) { self.remember((view: mut WindowView) => { view.tab = tab }) }
     }
+    // Shown, it follows what it is to hide for, and what may show it again: a mount and moving are heard only then.
+    watch {
+      if (!self.shown) { return }
+      const view = self.declared.used(self.declared.memory.values)
+      const asked = self.away.length > 0 ? view.showAfter : view.hideDuring
+      if (holds(asked, .Travel)) { self.heed(new Heeding(.Mount)) }
+      if (holds(asked, .Moving)) { self.heed(new Heeding(.Moving)) }
+    }
+    watch { self.follow(self.occasions, self.shown) }
+  }
+
+  // What a watch's run made is the run's: it ends before the next run, and with the window.
+  heed(self, heeding: Heeding) {}
+
+  // What the player is in the middle of, of what can hide a window: read while the window is shown alone.
+  occasionsOf(self): Array<Occasion> {
+    const list: Array<Occasion> = []
+    if (!self.shown) { return list }
+    const situation = Game.situation
+    if (situation.combat) { list.push(.Combat) }
+    if (situation.taxi || situation.vehicle || situation.mounted) { list.push(.Travel) }
+    if (situation.moving) { list.push(.Moving) }
+    return list
+  }
+
+  // What began hides the window where the player chose so: until it ends, where it is to show again after it;
+  // closed otherwise, as the player closes it. What ended shows it again, once nothing else holds it hidden. A window
+  // the player opens in the middle of something stays: what goes on as it opens hides it not.
+  follow(mut self, now: Array<Occasion>, shown: Boolean) {
+    const was = self.was
+    self.was = now
+    if (!shown) {
+      self.opened = false
+      if ((peek self.away).length > 0) { self.away = [] }
+      return
+    }
+    if (!self.opened) {
+      self.opened = true
+      return
+    }
+    const view = self.declared.used(peek self.declared.memory.values)
+    const away = (peek self.away).filter((each: Occasion) => holds(now, each))
+    for (occasion of now) {
+      if (!holds(was, occasion) && holds(view.hideDuring, occasion)) {
+        if (!holds(view.showAfter, occasion)) {
+          self.away = []
+          self.close.emit()
+          return
+        }
+        if (!holds(away, occasion)) { away.push(occasion) }
+      }
+    }
+    if (!away.equal(peek self.away)) { self.away = away }
   }
 
   // The tab it opens on: the one fixed on its settings page, or (as it is made, or its memory is changed from
@@ -619,7 +705,7 @@ public class Window implements Component {
     return $ltml {
       // As wide as the player made it, and never narrower than its tabs: the tab row is the one thing in its
       // grid, and the width it keeps is its least.
-      <surface shown={self.shown} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
+      <surface shown={self.seen} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
                raise={true} xAlign={Align.Start} focusLine={self.focusLine}
                @escape={self.onClose}>
         <box position={Position.Absolute} left={0} right={self.inset} top={self.tabHeight} bottom={0}
