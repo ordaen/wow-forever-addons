@@ -154,7 +154,8 @@ would have caught it is half a fix: say which check now catches it, or add one.
   windows (`wow_open`). Never movement, abilities or anything bot-like.
 - **Long work runs in the background:** builds, lints, tests, probes, watch loops and repro runs, always; keep talking
   to the user meanwhile.
-- **No subagents:** each session does its work itself, until the user says otherwise.
+- **Subagents as lunatype's `CLAUDE.md` says:** they do the work of the goal in lunatype's `NEXT.md`, one task an
+  agent, each on its own branch; outside that goal a session does its work itself.
 - **Idle bug hunts:** with nothing queued, a session runs bug-hunt and simplification rounds over its own areas until a
   round finds nothing; each round ends green and committed.
 - **Shared checkouts:** never `--autostash` (rebase or pull) in a checkout other sessions use, and commit only your own
