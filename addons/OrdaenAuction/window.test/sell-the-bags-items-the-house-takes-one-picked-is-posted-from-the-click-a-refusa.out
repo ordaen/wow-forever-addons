@@ -6,7 +6,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
       box 464.42,259.71 676.17x34.17
         box 464.42,266.88 557.83x14
           text 464.42,266.88 46.67x14 "Stand-in" #ffd100
-          text 521.08,266.88 501.17x14 "1 items" #e8dcc4
+          text 521.08,266.88 501.17x14 "1 item" #e8dcc4
         box 1032.25,259.71 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
           box 1032.25,259.71 108.33x28.33 absolute
             text 1073.92,266.38 25x15 "Scan" #ffd100
@@ -85,7 +85,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
       box 464.42,259.71 676.17x34.17
         box 464.42,266.88 557.83x14
           text 464.42,266.88 46.67x14 "Stand-in" #ffd100
-          text 521.08,266.88 501.17x14 "1 items" #e8dcc4
+          text 521.08,266.88 501.17x14 "1 item" #e8dcc4
         box 1032.25,259.71 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
           box 1032.25,259.71 108.33x28.33 absolute
             text 1073.92,266.38 25x15 "Scan" #ffd100
@@ -199,7 +199,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
       box 464.42,259.71 676.17x34.17
         box 464.42,266.88 557.83x14
           text 464.42,266.88 46.67x14 "Stand-in" #ffd100
-          text 521.08,266.88 501.17x14 "1 items" #e8dcc4
+          text 521.08,266.88 501.17x14 "1 item" #e8dcc4
         box 1032.25,259.71 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
           box 1032.25,259.71 108.33x28.33 absolute
             text 1073.92,266.38 25x15 "Scan" #ffd100

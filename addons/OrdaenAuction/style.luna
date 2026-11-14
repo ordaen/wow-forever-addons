@@ -1,6 +1,6 @@
 // The house window's look, shared by its parts: sizes at the player's scale, colours, and how a time is said.
 import { Line, Side } from "$ltml"
-import { PX } from "Ordaen"
+import { number, plural, PX } from "Ordaen"
 import Locale from "@/locales"
 
 public const WIDTH: Number = 860 * PX
@@ -40,6 +40,16 @@ public function agoText(seconds: Integer): String {
   if (seconds < HOUR) { return Locale.AGO_MINUTES.format((seconds / MINUTE).floor()) }
   if (seconds < DAY) { return Locale.AGO_HOURS.format((seconds / HOUR).floor()) }
   return Locale.AGO_DAYS.format((seconds / DAY).floor())
+}
+
+// How many items, as the game's language says the number: «1 item», «6 412 items».
+public function itemsText(count: Integer): String {
+  return plural(count, Locale.ITEMS_ONE, Locale.ITEMS_FEW, Locale.ITEMS_MANY).format(number(count))
+}
+
+// How many auctions: «1 auction», «31 870 auctions».
+public function auctionsText(count: Integer): String {
+  return plural(count, Locale.AUCTIONS_ONE, Locale.AUCTIONS_FEW, Locale.AUCTIONS_MANY).format(number(count))
 }
 
 // How long is left, rounded up to a whole minute, or an hour past one: «9 min», «2 h».

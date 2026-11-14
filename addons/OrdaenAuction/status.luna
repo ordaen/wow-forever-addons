@@ -4,12 +4,12 @@
 import Debug from "$debug"
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Component, number, ProgressBar, PushButton, PX } from "Ordaen"
+import { Component, ProgressBar, PushButton, PX } from "Ordaen"
 import Locale from "@/locales"
 import { serverSeconds } from "@/quote"
 import { Scanner } from "@/scan"
 import Style from "@/style"
-import { agoText, leftText } from "@/style"
+import { agoText, itemsText, leftText } from "@/style"
 
 const COLUMNS: Array<Track> = [{ fr: 1 }, "auto"]
 const FIRST: Array<Track> = ["auto", { fr: 1 }]
@@ -50,7 +50,7 @@ public class Status implements Component {
 
   pricesText(self): String {
     if (!self.priced) { return Locale.NO_PRICES }
-    const counted = Locale.ITEMS.format(number(self.items))
+    const counted = itemsText(self.items)
     if (!self.scanned) { return counted }
     return Locale.PRICES_AGE.format(agoText(self.now - self.lastFull), counted)
   }

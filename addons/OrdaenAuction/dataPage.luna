@@ -11,7 +11,7 @@ import { serverSeconds } from "@/quote"
 import { Scanner } from "@/scan"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
-import { agoText } from "@/style"
+import { agoText, auctionsText, itemsText } from "@/style"
 
 const ROW: Array<Track> = [{ fr: 1 }, "auto"]
 
@@ -75,7 +75,7 @@ public class DataPage implements Component {
   derived scanned: Boolean = self.lastFull > 0
   derived last: String = self.lastText()
   derived counted: String = self.scanner.auctions > 0 ?
-    Locale.SCAN_COUNTS.format(number(self.scanner.auctions), number(self.scanner.items)) : "—"
+    Locale.SCAN_COUNTS.format(auctionsText(self.scanner.auctions), itemsText(self.scanner.items)) : "—"
   derived size: String = Locale.KB.format((self.scanner.size / 1024).ceil())
   derived known: String = number(self.items)
 

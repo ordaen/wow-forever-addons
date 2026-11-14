@@ -6,7 +6,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
       box 464.42,259.71 676.17x19.83
         box 464.42,259.71 546.17x14
           text 464.42,259.71 46.67x14 "Stand-in" #ffd100
-          text 521.08,259.71 489.5x14 "Prices: 5 min ago · 1 items" #e8dcc4
+          text 521.08,259.71 489.5x14 "Prices: 5 min ago · 1 item" #e8dcc4
         text 1020.58,260.71 120x12 "Next full scan in 10 min" #a3977f
       box 464.42,286.21 676.17x395.25
         box 464.42,286.21 676.17x330.5
@@ -89,7 +89,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
       box 464.42,259.71 676.17x19.83
         box 464.42,259.71 546.17x14
           text 464.42,259.71 46.67x14 "Stand-in" #ffd100
-          text 521.08,259.71 489.5x14 "Prices: 5 min ago · 1 items" #e8dcc4
+          text 521.08,259.71 489.5x14 "Prices: 5 min ago · 1 item" #e8dcc4
         text 1020.58,260.71 120x12 "Next full scan in 10 min" #a3977f
       box 464.42,286.21 676.17x395.25
         box 464.42,286.21 676.17x365.67 scrolled 0 of 0
@@ -102,8 +102,8 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                 text 464.42,312.88 617x14 "Last full scan" #a3977f
                 text 1088.08,312.88 52.5x14 "5 min ago" #e8dcc4
               box 464.42,338.54 676.17x14
-                text 464.42,338.54 558.67x14 "Auctions and items in it" #a3977f
-                text 1029.75,338.54 110.83x14 "1 auctions, 1 items" #e8dcc4
+                text 464.42,338.54 570.33x14 "Auctions and items in it" #a3977f
+                text 1041.42,338.54 99.17x14 "1 auction, 1 item" #e8dcc4
               box 464.42,364.21 676.17x14
                 text 464.42,364.21 663.67x14 "Items with a price" #a3977f
                 text 1134.75,364.21 5.83x14 "1" #e8dcc4
