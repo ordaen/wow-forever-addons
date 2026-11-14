@@ -1,0 +1,173 @@
+// The class trainer: its services on the left (the search, the filter, the sort), the picked service's card on the
+// right, and the footer with the player's money, the price and «Learn». The services are read from the client's
+// trainer; «Learn» is drawn disabled, as the client's declarations hold no call that buys a service.
+import Game from "$game"
+import { Align, Overflow, Track } from "$ltml"
+import { Choice, Component, Money, PushButton, PX, Toolbar, ToolPick } from "Ordaen"
+import root Ordaen from "Ordaen"
+import Locale from "@/locales"
+import Style from "@/style"
+
+public enum Show { All = "all", Available = "available", Unavailable = "unavailable", Learned = "learned" }
+
+public enum Order { Level = "level", Name = "name", Price = "price" }
+
+const SHOWS: Array<Choice<Show>> = [
+  { value: Show.All, label: Locale.SHOW_ALL },
+  { value: Show.Available, label: Locale.SHOW_AVAILABLE },
+  { value: Show.Unavailable, label: Locale.SHOW_UNAVAILABLE },
+  { value: Show.Learned, label: Locale.SHOW_LEARNED },
+]
+const ORDERS: Array<Choice<Order>> = [
+  { value: Order.Level, label: Locale.ORDER_LEVEL },
+  { value: Order.Name, label: Locale.ORDER_NAME },
+  { value: Order.Price, label: Locale.ORDER_PRICE },
+]
+const BODY: Array<Track> = [Style.LIST, { fr: 1 }]
+const FILL: Array<Track> = [{ fr: 1 }]
+const PAGE: Array<Track> = ["auto", { fr: 1 }]
+const SIDE: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
+const ROW: Array<Track> = [32 * PX, { fr: 1 }, "auto"]
+const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
+
+function passes(service: Game.TrainerService, show: Show, search: String): Boolean {
+  const kept = match (show) {
+    Show.All => true,
+    Show.Available => service.status == Game.ServiceStatus.Available,
+    Show.Unavailable => service.status == Game.ServiceStatus.Unavailable,
+    Show.Learned => service.status == Game.ServiceStatus.Learned,
+  }
+  if (!kept) { return false }
+  return search == "" || service.name.lower().contains(search.lower())
+}
+
+public class ServiceRow implements Component {
+  public pick: Event<Integer> = new Event()
+
+  derived background: Color = self.picked == self.service.index ? Style.PICKED : Style.BACK
+  derived title: String = self.service.rank == "" ? self.service.name : "%s (%s)".format(self.service.name, self.service.rank)
+  derived need: String = Locale.NEEDS_LEVEL.format(self.service.level)
+  derived needColor: Color = self.met ? Style.DIM : Style.RED
+  derived tint: Color = self.service.status == Game.ServiceStatus.Unavailable ? Style.RED : Color.hex("#ffffff")
+  derived free: Boolean = self.service.cost == 0
+  derived affordable: Color = self.service.cost > Game.money.amount ? Style.RED : Style.INK
+
+  service: Signal<Game.TrainerService>
+  picked: Signal<Integer>
+  met: Signal<Boolean>
+  constructor(service: Signal<Game.TrainerService>, picked: Signal<Integer>, met: Signal<Boolean>) {
+    self.service = service
+    self.picked = picked
+    self.met = met
+  }
+
+  onPick(mut self) { self.pick.emit(self.service.index) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} gap={8 * PX} yAlign={Align.Center} background={self.background}
+           padding={{ top: 3 * PX, bottom: 3 * PX, left: 6 * PX, right: 6 * PX }} @click={self.onPick}>
+        <box width={28 * PX} height={28 * PX} icon={self.service.icon} tint={self.tint} />
+        <box columns={1}>
+          <text value={self.title} textColor={Style.INK} wrap={false} />
+          <text value={self.need} textSize={.Secondary} textColor={self.needColor} wrap={false} />
+        </box>
+        <Money $if={!self.free} amount={self.service.cost} color={self.affordable} />
+      </box>
+    }
+  }
+}
+
+public class TrainerPage implements Component {
+  state search = ""
+  state show: Show = Show.All
+  state order: Order = Order.Level
+  state picked = 0
+  derived shown: Array<Game.TrainerService> = self.shownOf()
+  derived current: Game.TrainerService | nil = self.currentOf()
+  derived has: Boolean = self.current != nil
+  derived name: String = self.current?.name ?? ""
+  derived text: String = self.current?.description ?? ""
+  derived price: Integer = self.current?.cost ?? 0
+  derived canLearn: Boolean = false
+  derived empty: Boolean = self.shown.length == 0
+  derived narrowed: Boolean = self.show != Show.All
+  derived summary: String = Locale.SUMMARY.format(self.count(Game.ServiceStatus.Available), self.count(Game.ServiceStatus.Unavailable), self.count(Game.ServiceStatus.Learned))
+
+  services: Signal<Array<Game.TrainerService>>
+  level: Signal<Integer>
+  constructor(services: Signal<Array<Game.TrainerService>>, level: Signal<Integer>) {
+    self.services = services
+    self.level = level
+  }
+
+  count(self, status: Game.ServiceStatus): Integer { return self.services.count(s => s.status == status) }
+
+  currentOf(self): Game.TrainerService | nil {
+    for (service of self.services) {
+      if (service.index == self.picked) { return service }
+    }
+    return nil
+  }
+
+  shownOf(self): Array<Game.TrainerService> {
+    const list: Array<Game.TrainerService> = []
+    for (service of self.services) {
+      if (passes(service, self.show, self.search)) { list.push(service) }
+    }
+    const by = self.order
+    list.sort((a, b) => {
+      if (by == Order.Price && a.cost != b.cost) { return a.cost < b.cost }
+      if (by == Order.Level && a.level != b.level) { return a.level < b.level }
+      return a.name < b.name
+    })
+    return list
+  }
+
+  onPick(mut self, index: Integer) { self.picked = self.picked == index ? 0 : index }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={BODY} rows={FILL} gap={Style.GAP}>
+        <box rows={PAGE} gap={8 * PX}>
+          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+            <ToolPick value={mut self.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+            <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
+                      lit={self.narrowed} />
+          </Toolbar>
+          <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
+            <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
+          </box>
+          <box $else overflow={Overflow.Scroll}>
+            <ServiceRow $for={service of self.shown} $key={service.index} service={service} picked={self.picked}
+                        met={service.level <= self.level} @pick={self.onPick} />
+          </box>
+        </box>
+        <box rows={SIDE} gap={8 * PX}>
+          <box $if={self.has} columns={1} gap={6 * PX}>
+            <text value={self.name} textSize={.Title} textColor={Style.GOLD} />
+            <text value={self.text} textColor={Style.INK} />
+          </box>
+          <box $else columns={1} gap={6 * PX}>
+            <text value={Locale.PICK_SERVICE} textColor={Style.DIM} />
+            <text value={self.summary} textColor={Style.DIM} textSize={.Secondary} />
+          </box>
+          <box />
+          <box />
+          <box columns={1} gap={6 * PX}>
+            <box columns={FOOT} gap={8 * PX}>
+              <text value={Locale.YOUR_MONEY} textColor={Style.DIM} wrap={false} />
+              <Money amount={Game.money.amount} />
+            </box>
+            <box columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
+              <box>
+                <Money $if={self.has} amount={self.price} />
+              </box>
+              <PushButton label={Locale.LEARN} width={150 * PX} accent={true} disabled={!self.canLearn} />
+            </box>
+          </box>
+        </box>
+      </box>
+    }
+  }
+}

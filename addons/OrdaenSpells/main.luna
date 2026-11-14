@@ -1,0 +1,149 @@
+// Ordaen Spells: the spellbook and the talents in one window with three tabs, and the class trainer's window. The
+// spellbook window opens with `/spellbook`, and with the game's own button for it (the micro menu's): the game's
+// window opens all the same, unseen and off the screen, and this one stands in its place while it shows. The
+// trainer's shows while the client's class trainer is open. What each page shows is read from `"$game"` as the
+// window opens and when it says it changed.
+import Client from "$client"
+import Game from "$game"
+import { Frame } from "$ltml"
+import Runtime from "$runtime"
+import { Module, Placing, Settings, SettingsPage, Window, WindowTabSpec } from "Ordaen"
+import root Ordaen from "Ordaen"
+import Locale from "@/locales"
+import { Choices, GeneralPage } from "@/settings"
+import { SpellbookPage } from "@/spellbook"
+import Style from "@/style"
+import { TalentsPage } from "@/talents"
+import { TrainerPage } from "@/trainer"
+
+public class Spells implements Module, App {
+  public const title: String = "Ordaen Spells"
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+  ]
+
+  public settings: mut Settings<Choices> = new Settings<Choices>({ specOne: "", specTwo: "", trainer: true })
+
+  state open = false
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+  state trainerTab = 1
+  state trainerPlacing: Placing = { x: 0, y: 0, width: Style.TRAINER_WIDTH, height: Style.HEIGHT }
+  state spells: Array<Game.SpellEntry> = []
+  state lines: Array<Game.SpellLine> = []
+  state trees: Array<Game.TalentTree> = []
+  state unspent = 0
+  state staged = false
+  // The spec group the player has active: 1 or 2.
+  state activeGroup = 1
+  derived group: Integer = self.tab - 1
+  derived groupActive: Boolean = self.group == self.activeGroup
+  // The game's own window shows (the micro menu's button opened it), and its frame was hooked.
+  state gameShown = false
+  hooked: any Frame | nil = nil
+  state services: Array<Game.TrainerService> = []
+  derived tabs: Array<WindowTabSpec> = [
+    { title: Locale.TAB_SPELLS },
+    { title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne },
+    { title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo },
+  ]
+  derived trainerTabs: Array<WindowTabSpec> = [{ title: Locale.TAB_TRAINER }]
+  derived level: Integer = Game.player.level
+  state trainerClosed = false
+  derived trainerShown: Boolean = Game.trainer.open && !self.trainerClosed && self.settings.values.trainer
+
+  constructor() {
+    Ordaen.modules.add(self)
+    Game.trainer.changed.listen(self.onTrainer)
+    Game.talentTrees.changed.listen(self.refreshTalents)
+    watch (value of self.tab) { self.refreshTalents() }
+    watch (frame of Game.frames.PlayerSpells) { self.hook(frame) }
+    Runtime.command("/spellbook", (text: String): nil => {
+      for (module of Ordaen.modules) {
+        if (module == self) { self.toggle() }
+      }
+      return nil
+    })
+  }
+
+  public toggle(mut self) {
+    self.open = !self.open
+    if (self.open) { self.refresh() }
+  }
+
+  public refresh(mut self) {
+    self.spells = Game.spellbook.entries()
+    self.lines = Game.spellbook.lines()
+    self.refreshTalents()
+  }
+
+  // The game's spellbook window: ours opens and closes with it. Hooked once, on its show and hide, which are rare.
+  hook(mut self, frame: any Frame | nil) {
+    if (frame == nil || frame == self.hooked) { return }
+    self.hooked = frame
+    const window: any Client.Frame = frame
+    _ = window.HookScript("OnShow", (): nil => {
+      self.onGameShown()
+      return nil
+    })
+    _ = window.HookScript("OnHide", (): nil => {
+      self.onGameHidden()
+      return nil
+    })
+    if (window.IsShown()) { self.onGameShown() }
+  }
+
+  onGameShown(mut self) {
+    self.gameShown = true
+    self.open = true
+    self.refresh()
+  }
+
+  onGameHidden(mut self) {
+    self.gameShown = false
+    self.open = false
+  }
+
+  public refreshTalents(mut self) {
+    const group = (peek self.tab) - 1
+    if (group < 1) { return }
+    self.trees = Game.talentTrees.trees(group)
+    self.unspent = Game.talentTrees.unspent(group)
+    self.activeGroup = Game.talentTrees.activeGroup()
+    self.staged = Game.talentTrees.staged()
+  }
+
+  onSpend(mut self, node: Integer) { _ = Game.talentTrees.spend(node) }
+  onRefund(mut self, node: Integer) { _ = Game.talentTrees.refund(node) }
+  onApply(mut self) { _ = Game.talentTrees.commit() }
+  onCancel(mut self) { _ = Game.talentTrees.rollback() }
+  onActivate(mut self) { _ = Game.talentTrees.activate(peek self.group) }
+
+  // The client's class trainer, not a profession's or a pet's, taught its services.
+  onTrainer(mut self) {
+    if (!Game.trainer.teachesClass()) { return }
+    self.trainerClosed = false
+    self.services = Game.trainer.services()
+  }
+
+  onClose(mut self) { self.open = false }
+  onTrainerClose(mut self) { self.trainerClosed = true }
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+
+  public render(self): Template {
+    return $ltml {
+      <frame $if={self.gameShown} of={Game.frames.PlayerSpells} opacity={0} away={true} />
+      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
+              @close={self.onClose} @settings={self.onSettings}>
+        <SpellbookPage $if={self.tab == 1} spells={self.spells} lines={self.lines} />
+        <TalentsPage $else trees={self.trees} unspent={self.unspent} staged={self.staged} active={self.groupActive} @spend={self.onSpend}
+                     @refund={self.onRefund} @apply={self.onApply} @cancel={self.onCancel} @activate={self.onActivate} />
+      </Window>
+      <Window $if={self.trainerShown} tabs={self.trainerTabs} selected={mut self.trainerTab}
+              placing={mut self.trainerPlacing} withSettings={true} @close={self.onTrainerClose}
+              @settings={self.onSettings}>
+        <TrainerPage services={self.services} level={self.level} />
+      </Window>
+    }
+  }
+}

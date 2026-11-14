@@ -1,0 +1,76 @@
+// Ordaen Mail: the mailbox in one window with three tabs: the inbox, the letters sent, and the player's own
+// characters. The window shows while the mailbox is open; the letters are read from the client as the mailbox opens
+// and each time it is read again. The client's declarations hold no call that takes mail, returns it, deletes it or
+// sends it, so the window reads and shows and its buttons for those are drawn disabled (`CAN_ACT`).
+import Game from "$game"
+import Runtime from "$runtime"
+import { Module, Placing, SettingsPage, Settings, Window, WindowTabSpec } from "Ordaen"
+import root Ordaen from "Ordaen"
+import root Alts from "OrdaenAlts"
+import { Inbox } from "@/inbox"
+import { Sent } from "@/letters"
+import Locale from "@/locales"
+import { OwnTab } from "@/own"
+import { Outbox } from "@/outbox"
+import { Choices, GeneralPage } from "@/settings"
+import Style from "@/style"
+
+// Whether anything the client's declarations lack is there: taking, returning, deleting and sending mail.
+const CAN_ACT = false
+
+public class Mail implements Module, App {
+  public const title: String = "Ordaen Mail"
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+  ]
+
+  public settings: mut Settings<Choices> = new Settings<Choices>({ keepFree: 0, blockTrades: false })
+
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+  // The letters the inbox shows, and how many the server says wait in all.
+  state letters: Array<Game.MailLetter> = []
+  state total = 0
+  state sent: Array<Sent> = []
+  // The player shut the window while the mailbox stays open.
+  state closed = false
+  derived open: Boolean = Game.mailObserver.open && !self.closed
+  derived tabs: Array<WindowTabSpec> = [
+    { title: Locale.TAB_INBOX.format(self.letters.length) },
+    { title: Locale.TAB_SENT },
+    { title: Locale.TAB_OWN },
+  ]
+
+  constructor() {
+    Ordaen.modules.add(self)
+    Game.mailObserver.opened.listen(self.onOpened)
+    Game.mailObserver.changed.listen(self.refresh)
+    if (peek Game.mailObserver.open) { self.refresh() }
+  }
+
+  public refresh(mut self) {
+    self.letters = Game.mailbox.letters()
+
+    self.total = Game.mailbox.waiting()
+  }
+
+  onOpened(mut self) {
+    self.closed = false
+    self.refresh()
+  }
+
+  onClose(mut self) { self.closed = true }
+
+  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
+
+  public render(self): Template {
+    return $ltml {
+      <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}
+              @close={self.onClose} @settings={self.onSettings}>
+        <Inbox $if={self.tab == 1} letters={self.letters} total={self.total} canAct={CAN_ACT} />
+        <Outbox $elseif={self.tab == 2} sent={self.sent} canWrite={CAN_ACT} />
+        <OwnTab $else alts={Alts} />
+      </Window>
+    }
+  }
+}
