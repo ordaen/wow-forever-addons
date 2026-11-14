@@ -5,22 +5,20 @@ LunaType: a typed language for addons that compiles to the Lua the game loads.
 
 | Addon | Description |
 |---|---|
-| [Ordaen](addons/Ordaen) | Ordaen Core: what every module builds on, the settings, the theme and its art. |
-| [OrdaenApp](addons/OrdaenApp) | The app: tells Ordaen Core of every module and starts it. |
-| [OrdaenLibrary](addons/OrdaenLibrary) | The controls every module draws. |
-| [OrdaenSettings](addons/OrdaenSettings) | The Ordaen settings window (`/ordaen`). |
-| [OrdaenMinimap](addons/OrdaenMinimap) | Our own minimap; collects minimap buttons and addon compartment entries into one drawer. |
-| [OrdaenPanel](addons/OrdaenPanel) | The bottom panel. |
+| [Ordaen](addons/Ordaen) | Ordaen Core: what every module builds on, the controls, the settings window and the look, with its art. |
+| [OrdaenAlts](addons/OrdaenAlts) | Your characters' professions, recipes and what they hold. |
+| [OrdaenAuction](addons/OrdaenAuction) | Auction prices, the house window and the shopping list. |
+| [OrdaenMinimap](addons/OrdaenMinimap) | The minimap in Ordaen's frame: zone, coordinates and clock, its buttons round it, and a drawer for other addons' buttons. |
+| [OrdaenPanel](addons/OrdaenPanel) | The bottom panel: the menu, the bags, money and experience. |
 | [OrdaenProfessions](addons/OrdaenProfessions) | The professions window. |
 | [OrdaenTooltips](addons/OrdaenTooltips) | Tooltips. |
 
 A module is loaded when the player first turns it on; one that is off costs nothing.
 
-## Works with other addons
+## Other characters
 
-- **Altoholic** is the addon for what your other characters own. Ordaen addons support it: its item counts stay in
-  tooltips as Altoholic writes them (Ordaen Tooltips shows them as their own block, after the game's lines), and no
-  Ordaen addon tracks other characters' items. Ordaen Bags shows only the current character's bags.
+Ordaen Alts records your characters' professions, recipes and what they hold; Ordaen Tooltips and Ordaen Professions
+show it where it is on. Nothing here reads Altoholic's data.
 
 ## Development
 
@@ -42,7 +40,7 @@ Development happens on Windows: the game runs there and the repo lives on the Wi
 5. **Build into the game:** `npm run dev` in the main checkout
    (`lunatype build addons ../lunatype/zig-out/addons --watch --link <the Forever AddOns folder>`). It builds
    the addons, builds again whenever a file changes, and keeps a directory junction (Windows' directory link; no
-   admin needed) in the AddOns folder for `LunaType`, `Ordaen`, `OrdaenApp` and each module. Only junctions are
+   admin needed) in the AddOns folder for `LunaType`, `Ordaen` and each module. Only junctions are
    made and removed, never files. `lunatype unlink ../lunatype/zig-out/addons <AddOns>` takes them away.
 
 ### Everyday loop
@@ -63,13 +61,13 @@ Development happens on Windows: the game runs there and the repo lives on the Wi
 `addons/<Name>/` is the source; `lunatype build` writes `<out>/<Name>/`, which the game and the tests use:
 
 - one Lua file a source file, and the TOC: the interface number of the client, the dependencies and the load order
-  the imports give, `LoadOnDemand` for an addon others name only by type;
+  the imports give, `LoadOnDemand` where its `addon.json` says `loadOnDemand`;
 - `locales/<code>.json` as one Lua file, of which the client's language is what the code reads;
 - the `media` folder as it is;
 - `LunaType/`, the language's runtime and the game's host, which every addon depends on.
 
 An addon's root is the one class that implements `App`; a module's is the class its `index.luna` gives, which
-`OrdaenApp` registers.
+adds itself to `Ordaen.modules` as it is made.
 
 ### The real Forever API
 
@@ -101,7 +99,7 @@ fix(OrdaenMinimap): keep drawer on screen after scale change
 chore(repo): the suite's script
 ```
 
-- Scope is an addon folder name, or one of `repo`, `ci`, `deps`, `scripts`, `tests`, `docs`.
+- Scope is an addon folder name, or one of `repo`, `ci`, `deps`, `scripts`, `tests`, `docs`, `main`, `art`, `api`.
 - `feat` = minor bump, `fix`/`perf` = patch, `feat!:` or a `BREAKING CHANGE:` footer = major.
   While an addon is `0.x`, breaking changes bump minor instead of major.
 - PRs are squash-merged, so the **PR title** is the commit that counts.
@@ -115,11 +113,10 @@ and the release aren't built for the LunaType addons: the Lua addons' are `_old/
 ### Adding a module
 
 1. Create `addons/Ordaen<Name>/` with `index.luna`, which gives the module's root (a class that implements
-   `Ordaen::Module`), and `locales/enUS.json` + `locales/ruRU.json`.
-2. Register it in `addons/OrdaenApp/index.luna`: `import type` its class and
-   `Ordaen::register(folder, title, icon, () => new? Class())`.
-3. Add the addon to the dropdown in `.github/ISSUE_TEMPLATE/bug_report.yml`.
-4. With `npm run dev` running: `/reload`.
+   `Module`), `addon.json` (`title`, `icon`, `notes`, `loadOnDemand`, `dependencies`: `Ordaen`), and
+   `locales/enUS.json` + `locales/ruRU.json`. The root adds itself to `Ordaen.modules`: nothing else lists it.
+2. Add the addon to the dropdown in `.github/ISSUE_TEMPLATE/bug_report.yml`.
+3. With `npm run dev` running: `/reload`.
 
 ### The previous code
 

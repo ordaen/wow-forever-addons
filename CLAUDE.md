@@ -48,11 +48,11 @@ and the game's host are the `lunatype` repository (`../lunatype`).
 - **The compiler is the first check.** Types, who may change what (`mut`, views), what may be `nil`, and what a
   declaration promises are held when the addon is built. A finding is an error: nothing is written until there are
   none.
-- **A module holds no state.** Anything computed or changing is a class's field; what follows something else is a
-  cell (`$reactive`, `$computed`), read where it is drawn.
+- **A module holds no state.** Anything computed or changing is a class's field; what changes is a `state` cell,
+  what follows something else a `derived` one, read where it is drawn.
 - **The game is imported.** An addon reads the client through `"$game"` (the client by its parts, cells it can't
-  write) and Ordaen through `Ordaen`; only the game's side (in `lunatype`, `src/game`) reads the client's own API
-  (`"$client"`, `"$events"`).
+  write) and Ordaen through `Ordaen`; `"$client"` and `"$events"`, the client's own API, are any addon's to import
+  (`../lunatype/redesign/language.md`, section 12), for what `"$game"` has no part for.
 - **Plain Lua beside a declaration** (`name.d.luna` with `name.lua`) is for what isn't LunaType's to say: another
   addon's own API (`OrdaenDev/dev`), generated data (`OrdaenTooltips/talents`).
 - **One way to write a file:** `lunatype fmt addons`.
@@ -161,7 +161,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
   paths (`git commit -- <paths>`).
 - Line endings: LF everywhere via `.gitattributes`.
 - commitlint (`commitlint.config.mjs`) holds the commit rules, enforced by the husky `commit-msg` hook and in CI (PR title + PR commits).
-- Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. Its components are the Lua addons' folders: a LunaType addon has no version of its own yet.
+- Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. Its components are six folders of `addons/` (`OrdaenBags`, `OrdaenChat`, `OrdaenCore`, `OrdaenMinimap`, `OrdaenQoL`, `OrdaenTooltips`), of which three don't exist; each addon's `addon.json` carries its `version`, which the TOC gets.
 - Quality: the lunatype suite (`zig build -j16 test -Daddons=<checkout>/addons` in `../lunatype`); manual testing in game with dev mode (Ordaen Core - Debug).
 - **Forever's game:** only the nine original classes (no Death Knight, Monk, Demon Hunter or Evoker; their strings in the
   dump are retail leftovers). Forever sells junk at vendors itself, so we offer no sell-junk button; the automatic sell
@@ -174,10 +174,9 @@ would have caught it is half a fix: say which check now catches it, or add one.
 
 ```
 addons/Ordaen/                  Ordaen Core: what every addon builds on (Component, Module, Settings), its root
-                                (ordaen.luna), its art (art.luna, media/) and the look the player chooses (look.luna)
-addons/OrdaenApp/               the app: its root tells Ordaen Core of every module and starts it
-addons/OrdaenLibrary/           the controls every addon draws by name
-addons/Ordaen<Name>/            a module: its index.luna gives its root, a class that implements Ordaen::Module;
+                                (ordaen.luna), the controls every addon draws by name, the settings window, its art
+                                (art.luna, media/) and the look the player chooses (look.luna)
+addons/Ordaen<Name>/            a module: its index.luna gives its root, a class that implements Module;
                                 locales/, assets/
 addons/OrdaenDev/               the Ordaen Dev window: private (`../wow-dev-tools/modules/OrdaenDev`), a junction
                                 here so the build has it; ignored by git
@@ -205,18 +204,17 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
 `../wow-dev-tools/design/general/modules.md`); the settings window's approved look: `settings/` (http://127.0.0.1:47860/preview/design/settings/).
 
 - **Ordaen** (folder `Ordaen`) is the core: always loaded and small. Its root (`OrdaenCore`) holds the modules, the
-  **global settings**, the theme, and where the player put each part; it is asked for the one **Ordaen settings
-  window** (`/ordaen`, `/ordaen <module's folder>`, the Ordaen button by the minimap), which the settings module
-  draws.
-- **OrdaenApp** is the app: its root tells Ordaen of every module (`Ordaen::register(folder, title, icon, make)`,
-  `make` being `() => new? Module()`) and starts it. A module's class is imported by its type only, so the app
-  loads without it.
-- Every other addon (`OrdaenMinimap`, `OrdaenPanel`, ...) is a **module**: `LoadOnDemand: 1` in its TOC, loaded when
-  it is first turned on (`new?` loads its addon), made and drawn at once, ended at once when it is turned off. One
-  the player doesn't have stays off. Which modules are off, each module's settings and the parts' places are kept
-  between sessions.
-- No module calls another's code: a module imports Ordaen and the library, never another module, so any module
-  can be off while the others run. Every module meets this; keep it that way.
+  **global settings**, the look, and where the player put each part; it draws the one **Ordaen settings window**
+  (`/ordaen`, `/ordaen <module's folder>`, the Ordaen button by the minimap) when first asked for it.
+- Every other addon (`OrdaenMinimap`, `OrdaenPanel`, ...) is a **module**: `"loadOnDemand": true` in its
+  `addon.json`, loaded when it is first turned on (`Addon.enable()`), its root made and added to `Ordaen.modules`
+  as it is made, drawn at once, and ended at once when it is turned off. One the player doesn't have stays off.
+  Which modules are off, each module's settings and the parts' places are kept between sessions.
+- **A module needs no other module to run:** it depends on Ordaen alone, and any module can be off while the others
+  run. Where a module offers a place for others (a tooltip's lines, a map's layers), it declares a `Registry<T>` on
+  its root and the module that wants to be there adds to it, importing the owner's root (`import root`) and its
+  contract by type alone; the owner knows only the trait it declared (`../lunatype/redesign/extend.md`). Dependencies
+  point from the module that wants something to the one that owns it.
 - Modules follow the **globals** (theme, fonts, text size, scale, spacing, colours, bar textures, animations, ...):
   a module's look setting defaults to "as in the globals" and may be overridden for that module only.
 - **Design for the weakest monitor:** colours, contrast and textures must hold on the least professional screen: white
@@ -238,7 +236,8 @@ finds them all. One CurseForge project, **Ordaen**, ships every module in one zi
 comes from `addon-categories.json` (the Warcraft Wiki's list with every translation: the in-game list groups by exact text, so these names share a group with other addons in every language). Never invent a category or a translation; CurseForge's own categories
 are set per project on the website (e.g. "Miscellaneous", "Bags & Inventory"), not in the TOC. Ordaen (TOC title
 `Ordaen`) and every module are `User Interface`, the modules grouped under Ordaen (`## Group:`). The build writes
-neither line yet: a LunaType addon has no manifest.
+`## Title`, `## IconTexture`, `## Notes`, `## Category` and `## Version` from the addon's `addon.json`; no addon says
+a category yet, and `## Group` isn't written.
 
 ## Build (`lunatype`, in `../lunatype`)
 
@@ -246,19 +245,18 @@ The sources in `addons/` are built into a folder the game, the tests and a relea
 
 - `lunatype check addons`: every finding, nothing written.
 - `lunatype build addons <out> [--release] [--watch] [--link <AddOns>]`: the Lua, one file a source file; per addon its TOC (the
-  client's interface number, `Dependencies` from its imports, `LoadOnDemand` where others name it only by type, its
+  client's interface number, `Dependencies` from its imports, `LoadOnDemand` where its `addon.json` says `loadOnDemand`, its
   files in load order) and its `media` folder as it is; `LunaType/`, the runtime and the game's host. `--watch`
   builds again when a file changes. `--link` puts the build into the game. `--release` leaves the debug kit's calls out.
 - `lunatype fmt addons [--check]`: every file the one way it is written.
 - `lunatype test addons [name]`: the tests written beside the code (`*.test.luna`).
 
-Not built: packaging and release (the Lua addons' are `_old/lua/workflows/release.yml`), an addon's manifest (its
-title, icon, notes and category in the TOC; a module's title and icon are written where the app registers it).
+Not built: packaging and release (the Lua addons' are `_old/lua/workflows/release.yml`).
 
 ## Localization
 
 - Languages: English and Russian; the user's client is ruRU. Every user-facing string is a key of the addon's
-  `locales`, read as `Locale::KEY` (`import Locale from "@/locales"`).
+  `locales`, read as `Locale.KEY` (`import Locale from "@/locales"`).
 - **Writing player-facing text:** the skills `text-en` and `text-ru` (`.claude/skills/`), for every
   string in a locale file, a TOC, popups and CurseForge pages. In short: no fluff, clear instructions, the
   game's own words; mouse buttons are `Left-click`/`Right-click` in English and `ЛКМ`/`ПКМ` in Russian.
@@ -285,7 +283,7 @@ pages (`development/framework`) say what Ordaen adds to it, and which parts of i
 
 - **What a module calls** is the language's, the framework's (`Ordaen`, the library) and `"$game"`, never the
   runtime's internals.
-- **Debugging is opt-in development mode.** `Debug::log(...)` (`import Debug from "$debug"`) is in dev builds only.
+- **Debugging is opt-in development mode.** `Debug.log(...)` (`import Debug from "$debug"`) is in dev builds only.
   With the dev addon loaded (`OrdaenCore_Debug`, in `../wow-dev-tools`; it needs no other addon) the lines go to its
   log and its inspector describes the boxes the host draws; without it they go nowhere. Players don't have it.
 - **The companion runs whenever the game does.** The dev addon captures, measures and sends over the strip; the
