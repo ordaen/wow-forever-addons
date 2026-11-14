@@ -50,3 +50,30 @@ test "the page: every item browsed in one query, a row removed, what is bought c
   Test.shot("both gone: empty again")
   Game.auctionHouse.open = false
 }
+
+test "«Buy N» on a row: its listings asked first, then a commodity's N priced and bought in two clicks" {
+  Game.clock.server = 1790002800
+  Test.mount(nil, PAGE)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.ready = true
+  Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 4 : 0
+  Game.auctionQuery.results.emit([{ key: COPPER_BAR, copper: 52, quantity: 400 }])
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 22, nil)
+  Auction.page = 4
+  Test.pass(0.02)
+  Test.click(Test.holding("Buy 18", nil), nil)
+  Game.auctionQuery.listed.emit(COPPER_BAR, [{ auction: 0, unit: 52, quantity: 400, own: false, commodity: true }])
+  Test.pass(0.02)
+  Test.click(Test.holding("Buy 18", nil), nil)
+  Game.auctionActions.answered.emit(.Quoted { item: COPPER_BAR, quantity: 18, total: 954 })
+  Test.pass(0.02)
+  Test.shot("the client's price for 18 in the row's sum: «Confirm»")
+  Test.click(Test.holding("Confirm", nil), nil)
+  Game.auctionActions.answered.emit(.Bought)
+  Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 22 : 0
+  Game.bags.changed.emit()
+  Game.auctionQuery.ready = false
+  Test.pass(0.02)
+  Test.shot("bought: the row at 0, «Bought» off")
+  Game.auctionHouse.open = false
+}

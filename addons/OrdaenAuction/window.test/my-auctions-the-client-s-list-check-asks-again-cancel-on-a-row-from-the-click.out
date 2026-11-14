@@ -1,0 +1,108 @@
+-- «My auctions»: the client's three, none seen on the house yet; «Cancel» on the two not sold
+surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
+  box 441.67,198.04 716.67x37.25 absolute @drag @dragStart
+  box 441.67,235.29 716.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 464.42,259.71 676.17x421.75
+      box 464.42,259.71 676.17x34.17
+        box 464.42,266.88 557.83x14
+          text 464.42,266.88 46.67x14 "Stand-in" #ffd100
+          text 521.08,266.88 501.17x14 "No prices for this realm: the first scan is under way" #e8dcc4
+        box 1032.25,259.71 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 1032.25,259.71 108.33x28.33 absolute
+            text 1073.92,266.38 25x15 "Scan" #ffd100
+      box 464.42,300.54 676.17x380.92
+        box 464.42,300.54 676.17x316.5
+          box 464.42,300.54 676.17x274.83
+            box 464.42,300.54 676.17x24.83 #00000040
+              box 471.08,300.54 237.83x24 #00000000 @click
+                box 471.08,305.54 237.83x14
+                  text 471.08,305.54 23.33x14 "Item" #a3977f
+              box 715.58,300.54 53.33x24 #00000000 @click
+                box 736.42,305.54 32.5x14
+                  text 736.42,305.54 29.17x14 "Count" #a3977f
+              box 775.58,300.54 80x24 #00000000 @click
+                box 828.92,305.54 26.67x14
+                  text 828.92,305.54 23.33x14 "Each" #a3977f
+              box 862.25,300.54 100x24 #00000000 @click
+                box 862.25,305.54 100x14
+                  text 862.25,305.54 40.83x14 "Lowest?" #a3977f
+              box 968.92,300.54 66.67x24 #00000000 @click
+                box 1008.92,305.54 26.67x14
+                  text 1008.92,305.54 23.33x14 "Left" #a3977f
+              box 1042.25,300.54 91.67x10 #00000000 @click
+                box 1130.58,305.54 3.33x0
+                  text 1130.58,305.54 0x0 "" #a3977f
+            box 464.42,325.37 676.17x250 scrolled 0 of 0
+              box 464.42,325.37 676.17x35 #00000000 @click
+                box 471.08,332.87 237.83x20
+                  box 471.08,332.87 20x20 #0d0a08 opacity=1 @click @enter
+                    box 471.08,332.87 20x20 absolute
+                    box 471.08,332.87 20x20 absolute #00000000
+                  box 497.75,335.87 211.17x14 clipped
+                    text 497.75,335.87 211.17x14 "Item 2589" #e8dcc4
+                text 715.58,335.87 53.33x14 "20" #e8dcc4
+                box 775.58,335.87 80x14
+                  text 803.08,335.87 52.5x14 "0g 0s 45c" #e8dcc4
+                text 862.25,335.87 100x14 "—" #a3977f
+                text 968.92,335.87 66.67x14 "2 h" #e8dcc4
+                box 1042.25,328.71 91.67x28.33
+                  box 1047.25,328.71 86.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                    box 1047.25,328.71 86.67x28.33 absolute
+                      text 1071.83,335.37 37.5x15 "Cancel" #ffd100
+              box 464.42,360.37 676.17x35 #00000000 @click
+                box 471.08,367.87 237.83x20
+                  box 471.08,367.87 20x20 #0d0a08 opacity=1 @click @enter
+                    box 471.08,367.87 20x20 absolute
+                    box 471.08,367.87 20x20 absolute #00000000
+                  box 497.75,370.87 211.17x14 clipped
+                    text 497.75,370.87 211.17x14 "Item 2770" #e8dcc4
+                text 715.58,370.87 53.33x14 "5" #e8dcc4
+                box 775.58,377.87 80x0
+                text 862.25,370.87 100x14 "—" #a3977f
+                text 968.92,370.87 66.67x14 "—" #e8dcc4
+                box 1042.25,363.71 91.67x28.33
+                  box 1047.25,363.71 86.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                    box 1047.25,363.71 86.67x28.33 absolute
+                      text 1071.83,370.37 37.5x15 "Cancel" #ffd100
+              box 464.42,395.37 676.17x26.67 #00000000 @click
+                box 471.08,398.71 237.83x20
+                  box 471.08,398.71 20x20 #0d0a08 opacity=1 @click @enter
+                    box 471.08,398.71 20x20 absolute
+                    box 471.08,398.71 20x20 absolute #00000000
+                  box 497.75,401.71 211.17x14 clipped
+                    text 497.75,401.71 211.17x14 "Item 2592" #e8dcc4
+                text 715.58,401.71 53.33x14 "1" #e8dcc4
+                box 775.58,401.71 80x14
+                  text 808.92,401.71 46.67x14 "0g 3s 0c" #e8dcc4
+                text 862.25,401.71 100x14 "Sold" #ffd100
+                text 968.92,401.71 66.67x14 "—" #e8dcc4
+                box 1042.25,408.71 91.67x0
+          box 464.42,582.04 676.17x28.33
+            box 464.42,582.04 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 464.42,582.04 116.67x28.33 absolute
+                text 507.12,588.71 31.25x15 "Check" #ffd100
+            text 587.75,590.21 552.83x12 "Searches for each of your items: which auctions are undercut." #a3977f
+    box 1141.08,681.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 441.67,198.04 616.42x47.75
+    box 441.67,202.21 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 460.25,212.46 77.33x30.08
+        text 489.54,220 18.75x15 "Buy" #b3a690
+    box 566.17,202.21 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 584.75,212.46 77.33x30.08
+        text 610.92,220 25x15 "Sell" #b3a690
+    box 690.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=left,right @click @drag @dragStart @dragStop
+      box 709.25,208.29 77.33x37.5
+        text 713.54,219.54 68.75x15 "My auctions" #ffd100
+    box 815.17,202.21 118.42x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 833.75,212.46 81.25x30.08
+        text 833.75,220 81.25x15 "Shopping list" #b3a690
+    box 943.58,202.21 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 962.17,212.46 77.33x30.08
+        text 988.33,220 25x15 "Data" #b3a690
+asked: OwnedAuctions.refresh
+
+-- cancelled: the list asked again; the house shut
+asked: OwnedAuctions.refresh
+asked: AuctionQuery.browse 3
+asked: AuctionActions.cancel 1
+asked: OwnedAuctions.refresh

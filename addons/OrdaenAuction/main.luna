@@ -3,7 +3,7 @@
 // A module loaded on demand: a player with it off loads none of its data.
 import Game from "$game"
 import { Track } from "$ltml"
-import { Module, Placing, PX, Settings, SettingsPage, Tabs, Window, WindowTabSpec } from "Ordaen"
+import { Module, Placing, PX, Settings, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { BuyPage } from "@/buy"
 import { DataPage } from "@/dataPage"
@@ -25,19 +25,18 @@ import Style from "@/style"
 
 // What the module keeps, under its own saved variable.
 const KEPT = "kept"
-const ICON: Asset = "Interface/Icons/INV_Misc_Coin_02"
 
-// The window's pages.
+// The window's pages: its own tabs, as every Ordaen window's.
 const BUY = 1
 const SELL = 2
 const OWNED = 3
 const SHOPPING = 4
 const DATA = 5
-const PAGES: Array<String> = [
-  Locale.PAGE_BUY, Locale.PAGE_SELL, Locale.PAGE_OWNED, Locale.PAGE_SHOPPING, Locale.PAGE_DATA,
+const TABS: Array<WindowTabSpec> = [
+  { title: Locale.PAGE_BUY }, { title: Locale.PAGE_SELL }, { title: Locale.PAGE_OWNED },
+  { title: Locale.PAGE_SHOPPING }, { title: Locale.PAGE_DATA },
 ]
-const TABS: Array<WindowTabSpec> = [{ title: Locale.WINDOW_TITLE, icon: ICON }]
-const BODY: Array<Track> = ["auto", "auto", { fr: 1 }]
+const BODY: Array<Track> = ["auto", { fr: 1 }]
 
 public class Auction implements Module, App {
   public const title: String = "Ordaen Auction"
@@ -61,12 +60,10 @@ public class Auction implements Module, App {
   // The lines in Ordaen Tooltips' item tooltip, while Tooltips is on.
   lines: TooltipLines
 
-  // The window: its one tab, its page, where it stands; closed by the player until the house opens again.
-  state tab = 1
+  // The window: its page (the window's tab) and where it stands. It shows while the house is open, and goes with it.
   state page = BUY
   state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
-  state dismissed = false
-  derived shown: Boolean = Game.auctionHouse.open && self.settings.values.window && !self.dismissed
+  derived shown: Boolean = Game.auctionHouse.open && self.settings.values.window
 
   constructor() {
     self.kept = load(.Own, KEPT, Kept {})
@@ -86,7 +83,6 @@ public class Auction implements Module, App {
   }
 
   onOpened(mut self) {
-    self.dismissed = false
     if (peek self.settings.values.scanOnOpen) { _ = self.scanner.full() }
   }
 
@@ -95,28 +91,33 @@ public class Auction implements Module, App {
     if (given != nil) { takeMerchant(mut self.kept.vendor, given) }
   }
 
-  // The window closed (its button, Escape): it stays shut until the house opens again. `"$game"` has no part that
-  // closes the house itself.
-  onClose(mut self) { self.dismissed = true }
+  // The window closed (its button, Escape): the player leaves the house, as the game's own window's close does.
+  onClose(self) { Game.auctionHouse.close() }
+
+  onSettings(self) { Ordaen.toggleSettings("OrdaenAuction") }
 
   public render(self): Template {
     return $ltml {
-      <Window $if={self.shown} tabs={TABS} selected={mut self.tab} placing={mut self.placing} @close={self.onClose}>
-        <box rows={BODY} gap={8 * PX}>
-          <Status house={self.house.name} items={self.scanner.known} lastFull={self.scanner.lastFull}
-                  scanner={mut self.scanner} />
-          <Tabs tabs={PAGES} selected={mut self.page} />
-          <box $match={self.page}>
-            <BuyPage $case={BUY} house={self.house} prices={self.prices} offers={self.scanner.offers}
-                     shopping={mut self.shopping} />
-            <SellPage $case={SELL} />
-            <OwnedPage $case={OWNED} house={self.house} revision={self.source.revision} />
-            <ShoppingPage $case={SHOPPING} prices={self.prices} list={mut self.shopping} />
-            <DataPage $case={DATA} scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
-                      items={self.scanner.known} values={self.settings.values} />
+      <$if={self.shown}>
+        // The game's own window stays open, unseen and off the screen: hiding it would close the house.
+        <frame of={Game.frames.AuctionHouse} opacity={0} away={true} />
+        <Window tabs={TABS} selected={mut self.page} placing={mut self.placing} withSettings={true}
+                @close={self.onClose} @settings={self.onSettings}>
+          <box rows={BODY} gap={8 * PX}>
+            <Status house={self.house.name} items={self.scanner.known} lastFull={self.scanner.lastFull}
+                    scanner={mut self.scanner} />
+            <box $match={self.page}>
+              <BuyPage $case={BUY} house={self.house} prices={self.prices} offers={self.scanner.offers}
+                       items={self.scanner.known} shopping={mut self.shopping} />
+              <SellPage $case={SELL} house={self.house} prices={self.prices} />
+              <OwnedPage $case={OWNED} house={self.house} revision={self.source.revision} />
+              <ShoppingPage $case={SHOPPING} prices={self.prices} list={mut self.shopping} />
+              <DataPage $case={DATA} scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
+                        items={self.scanner.known} values={self.settings.values} />
+            </box>
           </box>
-        </box>
-      </Window>
+        </Window>
+      </>
     }
   }
 }

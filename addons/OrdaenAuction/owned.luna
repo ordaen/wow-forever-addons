@@ -1,6 +1,6 @@
-// «My auctions»: the character's auctions as the client last gave them: the item, how many, the price for one, whether
-// it is the house's lowest as last seen, and the time left. «Check» asks the client for them again and browses their
-// items; «Cancel» (one a click, the client's from a click alone) has no part of `"$game"` yet and is off.
+// «My auctions» (design `auction`): the character's auctions as the client last gave them: the item, how many, the
+// price for one, whether it is the house's lowest as last seen, the time left, and «Cancel» on a row (one a click,
+// the client's from a click alone). «Check» asks the client for them again and browses their items.
 import Game from "$game"
 import { Align, Track } from "$ltml"
 import { Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
@@ -13,17 +13,19 @@ import { leftText } from "@/style"
 
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
-  { title: Locale.COLUMN_COUNT, width: 60 * PX, align: Align.End },
-  { title: Locale.COLUMN_UNIT, width: 110 * PX, align: Align.End },
-  { title: Locale.COLUMN_LOWEST, width: 110 * PX, align: Align.End },
-  { title: Locale.COLUMN_LEFT, width: 70 * PX, align: Align.End },
+  { title: Locale.COLUMN_COUNT, width: 64 * PX, align: Align.End },
+  { title: Locale.COLUMN_UNIT, width: 96 * PX, align: Align.End },
+  { title: Locale.COLUMN_LOWEST, width: 120 * PX },
+  { title: Locale.COLUMN_LEFT, width: 80 * PX, align: Align.End },
+  { title: "", width: 110 * PX, align: Align.End },
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const ITEM: Array<Track> = ["auto", { fr: 1 }]
-const BUTTONS: Array<Track> = ["auto", "auto", { fr: 1 }]
+const BUTTONS: Array<Track> = ["auto", { fr: 1 }]
 
 // One auction, as its row draws it.
 public struct Shown {
+  auction: Integer
   item: Integer
   name: String
   color: Color
@@ -37,32 +39,44 @@ public struct Shown {
 }
 
 class OwnedRow implements Component {
+  public cancel: Event<Integer> = new Event()
+
   derived lowest: String = self.shown.sold ? Locale.SOLD : self.shown.lowest == nil ? "—" :
     self.shown.lowest == true ? Locale.LOWEST : Locale.UNDERCUT
-  derived lowestColor: Color = self.shown.sold || self.shown.lowest == true ? Style.GREEN :
+  derived lowestColor: Color = self.shown.sold ? Style.GOLD : self.shown.lowest == true ? Style.GREEN :
     self.shown.lowest == false ? Style.RED : Style.DIM
-
   derived priced: Boolean = self.shown.unit != nil
   derived unit: Integer = self.shown.unit ?? 0
 
   const shown: Shown
-  constructor(shown: Shown) {
+  // An action waits: no other goes.
+  busy: Signal<Boolean>
+  constructor(shown: Shown, busy: Signal<Boolean>) {
     self.shown = shown
+    self.busy = busy
   }
+
+  onCancel(self) { self.cancel.emit(self.shown.auction) }
 
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS}>
         <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
           <ItemButton item={self.shown.item} size={Style.SLOT} />
-          <text value={self.shown.name} textColor={self.shown.color} textSize={Style.TEXT} wrap={false} />
+          <box overflow={.Hidden}>
+            <text value={self.shown.name} textColor={self.shown.color} textSize={Style.TEXT} wrap={false} />
+          </box>
         </box>
         <text value={"%d"} arguments={[self.shown.quantity]} textColor={Style.INK} textSize={Style.TEXT} />
         <box xAlign={Align.End}>
           <Money $if={self.priced} amount={self.unit} />
         </box>
-        <text value={self.lowest} textColor={self.lowestColor} textSize={Style.TEXT} />
+        <text value={self.lowest} textColor={self.lowestColor} textSize={Style.TEXT} wrap={false} />
         <text value={self.shown.left} textColor={Style.INK} textSize={Style.TEXT} />
+        <box xAlign={Align.End}>
+          <PushButton $if={!self.shown.sold} label={Locale.CANCEL_AUCTION} width={104 * PX} disabled={self.busy}
+                      @click={self.onCancel} />
+        </box>
       </TableRow>
     }
   }
@@ -71,6 +85,8 @@ class OwnedRow implements Component {
 public class OwnedPage implements Component {
   state sorted = 0
   state descending = false
+  // A cancel sent from here waits for its answer.
+  state sending = false
   derived rows: Array<Shown> = self.shownOf()
 
   const house: House
@@ -80,6 +96,7 @@ public class OwnedPage implements Component {
     self.revision = revision
     // The page shown: the client is asked for the auctions as they stand.
     _ = Game.ownedAuctions.refresh()
+    Game.auctionActions.answered.listen(self.onAnswer)
   }
 
   shownOf(self): Array<Shown> {
@@ -93,8 +110,8 @@ public class OwnedPage implements Component {
       const lowest = listing != nil && unit != nil ? unit <= listing.low() : nil
       const left = owned.left
       list.push({
-        item: owned.item, name: name, color: color, quantity: owned.quantity, unit: unit, sold: owned.sold,
-        lowest: lowest, left: left != nil ? leftText(left) : "—",
+        auction: owned.auction, item: owned.item, name: name, color: color, quantity: owned.quantity, unit: unit,
+        sold: owned.sold, lowest: lowest, left: left != nil ? leftText(left) : "—",
       })
     }
     return list
@@ -108,17 +125,28 @@ public class OwnedPage implements Component {
     if (items.length > 0) { _ = Game.auctionQuery.browse(items) }
   }
 
+  // From the player's click alone: one auction.
+  onCancel(mut self, auction: Integer) {
+    if (Game.auctionActions.cancel(auction)) { self.sending = true }
+  }
+
+  onAnswer(mut self, answer: Game.ActionAnswer) {
+    if (!peek self.sending) { return }
+    self.sending = false
+    if (answer == .Cancelled) { _ = Game.ownedAuctions.refresh() }
+  }
+
   public render(self): Template {
     return $ltml {
-      <box rows={["auto", "auto"]} gap={8 * PX}>
+      <box rows={["auto", "auto", "auto"]} gap={8 * PX}>
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST}>
-          <OwnedRow $for={row of self.rows} $key={row} shown={peek row} />
+          <OwnedRow $for={row of self.rows} $key={row} shown={peek row} busy={Game.auctionActions.busy}
+                    @cancel={self.onCancel} />
         </Table>
         <text $if={self.rows.length == 0} value={Locale.NO_AUCTIONS} textColor={Style.DIM} textSize={Style.TEXT} />
-        <box columns={BUTTONS} gap={8 * PX}>
+        <box columns={BUTTONS} gap={8 * PX} yAlign={Align.Center}>
           <PushButton label={Locale.CHECK} width={140 * PX} @click={self.onCheck} />
-          // Cancelling is the client's from a click alone, and `"$game"` has no part for it yet.
-          <PushButton label={Locale.CANCEL_AUCTION} width={140 * PX} disabled={true} />
+          <text value={Locale.CHECK_NOTE} textColor={Style.DIM} textSize={Style.SMALL} />
         </box>
       </box>
     }

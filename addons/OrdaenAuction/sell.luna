@@ -1,59 +1,253 @@
-// «Sell», drawn: the bags' items that can be sold, each with its market, its merchant's price and which pays more;
-// for the one picked, a quantity, a price for one, the duration, the deposit and «Post» (one auction a click, the
-// client's from a click alone). `"$game"` lists no bag's items and has no part for posting yet: the list is empty and
-// «Post» is off (`redesign/market-ux.md` §1).
-import { Align, Track } from "$ltml"
-import { Choice, Column, Component, MoneyField, PushButton, PX, Segmented, Table, tracksOf } from "Ordaen"
+// «Sell» (design `auction`): the bags' items the house takes (`Game.auctionActions.sellable()`, read again as the bags
+// change), each with how many, its market, its merchant's price and which pays more (the market after the house's cut
+// against the merchant). The one picked: a quantity, a price for one (the lowest listed less a copper, or the market),
+// the duration, the deposit and «Post», one auction a click (the client's from a click alone).
+import Game from "$game"
+import { Align, Edges, Track } from "$ltml"
+import { Choice, Column, Component, Copper, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, Table, TableRow, tracksOf } from "Ordaen"
+import { nameOf } from "@/buy"
+import { House } from "@/house"
 import Locale from "@/locales"
+import { PriceKey, PriceSource } from "@/quote"
 import Style from "@/style"
 
-// How long an auction stands, in hours: the house's three.
-public enum Duration { Short = 12, Medium = 24, Long = 48 }
+// One item of the bags, as its row draws it: every stack of it counted, the first one what a post names.
+public struct Offered {
+  from: Game.Sellable
+  item: ItemId
+  name: String
+  color: Color
+  count: Integer
+  market: Copper | nil
+  vendor: Copper | nil
+  // The house pays more than the merchant, after its cut; none where neither price is known.
+  house: Boolean | nil
+}
+
+const NAME_COLUMN = 1
+const MARKET_COLUMN = 3
+const VENDOR_COLUMN = 4
 
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_MARKET, width: 110 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_VENDOR, width: 110 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_BETTER, width: 90 * PX, align: Align.End },
+  { title: Locale.COLUMN_COUNT, width: 64 * PX, align: Align.End },
+  { title: Locale.COLUMN_MARKET, width: 96 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_VENDOR, width: 96 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_BETTER, width: 90 * PX },
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
-const PAGE: Array<Track> = [{ fr: 1 }, Style.PANEL]
-const ROW: Array<Track> = ["auto", { fr: 1 }]
-const DURATIONS: Array<Choice<Duration>> = [
-  { value: Duration.Short, label: Locale.HOURS.format(12) },
-  { value: Duration.Medium, label: Locale.HOURS.format(24) },
-  { value: Duration.Long, label: Locale.HOURS.format(48) },
+const PAGE: Array<Track> = [{ fr: 1 }, Style.SELL_PANEL]
+const ITEM: Array<Track> = ["auto", { fr: 1 }]
+const PAIR: Array<Track> = ["auto", { fr: 1 }]
+const FIELD_PAD: Edges = { right: 10 * PX, left: 10 * PX }
+const FIELD_BACK: Color = Color.hex("#00000080")
+const DURATIONS: Array<Choice<Game.Duration>> = [
+  { value: Game.Duration.Short, label: Locale.HOURS.format(12) },
+  { value: Game.Duration.Medium, label: Locale.HOURS.format(24) },
+  { value: Game.Duration.Long, label: Locale.HOURS.format(48) },
 ]
+
+class OfferedRow implements Component {
+  public pick: Event<ItemId> = new Event()
+
+  derived better: String = self.offered.house == nil ? "—" : self.offered.house == true ? Locale.BETTER_HOUSE :
+    Locale.BETTER_VENDOR
+  derived betterInk: Color = self.offered.house == nil ? Style.DIM : self.offered.house == true ? Style.GREEN :
+    Style.GOLD
+
+  const offered: Offered
+  selected: Signal<Boolean>
+  constructor(offered: Offered, selected: Signal<Boolean>) {
+    self.offered = offered
+    self.selected = selected
+  }
+
+  onPick(self) { self.pick.emit(self.offered.item) }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
+        <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
+          <ItemButton item={self.offered.item} size={Style.SLOT} />
+          <box overflow={.Hidden}>
+            <text value={self.offered.name} textColor={self.offered.color} textSize={Style.TEXT} wrap={false} />
+          </box>
+        </box>
+        <text value={"%d"} arguments={[self.offered.count]} textColor={Style.INK} textSize={Style.TEXT} />
+        <box xAlign={Align.End}>
+          <Money $if={self.offered.market != nil} amount={self.offered.market} />
+          <text $else value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
+        </box>
+        <box xAlign={Align.End}>
+          <Money $if={self.offered.vendor != nil} amount={self.offered.vendor} />
+          <text $else value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
+        </box>
+        <text value={self.better} textColor={self.betterInk} textSize={Style.TEXT} wrap={false} />
+      </TableRow>
+    }
+  }
+}
 
 public class SellPage implements Component {
   state sorted = 0
   state descending = false
-  state unit = 0
-  state duration: Duration = Duration.Medium
+  state picked: ItemId | nil = nil
+  // Moves as the bags change: what the house takes is read again.
+  state bags = 0
+  derived rows: Array<Offered> = self.rowsOf()
+  derived chosen: Array<Offered> = self.chosenOf()
+
+  const house: House
+  const prices: any PriceSource
+  constructor(house: House, prices: any PriceSource) {
+    self.house = house
+    self.prices = prices
+    Game.bags.changed.listen(self.onBags)
+  }
+
+  onBags(mut self) { self.bags += 1 }
+
+  rowsOf(self): Array<Offered> {
+    _ = self.bags
+    _ = self.prices.revision
+    const given = Game.auctionActions.sellable() ?? []
+    let list: Array<Offered> = []
+    const at: Map<ItemId, Integer> = {}
+    for (stack of given) {
+      const item = ItemId.of(stack.item)
+      const index = at[item]
+      if (index != nil) {
+        const kept = list[index]
+        if (kept != nil) { list[index] = { count: kept.count + stack.count, ..kept } }
+      } else {
+        const key = PriceKey.of(item)
+        const name, color = nameOf(item)
+        const market = self.prices.buy(key)?.copper()
+        const net = self.prices.sell(key)?.copper()
+        const vendor = self.prices.vendor(item)
+        const house = net == nil && vendor == nil ? nil : (net ?? 0) > (vendor ?? 0)
+        list.push({
+          from: stack, item: item, name: name, color: color, count: stack.count, market: market, vendor: vendor,
+          house: house,
+        })
+        at[item] = list.length
+      }
+    }
+    const column = self.sorted
+    const down = self.descending
+    if (column != 0) { list.sort((a, b) => down ? before(b, a, column) : before(a, b, column)) }
+    return list
+  }
+
+  chosenOf(self): Array<Offered> {
+    const picked = self.picked
+    const row = picked != nil ? self.rows.find(row => row.item == picked) : nil
+    return row != nil ? [row] : []
+  }
+
+  onPick(mut self, item: ItemId) { self.picked = item }
 
   public render(self): Template {
     return $ltml {
       <box columns={PAGE} gap={Style.GAP}>
-        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST} />
+        <box rows={["auto", "auto"]} gap={8 * PX}>
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST}>
+            <OfferedRow $for={row of self.rows} $key={row.item} offered={peek row} selected={self.picked == row.item}
+                        @pick={self.onPick} />
+          </Table>
+          <text $if={self.rows.length == 0} value={Locale.NOTHING_TO_SELL} textColor={Style.DIM}
+                textSize={Style.TEXT} />
+        </box>
         <box rows={["auto"]} gap={10 * PX} padding={10 * PX} border={Style.FRAME} background={Style.LISTS_BACK}>
-          <box columns={ROW} gap={8 * PX}>
-            <text value={Locale.QUANTITY} textColor={Style.INK} textSize={Style.TEXT} />
-            <text value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
-          </box>
-          <text value={Locale.UNIT_PRICE} textColor={Style.INK} textSize={Style.TEXT} />
-          <MoneyField value={mut self.unit} disabled={true} />
-          <text value={Locale.DURATION} textColor={Style.INK} textSize={Style.TEXT} />
-          <Segmented value={mut self.duration} choices={DURATIONS} disabled={true} />
-          <box columns={ROW} gap={8 * PX}>
-            <text value={Locale.DEPOSIT} textColor={Style.INK} textSize={Style.TEXT} />
-            <box xAlign={Align.End}>
-              <text value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
-            </box>
-          </box>
-          // Posting is the client's from a click alone, and `"$game"` has no part for it yet.
-          <PushButton label={Locale.POST} width={140 * PX} disabled={true} />
+          <text $if={self.chosen.length == 0} value={Locale.PICK_ROW} textColor={Style.DIM} textSize={Style.TEXT} />
+          <Posting $for={offered of self.chosen} $key={offered.item} offered={peek offered} house={self.house} />
         </box>
       </box>
     }
   }
+}
+
+// The item picked: how many, the price for one, how long, the deposit, and «Post».
+class Posting implements Component {
+  state countText = "1"
+  state unit: Integer
+  state duration: Game.Duration = Game.Duration.Medium
+  // The client's refusal of the last post, in its words.
+  state refused: String | nil = nil
+  // A post sent from here waits for its answer.
+  state sending = false
+  derived hasRefused: Boolean = self.refused != nil
+  derived refusedText: String = self.refused ?? ""
+  derived count: Integer = ((self.countText.toNumber() ?? 0).floor()).max(0)
+  // A commodity is posted from every stack at once; an item's auction from its first stack.
+  derived most: Integer = self.offered.from.commodity ? self.offered.count : self.offered.from.count
+  derived canPost: Boolean = !Game.auctionActions.busy && self.count > 0 && self.count <= self.most && self.unit > 0
+
+  const offered: Offered
+  constructor(offered: Offered, house: House) {
+    self.offered = offered
+    // The posting rule: a copper under the lowest listed; the market where nothing is listed.
+    const listed = house.listed(PriceKey.of(offered.item))
+    self.unit = listed != nil ? (listed.low() - 1).max(1) : offered.market ?? 0
+    Game.auctionActions.answered.listen(self.onAnswer)
+  }
+
+  // From the player's click alone: one auction.
+  onPost(mut self) {
+    const from = self.offered.from
+    const count = peek self.count
+    const unit = peek self.unit
+    const duration = peek self.duration
+    const sent = from.commodity ? Game.auctionActions.postCommodity(from, count, duration, unit) :
+      Game.auctionActions.postItem(from, count, duration, nil, unit * count)
+    if (sent) {
+      self.sending = true
+      self.refused = nil
+    }
+  }
+
+  onAnswer(mut self, answer: Game.ActionAnswer) {
+    if (!peek self.sending) { return }
+    self.sending = false
+    if (answer is Game.ActionAnswer.Refused) { self.refused = answer.reason }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={["auto"]} gap={10 * PX}>
+        <box columns={ITEM} gap={10 * PX} yAlign={Align.Center}>
+          <ItemButton item={self.offered.item} size={Style.BIG_SLOT} />
+          <text value={self.offered.name} textColor={self.offered.color} textSize={Style.NAME} />
+        </box>
+        <box columns={PAIR} gap={8 * PX} yAlign={Align.Center}>
+          <text value={Locale.QUANTITY} textColor={Style.INK} textSize={Style.TEXT} />
+          <box width={80 * PX} height={26 * PX} rows={[{ fr: 1 }]}>
+            <input value={mut self.countText} padding={FIELD_PAD} textSize={Style.TEXT} textColor={Style.INK}
+                   background={FIELD_BACK} border={Style.FRAME} maxLength={6} />
+          </box>
+        </box>
+        <text value={Locale.UNIT_PRICE} textColor={Style.INK} textSize={Style.TEXT} />
+        <MoneyField value={mut self.unit} />
+        <text value={Locale.DURATION} textColor={Style.INK} textSize={Style.TEXT} />
+        <Segmented value={mut self.duration} choices={DURATIONS} />
+        <box columns={PAIR} gap={8 * PX}>
+          <text value={Locale.DEPOSIT} textColor={Style.INK} textSize={Style.TEXT} />
+          // The client's deposit (`C_AuctionHouse.CalculateItemDeposit`) is no part of `"$game"`.
+          <box xAlign={Align.End}>
+            <text value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
+          </box>
+        </box>
+        <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={Style.SMALL} />
+        <text $if={self.hasRefused} value={self.refusedText} textColor={Style.RED} textSize={Style.SMALL} />
+        <PushButton label={Locale.POST} width={228 * PX} accent={true} disabled={!self.canPost} @click={self.onPost} />
+      </box>
+    }
+  }
+}
+
+// Whether `a` comes before `b` by the column: by name, cheapest first.
+function before(a: Offered, b: Offered, column: Integer): Boolean {
+  if (column == NAME_COLUMN) { return a.name < b.name }
+  if (column == MARKET_COLUMN) { return (a.market ?? 0) < (b.market ?? 0) }
+  return (a.vendor ?? 0) < (b.vendor ?? 0)
 }

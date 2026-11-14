@@ -3,8 +3,8 @@ import { Line, Side } from "$ltml"
 import { PX } from "Ordaen"
 import Locale from "@/locales"
 
-public const WIDTH: Number = 900 * PX
-public const HEIGHT: Number = 600 * PX
+public const WIDTH: Number = 860 * PX
+public const HEIGHT: Number = 560 * PX
 public const GAP: Number = 12 * PX
 public const TEXT: Number = 14 * PX
 public const SMALL: Number = 12 * PX
@@ -14,8 +14,11 @@ public const SLOT: Number = 24 * PX
 public const BIG_SLOT: Number = 40 * PX
 // A list's height in a page: it scrolls past it.
 public const LIST: Number = 300 * PX
-// The panel at a page's right: the chosen row's.
-public const PANEL: Number = 280 * PX
+// The panel at a page's right: «Buy»'s picked row, «Sell»'s.
+public const BUY_PANEL: Number = 230 * PX
+public const SELL_PANEL: Number = 250 * PX
+// The picked row's listings: they scroll past it.
+public const LISTINGS: Number = 130 * PX
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")

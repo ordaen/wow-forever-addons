@@ -1,0 +1,125 @@
+// Buying one item at the house, for «Buy»'s picked row and a shopping list row's «Buy N»: its listings asked of the
+// client (the cheapest first), then, from the player's click alone, a commodity bought in two clicks (the price asked,
+// then bought at it) or an item's auction bought out, one a click, the cheapest first. Only the answer to what this
+// sent is read here: the client answers one action at a time (`Game.auctionActions.busy`).
+import Game from "$game"
+import { PriceKey } from "@/quote"
+
+public class Purchase {
+  // The item's listings as the client last gave them; none until it has.
+  public state listings: Array<Game.Listing> | nil = nil
+  // A commodity's purchase the client priced: how many (0 for none) and what all of them cost, in copper.
+  public state quotedCount = 0
+  public state quotedTotal = 0
+  // The client's refusal of what this sent last, in its words; none where it took it.
+  public state refused: String | nil = nil
+  // The listings are wanted: asked as soon as the house takes a query.
+  state wanted = true
+  // An action sent from here waits for its answer.
+  state sending = false
+  public derived listed: Boolean = self.listings != nil
+  // Bought by quantity, not by auction.
+  public derived commodity: Boolean = (self.listings ?? [])[1]?.commodity == true
+  // The auction the next click buys out (an item's), cheapest first: none for a commodity, or where none has a buyout.
+  public derived next: Integer = self.nextOf()
+  // How many the listings hold in all.
+  public derived held: Integer = self.heldOf()
+
+  public const key: PriceKey
+
+  constructor(key: PriceKey) {
+    self.key = key
+    Game.auctionQuery.listed.listen(self.onListed)
+    Game.auctionActions.answered.listen(self.onAnswer)
+    watch {
+      if (self.wanted && Game.auctionQuery.ready && Game.auctionQuery.listings(self.key)) { self.wanted = false }
+    }
+  }
+
+  nextOf(self): Integer {
+    const listings = self.listings
+    if (listings == nil || self.commodity) { return 0 }
+    for (index, listing of listings) {
+      if (listing.buyout != nil && !listing.own) { return index }
+    }
+    return 0
+  }
+
+  heldOf(self): Integer {
+    let count = 0
+    for (listing of self.listings ?? []) { count += listing.quantity }
+    return count
+  }
+
+  // What `count` of a commodity costs, the cheapest first; nil where the listings hold fewer.
+  public costOf(self, count: Integer): Integer | nil {
+    let left = count
+    let copper = 0
+    for (listing of self.listings ?? []) {
+      if (left <= 0) { break }
+      const taken = listing.quantity.min(left)
+      copper += taken * listing.unit
+      left -= taken
+    }
+    return left > 0 ? nil : copper
+  }
+
+  // How many of the listings, the cheapest first, a commodity's `count` takes from.
+  public coveredBy(self, count: Integer): Integer {
+    let left = count
+    let covered = 0
+    for (listing of self.listings ?? []) {
+      if (left <= 0) { break }
+      left -= listing.quantity
+      covered += 1
+    }
+    return covered
+  }
+
+  // From the player's click alone: a commodity's `count` priced, or bought where the client priced that many; an
+  // item's cheapest auction with a buyout bought out. False where nothing was sent.
+  public buy(mut self, count: Integer): Boolean {
+    const listings = peek self.listings
+    if (listings == nil || count <= 0) { return false }
+    let sent = false
+    if (peek self.commodity) {
+      const item = self.key.item()
+      sent = peek self.quotedCount == count ? Game.auctionActions.confirmPurchase(item, count) :
+        Game.auctionActions.startPurchase(item, count)
+    } else {
+      const auction = listings[peek self.next]
+      const buyout = auction?.buyout
+      if (auction == nil || buyout == nil) { return false }
+      sent = Game.auctionActions.bid(auction.auction, buyout)
+    }
+    if (sent) {
+      self.sending = true
+      self.refused = nil
+    }
+    return sent
+  }
+
+  onListed(mut self, key: Integer, listings: Array<Game.Listing>) {
+    if (key == self.key) { self.listings = listings }
+  }
+
+  onAnswer(mut self, answer: Game.ActionAnswer) {
+    if (!peek self.sending) { return }
+    self.sending = false
+    match (answer) {
+      .Quoted => {
+        self.quotedCount = answer.quantity
+        self.quotedTotal = answer.total
+      },
+      .Refused => {
+        self.quotedCount = 0
+        self.refused = answer.reason
+      },
+      else => {
+        // Bought: the listings as they stand now.
+        self.quotedCount = 0
+        self.wanted = true
+      },
+    }
+  }
+}

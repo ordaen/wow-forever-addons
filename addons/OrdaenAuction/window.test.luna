@@ -1,37 +1,50 @@
-// The house window as a husk on the fake house, where no clock is read: shown while the house is open and the setting
-// has it, shut by the player until the house opens again; its pages before any scan: «Buy» empty, «Sell» drawn with
-// «Post» off, «My auctions» from the client's list with «Check» asking again and «Cancel» off, «Data». What reads the
-// server's hour (a browse's rows, a scan's age) is `clock.test.luna.waiting`.
+// The house window on the fake house, where no clock is read: shown while the house is open and the setting has it,
+// the game's own window put away meanwhile, its close the house's; its five pages as the window's tabs, before any
+// scan: «Buy» empty, «Sell» with the bags' items and «Post» from a click, «My auctions» from the client's list with
+// «Check» asking again and «Cancel» from a click, «Data». What reads the server's hour (a browse's rows, a scan's age)
+// is `clock.test.luna`.
+import Client from "$client"
 import Game from "$game"
 import Test from "$test"
 import root Auction from "OrdaenAuction"
 import root Ordaen from "Ordaen"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
+const LINEN: Integer = 2589
+const AXE: Integer = 2847
 
-test "the window shows while the house is open, and the player's close keeps it shut until the house opens again" {
-  Test.expect(Test.drawn().length == 0)
-  Test.expect(Test.drawn().length == 0)
-  Game.auctionHouse.open = true
-  Test.pass(0.02)
-  Test.shot("the house open, no prices yet: «Buy» with nothing shown")
-  Auction.onClose()
-  Test.pass(0.02)
-  Test.expect(Test.drawn().length == 0)
-  Game.auctionHouse.open = false
-  Game.auctionHouse.closed.emit()
-  Test.pass(0.02)
-  Test.expect(Test.drawn().length == 0)
-  Game.auctionHouse.open = true
-  Auction.dismissed = false
-  Test.pass(0.02)
-  Test.expect(Test.drawn().length > 0)
-  Game.auctionHouse.open = false
-  Test.pass(0.02)
-  Test.expect(Test.drawn().length == 0)
+function ownFrame(): any Client.Frame {
+  return Client.CreateFrame("Frame", "AuctionHouseFrame", Client.C_UI.GetUIParent(), nil)
 }
 
-test "the window off in the settings: the house opens with none of it" {
+function whereOwn(own: any Client.Frame) {
+  const left = (own.GetLeft() ?? 0).floor()
+  const top = (Client.GetScreenHeight() - (own.GetTop() ?? 0)).floor()
+  Test.note(`the game's own window: at ${left},${top}, opacity ${own.GetAlpha()}`)
+}
+
+test "the window shows while the house is open, the game's own put away; its close is the house's" {
+  const own = ownFrame()
+  own.SetSize(800, 500)
+  own.SetPoint("CENTER", Client.C_UI.GetUIParent(), "CENTER", 0, 0)
+  Game.frames.AuctionHouse = own
+  Test.mount(nil, PAGE)
+  Test.expect(Test.drawn().length == 0)
+  Game.auctionHouse.open = true
+  Test.pass(0.02)
+  Test.shot("the house open, no prices yet: «Buy» with nothing shown, the five pages as the window's tabs")
+  whereOwn(own)
+  Test.click(Test.holding("Sell", nil), nil)
+  Test.pass(0.02)
+  Test.expect(Auction.page == 2)
+  Test.key(.Escape)
+  Test.pass(0.02)
+  Test.expect(!Game.auctionHouse.open)
+  Test.expect(!Auction.shown)
+  whereOwn(own)
+}
+
+test "the window off in the settings: the house opens with none of it, the game's own left as it is" {
   Test.mount(nil, PAGE)
   Auction.settings.choose({ window: false, ..Auction.settings.values })
   Ordaen.keeper.saveAll()
@@ -41,12 +54,53 @@ test "the window off in the settings: the house opens with none of it" {
   Game.auctionHouse.open = false
 }
 
-test "«Sell» and «My auctions» are drawn; their restricted calls are off, «Check» asks the client" {
+test "«Sell»: the bags' items the house takes; one picked is posted from the click, a refusal said" {
   Test.mount(nil, PAGE)
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+    const name = id == LINEN ? "Linen Cloth" : id == AXE ? "Bronze Axe" : nil
+    if (name == nil) { return nil }
+    return { lines: [{ left: name, kind: 0 }] }
+  }
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [
+    { item: LINEN, count: 20, bag: 0, slot: 1, commodity: true },
+    { item: AXE, count: 1, bag: 0, slot: 2, commodity: false },
+    { item: LINEN, count: 6, bag: 1, slot: 4, commodity: true },
+  ]
+  Game.clock.server = 1790002800
   Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
   Auction.page = 2
   Test.pass(0.02)
-  Test.shot("«Sell»: the list, a quantity, a price, the duration, the deposit, «Post» off")
+  Test.shot("«Sell»: linen's two stacks as one row with its market, the axe; none picked")
+  Test.click(Test.holding("Linen Cloth", nil), nil)
+  Test.pass(0.02)
+  Test.click(Test.field(1), nil)
+  Test.erase(1)
+  Test.type("25")
+  Test.click(Test.holding("12 h", nil), nil)
+  Test.pass(0.02)
+  Test.shot("linen picked: 25 of its 26, a copper under the lowest, 12 hours")
+  Test.click(Test.holding("Post", nil), nil)
+  Game.auctionActions.answered.emit(.Refused { reason: "Not enough money for the deposit" })
+  Test.pass(0.02)
+  Test.shot("the client refused the post: its words in red")
+  Test.click(Test.holding("Bronze Axe", nil), nil)
+  Test.pass(0.02)
+  Test.click(Test.field(2), nil)
+  Test.erase(20)
+  Test.type("20s")
+  Test.key(.Enter)
+  Test.pass(0.02)
+  Test.click(Test.holding("Post", nil), nil)
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+  Test.note("the axe posted as an auction of its own, its buyout the price; the house shut")
+  Test.shot("the house shut")
+}
+
+test "«My auctions»: the client's list, «Check» asks again, «Cancel» on a row from the click" {
+  Test.mount(nil, PAGE)
+  Game.auctionHouse.open = true
   Game.ownedAuctions.list = [
     { auction: 1, item: 2589, quantity: 20, buyout: 900, sold: false, left: 7200 },
     { auction: 2, item: 2770, quantity: 5, buyout: nil, sold: false, left: nil },
@@ -54,9 +108,14 @@ test "«Sell» and «My auctions» are drawn; their restricted calls are off, «
   ]
   Auction.page = 3
   Test.pass(0.02)
-  Test.shot("«My auctions»: the client's three, none seen on the house yet")
+  Test.shot("«My auctions»: the client's three, none seen on the house yet; «Cancel» on the two not sold")
   Test.click(Test.holding("Check", nil), nil)
-  Test.shot("«Check» asked the client again and browsed their items")
+  Test.click(Test.holding("Cancel", nil), nil)
+  Game.auctionActions.answered.emit(.Cancelled)
+  Test.pass(0.02)
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+  Test.shot("cancelled: the list asked again; the house shut")
   Game.auctionHouse.open = false
   Game.ownedAuctions.list = []
 }

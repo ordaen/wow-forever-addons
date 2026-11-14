@@ -1,5 +1,6 @@
-// «Buy» with a browse's rows, sorted, filtered, a row picked and listed. The house is browsed twice, shut, and
-// opened again a day after the second browse, so each market is a day old.
+// «Buy» with a browse's rows, sorted, searched on the house by name and filters, a row picked and its listings asked,
+// a commodity bought in two clicks and an item's auction bought out from a click. The house is browsed twice, shut,
+// and opened again a day after the second browse, so each market is a day old.
 import Game from "$game"
 import Test from "$test"
 import { ItemId } from "Ordaen"
@@ -10,16 +11,19 @@ const START = 1790002800
 const HOUR = 3600
 const COPPER_ORE: Integer = 2770
 const LINEN: Integer = 2589
+const AXE: Integer = 2847
 
-test "«Buy»: the last browse's items with their market and share, filtered by name, a row picked and listed" {
+function names(id: Integer): Game.TooltipData | nil {
+  const name = id == LINEN ? "Linen Cloth" : id == COPPER_ORE ? "Copper Ore" : id == AXE ? "Bronze Axe" : nil
+  if (name == nil) { return nil }
+  return { lines: [{ left: name, kind: 0 }] }
+}
+
+test "«Buy»: the last browse's items with their market and share, sorted, searched by name and filters" {
   Game.clock.server = START
   Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
   Game.auctionHouse.open = true
-  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
-    const name = id == LINEN ? "Linen Cloth" : id == COPPER_ORE ? "Copper Ore" : nil
-    if (name == nil) { return nil }
-    return { lines: [{ left: name, kind: 0 }] }
-  }
+  Game.items.tooltip = names
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 45, quantity: 12 }, { key: COPPER_ORE, copper: 90, quantity: 40 }])
   Game.clock.server = START + 30 * HOUR
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: COPPER_ORE, copper: 100, quantity: 25 }])
@@ -27,18 +31,84 @@ test "«Buy»: the last browse's items with their market and share, filtered by 
   Game.clock.server = START + 54 * HOUR
   Game.auctionHouse.open = true
   Test.pass(0.02)
-  Test.shot("two items: listed, lowest, market, the lowest's share of it, a day old in amber")
+  Test.shot("two items: listed, lowest, market, the lowest's share of it (green under 90%, red over 100%), a day old")
   Test.click(Test.holding("Lowest", nil), nil)
   Test.shot("sorted by the lowest: linen first")
-  Test.click(Test.field(nil), nil)
+  Test.click(Test.field(1), nil)
   Test.type("lin")
   Test.pass(0.02)
-  Test.shot("filtered: linen alone")
+  Test.note("the house busy: nothing sent yet")
+  Game.auctionQuery.ready = true
+  Test.pass(0.02)
+  Test.shot("filtered: linen alone; the house searched for «lin» once it took a query")
+  Game.auctionQuery.ready = false
+  Test.click(Test.holding("Any quality", nil), nil)
+  Test.click(Test.holding("Uncommon", nil), nil)
+  Game.auctionQuery.ready = true
+  Test.pass(0.02)
+  Game.auctionQuery.ready = false
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+  Test.shot("the quality picked: searched again with it; the house shut")
+}
+
+test "a commodity picked: its listings asked, a quantity priced by the client, then bought; a list line added" {
+  Game.clock.server = START
+  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Game.auctionHouse.open = true
+  Game.auctionQuery.ready = true
+  Game.items.tooltip = names
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Test.pass(0.02)
   Test.click(Test.holding("Linen Cloth", nil), nil)
-  Test.click(Test.holding("+", nil), nil)
+  Test.pass(0.02)
+  Game.auctionQuery.listed.emit(LINEN, [
+    { auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true },
+    { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true },
+  ])
+  Test.pass(0.02)
+  Test.click(Test.field(2), nil)
+  Test.erase(1)
+  Test.type("15")
+  Test.pass(0.02)
+  Test.shot("15 of linen: both listings marked, 10 at 36 and 5 at 40")
+  Test.click(Test.holding("Buy", nil), nil)
+  Game.auctionActions.answered.emit(.Quoted { item: LINEN, quantity: 15, total: 570 })
+  Test.pass(0.02)
+  Test.shot("the client's price for 15: «Confirm»")
+  Test.click(Test.holding("Confirm", nil), nil)
+  Game.auctionActions.answered.emit(.Bought)
+  Test.pass(0.02)
   Test.click(Test.holding("Add to shopping list", nil), nil)
   Test.pass(0.02)
-  Test.expect(Auction.shopping.needed[ItemId.of(LINEN)] == 2)
-  Test.shot("picked, two added to the list: the row's pip")
+  Test.expect(Auction.shopping.needed[ItemId.of(LINEN)] == 15)
+  Game.auctionQuery.ready = false
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+  Test.shot("bought: the listings asked again; 15 on the list; the house shut")
+}
+
+test "an item picked: its cheapest auction with a buyout bought out from a click; a refusal said" {
+  Game.clock.server = START
+  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Game.auctionHouse.open = true
+  Game.auctionQuery.ready = true
+  Game.items.tooltip = names
+  Game.auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
+  Test.pass(0.02)
+  Test.click(Test.holding("Bronze Axe", nil), nil)
+  Test.pass(0.02)
+  Game.auctionQuery.listed.emit(AXE, [
+    { auction: 71, unit: 0, quantity: 1, bid: 1500, left: 3600, own: false, commodity: false },
+    { auction: 72, unit: 2100, quantity: 1, buyout: 2100, left: 7200, own: true, commodity: false },
+    { auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false },
+  ])
+  Test.pass(0.02)
+  Test.shot("the axe: a bid alone, the player's own, then the one the click buys out")
+  Test.click(Test.holding("Buy", nil), nil)
+  Game.auctionActions.answered.emit(.Refused { reason: "You don't have enough money" })
+  Test.pass(0.02)
+  Test.shot("refused: the client's words")
+  Game.auctionQuery.ready = false
   Game.auctionHouse.open = false
 }

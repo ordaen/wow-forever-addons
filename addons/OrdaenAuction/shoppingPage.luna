@@ -1,28 +1,33 @@
-// «Shopping list», the window's page of the list (`redesign/market-ux.md` §2): each item with what asked for it, what is
-// needed, what this character holds, what is left to buy (dim at 0), its price and the total with the price's age.
-// «Search all» browses every item in one query; a row picked can be removed, and «Remove bought» clears every row at 0.
-// «Buy N» is the client's from a click alone and has no part of `"$game"` yet: it is off.
+// «Shopping list», the window's page of the list (design `auction/shopping`): each item with what asked for it, what is
+// needed, what this character holds, what is left to buy (dim at 0), its price and the sum with the price's age, and
+// at the house «Buy N»: a commodity bought as one purchase of N in two clicks (the second confirms the price the
+// client gave, which the row's sum shows), an item one auction a click, the cheapest first. A row's listings are asked
+// as it is picked or its «Buy N» first clicked. «Search all» browses every item in one query; a row picked can be
+// removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
 import { Align, Track } from "$ltml"
 import { Age, Column, Component, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
 import { ageOf, nameOf } from "@/buy"
 import Locale from "@/locales"
+import { Purchase } from "@/purchase"
 import { PriceKey, PriceSource, Quote } from "@/quote"
 import { Row, ShoppingList } from "@/shopping"
 import Style from "@/style"
 
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
-  { title: Locale.COLUMN_NEEDED, width: 55 * PX, align: Align.End },
-  { title: Locale.COLUMN_HELD, width: 50 * PX, align: Align.End },
-  { title: Locale.COLUMN_TO_BUY, width: 60 * PX, align: Align.End },
-  { title: Locale.COLUMN_PRICE, width: 100 * PX, align: Align.End },
-  { title: Locale.COLUMN_TOTAL, width: 110 * PX, align: Align.End },
-  { title: Locale.COLUMN_AGE, width: 55 * PX, align: Align.End },
+  { title: Locale.COLUMN_NEEDED, width: 60 * PX, align: Align.End },
+  { title: Locale.COLUMN_HELD, width: 56 * PX, align: Align.End },
+  { title: Locale.COLUMN_TO_BUY, width: 64 * PX, align: Align.End },
+  { title: Locale.COLUMN_PRICE, width: 84 * PX, align: Align.End },
+  { title: Locale.COLUMN_TOTAL, width: 96 * PX, align: Align.End },
+  { title: "", width: 52 * PX, align: Align.End },
+  { title: "", width: 120 * PX, align: Align.End },
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const ITEM: Array<Track> = ["auto", { fr: 1 }]
-const BUTTONS: Array<Track> = ["auto", "auto", "auto", "auto", { fr: 1 }]
+const HEAD: Array<Track> = [{ fr: 1 }, "auto", "auto"]
+const BUTTONS: Array<Track> = ["auto", "auto", "auto", { fr: 1 }]
 
 // What a line says of what asked: «12 — Bronze Axe ×5, Regron's queue», «12 — by hand».
 function linesText(row: Row): String {
@@ -33,31 +38,49 @@ function linesText(row: Row): String {
   return text
 }
 
+// What one costs, and how old the price is; none where no price is known.
+function quoteOf(prices: any PriceSource, item: ItemId): Quote | nil {
+  _ = prices.revision
+  return prices.buy(PriceKey.of(item))
+}
+
 class ShoppingRow implements Component {
   public pick: Event<ItemId> = new Event()
+  public buy: Event<ItemId> = new Event()
 
-  derived quote: Quote | nil = self.quoteOf()
+  derived quoted: Integer = self.quotedItem == self.row.item ? self.quotedTotal : 0
+  derived quote: Quote | nil = quoteOf(self.prices, self.row.item)
   derived priced: Boolean = self.quote != nil
   derived unit: Integer = self.quote?.copper() ?? 0
-  derived total: Integer = self.unit * self.row.toBuy
+  derived sum: Integer = self.quoted > 0 ? self.quoted : self.unit * self.row.toBuy
   derived age: Number | nil = ageOf(self.quote)
   derived ink: Color = self.row.toBuy == 0 ? Style.DIM : Style.INK
   derived name: String = self.nameText()
   derived color: Color = self.row.toBuy == 0 ? Style.DIM : self.nameColor()
   derived from: String = linesText(self.row)
+  derived bought: Boolean = self.row.toBuy == 0
+  derived buyLabel: String = self.bought ? Locale.BOUGHT : self.quoted > 0 ? Locale.CONFIRM :
+    Locale.BUY_COUNT.format(self.row.toBuy)
+  derived canBuy: Boolean = self.priced && !self.bought && !Game.auctionActions.busy
 
   const row: Row
   const prices: any PriceSource
   selected: Signal<Boolean>
-  constructor(row: Row, prices: any PriceSource, selected: Signal<Boolean>) {
+  quotedItem: Signal<Integer>
+  quotedTotal: Signal<Integer>
+  constructor(
+    row: Row,
+    prices: any PriceSource,
+    selected: Signal<Boolean>,
+    // The item whose purchase the client priced (0 for none), and what it asked, in copper.
+    quotedItem: Signal<Integer>,
+    quotedTotal: Signal<Integer>,
+  ) {
     self.row = row
     self.prices = prices
     self.selected = selected
-  }
-
-  quoteOf(self): Quote | nil {
-    _ = self.prices.revision
-    return self.prices.buy(PriceKey.of(self.row.item))
+    self.quotedItem = quotedItem
+    self.quotedTotal = quotedTotal
   }
 
   nameText(self): String {
@@ -72,14 +95,17 @@ class ShoppingRow implements Component {
 
   onPick(self) { self.pick.emit(self.row.item) }
 
+  // From the player's click alone: the page buys with it.
+  onBuy(self) { self.buy.emit(self.row.item) }
+
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
         <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
-          <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.row.toBuy == 0} />
-          <box rows={["auto", "auto"]}>
+          <ItemButton item={self.row.item} size={Style.SLOT} dimmed={self.bought} />
+          <box rows={["auto", "auto"]} overflow={.Hidden}>
             <text value={self.name} textColor={self.color} textSize={Style.TEXT} wrap={false} />
-            <text value={self.from} textColor={Style.DIM} textSize={Style.SMALL} />
+            <text value={self.from} textColor={Style.DIM} textSize={Style.SMALL} wrap={false} />
           </box>
         </box>
         <text value={"%d"} arguments={[self.row.needed]} textColor={self.ink} textSize={Style.TEXT} />
@@ -90,11 +116,14 @@ class ShoppingRow implements Component {
           <text $else value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
         </box>
         <box xAlign={Align.End}>
-          <Money $if={self.priced} amount={self.total} />
+          <Money $if={self.priced} amount={self.sum} />
           <text $else value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
         </box>
         <box xAlign={Align.End}>
           <Age seconds={self.age} />
+        </box>
+        <box xAlign={Align.End}>
+          <PushButton label={self.buyLabel} width={104 * PX} disabled={!self.canBuy} @click={self.onBuy} />
         </box>
       </TableRow>
     }
@@ -105,11 +134,18 @@ public class ShoppingPage implements Component {
   state sorted = 0
   state descending = false
   state picked: ItemId | nil = nil
+  // The purchase of the row picked: its listings, then what the player's clicks buy.
+  state purchase: mut Purchase | nil = nil
   derived empty: Boolean = self.list.rows.length == 0
   derived chosen: Boolean = self.picked != nil && self.list.needed[self.picked ?? 0] != nil
-  derived toBuy: Integer = self.toBuyOf()
-  derived buyLabel: String = Locale.BUY_COUNT.format(self.toBuy)
   derived shut: Boolean = !Game.auctionHouse.open
+  // The row whose purchase the client priced, and the price; 0 for none.
+  derived quotedItem: Integer = self.quotedItemOf()
+  derived quotedTotal: Integer = self.purchase?.quotedTotal ?? 0
+  // Every row's sum, and whether a row without a price left it short.
+  derived total: Integer = self.totalOf()
+  derived short: Boolean = self.list.rows.any(row => row.toBuy > 0 && quoteOf(self.prices, row.item) == nil)
+  derived totalText: String = self.short ? "~" : ""
 
   const prices: any PriceSource
   list: mut ShoppingList
@@ -118,13 +154,42 @@ public class ShoppingPage implements Component {
     self.list = list
   }
 
-  toBuyOf(self): Integer {
-    const picked = self.picked
-    if (picked == nil) { return 0 }
-    return self.list.rows.find(row => row.item == picked)?.toBuy ?? 0
+  quotedItemOf(self): Integer {
+    const purchase = self.purchase
+    if (purchase == nil || purchase.quotedCount == 0) { return 0 }
+    return purchase.key.item()
   }
 
-  onPick(mut self, item: ItemId) { self.picked = item }
+  totalOf(self): Integer {
+    let copper = 0
+    for (row of self.list.rows) { copper += (quoteOf(self.prices, row.item)?.copper() ?? 0) * row.toBuy }
+    return copper
+  }
+
+  // The row's listings asked, unless they are its purchase's already.
+  pickPurchase(mut self, item: ItemId) {
+    const held = self.purchase
+    if (held != nil && held.key == PriceKey.of(item)) { return }
+    destroy self.purchase
+    self.purchase = new Purchase(PriceKey.of(item))
+  }
+
+  onPick(mut self, item: ItemId) {
+    self.picked = item
+    self.pickPurchase(item)
+  }
+
+  // From the player's click alone: the row's purchase bought from, or its listings asked first.
+  onBuy(mut self, item: ItemId) {
+    self.picked = item
+    const toBuy = (peek self.list.rows).find(row => row.item == item)?.toBuy ?? 0
+    const held = self.purchase
+    if (held != nil && held.key == PriceKey.of(item) && peek held.listed) {
+      _ = held.buy(toBuy)
+      return
+    }
+    self.pickPurchase(item)
+  }
 
   onSearch(self) { _ = self.list.searchAll() }
 
@@ -133,6 +198,7 @@ public class ShoppingPage implements Component {
     if (picked == nil) { return }
     self.list.remove(picked)
     self.picked = nil
+    destroy self.purchase
   }
 
   onClear(mut self) { self.list.clearBought() }
@@ -140,18 +206,26 @@ public class ShoppingPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={["auto", "auto", "auto"]} gap={8 * PX}>
-        <text value={Locale.HELD_HERE} textColor={Style.DIM} textSize={Style.SMALL} />
+        <box columns={HEAD} gap={8 * PX} yAlign={Align.Center}>
+          <text value={Locale.HELD_HERE} textColor={Style.DIM} textSize={Style.SMALL} />
+          <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} textSize={Style.TEXT} wrap={false} />
+          <box columns={["auto", "auto"]} yAlign={Align.Center}>
+            <text value={self.totalText} textColor={Style.INK} textSize={Style.TEXT} wrap={false} />
+            <Money amount={self.total} />
+          </box>
+        </box>
         <text $if={self.empty} value={Locale.SHOPPING_EMPTY} textColor={Style.DIM} textSize={Style.TEXT} />
         <Table $else columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST}>
           <ShoppingRow $for={row of self.list.rows} $key={row} row={peek row} prices={self.prices}
-                       selected={self.picked == row.item} @pick={self.onPick} />
+                       selected={self.picked == row.item}
+                       quotedItem={self.quotedItem} quotedTotal={self.quotedTotal} @pick={self.onPick}
+                       @buy={self.onBuy} />
         </Table>
         <box columns={BUTTONS} gap={8 * PX}>
-          <PushButton label={Locale.SEARCH_ALL} width={130 * PX} disabled={self.shut || self.empty} @click={self.onSearch} />
-          // Buying is the client's from a click alone, and `"$game"` has no part for it yet.
-          <PushButton label={self.buyLabel} width={130 * PX} disabled={true} />
+          <PushButton label={Locale.SEARCH_ALL} width={150 * PX} accent={true} disabled={self.shut || self.empty}
+                      @click={self.onSearch} />
+          <PushButton label={Locale.REMOVE_BOUGHT} width={170 * PX} disabled={self.empty} @click={self.onClear} />
           <PushButton label={Locale.REMOVE} width={130 * PX} disabled={!self.chosen} @click={self.onRemove} />
-          <PushButton label={Locale.REMOVE_BOUGHT} width={160 * PX} disabled={self.empty} @click={self.onClear} />
         </box>
       </box>
     }
