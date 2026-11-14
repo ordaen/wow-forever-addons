@@ -1,0 +1,79 @@
+// The house window's status line, over every page: the house's name; how old the prices are and how many items they
+// cover, or that a first scan is wanted; a full scan's progress, or the server awaited; when the next full scan may
+// go, or «Scan» once it may; the full scan's last fault, in red.
+import Debug from "$debug"
+import Game from "$game"
+import { Align, Track } from "$ltml"
+import { Component, number, ProgressBar, PushButton, PX } from "Ordaen"
+import Locale from "@/locales"
+import { serverSeconds } from "@/quote"
+import { Scanner } from "@/scan"
+import Style from "@/style"
+import { agoText, leftText } from "@/style"
+
+const COLUMNS: Array<Track> = [{ fr: 1 }, "auto"]
+const FIRST: Array<Track> = ["auto", { fr: 1 }]
+
+public class Status implements Component {
+  // The server's time, read again once a second while the line shows: what counts down follows it.
+  derived now: Integer {
+    _ = Game.clock.seconds
+    return serverSeconds()
+  }
+  derived priced: Boolean = self.items > 0
+  derived scanned: Boolean = self.lastFull > 0
+  derived prices: String = self.pricesText()
+  derived waiting: Boolean = Game.auctionScan.running && !self.scanner.reading
+  derived wait: Integer = self.scanned ? self.scanner.wait(self.now) : 0
+  derived next: String = Locale.NEXT_FULL.format(leftText(self.wait))
+  derived fault: String | nil = Debug.faultOf("AuctionScan")
+  derived faultText: String = Locale.FAULT.format(self.fault ?? "")
+  derived percent: String = Locale.SCANNING.format((self.scanner.progress * 100).floor())
+
+  const house: String
+  items: Signal<Integer>
+  lastFull: Signal<Integer>
+  scanner: mut Scanner
+  constructor(
+    house: String,
+    // How many items the house's prices cover.
+    items: Signal<Integer>,
+    // The server's time of the account's last full scan; 0 for none.
+    lastFull: Signal<Integer>,
+    scanner: mut Scanner,
+  ) {
+    self.house = house
+    self.items = items
+    self.lastFull = lastFull
+    self.scanner = scanner
+  }
+
+  pricesText(self): String {
+    if (!self.priced) { return Locale.NO_PRICES }
+    const counted = Locale.ITEMS.format(number(self.items))
+    if (!self.scanned) { return counted }
+    return Locale.PRICES_AGE.format(agoText(self.now - self.lastFull), counted)
+  }
+
+  onScan(mut self) { _ = self.scanner.full() }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={COLUMNS} gap={Style.GAP} yAlign={Align.Center} border={Style.RULE} padding={{ bottom: 6 * PX }}>
+        <box columns={FIRST} gap={Style.GAP} yAlign={Align.Center}>
+          <text value={self.house} textColor={Style.GOLD} textSize={Style.TEXT} wrap={false} />
+          <box $if={self.scanner.reading}>
+            <ProgressBar fraction={self.scanner.progress} label={self.percent} />
+          </box>
+          <text $elseif={self.waiting} value={Locale.WAITING} textColor={Style.AMBER} textSize={Style.TEXT} />
+          <text $elseif={self.fault != nil} value={self.faultText} textColor={Style.RED}
+                textSize={Style.TEXT} />
+          <text $else value={self.prices} textColor={Style.INK} textSize={Style.TEXT} />
+        </box>
+        <text $if={self.wait > 0} value={self.next} textColor={Style.DIM} textSize={Style.SMALL} wrap={false} />
+        <PushButton $else label={Locale.SCAN} width={130 * PX} disabled={self.scanner.reading || self.waiting}
+                    @click={self.onScan} />
+      </box>
+    }
+  }
+}

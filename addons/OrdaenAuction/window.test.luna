@@ -1,0 +1,71 @@
+// The house window as a husk on the fake house, where no clock is read: shown while the house is open and the setting
+// has it, shut by the player until the house opens again; its pages before any scan: «Buy» empty, «Sell» drawn with
+// «Post» off, «My auctions» from the client's list with «Check» asking again and «Cancel» off, «Data». What reads the
+// server's hour (a browse's rows, a scan's age) is `clock.test.luna.waiting`.
+import Game from "$game"
+import Test from "$test"
+import root Auction from "OrdaenAuction"
+import root Ordaen from "Ordaen"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
+
+test "the window shows while the house is open, and the player's close keeps it shut until the house opens again" {
+  Test.expect(Test.drawn().length == 0)
+  Test.expect(Test.drawn().length == 0)
+  Game.auctionHouse.open = true
+  Test.pass(0.02)
+  Test.shot("the house open, no prices yet: «Buy» with nothing shown")
+  Auction.onClose()
+  Test.pass(0.02)
+  Test.expect(Test.drawn().length == 0)
+  Game.auctionHouse.open = false
+  Game.auctionHouse.closed.emit()
+  Test.pass(0.02)
+  Test.expect(Test.drawn().length == 0)
+  Game.auctionHouse.open = true
+  Auction.dismissed = false
+  Test.pass(0.02)
+  Test.expect(Test.drawn().length > 0)
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+  Test.expect(Test.drawn().length == 0)
+}
+
+test "the window off in the settings: the house opens with none of it" {
+  Test.mount(nil, PAGE)
+  Auction.settings.choose({ window: false, ..Auction.settings.values })
+  Ordaen.keeper.saveAll()
+  Game.auctionHouse.open = true
+  Test.pass(0.02)
+  Test.expect(Test.drawn().length == 0)
+  Game.auctionHouse.open = false
+}
+
+test "«Sell» and «My auctions» are drawn; their restricted calls are off, «Check» asks the client" {
+  Test.mount(nil, PAGE)
+  Game.auctionHouse.open = true
+  Auction.page = 2
+  Test.pass(0.02)
+  Test.shot("«Sell»: the list, a quantity, a price, the duration, the deposit, «Post» off")
+  Game.ownedAuctions.list = [
+    { item: 2589, quantity: 20, buyout: 900, sold: false, left: 7200 },
+    { item: 2770, quantity: 5, buyout: nil, sold: false, left: nil },
+    { item: 2592, quantity: 1, buyout: 300, sold: true, left: nil },
+  ]
+  Auction.page = 3
+  Test.pass(0.02)
+  Test.shot("«My auctions»: the client's three, none seen on the house yet")
+  Test.click(Test.holding("Check", nil), nil)
+  Test.shot("«Check» asked the client again and browsed their items")
+  Game.auctionHouse.open = false
+  Game.ownedAuctions.list = []
+}
+
+test "«Data» before any scan: none, nothing at rest, an empty ledger, the settings" {
+  Test.mount(nil, PAGE)
+  Game.auctionHouse.open = true
+  Auction.page = 4
+  Test.pass(0.02)
+  Test.shot("«Data»")
+  Game.auctionHouse.open = false
+}

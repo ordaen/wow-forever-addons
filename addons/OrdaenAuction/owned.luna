@@ -1,0 +1,126 @@
+// «My auctions»: the character's auctions as the client last gave them: the item, how many, the price for one, whether
+// it is the house's lowest as last seen, and the time left. «Check» asks the client for them again and browses their
+// items; «Cancel» (one a click, the client's from a click alone) has no part of `"$game"` yet and is off.
+import Game from "$game"
+import { Align, Track } from "$ltml"
+import { Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, tracksOf } from "Ordaen"
+import { nameOf } from "@/buy"
+import { House } from "@/house"
+import Locale from "@/locales"
+import { PriceKey } from "@/quote"
+import Style from "@/style"
+import { leftText } from "@/style"
+
+const COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
+  { title: Locale.COLUMN_COUNT, width: 60 * PX, align: Align.End },
+  { title: Locale.COLUMN_UNIT, width: 110 * PX, align: Align.End },
+  { title: Locale.COLUMN_LOWEST, width: 110 * PX, align: Align.End },
+  { title: Locale.COLUMN_LEFT, width: 70 * PX, align: Align.End },
+]
+const TRACKS: Array<Track> = tracksOf(COLUMNS)
+const ITEM: Array<Track> = ["auto", { fr: 1 }]
+const BUTTONS: Array<Track> = ["auto", "auto", { fr: 1 }]
+
+// One auction, as its row draws it.
+public struct Shown {
+  item: Integer
+  name: String
+  color: Color
+  quantity: Integer
+  // The buyout for one; none for an auction with a bid alone.
+  unit: Integer | nil
+  sold: Boolean
+  // Whether it is the house's lowest as last seen; none where the house has no listing of it.
+  lowest: Boolean | nil
+  left: String
+}
+
+class OwnedRow implements Component {
+  derived lowest: String = self.shown.sold ? Locale.SOLD : self.shown.lowest == nil ? "—" :
+    self.shown.lowest == true ? Locale.LOWEST : Locale.UNDERCUT
+  derived lowestColor: Color = self.shown.sold || self.shown.lowest == true ? Style.GREEN :
+    self.shown.lowest == false ? Style.RED : Style.DIM
+
+  derived priced: Boolean = self.shown.unit != nil
+  derived unit: Integer = self.shown.unit ?? 0
+
+  const shown: Shown
+  constructor(shown: Shown) {
+    self.shown = shown
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <TableRow tracks={TRACKS}>
+        <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
+          <ItemButton item={self.shown.item} size={Style.SLOT} />
+          <text value={self.shown.name} textColor={self.shown.color} textSize={Style.TEXT} wrap={false} />
+        </box>
+        <text value={"%d"} arguments={[self.shown.quantity]} textColor={Style.INK} textSize={Style.TEXT} />
+        <box xAlign={Align.End}>
+          <Money $if={self.priced} amount={self.unit} />
+        </box>
+        <text value={self.lowest} textColor={self.lowestColor} textSize={Style.TEXT} />
+        <text value={self.shown.left} textColor={Style.INK} textSize={Style.TEXT} />
+      </TableRow>
+    }
+  }
+}
+
+public class OwnedPage implements Component {
+  state sorted = 0
+  state descending = false
+  derived rows: Array<Shown> = self.shownOf()
+
+  const house: House
+  revision: Signal<Integer>
+  constructor(house: House, revision: Signal<Integer>) {
+    self.house = house
+    self.revision = revision
+    // The page shown: the client is asked for the auctions as they stand.
+    _ = Game.ownedAuctions.refresh()
+  }
+
+  shownOf(self): Array<Shown> {
+    _ = self.revision
+    let list: Array<Shown> = []
+    for (owned of Game.ownedAuctions.list) {
+      const name, color = nameOf(owned.item)
+      const buyout = owned.buyout
+      const unit = buyout != nil && owned.quantity > 0 ? (buyout / owned.quantity).floor() : nil
+      const listing = self.house.listed(PriceKey.of(owned.item))
+      const lowest = listing != nil && unit != nil ? unit <= listing.low() : nil
+      const left = owned.left
+      list.push({
+        item: owned.item, name: name, color: color, quantity: owned.quantity, unit: unit, sold: owned.sold,
+        lowest: lowest, left: left != nil ? leftText(left) : "—",
+      })
+    }
+    return list
+  }
+
+  // The auctions asked again, and their items browsed for the house's lowest.
+  onCheck(self) {
+    _ = Game.ownedAuctions.refresh()
+    let items: Array<Integer> = []
+    for (owned of peek Game.ownedAuctions.list) { items.push(owned.item) }
+    if (items.length > 0) { _ = Game.auctionQuery.browse(items) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={["auto", "auto"]} gap={8 * PX}>
+        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST}>
+          <OwnedRow $for={row of self.rows} $key={row} shown={peek row} />
+        </Table>
+        <text $if={self.rows.length == 0} value={Locale.NO_AUCTIONS} textColor={Style.DIM} textSize={Style.TEXT} />
+        <box columns={BUTTONS} gap={8 * PX}>
+          <PushButton label={Locale.CHECK} width={140 * PX} @click={self.onCheck} />
+          // Cancelling is the client's from a click alone, and `"$game"` has no part for it yet.
+          <PushButton label={Locale.CANCEL_AUCTION} width={140 * PX} disabled={true} />
+        </box>
+      </box>
+    }
+  }
+}

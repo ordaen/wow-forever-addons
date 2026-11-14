@@ -1,7 +1,7 @@
 // What every reader of Ordaen Auction's prices names: an item, an amount, a key, an hour, a price with its hour, the
 // last observation's lowest with its quantity, and the trait every price is read through. Each is a number, never a
 // table: two halves packed into one below 2^53 (`redesign/market.md`, «What is kept per item»).
-import Client from "$client"
+import Game from "$game"
 
 // An item, by the game's number for it.
 public type ItemId = brand Integer {
@@ -37,12 +37,14 @@ public type PriceKey = brand Integer {
   public item(self): ItemId { return self % HALF }
 }
 
-// The server's time, in seconds: the account's 15 minutes between full scans are counted in it.
-public function serverSeconds(): Integer { return Client.GetServerTime().floor() }
+// The server's time, in seconds: every hour and age of the module, and the account's 15 minutes between full scans,
+// are read here and nowhere else. Read once, never followed: a price read in a `derived` isn't read again each second.
+// `Game.clock.seconds` is the game's time until `Game.clock` gives the server's (`next/move.md`, H6).
+public function serverSeconds(): Integer { return peek Game.clock.seconds }
 
 // Hours since 2020-01-01.
 public type Hour = brand Integer {
-  public now(): Hour { return (Client.GetServerTime() / 3600).floor() - EPOCH }
+  public now(): Hour { return (serverSeconds() / 3600).floor() - EPOCH }
   // The hour so many hours after this one (before it, for a negative count).
   public after(self, hours: Integer): Hour { return self + hours }
 }
@@ -67,9 +69,9 @@ public type Listing = brand Integer {
 
 // Where every Ordaen addon reads a price. One class implements it per source; readers hold `any PriceSource`.
 public trait PriceSource {
-  const name: String
+  public const name: String
   // Moves whenever a price may have: a reader that follows prices reads it.
-  revision: Signal<Integer>
+  public revision: Signal<Integer>
   // What one costs now: the lowest listed where it is 48 hours old or less, the market otherwise.
   public buy(self, key: PriceKey): Quote | nil
   // What one brings: the lesser of the market and a fresh lowest, less the house's cut.

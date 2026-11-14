@@ -21,6 +21,12 @@ public class Scanner {
   public state items = 0
   // The bytes the house takes at rest.
   public state size = 0
+  // How many items the house's prices cover.
+  public state known = 0
+  // The server's time of the account's last full scan; 0 before the first.
+  public state lastFull = 0
+  // What the house's last browse showed.
+  public state offers: Array<Game.Offer> = []
   // A price moved since the house was last put at rest.
   dirty = false
   reader: Task<nil> | nil = nil
@@ -33,13 +39,15 @@ public class Scanner {
     self.source = source
     self.kept = kept
     self.size = (kept.houses[house.name] ?? "").length
+    self.known = house.count
+    self.lastFull = kept.lastFull
     Game.auctionScan.finished.listen(self.onFinished)
     Game.auctionQuery.results.listen(self.onResults)
     Game.auctionHouse.closed.listen(self.onClosed)
   }
 
   // Seconds until the client takes another full scan from this account; 0 when it would now.
-  public wait(self, now: Integer): Integer { return (FULL_EVERY - (now - self.kept.lastFull)).max(0) }
+  public wait(self, now: Integer): Integer { return (FULL_EVERY - (now - self.lastFull)).max(0) }
 
   // A full scan is asked of the client, where the house is open, none runs, and the account's 15 minutes are past.
   public full(mut self): Boolean {
@@ -49,6 +57,7 @@ public class Scanner {
     }
     if (!Game.auctionScan.start()) { return false }
     self.kept.lastFull = now
+    self.lastFull = now
     return true
   }
 
@@ -88,6 +97,7 @@ public class Scanner {
     _ = self.house.prune(at)
     self.auctions = count
     self.items = items
+    self.known = self.house.count
     self.progress = 1
     self.reading = false
     self.reader = nil
@@ -97,6 +107,7 @@ public class Scanner {
 
   // A browse's lowest prices: each an observation of its item.
   onResults(mut self, offers: Array<Game.Offer>) {
+    self.offers = offers
     const at = Hour.now()
     let any = false
     for (offer of offers) {
@@ -107,6 +118,7 @@ public class Scanner {
     }
     if (any) {
       self.dirty = true
+      self.known = self.house.count
       self.source.moved()
     }
   }

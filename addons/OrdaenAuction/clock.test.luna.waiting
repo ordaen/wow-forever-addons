@@ -1,15 +1,16 @@
-// Waits for the stand-in client's `GetServerTime` (repro: lunatype's `repro/servertime`): Ordaen Auction's data
-// read with the hour on the fake house: a full scan read in batches into the cheapest fifth's price, pruning at 30
-// days, a browse taken in, a scan the house closed on dropped, `buy` and `sell` by age, the ledger.
+// Waits for the server's time on `Game.clock` (being added on `market/alts-2`, with a fake `Test.pass` moves):
+// Ordaen Auction reads the hour in one function, `serverSeconds`, and these tests set the time as `redesign/market.md`
+// §6 has a test set it. A full scan read in batches into the cheapest fifth's price, pruning at 30 days, a browse
+// taken in, a scan the house closed on dropped, `buy` and `sell` by age, the ledger.
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
 import { House } from "@/house"
 import { Kept } from "@/kept"
 import { Ledger } from "@/ledger"
-import { OrdaenPrices, takeMerchant } from "@/prices"
-import { Copper, Hour, ItemId, Listing, PriceKey } from "@/quote"
-import { fifth, Scanner } from "@/scan"
+import { OrdaenPrices } from "@/prices"
+import { Hour, PriceKey } from "@/quote"
+import { Scanner } from "@/scan"
 
 // 2026-09-21, in the server's seconds: a whole hour.
 const START = 1790002800

@@ -1,0 +1,59 @@
+// «Sell», drawn: the bags' items that can be sold, each with its market, its merchant's price and which pays more;
+// for the one picked, a quantity, a price for one, the duration, the deposit and «Post» (one auction a click, the
+// client's from a click alone). `"$game"` lists no bag's items and has no part for posting yet: the list is empty and
+// «Post» is off (`redesign/market-ux.md` §1).
+import { Align, Track } from "$ltml"
+import { Choice, Column, Component, MoneyField, PushButton, PX, Segmented, Table, tracksOf } from "Ordaen"
+import Locale from "@/locales"
+import Style from "@/style"
+
+// How long an auction stands, in hours: the house's three.
+public enum Duration { Short = 12, Medium = 24, Long = 48 }
+
+const COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
+  { title: Locale.COLUMN_MARKET, width: 110 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_VENDOR, width: 110 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_BETTER, width: 90 * PX, align: Align.End },
+]
+const TRACKS: Array<Track> = tracksOf(COLUMNS)
+const PAGE: Array<Track> = [{ fr: 1 }, Style.PANEL]
+const ROW: Array<Track> = ["auto", { fr: 1 }]
+const DURATIONS: Array<Choice<Duration>> = [
+  { value: Duration.Short, label: Locale.HOURS.format(12) },
+  { value: Duration.Medium, label: Locale.HOURS.format(24) },
+  { value: Duration.Long, label: Locale.HOURS.format(48) },
+]
+
+public class SellPage implements Component {
+  state sorted = 0
+  state descending = false
+  state unit = 0
+  state duration: Duration = Duration.Medium
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={PAGE} gap={Style.GAP}>
+        <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST} />
+        <box rows={["auto"]} gap={10 * PX} padding={10 * PX} border={Style.FRAME} background={Style.LISTS_BACK}>
+          <box columns={ROW} gap={8 * PX}>
+            <text value={Locale.QUANTITY} textColor={Style.INK} textSize={Style.TEXT} />
+            <text value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
+          </box>
+          <text value={Locale.UNIT_PRICE} textColor={Style.INK} textSize={Style.TEXT} />
+          <MoneyField value={mut self.unit} disabled={true} />
+          <text value={Locale.DURATION} textColor={Style.INK} textSize={Style.TEXT} />
+          <Segmented value={mut self.duration} choices={DURATIONS} disabled={true} />
+          <box columns={ROW} gap={8 * PX}>
+            <text value={Locale.DEPOSIT} textColor={Style.INK} textSize={Style.TEXT} />
+            <box xAlign={Align.End}>
+              <text value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
+            </box>
+          </box>
+          // Posting is the client's from a click alone, and `"$game"` has no part for it yet.
+          <PushButton label={Locale.POST} width={140 * PX} disabled={true} />
+        </box>
+      </box>
+    }
+  }
+}
