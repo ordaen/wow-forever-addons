@@ -1,29 +1,34 @@
 -- opened: the tabs as wide as their longest name, the sections' captions whole
 surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
-  box 525,251.96 550x433.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 525,251.96 550x433.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 537.75,264.71 529.5x410.08
       box 557.75,284.71 489.5x344.48
         box 557.75,284.71 489.5x28.33
-          box 557.75,284.71 356.17x28.33
-            box 557.75,284.71 356.17x28.33 #00000080 input "" @change @submit
-            box 557.75,284.71 356.17x28.33 absolute
-              text 566.08,291.07 339.5x15.6 "Поиск по названию" #a3977f
-          box 913.92,284.71 133.33x28.33
-            box 913.92,284.71 33.33x28.33
-              box 918.92,284.71 28.33x28.33
-                box 918.92,284.71 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 926.42,292.21 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
-            box 947.25,284.71 33.33x28.33
-              box 952.25,284.71 28.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                box 959.75,292.21 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 9 of 16
-            box 980.58,284.71 33.33x28.33
-              box 985.58,284.71 28.33x28.33
-                box 985.58,284.71 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 993.08,292.21 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
-            box 1013.92,284.71 33.33x28.33
-              box 1018.92,284.71 28.33x28.33
-                box 1018.92,284.71 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 1026.42,292.21 13.33x13.33 130716
+          box 557.75,284.71 150x28.33
+            box 557.75,284.71 150x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              text 567.75,291.07 115x15.6 "Player" #f0c860
+              box 687.75,292.21 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+          box 714.42,284.71 332.83x28.33
+            box 714.42,284.71 199.5x28.33
+              box 714.42,284.71 199.5x28.33 #00000080 input "" @change @submit
+              box 714.42,284.71 199.5x28.33 absolute
+                text 722.75,291.07 182.83x15.6 "Поиск по названию" #a3977f
+            box 913.92,284.71 133.33x28.33
+              box 913.92,284.71 33.33x28.33
+                box 918.92,284.71 28.33x28.33
+                  box 918.92,284.71 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 926.42,292.21 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+              box 947.25,284.71 33.33x28.33
+                box 952.25,284.71 28.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 959.75,292.21 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 9 of 16
+              box 980.58,284.71 33.33x28.33
+                box 985.58,284.71 28.33x28.33
+                  box 985.58,284.71 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 993.08,292.21 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
+              box 1013.92,284.71 33.33x28.33
+                box 1018.92,284.71 28.33x28.33
+                  box 1018.92,284.71 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 1026.42,292.21 13.33x13.33 130716
         box 557.75,329.71 489.5x299.48
           box 557.75,329.71 186.11x299.48
             box 557.75,329.71 186.11x27.27 #00000040 @click
@@ -128,9 +133,21 @@ surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
           text 976.14,653.66 0x0 "" #ffffff
           box 992.81,645.86 54.44x15.6 @enter @leave
             text 992.81,645.86 54.44x15.6 "0g 0s 0c" #e8dcc4
-    box 1057.75,665.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 525,214.71 114.5x47.75
-    box 525,214.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 543.58,224.96 77.33x34.25
-        text 564.47,234.28 35.56x15.6 "Сумки" #ffd100 centred
+    box 1057.75,665.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 525,214.71 550x47.75
+    box 525,214.71 465.83x47.75
+      box 525,214.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 543.58,224.96 77.33x34.25
+          text 564.47,234.28 35.56x15.6 "Сумки" #ffd100 centred
+    box 997.5,227.79 77.5x34.67
+      box 997.5,227.79 77.5x26.67 clipped
+        box 997.5,227.79 29.17x26.67 absolute clipped @click
+          box 997.5,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1007.5,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1026.67,227.79 25x26.67 absolute clipped @click
+          box 1026.67,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1032.92,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1051.67,227.79 23.33x26.67 absolute clipped @click
+          box 1051.67,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1057.92,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: Bags.follow true

@@ -1,0 +1,65 @@
+// Whose items the window shows, and what an item's tooltip says of them while every character's are shown: each
+// character of the realm holding it, in its class's colour, and how many in its bags and its bank, as Ordaen Alts
+// last read them. Without Ordaen Alts only the character played is shown; without Ordaen Tooltips there is no line.
+import Client from "$client"
+import Game from "$game"
+import { ItemId } from "Ordaen"
+import root Alts from "OrdaenAlts"
+import root Tooltips from "OrdaenTooltips"
+import type { ItemLines, Line } from "OrdaenTooltips"
+import Locale from "@/locales"
+
+// The character played, its live bags.
+public const HERE = ""
+// Every character of the realm together.
+public const EVERYONE = "*"
+
+const NONE: Array<Line> = []
+
+// Whose items the window shows: `HERE`, `EVERYONE`, or another character's GUID.
+public class Picked {
+  public state who: String = HERE
+}
+
+// A class's colour, as the game colours its names; the game's gold where the game has none.
+function classColor(tag: String): Color {
+  const found = Client.RAID_CLASS_COLORS[tag]
+  if (found == nil) { return Color.hex("#ffd100") }
+  return { r: found.r, g: found.g, b: found.b, a: 1 }
+}
+
+// Who holds the item under the cursor, while every character's are shown.
+public class HolderLines implements ItemLines {
+  const picked: Picked
+  constructor(picked: Picked) { self.picked = picked }
+
+  public lines(self, item: Integer, link: String): Array<Line> {
+    const alts = Alts
+    if (self.picked.who != EVERYONE || alts == nil) { return NONE }
+    const id = ItemId.of(item)
+    let lines: Array<Line> = []
+    for (who, character of alts.characters) {
+      if (character.realm == Game.player.realm) {
+        const bags = alts.holdings(who, false)[id] ?? 0
+        const bank = alts.holdings(who, true)[id] ?? 0
+        if (bags + bank > 0) {
+          lines.push({ left: character.name, right: Locale.HELD.format(bags, bank), color: classColor(character.classTag) })
+        }
+      }
+    }
+    return lines
+  }
+}
+
+// The lines added to Ordaen Tooltips while it is on: the watch's run owns them.
+public class HolderTips {
+  public const line: HolderLines
+
+  constructor(picked: Picked) {
+    self.line = new HolderLines(picked)
+    watch (tooltips of Tooltips) {
+      if (tooltips == nil) { return }
+      tooltips.held.add(self.line)
+    }
+  }
+}

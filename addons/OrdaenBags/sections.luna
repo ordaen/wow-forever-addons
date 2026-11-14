@@ -18,6 +18,7 @@ public function tabName(tab: Tab): String {
     .Recipes => Locale.TAB_RECIPES,
     .Other => Locale.TAB_OTHER,
     .Junk => Locale.TAB_JUNK,
+    .Bank => Locale.TAB_BANK,
   }
 }
 
@@ -56,8 +57,9 @@ struct Group {
 }
 
 // The categories view's sections for a tab: grouped as its setting says (the new items always in one), each sorted,
-// in the kinds' fixed order whatever the sort; no section without items; then «Free».
-public function tabSections(slots: Array<Slot>, tab: Tab, grouping: Grouping, by: SortBy): Array<Section> {
+// in the kinds' fixed order whatever the sort; no section without items; then «Free» where `free` asks (not for what
+// is held away: its free slots aren't known).
+public function tabSections(slots: Array<Slot>, tab: Tab, grouping: Grouping, by: SortBy, free: Boolean): Array<Section> {
   let groups: Array<mut Group> = []
   let found: Map<String, mut Group> = {}
   const how = tab == .New ? Grouping.None : grouping
@@ -83,7 +85,7 @@ public function tabSections(slots: Array<Slot>, tab: Tab, grouping: Grouping, by
     group.slots.sort((a: Slot, b: Slot): Boolean => before(a, b, by))
     sections.push({ key: group.key, title: group.title, bag: -1, slots: group.slots, free: false })
   }
-  sections.push({ key: "free", title: Locale.FREE, bag: -1, slots: [], free: true })
+  if (free) { sections.push({ key: "free", title: Locale.FREE, bag: -1, slots: [], free: true }) }
   return sections
 }
 

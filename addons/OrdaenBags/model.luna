@@ -27,6 +27,8 @@ public enum Tab implements Plain {
   Recipes = "recipes",
   Other = "other",
   Junk = "junk",
+  // The bank as it was last read, away from it (Ordaen Alts keeps it).
+  Bank = "bank",
 }
 
 // How a tab's items are grouped into sections: by their type, all in one, or by where they are worn.
@@ -143,6 +145,22 @@ public class Slot {
     if (peek self.isNew != wasNew) { changed += MARKED }
     return changed
   }
+
+  // An item held where no slot is read (the bank's last state, another character's): read once by its number, never
+  // clicked (its bag is -1). Whether the client knows the item.
+  public hold(mut self, id: Integer, count: Integer): Boolean {
+    if (!Game.bags.readItem(id, count, mut self.read)) { return false }
+    const item = self.read
+    self.lower = item.name.lower()
+    self.tab = tabOf(item.kind, item.quality)
+    self.id = item.id
+    self.count = item.count
+    self.quality = qualityOf(item.quality)
+    return true
+  }
+
+  // Held where no slot is read: shown, never clicked.
+  public away(self): Boolean { return self.bag < 0 }
 
   // Looked at: new no more, the client told.
   public see(mut self) {

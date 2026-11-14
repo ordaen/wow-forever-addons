@@ -29,7 +29,7 @@ public class Arranger {
     }
     // The window's order: the kinds' sections in their order, each sorted.
     let ordered: Array<Slot> = []
-    for (section of tabSections(items, .All, .Type, by)) {
+    for (section of tabSections(items, .All, .Type, by, false)) {
       for (slot of section.slots) { ordered.push(slot) }
     }
     let wanted: Array<Integer> = []

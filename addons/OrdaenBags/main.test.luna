@@ -5,8 +5,11 @@ import Game from "$game"
 import { MouseButton } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
+import { Copper, Hour, ItemId } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { Character, CharacterId, Kept, Place } from "OrdaenAlts"
 import root Bags from "OrdaenBags"
+import { EVERYONE } from "@/holders"
 
 // The screen Ordaen draws its modules on.
 const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
@@ -336,4 +339,159 @@ test "the header's view and sort are the profile's: there after a reload, and as
   Ordaen.keeper.profiles.use("Other")
   Test.flush()
   Test.expect(Bags.list.values.view == .Categories && Bags.list.values.sort == .Bags)
+}
+
+// What the game reads of an item by its number alone: as it lies in `inBags`, so many of it.
+function readItem(id: Integer, count: Integer, into: mut Game.SlotItem): Boolean {
+  const found = inBags().find(lying => lying.id == id)
+  if (found == nil || !readOf(inBags(), found.bag, found.slot, mut into)) { return false }
+  into.count = count
+  into.isNew = false
+  return true
+}
+
+function counts(pairs: Array<Integer>): Map<Integer, Integer> {
+  const held: Map<Integer, Integer> = {}
+  for (i of 1..=pairs.length step 2) { held[pairs[i] ?? 0] = pairs[i + 1] ?? 0 }
+  return held
+}
+
+// A third bag, a small pouch, after the linen bag.
+function threeBags(bag: Integer): Game.BagInfo {
+  if (bag == 2) { return { bag: 2, item: 4496, name: "Small Brown Pouch", icon: 133639, slots: 6, general: true } }
+  return bagOf(bag)
+}
+
+test "each view its own least and most width: the categories narrowest, one grid the widest" {
+  Game.bags.bag = bagOf
+  Game.bags.readSlot = readSlot
+  Test.mount(nil, PAGE)
+  Game.bags.open = true
+  Test.flush()
+  const categories = Bags.least
+  const categoriesMost = Bags.most ?? panic("the categories have a most width")
+  Bags.list.values.view = .Bags
+  Test.flush()
+  const bags = Bags.least
+  const bagsMost = Bags.most ?? panic("by bag has a most width")
+  Bags.list.values.view = .One
+  Test.flush()
+  const oneMost = Bags.most ?? panic("one grid has a most width")
+  Test.expect(categories != bags && Bags.least == bags)
+  Test.expect(bags < bagsMost && bagsMost < oneMost && categories < categoriesMost)
+  Test.shot("one grid: as wide as its least, eight slots a row")
+}
+
+test "the tab is the profile's too: there after a reload" {
+  Game.bags.bag = bagOf
+  Game.bags.readSlot = readSlot
+  Test.mount(nil, PAGE)
+  Game.bags.open = true
+  Test.flush()
+  click(Test.holding("Junk", nil))
+  Test.expect(Bags.list.values.tab == .Junk)
+  Test.reload()
+  Test.flush()
+  Test.expect(Bags.list.values.tab == .Junk)
+}
+
+test "away from the bank, its last state is a tab of its own; the bank open, the tab is gone" {
+  Game.bags.bag = bagOf
+  Game.bags.readSlot = readSlot
+  Game.bags.readItem = readItem
+  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 40, 118, 10, 9999, 1])
+  Game.bankObserver.opened.emit()
+  Test.mount(nil, PAGE)
+  Game.bags.open = true
+  Test.flush()
+  click(Test.holding("Bank", nil))
+  Test.expect(Bags.held.length == 2)
+  Test.shot("the bank's tab: the cloth and the potions as last read, by category, no «Free»")
+  click(Test.holding("40", nil))
+  Test.note("the bank's cloth clicked: nothing asked of the game")
+  Game.bankObserver.open = true
+  Test.flush()
+  Test.shot("the bank open: its tab gone, «All» shown")
+}
+
+test "the character picker: «All characters» shows every bag and bank of the realm together, read-only" {
+  Game.bags.bag = bagOf
+  Game.bags.readSlot = readSlot
+  Game.bags.readItem = readItem
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([2589, 27, 118, 5])
+  Game.bags.changed.emit()
+  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 40])
+  Game.bankObserver.opened.emit()
+  Test.mount(nil, PAGE)
+  Game.bags.open = true
+  Test.flush()
+  Test.shot("the picker left of the search, on the character played")
+  click(Test.holding("Player", nil))
+  click(Test.holding("All characters", nil))
+  Test.expect(Bags.picked.who == EVERYONE)
+  Test.shot("all characters: the cloth 67, the potions 5; by category, no tabs of the bank, no «Free»")
+}
+
+test "another character of the realm, read from Ordaen Alts' records: picked, its gold; all of them, who holds what" {
+  const regy = CharacterId.of("Player-1-0000BEEF")
+  const bags: Map<ItemId, Integer> = {}
+  bags[ItemId.of(2589)] = 4
+  const bank: Map<ItemId, Integer> = {}
+  bank[ItemId.of(2589)] = 20
+  const held: Map<Place, Map<ItemId, Integer>> = {}
+  held[Place.Bags] = bags
+  held[Place.Bank] = bank
+  const read: Map<Place, Hour> = {}
+  read[Place.Bank] = Hour.fromNow(-3600)
+  const kept: Kept = { characters: {} }
+  kept.characters[regy] = Character {
+    name: "Regy", realm: "Stand-in", classTag: "MAGE", level: 20, money: Copper.of(5000), held: held, read: read,
+    mailExpires: nil,
+  }
+  kept.characters[CharacterId.of("Player-1-0000F00D")] = Character {
+    name: "Faraway", realm: "Elsewhere", classTag: "ROGUE", money: Copper.of(70000), held: held, read: read,
+    mailExpires: nil,
+  }
+  const settings: Map<String, Unknown> = {}
+  settings["characters"] = kept
+  const saved: Map<String, Unknown> = {}
+  saved["settings"] = settings
+  Test.saved("OrdaenAltsDB", saved)
+  Test.reload()
+  Test.flush()
+  const names = (Bags.whoLists[1] ?? []).map(choice => choice.label)
+  Test.note(names.join(", "))
+  Test.expect(names.length == 3 && names[2] == "Regy")
+  Bags.picked.who = regy
+  Test.expect(Bags.money == 5000)
+  Bags.picked.who = EVERYONE
+  const lines = Bags.holderTips.line.lines(2589, "")
+  Test.expect(lines.length == 1 && lines[1]?.left == "Regy")
+  Test.note(lines[1]?.right ?? "")
+}
+
+test "two bags change slots by dragging one onto the other; the cursor on a bag shows the game's own tooltip" {
+  Game.bags.bag = threeBags
+  Game.bags.readSlot = readSlot
+  Test.mount(nil, PAGE)
+  Game.bags.open = true
+  Test.flush()
+  click(Test.painted(130716, nil))
+  Test.moveTo(Test.holding("Linen Bag", nil))
+  Test.press(nil)
+  Test.moveTo(Test.holding("Small Brown Pouch", nil))
+  Test.release(nil)
+  Test.flush()
+  Test.shot("the linen bag dragged onto the pouch: the game asked to swap them")
+}
+
+test "the cursor on a slot shows the client's own tooltip of that bag's slot" {
+  Game.bags.bag = bagOf
+  Game.bags.readSlot = readSlot
+  Test.mount(nil, PAGE)
+  Game.bags.open = true
+  Test.flush()
+  Test.moveTo(Test.holding("20", nil))
+  Test.flush()
+  Test.shot("the cursor on the cloth: the client's tooltip of the backpack's second slot asked")
 }

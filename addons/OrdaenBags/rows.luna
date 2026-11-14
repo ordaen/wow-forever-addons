@@ -53,7 +53,8 @@ class BagSlot implements Component {
   derived dimmed: Boolean = self.dimmedOf()
   derived count: Integer = self.slot.count
   derived quality: Quality = self.slot.quality
-  derived action: Action | nil = Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index }
+  // None for an item held away: it isn't in a slot the client can use, and its tooltip is the item's own.
+  derived action: Action | nil = self.slot.away() ? nil : Action.UseBagItem { bag: self.slot.bag, slot: self.slot.index }
 
   slot: Signal<Slot>
   filter: Signal<Filter>

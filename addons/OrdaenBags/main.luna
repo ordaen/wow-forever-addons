@@ -12,7 +12,7 @@ import Game from "$game"
 import { Align, Click, MouseButton, Overflow, Track } from "$ltml"
 import Runtime from "$runtime"
 import {
-  Choice, Component, ListTab, Memory, Module, Money, Placing, PX, Settings, SettingsPage, space, Tip, TipRow, Toolbar,
+  Choice, CompactDropdown, Component, ListTab, Memory, Module, Money, Placing, PX, Settings, SettingsPage, space, Tip, TipRow, Toolbar,
   ToolAct, ToolButton, ToolPick, Window, WindowTabSpec,
 } from "Ordaen"
 import root Ordaen from "Ordaen"
@@ -21,6 +21,8 @@ import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
 import { Gold } from "@/gold"
 import { Guard, GuardTips, Hovered } from "@/guard"
+import { EVERYONE, HERE, HolderTips, Picked } from "@/holders"
+import root Alts from "OrdaenAlts"
 import { columnsIn, GAP, Row, rowsOf, Section, SLOT } from "@/layout"
 import { COUNTED, Grouping, KINDS, MARKED, MOVED, Slot, SortBy, Tab, View } from "@/model"
 import { BagRow, Filter } from "@/rows"
@@ -41,10 +43,12 @@ public struct Kept implements Plain {
 }
 
 // How the player left the bags' view, the profile's (`Memory`, `redesign/kept.md`): the view and the sort the header
-// picks. The search isn't kept.
+// picks, the tab. The search and the character picked aren't kept.
 public struct BagsView implements Plain {
   view: View = View.Categories
   sort: SortBy = SortBy.Bags
+  // The tab picked, by category.
+  tab: Tab = Tab.All
 }
 const BAGS_VIEW: BagsView = {}
 
@@ -74,6 +78,20 @@ const SORTS: Array<Choice<SortBy>> = [
 ]
 // The backpack's icon of the game's, on the bag slots' button.
 const BACKPACK: FileId = 130716
+// The character picker: as wide as «All characters» and a twelve-letter name with the arrow.
+const PICKER_WIDTH = 180 * PX
+// The header: the picker where Ordaen Alts is on, then the search and the tools.
+const HEAD: Array<Track> = ["auto", { fr: 1 }]
+
+// How many slots a row each view holds at least and at most: by category the tabs' column beside, by bag and in one
+// grid the slots alone. No view stretches into one long line.
+function leastColumns(view: View): Integer {
+  return match (view) { .Categories => 4, .Bags => 8, .One => 8 }
+}
+
+function mostColumns(view: View): Integer {
+  return match (view) { .Categories => 16, .Bags => 16, .One => 20 }
+}
 
 // A tab of the list at the window's left: its name and how many items it has.
 class TabEntry implements Component {
@@ -112,6 +130,7 @@ public class Bags implements Module, App {
   public arranger: mut Arranger
   public hovered: mut Hovered
   tips: GuardTips
+  public holderTips: HolderTips
 
   // Every slot of the bags, a list for each bag from the backpack, and all of them in the bags' order: made again only
   // when a bag's size changes.
@@ -129,8 +148,19 @@ public class Bags implements Module, App {
   // The slots that took another item in the last update: a protection follows its item there.
   arrived: mut Array<Slot> = []
 
-  public state tab: Tab = Tab.All
+  public derived tab: Tab = self.list.values.tab
   public state search = ""
+  // Whose items the window shows: the character played (`HERE`), another by its GUID, or every character of the realm
+  // (`EVERYONE`); another's and everyone's as Ordaen Alts last read them.
+  public picked: mut Picked = new Picked()
+  derived here: Boolean = self.picked.who == HERE
+  public derived whoLists: Array<Array<Choice<String>>> = self.whoListsOf()
+  derived headColumns: Array<Track> = self.whoLists.length > 0 ? HEAD : FILL
+  // The gold shown: the character played's, or the one picked's as last played; everyone's together.
+  public derived money: Integer = self.moneyOf()
+  // What is shown held where no slot is read: the bank's last state (the bank's tab), or the character picked's.
+  public derived held: Array<Slot> = self.heldOf()
+  derived bankShown: Boolean = self.here && self.shownTab == Tab.Bank
   public state collapsed: Map<String, Boolean> = {}
   public state slotsOpen = false
   public state lit = -1
@@ -143,7 +173,12 @@ public class Bags implements Module, App {
   public derived shown: Boolean = Game.bags.open
   // The header's picks: the view and the sort, kept in the profile as they are picked.
   public list: mut Memory<BagsView> = new Memory<BagsView>(BAGS_VIEW, .Profile, "view")
-  public derived categories: Boolean = self.list.values.view == View.Categories
+  // Away from the character played, by category alone: Ordaen Alts keeps counts, not slots.
+  public derived view: View = self.here ? self.list.values.view : View.Categories
+  public derived categories: Boolean = self.view == View.Categories
+  // Each view's least and most width: the window is held to them as the view changes.
+  public derived least: Number = self.widthOf(leastColumns(self.view))
+  public derived most: Number | nil = self.widthOf(mostColumns(self.view))
   derived query: String = self.search.lower()
   public derived counts: Map<Tab, Integer> = self.countsOf()
   public derived tabs: Array<Tab> = self.tabsOf()
@@ -153,7 +188,8 @@ public class Bags implements Module, App {
   public derived columns: Integer = columnsIn(self.gridWidth())
   public derived rows: Array<Row> = rowsOf(self.sections, self.columns, self.collapsed)
   public derived filter: Filter = { query: self.query, place: Game.bags.place, lit: self.lit }
-  derived freeText: String = Locale.FREE_OF.format(self.free, self.total)
+  // The character played's free slots; none told while another's items are shown.
+  derived freeText: String = self.here ? Locale.FREE_OF.format(self.free, self.total) : ""
   derived bagLines: Array<BagLine> = self.bagLinesOf()
   derived goldRows: Array<TipRow> = self.gold.rows
   derived windowTabs: Array<WindowTabSpec> = [{ title: Locale.TITLE }]
@@ -172,6 +208,7 @@ public class Bags implements Module, App {
     self.arranger = new Arranger()
     self.hovered = new Hovered()
     self.tips = new GuardTips(self.hovered)
+    self.holderTips = new HolderTips(self.picked)
     Ordaen.modules.add(self)
     Game.bags.updated.listen(self.onUpdated)
     watch (open of self.slotsOpen) { self.placeSlots(open) }
@@ -319,11 +356,13 @@ public class Bags implements Module, App {
   }
 
   countsOf(self): Map<Tab, Integer> {
+    if (!self.here) { return countsOf(self.held) }
     _ = self.revision
     return countsOf(self.all)
   }
 
-  // «All», «New» while something is new, then the kinds' tabs but those hidden, or empty where empty ones hide.
+  // «All», «New» while something is new, then the kinds' tabs but those hidden, or empty where empty ones hide; the
+  // bank's last state, away from the bank.
   tabsOf(self): Array<Tab> {
     const choices = self.settings.values
     let tabs: Array<Tab> = [Tab.All]
@@ -333,16 +372,96 @@ public class Bags implements Module, App {
       const hidden = choices.hidden.any(tab => tab == kind)
       if (!hidden && !(choices.hideEmpty && empty)) { tabs.push(kind) }
     }
+    if (self.here && self.bankKnown()) { tabs.push(Tab.Bank) }
     return tabs
   }
 
+  // Whether the bank's last state is there to show: Ordaen Alts read it once, and the bank isn't open.
+  bankKnown(self): Boolean {
+    const alts = Alts
+    if (alts == nil || Game.bankObserver.open) { return false }
+    _ = alts.revision
+    for (who, character of alts.characters) {
+      if (who == Game.player.guid) { return alts.bankRead(who) != nil }
+    }
+    return false
+  }
+
   sectionsOf(self): Array<Section> {
+    const grouping = self.settings.values.grouping
+    const sort = self.list.values.sort
+    if (!self.here) { return tabSections(self.held, self.shownTab, grouping[self.shownTab] ?? .Type, sort, false) }
+    if (self.bankShown) { return tabSections(self.held, Tab.All, grouping[Tab.Bank] ?? .Type, sort, false) }
     _ = self.revision
-    return match (self.list.values.view) {
-      .Categories => tabSections(self.all, self.shownTab, self.settings.values.grouping[self.shownTab] ?? .Type, self.list.values.sort),
+    return match (self.view) {
+      .Categories => tabSections(self.all, self.shownTab, grouping[self.shownTab] ?? .Type, sort, true),
       .Bags => bagSections(self.bags, self.infos.map(info => info.name)),
       .One => oneSection(self.bags),
     }
+  }
+
+  // The items held where no slot is read: the character played's bank on its tab, another character's bags and bank,
+  // or every character's of the realm; each item once, its counts added. Made again only when the pick, the tab or
+  // what Ordaen Alts read changes.
+  heldOf(self): Array<Slot> {
+    const alts = Alts
+    if (alts == nil) { return [] }
+    _ = alts.revision
+    const who = self.picked.who
+    const bank = who == HERE && self.shownTab == Tab.Bank
+    if (who == HERE && !bank) { return [] }
+    let counts: Map<Integer, Integer> = {}
+    for (id, character of alts.characters) {
+      const mine = id == Game.player.guid
+      const taken = bank ? mine : who == EVERYONE ? character.realm == Game.player.realm : id == who
+      if (taken) {
+        if (!bank) {
+          for (item, count of alts.holdings(id, false)) { counts[item] = (counts[item] ?? 0) + count }
+        }
+        for (item, count of alts.holdings(id, true)) { counts[item] = (counts[item] ?? 0) + count }
+      }
+    }
+    let slots: Array<Slot> = []
+    for (item, count of counts) {
+      let slot = new Slot(-1, slots.length + 1)
+      if (slot.hold(item, count)) { slots.push(slot) }
+    }
+    return slots
+  }
+
+  // The characters to pick from: the one played, the realm's others by name, then all of them. None without Ordaen
+  // Alts. One list in a list, so the picker is made again when it changes.
+  whoListsOf(self): Array<Array<Choice<String>>> {
+    const alts = Alts
+    if (alts == nil) { return [] }
+    _ = alts.revision
+    let others: Array<Choice<String>> = []
+    for (id, character of alts.characters) {
+      if (id != Game.player.guid && character.realm == Game.player.realm) { others.push({ value: id, label: character.name }) }
+    }
+    others.sort((a: Choice<String>, b: Choice<String>): Boolean => a.label < b.label)
+    let list: Array<Choice<String>> = [{ value: HERE, label: Game.player.name }]
+    for (other of others) { list.push(other) }
+    list.push({ value: EVERYONE, label: Locale.EVERYONE })
+    return [list]
+  }
+
+  moneyOf(self): Integer {
+    const alts = Alts
+    const who = self.picked.who
+    if (alts == nil || who == HERE) { return Game.money.amount }
+    let total = 0
+    for (id, character of alts.characters) {
+      const mine = id == Game.player.guid
+      if (id == who || (who == EVERYONE && character.realm == Game.player.realm && !mine)) { total += character.money }
+    }
+    return who == EVERYONE ? total + Game.money.amount : total
+  }
+
+  // A view's width for so many slots a row: the window's room, the tabs where they show, the scroll bar.
+  widthOf(self, columns: Integer): Number {
+    const tabs = self.categories ? TABS_WIDTH + space(.Group) : 0
+    return columns * SLOT + (columns - 1) * GAP + 2 * space(.Window) + tabs + SCROLL_ROOM
   }
 
   gridWidth(self): Number {
@@ -365,7 +484,7 @@ public class Bags implements Module, App {
   // A click on a slot: Alt protects it from sorting (or takes the protection off), Ctrl sends its item where the place
   // takes it, a plain one picks up or puts down. The right button is the client's own.
   onPressed(mut self, slot: mut Slot, click: Click) {
-    if (click.button != MouseButton.Left) { return }
+    if (click.button != MouseButton.Left || slot.away()) { return }
     if (Game.input.altDown()) {
       self.guard(slot)
     } else if (Game.input.controlDown()) {
@@ -406,7 +525,7 @@ public class Bags implements Module, App {
     self.collapsed = collapsed
   }
 
-  onTab(mut self, tab: Tab) { self.tab = tab }
+  onTab(mut self, tab: Tab) { self.list.values.tab = tab }
 
   // «Sort the bags»: the bags that take any item, their unprotected slots, into the sort's order.
   arrange(mut self) {
@@ -442,7 +561,7 @@ public class Bags implements Module, App {
       <box />
       <text value={Game.money.tracked} textFont={.Numbers} />
       <box @enter={self.onGoldEnter} @leave={self.onGoldLeave}>
-        <Money amount={Game.money.amount} />
+        <Money amount={self.money} />
         <Tip $if={self.goldShown} title={Locale.GOLD} text={""} rows={self.goldRows} />
       </box>
     </box>
@@ -453,16 +572,21 @@ public class Bags implements Module, App {
       <frame $for={window of Game.bags.windows} of={window} opacity={0} away={true} />
       <$if={self.ever}>
         <Window keep={"main"} tabs={self.windowTabs} selected={mut self.windowTab} placing={mut self.placing} shown={self.shown}
-                withSettings={true} footer={self.footer} @close={self.onClose} @settings={self.onSettings}>
+                minWidth={self.least} maxWidth={self.most} withSettings={true} footer={self.footer} @close={self.onClose}
+                @settings={self.onSettings}>
           <box rows={BODY} gap={space(.Group)}>
-            <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-              <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-              <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
-                       disabled={self.arranger.running} @pressed={self.arrange} />
-              <ToolPick value={mut self.list.values.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
-              <ToolButton icon={BACKPACK} title={Locale.BAG_SLOTS} text={Locale.BAG_SLOTS_TIP}
-                          open={mut self.slotsOpen} tinted={false} />
-            </Toolbar>
+            <box columns={self.headColumns} gap={space(.Item)} yAlign={Align.Center}>
+              <CompactDropdown $for={choices of self.whoLists} value={mut self.picked.who} choices={peek choices}
+                               width={PICKER_WIDTH} />
+              <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+                <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+                <ToolAct icon={Ordaen.art.ctl.tool.arrange} title={Locale.ARRANGE} text={Locale.ARRANGE_TIP}
+                         disabled={self.arranger.running} @pressed={self.arrange} />
+                <ToolPick value={mut self.list.values.view} choices={self.views} icon={Ordaen.art.ctl.tool.categories} title={Locale.VIEW} />
+                <ToolButton icon={BACKPACK} title={Locale.BAG_SLOTS} text={Locale.BAG_SLOTS_TIP}
+                            open={mut self.slotsOpen} tinted={false} />
+              </Toolbar>
+            </box>
             <box $if={self.categories} columns={WITH_TABS} rows={FILL} gap={space(.Group)}>
               <box columns={1} gap={2 * PX}>
                 <TabEntry $for={tab of self.tabs} $key={tab} tab={peek tab} current={self.shownTab}
