@@ -3,6 +3,17 @@
 // the values are kept in.
 import { Profiles } from "@/profiles"
 
+// What the profiles' page asks of a `Settings` it knows only by the key it is kept under: Ordaen knows no module's type,
+// and a section is read as its type by the `Settings` that owns it.
+public trait Sectioned {
+  // How many of its settings a section (CBOR read to plain data) would change in its values.
+  public differs(self, raw: Unknown): Integer
+  // A section becomes its draft: it waits for «Save».
+  public draftFrom(mut self, raw: Unknown)
+  // Every value back to its default, the draft with them.
+  public reset(mut self)
+}
+
 public class Keeper {
   // Every `Settings`' values, by profile: a `Settings` reads the active profile's section and follows a switch.
   public const profiles: mut Profiles = new Profiles()
@@ -21,6 +32,47 @@ public class Keeper {
   // How many entries of each `Settings` wait, by what it joined as.
   state counts: mut Map<Integer, Integer> = {}
   last = 0
+  // Every `Settings` that is kept, by its key, and who joined as it.
+  sections: mut Map<String, mut any Sectioned> = {}
+  owners: mut Map<String, Integer> = {}
+
+  // A `Settings` that is kept is known by its key until it is gone.
+  public enrol(mut self, key: String, id: Integer, section: mut any Sectioned) {
+    self.sections[key] = section
+    self.owners[key] = id
+  }
+
+  public withdraw(mut self, key: String, id: Integer) {
+    if (self.owners[key] == id) {
+      self.sections[key] = nil
+      self.owners[key] = nil
+    }
+  }
+
+  // Whether a `Settings` is made for the key: its module is loaded.
+  public loaded(self, key: String): Boolean {
+    return self.sections[key] != nil
+  }
+
+  // How many settings a section would change; nil where no `Settings` is made for the key.
+  public differs(self, key: String, raw: Unknown): Integer | nil {
+    const section = self.sections[key]
+    if (section == nil) { return nil }
+    return section.differs(raw)
+  }
+
+  // A section made the draft of its `Settings`: false where none is made for the key.
+  public draft(mut self, key: String, raw: Unknown): Boolean {
+    const section = self.sections[key]
+    if (section == nil) { return false }
+    section.draftFrom(raw)
+    return true
+  }
+
+  // Every `Settings` back to its defaults, in the active profile.
+  public resetAll(mut self) {
+    for (_, section of self.sections) { section.reset() }
+  }
 
   sum(self): Integer {
     let total = 0

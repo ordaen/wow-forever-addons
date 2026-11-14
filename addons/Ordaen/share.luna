@@ -1,0 +1,67 @@
+// A profile given away as a text the player copies: `ORDAEN:1:` and the Base64 of the deflated CBOR of a `Shared`, as the
+// client packs them (`Game.encoding`). Nothing in it can run: CBOR carries no function, and `decode` makes plain data
+// or leaves out what doesn't fit. A text is read whole or refused with the reason; nothing is kept from a part of it.
+import Game from "$game"
+
+// What the text holds: a name, and each module's section as that module's settings were kept (CBOR).
+public struct Shared implements Plain {
+  name: String = ""
+  sections: mut Map<String, String> = {}
+}
+
+// The text's first characters, up to the version.
+const PREFIX = "ORDAEN:"
+// The version this build writes and reads.
+public const VERSION = "1"
+// The most characters a text may have: a profile is a few kilobytes, so more is not one.
+public const MAX_LENGTH = 65536
+
+public enum Refusal {
+  // Not a text this addon writes: no prefix, or what it holds isn't a profile.
+  NotProfile = "notProfile",
+  // A version this build doesn't read.
+  Version = "version",
+  TooLong = "tooLong",
+  // Base64, deflate or CBOR that doesn't read.
+  Damaged = "damaged",
+}
+
+public struct Refused implements Error {
+  reason: Refusal
+  // The version the text names, where that is the reason.
+  version: String | nil
+}
+
+// A profile as a text; nil where the client can't pack it.
+public function write(shared: Shared): String | nil {
+  const raw = Game.encoding.serialize(shared)
+  if (raw == nil) { return nil }
+  const packed = Game.encoding.compress(raw)
+  if (packed == nil) { return nil }
+  const text = Game.encoding.toBase64(packed)
+  if (text == nil) { return nil }
+  return PREFIX + VERSION + ":" + text
+}
+
+// The profile a text holds, or why it isn't one. White space is ignored: a text copied from a chat line or a window
+// has line breaks.
+public function read(typed: String): Shared | Refused {
+  const text = typed.replace("%s+", "")
+  const version = text.match("^ORDAEN:(%d+):")
+  if (version == nil) { return Refused { reason: Refusal.NotProfile, version: nil } }
+  if (text.length > MAX_LENGTH) { return Refused { reason: Refusal.TooLong, version: nil } }
+  if (version != VERSION) { return Refused { reason: Refusal.Version, version: version } }
+  const packed = Game.encoding.fromBase64(text.sub(PREFIX.length + version.length + 2, text.length))
+  if (packed == nil) { return Refused { reason: Refusal.Damaged, version: nil } }
+  const raw = Game.encoding.decompress(packed)
+  if (raw == nil) { return Refused { reason: Refusal.Damaged, version: nil } }
+  const value = Game.encoding.deserialize(raw)
+  if (!(value is Table)) { return Refused { reason: Refusal.Damaged, version: nil } }
+  if (!(value["sections"] is Table)) { return Refused { reason: Refusal.NotProfile, version: nil } }
+  const shared = Shared.decode(value, Shared {})
+  // Each section must be CBOR too: one that isn't is a text that was cut or made by hand.
+  for (_, section of shared.sections) {
+    if (Game.encoding.deserialize(section) == nil) { return Refused { reason: Refusal.Damaged, version: nil } }
+  }
+  return shared
+}

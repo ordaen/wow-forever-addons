@@ -2,7 +2,7 @@
 import Game from "$game"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { Keeper } from "@/keeper"
+import { Keeper, Sectioned } from "@/keeper"
 import { ProfileName } from "@/profiles"
 
 // What a `Settings` or a `Memory` is kept under: the addon of the root that owns it (`OrdaenPanel`), and the part
@@ -18,7 +18,7 @@ function keyOf(addon: Runtime.Addon | nil, part: String): String | nil {
 // time (`value={mut settings.draft.scale}`), and nothing the module reads changes until the draft is saved: every
 // page's changes wait for «Save» together. The values are kept in the active profile (`Profiles`), as a section
 // under the module's name (`keyOf`), and follow a switch to another profile.
-public class Settings<S: Plain> {
+public class Settings<S: Plain> implements Sectioned {
   public const defaults: S
   public state values: S
   public state draft: mut S
@@ -51,10 +51,23 @@ public class Settings<S: Plain> {
     self.keeper.discarding.listen(self.discard)
     self.keeper.rollingBack.listen(self.rollback)
     watch { self.tell() }
+    if (key != nil) { self.keeper.enrol(key, self.id, mut self) }
   }
 
   destructor() {
+    const key = self.key
+    if (key != nil) { self.keeper.withdraw(key, self.id) }
     self.keeper.leave(self.id)
+  }
+
+  // How many settings a section would change in the values.
+  public differs(self, raw: Unknown): Integer {
+    return S.decode(raw, self.defaults).changes(self.values)
+  }
+
+  // A section becomes the draft: it waits for «Save», as a preset's entries do.
+  public draftFrom(mut self, raw: Unknown) {
+    self.draft = S.decode(raw, self.defaults)
   }
 
   tell(mut self) {

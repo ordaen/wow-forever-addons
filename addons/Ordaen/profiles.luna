@@ -22,11 +22,85 @@ public struct Picks implements Plain {
   byCharacter: mut Map<String, ProfileName> = {}
   // By the character's GUID, then the specialisation's index.
   bySpec: mut Map<String, mut Map<Integer, ProfileName>> = {}
+
+  // The profile under another name, in every pick that names it.
+  public renamed(mut self, from: String, to: String) {
+    if (self.account == from) { self.account = to }
+    for (tag, name of self.byClass) {
+      if (name == from) { self.byClass[tag] = to }
+    }
+    for (guid, name of self.byCharacter) {
+      if (name == from) { self.byCharacter[guid] = to }
+    }
+    for (_, specs of self.bySpec) {
+      for (index, name of specs) {
+        if (name == from) { specs[index] = to }
+      }
+    }
+  }
+
+  // Every pick of the profile is dropped: the next rule answers where it was. The account's stays: it always names one.
+  public without(mut self, gone: String) {
+    for (tag, name of self.byClass) {
+      if (name == gone) { self.byClass[tag] = nil }
+    }
+    for (guid, name of self.byCharacter) {
+      if (name == gone) { self.byCharacter[guid] = nil }
+    }
+    for (_, specs of self.bySpec) {
+      for (index, name of specs) {
+        if (name == gone) { specs[index] = nil }
+      }
+    }
+  }
+
+  // The pick for a character, a class or a specialisation of a character, or none (`nil`).
+  public forCharacter(mut self, guid: String, name: String | nil) {
+    if (name == nil) {
+      self.byCharacter[guid] = nil
+    } else {
+      self.byCharacter[guid] = name
+    }
+  }
+
+  public forClass(mut self, tag: String, name: String | nil) {
+    if (name == nil) {
+      self.byClass[tag] = nil
+    } else {
+      self.byClass[tag] = name
+    }
+  }
+
+  public forSpec(mut self, guid: String, index: Integer, name: String | nil) {
+    if (self.bySpec[guid] == nil) { self.bySpec[guid] = {} }
+    const specs = self.bySpec[guid]
+    if (specs == nil) { return }
+    if (name == nil) {
+      specs[index] = nil
+    } else {
+      specs[index] = name
+    }
+  }
 }
 
 public struct Kept implements Plain {
   profiles: mut Map<String, mut Profile> = {}
   picks: mut Picks = Picks {}
+
+  // The profile under another name, in its picks too.
+  public renamed(mut self, from: String, to: String) {
+    const profile = self.profiles[from]
+    if (profile == nil) { return }
+    self.profiles[from] = nil
+    self.profiles[to] = profile
+    self.picks.renamed(from, to)
+  }
+
+  // The profile gone, and every pick of it.
+  public without(mut self, gone: String) {
+    self.profiles[gone] = nil
+    self.picks.without(gone)
+  }
 }
 
 // Who the character is, as far as the picks ask: its GUID and specialisation where the game says them.
@@ -36,35 +110,86 @@ public struct Who {
   classTag: String
 }
 
-// The profile a character uses: the one picked for its specialisation, for it, for its class, or the account's.
-public function picked(picks: Picks, who: Who): ProfileName {
+// Which rule named the profile a character uses, in the order they win.
+public enum Why { Spec = "spec", Character = "character", Class = "class", Account = "account" }
+
+public struct Pick {
+  name: ProfileName
+  why: Why
+}
+
+// The profile a character uses and the rule that names it: the one picked for its specialisation, for it, for its
+// class, or the account's.
+public function pickOf(picks: Picks, who: Who): Pick {
   const character = who.character
   if (character != nil) {
     const spec = who.spec
     const bySpec = picks.bySpec[character]
     if (spec != nil && bySpec != nil) {
       const forSpec = bySpec[spec]
-      if (forSpec != nil) { return forSpec }
+      if (forSpec != nil) { return { name: forSpec, why: Why.Spec } }
     }
     const own = picks.byCharacter[character]
-    if (own != nil) { return own }
+    if (own != nil) { return { name: own, why: Why.Character } }
   }
-  return picks.byClass[who.classTag] ?? picks.account
+  const forClass = picks.byClass[who.classTag]
+  if (forClass != nil) { return { name: forClass, why: Why.Class } }
+  return { name: picks.account, why: Why.Account }
+}
+
+public function picked(picks: Picks, who: Who): ProfileName {
+  return pickOf(picks, who).name
+}
+
+// A profile's name as the player typed it: nil where it is empty or too long to be read in a list.
+public const MAX_NAME = 40
+
+public function named(text: String): ProfileName | nil {
+  if (text == "" || text.length > MAX_NAME) { return nil }
+  return text
 }
 
 public class Profiles {
   public state kept: Kept
   // The profile this character uses now: a `Settings` follows it, and takes its section anew when it changes.
   public derived active: ProfileName = picked(self.kept.picks, self.who())
+  // The rule that names it, for the page to say why.
+  public derived why: Why = pickOf(self.kept.picks, self.who()).why
+  // Every profile, by name: the ones kept and the account's, which is there before anything is kept in it.
+  public derived names: Array<String> = self.namesOf()
 
   constructor() {
     self.kept = load(.Account, "profiles", Kept {})
   }
 
-  // The game says the class; the character's GUID and specialisation wait for the part of the game that says who the
-  // player is.
-  who(self): Who {
-    return { character: nil, spec: nil, classTag: Game.player.classTag }
+  // Who the character is as the picks ask: its GUID, its specialisation's place where it has one, its class.
+  public who(self): Who {
+    return { character: Game.player.guid, spec: Game.player.spec?.index, classTag: Game.player.classTag }
+  }
+
+  namesOf(self): Array<String> {
+    const kept = self.kept
+    const list: Array<String> = []
+    for (name, _ of kept.profiles) { list.push(name) }
+    if (kept.profiles[kept.picks.account] == nil) { list.push(kept.picks.account) }
+    list.sort((a, b) => a < b)
+    return list
+  }
+
+  // The kept profiles and picks as a copy to change and hand to `apply`.
+  public edit(self): mut Kept {
+    return (peek self.kept).clone()
+  }
+
+  // Whether keeping `next` would make this character use another profile than it does.
+  public switches(self, next: Kept): Boolean {
+    return picked(next.picks, self.who()) != peek self.active
+  }
+
+  // What the player chose, kept: a `Settings` follows a change of the active profile.
+  public apply(mut self, next: Kept) {
+    self.kept = next
+    Game.saved.store(.Account, "profiles", next)
   }
 
   // A `Settings`' section in a profile, unpacked for its `decode`; nil where the profile has none. A `Settings` kept
@@ -92,30 +217,30 @@ public class Profiles {
   }
 
   put(mut self, name: ProfileName, key: String, packed: String) {
-    const next = (peek self.kept).clone()
+    const next = self.edit()
     const profile = next.profiles[name] ?? Profile {}
     profile.sections[key] = packed
     next.profiles[name] = profile
-    self.kept = next
-    Game.saved.store(.Account, "profiles", next)
+    self.apply(next)
   }
 
-  // A new profile, a copy of the active one: false where the name is empty or taken.
-  public make(mut self, name: ProfileName): Boolean {
+  // A new profile, a copy of the profile `from` or, where that is nil, with no section (every module's defaults):
+  // false where the name is empty or taken.
+  public make(mut self, name: ProfileName, from: String | nil): Boolean {
     const kept = peek self.kept
-    if (name == "" || kept.profiles[name] != nil) { return false }
+    const taken = self.namesOf().any(known => known == name)
+    if (name == "" || taken) { return false }
     const next = kept.clone()
-    next.profiles[name] = (kept.profiles[peek self.active] ?? Profile {}).clone()
-    self.kept = next
-    Game.saved.store(.Account, "profiles", next)
+    const source = from == nil ? nil : kept.profiles[from]
+    next.profiles[name] = source == nil ? Profile {} : source.clone()
+    self.apply(next)
     return true
   }
 
   // The account's default pick: every character that has no pick of its own switches to it at once.
   public use(mut self, name: ProfileName) {
-    const next = (peek self.kept).clone()
+    const next = self.edit()
     next.picks.account = name
-    self.kept = next
-    Game.saved.store(.Account, "profiles", next)
+    self.apply(next)
   }
 }
