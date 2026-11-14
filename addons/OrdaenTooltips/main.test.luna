@@ -256,3 +256,21 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   (Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")).disable()
   Test.expect(Test.blank())
 }
+
+test "a tooltip shown again is drawn by changing what differs: nothing of the group is drawn anew" {
+  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
+  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+  Game.tooltip.main = inSlot(corner, slot, sword())
+  Test.pass(0.1)
+  Game.tooltip.main = hidden(corner)
+  Test.pass(0.2)
+  const said = Test.calls((): nil => {
+    Game.tooltip.main = inSlot(corner, slot, { kind: 0, id: 9011, about: "item:9011", lines: [{ left: "Shield", kind: 22 }] })
+    Test.flush()
+  })
+  Test.shot("shown again")
+  // No frame is taken from the pool and dressed anew: the group's frames stay, and the one text that differs is set.
+  Test.expect(!said.contains("SetParent") && !said.contains("SetAtlas") && !said.contains("SetScript"))
+  Test.expect(said.contains("SetText=1"))
+}
