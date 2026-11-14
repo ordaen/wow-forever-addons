@@ -74,9 +74,14 @@ test "a commodity picked: its listings asked, a quantity priced by the client, t
     { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true },
   ])
   Test.pass(0.02)
-  Test.click(Test.field(2), nil)
-  Test.erase(1)
-  Test.type("15")
+  // The counter: Shift steps 10, then one a click.
+  Game.input.shiftDown = (): Boolean => true
+  Test.click(Test.holding("+", nil), nil)
+  Game.input.shiftDown = (): Boolean => false
+  Test.click(Test.holding("+", nil), nil)
+  Test.click(Test.holding("+", nil), nil)
+  Test.click(Test.holding("+", nil), nil)
+  Test.click(Test.holding("+", nil), nil)
   Test.pass(0.02)
   Test.shot("15 of linen: both listings marked, 10 at 36 and 5 at 40")
   Test.click(Test.holding("Buy", nil), nil)

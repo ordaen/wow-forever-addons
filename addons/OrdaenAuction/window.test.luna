@@ -1,14 +1,15 @@
 // The house window on the fake house, where no clock is read: shown while the house is open and the setting has it,
-// the game's own window put away meanwhile, its close the house's; its five pages as the window's tabs, before any
-// scan: «Buy» empty, «Sell» with the bags' items and «Post» from a click, «My auctions» from the client's list with
-// «Check» asking again and «Cancel» from a click, «Data». What reads the server's hour (a browse's rows, a scan's age)
-// is `clock.test.luna`.
+// full screen, the game's own window put away meanwhile, its close the house's; its three pages as the window's tabs,
+// before any scan: «Buy» empty, «Sell» with the bags' items and «Post» from a click, «Data»; «Shopping list» and «My
+// auctions» docked at the screen's right, «My auctions» from the client's list with «Check» asking again and «Cancel»
+// from a click. What reads the server's hour (a browse's rows, a scan's age) is `clock.test.luna`.
 import Client from "$client"
 import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
 import root Auction from "OrdaenAuction"
 import root Ordaen from "Ordaen"
+import Style from "@/style"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
 const LINEN: Integer = 2589
@@ -33,7 +34,7 @@ test "the window shows while the house is open, the game's own put away; its clo
   Test.expect(Test.drawn().length == 0)
   Game.auctionHouse.open = true
   Test.pass(0.02)
-  Test.shot("the house open, no prices yet: «Buy» with nothing shown, the five pages as the window's tabs")
+  Test.shot("the house open, no prices yet: full screen, «Buy» with nothing shown, the three pages as the window's tabs")
   whereOwn(own)
   Test.click(Test.holding("Sell", nil), nil)
   Test.pass(0.02)
@@ -43,6 +44,39 @@ test "the window shows while the house is open, the game's own put away; its clo
   Test.expect(!Game.auctionHouse.open)
   Test.expect(!Auction.shown)
   whereOwn(own)
+}
+
+test "the window opens full screen; «Shopping list» and «My auctions» are windows docked at the screen's right" {
+  Test.mount(nil, PAGE)
+  Game.auctionHouse.open = true
+  Test.pass(0.02)
+  const wood = Ordaen.art.window.wood
+  Test.expect(Test.edges(wood, 0).left == 0 && Test.edges(wood, 0).right == Client.GetScreenWidth())
+  Test.click(Test.holding("Shopping list", nil), nil)
+  Test.pass(0.02)
+  Test.expect(Auction.shoppingOpen)
+  // The full-screen window leaves the docked one its width.
+  Test.expect(Test.edges(wood, 0).right == Client.GetScreenWidth() - Style.SIDE_WIDTH)
+  Test.shot("«Buy» full screen, the shopping list docked at the right")
+  Auction.page = 2
+  Test.pass(0.02)
+  Test.click(Test.holding("My auctions", nil), nil)
+  Test.pass(0.02)
+  Test.expect(Auction.shoppingOpen && Auction.ownedOpen)
+  Test.note(`surfaces shown: ${Test.surfaces().length}`)
+  // Each button again closes its window; the house stays open, and the window fills the screen again.
+  Test.click(Test.holding("My auctions", nil), nil)
+  Test.pass(0.02)
+  Test.expect(!Auction.ownedOpen)
+  Auction.page = 1
+  Test.pass(0.02)
+  Test.click(Test.holding("Shopping list", nil), nil)
+  Test.pass(0.02)
+  Test.expect(!Auction.shoppingOpen)
+  Test.expect(Game.auctionHouse.open)
+  Test.expect(Test.edges(wood, 0).right == Client.GetScreenWidth())
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
 }
 
 test "the window off in the settings: the house opens with none of it, the game's own left as it is" {
@@ -67,6 +101,9 @@ test "«Sell»: the bags' items the house takes; one picked is posted from the c
     { item: AXE, count: 1, bag: 0, slot: 2, commodity: false },
     { item: LINEN, count: 6, bag: 1, slot: 4, commodity: true },
   ]
+  // The client's deposit: 4 copper each of a commodity, an item's auction 150, whatever the duration.
+  Game.auctionActions.deposit = (from: Game.Sellable, quantity: Integer, duration: Game.Duration): Integer | nil =>
+  from.commodity ? quantity * 4 : 150
   Game.clock.server = 1790002800
   Game.auctionHouse.open = true
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
@@ -75,19 +112,21 @@ test "«Sell»: the bags' items the house takes; one picked is posted from the c
   Test.shot("«Sell»: linen's two stacks as one row with its market, the axe; none picked")
   Test.click(Test.holding("Linen Cloth", nil), nil)
   Test.pass(0.02)
-  Test.click(Test.field(1), nil)
-  Test.erase(1)
-  Test.type("25")
+  // The counter: Alt steps 100, held to the 26 linen hold; then one back.
+  Game.input.altDown = (): Boolean => true
+  Test.click(Test.holding("+", nil), nil)
+  Game.input.altDown = (): Boolean => false
+  Test.click(Test.holding("-", nil), nil)
   Test.click(Test.holding("12 h", nil), nil)
   Test.pass(0.02)
-  Test.shot("linen picked: 25 of its 26, a copper under the lowest, 12 hours")
+  Test.shot("linen picked: 25 of its 26, a copper under the lowest, 12 hours, a deposit of 1s")
   Test.click(Test.holding("Post", nil), nil)
   Game.auctionActions.answered.emit(.Refused { reason: "Not enough money for the deposit" })
   Test.pass(0.02)
   Test.shot("the client refused the post: its words in red")
   Test.click(Test.holding("Bronze Axe", nil), nil)
   Test.pass(0.02)
-  Test.click(Test.field(2), nil)
+  Test.click(Test.field(1), nil)
   Test.erase(20)
   Test.type("20s")
   Test.key(Key.Enter)
@@ -107,7 +146,9 @@ test "«My auctions»: the client's list, «Check» asks again, «Cancel» on a 
     { auction: 2, item: 2770, quantity: 5, buyout: nil, sold: false, left: nil },
     { auction: 3, item: 2592, quantity: 1, buyout: 300, sold: true, left: nil },
   ]
-  Auction.page = 3
+  Auction.page = 2
+  Test.pass(0.02)
+  Test.click(Test.holding("My auctions", nil), nil)
   Test.pass(0.02)
   Test.shot("«My auctions»: the client's three, none seen on the house yet; «Cancel» on the two not sold")
   Test.click(Test.holding("Check", nil), nil)
@@ -124,7 +165,7 @@ test "«My auctions»: the client's list, «Check» asks again, «Cancel» on a 
 test "«Data» before any scan: none, nothing at rest, an empty ledger, the settings" {
   Test.mount(nil, PAGE)
   Game.auctionHouse.open = true
-  Auction.page = 5
+  Auction.page = 3
   Test.pass(0.02)
   Test.shot("«Data»")
   Game.auctionHouse.open = false
