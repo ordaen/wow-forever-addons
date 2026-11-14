@@ -14,11 +14,22 @@ const NAME: Color = Color.hex("#ffffff")
 const LABEL: Color = Color.hex("#cbb994")
 const BY_ITS_BOX: Beside = { beside: "parent" }
 const ROW: Array<Track> = [{ fr: 1 }, "auto"]
+// A label and the word after it, side by side at the row's start.
+const MARKED: Array<Track> = ["auto", "auto"]
 
-// One row of a Tip: what it is, and how much.
+// A word after a row's label in a colour of its own: a standing's name in its standing's colour. Without its text, the
+// label stands alone.
+public struct TipMark {
+  const text: String
+  const color: Color
+}
+
+// One row of a Tip: what it is, a word after it in its own colour where it has one, and how much (in the numbers'
+// font). The mark's default is written out, not a constant of this file: a default is made where the row is.
 public struct TipRow {
   const label: String
   const value: String
+  const mark: TipMark = { text: "", color: { r: 1, g: 1, b: 1, a: 1 } }
 }
 
 public class Tip implements Component {
@@ -41,8 +52,11 @@ public class Tip implements Component {
         <text value={self.title} textColor={NAME} textSize={.Title} />
         <text $if={self.hasText} value={self.text} textColor={LABEL} />
         <box $for={row of self.rows} columns={ROW} gap={8 * PX} yAlign={Align.Center}>
-          <text value={row.label} textColor={LABEL} />
-          <text value={row.value} textColor={NAME} wrap={false} />
+          <box columns={MARKED} gap={4 * PX} yAlign={Align.Center}>
+            <text value={row.label} textColor={LABEL} />
+            <text $if={row.mark.text != ""} value={row.mark.text} textColor={row.mark.color} />
+          </box>
+          <text value={row.value} textColor={NAME} wrap={false} textFont={.Numbers} />
         </box>
       </surface>
     }

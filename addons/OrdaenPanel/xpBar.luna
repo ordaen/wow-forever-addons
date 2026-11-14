@@ -2,13 +2,14 @@
 // tenth, the glass shine, the bronze ring, and the values in the middle. Experience: the rested part in pale blue past
 // the player's fill; reputation: the watched faction in steel. Both tracked, the faction's tube stands under the
 // experience's where the room holds two; else experience alone, and at the level's cap the faction alone (nothing when
-// none is watched). Each tube explains itself in our Tip while the cursor is on it, the rested part on its own.
+// none is watched). Each tube explains itself in our Tip while the cursor is on it, the rested part on its own: where
+// the value is, what is left to the next level or standing, and the rested bonus, each with its part of the level's
+// (or the standing's) whole.
 import Game from "$game"
 import { Align, Art, Edges, Line, Percent, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Tip, TipRow, number } from "Ordaen"
 import Locale from "@/locales"
-import { ExperienceGains, Gains, ReputationGains } from "@/gains"
 
 // Slim at a third of the screen's width.
 const TUBE_HEIGHT: Number = 25
@@ -30,8 +31,8 @@ const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 const MARK: Line = { width: 1, color: Color.hex("#00000080"), sides: [Side.Right] }
 // Rested experience grows to a level and a half at most (the client's rule).
 const RESTED_MOST = 1.5
-const HOUR = 3600
-const MINUTE = 60
+// Under this many percent a part keeps a decimal, so a small one still reads: 264 of 29 000 is 0.9%, not 0%.
+const FINE_PERCENT = 10
 
 // Where the cursor is on a tube: off it, on it, or on the part past its fill.
 enum Over { Off = "off", Bar = "bar", Ahead = "ahead" }
@@ -43,36 +44,30 @@ function share(value: Integer, least: Integer, most: Integer): Number {
   return 100 * (0).max((value - least).min(span)) / span
 }
 
+// A percentage as it is written: whole from FINE_PERCENT up, with one decimal under it, cut, never rounded up.
+function percentText(percent: Number): String {
+  let shown = percent >= FINE_PERCENT ? percent.floor() : (percent * 10).floor() / 10
+  return number(shown) + "%"
+}
+
+// A part of the whole, in percent of the whole: never of what is left of it.
+public function partOf(part: Integer, whole: Integer): String {
+  return percentText(whole > 0 ? 100 * (0).max(part) / whole : 0)
+}
+
 // The values of a tube: how far into its span and how long the span is, and the part of it.
 function valuesOf(value: Integer, least: Integer, most: Integer): String {
-  return "%s / %s (%d%%)".format(number(value - least), number(most - least), share(value, least, most).floor())
+  return "%s / %s (%s)".format(number(value - least), number(most - least), percentText(share(value, least, most)))
 }
 
-// A span of seconds, in hours and minutes.
-function lasting(seconds: Number): String {
-  let minutes = (seconds / MINUTE).ceil()
-  if (minutes < 60) { return Locale.TIME_MINUTES.format(minutes) }
-  return Locale.TIME_HOURS.format((minutes / 60).floor(), minutes % 60)
+// A count and its part of the whole: «900 (90%)».
+function countOf(part: Integer, whole: Integer): String {
+  return "%s (%s)".format(number(part), partOf(part, whole))
 }
 
-// The rows every tube's tooltip ends with: what was gained this session, at what pace, and how long `left` takes at
-// it.
-function paceRows(rows: mut Array<TipRow>, gains: Gains, left: Integer, now: Integer, timeLabel: String) {
-  if (gains.gained != 0) {
-    rows.push({ label: Locale.TIP_SESSION, value: (gains.gained > 0 ? "+" : "") + number(gains.gained) })
-  }
-  let rate = gains.perHour(now)
-  if (rate != nil) {
-    rows.push({ label: Locale.TIP_PER_HOUR, value: number(rate.floor()) })
-  }
-  let seconds = gains.secondsTo(left, now)
-  if (seconds != nil) {
-    rows.push({ label: timeLabel, value: lasting(seconds) })
-  }
-  let times = gains.timesTo(left)
-  if (times != nil) {
-    rows.push({ label: Locale.TIP_AT_A_TIME.format(number(gains.last)), value: Locale.TIP_TIMES.format(times) })
-  }
+// Where a value is in its whole: «100 (10%) / 1 000».
+function currentOf(part: Integer, whole: Integer): String {
+  return "%s / %s".format(countOf(part, whole), number(whole))
 }
 
 // One tube: a value between its least and its most, required as a count's bounds are, so every bar says its values
@@ -206,61 +201,54 @@ public class XpBar implements Component {
   // The faction's fill takes its standing's colour, as the client's reputation bar does.
   derived standingTint: Color | nil = Game.reputation.color
 
-  // What the player gained this session: the panel's, which outlasts a bar drawn again.
-  experience: ExperienceGains
-  reputation: ReputationGains
+
   // How high the bar may be: the panel's inside.
   room: Signal<Number>
-  constructor(
-    experience: ExperienceGains,
-    reputation: ReputationGains,
-    room: Signal<Number> = UNBOUNDED,
-  ) {
-    self.experience = experience
-    self.reputation = reputation
+  constructor(room: Signal<Number> = UNBOUNDED) {
     self.room = room
   }
 
-  // The rested bonus and how much of a level it is.
-  restedValue(self): String {
-    let most = Game.player.xpMax
-    let part = most > 0 ? 100 * Game.player.rested / most : 0
-    return Locale.XP_TIP_RESTED_VALUE.format(number(Game.player.rested), part.floor())
+  // The rested bonus and its part of the level's whole.
+  restedRow(self): TipRow {
+    return { label: Locale.XP_TIP_RESTED, value: countOf(Game.player.rested, Game.player.xpMax) }
   }
 
+  // Where the experience is, what is left to the next level, and the rested bonus where there is one: each with its
+  // part of the level's whole.
   experienceRows(self): Array<TipRow> {
+    let whole = Game.player.xpMax
     let rows: Array<TipRow> = [
-      { label: Locale.XP_TIP_EXPERIENCE, value: valuesOf(Game.player.xp, 0, Game.player.xpMax) },
-      { label: Locale.XP_TIP_TO_LEVEL.format(Game.player.level + 1), value: number(self.toLevel) },
+      { label: Locale.TIP_CURRENT, value: currentOf(Game.player.xp, whole) },
+      { label: Locale.XP_TIP_TO_LEVEL.format(Game.player.level + 1), value: countOf(self.toLevel, whole) },
     ]
     if (Game.player.rested > 0) {
-      rows.push({ label: Locale.XP_TIP_RESTED, value: self.restedValue() })
+      rows.push(self.restedRow())
     }
-    paceRows(mut rows, self.experience.gains, self.toLevel, Game.clock.seconds, Locale.XP_TIP_TIME_TO_LEVEL)
     return rows
   }
 
   restRows(self): Array<TipRow> {
     return [
-      { label: Locale.XP_TIP_RESTED, value: self.restedValue() },
+      self.restedRow(),
       { label: Locale.RESTED_TIP_RESTING, value: Game.situation.resting ? Locale.YES : Locale.NO },
       { label: Locale.RESTED_TIP_ROOM, value: number((0).max(self.restedMost - Game.player.rested)) },
     ]
   }
 
+  // Where the reputation is in its standing and what is left to the next, named in its colour as the bar is drawn:
+  // each with its part of the standing's whole.
   standingRows(self): Array<TipRow> {
+    let whole = Game.reputation.max - Game.reputation.min
     let rows: Array<TipRow> = [
-      { label: Locale.REPUTATION_TIP_STANDING, value: Game.reputation.standing },
-      {
-        label: Locale.REPUTATION_TIP_VALUE,
-        value: valuesOf(Game.reputation.value, Game.reputation.min, Game.reputation.max),
-      },
+      { label: Locale.TIP_CURRENT, value: currentOf(Game.reputation.value - Game.reputation.min, whole) },
     ]
-    if (Game.reputation.next == "") { return rows }
-    let toNext = Locale.REPUTATION_TIP_TO_NEXT.format(Game.reputation.next)
-    rows.push({ label: toNext, value: number(self.toNext) })
-    paceRows(mut rows, self.reputation.gains, self.toNext, Game.clock.seconds,
-      Locale.REPUTATION_TIP_TIME.format(Game.reputation.next))
+    if (Game.reputation.next != "") {
+      rows.push({
+        label: Locale.REPUTATION_TIP_TO,
+        mark: { text: Game.reputation.next, color: Game.reputation.nextColor },
+        value: countOf(self.toNext, whole),
+      })
+    }
     return rows
   }
 
