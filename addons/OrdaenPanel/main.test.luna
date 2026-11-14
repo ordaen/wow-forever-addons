@@ -22,6 +22,27 @@ function blizzard(name: String, nth: Integer): any Client.Frame {
   return frame
 }
 
+// The game's bag buttons, every one its constants say it has (the stand-in's are Forever's), from the `nth` frame on:
+// the backpack, a slot for each bag, one for each reagent bag, the keyring's.
+function bagButtons(nth: Integer): Array<Game.BagButton> {
+  let list: Array<Game.BagButton> = []
+  list.push({ kind: Game.BagKind.Backpack, frame: blizzard("MainMenuBarBackpackButton", nth), icon: 130716 })
+  for (slot of 0..=Client.NUM_BAG_SLOTS - 1) {
+    list.push({ kind: Game.BagKind.Bag, frame: blizzard(`CharacterBag${slot}Slot`, nth + list.length), icon: 133633 })
+  }
+  for (slot of 0..=Client.NUM_REAGENTBAG_SLOTS - 1) {
+    const name = `CharacterReagentBag${slot}Slot`
+    list.push({ kind: Game.BagKind.Reagent, frame: blizzard(name, nth + list.length), icon: 136511 })
+  }
+  list.push({ kind: Game.BagKind.Keyring, frame: blizzard("KeyRingButton", nth + list.length), icon: 130980 })
+  return list
+}
+
+// Where a bag button's frame of the game's stands.
+function frameOf(button: Game.BagButton | nil): any Client.Frame {
+  return (button ?? panic("the game has the bag button")).frame
+}
+
 function show(title: String, menu: any Client.Frame, button: any Client.Frame, bags: any Client.Frame) {
   Test.shot(title)
   let home = button.GetParent() == Client.C_UI.GetUIParent() ? "the game's" : "ours"
@@ -45,7 +66,7 @@ function along(frame: any Client.Frame, vertical: Boolean): Number {
 
 // The panel on a screen of this size, drawn: `Test.shot` holds everything drawn, the panel too, to the screen. How
 // long its start, its middle and its end are, from the middle of the first cell to the middle of the menu's last (the
-// guild's), to the backpack's, to the last bag's.
+// game menu's), to the backpack's, to the last bag button's.
 function measured(
   cells: Array<any Client.Frame>,
   named: String,
@@ -58,12 +79,12 @@ function measured(
   let at: Array<Number> = []
   for (cell of cells) { at.push(along(cell, vertical)) }
   let first = at[1] ?? 0
-  let guild = at[2] ?? 0
+  let menu = at[2] ?? 0
   let backpack = at[3] ?? 0
   let last = at[4] ?? 0
-  Test.note(`from the first cell to the guild's ${guild - first}, from there to the backpack ${backpack - guild}, from there to the last bag ${last - backpack}`)
+  Test.note(`from the first cell to the game menu's ${menu - first}, from there to the backpack ${backpack - menu}, from there to the last bag button ${last - backpack}`)
   Test.note("")
-  return [guild - first, backpack - guild, last - backpack]
+  return [menu - first, backpack - menu, last - backpack]
 }
 
 test "the panel fits the screen on each side: its middle gives way, its ends keep their length" {
@@ -77,25 +98,20 @@ test "the panel fits the screen on each side: its middle gives way, its ends kee
   Game.frames.QuestLogMicroButton = blizzard("QuestLogMicroButton", 7)
   Game.frames.LFDMicroButton = blizzard("LFDMicroButton", 8)
   Game.frames.CollectionsMicroButton = blizzard("CollectionsMicroButton", 9)
-  Game.frames.MainMenuMicroButton = blizzard("MainMenuMicroButton", 10)
-  let guild = blizzard("GuildMicroButton", 11)
-  Game.frames.GuildMicroButton = guild
+  let gameMenu = blizzard("MainMenuMicroButton", 10)
+  Game.frames.MainMenuMicroButton = gameMenu
+  Game.frames.GuildMicroButton = blizzard("GuildMicroButton", 11)
   Game.frames.StoreMicroButton = blizzard("StoreMicroButton", 12)
   Game.frames.HelpMicroButton = blizzard("HelpMicroButton", 13)
   Game.frames.QuickJoinToastButton = blizzard("QuickJoinToastButton", 14)
   Game.frames.BagsBar = blizzard("BagsBar", 15)
-  let backpack = blizzard("MainMenuBarBackpackButton", 16)
-  Game.frames.MainMenuBarBackpackButton = backpack
-  Game.frames.BackpackFreeSlots = blizzard("BackpackFreeSlots", 17)
-  Game.frames.CharacterBag0Slot = blizzard("CharacterBag0Slot", 18)
-  Game.frames.CharacterBag1Slot = blizzard("CharacterBag1Slot", 19)
-  Game.frames.CharacterBag2Slot = blizzard("CharacterBag2Slot", 20)
-  let lastBag = blizzard("CharacterBag3Slot", 21)
-  Game.frames.CharacterBag3Slot = lastBag
+  Game.frames.BackpackFreeSlots = blizzard("BackpackFreeSlots", 16)
+  const buttons = bagButtons(17)
+  Game.bags.buttons = buttons
   Game.money.amount = 1234567
   Game.player.xp = 2500
   Game.player.xpMax = 10000
-  let cells = [first, guild, backpack, lastBag]
+  let cells = [first, gameMenu, frameOf(buttons[1]), frameOf(buttons[buttons.length])]
   Test.mount(nil, PAGE)
   // As wide as the money's text down a side.
   Panel.settings.draft.height = 72
@@ -137,12 +153,9 @@ test "the panel: its zones and items, the game's buttons in its cells, when it s
   Game.frames.QuickJoinToastButton = blizzard("QuickJoinToastButton", 14)
   let bags = blizzard("BagsBar", 15)
   Game.frames.BagsBar = bags
-  Game.frames.MainMenuBarBackpackButton = blizzard("MainMenuBarBackpackButton", 16)
-  Game.frames.BackpackFreeSlots = blizzard("BackpackFreeSlots", 17)
-  Game.frames.CharacterBag0Slot = blizzard("CharacterBag0Slot", 18)
-  Game.frames.CharacterBag1Slot = blizzard("CharacterBag1Slot", 19)
-  Game.frames.CharacterBag2Slot = blizzard("CharacterBag2Slot", 20)
-  Game.frames.CharacterBag3Slot = blizzard("CharacterBag3Slot", 21)
+  Game.frames.BackpackFreeSlots = blizzard("BackpackFreeSlots", 16)
+  const buttons = bagButtons(17)
+  Game.bags.buttons = buttons
   Game.money.amount = 1234567
   Game.bags.free = 23
   Game.player.xp = 2500
@@ -152,6 +165,10 @@ test "the panel: its zones and items, the game's buttons in its cells, when it s
 
   Test.mount(nil, PAGE)
   shown("drawn along the bottom: the menu with friends and guild at its start, the money and the bags at its end")
+  // The portrait's rim over its face: the whole portrait's box, the screen's corner.
+  const rim = Test.painted(Ordaen.art.panel.cornerRim, nil)
+  Test.note(`the portrait's rim painted, its middle at ${rim.x}, ${rim.y}`)
+  Test.note("")
   // The mouse over the panel: each cell's own, the game's button in it never at one level with ours.
   let mouse = Test.mouse()
   let contested = mouse.contestedFirst
@@ -316,4 +333,67 @@ test "the panel: its zones and items, the game's buttons in its cells, when it s
   Test.expect(Test.blank())
   Test.note("-- turned off: its root ended, what it drew gone")
   Test.note(`the game's menu: opacity ${menu.GetAlpha()}, its bag bar shown: ${bags.IsShown()}`)
+}
+
+// The steps from each cell's middle to the next one's, along the screen.
+function steps(frames: Array<any Client.Frame>): Array<Number> {
+  let list: Array<Number> = []
+  for (i of 2..=frames.length) {
+    list.push(Test.centre(frames[i] ?? panic("a frame")).x - Test.centre(frames[i - 1] ?? panic("a frame")).x)
+  }
+  return list
+}
+
+test "the game menu's button is the menu's last, friends and guild before it, one divider between each two cells" {
+  Game.frames.MicroMenuContainer = blizzard("MicroMenuContainer", 1)
+  const lfd = blizzard("LFDMicroButton", 8)
+  Game.frames.LFDMicroButton = lfd
+  const collections = blizzard("CollectionsMicroButton", 9)
+  Game.frames.CollectionsMicroButton = collections
+  const gameMenu = blizzard("MainMenuMicroButton", 10)
+  Game.frames.MainMenuMicroButton = gameMenu
+  const guild = blizzard("GuildMicroButton", 11)
+  Game.frames.GuildMicroButton = guild
+  const social = blizzard("QuickJoinToastButton", 14)
+  Game.frames.QuickJoinToastButton = social
+  const buttons = bagButtons(17)
+  Game.bags.buttons = buttons
+  Test.mount(nil, PAGE)
+  Test.flush()
+  // Friends and guild in the menu's zone: in the menu, the game menu's button after them, every step alike.
+  const joined = steps([lfd, collections, social, guild, gameMenu])
+  Test.note(`friends and guild with the menu, the steps from the group finder's cell: ${joined.map(n => String.of(n)).join(", ")}`)
+  const step1 = joined[1] ?? panic("the menu has steps")
+  for (step of joined) { Test.expect((step - step1).abs() < 0.01) }
+  // The bags: one step between each two of them too.
+  const bagFrames = buttons.map((button: Game.BagButton): any Client.Frame => button.frame)
+  const bagSteps = steps(bagFrames)
+  for (step of bagSteps) { Test.expect((step - step1).abs() < 0.01) }
+  // Friends and guild at the panel's end: the game menu's button is still the menu's last.
+  Panel.settings.draft.places = placed(Panel.settings.draft.places, Item.Social, Zone.Right)
+  Ordaen.keeper.saveAll()
+  Test.flush()
+  const alone = steps([lfd, collections, gameMenu])
+  Test.note(`friends and guild at the end, the menu's steps: ${alone.map(n => String.of(n)).join(", ")}`)
+  for (step of alone) { Test.expect((step - step1).abs() < 0.01) }
+  Test.expect(Test.centre(social).x > Test.centre(gameMenu).x && Test.centre(guild).x - Test.centre(social).x > 0)
+  Test.shot("friends and guild at the panel's end, the game menu's button last in the menu")
+}
+
+test "every bag button the game has stands in a cell of the panel, in its order, with its icon" {
+  const buttons = bagButtons(17)
+  Game.bags.buttons = buttons
+  Game.bags.free = 7
+  Test.mount(nil, PAGE)
+  Test.shot("the backpack, the bags, the reagent bag and the keyring, each in its cell")
+  const ui = Client.C_UI.GetUIParent()
+  let before: Number = 0
+  for (place, button of buttons) {
+    const frame: any Client.Frame = button.frame
+    // Ours: the panel's cell holds it, after the one before it.
+    Test.expect(frame.GetParent() != ui)
+    const x = Test.centre(frame).x
+    Test.expect(place == 1 || x > before)
+    before = x
+  }
 }

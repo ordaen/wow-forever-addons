@@ -3,63 +3,68 @@
 import Game from "$game"
 import { Align, Shadow, Track } from "$ltml"
 import { Component } from "Ordaen"
-import { BagCell, FaceCell, MenuCell } from "@/cells"
+import { Cell, CellGroup } from "@/group"
 
 const INK: Color = Color.hex("#e8dcc4")
 const TEXT = 12
-// An item's cells: side by side along a panel that runs across the screen, one under another down a side of it.
+// Down a side of the screen: one under another.
 const DOWN: Array<Track> = ["auto"]
-const MICRO: Array<Track> = ["auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"]
-const MICRO_FACED: Array<Track> = ["auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"]
 const PAIR: Array<Track> = ["auto", "auto"]
-const BAGS: Array<Track> = ["auto", "auto", "auto", "auto", "auto"]
+
+// The game's menu's buttons before its last.
+function menuOf(faced: Boolean, social: Boolean): Array<Cell> {
+  let cells: Array<Cell> = []
+  if (faced) { cells.push(Cell.Face) }
+  cells.push(Cell.Menu { icon: "@/assets/micro-professions.tga", frame: Game.frames.ProfessionMicroButton, friends: false })
+  cells.push(Cell.Menu { icon: "@/assets/micro-spellbookabilities.tga", frame: Game.frames.SpellbookMicroButton, friends: false })
+  cells.push(Cell.Menu { icon: "@/assets/micro-spectalents.tga", frame: Game.frames.TalentMicroButton, friends: false })
+  cells.push(Cell.Menu { icon: "@/assets/micro-legacy.tga", frame: Game.frames.LegacyMicroButton, friends: false })
+  cells.push(Cell.Menu { icon: "@/assets/micro-questlog.tga", frame: Game.frames.QuestLogMicroButton, friends: false })
+  cells.push(Cell.Menu { icon: "@/assets/micro-groupfinder.tga", frame: Game.frames.LFDMicroButton, friends: false })
+  cells.push(Cell.Menu { icon: "@/assets/micro-collections.tga", frame: Game.frames.CollectionsMicroButton, friends: false })
+  if (social) { pushSocial(mut cells) }
+  // The game menu's button is the menu's last, whatever stands before it.
+  cells.push(Cell.Menu { icon: "@/assets/micro-gamemenu.tga", frame: Game.frames.MainMenuMicroButton, friends: false })
+  return cells
+}
+
+// Friends, with how many are online, and the guild.
+function pushSocial(cells: mut Array<Cell>) {
+  cells.push(Cell.Menu { icon: "@/assets/micro-social.tga", frame: Game.frames.QuickJoinToastButton, friends: true })
+  cells.push(Cell.Menu { icon: "@/assets/micro-guildcommunities.tga", frame: Game.frames.GuildMicroButton, friends: false })
+}
 
 // The game's menu, left to right, the game menu's button last. The character's button is its first cell, with the
-// player's face, unless the portrait in the screen's corner stands for it.
+// player's face, unless the portrait in the screen's corner stands for it; friends and guild stand in it, before the
+// game menu's button, where they sit with it.
 public class MicroLine implements Component {
-  derived columns: Array<Track> = self.vertical ? DOWN : (self.faced ? MICRO_FACED : MICRO)
+  derived cells: Array<Cell> = menuOf(self.faced, self.social)
 
   gold: Signal<Boolean>
   vertical: Signal<Boolean>
   faced: Signal<Boolean>
+  social: Signal<Boolean>
   constructor(
     gold: Signal<Boolean>,
     vertical: Signal<Boolean> = false,
     faced: Signal<Boolean> = true,
+    // Friends and guild are in the menu.
+    social: Signal<Boolean> = false,
   ) {
     self.gold = gold
     self.vertical = vertical
     self.faced = faced
+    self.social = social
   }
 
   public render(self): Template {
-    return $ltml {
-      <box columns={self.columns}>
-        <FaceCell $if={self.faced} />
-        <MenuCell icon={"@/assets/micro-professions.tga"} frame={Game.frames.ProfessionMicroButton}
-                  gold={self.gold} />
-        <MenuCell icon={"@/assets/micro-spellbookabilities.tga"} frame={Game.frames.SpellbookMicroButton}
-                  gold={self.gold} />
-        <MenuCell icon={"@/assets/micro-spectalents.tga"} frame={Game.frames.TalentMicroButton}
-                  gold={self.gold} />
-        <MenuCell icon={"@/assets/micro-legacy.tga"} frame={Game.frames.LegacyMicroButton}
-                  gold={self.gold} />
-        <MenuCell icon={"@/assets/micro-questlog.tga"} frame={Game.frames.QuestLogMicroButton}
-                  gold={self.gold} />
-        <MenuCell icon={"@/assets/micro-groupfinder.tga"} frame={Game.frames.LFDMicroButton}
-                  gold={self.gold} />
-        <MenuCell icon={"@/assets/micro-collections.tga"} frame={Game.frames.CollectionsMicroButton}
-                  gold={self.gold} />
-        <MenuCell icon={"@/assets/micro-gamemenu.tga"} frame={Game.frames.MainMenuMicroButton}
-                  gold={self.gold} />
-      </box>
-    }
+    return $ltml { <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} /> }
   }
 }
 
-// Friends and guild: the friends' cell with how many are online.
+// Friends and guild on their own: the friends' cell with how many are online.
 public class SocialLine implements Component {
-  derived columns: Array<Track> = self.vertical ? DOWN : PAIR
+  derived cells: Array<Cell> = socialOf()
 
   gold: Signal<Boolean>
   vertical: Signal<Boolean>
@@ -69,15 +74,14 @@ public class SocialLine implements Component {
   }
 
   public render(self): Template {
-    return $ltml {
-      <box columns={self.columns}>
-        <MenuCell icon={"@/assets/micro-social.tga"} frame={Game.frames.QuickJoinToastButton}
-                  gold={self.gold} count={Game.friends.online} />
-        <MenuCell icon={"@/assets/micro-guildcommunities.tga"} frame={Game.frames.GuildMicroButton}
-                  gold={self.gold} />
-      </box>
-    }
+    return $ltml { <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} /> }
   }
+}
+
+function socialOf(): Array<Cell> {
+  let cells: Array<Cell> = []
+  pushSocial(mut cells)
+  return cells
 }
 
 // The money, and the currency the player follows beside it.
@@ -115,9 +119,10 @@ public class MoneyLine implements Component {
   }
 }
 
-// The backpack with the free slots of every bag, then the four bags.
+// Every bag button the game has, in its order: the backpack with the free slots of every bag, the bags, the reagent
+// bag, the keyring.
 public class BagLine implements Component {
-  derived columns: Array<Track> = self.vertical ? DOWN : BAGS
+  derived cells: Array<Cell> = Game.bags.buttons.map(button => Cell.Bag { button: button })
 
   vertical: Signal<Boolean>
   constructor(vertical: Signal<Boolean> = false) {
@@ -125,14 +130,6 @@ public class BagLine implements Component {
   }
 
   public render(self): Template {
-    return $ltml {
-      <box columns={self.columns}>
-        <BagCell frame={Game.frames.MainMenuBarBackpackButton} free={Game.bags.free} />
-        <BagCell frame={Game.frames.CharacterBag0Slot} />
-        <BagCell frame={Game.frames.CharacterBag1Slot} />
-        <BagCell frame={Game.frames.CharacterBag2Slot} />
-        <BagCell frame={Game.frames.CharacterBag3Slot} />
-      </box>
-    }
+    return $ltml { <CellGroup cells={self.cells} vertical={self.vertical} /> }
   }
 }

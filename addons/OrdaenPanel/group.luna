@@ -1,0 +1,114 @@
+// A group of the panel's cells side by side: the game's menu, friends and guild, the bags. It alone parts its cells:
+// one divider between two neighbours, none at its ends, where what holds it (the panel's wood, a free part's frame)
+// has its own edge. A cell draws no edge of its own, so no two dividers ever stand together.
+import Game from "$game"
+import { Align, Art, Frame, Line, Side, Track } from "$ltml"
+import { Component } from "Ordaen"
+import { BagCell, CELL_HEIGHT, CELL_WIDTH, DIVIDER, FaceCell, MenuCell } from "@/cells"
+
+// A divider: a groove cut in the wood, a dark line and a lit one beside it, over the middle three fifths of the cell.
+const GROOVE: Number = DIVIDER / 2
+const DARK: Color = Color.hex("#0a0603d9")
+const LIT_EDGE: Line = { width: GROOVE, color: Color.hex("#7a603c"), sides: [Side.Right] }
+const LIT_EDGE_DOWN: Line = { width: GROOVE, color: Color.hex("#7a603c"), sides: [Side.Bottom] }
+const REACH = 0.6
+// One track down a side of the screen; along it, the divider and the cell.
+const DOWN: Array<Track> = ["auto"]
+const PAIR: Array<Track> = ["auto", "auto"]
+
+// What a cell of a group is: the character's face, a button of the game's menu with our icon (the friends' with how
+// many are online), a bag button of the game's.
+public enum Cell {
+  Face,
+  Menu { icon: Art, frame: any Frame | nil, friends: Boolean },
+  Bag { button: Game.BagButton },
+}
+
+// The group: its cells in their order, across the screen or down a side of it.
+public class CellGroup implements Component {
+  derived columns: Array<Track> = self.vertical ? DOWN : self.across()
+
+  cells: Signal<Array<Cell>>
+  gold: Signal<Boolean>
+  vertical: Signal<Boolean>
+  constructor(
+    cells: Signal<Array<Cell>>,
+    // The menu's icons in one gold.
+    gold: Signal<Boolean> = false,
+    vertical: Signal<Boolean> = false,
+  ) {
+    self.cells = cells
+    self.gold = gold
+    self.vertical = vertical
+  }
+
+  across(self): Array<Track> {
+    return self.cells.map((cell: Cell): Track => "auto")
+  }
+
+  // A cell told anew (another icon on a bag) is another cell: it is drawn anew.
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.columns}>
+        <GroupCell $for={index, cell of self.cells} $key={cell} cell={peek cell} first={index == 1}
+                   gold={self.gold} vertical={self.vertical} />
+      </box>
+    }
+  }
+}
+
+// A cell of the group, with the divider before it unless it is the group's first.
+class GroupCell implements Component {
+  derived columns: Array<Track> = self.vertical ? DOWN : PAIR
+  derived rows: Array<Track> | nil = self.vertical ? PAIR : nil
+  derived dividerWidth: Number = self.vertical ? CELL_WIDTH * REACH : DIVIDER
+  derived dividerHeight: Number = self.vertical ? DIVIDER : CELL_HEIGHT * REACH
+  derived dividerEdge: Line = self.vertical ? LIT_EDGE_DOWN : LIT_EDGE
+
+  const cell: Cell
+  const first: Boolean
+  gold: Signal<Boolean>
+  vertical: Signal<Boolean>
+  constructor(cell: Cell, first: Boolean, gold: Signal<Boolean>, vertical: Signal<Boolean>) {
+    self.cell = cell
+    self.first = first
+    self.gold = gold
+    self.vertical = vertical
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={self.columns} rows={self.rows} xAlign={Align.Center} yAlign={Align.Center}>
+        <box $if={!self.first} width={self.dividerWidth} height={self.dividerHeight} background={DARK}
+             border={self.dividerEdge} />
+        <CellOf cell={self.cell} gold={self.gold} />
+      </box>
+    }
+  }
+}
+
+// The cell itself, as what it is.
+class CellOf implements Component {
+  const cell: Cell
+  gold: Signal<Boolean>
+  constructor(cell: Cell, gold: Signal<Boolean>) {
+    self.cell = cell
+    self.gold = gold
+  }
+
+  // What a template draws reads `self`: the cell is told by its own field.
+  public render(self): Template {
+    match (self.cell) {
+      .Face => return $ltml { <FaceCell /> },
+      .Menu => {
+        if (self.cell.friends) {
+          return $ltml {
+            <MenuCell icon={self.cell.icon} frame={self.cell.frame} gold={self.gold} count={Game.friends.online} />
+          }
+        }
+        return $ltml { <MenuCell icon={self.cell.icon} frame={self.cell.frame} gold={self.gold} /> }
+      },
+      .Bag => return $ltml { <BagCell button={self.cell.button} /> },
+    }
+  }
+}
