@@ -74,6 +74,53 @@ test "the house at rest reads back the same, and what 10,000 keys cost" {
   Test.expect(new House("Realm 4", "not a house").count == 0)
 }
 
+test "a key's history: an hour's lowest, the day's hours by the hour, older days rolled into their lowest, 30 days" {
+  let house = new House("Realm 4", nil)
+  const key = PriceKey.of(LINEN)
+  // FIRST is a day's first hour: 59000 = 2458 × 24 + 8, so the day began 8 hours before it.
+  const day = FIRST.after(-8)
+  // 40 days, a look every 6 hours, a dearer one at the same hour after it.
+  for (hour of 0..=40 * 24 - 6 step 6) {
+    const at = day.after(hour - 39 * 24)
+    house.observe(key, 100 + hour, 100 + hour, 1, at)
+    house.observe(key, 9000, 9000, 1, at)
+  }
+  // The last look is 18 hours into the day: the 29 days before it rolled into one point each (the day's lowest, its
+  // first look, at its first hour; yesterday's last look, 24 hours back, with them), and today's four by the hour.
+  const all = house.hours(key, Hour.of(0), FIRST.after(1000))
+  Test.note(`40 days of looks every 6 hours: ${all.length} points kept`)
+  Test.expect(all.length == 29 + 4)
+  const first = all[1] ?? panic("a point")
+  Test.expect(first.hour == day.after(-29 * 24) && first.copper == 100 + 10 * 24)
+  const yesterday = house.hours(key, day.after(-24), day.after(-1))
+  Test.expect(yesterday.length == 1 && yesterday[1]?.hour == day.after(-24) && yesterday[1]?.copper == 100 + 38 * 24)
+  const today = house.hours(key, day, day.after(23))
+  Test.expect(today.length == 4 && today[1]?.hour == day && today[4]?.hour == day.after(18))
+  Test.expect(today[4]?.copper == 100 + 39 * 24 + 18)
+  // At rest and back, the same.
+  const back = new House("Realm 4", house.pack() ?? panic("the stand-in packs"))
+  Test.expect(back.hours(key, Hour.of(0), FIRST.after(1000)).length == all.length)
+  Test.expect(house.hours(PriceKey.of(1), Hour.of(0), FIRST.after(1000)).length == 0)
+}
+
+test "a history is kept for 8,000 keys at most; what a full one of 2,000 keys costs at rest" {
+  let house = new House("Realm 4", nil)
+  for (index of 1..=8100) { house.observe(PriceKey.of(1000 + index), 50, 50, 1, FIRST) }
+  Test.expect(house.count == 8100)
+  Test.expect(house.hours(PriceKey.of(1000 + 8000), FIRST, FIRST).length == 1)
+  Test.expect(house.hours(PriceKey.of(1000 + 8001), FIRST, FIRST).length == 0)
+  let full = new House("Realm 4", nil)
+  for (hour of 0..=30 * 24 - 1) {
+    if (hour % 24 == 0 || hour >= 29 * 24) {
+      for (index of 1..=2000) {
+        full.observe(PriceKey.of(1000 + index * 3), 37 * index + hour, 30 * index, 1, FIRST.after(hour))
+      }
+    }
+  }
+  const packed = full.pack() ?? panic("the stand-in packs")
+  Test.note(`2,000 keys, each 24 hours and 29 days of history, at rest: ${packed.length} bytes`)
+}
+
 test "a merchant's prices are kept per item, at most 5,000, and read through the source" {
   let kept = Kept {}
   takeMerchant(mut kept.vendor, { [2320]: 10, [2604]: 50 })

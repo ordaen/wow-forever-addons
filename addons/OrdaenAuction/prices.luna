@@ -1,6 +1,8 @@
-import { Copper, ItemId } from "Ordaen"
+import { Copper, Hour, ItemId } from "Ordaen"
 // Ordaen Auction's own price source: the current house's maps, read with no table, closure or string made. Every
-// reader holds it as `any PriceSource` and never knows which source it is.
+// reader holds it as `any PriceSource` and never knows which source it is; the item panel's chart holds it as
+// `any PriceHistory`, its `revision` moving with every scan and browse that keeps an hour.
+import { HourPrice, PriceHistory } from "@/history"
 import { House, KEPT_HOURS } from "@/house"
 import { VENDOR_MOST } from "@/kept"
 import { PriceKey, PriceSource, Quote } from "@/quote"
@@ -8,7 +10,7 @@ import { PriceKey, PriceSource, Quote } from "@/quote"
 // A listing this young (hours) is what one costs now; past it the market is.
 const FRESH = 48
 
-public class OrdaenPrices implements PriceSource {
+public class OrdaenPrices implements PriceSource, PriceHistory {
   public const name: String = "Ordaen"
   public state revision = 0
   const house: House
@@ -44,6 +46,8 @@ public class OrdaenPrices implements PriceSource {
   }
 
   public vendor(self, item: ItemId): Copper | nil { return self.vendors[item] }
+
+  public hours(self, key: PriceKey, from: Hour, to: Hour): Array<HourPrice> { return self.house.hours(key, from, to) }
 
   // A price may have moved: whatever follows prices reads them again.
   public moved(mut self) { self.revision += 1 }
