@@ -4,11 +4,22 @@ import Game from "$game"
 
 // How the recipes are laid out: the categories beside the category's recipes (ours, the default), one list with the
 // categories as headings, one flat list, a table.
-public enum View { Columns = "columns", Categories = "categories", List = "list", Table = "table" }
+public enum View implements Plain { Columns = "columns", Categories = "categories", List = "list", Table = "table" }
 
 // How the recipes of a group are ordered: the game's (by difficulty, the ones learned first), by name, by how many
 // the bags can make.
-public enum SortBy { Difficulty = "difficulty", Name = "name", Makeable = "makeable" }
+public enum SortBy implements Plain { Difficulty = "difficulty", Name = "name", Makeable = "makeable" }
+
+// How the player left the recipe list, the profile's (`Memory`, `redesign/kept.md`): its view, its sort, and the
+// table's order (its column from 1, and which way). The search isn't kept: a list cut short by an old search at the
+// next opening says nothing of why.
+public struct ListView implements Plain {
+  view: View = View.Columns
+  sort: SortBy = SortBy.Difficulty
+  tableColumn: Integer = 1
+  tableDescending: Boolean = false
+}
+public const LIST_VIEW: ListView = {}
 
 // How many «Create» makes: the count written, as many as it takes to raise the skill by the count, or all the
 // bags allow.
@@ -116,8 +127,8 @@ public struct Seen implements Plain {
 
 // What the window remembers for the character, kept at once: the profession last open (by its skill line, 0 before
 // any was), what was last chosen in each profession, the recipes starred and the ones tracked (each capped, the oldest
-// dropped first), the queue (every profession's, in the order it was asked for) and why it waits, and where the
-// window stands: its centre, and its body's size (0 wide: never moved).
+// dropped first), and the queue (every profession's, in the order it was asked for) and why it waits. Where the window
+// stands is the window's own (`Window`, the profile's).
 public struct Kept implements Plain {
   last: Integer
   seen: Map<Integer, Seen>
@@ -125,10 +136,6 @@ public struct Kept implements Plain {
   tracked: Array<Integer>
   queue: Array<Queued>
   paused: Pause
-  x: Number
-  y: Number
-  width: Number
-  height: Number
 }
 
 // The most recipes starred, or tracked.
