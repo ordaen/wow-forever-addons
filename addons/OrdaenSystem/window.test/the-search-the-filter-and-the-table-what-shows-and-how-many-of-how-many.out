@@ -76,7 +76,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
               box 1047.25,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click @enter @leave
                 box 1047.25,655.62 133.33x28.33 absolute
                   text 1095.17,662.29 37.5x15 "Reload" #ffd100
-    box 1191.08,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+    box 1191.08,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 391.67,192.21 123.58x59.42
     box 391.67,192.21 123.58x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 398.92,199.46 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
@@ -183,7 +183,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
               box 1047.25,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click @enter @leave
                 box 1047.25,655.62 133.33x28.33 absolute
                   text 1095.17,662.29 37.5x15 "Reload" #ffd100
-    box 1191.08,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+    box 1191.08,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 391.67,192.21 123.58x59.42
     box 391.67,192.21 123.58x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 398.92,199.46 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none

@@ -9,7 +9,8 @@ import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root System from "OrdaenSystem"
-import { AddOnsWindow } from "@/addonsWindow"
+import { AddOnsWindow, ListView } from "@/addonsWindow"
+import Locale from "@/locales"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1300, height: 760, screen: true }
 
@@ -117,10 +118,10 @@ test "for whom: this character's switch leaves the others; all characters shows 
   const window = new AddOnsWindow("Ordaen")
   Test.mount(window, SCREEN)
   Test.flush()
-  window.everyone = false
+  window.list.values.everyone = false
   Test.flush()
   window.catalog.switchOff(["Ordaen"])
-  window.everyone = true
+  window.list.values.everyone = true
   Test.flush()
   Test.expect((peek window.catalog.statuses)["Ordaen"]?.enabled == .Some)
   Test.shot("Ordaen on for some characters: the tick dim")
@@ -139,16 +140,16 @@ test "the search, the filter and the table: what shows, and how many of how many
   Test.expect(window.visible.length == 1)
   Test.shot("searched: one row, «1 of» the whole list")
   Test.erase(6)
-  window.filter = .Demand
+  window.list.values.filter = .Demand
   Test.flush()
   Test.expect(window.visible.all(addon => addon.demand))
-  window.filter = .All
-  window.view = .Table
+  window.list.values.filter = .All
+  window.list.values.view = .Table
   Test.flush()
   Test.shot("one table: no captions, the sort's button gone")
   Test.click(Test.holding("AddOn", nil), nil)
   Test.flush()
-  Test.expect(window.descending)
+  Test.expect(window.list.values.descending)
   destroy window
 }
 
@@ -158,12 +159,12 @@ test "the card: the picked addon's state, what it needs and what needs it, and a
   Test.flush()
   Test.click(Test.holding("Ordaen System", nil), nil)
   Test.flush()
-  Test.expect(window.picked == "OrdaenSystem")
+  Test.expect(window.list.values.picked == "OrdaenSystem")
   Test.shot("the card of Ordaen System: loaded on demand, needs Ordaen, «Ordaen settings»")
   // A link to what it needs picks that row.
   Test.click(Test.holding("Ordaen", 2), nil)
   Test.flush()
-  Test.expect(window.picked == "Ordaen")
+  Test.expect(window.list.values.picked == "Ordaen")
   Test.shot("the card of Ordaen: needed by its modules")
   // A module's state opens Ordaen's settings at it: one more surface, the settings window.
   const before = Test.surfaces().length
@@ -256,4 +257,63 @@ test "the numbers: CPU sampled once a second only while the window shows, memory
   Test.pass(3.1)
   Test.expect(samples == closed)
   Test.expect(weighed == 2)
+}
+
+// The window opened from the game menu, as the player opens it.
+function openFromMenu() {
+  Client.ToggleGameMenu()
+  Test.flush()
+  Test.click(Test.holding("AddOns", nil), nil)
+  Test.flush()
+}
+
+// Where the side's line is, which takes a drag: its column (the card, the room on its sides and the frame's line) in
+// from the body's right.
+function sideLine(): Test.Point {
+  const body = Test.edges(Ordaen.art.window.wood, 0)
+  return { x: body.right - 297.4, y: (body.top + body.bottom) / 2 }
+}
+
+function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+
+test "the list's filter, view and picked addon, and the card's width, are the profile's: there after a reload" {
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  openFromMenu()
+  Test.click(Test.painted(Ordaen.art.ctl.tool.filter, nil), nil)
+  Test.flush()
+  Test.click(Test.holding(Locale.FILTER_DEMAND, nil), nil)
+  Test.flush()
+  Test.click(Test.painted(Ordaen.art.ctl.tool.categories, nil), nil)
+  Test.flush()
+  Test.click(Test.holding(Locale.VIEW_TABLE, nil), nil)
+  Test.flush()
+  Test.click(Test.holding("Ordaen System", nil), nil)
+  Test.flush()
+  const before = Test.holding("Ordaen System", 2)
+  const line = sideLine()
+  Test.moveTo(line)
+  Test.press(nil)
+  Test.moveTo({ x: line.x - 1, y: line.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: line.x - 60, y: line.y })
+  Test.pass(0.05)
+  Test.release(nil)
+  Test.flush()
+  const title = Test.holding("Ordaen System", 2)
+  Test.expect(title.x < before.x - 25)
+  const key = "OrdaenSystem:addons"
+  const kept = ListView.decode(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, key), ListView {})
+  Test.expect(kept.filter == .Demand && kept.view == .Table && kept.picked == "OrdaenSystem")
+  Test.reload()
+  Test.flush()
+  openFromMenu()
+  // The card stands beside the list again, as wide as it was dragged to.
+  const again = Test.holding("Ordaen System", 2)
+  Test.expect(near(again.x, title.x) && near(again.y, title.y))
+  Test.expect(Ordaen.keeper.profiles.make("Other", nil))
+  Ordaen.keeper.profiles.use("Other")
+  Test.flush()
+  Test.expect(Ordaen.keeper.profiles.recalled("Other", key) == nil)
+  Test.shot("another profile: the list as it starts, by category, nothing picked")
 }
