@@ -16,4 +16,4 @@ addons/OrdaenCore_Debug
 
 # the compiler's caches
 .lunatype-fmt
-.lunatype-test/
+.lunatype-test*/
