@@ -1,4 +1,5 @@
 // The library's CountInput: a whole number the player sets, never outside its least and its most, which may move.
+import Game from "$game"
 import Test from "$test"
 import { Align } from "$ltml"
 import { CountInput, CountLook, held } from "@/countInput"
@@ -84,4 +85,66 @@ test "− and + stop at the bounds, typing past one writes the bound, and a boun
 
   destroy page
   Test.expect(Test.blank())
+}
+
+test "Shift steps by 10 and Alt by 100, held to the bounds" {
+  let page = new Pair()
+  page.most = 150
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  Game.input.shiftDown = (): Boolean => true
+  click("+")
+  Test.expect(page.count == 13)
+  click("-")
+  click("-")
+  Test.expect(page.count == 1)
+  Game.input.shiftDown = (): Boolean => false
+  Game.input.altDown = (): Boolean => true
+  click("+")
+  Test.expect(page.count == 101)
+  click("+")
+  Test.expect(page.count == 150)
+  click("-")
+  Test.expect(page.count == 50)
+  Test.note(`Shift: 3 + 10, then twice − to the least; Alt: + 100, + to the most, − 100: ${page.count}`)
+  destroy page
+}
+
+test "− and + held down step again after a wait, then at a pace, until let go or at the bound" {
+  let page = new Pair()
+  page.count = 1
+  page.most = 12
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  Test.moveTo(Test.holding("+", nil))
+  Test.press(nil)
+  Test.pass(0.3)
+  Test.expect(page.count == 1)
+  Test.pass(0.12)
+  const first = page.count
+  Test.pass(0.1)
+  const later = page.count
+  Test.release(nil)
+  Test.flush()
+  const released = page.count
+  Test.note(`held 0.3 s: 1; at 0.42 s: ${first}; at 0.52 s: ${later}; let go: ${released}`)
+  Test.expect(first == 2 && later == 4 && released == later)
+  Test.pass(1)
+  Test.expect(page.count == released)
+
+  // Held to the bound: the steps stop there, and nothing is waited for once it is let go.
+  Test.press(nil)
+  Test.pass(2)
+  Test.expect(page.count == 12)
+  Test.release(nil)
+  Test.pass(1)
+  Test.expect(page.count == 12)
+  Test.shot("held to 12, the most: + disabled, let go")
+
+  // A short click is one step, at the release.
+  Test.moveTo(Test.holding("-", nil))
+  Test.press(nil)
+  Test.pass(0.1)
+  Test.release(nil)
+  Test.flush()
+  Test.expect(page.count == 11)
+  destroy page
 }

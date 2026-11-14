@@ -177,6 +177,9 @@ public class Professions implements Module, App {
     watch { self.followOpen() }
     watch { self.onPage() }
     watch { self.shown = self.shownOf() }
+    // Another recipe chosen, or another profession open: the count starts again at one.
+    watch (recipe of self.chosenRecipe) { self.count = 1 }
+    watch (open of Game.tradeSkill.open) { self.count = 1 }
     watch (values of self.settings.values) { self.showUnlearned = values.showUnlearned }
     const place = (peek self.memory.values)
     if (place.width > 0) {

@@ -2,9 +2,10 @@
 // in white, with what making it does for the skill in its difficulty's colour («Not learned» while it isn't); the
 // made item's description; what the work needs besides reagents (red while missing); the reagents, one ruled row
 // each, scrolling in what room is left; and at the bottom, under a rule, the make row: how many (a count, the skill
-// points to gain, or all the bags allow), the count with − and + unless «All» (one at least; by «Raise skill» the points
-// left before the rank's most; by «Quantity» what the bags don't make waits in the queue), what that comes to, and
-// «Create».
+// points to gain, or all the bags allow), the count with − and + unless «All» (one at least; by «Quantity» what the
+// bags make now; by «Raise skill» the points left before the rank's most), what that comes to, and «Create», which
+// never makes more than the bags make now: with nothing to make, the count and «Create» are disabled. The count
+// starts again at one for another recipe or another profession.
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
 import { Choice, CompactDropdown, Component, CountInput, ItemButton, PushButton, PX } from "Ordaen"
@@ -14,7 +15,7 @@ import Locale from "@/locales"
 import { ReagentRow } from "@/rows"
 import { expectedMakings } from "@/skillUps"
 import Style from "@/style"
-import { Act, has, Kept, MakeMode, MOST_COUNT } from "@/view"
+import { Act, has, Kept, MakeMode } from "@/view"
 
 const RIM: Line = { width: 1 * PX, color: Style.LINE }
 const SWITCHES: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
@@ -63,7 +64,8 @@ public class RecipeDetails implements Component {
   derived tracked: Boolean = has(self.kept.tracked, self.shown.id)
   derived cannotTrack: Boolean = !self.shown.learned
   derived counted: Boolean = self.mode != MakeMode.All
-  // The most the count may be: by «Raise skill», the points left before the rank's most.
+  // The most the count may be: by «Quantity», what the bags make now; by «Raise skill», the points left before the
+  // rank's most.
   derived most: Integer = self.mostOf()
   // How many making the recipe raises the skill by the count takes; none once it would turn grey first.
   derived expected: Integer | nil = self.expectedOf()
@@ -114,23 +116,25 @@ public class RecipeDetails implements Component {
   }
 
   mostOf(self): Integer {
-    if (self.mode != MakeMode.Skill) { return MOST_COUNT }
+    if (self.mode != MakeMode.Skill) { return self.shown.craftable }
     const profession = self.profession
     return profession == nil ? 0 : profession.max - profession.rank
   }
 
+  // What «Create» makes: never more than the bags make now.
   makingOf(self): Integer {
+    const craftable = self.shown.craftable
     return match (self.mode) {
-      MakeMode.Count => self.count,
-      MakeMode.Skill => self.expected ?? 0,
-      MakeMode.All => self.shown.craftable,
+      MakeMode.Count => self.count.min(craftable),
+      MakeMode.Skill => (self.expected ?? 0).min(craftable),
+      MakeMode.All => craftable,
     }
   }
 
   hintOf(self): String {
     return match (self.mode) {
       MakeMode.Count => "",
-      MakeMode.Skill => self.expected == nil ? Locale.MAKE_NO_SKILL : Locale.MAKE_ABOUT.format(self.making),
+      MakeMode.Skill => self.expected == nil ? Locale.MAKE_NO_SKILL : Locale.MAKE_ABOUT.format(self.expected ?? 0),
       MakeMode.All => Locale.MAKE_PIECES.format(self.making),
     }
   }
