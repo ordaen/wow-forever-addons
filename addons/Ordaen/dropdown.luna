@@ -2,7 +2,7 @@
 // arrow. Left-click opens the menu under it, each choice with its mark (the picked one's gold), the light under the
 // cursor. Left-click on a choice picks it and closes the menu; a click anywhere else closes it. Disabled, it doesn't
 // open. A choice not built yet (`soon`) is listed dimmed, with «in development» after its name, and takes no click.
-import { Align, Art, Edges, Line, Position, Shadow, Stated } from "$ltml"
+import { Align, Art, Beside, Edges, Layer, Line, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import Locale from "@/locales"
@@ -127,11 +127,11 @@ public class Dropdown<T: Unknown> implements Component {
             <text value={self.shown} textColor={GOLD} textSize={TEXT} textShadow={BOLD} wrap={false} />
             <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
-          <box $if={self.open} position={Position.Absolute} left={0} top={38 * PX} width={WIDTH + 20 * PX}
-               zLevel={50} background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}
-               @clickOutside={self.close}>
+          <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 20 * PX}
+                   background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}
+                   @clickOutside={self.close}>
             <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} @pick={self.onPick} />
-          </box>
+          </surface>
         </box>
       </SettingRow>
     }
@@ -176,11 +176,11 @@ public class CompactDropdown<T: Unknown> implements Component {
           <text value={self.shown} textColor={GOLD} textSize={COMPACT_TEXT} wrap={false} />
           <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
-        <box $if={self.open} position={Position.Absolute} left={0} top={38 * PX} width={self.listWidth} zLevel={50}
-             background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} @clickOutside={self.close}>
+        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listWidth}
+                 background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} @clickOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />
-        </box>
+        </surface>
       </box>
     }
   }
