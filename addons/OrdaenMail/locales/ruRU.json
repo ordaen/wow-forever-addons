@@ -46,7 +46,7 @@
   "SENT_SENT": "Отправленные",
   "SENT_STOPPED": "Остановленные",
   "STATE_WAITING": "Ждёт",
-  "STATE_SENDING": "Отправляется...",
+  "STATE_SENDING": "Отправляется",
   "STATE_SENT": "Отправлено",
   "STATE_STOPPED": "Остановлено",
   "STATE_STOPPED_WHY": "Остановлено: %s",

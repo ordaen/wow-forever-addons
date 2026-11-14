@@ -3,25 +3,30 @@
 import Game from "$game"
 import Test from "$test"
 import root Mail from "OrdaenMail"
-import { Letter, Kind, SentState } from "@/letters"
+import { Filter } from "@/letters"
+import { Inbox, View } from "@/inbox"
+import { OwnTab } from "@/own"
+import type { Alts } from "OrdaenAlts"
+import { SentState } from "@/letters"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
+const AREA: Test.Page = { left: 20, top: 20, width: 1000, height: 600 }
 
-function letters(): Array<Letter> {
+function letters(): Array<Game.MailLetter> {
   return [
     {
-      index: 1, kind: Kind.Auction, subject: "Auction successful: Linen Cloth", sender: "Auction House", copper: 12500,
+      index: 1, kind: Game.MailKind.Auction, subject: "Auction successful: Linen Cloth", sender: "Auction House", copper: 12500,
       cod: 0, days: 29, items: [],
     },
     {
-      index: 2, kind: Kind.Player, subject: "Bolts for you", sender: "Regy", copper: 0, cod: 0, days: 2,
+      index: 2, kind: Game.MailKind.Player, subject: "Bolts for you", sender: "Regy", copper: 0, cod: 0, days: 2,
       items: [{ item: 2589, name: "Linen Cloth", count: 20 }, { item: 2592, name: "Wool Cloth", count: 5 }],
     },
     {
-      index: 3, kind: Kind.Player, subject: "Pay for the sword", sender: "Dorn", copper: 0, cod: 40000, days: 10,
+      index: 3, kind: Game.MailKind.Player, subject: "Pay for the sword", sender: "Dorn", copper: 0, cod: 40000, days: 10,
       items: [{ item: 12, name: "Sword", count: 1 }],
     },
-    { index: 4, kind: Kind.System, subject: "Welcome", sender: "", copper: 0, cod: 0, days: 30, items: [] },
+    { index: 4, kind: Game.MailKind.System, subject: "Welcome", sender: "", copper: 0, cod: 0, days: 30, items: [] },
   ]
 }
 
@@ -42,7 +47,7 @@ test "the list shows only the letters it is given" {
   Mail.letters = letters()
   Mail.total = 4
   Test.flush()
-  Mail.letters = letters().filter(l => l.kind == Kind.Player)
+  Mail.letters = letters().filter(l => l.kind == Game.MailKind.Player)
   Test.flush()
   Test.shot("only the letters from players")
 }
@@ -63,4 +68,64 @@ test "the sent tab and the own characters' tab say what they hold" {
   Mail.tab = 3
   Test.flush()
   Test.shot("the own characters' tab with Ordaen Alts loaded and no other character")
+}
+
+test "each filter keeps its letters and each view draws them" {
+  const fixture = new Fixture()
+  const inbox = new Inbox(fixture.letters, fixture.total, fixture.yes)
+  Test.mount(inbox, AREA)
+  Test.flush()
+  Test.expect(inbox.shown.length == 4)
+  inbox.filter = Filter.Players
+  Test.expect(inbox.shown.length == 2)
+  inbox.filter = Filter.Auction
+  Test.expect(inbox.shown.length == 1)
+  inbox.filter = Filter.System
+  Test.expect(inbox.shown.length == 1)
+  inbox.filter = Filter.Money
+  Test.expect(inbox.shown.length == 1)
+  inbox.filter = Filter.Items
+  Test.expect(inbox.shown.length == 2)
+  inbox.filter = Filter.All
+  inbox.search = "sword"
+  Test.expect(inbox.shown.length == 1)
+  inbox.search = ""
+  inbox.view = View.Categories
+  Test.flush()
+  Test.shot("by kind: the captions with their counts")
+  inbox.view = View.Table
+  Test.flush()
+  Test.shot("the table")
+}
+
+test "a ticked box ticks its letter, and Shift ticks the range from the last ticked" {
+  const fixture = new Fixture()
+  const inbox = new Inbox(fixture.letters, fixture.total, fixture.yes)
+  Test.mount(inbox, AREA)
+  Test.flush()
+  inbox.onTick(1)
+  Test.expect(inbox.ticked.length == 1)
+  inbox.onTick(1)
+  Test.expect(inbox.ticked.length == 0)
+  inbox.onTick(1)
+  Game.input.shiftDown = (): Boolean => true
+  inbox.onTick(3)
+  Test.expect(inbox.ticked.length == 3)
+  Test.flush()
+  Test.shot("three letters ticked: the footer offers them")
+}
+
+test "the own characters' tab says so when Ordaen Alts is off" {
+  const fixture = new Fixture()
+  Test.mount(new OwnTab(fixture.alts), AREA)
+  Test.flush()
+  Test.shot("Ordaen Alts off: nothing to offer")
+}
+
+// The cells a component under test is given.
+class Fixture {
+  state letters: Array<Game.MailLetter> = letters()
+  state total = 4
+  state yes = true
+  state alts: Alts | nil = nil
 }

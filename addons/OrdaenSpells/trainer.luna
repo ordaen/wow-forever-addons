@@ -1,31 +1,16 @@
 // The class trainer: its services on the left (the search, the filter, the sort), the picked service's card on the
 // right, and the footer with the player's money, the price and «Learn». The services are read from the client's
 // trainer; «Learn» is drawn disabled, as the client's declarations hold no call that buys a service.
-import Client from "$client"
 import Game from "$game"
-import { Align, Art, Overflow, Track } from "$ltml"
+import { Align, Overflow, Track } from "$ltml"
 import { Choice, Component, Money, PushButton, PX, Toolbar, ToolPick } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
-public enum Status { Available = "available", Unavailable = "unavailable", Learned = "used" }
-
 public enum Show { All = "all", Available = "available", Unavailable = "unavailable", Learned = "learned" }
 
 public enum Order { Level = "level", Name = "name", Price = "price" }
-
-// A service the trainer teaches.
-public struct Service {
-  index: Integer
-  name: String
-  rank: String
-  icon: Art | nil
-  status: Status
-  level: Integer
-  cost: Integer
-  description: String
-}
 
 const SHOWS: Array<Choice<Show>> = [
   { value: Show.All, label: Locale.SHOW_ALL },
@@ -45,44 +30,12 @@ const SIDE: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
 const ROW: Array<Track> = [32 * PX, { fr: 1 }, "auto"]
 const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
 
-function statusOf(kind: String | nil): Status {
-  return match (kind) {
-    "unavailable" => Status.Unavailable,
-    "used" => Status.Learned,
-    else => Status.Available,
-  }
-}
-
-function iconOf(index: Integer): Art | nil {
-  const icon = Client.GetTrainerServiceIcon(index)
-  if (icon is FileId) { return icon }
-  if (icon is Asset) { return icon }
-  return nil
-}
-
-// The services of the open trainer; a header line of the game's categories is left out.
-public function readServices(): Array<Service> {
-  const list: Array<Service> = []
-  for (index of 1..=Client.GetNumTrainerServices().floor()) {
-    const name, rank, kind, _ = Client.GetTrainerServiceInfo(index)
-    if (name != nil && kind != "header") {
-      const money, _, _ = Client.GetTrainerServiceCost(index)
-      list.push({
-        index: index, name: name, rank: rank ?? "", icon: iconOf(index), status: statusOf(kind),
-        level: Client.GetTrainerServiceLevelReq(index).floor(), cost: money.floor(),
-        description: Client.GetTrainerServiceDescription(index) ?? "",
-      })
-    }
-  }
-  return list
-}
-
-function passes(service: Service, show: Show, search: String): Boolean {
+function passes(service: Game.TrainerService, show: Show, search: String): Boolean {
   const kept = match (show) {
     Show.All => true,
-    Show.Available => service.status == Status.Available,
-    Show.Unavailable => service.status == Status.Unavailable,
-    Show.Learned => service.status == Status.Learned,
+    Show.Available => service.status == Game.ServiceStatus.Available,
+    Show.Unavailable => service.status == Game.ServiceStatus.Unavailable,
+    Show.Learned => service.status == Game.ServiceStatus.Learned,
   }
   if (!kept) { return false }
   return search == "" || service.name.lower().contains(search.lower())
@@ -95,14 +48,14 @@ public class ServiceRow implements Component {
   derived title: String = self.service.rank == "" ? self.service.name : "%s (%s)".format(self.service.name, self.service.rank)
   derived need: String = Locale.NEEDS_LEVEL.format(self.service.level)
   derived needColor: Color = self.met ? Style.DIM : Style.RED
-  derived tint: Color = self.service.status == Status.Unavailable ? Style.RED : Color.hex("#ffffff")
+  derived tint: Color = self.service.status == Game.ServiceStatus.Unavailable ? Style.RED : Color.hex("#ffffff")
   derived free: Boolean = self.service.cost == 0
   derived affordable: Color = self.service.cost > Game.money.amount ? Style.RED : Style.INK
 
-  service: Signal<Service>
+  service: Signal<Game.TrainerService>
   picked: Signal<Integer>
   met: Signal<Boolean>
-  constructor(service: Signal<Service>, picked: Signal<Integer>, met: Signal<Boolean>) {
+  constructor(service: Signal<Game.TrainerService>, picked: Signal<Integer>, met: Signal<Boolean>) {
     self.service = service
     self.picked = picked
     self.met = met
@@ -130,8 +83,8 @@ public class TrainerPage implements Component {
   state show: Show = Show.All
   state order: Order = Order.Level
   state picked = 0
-  derived shown: Array<Service> = self.shownOf()
-  derived current: Service | nil = self.currentOf()
+  derived shown: Array<Game.TrainerService> = self.shownOf()
+  derived current: Game.TrainerService | nil = self.currentOf()
   derived has: Boolean = self.current != nil
   derived name: String = self.current?.name ?? ""
   derived text: String = self.current?.description ?? ""
@@ -139,26 +92,26 @@ public class TrainerPage implements Component {
   derived canLearn: Boolean = false
   derived empty: Boolean = self.shown.length == 0
   derived narrowed: Boolean = self.show != Show.All
-  derived summary: String = Locale.SUMMARY.format(self.count(Status.Available), self.count(Status.Unavailable), self.count(Status.Learned))
+  derived summary: String = Locale.SUMMARY.format(self.count(Game.ServiceStatus.Available), self.count(Game.ServiceStatus.Unavailable), self.count(Game.ServiceStatus.Learned))
 
-  services: Signal<Array<Service>>
+  services: Signal<Array<Game.TrainerService>>
   level: Signal<Integer>
-  constructor(services: Signal<Array<Service>>, level: Signal<Integer>) {
+  constructor(services: Signal<Array<Game.TrainerService>>, level: Signal<Integer>) {
     self.services = services
     self.level = level
   }
 
-  count(self, status: Status): Integer { return self.services.count(s => s.status == status) }
+  count(self, status: Game.ServiceStatus): Integer { return self.services.count(s => s.status == status) }
 
-  currentOf(self): Service | nil {
+  currentOf(self): Game.TrainerService | nil {
     for (service of self.services) {
       if (service.index == self.picked) { return service }
     }
     return nil
   }
 
-  shownOf(self): Array<Service> {
-    const list: Array<Service> = []
+  shownOf(self): Array<Game.TrainerService> {
+    const list: Array<Game.TrainerService> = []
     for (service of self.services) {
       if (passes(service, self.show, self.search)) { list.push(service) }
     }

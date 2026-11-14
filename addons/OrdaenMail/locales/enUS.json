@@ -46,7 +46,7 @@
   "SENT_SENT": "Sent",
   "SENT_STOPPED": "Stopped",
   "STATE_WAITING": "Waiting",
-  "STATE_SENDING": "Sending...",
+  "STATE_SENDING": "Sending",
   "STATE_SENT": "Sent",
   "STATE_STOPPED": "Stopped",
   "STATE_STOPPED_WHY": "Stopped: %s",

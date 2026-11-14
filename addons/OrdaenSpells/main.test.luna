@@ -3,17 +3,18 @@
 import Game from "$game"
 import Test from "$test"
 import root Spells from "OrdaenSpells"
-import { Line, Spell } from "@/spells"
-import { Status } from "@/trainer"
+import { SortBy, SpellbookPage } from "@/spellbook"
+import { Order, Show, TrainerPage } from "@/trainer"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
+const AREA: Test.Page = { left: 20, top: 20, width: 800, height: 560 }
 const ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
 
-function lines(): Array<Line> {
+function lines(): Array<Game.SpellLine> {
   return [{ index: 1, name: "General" }, { index: 2, name: "Warrior" }, { index: 3, name: "Arms" }]
 }
 
-function spells(): Array<Spell> {
+function spells(): Array<Game.SpellEntry> {
   return [
     { id: 78, name: "Heroic Strike", rank: "Rank 2", icon: ICON, level: 8, passive: false, line: 2 },
     { id: 772, name: "Rend", rank: "Rank 1", icon: ICON, level: 4, passive: false, line: 2 },
@@ -62,18 +63,74 @@ test "the class trainer lists its services and a click shows one's card" {
   Game.money.amount = 5000
   Spells.services = [
     {
-      index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Status.Available, level: 8, cost: 400,
+      index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Game.ServiceStatus.Available, level: 8, cost: 400,
       description: "A strong attack.",
     },
     {
-      index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Status.Unavailable, level: 50, cost: 90000,
+      index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Game.ServiceStatus.Unavailable, level: 50, cost: 90000,
       description: "Charge an enemy.",
     },
-    { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Status.Learned, level: 4, cost: 0, description: "" },
+    { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Game.ServiceStatus.Learned, level: 4, cost: 0, description: "" },
   ]
-  Spells.trainerOpen = true
+  Game.trainer.open = true
   Test.flush()
   Test.shot("three services: nothing picked")
   Test.click(Test.holding("Heroic Strike (Rank 3)", nil), nil)
   Test.shot("one picked: its card, the price and the disabled button")
+}
+
+test "a skill line's tab, the search and each sort order the spellbook's list" {
+  const fixture = new Fixture()
+  const page = new SpellbookPage(fixture.spells, fixture.lines)
+  Test.mount(page, AREA)
+  Test.flush()
+  Test.expect(page.shown.length == 5)
+  Test.expect(page.shown[1]?.name == "Find Treasure")
+  page.sort = SortBy.Level
+  Test.expect(page.shown[1]?.name == "Find Treasure" && page.shown[5]?.name == "Mortal Strike")
+  page.sort = SortBy.Active
+  Test.expect(page.shown[5]?.name == "Parry")
+  page.tab = 3
+  Test.expect(page.shown.length == 3)
+  page.search = "rend"
+  Test.expect(page.shown.length == 1 && page.shown[1]?.name == "Rend")
+  Test.flush()
+  Test.shot("the Warrior tab narrowed by a search")
+}
+
+test "the trainer's filter, sort and search narrow its services" {
+  const fixture = new Fixture()
+  const page = new TrainerPage(fixture.services, fixture.level)
+  Test.mount(page, AREA)
+  Test.flush()
+  Test.expect(page.shown.length == 3)
+  page.show = Show.Available
+  Test.expect(page.shown.length == 1)
+  page.show = Show.Unavailable
+  Test.expect(page.shown.length == 1 && page.shown[1]?.name == "Charge")
+  page.show = Show.Learned
+  Test.expect(page.shown.length == 1 && page.shown[1]?.name == "Rend")
+  page.show = Show.All
+  page.order = Order.Price
+  Test.expect(page.shown[1]?.name == "Rend" && page.shown[3]?.name == "Charge")
+  page.search = "heroic"
+  Test.expect(page.shown.length == 1)
+}
+
+// The cells a page under test is given.
+class Fixture {
+  state spells: Array<Game.SpellEntry> = spells()
+  state lines: Array<Game.SpellLine> = lines()
+  state level = 20
+  state services: Array<Game.TrainerService> = [
+    {
+      index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Game.ServiceStatus.Available, level: 8, cost: 400,
+      description: "",
+    },
+    {
+      index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Game.ServiceStatus.Unavailable, level: 50, cost: 90000,
+      description: "",
+    },
+    { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Game.ServiceStatus.Learned, level: 4, cost: 0, description: "" },
+  ]
 }
