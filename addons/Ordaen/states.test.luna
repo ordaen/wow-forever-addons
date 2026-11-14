@@ -1,0 +1,352 @@
+// A component's box is the same whatever state it is in: under the cursor, pressed, clicked, and each state its
+// owner sets (a tab picked or open, a box checked, a switch on, a row selected or open, an entry off, a button or a
+// strip disabled). A state changes how a box looks, never its size or its place: the frame that takes the
+// component's clicks is measured in each, as the client places it, and stands where it stood at first.
+import Client from "$client"
+import { Art, Track } from "$ltml"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Checkbox } from "@/checkbox"
+import { ItemButton, Quality } from "@/itemButton"
+import { ListTab } from "@/listTab"
+import { Menu, MenuEntry } from "@/menu"
+import { Entry, SettingsPage } from "@/module"
+import { ModuleRow } from "@/moduleRow"
+import { PushButton } from "@/pushButton"
+import { Segmented } from "@/segmented"
+import { Switch } from "@/switch"
+import { Column, Table, TableRow, tracksOf } from "@/table"
+import { Tabs } from "@/tabs"
+import { TreeRow } from "@/treeRow"
+import { Placing, Window, WindowTabSpec } from "@/window"
+import { PX } from "@/units"
+
+const PAGE: Test.Page = { left: 0, top: 0, width: 900, height: 700 }
+// Where the cursor rests off every box.
+const AWAY: Test.Point = { x: 1590, y: 890 }
+const ICON: Asset = "Interface/Icons/Trade_Tailoring"
+
+// The frame that takes the mouse at `at`.
+function frameAt(at: Test.Point): any Client.Frame {
+  Test.moveTo(at)
+  const found = Client.GetMouseFoci()[1]
+  if (found is Client.Frame) { return found }
+  panic("no frame takes the mouse there")
+}
+
+// Where a frame stands and how large it is, as the client says it now.
+function rectOf(frame: any Client.Frame): String {
+  Test.flush()
+  return `${String.of(frame.GetLeft())}, ${String.of(frame.GetTop())} to ${String.of(frame.GetRight())}, ${String.of(frame.GetBottom())}`
+}
+
+// The frame stands as it stood at first, or the test stops and says in which state it doesn't.
+function same(frame: any Client.Frame, first: String, state: String) {
+  const now = rectOf(frame)
+  if (now != first) { panic(`the box stood at ${first} at first, at ${now} ${state}`) }
+}
+
+// The frame that takes the mouse at `at`, in each state: away from the cursor, under it, pressed and let go there (a
+// click), and again after each of `steps` (each sets a state the owner holds).
+function holdsItsBox(at: Test.Point, steps: Array<() => nil>) {
+  const frame = frameAt(at)
+  Test.moveTo(AWAY)
+  const first = rectOf(frame)
+  for (index of 0..=steps.length) {
+    const step = steps[index]
+    if (step != nil) { step() }
+    const state = index == 0 ? "as drawn" : `after step ${index}`
+    Test.moveTo(AWAY)
+    same(frame, first, state + ", away from the cursor")
+    Test.moveTo(at)
+    same(frame, first, state + ", under the cursor")
+    Test.press(nil)
+    same(frame, first, state + ", pressed")
+    Test.release(nil)
+    same(frame, first, state + ", clicked")
+  }
+  Test.moveTo(AWAY)
+}
+
+class PageTabs {
+  state tabs: Array<String> = ["Recipes", "Camp", "Queue"]
+  state page = 1
+
+  public render(self): Template {
+    return $ltml { <Tabs tabs={self.tabs} selected={mut self.page} /> }
+  }
+}
+
+test "a page's tab keeps its box picked or not" {
+  let page = new PageTabs()
+  Test.mount(page, PAGE)
+  for (name of ["Recipes", "Camp", "Queue"]) {
+    holdsItsBox(Test.holding(name, nil), [() => { page.page = 2 }, () => { page.page = 3 }, () => { page.page = 1 }])
+  }
+  destroy page
+}
+
+class Tabbed {
+  state tabs: Array<WindowTabSpec>
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: 600, height: 300 }
+
+  constructor(tabs: Array<WindowTabSpec>) { self.tabs = tabs }
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
+        <text value={"the page"} />
+      </Window>
+    }
+  }
+}
+
+test "a window's tab with a picture keeps its box open or closed" {
+  let page = new Tabbed([
+    { title: "Blacksmithing", desc: "150 / 150", icon: "Interface/Icons/Trade_BlackSmithing" },
+    { title: "Mining", desc: "121 / 150", icon: "Interface/Icons/Trade_Mining" },
+    { title: "First Aid", desc: "81 / 150", icon: "Interface/Icons/Spell_Holy_SealOfSacrifice" },
+  ])
+  Test.mount(page, PAGE)
+  for (name of ["Blacksmithing", "Mining", "First Aid"]) {
+    holdsItsBox(Test.holding(name, nil), [() => { page.tab = 2 }, () => { page.tab = 3 }, () => { page.tab = 1 }])
+  }
+  destroy page
+}
+
+test "a window's tab without a picture keeps its box open or closed" {
+  let page = new Tabbed([{ title: "Recipes" }, { title: "Camp" }])
+  Test.mount(page, PAGE)
+  for (name of ["Recipes", "Camp"]) {
+    holdsItsBox(Test.holding(name, nil), [() => { page.tab = 2 }, () => { page.tab = 1 }])
+  }
+  destroy page
+}
+
+class Buttons {
+  state accent = false
+  state disabled = false
+
+  public render(self): Template {
+    return $ltml { <PushButton label={"Make"} width={120 * PX} accent={self.accent} disabled={self.disabled} /> }
+  }
+}
+
+test "a push button keeps its box disabled or accented" {
+  let page = new Buttons()
+  Test.mount(page, PAGE)
+  holdsItsBox(Test.holding("Make", nil), [
+    () => { page.disabled = true }, () => { page.accent = true }, () => { page.disabled = false },
+  ])
+  destroy page
+}
+
+class Checks {
+  state on = false
+  state disabled = false
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <Checkbox label={"Show the price"} value={mut self.on} hint={"In the tooltip"} disabled={self.disabled} />
+        <Switch label={"Enabled"} value={mut self.on} disabled={self.disabled} />
+      </box>
+    }
+  }
+}
+
+test "a checkbox and a switch keep their boxes on, off or disabled" {
+  let page = new Checks()
+  Test.mount(page, PAGE)
+  const steps: Array<() => nil> = [
+    () => { page.on = true }, () => { page.disabled = true }, () => { page.on = false }, () => { page.disabled = false },
+  ]
+  // Found before any is clicked: a click flips them.
+  const check = Test.painted(Ordaen.art.ctl.check, nil)
+  const toggle = Test.painted(Ordaen.art.ctl.switchOff, nil)
+  holdsItsBox(check, steps)
+  holdsItsBox(toggle, steps)
+  holdsItsBox(Test.holding("Show the price", nil), steps)
+  destroy page
+}
+
+enum Mode { Auction = "auction", Merchant = "merchant", Cooldowns = "cooldowns" }
+
+class Modes {
+  state mode: Mode = Mode.Auction
+  state disabled = false
+
+  public render(self): Template {
+    return $ltml {
+      <Segmented value={mut self.mode} disabled={self.disabled} choices={[
+        { value: Mode.Auction, label: "Auction" },
+        { value: Mode.Merchant, label: "Merchant" },
+        { value: Mode.Cooldowns, label: "Cooldowns", soon: true },
+      ]} />
+    }
+  }
+}
+
+test "a segment keeps its box picked, not or disabled" {
+  let page = new Modes()
+  Test.mount(page, PAGE)
+  const steps: Array<() => nil> = [
+    () => { page.mode = Mode.Merchant }, () => { page.disabled = true }, () => { page.mode = Mode.Auction },
+  ]
+  holdsItsBox(Test.holding("Auction", nil), steps)
+  holdsItsBox(Test.holding("Merchant", nil), steps)
+  destroy page
+}
+
+class Lists {
+  state selected = false
+  state off = false
+  state open = false
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} width={300 * PX}>
+        <ListTab label={"Bars"} selected={self.selected} icon={ICON} off={self.off} />
+        <ListTab label={"Plain"} selected={self.selected} off={self.off} />
+        <TreeRow label={"Copper Bar"} depth={1} open={mut self.open} selected={self.selected} />
+        <TreeRow label={"Copper Ore"} depth={2} open={mut self.open} leaf={true} selected={self.selected} />
+      </box>
+    }
+  }
+}
+
+test "a list's entry and a tree's row keep their boxes selected, off or open" {
+  let page = new Lists()
+  Test.mount(page, PAGE)
+  const steps: Array<() => nil> = [
+    () => { page.selected = true }, () => { page.off = true }, () => { page.open = true },
+    () => { page.selected = false }, () => { page.off = false }, () => { page.open = false },
+  ]
+  for (name of ["Bars", "Plain", "Copper Bar", "Copper Ore"]) {
+    holdsItsBox(Test.holding(name, nil), steps)
+  }
+  destroy page
+}
+
+const COLUMNS: Array<Column> = [
+  { title: "Recipe", width: { fr: 1 }, sortable: true },
+  { title: "Makeable", width: 80 * PX, sortable: true },
+  { title: "Plain", width: 80 * PX },
+]
+
+class Sorted {
+  state column = 1
+  state descending = false
+  state selected = false
+  tracks: Array<Track> = tracksOf(COLUMNS)
+
+  public render(self): Template {
+    return $ltml {
+      <box width={500 * PX}>
+        <Table columns={COLUMNS} sorted={mut self.column} descending={mut self.descending}>
+          <TableRow tracks={self.tracks} selected={self.selected}>
+            <text value={"Linen Bandage"} />
+          </TableRow>
+        </Table>
+      </box>
+    }
+  }
+}
+
+test "a table's heading and row keep their boxes sorted by or not, selected or not" {
+  let page = new Sorted()
+  Test.mount(page, PAGE)
+  const steps: Array<() => nil> = [
+    () => { page.column = 2 }, () => { page.descending = true }, () => { page.selected = true },
+    () => { page.column = 1 }, () => { page.selected = false },
+  ]
+  for (name of ["Recipe", "Makeable", "Plain", "Linen Bandage"]) {
+    holdsItsBox(Test.holding(name, nil), steps)
+  }
+  destroy page
+}
+
+class Menus {
+  state entries: Array<MenuEntry> = [
+    { label: "Sound", on: false },
+    { label: "Reset" },
+    { label: "Delete", group: true },
+  ]
+
+  public render(self): Template {
+    return $ltml {
+      <box width={200 * PX} height={30 * PX}>
+        <Menu entries={self.entries} />
+      </box>
+    }
+  }
+}
+
+test "a menu's entry keeps its box on, off or disabled" {
+  let page = new Menus()
+  Test.mount(page, PAGE)
+  const steps: Array<() => nil> = [
+    () => { page.entries = [{ label: "Sound", on: true }, { label: "Reset", disabled: true }, { label: "Delete", group: true, disabled: true }] },
+    () => { page.entries = [{ label: "Sound", on: false, disabled: true }, { label: "Reset" }, { label: "Delete", group: true }] },
+  ]
+  for (name of ["Sound", "Reset", "Delete"]) {
+    holdsItsBox(Test.holding(name, nil), steps)
+  }
+  destroy page
+}
+
+// A module the settings window lists, turned on and off by the test.
+class Listed implements Entry {
+  public const folder: String = "OrdaenPanel"
+  public const title: String = "Ordaen Panel"
+  public const icon: Art = ICON
+  public state on = false
+  public state pages: Array<SettingsPage> = []
+
+  public enable(self, on: Boolean) {}
+}
+
+class Modules {
+  state shown = ""
+  public const entry: mut Listed = new Listed()
+
+  public render(self): Template {
+    return $ltml {
+      <box width={300 * PX}>
+        <ModuleRow entry={self.entry} shown={self.shown} />
+      </box>
+    }
+  }
+}
+
+test "a module's entry and its switch keep their boxes on, off or shown" {
+  let page = new Modules()
+  Test.mount(page, PAGE)
+  const steps: Array<() => nil> = [
+    () => { page.shown = "OrdaenPanel" }, () => { page.entry.on = true }, () => { page.shown = "" },
+    () => { page.entry.on = false },
+  ]
+  const toggle = Test.painted(Ordaen.art.ctl.switchOff, nil)
+  holdsItsBox(Test.holding("Panel", nil), steps)
+  holdsItsBox(toggle, steps)
+  destroy page
+}
+
+class Slots {
+  state quality: Quality = Quality.Common
+  state dimmed = false
+
+  public render(self): Template {
+    return $ltml { <ItemButton item={2589} count={5} quality={self.quality} dimmed={self.dimmed} /> }
+  }
+}
+
+test "an item's button keeps its box of any quality, dimmed or not" {
+  let page = new Slots()
+  Test.mount(page, PAGE)
+  holdsItsBox(Test.holding("5", nil), [
+    () => { page.quality = Quality.Epic }, () => { page.dimmed = true }, () => { page.quality = Quality.Poor },
+  ])
+  destroy page
+}
