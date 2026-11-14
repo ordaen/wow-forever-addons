@@ -4,20 +4,20 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
       embed 1352.67,54 218.33x218.33 absolute frame=Minimap
       box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1421.21,33.17 81.25x15 @enter @leave
-          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+        box 1417.94,32.87 87.78x15.6 @enter @leave
+          text 1417.94,32.87 87.78x15.6 "Elwynn Forest" #1aff1a
       box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+        box 1361,277.87 166.11x15.6 @click @enter @leave
+          text 1361,277.87 166.11x15.6 "42.1, 63.0" #f3e1b8
+        box 1527.11,277.87 35.56x15.6 @click @enter @leave
+          text 1527.11,277.87 35.56x15.6 "12:30" #f3e1b8
       embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
       box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
         box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
       box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
         box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
       box 1323.67,273 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=0 @click @drag @dragStart @dragStop @enter @leave
-        text 1334.71,279.67 6.25x15 "3" #ffd100
+        text 1333.39,279.37 8.89x15.6 "3" #ffd100 centred
     box 1323.67,0 0x0 absolute opacity=0
       embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
 
@@ -28,20 +28,20 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
       embed 1352.67,54 218.33x218.33 absolute frame=Minimap
       box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1421.21,33.17 81.25x15 @enter @leave
-          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+        box 1417.94,32.87 87.78x15.6 @enter @leave
+          text 1417.94,32.87 87.78x15.6 "Elwynn Forest" #1aff1a
       box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+        box 1361,277.87 166.11x15.6 @click @enter @leave
+          text 1361,277.87 166.11x15.6 "42.1, 63.0" #f3e1b8
+        box 1527.11,277.87 35.56x15.6 @click @enter @leave
+          text 1527.11,277.87 35.56x15.6 "12:30" #f3e1b8
       embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
       box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
       box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
       box 1323.67,273 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
-        text 1334.71,279.67 6.25x15 "3" #ffd100
+        text 1333.39,279.37 8.89x15.6 "3" #ffd100 centred
     box 1323.67,0 0x0 absolute opacity=0
       embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
 
@@ -52,20 +52,20 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
       embed 1352.67,54 218.33x218.33 absolute frame=Minimap
       box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1421.21,33.17 81.25x15 @enter @leave
-          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+        box 1417.94,32.87 87.78x15.6 @enter @leave
+          text 1417.94,32.87 87.78x15.6 "Elwynn Forest" #1aff1a
       box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+        box 1361,277.87 166.11x15.6 @click @enter @leave
+          text 1361,277.87 166.11x15.6 "42.1, 63.0" #f3e1b8
+        box 1527.11,277.87 35.56x15.6 @click @enter @leave
+          text 1527.11,277.87 35.56x15.6 "12:30" #f3e1b8
       embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
       box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
       box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
       box 1323.67,273 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
-        text 1334.71,279.67 6.25x15 "3" #ffd100
+        text 1333.39,279.37 8.89x15.6 "3" #ffd100 centred
     box 1323.67,0 0x0 absolute opacity=0
       embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
 asked: Minimap.hover MinimapTrackingButton true
@@ -77,25 +77,25 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
       embed 1352.67,54 218.33x218.33 absolute frame=Minimap
       box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1421.21,33.17 81.25x15 @enter @leave
-          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+        box 1417.94,32.87 87.78x15.6 @enter @leave
+          text 1417.94,32.87 87.78x15.6 "Elwynn Forest" #1aff1a
       box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+        box 1361,277.87 166.11x15.6 @click @enter @leave
+          text 1361,277.87 166.11x15.6 "42.1, 63.0" #f3e1b8
+        box 1527.11,277.87 35.56x15.6 @click @enter @leave
+          text 1527.11,277.87 35.56x15.6 "12:30" #f3e1b8
       embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
       box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
       box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
       box 1323.67,273 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
-        text 1334.71,279.67 6.25x15 "3" #ffd100
+        text 1333.39,279.37 8.89x15.6 "3" #ffd100 centred
     box 1323.67,0 0x0 absolute opacity=0
       embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
-surface 1260.25,293.17 271.17x72.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 1280.5,313.42 235.67x18 "42.1, 63.0" #ffffff
-  text 1280.5,333.08 235.67x15 "Shift+Left-click: send to chat" #cbb994
+surface 1255.94,293.47 271.17x74.72 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 1276.19,313.72 235.67x19.2 "42.1, 63.0" #ffffff
+  text 1276.19,334.58 235.67x15.6 "Shift+Left-click: send to chat" #cbb994
 asked: Minimap.hover MinimapTrackingButton false
 
 -- the cursor on the clock: its tooltip under it, by its right edge
@@ -104,25 +104,25 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
       embed 1352.67,54 218.33x218.33 absolute frame=Minimap
       box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1421.21,33.17 81.25x15 @enter @leave
-          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+        box 1417.94,32.87 87.78x15.6 @enter @leave
+          text 1417.94,32.87 87.78x15.6 "Elwynn Forest" #1aff1a
       box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+        box 1361,277.87 166.11x15.6 @click @enter @leave
+          text 1361,277.87 166.11x15.6 "42.1, 63.0" #f3e1b8
+        box 1527.11,277.87 35.56x15.6 @click @enter @leave
+          text 1527.11,277.87 35.56x15.6 "12:30" #f3e1b8
       embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
       box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
       box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
       box 1323.67,273 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
-        text 1334.71,279.67 6.25x15 "3" #ffd100
+        text 1333.39,279.37 8.89x15.6 "3" #ffd100 centred
     box 1323.67,0 0x0 absolute opacity=0
       embed 1323.67,0 28.33x28.33 frame=OtherAddonButton
-surface 1291.5,293.17 271.17x87.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 1311.75,313.42 235.67x18 "12:30" #ffffff
-  text 1311.75,333.08 235.67x30 "Left-click: calendar
+surface 1291.5,293.47 271.17x90.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 1311.75,313.72 235.67x19.2 "12:30" #ffffff
+  text 1311.75,334.58 235.67x31.2 "Left-click: calendar
 Right-click: minimap settings" #cbb994
 
 -- the drawer's button clicked: the drawer hangs under it with another addon's button and the addon menu's entries
@@ -131,29 +131,29 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
       embed 1352.67,54 218.33x218.33 absolute frame=Minimap
       box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1421.21,33.17 81.25x15 @enter @leave
-          text 1421.21,33.17 81.25x15 "Elwynn Forest" #1aff1a
+        box 1417.94,32.87 87.78x15.6 @enter @leave
+          text 1417.94,32.87 87.78x15.6 "Elwynn Forest" #1aff1a
       box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #f3e1b8
+        box 1361,277.87 166.11x15.6 @click @enter @leave
+          text 1361,277.87 166.11x15.6 "42.1, 63.0" #f3e1b8
+        box 1527.11,277.87 35.56x15.6 @click @enter @leave
+          text 1527.11,277.87 35.56x15.6 "12:30" #f3e1b8
       embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
       box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
       box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
       box 1323.67,273 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 2 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
-        text 1334.71,279.67 6.25x15 "3" #ffd100
+        text 1333.39,279.37 8.89x15.6 "3" #ffd100 centred
     box 1212.67,303 148.83x56.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
       embed 1227.92,318.25 28.33x28.33 frame=OtherAddonButton
       box 1259.58,318.25 28.33x28.33 @click @enter @leave
         box 1261.25,319.92 25x25 Interface/Icons/Details
       box 1291.25,318.25 28.33x28.33 @click @enter @leave
         box 1292.92,319.92 25x25 Interface/Icons/INV_Misc_QuestionMark
-surface 1080.83,301.33 271.17x87.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 1101.08,321.58 235.67x18 "Addons" #ffffff
-  text 1101.08,341.25 235.67x30 "Left-click: open or close the drawer
+surface 1080.83,301.33 271.17x90.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 1101.08,321.58 235.67x19.2 "Addons" #ffffff
+  text 1101.08,342.45 235.67x31.2 "Left-click: open or close the drawer
 Drag: move it round the map" #cbb994
 
 cluster shown: false, backdrop shown: false
@@ -163,29 +163,29 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
       embed 1352.67,54 218.33x218.33 absolute frame=Minimap
       box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1405.58,33.17 112.5x15 @enter @leave
-          text 1405.58,33.17 112.5x15 "Stranglethorn Vale" #ffb300
+        box 1401.83,32.87 120x15.6 @enter @leave
+          text 1401.83,32.87 120x15.6 "Stranglethorn Vale" #ffb300
       box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #ff9a2e
+        box 1361,277.87 166.11x15.6 @click @enter @leave
+          text 1361,277.87 166.11x15.6 "42.1, 63.0" #f3e1b8
+        box 1527.11,277.87 35.56x15.6 @click @enter @leave
+          text 1527.11,277.87 35.56x15.6 "12:30" #ff9a2e
       embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
       box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
       box 1323.67,194.13 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1328.67,199.13 18.33x18.33 icon=Interface/Icons/Trade_Engineering cut by Interface\AddOns\Ordaen\media\face-round-mask
       box 1323.67,273 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 2 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
-        text 1334.71,279.67 6.25x15 "3" #ffd100
+        text 1333.39,279.37 8.89x15.6 "3" #ffd100 centred
     box 1212.67,303 148.83x56.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
       embed 1227.92,318.25 28.33x28.33 frame=OtherAddonButton
       box 1259.58,318.25 28.33x28.33 @click @enter @leave
         box 1261.25,319.92 25x25 Interface/Icons/Details
       box 1291.25,318.25 28.33x28.33 @click @enter @leave
         box 1292.92,319.92 25x25 Interface/Icons/INV_Misc_QuestionMark
-surface 1080.83,301.33 271.17x87.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
-  text 1101.08,321.58 235.67x18 "Addons" #ffffff
-  text 1101.08,341.25 235.67x30 "Left-click: open or close the drawer
+surface 1080.83,301.33 271.17x90.32 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 1101.08,321.58 235.67x19.2 "Addons" #ffffff
+  text 1101.08,342.45 235.67x31.2 "Left-click: open or close the drawer
 Drag: move it round the map" #cbb994
 
 cluster shown: false, backdrop shown: false
@@ -195,13 +195,13 @@ surface 1323.67,0 276.33x326.33 on MEDIUM clamped
     box 1343.92,20.25 230.83x283.58 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
       embed 1352.67,54 218.33x218.33 absolute frame=Minimap
       box 1352.67,29 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1405.58,33.17 112.5x15 @enter @leave
-          text 1405.58,33.17 112.5x15 "Stranglethorn Vale" #ffb300
+        box 1401.83,32.87 120x15.6 @enter @leave
+          text 1401.83,32.87 120x15.6 "Stranglethorn Vale" #ffb300
       box 1352.67,272.33 218.33x25 absolute Interface\AddOns\Ordaen\media\window-wood
-        box 1361,278.17 170.42x15 @click @enter @leave
-          text 1361,278.17 170.42x15 "42.1, 63.0" #f3e1b8
-        box 1531.42,278.17 31.25x15 @click @enter @leave
-          text 1531.42,278.17 31.25x15 "12:30" #ff9a2e
+        box 1361,277.87 166.11x15.6 @click @enter @leave
+          text 1361,277.87 166.11x15.6 "42.1, 63.0" #f3e1b8
+        box 1527.11,277.87 35.56x15.6 @click @enter @leave
+          text 1527.11,277.87 35.56x15.6 "12:30" #ff9a2e
       embed 1323.67,103.87 28.33x28.33 absolute frame=MinimapTrackingButton opacity=0
       box 1323.67,103.87 28.33x28.33 absolute Interface\AddOns\Ordaen\media\minimap-ring row 0 of 4 opacity=1 @click @drag @dragStart @dragStop @enter @leave
         box 1331.17,111.79 13.33x12.5 ui-hud-minimap-tracking-up
