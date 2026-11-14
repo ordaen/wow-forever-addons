@@ -1,0 +1,52 @@
+// «To my characters»: the player's other characters a letter can reach, from Ordaen Alts. With Ordaen Alts off, or
+// with no other character recorded, it says so and offers nothing.
+import { Align, Overflow } from "$ltml"
+import { Component, PX } from "Ordaen"
+import type { Alts } from "OrdaenAlts"
+import Locale from "@/locales"
+import Style from "@/style"
+
+// The names of the characters the one being played can send to, by name.
+public function reachableNames(alts: Alts): Array<String> {
+  const names: Array<String> = []
+  for (who, character of alts.characters) {
+    if (who != alts.current && alts.reaches(who)) { names.push(character.name) }
+  }
+  names.sort((a, b) => a < b)
+  return names
+}
+
+public class OwnTab implements Component {
+  derived off: Boolean = self.alts == nil
+  derived names: Array<String> = self.namesOf()
+  derived alone: Boolean = !self.off && self.names.length == 0
+
+  alts: Signal<Alts | nil>
+  constructor(alts: Signal<Alts | nil>) {
+    self.alts = alts
+  }
+
+  namesOf(self): Array<String> {
+    const alts = self.alts
+    return alts == nil ? [] : reachableNames(alts)
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.off} xAlign={Align.Center} yAlign={Align.Center}>
+        <text value={Locale.ALTS_OFF} textColor={Style.DIM} />
+      </box>
+      <box $elseif={self.alone} xAlign={Align.Center} yAlign={Align.Center}>
+        <text value={Locale.ALTS_ALONE} textColor={Style.DIM} />
+      </box>
+      <box $else columns={1} gap={8 * PX}>
+        <text value={Locale.SEND_TO_OWN} textSize={.Title} textColor={Style.GOLD} />
+        <box overflow={Overflow.Scroll}>
+          <box $for={name of self.names} $key={name} padding={{ top: 4 * PX, bottom: 4 * PX }}>
+            <text value={name} textColor={Style.INK} />
+          </box>
+        </box>
+      </box>
+    }
+  }
+}

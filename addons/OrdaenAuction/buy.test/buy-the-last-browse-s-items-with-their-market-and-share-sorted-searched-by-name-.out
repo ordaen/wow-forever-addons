@@ -62,46 +62,45 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                       text 1536,112.5 18.75x15 "Age" #cbb994
                       box 1558.08,117.5 6.67x5
                         box 1554.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 33.58,135 1537.83x695.33
-                  box 33.58,135 1537.83x695.33 absolute scrolled 0 of 0
-                    box 33.58,135 1537.83x26.67 #00000000 @click
-                      box 40.25,138.33 1112.83x20
-                        box 40.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
-                          box 40.25,138.33 20x20 absolute
-                          box 40.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                          box 40.25,138.33 20x20 absolute #00000000
-                        box 66.92,140.83 1086.17x15 clipped
-                          text 66.92,140.83 1086.17x15 "Linen Cloth" #e8dcc4
-                      box 1159.75,148.33 36.67x0
-                      box 1203.08,140.83 75x15
-                        text 1265.58,140.83 12.5x15 "30" #e8dcc4
-                      box 1284.75,140.83 80x15
-                        text 1308.5,140.83 56.25x15 "0g 0s 36c" #e8dcc4
-                      box 1371.42,140.83 75x15
-                        text 1390.17,140.83 56.25x15 "0g 0s 43c" #e8dcc4
-                      box 1453.08,140.83 46.67x15
-                        text 1481,140.83 18.75x15 "84%" #40c040
-                      box 1506.42,140.83 58.33x15
-                        text 1527.25,140.83 37.5x15 "(1 d.)" #ffb02e
-                    box 33.58,161.67 1537.83x26.67 #00000000 @click
-                      box 40.25,165 1112.83x20
-                        box 40.25,165 20x20 #0d0a08 opacity=1 @click @enter
-                          box 40.25,165 20x20 absolute
-                          box 40.25,165 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                          box 40.25,165 20x20 absolute #00000000
-                        box 66.92,167.5 1086.17x15 clipped
-                          text 66.92,167.5 1086.17x15 "Copper Ore" #e8dcc4
-                      box 1159.75,175 36.67x0
-                      box 1203.08,167.5 75x15
-                        text 1265.58,167.5 12.5x15 "25" #e8dcc4
-                      box 1284.75,167.5 80x15
-                        text 1314.75,167.5 50x15 "0g 1s 0c" #e8dcc4
-                      box 1371.42,167.5 75x15
-                        text 1390.17,167.5 56.25x15 "0g 0s 93c" #e8dcc4
-                      box 1453.08,167.5 46.67x15
-                        text 1474.75,167.5 25x15 "108%" #ff4040
-                      box 1506.42,167.5 58.33x15
-                        text 1527.25,167.5 37.5x15 "(1 d.)" #ffb02e
+                box 33.58,135 1537.83x695.33 scrolled 0 of 0
+                  box 33.58,135 1537.83x26.67 #00000000 @click
+                    box 40.25,138.33 1112.83x20
+                      box 40.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
+                        box 40.25,138.33 20x20 absolute
+                        box 40.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                        box 40.25,138.33 20x20 absolute #00000000
+                      box 66.92,140.83 1086.17x15 clipped
+                        text 66.92,140.83 1086.17x15 "Linen Cloth" #e8dcc4
+                    box 1159.75,148.33 36.67x0
+                    box 1203.08,140.83 75x15
+                      text 1265.58,140.83 12.5x15 "30" #e8dcc4
+                    box 1284.75,140.83 80x15
+                      text 1308.5,140.83 56.25x15 "0g 0s 36c" #e8dcc4
+                    box 1371.42,140.83 75x15
+                      text 1390.17,140.83 56.25x15 "0g 0s 43c" #e8dcc4
+                    box 1453.08,140.83 46.67x15
+                      text 1481,140.83 18.75x15 "84%" #40c040
+                    box 1506.42,140.83 58.33x15
+                      text 1527.25,140.83 37.5x15 "(1 d.)" #ffb02e
+                  box 33.58,161.67 1537.83x26.67 #00000000 @click
+                    box 40.25,165 1112.83x20
+                      box 40.25,165 20x20 #0d0a08 opacity=1 @click @enter
+                        box 40.25,165 20x20 absolute
+                        box 40.25,165 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                        box 40.25,165 20x20 absolute #00000000
+                      box 66.92,167.5 1086.17x15 clipped
+                        text 66.92,167.5 1086.17x15 "Copper Ore" #e8dcc4
+                    box 1159.75,175 36.67x0
+                    box 1203.08,167.5 75x15
+                      text 1265.58,167.5 12.5x15 "25" #e8dcc4
+                    box 1284.75,167.5 80x15
+                      text 1314.75,167.5 50x15 "0g 1s 0c" #e8dcc4
+                    box 1371.42,167.5 75x15
+                      text 1390.17,167.5 56.25x15 "0g 0s 93c" #e8dcc4
+                    box 1453.08,167.5 46.67x15
+                      text 1474.75,167.5 25x15 "108%" #ff4040
+                    box 1506.42,167.5 58.33x15
+                      text 1527.25,167.5 37.5x15 "(1 d.)" #ffb02e
       box 32.75,831.17 1539.5x45
         box 32.75,847.83 1539.5x28.33
           text 32.75,855.5 1414.5x13 "2 items" #a3977f
@@ -183,46 +182,45 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                       text 1536,112.5 18.75x15 "Age" #cbb994
                       box 1558.08,117.5 6.67x5
                         box 1554.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 33.58,135 1537.83x695.33
-                  box 33.58,135 1537.83x695.33 absolute scrolled 0 of 0
-                    box 33.58,135 1537.83x26.67 #00000000 @click
-                      box 40.25,138.33 1112.83x20
-                        box 40.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
-                          box 40.25,138.33 20x20 absolute
-                          box 40.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                          box 40.25,138.33 20x20 absolute #00000000
-                        box 66.92,140.83 1086.17x15 clipped
-                          text 66.92,140.83 1086.17x15 "Linen Cloth" #e8dcc4
-                      box 1159.75,148.33 36.67x0
-                      box 1203.08,140.83 75x15
-                        text 1265.58,140.83 12.5x15 "30" #e8dcc4
-                      box 1284.75,140.83 80x15
-                        text 1308.5,140.83 56.25x15 "0g 0s 36c" #e8dcc4
-                      box 1371.42,140.83 75x15
-                        text 1390.17,140.83 56.25x15 "0g 0s 43c" #e8dcc4
-                      box 1453.08,140.83 46.67x15
-                        text 1481,140.83 18.75x15 "84%" #40c040
-                      box 1506.42,140.83 58.33x15
-                        text 1527.25,140.83 37.5x15 "(1 d.)" #ffb02e
-                    box 33.58,161.67 1537.83x26.67 #00000000 @click
-                      box 40.25,165 1112.83x20
-                        box 40.25,165 20x20 #0d0a08 opacity=1 @click @enter
-                          box 40.25,165 20x20 absolute
-                          box 40.25,165 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                          box 40.25,165 20x20 absolute #00000000
-                        box 66.92,167.5 1086.17x15 clipped
-                          text 66.92,167.5 1086.17x15 "Copper Ore" #e8dcc4
-                      box 1159.75,175 36.67x0
-                      box 1203.08,167.5 75x15
-                        text 1265.58,167.5 12.5x15 "25" #e8dcc4
-                      box 1284.75,167.5 80x15
-                        text 1314.75,167.5 50x15 "0g 1s 0c" #e8dcc4
-                      box 1371.42,167.5 75x15
-                        text 1390.17,167.5 56.25x15 "0g 0s 93c" #e8dcc4
-                      box 1453.08,167.5 46.67x15
-                        text 1474.75,167.5 25x15 "108%" #ff4040
-                      box 1506.42,167.5 58.33x15
-                        text 1527.25,167.5 37.5x15 "(1 d.)" #ffb02e
+                box 33.58,135 1537.83x695.33 scrolled 0 of 0
+                  box 33.58,135 1537.83x26.67 #00000000 @click
+                    box 40.25,138.33 1112.83x20
+                      box 40.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
+                        box 40.25,138.33 20x20 absolute
+                        box 40.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                        box 40.25,138.33 20x20 absolute #00000000
+                      box 66.92,140.83 1086.17x15 clipped
+                        text 66.92,140.83 1086.17x15 "Linen Cloth" #e8dcc4
+                    box 1159.75,148.33 36.67x0
+                    box 1203.08,140.83 75x15
+                      text 1265.58,140.83 12.5x15 "30" #e8dcc4
+                    box 1284.75,140.83 80x15
+                      text 1308.5,140.83 56.25x15 "0g 0s 36c" #e8dcc4
+                    box 1371.42,140.83 75x15
+                      text 1390.17,140.83 56.25x15 "0g 0s 43c" #e8dcc4
+                    box 1453.08,140.83 46.67x15
+                      text 1481,140.83 18.75x15 "84%" #40c040
+                    box 1506.42,140.83 58.33x15
+                      text 1527.25,140.83 37.5x15 "(1 d.)" #ffb02e
+                  box 33.58,161.67 1537.83x26.67 #00000000 @click
+                    box 40.25,165 1112.83x20
+                      box 40.25,165 20x20 #0d0a08 opacity=1 @click @enter
+                        box 40.25,165 20x20 absolute
+                        box 40.25,165 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                        box 40.25,165 20x20 absolute #00000000
+                      box 66.92,167.5 1086.17x15 clipped
+                        text 66.92,167.5 1086.17x15 "Copper Ore" #e8dcc4
+                    box 1159.75,175 36.67x0
+                    box 1203.08,167.5 75x15
+                      text 1265.58,167.5 12.5x15 "25" #e8dcc4
+                    box 1284.75,167.5 80x15
+                      text 1314.75,167.5 50x15 "0g 1s 0c" #e8dcc4
+                    box 1371.42,167.5 75x15
+                      text 1390.17,167.5 56.25x15 "0g 0s 93c" #e8dcc4
+                    box 1453.08,167.5 46.67x15
+                      text 1474.75,167.5 25x15 "108%" #ff4040
+                    box 1506.42,167.5 58.33x15
+                      text 1527.25,167.5 37.5x15 "(1 d.)" #ffb02e
       box 32.75,831.17 1539.5x45
         box 32.75,847.83 1539.5x28.33
           text 32.75,855.5 1414.5x13 "2 items" #a3977f
@@ -313,27 +311,26 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                       text 1536,112.5 18.75x15 "Age" #cbb994
                       box 1558.08,117.5 6.67x5
                         box 1554.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 33.58,135 1537.83x695.33
-                  box 33.58,135 1537.83x695.33 absolute scrolled 0 of 0
-                    box 33.58,135 1537.83x26.67 #00000000 @click
-                      box 40.25,138.33 1112.83x20
-                        box 40.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
-                          box 40.25,138.33 20x20 absolute
-                          box 40.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                          box 40.25,138.33 20x20 absolute #00000000
-                        box 66.92,140.83 1086.17x15 clipped
-                          text 66.92,140.83 1086.17x15 "Linen Cloth" #e8dcc4
-                      box 1159.75,148.33 36.67x0
-                      box 1203.08,140.83 75x15
-                        text 1265.58,140.83 12.5x15 "30" #e8dcc4
-                      box 1284.75,140.83 80x15
-                        text 1308.5,140.83 56.25x15 "0g 0s 36c" #e8dcc4
-                      box 1371.42,140.83 75x15
-                        text 1390.17,140.83 56.25x15 "0g 0s 43c" #e8dcc4
-                      box 1453.08,140.83 46.67x15
-                        text 1481,140.83 18.75x15 "84%" #40c040
-                      box 1506.42,140.83 58.33x15
-                        text 1527.25,140.83 37.5x15 "(1 d.)" #ffb02e
+                box 33.58,135 1537.83x695.33 scrolled 0 of 0
+                  box 33.58,135 1537.83x26.67 #00000000 @click
+                    box 40.25,138.33 1112.83x20
+                      box 40.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
+                        box 40.25,138.33 20x20 absolute
+                        box 40.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                        box 40.25,138.33 20x20 absolute #00000000
+                      box 66.92,140.83 1086.17x15 clipped
+                        text 66.92,140.83 1086.17x15 "Linen Cloth" #e8dcc4
+                    box 1159.75,148.33 36.67x0
+                    box 1203.08,140.83 75x15
+                      text 1265.58,140.83 12.5x15 "30" #e8dcc4
+                    box 1284.75,140.83 80x15
+                      text 1308.5,140.83 56.25x15 "0g 0s 36c" #e8dcc4
+                    box 1371.42,140.83 75x15
+                      text 1390.17,140.83 56.25x15 "0g 0s 43c" #e8dcc4
+                    box 1453.08,140.83 46.67x15
+                      text 1481,140.83 18.75x15 "84%" #40c040
+                    box 1506.42,140.83 58.33x15
+                      text 1527.25,140.83 37.5x15 "(1 d.)" #ffb02e
       box 32.75,831.17 1539.5x45
         box 32.75,847.83 1539.5x28.33
           text 32.75,855.5 1414.5x13 "2 items" #a3977f
@@ -424,27 +421,26 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                       text 1536,112.5 18.75x15 "Age" #cbb994
                       box 1558.08,117.5 6.67x5
                         box 1554.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 33.58,135 1537.83x695.33
-                  box 33.58,135 1537.83x695.33 absolute scrolled 0 of 0
-                    box 33.58,135 1537.83x26.67 #00000000 @click
-                      box 40.25,138.33 1112.83x20
-                        box 40.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
-                          box 40.25,138.33 20x20 absolute
-                          box 40.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                          box 40.25,138.33 20x20 absolute #00000000
-                        box 66.92,140.83 1086.17x15 clipped
-                          text 66.92,140.83 1086.17x15 "Linen Cloth" #e8dcc4
-                      box 1159.75,148.33 36.67x0
-                      box 1203.08,140.83 75x15
-                        text 1265.58,140.83 12.5x15 "30" #e8dcc4
-                      box 1284.75,140.83 80x15
-                        text 1308.5,140.83 56.25x15 "0g 0s 36c" #e8dcc4
-                      box 1371.42,140.83 75x15
-                        text 1390.17,140.83 56.25x15 "0g 0s 43c" #e8dcc4
-                      box 1453.08,140.83 46.67x15
-                        text 1481,140.83 18.75x15 "84%" #40c040
-                      box 1506.42,140.83 58.33x15
-                        text 1527.25,140.83 37.5x15 "(1 d.)" #ffb02e
+                box 33.58,135 1537.83x695.33 scrolled 0 of 0
+                  box 33.58,135 1537.83x26.67 #00000000 @click
+                    box 40.25,138.33 1112.83x20
+                      box 40.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
+                        box 40.25,138.33 20x20 absolute
+                        box 40.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                        box 40.25,138.33 20x20 absolute #00000000
+                      box 66.92,140.83 1086.17x15 clipped
+                        text 66.92,140.83 1086.17x15 "Linen Cloth" #e8dcc4
+                    box 1159.75,148.33 36.67x0
+                    box 1203.08,140.83 75x15
+                      text 1265.58,140.83 12.5x15 "30" #e8dcc4
+                    box 1284.75,140.83 80x15
+                      text 1308.5,140.83 56.25x15 "0g 0s 36c" #e8dcc4
+                    box 1371.42,140.83 75x15
+                      text 1390.17,140.83 56.25x15 "0g 0s 43c" #e8dcc4
+                    box 1453.08,140.83 46.67x15
+                      text 1481,140.83 18.75x15 "84%" #40c040
+                    box 1506.42,140.83 58.33x15
+                      text 1527.25,140.83 37.5x15 "(1 d.)" #ffb02e
       box 32.75,831.17 1539.5x45
         box 32.75,847.83 1539.5x28.33
           text 32.75,855.5 1414.5x13 "2 items" #a3977f

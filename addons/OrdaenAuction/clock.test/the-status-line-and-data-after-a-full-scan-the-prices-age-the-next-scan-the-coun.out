@@ -62,10 +62,9 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                       text 1536,112.5 18.75x15 "Age" #cbb994
                       box 1558.08,117.5 6.67x5
                         box 1554.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 33.58,135 1537.83x710.67
-                  box 33.58,135 1537.83x710.67 absolute scrolled 0 of 0
-                    box 33.58,135 1537.83x41.67
-                      text 46.92,148.33 1511.17x15 "Nothing found. Find an item by name." #a3977f
+                box 33.58,135 1537.83x710.67 scrolled 0 of 0
+                  box 33.58,135 1537.83x26.67
+                    text 46.92,140.83 1511.17x15 "Nothing found. Find an item by name." #a3977f
       box 32.75,846.5 1539.5x29.67
         box 32.75,863.17 1539.5x13
           text 32.75,863.17 1392.83x13 "Prices: 5 min ago · 1 item" #a3977f

@@ -393,7 +393,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                       text 765.25,343.04 50x15 "Can make" #cbb994
                       box 818.58,348.04 6.67x5
                         box 815.25,343.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 391.92,365.54 440x108.33 scrolled 0 of 0
+                box 391.92,365.54 440x330.92 scrolled 0 of 0
                   box 391.92,365.54 440x21.67
                     box 391.92,365.54 440x21.67 #00000000 @click
                       text 398.58,368.88 353.33x15 "Brown Linen Vest" #ffd100

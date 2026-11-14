@@ -1,0 +1,130 @@
+// «Outbox»: the letters sent and the ones waiting to go, one row each: its number, subject, recipient, what it holds
+// and its state. The search and the filter narrow the list; «Write» opens the form, which the client's declarations
+// cannot send yet (`canWrite`).
+import { Align, Overflow, Track } from "$ltml"
+import { Choice, Component, Money, PushButton, PX, Toolbar, ToolPick } from "Ordaen"
+import root Ordaen from "Ordaen"
+import { Sent, SentState } from "@/letters"
+import Locale from "@/locales"
+import Style from "@/style"
+
+public enum SentFilter { All = "all", Waiting = "waiting", Sent = "sent", Stopped = "stopped" }
+
+const FILTERS: Array<Choice<SentFilter>> = [
+  { value: SentFilter.All, label: Locale.SENT_ALL },
+  { value: SentFilter.Waiting, label: Locale.SENT_WAITING },
+  { value: SentFilter.Sent, label: Locale.SENT_SENT },
+  { value: SentFilter.Stopped, label: Locale.SENT_STOPPED },
+]
+const ROW: Array<Track> = [30 * PX, { fr: 3 }, { fr: 2 }, "auto", 240 * PX]
+const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
+const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
+
+function stateColor(state: SentState): Color {
+  return match (state) {
+    SentState.Waiting => Style.DIM,
+    SentState.Sending => Style.GOLD,
+    SentState.Sent => Style.GREEN,
+    SentState.Stopped => Style.RED,
+  }
+}
+
+function stateText(letter: Sent): String {
+  return match (letter.state) {
+    SentState.Waiting => Locale.STATE_WAITING,
+    SentState.Sending => Locale.STATE_SENDING,
+    SentState.Sent => Locale.STATE_SENT,
+    SentState.Stopped => letter.why == "" ? Locale.STATE_STOPPED : Locale.STATE_STOPPED_WHY.format(letter.why),
+  }
+}
+
+function passes(letter: Sent, filter: SentFilter, search: String): Boolean {
+  const kept = match (filter) {
+    SentFilter.All => true,
+    SentFilter.Waiting => letter.state == SentState.Waiting || letter.state == SentState.Sending,
+    SentFilter.Sent => letter.state == SentState.Sent,
+    SentFilter.Stopped => letter.state == SentState.Stopped,
+  }
+  if (!kept) { return false }
+  if (search == "") { return true }
+  const sought = search.lower()
+  return letter.subject.lower().contains(sought) || letter.to.lower().contains(sought)
+}
+
+public class SentRow implements Component {
+  derived color: Color = stateColor(self.letter.state)
+  derived state: String = stateText(self.letter)
+  derived items: String = self.letter.items == 0 ? "" : Locale.ITEMS_COUNT.format(self.letter.items)
+  derived hasMoney: Boolean = self.letter.copper > 0
+
+  letter: Signal<Sent>
+  constructor(letter: Signal<Sent>) {
+    self.letter = letter
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} gap={8 * PX} yAlign={Align.Center}
+           padding={{ top: 5 * PX, bottom: 5 * PX, left: 6 * PX, right: 6 * PX }} background={Style.BACK}>
+        <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={false} />
+        <text value={self.letter.subject} textColor={Style.INK} wrap={false} />
+        <text value={self.letter.to} textColor={Style.DIM} wrap={false} />
+        <box gap={6 * PX} yAlign={Align.Center}>
+          <text value={self.items} textColor={Style.DIM} wrap={false} />
+          <Money $if={self.hasMoney} amount={self.letter.copper} />
+        </box>
+        <text value={self.state} textColor={self.color} wrap={false} />
+      </box>
+    }
+  }
+}
+
+public class Outbox implements Component {
+  state search = ""
+  state filter: SentFilter = SentFilter.All
+  derived shown: Array<Sent> = self.shownOf()
+  derived empty: Boolean = self.shown.length == 0
+  derived waiting: Integer = self.sent.count(l => l.state == SentState.Waiting || l.state == SentState.Sending)
+  derived hasWaiting: Boolean = self.waiting > 0
+  derived postage: String = Locale.WAITING_LETTERS.format(self.waiting)
+  derived narrowed: Boolean = self.filter != SentFilter.All
+
+  sent: Signal<Array<Sent>>
+  canWrite: Signal<Boolean>
+  constructor(sent: Signal<Array<Sent>>, canWrite: Signal<Boolean>) {
+    self.sent = sent
+    self.canWrite = canWrite
+  }
+
+  shownOf(self): Array<Sent> {
+    const list: Array<Sent> = []
+    for (letter of self.sent) {
+      if (passes(letter, self.filter, self.search)) { list.push(letter) }
+    }
+    return list
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box rows={PAGE} gap={8 * PX}>
+        <box columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
+          <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+            <ToolPick value={mut self.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
+                      title={Locale.FILTER} lit={self.narrowed} />
+          </Toolbar>
+          <PushButton label={Locale.WRITE} width={150 * PX} accent={true} disabled={!self.canWrite} />
+        </box>
+        <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
+          <text value={Locale.NOTHING_SENT} textColor={Style.DIM} />
+        </box>
+        <box $else overflow={Overflow.Scroll}>
+          <SentRow $for={letter of self.shown} $key={letter.number} letter={letter} />
+        </box>
+        <box $if={self.hasWaiting} columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
+          <text value={self.postage} textColor={Style.DIM} />
+          <PushButton label={Locale.CONTINUE} width={170 * PX} accent={true} disabled={true} />
+        </box>
+      </box>
+    }
+  }
+}

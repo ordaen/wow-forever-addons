@@ -1,0 +1,45 @@
+// What the mailbox holds, as the window shows it: a letter, what is attached to it, what was sent, and the ways the
+// inbox is narrowed.
+import Game from "$game"
+
+// The most attachments one letter holds.
+public const ATTACHMENTS = 12
+// A letter with this many days left or fewer is shown red.
+public const URGENT_DAYS = 3
+
+public enum Filter { All = "all", Players = "players", Auction = "auction", System = "system", Money = "money", Items = "items" }
+
+public enum SentState { Waiting = "waiting", Sending = "sending", Sent = "sent", Stopped = "stopped" }
+
+// A letter of «Sent»: waiting to go, or gone.
+public struct Sent {
+  number: Integer
+  subject: String
+  to: String
+  items: Integer
+  copper: Integer
+  state: SentState
+  // Why it stopped; empty otherwise.
+  why: String
+}
+
+// Whether a letter passes the filter and the search (a part of its subject or its sender).
+public function matches(letter: Game.MailLetter, filter: Filter, search: String): Boolean {
+  const kept = match (filter) {
+    Filter.All => true,
+    Filter.Players => letter.kind == Game.MailKind.Player,
+    Filter.Auction => letter.kind == Game.MailKind.Auction,
+    Filter.System => letter.kind == Game.MailKind.System,
+    Filter.Money => letter.copper > 0,
+    Filter.Items => letter.items.length > 0,
+  }
+  if (!kept) { return false }
+  if (search == "") { return true }
+  const sought = search.lower()
+  return letter.subject.lower().contains(sought) || letter.sender.lower().contains(sought)
+}
+
+// How many letters «Collect all» would open: those with money or items and nothing to pay.
+public function collectable(letters: Array<Game.MailLetter>): Integer {
+  return letters.count(l => l.cod == 0 && (l.copper > 0 || l.items.length > 0))
+}

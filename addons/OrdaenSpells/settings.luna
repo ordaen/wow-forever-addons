@@ -1,0 +1,39 @@
+// Ordaen Spells' page in the settings window: the spec tabs' names and whether the class trainer's window is ours.
+// Each control writes one entry of the settings' draft. An empty name saves nothing: the tab shows the game's.
+import { Checkbox, Component, PX, Settings } from "Ordaen"
+import Locale from "@/locales"
+import Style from "@/style"
+
+// What the player chooses.
+public struct Choices implements Plain {
+  // The names of the spec tabs; empty for the game's own.
+  specOne: String
+  specTwo: String
+  // The class trainer is drawn by this module; off, it is the game's.
+  trainer: Boolean
+}
+
+public class GeneralPage implements Component {
+  settings: mut Settings<Choices>
+  constructor(settings: mut Settings<Choices>) {
+    self.settings = settings
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={6 * PX}>
+        <text value={Locale.SETTING_SPEC_ONE} textColor={Style.INK} />
+        <box height={30 * PX} rows={[{ fr: 1 }]}>
+          <input value={mut self.settings.draft.specOne} maxLength={24} padding={{ left: 10 * PX, right: 10 * PX }}
+                 textColor={Style.INK} background={Color.hex("#00000080")} />
+        </box>
+        <text value={Locale.SETTING_SPEC_TWO} textColor={Style.INK} />
+        <box height={30 * PX} rows={[{ fr: 1 }]}>
+          <input value={mut self.settings.draft.specTwo} maxLength={24} padding={{ left: 10 * PX, right: 10 * PX }}
+                 textColor={Style.INK} background={Color.hex("#00000080")} />
+        </box>
+      </box>
+      <Checkbox label={Locale.SETTING_TRAINER} hint={Locale.SETTING_TRAINER_TIP} value={mut self.settings.draft.trainer} />
+    }
+  }
+}

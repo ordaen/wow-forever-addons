@@ -140,12 +140,12 @@ public class Market implements Component {
           </SettingRow>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
             <TableRow $for={sale of self.ordered} $key={sale} tracks={TRACKS} @pick={self.onSale}>
-              <text value={peek sale.name} />
+              <text value={sale.name} />
               <box xAlign={Align.End}>
-                <Money amount={peek sale.price} />
+                <Money amount={sale.price} />
               </box>
               <box xAlign={Align.End}>
-                <Age seconds={peek sale.seen} />
+                <Age seconds={sale.seen} />
               </box>
             </TableRow>
           </Table>

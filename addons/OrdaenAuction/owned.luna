@@ -53,10 +53,11 @@ class OwnedRow implements Component {
   derived priced: Boolean = self.shown.unit != nil
   derived unit: Integer = self.shown.unit ?? 0
 
-  const shown: Shown
+  // The row's auction: the table hands the row to another auction as it scrolls.
+  shown: Signal<Shown>
   // An action waits: no other goes.
   busy: Signal<Boolean>
-  constructor(shown: Shown, busy: Signal<Boolean>) {
+  constructor(shown: Signal<Shown>, busy: Signal<Boolean>) {
     self.shown = shown
     self.busy = busy
   }
@@ -149,10 +150,11 @@ public class OwnedPage implements Component {
     return $ltml {
       <box rows={PAGE} gap={space(.Item)}>
         <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} fills={true}>
-            <OwnedRow $for={row of self.rows} $key={row} shown={peek row} busy={Game.auctionActions.busy}
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+                 rowHeight={Style.BUTTON_ROW}>
+            <OwnedRow $for={row of self.rows} $key={row} shown={row} busy={Game.auctionActions.busy}
                       @cancel={self.onCancel} />
-            <box $if={self.rows.length == 0} padding={space(.Panel)}>
+            <box $if={self.rows.length == 0} padding={Style.NOTE_PAD} yAlign={Align.Center}>
               <text value={Locale.NO_AUCTIONS} textColor={Style.DIM} />
             </box>
           </Table>

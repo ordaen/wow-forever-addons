@@ -1,0 +1,64 @@
+-- two letters: one sent, one stopped with its reason
+surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
+  box 300,218.62 1000x500 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 312.75,231.38 979.5x476.75
+      box 332.75,251.38 939.5x436.75
+        box 332.75,251.38 939.5x28.33
+          box 332.75,251.38 807.83x28.33
+            box 332.75,251.38 774.5x28.33
+              box 332.75,251.38 774.5x28.33 #00000080 input "" @change
+              box 332.75,251.38 774.5x28.33 absolute
+                text 341.08,258.04 757.83x15 "Search subject or sender" #a3977f
+            box 1107.25,251.38 33.33x28.33
+              box 1107.25,251.38 33.33x28.33
+                box 1112.25,251.38 28.33x28.33
+                  box 1112.25,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                    box 1119.75,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+          box 1147.25,251.38 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1147.25,251.38 125x28.33 absolute
+              text 1194.12,258.04 31.25x15 "Write" #808080
+        box 332.75,286.38 939.5x395.08 scrolled 0 of 0
+          box 332.75,286.38 939.5x23.33 #00000066
+            text 337.75,290.54 25x15 "1" #a3977f
+            text 369.42,290.54 372.95x15 "Reagents (1/2)" #e8dcc4
+            text 749.03,290.54 248.63x15 "Regy" #a3977f
+            box 1004.33,290.54 56.25x15
+              text 1004.33,290.54 56.25x15 "Items: 12" #a3977f
+            text 1067.25,290.54 200x15 "Sent" #40d060
+          box 332.75,309.71 939.5x43.33 #00000066
+            text 337.75,323.88 25x15 "2" #a3977f
+            text 369.42,323.88 376.7x15 "Reagents (2/2)" #e8dcc4
+            text 752.78,323.88 251.13x15 "Regy" #a3977f
+            box 1010.58,313.88 50x35
+              text 1010.58,313.88 50x15 "Items: 3" #a3977f
+              text 1010.58,333.88 50x15 "0g 1s 0c" #e8dcc4
+            text 1067.25,323.88 200x15 "Stopped: Mailbox closed" #ff4040
+    box 1282.75,698.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 300,181.38 386.17x47.75
+    box 300,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 318.58,191.62 77.33x34.25
+        text 329.12,201.25 56.25x15 "Inbox (4)" #b3a690
+    box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 443.08,191.62 77.33x34.25
+        text 469.25,201.25 25x15 "Sent" #ffd100
+    box 549,181.38 137.17x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 567.58,191.62 100x34.25
+        text 567.58,201.25 100x15 "To my characters" #b3a690
+
+-- the own characters' tab with Ordaen Alts loaded and no other character
+surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
+  box 300,218.62 1000x500 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 312.75,231.38 979.5x476.75
+      box 332.75,251.38 939.5x436.75
+        text 633.75,462.25 337.5x15 "No other character on this realm and side is recorded." #a3977f
+    box 1282.75,698.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 300,181.38 386.17x47.75
+    box 300,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 318.58,191.62 77.33x34.25
+        text 329.12,201.25 56.25x15 "Inbox (4)" #b3a690
+    box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 443.08,191.62 77.33x34.25
+        text 469.25,201.25 25x15 "Sent" #b3a690
+    box 549,181.38 137.17x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 567.58,191.62 100x34.25
+        text 567.58,201.25 100x15 "To my characters" #ffd100

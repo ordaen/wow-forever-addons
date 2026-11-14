@@ -175,7 +175,8 @@ public class Characters implements Component {
     return $ltml {
       <box columns={1} gap={space(.Group)}>
         <box overflow={Overflow.Scroll}>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+          // A character's professions wrap: its row is as high as they are.
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowHeight={"auto"}>
             <CharacterRow $for={line of self.ordered} $key={line.who} line={line} tracks={TRACKS} @forget={self.ask} />
           </Table>
         </box>

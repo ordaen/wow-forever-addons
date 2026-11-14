@@ -1,7 +1,7 @@
 // The house window's look, shared by its parts: sizes at the player's scale, colours, and how a time is said, as the
 // professions window has them. A text's size is a step of the ladder (`$ltml`'s `TextSize`).
-import { Line, Side } from "$ltml"
-import { number, plural, PX } from "Ordaen"
+import { Edges, Line, Side } from "$ltml"
+import { number, plural, PX, space } from "Ordaen"
 import Locale from "@/locales"
 
 // The window's body while it isn't full screen (it opens full screen), and the windows docked at the screen's right
@@ -12,6 +12,12 @@ public const SIDE_WIDTH: Number = 600 * PX
 // An item's slot in a row, and the chosen item's.
 public const SLOT: Number = 24 * PX
 public const BIG_SLOT: Number = 40 * PX
+// A table's row (`Table`'s `rowHeight`) with an item's slot, and one with a button: the row's padding round them.
+public const ITEM_ROW: Number = SLOT + 8 * PX
+public const BUTTON_ROW: Number = 42 * PX
+// A list's note where it has no rows: a row of the list itself, its text in the row's middle (`yAlign`), a panel's
+// space at its sides.
+public const NOTE_PAD: Edges = { left: space(.Panel), right: space(.Panel) }
 // What the item's section at the window's right holds, how wide: «Buy»'s picked row, «Sell»'s.
 public const PANEL: Number = 280 * PX
 // A button as wide as the section holds.

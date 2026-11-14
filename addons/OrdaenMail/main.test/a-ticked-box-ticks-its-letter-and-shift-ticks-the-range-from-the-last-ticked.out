@@ -1,0 +1,78 @@
+-- three letters ticked: the footer offers them
+box 0,0 1000x208.67
+  box 0,0 516.67x208.67
+    box 0,0 516.67x28.33
+      box 0,0 516.67x28.33
+        box 0,0 450x28.33
+          box 0,0 450x28.33 #00000080 input "" @change
+          box 0,0 450x28.33 absolute
+            text 8.33,6.67 433.33x15 "Search subject or sender" #a3977f
+        box 450,0 66.67x28.33
+          box 450,0 33.33x28.33
+            box 455,0 28.33x28.33
+              box 455,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                box 462.5,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+          box 483.33,0 33.33x28.33
+            box 488.33,0 28.33x28.33
+              box 488.33,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                box 495.83,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 8
+    box 0,35 516.67x138.67 scrolled 0 of 0
+      box 0,35 516.67x34.67 #00000066 @click
+        box 5,43.17 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 5,43.17 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+        box 31.67,40.67 23.33x23.33
+        box 63.33,38.33 333.75x28
+          text 63.33,38.33 333.75x15 "Auction successful: Linen Cloth" #e8dcc4
+          text 63.33,53.33 333.75x13 "Auction House" #a3977f
+        box 403.75,44.83 56.25x15
+          text 403.75,44.83 56.25x15 "1g 25s 0c" #e8dcc4
+        box 466.67,44.83 45x15
+          text 486.67,44.83 25x15 "29 d" #a3977f
+      box 0,69.67 516.67x34.67 #00000066 @click
+        box 5,77.83 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 5,77.83 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+        box 31.67,75.33 23.33x23.33 #0d0a08 opacity=1 @click @enter
+          box 31.67,75.33 23.33x23.33 absolute
+          box 31.67,75.33 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 31.67,75.33 23.33x23.33 absolute #00000000
+        box 63.33,73 377.5x28
+          text 63.33,73 377.5x15 "Bolts for you" #e8dcc4
+          text 63.33,88 377.5x13 "Regy" #a3977f
+        box 447.5,79.5 12.5x15
+          text 447.5,79.5 12.5x15 "+1" #a3977f
+        box 466.67,79.5 45x15
+          text 492.92,79.5 18.75x15 "2 d" #ff4040
+      box 0,104.33 516.67x34.67 #00000066 @click
+        box 5,112.5 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 5,112.5 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+        box 31.67,110 23.33x23.33 #0d0a08 opacity=1 @click @enter
+          box 31.67,110 23.33x23.33 absolute
+          box 31.67,110 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+          box 31.67,110 23.33x23.33 absolute #00000000
+        box 63.33,107.67 290x28
+          text 63.33,107.67 290x15 "Pay for the sword" #e8dcc4
+          text 63.33,122.67 290x13 "Dorn" #a3977f
+        box 360,114.17 100x15
+          text 360,114.17 100x15 "Cash on delivery" #ff9a30
+        box 466.67,114.17 45x15
+          text 486.67,114.17 25x15 "10 d" #a3977f
+      box 0,139 516.67x34.67 #00000066 @click
+        box 5,147.17 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 5,147.17 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+        box 31.67,144.67 23.33x23.33
+        box 63.33,142.33 390x28
+          text 63.33,142.33 390x15 "Welcome" #e8dcc4
+          text 63.33,157.33 390x13 "System" #a3977f
+        box 460,156.33 0x0
+        box 466.67,148.83 45x15
+          text 486.67,148.83 25x15 "30 d" #a3977f
+    box 0,180.33 516.67x28.33
+      box 0,180.33 343.33x28.33
+        box 0,180.33 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 0,180.33 141.67x28.33 absolute
+            text 36.46,187 68.75x15 "Collect (3)" #ffd100
+      box 350,180.33 166.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+        box 350,180.33 166.67x28.33 absolute
+          text 386.46,187 93.75x15 "Collect all (2)" #ffd100
+  box 525,0 475x15
+    text 718.75,0 87.5x15 "Pick a letter." #a3977f

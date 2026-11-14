@@ -1,0 +1,17 @@
+// The windows' look: sizes at the player's scale and the colours of what a spell or a service says.
+import { PX } from "Ordaen"
+
+public const WIDTH: Number = 900 * PX
+public const HEIGHT: Number = 620 * PX
+public const TRAINER_WIDTH: Number = 820 * PX
+public const GAP: Number = 10 * PX
+public const LIST: Number = 460 * PX
+
+public const INK: Color = Color.hex("#e8dcc4")
+public const DIM: Color = Color.hex("#a3977f")
+public const GOLD: Color = Color.hex("#ffd100")
+public const RED: Color = Color.hex("#ff4040")
+public const GREEN: Color = Color.hex("#40d060")
+public const LINE: Color = Color.hex("#4a3a24")
+public const BACK: Color = Color.hex("#00000066")
+public const PICKED: Color = Color.hex("#ffd10026")

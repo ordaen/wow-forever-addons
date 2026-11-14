@@ -1,0 +1,7 @@
+{
+  "title": "Ordaen Spells",
+  "icon": "Interface/Icons/INV_Misc_Book_09",
+  "notes": "The spellbook, the talents and the class trainer in Ordaen's windows.",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0" }
+}
