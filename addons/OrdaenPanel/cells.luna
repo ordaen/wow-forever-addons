@@ -54,7 +54,7 @@ public class MenuCell implements Component {
         <box $if={self.counted} position={Position.Absolute} right={CELL_WIDTH * 0.12} bottom={CELL_HEIGHT * 0.14}
              height={BADGE} minWidth={BADGE} padding={BADGE_PAD} xAlign={Align.Center} yAlign={Align.Center}
              background={Ordaen.art.panel.countBadge}>
-          <text value={"%d"} arguments={[self.count]} textSize={11 / 1.2} textColor={WHITE}
+          <text value={"%d"} arguments={[self.count]} textSize={.Secondary} textColor={WHITE}
                 textFamily={Ordaen.lookArt.fontNumbers} textShadow={BOLD} wrap={false} />
         </box>
         <embed frame={self.frame} position={Position.Absolute} left={0} top={0} width={CELL_WIDTH}
@@ -105,7 +105,7 @@ public class BagCell implements Component {
                width={CELL_HEIGHT} height={CELL_HEIGHT} look={EmbedLook.Icon} />
         <box $if={self.counted} position={Position.Absolute} right={(CELL_WIDTH - CELL_HEIGHT) / 2 + 3 / 1.2}
              bottom={1 / 1.2} zLevel={1}>
-          <text value={"%d"} arguments={[self.free]} textSize={14 / 1.2} textColor={WHITE}
+          <text value={"%d"} arguments={[self.free]} textSize={.Secondary} textColor={WHITE}
                 textFamily={Ordaen.lookArt.fontNumbers} textOutline={1} wrap={false} />
         </box>
       </box>

@@ -6,9 +6,10 @@ import { Component } from "Ordaen"
 import { BagCell, FaceCell, MenuCell } from "@/cells"
 
 const INK: Color = Color.hex("#e8dcc4")
-const TEXT = 12
 // An item's cells: side by side along a panel that runs across the screen, one under another down a side of it.
 const DOWN: Array<Track> = ["auto"]
+// The panel's whole width: what wraps in it.
+const WHOLE: Array<Track> = [{ fr: 1 }]
 const MICRO: Array<Track> = ["auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"]
 const MICRO_FACED: Array<Track> = ["auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto", "auto"]
 const PAIR: Array<Track> = ["auto", "auto"]
@@ -84,8 +85,9 @@ public class SocialLine implements Component {
 public class MoneyLine implements Component {
   derived money: String = Game.money.format(Game.money.amount)
   derived tracks: Boolean = Game.money.tracked != ""
-  // Down a side of the screen the two stand one under the other, in the panel's middle.
-  derived columns: Array<Track> = self.vertical ? DOWN : PAIR
+  // Down a side of the screen the two stand one under the other, in the panel's middle, the money wrapping in its
+  // width.
+  derived columns: Array<Track> = self.vertical ? WHOLE : PAIR
   derived gap: Number = self.vertical ? 4 / 1.2 : 12 / 1.2
   derived across: Align = self.vertical ? Align.Center : Align.Stretch
 
@@ -106,9 +108,9 @@ public class MoneyLine implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} gap={self.gap} xAlign={self.across} yAlign={Align.Center}>
-        <text value={self.money} textColor={INK} textSize={TEXT} textOutline={self.outline}
-              textShadow={self.shadow} wrap={false} />
-        <text $if={self.tracks} value={Game.money.tracked} textColor={INK} textSize={TEXT}
+        <text value={self.money} textColor={INK} textOutline={self.outline}
+              textShadow={self.shadow} wrap={self.vertical} />
+        <text $if={self.tracks} value={Game.money.tracked} textColor={INK}
               textOutline={self.outline} textShadow={self.shadow} wrap={false} />
       </box>
     }
