@@ -51,7 +51,6 @@ const CORNER_WIDTH = (5 + 30 + 28) * PX
 const GEAR_WIDTH = 28 * PX
 const GEAR_GLYPH = "☼"
 const GEAR_FONT: Asset = "Fonts/ARIALN.TTF"
-const GEAR_SIZE = 20 * PX
 const GEAR: Stated<Color> = { default: Color.hex("#c9a05a"), hover: Color.hex("#ffd98a") }
 // How much of the content's first row the corner's buttons take, from its right end: what stands in that row at
 // the right (a bar across the window) ends this much short, and the buttons never lie over it.
@@ -171,9 +170,9 @@ public class WindowTab implements Component {
                  height={self.given} border={self.iconLine} />
           </>
           <box xAlign={Align.Center} yAlign={Align.Center} gap={1 * PX}>
-            <text value={self.tab.title} textSize={15 * PX} wrap={false} textColor={self.titleColor}
+            <text value={self.tab.title} wrap={false} textColor={self.titleColor}
                   textShadow={SHADOW} />
-            <text $if={self.hasDesc} value={self.desc} textSize={11 * PX} wrap={false} textColor={DESC}
+            <text $if={self.hasDesc} value={self.desc} textSize={.Secondary} wrap={false} textColor={DESC}
                   textShadow={SHADOW} />
           </box>
         </box>
@@ -343,7 +342,7 @@ public class Window implements Component {
           <box $if={self.gear} position={Position.Absolute} top={5.5 * PX} right={CORNER_RIGHT + CORNER_WIDTH}
                width={GEAR_WIDTH} height={32 * PX} xAlign={Align.Center} yAlign={Align.Center}
                @click={self.onSettings}>
-            <text value={GEAR_GLYPH} textSize={GEAR_SIZE} textFamily={GEAR_FONT} textColor={GEAR} wrap={false}
+            <text value={GEAR_GLYPH} textSize={.Title} textFamily={GEAR_FONT} textColor={GEAR} wrap={false}
                   stateFromParent={true} />
           </box>
           <box $if={self.sized} position={Position.Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}

@@ -120,7 +120,7 @@ class Note implements Component {
 
   public render(self): Template {
     return $ltml {
-      <text value={self.text} textColor={self.color} textSize={14 * PX} />
+      <text value={self.text} textColor={self.color} />
     }
   }
 }
@@ -651,18 +651,18 @@ public class ProfilesPage implements Component {
           <Note $for={line of self.lines} text={line.text} color={line.color} />
         </Section>
         <Dialog $if={self.askingSwitch} title={Locale.PROFILES_UNSAVED_TITLE} width={CONFIRM_WIDTH}>
-          <text value={self.switchAsk} textColor={INK} textSize={15 * PX} />
+          <text value={self.switchAsk} textColor={INK} />
           <PushButton #buttons label={Locale.CANCEL} width={120 * PX} @click={self.onCancel} />
           <PushButton #buttons label={Locale.DONT_SAVE} width={150 * PX} @click={self.onSwitchDrop} />
           <PushButton #buttons label={Locale.SAVE} width={140 * PX} @click={self.onSwitchSave} />
         </Dialog>
         <Dialog $if={self.askingDelete} title={Locale.PROFILES_DELETE_TITLE} width={CONFIRM_WIDTH}>
-          <text value={self.deleteAsk} textColor={INK} textSize={15 * PX} />
+          <text value={self.deleteAsk} textColor={INK} />
           <PushButton #buttons label={Locale.CANCEL} width={120 * PX} @click={self.onCancel} />
           <PushButton #buttons label={Locale.PROFILES_DELETE} width={140 * PX} @click={self.doDelete} />
         </Dialog>
         <Dialog $if={self.askingReset} title={Locale.PROFILES_RESET_TITLE} width={CONFIRM_WIDTH}>
-          <text value={self.resetAsk} textColor={INK} textSize={15 * PX} />
+          <text value={self.resetAsk} textColor={INK} />
           <PushButton #buttons label={Locale.CANCEL} width={120 * PX} @click={self.onCancel} />
           <PushButton #buttons label={Locale.PROFILES_RESET} width={140 * PX} @click={self.doReset} />
         </Dialog>

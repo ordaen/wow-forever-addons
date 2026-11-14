@@ -36,7 +36,7 @@ public class Input implements Component {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <input value={mut self.value} width={300 * PX} height={30 * PX} padding={PADDING} background={FILL}
-               border={EDGE} textColor={INK} textSize={14 * PX} maxLength={self.maxLength}
+               border={EDGE} textColor={INK} maxLength={self.maxLength}
                disabled={self.disabled} />
       </SettingRow>
     }

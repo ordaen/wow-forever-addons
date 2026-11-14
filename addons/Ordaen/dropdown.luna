@@ -18,8 +18,6 @@ public struct Choice<T: Unknown> {
 
 const WIDTH = 240 * PX
 const HEIGHT = 34 * PX
-const TEXT = 15 * PX
-const COMPACT_TEXT = 14 * PX
 const GOLD: Color = Color.hex("#f0c860")
 const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#ffffff73")
@@ -43,7 +41,6 @@ public class DropdownItem<T: Unknown> implements Component {
   derived text: String = self.choice.soon == true ? self.choice.label + " — " + Locale.SOON : self.choice.label
   derived color: Color = self.choice.soon == true ? DIM : WHITE
   derived light: Color | Stated<Color> = self.choice.soon == true ? CLEAR : LIGHT
-  derived size: Number = self.compact ? COMPACT_TEXT : TEXT
   derived wraps: Boolean = !self.compact
 
   const choice: Choice<T>
@@ -52,7 +49,7 @@ public class DropdownItem<T: Unknown> implements Component {
   constructor(
     choice: Choice<T>,
     value: Signal<T>,
-    // As a `CompactDropdown`'s: the text a point smaller, on one line.
+    // As a `CompactDropdown`'s: the text on one line.
     compact: Boolean = false,
   ) {
     self.choice = choice
@@ -69,7 +66,7 @@ public class DropdownItem<T: Unknown> implements Component {
       <box padding={ITEM_PAD} background={self.light} @click={self.onClick}>
         <box position={Position.Absolute} left={10 * PX} top={9 * PX} width={11 * PX} height={11 * PX}
              background={self.mark} />
-        <text value={self.text} textColor={self.color} textSize={self.size} wrap={self.wraps} />
+        <text value={self.text} textColor={self.color} wrap={self.wraps} />
       </box>
     }
   }
@@ -124,7 +121,7 @@ public class Dropdown<T: Unknown> implements Component {
           <box position={Position.Absolute} left={0} top={0} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
                columns={[{ fr: 1 }, 16 * PX]} gap={10 * PX} yAlign={Align.Center}
                background={Ordaen.art.ctl.button} @click={self.toggle}>
-            <text value={self.shown} textColor={GOLD} textSize={TEXT} textShadow={BOLD} wrap={false} />
+            <text value={self.shown} textColor={GOLD} textShadow={BOLD} wrap={false} />
             <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
           </box>
           <box $if={self.open} position={Position.Absolute} left={0} top={38 * PX} width={WIDTH + 20 * PX}
@@ -173,7 +170,7 @@ public class CompactDropdown<T: Unknown> implements Component {
         <box position={Position.Absolute} left={0} top={0} width={self.width} height={HEIGHT}
              padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 16 * PX]} gap={6 * PX} yAlign={Align.Center}
              background={Ordaen.art.ctl.button} @click={self.toggle}>
-          <text value={self.shown} textColor={GOLD} textSize={COMPACT_TEXT} wrap={false} />
+          <text value={self.shown} textColor={GOLD} wrap={false} />
           <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
         <box $if={self.open} position={Position.Absolute} left={0} top={38 * PX} width={self.listWidth} zLevel={50}

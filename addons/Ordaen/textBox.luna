@@ -26,7 +26,7 @@ public class TextBox implements Component {
   public render(self): Template {
     return $ltml {
       <input value={mut self.value} height={self.height} padding={PADDING} background={FILL} border={EDGE}
-             textColor={INK} textSize={14 * PX} overflow={Overflow.Hidden} multiline={true} selectOnShow={true} />
+             textColor={INK} overflow={Overflow.Hidden} multiline={true} selectOnShow={true} />
     }
   }
 }

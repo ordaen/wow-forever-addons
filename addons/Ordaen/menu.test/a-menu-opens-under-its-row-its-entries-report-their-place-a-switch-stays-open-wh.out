@@ -1,39 +1,39 @@
 -- opened by a right-click: four lines, a rule above the switches, the second line and the second switch dim
-box 0,0 500x30.4
-  box 0,0 76x30.4 @click
-    text 8,8 60x14.4 "Recipe row" #ffffff
-  box 116,0 52x30.4 @click
-    text 124,8 36x14.4 "Beside" #ffffff
-surface 0,30.4 183.33x118.83 on FULLSCREEN_DIALOG #0a0806f7
-  box 0.83,36.23 181.67x24 #00000000 @click
-    text 12.5,41.23 150x14 "Link in chat" #e8dcc4
-  box 0.83,60.23 181.67x24 #00000000 @click
-    text 12.5,65.23 150x14 "Create [0]" #6f6552
-  box 0.83,84.23 181.67x32.5 #00000000 @click
-    text 12.5,96.4 118.33x14 "Favorite" #e8dcc4
-    box 139.17,95.07 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-      box 136.67,92.57 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
-  box 0.83,116.73 181.67x26.67 #00000000 @click
-    text 12.5,123.07 118.33x14 "Track" #6f6552
-    box 139.17,121.73 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-      box 136.67,119.23 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+box 0,0 500x31
+  box 0,0 78.5x31 @click
+    text 8,8 62.5x15 "Recipe row" #ffffff
+  box 118.5,0 53.5x31 @click
+    text 126.5,8 37.5x15 "Beside" #ffffff
+surface 0,31 183.33x120.83 on FULLSCREEN_DIALOG #0a0806f7
+  box 0.83,36.83 181.67x25 #00000000 @click
+    text 12.5,41.83 150x15 "Link in chat" #e8dcc4
+  box 0.83,61.83 181.67x25 #00000000 @click
+    text 12.5,66.83 150x15 "Create [0]" #6f6552
+  box 0.83,86.83 181.67x32.5 #00000000 @click
+    text 12.5,98.5 118.33x15 "Favorite" #e8dcc4
+    box 139.17,97.67 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+      box 136.67,95.17 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+  box 0.83,119.33 181.67x26.67 #00000000 @click
+    text 12.5,125.17 118.33x15 "Track" #6f6552
+    box 139.17,124.33 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+      box 136.67,121.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
 
 -- the first switch clicked: it shows on, the menu is still open
-box 0,0 500x30.4
-  box 0,0 76x30.4 @click
-    text 8,8 60x14.4 "Recipe row" #ffffff
-  box 116,0 52x30.4 @click
-    text 124,8 36x14.4 "Beside" #ffffff
-surface 0,30.4 183.33x118.83 on FULLSCREEN_DIALOG #0a0806f7
-  box 0.83,36.23 181.67x24 #00000000 @click
-    text 12.5,41.23 150x14 "Link in chat" #e8dcc4
-  box 0.83,60.23 181.67x24 #00000000 @click
-    text 12.5,65.23 150x14 "Create [0]" #6f6552
-  box 0.83,84.23 181.67x32.5 #d6a56b2e @click
-    text 12.5,96.4 118.33x14 "Favorite" #ffffff
-    box 139.17,95.07 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
-      box 151.67,92.57 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
-  box 0.83,116.73 181.67x26.67 #00000000 @click
-    text 12.5,123.07 118.33x14 "Track" #6f6552
-    box 139.17,121.73 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
-      box 136.67,119.23 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+box 0,0 500x31
+  box 0,0 78.5x31 @click
+    text 8,8 62.5x15 "Recipe row" #ffffff
+  box 118.5,0 53.5x31 @click
+    text 126.5,8 37.5x15 "Beside" #ffffff
+surface 0,31 183.33x120.83 on FULLSCREEN_DIALOG #0a0806f7
+  box 0.83,36.83 181.67x25 #00000000 @click
+    text 12.5,41.83 150x15 "Link in chat" #e8dcc4
+  box 0.83,61.83 181.67x25 #00000000 @click
+    text 12.5,66.83 150x15 "Create [0]" #6f6552
+  box 0.83,86.83 181.67x32.5 #d6a56b2e @click
+    text 12.5,98.5 118.33x15 "Favorite" #ffffff
+    box 139.17,97.67 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4
+      box 151.67,95.17 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+  box 0.83,119.33 181.67x26.67 #00000000 @click
+    text 12.5,125.17 118.33x15 "Track" #6f6552
+    box 139.17,124.33 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4
+      box 136.67,121.83 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2

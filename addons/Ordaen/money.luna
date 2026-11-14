@@ -2,7 +2,6 @@
 // The text is made again when the amount changes, never while it stays.
 import Game from "$game"
 import { Component } from "@/module"
-import { PX } from "@/units"
 
 const INK: Color = Color.hex("#e8dcc4")
 
@@ -10,22 +9,19 @@ public class Money implements Component {
   derived text: String = Game.money.format(self.amount)
 
   amount: Signal<Integer>
-  size: Signal<Number>
   color: Signal<Color>
   constructor(
     // In copper.
     amount: Signal<Integer>,
-    size: Signal<Number> = 14 * PX,
     color: Signal<Color> = INK,
   ) {
     self.amount = amount
-    self.size = size
     self.color = color
   }
 
   public render(self): Template {
     return $ltml {
-      <text value={self.text} textColor={self.color} textSize={self.size} wrap={false} />
+      <text value={self.text} textColor={self.color} wrap={false} />
     }
   }
 }

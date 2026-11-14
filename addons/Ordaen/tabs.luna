@@ -5,7 +5,6 @@ import { Edges, Line, Position, Side, Stated, Track } from "$ltml"
 import { Component } from "@/module"
 import { PX } from "@/units"
 
-const TEXT = 15 * PX
 const LINE: Color = Color.hex("#3e2f1d")
 const NAME: Stated<Color> = { default: Color.hex("#a3977f"), hover: Color.hex("#e8dcc4") }
 const WHITE: Color = Color.hex("#ffffff")
@@ -46,7 +45,7 @@ public class Tab implements Component {
       <box padding={PADDING} background={self.background} border={self.border} @click={self.pick}>
         <box $if={self.picked} position={Position.Absolute} left={1 * PX} right={1 * PX} top={1 * PX}
              height={2 * PX} background={LIGHT} />
-        <text value={self.label} textColor={self.color} textSize={TEXT} stateFromParent={true} wrap={false} />
+        <text value={self.label} textColor={self.color} stateFromParent={true} wrap={false} />
       </box>
     }
   }

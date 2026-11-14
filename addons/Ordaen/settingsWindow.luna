@@ -190,7 +190,7 @@ public class SettingsWindow implements Component {
             <ListTab label={Locale.LIST_PROFILES} icon={Ordaen.icon} selected={self.onProfiles}
                      @pick={self.pickProfiles} />
             <box padding={HEADING}>
-              <text value={self.heading} textColor={DIM} textSize={12 * PX} textFamily={Ordaen.lookArt.fontNumbers} />
+              <text value={self.heading} textColor={DIM} textSize={.Secondary} textFamily={Ordaen.lookArt.fontNumbers} />
             </box>
             <box columns={1}>
               <ModuleRow $for={entry of self.entries} entry={peek entry} shown={self.page} @pick={self.onPick} />
@@ -201,7 +201,7 @@ public class SettingsWindow implements Component {
                  padding={ROWS_PAD} columns={1} gap={14 * PX} overflow={Overflow.Scroll}>
               <LookPage $if={self.onLook} look={mut Ordaen.look} />
               <ProfilesPage $elseif={self.onProfiles} />
-              <text $elseif={self.isOff} value={Locale.MODULE_OFF} textColor={DIM} textSize={15 * PX} />
+              <text $elseif={self.isOff} value={Locale.MODULE_OFF} textColor={DIM} />
               <$else>
                 <Tabs $if={self.hasTabs} tabs={self.names} selected={mut self.tab} />
                 <box columns={1} gap={14 * PX}>
@@ -213,7 +213,7 @@ public class SettingsWindow implements Component {
                  height={FOOT_HEIGHT} columns={FOOT} yAlign={Align.Center} gap={12 * PX}>
               <PushButton label={Locale.PLACING} width={200 * PX} @click={self.placingMode} />
               <box>
-                <text $if={self.onGeneral} value={Locale.OPENS_PAGE} textColor={DIM} textSize={13 * PX} />
+                <text $if={self.onGeneral} value={Locale.OPENS_PAGE} textColor={DIM} textSize={.Secondary} />
               </box>
               <box columns={SAVE_ROW} gap={8 * PX}>
                 <PushButton $if={Ordaen.keeper.rollbackable} label={Locale.ROLLBACK} width={130 * PX}
@@ -225,7 +225,7 @@ public class SettingsWindow implements Component {
         </box>
       </Window>
       <Dialog $if={self.closing} title={Locale.UNSAVED_TITLE} width={CONFIRM_WIDTH}>
-        <text value={Locale.UNSAVED_ASK} textColor={INK} textSize={15 * PX} />
+        <text value={Locale.UNSAVED_ASK} textColor={INK} />
         <PushButton #buttons label={Locale.CANCEL} width={120 * PX} @click={self.stay} />
         <PushButton #buttons label={Locale.DONT_SAVE} width={150 * PX} @click={self.closeDiscarding} />
         <PushButton #buttons label={Locale.SAVE} width={140 * PX} @click={self.closeSaving} />

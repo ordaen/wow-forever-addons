@@ -104,7 +104,7 @@ public class MoneyField implements Component {
   public render(self): Template {
     return $ltml {
       <input value={mut self.text} width={180 * PX} height={30 * PX} padding={PADDING} background={FILL}
-             border={self.edge} textColor={INK} textSize={14 * PX} maxLength={24} disabled={self.disabled} />
+             border={self.edge} textColor={INK} maxLength={24} disabled={self.disabled} />
     }
   }
 }
