@@ -76,14 +76,14 @@ public class Cooldowns implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={10 * PX}>
-        <text $if={self.empty} value={Locale.NO_COOLDOWNS} textSize={Style.SMALL} textColor={Style.DIM} />
+        <text $if={self.empty} value={Locale.NO_COOLDOWNS} textSize={.Secondary} textColor={Style.DIM} />
         <box overflow={Overflow.Scroll}>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
             <TableRow $for={wait of self.ordered} $key={wait} tracks={TRACKS}>
-              <text value={wait.recipe} textSize={Style.TEXT} textColor={Style.INK} />
-              <text value={wait.who} textSize={Style.TEXT} textColor={Style.INK} wrap={false} />
+              <text value={wait.recipe} textColor={Style.INK} />
+              <text value={wait.who} textColor={Style.INK} wrap={false} />
               <box xAlign={Align.End}>
-                <text value={wait.text} textSize={Style.SMALL} textColor={wait.color} wrap={false} />
+                <text value={wait.text} textColor={wait.color} wrap={false} />
               </box>
             </TableRow>
           </Table>

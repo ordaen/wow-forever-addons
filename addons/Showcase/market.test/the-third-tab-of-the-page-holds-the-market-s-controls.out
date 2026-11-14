@@ -1,5 +1,5 @@
 -- the third tab clicked: the market's rows, the sales table under them
-box 0,0 700x667.83 @enter @leave
+box 0,0 700x673.83 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -11,157 +11,157 @@ box 0,0 700x667.83 @enter @leave
     box 112.92,0 62.5x26.67 #00000059 @click
       box 113.75,0.83 60.83x1.67 absolute #d6a56b
       text 125.42,6.67 37.5x15 "Market" #ffffff
-  box 0,34.67 700x538.1
-    box 0,34.67 700x538.1
-      box 0,34.67 700x279.67
+  box 0,34.67 700x543.5
+    box 0,34.67 700x543.5
+      box 0,34.67 700x281.67
         box 0,34.67 700x15
           text 0,34.67 37.5x15 "Market" #e8c35a
           box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-        box 0,61.33 700x24 opacity=1
-          box 0,65.83 233.33x15 @enter @leave
-            text 0,65.83 233.33x15 "Scan" #cbb994
-          box 248.33,61.33 200x24
-            text 248.33,61.33 200x14 "Scanning" #cbb994
-            box 248.33,78.67 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-              box 249.17,79.5 79.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
-        box 0,97 700x15 opacity=1
-          box 0,97 233.33x15 @enter @leave
-            text 0,97 233.33x15 "Price" #cbb994
-          box 248.33,97.5 451.67x14
-            text 248.33,97.5 58.33x14 "1g 23s 45c" #e8dcc4
-            text 314.67,97.5 32.5x13 "(2 d.)" #ffb02e
-        box 0,123.67 700x25 opacity=1
-          box 0,128.67 233.33x15 @enter @leave
-            text 0,128.67 233.33x15 "Wanted" #cbb994
-          box 248.33,123.67 150x25 #0d0a08 input "1g 25s 3c" @change
-        box 0,160.33 700x15 opacity=1
-          box 0,160.33 233.33x15 @enter @leave
-            text 0,160.33 233.33x15 "Wanted, written" #cbb994
-          text 248.33,160.83 451.67x14 "1g 25s 3c" #e8dcc4
-        box 0,187 700x27.33 opacity=1
-          box 0,193.17 233.33x15 @enter @leave
-            text 0,193.17 233.33x15 "Sold to" #cbb994
-          box 248.33,187 451.67x27.33 opacity=1
-            box 248.33,187 65.83x27.33 #5a4428 @click
-              box 248.33,187 65.83x1.67 absolute #d6a56b
-              text 260.83,193.67 40.83x14 "Auction" #ffffff
-            box 314.17,187 70.83x27.33 #0d0a08 @click
-              box 314.17,187 70.83x1.67 absolute #00000000
-              text 325.83,193.67 46.67x14 "Merchant" #a3977f
-            box 385,187 146.67x27.33 #0d0a08 @click
-              box 385,187 146.67x1.67 absolute #00000000
-              text 396.67,193.67 122.5x14 "Held — in development" #ffffff
-        box 0,226 700x33.33 opacity=1
-          box 0,235.17 233.33x15 @enter @leave
-            text 0,235.17 233.33x15 "Bought" #cbb994
-          box 248.33,226 451.67x33.33
-            box 248.33,226 33.33x33.33 #0d0a08 opacity=1 @click @enter
-              box 248.33,226 33.33x33.33 absolute
-              box 248.33,226 33.33x33.33 absolute #00000000
-              box 248.33,226 5.83x5.83 absolute #ffd100
-              box 248.33,226 33.33x33.33 absolute
-                text 273.75,244.67 5.42x13 "5" #ffffff
-            box 289.67,226 33.33x33.33 #0d0a08 opacity=1 @click @enter
-              box 289.67,226 33.33x33.33 absolute
-              box 289.67,226 33.33x33.33 absolute #00000000
-              box 289.67,226 33.33x33.33 absolute
-                text 309.67,244.67 10.83x13 "20" #ffffff
-            box 331,226 33.33x33.33 #0d0a08 opacity=1 @click @enter
-              box 331,226 33.33x33.33 absolute
-              box 331,226 33.33x33.33 absolute #00000000
-        box 0,271 700x43.33
-          box 0,271 700x21.67 #00000000 @click
-            box 0,271 2.5x21.67 absolute #00000000
-            box 3.33,275.58 13.33x12.5
-              box 3.33,277.25 4.58x11 absolute opacity=0
-                text 3.33,277.25 4.58x11 "►" #d6a56b
-              box 3.33,277.25 4.58x11 absolute opacity=1
-                text 3.33,277.25 4.58x11 "▼" #d6a56b
-            text 20,274.33 615x15 "Bronze Axe" #e8dcc4
-            box 638.33,274.83 58.33x14
-              text 638.33,274.83 58.33x14 "1g 23s 45c" #e8dcc4
-          box 0,292.67 700x21.67 #00000000 @click
-            box 0,292.67 2.5x21.67 absolute #00000000
-            box 3.33,297.25 26.67x12.5
-            text 33.33,296 627.5x15 "Bronze Bar" #e8dcc4
-            box 664.17,297 32.5x13
-              text 664.17,297 32.5x13 "(2 d.)" #ffb02e
-      box 0,328.33 700x141.37
-        box 0,328.33 700x15
-          text 0,328.33 31.25x15 "Sales" #e8c35a
-          box 39.58,335.42 660.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-        box 0,355 700x15 opacity=1
-          box 0,355 233.33x15 @enter @leave
-            text 0,355 233.33x15 "Last click on a row" #cbb994
-          text 248.33,355.3 451.67x14.4 "none" #ffffff
-        box 0,381.67 700x88.03
-          box 0,381.67 700x24.83 #00000040
-            box 6.67,381.67 493.33x24 #00000000 @click
-              box 6.67,404 493.33x1.67 absolute #00000000
-              box 6.67,386.67 493.33x14
-                text 6.67,386.67 23.33x14 "Item" #cbb994
-                box 33.33,386.67 4.17x10
-                  box 33.33,386.67 4.17x10 opacity=0
-                    text 33.33,386.67 4.17x10 "▲" #f0c860
-                  box 33.33,386.67 4.17x10 absolute opacity=0
-                    text 33.33,386.67 4.17x10 "▼" #f0c860
-            box 506.67,381.67 120x24 #00000000 @click
-              box 506.67,404 120x1.67 absolute #00000000
-              box 595.83,386.67 30.83x14
-                text 595.83,386.67 23.33x14 "Each" #cbb994
-                box 622.5,386.67 4.17x10
-                  box 622.5,386.67 4.17x10 opacity=0
-                    text 622.5,386.67 4.17x10 "▲" #f0c860
-                  box 622.5,386.67 4.17x10 absolute opacity=0
-                    text 622.5,386.67 4.17x10 "▼" #f0c860
-            box 633.33,381.67 60x24 #00000000 @click
-              box 633.33,404 60x1.67 absolute #00000000
-              box 668.33,386.67 25x14
-                text 668.33,386.67 17.5x14 "Age" #cbb994
-                box 689.17,386.67 4.17x10
-                  box 689.17,386.67 4.17x10 opacity=0
-                    text 689.17,386.67 4.17x10 "▲" #f0c860
-                  box 689.17,386.67 4.17x10 absolute opacity=0
-                    text 689.17,386.67 4.17x10 "▼" #f0c860
-          box 0,406.5 700x63.2 scrolled 0 of 0
-            box 0,406.5 700x21.07 #00000000 @click
-              text 6.67,409.83 493.33x14.4 "Copper Bar" #ffffff
-              box 506.67,410.03 120x14
-                text 574.17,410.03 52.5x14 "0g 1s 50c" #e8dcc4
-              box 633.33,410.53 60x13
-                text 660.83,410.53 32.5x13 "(3 d.)" #ffb02e
-            box 0,427.57 700x21.07 #00000000 @click
-              text 6.67,430.9 493.33x14.4 "Bronze Axe" #ffffff
-              box 506.67,431.1 120x14
-                text 568.33,431.1 58.33x14 "1g 23s 45c" #e8dcc4
-              box 633.33,431.6 60x13
-                text 660.83,431.6 32.5x13 "(1 d.)" #ffb02e
-            box 0,448.63 700x21.07 #00000000 @click
-              text 6.67,451.97 493.33x14.4 "Arcane Dust" #ffffff
-              box 506.67,452.17 120x14
-                text 574.17,452.17 52.5x14 "0g 0s 40c" #e8dcc4
-              box 633.33,452.67 60x13
-                text 660.83,452.67 32.5x13 "(9 d.)" #a3977f
-      box 0,483.7 700x89.07
-        box 0,483.7 700x15
-          text 0,483.7 31.25x15 "Menus" #e8c35a
-          box 39.58,490.78 660.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-        box 0,510.37 700x28.33 opacity=1
-          box 0,517.03 233.33x15 @enter @leave
-            text 0,517.03 233.33x15 "Compact dropdown" #cbb994
-          box 248.33,510.37 170x28.33
-            box 248.33,510.37 170x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-              text 258.33,517.53 135x14 "By difficulty" #f0c860
-              box 398.33,517.87 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-        box 0,550.37 700x22.4 opacity=1
-          box 0,554.07 233.33x15 @enter @leave
-            text 0,554.07 233.33x15 "Context menu" #cbb994
-          box 248.33,550.37 451.67x22.4 @click
-            text 252.33,554.37 443.67x14.4 "Right-click here" #ffffff
-  text 0,580.77 700x14.4 "zone shown" #ffffff
-  box 0,603.17 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,603.17 120x28.33 absolute
-      text 47.5,609.83 25x15 "Save" #ffd100
-  box 0,639.5 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,639.5 120x28.33 absolute
-      text 44.38,646.17 31.25x15 "Reset" #808080
+        box 0,61.33 700x25 opacity=1
+          box 0,66.33 233.33x15 @enter @leave
+            text 0,66.33 233.33x15 "Scan" #cbb994
+          box 248.33,61.33 200x25
+            text 248.33,61.33 200x15 "Scanning" #cbb994
+            box 248.33,79.67 200x6.67 Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+              box 249.17,80.5 79.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+        box 0,98 700x15 opacity=1
+          box 0,98 233.33x15 @enter @leave
+            text 0,98 233.33x15 "Price" #cbb994
+          box 248.33,98 451.67x15
+            text 248.33,98 62.5x15 "1g 23s 45c" #e8dcc4
+            text 318.83,98 37.5x15 "(2 d.)" #ffb02e
+        box 0,124.67 700x25 opacity=1
+          box 0,129.67 233.33x15 @enter @leave
+            text 0,129.67 233.33x15 "Wanted" #cbb994
+          box 248.33,124.67 150x25 #0d0a08 input "1g 25s 3c" @change
+        box 0,161.33 700x15 opacity=1
+          box 0,161.33 233.33x15 @enter @leave
+            text 0,161.33 233.33x15 "Wanted, written" #cbb994
+          text 248.33,161.33 451.67x15 "1g 25s 3c" #e8dcc4
+        box 0,188 700x28.33 opacity=1
+          box 0,194.67 233.33x15 @enter @leave
+            text 0,194.67 233.33x15 "Sold to" #cbb994
+          box 248.33,188 451.67x28.33 opacity=1
+            box 248.33,188 68.75x28.33 #5a4428 @click
+              box 248.33,188 68.75x1.67 absolute #d6a56b
+              text 260.83,194.67 43.75x15 "Auction" #ffffff
+            box 317.08,188 74.17x28.33 #0d0a08 @click
+              box 317.08,188 74.17x1.67 absolute #00000000
+              text 328.75,194.67 50x15 "Merchant" #a3977f
+            box 391.25,188 155.42x28.33 #0d0a08 @click
+              box 391.25,188 155.42x1.67 absolute #00000000
+              text 402.92,194.67 131.25x15 "Held — in development" #ffffff
+        box 0,228 700x33.33 opacity=1
+          box 0,237.17 233.33x15 @enter @leave
+            text 0,237.17 233.33x15 "Bought" #cbb994
+          box 248.33,228 451.67x33.33
+            box 248.33,228 33.33x33.33 #0d0a08 opacity=1 @click @enter
+              box 248.33,228 33.33x33.33 absolute
+              box 248.33,228 33.33x33.33 absolute #00000000
+              box 248.33,228 5.83x5.83 absolute #ffd100
+              box 248.33,228 33.33x33.33 absolute
+                text 273.75,246.67 5.42x13 "5" #ffffff
+            box 289.67,228 33.33x33.33 #0d0a08 opacity=1 @click @enter
+              box 289.67,228 33.33x33.33 absolute
+              box 289.67,228 33.33x33.33 absolute #00000000
+              box 289.67,228 33.33x33.33 absolute
+                text 309.67,246.67 10.83x13 "20" #ffffff
+            box 331,228 33.33x33.33 #0d0a08 opacity=1 @click @enter
+              box 331,228 33.33x33.33 absolute
+              box 331,228 33.33x33.33 absolute #00000000
+        box 0,273 700x43.33
+          box 0,273 700x21.67 #00000000 @click
+            box 0,273 2.5x21.67 absolute #00000000
+            box 3.33,277.58 13.33x12.5
+              box 3.33,278.42 5.42x13 absolute opacity=0
+                text 3.33,278.42 5.42x13 "►" #d6a56b
+              box 3.33,278.42 5.42x13 absolute opacity=1
+                text 3.33,278.42 5.42x13 "▼" #d6a56b
+            text 20,276.33 610.83x15 "Bronze Axe" #e8dcc4
+            box 634.17,276.33 62.5x15
+              text 634.17,276.33 62.5x15 "1g 23s 45c" #e8dcc4
+          box 0,294.67 700x21.67 #00000000 @click
+            box 0,294.67 2.5x21.67 absolute #00000000
+            box 3.33,299.25 26.67x12.5
+            text 33.33,298 622.5x15 "Bronze Bar" #e8dcc4
+            box 659.17,298 37.5x15
+              text 659.17,298 37.5x15 "(2 d.)" #ffb02e
+      box 0,330.33 700x144.17
+        box 0,330.33 700x15
+          text 0,330.33 31.25x15 "Sales" #e8c35a
+          box 39.58,337.42 660.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+        box 0,357 700x15 opacity=1
+          box 0,357 233.33x15 @enter @leave
+            text 0,357 233.33x15 "Last click on a row" #cbb994
+          text 248.33,357 451.67x15 "none" #ffffff
+        box 0,383.67 700x90.83
+          box 0,383.67 700x25.83 #00000040
+            box 6.67,383.67 493.33x25 #00000000 @click
+              box 6.67,407 493.33x1.67 absolute #00000000
+              box 6.67,388.67 493.33x15
+                text 6.67,388.67 25x15 "Item" #cbb994
+                box 35,388.67 5.42x13
+                  box 35,388.67 5.42x13 opacity=0
+                    text 35,388.67 5.42x13 "▲" #f0c860
+                  box 35,388.67 5.42x13 absolute opacity=0
+                    text 35,388.67 5.42x13 "▼" #f0c860
+            box 506.67,383.67 120x25 #00000000 @click
+              box 506.67,407 120x1.67 absolute #00000000
+              box 592.92,388.67 33.75x15
+                text 592.92,388.67 25x15 "Each" #cbb994
+                box 621.25,388.67 5.42x13
+                  box 621.25,388.67 5.42x13 opacity=0
+                    text 621.25,388.67 5.42x13 "▲" #f0c860
+                  box 621.25,388.67 5.42x13 absolute opacity=0
+                    text 621.25,388.67 5.42x13 "▼" #f0c860
+            box 633.33,383.67 60x25 #00000000 @click
+              box 633.33,407 60x1.67 absolute #00000000
+              box 665.83,388.67 27.5x15
+                text 665.83,388.67 18.75x15 "Age" #cbb994
+                box 687.92,388.67 5.42x13
+                  box 687.92,388.67 5.42x13 opacity=0
+                    text 687.92,388.67 5.42x13 "▲" #f0c860
+                  box 687.92,388.67 5.42x13 absolute opacity=0
+                    text 687.92,388.67 5.42x13 "▼" #f0c860
+          box 0,409.5 700x65 scrolled 0 of 0
+            box 0,409.5 700x21.67 #00000000 @click
+              text 6.67,412.83 493.33x15 "Copper Bar" #ffffff
+              box 506.67,412.83 120x15
+                text 570.42,412.83 56.25x15 "0g 1s 50c" #e8dcc4
+              box 633.33,412.83 60x15
+                text 655.83,412.83 37.5x15 "(3 d.)" #ffb02e
+            box 0,431.17 700x21.67 #00000000 @click
+              text 6.67,434.5 493.33x15 "Bronze Axe" #ffffff
+              box 506.67,434.5 120x15
+                text 564.17,434.5 62.5x15 "1g 23s 45c" #e8dcc4
+              box 633.33,434.5 60x15
+                text 655.83,434.5 37.5x15 "(1 d.)" #ffb02e
+            box 0,452.83 700x21.67 #00000000 @click
+              text 6.67,456.17 493.33x15 "Arcane Dust" #ffffff
+              box 506.67,456.17 120x15
+                text 570.42,456.17 56.25x15 "0g 0s 40c" #e8dcc4
+              box 633.33,456.17 60x15
+                text 655.83,456.17 37.5x15 "(9 d.)" #a3977f
+      box 0,488.5 700x89.67
+        box 0,488.5 700x15
+          text 0,488.5 31.25x15 "Menus" #e8c35a
+          box 39.58,495.58 660.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+        box 0,515.17 700x28.33 opacity=1
+          box 0,521.83 233.33x15 @enter @leave
+            text 0,521.83 233.33x15 "Compact dropdown" #cbb994
+          box 248.33,515.17 170x28.33
+            box 248.33,515.17 170x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              text 258.33,521.83 135x15 "By difficulty" #f0c860
+              box 398.33,522.67 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+        box 0,555.17 700x23 opacity=1
+          box 0,559.17 233.33x15 @enter @leave
+            text 0,559.17 233.33x15 "Context menu" #cbb994
+          box 248.33,555.17 451.67x23 @click
+            text 252.33,559.17 443.67x15 "Right-click here" #ffffff
+  text 0,586.17 700x15 "zone shown" #ffffff
+  box 0,609.17 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,609.17 120x28.33 absolute
+      text 47.5,615.83 25x15 "Save" #ffd100
+  box 0,645.5 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,645.5 120x28.33 absolute
+      text 44.38,652.17 31.25x15 "Reset" #808080

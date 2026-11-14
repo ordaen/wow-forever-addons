@@ -171,9 +171,9 @@ public class WindowTab implements Component {
                height={self.given} border={Ordaen.art.frame.tabIconLine} />
         </>
         <box xAlign={Align.Center} yAlign={Align.Center} gap={1 * PX}>
-          <text value={self.tab.title} textSize={15 * PX} wrap={false} textColor={self.titleColor}
+          <text value={self.tab.title} wrap={false} textColor={self.titleColor}
                 textShadow={SHADOW} />
-          <text $if={self.hasDesc} value={self.desc} textSize={11 * PX} wrap={false} textColor={DESC}
+          <text $if={self.hasDesc} value={self.desc} textSize={.Secondary} wrap={false} textColor={DESC}
                 textShadow={SHADOW} />
         </box>
       </box>

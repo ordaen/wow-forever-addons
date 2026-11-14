@@ -5,7 +5,6 @@ import { Align } from "$ltml"
 import { Component, PX, Toggle } from "Ordaen"
 
 const LABEL: Color = Color.hex("#e8dcc4")
-const TEXT = 14 * PX
 
 public class Flag implements Component {
   public flipped: Event<nil> = new Event()
@@ -36,7 +35,7 @@ public class Flag implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[{ fr: 1 }, "auto"]} gap={10 * PX} yAlign={Align.Center}>
-        <text value={self.label} textColor={LABEL} textSize={TEXT} wrap={false} />
+        <text value={self.label} textColor={LABEL} wrap={false} />
         <Toggle value={mut self.value} disabled={self.disabled} />
       </box>
     }

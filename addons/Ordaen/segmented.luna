@@ -2,13 +2,12 @@
 // reads). The picked segment is white on the chip's bronze with a light along its top, the others dim, lighter with
 // a shade under the cursor. Left-click picks; a segment not built yet (`soon`) is dimmed with «in development» after
 // its name and takes no click. Disabled, none takes a click and the whole draws at 45%.
-import { Edges, Line, Position, Side, Stated, Track } from "$ltml"
+import { Align, Edges, Line, Position, Side, Stated, Track } from "$ltml"
 import { Component } from "@/module"
 import { Choice } from "@/dropdown"
 import Locale from "@/locales"
 import { PX } from "@/units"
 
-const TEXT = 14 * PX
 const FILL: Stated<Color> = { default: Color.hex("#0d0a08"), hover: Color.hex("#1c1610") }
 const PICKED: Color = Color.hex("#5a4428")
 const BLANK: Color = Color.hex("#0d0a08")
@@ -60,10 +59,10 @@ public class Segment<T: Unknown> implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={PADDING} background={self.fill}
+      <box padding={PADDING} background={self.fill} xAlign={Align.Center}
            border={self.edge} @click={self.onClick}>
         <box position={Position.Absolute} left={0} right={0} top={0} height={2 * PX} background={self.light} />
-        <text value={self.text} textColor={self.color} textSize={TEXT} stateFromParent={true} wrap={false} />
+        <text value={self.text} textColor={self.color} stateFromParent={true} wrap={false} />
       </box>
     }
   }

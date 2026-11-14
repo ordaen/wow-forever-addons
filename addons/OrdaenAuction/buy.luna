@@ -51,7 +51,7 @@ const LISTING_COLUMNS: Array<Column> = [
 const LISTING_TRACKS: Array<Track> = tracksOf(LISTING_COLUMNS)
 const PAGE: Array<Track> = [{ fr: 1 }, Style.BUY_PANEL]
 // The search box takes what the three filters leave of the page's width.
-const TOOLS: Array<Track> = [{ fr: 1 }, 150 * PX, 120 * PX, 120 * PX]
+const TOOLS: Array<Track> = [{ fr: 1 }, 150 * PX, 130 * PX, 130 * PX]
 const ITEM: Array<Track> = ["auto", { fr: 1 }]
 const PAIR: Array<Track> = [{ fr: 1 }, "auto"]
 const FIELD_PAD: Edges = { right: 10 * PX, left: 10 * PX }
@@ -142,20 +142,24 @@ class FoundRow implements Component {
         <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
           <ItemButton item={self.found.item} size={Style.SLOT} />
           <box overflow={.Hidden}>
-            <text value={self.found.name} textColor={self.found.color} textSize={Style.TEXT} wrap={false} />
+            <text value={self.found.name} textColor={self.found.color} wrap={false} />
           </box>
         </box>
         <box yAlign={Align.Center}>
           <box $if={self.wanted} width={8 * PX} height={8 * PX} background={LISTED_PIP} />
         </box>
-        <text value={"%d"} arguments={[self.found.listed]} textColor={Style.INK} textSize={Style.TEXT} />
+        <box xAlign={Align.End}>
+          <text value={"%d"} arguments={[self.found.listed]} textColor={Style.INK} />
+        </box>
         <box xAlign={Align.End}>
           <Money amount={self.found.low} />
         </box>
         <box xAlign={Align.End}>
           <Money $if={self.priced} amount={self.market} />
         </box>
-        <text value={self.share} textColor={self.shareInk} textSize={Style.TEXT} />
+        <box xAlign={Align.End}>
+          <text value={self.share} textColor={self.shareInk} />
+        </box>
         <box xAlign={Align.End}>
           <Age seconds={self.age} />
         </box>
@@ -261,25 +265,25 @@ public class BuyPage implements Component {
         <box rows={["auto", "auto", { fr: 1 }]} gap={8 * PX}>
           <box columns={TOOLS} gap={8 * PX} yAlign={Align.Center}>
             <box height={30 * PX} rows={[{ fr: 1 }]}>
-              <input value={mut self.search} padding={FIELD_PAD} textSize={Style.TEXT} textColor={Style.INK}
+              <input value={mut self.search} padding={FIELD_PAD} textColor={Style.INK}
                      background={FIELD_BACK} border={Style.FRAME} />
               <box $if={!self.searching} position={.Absolute} left={0} top={0} right={0} bottom={0}
                    padding={FIELD_PAD} yAlign={Align.Center}>
-                <text value={Locale.SEARCH} textSize={Style.TEXT} textColor={Style.DIM} wrap={false} />
+                <text value={Locale.SEARCH} textColor={Style.DIM} wrap={false} />
               </box>
             </box>
             <CompactDropdown value={mut self.itemClass} choices={CLASSES} width={150 * PX} />
-            <CompactDropdown value={mut self.level} choices={LEVELS} width={120 * PX} />
-            <CompactDropdown value={mut self.quality} choices={QUALITIES} width={120 * PX} />
+            <CompactDropdown value={mut self.level} choices={LEVELS} width={130 * PX} />
+            <CompactDropdown value={mut self.quality} choices={QUALITIES} width={130 * PX} />
           </box>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} height={Style.LIST}>
             <FoundRow $for={row of self.rows} $key={row.key} found={peek row} selected={self.picked == row.key}
                       wanted={self.shopping.needed[row.item] != nil} @pick={self.onPick} />
           </Table>
-          <text $if={self.rows.length == 0} value={self.empty} textColor={Style.DIM} textSize={Style.TEXT} />
+          <text $if={self.rows.length == 0} value={self.empty} textColor={Style.DIM} />
         </box>
         <box rows={["auto"]} gap={10 * PX} padding={10 * PX} border={Style.FRAME} background={Style.LISTS_BACK}>
-          <text $if={self.chosen.length == 0} value={Locale.PICK_ROW} textColor={Style.DIM} textSize={Style.TEXT} />
+          <text $if={self.chosen.length == 0} value={Locale.PICK_ROW} textColor={Style.DIM} />
           <Chosen $for={found of self.chosen} $key={found.key} found={peek found} shopping={mut self.shopping} />
         </box>
       </box>
@@ -315,8 +319,12 @@ class ListingRow implements Component {
         <box xAlign={Align.End}>
           <Money amount={self.listing.unit} />
         </box>
-        <text value={"%d"} arguments={[self.listing.quantity]} textColor={Style.INK} textSize={Style.TEXT} wrap={false} />
-        <text value={self.left} textColor={Style.INK} textSize={Style.TEXT} wrap={false} />
+        <box xAlign={Align.End}>
+          <text value={"%d"} arguments={[self.listing.quantity]} textColor={Style.INK} wrap={false} />
+        </box>
+        <box xAlign={Align.End}>
+          <text value={self.left} textColor={Style.INK} wrap={false} />
+        </box>
       </TableRow>
     }
   }
@@ -370,7 +378,7 @@ class Chosen implements Component {
       <box rows={["auto"]} gap={10 * PX}>
         <box columns={ITEM} gap={10 * PX} yAlign={Align.Center}>
           <ItemButton item={self.found.item} size={Style.BIG_SLOT} />
-          <text value={self.found.name} textColor={self.found.color} textSize={Style.NAME} />
+          <text value={self.found.name} textColor={self.found.color} textSize={.Title} />
         </box>
         <Table columns={LISTING_COLUMNS} sorted={mut self.listSorted} descending={mut self.listDescending}
                height={Style.LISTINGS}>
@@ -378,17 +386,17 @@ class Chosen implements Component {
                       index={index} first={self.first} last={self.last} />
         </Table>
         <box columns={PAIR} gap={8 * PX} yAlign={Align.Center}>
-          <text value={Locale.QUANTITY} textColor={Style.INK} textSize={Style.TEXT} />
+          <text value={Locale.QUANTITY} textColor={Style.INK} />
           <box $if={self.commodity} width={80 * PX} height={30 * PX} rows={[{ fr: 1 }]}>
             <CountInput value={mut self.count} least={1} most={MOST_COUNT} look={CountLook.Field} />
           </box>
-          <text $else value={self.auctionCount} textColor={Style.INK} textSize={Style.TEXT} />
-          <text value={Locale.TOTAL} textColor={Style.INK} textSize={Style.TEXT} />
+          <text $else value={self.auctionCount} textColor={Style.INK} />
+          <text value={Locale.TOTAL} textColor={Style.INK} />
           <box xAlign={Align.End}>
             <Money amount={self.total} />
           </box>
         </box>
-        <text $if={self.refused} value={self.refusedText} textColor={Style.RED} textSize={Style.SMALL} />
+        <text $if={self.refused} value={self.refusedText} textColor={Style.RED} textSize={.Secondary} />
         <PushButton label={self.buyLabel} width={PANEL_BUTTON} accent={true} disabled={!self.canBuy}
                     @click={self.onBuy} />
         <PushButton label={Locale.TO_LIST} width={PANEL_BUTTON} @click={self.onList} />

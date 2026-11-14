@@ -6,10 +6,11 @@ import { Align, Art, Edges, Frame, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, PX } from "Ordaen"
 
-// A cell fills the panel below its metal edge; with the divider beside it, it is as wide as it is high.
+// A cell fills the panel below its metal edge, and is a divider's width narrower on each side than it is high: the
+// panel with the whole menu, seven bag buttons and the money still fits a 1366 x 768 screen at a UI scale of 1.
 public const CELL_HEIGHT = 53
 public const DIVIDER: Number = 2 * PX
-public const CELL_WIDTH: Number = CELL_HEIGHT - DIVIDER
+public const CELL_WIDTH: Number = CELL_HEIGHT - 2 * DIVIDER
 // The face on the character's cell.
 const FACE = 40 * PX
 const ICON = 35
@@ -58,7 +59,7 @@ public class MenuCell implements Component {
         <box $if={self.counted} position={Position.Absolute} right={CELL_WIDTH * 0.12} bottom={CELL_HEIGHT * 0.14}
              height={BADGE} minWidth={BADGE} padding={BADGE_PAD} xAlign={Align.Center} yAlign={Align.Center}
              background={Ordaen.art.panel.countBadge}>
-          <text value={"%d"} arguments={[self.count]} textSize={11 / 1.2} textColor={WHITE}
+          <text value={"%d"} arguments={[self.count]} textSize={.Secondary} textColor={WHITE}
                 textFamily={Ordaen.lookArt.fontNumbers} textShadow={BOLD} wrap={false} />
         </box>
         <embed frame={self.frame} position={Position.Absolute} left={0} top={0} width={CELL_WIDTH}
@@ -104,7 +105,7 @@ public class BagCell implements Component {
              icon={self.button.icon} border={Ordaen.art.panel.slotEdge} stateFromParent={true} />
         <box $if={self.counted} position={Position.Absolute} right={ICON_LEFT - 3 * PX} bottom={ICON_LEFT - 6 * PX}
              zLevel={1}>
-          <text value={"%d"} arguments={[Game.bags.free]} textSize={14 / 1.2} textColor={WHITE}
+          <text value={"%d"} arguments={[Game.bags.free]} textSize={.Secondary} textColor={WHITE}
                 textFamily={Ordaen.lookArt.fontNumbers} textOutline={1} wrap={false} />
         </box>
         <embed frame={self.button.frame} position={Position.Absolute} left={0} top={0} width={CELL_WIDTH}

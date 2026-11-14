@@ -16,11 +16,12 @@ const SELECTED: Color = Color.hex("#00000040")
 // How far each level stands in, and the room the mark has.
 const INDENT = 16 * PX
 const MARK_ROOM = 16 * PX
-const TEXT = 15 * PX
-// The marks are triangles of the narrow Arial, which the client has them in; the text font has none.
+// The label's line: the ladder's `Primary`, 15 px.
+const LINE = 15 * PX
+// The marks are triangles of the narrow Arial, which the client has them in; the text font has none. They are the
+// ladder's `Secondary`, 13 px, in the middle of the label's line.
 const MARK_FONT: Asset = "Fonts/ARIALN.TTF"
-const MARK_SIZE = 11 * PX
-const MARK_TOP = (TEXT - MARK_SIZE) / 2
+const MARK_TOP = (LINE - 13 * PX) / 2
 
 public class TreeRow implements Component {
   public pick: Event<nil> = new Event()
@@ -65,15 +66,15 @@ public class TreeRow implements Component {
       <box columns={[self.gutter, { fr: 1 }, "auto"]} gap={4 * PX} padding={4 * PX} yAlign={Align.Center}
            background={self.background} @click={self.onClick}>
         <box position={Position.Absolute} left={0} top={0} bottom={0} width={3 * PX} background={self.light} />
-        <box width={self.gutter} height={TEXT}>
+        <box width={self.gutter} height={LINE}>
           <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} opacity={self.closedMark}>
-            <text value={"►"} textColor={MARK} textSize={MARK_SIZE} textFamily={MARK_FONT} wrap={false} />
+            <text value={"►"} textColor={MARK} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
           </box>
           <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} opacity={self.openMark}>
-            <text value={"▼"} textColor={MARK} textSize={MARK_SIZE} textFamily={MARK_FONT} wrap={false} />
+            <text value={"▼"} textColor={MARK} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
           </box>
         </box>
-        <text value={self.label} textColor={self.color} textSize={TEXT} wrap={false} stateFromParent={true} />
+        <text value={self.label} textColor={self.color} wrap={false} stateFromParent={true} />
         <box>
           <slot />
         </box>

@@ -36,7 +36,7 @@ public class Check implements Component {
           <box $if={self.value} position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
                background={Ordaen.art.ctl.tick} />
         </box>
-        <text value={self.label} textColor={INK} textSize={14 * PX} wrap={false} />
+        <text value={self.label} textColor={INK} wrap={false} />
       </box>
     }
   }

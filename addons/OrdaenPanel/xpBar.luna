@@ -65,7 +65,7 @@ public class Tube implements Component {
              background={Ordaen.art.panel.xpTube} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align.Center}
              yAlign={Align.Center}>
-          <text value={self.label} textSize={12.5} textColor={LABEL} textOutline={1} textShadow={LABEL_SHADOW}
+          <text value={self.label} textColor={LABEL} textOutline={1} textShadow={LABEL_SHADOW}
                 wrap={false} />
         </box>
       </box>

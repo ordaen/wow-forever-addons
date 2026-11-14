@@ -59,12 +59,12 @@ public class CategoryRow implements Component {
            background={self.background} @click={self.onClick}>
         <box $if={self.isChosen} position={Position.Absolute} left={0} top={0} bottom={0} width={2 * PX}
              background={Style.CHOSEN_EDGE} />
-        <text value={self.group.name} textSize={Style.TEXT} textColor={self.nameColor} textShadow={Style.SHADOW} />
+        <text value={self.group.name} textColor={self.nameColor} textShadow={Style.SHADOW} />
         <box columns={MARKS} gap={3 * PX} yAlign={Align.Center}>
-          <text value={"%d"} arguments={[self.group.total]} textSize={Style.SMALL} textColor={Style.DIM} wrap={false}
+          <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={false}
                 textFamily={Ordaen.lookArt.fontNumbers} />
-          <text value={"(%d)"} arguments={[self.group.makeable]} textSize={Style.SMALL}
-                textColor={self.makeableColor} wrap={false} textFamily={Ordaen.lookArt.fontNumbers} />
+          <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={false}
+                textFamily={Ordaen.lookArt.fontNumbers} />
         </box>
       </box>
     }
@@ -122,10 +122,8 @@ public class RecipeRow implements Component {
            background={self.background} overflow={Overflow.Hidden} @click={self.onClick}>
         <box $if={self.isChosen} position={Position.Absolute} left={0} top={0} bottom={0} width={2 * PX}
              background={Style.CHOSEN_EDGE} />
-        <text value={self.recipe.name} textSize={Style.RECIPE_TEXT} textColor={self.color}
-              textShadow={Style.SHADOW} wrap={false} />
-        <text value={self.count} textSize={Style.SMALL} textColor={Style.WHITE} wrap={false}
-              textFamily={Ordaen.lookArt.fontNumbers} />
+        <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={false} />
+        <text value={self.count} textColor={Style.WHITE} wrap={false} textFamily={Ordaen.lookArt.fontNumbers} />
         <box $if={self.starred} position={Position.Absolute} right={STAR_RIGHT} top={STAR_TOP} width={STAR}
              height={STAR} background={Style.GOLD} />
         <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
@@ -173,14 +171,14 @@ public class CategoryGroup implements Component {
       <box columns={1}>
         <box columns={FOLD} gap={8 * PX} padding={CATEGORY_PAD} yAlign={Align.Center} border={Style.ROW_RULE}
              background={Style.ROW_LIGHT} @click={self.fold}>
-          <text value={self.mark} textSize={Style.TEXT} textColor={Style.DIM} wrap={false} />
-          <text value={self.group.name} textSize={Style.TEXT} textColor={self.nameColor}
+          <text value={self.mark} textColor={Style.DIM} wrap={false} />
+          <text value={self.group.name} textColor={self.nameColor}
                 textShadow={Style.SHADOW} />
           <box columns={MARKS} gap={3 * PX} yAlign={Align.Center}>
-            <text value={"%d"} arguments={[self.group.total]} textSize={Style.SMALL} textColor={Style.DIM}
-                  wrap={false} textFamily={Ordaen.lookArt.fontNumbers} />
-            <text value={"(%d)"} arguments={[self.group.makeable]} textSize={Style.SMALL}
-                  textColor={self.makeableColor} wrap={false} textFamily={Ordaen.lookArt.fontNumbers} />
+            <text value={"%d"} arguments={[self.group.total]} textColor={Style.DIM} wrap={false}
+                  textFamily={Ordaen.lookArt.fontNumbers} />
+            <text value={"(%d)"} arguments={[self.group.makeable]} textColor={self.makeableColor} wrap={false}
+                  textFamily={Ordaen.lookArt.fontNumbers} />
           </box>
         </box>
         <$if={!self.folded}>
@@ -232,10 +230,10 @@ public class RecipeTableRow implements Component {
     return $ltml {
       <box columns={1}>
         <TableRow tracks={self.tracks} selected={self.isChosen} @pick={self.onPick}>
-          <text value={self.recipe.name} textSize={Style.RECIPE_TEXT} textColor={self.color}
-                textShadow={Style.SHADOW} wrap={false} />
-          <text value={self.count} textSize={Style.SMALL} textColor={Style.WHITE} wrap={false}
-                textFamily={Ordaen.lookArt.fontNumbers} />
+          <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={false} />
+          <box xAlign={Align.End}>
+            <text value={self.count} textColor={Style.WHITE} wrap={false} textFamily={Ordaen.lookArt.fontNumbers} />
+          </box>
         </TableRow>
         <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
       </box>
@@ -263,9 +261,9 @@ public class ReagentRow implements Component {
     return $ltml {
       <box columns={REAGENT} gap={8 * PX} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}>
         <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
-        <text value={self.reagent.name} textSize={Style.RECIPE_TEXT} textColor={Style.INK} />
-        <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} textSize={Style.RECIPE_TEXT}
-              wrap={false} textColor={self.color} textFamily={Ordaen.lookArt.fontNumbers} />
+        <text value={self.reagent.name} textColor={Style.INK} />
+        <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} wrap={false} textColor={self.color}
+              textFamily={Ordaen.lookArt.fontNumbers} />
       </box>
     }
   }

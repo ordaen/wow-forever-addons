@@ -21,7 +21,6 @@ public struct MenuEntry {
 }
 
 const WIDTH = 220 * PX
-const TEXT = 14 * PX
 const BACK: Color = Color.hex("#0a0806f7")
 const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
 const PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
@@ -67,7 +66,7 @@ public class MenuItem implements Component {
     return $ltml {
       <box columns={ROW} gap={10 * PX} padding={self.padding} yAlign={Align.Center} border={self.rule}
            background={self.light} @click={self.onClick}>
-        <text value={self.entry.label} textColor={self.color} textSize={TEXT} wrap={false} stateFromParent={true} />
+        <text value={self.entry.label} textColor={self.color} wrap={false} stateFromParent={true} />
         <box $if={self.switched} width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track}>
           <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
                background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />

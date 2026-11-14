@@ -19,7 +19,7 @@ public class Section implements Component {
     return $ltml {
       <box columns={1} gap={14 * PX}>
         <box columns={["auto", { fr: 1 }]} gap={10 * PX} yAlign={Align.Center}>
-          <text value={self.title} textColor={GOLD} textSize={15 * PX} textShadow={BOLD} wrap={false} />
+          <text value={self.title} textColor={GOLD} textShadow={BOLD} wrap={false} />
           <box height={1 * PX} background={Ordaen.art.ctl.rule} />
         </box>
         <slot />

@@ -68,19 +68,21 @@ class OfferedRow implements Component {
         <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
           <ItemButton item={self.offered.item} size={Style.SLOT} />
           <box overflow={.Hidden}>
-            <text value={self.offered.name} textColor={self.offered.color} textSize={Style.TEXT} wrap={false} />
+            <text value={self.offered.name} textColor={self.offered.color} wrap={false} />
           </box>
         </box>
-        <text value={"%d"} arguments={[self.offered.count]} textColor={Style.INK} textSize={Style.TEXT} />
+        <box xAlign={Align.End}>
+          <text value={"%d"} arguments={[self.offered.count]} textColor={Style.INK} />
+        </box>
         <box xAlign={Align.End}>
           <Money $if={self.offered.market != nil} amount={self.offered.market} />
-          <text $else value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
+          <text $else value={"—"} textColor={Style.DIM} />
         </box>
         <box xAlign={Align.End}>
           <Money $if={self.offered.vendor != nil} amount={self.offered.vendor} />
-          <text $else value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
+          <text $else value={"—"} textColor={Style.DIM} />
         </box>
-        <text value={self.better} textColor={self.betterInk} textSize={Style.TEXT} wrap={false} />
+        <text value={self.better} textColor={self.betterInk} wrap={false} />
       </TableRow>
     }
   }
@@ -154,10 +156,10 @@ public class SellPage implements Component {
                         @pick={self.onPick} />
           </Table>
           <text $if={self.rows.length == 0} value={Locale.NOTHING_TO_SELL} textColor={Style.DIM}
-                textSize={Style.TEXT} />
+                textSize={.Secondary} />
         </box>
         <box rows={["auto"]} gap={10 * PX} padding={10 * PX} border={Style.FRAME} background={Style.LISTS_BACK}>
-          <text $if={self.chosen.length == 0} value={Locale.PICK_ROW} textColor={Style.DIM} textSize={Style.TEXT} />
+          <text $if={self.chosen.length == 0} value={Locale.PICK_ROW} textColor={Style.DIM} />
           <Posting $for={offered of self.chosen} $key={offered.item} offered={peek offered} house={self.house} />
         </box>
       </box>
@@ -214,27 +216,27 @@ class Posting implements Component {
       <box rows={["auto"]} gap={10 * PX}>
         <box columns={ITEM} gap={10 * PX} yAlign={Align.Center}>
           <ItemButton item={self.offered.item} size={Style.BIG_SLOT} />
-          <text value={self.offered.name} textColor={self.offered.color} textSize={Style.NAME} />
+          <text value={self.offered.name} textColor={self.offered.color} textSize={.Title} />
         </box>
         <box columns={PAIR} gap={8 * PX} yAlign={Align.Center}>
-          <text value={Locale.QUANTITY} textColor={Style.INK} textSize={Style.TEXT} />
+          <text value={Locale.QUANTITY} textColor={Style.INK} />
           <box width={80 * PX} height={26 * PX} rows={[{ fr: 1 }]}>
             <CountInput value={mut self.count} least={1} most={self.most} look={CountLook.Field} />
           </box>
         </box>
-        <text value={Locale.UNIT_PRICE} textColor={Style.INK} textSize={Style.TEXT} />
+        <text value={Locale.UNIT_PRICE} textColor={Style.INK} />
         <MoneyField value={mut self.unit} />
-        <text value={Locale.DURATION} textColor={Style.INK} textSize={Style.TEXT} />
+        <text value={Locale.DURATION} textColor={Style.INK} />
         <Segmented value={mut self.duration} choices={DURATIONS} />
         <box columns={PAIR} gap={8 * PX}>
-          <text value={Locale.DEPOSIT} textColor={Style.INK} textSize={Style.TEXT} />
+          <text value={Locale.DEPOSIT} textColor={Style.INK} />
           // The client's deposit (`C_AuctionHouse.CalculateItemDeposit`) is no part of `"$game"`.
           <box xAlign={Align.End}>
-            <text value={"—"} textColor={Style.DIM} textSize={Style.TEXT} />
+            <text value={"—"} textColor={Style.DIM} />
           </box>
         </box>
-        <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={Style.SMALL} />
-        <text $if={self.hasRefused} value={self.refusedText} textColor={Style.RED} textSize={Style.SMALL} />
+        <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={.Secondary} />
+        <text $if={self.hasRefused} value={self.refusedText} textColor={Style.RED} textSize={.Secondary} />
         <PushButton label={Locale.POST} width={228 * PX} accent={true} disabled={!self.canPost} @click={self.onPost} />
       </box>
     }

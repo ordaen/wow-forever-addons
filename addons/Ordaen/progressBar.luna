@@ -32,7 +32,7 @@ public class ProgressBar implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={4 * PX} width={self.width}>
-        <text $if={self.hasLabel} value={self.label} textColor={LABEL} textSize={14 * PX} wrap={false} />
+        <text $if={self.hasLabel} value={self.label} textColor={LABEL} wrap={false} />
         <box height={GROOVE} background={Ordaen.art.ctl.groove}>
           <box position={Position.Absolute} left={EDGE} top={EDGE} height={GROOVE - 2 * EDGE} width={self.fillWidth}
                background={Ordaen.art.ctl.sliderFill} />

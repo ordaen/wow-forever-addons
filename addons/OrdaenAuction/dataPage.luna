@@ -28,8 +28,8 @@ class Fact implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={8 * PX}>
-        <text value={self.label} textColor={Style.DIM} textSize={Style.TEXT} />
-        <text value={self.value} textColor={Style.INK} textSize={Style.TEXT} wrap={false} />
+        <text value={self.label} textColor={Style.DIM} />
+        <text value={self.value} textColor={Style.INK} wrap={false} />
       </box>
     }
   }
@@ -65,7 +65,7 @@ class DealtLine implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={8 * PX}>
-        <text value={self.text} textColor={Style.DIM} textSize={Style.TEXT} />
+        <text value={self.text} textColor={Style.DIM} />
         <Money amount={self.copper} />
       </box>
     }

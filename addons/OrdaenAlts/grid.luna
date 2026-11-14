@@ -1,14 +1,16 @@
 // «Professions»: the characters down the side, the professions across, the skill in each cell.
-import { Overflow, Track } from "$ltml"
+import { Align, Overflow, Track } from "$ltml"
 import { Component, PX } from "Ordaen"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
 
-// One cell: its text and its colour (a heading's gold, a profession a character lacks dim).
+// One cell: its text, its colour (a heading's gold, a profession a character lacks dim) and where it stands in its
+// column: a character's name at the start, a profession and a skill in the middle.
 public struct Cell {
   text: String
   color: Color
+  align: Align
 }
 
 public class Grid implements Component {
@@ -48,13 +50,13 @@ public class Grid implements Component {
 
   // A heading row, then a row for each character: its skill in each profession, `150 / 300`, or a dash.
   cellsOf(self): Array<Cell> {
-    const list: Array<Cell> = [{ text: Locale.COL_NAME, color: Style.GOLD }]
-    for (name of self.names) { list.push({ text: name, color: Style.GOLD }) }
+    const list: Array<Cell> = [{ text: Locale.COL_NAME, color: Style.GOLD, align: Align.Start }]
+    for (name of self.names) { list.push({ text: name, color: Style.GOLD, align: Align.Center }) }
     const characters: Array<String> = []
     for (_, character of self.records.characters) { characters.push(character.name) }
     characters.sort((a, b) => a < b)
     for (line of characters) {
-      list.push({ text: line, color: Style.INK })
+      list.push({ text: line, color: Style.INK, align: Align.Start })
       for (name of self.names) {
         let text = "—"
         for (_, character of self.records.characters) {
@@ -64,7 +66,7 @@ public class Grid implements Component {
             }
           }
         }
-        list.push({ text: text, color: text == "—" ? Style.DIM : Style.INK })
+        list.push({ text: text, color: text == "—" ? Style.DIM : Style.INK, align: Align.Center })
       }
     }
     return list
@@ -74,8 +76,9 @@ public class Grid implements Component {
     return $ltml {
       <box overflow={Overflow.Scroll}>
         <box columns={self.tracks} gap={8 * PX}>
-          <text $for={cell of self.cells} $key={cell} value={cell.text} textSize={Style.TEXT}
-                textColor={cell.color} wrap={false} />
+          <box $for={cell of self.cells} $key={cell} xAlign={cell.align}>
+            <text value={cell.text} textColor={cell.color} wrap={false} />
+          </box>
         </box>
       </box>
     }

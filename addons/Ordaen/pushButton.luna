@@ -56,7 +56,7 @@ public class PushButton implements Component {
            @click={self.onClick}>
         <box position={Position.Absolute} left={0} right={0} top={DOWN} height={HEIGHT}
              xAlign={Align.Center} yAlign={Align.Center} stateFromParent={true}>
-          <text value={self.label} textColor={self.color} textSize={15 * PX} textShadow={SHADOW} wrap={false}
+          <text value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false}
                 stateFromParent={true} />
         </box>
       </box>

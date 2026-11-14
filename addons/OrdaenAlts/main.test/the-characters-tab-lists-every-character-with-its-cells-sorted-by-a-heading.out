@@ -3,102 +3,102 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
   box 341.67,198.04 916.67x37.25 absolute @drag @dragStart
   box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 364.42,259.71 876.17x421.75
-      box 364.42,259.71 876.17x80.5 scrolled 0 of 0
-        box 364.42,259.71 876.17x80.5
-          box 364.42,259.71 876.17x24.83 #00000040
-            box 371.08,259.71 121.8x24 #00000000 @click
-              box 371.08,282.04 121.8x1.67 absolute #00000000
-              box 371.08,264.71 121.8x14
-                text 371.08,264.71 52.5x14 "Character" #cbb994
-                box 426.92,264.71 4.17x10
-                  box 426.92,264.71 4.17x10 opacity=0
-                    text 426.92,264.71 4.17x10 "▲" #f0c860
-                  box 426.92,264.71 4.17x10 absolute opacity=0
-                    text 426.92,264.71 4.17x10 "▼" #f0c860
-            box 499.55,259.71 36.67x24 #00000000 @click
-              box 499.55,282.04 36.67x1.67 absolute #00000000
-              box 499.55,264.71 36.67x14
-                text 499.55,264.71 29.17x14 "Level" #cbb994
-                box 532.05,264.71 4.17x10
-                  box 532.05,264.71 4.17x10 opacity=0
-                    text 532.05,264.71 4.17x10 "▲" #f0c860
-                  box 532.05,264.71 4.17x10 absolute opacity=0
-                    text 532.05,264.71 4.17x10 "▼" #f0c860
-            box 542.88,259.71 100x24 #00000000 @click
-              box 542.88,282.04 100x1.67 absolute #00000000
-              box 612.05,264.71 30.83x14
-                text 612.05,264.71 23.33x14 "Gold" #cbb994
-                box 638.72,264.71 4.17x10
-                  box 638.72,264.71 4.17x10 opacity=0
-                    text 638.72,264.71 4.17x10 "▲" #f0c860
-                  box 638.72,264.71 4.17x10 absolute opacity=0
-                    text 638.72,264.71 4.17x10 "▼" #f0c860
-            box 649.55,259.71 182.7x24 #00000000 @click
-              box 649.55,282.04 182.7x1.67 absolute #00000000
-              box 649.55,264.71 182.7x14
-                text 649.55,264.71 64.17x14 "Professions" #a3977f
-            box 838.92,259.71 70x24 #00000000 @click
-              box 838.92,282.04 70x1.67 absolute #00000000
-              box 843.08,264.71 65.83x14
-                text 843.08,264.71 58.33x14 "Free slots" #cbb994
-                box 904.75,264.71 4.17x10
-                  box 904.75,264.71 4.17x10 opacity=0
-                    text 904.75,264.71 4.17x10 "▲" #f0c860
-                  box 904.75,264.71 4.17x10 absolute opacity=0
-                    text 904.75,264.71 4.17x10 "▼" #f0c860
-            box 915.58,259.71 75x24 #00000000 @click
-              box 915.58,282.04 75x1.67 absolute #00000000
-              box 948.08,264.71 42.5x14
-                text 948.08,264.71 35x14 "Played" #cbb994
-                box 986.42,264.71 4.17x10
-                  box 986.42,264.71 4.17x10 opacity=0
-                    text 986.42,264.71 4.17x10 "▲" #f0c860
-                  box 986.42,264.71 4.17x10 absolute opacity=0
-                    text 986.42,264.71 4.17x10 "▼" #f0c860
-            box 997.25,259.71 76.67x24 #00000000 @click
-              box 997.25,282.04 76.67x1.67 absolute #00000000
-              box 997.25,264.71 76.67x14
-                text 997.25,264.71 52.5x14 "Bank read" #a3977f
-            box 1080.58,259.71 76.67x24 #00000000 @click
-              box 1080.58,282.04 76.67x1.67 absolute #00000000
-              box 1080.58,264.71 76.67x14
-                text 1080.58,264.71 70x14 "Mail expires" #a3977f
-            box 1163.92,259.71 70x24 #00000000 @click
-              box 1163.92,282.04 70x1.67 absolute #00000000
-              box 1163.92,264.71 70x14
-                text 1163.92,264.71 5.83x14 " " #a3977f
-          box 364.42,284.54 876.17x55.67 scrolled 0 of 0
-            box 364.42,284.54 876.17x20.67 #00000000 @click
-              text 371.08,287.87 121.8x14 "Player" #ffd100
-              box 499.55,287.87 36.67x14
-                text 530.38,287.87 5.83x14 "1" #e8dcc4
-              box 542.88,287.87 100x14
-                text 596.22,287.87 46.67x14 "5g 0s 0c" #e8dcc4
-              text 649.55,288.87 182.7x12 "Blacksmithing 225" #a3977f
-              box 838.92,287.87 70x14
-                text 903.08,287.87 5.83x14 "—" #e8dcc4
-              box 915.58,288.87 75x12
-                text 975.58,288.87 15x12 "now" #a3977f
-              text 997.25,288.87 76.67x12 "never opened" #a3977f
-              text 1080.58,288.87 76.67x12 "never opened" #a3977f
-              box 1163.92,294.87 70x0
-            box 364.42,305.21 876.17x35 #00000000 @click
-              text 371.08,315.71 121.8x14 "Regy Ironsight" #7a7060
-              box 499.55,315.71 36.67x14
-                text 524.55,315.71 11.67x14 "42" #e8dcc4
-              box 542.88,315.71 100x14
-                text 572.88,315.71 70x14 "123g 45s 67c" #e8dcc4
-              text 649.55,316.71 182.7x12 "Blacksmithing 150, Mining 75" #a3977f
-              box 838.92,315.71 70x14
-                text 903.08,315.71 5.83x14 "—" #e8dcc4
-              box 915.58,316.71 75x12
-                text 950.58,316.71 40x12 "5 d. ago" #a3977f
-              text 997.25,316.71 76.67x12 "5 d. ago" #a3977f
-              text 1080.58,316.71 76.67x12 "in 2 d." #ff4040
-              box 1163.92,308.54 70x28.33
-                box 1167.25,308.54 66.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  box 1167.25,308.54 66.67x28.33 absolute
-                    text 1181.83,315.21 37.5x15 "Forget" #ffd100
+      box 364.42,259.71 876.17x84.17 scrolled 0 of 0
+        box 364.42,259.71 876.17x84.17
+          box 364.42,259.71 876.17x25.83 #00000040
+            box 371.08,259.71 113.8x25 #00000000 @click
+              box 371.08,283.04 113.8x1.67 absolute #00000000
+              box 371.08,264.71 113.8x15
+                text 371.08,264.71 56.25x15 "Character" #cbb994
+                box 430.67,264.71 5.42x13
+                  box 430.67,264.71 5.42x13 opacity=0
+                    text 430.67,264.71 5.42x13 "▲" #f0c860
+                  box 430.67,264.71 5.42x13 absolute opacity=0
+                    text 430.67,264.71 5.42x13 "▼" #f0c860
+            box 491.55,259.71 46.67x25 #00000000 @click
+              box 491.55,283.04 46.67x1.67 absolute #00000000
+              box 498.22,264.71 40x15
+                text 498.22,264.71 31.25x15 "Level" #cbb994
+                box 532.8,264.71 5.42x13
+                  box 532.8,264.71 5.42x13 opacity=0
+                    text 532.8,264.71 5.42x13 "▲" #f0c860
+                  box 532.8,264.71 5.42x13 absolute opacity=0
+                    text 532.8,264.71 5.42x13 "▼" #f0c860
+            box 544.88,259.71 100x25 #00000000 @click
+              box 544.88,283.04 100x1.67 absolute #00000000
+              box 611.13,264.71 33.75x15
+                text 611.13,264.71 25x15 "Gold" #cbb994
+                box 639.47,264.71 5.42x13
+                  box 639.47,264.71 5.42x13 opacity=0
+                    text 639.47,264.71 5.42x13 "▲" #f0c860
+                  box 639.47,264.71 5.42x13 absolute opacity=0
+                    text 639.47,264.71 5.42x13 "▼" #f0c860
+            box 651.55,259.71 170.7x25 #00000000 @click
+              box 651.55,283.04 170.7x1.67 absolute #00000000
+              box 651.55,264.71 170.7x15
+                text 651.55,264.71 68.75x15 "Professions" #a3977f
+            box 828.92,259.71 80x25 #00000000 @click
+              box 828.92,283.04 80x1.67 absolute #00000000
+              box 837.67,264.71 71.25x15
+                text 837.67,264.71 62.5x15 "Free slots" #cbb994
+                box 903.5,264.71 5.42x13
+                  box 903.5,264.71 5.42x13 opacity=0
+                    text 903.5,264.71 5.42x13 "▲" #f0c860
+                  box 903.5,264.71 5.42x13 absolute opacity=0
+                    text 903.5,264.71 5.42x13 "▼" #f0c860
+            box 915.58,259.71 75x25 #00000000 @click
+              box 915.58,283.04 75x1.67 absolute #00000000
+              box 944.33,264.71 46.25x15
+                text 944.33,264.71 37.5x15 "Played" #cbb994
+                box 985.17,264.71 5.42x13
+                  box 985.17,264.71 5.42x13 opacity=0
+                    text 985.17,264.71 5.42x13 "▲" #f0c860
+                  box 985.17,264.71 5.42x13 absolute opacity=0
+                    text 985.17,264.71 5.42x13 "▼" #f0c860
+            box 997.25,259.71 76.67x25 #00000000 @click
+              box 997.25,283.04 76.67x1.67 absolute #00000000
+              box 997.25,264.71 76.67x15
+                text 997.25,264.71 56.25x15 "Bank read" #a3977f
+            box 1080.58,259.71 76.67x25 #00000000 @click
+              box 1080.58,283.04 76.67x1.67 absolute #00000000
+              box 1080.58,264.71 76.67x15
+                text 1080.58,264.71 75x15 "Mail expires" #a3977f
+            box 1163.92,259.71 70x25 #00000000 @click
+              box 1163.92,283.04 70x1.67 absolute #00000000
+              box 1163.92,264.71 70x15
+                text 1163.92,264.71 6.25x15 " " #a3977f
+          box 364.42,285.54 876.17x58.33 scrolled 0 of 0
+            box 364.42,285.54 876.17x21.67 #00000000 @click
+              text 371.08,288.87 113.8x15 "Player" #ffd100
+              box 491.55,288.87 46.67x15
+                text 531.97,288.87 6.25x15 "1" #e8dcc4
+              box 544.88,288.87 100x15
+                text 594.88,288.87 50x15 "5g 0s 0c" #e8dcc4
+              text 651.55,288.87 170.7x15 "Blacksmithing 225" #a3977f
+              box 828.92,288.87 80x15
+                text 902.67,288.87 6.25x15 "—" #e8dcc4
+              box 915.58,288.87 75x15
+                text 971.83,288.87 18.75x15 "now" #a3977f
+              text 997.25,288.87 76.67x15 "never opened" #a3977f
+              text 1080.58,288.87 76.67x15 "never opened" #a3977f
+              box 1163.92,296.37 70x0
+            box 364.42,307.21 876.17x36.67 #00000000 @click
+              text 371.08,318.04 113.8x15 "Regy Ironsight" #7a7060
+              box 491.55,318.04 46.67x15
+                text 525.72,318.04 12.5x15 "42" #e8dcc4
+              box 544.88,318.04 100x15
+                text 569.88,318.04 75x15 "123g 45s 67c" #e8dcc4
+              text 651.55,310.54 170.7x30 "Blacksmithing 150, Mining 75" #a3977f
+              box 828.92,318.04 80x15
+                text 902.67,318.04 6.25x15 "—" #e8dcc4
+              box 915.58,318.04 75x15
+                text 940.58,318.04 50x15 "5 d. ago" #a3977f
+              text 997.25,318.04 76.67x15 "5 d. ago" #a3977f
+              text 1080.58,318.04 76.67x15 "in 2 d." #ff4040
+              box 1163.92,311.38 70x28.33
+                box 1167.25,311.38 66.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                  box 1167.25,311.38 66.67x28.33 absolute
+                    text 1181.83,318.04 37.5x15 "Forget" #ffd100
     box 1241.08,681.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 341.67,198.04 488x47.75
     box 341.67,198.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -119,102 +119,102 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
   box 341.67,198.04 916.67x37.25 absolute @drag @dragStart
   box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 364.42,259.71 876.17x421.75
-      box 364.42,259.71 876.17x80.5 scrolled 0 of 0
-        box 364.42,259.71 876.17x80.5
-          box 364.42,259.71 876.17x24.83 #00000040
-            box 371.08,259.71 121.8x24 #00000000 @click
-              box 371.08,282.04 121.8x1.67 absolute #00000000
-              box 371.08,264.71 121.8x14
-                text 371.08,264.71 52.5x14 "Character" #cbb994
-                box 426.92,264.71 4.17x10
-                  box 426.92,264.71 4.17x10 opacity=0
-                    text 426.92,264.71 4.17x10 "▲" #f0c860
-                  box 426.92,264.71 4.17x10 absolute opacity=0
-                    text 426.92,264.71 4.17x10 "▼" #f0c860
-            box 499.55,259.71 36.67x24 #00000033 @click
-              box 499.55,282.04 36.67x1.67 absolute #d6a56b
-              box 499.55,264.71 36.67x14
-                text 499.55,264.71 29.17x14 "Level" #f0c860
-                box 532.05,264.71 4.17x10
-                  box 532.05,264.71 4.17x10 opacity=1
-                    text 532.05,264.71 4.17x10 "▲" #f0c860
-                  box 532.05,264.71 4.17x10 absolute opacity=0
-                    text 532.05,264.71 4.17x10 "▼" #f0c860
-            box 542.88,259.71 100x24 #00000000 @click
-              box 542.88,282.04 100x1.67 absolute #00000000
-              box 612.05,264.71 30.83x14
-                text 612.05,264.71 23.33x14 "Gold" #cbb994
-                box 638.72,264.71 4.17x10
-                  box 638.72,264.71 4.17x10 opacity=0
-                    text 638.72,264.71 4.17x10 "▲" #f0c860
-                  box 638.72,264.71 4.17x10 absolute opacity=0
-                    text 638.72,264.71 4.17x10 "▼" #f0c860
-            box 649.55,259.71 182.7x24 #00000000 @click
-              box 649.55,282.04 182.7x1.67 absolute #00000000
-              box 649.55,264.71 182.7x14
-                text 649.55,264.71 64.17x14 "Professions" #a3977f
-            box 838.92,259.71 70x24 #00000000 @click
-              box 838.92,282.04 70x1.67 absolute #00000000
-              box 843.08,264.71 65.83x14
-                text 843.08,264.71 58.33x14 "Free slots" #cbb994
-                box 904.75,264.71 4.17x10
-                  box 904.75,264.71 4.17x10 opacity=0
-                    text 904.75,264.71 4.17x10 "▲" #f0c860
-                  box 904.75,264.71 4.17x10 absolute opacity=0
-                    text 904.75,264.71 4.17x10 "▼" #f0c860
-            box 915.58,259.71 75x24 #00000000 @click
-              box 915.58,282.04 75x1.67 absolute #00000000
-              box 948.08,264.71 42.5x14
-                text 948.08,264.71 35x14 "Played" #cbb994
-                box 986.42,264.71 4.17x10
-                  box 986.42,264.71 4.17x10 opacity=0
-                    text 986.42,264.71 4.17x10 "▲" #f0c860
-                  box 986.42,264.71 4.17x10 absolute opacity=0
-                    text 986.42,264.71 4.17x10 "▼" #f0c860
-            box 997.25,259.71 76.67x24 #00000000 @click
-              box 997.25,282.04 76.67x1.67 absolute #00000000
-              box 997.25,264.71 76.67x14
-                text 997.25,264.71 52.5x14 "Bank read" #a3977f
-            box 1080.58,259.71 76.67x24 #00000000 @click
-              box 1080.58,282.04 76.67x1.67 absolute #00000000
-              box 1080.58,264.71 76.67x14
-                text 1080.58,264.71 70x14 "Mail expires" #a3977f
-            box 1163.92,259.71 70x24 #00000000 @click
-              box 1163.92,282.04 70x1.67 absolute #00000000
-              box 1163.92,264.71 70x14
-                text 1163.92,264.71 5.83x14 " " #a3977f
-          box 364.42,284.54 876.17x55.67 scrolled 0 of 0
-            box 364.42,284.54 876.17x20.67 #00000000 @click
-              text 371.08,287.87 121.8x14 "Player" #ffd100
-              box 499.55,287.87 36.67x14
-                text 530.38,287.87 5.83x14 "1" #e8dcc4
-              box 542.88,287.87 100x14
-                text 596.22,287.87 46.67x14 "5g 0s 0c" #e8dcc4
-              text 649.55,288.87 182.7x12 "Blacksmithing 225" #a3977f
-              box 838.92,287.87 70x14
-                text 903.08,287.87 5.83x14 "—" #e8dcc4
-              box 915.58,288.87 75x12
-                text 975.58,288.87 15x12 "now" #a3977f
-              text 997.25,288.87 76.67x12 "never opened" #a3977f
-              text 1080.58,288.87 76.67x12 "never opened" #a3977f
-              box 1163.92,294.87 70x0
-            box 364.42,305.21 876.17x35 #00000000 @click
-              text 371.08,315.71 121.8x14 "Regy Ironsight" #7a7060
-              box 499.55,315.71 36.67x14
-                text 524.55,315.71 11.67x14 "42" #e8dcc4
-              box 542.88,315.71 100x14
-                text 572.88,315.71 70x14 "123g 45s 67c" #e8dcc4
-              text 649.55,316.71 182.7x12 "Blacksmithing 150, Mining 75" #a3977f
-              box 838.92,315.71 70x14
-                text 903.08,315.71 5.83x14 "—" #e8dcc4
-              box 915.58,316.71 75x12
-                text 950.58,316.71 40x12 "5 d. ago" #a3977f
-              text 997.25,316.71 76.67x12 "5 d. ago" #a3977f
-              text 1080.58,316.71 76.67x12 "in 2 d." #ff4040
-              box 1163.92,308.54 70x28.33
-                box 1167.25,308.54 66.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  box 1167.25,308.54 66.67x28.33 absolute
-                    text 1181.83,315.21 37.5x15 "Forget" #ffd100
+      box 364.42,259.71 876.17x84.17 scrolled 0 of 0
+        box 364.42,259.71 876.17x84.17
+          box 364.42,259.71 876.17x25.83 #00000040
+            box 371.08,259.71 113.8x25 #00000000 @click
+              box 371.08,283.04 113.8x1.67 absolute #00000000
+              box 371.08,264.71 113.8x15
+                text 371.08,264.71 56.25x15 "Character" #cbb994
+                box 430.67,264.71 5.42x13
+                  box 430.67,264.71 5.42x13 opacity=0
+                    text 430.67,264.71 5.42x13 "▲" #f0c860
+                  box 430.67,264.71 5.42x13 absolute opacity=0
+                    text 430.67,264.71 5.42x13 "▼" #f0c860
+            box 491.55,259.71 46.67x25 #00000033 @click
+              box 491.55,283.04 46.67x1.67 absolute #d6a56b
+              box 498.22,264.71 40x15
+                text 498.22,264.71 31.25x15 "Level" #f0c860
+                box 532.8,264.71 5.42x13
+                  box 532.8,264.71 5.42x13 opacity=1
+                    text 532.8,264.71 5.42x13 "▲" #f0c860
+                  box 532.8,264.71 5.42x13 absolute opacity=0
+                    text 532.8,264.71 5.42x13 "▼" #f0c860
+            box 544.88,259.71 100x25 #00000000 @click
+              box 544.88,283.04 100x1.67 absolute #00000000
+              box 611.13,264.71 33.75x15
+                text 611.13,264.71 25x15 "Gold" #cbb994
+                box 639.47,264.71 5.42x13
+                  box 639.47,264.71 5.42x13 opacity=0
+                    text 639.47,264.71 5.42x13 "▲" #f0c860
+                  box 639.47,264.71 5.42x13 absolute opacity=0
+                    text 639.47,264.71 5.42x13 "▼" #f0c860
+            box 651.55,259.71 170.7x25 #00000000 @click
+              box 651.55,283.04 170.7x1.67 absolute #00000000
+              box 651.55,264.71 170.7x15
+                text 651.55,264.71 68.75x15 "Professions" #a3977f
+            box 828.92,259.71 80x25 #00000000 @click
+              box 828.92,283.04 80x1.67 absolute #00000000
+              box 837.67,264.71 71.25x15
+                text 837.67,264.71 62.5x15 "Free slots" #cbb994
+                box 903.5,264.71 5.42x13
+                  box 903.5,264.71 5.42x13 opacity=0
+                    text 903.5,264.71 5.42x13 "▲" #f0c860
+                  box 903.5,264.71 5.42x13 absolute opacity=0
+                    text 903.5,264.71 5.42x13 "▼" #f0c860
+            box 915.58,259.71 75x25 #00000000 @click
+              box 915.58,283.04 75x1.67 absolute #00000000
+              box 944.33,264.71 46.25x15
+                text 944.33,264.71 37.5x15 "Played" #cbb994
+                box 985.17,264.71 5.42x13
+                  box 985.17,264.71 5.42x13 opacity=0
+                    text 985.17,264.71 5.42x13 "▲" #f0c860
+                  box 985.17,264.71 5.42x13 absolute opacity=0
+                    text 985.17,264.71 5.42x13 "▼" #f0c860
+            box 997.25,259.71 76.67x25 #00000000 @click
+              box 997.25,283.04 76.67x1.67 absolute #00000000
+              box 997.25,264.71 76.67x15
+                text 997.25,264.71 56.25x15 "Bank read" #a3977f
+            box 1080.58,259.71 76.67x25 #00000000 @click
+              box 1080.58,283.04 76.67x1.67 absolute #00000000
+              box 1080.58,264.71 76.67x15
+                text 1080.58,264.71 75x15 "Mail expires" #a3977f
+            box 1163.92,259.71 70x25 #00000000 @click
+              box 1163.92,283.04 70x1.67 absolute #00000000
+              box 1163.92,264.71 70x15
+                text 1163.92,264.71 6.25x15 " " #a3977f
+          box 364.42,285.54 876.17x58.33 scrolled 0 of 0
+            box 364.42,285.54 876.17x21.67 #00000000 @click
+              text 371.08,288.87 113.8x15 "Player" #ffd100
+              box 491.55,288.87 46.67x15
+                text 531.97,288.87 6.25x15 "1" #e8dcc4
+              box 544.88,288.87 100x15
+                text 594.88,288.87 50x15 "5g 0s 0c" #e8dcc4
+              text 651.55,288.87 170.7x15 "Blacksmithing 225" #a3977f
+              box 828.92,288.87 80x15
+                text 902.67,288.87 6.25x15 "—" #e8dcc4
+              box 915.58,288.87 75x15
+                text 971.83,288.87 18.75x15 "now" #a3977f
+              text 997.25,288.87 76.67x15 "never opened" #a3977f
+              text 1080.58,288.87 76.67x15 "never opened" #a3977f
+              box 1163.92,296.37 70x0
+            box 364.42,307.21 876.17x36.67 #00000000 @click
+              text 371.08,318.04 113.8x15 "Regy Ironsight" #7a7060
+              box 491.55,318.04 46.67x15
+                text 525.72,318.04 12.5x15 "42" #e8dcc4
+              box 544.88,318.04 100x15
+                text 569.88,318.04 75x15 "123g 45s 67c" #e8dcc4
+              text 651.55,310.54 170.7x30 "Blacksmithing 150, Mining 75" #a3977f
+              box 828.92,318.04 80x15
+                text 902.67,318.04 6.25x15 "—" #e8dcc4
+              box 915.58,318.04 75x15
+                text 940.58,318.04 50x15 "5 d. ago" #a3977f
+              text 997.25,318.04 76.67x15 "5 d. ago" #a3977f
+              text 1080.58,318.04 76.67x15 "in 2 d." #ff4040
+              box 1163.92,311.38 70x28.33
+                box 1167.25,311.38 66.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                  box 1167.25,311.38 66.67x28.33 absolute
+                    text 1181.83,318.04 37.5x15 "Forget" #ffd100
     box 1199.42,247.12 52.5x26.67 absolute clipped
       box 1199.42,247.12 29.17x26.67 absolute clipped @click
         box 1199.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -242,102 +242,102 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
   box 341.67,198.04 916.67x37.25 absolute @drag @dragStart
   box 341.67,235.29 916.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 364.42,259.71 876.17x421.75
-      box 364.42,259.71 876.17x80.5 scrolled 0 of 0
-        box 364.42,259.71 876.17x80.5
-          box 364.42,259.71 876.17x24.83 #00000040
-            box 371.08,259.71 121.8x24 #00000000 @click
-              box 371.08,282.04 121.8x1.67 absolute #00000000
-              box 371.08,264.71 121.8x14
-                text 371.08,264.71 52.5x14 "Character" #cbb994
-                box 426.92,264.71 4.17x10
-                  box 426.92,264.71 4.17x10 opacity=0
-                    text 426.92,264.71 4.17x10 "▲" #f0c860
-                  box 426.92,264.71 4.17x10 absolute opacity=0
-                    text 426.92,264.71 4.17x10 "▼" #f0c860
-            box 499.55,259.71 36.67x24 #00000033 @click
-              box 499.55,282.04 36.67x1.67 absolute #d6a56b
-              box 499.55,264.71 36.67x14
-                text 499.55,264.71 29.17x14 "Level" #f0c860
-                box 532.05,264.71 4.17x10
-                  box 532.05,264.71 4.17x10 opacity=0
-                    text 532.05,264.71 4.17x10 "▲" #f0c860
-                  box 532.05,264.71 4.17x10 absolute opacity=1
-                    text 532.05,264.71 4.17x10 "▼" #f0c860
-            box 542.88,259.71 100x24 #00000000 @click
-              box 542.88,282.04 100x1.67 absolute #00000000
-              box 612.05,264.71 30.83x14
-                text 612.05,264.71 23.33x14 "Gold" #cbb994
-                box 638.72,264.71 4.17x10
-                  box 638.72,264.71 4.17x10 opacity=0
-                    text 638.72,264.71 4.17x10 "▲" #f0c860
-                  box 638.72,264.71 4.17x10 absolute opacity=0
-                    text 638.72,264.71 4.17x10 "▼" #f0c860
-            box 649.55,259.71 182.7x24 #00000000 @click
-              box 649.55,282.04 182.7x1.67 absolute #00000000
-              box 649.55,264.71 182.7x14
-                text 649.55,264.71 64.17x14 "Professions" #a3977f
-            box 838.92,259.71 70x24 #00000000 @click
-              box 838.92,282.04 70x1.67 absolute #00000000
-              box 843.08,264.71 65.83x14
-                text 843.08,264.71 58.33x14 "Free slots" #cbb994
-                box 904.75,264.71 4.17x10
-                  box 904.75,264.71 4.17x10 opacity=0
-                    text 904.75,264.71 4.17x10 "▲" #f0c860
-                  box 904.75,264.71 4.17x10 absolute opacity=0
-                    text 904.75,264.71 4.17x10 "▼" #f0c860
-            box 915.58,259.71 75x24 #00000000 @click
-              box 915.58,282.04 75x1.67 absolute #00000000
-              box 948.08,264.71 42.5x14
-                text 948.08,264.71 35x14 "Played" #cbb994
-                box 986.42,264.71 4.17x10
-                  box 986.42,264.71 4.17x10 opacity=0
-                    text 986.42,264.71 4.17x10 "▲" #f0c860
-                  box 986.42,264.71 4.17x10 absolute opacity=0
-                    text 986.42,264.71 4.17x10 "▼" #f0c860
-            box 997.25,259.71 76.67x24 #00000000 @click
-              box 997.25,282.04 76.67x1.67 absolute #00000000
-              box 997.25,264.71 76.67x14
-                text 997.25,264.71 52.5x14 "Bank read" #a3977f
-            box 1080.58,259.71 76.67x24 #00000000 @click
-              box 1080.58,282.04 76.67x1.67 absolute #00000000
-              box 1080.58,264.71 76.67x14
-                text 1080.58,264.71 70x14 "Mail expires" #a3977f
-            box 1163.92,259.71 70x24 #00000000 @click
-              box 1163.92,282.04 70x1.67 absolute #00000000
-              box 1163.92,264.71 70x14
-                text 1163.92,264.71 5.83x14 " " #a3977f
-          box 364.42,284.54 876.17x55.67 scrolled 0 of 0
-            box 364.42,284.54 876.17x35 #00000000 @click
-              text 371.08,295.04 121.8x14 "Regy Ironsight" #7a7060
-              box 499.55,295.04 36.67x14
-                text 524.55,295.04 11.67x14 "42" #e8dcc4
-              box 542.88,295.04 100x14
-                text 572.88,295.04 70x14 "123g 45s 67c" #e8dcc4
-              text 649.55,296.04 182.7x12 "Blacksmithing 150, Mining 75" #a3977f
-              box 838.92,295.04 70x14
-                text 903.08,295.04 5.83x14 "—" #e8dcc4
-              box 915.58,296.04 75x12
-                text 950.58,296.04 40x12 "5 d. ago" #a3977f
-              text 997.25,296.04 76.67x12 "5 d. ago" #a3977f
-              text 1080.58,296.04 76.67x12 "in 2 d." #ff4040
-              box 1163.92,287.87 70x28.33
-                box 1167.25,287.87 66.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  box 1167.25,287.87 66.67x28.33 absolute
-                    text 1181.83,294.54 37.5x15 "Forget" #ffd100
-            box 364.42,319.54 876.17x20.67 #00000000 @click
-              text 371.08,322.87 121.8x14 "Player" #ffd100
-              box 499.55,322.87 36.67x14
-                text 530.38,322.87 5.83x14 "1" #e8dcc4
-              box 542.88,322.87 100x14
-                text 596.22,322.87 46.67x14 "5g 0s 0c" #e8dcc4
-              text 649.55,323.87 182.7x12 "Blacksmithing 225" #a3977f
-              box 838.92,322.87 70x14
-                text 903.08,322.87 5.83x14 "—" #e8dcc4
-              box 915.58,323.87 75x12
-                text 975.58,323.87 15x12 "now" #a3977f
-              text 997.25,323.87 76.67x12 "never opened" #a3977f
-              text 1080.58,323.87 76.67x12 "never opened" #a3977f
-              box 1163.92,329.87 70x0
+      box 364.42,259.71 876.17x84.17 scrolled 0 of 0
+        box 364.42,259.71 876.17x84.17
+          box 364.42,259.71 876.17x25.83 #00000040
+            box 371.08,259.71 113.8x25 #00000000 @click
+              box 371.08,283.04 113.8x1.67 absolute #00000000
+              box 371.08,264.71 113.8x15
+                text 371.08,264.71 56.25x15 "Character" #cbb994
+                box 430.67,264.71 5.42x13
+                  box 430.67,264.71 5.42x13 opacity=0
+                    text 430.67,264.71 5.42x13 "▲" #f0c860
+                  box 430.67,264.71 5.42x13 absolute opacity=0
+                    text 430.67,264.71 5.42x13 "▼" #f0c860
+            box 491.55,259.71 46.67x25 #00000033 @click
+              box 491.55,283.04 46.67x1.67 absolute #d6a56b
+              box 498.22,264.71 40x15
+                text 498.22,264.71 31.25x15 "Level" #f0c860
+                box 532.8,264.71 5.42x13
+                  box 532.8,264.71 5.42x13 opacity=0
+                    text 532.8,264.71 5.42x13 "▲" #f0c860
+                  box 532.8,264.71 5.42x13 absolute opacity=1
+                    text 532.8,264.71 5.42x13 "▼" #f0c860
+            box 544.88,259.71 100x25 #00000000 @click
+              box 544.88,283.04 100x1.67 absolute #00000000
+              box 611.13,264.71 33.75x15
+                text 611.13,264.71 25x15 "Gold" #cbb994
+                box 639.47,264.71 5.42x13
+                  box 639.47,264.71 5.42x13 opacity=0
+                    text 639.47,264.71 5.42x13 "▲" #f0c860
+                  box 639.47,264.71 5.42x13 absolute opacity=0
+                    text 639.47,264.71 5.42x13 "▼" #f0c860
+            box 651.55,259.71 170.7x25 #00000000 @click
+              box 651.55,283.04 170.7x1.67 absolute #00000000
+              box 651.55,264.71 170.7x15
+                text 651.55,264.71 68.75x15 "Professions" #a3977f
+            box 828.92,259.71 80x25 #00000000 @click
+              box 828.92,283.04 80x1.67 absolute #00000000
+              box 837.67,264.71 71.25x15
+                text 837.67,264.71 62.5x15 "Free slots" #cbb994
+                box 903.5,264.71 5.42x13
+                  box 903.5,264.71 5.42x13 opacity=0
+                    text 903.5,264.71 5.42x13 "▲" #f0c860
+                  box 903.5,264.71 5.42x13 absolute opacity=0
+                    text 903.5,264.71 5.42x13 "▼" #f0c860
+            box 915.58,259.71 75x25 #00000000 @click
+              box 915.58,283.04 75x1.67 absolute #00000000
+              box 944.33,264.71 46.25x15
+                text 944.33,264.71 37.5x15 "Played" #cbb994
+                box 985.17,264.71 5.42x13
+                  box 985.17,264.71 5.42x13 opacity=0
+                    text 985.17,264.71 5.42x13 "▲" #f0c860
+                  box 985.17,264.71 5.42x13 absolute opacity=0
+                    text 985.17,264.71 5.42x13 "▼" #f0c860
+            box 997.25,259.71 76.67x25 #00000000 @click
+              box 997.25,283.04 76.67x1.67 absolute #00000000
+              box 997.25,264.71 76.67x15
+                text 997.25,264.71 56.25x15 "Bank read" #a3977f
+            box 1080.58,259.71 76.67x25 #00000000 @click
+              box 1080.58,283.04 76.67x1.67 absolute #00000000
+              box 1080.58,264.71 76.67x15
+                text 1080.58,264.71 75x15 "Mail expires" #a3977f
+            box 1163.92,259.71 70x25 #00000000 @click
+              box 1163.92,283.04 70x1.67 absolute #00000000
+              box 1163.92,264.71 70x15
+                text 1163.92,264.71 6.25x15 " " #a3977f
+          box 364.42,285.54 876.17x58.33 scrolled 0 of 0
+            box 364.42,285.54 876.17x36.67 #00000000 @click
+              text 371.08,296.37 113.8x15 "Regy Ironsight" #7a7060
+              box 491.55,296.37 46.67x15
+                text 525.72,296.37 12.5x15 "42" #e8dcc4
+              box 544.88,296.37 100x15
+                text 569.88,296.37 75x15 "123g 45s 67c" #e8dcc4
+              text 651.55,288.87 170.7x30 "Blacksmithing 150, Mining 75" #a3977f
+              box 828.92,296.37 80x15
+                text 902.67,296.37 6.25x15 "—" #e8dcc4
+              box 915.58,296.37 75x15
+                text 940.58,296.37 50x15 "5 d. ago" #a3977f
+              text 997.25,296.37 76.67x15 "5 d. ago" #a3977f
+              text 1080.58,296.37 76.67x15 "in 2 d." #ff4040
+              box 1163.92,289.71 70x28.33
+                box 1167.25,289.71 66.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                  box 1167.25,289.71 66.67x28.33 absolute
+                    text 1181.83,296.38 37.5x15 "Forget" #ffd100
+            box 364.42,322.21 876.17x21.67 #00000000 @click
+              text 371.08,325.54 113.8x15 "Player" #ffd100
+              box 491.55,325.54 46.67x15
+                text 531.97,325.54 6.25x15 "1" #e8dcc4
+              box 544.88,325.54 100x15
+                text 594.88,325.54 50x15 "5g 0s 0c" #e8dcc4
+              text 651.55,325.54 170.7x15 "Blacksmithing 225" #a3977f
+              box 828.92,325.54 80x15
+                text 902.67,325.54 6.25x15 "—" #e8dcc4
+              box 915.58,325.54 75x15
+                text 971.83,325.54 18.75x15 "now" #a3977f
+              text 997.25,325.54 76.67x15 "never opened" #a3977f
+              text 1080.58,325.54 76.67x15 "never opened" #a3977f
+              box 1163.92,333.04 70x0
     box 1199.42,247.12 52.5x26.67 absolute clipped
       box 1199.42,247.12 29.17x26.67 absolute clipped @click
         box 1199.42,247.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16

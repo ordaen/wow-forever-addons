@@ -88,9 +88,9 @@ public class OverviewLineRow implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.opens} @click={self.onClick}>
-        <text value={self.line.text} textSize={Style.RECIPE_TEXT} textColor={self.color} />
+        <text value={self.line.text} textColor={self.color} />
       </box>
-      <text $else value={self.line.text} textSize={Style.RECIPE_TEXT} textColor={self.color} />
+      <text $else value={self.line.text} textColor={self.color} />
     }
   }
 }
@@ -111,7 +111,7 @@ public class OverviewSection implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={PAD} border={FRAME} background={BACK} gap={6 * PX}>
-        <text value={self.title} textSize={Style.TEXT} textColor={Style.GOLD} />
+        <text value={self.title} textColor={Style.GOLD} />
         <OverviewLineRow $for={line of self.lines} $key={line.text} line={line} @pick={self.onPick} />
       </box>
     }
@@ -227,8 +227,8 @@ public class OverviewPage implements Component {
       <box overflow={Overflow.Scroll} gap={12 * PX}>
         <box columns={CARD} gap={14 * PX} yAlign={Align.Center} padding={PAD} border={FRAME} background={BACK}>
           <box gap={5 * PX}>
-            <text $if={self.hasNext} value={self.nextText} textSize={Style.TEXT} textColor={Style.INK} />
-            <text $if={self.isSecondary} value={Locale.SECONDARY} textSize={Style.SMALL} textColor={Style.DIM} />
+            <text $if={self.hasNext} value={self.nextText} textColor={Style.INK} />
+            <text $if={self.isSecondary} value={Locale.SECONDARY} textSize={.Secondary} textColor={Style.DIM} />
           </box>
           <PushButton $if={self.hasSpell} label={self.spellLabel} width={140 * PX} action={self.spellAction} />
         </box>

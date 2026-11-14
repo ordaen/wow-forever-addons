@@ -1,4 +1,5 @@
-// The professions window's look, shared by its parts: sizes at the user's scale and colours.
+// The professions window's look, shared by its parts: sizes at the user's scale and colours. A text's size is a step
+// of the ladder (`$ltml`'s `TextSize`).
 import Game from "$game"
 import { Line, Shadow, Side, Stated } from "$ltml"
 import { PX } from "Ordaen"
@@ -9,11 +10,6 @@ public const HEIGHT: Number = 700 * PX
 public const LEFT: Number = 530 * PX
 public const CATEGORIES: Number = 250 * PX
 public const GAP: Number = 12 * PX
-// A category's name, a recipe's, the small print, the chosen recipe's name.
-public const TEXT: Number = 14 * PX
-public const RECIPE_TEXT: Number = 13 * PX
-public const SMALL: Number = 12 * PX
-public const NAME: Number = 17 * PX
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")

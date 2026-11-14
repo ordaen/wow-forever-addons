@@ -1,0 +1,113 @@
+queued: Linen Cloak ×2 Bolt of Linen Cloth ×3 Rough Sharpening Stone ×1
+-- the cloaks made; the bolts wait for Tailoring to be open, the stone after them
+surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
+  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
+  box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 381.08,207.21 842.83x538.42
+      box 381.08,207.21 842.83x25
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 407.29x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 702.92,210.96 125x15 "Apprentice · 40 / 75" #ffffff
+      box 381.08,238.88 842.83x26.67
+        box 381.08,238.88 842.83x26.67
+          box 381.08,264.71 842.83x0.83 absolute #3e2f1d
+          box 381.08,238.88 68.75x26.67 #00000000 @click
+            box 381.92,239.71 67.08x1.67 absolute #00000000
+            text 393.58,245.54 43.75x15 "Recipes" #a3977f
+          box 453.17,238.88 81.25x26.67 #00000059 @click
+            box 454,239.71 79.58x1.67 absolute #d6a56b
+            text 465.67,245.54 56.25x15 "Queue (2)" #ffffff
+          box 537.75,238.88 75x26.67 #00000000 @click
+            box 538.58,239.71 73.33x1.67 absolute #00000000
+            text 550.25,245.54 50x15 "Overview" #a3977f
+      box 381.08,272.21 842.83x473.42 #0000004d
+        box 391.92,283.04 821.17x407.58 scrolled 0 of 0
+          box 391.92,283.04 821.17x70.83
+            box 391.92,283.04 821.17x35
+              box 391.92,287.21 26.67x26.67 icon=136249
+              box 426.92,293.04 681.17x15 @click
+                text 426.92,293.04 681.17x15 "Bolt of Linen Cloth" #a3977f
+              box 1116.42,286.38 68.33x28.33
+                box 1116.42,286.38 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1116.42,286.38 20x28.33 absolute
+                    text 1123.29,293.04 6.25x15 "-" #ffd100
+                box 1141.42,293.04 18.33x15
+                  text 1147.46,293.04 6.25x15 "3" #ffffff
+                box 1164.75,286.38 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1164.75,286.38 20x28.33 absolute
+                    text 1171.62,293.04 6.25x15 "+" #ffd100
+              box 1193.08,286.38 20x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+                box 1193.08,286.38 20x28.33 absolute
+                  text 1199.96,293.04 6.25x15 "x" #ffd100
+            box 391.92,318.04 821.17x35.83
+              box 391.92,323.04 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
+              box 426.92,328.88 681.17x15 @click
+                text 426.92,328.88 681.17x15 "Rough Sharpening Stone" #ff8040
+              box 1116.42,322.21 68.33x28.33
+                box 1116.42,322.21 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1116.42,322.21 20x28.33 absolute
+                    text 1123.29,328.88 6.25x15 "-" #ffd100
+                box 1141.42,328.88 18.33x15
+                  text 1147.46,328.88 6.25x15 "1" #ffffff
+                box 1164.75,322.21 20x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                  box 1164.75,322.21 20x28.33 absolute
+                    text 1171.62,328.88 6.25x15 "+" #ffd100
+              box 1193.08,322.21 20x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+                box 1193.08,322.21 20x28.33 absolute
+                  text 1199.96,328.88 6.25x15 "x" #ffd100
+          box 391.92,362.21 821.17x20
+            box 391.92,362.21 821.17x20
+              box 391.92,364.71 23.33x0
+              box 420.25,364.71 581.17x0
+              box 1006.42,364.71 58.33x15
+                text 1039.75,364.71 25x15 "Need" #a3977f
+              box 1069.75,364.71 58.33x15
+                text 1103.08,364.71 25x15 "Have" #a3977f
+              box 1133.08,364.71 75x15
+                text 1164.33,364.71 43.75x15 "Missing" #a3977f
+        box 391.92,698.96 821.17x35.83
+          text 391.92,714.13 662.83x13 "Paused: open Tailoring, then click «Create next»." #e8dcc4
+          box 1063.08,706.46 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 1063.08,706.46 150x28.33 absolute
+              text 1103.71,713.13 68.75x15 "Create next" #ffffff
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1211.92,194.63 23.33x26.67 absolute clipped @click
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 358.33,133.88 319.67x59.42
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 425.83,144.12 56.25x45.92
+        text 425.83,152.67 56.25x15 "Tailoring" #b3a690
+        text 435,168.5 37.92x13 "31 / 75" #8f8470
+    box 510.67,133.88 167.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 517.92,141.12 48.92x48.92 absolute icon=136241 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 561.83,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 578.17,144.12 81.25x45.92
+        text 578.17,152.67 81.25x15 "Blacksmithing" #ffd100
+        text 599.83,168.5 37.92x13 "40 / 75" #8f8470
+asked: TradeSkill.craft 2387 2
+
+the bolts made: Rough Sharpening Stone ×1
+the stone made: (empty)

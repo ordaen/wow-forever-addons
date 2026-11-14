@@ -26,8 +26,8 @@ public class Tip implements Component {
       <surface layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={WIDTH} textFamily={Ordaen.lookArt.font}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
                padding={12 * PX} columns={1} gap={2 * PX}>
-        <text value={self.title} textColor={NAME} textSize={18 * PX} />
-        <text value={self.text} textColor={LABEL} textSize={14 * PX} />
+        <text value={self.title} textColor={NAME} textSize={.Title} />
+        <text value={self.text} textColor={LABEL} />
       </surface>
     }
   }
