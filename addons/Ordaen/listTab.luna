@@ -27,6 +27,8 @@ public class ListTab implements Component {
   derived background: Color | Stated<Color> = self.selected ? SELECTED : SHADE
   derived color: Color = self.selected ? WHITE : self.off ? OFF : INK
   derived tint: Color = self.off ? DIM : WHITE
+  // The light along the left: on every entry, clear on the others, so only colours tell the selected one.
+  derived light: Color = self.selected ? LIGHT : CLEAR
 
   label: Signal<String>
   selected: Signal<Boolean>
@@ -51,8 +53,7 @@ public class ListTab implements Component {
     return $ltml {
       <box columns={self.columns} gap={10 * PX} padding={PADDING} yAlign={Align.Center}
            background={self.background} @click={self.onClick}>
-        <box $if={self.selected} position={Position.Absolute} left={0} top={0} bottom={0} width={3 * PX}
-             background={LIGHT} />
+        <box position={Position.Absolute} left={0} top={0} bottom={0} width={3 * PX} background={self.light} />
         <box $if={self.hasIcon} width={22 * PX} height={22 * PX} icon={self.icon} tint={self.tint} />
         <text value={self.label} textColor={self.color} textSize={15 * PX} wrap={false} />
         <box>

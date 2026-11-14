@@ -16,10 +16,16 @@ public const KNOB_TOP: Number = (3 - 6) * PX
 public const KNOB_OFF: Number = (3 - 6) * PX
 public const KNOB_ON: Number = (21 - 6) * PX
 
+// The knob of a switch on and the knob of one off are both drawn, each where it stands, the one that isn't the
+// state at no opacity: a switch on and one off differ in their colours alone.
+public const function knobShown(shown: Boolean): Number {
+  return shown ? 1 : 0
+}
+
 public class Toggle implements Component {
   derived track: Art = self.value ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff
-  derived knob: Art = self.value ? Ordaen.art.ctl.knobOn : Ordaen.art.ctl.knobOff
-  derived knobLeft: Number = self.value ? KNOB_ON : KNOB_OFF
+  derived onOpacity: Number = knobShown(self.value)
+  derived offOpacity: Number = knobShown(!self.value)
 
   value: mut Signal<Boolean>
   disabled: Signal<Boolean>
@@ -38,8 +44,10 @@ public class Toggle implements Component {
   public render(self): Template {
     return $ltml {
       <box width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track} @click={self.flip}>
-        <box position={Position.Absolute} left={self.knobLeft} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
-             background={self.knob} />
+        <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
+             background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />
+        <box position={Position.Absolute} left={KNOB_ON} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
+             background={Ordaen.art.ctl.knobOn} opacity={self.onOpacity} />
       </box>
     }
   }

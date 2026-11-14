@@ -24,14 +24,16 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
         box 442.75,184.71 233.33x15 @enter @leave
           text 442.75,184.71 233.33x15 "Pixel" #cbb994
         box 691.08,183.04 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-          box 691.08,183.04 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4
+          box 691.08,183.04 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 442.75,207.38 719.5x16.67 opacity=1
         box 442.75,208.21 233.33x15 @enter @leave
           text 442.75,208.21 233.33x15 "Sounds" #cbb994
         box 691.08,207.38 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-          box 703.58,204.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+          box 688.58,204.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+          box 703.58,204.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
       box 442.75,230.04 719.5x27.33 opacity=1
         box 442.75,230.04 48.33x27.33 #0d0a08 @click
+          box 442.75,230.04 48.33x1.67 absolute #00000000
           text 455.25,236.71 23.33x14 "Left" #a3977f
         box 491.08,230.04 53.33x27.33 #5a4428 @click
           box 491.08,230.04 53.33x1.67 absolute #d6a56b
@@ -39,6 +41,7 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
       box 442.75,263.38 719.5x26.67
         box 442.75,289.21 719.5x0.83 absolute #3e2f1d
         box 442.75,263.38 43.75x26.67 #00000000 @click
+          box 443.58,264.21 42.08x1.67 absolute #00000000
           text 455.25,270.04 18.75x15 "One" #a3977f
         box 489.83,263.38 43.75x26.67 #00000059 @click
           box 490.67,264.21 42.08x1.67 absolute #d6a56b
@@ -79,9 +82,8 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
         box 442.75,464.38 719.5x24.83 #00000040
           box 449.42,464.38 706.17x24 #00000000 @click
             box 449.42,486.71 706.17x1.67 absolute #d6a56b
-            box 449.42,469.38 30.83x14
+            box 449.42,469.38 26.67x14
               text 449.42,469.38 23.33x14 "Name" #f0c860
-              text 476.08,469.38 4.17x10 "▲" #f0c860
         box 442.75,489.21 719.5x21.07 scrolled 0 of 0
           box 442.75,489.21 719.5x21.07 #00000000 @click
             text 449.42,492.54 706.17x14.4 "a row" #ffffff
@@ -89,14 +91,12 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
         text 442.75,516.27 719.5x14.4 "menu" #ffffff
     box 1162.75,758.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 420,121.38 239x47.75
-    box 420,121.38 114.5x47.75 @click @drag @dragStart @dragStop
-      box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
-        box 438.58,131.62 77.33x37.5
-          text 452.25,142.88 50x15 "Controls" #ffd100
-    box 544.5,121.38 114.5x47.75 @click @drag @dragStart @dragStop
-      box 544.5,125.54 114.5x43.58 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right
-        box 563.08,135.79 77.33x30.08
-          text 589.25,143.33 25x15 "More" #b3a690
+    box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 438.58,131.62 77.33x34.25
+        text 452.25,141.25 50x15 "Controls" #ffd100
+    box 544.5,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 563.08,131.62 77.33x34.25
+        text 589.25,141.25 25x15 "More" #b3a690
 
 key: DOWN → #8 > #2 «Large» (click)
 key: ENTER → #7 «Large» (click)

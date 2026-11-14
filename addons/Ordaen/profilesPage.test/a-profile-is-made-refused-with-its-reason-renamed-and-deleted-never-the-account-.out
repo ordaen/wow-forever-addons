@@ -20,6 +20,7 @@ box 0,0 760x587.67
       box 0,130.67 233.33x15 @enter @leave
         text 0,130.67 233.33x15 "New from defaults" #cbb994
       box 248.33,129 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,129 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,159 760x28.33
       box 0,159 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
         box 0,159 125x28.33 absolute
@@ -42,15 +43,17 @@ box 0,0 760x587.67
       box 0,256.33 233.33x15 @enter @leave
         text 0,256.33 233.33x15 "This character" #cbb994
       box 248.33,254.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,254.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,284.67 760x18.33 opacity=1
       box 0,286.33 233.33x15 @enter @leave
         text 0,286.33 233.33x15 "All characters of this class" #cbb994
       box 248.33,284.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,284.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,314.67 760x18.33 opacity=1
       box 0,316.33 233.33x15 @enter @leave
         text 0,316.33 233.33x15 "Account default" #cbb994
       box 248.33,314.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,314.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4
+        box 248.33,314.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
   box 0,348 760x40.67
     box 0,348 760x15
       text 0,348 118.75x15 "Copy from a profile" #e8c35a
@@ -95,6 +98,7 @@ box 0,0 760x642
       box 0,130.67 233.33x15 @enter @leave
         text 0,130.67 233.33x15 "New from defaults" #cbb994
       box 248.33,129 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,129 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,159 760x28.33
       box 0,159 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
         box 0,159 125x28.33 absolute
@@ -117,14 +121,17 @@ box 0,0 760x642
       box 0,256.33 233.33x15 @enter @leave
         text 0,256.33 233.33x15 "This character" #cbb994
       box 248.33,254.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,254.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,284.67 760x18.33 opacity=1
       box 0,286.33 233.33x15 @enter @leave
         text 0,286.33 233.33x15 "All characters of this class" #cbb994
       box 248.33,284.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,284.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,314.67 760x18.33 opacity=1
       box 0,316.33 233.33x15 @enter @leave
         text 0,316.33 233.33x15 "Account default" #cbb994
       box 248.33,314.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,314.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
   box 0,348 760x95
     box 0,348 760x15
       text 0,348 118.75x15 "Copy from a profile" #e8c35a
@@ -180,6 +187,7 @@ box 0,0 760x642
       box 0,130.67 233.33x15 @enter @leave
         text 0,130.67 233.33x15 "New from defaults" #cbb994
       box 248.33,129 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,129 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,159 760x28.33
       box 0,159 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
         box 0,159 125x28.33 absolute
@@ -202,14 +210,17 @@ box 0,0 760x642
       box 0,256.33 233.33x15 @enter @leave
         text 0,256.33 233.33x15 "This character" #cbb994
       box 248.33,254.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,254.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,284.67 760x18.33 opacity=1
       box 0,286.33 233.33x15 @enter @leave
         text 0,286.33 233.33x15 "All characters of this class" #cbb994
       box 248.33,284.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,284.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,314.67 760x18.33 opacity=1
       box 0,316.33 233.33x15 @enter @leave
         text 0,316.33 233.33x15 "Account default" #cbb994
       box 248.33,314.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,314.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
   box 0,348 760x95
     box 0,348 760x15
       text 0,348 118.75x15 "Copy from a profile" #e8c35a
@@ -265,6 +276,7 @@ box 0,0 760x642
       box 0,130.67 233.33x15 @enter @leave
         text 0,130.67 233.33x15 "New from defaults" #cbb994
       box 248.33,129 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,129 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,159 760x28.33
       box 0,159 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
         box 0,159 125x28.33 absolute
@@ -287,15 +299,17 @@ box 0,0 760x642
       box 0,256.33 233.33x15 @enter @leave
         text 0,256.33 233.33x15 "This character" #cbb994
       box 248.33,254.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,254.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,284.67 760x18.33 opacity=1
       box 0,286.33 233.33x15 @enter @leave
         text 0,286.33 233.33x15 "All characters of this class" #cbb994
       box 248.33,284.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,284.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,314.67 760x18.33 opacity=1
       box 0,316.33 233.33x15 @enter @leave
         text 0,316.33 233.33x15 "Account default" #cbb994
       box 248.33,314.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,314.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4
+        box 248.33,314.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
   box 0,348 760x95
     box 0,348 760x15
       text 0,348 118.75x15 "Copy from a profile" #e8c35a
@@ -351,6 +365,7 @@ box 0,0 760x616.33
       box 0,130.67 233.33x15 @enter @leave
         text 0,130.67 233.33x15 "New from defaults" #cbb994
       box 248.33,129 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,129 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,159 760x28.33
       box 0,159 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
         box 0,159 125x28.33 absolute
@@ -372,14 +387,17 @@ box 0,0 760x616.33
       box 0,230.67 233.33x15 @enter @leave
         text 0,230.67 233.33x15 "This character" #cbb994
       box 248.33,229 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,229 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,259 760x18.33 opacity=1
       box 0,260.67 233.33x15 @enter @leave
         text 0,260.67 233.33x15 "All characters of this class" #cbb994
       box 248.33,259 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,259 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,289 760x18.33 opacity=1
       box 0,290.67 233.33x15 @enter @leave
         text 0,290.67 233.33x15 "Account default" #cbb994
       box 248.33,289 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,289 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
   box 0,322.33 760x95
     box 0,322.33 760x15
       text 0,322.33 118.75x15 "Copy from a profile" #e8c35a
@@ -449,6 +467,7 @@ box 0,0 760x587.67
       box 0,130.67 233.33x15 @enter @leave
         text 0,130.67 233.33x15 "New from defaults" #cbb994
       box 248.33,129 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,129 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,159 760x28.33
       box 0,159 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
         box 0,159 125x28.33 absolute
@@ -471,15 +490,17 @@ box 0,0 760x587.67
       box 0,256.33 233.33x15 @enter @leave
         text 0,256.33 233.33x15 "This character" #cbb994
       box 248.33,254.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,254.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,284.67 760x18.33 opacity=1
       box 0,286.33 233.33x15 @enter @leave
         text 0,286.33 233.33x15 "All characters of this class" #cbb994
       box 248.33,284.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,284.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,314.67 760x18.33 opacity=1
       box 0,316.33 233.33x15 @enter @leave
         text 0,316.33 233.33x15 "Account default" #cbb994
       box 248.33,314.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,314.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4
+        box 248.33,314.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
   box 0,348 760x40.67
     box 0,348 760x15
       text 0,348 118.75x15 "Copy from a profile" #e8c35a

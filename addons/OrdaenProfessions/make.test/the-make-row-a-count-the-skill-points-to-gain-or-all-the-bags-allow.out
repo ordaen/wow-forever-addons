@@ -27,8 +27,10 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 381.92,239.71 67.08x1.67 absolute #d6a56b
             text 393.58,245.54 43.75x15 "Recipes" #ffffff
           box 453.17,238.88 56.25x26.67 #00000000 @click
+            box 454,239.71 54.58x1.67 absolute #00000000
             text 465.67,245.54 31.25x15 "Queue" #a3977f
           box 512.75,238.88 75x26.67 #00000000 @click
+            box 513.58,239.71 73.33x1.67 absolute #00000000
             text 525.25,245.54 50x15 "Overview" #a3977f
       box 381.08,272.21 842.83x473.42
         box 381.08,272.21 441.67x473.42
@@ -78,11 +80,13 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 843.58,668.96 174.75x16.67
               text 843.58,670.29 134.75x14 "Favorite" #e8dcc4
               box 986.67,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+                box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 999.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
             box 1038.33,668.96 174.75x16.67
               text 1038.33,670.29 134.75x14 "Track" #e8dcc4
               box 1181.42,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+                box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 1193.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
           box 843.58,692.29 369.5x35.83
             box 843.58,699.79 141.67x28.33
               box 843.58,699.79 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
@@ -104,14 +108,12 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                 text 1148.5,706.46 37.5x15 "Create" #ffd100
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 142.33x59.42
-    box 358.33,133.88 142.33x59.42 @click @drag @dragStart @dragStop
-      box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
-        box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
-        box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
-        box 425.83,144.12 56.25x49.17
-          text 425.83,155.29 56.25x15 "Tailoring" #ffd100
-          text 437.92,171.12 32.08x11 "31 / 75" #8f8470
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 425.83,144.12 56.25x45.92
+        text 425.83,153.67 56.25x15 "Tailoring" #ffd100
+        text 437.92,169.5 32.08x11 "31 / 75" #8f8470
 
 the mode: skill, the count: 10
 -- «Raise skill» by 10: about 11 makings; «Create» makes the 5 the bags allow
@@ -143,8 +145,10 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 381.92,239.71 67.08x1.67 absolute #d6a56b
             text 393.58,245.54 43.75x15 "Recipes" #ffffff
           box 453.17,238.88 56.25x26.67 #00000000 @click
+            box 454,239.71 54.58x1.67 absolute #00000000
             text 465.67,245.54 31.25x15 "Queue" #a3977f
           box 512.75,238.88 75x26.67 #00000000 @click
+            box 513.58,239.71 73.33x1.67 absolute #00000000
             text 525.25,245.54 50x15 "Overview" #a3977f
       box 381.08,272.21 842.83x473.42
         box 381.08,272.21 441.67x473.42
@@ -194,11 +198,13 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 843.58,668.96 174.75x16.67
               text 843.58,670.29 134.75x14 "Favorite" #e8dcc4
               box 986.67,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+                box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 999.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
             box 1038.33,668.96 174.75x16.67
               text 1038.33,670.29 134.75x14 "Track" #e8dcc4
               box 1181.42,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+                box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 1193.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
           box 843.58,692.29 369.5x35.83
             box 843.58,699.79 141.67x28.33
               box 843.58,699.79 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
@@ -227,14 +233,12 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       text 1166.92,197.96 8.33x20 "☼" #c9a05a
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 142.33x59.42
-    box 358.33,133.88 142.33x59.42 @click @drag @dragStart @dragStop
-      box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
-        box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
-        box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
-        box 425.83,144.12 56.25x49.17
-          text 425.83,155.29 56.25x15 "Tailoring" #ffd100
-          text 437.92,171.12 32.08x11 "31 / 75" #8f8470
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 425.83,144.12 56.25x45.92
+        text 425.83,153.67 56.25x15 "Tailoring" #ffd100
+        text 437.92,169.5 32.08x11 "31 / 75" #8f8470
 asked: TradeSkill.craft 2387 5
 
 -- the bolt by 20 points: it turns grey first, «Create» is disabled
@@ -266,8 +270,10 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 381.92,239.71 67.08x1.67 absolute #d6a56b
             text 393.58,245.54 43.75x15 "Recipes" #ffffff
           box 453.17,238.88 56.25x26.67 #00000000 @click
+            box 454,239.71 54.58x1.67 absolute #00000000
             text 465.67,245.54 31.25x15 "Queue" #a3977f
           box 512.75,238.88 75x26.67 #00000000 @click
+            box 513.58,239.71 73.33x1.67 absolute #00000000
             text 525.25,245.54 50x15 "Overview" #a3977f
       box 381.08,272.21 842.83x473.42
         box 381.08,272.21 441.67x473.42
@@ -317,11 +323,13 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 843.58,661.29 174.75x16.67
               text 843.58,662.63 134.75x14 "Favorite" #e8dcc4
               box 986.67,661.29 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 984.17,658.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+                box 984.17,658.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 999.17,658.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
             box 1038.33,661.29 174.75x16.67
               text 1038.33,662.63 134.75x14 "Track" #e8dcc4
               box 1181.42,661.29 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 1178.92,658.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+                box 1178.92,658.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 1193.92,658.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
           box 843.58,684.63 369.5x43.5
             box 843.58,695.96 141.67x28.33
               box 843.58,695.96 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
@@ -350,14 +358,12 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       text 1166.92,197.96 8.33x20 "☼" #c9a05a
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 142.33x59.42
-    box 358.33,133.88 142.33x59.42 @click @drag @dragStart @dragStop
-      box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
-        box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
-        box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
-        box 425.83,144.12 56.25x49.17
-          text 425.83,155.29 56.25x15 "Tailoring" #ffd100
-          text 437.92,171.12 32.08x11 "31 / 75" #8f8470
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 425.83,144.12 56.25x45.92
+        text 425.83,153.67 56.25x15 "Tailoring" #ffd100
+        text 437.92,169.5 32.08x11 "31 / 75" #8f8470
 
 -- «All»: no count, the 9 the bags allow, made
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
@@ -388,8 +394,10 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 381.92,239.71 67.08x1.67 absolute #d6a56b
             text 393.58,245.54 43.75x15 "Recipes" #ffffff
           box 453.17,238.88 56.25x26.67 #00000000 @click
+            box 454,239.71 54.58x1.67 absolute #00000000
             text 465.67,245.54 31.25x15 "Queue" #a3977f
           box 512.75,238.88 75x26.67 #00000000 @click
+            box 513.58,239.71 73.33x1.67 absolute #00000000
             text 525.25,245.54 50x15 "Overview" #a3977f
       box 381.08,272.21 842.83x473.42
         box 381.08,272.21 441.67x473.42
@@ -439,11 +447,13 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 843.58,668.96 174.75x16.67
               text 843.58,670.29 134.75x14 "Favorite" #e8dcc4
               box 986.67,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+                box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 999.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
             box 1038.33,668.96 174.75x16.67
               text 1038.33,670.29 134.75x14 "Track" #e8dcc4
               box 1181.42,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2
+                box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 1193.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
           box 843.58,692.29 369.5x35.83
             box 843.58,699.79 141.67x28.33
               box 843.58,699.79 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
@@ -464,12 +474,10 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
       text 1166.92,197.96 8.33x20 "☼" #c9a05a
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 142.33x59.42
-    box 358.33,133.88 142.33x59.42 @click @drag @dragStart @dragStop
-      box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
-        box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-        box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
-        box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
-        box 425.83,144.12 56.25x49.17
-          text 425.83,155.29 56.25x15 "Tailoring" #ffd100
-          text 437.92,171.12 32.08x11 "31 / 75" #8f8470
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 425.83,144.12 56.25x45.92
+        text 425.83,153.67 56.25x15 "Tailoring" #ffd100
+        text 437.92,169.5 32.08x11 "31 / 75" #8f8470
 asked: TradeSkill.craft 2963 9

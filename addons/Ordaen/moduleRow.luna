@@ -4,6 +4,7 @@ import root Ordaen from "Ordaen"
 import { Component, Entry, Module, SettingsPage } from "@/module"
 import Runtime from "$runtime"
 import { ListTab } from "@/listTab"
+import { knobShown } from "@/switch"
 import { PX } from "@/units"
 
 const WIDTH = 38 * PX
@@ -47,8 +48,8 @@ public class ModuleEntry implements Entry {
 // A module's on and off: Left-click turns it on (it is made and drawn at once) or off (it is ended at once).
 public class ModuleSwitch implements Component {
   derived track: Art = self.entry.on ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff
-  derived knob: Art = self.entry.on ? Ordaen.art.ctl.knobOn : Ordaen.art.ctl.knobOff
-  derived knobLeft: Number = self.entry.on ? KNOB_ON : KNOB_OFF
+  derived onOpacity: Number = knobShown(self.entry.on)
+  derived offOpacity: Number = knobShown(!self.entry.on)
 
   entry: any Entry
   constructor(entry: any Entry) {
@@ -60,8 +61,10 @@ public class ModuleSwitch implements Component {
   public render(self): Template {
     return $ltml {
       <box width={WIDTH} height={HEIGHT} background={self.track} @click={self.flip}>
-        <box position={Position.Absolute} left={self.knobLeft} top={KNOB_TOP} width={KNOB} height={KNOB}
-             background={self.knob} />
+        <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={KNOB} height={KNOB}
+             background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />
+        <box position={Position.Absolute} left={KNOB_ON} top={KNOB_TOP} width={KNOB} height={KNOB}
+             background={Ordaen.art.ctl.knobOn} opacity={self.onOpacity} />
       </box>
     }
   }

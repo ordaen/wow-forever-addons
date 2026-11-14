@@ -1,7 +1,11 @@
-// A component's box is the same whatever state it is in: under the cursor, pressed, clicked, and each state its
-// owner sets (a tab picked or open, a box checked, a switch on, a row selected or open, an entry off, a button or a
-// strip disabled). A state changes how a box looks, never its size or its place: the frame that takes the
-// component's clicks is measured in each, as the client places it, and stands where it stood at first.
+// A component draws the same whatever state it is in but for its colours: under the cursor, clicked, and each state
+// its owner sets (a tab picked or open, a box checked, a switch on, a row selected or open, an entry off, a button or
+// a strip disabled). Everything the page draws is compared with the first state: every frame and region with its
+// place, size, level and text, every text's font (file, size, flags, justification, spacing), every texture's file
+// and how much of it is drawn; only colours (a texture's colour and vertex colour, a text's colour, opacity) and
+// which part of the same size an art's row shows (its glow, its pushed row) may differ. Pressed, the content may move
+// (a push button's label goes down as its art's pushed row does): there the frame that takes the click is measured
+// alone.
 import Client from "$client"
 import { Art, Track } from "$ltml"
 import Test from "$test"
@@ -40,30 +44,133 @@ function rectOf(frame: any Client.Frame): String {
   return `${String.of(frame.GetLeft())}, ${String.of(frame.GetTop())} to ${String.of(frame.GetRight())}, ${String.of(frame.GetBottom())}`
 }
 
+// The frame the page or the surface is drawn in: the outermost under the screen's own that holds `frame` on its
+// strata.
+function pageOf(frame: any Client.Frame): any Client.Frame {
+  const screen = Client.C_UI.GetUIParent()
+  let at = frame
+  for (hop of 1..=Number.huge) {
+    const up = at.GetParent()
+    if (up == nil || up == screen || up.GetFrameStrata() != frame.GetFrameStrata()) { break }
+    at = up
+  }
+  return at
+}
+
+// The regions and the frames the client hands one after another, as lists.
+function regionsOf(...given: any Client.Region): Array<any Client.Region> {
+  let list: Array<any Client.Region> = []
+  for (index of 1..=given.length) {
+    const region = given[index]
+    if (region != nil) { list.push(region) }
+  }
+  return list
+}
+function framesOf(...given: any Client.Frame): Array<any Client.Frame> {
+  let list: Array<any Client.Frame> = []
+  for (index of 1..=given.length) {
+    const frame = given[index]
+    if (frame != nil) { list.push(frame) }
+  }
+  return list
+}
+
+// Each text's font in a frame and what is in it, a line each.
+function fontsOf(frame: any Client.Frame, out: mut Array<String>) {
+  for (region of regionsOf(...frame.GetRegions())) {
+    if (region is Client.FontString && region.IsShown()) {
+      let file, size, flags = region.GetFont()
+      out.push(`font ${String.of(file)} ${String.of(size)} ${String.of(flags)} ${String.of(region.GetJustifyH())} ${String.of(region.GetSpacing())}`)
+    }
+  }
+  for (child of framesOf(...frame.GetChildren())) {
+    if (child.IsShown() && child.GetFrameStrata() == frame.GetFrameStrata()) { fontsOf(child, mut out) }
+  }
+}
+
+// What the page draws, a line each, its colours left out: its frames and regions as the client describes them, its
+// texts' fonts, and (with `crops`) each texture's file with the size of the part of it drawn. A popup it opens (a
+// tip under the cursor, on a strata of its own) is no part of its look.
+function drawnBut(page: any Client.Frame, crops: Boolean): Array<String> {
+  Test.flush()
+  let lines: Array<String> = []
+  // A texture over another of the same place and size is a light on it (an art's glow, its pushed row): one line.
+  let laid: Map<String, Boolean> = {}
+  // The indent of a popup's frame while its lines are passed over.
+  let popup: Integer | nil = nil
+  for (line of Test.dump(page).split("\n")) {
+    let start, _ = line.find("[^ ]")
+    const depth = (start ?? 1) - 1
+    if (popup != nil && depth > popup) { continue }
+    popup = nil
+    if (depth > 0 && line.contains(" strata=")) {
+      popup = depth
+      continue
+    }
+    const plain = line.replace(" color=[^ ]+", "").replace(" vertex=[^ ]+", "").replace(" alpha=[^ ]+", "")
+    let indent, place = plain.match("^(%s*)Texture .-(%-?[%d%.]+,%-?[%d%.]+ [%d%.]+x[%d%.]+)")
+    if (indent == nil || place == nil) {
+      lines.push(plain)
+    } else if (laid[indent + place] != true) {
+      laid[indent + place] = true
+      lines.push(`${indent}Texture ${place}`)
+    }
+  }
+  fontsOf(page, mut lines)
+  if (!crops) { return lines }
+  // Each file drawn and the size of the part of it drawn, once.
+  let parts: Array<String> = []
+  let named: Map<String, Boolean> = {}
+  for (part of Test.drawn()) {
+    const line = `texture ${String.of(part.file)} ${String.of(part.right - part.left)} x ${String.of(part.bottom - part.top)}`
+    if (named[line] != true) {
+      named[line] = true
+      parts.push(line)
+    }
+  }
+  parts.sort((a, b) => a < b)
+  for (part of parts) { lines.push(part) }
+  return lines
+}
+
+// What the page draws is what it drew at first, or the test stops and says the first line that isn't.
+function same(page: any Client.Frame, first: Array<String>, state: String, crops: Boolean) {
+  const now = drawnBut(page, crops)
+  for (index of 1..=first.length.max(now.length)) {
+    const was = first[index] ?? "(nothing)"
+    const seen = now[index] ?? "(nothing)"
+    if (was != seen) { panic(`${state}, line ${index} of what is drawn differs but for its colours:\n  at first: ${was}\n  now:      ${seen}`) }
+  }
+}
+
 // The frame stands as it stood at first, or the test stops and says in which state it doesn't.
-function same(frame: any Client.Frame, first: String, state: String) {
+function sameBox(frame: any Client.Frame, first: String, state: String) {
   const now = rectOf(frame)
   if (now != first) { panic(`the box stood at ${first} at first, at ${now} ${state}`) }
 }
 
-// The frame that takes the mouse at `at`, in each state: away from the cursor, under it, pressed and let go there (a
-// click), and again after each of `steps` (each sets a state the owner holds).
+// The component that takes the mouse at `at`, in each state: away from the cursor, under it, pressed and let go
+// there (a click), and again after each of `steps` (each sets a state the owner holds).
 function holdsItsBox(at: Test.Point, steps: Array<() => nil>) {
   const frame = frameAt(at)
+  const page = pageOf(frame)
   Test.moveTo(AWAY)
-  const first = rectOf(frame)
+  const box = rectOf(frame)
+  // Away from the cursor the textures' crops are compared too; under it a light is an art's other row.
+  const away = drawnBut(page, true)
+  const first = drawnBut(page, false)
   for (index of 0..=steps.length) {
     const step = steps[index]
     if (step != nil) { step() }
     const state = index == 0 ? "as drawn" : `after step ${index}`
     Test.moveTo(AWAY)
-    same(frame, first, state + ", away from the cursor")
+    same(page, away, state + ", away from the cursor", true)
     Test.moveTo(at)
-    same(frame, first, state + ", under the cursor")
+    same(page, first, state + ", under the cursor", false)
     Test.press(nil)
-    same(frame, first, state + ", pressed")
+    sameBox(frame, box, state + ", pressed")
     Test.release(nil)
-    same(frame, first, state + ", clicked")
+    same(page, first, state + ", clicked", false)
   }
   Test.moveTo(AWAY)
 }

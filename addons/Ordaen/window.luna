@@ -4,7 +4,7 @@
 // resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
 // the window: full screen (and back) and close, and left of them a settings button where the window is made
 // `withSettings` (its `settings` event). Its unnamed slot takes the body's content, which fills the body.
-import { Align, Art, Drag, Edges, Layer, Line, Metal, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
+import { Align, Art, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
@@ -28,8 +28,6 @@ public struct Placing {
 // The tab row above the body: taller when a tab has a second line.
 const TAB = 36 * PX
 const TAB_DESC = 50 * PX
-// A closed tab stands this much lower.
-const DROP = 5 * PX
 const TITLE_OPEN: Color = Color.hex("#ffd100")
 const TITLE_CLOSED: Color = Color.hex("#b3a690")
 const DESC: Color = Color.hex("#8f8470")
@@ -64,12 +62,11 @@ const BODY_ROWS: Array<Track> = [{ fr: 1 }]
 // The smallest body unless the window names one: room for the tab row and a few lines.
 const MIN_W = 320 * PX
 const MIN_H = 200 * PX
-// Over one another: the closed tabs, the body, the open tab.
+// The body stands over the tabs' feet.
 const BODY_LEVEL = 5
-const OPEN_LEVEL = 10
 
-// One of a window's tabs, framed with the body's own metal, its top corners rounded. The open one stands over the
-// body, its sides curving out into the body's top line; a closed one stands lower, behind the body, darker.
+// One of a window's tabs, framed with the body's own metal, its top corners rounded, its foot behind the body's top
+// line. Open or closed, a tab is drawn the same but for its colours: a closed one darker, its title dim.
 public class WindowTab implements Component {
   public grab: Event<nil> = new Event()
   public move: Event<Drag> = new Event()
@@ -79,16 +76,14 @@ public class WindowTab implements Component {
   public picked: Event<Integer> = new Event()
 
   derived open: Boolean = self.selected == self.index
-  derived frame: Metal = !self.open ? Ordaen.art.frame.tab : self.index > 1 ? Ordaen.art.frame.tabOpen : Ordaen.art.frame.tabOpenFirst
-  // The frame's measures at its scale: its art above its line, its flare, where its line starts.
+  // The frame's measures at its scale: its art above its line, how far its foot stands behind the body's line,
+  // where its line starts.
   derived reachTop: Number = Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale
   derived flare: Number = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale
   derived lineStart: Number = Ordaen.art.frame.tab.lineStart * Ordaen.art.frame.tab.scale
-  // The tab's height with its frame's art, and the height it is given: a framed box grows by its art's reach.
-  derived whole: Number = self.open ? self.height : self.height - DROP
-  derived given: Number = self.whole - self.reachTop
-  derived lower: Edges = { top: self.open ? 0 : DROP }
-  derived level: Integer = self.open ? OPEN_LEVEL : 0
+  // The height the tab is given: a framed box grows by its art's reach.
+  derived given: Number = self.height - self.reachTop
+  // Open or closed only its colours differ: its wood and picture lighter, its title gold.
   derived tint: Color = self.open ? WHITE : SHADE
   derived titleColor: Color = self.open ? TITLE_OPEN : TITLE_CLOSED
   derived hasIcon: Boolean = self.tab.icon != nil
@@ -97,21 +92,11 @@ public class WindowTab implements Component {
   derived desc: String = self.tab.desc ?? ""
 
   // The picture is a square at the tab's left end, as tall as what shows of the tab: from the tab's own line
-  // down to the body's line, which a closed tab stands behind. Everything here
-  // is measured from the tab's line, where what a framed box places by offsets starts. Its line stands at its
-  // right, and on the open tab curves out at the bottom into the body's top line, which runs on under the
-  // picture.
-  derived side: Number = self.whole - self.flare
-  derived underReach: Number = Ordaen.art.frame.tabIconUnder.reach.top * Ordaen.art.frame.tabIconUnder.scale
-  // The open tab's picture ends under the line that runs under it.
-  derived pictureHeight: Number = self.open ? self.side + Ordaen.art.frame.tabIconUnder.width * Ordaen.art.frame.tabIconUnder.scale : self.side
-  derived iconLine: Metal = self.open ? Ordaen.art.frame.tabIconLineOpen : Ordaen.art.frame.tabIconLine
+  // down to the body's line, which the tab stands behind. Everything here is measured from the tab's line, where
+  // what a framed box places by offsets starts. Its line stands at its right.
+  derived side: Number = self.height - self.flare
   derived lineLeft: Number = self.side - self.lineStart
   derived lineWidth: Number = self.flare - Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale + 1
-  // The line under the open tab's picture: on the body's line, which is `side` below the tab's.
-  derived underTop: Number = self.side - self.underReach
-  derived underWidth: Number = self.side - self.lineStart
-  derived underHeight: Number = self.flare - self.underReach
   // The label's room: past the picture's line where there is a picture.
   derived padding: Edges = self.paddingOf()
 
@@ -123,7 +108,7 @@ public class WindowTab implements Component {
     tab: Signal<WindowTabSpec>,
     index: Integer,
     selected: mut Signal<Integer>,
-    // The open tab's height: from the window's top to the inner side of the body's top line.
+    // The tab's height: from the window's top to the inner side of the body's top line.
     height: Signal<Number>,
   ) {
     self.tab = tab
@@ -132,18 +117,16 @@ public class WindowTab implements Component {
     self.height = height
   }
 
-  // A closed tab's foot stands behind the body's line: its label keeps to what shows of it. Its picture is shorter
-  // by the drop, and its label starts that much further left: the drop is given back at the right, so the tab is
-  // as wide closed as open.
+  // The tab's foot stands behind the body's line: its label keeps to what shows of it.
   paddingOf(self): Edges {
-    let foot = self.open ? 0 : self.flare - self.reachTop
+    let foot = self.flare - self.reachTop
     if (!self.hasIcon) { return { left: LABEL_PAD, right: LABEL_PAD, bottom: foot } }
     let line = Ordaen.art.frame.tabIconLine
     let frame = Ordaen.art.frame.tab
     let lineEnd = line.width + line.reach.left * line.scale
     let frameEnd = frame.width + frame.reach.left * frame.scale
     let left = self.side + lineEnd - frameEnd + LABEL_PAD
-    return { left: left, right: self.open ? LABEL_PAD : LABEL_PAD + DROP, bottom: foot }
+    return { left: left, right: LABEL_PAD, bottom: foot }
   }
 
   pick(mut self) {
@@ -156,26 +139,20 @@ public class WindowTab implements Component {
 
   public render(self): Template {
     return $ltml {
-      // The tab's box, as high as the open tab's whether it is open or not: a closed tab's frame stands the drop
-      // lower in it.
-      <box height={self.height} padding={self.lower} zLevel={self.level} @click={self.pick}
+      <box minWidth={MIN_TAB} height={self.given} border={Ordaen.art.frame.tab} background={Ordaen.art.window.wood}
+           tint={self.tint} padding={self.padding} rows={BODY_ROWS} @click={self.pick}
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
-        <box minWidth={MIN_TAB} height={self.given} border={self.frame} background={Ordaen.art.window.wood}
-             tint={self.tint} padding={self.padding} rows={BODY_ROWS}>
-          <$if={self.hasIcon}>
-            <box position={Position.Absolute} left={0} top={0} width={self.side} height={self.pictureHeight}
-                 icon={self.icon} tint={self.tint} border={Ordaen.art.frame.tabIconClip} />
-            <box $if={self.open} position={Position.Absolute} left={0} top={self.underTop} width={self.underWidth}
-                 height={self.underHeight} border={Ordaen.art.frame.tabIconUnder} />
-            <box position={Position.Absolute} left={self.lineLeft} top={0} width={self.lineWidth}
-                 height={self.given} border={self.iconLine} />
-          </>
-          <box xAlign={Align.Center} yAlign={Align.Center} gap={1 * PX}>
-            <text value={self.tab.title} textSize={15 * PX} wrap={false} textColor={self.titleColor}
-                  textShadow={SHADOW} />
-            <text $if={self.hasDesc} value={self.desc} textSize={11 * PX} wrap={false} textColor={DESC}
-                  textShadow={SHADOW} />
-          </box>
+        <$if={self.hasIcon}>
+          <box position={Position.Absolute} left={0} top={0} width={self.side} height={self.side}
+               icon={self.icon} tint={self.tint} border={Ordaen.art.frame.tabIconClip} />
+          <box position={Position.Absolute} left={self.lineLeft} top={0} width={self.lineWidth}
+               height={self.given} border={Ordaen.art.frame.tabIconLine} />
+        </>
+        <box xAlign={Align.Center} yAlign={Align.Center} gap={1 * PX}>
+          <text value={self.tab.title} textSize={15 * PX} wrap={false} textColor={self.titleColor}
+                textShadow={SHADOW} />
+          <text $if={self.hasDesc} value={self.desc} textSize={11 * PX} wrap={false} textColor={DESC}
+                textShadow={SHADOW} />
         </box>
       </box>
     }
@@ -201,9 +178,9 @@ public class Window implements Component {
 
   // The tab row's height: the design's, from a tab's own line down to the body, and the tab's art above its line.
   derived tabHeight: Number = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale
-  // The body's top line, inside its box, as far as the open tab's curves into it reach.
-  derived lineTop: Number = Ordaen.art.frame.tabOpen.curves.flare * Ordaen.art.frame.tabOpen.scale
-  derived openTab: Number = self.tabHeight + self.lineTop
+  // A tab's height: down to the inner side of the body's top line, which stands over its foot.
+  derived lineTop: Number = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale
+  derived tabWhole: Number = self.tabHeight + self.lineTop
   derived columns: Array<Track> = self.tabColumns()
   derived place: Place = self.placeOf()
   derived width: Number | nil = self.full ? nil : self.placing.width
@@ -351,7 +328,7 @@ public class Window implements Component {
         </box>
         <box columns={self.columns} gap={12 * PX} yAlign={Align.End}>
           <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={mut self.selected}
-                     height={self.openTab} @grab={self.onGrab} @move={self.onMove} @picked={self.onPicked} />
+                     height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @picked={self.onPicked} />
         </box>
       </surface>
     }

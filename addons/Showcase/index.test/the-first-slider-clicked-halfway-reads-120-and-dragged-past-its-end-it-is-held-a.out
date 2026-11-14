@@ -6,8 +6,10 @@ box 0,0 700x231.4 @enter @leave
       box 0.83,0.83 42.08x1.67 absolute #d6a56b
       text 12.5,6.67 18.75x15 "Map" #ffffff
     box 47.08,0 62.5x26.67 #00000000 @click
+      box 47.92,0.83 60.83x1.67 absolute #00000000
       text 59.58,6.67 37.5x15 "Drawer" #a3977f
     box 112.92,0 62.5x26.67 #00000000 @click
+      box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x101.67
     box 0,34.67 700x101.67
@@ -18,7 +20,7 @@ box 0,0 700x231.4 @enter @leave
         box 0,63 233.33x15 @enter @leave
           text 0,63 233.33x15 "Show the zone" #cbb994
         box 248.33,61.33 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-          box 248.33,61.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4
+          box 248.33,61.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 0,91.33 700x16.67 opacity=1
         box 0,92.17 233.33x15 @enter @leave
           text 0,92.17 233.33x15 "Size" #cbb994
@@ -53,8 +55,10 @@ box 0,0 700x231.4 @enter @leave
       box 0.83,0.83 42.08x1.67 absolute #d6a56b
       text 12.5,6.67 18.75x15 "Map" #ffffff
     box 47.08,0 62.5x26.67 #00000000 @click
+      box 47.92,0.83 60.83x1.67 absolute #00000000
       text 59.58,6.67 37.5x15 "Drawer" #a3977f
     box 112.92,0 62.5x26.67 #00000000 @click
+      box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
   box 0,34.67 700x101.67
     box 0,34.67 700x101.67
@@ -65,7 +69,7 @@ box 0,0 700x231.4 @enter @leave
         box 0,63 233.33x15 @enter @leave
           text 0,63 233.33x15 "Show the zone" #cbb994
         box 248.33,61.33 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-          box 248.33,61.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4
+          box 248.33,61.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 0,91.33 700x16.67 opacity=1
         box 0,92.17 233.33x15 @enter @leave
           text 0,92.17 233.33x15 "Size" #cbb994

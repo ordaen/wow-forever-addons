@@ -25,6 +25,8 @@ public class Tab implements Component {
   derived background: Color | Stated<Color> = self.picked ? PICKED : SHADE
   derived border: Line = self.picked ? OUTLINE : NO_OUTLINE
   derived color: Color | Stated<Color> = self.picked ? WHITE : NAME
+  // The light along the top: there on every tab, clear on the others, so only colours tell the picked one.
+  derived light: Color = self.picked ? LIGHT : CLEAR
 
   label: Signal<String>
   const index: Integer
@@ -44,8 +46,8 @@ public class Tab implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={PADDING} background={self.background} border={self.border} @click={self.pick}>
-        <box $if={self.picked} position={Position.Absolute} left={1 * PX} right={1 * PX} top={1 * PX}
-             height={2 * PX} background={LIGHT} />
+        <box position={Position.Absolute} left={1 * PX} right={1 * PX} top={1 * PX} height={2 * PX}
+             background={self.light} />
         <text value={self.label} textColor={self.color} textSize={TEXT} stateFromParent={true} wrap={false} />
       </box>
     }
