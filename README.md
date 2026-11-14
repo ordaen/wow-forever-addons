@@ -109,8 +109,7 @@ chore(repo): the suite's script
 ### Releases
 
 CI (`.github/workflows/ci.yml`) runs the `lunatype` suite over the addons on every push and pull request. Packaging
-and the release aren't built for the LunaType addons: the Lua addons' are `_old/lua/workflows/release.yml` and
-`_old/lua/scripts/package.sh`, and `release-please-config.json` names their folders.
+and the release aren't built for the LunaType addons; `release-please-config.json` still names the folders of the old Lua addons.
 
 ### Adding a module
 
@@ -120,10 +119,6 @@ and the release aren't built for the LunaType addons: the Lua addons' are `_old/
    `Ordaen::register(folder, title, icon, () => new? Class())`.
 3. Add the addon to the dropdown in `.github/ISSUE_TEMPLATE/bug_report.yml`.
 4. With `npm run dev` running: `/reload`.
-
-### The previous code
-
-`_old/lua/` holds the Lua addons these replace, with their tests, scripts and workflows.
 
 ## Repository secrets
 

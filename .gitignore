@@ -8,7 +8,6 @@ art/out/
 __pycache__/
 
 # the previous code, kept locally for reference while the framework is rebuilt (design site: development/framework)
-_old/
 
 # the Ordaen Dev window: a private module (wow-dev-tools/modules/OrdaenDev), linked here so the build builds it
 addons/OrdaenDev

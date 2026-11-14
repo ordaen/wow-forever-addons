@@ -134,7 +134,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - Repo: public GitHub repo `ordaen/wow-forever-addons` (org; user is admin). The org forbids GITHUB_TOKEN from opening PRs, so release-please uses an org GitHub App token (`vars.RELEASE_APP_CLIENT_ID`, `secrets.RELEASE_APP_PRIVATE_KEY`). Default branch `main`, squash-merge only, PR title = commit message.
 - **Commits:** the skill `commit` (type, scope = an addon's folder name or a repo scope, header at most 100
   characters, signed, pushed). Commit identity (global git config): `David Iunevich <1751835+f3oall@users.noreply.github.com>`, GitHub user `f3oall`; commits are SSH-signed with `~/.ssh/id_ed25519`, and those GitHub creates (squash merges, release-please via the App, Dependabot) are signed by GitHub.
-- `main` ruleset: PR-only, squash-only, linear history, required checks `Conventional commits`, `Lint & test (Lua)`, `Package (dry run)`; repo admins may bypass only when merging a PR. CI (`.github/workflows/ci.yml`) has `Conventional commits` and `Check & test (LunaType)`: the lunatype suite, with the `lunatype` and `wow-dev-tools` checkouts beside this one (the org App reads them). The ruleset's two Lua checks are the retired workflows' (`_old/lua/workflows/`): the ruleset is to name the new check when `main` is next used.
+- `main` ruleset: PR-only, squash-only, linear history, required checks `Conventional commits`, `Lint & test (Lua)`, `Package (dry run)`; repo admins may bypass only when merging a PR. CI (`.github/workflows/ci.yml`) has `Conventional commits` and `Check & test (LunaType)`: the lunatype suite, with the `lunatype` and `wow-dev-tools` checkouts beside this one (the org App reads them). The ruleset's two Lua checks are retired workflows': the ruleset is to name the new check when `main` is next used.
 - **Branches (`develop` is pushed to `origin` after each finished change; no PR or merge into `main` until the user says so):**
   - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
   - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
@@ -168,7 +168,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
   when a merchant opens is ours and approved.
 - **What the client has** is what its API dump says (see "Forever API dump"): the game's side in `lunatype` is typed against it, so a name the dump doesn't have is a finding. For things a dump can't see, confirm by a Forever-specific addon using it (`*Camelot*`/`Forever*` files) or a `/dump` in game.
 - Dev environment is Windows. The suite runs the compiled Lua in the compiler's own Lua 5.1 (`lunatype lua`; `zig build -Dlua=<command>` names another): nothing is installed for it.
-- Packaging isn't built (the Lua addons' is `_old/lua/scripts/package.sh`, BigWigs packager; interface `16???` is the `forever` flavor, CurseForge game id 88568).
+- Packaging isn't built (interface `16???` is the `forever` flavor, CurseForge game id 88568).
 
 ## Layout
 
@@ -187,8 +187,6 @@ addons/Showcase/                a page of the library's controls and a windowed 
                                 as the dev addon's, so a release build leaves it out
 art/                            how every texture of addons/ came to be and the steps that make it again: pieces,
                                 ComfyUI sets and workflows, sources (README.md; skill `art`)
-_old/lua/                       the Lua addons these replace, with their tests
-_old/addons, _old/docs, ...     the code before those
 addon-categories.json           the in-game AddOn List categories (Warcraft Wiki list, every translation)
 api/forever/<version>-<build>/  the Forever API per client version, as the Lua tooling read it
 .github/ISSUE_TEMPLATE/         bug report form the in-game error report links to
@@ -252,7 +250,7 @@ The sources in `addons/` are built into a folder the game, the tests and a relea
 - `lunatype fmt addons [--check]`: every file the one way it is written.
 - `lunatype test addons [name]`: the tests written beside the code (`*.test.luna`).
 
-Not built: packaging and release (the Lua addons' are `_old/lua/workflows/release.yml`), an addon's manifest (its
+Not built: packaging and release an addon's manifest (its
 title, icon, notes and category in the TOC; a module's title and icon are written where the app registers it).
 
 ## Localization
@@ -262,7 +260,7 @@ title, icon, notes and category in the TOC; a module's title and icon are writte
 - **Writing player-facing text:** the skills `text-en` and `text-ru` (`.claude/skills/`), for every
   string in a locale file, a TOC, popups and CurseForge pages. In short: no fluff, clear instructions, the
   game's own words; mouse buttons are `Left-click`/`Right-click` in English and `ЛКМ`/`ПКМ` in Russian.
-  `_old/tests/repo/locale_text_spec.lua` holds the check for the wording the rules forbid; nothing runs it.
+  Nothing checks the wording the rules forbid.
 - Per addon: `locales/<code>.json` (`{ "KEY": "text" }`, keys UPPER_SNAKE_CASE), one file per language. The build
   writes them as one Lua file, of which the client's language (English where it has none) is the module. A key
   that isn't in the English file is a finding where it is read. Add a key to every `locales/*.json` together.
@@ -278,8 +276,6 @@ shows follows cells; a module is a component with a title and its settings pages
 pages (`development/framework`) say what Ordaen adds to it, and which parts of its design aren't built.
 
 - **A module's folder** is `addons/Ordaen<Name>/`: `index.luna` gives its root, `locales/`, `assets/`.
-- **The previous code** is `_old/`: the Lua addons with their framework in `_old/lua/`, the code before them beside
-  it.
 
 ## Ordaen Core and debugging
 

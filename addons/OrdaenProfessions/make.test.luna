@@ -1,6 +1,6 @@
 // Making a recipe: the make row's three ways of saying how many (a count, the skill points to gain, all the bags
 // allow) and what «Create» asks of the game. The recipes are Tailoring's own, by their numbers, so the client's table
-// of where each turns yellow and grey (`levels.lua`) answers for them.
+// of where each turns yellow and grey (`levels.luna`) answers for them.
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"

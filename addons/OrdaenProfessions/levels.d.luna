@@ -1,5 +1,0 @@
-// The skill at which each recipe turns yellow and grey, from the client's own SkillLineAbility table (`levels.lua`,
-// written by `lunatype generate levels`, never by hand): the game's recipe API says only the colour a recipe has now.
-
-// A profession's skill line to its recipes, `spell,yellow,grey` each and `;` between them.
-public lines: Map<Integer, String>
