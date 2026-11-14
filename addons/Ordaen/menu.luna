@@ -11,8 +11,7 @@ import { SWITCH_KNOB, KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_WIDTH }
 
 // One line of a menu.
 public struct MenuEntry {
-  // What the player reads. It names the line while the menu stands, so no two lines have one label: a line whose
-  // switch flips is the same line, kept as it is.
+  // What the player reads.
   label: String
   // A switch at the right showing this state; none: a plain entry.
   on: Boolean | nil
@@ -84,6 +83,7 @@ public class Menu implements Component {
   // A click outside the menu.
   public close: Event<nil> = new Event()
 
+  // The lines, each kept by its place: a line follows the entry at its place, so a switch flipped is the same line.
   entries: Signal<Array<MenuEntry>>
   constructor(entries: Signal<Array<MenuEntry>>) {
     self.entries = entries
@@ -96,7 +96,7 @@ public class Menu implements Component {
     return $ltml {
       <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
                border={EDGE} padding={PAD} columns={1} @clickOutside={self.onOutside}>
-        <MenuItem $for={index, entry of self.entries} $key={entry.label} entry={entry} index={index}
+        <MenuItem $for={index, entry of self.entries} $key={index} entry={entry} index={index}
                   @pick={self.onPick} />
       </surface>
     }
