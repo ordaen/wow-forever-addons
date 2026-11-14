@@ -4,7 +4,7 @@
 // resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
 // the window: full screen (and back) and close, and left of them a settings button where the window is made
 // `withSettings` (its `settings` event). Its unnamed slot takes the body's content, which fills the body.
-import { Align, Art, Drag, Edges, Layer, Metal, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
+import { Align, Art, Drag, Edges, Layer, Line, Metal, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
@@ -203,6 +203,8 @@ public class Window implements Component {
   derived sized: Boolean = !self.full
   derived fullArt: Art = self.full ? Ordaen.art.ctl.cornerContract : Ordaen.art.ctl.cornerExpand
   derived grip: Stated<Art> = self.gripOf()
+  // The ring round the control the keyboard has focused: the look's accent.
+  derived focusLine: Line = { width: 1 * PX, color: Ordaen.look.values.accent, sides: nil }
 
   tabs: Signal<Array<WindowTabSpec>>
   selected: mut Signal<Integer>
@@ -212,6 +214,7 @@ public class Window implements Component {
   const maxWidth: Number | nil
   const maxHeight: Number | nil
   const withSettings: Boolean
+  shown: Signal<Boolean>
   constructor(
     tabs: Signal<Array<WindowTabSpec>>,
     selected: mut Signal<Integer>,
@@ -222,8 +225,12 @@ public class Window implements Component {
     maxHeight: Number | nil = nil,
     // A settings button in the corner, left of full screen and close.
     withSettings: Boolean = false,
+    // Hidden, it stays drawn: a window opened often is shown again at the cost of a surface shown, not of being
+    // drawn anew (`$if` on it builds it at each open).
+    shown: Signal<Boolean> = true,
   ) {
     self.withSettings = withSettings
+    self.shown = shown
     self.tabs = tabs
     self.selected = selected
     self.placing = placing
@@ -298,8 +305,9 @@ public class Window implements Component {
     return $ltml {
       // As wide as the player made it, and never narrower than its tabs: the tab row is the one thing in its
       // grid, and the width it keeps is its least.
-      <surface layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
-               raise={true} xAlign={Align.Start} textFamily={Ordaen.lookArt.font} @escape={self.onClose}>
+      <surface shown={self.shown} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
+               raise={true} xAlign={Align.Start} textFamily={Ordaen.lookArt.font} focusLine={self.focusLine}
+               @escape={self.onClose}>
         <box position={Position.Absolute} left={0} right={0} top={0} height={self.tabHeight}
              @dragStart={self.onGrab} @drag={self.onMove} />
         <box position={Position.Absolute} left={0} right={0} top={self.tabHeight} bottom={0}

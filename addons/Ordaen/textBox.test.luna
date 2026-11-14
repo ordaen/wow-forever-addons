@@ -1,5 +1,6 @@
 // The library's TextBox: many lines, all its text selected each time it is shown and each time its text is written
 // while it shows; what is typed or pasted takes the place of the selection.
+import { Key } from "$ltml"
 import Test from "$test"
 import { TextBox } from "@/textBox"
 
@@ -24,19 +25,19 @@ test "a text box takes the keyboard with all its text selected when shown, and i
   Test.type("pasted")
   Test.flush()
   Test.expect(page.text == "pasted")
-  Test.key(.Enter)
+  Test.key(Key.Enter)
   Test.type("more")
   Test.flush()
   Test.expect(page.text == "pasted\nmore")
   Test.shot("pasted over the selection, then Enter and more: two lines, the keyboard kept")
 
-  Test.key(.Escape)
+  Test.key(Key.Escape)
   page.open = false
   Test.flush()
   page.open = true
   Test.shot("hidden and shown again: the keyboard taken, all selected")
 
-  Test.key(.Escape)
+  Test.key(Key.Escape)
   page.text = "Ordaen:1:look\nscale=90"
   Test.shot("its text written while it shows: all of the new text selected")
 

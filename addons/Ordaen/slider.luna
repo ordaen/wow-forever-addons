@@ -1,7 +1,7 @@
 // Slider: a number setting's row (SettingRow) between its least and its most. A dark groove, the bronze fill up to the value, a bronze
 // knob; the value beside it in its unit (70%, 48 px, 3). A click or a drag anywhere along it sets the value, in its
 // steps. Disabled, it takes no input.
-import { Align, Click, Drag, Position, Shadow } from "$ltml"
+import { Align, Click, Drag, Key, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
@@ -19,6 +19,8 @@ const KNOB_W = 16 * PX
 const KNOB_H = 32 * PX
 const KNOB_SHADOW: Shadow = { color: Color.hex("#0000008c"), x: 0, y: 2 * PX, size: 3 * PX }
 const WHITE: Color = Color.hex("#ffffff")
+// The keys the slider takes while focused: a step down or up, the least or the most.
+const KEYS: Array<Key> = [Key.Left, Key.Right, Key.Home, Key.End]
 
 public class Slider implements Component {
   // Where the value sits along the range, from 0 to 1.
@@ -76,11 +78,28 @@ public class Slider implements Component {
   onClick(mut self, click: Click) { self.setAt(click.x) }
   onDrag(mut self, drag: Drag) { self.setAt(drag.x) }
 
+  // A step down or up, held to the range.
+  nudge(mut self, by: Number) {
+    if (self.disabled) { return }
+    self.value = self.least.max(self.most.min(self.value + by * self.step))
+  }
+
+  // Focused: Left and Right a step, Home the least, End the most.
+  onKey(mut self, key: Key) {
+    match (key) {
+      Key.Left => self.nudge(-1),
+      .Right => self.nudge(1),
+      .Home => self.nudge(-(self.most - self.least) / self.step),
+      else => self.nudge((self.most - self.least) / self.step),
+    }
+  }
+
   public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box columns={[LENGTH, "auto"]} gap={12 * PX} yAlign={Align.Center}>
-          <box width={LENGTH} height={BAND} @click={self.onClick} @dragStart={self.onDrag} @drag={self.onDrag}>
+          <box width={LENGTH} height={BAND} keys={KEYS} @key={self.onKey} @click={self.onClick}
+               @dragStart={self.onDrag} @drag={self.onDrag}>
             <box position={Position.Absolute} left={0} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
                  background={Ordaen.art.ctl.groove} />
             <box position={Position.Absolute} left={EDGE} top={GROOVE_TOP + EDGE} height={GROOVE - 2 * EDGE}

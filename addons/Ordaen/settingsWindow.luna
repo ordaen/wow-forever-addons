@@ -179,7 +179,7 @@ public class SettingsWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window $if={self.open} tabs={self.titles} selected={mut self.titleTab} placing={mut self.placing}
+      <Window shown={self.open} tabs={self.titles} selected={mut self.titleTab} placing={mut self.placing}
               minWidth={MIN_WIDTH} minHeight={MIN_HEIGHT} @close={self.onClose}>
         <box columns={BODY} rows={FILL}>
           <box columns={1}>

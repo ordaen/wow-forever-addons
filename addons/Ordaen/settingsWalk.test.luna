@@ -1,0 +1,24 @@
+// The settings window walked with the keyboard, opened as the dev addon's picker opens it: the snapshot is the
+// script the companion replays in the game (`wow_checklist`'s `walk`), its `open:` line, its `key:` lines and its
+// shots.
+import { Key } from "$ltml"
+import Test from "$test"
+import { Move } from "$test"
+import root Ordaen from "Ordaen"
+
+test "the settings window is walked with the keyboard" {
+  Test.mount(nil, { left: 0, top: 0, width: 1600, height: 900, screen: true })
+  // Opened by a key: in focus mode, its first control focused.
+  Test.open("Ordaen")
+  Test.expect(Ordaen.window?.open == true)
+  Test.shot("opened by the picker: the first entry of the list focused")
+  // Down the list to «Themes», and Enter shows its page.
+  Test.key(Move.Next)
+  Test.key(Key.Enter)
+  Test.shot("Themes picked by Enter")
+  Test.key(Move.Back)
+  Test.key(Key.Enter)
+  Test.key(Key.Escape)
+  Test.expect(Ordaen.window?.open == false)
+  Test.expect(!Test.key(Key.Escape))
+}

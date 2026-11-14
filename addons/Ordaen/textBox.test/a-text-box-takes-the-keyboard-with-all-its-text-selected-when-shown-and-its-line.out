@@ -2,14 +2,17 @@
 box 0,0 400x100
   box 10,10 380x80 #0d0a08 input "Ordaen:1:look\nscale=100" lines typing selected 0..23 clipped @change
 
+key: ENTER → none
 -- pasted over the selection, then Enter and more: two lines, the keyboard kept
 box 0,0 400x100
   box 10,10 380x80 #0d0a08 input "pasted\nmore" lines typing clipped @change
 
+key: ESCAPE → none
 -- hidden and shown again: the keyboard taken, all selected
 box 0,0 400x100
   box 10,10 380x80 #0d0a08 input "pasted\nmore" lines typing selected 0..11 clipped @change
 
+key: ESCAPE → none
 -- its text written while it shows: all of the new text selected
 box 0,0 400x100
   box 10,10 380x80 #0d0a08 input "Ordaen:1:look\nscale=90" lines typing selected 0..22 clipped @change

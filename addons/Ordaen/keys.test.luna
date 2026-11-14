@@ -1,0 +1,156 @@
+// Every kind of the library's control worked with the keyboard alone, in a window: Tab to it, Space or Enter to press
+// it, the arrows through a row of choices or a slider's steps, Escape out of a menu and then out of the window. The
+// snapshot's `key:` lines say where the focus is after each key: the script the companion replays in the game.
+import { Align, Key } from "$ltml"
+import Test from "$test"
+import { Move } from "$test"
+import { Checkbox } from "@/checkbox"
+import { Choice, CompactDropdown, Dropdown } from "@/dropdown"
+import { Menu, MenuEntry } from "@/menu"
+import { MoneyInput } from "@/moneyInput"
+import { Segmented } from "@/segmented"
+import { Slider } from "@/slider"
+import { Switch } from "@/switch"
+import { Column, Table, TableRow } from "@/table"
+import { Tabs } from "@/tabs"
+import { TextBox } from "@/textBox"
+import { Placing, Window, WindowTabSpec } from "@/window"
+
+const SIDES: Array<Choice<String>> = [{ value: "left", label: "Left" }, { value: "right", label: "Right" }]
+const SIZES: Array<Choice<Integer>> = [{ value: 1, label: "Small" }, { value: 2, label: "Large" }]
+const COLUMNS: Array<Column> = [{ title: "Name", width: { fr: 1 }, align: Align.Start }]
+const ENTRIES: Array<MenuEntry> = [{ label: "Copy" }, { label: "Paste" }]
+
+class Controls {
+  state open = true
+  state tabs: Array<WindowTabSpec> = [{ title: "Controls" }, { title: "More" }]
+  state tab = 1
+  state placing: Placing = { x: 0, y: 0, width: 760, height: 620 }
+  state pixel = false
+  state sounds = false
+  state side = "left"
+  state size = 1
+  state compact = "left"
+  state scale: Number = 1
+  state money = 0
+  state notes = ""
+  state page = 1
+  state sorted = 1
+  state descending = false
+  state row = 0
+  state menu = false
+  state picked = 0
+
+  close(mut self) { self.open = false }
+  pickRow(mut self) { self.row += 1 }
+  showMenu(mut self) { self.menu = true }
+  hideMenu(mut self) { self.menu = false }
+  onPick(mut self, at: Integer) {
+    self.picked = at
+    self.menu = false
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Window shown={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}
+              @close={self.close}>
+        <box columns={1} gap={6}>
+          <Checkbox label={"Pixel"} value={mut self.pixel} />
+          <Switch label={"Sounds"} value={mut self.sounds} />
+          <Segmented value={mut self.side} choices={SIDES} />
+          <Tabs tabs={["One", "Two"]} selected={mut self.page} />
+          <Dropdown label={"Size"} value={mut self.size} choices={SIZES} />
+          <CompactDropdown value={mut self.compact} choices={SIDES} width={120} />
+          <Slider label={"Scale"} value={mut self.scale} least={0.5} most={2} step={0.1} />
+          <MoneyInput label={"Price"} value={mut self.money} />
+          <TextBox value={mut self.notes} height={40} />
+          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
+            <TableRow tracks={[{ fr: 1 }]} @pick={self.pickRow}> <text value={"a row"} /> </TableRow>
+          </Table>
+          <box height={20} @click={self.showMenu}>
+            <text value={"menu"} />
+            <Menu $if={self.menu} entries={ENTRIES} @pick={self.onPick} @close={self.hideMenu} />
+          </box>
+        </box>
+      </Window>
+    }
+  }
+}
+
+// Tab until the focus says `said` (its place, `#1 `, or its text, `«Left»`), at most once round the window.
+function tabTo(said: String) {
+  for (i of 1..=20) {
+    Test.key(Move.Next)
+    if (Test.focused().contains(said)) { return }
+  }
+  panic(`the focus never came to ${said}`)
+}
+
+test "every kind of control works from the keyboard alone" {
+  let page = new Controls()
+  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900, screen: true })
+  // The text box takes the client's keyboard as it is shown: Tab in it moves the focus on, past it.
+  Test.expect(Test.keyboard())
+  // The checkbox's well and the switch: Space ticks each.
+  tabTo("#1 ")
+  Test.key(Key.Space)
+  Test.expect(page.pixel)
+  Test.key(Move.Next)
+  Test.key(Key.Space)
+  Test.expect(page.sounds)
+  // A row of choices: the arrows move along it, Enter picks.
+  tabTo("«Left»")
+  Test.key(Key.Right)
+  Test.key(Key.Enter)
+  Test.expect(page.side == "right")
+  tabTo("«Two»")
+  Test.key(Key.Space)
+  Test.expect(page.page == 2)
+  // The dropdown: Enter opens its list, the focus goes into it, Down and Enter pick the second.
+  tabTo("«Small»")
+  Test.key(Key.Enter)
+  Test.shot("the dropdown opened by Enter: the focus in its list")
+  Test.key(Key.Down)
+  Test.key(Key.Enter)
+  Test.expect(page.size == 2)
+  // The compact dropdown: opened and left by Escape, nothing picked, the focus back on its plate.
+  tabTo("«Left»")
+  Test.key(Key.Enter)
+  Test.key(Key.Escape)
+  Test.expect(page.compact == "left")
+  // The slider names its keys: Right a step, End the most, Home the least.
+  Test.key(Move.Next)
+  Test.key(Key.Right)
+  Test.expect(page.scale > 1.09 && page.scale < 1.11)
+  Test.key(Key.End)
+  Test.expect(page.scale == 2)
+  Test.key(Key.Home)
+  Test.expect(page.scale == 0.5)
+  // The money's field takes the client's keyboard; Tab lets go of it and goes on.
+  Test.key(Move.Next)
+  Test.expect(Test.keyboard())
+  Test.erase(20)
+  Test.type("12")
+  Test.flush()
+  Test.expect(page.money > 0)
+  Test.key(Move.Next)
+  // The table's heading sorts, its row picks.
+  tabTo("«a row»")
+  Test.key(Key.Enter)
+  Test.expect(page.row == 1)
+  // A menu: opened by Enter, the focus in it; Escape closes it; opened again, Down and Enter pick.
+  tabTo("«menu»")
+  Test.key(Key.Enter)
+  Test.expect(page.menu)
+  Test.key(Key.Escape)
+  Test.expect(!page.menu)
+  Test.key(Key.Enter)
+  Test.key(Key.Down)
+  Test.key(Key.Enter)
+  Test.expect(page.picked == 2)
+  // Escape closes the window, kept drawn and hidden.
+  Test.key(Key.Escape)
+  Test.expect(!page.open)
+  Test.expect(!Test.key(Key.Escape))
+  destroy page
+}

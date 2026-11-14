@@ -36,7 +36,7 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 462.75,252.21 233.33x15 @enter @leave
                 text 462.75,252.21 233.33x15 "Ordaen window scale" #cbb994
               box 711.08,251.37 539.5x16.67
-                box 711.08,251.37 200x16.67 @click @drag @dragStart
+                box 711.08,251.37 200x16.67 @click @drag @dragStart @key
                   box 711.08,256.38 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
                   box 711.92,257.21 74.38x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
                   box 779.42,249.71 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
