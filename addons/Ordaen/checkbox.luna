@@ -9,6 +9,33 @@ import { knobShown } from "@/switch"
 
 const SIZE = 22 * PX
 
+// Tick: the bare box of a checkbox, a dark well with a bronze edge and a gold tick while on: for a list's rows, where a
+// settings row's label has no room. Left-click toggles it; disabled, it takes no click.
+public class Tick implements Component {
+  // The tick is always drawn, at no opacity while off: on and off differ in their colours alone.
+  derived tick: Number = knobShown(self.value)
+
+  value: mut Signal<Boolean>
+  disabled: Signal<Boolean>
+  constructor(value: mut Signal<Boolean>, disabled: Signal<Boolean> = false) {
+    self.value = value
+    self.disabled = disabled
+  }
+
+  toggle(mut self) {
+    if (!self.disabled) { self.value = !self.value }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @click={self.toggle}>
+        <box position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
+             background={Ordaen.art.ctl.tick} opacity={self.tick} />
+      </box>
+    }
+  }
+}
+
 public class Checkbox implements Component {
   // The tick is always drawn, at no opacity while off: on and off differ in their colours alone.
   derived tick: Number = knobShown(self.value)
