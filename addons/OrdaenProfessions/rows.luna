@@ -3,17 +3,17 @@
 // what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
 import { Align, Art, Click, Edges, Line, MouseButton, Overflow, Position, Stated, Track } from "$ltml"
-import { Component, PX, TableRow } from "Ordaen"
+import { Component, PX, space, TableRow } from "Ordaen"
 import { RecipeMenu } from "@/menu"
 import Style from "@/style"
 import { Act, FAVORITES, Group, has, Kept, members } from "@/view"
 
 const NAME_COUNT: Array<Track> = [{ fr: 1 }, "auto"]
 const MARKS: Array<Track> = ["auto", "auto"]
-const CATEGORY_PAD: Edges = { top: 7 * PX, right: 10 * PX, bottom: 7 * PX, left: 10 * PX }
-const RECIPE_PAD: Edges = { top: 6 * PX, right: 10 * PX, bottom: 6 * PX, left: 10 * PX }
+const CATEGORY_PAD: Edges = { top: 7 * PX, right: space(.Panel), bottom: 7 * PX, left: space(.Panel) }
+const RECIPE_PAD: Edges = { top: 6 * PX, right: space(.Panel), bottom: 6 * PX, left: space(.Panel) }
 // A recipe under a heading stands in past the heading's fold mark.
-const INDENT_PAD: Edges = { top: 6 * PX, right: 10 * PX, bottom: 6 * PX, left: 28 * PX }
+const INDENT_PAD: Edges = { top: 6 * PX, right: space(.Panel), bottom: 6 * PX, left: space(.Panel) + 18 * PX }
 const FOLD: Array<Track> = [10 * PX, { fr: 1 }, "auto"]
 const SLOT = 32 * PX
 const REAGENT: Array<Track> = [SLOT, { fr: 1 }, "auto"]

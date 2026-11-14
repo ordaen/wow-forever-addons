@@ -3,13 +3,15 @@
 // click anywhere else closes it.
 import { Align, Edges, Layer, Line, Position, Beside } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, PushButton, PX, ToolButton } from "Ordaen"
+import { Component, PushButton, PX, space, ToolButton } from "Ordaen"
 import Locale from "@/locales"
 
 const WIDTH = 230 * PX
 const BACK: Color = Color.hex("#0a0806f7")
 const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
-const PAD: Edges = { top: 10 * PX, right: 10 * PX, bottom: 10 * PX, left: 10 * PX }
+const PAD: Number = space(.Panel)
+// What stands under a rule keeps an item's step from it.
+const AFTER_RULE: Edges = { top: space(.Item) }
 const RULE: Line = { width: 1 * PX, color: Color.hex("#d6a56b33"), sides: ["top"] }
 const INK: Color = Color.hex("#e8dcc4")
 const SIZE = 22 * PX
@@ -71,14 +73,14 @@ public class FilterMenu implements Component {
   public render(self): Template {
     return $ltml {
       <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
-               border={EDGE} padding={PAD} columns={1} gap={8 * PX} @clickOutside={self.onClose}>
+               border={EDGE} padding={PAD} columns={1} gap={space(.Item)} @clickOutside={self.onClose}>
         <Check label={Locale.FILTER_MAKEABLE} value={mut self.makeable} />
         <Check label={Locale.FILTER_SKILLUP} value={mut self.skillUp} />
-        <box columns={1} gap={8 * PX} padding={{ top: 8 * PX }} border={RULE}>
+        <box columns={1} gap={space(.Item)} padding={AFTER_RULE} border={RULE}>
           <Check label={Locale.FILTER_LEARNED} value={mut self.learned} />
           <Check label={Locale.FILTER_UNLEARNED} value={mut self.unlearned} />
         </box>
-        <box columns={1} padding={{ top: 8 * PX }} border={RULE}>
+        <box columns={1} padding={AFTER_RULE} border={RULE}>
           <PushButton label={Locale.FILTER_RESET} width={120 * PX} disabled={!self.filtered}
                       @click={self.onReset} />
         </box>

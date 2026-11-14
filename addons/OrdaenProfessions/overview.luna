@@ -5,7 +5,7 @@
 // what the work needs (each tool or place any recipe asks for), then the tracked recipes with what each still lacks.
 import Game from "$game"
 import { Action, Align, Line, Overflow, Track } from "$ltml"
-import { Component, PushButton, PX } from "Ordaen"
+import { Component, PushButton, PX, space } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 import { Thresholds } from "@/skillUps"
@@ -13,7 +13,7 @@ import { has, Kept } from "@/view"
 
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const BACK: Color = Color.hex("#0000004d")
-const PAD = 12 * PX
+const PAD: Number = space(.Panel)
 const CARD: Array<Track> = [{ fr: 1 }, "auto"]
 const GRID: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 // The most recipes «What to learn next» lists.
@@ -110,7 +110,7 @@ public class OverviewSection implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={PAD} border={FRAME} background={BACK} gap={6 * PX}>
+      <box padding={PAD} border={FRAME} background={BACK} gap={space(.Item)}>
         <text value={self.title} textColor={Style.GOLD} />
         <OverviewLineRow $for={line of self.lines} $key={line.text} line={line} @pick={self.onPick} />
       </box>
@@ -224,15 +224,15 @@ public class OverviewPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box overflow={Overflow.Scroll} gap={12 * PX}>
-        <box columns={CARD} gap={14 * PX} yAlign={Align.Center} padding={PAD} border={FRAME} background={BACK}>
+      <box overflow={Overflow.Scroll} gap={space(.Group)}>
+        <box columns={CARD} gap={space(.Group)} yAlign={Align.Center} padding={PAD} border={FRAME} background={BACK}>
           <box gap={5 * PX}>
             <text $if={self.hasNext} value={self.nextText} textColor={Style.INK} />
             <text $if={self.isSecondary} value={Locale.SECONDARY} textSize={.Secondary} textColor={Style.DIM} />
           </box>
           <PushButton $if={self.hasSpell} label={self.spellLabel} width={140 * PX} action={self.spellAction} />
         </box>
-        <box columns={GRID} gap={12 * PX}>
+        <box columns={GRID} gap={space(.Group)}>
           <OverviewSection title={Locale.TAB_RECIPES} lines={self.counts} />
           <OverviewSection title={Locale.LEARN_NEXT} lines={self.toLearn} @pick={self.onPick} />
           <OverviewSection title={Locale.WORK_NEEDS} lines={self.needs} />
