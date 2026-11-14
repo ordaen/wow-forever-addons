@@ -26,7 +26,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
             box 1113.92,276.37 33.33x28.33
               box 1118.92,276.37 28.33x28.33
                 box 1118.92,276.37 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 1126.42,283.87 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 1126.42,283.87 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
         box 457.75,311.38 689.5x385.08 scrolled 0 of 0
           box 457.75,311.38 689.5x33
             box 457.75,314.54 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01

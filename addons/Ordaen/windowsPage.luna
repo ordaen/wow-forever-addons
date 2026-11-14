@@ -23,6 +23,7 @@ const LEAST_SIZE = 100
 // A number's field: as high as a text box, wide enough for its digits.
 const FIELD_WIDTH = 120 * PX
 const FIELD_HEIGHT = 26 * PX
+const FILL: Array<Track> = [{ fr: 1 }]
 const MOST_SIZE = 4000
 
 // The title of a module's page of its windows, in its `pages`:
@@ -147,23 +148,23 @@ public class WindowsPage implements Component {
           <Checkbox label={Locale.WINDOW_REMEMBER} hint={Locale.WINDOW_REMEMBER_TIP} value={mut self.remember} />
           <Checkbox label={Locale.WINDOW_FULL} value={mut self.full} disabled={self.fixed} />
           <SettingRow label={Locale.WINDOW_X} disabled={self.fixed}>
-            <box width={FIELD_WIDTH} height={FIELD_HEIGHT}>
+            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
               <CountInput value={mut self.x} least={-FAR} most={FAR} look={CountLook.Field} disabled={self.fixed} />
             </box>
           </SettingRow>
           <SettingRow label={Locale.WINDOW_Y} disabled={self.fixed}>
-            <box width={FIELD_WIDTH} height={FIELD_HEIGHT}>
+            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
               <CountInput value={mut self.y} least={-FAR} most={FAR} look={CountLook.Field} disabled={self.fixed} />
             </box>
           </SettingRow>
           <SettingRow label={Locale.WINDOW_WIDTH} disabled={self.fixed}>
-            <box width={FIELD_WIDTH} height={FIELD_HEIGHT}>
+            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
               <CountInput value={mut self.width} least={LEAST_SIZE} most={MOST_SIZE} look={CountLook.Field}
                           disabled={self.fixed} />
             </box>
           </SettingRow>
           <SettingRow label={Locale.WINDOW_HEIGHT} disabled={self.fixed}>
-            <box width={FIELD_WIDTH} height={FIELD_HEIGHT}>
+            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
               <CountInput value={mut self.height} least={LEAST_SIZE} most={MOST_SIZE} look={CountLook.Field}
                           disabled={self.fixed} />
             </box>

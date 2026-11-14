@@ -5,7 +5,7 @@ import Client from "$client"
 import Game from "$game"
 import Test from "$test"
 import { Hour } from "Ordaen"
-import root Auction from "OrdaenAuction"
+import root Ordaen from "Ordaen"
 import { House } from "@/house"
 import { Kept } from "@/kept"
 import { Ledger } from "@/ledger"
@@ -221,7 +221,12 @@ test "the status line and «Data» after a full scan: the prices' age, the next 
   Game.clock.server = START + 300
   Test.pass(1.1)
   Test.shot("five minutes on: prices 5 min ago, one item, the next full scan in 10 min")
-  Auction.page = 3
+  // «Data» is a page of the settings, opened by the window's gear.
+  Test.moveTo(Test.holding("Lowest", nil))
+  Test.flush()
+  Test.click(Test.painted(Ordaen.art.ctl.corner.gear, nil), nil)
+  Test.pass(0.02)
+  Test.click(Test.holding("Data", nil), nil)
   Test.pass(0.02)
   Test.shot("«Data»: 5 min ago, 1 auction and 1 item, the size at rest")
   Game.auctionHouse.open = false

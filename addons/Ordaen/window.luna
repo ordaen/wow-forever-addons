@@ -377,6 +377,8 @@ public class Window implements Component {
   // What this window kept last: a change of the memory that is not its own (a switch of profile, its settings
   // page) is taken whole, the tab with it.
   written: WindowView | nil = nil
+  // Whether what is kept was taken once: the first time, as the window is made.
+  made = false
   // The side's width as a drag of its line began, and while it is dragged (0 otherwise): kept as the drag ends.
   side0: Number = 0
   state sideDrag: Number = 0
@@ -428,9 +430,10 @@ public class Window implements Component {
     watch (list of self.tabs) { self.declared.tabs = list.map((tab: WindowTabSpec) => tab.title) }
     // What is kept becomes the window's, as it is made, at a switch of profile and as its settings page changes it.
     watch (view of self.declared.memory.values) { self.recall(view) }
-    // Shown, it opens on its tab: the one last open, or the one the player fixed.
+    // Shown, it opens on the tab the player fixed, where there is one; otherwise on the one its owner says (the
+    // last one open this session, or the one an action asks for).
     watch (open of self.shown) {
-      if (open) { self.openTab() }
+      if (open) { self.openTab(true, false) }
     }
     // A tab picked is kept; a window that only asks shows the game's tab, which isn't the player's to keep.
     if (!asks) {
@@ -438,10 +441,15 @@ public class Window implements Component {
     }
   }
 
-  // The tab it opens on: the one fixed on its settings page, or the one last open.
-  openTab(mut self) {
+  // The tab it opens on: the one fixed on its settings page, or (as it is made, or its memory is changed from
+  // elsewhere) the one last open.
+  openTab(mut self, showing: Boolean, first: Boolean) {
     if (self.asks) { return }
     const view = self.declared.used(peek self.declared.memory.values)
+    if (showing && view.openOn == 0) { return }
+    // Made with no tab ever picked, it leaves the one its owner holds (an action may have asked for another before
+    // the window was made).
+    if (first && view.openOn == 0 && view.tab == self.declared.defaults.tab) { return }
     const tab = view.openOn > 0 ? view.openOn : view.tab
     if (tab >= 1 && tab <= (peek self.tabs).length) { self.selected = tab }
   }
@@ -461,7 +469,8 @@ public class Window implements Component {
       x: used.x + (width - used.width) / 2, y: used.y + (height - used.height) / 2, width: width, height: height,
     }
     self.full = used.full
-    if (!own) { self.openTab() }
+    if (!own) { self.openTab(false, !self.made) }
+    self.made = true
   }
 
   // A change to what is kept, every entry at once; nothing is kept while the player chose so on its settings page.

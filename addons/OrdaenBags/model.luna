@@ -1,0 +1,158 @@
+// Ordaen Bags' model: a slot of the bags as the window keeps it, the views, the sorts and the tabs, and where an item
+// belongs among them.
+import Game from "$game"
+import { Quality } from "Ordaen"
+
+// How the window shows the bags: by type in tabs, a section per bag, or every slot in one grid in bag order.
+public enum View implements Plain { Categories = "categories", Bags = "bags", One = "one" }
+
+// The order of the items in a section, and the order «Sort the bags» moves them into.
+public enum SortBy implements Plain {
+  Bags = "bags",
+  Quality = "quality",
+  Name = "name",
+  Level = "level",
+  Count = "count",
+  Type = "type",
+}
+
+// A tab of the categories view: every item, the new ones, or one kind. An item is of one kind alone (`tabOf`).
+public enum Tab implements Plain {
+  All = "all",
+  New = "new",
+  Quest = "quest",
+  Consumables = "consumables",
+  Equipment = "equipment",
+  Trade = "trade",
+  Recipes = "recipes",
+  Other = "other",
+  Junk = "junk",
+}
+
+// How a tab's items are grouped into sections: by their type, all in one, or by where they are worn.
+public enum Grouping implements Plain { Type = "type", None = "none", Worn = "worn" }
+
+// The client's classes of items (`Enum.ItemClass`) the tabs are made of.
+const CONSUMABLE = 0
+const WEAPON = 2
+const GEM = 3
+const ARMOR = 4
+const REAGENT = 5
+const TRADE = 7
+const RECIPE = 9
+const QUEST = 12
+
+// The kinds' tabs, in their fixed order: quest items and consumables first, then equipment, trade goods, recipes, the
+// rest, junk last.
+public const KINDS: Array<Tab> = [.Quest, .Consumables, .Equipment, .Trade, .Recipes, .Other, .Junk]
+
+// One item, one tab, by a fixed rule: grey is junk whatever its class (a grey hammer is junk, not equipment); then by
+// the client's class of it.
+public function tabOf(kind: Integer, quality: Integer): Tab {
+  if (quality == 0) { return .Junk }
+  return match (kind) {
+    QUEST => .Quest,
+    CONSUMABLE => .Consumables,
+    WEAPON, ARMOR => .Equipment,
+    TRADE, REAGENT, GEM => .Trade,
+    RECIPE => .Recipes,
+    else => .Other,
+  }
+}
+
+// A tab's place among the kinds; the two that aren't kinds stand before them.
+public function rankOf(tab: Tab): Integer {
+  for (index, kind of KINDS) {
+    if (kind == tab) { return index }
+  }
+  return 0
+}
+
+// The item's quality as the library's slot draws it.
+public function qualityOf(quality: Integer): Quality {
+  return match (quality) {
+    0 => .Poor,
+    2 => .Uncommon,
+    3 => .Rare,
+    4 => .Epic,
+    5 => .Legendary,
+    6 => .Artifact,
+    7 => .Heirloom,
+    else => .Common,
+  }
+}
+
+// What a slot's refresh found changed, each a bit of its answer.
+public const MOVED = 1
+public const COUNTED = 2
+public const MARKED = 4
+
+// A slot of the bags: where it is, what lies there as the client said it last (`read`, the one table the game fills
+// again), and what of that the window draws, each a cell, so an update that changes a count redraws that count alone.
+// Made once for each slot the bags have, and kept.
+public class Slot {
+  public const bag: Integer
+  public const index: Integer
+  public const read: mut Game.SlotItem
+  public state id = 0
+  public state count = 0
+  public state quality: Quality = .Common
+  public state isNew = false
+  public state locked = false
+  public state guarded = false
+  // What the item is named in lower case, for the search: made again only when another item comes into the slot.
+  public lower = ""
+  // Its tab, by its class and quality.
+  public tab: Tab = .Other
+
+  constructor(bag: Integer, index: Integer) {
+    self.bag = bag
+    self.index = index
+    self.read = {
+      id: 0, count: 0, quality: 1, icon: nil, name: "", link: "", level: 0, kind: -1, subkind: -1, subkindName: "",
+      worn: "", bound: false, locked: false, isNew: false, price: 0,
+    }
+  }
+
+  // Read again from the game: what changed (`MOVED`: another item lies there, `COUNTED`: its count, `MARKED`: whether it
+  // is new), nought for nothing or a lock alone.
+  public refresh(mut self): Integer {
+    const was = peek self.id
+    const wasCount = peek self.count
+    const wasNew = peek self.isNew
+    if (!Game.bags.readSlot(self.bag, self.index, mut self.read)) {
+      self.id = 0
+      self.count = 0
+      self.isNew = false
+      self.locked = false
+    } else {
+      const item = self.read
+      if (item.id != was) {
+        self.lower = item.name.lower()
+        self.tab = tabOf(item.kind, item.quality)
+      }
+      self.id = item.id
+      self.count = item.count
+      self.quality = qualityOf(item.quality)
+      self.isNew = item.isNew
+      self.locked = item.locked
+    }
+    let changed = 0
+    if (peek self.id != was) { changed += MOVED }
+    if (peek self.count != wasCount) { changed += COUNTED }
+    if (peek self.isNew != wasNew) { changed += MARKED }
+    return changed
+  }
+
+  // Looked at: new no more, the client told.
+  public see(mut self) {
+    if (!peek self.isNew) { return }
+    self.isNew = false
+    Game.bags.seen(self.bag, self.index)
+  }
+
+  // What tells two stacks apart for sorting: the item and how many.
+  public key(self): Integer {
+    return (peek self.id) * 1000 + (peek self.count)
+  }
+}

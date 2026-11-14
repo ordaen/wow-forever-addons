@@ -36,8 +36,9 @@ public struct CornerArt {
   close: Art
 }
 
-// A window toolbar's glyphs, white for the box's `tint`: the filter, the sort, a view's by what it shows, refresh (a
-// circling arrow) and whom (a figure: for whom a list is).
+// A window toolbar's glyphs, white for the box's `tint`: the filter, the sort, a view's by what it shows (one grid:
+// `one`), refresh (a circling arrow), whom (a figure: for whom a list is), and sorting now (`arrange`: arrows up and
+// down).
 public struct ToolGlyphs {
   filter: Art
   sort: Art
@@ -47,6 +48,8 @@ public struct ToolGlyphs {
   table: Art
   refresh: Art
   whom: Art
+  one: Art
+  arrange: Art
 }
 
 public struct ArtControls {
@@ -179,14 +182,16 @@ public const ARTWORK: Artwork = {
     radioOn: { file: "@/media/ctl-radio.tga", width: 32, height: 64, rows: 2, normal: 1 },
     // A toolbar's glyphs (art/pieces/tool.json): rows of 16 x 16 px, white with their shadow.
     tool: {
-      filter: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 0 },
-      sort: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 1 },
-      columns: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 2 },
-      categories: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 3 },
-      list: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 4 },
-      table: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 5 },
-      refresh: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 6 },
-      whom: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 256, rows: 8, normal: 7 },
+      filter: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 0 },
+      sort: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 1 },
+      columns: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 2 },
+      categories: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 3 },
+      list: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 4 },
+      table: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 5 },
+      refresh: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 6 },
+      whom: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 7 },
+      one: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 8 },
+      arrange: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 9 },
     },
     // The marks (art/pieces/marks.json): 16 px cells, each triangle in its middle; the compared stat's two fill theirs.
     markUp: { file: "@/media/ctl-marks.tga", width: 32, height: 256, rows: 8, normal: 0 },

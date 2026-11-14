@@ -27,12 +27,12 @@ import Style from "@/style"
 // What the module keeps, under its own saved variable.
 const KEPT = "kept"
 
-// The window's pages: its own tabs, as every Ordaen window's. «Shopping list» and «My auctions» are windows of their
-// own, docked at the screen's right, opened from «Buy» and «Sell».
+// The window's pages: its own tabs, as every Ordaen window's; «Data» is a page of the module's settings, opened by the
+// window's settings control. «Shopping list» and «My auctions» are windows of their own, docked at the screen's right,
+// opened from «Buy» and «Sell».
 const BUY = 1
 const SELL = 2
-const DATA = 3
-const TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_BUY }, { title: Locale.PAGE_SELL }, { title: Locale.PAGE_DATA }]
+const TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_BUY }, { title: Locale.PAGE_SELL }]
 const SHOPPING_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_SHOPPING }]
 const OWNED_TABS: Array<WindowTabSpec> = [{ title: Locale.PAGE_OWNED }]
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -47,6 +47,10 @@ public class Auction implements Module, App {
   public const windows: mut Array<mut KeptWindow> = [self.window, self.shoppingWindow, self.ownedWindow]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+    { title: Locale.PAGE_DATA, content: $ltml {
+      <DataPage scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
+                items={self.scanner.known} />
+    } },
     { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
   ]
   derived cut: Integer = self.settings.values.cut
@@ -155,8 +159,6 @@ public class Auction implements Module, App {
                      @openList={self.onShopping} />
             <SellPage $case={SELL} house={self.house} prices={self.prices} chosen={mut self.sellChosen}
                       @openOwned={self.onOwned} />
-            <DataPage $case={DATA} scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
-                      items={self.scanner.known} settings={mut self.settings} />
           </box>
         </Window>
         <Window $if={self.shoppingOpen} tabs={SHOPPING_TABS} selected={mut self.sideTab}

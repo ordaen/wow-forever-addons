@@ -55,20 +55,20 @@ box 0,0 700x677.17
           box 0,235.83 233.33x15 @enter @leave
             text 0,235.83 233.33x15 "Bought" #cbb994
           box 248.33,226.67 451.67x33.33
-            box 248.33,226.67 33.33x33.33 #0d0a08 opacity=1 @click @enter
+            box 248.33,226.67 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
               box 248.33,226.67 33.33x33.33 absolute
               box 248.33,226.67 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
               box 248.33,226.67 33.33x33.33 absolute #00000000
               box 248.33,226.67 5.83x5.83 absolute #ffd100
               box 248.33,226.67 33.33x33.33 absolute
                 text 273.75,245.33 5.42x13 "5" #ffffff
-            box 288.33,226.67 33.33x33.33 #0d0a08 opacity=1 @click @enter
+            box 288.33,226.67 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
               box 288.33,226.67 33.33x33.33 absolute
               box 288.33,226.67 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
               box 288.33,226.67 33.33x33.33 absolute #00000000
               box 288.33,226.67 33.33x33.33 absolute
                 text 308.33,245.33 10.83x13 "20" #ffffff
-            box 328.33,226.67 33.33x33.33 #0d0a08 opacity=1 @click @enter
+            box 328.33,226.67 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
               box 328.33,226.67 33.33x33.33 absolute
               box 328.33,226.67 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 328.33,226.67 33.33x33.33 absolute #00000000
@@ -150,7 +150,7 @@ box 0,0 700x677.17
                 box 515,522.5 33.33x28.33
                   box 520,522.5 28.33x28.33
                     box 520,522.5 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 527.5,530 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                      box 527.5,530 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
         box 0,562.5 700x23 opacity=1
           box 0,566.5 233.33x15 @enter @leave
             text 0,566.5 233.33x15 "Context menu" #cbb994

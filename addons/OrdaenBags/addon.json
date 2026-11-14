@@ -1,0 +1,7 @@
+{
+  "title": "Ordaen Bags",
+  "icon": "Interface/Icons/INV_Misc_Bag_08",
+  "notes": "Every bag in one window.",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0", "OrdaenTooltips": "^1.0.0" }
+}

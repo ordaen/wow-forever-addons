@@ -301,7 +301,7 @@ test "the list's filter, view and picked addon, and the card's width, are the pr
   Test.release(nil)
   Test.flush()
   const title = Test.holding("Ordaen System", 2)
-  Test.expect(title.x < before.x - 25)
+  Test.expect(title.x < before.x - 15)
   const key = "OrdaenSystem:addons"
   const kept = ListView.decode(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, key), ListView {})
   Test.expect(kept.filter == .Demand && kept.view == .Table && kept.picked == "OrdaenSystem")

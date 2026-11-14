@@ -1,0 +1,64 @@
+// A slot protected from «Sort the bags» (Alt+Left-click), and what Ordaen Tooltips' item tooltip says of it: the slot
+// under the cursor protected («This slot is protected from sorting», among what other modules add), and its hotkey (to
+// protect it, or to take the protection off). Without Ordaen Tooltips there is no such line: Bags adds nothing to the
+// game's own tooltip.
+import root Tooltips from "OrdaenTooltips"
+import type { ItemKeys, ItemLines, Line } from "OrdaenTooltips"
+import Locale from "@/locales"
+import { Slot } from "@/model"
+
+// A protected slot, kept for the character: where it is and the item it protects. The protection follows its item:
+// moved by hand, it goes with it; the item gone from the bags, it is dropped.
+public struct Guard implements Plain {
+  bag: Integer
+  slot: Integer
+  id: Integer
+}
+
+const NONE: Array<Line> = []
+const NO_KEYS: Array<String> = []
+
+// The slot the cursor is on, as the window says it.
+public class Hovered {
+  public state slot: Slot | nil = nil
+}
+
+// The note of a protected slot.
+public class GuardLine implements ItemLines {
+  const hovered: Hovered
+  constructor(hovered: Hovered) { self.hovered = hovered }
+
+  public lines(self, item: Integer, link: String): Array<Line> {
+    const slot = self.hovered.slot
+    if (slot == nil || slot.id != item || !slot.guarded) { return NONE }
+    return [{ left: Locale.PROTECTED }]
+  }
+}
+
+// The hotkey of a slot of the bags.
+public class GuardKey implements ItemKeys {
+  const hovered: Hovered
+  constructor(hovered: Hovered) { self.hovered = hovered }
+
+  public keys(self, item: Integer, link: String): Array<String> {
+    const slot = self.hovered.slot
+    if (slot == nil || slot.id != item) { return NO_KEYS }
+    return [slot.guarded ? Locale.KEY_UNPROTECT : Locale.KEY_PROTECT]
+  }
+}
+
+// Both added to Tooltips while it is on: the watch's run owns them, so they end when either module does.
+public class GuardTips {
+  const line: GuardLine
+  const key: GuardKey
+
+  constructor(hovered: Hovered) {
+    self.line = new GuardLine(hovered)
+    self.key = new GuardKey(hovered)
+    watch (tooltips of Tooltips) {
+      if (tooltips == nil) { return }
+      tooltips.held.add(self.line)
+      tooltips.keys.add(self.key)
+    }
+  }
+}

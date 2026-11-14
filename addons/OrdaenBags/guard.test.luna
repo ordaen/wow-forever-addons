@@ -1,0 +1,23 @@
+// What the item tooltip says of a slot of the bags: the protection's line on a protected slot alone, and the hotkey
+// that protects it or takes the protection off; nothing for an item the cursor isn't on in the bags.
+import Test from "$test"
+import { GuardKey, GuardLine, Hovered } from "@/guard"
+import { Slot } from "@/model"
+
+test "a protected slot under the cursor: its line and the hotkey that takes the protection off; another item: nothing" {
+  let hovered = new Hovered()
+  const line = new GuardLine(hovered)
+  const key = new GuardKey(hovered)
+  let slot = new Slot(0, 2)
+  slot.id = 2589
+  hovered.slot = slot
+  Test.expect(line.lines(2589, "").length == 0)
+  Test.expect(key.keys(2589, "")[1] == "Alt+Left-click: protect the slot from sorting")
+  slot.guarded = true
+  Test.expect(line.lines(2589, "")[1]?.left == "This slot is protected from sorting")
+  Test.expect(key.keys(2589, "")[1] == "Alt+Left-click: remove the protection")
+  Test.expect(line.lines(118, "").length == 0)
+  Test.expect(key.keys(118, "").length == 0)
+  hovered.slot = nil
+  Test.expect(line.lines(2589, "").length == 0)
+}

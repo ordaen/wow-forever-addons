@@ -81,6 +81,9 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 644.83,223.04 81.25x26.67 #00000000 @click
                 box 645.67,223.88 79.58x1.67 absolute #00000000
                 text 657.33,229.71 56.25x15 "Behaviour" #a3977f
+              box 729.42,223.04 68.75x26.67 #00000000 @click
+                box 730.25,223.88 67.08x1.67 absolute #00000000
+                text 741.92,229.71 43.75x15 "Windows" #a3977f
             box 513.17,266.38 729.08x96.67
               box 513.17,266.38 729.08x16.67 opacity=1
                 box 513.17,267.21 233.33x15 @enter @leave
@@ -184,6 +187,9 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 644.83,223.04 81.25x26.67 #00000000 @click
                 box 645.67,223.88 79.58x1.67 absolute #00000000
                 text 657.33,229.71 56.25x15 "Behaviour" #a3977f
+              box 729.42,223.04 68.75x26.67 #00000000 @click
+                box 730.25,223.88 67.08x1.67 absolute #00000000
+                text 741.92,229.71 43.75x15 "Windows" #a3977f
             box 513.17,266.38 729.08x141.67
               box 513.17,266.38 729.08x28.33 opacity=1
                 box 513.17,273.04 233.33x15 @enter @leave
@@ -1234,6 +1240,9 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 644.83,223.04 81.25x26.67 #00000000 @click
                 box 645.67,223.88 79.58x1.67 absolute #00000000
                 text 657.33,229.71 56.25x15 "Behaviour" #a3977f
+              box 729.42,223.04 68.75x26.67 #00000000 @click
+                box 730.25,223.88 67.08x1.67 absolute #00000000
+                text 741.92,229.71 43.75x15 "Windows" #a3977f
             box 513.17,266.38 729.08x96.67
               box 513.17,266.38 729.08x16.67 opacity=1
                 box 513.17,267.21 233.33x15 @enter @leave
@@ -1361,6 +1370,9 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 644.83,223.04 81.25x26.67 #00000000 @click
                 box 645.67,223.88 79.58x1.67 absolute #00000000
                 text 657.33,229.71 56.25x15 "Behaviour" #a3977f
+              box 729.42,223.04 68.75x26.67 #00000000 @click
+                box 730.25,223.88 67.08x1.67 absolute #00000000
+                text 741.92,229.71 43.75x15 "Windows" #a3977f
             box 513.17,266.38 729.08x96.67
               box 513.17,266.38 729.08x16.67 opacity=1
                 box 513.17,267.21 233.33x15 @enter @leave

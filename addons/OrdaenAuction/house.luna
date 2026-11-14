@@ -4,7 +4,7 @@
 // At rest a house is one string (`pack`): its maps as CBOR, deflated, one constant to the client's parser however many
 // keys it has; it is the account's (`Kept`), so whichever character scans last moves it.
 import Game from "$game"
-import { Hour, ItemId } from "Ordaen"
+import { Hour } from "Ordaen"
 import { HourPrice } from "@/history"
 import Locale from "@/locales"
 import { Listing, PriceKey, Quote } from "@/quote"
@@ -26,7 +26,17 @@ public function nameOf(item: Integer): (String, Color) {
 
 // The same, none where the game doesn't know the item yet (its data not loaded).
 function knownName(item: Integer): Named | nil {
-  const data = Game.items.tooltip(item)
+  return namedBy(Game.items.tooltip(item))
+}
+
+// A key's name: a variant of a weapon or armour by its own tooltip, its suffix in its name («… of the Bear»).
+function keyName(key: PriceKey): Named | nil {
+  const suffix = key.suffix()
+  if (suffix == 0) { return knownName(key.item()) }
+  return namedBy(Game.items.variant(key.item(), suffix))
+}
+
+function namedBy(data: Game.TooltipData | nil): Named | nil {
   const first = data != nil ? data.lines[1] : nil
   const name = first?.left
   if (first == nil || name == nil) { return nil }
@@ -65,9 +75,9 @@ public class House {
   // How many keys it holds; how many have a history.
   public count: Integer = 0
   histories: Integer = 0
-  // The names of the items it shows, by item, each asked of the game and lowercased once: what a search over
-  // thousands of rows matches, never a tooltip a key. One the game doesn't know yet is asked again next time.
-  names: mut Map<ItemId, Named> = {}
+  // The names of the keys it shows (a variant's its own), each asked of the game and lowercased once: what a
+  // search over thousands of rows matches, never a tooltip a key. One the game doesn't know yet is asked again.
+  names: mut Map<PriceKey, Named> = {}
 
   // `packed` is the house as `pack` left it; none for a house never scanned, or one the client couldn't read.
   constructor(name: String, packed: String | nil) {
@@ -92,13 +102,13 @@ public class House {
     return points
   }
 
-  // An item's name from the index, asked of the game the first time.
-  public named(mut self, item: ItemId): Named {
-    const kept = self.names[item]
+  // A key's name from the index, asked of the game the first time: a variant's with its suffix.
+  public named(mut self, key: PriceKey): Named {
+    const kept = self.names[key]
     if (kept != nil) { return kept }
-    const known = knownName(item)
-    if (known == nil) { return { name: Locale.UNKNOWN_ITEM.format(item), lower: "", color: Style.INK } }
-    self.names[item] = known
+    const known = keyName(key)
+    if (known == nil) { return { name: Locale.UNKNOWN_ITEM.format(key.item()), lower: "", color: Style.INK } }
+    self.names[key] = known
     return known
   }
 
