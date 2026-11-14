@@ -239,3 +239,32 @@ test "the professions window: the open profession, its lists, the search, a reci
   (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
   Test.expect(Test.blank())
 }
+
+// A description longer than the details panel is wide, as the game's are.
+function longDescription(id: Integer): String {
+  return "Teaches the miner to smelt silver ore into bars of silver. Smelting silver requires a forge nearby, and the ore."
+}
+
+test "a long description wraps in the details panel, which stays inside the window, its letters at their start" {
+  let ui = Client.C_UI.GetUIParent()
+  let own = Client.CreateFrame("Frame", "ProfessionsFrame", ui, nil)
+  own.SetSize(400, 500)
+  own.SetPoint("TOPLEFT", ui, "TOPLEFT", 16, -116)
+  Game.frames.Professions = own
+  Game.professions.list = [
+    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+  ]
+  Test.mount(nil, PAGE)
+  Game.tradeSkill.shownEmpty.emit()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.description = longDescription
+  Game.tradeSkill.requirements = requirements
+  Game.tradeSkill.reagents = reagents
+  Game.tradeSkill.open = 197
+  Test.flush()
+  click(Test.holding("Cloth armour", nil))
+  Test.shot("«Linen Cloak» chosen: its description wraps in the panel, the panel ends inside the window")
+  (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
+  Test.expect(Test.blank())
+}

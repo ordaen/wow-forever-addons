@@ -27,8 +27,7 @@ const HEAD: Array<Track> = [SLOT, { fr: 1 }]
 const MAKE: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
 const MAKE_PAD: Edges = { top: 8 * PX }
 const COUNT: Array<Track> = ["auto", 22 * PX, "auto"]
-// The room the hint has: what the row leaves at the panel's width; a longer one wraps in it (a text in a grid's share
-// is as wide as its one line).
+// The room the hint has: what the row leaves at the panel's width; a longer one wraps in it.
 const HINT = 46 * PX
 const STEP = 28 * PX
 const MODE_WIDTH = 170 * PX
