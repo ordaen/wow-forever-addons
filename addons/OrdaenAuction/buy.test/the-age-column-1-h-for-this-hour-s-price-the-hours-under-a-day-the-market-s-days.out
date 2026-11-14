@@ -1,0 +1,135 @@
+-- five hours after the browse: each price 5 h old
+surface 0,0 1600x900 on DIALOG clamped raised by a click
+  box 0,37.25 1600x862.75 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 12.75,50 1579.5x839.5
+      box 32.75,70 1539.5x761.17
+        box 32.75,70 1539.5x761.17
+          box 32.75,70 183.33x761.17 #0000004d
+            box 33.58,70.83 181.67x759.5 scrolled 0 of 0
+              box 33.58,70.83 181.67x26.67 #00000040 @click
+                box 33.58,70.83 2.5x26.67 absolute #d6a56b
+                text 46.92,76.67 150x15 "All items" #ffffff
+                box 205.25,84.17 0x0
+              box 33.58,97.5 181.67x26.67
+                box 33.58,97.5 181.67x26.67 #00000000 @click
+                  box 33.58,97.5 2.5x26.67 absolute #00000000
+                  text 46.92,103.33 150x15 "Weapon" #e8dcc4
+                  box 205.25,110.83 0x0
+              box 33.58,124.17 181.67x26.67
+                box 33.58,124.17 181.67x26.67 #00000000 @click
+                  box 33.58,124.17 2.5x26.67 absolute #00000000
+                  text 46.92,130 150x15 "Trade Goods" #e8dcc4
+                  box 205.25,137.5 0x0
+          box 222.75,70 1349.5x761.17
+            box 222.75,70 1349.5x28.33
+              box 222.75,70 1217.83x28.33
+                box 222.75,70 1184.5x28.33
+                  box 222.75,70 1184.5x28.33 #00000080 input "" @change @submit
+                  box 222.75,70 1184.5x28.33 absolute
+                    text 231.08,76.67 1167.83x15 "Item name" #a3977f
+                box 1407.25,70 33.33x28.33
+                  box 1407.25,70 33.33x28.33
+                    box 1412.25,70 28.33x28.33
+                      box 1412.25,70 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                        box 1419.75,77.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+              box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                box 1447.25,70 125x28.33 absolute
+                  text 1469.12,76.67 81.25x15 "Shopping list" #ffd100
+            box 222.75,105 1349.5x726.17 #0000004d
+              box 223.58,105.83 1347.83x724.5
+                box 223.58,105.83 1347.83x29.17 #00000040
+                  box 230.25,105.83 922.83x28.33 #00000000 @click
+                    box 230.25,132.5 922.83x1.67 absolute #00000000
+                    box 230.25,112.5 922.83x15
+                      text 230.25,112.5 25x15 "Item" #cbb994
+                      box 258.58,117.5 6.67x5
+                        box 255.25,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1159.75,105.83 36.67x13.33 #00000000 @click
+                    box 1159.75,117.5 36.67x1.67 absolute #00000000
+                    box 1159.75,112.5 36.67x0
+                      text 1159.75,112.5 0x0 "" #a3977f
+                  box 1203.08,105.83 75x28.33 #00000000 @click
+                    box 1203.08,132.5 75x1.67 absolute #00000000
+                    box 1230.58,112.5 47.5x15
+                      text 1230.58,112.5 37.5x15 "Listed" #cbb994
+                      box 1271.42,117.5 6.67x5
+                        box 1268.08,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1284.75,105.83 80x28.33 #00000000 @click
+                    box 1284.75,132.5 80x1.67 absolute #00000000
+                    box 1317.25,112.5 47.5x15
+                      text 1317.25,112.5 37.5x15 "Lowest" #cbb994
+                      box 1358.08,117.5 6.67x5
+                        box 1354.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1371.42,105.83 75x28.33 #00000000 @click
+                    box 1371.42,132.5 75x1.67 absolute #00000000
+                    box 1398.92,112.5 47.5x15
+                      text 1398.92,112.5 37.5x15 "Market" #cbb994
+                      box 1439.75,117.5 6.67x5
+                        box 1436.42,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1453.08,105.83 46.67x28.33 #00000000 @click
+                    box 1453.08,132.5 46.67x1.67 absolute #00000000
+                    box 1483.5,112.5 16.25x15
+                      text 1483.5,112.5 6.25x15 "%" #cbb994
+                      box 1493.08,117.5 6.67x5
+                        box 1489.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                  box 1506.42,105.83 58.33x28.33 #00000000 @click
+                    box 1506.42,132.5 58.33x1.67 absolute #00000000
+                    box 1536,112.5 28.75x15
+                      text 1536,112.5 18.75x15 "Age" #cbb994
+                      box 1558.08,117.5 6.67x5
+                        box 1554.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+                box 223.58,135 1347.83x695.33 scrolled 0 of 0
+                  box 223.58,135 1347.83x26.67 #00000000 @click
+                    box 230.25,138.33 922.83x20
+                      box 230.25,138.33 20x20 #0d0a08 opacity=1 @click @enter
+                        box 230.25,138.33 20x20 absolute
+                        box 230.25,138.33 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                        box 230.25,138.33 20x20 absolute #00000000
+                      box 256.92,140.83 896.17x15 clipped
+                        text 256.92,140.83 896.17x15 "Linen Cloth" #e8dcc4
+                    box 1159.75,148.33 36.67x0
+                    box 1203.08,140.83 75x15
+                      text 1265.58,140.83 12.5x15 "30" #e8dcc4
+                    box 1284.75,140.83 80x15
+                      text 1308.5,140.83 56.25x15 "0g 0s 36c" #e8dcc4
+                    box 1371.42,140.83 75x15
+                      text 1390.17,140.83 56.25x15 "0g 0s 36c" #e8dcc4
+                    box 1453.08,140.83 46.67x15
+                      text 1474.75,140.83 25x15 "100%" #e8dcc4
+                    box 1506.42,140.83 58.33x15
+                      text 1546,140.83 18.75x15 "5 h" #e8dcc4
+                  box 223.58,161.67 1347.83x26.67 #00000000 @click
+                    box 230.25,165 922.83x20
+                      box 230.25,165 20x20 #0d0a08 opacity=1 @click @enter
+                        box 230.25,165 20x20 absolute
+                        box 230.25,165 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                        box 230.25,165 20x20 absolute #00000000
+                      box 256.92,167.5 896.17x15 clipped
+                        text 256.92,167.5 896.17x15 "Copper Ore" #e8dcc4
+                    box 1159.75,175 36.67x0
+                    box 1203.08,167.5 75x15
+                      text 1265.58,167.5 12.5x15 "40" #e8dcc4
+                    box 1284.75,167.5 80x15
+                      text 1308.5,167.5 56.25x15 "0g 0s 90c" #e8dcc4
+                    box 1371.42,167.5 75x15
+                      text 1390.17,167.5 56.25x15 "0g 0s 90c" #e8dcc4
+                    box 1453.08,167.5 46.67x15
+                      text 1474.75,167.5 25x15 "100%" #e8dcc4
+                    box 1506.42,167.5 58.33x15
+                      text 1546,167.5 18.75x15 "5 h" #e8dcc4
+      box 32.75,831.17 1539.5x45
+        box 32.75,847.83 1539.5x28.33
+          text 32.75,855.5 1414.5x13 "2 items" #a3977f
+          box 1463.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 1463.92,847.83 108.33x28.33 absolute
+              text 1505.58,854.5 25x15 "Scan" #ffd100
+  box 0,0 363.5x47.75
+    box 0,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 18.58,10.25 77.33x34.25
+        text 47.87,19.88 18.75x15 "Buy" #ffd100
+    box 124.5,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 143.08,10.25 77.33x34.25
+        text 169.25,19.88 25x15 "Sell" #b3a690
+    box 249,0 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 267.58,10.25 77.33x34.25
+        text 293.75,19.88 25x15 "Data" #b3a690

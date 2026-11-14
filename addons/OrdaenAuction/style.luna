@@ -20,6 +20,8 @@ public const BUTTON_ROW: Number = 42 * PX
 public const NOTE_PAD: Edges = { left: space(.Panel), right: space(.Panel) }
 // What the item's section at the window's right holds, how wide: «Buy»'s picked row, «Sell»'s.
 public const PANEL: Number = 280 * PX
+// The categories at «Buy»'s left.
+public const CATEGORIES: Number = 220 * PX
 // A button as wide as the section holds.
 public const PANEL_BUTTON: Number = PANEL
 // A button that opens a docked window, at the search's row's right end.

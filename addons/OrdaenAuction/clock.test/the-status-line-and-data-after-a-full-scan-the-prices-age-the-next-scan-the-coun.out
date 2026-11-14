@@ -4,13 +4,29 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
     box 12.75,50 1579.5x839.5
       box 32.75,70 1539.5x776.5
         box 32.75,70 1539.5x776.5
-          box 32.75,70 1539.5x776.5
-            box 32.75,70 1539.5x28.33
-              box 32.75,70 1407.83x28.33
-                box 32.75,70 1374.5x28.33
-                  box 32.75,70 1374.5x28.33 #00000080 input "" @change
-                  box 32.75,70 1374.5x28.33 absolute
-                    text 41.08,76.67 1357.83x15 "Item name" #a3977f
+          box 32.75,70 183.33x776.5 #0000004d
+            box 33.58,70.83 181.67x774.83 scrolled 0 of 0
+              box 33.58,70.83 181.67x26.67 #00000040 @click
+                box 33.58,70.83 2.5x26.67 absolute #d6a56b
+                text 46.92,76.67 150x15 "All items" #ffffff
+                box 205.25,84.17 0x0
+              box 33.58,97.5 181.67x26.67
+                box 33.58,97.5 181.67x26.67 #00000000 @click
+                  box 33.58,97.5 2.5x26.67 absolute #00000000
+                  text 46.92,103.33 150x15 "Weapon" #e8dcc4
+                  box 205.25,110.83 0x0
+              box 33.58,124.17 181.67x26.67
+                box 33.58,124.17 181.67x26.67 #00000000 @click
+                  box 33.58,124.17 2.5x26.67 absolute #00000000
+                  text 46.92,130 150x15 "Trade Goods" #e8dcc4
+                  box 205.25,137.5 0x0
+          box 222.75,70 1349.5x776.5
+            box 222.75,70 1349.5x28.33
+              box 222.75,70 1217.83x28.33
+                box 222.75,70 1184.5x28.33
+                  box 222.75,70 1184.5x28.33 #00000080 input "" @change @submit
+                  box 222.75,70 1184.5x28.33 absolute
+                    text 231.08,76.67 1167.83x15 "Item name" #a3977f
                 box 1407.25,70 33.33x28.33
                   box 1407.25,70 33.33x28.33
                     box 1412.25,70 28.33x28.33
@@ -19,15 +35,15 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
               box 1447.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
                 box 1447.25,70 125x28.33 absolute
                   text 1469.12,76.67 81.25x15 "Shopping list" #ffd100
-            box 32.75,105 1539.5x741.5 #0000004d
-              box 33.58,105.83 1537.83x739.83
-                box 33.58,105.83 1537.83x29.17 #00000040
-                  box 40.25,105.83 1112.83x28.33 #00000000 @click
-                    box 40.25,132.5 1112.83x1.67 absolute #00000000
-                    box 40.25,112.5 1112.83x15
-                      text 40.25,112.5 25x15 "Item" #cbb994
-                      box 68.58,117.5 6.67x5
-                        box 65.25,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
+            box 222.75,105 1349.5x741.5 #0000004d
+              box 223.58,105.83 1347.83x739.83
+                box 223.58,105.83 1347.83x29.17 #00000040
+                  box 230.25,105.83 922.83x28.33 #00000000 @click
+                    box 230.25,132.5 922.83x1.67 absolute #00000000
+                    box 230.25,112.5 922.83x15
+                      text 230.25,112.5 25x15 "Item" #cbb994
+                      box 258.58,117.5 6.67x5
+                        box 255.25,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                   box 1159.75,105.83 36.67x13.33 #00000000 @click
                     box 1159.75,117.5 36.67x1.67 absolute #00000000
                     box 1159.75,112.5 36.67x0
@@ -62,9 +78,9 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
                       text 1536,112.5 18.75x15 "Age" #cbb994
                       box 1558.08,117.5 6.67x5
                         box 1554.75,113.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-                box 33.58,135 1537.83x710.67 scrolled 0 of 0
-                  box 33.58,135 1537.83x26.67
-                    text 46.92,140.83 1511.17x15 "Nothing found. Find an item by name." #a3977f
+                box 223.58,135 1347.83x710.67 scrolled 0 of 0
+                  box 223.58,135 1347.83x26.67
+                    text 236.92,140.83 1321.17x15 "Nothing found. Find an item by name." #a3977f
       box 32.75,846.5 1539.5x29.67
         box 32.75,863.17 1539.5x13
           text 32.75,863.17 1392.83x13 "Prices: 5 min ago · 1 item" #a3977f

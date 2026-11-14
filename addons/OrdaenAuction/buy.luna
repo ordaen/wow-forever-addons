@@ -1,12 +1,15 @@
-// «Buy» (design `auction`): a search by name and, on its row, the filter's funnel holding three filters (class, level,
-// quality), sent to the house, and what the
-// house showed last (ours, the shopping list's «Search all», or the game's), each item with its markers, how many are
-// listed, its lowest price for one, its market, the lowest as a share of the market (green under 90%, red over 100%)
-// and the price's age. A row picked: at the right its listings, a quantity, the total, «Buy» (the client's from a
-// click alone) and «Add to shopping list».
+// «Buy» (design `auction`): at the left the house's categories (the classes of items as the game's own window lists
+// them, a class picked showing its subclasses); a search by name and, on its row, the filter's funnel (level, quality);
+// what the house showed last (ours, the shopping list's «Search all», or the game's), each item with its markers, how
+// many are listed, its lowest price for one, its market, the lowest as a share of the market (green under 90%, red
+// over 100%) and the price's age. A category, the funnel and the search are sent to the house; what is typed is sent
+// once the typing settles (`SETTLE`), or at once on Enter, and filters the rows already shown by the names the house
+// keeps lowercased. A row picked: at the right its listings, a quantity, the total, «Buy» (the client's from a click
+// alone) and «Add to shopping list».
+import Client from "$client"
 import Game from "$game"
-import { Align, Beside, Edges, Layer, Line, Side, Track } from "$ltml"
-import { Age, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, Money, PushButton, PX, space, Table, TableRow, ToolButton, Toolbar, tracksOf } from "Ordaen"
+import { Align, Beside, Edges, Layer, Line, Overflow, Side, Track } from "$ltml"
+import { ageText, Choice, Column, Component, Copper, CountInput, DropdownItem, ItemButton, ItemId, ListTab, Money, PushButton, PX, space, Table, TableRow, ToolButton, Toolbar, tracksOf } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
@@ -23,6 +26,8 @@ public struct Found {
   key: PriceKey
   item: ItemId
   name: String
+  // The name lowercased, as a search matches it.
+  lower: String
   color: Color
   listed: Integer
   low: Copper
@@ -53,8 +58,12 @@ const LISTING_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_LEFT, width: 56 * PX, align: Align.End },
 ]
 const LISTING_TRACKS: Array<Track> = tracksOf(LISTING_COLUMNS)
-// The results' side, and the picked row's panel at the right, the page's whole height.
-const PAGE: Array<Track> = [{ fr: 1 }, Style.PANEL]
+// The categories at the left, the results at the right.
+const PAGE: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
+// A subclass stands in under its class.
+const SUBCLASS_PAD: Edges = { left: 14 * PX }
+// How long the typing settles before what is typed is searched for, in seconds.
+const SETTLE = 0.25
 const FILL: Array<Track> = [{ fr: 1 }]
 const SIDE: Array<Track> = ["auto", { fr: 1 }]
 // The toolbar, and the shopping list's window at the row's right end.
@@ -79,15 +88,8 @@ const LISTED_PIP: Color = Color.hex("#40c0ff")
 const CHEAP = 90
 const DEAR = 100
 
-// The class filter: every class, or one the client numbers (`C_Item.GetItemInfoInstant`'s sixth value).
+// A filter that lets every one through: no class, no subclass, any level, any quality.
 const ANY = -1
-const CLASSES: Array<Choice<Integer>> = [
-  { value: ANY, label: Locale.ALL_CLASSES },
-  { value: 7, label: Locale.CLASS_TRADE },
-  { value: 2, label: Locale.CLASS_WEAPON },
-  { value: 4, label: Locale.CLASS_ARMOR },
-  { value: 0, label: Locale.CLASS_CONSUMABLE },
-]
 // The level filter: any, or a band of ten levels by its first (1, 11, ... 51).
 const LEVELS: Array<Choice<Integer>> = [
   { value: ANY, label: Locale.ANY_LEVEL },
@@ -111,22 +113,19 @@ function labelOf(choices: Array<Choice<Integer>>, value: Integer): String {
   return choices.find(choice => choice.value == value)?.label ?? ""
 }
 
-// The filter's menu under the toolbar's funnel: the classes, the level bands and the qualities, each a list of its
-// choices (the first lets every one through) under a rule. A choice picked stays in the open menu; a click anywhere
-// else closes it.
+// The filter's menu under the toolbar's funnel: the level bands and the qualities, each a list of its choices (the
+// first lets every one through), the second under a rule. A choice picked stays in the open menu; a click anywhere
+// else closes it. The classes are the categories at the page's left.
 class FilterMenu implements Component {
   public close: Event<nil> = new Event()
 
-  itemClass: mut Signal<Integer>
   level: mut Signal<Integer>
   quality: mut Signal<Integer>
-  constructor(itemClass: mut Signal<Integer>, level: mut Signal<Integer>, quality: mut Signal<Integer>) {
-    self.itemClass = itemClass
+  constructor(level: mut Signal<Integer>, quality: mut Signal<Integer>) {
     self.level = level
     self.quality = quality
   }
 
-  onClass(mut self, value: Integer) { self.itemClass = value }
   onLevel(mut self, value: Integer) { self.level = value }
   onQuality(mut self, value: Integer) { self.quality = value }
   onClose(self) { self.close.emit() }
@@ -135,12 +134,8 @@ class FilterMenu implements Component {
     return $ltml {
       <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={MENU_WIDTH} background={MENU_BACK}
                border={MENU_EDGE} padding={MENU_PAD} columns={1} @clickOutside={self.onClose}>
-        <DropdownItem $for={choice of CLASSES} choice={choice} value={self.itemClass} compact={true}
-                      @pick={self.onClass} />
-        <box columns={1} padding={AFTER_RULE} border={MENU_RULE}>
-          <DropdownItem $for={choice of LEVELS} choice={choice} value={self.level} compact={true}
-                        @pick={self.onLevel} />
-        </box>
+        <DropdownItem $for={choice of LEVELS} choice={choice} value={self.level} compact={true}
+                      @pick={self.onLevel} />
         <box columns={1} padding={AFTER_RULE} border={MENU_RULE}>
           <DropdownItem $for={choice of QUALITIES} choice={choice} value={self.quality} compact={true}
                         @pick={self.onQuality} />
@@ -150,18 +145,76 @@ class FilterMenu implements Component {
   }
 }
 
-// What the game says of an item: its name and its quality's colour, from its tooltip's first line.
-public function nameOf(item: Integer): (String, Color) {
-  const data = Game.items.tooltip(item)
-  const first = data != nil ? data.lines[1] : nil
-  if (first == nil) { return Locale.UNKNOWN_ITEM.format(item), Style.INK }
-  return first.left ?? Locale.UNKNOWN_ITEM.format(item), first.quality ?? first.leftColor ?? Style.INK
+// A class of the house's categories at the page's left: its entry, and while it is the class picked, its subclasses
+// under it, stood in. Picking reports the class and the subclass (`ANY` for the class whole).
+class CategoryEntry implements Component {
+  public pick: Event<(Integer, Integer)> = new Event()
+
+  derived open: Boolean = self.itemClass == self.category.itemClass
+  derived whole: Boolean = self.open && self.itemSubclass == ANY
+
+  const category: Game.ItemCategory
+  itemClass: Signal<Integer>
+  itemSubclass: Signal<Integer>
+  constructor(category: Game.ItemCategory, itemClass: Signal<Integer>, itemSubclass: Signal<Integer>) {
+    self.category = category
+    self.itemClass = itemClass
+    self.itemSubclass = itemSubclass
+  }
+
+  onClass(self) { self.pick.emit(self.category.itemClass, ANY) }
+  onSubclass(self, subclass: Integer) { self.pick.emit(self.category.itemClass, subclass) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <ListTab label={self.category.name} selected={self.whole} @pick={self.onClass} />
+        <box $if={self.open} columns={1} padding={SUBCLASS_PAD}>
+          <SubclassEntry $for={sub of self.category.subclasses} $key={sub.itemSubclass} subclass={sub}
+                         itemSubclass={self.itemSubclass} @pick={self.onSubclass} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// A subclass under its class: picking reports its number.
+class SubclassEntry implements Component {
+  public pick: Event<Integer> = new Event()
+
+  derived selected: Boolean = self.itemSubclass == self.subclass.itemSubclass
+
+  const subclass: Game.ItemSubcategory
+  itemSubclass: Signal<Integer>
+  constructor(subclass: Game.ItemSubcategory, itemSubclass: Signal<Integer>) {
+    self.subclass = subclass
+    self.itemSubclass = itemSubclass
+  }
+
+  onPick(self) { self.pick.emit(self.subclass.itemSubclass) }
+
+  public render(self): Template {
+    return $ltml {
+      <ListTab label={self.subclass.name} selected={self.selected} @pick={self.onPick} />
+    }
+  }
 }
 
 // An age in seconds, as the `Age` control reads one; none without a price.
 public function ageOf(quote: Quote | nil): Number | nil {
   if (quote == nil) { return nil }
   return quote.age() * 3600
+}
+
+// The age column's text and colour: the hours under a day (a house's prices move by the hour), «< 1 h» for this
+// hour's; from a day the market's days (`ageText`: amber to the third day, dimmed after); nothing without a price.
+public function ageCell(quote: Quote | nil): (String, Color) {
+  if (quote == nil) { return "", Style.DIM }
+  const hours = quote.age()
+  if (hours < 1) { return Locale.AGE_FRESH, Style.INK }
+  if (hours < 24) { return Locale.HOURS.format(hours), Style.INK }
+  const text, color = ageText(hours * 3600)
+  return text, color ?? Style.DIM
 }
 
 // The share's colour: green for a bargain, red where dear, the ink between.
@@ -181,7 +234,8 @@ function shareText(share: Integer | nil): String {
 class FoundRow implements Component {
   public pick: Event<PriceKey> = new Event()
 
-  derived age: Number | nil = ageOf(self.found.market)
+  derived age: String = self.ageTextOf()
+  derived ageInk: Color = self.ageInkOf()
   derived priced: Boolean = self.found.market != nil
   derived market: Integer = self.found.market?.copper() ?? 0
   derived share: String = shareText(self.found.share)
@@ -198,6 +252,16 @@ class FoundRow implements Component {
   }
 
   onPick(self) { self.pick.emit(self.found.key) }
+
+  ageTextOf(self): String {
+    const text, _ = ageCell(self.found.market)
+    return text
+  }
+
+  ageInkOf(self): Color {
+    const _, color = ageCell(self.found.market)
+    return color
+  }
 
   public render(self): Template {
     return $ltml {
@@ -224,7 +288,7 @@ class FoundRow implements Component {
           <text value={self.share} textColor={self.shareInk} />
         </box>
         <box xAlign={Align.End}>
-          <Age seconds={self.age} />
+          <text value={self.age} textColor={self.ageInk} wrap={false} />
         </box>
       </TableRow>
     }
@@ -235,28 +299,39 @@ public class BuyPage implements Component {
   // «Shopping list» was clicked: its window opens, or closes.
   public openList: Event<nil> = new Event()
 
+  // What the search field holds, and what is searched for: the field's once the typing settles, or on Enter.
+  state typed = ""
   state search = ""
+  // The category picked at the left: a class and one of its subclasses, `ANY` for none.
   state itemClass = ANY
+  state itemSubclass = ANY
   state level = ANY
   state quality = ANY
   state filterOpen = false
-  // The filter's Tip: the class, the level band and the quality it lets through.
-  derived filterText: String = [labelOf(CLASSES, self.itemClass), labelOf(LEVELS, self.level),
-    labelOf(QUALITIES, self.quality)].join(", ")
+  // The filter's Tip: the level band and the quality it lets through.
+  derived filterText: String = [labelOf(LEVELS, self.level), labelOf(QUALITIES, self.quality)].join(", ")
   state sorted = 0
   state descending = false
   state picked: PriceKey | nil = nil
   // What the house was last searched for, as `wanted` says it.
   state sent = ""
-  derived rows: Array<Found> = self.found()
+  // Every row of what the house showed, sorted: rebuilt as the house shows other items, its prices move or the sort
+  // changes, never as the player types. The rows shown are those whose lowercased name holds the search.
+  derived all: Array<Found> = self.allOf()
+  derived rows: Array<Found> = self.matching()
   // The row picked, while it is shown: one or none, handed to the window's side section.
   derived picks: Array<Found> = self.chosenOf()
-  derived searching: Boolean = self.search != ""
-  derived filtered: Boolean = self.itemClass != ANY || self.level != ANY || self.quality != ANY
-  derived wanted: String = "%s|%d|%d|%d".format(self.search, self.itemClass, self.level, self.quality)
+  derived filtered: Boolean = self.level != ANY || self.quality != ANY
+  derived wanted: String = "%s|%d|%d|%d|%d".format(self.search, self.itemClass, self.itemSubclass, self.level,
+    self.quality)
   derived empty: String = self.items > 0 ? Locale.NO_RESULTS : Locale.NO_PRICES_FIND
+  derived anyClass: Boolean = self.itemClass == ANY
+  // The typing's turn: a settle that comes after a later key, or after Enter, is stale.
+  turn = 0
 
-  const house: House
+  // The house's categories, as the client lists them.
+  const categories: Array<Game.ItemCategory>
+  house: mut House
   const prices: any PriceSource
   offers: Signal<Array<Game.Offer>>
   items: Signal<Integer>
@@ -264,7 +339,7 @@ public class BuyPage implements Component {
   shopping: mut ShoppingList
   chosen: mut Signal<Array<Found>>
   constructor(
-    house: House,
+    house: mut House,
     prices: any PriceSource,
     // What the house showed last.
     offers: Signal<Array<Game.Offer>>,
@@ -280,50 +355,72 @@ public class BuyPage implements Component {
     self.items = items
     self.shopping = shopping
     self.chosen = chosen
+    self.categories = Game.auctionQuery.categories()
     watch (picks of self.picks) { self.chosen = picks.map(found => found) }
     self.sent = peek self.wanted
-    // The box or a filter moved: the house searched as soon as it takes a query; what is typed meanwhile is sent
-    // whole after.
+    // A key typed: what is typed is searched for once no other key comes for `SETTLE` seconds.
+    watch (typed of self.typed) {
+      self.turn += 1
+      const turn = self.turn
+      Client.C_Timer.After(SETTLE, () => self.settle(turn))
+    }
+    // The search, the category or a filter moved: the house searched as soon as it takes a query; what moves
+    // meanwhile is sent whole after.
     watch {
       const wanted = self.wanted
-      if (wanted != peek self.sent && (self.searching || self.filtered) && Game.auctionQuery.ready) {
+      if (wanted != peek self.sent && Game.auctionQuery.ready) {
         if (Game.auctionQuery.search(peek self.search, peek self.filters())) { self.sent = wanted }
       }
     }
+  }
+
+  // The typing settled, unless a key or Enter came since.
+  settle(mut self, turn: Integer) {
+    if (turn == self.turn) { self.search = peek self.typed }
+  }
+
+  // Enter in the search field: what is typed is searched for now.
+  searchNow(mut self) {
+    self.turn += 1
+    self.search = peek self.typed
   }
 
   filters(self): Game.SearchFilters {
     const level = self.level
     return {
       itemClass: self.itemClass != ANY ? self.itemClass : nil,
-      itemSubclass: nil,
+      itemSubclass: self.itemClass != ANY && self.itemSubclass != ANY ? self.itemSubclass : nil,
       minLevel: level != ANY ? level : nil,
       maxLevel: level != ANY ? level + 9 : nil,
       qualities: self.quality != ANY ? [self.quality] : [],
     }
   }
 
-  found(self): Array<Found> {
+  allOf(mut self): Array<Found> {
     _ = self.prices.revision
-    const sought = self.search.lower()
     let list: Array<Found> = []
     for (offer of self.offers) {
       const key = PriceKey.given(offer.key)
       const item = key.item()
-      const name, color = nameOf(item)
-      if (sought == "" || name.lower().contains(sought)) {
-        const market = self.house.quote(key)
-        const share = market != nil && market.copper() > 0 ? (offer.copper * 100 / market.copper()).round() : nil
-        list.push({
-          key: key, item: item, name: name, color: color, listed: offer.quantity, low: Copper.of(offer.copper),
-          market: market, share: share,
-        })
-      }
+      const named = self.house.named(item)
+      const market = self.house.quote(key)
+      const share = market != nil && market.copper() > 0 ? (offer.copper * 100 / market.copper()).round() : nil
+      list.push({
+        key: key, item: item, name: named.name, lower: named.lower, color: named.color, listed: offer.quantity,
+        low: Copper.of(offer.copper), market: market, share: share,
+      })
     }
     const column = self.sorted
     const down = self.descending
     if (column != 0) { list.sort((a, b) => down ? before(b, a, column) : before(a, b, column)) }
     return list
+  }
+
+  // The rows whose lowercased name holds the search: all of them for none.
+  matching(self): Array<Found> {
+    const sought = self.search.lower()
+    if (sought == "") { return self.all }
+    return self.all.filter(row => row.lower.contains(sought))
   }
 
   chosenOf(self): Array<Found> {
@@ -334,20 +431,36 @@ public class BuyPage implements Component {
 
   onPick(mut self, key: PriceKey) { self.picked = key }
   closeFilter(mut self) { self.filterOpen = false }
+  pickAll(mut self) {
+    self.itemClass = ANY
+    self.itemSubclass = ANY
+  }
+  pickCategory(mut self, itemClass: Integer, itemSubclass: Integer) {
+    self.itemClass = itemClass
+    self.itemSubclass = itemSubclass
+  }
 
   onOpenList(mut self) { self.openList.emit() }
 
   public render(self): Template {
     return $ltml {
-      <box rows={FILL}>
+      <box columns={PAGE} rows={FILL} gap={space(.Item)}>
+        // The categories: every item, then each class.
+        <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
+          <box overflow={Overflow.Scroll}>
+            <ListTab label={Locale.ALL_CLASSES} selected={self.anyClass} @pick={self.pickAll} />
+            <CategoryEntry $for={category of self.categories} $key={category.itemClass} category={category}
+                           itemClass={self.itemClass} itemSubclass={self.itemSubclass} @pick={self.pickCategory} />
+          </box>
+        </box>
         <box rows={SIDE} gap={space(.Item)}>
           // The toolbar (the search, the filter), and the shopping list's window at the row's right end.
           <box columns={TOOLS} gap={space(.Item)} yAlign={Align.Center}>
-            <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
+            <Toolbar search={mut self.typed} placeholder={Locale.SEARCH} @submit={self.searchNow}>
               <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.filterText}
                           open={mut self.filterOpen} lit={self.filtered}>
-                <FilterMenu $if={self.filterOpen} itemClass={mut self.itemClass} level={mut self.level}
-                            quality={mut self.quality} @close={self.closeFilter} />
+                <FilterMenu $if={self.filterOpen} level={mut self.level} quality={mut self.quality}
+                            @close={self.closeFilter} />
               </ToolButton>
             </Toolbar>
             <PushButton label={Locale.PAGE_SHOPPING} width={Style.OPENER} @click={self.onOpenList} />
