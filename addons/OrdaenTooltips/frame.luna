@@ -1,6 +1,6 @@
 // One Ordaen tooltip's frame: the small metal frame round the windows' wood, 12 px inside, and the sections in the
 // one order, each left out when empty: the header, the title (the icon beside three lines), the band of facts, the
-// body, what there is more of, the footer, the hotkeys. A rule only between two present sections, none between the
+// body, what there is more of, the footer, what other modules add, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
 import { Align, Art, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, Track } from "$ltml"
@@ -501,8 +501,6 @@ public class TipFrame implements Component {
             </box>
           </Row>
         </box>
-        // What other modules add, after the body: the main tooltip's owner fills it.
-        <slot />
         <box $if={self.hasMore} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
           <Row $for={line of self.more} line={line} locked={self.locked} numbers={self.numbers}>
             <box #opened={opens}>
@@ -517,6 +515,8 @@ public class TipFrame implements Component {
             </box>
           </Row>
         </box>
+        // What other modules add, after the footer: the main tooltip's owner fills it.
+        <slot />
         <box $if={self.hasKeys} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
           <Row $for={line of self.keys} line={line} locked={self.locked} numbers={self.numbers}>
             <box #opened={opens}>

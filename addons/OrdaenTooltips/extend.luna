@@ -1,7 +1,8 @@
 // What other modules add to Ordaen Tooltips' tooltips: the contract, imported by type alone
 // (`import type { ItemLines, Line } from "OrdaenTooltips"`). Each section is a registry of Tooltips' root (`worth`,
 // `uses`, `held` for an item, `gives` for a world object), added to in a watch that follows that root; Tooltips
-// draws what was added after its own body, a section after another, each entry's lines together.
+// draws what was added after its own footer (before the hotkeys), a section after another, each entry's lines
+// together.
 
 // A line another module adds: a label at the left, a value at the right.
 public struct Line {

@@ -1,5 +1,5 @@
 // What another module adds to Ordaen Tooltips' sections, made up by the test: a price row that follows its own
-// cell, a row of a world object's, each in its section after the main tooltip's body, and gone with its handle.
+// cell, a row of a world object's, each in its section after the main tooltip's footer, and gone with its handle.
 import Client from "$client"
 import Game from "$game"
 import { Frame } from "$ltml"
@@ -73,4 +73,16 @@ test "a row another module adds stands in its section, follows what it read, and
   Test.pass(0.2)
   (Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")).disable()
   Test.expect(Test.blank())
+}
+
+test "what another module adds comes after the tooltip's own footer" {
+  let corner = frame("GameTooltip", 1300, 720)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+  Game.items.owned = (id: Integer): Integer => 4
+  const added = Tooltips.worth.add(new Priced())
+  Game.tooltip.main = showing(corner, { kind: 0, id: 2770, about: "item:2770", lines: [{ left: "Copper Ore", kind: 22 }] })
+  Test.shot("an item held in the bank: the footer's «In the bank», then the added row")
+  destroy added
+  Game.tooltip.main = { shown: false, ..showing(corner, { lines: [] }) }
+  Test.pass(0.2)
 }
