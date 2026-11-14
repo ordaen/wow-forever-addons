@@ -349,7 +349,7 @@ surface 52,73 271.17x172.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood
     text 72.25,212.92 179x15 "At +50 a time" #cbb994
     text 257.92,212.92 50x15 "143 more" #ffffff
 
-a standing changed, the client told: ClearAllPoints=1 GetHeight=1 GetStringHeight=2 GetUnboundedStringWidth=2 GetWidth=2 SetAllPoints=2 SetClampedToScreen=1 SetPoint=1 SetShown=1 SetSize=1 SetText=2 SetToplevel=1 SetVertexColor=2
+a standing changed, the client told: ClearAllPoints=1 GetHeight=1 GetStringHeight=2 GetUnboundedStringWidth=2 GetWidth=2 SetAllPoints=2 SetClampedToScreen=1 SetPoint=1 SetShown=1 SetSize=1 SetText=2 SetVertexColor=2
 -- a panel too low for two: experience alone
 box 0,0 500x25
   box 32,0 436x25 @enter @leave
