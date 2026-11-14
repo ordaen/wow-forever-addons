@@ -201,3 +201,34 @@ showing one value, drawn three ways. Every way ends with every text right.
   fields a shared metatable would hold. Bindings are objects (one metatable), as the code style asks.
 - One changed text costs the same three ways: the backend lays the whole grid out again (the text's width can
   change), about 570 instructions per text in the grid. That is the backend's share to cut, not the engine's.
+
+## An auction house's full scan
+
+The companion's records of a game session (2026-11-14, Ordaen Auction, a dev build; `wow_records`, the client
+domain's cassette and the per-minute tap counts) on a house of 159,582 auctions.
+
+| | Before | After |
+| --- | ---: | ---: |
+| Auctions read a frame | 500, fixed | as many as 4 ms take, asked every 50 |
+| LunaType's longest frame while reading | 21.7 ms (about 43 µs an auction) | 4 ms and at most one check's 50 more |
+| Auctions whose item's data hadn't loaded | dropped: 337 of the first 1000 auctions read had no link; 3,917 distinct items' data was asked for in the scan | read again as each item's data comes, 10 s at most |
+| Items counted at the end | about 5,000 | every key the answer gives (not measured in the game yet) |
+| Setting the prices | one frame for every item, a table and a sort's closure for each | spread over frames under the same 4 ms; no table for an item listed once, one comparator |
+
+- The client's own calls for one scan: `GetReplicateItemInfo` 1,153 ms of client time over 159,582 calls,
+  `GetItemInfoInstant` 327 ms, `GetReplicateItemLink` 177 ms over 55,246 calls. They are the floor: a full scan's
+  reading is 8 to 9 seconds of 4 ms frames.
+- The 337 are auctions, not items: an item's later auctions were read frames later, often after its data had come,
+  so the 3,917 items asked for are an upper bound on the items a scan lost. Against Auctionator's price database on
+  the same account (`AUCTIONATOR_PRICE_DATABASE["PvP"]`, decoded 2026-11-14: 6,390 item ids, every one it has ever
+  seen on the realm), the house after that scan held 5,098 item ids (5,495 keys, 416 of them a weapon's or armour's
+  suffix): it lacked 1,399 of Auctionator's ids and had 107 Auctionator hasn't. Of the 1,399, Auctionator saw 222 on
+  the day of the scan, 1,116 last one or two days before and 61 earlier: the items lost to late data are at most a few
+  hundred, not a third of the house.
+- The ten seconds between the click and the first `REPLICATE_ITEM_LIST_UPDATE` are the server's; the status line
+  says it waits.
+- At rest the house is one deflated string: 10,000 keys with their market and listing 143 KB; with one point of
+  history each 213 KB; a key's full history (24 hours and 29 days) about 160 bytes more, 2,000 such keys 317 KB. A
+  house keeps a history for 8,000 keys at most.
+- The longest frame after is the budget by construction (`clock.test.luna`, a clock that moves with the auctions
+  read); it isn't measured in the game yet.

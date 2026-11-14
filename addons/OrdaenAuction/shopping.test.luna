@@ -31,7 +31,7 @@ test "lines of one item are summed, held is taken off, and the list is kept acro
 test "the page: every item browsed in one query, a row removed, what is bought cleared" {
   Test.mount(nil, PAGE)
   Game.auctionHouse.open = true
-  Auction.page = 4
+  Test.click(Test.holding("Shopping list", nil), nil)
   Test.pass(0.02)
   Test.shot("empty: what to do")
   Game.items.owned = (id: Integer): Integer => id == LINEN ? 25 : 0
@@ -63,7 +63,7 @@ test "«Buy N» on a row: its listings asked first, then a commodity's N priced 
   Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 4 : 0
   Game.auctionQuery.results.emit([{ key: COPPER_BAR, copper: 52, quantity: 400 }])
   Auction.shopping.add(ItemId.of(COPPER_BAR), 22, .ByHand)
-  Auction.page = 4
+  Auction.shoppingOpen = true
   Test.pass(0.02)
   Test.click(Test.holding("Buy 18", nil), nil)
   Game.auctionQuery.listed.emit(COPPER_BAR, [{ auction: 0, unit: 52, quantity: 400, own: false, commodity: true }])

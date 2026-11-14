@@ -3,11 +3,12 @@
 // body, what there is more of, the footer, what other modules add, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
-import { Align, Art, Piece, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, TextSize, Track } from "$ltml"
+import { Align, Art, Piece, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, TextFont, TextSize, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "Ordaen"
 import Locale from "@/locales"
-import { Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
+import { GREEN, RED } from "@/colors"
+import { Compared, Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
 
 public const PX: Number = 1 / 1.2
 // The glyphs' pictures (art/pieces/tooltip-glyphs.json): a column of 20 px cells, a row each in the order of
@@ -52,6 +53,11 @@ const FILL: Array<Track> = [{ fr: 1 }]
 const WITH_ICON: Array<Track> = [ICON, { fr: 1 }]
 const ALONE: Array<Track> = [{ fr: 1 }]
 public const NAME_VALUE: Array<Track> = [{ fr: 1 }, "auto"]
+// A compared value: the value, then its difference «(by», the mark, «)», 3 px apart (the design's `.diff`), the mark
+// 10 px (ctl.compareUp, ctl.compareDown).
+const COMPARED: Array<Track> = ["auto", "auto", "auto", "auto"]
+const COMPARED_GAP = 3 * PX
+const COMPARED_MARK = 10 * PX
 // A text at its own width, the rest of its row empty.
 const OWN_WIDTH: Array<Track> = ["auto", { fr: 1 }]
 public const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
@@ -88,6 +94,8 @@ public struct Drawn {
   // What its name opens, and what its value does.
   opens: Opens
   valueOpens: Opens
+  // An item's stat against the compared item's, after the value.
+  compared: Compared | nil
 }
 
 function opensSomething(opens: Opens): Boolean {
@@ -112,7 +120,7 @@ public class TermText implements Component {
   size: Signal<TextSize>
   opens: Signal<Opens>
   locked: Signal<Boolean>
-  family: Signal<Art | nil>
+  const font: TextFont | nil
   constructor(
     text: Signal<String>,
     color: Signal<Color>,
@@ -120,14 +128,14 @@ public class TermText implements Component {
     opens: Signal<Opens>,
     locked: Signal<Boolean>,
     // A value's text is in the numbers' font; nothing keeps the text's.
-    family: Signal<Art | nil> = nil,
+    font: TextFont | nil = nil,
   ) {
     self.text = text
     self.color = color
     self.size = size
     self.opens = opens
     self.locked = locked
-    self.family = family
+    self.font = font
     watch { self.forgetCursor() }
   }
 
@@ -145,7 +153,7 @@ public class TermText implements Component {
     return $ltml {
       <box>
         <text value={self.text} textColor={self.color} textSize={self.size} wrap={false}
-              textFamily={self.family} />
+              textFont={self.font} />
         <box $if={self.lit} position={Position.Absolute} left={0} right={0} bottom={0} height={1 * PX}
              background={UNDERLINE} />
         <box $if={self.lit} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
@@ -169,28 +177,24 @@ public class PartText implements Component {
   index: Signal<Integer>
   const color: Color
   locked: Signal<Boolean>
-  numbers: Signal<Art | nil>
   constructor(
     part: Signal<Part>,
     index: Signal<Integer>,
     // The line's colour, for a piece without its own.
     color: Color,
     locked: Signal<Boolean> = false,
-    // The numbers' font of the look.
-    numbers: Signal<Art | nil> = nil,
   ) {
     self.part = part
     self.index = index
     self.color = color
     self.locked = locked
-    self.numbers = numbers
   }
 
   public render(self): Template {
     return $ltml {
       // In the numbers' font: the client's own for texts has no middle dot.
       <text $if={self.notFirst} value={" · "} textColor={self.color} textSize={.Secondary} wrap={false}
-            textFamily={self.numbers} />
+            textFont={.Numbers} />
       <TermText text={self.part.text} color={self.own} size={TextSize.Secondary} opens={self.part.opens} locked={self.locked}>
         <box #opened={opens}>
           <slot #opened opens={opens} />
@@ -287,19 +291,19 @@ public class Row implements Component {
   derived right: String = self.line.right ?? ""
   derived opening: Boolean = opensSomething(self.line.opens)
   derived valueOpening: Boolean = opensSomething(self.line.valueOpens)
+  // A compared stat's difference: «(by ▲)» green when it is more, «(by ▼)» red when less, after the value.
+  derived hasCompared: Boolean = self.line.compared != nil
+  derived plainValue: Boolean = !self.hasCompared && !self.valueOpening
+  derived comparedMore: Boolean = self.line.compared?.more == true
+  derived comparedColor: Color = self.comparedMore ? GREEN : RED
+  derived comparedMark: Art = self.comparedMore ? Ordaen.art.ctl.compareUp : Ordaen.art.ctl.compareDown
+  derived comparedBy: String = `(${self.line.compared?.by ?? ""}`
 
   line: Signal<Drawn>
   locked: Signal<Boolean>
-  numbers: Signal<Art | nil>
-  constructor(
-    line: Signal<Drawn>,
-    locked: Signal<Boolean> = false,
-    // The numbers' font of the look.
-    numbers: Signal<Art | nil> = nil,
-  ) {
+  constructor(line: Signal<Drawn>, locked: Signal<Boolean> = false) {
     self.line = line
     self.locked = locked
-    self.numbers = numbers
   }
 
   public render(self): Template {
@@ -314,15 +318,24 @@ public class Row implements Component {
           </TermText>
         </box>
         <text $else value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
-        // A value, in the numbers' font: it has the marks a value carries (▲, ▼), which the font for texts lacks.
+        // A value, in the numbers' font; a compared one (an item's stat: it opens nothing) with its difference after
+        // it, the mark art (no font carries it) tinted as the difference's text.
+        <box $if={self.hasCompared} columns={COMPARED} gap={COMPARED_GAP} yAlign={Align.Center}>
+          <text value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={false}
+                textFont={.Numbers} />
+          <text value={self.comparedBy} textColor={self.comparedColor} textSize={self.line.size} wrap={false}
+                textFont={.Numbers} />
+          <box width={COMPARED_MARK} height={COMPARED_MARK} background={self.comparedMark} tint={self.comparedColor} />
+          <text value={")"} textColor={self.comparedColor} textSize={self.line.size} wrap={false} textFont={.Numbers} />
+        </box>
         <TermText $if={self.valueOpening} text={self.right} color={self.line.rightColor} size={self.line.size}
-                  opens={self.line.valueOpens} locked={self.locked} family={self.numbers}>
+                  opens={self.line.valueOpens} locked={self.locked} font={.Numbers}>
           <box #opened={opens}>
             <slot #opened opens={opens} />
           </box>
         </TermText>
-        <text $else value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={false}
-              textFamily={self.numbers} />
+        <text $if={self.plainValue} value={self.right} textColor={self.line.rightColor} textSize={self.line.size}
+              wrap={false} textFont={.Numbers} />
       </box>
       <box $else padding={self.line.padding}>
         <box $if={self.opening} columns={OWN_WIDTH}>
@@ -370,9 +383,6 @@ public class TipFrame implements Component {
   // A rule only between two present sections; none between the title and the body. The title is always there,
   // so every section after the body has one.
   derived bodyRule: Line | nil = self.hasFacts ? RULE : nil
-
-  // Ordaen's art and the files of the look the player chose: Ordaen is needed by name, so its root is there.
-  derived numbers: Art | nil = Ordaen.lookArt.fontNumbers
 
   // The track shows once the charge starts; its room is there from the start.
   derived track: Color | nil = self.charge > 0 ? TRACK : nil
@@ -453,7 +463,7 @@ public class TipFrame implements Component {
       list.push({
         left: line.left, right: line.right, leftColor: line.color ?? plain,
         rightColor: line.rightColor ?? line.color ?? BODY, size: TextSize.Primary, padding: padding, opens: line.opens,
-        valueOpens: Opens.None,
+        valueOpens: Opens.None, compared: line.compared,
       })
       pairedBefore = paired
     }
@@ -467,7 +477,7 @@ public class TipFrame implements Component {
       list.push({
         left: note.left, right: note.right, leftColor: alone ? note.valueColor ?? QUIET : QUIET,
         rightColor: note.valueColor ?? QUIET_VALUE, size: TextSize.Secondary, padding: NO_PAD, opens: note.opens,
-        valueOpens: note.valueOpens,
+        valueOpens: note.valueOpens, compared: nil,
       })
     }
     return list
@@ -478,7 +488,7 @@ public class TipFrame implements Component {
     for (key of self.model.keys) {
       list.push({
         left: key, right: nil, leftColor: QUIET, rightColor: QUIET, size: TextSize.Secondary, padding: NO_PAD,
-        opens: Opens.None, valueOpens: Opens.None,
+        opens: Opens.None, valueOpens: Opens.None, compared: nil,
       })
     }
     return list
@@ -487,7 +497,7 @@ public class TipFrame implements Component {
   public render(self): Template {
     return $ltml {
       <box width={"min"} minWidth={self.width} padding={12 * PX} border={Ordaen.art.frame.small}
-           background={Ordaen.art.window.wood} textFamily={Ordaen.lookArt.font}>
+           background={Ordaen.art.window.wood}>
         <box $if={self.hasHeader} height={35 * PX} gap={6 * PX}>
           <box xAlign={Align.Center}>
             <text value={self.header} textColor={HEADING} wrap={false} />
@@ -501,10 +511,10 @@ public class TipFrame implements Component {
           </box>
           <box gap={2 * PX} yAlign={Align.Center}>
             <text value={self.model.name} textColor={self.model.nameColor} textSize={.Title} wrap={false}
-                  textFamily={Ordaen.lookArt.fontHeader} />
+                  textFont={.Title} />
             <box $if={self.hasDesc} columns={self.descColumns} height={18 * PX} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.desc} part={part} index={index} color={LABEL}
-                        locked={self.locked} numbers={self.numbers}>
+                        locked={self.locked}>
                 <box #opened={opens}>
                   <slot #opened opens={opens} />
                 </box>
@@ -512,7 +522,7 @@ public class TipFrame implements Component {
             </box>
             <box $if={self.hasInfo} columns={self.infoColumns} height={18 * PX} yAlign={Align.Center}>
               <PartText $for={index, part of self.model.info} part={part} index={index} color={QUIET}
-                        locked={self.locked} numbers={self.numbers}>
+                        locked={self.locked}>
                 <box #opened={opens}>
                   <slot #opened opens={opens} />
                 </box>
@@ -529,21 +539,21 @@ public class TipFrame implements Component {
           </FactCell>
         </box>
         <box $if={self.hasBody} gap={2 * PX} padding={SECTION_PAD} border={self.bodyRule}>
-          <Row $for={line of self.body} line={line} locked={self.locked} numbers={self.numbers}>
+          <Row $for={line of self.body} line={line} locked={self.locked}>
             <box #opened={opens}>
               <slot #opened opens={opens} />
             </box>
           </Row>
         </box>
         <box $if={self.hasMore} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
-          <Row $for={line of self.more} line={line} locked={self.locked} numbers={self.numbers}>
+          <Row $for={line of self.more} line={line} locked={self.locked}>
             <box #opened={opens}>
               <slot #opened opens={opens} />
             </box>
           </Row>
         </box>
         <box $if={self.hasFoot} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
-          <Row $for={line of self.foot} line={line} locked={self.locked} numbers={self.numbers}>
+          <Row $for={line of self.foot} line={line} locked={self.locked}>
             <box #opened={opens}>
               <slot #opened opens={opens} />
             </box>
@@ -552,7 +562,7 @@ public class TipFrame implements Component {
         // What other modules add, after the footer: the main tooltip's owner fills it.
         <slot />
         <box $if={self.hasKeys} gap={2 * PX} padding={SECTION_PAD} border={RULE}>
-          <Row $for={line of self.keys} line={line} locked={self.locked} numbers={self.numbers}>
+          <Row $for={line of self.keys} line={line} locked={self.locked}>
             <box #opened={opens}>
               <slot #opened opens={opens} />
             </box>

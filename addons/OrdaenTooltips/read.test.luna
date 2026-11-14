@@ -88,7 +88,9 @@ function describe(model: Model) {
   }
   for (line of model.body) {
     let right = line.right
-    Test.note(`  body: ${line.left}${colour(line.color)}${right != nil ? ` | ${right}${colour(line.rightColor)}` : ""}${line.desc == true ? " (a description)" : ""}${opens(line.opens)}`.replace("\n", " / "))
+    let compared = line.compared
+    let against = compared != nil ? ` (${compared.by} ${compared.more ? "more" : "less"})` : ""
+    Test.note(`  body: ${line.left}${colour(line.color)}${right != nil ? ` | ${right}${colour(line.rightColor)}${against}` : ""}${line.desc == true ? " (a description)" : ""}${opens(line.opens)}`.replace("\n", " / "))
   }
   for (line of model.more) {
     let right = line.right

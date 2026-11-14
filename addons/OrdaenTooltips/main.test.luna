@@ -115,6 +115,9 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
 
   Game.tooltip.compared = [axe("Worn Axe"), axe("Other Axe")]
   Test.shot("compared with two: the differences on each worn one")
+  // The differences' marks are art (no font the look ships carries ▲ or ▼): more's on the right, less's on the
+  // first worn one, at the left.
+  Test.expect(Test.painted(Ordaen.art.ctl.compareUp, nil).x > Test.painted(Ordaen.art.ctl.compareDown, nil).x)
 
   Tooltips.settings.draft.itemsAnchorBags = Place.Corner
   saveAll()

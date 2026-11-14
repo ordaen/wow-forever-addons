@@ -3,8 +3,11 @@
 // on the screen at first; dragging a tab moves it, Escape closes it, the grip in its bottom right corner
 // resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
 // the window: one group of plates, settings where the window is made `withSettings` (its `settings` event), full
-// screen (and back) and close. Its unnamed slot takes the body's content, which fills the body.
-import { Align, Art, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Stated, Track } from "$ltml"
+// screen (and back) and close. Its unnamed slot takes the body's content, which fills the body. A window made `full`
+// opens full screen; full screen, it keeps `room` clear at the screen's right side, where the windows docked there
+// stand. A window made `docked` stands along that side of the screen from its top to its bottom, as wide as its
+// placing says: it isn't moved or resized, and its full-screen toggle still covers the screen.
+import { Align, Art, Docked, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
@@ -240,7 +243,7 @@ public class Window implements Component {
   // A tab was clicked: its place among the tabs, in the click's own call.
   public picked: Event<Integer> = new Event()
 
-  state full = false
+  state full: Boolean
   state hovered = false
   // Where the window and its body were when a drag began.
   x0: Number = 0
@@ -256,8 +259,11 @@ public class Window implements Component {
   derived columns: Array<Track> = self.tabColumns()
   derived place: Place = self.placeOf()
   derived width: Number | nil = self.full ? nil : self.placing.width
-  derived height: Number | nil = self.full ? nil : self.tabHeight + self.placing.height
-  derived sized: Boolean = !self.full
+  derived height: Number | nil = self.full || self.docked != nil ? nil : self.tabHeight + self.placing.height
+  // Moved by a tab and resized by its grip: neither full screen nor docked.
+  derived free: Boolean = !self.full && self.docked == nil
+  // The screen's right side kept clear while full screen.
+  derived inset: Number = self.full ? self.room : 0
   derived grip: Stated<Art> = self.gripOf()
   // The ring round the control the keyboard has focused: the look's accent.
   derived focusLine: Line = { width: 1 * PX, color: Ordaen.look.values.accent, sides: nil }
@@ -273,6 +279,8 @@ public class Window implements Component {
   const controls: Array<CornerControl>
   const cornerWidth: Number
   shown: Signal<Boolean>
+  const docked: Side | nil
+  room: Signal<Number>
   constructor(
     tabs: Signal<Array<WindowTabSpec>>,
     selected: mut Signal<Integer>,
@@ -286,7 +294,16 @@ public class Window implements Component {
     // Hidden, it stays drawn: a window opened often is shown again at the cost of a surface shown, not of being
     // drawn anew (`$if` on it builds it at each open).
     shown: Signal<Boolean> = true,
+    // Opens full screen.
+    full: Boolean = false,
+    // Stands along this side of the screen, its whole length.
+    docked: Side | nil = nil,
+    // The width kept clear at the screen's right side while full screen: the windows docked there.
+    room: Signal<Number> = 0,
   ) {
+    self.full = full
+    self.docked = docked
+    self.room = room
     self.controls = cornerControls(withSettings)
     self.cornerWidth = plateLeft(self.controls.length + 1, self.controls.length)
     self.shown = shown
@@ -316,6 +333,8 @@ public class Window implements Component {
   // corner stays exactly where it is.
   placeOf(self): Place {
     if (self.full) { return "fill" }
+    const side = self.docked
+    if (side != nil) { return Docked { side: side, whole: true } }
     return {
       point: Point.TopLeft, to: Point.Center,
       x: self.placing.x - self.placing.width / 2,
@@ -350,7 +369,7 @@ public class Window implements Component {
   // A tab dragged moves the window, as far as it stays on the screen. The tab row takes the mouse on its tabs alone:
   // the room right of them passes a click on to what shows there.
   onMove(mut self, drag: Drag) {
-    if (self.full) { return }
+    if (self.full || self.docked != nil) { return }
     const dx, dy = kept(drag, Hold.Move)
     self.placing.x = self.x0 + dx
     self.placing.y = self.y0 + dy
@@ -375,9 +394,9 @@ public class Window implements Component {
       // As wide as the player made it, and never narrower than its tabs: the tab row is the one thing in its
       // grid, and the width it keeps is its least.
       <surface shown={self.shown} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
-               raise={true} xAlign={Align.Start} textFamily={Ordaen.lookArt.font} focusLine={self.focusLine}
+               raise={true} xAlign={Align.Start} focusLine={self.focusLine}
                @escape={self.onClose}>
-        <box position={Position.Absolute} left={0} right={0} top={self.tabHeight} bottom={0}
+        <box position={Position.Absolute} left={0} right={self.inset} top={self.tabHeight} bottom={0}
              border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={PADDING}
              rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>
           <slot />
@@ -386,7 +405,7 @@ public class Window implements Component {
             <CornerPlate $for={index, control of self.controls} control={control} index={index}
                          count={self.controls.length} full={self.full} @pressed={self.onCorner} />
           </box>
-          <box $if={self.sized} position={Position.Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}
+          <box $if={self.free} position={Position.Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}
                height={16 * PX} background={self.grip} @dragStart={self.onGrab} @drag={self.onSize} />
         </box>
         <box columns={self.columns} gap={12 * PX} yAlign={Align.End}>

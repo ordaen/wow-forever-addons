@@ -89,9 +89,9 @@ function rightClick(at: Test.Point) {
   Test.flush()
 }
 
-// The choice picked from a tool row's menu: its face, then the choice.
-function pickFrom(face: String, choice: String) {
-  click(Test.holding(face, nil))
+// The choice picked from a toolbar button's list: the button by the glyph it shows, then the choice.
+function pickFrom(button: Art, choice: String) {
+  click(Test.painted(button, nil))
   click(Test.holding(choice, nil))
 }
 
@@ -125,7 +125,7 @@ test "the four views list the recipes: in columns, by category, in one list, in 
   Test.expect(below("Cloth armour", "Bags"))
 
   // One list with the categories as headings: a heading closes its recipes.
-  pickFrom("In columns", "By category")
+  pickFrom(Ordaen.art.ctl.tool.columns, "By category")
   Test.expect(Professions.view == View.Categories)
   Test.note("by category: " + names(Professions.listing))
   Test.expect(below("Cloth armour", "Linen Cloak"))
@@ -136,7 +136,7 @@ test "the four views list the recipes: in columns, by category, in one list, in 
   click(Test.holding("Woolen Bag", nil))
   Test.expect(Professions.chosenRecipe == 121)
 
-  pickFrom("By category", "One list")
+  pickFrom(Ordaen.art.ctl.tool.categories, "One list")
   Test.expect(Professions.view == View.List)
   Test.note("one list: " + names(Professions.listing))
   Test.expect(below("Linen Cloak", "Woolen Bag"))
@@ -145,7 +145,7 @@ test "the four views list the recipes: in columns, by category, in one list, in 
   Test.expect(Professions.chosenRecipe == 120)
 
   // A table: the library's headings sort it, a click on the same heading again turns it round.
-  pickFrom("One list", "Table")
+  pickFrom(Ordaen.art.ctl.tool.list, "Table")
   Test.expect(Professions.view == View.Table)
   Test.note("table by name: " + names(Professions.listing))
   Test.expect(Professions.tableColumn == 1)
@@ -158,7 +158,7 @@ test "the four views list the recipes: in columns, by category, in one list, in 
   Test.expect(Professions.chosenRecipe == 110)
 
   // The camp has one list whatever the view.
-  pickFrom("Table", "In columns")
+  pickFrom(Ordaen.art.ctl.tool.table, "In columns")
   click(Test.holding("Camp", nil))
   Test.note("camp: " + names(Professions.listing))
 }
@@ -172,18 +172,18 @@ test "the sort orders each list: by difficulty with the unlearned last, by name,
   Test.mount(nil, PAGE)
   Game.tradeSkill.open = TAILORING
   Test.flush()
-  pickFrom("In columns", "One list")
+  pickFrom(Ordaen.art.ctl.tool.columns, "One list")
   Test.note("by difficulty: " + names(Professions.listing))
-  pickFrom("By difficulty", "By name")
+  pickFrom(Ordaen.art.ctl.tool.sort, "By name")
   Test.expect(Professions.sort == SortBy.Name)
   Test.note("by name: " + names(Professions.listing))
   Test.expect(below("Brown Linen Vest", "Linen Bag"))
-  pickFrom("By name", "Can make")
+  pickFrom(Ordaen.art.ctl.tool.sort, "Can make")
   Test.note("by how many can be made: " + names(Professions.listing))
   Test.expect(Professions.listing[1]?.name == "Linen Bag")
 }
 
-test "the filter lets through what the game's own options say; a dot on its button says one is on" {
+test "the filter lets through what the game's own options say; its button's Tip names the options ticked" {
   Game.frames.Professions = ownFrame()
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
@@ -192,9 +192,9 @@ test "the filter lets through what the game's own options say; a dot on its butt
   Test.mount(nil, PAGE)
   Game.tradeSkill.open = TAILORING
   Test.flush()
-  pickFrom("In columns", "One list")
+  pickFrom(Ordaen.art.ctl.tool.columns, "One list")
   Test.expect(!Professions.filtered)
-  click(Test.holding("Filter", nil))
+  click(Test.painted(Ordaen.art.ctl.tool.filter, nil))
   click(Test.holding("Can make", 1))
   Test.expect(Professions.onlyMake)
   Test.note("can make: " + names(Professions.listing))
@@ -214,6 +214,10 @@ test "the filter lets through what the game's own options say; a dot on its butt
   // A click anywhere else closes the menu.
   click({ x: 5, y: 5 })
   Test.expect(!Professions.filterOpen)
+  // Under the cursor, the funnel's Tip: what it does, and the options ticked.
+  Test.moveTo(Test.painted(Ordaen.art.ctl.tool.filter, nil))
+  Test.flush()
+  Test.expect(Test.surfaces().any(shown => shown.texts.join("|") == "Filter|Not learned"))
 }
 
 test "the search finds a recipe by its name or by a reagent, in any case" {
@@ -225,7 +229,7 @@ test "the search finds a recipe by its name or by a reagent, in any case" {
   Test.mount(nil, PAGE)
   Game.tradeSkill.open = TAILORING
   Test.flush()
-  pickFrom("In columns", "One list")
+  pickFrom(Ordaen.art.ctl.tool.columns, "One list")
   click(Test.field(nil))
   Test.type("BAG")
   Test.flush()
@@ -277,7 +281,7 @@ test "the chosen recipe's icon is the library's item button: the item's tooltip 
   Test.moveTo({ x: 5, y: 5 })
   Test.flush()
   // «Woolen Bag» makes no item: its own icon, no item button.
-  pickFrom("In columns", "One list")
+  pickFrom(Ordaen.art.ctl.tool.columns, "One list")
   click(Test.holding("Woolen Bag", nil))
   Test.expect(Professions.chosenRecipe == 121)
   Test.expect(drawnFile("Interface/Icons/INV_Misc_Note_01"))
@@ -409,7 +413,7 @@ test "the ⚙ opens the module's page in the settings window; a setting saved ch
   // The filter can still turn it on for the session: that is a filter on.
   Ordaen.toggleSettings(Runtime.Addon.of(Professions))
   Test.flush()
-  click(Test.holding("Filter", nil))
+  click(Test.painted(Ordaen.art.ctl.tool.filter, nil))
   click(Test.holding("Not learned", nil))
   Test.expect(Professions.filtered)
 }
@@ -448,7 +452,7 @@ test "the right-click menu stands under the recipe: its link, «Create [N]» and
   Test.expect(Professions.menuFor == 110)
   click({ x: 5, y: 5 })
   // The table's rows have the menu too.
-  pickFrom("In columns", "Table")
+  pickFrom(Ordaen.art.ctl.tool.columns, "Table")
   rightClick(Test.holding("Linen Bag", nil))
   Test.expect(Professions.menuFor == 120)
   // The menu doesn't choose the recipe. A click closes it and goes no further; the next one chooses.

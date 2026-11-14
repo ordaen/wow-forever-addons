@@ -312,14 +312,14 @@ public class Minimap implements Module, App {
               <box $if={self.showsCoords} @click={self.onCoordsClick} @enter={self.onCoordsEnter}
                    @leave={self.onHintLeave}>
                 <text value={Game.minimap.coords} textColor={INK} textShadow={ENGRAVED}
-                      textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
+                      textFont={.Numbers} wrap={false} />
                 <Tip $if={self.hint == Hint.Coords} title={self.hintTitle} text={self.hintText} />
               </box>
               <box $else width={1} />
               <box $if={self.settings.values.showClock} @click={self.onClockClick} @enter={self.onClockEnter}
                    @leave={self.onHintLeave}>
                 <text value={Game.clock.text} textColor={self.clockColor} textShadow={ENGRAVED}
-                      textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
+                      textFont={.Numbers} wrap={false} />
                 <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} />
               </box>
             </box>

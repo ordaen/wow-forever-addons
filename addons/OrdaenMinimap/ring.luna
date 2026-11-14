@@ -135,7 +135,7 @@ public class RingButton implements Component {
           <box $if={self.spec.id == RingId.Ordaen} width={22 * PX} height={22 * PX} icon={Ordaen.icon}
                mask={Ordaen.art.panel.faceRound} />
           <text $elseif={self.spec.id == RingId.Drawer} value={self.count} textColor={GOLD}
-                textFamily={Ordaen.lookArt.fontNumbers} textShadow={COUNT_SHADOW} wrap={false} />
+                textFont={.Numbers} textShadow={COUNT_SHADOW} wrap={false} />
           <box $elseif={self.spec.glyph != nil} width={self.spec.glyphWidth} height={self.spec.glyphHeight}
                background={self.spec.glyph} />
           <Tip $if={self.hinted} title={self.map.hintTitle} text={self.map.hintText} />

@@ -9,11 +9,13 @@ import Locale from "@/locales"
 import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
 
-// One of a dropdown's choices: the value the setting takes, and what the player reads.
+// One of a dropdown's choices: the value the setting takes, and what the player reads; on a toolbar's ToolPick, the
+// glyph its button shows while it is picked (a view's).
 public struct Choice<T: Unknown> {
   value: T
   label: String
   soon: Boolean | nil
+  icon: Art | nil
 }
 
 const WIDTH = 240 * PX

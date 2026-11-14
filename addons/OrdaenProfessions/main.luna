@@ -8,7 +8,7 @@ import Client from "$client"
 import Game from "$game"
 import { Action, Align, Edges, Line, Overflow, Position, Side, Track } from "$ltml"
 import Runtime from "$runtime"
-import { Choice, Column, CompactDropdown, cornerRoom, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, Table, tracksOf, Tabs, Window, WindowTabSpec } from "Ordaen"
+import { ARTWORK, Choice, Column, cornerRoom, Memory, Module, Placing, PushButton, PX, SettingsPage, Settings, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { RecipeDetails } from "@/details"
@@ -30,17 +30,11 @@ const FILL: Array<Track> = [{ fr: 1 }]
 // The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.
 const BODY: Array<Track> = ["auto", "auto", { fr: 1 }]
 const GRID: Array<Track> = [Style.LEFT, { fr: 1 }]
-const SIDE: Array<Track> = ["auto", "auto", { fr: 1 }]
+const SIDE: Array<Track> = ["auto", { fr: 1 }]
 const LISTS: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
-const TOOLS: Array<Track> = ["auto", "auto", "auto"]
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const COLUMN_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Left] }
 const BAR_ROOM: Edges = { right: cornerRoom(true) }
-const SEARCH_HEIGHT = 34 * PX
-const SEARCH_EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
-const SEARCH_BACK: Color = Color.hex("#00000080")
-const SEARCH_PAD: Edges = { right: 10 * PX, left: 10 * PX }
-const PICK_WIDTH = 170 * PX
 const TRACK_WIDTH = 170 * PX
 // Mining's and Herbalism's finding on the minimap, by their skill lines: Find Minerals, Find Herbs.
 const MINING = 186
@@ -61,10 +55,10 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_MAKEABLE, width: 80 * PX, align: Align.End, sortable: true },
 ]
 const VIEWS: Array<Choice<View>> = [
-  { value: View.Columns, label: Locale.VIEW_COLUMNS },
-  { value: View.Categories, label: Locale.VIEW_CATEGORIES },
-  { value: View.List, label: Locale.VIEW_LIST },
-  { value: View.Table, label: Locale.VIEW_TABLE },
+  { value: View.Columns, label: Locale.VIEW_COLUMNS, icon: ARTWORK.ctl.tool.columns },
+  { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
+  { value: View.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list },
+  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table },
 ]
 const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Difficulty, label: Locale.SORT_DIFFICULTY },
@@ -178,7 +172,6 @@ public class Professions implements Module, App {
   derived thresholds: Thresholds = thresholdsOf(Game.tradeSkill.open)
   derived chosenYellow: Integer | nil = self.thresholds.yellow[self.chosenRecipe]
   derived chosenGrey: Integer | nil = self.thresholds.grey[self.chosenRecipe]
-  derived searching: Boolean = self.search != ""
   derived empty: Boolean = self.listing.length == 0
   derived inColumns: Boolean = self.view == View.Columns
   derived inGroups: Boolean = self.view == View.Categories
@@ -647,21 +640,15 @@ public class Professions implements Module, App {
                           kept={self.kept} @pick={self.openRecipe} />
             <box $else columns={GRID} rows={FILL} gap={Style.GAP}>
               <box rows={SIDE} gap={8 * PX}>
-                <box height={SEARCH_HEIGHT} rows={FILL}>
-                  <input value={mut self.search} padding={SEARCH_PAD}
-                         textColor={Style.INK} background={SEARCH_BACK} border={SEARCH_EDGE} />
-                  <box $if={!self.searching} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
-                       padding={SEARCH_PAD} yAlign={Align.Center}>
-                    <text value={Locale.SEARCH} textColor={Style.DIM} wrap={false} />
-                  </box>
-                </box>
-                <box columns={TOOLS} gap={6 * PX} yAlign={Align.Center}>
+                <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
                   <FilterButton open={mut self.filterOpen} makeable={mut self.onlyMake} skillUp={mut self.onlySkill}
                                 learned={mut self.showLearned} unlearned={mut self.showUnlearned}
                                 filtered={self.filtered} @reset={self.resetFilter} />
-                  <CompactDropdown $if={!self.isTable} value={mut self.sort} choices={SORTS} width={PICK_WIDTH} />
-                  <CompactDropdown $if={!self.onCamp} value={mut self.view} choices={VIEWS} width={PICK_WIDTH} />
-                </box>
+                  <ToolPick $if={!self.isTable} value={mut self.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort}
+                            title={Locale.SORT} />
+                  <ToolPick $if={!self.onCamp} value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns}
+                            title={Locale.VIEW} />
+                </Toolbar>
                 <box $if={self.onCamp} rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
                   <box overflow={Overflow.Scroll}>
                     <RecipeRow $for={index, recipe of self.recipes} $key={recipe.id} recipe={recipe} index={index}

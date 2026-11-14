@@ -35,7 +35,7 @@ public class Tip implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={WIDTH} textFamily={Ordaen.lookArt.font}
+      <surface layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={WIDTH}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
                padding={12 * PX} columns={1} gap={2 * PX}>
         <text value={self.title} textColor={NAME} textSize={.Title} />

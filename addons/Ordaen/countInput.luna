@@ -7,7 +7,6 @@
 // number past a bound is written as that bound; a text that isn't a number leaves the value and turns the edge red).
 import Game from "$game"
 import { Align, Edges, Line, Track } from "$ltml"
-import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
 import { PX } from "@/units"
@@ -116,7 +115,7 @@ public class CountInput implements Component {
         <PushButton label={"-"} width={self.step} disabled={!self.fewer} repeats={true} @click={self.less} />
         <box xAlign={Align.Center}>
           <text value={"%d"} arguments={[self.value]} textColor={WHITE}
-                textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
+                textFont={.Numbers} wrap={false} />
         </box>
         <PushButton label={"+"} width={self.step} disabled={!self.more} repeats={true} @click={self.raise} />
       </box>

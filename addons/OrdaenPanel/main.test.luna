@@ -177,11 +177,11 @@ test "the panel: its zones and items, the game's buttons in its cells, when it s
   Test.note(`boxes that take the mouse: ${mouse.boxes > 0 ? "some" : "none"}; with part of their face under another frame: ${mouse.covered}${covered != nil ? ` (${covered})` : ""}`)
   Test.note("")
 
-  // The look chosen: the level on the badge is its accent, Blizzard's gold here; rolled back, Ordaen's bronze.
+  // The look chosen: the level on the badge is its accent, Minimal's grey here; rolled back, Ordaen's bronze.
   const ordaen = Ordaen
-  ordaen.look.choose(preset(Preset.Blizzard))
+  ordaen.look.choose(preset(Preset.Minimal))
   Ordaen.keeper.saveAll()
-  shown("Blizzard's look saved: the level in its accent")
+  shown("Minimal's look saved: the level in its accent")
   Ordaen.keeper.rollbackAll()
 
   Game.friends.online = 3
@@ -396,4 +396,32 @@ test "every bag button the game has stands in a cell of the panel, in its order,
     Test.expect(place == 1 || x > before)
     before = x
   }
+}
+
+// The client's own bag button of that name, of the stand-in's bags bar (`Test.clientFrames`).
+function clientBag(kind: Game.BagKind, name: String, icon: FileId): Game.BagButton {
+  return { kind: kind, frame: Runtime.frame(name) ?? panic("the client has the bag button"), icon: icon }
+}
+
+test "the bags opened, each bag button of the game's stays unseen in its cell" {
+  Test.clientFrames()
+  let buttons: Array<Game.BagButton> = [clientBag(.Backpack, "MainMenuBarBackpackButton", 130716)]
+  for (slot of 0..=Client.NUM_BAG_SLOTS - 1) { buttons.push(clientBag(.Bag, `CharacterBag${slot}Slot`, 136511)) }
+  for (slot of 0..=Client.NUM_REAGENTBAG_SLOTS - 1) {
+    buttons.push(clientBag(.Reagent, `CharacterReagentBag${slot}Slot`, 136511))
+  }
+  buttons.push(clientBag(.Keyring, "KeyRingButton", 130980))
+  Game.bags.buttons = buttons
+  Test.mount(nil, PAGE)
+  // The client's item buttons fade their icon alone through their own `SetAlpha`: the button itself, the slot's
+  // frame, the light the open lights on it and the backpack's free slots are the frame's to hide.
+  Client.ToggleAllBags()
+  Test.shot("the bags open")
+  let seen: Array<String> = []
+  for (button of buttons) {
+    const frame: any Client.Frame = button.frame
+    seen.push(`${frame.GetName() ?? "?"} ${frame.GetAlpha()}`)
+    Test.expect(frame.GetParent() != Client.C_UI.GetUIParent() && frame.GetAlpha() == 0)
+  }
+  Test.note(`the game's bag buttons' own opacity: ${seen.join(", ")}`)
 }

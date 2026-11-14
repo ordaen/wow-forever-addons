@@ -1,0 +1,85 @@
+// The item panel: one layout on «Buy» and on «Sell»; its chart of the item's price, the day an hour a bar, the week and
+// the month a day a bar, from the history as it is kept (the last day by the hour, the days before by their lowest);
+// with no history, it says so.
+import Game from "$game"
+import Test from "$test"
+import { Hour, ItemId } from "Ordaen"
+import root Auction from "OrdaenAuction"
+import { HourPrice, PriceHistory } from "@/history"
+import { House } from "@/house"
+import { ItemPanel } from "@/itemPanel"
+import { OrdaenPrices } from "@/prices"
+import { PriceKey } from "@/quote"
+
+// 2026-09-21, in the server's seconds: a whole hour.
+const START = 1790002800
+const LINEN: Integer = 2589
+const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
+
+// A history as the scan keeps it: these points, whatever the item.
+class Kept implements PriceHistory {
+  public state revision = 0
+  const points: Array<HourPrice>
+  constructor(points: Array<HourPrice>) { self.points = points }
+  public hours(self, key: PriceKey, from: Hour, to: Hour): Array<HourPrice> {
+    return self.points.filter(point => point.hour >= from && point.hour <= to)
+  }
+}
+
+// The house's cut, a cell as the root's settings give it.
+class Cut {
+  public state value = 5
+}
+
+function names(id: Integer): Game.TooltipData | nil {
+  if (id != LINEN) { return nil }
+  return { lines: [{ left: "Linen Cloth", kind: 0 }] }
+}
+
+test "«Sell» picks into the panel «Buy» has; no history says so, and a browse's hour shows" {
+  Game.clock.server = START
+  Test.mount(nil, PAGE)
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [
+    { item: LINEN, count: 20, bag: 0, slot: 1, commodity: true },
+  ]
+  Game.auctionHouse.open = true
+  Auction.page = 2
+  Test.pass(0.02)
+  Test.click(Test.holding("Linen Cloth", nil), nil)
+  Test.pass(0.02)
+  Test.shot("«Sell»: linen picked, the panel as «Buy» has it, no history")
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Test.pass(0.02)
+  Test.shot("a browse kept this hour: one gold bar at the right")
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+}
+
+test "the chart: the day a bar an hour, the week and the month a bar a day" {
+  Game.clock.server = START
+  const now = Hour.now()
+  const house = new House("Realm 4", nil)
+  const cut = new Cut()
+  const prices = new OrdaenPrices(house, {}, cut.value)
+  // The last day by the hour (three hours seen), the days before by their lowest.
+  const kept = new Kept([
+    { hour: now.after(-40 * 24), copper: 10 },
+    { hour: now.after(-20 * 24), copper: 60 },
+    { hour: now.after(-3 * 24), copper: 40 },
+    { hour: now.after(-2 * 24), copper: 30 },
+    { hour: now.after(-5), copper: 44 },
+    { hour: now.after(-1), copper: 38 },
+    { hour: now, copper: 36 },
+  ])
+  Game.items.tooltip = names
+  Test.mount(new ItemPanel(ItemId.of(LINEN), "Linen Cloth", Color.hex("#ffffff"), "Listed: 30", house, prices, kept),
+    { left: 0, top: 0, width: 300, height: 400 })
+  Test.shot("the day: three hours priced, the last gold; 36 to 44")
+  Test.click(Test.holding("Week", nil), nil)
+  Test.pass(0.02)
+  Test.shot("the week: three days priced; 30 to 40")
+  Test.click(Test.holding("Month", nil), nil)
+  Test.pass(0.02)
+  Test.shot("the month: four days priced, the one 40 days old left out; 30 to 60")
+}

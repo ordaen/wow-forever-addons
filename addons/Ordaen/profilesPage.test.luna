@@ -306,7 +306,7 @@ test "a profile exports as text, imports as a new profile after a preview, and a
   Test.mount(page, PAGE)
   const profiles = Ordaen.keeper.profiles
   Ordaen.globals.draft.scale = 1.5
-  Ordaen.look.choose(preset(Preset.Blizzard))
+  Ordaen.look.choose(preset(Preset.Minimal))
   Ordaen.keeper.saveAll()
   const next = profiles.edit()
   const own = next.profiles[DEFAULT_PROFILE] ?? Profile {}

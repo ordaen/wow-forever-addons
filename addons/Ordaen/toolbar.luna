@@ -1,0 +1,166 @@
+// A window's toolbar: the search field and, on the same row at its right, the filter, the sort and the view as
+// icon-only buttons, each opening its list under it. Every window that searches, filters, sorts or chooses a view
+// draws these with it.
+//
+// Toolbar: the row. The search field fills what the buttons leave, its hint in dim text while it is empty; the
+// buttons are its unnamed slot, in the order written, each 6 px after what stands before it.
+// ToolButton: a 34 px square bronze plate with a glyph; a click opens or closes what its slot holds (the caller's
+// list, drawn while `open`). The glyph is gold while the list is open or while `lit` (a filter that narrows the list);
+// otherwise ink. Under the cursor, while closed, a Tip names what it does and what it is set to.
+// ToolPick: a ToolButton with a list of choices, as a dropdown's (the picked one's mark gold): a click on a choice
+// picks it and closes the list, a click anywhere else closes it. It shows the picked choice's own glyph where the
+// choice has one (a view), else its own (a sort); its Tip says the picked choice.
+import { Align, Art, Beside, Edges, Layer, Line, Position, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component } from "@/module"
+import { PX } from "@/units"
+import { Tip } from "@/tip"
+import { Choice, DropdownItem } from "@/dropdown"
+
+const SIZE = 34 * PX
+const GLYPH = 16 * PX
+const GAP = 6 * PX
+const INK: Color = Color.hex("#e8dcc4")
+const GOLD: Color = Color.hex("#f0c860")
+const DIM: Color = Color.hex("#a3977f")
+const FIELD_BACK: Color = Color.hex("#00000080")
+const FIELD_EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
+const FIELD_PAD: Edges = { right: 10 * PX, left: 10 * PX }
+const ROW: Array<Track> = [{ fr: 1 }, "auto"]
+const FILL: Array<Track> = [{ fr: 1 }]
+// Room for every button a toolbar holds; a track no button takes is none wide (each button carries its own gap).
+const TOOLS: Array<Track> = ["auto", "auto", "auto", "auto", "auto", "auto"]
+const AFTER: Edges = { left: GAP }
+const LIST_BACK: Color = Color.hex("#0a0806f7")
+const LIST_EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
+const LIST_PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
+const LIST_WIDTH = 210 * PX
+
+public class Toolbar implements Component {
+  derived searching: Boolean = self.search != ""
+
+  search: mut Signal<String>
+  placeholder: Signal<String>
+  constructor(
+    search: mut Signal<String>,
+    // What the field searches by, in it while it is empty.
+    placeholder: Signal<String>,
+  ) {
+    self.search = search
+    self.placeholder = placeholder
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} yAlign={Align.Center}>
+        <box height={SIZE} rows={FILL}>
+          <input value={mut self.search} padding={FIELD_PAD} textColor={INK} background={FIELD_BACK}
+                 border={FIELD_EDGE} />
+          <box $if={!self.searching} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+               padding={FIELD_PAD} yAlign={Align.Center}>
+            <text value={self.placeholder} textColor={DIM} wrap={false} />
+          </box>
+        </box>
+        <box columns={TOOLS} yAlign={Align.Center}>
+          <slot />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class ToolButton implements Component {
+  state hovered = false
+  derived tipShown: Boolean = self.hovered && !self.open
+  derived glyphColor: Color = self.open || self.lit ? GOLD : INK
+
+  icon: Signal<Art>
+  title: Signal<String>
+  text: Signal<String>
+  open: mut Signal<Boolean>
+  lit: Signal<Boolean>
+  constructor(
+    icon: Signal<Art>,
+    // What it does («Sort»), and what it is set to («By name»): its Tip.
+    title: Signal<String>,
+    text: Signal<String>,
+    open: mut Signal<Boolean>,
+    lit: Signal<Boolean> = false,
+  ) {
+    self.icon = icon
+    self.title = title
+    self.text = text
+    self.open = open
+    self.lit = lit
+  }
+
+  toggle(mut self) { self.open = !self.open }
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={AFTER}>
+        <box width={SIZE} height={SIZE}>
+          <box position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE} xAlign={Align.Center}
+               yAlign={Align.Center} background={Ordaen.art.ctl.button} @click={self.toggle} @enter={self.onEnter}
+               @leave={self.onLeave}>
+            <box width={GLYPH} height={GLYPH} background={self.icon} tint={self.glyphColor} />
+            <Tip $if={self.tipShown} title={self.title} text={self.text} />
+          </box>
+          <slot />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class ToolPick<T: Unknown> implements Component {
+  state open = false
+  derived picked: Choice<T> | nil = self.choices.find(choice => choice.value == self.value)
+  derived shown: String = self.picked?.label ?? ""
+  derived glyph: Art = self.picked?.icon ?? self.icon
+
+  value: mut Signal<T>
+  const choices: Array<Choice<T>>
+  icon: Signal<Art>
+  title: Signal<String>
+  lit: Signal<Boolean>
+  const listWidth: Number
+  constructor(
+    value: mut Signal<T>,
+    choices: Array<Choice<T>>,
+    // Its glyph where the picked choice has none of its own.
+    icon: Signal<Art>,
+    // What it chooses («Sort»): its Tip's title, over the picked choice.
+    title: Signal<String>,
+    lit: Signal<Boolean> = false,
+    listWidth: Number = LIST_WIDTH,
+  ) {
+    self.value = value
+    self.choices = choices
+    self.icon = icon
+    self.title = title
+    self.lit = lit
+    self.listWidth = listWidth
+  }
+
+  close(mut self) { self.open = false }
+
+  onPick(mut self, value: T) {
+    self.value = value
+    self.open = false
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <ToolButton icon={self.glyph} title={self.title} text={self.shown} open={mut self.open} lit={self.lit}>
+        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listWidth}
+                 background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @clickOutside={self.close}>
+          <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
+                        @pick={self.onPick} />
+        </surface>
+      </ToolButton>
+    }
+  }
+}

@@ -1,4 +1,5 @@
-// ItemButton: an item's slot: its icon on a dark well, the border in its quality's colour, its count at the bottom
+// ItemButton: an item's slot: its icon on a dark well, the border in its quality's colour (from uncommon up, lit inside
+// in it: the rim's light), its count at the bottom
 // right (from two up), and corner markers (a coloured pip each, in the top left, the top right or the bottom left)
 // that other modules put on it. A slot with no item draws the well alone. Dimmed (by a search) it draws at 35%.
 // Under the cursor the light of the other controls over the icon, and the game's own tooltip of the item beside it
@@ -7,6 +8,7 @@
 // per frame.
 import { Align, Art, Click, Edges, Frame, Line, MouseButton, Position, Shadow, Stated } from "$ltml"
 import Game from "$game"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
 
@@ -75,6 +77,10 @@ public class ItemButton implements Component {
   derived icon: Art | nil = self.iconOf()
   // The border: its quality's colour, the plain one for an empty slot.
   public derived edge: Line = self.edgeOf()
+  // The rim's light: an item from uncommon up, in its quality's colour.
+  public derived lit: Boolean = self.item != nil && self.quality != Quality.Poor && self.quality != Quality.Common
+  // Always drawn, at no opacity when not lit: the slot keeps its boxes whatever it holds.
+  derived rim: Number = self.lit ? 1 : 0
   derived opacity: Number = self.dimmed ? 0.35 : 1
   derived counted: Boolean = self.count > 1
 
@@ -142,6 +148,9 @@ public class ItemButton implements Component {
       <box width={self.size} height={self.size} background={WELL} border={self.edge} opacity={self.opacity}
            @click={self.onClick} @enter={self.onEnter}>
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} icon={self.icon} />
+        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+             background={Ordaen.art.ctl.qualityRim} tint={self.edge.color} opacity={self.rim}
+             zLevel={1} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} background={SHINE}
              stateFromParent={true} />
         <Pip $for={marker of self.markers} marker={peek marker} />

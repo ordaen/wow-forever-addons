@@ -171,7 +171,7 @@ public class Tube implements Component {
              yAlign={Align.Center} zLevel={7}>
           // Secondary: the values with the longest standing's name fit a tube at its least.
           <text value={self.label} textSize={.Secondary} textColor={LABEL} textOutline={1}
-                textShadow={LABEL_SHADOW} wrap={false} />
+                textShadow={LABEL_SHADOW} wrap={false} textFont={.Numbers} />
         </box>
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              columns={self.parts} rows={FILL}>

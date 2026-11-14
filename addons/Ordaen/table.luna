@@ -4,7 +4,8 @@
 // and nothing is made for it when another changes). The rows are `TableRow`s in the table's slot, each laid out in the
 // columns' tracks (`tracksOf(columns)`, made once where the columns are). Every row is drawn; the body scrolls where
 // it is given a `height`.
-import { Align, Click, Edges, Line, Overflow, Position, Side, Stated, Track } from "$ltml"
+import { Align, Art, Click, Edges, Line, Overflow, Position, Side, Stated, Track } from "$ltml"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { PX } from "@/units"
 
@@ -26,9 +27,16 @@ const SHADE: Stated<Color> = { default: CLEAR, hover: Color.hex("#00000033") }
 const BACK: Color = Color.hex("#00000040")
 const PADDING: Edges = { top: 6 * PX, bottom: 6 * PX }
 const ROW_PADDING: Edges = { top: 4 * PX, right: 8 * PX, bottom: 4 * PX, left: 8 * PX }
-const MARK_FONT: Asset = "Fonts/ARIALN.TTF"
 const SIDES: Edges = { left: 8 * PX, right: 8 * PX }
 const HEAD: Array<Track> = ["auto", "auto"]
+const HUGGED: Array<Track> = ["auto", "auto"]
+const FILLED: Array<Track> = ["auto", { fr: 1 }]
+// A sorted heading's mark (ctl.markUp, ctl.markDown): a triangle 8 px wide and 6 high in the middle of a 16 px cell.
+const MARK_WIDTH = 8 * PX
+const MARK_HEIGHT = 6 * PX
+const MARK_CELL = 16 * PX
+const MARK_LEFT = (MARK_WIDTH - MARK_CELL) / 2
+const MARK_TOP = (MARK_HEIGHT - MARK_CELL) / 2
 
 // The tracks of a table's columns: one per column, as wide as its `width`.
 public function tracksOf(columns: Array<Column>): Array<Track> {
@@ -40,11 +48,11 @@ public function tracksOf(columns: Array<Column>): Array<Track> {
 // One heading.
 public class Heading implements Component {
   derived picked: Boolean = self.sorted == self.index
-  // The light under it and both marks are always drawn, what isn't the state clear or at no opacity: only colours
-  // tell the heading the rows are ordered by, and which way.
+  // The light under it and the mark are always drawn, what isn't the state clear or at no opacity: only colours and
+  // the mark's art tell the heading the rows are ordered by, and which way.
   derived light: Color = self.picked ? LIGHT : CLEAR
-  derived up: Number = self.picked && !self.descending ? 1 : 0
-  derived down: Number = self.picked && self.descending ? 1 : 0
+  derived marked: Number = self.picked ? 1 : 0
+  derived mark: Art = self.descending ? Ordaen.art.ctl.markDown : Ordaen.art.ctl.markUp
   derived sortable: Boolean = self.column.sortable == true
   derived color: Color | Stated<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
   derived shade: Color | Stated<Color> = self.sortable ? SHADE : CLEAR
@@ -79,15 +87,13 @@ public class Heading implements Component {
     return $ltml {
       <box padding={PADDING} xAlign={self.column.align} background={self.shade} @click={self.onClick}>
         <box position={Position.Absolute} left={0} right={0} bottom={0} height={2 * PX} background={self.light} />
-        <box columns={HEAD} gap={4 * PX} stateFromParent={true}>
+        <box columns={HEAD} gap={4 * PX} yAlign={Align.Center} stateFromParent={true}>
           <text value={self.column.title} textColor={self.color} stateFromParent={true} wrap={false} />
-          <box $if={self.sortable}>
-            <box opacity={self.up}>
-              <text value={"▲"} textColor={GOLD} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
-            </box>
-            <box position={Position.Absolute} left={0} top={0} opacity={self.down}>
-              <text value={"▼"} textColor={GOLD} textSize={.Secondary} textFamily={MARK_FONT} wrap={false} />
-            </box>
+          // The mark takes the triangle's own room; its cell, a triangle in its middle, reaches past it.
+          <box $if={self.sortable} width={MARK_WIDTH} height={MARK_HEIGHT}>
+            <box position={Position.Absolute} left={MARK_LEFT} top={MARK_TOP} width={MARK_CELL}
+                 height={MARK_CELL} background={self.mark} tint={GOLD}
+                 opacity={self.marked} />
           </box>
         </box>
       </box>
@@ -132,6 +138,11 @@ public class Table implements Component {
   sorted: mut Signal<Integer>
   descending: mut Signal<Boolean>
   height: Signal<Number | nil>
+  // The headings' row and the body's: the body as high as its rows, or the rest of the table's height.
+  const rows: Array<Track>
+  // Filling, the body scrolls in a box placed by its edges in its row: what it holds asks no height of the row
+  // (among several rows, a share is never lower than what stands in it).
+  const fills: Boolean
   constructor(
     columns: Array<Column>,
     // The column the rows are ordered by, from 1; 0 for none.
@@ -139,21 +150,31 @@ public class Table implements Component {
     descending: mut Signal<Boolean>,
     // The body's height: it scrolls past it. None: as high as its rows.
     height: Signal<Number | nil> = nil,
+    // The body takes the height the table is given, under the headings, and scrolls past it.
+    fills: Boolean = false,
   ) {
     self.columns = columns
     self.sorted = sorted
     self.descending = descending
     self.height = height
+    self.rows = fills ? FILLED : HUGGED
+    self.fills = fills
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={1}>
+      <box columns={1} rows={self.rows}>
         <box columns={self.tracks} gap={8 * PX} padding={SIDES} background={BACK} border={RULE}>
           <Heading $for={index, column of self.columns} column={column} index={index} sorted={mut self.sorted}
                    descending={mut self.descending} />
         </box>
-        <box columns={1} height={self.height} overflow={Overflow.Scroll}>
+        <box $if={self.fills}>
+          <box columns={1} overflow={Overflow.Scroll} position={Position.Absolute} left={0} top={0} right={0}
+               bottom={0}>
+            <slot />
+          </box>
+        </box>
+        <box $else columns={1} height={self.height} overflow={Overflow.Scroll}>
           <slot />
         </box>
       </box>

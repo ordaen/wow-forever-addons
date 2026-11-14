@@ -1,0 +1,8 @@
+{
+  "says": "The light inside an item slot's quality rim (ctl.qualityRim in Ordaen/art.luna): a 40 px slot's inner glow (64 x 64 texels), white, stretched over the slot under its 2 px line and tinted with the quality's colour by ItemButton.",
+  "ships": ["addons/Ordaen/media/ctl-quality-rim.tga"],
+  "origin": "Drawn by the design's ItemSlot (its quality border's blurred inset shadow): wow-dev-tools `design/scripts/quality-rim.mjs` writes a page from the component's own style, drawn white; the page shot at 1.6x on black and on white with `design/scripts/shot.mjs --width 400 --height 600 --scale 1.6` (`?bg=black`, `?bg=white`), then matted.",
+  "steps": [
+    { "matte": { "black": "art/sources/quality-rim-black.png", "white": "art/sources/quality-rim-white.png", "out": "addons/Ordaen/media/ctl-quality-rim.tga", "width": 64, "height": 64 } }
+  ]
+}

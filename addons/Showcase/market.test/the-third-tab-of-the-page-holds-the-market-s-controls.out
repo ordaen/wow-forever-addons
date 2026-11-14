@@ -57,26 +57,26 @@ box 0,0 700x673.83
           box 248.33,228 451.67x33.33
             box 248.33,228 33.33x33.33 #0d0a08 opacity=1 @click @enter
               box 248.33,228 33.33x33.33 absolute
+              box 248.33,228 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
               box 248.33,228 33.33x33.33 absolute #00000000
               box 248.33,228 5.83x5.83 absolute #ffd100
               box 248.33,228 33.33x33.33 absolute
                 text 273.75,246.67 5.42x13 "5" #ffffff
             box 289.67,228 33.33x33.33 #0d0a08 opacity=1 @click @enter
               box 289.67,228 33.33x33.33 absolute
+              box 289.67,228 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
               box 289.67,228 33.33x33.33 absolute #00000000
               box 289.67,228 33.33x33.33 absolute
                 text 309.67,246.67 10.83x13 "20" #ffffff
             box 331,228 33.33x33.33 #0d0a08 opacity=1 @click @enter
               box 331,228 33.33x33.33 absolute
+              box 331,228 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 331,228 33.33x33.33 absolute #00000000
         box 0,273 700x43.33
           box 0,273 700x21.67 #00000000 @click
             box 0,273 2.5x21.67 absolute #00000000
             box 3.33,277.58 13.33x12.5
-              box 3.33,278.42 5.42x13 absolute opacity=0
-                text 3.33,278.42 5.42x13 "►" #d6a56b
-              box 3.33,278.42 5.42x13 absolute opacity=1
-                text 3.33,278.42 5.42x13 "▼" #d6a56b
+              box 3.33,277.17 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
             text 20,276.33 610.83x15 "Bronze Axe" #e8dcc4
             box 634.17,276.33 62.5x15
               text 634.17,276.33 62.5x15 "1g 23s 45c" #e8dcc4
@@ -100,29 +100,20 @@ box 0,0 700x673.83
               box 6.67,407 493.33x1.67 absolute #00000000
               box 6.67,388.67 493.33x15
                 text 6.67,388.67 25x15 "Item" #cbb994
-                box 35,388.67 5.42x13
-                  box 35,388.67 5.42x13 opacity=0
-                    text 35,388.67 5.42x13 "▲" #f0c860
-                  box 35,388.67 5.42x13 absolute opacity=0
-                    text 35,388.67 5.42x13 "▼" #f0c860
+                box 35,393.67 6.67x5
+                  box 31.67,389.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
             box 506.67,383.67 120x25 #00000000 @click
               box 506.67,407 120x1.67 absolute #00000000
-              box 592.92,388.67 33.75x15
-                text 592.92,388.67 25x15 "Each" #cbb994
-                box 621.25,388.67 5.42x13
-                  box 621.25,388.67 5.42x13 opacity=0
-                    text 621.25,388.67 5.42x13 "▲" #f0c860
-                  box 621.25,388.67 5.42x13 absolute opacity=0
-                    text 621.25,388.67 5.42x13 "▼" #f0c860
+              box 591.67,388.67 35x15
+                text 591.67,388.67 25x15 "Each" #cbb994
+                box 620,393.67 6.67x5
+                  box 616.67,389.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
             box 633.33,383.67 60x25 #00000000 @click
               box 633.33,407 60x1.67 absolute #00000000
-              box 665.83,388.67 27.5x15
-                text 665.83,388.67 18.75x15 "Age" #cbb994
-                box 687.92,388.67 5.42x13
-                  box 687.92,388.67 5.42x13 opacity=0
-                    text 687.92,388.67 5.42x13 "▲" #f0c860
-                  box 687.92,388.67 5.42x13 absolute opacity=0
-                    text 687.92,388.67 5.42x13 "▼" #f0c860
+              box 664.58,388.67 28.75x15
+                text 664.58,388.67 18.75x15 "Age" #cbb994
+                box 686.67,393.67 6.67x5
+                  box 683.33,389.5 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
           box 0,409.5 700x65 scrolled 0 of 0
             box 0,409.5 700x21.67 #00000000 @click
               text 6.67,412.83 493.33x15 "Copper Bar" #ffffff
@@ -148,11 +139,18 @@ box 0,0 700x673.83
           box 39.58,495.58 660.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
         box 0,515.17 700x28.33 opacity=1
           box 0,521.83 233.33x15 @enter @leave
-            text 0,521.83 233.33x15 "Compact dropdown" #cbb994
-          box 248.33,515.17 170x28.33
-            box 248.33,515.17 170x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-              text 258.33,521.83 135x15 "By difficulty" #f0c860
-              box 398.33,522.67 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+            text 0,521.83 233.33x15 "Toolbar" #cbb994
+          box 248.33,515.17 300x28.33
+            box 248.33,515.17 300x28.33
+              box 248.33,515.17 266.67x28.33
+                box 248.33,515.17 266.67x28.33 #00000080 input "" @change
+                box 248.33,515.17 266.67x28.33 absolute
+                  text 256.67,521.83 250x15 "Search" #a3977f
+              box 515,515.17 33.33x28.33
+                box 515,515.17 33.33x28.33
+                  box 520,515.17 28.33x28.33
+                    box 520,515.17 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                      box 527.5,522.67 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
         box 0,555.17 700x23 opacity=1
           box 0,559.17 233.33x15 @enter @leave
             text 0,559.17 233.33x15 "Context menu" #cbb994
