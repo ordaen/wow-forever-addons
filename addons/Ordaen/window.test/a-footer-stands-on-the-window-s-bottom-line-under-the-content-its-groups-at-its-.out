@@ -6,11 +6,11 @@ surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
         text 632.75,351.38 339.5x15 "the page" #ffffff
       box 632.75,549.79 339.5x45
         box 632.75,566.46 339.5x28.33
-          box 632.75,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 632.75,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 632.75,566.46 100x28.33 absolute
               text 667.12,573.12 31.25x15 "Reset" #ffd100
           text 749.42,573.12 106.17x15 "2 waiting" #ffffff
-          box 872.25,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 872.25,566.46 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 872.25,566.46 100x28.33 absolute
               text 909.75,573.12 25x15 "Save" #ffd100
     box 982.75,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart

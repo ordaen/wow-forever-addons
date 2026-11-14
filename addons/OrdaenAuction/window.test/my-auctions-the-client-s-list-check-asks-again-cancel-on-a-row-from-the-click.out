@@ -7,7 +7,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
           box 32.75,70 1039.5x761.17
             box 32.75,70 1039.5x28.33
               text 32.75,76.67 907.83x15 "What your bags can put up" #a3977f
-              box 947.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 947.25,70 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 947.25,70 125x28.33 absolute
                   text 975.38,76.67 68.75x15 "My auctions" #ffffff
             box 32.75,105 1039.5x726.17 #0000004d
@@ -45,7 +45,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
       box 32.75,831.17 1039.5x45
         box 32.75,847.83 1039.5x28.33
           text 32.75,855.5 914.5x13 "No prices for this realm: the first scan is under way" #a3977f
-          box 963.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 963.92,847.83 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 963.92,847.83 108.33x28.33 absolute
               text 1005.58,854.5 25x15 "Scan" #ffd100
     box 1016.08,49.08 77.5x26.67 absolute clipped
@@ -112,7 +112,7 @@ surface 1100,0 500x900 on DIALOG clamped raised by a click
                 box 1431.42,110 46.67x15
                   text 1459.33,110 18.75x15 "2 h" #e8dcc4
                 box 1484.75,103.33 80x28.33
-                  box 1484.75,103.33 80x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                  box 1484.75,103.33 80x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                     box 1484.75,103.33 80x28.33 absolute
                       text 1506,110 37.5x15 "Cancel" #ffd100
               box 1133.58,135 437.83x35 #00000000 @click
@@ -130,7 +130,7 @@ surface 1100,0 500x900 on DIALOG clamped raised by a click
                 box 1431.42,145 46.67x15
                   text 1471.83,145 6.25x15 "—" #e8dcc4
                 box 1484.75,138.33 80x28.33
-                  box 1484.75,138.33 80x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                  box 1484.75,138.33 80x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                     box 1484.75,138.33 80x28.33 absolute
                       text 1506,145 37.5x15 "Cancel" #ffd100
               box 1133.58,170 437.83x35 #00000000 @click
@@ -150,7 +150,7 @@ surface 1100,0 500x900 on DIALOG clamped raised by a click
                   text 1471.83,180 6.25x15 "—" #e8dcc4
                 box 1484.75,187.5 80x0
         box 1132.75,841.17 439.5x28.33
-          box 1132.75,841.17 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 1132.75,841.17 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 1132.75,841.17 116.67x28.33 absolute
               text 1175.46,847.83 31.25x15 "Check" #ffd100
           text 1266.08,842.33 306.17x26 "Searches for each of your items: which auctions are undercut." #a3977f

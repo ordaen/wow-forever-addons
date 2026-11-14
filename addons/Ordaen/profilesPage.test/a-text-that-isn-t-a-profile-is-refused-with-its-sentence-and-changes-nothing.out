@@ -22,16 +22,16 @@ box 0,0 760x591.67
       box 248.33,130 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
         box 248.33,130 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,160 760x28.33
-      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 0,160 125x28.33 absolute
           text 53.12,166.67 18.75x15 "New" #ffd100
-      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 131.67,160 125x28.33 absolute
           text 175.42,166.67 37.5x15 "Rename" #ffd100
-      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
         box 263.33,160 125x28.33 absolute
           text 307.08,166.67 37.5x15 "Delete" #808080
-      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 395,160 125x28.33 absolute
           text 441.88,166.67 31.25x15 "Reset" #ffd100
     text 0,200 760x15 "This text isn't an Ordaen profile." #ffa194
@@ -66,12 +66,12 @@ box 0,0 760x591.67
     text 0,433.33 760x15 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
     box 0,460 760x91.67 #0d0a08 input "hello" lines selected 0..5 clipped @change
     box 0,563.33 760x28.33
-      box 0,563.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 0,563.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 0,563.33 125x28.33 absolute
           text 43.75,570 37.5x15 "Export" #ffd100
-      box 131.67,563.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 131.67,563.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 131.67,563.33 125x28.33 absolute
           text 175.42,570 37.5x15 "Import" #ffffff
-      box 263.33,563.33 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+      box 263.33,563.33 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
         box 263.33,563.33 125x28.33 absolute
           text 307.08,570 37.5x15 "Create" #808080

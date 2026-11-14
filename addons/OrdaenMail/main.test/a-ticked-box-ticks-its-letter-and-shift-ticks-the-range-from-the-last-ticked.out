@@ -4,7 +4,7 @@ box 0,0 1000x208.67
     box 0,0 516.67x28.33
       box 0,0 516.67x28.33
         box 0,0 450x28.33
-          box 0,0 450x28.33 #00000080 input "" @change
+          box 0,0 450x28.33 #00000080 input "" @change @submit
           box 0,0 450x28.33 absolute
             text 8.33,6.67 433.33x15 "Search subject or sender" #a3977f
         box 450,0 66.67x28.33
@@ -68,10 +68,10 @@ box 0,0 1000x208.67
           text 486.67,148.83 25x15 "30 d" #a3977f
     box 0,180.33 516.67x28.33
       box 0,180.33 343.33x28.33
-        box 0,180.33 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 0,180.33 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 0,180.33 141.67x28.33 absolute
             text 36.46,187 68.75x15 "Collect (3)" #ffd100
-      box 350,180.33 166.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+      box 350,180.33 166.67x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
         box 350,180.33 166.67x28.33 absolute
           text 386.46,187 93.75x15 "Collect all (2)" #ffd100
   box 525,0 475x15

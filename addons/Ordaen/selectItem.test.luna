@@ -1,0 +1,69 @@
+// The library's SelectItem: a sidebar's items, the selected one filled in its own colour with an edge of it.
+import Test from "$test"
+import { Click, MouseButton, Track } from "$ltml"
+import { SelectItem, selectedFill } from "@/selectItem"
+
+const GREEN: Color = Color.hex("#40c040")
+const ORANGE: Color = Color.hex("#ff8040")
+const NAME_COUNT: Array<Track> = [{ fr: 1 }, "auto"]
+
+class Sidebar {
+  state picked = "Bags"
+  state menus = 0
+  // The items' own colours, as a list of recipes has them; the categories' are none.
+  const green: Color | nil = GREEN
+  const orange: Color | nil = ORANGE
+
+  onBags(mut self, click: Click) { self.picked = "Bags" }
+  onCloak(mut self, click: Click) {
+    if (click.button == MouseButton.Right) {
+      self.menus += 1
+      return
+    }
+    self.picked = "Linen Cloak"
+  }
+  onVest(mut self, click: Click) { self.picked = "Brown Linen Vest" }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} width={300}>
+        <SelectItem selected={self.picked == "Bags"} first={true} columns={NAME_COUNT} @pick={self.onBags}>
+          <text value={"Bags"} />
+          <text value={"[2]"} />
+        </SelectItem>
+        <SelectItem selected={self.picked == "Linen Cloak"} color={self.green} @pick={self.onCloak}>
+          <text value={"Linen Cloak"} />
+        </SelectItem>
+        <SelectItem selected={self.picked == "Brown Linen Vest"} color={self.orange} @pick={self.onVest}>
+          <text value={"Brown Linen Vest"} />
+        </SelectItem>
+      </box>
+    }
+  }
+}
+
+test "an item's selected fill is its own colour, faint; without one, the lists' gold" {
+  const fill = selectedFill(GREEN)
+  Test.expect(fill.r == GREEN.r && fill.g == GREEN.g && fill.b == GREEN.b && fill.a < 0.5)
+  Test.expect(selectedFill(nil).a < 0.5)
+}
+
+test "a sidebar's items: the selected one filled in its colour with its edge, a light under the cursor, a right-click told" {
+  let page = new Sidebar()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 120 })
+  Test.shot("«Bags» selected, without a colour: the gold fill and edge; no rule over the first")
+
+  Test.click(Test.holding("Linen Cloak", nil), nil)
+  Test.flush()
+  Test.expect(page.picked == "Linen Cloak")
+  Test.shot("the green «Linen Cloak» selected: a green fill and a green edge")
+
+  Test.click(Test.holding("Linen Cloak", nil), MouseButton.Right)
+  Test.flush()
+  Test.expect(page.menus == 1 && page.picked == "Linen Cloak")
+
+  Test.moveTo(Test.holding("Bags", nil))
+  Test.flush()
+  Test.shot("the cursor on «Bags»: its light")
+  destroy page
+}

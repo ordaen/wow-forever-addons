@@ -1,24 +1,25 @@
 // The chosen recipe, beside the lists, on the game's dark marble with its own rim: its icon in a slot and its name
 // in white, with what making it does for the skill in its difficulty's colour («Not learned» while it isn't); the
 // made item's description; what the work needs besides reagents (red while missing); the reagents, one ruled row
-// each, scrolling in what room is left; and at the bottom, under a rule, its switches and what became of the last
-// «Create». The make row stands in the window's footer (`MakeRow`).
+// each, scrolling in what room is left; and at the bottom, under a rule, its switches, the make row of a learned
+// recipe (`MakeRow`: the mode, the count, «Create») and what became of the last «Create».
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
 import { Component, ItemButton, PX, space } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { Flag } from "@/flag"
 import Locale from "@/locales"
+import { MakeRow } from "@/make"
 import { ReagentRow } from "@/rows"
 import Style from "@/style"
-import { Act, has, Kept } from "@/view"
+import { Act, has, Kept, MakeMode } from "@/view"
 
 const RIM: Line = { width: 1 * PX, color: Style.LINE }
 const SWITCHES: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
 const SWITCHES_PAD: Edges = { top: space(.Item) }
 const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
-// The head, the description, the needs, the reagents in the rest, the switches, the note.
-const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto"]
+// The head, the description, the needs, the reagents in the rest, the switches, the make row, the note.
+const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto", "auto"]
 const NOTE: Color = Color.hex("#c8b48a")
 const SLOT = 52 * PX
 const HEAD: Array<Track> = [SLOT, { fr: 1 }]
@@ -29,6 +30,8 @@ const NOTHING: Game.Recipe = {
 public class RecipeDetails implements Component {
   // A switch flipped: the recipe's number.
   public act: Event<(Act, Integer)> = new Event()
+  // «Create» clicked, with how many.
+  public create: Event<Integer> = new Event()
 
   derived has: Boolean = self.recipe != nil
   // The recipe shown: where none is chosen nothing is drawn, and this stands for it.
@@ -50,16 +53,34 @@ public class RecipeDetails implements Component {
   recipe: Signal<Game.Recipe | nil>
   kept: Signal<Kept>
   note: Signal<String>
+  count: mut Signal<Integer>
+  mode: mut Signal<MakeMode>
+  profession: Signal<Game.Profession | nil>
+  yellow: Signal<Integer | nil>
+  grey: Signal<Integer | nil>
   constructor(
     recipe: Signal<Game.Recipe | nil>,
     kept: Signal<Kept>,
     // What became of the last «Create» that waits in the queue; empty for none.
     note: Signal<String>,
+    // The make row's: how many, by which mode, of the profession open; where the recipe turns yellow and grey.
+    count: mut Signal<Integer>,
+    mode: mut Signal<MakeMode>,
+    profession: Signal<Game.Profession | nil>,
+    yellow: Signal<Integer | nil>,
+    grey: Signal<Integer | nil>,
   ) {
     self.recipe = recipe
     self.kept = kept
     self.note = note
+    self.count = count
+    self.mode = mode
+    self.profession = profession
+    self.yellow = yellow
+    self.grey = grey
   }
+
+  onCreate(self, count: Integer) { self.create.emit(count) }
 
   madeOf(self): Integer | nil {
     const schematic = Game.recipeReader.schematic(self.shown.id)
@@ -114,6 +135,9 @@ public class RecipeDetails implements Component {
             <Flag label={Locale.FAVORITE} on={self.favorite} @flipped={self.onFavorite} />
             <Flag $if={self.shown.learned} label={Locale.TRACK} on={self.tracked} @flipped={self.onTrack} />
           </box>
+          <MakeRow $if={self.shown.learned} recipe={self.recipe} count={mut self.count} mode={mut self.mode}
+                   profession={self.profession} yellow={self.yellow} grey={self.grey} @create={self.onCreate} />
+          <box $else />
           <text $if={self.noted} value={self.note} textSize={.Secondary} textColor={NOTE} />
         </>
       </box>

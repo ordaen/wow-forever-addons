@@ -67,13 +67,13 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
                   box 761.5,344.71 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 349.42,691.46 906.17x45
         box 349.42,708.12 906.17x28.33
-          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 349.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 349.42,708.12 166.67x28.33 absolute
               text 404.62,714.79 56.25x15 "Move mode" #ffd100
           box 532.75,715.79 582.83x13
             text 532.75,715.79 582.83x13 "/ordaen opens this page" #a3977f
           box 1132.25,708.12 123.33x28.33
-            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+            box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1178.08,714.79 25x15 "Save" #808080
     box 1224.42,188.79 52.5x26.67 absolute clipped

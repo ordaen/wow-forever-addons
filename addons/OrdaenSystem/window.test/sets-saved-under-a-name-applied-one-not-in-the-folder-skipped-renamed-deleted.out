@@ -93,11 +93,11 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
       box 424.42,638.96 756.17x45
         box 424.42,655.62 756.17x28.33
           box 424.42,655.62 206.67x28.33
-            box 424.42,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            box 424.42,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 424.42,655.62 100x28.33 absolute
                 text 458.79,662.29 31.25x15 "Reset" #ffd100
             box 531.08,655.62 100x28.33
-              box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 531.08,655.62 100x28.33 absolute
                   text 562.33,662.29 37.5x15 "Sets ▾" #ffd100
           box 647.75,669.79 289.5x0
@@ -105,7 +105,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
             box 953.92,663.29 86.67x13 @enter @leave
               text 953.92,663.29 86.67x13 "Reload needed: 2" #f0c860
             box 1047.25,655.62 133.33x28.33 @enter @leave
-              box 1047.25,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click
+              box 1047.25,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click @enter @leave
                 box 1047.25,655.62 133.33x28.33 absolute
                   text 1095.17,662.29 37.5x15 "Reload" #ffd100
     box 1149.42,252.96 52.5x26.67 absolute clipped
@@ -131,19 +131,19 @@ surface 0,0 1600x900 on DIALOG #0000008c
       box 782.17,394.62 250x25 #0d0a08 input "Gone" @change
     text 533.83,431.29 537.33x13 "Not in the folder, skipped: NotThere" #ff6a55
     box 533.83,455.96 537.33x28.33
-      box 533.83,455.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+      box 533.83,455.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 533.83,455.96 100x28.33 absolute
           text 565.08,462.62 37.5x15 "Delete" #ffd100
     box 533.83,495.96 537.33x28.33
       box 533.83,495.96 224x0
       box 757.83,495.96 313.33x28.33
-        box 757.83,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 757.83,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 757.83,495.96 100x28.33 absolute
             text 789.08,502.62 37.5x15 "Cancel" #ffd100
-        box 864.5,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 864.5,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 864.5,495.96 100x28.33 absolute
             text 895.75,502.62 37.5x15 "Rename" #ffd100
-        box 971.17,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+        box 971.17,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 971.17,495.96 100x28.33 absolute
             text 1005.54,502.62 31.25x15 "Apply" #ffffff
     box 510.83,366.62 583.33x18 absolute
