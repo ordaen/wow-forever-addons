@@ -65,7 +65,7 @@ public const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
 // quiet, never louder than the text. Its row is as high as the line that stands there once locked, so nothing
 // moves when the lock lands.
 const BAR_PAD: Edges = { top: SECTION }
-const BAR_ROW = 16 * PX
+const BAR_ROW = 18 * PX
 const BAR_HEIGHT = 3 * PX
 const TRACK: Color = Color.hex("#00000073")
 const BAR_GOLD: Color = Color.hex("#d6a56b80")

@@ -1,46 +1,46 @@
 -- the cursor on a part of the locked tooltip that opens a term: the term's tooltip, and the lock stays
-surface 1057.42,240 282.58x105.42 on TOOLTIP
-  box 1057.42,240 282.58x105.42 @enter @leave
-    box 1057.42,240 282.58x105.42
-      box 1057.42,240 282.58x105.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1077.67,260.25 247.08x24.67
-          box 1077.67,260.25 247.08x18
-            text 1077.67,260.25 247.08x18 "Frostbolt" #ffffff
-        box 1077.67,284.92 247.08x22.5
-          box 1077.67,285.75 46.67x21.67
-            box 1086,292.42 30x15
-              box 1086,293.25 13.33x13.33
-                box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
-                  box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
-              box 1103.5,292.42 12.5x15
-                text 1103.5,292.42 12.5x15 "65" #f3e7cc
-          box 1124.33,285.75 90.42x21.67
-            box 1133.5,292.42 72.92x15
-              box 1133.5,292.42 68.75x15
-                text 1133.5,292.42 68.75x15 "30 yd range" #f3e7cc
-                box 1133.5,306.58 68.75x0.83 absolute #ffd100b3
-            box 1124.33,285.75 90.42x21.67 absolute @enter @leave
-          box 1214.75,285.75 110x21.67
-            box 1223.92,292.42 92.5x15
-              box 1223.92,293.25 13.33x13.33
-                box 1222.25,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
-              box 1241.42,292.42 75x15
-                text 1241.42,292.42 75x15 "2.5 sec cast" #f3e7cc
-                box 1241.42,306.58 75x0.83 absolute #ffd100b3
-            box 1214.75,285.75 110x21.67 absolute @enter @leave
-        box 1077.67,307.42 247.08x20
-          box 1077.67,314.08 247.08x13.33
-            text 1077.67,314.25 247.08x13 "Locked — hover the underlined parts" #857a66
+surface 1042.56,240 297.44x108.88 on TOOLTIP
+  box 1042.56,240 297.44x108.88 @enter @leave
+    box 1042.56,240 297.44x108.88
+      box 1042.56,240 297.44x108.88 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1062.81,260.25 261.94x25.87
+          box 1062.81,260.25 261.94x19.2
+            text 1062.81,260.25 261.94x19.2 "Frostbolt" #ffffff
+        box 1062.81,286.12 261.94x23.1
+          box 1062.81,286.95 49.72x22.27
+            box 1071.14,293.62 33.06x15.6
+              box 1071.14,294.75 13.33x13.33
+                box 1069.47,293.08 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+                  box 1069.47,293.08 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 13 of 16
+              box 1088.64,293.62 15.56x15.6
+                text 1088.64,293.62 15.56x15.6 "65" #f3e7cc
+          box 1112.53,286.95 96.11x22.27
+            box 1121.69,293.62 78.61x15.6
+              box 1121.69,293.62 74.44x15.6
+                text 1121.69,293.62 74.44x15.6 "30 yd range" #f3e7cc
+                box 1121.69,308.38 74.44x0.83 absolute #ffd100b3
+            box 1112.53,286.95 96.11x22.27 absolute @enter @leave
+          box 1208.64,286.95 116.11x22.27
+            box 1217.81,293.62 98.61x15.6
+              box 1217.81,294.75 13.33x13.33
+                box 1216.14,293.08 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
+              box 1235.31,293.62 81.11x15.6
+                text 1235.31,293.62 81.11x15.6 "2.5 sec cast" #f3e7cc
+                box 1235.31,308.38 81.11x0.83 absolute #ffd100b3
+            box 1208.64,286.95 116.11x22.27 absolute @enter @leave
+        box 1062.81,309.22 261.94x21.67
+          box 1062.81,315.88 261.94x15
+            text 1062.81,316.18 261.94x14.4 "Locked — hover the underlined parts" #857a66
         box 1316.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-surface 985.25,307.42 229.5x106.25 on TOOLTIP
-  box 985.25,307.42 229.5x106.25
-    box 985.25,307.42 229.5x106.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 1005.5,327.67 194x24.67
-        box 1005.5,327.67 194x18
-          text 1005.5,327.67 194x18 "Range" #ffd100
-      box 1005.5,352.33 194x43.33
-        box 1005.5,359 194x30
-          text 1005.5,359 194x30 "How far from the target you can use it." #e6dcc6
+surface 979.14,309.22 229.5x108.65 on TOOLTIP
+  box 979.14,309.22 229.5x108.65
+    box 979.14,309.22 229.5x108.65 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 999.39,329.47 194x25.87
+        box 999.39,329.47 194x19.2
+          text 999.39,329.47 194x19.2 "Range" #ffd100
+      box 999.39,355.33 194x44.53
+        box 999.39,362 194x31.2
+          text 999.39,362 194x31.2 "How far from the target you can use it." #e6dcc6
 asked: Tooltip.hide true
 asked: Tooltip.hide false
 asked: Tooltip.hide true
