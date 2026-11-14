@@ -1,0 +1,5 @@
+can make: Linen Cloak, Linen Bag
+can make and raises the skill: Linen Cloak, Linen Bag
+reset: Linen Cloak, Woolen Bag, Brown Linen Vest, Linen Bag, Woolen Cape
+not learned off: Linen Cloak, Woolen Bag, Brown Linen Vest, Linen Bag
+learned off: Woolen Cape

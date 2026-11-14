@@ -1,56 +1,57 @@
 // The rows of the professions window's lists: a category, a recipe, a reagent. A faint rule between rows; a row of
-// the lists lights under the cursor, and the chosen one more, with a 2 px gold edge at its left.
+// the lists lights under the cursor, and the chosen one more, with a 2 px gold edge at its left. A recipe's row says
+// what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
-import { Align, Art, Edges, Line, Overflow, Position, Stated, Track } from "$ltml"
-import { Component, PX } from "Ordaen"
+import { Align, Art, Click, Edges, Line, MouseButton, Overflow, Position, Stated, Track } from "$ltml"
+import { Component, PX, TableRow } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { RecipeMenu } from "@/menu"
 import Style from "@/style"
+import { Act, FAVORITES, Group, has, Kept, members } from "@/view"
 
 const NAME_COUNT: Array<Track> = [{ fr: 1 }, "auto"]
+const MARKS: Array<Track> = ["auto", "auto"]
 const CATEGORY_PAD: Edges = { top: 7 * PX, right: 10 * PX, bottom: 7 * PX, left: 10 * PX }
 const RECIPE_PAD: Edges = { top: 6 * PX, right: 10 * PX, bottom: 6 * PX, left: 10 * PX }
+// A recipe under a heading stands in past the heading's fold mark.
+const INDENT_PAD: Edges = { top: 6 * PX, right: 10 * PX, bottom: 6 * PX, left: 28 * PX }
+const FOLD: Array<Track> = [10 * PX, { fr: 1 }, "auto"]
 const SLOT = 32 * PX
 const REAGENT: Array<Track> = [SLOT, { fr: 1 }, "auto"]
 const REAGENT_PAD: Edges = { top: 3 * PX, right: 6 * PX, bottom: 3 * PX }
+// The pip of a recipe the player starred: between its name and its count.
+const STAR = 8 * PX
+const STAR_RIGHT = 46 * PX
+const STAR_TOP = 8 * PX
 
-// A category in the recipes' first column: its name in gold, and `N (M)` at the right, N its recipes, M how many of
-// them the bags can make now (white when any).
+// A group in the recipes' first column: its name in gold (white for the favorites), and `N (M)` at the right, N its
+// recipes, M how many of them the bags can make now (white when any).
 public class CategoryRow implements Component {
   // Its id.
   public pick: Event<Integer> = new Event()
 
-  derived isChosen: Boolean = self.chosen == self.category.id
+  derived isChosen: Boolean = self.chosen == self.group.id
   derived background: Color | Stated<Color> = self.isChosen ? Style.ROW_CHOSEN : Style.ROW_LIGHT
   derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
-  derived total: Integer = self.count(false)
-  derived makeable: Integer = self.count(true)
-  derived makeableColor: Color = self.makeable > 0 ? Style.WHITE : Style.DIM
+  derived nameColor: Color = self.group.id == FAVORITES ? Style.WHITE : Style.GOLD
+  derived makeableColor: Color = self.group.makeable > 0 ? Style.WHITE : Style.DIM
 
-  category: Signal<Game.Category>
+  group: Signal<Group>
   index: Signal<Integer>
   chosen: Signal<Integer>
   constructor(
-    category: Signal<Game.Category>,
+    group: Signal<Group>,
     // Its place in the list: the first has no rule above it.
     index: Signal<Integer>,
-    // The chosen category's id.
+    // The chosen group's id.
     chosen: Signal<Integer>,
   ) {
-    self.category = category
+    self.group = group
     self.index = index
     self.chosen = chosen
   }
 
-  // How many recipes it has: all of them, or those the bags can make now.
-  count(self, makeableOnly: Boolean): Integer {
-    let n = 0
-    for (recipe of Game.tradeSkill.recipes) {
-      if (recipe.categoryID == self.category.id && (!makeableOnly || recipe.craftable > 0)) { n += 1 }
-    }
-    return n
-  }
-
-  onClick(mut self) { self.pick.emit(self.category.id) }
+  onClick(mut self) { self.pick.emit(self.group.id) }
 
   public render(self): Template {
     return $ltml {
@@ -58,57 +59,187 @@ public class CategoryRow implements Component {
            background={self.background} @click={self.onClick}>
         <box $if={self.isChosen} position={Position.Absolute} left={0} top={0} bottom={0} width={2 * PX}
              background={Style.CHOSEN_EDGE} />
-        <text value={self.category.name} textSize={Style.TEXT} textColor={Style.GOLD}
-              textShadow={Style.SHADOW} />
-        <box columns={["auto", "auto"]} gap={3 * PX} yAlign={Align.Center}>
-          <text value={"%d"} arguments={[self.total]} textSize={Style.SMALL} textColor={Style.DIM} wrap={false}
-                textFamily={Ordaen.lookArt?.fontNumbers} />
-          <text value={"(%d)"} arguments={[self.makeable]} textSize={Style.SMALL} textColor={self.makeableColor}
-                wrap={false} textFamily={Ordaen.lookArt?.fontNumbers} />
+        <text value={self.group.name} textSize={Style.TEXT} textColor={self.nameColor} textShadow={Style.SHADOW} />
+        <box columns={MARKS} gap={3 * PX} yAlign={Align.Center}>
+          <text value={"%d"} arguments={[self.group.total]} textSize={Style.SMALL} textColor={Style.DIM} wrap={false}
+                textFamily={Ordaen.lookArt.fontNumbers} />
+          <text value={"(%d)"} arguments={[self.group.makeable]} textSize={Style.SMALL}
+                textColor={self.makeableColor} wrap={false} textFamily={Ordaen.lookArt.fontNumbers} />
         </box>
       </box>
     }
   }
 }
 
-// A recipe in the recipes' second column: its name in its difficulty's colour (an unlearned one dim), `[N]` at the
-// right for how many the bags can make now.
+// A recipe: its name in its difficulty's colour (an unlearned one dim), a gold pip when the player starred it, `[N]`
+// at the right for how many the bags can make now. Its menu stands under it while the window says it is the one open.
 public class RecipeRow implements Component {
-  // Its id.
-  public pick: Event<Integer> = new Event()
+  public act: Event<(Act, Integer)> = new Event()
 
   derived isChosen: Boolean = self.chosen == self.recipe.id
   derived background: Color | Stated<Color> = self.isChosen ? Style.ROW_CHOSEN : Style.ROW_LIGHT
   derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
   derived color: Color = self.recipe.learned ? Style.difficultyColor(self.recipe.difficulty) : Style.OFF
   derived count: String = self.recipe.craftable > 0 ? "[%d]".format(self.recipe.craftable) : ""
+  derived starred: Boolean = has(self.kept.favorites, self.recipe.id)
+  derived padding: Edges = self.indent ? INDENT_PAD : RECIPE_PAD
+  derived menuOpen: Boolean = self.menuFor == self.recipe.id
 
   recipe: Signal<Game.Recipe>
   index: Signal<Integer>
   chosen: Signal<Integer>
+  kept: Signal<Kept>
+  menuFor: Signal<Integer>
+  const indent: Boolean
   constructor(
     recipe: Signal<Game.Recipe>,
     index: Signal<Integer>,
     // The chosen recipe's id.
     chosen: Signal<Integer>,
+    kept: Signal<Kept>,
+    // The id of the recipe whose menu is open; 0 for none.
+    menuFor: Signal<Integer>,
+    // Under a heading of the one list.
+    indent: Boolean = false,
   ) {
     self.recipe = recipe
     self.index = index
     self.chosen = chosen
+    self.kept = kept
+    self.menuFor = menuFor
+    self.indent = indent
   }
 
-  onClick(mut self) { self.pick.emit(self.recipe.id) }
+  onClick(self, click: Click) {
+    self.act.emit(click.button == MouseButton.Right ? Act.Menu : Act.Pick, self.recipe.id)
+  }
+
+  onAct(self, act: Act, id: Integer) { self.act.emit(act, id) }
 
   public render(self): Template {
     return $ltml {
-      <box columns={NAME_COUNT} gap={8 * PX} padding={RECIPE_PAD} yAlign={Align.Center} border={self.rule}
+      <box columns={NAME_COUNT} gap={8 * PX} padding={self.padding} yAlign={Align.Center} border={self.rule}
            background={self.background} overflow={Overflow.Hidden} @click={self.onClick}>
         <box $if={self.isChosen} position={Position.Absolute} left={0} top={0} bottom={0} width={2 * PX}
              background={Style.CHOSEN_EDGE} />
         <text value={self.recipe.name} textSize={Style.RECIPE_TEXT} textColor={self.color}
               textShadow={Style.SHADOW} wrap={false} />
         <text value={self.count} textSize={Style.SMALL} textColor={Style.WHITE} wrap={false}
-              textFamily={Ordaen.lookArt?.fontNumbers} />
+              textFamily={Ordaen.lookArt.fontNumbers} />
+        <box $if={self.starred} position={Position.Absolute} right={STAR_RIGHT} top={STAR_TOP} width={STAR}
+             height={STAR} background={Style.GOLD} />
+        <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
+      </box>
+    }
+  }
+}
+
+// A group of the one list with headings: its heading (a fold mark, its name, `N (M)`) and, while it isn't folded, its
+// recipes under it.
+public class CategoryGroup implements Component {
+  public act: Event<(Act, Integer)> = new Event()
+
+  state folded = false
+  derived list: Array<Game.Recipe> = members(self.shown, self.group.id, self.kept.favorites)
+  derived mark: String = self.folded ? "+" : "-"
+  derived nameColor: Color = self.group.id == FAVORITES ? Style.WHITE : Style.GOLD
+  derived makeableColor: Color = self.group.makeable > 0 ? Style.WHITE : Style.DIM
+
+  group: Signal<Group>
+  shown: Signal<Array<Game.Recipe>>
+  chosen: Signal<Integer>
+  kept: Signal<Kept>
+  menuFor: Signal<Integer>
+  constructor(
+    group: Signal<Group>,
+    // Every recipe the search and the filter let through.
+    shown: Signal<Array<Game.Recipe>>,
+    chosen: Signal<Integer>,
+    kept: Signal<Kept>,
+    menuFor: Signal<Integer>,
+  ) {
+    self.group = group
+    self.shown = shown
+    self.chosen = chosen
+    self.kept = kept
+    self.menuFor = menuFor
+  }
+
+  fold(mut self) { self.folded = !self.folded }
+  onAct(self, act: Act, id: Integer) { self.act.emit(act, id) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <box columns={FOLD} gap={8 * PX} padding={CATEGORY_PAD} yAlign={Align.Center} border={Style.ROW_RULE}
+             background={Style.ROW_LIGHT} @click={self.fold}>
+          <text value={self.mark} textSize={Style.TEXT} textColor={Style.DIM} wrap={false} />
+          <text value={self.group.name} textSize={Style.TEXT} textColor={self.nameColor}
+                textShadow={Style.SHADOW} />
+          <box columns={MARKS} gap={3 * PX} yAlign={Align.Center}>
+            <text value={"%d"} arguments={[self.group.total]} textSize={Style.SMALL} textColor={Style.DIM}
+                  wrap={false} textFamily={Ordaen.lookArt.fontNumbers} />
+            <text value={"(%d)"} arguments={[self.group.makeable]} textSize={Style.SMALL}
+                  textColor={self.makeableColor} wrap={false} textFamily={Ordaen.lookArt.fontNumbers} />
+          </box>
+        </box>
+        <$if={!self.folded}>
+          <RecipeRow $for={index, recipe of self.list} $key={recipe.id} recipe={recipe} index={index}
+                     chosen={self.chosen} kept={self.kept} menuFor={self.menuFor} indent={true}
+                     @act={self.onAct} />
+        </>
+      </box>
+    }
+  }
+}
+
+// A recipe in the table: the library's row, its name in its difficulty's colour and how many can be made now.
+public class RecipeTableRow implements Component {
+  public act: Event<(Act, Integer)> = new Event()
+
+  derived isChosen: Boolean = self.chosen == self.recipe.id
+  derived color: Color = self.recipe.learned ? Style.difficultyColor(self.recipe.difficulty) : Style.OFF
+  derived count: String = self.recipe.craftable > 0 ? "%d".format(self.recipe.craftable) : "-"
+  derived menuOpen: Boolean = self.menuFor == self.recipe.id
+
+  recipe: Signal<Game.Recipe>
+  tracks: Signal<Array<Track>>
+  chosen: Signal<Integer>
+  kept: Signal<Kept>
+  menuFor: Signal<Integer>
+  constructor(
+    recipe: Signal<Game.Recipe>,
+    tracks: Signal<Array<Track>>,
+    chosen: Signal<Integer>,
+    kept: Signal<Kept>,
+    menuFor: Signal<Integer>,
+  ) {
+    self.recipe = recipe
+    self.tracks = tracks
+    self.chosen = chosen
+    self.kept = kept
+    self.menuFor = menuFor
+  }
+
+  // The library's row reports `pick` without saying which button: a box over the row's cells hears the click instead.
+  onClick(self, click: Click) {
+    self.act.emit(click.button == MouseButton.Right ? Act.Menu : Act.Pick, self.recipe.id)
+  }
+
+  onAct(self, act: Act, id: Integer) { self.act.emit(act, id) }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1}>
+        <TableRow tracks={self.tracks} selected={self.isChosen}>
+          <text value={self.recipe.name} textSize={Style.RECIPE_TEXT} textColor={self.color}
+                textShadow={Style.SHADOW} wrap={false} />
+          <text value={self.count} textSize={Style.SMALL} textColor={Style.WHITE} wrap={false}
+                textFamily={Ordaen.lookArt.fontNumbers} />
+          <box position={Position.Absolute} left={0} right={0} top={0} bottom={0} stateFromParent={true}
+               @click={self.onClick} />
+        </TableRow>
+        <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
       </box>
     }
   }
@@ -136,7 +267,7 @@ public class ReagentRow implements Component {
         <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
         <text value={self.reagent.name} textSize={Style.RECIPE_TEXT} textColor={Style.INK} />
         <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} textSize={Style.RECIPE_TEXT}
-              wrap={false} textColor={self.color} textFamily={Ordaen.lookArt?.fontNumbers} />
+              wrap={false} textColor={self.color} textFamily={Ordaen.lookArt.fontNumbers} />
       </box>
     }
   }

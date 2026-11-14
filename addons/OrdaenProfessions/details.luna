@@ -3,16 +3,21 @@
 // made item's description; what the work needs besides reagents (red while missing); the reagents, one ruled row
 // each, scrolling in what room is left; and at the bottom the make row: the count with − and +, and «Create».
 import Game from "$game"
-import { Align, Art, Line, Overflow, Track } from "$ltml"
-import { Component, PushButton, PX } from "Ordaen"
+import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
+import { Component, ItemButton, PushButton, PX } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { Flag } from "@/flag"
 import Locale from "@/locales"
 import { ReagentRow } from "@/rows"
 import Style from "@/style"
+import { Act, has, Kept } from "@/view"
 
 const RIM: Line = { width: 1 * PX, color: Style.LINE }
-// The head, the description, the needs, the reagents in the rest, the make row.
-const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto"]
+const SWITCHES: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
+const SWITCHES_PAD: Edges = { top: 8 * PX }
+const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
+// The head, the description, the needs, the reagents in the rest, the switches, the make row.
+const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto"]
 const SLOT = 52 * PX
 const HEAD: Array<Track> = [SLOT, { fr: 1 }]
 const MAKE: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto"]
@@ -24,6 +29,8 @@ const NOTHING: Game.Recipe = {
 public class RecipeDetails implements Component {
   // «Create» clicked, with how many: making must start in the click.
   public create: Event<Integer> = new Event()
+  // A switch flipped: the recipe's number.
+  public act: Event<(Act, Integer)> = new Event()
 
   derived has: Boolean = self.recipe != nil
   // The recipe shown: where none is chosen nothing is drawn, and this stands for it.
@@ -35,17 +42,35 @@ public class RecipeDetails implements Component {
   derived needs: String = self.needsOf()
   derived reagents: Array<Game.Reagent> = Game.tradeSkill.reagents(self.shown.id)
   derived cannot: Boolean = self.shown.craftable < 1
+  // The item it makes, which the icon is the slot of; none for what makes no item (an enchant).
+  derived made: Integer | nil = self.madeOf()
+  derived hasItem: Boolean = self.made != nil
+  derived favorite: Boolean = has(self.kept.favorites, self.shown.id)
+  derived tracked: Boolean = has(self.kept.tracked, self.shown.id)
+  derived cannotTrack: Boolean = !self.shown.learned
 
   recipe: Signal<Game.Recipe | nil>
   count: mut Signal<Integer>
+  kept: Signal<Kept>
   constructor(
     recipe: Signal<Game.Recipe | nil>,
     // How many to make.
     count: mut Signal<Integer>,
+    kept: Signal<Kept>,
   ) {
     self.recipe = recipe
     self.count = count
+    self.kept = kept
   }
+
+  madeOf(self): Integer | nil {
+    const schematic = Game.recipeReader.schematic(self.shown.id)
+    if (schematic == nil) { return nil }
+    return schematic.makes
+  }
+
+  onFavorite(self) { self.act.emit(Act.Favorite, self.shown.id) }
+  onTrack(self) { self.act.emit(Act.Track, self.shown.id) }
 
   skillOf(self): String {
     if (!self.shown.learned) { return Locale.NOT_LEARNED }
@@ -82,7 +107,8 @@ public class RecipeDetails implements Component {
            overflow={Overflow.Hidden}>
         <$if={self.has}>
           <box columns={HEAD} gap={10 * PX} yAlign={Align.Center}>
-            <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
+            <ItemButton $if={self.hasItem} item={self.made} size={SLOT} dimmed={!self.shown.learned} />
+            <box $else width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
             <box gap={2 * PX}>
               <text value={self.shown.name} textSize={Style.NAME} textColor={Style.WHITE}
                     textShadow={Style.SHADOW} />
@@ -93,6 +119,10 @@ public class RecipeDetails implements Component {
           <text value={self.needs} textSize={Style.RECIPE_TEXT} textColor={Style.DIM} />
           <box overflow={Overflow.Scroll}>
             <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
+          </box>
+          <box columns={FLAGS} gap={24 * PX} padding={SWITCHES_PAD} border={SWITCHES}>
+            <Flag label={Locale.FAVORITE} on={self.favorite} @flipped={self.onFavorite} />
+            <Flag $if={self.shown.learned} label={Locale.TRACK} on={self.tracked} @flipped={self.onTrack} />
           </box>
           <box columns={MAKE} gap={8 * PX} yAlign={Align.Center}>
             <PushButton label={"-"} width={STEP} @click={self.less} />

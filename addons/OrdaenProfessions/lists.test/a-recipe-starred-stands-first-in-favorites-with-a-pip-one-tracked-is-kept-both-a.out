@@ -1,0 +1,137 @@
+before: Cloth armour 3 (1), Bags 2 (1)
+Linen Cloak starred: Favorites 1 (1), Cloth armour 3 (1), Bags 2 (1); recipes Linen Cloak
+-- Linen Cloak starred and tracked: «Favorites» heads the categories, its pip in the row, both switches on
+surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
+  box 358.33,133.88 883.33x48.92 absolute @drag @dragStart
+  box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 381.08,207.21 842.83x538.42
+      box 381.08,207.21 842.83x25
+        box 381.08,207.21 793.67x25 #3d2710
+          box 383.58,207.21 788.67x22.5 #0b0805 clipped
+            box 383.58,207.21 325.98x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 788.67x22.5 absolute
+              box 383.58,207.21 78.87x22.5
+              box 462.45,207.21 78.87x22.5
+              box 541.32,207.21 78.87x22.5
+              box 620.18,207.21 78.87x22.5
+              box 699.05,207.21 78.87x22.5
+              box 777.92,207.21 78.87x22.5
+              box 856.78,207.21 78.87x22.5
+              box 935.65,207.21 78.87x22.5
+              box 1014.52,207.21 78.87x22.5
+              box 1093.38,207.21 78.87x22.5
+            box 383.58,207.21 788.67x22.5 absolute
+              text 719.58,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+      box 381.08,238.88 842.83x26.67
+        box 381.08,238.88 772.83x26.67
+          box 381.08,264.71 772.83x0.83 absolute #3e2f1d
+          box 381.08,238.88 68.75x26.67 #00000059 @click
+            box 381.92,239.71 67.08x1.67 absolute #d6a56b
+            text 393.58,245.54 43.75x15 "Recipes" #ffffff
+          box 453.17,238.88 48.33x25.83 #00000000 @click
+            text 464.83,244.71 25x15 "Camp" #a3977f
+        box 1160.58,251.54 63.33x14 @click
+          text 1168.92,251.54 46.67x14 "Settings" #a3977f
+      box 381.08,272.21 842.83x473.42
+        box 381.08,272.21 441.67x473.42
+          box 381.08,272.21 441.67x28.33
+            box 381.08,272.21 441.67x28.33 #00000080 input "" @change
+            box 381.08,272.21 441.67x28.33 absolute
+              text 389.42,279.38 425x14 "Search by name or reagent" #a3977f
+          box 381.08,307.21 441.67x28.33
+            box 381.08,307.21 83.33x28.33
+              box 381.08,307.21 83.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                box 381.08,307.21 83.33x28.33 absolute
+                  text 404,313.88 37.5x15 "Filter" #ffd100
+            box 469.42,307.21 141.67x28.33
+              box 469.42,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                text 479.42,314.38 106.67x14 "By difficulty" #f0c860
+                box 591.08,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+            box 616.08,307.21 141.67x28.33
+              box 616.08,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                text 626.08,314.38 106.67x14 "In columns" #f0c860
+                box 737.75,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+          box 381.08,342.21 441.67x403.42 #0000004d
+            box 381.92,343.04 208.33x401.75 scrolled 0 of 0
+              box 381.92,343.04 208.33x25.67 #d6a56b3d @click
+                box 381.92,343.04 1.67x25.67 absolute #f0c860
+                text 390.25,348.88 162.5x14 "Favorites" #ffffff
+                box 559.42,349.88 22.5x12
+                  text 559.42,349.88 5x12 "1" #a3977f
+                  text 566.92,349.88 15x12 "(1)" #ffffff
+              box 381.92,368.71 208.33x25.67 #00000000 @click
+                text 390.25,374.54 162.5x14 "Cloth armour" #ffd100
+                box 559.42,375.54 22.5x12
+                  text 559.42,375.54 5x12 "3" #a3977f
+                  text 566.92,375.54 15x12 "(1)" #ffffff
+              box 381.92,394.38 208.33x26.5 #00000000 @click
+                text 390.25,401.04 162.5x14 "Bags" #ffd100
+                box 559.42,402.04 22.5x12
+                  text 559.42,402.04 5x12 "2" #a3977f
+                  text 566.92,402.04 15x12 "(1)" #ffffff
+            box 590.25,343.04 231.67x401.75 scrolled 0 of 0
+              box 591.08,343.04 230.83x23 #d6a56b3d clipped @click
+                box 591.08,343.04 1.67x23 absolute #f0c860
+                text 599.42,348.04 192.5x13 "Linen Cloak" #ff8040
+                text 798.58,348.54 15x12 "[1]" #ffffff
+                box 776.92,349.71 6.67x6.67 absolute #ffd100
+        box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble clipped
+          box 843.58,283.04 369.5x43.33
+            box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
+            box 895.25,289.38 317.83x30.67
+              text 895.25,289.38 317.83x17 "Linen Cloak" #ffffff
+              text 895.25,308.04 317.83x12 "Always raises the skill" #ff8040
+          text 843.58,333.04 369.5x0 "" #e8dcc4
+          text 843.58,339.71 369.5x0 "" #a3977f
+          box 843.58,346.38 369.5x322.58 scrolled 0 of 0
+            box 843.58,346.38 369.5x31.67
+              box 843.58,348.88 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
+              text 876.92,355.71 297.42x13 "Bolt of Linen Cloth" #e8dcc4
+              text 1181,355.71 27.08x13 "3 / 1" #e8dcc4
+            box 843.58,378.04 369.5x32.5
+              box 843.58,381.38 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
+              text 876.92,388.21 297.42x13 "Coarse Thread" #e8dcc4
+              text 1181,388.21 27.08x13 "0 / 1" #ff4040
+          box 843.58,675.63 369.5x24.17
+            box 843.58,683.13 174.75x16.67
+              text 843.58,684.46 134.75x14 "Favorite" #e8dcc4
+              box 986.67,683.13 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 999.17,680.63 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+            box 1038.33,683.13 174.75x16.67
+              text 1038.33,684.46 134.75x14 "Track" #e8dcc4
+              box 1181.42,683.13 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+                box 1193.92,680.63 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2
+          box 843.58,706.46 369.5x28.33
+            box 843.58,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 843.58,706.46 25x28.33 absolute
+                text 852.96,713.13 6.25x15 "-" #ffd100
+            text 875.25,713.63 5.83x14 "1" #ffffff
+            box 887.75,706.46 25x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 887.75,706.46 25x28.33 absolute
+                text 897.12,713.13 6.25x15 "+" #ffd100
+            box 919.42,720.13 170.33x1
+            box 1096.42,706.46 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              box 1096.42,706.46 116.67x28.33 absolute
+                text 1136,713.13 37.5x15 "Create" #ffd100
+    box 1182.75,194.63 52.5x26.67 absolute clipped
+      box 1182.75,194.63 29.17x26.67 absolute clipped @click
+        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+      box 1211.92,194.63 23.33x26.67 absolute clipped @click
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
+    box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+  box 358.33,133.88 290.5x59.42
+    box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right @click @drag @dragStart @dragStop
+      box 365.58,141.12 48.92x50.42 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 365.58,182.79 43.92x10.5 absolute border=ButtonFrameTemplateNoPortrait sides=top
+      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left flare=left
+      box 425.83,144.12 56.25x49.17
+        text 425.83,155.29 56.25x15 "Tailoring" #ffd100
+        text 437.92,171.12 32.08x11 "31 / 75" #8f8470
+    box 510.67,138.04 138.17x55.25 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 517.92,145.29 44.75x44.75 absolute icon=Interface/Icons/Trade_Herbalism cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+      box 557.67,145.29 11.5x48 absolute border=ButtonFrameTemplateNoPortrait sides=left
+      box 574,148.29 56.25x41.75
+        text 574,155.75 56.25x15 "Herbalism" #b3a690
+        text 586.08,171.58 32.08x11 "12 / 75" #8f8470
+
+starred again: Cloth armour 3 (1), Bags 2 (1)

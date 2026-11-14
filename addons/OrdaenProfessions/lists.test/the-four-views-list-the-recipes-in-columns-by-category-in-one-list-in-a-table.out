@@ -1,0 +1,7 @@
+columns: groups Cloth armour 3 (1), Bags 2 (1); recipes Linen Cloak, Brown Linen Vest, Woolen Cape
+by category: Linen Cloak, Brown Linen Vest, Woolen Cape, Woolen Bag, Linen Bag
+one list: Linen Cloak, Woolen Bag, Brown Linen Vest, Linen Bag, Woolen Cape
+table by name: Brown Linen Vest, Linen Bag, Linen Cloak, Woolen Bag, Woolen Cape
+table by how many can be made, fewest first: Brown Linen Vest, Woolen Bag, Woolen Cape, Linen Cloak, Linen Bag
+table by how many can be made, most first: Linen Bag, Linen Cloak, Woolen Cape, Woolen Bag, Brown Linen Vest
+camp: Linen Bandage

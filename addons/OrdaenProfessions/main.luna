@@ -1,18 +1,23 @@
 // Ordaen Professions: one window for the character's professions, in place of the game's. The window's tabs are the
 // professions (icon, name, skill); under its top line the skill bar, then the profession's own tabs («Recipes», and
-// «Camp» while it has camp recipes), then the recipes' side (the search, and the categories beside the category's
-// recipes in one framed panel) and the chosen recipe beside it. The profession shown is the one the game has open
-// (it has one open at a time): a tab opens its profession through the game, and the window shows while one is
-// open. The game's own window stays open with it, unseen and off the screen: hiding it would close the profession.
+// «Camp» while it has camp recipes), then the recipes' side (the search, the filter, the sort and the view, and under
+// them the recipes in one of four views) and the chosen recipe beside it. The profession shown is the one the game
+// has open (it has one open at a time): a tab opens its profession through the game, and the window shows while one
+// is open. The game's own window stays open with it, unseen and off the screen: hiding it would close the profession.
+import Client from "$client"
 import Game from "$game"
 import { Align, Edges, Line, Overflow, Position, Side, Track } from "$ltml"
-import { CORNER_ROOM, Memory, Module, Placing, PX, SettingsPage, Tabs, Window, WindowTabSpec } from "Ordaen"
+import { Choice, Column, CORNER_ROOM, Memory, Module, Placing, PX, SettingsPage, Settings, Table, tracksOf, Tabs, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { RecipeDetails } from "@/details"
-import { CategoryRow, RecipeRow } from "@/rows"
+import { FilterButton } from "@/filter"
+import { Pick } from "@/pick"
+import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
+import { Choices, GeneralPage } from "@/settings"
 import { SkillBar } from "@/skillBar"
 import Style from "@/style"
+import { Act, before, FAVORITES, Group, Kept, members, MOST_MARKED, Seen, SortBy, tableBefore, View } from "@/view"
 
 // The profession's own tabs.
 const RECIPES = 1
@@ -22,63 +27,126 @@ const FILL: Array<Track> = [{ fr: 1 }]
 // The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.
 const BODY: Array<Track> = ["auto", "auto", { fr: 1 }]
 const GRID: Array<Track> = [Style.LEFT, { fr: 1 }]
-const SIDE: Array<Track> = ["auto", { fr: 1 }]
+const SIDE: Array<Track> = ["auto", "auto", { fr: 1 }]
 const LISTS: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
+const TOOLS: Array<Track> = ["auto", "auto", "auto"]
+const PAGES: Array<Track> = [{ fr: 1 }, "auto"]
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const COLUMN_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Left] }
 const BAR_ROOM: Edges = { right: CORNER_ROOM }
-const SEARCH_HEIGHT = 30 * PX
+const SEARCH_HEIGHT = 34 * PX
 const SEARCH_EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
 const SEARCH_BACK: Color = Color.hex("#00000080")
 const SEARCH_PAD: Edges = { right: 10 * PX, left: 10 * PX }
-
-// What the window remembers for the character.
-public struct Kept {
-  // The profession last open, by its skill line; 0 before any was.
-  last: Integer
-}
+const PICK_WIDTH = 170 * PX
+const COLUMNS: Array<Column> = [
+  { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
+  { title: Locale.COLUMN_MAKEABLE, width: 80 * PX, align: Align.End, sortable: true },
+]
+const VIEWS: Array<Choice<View>> = [
+  { value: View.Columns, label: Locale.VIEW_COLUMNS },
+  { value: View.Categories, label: Locale.VIEW_CATEGORIES },
+  { value: View.List, label: Locale.VIEW_LIST },
+  { value: View.Table, label: Locale.VIEW_TABLE },
+]
+const SORTS: Array<Choice<SortBy>> = [
+  { value: SortBy.Difficulty, label: Locale.SORT_DIFFICULTY },
+  { value: SortBy.Name, label: Locale.SORT_NAME },
+  { value: SortBy.Makeable, label: Locale.SORT_MAKEABLE },
+]
+const NOTHING_KEPT: Kept = { last: 0, seen: {}, favorites: [], tracked: [], x: 0, y: 0, width: 0, height: 0 }
+// How long a window being moved or sized waits before its place is kept: seconds.
+const SETTLE = 1
 
 public class Professions implements Module, App {
   public const title: String = "Ordaen Professions"
-  public const pages: Array<SettingsPage> = []
+  public const pages: Array<SettingsPage> = [
+    { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
+  ]
+
+  public settings: mut Settings<Choices> = new Settings<Choices>({ remember: true, showUnlearned: true })
+  public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
 
   // The window's tab: the open profession's place among the character's.
   state tab = 0
   state page = RECIPES
   // What the player chose, by id; 0 while nothing was: the first one there is stands for it.
-  state category = 0
-  state recipe = 0
+  public state category = 0
+  public state recipe = 0
   state count = 1
-  state search = ""
-  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+  public state search = ""
+  public state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+  public state view: View = View.Columns
+  public state sort: SortBy = SortBy.Difficulty
+  // The table's order: its column from 1, and which way.
+  public state tableColumn = 1
+  public state tableDescending = false
+  // The filter: the menu, and each option.
+  public state filterOpen = false
+  public state onlyMake = false
+  public state onlySkill = false
+  public state showLearned = true
+  public state showUnlearned = true
+  // The recipe whose menu is open; 0 for none.
+  public state menuFor = 0
+  // Every recipe the search and the filter let through, in the sort's order: worked out again when any of them
+  // changes, by a watch (the search keeps what it has read in a cache).
+  public state shown: Array<Game.Recipe> = []
   // The profession the lists were last drawn for.
   skillLine: Integer = 0
-  memory: mut Memory<Kept> = new Memory<Kept>({ last: 0 }, .Character)
+  // Each recipe's name and reagents' names, lower case: what the search looks in, made as the search first asks.
+  texts: mut Map<Integer, String> = {}
+  // Whether the window's place is waiting to be kept, and the place that was kept last (or the window started at).
+  settling = false
+  known: Placing = { x: 0, y: 0, width: 0, height: 0 }
 
   // The game's own window came up with no profession open (its overview): this window stands in its place with
   // nothing chosen, and a tab opens its profession. The client opens a profession from nothing but a click.
   state waiting = false
   derived isOpen: Boolean = Game.tradeSkill.open != nil || self.waiting
   derived hasOpen: Boolean = Game.tradeSkill.open != nil
+  public derived kept: Kept = self.memory.values
   derived tabs: Array<WindowTabSpec> = self.tabsOf()
   derived profession: Game.Profession | nil = self.professionOf()
   // The camp category: the first under the profession's heading, by its place and never its name; 0 for none.
   derived camp: Integer = self.campOf()
   derived onCamp: Boolean = self.page == CAMP
   derived pageNames: Array<String> = self.pageNamesOf()
-  derived categories: Array<Game.Category> = self.categoriesOf()
-  derived chosenCategory: Integer = self.chosenCategoryOf()
+  derived isTable: Boolean = self.view == View.Table
+  // Whether any option of the filter is off what the window starts with.
+  public derived filtered: Boolean = self.onlyMake || self.onlySkill || !self.showLearned || self.showUnlearned != self.settings.values.showUnlearned
+  // The same but the camp's: what the lists but the camp's page hold.
+  public derived mains: Array<Game.Recipe> = self.mainsOf()
+  public derived groups: Array<Group> = self.groupsOf()
+  public derived chosenCategory: Integer = self.chosenCategoryOf()
+  // The recipes of the chosen category, and the table's rows in the table's order.
+  public derived recipes: Array<Game.Recipe> = members(self.shown, self.listed, self.kept.favorites)
+  derived tableRows: Array<Game.Recipe> = self.tableRowsOf()
+  derived tracks: Array<Track> = tracksOf(COLUMNS)
   // The category whose recipes are listed.
   derived listed: Integer = self.onCamp ? self.camp : self.chosenCategory
-  derived recipes: Array<Game.Recipe> = self.recipesOf()
-  derived chosenRecipe: Integer = self.chosenRecipeOf()
-  derived shown: Game.Recipe | nil = self.shownOf()
+  // The recipes the lists hold in the order they are drawn, of which one is the chosen.
+  public derived listing: Array<Game.Recipe> = self.listingOf()
+  public derived chosenRecipe: Integer = self.chosenRecipeOf()
+  derived chosen: Game.Recipe | nil = self.chosenOf()
   derived searching: Boolean = self.search != ""
+  derived empty: Boolean = self.listing.length == 0
+  derived inColumns: Boolean = self.view == View.Columns
+  derived inGroups: Boolean = self.view == View.Categories
+  derived inList: Boolean = self.view == View.List
 
   constructor() {
     Ordaen.modules.add(self)
     watch { self.followOpen() }
     watch { self.onPage() }
+    watch { self.shown = self.shownOf() }
+    watch (values of self.settings.values) { self.showUnlearned = values.showUnlearned }
+    const place = (peek self.memory.values)
+    if (place.width > 0) {
+      self.placing = { x: place.x, y: place.y, width: place.width, height: place.height }
+    }
+    self.known = peek self.placing
+    watch { self.placed() }
     Game.tradeSkill.shownEmpty.listen(self.onShownEmpty)
   }
 
@@ -121,54 +189,122 @@ public class Professions implements Module, App {
     return names
   }
 
-  // The categories with recipes, but for the camp's, which has a tab of its own.
-  categoriesOf(self): Array<Game.Category> {
-    let list: Array<Game.Category> = []
+  // What the search looks in for a recipe: its name and its reagents' names, one to a line.
+  textOf(mut self, recipe: Game.Recipe): String {
+    const cached = self.texts[recipe.id]
+    if (cached != nil) { return cached }
+    let text = recipe.name.lower()
+    for (reagent of Game.tradeSkill.reagents(recipe.id)) { text = text + "\n" + reagent.name.lower() }
+    self.texts[recipe.id] = text
+    return text
+  }
+
+  passes(mut self, recipe: Game.Recipe, sought: String): Boolean {
+    if (sought != "" && !self.textOf(recipe).contains(sought)) { return false }
+    if (self.onlyMake && recipe.craftable < 1) { return false }
+    if (self.onlySkill && recipe.difficulty == Game.Difficulty.Never) { return false }
+    return recipe.learned ? self.showLearned : self.showUnlearned
+  }
+
+  shownOf(mut self): Array<Game.Recipe> {
+    let list: Array<Game.Recipe> = []
+    const sought = self.search.lower()
+    for (recipe of Game.tradeSkill.recipes) {
+      if (self.passes(recipe, sought)) { list.push(recipe) }
+    }
+    const sort = self.sort
+    list.sort((a, b) => before(sort, a, b))
+    return list
+  }
+
+  mainsOf(self): Array<Game.Recipe> {
+    let list: Array<Game.Recipe> = []
+    for (recipe of self.shown) {
+      if (recipe.categoryID != self.camp) { list.push(recipe) }
+    }
+    return list
+  }
+
+  // The categories with recipes the lists let through but the camp's, which has a tab of its own, the favorites first.
+  groupsOf(self): Array<Group> {
+    let list: Array<Group> = []
+    const starred = self.kept.favorites
+    const hearts = members(self.mains, FAVORITES, starred)
+    if (hearts.length > 0) { list.push(self.groupOf(FAVORITES, Locale.FAVORITES, hearts)) }
     for (category of Game.tradeSkill.categories) {
-      if (category.parentID != nil && category.id != self.camp && self.hasRecipes(category.id)) {
-        list.push(category)
+      if (category.parentID != nil && category.id != self.camp) {
+        const own = members(self.mains, category.id, starred)
+        if (own.length > 0) { list.push(self.groupOf(category.id, category.name, own)) }
       }
     }
     return list
   }
 
+  groupOf(self, id: Integer, name: String, recipes: Array<Game.Recipe>): Group {
+    let makeable = 0
+    for (recipe of recipes) {
+      if (recipe.craftable > 0) { makeable += 1 }
+    }
+    return { id: id, name: name, total: recipes.length, makeable: makeable }
+  }
+
   chosenCategoryOf(self): Integer {
-    if (self.category != 0) { return self.category }
-    let first = self.categories[1]
+    for (group of self.groups) {
+      if (group.id == self.category) { return group.id }
+    }
+    const first = self.groups[1]
     if (first == nil) { return 0 }
     return first.id
   }
 
-  // The listed category's recipes that the search finds by name.
-  recipesOf(self): Array<Game.Recipe> {
+  tableRowsOf(self): Array<Game.Recipe> {
     let list: Array<Game.Recipe> = []
-    let sought = self.search.lower()
-    for (recipe of Game.tradeSkill.recipes) {
-      if (recipe.categoryID == self.listed && (sought == "" || recipe.name.lower().contains(sought))) {
-        list.push(recipe)
-      }
+    for (recipe of self.mains) { list.push(recipe) }
+    const column = self.tableColumn
+    const descending = self.tableDescending
+    list.sort((a, b) => tableBefore(column, descending, a, b))
+    return list
+  }
+
+  listingOf(self): Array<Game.Recipe> {
+    if (self.onCamp) { return self.recipes }
+    return match (self.view) {
+      View.Columns => self.recipes,
+      View.Categories => self.grouped(),
+      View.List => self.mains,
+      View.Table => self.tableRows,
+    }
+  }
+
+  // The recipes of every group, one group after another.
+  grouped(self): Array<Game.Recipe> {
+    let list: Array<Game.Recipe> = []
+    for (group of self.groups) {
+      for (recipe of members(self.mains, group.id, self.kept.favorites)) { list.push(recipe) }
     }
     return list
   }
 
   chosenRecipeOf(self): Integer {
-    if (self.recipe != 0) { return self.recipe }
-    for (recipe of Game.tradeSkill.recipes) {
-      if (recipe.categoryID == self.listed) { return recipe.id }
+    for (recipe of self.listing) {
+      if (recipe.id == self.recipe) { return recipe.id }
     }
-    return 0
+    const first = self.listing[1]
+    if (first == nil) { return 0 }
+    return first.id
   }
 
-  shownOf(self): Game.Recipe | nil {
-    for (recipe of Game.tradeSkill.recipes) {
+  chosenOf(self): Game.Recipe | nil {
+    for (recipe of self.listing) {
       if (recipe.id == self.chosenRecipe) { return recipe }
     }
     return nil
   }
 
-  // The game opened another profession: its tab is the picked one, and nothing in it is chosen yet.
+  // The game opened another profession: its tab is the picked one, and what the player had chosen in it, if the
+  // window remembers that, is chosen again.
   followOpen(mut self) {
-    let open = Game.tradeSkill.open
+    const open = Game.tradeSkill.open
     let at = 0
     for (index, profession of Game.professions.list) {
       if (profession.skillLine == open) { at = index }
@@ -176,20 +312,28 @@ public class Professions implements Module, App {
     self.tab = at
     if (open != nil) {
       self.waiting = false
-      self.memory.write(Kept { last: open })
+      const now = peek self.memory.values
+      self.memory.write({ last: open, ..now })
     }
     if (open != nil && open != self.skillLine) {
       self.skillLine = open
+      self.texts = {}
       self.category = 0
       self.recipe = 0
       self.page = RECIPES
+      self.menuFor = 0
+      const seen = (peek self.memory.values).seen[open]
+      if (seen != nil && (peek self.settings.values).remember) {
+        self.category = seen.category
+        self.recipe = seen.recipe
+      }
     }
   }
 
   // A tab opens its profession through the game, in the click's own call: the client takes it from nothing
   // else. The tab shows picked at once; the lists fill when the game has sent them.
   onTab(mut self, index: Integer) {
-    let picked = (peek Game.professions.list)[index]
+    const picked = (peek Game.professions.list)[index]
     if (picked != nil && picked.skillLine != peek Game.tradeSkill.open) {
       Game.tradeSkill.show(picked.skillLine)
     }
@@ -206,7 +350,7 @@ public class Professions implements Module, App {
   onShownEmpty(mut self) {
     if (peek Game.tradeSkill.open != nil) { return }
     self.waiting = true
-    let last = (peek self.memory.values).last
+    const last = (peek self.memory.values).last
     for (profession of peek Game.professions.list) {
       if (profession.skillLine == last) {
         Game.tradeSkill.show(last)
@@ -215,15 +359,107 @@ public class Professions implements Module, App {
     }
   }
 
+  // What the player chose in this profession, kept for the next time it is open.
+  remember(mut self) {
+    const open = peek Game.tradeSkill.open
+    if (open == nil || !(peek self.settings.values).remember) { return }
+    const now = peek self.memory.values
+    let seen = now.seen.clone()
+    seen[open] = Seen { category: peek self.category, recipe: peek self.recipe }
+    self.memory.write({ seen: seen, ..now })
+  }
+
   pickCategory(mut self, id: Integer) {
     self.category = id
     self.recipe = 0
+    self.menuFor = 0
+    self.remember()
   }
 
-  pickRecipe(mut self, id: Integer) { self.recipe = id }
+  // A row of a list asked for something of a recipe.
+  onAct(mut self, act: Act, id: Integer) {
+    match (act) {
+      Act.Pick => { self.pickRecipe(id) },
+      Act.Menu => { self.menuFor = id },
+      Act.Favorite => { self.starFavorite(id) },
+      Act.Track => { self.starTracked(id) },
+      Act.Make => { self.onMake(id) },
+      Act.Close => { self.closeMenu(id) },
+    }
+  }
+
+  pickRecipe(mut self, id: Integer) {
+    self.recipe = id
+    self.menuFor = 0
+    self.remember()
+  }
+
+  closeMenu(mut self, id: Integer) {
+    if (peek self.menuFor == id) { self.menuFor = 0 }
+  }
+
+  // The recipe's number added to a list, or taken off it where it is there; the oldest goes where the list is full.
+  toggled(self, list: Array<Integer>, id: Integer): Array<Integer> {
+    let out: Array<Integer> = []
+    for (entry of list) {
+      if (entry != id) { out.push(entry) }
+    }
+    if (out.length == list.length) {
+      out.push(id)
+      if (out.length > MOST_MARKED) { _ = out.remove(1) }
+    }
+    return out
+  }
+
+  starFavorite(mut self, id: Integer) {
+    const now = peek self.memory.values
+    self.memory.write({ favorites: self.toggled(now.favorites, id), ..now })
+  }
+
+  starTracked(mut self, id: Integer) {
+    const now = peek self.memory.values
+    self.memory.write({ tracked: self.toggled(now.tracked, id), ..now })
+  }
+
+  // From the menu's click: the game takes making only from one.
+  onMake(mut self, id: Integer) {
+    self.menuFor = 0
+    for (recipe of peek Game.tradeSkill.recipes) {
+      if (recipe.id == id) { Game.tradeSkill.craft(id, recipe.craftable) }
+    }
+  }
+
+  // The filter's «Reset»: every option back to what the window starts with.
+  resetFilter(mut self) {
+    self.onlyMake = false
+    self.onlySkill = false
+    self.showLearned = true
+    self.showUnlearned = (peek self.settings.values).showUnlearned
+  }
 
   // From the button's click: the game takes making only from one.
   onCreate(mut self, count: Integer) { Game.tradeSkill.craft(self.chosenRecipe, count) }
+
+  // The window moved or was sized: its place is kept once it has been still for a moment, never at each step.
+  placed(mut self) {
+    const place = self.placing
+    const same = self.known.x == place.x && self.known.y == place.y && self.known.width == place.width
+      && self.known.height == place.height
+    if (same || self.settling) { return }
+    self.settling = true
+    Client.C_Timer.After(SETTLE, () => self.settle())
+  }
+
+  settle(mut self) {
+    self.settling = false
+    const place = peek self.placing
+    self.known = place
+    const now = peek self.memory.values
+    self.memory.write({ x: place.x, y: place.y, width: place.width, height: place.height, ..now })
+  }
+
+  // The settings window, at this module's page.
+  onSettings(self) { Ordaen.toggleSettings("OrdaenProfessions") }
 
   // Closing the window (the close button, Escape) closes the profession, which hides it.
   onClose(mut self) {
@@ -245,7 +481,12 @@ public class Professions implements Module, App {
             <box padding={BAR_ROOM}>
               <SkillBar profession={self.profession} />
             </box>
-            <Tabs tabs={self.pageNames} selected={mut self.page} />
+            <box columns={PAGES} gap={8 * PX} yAlign={Align.End}>
+              <Tabs tabs={self.pageNames} selected={mut self.page} />
+              <box padding={SEARCH_PAD} @click={self.onSettings}>
+                <text value={Locale.SETTINGS} textSize={Style.TEXT} textColor={Style.DIM} wrap={false} />
+              </box>
+            </box>
             <box columns={GRID} rows={FILL} gap={Style.GAP}>
               <box rows={SIDE} gap={8 * PX}>
                 <box height={SEARCH_HEIGHT} rows={FILL}>
@@ -256,24 +497,56 @@ public class Professions implements Module, App {
                     <text value={Locale.SEARCH} textSize={Style.TEXT} textColor={Style.DIM} wrap={false} />
                   </box>
                 </box>
+                <box columns={TOOLS} gap={6 * PX} yAlign={Align.Center}>
+                  <FilterButton open={mut self.filterOpen} makeable={mut self.onlyMake} skillUp={mut self.onlySkill}
+                                learned={mut self.showLearned} unlearned={mut self.showUnlearned}
+                                filtered={self.filtered} @reset={self.resetFilter} />
+                  <Pick $if={!self.isTable} value={mut self.sort} choices={SORTS} width={PICK_WIDTH} />
+                  <Pick $if={!self.onCamp} value={mut self.view} choices={VIEWS} width={PICK_WIDTH} />
+                </box>
                 <box $if={self.onCamp} rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
                   <box overflow={Overflow.Scroll}>
                     <RecipeRow $for={index, recipe of self.recipes} $key={recipe.id} recipe={recipe} index={index}
-                               chosen={self.chosenRecipe} @pick={self.pickRecipe} />
+                               chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
+                               @act={self.onAct} />
                   </box>
                 </box>
-                <box $else columns={LISTS} rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
+                <box $elseif={self.inColumns} columns={LISTS} rows={FILL} border={FRAME}
+                     background={Style.LISTS_BACK}>
                   <box overflow={Overflow.Scroll}>
-                    <CategoryRow $for={index, category of self.categories} $key={category.id} category={category}
-                                 index={index} chosen={self.chosenCategory} @pick={self.pickCategory} />
+                    <CategoryRow $for={index, group of self.groups} $key={group.id} group={group} index={index}
+                                 chosen={self.chosenCategory} @pick={self.pickCategory} />
                   </box>
                   <box overflow={Overflow.Scroll} border={COLUMN_RULE}>
                     <RecipeRow $for={index, recipe of self.recipes} $key={recipe.id} recipe={recipe} index={index}
-                               chosen={self.chosenRecipe} @pick={self.pickRecipe} />
+                               chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
+                               @act={self.onAct} />
                   </box>
                 </box>
+                <box $elseif={self.inGroups} rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
+                  <box overflow={Overflow.Scroll}>
+                    <CategoryGroup $for={group of self.groups} $key={group.id} group={group} shown={self.mains}
+                                   chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
+                                   @act={self.onAct} />
+                  </box>
+                </box>
+                <box $elseif={self.inList} rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
+                  <box overflow={Overflow.Scroll}>
+                    <RecipeRow $for={index, recipe of self.mains} $key={recipe.id} recipe={recipe} index={index}
+                               chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
+                               @act={self.onAct} />
+                  </box>
+                </box>
+                <box $else rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
+                  <Table columns={COLUMNS} sorted={mut self.tableColumn} descending={mut self.tableDescending}>
+                    <RecipeTableRow $for={recipe of self.tableRows} $key={recipe.id} recipe={recipe}
+                                    tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
+                                    menuFor={self.menuFor} @act={self.onAct} />
+                  </Table>
+                </box>
               </box>
-              <RecipeDetails recipe={self.shown} count={mut self.count} @create={self.onCreate} />
+              <RecipeDetails recipe={self.chosen} count={mut self.count} kept={self.kept} @create={self.onCreate}
+                             @act={self.onAct} />
             </box>
           </box>
         </Window>
