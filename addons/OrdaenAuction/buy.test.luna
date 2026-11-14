@@ -2,7 +2,9 @@
 // a commodity bought in two clicks and an item's auction bought out from a click. The house is browsed twice, shut,
 // and opened again a day after the second browse, so each market is a day old.
 import Game from "$game"
+import { Key } from "$ltml"
 import Test from "$test"
+import Wow from "LunaTypeRenderer"
 import { ItemId } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import root Ordaen from "Ordaen"
@@ -18,6 +20,142 @@ function names(id: Integer): Game.TooltipData | nil {
   const name = id == LINEN ? "Linen Cloth" : id == COPPER_ORE ? "Copper Ore" : id == AXE ? "Bronze Axe" : nil
   if (name == nil) { return nil }
   return { lines: [{ left: name, kind: 0 }] }
+}
+
+// The searches the house was asked for: how many, and the last one's text, class and subclass.
+class Searches {
+  public count = 0
+  public text = ""
+  public itemClass = -1
+  public itemSubclass = -1
+
+  public heard(mut self, text: String, filters: Game.SearchFilters): Boolean {
+    self.count += 1
+    self.text = text
+    self.itemClass = filters.itemClass ?? -1
+    self.itemSubclass = filters.itemSubclass ?? -1
+    return true
+  }
+}
+
+// The game's tooltips asked for: how many.
+class Tooltips {
+  public count = 0
+
+  public of(mut self, id: Integer): Game.TooltipData | nil {
+    self.count += 1
+    return names(id)
+  }
+}
+
+// Each test opens the house with linen and copper ore shown, ready for a query, and counts the searches it is asked.
+test "typing: ten keys a tenth of a second apart are one search, once the typing settles; Enter searches at once" {
+  Game.clock.server = START
+  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Game.auctionHouse.open = true
+  Game.auctionQuery.ready = true
+  Game.items.tooltip = names
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: COPPER_ORE, copper: 90, quantity: 40 }])
+  Test.pass(0.02)
+  let searches = new Searches()
+  Game.auctionQuery.search = (text: String, filters: Game.SearchFilters): Boolean => searches.heard(text, filters)
+  // The names are the house's, lowercased once: a search asks the game for none.
+  let tooltips = new Tooltips()
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => tooltips.of(id)
+  Test.click(Test.field(1), nil)
+  for (letter of ["c", "o", "p", "p", "e", "r", " ", "o", "r", "e"]) {
+    Test.type(letter)
+    Test.pass(0.1)
+  }
+  Test.expect(searches.count == 0)
+  Test.pass(0.3)
+  Test.expect(searches.count == 1 && searches.text == "copper ore")
+  Test.expect(tooltips.count == 0)
+  Test.shot("ten keys, then the typing settled: one search, for «copper ore»; the rows are copper ore's")
+  Test.click(Test.field(1), nil)
+  Test.erase(4)
+  _ = Test.key(Key.Enter)
+  Test.expect(searches.count == 2 && searches.text == "copper")
+  Test.pass(0.3)
+  Test.expect(searches.count == 2)
+  Game.auctionQuery.ready = false
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+}
+
+test "the age column: «< 1 h» for this hour's price, the hours under a day, the market's days from one" {
+  Game.clock.server = START
+  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Game.auctionHouse.open = true
+  Game.items.tooltip = names
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: COPPER_ORE, copper: 90, quantity: 40 }])
+  Test.pass(0.02)
+  Test.expect(Test.holding("< 1 h", nil).x > 0)
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+  Game.clock.server = START + 5 * HOUR
+  Game.auctionHouse.open = true
+  Test.pass(0.02)
+  Test.expect(Test.holding("5 h", nil).x > 0)
+  Test.shot("five hours after the browse: each price 5 h old")
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+}
+
+test "the categories: a class picked shows its subclasses and loads the class, a subclass loads it, «All items» every one" {
+  Game.clock.server = START
+  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Game.auctionHouse.open = true
+  Game.auctionQuery.ready = true
+  Game.items.tooltip = names
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: COPPER_ORE, copper: 90, quantity: 40 }])
+  Test.pass(0.02)
+  let searches = new Searches()
+  Game.auctionQuery.search = (text: String, filters: Game.SearchFilters): Boolean => searches.heard(text, filters)
+  Test.shot("the categories at the left: every item, then each class the game's window lists")
+  Test.click(Test.holding("Weapon", nil), nil)
+  Test.pass(0.02)
+  Test.expect(searches.count == 1 && searches.itemClass == 2 && searches.itemSubclass == -1)
+  Test.shot("Weapon picked: its subclasses under it; the house searched for weapons")
+  Test.click(Test.holding("Daggers", nil), nil)
+  Test.pass(0.02)
+  Test.expect(searches.count == 2 && searches.itemClass == 2 && searches.itemSubclass == 15)
+  Test.click(Test.holding("All items", nil), nil)
+  Test.pass(0.02)
+  Test.expect(searches.count == 3 && searches.itemClass == -1)
+  Test.shot("«All items» picked again: the subclasses folded; the house searched with no class")
+  Game.auctionQuery.ready = false
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
+}
+
+// A house of five thousand items, as a full scan shows the player's realm's: the list builds the rows in view, and
+// the wheel moves those same rows over the others.
+function many(id: Integer): Game.TooltipData | nil {
+  return { lines: [{ left: "Ware %d".format(id), kind: 0 }] }
+}
+
+test "five thousand items: the list builds the rows in view, and fifty notches of the wheel build none" {
+  Game.clock.server = START
+  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
+  Game.auctionHouse.open = true
+  Game.items.tooltip = many
+  let offers: Array<Game.Offer> = []
+  for (id of 1..=5000) { offers.push({ key: id, copper: id, quantity: 1 }) }
+  const before = Wow.made()
+  Game.auctionQuery.results.emit(offers)
+  Test.pass(0.02)
+  const built = Wow.made() - before
+  Test.expect(built < 1000)
+  Test.moveTo(Test.holding("Ware 2", nil))
+  const told = Test.calls((): nil => { Test.wheel(-1) })
+  Test.note(`a notch of the wheel, the client told: ${told}`)
+  for (i of 1..=50) { Test.wheel(-1) }
+  Test.expect(Wow.made() - before == built)
+  Test.shot("fifty-one notches down: the same rows hold the wares now in view")
+  Game.auctionQuery.ready = false
+  Game.auctionHouse.open = false
+  Test.pass(0.02)
 }
 
 test "«Buy»: the last browse's items with their market and share, sorted, searched by name and filters" {
@@ -37,8 +175,8 @@ test "«Buy»: the last browse's items with their market and share, sorted, sear
   Test.shot("sorted by the lowest: linen first")
   Test.click(Test.field(1), nil)
   Test.type("lin")
-  Test.pass(0.02)
-  Test.note("the house busy: nothing sent yet")
+  Test.pass(0.3)
+  Test.note("the typing settled, the house busy: nothing sent yet")
   Game.auctionQuery.ready = true
   Test.pass(0.02)
   Test.shot("filtered: linen alone; the house searched for «lin» once it took a query")
@@ -52,7 +190,7 @@ test "«Buy»: the last browse's items with their market and share, sorted, sear
   Test.click({ x: 5, y: 5 }, nil)
   Test.moveTo(Test.painted(Ordaen.art.ctl.tool.filter, nil))
   Test.flush()
-  Test.expect(Test.surfaces().any(shown => shown.texts.join("|") == "Filter|All classes, Any level, Uncommon"))
+  Test.expect(Test.surfaces().any(shown => shown.texts.join("|") == "Filter|Any level, Uncommon"))
   Game.auctionQuery.ready = false
   Game.auctionHouse.open = false
   Test.pass(0.02)

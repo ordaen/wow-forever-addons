@@ -2,7 +2,7 @@
 box 0,0 400x28.33
   box 0,0 400x28.33
     box 0,0 300x28.33
-      box 0,0 300x28.33 #00000080 input "" @change
+      box 0,0 300x28.33 #00000080 input "" @change @submit
       box 0,0 300x28.33 absolute
         text 8.33,6.67 283.33x15 "Search by name" #a3977f
     box 300,0 100x28.33
@@ -23,7 +23,7 @@ box 0,0 400x28.33
 box 0,0 400x28.33
   box 0,0 400x28.33
     box 0,0 300x28.33
-      box 0,0 300x28.33 #00000080 input "" @change
+      box 0,0 300x28.33 #00000080 input "" @change @submit
       box 0,0 300x28.33 absolute
         text 8.33,6.67 283.33x15 "Search by name" #a3977f
     box 300,0 100x28.33
@@ -51,7 +51,7 @@ surface 338.33,28.33 175x58.33 on FULLSCREEN_DIALOG #0a0806f7
 box 0,0 400x28.33
   box 0,0 400x28.33
     box 0,0 300x28.33
-      box 0,0 300x28.33 #00000080 input "" @change
+      box 0,0 300x28.33 #00000080 input "" @change @submit
       box 0,0 300x28.33 absolute
         text 8.33,6.67 283.33x15 "Search by name" #a3977f
     box 300,0 100x28.33
@@ -67,3 +67,6 @@ box 0,0 400x28.33
         box 371.67,0 28.33x28.33
           box 371.67,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 379.17,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 8
+
+key: ESCAPE → none
+key: ENTER → none

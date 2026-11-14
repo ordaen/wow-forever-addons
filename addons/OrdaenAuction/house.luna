@@ -4,9 +4,34 @@
 // At rest a house is one string (`pack`): its maps as CBOR, deflated, one constant to the client's parser however many
 // keys it has; it is the account's (`Kept`), so whichever character scans last moves it.
 import Game from "$game"
-import { Hour } from "Ordaen"
+import { Hour, ItemId } from "Ordaen"
 import { HourPrice } from "@/history"
+import Locale from "@/locales"
 import { Listing, PriceKey, Quote } from "@/quote"
+import Style from "@/style"
+
+// An item's name as the game shows it, its quality's colour, and the name lowercased: what a search matches.
+public struct Named {
+  name: String
+  lower: String
+  color: Color
+}
+
+// What the game says of an item: its name and its quality's colour, from its tooltip's first line.
+public function nameOf(item: Integer): (String, Color) {
+  const known = knownName(item)
+  if (known == nil) { return Locale.UNKNOWN_ITEM.format(item), Style.INK }
+  return known.name, known.color
+}
+
+// The same, none where the game doesn't know the item yet (its data not loaded).
+function knownName(item: Integer): Named | nil {
+  const data = Game.items.tooltip(item)
+  const first = data != nil ? data.lines[1] : nil
+  const name = first?.left
+  if (first == nil || name == nil) { return nil }
+  return { name: name, lower: name.lower(), color: first.quality ?? first.leftColor ?? Style.INK }
+}
 
 // A house's maps, as they are packed.
 public struct Packed implements Plain {
@@ -40,6 +65,9 @@ public class House {
   // How many keys it holds; how many have a history.
   public count: Integer = 0
   histories: Integer = 0
+  // The names of the items it shows, by item, each asked of the game and lowercased once: what a search over
+  // thousands of rows matches, never a tooltip a key. One the game doesn't know yet is asked again next time.
+  names: mut Map<ItemId, Named> = {}
 
   // `packed` is the house as `pack` left it; none for a house never scanned, or one the client couldn't read.
   constructor(name: String, packed: String | nil) {
@@ -62,6 +90,16 @@ public class House {
       if (hour >= from && hour <= to) { points.push(HourPrice { hour: hour, copper: point.copper() }) }
     }
     return points
+  }
+
+  // An item's name from the index, asked of the game the first time.
+  public named(mut self, item: ItemId): Named {
+    const kept = self.names[item]
+    if (kept != nil) { return kept }
+    const known = knownName(item)
+    if (known == nil) { return { name: Locale.UNKNOWN_ITEM.format(item), lower: "", color: Style.INK } }
+    self.names[item] = known
+    return known
   }
 
   public quote(self, key: PriceKey): Quote | nil { return self.market[key] }

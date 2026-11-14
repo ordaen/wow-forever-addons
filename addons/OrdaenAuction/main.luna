@@ -146,7 +146,7 @@ public class Auction implements Module, App {
                 room={self.room} footer={self.footer} side={self.side} @close={self.onClose}
                 @settings={self.onSettings}>
           <box $match={self.page} rows={FILL}>
-            <BuyPage $case={BUY} house={self.house} prices={self.prices} offers={self.scanner.offers}
+            <BuyPage $case={BUY} house={mut self.house} prices={self.prices} offers={self.scanner.offers}
                      items={self.scanner.known} shopping={mut self.shopping} chosen={mut self.buyChosen}
                      @openList={self.onShopping} />
             <SellPage $case={SELL} house={self.house} prices={self.prices} chosen={mut self.sellChosen}
