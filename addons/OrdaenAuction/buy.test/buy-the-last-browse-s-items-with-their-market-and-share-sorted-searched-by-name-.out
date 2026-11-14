@@ -443,6 +443,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                   box 471.08,364.71 49.5x20
                     box 471.08,364.71 20x20 #0d0a08 opacity=1 @click @enter
                       box 471.08,364.71 20x20 absolute
+                      box 471.08,364.71 20x20 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                       box 471.08,364.71 20x20 absolute #00000000
                     box 497.75,367.21 22.83x15 clipped
                       text 497.75,367.21 68.75x15 "Linen Cloth" #e8dcc4
