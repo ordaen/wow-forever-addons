@@ -7,7 +7,7 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
           box 374.42,268.04 856.17x25 #00000080 input "" @change
         box 374.42,309.71 856.17x76.67 scrolled 0 of 0
           box 374.42,309.71 856.17x38.33
-            box 374.42,312.21 33.33x33.33 #0d0a08 opacity=1 @click @enter
+            box 374.42,312.21 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
               box 374.42,312.21 33.33x33.33 absolute
               box 374.42,312.21 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 374.42,312.21 33.33x33.33 absolute #00000000
@@ -16,7 +16,7 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
             text 417.75,321.07 230.33x15.6 "Linen Cloth" #e8dcc4
             text 654.75,321.07 575.83x15.6 "Regy Ironsight: bank 20" #a3977f
           box 374.42,348.04 856.17x38.33
-            box 374.42,350.54 33.33x33.33 #0d0a08 opacity=1 @click @enter
+            box 374.42,350.54 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
               box 374.42,350.54 33.33x33.33 absolute
               box 374.42,350.54 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 374.42,350.54 33.33x33.33 absolute #00000000
@@ -48,7 +48,7 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
           box 374.42,268.04 856.17x25 #00000080 input "linen" typing @change
         box 374.42,309.71 856.17x38.33 scrolled 0 of 0
           box 374.42,309.71 856.17x38.33
-            box 374.42,312.21 33.33x33.33 #0d0a08 opacity=1 @click @enter
+            box 374.42,312.21 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
               box 374.42,312.21 33.33x33.33 absolute
               box 374.42,312.21 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 374.42,312.21 33.33x33.33 absolute #00000000

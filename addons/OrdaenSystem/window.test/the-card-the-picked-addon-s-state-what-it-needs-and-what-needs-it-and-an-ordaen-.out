@@ -1,97 +1,101 @@
 -- the card of Ordaen System: loaded on demand, needs Ordaen, «Ordaen settings»
-surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
-  box 391.67,241.12 816.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 404.42,253.88 495.92x443.42
-      box 424.42,273.88 455.92x365.08
-        box 424.42,273.88 455.92x28.33
-          box 424.42,273.88 300.36x28.33
-            box 424.42,273.88 300.36x28.33 #00000080 input "" @change @submit
-            box 424.42,273.88 300.36x28.33 absolute
-              text 432.75,280.24 283.69x15.6 "Search by title, folder, author, notes" #a3977f
-          box 724.78,273.88 155.56x28.33
-            box 724.78,280.24 22.22x15.6
-              text 731.44,280.24 8.89x15.6 "3" #9a9080
-            box 747,273.88 33.33x28.33
-              box 752,273.88 28.33x28.33
-                box 752,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 759.5,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 7 of 8
-            box 780.33,273.88 33.33x28.33
-              box 785.33,273.88 28.33x28.33
-                box 785.33,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 792.83,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
-            box 813.67,273.88 33.33x28.33
-              box 818.67,273.88 28.33x28.33
-                box 818.67,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 826.17,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
-            box 847,273.88 33.33x28.33
-              box 852,273.88 28.33x28.33
-                box 852,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 859.5,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 8
-        box 424.42,308.88 455.92x14.4
-          box 431.08,316.07 18.33x0
-          box 456.08,308.88 207.58x14.4 @click
-            text 456.08,308.88 207.58x14.4 "AddOn" #9a9080
-          box 670.33,316.07 0x0
-            text 670.33,316.07 0x0 "" #9a9080
-          box 677,308.88 58.33x14.4 @click
-            text 714.22,308.88 21.11x14.4 "Now" #9a9080 right
-          box 742,308.88 58.33x14.4 @click
-            text 773.67,308.88 26.67x14.4 "Peak" #9a9080 right
-          box 807,308.88 66.67x14.4
-            box 818.11,308.88 38.89x14.4 @click
-              text 818.11,308.88 38.89x14.4 "Memory" #9a9080
-            box 860.33,308.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 8 @click
-        box 424.42,329.94 455.92x281.28 scrolled 0 of 0
-          box 424.42,329.94 455.92x21.67 @click
+surface 391.67,192.21 1116.92x515.58 on DIALOG clamped raised by a click
+  box 391.67,241.12 1116.92x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 404.42,253.88 796.17x443.42
+      box 424.42,273.88 756.17x365.08
+        box 424.42,273.88 756.17x28.33
+          box 424.42,273.88 600.61x28.33
+            box 424.42,273.88 600.61x28.33 #00000080 input "" @change @submit
+            box 424.42,273.88 600.61x28.33 absolute
+              text 432.75,280.24 583.94x15.6 "Search by title, folder, author, notes" #a3977f
+          box 1025.03,273.88 155.56x28.33
+            box 1025.03,280.24 22.22x15.6
+              text 1031.69,280.24 8.89x15.6 "3" #9a9080
+            box 1047.25,273.88 33.33x28.33
+              box 1052.25,273.88 28.33x28.33
+                box 1052.25,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 1059.75,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 7 of 16
+            box 1080.58,273.88 33.33x28.33
+              box 1085.58,273.88 28.33x28.33
+                box 1085.58,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 1093.08,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+            box 1113.92,273.88 33.33x28.33
+              box 1118.92,273.88 28.33x28.33
+                box 1118.92,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 1126.42,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+            box 1147.25,273.88 33.33x28.33
+              box 1152.25,273.88 28.33x28.33
+                box 1152.25,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 1159.75,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
+        box 424.42,308.88 756.17x14.4
+          box 431.08,308.88 494.5x14.4 @click
+            text 431.08,308.88 494.5x14.4 "AddOn" #9a9080
+          box 932.25,316.07 0x0
+            text 932.25,316.07 0x0 "" #9a9080
+          box 938.92,308.88 58.33x14.4 @click
+            text 976.14,308.88 21.11x14.4 "Now" #9a9080 right
+          box 1003.92,308.88 58.33x14.4 @click
+            text 1035.58,308.88 26.67x14.4 "Peak" #9a9080 right
+          box 1068.92,308.88 66.67x14.4
+            box 1080.03,308.88 38.89x14.4 @click
+              text 1080.03,308.88 38.89x14.4 "Memory" #9a9080
+            box 1122.25,308.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 16 @click
+          box 1142.25,316.07 31.67x0
+        box 424.42,329.94 756.17x281.28 scrolled 0 of 0
+          box 424.42,329.94 756.17x21.67 @click
             box 431.08,334.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
             text 451.08,332.98 93.33x15.6 "User Interface" #f0c860
-            text 551.08,332.98 322.58x15.6 "2" #9a9080
-          box 424.42,351.61 455.92x21.67 #00000000 @click @enter @leave
-            box 431.08,353.28 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-              box 431.08,353.28 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-            box 456.08,354.64 207.58x15.6
-              text 456.08,354.64 207.58x15.6 "Ordaen" #e8e0d0
-            box 670.33,362.44 0x0
-              text 670.33,362.44 0x0 "" #9a9080
-            box 677,354.64 58.33x15.6
-              text 726.44,354.64 8.89x15.6 "—" #e8e0d0 right
-            box 742,354.64 58.33x15.6
-              text 791.44,354.64 8.89x15.6 "—" #e8e0d0 right
-            box 807,354.64 66.67x15.6
-              text 844.78,354.64 28.89x15.6 "0 KB" #e8e0d0 right
-          box 424.42,373.27 455.92x21.67 #f0c86024 @click @enter @leave
-            box 431.08,384.11 18.33x0
-            box 456.08,376.31 133.14x15.6
-              text 471.08,376.31 118.14x15.6 "Ordaen System" #e8e0d0
-            box 595.89,376.91 74.44x14.4 @click
-              text 595.89,376.91 74.44x14.4 "on in Ordaen" #9a9080
-            box 677,376.31 58.33x15.6
-              text 726.44,376.31 8.89x15.6 "—" #e8e0d0 right
-            box 742,376.31 58.33x15.6
-              text 791.44,376.31 8.89x15.6 "—" #e8e0d0 right
-            box 807,376.31 66.67x15.6
-              text 844.78,376.31 28.89x15.6 "0 KB" #e8e0d0 right
-          box 424.42,394.94 455.92x21.67 @click
+            text 551.08,332.98 584.5x15.6 "2" #9a9080
+            box 1142.25,332.44 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,329.94 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+          box 424.42,351.61 756.17x21.67 #00000000 @click @enter @leave
+            box 431.08,354.64 494.5x15.6
+              text 431.08,354.64 494.5x15.6 "Ordaen" #e8e0d0
+            box 932.25,362.44 0x0
+              text 932.25,362.44 0x0 "" #9a9080
+            box 938.92,354.64 58.33x15.6
+              text 988.36,354.64 8.89x15.6 "—" #e8e0d0 right
+            box 1003.92,354.64 58.33x15.6
+              text 1053.36,354.64 8.89x15.6 "—" #e8e0d0 right
+            box 1068.92,354.64 66.67x15.6
+              text 1106.69,354.64 28.89x15.6 "0 KB" #e8e0d0 right
+            box 1142.25,354.11 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,351.61 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+          box 424.42,373.27 756.17x21.67 #f0c86024 @click @enter @leave
+            box 431.08,376.31 420.06x15.6
+              text 446.08,376.31 405.06x15.6 "Ordaen System" #e8e0d0
+            box 857.81,376.91 74.44x14.4 @click
+              text 857.81,376.91 74.44x14.4 "on in Ordaen" #9a9080
+            box 938.92,376.31 58.33x15.6
+              text 988.36,376.31 8.89x15.6 "—" #e8e0d0 right
+            box 1003.92,376.31 58.33x15.6
+              text 1053.36,376.31 8.89x15.6 "—" #e8e0d0 right
+            box 1068.92,376.31 66.67x15.6
+              text 1106.69,376.31 28.89x15.6 "0 KB" #e8e0d0 right
+            box 1142.25,384.11 31.67x0
+          box 424.42,394.94 756.17x21.67 @click
             box 431.08,399.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
             text 451.08,397.98 35.56x15.6 "Other" #f0c860
-            text 493.31,397.98 380.36x15.6 "1" #9a9080
-          box 424.42,416.61 455.92x21.67 #00000000 @click @enter @leave
-            box 431.08,418.28 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-              box 431.08,418.28 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-            box 456.08,419.64 207.58x15.6
-              text 456.08,419.64 207.58x15.6 "LunaType" #e8e0d0
-            box 670.33,427.44 0x0
-              text 670.33,427.44 0x0 "" #9a9080
-            box 677,419.64 58.33x15.6
-              text 726.44,419.64 8.89x15.6 "—" #e8e0d0 right
-            box 742,419.64 58.33x15.6
-              text 791.44,419.64 8.89x15.6 "—" #e8e0d0 right
-            box 807,419.64 66.67x15.6
-              text 844.78,419.64 28.89x15.6 "0 KB" #e8e0d0 right
-        box 424.42,617.89 455.92x0
-        text 424.42,624.56 455.92x14.4 "The client isn't measuring addons." #9a9080
-      box 424.42,638.96 455.92x45
-        box 424.42,655.62 455.92x28.33
+            text 493.31,397.98 642.28x15.6 "1" #9a9080
+            box 1142.25,397.44 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,394.94 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+          box 424.42,416.61 756.17x21.67 #00000000 @click @enter @leave
+            box 431.08,419.64 494.5x15.6
+              text 431.08,419.64 494.5x15.6 "LunaType" #e8e0d0
+            box 932.25,427.44 0x0
+              text 932.25,427.44 0x0 "" #9a9080
+            box 938.92,419.64 58.33x15.6
+              text 988.36,419.64 8.89x15.6 "—" #e8e0d0 right
+            box 1003.92,419.64 58.33x15.6
+              text 1053.36,419.64 8.89x15.6 "—" #e8e0d0 right
+            box 1068.92,419.64 66.67x15.6
+              text 1106.69,419.64 28.89x15.6 "0 KB" #e8e0d0 right
+            box 1142.25,419.11 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,416.61 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+        box 424.42,617.89 756.17x0
+        text 424.42,624.56 756.17x14.4 "The client isn't measuring addons." #9a9080
+      box 424.42,638.96 756.17x45
+        box 424.42,655.62 756.17x28.33
           box 424.42,655.62 206.67x28.33
             box 424.42,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 424.42,655.62 100x28.33 absolute
@@ -100,78 +104,78 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
               box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 531.08,655.62 100x28.33 absolute
                   text 559.97,661.99 42.22x15.6 "Sets ▾" #ffd100 centred
-          box 647.75,669.79 75.92x0
-          box 740.33,655.62 140x28.33
-            box 740.33,669.79 0x0 @enter @leave
-              text 740.33,669.79 0x0 "" #f0c860
-            box 747,655.62 133.33x28.33 @enter @leave
-              box 747,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click @enter @leave
-                box 747,655.62 133.33x28.33 absolute
-                  text 792.56,661.99 42.22x15.6 "Reload" #ffd100 centred
-    box 900.33,253.88 300.25x443.42 border=ButtonFrameTemplateNoPortrait sides=left
-      box 930.58,273.88 250x410.08 scrolled 0 of 57.85
-        box 930.58,273.88 250x467.93
-          box 930.58,273.88 250x33.33
-            box 930.58,273.88 33.33x33.33 icon=Interface/Icons/INV_Misc_Wrench_01
-            box 970.58,282.74 210x15.6
-              text 970.58,282.74 210x15.6 "Ordaen System" #f0c860
-              text 970.58,298.34 210x0 "" #9a9080
-          text 930.58,313.88 250x57.6 "The game menu and the AddOns list in Ordaen's look: what each addon needs, why one doesn't load, its CPU and memory, sets of addons." #e8e0d0
-          box 930.58,378.14 250x14.4
-            text 930.58,378.14 32.22x14.4 "State" #9a9080
-            box 969.47,378.14 211.11x14.4
-              text 1081.69,378.14 98.89x14.4 "Loaded on demand" #6fd46f right
-          text 930.58,399.21 250x14.4 "Needs" #9a9080
-          box 930.58,420.27 250x15.6 @click
-            text 930.58,420.27 54.44x15.6 "LunaType" #d6b878
-            box 991.69,420.27 188.89x14.4
-              text 1141.69,420.27 38.89x14.4 "loaded" #6fd46f right
-          box 930.58,442.54 250x15.6 @click
-            text 930.58,442.54 42.22x15.6 "Ordaen" #d6b878
-            box 979.47,442.54 201.11x14.4
-              text 1141.69,442.54 38.89x14.4 "loaded" #6fd46f right
-          text 930.58,464.81 250x14.4 "Optional" #9a9080
-          text 930.58,485.88 250x15.6 "—" #9a9080
-          text 930.58,508.14 250x14.4 "Needed by" #9a9080
-          text 930.58,529.21 250x15.6 "—" #9a9080
-          box 930.58,551.47 250x22.27
-            text 930.58,558.14 250x15.6 "Load" #f0c860
-          box 930.58,580.41 250x14.4
-            text 930.58,580.41 21.11x14.4 "Now" #9a9080
-            box 958.36,580.41 222.22x14.4
-              text 1171.69,580.41 8.89x14.4 "—" #e8e0d0 right
-          box 930.58,601.47 250x14.4
-            text 930.58,601.47 62.22x14.4 "On average" #9a9080
-            box 999.47,601.47 181.11x14.4
-              text 1171.69,601.47 8.89x14.4 "—" #e8e0d0 right
-          box 930.58,622.54 250x14.4
-            text 930.58,622.54 74.44x14.4 "In encounter" #9a9080
-            box 1011.69,622.54 168.89x14.4
-              text 1171.69,622.54 8.89x14.4 "—" #e8e0d0 right
-          box 930.58,643.61 250x14.4
-            text 930.58,643.61 26.67x14.4 "Peak" #9a9080
-            box 963.92,643.61 216.67x14.4
-              text 1171.69,643.61 8.89x14.4 "—" #e8e0d0 right
-          box 930.58,664.67 250x14.4
-            text 930.58,664.67 38.89x14.4 "Spikes" #9a9080
-            box 976.14,664.67 204.44x14.4
-              text 1171.69,664.67 8.89x14.4 "—" #e8e0d0 right
-          box 930.58,685.74 250x14.4
-            text 930.58,685.74 38.89x14.4 "Memory" #9a9080
-            box 976.14,685.74 204.44x14.4
-              text 1153.92,685.74 26.67x14.4 "0 KB" #e8e0d0 right
-          box 930.58,706.81 250x35
-            box 930.58,713.47 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-              box 930.58,713.47 141.67x28.33 absolute
-                text 951.42,719.84 100x15.6 "Ordaen settings" #ffd100 centred
-    box 1149.42,252.96 52.5x26.67 absolute clipped
-      box 1149.42,252.96 29.17x26.67 absolute clipped @click
-        box 1149.42,252.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1159.42,258.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1178.58,252.96 23.33x26.67 absolute clipped @click
-        box 1178.58,252.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1184.83,258.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-    box 1191.08,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+          box 647.75,669.79 376.17x0
+          box 1040.58,655.62 140x28.33
+            box 1040.58,669.79 0x0 @enter @leave
+              text 1040.58,669.79 0x0 "" #f0c860
+            box 1047.25,655.62 133.33x28.33 @enter @leave
+              box 1047.25,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click @enter @leave
+                box 1047.25,655.62 133.33x28.33 absolute
+                  text 1092.81,661.99 42.22x15.6 "Reload" #ffd100 centred
+    box 1200.58,253.88 300.25x443.42 border=ButtonFrameTemplateNoPortrait sides=left
+      box 1230.83,273.88 250x410.08 scrolled 0 of 57.85
+        box 1230.83,273.88 250x467.93
+          box 1230.83,273.88 250x33.33
+            box 1230.83,273.88 33.33x33.33 icon=Interface/Icons/INV_Misc_Wrench_01
+            box 1270.83,282.74 210x15.6
+              text 1270.83,282.74 210x15.6 "Ordaen System" #f0c860
+              text 1270.83,298.34 210x0 "" #9a9080
+          text 1230.83,313.88 250x57.6 "The game menu and the AddOns list in Ordaen's look: what each addon needs, why one doesn't load, its CPU and memory, sets of addons." #e8e0d0
+          box 1230.83,378.14 250x14.4
+            text 1230.83,378.14 32.22x14.4 "State" #9a9080
+            box 1269.72,378.14 211.11x14.4
+              text 1381.94,378.14 98.89x14.4 "Loaded on demand" #6fd46f right
+          text 1230.83,399.21 250x14.4 "Needs" #9a9080
+          box 1230.83,420.27 250x15.6 @click
+            text 1230.83,420.27 54.44x15.6 "LunaType" #d6b878
+            box 1291.94,420.27 188.89x14.4
+              text 1441.94,420.27 38.89x14.4 "loaded" #6fd46f right
+          box 1230.83,442.54 250x15.6 @click
+            text 1230.83,442.54 42.22x15.6 "Ordaen" #d6b878
+            box 1279.72,442.54 201.11x14.4
+              text 1441.94,442.54 38.89x14.4 "loaded" #6fd46f right
+          text 1230.83,464.81 250x14.4 "Optional" #9a9080
+          text 1230.83,485.88 250x15.6 "—" #9a9080
+          text 1230.83,508.14 250x14.4 "Needed by" #9a9080
+          text 1230.83,529.21 250x15.6 "—" #9a9080
+          box 1230.83,551.47 250x22.27
+            text 1230.83,558.14 250x15.6 "Load" #f0c860
+          box 1230.83,580.41 250x14.4
+            text 1230.83,580.41 21.11x14.4 "Now" #9a9080
+            box 1258.61,580.41 222.22x14.4
+              text 1471.94,580.41 8.89x14.4 "—" #e8e0d0 right
+          box 1230.83,601.47 250x14.4
+            text 1230.83,601.47 62.22x14.4 "On average" #9a9080
+            box 1299.72,601.47 181.11x14.4
+              text 1471.94,601.47 8.89x14.4 "—" #e8e0d0 right
+          box 1230.83,622.54 250x14.4
+            text 1230.83,622.54 74.44x14.4 "In encounter" #9a9080
+            box 1311.94,622.54 168.89x14.4
+              text 1471.94,622.54 8.89x14.4 "—" #e8e0d0 right
+          box 1230.83,643.61 250x14.4
+            text 1230.83,643.61 26.67x14.4 "Peak" #9a9080
+            box 1264.17,643.61 216.67x14.4
+              text 1471.94,643.61 8.89x14.4 "—" #e8e0d0 right
+          box 1230.83,664.67 250x14.4
+            text 1230.83,664.67 38.89x14.4 "Spikes" #9a9080
+            box 1276.39,664.67 204.44x14.4
+              text 1471.94,664.67 8.89x14.4 "—" #e8e0d0 right
+          box 1230.83,685.74 250x14.4
+            text 1230.83,685.74 38.89x14.4 "Memory" #9a9080
+            box 1276.39,685.74 204.44x14.4
+              text 1454.17,685.74 26.67x14.4 "0 KB" #e8e0d0 right
+          box 1230.83,706.81 250x35
+            box 1230.83,713.47 141.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+              box 1230.83,713.47 141.67x28.33 absolute
+                text 1251.67,719.84 100x15.6 "Ordaen settings" #ffd100 centred
+    box 1449.67,252.96 52.5x26.67 absolute clipped
+      box 1449.67,252.96 29.17x26.67 absolute clipped @click
+        box 1449.67,252.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1459.67,258.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1478.83,252.96 23.33x26.67 absolute clipped @click
+        box 1478.83,252.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1485.08,258.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1491.33,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 391.67,192.21 128.31x59.42
     box 391.67,192.21 128.31x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 398.92,199.46 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
@@ -184,99 +188,103 @@ surface 424.42,394.94 271.17x129.85 on TOOLTIP Interface\AddOns\Ordaen\media\win
   text 448,441.06 229x62.4 "The game menu and the AddOns list in Ordaen's look: what each addon needs, why one doesn't load, its CPU and memory, sets of addons." #cbb994
 
 -- the card of Ordaen: needed by its modules
-surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
-  box 391.67,241.12 816.67x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
-    box 404.42,253.88 495.92x443.42
-      box 424.42,273.88 455.92x365.08
-        box 424.42,273.88 455.92x28.33
-          box 424.42,273.88 300.36x28.33
-            box 424.42,273.88 300.36x28.33 #00000080 input "" @change @submit
-            box 424.42,273.88 300.36x28.33 absolute
-              text 432.75,280.24 283.69x15.6 "Search by title, folder, author, notes" #a3977f
-          box 724.78,273.88 155.56x28.33
-            box 724.78,280.24 22.22x15.6
-              text 731.44,280.24 8.89x15.6 "3" #9a9080
-            box 747,273.88 33.33x28.33
-              box 752,273.88 28.33x28.33
-                box 752,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 759.5,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 7 of 8
-            box 780.33,273.88 33.33x28.33
-              box 785.33,273.88 28.33x28.33
-                box 785.33,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 792.83,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
-            box 813.67,273.88 33.33x28.33
-              box 818.67,273.88 28.33x28.33
-                box 818.67,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 826.17,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
-            box 847,273.88 33.33x28.33
-              box 852,273.88 28.33x28.33
-                box 852,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 859.5,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 8
-        box 424.42,308.88 455.92x14.4
-          box 431.08,316.07 18.33x0
-          box 456.08,308.88 207.58x14.4 @click
-            text 456.08,308.88 207.58x14.4 "AddOn" #9a9080
-          box 670.33,316.07 0x0
-            text 670.33,316.07 0x0 "" #9a9080
-          box 677,308.88 58.33x14.4 @click
-            text 714.22,308.88 21.11x14.4 "Now" #9a9080 right
-          box 742,308.88 58.33x14.4 @click
-            text 773.67,308.88 26.67x14.4 "Peak" #9a9080 right
-          box 807,308.88 66.67x14.4
-            box 818.11,308.88 38.89x14.4 @click
-              text 818.11,308.88 38.89x14.4 "Memory" #9a9080
-            box 860.33,308.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 8 @click
-        box 424.42,329.94 455.92x281.28 scrolled 0 of 0
-          box 424.42,329.94 455.92x21.67 @click
+surface 391.67,192.21 1116.92x515.58 on DIALOG clamped raised by a click
+  box 391.67,241.12 1116.92x466.67 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+    box 404.42,253.88 796.17x443.42
+      box 424.42,273.88 756.17x365.08
+        box 424.42,273.88 756.17x28.33
+          box 424.42,273.88 600.61x28.33
+            box 424.42,273.88 600.61x28.33 #00000080 input "" @change @submit
+            box 424.42,273.88 600.61x28.33 absolute
+              text 432.75,280.24 583.94x15.6 "Search by title, folder, author, notes" #a3977f
+          box 1025.03,273.88 155.56x28.33
+            box 1025.03,280.24 22.22x15.6
+              text 1031.69,280.24 8.89x15.6 "3" #9a9080
+            box 1047.25,273.88 33.33x28.33
+              box 1052.25,273.88 28.33x28.33
+                box 1052.25,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 1059.75,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 7 of 16
+            box 1080.58,273.88 33.33x28.33
+              box 1085.58,273.88 28.33x28.33
+                box 1085.58,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 1093.08,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
+            box 1113.92,273.88 33.33x28.33
+              box 1118.92,273.88 28.33x28.33
+                box 1118.92,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 1126.42,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
+            box 1147.25,273.88 33.33x28.33
+              box 1152.25,273.88 28.33x28.33
+                box 1152.25,273.88 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+                  box 1159.75,281.38 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 3 of 16
+        box 424.42,308.88 756.17x14.4
+          box 431.08,308.88 494.5x14.4 @click
+            text 431.08,308.88 494.5x14.4 "AddOn" #9a9080
+          box 932.25,316.07 0x0
+            text 932.25,316.07 0x0 "" #9a9080
+          box 938.92,308.88 58.33x14.4 @click
+            text 976.14,308.88 21.11x14.4 "Now" #9a9080 right
+          box 1003.92,308.88 58.33x14.4 @click
+            text 1035.58,308.88 26.67x14.4 "Peak" #9a9080 right
+          box 1068.92,308.88 66.67x14.4
+            box 1080.03,308.88 38.89x14.4 @click
+              text 1080.03,308.88 38.89x14.4 "Memory" #9a9080
+            box 1122.25,308.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 6 of 16 @click
+          box 1142.25,316.07 31.67x0
+        box 424.42,329.94 756.17x281.28 scrolled 0 of 0
+          box 424.42,329.94 756.17x21.67 @click
             box 431.08,334.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
             text 451.08,332.98 93.33x15.6 "User Interface" #f0c860
-            text 551.08,332.98 322.58x15.6 "2" #9a9080
-          box 424.42,351.61 455.92x21.67 #f0c86024 @click @enter @leave
-            box 431.08,353.28 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-              box 431.08,353.28 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-            box 456.08,354.64 207.58x15.6
-              text 456.08,354.64 207.58x15.6 "Ordaen" #e8e0d0
-            box 670.33,362.44 0x0
-              text 670.33,362.44 0x0 "" #9a9080
-            box 677,354.64 58.33x15.6
-              text 726.44,354.64 8.89x15.6 "—" #e8e0d0 right
-            box 742,354.64 58.33x15.6
-              text 791.44,354.64 8.89x15.6 "—" #e8e0d0 right
-            box 807,354.64 66.67x15.6
-              text 844.78,354.64 28.89x15.6 "0 KB" #e8e0d0 right
-          box 424.42,373.27 455.92x21.67 #00000000 @click @enter @leave
-            box 431.08,384.11 18.33x0
-            box 456.08,376.31 133.14x15.6
-              text 471.08,376.31 118.14x15.6 "Ordaen System" #e8e0d0
-            box 595.89,376.91 74.44x14.4 @click
-              text 595.89,376.91 74.44x14.4 "on in Ordaen" #9a9080
-            box 677,376.31 58.33x15.6
-              text 726.44,376.31 8.89x15.6 "—" #e8e0d0 right
-            box 742,376.31 58.33x15.6
-              text 791.44,376.31 8.89x15.6 "—" #e8e0d0 right
-            box 807,376.31 66.67x15.6
-              text 844.78,376.31 28.89x15.6 "0 KB" #e8e0d0 right
-          box 424.42,394.94 455.92x21.67 @click
+            text 551.08,332.98 584.5x15.6 "2" #9a9080
+            box 1142.25,332.44 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,329.94 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+          box 424.42,351.61 756.17x21.67 #f0c86024 @click @enter @leave
+            box 431.08,354.64 494.5x15.6
+              text 431.08,354.64 494.5x15.6 "Ordaen" #e8e0d0
+            box 932.25,362.44 0x0
+              text 932.25,362.44 0x0 "" #9a9080
+            box 938.92,354.64 58.33x15.6
+              text 988.36,354.64 8.89x15.6 "—" #e8e0d0 right
+            box 1003.92,354.64 58.33x15.6
+              text 1053.36,354.64 8.89x15.6 "—" #e8e0d0 right
+            box 1068.92,354.64 66.67x15.6
+              text 1106.69,354.64 28.89x15.6 "0 KB" #e8e0d0 right
+            box 1142.25,354.11 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,351.61 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+          box 424.42,373.27 756.17x21.67 #00000000 @click @enter @leave
+            box 431.08,376.31 420.06x15.6
+              text 446.08,376.31 405.06x15.6 "Ordaen System" #e8e0d0
+            box 857.81,376.91 74.44x14.4 @click
+              text 857.81,376.91 74.44x14.4 "on in Ordaen" #9a9080
+            box 938.92,376.31 58.33x15.6
+              text 988.36,376.31 8.89x15.6 "—" #e8e0d0 right
+            box 1003.92,376.31 58.33x15.6
+              text 1053.36,376.31 8.89x15.6 "—" #e8e0d0 right
+            box 1068.92,376.31 66.67x15.6
+              text 1106.69,376.31 28.89x15.6 "0 KB" #e8e0d0 right
+            box 1142.25,384.11 31.67x0
+          box 424.42,394.94 756.17x21.67 @click
             box 431.08,399.11 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
             text 451.08,397.98 35.56x15.6 "Other" #f0c860
-            text 493.31,397.98 380.36x15.6 "1" #9a9080
-          box 424.42,416.61 455.92x21.67 #00000000 @click @enter @leave
-            box 431.08,418.28 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-              box 431.08,418.28 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-            box 456.08,419.64 207.58x15.6
-              text 456.08,419.64 207.58x15.6 "LunaType" #e8e0d0
-            box 670.33,427.44 0x0
-              text 670.33,427.44 0x0 "" #9a9080
-            box 677,419.64 58.33x15.6
-              text 726.44,419.64 8.89x15.6 "—" #e8e0d0 right
-            box 742,419.64 58.33x15.6
-              text 791.44,419.64 8.89x15.6 "—" #e8e0d0 right
-            box 807,419.64 66.67x15.6
-              text 844.78,419.64 28.89x15.6 "0 KB" #e8e0d0 right
-        box 424.42,617.89 455.92x0
-        text 424.42,624.56 455.92x14.4 "The client isn't measuring addons." #9a9080
-      box 424.42,638.96 455.92x45
-        box 424.42,655.62 455.92x28.33
+            text 493.31,397.98 642.28x15.6 "1" #9a9080
+            box 1142.25,397.44 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,394.94 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+          box 424.42,416.61 756.17x21.67 #00000000 @click @enter @leave
+            box 431.08,419.64 494.5x15.6
+              text 431.08,419.64 494.5x15.6 "LunaType" #e8e0d0
+            box 932.25,427.44 0x0
+              text 932.25,427.44 0x0 "" #9a9080
+            box 938.92,419.64 58.33x15.6
+              text 988.36,419.64 8.89x15.6 "—" #e8e0d0 right
+            box 1003.92,419.64 58.33x15.6
+              text 1053.36,419.64 8.89x15.6 "—" #e8e0d0 right
+            box 1068.92,419.64 66.67x15.6
+              text 1106.69,419.64 28.89x15.6 "0 KB" #e8e0d0 right
+            box 1142.25,419.11 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+              box 1154.75,416.61 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+        box 424.42,617.89 756.17x0
+        text 424.42,624.56 756.17x14.4 "The client isn't measuring addons." #9a9080
+      box 424.42,638.96 756.17x45
+        box 424.42,655.62 756.17x28.33
           box 424.42,655.62 206.67x28.33
             box 424.42,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 424.42,655.62 100x28.33 absolute
@@ -285,77 +293,77 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
               box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 531.08,655.62 100x28.33 absolute
                   text 559.97,661.99 42.22x15.6 "Sets ▾" #ffd100 centred
-          box 647.75,669.79 75.92x0
-          box 740.33,655.62 140x28.33
-            box 740.33,669.79 0x0 @enter @leave
-              text 740.33,669.79 0x0 "" #f0c860
-            box 747,655.62 133.33x28.33 @enter @leave
-              box 747,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click @enter @leave
-                box 747,655.62 133.33x28.33 absolute
-                  text 792.56,661.99 42.22x15.6 "Reload" #ffd100 centred
-    box 900.33,253.88 300.25x443.42 border=ButtonFrameTemplateNoPortrait sides=left
-      box 930.58,273.88 250x410.08 scrolled 0 of 6.78
-        box 930.58,273.88 250x416.87
-          box 930.58,273.88 250x33.33
-            box 930.58,273.88 33.33x33.33 icon=Interface/Icons/Trade_Engineering
-            box 970.58,275.54 210x30
-              text 970.58,275.54 210x15.6 "Ordaen" #f0c860
-              text 970.58,291.14 210x14.4 "1.0.0" #9a9080
-          text 930.58,313.88 250x28.8 "Ordaen Core: what every Ordaen module runs in. Its settings: /ordaen." #e8e0d0
-          box 930.58,349.34 250x14.4
-            text 930.58,349.34 32.22x14.4 "State" #9a9080
-            box 969.47,349.34 211.11x14.4
-              text 1141.69,349.34 38.89x14.4 "Loaded" #6fd46f right
-          text 930.58,370.41 250x14.4 "Needs" #9a9080
-          box 930.58,391.48 250x15.6 @click
-            text 930.58,391.48 54.44x15.6 "LunaType" #d6b878
-            box 991.69,391.48 188.89x14.4
-              text 1141.69,391.48 38.89x14.4 "loaded" #6fd46f right
-          text 930.58,413.74 250x14.4 "Optional" #9a9080
-          text 930.58,434.81 250x15.6 "—" #9a9080
-          text 930.58,457.07 250x14.4 "Needed by" #9a9080
-          box 930.58,478.14 250x15.6 @click
-            text 930.58,478.14 87.78x15.6 "Ordaen System" #d6b878
-            box 1025.03,478.14 155.56x14.4
-              text 1141.69,478.14 38.89x14.4 "loaded" #6fd46f right
-          box 930.58,500.41 250x22.27
-            text 930.58,507.07 250x15.6 "Load" #f0c860
-          box 930.58,529.34 250x14.4
-            text 930.58,529.34 21.11x14.4 "Now" #9a9080
-            box 958.36,529.34 222.22x14.4
-              text 1171.69,529.34 8.89x14.4 "—" #e8e0d0 right
-          box 930.58,550.41 250x14.4
-            text 930.58,550.41 62.22x14.4 "On average" #9a9080
-            box 999.47,550.41 181.11x14.4
-              text 1171.69,550.41 8.89x14.4 "—" #e8e0d0 right
-          box 930.58,571.47 250x14.4
-            text 930.58,571.47 74.44x14.4 "In encounter" #9a9080
-            box 1011.69,571.47 168.89x14.4
-              text 1171.69,571.47 8.89x14.4 "—" #e8e0d0 right
-          box 930.58,592.54 250x14.4
-            text 930.58,592.54 26.67x14.4 "Peak" #9a9080
-            box 963.92,592.54 216.67x14.4
-              text 1171.69,592.54 8.89x14.4 "—" #e8e0d0 right
-          box 930.58,613.61 250x14.4
-            text 930.58,613.61 38.89x14.4 "Spikes" #9a9080
-            box 976.14,613.61 204.44x14.4
-              text 1171.69,613.61 8.89x14.4 "—" #e8e0d0 right
-          box 930.58,634.67 250x14.4
-            text 930.58,634.67 38.89x14.4 "Memory" #9a9080
-            box 976.14,634.67 204.44x14.4
-              text 1153.92,634.67 26.67x14.4 "0 KB" #e8e0d0 right
-          box 930.58,655.74 250x35
-            box 930.58,662.41 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-              box 930.58,662.41 100x28.33 absolute
-                text 956.69,668.77 47.78x15.6 "Disable" #ffd100 centred
-    box 1149.42,252.96 52.5x26.67 absolute clipped
-      box 1149.42,252.96 29.17x26.67 absolute clipped @click
-        box 1149.42,252.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1159.42,258.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1178.58,252.96 23.33x26.67 absolute clipped @click
-        box 1178.58,252.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1184.83,258.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-    box 1191.08,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+          box 647.75,669.79 376.17x0
+          box 1040.58,655.62 140x28.33
+            box 1040.58,669.79 0x0 @enter @leave
+              text 1040.58,669.79 0x0 "" #f0c860
+            box 1047.25,655.62 133.33x28.33 @enter @leave
+              box 1047.25,655.62 133.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 secure @click @enter @leave
+                box 1047.25,655.62 133.33x28.33 absolute
+                  text 1092.81,661.99 42.22x15.6 "Reload" #ffd100 centred
+    box 1200.58,253.88 300.25x443.42 border=ButtonFrameTemplateNoPortrait sides=left
+      box 1230.83,273.88 250x410.08 scrolled 0 of 6.78
+        box 1230.83,273.88 250x416.87
+          box 1230.83,273.88 250x33.33
+            box 1230.83,273.88 33.33x33.33 icon=Interface/Icons/Trade_Engineering
+            box 1270.83,275.54 210x30
+              text 1270.83,275.54 210x15.6 "Ordaen" #f0c860
+              text 1270.83,291.14 210x14.4 "1.0.0" #9a9080
+          text 1230.83,313.88 250x28.8 "Ordaen Core: what every Ordaen module runs in. Its settings: /ordaen." #e8e0d0
+          box 1230.83,349.34 250x14.4
+            text 1230.83,349.34 32.22x14.4 "State" #9a9080
+            box 1269.72,349.34 211.11x14.4
+              text 1441.94,349.34 38.89x14.4 "Loaded" #6fd46f right
+          text 1230.83,370.41 250x14.4 "Needs" #9a9080
+          box 1230.83,391.48 250x15.6 @click
+            text 1230.83,391.48 54.44x15.6 "LunaType" #d6b878
+            box 1291.94,391.48 188.89x14.4
+              text 1441.94,391.48 38.89x14.4 "loaded" #6fd46f right
+          text 1230.83,413.74 250x14.4 "Optional" #9a9080
+          text 1230.83,434.81 250x15.6 "—" #9a9080
+          text 1230.83,457.07 250x14.4 "Needed by" #9a9080
+          box 1230.83,478.14 250x15.6 @click
+            text 1230.83,478.14 87.78x15.6 "Ordaen System" #d6b878
+            box 1325.28,478.14 155.56x14.4
+              text 1441.94,478.14 38.89x14.4 "loaded" #6fd46f right
+          box 1230.83,500.41 250x22.27
+            text 1230.83,507.07 250x15.6 "Load" #f0c860
+          box 1230.83,529.34 250x14.4
+            text 1230.83,529.34 21.11x14.4 "Now" #9a9080
+            box 1258.61,529.34 222.22x14.4
+              text 1471.94,529.34 8.89x14.4 "—" #e8e0d0 right
+          box 1230.83,550.41 250x14.4
+            text 1230.83,550.41 62.22x14.4 "On average" #9a9080
+            box 1299.72,550.41 181.11x14.4
+              text 1471.94,550.41 8.89x14.4 "—" #e8e0d0 right
+          box 1230.83,571.47 250x14.4
+            text 1230.83,571.47 74.44x14.4 "In encounter" #9a9080
+            box 1311.94,571.47 168.89x14.4
+              text 1471.94,571.47 8.89x14.4 "—" #e8e0d0 right
+          box 1230.83,592.54 250x14.4
+            text 1230.83,592.54 26.67x14.4 "Peak" #9a9080
+            box 1264.17,592.54 216.67x14.4
+              text 1471.94,592.54 8.89x14.4 "—" #e8e0d0 right
+          box 1230.83,613.61 250x14.4
+            text 1230.83,613.61 38.89x14.4 "Spikes" #9a9080
+            box 1276.39,613.61 204.44x14.4
+              text 1471.94,613.61 8.89x14.4 "—" #e8e0d0 right
+          box 1230.83,634.67 250x14.4
+            text 1230.83,634.67 38.89x14.4 "Memory" #9a9080
+            box 1276.39,634.67 204.44x14.4
+              text 1454.17,634.67 26.67x14.4 "0 KB" #e8e0d0 right
+          box 1230.83,655.74 250x35
+            box 1230.83,662.41 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+              box 1230.83,662.41 100x28.33 absolute
+                text 1256.94,668.77 47.78x15.6 "Disable" #ffd100 centred
+    box 1449.67,252.96 52.5x26.67 absolute clipped
+      box 1449.67,252.96 29.17x26.67 absolute clipped @click
+        box 1449.67,252.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1459.67,258.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+      box 1478.83,252.96 23.33x26.67 absolute clipped @click
+        box 1478.83,252.96 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1485.08,258.38 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1491.33,687.79 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 391.67,192.21 128.31x59.42
     box 391.67,192.21 128.31x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 398.92,199.46 48.92x48.92 absolute icon=Interface/Icons/INV_Misc_Wrench_01 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none

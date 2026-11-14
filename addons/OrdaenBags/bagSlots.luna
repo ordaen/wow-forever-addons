@@ -1,0 +1,82 @@
+// The bag slots: a small window of their own beside the bags, opened by the header's bag button. Each bag with its
+// icon, its name and its fill («5/16»), the backpack first; the cursor on one shows its tooltip and lights its items in
+// the bags' window, the rest faded.
+import Game from "$game"
+import { Align, Frame, Track } from "$ltml"
+import { Component, Placing, PX, space, Window, WindowTabSpec } from "Ordaen"
+import Locale from "@/locales"
+
+const ROW: Array<Track> = [32 * PX, { fr: 1 }, "auto"]
+const ICON = 32 * PX
+const INK: Color = Color.hex("#e8dcc4")
+const LABEL: Color = Color.hex("#a3977f")
+const WELL: Color = Color.hex("#0d0a08")
+const CLEAR: Color = Color.hex("#00000000")
+const SHADE: Color = Color.hex("#00000059")
+const WIDTH = 250 * PX
+
+// A bag as the window lists it: what the game says of it, and how many of its slots hold something.
+public struct BagLine {
+  const info: Game.BagInfo
+  const used: Integer
+}
+
+class BagEntry implements Component {
+  public lit: Event<Integer> = new Event()
+  state hovered = false
+  derived fill: String = Locale.FILL.format(self.line.used, self.line.info.slots)
+  derived back: Color = self.hovered ? SHADE : CLEAR
+
+  line: Signal<BagLine>
+  constructor(line: Signal<BagLine>) { self.line = line }
+
+  onEnter(mut self, frame: any Frame) {
+    self.hovered = true
+    const item = self.line.info.item
+    if (item != nil) { Game.items.show(frame, item) }
+    self.lit.emit(self.line.info.bag)
+  }
+
+  onLeave(mut self) {
+    self.hovered = false
+    self.lit.emit(-1)
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} gap={space(.Item)} yAlign={Align.Center} background={self.back} @enter={self.onEnter}
+           @leave={self.onLeave}>
+        <box width={ICON} height={ICON} background={WELL} icon={self.line.info.icon} />
+        <text value={self.line.info.name} textColor={INK} />
+        <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={.Secondary} wrap={false} />
+      </box>
+    }
+  }
+}
+
+public class BagSlotsWindow implements Component {
+  public close: Event<nil> = new Event()
+  public lit: Event<Integer> = new Event()
+  state tab = 1
+  derived tabs: Array<WindowTabSpec> = [{ title: Locale.BAG_SLOTS }]
+
+  lines: Signal<Array<BagLine>>
+  placing: mut Signal<Placing>
+  constructor(lines: Signal<Array<BagLine>>, placing: mut Signal<Placing>) {
+    self.lines = lines
+    self.placing = placing
+  }
+
+  onClose(self) { self.close.emit() }
+  onLit(self, bag: Integer) { self.lit.emit(bag) }
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} minWidth={WIDTH} @close={self.onClose}>
+        <box columns={1} gap={space(.Item)}>
+          <BagEntry $for={line of self.lines} line={line} @lit={self.onLit} />
+        </box>
+      </Window>
+    }
+  }
+}

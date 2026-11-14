@@ -21,7 +21,7 @@ box 0,0 800x103.93
       box 766.67,33.93 33.33x28.33
         box 771.67,33.93 28.33x28.33
           box 771.67,33.93 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 779.17,41.43 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+            box 779.17,41.43 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
   box 0,68.93 800x35 scrolled 0 of 0
     box 0,68.93 800x35
       box 0,73.1 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01

@@ -1,16 +1,12 @@
-// «Data»: the last full scan (when, how many auctions and items), the house's size at rest, the sales ledger's
-// totals, and the settings as they stand (their page, read-only), with «Settings» to change them in Ordaen's settings
-// window: one place to change them.
+// «Data», a page of the module's settings (the window's settings control opens them): the last full scan (when, how
+// many auctions and items), the house's size at rest and the sales ledger's totals.
 import Game from "$game"
-import { Align, Overflow, Track } from "$ltml"
-import Runtime from "$runtime"
-import { Component, Money, number, PushButton, PX, Section, Settings } from "Ordaen"
-import root Ordaen from "Ordaen"
+import { Track } from "$ltml"
+import { Component, Money, number, PX, Section } from "Ordaen"
 import { Deal, Ledger } from "@/ledger"
 import Locale from "@/locales"
 import { serverSeconds } from "@/quote"
 import { Scanner } from "@/scan"
-import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 import { agoText, auctionsText, itemsText } from "@/style"
 
@@ -84,20 +80,11 @@ public class DataPage implements Component {
   const ledger: Ledger
   lastFull: Signal<Integer>
   items: Signal<Integer>
-  settings: mut Settings<Choices>
-  constructor(
-    scanner: Scanner,
-    ledger: Ledger,
-    lastFull: Signal<Integer>,
-    items: Signal<Integer>,
-    // The settings: their page drawn read-only.
-    settings: mut Settings<Choices>,
-  ) {
+  constructor(scanner: Scanner, ledger: Ledger, lastFull: Signal<Integer>, items: Signal<Integer>) {
     self.scanner = scanner
     self.ledger = ledger
     self.lastFull = lastFull
     self.items = items
-    self.settings = settings
   }
 
   lastText(self): String {
@@ -106,30 +93,19 @@ public class DataPage implements Component {
     return agoText(serverSeconds() - self.lastFull)
   }
 
-  onSettings(self) { Ordaen.toggleSettings(Runtime.Addon.of(self)) }
-
   public render(self): Template {
     return $ltml {
-      // The page scrolls where the settings run past the window.
-      <box columns={1} overflow={Overflow.Scroll}>
-        <box rows={["auto"]} gap={8 * PX}>
-          <Section title={Locale.SECTION_SCANS}>
-            <Fact label={Locale.LAST_FULL} value={self.last} />
-            <Fact label={Locale.LAST_FULL_COUNTS} value={self.counted} />
-            <Fact label={Locale.ITEMS_KNOWN} value={self.known} />
-            <Fact label={Locale.SIZE} value={self.size} />
-          </Section>
-          <Section title={Locale.SECTION_LEDGER}>
-            <DealtLine label={Locale.SOLD_ROWS} deal={Deal.Sold} ledger={self.ledger} />
-            <DealtLine label={Locale.BOUGHT_ROWS} deal={Deal.Bought} ledger={self.ledger} />
-          </Section>
-          <Section title={Locale.SECTION_SETTINGS}>
-            <GeneralPage settings={mut self.settings} disabled={true} />
-            <box xAlign={Align.Start}>
-              <PushButton label={Locale.SETTINGS} width={140 * PX} @click={self.onSettings} />
-            </box>
-          </Section>
-        </box>
+      <box rows={["auto"]} gap={8 * PX}>
+        <Section title={Locale.SECTION_SCANS}>
+          <Fact label={Locale.LAST_FULL} value={self.last} />
+          <Fact label={Locale.LAST_FULL_COUNTS} value={self.counted} />
+          <Fact label={Locale.ITEMS_KNOWN} value={self.known} />
+          <Fact label={Locale.SIZE} value={self.size} />
+        </Section>
+        <Section title={Locale.SECTION_LEDGER}>
+          <DealtLine label={Locale.SOLD_ROWS} deal={Deal.Sold} ledger={self.ledger} />
+          <DealtLine label={Locale.BOUGHT_ROWS} deal={Deal.Bought} ledger={self.ledger} />
+        </Section>
       </box>
     }
   }

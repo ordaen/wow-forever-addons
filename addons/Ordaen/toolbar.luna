@@ -7,9 +7,12 @@
 // ToolButton: a 34 px square bronze plate with a glyph; a click opens or closes what its slot holds (the caller's
 // list, drawn while `open`). The glyph is gold while the list is open or while `lit` (a filter that narrows the list);
 // otherwise ink. Under the cursor, while closed, a Tip names what it does and what it is set to.
+// A ToolButton's picture is a glyph its colour tints, or a picture of the game's in its own colours (a bag's icon,
+// `tinted` false: open, its plate's light stays on it).
 // ToolPick: a ToolButton with a list of choices, as a dropdown's (the picked one's mark gold): a click on a choice
 // picks it and closes the list, a click anywhere else closes it. It shows the picked choice's own glyph where the
 // choice has one (a view), else its own (a sort); its Tip says the picked choice.
+// ToolAct: a ToolButton's plate and glyph that does one thing when clicked (sorting the bags now), its Tip saying what.
 import { Align, Art, Beside, Edges, Layer, Line, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
@@ -23,6 +26,7 @@ const GAP = 6 * PX
 const INK: Color = Color.hex("#e8dcc4")
 const GOLD: Color = Color.hex("#f0c860")
 const DIM: Color = Color.hex("#a3977f")
+const WHITE: Color = Color.hex("#ffffff")
 const FIELD_BACK: Color = Color.hex("#00000080")
 const FIELD_EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
 const FIELD_PAD: Edges = { right: 10 * PX, left: 10 * PX }
@@ -76,13 +80,15 @@ public class Toolbar implements Component {
 public class ToolButton implements Component {
   state hovered = false
   derived tipShown: Boolean = self.hovered && !self.open
-  derived glyphColor: Color = self.open || self.lit ? GOLD : INK
+  derived glyphColor: Color = !self.tinted ? WHITE : self.open || self.lit ? GOLD : INK
+  derived plate: Art = self.open && !self.tinted ? Ordaen.art.ctl.buttonAccent : Ordaen.art.ctl.button
 
   icon: Signal<Art>
   title: Signal<String>
   text: Signal<String>
   open: mut Signal<Boolean>
   lit: Signal<Boolean>
+  const tinted: Boolean
   constructor(
     icon: Signal<Art>,
     // What it does («Sort»), and what it is set to («By name»): its Tip.
@@ -90,12 +96,15 @@ public class ToolButton implements Component {
     text: Signal<String>,
     open: mut Signal<Boolean>,
     lit: Signal<Boolean> = false,
+    // A glyph its colour tints; false for a picture of the game's, drawn in its own colours.
+    tinted: Boolean = true,
   ) {
     self.icon = icon
     self.title = title
     self.text = text
     self.open = open
     self.lit = lit
+    self.tinted = tinted
   }
 
   toggle(mut self) { self.open = !self.open }
@@ -107,12 +116,53 @@ public class ToolButton implements Component {
       <box padding={AFTER}>
         <box width={SIZE} height={SIZE}>
           <box position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE} xAlign={Align.Center}
-               yAlign={Align.Center} background={Ordaen.art.ctl.button} @click={self.toggle} @enter={self.onEnter}
+               yAlign={Align.Center} background={self.plate} @click={self.toggle} @enter={self.onEnter}
                @leave={self.onLeave}>
             <box width={GLYPH} height={GLYPH} background={self.icon} tint={self.glyphColor} />
             <Tip $if={self.tipShown} title={self.title} text={self.text} />
           </box>
           <slot />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class ToolAct implements Component {
+  public pressed: Event<nil> = new Event()
+  state hovered = false
+  derived glyph: Color = self.disabled ? DIM : INK
+
+  icon: Signal<Art>
+  title: Signal<String>
+  text: Signal<String>
+  disabled: Signal<Boolean>
+  constructor(
+    icon: Signal<Art>,
+    // What it does («Sort the bags»), and how («By quality»): its Tip.
+    title: Signal<String>,
+    text: Signal<String>,
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.icon = icon
+    self.title = title
+    self.text = text
+    self.disabled = disabled
+  }
+
+  onClick(self) {
+    if (!self.disabled) { self.pressed.emit() }
+  }
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={AFTER}>
+        <box width={SIZE} height={SIZE} xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.ctl.button}
+             @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+          <box width={GLYPH} height={GLYPH} background={self.icon} tint={self.glyph} />
+          <Tip $if={self.hovered} title={self.title} text={self.text} />
         </box>
       </box>
     }

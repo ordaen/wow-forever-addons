@@ -17,7 +17,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
             box 1113.92,276.97 33.33x28.33
               box 1118.92,276.97 28.33x28.33
                 box 1118.92,276.97 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 1126.42,284.47 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 1126.42,284.47 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
         box 457.75,311.97 689.5x384.48
           text 755.83,496.42 93.33x15.6 "Nothing found." #a3977f centred
     box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart

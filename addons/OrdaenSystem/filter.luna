@@ -1,0 +1,139 @@
+// The list's filter, by kinds: performance, state, version, loading and runtime, one choice in each, all of them held
+// at once (an addon shows where it matches every kind). The toolbar's filter button opens them as one list, each kind
+// under its heading, its choices marked as a dropdown's; a click on a choice picks it and leaves the list open for the
+// next kind, a click anywhere else closes it. The button is lit while any kind narrows the list.
+import { Beside, Edges, Layer, Line } from "$ltml"
+import { Choice, Component, DropdownItem, PX, ToolButton } from "Ordaen"
+import root Ordaen from "Ordaen"
+import Locale from "@/locales"
+import Style from "@/style"
+
+// Performance: every addon, or the ten heaviest by CPU now.
+public enum Heat { All = "all", Heavy = "heavy" }
+// State: on, off, or on and not loading for a reason other than off.
+public enum Standing { All = "all", On = "on", Off = "off", Failed = "failed" }
+// Version: built for an older client than this one (its TOC's interface), or for this one.
+public enum Age { All = "all", Outdated = "outdated", Current = "current" }
+// Loading: on demand, or at login.
+public enum Loading { All = "all", Demand = "demand", Login = "login" }
+// Runtime: written in LunaType (it is the runtime or needs it), or not.
+public enum Written { All = "all", LunaType = "lunatype", Other = "other" }
+
+const HEATS: Array<Choice<Heat>> = [
+  { value: Heat.All, label: Locale.FILTER_ALL },
+  { value: Heat.Heavy, label: Locale.FILTER_HEAVY },
+]
+const STANDINGS: Array<Choice<Standing>> = [
+  { value: Standing.All, label: Locale.FILTER_ALL },
+  { value: Standing.On, label: Locale.FILTER_ON },
+  { value: Standing.Off, label: Locale.FILTER_OFF },
+  { value: Standing.Failed, label: Locale.FILTER_FAILED },
+]
+const AGES: Array<Choice<Age>> = [
+  { value: Age.All, label: Locale.FILTER_ALL },
+  { value: Age.Outdated, label: Locale.FILTER_OUTDATED },
+  { value: Age.Current, label: Locale.FILTER_CURRENT },
+]
+const LOADINGS: Array<Choice<Loading>> = [
+  { value: Loading.All, label: Locale.FILTER_ALL },
+  { value: Loading.Demand, label: Locale.FILTER_DEMAND },
+  { value: Loading.Login, label: Locale.FILTER_LOGIN },
+]
+const WRITTEN: Array<Choice<Written>> = [
+  { value: Written.All, label: Locale.FILTER_ALL },
+  { value: Written.LunaType, label: Locale.FILTER_LUNATYPE },
+  { value: Written.Other, label: Locale.FILTER_OTHER },
+]
+
+// As a ToolPick's list.
+const WIDTH = 230 * PX
+const BACK: Color = Color.hex("#0a0806f7")
+const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
+const PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
+const HEADING: Edges = { top: 6 * PX, right: 14 * PX, bottom: 2 * PX, left: 14 * PX }
+
+// The label of a kind's choice, where it narrows the list.
+function narrowing<T: Unknown>(choices: Array<Choice<T>>, value: T, all: T, list: mut Array<String>) {
+  if (value == all) { return }
+  for (choice of choices) {
+    if (choice.value == value) { list.push(choice.label) }
+  }
+}
+
+public class FilterPick implements Component {
+  state open = false
+  derived lit: Boolean = self.heat != .All || self.standing != .All || self.age != .All || self.loading != .All ||
+    self.written != .All
+  derived shown: String = self.shownOf()
+
+  heat: mut Signal<Heat>
+  standing: mut Signal<Standing>
+  age: mut Signal<Age>
+  loading: mut Signal<Loading>
+  written: mut Signal<Written>
+  constructor(
+    heat: mut Signal<Heat>,
+    standing: mut Signal<Standing>,
+    age: mut Signal<Age>,
+    loading: mut Signal<Loading>,
+    written: mut Signal<Written>,
+  ) {
+    self.heat = heat
+    self.standing = standing
+    self.age = age
+    self.loading = loading
+    self.written = written
+  }
+
+  // What its Tip says it is set to: each kind that narrows the list, or «All».
+  shownOf(self): String {
+    const list: Array<String> = []
+    narrowing(HEATS, self.heat, Heat.All, mut list)
+    narrowing(STANDINGS, self.standing, Standing.All, mut list)
+    narrowing(AGES, self.age, Age.All, mut list)
+    narrowing(LOADINGS, self.loading, Loading.All, mut list)
+    narrowing(WRITTEN, self.written, Written.All, mut list)
+    return list.length == 0 ? Locale.FILTER_ALL : list.join(", ")
+  }
+
+  close(mut self) { self.open = false }
+  onHeat(mut self, value: Heat) { self.heat = value }
+  onStanding(mut self, value: Standing) { self.standing = value }
+  onAge(mut self, value: Age) { self.age = value }
+  onLoading(mut self, value: Loading) { self.loading = value }
+  onWritten(mut self, value: Written) { self.written = value }
+
+  public render(self): Template {
+    return $ltml {
+      <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.shown} open={mut self.open}
+                  lit={self.lit}>
+        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH}
+                 background={BACK} border={EDGE} padding={PAD} columns={1} @clickOutside={self.close}>
+          <box padding={HEADING}>
+            <text value={Locale.FILTER_PERFORMANCE} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+          </box>
+          <DropdownItem $for={choice of HEATS} choice={choice} value={self.heat} compact={true} @pick={self.onHeat} />
+          <box padding={HEADING}>
+            <text value={Locale.FILTER_STATE} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+          </box>
+          <DropdownItem $for={choice of STANDINGS} choice={choice} value={self.standing} compact={true}
+                        @pick={self.onStanding} />
+          <box padding={HEADING}>
+            <text value={Locale.FILTER_VERSION} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+          </box>
+          <DropdownItem $for={choice of AGES} choice={choice} value={self.age} compact={true} @pick={self.onAge} />
+          <box padding={HEADING}>
+            <text value={Locale.FILTER_LOADING} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+          </box>
+          <DropdownItem $for={choice of LOADINGS} choice={choice} value={self.loading} compact={true}
+                        @pick={self.onLoading} />
+          <box padding={HEADING}>
+            <text value={Locale.FILTER_RUNTIME} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+          </box>
+          <DropdownItem $for={choice of WRITTEN} choice={choice} value={self.written} compact={true}
+                        @pick={self.onWritten} />
+        </surface>
+      </ToolButton>
+    }
+  }
+}

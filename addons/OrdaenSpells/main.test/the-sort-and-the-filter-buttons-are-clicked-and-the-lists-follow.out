@@ -26,7 +26,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
             box 1113.92,276.97 33.33x28.33
               box 1118.92,276.97 28.33x28.33
                 box 1118.92,276.97 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 1126.42,284.47 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 1126.42,284.47 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
         box 457.75,311.97 689.5x384.48 scrolled 0 of 0
           box 457.75,311.97 689.5x35
             box 457.75,316.14 26.67x26.67 icon=Interface/Icons/INV_Misc_Note_01
@@ -92,11 +92,11 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
               box 807.75,243.04 33.33x28.33
                 box 812.75,243.04 28.33x28.33
                   box 812.75,243.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                    box 820.25,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                    box 820.25,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
               box 841.08,243.04 33.33x28.33
                 box 846.08,243.04 28.33x28.33
                   box 846.08,243.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                    box 853.58,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                    box 853.58,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
           box 491.08,278.04 383.33x418.42 scrolled 0 of 0
             box 491.08,278.04 383.33x35 #00000066 @click
               box 496.08,283.87 23.33x23.33
@@ -159,11 +159,11 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
               box 807.75,243.04 33.33x28.33
                 box 812.75,243.04 28.33x28.33
                   box 812.75,243.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                    box 820.25,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                    box 820.25,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
               box 841.08,243.04 33.33x28.33
                 box 846.08,243.04 28.33x28.33
                   box 846.08,243.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                    box 853.58,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                    box 853.58,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
           box 491.08,278.04 383.33x418.42 scrolled 0 of 0
             box 491.08,278.04 383.33x35 #00000066 @click
               box 496.08,283.87 23.33x23.33

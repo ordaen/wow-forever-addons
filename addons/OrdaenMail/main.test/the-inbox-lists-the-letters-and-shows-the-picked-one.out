@@ -14,11 +14,11 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 box 782.75,251.38 33.33x28.33
                   box 787.75,251.38 28.33x28.33
                     box 787.75,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
                 box 816.08,251.38 33.33x28.33
                   box 821.08,251.38 28.33x28.33
                     box 821.08,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 8
+                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
           box 332.75,286.38 516.67x366.75 scrolled 0 of 0
             box 332.75,286.38 516.67x36.67 #00000066 @click
               box 337.75,295.54 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
@@ -34,7 +34,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
             box 332.75,323.04 516.67x36.67 #00000066 @click
               box 337.75,332.21 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
                 box 337.75,332.21 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-              box 364.42,329.71 23.33x23.33 #0d0a08 opacity=1 @click @enter
+              box 364.42,329.71 23.33x23.33 #0d0a08 opacity=1 @click @enter @leave
                 box 364.42,329.71 23.33x23.33 absolute
                 box 364.42,329.71 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                 box 364.42,329.71 23.33x23.33 absolute #00000000
@@ -48,7 +48,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
             box 332.75,359.71 516.67x36.67 #00000066 @click
               box 337.75,368.88 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
                 box 337.75,368.88 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-              box 364.42,366.38 23.33x23.33 #0d0a08 opacity=1 @click @enter
+              box 364.42,366.38 23.33x23.33 #0d0a08 opacity=1 @click @enter @leave
                 box 364.42,366.38 23.33x23.33 absolute
                 box 364.42,366.38 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                 box 364.42,366.38 23.33x23.33 absolute #00000000
@@ -104,11 +104,11 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                 box 782.75,251.38 33.33x28.33
                   box 787.75,251.38 28.33x28.33
                     box 787.75,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
+                      box 795.25,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 16
                 box 816.08,251.38 33.33x28.33
                   box 821.08,251.38 28.33x28.33
                     box 821.08,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 8
+                      box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 16
           box 332.75,286.38 516.67x366.75 scrolled 0 of 0
             box 332.75,286.38 516.67x36.67 #00000066 @click
               box 337.75,295.54 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
@@ -124,7 +124,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
             box 332.75,323.04 516.67x36.67 #ffd10026 @click
               box 337.75,332.21 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
                 box 337.75,332.21 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-              box 364.42,329.71 23.33x23.33 #0d0a08 opacity=1 @click @enter
+              box 364.42,329.71 23.33x23.33 #0d0a08 opacity=1 @click @enter @leave
                 box 364.42,329.71 23.33x23.33 absolute
                 box 364.42,329.71 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                 box 364.42,329.71 23.33x23.33 absolute #00000000
@@ -138,7 +138,7 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
             box 332.75,359.71 516.67x36.67 #00000066 @click
               box 337.75,368.88 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
                 box 337.75,368.88 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-              box 364.42,366.38 23.33x23.33 #0d0a08 opacity=1 @click @enter
+              box 364.42,366.38 23.33x23.33 #0d0a08 opacity=1 @click @enter @leave
                 box 364.42,366.38 23.33x23.33 absolute
                 box 364.42,366.38 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
                 box 364.42,366.38 23.33x23.33 absolute #00000000
@@ -169,13 +169,13 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
             text 857.75,251.38 414.5x19.2 "Bolts for you" #ffd100
             text 857.75,270.57 414.5x14.4 "From Regy. Left: 2 d" #a3977f
           box 857.75,291.64 414.5x33.33
-            box 857.75,291.64 33.33x33.33 #0d0a08 opacity=1 @click @enter
+            box 857.75,291.64 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
               box 857.75,291.64 33.33x33.33 absolute
               box 857.75,291.64 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 857.75,291.64 33.33x33.33 absolute #00000000
               box 857.75,291.64 33.33x33.33 absolute
                 text 874.14,308.91 14.44x14.4 "20" #ffffff right
-            box 894.42,291.64 33.33x33.33 #0d0a08 opacity=1 @click @enter
+            box 894.42,291.64 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
               box 894.42,291.64 33.33x33.33 absolute
               box 894.42,291.64 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 894.42,291.64 33.33x33.33 absolute #00000000

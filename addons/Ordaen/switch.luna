@@ -53,6 +53,44 @@ public class Toggle implements Component {
   }
 }
 
+// What a switch that shows another's state says: on, off, or on for some (an addon on for some characters, a group
+// some of whose members are on).
+public enum Shown { On, Off, Some }
+
+// The knob of a switch on for some stands halfway, lit at half.
+const KNOB_SOME: Number = (KNOB_OFF + KNOB_ON) / 2
+
+// A switch that shows a state it doesn't own, beside an entry in a list: a click is the owner's to act on (`flip`),
+// and the switch follows the state it is given.
+public class ShownToggle implements Component {
+  public flip: Event<nil> = new Event()
+
+  derived track: Art = self.state == .Off ? Ordaen.art.ctl.switchOff : Ordaen.art.ctl.switchOn
+  derived knob: Art = self.state == .Off ? Ordaen.art.ctl.knobOff : Ordaen.art.ctl.knobOn
+  derived knobLeft: Number = self.state == .On ? KNOB_ON : self.state == .Some ? KNOB_SOME : KNOB_OFF
+  derived knobLight: Number = self.state == .Some ? 0.5 : 1
+
+  state: Signal<Shown>
+  disabled: Signal<Boolean>
+  constructor(state: Signal<Shown>, disabled: Signal<Boolean> = false) {
+    self.state = state
+    self.disabled = disabled
+  }
+
+  onClick(self) {
+    if (!self.disabled) { self.flip.emit() }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track} @click={self.onClick}>
+        <box position={Position.Absolute} left={self.knobLeft} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
+             background={self.knob} opacity={self.knobLight} />
+      </box>
+    }
+  }
+}
+
 public class Switch implements Component {
   label: Signal<String>
   value: mut Signal<Boolean>

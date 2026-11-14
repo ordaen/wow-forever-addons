@@ -1,0 +1,34 @@
+-- shown again after «AddOns»: the title above the plates, every plate in the dialog
+surface 703.25,305.75 193.5x248.25 on DIALOG Interface\AddOns\Ordaen\media\window-wood
+  box 743.83,331.33 117.33x15.6 absolute
+    text 771.94,331.33 61.11x15.6 "Game Menu" #ffd100 centred
+  box 743.83,353 117.33x3.33 absolute Interface\AddOns\Ordaen\media\ctl-carved
+surface 728,515.33 144x19.33 on DIALOG
+  box 728,515.33 144x19.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8
+    box 728,515.33 144x19.33 absolute Interface\AddOns\Ordaen\media\button row 3 of 8 opacity=0
+    box 738,518.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-new-gem opacity=0
+    box 728,515.33 144x19.33 absolute
+      text 753.33,517.2 93.33x15.6 "Return to Game" #ffd100 centred
+surface 728,479.33 144x19.33 on DIALOG
+  box 728,479.33 144x19.33 absolute Interface\AddOns\Ordaen\media\button row 4 of 8
+    box 728,479.33 144x19.33 absolute Interface\AddOns\Ordaen\media\button row 3 of 8 opacity=0
+    box 738,482.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-new-gem opacity=0
+    box 728,479.33 144x19.33 absolute
+      text 769.44,481.2 61.11x15.6 "Exit Game" #ffd100 centred
+surface 728,453.33 144x19.33 on DIALOG
+  box 728,453.33 144x19.33 absolute Interface\AddOns\Ordaen\media\button row 4 of 8
+    box 728,453.33 144x19.33 absolute Interface\AddOns\Ordaen\media\button row 3 of 8 opacity=0
+    box 738,456.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-new-gem opacity=0
+    box 728,453.33 144x19.33 absolute
+      text 776.11,455.2 47.78x15.6 "Log Out" #ffd100 centred
+surface 728,417.33 144x19.33 on DIALOG
+  box 728,417.33 144x19.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+    box 728,417.33 144x19.33 absolute Interface\AddOns\Ordaen\media\button row 3 of 8 opacity=0
+    box 728,417.33 144x19.33 absolute
+      text 778.89,419.2 42.22x15.6 "AddOns" #ffd100 centred
+surface 728,381.33 144x19.33 on DIALOG
+  box 728,381.33 144x19.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8
+    box 728,381.33 144x19.33 absolute Interface\AddOns\Ordaen\media\button row 3 of 8 opacity=0
+    box 738,384.33 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-new-gem opacity=0
+    box 728,381.33 144x19.33 absolute
+      text 776.11,383.2 47.78x15.6 "Options" #ffd100 centred

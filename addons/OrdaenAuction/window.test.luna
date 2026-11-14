@@ -1,8 +1,9 @@
 // The house window on the fake house, where no clock is read: shown while the house is open and the setting has it,
-// full screen, the game's own window put away meanwhile, its close the house's; its three pages as the window's tabs,
-// before any scan: «Buy» empty, «Sell» with the bags' items and «Post» from a click, «Data»; «Shopping list» and «My
-// auctions» docked at the screen's right, «My auctions» from the client's list with «Check» asking again and «Cancel»
-// from a click. What reads the server's hour (a browse's rows, a scan's age) is `clock.test.luna`.
+// full screen, the game's own window put away meanwhile, its close the house's; its two pages as the window's tabs,
+// before any scan: «Buy» empty, «Sell» with the bags' items and «Post» from a click; «Data» in the settings the
+// window's gear opens; «Shopping list» and «My auctions» docked at the screen's right, «My auctions» from the client's
+// list with «Check» asking again and «Cancel» from a click. What reads the server's hour (a browse's rows, a scan's
+// age) is `clock.test.luna`.
 import Client from "$client"
 import Game from "$game"
 import { Key } from "$ltml"
@@ -162,10 +163,15 @@ test "«My auctions»: the client's list, «Check» asks again, «Cancel» on a 
   Game.ownedAuctions.list = []
 }
 
-test "«Data» before any scan: none, nothing at rest, an empty ledger, the settings" {
+test "«Data», the settings' page the window's gear opens, before any scan: none, nothing at rest, an empty ledger" {
   Test.mount(nil, PAGE)
   Game.auctionHouse.open = true
-  Auction.page = 3
+  Test.pass(0.02)
+  Test.moveTo(Test.holding("Lowest", nil))
+  Test.flush()
+  Test.click(Test.painted(Ordaen.art.ctl.corner.gear, nil), nil)
+  Test.pass(0.02)
+  Test.click(Test.holding("Data", nil), nil)
   Test.pass(0.02)
   Test.shot("«Data»")
   Game.auctionHouse.open = false

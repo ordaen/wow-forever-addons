@@ -42,20 +42,20 @@ box 0,0 700x564.37
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -137,7 +137,7 @@ box 0,0 700x564.37
             box 515,500.77 33.33x28.33
               box 520,500.77 28.33x28.33
                 box 520,500.77 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,540.77 700x23.6 opacity=1
       box 0,544.77 233.33x15.6 @enter @leave
         text 0,544.77 233.33x15.6 "Context menu" #cbb994
@@ -188,20 +188,20 @@ box 0,0 700x564.37
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -283,7 +283,7 @@ box 0,0 700x564.37
             box 515,500.77 33.33x28.33
               box 520,500.77 28.33x28.33
                 box 520,500.77 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,540.77 700x23.6 opacity=1
       box 0,544.77 233.33x15.6 @enter @leave
         text 0,544.77 233.33x15.6 "Context menu" #cbb994
@@ -333,20 +333,20 @@ box 0,0 700x564.37
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -427,7 +427,7 @@ box 0,0 700x564.37
             box 515,500.77 33.33x28.33
               box 520,500.77 28.33x28.33
                 box 520,500.77 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,540.77 700x23.6 opacity=1
       box 0,544.77 233.33x15.6 @enter @leave
         text 0,544.77 233.33x15.6 "Context menu" #cbb994
@@ -477,20 +477,20 @@ box 0,0 700x564.37
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -571,7 +571,7 @@ box 0,0 700x564.37
             box 515,500.77 33.33x28.33
               box 520,500.77 28.33x28.33
                 box 520,500.77 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,540.77 700x23.6 opacity=1
       box 0,544.77 233.33x15.6 @enter @leave
         text 0,544.77 233.33x15.6 "Context menu" #cbb994
@@ -621,20 +621,20 @@ box 0,0 700x564.37
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -715,7 +715,7 @@ box 0,0 700x564.37
             box 515,500.77 33.33x28.33
               box 520,500.77 28.33x28.33
                 box 520,500.77 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,540.77 700x23.6 opacity=1
       box 0,544.77 233.33x15.6 @enter @leave
         text 0,544.77 233.33x15.6 "Context menu" #cbb994
@@ -765,20 +765,20 @@ box 0,0 700x564.37
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #ffffff26
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -859,7 +859,7 @@ box 0,0 700x564.37
             box 515,500.77 33.33x28.33
               box 520,500.77 28.33x28.33
                 box 520,500.77 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,508.27 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,540.77 700x23.6 opacity=1
       box 0,544.77 233.33x15.6 @enter @leave
         text 0,544.77 233.33x15.6 "Context menu" #cbb994
@@ -910,20 +910,20 @@ box 0,0 700x542.1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -999,7 +999,7 @@ box 0,0 700x542.1
             box 515,478.5 33.33x28.33
               box 520,478.5 28.33x28.33
                 box 520,478.5 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,518.5 700x23.6 opacity=1
       box 0,522.5 233.33x15.6 @enter @leave
         text 0,522.5 233.33x15.6 "Context menu" #cbb994
@@ -1049,20 +1049,20 @@ box 0,0 700x542.1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -1138,7 +1138,7 @@ box 0,0 700x542.1
             box 515,478.5 33.33x28.33
               box 520,478.5 28.33x28.33
                 box 520,478.5 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,518.5 700x23.6 opacity=1
       box 0,522.5 233.33x15.6 @enter @leave
         text 0,522.5 233.33x15.6 "Context menu" #cbb994
@@ -1188,20 +1188,20 @@ box 0,0 700x542.1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -1277,7 +1277,7 @@ box 0,0 700x542.1
             box 515,478.5 33.33x28.33
               box 520,478.5 28.33x28.33
                 box 520,478.5 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,518.5 700x23.6 opacity=1
       box 0,522.5 233.33x15.6 @enter @leave
         text 0,522.5 233.33x15.6 "Context menu" #cbb994
@@ -1327,20 +1327,20 @@ box 0,0 700x542.1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -1416,7 +1416,7 @@ box 0,0 700x542.1
             box 515,478.5 33.33x28.33
               box 520,478.5 28.33x28.33
                 box 520,478.5 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,518.5 700x23.6 opacity=1
       box 0,522.5 233.33x15.6 @enter @leave
         text 0,522.5 233.33x15.6 "Context menu" #cbb994
@@ -1466,20 +1466,20 @@ box 0,0 700x542.1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -1555,7 +1555,7 @@ box 0,0 700x542.1
             box 515,478.5 33.33x28.33
               box 520,478.5 28.33x28.33
                 box 520,478.5 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,518.5 700x23.6 opacity=1
       box 0,522.5 233.33x15.6 @enter @leave
         text 0,522.5 233.33x15.6 "Context menu" #cbb994
@@ -1605,20 +1605,20 @@ box 0,0 700x542.1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
       box 248.33,196.33 451.67x33.33
-        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 248.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 248.33,196.33 33.33x33.33 absolute
           box 248.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
             text 270.28,213.6 8.89x14.4 "5" #ffffff right
-        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
             text 304.72,213.6 14.44x14.4 "20" #ffffff right
-        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter
+        box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
           box 328.33,196.33 33.33x33.33 absolute #00000000
@@ -1694,7 +1694,7 @@ box 0,0 700x542.1
             box 515,478.5 33.33x28.33
               box 520,478.5 28.33x28.33
                 box 520,478.5 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 8
+                  box 527.5,486 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
     box 0,518.5 700x23.6 opacity=1
       box 0,522.5 233.33x15.6 @enter @leave
         text 0,522.5 233.33x15.6 "Context menu" #cbb994
