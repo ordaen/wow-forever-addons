@@ -9,10 +9,10 @@ import Style from "@/style"
 
 const COLUMNS: Array<Column> = [
   { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
-  { title: Locale.COL_LEVEL, width: 44 * PX, align: Align.End, sortable: true },
+  { title: Locale.COL_LEVEL, width: 56 * PX, align: Align.End, sortable: true },
   { title: Locale.COL_GOLD, width: 120 * PX, align: Align.End, sortable: true },
   { title: Locale.COL_PROFESSIONS, width: { fr: 3 } },
-  { title: Locale.COL_BAGS, width: 84 * PX, align: Align.End, sortable: true },
+  { title: Locale.COL_BAGS, width: 96 * PX, align: Align.End, sortable: true },
   { title: Locale.COL_SEEN, width: 90 * PX, align: Align.End, sortable: true },
   { title: Locale.COL_BANK, width: 92 * PX },
   { title: Locale.COL_MAIL, width: 92 * PX },
@@ -65,22 +65,22 @@ public class CharacterRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={self.tracks}>
-        <text value={self.line.name} textSize={Style.TEXT} textColor={self.name} wrap={false} />
+        <text value={self.line.name} textColor={self.name} wrap={false} />
         <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.line.level]} textSize={Style.TEXT} textColor={Style.INK} wrap={false} />
+          <text value={"%d"} arguments={[self.line.level]} textColor={Style.INK} wrap={false} />
         </box>
         <box xAlign={Align.End}>
           <Money amount={self.line.money} />
         </box>
-        <text value={self.line.professions} textSize={Style.SMALL} textColor={Style.DIM} />
+        <text value={self.line.professions} textColor={Style.DIM} />
         <box xAlign={Align.End}>
-          <text value={self.bags} textSize={Style.TEXT} textColor={Style.INK} wrap={false} />
+          <text value={self.bags} textColor={Style.INK} wrap={false} />
         </box>
         <box xAlign={Align.End}>
-          <text value={self.seenText} textSize={Style.SMALL} textColor={self.seen} wrap={false} />
+          <text value={self.seenText} textColor={self.seen} wrap={false} />
         </box>
-        <text value={self.line.bank} textSize={Style.SMALL} textColor={Style.DIM} />
-        <text value={self.line.mail} textSize={Style.SMALL} textColor={self.mail} />
+        <text value={self.line.bank} textColor={Style.DIM} />
+        <text value={self.line.mail} textColor={self.mail} />
         <box xAlign={Align.End}>
           <PushButton $if={!self.line.current} label={Locale.FORGET} width={80 * PX} @click={self.onForget} />
         </box>
@@ -179,9 +179,9 @@ public class Characters implements Component {
             <CharacterRow $for={line of self.ordered} $key={line.who} line={line} tracks={TRACKS} @forget={self.ask} />
           </Table>
         </box>
-        <text $if={self.alone} value={Locale.ONLY_ONE} textSize={Style.SMALL} textColor={Style.DIM} />
+        <text $if={self.alone} value={Locale.ONLY_ONE} textSize={.Secondary} textColor={Style.DIM} />
         <Dialog $if={self.asking != nil} title={Locale.FORGET_TITLE} width={CONFIRM_WIDTH}>
-          <text value={self.question} textSize={Style.TEXT} textColor={Style.INK} />
+          <text value={self.question} textColor={Style.INK} />
           <PushButton #buttons label={Locale.CANCEL} width={120 * PX} @click={self.cancel} />
           <PushButton #buttons label={Locale.FORGET} width={140 * PX} @click={self.confirm} />
         </Dialog>

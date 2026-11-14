@@ -16,7 +16,6 @@ import { ExperienceGains, ReputationGains } from "@/gains"
 const INK: Color = Color.hex("#e8dcc4")
 // The time while calendar invites wait.
 const PENDING: Color = Color.hex("#ff9933")
-const TEXT = 12
 const TEXT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
 const NO_SHADOW: Shadow = { color: Color.hex("#00000000"), x: 0, y: 0 }
 // Under the metal along its inner side the content starts 4 further in.
@@ -114,10 +113,10 @@ public class ZoneBox implements Component {
         <SocialLine $if={self.social} gold={self.panel.goldIcons} vertical={self.panel.vertical} />
         <XpBar $if={self.experience} experience={self.panel.experienceGains} reputation={self.panel.reputationGains}
                room={self.panel.inside} />
-        <text $if={self.zoneName} value={Game.location.zone} textColor={INK} textSize={TEXT}
+        <text $if={self.zoneName} value={Game.location.zone} textColor={INK}
               textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
         <box $if={self.clock} @click={self.onClock}>
-          <text value={Game.clock.text} textColor={self.panel.clockColor} textSize={TEXT}
+          <text value={Game.clock.text} textColor={self.panel.clockColor}
                 textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
         </box>
         <MoneyLine $if={self.money} outline={self.panel.outline} shadow={self.panel.shadow}
@@ -285,7 +284,7 @@ public class Panel implements Module, App {
                width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
         <box position={Position.Absolute} left={86.7} top={5.3} width={36} height={36}
              background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center}>
-          <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent} textSize={14}
+          <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
                 wrap={false} />
         </box>
       </surface>

@@ -103,6 +103,16 @@ test "reputation: under the experience where the room holds both, alone at the c
   Test.flush()
   Test.expect(bars.reputation.gains.gained == 100)
 
+  // The fill is the standing's colour: another standing's tells the client a colour for it, nothing else changing.
+  let told = Test.calls((): nil => {
+    Game.reputation.standing = "Hostile"
+    Game.reputation.color = Color.hex("#cc4d38")
+    Test.flush()
+  })
+  Test.note(`a standing changed, the client told: ${told}`)
+  Test.expect(told.contains("SetVertexColor"))
+  Game.reputation.standing = "Honored"
+
   bars.room = 30
   Test.shot("a panel too low for two: experience alone")
 

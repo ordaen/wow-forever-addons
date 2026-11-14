@@ -19,7 +19,7 @@ box 0,0 500x25
     box 32,0 436x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
     box 32,0 436x25 absolute Interface\AddOns\Ordaen\media\xp-tube
     box 32,0 436x25 absolute
-      text 187.5,5 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+      text 195.83,6 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
     box 35.91,3.91 428.19x17.19 absolute
       box 35.91,3.91 107.05x17.19
       box 142.95,3.91 64.23x17.19 @enter @leave
@@ -81,14 +81,14 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 745.75,861 379.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 745.75,861 379.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 745.75,861 379.12x25 absolute
-          text 872.81,866 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+          text 881.15,867 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
         box 749.66,864.91 371.31x17.19 absolute
           box 749.66,864.91 92.83x17.19
           box 842.48,864.91 55.7x17.19 @enter @leave
           box 898.18,864.91 222.79x17.19
   box 1156.88,847 443.12x53
-    box 1249.12,866.3 58x14.4
-      text 1249.12,866.3 48x14.4 "0g 0s 0c" #e8dcc4
+    box 1247.12,866 60x15
+      text 1247.12,866 50x15 "0g 0s 0c" #e8dcc4
     box 1315.12,847 284.88x53
       box 1315.12,847 56.97x53 Interface\AddOns\Ordaen\media\panel-cell row 0 of 4
         embed 1317.11,847 53x53 absolute frame=none
@@ -103,7 +103,7 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
 surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=none opacity=0
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 97.7,790.9 14x16.8 "10" #b88f57
+    text 98.45,791.8 12.5x15 "10" #b88f57
 
 -- over the fill: the level, the experience, what is left to the next, the rested bonus
 box 0,0 500x25
@@ -126,7 +126,7 @@ box 0,0 500x25
     box 32,0 436x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
     box 32,0 436x25 absolute Interface\AddOns\Ordaen\media\xp-tube
     box 32,0 436x25 absolute
-      text 187.5,5 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+      text 195.83,6 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
     box 35.91,3.91 428.19x17.19 absolute
       box 35.91,3.91 107.05x17.19
       box 142.95,3.91 64.23x17.19 @enter @leave
@@ -188,14 +188,14 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 745.75,861 379.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 745.75,861 379.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 745.75,861 379.12x25 absolute
-          text 872.81,866 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+          text 881.15,867 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
         box 749.66,864.91 371.31x17.19 absolute
           box 749.66,864.91 92.83x17.19
           box 842.48,864.91 55.7x17.19 @enter @leave
           box 898.18,864.91 222.79x17.19
   box 1156.88,847 443.12x53
-    box 1249.12,866.3 58x14.4
-      text 1249.12,866.3 48x14.4 "0g 0s 0c" #e8dcc4
+    box 1247.12,866 60x15
+      text 1247.12,866 50x15 "0g 0s 0c" #e8dcc4
     box 1315.12,847 284.88x53
       box 1315.12,847 56.97x53 Interface\AddOns\Ordaen\media\panel-cell row 0 of 4
         embed 1317.11,847 53x53 absolute frame=none
@@ -210,18 +210,18 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
 surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=none opacity=0
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 97.7,790.9 14x16.8 "10" #b88f57
-surface 52,45 271.17x103.25 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+    text 98.45,791.8 12.5x15 "10" #b88f57
+surface 52,45 271.17x106.25 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 72.25,65.25 235.67x18 "Level 10" #ffffff
-  box 72.25,84.92 235.67x14
-    text 72.25,84.92 112.33x14 "Experience" #cbb994
-    text 191.25,84.92 116.67x14 "2 500 / 10 000 (25%)" #ffffff
-  box 72.25,100.58 235.67x14
-    text 72.25,100.58 199.83x14 "To level 11" #cbb994
-    text 278.75,100.58 29.17x14 "7 500" #ffffff
-  box 72.25,116.25 235.67x14
-    text 72.25,116.25 100.67x14 "Rested bonus" #cbb994
-    text 179.58,116.25 128.33x14 "1 500 (15% of a level)" #ffffff
+  box 72.25,84.92 235.67x15
+    text 72.25,84.92 104x15 "Experience" #cbb994
+    text 182.92,84.92 125x15 "2 500 / 10 000 (25%)" #ffffff
+  box 72.25,101.58 235.67x15
+    text 72.25,101.58 197.75x15 "To level 11" #cbb994
+    text 276.67,101.58 31.25x15 "7 500" #ffffff
+  box 72.25,118.25 235.67x15
+    text 72.25,118.25 91.5x15 "Rested bonus" #cbb994
+    text 170.42,118.25 137.5x15 "1 500 (15% of a level)" #ffffff
 
 -- over the rested part: what rested means, the bonus, resting now, the room for more
 box 0,0 500x25
@@ -244,7 +244,7 @@ box 0,0 500x25
     box 32,0 436x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
     box 32,0 436x25 absolute Interface\AddOns\Ordaen\media\xp-tube
     box 32,0 436x25 absolute
-      text 187.5,5 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+      text 195.83,6 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
     box 35.91,3.91 428.19x17.19 absolute
       box 35.91,3.91 107.05x17.19
       box 142.95,3.91 64.23x17.19 @enter @leave
@@ -306,14 +306,14 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 745.75,861 379.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 745.75,861 379.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 745.75,861 379.12x25 absolute
-          text 872.81,866 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+          text 881.15,867 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
         box 749.66,864.91 371.31x17.19 absolute
           box 749.66,864.91 92.83x17.19
           box 842.48,864.91 55.7x17.19 @enter @leave
           box 898.18,864.91 222.79x17.19
   box 1156.88,847 443.12x53
-    box 1249.12,866.3 58x14.4
-      text 1249.12,866.3 48x14.4 "0g 0s 0c" #e8dcc4
+    box 1247.12,866 60x15
+      text 1247.12,866 50x15 "0g 0s 0c" #e8dcc4
     box 1315.12,847 284.88x53
       box 1315.12,847 56.97x53 Interface\AddOns\Ordaen\media\panel-cell row 0 of 4
         embed 1317.11,847 53x53 absolute frame=none
@@ -328,19 +328,19 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
 surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=none opacity=0
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 97.7,790.9 14x16.8 "10" #b88f57
-surface 52,45 271.17x160.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+    text 98.45,791.8 12.5x15 "10" #b88f57
+surface 52,45 271.17x167.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 72.25,65.25 235.67x18 "Rested" #ffffff
-  text 72.25,84.92 235.67x56 "Kills give double experience until the bar reaches the end of the blue part. Log out in an inn or a city to rest up to a level and a half." #cbb994
-  box 72.25,142.58 235.67x14
-    text 72.25,142.58 100.67x14 "Rested bonus" #cbb994
-    text 179.58,142.58 128.33x14 "1 500 (15% of a level)" #ffffff
-  box 72.25,158.25 235.67x14
-    text 72.25,158.25 211.5x14 "Resting now" #cbb994
-    text 290.42,158.25 17.5x14 "Yes" #ffffff
-  box 72.25,173.92 235.67x14
-    text 72.25,173.92 194x14 "Room for more" #cbb994
-    text 272.92,173.92 35x14 "13 500" #ffffff
+  text 72.25,84.92 235.67x60 "Kills give double experience until the bar reaches the end of the blue part. Log out in an inn or a city to rest up to a level and a half." #cbb994
+  box 72.25,146.58 235.67x15
+    text 72.25,146.58 91.5x15 "Rested bonus" #cbb994
+    text 170.42,146.58 137.5x15 "1 500 (15% of a level)" #ffffff
+  box 72.25,163.25 235.67x15
+    text 72.25,163.25 210.25x15 "Resting now" #cbb994
+    text 289.17,163.25 18.75x15 "Yes" #ffffff
+  box 72.25,179.92 235.67x15
+    text 72.25,179.92 191.5x15 "Room for more" #cbb994
+    text 270.42,179.92 37.5x15 "13 500" #ffffff
 
 -- past the rested part: the bar's tooltip again
 box 0,0 500x25
@@ -363,7 +363,7 @@ box 0,0 500x25
     box 32,0 436x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
     box 32,0 436x25 absolute Interface\AddOns\Ordaen\media\xp-tube
     box 32,0 436x25 absolute
-      text 187.5,5 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+      text 195.83,6 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
     box 35.91,3.91 428.19x17.19 absolute
       box 35.91,3.91 107.05x17.19
       box 142.95,3.91 64.23x17.19 @enter @leave
@@ -425,14 +425,14 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 745.75,861 379.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 745.75,861 379.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 745.75,861 379.12x25 absolute
-          text 872.81,866 125x15 "2 500 / 10 000 (25%)" #f3e7cc
+          text 881.15,867 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
         box 749.66,864.91 371.31x17.19 absolute
           box 749.66,864.91 92.83x17.19
           box 842.48,864.91 55.7x17.19 @enter @leave
           box 898.18,864.91 222.79x17.19
   box 1156.88,847 443.12x53
-    box 1249.12,866.3 58x14.4
-      text 1249.12,866.3 48x14.4 "0g 0s 0c" #e8dcc4
+    box 1247.12,866 60x15
+      text 1247.12,866 50x15 "0g 0s 0c" #e8dcc4
     box 1315.12,847 284.88x53
       box 1315.12,847 56.97x53 Interface\AddOns\Ordaen\media\panel-cell row 0 of 4
         embed 1317.11,847 53x53 absolute frame=none
@@ -447,18 +447,18 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
 surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=none opacity=0
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 97.7,790.9 14x16.8 "10" #b88f57
-surface 52,45 271.17x103.25 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+    text 98.45,791.8 12.5x15 "10" #b88f57
+surface 52,45 271.17x106.25 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 72.25,65.25 235.67x18 "Level 10" #ffffff
-  box 72.25,84.92 235.67x14
-    text 72.25,84.92 112.33x14 "Experience" #cbb994
-    text 191.25,84.92 116.67x14 "2 500 / 10 000 (25%)" #ffffff
-  box 72.25,100.58 235.67x14
-    text 72.25,100.58 199.83x14 "To level 11" #cbb994
-    text 278.75,100.58 29.17x14 "7 500" #ffffff
-  box 72.25,116.25 235.67x14
-    text 72.25,116.25 100.67x14 "Rested bonus" #cbb994
-    text 179.58,116.25 128.33x14 "1 500 (15% of a level)" #ffffff
+  box 72.25,84.92 235.67x15
+    text 72.25,84.92 104x15 "Experience" #cbb994
+    text 182.92,84.92 125x15 "2 500 / 10 000 (25%)" #ffffff
+  box 72.25,101.58 235.67x15
+    text 72.25,101.58 197.75x15 "To level 11" #cbb994
+    text 276.67,101.58 31.25x15 "7 500" #ffffff
+  box 72.25,118.25 235.67x15
+    text 72.25,118.25 91.5x15 "Rested bonus" #cbb994
+    text 170.42,118.25 137.5x15 "1 500 (15% of a level)" #ffffff
 
 -- 400 gained in a minute: the pace an hour, the time to the level, the kills like the last to it
 box 0,0 500x25
@@ -481,7 +481,7 @@ box 0,0 500x25
     box 32,0 436x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
     box 32,0 436x25 absolute Interface\AddOns\Ordaen\media\xp-tube
     box 32,0 436x25 absolute
-      text 187.5,5 125x15 "2 900 / 10 000 (29%)" #f3e7cc
+      text 195.83,6 108.33x13 "2 900 / 10 000 (29%)" #f3e7cc
     box 35.91,3.91 428.19x17.19 absolute
       box 35.91,3.91 124.17x17.19
       box 160.08,3.91 64.23x17.19 @enter @leave
@@ -543,14 +543,14 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 745.75,861 379.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 745.75,861 379.12x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 745.75,861 379.12x25 absolute
-          text 872.81,866 125x15 "2 900 / 10 000 (29%)" #f3e7cc
+          text 881.15,867 108.33x13 "2 900 / 10 000 (29%)" #f3e7cc
         box 749.66,864.91 371.31x17.19 absolute
           box 749.66,864.91 107.68x17.19
           box 857.34,864.91 55.7x17.19 @enter @leave
           box 913.03,864.91 207.94x17.19
   box 1156.88,847 443.12x53
-    box 1249.12,866.3 58x14.4
-      text 1249.12,866.3 48x14.4 "0g 0s 0c" #e8dcc4
+    box 1247.12,866 60x15
+      text 1247.12,866 50x15 "0g 0s 0c" #e8dcc4
     box 1315.12,847 284.88x53
       box 1315.12,847 56.97x53 Interface\AddOns\Ordaen\media\panel-cell row 0 of 4
         embed 1317.11,847 53x53 absolute frame=none
@@ -565,27 +565,27 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
 surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=none opacity=0
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 97.7,790.9 14x16.8 "10" #b88f57
-surface 52,45 271.17x165.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+    text 98.45,791.8 12.5x15 "10" #b88f57
+surface 52,45 271.17x172.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 72.25,65.25 235.67x18 "Level 10" #ffffff
-  box 72.25,84.92 235.67x14
-    text 72.25,84.92 112.33x14 "Experience" #cbb994
-    text 191.25,84.92 116.67x14 "2 900 / 10 000 (29%)" #ffffff
-  box 72.25,100.58 235.67x14
-    text 72.25,100.58 199.83x14 "To level 11" #cbb994
-    text 278.75,100.58 29.17x14 "7 100" #ffffff
-  box 72.25,116.25 235.67x14
-    text 72.25,116.25 100.67x14 "Rested bonus" #cbb994
-    text 179.58,116.25 128.33x14 "1 500 (15% of a level)" #ffffff
-  box 72.25,131.92 235.67x14
-    text 72.25,131.92 205.67x14 "This session" #cbb994
-    text 284.58,131.92 23.33x14 "+400" #ffffff
-  box 72.25,147.58 235.67x14
-    text 72.25,147.58 194x14 "Per hour" #cbb994
-    text 272.92,147.58 35x14 "23 606" #ffffff
-  box 72.25,163.25 235.67x14
-    text 72.25,163.25 194x14 "Time to level" #cbb994
-    text 272.92,163.25 35x14 "19 min" #ffffff
-  box 72.25,178.92 235.67x14
-    text 72.25,178.92 188.17x14 "At +100 a time" #cbb994
-    text 267.08,178.92 40.83x14 "71 more" #ffffff
+  box 72.25,84.92 235.67x15
+    text 72.25,84.92 104x15 "Experience" #cbb994
+    text 182.92,84.92 125x15 "2 900 / 10 000 (29%)" #ffffff
+  box 72.25,101.58 235.67x15
+    text 72.25,101.58 197.75x15 "To level 11" #cbb994
+    text 276.67,101.58 31.25x15 "7 100" #ffffff
+  box 72.25,118.25 235.67x15
+    text 72.25,118.25 91.5x15 "Rested bonus" #cbb994
+    text 170.42,118.25 137.5x15 "1 500 (15% of a level)" #ffffff
+  box 72.25,134.92 235.67x15
+    text 72.25,134.92 204x15 "This session" #cbb994
+    text 282.92,134.92 25x15 "+400" #ffffff
+  box 72.25,151.58 235.67x15
+    text 72.25,151.58 191.5x15 "Per hour" #cbb994
+    text 270.42,151.58 37.5x15 "23 606" #ffffff
+  box 72.25,168.25 235.67x15
+    text 72.25,168.25 191.5x15 "Time to level" #cbb994
+    text 270.42,168.25 37.5x15 "19 min" #ffffff
+  box 72.25,184.92 235.67x15
+    text 72.25,184.92 185.25x15 "At +100 a time" #cbb994
+    text 264.17,184.92 43.75x15 "71 more" #ffffff

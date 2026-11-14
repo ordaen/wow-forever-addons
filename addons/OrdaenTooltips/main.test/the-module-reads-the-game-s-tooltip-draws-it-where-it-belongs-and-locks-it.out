@@ -1,23 +1,23 @@
 -- the game shows no tooltip: nothing is drawn, and the game's own isn't kept unseen
 
 -- a button's text: read, with the item level and the most worn piece, drawn above the button on its left edge
-surface 600,641.92 271.17x158.08 on TOOLTIP
-  box 600,641.92 271.17x158.08 @enter @leave
-    box 600,641.92 271.17x158.08
-      box 600,641.92 271.17x158.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 620.25,662.17 235.67x24.67
-          box 620.25,662.17 235.67x18
-            text 620.25,662.17 235.67x18 "Character Info" #ffffff
-        box 620.25,686.83 235.67x47
-          box 620.25,693.5 235.67x16
-            text 620.25,693.5 214x16 "Item level" #f3e7cc
-            text 842.58,693.5 13.33x16 "61" #f3e7cc
-          box 620.25,711.17 235.67x16
-            text 620.25,711.17 207.33x16 "Durability" #f3e7cc
-            text 835.92,711.17 20x16 "20%" #ff4040
-        box 620.25,733.83 235.67x28.17
-          box 620.25,741.33 235.67x14
-            text 620.25,741.33 235.67x14 "C: open" #857a66
+surface 600,644.92 271.17x155.08 on TOOLTIP
+  box 600,644.92 271.17x155.08 @enter @leave
+    box 600,644.92 271.17x155.08
+      box 600,644.92 271.17x155.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 620.25,665.17 235.67x24.67
+          box 620.25,665.17 235.67x18
+            text 620.25,665.17 235.67x18 "Character Info" #ffffff
+        box 620.25,689.83 235.67x45
+          box 620.25,696.5 235.67x15
+            text 620.25,696.5 214.83x15 "Item level" #f3e7cc
+            text 843.42,696.5 12.5x15 "61" #f3e7cc
+          box 620.25,713.17 235.67x15
+            text 620.25,713.17 208.58x15 "Durability" #f3e7cc
+            text 837.17,713.17 18.75x15 "20%" #ff4040
+        box 620.25,734.83 235.67x27.17
+          box 620.25,742.33 235.67x13
+            text 620.25,742.33 235.67x13 "C: open" #857a66
         box 620.25,762 235.67x20
           box 620.25,768.67 235.67x13.33
             box 620.25,774.08 235.67x2.5
@@ -25,56 +25,56 @@ surface 600,641.92 271.17x158.08 on TOOLTIP
 asked: Tooltip.hide true
 
 -- «Tooltips at buttons» off: where the game put its own, in the corner
-surface 1228.83,561.92 271.17x158.08 on TOOLTIP
-  box 1228.83,561.92 271.17x158.08 @enter @leave
-    box 1228.83,561.92 271.17x158.08
-      box 1228.83,561.92 271.17x158.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1249.08,582.17 235.67x24.67
-          box 1249.08,582.17 235.67x18
-            text 1249.08,582.17 235.67x18 "Character Info" #ffffff
-        box 1249.08,606.83 235.67x47
-          box 1249.08,613.5 235.67x16
-            text 1249.08,613.5 214x16 "Item level" #f3e7cc
-            text 1471.42,613.5 13.33x16 "61" #f3e7cc
-          box 1249.08,631.17 235.67x16
-            text 1249.08,631.17 207.33x16 "Durability" #f3e7cc
-            text 1464.75,631.17 20x16 "20%" #ff4040
-        box 1249.08,653.83 235.67x28.17
-          box 1249.08,661.33 235.67x14
-            text 1249.08,661.33 235.67x14 "C: open" #857a66
+surface 1228.83,564.92 271.17x155.08 on TOOLTIP
+  box 1228.83,564.92 271.17x155.08 @enter @leave
+    box 1228.83,564.92 271.17x155.08
+      box 1228.83,564.92 271.17x155.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1249.08,585.17 235.67x24.67
+          box 1249.08,585.17 235.67x18
+            text 1249.08,585.17 235.67x18 "Character Info" #ffffff
+        box 1249.08,609.83 235.67x45
+          box 1249.08,616.5 235.67x15
+            text 1249.08,616.5 214.83x15 "Item level" #f3e7cc
+            text 1472.25,616.5 12.5x15 "61" #f3e7cc
+          box 1249.08,633.17 235.67x15
+            text 1249.08,633.17 208.58x15 "Durability" #f3e7cc
+            text 1466,633.17 18.75x15 "20%" #ff4040
+        box 1249.08,654.83 235.67x27.17
+          box 1249.08,662.33 235.67x13
+            text 1249.08,662.33 235.67x13 "C: open" #857a66
         box 1249.08,682 235.67x20
           box 1249.08,688.67 235.67x13.33
             box 1249.08,694.08 235.67x2.5
               box 1249.08,694.08 0x2.5 absolute #d6a56b80
 
 -- «More on buttons» off: the button's own lines alone
-surface 1228.83,608.92 271.17x111.08 on TOOLTIP
-  box 1228.83,608.92 271.17x111.08 @enter @leave
-    box 1228.83,608.92 271.17x111.08
-      box 1228.83,608.92 271.17x111.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1249.08,629.17 235.67x24.67
-          box 1249.08,629.17 235.67x18
-            text 1249.08,629.17 235.67x18 "Character Info" #ffffff
-        box 1249.08,653.83 235.67x28.17
-          box 1249.08,661.33 235.67x14
-            text 1249.08,661.33 235.67x14 "C: open" #857a66
+surface 1228.83,609.92 271.17x110.08 on TOOLTIP
+  box 1228.83,609.92 271.17x110.08 @enter @leave
+    box 1228.83,609.92 271.17x110.08
+      box 1228.83,609.92 271.17x110.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1249.08,630.17 235.67x24.67
+          box 1249.08,630.17 235.67x18
+            text 1249.08,630.17 235.67x18 "Character Info" #ffffff
+        box 1249.08,654.83 235.67x27.17
+          box 1249.08,662.33 235.67x13
+            text 1249.08,662.33 235.67x13 "C: open" #857a66
         box 1249.08,682 235.67x20
           box 1249.08,688.67 235.67x13.33
             box 1249.08,694.08 235.67x2.5
               box 1249.08,694.08 0x2.5 absolute #d6a56b80
 
 -- the backpack: the free slots of every bag together
-surface 1228.83,607.75 271.17x112.25 on TOOLTIP
-  box 1228.83,607.75 271.17x112.25 @enter @leave
-    box 1228.83,607.75 271.17x112.25
-      box 1228.83,607.75 271.17x112.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1249.08,628 235.67x24.67
-          box 1249.08,628 235.67x18
-            text 1249.08,628 235.67x18 "Backpack" #ffffff
-        box 1249.08,652.67 235.67x29.33
-          box 1249.08,659.33 235.67x16
-            text 1249.08,659.33 187.33x16 "Free slots" #f3e7cc
-            text 1444.75,659.33 40x16 "3 / 22" #f3e7cc
+surface 1228.83,608.75 271.17x111.25 on TOOLTIP
+  box 1228.83,608.75 271.17x111.25 @enter @leave
+    box 1228.83,608.75 271.17x111.25
+      box 1228.83,608.75 271.17x111.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1249.08,629 235.67x24.67
+          box 1249.08,629 235.67x18
+            text 1249.08,629 235.67x18 "Backpack" #ffffff
+        box 1249.08,653.67 235.67x28.33
+          box 1249.08,660.33 235.67x15
+            text 1249.08,660.33 189.83x15 "Free slots" #f3e7cc
+            text 1447.25,660.33 37.5x15 "3 / 22" #f3e7cc
         box 1249.08,682 235.67x20
           box 1249.08,688.67 235.67x13.33
             box 1249.08,694.08 235.67x2.5
@@ -84,27 +84,27 @@ surface 1228.83,607.75 271.17x112.25 on TOOLTIP
 asked: Tooltip.hide false
 
 -- an item in the bags: beside its slot, under it and on its right edge, though buttons' tooltips aren't
-surface 1068.83,240 271.17x112.25 on TOOLTIP
-  box 1068.83,240 271.17x112.25 @enter @leave
-    box 1068.83,240 271.17x112.25
-      box 1068.83,240 271.17x112.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+surface 1068.83,240 271.17x111.25 on TOOLTIP
+  box 1068.83,240 271.17x111.25 @enter @leave
+    box 1068.83,240 271.17x111.25
+      box 1068.83,240 271.17x111.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
         box 1089.08,260.25 235.67x24.67
           box 1089.08,260.25 235.67x18
             text 1089.08,260.25 235.67x18 "Greataxe" #ffffff
-        box 1089.08,284.92 235.67x29.33
-          box 1089.08,291.58 235.67x16
-            text 1089.08,291.58 207.33x16 "Strength" #f3e7cc
-            text 1304.75,291.58 20x16 "+30" #f3e7cc
-        box 1089.08,314.25 235.67x20
-          box 1089.08,320.92 235.67x13.33
-            box 1089.08,326.33 235.67x2.5
-              box 1089.08,326.33 0x2.5 absolute #d6a56b80
+        box 1089.08,284.92 235.67x28.33
+          box 1089.08,291.58 235.67x15
+            text 1089.08,291.58 208.58x15 "Strength" #f3e7cc
+            text 1306,291.58 18.75x15 "+30" #f3e7cc
+        box 1089.08,313.25 235.67x20
+          box 1089.08,319.92 235.67x13.33
+            box 1089.08,325.33 235.67x2.5
+              box 1089.08,325.33 0x2.5 absolute #d6a56b80
 asked: Tooltip.hide true
 
 -- compared with the worn one: its differences on the hovered item, the worn one under «Equipped»
-surface 836,240 504x141.42 on TOOLTIP
-  box 836,240 504x141.42 @enter @leave
-    box 836,240 229.5x121.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+surface 836,240 504x140.42 on TOOLTIP
+  box 836,240 504x140.42 @enter @leave
+    box 836,240 229.5x120.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
       box 856.25,260.25 194x29.17
         box 856.25,260.25 194x15
           text 928.25,260.25 50x15 "Equipped" #ffd100
@@ -112,28 +112,28 @@ surface 836,240 504x141.42 on TOOLTIP
       box 856.25,289.42 194x24.67
         box 856.25,289.42 194x18
           text 856.25,289.42 194x18 "Worn Axe" #ffffff
-      box 856.25,314.08 194x29.33
-        box 856.25,320.75 194x16
-          text 856.25,320.75 165.67x16 "Strength" #f3e7cc
-          text 1030.25,320.75 20x16 "+21" #f3e7cc
-    box 1068.83,240 271.17x141.42
-      box 1068.83,269.17 271.17x112.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 856.25,314.08 194x28.33
+        box 856.25,320.75 194x15
+          text 856.25,320.75 166.92x15 "Strength" #f3e7cc
+          text 1031.5,320.75 18.75x15 "+21" #f3e7cc
+    box 1068.83,240 271.17x140.42
+      box 1068.83,269.17 271.17x111.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
         box 1089.08,289.42 235.67x24.67
           box 1089.08,289.42 235.67x18
             text 1089.08,289.42 235.67x18 "Greataxe" #ffffff
-        box 1089.08,314.08 235.67x29.33
-          box 1089.08,320.75 235.67x16
-            text 1089.08,320.75 174x16 "Strength" #f3e7cc
-            text 1271.42,320.75 53.33x16 "+30 |cff1eff00(▲9)|r" #f3e7cc
-        box 1089.08,343.42 235.67x20
-          box 1089.08,350.08 235.67x13.33
-            box 1089.08,355.5 235.67x2.5
-              box 1089.08,355.5 0x2.5 absolute #d6a56b80
+        box 1089.08,314.08 235.67x28.33
+          box 1089.08,320.75 235.67x15
+            text 1089.08,320.75 177.33x15 "Strength" #f3e7cc
+            text 1274.75,320.75 50x15 "+30 |cff1eff00(▲9)|r" #f3e7cc
+        box 1089.08,342.42 235.67x20
+          box 1089.08,349.08 235.67x13.33
+            box 1089.08,354.5 235.67x2.5
+              box 1089.08,354.5 0x2.5 absolute #d6a56b80
 
 -- compared with two: the differences on each worn one
-surface 603.17,240 736.83x141.42 on TOOLTIP
-  box 603.17,240 736.83x141.42 @enter @leave
-    box 603.17,240 229.5x121.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+surface 603.17,240 736.83x140.42 on TOOLTIP
+  box 603.17,240 736.83x140.42 @enter @leave
+    box 603.17,240 229.5x120.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
       box 623.42,260.25 194x29.17
         box 623.42,260.25 194x15
           text 695.42,260.25 50x15 "Equipped" #ffd100
@@ -141,11 +141,11 @@ surface 603.17,240 736.83x141.42 on TOOLTIP
       box 623.42,289.42 194x24.67
         box 623.42,289.42 194x18
           text 623.42,289.42 194x18 "Other Axe" #ffffff
-      box 623.42,314.08 194x29.33
-        box 623.42,320.75 194x16
-          text 623.42,320.75 125.67x16 "Strength" #f3e7cc
-          text 757.42,320.75 60x16 "+40 |cffff4040(▼10)|r" #f3e7cc
-    box 836,240 229.5x121.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 623.42,314.08 194x28.33
+        box 623.42,320.75 194x15
+          text 623.42,320.75 129.42x15 "Strength" #f3e7cc
+          text 761.17,320.75 56.25x15 "+40 |cffff4040(▼10)|r" #f3e7cc
+    box 836,240 229.5x120.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
       box 856.25,260.25 194x29.17
         box 856.25,260.25 194x15
           text 928.25,260.25 50x15 "Equipped" #ffd100
@@ -153,93 +153,93 @@ surface 603.17,240 736.83x141.42 on TOOLTIP
       box 856.25,289.42 194x24.67
         box 856.25,289.42 194x18
           text 856.25,289.42 194x18 "Worn Axe" #ffffff
-      box 856.25,314.08 194x29.33
-        box 856.25,320.75 194x16
-          text 856.25,320.75 132.33x16 "Strength" #f3e7cc
-          text 996.92,320.75 53.33x16 "+21 |cff1eff00(▲9)|r" #f3e7cc
-    box 1068.83,240 271.17x141.42
-      box 1068.83,269.17 271.17x112.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 856.25,314.08 194x28.33
+        box 856.25,320.75 194x15
+          text 856.25,320.75 135.67x15 "Strength" #f3e7cc
+          text 1000.25,320.75 50x15 "+21 |cff1eff00(▲9)|r" #f3e7cc
+    box 1068.83,240 271.17x140.42
+      box 1068.83,269.17 271.17x111.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
         box 1089.08,289.42 235.67x24.67
           box 1089.08,289.42 235.67x18
             text 1089.08,289.42 235.67x18 "Greataxe" #ffffff
-        box 1089.08,314.08 235.67x29.33
-          box 1089.08,320.75 235.67x16
-            text 1089.08,320.75 207.33x16 "Strength" #f3e7cc
-            text 1304.75,320.75 20x16 "+30" #f3e7cc
-        box 1089.08,343.42 235.67x20
-          box 1089.08,350.08 235.67x13.33
-            box 1089.08,355.5 235.67x2.5
-              box 1089.08,355.5 0x2.5 absolute #d6a56b80
+        box 1089.08,314.08 235.67x28.33
+          box 1089.08,320.75 235.67x15
+            text 1089.08,320.75 208.58x15 "Strength" #f3e7cc
+            text 1306,320.75 18.75x15 "+30" #f3e7cc
+        box 1089.08,342.42 235.67x20
+          box 1089.08,349.08 235.67x13.33
+            box 1089.08,354.5 235.67x2.5
+              box 1089.08,354.5 0x2.5 absolute #d6a56b80
 
 -- bags' items in the corner: where the game put its own
-surface 1228.83,607.75 271.17x112.25 on TOOLTIP
-  box 1228.83,607.75 271.17x112.25 @enter @leave
-    box 1228.83,607.75 271.17x112.25
-      box 1228.83,607.75 271.17x112.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1249.08,628 235.67x24.67
-          box 1249.08,628 235.67x18
-            text 1249.08,628 235.67x18 "Greataxe" #ffffff
-        box 1249.08,652.67 235.67x29.33
-          box 1249.08,659.33 235.67x16
-            text 1249.08,659.33 207.33x16 "Strength" #f3e7cc
-            text 1464.75,659.33 20x16 "+30" #f3e7cc
+surface 1228.83,608.75 271.17x111.25 on TOOLTIP
+  box 1228.83,608.75 271.17x111.25 @enter @leave
+    box 1228.83,608.75 271.17x111.25
+      box 1228.83,608.75 271.17x111.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1249.08,629 235.67x24.67
+          box 1249.08,629 235.67x18
+            text 1249.08,629 235.67x18 "Greataxe" #ffffff
+        box 1249.08,653.67 235.67x28.33
+          box 1249.08,660.33 235.67x15
+            text 1249.08,660.33 208.58x15 "Strength" #f3e7cc
+            text 1466,660.33 18.75x15 "+30" #f3e7cc
         box 1249.08,682 235.67x20
           box 1249.08,688.67 235.67x13.33
             box 1249.08,694.08 235.67x2.5
               box 1249.08,694.08 0x2.5 absolute #d6a56b80
 
 -- a spell cooling down: how long until it is ready
-surface 1228.83,608.92 271.17x111.08 on TOOLTIP
-  box 1228.83,608.92 271.17x111.08 @enter @leave
-    box 1228.83,608.92 271.17x111.08
-      box 1228.83,608.92 271.17x111.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1249.08,629.17 235.67x24.67
-          box 1249.08,629.17 235.67x18
-            text 1249.08,629.17 235.67x18 "Frostbolt" #ffffff
-        box 1249.08,653.83 235.67x28.17
-          box 1249.08,661.33 235.67x14
-            box 1249.08,661.33 209.83x14
-              box 1249.08,661.33 46.67x14
-                text 1249.08,661.33 46.67x14 "Ready in" #857a66
-            text 1467.25,661.33 17.5x14 "2 m" #ffd100
+surface 1228.83,609.92 271.17x110.08 on TOOLTIP
+  box 1228.83,609.92 271.17x110.08 @enter @leave
+    box 1228.83,609.92 271.17x110.08
+      box 1228.83,609.92 271.17x110.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1249.08,630.17 235.67x24.67
+          box 1249.08,630.17 235.67x18
+            text 1249.08,630.17 235.67x18 "Frostbolt" #ffffff
+        box 1249.08,654.83 235.67x27.17
+          box 1249.08,662.33 235.67x13
+            box 1249.08,662.33 211.08x13
+              box 1249.08,662.33 43.33x13
+                text 1249.08,662.33 43.33x13 "Ready in" #857a66
+            text 1468.5,662.33 16.25x13 "2 m" #ffd100
         box 1249.08,682 235.67x20
           box 1249.08,688.67 235.67x13.33
             box 1249.08,694.08 235.67x2.5
               box 1249.08,694.08 0x2.5 absolute #d6a56b80
 
 -- half a second on: not read again yet
-surface 1228.83,608.92 271.17x111.08 on TOOLTIP
-  box 1228.83,608.92 271.17x111.08 @enter @leave
-    box 1228.83,608.92 271.17x111.08
-      box 1228.83,608.92 271.17x111.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1249.08,629.17 235.67x24.67
-          box 1249.08,629.17 235.67x18
-            text 1249.08,629.17 235.67x18 "Frostbolt" #ffffff
-        box 1249.08,653.83 235.67x28.17
-          box 1249.08,661.33 235.67x14
-            box 1249.08,661.33 209.83x14
-              box 1249.08,661.33 46.67x14
-                text 1249.08,661.33 46.67x14 "Ready in" #857a66
-            text 1467.25,661.33 17.5x14 "2 m" #ffd100
+surface 1228.83,609.92 271.17x110.08 on TOOLTIP
+  box 1228.83,609.92 271.17x110.08 @enter @leave
+    box 1228.83,609.92 271.17x110.08
+      box 1228.83,609.92 271.17x110.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1249.08,630.17 235.67x24.67
+          box 1249.08,630.17 235.67x18
+            text 1249.08,630.17 235.67x18 "Frostbolt" #ffffff
+        box 1249.08,654.83 235.67x27.17
+          box 1249.08,662.33 235.67x13
+            box 1249.08,662.33 211.08x13
+              box 1249.08,662.33 43.33x13
+                text 1249.08,662.33 43.33x13 "Ready in" #857a66
+            text 1468.5,662.33 16.25x13 "2 m" #ffd100
         box 1249.08,682 235.67x20
           box 1249.08,688.67 235.67x13.33
             box 1249.08,694.08 235.67x2.5
               box 1249.08,694.08 0x2.5 absolute #d6a56b80
 
 -- a second on: read again, the time it shows has moved
-surface 1228.83,608.92 271.17x111.08 on TOOLTIP
-  box 1228.83,608.92 271.17x111.08 @enter @leave
-    box 1228.83,608.92 271.17x111.08
-      box 1228.83,608.92 271.17x111.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1249.08,629.17 235.67x24.67
-          box 1249.08,629.17 235.67x18
-            text 1249.08,629.17 235.67x18 "Frostbolt" #ffffff
-        box 1249.08,653.83 235.67x28.17
-          box 1249.08,661.33 235.67x14
-            box 1249.08,661.33 204x14
-              box 1249.08,661.33 46.67x14
-                text 1249.08,661.33 46.67x14 "Ready in" #857a66
-            text 1461.42,661.33 23.33x14 "30 s" #ffd100
+surface 1228.83,609.92 271.17x110.08 on TOOLTIP
+  box 1228.83,609.92 271.17x110.08 @enter @leave
+    box 1228.83,609.92 271.17x110.08
+      box 1228.83,609.92 271.17x110.08 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1249.08,630.17 235.67x24.67
+          box 1249.08,630.17 235.67x18
+            text 1249.08,630.17 235.67x18 "Frostbolt" #ffffff
+        box 1249.08,654.83 235.67x27.17
+          box 1249.08,662.33 235.67x13
+            box 1249.08,662.33 205.67x13
+              box 1249.08,662.33 43.33x13
+                text 1249.08,662.33 43.33x13 "Ready in" #857a66
+            text 1463.08,662.33 21.67x13 "30 s" #ffd100
         box 1249.08,682 235.67x20
           box 1249.08,688.67 235.67x13.33
             box 1249.08,694.08 235.67x2.5
@@ -429,155 +429,163 @@ surface 1068.83,240 271.17x76.25 on TOOLTIP
               box 1089.08,290.33 0x2.5 absolute #d6a56b80
 
 -- a spell locked: the cells of its band that open a term are underlined
-surface 1047,240 293x106.42 on TOOLTIP
-  box 1047,240 293x106.42 @enter @leave
-    box 1047,240 293x106.42
-      box 1047,240 293x106.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1067.25,260.25 257.5x24.67
-          box 1067.25,260.25 257.5x18
-            text 1067.25,260.25 257.5x18 "Frostbolt" #ffffff
-        box 1067.25,284.92 257.5x23.5
-          box 1067.25,285.75 47.5x22.67
-            box 1075.58,292.42 30.83x16
-              box 1075.58,293.75 13.33x13.33
-              box 1093.08,292.42 13.33x16
-                text 1093.08,292.42 13.33x16 "65" #f3e7cc
-          box 1114.75,285.75 95x22.67
-            box 1123.92,292.42 77.5x16
-              box 1123.92,292.42 73.33x16
-                text 1123.92,292.42 73.33x16 "30 yd range" #f3e7cc
-                box 1123.92,307.58 73.33x0.83 absolute #ffd100b3
-            box 1114.75,285.75 95x22.67 absolute @enter @leave
-          box 1209.75,285.75 115x22.67
-            box 1218.92,292.42 97.5x16
-              box 1218.92,293.75 13.33x13.33
-              box 1236.42,292.42 80x16
-                text 1236.42,292.42 80x16 "2.5 sec cast" #f3e7cc
-                box 1236.42,307.58 80x0.83 absolute #ffd100b3
-            box 1209.75,285.75 115x22.67 absolute @enter @leave
-        box 1067.25,308.42 257.5x20
-          box 1067.25,315.08 257.5x13.33
-            text 1067.25,315.25 257.5x13 "Locked — hover the underlined parts" #857a66
+surface 1057.42,240 282.58x105.42 on TOOLTIP
+  box 1057.42,240 282.58x105.42 @enter @leave
+    box 1057.42,240 282.58x105.42
+      box 1057.42,240 282.58x105.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1077.67,260.25 247.08x24.67
+          box 1077.67,260.25 247.08x18
+            text 1077.67,260.25 247.08x18 "Frostbolt" #ffffff
+        box 1077.67,284.92 247.08x22.5
+          box 1077.67,285.75 46.67x21.67
+            box 1086,292.42 30x15
+              box 1086,293.25 13.33x13.33
+                box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+              box 1103.5,292.42 12.5x15
+                text 1103.5,292.42 12.5x15 "65" #f3e7cc
+          box 1124.33,285.75 90.42x21.67
+            box 1133.5,292.42 72.92x15
+              box 1133.5,292.42 68.75x15
+                text 1133.5,292.42 68.75x15 "30 yd range" #f3e7cc
+                box 1133.5,306.58 68.75x0.83 absolute #ffd100b3
+            box 1124.33,285.75 90.42x21.67 absolute @enter @leave
+          box 1214.75,285.75 110x21.67
+            box 1223.92,292.42 92.5x15
+              box 1223.92,293.25 13.33x13.33
+                box 1222.25,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
+              box 1241.42,292.42 75x15
+                text 1241.42,292.42 75x15 "2.5 sec cast" #f3e7cc
+                box 1241.42,306.58 75x0.83 absolute #ffd100b3
+            box 1214.75,285.75 110x21.67 absolute @enter @leave
+        box 1077.67,307.42 247.08x20
+          box 1077.67,314.08 247.08x13.33
+            text 1077.67,314.25 247.08x13 "Locked — hover the underlined parts" #857a66
         box 1316.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
 asked: Tooltip.hide false
 asked: Tooltip.hide true
 
 the cursor's look: nil
 -- the cursor on the range's cell: the term's tooltip beside the cell, under it
-surface 1047,240 293x106.42 on TOOLTIP
-  box 1047,240 293x106.42 @enter @leave
-    box 1047,240 293x106.42
-      box 1047,240 293x106.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1067.25,260.25 257.5x24.67
-          box 1067.25,260.25 257.5x18
-            text 1067.25,260.25 257.5x18 "Frostbolt" #ffffff
-        box 1067.25,284.92 257.5x23.5
-          box 1067.25,285.75 47.5x22.67
-            box 1075.58,292.42 30.83x16
-              box 1075.58,293.75 13.33x13.33
-              box 1093.08,292.42 13.33x16
-                text 1093.08,292.42 13.33x16 "65" #f3e7cc
-          box 1114.75,285.75 95x22.67
-            box 1123.92,292.42 77.5x16
-              box 1123.92,292.42 73.33x16
-                text 1123.92,292.42 73.33x16 "30 yd range" #f3e7cc
-                box 1123.92,307.58 73.33x0.83 absolute #ffd100b3
-            box 1114.75,285.75 95x22.67 absolute @enter @leave
-          box 1209.75,285.75 115x22.67
-            box 1218.92,292.42 97.5x16
-              box 1218.92,293.75 13.33x13.33
-              box 1236.42,292.42 80x16
-                text 1236.42,292.42 80x16 "2.5 sec cast" #f3e7cc
-                box 1236.42,307.58 80x0.83 absolute #ffd100b3
-            box 1209.75,285.75 115x22.67 absolute @enter @leave
-        box 1067.25,308.42 257.5x20
-          box 1067.25,315.08 257.5x13.33
-            text 1067.25,315.25 257.5x13 "Locked — hover the underlined parts" #857a66
+surface 1057.42,240 282.58x105.42 on TOOLTIP
+  box 1057.42,240 282.58x105.42 @enter @leave
+    box 1057.42,240 282.58x105.42
+      box 1057.42,240 282.58x105.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1077.67,260.25 247.08x24.67
+          box 1077.67,260.25 247.08x18
+            text 1077.67,260.25 247.08x18 "Frostbolt" #ffffff
+        box 1077.67,284.92 247.08x22.5
+          box 1077.67,285.75 46.67x21.67
+            box 1086,292.42 30x15
+              box 1086,293.25 13.33x13.33
+                box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+              box 1103.5,292.42 12.5x15
+                text 1103.5,292.42 12.5x15 "65" #f3e7cc
+          box 1124.33,285.75 90.42x21.67
+            box 1133.5,292.42 72.92x15
+              box 1133.5,292.42 68.75x15
+                text 1133.5,292.42 68.75x15 "30 yd range" #f3e7cc
+                box 1133.5,306.58 68.75x0.83 absolute #ffd100b3
+            box 1124.33,285.75 90.42x21.67 absolute @enter @leave
+          box 1214.75,285.75 110x21.67
+            box 1223.92,292.42 92.5x15
+              box 1223.92,293.25 13.33x13.33
+                box 1222.25,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
+              box 1241.42,292.42 75x15
+                text 1241.42,292.42 75x15 "2.5 sec cast" #f3e7cc
+                box 1241.42,306.58 75x0.83 absolute #ffd100b3
+            box 1214.75,285.75 110x21.67 absolute @enter @leave
+        box 1077.67,307.42 247.08x20
+          box 1077.67,314.08 247.08x13.33
+            text 1077.67,314.25 247.08x13 "Locked — hover the underlined parts" #857a66
         box 1316.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-surface 980.25,308.42 229.5x104.25 on TOOLTIP
-  box 980.25,308.42 229.5x104.25
-    box 980.25,308.42 229.5x104.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 1000.5,328.67 194x24.67
-        box 1000.5,328.67 194x18
-          text 1000.5,328.67 194x18 "Range" #ffd100
-      box 1000.5,353.33 194x41.33
-        box 1000.5,360 194x28
-          text 1000.5,360 194x28 "How far from the target you can use it." #e6dcc6
+surface 985.25,307.42 229.5x106.25 on TOOLTIP
+  box 985.25,307.42 229.5x106.25
+    box 985.25,307.42 229.5x106.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 1005.5,327.67 194x24.67
+        box 1005.5,327.67 194x18
+          text 1005.5,327.67 194x18 "Range" #ffd100
+      box 1005.5,352.33 194x43.33
+        box 1005.5,359 194x30
+          text 1005.5,359 194x30 "How far from the target you can use it." #e6dcc6
 
 the cursor's look: Interface/Cursor/QuestTurnIn
 -- off the cell, still on the tooltip: the term's tooltip gone, the locked one stays
-surface 1047,240 293x106.42 on TOOLTIP
-  box 1047,240 293x106.42 @enter @leave
-    box 1047,240 293x106.42
-      box 1047,240 293x106.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1067.25,260.25 257.5x24.67
-          box 1067.25,260.25 257.5x18
-            text 1067.25,260.25 257.5x18 "Frostbolt" #ffffff
-        box 1067.25,284.92 257.5x23.5
-          box 1067.25,285.75 47.5x22.67
-            box 1075.58,292.42 30.83x16
-              box 1075.58,293.75 13.33x13.33
-              box 1093.08,292.42 13.33x16
-                text 1093.08,292.42 13.33x16 "65" #f3e7cc
-          box 1114.75,285.75 95x22.67
-            box 1123.92,292.42 77.5x16
-              box 1123.92,292.42 73.33x16
-                text 1123.92,292.42 73.33x16 "30 yd range" #f3e7cc
-                box 1123.92,307.58 73.33x0.83 absolute #ffd100b3
-            box 1114.75,285.75 95x22.67 absolute @enter @leave
-          box 1209.75,285.75 115x22.67
-            box 1218.92,292.42 97.5x16
-              box 1218.92,293.75 13.33x13.33
-              box 1236.42,292.42 80x16
-                text 1236.42,292.42 80x16 "2.5 sec cast" #f3e7cc
-                box 1236.42,307.58 80x0.83 absolute #ffd100b3
-            box 1209.75,285.75 115x22.67 absolute @enter @leave
-        box 1067.25,308.42 257.5x20
-          box 1067.25,315.08 257.5x13.33
-            text 1067.25,315.25 257.5x13 "Locked — hover the underlined parts" #857a66
+surface 1057.42,240 282.58x105.42 on TOOLTIP
+  box 1057.42,240 282.58x105.42 @enter @leave
+    box 1057.42,240 282.58x105.42
+      box 1057.42,240 282.58x105.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1077.67,260.25 247.08x24.67
+          box 1077.67,260.25 247.08x18
+            text 1077.67,260.25 247.08x18 "Frostbolt" #ffffff
+        box 1077.67,284.92 247.08x22.5
+          box 1077.67,285.75 46.67x21.67
+            box 1086,292.42 30x15
+              box 1086,293.25 13.33x13.33
+                box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+              box 1103.5,292.42 12.5x15
+                text 1103.5,292.42 12.5x15 "65" #f3e7cc
+          box 1124.33,285.75 90.42x21.67
+            box 1133.5,292.42 72.92x15
+              box 1133.5,292.42 68.75x15
+                text 1133.5,292.42 68.75x15 "30 yd range" #f3e7cc
+                box 1133.5,306.58 68.75x0.83 absolute #ffd100b3
+            box 1124.33,285.75 90.42x21.67 absolute @enter @leave
+          box 1214.75,285.75 110x21.67
+            box 1223.92,292.42 92.5x15
+              box 1223.92,293.25 13.33x13.33
+                box 1222.25,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
+              box 1241.42,292.42 75x15
+                text 1241.42,292.42 75x15 "2.5 sec cast" #f3e7cc
+                box 1241.42,306.58 75x0.83 absolute #ffd100b3
+            box 1214.75,285.75 110x21.67 absolute @enter @leave
+        box 1077.67,307.42 247.08x20
+          box 1077.67,314.08 247.08x13.33
+            text 1077.67,314.25 247.08x13 "Locked — hover the underlined parts" #857a66
         box 1316.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
 
 the cursor's look: nil
 -- on the cast's cell: its term
-surface 1047,240 293x106.42 on TOOLTIP
-  box 1047,240 293x106.42 @enter @leave
-    box 1047,240 293x106.42
-      box 1047,240 293x106.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-        box 1067.25,260.25 257.5x24.67
-          box 1067.25,260.25 257.5x18
-            text 1067.25,260.25 257.5x18 "Frostbolt" #ffffff
-        box 1067.25,284.92 257.5x23.5
-          box 1067.25,285.75 47.5x22.67
-            box 1075.58,292.42 30.83x16
-              box 1075.58,293.75 13.33x13.33
-              box 1093.08,292.42 13.33x16
-                text 1093.08,292.42 13.33x16 "65" #f3e7cc
-          box 1114.75,285.75 95x22.67
-            box 1123.92,292.42 77.5x16
-              box 1123.92,292.42 73.33x16
-                text 1123.92,292.42 73.33x16 "30 yd range" #f3e7cc
-                box 1123.92,307.58 73.33x0.83 absolute #ffd100b3
-            box 1114.75,285.75 95x22.67 absolute @enter @leave
-          box 1209.75,285.75 115x22.67
-            box 1218.92,292.42 97.5x16
-              box 1218.92,293.75 13.33x13.33
-              box 1236.42,292.42 80x16
-                text 1236.42,292.42 80x16 "2.5 sec cast" #f3e7cc
-                box 1236.42,307.58 80x0.83 absolute #ffd100b3
-            box 1209.75,285.75 115x22.67 absolute @enter @leave
-        box 1067.25,308.42 257.5x20
-          box 1067.25,315.08 257.5x13.33
-            text 1067.25,315.25 257.5x13 "Locked — hover the underlined parts" #857a66
+surface 1057.42,240 282.58x105.42 on TOOLTIP
+  box 1057.42,240 282.58x105.42 @enter @leave
+    box 1057.42,240 282.58x105.42
+      box 1057.42,240 282.58x105.42 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+        box 1077.67,260.25 247.08x24.67
+          box 1077.67,260.25 247.08x18
+            text 1077.67,260.25 247.08x18 "Frostbolt" #ffffff
+        box 1077.67,284.92 247.08x22.5
+          box 1077.67,285.75 46.67x21.67
+            box 1086,292.42 30x15
+              box 1086,293.25 13.33x13.33
+                box 1084.33,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 8 of 16
+              box 1103.5,292.42 12.5x15
+                text 1103.5,292.42 12.5x15 "65" #f3e7cc
+          box 1124.33,285.75 90.42x21.67
+            box 1133.5,292.42 72.92x15
+              box 1133.5,292.42 68.75x15
+                text 1133.5,292.42 68.75x15 "30 yd range" #f3e7cc
+                box 1133.5,306.58 68.75x0.83 absolute #ffd100b3
+            box 1124.33,285.75 90.42x21.67 absolute @enter @leave
+          box 1214.75,285.75 110x21.67
+            box 1223.92,292.42 92.5x15
+              box 1223.92,293.25 13.33x13.33
+                box 1222.25,291.58 16.67x16.67 absolute Interface\AddOns\OrdaenTooltips\assets\tooltip-glyphs row 10 of 16
+              box 1241.42,292.42 75x15
+                text 1241.42,292.42 75x15 "2.5 sec cast" #f3e7cc
+                box 1241.42,306.58 75x0.83 absolute #ffd100b3
+            box 1214.75,285.75 110x21.67 absolute @enter @leave
+        box 1077.67,307.42 247.08x20
+          box 1077.67,314.08 247.08x13.33
+            text 1077.67,314.25 247.08x13 "Locked — hover the underlined parts" #857a66
         box 1316.08,248.92 20x20 absolute Interface/Buttons/UI-Panel-MinimizeButton-Up @click
-surface 1095.25,308.42 229.5x118.25 on TOOLTIP
-  box 1095.25,308.42 229.5x118.25
-    box 1095.25,308.42 229.5x118.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-      box 1115.5,328.67 194x24.67
-        box 1115.5,328.67 194x18
-          text 1115.5,328.67 194x18 "Cast time" #ffd100
-      box 1115.5,353.33 194x55.33
-        box 1115.5,360 194x42
-          text 1115.5,360 194x42 "The seconds you stand still while it's cast. Damage taken can slow it." #e6dcc6
+surface 1095.25,307.42 229.5x121.25 on TOOLTIP
+  box 1095.25,307.42 229.5x121.25
+    box 1095.25,307.42 229.5x121.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+      box 1115.5,327.67 194x24.67
+        box 1115.5,327.67 194x18
+          text 1115.5,327.67 194x18 "Cast time" #ffd100
+      box 1115.5,352.33 194x58.33
+        box 1115.5,359 194x45
+          text 1115.5,359 194x45 "The seconds you stand still while it's cast. Damage taken can slow it." #e6dcc6
 
 -- off the tooltip for longer than the grace: the lock goes
 asked: Tooltip.hide false

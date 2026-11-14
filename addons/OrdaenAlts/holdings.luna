@@ -98,16 +98,16 @@ public class Holdings implements Component {
     return $ltml {
       <box columns={1} gap={10 * PX}>
         <box height={30 * PX} rows={[{ fr: 1 }]}>
-          <input value={mut self.search} padding={{ left: 10 * PX, right: 10 * PX }} textSize={Style.TEXT}
+          <input value={mut self.search} padding={{ left: 10 * PX, right: 10 * PX }}
                  textColor={Style.INK} background={Color.hex("#00000080")} />
         </box>
-        <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={Style.SMALL} textColor={Style.DIM} />
+        <text $if={self.empty} value={Locale.NOTHING_FOUND} textSize={.Secondary} textColor={Style.DIM} />
         <box overflow={Overflow.Scroll}>
           <box $for={entry of self.entries} $key={entry.id} columns={ROW} gap={8 * PX} yAlign={Align.Center}
                padding={{ top: 3 * PX, bottom: 3 * PX }}>
             <ItemButton item={entry.id} count={entry.total} />
-            <text value={entry.name} textSize={Style.TEXT} textColor={Style.INK} />
-            <text value={entry.holders} textSize={Style.SMALL} textColor={Style.DIM} />
+            <text value={entry.name} textColor={Style.INK} />
+            <text value={entry.holders} textColor={Style.DIM} />
           </box>
         </box>
       </box>

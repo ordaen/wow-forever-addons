@@ -38,11 +38,11 @@ public class Tip implements Component {
       <surface layer={Layer.Tooltip} place={BY_ITS_BOX} clamp={true} width={WIDTH} textFamily={Ordaen.lookArt.font}
                border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} artOrigin={true}
                padding={12 * PX} columns={1} gap={2 * PX}>
-        <text value={self.title} textColor={NAME} textSize={18 * PX} />
-        <text $if={self.hasText} value={self.text} textColor={LABEL} textSize={14 * PX} />
+        <text value={self.title} textColor={NAME} textSize={.Title} />
+        <text $if={self.hasText} value={self.text} textColor={LABEL} />
         <box $for={row of self.rows} columns={ROW} gap={8 * PX} yAlign={Align.Center}>
-          <text value={row.label} textColor={LABEL} textSize={14 * PX} />
-          <text value={row.value} textColor={NAME} textSize={14 * PX} wrap={false} />
+          <text value={row.label} textColor={LABEL} />
+          <text value={row.value} textColor={NAME} wrap={false} />
         </box>
       </surface>
     }

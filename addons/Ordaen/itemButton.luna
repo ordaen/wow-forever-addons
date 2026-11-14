@@ -147,7 +147,7 @@ public class ItemButton implements Component {
         <Pip $for={marker of self.markers} marker={peek marker} />
         <box $if={self.counted} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
              xAlign={Align.End} yAlign={Align.End} padding={COUNT_PAD}>
-          <text value={self.count} textColor={INK} textSize={13 * PX} textShadow={COUNT_SHADOW} wrap={false} />
+          <text value={self.count} textColor={INK} textSize={.Secondary} textShadow={COUNT_SHADOW} wrap={false} />
         </box>
       </box>
     }

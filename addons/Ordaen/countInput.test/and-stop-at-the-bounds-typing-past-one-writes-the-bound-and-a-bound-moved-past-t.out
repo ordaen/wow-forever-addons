@@ -4,8 +4,8 @@ box 0,0 300x64.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
       box 0,0 23.33x28.33 absolute
         text 8.54,6.67 6.25x15 "-" #ffd100
-    box 28.33,7.17 18.33x14
-      text 34.58,7.17 5.83x14 "3" #ffffff
+    box 28.33,6.67 18.33x15
+      text 34.38,6.67 6.25x15 "3" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
       box 51.67,0 23.33x28.33 absolute
         text 60.21,6.67 6.25x15 "+" #ffd100
@@ -18,8 +18,8 @@ box 0,0 300x64.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
       box 0,0 23.33x28.33 absolute
         text 8.54,6.67 6.25x15 "-" #ffd100
-    box 28.33,7.17 18.33x14
-      text 34.58,7.17 5.83x14 "5" #ffffff
+    box 28.33,6.67 18.33x15
+      text 34.38,6.67 6.25x15 "5" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
       box 51.67,0 23.33x28.33 absolute
         text 60.21,6.67 6.25x15 "+" #808080
@@ -32,8 +32,8 @@ box 0,0 300x64.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
       box 0,0 23.33x28.33 absolute
         text 8.54,6.67 6.25x15 "-" #808080
-    box 28.33,7.17 18.33x14
-      text 34.58,7.17 5.83x14 "1" #ffffff
+    box 28.33,6.67 18.33x15
+      text 34.38,6.67 6.25x15 "1" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
       box 51.67,0 23.33x28.33 absolute
         text 60.21,6.67 6.25x15 "+" #ffd100
@@ -46,8 +46,8 @@ box 0,0 300x64.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
       box 0,0 23.33x28.33 absolute
         text 8.54,6.67 6.25x15 "-" #ffd100
-    box 28.33,7.17 18.33x14
-      text 34.58,7.17 5.83x14 "5" #ffffff
+    box 28.33,6.67 18.33x15
+      text 34.38,6.67 6.25x15 "5" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
       box 51.67,0 23.33x28.33 absolute
         text 60.21,6.67 6.25x15 "+" #808080
@@ -60,8 +60,8 @@ box 0,0 300x64.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
       box 0,0 23.33x28.33 absolute
         text 8.54,6.67 6.25x15 "-" #ffd100
-    box 28.33,7.17 18.33x14
-      text 34.58,7.17 5.83x14 "5" #ffffff
+    box 28.33,6.67 18.33x15
+      text 34.38,6.67 6.25x15 "5" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
       box 51.67,0 23.33x28.33 absolute
         text 60.21,6.67 6.25x15 "+" #808080
@@ -74,8 +74,8 @@ box 0,0 300x64.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
       box 0,0 23.33x28.33 absolute
         text 8.54,6.67 6.25x15 "-" #ffd100
-    box 28.33,7.17 18.33x14
-      text 34.58,7.17 5.83x14 "2" #ffffff
+    box 28.33,6.67 18.33x15
+      text 34.38,6.67 6.25x15 "2" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
       box 51.67,0 23.33x28.33 absolute
         text 60.21,6.67 6.25x15 "+" #808080
@@ -88,8 +88,8 @@ box 0,0 300x64.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
       box 0,0 23.33x28.33 absolute
         text 8.54,6.67 6.25x15 "-" #808080
-    box 28.33,7.17 18.33x14
-      text 34.58,7.17 5.83x14 "1" #ffffff
+    box 28.33,6.67 18.33x15
+      text 34.38,6.67 6.25x15 "1" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
       box 51.67,0 23.33x28.33 absolute
         text 60.21,6.67 6.25x15 "+" #808080
@@ -102,8 +102,8 @@ box 0,0 300x64.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
       box 0,0 23.33x28.33 absolute
         text 8.54,6.67 6.25x15 "-" #ffd100
-    box 28.33,7.17 18.33x14
-      text 34.58,7.17 5.83x14 "9" #ffffff
+    box 28.33,6.67 18.33x15
+      text 34.38,6.67 6.25x15 "9" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
       box 51.67,0 23.33x28.33 absolute
         text 60.21,6.67 6.25x15 "+" #808080

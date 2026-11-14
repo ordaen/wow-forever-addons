@@ -35,7 +35,7 @@ public class SettingRow implements Component {
     return $ltml {
       <box columns={[LABEL_WIDTH, { fr: 1 }]} gap={18 * PX} yAlign={Align.Center} opacity={self.opacity}>
         <box columns={1} @enter={self.onEnter} @leave={self.onLeave}>
-          <text value={self.label} textColor={LABEL} textSize={15 * PX} />
+          <text value={self.label} textColor={LABEL} />
           <Tip $if={self.tipShown} title={self.label} text={self.hint} />
         </box>
         <slot />

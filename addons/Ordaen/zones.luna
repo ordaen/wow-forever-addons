@@ -66,7 +66,7 @@ public class ZoneChip<K: Unknown> implements Component {
     return $ltml {
       <box padding={CHIP_PAD} background={CHIP} border={CHIP_EDGE} desaturate={self.pooled} opacity={self.opacity}
            @dragStart={self.onGrab} @dragStop={self.onRelease} @enter={self.onEnter} @leave={self.onLeave}>
-        <text value={self.item.label} textColor={CHIP_TEXT} textSize={14 * PX} wrap={false} />
+        <text value={self.item.label} textColor={CHIP_TEXT} wrap={false} />
       </box>
     }
   }
@@ -124,7 +124,7 @@ public class ZoneColumn<K: Unknown, Z: Unknown> implements Component {
     return $ltml {
       <box columns={1} gap={6 * PX} padding={8 * PX} xAlign={self.align} yAlign={Align.Start} border={self.divider}
            @drop={self.onDrop}>
-        <text $if={self.named} value={self.zone.label} textColor={DIM} textSize={12 * PX} />
+        <text $if={self.named} value={self.zone.label} textColor={DIM} textSize={.Secondary} />
         <$for={item of self.items}>
           <ZoneChip $if={self.value[item.key] == self.zone.value} item={item} dragging={mut self.dragging}
                     hinted={mut self.hinted} pooled={self.pool} />
@@ -175,7 +175,7 @@ public class Zones<K: Unknown, Z: Unknown> implements Component {
           <ZoneColumn $for={index, zone of self.zones} zone={zone} index={index} items={self.items}
                       value={mut self.value} dragging={mut self.dragging} hinted={mut self.hinted} />
         </box>
-        <text value={self.off.label} textColor={DIM} textSize={13 * PX} />
+        <text value={self.off.label} textColor={DIM} textSize={.Secondary} />
         <box columns={1} background={POOL} border={POOL_EDGE}>
           <ZoneColumn zone={self.off} index={1} items={self.items} value={mut self.value}
                       dragging={mut self.dragging} hinted={mut self.hinted} pool={true} />

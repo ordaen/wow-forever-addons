@@ -90,6 +90,7 @@ public class Tube implements Component {
     : "%s %s / %s".format(self.words, number(self.value - self.least), number(self.most - self.least))
   derived overBar: Boolean = self.over == Over.Bar
   derived overAhead: Boolean = self.over == Over.Ahead
+  derived tinted: Boolean = self.tint != nil
 
   // Ordaen's art: its root is there before this module loads.
   const fill: Art
@@ -99,6 +100,7 @@ public class Tube implements Component {
   words: Signal<String>
   ahead: Signal<Integer>
   height: Signal<Number>
+  tint: Signal<Color | nil>
   title: Signal<String>
   rows: Signal<Array<TipRow>>
   aheadTitle: Signal<String>
@@ -120,7 +122,10 @@ public class Tube implements Component {
     aheadText: Signal<String> = "",
     aheadRows: Signal<Array<TipRow>> = [],
     height: Signal<Number> = TUBE_HEIGHT,
+    // A colour the fill takes, its art made grey under it: the standing's.
+    tint: Signal<Color | nil> = nil,
   ) {
+    self.tint = tint
     self.fill = fill
     self.value = value
     self.least = least
@@ -147,7 +152,7 @@ public class Tube implements Component {
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}>
           <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.behind} background={RESTED} />
           <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.filled}
-               background={self.fill} />
+               background={self.fill} tint={self.tint} desaturate={self.tinted} />
           <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} columns={10} rows={FILL}>
             <box $for={cell of CELLS} border={MARK} />
             <box />
@@ -159,8 +164,9 @@ public class Tube implements Component {
              background={Ordaen.art.panel.xpTube} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align.Center}
              yAlign={Align.Center}>
-          <text value={self.label} textSize={12.5} textColor={LABEL} textOutline={1} textShadow={LABEL_SHADOW}
-                wrap={false} />
+          // Secondary: the values with the longest standing's name fit a tube at its least.
+          <text value={self.label} textSize={.Secondary} textColor={LABEL} textOutline={1}
+                textShadow={LABEL_SHADOW} wrap={false} />
         </box>
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              columns={self.parts} rows={FILL}>
@@ -192,6 +198,8 @@ public class XpBar implements Component {
   derived xpRows: Array<TipRow> = self.experienceRows()
   derived restedRows: Array<TipRow> = self.restRows()
   derived reputationRows: Array<TipRow> = self.standingRows()
+  // The faction's fill takes its standing's colour, as the client's reputation bar does.
+  derived standingTint: Color | nil = Game.reputation.color
 
   // What the player gained this session: the panel's, which outlasts a bar drawn again.
   experience: ExperienceGains
@@ -260,7 +268,8 @@ public class XpBar implements Component {
               aheadRows={self.restedRows} />
         <Tube $if={self.showsReputation} fill={peek Ordaen.art.panel.xpSteel} value={Game.reputation.value}
               least={Game.reputation.min} most={Game.reputation.max} words={Game.reputation.standing}
-              height={self.tubeHeight} title={Game.reputation.name} rows={self.reputationRows} />
+              height={self.tubeHeight} title={Game.reputation.name} rows={self.reputationRows}
+              tint={self.standingTint} />
       </box>
     }
   }

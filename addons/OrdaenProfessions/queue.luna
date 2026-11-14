@@ -1,7 +1,8 @@
-// The profession's «Queue» tab: what «Create» couldn't start at once, a line each (its icon, its name in its
-// difficulty's colour, which opens it, its count with − and +, ✕ to take it out); one table of the reagents they all
-// need (need, have, missing, red while short); and under a rule «Create in turn», which makes the first while
-// nothing is missing. The queue is the open profession's: its recipes and reagents are what the game has open.
+// The «Queue» tab: what «Create» asked for, every profession's, in the order it runs, a line each (its icon, its name
+// in its difficulty's colour (a recipe of a profession that isn't open: dim, its profession's icon), which opens it,
+// its count still to make with − and +, ✕ to take it out); one table of the reagents they all need (need, have,
+// missing, red while short); and under a rule what the queue is doing or why it waits, and «Create next», the
+// player's click that starts the next run (the client starts a craft from nothing else).
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
 import { Component, CountInput, PushButton, PX } from "Ordaen"
@@ -9,6 +10,8 @@ import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 import { MOST_COUNT, Queued, QueueAct } from "@/view"
+
+const NO_ICON: Art = "Interface/Icons/INV_Misc_QuestionMark"
 
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const BACK: Color = Color.hex("#0000004d")
@@ -26,9 +29,12 @@ const FOOT_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
 const FOOT_PAD: Edges = { top: 8 * PX }
 const SHORT: Color = Color.hex("#ff6a5a")
 
-// A queued recipe as the game has it, with its count.
+// A queued recipe as its line draws it, with its count still to make.
 public struct QueueLine {
-  recipe: Game.Recipe
+  recipe: Integer
+  name: String
+  icon: Art
+  color: Color
   count: Integer
 }
 
@@ -41,12 +47,21 @@ public struct Need {
   missing: Integer
 }
 
-// The lines of the queue the game has the recipes of.
-public function linesOf(queued: Array<Queued>, recipes: Array<Game.Recipe>): Array<QueueLine> {
+// The queue's lines: a recipe of the open profession as the game has it, another by its kept name and its
+// profession's icon.
+public function linesOf(queued: Array<Queued>, recipes: Array<Game.Recipe>, professions: Array<Game.Profession>): Array<QueueLine> {
   let list: Array<QueueLine> = []
   for (entry of queued) {
     const recipe = recipes.find(r => r.id == entry.recipe)
-    if (recipe != nil) { list.push({ recipe: recipe, count: entry.count }) }
+    if (recipe != nil) {
+      list.push({
+        recipe: entry.recipe, name: recipe.name, icon: recipe.icon, color: Style.difficultyColor(recipe.difficulty),
+        count: entry.count,
+      })
+    } else {
+      const profession = professions.find(p => p.skillLine == entry.skillLine)
+      list.push({ recipe: entry.recipe, name: entry.name, icon: profession?.icon ?? NO_ICON, color: Style.DIM, count: entry.count })
+    }
   }
   return list
 }
@@ -55,7 +70,7 @@ public function linesOf(queued: Array<Queued>, recipes: Array<Game.Recipe>): Arr
 public function needsOf(lines: Array<QueueLine>): Array<Need> {
   let list: Array<mut Need> = []
   for (line of lines) {
-    for (reagent of Game.tradeSkill.reagents(line.recipe.id)) {
+    for (reagent of Game.tradeSkill.reagents(line.recipe)) {
       let found = false
       for (need of list) {
         if (need.name == reagent.name) {
@@ -83,8 +98,8 @@ public class QueueRow implements Component {
   public counted: Event<(Integer, Integer)> = new Event()
 
   derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
-  derived color: Color = Style.difficultyColor(self.line.recipe.difficulty)
-  derived icon: Art = self.line.recipe.icon
+  derived color: Color = self.line.color
+  derived icon: Art = self.line.icon
 
   // The count as the stepper sets it: nought takes the line out.
   state count: Integer
@@ -107,18 +122,18 @@ public class QueueRow implements Component {
   // The stepper moved: the queue's count is its.
   recount(self, count: Integer) {
     const line = peek self.line
-    if (count != line.count) { self.counted.emit(line.recipe.id, count) }
+    if (count != line.count) { self.counted.emit(line.recipe, count) }
   }
 
-  onOpen(self) { self.act.emit(QueueAct.Open, self.line.recipe.id) }
-  onDrop(self) { self.act.emit(QueueAct.Drop, self.line.recipe.id) }
+  onOpen(self) { self.act.emit(QueueAct.Open, self.line.recipe) }
+  onDrop(self) { self.act.emit(QueueAct.Drop, self.line.recipe) }
 
   public render(self): Template {
     return $ltml {
       <box columns={LINE} gap={10 * PX} yAlign={Align.Center} padding={LINE_PAD} border={self.rule}>
         <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
         <box @click={self.onOpen}>
-          <text value={self.line.recipe.name} textSize={Style.TEXT} textColor={self.color} textShadow={Style.SHADOW}
+          <text value={self.line.name} textColor={self.color} textShadow={Style.SHADOW}
                 wrap={false} />
         </box>
         <CountInput value={mut self.count} least={0} most={MOST_COUNT} step={STEP} />
@@ -143,17 +158,17 @@ public class NeedRow implements Component {
     return $ltml {
       <box columns={NEED} gap={6 * PX} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
         <box width={28 * PX} height={28 * PX} border={Style.BRONZE} icon={self.icon} />
-        <text value={self.need.name} textSize={Style.RECIPE_TEXT} textColor={Style.INK} wrap={false} />
+        <text value={self.need.name} textColor={Style.INK} wrap={false} />
         <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.need.need]} textSize={Style.RECIPE_TEXT} textColor={Style.INK}
+          <text value={"%d"} arguments={[self.need.need]} textColor={Style.INK}
                 textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
         </box>
         <box xAlign={Align.End}>
-          <text value={"%d"} arguments={[self.need.have]} textSize={Style.RECIPE_TEXT} textColor={Style.INK}
+          <text value={"%d"} arguments={[self.need.have]} textColor={Style.INK}
                 textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
         </box>
         <box xAlign={Align.End}>
-          <text value={self.missing} textSize={Style.RECIPE_TEXT} textColor={self.missingColor}
+          <text value={self.missing} textColor={self.missingColor}
                 textFamily={Ordaen.lookArt.fontNumbers} wrap={false} />
         </box>
       </box>
@@ -166,34 +181,42 @@ public class QueuePage implements Component {
   // A line's stepper set its recipe's count; nought takes it out.
   public counted: Event<(Integer, Integer)> = new Event()
 
-  derived lines: Array<QueueLine> = linesOf(self.queued, Game.tradeSkill.recipes)
+  derived lines: Array<QueueLine> = linesOf(self.queued, Game.tradeSkill.recipes, Game.professions.list)
   derived needs: Array<Need> = needsOf(self.lines)
   derived empty: Boolean = self.lines.length == 0
-  // «Create in turn» waits for every reagent.
-  derived short: Boolean = self.needs.any(n => n.missing > 0)
+  derived waiting: Boolean = !self.ready
 
   queued: Signal<Array<Queued>>
+  status: Signal<String>
+  ready: Signal<Boolean>
   constructor(
-    // The open profession's queue.
+    // The queue, every profession's, in the order it runs.
     queued: Signal<Array<Queued>>,
+    // What the queue is doing, or why it waits.
+    status: Signal<String>,
+    // Whether «Create next» starts the next run: no run goes, a line waits, no fight.
+    ready: Signal<Boolean>,
   ) {
     self.queued = queued
+    self.status = status
+    self.ready = ready
   }
 
   onAct(self, act: QueueAct, id: Integer) { self.act.emit(act, id) }
   onCounted(self, recipe: Integer, count: Integer) { self.counted.emit(recipe, count) }
-  onRun(self) { self.act.emit(QueueAct.Run, 0) }
+  // From the player's click: the client starts a craft from nothing else.
+  onNext(self) { self.act.emit(QueueAct.Next, 0) }
 
   public render(self): Template {
     return $ltml {
       <box padding={PAD} border={FRAME} background={BACK} rows={PAGE} gap={10 * PX}>
         <box $if={self.empty} padding={10 * PX}>
-          <text value={Locale.QUEUE_EMPTY} textSize={Style.SMALL} textColor={Style.DIM} />
+          <text value={Locale.QUEUE_EMPTY} textSize={.Secondary} textColor={Style.DIM} />
         </box>
         <$else>
           <box overflow={Overflow.Scroll} gap={10 * PX}>
             <box columns={1}>
-              <QueueRow $for={index, line of self.lines} $key={line.recipe.id} line={line} index={index}
+              <QueueRow $for={index, line of self.lines} $key={line.recipe} line={line} index={index}
                         @act={self.onAct} @counted={self.onCounted} />
             </box>
             <box columns={1}>
@@ -201,21 +224,21 @@ public class QueuePage implements Component {
                 <box />
                 <box />
                 <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_NEED} textSize={Style.SMALL} textColor={Style.DIM} wrap={false} />
+                  <text value={Locale.QUEUE_NEED} textColor={Style.DIM} wrap={false} />
                 </box>
                 <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_HAVE} textSize={Style.SMALL} textColor={Style.DIM} wrap={false} />
+                  <text value={Locale.QUEUE_HAVE} textColor={Style.DIM} wrap={false} />
                 </box>
                 <box xAlign={Align.End}>
-                  <text value={Locale.QUEUE_MISSING} textSize={Style.SMALL} textColor={Style.DIM} wrap={false} />
+                  <text value={Locale.QUEUE_MISSING} textColor={Style.DIM} wrap={false} />
                 </box>
               </box>
               <NeedRow $for={need of self.needs} $key={need.name} need={need} />
             </box>
           </box>
           <box columns={FOOT} gap={10 * PX} yAlign={Align.Center} padding={FOOT_PAD} border={FOOT_RULE}>
-            <box />
-            <PushButton label={Locale.QUEUE_RUN} width={180 * PX} disabled={self.short} @click={self.onRun} />
+            <text value={self.status} textSize={.Secondary} textColor={Style.INK} />
+            <PushButton label={Locale.QUEUE_NEXT_BUTTON} width={180 * PX} disabled={self.waiting} @click={self.onNext} />
           </box>
         </>
       </box>

@@ -61,16 +61,15 @@ public class Status implements Component {
     return $ltml {
       <box columns={COLUMNS} gap={Style.GAP} yAlign={Align.Center} border={Style.RULE} padding={{ bottom: 6 * PX }}>
         <box columns={FIRST} gap={Style.GAP} yAlign={Align.Center}>
-          <text value={self.house} textColor={Style.GOLD} textSize={Style.TEXT} wrap={false} />
+          <text value={self.house} textColor={Style.GOLD} wrap={false} />
           <box $if={self.scanner.reading}>
             <ProgressBar fraction={self.scanner.progress} label={self.percent} />
           </box>
-          <text $elseif={self.waiting} value={Locale.WAITING} textColor={Style.AMBER} textSize={Style.TEXT} />
-          <text $elseif={self.fault != nil} value={self.faultText} textColor={Style.RED}
-                textSize={Style.TEXT} />
-          <text $else value={self.prices} textColor={Style.INK} textSize={Style.TEXT} />
+          <text $elseif={self.waiting} value={Locale.WAITING} textColor={Style.AMBER} />
+          <text $elseif={self.fault != nil} value={self.faultText} textColor={Style.RED} />
+          <text $else value={self.prices} textColor={Style.INK} />
         </box>
-        <text $if={self.wait > 0} value={self.next} textColor={Style.DIM} textSize={Style.SMALL} wrap={false} />
+        <text $if={self.wait > 0} value={self.next} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
         <PushButton $else label={Locale.SCAN} width={130 * PX} disabled={self.scanner.reading || self.waiting}
                     @click={self.onScan} />
       </box>

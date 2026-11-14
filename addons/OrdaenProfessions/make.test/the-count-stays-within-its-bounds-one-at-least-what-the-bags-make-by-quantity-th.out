@@ -4,22 +4,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 702.92,210.96 125x15 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -37,7 +37,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           box 381.08,272.21 441.67x28.33
             box 381.08,272.21 441.67x28.33 #00000080 input "" @change
             box 381.08,272.21 441.67x28.33 absolute
-              text 389.42,279.38 425x14 "Search by name or reagent" #a3977f
+              text 389.42,278.88 425x15 "Search by name or reagent" #a3977f
           box 381.08,307.21 441.67x28.33
             box 381.08,307.21 83.33x28.33
               box 381.08,307.21 83.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
@@ -45,59 +45,59 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                   text 404,313.88 37.5x15 "Filter" #ffd100
             box 469.42,307.21 141.67x28.33
               box 469.42,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 479.42,314.38 106.67x14 "By difficulty" #f0c860
+                text 479.42,313.88 106.67x15 "By difficulty" #f0c860
                 box 591.08,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
             box 616.08,307.21 141.67x28.33
               box 616.08,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 626.08,314.38 106.67x14 "In columns" #f0c860
+                text 626.08,313.88 106.67x15 "In columns" #f0c860
                 box 737.75,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
           box 381.08,342.21 441.67x403.42 #0000004d
             box 381.92,343.04 208.33x401.75 scrolled 0 of 0
-              box 381.92,343.04 208.33x25.67 #d6a56b3d @click
-                box 381.92,343.04 1.67x25.67 absolute #f0c860
-                text 390.25,348.88 162.5x14 "Cloth armour" #ffd100
-                box 559.42,349.88 22.5x12
-                  text 559.42,349.88 5x12 "2" #a3977f
-                  text 566.92,349.88 15x12 "(2)" #ffffff
+              box 381.92,343.04 208.33x26.67 #d6a56b3d @click
+                box 381.92,343.04 1.67x26.67 absolute #f0c860
+                text 390.25,348.88 157.5x15 "Cloth armour" #ffd100
+                box 554.42,348.88 27.5x15
+                  text 554.42,348.88 6.25x15 "2" #a3977f
+                  text 563.17,348.88 18.75x15 "(2)" #ffffff
             box 590.25,343.04 231.67x401.75 scrolled 0 of 0
-              box 591.08,343.04 230.83x23 #d6a56b3d clipped @click
-                box 591.08,343.04 1.67x23 absolute #f0c860
-                text 599.42,348.04 192.5x13 "Linen Cloak" #ff8040
-                text 798.58,348.54 15x12 "[5]" #ffffff
-              box 591.08,366.04 230.83x23.83 #00000000 clipped @click
-                text 599.42,371.88 192.5x13 "Bolt of Linen Cloth" #40c040
-                text 798.58,372.38 15x12 "[9]" #ffffff
+              box 591.08,343.04 230.83x25 #d6a56b3d clipped @click
+                box 591.08,343.04 1.67x25 absolute #f0c860
+                text 599.42,348.04 188.75x15 "Linen Cloak" #ff8040
+                text 794.83,348.04 18.75x15 "[5]" #ffffff
+              box 591.08,368.04 230.83x25.83 #00000000 clipped @click
+                text 599.42,373.88 188.75x15 "Bolt of Linen Cloth" #40c040
+                text 794.83,373.88 18.75x15 "[9]" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble
           box 843.58,283.04 369.5x43.33
             box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
-            box 895.25,289.38 317.83x30.67
-              text 895.25,289.38 317.83x17 "Linen Cloak" #ffffff
-              text 895.25,308.04 317.83x12 "Always raises the skill" #ff8040
+            box 895.25,288.38 317.83x32.67
+              text 895.25,288.38 317.83x18 "Linen Cloak" #ffffff
+              text 895.25,308.04 317.83x13 "Always raises the skill" #ff8040
           text 843.58,333.04 369.5x0 "" #e8dcc4
           text 843.58,339.71 369.5x0 "" #a3977f
           box 843.58,346.38 369.5x308.42 scrolled 0 of 0
           box 843.58,661.46 369.5x24.17
             box 843.58,668.96 174.75x16.67
-              text 843.58,670.29 134.75x14 "Favorite" #e8dcc4
+              text 843.58,669.79 134.75x15 "Favorite" #e8dcc4
               box 986.67,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
                 box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
                 box 999.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
             box 1038.33,668.96 174.75x16.67
-              text 1038.33,670.29 134.75x14 "Track" #e8dcc4
+              text 1038.33,669.79 134.75x15 "Track" #e8dcc4
               box 1181.42,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
                 box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
                 box 1193.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
           box 843.58,692.29 369.5x35.83
             box 843.58,699.79 141.67x28.33
               box 843.58,699.79 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 853.58,706.96 106.67x14 "Quantity" #f0c860
+                text 853.58,706.46 106.67x15 "Quantity" #f0c860
                 box 965.25,707.29 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
             box 991.92,699.79 75x28.33
               box 991.92,699.79 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
                 box 991.92,699.79 23.33x28.33 absolute
                   text 1000.46,706.46 6.25x15 "-" #ffd100
-              box 1020.25,706.96 18.33x14
-                text 1026.5,706.96 5.83x14 "5" #ffffff
+              box 1020.25,706.46 18.33x15
+                text 1026.29,706.46 6.25x15 "5" #ffffff
               box 1043.58,699.79 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
                 box 1043.58,699.79 23.33x28.33 absolute
                   text 1052.13,706.46 6.25x15 "+" #808080
@@ -106,21 +106,24 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #ffd100
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 142.33x59.42
     box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 425.83,144.12 56.25x45.92
-        text 425.83,153.67 56.25x15 "Tailoring" #ffd100
-        text 437.92,169.5 32.08x11 "31 / 75" #8f8470
+        text 425.83,152.67 56.25x15 "Tailoring" #ffd100
+        text 435,168.5 37.92x13 "31 / 75" #8f8470
 
 -- nothing to make: the count at one, −, + and «Create» disabled
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
@@ -128,22 +131,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 702.92,210.96 125x15 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -161,7 +164,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           box 381.08,272.21 441.67x28.33
             box 381.08,272.21 441.67x28.33 #00000080 input "" @change
             box 381.08,272.21 441.67x28.33 absolute
-              text 389.42,279.38 425x14 "Search by name or reagent" #a3977f
+              text 389.42,278.88 425x15 "Search by name or reagent" #a3977f
           box 381.08,307.21 441.67x28.33
             box 381.08,307.21 83.33x28.33
               box 381.08,307.21 83.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
@@ -169,59 +172,59 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                   text 404,313.88 37.5x15 "Filter" #ffd100
             box 469.42,307.21 141.67x28.33
               box 469.42,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 479.42,314.38 106.67x14 "By difficulty" #f0c860
+                text 479.42,313.88 106.67x15 "By difficulty" #f0c860
                 box 591.08,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
             box 616.08,307.21 141.67x28.33
               box 616.08,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 626.08,314.38 106.67x14 "In columns" #f0c860
+                text 626.08,313.88 106.67x15 "In columns" #f0c860
                 box 737.75,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
           box 381.08,342.21 441.67x403.42 #0000004d
             box 381.92,343.04 208.33x401.75 scrolled 0 of 0
-              box 381.92,343.04 208.33x25.67 #d6a56b3d @click
-                box 381.92,343.04 1.67x25.67 absolute #f0c860
-                text 390.25,348.88 162.5x14 "Cloth armour" #ffd100
-                box 559.42,349.88 22.5x12
-                  text 559.42,349.88 5x12 "2" #a3977f
-                  text 566.92,349.88 15x12 "(1)" #ffffff
+              box 381.92,343.04 208.33x26.67 #d6a56b3d @click
+                box 381.92,343.04 1.67x26.67 absolute #f0c860
+                text 390.25,348.88 157.5x15 "Cloth armour" #ffd100
+                box 554.42,348.88 27.5x15
+                  text 554.42,348.88 6.25x15 "2" #a3977f
+                  text 563.17,348.88 18.75x15 "(1)" #ffffff
             box 590.25,343.04 231.67x401.75 scrolled 0 of 0
-              box 591.08,343.04 230.83x23 #d6a56b3d clipped @click
-                box 591.08,343.04 1.67x23 absolute #f0c860
-                text 599.42,348.04 207.5x13 "Linen Cloak" #ff8040
-                text 813.58,354.54 0x0 "" #ffffff
-              box 591.08,366.04 230.83x23.83 #00000000 clipped @click
-                text 599.42,371.88 192.5x13 "Bolt of Linen Cloth" #40c040
-                text 798.58,372.38 15x12 "[9]" #ffffff
+              box 591.08,343.04 230.83x25 #d6a56b3d clipped @click
+                box 591.08,343.04 1.67x25 absolute #f0c860
+                text 599.42,348.04 207.5x15 "Linen Cloak" #ff8040
+                text 813.58,355.54 0x0 "" #ffffff
+              box 591.08,368.04 230.83x25.83 #00000000 clipped @click
+                text 599.42,373.88 188.75x15 "Bolt of Linen Cloth" #40c040
+                text 794.83,373.88 18.75x15 "[9]" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble
           box 843.58,283.04 369.5x43.33
             box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
-            box 895.25,289.38 317.83x30.67
-              text 895.25,289.38 317.83x17 "Linen Cloak" #ffffff
-              text 895.25,308.04 317.83x12 "Always raises the skill" #ff8040
+            box 895.25,288.38 317.83x32.67
+              text 895.25,288.38 317.83x18 "Linen Cloak" #ffffff
+              text 895.25,308.04 317.83x13 "Always raises the skill" #ff8040
           text 843.58,333.04 369.5x0 "" #e8dcc4
           text 843.58,339.71 369.5x0 "" #a3977f
           box 843.58,346.38 369.5x308.42 scrolled 0 of 0
           box 843.58,661.46 369.5x24.17
             box 843.58,668.96 174.75x16.67
-              text 843.58,670.29 134.75x14 "Favorite" #e8dcc4
+              text 843.58,669.79 134.75x15 "Favorite" #e8dcc4
               box 986.67,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
                 box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
                 box 999.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
             box 1038.33,668.96 174.75x16.67
-              text 1038.33,670.29 134.75x14 "Track" #e8dcc4
+              text 1038.33,669.79 134.75x15 "Track" #e8dcc4
               box 1181.42,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
                 box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
                 box 1193.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
           box 843.58,692.29 369.5x35.83
             box 843.58,699.79 141.67x28.33
               box 843.58,699.79 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 853.58,706.96 106.67x14 "Quantity" #f0c860
+                text 853.58,706.46 106.67x15 "Quantity" #f0c860
                 box 965.25,707.29 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
             box 991.92,699.79 75x28.33
               box 991.92,699.79 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
                 box 991.92,699.79 23.33x28.33 absolute
                   text 1000.46,706.46 6.25x15 "-" #808080
-              box 1020.25,706.96 18.33x14
-                text 1026.5,706.96 5.83x14 "1" #ffffff
+              box 1020.25,706.46 18.33x15
+                text 1026.29,706.46 6.25x15 "1" #ffffff
               box 1043.58,699.79 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
                 box 1043.58,699.79 23.33x28.33 absolute
                   text 1052.13,706.46 6.25x15 "+" #808080
@@ -230,21 +233,24 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #808080
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 142.33x59.42
     box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 425.83,144.12 56.25x45.92
-        text 425.83,153.67 56.25x15 "Tailoring" #ffd100
-        text 437.92,169.5 32.08x11 "31 / 75" #8f8470
+        text 425.83,152.67 56.25x15 "Tailoring" #ffd100
+        text 435,168.5 37.92x13 "31 / 75" #8f8470
 
 -- «Raise skill» at 44, the points left before 75: + disabled
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
@@ -252,22 +258,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 316.34x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 31 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 315.65x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 702.92,210.96 125x15 "Apprentice · 31 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -285,7 +291,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           box 381.08,272.21 441.67x28.33
             box 381.08,272.21 441.67x28.33 #00000080 input "" @change
             box 381.08,272.21 441.67x28.33 absolute
-              text 389.42,279.38 425x14 "Search by name or reagent" #a3977f
+              text 389.42,278.88 425x15 "Search by name or reagent" #a3977f
           box 381.08,307.21 441.67x28.33
             box 381.08,307.21 83.33x28.33
               box 381.08,307.21 83.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
@@ -293,82 +299,85 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                   text 404,313.88 37.5x15 "Filter" #ffd100
             box 469.42,307.21 141.67x28.33
               box 469.42,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 479.42,314.38 106.67x14 "By difficulty" #f0c860
+                text 479.42,313.88 106.67x15 "By difficulty" #f0c860
                 box 591.08,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
             box 616.08,307.21 141.67x28.33
               box 616.08,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 626.08,314.38 106.67x14 "In columns" #f0c860
+                text 626.08,313.88 106.67x15 "In columns" #f0c860
                 box 737.75,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
           box 381.08,342.21 441.67x403.42 #0000004d
             box 381.92,343.04 208.33x401.75 scrolled 0 of 0
-              box 381.92,343.04 208.33x25.67 #d6a56b3d @click
-                box 381.92,343.04 1.67x25.67 absolute #f0c860
-                text 390.25,348.88 162.5x14 "Cloth armour" #ffd100
-                box 559.42,349.88 22.5x12
-                  text 559.42,349.88 5x12 "2" #a3977f
-                  text 566.92,349.88 15x12 "(2)" #ffffff
+              box 381.92,343.04 208.33x26.67 #d6a56b3d @click
+                box 381.92,343.04 1.67x26.67 absolute #f0c860
+                text 390.25,348.88 157.5x15 "Cloth armour" #ffd100
+                box 554.42,348.88 27.5x15
+                  text 554.42,348.88 6.25x15 "2" #a3977f
+                  text 563.17,348.88 18.75x15 "(2)" #ffffff
             box 590.25,343.04 231.67x401.75 scrolled 0 of 0
-              box 591.08,343.04 230.83x23 #d6a56b3d clipped @click
-                box 591.08,343.04 1.67x23 absolute #f0c860
-                text 599.42,348.04 192.5x13 "Linen Cloak" #ff8040
-                text 798.58,348.54 15x12 "[5]" #ffffff
-              box 591.08,366.04 230.83x23.83 #00000000 clipped @click
-                text 599.42,371.88 192.5x13 "Bolt of Linen Cloth" #40c040
-                text 798.58,372.38 15x12 "[9]" #ffffff
+              box 591.08,343.04 230.83x25 #d6a56b3d clipped @click
+                box 591.08,343.04 1.67x25 absolute #f0c860
+                text 599.42,348.04 188.75x15 "Linen Cloak" #ff8040
+                text 794.83,348.04 18.75x15 "[5]" #ffffff
+              box 591.08,368.04 230.83x25.83 #00000000 clipped @click
+                text 599.42,373.88 188.75x15 "Bolt of Linen Cloth" #40c040
+                text 794.83,373.88 18.75x15 "[9]" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble
           box 843.58,283.04 369.5x43.33
             box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
-            box 895.25,289.38 317.83x30.67
-              text 895.25,289.38 317.83x17 "Linen Cloak" #ffffff
-              text 895.25,308.04 317.83x12 "Always raises the skill" #ff8040
+            box 895.25,288.38 317.83x32.67
+              text 895.25,288.38 317.83x18 "Linen Cloak" #ffffff
+              text 895.25,308.04 317.83x13 "Always raises the skill" #ff8040
           text 843.58,333.04 369.5x0 "" #e8dcc4
           text 843.58,339.71 369.5x0 "" #a3977f
-          box 843.58,346.38 369.5x300.75 scrolled 0 of 0
-          box 843.58,653.79 369.5x24.17
-            box 843.58,661.29 174.75x16.67
-              text 843.58,662.63 134.75x14 "Favorite" #e8dcc4
-              box 986.67,661.29 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 984.17,658.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                box 999.17,658.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-            box 1038.33,661.29 174.75x16.67
-              text 1038.33,662.63 134.75x14 "Track" #e8dcc4
-              box 1181.42,661.29 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
-                box 1178.92,658.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
-                box 1193.92,658.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
-          box 843.58,684.63 369.5x43.5
-            box 843.58,695.96 141.67x28.33
-              box 843.58,695.96 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 853.58,703.13 106.67x14 "Raise skill" #f0c860
-                box 965.25,703.46 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-            box 991.92,695.96 75x28.33
-              box 991.92,695.96 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
-                box 991.92,695.96 23.33x28.33 absolute
-                  text 1000.46,702.63 6.25x15 "-" #ffd100
-              box 1020.25,703.13 18.33x14
-                text 1023.58,703.13 11.67x14 "44" #ffffff
-              box 1043.58,695.96 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-                box 1043.58,695.96 23.33x28.33 absolute
-                  text 1052.13,702.63 6.25x15 "+" #808080
-            box 1073.58,692.13 38.33x36
-              text 1073.58,692.13 38.33x36 "Skill won't rise" #a3977f
-            box 1121.42,695.96 91.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-              box 1121.42,695.96 91.67x28.33 absolute
-                text 1148.5,702.63 37.5x15 "Create" #808080
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+          box 843.58,346.38 369.5x297.75 scrolled 0 of 0
+          box 843.58,650.79 369.5x24.17
+            box 843.58,658.29 174.75x16.67
+              text 843.58,659.13 134.75x15 "Favorite" #e8dcc4
+              box 986.67,658.29 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
+                box 984.17,655.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 999.17,655.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+            box 1038.33,658.29 174.75x16.67
+              text 1038.33,659.13 134.75x15 "Track" #e8dcc4
+              box 1181.42,658.29 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
+                box 1178.92,655.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
+                box 1193.92,655.79 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
+          box 843.58,681.63 369.5x46.5
+            box 843.58,694.46 141.67x28.33
+              box 843.58,694.46 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+                text 853.58,701.13 106.67x15 "Raise skill" #f0c860
+                box 965.25,701.96 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+            box 991.92,694.46 75x28.33
+              box 991.92,694.46 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click repeats
+                box 991.92,694.46 23.33x28.33 absolute
+                  text 1000.46,701.13 6.25x15 "-" #ffd100
+              box 1020.25,701.13 18.33x15
+                text 1023.17,701.13 12.5x15 "44" #ffffff
+              box 1043.58,694.46 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+                box 1043.58,694.46 23.33x28.33 absolute
+                  text 1052.13,701.13 6.25x15 "+" #808080
+            box 1073.58,689.13 38.33x39
+              text 1073.58,689.13 38.33x39 "Skill won't rise" #a3977f
+            box 1121.42,694.46 91.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+              box 1121.42,694.46 91.67x28.33 absolute
+                text 1148.5,701.13 37.5x15 "Create" #808080
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 142.33x59.42
     box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 425.83,144.12 56.25x45.92
-        text 425.83,153.67 56.25x15 "Tailoring" #ffd100
-        text 437.92,169.5 32.08x11 "31 / 75" #8f8470
+        text 425.83,152.67 56.25x15 "Tailoring" #ffd100
+        text 435,168.5 37.92x13 "31 / 75" #8f8470
 
 at 70 of 75: the count 5
 -- «All» with the bags emptied: 0 pcs., «Create» disabled
@@ -377,22 +386,22 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
   box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 381.08,207.21 842.83x538.42
       box 381.08,207.21 842.83x25
-        box 381.08,207.21 770.33x25 #3d2710
-          box 383.58,207.21 765.33x22.5 #0b0805 clipped
-            box 383.58,207.21 714.31x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-            box 383.58,207.21 765.33x22.5 absolute
-              box 383.58,207.21 76.53x22.5
-              box 460.12,207.21 76.53x22.5
-              box 536.65,207.21 76.53x22.5
-              box 613.18,207.21 76.53x22.5
-              box 689.72,207.21 76.53x22.5
-              box 766.25,207.21 76.53x22.5
-              box 842.78,207.21 76.53x22.5
-              box 919.32,207.21 76.53x22.5
-              box 995.85,207.21 76.53x22.5
-              box 1072.38,207.21 76.53x22.5
-            box 383.58,207.21 765.33x22.5 absolute
-              text 707.92,211.46 116.67x14 "Apprentice · 70 / 75" #ffffff
+        box 381.08,207.21 768.67x25 #3d2710
+          box 383.58,207.21 763.67x22.5 #0b0805 clipped
+            box 383.58,207.21 712.76x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 383.58,207.21 763.67x22.5 absolute
+              box 383.58,207.21 76.37x22.5
+              box 459.95,207.21 76.37x22.5
+              box 536.32,207.21 76.37x22.5
+              box 612.68,207.21 76.37x22.5
+              box 689.05,207.21 76.37x22.5
+              box 765.42,207.21 76.37x22.5
+              box 841.78,207.21 76.37x22.5
+              box 918.15,207.21 76.37x22.5
+              box 994.52,207.21 76.37x22.5
+              box 1070.88,207.21 76.37x22.5
+            box 383.58,207.21 763.67x22.5 absolute
+              text 702.92,210.96 125x15 "Apprentice · 70 / 75" #ffffff
       box 381.08,238.88 842.83x26.67
         box 381.08,238.88 842.83x26.67
           box 381.08,264.71 842.83x0.83 absolute #3e2f1d
@@ -410,7 +419,7 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
           box 381.08,272.21 441.67x28.33
             box 381.08,272.21 441.67x28.33 #00000080 input "" @change
             box 381.08,272.21 441.67x28.33 absolute
-              text 389.42,279.38 425x14 "Search by name or reagent" #a3977f
+              text 389.42,278.88 425x15 "Search by name or reagent" #a3977f
           box 381.08,307.21 441.67x28.33
             box 381.08,307.21 83.33x28.33
               box 381.08,307.21 83.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
@@ -418,71 +427,74 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
                   text 404,313.88 37.5x15 "Filter" #ffd100
             box 469.42,307.21 141.67x28.33
               box 469.42,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 479.42,314.38 106.67x14 "By difficulty" #f0c860
+                text 479.42,313.88 106.67x15 "By difficulty" #f0c860
                 box 591.08,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
             box 616.08,307.21 141.67x28.33
               box 616.08,307.21 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 626.08,314.38 106.67x14 "In columns" #f0c860
+                text 626.08,313.88 106.67x15 "In columns" #f0c860
                 box 737.75,314.71 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
           box 381.08,342.21 441.67x403.42 #0000004d
             box 381.92,343.04 208.33x401.75 scrolled 0 of 0
-              box 381.92,343.04 208.33x25.67 #d6a56b3d @click
-                box 381.92,343.04 1.67x25.67 absolute #f0c860
-                text 390.25,348.88 162.5x14 "Cloth armour" #ffd100
-                box 559.42,349.88 22.5x12
-                  text 559.42,349.88 5x12 "2" #a3977f
-                  text 566.92,349.88 15x12 "(1)" #ffffff
+              box 381.92,343.04 208.33x26.67 #d6a56b3d @click
+                box 381.92,343.04 1.67x26.67 absolute #f0c860
+                text 390.25,348.88 157.5x15 "Cloth armour" #ffd100
+                box 554.42,348.88 27.5x15
+                  text 554.42,348.88 6.25x15 "2" #a3977f
+                  text 563.17,348.88 18.75x15 "(1)" #ffffff
             box 590.25,343.04 231.67x401.75 scrolled 0 of 0
-              box 591.08,343.04 230.83x23 #d6a56b3d clipped @click
-                box 591.08,343.04 1.67x23 absolute #f0c860
-                text 599.42,348.04 207.5x13 "Linen Cloak" #ff8040
-                text 813.58,354.54 0x0 "" #ffffff
-              box 591.08,366.04 230.83x23.83 #00000000 clipped @click
-                text 599.42,371.88 192.5x13 "Bolt of Linen Cloth" #40c040
-                text 798.58,372.38 15x12 "[9]" #ffffff
+              box 591.08,343.04 230.83x25 #d6a56b3d clipped @click
+                box 591.08,343.04 1.67x25 absolute #f0c860
+                text 599.42,348.04 207.5x15 "Linen Cloak" #ff8040
+                text 813.58,355.54 0x0 "" #ffffff
+              box 591.08,368.04 230.83x25.83 #00000000 clipped @click
+                text 599.42,373.88 188.75x15 "Bolt of Linen Cloth" #40c040
+                text 794.83,373.88 18.75x15 "[9]" #ffffff
         box 832.75,272.21 391.17x473.42 Interface/FrameGeneral/UI-Background-Marble
           box 843.58,283.04 369.5x43.33
             box 843.58,283.04 43.33x43.33 icon=Interface/Icons/INV_Misc_Note_01
-            box 895.25,289.38 317.83x30.67
-              text 895.25,289.38 317.83x17 "Linen Cloak" #ffffff
-              text 895.25,308.04 317.83x12 "Always raises the skill" #ff8040
+            box 895.25,288.38 317.83x32.67
+              text 895.25,288.38 317.83x18 "Linen Cloak" #ffffff
+              text 895.25,308.04 317.83x13 "Always raises the skill" #ff8040
           text 843.58,333.04 369.5x0 "" #e8dcc4
           text 843.58,339.71 369.5x0 "" #a3977f
           box 843.58,346.38 369.5x308.42 scrolled 0 of 0
           box 843.58,661.46 369.5x24.17
             box 843.58,668.96 174.75x16.67
-              text 843.58,670.29 134.75x14 "Favorite" #e8dcc4
+              text 843.58,669.79 134.75x15 "Favorite" #e8dcc4
               box 986.67,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
                 box 984.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
                 box 999.17,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
             box 1038.33,668.96 174.75x16.67
-              text 1038.33,670.29 134.75x14 "Track" #e8dcc4
+              text 1038.33,669.79 134.75x15 "Track" #e8dcc4
               box 1181.42,668.96 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 0 of 4 @click
                 box 1178.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=1
                 box 1193.92,666.46 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=0
           box 843.58,692.29 369.5x35.83
             box 843.58,699.79 141.67x28.33
               box 843.58,699.79 141.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                text 853.58,706.96 106.67x14 "All" #f0c860
+                text 853.58,706.46 106.67x15 "All" #f0c860
                 box 965.25,707.29 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
             box 991.92,713.96 0x0
-            box 998.58,707.96 38.33x12
-              text 998.58,707.96 38.33x12 "0 pcs." #a3977f
+            box 998.58,707.46 38.33x13
+              text 998.58,707.46 38.33x13 "0 pcs." #a3977f
             box 1121.42,699.79 91.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
               box 1121.42,699.79 91.67x28.33 absolute
                 text 1148.5,706.46 37.5x15 "Create" #808080
-    box 1182.75,194.63 52.5x26.67 absolute clipped
-      box 1182.75,194.63 29.17x26.67 absolute clipped @click
-        box 1182.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-full row 0 of 8
+    box 1157.75,194.63 77.5x26.67 absolute clipped
+      box 1157.75,194.63 29.17x26.67 absolute clipped @click
+        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+      box 1186.92,194.63 25x26.67 absolute clipped @click
+        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
       box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
-    box 1159.42,194.63 23.33x26.67 absolute @click
-      text 1166.92,197.96 8.33x20 "☼" #c9a05a
+        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 358.33,133.88 142.33x59.42
     box 358.33,133.88 142.33x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
       box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
       box 425.83,144.12 56.25x45.92
-        text 425.83,153.67 56.25x15 "Tailoring" #ffd100
-        text 437.92,169.5 32.08x11 "70 / 75" #8f8470
+        text 425.83,152.67 56.25x15 "Tailoring" #ffd100
+        text 435,168.5 37.92x13 "70 / 75" #8f8470
