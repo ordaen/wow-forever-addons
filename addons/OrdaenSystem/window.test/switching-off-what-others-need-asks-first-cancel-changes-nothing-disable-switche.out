@@ -128,14 +128,14 @@ surface 0,0 1600x900 on DIALOG #0000008c
   box 603.58,385.04 392.83x129.92 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     text 633.83,431.96 337.33x15 "These stop loading: Ordaen System" #e8e0d0
     box 633.83,458.62 337.33x28.33
-      box 633.83,458.62 117.33x0
-      box 751.17,458.62 220x28.33
-        box 751.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          box 751.17,458.62 100x28.33 absolute
-            text 782.42,465.29 37.5x15 "Cancel" #ffd100
-        box 857.83,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          box 857.83,458.62 100x28.33 absolute
-            text 885.96,465.29 43.75x15 "Disable" #ffd100
+      box 633.83,458.62 124x0
+      box 757.83,458.62 213.33x28.33
+        box 757.83,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 757.83,458.62 100x28.33 absolute
+            text 789.08,465.29 37.5x15 "Cancel" #ffd100
+        box 864.5,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 864.5,458.62 100x28.33 absolute
+            text 892.62,465.29 43.75x15 "Disable" #ffd100
     box 610.83,403.96 383.33x18 absolute
       text 746.25,403.96 112.5x18 "Disable Ordaen?" #ffd100
 

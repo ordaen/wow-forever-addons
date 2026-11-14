@@ -136,16 +136,16 @@ surface 0,0 1600x900 on DIALOG #0000008c
         box 533.83,455.96 100x28.33 absolute
           text 565.08,462.62 37.5x15 "Delete" #ffd100
     box 533.83,495.96 537.33x28.33
-      box 533.83,495.96 217.33x0
-      box 751.17,495.96 320x28.33
-        box 751.17,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          box 751.17,495.96 100x28.33 absolute
-            text 782.42,502.62 37.5x15 "Cancel" #ffd100
-        box 857.83,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          box 857.83,495.96 100x28.33 absolute
-            text 889.08,502.62 37.5x15 "Rename" #ffd100
-        box 964.5,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          box 964.5,495.96 100x28.33 absolute
-            text 998.88,502.62 31.25x15 "Apply" #ffffff
+      box 533.83,495.96 224x0
+      box 757.83,495.96 313.33x28.33
+        box 757.83,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 757.83,495.96 100x28.33 absolute
+            text 789.08,502.62 37.5x15 "Cancel" #ffd100
+        box 864.5,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 864.5,495.96 100x28.33 absolute
+            text 895.75,502.62 37.5x15 "Rename" #ffd100
+        box 971.17,495.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 971.17,495.96 100x28.33 absolute
+            text 1005.54,502.62 31.25x15 "Apply" #ffffff
     box 510.83,366.62 583.33x18 absolute
       text 765,366.62 75x18 "Set «Gone»" #ffd100
