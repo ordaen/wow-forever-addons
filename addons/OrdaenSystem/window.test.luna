@@ -25,6 +25,7 @@ test "the menu's «AddOns» opens the window: by category, Ordaen's modules unde
   Test.mount(nil, SCREEN)
   Test.flush()
   Client.ToggleGameMenu()
+  Test.pass(0.02)
   Test.flush()
   Test.click(Test.holding("AddOns", nil), nil)
   Test.flush()
@@ -110,6 +111,28 @@ test "Ctrl on a group's parent switches the parent and its group together, the p
   Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
   Test.flush()
   Test.expect(window.catalog.isOn("Ordaen") && window.catalog.isOn("OrdaenSystem"))
+  destroy window
+}
+
+test "folding, switching and unfolding again: every row keeps its line, a switch shows at once" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  Test.click(Test.holding("User Interface", nil), nil)
+  Test.flush()
+  Test.click(Test.holding("User Interface", nil), nil)
+  Test.flush()
+  Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
+  Test.flush()
+  Test.click(Test.holding("Cancel", nil), nil)
+  Test.flush()
+  window.catalog.switchOff(["OrdaenSystem"])
+  Test.flush()
+  Test.click(Test.holding("Other", nil), nil)
+  Test.flush()
+  window.catalog.switchOn(["OrdaenSystem"])
+  Test.flush()
+  Test.expect(Test.errors().length == 0)
   destroy window
 }
 
