@@ -1,5 +1,5 @@
 -- the third tab clicked: the market's rows, the sales table under them
-box 0,0 700x564.77 @enter @leave
+box 0,0 700x667.83 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 42.08x25.83 #00000000 @click
@@ -9,8 +9,8 @@ box 0,0 700x564.77 @enter @leave
     box 109.58,0 62.5x26.67 #00000059 @click
       box 110.42,0.83 60.83x1.67 absolute #d6a56b
       text 122.08,6.67 37.5x15 "Market" #ffffff
-  box 0,34.67 700x435.03
-    box 0,34.67 700x435.03
+  box 0,34.67 700x538.1
+    box 0,34.67 700x538.1
       box 0,34.67 700x279.67
         box 0,34.67 700x15
           text 0,34.67 37.5x15 "Market" #e8c35a
@@ -116,10 +116,26 @@ box 0,0 700x564.77 @enter @leave
                 text 574.17,452.17 52.5x14 "0g 0s 40c" #e8dcc4
               box 633.33,452.67 60x13
                 text 660.83,452.67 32.5x13 "(9 d.)" #a3977f
-  text 0,477.7 700x14.4 "zone shown" #ffffff
-  box 0,500.1 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,500.1 120x28.33 absolute
-      text 47.5,506.77 25x15 "Save" #ffd100
-  box 0,536.43 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,536.43 120x28.33 absolute
-      text 44.38,543.1 31.25x15 "Reset" #808080
+      box 0,483.7 700x89.07
+        box 0,483.7 700x15
+          text 0,483.7 31.25x15 "Menus" #e8c35a
+          box 39.58,490.78 660.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+        box 0,510.37 700x28.33 opacity=1
+          box 0,517.03 233.33x15 @enter @leave
+            text 0,517.03 233.33x15 "Compact dropdown" #cbb994
+          box 248.33,510.37 170x28.33
+            box 248.33,510.37 170x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+              text 258.33,517.53 135x14 "By difficulty" #f0c860
+              box 398.33,517.87 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+        box 0,550.37 700x22.4 opacity=1
+          box 0,554.07 233.33x15 @enter @leave
+            text 0,554.07 233.33x15 "Context menu" #cbb994
+          box 248.33,550.37 451.67x22.4 @click
+            text 252.33,554.37 443.67x14.4 "Right-click here" #ffffff
+  text 0,580.77 700x14.4 "zone shown" #ffffff
+  box 0,603.17 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,603.17 120x28.33 absolute
+      text 47.5,609.83 25x15 "Save" #ffd100
+  box 0,639.5 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,639.5 120x28.33 absolute
+      text 44.38,646.17 31.25x15 "Reset" #808080

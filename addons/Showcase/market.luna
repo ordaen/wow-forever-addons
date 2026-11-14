@@ -1,9 +1,11 @@
 // The market's controls on a page, for the run tests: a scan's progress, a price with its age, a mode, a tree, item
 // slots and a sortable table of sales.
 import { Align, Click, MouseButton, Track } from "$ltml"
-import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, TreeRow, tracksOf } from "Ordaen"
+import { Age, Choice, Column, Component, CompactDropdown, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, TreeRow, tracksOf } from "Ordaen"
 
 public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
+
+public enum Order { Difficulty = "difficulty", Name = "name", Price = "price" }
 
 public struct Sale {
   name: String
@@ -17,6 +19,12 @@ const WORTHS: Array<Choice<Worth>> = [
   { value: Worth.Auction, label: "Auction" },
   { value: Worth.Merchant, label: "Merchant" },
   { value: Worth.Held, label: "Held", soon: true },
+]
+
+const ORDERS: Array<Choice<Order>> = [
+  { value: Order.Difficulty, label: "By difficulty" },
+  { value: Order.Name, label: "By name" },
+  { value: Order.Price, label: "By price", soon: true },
 ]
 
 const COLUMNS: Array<Column> = [
@@ -43,6 +51,12 @@ public class Market implements Component {
   state descending = false
   // The button of the last click on a row of the sales.
   state clicked = "none"
+  state sortBy: Order = Order.Difficulty
+  // The context menu: open under its box, the switch's state, the place of the last entry clicked.
+  state menuOpen = false
+  state menuOn = false
+  state menuPicked = 0
+  derived menuEntries: Array<MenuEntry> = self.entriesOf()
   derived ordered: Array<Sale> = self.order()
 
   // The sales by the column the table is sorted by, as the page keeps them when it is not.
@@ -59,6 +73,25 @@ public class Market implements Component {
     })
     return list
   }
+
+  entriesOf(self): Array<MenuEntry> {
+    return [
+      { label: "Link in chat" },
+      { label: "Create [0]", disabled: true },
+      { label: "Favorite", on: self.menuOn, group: true },
+    ]
+  }
+
+  onMenuBox(mut self, click: Click) {
+    if (click.button == MouseButton.Right) { self.menuOpen = true }
+  }
+
+  onMenuPick(mut self, index: Integer) {
+    self.menuPicked = index
+    if (index == 3) { self.menuOn = !self.menuOn } else { self.menuOpen = false }
+  }
+
+  onMenuClose(mut self) { self.menuOpen = false }
 
   onItem(mut self, item: Integer) { self.chosenItem = item }
   onSale(mut self, click: Click) { self.clicked = click.button == MouseButton.Right ? "right" : "left" }
@@ -114,6 +147,17 @@ public class Market implements Component {
               </box>
             </TableRow>
           </Table>
+        </Section>
+        <Section title={"Menus"}>
+          <SettingRow label={"Compact dropdown"}>
+            <CompactDropdown value={mut self.sortBy} choices={ORDERS} width={170} />
+          </SettingRow>
+          <SettingRow label={"Context menu"}>
+            <box padding={4} @click={self.onMenuBox}>
+              <text value={"Right-click here"} />
+              <Menu $if={self.menuOpen} entries={self.menuEntries} @pick={self.onMenuPick} @close={self.onMenuClose} />
+            </box>
+          </SettingRow>
         </Section>
       </box>
     }

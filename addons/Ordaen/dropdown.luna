@@ -19,12 +19,14 @@ public struct Choice<T: Unknown> {
 const WIDTH = 240 * PX
 const HEIGHT = 34 * PX
 const TEXT = 15 * PX
+const COMPACT_TEXT = 14 * PX
 const GOLD: Color = Color.hex("#f0c860")
 const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#ffffff73")
 // The design's 700: the same colour one pixel to the right.
 const BOLD: Shadow = { color: GOLD, x: 1 * PX, y: 0 }
 const FACE_PAD: Edges = { right: 12 * PX, left: 18 * PX }
+const COMPACT_FACE_PAD: Edges = { right: 8 * PX, left: 12 * PX }
 const ARROW_SHADOW: Shadow = { color: Color.hex("#14141fcc"), x: 1 * PX, y: 1 * PX }
 const MENU_BACK: Color = Color.hex("#0a0806f7")
 const MENU_EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
@@ -41,15 +43,21 @@ public class DropdownItem<T: Unknown> implements Component {
   derived text: String = self.choice.soon == true ? self.choice.label + " — " + Locale.SOON : self.choice.label
   derived color: Color = self.choice.soon == true ? DIM : WHITE
   derived light: Color | Stated<Color> = self.choice.soon == true ? CLEAR : LIGHT
+  derived size: Number = self.compact ? COMPACT_TEXT : TEXT
+  derived wraps: Boolean = !self.compact
 
   const choice: Choice<T>
   value: Signal<T>
+  const compact: Boolean
   constructor(
     choice: Choice<T>,
     value: Signal<T>,
+    // As a `CompactDropdown`'s: the text a point smaller, on one line.
+    compact: Boolean = false,
   ) {
     self.choice = choice
     self.value = value
+    self.compact = compact
   }
 
   onClick(mut self) {
@@ -61,15 +69,23 @@ public class DropdownItem<T: Unknown> implements Component {
       <box padding={ITEM_PAD} background={self.light} @click={self.onClick}>
         <box position={Position.Absolute} left={10 * PX} top={9 * PX} width={11 * PX} height={11 * PX}
              background={self.mark} />
-        <text value={self.text} textColor={self.color} textSize={TEXT} />
+        <text value={self.text} textColor={self.color} textSize={self.size} wrap={self.wraps} />
       </box>
     }
   }
 }
 
+// The label of the choice a value is: none when it is none of them.
+function labelOf<T: Unknown>(choices: Array<Choice<T>>, value: T): String {
+  for (choice of choices) {
+    if (choice.value == value) { return choice.label }
+  }
+  return ""
+}
+
 public class Dropdown<T: Unknown> implements Component {
   state open = false
-  derived shown: String = self.labelOf()
+  derived shown: String = labelOf(self.choices, self.value)
 
   label: Signal<String>
   value: mut Signal<T>
@@ -88,13 +104,6 @@ public class Dropdown<T: Unknown> implements Component {
     self.choices = choices
     self.hint = hint
     self.disabled = disabled
-  }
-
-  labelOf(self): String {
-    for (choice of self.choices) {
-      if (choice.value == self.value) { return choice.label }
-    }
-    return ""
   }
 
   toggle(mut self) {
@@ -125,6 +134,54 @@ public class Dropdown<T: Unknown> implements Component {
           </box>
         </box>
       </SettingRow>
+    }
+  }
+}
+
+// CompactDropdown: the bronze plate alone, as wide as it is told and with no label of a setting's row, for a tool row
+// (a sort, a view). It shows the picked choice in gold with an arrow; left-click opens the list under it, a click on a
+// choice picks it and closes the list, a click anywhere else closes it.
+public class CompactDropdown<T: Unknown> implements Component {
+  state open = false
+  derived shown: String = labelOf(self.choices, self.value)
+  derived listWidth: Number = self.width + 40 * PX
+
+  value: mut Signal<T>
+  const choices: Array<Choice<T>>
+  width: Signal<Number>
+  constructor(
+    value: mut Signal<T>,
+    choices: Array<Choice<T>>,
+    width: Signal<Number>,
+  ) {
+    self.value = value
+    self.choices = choices
+    self.width = width
+  }
+
+  toggle(mut self) { self.open = !self.open }
+  close(mut self) { self.open = false }
+
+  onPick(mut self, value: T) {
+    self.value = value
+    self.open = false
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box width={self.width} height={HEIGHT}>
+        <box position={Position.Absolute} left={0} top={0} width={self.width} height={HEIGHT}
+             padding={COMPACT_FACE_PAD} columns={[{ fr: 1 }, 16 * PX]} gap={6 * PX} yAlign={Align.Center}
+             background={Ordaen.art.ctl.button} @click={self.toggle}>
+          <text value={self.shown} textColor={GOLD} textSize={COMPACT_TEXT} wrap={false} />
+          <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
+        </box>
+        <box $if={self.open} position={Position.Absolute} left={0} top={38 * PX} width={self.listWidth} zLevel={50}
+             background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} @clickOutside={self.close}>
+          <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
+                        @pick={self.onPick} />
+        </box>
+      </box>
     }
   }
 }

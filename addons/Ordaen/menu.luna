@@ -1,0 +1,104 @@
+// Menu: a context menu standing under the box it is written in (a list's row, a button), opened and closed by its
+// owner with `$if`. Its entries are lines of text; one with a switch shows its state, one that starts a group has a
+// rule above it, a disabled one is dim and takes no click. A click on an entry reports `pick` with its place and
+// leaves the menu to the owner (a switch's menu stays open while the owner flips it, a plain entry's closes it); a
+// click anywhere else reports `close` and goes no further: the menu is on top, so the click opens nothing under it.
+import { Align, Art, Beside, Edges, Layer, Line, Position, Side, Stated, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component } from "@/module"
+import { PX } from "@/units"
+import { SWITCH_KNOB, KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_WIDTH } from "@/switch"
+
+// One line of a menu.
+public struct MenuEntry {
+  // What the player reads. It names the line while the menu stands, so no two lines have one label: a line whose
+  // switch flips is the same line, kept as it is.
+  label: String
+  // A switch at the right showing this state; none: a plain entry.
+  on: Boolean | nil
+  disabled: Boolean | nil
+  // It starts a group: a rule above it.
+  group: Boolean | nil
+}
+
+const WIDTH = 220 * PX
+const TEXT = 14 * PX
+const BACK: Color = Color.hex("#0a0806f7")
+const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
+const PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
+const ITEM_PAD: Edges = { top: 6 * PX, right: 14 * PX, bottom: 6 * PX, left: 14 * PX }
+const GROUP_PAD: Edges = { top: 12 * PX, right: 14 * PX, bottom: 6 * PX, left: 14 * PX }
+const RULE: Line = { width: 1 * PX, color: Color.hex("#3e2f1d"), sides: [Side.Top] }
+const NAME: Stated<Color> = { default: Color.hex("#e8dcc4"), hover: Color.hex("#ffffff") }
+const DIM: Color = Color.hex("#6f6552")
+const CLEAR: Color = Color.hex("#00000000")
+const LIGHT: Stated<Color> = { default: CLEAR, hover: Color.hex("#d6a56b2e") }
+const ROW: Array<Track> = [{ fr: 1 }, "auto"]
+
+// One line of the open menu.
+public class MenuItem implements Component {
+  public pick: Event<Integer> = new Event()
+
+  derived enabled: Boolean = self.entry.disabled != true
+  derived color: Color | Stated<Color> = self.enabled ? NAME : DIM
+  derived light: Color | Stated<Color> = self.enabled ? LIGHT : CLEAR
+  derived padding: Edges = self.entry.group == true ? GROUP_PAD : ITEM_PAD
+  derived rule: Line | nil = self.entry.group == true ? RULE : nil
+  derived switched: Boolean = self.entry.on != nil
+  derived on: Boolean = self.entry.on == true
+  derived track: Art = self.on ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff
+  derived knob: Art = self.on ? Ordaen.art.ctl.knobOn : Ordaen.art.ctl.knobOff
+  derived knobLeft: Number = self.on ? KNOB_ON : KNOB_OFF
+
+  entry: Signal<MenuEntry>
+  index: Signal<Integer>
+  constructor(
+    entry: Signal<MenuEntry>,
+    index: Signal<Integer>,
+  ) {
+    self.entry = entry
+    self.index = index
+  }
+
+  onClick(mut self) {
+    if (self.enabled) { self.pick.emit(self.index) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={ROW} gap={10 * PX} padding={self.padding} yAlign={Align.Center} border={self.rule}
+           background={self.light} @click={self.onClick}>
+        <text value={self.entry.label} textColor={self.color} textSize={TEXT} wrap={false} stateFromParent={true} />
+        <box $if={self.switched} width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track}>
+          <box position={Position.Absolute} left={self.knobLeft} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
+               background={self.knob} />
+        </box>
+      </box>
+    }
+  }
+}
+
+public class Menu implements Component {
+  // The place of the entry that was clicked, from 1.
+  public pick: Event<Integer> = new Event()
+  // A click outside the menu.
+  public close: Event<nil> = new Event()
+
+  entries: Signal<Array<MenuEntry>>
+  constructor(entries: Signal<Array<MenuEntry>>) {
+    self.entries = entries
+  }
+
+  onPick(mut self, index: Integer) { self.pick.emit(index) }
+  onOutside(mut self) { self.close.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
+               border={EDGE} padding={PAD} columns={1} @clickOutside={self.onOutside}>
+        <MenuItem $for={index, entry of self.entries} $key={entry.label} entry={entry} index={index}
+                  @pick={self.onPick} />
+      </surface>
+    }
+  }
+}
