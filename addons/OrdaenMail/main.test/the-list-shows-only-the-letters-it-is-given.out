@@ -4,12 +4,12 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
     box 312.75,231.38 979.5x476.75
       box 332.75,251.38 939.5x436.75
         box 332.75,251.38 516.67x436.75
-          box 332.75,251.38 516.67x48
+          box 332.75,251.38 516.67x49.4
             box 332.75,251.38 516.67x28.33
               box 332.75,251.38 450x28.33
                 box 332.75,251.38 450x28.33 #00000080 input "" @change @submit
                 box 332.75,251.38 450x28.33 absolute
-                  text 341.08,258.04 433.33x15 "Search subject or sender" #a3977f
+                  text 341.08,257.74 433.33x15.6 "Search subject or sender" #a3977f
               box 782.75,251.38 66.67x28.33
                 box 782.75,251.38 33.33x28.33
                   box 787.75,251.38 28.33x28.33
@@ -19,51 +19,51 @@ surface 300,181.38 1000x537.25 on DIALOG clamped raised by a click
                   box 821.08,251.38 28.33x28.33
                     box 821.08,251.38 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                       box 828.58,258.88 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 4 of 8
-            text 332.75,286.38 516.67x13 "Letters in the mailbox: 4" #a3977f
-          box 332.75,306.04 516.67x347.08 scrolled 0 of 0
-            box 332.75,306.04 516.67x34.67 #00000066 @click
-              box 337.75,314.21 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-                box 337.75,314.21 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-              box 364.42,311.71 23.33x23.33 #0d0a08 opacity=1 @click @enter
-                box 364.42,311.71 23.33x23.33 absolute
-                box 364.42,311.71 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                box 364.42,311.71 23.33x23.33 absolute #00000000
-              box 396.08,309.38 377.5x28
-                text 396.08,309.38 377.5x15 "Bolts for you" #e8dcc4
-                text 396.08,324.38 377.5x13 "Regy" #a3977f
-              box 780.25,315.88 12.5x15
-                text 780.25,315.88 12.5x15 "+1" #a3977f
-              box 799.42,315.88 45x15
-                text 825.67,315.88 18.75x15 "2 d" #ff4040
-            box 332.75,340.71 516.67x34.67 #00000066 @click
-              box 337.75,348.88 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-                box 337.75,348.88 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-              box 364.42,346.38 23.33x23.33 #0d0a08 opacity=1 @click @enter
-                box 364.42,346.38 23.33x23.33 absolute
-                box 364.42,346.38 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
-                box 364.42,346.38 23.33x23.33 absolute #00000000
-              box 396.08,344.04 290x28
-                text 396.08,344.04 290x15 "Pay for the sword" #e8dcc4
-                text 396.08,359.04 290x13 "Dorn" #a3977f
-              box 692.75,350.54 100x15
-                text 692.75,350.54 100x15 "Cash on delivery" #ff9a30
-              box 799.42,350.54 45x15
-                text 819.42,350.54 25x15 "10 d" #a3977f
+            text 332.75,286.38 516.67x14.4 "Letters in the mailbox: 4" #a3977f
+          box 332.75,307.44 516.67x345.68 scrolled 0 of 0
+            box 332.75,307.44 516.67x36.67 #00000066 @click
+              box 337.75,316.61 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+                box 337.75,316.61 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+              box 364.42,314.11 23.33x23.33 #0d0a08 opacity=1 @click @enter
+                box 364.42,314.11 23.33x23.33 absolute
+                box 364.42,314.11 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                box 364.42,314.11 23.33x23.33 absolute #00000000
+              box 396.08,310.77 374.44x30
+                text 396.08,310.77 374.44x15.6 "Bolts for you" #e8dcc4
+                text 396.08,326.38 374.44x14.4 "Regy" #a3977f
+              box 777.19,317.98 15.56x15.6
+                text 777.19,317.98 15.56x15.6 "+1" #a3977f
+              box 799.42,317.98 45x15.6
+                text 822.19,317.98 22.22x15.6 "2 d" #ff4040 right
+            box 332.75,344.11 516.67x36.67 #00000066 @click
+              box 337.75,353.28 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+                box 337.75,353.28 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+              box 364.42,350.78 23.33x23.33 #0d0a08 opacity=1 @click @enter
+                box 364.42,350.78 23.33x23.33 absolute
+                box 364.42,350.78 23.33x23.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
+                box 364.42,350.78 23.33x23.33 absolute #00000000
+              box 396.08,347.44 283.33x30
+                text 396.08,347.44 283.33x15.6 "Pay for the sword" #e8dcc4
+                text 396.08,363.04 283.33x14.4 "Dorn" #a3977f
+              box 686.08,354.64 106.67x15.6
+                text 686.08,354.64 106.67x15.6 "Cash on delivery" #ff9a30
+              box 799.42,354.64 45x15.6
+                text 815.53,354.64 28.89x15.6 "10 d" #a3977f right
           box 332.75,659.79 516.67x28.33
             box 332.75,673.96 343.33x0
             box 682.75,659.79 166.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 682.75,659.79 166.67x28.33 absolute
-                text 719.21,666.46 93.75x15 "Collect all (1)" #808080
+                text 716.08,666.16 100x15.6 "Collect all (1)" #808080 centred
         box 857.75,251.38 414.5x436.75
-          text 1021.25,462.25 87.5x15 "Pick a letter." #a3977f
+          text 1018.33,461.95 93.33x15.6 "Pick a letter." #a3977f centred
     box 1282.75,698.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 300,181.38 386.17x47.75
+  box 300,181.38 392.83x47.75
     box 300,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 318.58,191.62 77.33x34.25
-        text 329.12,201.25 56.25x15 "Inbox (2)" #ffd100
+        text 326.69,200.95 61.11x15.6 "Inbox (2)" #ffd100 centred
     box 424.5,181.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.08,191.62 77.33x34.25
-        text 469.25,201.25 25x15 "Sent" #b3a690
-    box 549,181.38 137.17x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 567.58,191.62 100x34.25
-        text 567.58,201.25 100x15 "To my characters" #b3a690
+        text 467.31,200.95 28.89x15.6 "Sent" #b3a690 centred
+    box 549,181.38 143.83x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 567.58,191.62 106.67x34.25
+        text 567.58,200.95 106.67x15.6 "To my characters" #b3a690 centred
