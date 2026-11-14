@@ -1,6 +1,7 @@
 // What the professions window's lists share: the views of a profession's recipes, how they are ordered, what a click on
 // a row asks of the window, and the groups the recipes fall into.
 import Game from "$game"
+import { Totals } from "@/cost"
 
 // How the recipes are laid out: the categories beside the category's recipes (ours, the default), one list with the
 // categories as headings, one flat list, a table.
@@ -50,9 +51,26 @@ public function before(sort: SortBy, a: Game.Recipe, b: Game.Recipe): Boolean {
 }
 
 // The table's order: by its column (1 the name, 2 how many can be made now), then by name, then by number.
-public function tableBefore(column: Integer, descending: Boolean, a: Game.Recipe, b: Game.Recipe): Boolean {
+// By a column of the table: 1 the name, 2 how many can be made, 3 the cost, 4 the profit (`worth`, by recipe; one with
+// no price after every one with a price, either way).
+public function tableBefore(
+  column: Integer, descending: Boolean, worth: Map<Integer, Totals>, a: Game.Recipe, b: Game.Recipe,
+): Boolean {
+  if (column == 3 || column == 4) {
+    const x = worthOf(column, worth, a)
+    const y = worthOf(column, worth, b)
+    if (x != nil && y == nil) { return true }
+    if (x == nil && y != nil) { return false }
+    if (x != nil && y != nil && x != y) { return descending ? x > y : x < y }
+  }
   if (descending) { return tableLess(column, b, a) }
   return tableLess(column, a, b)
+}
+
+function worthOf(column: Integer, worth: Map<Integer, Totals>, recipe: Game.Recipe): Integer | nil {
+  const totals = worth[recipe.id]
+  if (totals == nil) { return nil }
+  return column == 3 ? totals.cost : totals.profit
 }
 
 function tableLess(column: Integer, a: Game.Recipe, b: Game.Recipe): Boolean {

@@ -7,7 +7,10 @@ import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
 import { Component, ItemButton, PX, space } from "Ordaen"
 import root Ordaen from "Ordaen"
+import type { PriceSource } from "OrdaenAuction"
+import { PartPrice, partsOf, Totals, totalsOf, yieldOf } from "@/cost"
 import { Flag } from "@/flag"
+import { PriceHead, PricedReagentRow, TotalsBlock } from "@/priceRows"
 import Locale from "@/locales"
 import { MakeRow } from "@/make"
 import { ReagentRow } from "@/rows"
@@ -18,8 +21,11 @@ const RIM: Line = { width: 1 * PX, color: Style.LINE }
 const SWITCHES: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }
 const SWITCHES_PAD: Edges = { top: space(.Item) }
 const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
-// The head, the description, the needs, the reagents in the rest, the switches, the make row, the note.
-const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto", "auto"]
+// The head, the description, the needs, the reagents in the rest, their totals, the switches, the make row, the note.
+const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto", "auto", "auto"]
+const NO_TOTALS: Totals = {
+  cost: nil, toBuy: nil, sellable: false, sale: nil, profit: nil, oldest: nil, priced: false,
+}
 const NOTE: Color = Color.hex("#c8b48a")
 const SLOT = 52 * PX
 const HEAD: Array<Track> = [SLOT, { fr: 1 }]
@@ -49,10 +55,18 @@ public class RecipeDetails implements Component {
   derived tracked: Boolean = has(self.kept.tracked, self.shown.id)
   derived cannotTrack: Boolean = !self.shown.learned
   derived noted: Boolean = self.note != ""
+  // Ordaen Auction's prices, while they are shown: each reagent's for the count the make row says, and the totals.
+  derived priced: Boolean = self.prices != nil
+  derived pricedCount: Integer = self.pricedCountOf()
+  derived parts: Array<PartPrice> = self.partsOf()
+  derived totals: Totals = self.totalsOf()
+  // Ordaen Auction is on but has no price for any part: nothing was scanned.
+  derived noPrices: Boolean = self.priced && self.reagents.length > 0 && !self.totals.priced
 
   recipe: Signal<Game.Recipe | nil>
   kept: Signal<Kept>
   note: Signal<String>
+  prices: Signal<any PriceSource | nil>
   count: mut Signal<Integer>
   mode: mut Signal<MakeMode>
   profession: Signal<Game.Profession | nil>
@@ -63,6 +77,8 @@ public class RecipeDetails implements Component {
     kept: Signal<Kept>,
     // What became of the last «Create» that waits in the queue; empty for none.
     note: Signal<String>,
+    // Ordaen Auction's prices while they are shown (it is on, and «Prices» is); none for none.
+    prices: Signal<any PriceSource | nil>,
     // The make row's: how many, by which mode, of the profession open; where the recipe turns yellow and grey.
     count: mut Signal<Integer>,
     mode: mut Signal<MakeMode>,
@@ -73,6 +89,7 @@ public class RecipeDetails implements Component {
     self.recipe = recipe
     self.kept = kept
     self.note = note
+    self.prices = prices
     self.count = count
     self.mode = mode
     self.profession = profession
@@ -81,6 +98,26 @@ public class RecipeDetails implements Component {
   }
 
   onCreate(self, count: Integer) { self.create.emit(count) }
+
+  // How many the prices are for: the count by «Quantity» and «Raise skill», what the bags make by «All»; one at least.
+  pricedCountOf(self): Integer {
+    if (self.mode == MakeMode.All) { return self.shown.craftable.max(1) }
+    return self.count.max(1)
+  }
+
+  // Read again when a price may have moved (`revision`).
+  partsOf(self): Array<PartPrice> {
+    const prices = self.prices
+    if (prices == nil) { return [] }
+    _ = prices.revision
+    return partsOf(prices, self.reagents, self.pricedCount)
+  }
+
+  totalsOf(self): Totals {
+    const prices = self.prices
+    if (prices == nil) { return NO_TOTALS }
+    return totalsOf(prices, self.parts, self.made, yieldOf(self.shown.id), self.pricedCount)
+  }
 
   madeOf(self): Integer | nil {
     const schematic = Game.recipeReader.schematic(self.shown.id)
@@ -128,9 +165,18 @@ public class RecipeDetails implements Component {
           </box>
           <text value={self.description} textSize={.Secondary} textColor={Style.INK} />
           <text value={self.needs} textSize={.Secondary} textColor={Style.DIM} />
-          <box overflow={Overflow.Scroll}>
+          <box $if={self.priced} overflow={Overflow.Scroll}>
+            <PriceHead />
+            <PricedReagentRow $for={index, part of self.parts} price={part} index={index} />
+          </box>
+          <box $else overflow={Overflow.Scroll}>
             <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
           </box>
+          <box $if={self.priced} gap={space(.Item)}>
+            <text $if={self.noPrices} value={Locale.NO_PRICES} textSize={.Secondary} textColor={Style.DIM} />
+            <TotalsBlock totals={self.totals} />
+          </box>
+          <box $else />
           <box columns={FLAGS} gap={space(.Group)} padding={SWITCHES_PAD} border={SWITCHES}>
             <Flag label={Locale.FAVORITE} on={self.favorite} @flipped={self.onFavorite} />
             <Flag $if={self.shown.learned} label={Locale.TRACK} on={self.tracked} @flipped={self.onTrack} />
