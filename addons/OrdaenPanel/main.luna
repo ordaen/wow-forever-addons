@@ -3,7 +3,7 @@
 // bags) sits in the zone its setting names, or not on the panel. The menu's buttons and the bags are the game's own,
 // standing in the panel's cells, so their clicks, menus and alerts stay the game's.
 import Game from "$game"
-import { Align, Anchored, Docked, Edges, Layer, Place, Point, Position, Shadow, Side, Track } from "$ltml"
+import { Align, Anchored, Docked, Edges, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Module, Placed, Settings, SettingsPage } from "Ordaen"
 import Locale from "@/locales"
@@ -28,8 +28,11 @@ const SOCIAL_HOME: Anchored = { point: Point.BottomLeft, x: 660, y: -10 }
 const EXPERIENCE_HOME: Anchored = { point: Point.Bottom, x: 0, y: -20 }
 const MONEY_HOME: Anchored = { point: Point.BottomRight, x: -330, y: -20 }
 const BAGS_HOME: Anchored = { point: Point.BottomRight, x: -10, y: -10 }
+// The zones along the panel. Across the whole edge, thirds; as long as its items, each zone as long as they are.
+// Either way an end never gives way past its items' length, and the middle is a share that does, down to its own
+// items' least (the experience bar's): on a screen too short for that the panel scrolls down a side.
 const THIRDS: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
-const FITTED: Array<Track> = ["auto", "auto", "auto"]
+const FITTED: Array<Track> = ["auto", { fr: 1 }, "auto"]
 // The portrait in the screen's corner, over the panel's start; the menu keeps that much room for it.
 const PORTRAIT_WIDTH = 128
 const PORTRAIT_HEIGHT = 124
@@ -177,6 +180,8 @@ public class Panel implements Module, App {
   derived height: Number | nil = self.vertical ? nil : self.settings.values.height
   derived along: Align = self.vertical ? Align.Center : Align.Stretch
   derived across: Align = self.vertical ? Align.Stretch : Align.Center
+  // Down a side whose items are longer than the screen even with the middle given way: the wheel scrolls it.
+  derived overflow: Overflow | nil = self.vertical ? Overflow.Scroll : nil
 
   outlineOf(self): Integer {
     match (self.settings.values.outline) {
@@ -255,7 +260,7 @@ public class Panel implements Module, App {
       <surface $if={self.drawn} layer={Layer.Screen} place={self.place} width={self.width} height={self.height}
                background={Ordaen.art.panel.wood} border={Ordaen.art.panel.edge} padding={EDGE_ROOM}
                columns={self.columns} rows={self.rows} xAlign={self.along} yAlign={self.across}
-               opacity={self.opacity} hoverWithin={true} textFamily={Ordaen.lookArt.font}
+               opacity={self.opacity} overflow={self.overflow} hoverWithin={true} textFamily={Ordaen.lookArt.font}
                @enter={self.onEnter} @leave={self.onLeave}>
         <ZoneBox zone={Zone.Left} panel={self} />
         <ZoneBox zone={Zone.Center} panel={self} />
