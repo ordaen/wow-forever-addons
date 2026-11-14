@@ -1,7 +1,10 @@
 // The mail window on the stand-in game: the inbox with a letter picked, the letters
 // sent and the player's own characters. The root is drawn on the screen as Ordaen draws it.
 import Game from "$game"
+import { Art } from "$ltml"
 import Test from "$test"
+import { ARTWORK } from "Ordaen"
+import root Ordaen from "Ordaen"
 import root Mail from "OrdaenMail"
 import { Filter } from "@/letters"
 import { Inbox, View } from "@/inbox"
@@ -128,4 +131,27 @@ class Fixture {
   state total = 4
   state yes = true
   state alts: Alts | nil = nil
+}
+
+// The choice picked from a toolbar button's list: the button by the glyph it shows, then the choice.
+function pickFrom(button: Art, choice: String) {
+  Test.click(Test.painted(button, nil), nil)
+  Test.click(Test.holding(choice, nil), nil)
+}
+
+test "the filter and the view buttons are clicked and the list follows" {
+  Test.mount(nil, PAGE)
+  Game.mailObserver.open = true
+  Mail.letters = letters()
+  Mail.total = 4
+  Test.flush()
+  pickFrom(Ordaen.art.ctl.tool.filter, "From players")
+  Test.shot("filtered to the letters from players")
+  pickFrom(Ordaen.art.ctl.tool.filter, "With money")
+  Test.shot("filtered to the letters with money")
+  pickFrom(Ordaen.art.ctl.tool.filter, "All")
+  pickFrom(ARTWORK.ctl.tool.list, "By kind")
+  Test.shot("by kind")
+  pickFrom(ARTWORK.ctl.tool.categories, "Table")
+  Test.shot("as a table")
 }

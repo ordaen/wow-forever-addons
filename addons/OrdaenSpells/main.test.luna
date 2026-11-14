@@ -1,7 +1,9 @@
 // The windows on the stand-in game: the spellbook with its tabs and a search, the talents with the trees given to it,
 // and the class trainer with a service picked. The root is drawn on the screen as Ordaen draws it.
 import Game from "$game"
+import { Art, MouseButton } from "$ltml"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import root Spells from "OrdaenSpells"
 import { SortBy, SpellbookPage } from "@/spellbook"
 import { Order, Show, TrainerPage } from "@/trainer"
@@ -36,26 +38,40 @@ test "the spellbook lists every spell with its skill line, kind and level" {
   Test.expect(Spells.spells.length == 5)
 }
 
-test "the talents tab draws the trees it is given and says when it has none" {
+test "the talents tab draws the trees of the game, and a click spends, refunds, applies or cancels" {
   Test.mount(nil, PAGE)
   Spells.open = true
   Spells.tab = 2
   Test.flush()
-  Test.shot("no trees: it says so, the buttons are disabled")
-  Spells.trees = [
-    {
-      name: "Arms",
-      talents: [
-        { name: "Deflection", icon: ICON, tier: 1, column: 2, rank: 2, ranks: 5 },
-        { name: "Improved Rend", icon: ICON, tier: 1, column: 3, rank: 0, ranks: 3 },
-        { name: "Tactical Mastery", icon: ICON, tier: 2, column: 1, rank: 5, ranks: 5 },
-      ],
-    },
-    { name: "Fury", talents: [{ name: "Booming Voice", icon: ICON, tier: 1, column: 1, rank: 1, ranks: 5 }] },
-    { name: "Protection", talents: [{ name: "Shield Specialization", icon: ICON, tier: 1, column: 1, rank: 0, ranks: 5 }] },
-  ]
+  Test.shot("no trees: it says so")
+  Game.talentTrees.trees = (): Array<Game.TalentTree> => {
+    return [
+      {
+        id: 1, name: "Arms",
+        nodes: [
+          {
+            id: 10, x: 0, y: 0, name: "Deflection", icon: ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true,
+            edges: [11],
+          },
+          { id: 11, x: 600, y: 600, name: "Tactical Mastery", icon: ICON, rank: 0, ranks: 3, canSpend: false, canRefund: false, edges: [] },
+        ],
+      },
+      {
+        id: 2, name: "Fury",
+        nodes: [{ id: 20, x: 0, y: 0, name: "Booming Voice", icon: ICON, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }],
+      },
+    ]
+  }
+  Game.talentTrees.unspent = (): Integer => 3
+  Game.talentTrees.staged = (): Boolean => true
+  Spells.refreshTalents()
   Test.flush()
-  Test.shot("three trees with their ranks")
+  Test.shot("two trees with their nodes where the client puts them, three points left")
+  Test.click(Test.holding("2/5", nil), nil)
+  Test.click(Test.holding("2/5", nil), MouseButton.Right)
+  Test.click(Test.holding("Apply changes", nil), nil)
+  Test.click(Test.holding("Cancel changes", nil), nil)
+  Test.shot("what was asked of the game")
 }
 
 test "the class trainer lists its services and a click shows one's card" {
@@ -133,4 +149,40 @@ class Fixture {
     },
     { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Game.ServiceStatus.Learned, level: 4, cost: 0, description: "" },
   ]
+}
+
+// The choice picked from a toolbar button's list: the button by the glyph it shows, then the choice.
+function pickFrom(button: Art, choice: String) {
+  Test.click(Test.painted(button, nil), nil)
+  Test.click(Test.holding(choice, nil), nil)
+}
+
+test "the sort and the filter buttons are clicked and the lists follow" {
+  Test.mount(nil, PAGE)
+  Spells.spells = spells()
+  Spells.lines = lines()
+  Spells.open = true
+  Game.trainer.services = (): Array<Game.TrainerService> => {
+    return [
+      {
+        index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Game.ServiceStatus.Available, level: 8,
+        cost: 400, description: "A strong attack.",
+      },
+      {
+        index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Game.ServiceStatus.Unavailable, level: 50,
+        cost: 90000, description: "",
+      },
+    ]
+  }
+  Test.flush()
+  pickFrom(Ordaen.art.ctl.tool.sort, "By level")
+  Test.shot("the spells by level")
+  Spells.open = false
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Test.flush()
+  pickFrom(Ordaen.art.ctl.tool.sort, "By price")
+  Test.shot("the services by price")
+  pickFrom(Ordaen.art.ctl.tool.filter, "Unavailable")
+  Test.shot("the services narrowed to the unavailable")
 }

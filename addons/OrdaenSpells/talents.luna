@@ -1,120 +1,111 @@
-// «Talents»: the three trees side by side, each as rows of four slots (its tiers), the search that dims what doesn't
-// match, the unspent points, and «Cancel changes» / «Apply changes» for points not applied yet. The client's
-// declarations hold no talent calls (`trees` is what a caller gives), so the buttons that change points are drawn
-// disabled.
-import { Align, Art, Track } from "$ltml"
+// «Talents»: the trees side by side, each node drawn where the client puts it (its grid, from the tree's top left),
+// Left-click spending a point in it and Right-click taking back one not applied yet; the search that dims what doesn't
+// match, the points left, and «Cancel changes» / «Apply changes» for the points staged. What a node may do is the
+// client's to say (`canSpend`, `canRefund`); the page only asks.
+import Game from "$game"
+import { Align, Click, MouseButton, Position, Track } from "$ltml"
 import { Component, PushButton, PX } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
-// The slots of a tier.
-const COLUMNS = 4
+// A node's size, and the room one step of the client's grid takes on the screen.
+const SIZE = 40 * PX
+const UNIT: Number = 0.075 * PX
+const MARGIN = 8 * PX
 
-public struct Talent {
-  name: String
-  icon: Art
-  // Its row in the tree from 1, and its column from 1.
-  tier: Integer
-  column: Integer
-  rank: Integer
-  ranks: Integer
-}
-
-public struct Tree {
-  name: String
-  talents: Array<Talent>
-}
-
-// One slot of a row: the talent standing there, if any.
-public struct Slot {
-  has: Boolean
-  name: String
-  icon: Art | nil
-  // «1/3».
-  rank: String
-  // Whether the search lets it be seen at full strength.
-  lit: Boolean
-}
-
-public struct Tier {
-  tier: Integer
-  slots: Array<Slot>
-}
-
-const NO_SLOT: Slot = { has: false, name: "", icon: nil, rank: "", lit: true }
 const TREES: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
-const SLOTS: Array<Track> = [44 * PX, 44 * PX, 44 * PX, 44 * PX]
 const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
-const FOOT: Array<Track> = ["auto", "auto", { fr: 1 }, "auto"]
+const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto"]
 
-// The rows of a tree, the top tier first, each of four slots; a talent the search doesn't match is not lit.
-public function tiersOf(tree: Tree, search: String): Array<Tier> {
-  let most = 0
-  for (talent of tree.talents) { most = most.max(talent.tier) }
-  const sought = search.lower()
-  const list: Array<Tier> = []
-  for (tier of 1..=most) {
-    const slots: Array<Slot> = []
-    for (column of 1..=COLUMNS) {
-      let slot = NO_SLOT
-      for (talent of tree.talents) {
-        if (talent.tier == tier && talent.column == column) {
-          slot = {
-            has: true, name: talent.name, icon: talent.icon, rank: "%d/%d".format(talent.rank, talent.ranks),
-            lit: sought == "" || talent.name.lower().contains(sought),
-          }
-        }
-      }
-      slots.push(slot)
-    }
-    list.push({ tier: tier, slots: slots })
-  }
-  return list
+// Where a tree's nodes begin: the smallest x or y.
+function leastOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Number {
+  let least = Number.huge
+  for (node of nodes) { least = least.min(vertical ? node.y : node.x) }
+  return nodes.length == 0 ? 0 : least
 }
 
-public function spent(tree: Tree): Integer {
+// How far a tree reaches on the screen: its width or its height.
+public function extentOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Number {
+  const first = leastOf(nodes, vertical)
+  let most = first
+  for (node of nodes) { most = most.max(vertical ? node.y : node.x) }
+  return (most - first) * UNIT + SIZE + 2 * MARGIN
+}
+
+public function spent(tree: Game.TalentTree): Integer {
   let sum = 0
-  for (talent of tree.talents) { sum += talent.rank }
+  for (node of tree.nodes) { sum += node.rank }
   return sum
 }
 
-public class TalentSlot implements Component {
-  derived opacity: Number = self.slot.lit ? 1 : 0.3
+public class NodeView implements Component {
+  public spend: Event<Integer> = new Event()
+  public refund: Event<Integer> = new Event()
 
-  slot: Signal<Slot>
-  constructor(slot: Signal<Slot>) {
-    self.slot = slot
+  derived lit: Boolean = self.search == "" || self.node.name.lower().contains(self.search.lower())
+  derived opacity: Number = !self.lit ? 0.3 : self.node.rank == 0 && !self.node.canSpend ? 0.55 : 1
+  derived rank: String = "%d/%d".format(self.node.rank, self.node.ranks)
+  derived rankColor: Color = self.node.rank == self.node.ranks ? Style.GOLD : self.node.canSpend ? Style.GREEN : Style.DIM
+  derived left: Number = (self.node.x - self.leastX) * UNIT + MARGIN
+  derived top: Number = (self.node.y - self.leastY) * UNIT + MARGIN
+
+  node: Signal<Game.TalentNode>
+  search: Signal<String>
+  leastX: Signal<Number>
+  leastY: Signal<Number>
+  constructor(node: Signal<Game.TalentNode>, search: Signal<String>, leastX: Signal<Number>, leastY: Signal<Number>) {
+    self.node = node
+    self.search = search
+    self.leastX = leastX
+    self.leastY = leastY
+  }
+
+  onClick(mut self, click: Click) {
+    if (click.button == MouseButton.Right) {
+      self.refund.emit(self.node.id)
+    } else {
+      self.spend.emit(self.node.id)
+    }
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={40 * PX} height={40 * PX}>
-        <box $if={self.slot.has} width={40 * PX} height={40 * PX} border={{ width: 1 * PX, color: Style.LINE }}
-             icon={self.slot.icon} opacity={self.opacity} xAlign={Align.End} yAlign={Align.End}>
-          <text value={self.slot.rank} textSize={.Secondary} textColor={Style.GOLD} wrap={false} />
-        </box>
+      <box position={Position.Absolute} left={self.left} top={self.top} width={SIZE} height={SIZE}
+           border={{ width: 1 * PX, color: Style.LINE }} icon={self.node.icon} opacity={self.opacity}
+           xAlign={Align.End} yAlign={Align.End} @click={self.onClick}>
+        <text value={self.rank} textSize={.Secondary} textColor={self.rankColor} wrap={false} />
       </box>
     }
   }
 }
 
 public class TreeView implements Component {
-  derived tiers: Array<Tier> = tiersOf(self.tree, self.search)
-  derived title: String = Locale.TREE_POINTS.format(self.tree.name, spent(self.tree))
+  public spend: Event<Integer> = new Event()
+  public refund: Event<Integer> = new Event()
 
-  tree: Signal<Tree>
+  derived title: String = Locale.TREE_POINTS.format(self.tree.name, spent(self.tree))
+  derived leastX: Number = leastOf(self.tree.nodes, false)
+  derived leastY: Number = leastOf(self.tree.nodes, true)
+  derived width: Number = extentOf(self.tree.nodes, false)
+  derived height: Number = extentOf(self.tree.nodes, true)
+
+  tree: Signal<Game.TalentTree>
   search: Signal<String>
-  constructor(tree: Signal<Tree>, search: Signal<String>) {
+  constructor(tree: Signal<Game.TalentTree>, search: Signal<String>) {
     self.tree = tree
     self.search = search
   }
+
+  onSpend(mut self, id: Integer) { self.spend.emit(id) }
+  onRefund(mut self, id: Integer) { self.refund.emit(id) }
 
   public render(self): Template {
     return $ltml {
       <box columns={1} gap={6 * PX} xAlign={Align.Center}>
         <text value={self.title} textColor={Style.GOLD} wrap={false} />
-        <box $for={tier of self.tiers} $key={tier.tier} columns={SLOTS} gap={6 * PX}>
-          <TalentSlot $for={index, slot of tier.slots} $key={index} slot={slot} />
+        <box width={self.width} height={self.height}>
+          <NodeView $for={node of self.tree.nodes} $key={node.id} node={node} search={self.search}
+                    leastX={self.leastX} leastY={self.leastY} @spend={self.onSpend} @refund={self.onRefund} />
         </box>
       </box>
     }
@@ -122,18 +113,29 @@ public class TreeView implements Component {
 }
 
 public class TalentsPage implements Component {
+  public spend: Event<Integer> = new Event()
+  public refund: Event<Integer> = new Event()
+  public apply: Event<nil> = new Event()
+  public cancel: Event<nil> = new Event()
+
   state search = ""
   derived points: String = Locale.TALENT_POINTS.format(self.unspent)
   derived empty: Boolean = self.trees.length == 0
+  derived waiting: Boolean = !self.staged
 
-  trees: Signal<Array<Tree>>
+  trees: Signal<Array<Game.TalentTree>>
   unspent: Signal<Integer>
-  canAct: Signal<Boolean>
-  constructor(trees: Signal<Array<Tree>>, unspent: Signal<Integer>, canAct: Signal<Boolean>) {
+  staged: Signal<Boolean>
+  constructor(trees: Signal<Array<Game.TalentTree>>, unspent: Signal<Integer>, staged: Signal<Boolean>) {
     self.trees = trees
     self.unspent = unspent
-    self.canAct = canAct
+    self.staged = staged
   }
+
+  onSpend(mut self, id: Integer) { self.spend.emit(id) }
+  onRefund(mut self, id: Integer) { self.refund.emit(id) }
+  onApply(mut self) { self.apply.emit() }
+  onCancel(mut self) { self.cancel.emit() }
 
   public render(self): Template {
     return $ltml {
@@ -146,15 +148,16 @@ public class TalentsPage implements Component {
           <text value={Locale.NO_TALENTS} textColor={Style.DIM} />
         </box>
         <box $else columns={TREES} gap={4 * PX}>
-          <TreeView $for={tree of self.trees} $key={tree.name} tree={tree} search={self.search} />
+          <TreeView $for={tree of self.trees} $key={tree.id} tree={tree} search={self.search} @spend={self.onSpend}
+                    @refund={self.onRefund} />
         </box>
         <box columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
-          <PushButton label={Locale.CANCEL_CHANGES} width={190 * PX} disabled={!self.canAct} />
-          <PushButton label={Locale.ACTIVATE} width={150 * PX} disabled={!self.canAct} />
+          <PushButton label={Locale.CANCEL_CHANGES} width={190 * PX} disabled={self.waiting} @click={self.onCancel} />
           <box xAlign={Align.Center}>
             <text value={self.points} textColor={Style.INK} wrap={false} />
           </box>
-          <PushButton label={Locale.APPLY_CHANGES} width={190 * PX} accent={true} disabled={!self.canAct} />
+          <PushButton label={Locale.APPLY_CHANGES} width={190 * PX} accent={true} disabled={self.waiting}
+                      @click={self.onApply} />
         </box>
       </box>
     }
