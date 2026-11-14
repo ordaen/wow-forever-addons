@@ -1,6 +1,7 @@
 // What hangs on the server's time (`Game.clock.server`, which a test sets and `Test.pass` moves): a full scan read in
 // batches into the cheapest fifth's price, pruning at 30 days, a browse taken in, a scan the house closed on dropped,
 // `buy` and `sell` by age, the ledger; the status line and «Data» after a scan.
+import Client from "$client"
 import Game from "$game"
 import Test from "$test"
 import { Hour } from "Ordaen"
@@ -88,6 +89,40 @@ test "a full scan sets each item's price from the cheapest fifth of what is list
   Game.auctionHouse.open = false
 }
 
+test "a full scan counts every item it gives: the auctions read before their item's data came are read again" {
+  Game.clock.server = START
+  Game.auctionHouse.open = true
+  let stand = new Stand()
+  const auctions: Array<Sale> = [
+    { key: COPPER_ORE, unit: 100, many: 2 },
+    { key: BLADE + 3 * 1048576, unit: 25000, many: 1 },
+    { key: LINEN, unit: 40, many: 20 },
+    { key: BLADE + 3 * 1048576, unit: 24000, many: 1 },
+    { key: BLADE, unit: 9000, many: 1 },
+  ]
+  // The blades' data hasn't loaded: the client says nothing of them until it comes.
+  let loaded = false
+  Game.auctionScan.read = (index: Integer): (Integer, Integer, Integer) => {
+    const auction = auctions[index] ?? panic("an auction of the answer")
+    if (!loaded && index != 1 && index != 3) { return 0, 0, 0 }
+    return auction.key, auction.unit, auction.many
+  }
+  Game.auctionScan.waiting = 2
+  Test.expect(stand.scanner.full())
+  Game.auctionScan.finished.emit(auctions.length)
+  Test.pass(0.02)
+  Test.expect(stand.scanner.reading && stand.house.count == 0)
+  loaded = true
+  const ready: Array<Integer> = [5, 2, 4]
+  Game.auctionScan.again = (turn: Integer): Integer => ready[turn] ?? 0
+  Game.auctionScan.waiting = 0
+  Test.pass(0.1)
+  Test.expect(!stand.scanner.reading && stand.scanner.auctions == 5 && stand.scanner.items == 4 && stand.house.count == 4)
+  Test.expect(stand.prices.buy(PriceKey.suffixed(BLADE, 3))?.copper() == 24000)
+  Test.expect(stand.prices.buy(PriceKey.of(BLADE))?.copper() == 9000)
+  Game.auctionHouse.open = false
+}
+
 test "buy is the fresh lowest, then the market; sell is the lesser less the cut; a price past 30 days isn't one" {
   Game.clock.server = START
   let stand = new Stand()
@@ -141,10 +176,19 @@ test "a scan the house closes on is dropped" {
   let stand = new Stand()
   let auctions: Array<Sale> = []
   for (index of 1..=1200) { auctions.push({ key: 1000 + index, unit: 10, many: 1 }) }
-  Game.auctionScan.read = reader(auctions)
+  // The clock moves 0.02 ms an auction read: asked every 50 auctions, the frame's 4 ms are past at the 250th, 250
+  // of 1200 read, 0.9 of the bar for the reading.
+  let reads = 0
+  const read = reader(auctions)
+  Game.auctionScan.read = (index: Integer): (Integer, Integer, Integer) => {
+    reads += 1
+    const key, unit, many = read(index)
+    return key, unit, many
+  }
+  Client.debugprofilestop = (): Number => reads * 0.02
   Test.expect(stand.scanner.full())
   Game.auctionScan.finished.emit(auctions.length)
-  Test.expect(stand.scanner.reading && stand.scanner.progress > 0.4 && stand.scanner.progress < 0.5)
+  Test.expect(stand.scanner.reading && stand.scanner.progress == 250 / 1200 * 0.9)
   Game.auctionHouse.open = false
   Game.auctionHouse.closed.emit()
   Test.pass(0.2)

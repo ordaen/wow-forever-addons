@@ -1,6 +1,8 @@
-// The house's prices taken in: a full scan read 500 auctions a frame and set at its end, and every browse the house
-// shows (ours or the game's) as it comes. The house closing drops a scan not yet read through (its answer is all or
-// nothing) and puts the house at rest.
+// The house's prices taken in: a full scan read a few milliseconds a frame (the auctions whose item's data hadn't
+// loaded read again as it comes) and set over the frames after, and every browse the house shows (ours or the game's)
+// as it comes. The house closing drops a scan not yet read through (its answer is all or nothing) and puts the house
+// at rest.
+import Client from "$client"
 import Game from "$game"
 import { Hour } from "Ordaen"
 import { House } from "@/house"
@@ -8,8 +10,14 @@ import { Kept } from "@/kept"
 import { OrdaenPrices } from "@/prices"
 import { Listing, PriceKey, serverSeconds } from "@/quote"
 
-// Auctions read a frame.
-const BATCH = 500
+// What a frame of a scan's reading takes at most, in milliseconds (the client's `debugprofilestop`), asked every
+// `CHECK` auctions: about 300 auctions a frame on a 160,000-auction house, a reading of eight or nine seconds.
+const FRAME_MS: Number = 4
+const CHECK = 50
+// How long the auctions whose item's data was asked for are waited for, in seconds.
+const LOAD_WAIT = 10
+// The share of the progress bar the reading takes; setting the prices takes the rest.
+const READ_SHARE: Number = 0.9
 // The client answers a full scan once per account each 15 minutes.
 public const FULL_EVERY = 900
 
@@ -31,6 +39,8 @@ public class Scanner {
   // A price moved since the house was last put at rest.
   dirty = false
   reader: Task<nil> | nil = nil
+  // When the reading's work began this frame (`debugprofilestop`, ms).
+  since: Number = 0
   house: mut House
   source: mut OrdaenPrices
   kept: mut Kept
@@ -71,29 +81,57 @@ public class Scanner {
     self.reading = true
     self.progress = 0
     const at = Hour.now()
-    const byKey: Map<PriceKey, mut Array<Listing>> = {}
+    // An item listed once is its one auction; one listed more, its auctions: a list only where there are several.
+    const alone: Map<PriceKey, Listing> = {}
+    const several: Map<PriceKey, mut Array<Listing>> = {}
+    self.since = Client.debugprofilestop()
     for (index of 1..=count) {
       const key, unit, many = Game.auctionScan.read(index)
-      if (key != 0 && unit > 0 && many > 0) {
-        const auction = Listing.of(unit, many)
-        const list = byKey[PriceKey.given(key)]
-        if (list == nil) {
-          byKey[PriceKey.given(key)] = [auction]
-        } else {
-          list.push(auction)
-        }
-      }
-      if (index % BATCH == 0 && index < count) {
-        self.progress = index / count
+      take(key, unit, many, mut alone, mut several)
+      if (index % CHECK == 0 && index < count && self.spent()) {
+        self.progress = index / count * READ_SHARE
         await Game.frame()
+        self.since = Client.debugprofilestop()
       }
     }
+    // The auctions read before their item's data came, read again as it comes; a while at most.
+    const until = (peek Game.clock.time) + LOAD_WAIT
+    let turn = 1
+    for (round of 1..=Number.huge) {
+      for (step of 1..=Number.huge) {
+        const index = Game.auctionScan.again(turn)
+        if (index == 0) { break }
+        turn += 1
+        const key, unit, many = Game.auctionScan.read(index)
+        take(key, unit, many, mut alone, mut several)
+        if (step % CHECK == 0 && self.spent()) {
+          await Game.frame()
+          self.since = Client.debugprofilestop()
+        }
+      }
+      if (peek Game.auctionScan.waiting == 0 || peek Game.clock.time >= until) { break }
+      await Game.frame()
+      self.since = Client.debugprofilestop()
+    }
+    self.progress = READ_SHARE
     let items = 0
-    for (key, list of byKey) {
-      list.sort((a, b) => a < b)
+    for (key, auction of alone) {
+      self.house.observe(key, auction.low(), auction.low(), auction.quantity(), at)
+      items += 1
+      if (items % CHECK == 0 && self.spent()) {
+        await Game.frame()
+        self.since = Client.debugprofilestop()
+      }
+    }
+    for (key, list of several) {
+      list.sort(cheaper)
       const unit, low, total = fifth(list)
       self.house.observe(key, unit, low, total, at)
       items += 1
+      if (items % CHECK == 0 && self.spent()) {
+        await Game.frame()
+        self.since = Client.debugprofilestop()
+      }
     }
     _ = self.house.prune(at)
     self.auctions = count
@@ -105,6 +143,9 @@ public class Scanner {
     self.source.moved()
     self.keep()
   }
+
+  // This frame's share of a scan's work is spent.
+  spent(self): Boolean { return Client.debugprofilestop() - self.since > FRAME_MS }
 
   // A browse's lowest prices: each an observation of its item.
   onResults(mut self, offers: Array<Game.Offer>) {
@@ -141,6 +182,28 @@ public class Scanner {
     self.dirty = false
   }
 }
+
+// One auction read, kept by its item where it is one (a key, a buyout, a count): an item's first auction alone, its
+// later ones in a list with the first.
+function take(key: Integer, unit: Integer, many: Integer, alone: mut Map<PriceKey, Listing>, several: mut Map<PriceKey, mut Array<Listing>>) {
+  if (key == 0 || unit <= 0 || many <= 0) { return }
+  const priced = PriceKey.given(key)
+  const auction = Listing.of(unit, many)
+  const list = several[priced]
+  if (list != nil) {
+    list.push(auction)
+    return
+  }
+  const first = alone[priced]
+  if (first == nil) {
+    alone[priced] = auction
+    return
+  }
+  alone[priced] = nil
+  several[priced] = [first, auction]
+}
+
+function cheaper(a: Listing, b: Listing): Boolean { return a < b }
 
 // One item's auctions, cheapest first: the price a buyer pays per unit for the cheapest fifth of the quantity listed,
 // the lowest, and the quantity listed.
