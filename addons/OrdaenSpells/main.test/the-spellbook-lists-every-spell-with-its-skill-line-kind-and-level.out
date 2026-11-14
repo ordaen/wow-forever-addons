@@ -53,7 +53,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
             box 494.42,445.88 652.83x28
               text 494.42,445.88 652.83x15 "Rend (Rank 1)" #e8dcc4
               text 494.42,460.88 652.83x13 "Warrior. Active. Level 4" #a3977f
-    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+    box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,173.04 363.5x47.75
     box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.58,183.29 77.33x34.25

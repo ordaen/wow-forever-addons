@@ -51,7 +51,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
               box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                 box 988.92,668.12 125x28.33 absolute
                   text 1035.79,674.79 31.25x15 "Learn" #808080
-    box 1124.42,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+    box 1124.42,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 458.33,173.04 114.5x47.75
     box 458.33,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 476.92,183.29 77.33x34.25
@@ -122,7 +122,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
       box 1111.92,222.12 23.33x26.67 absolute clipped @click
         box 1111.92,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
         box 1118.17,227.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-    box 1124.42,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
+    box 1124.42,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 458.33,173.04 114.5x47.75
     box 458.33,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 476.92,183.29 77.33x34.25
