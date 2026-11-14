@@ -39,7 +39,7 @@ class Stage {
   public render(self): Template {
     return $ltml {
       <TipGroup model={self.model} sides={self.sides} compared={self.compared} standing={self.standing}
-                shown={self.shown} options={OPTIONS} charge={self.charge} locked={self.locked} />
+                shown={self.shown} options={OPTIONS} locks={true} charge={self.charge} locked={self.locked} />
     }
   }
 }

@@ -395,20 +395,21 @@ public class TipFrame implements Component {
 
   model: Signal<Model>
   side: Signal<Boolean>
-  main: Signal<Boolean>
+  locks: Signal<Boolean>
   charge: Signal<Integer>
   locked: Signal<Boolean>
   constructor(
     model: Signal<Model>,
     side: Signal<Boolean> = false,
-    // The main tooltip of its group: it has the lock's bar, filled this far of a hundred, and is locked or not.
-    main: Signal<Boolean> = false,
+    // The main tooltip of a group that locks: it has the lock's bar, filled this far of a hundred, and is locked or
+    // not. One that never locks (a button's text) keeps no room for a bar: it is its content's height.
+    locks: Signal<Boolean> = false,
     charge: Signal<Integer> = 0,
     locked: Signal<Boolean> = false,
   ) {
     self.model = model
     self.side = side
-    self.main = main
+    self.locks = locks
     self.charge = charge
     self.locked = locked
   }
@@ -568,7 +569,7 @@ public class TipFrame implements Component {
             </box>
           </Row>
         </box>
-        <box $if={self.main} padding={BAR_PAD}>
+        <box $if={self.locks} padding={BAR_PAD}>
           <box height={BAR_ROW} yAlign={Align.Center}>
             <text $if={self.locked} value={Locale.LOCKED_HINT} textColor={QUIET} textSize={.Secondary} wrap={false} />
             <box $else height={BAR_HEIGHT} background={self.track}>

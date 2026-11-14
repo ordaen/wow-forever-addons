@@ -460,3 +460,31 @@ test "a spell's tooltip after a unit's holds nothing of the unit's, locked or no
     }
   }
 }
+
+// A tooltip that never locks (a button's text) keeps no room for the lock's bar: its last line stands at its bottom,
+// under nothing but the frame's padding. One that locks keeps the bar's room under its lines from the start.
+test "a button's tooltip, which never locks, is its content's height; an item's keeps the bar's room" {
+  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
+  let button = frame("Button", "CharacterMicroButton", 600, 800, 30, 40)
+  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+  Game.character.itemLevel = (): Number | nil => 16
+  Game.character.durability = (): Number | nil => 0.97
+  Game.tooltip.main = {
+    owner: button, ownerName: "CharacterMicroButton", placeable: true,
+    ..showing(corner, { plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }] }),
+  }
+  Test.pass(0.1)
+  const tip = Test.edges(Ordaen.art.window.wood, 0)
+  const last = Test.holding("C: open", nil)
+  // The frame's padding, its section's and half the line (31): no bar's room (20 more) under the last line.
+  if (tip.bottom - last.y > 40) { panic(`${tip.bottom - last.y} under the button's tooltip's last line's middle`) }
+  Game.tooltip.main = hidden(corner)
+  Test.pass(0.3)
+  Game.tooltip.main = inSlot(corner, slot, sword())
+  Test.pass(0.1)
+  const item = Test.edges(Ordaen.art.window.wood, 0)
+  const name = Test.holding("Sword", nil)
+  // The item's name, then the bar's room under it.
+  Test.expect(item.bottom - name.y > 40)
+}

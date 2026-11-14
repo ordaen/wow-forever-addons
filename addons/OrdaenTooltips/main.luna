@@ -50,6 +50,8 @@ struct Shown {
   item: Integer
   link: String
   object: String
+  // It locks as the cursor stays: the main tooltip keeps the room of the lock's bar (a button's text never does).
+  locks: Boolean
 }
 
 // A locked tooltip: what was shown when it locked, and where.
@@ -104,6 +106,9 @@ public class Tooltips implements Module, App {
   state over = false
   state visited = false
   derived locked: Boolean = self.kept != nil
+  // What is drawn locks: it is locked, or it charges as the cursor stays (a button's text never does). Kept with
+  // the last show while nothing shows, as the rest of it is.
+  derived locking: Boolean = self.locked || (self.drawn?.locks ?? false)
   derived charge: Integer = self.chargeNow()
   derived gone: Boolean = self.goneNow()
   derived away: Boolean = self.awayNow()
@@ -327,9 +332,10 @@ public class Tooltips implements Module, App {
     if (read.model.timer == true) { _ = Game.clock.seconds }
     // What a button of the menu or of the bags adds to its tooltip.
     let told = self.settings.values.textsExtra ? extras(tip.ownerName, read.model) : read.model
+    const locks = self.locks(kind, tip.data)
     if (told.kind != Kind.Item) {
       const object = told.kind == Kind.Object ? told.name : ""
-      return { model: told, sides: read.sides, compared: [], item: 0, link: "", object: object }
+      return { model: told, sides: read.sides, compared: [], item: 0, link: "", object: object, locks: locks }
     }
 
     // The worn items it is compared with, each under «Equipped». With one, the differences stand on the hovered
@@ -349,7 +355,7 @@ public class Tooltips implements Module, App {
     }
     return {
       model: model, sides: read.sides, compared: compared, item: tip.data.id ?? 0, link: tip.data.about ?? "",
-      object: "",
+      object: "", locks: locks,
     }
   }
 
@@ -378,7 +384,8 @@ public class Tooltips implements Module, App {
   public render(self): Template {
     return $ltml {
       <TipGroup $if={self.ever} model={self.model} sides={self.sides} compared={self.compared} standing={self.standing}
-                shown={self.shown} options={self.chosen} charge={self.charge} locked={self.locked} @close={self.close}
+                shown={self.shown} options={self.chosen} locks={self.locking} charge={self.charge} locked={self.locked}
+                @close={self.close}
                 @enter={self.onEnter} @leave={self.onLeave}>
         // Each entry asks nothing while the tooltip isn't of its kind; with no entry, nothing is drawn or asked.
         <AddedToItem $for={row of self.worth} $key={row} row={row} item={self.item} link={self.link} />
