@@ -14,7 +14,7 @@ key: TAB → #5 «One» (click)
 key: TAB → #6 «Two» (click)
 key: SPACE → #6 «Two» (click)
 key: TAB → #7 «Small» (click)
-key: ENTER → #8 > #1 «Small» (click)
+key: ENTER → #0 > #1 «Small» (click)
 -- the dropdown opened by Enter: the focus in its list
 surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
   box 420,121.38 760x37.25 absolute @drag @dragStart
@@ -53,13 +53,6 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
           box 691.08,297.04 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             text 706.08,303.71 153.33x15 "Small" #f0c860
             box 867.75,304.54 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 691.08,328.71 216.67x58.33 absolute #0a0806f7 @clickOutside
-            box 691.92,334.54 215x23.33 #d6a56b2e @click focus ring
-              box 700.25,342.04 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-              text 716.92,338.71 178.33x15 "Small" #ffffff
-            box 691.92,357.88 215x23.33 #00000000 @click
-              box 700.25,365.38 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 716.92,362.04 178.33x15 "Large" #ffffff
       box 442.75,331.38 120x28.33
         box 442.75,331.38 120x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
           text 452.75,338.04 85x15 "Left" #f0c860
@@ -97,11 +90,18 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
     box 544.5,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 563.08,131.62 77.33x34.25
         text 589.25,141.25 25x15 "More" #b3a690
+surface 691.08,325.38 216.67x58.33 on FULLSCREEN_DIALOG #0a0806f7
+  box 691.92,331.21 215x23.33 #d6a56b2e @click focus ring
+    box 700.25,338.71 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 716.92,335.38 178.33x15 "Small" #ffffff
+  box 691.92,354.54 215x23.33 #00000000 @click
+    box 700.25,362.04 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 716.92,358.71 178.33x15 "Large" #ffffff
 
-key: DOWN → #8 > #2 «Large» (click)
+key: DOWN → #0 > #2 «Large» (click)
 key: ENTER → #7 «Large» (click)
 key: TAB → #8 «Left» (click)
-key: ENTER → #9 > #1 «Left» (click)
+key: ENTER → #0 > #1 «Left» (click)
 key: ESCAPE → #8 «Left» (click)
 key: TAB → #9 «» (keys:LEFT,RIGHT,HOME,END)
 key: RIGHT → #9 «» (keys:LEFT,RIGHT,HOME,END)

@@ -286,16 +286,6 @@ box 0,0 700x388.67 @enter @leave
           box 248.33,89.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             text 263.33,96.33 153.33x15 "Never" #f0c860
             box 425,97.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 248.33,121.33 216.67x81.67 absolute #0a0806f7 @clickOutside
-            box 249.17,127.17 215x23.33 #00000000 @click
-              box 257.5,134.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-              text 274.17,131.33 178.33x15 "Never" #ffffff
-            box 249.17,150.5 215x23.33 #00000000 @click
-              box 257.5,158 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,154.67 178.33x15 "In combat" #ffffff
-            box 249.17,173.83 215x23.33 #00000000 @click
-              box 257.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,178 178.33x15 "On a mount — in development" #ffffff
       box 0,129.67 700x25 opacity=1
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
@@ -316,6 +306,16 @@ box 0,0 700x388.67 @enter @leave
   box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
     box 0,360.33 120x28.33 absolute
       text 44.38,367 31.25x15 "Reset" #808080
+surface 348.33,168 216.67x81.67 on FULLSCREEN_DIALOG #0a0806f7
+  box 349.17,173.83 215x23.33 #00000000 @click
+    box 357.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 374.17,178 178.33x15 "Never" #ffffff
+  box 349.17,197.17 215x23.33 #00000000 @click
+    box 357.5,204.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,201.33 178.33x15 "In combat" #ffffff
+  box 349.17,220.5 215x23.33 #00000000 @click
+    box 357.5,228 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,224.67 178.33x15 "On a mount — in development" #ffffff
 
 -- the cursor on a choice: the light under it
 box 0,0 700x388.67 @enter @leave
@@ -348,16 +348,6 @@ box 0,0 700x388.67 @enter @leave
           box 248.33,89.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             text 263.33,96.33 153.33x15 "Never" #f0c860
             box 425,97.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 248.33,121.33 216.67x81.67 absolute #0a0806f7 @clickOutside
-            box 249.17,127.17 215x23.33 #00000000 @click
-              box 257.5,134.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-              text 274.17,131.33 178.33x15 "Never" #ffffff
-            box 249.17,150.5 215x23.33 #d6a56b2e @click
-              box 257.5,158 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,154.67 178.33x15 "In combat" #ffffff
-            box 249.17,173.83 215x23.33 #00000000 @click
-              box 257.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,178 178.33x15 "On a mount — in development" #ffffff
       box 0,129.67 700x25 opacity=1
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
@@ -378,6 +368,16 @@ box 0,0 700x388.67 @enter @leave
   box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
     box 0,360.33 120x28.33 absolute
       text 44.38,367 31.25x15 "Reset" #808080
+surface 348.33,168 216.67x81.67 on FULLSCREEN_DIALOG #0a0806f7
+  box 349.17,173.83 215x23.33 #00000000 @click
+    box 357.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 374.17,178 178.33x15 "Never" #ffffff
+  box 349.17,197.17 215x23.33 #d6a56b2e @click
+    box 357.5,204.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,201.33 178.33x15 "In combat" #ffffff
+  box 349.17,220.5 215x23.33 #00000000 @click
+    box 357.5,228 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,224.67 178.33x15 "On a mount — in development" #ffffff
 
 -- a click elsewhere: the menu closed, nothing picked
 box 0,0 700x388.67 @enter @leave
@@ -462,16 +462,6 @@ box 0,0 700x388.67 @enter @leave
           box 248.33,89.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             text 263.33,96.33 153.33x15 "Never" #f0c860
             box 425,97.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 248.33,121.33 216.67x81.67 absolute #0a0806f7 @clickOutside
-            box 249.17,127.17 215x23.33 #00000000 @click
-              box 257.5,134.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-              text 274.17,131.33 178.33x15 "Never" #ffffff
-            box 249.17,150.5 215x23.33 #00000000 @click
-              box 257.5,158 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,154.67 178.33x15 "In combat" #ffffff
-            box 249.17,173.83 215x23.33 #00000000 @click
-              box 257.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,178 178.33x15 "On a mount — in development" #ffffff
       box 0,129.67 700x25 opacity=1
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
@@ -492,6 +482,16 @@ box 0,0 700x388.67 @enter @leave
   box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
     box 0,360.33 120x28.33 absolute
       text 44.38,367 31.25x15 "Reset" #808080
+surface 348.33,168 216.67x81.67 on FULLSCREEN_DIALOG #0a0806f7
+  box 349.17,173.83 215x23.33 #00000000 @click
+    box 357.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 374.17,178 178.33x15 "Never" #ffffff
+  box 349.17,197.17 215x23.33 #00000000 @click
+    box 357.5,204.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,201.33 178.33x15 "In combat" #ffffff
+  box 349.17,220.5 215x23.33 #00000000 @click
+    box 357.5,228 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,224.67 178.33x15 "On a mount — in development" #ffffff
 
 -- a choice clicked: picked, the menu closed, the plate shows it
 box 0,0 700x388.67 @enter @leave

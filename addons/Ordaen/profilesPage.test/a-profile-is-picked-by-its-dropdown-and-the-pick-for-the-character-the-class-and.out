@@ -12,16 +12,6 @@ box 0,0 760x645
         box 248.33,53.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
           text 263.33,60 153.33x15 "Healing" #f0c860
           box 425,60.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-        box 248.33,85 216.67x81.67 absolute #0a0806f7 @clickOutside
-          box 249.17,90.83 215x23.33 #00000000 @click
-            box 257.5,98.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-            text 274.17,95 178.33x15 "Default" #ffffff
-          box 249.17,114.17 215x23.33 #00000000 @click
-            box 257.5,121.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-            text 274.17,118.33 178.33x15 "Healing" #ffffff
-          box 249.17,137.5 215x23.33 #00000000 @click
-            box 257.5,145 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-            text 274.17,141.67 178.33x15 "Raid" #ffffff
     box 0,93.33 760x25 opacity=1
       box 0,98.33 233.33x15 @enter @leave
         text 0,98.33 233.33x15 "Name" #cbb994
@@ -96,6 +86,16 @@ box 0,0 760x645
       box 263.33,616.67 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
         box 263.33,616.67 125x28.33 absolute
           text 307.08,623.33 37.5x15 "Create" #808080
+surface 258.33,91.67 216.67x81.67 on FULLSCREEN_DIALOG #0a0806f7
+  box 259.17,97.5 215x23.33 #00000000 @click
+    box 267.5,105 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 284.17,101.67 178.33x15 "Default" #ffffff
+  box 259.17,120.83 215x23.33 #00000000 @click
+    box 267.5,128.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 284.17,125 178.33x15 "Healing" #ffffff
+  box 259.17,144.17 215x23.33 #00000000 @click
+    box 267.5,151.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 284.17,148.33 178.33x15 "Raid" #ffffff
 
 -- «Healing» for the character, «Raid» for the class: the character's wins, the page says why
 box 0,0 760x618.33
