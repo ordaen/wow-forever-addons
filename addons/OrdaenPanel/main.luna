@@ -11,7 +11,6 @@ import { BagLine, MicroLine, MoneyLine, SocialLine } from "@/items"
 import { CharButton, Choices, Combat, DEFAULTS, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
 import { BottomPage, GeneralPage, MicroPage, StatusPage } from "@/settings"
 import { XpBar } from "@/xpBar"
-import { ExperienceGains, ReputationGains } from "@/gains"
 
 const INK: Color = Color.hex("#e8dcc4")
 // The time while calendar invites wait.
@@ -123,8 +122,7 @@ public class ZoneBox implements Component {
           <MicroLine $else gold={self.panel.goldIcons} vertical={self.panel.vertical} social={self.social} />
         </>
         <SocialLine $if={self.socialAlone} gold={self.panel.goldIcons} vertical={self.panel.vertical} />
-        <XpBar $if={self.experience} experience={self.panel.experienceGains} reputation={self.panel.reputationGains}
-               room={self.panel.inside} />
+        <XpBar $if={self.experience} room={self.panel.inside} />
         <text $if={self.zoneName} value={Game.location.zone} textColor={INK}
               textOutline={self.panel.outline} textShadow={self.panel.shadow} wrap={false} />
         <box $if={self.clock} @click={self.onClock}>
@@ -153,9 +151,6 @@ public class Panel implements Module, App {
   ]
 
   state hovered = false
-  // What the player gains while the module runs, for the bars' tooltips: kept here, so a bar drawn again keeps it.
-  public const experienceGains: ExperienceGains = new ExperienceGains()
-  public const reputationGains: ReputationGains = new ReputationGains()
 
   constructor() {
     Ordaen.modules.add(self)
@@ -337,7 +332,7 @@ public class Panel implements Module, App {
               home={EXPERIENCE_HOME}>
         <box width={600} background={Ordaen.art.window.wood} border={Ordaen.art.frame.small}
              padding={space(.Item)}>
-          <XpBar experience={self.experienceGains} reputation={self.reputationGains} />
+          <XpBar />
         </box>
       </Placed>
       <Placed $if={self.freeMoney} id={"OrdaenPanel.currencies"} title={Locale.PANEL_CURRENCIES}
