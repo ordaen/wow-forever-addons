@@ -131,7 +131,8 @@ test "a profile is picked by its dropdown, and the pick for the character, the c
   Test.expect(page.chosen == "Healing")
   click(Test.holding("Healing", 1))
   shown("the dropdown open: the three profiles, the picked one marked")
-  click(Test.holding("Raid", nil))
+  // The second «Raid»: the first is the plate of the copy's source, on the page; the list stands on its own.
+  click(Test.holding("Raid", 2))
   Test.expect(page.chosen == "Raid")
 
   // The class's pick, then the character's, which wins over it, then the character's taken away.

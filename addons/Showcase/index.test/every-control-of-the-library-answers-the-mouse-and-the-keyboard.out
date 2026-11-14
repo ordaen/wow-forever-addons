@@ -1,5 +1,5 @@
 -- drawn: the first tab picked, the second tab's rows not shown
-box 0,0 700x232 @enter @leave
+box 0,0 700x231.4 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000059 @click
@@ -29,7 +29,7 @@ box 0,0 700x232 @enter @leave
             box 248.33,96.33 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,97.17 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 291.67,89.67 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-          text 458.33,92.17 25x15 "100%" #ffffff
+          text 458.33,92.47 24x14.4 "100%" #ffffff
       box 0,119.67 700x16.67 opacity=1
         box 0,120.5 233.33x15 @enter @leave
           text 0,120.5 233.33x15 "Columns" #cbb994
@@ -38,17 +38,17 @@ box 0,0 700x232 @enter @leave
             box 248.33,124.67 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,125.5 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 281.67,118 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-          text 458.33,120.5 6.25x15 "4" #ffffff
-  text 0,144.33 700x15 "zone shown" #ffffff
-  box 0,167.33 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,167.33 120x28.33 absolute
-      text 47.5,174 25x15 "Save" #ffd100
-  box 0,203.67 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,203.67 120x28.33 absolute
-      text 44.38,210.33 31.25x15 "Reset" #808080
+          text 458.33,120.8 6x14.4 "4" #ffffff
+  text 0,144.33 700x14.4 "zone shown" #ffffff
+  box 0,166.73 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,166.73 120x28.33 absolute
+      text 47.5,173.4 25x15 "Save" #ffd100
+  box 0,203.07 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,203.07 120x28.33 absolute
+      text 44.38,209.73 31.25x15 "Reset" #808080
 
 -- the cursor on the second tab: its name lighter, on a shade
-box 0,0 700x232 @enter @leave
+box 0,0 700x231.4 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000059 @click
@@ -78,7 +78,7 @@ box 0,0 700x232 @enter @leave
             box 248.33,96.33 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,97.17 49.58x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 291.67,89.67 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-          text 458.33,92.17 25x15 "100%" #ffffff
+          text 458.33,92.47 24x14.4 "100%" #ffffff
       box 0,119.67 700x16.67 opacity=1
         box 0,120.5 233.33x15 @enter @leave
           text 0,120.5 233.33x15 "Columns" #cbb994
@@ -87,17 +87,17 @@ box 0,0 700x232 @enter @leave
             box 248.33,124.67 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,125.5 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 281.67,118 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-          text 458.33,120.5 6.25x15 "4" #ffffff
-  text 0,144.33 700x15 "zone shown" #ffffff
-  box 0,167.33 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,167.33 120x28.33 absolute
-      text 47.5,174 25x15 "Save" #ffd100
-  box 0,203.67 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,203.67 120x28.33 absolute
-      text 44.38,210.33 31.25x15 "Reset" #808080
+          text 458.33,120.8 6x14.4 "4" #ffffff
+  text 0,144.33 700x14.4 "zone shown" #ffffff
+  box 0,166.73 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,166.73 120x28.33 absolute
+      text 47.5,173.4 25x15 "Save" #ffd100
+  box 0,203.07 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,203.07 120x28.33 absolute
+      text 44.38,209.73 31.25x15 "Reset" #808080
 
 -- the second tab clicked: its rows shown, the first tab's gone; the drawer off, so the dropdown's row is greyed
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -140,16 +140,16 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
-  box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,324 120x28.33 absolute
-      text 47.5,330.67 25x15 "Save" #ffd100
-  box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,360.33 120x28.33 absolute
-      text 44.38,367 31.25x15 "Reset" #808080
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
 
 -- the cursor on the switch's label: its hint in a tip
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -192,19 +192,19 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines typing selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
-  box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,324 120x28.33 absolute
-      text 47.5,330.67 25x15 "Save" #ffd100
-  box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,360.33 120x28.33 absolute
-      text 44.38,367 31.25x15 "Reset" #808080
-surface 100,127.17 271.17x72.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
+surface 100,127.17 271.17x71.92 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 120.25,147.42 235.67x18 "Button drawer" #ffffff
-  text 120.25,167.08 235.67x15 "Other addons' buttons in one place." #cbb994
+  text 120.25,167.08 235.67x14 "Other addons' buttons in one place." #cbb994
 
 -- the switch clicked: on, both switches follow the one setting, the dropdown's row no longer greyed
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -247,16 +247,16 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
-  box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,324 120x28.33 absolute
-      text 47.5,330.67 25x15 "Save" #ffd100
-  box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,360.33 120x28.33 absolute
-      text 44.38,367 31.25x15 "Reset" #808080
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
 
 -- the dropdown's plate clicked: the menu under it, the picked choice's mark lit
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -286,16 +286,6 @@ box 0,0 700x388.67 @enter @leave
           box 248.33,89.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             text 263.33,96.33 153.33x15 "Never" #f0c860
             box 425,97.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 248.33,121.33 216.67x81.67 absolute #0a0806f7 @clickOutside
-            box 249.17,127.17 215x23.33 #00000000 @click
-              box 257.5,134.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-              text 274.17,131.33 178.33x15 "Never" #ffffff
-            box 249.17,150.5 215x23.33 #00000000 @click
-              box 257.5,158 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,154.67 178.33x15 "In combat" #ffffff
-            box 249.17,173.83 215x23.33 #00000000 @click
-              box 257.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,178 178.33x15 "On a mount — in development" #ffffff
       box 0,129.67 700x25 opacity=1
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
@@ -309,16 +299,26 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
-  box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,324 120x28.33 absolute
-      text 47.5,330.67 25x15 "Save" #ffd100
-  box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,360.33 120x28.33 absolute
-      text 44.38,367 31.25x15 "Reset" #808080
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
+surface 348.33,168 216.67x81.67 on FULLSCREEN_DIALOG #0a0806f7
+  box 349.17,173.83 215x23.33 #00000000 @click
+    box 357.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 374.17,178 178.33x15 "Never" #ffffff
+  box 349.17,197.17 215x23.33 #00000000 @click
+    box 357.5,204.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,201.33 178.33x15 "In combat" #ffffff
+  box 349.17,220.5 215x23.33 #00000000 @click
+    box 357.5,228 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,224.67 178.33x15 "On a mount — in development" #ffffff
 
 -- the cursor on a choice: the light under it
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -348,16 +348,6 @@ box 0,0 700x388.67 @enter @leave
           box 248.33,89.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             text 263.33,96.33 153.33x15 "Never" #f0c860
             box 425,97.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 248.33,121.33 216.67x81.67 absolute #0a0806f7 @clickOutside
-            box 249.17,127.17 215x23.33 #00000000 @click
-              box 257.5,134.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-              text 274.17,131.33 178.33x15 "Never" #ffffff
-            box 249.17,150.5 215x23.33 #d6a56b2e @click
-              box 257.5,158 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,154.67 178.33x15 "In combat" #ffffff
-            box 249.17,173.83 215x23.33 #00000000 @click
-              box 257.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,178 178.33x15 "On a mount — in development" #ffffff
       box 0,129.67 700x25 opacity=1
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
@@ -371,16 +361,26 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
-  box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,324 120x28.33 absolute
-      text 47.5,330.67 25x15 "Save" #ffd100
-  box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,360.33 120x28.33 absolute
-      text 44.38,367 31.25x15 "Reset" #808080
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
+surface 348.33,168 216.67x81.67 on FULLSCREEN_DIALOG #0a0806f7
+  box 349.17,173.83 215x23.33 #00000000 @click
+    box 357.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 374.17,178 178.33x15 "Never" #ffffff
+  box 349.17,197.17 215x23.33 #d6a56b2e @click
+    box 357.5,204.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,201.33 178.33x15 "In combat" #ffffff
+  box 349.17,220.5 215x23.33 #00000000 @click
+    box 357.5,228 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,224.67 178.33x15 "On a mount — in development" #ffffff
 
 -- a click elsewhere: the menu closed, nothing picked
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -423,16 +423,16 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
-  box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,324 120x28.33 absolute
-      text 47.5,330.67 25x15 "Save" #ffd100
-  box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,360.33 120x28.33 absolute
-      text 44.38,367 31.25x15 "Reset" #808080
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
 
 -- opened again and a choice not built yet clicked: nothing happens
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -462,16 +462,6 @@ box 0,0 700x388.67 @enter @leave
           box 248.33,89.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
             text 263.33,96.33 153.33x15 "Never" #f0c860
             box 425,97.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 248.33,121.33 216.67x81.67 absolute #0a0806f7 @clickOutside
-            box 249.17,127.17 215x23.33 #00000000 @click
-              box 257.5,134.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-              text 274.17,131.33 178.33x15 "Never" #ffffff
-            box 249.17,150.5 215x23.33 #00000000 @click
-              box 257.5,158 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,154.67 178.33x15 "In combat" #ffffff
-            box 249.17,173.83 215x23.33 #00000000 @click
-              box 257.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 274.17,178 178.33x15 "On a mount — in development" #ffffff
       box 0,129.67 700x25 opacity=1
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
@@ -485,16 +475,26 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
-  box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,324 120x28.33 absolute
-      text 47.5,330.67 25x15 "Save" #ffd100
-  box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,360.33 120x28.33 absolute
-      text 44.38,367 31.25x15 "Reset" #808080
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
+surface 348.33,168 216.67x81.67 on FULLSCREEN_DIALOG #0a0806f7
+  box 349.17,173.83 215x23.33 #00000000 @click
+    box 357.5,181.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 374.17,178 178.33x15 "Never" #ffffff
+  box 349.17,197.17 215x23.33 #00000000 @click
+    box 357.5,204.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,201.33 178.33x15 "In combat" #ffffff
+  box 349.17,220.5 215x23.33 #00000000 @click
+    box 357.5,228 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 374.17,224.67 178.33x15 "On a mount — in development" #ffffff
 
 -- a choice clicked: picked, the menu closed, the plate shows it
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -537,16 +537,16 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
-  box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,324 120x28.33 absolute
-      text 47.5,330.67 25x15 "Save" #ffd100
-  box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,360.33 120x28.33 absolute
-      text 44.38,367 31.25x15 "Reset" #808080
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
 
 -- the bare switch clicked: off again
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -589,16 +589,16 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
-  box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,324 120x28.33 absolute
-      text 47.5,330.67 25x15 "Save" #ffd100
-  box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,360.33 120x28.33 absolute
-      text 44.38,367 31.25x15 "Reset" #808080
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
 
 -- the dropdown's plate clicked while its row is disabled: it stays shut
-box 0,0 700x388.67 @enter @leave
+box 0,0 700x388.07 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -641,16 +641,16 @@ box 0,0 700x388.67 @enter @leave
         text 0,206.33 37.5x15 "Export" #e8c35a
         box 45.83,213.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
       box 0,233 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,301 700x15 "zone shown" #ffffff
-  box 0,324 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,324 120x28.33 absolute
-      text 47.5,330.67 25x15 "Save" #ffd100
-  box 0,360.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,360.33 120x28.33 absolute
-      text 44.38,367 31.25x15 "Reset" #808080
+  text 0,301 700x14.4 "zone shown" #ffffff
+  box 0,323.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,323.4 120x28.33 absolute
+      text 47.5,330.07 25x15 "Save" #ffd100
+  box 0,359.73 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,359.73 120x28.33 absolute
+      text 44.38,366.4 31.25x15 "Reset" #808080
 
 -- the drawer on again, its name's field clicked and typed into: twelve characters taken, the text under it follows
-box 0,0 700x403.67 @enter @leave
+box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -662,8 +662,8 @@ box 0,0 700x403.67 @enter @leave
     box 112.92,0 62.5x26.67 #00000000 @click
       box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
-  box 0,34.67 700x273.33
-    box 0,34.67 700x175
+  box 0,34.67 700x272.73
+    box 0,34.67 700x174.4
       box 0,34.67 700x15
         text 0,34.67 37.5x15 "Drawer" #e8c35a
         box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -684,26 +684,26 @@ box 0,0 700x403.67 @enter @leave
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
         box 248.33,129.67 250x25 #0d0a08 input "The long dra" typing @change
-      text 0,166.33 700x15 "The long dra" #ffffff
-      box 0,193 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-        box -2.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-        box 12.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-    box 0,221.33 700x86.67
-      box 0,221.33 700x15
-        text 0,221.33 37.5x15 "Export" #e8c35a
-        box 45.83,228.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-      box 0,248 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,316 700x15 "zone shown" #ffffff
-  box 0,339 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,339 120x28.33 absolute
-      text 47.5,345.67 25x15 "Save" #ffd100
-  box 0,375.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,375.33 120x28.33 absolute
-      text 44.38,382 31.25x15 "Reset" #808080
+      text 0,166.33 700x14.4 "The long dra" #ffffff
+      box 0,192.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+        box -2.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+        box 12.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 0,220.73 700x86.67
+      box 0,220.73 700x15
+        text 0,220.73 37.5x15 "Export" #e8c35a
+        box 45.83,227.82 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,247.4 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
+  text 0,315.4 700x14.4 "zone shown" #ffffff
+  box 0,337.8 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,337.8 120x28.33 absolute
+      text 47.5,344.47 25x15 "Save" #ffd100
+  box 0,374.13 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,374.13 120x28.33 absolute
+      text 44.38,380.8 31.25x15 "Reset" #808080
 
 key: ENTER → none
 -- Enter: the field lets the keyboard go
-box 0,0 700x403.67 @enter @leave
+box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -715,8 +715,8 @@ box 0,0 700x403.67 @enter @leave
     box 112.92,0 62.5x26.67 #00000000 @click
       box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
-  box 0,34.67 700x273.33
-    box 0,34.67 700x175
+  box 0,34.67 700x272.73
+    box 0,34.67 700x174.4
       box 0,34.67 700x15
         text 0,34.67 37.5x15 "Drawer" #e8c35a
         box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -737,25 +737,25 @@ box 0,0 700x403.67 @enter @leave
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
         box 248.33,129.67 250x25 #0d0a08 input "The long dra" @change
-      text 0,166.33 700x15 "The long dra" #ffffff
-      box 0,193 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-        box -2.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-        box 12.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-    box 0,221.33 700x86.67
-      box 0,221.33 700x15
-        text 0,221.33 37.5x15 "Export" #e8c35a
-        box 45.83,228.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-      box 0,248 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,316 700x15 "zone shown" #ffffff
-  box 0,339 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,339 120x28.33 absolute
-      text 47.5,345.67 25x15 "Save" #ffd100
-  box 0,375.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,375.33 120x28.33 absolute
-      text 44.38,382 31.25x15 "Reset" #808080
+      text 0,166.33 700x14.4 "The long dra" #ffffff
+      box 0,192.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+        box -2.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+        box 12.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 0,220.73 700x86.67
+      box 0,220.73 700x15
+        text 0,220.73 37.5x15 "Export" #e8c35a
+        box 45.83,227.82 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,247.4 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
+  text 0,315.4 700x14.4 "zone shown" #ffffff
+  box 0,337.8 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,337.8 120x28.33 absolute
+      text 47.5,344.47 25x15 "Save" #ffd100
+  box 0,374.13 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,374.13 120x28.33 absolute
+      text 44.38,380.8 31.25x15 "Reset" #808080
 
 -- Save clicked: Reset can be clicked
-box 0,0 700x403.67 @enter @leave
+box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -767,8 +767,8 @@ box 0,0 700x403.67 @enter @leave
     box 112.92,0 62.5x26.67 #00000000 @click
       box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
-  box 0,34.67 700x273.33
-    box 0,34.67 700x175
+  box 0,34.67 700x272.73
+    box 0,34.67 700x174.4
       box 0,34.67 700x15
         text 0,34.67 37.5x15 "Drawer" #e8c35a
         box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -789,25 +789,25 @@ box 0,0 700x403.67 @enter @leave
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
         box 248.33,129.67 250x25 #0d0a08 input "The long dra" @change
-      text 0,166.33 700x15 "The long dra" #ffffff
-      box 0,193 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-        box -2.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-        box 12.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-    box 0,221.33 700x86.67
-      box 0,221.33 700x15
-        text 0,221.33 37.5x15 "Export" #e8c35a
-        box 45.83,228.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-      box 0,248 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,316 700x15 "zone shown" #ffffff
-  box 0,339 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,339 120x28.33 absolute
-      text 47.5,345.67 25x15 "Save" #ffffff
-  box 0,375.33 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-    box 0,375.33 120x28.33 absolute
-      text 44.38,382 31.25x15 "Reset" #ffd100
+      text 0,166.33 700x14.4 "The long dra" #ffffff
+      box 0,192.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+        box -2.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+        box 12.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 0,220.73 700x86.67
+      box 0,220.73 700x15
+        text 0,220.73 37.5x15 "Export" #e8c35a
+        box 45.83,227.82 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,247.4 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
+  text 0,315.4 700x14.4 "zone shown" #ffffff
+  box 0,337.8 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,337.8 120x28.33 absolute
+      text 47.5,344.47 25x15 "Save" #ffffff
+  box 0,374.13 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+    box 0,374.13 120x28.33 absolute
+      text 44.38,380.8 31.25x15 "Reset" #ffd100
 
 -- Reset clicked: the question over the dimmed screen
-box 0,0 700x403.67 @enter @leave
+box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -819,8 +819,8 @@ box 0,0 700x403.67 @enter @leave
     box 112.92,0 62.5x26.67 #00000000 @click
       box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
-  box 0,34.67 700x273.33
-    box 0,34.67 700x175
+  box 0,34.67 700x272.73
+    box 0,34.67 700x174.4
       box 0,34.67 700x15
         text 0,34.67 37.5x15 "Drawer" #e8c35a
         box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -841,39 +841,39 @@ box 0,0 700x403.67 @enter @leave
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
         box 248.33,129.67 250x25 #0d0a08 input "The long dra" @change
-      text 0,166.33 700x15 "The long dra" #ffffff
-      box 0,193 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-        box -2.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-        box 12.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-    box 0,221.33 700x86.67
-      box 0,221.33 700x15
-        text 0,221.33 37.5x15 "Export" #e8c35a
-        box 45.83,228.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-      box 0,248 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,316 700x15 "zone shown" #ffffff
-  box 0,339 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,339 120x28.33 absolute
-      text 47.5,345.67 25x15 "Save" #ffd100
-  box 0,375.33 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-    box 0,375.33 120x28.33 absolute
-      text 44.38,382 31.25x15 "Reset" #ffffff
+      text 0,166.33 700x14.4 "The long dra" #ffffff
+      box 0,192.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+        box -2.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+        box 12.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 0,220.73 700x86.67
+      box 0,220.73 700x15
+        text 0,220.73 37.5x15 "Export" #e8c35a
+        box 45.83,227.82 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,247.4 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
+  text 0,315.4 700x14.4 "zone shown" #ffffff
+  box 0,337.8 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,337.8 120x28.33 absolute
+      text 47.5,344.47 25x15 "Save" #ffd100
+  box 0,374.13 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+    box 0,374.13 120x28.33 absolute
+      text 44.38,380.8 31.25x15 "Reset" #ffffff
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 615.25,385.04 369.5x129.92 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    text 645.5,431.96 314x15 "Forget what was saved?" #ffffff
-    box 645.5,458.62 314x28.33
-      box 645.5,458.62 100.67x0
-      box 746.17,458.62 213.33x28.33
-        box 746.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-          box 746.17,458.62 100x28.33 absolute
-            text 777.42,465.29 37.5x15 "Forget" #ffd100
-        box 852.83,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          box 852.83,458.62 100x28.33 absolute
-            text 890.33,465.29 25x15 "Keep" #ffd100
-    box 622.5,403.96 360x18 absolute
-      text 783.75,403.96 37.5x18 "Reset" #ffd100
+  box 615.25,385.34 369.5x129.32 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+    text 645.5,432.26 314x14.4 "Forget what was saved?" #ffffff
+    box 645.5,458.33 314x28.33
+      box 645.5,458.33 100.67x0
+      box 746.17,458.33 213.33x28.33
+        box 746.17,458.33 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+          box 746.17,458.33 100x28.33 absolute
+            text 777.42,464.99 37.5x15 "Forget" #ffd100
+        box 852.83,458.33 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 852.83,458.33 100x28.33 absolute
+            text 890.33,464.99 25x15 "Keep" #ffd100
+    box 622.5,404.26 360x15 absolute
+      text 786.88,404.26 31.25x15 "Reset" #ffd100
 
 -- a click on the dimmed screen, over the first tab: nothing under it hears
-box 0,0 700x403.67 @enter @leave
+box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -885,8 +885,8 @@ box 0,0 700x403.67 @enter @leave
     box 112.92,0 62.5x26.67 #00000000 @click
       box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
-  box 0,34.67 700x273.33
-    box 0,34.67 700x175
+  box 0,34.67 700x272.73
+    box 0,34.67 700x174.4
       box 0,34.67 700x15
         text 0,34.67 37.5x15 "Drawer" #e8c35a
         box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -907,39 +907,39 @@ box 0,0 700x403.67 @enter @leave
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
         box 248.33,129.67 250x25 #0d0a08 input "The long dra" @change
-      text 0,166.33 700x15 "The long dra" #ffffff
-      box 0,193 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-        box -2.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-        box 12.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-    box 0,221.33 700x86.67
-      box 0,221.33 700x15
-        text 0,221.33 37.5x15 "Export" #e8c35a
-        box 45.83,228.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-      box 0,248 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,316 700x15 "zone shown" #ffffff
-  box 0,339 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,339 120x28.33 absolute
-      text 47.5,345.67 25x15 "Save" #ffd100
-  box 0,375.33 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-    box 0,375.33 120x28.33 absolute
-      text 44.38,382 31.25x15 "Reset" #ffd100
+      text 0,166.33 700x14.4 "The long dra" #ffffff
+      box 0,192.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+        box -2.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+        box 12.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 0,220.73 700x86.67
+      box 0,220.73 700x15
+        text 0,220.73 37.5x15 "Export" #e8c35a
+        box 45.83,227.82 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,247.4 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
+  text 0,315.4 700x14.4 "zone shown" #ffffff
+  box 0,337.8 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,337.8 120x28.33 absolute
+      text 47.5,344.47 25x15 "Save" #ffd100
+  box 0,374.13 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+    box 0,374.13 120x28.33 absolute
+      text 44.38,380.8 31.25x15 "Reset" #ffd100
 surface 0,0 1600x900 on DIALOG #0000008c
-  box 615.25,385.04 369.5x129.92 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    text 645.5,431.96 314x15 "Forget what was saved?" #ffffff
-    box 645.5,458.62 314x28.33
-      box 645.5,458.62 100.67x0
-      box 746.17,458.62 213.33x28.33
-        box 746.17,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-          box 746.17,458.62 100x28.33 absolute
-            text 777.42,465.29 37.5x15 "Forget" #ffd100
-        box 852.83,458.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          box 852.83,458.62 100x28.33 absolute
-            text 890.33,465.29 25x15 "Keep" #ffd100
-    box 622.5,403.96 360x18 absolute
-      text 783.75,403.96 37.5x18 "Reset" #ffd100
+  box 615.25,385.34 369.5x129.32 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+    text 645.5,432.26 314x14.4 "Forget what was saved?" #ffffff
+    box 645.5,458.33 314x28.33
+      box 645.5,458.33 100.67x0
+      box 746.17,458.33 213.33x28.33
+        box 746.17,458.33 100x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+          box 746.17,458.33 100x28.33 absolute
+            text 777.42,464.99 37.5x15 "Forget" #ffd100
+        box 852.83,458.33 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          box 852.83,458.33 100x28.33 absolute
+            text 890.33,464.99 25x15 "Keep" #ffd100
+    box 622.5,404.26 360x15 absolute
+      text 786.88,404.26 31.25x15 "Reset" #ffd100
 
 -- «Keep» clicked: the question goes, nothing forgotten
-box 0,0 700x403.67 @enter @leave
+box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -951,8 +951,8 @@ box 0,0 700x403.67 @enter @leave
     box 112.92,0 62.5x26.67 #00000000 @click
       box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
-  box 0,34.67 700x273.33
-    box 0,34.67 700x175
+  box 0,34.67 700x272.73
+    box 0,34.67 700x174.4
       box 0,34.67 700x15
         text 0,34.67 37.5x15 "Drawer" #e8c35a
         box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -973,25 +973,25 @@ box 0,0 700x403.67 @enter @leave
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
         box 248.33,129.67 250x25 #0d0a08 input "The long dra" @change
-      text 0,166.33 700x15 "The long dra" #ffffff
-      box 0,193 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-        box -2.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-        box 12.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-    box 0,221.33 700x86.67
-      box 0,221.33 700x15
-        text 0,221.33 37.5x15 "Export" #e8c35a
-        box 45.83,228.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-      box 0,248 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,316 700x15 "zone shown" #ffffff
-  box 0,339 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,339 120x28.33 absolute
-      text 47.5,345.67 25x15 "Save" #ffd100
-  box 0,375.33 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
-    box 0,375.33 120x28.33 absolute
-      text 44.38,382 31.25x15 "Reset" #ffd100
+      text 0,166.33 700x14.4 "The long dra" #ffffff
+      box 0,192.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+        box -2.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+        box 12.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 0,220.73 700x86.67
+      box 0,220.73 700x15
+        text 0,220.73 37.5x15 "Export" #e8c35a
+        box 45.83,227.82 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,247.4 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
+  text 0,315.4 700x14.4 "zone shown" #ffffff
+  box 0,337.8 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,337.8 120x28.33 absolute
+      text 47.5,344.47 25x15 "Save" #ffd100
+  box 0,374.13 120x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click
+    box 0,374.13 120x28.33 absolute
+      text 44.38,380.8 31.25x15 "Reset" #ffd100
 
 -- asked again and «Forget» clicked: Reset is disabled again
-box 0,0 700x403.67 @enter @leave
+box 0,0 700x402.47 @enter @leave
   box 0,0 700x26.67
     box 0,25.83 700x0.83 absolute #3e2f1d
     box 0,0 43.75x26.67 #00000000 @click
@@ -1003,8 +1003,8 @@ box 0,0 700x403.67 @enter @leave
     box 112.92,0 62.5x26.67 #00000000 @click
       box 113.75,0.83 60.83x1.67 absolute #00000000
       text 125.42,6.67 37.5x15 "Market" #a3977f
-  box 0,34.67 700x273.33
-    box 0,34.67 700x175
+  box 0,34.67 700x272.73
+    box 0,34.67 700x174.4
       box 0,34.67 700x15
         text 0,34.67 37.5x15 "Drawer" #e8c35a
         box 45.83,41.75 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
@@ -1025,19 +1025,19 @@ box 0,0 700x403.67 @enter @leave
         box 0,134.67 233.33x15 @enter @leave
           text 0,134.67 233.33x15 "Its name" #cbb994
         box 248.33,129.67 250x25 #0d0a08 input "The long dra" @change
-      text 0,166.33 700x15 "The long dra" #ffffff
-      box 0,193 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
-        box -2.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
-        box 12.5,190.5 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-    box 0,221.33 700x86.67
-      box 0,221.33 700x15
-        text 0,221.33 37.5x15 "Export" #e8c35a
-        box 45.83,228.42 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-      box 0,248 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
-  text 0,316 700x15 "zone shown" #ffffff
-  box 0,339 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-    box 0,339 120x28.33 absolute
-      text 47.5,345.67 25x15 "Save" #ffd100
-  box 0,375.33 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
-    box 0,375.33 120x28.33 absolute
-      text 44.38,382 31.25x15 "Reset" #808080
+      text 0,166.33 700x14.4 "The long dra" #ffffff
+      box 0,192.4 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
+        box -2.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
+        box 12.5,189.9 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
+    box 0,220.73 700x86.67
+      box 0,220.73 700x15
+        text 0,220.73 37.5x15 "Export" #e8c35a
+        box 45.83,227.82 654.17x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+      box 0,247.4 700x60 #0d0a08 input "Ordaen:1:drawer\nhide=never" lines selected 0..26 clipped @change
+  text 0,315.4 700x14.4 "zone shown" #ffffff
+  box 0,337.8 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+    box 0,337.8 120x28.33 absolute
+      text 47.5,344.47 25x15 "Save" #ffd100
+  box 0,374.13 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click
+    box 0,374.13 120x28.33 absolute
+      text 44.38,380.8 31.25x15 "Reset" #808080

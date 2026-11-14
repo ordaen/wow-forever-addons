@@ -14,7 +14,7 @@ key: TAB → #5 «One» (click)
 key: TAB → #6 «Two» (click)
 key: SPACE → #6 «Two» (click)
 key: TAB → #7 «Small» (click)
-key: ENTER → #8 > #1 «Small» (click)
+key: ENTER → #0 > #1 «Small» (click)
 -- the dropdown opened by Enter: the focus in its list
 surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
   box 420,121.38 760x37.25 absolute @drag @dragStart
@@ -31,64 +31,57 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
         box 691.08,207.38 31.67x16.67 Interface\AddOns\Ordaen\media\ctl-switch-track row 1 of 4 @click
           box 688.58,204.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 0 of 2 opacity=0
           box 703.58,204.88 21.67x21.67 absolute Interface\AddOns\Ordaen\media\ctl-switch-knob row 1 of 2 opacity=1
-      box 442.75,230.04 719.5x28.33 opacity=1
-        box 442.75,230.04 50x28.33 #0d0a08 @click
-          box 442.75,230.04 50x1.67 absolute #00000000
-          text 455.25,236.71 25x15 "Left" #a3977f
-        box 492.75,230.04 55.42x28.33 #5a4428 @click
-          box 492.75,230.04 55.42x1.67 absolute #d6a56b
-          text 504.42,236.71 31.25x15 "Right" #ffffff
-      box 442.75,264.38 719.5x26.67
-        box 442.75,290.21 719.5x0.83 absolute #3e2f1d
-        box 442.75,264.38 43.75x26.67 #00000000 @click
-          box 443.58,265.21 42.08x1.67 absolute #00000000
-          text 455.25,271.04 18.75x15 "One" #a3977f
-        box 489.83,264.38 43.75x26.67 #00000059 @click
-          box 490.67,265.21 42.08x1.67 absolute #d6a56b
-          text 502.33,271.04 18.75x15 "Two" #ffffff
-      box 442.75,297.04 719.5x28.33 opacity=1
-        box 442.75,303.71 233.33x15 @enter @leave
-          text 442.75,303.71 233.33x15 "Size" #cbb994
-        box 691.08,297.04 200x28.33
-          box 691.08,297.04 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-            text 706.08,303.71 153.33x15 "Small" #f0c860
-            box 867.75,304.54 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-          box 691.08,328.71 216.67x58.33 absolute #0a0806f7 @clickOutside
-            box 691.92,334.54 215x23.33 #d6a56b2e @click focus ring
-              box 700.25,342.04 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-              text 716.92,338.71 178.33x15 "Small" #ffffff
-            box 691.92,357.88 215x23.33 #00000000 @click
-              box 700.25,365.38 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-              text 716.92,362.04 178.33x15 "Large" #ffffff
-      box 442.75,331.38 120x28.33
-        box 442.75,331.38 120x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 452.75,338.04 85x15 "Left" #f0c860
-          box 542.75,338.88 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-      box 442.75,365.71 719.5x16.67 opacity=1
-        box 442.75,366.54 233.33x15 @enter @leave
-          text 442.75,366.54 233.33x15 "Scale" #cbb994
-        box 691.08,365.71 471.17x16.67
-          box 691.08,365.71 200x16.67 @click @drag @dragStart @key
-            box 691.08,370.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
-            box 691.92,371.54 66.11x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
-            box 751.08,364.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
-          text 901.08,366.54 6.25x15 "1" #ffffff
-      box 442.75,388.38 719.5x25 opacity=1
-        box 442.75,393.38 233.33x15 @enter @leave
-          text 442.75,393.38 233.33x15 "Price" #cbb994
-        box 691.08,388.38 150x25 #0d0a08 input "0c" @change
-      box 442.75,419.38 719.5x40 #0d0a08 input "" lines clipped @change
-      box 442.75,465.38 719.5x47.5
-        box 442.75,465.38 719.5x25.83 #00000040
-          box 449.42,465.38 706.17x25 #00000000 @click
-            box 449.42,488.71 706.17x1.67 absolute #d6a56b
-            box 449.42,470.38 28.33x15
-              text 449.42,470.38 25x15 "Name" #f0c860
-        box 442.75,491.21 719.5x21.67 scrolled 0 of 0
-          box 442.75,491.21 719.5x21.67 #00000000 @click
-            text 449.42,494.54 706.17x15 "a row" #ffffff
-      box 442.75,518.88 719.5x20 @click
-        text 442.75,518.88 719.5x15 "menu" #ffffff
+      box 442.75,230.04 719.5x27.33 opacity=1
+        box 442.75,230.04 48.33x27.33 #0d0a08 @click
+          box 442.75,230.04 48.33x1.67 absolute #00000000
+          text 455.25,236.71 23.33x14 "Left" #a3977f
+        box 491.08,230.04 53.33x27.33 #5a4428 @click
+          box 491.08,230.04 53.33x1.67 absolute #d6a56b
+          text 502.75,236.71 29.17x14 "Right" #ffffff
+      box 442.75,263.38 719.5x26.67
+        box 442.75,289.21 719.5x0.83 absolute #3e2f1d
+        box 442.75,263.38 43.75x26.67 #00000000 @click
+          box 443.58,264.21 42.08x1.67 absolute #00000000
+          text 455.25,270.04 18.75x15 "One" #a3977f
+        box 489.83,263.38 43.75x26.67 #00000059 @click
+          box 490.67,264.21 42.08x1.67 absolute #d6a56b
+          text 502.33,270.04 18.75x15 "Two" #ffffff
+      box 442.75,296.04 719.5x28.33 opacity=1
+        box 442.75,302.71 233.33x15 @enter @leave
+          text 442.75,302.71 233.33x15 "Size" #cbb994
+        box 691.08,296.04 200x28.33
+          box 691.08,296.04 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            text 706.08,302.71 153.33x15 "Small" #f0c860
+            box 867.75,303.54 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 442.75,330.38 120x28.33
+        box 442.75,330.38 120x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 452.75,337.54 85x14 "Left" #f0c860
+          box 542.75,337.88 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 442.75,364.71 719.5x16.67 opacity=1
+        box 442.75,365.54 233.33x15 @enter @leave
+          text 442.75,365.54 233.33x15 "Scale" #cbb994
+        box 691.08,364.71 471.17x16.67
+          box 691.08,364.71 200x16.67 @click @drag @dragStart @key
+            box 691.08,369.71 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+            box 691.92,370.54 66.11x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+            box 751.08,363.04 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+          text 901.08,365.84 6x14.4 "1" #ffffff
+      box 442.75,387.38 719.5x25 opacity=1
+        box 442.75,392.38 233.33x15 @enter @leave
+          text 442.75,392.38 233.33x15 "Price" #cbb994
+        box 691.08,387.38 150x25 #0d0a08 input "0c" @change
+      box 442.75,418.38 719.5x40 #0d0a08 input "" lines clipped @change
+      box 442.75,464.38 719.5x45.9
+        box 442.75,464.38 719.5x24.83 #00000040
+          box 449.42,464.38 706.17x24 #00000000 @click
+            box 449.42,486.71 706.17x1.67 absolute #d6a56b
+            box 449.42,469.38 26.67x14
+              text 449.42,469.38 23.33x14 "Name" #f0c860
+        box 442.75,489.21 719.5x21.07 scrolled 0 of 0
+          box 442.75,489.21 719.5x21.07 #00000000 @click
+            text 449.42,492.54 706.17x14.4 "a row" #ffffff
+      box 442.75,516.27 719.5x20 @click
+        text 442.75,516.27 719.5x14.4 "menu" #ffffff
     box 1162.75,758.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 420,121.38 239x47.75
     box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -97,11 +90,18 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
     box 544.5,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 563.08,131.62 77.33x34.25
         text 589.25,141.25 25x15 "More" #b3a690
+surface 691.08,324.38 216.67x58.33 on FULLSCREEN_DIALOG #0a0806f7
+  box 691.92,330.21 215x23.33 #d6a56b2e @click focus ring
+    box 700.25,337.71 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
+    text 716.92,334.38 178.33x15 "Small" #ffffff
+  box 691.92,353.54 215x23.33 #00000000 @click
+    box 700.25,361.04 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 716.92,357.71 178.33x15 "Large" #ffffff
 
-key: DOWN → #8 > #2 «Large» (click)
+key: DOWN → #0 > #2 «Large» (click)
 key: ENTER → #7 «Large» (click)
 key: TAB → #8 «Left» (click)
-key: ENTER → #9 > #1 «Left» (click)
+key: ENTER → #0 > #1 «Left» (click)
 key: ESCAPE → #8 «Left» (click)
 key: TAB → #9 «» (keys:LEFT,RIGHT,HOME,END)
 key: RIGHT → #9 «» (keys:LEFT,RIGHT,HOME,END)
