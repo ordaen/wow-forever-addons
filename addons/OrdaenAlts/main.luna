@@ -6,7 +6,7 @@ import Game from "$game"
 import Runtime from "$runtime"
 import { Hour, ItemId, Module, Placing, SettingsPage, Window, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
-import { Character, CharacterId, factionOf, Held, Kept, Knower, RecipeId } from "@/character"
+import { Character, CharacterId, factionOf, Held, Kept, Knower, Place, RecipeId } from "@/character"
 import { Characters } from "@/characters"
 import { Cooldowns } from "@/cooldowns"
 import { Grid } from "@/grid"
@@ -19,6 +19,7 @@ import Style from "@/style"
 // Where the records are in the module's own saved variable: written as they stand when the session ends, which is
 // the only time they are written.
 const KEY = "characters"
+const NOTHING_HELD: Map<ItemId, Integer> = {}
 
 const TABS: Array<WindowTabSpec> = [
   { title: Locale.TAB_CHARACTERS },
@@ -73,6 +74,20 @@ public class Alts implements Module, App {
 
   // Who holds an item, how many, and where.
   public holders(self, item: ItemId): Array<Held> { return self.records.holders(item) }
+
+  // What a character holds in its bags, or its bank, by item, as last read; nothing for one not recorded or a place
+  // never read. Read where it is kept: no copy is made.
+  public holdings(self, who: CharacterId, bank: Boolean): Map<ItemId, Integer> {
+    const found = self.characters[who]
+    if (found == nil) { return NOTHING_HELD }
+    return found.held[bank ? Place.Bank : Place.Bags] ?? NOTHING_HELD
+  }
+
+  // When a character's bank was last read; none before the first time.
+  public bankRead(self, who: CharacterId): Hour | nil {
+    const found = self.characters[who]
+    return found != nil ? found.read[Place.Bank] : nil
+  }
 
   // Whether the character being played can send to another: the same realm and side.
   public reaches(self, who: CharacterId): Boolean { return self.records.reaches(who) }
