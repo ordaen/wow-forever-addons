@@ -1,10 +1,15 @@
 import { ItemId } from "Ordaen"
 // A line of the shopping list: an item, how many, and what asked for it.
 
+// What asked for a line: Professions' craft queue (so many of a recipe, a spell's id, for a character), or the
+// player by hand. The text under the item's name is made from it.
+public enum Source implements Plain {
+  Queue { recipe: Integer, crafts: Integer, character: String },
+  ByHand,
+}
+
 public struct Wanted implements Plain {
   item: ItemId = 0
   count: Integer = 0
-  // What asked for it, as the module that added it words it («Bronze Axe ×5 — Regron's queue»); none for a line the
-  // player added by hand.
-  from: String | nil = nil
+  source: Source = .ByHand
 }

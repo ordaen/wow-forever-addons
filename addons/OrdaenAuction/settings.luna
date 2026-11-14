@@ -18,17 +18,23 @@ public const DEFAULTS: Choices = { scanOnOpen: true, cut: 5, window: true, price
 
 public class GeneralPage implements Component {
   settings: mut Settings<Choices>
-  constructor(settings: mut Settings<Choices>) {
+  // Drawn read-only: «Data» shows the settings as they stand, changed on this page alone.
+  disabled: Signal<Boolean>
+  constructor(settings: mut Settings<Choices>, disabled: Signal<Boolean> = false) {
     self.settings = settings
+    self.disabled = disabled
   }
 
   public render(self): Template {
     return $ltml {
-      <Switch label={Locale.SCAN_ON_OPEN} hint={Locale.SCAN_ON_OPEN_TIP} value={mut self.settings.draft.scanOnOpen} />
+      <Switch label={Locale.SCAN_ON_OPEN} hint={Locale.SCAN_ON_OPEN_TIP} value={mut self.settings.draft.scanOnOpen}
+              disabled={self.disabled} />
       <Slider label={Locale.CUT} hint={Locale.CUT_TIP} value={mut self.settings.draft.cut} least={0} most={20}
-              unit={Unit.None} />
-      <Switch label={Locale.WINDOW} hint={Locale.WINDOW_TIP} value={mut self.settings.draft.window} />
-      <Switch label={Locale.PRICE_LINE} hint={Locale.PRICE_LINE_TIP} value={mut self.settings.draft.priceLine} />
+              unit={Unit.None} disabled={self.disabled} />
+      <Switch label={Locale.WINDOW} hint={Locale.WINDOW_TIP} value={mut self.settings.draft.window}
+              disabled={self.disabled} />
+      <Switch label={Locale.PRICE_LINE} hint={Locale.PRICE_LINE_TIP} value={mut self.settings.draft.priceLine}
+              disabled={self.disabled} />
     }
   }
 }

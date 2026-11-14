@@ -3,24 +3,15 @@
 // many are wanted, and how many this character holds of them). Each is asked once per item shown, and again when a
 // cell it read moves: a price's `revision`, the list's.
 import Game from "$game"
-import { ItemId } from "Ordaen"
+import { ageText, ItemId } from "Ordaen"
 import root Tooltips from "OrdaenTooltips"
 import type { ItemLines, Line } from "OrdaenTooltips"
 import Locale from "@/locales"
 import { PriceKey, PriceSource } from "@/quote"
 import { ShoppingList } from "@/shopping"
-import Style from "@/style"
 
 const NONE: Array<Line> = []
-const AMBER_DAYS = 3
-
-// A price's age as the line says it: nothing under a day, «(2 d.)» from a day on; its colour, amber to the third day,
-// dim beyond, none under a day.
-function aged(hours: Integer): (String, Color | nil) {
-  const days = (hours / 24).floor()
-  if (days < 1) { return "", nil }
-  return " " + Locale.AGE_DAYS.format(days), days <= AMBER_DAYS ? Style.AMBER : Style.DIM
-}
+const HOUR = 3600
 
 // The «Auction» line of an item's tooltip.
 public class PriceLine implements ItemLines {
@@ -38,8 +29,10 @@ public class PriceLine implements ItemLines {
     _ = self.prices.revision
     const quote = self.prices.buy(PriceKey.ofLink(item, link))
     if (quote == nil) { return NONE }
-    const age, color = aged(quote.age())
-    return [{ left: Locale.AUCTION, right: Game.money.format(quote.copper()) + age, rightColor: color }]
+    // The age as `Ordaen`'s `Age` says it; a `Line` has one colour a side, so the price takes the age's.
+    const age, color = ageText(quote.age() * HOUR)
+    const price = Game.money.format(quote.copper())
+    return [{ left: Locale.AUCTION, right: age != "" ? price + " " + age : price, rightColor: color }]
   }
 }
 

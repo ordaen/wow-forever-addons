@@ -8,14 +8,16 @@ import root Auction from "OrdaenAuction"
 
 const COPPER_BAR: Integer = 2840
 const LINEN: Integer = 2589
+// The recipe, a spell's id, that makes a Bronze Axe.
+const BRONZE_AXE: Integer = 2741
 const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
 
 test "lines of one item are summed, held is taken off, and the list is kept across a reload" {
   Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 4 : 0
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 12, "Bronze Axe ×6 — Regron's queue")
-  Auction.shopping.add(ItemId.of(LINEN), 20, nil)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 2, nil)
-  Auction.shopping.add(ItemId.of(LINEN), 0, nil)
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 12, .Queue { recipe: BRONZE_AXE, crafts: 6, character: "Regron" })
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 2, .ByHand)
+  Auction.shopping.add(ItemId.of(LINEN), 0, .ByHand)
   const rows = Auction.shopping.rows
   Test.expect(rows.length == 2)
   const bars = rows[1] ?? panic("two rows")
@@ -33,8 +35,10 @@ test "the page: every item browsed in one query, a row removed, what is bought c
   Test.pass(0.02)
   Test.shot("empty: what to do")
   Game.items.owned = (id: Integer): Integer => id == LINEN ? 25 : 0
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 12, "Bronze Axe ×6 — Regron's queue")
-  Auction.shopping.add(ItemId.of(LINEN), 20, nil)
+  Game.spells.name = (id: Integer): String | nil => id == BRONZE_AXE ? "Bronze Axe" : nil
+  Auction.shopping.add(ItemId.of(LINEN), 4, .Queue { recipe: 9999, crafts: 2, character: "Regy" })
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 12, .Queue { recipe: BRONZE_AXE, crafts: 6, character: "Regron" })
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
   Test.pass(0.02)
   Test.shot("two items, no prices yet; linen held in full, dimmed")
   Test.click(Test.holding("Search all", nil), nil)
@@ -58,7 +62,7 @@ test "«Buy N» on a row: its listings asked first, then a commodity's N priced 
   Game.auctionQuery.ready = true
   Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 4 : 0
   Game.auctionQuery.results.emit([{ key: COPPER_BAR, copper: 52, quantity: 400 }])
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 22, nil)
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 22, .ByHand)
   Auction.page = 4
   Test.pass(0.02)
   Test.click(Test.holding("Buy 18", nil), nil)

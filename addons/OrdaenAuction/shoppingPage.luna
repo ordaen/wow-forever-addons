@@ -12,6 +12,7 @@ import Locale from "@/locales"
 import { Purchase } from "@/purchase"
 import { PriceKey, PriceSource, Quote } from "@/quote"
 import { Row, ShoppingList } from "@/shopping"
+import { Source } from "@/wanted"
 import Style from "@/style"
 
 const COLUMNS: Array<Column> = [
@@ -29,11 +30,20 @@ const ITEM: Array<Track> = ["auto", { fr: 1 }]
 const HEAD: Array<Track> = [{ fr: 1 }, "auto", "auto"]
 const BUTTONS: Array<Track> = ["auto", "auto", "auto", { fr: 1 }]
 
-// What a line says of what asked: «12 — Bronze Axe ×5, Regron's queue», «12 — by hand».
+// What asked for a line, as the row says it: «Bronze Axe ×5 — Regron's queue», «by hand».
+function sourceText(source: Source): String {
+  return match (source) {
+    .Queue => Locale.QUEUE_LINE.format(Game.spells.name(source.recipe) ?? Locale.UNKNOWN_RECIPE.format(source.recipe),
+      source.crafts, source.character),
+    .ByHand => Locale.BY_HAND,
+  }
+}
+
+// Under the item's name, one line a source.
 function linesText(row: Row): String {
   let text = ""
   for (index, line of row.lines) {
-    text = text + (index == 1 ? "" : " · ") + Locale.LINE.format(line.count, line.from ?? Locale.BY_HAND)
+    text = text + (index == 1 ? "" : "\n") + sourceText(line.source)
   }
   return text
 }

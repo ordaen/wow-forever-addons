@@ -52,7 +52,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                     box 471.08,353.54 20x20 absolute #00000000
                   box 497.75,350.54 146.17x26 clipped
                     text 497.75,350.54 146.17x14 "Item 2840" #e8dcc4
-                    text 497.75,364.54 146.17x12 "22 — by hand" #a3977f
+                    text 497.75,364.54 146.17x12 "by hand" #a3977f
                 text 650.58,356.54 50x14 "22" #e8dcc4
                 text 707.25,356.54 46.67x14 "4" #e8dcc4
                 text 760.58,356.54 53.33x14 "18" #e8dcc4
@@ -156,7 +156,7 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                     box 471.08,353.54 20x20 absolute #00000000
                   box 497.75,350.54 146.17x26 clipped
                     text 497.75,350.54 146.17x14 "Item 2840" #a3977f
-                    text 497.75,364.54 146.17x12 "22 — by hand" #a3977f
+                    text 497.75,364.54 146.17x12 "by hand" #a3977f
                 text 650.58,356.54 50x14 "22" #a3977f
                 text 707.25,356.54 46.67x14 "22" #a3977f
                 text 760.58,356.54 53.33x14 "0" #a3977f

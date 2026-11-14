@@ -113,7 +113,7 @@ public class Auction implements Module, App {
               <OwnedPage $case={OWNED} house={self.house} revision={self.source.revision} />
               <ShoppingPage $case={SHOPPING} prices={self.prices} list={mut self.shopping} />
               <DataPage $case={DATA} scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
-                        items={self.scanner.known} values={self.settings.values} />
+                        items={self.scanner.known} settings={mut self.settings} />
             </box>
           </box>
         </Window>

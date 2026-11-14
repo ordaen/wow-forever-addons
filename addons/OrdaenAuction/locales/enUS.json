@@ -90,15 +90,14 @@
   "BOUGHT_ROWS": "Bought: %d",
   "SECTION_SETTINGS": "Settings",
   "SETTINGS": "Settings",
-  "ON": "on",
-  "OFF": "off",
   "PAGE_SHOPPING": "Shopping list",
   "COLUMN_NEEDED": "Needed",
   "COLUMN_HELD": "Held",
   "COLUMN_TO_BUY": "To buy",
   "COLUMN_PRICE": "Price",
   "COLUMN_TOTAL": "Total",
-  "LINE": "%d — %s",
+  "QUEUE_LINE": "%s ×%d — %s's queue",
+  "UNKNOWN_RECIPE": "Recipe %d",
   "BY_HAND": "by hand",
   "HELD_HERE": "Held: this character's bags and bank.",
   "SHOPPING_EMPTY": "Add a recipe from Professions, or an item on the Buy page.",
@@ -109,6 +108,5 @@
   "TO_LIST": "Add to shopping list",
   "IN_LIST": "On the shopping list",
   "IN_LIST_HELD": "%d (bought %d)",
-  "AUCTION": "Auction",
-  "AGE_DAYS": "(%d d.)"
+  "AUCTION": "Auction"
 }

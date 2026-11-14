@@ -4,7 +4,7 @@
 import Game from "$game"
 import { ItemId } from "Ordaen"
 import { Kept } from "@/kept"
-import { Wanted } from "@/wanted"
+import { Source, Wanted } from "@/wanted"
 
 // One item of the list: what is needed in all, what this character holds, what is left to buy, and the lines that
 // asked for it.
@@ -40,11 +40,11 @@ public class ShoppingList {
     return self.kept.shopping
   }
 
-  // So many of an item, asked for by `from` (none: by hand).
-  public add(mut self, item: ItemId, count: Integer, from: String | nil) {
+  // So many of an item, and what asked for them.
+  public add(mut self, item: ItemId, count: Integer, source: Source) {
     if (count <= 0) { return }
     if (self.kept.shopping.length >= MOST) { _ = self.kept.shopping.remove(1) }
-    self.kept.shopping.push({ item: item, count: count, from: from })
+    self.kept.shopping.push({ item: item, count: count, source: source })
     self.revision += 1
   }
 

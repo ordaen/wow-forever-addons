@@ -361,7 +361,7 @@ class Chosen implements Component {
   onBuy(mut self) { _ = self.purchase.buy(peek self.count) }
 
   // The quantity on the shopping list, as the player's own line.
-  onList(mut self) { self.shopping.add(self.found.item, (peek self.count).max(1), nil) }
+  onList(mut self) { self.shopping.add(self.found.item, (peek self.count).max(1), .ByHand) }
 
   public render(self): Template {
     return $ltml {

@@ -1,14 +1,15 @@
 // «Data»: the last full scan (when, how many auctions and items), the house's size at rest, the sales ledger's
-// totals, and the settings as they stand, with «Settings» to change them in Ordaen's settings window.
+// totals, and the settings as they stand (their page, read-only), with «Settings» to change them in Ordaen's settings
+// window: one place to change them.
 import Game from "$game"
-import { Align, Track } from "$ltml"
-import { Component, Money, number, PushButton, PX, Section } from "Ordaen"
+import { Align, Overflow, Track } from "$ltml"
+import { Component, Money, number, PushButton, PX, Section, Settings } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { Deal, Ledger } from "@/ledger"
 import Locale from "@/locales"
 import { serverSeconds } from "@/quote"
 import { Scanner } from "@/scan"
-import { Choices } from "@/settings"
+import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 import { agoText } from "@/style"
 
@@ -77,28 +78,25 @@ public class DataPage implements Component {
     Locale.SCAN_COUNTS.format(number(self.scanner.auctions), number(self.scanner.items)) : "—"
   derived size: String = Locale.KB.format((self.scanner.size / 1024).ceil())
   derived known: String = number(self.items)
-  derived scanOn: String = self.values.scanOnOpen ? Locale.ON : Locale.OFF
-  derived cut: String = String.of(self.values.cut)
-  derived lineOn: String = self.values.priceLine ? Locale.ON : Locale.OFF
 
   const scanner: Scanner
   const ledger: Ledger
   lastFull: Signal<Integer>
   items: Signal<Integer>
-  values: Signal<Choices>
+  settings: mut Settings<Choices>
   constructor(
     scanner: Scanner,
     ledger: Ledger,
     lastFull: Signal<Integer>,
     items: Signal<Integer>,
-    // The settings as they stand.
-    values: Signal<Choices>,
+    // The settings: their page drawn read-only.
+    settings: mut Settings<Choices>,
   ) {
     self.scanner = scanner
     self.ledger = ledger
     self.lastFull = lastFull
     self.items = items
-    self.values = values
+    self.settings = settings
   }
 
   lastText(self): String {
@@ -111,25 +109,26 @@ public class DataPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={["auto"]} gap={8 * PX} width={520 * PX}>
-        <Section title={Locale.SECTION_SCANS}>
-          <Fact label={Locale.LAST_FULL} value={self.last} />
-          <Fact label={Locale.LAST_FULL_COUNTS} value={self.counted} />
-          <Fact label={Locale.ITEMS_KNOWN} value={self.known} />
-          <Fact label={Locale.SIZE} value={self.size} />
-        </Section>
-        <Section title={Locale.SECTION_LEDGER}>
-          <DealtLine label={Locale.SOLD_ROWS} deal={Deal.Sold} ledger={self.ledger} />
-          <DealtLine label={Locale.BOUGHT_ROWS} deal={Deal.Bought} ledger={self.ledger} />
-        </Section>
-        <Section title={Locale.SECTION_SETTINGS}>
-          <Fact label={Locale.SCAN_ON_OPEN} value={self.scanOn} />
-          <Fact label={Locale.CUT} value={self.cut} />
-          <Fact label={Locale.PRICE_LINE} value={self.lineOn} />
-          <box xAlign={Align.Start}>
-            <PushButton label={Locale.SETTINGS} width={140 * PX} @click={self.onSettings} />
-          </box>
-        </Section>
+      // The page scrolls where the settings run past the window.
+      <box columns={1} overflow={Overflow.Scroll}>
+        <box rows={["auto"]} gap={8 * PX}>
+          <Section title={Locale.SECTION_SCANS}>
+            <Fact label={Locale.LAST_FULL} value={self.last} />
+            <Fact label={Locale.LAST_FULL_COUNTS} value={self.counted} />
+            <Fact label={Locale.ITEMS_KNOWN} value={self.known} />
+            <Fact label={Locale.SIZE} value={self.size} />
+          </Section>
+          <Section title={Locale.SECTION_LEDGER}>
+            <DealtLine label={Locale.SOLD_ROWS} deal={Deal.Sold} ledger={self.ledger} />
+            <DealtLine label={Locale.BOUGHT_ROWS} deal={Deal.Bought} ledger={self.ledger} />
+          </Section>
+          <Section title={Locale.SECTION_SETTINGS}>
+            <GeneralPage settings={mut self.settings} disabled={true} />
+            <box xAlign={Align.Start}>
+              <PushButton label={Locale.SETTINGS} width={140 * PX} @click={self.onSettings} />
+            </box>
+          </Section>
+        </box>
       </box>
     }
   }

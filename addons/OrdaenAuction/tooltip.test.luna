@@ -32,7 +32,7 @@ test "an item on the shopping list says how many are wanted and held, and the li
   const at = corner()
   Test.mount(nil, PAGE)
   Game.items.owned = (id: Integer): Integer => 4
-  Auction.shopping.add(ItemId.of(COPPER_ORE), 12, nil)
+  Auction.shopping.add(ItemId.of(COPPER_ORE), 12, .ByHand)
   Game.tooltip.main = ore(at)
   Test.pass(0.02)
   Test.shot("copper ore: on the shopping list, 12 (4 held), after the tooltip's body")
@@ -92,7 +92,7 @@ test "without Tooltips installed the module runs and adds nothing" {
   Test.reload()
   const tooltips, _ = Client.C_AddOns.IsAddOnLoaded("OrdaenTooltips")
   Test.expect(!tooltips)
-  Auction.shopping.add(ItemId.of(COPPER_ORE), 3, nil)
+  Auction.shopping.add(ItemId.of(COPPER_ORE), 3, .ByHand)
   Test.flush()
   Test.expect(Test.errors().length == 0)
   Test.expect(Auction.shopping.needed[ItemId.of(COPPER_ORE)] == 3)
