@@ -1,6 +1,6 @@
 -- opened again where it was left, the cursor in its body: full screen and close at the body's top right
-surface 400,361.38 400x337.25 on DIALOG clamped raised by a click
-  box 400,361.38 400x37.25 absolute @drag @dragStart
+surface 400,361.37 400x337.25 on DIALOG clamped raised by a click
+  box 400,361.37 400x37.25 absolute @drag @dragStart
   box 400,398.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     text 422.75,423.04 359.5x14.4 "the page" #ffffff
     box 741.08,410.46 52.5x26.67 absolute clipped
@@ -9,7 +9,8 @@ surface 400,361.38 400x337.25 on DIALOG clamped raised by a click
       box 770.25,410.46 23.33x26.67 absolute clipped @click
         box 770.25,410.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-close row 0 of 4
     box 782.75,678.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 400,361.38 114.5x47.75
-    box 400,361.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 418.58,371.62 77.33x34.25
-        text 435.38,381.25 43.75x15 "Recipes" #ffd100
+  box 400,361.37 114.5x47.75
+    box 400,361.37 114.5x47.75 @click @drag @dragStart @dragStop
+      box 400,361.37 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right flare=right
+        box 418.58,371.62 77.33x37.5
+          text 435.38,382.87 43.75x15 "Recipes" #ffd100

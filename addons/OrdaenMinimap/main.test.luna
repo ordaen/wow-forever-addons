@@ -5,6 +5,7 @@ import Game from "$game"
 import Test from "$test"
 import Runtime from "$runtime"
 import root Minimap from "OrdaenMinimap"
+import { RingId } from "@/ring"
 
 // One of the game's own frames, in the screen's top right corner.
 function blizzard(name: String, width: Number, height: Number, shown: Boolean): any Client.Frame {
@@ -24,6 +25,71 @@ const DRAWER: Test.Point = { x: 1337.83, y: 287.17 }
 // The coordinates and the clock in the strip under the map.
 const COORDS: Test.Point = { x: 1400, y: 285 }
 const CLOCK: Test.Point = { x: 1547, y: 285 }
+
+// The angle round the frame's middle, the map's, of a point on the screen: degrees from the top, clockwise.
+function angleOf(at: Test.Point): Number {
+  let cx = at.x - MAP.x
+  let cy = at.y - MAP.y
+  return ((cx.atan2(-cy).deg() + 360) % 360 + 0.5).floor()
+}
+
+// A ring button follows the cursor round the frame each frame of the drag: its angle is the cursor's, never one read
+// against where the last frame moved it (which swung it back and forth across the ring).
+test "a ring button dragged round the frame follows the cursor, frame after frame" {
+  let map = blizzard("Minimap", 140, 140, true)
+  let tracking = blizzard("MinimapTrackingButton", 32, 32, true)
+  Game.minimap.frame = map
+  Game.frames.MinimapTrackingButton = tracking
+  Test.mount(nil, { left: 100, top: 50, width: 600, height: 800, screen: true })
+  Test.flush()
+  // The ring shows while the cursor is on the map.
+  Test.moveTo(MAP)
+  Test.moveTo(TRACKING)
+  Test.press(nil)
+  // The client starts the drag once the cursor has moved.
+  Test.moveTo({ x: TRACKING.x, y: TRACKING.y + 1 })
+  Test.pass(0.02)
+  let last: Test.Point = TRACKING
+  for (step of 1..=10) {
+    last = { x: TRACKING.x - step, y: TRACKING.y + step * 5 }
+    Test.moveTo(last)
+    Test.pass(0.02)
+    Test.expect(Minimap.dragging == RingId.Tracking && Minimap.dragAngle == angleOf(last))
+  }
+  Test.release(nil)
+  Test.expect(Minimap.dragging == nil && Minimap.angles[RingId.Tracking] == angleOf(last))
+  Test.shot("the tracking button dragged down the frame's left side, short of the Ordaen button: it stands where it was let go")
+}
+
+// The one list of the game's parts the minimap replaces: each hidden and off the screen, where the game showing it
+// again (the zoom buttons as the cursor comes onto the map) puts nothing in sight or under the cursor; the wheel
+// zooms instead.
+test "the game's parts the minimap replaces stay out of sight when the game shows them again" {
+  let cluster = blizzard("MinimapCluster", 200, 220, true)
+  let backdrop = blizzard("MinimapBackdrop", 200, 200, true)
+  let zoomIn = blizzard("MinimapZoomIn", 20, 20, true)
+  let zoomOut = blizzard("MinimapZoomOut", 20, 20, true)
+  let zoomArea = blizzard("MinimapZoomHitArea", 40, 80, true)
+  let gear = blizzard("OrdaenDevButton", 31, 31, true)
+  Game.frames.MinimapCluster = cluster
+  Game.frames.MinimapBackdrop = backdrop
+  Game.frames.MinimapZoomIn = zoomIn
+  Game.frames.MinimapZoomOut = zoomOut
+  Game.frames.MinimapZoomHitArea = zoomArea
+  Game.frames.OrdaenDevButton = gear
+  Test.mount(nil, { left: 100, top: 50, width: 600, height: 800, screen: true })
+  Test.flush()
+  Test.expect(Minimap.hidden.length == 6)
+  const parts = [cluster, backdrop, zoomIn, zoomOut, zoomArea, gear]
+  for (part of parts) {
+    Test.expect(!part.IsShown())
+    part.Show()
+  }
+  Test.flush()
+  for (part of parts) {
+    Test.expect((part.GetRight() ?? 0) < 0)
+  }
+}
 
 test "the minimap takes the game's map, and its ring and drawer answer the cursor" {
   let cluster = blizzard("MinimapCluster", 200, 220, true)
