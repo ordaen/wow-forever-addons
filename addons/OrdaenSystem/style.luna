@@ -12,6 +12,8 @@ public const CHECK: Number = 22 * PX
 // The numbers' columns: now, peak, memory.
 public const NUMBER: Number = 70 * PX
 public const MEMORY: Number = 80 * PX
+// The table's category column.
+public const CATEGORY: Number = 150 * PX
 // How far an addon under its group's parent stands in.
 public const INDENT: Number = 18 * PX
 

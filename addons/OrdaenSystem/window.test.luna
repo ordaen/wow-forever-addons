@@ -4,15 +4,22 @@
 // filter and the table; the card; sets; the reload's secure box; the numbers read only while it shows.
 import Client from "$client"
 import Game from "$game"
-import { Key } from "$ltml"
+import { Key, MouseButton } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root System from "OrdaenSystem"
 import { AddOnsWindow, ListView } from "@/addonsWindow"
 import Locale from "@/locales"
+import Style from "@/style"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1300, height: 760, screen: true }
+
+// Ordaen's switch: the second of its state's painted, after its caption's (the caption's group is Ordaen alone, its
+// modules having no switch of their own, so the two show the same).
+function ordaenSwitch(on: Boolean): Test.Point {
+  return Test.painted(on ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff, 2)
+}
 
 test "at login the module holds one hook and nothing else: no dress, no window, no data" {
   Test.mount(nil, SCREEN)
@@ -26,6 +33,7 @@ test "the menu's «AddOns» opens the window: by category, Ordaen's modules unde
   Test.mount(nil, SCREEN)
   Test.flush()
   Client.ToggleGameMenu()
+  Test.pass(0.02)
   Test.flush()
   Test.click(Test.holding("AddOns", nil), nil)
   Test.flush()
@@ -56,14 +64,13 @@ test "switching off what others need asks first: «Cancel» changes nothing, «D
   const window = new AddOnsWindow("Ordaen")
   Test.mount(window, SCREEN)
   Test.flush()
-  // Ordaen's checkbox: the first, its modules have none.
-  Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
+  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
   Test.flush()
   Test.shot("the question: Ordaen System stops loading")
   Test.click(Test.holding("Cancel", nil), nil)
   Test.flush()
   Test.expect(window.catalog.isOn("Ordaen"))
-  Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
+  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
   Test.click(Test.holding("Disable", nil), nil)
   Test.flush()
   Test.expect(!window.catalog.isOn("Ordaen"))
@@ -104,13 +111,148 @@ test "Ctrl on a group's parent switches the parent and its group together, the p
   const window = new AddOnsWindow("Ordaen")
   Test.mount(window, SCREEN)
   Test.flush()
-  Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
+  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
   Test.flush()
   Test.expect(!window.catalog.isOn("Ordaen") && !window.catalog.isOn("OrdaenSystem"))
   Test.shot("the group off: Ordaen and every module folder")
-  Test.click(Test.painted(Ordaen.art.ctl.check, nil), nil)
+  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
   Test.flush()
   Test.expect(window.catalog.isOn("Ordaen") && window.catalog.isOn("OrdaenSystem"))
+  destroy window
+}
+
+test "folding, switching and unfolding again: every row keeps its line, a switch shows at once" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  Test.click(Test.holding("User Interface", nil), nil)
+  Test.flush()
+  Test.click(Test.holding("User Interface", nil), nil)
+  Test.flush()
+  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
+  Test.flush()
+  Test.click(Test.holding("Cancel", nil), nil)
+  Test.flush()
+  window.catalog.switchOff(["OrdaenSystem"])
+  Test.flush()
+  Test.click(Test.holding("Other", nil), nil)
+  Test.flush()
+  window.catalog.switchOn(["OrdaenSystem"])
+  Test.flush()
+  Test.expect(Test.errors().length == 0)
+  destroy window
+}
+
+test "a short window's list scrolls: each switch switches what its line shows, at every scroll" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  window.declared.memory.write({ x: 0, y: 0, width: Style.WIDTH, height: 260, ..window.declared.memory.values })
+  Test.flush()
+  Test.moveTo(Test.holding("Ordaen", nil))
+  for (round of 1..=3) {
+    for (i of 1..=4) { Test.wheel(-1) }
+    Test.pass(0.04)
+    // The first switch on in view.
+    Test.click(Test.painted(Ordaen.art.ctl.switchOn, nil), nil)
+    Test.flush()
+    if (window.asking.length > 0) {
+      Test.click(Test.holding("Cancel", nil), nil)
+      Test.flush()
+    }
+  }
+  Test.expect(Test.errors().length == 0)
+  destroy window
+}
+
+test "a caption's switch switches its whole group: off where all of it is on, on where any of it is off" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  // «Other»: the runtime and the addons with no category, all on; its switch the third on (User Interface, Ordaen).
+  const other = Test.painted(Ordaen.art.ctl.switchOn, 3)
+  Test.click(other, nil)
+  Test.flush()
+  if (window.asking.length > 0) {
+    Test.click(Test.holding("Disable", nil), nil)
+    Test.flush()
+  }
+  Test.expect(!window.catalog.isOn("LunaType"))
+  Test.shot("«Other» off whole: its caption's switch and every row's off")
+  // On for this character alone: for all characters, the group is on for some, its knob halfway; clicked, it is on
+  // for all.
+  window.list.values.everyone = false
+  Test.flush()
+  window.catalog.switchOn(["LunaType"])
+  window.list.values.everyone = true
+  Test.flush()
+  Test.shot("«Other» on for some characters: the caption's switch and the row's, their knobs halfway")
+  Test.click(Test.painted(Ordaen.art.ctl.switchOn, 3), nil)
+  Test.flush()
+  Test.expect((peek window.catalog.statuses)["LunaType"]?.enabled == .On)
+  destroy window
+}
+
+test "the question comes at every switching off that stops another addon, and never otherwise" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  for (round of 1..=3) {
+    // Ordaen: its modules need it.
+    Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
+    Test.flush()
+    Test.expect(window.asking.length == 1)
+    _ = Test.surfaceHolding(Locale.CANCEL)
+    Test.click(Test.holding(Locale.CANCEL, nil), nil)
+    Test.flush()
+    Test.expect(window.asking.length == 0 && window.catalog.isOn("Ordaen"))
+  }
+  // Nothing needs the runtime's own listing here: off without a question, and on again.
+  window.onToggle("Showcase", false)
+  Test.flush()
+  Test.expect(window.asking.length == 0)
+  window.onToggle("Showcase", false)
+  Test.flush()
+  destroy window
+}
+
+test "right-click on a row opens its quick actions: its switch, a module's settings, its card" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  Test.click(Test.holding("LunaType", nil), MouseButton.Right)
+  Test.flush()
+  Test.shot("the runtime's row: Disable, then Details")
+  Test.click(Test.holding(Locale.DISABLE, nil), nil)
+  Test.flush()
+  // Every addon here needs the runtime: the question first, as from its switch.
+  Test.expect(window.asking.length == 1)
+  Test.click(Test.holding(Locale.DISABLE, nil), nil)
+  Test.flush()
+  Test.expect(!window.catalog.isOn("LunaType"))
+  // A module: no switch of its own, Ordaen's settings in its place.
+  Test.click(Test.holding("Ordaen System", nil), MouseButton.Right)
+  Test.flush()
+  _ = Test.holding(Locale.ORDAEN_SETTINGS, nil)
+  Test.click(Test.holding(Locale.MENU_DETAILS, nil), nil)
+  Test.flush()
+  Test.expect(window.list.values.picked == "OrdaenSystem")
+  window.catalog.switchOn(["LunaType"])
+  destroy window
+}
+
+test "the card widens the window by its column: the list keeps its width" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  const before = Test.edges(Ordaen.art.window.wood, 0)
+  const listBefore = Test.edges(Ordaen.art.ctl.tool.refresh, 2)
+  Test.click(Test.holding("Ordaen System", nil), nil)
+  Test.flush()
+  const after = Test.edges(Ordaen.art.window.wood, 0)
+  const listAfter = Test.edges(Ordaen.art.ctl.tool.refresh, 2)
+  Test.expect(after.left == before.left && after.right - before.right >= Style.CARD)
+  Test.expect(listAfter.right - listAfter.left == listBefore.right - listBefore.left)
   destroy window
 }
 
@@ -130,6 +272,46 @@ test "for whom: this character's switch leaves the others; all characters shows 
   destroy window
 }
 
+test "the filter's kinds: each narrows the list, and an addon shows where it matches all of them" {
+  const window = new AddOnsWindow("Ordaen")
+  Test.mount(window, SCREEN)
+  Test.flush()
+  const all = window.visible.length
+  // The stand-in's addons are all built for this client.
+  window.list.values.age = .Outdated
+  Test.flush()
+  Test.expect(window.visible.length == 0)
+  window.list.values.age = .Current
+  Test.flush()
+  Test.expect(window.visible.length == all)
+  window.list.values.age = .All
+  window.list.values.written = .LunaType
+  Test.flush()
+  const lunatype = window.visible.length
+  Test.expect(lunatype > 0 && window.visible.all(addon => addon.lunatype))
+  window.list.values.written = .Other
+  Test.flush()
+  Test.expect(window.visible.length == all - lunatype && window.visible.all(addon => !addon.lunatype))
+  window.list.values.written = .LunaType
+  window.list.values.loading = .Login
+  Test.flush()
+  Test.expect(window.visible.all(addon => addon.lunatype && !addon.demand))
+  window.list.values.written = .All
+  window.list.values.loading = .All
+  Test.flush()
+  // The filter's list: every kind under its heading.
+  Test.click(Test.painted(Ordaen.art.ctl.tool.filter, nil), nil)
+  Test.flush()
+  _ = Test.holding("Runtime", nil)
+  _ = Test.holding("Out of date", nil)
+  Test.shot("the filter's list: performance, state, version, loading, runtime")
+  Test.click(Test.holding("Out of date", nil), nil)
+  Test.flush()
+  Test.expect(window.list.values.age == .Outdated)
+  _ = Test.holding("Runtime", nil)
+  destroy window
+}
+
 test "the search, the filter and the table: what shows, and how many of how many" {
   const window = new AddOnsWindow("Ordaen")
   Test.mount(window, SCREEN)
@@ -140,13 +322,17 @@ test "the search, the filter and the table: what shows, and how many of how many
   Test.expect(window.visible.length == 1)
   Test.shot("searched: one row, «1 of» the whole list")
   Test.erase(6)
-  window.list.values.filter = .Demand
+  window.list.values.loading = .Demand
   Test.flush()
   Test.expect(window.visible.all(addon => addon.demand))
-  window.list.values.filter = .All
+  window.list.values.loading = .All
   window.list.values.view = .Table
   Test.flush()
   Test.shot("one table: no captions, the sort's button gone")
+  // The category's column: under its heading on every row, a group's member's (whose state says more) as well.
+  const heading = Test.holding("Category", nil)
+  Test.expect(Test.holding("Other", nil).x == heading.x)
+  Test.expect(Test.holding("User Interface", 1).x == heading.x && Test.holding("User Interface", 2).x == heading.x)
   Test.click(Test.holding("AddOn", nil), nil)
   Test.flush()
   Test.expect(window.list.values.descending)
@@ -262,6 +448,7 @@ test "the numbers: CPU sampled once a second only while the window shows, memory
 // The window opened from the game menu, as the player opens it.
 function openFromMenu() {
   Client.ToggleGameMenu()
+  Test.pass(0.02)
   Test.flush()
   Test.click(Test.holding("AddOns", nil), nil)
   Test.flush()
@@ -284,6 +471,9 @@ test "the list's filter, view and picked addon, and the card's width, are the pr
   Test.flush()
   Test.click(Test.holding(Locale.FILTER_DEMAND, nil), nil)
   Test.flush()
+  // The filter's list stays open for another kind: a click on its button closes it.
+  Test.click(Test.painted(Ordaen.art.ctl.tool.filter, nil), nil)
+  Test.flush()
   Test.click(Test.painted(Ordaen.art.ctl.tool.categories, nil), nil)
   Test.flush()
   Test.click(Test.holding(Locale.VIEW_TABLE, nil), nil)
@@ -304,7 +494,7 @@ test "the list's filter, view and picked addon, and the card's width, are the pr
   Test.expect(title.x < before.x - 15)
   const key = "OrdaenSystem:addons"
   const kept = ListView.decode(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, key), ListView {})
-  Test.expect(kept.filter == .Demand && kept.view == .Table && kept.picked == "OrdaenSystem")
+  Test.expect(kept.loading == .Demand && kept.view == .Table && kept.picked == "OrdaenSystem")
   Test.reload()
   Test.flush()
   openFromMenu()

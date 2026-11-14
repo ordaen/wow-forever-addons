@@ -4,6 +4,8 @@ key: TAB → #14 «menu» (click)
 key: TAB → #15 «» (click)
 key: TAB → #16 «Controls» (click)
 key: TAB → #17 «More» (click)
+key: TAB → #18 «» (click)
+key: TAB → #19 «» (click)
 key: TAB → #1 «» (click)
 key: SPACE → #1 «» (click)
 key: TAB → #2 «» (click)
@@ -18,7 +20,7 @@ key: TAB → #7 «Small» (click)
 key: ENTER → #0 > #1 «Small» (click)
 -- the dropdown opened by Enter: the focus in its list
 surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
-  box 420,158.62 760x620 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 420,158.62 760x620 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 432.75,171.38 739.5x596.75
       box 452.75,191.38 699.5x556.75
         box 452.75,191.38 699.5x18.33 opacity=1
@@ -88,13 +90,22 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
         box 452.75,580.88 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 opacity=0.45
           box 452.75,580.88 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 1162.75,758.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 420,121.38 239x47.75
-    box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 438.58,131.62 77.33x34.25
-        text 452.25,141.25 50x15 "Controls" #ffd100
-    box 544.5,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 563.08,131.62 77.33x34.25
-        text 589.25,141.25 25x15 "More" #b3a690
+  box 420,121.38 760x47.75
+    box 420,121.38 700.83x47.75
+      box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 438.58,131.62 77.33x34.25
+          text 452.25,141.25 50x15 "Controls" #ffd100
+      box 544.5,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 563.08,131.62 77.33x34.25
+          text 589.25,141.25 25x15 "More" #b3a690
+    box 1127.5,134.46 52.5x34.67
+      box 1127.5,134.46 52.5x26.67 clipped
+        box 1127.5,134.46 29.17x26.67 absolute clipped @click
+          box 1127.5,134.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1137.5,139.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1156.67,134.46 23.33x26.67 absolute clipped @click
+          box 1156.67,134.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1162.92,139.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 701.08,333.71 216.67x58.33 on FULLSCREEN_DIALOG #0a0806f7
   box 701.92,339.54 215x23.33 #d6a56b2e @click focus ring
     box 710.25,347.04 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2

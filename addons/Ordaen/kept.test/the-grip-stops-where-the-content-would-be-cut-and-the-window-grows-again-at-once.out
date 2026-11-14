@@ -1,12 +1,21 @@
 -- sized down past what it holds: held at its content's least size, the footer under the block
 surface 400,131.38 560.5x525.5 on DIALOG clamped raised by a click
-  box 400,168.62 560.5x488.25 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 400,168.62 560.5x488.25 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 412.75,181.38 540x465
       box 432.75,201.38 500x400 Interface\AddOns\Ordaen\media\window-wood
       box 432.75,601.38 500x31.67
         text 432.75,618.04 500x15 "the footer" #ffffff
     box 943.25,636.88 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 400,131.38 114.5x47.75
-    box 400,131.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 418.58,141.62 77.33x34.25
-        text 435.38,151.25 43.75x15 "Crowded" #ffd100
+  box 400,131.38 560.5x47.75
+    box 400,131.38 501.33x47.75
+      box 400,131.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 418.58,141.62 77.33x34.25
+          text 435.38,151.25 43.75x15 "Crowded" #ffd100
+    box 908,144.46 52.5x34.67
+      box 908,144.46 52.5x26.67 clipped
+        box 908,144.46 29.17x26.67 absolute clipped @click
+          box 908,144.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 918,149.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 937.17,144.46 23.33x26.67 absolute clipped @click
+          box 937.17,144.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 943.42,149.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

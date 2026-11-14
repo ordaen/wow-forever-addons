@@ -111,7 +111,9 @@ function front(desk: Desk): String {
   return desk.hit
 }
 
-// The corner group's textures drawn now, in the order they were made: each control's plate, then its glyph, each by
+function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
+
+// The control group's textures drawn now, in the order they were made: each control's plate, then its glyph, each by
 // the row of its file it shows.
 function corner(): String {
   let parts: Array<String> = []
@@ -159,6 +161,83 @@ test "a window made without settings has no button" {
   Test.shot("the cursor over the window: full screen and close alone")
   // Full screen is then the group's first plate.
   Test.expect(corner() == "plate 0, glyph 2, plate 9, glyph 6")
+  destroy page
+}
+
+// A window of many long tabs, its body given less room than they take.
+class Crowded {
+  state tabs: Array<WindowTabSpec> = [
+    { title: "The first long tab" }, { title: "The second long tab" }, { title: "The third long tab" },
+    { title: "The fourth long tab" },
+  ]
+  state tab = 1
+  public placing: mut KeptWindow = new KeptWindow("crowded", "crowded", { x: 0, y: 0, width: 330, height: 200 })
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} withSettings={true}>
+        <text value={"the page"} />
+      </Window>
+    }
+  }
+}
+
+test "the control group stands in the tab row: outside the body, right of the last tab, on the body's top line" {
+  let page = new Gearbox(true)
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test.flush()
+  const body = Test.edges(Ordaen.art.window.wood, 0)
+  const gear = Test.edges(Ordaen.art.ctl.corner.gear, 0)
+  const close = Test.edges(Ordaen.art.ctl.corner.close, 0)
+  const tab = Test.holding("Recipes", nil)
+  Test.expect(gear.bottom <= body.top && close.bottom <= body.top)
+  Test.expect(gear.left > tab.x && close.right <= body.right && close.right > body.right - 20)
+  // Shown with the window, not only while the cursor is over it.
+  Test.expect(corner() == "plate 0, glyph 0, plate 3, glyph 2, plate 9, glyph 6")
+  destroy page
+}
+
+test "the window is never narrower than its tabs and its control group" {
+  let page = new Crowded()
+  Test.mount(page, { left: 0, top: 0, width: 1600, height: 900 })
+  Test.flush()
+  const last = Test.holding("The fourth long tab", nil)
+  const gear = Test.edges(Ordaen.art.ctl.corner.gear, 0)
+  const body = Test.edges(Ordaen.art.window.wood, 0)
+  Test.expect(last.x < gear.left && body.right - body.left > 330)
+  Test.shot("four long tabs on a body given 330: the window as wide as the tabs and the group, none over another")
+  // The grip dragged far left: the window stops where the row would overlap.
+  const grip = Test.painted(Ordaen.art.ctl.grip, nil)
+  Test.moveTo(grip)
+  Test.press(nil)
+  Test.moveTo({ x: grip.x + 1, y: grip.y })
+  Test.pass(0.05)
+  Test.moveTo({ x: grip.x - 2000, y: grip.y })
+  Test.pass(0.05)
+  Test.release(nil)
+  Test.flush()
+  const narrowed = Test.edges(Ordaen.art.window.wood, 0)
+  Test.expect(near(narrowed.right - narrowed.left, body.right - body.left))
+  Test.expect(Test.holding("The fourth long tab", nil).x < Test.edges(Ordaen.art.ctl.corner.gear, 0).left)
+  destroy page
+}
+
+test "each control in the tab row works: settings and close are heard, full screen goes and comes back" {
+  let page = new Gearbox(true)
+  Test.mount(page, { left: 0, top: 0, width: 800, height: 600 })
+  Test.flush()
+  const before = Test.edges(Ordaen.art.window.wood, 0)
+  Test.click(Test.painted(Ordaen.art.ctl.corner.expand, nil), nil)
+  Test.flush()
+  const full = Test.edges(Ordaen.art.window.wood, 0)
+  Test.expect(full.right - full.left > before.right - before.left + 100)
+  Test.click(Test.painted(Ordaen.art.ctl.corner.contract, nil), nil)
+  Test.flush()
+  const back = Test.edges(Ordaen.art.window.wood, 0)
+  Test.expect(near(back.right - back.left, before.right - before.left))
+  Test.click(Test.painted(Ordaen.art.ctl.corner.gear, nil), nil)
+  Test.click(Test.painted(Ordaen.art.ctl.corner.close, nil), nil)
+  Test.expect(page.opened == 1 && page.closed == 1)
   destroy page
 }
 

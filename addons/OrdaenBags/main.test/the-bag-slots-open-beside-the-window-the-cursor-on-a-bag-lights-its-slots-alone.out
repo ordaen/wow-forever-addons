@@ -1,6 +1,6 @@
 -- the bag slots: the backpack and the linen bag, each with its fill
 surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
-  box 525,251.96 550x433.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 525,251.96 550x433.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 537.75,264.71 529.5x410.08
       box 557.75,284.71 489.5x345.08
         box 557.75,284.71 489.5x28.33
@@ -210,23 +210,25 @@ surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
           text 980.58,653.96 0x0 "" #ffffff
           box 997.25,646.46 50x15 @enter @leave
             text 997.25,646.46 50x15 "0g 0s 0c" #e8dcc4
-    box 991.08,263.79 77.5x26.67 absolute clipped
-      box 991.08,263.79 29.17x26.67 absolute clipped @click
-        box 991.08,263.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1001.08,269.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-      box 1020.25,263.79 25x26.67 absolute clipped @click
-        box 1020.25,263.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-        box 1026.5,269.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1045.25,263.79 23.33x26.67 absolute clipped @click
-        box 1045.25,263.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1051.5,269.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1057.75,665.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 525,214.71 114.5x47.75
-    box 525,214.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 543.58,224.96 77.33x34.25
-        text 569.75,234.58 25x15 "Bags" #ffd100
+  box 525,214.71 550x47.75
+    box 525,214.71 465.83x47.75
+      box 525,214.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 543.58,224.96 77.33x34.25
+          text 569.75,234.58 25x15 "Bags" #ffd100
+    box 997.5,227.79 77.5x34.67
+      box 997.5,227.79 77.5x26.67 clipped
+        box 997.5,227.79 29.17x26.67 absolute clipped @click
+          box 997.5,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1007.5,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1026.67,227.79 25x26.67 absolute clipped @click
+          box 1026.67,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1032.92,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1051.67,227.79 23.33x26.67 absolute clipped @click
+          box 1051.67,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1057.92,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 1091.67,214.71 208.33x287.25 on DIALOG clamped raised by a click
-  box 1091.67,251.96 208.33x250 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 1091.67,251.96 208.33x250 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 1104.42,264.71 187.83x226.75
       box 1124.42,284.71 147.83x186.75
         box 1124.42,284.71 147.83x26.67 #00000000 @enter @leave
@@ -238,15 +240,24 @@ surface 1091.67,214.71 208.33x287.25 on DIALOG clamped raised by a click
           text 1157.75,323.87 91.58x15 "Linen Bag" #e8dcc4
           text 1256,324.87 16.25x13 "2/6" #a3977f
     box 1282.75,481.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 1091.67,214.71 114.5x47.75
-    box 1091.67,214.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 1110.25,224.96 77.33x34.25
-        text 1120.79,234.58 56.25x15 "Bag slots" #ffd100
+  box 1091.67,214.71 208.33x47.75
+    box 1091.67,214.71 149.17x47.75
+      box 1091.67,214.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 1110.25,224.96 77.33x34.25
+          text 1120.79,234.58 56.25x15 "Bag slots" #ffd100
+    box 1247.5,227.79 52.5x34.67
+      box 1247.5,227.79 52.5x26.67 clipped
+        box 1247.5,227.79 29.17x26.67 absolute clipped @click
+          box 1247.5,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1257.5,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1276.67,227.79 23.33x26.67 absolute clipped @click
+          box 1276.67,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1282.92,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: Bags.follow true
 
 -- the cursor on the linen bag: the backpack's slots dimmed
 surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
-  box 525,251.96 550x433.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 525,251.96 550x433.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 537.75,264.71 529.5x410.08
       box 557.75,284.71 489.5x345.08
         box 557.75,284.71 489.5x28.33
@@ -457,12 +468,24 @@ surface 525,214.71 550x470.58 on DIALOG clamped raised by a click
           box 997.25,646.46 50x15 @enter @leave
             text 997.25,646.46 50x15 "0g 0s 0c" #e8dcc4
     box 1057.75,665.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 525,214.71 114.5x47.75
-    box 525,214.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 543.58,224.96 77.33x34.25
-        text 569.75,234.58 25x15 "Bags" #ffd100
+  box 525,214.71 550x47.75
+    box 525,214.71 465.83x47.75
+      box 525,214.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 543.58,224.96 77.33x34.25
+          text 569.75,234.58 25x15 "Bags" #ffd100
+    box 997.5,227.79 77.5x34.67
+      box 997.5,227.79 77.5x26.67 clipped
+        box 997.5,227.79 29.17x26.67 absolute clipped @click
+          box 997.5,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1007.5,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1026.67,227.79 25x26.67 absolute clipped @click
+          box 1026.67,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1032.92,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1051.67,227.79 23.33x26.67 absolute clipped @click
+          box 1051.67,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1057.92,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 1091.67,214.71 208.33x287.25 on DIALOG clamped raised by a click
-  box 1091.67,251.96 208.33x250 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 1091.67,251.96 208.33x250 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 1104.42,264.71 187.83x226.75
       box 1124.42,284.71 147.83x186.75
         box 1124.42,284.71 147.83x26.67 #00000000 @enter @leave
@@ -473,16 +496,18 @@ surface 1091.67,214.71 208.33x287.25 on DIALOG clamped raised by a click
           box 1124.42,318.04 26.67x26.67 #0d0a08 icon=133647
           text 1157.75,323.87 91.58x15 "Linen Bag" #e8dcc4
           text 1256,324.87 16.25x13 "2/6" #a3977f
-    box 1241.08,263.79 52.5x26.67 absolute clipped
-      box 1241.08,263.79 29.17x26.67 absolute clipped @click
-        box 1241.08,263.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1251.08,269.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1270.25,263.79 23.33x26.67 absolute clipped @click
-        box 1270.25,263.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1276.5,269.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1282.75,481.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 1091.67,214.71 114.5x47.75
-    box 1091.67,214.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 1110.25,224.96 77.33x34.25
-        text 1120.79,234.58 56.25x15 "Bag slots" #ffd100
+  box 1091.67,214.71 208.33x47.75
+    box 1091.67,214.71 149.17x47.75
+      box 1091.67,214.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 1110.25,224.96 77.33x34.25
+          text 1120.79,234.58 56.25x15 "Bag slots" #ffd100
+    box 1247.5,227.79 52.5x34.67
+      box 1247.5,227.79 52.5x26.67 clipped
+        box 1247.5,227.79 29.17x26.67 absolute clipped @click
+          box 1247.5,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1257.5,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1276.67,227.79 23.33x26.67 absolute clipped @click
+          box 1276.67,227.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1282.92,233.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 asked: Items.show 4238

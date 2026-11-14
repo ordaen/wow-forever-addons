@@ -1,6 +1,6 @@
 -- the place across typed: -100, the window 100 to the left
 surface 216.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 216.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 216.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 229.42,189.71 946.17x560.08
       box 249.42,209.71 906.17x481.75
         box 249.42,209.71 108.33x481.75
@@ -107,15 +107,17 @@ surface 216.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
             box 1032.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1032.25,708.12 116.67x28.33 absolute
                 text 1078.08,714.79 25x15 "Save" #808080
-    box 1124.42,188.79 52.5x26.67 absolute clipped
-      box 1124.42,188.79 29.17x26.67 absolute clipped @click
-        box 1124.42,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1134.42,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1153.58,188.79 23.33x26.67 absolute clipped @click
-        box 1153.58,188.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1159.83,194.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
     box 1166.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
-  box 216.67,139.71 114.5x47.75
-    box 216.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 235.25,149.96 77.33x34.25
-        text 255.17,159.58 37.5x15 "Ordaen" #ffd100
+  box 216.67,139.71 966.67x47.75
+    box 216.67,139.71 907.5x47.75
+      box 216.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 235.25,149.96 77.33x34.25
+          text 255.17,159.58 37.5x15 "Ordaen" #ffd100
+    box 1130.83,152.79 52.5x34.67
+      box 1130.83,152.79 52.5x26.67 clipped
+        box 1130.83,152.79 29.17x26.67 absolute clipped @click
+          box 1130.83,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1140.83,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1160,152.79 23.33x26.67 absolute clipped @click
+          box 1160,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1166.25,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
