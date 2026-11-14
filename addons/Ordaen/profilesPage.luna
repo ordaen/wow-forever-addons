@@ -1,0 +1,669 @@
+// The settings window's page of profiles: the profile the character uses and why, the profiles made, renamed, deleted
+// and reset, the picks that name a profile (this character, its class, the account, each specialisation), one module's
+// section copied from another profile, and a profile given away as text and made from a text.
+//
+// Nothing here is made until the page is opened. A pick, a rename or a deletion that would make the character use
+// another profile first asks about the changes waiting to be saved; what is asked is kept as the change itself and made
+// anew after the answer, so a save that was answered with «Save» is in what is kept.
+import { Track } from "$ltml"
+import Game from "$game"
+import Runtime from "$runtime"
+import root Ordaen from "Ordaen"
+import { Checkbox } from "@/checkbox"
+import { Choice, Dropdown } from "@/dropdown"
+import { Dialog } from "@/dialog"
+import { Input } from "@/input"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { Kept, MAX_NAME, named, picked, Profile, ProfileName, Profiles, Why } from "@/profiles"
+import { PushButton } from "@/pushButton"
+import { Refused, Refusal, read, Shared, write } from "@/share"
+import { Section } from "@/section"
+import { TextBox } from "@/textBox"
+import { PX } from "@/units"
+
+const INK: Color = Color.hex("#e8dcc4")
+const DIM: Color = Color.hex("#a3977f")
+const BUTTONS: Array<Track> = ["auto", "auto", "auto", "auto"]
+const CONFIRM_WIDTH = 484 * PX
+// The specialisations a class has in the game: three trees.
+const SPECS = 3
+
+enum Ask { None = "none", Switch = "switch", Delete = "delete", Reset = "reset" }
+
+enum Use { Character = "character", Class = "class", Account = "account" }
+
+// What a dropdown of profiles offers, and what tells it from the offer before it.
+struct Offer {
+  key: String
+  choices: Array<Choice<String>>
+}
+
+// A line of the import's preview: a module in the text and what taking it would do.
+struct Line {
+  text: String
+  color: Color
+}
+
+// A profile's name chosen of the profiles there are now. A `Dropdown` keeps the choices it was made with, so this one is
+// made again each time the profiles change; `none` adds «Not set», the empty name.
+class ProfileDropdown implements Component {
+  derived offers: Array<Offer> = [self.offer()]
+
+  label: Signal<String>
+  value: mut Signal<String>
+  names: Signal<Array<String>>
+  hint: Signal<String>
+  const none: Boolean
+  constructor(
+    label: Signal<String>,
+    value: mut Signal<String>,
+    names: Signal<Array<String>>,
+    hint: Signal<String> = "",
+    none: Boolean = false,
+  ) {
+    self.label = label
+    self.value = value
+    self.names = names
+    self.hint = hint
+    self.none = none
+  }
+
+  offer(self): Offer {
+    const choices: Array<Choice<String>> = []
+    let key = self.none ? "-" : ""
+    if (self.none) { choices.push({ value: "", label: Locale.PROFILES_NO_PICK }) }
+    for (name of self.names) {
+      choices.push({ value: name, label: name })
+      key = key + "|" + name
+    }
+    return { key: key, choices: choices }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Dropdown $for={each of self.offers} $key={each.key} label={self.label} value={mut self.value}
+                choices={peek each.choices} hint={self.hint} />
+    }
+  }
+}
+
+// A module of a profile's sections with a checkbox: it tells its page when it is ticked or not.
+class TickRow implements Component {
+  public toggled: Event<(String, Boolean)> = new Event()
+  state on: Boolean
+  const key: String
+  const label: String
+
+  constructor(key: String, titles: Map<String, String>, on: Boolean) {
+    self.key = key
+    self.label = labelOf(key, titles)
+    self.on = on
+    watch (value of self.on) { self.toggled.emit(self.key, value) }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Checkbox label={self.label} value={mut self.on} />
+    }
+  }
+}
+
+// A line of text.
+class Note implements Component {
+  text: Signal<String>
+  color: Signal<Color>
+  constructor(text: Signal<String>, color: Signal<Color>) {
+    self.text = text
+    self.color = color
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <text value={self.text} textColor={self.color} textSize={14 * PX} />
+    }
+  }
+}
+
+// What the section of a key is called: Ordaen's own, its look, or the module's title.
+function labelOf(key: String, titles: Map<String, String>): String {
+  if (key == "Ordaen") { return Locale.LIST_GLOBAL }
+  if (key == "Ordaen:look") { return Locale.LIST_THEMES }
+  const addon = key.match("^([^:]+)") ?? key
+  return titles[addon] ?? key
+}
+
+function addonOf(key: String): String {
+  return key.match("^([^:]+)") ?? key
+}
+
+// The keys of a profile's sections, in order.
+function keysOf(profile: Profile | nil): Array<String> {
+  const keys: Array<String> = []
+  if (profile != nil) {
+    for (key, _ of profile.sections) { keys.push(key) }
+  }
+  keys.sort((a, b) => a < b)
+  return keys
+}
+
+public class ProfilesPage implements Component {
+  // The profile the buttons work on.
+  state chosen: String
+  // The name New and Rename take, and the text exported or imported.
+  state name = ""
+  state fromBlank = false
+  state text = ""
+  // What the last action said, in its colour: a refusal or a note.
+  state fault = ""
+  state note = ""
+  state ask = Ask.None
+  // Raised when a pick is refused, so the rows show what is kept again.
+  state epoch = 0
+  // The picks as the rows show them.
+  state onCharacter = false
+  state onClass = false
+  state onAccount = false
+  state spec1 = ""
+  state spec2 = ""
+  state spec3 = ""
+  // The profile copied from, and the modules not ticked for a copy and an export.
+  state source = ""
+  state copyOff: Array<String> = []
+  state exportOff: Array<String> = []
+  // The profile in the text pasted, once it has been read.
+  state previewed: Shared | nil = nil
+
+  derived names: Array<String> = self.profiles.names
+  derived only: Boolean = self.names.length < 2
+  derived others: Array<String> = self.othersOf()
+  derived activeLine: String = Locale.PROFILES_ACTIVE_NOW.format(self.profiles.active, self.whyText())
+  derived hasSpec: Boolean = Game.player.spec != nil
+  derived spec1Label: String = self.specLabelOf(1)
+  derived spec2Label: String = self.specLabelOf(2)
+  derived spec3Label: String = self.specLabelOf(3)
+  derived exportKeys: Array<String> = keysOf(self.profiles.kept.profiles[self.profiles.active])
+  derived copyKeys: Array<String> = keysOf(self.profiles.kept.profiles[self.source])
+  derived lines: Array<Line> = self.linesOf()
+  derived red: Color = Ordaen.look.values.redText
+  derived asking: Boolean = self.ask != Ask.None
+  derived askingSwitch: Boolean = self.ask == Ask.Switch
+  derived askingDelete: Boolean = self.ask == Ask.Delete
+  derived askingReset: Boolean = self.ask == Ask.Reset
+  derived hasFault: Boolean = self.fault != ""
+  derived hasNote: Boolean = self.note != ""
+  derived switchAsk: String = Locale.PROFILES_UNSAVED_ASK.format(self.profiles.active)
+  derived deleteAsk: String = Locale.PROFILES_DELETE_ASK.format(self.chosen)
+  derived resetAsk: String = Locale.PROFILES_RESET_ASK.format(self.chosen)
+  derived canCreate: Boolean = self.previewed != nil
+  derived hasOthers: Boolean = self.others.length > 0
+
+  const profiles: mut Profiles
+  // What each module of the account is called, by its folder.
+  const titles: Map<String, String>
+  // The change asked about, and the profile the page is on once it is made.
+  pending: ((next: mut Kept) => nil) | nil = nil
+  pendingChosen = ""
+
+  constructor() {
+    self.profiles = Ordaen.keeper.profiles
+    const titles: Map<String, String> = {}
+    const own = Runtime.Addon.of(Ordaen)
+    if (own != nil) {
+      for (addon of own.dependents()) { titles[addon.name] = addon.title }
+    }
+    titles["Ordaen"] = Ordaen.title
+    self.titles = titles
+    self.chosen = self.profiles.active
+    self.source = self.otherThan(self.profiles.active)
+    watch { self.sync(self.epoch) }
+    watch (value of self.onCharacter) { self.use(Use.Character, value) }
+    watch (value of self.onClass) { self.use(Use.Class, value) }
+    watch (value of self.onAccount) { self.use(Use.Account, value) }
+    watch (value of self.spec1) { self.useSpec(1, value) }
+    watch (value of self.spec2) { self.useSpec(2, value) }
+    watch (value of self.spec3) { self.useSpec(3, value) }
+    // What was previewed is the text before it was changed.
+    watch (value of self.text) { self.textChanged(value) }
+    // The profile copied from is never the one copied into.
+    watch { self.keepSource() }
+  }
+
+  // The first profile that isn't `name`: nothing to copy from where there is none.
+  otherThan(self, name: String): String {
+    for (each of self.names) {
+      if (each != name) { return each }
+    }
+    return ""
+  }
+
+  othersOf(self): Array<String> {
+    const list: Array<String> = []
+    for (each of self.names) {
+      if (each != self.profiles.active) { list.push(each) }
+    }
+    return list
+  }
+
+  // What was previewed is the text before it was changed.
+  textChanged(mut self, shown: String) {
+    self.previewed = nil
+  }
+
+  // Followed: the profiles there are and the one in use. Read once: the profile copied from.
+  keepSource(mut self) {
+    const active = self.profiles.active
+    const source = peek self.source
+    const known = self.names.any(each => each == source)
+    if (source == active || !known) {
+      self.source = self.otherThan(active)
+    }
+  }
+
+  whyText(self): String {
+    match (self.profiles.why) {
+      Why.Spec => return Locale.PROFILES_WHY_SPEC.format(Game.player.spec?.name ?? ""),
+      Why.Character => return Locale.PROFILES_WHY_CHARACTER,
+      Why.Class => return Locale.PROFILES_WHY_CLASS,
+      Why.Account => return Locale.PROFILES_WHY_ACCOUNT,
+    }
+  }
+
+  // A specialisation's row: its place, and its name where it is the one the character plays.
+  specLabelOf(self, index: Integer): String {
+    const spec = Game.player.spec
+    if (spec != nil && spec.index == index) { return Locale.PROFILES_USE_SPEC_NOW.format(index, spec.name) }
+    return Locale.PROFILES_USE_SPEC.format(index)
+  }
+
+  // What the preview says of each module in the text: whether it is installed and how many of its settings differ.
+  linesOf(self): Array<Line> {
+    const lines: Array<Line> = []
+    const shared = self.previewed
+    if (shared == nil) { return lines }
+    const keys = keysOf({ sections: shared.sections })
+    for (key of keys) {
+      const label = labelOf(key, self.titles)
+      if (self.titles[addonOf(key)] == nil) {
+        lines.push({ text: label + " — " + Locale.PROFILES_PREVIEW_KEPT, color: DIM })
+      } else {
+        const raw = Game.encoding.deserialize(shared.sections[key] ?? "")
+        const differs = Ordaen.keeper.differs(key, raw)
+        if (differs == nil) {
+          lines.push({ text: label + " — " + Locale.PROFILES_PREVIEW_OFF, color: DIM })
+        } else {
+          lines.push({ text: label + " — " + Locale.PROFILES_PREVIEW_CHANGES.format(differs), color: INK })
+        }
+      }
+    }
+    return lines
+  }
+
+  say(mut self, fault: String, note: String) {
+    self.fault = fault
+    self.note = note
+  }
+
+  // The name typed, or why it can't be one.
+  typed(mut self): ProfileName | nil {
+    const made = named(self.name)
+    if (made == nil) {
+      self.say(self.name == "" ? Locale.PROFILES_ERR_NAME_EMPTY : Locale.PROFILES_ERR_NAME_LONG.format(MAX_NAME), "")
+      return nil
+    }
+    if (self.names.any(known => known == made)) {
+      self.say(Locale.PROFILES_ERR_NAME_TAKEN.format(self.name), "")
+      return nil
+    }
+    return made
+  }
+
+  // The rows show the picks as they are kept.
+  sync(mut self, shown: Integer) {
+    const picks = self.profiles.kept.picks
+    const who = self.profiles.who()
+    const guid = who.character ?? ""
+    const chosen = self.chosen
+    self.onCharacter = picks.byCharacter[guid] == chosen
+    self.onClass = picks.byClass[who.classTag] == chosen
+    self.onAccount = picks.account == chosen
+    self.spec1 = self.specOf(guid, 1)
+    self.spec2 = self.specOf(guid, 2)
+    self.spec3 = self.specOf(guid, 3)
+  }
+
+  // The profile picked for a specialisation of a character; empty for none.
+  specOf(self, guid: String, index: Integer): String {
+    const specs = self.profiles.kept.picks.bySpec[guid]
+    if (specs == nil) { return "" }
+    return specs[index] ?? ""
+  }
+
+  // Whether the profile the page is on is the one picked by the rule.
+  holds(self, use: Use): Boolean {
+    const picks = self.profiles.kept.picks
+    const who = self.profiles.who()
+    if (use == Use.Character) { return picks.byCharacter[who.character ?? ""] == self.chosen }
+    if (use == Use.Class) { return picks.byClass[who.classTag] == self.chosen }
+    return picks.account == self.chosen
+  }
+
+  // A pick that changes what this character uses asks about the unsaved changes first; any other is made.
+  request(mut self, change: (next: mut Kept) => nil, chosen: String) {
+    const next = self.profiles.edit()
+    change(mut next)
+    if (Ordaen.keeper.unsaved > 0 && self.profiles.switches(next)) {
+      self.pending = change
+      self.pendingChosen = chosen
+      self.ask = Ask.Switch
+      return
+    }
+    self.profiles.apply(next)
+    self.chosen = chosen
+    self.epoch += 1
+  }
+
+  // The answer to the question: the change is made anew on what is kept now.
+  finish(mut self) {
+    const change = self.pending
+    self.pending = nil
+    self.ask = Ask.None
+    if (change == nil) { return }
+    const next = self.profiles.edit()
+    change(mut next)
+    self.profiles.apply(next)
+    self.chosen = self.pendingChosen
+    self.epoch += 1
+  }
+
+  onSwitchSave(mut self) {
+    Ordaen.keeper.saveAll()
+    self.finish()
+  }
+
+  onSwitchDrop(mut self) {
+    Ordaen.keeper.discardAll()
+    self.finish()
+  }
+
+  onCancel(mut self) {
+    self.pending = nil
+    self.ask = Ask.None
+    self.epoch += 1
+  }
+
+  use(mut self, use: Use, on: Boolean) {
+    const who = self.profiles.who()
+    const guid = who.character ?? ""
+    const chosen = self.chosen
+    if (on == self.holds(use)) { return }
+    self.fault = ""
+    self.note = ""
+    // The account's default always names a profile: another is picked to change it.
+    if (use == Use.Account && !on) {
+      self.epoch += 1
+      return
+    }
+    const tag = who.classTag
+    const name: String | nil = on ? chosen : nil
+    if (use == Use.Character) {
+      self.request((next: mut Kept) => next.picks.forCharacter(guid, name), chosen)
+    } else if (use == Use.Class) {
+      self.request((next: mut Kept) => next.picks.forClass(tag, name), chosen)
+    } else {
+      self.request((next: mut Kept) => next.picks.setAccount(chosen), chosen)
+    }
+  }
+
+  useSpec(mut self, index: Integer, name: String) {
+    const guid = self.profiles.who().character ?? ""
+    if (name == self.specOf(guid, index)) { return }
+    self.fault = ""
+    self.note = ""
+    self.request((next: mut Kept) => next.picks.forSpec(guid, index, name == "" ? nil : name), self.chosen)
+  }
+
+  onNew(mut self) {
+    const made = self.typed()
+    if (made == nil) { return }
+    const from: String | nil = self.fromBlank ? nil : self.chosen
+    if (!self.profiles.make(made, from)) { return }
+    self.chosen = made
+    self.name = ""
+    self.say("", Locale.PROFILES_NOTE_MADE.format(made))
+  }
+
+  onRename(mut self) {
+    const to = self.typed()
+    if (to == nil) { return }
+    const from = self.chosen
+    self.request((next: mut Kept) => next.renamed(from, to), to)
+    self.name = ""
+    self.say("", Locale.PROFILES_NOTE_RENAMED.format(to))
+  }
+
+  onDelete(mut self) {
+    if (self.profiles.kept.picks.account == self.chosen) {
+      self.say(Locale.PROFILES_ERR_DEFAULT, "")
+      return
+    }
+    self.say("", "")
+    self.ask = Ask.Delete
+  }
+
+  doDelete(mut self) {
+    const gone = self.chosen
+    self.ask = Ask.None
+    const after = self.afterDelete(gone)
+    self.request((next: mut Kept) => next.without(gone), after)
+    self.say("", Locale.PROFILES_NOTE_DELETED.format(gone))
+  }
+
+  // The profile this character would use once `gone` is.
+  afterDelete(self, gone: String): String {
+    const next = self.profiles.edit()
+    next.without(gone)
+    return picked(next.picks, self.profiles.who())
+  }
+
+  onReset(mut self) {
+    self.say("", "")
+    self.ask = Ask.Reset
+  }
+
+  doReset(mut self) {
+    const target = self.chosen
+    self.ask = Ask.None
+    const next = self.profiles.edit()
+    next.cleared(target)
+    self.profiles.apply(next)
+    // The active profile's modules hold values of their own: they go back too, and write their defaults.
+    if (target == self.profiles.active) { Ordaen.keeper.resetAll() }
+    self.say("", Locale.PROFILES_NOTE_RESET.format(target))
+  }
+
+  onCopyTick(mut self, key: String, on: Boolean) {
+    self.copyOff = self.ticked(self.copyOff, key, on)
+  }
+
+  onExportTick(mut self, key: String, on: Boolean) {
+    self.exportOff = self.ticked(self.exportOff, key, on)
+  }
+
+  // The keys not ticked, with `key` in them or not.
+  ticked(self, off: Array<String>, key: String, on: Boolean): Array<String> {
+    const list: Array<String> = []
+    for (each of off) {
+      if (each != key) { list.push(each) }
+    }
+    if (!on) { list.push(key) }
+    return list
+  }
+
+  // The sections ticked of a profile that has them.
+  chosenSections(self, profile: Profile | nil, off: Array<String>): Map<String, String> {
+    const sections: Map<String, String> = {}
+    if (profile == nil) { return sections }
+    for (key, packed of profile.sections) {
+      if (!off.any(each => each == key)) { sections[key] = packed }
+    }
+    return sections
+  }
+
+  // A module's section of another profile becomes its draft; a module that isn't loaded has none, and the section goes
+  // into the profile as it is.
+  onCopy(mut self) {
+    const from = self.profiles.kept.profiles[self.source]
+    const sections = self.chosenSections(from, self.copyOff)
+    let copied = 0
+    let kept: Array<String> = []
+    for (key, packed of sections) {
+      if (Ordaen.keeper.draft(key, Game.encoding.deserialize(packed))) {
+        copied += 1
+      } else {
+        kept.push(key)
+      }
+    }
+    if (copied == 0 && kept.length == 0) {
+      self.say(Locale.PROFILES_ERR_NOTHING, "")
+      return
+    }
+    if (kept.length > 0) {
+      const next = self.profiles.edit()
+      const into = next.profiles[self.profiles.active] ?? Profile {}
+      for (key of kept) { into.sections[key] = sections[key] ?? "" }
+      next.profiles[self.profiles.active] = into
+      self.profiles.apply(next)
+    }
+    self.say("", Locale.PROFILES_NOTE_COPIED.format(copied + kept.length))
+  }
+
+  onExport(mut self) {
+    const profile = self.profiles.kept.profiles[self.profiles.active]
+    const shared = Shared { name: self.profiles.active, sections: self.chosenSections(profile, self.exportOff) }
+    const made = write(shared)
+    if (made == nil) {
+      self.say(Locale.PROFILES_ERR_EXPORT, "")
+      return
+    }
+    self.text = made
+    self.say("", Locale.PROFILES_NOTE_EXPORTED.format(made.length))
+  }
+
+  // The text read and shown as it would make a profile, or refused with why.
+  onImport(mut self) {
+    if (self.text == "") {
+      self.say(Locale.PROFILES_ERR_NO_TEXT, "")
+      return
+    }
+    const result = read(self.text)
+    if (result is Refused) {
+      self.say(self.refusal(result), "")
+      return
+    }
+    self.say("", Locale.PROFILES_NOTE_PREVIEW.format(result.name))
+    self.previewed = result
+  }
+
+  refusal(self, refused: Refused): String {
+    match (refused.reason) {
+      Refusal.NotProfile => return Locale.PROFILES_REFUSED_NOT_PROFILE,
+      Refusal.Version => return Locale.PROFILES_REFUSED_VERSION.format(refused.version ?? "?"),
+      Refusal.TooLong => return Locale.PROFILES_REFUSED_TOO_LONG,
+      Refusal.Damaged => return Locale.PROFILES_REFUSED_DAMAGED,
+    }
+  }
+
+  // The previewed profile made new, under the name typed or the one it came with. Nothing is replaced.
+  onCreate(mut self) {
+    const result = read(self.text)
+    if (result is Refused) {
+      self.say(self.refusal(result), "")
+      return
+    }
+    if (self.name == "") { self.name = result.name }
+    const made = self.typed()
+    if (made == nil) { return }
+    const next = self.profiles.edit()
+    next.profiles[made] = Profile { sections: result.sections.clone() }
+    self.profiles.apply(next)
+    self.chosen = made
+    self.name = ""
+    self.text = ""
+    self.say("", Locale.PROFILES_NOTE_MADE.format(made))
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={1} gap={18 * PX}>
+        <Section title={Locale.PROFILES_SECTION_PROFILE}>
+          <Note text={self.activeLine} color={INK} />
+          <ProfileDropdown label={Locale.PROFILES_PICKED} hint={Locale.PROFILES_PICKED_TIP} value={mut self.chosen}
+                           names={self.names} />
+          <Input label={Locale.PROFILES_NAME} hint={Locale.PROFILES_NAME_TIP} value={mut self.name}
+                 maxLength={MAX_NAME} />
+          <Checkbox label={Locale.PROFILES_BLANK} hint={Locale.PROFILES_BLANK_TIP} value={mut self.fromBlank} />
+          <box columns={BUTTONS} gap={8 * PX}>
+            <PushButton label={Locale.PROFILES_NEW} width={150 * PX} @click={self.onNew} />
+            <PushButton label={Locale.PROFILES_RENAME} width={150 * PX} @click={self.onRename} />
+            <PushButton label={Locale.PROFILES_DELETE} width={150 * PX} disabled={self.only} @click={self.onDelete} />
+            <PushButton label={Locale.PROFILES_RESET} width={150 * PX} @click={self.onReset} />
+          </box>
+          <Note $if={self.hasFault} text={self.fault} color={self.red} />
+          <Note $elseif={self.hasNote} text={self.note} color={DIM} />
+        </Section>
+        <Section title={Locale.PROFILES_USE_FOR}>
+          <Checkbox label={Locale.PROFILES_USE_CHARACTER} value={mut self.onCharacter} />
+          <Checkbox label={Locale.PROFILES_USE_CLASS} value={mut self.onClass} />
+          <Checkbox label={Locale.PROFILES_USE_ACCOUNT} hint={Locale.PROFILES_USE_ACCOUNT_TIP}
+                    value={mut self.onAccount} />
+          <box $if={self.hasSpec} columns={1} gap={14 * PX}>
+            <ProfileDropdown label={self.spec1Label} value={mut self.spec1} names={self.names} none={true} />
+            <ProfileDropdown label={self.spec2Label} value={mut self.spec2} names={self.names} none={true} />
+            <ProfileDropdown label={self.spec3Label} value={mut self.spec3} names={self.names} none={true} />
+          </box>
+        </Section>
+        <Section title={Locale.PROFILES_COPY_SECTION}>
+          <Note $if={!self.hasOthers} text={Locale.PROFILES_COPY_NONE} color={DIM} />
+          <box $else columns={1} gap={14 * PX}>
+            <ProfileDropdown label={Locale.PROFILES_COPY_FROM} value={mut self.source} names={self.others} />
+            <TickRow $for={key of self.copyKeys} $key={key} key={peek key} titles={self.titles} on={true}
+                     @toggled={self.onCopyTick} />
+            <box columns={["auto"]}>
+              <PushButton label={Locale.PROFILES_COPY_DO} width={150 * PX} @click={self.onCopy} />
+            </box>
+          </box>
+        </Section>
+        <Section title={Locale.PROFILES_SHARE}>
+          <Note text={Locale.PROFILES_TEXT_HINT} color={DIM} />
+          <TickRow $for={key of self.exportKeys} $key={key} key={peek key} titles={self.titles} on={true}
+                   @toggled={self.onExportTick} />
+          <TextBox value={mut self.text} height={110 * PX} />
+          <box columns={BUTTONS} gap={8 * PX}>
+            <PushButton label={Locale.PROFILES_EXPORT} width={150 * PX} @click={self.onExport} />
+            <PushButton label={Locale.PROFILES_IMPORT} width={150 * PX} @click={self.onImport} />
+            <PushButton label={Locale.PROFILES_CREATE} width={150 * PX} disabled={!self.canCreate}
+                        @click={self.onCreate} />
+          </box>
+          <Note $for={line of self.lines} text={line.text} color={line.color} />
+        </Section>
+        <Dialog $if={self.askingSwitch} title={Locale.PROFILES_UNSAVED_TITLE} width={CONFIRM_WIDTH}>
+          <text value={self.switchAsk} textColor={INK} textSize={15 * PX} />
+          <PushButton #buttons label={Locale.CANCEL} width={120 * PX} @click={self.onCancel} />
+          <PushButton #buttons label={Locale.DONT_SAVE} width={150 * PX} @click={self.onSwitchDrop} />
+          <PushButton #buttons label={Locale.SAVE} width={140 * PX} @click={self.onSwitchSave} />
+        </Dialog>
+        <Dialog $if={self.askingDelete} title={Locale.PROFILES_DELETE_TITLE} width={CONFIRM_WIDTH}>
+          <text value={self.deleteAsk} textColor={INK} textSize={15 * PX} />
+          <PushButton #buttons label={Locale.CANCEL} width={120 * PX} @click={self.onCancel} />
+          <PushButton #buttons label={Locale.PROFILES_DELETE} width={140 * PX} @click={self.doDelete} />
+        </Dialog>
+        <Dialog $if={self.askingReset} title={Locale.PROFILES_RESET_TITLE} width={CONFIRM_WIDTH}>
+          <text value={self.resetAsk} textColor={INK} textSize={15 * PX} />
+          <PushButton #buttons label={Locale.CANCEL} width={120 * PX} @click={self.onCancel} />
+          <PushButton #buttons label={Locale.PROFILES_RESET} width={140 * PX} @click={self.doReset} />
+        </Dialog>
+      </box>
+    }
+  }
+}

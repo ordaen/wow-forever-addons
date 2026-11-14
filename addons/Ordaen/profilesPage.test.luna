@@ -1,0 +1,364 @@
+// The settings window's profiles page worked with the mouse and the keyboard: a profile made, renamed, deleted and
+// reset, the picks, a section copied, a profile exported and imported.
+import Game from "$game"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Density, Globals } from "@/globals"
+import { preset, Preset } from "@/look"
+import Locale from "@/locales"
+import { DEFAULT_PROFILE, Kept, Profile, Why } from "@/profiles"
+import { ProfilesPage } from "@/profilesPage"
+import { Shared, write } from "@/share"
+
+const PAGE: Test.Page = { left: 10, top: 10, width: 760, height: 1500 }
+
+function shown(title: String) {
+  Test.flush()
+  Test.shot(title)
+}
+
+function click(at: Test.Point) {
+  Test.click(at, nil)
+  Test.flush()
+}
+
+// A name typed into the page's first field.
+function typeName(text: String) {
+  click(Test.field(1))
+  Test.erase(40)
+  Test.type(text)
+  Test.flush()
+}
+
+// The checkboxes of the page in the order they stand: «New from defaults», this character, this class, the account.
+const BLANK = 1
+const CHARACTER = 2
+const CLASS = 3
+const ACCOUNT = 4
+
+function tick(nth: Integer) {
+  click(Test.painted(Ordaen.art.ctl.check, nth))
+}
+
+// What is kept now, to tell that a refusal changed nothing.
+function snapshot(): Kept {
+  return Ordaen.keeper.profiles.edit()
+}
+
+// Whether a profile keeps a section.
+function has(name: String, key: String): Boolean {
+  const profile = Ordaen.keeper.profiles.kept.profiles[name]
+  if (profile == nil) { return false }
+  return profile.sections[key] != nil
+}
+
+// A section of a module nobody has installed, packed as the client packs it.
+function ghost(): String {
+  const settings: Map<String, Number> = {}
+  settings["scale"] = 3
+  return Game.encoding.serialize(settings) ?? panic("the client packs")
+}
+
+test "the page shows the profile in use and why, with Delete off while there is one profile only" {
+  const page = new ProfilesPage()
+  Test.mount(page, PAGE)
+  shown("opened on a fresh account: «Default», account default, the character's picks unset, Delete off")
+  Test.expect(page.only)
+  Test.expect(page.chosen == DEFAULT_PROFILE)
+  Test.expect(page.activeLine == Locale.PROFILES_ACTIVE_NOW.format("Default", Locale.PROFILES_WHY_ACCOUNT))
+}
+
+test "a profile is made, refused with its reason, renamed and deleted: never the account's default, never without asking" {
+  const page = new ProfilesPage()
+  Test.mount(page, PAGE)
+  const profiles = Ordaen.keeper.profiles
+  click(Test.holding("New", nil))
+  Test.expect(page.fault == Locale.PROFILES_ERR_NAME_EMPTY)
+  shown("New with no name: a red line says so")
+
+  typeName("Raid")
+  click(Test.holding("New", nil))
+  Test.expect(page.chosen == "Raid" && profiles.names.length == 2 && page.fault == "" && page.source == "Raid")
+  shown("New: «Raid» made as a copy and picked on the page; the character still uses Default; Delete on")
+
+  typeName("Raid")
+  click(Test.holding("New", nil))
+  Test.expect(page.fault == Locale.PROFILES_ERR_NAME_TAKEN.format("Raid") && profiles.names.length == 2)
+  typeName("Default")
+  click(Test.holding("Rename", nil))
+  Test.expect(page.fault == Locale.PROFILES_ERR_NAME_TAKEN.format("Default") && page.chosen == "Raid")
+  page.name = "A name much too long to read in a list of profiles"
+  Test.flush()
+  click(Test.holding("Rename", nil))
+  Test.expect(page.fault == Locale.PROFILES_ERR_NAME_LONG.format(40))
+  page.name = ""
+  Test.flush()
+
+  typeName("Raiding")
+  click(Test.holding("Rename", nil))
+  const old = profiles.names.any(each => each == "Raid")
+  Test.expect(page.chosen == "Raiding" && profiles.names.length == 2 && !old)
+  shown("Rename: «Raid» is «Raiding», a note says so")
+
+  // The account's default is never deleted: another is made the default first.
+  page.chosen = DEFAULT_PROFILE
+  Test.flush()
+  click(Test.holding("Delete", nil))
+  Test.expect(page.fault == Locale.PROFILES_ERR_DEFAULT && !page.asking && profiles.names.length == 2)
+  shown("Delete on the account's default: refused, a red line says why")
+
+  page.chosen = "Raiding"
+  Test.flush()
+  click(Test.holding("Delete", nil))
+  Test.expect(page.askingDelete && profiles.names.length == 2)
+  shown("Delete on «Raiding»: the question, nothing gone yet")
+  click(Test.holding("Cancel", nil))
+  Test.expect(!page.asking && profiles.names.length == 2)
+  click(Test.holding("Delete", 1))
+  click(Test.holding("Delete", 2))
+  Test.expect(profiles.names.length == 1 && page.chosen == DEFAULT_PROFILE && page.only)
+  shown("deleted: one profile again, Delete off")
+}
+
+test "a profile is picked by its dropdown, and the pick for the character, the class and the account win in turn" {
+  const page = new ProfilesPage()
+  Test.mount(page, PAGE)
+  const profiles = Ordaen.keeper.profiles
+  typeName("Raid")
+  click(Test.holding("New", nil))
+  typeName("Healing")
+  click(Test.holding("New", nil))
+  Test.expect(page.chosen == "Healing")
+  click(Test.holding("Healing", 1))
+  shown("the dropdown open: the three profiles, the picked one marked")
+  click(Test.holding("Raid", nil))
+  Test.expect(page.chosen == "Raid")
+
+  // The class's pick, then the character's, which wins over it, then the character's taken away.
+  tick(CLASS)
+  Test.expect(page.onClass && profiles.active == "Raid" && profiles.why == Why.Class)
+  page.chosen = "Healing"
+  Test.flush()
+  Test.expect(!page.onClass)
+  tick(CHARACTER)
+  Test.expect(page.onCharacter && profiles.active == "Healing" && profiles.why == Why.Character)
+  shown("«Healing» for the character, «Raid» for the class: the character's wins, the page says why")
+  tick(CHARACTER)
+  Test.expect(!page.onCharacter && profiles.active == "Raid" && profiles.why == Why.Class)
+
+  // The account's default: ticked for the profile that is it, and unticking it only puts the tick back.
+  page.chosen = DEFAULT_PROFILE
+  Test.flush()
+  Test.expect(page.onAccount)
+  tick(ACCOUNT)
+  Test.expect(page.onAccount && profiles.kept.picks.account == DEFAULT_PROFILE)
+  page.chosen = "Healing"
+  Test.flush()
+  tick(ACCOUNT)
+  Test.expect(profiles.kept.picks.account == "Healing" && profiles.active == "Raid")
+  tick(CLASS)
+  Test.expect(profiles.kept.picks.byClass["PRIEST"] == "Healing")
+  tick(CLASS)
+  Test.expect(profiles.active == "Healing" && profiles.why == Why.Account)
+
+  // A specialisation: its rows show where the game says one, and the pick for it wins over the rest.
+  Game.player.spec = { index: 2, id: 100, name: "Holy" }
+  shown("the character plays «Holy»: a row for each specialisation, that one named")
+  page.spec2 = "Raid"
+  Test.flush()
+  Test.expect(profiles.active == "Raid" && profiles.why == Why.Spec)
+  Test.expect(page.activeLine == Locale.PROFILES_ACTIVE_NOW.format("Raid", Locale.PROFILES_WHY_SPEC.format("Holy")))
+  Game.player.spec = { index: 1, id: 101, name: "Discipline" }
+  Test.flush()
+  Test.expect(profiles.active == "Healing")
+  Game.player.spec = nil
+  Test.flush()
+  Test.expect(!page.hasSpec)
+}
+
+test "a pick that switches the profile asks about the changes waiting: Cancel keeps them, Don't save drops them, Save keeps them in the profile left" {
+  const page = new ProfilesPage()
+  Test.mount(page, PAGE)
+  const profiles = Ordaen.keeper.profiles
+  typeName("Raid")
+  click(Test.holding("New", nil))
+  Ordaen.globals.draft.density = .Roomy
+  Test.flush()
+  Test.expect(Ordaen.keeper.unsaved == 1)
+  tick(CHARACTER)
+  Test.expect(page.askingSwitch && profiles.active == DEFAULT_PROFILE)
+  shown("the character is to switch with a change unsaved: the question names the profile in use")
+
+  click(Test.holding("Cancel", nil))
+  Test.expect(!page.asking && profiles.active == DEFAULT_PROFILE && !page.onCharacter)
+  Test.expect(Ordaen.globals.draft.density == Density.Roomy)
+
+  tick(CHARACTER)
+  click(Test.holding("Don't save", nil))
+  Test.expect(profiles.active == "Raid" && page.onCharacter && Ordaen.keeper.unsaved == 0)
+  Test.expect(Ordaen.globals.values.density != Density.Roomy && Ordaen.globals.draft.density != Density.Roomy)
+
+  // Back with the same change, answered with «Save»: it is kept in «Raid», the profile it was made in.
+  Ordaen.globals.draft.density = .Roomy
+  Test.flush()
+  tick(CHARACTER)
+  Test.expect(page.askingSwitch && profiles.active == "Raid")
+  click(Test.holding("Save", nil))
+  Test.expect(profiles.active == DEFAULT_PROFILE && !page.onCharacter && Ordaen.keeper.unsaved == 0)
+  Test.expect(Ordaen.globals.values.density != Density.Roomy)
+  page.chosen = "Raid"
+  Test.flush()
+  tick(CHARACTER)
+  Test.expect(profiles.active == "Raid" && Ordaen.globals.values.density == Density.Roomy)
+
+  // A switch with nothing waiting is made with no question.
+  tick(CHARACTER)
+  Test.expect(!page.asking && profiles.active == DEFAULT_PROFILE)
+}
+
+test "a section is copied from another profile as a draft that waits for Save; a module that isn't loaded keeps it as it is" {
+  const page = new ProfilesPage()
+  Test.mount(page, PAGE)
+  const profiles = Ordaen.keeper.profiles
+  const globals: Globals = { scale: 1.25, density: Density.Compact, ..Ordaen.globals.defaults }
+  Ordaen.globals.choose(globals)
+  Ordaen.keeper.saveAll()
+  const next = profiles.edit()
+  const own = next.profiles[DEFAULT_PROFILE] ?? Profile {}
+  own.sections["OrdaenGhost"] = ghost()
+  next.profiles[DEFAULT_PROFILE] = own
+  profiles.apply(next)
+  typeName("Raid")
+  click(Test.holding("New", nil))
+  page.chosen = "Raid"
+  Test.flush()
+  click(Test.holding("Reset", nil))
+  click(Test.holding("Reset", 2))
+  tick(CHARACTER)
+  Test.expect(profiles.active == "Raid" && Ordaen.globals.values.scale != 1.25)
+  Test.expect(page.source == DEFAULT_PROFILE && page.copyKeys.length == 2)
+  shown("«Raid» in use, empty: the sections of Default to copy from, each with its tick")
+
+  click(Test.holding("Copy", nil))
+  Test.expect(Ordaen.globals.draft.scale == 1.25 && Ordaen.globals.values.scale != 1.25)
+  Test.expect(Ordaen.keeper.unsaved > 0)
+  const raid = profiles.kept.profiles["Raid"]
+  Test.expect(raid != nil && raid.sections["OrdaenGhost"] == ghost())
+  shown("Copy: Ordaen's section waits in its draft; the section of a module that isn't loaded is in the profile")
+  Ordaen.keeper.saveAll()
+  Test.expect(Ordaen.globals.values.scale == 1.25)
+
+  // A section unticked is not copied; nothing ticked is refused.
+  Ordaen.globals.draft.scale = 2
+  Ordaen.keeper.saveAll()
+  page.source = DEFAULT_PROFILE
+  Test.flush()
+  const rows = Test.painted(Ordaen.art.ctl.check, 5)
+  click(rows)
+  click(Test.painted(Ordaen.art.ctl.check, 6))
+  click(Test.holding("Copy", nil))
+  Test.expect(page.fault == Locale.PROFILES_ERR_NOTHING && Ordaen.globals.values.scale == 2)
+}
+
+test "a profile exports as text, imports as a new profile after a preview, and a section of a module not installed is kept" {
+  const page = new ProfilesPage()
+  Test.mount(page, PAGE)
+  const profiles = Ordaen.keeper.profiles
+  Ordaen.globals.draft.scale = 1.5
+  Ordaen.look.choose(preset(Preset.Blizzard))
+  Ordaen.keeper.saveAll()
+  const next = profiles.edit()
+  const own = next.profiles[DEFAULT_PROFILE] ?? Profile {}
+  own.sections["OrdaenGhost"] = ghost()
+  next.profiles[DEFAULT_PROFILE] = own
+  profiles.apply(next)
+
+  click(Test.holding("Export", nil))
+  Test.expect(page.text.sub(1, 9) == "ORDAEN:1:" && page.exportKeys.length == 3)
+  Test.note(`the default profile's text: ${page.text.length} characters, ${page.exportKeys.length} sections`)
+  shown("Export: the text of the active profile in the box")
+
+  click(Test.holding("Import", nil))
+  Test.expect(page.canCreate && page.lines.length == 3)
+  shown("Import: the preview says each module in the text: installed, off, or not installed and kept")
+  const before = snapshot()
+  typeName("Copy")
+  click(Test.holding("Create", nil))
+  Test.expect(profiles.names.length == 2 && page.chosen == "Copy" && page.text == "")
+  const copy = profiles.kept.profiles["Copy"]
+  const original = profiles.kept.profiles[DEFAULT_PROFILE]
+  Test.expect(copy != nil && original != nil && copy.equal(original))
+  Test.expect(copy != nil && copy.sections["OrdaenGhost"] == ghost())
+  Test.expect(profiles.active == DEFAULT_PROFILE && before.picks.equal(profiles.kept.picks))
+  shown("Create: «Copy» made from the text, the profile in use unchanged")
+
+  // What is ticked is what the text holds.
+  // The checkboxes after the picks are the copy rows (General, Themes, OrdaenGhost of «Default»), then the export's.
+  page.chosen = DEFAULT_PROFILE
+  Test.flush()
+  tick(9)
+  click(Test.holding("Export", nil))
+  click(Test.holding("Import", nil))
+  Test.expect(page.lines.length == 2)
+  // The preview counts what the text would change in the settings as they are.
+  Ordaen.globals.draft.scale = 2
+  Ordaen.keeper.saveAll()
+  Test.flush()
+  const first = page.lines[1]
+  Test.expect(first != nil && first.text == "General — " + Locale.PROFILES_PREVIEW_CHANGES.format(1))
+  shown("the text without «Themes»: the preview counts what differs from the settings now")
+}
+
+test "a text that isn't a profile is refused with its sentence and changes nothing" {
+  const page = new ProfilesPage()
+  Test.mount(page, PAGE)
+  const profiles = Ordaen.keeper.profiles
+  const before = snapshot()
+  const shared = Shared { name: "Bad" }
+  shared.sections["Ordaen"] = "{{{{"
+  const cases: Map<String, String> = {}
+  cases[""] = Locale.PROFILES_ERR_NO_TEXT
+  cases["hello"] = Locale.PROFILES_REFUSED_NOT_PROFILE
+  cases["ORDAEN:2:abcd"] = Locale.PROFILES_REFUSED_VERSION.format("2")
+  cases["ORDAEN:1:***"] = Locale.PROFILES_REFUSED_DAMAGED
+  cases["ORDAEN:1:" + "A".rep(70000)] = Locale.PROFILES_REFUSED_TOO_LONG
+  cases[write(shared) ?? panic("written")] = Locale.PROFILES_REFUSED_DAMAGED
+  for (text, sentence of cases) {
+    page.text = text
+    Test.flush()
+    click(Test.holding("Import", nil))
+    Test.expect(page.fault == sentence && !page.canCreate)
+    click(Test.holding("Create", nil))
+    Test.expect(page.fault == sentence || text == "")
+    Test.expect(before.equal(profiles.kept))
+  }
+  page.text = "hello"
+  Test.flush()
+  click(Test.holding("Import", nil))
+  shown("a text that isn't one: the red line says so, Create is off, nothing kept")
+}
+
+test "Reset takes a profile back to its defaults after the question: the one in use too, with its modules" {
+  const page = new ProfilesPage()
+  Test.mount(page, PAGE)
+  const profiles = Ordaen.keeper.profiles
+  Ordaen.globals.draft.density = .Roomy
+  Ordaen.keeper.saveAll()
+  typeName("Spare")
+  click(Test.holding("New", nil))
+  click(Test.holding("Reset", nil))
+  Test.expect(page.askingReset)
+  shown("Reset: the question")
+  click(Test.holding("Cancel", nil))
+  Test.expect(!page.asking && has("Spare", "Ordaen"))
+  click(Test.holding("Reset", 1))
+  click(Test.holding("Reset", 2))
+  Test.expect(!has("Spare", "Ordaen"))
+  Test.expect(Ordaen.globals.values.density == Density.Roomy)
+  page.chosen = DEFAULT_PROFILE
+  Test.flush()
+  click(Test.holding("Reset", 1))
+  click(Test.holding("Reset", 2))
+  Test.expect(Ordaen.globals.values.density != Density.Roomy && Ordaen.globals.draft.density != Density.Roomy)
+  Test.expect(has(DEFAULT_PROFILE, "Ordaen"))
+}

@@ -54,6 +54,11 @@ public struct Picks implements Plain {
     }
   }
 
+  // The account's default: every character with no pick of its own uses it.
+  public setAccount(mut self, name: String) {
+    self.account = name
+  }
+
   // The pick for a character, a class or a specialisation of a character, or none (`nil`).
   public forCharacter(mut self, guid: String, name: String | nil) {
     if (name == nil) {
@@ -94,6 +99,11 @@ public struct Kept implements Plain {
     self.profiles[from] = nil
     self.profiles[to] = profile
     self.picks.renamed(from, to)
+  }
+
+  // The profile with no section: every module reads its defaults.
+  public cleared(mut self, name: String) {
+    self.profiles[name] = Profile {}
   }
 
   // The profile gone, and every pick of it.
