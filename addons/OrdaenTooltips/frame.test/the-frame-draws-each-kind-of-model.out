@@ -153,8 +153,8 @@ box 0,0 271.17x88.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFram
     box 78.58,27.92 177.33x34.67
       text 78.58,27.92 177.33x18 "Jaina" #4d99ff
       box 78.58,47.58 177.33x15
-        box 78.58,48.58 32.5x13
-          text 78.58,48.58 32.5x13 "Rank 4" #cbb994
+        box 78.58,48.58 102.92x13
+          text 78.58,48.58 102.92x13 "Level 60 Human Mage" #cbb994
 
 -- the unit under the cursor is another: the face too
 box 0,0 271.17x88.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
@@ -164,5 +164,5 @@ box 0,0 271.17x88.25 Interface\AddOns\Ordaen\media\window-wood border=ButtonFram
     box 78.58,27.92 177.33x34.67
       text 78.58,27.92 177.33x18 "Jaina" #4d99ff
       box 78.58,47.58 177.33x15
-        box 78.58,48.58 32.5x13
-          text 78.58,48.58 32.5x13 "Rank 4" #cbb994
+        box 78.58,48.58 102.92x13
+          text 78.58,48.58 102.92x13 "Level 60 Human Mage" #cbb994

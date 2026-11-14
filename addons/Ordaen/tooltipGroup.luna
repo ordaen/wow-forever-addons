@@ -1,0 +1,72 @@
+// TooltipGroup: several tooltips shown together, one thing to the cursor. The slot `primary` takes the tooltip the
+// group is about, which stands at what it explains; the slot `secondary` the tooltips beside it (open from the
+// start, compared), as many as `beside` says, in the order they stand outwards. They stand in one row, 4 px apart,
+// lined up across by `across` (the edge that faces what they explain); running leftwards, the secondary ones stand
+// on the primary's left.
+//
+// The gaps between the tooltips are the group's own (`ownsGaps`): the cursor crossing from one to the next stays on
+// the group (it hears the cursor come onto any of them and leave the last: `enter`, `leave`), and a click there is
+// the group's, never what shows through. A pinned group stays pinned while the cursor crosses. It stands on the
+// tooltips' layer where its owner places it.
+import { Align, Layer, Place, Track } from "$ltml"
+import { Component } from "@/module"
+import { PX } from "@/units"
+
+const GAP = 4 * PX
+
+public class TooltipGroup implements Component {
+  derived columns: Array<Track> = TooltipGroup.autos(1 + self.beside)
+  // The secondary tooltips stand on the primary's left: with none beside it there is nothing to turn round, and
+  // nothing is drawn again as the side the group runs to changes.
+  derived turned: Boolean = self.leftwards && self.beside > 0
+
+  public enter: Event<nil> = new Event()
+  public leave: Event<nil> = new Event()
+
+  shown: Signal<Boolean>
+  place: Signal<Place>
+  beside: Signal<Integer>
+  across: Signal<Align>
+  leftwards: Signal<Boolean>
+  constructor(
+    shown: Signal<Boolean>,
+    place: Signal<Place>,
+    // How many tooltips the slot `secondary` holds.
+    beside: Signal<Integer> = 0,
+    across: Signal<Align> = Align.Start,
+    leftwards: Signal<Boolean> = false,
+  ) {
+    self.shown = shown
+    self.place = place
+    self.beside = beside
+    self.across = across
+    self.leftwards = leftwards
+  }
+
+  autos(count: Integer): Array<Track> {
+    let list: Array<Track> = []
+    for (i of 1..=count) { list.push("auto") }
+    return list
+  }
+
+  onEnter(mut self) { self.enter.emit() }
+  onLeave(mut self) { self.leave.emit() }
+
+  public render(self): Template {
+    return $ltml {
+      <surface shown={self.shown} layer={Layer.Tooltip} place={self.place}>
+        <box columns={self.columns} gap={GAP} yAlign={self.across} ownsGaps={true} hoverWithin={true}
+             @enter={self.onEnter} @leave={self.onLeave}>
+          // The primary tooltip stays where it is drawn: the group turning round moves the secondary ones alone.
+          <$if={self.turned}>
+            <slot #secondary />
+          </>
+          <slot #primary />
+          <$if={!self.turned}>
+            <slot #secondary />
+          </>
+        </box>
+      </surface>
+    }
+  }
+}

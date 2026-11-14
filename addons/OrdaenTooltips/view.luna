@@ -6,8 +6,8 @@
 // bottom; on the frame's left edge, or on its right edge with the group running leftwards. The main tooltip is
 // always the one at the frame; the others follow it in one row, lined up on the edge that faces the frame, so no
 // tooltip floats off it.
-import { Align, Edges, Frame, Layer, Place, Point, Track } from "$ltml"
-import { Component } from "Ordaen"
+import { Align, Edges, Frame, Place, Point } from "$ltml"
+import { Component, TooltipGroup } from "Ordaen"
 import { GOLD } from "@/colors"
 import { TipFrame } from "@/frame"
 import { Kind, Model, Opens } from "@/model"
@@ -29,15 +29,6 @@ public struct Standing {
   below: Boolean
   // On the frame's right edge, the group running leftwards; on its left edge otherwise.
   right: Boolean
-}
-
-// What a place in the group's row holds.
-enum Slot { Main = "main", Sides = "sides", Compared = "compared" }
-
-struct Piece {
-  slot: Slot
-  // The tooltip drawn there; the main one's for the column of sides.
-  model: Model
 }
 
 // What stands in an opened tooltip's place while it opens nothing.
@@ -82,8 +73,13 @@ class Opened implements Component {
 
 public class TipGroup implements Component {
   derived comparing: Boolean = self.compared.length > 0
-  derived pieces: Array<Piece> = self.inOrder()
-  derived columns: Array<Track> = self.autos(self.pieces.length)
+  derived hasSides: Boolean = self.sides.length > 0
+  derived leftwards: Boolean = self.standing.right
+  // Beside the main tooltip, away from it: the column of sides, then the worn items.
+  derived sidesFirst: Boolean = self.hasSides && !self.leftwards
+  derived sidesLast: Boolean = self.hasSides && self.leftwards
+  derived worn: Array<Model> = self.inOrder()
+  derived besides: Integer = (self.hasSides ? 1 : 0) + self.compared.length
   derived place: Place = self.at()
   // Every tooltip's edge on the frame's side lined up; compared, their titles are, at the top.
   derived across: Align = self.standing.below || self.comparing ? Align.Start : Align.End
@@ -100,6 +96,7 @@ public class TipGroup implements Component {
   standing: Signal<Standing>
   shown: Signal<Boolean>
   options: Signal<Options>
+  locks: Signal<Boolean>
   charge: Signal<Integer>
   locked: Signal<Boolean>
   constructor(
@@ -112,9 +109,10 @@ public class TipGroup implements Component {
     shown: Signal<Boolean>,
     // What the player asked a tooltip to show: a unit a part opens is read with it.
     options: Signal<Options>,
-    // The main tooltip's lock: how far it is charged, of a hundred, and whether it is locked. The group takes the
-    // cursor locked or not: what holds the tooltips listens for it always (a listener is bound for good), and
-    // tells it always.
+    // The main tooltip's lock: whether it locks at all (its bar's room is kept only then), how far it is charged, of a
+    // hundred, and whether it is locked. The group takes the cursor locked or not: what holds the tooltips listens
+    // for it always (a listener is bound for good), and tells it always.
+    locks: Signal<Boolean> = false,
     charge: Signal<Integer> = 0,
     locked: Signal<Boolean> = false,
   ) {
@@ -124,6 +122,7 @@ public class TipGroup implements Component {
     self.standing = standing
     self.shown = shown
     self.options = options
+    self.locks = locks
     self.charge = charge
     self.locked = locked
   }
@@ -133,24 +132,15 @@ public class TipGroup implements Component {
   onEnter(mut self) { self.enter.emit() }
   onLeave(mut self) { self.leave.emit() }
 
-  // The group's row from the screen's left to its right: the main tooltip at the frame, the rest away from it.
-  inOrder(self): Array<Piece> {
-    let outwards: Array<Piece> = [{ slot: Slot.Main, model: self.model }]
-    if (self.sides.length > 0) { outwards.push({ slot: Slot.Sides, model: self.model }) }
-    for (model of self.compared) { outwards.push({ slot: Slot.Compared, model: model }) }
-    if (!self.standing.right) { return outwards }
-    let leftwards: Array<Piece> = []
-    for (i of outwards.length..=1 step -1) {
-      let piece = outwards[i]
-      if (piece != nil) { leftwards.push(piece) }
+  // The worn items from the screen's left to its right: away from the main tooltip, which stands at the frame.
+  inOrder(self): Array<Model> {
+    if (!self.leftwards) { return self.compared }
+    let leftwards: Array<Model> = []
+    for (i of self.compared.length..=1 step -1) {
+      let model = self.compared[i]
+      if (model != nil) { leftwards.push(model) }
     }
     return leftwards
-  }
-
-  autos(self, count: Integer): Array<Track> {
-    let list: Array<Track> = []
-    for (i of 1..=count) { list.push("auto") }
-    return list
   }
 
   at(self): Place {
@@ -167,33 +157,31 @@ public class TipGroup implements Component {
 
   public render(self): Template {
     return $ltml {
-      <surface shown={self.shown} layer={Layer.Tooltip} place={self.place}>
-        // What holds the tooltips hears the cursor come onto any of them and leave the last: the lock's.
-        <box columns={self.columns} gap={GAP} yAlign={self.across} hoverWithin={true} @enter={self.onEnter}
-             @leave={self.onLeave}>
-          <$for={piece of self.pieces}>
-            <$match={piece.slot}>
-              <box $case={Slot.Main} padding={self.lowered}>
-                <TipFrame model={piece.model} main={true} charge={self.charge} locked={self.locked}
-                          @close={self.onClose}>
-                  <Opened #opened={opens} opens={opens} options={self.options} />
-                  // What other modules add, after the main tooltip's body: the group's owner fills it.
-                  <slot />
-                </TipFrame>
-              </box>
-              // Every tooltip of a locked group opens what its parts name.
-              <box $case={Slot.Sides} gap={GAP} yAlign={self.across}>
-                <TipFrame $for={side of self.sides} model={side} side={true} locked={self.locked}>
-                  <Opened #opened={opens} opens={opens} options={self.options} />
-                </TipFrame>
-              </box>
-              <TipFrame $case={Slot.Compared} model={piece.model} side={true} locked={self.locked}>
-                <Opened #opened={opens} opens={opens} options={self.options} />
-              </TipFrame>
-            </>
-          </>
+      // The library's group: the cursor on any tooltip and on the gaps between them is on the group, the lock's.
+      <TooltipGroup shown={self.shown} place={self.place} beside={self.besides} across={self.across}
+                    leftwards={self.leftwards} @enter={self.onEnter} @leave={self.onLeave}>
+        <box #primary padding={self.lowered}>
+          <TipFrame model={self.model} locks={self.locks} charge={self.charge} locked={self.locked} @close={self.onClose}>
+            <Opened #opened={opens} opens={opens} options={self.options} />
+            // What other modules add, after the main tooltip's body: the group's owner fills it.
+            <slot />
+          </TipFrame>
         </box>
-      </surface>
+        // Every tooltip of a locked group opens what its parts name.
+        <box #secondary $if={self.sidesFirst} gap={GAP} yAlign={self.across}>
+          <TipFrame $for={side of self.sides} model={side} side={true} locked={self.locked}>
+            <Opened #opened={opens} opens={opens} options={self.options} />
+          </TipFrame>
+        </box>
+        <TipFrame #secondary $for={model of self.worn} model={model} side={true} locked={self.locked}>
+          <Opened #opened={opens} opens={opens} options={self.options} />
+        </TipFrame>
+        <box #secondary $if={self.sidesLast} gap={GAP} yAlign={self.across}>
+          <TipFrame $for={side of self.sides} model={side} side={true} locked={self.locked}>
+            <Opened #opened={opens} opens={opens} options={self.options} />
+          </TipFrame>
+        </box>
+      </TooltipGroup>
     }
   }
 }

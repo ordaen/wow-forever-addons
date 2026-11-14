@@ -37,12 +37,12 @@ public class Segment<T: Unknown> implements Component {
   // The light along the top: on every segment, clear on the others, so only colours tell the picked one.
   derived light: Color = self.picked ? LIGHT : CLEAR
 
-  const choice: Choice<T>
+  choice: Signal<Choice<T>>
   value: Signal<T>
   const first: Boolean
   disabled: Signal<Boolean>
   constructor(
-    choice: Choice<T>,
+    choice: Signal<Choice<T>>,
     value: Signal<T>,
     first: Boolean,
     disabled: Signal<Boolean> = false,

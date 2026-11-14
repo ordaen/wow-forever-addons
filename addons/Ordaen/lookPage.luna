@@ -84,16 +84,14 @@ function aboutOf(named: Preset): String {
 // draft is that preset as it stands.
 public class PresetRow implements Component {
   derived inUse: Boolean = presetOf(self.look.draft) == self.preset
-  const name: String
-  const about: String
+  derived name: String = nameOf(self.preset)
+  derived about: String = aboutOf(self.preset)
 
-  const preset: Preset
+  preset: Signal<Preset>
   look: mut Settings<Look>
-  constructor(preset: Preset, look: mut Settings<Look>) {
+  constructor(preset: Signal<Preset>, look: mut Settings<Look>) {
     self.preset = preset
     self.look = look
-    self.name = nameOf(preset)
-    self.about = aboutOf(preset)
   }
 
   use(mut self) { self.look.choose(Looks.preset(self.preset)) }

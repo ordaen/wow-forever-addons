@@ -215,13 +215,13 @@ class CornerPlate implements Component {
   derived plate: Art = self.index == 1 ? self.plates.first : self.plates.next
   derived glyph: Art = self.glyphOf()
 
-  const control: CornerControl
+  control: Signal<CornerControl>
   const index: Integer
   const left: Number
   const width: Number
   const glyphLeft: Number
   full: Signal<Boolean>
-  constructor(control: CornerControl, index: Integer, count: Integer, full: Signal<Boolean>) {
+  constructor(control: Signal<CornerControl>, index: Integer, count: Integer, full: Signal<Boolean>) {
     self.control = control
     self.index = index
     self.full = full

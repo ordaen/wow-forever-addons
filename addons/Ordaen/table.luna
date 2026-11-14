@@ -61,12 +61,12 @@ public class Heading implements Component {
   derived color: Color | Stated<Color> = self.picked ? GOLD : self.sortable ? NAME : PLAIN
   derived shade: Color | Stated<Color> = self.sortable ? SHADE : CLEAR
 
-  const column: Column
+  column: Signal<Column>
   const index: Integer
   sorted: mut Signal<Integer>
   descending: mut Signal<Boolean>
   constructor(
-    column: Column,
+    column: Signal<Column>,
     index: Integer,
     sorted: mut Signal<Integer>,
     descending: mut Signal<Boolean>,

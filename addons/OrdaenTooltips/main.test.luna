@@ -373,3 +373,118 @@ test "a locked tooltip goes only when the cursor goes onto something other than 
   }
   Test.expect(moves == 40)
 }
+
+test "a locked item compared with a worn one: the cursor crossing the gap between them keeps it, and a click there is the group's" {
+  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
+  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+  Tooltips.settings.draft.itemsAnchorBags = Place.Anchor
+  saveAll()
+  Game.items.stats = strength
+  Game.tooltip.compared = [axe("Worn Axe")]
+  Game.tooltip.main = inSlot(corner, slot, sword())
+  Test.pass(1.3)
+  Test.expect(Tooltips.locked)
+  Test.shot("locked, the worn axe beside it")
+
+  // A button of the game's under the gap (1065.5 to 1068.83 between the worn axe and the sword), which would hear a
+  // click that went through.
+  let clicked = 0
+  const behind = Client.CreateFrame("Button", "Behind", Client.C_UI.GetUIParent(), nil)
+  behind.SetSize(40, 40)
+  behind.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1050, -280)
+  behind.SetScript("OnClick", (button: any Client.Frame): nil => { clicked += 1 })
+  // Off the slot onto the sword, into the gap, onto the worn axe: each longer than the grace.
+  Game.tooltip.main = hidden(corner)
+  Test.moveTo({ x: 1200, y: 320 })
+  Test.pass(0.5)
+  Test.moveTo({ x: 1067.2, y: 300 })
+  Test.pass(0.5)
+  Test.expect(Tooltips.locked)
+  Test.click({ x: 1067.2, y: 300 }, nil)
+  Test.pass(0.1)
+  Test.expect(clicked == 0 && Tooltips.locked)
+  Test.moveTo({ x: 950, y: 300 })
+  Test.pass(0.5)
+  Test.expect(Tooltips.locked)
+}
+
+// The text of every tooltip drawn now, one after another.
+function shownTexts(): String {
+  let all = ""
+  for (shown of Test.surfaces()) {
+    for (text of shown.texts) { all = `${all}|${text}` }
+  }
+  return all
+}
+
+// Whether a tooltip drawn now holds this text.
+function holds(text: String): Boolean {
+  return shownTexts().contains(text)
+}
+
+test "a spell's tooltip after a unit's holds nothing of the unit's, locked or not, the game's gone between or not" {
+  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
+  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+  Game.units.of = (unit: String): Game.UnitInfo | nil => unit != "mouseover" ? nil : {
+    name: "Kragos", player: true, className: "Warrior", guild: "Kirin Tor", guildRank: "Officer", dead: false,
+    ghost: false, afk: false, dnd: false, pvp: false, level: 34, race: "Human", faction: "Alliance",
+    factionName: "Alliance", sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false,
+    classification: "normal",
+  }
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => id == 116 ? { amount: 65 } : nil
+  for (lock of [false, true]) {
+    for (gone of [false, true]) {
+      Tooltips.settings.draft.spellsLock = lock
+      saveAll()
+      Tooltips.close()
+      Game.tooltip.main = hidden(corner)
+      Test.pass(0.3)
+      Game.tooltip.main = showing(corner, {
+        kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }, { left: "Level 34 Human Warrior", kind: 0 }],
+      })
+      Test.pass(0.1)
+      Test.expect(holds("Kirin Tor") && holds("Human"))
+      if (gone) {
+        Game.tooltip.main = hidden(corner)
+        Test.pass(0.1)
+      }
+      Game.tooltip.main = frostbolt(corner, slot)
+      Test.pass(1.3)
+      Test.expect(Tooltips.locked == lock)
+      Test.expect(holds("Frostbolt"))
+      for (text of ["Kirin Tor", "Officer", "Human", "Alliance", "Kragos"]) {
+        if (holds(text)) { panic(`locked ${lock}, gone ${gone}: the spell's tooltip holds the unit's «${text}»: ${shownTexts()}`) }
+      }
+    }
+  }
+}
+
+// A tooltip that never locks (a button's text) keeps no room for the lock's bar: its last line stands at its bottom,
+// under nothing but the frame's padding. One that locks keeps the bar's room under its lines from the start.
+test "a button's tooltip, which never locks, is its content's height; an item's keeps the bar's room" {
+  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
+  let button = frame("Button", "CharacterMicroButton", 600, 800, 30, 40)
+  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+  Game.character.itemLevel = (): Number | nil => 16
+  Game.character.durability = (): Number | nil => 0.97
+  Game.tooltip.main = {
+    owner: button, ownerName: "CharacterMicroButton", placeable: true,
+    ..showing(corner, { plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }] }),
+  }
+  Test.pass(0.1)
+  const tip = Test.edges(Ordaen.art.window.wood, 0)
+  const last = Test.holding("C: open", nil)
+  // The frame's padding, its section's and half the line (31): no bar's room (20 more) under the last line.
+  if (tip.bottom - last.y > 40) { panic(`${tip.bottom - last.y} under the button's tooltip's last line's middle`) }
+  Game.tooltip.main = hidden(corner)
+  Test.pass(0.3)
+  Game.tooltip.main = inSlot(corner, slot, sword())
+  Test.pass(0.1)
+  const item = Test.edges(Ordaen.art.window.wood, 0)
+  const name = Test.holding("Sword", nil)
+  // The item's name, then the bar's room under it.
+  Test.expect(item.bottom - name.y > 40)
+}
