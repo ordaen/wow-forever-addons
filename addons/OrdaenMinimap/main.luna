@@ -287,11 +287,12 @@ public class Minimap implements Module, App {
       <frame $for={part of self.hidden} of={part} shown={false} away={true} />
 
       <Placed $if={self.shown} id={"OrdaenMinimap.map"} title={Locale.MINIMAP_TITLE} home={HOME}>
-        <box width={self.wholeWidth} height={self.wholeHeight} hoverWithin={true}
-             @enter={self.onEnter} @leave={self.onLeave}>
+        // The room round the frame holds the ring and takes no mouse: a click there reaches the world. The cursor
+        // is on the minimap while it is on the frame or on a ring button, which stand in the frame's box.
+        <box width={self.wholeWidth} height={self.wholeHeight}>
           <box position={Position.Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameWidth}
                height={self.frameHeight} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
-               artOrigin={true}>
+               artOrigin={true} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>
             <embed frame={Game.minimap.frame} position={Position.Absolute} left={self.out} top={self.mapTop}
                    width={self.size} height={self.size} />
 
@@ -322,9 +323,9 @@ public class Minimap implements Module, App {
                 <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} />
               </box>
             </box>
-          </box>
 
-          <RingButton $for={spec of RING} spec={spec} map={mut self} />
+            <RingButton $for={spec of RING} spec={spec} map={mut self} />
+          </box>
 
           <box $if={self.drawerShown} position={Position.Absolute} left={self.drawerLeft} top={self.drawerTop}
                width={self.drawerWidth} height={self.drawerHeight} columns={self.settings.values.drawerColumns} gap={CELL_GAP}
