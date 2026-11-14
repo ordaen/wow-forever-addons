@@ -153,10 +153,10 @@ class CategoryEntry implements Component {
   derived open: Boolean = self.itemClass == self.category.itemClass
   derived whole: Boolean = self.open && self.itemSubclass == ANY
 
-  const category: Game.ItemCategory
+  category: Signal<Game.ItemCategory>
   itemClass: Signal<Integer>
   itemSubclass: Signal<Integer>
-  constructor(category: Game.ItemCategory, itemClass: Signal<Integer>, itemSubclass: Signal<Integer>) {
+  constructor(category: Signal<Game.ItemCategory>, itemClass: Signal<Integer>, itemSubclass: Signal<Integer>) {
     self.category = category
     self.itemClass = itemClass
     self.itemSubclass = itemSubclass
@@ -184,9 +184,9 @@ class SubclassEntry implements Component {
 
   derived selected: Boolean = self.itemSubclass == self.subclass.itemSubclass
 
-  const subclass: Game.ItemSubcategory
+  subclass: Signal<Game.ItemSubcategory>
   itemSubclass: Signal<Integer>
-  constructor(subclass: Game.ItemSubcategory, itemSubclass: Signal<Integer>) {
+  constructor(subclass: Signal<Game.ItemSubcategory>, itemSubclass: Signal<Integer>) {
     self.subclass = subclass
     self.itemSubclass = itemSubclass
   }
