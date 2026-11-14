@@ -6,28 +6,28 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
         box 457.75,243.04 689.5x28.33
           box 457.75,243.04 689.5x28.33 #00000080 input "" @change
         box 457.75,278.04 689.5x383.42
-          text 708.75,462.25 187.5x15 "The talents are not available." #a3977f
+          text 703.61,461.95 197.78x15.6 "The talents are not available." #a3977f centred
         box 457.75,668.12 689.5x28.33
           box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 457.75,668.12 158.33x28.33 absolute
-              text 493.17,674.79 87.5x15 "Cancel changes" #808080
+              text 490.25,674.49 93.33x15.6 "Cancel changes" #808080 centred
           box 622.75,682.29 0x0
-          box 629.42,674.79 352.83x15
-            text 755.83,674.79 100x15 "Talent points: 0" #e8dcc4
+          box 629.42,674.49 352.83x15.6
+            text 752.5,674.49 106.67x15.6 "Talent points: 0" #e8dcc4 centred
           box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
-              text 1027.46,674.79 81.25x15 "Apply changes" #808080
+              text 1024.19,674.49 87.78x15.6 "Apply changes" #808080 centred
     box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 425,173.04 363.5x47.75
     box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.58,183.29 77.33x34.25
-        text 463.5,192.92 37.5x15 "Spells" #b3a690
+        text 461.14,192.62 42.22x15.6 "Spells" #b3a690 centred
     box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 568.08,183.29 77.33x34.25
-        text 584.88,192.92 43.75x15 "Primary" #ffd100
+        text 582.86,192.62 47.78x15.6 "Primary" #ffd100 centred
     box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 692.58,183.29 77.33x34.25
-        text 703.12,192.92 56.25x15 "Secondary" #b3a690
+        text 700.69,192.62 61.11x15.6 "Secondary" #b3a690 centred
 asked: Spellbook.watch true
 asked: TalentTrees.watch true
 
@@ -39,41 +39,41 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
         box 457.75,243.04 689.5x28.33
           box 457.75,243.04 689.5x28.33 #00000080 input "" @change
         box 457.75,278.04 689.5x383.42
-          box 457.75,278.04 227.61x104.17
-            text 549.68,278.04 43.75x15 "Arms: 2" #ffd100
-            box 529.47,298.04 84.17x84.17
-              box 552.81,320.12 37.5x2.5 absolute #4a3a24
-              box 589.06,321.37 2.5x37.5 absolute #4a3a24
-              box 536.14,304.71 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
-                text 552.39,324.21 16.25x13 "2/5" #40d060
-              box 573.64,342.21 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=0.55 @click
-                text 589.89,361.71 16.25x13 "0/3" #a3977f
-          box 688.69,278.04 227.61x66.67
-            text 780.62,278.04 43.75x15 "Fury: 5" #ffd100
-            box 779.17,298.04 46.67x46.67
-              box 785.83,304.71 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
-                text 802.08,324.21 16.25x13 "5/5" #ffd100
+          box 457.75,278.04 227.61x104.77
+            text 547.67,278.04 47.78x15.6 "Arms: 2" #ffd100 centred
+            box 529.47,298.64 84.17x84.17
+              box 552.81,320.72 37.5x2.5 absolute #4a3a24
+              box 589.06,321.97 2.5x37.5 absolute #4a3a24
+              box 536.14,305.31 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
+                text 547.53,323.41 21.11x14.4 "2/5" #40d060 right
+              box 573.64,342.81 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=0.55 @click
+                text 585.03,360.91 21.11x14.4 "0/3" #a3977f right
+          box 688.69,278.04 227.61x67.27
+            text 778.61,278.04 47.78x15.6 "Fury: 5" #ffd100 centred
+            box 779.17,298.64 46.67x46.67
+              box 785.83,305.31 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
+                text 797.22,323.41 21.11x14.4 "5/5" #ffd100 right
         box 457.75,668.12 689.5x28.33
           box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 457.75,668.12 158.33x28.33 absolute
-              text 493.17,674.79 87.5x15 "Cancel changes" #ffd100
+              text 490.25,674.49 93.33x15.6 "Cancel changes" #ffd100 centred
           box 622.75,682.29 0x0
-          box 629.42,674.79 352.83x15
-            text 755.83,674.79 100x15 "Talent points: 3" #e8dcc4
+          box 629.42,674.49 352.83x15.6
+            text 752.5,674.49 106.67x15.6 "Talent points: 3" #e8dcc4 centred
           box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
-              text 1027.46,674.79 81.25x15 "Apply changes" #ffd100
+              text 1024.19,674.49 87.78x15.6 "Apply changes" #ffd100 centred
     box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 425,173.04 363.5x47.75
     box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.58,183.29 77.33x34.25
-        text 463.5,192.92 37.5x15 "Spells" #b3a690
+        text 461.14,192.62 42.22x15.6 "Spells" #b3a690 centred
     box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 568.08,183.29 77.33x34.25
-        text 584.88,192.92 43.75x15 "Primary" #ffd100
+        text 582.86,192.62 47.78x15.6 "Primary" #ffd100 centred
     box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 692.58,183.29 77.33x34.25
-        text 703.12,192.92 56.25x15 "Secondary" #b3a690
+        text 700.69,192.62 61.11x15.6 "Secondary" #b3a690 centred
 
 -- what was asked of the game
 surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
@@ -83,30 +83,30 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
         box 457.75,243.04 689.5x28.33
           box 457.75,243.04 689.5x28.33 #00000080 input "" @change
         box 457.75,278.04 689.5x383.42
-          box 457.75,278.04 227.61x104.17
-            text 549.68,278.04 43.75x15 "Arms: 2" #ffd100
-            box 529.47,298.04 84.17x84.17
-              box 552.81,320.12 37.5x2.5 absolute #4a3a24
-              box 589.06,321.37 2.5x37.5 absolute #4a3a24
-              box 536.14,304.71 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
-                text 552.39,324.21 16.25x13 "2/5" #40d060
-              box 573.64,342.21 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=0.55 @click
-                text 589.89,361.71 16.25x13 "0/3" #a3977f
-          box 688.69,278.04 227.61x66.67
-            text 780.62,278.04 43.75x15 "Fury: 5" #ffd100
-            box 779.17,298.04 46.67x46.67
-              box 785.83,304.71 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
-                text 802.08,324.21 16.25x13 "5/5" #ffd100
+          box 457.75,278.04 227.61x104.77
+            text 547.67,278.04 47.78x15.6 "Arms: 2" #ffd100 centred
+            box 529.47,298.64 84.17x84.17
+              box 552.81,320.72 37.5x2.5 absolute #4a3a24
+              box 589.06,321.97 2.5x37.5 absolute #4a3a24
+              box 536.14,305.31 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
+                text 547.53,323.41 21.11x14.4 "2/5" #40d060 right
+              box 573.64,342.81 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=0.55 @click
+                text 585.03,360.91 21.11x14.4 "0/3" #a3977f right
+          box 688.69,278.04 227.61x67.27
+            text 778.61,278.04 47.78x15.6 "Fury: 5" #ffd100 centred
+            box 779.17,298.64 46.67x46.67
+              box 785.83,305.31 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
+                text 797.22,323.41 21.11x14.4 "5/5" #ffd100 right
         box 457.75,668.12 689.5x28.33
           box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 457.75,668.12 158.33x28.33 absolute
-              text 493.17,674.79 87.5x15 "Cancel changes" #ffffff
+              text 490.25,674.49 93.33x15.6 "Cancel changes" #ffffff centred
           box 622.75,682.29 0x0
-          box 629.42,674.79 352.83x15
-            text 755.83,674.79 100x15 "Talent points: 3" #e8dcc4
+          box 629.42,674.49 352.83x15.6
+            text 752.5,674.49 106.67x15.6 "Talent points: 3" #e8dcc4 centred
           box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
-              text 1027.46,674.79 81.25x15 "Apply changes" #ffd100
+              text 1024.19,674.49 87.78x15.6 "Apply changes" #ffd100 centred
     box 1091.08,222.12 77.5x26.67 absolute clipped
       box 1091.08,222.12 29.17x26.67 absolute clipped @click
         box 1091.08,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -121,13 +121,13 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
   box 425,173.04 363.5x47.75
     box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.58,183.29 77.33x34.25
-        text 463.5,192.92 37.5x15 "Spells" #b3a690
+        text 461.14,192.62 42.22x15.6 "Spells" #b3a690 centred
     box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 568.08,183.29 77.33x34.25
-        text 584.88,192.92 43.75x15 "Primary" #ffd100
+        text 582.86,192.62 47.78x15.6 "Primary" #ffd100 centred
     box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 692.58,183.29 77.33x34.25
-        text 703.12,192.92 56.25x15 "Secondary" #b3a690
+        text 700.69,192.62 61.11x15.6 "Secondary" #b3a690 centred
 asked: TalentTrees.spend 10
 asked: TalentTrees.refund 10
 asked: TalentTrees.commit
@@ -141,32 +141,32 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
         box 457.75,243.04 689.5x28.33
           box 457.75,243.04 689.5x28.33 #00000080 input "" @change
         box 457.75,278.04 689.5x383.42
-          box 457.75,278.04 227.61x104.17
-            text 549.68,278.04 43.75x15 "Arms: 2" #ffd100
-            box 529.47,298.04 84.17x84.17
-              box 552.81,320.12 37.5x2.5 absolute #4a3a24
-              box 589.06,321.37 2.5x37.5 absolute #4a3a24
-              box 536.14,304.71 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
-                text 552.39,324.21 16.25x13 "2/5" #40d060
-              box 573.64,342.21 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=0.55 @click
-                text 589.89,361.71 16.25x13 "0/3" #a3977f
-          box 688.69,278.04 227.61x66.67
-            text 780.62,278.04 43.75x15 "Fury: 5" #ffd100
-            box 779.17,298.04 46.67x46.67
-              box 785.83,304.71 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
-                text 802.08,324.21 16.25x13 "5/5" #ffd100
+          box 457.75,278.04 227.61x104.77
+            text 547.67,278.04 47.78x15.6 "Arms: 2" #ffd100 centred
+            box 529.47,298.64 84.17x84.17
+              box 552.81,320.72 37.5x2.5 absolute #4a3a24
+              box 589.06,321.97 2.5x37.5 absolute #4a3a24
+              box 536.14,305.31 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
+                text 547.53,323.41 21.11x14.4 "2/5" #40d060 right
+              box 573.64,342.81 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=0.55 @click
+                text 585.03,360.91 21.11x14.4 "0/3" #a3977f right
+          box 688.69,278.04 227.61x67.27
+            text 778.61,278.04 47.78x15.6 "Fury: 5" #ffd100 centred
+            box 779.17,298.64 46.67x46.67
+              box 785.83,305.31 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Note_01 opacity=1 @click
+                text 797.22,323.41 21.11x14.4 "5/5" #ffd100 right
         box 457.75,668.12 689.5x28.33
           box 457.75,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 457.75,668.12 158.33x28.33 absolute
-              text 493.17,674.79 87.5x15 "Cancel changes" #808080
+              text 490.25,674.49 93.33x15.6 "Cancel changes" #808080 centred
           box 622.75,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 622.75,668.12 125x28.33 absolute
-              text 660.25,674.79 50x15 "Activate" #ffffff
-          box 754.42,674.79 227.83x15
-            text 818.33,674.79 100x15 "Talent points: 3" #e8dcc4
+              text 658.03,674.49 54.44x15.6 "Activate" #ffffff centred
+          box 754.42,674.49 227.83x15.6
+            text 815,674.49 106.67x15.6 "Talent points: 3" #e8dcc4 centred
           box 988.92,668.12 158.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
             box 988.92,668.12 158.33x28.33 absolute
-              text 1027.46,674.79 81.25x15 "Apply changes" #808080
+              text 1024.19,674.49 87.78x15.6 "Apply changes" #808080 centred
     box 1091.08,222.12 77.5x26.67 absolute clipped
       box 1091.08,222.12 29.17x26.67 absolute clipped @click
         box 1091.08,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -181,11 +181,11 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
   box 425,173.04 363.5x47.75
     box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 443.58,183.29 77.33x34.25
-        text 463.5,192.92 37.5x15 "Spells" #b3a690
+        text 461.14,192.62 42.22x15.6 "Spells" #b3a690 centred
     box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 568.08,183.29 77.33x34.25
-        text 584.88,192.92 43.75x15 "Primary" #b3a690
+        text 582.86,192.62 47.78x15.6 "Primary" #b3a690 centred
     box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 692.58,183.29 77.33x34.25
-        text 703.12,192.92 56.25x15 "Secondary" #ffd100
+        text 700.69,192.62 61.11x15.6 "Secondary" #ffd100 centred
 asked: TalentTrees.activate 2
