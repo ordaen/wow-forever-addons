@@ -1,6 +1,6 @@
 // A page with the library's ColorPicker, for the run tests: two colours of one struct in a cell, and a row that is
 // disabled.
-import { ColorPicker, Component } from "Ordaen"
+import { ColorPicker, Component, space } from "Ordaen"
 
 public struct Tints {
   frame: Color
@@ -12,7 +12,7 @@ public class Tinted implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={8}>
+      <box columns={1} gap={space(.Item)}>
         <ColorPicker label={"The frame"} hint={"Its metal."} value={mut self.tints.frame} />
         <ColorPicker label={"The text"} value={mut self.tints.text} />
         <ColorPicker label={"Greyed"} value={mut self.tints.text} disabled={true} />

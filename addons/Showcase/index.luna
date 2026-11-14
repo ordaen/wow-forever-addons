@@ -3,7 +3,7 @@ public import { Windowed } from "@/windowed"
 public import { Tinted } from "@/tinted"
 public import { Arranged } from "@/arranged"
 public import { Market, Worth, Sale } from "@/market"
-import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, Switch, Tabs, TextBox, Tip, Toggle, Unit } from "Ordaen"
+import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, space, Switch, Tabs, TextBox, Tip, Toggle, Unit } from "Ordaen"
 
 const TABS: Array<String> = ["Map", "Drawer", "Market"]
 
@@ -60,7 +60,7 @@ public class Showcase implements Module {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={8}>
+      <box columns={1} gap={space(.Item)}>
         <Tabs tabs={TABS} selected={mut self.tab} />
         <SettingsTab title={"Map"} shown={self.onMap}>
           <Section title={"Map"}>
