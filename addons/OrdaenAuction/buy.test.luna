@@ -1,8 +1,5 @@
-// Waits for a name that can't push the page past the window: with two short names the «Buy» table's least width (its
-// fixed columns, 400 px, and the widest name) is 470.83 where the page leaves it 466.17, and the panel stands 4.67 past
-// the page's edge (the stand-in's check: «a box at 928.58,317.21 stands outside its box's content»). A box that clips
-// (`overflow={.Hidden}`) around the name doesn't help: the renderer's least width counts what a clipping box holds
-// (`next/move.md`, H6, «blocked»). «Buy» with a browse's rows, sorted, filtered, a row picked and listed.
+// «Buy» with a browse's rows, sorted, filtered, a row picked and listed. The house is browsed twice, shut, and
+// opened again a day after the second browse, so each market is a day old.
 import Game from "$game"
 import Test from "$test"
 import { ItemId } from "Ordaen"
@@ -26,6 +23,9 @@ test "«Buy»: the last browse's items with their market and share, filtered by 
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 45, quantity: 12 }, { key: COPPER_ORE, copper: 90, quantity: 40 }])
   Game.clock.server = START + 30 * HOUR
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: COPPER_ORE, copper: 100, quantity: 25 }])
+  Game.auctionHouse.open = false
+  Game.clock.server = START + 54 * HOUR
+  Game.auctionHouse.open = true
   Test.pass(0.02)
   Test.shot("two items: listed, lowest, market, the lowest's share of it, a day old in amber")
   Test.click(Test.holding("Lowest", nil), nil)
