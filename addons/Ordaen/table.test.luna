@@ -83,12 +83,12 @@ test "a heading click sorts by its column and again reverses it, the rows' own c
   Test.click(Test.holding("Price", nil), nil)
   Test.expect(page.sorted == 2 && !page.descending)
   Test.expect(names(page) == "Arcane Dust, Copper Bar, Bronze Axe")
-  Test.shot("Price clicked: ordered by it, the cheapest first, its heading gold with ▲ and a light under it")
+  Test.shot("Price clicked: ordered by it, the cheapest first, its heading gold with the up mark and a light under it")
 
   Test.click(Test.holding("Price", nil), nil)
   Test.expect(page.descending)
   Test.expect(names(page) == "Bronze Axe, Copper Bar, Arcane Dust")
-  Test.shot("Price clicked again: reversed, ▼")
+  Test.shot("Price clicked again: reversed, the down mark")
 
   Test.click(Test.holding("Item", nil), nil)
   Test.expect(page.sorted == 1 && !page.descending)

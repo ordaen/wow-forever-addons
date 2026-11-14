@@ -7,7 +7,8 @@ import { Align, Art, Piece, Beside, Cursor, Edges, Layer, Line, Position, Side, 
 import root Ordaen from "Ordaen"
 import { Component } from "Ordaen"
 import Locale from "@/locales"
-import { Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
+import { GREEN, RED } from "@/colors"
+import { Compared, Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
 
 public const PX: Number = 1 / 1.2
 // The glyphs' pictures (art/pieces/tooltip-glyphs.json): a column of 20 px cells, a row each in the order of
@@ -52,6 +53,11 @@ const FILL: Array<Track> = [{ fr: 1 }]
 const WITH_ICON: Array<Track> = [ICON, { fr: 1 }]
 const ALONE: Array<Track> = [{ fr: 1 }]
 public const NAME_VALUE: Array<Track> = [{ fr: 1 }, "auto"]
+// A compared value: the value, then its difference «(by», the mark, «)», 3 px apart (the design's `.diff`), the mark
+// 10 px (ctl.compareUp, ctl.compareDown).
+const COMPARED: Array<Track> = ["auto", "auto", "auto", "auto"]
+const COMPARED_GAP = 3 * PX
+const COMPARED_MARK = 10 * PX
 // A text at its own width, the rest of its row empty.
 const OWN_WIDTH: Array<Track> = ["auto", { fr: 1 }]
 public const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
@@ -88,6 +94,8 @@ public struct Drawn {
   // What its name opens, and what its value does.
   opens: Opens
   valueOpens: Opens
+  // An item's stat against the compared item's, after the value.
+  compared: Compared | nil
 }
 
 function opensSomething(opens: Opens): Boolean {
@@ -283,6 +291,13 @@ public class Row implements Component {
   derived right: String = self.line.right ?? ""
   derived opening: Boolean = opensSomething(self.line.opens)
   derived valueOpening: Boolean = opensSomething(self.line.valueOpens)
+  // A compared stat's difference: «(by ▲)» green when it is more, «(by ▼)» red when less, after the value.
+  derived hasCompared: Boolean = self.line.compared != nil
+  derived plainValue: Boolean = !self.hasCompared && !self.valueOpening
+  derived comparedMore: Boolean = self.line.compared?.more == true
+  derived comparedColor: Color = self.comparedMore ? GREEN : RED
+  derived comparedMark: Art = self.comparedMore ? Ordaen.art.ctl.compareUp : Ordaen.art.ctl.compareDown
+  derived comparedBy: String = `(${self.line.compared?.by ?? ""}`
 
   line: Signal<Drawn>
   locked: Signal<Boolean>
@@ -303,16 +318,24 @@ public class Row implements Component {
           </TermText>
         </box>
         <text $else value={self.line.left} textColor={self.line.leftColor} textSize={self.line.size} />
-        // A value, in the numbers' font. The marks a compared value carries (▲, ▼) are in no font Ordaen ships but
-        // the title fonts Alegreya SC and Cormorant SC: art to make (design: general/art-needed).
+        // A value, in the numbers' font; a compared one (an item's stat: it opens nothing) with its difference after
+        // it, the mark art (no font carries it) tinted as the difference's text.
+        <box $if={self.hasCompared} columns={COMPARED} gap={COMPARED_GAP} yAlign={Align.Center}>
+          <text value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={false}
+                textFont={.Numbers} />
+          <text value={self.comparedBy} textColor={self.comparedColor} textSize={self.line.size} wrap={false}
+                textFont={.Numbers} />
+          <box width={COMPARED_MARK} height={COMPARED_MARK} background={self.comparedMark} tint={self.comparedColor} />
+          <text value={")"} textColor={self.comparedColor} textSize={self.line.size} wrap={false} textFont={.Numbers} />
+        </box>
         <TermText $if={self.valueOpening} text={self.right} color={self.line.rightColor} size={self.line.size}
                   opens={self.line.valueOpens} locked={self.locked} font={.Numbers}>
           <box #opened={opens}>
             <slot #opened opens={opens} />
           </box>
         </TermText>
-        <text $else value={self.right} textColor={self.line.rightColor} textSize={self.line.size} wrap={false}
-              textFont={.Numbers} />
+        <text $if={self.plainValue} value={self.right} textColor={self.line.rightColor} textSize={self.line.size}
+              wrap={false} textFont={.Numbers} />
       </box>
       <box $else padding={self.line.padding}>
         <box $if={self.opening} columns={OWN_WIDTH}>
@@ -440,7 +463,7 @@ public class TipFrame implements Component {
       list.push({
         left: line.left, right: line.right, leftColor: line.color ?? plain,
         rightColor: line.rightColor ?? line.color ?? BODY, size: TextSize.Primary, padding: padding, opens: line.opens,
-        valueOpens: Opens.None,
+        valueOpens: Opens.None, compared: line.compared,
       })
       pairedBefore = paired
     }
@@ -454,7 +477,7 @@ public class TipFrame implements Component {
       list.push({
         left: note.left, right: note.right, leftColor: alone ? note.valueColor ?? QUIET : QUIET,
         rightColor: note.valueColor ?? QUIET_VALUE, size: TextSize.Secondary, padding: NO_PAD, opens: note.opens,
-        valueOpens: note.valueOpens,
+        valueOpens: note.valueOpens, compared: nil,
       })
     }
     return list
@@ -465,7 +488,7 @@ public class TipFrame implements Component {
     for (key of self.model.keys) {
       list.push({
         left: key, right: nil, leftColor: QUIET, rightColor: QUIET, size: TextSize.Secondary, padding: NO_PAD,
-        opens: Opens.None, valueOpens: Opens.None,
+        opens: Opens.None, valueOpens: Opens.None, compared: nil,
       })
     }
     return list

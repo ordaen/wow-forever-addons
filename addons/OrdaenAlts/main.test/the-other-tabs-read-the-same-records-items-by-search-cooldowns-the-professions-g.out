@@ -77,29 +77,20 @@ surface 341.67,198.04 916.67x503.92 on DIALOG clamped raised by a click
               box 371.08,283.04 439.7x1.67 absolute #00000000
               box 371.08,264.71 439.7x15
                 text 371.08,264.71 37.5x15 "Recipe" #cbb994
-                box 411.92,264.71 5.42x13
-                  box 411.92,264.71 5.42x13 opacity=0
-                    text 411.92,264.71 5.42x13 "▲" #f0c860
-                  box 411.92,264.71 5.42x13 absolute opacity=0
-                    text 411.92,264.71 5.42x13 "▼" #f0c860
+                box 411.92,269.71 6.67x5
+                  box 408.58,265.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
             box 817.45,259.71 293.13x25 #00000000 @click
               box 817.45,283.04 293.13x1.67 absolute #00000000
               box 817.45,264.71 293.13x15
                 text 817.45,264.71 56.25x15 "Character" #cbb994
-                box 877.03,264.71 5.42x13
-                  box 877.03,264.71 5.42x13 opacity=0
-                    text 877.03,264.71 5.42x13 "▲" #f0c860
-                  box 877.03,264.71 5.42x13 absolute opacity=0
-                    text 877.03,264.71 5.42x13 "▼" #f0c860
+                box 877.03,269.71 6.67x5
+                  box 873.7,265.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
             box 1117.25,259.71 116.67x25 #00000000 @click
               box 1117.25,283.04 116.67x1.67 absolute #d6a56b
-              box 1193.92,264.71 40x15
-                text 1193.92,264.71 31.25x15 "Ready" #f0c860
-                box 1228.5,264.71 5.42x13
-                  box 1228.5,264.71 5.42x13 opacity=1
-                    text 1228.5,264.71 5.42x13 "▲" #f0c860
-                  box 1228.5,264.71 5.42x13 absolute opacity=0
-                    text 1228.5,264.71 5.42x13 "▼" #f0c860
+              box 1192.67,264.71 41.25x15
+                text 1192.67,264.71 31.25x15 "Ready" #f0c860
+                box 1227.25,269.71 6.67x5
+                  box 1223.92,265.54 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=1
           box 364.42,285.54 876.17x21.67 scrolled 0 of 0
             box 364.42,285.54 876.17x21.67 #00000000 @click
               text 371.08,288.87 439.7x15 "Elemental Sharpening Stone" #e8dcc4

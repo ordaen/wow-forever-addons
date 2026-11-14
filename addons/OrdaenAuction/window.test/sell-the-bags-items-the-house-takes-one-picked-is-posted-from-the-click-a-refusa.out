@@ -18,33 +18,24 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                   box 471.08,323.87 129.5x1.67 absolute #00000000
                   box 471.08,305.54 129.5x15
                     text 471.08,305.54 25x15 "Item" #cbb994
-                    box 499.42,305.54 5.42x13
-                      box 499.42,305.54 5.42x13 opacity=0
-                        text 499.42,305.54 5.42x13 "▲" #f0c860
-                      box 499.42,305.54 5.42x13 absolute opacity=0
-                        text 499.42,305.54 5.42x13 "▼" #f0c860
+                    box 499.42,310.54 6.67x5
+                      box 496.08,306.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 607.25,300.54 53.33x25 #00000000 @click
                   box 607.25,323.87 53.33x1.67 absolute #00000000
                   box 626,305.54 34.58x15
                     text 626,305.54 31.25x15 "Count" #a3977f
                 box 667.25,300.54 80x25 #00000000 @click
                   box 667.25,323.87 80x1.67 absolute #00000000
-                  box 701,305.54 46.25x15
-                    text 701,305.54 37.5x15 "Market" #cbb994
-                    box 741.83,305.54 5.42x13
-                      box 741.83,305.54 5.42x13 opacity=0
-                        text 741.83,305.54 5.42x13 "▲" #f0c860
-                      box 741.83,305.54 5.42x13 absolute opacity=0
-                        text 741.83,305.54 5.42x13 "▼" #f0c860
+                  box 699.75,305.54 47.5x15
+                    text 699.75,305.54 37.5x15 "Market" #cbb994
+                    box 740.58,310.54 6.67x5
+                      box 737.25,306.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 753.92,300.54 80x25 #00000000 @click
                   box 753.92,323.87 80x1.67 absolute #00000000
-                  box 787.67,305.54 46.25x15
-                    text 787.67,305.54 37.5x15 "Vendor" #cbb994
-                    box 828.5,305.54 5.42x13
-                      box 828.5,305.54 5.42x13 opacity=0
-                        text 828.5,305.54 5.42x13 "▲" #f0c860
-                      box 828.5,305.54 5.42x13 absolute opacity=0
-                        text 828.5,305.54 5.42x13 "▼" #f0c860
+                  box 786.42,305.54 47.5x15
+                    text 786.42,305.54 37.5x15 "Vendor" #cbb994
+                    box 827.25,310.54 6.67x5
+                      box 823.92,306.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 840.58,300.54 75x25 #00000000 @click
                   box 840.58,323.87 75x1.67 absolute #00000000
                   box 840.58,305.54 75x15
@@ -118,33 +109,24 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                   box 471.08,323.87 129.5x1.67 absolute #00000000
                   box 471.08,305.54 129.5x15
                     text 471.08,305.54 25x15 "Item" #cbb994
-                    box 499.42,305.54 5.42x13
-                      box 499.42,305.54 5.42x13 opacity=0
-                        text 499.42,305.54 5.42x13 "▲" #f0c860
-                      box 499.42,305.54 5.42x13 absolute opacity=0
-                        text 499.42,305.54 5.42x13 "▼" #f0c860
+                    box 499.42,310.54 6.67x5
+                      box 496.08,306.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 607.25,300.54 53.33x25 #00000000 @click
                   box 607.25,323.87 53.33x1.67 absolute #00000000
                   box 626,305.54 34.58x15
                     text 626,305.54 31.25x15 "Count" #a3977f
                 box 667.25,300.54 80x25 #00000000 @click
                   box 667.25,323.87 80x1.67 absolute #00000000
-                  box 701,305.54 46.25x15
-                    text 701,305.54 37.5x15 "Market" #cbb994
-                    box 741.83,305.54 5.42x13
-                      box 741.83,305.54 5.42x13 opacity=0
-                        text 741.83,305.54 5.42x13 "▲" #f0c860
-                      box 741.83,305.54 5.42x13 absolute opacity=0
-                        text 741.83,305.54 5.42x13 "▼" #f0c860
+                  box 699.75,305.54 47.5x15
+                    text 699.75,305.54 37.5x15 "Market" #cbb994
+                    box 740.58,310.54 6.67x5
+                      box 737.25,306.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 753.92,300.54 80x25 #00000000 @click
                   box 753.92,323.87 80x1.67 absolute #00000000
-                  box 787.67,305.54 46.25x15
-                    text 787.67,305.54 37.5x15 "Vendor" #cbb994
-                    box 828.5,305.54 5.42x13
-                      box 828.5,305.54 5.42x13 opacity=0
-                        text 828.5,305.54 5.42x13 "▲" #f0c860
-                      box 828.5,305.54 5.42x13 absolute opacity=0
-                        text 828.5,305.54 5.42x13 "▼" #f0c860
+                  box 786.42,305.54 47.5x15
+                    text 786.42,305.54 37.5x15 "Vendor" #cbb994
+                    box 827.25,310.54 6.67x5
+                      box 823.92,306.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 840.58,300.54 75x25 #00000000 @click
                   box 840.58,323.87 75x1.67 absolute #00000000
                   box 840.58,305.54 75x15
@@ -258,33 +240,24 @@ surface 441.67,198.04 716.67x503.92 on DIALOG clamped raised by a click
                   box 471.08,323.87 129.5x1.67 absolute #00000000
                   box 471.08,305.54 129.5x15
                     text 471.08,305.54 25x15 "Item" #cbb994
-                    box 499.42,305.54 5.42x13
-                      box 499.42,305.54 5.42x13 opacity=0
-                        text 499.42,305.54 5.42x13 "▲" #f0c860
-                      box 499.42,305.54 5.42x13 absolute opacity=0
-                        text 499.42,305.54 5.42x13 "▼" #f0c860
+                    box 499.42,310.54 6.67x5
+                      box 496.08,306.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 607.25,300.54 53.33x25 #00000000 @click
                   box 607.25,323.87 53.33x1.67 absolute #00000000
                   box 626,305.54 34.58x15
                     text 626,305.54 31.25x15 "Count" #a3977f
                 box 667.25,300.54 80x25 #00000000 @click
                   box 667.25,323.87 80x1.67 absolute #00000000
-                  box 701,305.54 46.25x15
-                    text 701,305.54 37.5x15 "Market" #cbb994
-                    box 741.83,305.54 5.42x13
-                      box 741.83,305.54 5.42x13 opacity=0
-                        text 741.83,305.54 5.42x13 "▲" #f0c860
-                      box 741.83,305.54 5.42x13 absolute opacity=0
-                        text 741.83,305.54 5.42x13 "▼" #f0c860
+                  box 699.75,305.54 47.5x15
+                    text 699.75,305.54 37.5x15 "Market" #cbb994
+                    box 740.58,310.54 6.67x5
+                      box 737.25,306.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 753.92,300.54 80x25 #00000000 @click
                   box 753.92,323.87 80x1.67 absolute #00000000
-                  box 787.67,305.54 46.25x15
-                    text 787.67,305.54 37.5x15 "Vendor" #cbb994
-                    box 828.5,305.54 5.42x13
-                      box 828.5,305.54 5.42x13 opacity=0
-                        text 828.5,305.54 5.42x13 "▲" #f0c860
-                      box 828.5,305.54 5.42x13 absolute opacity=0
-                        text 828.5,305.54 5.42x13 "▼" #f0c860
+                  box 786.42,305.54 47.5x15
+                    text 786.42,305.54 37.5x15 "Vendor" #cbb994
+                    box 827.25,310.54 6.67x5
+                      box 823.92,306.37 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
                 box 840.58,300.54 75x25 #00000000 @click
                   box 840.58,323.87 75x1.67 absolute #00000000
                   box 840.58,305.54 75x15
