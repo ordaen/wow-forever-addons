@@ -5,7 +5,7 @@ import { Room } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Hold, kept } from "@/onScreen"
-import { Placing, Window, WindowTabSpec } from "@/window"
+import { KeptWindow, Placing, Window, WindowTabSpec } from "@/window"
 
 // The stand-in's screen.
 const SCREEN_W = 1600
@@ -16,11 +16,11 @@ function start(): Placing { return { x: 0, y: 0, width: 400, height: 300 } }
 class Framed {
   state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
   state tab = 1
-  state placing: Placing = start()
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", start())
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"test"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <text value={"the page"} />
       </Window>
     }
@@ -118,7 +118,7 @@ test "a window dragged into each edge and corner stops there, keeps the other ax
     { name: "past the bottom right", x: SCREEN_W + 400, y: SCREEN_H + 400 },
   ]
   for (goal of goals) {
-    page.placing = start()
+    page.placing.placing = start().clone()
     Test.flush()
     const was = edges()
     const at = Test.holding("Recipes", nil)
@@ -158,7 +158,7 @@ test "a window sized by its grip to each edge stops there, its top left where it
     { name: "past the top", x: nil, y: -400 },
   ]
   for (goal of goals) {
-    page.placing = start()
+    page.placing.placing = start().clone()
     Test.moveTo({ x: 1, y: 1 })
     Test.flush()
     const was = edges()
