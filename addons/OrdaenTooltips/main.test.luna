@@ -408,3 +408,55 @@ test "a locked item compared with a worn one: the cursor crossing the gap betwee
   Test.pass(0.5)
   Test.expect(Tooltips.locked)
 }
+
+// The text of every tooltip drawn now, one after another.
+function shownTexts(): String {
+  let all = ""
+  for (shown of Test.surfaces()) {
+    for (text of shown.texts) { all = `${all}|${text}` }
+  }
+  return all
+}
+
+// Whether a tooltip drawn now holds this text.
+function holds(text: String): Boolean {
+  return shownTexts().contains(text)
+}
+
+test "a spell's tooltip after a unit's holds nothing of the unit's, locked or not, the game's gone between or not" {
+  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
+  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+  Game.units.of = (unit: String): Game.UnitInfo | nil => unit != "mouseover" ? nil : {
+    name: "Kragos", player: true, className: "Warrior", guild: "Kirin Tor", guildRank: "Officer", dead: false,
+    ghost: false, afk: false, dnd: false, pvp: false, level: 34, race: "Human", faction: "Alliance",
+    factionName: "Alliance", sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false,
+    classification: "normal",
+  }
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => id == 116 ? { amount: 65 } : nil
+  for (lock of [false, true]) {
+    for (gone of [false, true]) {
+      Tooltips.settings.draft.spellsLock = lock
+      saveAll()
+      Tooltips.close()
+      Game.tooltip.main = hidden(corner)
+      Test.pass(0.3)
+      Game.tooltip.main = showing(corner, {
+        kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }, { left: "Level 34 Human Warrior", kind: 0 }],
+      })
+      Test.pass(0.1)
+      Test.expect(holds("Kirin Tor") && holds("Human"))
+      if (gone) {
+        Game.tooltip.main = hidden(corner)
+        Test.pass(0.1)
+      }
+      Game.tooltip.main = frostbolt(corner, slot)
+      Test.pass(1.3)
+      Test.expect(Tooltips.locked == lock)
+      Test.expect(holds("Frostbolt"))
+      for (text of ["Kirin Tor", "Officer", "Human", "Alliance", "Kragos"]) {
+        if (holds(text)) { panic(`locked ${lock}, gone ${gone}: the spell's tooltip holds the unit's «${text}»: ${shownTexts()}`) }
+      }
+    }
+  }
+}

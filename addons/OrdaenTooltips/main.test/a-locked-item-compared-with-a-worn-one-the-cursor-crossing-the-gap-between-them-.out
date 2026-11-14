@@ -21,8 +21,12 @@ surface 836,240 504x140.42 on TOOLTIP
             text 1089.08,289.42 235.67x18 "Sword" #ffffff
         box 1089.08,314.08 235.67x28.33
           box 1089.08,320.75 235.67x15
-            text 1089.08,320.75 183.58x15 "ITEM_MOD_STRENGTH_SHORT" #808080
-            text 1281,320.75 43.75x15 "— |cffff4040(▼21)|r" #808080
+            text 1089.08,320.75 180.25x15 "ITEM_MOD_STRENGTH_SHORT" #808080
+            box 1277.67,320.75 47.08x15
+              text 1277.67,320.75 6.25x15 "—" #808080
+              text 1286.42,320.75 18.75x15 "(21" #ff4040
+              box 1307.67,324.08 8.33x8.33 Interface\AddOns\Ordaen\media\ctl-marks row 5 of 8
+              text 1318.5,320.75 6.25x15 ")" #ff4040
         box 1089.08,342.42 235.67x20
           box 1089.08,349.08 235.67x13.33
             text 1089.08,349.25 235.67x13 "Locked — hover the underlined parts" #857a66
