@@ -4,7 +4,7 @@ box 0,0 400x28.33
     box 0,0 300x28.33
       box 0,0 300x28.33 #00000080 input "" @change @submit
       box 0,0 300x28.33 absolute
-        text 8.33,6.67 283.33x15 "Search by name" #a3977f
+        text 8.33,6.37 283.33x15.6 "Search by name" #a3977f
     box 300,0 100x28.33
       box 300,0 33.33x28.33
         box 305,0 28.33x28.33
@@ -25,7 +25,7 @@ box 0,0 400x28.33
     box 0,0 300x28.33
       box 0,0 300x28.33 #00000080 input "" @change @submit
       box 0,0 300x28.33 absolute
-        text 8.33,6.67 283.33x15 "Search by name" #a3977f
+        text 8.33,6.37 283.33x15.6 "Search by name" #a3977f
     box 300,0 100x28.33
       box 300,0 33.33x28.33
         box 305,0 28.33x28.33
@@ -39,13 +39,13 @@ box 0,0 400x28.33
         box 371.67,0 28.33x28.33
           box 371.67,0 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 379.17,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 2 of 16
-surface 338.33,28.33 175x58.33 on FULLSCREEN_DIALOG #0a0806f7
-  box 339.17,34.17 173.33x23.33 #00000000 @click
+surface 338.33,28.33 175x59.53 on FULLSCREEN_DIALOG #0a0806f7
+  box 339.17,34.17 173.33x23.93 #00000000 @click
     box 347.5,41.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 364.17,38.33 136.67x15 "By difficulty" #ffffff
-  box 339.17,57.5 173.33x23.33 #00000000 @click
-    box 347.5,65 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 364.17,61.67 136.67x15 "By name" #ffffff
+    text 364.17,38.33 136.67x15.6 "By difficulty" #ffffff
+  box 339.17,58.1 173.33x23.93 #00000000 @click
+    box 347.5,65.6 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 364.17,62.27 136.67x15.6 "By name" #ffffff
 
 -- a filter on: the funnel gold, the view's button the list's glyph
 box 0,0 400x28.33
@@ -53,7 +53,7 @@ box 0,0 400x28.33
     box 0,0 300x28.33
       box 0,0 300x28.33 #00000080 input "" @change @submit
       box 0,0 300x28.33 absolute
-        text 8.33,6.67 283.33x15 "Search by name" #a3977f
+        text 8.33,6.37 283.33x15.6 "Search by name" #a3977f
     box 300,0 100x28.33
       box 300,0 33.33x28.33
         box 305,0 28.33x28.33

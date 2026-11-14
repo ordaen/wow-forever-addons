@@ -1,0 +1,65 @@
+// A Tip explains its box where the box stands: a list scrolled under a cursor standing still moves the box, and the
+// Tip goes with that, though the cursor is still on the box; it is shown again once the cursor comes onto a box anew.
+import { Overflow } from "$ltml"
+import Test from "$test"
+import { Component } from "@/module"
+import { Tip } from "@/tip"
+
+// A row with its Tip while the cursor is on it; taller than a notch of the wheel, so a notch moves the row under the
+// cursor without taking it from there.
+class HoverRow implements Component {
+  state hovered = false
+  derived title: String = "About " + self.name
+
+  name: Signal<String>
+  constructor(name: Signal<String>) { self.name = name }
+
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <box height={80} @enter={self.onEnter} @leave={self.onLeave}>
+        <text value={self.name} />
+        <Tip $if={self.hovered} title={self.title} text={""} />
+      </box>
+    }
+  }
+}
+
+class Rows {
+  const names: Array<String> = ["First", "Second", "Third", "Fourth", "Fifth", "Sixth"]
+
+  public render(self): Template {
+    return $ltml {
+      <box height={200} overflow={Overflow.Scroll} columns={1}>
+        <HoverRow $for={name of self.names} $key={name} name={name} />
+      </box>
+    }
+  }
+}
+
+// The title of the Tip shown, or "" while none is.
+function tipShown(): String {
+  for (shown of Test.surfaces()) {
+    for (text of shown.texts) {
+      if (text.contains("About")) { return text }
+    }
+  }
+  return ""
+}
+
+test "a tip goes when the list scrolls its box under the cursor, and comes back when the cursor comes onto a box" {
+  let page = new Rows()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 200 })
+  Test.moveTo(Test.holding("Second", nil))
+  Test.pass(0.1)
+  Test.expect(tipShown() == "About Second")
+  Test.wheel(-1)
+  Test.pass(0.1)
+  Test.expect(tipShown() == "")
+  Test.moveTo(Test.holding("Third", nil))
+  Test.pass(0.1)
+  Test.expect(tipShown() == "About Third")
+  destroy page
+}

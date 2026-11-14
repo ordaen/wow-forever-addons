@@ -59,14 +59,14 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
   box 646.33,873.5 476.83x0
     box 646.33,873.5 476.83x0
   box 1123.17,847 476.83x53
-    box 1175.67,866 60x15
-      text 1175.67,866 50x15 "0g 0s 0c" #e8dcc4
+    box 1171.22,865.7 64.44x15.6
+      text 1171.22,865.7 54.44x15.6 "0g 0s 0c" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1281.75,884.67 5.42x13 absolute
-            text 1281.75,884.67 5.42x13 "7" #ffffff
+          box 1278.28,883.27 8.89x14.4 absolute
+            text 1278.28,883.27 8.89x14.4 "7" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -102,4 +102,4 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   embed 0,776 128x124 absolute frame=none opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred

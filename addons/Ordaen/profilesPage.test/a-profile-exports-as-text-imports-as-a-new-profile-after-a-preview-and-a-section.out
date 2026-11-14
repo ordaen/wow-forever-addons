@@ -1,429 +1,429 @@
 the default profile's text: 1185 characters, 3 sections
 -- Export: the text of the active profile in the box
-box 0,0 760x681.67
-  box 0,0 760x215
-    box 0,0 760x15
-      text 0,0 43.75x15 "Profile" #e8c35a
-      box 52.08,7.08 707.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    text 0,26.67 760x15 "In use: Default, account default" #e8dcc4
-    box 0,53.33 760x28.33 opacity=1
-      box 0,60 233.33x15 @enter @leave
-        text 0,60 233.33x15 "Profile" #cbb994
-      box 248.33,53.33 200x28.33
-        box 248.33,53.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,60 153.33x15 "Default" #f0c860
-          box 425,60.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,93.33 760x25 opacity=1
-      box 0,98.33 233.33x15 @enter @leave
-        text 0,98.33 233.33x15 "Name" #cbb994
-      box 248.33,93.33 250x25 #0d0a08 input "" @change
-    box 0,130 760x18.33 opacity=1
-      box 0,131.67 233.33x15 @enter @leave
-        text 0,131.67 233.33x15 "New from defaults" #cbb994
-      box 248.33,130 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,130 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,160 760x28.33
-      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,160 125x28.33 absolute
-          text 53.12,166.67 18.75x15 "New" #ffd100
-      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,160 125x28.33 absolute
-          text 175.42,166.67 37.5x15 "Rename" #ffd100
-      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-        box 263.33,160 125x28.33 absolute
-          text 307.08,166.67 37.5x15 "Delete" #808080
-      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 395,160 125x28.33 absolute
-          text 441.88,166.67 31.25x15 "Reset" #ffd100
-    text 0,200 760x15 "Text made: 1185 characters." #a3977f
-  box 0,230 760x105
-    box 0,230 760x15
-      text 0,230 43.75x15 "Use for" #e8c35a
-      box 52.08,237.08 707.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,256.67 760x18.33 opacity=1
-      box 0,258.33 233.33x15 @enter @leave
-        text 0,258.33 233.33x15 "This character" #cbb994
-      box 248.33,256.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,256.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,286.67 760x18.33 opacity=1
-      box 0,288.33 233.33x15 @enter @leave
-        text 0,288.33 233.33x15 "All characters of this class" #cbb994
-      box 248.33,286.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,286.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,316.67 760x18.33 opacity=1
-      box 0,318.33 233.33x15 @enter @leave
-        text 0,318.33 233.33x15 "Account default" #cbb994
-      box 248.33,316.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,316.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-  box 0,350 760x41.67
-    box 0,350 760x15
-      text 0,350 118.75x15 "Copy from a profile" #e8c35a
-      box 127.08,357.08 632.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    text 0,376.67 760x15 "There is no other profile to copy from." #a3977f
-  box 0,406.67 760x275
-    box 0,406.67 760x15
-      text 0,406.67 31.25x15 "Share" #e8c35a
-      box 39.58,413.75 720.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    text 0,433.33 760x15 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
-    box 0,460 760x18.33 opacity=1
-      box 0,461.67 233.33x15 @enter @leave
-        text 0,461.67 233.33x15 "General" #cbb994
-      box 248.33,460 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,460 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,490 760x18.33 opacity=1
-      box 0,491.67 233.33x15 @enter @leave
-        text 0,491.67 233.33x15 "Themes" #cbb994
-      box 248.33,490 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,490 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,520 760x18.33 opacity=1
-      box 0,521.67 233.33x15 @enter @leave
-        text 0,521.67 233.33x15 "OrdaenGhost" #cbb994
-      box 248.33,520 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,520 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,550 760x91.67 #0d0a08 input "ORDAEN:1:bVRtaBRHGG7SIKVIfxRppQ01LWIEEbEfFCtySGyMoFWbEFRK6dzOO7tzNzezzu4md8EKQUREREKR/lBp02iLEIJIEZFS2jSUNtRWJFHboDYfGjXEIBrUppbOO3t7uYDzY+/dved93q/nna+oJDlw1wEjkQi9AJyQKxl0ZTdrSkC+J5TKbq8aO1ubKYAQqrUJ8uFxQipIeiY1/NrZrRN7FxF3JjXxlj1EV1CnQGSC+Ps3POcRMfTzN1PHTi8neib1+cHN11fTHV5aRFDONzUuDtQdbkf02DP2IHqwfd7iqyte9VwNhXL0eJHQnTV1yfR8LrPl6Ftdl59f4x9H9GjPgrbh9T2Inmp8+PufL+3z0kTXa9MHSEMbCOZFMgQNJiJIpjSRLiQ8u7qfW7nkdgF5LqQ3Xbx38l/kGdtw7uN3Up86GmgC/Hrfssr5G84h0J8Fjh+21bitRGuutBMSyfJ+PRfCTeso8IByInmO4BAcxVjGZIZlRIaZCRJSpmToMa5JI5EB8zWHIIRWj4fA4gEl8b8sBjXxRy7c+GTt/ncx/q3JDk+fep0RxwFZas4o9qbrsm1O0dQlE7Ryo4Sd257MEcGKV774vuVX9L3zfmf/D3teRN8R2+IFWF8C7McPbcMIvHQ7P/Dk/hkEXjfDeqG5CqiOOC32OoNFNgChoEuluoZpTtjeQx8tnf4J2W7OljcRj5bmiAtWiCzwSI5IilKzj8T/hs2gHv0HfdTGTvTPfxZ+l9n9j+sTQSiXFFXEbXfLY0+OomxeRt/E1CWTok4T5BWb2UZEJqYumVks84MolwYd5LDOOiUpyACojZtw/IWF9h5CjvP3z5gW/2iHg4k+HopHXyrKzLam7yhCE1OXTNScUE6WtXAlICz+JK5jNX1HTow2oetFI+Vdkx3oes1auHq0vAEjZuK/fLvKLqrZhvzAf3aZ7C4ty8TEcxab7qg2e2PzKsrF4O80Vy00/fZwTuXou9JeEFZR8+1iIXrAUtTGS/mUbRyqtFiEdsYFZ2I1lVNfezz0hlGLTdyU2/jwD5s43kbV3Sy+8ra1nMxKO5UPVSTpAwgcImAm9Si+kkT8X73SZksh8IkDLk6NhwUm8aNwY0QAgad0qOK3LRocHpitrgQHp5B+823weR7ENAswTDBdvHHXeyoIGzrjqM/+Dw==" lines typing selected 0..1185 clipped @change
-    box 0,653.33 760x28.33
-      box 0,653.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,653.33 125x28.33 absolute
-          text 43.75,660 37.5x15 "Export" #ffffff
-      box 131.67,653.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,653.33 125x28.33 absolute
-          text 175.42,660 37.5x15 "Import" #ffd100
-      box 263.33,653.33 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-        box 263.33,653.33 125x28.33 absolute
-          text 307.08,660 37.5x15 "Create" #808080
+box 0,0 760x686.47
+  box 0,0 760x216.8
+    box 0,0 760x15.6
+      text 0,0 47.78x15.6 "Profile" #e8c35a
+      box 56.11,7.38 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,27.27 760x15.6 "In use: Default, account default" #e8dcc4
+    box 0,54.53 760x28.33 opacity=1
+      box 0,60.9 233.33x15.6 @enter @leave
+        text 0,60.9 233.33x15.6 "Profile" #cbb994
+      box 248.33,54.53 200x28.33
+        box 248.33,54.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,60.9 153.33x15.6 "Default" #f0c860
+          box 425,62.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,94.53 760x25 opacity=1
+      box 0,99.23 233.33x15.6 @enter @leave
+        text 0,99.23 233.33x15.6 "Name" #cbb994
+      box 248.33,94.53 250x25 #0d0a08 input "" @change
+    box 0,131.2 760x18.33 opacity=1
+      box 0,132.57 233.33x15.6 @enter @leave
+        text 0,132.57 233.33x15.6 "New from defaults" #cbb994
+      box 248.33,131.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,131.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,161.2 760x28.33
+      box 0,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 0,161.2 125x28.33 absolute
+          text 51.39,167.57 22.22x15.6 "New" #ffd100 centred
+      box 131.67,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 131.67,161.2 125x28.33 absolute
+          text 173.06,167.57 42.22x15.6 "Rename" #ffd100 centred
+      box 263.33,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+        box 263.33,161.2 125x28.33 absolute
+          text 304.72,167.57 42.22x15.6 "Delete" #808080 centred
+      box 395,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 395,161.2 125x28.33 absolute
+          text 439.72,167.57 35.56x15.6 "Reset" #ffd100 centred
+    text 0,201.2 760x15.6 "Text made: 1185 characters." #a3977f
+  box 0,231.8 760x105.6
+    box 0,231.8 760x15.6
+      text 0,231.8 47.78x15.6 "Use for" #e8c35a
+      box 56.11,239.18 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,259.07 760x18.33 opacity=1
+      box 0,260.43 233.33x15.6 @enter @leave
+        text 0,260.43 233.33x15.6 "This character" #cbb994
+      box 248.33,259.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,259.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,289.07 760x18.33 opacity=1
+      box 0,290.43 233.33x15.6 @enter @leave
+        text 0,290.43 233.33x15.6 "All characters of this class" #cbb994
+      box 248.33,289.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,289.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,319.07 760x18.33 opacity=1
+      box 0,320.43 233.33x15.6 @enter @leave
+        text 0,320.43 233.33x15.6 "Account default" #cbb994
+      box 248.33,319.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,319.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+  box 0,352.4 760x42.87
+    box 0,352.4 760x15.6
+      text 0,352.4 126.67x15.6 "Copy from a profile" #e8c35a
+      box 135,359.78 625x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,379.67 760x15.6 "There is no other profile to copy from." #a3977f
+  box 0,410.27 760x276.2
+    box 0,410.27 760x15.6
+      text 0,410.27 35.56x15.6 "Share" #e8c35a
+      box 43.89,417.65 716.11x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,437.53 760x15.6 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
+    box 0,464.8 760x18.33 opacity=1
+      box 0,466.17 233.33x15.6 @enter @leave
+        text 0,466.17 233.33x15.6 "General" #cbb994
+      box 248.33,464.8 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,464.8 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,494.8 760x18.33 opacity=1
+      box 0,496.17 233.33x15.6 @enter @leave
+        text 0,496.17 233.33x15.6 "Themes" #cbb994
+      box 248.33,494.8 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,494.8 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,524.8 760x18.33 opacity=1
+      box 0,526.17 233.33x15.6 @enter @leave
+        text 0,526.17 233.33x15.6 "OrdaenGhost" #cbb994
+      box 248.33,524.8 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,524.8 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,554.8 760x91.67 #0d0a08 input "ORDAEN:1:bVRtaBRHGG7SIKVIfxRppQ01LWIEEbEfFCtySGyMoFWbEFRK6dzOO7tzNzezzu4md8EKQUREREKR/lBp02iLEIJIEZFS2jSUNtRWJFHboDYfGjXEIBrUppbOO3t7uYDzY+/dved93q/nna+oJDlw1wEjkQi9AJyQKxl0ZTdrSkC+J5TKbq8aO1ubKYAQqrUJ8uFxQipIeiY1/NrZrRN7FxF3JjXxlj1EV1CnQGSC+Ps3POcRMfTzN1PHTi8neib1+cHN11fTHV5aRFDONzUuDtQdbkf02DP2IHqwfd7iqyte9VwNhXL0eJHQnTV1yfR8LrPl6Ftdl59f4x9H9GjPgrbh9T2Inmp8+PufL+3z0kTXa9MHSEMbCOZFMgQNJiJIpjSRLiQ8u7qfW7nkdgF5LqQ3Xbx38l/kGdtw7uN3Up86GmgC/Hrfssr5G84h0J8Fjh+21bitRGuutBMSyfJ+PRfCTeso8IByInmO4BAcxVjGZIZlRIaZCRJSpmToMa5JI5EB8zWHIIRWj4fA4gEl8b8sBjXxRy7c+GTt/ncx/q3JDk+fep0RxwFZas4o9qbrsm1O0dQlE7Ryo4Sd257MEcGKV774vuVX9L3zfmf/D3teRN8R2+IFWF8C7McPbcMIvHQ7P/Dk/hkEXjfDeqG5CqiOOC32OoNFNgChoEuluoZpTtjeQx8tnf4J2W7OljcRj5bmiAtWiCzwSI5IilKzj8T/hs2gHv0HfdTGTvTPfxZ+l9n9j+sTQSiXFFXEbXfLY0+OomxeRt/E1CWTok4T5BWb2UZEJqYumVks84MolwYd5LDOOiUpyACojZtw/IWF9h5CjvP3z5gW/2iHg4k+HopHXyrKzLam7yhCE1OXTNScUE6WtXAlICz+JK5jNX1HTow2oetFI+Vdkx3oes1auHq0vAEjZuK/fLvKLqrZhvzAf3aZ7C4ty8TEcxab7qg2e2PzKsrF4O80Vy00/fZwTuXou9JeEFZR8+1iIXrAUtTGS/mUbRyqtFiEdsYFZ2I1lVNfezz0hlGLTdyU2/jwD5s43kbV3Sy+8ra1nMxKO5UPVSTpAwgcImAm9Si+kkT8X73SZksh8IkDLk6NhwUm8aNwY0QAgad0qOK3LRocHpitrgQHp5B+823weR7ENAswTDBdvHHXeyoIGzrjqM/+Dw==" lines typing selected 0..1185 clipped @change
+    box 0,658.13 760x28.33
+      box 0,658.13 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 0,658.13 125x28.33 absolute
+          text 41.39,664.5 42.22x15.6 "Export" #ffffff centred
+      box 131.67,658.13 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 131.67,658.13 125x28.33 absolute
+          text 173.06,664.5 42.22x15.6 "Import" #ffd100 centred
+      box 263.33,658.13 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+        box 263.33,658.13 125x28.33 absolute
+          text 304.72,664.5 42.22x15.6 "Create" #808080 centred
 
 -- Import: the preview says each module in the text: installed, off, or not installed and kept
-box 0,0 760x761.67
-  box 0,0 760x215
-    box 0,0 760x15
-      text 0,0 43.75x15 "Profile" #e8c35a
-      box 52.08,7.08 707.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    text 0,26.67 760x15 "In use: Default, account default" #e8dcc4
-    box 0,53.33 760x28.33 opacity=1
-      box 0,60 233.33x15 @enter @leave
-        text 0,60 233.33x15 "Profile" #cbb994
-      box 248.33,53.33 200x28.33
-        box 248.33,53.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,60 153.33x15 "Default" #f0c860
-          box 425,60.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,93.33 760x25 opacity=1
-      box 0,98.33 233.33x15 @enter @leave
-        text 0,98.33 233.33x15 "Name" #cbb994
-      box 248.33,93.33 250x25 #0d0a08 input "" @change
-    box 0,130 760x18.33 opacity=1
-      box 0,131.67 233.33x15 @enter @leave
-        text 0,131.67 233.33x15 "New from defaults" #cbb994
-      box 248.33,130 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,130 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,160 760x28.33
-      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,160 125x28.33 absolute
-          text 53.12,166.67 18.75x15 "New" #ffd100
-      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,160 125x28.33 absolute
-          text 175.42,166.67 37.5x15 "Rename" #ffd100
-      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-        box 263.33,160 125x28.33 absolute
-          text 307.08,166.67 37.5x15 "Delete" #808080
-      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 395,160 125x28.33 absolute
-          text 441.88,166.67 31.25x15 "Reset" #ffd100
-    text 0,200 760x15 "The text holds profile «Default». Create makes it a new profile." #a3977f
-  box 0,230 760x105
-    box 0,230 760x15
-      text 0,230 43.75x15 "Use for" #e8c35a
-      box 52.08,237.08 707.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,256.67 760x18.33 opacity=1
-      box 0,258.33 233.33x15 @enter @leave
-        text 0,258.33 233.33x15 "This character" #cbb994
-      box 248.33,256.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,256.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,286.67 760x18.33 opacity=1
-      box 0,288.33 233.33x15 @enter @leave
-        text 0,288.33 233.33x15 "All characters of this class" #cbb994
-      box 248.33,286.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,286.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,316.67 760x18.33 opacity=1
-      box 0,318.33 233.33x15 @enter @leave
-        text 0,318.33 233.33x15 "Account default" #cbb994
-      box 248.33,316.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,316.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-  box 0,350 760x41.67
-    box 0,350 760x15
-      text 0,350 118.75x15 "Copy from a profile" #e8c35a
-      box 127.08,357.08 632.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    text 0,376.67 760x15 "There is no other profile to copy from." #a3977f
-  box 0,406.67 760x355
-    box 0,406.67 760x15
-      text 0,406.67 31.25x15 "Share" #e8c35a
-      box 39.58,413.75 720.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    text 0,433.33 760x15 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
-    box 0,460 760x18.33 opacity=1
-      box 0,461.67 233.33x15 @enter @leave
-        text 0,461.67 233.33x15 "General" #cbb994
-      box 248.33,460 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,460 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,490 760x18.33 opacity=1
-      box 0,491.67 233.33x15 @enter @leave
-        text 0,491.67 233.33x15 "Themes" #cbb994
-      box 248.33,490 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,490 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,520 760x18.33 opacity=1
-      box 0,521.67 233.33x15 @enter @leave
-        text 0,521.67 233.33x15 "OrdaenGhost" #cbb994
-      box 248.33,520 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,520 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,550 760x91.67 #0d0a08 input "ORDAEN:1:bVRtaBRHGG7SIKVIfxRppQ01LWIEEbEfFCtySGyMoFWbEFRK6dzOO7tzNzezzu4md8EKQUREREKR/lBp02iLEIJIEZFS2jSUNtRWJFHboDYfGjXEIBrUppbOO3t7uYDzY+/dved93q/nna+oJDlw1wEjkQi9AJyQKxl0ZTdrSkC+J5TKbq8aO1ubKYAQqrUJ8uFxQipIeiY1/NrZrRN7FxF3JjXxlj1EV1CnQGSC+Ps3POcRMfTzN1PHTi8neib1+cHN11fTHV5aRFDONzUuDtQdbkf02DP2IHqwfd7iqyte9VwNhXL0eJHQnTV1yfR8LrPl6Ftdl59f4x9H9GjPgrbh9T2Inmp8+PufL+3z0kTXa9MHSEMbCOZFMgQNJiJIpjSRLiQ8u7qfW7nkdgF5LqQ3Xbx38l/kGdtw7uN3Up86GmgC/Hrfssr5G84h0J8Fjh+21bitRGuutBMSyfJ+PRfCTeso8IByInmO4BAcxVjGZIZlRIaZCRJSpmToMa5JI5EB8zWHIIRWj4fA4gEl8b8sBjXxRy7c+GTt/ncx/q3JDk+fep0RxwFZas4o9qbrsm1O0dQlE7Ryo4Sd257MEcGKV774vuVX9L3zfmf/D3teRN8R2+IFWF8C7McPbcMIvHQ7P/Dk/hkEXjfDeqG5CqiOOC32OoNFNgChoEuluoZpTtjeQx8tnf4J2W7OljcRj5bmiAtWiCzwSI5IilKzj8T/hs2gHv0HfdTGTvTPfxZ+l9n9j+sTQSiXFFXEbXfLY0+OomxeRt/E1CWTok4T5BWb2UZEJqYumVks84MolwYd5LDOOiUpyACojZtw/IWF9h5CjvP3z5gW/2iHg4k+HopHXyrKzLam7yhCE1OXTNScUE6WtXAlICz+JK5jNX1HTow2oetFI+Vdkx3oes1auHq0vAEjZuK/fLvKLqrZhvzAf3aZ7C4ty8TEcxab7qg2e2PzKsrF4O80Vy00/fZwTuXou9JeEFZR8+1iIXrAUtTGS/mUbRyqtFiEdsYFZ2I1lVNfezz0hlGLTdyU2/jwD5s43kbV3Sy+8ra1nMxKO5UPVSTpAwgcImAm9Si+kkT8X73SZksh8IkDLk6NhwUm8aNwY0QAgad0qOK3LRocHpitrgQHp5B+823weR7ENAswTDBdvHHXeyoIGzrjqM/+Dw==" lines selected 0..1185 clipped @change
-    box 0,653.33 760x28.33
-      box 0,653.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,653.33 125x28.33 absolute
-          text 43.75,660 37.5x15 "Export" #ffd100
-      box 131.67,653.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,653.33 125x28.33 absolute
-          text 175.42,660 37.5x15 "Import" #ffffff
-      box 263.33,653.33 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 263.33,653.33 125x28.33 absolute
-          text 307.08,660 37.5x15 "Create" #ffd100
-    text 0,693.33 760x15 "General — settings that differ: 0" #e8dcc4
-    text 0,720 760x15 "Themes — settings that differ: 0" #e8dcc4
-    text 0,746.67 760x15 "OrdaenGhost — not installed: will be kept" #a3977f
+box 0,0 760x768.27
+  box 0,0 760x216.8
+    box 0,0 760x15.6
+      text 0,0 47.78x15.6 "Profile" #e8c35a
+      box 56.11,7.38 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,27.27 760x15.6 "In use: Default, account default" #e8dcc4
+    box 0,54.53 760x28.33 opacity=1
+      box 0,60.9 233.33x15.6 @enter @leave
+        text 0,60.9 233.33x15.6 "Profile" #cbb994
+      box 248.33,54.53 200x28.33
+        box 248.33,54.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,60.9 153.33x15.6 "Default" #f0c860
+          box 425,62.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,94.53 760x25 opacity=1
+      box 0,99.23 233.33x15.6 @enter @leave
+        text 0,99.23 233.33x15.6 "Name" #cbb994
+      box 248.33,94.53 250x25 #0d0a08 input "" @change
+    box 0,131.2 760x18.33 opacity=1
+      box 0,132.57 233.33x15.6 @enter @leave
+        text 0,132.57 233.33x15.6 "New from defaults" #cbb994
+      box 248.33,131.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,131.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,161.2 760x28.33
+      box 0,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 0,161.2 125x28.33 absolute
+          text 51.39,167.57 22.22x15.6 "New" #ffd100 centred
+      box 131.67,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 131.67,161.2 125x28.33 absolute
+          text 173.06,167.57 42.22x15.6 "Rename" #ffd100 centred
+      box 263.33,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+        box 263.33,161.2 125x28.33 absolute
+          text 304.72,167.57 42.22x15.6 "Delete" #808080 centred
+      box 395,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 395,161.2 125x28.33 absolute
+          text 439.72,167.57 35.56x15.6 "Reset" #ffd100 centred
+    text 0,201.2 760x15.6 "The text holds profile «Default». Create makes it a new profile." #a3977f
+  box 0,231.8 760x105.6
+    box 0,231.8 760x15.6
+      text 0,231.8 47.78x15.6 "Use for" #e8c35a
+      box 56.11,239.18 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,259.07 760x18.33 opacity=1
+      box 0,260.43 233.33x15.6 @enter @leave
+        text 0,260.43 233.33x15.6 "This character" #cbb994
+      box 248.33,259.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,259.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,289.07 760x18.33 opacity=1
+      box 0,290.43 233.33x15.6 @enter @leave
+        text 0,290.43 233.33x15.6 "All characters of this class" #cbb994
+      box 248.33,289.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,289.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,319.07 760x18.33 opacity=1
+      box 0,320.43 233.33x15.6 @enter @leave
+        text 0,320.43 233.33x15.6 "Account default" #cbb994
+      box 248.33,319.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,319.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+  box 0,352.4 760x42.87
+    box 0,352.4 760x15.6
+      text 0,352.4 126.67x15.6 "Copy from a profile" #e8c35a
+      box 135,359.78 625x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,379.67 760x15.6 "There is no other profile to copy from." #a3977f
+  box 0,410.27 760x358
+    box 0,410.27 760x15.6
+      text 0,410.27 35.56x15.6 "Share" #e8c35a
+      box 43.89,417.65 716.11x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,437.53 760x15.6 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
+    box 0,464.8 760x18.33 opacity=1
+      box 0,466.17 233.33x15.6 @enter @leave
+        text 0,466.17 233.33x15.6 "General" #cbb994
+      box 248.33,464.8 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,464.8 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,494.8 760x18.33 opacity=1
+      box 0,496.17 233.33x15.6 @enter @leave
+        text 0,496.17 233.33x15.6 "Themes" #cbb994
+      box 248.33,494.8 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,494.8 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,524.8 760x18.33 opacity=1
+      box 0,526.17 233.33x15.6 @enter @leave
+        text 0,526.17 233.33x15.6 "OrdaenGhost" #cbb994
+      box 248.33,524.8 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,524.8 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,554.8 760x91.67 #0d0a08 input "ORDAEN:1:bVRtaBRHGG7SIKVIfxRppQ01LWIEEbEfFCtySGyMoFWbEFRK6dzOO7tzNzezzu4md8EKQUREREKR/lBp02iLEIJIEZFS2jSUNtRWJFHboDYfGjXEIBrUppbOO3t7uYDzY+/dved93q/nna+oJDlw1wEjkQi9AJyQKxl0ZTdrSkC+J5TKbq8aO1ubKYAQqrUJ8uFxQipIeiY1/NrZrRN7FxF3JjXxlj1EV1CnQGSC+Ps3POcRMfTzN1PHTi8neib1+cHN11fTHV5aRFDONzUuDtQdbkf02DP2IHqwfd7iqyte9VwNhXL0eJHQnTV1yfR8LrPl6Ftdl59f4x9H9GjPgrbh9T2Inmp8+PufL+3z0kTXa9MHSEMbCOZFMgQNJiJIpjSRLiQ8u7qfW7nkdgF5LqQ3Xbx38l/kGdtw7uN3Up86GmgC/Hrfssr5G84h0J8Fjh+21bitRGuutBMSyfJ+PRfCTeso8IByInmO4BAcxVjGZIZlRIaZCRJSpmToMa5JI5EB8zWHIIRWj4fA4gEl8b8sBjXxRy7c+GTt/ncx/q3JDk+fep0RxwFZas4o9qbrsm1O0dQlE7Ryo4Sd257MEcGKV774vuVX9L3zfmf/D3teRN8R2+IFWF8C7McPbcMIvHQ7P/Dk/hkEXjfDeqG5CqiOOC32OoNFNgChoEuluoZpTtjeQx8tnf4J2W7OljcRj5bmiAtWiCzwSI5IilKzj8T/hs2gHv0HfdTGTvTPfxZ+l9n9j+sTQSiXFFXEbXfLY0+OomxeRt/E1CWTok4T5BWb2UZEJqYumVks84MolwYd5LDOOiUpyACojZtw/IWF9h5CjvP3z5gW/2iHg4k+HopHXyrKzLam7yhCE1OXTNScUE6WtXAlICz+JK5jNX1HTow2oetFI+Vdkx3oes1auHq0vAEjZuK/fLvKLqrZhvzAf3aZ7C4ty8TEcxab7qg2e2PzKsrF4O80Vy00/fZwTuXou9JeEFZR8+1iIXrAUtTGS/mUbRyqtFiEdsYFZ2I1lVNfezz0hlGLTdyU2/jwD5s43kbV3Sy+8ra1nMxKO5UPVSTpAwgcImAm9Si+kkT8X73SZksh8IkDLk6NhwUm8aNwY0QAgad0qOK3LRocHpitrgQHp5B+823weR7ENAswTDBdvHHXeyoIGzrjqM/+Dw==" lines selected 0..1185 clipped @change
+    box 0,658.13 760x28.33
+      box 0,658.13 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 0,658.13 125x28.33 absolute
+          text 41.39,664.5 42.22x15.6 "Export" #ffd100 centred
+      box 131.67,658.13 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 131.67,658.13 125x28.33 absolute
+          text 173.06,664.5 42.22x15.6 "Import" #ffffff centred
+      box 263.33,658.13 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 263.33,658.13 125x28.33 absolute
+          text 304.72,664.5 42.22x15.6 "Create" #ffd100 centred
+    text 0,698.13 760x15.6 "General — settings that differ: 0" #e8dcc4
+    text 0,725.4 760x15.6 "Themes — settings that differ: 0" #e8dcc4
+    text 0,752.67 760x15.6 "OrdaenGhost — not installed: will be kept" #a3977f
 
 -- Create: «Copy» made from the text, the profile in use unchanged
-box 0,0 760x825
-  box 0,0 760x215
-    box 0,0 760x15
-      text 0,0 43.75x15 "Profile" #e8c35a
-      box 52.08,7.08 707.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    text 0,26.67 760x15 "In use: Default, account default" #e8dcc4
-    box 0,53.33 760x28.33 opacity=1
-      box 0,60 233.33x15 @enter @leave
-        text 0,60 233.33x15 "Profile" #cbb994
-      box 248.33,53.33 200x28.33
-        box 248.33,53.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,60 153.33x15 "Copy" #f0c860
-          box 425,60.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,93.33 760x25 opacity=1
-      box 0,98.33 233.33x15 @enter @leave
-        text 0,98.33 233.33x15 "Name" #cbb994
-      box 248.33,93.33 250x25 #0d0a08 input "" @change
-    box 0,130 760x18.33 opacity=1
-      box 0,131.67 233.33x15 @enter @leave
-        text 0,131.67 233.33x15 "New from defaults" #cbb994
-      box 248.33,130 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,130 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,160 760x28.33
-      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,160 125x28.33 absolute
-          text 53.12,166.67 18.75x15 "New" #ffd100
-      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,160 125x28.33 absolute
-          text 175.42,166.67 37.5x15 "Rename" #ffd100
-      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 263.33,160 125x28.33 absolute
-          text 307.08,166.67 37.5x15 "Delete" #ffd100
-      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 395,160 125x28.33 absolute
-          text 441.88,166.67 31.25x15 "Reset" #ffd100
-    text 0,200 760x15 "Profile «Copy» made." #a3977f
-  box 0,230 760x105
-    box 0,230 760x15
-      text 0,230 43.75x15 "Use for" #e8c35a
-      box 52.08,237.08 707.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,256.67 760x18.33 opacity=1
-      box 0,258.33 233.33x15 @enter @leave
-        text 0,258.33 233.33x15 "This character" #cbb994
-      box 248.33,256.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,256.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,286.67 760x18.33 opacity=1
-      box 0,288.33 233.33x15 @enter @leave
-        text 0,288.33 233.33x15 "All characters of this class" #cbb994
-      box 248.33,286.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,286.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,316.67 760x18.33 opacity=1
-      box 0,318.33 233.33x15 @enter @leave
-        text 0,318.33 233.33x15 "Account default" #cbb994
-      box 248.33,316.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,316.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-  box 0,350 760x185
-    box 0,350 760x15
-      text 0,350 118.75x15 "Copy from a profile" #e8c35a
-      box 127.08,357.08 632.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,376.67 760x158.33
-      box 0,376.67 760x28.33 opacity=1
-        box 0,383.33 233.33x15 @enter @leave
-          text 0,383.33 233.33x15 "From profile" #cbb994
-        box 248.33,376.67 200x28.33
-          box 248.33,376.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-            text 263.33,383.33 153.33x15 "Copy" #f0c860
-            box 425,384.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-      box 0,416.67 760x18.33 opacity=1
-        box 0,418.33 233.33x15 @enter @leave
-          text 0,418.33 233.33x15 "General" #cbb994
-        box 248.33,416.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-          box 248.33,416.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,446.67 760x18.33 opacity=1
-        box 0,448.33 233.33x15 @enter @leave
-          text 0,448.33 233.33x15 "Themes" #cbb994
-        box 248.33,446.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-          box 248.33,446.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,476.67 760x18.33 opacity=1
-        box 0,478.33 233.33x15 @enter @leave
-          text 0,478.33 233.33x15 "OrdaenGhost" #cbb994
-        box 248.33,476.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-          box 248.33,476.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,506.67 760x28.33
-        box 0,506.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-          box 0,506.67 125x28.33 absolute
-            text 50,513.33 25x15 "Copy" #ffd100
-  box 0,550 760x275
-    box 0,550 760x15
-      text 0,550 31.25x15 "Share" #e8c35a
-      box 39.58,557.08 720.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    text 0,576.67 760x15 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
-    box 0,603.33 760x18.33 opacity=1
-      box 0,605 233.33x15 @enter @leave
-        text 0,605 233.33x15 "General" #cbb994
-      box 248.33,603.33 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,603.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,633.33 760x18.33 opacity=1
-      box 0,635 233.33x15 @enter @leave
-        text 0,635 233.33x15 "Themes" #cbb994
-      box 248.33,633.33 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,633.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,663.33 760x18.33 opacity=1
-      box 0,665 233.33x15 @enter @leave
-        text 0,665 233.33x15 "OrdaenGhost" #cbb994
-      box 248.33,663.33 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,663.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,693.33 760x91.67 #0d0a08 input "" lines typing clipped @change
-    box 0,796.67 760x28.33
-      box 0,796.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,796.67 125x28.33 absolute
-          text 43.75,803.33 37.5x15 "Export" #ffd100
-      box 131.67,796.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,796.67 125x28.33 absolute
-          text 175.42,803.33 37.5x15 "Import" #ffd100
-      box 263.33,796.67 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-        box 263.33,796.67 125x28.33 absolute
-          text 307.08,803.33 37.5x15 "Create" #808080
+box 0,0 760x829.2
+  box 0,0 760x216.8
+    box 0,0 760x15.6
+      text 0,0 47.78x15.6 "Profile" #e8c35a
+      box 56.11,7.38 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,27.27 760x15.6 "In use: Default, account default" #e8dcc4
+    box 0,54.53 760x28.33 opacity=1
+      box 0,60.9 233.33x15.6 @enter @leave
+        text 0,60.9 233.33x15.6 "Profile" #cbb994
+      box 248.33,54.53 200x28.33
+        box 248.33,54.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,60.9 153.33x15.6 "Copy" #f0c860
+          box 425,62.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,94.53 760x25 opacity=1
+      box 0,99.23 233.33x15.6 @enter @leave
+        text 0,99.23 233.33x15.6 "Name" #cbb994
+      box 248.33,94.53 250x25 #0d0a08 input "" @change
+    box 0,131.2 760x18.33 opacity=1
+      box 0,132.57 233.33x15.6 @enter @leave
+        text 0,132.57 233.33x15.6 "New from defaults" #cbb994
+      box 248.33,131.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,131.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,161.2 760x28.33
+      box 0,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 0,161.2 125x28.33 absolute
+          text 51.39,167.57 22.22x15.6 "New" #ffd100 centred
+      box 131.67,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 131.67,161.2 125x28.33 absolute
+          text 173.06,167.57 42.22x15.6 "Rename" #ffd100 centred
+      box 263.33,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 263.33,161.2 125x28.33 absolute
+          text 304.72,167.57 42.22x15.6 "Delete" #ffd100 centred
+      box 395,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 395,161.2 125x28.33 absolute
+          text 439.72,167.57 35.56x15.6 "Reset" #ffd100 centred
+    text 0,201.2 760x15.6 "Profile «Copy» made." #a3977f
+  box 0,231.8 760x105.6
+    box 0,231.8 760x15.6
+      text 0,231.8 47.78x15.6 "Use for" #e8c35a
+      box 56.11,239.18 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,259.07 760x18.33 opacity=1
+      box 0,260.43 233.33x15.6 @enter @leave
+        text 0,260.43 233.33x15.6 "This character" #cbb994
+      box 248.33,259.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,259.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,289.07 760x18.33 opacity=1
+      box 0,290.43 233.33x15.6 @enter @leave
+        text 0,290.43 233.33x15.6 "All characters of this class" #cbb994
+      box 248.33,289.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,289.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,319.07 760x18.33 opacity=1
+      box 0,320.43 233.33x15.6 @enter @leave
+        text 0,320.43 233.33x15.6 "Account default" #cbb994
+      box 248.33,319.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,319.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+  box 0,352.4 760x185.6
+    box 0,352.4 760x15.6
+      text 0,352.4 126.67x15.6 "Copy from a profile" #e8c35a
+      box 135,359.78 625x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,379.67 760x158.33
+      box 0,379.67 760x28.33 opacity=1
+        box 0,386.03 233.33x15.6 @enter @leave
+          text 0,386.03 233.33x15.6 "From profile" #cbb994
+        box 248.33,379.67 200x28.33
+          box 248.33,379.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            text 263.33,386.03 153.33x15.6 "Copy" #f0c860
+            box 425,387.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 0,419.67 760x18.33 opacity=1
+        box 0,421.03 233.33x15.6 @enter @leave
+          text 0,421.03 233.33x15.6 "General" #cbb994
+        box 248.33,419.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 248.33,419.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 0,449.67 760x18.33 opacity=1
+        box 0,451.03 233.33x15.6 @enter @leave
+          text 0,451.03 233.33x15.6 "Themes" #cbb994
+        box 248.33,449.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 248.33,449.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 0,479.67 760x18.33 opacity=1
+        box 0,481.03 233.33x15.6 @enter @leave
+          text 0,481.03 233.33x15.6 "OrdaenGhost" #cbb994
+        box 248.33,479.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 248.33,479.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 0,509.67 760x28.33
+        box 0,509.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+          box 0,509.67 125x28.33 absolute
+            text 48.06,516.03 28.89x15.6 "Copy" #ffd100 centred
+  box 0,553 760x276.2
+    box 0,553 760x15.6
+      text 0,553 35.56x15.6 "Share" #e8c35a
+      box 43.89,560.38 716.11x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,580.27 760x15.6 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
+    box 0,607.53 760x18.33 opacity=1
+      box 0,608.9 233.33x15.6 @enter @leave
+        text 0,608.9 233.33x15.6 "General" #cbb994
+      box 248.33,607.53 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,607.53 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,637.53 760x18.33 opacity=1
+      box 0,638.9 233.33x15.6 @enter @leave
+        text 0,638.9 233.33x15.6 "Themes" #cbb994
+      box 248.33,637.53 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,637.53 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,667.53 760x18.33 opacity=1
+      box 0,668.9 233.33x15.6 @enter @leave
+        text 0,668.9 233.33x15.6 "OrdaenGhost" #cbb994
+      box 248.33,667.53 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,667.53 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,697.53 760x91.67 #0d0a08 input "" lines typing clipped @change
+    box 0,800.87 760x28.33
+      box 0,800.87 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 0,800.87 125x28.33 absolute
+          text 41.39,807.23 42.22x15.6 "Export" #ffd100 centred
+      box 131.67,800.87 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 131.67,800.87 125x28.33 absolute
+          text 173.06,807.23 42.22x15.6 "Import" #ffd100 centred
+      box 263.33,800.87 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+        box 263.33,800.87 125x28.33 absolute
+          text 304.72,807.23 42.22x15.6 "Create" #808080 centred
 
 -- the text without «Themes»: the preview counts what differs from the settings now
-box 0,0 760x878.33
-  box 0,0 760x215
-    box 0,0 760x15
-      text 0,0 43.75x15 "Profile" #e8c35a
-      box 52.08,7.08 707.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    text 0,26.67 760x15 "In use: Default, account default" #e8dcc4
-    box 0,53.33 760x28.33 opacity=1
-      box 0,60 233.33x15 @enter @leave
-        text 0,60 233.33x15 "Profile" #cbb994
-      box 248.33,53.33 200x28.33
-        box 248.33,53.33 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-          text 263.33,60 153.33x15 "Default" #f0c860
-          box 425,60.83 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-    box 0,93.33 760x25 opacity=1
-      box 0,98.33 233.33x15 @enter @leave
-        text 0,98.33 233.33x15 "Name" #cbb994
-      box 248.33,93.33 250x25 #0d0a08 input "" @change
-    box 0,130 760x18.33 opacity=1
-      box 0,131.67 233.33x15 @enter @leave
-        text 0,131.67 233.33x15 "New from defaults" #cbb994
-      box 248.33,130 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,130 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,160 760x28.33
-      box 0,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,160 125x28.33 absolute
-          text 53.12,166.67 18.75x15 "New" #ffd100
-      box 131.67,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,160 125x28.33 absolute
-          text 175.42,166.67 37.5x15 "Rename" #ffd100
-      box 263.33,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 263.33,160 125x28.33 absolute
-          text 307.08,166.67 37.5x15 "Delete" #ffd100
-      box 395,160 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 395,160 125x28.33 absolute
-          text 441.88,166.67 31.25x15 "Reset" #ffd100
-    text 0,200 760x15 "The text holds profile «Default». Create makes it a new profile." #a3977f
-  box 0,230 760x105
-    box 0,230 760x15
-      text 0,230 43.75x15 "Use for" #e8c35a
-      box 52.08,237.08 707.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,256.67 760x18.33 opacity=1
-      box 0,258.33 233.33x15 @enter @leave
-        text 0,258.33 233.33x15 "This character" #cbb994
-      box 248.33,256.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,256.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,286.67 760x18.33 opacity=1
-      box 0,288.33 233.33x15 @enter @leave
-        text 0,288.33 233.33x15 "All characters of this class" #cbb994
-      box 248.33,286.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,286.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,316.67 760x18.33 opacity=1
-      box 0,318.33 233.33x15 @enter @leave
-        text 0,318.33 233.33x15 "Account default" #cbb994
-      box 248.33,316.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,316.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-  box 0,350 760x185
-    box 0,350 760x15
-      text 0,350 118.75x15 "Copy from a profile" #e8c35a
-      box 127.08,357.08 632.92x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    box 0,376.67 760x158.33
-      box 0,376.67 760x28.33 opacity=1
-        box 0,383.33 233.33x15 @enter @leave
-          text 0,383.33 233.33x15 "From profile" #cbb994
-        box 248.33,376.67 200x28.33
-          box 248.33,376.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-            text 263.33,383.33 153.33x15 "Copy" #f0c860
-            box 425,384.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-      box 0,416.67 760x18.33 opacity=1
-        box 0,418.33 233.33x15 @enter @leave
-          text 0,418.33 233.33x15 "General" #cbb994
-        box 248.33,416.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-          box 248.33,416.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,446.67 760x18.33 opacity=1
-        box 0,448.33 233.33x15 @enter @leave
-          text 0,448.33 233.33x15 "Themes" #cbb994
-        box 248.33,446.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-          box 248.33,446.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,476.67 760x18.33 opacity=1
-        box 0,478.33 233.33x15 @enter @leave
-          text 0,478.33 233.33x15 "OrdaenGhost" #cbb994
-        box 248.33,476.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-          box 248.33,476.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,506.67 760x28.33
-        box 0,506.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-          box 0,506.67 125x28.33 absolute
-            text 50,513.33 25x15 "Copy" #ffd100
-  box 0,550 760x328.33
-    box 0,550 760x15
-      text 0,550 31.25x15 "Share" #e8c35a
-      box 39.58,557.08 720.42x0.83 Interface\AddOns\Ordaen\media\ctl-rule
-    text 0,576.67 760x15 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
-    box 0,603.33 760x18.33 opacity=1
-      box 0,605 233.33x15 @enter @leave
-        text 0,605 233.33x15 "General" #cbb994
-      box 248.33,603.33 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,603.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,633.33 760x18.33 opacity=1
-      box 0,635 233.33x15 @enter @leave
-        text 0,635 233.33x15 "Themes" #cbb994
-      box 248.33,633.33 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,633.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
-    box 0,663.33 760x18.33 opacity=1
-      box 0,665 233.33x15 @enter @leave
-        text 0,665 233.33x15 "OrdaenGhost" #cbb994
-      box 248.33,663.33 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
-        box 248.33,663.33 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-    box 0,693.33 760x91.67 #0d0a08 input "ORDAEN:1:JY0xDsIwEAQR/AjR0yCgA1Gldey1Y9m+i3wOgueQjv8RCYkGgrfbmZV2NKQS3A5WDbF0Al08k4zhlI0CHTqWcnxAtIpY2Qqb6zPQkFrkCw9kXtV+tu/FP7G6PeekCqRXGs6AxJe7pRlGVxcC6TgXru2cob38zpfQkXVo1xv0/oY4WZlvZPoC" lines selected 0..189 clipped @change
-    box 0,796.67 760x28.33
-      box 0,796.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,796.67 125x28.33 absolute
-          text 43.75,803.33 37.5x15 "Export" #ffd100
-      box 131.67,796.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,796.67 125x28.33 absolute
-          text 175.42,803.33 37.5x15 "Import" #ffffff
-      box 263.33,796.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 263.33,796.67 125x28.33 absolute
-          text 307.08,803.33 37.5x15 "Create" #ffd100
-    text 0,836.67 760x15 "General — settings that differ: 1" #e8dcc4
-    text 0,863.33 760x15 "OrdaenGhost — not installed: will be kept" #a3977f
+box 0,0 760x883.73
+  box 0,0 760x216.8
+    box 0,0 760x15.6
+      text 0,0 47.78x15.6 "Profile" #e8c35a
+      box 56.11,7.38 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,27.27 760x15.6 "In use: Default, account default" #e8dcc4
+    box 0,54.53 760x28.33 opacity=1
+      box 0,60.9 233.33x15.6 @enter @leave
+        text 0,60.9 233.33x15.6 "Profile" #cbb994
+      box 248.33,54.53 200x28.33
+        box 248.33,54.53 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+          text 263.33,60.9 153.33x15.6 "Default" #f0c860
+          box 425,62.03 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+    box 0,94.53 760x25 opacity=1
+      box 0,99.23 233.33x15.6 @enter @leave
+        text 0,99.23 233.33x15.6 "Name" #cbb994
+      box 248.33,94.53 250x25 #0d0a08 input "" @change
+    box 0,131.2 760x18.33 opacity=1
+      box 0,132.57 233.33x15.6 @enter @leave
+        text 0,132.57 233.33x15.6 "New from defaults" #cbb994
+      box 248.33,131.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,131.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,161.2 760x28.33
+      box 0,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 0,161.2 125x28.33 absolute
+          text 51.39,167.57 22.22x15.6 "New" #ffd100 centred
+      box 131.67,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 131.67,161.2 125x28.33 absolute
+          text 173.06,167.57 42.22x15.6 "Rename" #ffd100 centred
+      box 263.33,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 263.33,161.2 125x28.33 absolute
+          text 304.72,167.57 42.22x15.6 "Delete" #ffd100 centred
+      box 395,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 395,161.2 125x28.33 absolute
+          text 439.72,167.57 35.56x15.6 "Reset" #ffd100 centred
+    text 0,201.2 760x15.6 "The text holds profile «Default». Create makes it a new profile." #a3977f
+  box 0,231.8 760x105.6
+    box 0,231.8 760x15.6
+      text 0,231.8 47.78x15.6 "Use for" #e8c35a
+      box 56.11,239.18 703.89x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,259.07 760x18.33 opacity=1
+      box 0,260.43 233.33x15.6 @enter @leave
+        text 0,260.43 233.33x15.6 "This character" #cbb994
+      box 248.33,259.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,259.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,289.07 760x18.33 opacity=1
+      box 0,290.43 233.33x15.6 @enter @leave
+        text 0,290.43 233.33x15.6 "All characters of this class" #cbb994
+      box 248.33,289.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,289.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,319.07 760x18.33 opacity=1
+      box 0,320.43 233.33x15.6 @enter @leave
+        text 0,320.43 233.33x15.6 "Account default" #cbb994
+      box 248.33,319.07 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,319.07 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+  box 0,352.4 760x185.6
+    box 0,352.4 760x15.6
+      text 0,352.4 126.67x15.6 "Copy from a profile" #e8c35a
+      box 135,359.78 625x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    box 0,379.67 760x158.33
+      box 0,379.67 760x28.33 opacity=1
+        box 0,386.03 233.33x15.6 @enter @leave
+          text 0,386.03 233.33x15.6 "From profile" #cbb994
+        box 248.33,379.67 200x28.33
+          box 248.33,379.67 200x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
+            text 263.33,386.03 153.33x15.6 "Copy" #f0c860
+            box 425,387.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
+      box 0,419.67 760x18.33 opacity=1
+        box 0,421.03 233.33x15.6 @enter @leave
+          text 0,421.03 233.33x15.6 "General" #cbb994
+        box 248.33,419.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 248.33,419.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 0,449.67 760x18.33 opacity=1
+        box 0,451.03 233.33x15.6 @enter @leave
+          text 0,451.03 233.33x15.6 "Themes" #cbb994
+        box 248.33,449.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 248.33,449.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 0,479.67 760x18.33 opacity=1
+        box 0,481.03 233.33x15.6 @enter @leave
+          text 0,481.03 233.33x15.6 "OrdaenGhost" #cbb994
+        box 248.33,479.67 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+          box 248.33,479.67 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+      box 0,509.67 760x28.33
+        box 0,509.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+          box 0,509.67 125x28.33 absolute
+            text 48.06,516.03 28.89x15.6 "Copy" #ffd100 centred
+  box 0,553 760x330.73
+    box 0,553 760x15.6
+      text 0,553 35.56x15.6 "Share" #e8c35a
+      box 43.89,560.38 716.11x0.83 Interface\AddOns\Ordaen\media\ctl-rule
+    text 0,580.27 760x15.6 "Export shows the profile as text: Ctrl+C copies it. To import, paste a text here." #a3977f
+    box 0,607.53 760x18.33 opacity=1
+      box 0,608.9 233.33x15.6 @enter @leave
+        text 0,608.9 233.33x15.6 "General" #cbb994
+      box 248.33,607.53 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,607.53 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,637.53 760x18.33 opacity=1
+      box 0,638.9 233.33x15.6 @enter @leave
+        text 0,638.9 233.33x15.6 "Themes" #cbb994
+      box 248.33,637.53 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,637.53 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
+    box 0,667.53 760x18.33 opacity=1
+      box 0,668.9 233.33x15.6 @enter @leave
+        text 0,668.9 233.33x15.6 "OrdaenGhost" #cbb994
+      box 248.33,667.53 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @click
+        box 248.33,667.53 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
+    box 0,697.53 760x91.67 #0d0a08 input "ORDAEN:1:JY0xDsIwEAQR/AjR0yCgA1Gldey1Y9m+i3wOgueQjv8RCYkGgrfbmZV2NKQS3A5WDbF0Al08k4zhlI0CHTqWcnxAtIpY2Qqb6zPQkFrkCw9kXtV+tu/FP7G6PeekCqRXGs6AxJe7pRlGVxcC6TgXru2cob38zpfQkXVo1xv0/oY4WZlvZPoC" lines selected 0..189 clipped @change
+    box 0,800.87 760x28.33
+      box 0,800.87 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 0,800.87 125x28.33 absolute
+          text 41.39,807.23 42.22x15.6 "Export" #ffd100 centred
+      box 131.67,800.87 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 131.67,800.87 125x28.33 absolute
+          text 173.06,807.23 42.22x15.6 "Import" #ffffff centred
+      box 263.33,800.87 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+        box 263.33,800.87 125x28.33 absolute
+          text 304.72,807.23 42.22x15.6 "Create" #ffd100 centred
+    text 0,840.87 760x15.6 "General — settings that differ: 1" #e8dcc4
+    text 0,868.13 760x15.6 "OrdaenGhost — not installed: will be kept" #a3977f

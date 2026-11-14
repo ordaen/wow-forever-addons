@@ -8,7 +8,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
             box 491.08,243.04 316.67x28.33
               box 491.08,243.04 316.67x28.33 #00000080 input "" @change @submit
               box 491.08,243.04 316.67x28.33 absolute
-                text 499.42,249.71 300x15 "Search" #a3977f
+                text 499.42,249.41 300x15.6 "Search" #a3977f
             box 807.75,243.04 66.67x28.33
               box 807.75,243.04 33.33x28.33
                 box 812.75,243.04 28.33x28.33
@@ -19,43 +19,43 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
                   box 846.08,243.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                     box 853.58,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
           box 491.08,278.04 383.33x418.42 scrolled 0 of 0
-            box 491.08,278.04 383.33x33 #00000066 @click
-              box 496.08,282.87 23.33x23.33
-              box 529.42,280.54 333.33x28
-                text 529.42,280.54 333.33x15 "Rend (Rank 1)" #e8dcc4
-                text 529.42,295.54 333.33x13 "Requires level 4" #ff4040
-            box 491.08,311.04 383.33x33 #00000066 @click
-              box 496.08,315.87 23.33x23.33
-              box 529.42,313.54 283.33x28
-                text 529.42,313.54 283.33x15 "Heroic Strike (Rank 3)" #e8dcc4
-                text 529.42,328.54 283.33x13 "Requires level 8" #ff4040
-              text 819.42,320.04 50x15 "0g 4s 0c" #e8dcc4
-            box 491.08,344.04 383.33x33 #00000066 @click
-              box 496.08,348.87 23.33x23.33
-              box 529.42,346.54 283.33x28
-                text 529.42,346.54 283.33x15 "Charge (Rank 2)" #e8dcc4
-                text 529.42,361.54 283.33x13 "Requires level 50" #ff4040
-              text 819.42,353.04 50x15 "9g 0s 0c" #ff4040
+            box 491.08,278.04 383.33x35 #00000066 @click
+              box 496.08,283.87 23.33x23.33
+              box 529.42,280.54 333.33x30
+                text 529.42,280.54 333.33x15.6 "Rend (Rank 1)" #e8dcc4
+                text 529.42,296.14 333.33x14.4 "Requires level 4" #ff4040
+            box 491.08,313.04 383.33x35 #00000066 @click
+              box 496.08,318.87 23.33x23.33
+              box 529.42,315.54 278.89x30
+                text 529.42,315.54 278.89x15.6 "Heroic Strike (Rank 3)" #e8dcc4
+                text 529.42,331.14 278.89x14.4 "Requires level 8" #ff4040
+              text 814.97,322.74 54.44x15.6 "0g 4s 0c" #e8dcc4
+            box 491.08,348.04 383.33x35 #00000066 @click
+              box 496.08,353.87 23.33x23.33
+              box 529.42,350.54 278.89x30
+                text 529.42,350.54 278.89x15.6 "Charge (Rank 2)" #e8dcc4
+                text 529.42,366.14 278.89x14.4 "Requires level 50" #ff4040
+              text 814.97,357.74 54.44x15.6 "9g 0s 0c" #ff4040
         box 882.75,243.04 231.17x453.42
-          box 882.75,243.04 231.17x33
-            text 882.75,243.04 231.17x15 "Pick a skill." #a3977f
-            text 882.75,263.04 231.17x13 "Available: 1. Unavailable: 1. Learned: 1." #a3977f
-          box 882.75,282.71 231.17x0
-          box 882.75,289.37 231.17x352.08
-          box 882.75,648.12 231.17x48.33
-            box 882.75,648.12 231.17x15
-              text 882.75,648.12 168.25x15 "Your money" #a3977f
-              text 1057.67,648.12 56.25x15 "0g 50s 0c" #e8dcc4
-            box 882.75,668.12 231.17x28.33
+          box 882.75,243.04 231.17x49.4
+            text 882.75,243.04 231.17x15.6 "Pick a skill." #a3977f
+            text 882.75,263.64 231.17x28.8 "Available: 1. Unavailable: 1. Learned: 1." #a3977f
+          box 882.75,299.11 231.17x0
+          box 882.75,305.77 231.17x335.08
+          box 882.75,647.53 231.17x48.93
+            box 882.75,647.53 231.17x15.6
+              text 882.75,647.53 163.39x15.6 "Your money" #a3977f
+              text 1052.81,647.53 61.11x15.6 "0g 50s 0c" #e8dcc4
+            box 882.75,668.13 231.17x28.33
               box 882.75,682.29 99.5x0
-              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-                box 988.92,668.12 125x28.33 absolute
-                  text 1035.79,674.79 31.25x15 "Learn" #808080
+              box 988.92,668.13 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+                box 988.92,668.13 125x28.33 absolute
+                  text 1033.64,674.49 35.56x15.6 "Learn" #808080 centred
     box 1124.42,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
   box 458.33,173.04 114.5x47.75
     box 458.33,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 476.92,183.29 77.33x34.25
-        text 493.71,192.92 43.75x15 "Trainer" #ffd100
+        text 491.69,192.62 47.78x15.6 "Trainer" #ffd100 centred
 asked: Trainer.watch true
 
 -- one picked: its card, the price and the disabled button
@@ -68,7 +68,7 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
             box 491.08,243.04 316.67x28.33
               box 491.08,243.04 316.67x28.33 #00000080 input "" @change @submit
               box 491.08,243.04 316.67x28.33 absolute
-                text 499.42,249.71 300x15 "Search" #a3977f
+                text 499.42,249.41 300x15.6 "Search" #a3977f
             box 807.75,243.04 66.67x28.33
               box 807.75,243.04 33.33x28.33
                 box 812.75,243.04 28.33x28.33
@@ -79,39 +79,39 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
                   box 846.08,243.04 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                     box 853.58,250.54 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 0 of 8
           box 491.08,278.04 383.33x418.42 scrolled 0 of 0
-            box 491.08,278.04 383.33x33 #00000066 @click
-              box 496.08,282.87 23.33x23.33
-              box 529.42,280.54 333.33x28
-                text 529.42,280.54 333.33x15 "Rend (Rank 1)" #e8dcc4
-                text 529.42,295.54 333.33x13 "Requires level 4" #ff4040
-            box 491.08,311.04 383.33x33 #ffd10026 @click
-              box 496.08,315.87 23.33x23.33
-              box 529.42,313.54 283.33x28
-                text 529.42,313.54 283.33x15 "Heroic Strike (Rank 3)" #e8dcc4
-                text 529.42,328.54 283.33x13 "Requires level 8" #ff4040
-              text 819.42,320.04 50x15 "0g 4s 0c" #e8dcc4
-            box 491.08,344.04 383.33x33 #00000066 @click
-              box 496.08,348.87 23.33x23.33
-              box 529.42,346.54 283.33x28
-                text 529.42,346.54 283.33x15 "Charge (Rank 2)" #e8dcc4
-                text 529.42,361.54 283.33x13 "Requires level 50" #ff4040
-              text 819.42,353.04 50x15 "9g 0s 0c" #ff4040
+            box 491.08,278.04 383.33x35 #00000066 @click
+              box 496.08,283.87 23.33x23.33
+              box 529.42,280.54 333.33x30
+                text 529.42,280.54 333.33x15.6 "Rend (Rank 1)" #e8dcc4
+                text 529.42,296.14 333.33x14.4 "Requires level 4" #ff4040
+            box 491.08,313.04 383.33x35 #ffd10026 @click
+              box 496.08,318.87 23.33x23.33
+              box 529.42,315.54 278.89x30
+                text 529.42,315.54 278.89x15.6 "Heroic Strike (Rank 3)" #e8dcc4
+                text 529.42,331.14 278.89x14.4 "Requires level 8" #ff4040
+              text 814.97,322.74 54.44x15.6 "0g 4s 0c" #e8dcc4
+            box 491.08,348.04 383.33x35 #00000066 @click
+              box 496.08,353.87 23.33x23.33
+              box 529.42,350.54 278.89x30
+                text 529.42,350.54 278.89x15.6 "Charge (Rank 2)" #e8dcc4
+                text 529.42,366.14 278.89x14.4 "Requires level 50" #ff4040
+              text 814.97,357.74 54.44x15.6 "9g 0s 0c" #ff4040
         box 882.75,243.04 231.17x453.42
-          box 882.75,243.04 231.17x38
-            text 882.75,243.04 231.17x18 "Heroic Strike" #ffd100
-            text 882.75,266.04 231.17x15 "A strong attack." #e8dcc4
-          box 882.75,287.71 231.17x0
-          box 882.75,294.37 231.17x347.08
-          box 882.75,648.12 231.17x48.33
-            box 882.75,648.12 231.17x15
-              text 882.75,648.12 168.25x15 "Your money" #a3977f
-              text 1057.67,648.12 56.25x15 "0g 50s 0c" #e8dcc4
-            box 882.75,668.12 231.17x28.33
-              box 882.75,674.79 99.5x15
-                text 882.75,674.79 99.5x15 "0g 4s 0c" #e8dcc4
-              box 988.92,668.12 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-                box 988.92,668.12 125x28.33 absolute
-                  text 1035.79,674.79 31.25x15 "Learn" #808080
+          box 882.75,243.04 231.17x39.8
+            text 882.75,243.04 231.17x19.2 "Heroic Strike" #ffd100
+            text 882.75,267.24 231.17x15.6 "A strong attack." #e8dcc4
+          box 882.75,289.51 231.17x0
+          box 882.75,296.17 231.17x344.68
+          box 882.75,647.53 231.17x48.93
+            box 882.75,647.53 231.17x15.6
+              text 882.75,647.53 163.39x15.6 "Your money" #a3977f
+              text 1052.81,647.53 61.11x15.6 "0g 50s 0c" #e8dcc4
+            box 882.75,668.13 231.17x28.33
+              box 882.75,674.49 99.5x15.6
+                text 882.75,674.49 99.5x15.6 "0g 4s 0c" #e8dcc4
+              box 988.92,668.13 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+                box 988.92,668.13 125x28.33 absolute
+                  text 1033.64,674.49 35.56x15.6 "Learn" #808080 centred
     box 1057.75,222.12 77.5x26.67 absolute clipped
       box 1057.75,222.12 29.17x26.67 absolute clipped @click
         box 1057.75,222.12 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -126,4 +126,4 @@ surface 458.33,173.04 683.33x553.92 on DIALOG clamped raised by a click
   box 458.33,173.04 114.5x47.75
     box 458.33,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 476.92,183.29 77.33x34.25
-        text 493.71,192.92 43.75x15 "Trainer" #ffd100
+        text 491.69,192.62 47.78x15.6 "Trainer" #ffd100 centred

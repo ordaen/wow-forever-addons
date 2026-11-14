@@ -3,6 +3,8 @@
 import Client from "$client"
 import Game from "$game"
 import { Frame } from "$ltml"
+import { Space, space } from "Ordaen"
+import { DASH } from "@/frame"
 import Test from "$test"
 import { Kind, Model, Opens, named } from "@/model"
 import { Options } from "@/options"
@@ -78,6 +80,11 @@ test "a locked group: each of its tooltips opens what its parts name, a value th
 
   stage.locked = true
   Test.shot("locked: the parts that open something are underlined in every tooltip of the group")
+  // The underline is dashed, and stands half a line's gap under its text (`space(.Line)`): it follows the gap.
+  let dash = Test.edges(DASH, 0)
+  let text = Test.edges(DASH, 1)
+  Test.note(`the underline ${dash.top - text.bottom} under its text, ${dash.bottom - dash.top} high`)
+  Test.expect(((dash.top - text.bottom) - space(Space.Line) / 2).abs() < 0.01)
 
   Test.moveTo(Test.holding("Bound", nil))
   Test.pass(0.1)

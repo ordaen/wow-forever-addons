@@ -77,20 +77,20 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 678.33,861 412.83x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 678.33,861 412.83x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 678.33,861 412.83x25 absolute
-          text 830.58,867 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
+          text 823.64,866.3 122.22x14.4 "2 500 / 10 000 (25%)" #f3e7cc centred
         box 682.24,864.91 405.02x17.19 absolute
           box 682.24,864.91 101.26x17.19
           box 783.49,864.91 60.75x17.19 @enter @leave
           box 844.25,864.91 243.01x17.19
   box 1123.17,847 476.83x53
-    box 1150.67,866 85x15
-      text 1150.67,866 75x15 "123g 45s 67c" #e8dcc4
+    box 1144.56,865.7 91.11x15.6
+      text 1144.56,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -126,7 +126,7 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -214,20 +214,20 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 678.33,861 412.83x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 678.33,861 412.83x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 678.33,861 412.83x25 absolute
-          text 830.58,867 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
+          text 823.64,866.3 122.22x14.4 "2 500 / 10 000 (25%)" #f3e7cc centred
         box 682.24,864.91 405.02x17.19 absolute
           box 682.24,864.91 101.26x17.19
           box 783.49,864.91 60.75x17.19 @enter @leave
           box 844.25,864.91 243.01x17.19
   box 1123.17,847 476.83x53
-    box 1150.67,866 85x15
-      text 1150.67,866 75x15 "123g 45s 67c" #e8dcc4
+    box 1144.56,865.7 91.11x15.6
+      text 1144.56,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -263,7 +263,7 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #9e9e9e
+    text 100.26,791.5 8.89x15.6 "1" #9e9e9e centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -314,8 +314,8 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 492.33,857.6 1.67x31.8 #0a0603d9
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-            box 524.37,879.25 13.33x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-              text 528.33,879.41 5.42x13 "3" #ffffff
+            box 522.15,877.58 15.56x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+              text 525.48,877.88 8.89x14.4 "3" #ffffff centred
             embed 494,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
         box 543.67,847 51.33x53
           box 543.67,857.6 1.67x31.8 #0a0603d9
@@ -327,42 +327,42 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 596.67,847 49.67x53 #00000000
             box 604,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 596.67,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 646.33,861 454.33x25
-    box 646.33,861 454.33x25
-      box 678.33,861 390.33x25 @enter @leave
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 682.24,864.91 382.52x17.19 absolute
-          box 682.24,864.91 153.01x17.19 absolute #6e96d129
-          box 682.24,864.91 95.63x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 682.24,864.91 382.52x17.19 absolute
-            box 682.24,864.91 38.25x17.19
-            box 720.49,864.91 38.25x17.19
-            box 758.74,864.91 38.25x17.19
-            box 797,864.91 38.25x17.19
-            box 835.25,864.91 38.25x17.19
-            box 873.5,864.91 38.25x17.19
-            box 911.75,864.91 38.25x17.19
-            box 950,864.91 38.25x17.19
-            box 988.26,864.91 38.25x17.19
-            box 1026.51,864.91 38.25x17.19
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 678.33,861 390.33x25 absolute
-          text 819.33,867 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
-        box 682.24,864.91 382.52x17.19 absolute
-          box 682.24,864.91 95.63x17.19
-          box 777.87,864.91 57.38x17.19 @enter @leave
-          box 835.25,864.91 229.51x17.19
-  box 1100.67,847 499.33x53
-    box 1100.67,866 135x15
-      text 1100.67,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,866 50x15 "12 Marks" #e8dcc4
+  box 646.33,861 443.78x25
+    box 646.33,861 443.78x25
+      box 678.33,861 379.78x25 @enter @leave
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 682.24,864.91 371.97x17.19 absolute
+          box 682.24,864.91 148.79x17.19 absolute #6e96d129
+          box 682.24,864.91 92.99x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 682.24,864.91 371.97x17.19 absolute
+            box 682.24,864.91 37.2x17.19
+            box 719.44,864.91 37.2x17.19
+            box 756.63,864.91 37.2x17.19
+            box 793.83,864.91 37.2x17.19
+            box 831.03,864.91 37.2x17.19
+            box 868.22,864.91 37.2x17.19
+            box 905.42,864.91 37.2x17.19
+            box 942.62,864.91 37.2x17.19
+            box 979.81,864.91 37.2x17.19
+            box 1017.01,864.91 37.2x17.19
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 678.33,861 379.78x25 absolute
+          text 807.11,866.3 122.22x14.4 "2 500 / 10 000 (25%)" #f3e7cc centred
+        box 682.24,864.91 371.97x17.19 absolute
+          box 682.24,864.91 92.99x17.19
+          box 775.23,864.91 55.79x17.19 @enter @leave
+          box 831.03,864.91 223.18x17.19
+  box 1090.11,847 509.89x53
+    box 1090.11,865.7 145.56x15.6
+      text 1090.11,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,865.7 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -398,7 +398,7 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -452,8 +452,8 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 409,857.6 1.67x31.8 #0a0603d9
         box 410.67,847 49.67x53 #00000000
           box 418,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 436.87,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 440.21,879.41 10.83x13 "12" #ffffff
+          box 433.26,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 436.6,877.88 14.44x14.4 "12" #ffffff centred
           embed 410.67,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
       box 460.33,847 51.33x53
         box 460.33,857.6 1.67x31.8 #0a0603d9
@@ -486,21 +486,21 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
         box 595,861 454.5x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 595,861 454.5x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 595,861 454.5x25 absolute
-          text 768.08,867 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
+          text 761.14,866.3 122.22x14.4 "2 500 / 10 000 (25%)" #f3e7cc centred
         box 598.91,864.91 446.69x17.19 absolute
           box 598.91,864.91 111.67x17.19
           box 710.58,864.91 67x17.19 @enter @leave
           box 777.58,864.91 268.01x17.19
   box 1081.5,847 518.5x53
-    box 1100.67,866 135x15
-      text 1100.67,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,866 50x15 "12 Marks" #e8dcc4
+    box 1090.11,865.7 145.56x15.6
+      text 1090.11,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,865.7 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -582,8 +582,8 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 492.33,857.6 1.67x31.8 #0a0603d9
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-            box 520.21,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-              text 523.54,879.41 10.83x13 "12" #ffffff
+            box 516.6,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+              text 519.93,877.88 14.44x14.4 "12" #ffffff centred
             embed 494,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
         box 543.67,847 51.33x53
           box 543.67,857.6 1.67x31.8 #0a0603d9
@@ -595,42 +595,42 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 596.67,847 49.67x53 #00000000
             box 604,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 596.67,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 646.33,861 454.33x25
-    box 646.33,861 454.33x25
-      box 678.33,861 390.33x25 @enter @leave
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 682.24,864.91 382.52x17.19 absolute
-          box 682.24,864.91 153.01x17.19 absolute #6e96d129
-          box 682.24,864.91 95.63x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 682.24,864.91 382.52x17.19 absolute
-            box 682.24,864.91 38.25x17.19
-            box 720.49,864.91 38.25x17.19
-            box 758.74,864.91 38.25x17.19
-            box 797,864.91 38.25x17.19
-            box 835.25,864.91 38.25x17.19
-            box 873.5,864.91 38.25x17.19
-            box 911.75,864.91 38.25x17.19
-            box 950,864.91 38.25x17.19
-            box 988.26,864.91 38.25x17.19
-            box 1026.51,864.91 38.25x17.19
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 678.33,861 390.33x25 absolute
-          text 819.33,867 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
-        box 682.24,864.91 382.52x17.19 absolute
-          box 682.24,864.91 95.63x17.19
-          box 777.87,864.91 57.38x17.19 @enter @leave
-          box 835.25,864.91 229.51x17.19
-  box 1100.67,847 499.33x53
-    box 1100.67,866 135x15
-      text 1100.67,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,866 50x15 "12 Marks" #e8dcc4
+  box 646.33,861 443.78x25
+    box 646.33,861 443.78x25
+      box 678.33,861 379.78x25 @enter @leave
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 682.24,864.91 371.97x17.19 absolute
+          box 682.24,864.91 148.79x17.19 absolute #6e96d129
+          box 682.24,864.91 92.99x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 682.24,864.91 371.97x17.19 absolute
+            box 682.24,864.91 37.2x17.19
+            box 719.44,864.91 37.2x17.19
+            box 756.63,864.91 37.2x17.19
+            box 793.83,864.91 37.2x17.19
+            box 831.03,864.91 37.2x17.19
+            box 868.22,864.91 37.2x17.19
+            box 905.42,864.91 37.2x17.19
+            box 942.62,864.91 37.2x17.19
+            box 979.81,864.91 37.2x17.19
+            box 1017.01,864.91 37.2x17.19
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 678.33,861 379.78x25 absolute
+          text 807.11,866.3 122.22x14.4 "2 500 / 10 000 (25%)" #f3e7cc centred
+        box 682.24,864.91 371.97x17.19 absolute
+          box 682.24,864.91 92.99x17.19
+          box 775.23,864.91 55.79x17.19 @enter @leave
+          box 831.03,864.91 223.18x17.19
+  box 1090.11,847 509.89x53
+    box 1090.11,865.7 145.56x15.6
+      text 1090.11,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,865.7 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -666,7 +666,7 @@ surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Or
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -717,8 +717,8 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 492.33,857.6 1.67x31.8 #0a0603d9
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-            box 520.21,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-              text 523.54,879.41 10.83x13 "12" #ffffff
+            box 516.6,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+              text 519.93,877.88 14.44x14.4 "12" #ffffff centred
             embed 494,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
         box 543.67,847 51.33x53
           box 543.67,857.6 1.67x31.8 #0a0603d9
@@ -730,42 +730,42 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 596.67,847 49.67x53 #00000000
             box 604,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 596.67,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 646.33,861 454.33x25
-    box 646.33,861 454.33x25
-      box 678.33,861 390.33x25 @enter @leave
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 682.24,864.91 382.52x17.19 absolute
-          box 682.24,864.91 153.01x17.19 absolute #6e96d129
-          box 682.24,864.91 95.63x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 682.24,864.91 382.52x17.19 absolute
-            box 682.24,864.91 38.25x17.19
-            box 720.49,864.91 38.25x17.19
-            box 758.74,864.91 38.25x17.19
-            box 797,864.91 38.25x17.19
-            box 835.25,864.91 38.25x17.19
-            box 873.5,864.91 38.25x17.19
-            box 911.75,864.91 38.25x17.19
-            box 950,864.91 38.25x17.19
-            box 988.26,864.91 38.25x17.19
-            box 1026.51,864.91 38.25x17.19
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 678.33,861 390.33x25 absolute
-          text 819.33,867 108.33x13 "2 500 / 10 000 (25%)" #f3e7cc
-        box 682.24,864.91 382.52x17.19 absolute
-          box 682.24,864.91 95.63x17.19
-          box 777.87,864.91 57.38x17.19 @enter @leave
-          box 835.25,864.91 229.51x17.19
-  box 1100.67,847 499.33x53
-    box 1100.67,866 135x15
-      text 1100.67,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,866 50x15 "12 Marks" #e8dcc4
+  box 646.33,861 443.78x25
+    box 646.33,861 443.78x25
+      box 678.33,861 379.78x25 @enter @leave
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 682.24,864.91 371.97x17.19 absolute
+          box 682.24,864.91 148.79x17.19 absolute #6e96d129
+          box 682.24,864.91 92.99x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 682.24,864.91 371.97x17.19 absolute
+            box 682.24,864.91 37.2x17.19
+            box 719.44,864.91 37.2x17.19
+            box 756.63,864.91 37.2x17.19
+            box 793.83,864.91 37.2x17.19
+            box 831.03,864.91 37.2x17.19
+            box 868.22,864.91 37.2x17.19
+            box 905.42,864.91 37.2x17.19
+            box 942.62,864.91 37.2x17.19
+            box 979.81,864.91 37.2x17.19
+            box 1017.01,864.91 37.2x17.19
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 678.33,861 379.78x25 absolute
+          text 807.11,866.3 122.22x14.4 "2 500 / 10 000 (25%)" #f3e7cc centred
+        box 682.24,864.91 371.97x17.19 absolute
+          box 682.24,864.91 92.99x17.19
+          box 775.23,864.91 55.79x17.19 @enter @leave
+          box 831.03,864.91 223.18x17.19
+  box 1090.11,847 509.89x53
+    box 1090.11,865.7 145.56x15.6
+      text 1090.11,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,865.7 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -801,7 +801,7 @@ surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Or
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -852,8 +852,8 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 492.33,857.6 1.67x31.8 #0a0603d9
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-            box 520.21,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-              text 523.54,879.41 10.83x13 "12" #ffffff
+            box 516.6,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+              text 519.93,877.88 14.44x14.4 "12" #ffffff centred
             embed 494,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
         box 543.67,847 51.33x53
           box 543.67,857.6 1.67x31.8 #0a0603d9
@@ -865,66 +865,66 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 596.67,847 49.67x53 #00000000
             box 604,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 596.67,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 646.33,847 454.33x53
-    box 646.33,847 454.33x53
-      box 678.33,847 390.33x24 @enter @leave
-        box 678.33,847 390.33x24 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 682.08,850.75 382.83x16.5 absolute
-          box 682.08,850.75 382.83x16.5 absolute #6e96d129
-          box 682.08,850.75 359.86x16.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 682.08,850.75 382.83x16.5 absolute
-            box 682.08,850.75 38.28x16.5
-            box 720.37,850.75 38.28x16.5
-            box 758.65,850.75 38.28x16.5
-            box 796.93,850.75 38.28x16.5
-            box 835.22,850.75 38.28x16.5
-            box 873.5,850.75 38.28x16.5
-            box 911.78,850.75 38.28x16.5
-            box 950.07,850.75 38.28x16.5
-            box 988.35,850.75 38.28x16.5
-            box 1026.63,850.75 38.28x16.5
-        box 678.33,847 390.33x24 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 678.33,847 390.33x24 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 678.33,847 390.33x24 absolute
-          text 819.33,852.5 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
-        box 682.08,850.75 382.83x16.5 absolute
-          box 682.08,850.75 359.86x16.5
-          box 1041.95,850.75 22.97x16.5 @enter @leave
-          box 1064.92,850.75 0x16.5
-      box 678.33,876 390.33x24 @enter @leave
-        box 678.33,876 390.33x24 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 682.08,879.75 382.83x16.5 absolute
-          box 682.08,879.75 153.13x16.5 absolute #6e96d129
-          box 682.08,879.75 153.13x16.5 absolute Interface\AddOns\Ordaen\media\xp-fill-steel
-          box 682.08,879.75 382.83x16.5 absolute
-            box 682.08,879.75 38.28x16.5
-            box 720.37,879.75 38.28x16.5
-            box 758.65,879.75 38.28x16.5
-            box 796.93,879.75 38.28x16.5
-            box 835.22,879.75 38.28x16.5
-            box 873.5,879.75 38.28x16.5
-            box 911.78,879.75 38.28x16.5
-            box 950.07,879.75 38.28x16.5
-            box 988.35,879.75 38.28x16.5
-            box 1026.63,879.75 38.28x16.5
-        box 678.33,876 390.33x24 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 678.33,876 390.33x24 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 678.33,876 390.33x24 absolute
-          text 813.92,881.5 119.17x13 "Honored 4 800 / 12 000" #f3e7cc
-        box 682.08,879.75 382.83x16.5 absolute
-          box 682.08,879.75 153.13x16.5
-          box 835.22,879.75 0x16.5 @enter @leave
-          box 835.22,879.75 229.7x16.5
-  box 1100.67,847 499.33x53
-    box 1100.67,866 135x15
-      text 1100.67,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,866 50x15 "12 Marks" #e8dcc4
+  box 646.33,847 443.78x53
+    box 646.33,847 443.78x53
+      box 678.33,847 379.78x24 @enter @leave
+        box 678.33,847 379.78x24 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 682.08,850.75 372.28x16.5 absolute
+          box 682.08,850.75 372.28x16.5 absolute #6e96d129
+          box 682.08,850.75 349.94x16.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 682.08,850.75 372.28x16.5 absolute
+            box 682.08,850.75 37.23x16.5
+            box 719.31,850.75 37.23x16.5
+            box 756.54,850.75 37.23x16.5
+            box 793.77,850.75 37.23x16.5
+            box 830.99,850.75 37.23x16.5
+            box 868.22,850.75 37.23x16.5
+            box 905.45,850.75 37.23x16.5
+            box 942.68,850.75 37.23x16.5
+            box 979.91,850.75 37.23x16.5
+            box 1017.13,850.75 37.23x16.5
+        box 678.33,847 379.78x24 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 678.33,847 379.78x24 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 678.33,847 379.78x24 absolute
+          text 807.11,851.8 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
+        box 682.08,850.75 372.28x16.5 absolute
+          box 682.08,850.75 349.94x16.5
+          box 1032.02,850.75 22.34x16.5 @enter @leave
+          box 1054.36,850.75 0x16.5
+      box 678.33,876 379.78x24 @enter @leave
+        box 678.33,876 379.78x24 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 682.08,879.75 372.28x16.5 absolute
+          box 682.08,879.75 148.91x16.5 absolute #6e96d129
+          box 682.08,879.75 148.91x16.5 absolute Interface\AddOns\Ordaen\media\xp-fill-steel
+          box 682.08,879.75 372.28x16.5 absolute
+            box 682.08,879.75 37.23x16.5
+            box 719.31,879.75 37.23x16.5
+            box 756.54,879.75 37.23x16.5
+            box 793.77,879.75 37.23x16.5
+            box 830.99,879.75 37.23x16.5
+            box 868.22,879.75 37.23x16.5
+            box 905.45,879.75 37.23x16.5
+            box 942.68,879.75 37.23x16.5
+            box 979.91,879.75 37.23x16.5
+            box 1017.13,879.75 37.23x16.5
+        box 678.33,876 379.78x24 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 678.33,876 379.78x24 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 678.33,876 379.78x24 absolute
+          text 801,880.8 134.44x14.4 "Honored 4 800 / 12 000" #f3e7cc centred
+        box 682.08,879.75 372.28x16.5 absolute
+          box 682.08,879.75 148.91x16.5
+          box 830.99,879.75 0x16.5 @enter @leave
+          box 830.99,879.75 223.37x16.5
+  box 1090.11,847 509.89x53
+    box 1090.11,865.7 145.56x15.6
+      text 1090.11,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,865.7 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -960,7 +960,7 @@ surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Or
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -1011,8 +1011,8 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 492.33,857.6 1.67x31.8 #0a0603d9
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-            box 520.21,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-              text 523.54,879.41 10.83x13 "12" #ffffff
+            box 516.6,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+              text 519.93,877.88 14.44x14.4 "12" #ffffff centred
             embed 494,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
         box 543.67,847 51.33x53
           box 543.67,857.6 1.67x31.8 #0a0603d9
@@ -1024,42 +1024,42 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 596.67,847 49.67x53 #00000000
             box 604,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 596.67,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 646.33,861 454.33x25
-    box 646.33,861 454.33x25
-      box 678.33,861 390.33x25 @enter @leave
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 682.24,864.91 382.52x17.19 absolute
-          box 682.24,864.91 153.01x17.19 absolute #6e96d129
-          box 682.24,864.91 153.01x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-steel
-          box 682.24,864.91 382.52x17.19 absolute
-            box 682.24,864.91 38.25x17.19
-            box 720.49,864.91 38.25x17.19
-            box 758.74,864.91 38.25x17.19
-            box 797,864.91 38.25x17.19
-            box 835.25,864.91 38.25x17.19
-            box 873.5,864.91 38.25x17.19
-            box 911.75,864.91 38.25x17.19
-            box 950,864.91 38.25x17.19
-            box 988.26,864.91 38.25x17.19
-            box 1026.51,864.91 38.25x17.19
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 678.33,861 390.33x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 678.33,861 390.33x25 absolute
-          text 813.92,867 119.17x13 "Honored 4 800 / 12 000" #f3e7cc
-        box 682.24,864.91 382.52x17.19 absolute
-          box 682.24,864.91 153.01x17.19
-          box 835.25,864.91 0x17.19 @enter @leave
-          box 835.25,864.91 229.51x17.19
-  box 1100.67,847 499.33x53
-    box 1100.67,866 135x15
-      text 1100.67,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,866 50x15 "12 Marks" #e8dcc4
+  box 646.33,861 443.78x25
+    box 646.33,861 443.78x25
+      box 678.33,861 379.78x25 @enter @leave
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 682.24,864.91 371.97x17.19 absolute
+          box 682.24,864.91 148.79x17.19 absolute #6e96d129
+          box 682.24,864.91 148.79x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-steel
+          box 682.24,864.91 371.97x17.19 absolute
+            box 682.24,864.91 37.2x17.19
+            box 719.44,864.91 37.2x17.19
+            box 756.63,864.91 37.2x17.19
+            box 793.83,864.91 37.2x17.19
+            box 831.03,864.91 37.2x17.19
+            box 868.22,864.91 37.2x17.19
+            box 905.42,864.91 37.2x17.19
+            box 942.62,864.91 37.2x17.19
+            box 979.81,864.91 37.2x17.19
+            box 1017.01,864.91 37.2x17.19
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 678.33,861 379.78x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 678.33,861 379.78x25 absolute
+          text 801,866.3 134.44x14.4 "Honored 4 800 / 12 000" #f3e7cc centred
+        box 682.24,864.91 371.97x17.19 absolute
+          box 682.24,864.91 148.79x17.19
+          box 831.03,864.91 0x17.19 @enter @leave
+          box 831.03,864.91 223.18x17.19
+  box 1090.11,847 509.89x53
+    box 1090.11,865.7 145.56x15.6
+      text 1090.11,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,865.7 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -1095,7 +1095,7 @@ surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Or
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -1146,8 +1146,8 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 492.33,857.6 1.67x31.8 #0a0603d9
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-            box 520.21,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-              text 523.54,879.41 10.83x13 "12" #ffffff
+            box 516.6,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+              text 519.93,877.88 14.44x14.4 "12" #ffffff centred
             embed 494,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
         box 543.67,847 51.33x53
           box 543.67,857.6 1.67x31.8 #0a0603d9
@@ -1159,18 +1159,18 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 596.67,847 49.67x53 #00000000
             box 604,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 596.67,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 646.33,873.5 454.33x0
-    box 646.33,873.5 454.33x0
-  box 1100.67,847 499.33x53
-    box 1100.67,866 135x15
-      text 1100.67,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,866 50x15 "12 Marks" #e8dcc4
+  box 646.33,873.5 443.78x0
+    box 646.33,873.5 443.78x0
+  box 1090.11,847 509.89x53
+    box 1090.11,865.7 145.56x15.6
+      text 1090.11,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,865.7 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -1206,7 +1206,7 @@ surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Or
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -1258,57 +1258,57 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 494,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 543.67,861 449.33x25
-    box 543.67,861 323.5x25
-      box 575.67,861 259.5x25 @enter @leave
-        box 575.67,861 259.5x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 579.57,864.91 251.69x17.19 absolute
-          box 579.57,864.91 251.69x17.19 absolute #6e96d129
-          box 579.57,864.91 236.59x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 579.57,864.91 251.69x17.19 absolute
-            box 579.57,864.91 25.17x17.19
-            box 604.74,864.91 25.17x17.19
-            box 629.91,864.91 25.17x17.19
-            box 655.08,864.91 25.17x17.19
-            box 680.25,864.91 25.17x17.19
-            box 705.42,864.91 25.17x17.19
-            box 730.59,864.91 25.17x17.19
-            box 755.75,864.91 25.17x17.19
-            box 780.92,864.91 25.17x17.19
-            box 806.09,864.91 25.17x17.19
-        box 575.67,861 259.5x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 575.67,861 259.5x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 575.67,861 259.5x25 absolute
-          text 651.25,867 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
-        box 579.57,864.91 251.69x17.19 absolute
-          box 579.57,864.91 236.59x17.19
-          box 816.16,864.91 15.1x17.19 @enter @leave
-          box 831.26,864.91 0x17.19
-    text 873.83,866 81.25x15 "Elwynn Forest" #e8dcc4
-    box 961.75,866 31.25x15 @click
-      text 961.75,866 31.25x15 "12:30" #ff9933
-  box 993,847 607x53
-    box 993,847 101x53
-      box 993,847 49.67x53
-        box 993,847 49.67x53 #00000000
-          box 1000.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1019.21,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1022.54,879.41 10.83x13 "12" #ffffff
-          embed 993,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1042.67,847 51.33x53
-        box 1042.67,857.6 1.67x31.8 #0a0603d9
-        box 1044.33,847 49.67x53 #00000000
-          box 1051.67,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1044.33,847 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1100.67,866 135x15
-      text 1100.67,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,866 50x15 "12 Marks" #e8dcc4
+  box 543.67,861 438.78x25
+    box 543.67,861 302.11x25
+      box 575.67,861 238.11x25 @enter @leave
+        box 575.67,861 238.11x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 579.57,864.91 230.3x17.19 absolute
+          box 579.57,864.91 230.3x17.19 absolute #6e96d129
+          box 579.57,864.91 216.48x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 579.57,864.91 230.3x17.19 absolute
+            box 579.57,864.91 23.03x17.19
+            box 602.6,864.91 23.03x17.19
+            box 625.63,864.91 23.03x17.19
+            box 648.66,864.91 23.03x17.19
+            box 671.69,864.91 23.03x17.19
+            box 694.72,864.91 23.03x17.19
+            box 717.75,864.91 23.03x17.19
+            box 740.78,864.91 23.03x17.19
+            box 763.81,864.91 23.03x17.19
+            box 786.84,864.91 23.03x17.19
+        box 575.67,861 238.11x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 575.67,861 238.11x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 575.67,861 238.11x25 absolute
+          text 633.61,866.3 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
+        box 579.57,864.91 230.3x17.19 absolute
+          box 579.57,864.91 216.48x17.19
+          box 796.05,864.91 13.82x17.19 @enter @leave
+          box 809.87,864.91 0x17.19
+    text 852.44,865.7 87.78x15.6 "Elwynn Forest" #e8dcc4
+    box 946.89,865.7 35.56x15.6 @click
+      text 946.89,865.7 35.56x15.6 "12:30" #ff9933
+  box 982.44,847 617.56x53
+    box 982.44,847 101x53
+      box 982.44,847 49.67x53
+        box 982.44,847 49.67x53 #00000000
+          box 989.78,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1005.04,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1008.37,877.88 14.44x14.4 "12" #ffffff centred
+          embed 982.44,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1032.11,847 51.33x53
+        box 1032.11,857.6 1.67x31.8 #0a0603d9
+        box 1033.78,847 49.67x53 #00000000
+          box 1041.11,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1033.78,847 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1090.11,865.7 145.56x15.6
+      text 1090.11,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,865.7 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9
@@ -1344,7 +1344,7 @@ surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Or
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -1352,137 +1352,137 @@ the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ou
 box 0,0 0x0
   embed 0,0 0x0 frame=StoreMicroButton opacity=0
   embed 0,0 0x0 frame=HelpMicroButton opacity=0
-surface 41.75,832.75 1516.5x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=1
-  box 41.75,847 543.67x53
-    box 41.75,847 543.67x53
-      box 41.75,873 128x1
-      box 176.42,847 409x53
-        box 176.42,847 49.67x53
-          box 176.42,847 49.67x53 #00000000
-            box 183.75,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-professions
-            embed 176.42,847 49.67x53 absolute frame=ProfessionMicroButton opacity=0
-        box 226.08,847 51.33x53
-          box 226.08,857.6 1.67x31.8 #0a0603d9
-          box 227.75,847 49.67x53 #00000000
-            box 235.08,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-spellbookabilities
-            embed 227.75,847 49.67x53 absolute frame=SpellbookMicroButton opacity=0
-        box 277.42,847 51.33x53
-          box 277.42,857.6 1.67x31.8 #0a0603d9
-          box 279.08,847 49.67x53 #00000000
-            box 286.42,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-spectalents
-            embed 279.08,847 49.67x53 absolute frame=TalentMicroButton opacity=0
-        box 328.75,847 51.33x53
-          box 328.75,857.6 1.67x31.8 #0a0603d9
-          box 330.42,847 49.67x53 #00000000
-            box 337.75,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-legacy
-            embed 330.42,847 49.67x53 absolute frame=LegacyMicroButton opacity=0
-        box 380.08,847 51.33x53
-          box 380.08,857.6 1.67x31.8 #0a0603d9
-          box 381.75,847 49.67x53 #00000000
-            box 389.08,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-questlog
-            embed 381.75,847 49.67x53 absolute frame=QuestLogMicroButton opacity=0
-        box 431.42,847 51.33x53
-          box 431.42,857.6 1.67x31.8 #0a0603d9
-          box 433.08,847 49.67x53 #00000000
-            box 440.42,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-groupfinder
-            embed 433.08,847 49.67x53 absolute frame=LFDMicroButton opacity=0
-        box 482.75,847 51.33x53
-          box 482.75,857.6 1.67x31.8 #0a0603d9
-          box 484.42,847 49.67x53 #00000000
-            box 491.75,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-collections
-            embed 484.42,847 49.67x53 absolute frame=CollectionsMicroButton opacity=0
-        box 534.08,847 51.33x53
-          box 534.08,857.6 1.67x31.8 #0a0603d9
-          box 535.75,847 49.67x53 #00000000
-            box 543.08,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
-            embed 535.75,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 585.42,861 365.83x25
-    box 585.42,861 240x25
-      box 617.42,861 176x25 @enter @leave
-        box 617.42,861 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 621.32,864.91 168.19x17.19 absolute
-          box 621.32,864.91 168.19x17.19 absolute #6e96d129
-          box 621.32,864.91 158.1x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 621.32,864.91 168.19x17.19 absolute
-            box 621.32,864.91 16.82x17.19
-            box 638.14,864.91 16.82x17.19
-            box 654.96,864.91 16.82x17.19
-            box 671.78,864.91 16.82x17.19
-            box 688.6,864.91 16.82x17.19
-            box 705.42,864.91 16.82x17.19
-            box 722.24,864.91 16.82x17.19
-            box 739.05,864.91 16.82x17.19
-            box 755.87,864.91 16.82x17.19
-            box 772.69,864.91 16.82x17.19
-        box 617.42,861 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 617.42,861 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 617.42,861 176x25 absolute
-          text 651.25,867 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
-        box 621.32,864.91 168.19x17.19 absolute
-          box 621.32,864.91 158.1x17.19
-          box 779.42,864.91 10.09x17.19 @enter @leave
-          box 789.51,864.91 0x17.19
-    text 832.08,866 81.25x15 "Elwynn Forest" #e8dcc4
-    box 920,866 31.25x15 @click
-      text 920,866 31.25x15 "12:30" #ff9933
-  box 951.25,847 607x53
-    box 951.25,847 101x53
-      box 951.25,847 49.67x53
-        box 951.25,847 49.67x53 #00000000
-          box 958.58,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 977.46,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 980.79,879.41 10.83x13 "12" #ffffff
-          embed 951.25,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1000.92,847 51.33x53
-        box 1000.92,857.6 1.67x31.8 #0a0603d9
-        box 1002.58,847 49.67x53 #00000000
-          box 1009.92,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1002.58,847 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1058.92,866 135x15
-      text 1058.92,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1143.92,866 50x15 "12 Marks" #e8dcc4
-    box 1200.58,847 357.67x53
-      box 1200.58,847 49.67x53
-        box 1200.58,847 49.67x53 #00000000
-          box 1207.92,856 35x35 absolute icon=130716
-          box 1234.58,884.67 10.83x13 absolute
-            text 1234.58,884.67 10.83x13 "23" #ffffff
-          embed 1200.58,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
-      box 1250.25,847 51.33x53
-        box 1250.25,857.6 1.67x31.8 #0a0603d9
-        box 1251.92,847 49.67x53 #00000000
-          box 1259.25,856 35x35 absolute icon=133633
-          embed 1251.92,847 49.67x53 absolute frame=CharacterBag0Slot opacity=0
-      box 1301.58,847 51.33x53
-        box 1301.58,857.6 1.67x31.8 #0a0603d9
-        box 1303.25,847 49.67x53 #00000000
-          box 1310.58,856 35x35 absolute icon=133633
-          embed 1303.25,847 49.67x53 absolute frame=CharacterBag1Slot opacity=0
-      box 1352.92,847 51.33x53
-        box 1352.92,857.6 1.67x31.8 #0a0603d9
-        box 1354.58,847 49.67x53 #00000000
-          box 1361.92,856 35x35 absolute icon=133633
-          embed 1354.58,847 49.67x53 absolute frame=CharacterBag2Slot opacity=0
-      box 1404.25,847 51.33x53
-        box 1404.25,857.6 1.67x31.8 #0a0603d9
-        box 1405.92,847 49.67x53 #00000000
-          box 1413.25,856 35x35 absolute icon=133633
-          embed 1405.92,847 49.67x53 absolute frame=CharacterBag3Slot opacity=0
-      box 1455.58,847 51.33x53
-        box 1455.58,857.6 1.67x31.8 #0a0603d9
-        box 1457.25,847 49.67x53 #00000000
-          box 1464.58,856 35x35 absolute icon=136511
-          embed 1457.25,847 49.67x53 absolute frame=CharacterReagentBag0Slot opacity=0
-      box 1506.92,847 51.33x53
-        box 1506.92,857.6 1.67x31.8 #0a0603d9
-        box 1508.58,847 49.67x53 #00000000
-          box 1515.92,856 35x35 absolute icon=130980
-          embed 1508.58,847 49.67x53 absolute frame=KeyRingButton opacity=0
+surface 31.06,832.75 1537.89x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=1
+  box 31.06,847 543.67x53
+    box 31.06,847 543.67x53
+      box 31.06,873 128x1
+      box 165.72,847 409x53
+        box 165.72,847 49.67x53
+          box 165.72,847 49.67x53 #00000000
+            box 173.06,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-professions
+            embed 165.72,847 49.67x53 absolute frame=ProfessionMicroButton opacity=0
+        box 215.39,847 51.33x53
+          box 215.39,857.6 1.67x31.8 #0a0603d9
+          box 217.06,847 49.67x53 #00000000
+            box 224.39,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-spellbookabilities
+            embed 217.06,847 49.67x53 absolute frame=SpellbookMicroButton opacity=0
+        box 266.72,847 51.33x53
+          box 266.72,857.6 1.67x31.8 #0a0603d9
+          box 268.39,847 49.67x53 #00000000
+            box 275.72,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-spectalents
+            embed 268.39,847 49.67x53 absolute frame=TalentMicroButton opacity=0
+        box 318.06,847 51.33x53
+          box 318.06,857.6 1.67x31.8 #0a0603d9
+          box 319.72,847 49.67x53 #00000000
+            box 327.06,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-legacy
+            embed 319.72,847 49.67x53 absolute frame=LegacyMicroButton opacity=0
+        box 369.39,847 51.33x53
+          box 369.39,857.6 1.67x31.8 #0a0603d9
+          box 371.06,847 49.67x53 #00000000
+            box 378.39,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-questlog
+            embed 371.06,847 49.67x53 absolute frame=QuestLogMicroButton opacity=0
+        box 420.72,847 51.33x53
+          box 420.72,857.6 1.67x31.8 #0a0603d9
+          box 422.39,847 49.67x53 #00000000
+            box 429.72,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-groupfinder
+            embed 422.39,847 49.67x53 absolute frame=LFDMicroButton opacity=0
+        box 472.06,847 51.33x53
+          box 472.06,857.6 1.67x31.8 #0a0603d9
+          box 473.72,847 49.67x53 #00000000
+            box 481.06,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-collections
+            embed 473.72,847 49.67x53 absolute frame=CollectionsMicroButton opacity=0
+        box 523.39,847 51.33x53
+          box 523.39,857.6 1.67x31.8 #0a0603d9
+          box 525.06,847 49.67x53 #00000000
+            box 532.39,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
+            embed 525.06,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
+  box 574.72,861 376.67x25
+    box 574.72,861 240x25
+      box 606.72,861 176x25 @enter @leave
+        box 606.72,861 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 610.63,864.91 168.19x17.19 absolute
+          box 610.63,864.91 168.19x17.19 absolute #6e96d129
+          box 610.63,864.91 158.1x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 610.63,864.91 168.19x17.19 absolute
+            box 610.63,864.91 16.82x17.19
+            box 627.45,864.91 16.82x17.19
+            box 644.27,864.91 16.82x17.19
+            box 661.08,864.91 16.82x17.19
+            box 677.9,864.91 16.82x17.19
+            box 694.72,864.91 16.82x17.19
+            box 711.54,864.91 16.82x17.19
+            box 728.36,864.91 16.82x17.19
+            box 745.18,864.91 16.82x17.19
+            box 762,864.91 16.82x17.19
+        box 606.72,861 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 606.72,861 176x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 606.72,861 176x25 absolute
+          text 633.61,866.3 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
+        box 610.63,864.91 168.19x17.19 absolute
+          box 610.63,864.91 158.1x17.19
+          box 768.72,864.91 10.09x17.19 @enter @leave
+          box 778.82,864.91 0x17.19
+    text 821.39,865.7 87.78x15.6 "Elwynn Forest" #e8dcc4
+    box 915.83,865.7 35.56x15.6 @click
+      text 915.83,865.7 35.56x15.6 "12:30" #ff9933
+  box 951.39,847 617.56x53
+    box 951.39,847 101x53
+      box 951.39,847 49.67x53
+        box 951.39,847 49.67x53 #00000000
+          box 958.72,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 973.98,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 977.32,877.88 14.44x14.4 "12" #ffffff centred
+          embed 951.39,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1001.06,847 51.33x53
+        box 1001.06,857.6 1.67x31.8 #0a0603d9
+        box 1002.72,847 49.67x53 #00000000
+          box 1010.06,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1002.72,847 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1059.06,865.7 145.56x15.6
+      text 1059.06,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1150.17,865.7 54.44x15.6 "12 Marks" #e8dcc4
+    box 1211.28,847 357.67x53
+      box 1211.28,847 49.67x53
+        box 1211.28,847 49.67x53 #00000000
+          box 1218.61,856 35x35 absolute icon=130716
+          box 1241.67,883.27 14.44x14.4 absolute
+            text 1241.67,883.27 14.44x14.4 "23" #ffffff
+          embed 1211.28,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
+      box 1260.94,847 51.33x53
+        box 1260.94,857.6 1.67x31.8 #0a0603d9
+        box 1262.61,847 49.67x53 #00000000
+          box 1269.94,856 35x35 absolute icon=133633
+          embed 1262.61,847 49.67x53 absolute frame=CharacterBag0Slot opacity=0
+      box 1312.28,847 51.33x53
+        box 1312.28,857.6 1.67x31.8 #0a0603d9
+        box 1313.94,847 49.67x53 #00000000
+          box 1321.28,856 35x35 absolute icon=133633
+          embed 1313.94,847 49.67x53 absolute frame=CharacterBag1Slot opacity=0
+      box 1363.61,847 51.33x53
+        box 1363.61,857.6 1.67x31.8 #0a0603d9
+        box 1365.28,847 49.67x53 #00000000
+          box 1372.61,856 35x35 absolute icon=133633
+          embed 1365.28,847 49.67x53 absolute frame=CharacterBag2Slot opacity=0
+      box 1414.94,847 51.33x53
+        box 1414.94,857.6 1.67x31.8 #0a0603d9
+        box 1416.61,847 49.67x53 #00000000
+          box 1423.94,856 35x35 absolute icon=133633
+          embed 1416.61,847 49.67x53 absolute frame=CharacterBag3Slot opacity=0
+      box 1466.28,847 51.33x53
+        box 1466.28,857.6 1.67x31.8 #0a0603d9
+        box 1467.94,847 49.67x53 #00000000
+          box 1475.28,856 35x35 absolute icon=136511
+          embed 1467.94,847 49.67x53 absolute frame=CharacterReagentBag0Slot opacity=0
+      box 1517.61,847 51.33x53
+        box 1517.61,857.6 1.67x31.8 #0a0603d9
+        box 1519.28,847 49.67x53 #00000000
+          box 1526.61,856 35x35 absolute icon=130980
+          embed 1519.28,847 49.67x53 absolute frame=KeyRingButton opacity=0
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -1491,7 +1491,7 @@ box 0,0 0x0
   embed 0,0 0x0 frame=StoreMicroButton opacity=0
   embed 0,0 0x0 frame=HelpMicroButton opacity=0
 surface 0,0 1600x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=1
-  box 0,20.25 496.5x53
+  box 0,20.25 491.22x53
     box 0,20.25 460.33x53
       box 0,20.25 49.67x53
         box 0,20.25 49.67x53 #00000000
@@ -1537,57 +1537,57 @@ surface 0,0 1600x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opaci
         box 410.67,20.25 49.67x53 #00000000
           box 418,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
           embed 410.67,20.25 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 496.5,34.25 496.5x25
-    box 496.5,34.25 370.67x25
-      box 528.5,34.25 306.67x25 @enter @leave
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 532.41,38.16 298.85x17.19 absolute
-          box 532.41,38.16 298.85x17.19 absolute #6e96d129
-          box 532.41,38.16 280.92x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 532.41,38.16 298.85x17.19 absolute
-            box 532.41,38.16 29.89x17.19
-            box 562.29,38.16 29.89x17.19
-            box 592.18,38.16 29.89x17.19
-            box 622.06,38.16 29.89x17.19
-            box 651.95,38.16 29.89x17.19
-            box 681.83,38.16 29.89x17.19
-            box 711.72,38.16 29.89x17.19
-            box 741.6,38.16 29.89x17.19
-            box 771.49,38.16 29.89x17.19
-            box 801.38,38.16 29.89x17.19
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 528.5,34.25 306.67x25 absolute
-          text 627.67,40.25 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
-        box 532.41,38.16 298.85x17.19 absolute
-          box 532.41,38.16 280.92x17.19
-          box 813.33,38.16 17.93x17.19 @enter @leave
-          box 831.26,38.16 0x17.19
-    text 873.83,39.25 81.25x15 "Elwynn Forest" #e8dcc4
-    box 961.75,39.25 31.25x15 @click
-      text 961.75,39.25 31.25x15 "12:30" #ff9933
-  box 993,20.25 607x53
-    box 993,20.25 101x53
-      box 993,20.25 49.67x53
-        box 993,20.25 49.67x53 #00000000
-          box 1000.33,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1019.21,52.5 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1022.54,52.66 10.83x13 "12" #ffffff
-          embed 993,20.25 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1042.67,20.25 51.33x53
-        box 1042.67,30.85 1.67x31.8 #0a0603d9
-        box 1044.33,20.25 49.67x53 #00000000
-          box 1051.67,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1044.33,20.25 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1100.67,39.25 135x15
-      text 1100.67,39.25 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,39.25 50x15 "12 Marks" #e8dcc4
+  box 491.22,34.25 491.22x25
+    box 491.22,34.25 354.56x25
+      box 523.22,34.25 290.56x25 @enter @leave
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 527.13,38.16 282.74x17.19 absolute
+          box 527.13,38.16 282.74x17.19 absolute #6e96d129
+          box 527.13,38.16 265.78x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 527.13,38.16 282.74x17.19 absolute
+            box 527.13,38.16 28.27x17.19
+            box 555.4,38.16 28.27x17.19
+            box 583.68,38.16 28.27x17.19
+            box 611.95,38.16 28.27x17.19
+            box 640.23,38.16 28.27x17.19
+            box 668.5,38.16 28.27x17.19
+            box 696.77,38.16 28.27x17.19
+            box 725.05,38.16 28.27x17.19
+            box 753.32,38.16 28.27x17.19
+            box 781.6,38.16 28.27x17.19
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 523.22,34.25 290.56x25 absolute
+          text 607.39,39.55 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
+        box 527.13,38.16 282.74x17.19 absolute
+          box 527.13,38.16 265.78x17.19
+          box 792.91,38.16 16.96x17.19 @enter @leave
+          box 809.87,38.16 0x17.19
+    text 852.44,38.95 87.78x15.6 "Elwynn Forest" #e8dcc4
+    box 946.89,38.95 35.56x15.6 @click
+      text 946.89,38.95 35.56x15.6 "12:30" #ff9933
+  box 982.44,20.25 617.56x53
+    box 982.44,20.25 101x53
+      box 982.44,20.25 49.67x53
+        box 982.44,20.25 49.67x53 #00000000
+          box 989.78,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1005.04,50.83 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1008.37,51.13 14.44x14.4 "12" #ffffff centred
+          embed 982.44,20.25 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1032.11,20.25 51.33x53
+        box 1032.11,30.85 1.67x31.8 #0a0603d9
+        box 1033.78,20.25 49.67x53 #00000000
+          box 1041.11,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1033.78,20.25 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1090.11,38.95 145.56x15.6
+      text 1090.11,38.95 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,38.95 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,20.25 357.67x53
       box 1242.33,20.25 49.67x53
         box 1242.33,20.25 49.67x53 #00000000
           box 1249.67,29.25 35x35 absolute icon=130716
-          box 1276.33,57.92 10.83x13 absolute
-            text 1276.33,57.92 10.83x13 "23" #ffffff
+          box 1272.72,56.52 14.44x14.4 absolute
+            text 1272.72,56.52 14.44x14.4 "23" #ffffff
           embed 1242.33,20.25 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,20.25 51.33x53
         box 1292,30.85 1.67x31.8 #0a0603d9
@@ -1673,62 +1673,62 @@ surface 0,0 72x900 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=1
         box 11.17,451.58 49.67x53 #00000000
           box 18.5,460.58 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
           embed 11.17,451.58 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 20.38,504.58 31.25x15
-    box 20.38,504.58 31.25x15 @click
-      text 20.38,504.58 31.25x15 "12:30" #ff9933
-  box 0,519.58 72x550.33
-    box 11.17,519.58 49.67x107.67
-      box 11.17,519.58 49.67x53
-        box 11.17,519.58 49.67x53 #00000000
-          box 18.5,528.58 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 37.37,551.83 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 40.71,552 10.83x13 "12" #ffffff
-          embed 11.17,519.58 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 11.17,572.58 49.67x54.67
-        box 21.1,572.58 29.8x1.67 #0a0603d9
-        box 11.17,574.25 49.67x53 #00000000
-          box 18.5,583.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 11.17,574.25 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 0,633.92 72x48.33
-      text 0,633.92 72x30 "123g 45s 67c" #e8dcc4 centred
-      text 11,667.25 50x15 "12 Marks" #e8dcc4
-    box 11.17,688.92 49.67x381
-      box 11.17,688.92 49.67x53
-        box 11.17,688.92 49.67x53 #00000000
-          box 18.5,697.92 35x35 absolute icon=130716
-          box 45.17,726.58 10.83x13 absolute
-            text 45.17,726.58 10.83x13 "23" #ffffff
-          embed 11.17,688.92 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
-      box 11.17,741.92 49.67x54.67
-        box 21.1,741.92 29.8x1.67 #0a0603d9
-        box 11.17,743.58 49.67x53 #00000000
-          box 18.5,752.58 35x35 absolute icon=133633
-          embed 11.17,743.58 49.67x53 absolute frame=CharacterBag0Slot opacity=0
-      box 11.17,796.58 49.67x54.67
-        box 21.1,796.58 29.8x1.67 #0a0603d9
-        box 11.17,798.25 49.67x53 #00000000
-          box 18.5,807.25 35x35 absolute icon=133633
-          embed 11.17,798.25 49.67x53 absolute frame=CharacterBag1Slot opacity=0
-      box 11.17,851.25 49.67x54.67
-        box 21.1,851.25 29.8x1.67 #0a0603d9
-        box 11.17,852.92 49.67x53 #00000000
-          box 18.5,861.92 35x35 absolute icon=133633
-          embed 11.17,852.92 49.67x53 absolute frame=CharacterBag2Slot opacity=0
-      box 11.17,905.92 49.67x54.67
-        box 21.1,905.92 29.8x1.67 #0a0603d9
-        box 11.17,907.58 49.67x53 #00000000
-          box 18.5,916.58 35x35 absolute icon=133633
-          embed 11.17,907.58 49.67x53 absolute frame=CharacterBag3Slot opacity=0
-      box 11.17,960.58 49.67x54.67
-        box 21.1,960.58 29.8x1.67 #0a0603d9
-        box 11.17,962.25 49.67x53 #00000000
-          box 18.5,971.25 35x35 absolute icon=136511
-          embed 11.17,962.25 49.67x53 absolute frame=CharacterReagentBag0Slot opacity=0
-      box 11.17,1015.25 49.67x54.67
-        box 21.1,1015.25 29.8x1.67 #0a0603d9
-        box 11.17,1016.92 49.67x53 #00000000
-          box 18.5,1025.92 35x35 absolute icon=130980
-          embed 11.17,1016.92 49.67x53 absolute frame=KeyRingButton opacity=0
+  box 18.22,504.58 35.56x15.6
+    box 18.22,504.58 35.56x15.6 @click
+      text 18.22,504.58 35.56x15.6 "12:30" #ff9933
+  box 0,520.18 72x552.13
+    box 11.17,520.18 49.67x107.67
+      box 11.17,520.18 49.67x53
+        box 11.17,520.18 49.67x53 #00000000
+          box 18.5,529.18 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 33.76,550.76 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 37.1,551.06 14.44x14.4 "12" #ffffff centred
+          embed 11.17,520.18 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 11.17,573.18 49.67x54.67
+        box 21.1,573.18 29.8x1.67 #0a0603d9
+        box 11.17,574.85 49.67x53 #00000000
+          box 18.5,583.85 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 11.17,574.85 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 0,634.52 72x50.13
+      text 0,634.52 72x31.2 "123g 45s 67c" #e8dcc4 centred
+      text 8.78,669.05 54.44x15.6 "12 Marks" #e8dcc4 centred
+    box 11.17,691.32 49.67x381
+      box 11.17,691.32 49.67x53
+        box 11.17,691.32 49.67x53 #00000000
+          box 18.5,700.32 35x35 absolute icon=130716
+          box 41.56,727.58 14.44x14.4 absolute
+            text 41.56,727.58 14.44x14.4 "23" #ffffff
+          embed 11.17,691.32 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
+      box 11.17,744.32 49.67x54.67
+        box 21.1,744.32 29.8x1.67 #0a0603d9
+        box 11.17,745.98 49.67x53 #00000000
+          box 18.5,754.98 35x35 absolute icon=133633
+          embed 11.17,745.98 49.67x53 absolute frame=CharacterBag0Slot opacity=0
+      box 11.17,798.98 49.67x54.67
+        box 21.1,798.98 29.8x1.67 #0a0603d9
+        box 11.17,800.65 49.67x53 #00000000
+          box 18.5,809.65 35x35 absolute icon=133633
+          embed 11.17,800.65 49.67x53 absolute frame=CharacterBag1Slot opacity=0
+      box 11.17,853.65 49.67x54.67
+        box 21.1,853.65 29.8x1.67 #0a0603d9
+        box 11.17,855.32 49.67x53 #00000000
+          box 18.5,864.32 35x35 absolute icon=133633
+          embed 11.17,855.32 49.67x53 absolute frame=CharacterBag2Slot opacity=0
+      box 11.17,908.32 49.67x54.67
+        box 21.1,908.32 29.8x1.67 #0a0603d9
+        box 11.17,909.98 49.67x53 #00000000
+          box 18.5,918.98 35x35 absolute icon=133633
+          embed 11.17,909.98 49.67x53 absolute frame=CharacterBag3Slot opacity=0
+      box 11.17,962.98 49.67x54.67
+        box 21.1,962.98 29.8x1.67 #0a0603d9
+        box 11.17,964.65 49.67x53 #00000000
+          box 18.5,973.65 35x35 absolute icon=136511
+          embed 11.17,964.65 49.67x53 absolute frame=CharacterReagentBag0Slot opacity=0
+      box 11.17,1017.65 49.67x54.67
+        box 21.1,1017.65 29.8x1.67 #0a0603d9
+        box 11.17,1019.32 49.67x53 #00000000
+          box 18.5,1028.32 35x35 absolute icon=130980
+          embed 11.17,1019.32 49.67x53 absolute frame=KeyRingButton opacity=0
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -1783,62 +1783,62 @@ surface 1528,0 72x900 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacit
         box 1539.17,451.58 49.67x53 #00000000
           box 1546.5,460.58 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
           embed 1539.17,451.58 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 1548.38,504.58 31.25x15
-    box 1548.38,504.58 31.25x15 @click
-      text 1548.38,504.58 31.25x15 "12:30" #ff9933
-  box 1528,519.58 72x550.33
-    box 1539.17,519.58 49.67x107.67
-      box 1539.17,519.58 49.67x53
-        box 1539.17,519.58 49.67x53 #00000000
-          box 1546.5,528.58 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1565.37,551.83 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1568.71,552 10.83x13 "12" #ffffff
-          embed 1539.17,519.58 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1539.17,572.58 49.67x54.67
-        box 1549.1,572.58 29.8x1.67 #0a0603d9
-        box 1539.17,574.25 49.67x53 #00000000
-          box 1546.5,583.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1539.17,574.25 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1528,633.92 72x48.33
-      text 1528,633.92 72x30 "123g 45s 67c" #e8dcc4 centred
-      text 1539,667.25 50x15 "12 Marks" #e8dcc4
-    box 1539.17,688.92 49.67x381
-      box 1539.17,688.92 49.67x53
-        box 1539.17,688.92 49.67x53 #00000000
-          box 1546.5,697.92 35x35 absolute icon=130716
-          box 1573.17,726.58 10.83x13 absolute
-            text 1573.17,726.58 10.83x13 "23" #ffffff
-          embed 1539.17,688.92 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
-      box 1539.17,741.92 49.67x54.67
-        box 1549.1,741.92 29.8x1.67 #0a0603d9
-        box 1539.17,743.58 49.67x53 #00000000
-          box 1546.5,752.58 35x35 absolute icon=133633
-          embed 1539.17,743.58 49.67x53 absolute frame=CharacterBag0Slot opacity=0
-      box 1539.17,796.58 49.67x54.67
-        box 1549.1,796.58 29.8x1.67 #0a0603d9
-        box 1539.17,798.25 49.67x53 #00000000
-          box 1546.5,807.25 35x35 absolute icon=133633
-          embed 1539.17,798.25 49.67x53 absolute frame=CharacterBag1Slot opacity=0
-      box 1539.17,851.25 49.67x54.67
-        box 1549.1,851.25 29.8x1.67 #0a0603d9
-        box 1539.17,852.92 49.67x53 #00000000
-          box 1546.5,861.92 35x35 absolute icon=133633
-          embed 1539.17,852.92 49.67x53 absolute frame=CharacterBag2Slot opacity=0
-      box 1539.17,905.92 49.67x54.67
-        box 1549.1,905.92 29.8x1.67 #0a0603d9
-        box 1539.17,907.58 49.67x53 #00000000
-          box 1546.5,916.58 35x35 absolute icon=133633
-          embed 1539.17,907.58 49.67x53 absolute frame=CharacterBag3Slot opacity=0
-      box 1539.17,960.58 49.67x54.67
-        box 1549.1,960.58 29.8x1.67 #0a0603d9
-        box 1539.17,962.25 49.67x53 #00000000
-          box 1546.5,971.25 35x35 absolute icon=136511
-          embed 1539.17,962.25 49.67x53 absolute frame=CharacterReagentBag0Slot opacity=0
-      box 1539.17,1015.25 49.67x54.67
-        box 1549.1,1015.25 29.8x1.67 #0a0603d9
-        box 1539.17,1016.92 49.67x53 #00000000
-          box 1546.5,1025.92 35x35 absolute icon=130980
-          embed 1539.17,1016.92 49.67x53 absolute frame=KeyRingButton opacity=0
+  box 1546.22,504.58 35.56x15.6
+    box 1546.22,504.58 35.56x15.6 @click
+      text 1546.22,504.58 35.56x15.6 "12:30" #ff9933
+  box 1528,520.18 72x552.13
+    box 1539.17,520.18 49.67x107.67
+      box 1539.17,520.18 49.67x53
+        box 1539.17,520.18 49.67x53 #00000000
+          box 1546.5,529.18 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1561.76,550.76 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1565.1,551.06 14.44x14.4 "12" #ffffff centred
+          embed 1539.17,520.18 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1539.17,573.18 49.67x54.67
+        box 1549.1,573.18 29.8x1.67 #0a0603d9
+        box 1539.17,574.85 49.67x53 #00000000
+          box 1546.5,583.85 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1539.17,574.85 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1528,634.52 72x50.13
+      text 1528,634.52 72x31.2 "123g 45s 67c" #e8dcc4 centred
+      text 1536.78,669.05 54.44x15.6 "12 Marks" #e8dcc4 centred
+    box 1539.17,691.32 49.67x381
+      box 1539.17,691.32 49.67x53
+        box 1539.17,691.32 49.67x53 #00000000
+          box 1546.5,700.32 35x35 absolute icon=130716
+          box 1569.56,727.58 14.44x14.4 absolute
+            text 1569.56,727.58 14.44x14.4 "23" #ffffff
+          embed 1539.17,691.32 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
+      box 1539.17,744.32 49.67x54.67
+        box 1549.1,744.32 29.8x1.67 #0a0603d9
+        box 1539.17,745.98 49.67x53 #00000000
+          box 1546.5,754.98 35x35 absolute icon=133633
+          embed 1539.17,745.98 49.67x53 absolute frame=CharacterBag0Slot opacity=0
+      box 1539.17,798.98 49.67x54.67
+        box 1549.1,798.98 29.8x1.67 #0a0603d9
+        box 1539.17,800.65 49.67x53 #00000000
+          box 1546.5,809.65 35x35 absolute icon=133633
+          embed 1539.17,800.65 49.67x53 absolute frame=CharacterBag1Slot opacity=0
+      box 1539.17,853.65 49.67x54.67
+        box 1549.1,853.65 29.8x1.67 #0a0603d9
+        box 1539.17,855.32 49.67x53 #00000000
+          box 1546.5,864.32 35x35 absolute icon=133633
+          embed 1539.17,855.32 49.67x53 absolute frame=CharacterBag2Slot opacity=0
+      box 1539.17,908.32 49.67x54.67
+        box 1549.1,908.32 29.8x1.67 #0a0603d9
+        box 1539.17,909.98 49.67x53 #00000000
+          box 1546.5,918.98 35x35 absolute icon=133633
+          embed 1539.17,909.98 49.67x53 absolute frame=CharacterBag3Slot opacity=0
+      box 1539.17,962.98 49.67x54.67
+        box 1549.1,962.98 29.8x1.67 #0a0603d9
+        box 1539.17,964.65 49.67x53 #00000000
+          box 1546.5,973.65 35x35 absolute icon=136511
+          embed 1539.17,964.65 49.67x53 absolute frame=CharacterReagentBag0Slot opacity=0
+      box 1539.17,1017.65 49.67x54.67
+        box 1549.1,1017.65 29.8x1.67 #0a0603d9
+        box 1539.17,1019.32 49.67x53 #00000000
+          box 1546.5,1028.32 35x35 absolute icon=130980
+          embed 1539.17,1019.32 49.67x53 absolute frame=KeyRingButton opacity=0
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -1847,7 +1847,7 @@ box 0,0 0x0
   embed 0,0 0x0 frame=StoreMicroButton opacity=0
   embed 0,0 0x0 frame=HelpMicroButton opacity=0
 surface 0,0 1600x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=0
-  box 0,20.25 496.5x53
+  box 0,20.25 491.22x53
     box 0,20.25 460.33x53
       box 0,20.25 49.67x53
         box 0,20.25 49.67x53 #00000000
@@ -1893,57 +1893,57 @@ surface 0,0 1600x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opaci
         box 410.67,20.25 49.67x53 #00000000
           box 418,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
           embed 410.67,20.25 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 496.5,34.25 496.5x25
-    box 496.5,34.25 370.67x25
-      box 528.5,34.25 306.67x25 @enter @leave
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 532.41,38.16 298.85x17.19 absolute
-          box 532.41,38.16 298.85x17.19 absolute #6e96d129
-          box 532.41,38.16 280.92x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 532.41,38.16 298.85x17.19 absolute
-            box 532.41,38.16 29.89x17.19
-            box 562.29,38.16 29.89x17.19
-            box 592.18,38.16 29.89x17.19
-            box 622.06,38.16 29.89x17.19
-            box 651.95,38.16 29.89x17.19
-            box 681.83,38.16 29.89x17.19
-            box 711.72,38.16 29.89x17.19
-            box 741.6,38.16 29.89x17.19
-            box 771.49,38.16 29.89x17.19
-            box 801.38,38.16 29.89x17.19
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 528.5,34.25 306.67x25 absolute
-          text 627.67,40.25 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
-        box 532.41,38.16 298.85x17.19 absolute
-          box 532.41,38.16 280.92x17.19
-          box 813.33,38.16 17.93x17.19 @enter @leave
-          box 831.26,38.16 0x17.19
-    text 873.83,39.25 81.25x15 "Elwynn Forest" #e8dcc4
-    box 961.75,39.25 31.25x15 @click
-      text 961.75,39.25 31.25x15 "12:30" #ff9933
-  box 993,20.25 607x53
-    box 993,20.25 101x53
-      box 993,20.25 49.67x53
-        box 993,20.25 49.67x53 #00000000
-          box 1000.33,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1019.21,52.5 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1022.54,52.66 10.83x13 "12" #ffffff
-          embed 993,20.25 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1042.67,20.25 51.33x53
-        box 1042.67,30.85 1.67x31.8 #0a0603d9
-        box 1044.33,20.25 49.67x53 #00000000
-          box 1051.67,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1044.33,20.25 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1100.67,39.25 135x15
-      text 1100.67,39.25 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,39.25 50x15 "12 Marks" #e8dcc4
+  box 491.22,34.25 491.22x25
+    box 491.22,34.25 354.56x25
+      box 523.22,34.25 290.56x25 @enter @leave
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 527.13,38.16 282.74x17.19 absolute
+          box 527.13,38.16 282.74x17.19 absolute #6e96d129
+          box 527.13,38.16 265.78x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 527.13,38.16 282.74x17.19 absolute
+            box 527.13,38.16 28.27x17.19
+            box 555.4,38.16 28.27x17.19
+            box 583.68,38.16 28.27x17.19
+            box 611.95,38.16 28.27x17.19
+            box 640.23,38.16 28.27x17.19
+            box 668.5,38.16 28.27x17.19
+            box 696.77,38.16 28.27x17.19
+            box 725.05,38.16 28.27x17.19
+            box 753.32,38.16 28.27x17.19
+            box 781.6,38.16 28.27x17.19
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 523.22,34.25 290.56x25 absolute
+          text 607.39,39.55 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
+        box 527.13,38.16 282.74x17.19 absolute
+          box 527.13,38.16 265.78x17.19
+          box 792.91,38.16 16.96x17.19 @enter @leave
+          box 809.87,38.16 0x17.19
+    text 852.44,38.95 87.78x15.6 "Elwynn Forest" #e8dcc4
+    box 946.89,38.95 35.56x15.6 @click
+      text 946.89,38.95 35.56x15.6 "12:30" #ff9933
+  box 982.44,20.25 617.56x53
+    box 982.44,20.25 101x53
+      box 982.44,20.25 49.67x53
+        box 982.44,20.25 49.67x53 #00000000
+          box 989.78,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1005.04,50.83 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1008.37,51.13 14.44x14.4 "12" #ffffff centred
+          embed 982.44,20.25 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1032.11,20.25 51.33x53
+        box 1032.11,30.85 1.67x31.8 #0a0603d9
+        box 1033.78,20.25 49.67x53 #00000000
+          box 1041.11,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1033.78,20.25 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1090.11,38.95 145.56x15.6
+      text 1090.11,38.95 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,38.95 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,20.25 357.67x53
       box 1242.33,20.25 49.67x53
         box 1242.33,20.25 49.67x53 #00000000
           box 1249.67,29.25 35x35 absolute icon=130716
-          box 1276.33,57.92 10.83x13 absolute
-            text 1276.33,57.92 10.83x13 "23" #ffffff
+          box 1272.72,56.52 14.44x14.4 absolute
+            text 1272.72,56.52 14.44x14.4 "23" #ffffff
           embed 1242.33,20.25 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,20.25 51.33x53
         box 1292,30.85 1.67x31.8 #0a0603d9
@@ -1983,7 +1983,7 @@ box 0,0 0x0
   embed 0,0 0x0 frame=StoreMicroButton opacity=0
   embed 0,0 0x0 frame=HelpMicroButton opacity=0
 surface 0,0 1600x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=1
-  box 0,20.25 496.5x53
+  box 0,20.25 491.22x53
     box 0,20.25 460.33x53
       box 0,20.25 49.67x53
         box 0,20.25 49.67x53 #00000000
@@ -2029,57 +2029,57 @@ surface 0,0 1600x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opaci
         box 410.67,20.25 49.67x53 #00000000
           box 418,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
           embed 410.67,20.25 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 496.5,34.25 496.5x25
-    box 496.5,34.25 370.67x25
-      box 528.5,34.25 306.67x25 @enter @leave
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 532.41,38.16 298.85x17.19 absolute
-          box 532.41,38.16 298.85x17.19 absolute #6e96d129
-          box 532.41,38.16 280.92x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 532.41,38.16 298.85x17.19 absolute
-            box 532.41,38.16 29.89x17.19
-            box 562.29,38.16 29.89x17.19
-            box 592.18,38.16 29.89x17.19
-            box 622.06,38.16 29.89x17.19
-            box 651.95,38.16 29.89x17.19
-            box 681.83,38.16 29.89x17.19
-            box 711.72,38.16 29.89x17.19
-            box 741.6,38.16 29.89x17.19
-            box 771.49,38.16 29.89x17.19
-            box 801.38,38.16 29.89x17.19
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 528.5,34.25 306.67x25 absolute
-          text 627.67,40.25 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
-        box 532.41,38.16 298.85x17.19 absolute
-          box 532.41,38.16 280.92x17.19
-          box 813.33,38.16 17.93x17.19 @enter @leave
-          box 831.26,38.16 0x17.19
-    text 873.83,39.25 81.25x15 "Elwynn Forest" #e8dcc4
-    box 961.75,39.25 31.25x15 @click
-      text 961.75,39.25 31.25x15 "12:30" #ff9933
-  box 993,20.25 607x53
-    box 993,20.25 101x53
-      box 993,20.25 49.67x53
-        box 993,20.25 49.67x53 #00000000
-          box 1000.33,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1019.21,52.5 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1022.54,52.66 10.83x13 "12" #ffffff
-          embed 993,20.25 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1042.67,20.25 51.33x53
-        box 1042.67,30.85 1.67x31.8 #0a0603d9
-        box 1044.33,20.25 49.67x53 #00000000
-          box 1051.67,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1044.33,20.25 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1100.67,39.25 135x15
-      text 1100.67,39.25 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,39.25 50x15 "12 Marks" #e8dcc4
+  box 491.22,34.25 491.22x25
+    box 491.22,34.25 354.56x25
+      box 523.22,34.25 290.56x25 @enter @leave
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 527.13,38.16 282.74x17.19 absolute
+          box 527.13,38.16 282.74x17.19 absolute #6e96d129
+          box 527.13,38.16 265.78x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 527.13,38.16 282.74x17.19 absolute
+            box 527.13,38.16 28.27x17.19
+            box 555.4,38.16 28.27x17.19
+            box 583.68,38.16 28.27x17.19
+            box 611.95,38.16 28.27x17.19
+            box 640.23,38.16 28.27x17.19
+            box 668.5,38.16 28.27x17.19
+            box 696.77,38.16 28.27x17.19
+            box 725.05,38.16 28.27x17.19
+            box 753.32,38.16 28.27x17.19
+            box 781.6,38.16 28.27x17.19
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 523.22,34.25 290.56x25 absolute
+          text 607.39,39.55 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
+        box 527.13,38.16 282.74x17.19 absolute
+          box 527.13,38.16 265.78x17.19
+          box 792.91,38.16 16.96x17.19 @enter @leave
+          box 809.87,38.16 0x17.19
+    text 852.44,38.95 87.78x15.6 "Elwynn Forest" #e8dcc4
+    box 946.89,38.95 35.56x15.6 @click
+      text 946.89,38.95 35.56x15.6 "12:30" #ff9933
+  box 982.44,20.25 617.56x53
+    box 982.44,20.25 101x53
+      box 982.44,20.25 49.67x53
+        box 982.44,20.25 49.67x53 #00000000
+          box 989.78,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1005.04,50.83 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1008.37,51.13 14.44x14.4 "12" #ffffff centred
+          embed 982.44,20.25 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1032.11,20.25 51.33x53
+        box 1032.11,30.85 1.67x31.8 #0a0603d9
+        box 1033.78,20.25 49.67x53 #00000000
+          box 1041.11,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1033.78,20.25 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1090.11,38.95 145.56x15.6
+      text 1090.11,38.95 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,38.95 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,20.25 357.67x53
       box 1242.33,20.25 49.67x53
         box 1242.33,20.25 49.67x53 #00000000
           box 1249.67,29.25 35x35 absolute icon=130716
-          box 1276.33,57.92 10.83x13 absolute
-            text 1276.33,57.92 10.83x13 "23" #ffffff
+          box 1272.72,56.52 14.44x14.4 absolute
+            text 1272.72,56.52 14.44x14.4 "23" #ffffff
           embed 1242.33,20.25 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,20.25 51.33x53
         box 1292,30.85 1.67x31.8 #0a0603d9
@@ -2126,7 +2126,7 @@ box 0,0 0x0
   embed 0,0 0x0 frame=StoreMicroButton opacity=0
   embed 0,0 0x0 frame=HelpMicroButton opacity=0
 surface 0,0 1600x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=0.3
-  box 0,20.25 496.5x53
+  box 0,20.25 491.22x53
     box 0,20.25 460.33x53
       box 0,20.25 49.67x53
         box 0,20.25 49.67x53 #00000000
@@ -2172,57 +2172,57 @@ surface 0,0 1600x79.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opaci
         box 410.67,20.25 49.67x53 #00000000
           box 418,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
           embed 410.67,20.25 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 496.5,34.25 496.5x25
-    box 496.5,34.25 370.67x25
-      box 528.5,34.25 306.67x25 @enter @leave
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 532.41,38.16 298.85x17.19 absolute
-          box 532.41,38.16 298.85x17.19 absolute #6e96d129
-          box 532.41,38.16 280.92x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 532.41,38.16 298.85x17.19 absolute
-            box 532.41,38.16 29.89x17.19
-            box 562.29,38.16 29.89x17.19
-            box 592.18,38.16 29.89x17.19
-            box 622.06,38.16 29.89x17.19
-            box 651.95,38.16 29.89x17.19
-            box 681.83,38.16 29.89x17.19
-            box 711.72,38.16 29.89x17.19
-            box 741.6,38.16 29.89x17.19
-            box 771.49,38.16 29.89x17.19
-            box 801.38,38.16 29.89x17.19
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 528.5,34.25 306.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 528.5,34.25 306.67x25 absolute
-          text 627.67,40.25 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
-        box 532.41,38.16 298.85x17.19 absolute
-          box 532.41,38.16 280.92x17.19
-          box 813.33,38.16 17.93x17.19 @enter @leave
-          box 831.26,38.16 0x17.19
-    text 873.83,39.25 81.25x15 "Elwynn Forest" #e8dcc4
-    box 961.75,39.25 31.25x15 @click
-      text 961.75,39.25 31.25x15 "12:30" #ff9933
-  box 993,20.25 607x53
-    box 993,20.25 101x53
-      box 993,20.25 49.67x53
-        box 993,20.25 49.67x53 #00000000
-          box 1000.33,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1019.21,52.5 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1022.54,52.66 10.83x13 "12" #ffffff
-          embed 993,20.25 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1042.67,20.25 51.33x53
-        box 1042.67,30.85 1.67x31.8 #0a0603d9
-        box 1044.33,20.25 49.67x53 #00000000
-          box 1051.67,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1044.33,20.25 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1100.67,39.25 135x15
-      text 1100.67,39.25 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,39.25 50x15 "12 Marks" #e8dcc4
+  box 491.22,34.25 491.22x25
+    box 491.22,34.25 354.56x25
+      box 523.22,34.25 290.56x25 @enter @leave
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 527.13,38.16 282.74x17.19 absolute
+          box 527.13,38.16 282.74x17.19 absolute #6e96d129
+          box 527.13,38.16 265.78x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 527.13,38.16 282.74x17.19 absolute
+            box 527.13,38.16 28.27x17.19
+            box 555.4,38.16 28.27x17.19
+            box 583.68,38.16 28.27x17.19
+            box 611.95,38.16 28.27x17.19
+            box 640.23,38.16 28.27x17.19
+            box 668.5,38.16 28.27x17.19
+            box 696.77,38.16 28.27x17.19
+            box 725.05,38.16 28.27x17.19
+            box 753.32,38.16 28.27x17.19
+            box 781.6,38.16 28.27x17.19
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 523.22,34.25 290.56x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 523.22,34.25 290.56x25 absolute
+          text 607.39,39.55 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
+        box 527.13,38.16 282.74x17.19 absolute
+          box 527.13,38.16 265.78x17.19
+          box 792.91,38.16 16.96x17.19 @enter @leave
+          box 809.87,38.16 0x17.19
+    text 852.44,38.95 87.78x15.6 "Elwynn Forest" #e8dcc4
+    box 946.89,38.95 35.56x15.6 @click
+      text 946.89,38.95 35.56x15.6 "12:30" #ff9933
+  box 982.44,20.25 617.56x53
+    box 982.44,20.25 101x53
+      box 982.44,20.25 49.67x53
+        box 982.44,20.25 49.67x53 #00000000
+          box 989.78,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1005.04,50.83 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1008.37,51.13 14.44x14.4 "12" #ffffff centred
+          embed 982.44,20.25 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1032.11,20.25 51.33x53
+        box 1032.11,30.85 1.67x31.8 #0a0603d9
+        box 1033.78,20.25 49.67x53 #00000000
+          box 1041.11,29.25 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1033.78,20.25 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1090.11,38.95 145.56x15.6
+      text 1090.11,38.95 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,38.95 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,20.25 357.67x53
       box 1242.33,20.25 49.67x53
         box 1242.33,20.25 49.67x53 #00000000
           box 1249.67,29.25 35x35 absolute icon=130716
-          box 1276.33,57.92 10.83x13 absolute
-            text 1276.33,57.92 10.83x13 "23" #ffffff
+          box 1272.72,56.52 14.44x14.4 absolute
+            text 1272.72,56.52 14.44x14.4 "23" #ffffff
           embed 1242.33,20.25 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,20.25 51.33x53
         box 1292,30.85 1.67x31.8 #0a0603d9
@@ -2305,31 +2305,31 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 494,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 543.67,866 528.17x15
-    text 748.17,866 81.25x15 "Elwynn Forest" #e8dcc4
-    box 836.08,866 31.25x15 @click
-      text 836.08,866 31.25x15 "12:30" #ff9933
+  box 543.67,865.7 528.17x15.6
+    text 742.75,865.7 87.78x15.6 "Elwynn Forest" #e8dcc4 centred
+    box 837.19,865.7 35.56x15.6 @click
+      text 837.19,865.7 35.56x15.6 "12:30" #ff9933
   box 1071.83,847 528.17x53
-    box 1357.33,847 101x53
-      box 1357.33,847 49.67x53
-        box 1357.33,847 49.67x53 #00000000
-          box 1364.67,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1383.54,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1386.87,879.41 10.83x13 "12" #ffffff
-          embed 1357.33,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1407,847 51.33x53
-        box 1407,857.6 1.67x31.8 #0a0603d9
-        box 1408.67,847 49.67x53 #00000000
-          box 1416,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1408.67,847 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1465,866 135x15
-      text 1465,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1550,866 50x15 "12 Marks" #e8dcc4
+    box 1346.78,847 101x53
+      box 1346.78,847 49.67x53
+        box 1346.78,847 49.67x53 #00000000
+          box 1354.11,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1369.37,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1372.71,877.88 14.44x14.4 "12" #ffffff centred
+          embed 1346.78,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1396.44,847 51.33x53
+        box 1396.44,857.6 1.67x31.8 #0a0603d9
+        box 1398.11,847 49.67x53 #00000000
+          box 1405.44,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1398.11,847 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1454.44,865.7 145.56x15.6
+      text 1454.44,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1545.56,865.7 54.44x15.6 "12 Marks" #e8dcc4
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
   box 495.25,823.42 609.5x56.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 512.17,840.33 580.67x25
@@ -2352,7 +2352,7 @@ surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 544.17,840.33 516.67x25 absolute
-          text 748.33,846.33 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
+          text 741.39,845.63 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
         box 548.07,844.24 508.85x17.19 absolute
           box 548.07,844.24 478.32x17.19
           box 1026.4,844.24 30.53x17.19 @enter @leave
@@ -2363,8 +2363,8 @@ surface 1203.5,805.42 386.5x84.58 on MEDIUM clamped
       box 1220.42,822.33 49.67x53
         box 1220.42,822.33 49.67x53 #00000000
           box 1227.75,831.33 35x35 absolute icon=130716
-          box 1254.42,860 10.83x13 absolute
-            text 1254.42,860 10.83x13 "23" #ffffff
+          box 1250.81,858.6 14.44x14.4 absolute
+            text 1250.81,858.6 14.44x14.4 "23" #ffffff
           embed 1220.42,822.33 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1270.08,822.33 51.33x53
         box 1270.08,832.93 1.67x31.8 #0a0603d9
@@ -2447,35 +2447,35 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 494,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 543.67,866 528.17x15
-    text 748.17,866 81.25x15 "Elwynn Forest" #e8dcc4
-    box 836.08,866 31.25x15 @click
-      text 836.08,866 31.25x15 "12:30" #ff9933
+  box 543.67,865.7 528.17x15.6
+    text 742.75,865.7 87.78x15.6 "Elwynn Forest" #e8dcc4 centred
+    box 837.19,865.7 35.56x15.6 @click
+      text 837.19,865.7 35.56x15.6 "12:30" #ff9933
   box 1071.83,847 528.17x53
-    box 1357.33,847 101x53
-      box 1357.33,847 49.67x53
-        box 1357.33,847 49.67x53 #00000000
-          box 1364.67,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1383.54,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1386.87,879.41 10.83x13 "12" #ffffff
-          embed 1357.33,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1407,847 51.33x53
-        box 1407,857.6 1.67x31.8 #0a0603d9
-        box 1408.67,847 49.67x53 #00000000
-          box 1416,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1408.67,847 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1465,866 135x15
-      text 1465,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1550,866 50x15 "12 Marks" #e8dcc4
+    box 1346.78,847 101x53
+      box 1346.78,847 49.67x53
+        box 1346.78,847 49.67x53 #00000000
+          box 1354.11,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1369.37,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1372.71,877.88 14.44x14.4 "12" #ffffff centred
+          embed 1346.78,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1396.44,847 51.33x53
+        box 1396.44,857.6 1.67x31.8 #0a0603d9
+        box 1398.11,847 49.67x53 #00000000
+          box 1405.44,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1398.11,847 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1454.44,865.7 145.56x15.6
+      text 1454.44,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1545.56,865.7 54.44x15.6 "12 Marks" #e8dcc4
   box 0,840 1600x60 absolute #00000073 @click @drag @dragStart @dragStop
-    text 762.5,862.5 75x15 "Bottom panel" #ffd100
+    text 759.44,862.2 81.11x15.6 "Bottom panel" #ffd100 centred
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
   box 0,776 128x124 absolute #00000073 @click @drag @dragStart @dragStop
-    text 26.5,830.5 75x15 "Bottom panel" #ffd100
+    text 23.44,830.2 81.11x15.6 "Bottom panel" #ffd100 centred
 surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
   box 495.25,823.42 609.5x56.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 512.17,840.33 580.67x25
@@ -2498,21 +2498,21 @@ surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 544.17,840.33 516.67x25 absolute
-          text 748.33,846.33 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
+          text 741.39,845.63 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
         box 548.07,844.24 508.85x17.19 absolute
           box 548.07,844.24 478.32x17.19
           box 1026.4,844.24 30.53x17.19 @enter @leave
           box 1056.93,844.24 0x17.19
   box 495.25,823.42 609.5x56.58 absolute #00000073 @click @drag @dragStart @dragStop
-    text 756.25,844.21 87.5x15 "Experience bar" #ffd100
+    text 753.33,843.91 93.33x15.6 "Experience bar" #ffd100 centred
 surface 1203.5,805.42 386.5x84.58 on MEDIUM clamped
   box 1203.5,805.42 386.5x84.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 1220.42,822.33 357.67x53
       box 1220.42,822.33 49.67x53
         box 1220.42,822.33 49.67x53 #00000000
           box 1227.75,831.33 35x35 absolute icon=130716
-          box 1254.42,860 10.83x13 absolute
-            text 1254.42,860 10.83x13 "23" #ffffff
+          box 1250.81,858.6 14.44x14.4 absolute
+            text 1250.81,858.6 14.44x14.4 "23" #ffffff
           embed 1220.42,822.33 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1270.08,822.33 51.33x53
         box 1270.08,832.93 1.67x31.8 #0a0603d9
@@ -2545,7 +2545,7 @@ surface 1203.5,805.42 386.5x84.58 on MEDIUM clamped
           box 1535.75,831.33 35x35 absolute icon=130980
           embed 1528.42,822.33 49.67x53 absolute frame=KeyRingButton opacity=0
   box 1203.5,805.42 386.5x84.58 absolute #00000073 @click @drag @dragStart @dragStop
-    text 1384.25,840.21 25x15 "Bags" #ffd100
+    text 1382.31,839.91 28.89x15.6 "Bags" #ffd100 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -2597,35 +2597,35 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 494,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 543.67,866 528.17x15
-    text 748.17,866 81.25x15 "Elwynn Forest" #e8dcc4
-    box 836.08,866 31.25x15 @click
-      text 836.08,866 31.25x15 "12:30" #ff9933
+  box 543.67,865.7 528.17x15.6
+    text 742.75,865.7 87.78x15.6 "Elwynn Forest" #e8dcc4 centred
+    box 837.19,865.7 35.56x15.6 @click
+      text 837.19,865.7 35.56x15.6 "12:30" #ff9933
   box 1071.83,847 528.17x53
-    box 1357.33,847 101x53
-      box 1357.33,847 49.67x53
-        box 1357.33,847 49.67x53 #00000000
-          box 1364.67,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1383.54,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1386.87,879.41 10.83x13 "12" #ffffff
-          embed 1357.33,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1407,847 51.33x53
-        box 1407,857.6 1.67x31.8 #0a0603d9
-        box 1408.67,847 49.67x53 #00000000
-          box 1416,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1408.67,847 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1465,866 135x15
-      text 1465,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1550,866 50x15 "12 Marks" #e8dcc4
+    box 1346.78,847 101x53
+      box 1346.78,847 49.67x53
+        box 1346.78,847 49.67x53 #00000000
+          box 1354.11,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1369.37,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1372.71,877.88 14.44x14.4 "12" #ffffff centred
+          embed 1346.78,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1396.44,847 51.33x53
+        box 1396.44,857.6 1.67x31.8 #0a0603d9
+        box 1398.11,847 49.67x53 #00000000
+          box 1405.44,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1398.11,847 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1454.44,865.7 145.56x15.6
+      text 1454.44,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1545.56,865.7 54.44x15.6 "12 Marks" #e8dcc4
   box 0,840 1600x60 absolute #00000073 @click @drag @dragStart @dragStop
-    text 762.5,862.5 75x15 "Bottom panel" #ffd100
+    text 759.44,862.2 81.11x15.6 "Bottom panel" #ffd100 centred
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
   box 0,776 128x124 absolute #00000073 @click @drag @dragStart @dragStop
-    text 26.5,830.5 75x15 "Bottom panel" #ffd100
+    text 23.44,830.2 81.11x15.6 "Bottom panel" #ffd100 centred
 surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
   box 495.25,823.42 609.5x56.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 512.17,840.33 580.67x25
@@ -2648,21 +2648,21 @@ surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 544.17,840.33 516.67x25 absolute
-          text 748.33,846.33 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
+          text 741.39,845.63 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
         box 548.07,844.24 508.85x17.19 absolute
           box 548.07,844.24 478.32x17.19
           box 1026.4,844.24 30.53x17.19 @enter @leave
           box 1056.93,844.24 0x17.19
   box 495.25,823.42 609.5x56.58 absolute #00000073 @click @drag @dragStart @dragStop
-    text 756.25,844.21 87.5x15 "Experience bar" #ffd100
+    text 753.33,843.91 93.33x15.6 "Experience bar" #ffd100 centred
 surface 1003.5,705.42 386.5x84.58 on MEDIUM clamped
   box 1003.5,705.42 386.5x84.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 1020.42,722.33 357.67x53
       box 1020.42,722.33 49.67x53
         box 1020.42,722.33 49.67x53 #00000000
           box 1027.75,731.33 35x35 absolute icon=130716
-          box 1054.42,760 10.83x13 absolute
-            text 1054.42,760 10.83x13 "23" #ffffff
+          box 1050.81,758.6 14.44x14.4 absolute
+            text 1050.81,758.6 14.44x14.4 "23" #ffffff
           embed 1020.42,722.33 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1070.08,722.33 51.33x53
         box 1070.08,732.93 1.67x31.8 #0a0603d9
@@ -2695,7 +2695,7 @@ surface 1003.5,705.42 386.5x84.58 on MEDIUM clamped
           box 1335.75,731.33 35x35 absolute icon=130980
           embed 1328.42,722.33 49.67x53 absolute frame=KeyRingButton opacity=0
   box 1003.5,705.42 386.5x84.58 absolute #00000073 @click @drag @dragStart @dragStop
-    text 1184.25,740.21 25x15 "Bags" #ffd100
+    text 1182.31,739.91 28.89x15.6 "Bags" #ffd100 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -2747,35 +2747,35 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 494,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 543.67,866 528.17x15
-    text 748.17,866 81.25x15 "Elwynn Forest" #e8dcc4
-    box 836.08,866 31.25x15 @click
-      text 836.08,866 31.25x15 "12:30" #ff9933
+  box 543.67,865.7 528.17x15.6
+    text 742.75,865.7 87.78x15.6 "Elwynn Forest" #e8dcc4 centred
+    box 837.19,865.7 35.56x15.6 @click
+      text 837.19,865.7 35.56x15.6 "12:30" #ff9933
   box 1071.83,847 528.17x53
-    box 1357.33,847 101x53
-      box 1357.33,847 49.67x53
-        box 1357.33,847 49.67x53 #00000000
-          box 1364.67,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1383.54,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1386.87,879.41 10.83x13 "12" #ffffff
-          embed 1357.33,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1407,847 51.33x53
-        box 1407,857.6 1.67x31.8 #0a0603d9
-        box 1408.67,847 49.67x53 #00000000
-          box 1416,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1408.67,847 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1465,866 135x15
-      text 1465,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1550,866 50x15 "12 Marks" #e8dcc4
+    box 1346.78,847 101x53
+      box 1346.78,847 49.67x53
+        box 1346.78,847 49.67x53 #00000000
+          box 1354.11,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1369.37,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1372.71,877.88 14.44x14.4 "12" #ffffff centred
+          embed 1346.78,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1396.44,847 51.33x53
+        box 1396.44,857.6 1.67x31.8 #0a0603d9
+        box 1398.11,847 49.67x53 #00000000
+          box 1405.44,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1398.11,847 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1454.44,865.7 145.56x15.6
+      text 1454.44,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1545.56,865.7 54.44x15.6 "12 Marks" #e8dcc4
   box 0,840 1600x60 absolute #00000073 @click @drag @dragStart @dragStop
-    text 762.5,862.5 75x15 "Bottom panel" #ffd100
+    text 759.44,862.2 81.11x15.6 "Bottom panel" #ffd100 centred
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
   box 0,776 128x124 absolute #00000073 @click @drag @dragStart @dragStop
-    text 26.5,830.5 75x15 "Bottom panel" #ffd100
+    text 23.44,830.2 81.11x15.6 "Bottom panel" #ffd100 centred
 surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
   box 495.25,823.42 609.5x56.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 512.17,840.33 580.67x25
@@ -2798,21 +2798,21 @@ surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 544.17,840.33 516.67x25 absolute
-          text 748.33,846.33 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
+          text 741.39,845.63 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
         box 548.07,844.24 508.85x17.19 absolute
           box 548.07,844.24 478.32x17.19
           box 1026.4,844.24 30.53x17.19 @enter @leave
           box 1056.93,844.24 0x17.19
   box 495.25,823.42 609.5x56.58 absolute #00000073 @click @drag @dragStart @dragStop
-    text 756.25,844.21 87.5x15 "Experience bar" #ffd100
+    text 753.33,843.91 93.33x15.6 "Experience bar" #ffd100 centred
 surface 1003.5,705.42 386.5x84.58 on MEDIUM clamped
   box 1003.5,705.42 386.5x84.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 1020.42,722.33 357.67x53
       box 1020.42,722.33 49.67x53
         box 1020.42,722.33 49.67x53 #00000000
           box 1027.75,731.33 35x35 absolute icon=130716
-          box 1054.42,760 10.83x13 absolute
-            text 1054.42,760 10.83x13 "23" #ffffff
+          box 1050.81,758.6 14.44x14.4 absolute
+            text 1050.81,758.6 14.44x14.4 "23" #ffffff
           embed 1020.42,722.33 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1070.08,722.33 51.33x53
         box 1070.08,732.93 1.67x31.8 #0a0603d9
@@ -2845,7 +2845,7 @@ surface 1003.5,705.42 386.5x84.58 on MEDIUM clamped
           box 1335.75,731.33 35x35 absolute icon=130980
           embed 1328.42,722.33 49.67x53 absolute frame=KeyRingButton opacity=0
   box 1003.5,705.42 386.5x84.58 absolute #00000073 @click @drag @dragStart @dragStop
-    text 1184.25,740.21 25x15 "Bags" #ffd100
+    text 1182.31,739.91 28.89x15.6 "Bags" #ffd100 centred
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -2897,31 +2897,31 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 494,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 543.67,866 528.17x15
-    text 748.17,866 81.25x15 "Elwynn Forest" #e8dcc4
-    box 836.08,866 31.25x15 @click
-      text 836.08,866 31.25x15 "12:30" #ff9933
+  box 543.67,865.7 528.17x15.6
+    text 742.75,865.7 87.78x15.6 "Elwynn Forest" #e8dcc4 centred
+    box 837.19,865.7 35.56x15.6 @click
+      text 837.19,865.7 35.56x15.6 "12:30" #ff9933
   box 1071.83,847 528.17x53
-    box 1357.33,847 101x53
-      box 1357.33,847 49.67x53
-        box 1357.33,847 49.67x53 #00000000
-          box 1364.67,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1383.54,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1386.87,879.41 10.83x13 "12" #ffffff
-          embed 1357.33,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1407,847 51.33x53
-        box 1407,857.6 1.67x31.8 #0a0603d9
-        box 1408.67,847 49.67x53 #00000000
-          box 1416,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1408.67,847 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1465,866 135x15
-      text 1465,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1550,866 50x15 "12 Marks" #e8dcc4
+    box 1346.78,847 101x53
+      box 1346.78,847 49.67x53
+        box 1346.78,847 49.67x53 #00000000
+          box 1354.11,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1369.37,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1372.71,877.88 14.44x14.4 "12" #ffffff centred
+          embed 1346.78,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1396.44,847 51.33x53
+        box 1396.44,857.6 1.67x31.8 #0a0603d9
+        box 1398.11,847 49.67x53 #00000000
+          box 1405.44,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1398.11,847 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1454.44,865.7 145.56x15.6
+      text 1454.44,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1545.56,865.7 54.44x15.6 "12 Marks" #e8dcc4
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
   box 495.25,823.42 609.5x56.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 512.17,840.33 580.67x25
@@ -2944,7 +2944,7 @@ surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 544.17,840.33 516.67x25 absolute
-          text 748.33,846.33 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
+          text 741.39,845.63 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
         box 548.07,844.24 508.85x17.19 absolute
           box 548.07,844.24 478.32x17.19
           box 1026.4,844.24 30.53x17.19 @enter @leave
@@ -2955,8 +2955,8 @@ surface 1003.5,705.42 386.5x84.58 on MEDIUM clamped
       box 1020.42,722.33 49.67x53
         box 1020.42,722.33 49.67x53 #00000000
           box 1027.75,731.33 35x35 absolute icon=130716
-          box 1054.42,760 10.83x13 absolute
-            text 1054.42,760 10.83x13 "23" #ffffff
+          box 1050.81,758.6 14.44x14.4 absolute
+            text 1050.81,758.6 14.44x14.4 "23" #ffffff
           embed 1020.42,722.33 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1070.08,722.33 51.33x53
         box 1070.08,732.93 1.67x31.8 #0a0603d9
@@ -3039,31 +3039,31 @@ surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood 
           box 494,847 49.67x53 #00000000
             box 501.33,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-gamemenu
             embed 494,847 49.67x53 absolute frame=MainMenuMicroButton opacity=0
-  box 543.67,866 528.17x15
-    text 748.17,866 81.25x15 "Elwynn Forest" #e8dcc4
-    box 836.08,866 31.25x15 @click
-      text 836.08,866 31.25x15 "12:30" #ff9933
+  box 543.67,865.7 528.17x15.6
+    text 742.75,865.7 87.78x15.6 "Elwynn Forest" #e8dcc4 centred
+    box 837.19,865.7 35.56x15.6 @click
+      text 837.19,865.7 35.56x15.6 "12:30" #ff9933
   box 1071.83,847 528.17x53
-    box 1357.33,847 101x53
-      box 1357.33,847 49.67x53
-        box 1357.33,847 49.67x53 #00000000
-          box 1364.67,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 1383.54,879.25 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 1386.87,879.41 10.83x13 "12" #ffffff
-          embed 1357.33,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
-      box 1407,847 51.33x53
-        box 1407,857.6 1.67x31.8 #0a0603d9
-        box 1408.67,847 49.67x53 #00000000
-          box 1416,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
-          embed 1408.67,847 49.67x53 absolute frame=GuildMicroButton opacity=0
-    box 1465,866 135x15
-      text 1465,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1550,866 50x15 "12 Marks" #e8dcc4
+    box 1346.78,847 101x53
+      box 1346.78,847 49.67x53
+        box 1346.78,847 49.67x53 #00000000
+          box 1354.11,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
+          box 1369.37,877.58 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 1372.71,877.88 14.44x14.4 "12" #ffffff centred
+          embed 1346.78,847 49.67x53 absolute frame=QuickJoinToastButton opacity=0
+      box 1396.44,847 51.33x53
+        box 1396.44,857.6 1.67x31.8 #0a0603d9
+        box 1398.11,847 49.67x53 #00000000
+          box 1405.44,856 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
+          embed 1398.11,847 49.67x53 absolute frame=GuildMicroButton opacity=0
+    box 1454.44,865.7 145.56x15.6
+      text 1454.44,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1545.56,865.7 54.44x15.6 "12 Marks" #e8dcc4
 surface 0,776 128x124 on MEDIUM face:player in a helm cut by Interface\AddOns\Ordaen\media\portrait-mask
   embed 0,776 128x124 absolute frame=CharacterMicroButton opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 101.58,791.8 6.25x15 "1" #b88f57
+    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
 surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
   box 495.25,823.42 609.5x56.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 512.17,840.33 580.67x25
@@ -3086,7 +3086,7 @@ surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 544.17,840.33 516.67x25 absolute
-          text 748.33,846.33 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
+          text 741.39,845.63 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
         box 548.07,844.24 508.85x17.19 absolute
           box 548.07,844.24 478.32x17.19
           box 1026.4,844.24 30.53x17.19 @enter @leave
@@ -3097,8 +3097,8 @@ surface 1203.5,805.42 386.5x84.58 on MEDIUM clamped
       box 1220.42,822.33 49.67x53
         box 1220.42,822.33 49.67x53 #00000000
           box 1227.75,831.33 35x35 absolute icon=130716
-          box 1254.42,860 10.83x13 absolute
-            text 1254.42,860 10.83x13 "23" #ffffff
+          box 1250.81,858.6 14.44x14.4 absolute
+            text 1250.81,858.6 14.44x14.4 "23" #ffffff
           embed 1220.42,822.33 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1270.08,822.33 51.33x53
         box 1270.08,832.93 1.67x31.8 #0a0603d9
@@ -3159,7 +3159,7 @@ surface 495.25,823.42 609.5x56.58 on MEDIUM clamped
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
         box 544.17,840.33 516.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
         box 544.17,840.33 516.67x25 absolute
-          text 748.33,846.33 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
+          text 741.39,845.63 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
         box 548.07,844.24 508.85x17.19 absolute
           box 548.07,844.24 478.32x17.19
           box 1026.4,844.24 30.53x17.19 @enter @leave
@@ -3170,8 +3170,8 @@ surface 1203.5,805.42 386.5x84.58 on MEDIUM clamped
       box 1220.42,822.33 49.67x53
         box 1220.42,822.33 49.67x53 #00000000
           box 1227.75,831.33 35x35 absolute icon=130716
-          box 1254.42,860 10.83x13 absolute
-            text 1254.42,860 10.83x13 "23" #ffffff
+          box 1250.81,858.6 14.44x14.4 absolute
+            text 1250.81,858.6 14.44x14.4 "23" #ffffff
           embed 1220.42,822.33 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1270.08,822.33 51.33x53
         box 1270.08,832.93 1.67x31.8 #0a0603d9
@@ -3256,19 +3256,19 @@ surface 660,805.42 129.83x84.58 on MEDIUM clamped
       box 676.92,822.33 49.67x53
         box 676.92,822.33 49.67x53 #00000000
           box 684.25,831.33 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-social
-          box 703.12,854.58 17.5x13.33 absolute Interface\AddOns\Ordaen\media\panel-count-badge
-            text 706.46,854.75 10.83x13 "12" #ffffff
+          box 699.51,852.91 21.11x15 absolute Interface\AddOns\Ordaen\media\panel-count-badge
+            text 702.85,853.21 14.44x14.4 "12" #ffffff centred
           embed 676.92,822.33 49.67x53 absolute frame=QuickJoinToastButton opacity=0
       box 726.58,822.33 51.33x53
         box 726.58,832.93 1.67x31.8 #0a0603d9
         box 728.25,822.33 49.67x53 #00000000
           box 735.58,831.33 35x35 absolute Interface\AddOns\OrdaenPanel\assets\micro-guildcommunities
           embed 728.25,822.33 49.67x53 absolute frame=GuildMicroButton opacity=0
-surface 1106.17,833.42 163.83x46.58 on MEDIUM clamped
-  box 1106.17,833.42 163.83x46.58 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
-    box 1123.08,850.33 135x15
-      text 1123.08,850.33 75x15 "123g 45s 67c" #e8dcc4
-      text 1208.08,850.33 50x15 "12 Marks" #e8dcc4
+surface 1095.61,832.82 174.39x47.18 on MEDIUM clamped
+  box 1095.61,832.82 174.39x47.18 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+    box 1112.53,849.73 145.56x15.6
+      text 1112.53,849.73 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1203.64,849.73 54.44x15.6 "12 Marks" #e8dcc4
 
 the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ours
 
@@ -3276,44 +3276,44 @@ the game's menu: opacity 0, its bag bar shown: false, a menu button's parent: ou
 surface 0,832.75 1600x67.25 on MEDIUM Interface\AddOns\Ordaen\media\window-wood opacity=1
   box 0,873.5 533.33x0
   box 533.33,861 533.33x25
-    box 533.33,861 407.5x25
-      box 565.33,861 343.5x25 @enter @leave
-        box 565.33,861 343.5x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
-        box 569.24,864.91 335.69x17.19 absolute
-          box 569.24,864.91 335.69x17.19 absolute #6e96d129
-          box 569.24,864.91 315.55x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-          box 569.24,864.91 335.69x17.19 absolute
-            box 569.24,864.91 33.57x17.19
-            box 602.81,864.91 33.57x17.19
-            box 636.38,864.91 33.57x17.19
-            box 669.95,864.91 33.57x17.19
-            box 703.51,864.91 33.57x17.19
-            box 737.08,864.91 33.57x17.19
-            box 770.65,864.91 33.57x17.19
-            box 804.22,864.91 33.57x17.19
-            box 837.79,864.91 33.57x17.19
-            box 871.36,864.91 33.57x17.19
-        box 565.33,861 343.5x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
-        box 565.33,861 343.5x25 absolute Interface\AddOns\Ordaen\media\xp-tube
-        box 565.33,861 343.5x25 absolute
-          text 682.92,867 108.33x13 "9 400 / 10 000 (94%)" #f3e7cc
-        box 569.24,864.91 335.69x17.19 absolute
-          box 569.24,864.91 315.55x17.19
-          box 884.79,864.91 20.14x17.19 @enter @leave
-          box 904.93,864.91 0x17.19
-    text 947.5,866 81.25x15 "Elwynn Forest" #e8dcc4
-    box 1035.42,866 31.25x15 @click
-      text 1035.42,866 31.25x15 "12:30" #ff9933
+    box 533.33,861 396.67x25
+      box 565.33,861 332.67x25 @enter @leave
+        box 565.33,861 332.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-trough
+        box 569.24,864.91 324.85x17.19 absolute
+          box 569.24,864.91 324.85x17.19 absolute #6e96d129
+          box 569.24,864.91 305.36x17.19 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+          box 569.24,864.91 324.85x17.19 absolute
+            box 569.24,864.91 32.49x17.19
+            box 601.73,864.91 32.49x17.19
+            box 634.21,864.91 32.49x17.19
+            box 666.7,864.91 32.49x17.19
+            box 699.18,864.91 32.49x17.19
+            box 731.67,864.91 32.49x17.19
+            box 764.15,864.91 32.49x17.19
+            box 796.64,864.91 32.49x17.19
+            box 829.12,864.91 32.49x17.19
+            box 861.61,864.91 32.49x17.19
+        box 565.33,861 332.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube-shine
+        box 565.33,861 332.67x25 absolute Interface\AddOns\Ordaen\media\xp-tube
+        box 565.33,861 332.67x25 absolute
+          text 670.56,866.3 122.22x14.4 "9 400 / 10 000 (94%)" #f3e7cc centred
+        box 569.24,864.91 324.85x17.19 absolute
+          box 569.24,864.91 305.36x17.19
+          box 874.6,864.91 19.49x17.19 @enter @leave
+          box 894.09,864.91 0x17.19
+    text 936.67,865.7 87.78x15.6 "Elwynn Forest" #e8dcc4
+    box 1031.11,865.7 35.56x15.6 @click
+      text 1031.11,865.7 35.56x15.6 "12:30" #ff9933
   box 1066.67,847 533.33x53
-    box 1100.67,866 135x15
-      text 1100.67,866 75x15 "123g 45s 67c" #e8dcc4
-      text 1185.67,866 50x15 "12 Marks" #e8dcc4
+    box 1090.11,865.7 145.56x15.6
+      text 1090.11,865.7 81.11x15.6 "123g 45s 67c" #e8dcc4
+      text 1181.22,865.7 54.44x15.6 "12 Marks" #e8dcc4
     box 1242.33,847 357.67x53
       box 1242.33,847 49.67x53
         box 1242.33,847 49.67x53 #00000000
           box 1249.67,856 35x35 absolute icon=130716
-          box 1276.33,884.67 10.83x13 absolute
-            text 1276.33,884.67 10.83x13 "23" #ffffff
+          box 1272.72,883.27 14.44x14.4 absolute
+            text 1272.72,883.27 14.44x14.4 "23" #ffffff
           embed 1242.33,847 49.67x53 absolute frame=MainMenuBarBackpackButton opacity=0
       box 1292,847 51.33x53
         box 1292,857.6 1.67x31.8 #0a0603d9

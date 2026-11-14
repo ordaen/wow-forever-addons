@@ -2,7 +2,7 @@
 surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
   box 600,318.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
     box 612.75,331.38 379.5x276.75
-      text 632.75,351.38 339.5x15 "the page" #ffffff
+      text 632.75,351.38 339.5x15.6 "the page" #ffffff
     box 941.08,330.46 52.5x26.67 absolute clipped
       box 941.08,330.46 29.17x26.67 absolute clipped @click
         box 941.08,330.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
@@ -14,4 +14,4 @@ surface 600,281.38 400x337.25 on DIALOG clamped raised by a click
   box 600,281.38 114.5x47.75
     box 600,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
       box 618.58,291.62 77.33x34.25
-        text 635.38,301.25 43.75x15 "Recipes" #ffd100
+        text 633.36,300.95 47.78x15.6 "Recipes" #ffd100 centred

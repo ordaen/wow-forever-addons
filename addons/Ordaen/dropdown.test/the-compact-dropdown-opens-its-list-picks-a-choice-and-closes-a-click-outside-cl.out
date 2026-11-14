@@ -1,36 +1,36 @@
 -- closed: the plate with the picked choice in gold
-box 0,0 500x31
+box 0,0 500x31.6
   box 0,0 170x28.33
     box 0,0 170x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-      text 10,6.67 135x15 "By difficulty" #f0c860
+      text 10,6.37 135x15.6 "By difficulty" #f0c860
       box 150,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 210,0 53.5x31 @click
-    text 218,8 37.5x15 "Beside" #ffffff
+  box 210,0 58.22x31.6 @click
+    text 218,8 42.22x15.6 "Beside" #ffffff
 
 -- opened: the three choices under the plate, the picked one's mark lit, the third dim with its note
-box 0,0 500x31
+box 0,0 500x31.6
   box 0,0 170x28.33
     box 0,0 170x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-      text 10,6.67 135x15 "By difficulty" #f0c860
+      text 10,6.37 135x15.6 "By difficulty" #f0c860
       box 150,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 210,0 53.5x31 @click
-    text 218,8 37.5x15 "Beside" #ffffff
-surface 0,28.33 203.33x81.67 on FULLSCREEN_DIALOG #0a0806f7
-  box 0.83,34.17 201.67x23.33 #00000000 @click
+  box 210,0 58.22x31.6 @click
+    text 218,8 42.22x15.6 "Beside" #ffffff
+surface 0,28.33 203.89x83.47 on FULLSCREEN_DIALOG #0a0806f7
+  box 0.83,34.17 202.22x23.93 #00000000 @click
     box 9.17,41.67 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2
-    text 25.83,38.33 165x15 "By difficulty" #ffffff
-  box 0.83,57.5 201.67x23.33 #00000000 @click
-    box 9.17,65 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 25.83,61.67 165x15 "By name" #ffffff
-  box 0.83,80.83 201.67x23.33 #00000000 @click
-    box 9.17,88.33 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
-    text 25.83,85 165x15 "By price — in development" #ffffff
+    text 25.83,38.33 165.56x15.6 "By difficulty" #ffffff
+  box 0.83,58.1 202.22x23.93 #00000000 @click
+    box 9.17,65.6 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 25.83,62.27 165.56x15.6 "By name" #ffffff
+  box 0.83,82.03 202.22x23.93 #00000000 @click
+    box 9.17,89.53 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
+    text 25.83,86.2 165.56x15.6 "By price — in development" #ffffff
 
 -- a choice clicked: it is the plate's now, the list closed
-box 0,0 500x31
+box 0,0 500x31.6
   box 0,0 170x28.33
     box 0,0 170x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-      text 10,6.67 135x15 "By name" #f0c860
+      text 10,6.37 135x15.6 "By name" #f0c860
       box 150,7.5 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
-  box 210,0 53.5x31 @click
-    text 218,8 37.5x15 "Beside" #ffffff
+  box 210,0 58.22x31.6 @click
+    text 218,8 42.22x15.6 "Beside" #ffffff

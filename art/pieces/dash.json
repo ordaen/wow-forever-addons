@@ -1,0 +1,5 @@
+{
+  "says": "A dashed line, repeated along a box at its height (a `tile` piece), tinted where it is drawn: the locked tooltip's underline under a text that opens another tooltip.",
+  "ships": ["addons/OrdaenTooltips/assets/dash.tga"],
+  "origin": "Written texel by texel: 8 x 1, 32 bits, four white opaque texels then four clear ones. The file is the source."
+}
