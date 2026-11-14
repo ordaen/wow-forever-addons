@@ -104,6 +104,26 @@ test "what develop's build kept reads back: its settings as «Default», what mo
   Test.expect(Game.saved.stored(.Account, "Ordaen:look") == nil)
 }
 
+test "what develop kept for a module that loads after «Default» was renamed moves into the profile that is the account's now" {
+  const settings: Map<String, Unknown> = {}
+  settings["OrdaenMinimap"] = Probe { scale: 1.5 }
+  const account: Map<String, Unknown> = {}
+  account["settings"] = settings
+  Test.saved("LunaTypeDB", account)
+  Test.reload()
+  const profiles = Ordaen.keeper.profiles
+  const next = profiles.edit()
+  next.renamed(DEFAULT_PROFILE, "Main")
+  profiles.apply(next)
+  Test.expect(profiles.kept.picks.account == "Main")
+  const section = profiles.section("Main", "OrdaenMinimap")
+  Test.expect(Probe.decode(section, Probe {}).scale == 1.5)
+  const main = profiles.kept.profiles["Main"]
+  Test.expect(main != nil && main.sections["OrdaenMinimap"] != nil)
+  Test.expect(profiles.kept.profiles[DEFAULT_PROFILE] == nil)
+  Test.expect(Game.saved.stored(.Account, "OrdaenMinimap") == nil)
+}
+
 test "what a module remembers is written whole by its own method" {
   const memory = new Memory<Remembered>(Remembered {}, .Account)
   memory.write(Remembered { last: "Mining" })

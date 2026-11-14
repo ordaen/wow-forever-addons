@@ -176,6 +176,46 @@ test "a profile is picked by its dropdown, and the pick for the character, the c
   Test.expect(!page.hasSpec)
 }
 
+test "a profile in use is renamed in every pick of it, and deleted with the character falling back to the next rule" {
+  const page = new ProfilesPage()
+  Test.mount(page, PAGE)
+  const profiles = Ordaen.keeper.profiles
+  const me = profiles.who().character ?? panic("the stand-in's player has a GUID")
+  // The account's default is renamed before anything is kept in it.
+  typeName("Main")
+  click(Test.holding("Rename", nil))
+  Test.expect(profiles.active == "Main" && page.chosen == "Main" && profiles.kept.picks.account == "Main")
+  Test.expect(profiles.names.length == 1)
+  typeName("Raid")
+  click(Test.holding("New", nil))
+  tick(CHARACTER)
+  Test.expect(profiles.active == "Raid" && page.chosen == "Raid")
+  typeName("Raids")
+  click(Test.holding("Rename", nil))
+  Test.expect(profiles.active == "Raids" && page.chosen == "Raids" && profiles.kept.picks.byCharacter[me] == "Raids")
+  Test.expect(page.note == Locale.PROFILES_NOTE_RENAMED.format("Raids"))
+
+  // Asked about the changes waiting first; «Cancel» leaves the name and the note unsaid.
+  Ordaen.globals.draft.density = .Roomy
+  Test.flush()
+  typeName("Raiders")
+  click(Test.holding("Rename", nil))
+  Test.expect(page.askingSwitch && profiles.active == "Raids" && page.note != Locale.PROFILES_NOTE_RENAMED.format("Raiders"))
+  click(Test.holding("Cancel", nil))
+  Test.expect(profiles.active == "Raids" && page.chosen == "Raids")
+  typeName("Raiders")
+  click(Test.holding("Rename", nil))
+  click(Test.holding("Don't save", nil))
+  Test.expect(profiles.active == "Raiders" && page.note == Locale.PROFILES_NOTE_RENAMED.format("Raiders"))
+
+  click(Test.holding("Delete", 1))
+  click(Test.holding("Delete", 2))
+  Test.expect(profiles.active == "Main" && profiles.why == Why.Account && page.chosen == "Main")
+  Test.expect(profiles.kept.picks.byCharacter[me] == nil && profiles.names.length == 1)
+  Test.expect(page.note == Locale.PROFILES_NOTE_DELETED.format("Raiders"))
+  shown("«Raiders» deleted while in use for the character: «Main» again, by the account's pick")
+}
+
 test "a pick that switches the profile asks about the changes waiting: Cancel keeps them, Don't save drops them, Save keeps them in the profile left" {
   const page = new ProfilesPage()
   Test.mount(page, PAGE)

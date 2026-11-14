@@ -204,6 +204,7 @@ public class ProfilesPage implements Component {
   // The change asked about, and the profile the page is on once it is made.
   pending: ((next: mut Kept) => nil) | nil = nil
   pendingChosen = ""
+  pendingNote = ""
 
   constructor() {
     self.profiles = Ordaen.keeper.profiles
@@ -349,18 +350,21 @@ public class ProfilesPage implements Component {
   }
 
   // A pick that changes what this character uses asks about the unsaved changes first; any other is made.
-  request(mut self, change: (next: mut Kept) => nil, chosen: String) {
+  // `note` is said once it is made (nothing where it is empty).
+  request(mut self, change: (next: mut Kept) => nil, chosen: String, note: String) {
     const next = self.profiles.edit()
     change(mut next)
     if (Ordaen.keeper.unsaved > 0 && self.profiles.switches(next)) {
       self.pending = change
       self.pendingChosen = chosen
+      self.pendingNote = note
       self.ask = Ask.Switch
       return
     }
     self.profiles.apply(next)
     self.chosen = chosen
     self.epoch += 1
+    if (note != "") { self.say("", note) }
   }
 
   // The answer to the question: the change is made anew on what is kept now.
@@ -374,6 +378,7 @@ public class ProfilesPage implements Component {
     self.profiles.apply(next)
     self.chosen = self.pendingChosen
     self.epoch += 1
+    if (self.pendingNote != "") { self.say("", self.pendingNote) }
   }
 
   onSwitchSave(mut self) {
@@ -407,11 +412,11 @@ public class ProfilesPage implements Component {
     const tag = who.classTag
     const name: String | nil = on ? chosen : nil
     if (use == Use.Character) {
-      self.request((next: mut Kept) => next.picks.forCharacter(guid, name), chosen)
+      self.request((next: mut Kept) => next.picks.forCharacter(guid, name), chosen, "")
     } else if (use == Use.Class) {
-      self.request((next: mut Kept) => next.picks.forClass(tag, name), chosen)
+      self.request((next: mut Kept) => next.picks.forClass(tag, name), chosen, "")
     } else {
-      self.request((next: mut Kept) => next.picks.setAccount(chosen), chosen)
+      self.request((next: mut Kept) => next.picks.setAccount(chosen), chosen, "")
     }
   }
 
@@ -420,7 +425,7 @@ public class ProfilesPage implements Component {
     if (name == self.specOf(guid, index)) { return }
     self.fault = ""
     self.note = ""
-    self.request((next: mut Kept) => next.picks.forSpec(guid, index, name == "" ? nil : name), self.chosen)
+    self.request((next: mut Kept) => next.picks.forSpec(guid, index, name == "" ? nil : name), self.chosen, "")
   }
 
   onNew(mut self) {
@@ -437,9 +442,8 @@ public class ProfilesPage implements Component {
     const to = self.typed()
     if (to == nil) { return }
     const from = self.chosen
-    self.request((next: mut Kept) => next.renamed(from, to), to)
+    self.request((next: mut Kept) => next.renamed(from, to), to, Locale.PROFILES_NOTE_RENAMED.format(to))
     self.name = ""
-    self.say("", Locale.PROFILES_NOTE_RENAMED.format(to))
   }
 
   onDelete(mut self) {
@@ -455,8 +459,7 @@ public class ProfilesPage implements Component {
     const gone = self.chosen
     self.ask = Ask.None
     const after = self.afterDelete(gone)
-    self.request((next: mut Kept) => next.without(gone), after)
-    self.say("", Locale.PROFILES_NOTE_DELETED.format(gone))
+    self.request((next: mut Kept) => next.without(gone), after, Locale.PROFILES_NOTE_DELETED.format(gone))
   }
 
   // The profile this character would use once `gone` is.

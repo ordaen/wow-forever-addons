@@ -94,6 +94,8 @@ public struct Kept implements Plain {
 
   // The profile under another name, in its picks too.
   public renamed(mut self, from: String, to: String) {
+    // The account's default is there before anything is kept in it.
+    if (self.profiles[from] == nil) { self.profiles[from] = Profile {} }
     const profile = self.profiles[from]
     if (profile == nil) { return }
     self.profiles[from] = nil
@@ -210,7 +212,8 @@ public class Profiles {
       const packed = Game.encoding.serialize(before)
       // A client that can't pack it: it is read as it was kept, and stays there.
       if (packed == nil) { return before }
-      self.put(DEFAULT_PROFILE, key, packed)
+      // «Default» as it is named now: the account's default pick, which the player may have renamed.
+      self.put((peek self.kept).picks.account, key, packed)
       Game.saved.forget(.Account, key)
     }
     const profile = (peek self.kept).profiles[name]
