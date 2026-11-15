@@ -126,6 +126,20 @@ test "what is worth, what an item is for and where it is stand in that order, wh
   destroy worth
 }
 
+test "an added row is asked once for an item, and not again when the same item shows again" {
+  Test.mount(nil, SCREEN)
+  let asked = 0
+  const added = Tooltips.worth.add(new Priced((): nil => { asked += 1 }))
+  Game.tooltip.main = showing(ore())
+  Test.flush()
+  Game.tooltip.main = hidden()
+  Test.pass(0.3)
+  Game.tooltip.main = showing(ore())
+  Test.flush()
+  Test.expect(asked == 1)
+  destroy added
+}
+
 test "an item's rows aren't asked for a world object, and its rows stand in the object's tooltip" {
   Test.mount(nil, SCREEN)
   let asked = 0
