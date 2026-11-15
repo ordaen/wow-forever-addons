@@ -28,6 +28,8 @@ const PICKED: Color = Color.hex("#00000040")
 // A list's ground; a line of a menu that takes no click.
 const LISTS: Color = Color.hex("#0000004d")
 const MENU_DIM: Color = Color.hex("#6f6552")
+// A category picked.
+const CATEGORY: Color = Color.hex("#d6a56b3d")
 // The player's case: a warhammer whose random suffixes are variants of their own. A key is the item's id and its
 // suffix × 2^20.
 const WARHAMMER: Integer = 15216
@@ -232,13 +234,14 @@ test "sorted by the market, the share or the age" {
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
   _ = Test.requests()
   Game.clock.server = START + 2 * HOUR
-  Game.auctionQuery.results.emit([{ key: ORE, copper: 45, quantity: 40 }, { key: LINEN, copper: 36, quantity: 30 }])
+  // Ore shown again with none listed: its price stays as it was seen two hours ago, half its market now.
+  Game.auctionQuery.results.emit([{ key: ORE, copper: 45, quantity: 0 }, { key: LINEN, copper: 36, quantity: 30 }])
   window().button("Market").click()
   Test.expect(before("Linen Cloth", "Copper Ore"))
   window().button("%").click()
   Test.expect(before("Copper Ore", "Linen Cloth"))
   window().button("Age").click()
-  Test.expect(before("Copper Ore", "Linen Cloth"))
+  Test.expect(before("Linen Cloth", "Copper Ore"))
 }
 
 test "variants: each a row named with its suffix, its own lowest and its own market's share" {
@@ -493,7 +496,7 @@ test "more than the listings hold can't be bought" {
   panel().button("+").click()
   _ = Test.requests()
   panel().button("Buy").click()
-  Test.expect(asked(""))
+  Test.expect(asked("") && says(panel(), "Total", "0g 0s 0c") && panel().button("Buy").paintedWith(Ordaen.art.ctl.buttonDisabled))
 }
 
 test "an item picked: its cheapest auction with a buyout, not the player's own, bought out from the click" {
@@ -530,7 +533,7 @@ test "an item with no auction to buy out can't be bought" {
   Game.auctionQuery.listed.emit(AXE, [{ auction: 71, unit: 0, quantity: 1, bid: 1500, left: 3600, own: false, commodity: false }])
   _ = Test.requests()
   panel().button("Buy").click()
-  Test.expect(asked(""))
+  Test.expect(asked("") && says(panel(), "Quantity", "0") && says(panel(), "Total", "0g 0s 0c"))
 }
 
 test "a purchase the client refuses says its words in red under the total" {
@@ -841,4 +844,146 @@ test "a name is drawn in its quality's colour, or the colour of its tooltip's fi
   ])
   Test.expect(window().text("Linen Cloth").textColor().equal(GREEN) && window().text("Copper Ore").textColor().equal(AMBER))
   Test.expect(window().text("Bronze Axe").textColor().equal(INK))
+}
+
+// More of the list
+
+test "the age column says hours to the 23rd, then the market's days" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Game.auctionHouse.open = false
+  Test.flush()
+  Game.clock.server = START + 23 * HOUR
+  Game.auctionHouse.open = true
+  Test.expect(window().text("Linen Cloth").item().text("23 h").shown())
+  Game.auctionHouse.open = false
+  Test.flush()
+  Game.clock.server = START + 24 * HOUR
+  Game.auctionHouse.open = true
+  Test.expect(window().text("Linen Cloth").item().text("(1 d.)").shown())
+}
+
+test "with prices kept, a search that finds nothing says so" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Game.auctionQuery.results.emit([])
+  Test.expect(window().text("Nothing found. Find an item by name.").shown())
+}
+
+test "what is typed finds the last row as the first" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  window().input().type("ore")
+  Test.pass(0.3)
+  Test.expect(window().text("Copper Ore").shown() && !window().text("Linen Cloth").shown())
+}
+
+test "the row picked is marked, and the subclass picked" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  window().text("Linen Cloth").click()
+  Test.expect(window().text("Linen Cloth").nth(1).item().paintedWith(PICKED))
+  Test.expect(!window().text("Copper Ore").item().paintedWith(PICKED))
+  window().text("Weapon").click()
+  window().text("Daggers").click()
+  Test.expect(window().text("Daggers").item().paintedWith(CATEGORY) && !window().text("One-Handed Axes").item().paintedWith(CATEGORY))
+}
+
+test "the filter's last level band and last quality are said in its tip" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().window("Any quality").text("51–60").click()
+  Test.page().window("Any quality").text("Epic").click()
+  window().text("All items").click()
+  window().button(Ordaen.art.ctl.tool.filter).hover()
+  Test.expect(Test.page().window("Filter").texts().join(" | ") == "Filter | 51–60, Epic")
+}
+
+test "one row an item: picked, it is its cheapest variant, whose prices the panel shows; its menu opens under it" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.items.variant = variants
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button(Ordaen.art.ctl.tool.list).click()
+  Test.page().text("One row an item").click()
+  Test.expect(window().text("No prices for this realm: the first scan is under way. Find an item by name.").shown())
+  Game.auctionQuery.results.emit([
+    { key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 },
+    { key: WARHAMMER + EAGLE * SUFFIXED, copper: 933, quantity: 1 }
+  ])
+  window().text("Sergeant's Warhammer").click()
+  Test.expect(window().text("Sergeant's Warhammer").nth(1).item().paintedWith(PICKED))
+  Test.expect(says(panel(), "Market", "0g 9s 33c"))
+  window().text("Sergeant's Warhammer").nth(1).rightClick()
+  Test.expect(Test.page().window("Search for this item").shown())
+  Test.page().window("Search for this item").text("Add to shopping list").click()
+  Test.expect(window().text("Sergeant's Warhammer").nth(1).item().paintedWith(LISTED))
+}
+
+test "a quantity the listings hold exactly can be bought; the quantity's listings marked, the next not" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  window().text("Linen Cloth").click()
+  Game.auctionQuery.listed.emit(LINEN, [
+    { auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true },
+    { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true },
+    { auction: 0, unit: 45, quantity: 5, left: 86400, own: false, commodity: true }
+  ])
+  Game.input.shiftDown = (): Boolean => true
+  panel().button("+").click()
+  Game.input.shiftDown = (): Boolean => false
+  panel().button("-").click()
+  Test.expect(says(panel(), "Quantity", "- | 10 | +"))
+  Test.expect(panel().text("10").nth(1).item().paintedWith(PICKED) && !panel().text("20").item().paintedWith(PICKED))
+  Game.input.shiftDown = (): Boolean => true
+  panel().button("+").click()
+  panel().button("+").click()
+  Game.input.shiftDown = (): Boolean => false
+  for (i of 1..=5) { panel().button("+").click() }
+  Test.expect(says(panel(), "Quantity", "- | 35 | +") && panel().text("5").item().paintedWith(PICKED))
+  _ = Test.requests()
+  panel().button("Buy").click()
+  Test.expect(asked("AuctionActions.startPurchase 2589 35"))
+}
+
+test "the picked row's panel charts its history" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  window().text("Linen Cloth").click()
+  Test.expect(!panel().text("No price history yet.").shown())
+}
+
+test "a shopping list's item is marked in a row an item too" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: ORE, copper: 90, quantity: 40 }])
+  window().text("Linen Cloth").rightClick()
+  Test.page().window("Search for this item").text("Add to shopping list").click()
+  window().button(Ordaen.art.ctl.tool.list).click()
+  Test.page().text("One row an item").click()
+  Test.expect(window().text("Linen Cloth").nth(1).item().paintedWith(LISTED) && !window().text("Copper Ore").item().paintedWith(LISTED))
 }

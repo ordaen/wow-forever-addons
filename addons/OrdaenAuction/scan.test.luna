@@ -397,7 +397,7 @@ test "what one brings is the lesser of the market and a fresh lowest, less the c
   Test.expect(window().text("Copper Ore").item().text("Auction").shown())
 }
 
-test "a full scan drops what was unseen for 30 days" {
+test "a full scan drops what was unseen past 30 days: its market and its lowest" {
   Game.clock.server = START
   Game.items.tooltip = names
   Game.auctionActions.sellable = bags
@@ -406,12 +406,13 @@ test "a full scan drops what was unseen for 30 days" {
   Game.auctionQuery.results.emit([{ key: LINEN, copper: 40, quantity: 1 }])
   Game.clock.server = START + 20 * HOUR
   Game.auctionQuery.results.emit([{ key: BLADE, copper: 9000, quantity: 1 }])
-  Game.clock.server = START + 731 * HOUR
+  Game.clock.server = START + 721 * HOUR
   const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 1 }]
   Game.auctionScan.read = reader(sold)
   scanned(sold)
   Test.expect(window().text("Prices: just now · 2 items").shown())
-  Test.expect(says(panel("Linen Cloth"), "Market", "—"))
+  const shown = panel("Linen Cloth")
+  Test.expect(says(shown, "Market", "—") && says(shown, "Lowest", "—"))
 }
 
 test "a browse's prices are kept as the house shuts, and read back the same after a reload" {
@@ -536,4 +537,81 @@ test "a full scan keeps what was seen 30 days ago to the hour" {
   Game.auctionScan.read = reader(sold)
   scanned(sold)
   Test.expect(window().text("Prices: just now · 2 items").shown())
+}
+
+test "what one brings counts the lowest to its 48th hour, and nothing past 30 days" {
+  Game.clock.server = START
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [ORE]: 96 } }
+  Game.merchant.opened.emit()
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = bags
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  // The market 107, the lowest 100: 95 after the cut while the lowest counts, 101 after.
+  const sold: Array<Sale> = [{ key: ORE, unit: 100, many: 2 }, { key: ORE, unit: 300, many: 10 }, { key: ORE, unit: 120, many: 1 }]
+  Game.auctionScan.read = reader(sold)
+  scanned(sold)
+  Game.clock.server = START + 48 * HOUR
+  window().button("Sell").click()
+  Test.expect(window().text("Copper Ore").item().text("Vendor").shown())
+  Game.clock.server = START + 720 * HOUR
+  Game.bags.changed.emit()
+  Test.expect(window().text("Copper Ore").item().text("Auction").shown())
+  // Past 30 days the house has no price: the merchant's alone.
+  Game.clock.server = START + 721 * HOUR
+  Game.bags.changed.emit()
+  Test.expect(window().text("Copper Ore").item().texts().join(" | ") == "Copper Ore | 1 | — | 0g 0s 96c | Vendor")
+}
+
+test "the prices' age: just now under a minute, minutes from one, hours from one" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const sold: Array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
+  Game.auctionScan.read = reader(sold)
+  scanned(sold)
+  // Each second passed moves the server's time a second.
+  Game.clock.server = START + 58
+  Test.pass(1.1)
+  Test.expect(window().text("Prices: just now · 1 item").shown())
+  Game.clock.server = START + 59
+  Test.pass(1.1)
+  Test.expect(window().text("Prices: 1 min ago · 1 item").shown())
+  Game.clock.server = START + 358
+  Test.pass(1.1)
+  Test.expect(window().text("Prices: 5 min ago · 1 item").shown())
+  Game.clock.server = START + 3598
+  Test.pass(1.1)
+  Test.expect(window().text("Prices: 59 min ago · 1 item").shown())
+  Game.clock.server = START + 3599
+  Test.pass(1.1)
+  Test.expect(window().text("Prices: 1 h ago · 1 item").shown())
+}
+
+test "«Data» after a scan of one auction counts it" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const sold: Array<Sale> = [{ key: LINEN, unit: 40, many: 20 }]
+  Game.auctionScan.read = reader(sold)
+  scanned(sold)
+  Test.expect(says(data(), "Auctions and items in it", "1 auction, 1 item"))
+}
+
+test "the ledger keeps a row 90 days to the hour, and 1,000 rows at most" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Auction.ledger.record({ kind: "seller", item: "Linen Cloth", other: "Regron", copper: 500, count: 9 })
+  Game.clock.server = START + 2160 * HOUR
+  Auction.ledger.record({ kind: "buyer", item: "Copper Ore", other: nil, copper: 300, count: 20 })
+  const page = data()
+  Test.expect(says(page, "Sold: 1", "0g 5s 0c"))
+  for (index of 1..=998) { Auction.ledger.record({ kind: "buyer", item: "Copper Ore", other: nil, copper: 1, count: 1 }) }
+  Test.expect(page.text("Sold: 1").shown() && page.text("Bought: 999").shown())
+  Auction.ledger.record({ kind: "buyer", item: "Copper Ore", other: nil, copper: 1, count: 1 })
+  Test.expect(page.text("Sold: 0").shown() && page.text("Bought: 1000").shown())
 }
