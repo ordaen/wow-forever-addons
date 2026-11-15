@@ -52,27 +52,35 @@ function rank(difficulty: Game.Difficulty): Integer {
 
 // Whether `a` stands before `b`: a total order (the name and then the number settle a tie), as Lua's sort asks.
 public function before(sort: SortBy, a: Game.Recipe, b: Game.Recipe): Boolean {
-  if (sort == SortBy.Makeable && a.craftable != b.craftable) { return a.craftable > b.craftable }
+  if (sort == SortBy.Makeable) {
+    if (a.craftable > b.craftable) { return true }
+    if (a.craftable < b.craftable) { return false }
+  }
   if (sort == SortBy.Difficulty) {
     if (a.learned != b.learned) { return a.learned }
-    if (rank(a.difficulty) != rank(b.difficulty)) { return rank(a.difficulty) < rank(b.difficulty) }
+    const x = rank(a.difficulty)
+    const y = rank(b.difficulty)
+    if (x < y) { return true }
+    if (y < x) { return false }
   }
   if (a.name != b.name) { return a.name < b.name }
   return a.id < b.id
 }
 
-// The table's order: by its column (1 the name, 2 how many can be made now), then by name, then by number.
-// By a column of the table: 1 the name, 2 how many can be made, 3 the cost, 4 the profit (`worth`, by recipe; one with
-// no price after every one with a price, either way).
+// The table's order by a column: 1 the name, 2 how many can be made, 3 the cost, 4 the profit (`worth`, by recipe;
+// one with no price after every one with a price, either way); then by name, then by number.
 public function tableBefore(
   column: Integer, descending: Boolean, worth: Map<Integer, Totals>, a: Game.Recipe, b: Game.Recipe
 ): Boolean {
   if (column == 3 || column == 4) {
     const x = worthOf(column, worth, a)
     const y = worthOf(column, worth, b)
-    if (x != nil && y == nil) { return true }
-    if (x == nil && y != nil) { return false }
-    if (x != nil && y != nil && x != y) { return descending ? x > y : x < y }
+    if (x != nil && y != nil) {
+      if (x < y) { return !descending }
+      if (y < x) { return descending }
+    } else if (x != y) {
+      return x != nil
+    }
   }
   if (descending) { return tableLess(column, b, a) }
   return tableLess(column, a, b)

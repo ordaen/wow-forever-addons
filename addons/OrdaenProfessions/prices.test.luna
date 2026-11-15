@@ -17,9 +17,10 @@ const THREAD = 2320
 const LINEN = 2589
 const CLOAK = 2570
 const APRON_RECIPE = 7623
+const BELT_RECIPE = 8776
 const APRON = 7026
 // The recipes the table lists, to read their order.
-const NAMES = ["Linen Cloak", "Bolt of Linen Cloth", "Brown Linen Vest", "Simple Apron"]
+const NAMES = ["Linen Cloak", "Bolt of Linen Cloth", "Brown Linen Vest", "Simple Apron", "Linen Belt"]
 const NOW = 1790002800
 const HOUR = 3600
 const RED: Color = Color.hex("#ff4040")
@@ -474,29 +475,35 @@ test "the table sorts by cost and by profit, a recipe with none last either way"
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = [
     recipe(CLOAK_RECIPE, "Linen Cloak", 3, Game.Difficulty.Always), recipe(BOLT_RECIPE, "Bolt of Linen Cloth", 0, Game.Difficulty.Rarely),
-    recipe(2385, "Brown Linen Vest", 0, Game.Difficulty.Usually), recipe(APRON_RECIPE, "Simple Apron", 0, Game.Difficulty.Usually)
+    recipe(2385, "Brown Linen Vest", 0, Game.Difficulty.Usually), recipe(APRON_RECIPE, "Simple Apron", 0, Game.Difficulty.Usually),
+    recipe(BELT_RECIPE, "Linen Belt", 0, Game.Difficulty.Usually)
   ]
-  // The vest takes a dye no one sells; the apron a thread.
+  // The vest takes a dye no one sells; the apron a thread, and the belt one, which sells for nothing known.
   Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => {
     if (id == 2385) { return [reagent(2324, "Gray Dye", 1, 0)] }
-    if (id == APRON_RECIPE) { return [reagent(THREAD, "Coarse Thread", 1, 0)] }
+    if (id == APRON_RECIPE || id == BELT_RECIPE) { return [reagent(THREAD, "Coarse Thread", 1, 0)] }
     return reagents(id)
   }
-  Game.recipeReader.schematic = (id: Integer): Game.Schematic | nil => id == APRON_RECIPE ? { recipe: id, makes: APRON, least: 1, most: 1, parts: [] } : schematic(id)
+  Game.recipeReader.schematic = (id: Integer): Game.Schematic | nil => {
+    if (id == APRON_RECIPE) { return { recipe: id, makes: APRON, least: 1, most: 1, parts: [] } }
+    if (id == BELT_RECIPE) { return { recipe: id, makes: 4999, least: 1, most: 1, parts: [] } }
+    return schematic(id)
+  }
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   window().button(Ordaen.art.ctl.tool.columns).click()
   Test.page().window("By category").button("Table").click()
-  // The apron: 10 c, 9 s 40 c; the cloak 1 s 10 c, 3 s 65 c; the bolt: 2 s of linen, sold at 95 c, 1 s 5 c lost.
+  // The apron: 10 c, 9 s 40 c; the belt 10 c, no profit known; the cloak 1 s 10 c, 3 s 65 c; the bolt: 2 s of linen,
+  // sold at 95 c, 1 s 5 c lost. A tie goes by name, reversed with the order.
   const order = (): String => window().texts().filter(shown => NAMES.any(name => name == shown)).join(", ")
   window().button("Cost").click()
-  Test.expect(order().contains("Simple Apron, Linen Cloak, Bolt of Linen Cloth, Brown Linen Vest"))
+  Test.expect(order().contains("Linen Belt, Simple Apron, Linen Cloak, Bolt of Linen Cloth, Brown Linen Vest"))
   window().button("Cost").click()
-  Test.expect(order().contains("Bolt of Linen Cloth, Linen Cloak, Simple Apron, Brown Linen Vest"))
+  Test.expect(order().contains("Bolt of Linen Cloth, Linen Cloak, Simple Apron, Linen Belt, Brown Linen Vest"))
   window().button("Profit").click()
-  Test.expect(order().contains("Bolt of Linen Cloth, Linen Cloak, Simple Apron, Brown Linen Vest"))
+  Test.expect(order().contains("Bolt of Linen Cloth, Linen Cloak, Simple Apron, Brown Linen Vest, Linen Belt"))
   window().button("Profit").click()
-  Test.expect(order().contains("Simple Apron, Linen Cloak, Bolt of Linen Cloth, Brown Linen Vest"))
+  Test.expect(order().contains("Simple Apron, Linen Cloak, Bolt of Linen Cloth, Linen Belt, Brown Linen Vest"))
   Test.expect(near(window().text("Bolt of Linen Cloth").nth(1).item().text("0g 1s 5c").textColor(), RED))
 }
 
