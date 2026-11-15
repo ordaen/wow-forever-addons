@@ -1575,6 +1575,19 @@ test "a count changing redraws that count alone, where the sort isn't by count" 
   Test.expect(told == "GetStringHeight=1 GetUnboundedStringWidth=1 SetText=1" && bags().text("15").shown())
 }
 
+test "an empty bag put on shows its section in the view «By bag»" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "By bag")
+  world.sizes[5] = 4
+  Game.bags.updated.emit(4)
+  Test.expect(reads(bags().text("Bag 4").item(), "Bag 4 | 0/4") && bags().button(WELL).count() == 26)
+}
+
 test "in the view «One bag», the cursor off a slot, a tooltip of its item elsewhere says nothing of the bags'" {
   let corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
   corner.SetSize(200, 80)

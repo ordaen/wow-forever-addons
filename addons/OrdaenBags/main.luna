@@ -222,6 +222,8 @@ public class Bags implements Module, App {
       }
       self.bags = bags
       self.all = all
+      // A fill says the slots too: each is made again.
+      self.used.clear()
     }
     self.infos = infos
     let changed = sized ? MOVED : 0
