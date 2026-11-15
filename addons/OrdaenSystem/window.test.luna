@@ -5,6 +5,7 @@
 // it shows; how the player left the list, kept in the profile. The client's list is the stand-in's (the runtime,
 // Ordaen, Ordaen System) and the addons a test's `World` adds after it: a test that adds them says so to the client's
 // functions that list addons, and to those that switch them where it switches one of its own.
+import Build from "$build"
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
@@ -720,6 +721,93 @@ test "switching on enables what it needs in one step, said under the list; «Und
   Test.expect(!window().text(Locale.ALSO.format("LunaType")).shown() && !window().button(Locale.UNDO).shown())
 }
 
+test "switching on enables what it needs through what those need, and names each once" {
+  Test.addon({ name: "Saddle", title: "Saddle", needs: ["Strap"], category: "Tack", enabled: .Off })
+  Test.addon({ name: "Strap", title: "Strap", needs: ["Buckle"], category: "Tack", enabled: .Off })
+  Test.addon({ name: "Buckle", title: "Buckle", category: "Tack", enabled: .Off })
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Saddle")
+  Test.expect(switchOn(row("Saddle")) && switchOn(row("Strap")) && switchOn(row("Buckle")))
+  Test.expect(window().text(Locale.ALSO.format("Strap, Buckle")).shown())
+}
+
+test "switching on one of a ring of addons that need each other enables the ring once" {
+  Test.addon({ name: "Rope", title: "Rope", needs: ["Knot"], category: "Ring", enabled: .Off })
+  Test.addon({ name: "Knot", title: "Knot", needs: ["Loop"], category: "Ring", enabled: .Off })
+  Test.addon({ name: "Loop", title: "Loop", needs: ["Rope"], category: "Ring", enabled: .Off })
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Rope")
+  Test.expect(switchOn(row("Rope")) && switchOn(row("Knot")) && switchOn(row("Loop")))
+  Test.expect(window().text(Locale.ALSO.format("Knot, Loop")).shown())
+}
+
+test "a caption's switch enables what its addons need once, though more than one needs it" {
+  Test.addon({ name: "Hammer", title: "Hammer", needs: ["Anvil"], category: "Smithy", enabled: .Off })
+  Test.addon({ name: "Tongs", title: "Tongs", needs: ["Anvil"], category: "Smithy", enabled: .Off })
+  Test.addon({ name: "Anvil", title: "Anvil", category: "Stone", enabled: .Off })
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Smithy")
+  Test.expect(switchOn(row("Hammer")) && switchOn(row("Tongs")) && switchOn(row("Anvil")))
+  Test.expect(window().text(Locale.ALSO.format("Anvil")).shown())
+}
+
+test "a needed addon missing from the folder is left to the client, which says why the addon won't load" {
+  Test.addon({ name: "Lonely", title: "Lonely", needs: ["Nowhere"], category: "Alone", enabled: .Off })
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Lonely")
+  Test.expect(switchOn(row("Lonely")) && !window().button(Locale.UNDO).shown())
+  Test.expect(reads(row("Lonely"), `Lonely | ${Client.ADDON_DEP_MISSING} | — | — | —`))
+}
+
+test "what stops loading is asked of through a chain of what needs it, and a ring back is never asked of" {
+  Test.addon({ name: "Wheel", title: "Wheel", category: "Cart" })
+  Test.addon({ name: "Axle", title: "Axle", needs: ["Wheel"], category: "Cart" })
+  Test.addon({ name: "Wagon", title: "Wagon", needs: ["Axle"], category: "Cart" })
+  Test.addon({ name: "Horse", title: "Horse", needs: ["Wagon", "Reins"], category: "Cart" })
+  Test.addon({ name: "Reins", title: "Reins", needs: ["Horse"], category: "Cart" })
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Wheel")
+  Test.expect(reads(question("Wheel"), "These stop loading: Axle, Wagon, Horse, Reins | Cancel | Disable | Disable Wheel?"))
+  question("Wheel").button(Locale.CANCEL).click()
+  flip("Reins")
+  Test.expect(reads(question("Reins"), "These stop loading: Horse | Cancel | Disable | Disable Reins?"))
+}
+
+test "the card names every addon that needs this one, and what it would like, by title" {
+  Test.addon({ name: "Base", title: "Base", wants: ["Paint", "Lamp"], category: "Home" })
+  Test.addon({ name: "Paint", title: "Paint", needs: ["Base"], category: "Home" })
+  Test.addon({ name: "Lamp", title: "Lamp", needs: ["Base"], category: "Home", enabled: .Off })
+  Test.mount(nil, SCREEN)
+  open()
+  row("Base").click()
+  Test.expect(card().contains("| Optional | Paint | loaded | Lamp | disabled | Needed by | Paint | loaded | Lamp | disabled |"))
+}
+
+test "a dev build's debug log says what waits for a reload, and what the client said of it" {
+  if (!Build.dev) { return }
+  Test.addon({ name: "Bagger", title: "Bagger", category: "Inventory" })
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Bagger")
+  Test.expect(Test.debugLog().any(line => line.contains(
+    "waits for a reload: Bagger (on for this character false, loaded true, on demand false, reason DISABLED)"
+  )))
+}
+
+test "switching on never switches on what it would only like" {
+  Test.addon({ name: "Kettle", title: "Kettle", wants: ["Teapot"], category: "Kitchen", enabled: .Off })
+  Test.addon({ name: "Teapot", title: "Teapot", category: "Kitchen", enabled: .Off })
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Kettle")
+  Test.expect(switchOn(row("Kettle")) && switchOff(row("Teapot")))
+}
+
 test "«Undo» is saved: «Reset» after it keeps what it put back" {
   Test.mount(nil, SCREEN)
   open()
@@ -838,6 +926,18 @@ test "Ctrl on a group's parent switches the parent and its group together, to th
   Test.expect(switchOff(row("Ordaen")) && switchOff(row("User Interface")))
   flip("Ordaen")
   Test.expect(switchOn(row("Ordaen")) && switchOn(row("User Interface")))
+}
+
+test "Ctrl on a parent switches every addon of its group, however many" {
+  Game.input.controlDown = () => true
+  Test.addon({ name: "Rack", title: "Rack", category: "Store" })
+  Test.addon({ name: "Shelf", title: "Shelf", group: "Rack", category: "Store" })
+  Test.addon({ name: "Hook", title: "Hook", group: "Rack", category: "Store" })
+  Test.addon({ name: "Crate", title: "Crate", category: "Store" })
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Rack")
+  Test.expect(switchOff(row("Rack")) && switchOff(row("Shelf")) && switchOff(row("Hook")) && switchOn(row("Crate")))
 }
 
 test "a caption's switch switches its whole group off where all of it is on, after the question" {
@@ -1332,42 +1432,25 @@ test "folded, switched and unfolded again, every row keeps its line and its swit
 }
 
 test "a long list scrolls, and each switch switches the addon its row shows, at every scroll" {
-  const world = new World(everyday())
-  for (i of 1..=20) { world.fakes.push({ name: `Many${i}`, title: `Many ${i}`, category: "Many", loaded: true }) }
-  Client.C_AddOns.GetNumAddOns = () => world.count()
-  Client.C_AddOns.GetAddOnName = index => world.name(index)
-  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
-  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
-  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
-  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
-  Client.C_AddOns.IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
-  }
-  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
-  }
-  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
-  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
-  Client.C_AddOns.SaveAddOns = () => world.save()
-  Client.C_AddOns.ResetAddOns = () => world.reset()
+  for (i of 1..=30) { Test.addon({ name: `Many${i}`, title: `Many ${i}`, category: "Many" }) }
   Test.mount(nil, SCREEN)
   open()
-  let at = "Bagger"
+  let at = "Many 1"
   for (round of 1..=3) {
-    window().text(at).wheel(-2)
+    window().text(at).wheel(-3)
     // The last row in view that isn't switched yet: a row the list handed another addon as it moved.
     let found = ""
-    for (i of 9..=1 step -1) {
+    for (i of 30..=1 step -1) {
       const title = `Many ${i}`
       if (found == "" && window().text(title).shown() && Test.refused(() => window().text(title).hover()) == nil &&
           window().text(title).item().text(Locale.STATE_UNTIL).count() == 0) { found = title }
     }
+    Test.expect(found != "")
     at = found
     flip(at)
     Test.expect(reads(row(at), `${at} | loaded until a reload | — | — | 0 KB`))
   }
+  Test.expect(Test.errors().length == 0)
 }
 
 // The numbers
@@ -2166,25 +2249,8 @@ test "a set isn't saved with no name" {
 }
 
 test "a set applied switches on what it holds and off the rest" {
-  const world = new World(everyday())
-  Client.C_AddOns.GetNumAddOns = () => world.count()
-  Client.C_AddOns.GetAddOnName = index => world.name(index)
-  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
-  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
-  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
-  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
-  Client.C_AddOns.IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
-  }
-  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
-  }
-  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
-  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
-  Client.C_AddOns.SaveAddOns = () => world.save()
-  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.addon({ name: "Bagger", title: "Bagger", category: "Inventory" })
+  Test.addon({ name: "Chatter", title: "Chatter", onDemand: true })
   Test.mount(nil, SCREEN)
   open()
   flip("Bagger")
@@ -2192,6 +2258,18 @@ test "a set applied switches on what it holds and off the rest" {
   flip("Bagger")
   set("Lean").button(Locale.APPLY).click()
   Test.expect(switchOff(row("Bagger")) && switchOn(row("Chatter")) && !Test.page().window(Locale.SET_TITLE.format("Lean")).shown())
+}
+
+test "a set applied takes the last step's strip away: «Undo» is for that step alone" {
+  Test.addon({ name: "Saddle", title: "Saddle", needs: ["Strap"], category: "Tack", enabled: .Off })
+  Test.addon({ name: "Strap", title: "Strap", category: "Tack", enabled: .Off })
+  Test.mount(nil, SCREEN)
+  open()
+  saveSet("Bare")
+  flip("Saddle")
+  Test.expect(window().button(Locale.UNDO).shown())
+  set("Bare").button(Locale.APPLY).click()
+  Test.expect(!window().button(Locale.UNDO).shown() && switchOff(row("Saddle")) && switchOff(row("Strap")))
 }
 
 test "a set applied skips what isn't in the folder any more, and says so" {
