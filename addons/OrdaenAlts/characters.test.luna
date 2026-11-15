@@ -351,8 +351,8 @@ test "what was recorded is kept: after a reload the professions and the bank rea
   Test.reload()
   alts()
   Test.expect(before == "Player | 1 | 123g 45s 67c | Mining 75 | 7 | now | 0 h ago | never opened")
-  // The new session's game says its own money and bags: the stand-in's, none.
-  Test.expect(row("Player") == "Player | 1 | 0g 0s 0c | Mining 75 | — | now | 0 h ago | never opened")
+  // The test's fakes hold over the reload: the new session's game says the same money and bags.
+  Test.expect(row("Player") == before)
 }
 
 test "a profession opened before the game lists the professions shows once the list names it" {
