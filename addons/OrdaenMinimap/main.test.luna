@@ -271,7 +271,7 @@ test "the cursor on the tracking button with no game's button under it shows no 
   Test.mount(nil, SCREEN)
   minimap().hover()
   minimap().button(TRACKING).hover()
-  Test.expect(!Test.page().text("Left-click: settings").shown())
+  Test.expect(!Test.page().text("Ordaen").shown())
 }
 
 test "the mail button shows while the game shows its mail" {
@@ -305,9 +305,9 @@ test "the crafting orders' and the expansion page's buttons show while the game 
 test "the Ordaen button's tooltip says what its clicks do" {
   Test.mount(nil, SCREEN)
   minimap().button(Ordaen.icon).hover()
-  Test.expect(Test.page().window("Left-click: settings").texts().join(" | ") == "Ordaen | Left-click: settings")
+  Test.expect(Test.page().window("Ordaen").texts().join(" | ") == "Ordaen | Left-click: settings\nRight-click: Ordaen Dev")
   minimap().hover()
-  Test.expect(!Test.page().text("Left-click: settings").shown())
+  Test.expect(!Test.page().text("Ordaen").shown())
 }
 
 test "the Ordaen button clicked opens Ordaen's settings, and again closes them" {

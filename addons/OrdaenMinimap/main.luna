@@ -1,3 +1,4 @@
+import Build from "$build"
 import Game from "$game"
 import { Align, Anchored, Click, EmbedLook, Frame, Line, MouseButton, Point, Position, Shadow } from "$ltml"
 import Runtime from "$runtime"
@@ -271,7 +272,8 @@ public class Minimap implements Module, App {
       Hint.Zone => return self.zoneLabel()
       Hint.Coords => return Locale.COORDS_TIP
       Hint.Clock => return Locale.CLOCK_TIP
-      Hint.Ordaen => return Ordaen.dev == true ? Locale.ORDAEN_TIP_DEV : Locale.ORDAEN_TIP
+      // The right click opens the dev tools, which a development build alone has.
+      Hint.Ordaen => return Build.dev ? Locale.ORDAEN_TIP_DEV : Locale.ORDAEN_TIP
       Hint.Drawer => return Locale.DRAWER_TIP
       Hint.Entry, Hint.None => return ""
     }
