@@ -58,26 +58,23 @@ public class Profiler {
   public state memory: Map<String, Number> = {}
   // Which run of the sampling is the live one: a run left from an earlier open stops at its next turn.
   run = 0
-  sampling = false
   // The addons sampled: the loaded ones of the list as it was read.
   names: Array<String> = []
 
   // Sampling begins: now, then once a second until `stop`.
   public start(mut self, names: Array<String>) {
     self.names = names
-    self.sampling = true
     self.run += 1
     self.weigh()
     self.turn(self.run)
   }
 
   public stop(mut self) {
-    self.sampling = false
     self.run += 1
   }
 
   turn(mut self, run: Integer) {
-    if (!self.sampling || run != self.run) { return }
+    if (run != self.run) { return }
     self.sample()
     Client.C_Timer.After(1, (): nil => self.turn(run))
   }

@@ -8,7 +8,6 @@ public const HEIGHT: Number = 560 * PX
 public const CARD: Number = 300 * PX
 // Every line of the list, a category's caption too, is this high.
 public const ROW: Number = 26 * PX
-public const CHECK: Number = 22 * PX
 // The numbers' columns: now, peak, memory.
 public const NUMBER: Number = 70 * PX
 public const MEMORY: Number = 80 * PX

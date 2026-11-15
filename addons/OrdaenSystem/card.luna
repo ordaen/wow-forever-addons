@@ -124,7 +124,7 @@ public class Card implements Component {
       if (!Style.ofDependency(reason)) { return text }
       for (need of addon.needs) {
         const other = self.catalog.statuses[need]
-        if (other == nil || other.reason != nil || other.enabled == .Off) {
+        if (other == nil || other.reason != nil) {
           return Locale.NOT_LOADING_BECAUSE.format(text, self.catalog.titleOf(need))
         }
       }
