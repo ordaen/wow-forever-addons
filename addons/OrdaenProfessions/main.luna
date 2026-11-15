@@ -216,8 +216,9 @@ public class Professions implements Module, App {
     watch (running of self.crafting.running) { self.runEnded(running) }
     watch (open of Game.tradeSkill.open) { self.hidden = false }
     watch (at of self.openTab) { self.tab = at }
+    // The page's watch stands before the open profession's: what the profession chose again as it opens is kept.
+    watch (page of self.page) { self.onPage() }
     watch { self.followOpen() }
-    watch { self.onPage() }
     watch { self.shown = self.shownOf() }
     // Another recipe chosen, or another profession open: the count starts again at one.
     watch (recipe of self.chosenRecipe) { self.count = 1 }
@@ -478,7 +479,7 @@ public class Professions implements Module, App {
 
   // Another page of the profession: nothing in it is chosen yet, unless a recipe opened from elsewhere chose it.
   onPage(mut self) {
-    if (self.page != 0 && !self.opening) { self.recipe = 0 }
+    if (!self.opening) { self.recipe = 0 }
     self.note = ""
     self.opening = false
   }
