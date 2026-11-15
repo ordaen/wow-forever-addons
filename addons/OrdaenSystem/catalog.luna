@@ -348,13 +348,13 @@ public class Catalog {
       match (change.before) {
         .On => Client.C_AddOns.EnableAddOn(change.name, character)
         .Off => Client.C_AddOns.DisableAddOn(change.name, character)
-        // On for some characters: this one as it was, the others the other way (the client names no other).
+        // On for some characters, a state of «All characters» alone, whose step switched it on for all: this one as
+        // it was, the others the other way (the client names no other).
         .Some => {
           if (change.mine) {
             Client.C_AddOns.DisableAddOn(change.name, nil)
             Client.C_AddOns.EnableAddOn(change.name, player)
           } else {
-            Client.C_AddOns.EnableAddOn(change.name, nil)
             Client.C_AddOns.DisableAddOn(change.name, player)
           }
         }
