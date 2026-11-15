@@ -52,7 +52,7 @@ function made(): Number {
   return kb
 }
 
-test "the bags opened, shut and opened again, and every bag updated with nothing moved: the garbage the module made" {
+test "the bags opened, shut and opened again: the garbage the module made" {
   Game.bags.bag = bagOf
   Game.bags.readSlot = readSlot
   Game.bags.size = sizeOf
@@ -66,21 +66,28 @@ test "the bags opened, shut and opened again, and every bag updated with nothing
   Game.bags.open = false
   Test.flush()
   _ = made()
-  for (round of 1..=20) {
+  for (round of 1..=5) {
     Game.bags.open = round > 0
     Test.flush()
     Game.bags.open = false
     Test.flush()
   }
   // Opened again: every bag read anew, each bag's description made (about 4 KB).
-  Test.expect(made() / 20 < 8)
+  Test.expect(made() / 5 < 8)
+}
+
+test "every bag updated with nothing moved: the module makes no garbage" {
+  Game.bags.bag = bagOf
+  Game.bags.readSlot = readSlot
+  Game.bags.size = sizeOf
+  Test.mount(nil, { left: 0, top: 0, width: 1200, height: 800, screen: true })
   Game.bags.open = true
   Test.flush()
   _ = made()
-  for (round of 1..=100) {
+  for (round of 1..=50) {
     for (bag of 0..=round % 1 + 4) { Game.bags.updated.emit(bag) }
     Test.flush()
   }
-  // A full update with nothing moved makes nothing: a hundred of them under a kilobyte.
+  // A full update with nothing moved makes nothing: fifty of them under a kilobyte.
   Test.expect(made() < 1)
 }

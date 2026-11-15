@@ -192,13 +192,26 @@ test "the view picked from the header: a section per bag with its fill, then eve
   Test.expect((peek Bags.list.values).view == .Categories)
 }
 
-test "every sort picked from the header orders the sections' items by it" {
+test "a sort picked from the header orders the sections' items by it: quality, name, item level" {
   Game.bags.bag = bagOf
   Game.bags.readSlot = readSlot
   Test.mount(nil, PAGE)
   Game.bags.open = true
   Test.flush()
-  for (name of ["Quality", "Name", "Item level", "Count", "Item type", "Order in the bags"]) {
+  for (name of ["Quality", "Name", "Item level"]) {
+    click(Test.painted(Ordaen.art.ctl.tool.sort, nil))
+    click(Test.holding(name, nil))
+    Test.shot(`sorted by ${name}`)
+  }
+}
+
+test "a sort picked from the header orders the sections' items by it: count, item type, the bags' order" {
+  Game.bags.bag = bagOf
+  Game.bags.readSlot = readSlot
+  Test.mount(nil, PAGE)
+  Game.bags.open = true
+  Test.flush()
+  for (name of ["Count", "Item type", "Order in the bags"]) {
     click(Test.painted(Ordaen.art.ctl.tool.sort, nil))
     click(Test.holding(name, nil))
     Test.shot(`sorted by ${name}`)

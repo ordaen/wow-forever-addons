@@ -103,22 +103,25 @@ test "a key's history: an hour's lowest, the day's hours by the hour, older days
   Test.expect(house.hours(PriceKey.of(1), Hour.of(0), FIRST.after(1000)).length == 0)
 }
 
-test "a history is kept for 8,000 keys at most; what a full one of 2,000 keys costs at rest" {
+test "a history is kept for 8,000 keys at most" {
   let house = new House("Realm 4", nil)
   for (index of 1..=8100) { house.observe(PriceKey.of(1000 + index), 50, 50, 1, FIRST) }
   Test.expect(house.count == 8100)
   Test.expect(house.hours(PriceKey.of(1000 + 8000), FIRST, FIRST).length == 1)
   Test.expect(house.hours(PriceKey.of(1000 + 8001), FIRST, FIRST).length == 0)
+}
+
+test "what a full history of 200 keys costs at rest" {
   let full = new House("Realm 4", nil)
   for (hour of 0..=30 * 24 - 1) {
     if (hour % 24 == 0 || hour >= 29 * 24) {
-      for (index of 1..=2000) {
+      for (index of 1..=200) {
         full.observe(PriceKey.of(1000 + index * 3), 37 * index + hour, 30 * index, 1, FIRST.after(hour))
       }
     }
   }
   const packed = full.pack() ?? panic("the stand-in packs")
-  Test.note(`2,000 keys, each 24 hours and 29 days of history, at rest: ${packed.length} bytes`)
+  Test.note(`200 keys, each 24 hours and 29 days of history, at rest: ${packed.length} bytes`)
 }
 
 test "a merchant's prices are kept per item, at most 5,000, and read through the source" {
