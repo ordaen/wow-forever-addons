@@ -266,6 +266,14 @@ test "the cursor on the tracking button is on the game's own under it, and its c
   Test.expect(Test.requests().join(", ") == "Minimap.hover MinimapTrackingButton true, Minimap.press MinimapTrackingButton LeftButton, Minimap.press MinimapTrackingButton RightButton, Minimap.hover MinimapTrackingButton false")
 }
 
+test "the cursor on the tracking button with no game's button under it shows no tooltip" {
+  Game.minimap.frame = frame("Minimap", true)
+  Test.mount(nil, SCREEN)
+  minimap().hover()
+  minimap().button(TRACKING).hover()
+  Test.expect(!Test.page().text("Left-click: settings").shown())
+}
+
 test "the mail button shows while the game shows its mail" {
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)

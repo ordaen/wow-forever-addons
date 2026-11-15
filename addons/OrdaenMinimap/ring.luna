@@ -102,20 +102,17 @@ public class RingButton implements Component {
     }
   }
 
-  onEnter(mut self) {
-    let frame = self.theirs
-    if (frame != nil) {
-      Game.minimap.hover(frame, true)
-    } else if (self.spec.id == RingId.Drawer) {
-      self.map.showHint(Hint.Drawer)
-    } else {
-      self.map.showHint(Hint.Ordaen)
-    }
-  }
+  onEnter(mut self) { self.hover(true) }
+  onLeave(mut self) { self.hover(false) }
 
-  onLeave(mut self) {
+  // Ours show their tooltip; the game's own button under ours hears the cursor, where there is one.
+  hover(mut self, on: Boolean) {
     let frame = self.theirs
-    if (frame != nil) { Game.minimap.hover(frame, false) } else { self.map.showHint(Hint.None) }
+    match (self.spec.id) {
+      RingId.Ordaen => self.map.showHint(on ? Hint.Ordaen : Hint.None)
+      RingId.Drawer => self.map.showHint(on ? Hint.Drawer : Hint.None)
+      else => { if (frame != nil) { Game.minimap.hover(frame, on) } }
+    }
   }
 
   onDragStart(mut self) { self.map.startDrag(self.spec) }
