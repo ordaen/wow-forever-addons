@@ -34,7 +34,7 @@ public struct Choices implements Plain {
   grouping: Map<Tab, Grouping>
 }
 
-// What the module remembers for the character: the protected slots (at most `MOST_GUARDS`, which no bags reach).
+// What the module remembers for the character: the protected slots, one at most for each slot of the bags.
 // Where the window stands is the window's own (`Window`, the profile's).
 public struct Kept implements Plain {
   guards: Array<Guard>
@@ -50,7 +50,6 @@ const BAGS_VIEW: BagsView = {}
 
 const DEFAULTS: Choices = { hidden: [], hideEmpty: false, grouping: {} }
 const NOTHING_KEPT: Kept = { guards: [] }
-const MOST_GUARDS = 200
 // The window's body: wide enough for the tabs and ten slots, tall enough for ten rows.
 const WIDTH = 660 * PX
 const HEIGHT = 520 * PX
@@ -388,7 +387,7 @@ public class Bags implements Module, App {
     for (guard of kept.guards) {
       if (guard.bag == slot.bag && guard.slot == slot.index) { was = true } else { guards.push(guard) }
     }
-    if (!was && guards.length < MOST_GUARDS) { guards.push({ bag: slot.bag, slot: slot.index, id: peek slot.id }) }
+    if (!was) { guards.push({ bag: slot.bag, slot: slot.index, id: peek slot.id }) }
     self.memory.write({ guards: guards, ..kept })
     self.markGuards(guards)
   }
