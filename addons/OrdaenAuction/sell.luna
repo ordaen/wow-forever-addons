@@ -119,16 +119,13 @@ public class SellPage implements Component {
   // The row picked, while it is shown: one or none, handed to the window's side section.
   derived picks: Array<Offered> = self.chosenOf()
 
-  const house: House
   const prices: any PriceSource
   chosen: mut Signal<Array<Offered>>
   constructor(
-    house: House,
     prices: any PriceSource,
     // The row picked, while it is shown: the window's side section draws it.
     chosen: mut Signal<Array<Offered>>
   ) {
-    self.house = house
     self.prices = prices
     self.chosen = chosen
     watch (picks of self.picks) { self.chosen = picks.map(offered => offered) }
@@ -155,7 +152,7 @@ public class SellPage implements Component {
         const market = self.prices.buy(key)?.copper()
         const net = self.prices.sell(key)?.copper()
         const vendor = self.prices.vendor(item)
-        const house = net == nil && vendor == nil ? nil : (net ?? 0) > (vendor ?? 0)
+        const house = net == nil ? (vendor == nil ? nil : false) : vendor == nil || net > vendor
         list.push({
           from: stack, item: item, name: name, color: color, count: stack.count, market: market, vendor: vendor,
           house: house

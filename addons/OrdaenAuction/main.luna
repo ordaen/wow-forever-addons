@@ -157,7 +157,7 @@ public class Auction implements Module, App {
             <BuyPage $case={BUY} house={mut self.house} prices={self.prices} offers={self.scanner.offers}
                      items={self.scanner.known} shopping={mut self.shopping} chosen={mut self.buyChosen}
                      @openList={self.onShopping} />
-            <SellPage $case={SELL} house={self.house} prices={self.prices} chosen={mut self.sellChosen}
+            <SellPage $case={SELL} prices={self.prices} chosen={mut self.sellChosen}
                       @openOwned={self.onOwned} />
           </box>
         </Window>
