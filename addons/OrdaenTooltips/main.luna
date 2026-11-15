@@ -140,11 +140,10 @@ public class Tooltips implements Module, App {
   // What a world object gives.
   public const gives = new Registry<any ObjectLines>()
 
-  // The item the group draws, 0 where it draws none; the world object, "" where it draws none. Kept with the last
-  // show while nothing shows, as the rest of it is: the same item shown again asks the sections nothing.
-  derived item: Integer = self.drawn?.item ?? 0
-  derived link: String = self.drawn?.link ?? ""
-  derived object: String = self.drawn?.object ?? ""
+  // The item the tooltip shows, 0 where it shows none; the world object, "" where it shows none.
+  derived item: Integer = self.current?.item ?? 0
+  derived link: String = self.current?.link ?? ""
+  derived object: String = self.current?.object ?? ""
 
   constructor() {
     Ordaen.modules.add(self)

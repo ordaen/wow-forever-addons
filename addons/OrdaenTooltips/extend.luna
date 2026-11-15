@@ -13,9 +13,10 @@ public struct Line {
   indent: Boolean = false
 }
 
-// What a module adds to an item's tooltip. Asked when an item is shown, and again when something it read changes;
-// never asked when the same item shows again. Budget: one map read where nothing changed. The lines it gives are
-// drawn as they are.
+// What a module adds to an item's tooltip. Asked each time an item is shown (the same item shown again after the
+// game's tooltip went is a show of its own: what the entry reads unfollowed, an age by the clock, is read anew), and
+// again when something it read changes; not while the item stays shown, however often the game fills its tooltip
+// anew. Budget: one map read where nothing changed. The lines it gives are drawn as they are.
 public trait ItemLines {
   public lines(self, item: Integer, link: String): Array<Line>
 }

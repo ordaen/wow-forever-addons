@@ -105,6 +105,32 @@ test "an added row follows what it read" {
   destroy added
 }
 
+// A row that reads what no cell follows (as an auction price's age is read by the clock).
+class Aged implements ItemLines {
+  const age: () => String
+  constructor(age: () => String) {
+    self.age = age
+  }
+
+  public lines(self, item: Integer, link: String): Array<Line> {
+    return [{ left: "Seen", right: self.age() }]
+  }
+}
+
+test "an added row is asked anew each time the same item shows, and drawn as it stands then" {
+  Test.mount(nil, SCREEN)
+  let age = "now"
+  const added = Tooltips.worth.add(new Aged((): String => age))
+  Game.tooltip.main = showing(ore())
+  Test.expect(Test.page().window("Copper Ore").text("now").shown())
+  Game.tooltip.main = hidden()
+  Test.pass(0.2)
+  age = "a day ago"
+  Game.tooltip.main = showing(ore())
+  Test.expect(reads(Test.page().window("Copper Ore"), "Copper Ore | Requires level | 5 | Seen | a day ago"))
+  destroy added
+}
+
 test "an added row goes with its handle" {
   Test.mount(nil, SCREEN)
   const added = Tooltips.worth.add(new Priced())
@@ -124,20 +150,6 @@ test "what is worth, what an item is for and where it is stand in that order, wh
   destroy held
   destroy uses
   destroy worth
-}
-
-test "an added row is asked once for an item, and not again when the same item shows again" {
-  Test.mount(nil, SCREEN)
-  let asked = 0
-  const added = Tooltips.worth.add(new Priced((): nil => { asked += 1 }))
-  Game.tooltip.main = showing(ore())
-  Test.flush()
-  Game.tooltip.main = hidden()
-  Test.pass(0.3)
-  Game.tooltip.main = showing(ore())
-  Test.flush()
-  Test.expect(asked == 1)
-  destroy added
 }
 
 test "an item's rows aren't asked for a world object, and its rows stand in the object's tooltip" {
