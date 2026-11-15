@@ -110,7 +110,7 @@ public class SellPage implements Component {
   // «My auctions» was clicked: its window opens, or closes.
   public openOwned: Event<nil> = new Event()
 
-  // How the player left the list, the profile's (`Memory`); the search isn't kept.
+  // How the player left the list, the profile's (`Memory`).
   public list: mut Memory<SellView> = new Memory<SellView>(SELL_VIEW, .Profile, "sell")
   state picked: ItemId | nil = nil
   // Moves as the bags change: what the house takes is read again.

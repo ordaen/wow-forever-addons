@@ -99,7 +99,7 @@ public struct OwnedView implements Plain {
 const OWNED_VIEW: OwnedView = {}
 
 public class OwnedPage implements Component {
-  // How the player left the list, the profile's (`Memory`); the search isn't kept.
+  // How the player left the list, the profile's (`Memory`).
   public list: mut Memory<OwnedView> = new Memory<OwnedView>(OWNED_VIEW, .Profile, "owned")
   // A cancel sent from here waits for its answer.
   state sending = false

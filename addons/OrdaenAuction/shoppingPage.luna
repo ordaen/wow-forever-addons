@@ -157,21 +157,19 @@ public struct ShoppingView implements Plain {
 const SHOPPING_VIEW: ShoppingView = {}
 
 public class ShoppingPage implements Component {
-  // How the player left the list, the profile's (`Memory`); the search isn't kept.
+  // How the player left the list, the profile's (`Memory`).
   public kept: mut Memory<ShoppingView> = new Memory<ShoppingView>(SHOPPING_VIEW, .Profile, "shopping")
   state picked: ItemId | nil = nil
   // The purchase of the row picked: its listings, then what the player's clicks buy.
   state purchase: mut Purchase | nil = nil
   derived empty: Boolean = self.list.rows.length == 0
   derived chosen: Boolean = self.picked != nil && self.list.needed[self.picked ?? 0] != nil
-  derived shut: Boolean = !Game.auctionHouse.open
   // The row whose purchase the client priced, and the price; 0 for none.
   derived quotedItem: Integer = self.quotedItemOf()
   derived quotedTotal: Integer = self.purchase?.quotedTotal ?? 0
   // Every row's sum, and whether a row without a price left it short.
   derived total: Integer = self.totalOf()
   derived short: Boolean = self.list.rows.any(row => row.toBuy > 0 && quoteOf(self.prices, row.item) == nil)
-  derived totalText: String = self.short ? "~" : ""
 
   const prices: any PriceSource
   list: mut ShoppingList
@@ -236,7 +234,7 @@ public class ShoppingPage implements Component {
           <text value={Locale.HELD_HERE} textColor={Style.DIM} textSize={.Secondary} />
           <text value={Locale.TOTAL_TO_BUY} textColor={Style.DIM} wrap={false} />
           <box columns={PRICE} yAlign={Align.Center}>
-            <text value={self.totalText} textColor={Style.INK} wrap={false} />
+            <text $if={self.short} value={"~"} textColor={Style.INK} wrap={false} />
             <Money amount={self.total} />
           </box>
         </box>
@@ -253,7 +251,7 @@ public class ShoppingPage implements Component {
           </Table>
         </box>
         <box columns={BUTTONS} gap={space(.Item)}>
-          <PushButton label={Locale.SEARCH_ALL} width={150 * PX} accent={true} disabled={self.shut || self.empty}
+          <PushButton label={Locale.SEARCH_ALL} width={150 * PX} accent={true} disabled={self.empty}
                       @click={self.onSearch} />
           <PushButton label={Locale.REMOVE_BOUGHT} width={170 * PX} disabled={self.empty} @click={self.onClear} />
           <PushButton label={Locale.REMOVE} width={130 * PX} disabled={!self.chosen} @click={self.onRemove} />
