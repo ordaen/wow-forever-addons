@@ -1,0 +1,200 @@
+// «My auctions» as the player meets it: a window opened from «Sell», the character's auctions as the client last gave
+// them, each with whether it is the house's lowest as last seen, how many, the price for one and the time left;
+// «Cancel» on a row not sold (the client's from the player's click alone), the list asked again once the client took
+// it; «Check» asks for the list again and browses its items. The auctions are the game's (`Game.ownedAuctions`).
+import Game from "$game"
+import Test from "$test"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const START = 1790002800
+const LINEN: Integer = 2589
+const ORE: Integer = 2770
+const BOLT: Integer = 2996
+const GREEN: Color = Color.hex("#40c040")
+const RED: Color = Color.hex("#ff4040")
+const GOLD: Color = Color.hex("#ffd100")
+
+function names(id: Integer): Game.TooltipData | nil {
+  const name = id == LINEN ? "Linen Cloth" : id == ORE ? "Copper Ore" : id == BOLT ? "Bolt of Linen Cloth" : nil
+  if (name == nil) { return nil }
+  return { lines: [{ left: name, kind: 0 }] }
+}
+
+// Linen, 20 at 9 s, two hours left; ore, 5 with a bid alone; a bolt sold.
+function auctions(): Array<Game.Owned> {
+  return [
+    { auction: 1, item: LINEN, quantity: 20, buyout: 900, sold: false, left: 7200 },
+    { auction: 2, item: ORE, quantity: 5, buyout: nil, sold: false, left: nil },
+    { auction: 3, item: BOLT, quantity: 1, buyout: 300, sold: true, left: nil }
+  ]
+}
+
+function window(): Test.Part {
+  return Test.page().window("Check")
+}
+
+function reads(part: Test.Part, expected: String): Boolean {
+  const read = part.texts().join(" | ")
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
+}
+
+function asked(expected: String): Boolean {
+  Test.flush()
+  const said = Test.requests().join(", ")
+  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  return true
+}
+
+test "opening the window asks the client for the character's auctions" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  Test.expect(asked("OwnedAuctions.refresh"))
+}
+
+test "no auctions on the house says so" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  Test.expect(window().text("You have no auctions on this house.").shown())
+}
+
+test "each auction a row: its item, how many, the price for one, the time left; one sold has no «Cancel»" {
+  Game.ownedAuctions.list = auctions()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | — | 20 | 0g 0s 45c | 2 h | Cancel"))
+  Test.expect(reads(window().text("Copper Ore").item(), "Copper Ore | — | 5 | — | Cancel"))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").item(), "Bolt of Linen Cloth | Sold | 1 | 0g 3s 0c | —"))
+  Test.expect(window().text("Sold").textColor().equal(GOLD))
+}
+
+test "under its name, whether an auction is the house's lowest as last seen" {
+  Game.ownedAuctions.list = auctions()
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 45, quantity: 40 }])
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | Lowest | 20 | 0g 0s 45c | 2 h | Cancel"))
+  Test.expect(window().text("Lowest").textColor().equal(GREEN))
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 44, quantity: 40 }])
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | Undercut | 20 | 0g 0s 45c | 2 h | Cancel"))
+  Test.expect(window().text("Undercut").textColor().equal(RED))
+}
+
+test "«Cancel» on a row cancels its auction from the click; once the client took it the list is asked again" {
+  Game.ownedAuctions.list = auctions()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  _ = Test.requests()
+  window().text("Copper Ore").item().button("Cancel").click()
+  Test.expect(asked("AuctionActions.cancel 2"))
+  Game.auctionActions.answered.emit(.Cancelled)
+  Test.expect(asked("OwnedAuctions.refresh"))
+}
+
+test "a cancel the client refuses asks for nothing more" {
+  Game.ownedAuctions.list = auctions()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  window().text("Copper Ore").item().button("Cancel").click()
+  _ = Test.requests()
+  Game.auctionActions.answered.emit(.Refused { reason: "Not now" })
+  Test.expect(asked(""))
+}
+
+test "an answer to what the window didn't send asks for nothing" {
+  Game.ownedAuctions.list = auctions()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  _ = Test.requests()
+  Game.auctionActions.answered.emit(.Cancelled)
+  Test.expect(asked(""))
+}
+
+test "«Cancel» waits while the client answers another action" {
+  Game.ownedAuctions.list = auctions()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  Game.auctionActions.busy = true
+  _ = Test.requests()
+  window().text("Copper Ore").item().button("Cancel").click()
+  Test.expect(asked(""))
+}
+
+test "«Check» asks for the auctions again and browses their items" {
+  Game.ownedAuctions.list = auctions()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  _ = Test.requests()
+  window().button("Check").click()
+  Test.expect(asked("OwnedAuctions.refresh, AuctionQuery.browse 3"))
+}
+
+test "«Check» with no auctions browses nothing" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  _ = Test.requests()
+  window().button("Check").click()
+  Test.expect(asked("OwnedAuctions.refresh"))
+}
+
+test "the list the client gives anew is shown as it comes" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  const house = Test.page().window("Sell")
+  house.button("Sell").click()
+  house.button("My auctions").click()
+  Game.ownedAuctions.list = auctions()
+  Test.expect(window().text("Linen Cloth").shown())
+}

@@ -1,0 +1,153 @@
+// Ordaen Auction among Ordaen's modules as the player meets it: listed in Ordaen's settings, its page's settings and
+// their hints, each taking effect once saved (scanning as the house opens, the house's cut, the window; the price line
+// is `tooltip.test.luna`'s), kept between sessions; what a merchant asks, kept for the account.
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const START = 1790002800
+const LINEN: Integer = 2589
+const THREAD: Integer = 2320
+const ORE: Integer = 2770
+// A text the settings window always shows.
+const SETTINGS = "Move mode"
+const SCAN_ON_OPEN = "Scan when the auction house opens"
+const CUT = "Auction house cut, %"
+
+function names(id: Integer): Game.TooltipData | nil {
+  const name = id == LINEN ? "Linen Cloth" : id == THREAD ? "Coarse Thread" : id == ORE ? "Copper Ore" : nil
+  if (name == nil) { return nil }
+  return { lines: [{ left: name, kind: 0 }] }
+}
+
+// Ordaen's settings window at the module's page, as `/ordaen auction` opens it.
+function settings(): Test.Part {
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("auction")
+  return Test.page().window(SETTINGS)
+}
+
+function asked(expected: String): Boolean {
+  Test.flush()
+  const said = Test.requests().join(", ")
+  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  return true
+}
+
+function window(): Test.Part {
+  return Test.page().window("Sell")
+}
+
+// The bags: thread, linen and copper ore.
+function bags(): Array<Game.Sellable> | nil {
+  return [THREAD, LINEN, ORE].map(item => Game.Sellable { item: item, count: 1, bag: 0, slot: 1, commodity: true })
+}
+
+// The module's page
+
+test "Ordaen lists the module, whose page has its four settings, scanning and the window on" {
+  Test.mount(nil, SCREEN)
+  const page = settings()
+  Test.expect(page.button("Auction").shown() && page.text(SCAN_ON_OPEN).shown() && page.text(CUT).shown())
+  Test.expect(page.text("Ordaen's auction house window").shown() && page.text("Price in item tooltips").shown())
+  Test.expect(page.text("5").shown())
+}
+
+test "the cursor on a setting's label shows its hint" {
+  Test.mount(nil, SCREEN)
+  settings().text(CUT).hover()
+  Test.expect(Test.page().window("Taken off what an item brings when it sells.").shown())
+}
+
+test "scanning as the house opens switched off: the house opening asks for none" {
+  Test.mount(nil, SCREEN)
+  const page = settings()
+  page.button(SCAN_ON_OPEN).click()
+  page.button("Save").click()
+  _ = Test.requests()
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  Test.expect(asked(""))
+}
+
+test "the house's cut set to 10%: what an item brings is weighed with it against a merchant" {
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 33 } }
+  Game.merchant.opened.emit()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = bags
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  // 36 less 5% is 34: the house pays more.
+  Test.expect(window().text("Linen Cloth").item().text("Auction").shown())
+  const page = settings()
+  // A click at the slider's middle: half of 0 to 20.
+  page.box(Ordaen.art.ctl.groove).click()
+  Test.expect(page.text("10").shown())
+  page.button("Save").click()
+  // 36 less 10% is 32: the merchant pays more.
+  Test.expect(window().text("Linen Cloth").item().text("Vendor").shown())
+}
+
+test "the settings saved are kept between sessions" {
+  Test.mount(nil, SCREEN)
+  const page = settings()
+  page.button(SCAN_ON_OPEN).click()
+  page.button("Save").click()
+  Test.reload()
+  _ = Test.requests()
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  Test.expect(asked(""))
+}
+
+// What a merchant asks
+
+test "what a merchant asks shows as the vendor's price, and is kept after a reload" {
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [THREAD]: 10, [LINEN]: 50 } }
+  Game.merchant.opened.emit()
+  Test.reload()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = bags
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Test.expect(window().text("Coarse Thread").item().texts().join(" | ") == "Coarse Thread | 1 | — | 0g 0s 10c | Vendor")
+}
+
+test "a merchant whose prices the client didn't give changes nothing" {
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [THREAD]: 10 } }
+  Game.merchant.opened.emit()
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => nil
+  Game.merchant.opened.emit()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = bags
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Test.expect(window().text("Coarse Thread").item().text("0g 0s 10c").shown())
+}
+
+test "5,000 merchants' prices are kept at most: a price seen before is written again, a new one isn't" {
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [THREAD]: 10 } }
+  Game.merchant.opened.emit()
+  let many: Map<Integer, Integer> = {}
+  for (index of 1..=6000) { many[10000 + index] = index }
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => many
+  Game.merchant.opened.emit()
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [THREAD]: 12, [ORE]: 5 } }
+  Game.merchant.opened.emit()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = bags
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Test.expect(window().text("Coarse Thread").item().text("0g 0s 12c").shown())
+  Test.expect(window().text("Copper Ore").item().texts().join(" | ") == "Copper Ore | 1 | — | — | —")
+}

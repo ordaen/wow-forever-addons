@@ -1,99 +1,156 @@
-// Ordaen Auction's lines in Ordaen Tooltips' item tooltip: the shopping list's in `held`, gone with Tooltips turned
-// off and back with it on; with Tooltips not installed, nothing is added and nothing breaks; the Auction line by age.
+// Ordaen Auction's lines in Ordaen Tooltips' item tooltip as the player meets them: «Auction», what one costs on the
+// house with the price's age (amber from a day, dim past three), asked anew each time an item shows; «On the shopping
+// list», how many are wanted and held; gone with Tooltips turned off and back with it on; the price line off in the
+// settings; nothing added and nothing broken with Tooltips not installed.
 import Client from "$client"
 import Game from "$game"
-import { Frame } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
-import root Ordaen from "Ordaen"
 import { ItemId } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import root Tooltips from "OrdaenTooltips"
 
-const COPPER_ORE: Integer = 2770
-const PAGE: Test.Page = { left: 100, top: 50, width: 700, height: 600, screen: true }
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const START = 1790002800
+const HOUR = 3600
+const ORE: Integer = 2770
+const BLADE: Integer = 15211
+const SUFFIXED: Integer = 1048576
+const AMBER: Color = Color.hex("#ffb02e")
+const DIM: Color = Color.hex("#a3977f")
+// A text the settings window always shows.
+const SETTINGS = "Move mode"
 
-function corner(): any Frame {
-  let made = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
-  made.SetSize(200, 80)
-  made.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
-  return made
+function showing(data: Game.TooltipData): Game.ShownTip {
+  const corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
+  corner.SetSize(200, 80)
+  corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
+  return {
+    shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner, below: false,
+    right: true
+  }
 }
 
-function showing(at: any Frame, data: Game.TooltipData): Game.ShownTip {
-  return { shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: at, below: false, right: true }
+function hidden(): Game.ShownTip {
+  return { shown: false, ..showing({ lines: [] }) }
 }
 
-function ore(at: any Frame): Game.ShownTip {
-  return showing(at, { kind: 0, id: COPPER_ORE, about: "item:2770", lines: [{ left: "Copper Ore", kind: 22 }] })
+function ore(): Game.TooltipData {
+  return { kind: 0, id: ORE, about: "item:2770", lines: [{ left: "Copper Ore", kind: 22 }] }
 }
 
-test "an item on the shopping list says how many are wanted and held, and the line follows Tooltips on and off" {
-  const at = corner()
-  Test.mount(nil, PAGE)
+// The item tooltip that names this.
+function tip(name: String): Test.Part {
+  return Test.page().window(name)
+}
+
+function reads(part: Test.Part, expected: String): Boolean {
+  const read = part.texts().join(" | ")
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
+}
+
+test "an item the house priced this hour has the «Auction» line: what one costs, no age" {
+  Game.clock.server = START
+  Test.mount(nil, SCREEN)
+  Game.auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
+  Game.tooltip.main = hidden()
+  Test.pass(0.2)
+  Game.tooltip.main = showing(ore())
+  Test.expect(reads(tip("Copper Ore"), "Copper Ore | Auction | 0g 1s 25c"))
+}
+
+test "an item the house never priced has no «Auction» line" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = hidden()
+  Test.pass(0.2)
+  Game.tooltip.main = showing(ore())
+  Test.expect(reads(tip("Copper Ore"), "Copper Ore"))
+}
+
+test "each show asks the line anew: the price's age, amber from a day, dim past three" {
+  Game.clock.server = START
+  Test.mount(nil, SCREEN)
+  Game.auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
+  Game.tooltip.main = hidden()
+  Test.pass(0.2)
+  Game.tooltip.main = showing(ore())
+  Test.expect(reads(tip("Copper Ore"), "Copper Ore | Auction | 0g 1s 25c"))
+  Game.clock.server = START + 50 * HOUR
+  Game.tooltip.main = hidden()
+  Test.pass(0.2)
+  Game.tooltip.main = showing(ore())
+  const day = tip("Copper Ore")
+  Test.expect(reads(day, "Copper Ore | Auction | 0g 1s 25c (2 d.)") && day.text("0g 1s 25c (2 d.)").textColor().equal(AMBER))
+  Game.clock.server = START + 100 * HOUR
+  Game.tooltip.main = hidden()
+  Test.pass(0.2)
+  Game.tooltip.main = showing(ore())
+  const old = tip("Copper Ore")
+  Test.expect(reads(old, "Copper Ore | Auction | 0g 1s 25c (4 d.)") && old.text("0g 1s 25c (4 d.)").textColor().equal(DIM))
+}
+
+test "a weapon's random suffix, which its link names, has its own price" {
+  Game.clock.server = START
+  Test.mount(nil, SCREEN)
+  Game.auctionQuery.results.emit([{ key: BLADE + 1018 * SUFFIXED, copper: 9000, quantity: 1 }, { key: BLADE, copper: 4000, quantity: 1 }])
+  Game.tooltip.main = showing({
+    kind: 0, id: BLADE, about: "item:15211:0:0:0:0:0:-1018:0", lines: [{ left: "Glimmering Blade of the Eagle", kind: 22 }]
+  })
+  Test.expect(reads(tip("Glimmering Blade of the Eagle"), "Glimmering Blade of the Eagle | Auction | 0g 90s 0c"))
+}
+
+test "the price line off in the settings: the tooltip has none" {
+  Game.clock.server = START
+  Test.mount(nil, SCREEN)
+  Game.auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("auction")
+  const page = Test.page().window(SETTINGS)
+  page.button("Price in item tooltips").click()
+  page.button("Save").click()
+  Game.tooltip.main = hidden()
+  Test.pass(0.2)
+  Game.tooltip.main = showing(ore())
+  Test.expect(reads(tip("Copper Ore"), "Copper Ore"))
+}
+
+test "an item on the shopping list says how many are wanted, and how many of them this character holds" {
+  Test.mount(nil, SCREEN)
   Game.items.owned = (id: Integer): Integer => 4
-  Auction.shopping.add(ItemId.of(COPPER_ORE), 12, .ByHand)
-  Game.tooltip.main = ore(at)
-  Test.pass(0.02)
-  Test.shot("copper ore: on the shopping list, 12 (4 held), after the tooltip's body")
+  Auction.shopping.add(ItemId.of(ORE), 12, .ByHand)
+  Game.tooltip.main = hidden()
+  Test.pass(0.2)
+  Game.tooltip.main = showing(ore())
+  Test.expect(reads(tip("Copper Ore"), "Copper Ore | In the bank | 4 | On the shopping list | 12 (bought 4)"))
+  Game.items.owned = (id: Integer): Integer => 30
+  Game.tooltip.main = hidden()
+  Test.pass(0.2)
+  Game.tooltip.main = showing(ore())
+  Test.expect(reads(tip("Copper Ore"), "Copper Ore | In the bank | 30 | On the shopping list | 12 (bought 12)"))
+}
+
+test "the lines go with Tooltips turned off, and are back with it on" {
+  Game.clock.server = START
+  Test.mount(nil, SCREEN)
+  Game.auctionQuery.results.emit([{ key: ORE, copper: 125, quantity: 12 }])
+  Auction.shopping.add(ItemId.of(ORE), 12, .ByHand)
   const tooltips = Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")
   tooltips.disable()
   Test.pass(0.02)
-  Test.expect(Tooltips == nil)
-  Test.expect(Test.errors().length == 0)
+  Test.expect(Tooltips == nil && Test.errors().length == 0)
   Test.expect(tooltips.enable() == nil)
-  Game.tooltip.main = ore(at)
-  Test.pass(0.02)
-  Test.shot("Tooltips on again: the line is back")
-  Game.tooltip.main = { shown: false, ..ore(at) }
+  Game.tooltip.main = hidden()
   Test.pass(0.2)
+  Game.tooltip.main = showing(ore())
+  Test.expect(reads(tip("Copper Ore"), "Copper Ore | Auction | 0g 1s 25c | On the shopping list | 12 (bought 0)"))
 }
 
-test "an item off the list has no line of the list's" {
-  const at = corner()
-  Test.mount(nil, PAGE)
-  Game.tooltip.main = ore(at)
-  Test.pass(0.02)
-  Test.shot("copper ore, off the list: the tooltip's body alone")
-  Game.tooltip.main = { shown: false, ..ore(at) }
-  Test.pass(0.2)
-}
-
-test "the Auction line: what one costs on the house, its age amber from a day, dim past three; off by the setting" {
-  Game.clock.server = 1790002800
-  const at = corner()
-  Test.mount(nil, PAGE)
-  Game.auctionQuery.results.emit([{ key: COPPER_ORE, copper: 125, quantity: 12 }])
-  Game.tooltip.main = ore(at)
-  Test.pass(0.02)
-  Test.shot("copper ore seen now: the Auction line, no age")
-  Game.clock.server = 1790002800 + 50 * 3600
-  Game.tooltip.main = { shown: false, ..ore(at) }
-  Test.pass(0.2)
-  Game.tooltip.main = ore(at)
-  Test.pass(0.02)
-  Test.shot("50 hours on: the market, «(2 d.)» in amber")
-  Game.clock.server = 1790002800 + 100 * 3600
-  Game.tooltip.main = { shown: false, ..ore(at) }
-  Test.pass(0.2)
-  Game.tooltip.main = ore(at)
-  Test.pass(0.02)
-  Test.shot("100 hours on: «(4 d.)» dim")
-  Auction.settings.choose({ priceLine: false, ..Auction.settings.values })
-  Ordaen.keeper.saveAll()
-  Test.pass(0.02)
-  Test.shot("the line off in the settings: gone")
-  Game.tooltip.main = { shown: false, ..ore(at) }
-  Test.pass(0.2)
-}
-
-test "without Tooltips installed the module runs and adds nothing" {
+test "without Tooltips installed the module runs, its list kept, and nothing breaks" {
   Test.uninstall("OrdaenTooltips")
   Test.reload()
-  const tooltips, _ = Client.C_AddOns.IsAddOnLoaded("OrdaenTooltips")
-  Test.expect(!tooltips)
-  Auction.shopping.add(ItemId.of(COPPER_ORE), 3, .ByHand)
-  Test.flush()
-  Test.expect(Test.errors().length == 0)
-  Test.expect(Auction.shopping.needed[ItemId.of(COPPER_ORE)] == 3)
+  Test.mount(nil, SCREEN)
+  Auction.shopping.add(ItemId.of(ORE), 3, .ByHand)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(Test.page().window("Search all").text("3").shown() && Test.errors().length == 0)
 }

@@ -1,83 +1,319 @@
-// The shopping list: lines from two sources summed per item, against what this character holds, into what is left to
-// buy; kept for the account across a reload; its page with «Search all» browsing every item in one query, a row
-// removed, the rows bought cleared; an item added from «Buy».
+// The shopping list as the player meets it: a window opened from «Buy», the account's list, a row an item with what
+// asked for it (Professions' queue, as Ordaen Professions adds its lines through the root's `shopping`, or the player
+// by hand), what is left to buy over what this character holds of what is needed, its price and age, the row's sum
+// and the list's; «Buy N» (the client's from the player's click alone), «Search all», «Remove» and «Remove bought»;
+// kept between sessions and characters.
 import Game from "$game"
 import Test from "$test"
 import { ItemId } from "Ordaen"
 import root Auction from "OrdaenAuction"
 
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const START = 1790002800
 const COPPER_BAR: Integer = 2840
 const LINEN: Integer = 2589
+const AXE: Integer = 2847
 // The recipe, a spell's id, that makes a Bronze Axe.
 const BRONZE_AXE: Integer = 2741
-const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
+const DIM: Color = Color.hex("#a3977f")
+const INK: Color = Color.hex("#e8dcc4")
 
-test "lines of one item are summed, held is taken off, and the list is kept across a reload" {
-  Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 4 : 0
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 12, .Queue { recipe: BRONZE_AXE, crafts: 6, character: "Regron" })
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Auction.shopping.add(ItemId.of(COPPER_BAR), 2, .ByHand)
-  Auction.shopping.add(ItemId.of(LINEN), 0, .ByHand)
-  const rows = Auction.shopping.rows
-  Test.expect(rows.length == 2)
-  const bars = rows[1] ?? panic("two rows")
-  Test.expect(bars.item == COPPER_BAR && bars.needed == 14 && bars.held == 4 && bars.toBuy == 10 && bars.lines.length == 2)
-  Test.expect(Auction.shopping.needed[ItemId.of(LINEN)] == 20)
-  Test.reload()
-  Test.expect(Auction.shopping.rows.length == 2)
-  Test.expect(Auction.shopping.needed[ItemId.of(COPPER_BAR)] == 14)
+function names(id: Integer): Game.TooltipData | nil {
+  const name = id == LINEN ? "Linen Cloth" : id == COPPER_BAR ? "Copper Bar" : id == AXE ? "Bronze Axe" : nil
+  if (name == nil) { return nil }
+  return { lines: [{ left: name, kind: 0 }] }
 }
 
-test "the page: every item browsed in one query, a row removed, what is bought cleared" {
-  Test.mount(nil, PAGE)
+function list(): Test.Part {
+  return Test.page().window("Search all")
+}
+
+function reads(part: Test.Part, expected: String): Boolean {
+  const read = part.texts().join(" | ")
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
+}
+
+// Whether the texts after `label` in `part` read exactly `expected` (as many as it has, joined by « | »).
+function says(part: Test.Part, label: String, expected: String): Boolean {
+  const shown = part.texts()
+  const count = expected.split(" | ").length
+  for (index, text of shown) {
+    if (text == label) {
+      let read: Array<String> = []
+      for (at of index + 1..=index + count) { read.push(shown[at] ?? "") }
+      const said = read.join(" | ")
+      if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
+      return true
+    }
+  }
+  panic(`«${label}» isn't in «${shown.join(" | ")}»`)
+}
+
+function asked(expected: String): Boolean {
+  Test.flush()
+  const said = Test.requests().join(", ")
+  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  return true
+}
+
+test "an empty list says how it fills, and its buttons do nothing" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
   Game.auctionHouse.open = true
-  Test.click(Test.holding("Shopping list", nil), nil)
-  Test.pass(0.02)
-  Test.shot("empty: what to do")
-  Game.items.owned = (id: Integer): Integer => id == LINEN ? 25 : 0
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(list().text("Add a recipe from Professions, or an item on the Buy page.").shown())
+  _ = Test.requests()
+  list().button("Search all").click()
+  Test.expect(asked(""))
+}
+
+test "lines of one item are one row: their counts summed, what this character holds taken off" {
+  Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 4 : 0
   Game.spells.name = (id: Integer): String | nil => id == BRONZE_AXE ? "Bronze Axe" : nil
-  Auction.shopping.add(ItemId.of(LINEN), 4, .Queue { recipe: 9999, crafts: 2, character: "Regy" })
   Auction.shopping.add(ItemId.of(COPPER_BAR), 12, .Queue { recipe: BRONZE_AXE, crafts: 6, character: "Regron" })
-  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
-  Test.pass(0.02)
-  Test.shot("two items, no prices yet; linen held in full, dimmed")
-  Test.click(Test.holding("Search all", nil), nil)
-  Test.click(Test.holding("Item 2840", nil), nil)
-  Test.pass(0.02)
-  Test.shot("«Search all» browsed both; copper bars picked: «Buy 12» off, «Remove» on")
-  Test.click(Test.holding("Remove bought", nil), nil)
-  Test.pass(0.02)
-  Test.expect(Auction.shopping.rows.length == 1)
-  Test.click(Test.holding("Remove", nil), nil)
-  Test.pass(0.02)
-  Test.expect(Auction.shopping.rows.length == 0)
-  Test.shot("both gone: empty again")
-  Game.auctionHouse.open = false
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 2, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(reads(list().text("Copper Bar").item(),
+    "Copper Bar | Bronze Axe ×6 — Regron's queue, by hand | 10 | 4 of 14 held | — | — | Buy 10"))
 }
 
-test "«Buy N» on a row: its listings asked first, then a commodity's N priced and bought in two clicks" {
-  Game.clock.server = 1790002800
-  Test.mount(nil, PAGE)
+test "a recipe the game doesn't name is named by its number" {
+  Auction.shopping.add(ItemId.of(LINEN), 4, .Queue { recipe: 9999, crafts: 2, character: "Regy" })
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
   Game.auctionHouse.open = true
-  Game.auctionQuery.ready = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(list().text("Recipe 9999 ×2 — Regy's queue").shown())
+}
+
+test "a line of none adds nothing" {
+  Auction.shopping.add(ItemId.of(LINEN), 0, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(!list().text("Linen Cloth").shown())
+}
+
+test "an item held in full is dimmed at 0, «Bought»" {
+  Game.items.owned = (id: Integer): Integer => id == LINEN ? 25 : 0
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(reads(list().text("Linen Cloth").item(), "Linen Cloth | by hand | 0 | 25 of 20 held | — | — | Bought"))
+  Test.expect(list().text("Linen Cloth").textColor().equal(DIM) && list().text("0").textColor().equal(DIM))
+}
+
+test "what the bags hold is read again as they change" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(list().text("Linen Cloth").textColor().equal(INK))
+  Game.items.owned = (id: Integer): Integer => id == LINEN ? 25 : 0
+  Game.bags.changed.emit()
+  Test.expect(list().text("Linen Cloth").item().text("Bought").shown())
+}
+
+test "a priced row shows its price with its age and its sum; the list's total sums every row" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }, { key: COPPER_BAR, copper: 52, quantity: 9 }])
+  Test.expect(reads(list().text("Linen Cloth").item(), "Linen Cloth | by hand | 20 | 0 of 20 held | 0g 0s 36c | 0g 7s 20c | Buy 20"))
+  Test.expect(says(list(), "To buy, in all", "0g 8s 76c"))
+}
+
+test "a row with nothing to say its price marks the total as short of it" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Test.expect(says(list(), "To buy, in all", "~ | 0g 7s 20c"))
+}
+
+test "«Search all» browses every item on the list in one query" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  _ = Test.requests()
+  list().button("Search all").click()
+  Test.expect(asked("AuctionQuery.browse 2"))
+}
+
+test "a row picked can be removed; «Remove» with none picked does nothing" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  list().button("Remove").click()
+  Test.expect(list().text("Linen Cloth").shown())
+  list().text("Copper Bar").click()
+  list().button("Remove").click()
+  Test.expect(!list().text("Copper Bar").shown() && list().text("Linen Cloth").shown())
+}
+
+test "«Remove bought» takes every row at 0, and keeps the rest" {
+  Game.items.owned = (id: Integer): Integer => id == LINEN ? 25 : 0
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  list().button("Remove bought").click()
+  Test.expect(!list().text("Linen Cloth").shown() && list().text("Copper Bar").shown())
+}
+
+test "the list is kept between sessions, for every character of the account" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Test.reload()
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(list().text("Linen Cloth").shown())
+  Test.login({ guid: "Player-1-0002", name: "Regy", surname: "", realm: "Realm 4", faction: "Alliance", classTag: "MAGE" })
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(list().text("Linen Cloth").shown())
+}
+
+test "a list of 500 lines lets its oldest go for a new one" {
+  Auction.shopping.add(ItemId.of(LINEN), 1, .ByHand)
+  for (index of 1..=499) { Auction.shopping.add(ItemId.of(COPPER_BAR), 1, .ByHand) }
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(list().text("Linen Cloth").shown())
+  Auction.shopping.add(ItemId.of(AXE), 1, .ByHand)
+  Test.expect(!list().text("Linen Cloth").shown() && list().text("Bronze Axe").shown())
+}
+
+// «Buy N»
+
+test "«Buy N» on a row asks its listings first; the next click prices a commodity's N, and «Confirm» buys them" {
   Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 4 : 0
-  Game.auctionQuery.results.emit([{ key: COPPER_BAR, copper: 52, quantity: 400 }])
   Auction.shopping.add(ItemId.of(COPPER_BAR), 22, .ByHand)
-  Auction.shoppingOpen = true
-  Test.pass(0.02)
-  Test.click(Test.holding("Buy 18", nil), nil)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Game.auctionQuery.ready = true
+  Game.auctionQuery.results.emit([{ key: COPPER_BAR, copper: 52, quantity: 400 }])
+  _ = Test.requests()
+  list().button("Buy 18").click()
+  Test.expect(asked("AuctionQuery.listings 2840"))
   Game.auctionQuery.listed.emit(COPPER_BAR, [{ auction: 0, unit: 52, quantity: 400, own: false, commodity: true }])
-  Test.pass(0.02)
-  Test.click(Test.holding("Buy 18", nil), nil)
+  list().button("Buy 18").click()
+  Test.expect(asked("AuctionActions.startPurchase 2840 18"))
   Game.auctionActions.answered.emit(.Quoted { item: COPPER_BAR, quantity: 18, total: 954 })
-  Test.pass(0.02)
-  Test.shot("the client's price for 18 in the row's sum: «Confirm»")
-  Test.click(Test.holding("Confirm", nil), nil)
+  Test.expect(reads(list().text("Copper Bar").item(), "Copper Bar | by hand | 18 | 4 of 22 held | 0g 0s 52c | 0g 9s 54c | Confirm"))
+  list().button("Confirm").click()
+  Test.expect(asked("AuctionActions.confirmPurchase 2840 18"))
   Game.auctionActions.answered.emit(.Bought)
   Game.items.owned = (id: Integer): Integer => id == COPPER_BAR ? 22 : 0
   Game.bags.changed.emit()
-  Game.auctionQuery.ready = false
-  Test.pass(0.02)
-  Test.shot("bought: the row at 0, «Bought» off")
-  Game.auctionHouse.open = false
+  Test.expect(list().text("Copper Bar").item().text("Bought").shown())
+}
+
+test "a row picked asks its listings; picked again it asks nothing more" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Game.auctionQuery.ready = true
+  _ = Test.requests()
+  list().text("Linen Cloth").click()
+  Test.expect(asked("AuctionQuery.listings 2589"))
+  list().text("Linen Cloth").click()
+  Test.expect(asked(""))
+}
+
+test "«Buy N» of an item buys out its cheapest auction with a buyout, one a click" {
+  Auction.shopping.add(ItemId.of(AXE), 2, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Game.auctionQuery.ready = true
+  Game.auctionQuery.results.emit([{ key: AXE, copper: 2100, quantity: 3 }])
+  list().button("Buy 2").click()
+  Game.auctionQuery.listed.emit(AXE, [
+    { auction: 72, unit: 2100, quantity: 1, buyout: 2100, left: 7200, own: true, commodity: false },
+    { auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }
+  ])
+  _ = Test.requests()
+  list().button("Buy 2").click()
+  Test.expect(asked("AuctionActions.bid 73 2200"))
+}
+
+test "«Buy N» waits for a price, and while the client answers another action" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  _ = Test.requests()
+  list().button("Buy 20").click()
+  Test.expect(asked(""))
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Game.auctionActions.busy = true
+  list().button("Buy 20").click()
+  Test.expect(asked(""))
+}
+
+test "removing the row picked lets its purchase go: another row picked asks its own listings" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Auction.shopping.add(ItemId.of(COPPER_BAR), 3, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Game.auctionQuery.ready = true
+  list().text("Linen Cloth").click()
+  list().button("Remove").click()
+  _ = Test.requests()
+  list().text("Copper Bar").click()
+  Test.expect(asked("AuctionQuery.listings 2840"))
 }

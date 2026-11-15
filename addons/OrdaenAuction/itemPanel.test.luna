@@ -1,85 +1,190 @@
-// The item panel: one layout on «Buy» and on «Sell»; its chart of the item's price, the day an hour a bar, the week and
-// the month a day a bar, from the history as it is kept (the last day by the hour, the days before by their lowest);
-// with no history, it says so.
+// The item panel's chart as the player meets it: the price's history of the item picked, the day a bar an hour, the
+// week and the month a bar a day, the span's lowest and highest at its ends, the latest bar gold; no history said so.
+// The history is what the house kept of its browses (`Game.auctionQuery.results`), each at the server's hour
+// (`Game.clock.server`): the last day by the hour, the days before by their lowest, 30 days.
 import Game from "$game"
 import Test from "$test"
-import { Hour, ItemId } from "Ordaen"
-import root Auction from "OrdaenAuction"
-import { HourPrice, PriceHistory } from "@/history"
-import { House } from "@/house"
-import { ItemPanel } from "@/itemPanel"
-import { OrdaenPrices } from "@/prices"
-import { PriceKey } from "@/quote"
 
-// 2026-09-21, in the server's seconds: a whole hour.
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+// 2026-09-21, in the server's seconds: a whole hour, 8 hours into its day as `Hour` counts them.
 const START = 1790002800
+const HOUR = 3600
+const DAY = 86400
 const LINEN: Integer = 2589
-const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
-
-// A history as the scan keeps it: these points, whatever the item.
-class Kept implements PriceHistory {
-  public state revision = 0
-  const points: Array<HourPrice>
-  constructor(points: Array<HourPrice>) { self.points = points }
-  public hours(self, key: PriceKey, from: Hour, to: Hour): Array<HourPrice> {
-    return self.points.filter(point => point.hour >= from && point.hour <= to)
-  }
-}
-
-// The house's cut, a cell as the root's settings give it.
-class Cut {
-  public state value = 5
-}
+const LAST_BAR: Color = Color.hex("#f0c860")
 
 function names(id: Integer): Game.TooltipData | nil {
-  if (id != LINEN) { return nil }
-  return { lines: [{ left: "Linen Cloth", kind: 0 }] }
+  if (id == LINEN) { return { lines: [{ left: "Linen Cloth", kind: 0 }] } }
+  return { lines: [{ left: "Ware %d".format(id), kind: 0 }] }
 }
 
-test "«Sell» picks into the panel «Buy» has; no history says so, and a browse's hour shows" {
+function window(): Test.Part {
+  return Test.page().window("Sell")
+}
+
+function reads(part: Test.Part, expected: String): Boolean {
+  const read = part.texts().join(" | ")
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
+}
+
+// The chart's ends: the span's lowest, then its highest.
+function ends(expected: String): Boolean {
+  const panel = window().button("Post").item()
+  const shown = panel.texts()
+  for (index, text of shown) {
+    if (text == "Month") {
+      const said = `${shown[index + 1] ?? ""} | ${shown[index + 2] ?? ""}`
+      if (said != expected) { panic(`the chart's ends read «${said}», not «${expected}»`) }
+      return true
+    }
+  }
+  panic("no chart")
+}
+
+test "an item with no price seen says it has no history" {
   Game.clock.server = START
-  Test.mount(nil, PAGE)
   Game.items.tooltip = names
-  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [
-    { item: LINEN, count: 20, bag: 0, slot: 1, commodity: true }
-  ]
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
   Game.auctionHouse.open = true
-  Auction.page = 2
-  Test.pass(0.02)
-  Test.click(Test.holding("Linen Cloth", nil), nil)
-  Test.pass(0.02)
-  Test.shot("«Sell»: linen picked, the panel as «Buy» has it, no history")
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
-  Test.pass(0.02)
-  Test.shot("a browse kept this hour: one gold bar at the right")
-  Game.auctionHouse.open = false
-  Test.pass(0.02)
+  window().button("Sell").click()
+  window().text("Linen Cloth").click()
+  Test.expect(window().text("No price history yet.").shown())
 }
 
-test "the chart: the day a bar an hour, the week and the month a bar a day" {
-  Game.clock.server = START
-  const now = Hour.now()
-  const house = new House("Realm 4", nil)
-  const cut = new Cut()
-  const prices = new OrdaenPrices(house, {}, cut.value)
-  // The last day by the hour (three hours seen), the days before by their lowest.
-  const kept = new Kept([
-    { hour: now.after(-40 * 24), copper: 10 },
-    { hour: now.after(-20 * 24), copper: 60 },
-    { hour: now.after(-3 * 24), copper: 40 },
-    { hour: now.after(-2 * 24), copper: 30 },
-    { hour: now.after(-5), copper: 44 },
-    { hour: now.after(-1), copper: 38 },
-    { hour: now, copper: 36 }
-  ])
+test "a browse this hour: the day's last bar is gold" {
   Game.items.tooltip = names
-  Test.mount(new ItemPanel(ItemId.of(LINEN), "Linen Cloth", Color.hex("#ffffff"), "Listed: 30", house, prices, kept),
-    { left: 0, top: 0, width: 300, height: 400 })
-  Test.shot("the day: three hours priced, the last gold; 36 to 44")
-  Test.click(Test.holding("Week", nil), nil)
-  Test.pass(0.02)
-  Test.shot("the week: three days priced; 30 to 40")
-  Test.click(Test.holding("Month", nil), nil)
-  Test.pass(0.02)
-  Test.shot("the month: four days priced, the one 40 days old left out; 30 to 60")
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Game.clock.server = START
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 5 }])
+  window().text("Linen Cloth").click()
+  const chart = window().button("Post").item()
+  Test.expect(!chart.text("No price history yet.").shown() && chart.box(LAST_BAR).shown())
+  Test.expect(ends("0g 0s 36c | 0g 0s 36c"))
+}
+
+test "the day: a bar an hour, its lowest and highest at the ends; an hour's two looks keep the cheaper" {
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Game.clock.server = START + -5 * HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 44, quantity: 5 }])
+  Game.clock.server = START + -HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 38, quantity: 5 }])
+  Game.clock.server = START
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 40, quantity: 5 }])
+  Game.clock.server = START
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 5 }])
+  Game.clock.server = START
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 50, quantity: 5 }])
+  window().text("Linen Cloth").click()
+  Test.expect(ends("0g 0s 36c | 0g 0s 44c"))
+}
+
+test "the week: a bar a day, each day's lowest; a day older than a week left out" {
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Game.clock.server = START + -9 * DAY
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 10, quantity: 5 }])
+  Game.clock.server = START + -3 * DAY
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 40, quantity: 5 }])
+  Game.clock.server = START + -2 * DAY
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 30, quantity: 5 }])
+  Game.clock.server = START + -2 * DAY + 6 * HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 28, quantity: 5 }])
+  Game.clock.server = START + -5 * HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 44, quantity: 5 }])
+  Game.clock.server = START
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 5 }])
+  window().text("Linen Cloth").click()
+  window().button("Week").click()
+  Test.expect(ends("0g 0s 28c | 0g 0s 40c"))
+}
+
+test "the month: a bar a day for 30 days; a look 40 days old is gone" {
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Game.clock.server = START + -40 * DAY
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 10, quantity: 5 }])
+  Game.clock.server = START + -20 * DAY
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 60, quantity: 5 }])
+  Game.clock.server = START + -2 * DAY
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 30, quantity: 5 }])
+  Game.clock.server = START
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 5 }])
+  window().text("Linen Cloth").click()
+  window().button("Month").click()
+  Test.expect(ends("0g 0s 30c | 0g 0s 60c"))
+}
+
+test "yesterday's hours are rolled into their day's lowest: the day shows today's alone" {
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Game.clock.server = START + -30 * HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 20, quantity: 5 }])
+  Game.clock.server = START + -26 * HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 25, quantity: 5 }])
+  Game.clock.server = START + -3 * HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 44, quantity: 5 }])
+  Game.clock.server = START
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 5 }])
+  window().text("Linen Cloth").click()
+  Test.expect(ends("0g 0s 36c | 0g 0s 44c"))
+  window().button("Week").click()
+  Test.expect(ends("0g 0s 20c | 0g 0s 36c"))
+}
+
+test "a history is kept for 8,000 items at most: one more has none" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  let offers: Array<Game.Offer> = []
+  for (index of 1..=8001) { offers.push({ key: 10000 + index, copper: 50, quantity: 1 }) }
+  Game.auctionQuery.results.emit(offers)
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [
+    { item: 18000, count: 1, bag: 0, slot: 1, commodity: true }, { item: 18001, count: 1, bag: 0, slot: 2, commodity: true }
+  ]
+  window().button("Sell").click()
+  window().text("Ware 18000").click()
+  Test.expect(!window().text("No price history yet.").shown())
+  window().text("Ware 18001").click()
+  Test.expect(window().text("No price history yet.").shown())
+}
+
+test "the 8,000 are freed as a full scan drops what is 30 days old: a new item has a history again" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  let offers: Array<Game.Offer> = []
+  for (index of 1..=8000) { offers.push({ key: 10000 + index, copper: 50, quantity: 1 }) }
+  Game.auctionQuery.results.emit(offers)
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [
+    { item: 18002, count: 1, bag: 0, slot: 2, commodity: true }
+  ]
+  window().button("Sell").click()
+  Game.clock.server = START + 731 * HOUR
+  Game.auctionScan.read = (index: Integer): (Integer, Integer, Integer) => { return 18003, 50, 1 }
+  window().button("Scan").click()
+  Game.auctionScan.finished.emit(1)
+  Test.pass(0.2)
+  Game.auctionQuery.results.emit([{ key: 18002, copper: 50, quantity: 1 }])
+  window().text("Ware 18002").click()
+  Test.expect(!window().text("No price history yet.").shown())
 }

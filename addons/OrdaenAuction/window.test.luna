@@ -1,178 +1,194 @@
-// The house window on the fake house, where no clock is read: shown while the house is open and the setting has it,
-// full screen, the game's own window put away meanwhile, its close the house's; its two pages as the window's tabs,
-// before any scan: «Buy» empty, «Sell» with the bags' items and «Post» from a click; «Data» in the settings the
-// window's gear opens; «Shopping list» and «My auctions» docked at the screen's right, «My auctions» from the client's
-// list with «Check» asking again and «Cancel» from a click. What reads the server's hour (a browse's rows, a scan's
-// age) is `clock.test.luna`.
+// Ordaen Auction's window as the player meets it: shown while the house is open and the setting has it, in place of the
+// game's own window, which stands away unseen meanwhile; its close and Escape leave the house; «Buy» and «Sell» as its
+// tabs; «Shopping list» and «My auctions» as windows of their own, opened and closed from their buttons; the gear to
+// the module's settings. The house is the test's: what it reports (`Game.auctionHouse`) and what it was asked
+// (`Test.requests()`).
 import Client from "$client"
 import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import root Auction from "OrdaenAuction"
-import Style from "@/style"
 
-const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
-const LINEN: Integer = 2589
-const AXE: Integer = 2847
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+// A text the settings window always shows.
+const SETTINGS = "Move mode"
+const WINDOW_SETTING = "Ordaen's auction house window"
 
-function ownFrame(): any Client.Frame {
-  return Client.CreateFrame("Frame", "AuctionHouseFrame", Client.C_UI.GetUIParent(), nil)
-}
-
-function whereOwn(own: any Client.Frame) {
-  const left = (own.GetLeft() ?? 0).floor()
-  const top = (Client.GetScreenHeight() - (own.GetTop() ?? 0)).floor()
-  Test.note(`the game's own window: at ${left},${top}, opacity ${own.GetAlpha()}`)
-}
-
-test "the window shows while the house is open, the game's own put away; its close is the house's" {
-  const own = ownFrame()
+// The game's own auction house window, where it stands: ours shows in its place.
+function gameWindow(): any Client.Frame {
+  let own = Client.CreateFrame("Frame", "AuctionHouseFrame", Client.UIParent, nil)
   own.SetSize(800, 500)
-  own.SetPoint("CENTER", Client.C_UI.GetUIParent(), "CENTER", 0, 0)
-  Game.frames.AuctionHouse = own
-  Test.mount(nil, PAGE)
-  Test.expect(Test.drawn().length == 0)
-  Game.auctionHouse.open = true
-  Test.pass(0.02)
-  Test.shot("the house open, no prices yet: full screen, «Buy» with nothing shown, the three pages as the window's tabs")
-  whereOwn(own)
-  Test.click(Test.holding("Sell", nil), nil)
-  Test.pass(0.02)
-  Test.expect(Auction.page == 2)
-  Test.key(Key.Escape)
-  Test.pass(0.02)
-  Test.expect(!Game.auctionHouse.open)
-  Test.expect(!Auction.shown)
-  whereOwn(own)
+  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+  return own
 }
 
-test "the window opens full screen; «Shopping list» and «My auctions» are windows docked at the screen's right" {
-  Test.mount(nil, PAGE)
-  Game.auctionHouse.open = true
-  Test.pass(0.02)
-  const wood = Ordaen.art.window.wood
-  Test.expect(Test.edges(wood, 0).left == 0 && Test.edges(wood, 0).right == Client.GetScreenWidth())
-  Test.click(Test.holding("Shopping list", nil), nil)
-  Test.pass(0.02)
-  Test.expect(Auction.shoppingOpen)
-  // The full-screen window leaves the docked one its width.
-  Test.expect(Test.edges(wood, 0).right == Client.GetScreenWidth() - Style.SIDE_WIDTH)
-  Test.shot("«Buy» full screen, the shopping list docked at the right")
-  Auction.page = 2
-  Test.pass(0.02)
-  Test.click(Test.holding("My auctions", nil), nil)
-  Test.pass(0.02)
-  Test.expect(Auction.shoppingOpen && Auction.ownedOpen)
-  Test.note(`surfaces shown: ${Test.surfaces().length}`)
-  // Each button again closes its window; the house stays open, and the window fills the screen again.
-  Test.click(Test.holding("My auctions", nil), nil)
-  Test.pass(0.02)
-  Test.expect(!Auction.ownedOpen)
-  Auction.page = 1
-  Test.pass(0.02)
-  Test.click(Test.holding("Shopping list", nil), nil)
-  Test.pass(0.02)
-  Test.expect(!Auction.shoppingOpen)
-  Test.expect(Game.auctionHouse.open)
-  Test.expect(Test.edges(wood, 0).right == Client.GetScreenWidth())
-  Game.auctionHouse.open = false
-  Test.pass(0.02)
+// The house's window: the surface that holds its «Sell» tab.
+function window(): Test.Part {
+  return Test.page().window("Sell")
 }
 
-test "the window off in the settings: the house opens with none of it, the game's own left as it is" {
-  Test.mount(nil, PAGE)
-  Auction.settings.choose({ window: false, ..Auction.settings.values })
-  Ordaen.keeper.saveAll()
-  Game.auctionHouse.open = true
-  Test.pass(0.02)
-  Test.expect(Test.drawn().length == 0)
-  Game.auctionHouse.open = false
-}
-
-test "«Sell»: the bags' items the house takes; one picked is posted from the click, a refusal said" {
-  Test.mount(nil, PAGE)
-  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
-    const name = id == LINEN ? "Linen Cloth" : id == AXE ? "Bronze Axe" : nil
-    if (name == nil) { return nil }
-    return { lines: [{ left: name, kind: 0 }] }
-  }
-  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [
-    { item: LINEN, count: 20, bag: 0, slot: 1, commodity: true },
-    { item: AXE, count: 1, bag: 0, slot: 2, commodity: false },
-    { item: LINEN, count: 6, bag: 1, slot: 4, commodity: true }
-  ]
-  // The client's deposit: 4 copper each of a commodity, an item's auction 150, whatever the duration.
-  Game.auctionActions.deposit = (from: Game.Sellable, quantity: Integer, duration: Game.Duration): Integer | nil =>
-  from.commodity ? quantity * 4 : 150
-  Game.clock.server = 1790002800
-  Game.auctionHouse.open = true
-  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
-  Auction.page = 2
-  Test.pass(0.02)
-  Test.shot("«Sell»: linen's two stacks as one row with its market, the axe; none picked")
-  Test.click(Test.holding("Linen Cloth", nil), nil)
-  Test.pass(0.02)
-  // The counter: Alt steps 100, held to the 26 linen hold; then one back.
-  Game.input.altDown = (): Boolean => true
-  Test.click(Test.holding("+", nil), nil)
-  Game.input.altDown = (): Boolean => false
-  Test.click(Test.holding("-", nil), nil)
-  Test.click(Test.holding("12 h", nil), nil)
-  Test.pass(0.02)
-  Test.shot("linen picked: 25 of its 26, a copper under the lowest, 12 hours, a deposit of 1s")
-  Test.click(Test.holding("Post", nil), nil)
-  Game.auctionActions.answered.emit(.Refused { reason: "Not enough money for the deposit" })
-  Test.pass(0.02)
-  Test.shot("the client refused the post: its words in red")
-  Test.click(Test.holding("Bronze Axe", nil), nil)
-  Test.pass(0.02)
-  Test.click(Test.field(1), nil)
-  Test.erase(20)
-  Test.type("20s")
-  Test.key(Key.Enter)
-  Test.pass(0.02)
-  Test.click(Test.holding("Post", nil), nil)
-  Game.auctionHouse.open = false
-  Test.pass(0.02)
-  Test.note("the axe posted as an auction of its own, its buyout the price; the house shut")
-  Test.shot("the house shut")
-}
-
-test "«My auctions»: the client's list, «Check» asks again, «Cancel» on a row from the click" {
-  Test.mount(nil, PAGE)
-  Game.auctionHouse.open = true
-  Game.ownedAuctions.list = [
-    { auction: 1, item: 2589, quantity: 20, buyout: 900, sold: false, left: 7200 },
-    { auction: 2, item: 2770, quantity: 5, buyout: nil, sold: false, left: nil },
-    { auction: 3, item: 2592, quantity: 1, buyout: 300, sold: true, left: nil }
-  ]
-  Auction.page = 2
-  Test.pass(0.02)
-  Test.click(Test.holding("My auctions", nil), nil)
-  Test.pass(0.02)
-  Test.shot("«My auctions»: the client's three, none seen on the house yet; «Cancel» on the two not sold")
-  Test.click(Test.holding("Check", nil), nil)
-  Test.click(Test.holding("Cancel", nil), nil)
-  Game.auctionActions.answered.emit(.Cancelled)
-  Test.pass(0.02)
-  Game.auctionHouse.open = false
-  Test.pass(0.02)
-  Test.shot("cancelled: the list asked again; the house shut")
-  Game.auctionHouse.open = false
-  Game.ownedAuctions.list = []
-}
-
-test "«Data», the settings' page the window's gear opens, before any scan: none, nothing at rest, an empty ledger" {
-  Test.mount(nil, PAGE)
-  Game.auctionHouse.open = true
-  Test.pass(0.02)
-  Test.moveTo(Test.holding("Lowest", nil))
+// Whether the game was asked exactly this since it was last asked, joined by «, »: where it wasn't, the test fails with
+// what it was asked.
+function asked(expected: String): Boolean {
   Test.flush()
-  Test.click(Test.painted(Ordaen.art.ctl.corner.gear, nil), nil)
-  Test.pass(0.02)
-  Test.click(Test.holding("Data", nil), nil)
-  Test.pass(0.02)
-  Test.shot("«Data»")
+  const said = Test.requests().join(", ")
+  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  return true
+}
+
+// The game's own window stands off the screen, unseen: it stays open, which keeps the house open.
+function away(own: any Client.Frame): Boolean {
+  Test.flush()
+  return own.GetAlpha() == 0 && (own.GetLeft() ?? 0) < -1000
+}
+
+// The game's own window is where it stood, seen.
+function back(own: any Client.Frame): Boolean {
+  Test.flush()
+  return own.GetAlpha() == 1 && (own.GetLeft() ?? 0).floor() == 16
+}
+
+// Ordaen's settings window at the module's page, as `/ordaen auction` opens it.
+function settings(): Test.Part {
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("auction")
+  return Test.page().window(SETTINGS)
+}
+
+// Shown and shut
+
+test "with the house shut nothing of the window shows, and the game's own window stands where it is" {
+  const own = gameWindow()
+  Game.frames.AuctionHouse = own
+  Test.mount(nil, SCREEN)
+  Test.expect(!window().shown() && back(own))
+}
+
+test "the house opening shows the window in place of the game's own, which stands away unseen" {
+  const own = gameWindow()
+  Game.frames.AuctionHouse = own
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  Test.expect(window().shown() && away(own))
+}
+
+test "the window's close leaves the house, and the game's own window is back" {
+  const own = gameWindow()
+  Game.frames.AuctionHouse = own
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  _ = Test.requests()
+  window().button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(asked("AuctionHouse.close") && !window().shown() && back(own))
+}
+
+test "Escape closes the window and leaves the house" {
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  _ = Test.requests()
+  Test.key(Key.Escape)
+  Test.expect(asked("AuctionHouse.close") && !window().shown())
+}
+
+test "the house shut by the game takes the window and its docked windows with it" {
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  window().button("Shopping list").click()
+  Test.expect(Test.page().window("Search all").shown())
   Game.auctionHouse.open = false
+  Game.auctionHouse.closed.emit()
+  Test.expect(!window().shown() && !Test.page().window("Search all").shown())
+}
+
+// The pages
+
+test "the window opens at «Buy»: every item's category at the left" {
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  Test.expect(window().text("All items").shown() && !window().text("What your bags can put up").shown())
+}
+
+test "the «Sell» tab shows the bags' side, and «Buy» the house's again" {
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  window().button("Sell").click()
+  Test.expect(window().text("What your bags can put up").shown() && !window().text("All items").shown())
+  window().button("Buy").click()
+  Test.expect(window().text("All items").shown())
+}
+
+test "the page shown is the one shown as the house opens again" {
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  window().button("Sell").click()
+  Game.auctionHouse.open = false
+  Game.auctionHouse.closed.emit()
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  Test.expect(window().text("What your bags can put up").shown())
+}
+
+// The docked windows
+
+test "«Shopping list» opens its window; clicked again it closes, the house left open" {
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  window().button("Shopping list").click()
+  Test.expect(Test.page().window("Search all").shown())
+  _ = Test.requests()
+  window().button("Shopping list").click()
+  Test.expect(!Test.page().window("Search all").shown() && window().shown() && asked(""))
+}
+
+test "«My auctions» on «Sell» opens its window, whose close closes it alone" {
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  window().button("Sell").click()
+  window().button("My auctions").click()
+  const owned = Test.page().window("Check")
+  Test.expect(owned.shown())
+  _ = Test.requests()
+  owned.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!Test.page().window("Check").shown() && window().shown() && asked(""))
+}
+
+test "both docked windows open at once, each from its button" {
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  window().button("Shopping list").click()
+  window().button("Sell").click()
+  window().button("My auctions").click()
+  Test.expect(Test.page().window("Search all").shown() && Test.page().window("Check").shown())
+}
+
+// The settings
+
+test "the window off in the settings: the house opens with none of it, the game's own window left where it is" {
+  const own = gameWindow()
+  Game.frames.AuctionHouse = own
+  Test.mount(nil, SCREEN)
+  const page = settings()
+  page.button(WINDOW_SETTING).click()
+  page.button("Save").click()
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  Test.expect(!window().shown() && back(own))
+}
+
+test "the window's gear opens Ordaen's settings at Ordaen Auction's page" {
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionHouse.opened.emit()
+  window().text("All items").hover()
+  window().button(Ordaen.art.ctl.corner.gear).click()
+  Test.expect(Test.page().window(SETTINGS).text(WINDOW_SETTING).shown())
 }
