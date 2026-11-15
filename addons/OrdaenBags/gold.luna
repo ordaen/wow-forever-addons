@@ -45,9 +45,9 @@ public class Gold {
     // Past the most kept: the one seen longest ago goes.
     if (count > MOST) {
       let oldest = ""
-      let when = 0
+      let when: Integer | nil = nil
       for (guid, purse of characters) {
-        if (oldest == "" || purse.seen < when) {
+        if (when == nil || purse.seen < when) {
           oldest = guid
           when = purse.seen
         }

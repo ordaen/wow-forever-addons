@@ -4,7 +4,7 @@
 import Runtime from "$runtime"
 import { Section } from "@/layout"
 import Locale from "@/locales"
-import { Grouping, KINDS, Slot, SortBy, Tab, rankOf } from "@/model"
+import { Grouping, Slot, SortBy, Tab, rankOf } from "@/model"
 
 // A tab's name.
 public function tabName(tab: Tab): String {
@@ -131,10 +131,9 @@ public function oneSection(bags: Array<Array<Slot>>): Array<Section> {
   return [{ key: "one", title: "", bag: -1, slots: slots, free: false }]
 }
 
-// How many items each tab has, the kinds' in their order after «All» and «New».
+// How many items each tab has: a tab with none isn't in the map.
 public function countsOf(slots: Array<Slot>): Map<Tab, Integer> {
-  let counts: Map<Tab, Integer> = { [Tab.All]: 0, [Tab.New]: 0 }
-  for (kind of KINDS) { counts[kind] = 0 }
+  let counts: Map<Tab, Integer> = {}
   for (slot of slots) {
     if (peek slot.id != 0) {
       counts[Tab.All] = (counts[Tab.All] ?? 0) + 1
