@@ -56,7 +56,6 @@ public class Purchase {
     let left = count
     let copper = 0
     for (listing of self.listings ?? []) {
-      if (left <= 0) { break }
       const taken = listing.quantity.min(left)
       copper += taken * listing.unit
       left -= taken
@@ -80,7 +79,7 @@ public class Purchase {
   // item's cheapest auction with a buyout bought out. False where nothing was sent.
   public buy(mut self, count: Integer): Boolean {
     const listings = peek self.listings
-    if (listings == nil || count <= 0) { return false }
+    if (listings == nil) { return false }
     let sent = false
     if (peek self.commodity) {
       const item = self.key.item()
