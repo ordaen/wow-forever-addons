@@ -399,6 +399,14 @@ test "the game's tracking button lies unseen under ours" {
   Test.expect(tracking.GetParent() != Client.C_UI.GetUIParent() && tracking.IsVisible() && tracking.GetEffectiveAlpha() == 0)
 }
 
+test "the zone's tooltip is the one tooltip shown, the ring's buttons showing none" {
+  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mount(nil, SCREEN)
+  minimap().text(ZONE).hover()
+  Test.expect(Test.page().window("Faction territory").count() == 1 && Test.surfaces().length == 2)
+}
+
 test "no tooltip shows until the cursor comes onto a part that has one" {
   Game.minimap.frame = frame("Minimap", true)
   Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
@@ -427,7 +435,9 @@ test "with nothing to hold the drawer has no button" {
   Test.expect(minimap().texts().join(" | ") == `${ZONE} | ${COORDS} | ${CLOCK}`)
 }
 
-test "the drawer's tooltip says what its button does" {
+test "the drawer's tooltip says what its button does, and no other button's says it" {
+  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game.frames.MinimapMail = frame("MinimapMail", true)
   Game.minimap.buttons = [frame("OtherAddonButton", true)]
   Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
   Test.mount(nil, SCREEN)
