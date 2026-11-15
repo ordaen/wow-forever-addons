@@ -4,7 +4,8 @@
 // what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
 import { Align, Art, Click, Edges, Line, MouseButton, Position, Track } from "$ltml"
-import { Component, PX, SelectItem, space, TableRow } from "Ordaen"
+import { Component, Money, PX, SelectItem, space, TableRow } from "Ordaen"
+import { Totals } from "@/cost"
 import { RecipeMenu } from "@/menu"
 import Style from "@/style"
 import { Act, FAVORITES, Group, has, Kept, members } from "@/view"
@@ -195,24 +196,39 @@ public class RecipeTableRow implements Component {
   derived color: Color = self.recipe.learned ? Style.difficultyColor(self.recipe.difficulty) : Style.OFF
   derived count: String = self.recipe.craftable > 0 ? "%d".format(self.recipe.craftable) : "-"
   derived menuOpen: Boolean = self.menuFor == self.recipe.id
+  // One making's cost and profit, with prices; «—» where a part has no price.
+  derived totals: Totals | nil = self.worth[self.recipe.id]
+  derived hasCost: Boolean = self.totals?.cost != nil
+  derived hasProfit: Boolean = self.totals?.profit != nil
+  derived cost: Integer = self.totals?.cost ?? 0
+  derived profit: Integer = (self.totals?.profit ?? 0).abs()
+  derived losing: Boolean = (self.totals?.profit ?? 0) < 0
+  derived profitColor: Color = self.losing ? Style.RED : Style.WHITE
 
   recipe: Signal<Game.Recipe>
   tracks: Signal<Array<Track>>
   chosen: Signal<Integer>
   kept: Signal<Kept>
   menuFor: Signal<Integer>
+  worth: Signal<Map<Integer, Totals>>
+  priced: Signal<Boolean>
   constructor(
     recipe: Signal<Game.Recipe>,
     tracks: Signal<Array<Track>>,
     chosen: Signal<Integer>,
     kept: Signal<Kept>,
     menuFor: Signal<Integer>,
+    // Each recipe's totals, and whether the table has their columns.
+    worth: Signal<Map<Integer, Totals>> = {},
+    priced: Signal<Boolean> = false,
   ) {
     self.recipe = recipe
     self.tracks = tracks
     self.chosen = chosen
     self.kept = kept
     self.menuFor = menuFor
+    self.worth = worth
+    self.priced = priced
   }
 
   // The library's row says which button picked it: the left one chooses the recipe, the right one opens its menu.
@@ -230,6 +246,17 @@ public class RecipeTableRow implements Component {
           <box xAlign={Align.End}>
             <text value={self.count} textColor={Style.WHITE} wrap={false} textFont={.Numbers} />
           </box>
+          <$if={self.priced}>
+            <box xAlign={Align.End}>
+              <Money $if={self.hasCost} amount={self.cost} />
+              <text $else value={"—"} textColor={Style.DIM} />
+            </box>
+            <box xAlign={Align.End} columns={["auto", "auto"]} gap={2 * PX}>
+              <text $if={self.losing} value={"-"} textColor={Style.RED} />
+              <Money $if={self.hasProfit} amount={self.profit} color={self.profitColor} />
+              <text $else value={"—"} textColor={Style.DIM} />
+            </box>
+          </>
         </TableRow>
         <RecipeMenu $if={self.menuOpen} recipe={self.recipe} kept={self.kept} @act={self.onAct} />
       </box>

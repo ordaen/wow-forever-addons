@@ -1,0 +1,196 @@
+// The settings' «Окна» page of a module that has windows: a sidebar of its windows, and the one picked's settings:
+// whether what the player does with it is kept, where it stands and how large it is (as numbers), full screen or not,
+// the tab it opens on (the one last open, or a fixed one), what hides it and after what it shows again. It is fed by the windows' declarations (`KeptWindow`)
+// and writes their memory, which the windows read: a window and its page can't disagree. What it changes is kept at
+// once, as a window moved by its tab is: it is where the window is, not a choice waiting for «Save».
+import { Click, Track } from "$ltml"
+import { Checkbox } from "@/checkbox"
+import { CountInput, CountLook } from "@/countInput"
+import { Choice, Dropdown, ManyDropdown } from "@/dropdown"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { SelectItem } from "@/selectItem"
+import { SettingRow } from "@/settingRow"
+import { PX, space } from "@/units"
+import { KeptWindow, Occasion, WindowView } from "@/window"
+
+const SIDEBAR = 200 * PX
+const COLUMNS: Array<Track> = [SIDEBAR, { fr: 1 }]
+const INK: Color = Color.hex("#e8dcc4")
+// How far the numbers go: a place from the screen's centre, a size of the body.
+const FAR = 4000
+const LEAST_SIZE = 100
+// A number's field: as high as a text box, wide enough for its digits.
+const FIELD_WIDTH = 120 * PX
+const FIELD_HEIGHT = 26 * PX
+const FILL: Array<Track> = [{ fr: 1 }]
+const MOST_SIZE = 4000
+// What can hide a window, and show it again.
+const OCCASIONS: Array<Choice<Occasion>> = [
+  { value: Occasion.Combat, label: Locale.OCCASION_COMBAT },
+  { value: Occasion.Travel, label: Locale.OCCASION_TRAVEL },
+  { value: Occasion.Moving, label: Locale.OCCASION_MOVING },
+]
+
+// The title of a module's page of its windows, in its `pages`:
+// `{ title: windowsTitle(), content: $ltml { <WindowsPage windows={[self.window]} /> } }`.
+public function windowsTitle(): String { return Locale.WINDOWS_TAB }
+
+// The tabs a window opens on, offered, and what tells one offer from the next.
+struct Offer {
+  key: Integer
+  choices: Array<Choice<Integer>>
+}
+
+// One window in the sidebar: picked, the page shows its settings.
+class WindowItem implements Component {
+  public picked: Event<Integer> = new Event()
+  derived chosen: Boolean = self.current == self.index
+
+  title: Signal<String>
+  index: Signal<Integer>
+  current: Signal<Integer>
+  constructor(title: Signal<String>, index: Signal<Integer>, current: Signal<Integer>) {
+    self.title = title
+    self.index = index
+    self.current = current
+  }
+
+  onPick(self, click: Click) { self.picked.emit(self.index) }
+
+  public render(self): Template {
+    return $ltml {
+      <SelectItem selected={self.chosen} first={self.index == 1} @pick={self.onPick}>
+        <text value={self.title} textColor={INK} />
+      </SelectItem>
+    }
+  }
+}
+
+public class WindowsPage implements Component {
+  state current = 1
+  // The picked window's settings as the controls hold them, whole numbers for the place and the size; each change
+  // is written to its memory, and a change of the memory (the window dragged) shows here.
+  state remember = true
+  state full = false
+  state x = 0
+  state y = 0
+  state width = 0
+  state height = 0
+  state openOn = 0
+  state hideDuring: Array<Occasion> = []
+  state showAfter: Array<Occasion> = []
+  // The tab it opens on: «the one last open», then each of its tabs.
+  derived tabChoices: Array<Choice<Integer>> = self.tabChoicesOf()
+  // The dropdown is made anew when the tabs it offers change.
+  derived offers: Array<Offer> = [{ key: self.tabChoices.length, choices: self.tabChoices }]
+  derived fixed: Boolean = !self.remember
+  derived view: WindowView = self.viewOf()
+
+  windows: mut Array<mut KeptWindow>
+  constructor(windows: mut Array<mut KeptWindow>) {
+    self.windows = windows
+    watch (view of self.view) { self.show(view) }
+    watch { self.keep() }
+  }
+
+  // The picked window's memory, followed.
+  viewOf(self): WindowView {
+    const window = self.windows[self.current]
+    if (window == nil) { return {} }
+    return window.memory.values
+  }
+
+  tabChoicesOf(self): Array<Choice<Integer>> {
+    const list: Array<Choice<Integer>> = [{ value: 0, label: Locale.WINDOW_LAST_TAB }]
+    const window = self.windows[self.current]
+    if (window == nil) { return list }
+    for (index, title of window.tabs) { list.push({ value: index, label: title }) }
+    return list
+  }
+
+  show(mut self, view: WindowView) {
+    self.remember = view.remember
+    self.full = view.full
+    self.x = view.x.round()
+    self.y = view.y.round()
+    self.width = view.width.round()
+    self.height = view.height.round()
+    self.openOn = view.openOn
+    self.hideDuring = view.hideDuring
+    self.showAfter = view.showAfter
+  }
+
+  // What the controls hold, written where it differs from the memory (a whole number differs from a place only where
+  // the player typed it).
+  keep(mut self) {
+    const remember = self.remember
+    const full = self.full
+    const x = self.x
+    const y = self.y
+    const width = self.width
+    const height = self.height
+    const openOn = self.openOn
+    const hideDuring = self.hideDuring
+    const showAfter = self.showAfter
+    const window = self.windows[peek self.current]
+    if (window == nil) { return }
+    const was = peek window.memory.values
+    const next = was.clone()
+    next.remember = remember
+    next.full = full
+    next.openOn = openOn
+    next.hideDuring = hideDuring.clone()
+    next.showAfter = showAfter.clone()
+    if (x != was.x.round()) { next.x = x }
+    if (y != was.y.round()) { next.y = y }
+    if (width != was.width.round()) { next.width = width }
+    if (height != was.height.round()) { next.height = height }
+    if (!next.equal(was)) { window.memory.write(next) }
+  }
+
+  onPick(mut self, index: Integer) { self.current = index }
+
+  public render(self): Template {
+    return $ltml {
+      <box columns={COLUMNS} gap={space(.Group)}>
+        <box columns={1}>
+          <WindowItem $for={index, window of self.windows} title={window.title} index={index} current={self.current}
+                      @picked={self.onPick} />
+        </box>
+        <box columns={1} gap={space(.Item)}>
+          <Checkbox label={Locale.WINDOW_REMEMBER} hint={Locale.WINDOW_REMEMBER_TIP} value={mut self.remember} />
+          <Checkbox label={Locale.WINDOW_FULL} value={mut self.full} disabled={self.fixed} />
+          <SettingRow label={Locale.WINDOW_X} disabled={self.fixed}>
+            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
+              <CountInput value={mut self.x} least={-FAR} most={FAR} look={CountLook.Field} disabled={self.fixed} />
+            </box>
+          </SettingRow>
+          <SettingRow label={Locale.WINDOW_Y} disabled={self.fixed}>
+            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
+              <CountInput value={mut self.y} least={-FAR} most={FAR} look={CountLook.Field} disabled={self.fixed} />
+            </box>
+          </SettingRow>
+          <SettingRow label={Locale.WINDOW_WIDTH} disabled={self.fixed}>
+            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
+              <CountInput value={mut self.width} least={LEAST_SIZE} most={MOST_SIZE} look={CountLook.Field}
+                          disabled={self.fixed} />
+            </box>
+          </SettingRow>
+          <SettingRow label={Locale.WINDOW_HEIGHT} disabled={self.fixed}>
+            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
+              <CountInput value={mut self.height} least={LEAST_SIZE} most={MOST_SIZE} look={CountLook.Field}
+                          disabled={self.fixed} />
+            </box>
+          </SettingRow>
+          <Dropdown $for={each of self.offers} $key={each.key} label={Locale.WINDOW_OPEN_ON}
+                    value={mut self.openOn} choices={peek each.choices} />
+          <ManyDropdown label={Locale.WINDOW_HIDE_DURING} hint={Locale.WINDOW_HIDE_DURING_TIP}
+                        value={mut self.hideDuring} choices={OCCASIONS} none={Locale.WINDOW_NEVER} />
+          <ManyDropdown label={Locale.WINDOW_SHOW_AFTER} hint={Locale.WINDOW_SHOW_AFTER_TIP}
+                        value={mut self.showAfter} choices={OCCASIONS} none={Locale.WINDOW_NEVER} />
+        </box>
+      </box>
+    }
+  }
+}

@@ -3,13 +3,20 @@
 // checkbox; Shift+click on one ticks the range from the last ticked.
 import Game from "$game"
 import { Align, Art, Overflow, Track } from "$ltml"
-import { ARTWORK, Choice, Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, Tick, Toolbar, ToolPick, tracksOf } from "Ordaen"
+import { ARTWORK, Choice, Column, Component, ItemButton, Memory, Money, PushButton, PX, Table, TableRow, Tick, Toolbar, ToolPick, tracksOf } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { collectable, Filter, matches, URGENT_DAYS } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
 
-public enum View { List = "list", Categories = "categories", Table = "table" }
+public enum View implements Plain { List = "list", Categories = "categories", Table = "table" }
+
+// How the player left the inbox's list: its filter and its view.
+public struct InboxView implements Plain {
+  filter: Filter = Filter.All
+  view: View = View.List
+}
+const INBOX_VIEW: InboxView = {}
 
 // A letter with nothing attached: the client's letter icon where an item's would stand.
 const LETTER: Art = "Interface/Icons/INV_Letter_15"
@@ -236,8 +243,8 @@ public class Inbox implements Component {
   public giveBack: Event<Integer> = new Event()
 
   state search = ""
-  state filter: Filter = Filter.All
-  state view: View = View.List
+  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  public list: mut Memory<InboxView> = new Memory<InboxView>(INBOX_VIEW, .Profile, "inbox")
   state picked = 0
   state ticked: mut Array<Integer> = []
   state tableColumn = 1
@@ -251,11 +258,11 @@ public class Inbox implements Component {
   derived tickedLabel: String = Locale.COLLECT_TICKED.format(self.ticked.length)
   derived hasTicked: Boolean = self.ticked.length > 0
   derived empty: Boolean = self.shown.length == 0
-  derived inList: Boolean = self.view == View.List
-  derived inGroups: Boolean = self.view == View.Categories
+  derived inList: Boolean = self.list.values.view == View.List
+  derived inGroups: Boolean = self.list.values.view == View.Categories
   derived waiting: String = Locale.WAITING.format(self.total)
   derived hasWaiting: Boolean = self.total > self.letters.length
-  derived narrowed: Boolean = self.filter != Filter.All
+  derived narrowed: Boolean = self.list.values.filter != Filter.All
   derived nothingToCollect: Boolean = !self.canAct || self.count == 0
 
   letters: Signal<Array<Game.MailLetter>>
@@ -277,7 +284,7 @@ public class Inbox implements Component {
   shownOf(self): Array<Game.MailLetter> {
     const list: Array<Game.MailLetter> = []
     for (letter of self.letters) {
-      if (matches(letter, self.filter, self.search)) { list.push(letter) }
+      if (matches(letter, self.list.values.filter, self.search)) { list.push(letter) }
     }
     return list
   }
@@ -367,9 +374,9 @@ public class Inbox implements Component {
         <box rows={PAGE} gap={8 * PX}>
           <box columns={1} gap={8 * PX}>
             <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-              <ToolPick value={mut self.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
+              <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
                         title={Locale.FILTER} lit={self.narrowed} />
-              <ToolPick value={mut self.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
+              <ToolPick value={mut self.list.values.view} choices={VIEWS} icon={Ordaen.art.ctl.tool.columns} title={Locale.VIEW} />
             </Toolbar>
             <text $if={self.hasWaiting} value={self.waiting} textSize={.Secondary} textColor={Style.DIM} />
           </box>

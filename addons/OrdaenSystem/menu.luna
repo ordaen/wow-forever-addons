@@ -74,7 +74,8 @@ public struct Live {
 }
 
 // The game menu as the dress sees it: whether it shows, its buttons and its size, read again at each show and each
-// time Blizzard builds its buttons anew.
+// time Blizzard builds its buttons anew. Started inside the menu's first show, so that show is matched in its own
+// call as every later one is.
 public class GameMenu {
   public state shown = false
   public state buttons: Array<Dressed> = []
@@ -91,8 +92,13 @@ public class GameMenu {
   // Whether the dress is on: a hook of the client's can't be taken back, so a hook finds it off once the dress ends,
   // and calls nothing of it.
   const live: mut Live = { on: true }
+  // Whether the menu's hooks are set and its buttons matched: from the menu's first show on.
+  started = false
 
-  constructor() {
+  // The menu shows for the first time: its hooks set, its buttons matched now, inside that show's own call.
+  public start(mut self) {
+    if (self.started) { return }
+    self.started = true
     const menu = Client.GameMenuFrame
     const live = self.live
     _ = menu.HookScript("OnShow", (...args: Unknown): nil => {
@@ -104,11 +110,17 @@ public class GameMenu {
     Client.hooksecurefunc(menu, "InitButtons", (...args: Unknown): nil => {
       if (live.on) { self.onInit() }
     })
+    // Blizzard's menu is a layout frame: its buttons get their places and the menu its size on the next frame's
+    // update, a pooled button standing where its last entry stood till then. Measured again once laid out.
+    Client.hooksecurefunc(menu, "Layout", (...args: Unknown): nil => {
+      if (live.on) { self.onInit() }
+    })
+    self.onShow()
   }
 
   destructor() {
     self.live.on = false
-    self.restore()
+    if (self.started) { self.restore() }
   }
 
   // The menu shows (its `OnShow`, after Blizzard built its buttons).
@@ -162,12 +174,13 @@ public class GameMenu {
     self.buttons = list
     self.width = menu.GetWidth()
     self.height = menu.GetHeight()
-    self.lead = 0
-    const first = list[1]
-    if (first != nil) {
-      const point, relative, to, _, y = first.button.GetPoint(1, nil)
-      if (relative == menu && point == to && y != nil) { self.lead = -y }
+    // The topmost of Blizzard's buttons, whichever its pool handed first: the least way down from the menu's top.
+    let lead: Number | nil = nil
+    for (dressed of list) {
+      const point, relative, to, _, y = dressed.button.GetPoint(1, nil)
+      if (relative == menu && point == to && y != nil && (lead == nil || -y < lead)) { lead = -y }
     }
+    self.lead = lead ?? 0
   }
 
   // The cursor and the press on a button of Blizzard's: hooked once, read by the plate drawn there.
@@ -281,9 +294,9 @@ public class MenuDress implements Component {
   // The head stands over Blizzard's first button, which stands `lead` under the menu's top.
   derived high: Number = self.menu.height - self.menu.lead + HEAD
 
-  // Made as the menu first shows: dressed at once, then at each show.
-  const menu: mut GameMenu = new GameMenu()
-  constructor() { self.menu.onShow() }
+  // Blizzard's menu, matched by the module from its first show on.
+  const menu: GameMenu
+  constructor(menu: GameMenu) { self.menu = menu }
 
   onAddons(mut self) {
     self.addons.emit()

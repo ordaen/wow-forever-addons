@@ -3,14 +3,21 @@
 // trainer; «Learn» is drawn disabled, as the client's declarations hold no call that buys a service.
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
-import { Choice, Component, Money, PushButton, PX, Toolbar, ToolPick } from "Ordaen"
+import { Choice, Component, Memory, Money, PushButton, PX, Toolbar, ToolPick } from "Ordaen"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
-public enum Show { All = "all", Available = "available", Unavailable = "unavailable", Learned = "learned" }
+public enum Show implements Plain { All = "all", Available = "available", Unavailable = "unavailable", Learned = "learned" }
 
-public enum Order { Level = "level", Name = "name", Price = "price" }
+public enum Order implements Plain { Level = "level", Name = "name", Price = "price" }
+
+// How the player left the trainer's list: what it shows and its order.
+public struct TrainerView implements Plain {
+  show: Show = Show.All
+  order: Order = Order.Level
+}
+const TRAINER_VIEW: TrainerView = {}
 
 const SHOWS: Array<Choice<Show>> = [
   { value: Show.All, label: Locale.SHOW_ALL },
@@ -80,8 +87,8 @@ public class ServiceRow implements Component {
 
 public class TrainerPage implements Component {
   state search = ""
-  state show: Show = Show.All
-  state order: Order = Order.Level
+  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  public list: mut Memory<TrainerView> = new Memory<TrainerView>(TRAINER_VIEW, .Profile, "trainer")
   state picked = 0
   derived shown: Array<Game.TrainerService> = self.shownOf()
   derived current: Game.TrainerService | nil = self.currentOf()
@@ -91,7 +98,7 @@ public class TrainerPage implements Component {
   derived price: Integer = self.current?.cost ?? 0
   derived canLearn: Boolean = false
   derived empty: Boolean = self.shown.length == 0
-  derived narrowed: Boolean = self.show != Show.All
+  derived narrowed: Boolean = self.list.values.show != Show.All
   derived summary: String = Locale.SUMMARY.format(self.count(Game.ServiceStatus.Available), self.count(Game.ServiceStatus.Unavailable), self.count(Game.ServiceStatus.Learned))
 
   services: Signal<Array<Game.TrainerService>>
@@ -113,9 +120,9 @@ public class TrainerPage implements Component {
   shownOf(self): Array<Game.TrainerService> {
     const list: Array<Game.TrainerService> = []
     for (service of self.services) {
-      if (passes(service, self.show, self.search)) { list.push(service) }
+      if (passes(service, self.list.values.show, self.search)) { list.push(service) }
     }
-    const by = self.order
+    const by = self.list.values.order
     list.sort((a, b) => {
       if (by == Order.Price && a.cost != b.cost) { return a.cost < b.cost }
       if (by == Order.Level && a.level != b.level) { return a.level < b.level }
@@ -131,8 +138,8 @@ public class TrainerPage implements Component {
       <box columns={BODY} rows={FILL} gap={Style.GAP}>
         <box rows={PAGE} gap={8 * PX}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-            <ToolPick value={mut self.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
-            <ToolPick value={mut self.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
+            <ToolPick value={mut self.list.values.order} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+            <ToolPick value={mut self.list.values.show} choices={SHOWS} icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER}
                       lit={self.narrowed} />
           </Toolbar>
           <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>

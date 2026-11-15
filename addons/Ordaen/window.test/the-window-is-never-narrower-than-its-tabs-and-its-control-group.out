@@ -1,0 +1,31 @@
+-- four long tabs on a body given 330: the window as wide as the tabs and the group, none over another
+surface 635,331.38 756.17x237.25 on DIALOG clamped raised by a click
+  box 635,368.62 756.17x200 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
+    box 647.75,381.38 735.67x176.75
+      text 667.75,401.38 695.67x15.6 "the page" #ffffff
+    box 1373.92,548.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 635,331.38 756.17x47.75
+    box 635,331.38 672x47.75
+      box 635,331.38 157.17x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 653.58,341.62 120x34.25
+          text 653.58,350.95 120x15.6 "The first long tab" #ffd100 centred
+      box 802.17,331.38 163.83x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 820.75,341.62 126.67x34.25
+          text 820.75,350.95 126.67x15.6 "The second long tab" #a3977f centred
+      box 976,331.38 157.17x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 994.58,341.62 120x34.25
+          text 994.58,350.95 120x15.6 "The third long tab" #a3977f centred
+      box 1143.17,331.38 163.83x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 1161.75,341.62 126.67x34.25
+          text 1161.75,350.95 126.67x15.6 "The fourth long tab" #a3977f centred
+    box 1313.67,344.46 77.5x34.67
+      box 1313.67,344.46 77.5x26.67 clipped
+        box 1313.67,344.46 29.17x26.67 absolute clipped @click
+          box 1313.67,344.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1323.67,349.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1342.83,344.46 25x26.67 absolute clipped @click
+          box 1342.83,344.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1349.08,349.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1367.83,344.46 23.33x26.67 absolute clipped @click
+          box 1367.83,344.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1374.08,349.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

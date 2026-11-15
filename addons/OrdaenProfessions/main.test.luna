@@ -80,6 +80,13 @@ function show(title: String, own: any Client.Frame) {
   Test.note("")
 }
 
+// The module off draws nothing. The page isn't blank: Ordaen Auction, which it loads with it where it is installed,
+// stands on the screen as a module of its own, showing nothing while the house is shut.
+function nothingDrawn(): Boolean {
+  Test.flush()
+  return Test.drawn().length == 0
+}
+
 // A click, and what it changed drawn.
 function click(at: Test.Point) {
   Test.click(at, nil)
@@ -179,16 +186,11 @@ test "the professions window: the open profession, its lists, the search, a reci
   }
   Test.note(`icons drawn: ${icons > 0 ? "some" : "none"}; with their own rim left on: ${whole}`)
 
-  // With the cursor over the window its corner's group shows: the skill bar ends before its first plate, settings.
-  Test.moveTo(Test.holding("Bags", nil))
-  Test.flush()
+  // The control group stands in the tab row, above the body: the skill bar runs under it, nothing between them.
   const ordaen = Ordaen
-  let bar = Test.edges(ordaen.lookArt.xpFill, 2)
-  let corner = Test.edges(ordaen.art.ctl.corner.bronze.first, 0)
-  Test.note("the skill bar ends %d before the corner's group".format((corner.left - bar.right + 0.5).floor()))
-  Test.expect(Test.painted(ordaen.art.ctl.corner.gear, nil).x > bar.right)
-  Test.moveTo({ x: -10, y: -10 })
-  Test.flush()
+  const bar = Test.edges(ordaen.lookArt.xpFill, 2)
+  const corner = Test.edges(ordaen.art.ctl.corner.bronze.first, 0)
+  Test.expect(corner.bottom < bar.top && Test.painted(ordaen.art.ctl.corner.gear, nil).y < bar.top)
 
   click(Test.holding("Bags", nil))
   show("«Bags» picked: its recipes, the first of them chosen", own)
@@ -236,7 +238,7 @@ test "the professions window: the open profession, its lists, the search, a reci
   show("the game's own window came up again on the player's key: the profession last open is asked for", own)
 
   (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
-  Test.expect(Test.blank())
+  Test.expect(nothingDrawn())
 }
 
 // A description longer than the details panel is wide, as the game's are.
@@ -265,7 +267,7 @@ test "a long description wraps in the details panel, which stays inside the wind
   click(Test.holding("Cloth armour", nil))
   Test.shot("«Linen Cloak» chosen: its description wraps in the panel, the panel ends inside the window")
   (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
-  Test.expect(Test.blank())
+  Test.expect(nothingDrawn())
 }
 
 test "the profession the game opens picks its tab, every time: after the window closed on another, and while it is open" {
@@ -308,5 +310,5 @@ test "the profession the game opens picks its tab, every time: after the window 
   Test.expect(Professions.tab == 1)
   Test.shot("Tailoring opened by the game while First Aid was open: its tab picked")
   (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
-  Test.expect(Test.blank())
+  Test.expect(nothingDrawn())
 }

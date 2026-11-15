@@ -58,9 +58,9 @@ function tipOf(title: String, sign: String): TipText {
 const FEWER_TIP: TipText = tipOf(Locale.COUNT_FEWER, "-")
 const MORE_TIP: TipText = tipOf(Locale.COUNT_MORE, "+")
 
-// The whole number a text is, or nothing.
-function countOf(text: String): Integer | nil {
-  const digits = text.match("^%s*(%d+)%s*$")
+// The whole number a text is, or nothing. A minus sign is read only where the least is under nought (a place from the screen's centre); a count has none.
+function countOf(text: String, signed: Boolean): Integer | nil {
+  const digits = signed ? text.match("^%s*(%-?%d+)%s*$") : text.match("^%s*(%d+)%s*$")
   if (digits == nil) { return nil }
   return (digits.toNumber() ?? 0).floor()
 }
@@ -71,7 +71,7 @@ public class CountInput implements Component {
   derived more: Boolean = !self.off && self.value < self.most
   derived stepped: Boolean = self.look == CountLook.Steps
   public state text: String
-  public derived bad: Boolean = countOf(self.text) == nil
+  public derived bad: Boolean = countOf(self.text, self.least < 0) == nil
   derived edge: Line = self.bad ? BAD : EDGE
 
   value: mut Signal<Integer>
@@ -109,7 +109,7 @@ public class CountInput implements Component {
 
   // What was typed is a number: the value is it, held to the bounds.
   take(mut self, typed: String) {
-    const count = countOf(typed)
+    const count = countOf(typed, peek self.least < 0)
     if (count == nil) { return }
     const kept = held(count, peek self.least, peek self.most)
     if (kept != peek self.value) {
@@ -121,7 +121,7 @@ public class CountInput implements Component {
 
   // The value changed: the text says it, unless it already does.
   show(mut self, count: Integer) {
-    if (countOf(peek self.text) != count) { self.text = String.of(count) }
+    if (countOf(peek self.text, peek self.least < 0) != count) { self.text = String.of(count) }
   }
 
   less(mut self) {

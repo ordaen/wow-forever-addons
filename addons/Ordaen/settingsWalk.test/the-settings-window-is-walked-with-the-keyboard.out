@@ -1,7 +1,7 @@
 open: Ordaen
 -- opened by the picker: the first entry of the list focused
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 329.42,189.71 946.17x560.08
       box 349.42,209.71 906.17x481.75
         box 349.42,209.71 112.78x481.75
@@ -36,6 +36,9 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
               box 632.19,223.04 86.11x27.27 #00000000 @click
                 box 633.03,223.88 84.44x1.67 absolute #00000000
                 text 644.69,229.71 61.11x15.6 "Behaviour" #a3977f
+              box 721.64,223.04 72.78x27.27 #00000000 @click
+                box 722.47,223.88 71.11x1.67 absolute #00000000
+                text 734.14,229.71 47.78x15.6 "Windows" #a3977f
             box 492.19,266.97 750.06x96.67
               box 492.19,266.97 750.06x16.67 opacity=1
                 box 492.19,267.51 233.33x15.6 @enter @leave
@@ -69,17 +72,26 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
             box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1176.14,714.49 28.89x15.6 "Save" #808080 centred
-    box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 316.67,139.71 114.5x47.75
-    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 335.25,149.96 77.33x34.25
-        text 352.81,159.28 42.22x15.6 "Ordaen" #ffd100 centred
+    box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 316.67,139.71 966.67x47.75
+    box 316.67,139.71 907.5x47.75
+      box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 335.25,149.96 77.33x34.25
+          text 352.81,159.28 42.22x15.6 "Ordaen" #ffd100 centred
+    box 1230.83,152.79 52.5x34.67
+      box 1230.83,152.79 52.5x26.67 clipped
+        box 1230.83,152.79 29.17x26.67 absolute clipped @click
+          box 1230.83,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1240.83,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1260,152.79 23.33x26.67 absolute clipped @click
+          box 1260,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1266.25,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 key: TAB → #2 «Themes» (click)
 key: ENTER → #2 «Themes» (click)
 -- Themes picked by Enter
 surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
-  box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 316.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 329.42,189.71 946.17x560.08
       box 349.42,209.71 906.17x481.75
         box 349.42,209.71 112.78x481.75
@@ -354,11 +366,20 @@ surface 316.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
             box 1132.25,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1132.25,708.12 116.67x28.33 absolute
                 text 1176.14,714.49 28.89x15.6 "Save" #808080 centred
-    box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 316.67,139.71 114.5x47.75
-    box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 335.25,149.96 77.33x34.25
-        text 352.81,159.28 42.22x15.6 "Ordaen" #ffd100 centred
+    box 1266.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 316.67,139.71 966.67x47.75
+    box 316.67,139.71 907.5x47.75
+      box 316.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 335.25,149.96 77.33x34.25
+          text 352.81,159.28 42.22x15.6 "Ordaen" #ffd100 centred
+    box 1230.83,152.79 52.5x34.67
+      box 1230.83,152.79 52.5x26.67 clipped
+        box 1230.83,152.79 29.17x26.67 absolute clipped @click
+          box 1230.83,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1240.83,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1260,152.79 23.33x26.67 absolute clipped @click
+          box 1260,152.79 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1266.25,158.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
 key: UP → #1 «General» (click)
 key: ENTER → #1 «General» (click)

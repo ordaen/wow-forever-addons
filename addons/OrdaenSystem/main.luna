@@ -3,20 +3,28 @@
 // game menu and nothing else: the dress is made the first time the menu shows, the window the first time it opens.
 import Client from "$client"
 import Runtime from "$runtime"
-import { Module, SettingsPage } from "Ordaen"
+import { KeptWindow, Module, SettingsPage, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
-import { AddOnsWindow } from "@/addonsWindow"
-import { Live, MenuDress } from "@/menu"
+import { AddOnsWindow, WINDOW } from "@/addonsWindow"
+import { GameMenu, Live, MenuDress } from "@/menu"
 
 public class System implements Module, App {
   public const title: String = "Ordaen System"
-  public const pages: Array<SettingsPage> = []
+  // Its window, declared: where it stands and what the player does with it, kept in the profile.
+  public window: mut KeptWindow = new KeptWindow("addons", Client.ADDONS, WINDOW)
+  public const windows: mut Array<mut KeptWindow> = [self.window]
+  public const pages: Array<SettingsPage> = [
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+  ]
 
   // The AddOns window: whether it shows, and whether it was ever made.
   public state open = false
   state made = false
   // The game menu has shown once since the module started: its dress is made.
   state dressed = false
+  // Blizzard's menu as the dress reads it: started in the menu's first show, inside that show's own call, so the
+  // first show is matched as every later one is and Blizzard's «AddOns» never stands undressed under the cursor.
+  const menu: mut GameMenu = new GameMenu()
   // Ordaen's folder: the addon its modules stand under.
   const framework: String
   // Whether the module runs: the menu's hook can't be taken back, so it finds the module ended.
@@ -27,11 +35,17 @@ public class System implements Module, App {
     Ordaen.modules.add(self)
     const live = self.live
     _ = Client.GameMenuFrame.HookScript("OnShow", (...args: Unknown): nil => {
-      if (live.on) { self.dressed = true }
+      if (live.on) { self.dress() }
     })
   }
 
   destructor() { self.live.on = false }
+
+  // The menu shows for the first time: Blizzard's buttons matched now, the dress drawn round them.
+  dress(mut self) {
+    self.menu.start()
+    self.dressed = true
+  }
 
   // The AddOns window opened: made the first time.
   public openWindow(mut self) {
@@ -43,8 +57,9 @@ public class System implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <MenuDress $if={self.dressed} @addons={self.openWindow} />
-      <AddOnsWindow $if={self.made} shown={self.open} framework={self.framework} @close={self.closeWindow} />
+      <MenuDress $if={self.dressed} menu={self.menu} @addons={self.openWindow} />
+      <AddOnsWindow $if={self.made} shown={self.open} framework={self.framework} declared={mut self.window}
+                    @close={self.closeWindow} />
     }
   }
 }

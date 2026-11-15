@@ -139,20 +139,40 @@ public class Settings<S: Plain> implements Sectioned {
   }
 }
 
-// What a module remembers between sessions that the player doesn't choose on a settings page: the profession last
-// open, a list's sort. The module reads and writes `values`, and what it writes is kept at once, the account's or
-// this character's, under the module's name and `:memory`.
-public class Memory<S: Plain> {
-  public state values: S
-  const scope: Game.Scope
-  key: String | nil = nil
+// Whose a `Memory` is: the active profile's, switched with it (where the player left the windows and the lists), or
+// the account's or this character's (a fact of the character: the profession last open, the crafting queue).
+public enum Whose { Profile, Account, Character }
 
-  constructor(defaults: S, scope: Game.Scope) {
-    self.scope = scope
+// What a module remembers between sessions that the player doesn't choose on a settings page, declared once with
+// its defaults: the framework reads it back as it is made and keeps every change at once, under the module's name
+// and `:<part>`. The profile's (`redesign/kept.md`) is kept in the active profile, and takes another profile's at a
+// switch; one equal to its defaults isn't kept at all. The module reads `values` and binds its entries
+// (`value={mut self.view.values.sort}`).
+public class Memory<S: Plain> {
+  public state values: mut S
+  const defaults: S
+  const whose: Whose
+  key: String | nil = nil
+  // What is kept now, to tell a change from a value taken from the kept one.
+  kept: S
+
+  constructor(defaults: S, whose: Whose = .Profile, part: String = "memory") {
+    self.defaults = defaults
+    self.whose = whose
     self.values = defaults.clone()
-    const key = keyOf(Runtime.Addon.of(self), "memory")
+    self.kept = defaults.clone()
+    const key = keyOf(Runtime.Addon.of(self), part)
     self.key = key
-    if (key != nil) { self.values = load(scope, key, defaults) }
+    if (key == nil) { return }
+    match (whose) {
+      .Profile => {
+        // The active profile's: read now, and again when the character switches to another profile.
+        watch (name of Ordaen.keeper.profiles.active) { self.recall(name, key) }
+      },
+      .Account => { self.values = load(.Account, key, defaults) },
+      .Character => { self.values = load(.Character, key, defaults) },
+    }
+    self.kept = (peek self.values).clone()
     watch { self.keep() }
   }
 
@@ -162,10 +182,23 @@ public class Memory<S: Plain> {
     self.values = values.clone()
   }
 
-  // Every entry is read, so a change to any of them keeps the whole.
-  keep(self) {
+  recall(mut self, profile: ProfileName, key: String) {
+    const values = S.decode(Ordaen.keeper.profiles.recalled(profile, key), self.defaults)
+    self.kept = values.clone()
+    self.values = values
+  }
+
+  // Every entry is read, so a change to any of them keeps the whole; a value equal to what is kept (a switch's)
+  // keeps nothing.
+  keep(mut self) {
     const values = self.values
     const key = self.key
-    if (key != nil) { Game.saved.store(self.scope, key, values) }
+    if (key == nil || values.equal(self.kept)) { return }
+    self.kept = values.clone()
+    match (self.whose) {
+      .Profile => { Ordaen.keeper.profiles.remember(key, values.equal(self.defaults) ? nil : values) },
+      .Account => { Game.saved.store(.Account, key, values) },
+      .Character => { Game.saved.store(.Character, key, values) },
+    }
   }
 }

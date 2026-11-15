@@ -184,3 +184,115 @@ public class CompactDropdown<T: Unknown> implements Component {
     }
   }
 }
+
+// One choice in a `ManyDropdown`'s open menu: its tick, gold while it is picked.
+class ManyItem<T: Unknown> implements Component {
+  public flip: Event<T> = new Event()
+
+  derived picked: Boolean = self.value.any((each: T) => each == self.choice.value)
+  derived tick: Number = self.picked ? 1 : 0
+
+  choice: Signal<Choice<T>>
+  value: Signal<Array<T>>
+  constructor(choice: Signal<Choice<T>>, value: Signal<Array<T>>) {
+    self.choice = choice
+    self.value = value
+  }
+
+  onClick(mut self) { self.flip.emit(self.choice.value) }
+
+  public render(self): Template {
+    return $ltml {
+      <box padding={ITEM_PAD} background={LIGHT} @click={self.onClick}>
+        <box position={Position.Absolute} left={8 * PX} top={7 * PX} width={TICK} height={TICK}
+             background={Ordaen.art.ctl.check}>
+          <box position={Position.Absolute} left={0} top={0} width={TICK} height={TICK}
+               background={Ordaen.art.ctl.tick} opacity={self.tick} />
+        </box>
+        <text value={self.choice.label} textColor={WHITE} />
+      </box>
+    }
+  }
+}
+
+const TICK = 16 * PX
+
+// The labels of the choices a list holds, in the choices' order, joined; none when it holds none.
+function labelsOf<T: Unknown>(choices: Array<Choice<T>>, value: Array<T>): String {
+  const labels: Array<String> = []
+  for (choice of choices) {
+    if (value.any((each: T) => each == choice.value)) { labels.push(choice.label) }
+  }
+  return labels.join(", ")
+}
+
+// ManyDropdown: a setting that is any number of several choices, as a `Dropdown` is one: the plate shows the picked
+// ones' names, or, where none is picked, `none` dimmed. Left-click on a choice in the open menu picks it or lets it go
+// and leaves the menu open; a click anywhere else closes it.
+public class ManyDropdown<T: Unknown> implements Component {
+  state open = false
+  derived picked: String = labelsOf(self.choices, self.value)
+  derived empty: Boolean = self.picked == ""
+  derived shown: String = self.empty ? self.none : self.picked
+  derived color: Color = self.empty ? DIM : GOLD
+
+  label: Signal<String>
+  value: mut Signal<Array<T>>
+  const choices: Array<Choice<T>>
+  none: Signal<String>
+  hint: Signal<String>
+  disabled: Signal<Boolean>
+  constructor(
+    label: Signal<String>,
+    value: mut Signal<Array<T>>,
+    choices: Array<Choice<T>>,
+    // What the plate says while nothing is picked.
+    none: Signal<String>,
+    hint: Signal<String> = "",
+    disabled: Signal<Boolean> = false,
+  ) {
+    self.label = label
+    self.value = value
+    self.choices = choices
+    self.none = none
+    self.hint = hint
+    self.disabled = disabled
+  }
+
+  toggle(mut self) {
+    if (!self.disabled) { self.open = !self.open }
+  }
+
+  close(mut self) { self.open = false }
+
+  // The choice flipped: the list keeps the choices' order.
+  onFlip(mut self, flipped: T) {
+    const was = peek self.value
+    const next: Array<T> = []
+    for (choice of self.choices) {
+      const held = was.any((each: T) => each == choice.value)
+      if (held != (choice.value == flipped)) { next.push(choice.value) }
+    }
+    self.value = next
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
+        <box width={WIDTH} height={HEIGHT}>
+          <box position={Position.Absolute} left={0} top={0} width={WIDTH} height={HEIGHT} padding={FACE_PAD}
+               columns={[{ fr: 1 }, 16 * PX]} gap={10 * PX} yAlign={Align.Center}
+               background={Ordaen.art.ctl.button} @click={self.toggle}>
+            <text value={self.shown} textColor={self.color} wrap={false} />
+            <box width={16 * PX} height={16 * PX} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
+          </box>
+          <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH + 20 * PX}
+                   background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1}
+                   @clickOutside={self.close}>
+            <ManyItem $for={choice of self.choices} choice={choice} value={self.value} @flip={self.onFlip} />
+          </surface>
+        </box>
+      </SettingRow>
+    }
+  }
+}

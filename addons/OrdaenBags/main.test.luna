@@ -181,15 +181,15 @@ test "the view picked from the header: a section per bag with its fill, then eve
   Test.flush()
   click(Test.painted(Ordaen.art.ctl.tool.categories, nil))
   click(Test.holding("By bag", nil))
-  Test.expect((peek Bags.settings.values).view == .Bags)
+  Test.expect((peek Bags.list.values).view == .Bags)
   Test.shot("by bag: the backpack's sixteen slots and the linen bag's six, each with its name and fill")
   click(Test.painted(Ordaen.art.ctl.tool.table, nil))
   click(Test.holding("One bag", nil))
-  Test.expect((peek Bags.settings.values).view == .One)
+  Test.expect((peek Bags.list.values).view == .One)
   Test.shot("in one grid: every slot in the bags' order, no captions")
   click(Test.painted(Ordaen.art.ctl.tool.one, nil))
   click(Test.holding("Categories", nil))
-  Test.expect((peek Bags.settings.values).view == .Categories)
+  Test.expect((peek Bags.list.values).view == .Categories)
 }
 
 test "every sort picked from the header orders the sections' items by it" {
@@ -323,4 +323,17 @@ test "the window's close shuts the game's bags" {
   Test.flush()
   click(Test.painted(Ordaen.art.ctl.corner.close, nil))
   Test.expect(!Game.bags.open)
+}
+
+test "the header's view and sort are the profile's: there after a reload, and as they start in another profile" {
+  Bags.list.values.view = .One
+  Bags.list.values.sort = .Name
+  Test.flush()
+  Test.reload()
+  Test.flush()
+  Test.expect(Bags.list.values.view == .One && Bags.list.values.sort == .Name)
+  Test.expect(Ordaen.keeper.profiles.make("Other", nil))
+  Ordaen.keeper.profiles.use("Other")
+  Test.flush()
+  Test.expect(Bags.list.values.view == .Categories && Bags.list.values.sort == .Bags)
 }
