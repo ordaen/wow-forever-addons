@@ -303,7 +303,7 @@ public class Professions implements Module, App {
     return kinds
   }
 
-  // «Queue (2)» while two of the profession's recipes wait.
+  // «Queue (2)» while two recipes wait, of any profession.
   pageNamesOf(self): Array<String> {
     const waiting = self.queued.length
     let names: Array<String> = []
@@ -567,18 +567,18 @@ public class Professions implements Module, App {
   // The item the recipe makes put into the chat's line; a recipe that makes none has no link.
   onLink(mut self, id: Integer) {
     self.menuFor = 0
-    const schematic = Game.recipeReader.schematic(id)
-    if (schematic != nil && schematic.makes != nil) { Game.chat.link(schematic.makes) }
+    const made = Game.recipeReader.schematic(id)?.makes
+    if (made != nil) { Game.chat.link(made) }
   }
 
-  // From the menu's click, as «Create» with all the bags make: the game takes making only from one.
+  // From the menu's click, as «Create» with all the bags make: the game takes making only from one. The menu's line
+  // takes no click while the bags make none.
   onMake(mut self, id: Integer) {
     self.menuFor = 0
     const open = peek Game.tradeSkill.open
-    for (recipe of peek Game.tradeSkill.recipes) {
-      if (open != nil && recipe.id == id && recipe.craftable > 0) {
-        self.note = self.crafting.add(open, id, recipe.name, recipe.craftable) ? Locale.QUEUED_AFTER : ""
-      }
+    const recipe = (peek Game.tradeSkill.recipes).find(r => r.id == id)
+    if (open != nil && recipe != nil) {
+      self.note = self.crafting.add(open, id, recipe.name, recipe.craftable) ? Locale.QUEUED_AFTER : ""
     }
   }
 
@@ -602,10 +602,10 @@ public class Professions implements Module, App {
   // A line's stepper set its recipe's count.
   onQueueCount(mut self, recipe: Integer, count: Integer) { self.crafting.recount(recipe, count) }
 
-  // A line of the queue asked for something; «Create next» starts the next run, in the click.
   // «Create next», in the player's click: the client starts a craft from nothing else.
   onNext(mut self) { self.onQueueAct(QueueAct.Next, 0) }
 
+  // A line of the queue asked for something, or «Create next» the next run.
   onQueueAct(mut self, act: QueueAct, id: Integer) {
     match (act) {
       QueueAct.Drop => { self.crafting.recount(id, 0) }
