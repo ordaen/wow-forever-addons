@@ -3,8 +3,8 @@
 // switching off what others need after a question, Ctrl on a group's parent, a caption's switch, for whom; the search,
 // the filter, the sort and the table; a row's menu; the card; «Reset», sets and «Reload»; the numbers read only while
 // it shows; how the player left the list, kept in the profile. The client's list is the stand-in's (the runtime,
-// Ordaen, Ordaen System) and the addons a test's `World` adds after it: a test that adds them says so to the client's
-// functions that list addons, and to those that switch them where it switches one of its own.
+// Ordaen, Ordaen System), with the addons a test installs in it (`Test.addon`); a test whose addons the stand-in can't
+// say (a reason of their own, a refusal, the client's numbers) answers the client's functions from its `World`.
 import Build from "$build"
 import Client from "$client"
 import Events from "$events"
@@ -1862,35 +1862,15 @@ test "«Load» isn't offered for what is loaded, off, refused or loaded at login
 }
 
 test "in a fight «Load» in a row's menu is greyed" {
-  const world = new World(everyday())
-  Client.C_AddOns.GetNumAddOns = () => world.count()
-  Client.C_AddOns.GetAddOnName = index => world.name(index)
-  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
-  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
-  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
-  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
-  Client.C_AddOns.IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
-  }
-  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
-  }
-  Client.C_AddOns.LoadAddOn = name => {
-    const loaded, refused = world.load(name)
-    return loaded, refused
-  }
+  Test.addon({ name: "Chatter", title: "Chatter", onDemand: true })
   Test.mount(nil, SCREEN)
-  open()
   Test.combat(true)
-  Game.situation.combat = true
+  open()
   const entry = menu("Chatter").text(Locale.LOAD_NOW)
   Test.expect(!entry.textColor().equal(Test.page().window(Locale.MENU_DETAILS).text(Locale.DISABLE).textColor()))
   entry.click()
   Test.expect(window().text(Locale.STATE_DEMAND).shown())
   Test.combat(false)
-  Game.situation.combat = false
 }
 
 // The card
@@ -1997,32 +1977,37 @@ test "the card's state of an addon on demand: waits to be asked for, then loaded
   Test.expect(window().text(Locale.LOADED_DEMAND).shown() && !window().button(Locale.LOAD_NOW).shown())
 }
 
-test "the card says the client's refusal where «Load» fails" {
-  const world = new World(everyday())
-  world.fakes.push({ name: "Picky", title: "Picky", demand: true, refuses: "NOT_AVAILABLE" })
-  Client.C_AddOns.GetNumAddOns = () => world.count()
-  Client.C_AddOns.GetAddOnName = index => world.name(index)
-  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
-  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
-  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
-  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
-  Client.C_AddOns.IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
-  }
-  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
-  }
+test "the card says the client's refusal where «Load» fails, and nothing once it loads" {
+  Test.addon({ name: "Picky", title: "Picky", onDemand: true })
+  // The client refuses the first «Load», and takes the next.
+  let asked = 0
   Client.C_AddOns.LoadAddOn = name => {
-    const loaded, refused = world.load(name)
-    return loaded, refused
+    asked += 1
+    return asked > 1, asked > 1 ? nil : "NOT_AVAILABLE"
   }
   Test.mount(nil, SCREEN)
   open()
   row("Picky").click()
   window().button(Locale.LOAD_NOW).click()
-  Test.expect(window().text(Client.ADDON_LOAD_FAILED.format("Picky", "NOT_AVAILABLE")).textColor().equal(Style.RED))
+  const refusal = Client.ADDON_LOAD_FAILED.format("Picky", "NOT_AVAILABLE")
+  Test.expect(window().text(refusal).textColor().equal(Style.RED))
+  window().button(Locale.LOAD_NOW).click()
+  Test.expect(asked == 2 && !window().text(refusal).shown())
+}
+
+test "the card of an addon with no picture of its own, or one the client can't show, shows the question mark" {
+  Test.addon({ name: "Plain", title: "Plain" })
+  Test.addon({ name: "Odd", title: "Odd", fields: { IconTexture: "a bag" } })
+  Test.addon({ name: "Pictured", title: "Pictured", fields: { IconTexture: "Interface/Icons/INV_Misc_Bag_08" } })
+  Test.mount(nil, SCREEN)
+  open()
+  for (title of ["Plain", "Odd"]) {
+    row(title).click()
+    Test.expect(window().box("Interface/Icons/INV_Misc_QuestionMark").shown())
+  }
+  row("Pictured").click()
+  Test.expect(window().box("Interface/Icons/INV_Misc_Bag_08").shown() &&
+      !window().box("Interface/Icons/INV_Misc_QuestionMark").shown())
 }
 
 test "a refusal of «Load» stays on the card of the addon it is about" {
@@ -2056,37 +2041,17 @@ test "a refusal of «Load» stays on the card of the addon it is about" {
 }
 
 test "in a fight the card's «Load» is greyed, does nothing, and says why under the cursor" {
-  const world = new World(everyday())
-  Client.C_AddOns.GetNumAddOns = () => world.count()
-  Client.C_AddOns.GetAddOnName = index => world.name(index)
-  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
-  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
-  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
-  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
-  Client.C_AddOns.IsAddOnLoaded = name => {
-    const loading, loaded = world.loaded(name)
-    return loading, loaded
-  }
-  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
-    const can, reason = world.loadable(name, character, demandLoaded)
-    return can, reason
-  }
-  Client.C_AddOns.LoadAddOn = name => {
-    const loaded, refused = world.load(name)
-    return loaded, refused
-  }
+  Test.addon({ name: "Chatter", title: "Chatter", onDemand: true })
   Test.mount(nil, SCREEN)
+  Test.combat(true)
   open()
   row("Chatter").click()
-  Test.combat(true)
-  Game.situation.combat = true
   window().button(Locale.LOAD_NOW).click()
   Test.expect(window().text(Locale.WAITING_DEMAND).shown())
   Test.expect(window().button(Locale.LOAD_NOW).paintedWith(Ordaen.art.ctl.buttonDisabled))
   window().button(Locale.LOAD_NOW).hover()
   Test.expect(reads(Test.page().window(Locale.IN_COMBAT), "Load | Waits for the fight to end."))
   Test.combat(false)
-  Game.situation.combat = false
 }
 
 test "the card's state: waits for a reload in green, disabled dim, refused in red" {
@@ -2200,14 +2165,34 @@ test "«Reload» is a secure box the client runs: /reload" {
 
 test "in a fight «Reload» is greyed and says why under the cursor" {
   Test.mount(nil, SCREEN)
-  open()
   Test.combat(true)
-  Game.situation.combat = true
+  open()
   Test.expect(window().button(Locale.RELOAD).paintedWith(Ordaen.art.ctl.buttonDisabled))
   window().button(Locale.RELOAD).hover()
   Test.expect(reads(Test.page().window(Locale.IN_COMBAT), "Reload | Waits for the fight to end."))
   Test.combat(false)
-  Game.situation.combat = false
+}
+
+// Ordaen's windows hide in a fight and aren't shown again by themselves, until the player chooses otherwise on
+// Ordaen's «Windows» page: the window goes as the fight begins, before the client locks it.
+test "the window closes as a fight begins, and stays closed after it" {
+  Test.mount(nil, SCREEN)
+  open()
+  Test.combat(true)
+  Test.expect(!window().shown())
+  Test.combat(false)
+  Test.pass(0.1)
+  Test.expect(!window().shown())
+}
+
+test "the window opened in a fight stays, and stays after it" {
+  Test.mount(nil, SCREEN)
+  Test.combat(true)
+  open()
+  Test.expect(window().shown())
+  Test.combat(false)
+  Test.pass(0.1)
+  Test.expect(window().shown())
 }
 
 // Sets
@@ -2451,6 +2436,20 @@ test "System is among Ordaen's modules, and its page has the AddOns window's set
   const page = settings()
   page.button("System").click()
   Test.expect(page.text(Client.ADDONS).shown() && page.text("Opens on").shown())
+}
+
+test "a module the player turned off in Ordaen says so, after a reload too" {
+  Test.addon({
+    name: "OrdaenBank", title: "Ordaen Bank", needs: ["LunaType", "Ordaen"], group: "Ordaen", category: "User Interface",
+    onDemand: true
+  })
+  const own = Runtime.Addon.of(Ordaen) ?? panic("Ordaen is an addon")
+  // Ordaen's settings turn it off: the module has no root here to show on, so its switch is turned as they turn it.
+  Ordaen.turn(own.dependents().find(addon => addon.name == "OrdaenBank") ?? panic("Ordaen Bank needs Ordaen"), false)
+  Test.reload()
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(row("Ordaen Bank"), `Ordaen Bank | ${Locale.MODULE_OFF} | — | — | —`))
 }
 
 test "a module's state opens Ordaen's settings at the module" {
