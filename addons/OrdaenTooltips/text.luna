@@ -16,9 +16,9 @@ public function pluralForm(n: Integer, forms: String): String {
   let one, few, many = forms.match("^([^:]*):([^:]*):?(.*)$")
   if (one == nil || few == nil) { return forms }
   match (form(n)) {
-    1 => return one,
-    2 => return few,
-    else => return many == nil || many == "" ? few : many,
+    1 => return one
+    2 => return few
+    else => return many == nil || many == "" ? few : many
   }
 }
 

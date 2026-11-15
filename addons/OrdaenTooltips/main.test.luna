@@ -14,7 +14,7 @@ import { Place } from "@/choices"
 function showing(corner: any Frame, data: Game.TooltipData): Game.ShownTip {
   return {
     shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner, below: false,
-    right: true,
+    right: true
   }
 }
 
@@ -27,7 +27,7 @@ function hidden(corner: any Frame): Game.ShownTip {
 function inSlot(corner: any Frame, slot: any Frame, data: Game.TooltipData): Game.ShownTip {
   return {
     owner: slot, ownerName: "ContainerFrame1Item3", placeable: true, ownerHigh: true, ownerRight: true,
-    ..showing(corner, data),
+    ..showing(corner, data)
   }
 }
 
@@ -79,7 +79,7 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   Game.character.durability = (): Number | nil => 0.2
   Game.tooltip.main = {
     owner: button, ownerName: "CharacterMicroButton", placeable: true,
-    ..showing(corner, { plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }] }),
+    ..showing(corner, { plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }] })
   }
   Test.shot("a button's text: read, with the item level and the most worn piece, drawn above the button on its left edge")
 
@@ -98,7 +98,7 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
   saveAll()
   Game.tooltip.main = {
     ownerName: "MainMenuBarBackpackButton",
-    ..showing(corner, { plain: true, lines: [{ left: "Backpack", kind: 0 }] }),
+    ..showing(corner, { plain: true, lines: [{ left: "Backpack", kind: 0 }] })
   }
   Test.shot("the backpack: the free slots of every bag together")
 
@@ -220,8 +220,8 @@ test "the module reads the game's tooltip, draws it where it belongs, and locks 
     lines: [
       { left: "Frostbolt", kind: 13 },
       { left: "65 Mana", right: "30 yd range", kind: 0 },
-      { left: "2.5 sec cast", kind: 0 },
-    ],
+      { left: "2.5 sec cast", kind: 0 }
+    ]
   })
   Test.pass(1.3)
   Test.shot("a spell locked: the cells of its band that open a term are underlined")
@@ -287,8 +287,8 @@ function frostbolt(corner: any Frame, slot: any Frame): Game.ShownTip {
     lines: [
       { left: "Frostbolt", kind: 13 },
       { left: "65 Mana", right: "30 yd range", kind: 0 },
-      { left: "2.5 sec cast", kind: 0 },
-    ],
+      { left: "2.5 sec cast", kind: 0 }
+    ]
   })
 }
 
@@ -431,7 +431,7 @@ test "a spell's tooltip after a unit's holds nothing of the unit's, locked or no
     name: "Kragos", player: true, className: "Warrior", guild: "Kirin Tor", guildRank: "Officer", dead: false,
     ghost: false, afk: false, dnd: false, pvp: false, level: 34, race: "Human", faction: "Alliance",
     factionName: "Alliance", sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false,
-    classification: "normal",
+    classification: "normal"
   }
   Game.spells.cost = (id: Integer): Game.SpellCost | nil => id == 116 ? { amount: 65 } : nil
   for (lock of [false, true]) {
@@ -442,7 +442,7 @@ test "a spell's tooltip after a unit's holds nothing of the unit's, locked or no
       Game.tooltip.main = hidden(corner)
       Test.pass(0.3)
       Game.tooltip.main = showing(corner, {
-        kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }, { left: "Level 34 Human Warrior", kind: 0 }],
+        kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }, { left: "Level 34 Human Warrior", kind: 0 }]
       })
       Test.pass(0.1)
       Test.expect(holds("Kirin Tor") && holds("Human"))
@@ -472,7 +472,7 @@ test "a button's tooltip, which never locks, is its content's height; an item's 
   Game.character.durability = (): Number | nil => 0.97
   Game.tooltip.main = {
     owner: button, ownerName: "CharacterMicroButton", placeable: true,
-    ..showing(corner, { plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }] }),
+    ..showing(corner, { plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }] })
   }
   Test.pass(0.1)
   const tip = Test.edges(Ordaen.art.window.wood, 0)

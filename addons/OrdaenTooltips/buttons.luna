@@ -8,7 +8,7 @@ import { Model, TextLine } from "@/model"
 // The bags' buttons by the game's names for them: the backpack, then the four bag slots.
 const BAGS: Map<String, Integer> = {
   MainMenuBarBackpackButton: 0, CharacterBag0Slot: 1, CharacterBag1Slot: 2, CharacterBag2Slot: 3,
-  CharacterBag3Slot: 4,
+  CharacterBag3Slot: 4
 }
 
 function count(have: Integer, most: Integer): String {

@@ -82,7 +82,7 @@ public class Placed implements Component {
     // Its name in the placing mode.
     title: String,
     // Where it stands while the player never moved it.
-    home: Signal<Anchored>,
+    home: Signal<Anchored>
   ) {
     self.id = id
     self.title = title

@@ -18,7 +18,7 @@ const COLUMNS: Array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
   { title: "Price", width: 110, align: Align.End, sortable: true },
   { title: "Age", width: 50, align: Align.End, sortable: true },
-  { title: "Note", width: 60 },
+  { title: "Note", width: 60 }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 
@@ -26,7 +26,7 @@ class Sales {
   public state sales: Array<Sale> = [
     { name: "Copper Bar", price: 150, seen: 3 * 86400 },
     { name: "Bronze Axe", price: 12345, seen: 86400 },
-    { name: "Arcane Dust", price: 40, seen: 9 * 86400 },
+    { name: "Arcane Dust", price: 40, seen: 9 * 86400 }
   ]
   public state sorted = 0
   public state descending = false
@@ -109,7 +109,7 @@ test "a heading click sorts by its column and again reverses it, the rows' own c
     { name: "Copper Bar", price: 150, seen: 3 * 86400 },
     { name: "Bronze Axe", price: 99, seen: 2 * 86400 },
     { name: "Arcane Dust", price: 40, seen: 9 * 86400 },
-    { name: "Tin Bar", price: 70, seen: 600 },
+    { name: "Tin Bar", price: 70, seen: 600 }
   ]
   Test.expect(names(page) == "Tin Bar, Bronze Axe, Copper Bar, Arcane Dust")
   Test.shot("the sales replaced while sorted by Age: four rows, the new one first, nothing was asked to sort")

@@ -10,7 +10,7 @@ import { KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
 class Tabbed {
   state tabs: Array<WindowTabSpec> = [
     { title: "Professions", desc: "Tailoring 75", icon: "Interface/Icons/Trade_Tailoring" },
-    { title: "Recipes" },
+    { title: "Recipes" }
   ]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 400, height: 300 })
@@ -168,7 +168,7 @@ test "a window made without settings has no button" {
 class Crowded {
   state tabs: Array<WindowTabSpec> = [
     { title: "The first long tab" }, { title: "The second long tab" }, { title: "The third long tab" },
-    { title: "The fourth long tab" },
+    { title: "The fourth long tab" }
   ]
   state tab = 1
   public placing: mut KeptWindow = new KeptWindow("crowded", "crowded", { x: 0, y: 0, width: 330, height: 200 })
@@ -392,7 +392,7 @@ class Sided {
       <box background={FACE}>
         <text value={"the details"} />
       </box>
-    },
+    }
   }
 
   public render(self): Template {

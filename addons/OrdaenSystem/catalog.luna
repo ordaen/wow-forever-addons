@@ -139,7 +139,7 @@ public class Catalog {
         wants: listOf(...Client.C_AddOns.GetAddOnOptionalDependencies(name)),
         demand: Client.C_AddOns.IsAddOnLoadOnDemand(name),
         outdated: Client.C_AddOns.GetAddOnInterfaceVersion(name) < interface,
-        lunatype: name == RUNTIME || needsRuntime(needs),
+        lunatype: name == RUNTIME || needsRuntime(needs)
       })
     }
     self.addons = list
@@ -160,7 +160,7 @@ public class Catalog {
         enabled: state == .All ? Switch.On : state == .Some ? Switch.Some : Switch.Off,
         mine: Client.C_AddOns.GetAddOnEnableState(addon.name, player) != .None,
         loaded: loaded,
-        reason: reason,
+        reason: reason
       }
     }
     self.statuses = map
@@ -346,8 +346,8 @@ public class Catalog {
     for (index of step.changes.length..=1 step -1) {
       const change = step.changes[index] ?? panic("an index of the list")
       match (change.before) {
-        .On => Client.C_AddOns.EnableAddOn(change.name, character),
-        .Off => Client.C_AddOns.DisableAddOn(change.name, character),
+        .On => Client.C_AddOns.EnableAddOn(change.name, character)
+        .Off => Client.C_AddOns.DisableAddOn(change.name, character)
         // On for some characters: this one as it was, the others the other way (the client names no other).
         .Some => {
           if (change.mine) {
@@ -357,7 +357,7 @@ public class Catalog {
             Client.C_AddOns.EnableAddOn(change.name, nil)
             Client.C_AddOns.DisableAddOn(change.name, player)
           }
-        },
+        }
       }
     }
     Client.C_AddOns.SaveAddOns()

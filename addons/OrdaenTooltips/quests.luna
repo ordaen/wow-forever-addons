@@ -33,7 +33,7 @@ public function quests(lines: Array<Game.TooltipLine>, party: Boolean): mut Arra
         rows.push({ left: label, right: value, rightColor: done ? GREEN : nil, opens: named(Term.Quest) })
       } else if (party) {
         rows.push({
-          left: member, right: value, rightColor: done ? GREEN : nil, indent: true, opens: named(Term.Quest),
+          left: member, right: value, rightColor: done ? GREEN : nil, indent: true, opens: named(Term.Quest)
         })
       }
     }

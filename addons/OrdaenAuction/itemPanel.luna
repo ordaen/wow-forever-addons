@@ -17,7 +17,7 @@ public enum Span { Day = "day", Week = "week", Month = "month" }
 const SPANS: Array<Choice<Span>> = [
   { value: Span.Day, label: Locale.SPAN_DAY },
   { value: Span.Week, label: Locale.SPAN_WEEK },
-  { value: Span.Month, label: Locale.SPAN_MONTH },
+  { value: Span.Month, label: Locale.SPAN_MONTH }
 ]
 const HOURS_A_DAY = 24
 const WEEK = 7
@@ -156,7 +156,7 @@ public class ItemPanel implements Component {
     detail: String,
     house: House,
     prices: any PriceSource,
-    history: any PriceHistory | nil,
+    history: any PriceHistory | nil
   ) {
     self.item = item
     self.key = PriceKey.of(item)

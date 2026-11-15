@@ -29,11 +29,11 @@ const FONTS: Array<Choice<Font>> = [
   { value: Font.FiraCondensed, label: Locale.THEME_FONT_FIRACONDENSED },
   { value: Font.PtSansNarrow, label: Locale.THEME_FONT_PTSANSNARROW },
   { value: Font.Friz, label: Locale.THEME_FONT_FRIZ },
-  { value: Font.ArialNarrow, label: Locale.THEME_FONT_ARIALNARROW },
+  { value: Font.ArialNarrow, label: Locale.THEME_FONT_ARIALNARROW }
 ]
 const BARS: Array<Choice<BarTexture>> = [
   { value: BarTexture.Flat, label: Locale.THEME_BAR_FLAT },
-  { value: BarTexture.Blizzard, label: Locale.THEME_BAR_BLIZZARD },
+  { value: BarTexture.Blizzard, label: Locale.THEME_BAR_BLIZZARD }
 ]
 const FILLS: Array<Choice<XpFill>> = [
   { value: XpFill.Deep, label: Locale.THEME_XPFILL_DEEP },
@@ -41,16 +41,16 @@ const FILLS: Array<Choice<XpFill>> = [
   { value: XpFill.Brushed, label: Locale.THEME_XPFILL_BRUSHED },
   { value: XpFill.Potion, label: Locale.THEME_XPFILL_POTION },
   { value: XpFill.Clouds, label: Locale.THEME_XPFILL_CLOUDS },
-  { value: XpFill.Steel, label: Locale.THEME_XPFILL_STEEL },
+  { value: XpFill.Steel, label: Locale.THEME_XPFILL_STEEL }
 ]
 const FRAMES: Array<Choice<BarFrame>> = [
   { value: BarFrame.Bezel, label: Locale.THEME_BARFRAME_BEZEL },
-  { value: BarFrame.Groove, label: Locale.THEME_BARFRAME_GROOVE },
+  { value: BarFrame.Groove, label: Locale.THEME_BARFRAME_GROOVE }
 ]
 const ANIMATIONS: Array<Choice<Animation>> = [
   { value: Animation.Smooth, label: Locale.THEME_ANIM_SMOOTH },
   { value: Animation.Fast, label: Locale.THEME_ANIM_FAST },
-  { value: Animation.Off, label: Locale.THEME_ANIM_OFF },
+  { value: Animation.Off, label: Locale.THEME_ANIM_OFF }
 ]
 const HUES: Array<Choice<Hue>> = [
   { value: Hue.Red, label: Locale.THEME_PALETTECOLOR_RED },
@@ -63,20 +63,20 @@ const HUES: Array<Choice<Hue>> = [
   { value: Hue.Pink, label: Locale.THEME_PALETTECOLOR_PINK },
   { value: Hue.Tan, label: Locale.THEME_PALETTECOLOR_TAN },
   { value: Hue.White, label: Locale.THEME_PALETTECOLOR_WHITE },
-  { value: Hue.Grey, label: Locale.THEME_PALETTECOLOR_GREY },
+  { value: Hue.Grey, label: Locale.THEME_PALETTECOLOR_GREY }
 ]
 
 function nameOf(named: Preset): String {
   match (named) {
-    Preset.Ordaen => return Locale.THEME_NAME_ORDAEN,
-    Preset.Minimal => return Locale.THEME_NAME_MINIMAL,
+    Preset.Ordaen => return Locale.THEME_NAME_ORDAEN
+    Preset.Minimal => return Locale.THEME_NAME_MINIMAL
   }
 }
 
 function aboutOf(named: Preset): String {
   match (named) {
-    Preset.Ordaen => return Locale.THEME_ABOUT_ORDAEN,
-    Preset.Minimal => return Locale.THEME_ABOUT_MINIMAL,
+    Preset.Ordaen => return Locale.THEME_ABOUT_ORDAEN
+    Preset.Minimal => return Locale.THEME_ABOUT_MINIMAL
   }
 }
 

@@ -31,9 +31,9 @@ const DAY = 24
 // The text of a way.
 public function wayText(way: Way): String {
   return match (way) {
-    Way.Buy => Locale.WAY_BUY,
-    Way.Vendor => Locale.WAY_VENDOR,
-    Way.None => NONE,
+    Way.Buy => Locale.WAY_BUY
+    Way.Vendor => Locale.WAY_VENDOR
+    Way.None => NONE
   }
 }
 

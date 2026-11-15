@@ -50,8 +50,8 @@ function tipOf(title: String, sign: String): TipText {
     rows: [
       { label: Locale.COUNT_CLICK, value: sign + String.of(ONE) },
       { label: Locale.COUNT_SHIFT, value: sign + String.of(SHIFTED) },
-      { label: Locale.COUNT_ALT, value: sign + String.of(ALTERED) },
-    ],
+      { label: Locale.COUNT_ALT, value: sign + String.of(ALTERED) }
+    ]
   }
 }
 
@@ -87,7 +87,7 @@ public class CountInput implements Component {
     most: Signal<Integer>,
     look: CountLook = CountLook.Steps,
     step: Number = 28 * PX,
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.value = value
     self.least = least

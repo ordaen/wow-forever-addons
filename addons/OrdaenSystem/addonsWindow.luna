@@ -43,11 +43,11 @@ const ORDERS: Array<Choice<Order>> = [
   { value: Order.Name, label: Locale.SORT_NAME },
   { value: Order.Now, label: Locale.SORT_NOW },
   { value: Order.Peak, label: Locale.SORT_PEAK },
-  { value: Order.Memory, label: Locale.SORT_MEMORY },
+  { value: Order.Memory, label: Locale.SORT_MEMORY }
 ]
 const VIEWS: Array<Choice<View>> = [
   { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
-  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table },
+  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
 // The memory column's refresh: a toolbar glyph's 16 px cell, drawn 1:1.
 const REFRESH = 16 * PX
@@ -67,10 +67,10 @@ const BUTTON = 120 * PX
 // The value of the column `order` sorts by.
 function weightOf(order: Order, name: String, profiler: Profiler): Number {
   return match (order) {
-    .Name => 0,
-    .Now => (peek profiler.loads)[name]?.now ?? -1,
-    .Peak => (peek profiler.loads)[name]?.peak ?? -1,
-    .Memory => (peek profiler.memory)[name] ?? -1,
+    .Name => 0
+    .Now => (peek profiler.loads)[name]?.now ?? -1
+    .Peak => (peek profiler.loads)[name]?.peak ?? -1
+    .Memory => (peek profiler.memory)[name] ?? -1
   }
 }
 
@@ -209,29 +209,29 @@ public class AddOnsWindow implements Component {
     const query = self.search.lower()
     if (query != "" && !addon.words.contains(query)) { return false }
     const hot = match (self.list.values.heat) {
-      .All => true,
-      .Heavy => self.profiler.heavy[addon.name] == true,
+      .All => true
+      .Heavy => self.profiler.heavy[addon.name] == true
     }
     const standing = match (self.list.values.standing) {
-      .All => true,
-      .On => status != nil && status.enabled != .Off,
-      .Off => status == nil || status.enabled == .Off,
-      .Failed => status != nil && status.reason != nil && status.reason != "DISABLED" && status.enabled != .Off,
+      .All => true
+      .On => status != nil && status.enabled != .Off
+      .Off => status == nil || status.enabled == .Off
+      .Failed => status != nil && status.reason != nil && status.reason != "DISABLED" && status.enabled != .Off
     }
     const age = match (self.list.values.age) {
-      .All => true,
-      .Outdated => addon.outdated,
-      .Current => !addon.outdated,
+      .All => true
+      .Outdated => addon.outdated
+      .Current => !addon.outdated
     }
     const loading = match (self.list.values.loading) {
-      .All => true,
-      .Demand => addon.demand,
-      .Login => !addon.demand,
+      .All => true
+      .Demand => addon.demand
+      .Login => !addon.demand
     }
     const written = match (self.list.values.written) {
-      .All => true,
-      .LunaType => addon.lunatype,
-      .Other => !addon.lunatype,
+      .All => true
+      .LunaType => addon.lunatype
+      .Other => !addon.lunatype
     }
     return hot && standing && age && loading && written
   }
@@ -298,7 +298,7 @@ public class AddOnsWindow implements Component {
       const folded = self.folded[category] == true
       list.push({
         caption: true, name: category, count: members.length, folded: folded, child: false, names: groups[category] ?? [],
-        tabled: false,
+        tabled: false
       })
       if (!folded) {
         const here: Map<String, Boolean> = {}

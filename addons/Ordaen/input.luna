@@ -23,7 +23,7 @@ public class Input implements Component {
     // The most characters it takes; any number when left out.
     maxLength: Integer | nil = nil,
     hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.label = label
     self.value = value

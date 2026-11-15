@@ -168,9 +168,9 @@ public class Memory<S: Plain> {
       .Profile => {
         // The active profile's: read now, and again when the character switches to another profile.
         watch (name of Ordaen.keeper.profiles.active) { self.recall(name, key) }
-      },
-      .Account => { self.values = load(.Account, key, defaults) },
-      .Character => { self.values = load(.Character, key, defaults) },
+      }
+      .Account => { self.values = load(.Account, key, defaults) }
+      .Character => { self.values = load(.Character, key, defaults) }
     }
     self.kept = (peek self.values).clone()
     watch { self.keep() }
@@ -196,9 +196,9 @@ public class Memory<S: Plain> {
     if (key == nil || values.equal(self.kept)) { return }
     self.kept = values.clone()
     match (self.whose) {
-      .Profile => { Ordaen.keeper.profiles.remember(key, values.equal(self.defaults) ? nil : values) },
-      .Account => { Game.saved.store(.Account, key, values) },
-      .Character => { Game.saved.store(.Character, key, values) },
+      .Profile => { Ordaen.keeper.profiles.remember(key, values.equal(self.defaults) ? nil : values) }
+      .Account => { Game.saved.store(.Account, key, values) }
+      .Character => { Game.saved.store(.Character, key, values) }
     }
   }
 }

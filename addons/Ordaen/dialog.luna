@@ -21,7 +21,7 @@ public class Dialog implements Component {
   title: Signal<String>
   constructor(
     width: Signal<Number>,
-    title: Signal<String> = "",
+    title: Signal<String> = ""
   ) {
     self.width = width
     self.title = title

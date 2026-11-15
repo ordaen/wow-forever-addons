@@ -13,11 +13,11 @@ const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: tr
 
 // What the game sends when it opens a profession.
 function recipe(
-  id: Integer, name: String, category: Integer, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean,
+  id: Integer, name: String, category: Integer, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean
 ): Game.Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: learned, difficulty: difficulty,
-    craftable: craftable,
+    craftable: craftable
   }
 }
 
@@ -28,7 +28,7 @@ function tailoringCategories(): Array<Game.Category> {
     { id: 10, name: "Resting at camp", parentID: 1 },
     { id: 11, name: "Cloth armour", parentID: 1 },
     { id: 12, name: "Bags", parentID: 1 },
-    { id: 13, name: "Nothing known here", parentID: 1 },
+    { id: 13, name: "Nothing known here", parentID: 1 }
   ]
 }
 
@@ -39,7 +39,7 @@ function tailoringRecipes(): Array<Game.Recipe> {
     recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true),
     recipe(112, "Woolen Cape", 11, Game.Difficulty.Never, 0, false),
     recipe(120, "Linen Bag", 12, Game.Difficulty.Usually, 2, true),
-    recipe(121, "Woolen Bag", 12, Game.Difficulty.Always, 0, true),
+    recipe(121, "Woolen Bag", 12, Game.Difficulty.Always, 0, true)
   ]
 }
 
@@ -56,7 +56,7 @@ function reagents(id: Integer): Array<Game.Reagent> {
   if (id == 110) {
     return [
       { name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 3, need: 1 },
-      { name: "Coarse Thread", icon: "Interface/Icons/INV_Misc_Thread_01", have: 0, need: 1 },
+      { name: "Coarse Thread", icon: "Interface/Icons/INV_Misc_Thread_01", have: 0, need: 1 }
     ]
   }
   if (id == 120) { return [{ name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 6, need: 3 }] }
@@ -68,7 +68,7 @@ function blacksmithingCategories(): Array<Game.Category> {
   return [
     { id: 2, name: "Blacksmithing" },
     { id: 20, name: "Resting at camp", parentID: 2 },
-    { id: 21, name: "Weapons", parentID: 2 },
+    { id: 21, name: "Weapons", parentID: 2 }
   ]
 }
 
@@ -114,7 +114,7 @@ test "the settings opened from the professions window stand over it, though they
   own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
   Game.frames.Professions = own
   Game.professions.list = [
-    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }
   ]
   Test.mount(nil, PAGE)
   // The settings window, made and closed before the professions window is.
@@ -155,8 +155,8 @@ test "the professions window: the open profession, its lists, the search, a reci
     { skillLine: 182, name: "Herbalism", icon: "Interface/Icons/Trade_Herbalism", rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
     {
       skillLine: 164, name: "Blacksmithing", icon: "Interface/Icons/Trade_BlackSmithing", rank: 120, max: 150,
-      kind: Game.ProfessionKind.Crafting,
-    },
+      kind: Game.ProfessionKind.Crafting
+    }
   ]
 
   // The module's root, made as the addon loaded and drawn by Ordaen on the screen, which the page is: a second one
@@ -253,7 +253,7 @@ test "a long description wraps in the details panel, which stays inside the wind
   own.SetPoint("TOPLEFT", ui, "TOPLEFT", 16, -116)
   Game.frames.Professions = own
   Game.professions.list = [
-    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }
   ]
   Test.mount(nil, PAGE)
   Game.tradeSkill.shownEmpty.emit()
@@ -278,7 +278,7 @@ test "the profession the game opens picks its tab, every time: after the window 
   Game.professions.list = [
     { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
     { skillLine: 182, name: "Herbalism", icon: "Interface/Icons/Trade_Herbalism", rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
-    { skillLine: 129, name: "First Aid", icon: "Interface/Icons/Spell_Holy_SealOfSacrifice", rank: 40, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: 129, name: "First Aid", icon: "Interface/Icons/Spell_Holy_SealOfSacrifice", rank: 40, max: 75, kind: Game.ProfessionKind.Crafting }
   ]
   Test.mount(nil, PAGE)
   Game.tradeSkill.categories = tailoringCategories()

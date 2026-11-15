@@ -20,7 +20,7 @@ function regy(records: mut Records) {
   records.setMoney(Copper.of(1234567), Hour.fromNow(-5 * 24 * 3600))
   records.setProfessions([
     { skillLine: 164, name: "Blacksmithing", icon: "x", rank: 150, max: 300, kind: .Crafting },
-    { skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 300, kind: .Gathering },
+    { skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 300, kind: .Gathering }
   ])
   const recipes: Array<RecipeId> = [RecipeId.of(2663), RecipeId.of(3320)]
   const ready: Map<RecipeId, Hour> = {}

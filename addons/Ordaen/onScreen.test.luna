@@ -88,7 +88,7 @@ test "a drag is held to its surface's room: moved, at each edge and corner; size
     { dx: 50, dy: 5, hold: Hold.Size, x: 20, y: 5 },
     { dx: 5, dy: 50, hold: Hold.Size, x: 5, y: 40 },
     { dx: 50, dy: 50, hold: Hold.Size, x: 20, y: 40 },
-    { dx: -500, dy: -500, hold: Hold.Size, x: -500, y: -500 },
+    { dx: -500, dy: -500, hold: Hold.Size, x: -500, y: -500 }
   ]
   for (c of cases) {
     let x, y = kept({ x: 0, y: 0, dx: c.dx, dy: c.dy, room: room, shareX: 0.5, shareY: 0.5 }, c.hold)
@@ -115,7 +115,7 @@ test "a window dragged into each edge and corner stops there, keeps the other ax
     { name: "past the top", x: nil, y: -400 },
     { name: "past the bottom", x: nil, y: SCREEN_H + 400 },
     { name: "past the top left", x: -400, y: -400 },
-    { name: "past the bottom right", x: SCREEN_W + 400, y: SCREEN_H + 400 },
+    { name: "past the bottom right", x: SCREEN_W + 400, y: SCREEN_H + 400 }
   ]
   for (goal of goals) {
     page.placing.placing = start().clone()
@@ -155,7 +155,7 @@ test "a window sized by its grip to each edge stops there, its top left where it
     { name: "past the bottom", x: nil, y: SCREEN_H + 400 },
     { name: "past the bottom right", x: SCREEN_W + 400, y: SCREEN_H + 400 },
     { name: "past the left", x: -400, y: nil },
-    { name: "past the top", x: nil, y: -400 },
+    { name: "past the top", x: nil, y: -400 }
   ]
   for (goal of goals) {
     page.placing.placing = start().clone()

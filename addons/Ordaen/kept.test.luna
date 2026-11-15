@@ -182,7 +182,7 @@ test "a size kept below what the content needs is raised to it as the window ope
   const kept = Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:window:settings")
   const view = WindowView.decode(kept, WindowView {})
   Ordaen.keeper.profiles.remember("Ordaen:window:settings", WindowView {
-    x: view.x - (view.width - 40) / 2, y: view.y, width: 40, height: 30, full: false, tab: 1, side: 0,
+    x: view.x - (view.width - 40) / 2, y: view.y, width: 40, height: 30, full: false, tab: 1, side: 0
   })
   Test.reload()
   open()

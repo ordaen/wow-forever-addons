@@ -13,11 +13,11 @@ enum Look { Columns = "columns", List = "list" }
 
 const ORDERS: Array<Choice<Order>> = [
   { value: Order.Difficulty, label: "By difficulty" },
-  { value: Order.Name, label: "By name" },
+  { value: Order.Name, label: "By name" }
 ]
 const LOOKS: Array<Choice<Look>> = [
   { value: Look.Columns, label: "In columns", icon: ARTWORK.ctl.tool.columns },
-  { value: Look.List, label: "One list", icon: ARTWORK.ctl.tool.list },
+  { value: Look.List, label: "One list", icon: ARTWORK.ctl.tool.list }
 ]
 
 class Window {

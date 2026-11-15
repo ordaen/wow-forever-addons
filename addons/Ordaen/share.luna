@@ -18,12 +18,12 @@ public const MAX_LENGTH = 65536
 
 public enum Refusal {
   // Not a text this addon writes: no prefix, or what it holds isn't a profile.
-  NotProfile = "notProfile",
+  NotProfile = "notProfile"
   // A version this build doesn't read.
-  Version = "version",
-  TooLong = "tooLong",
+  Version = "version"
+  TooLong = "tooLong"
   // Base64, deflate or CBOR that doesn't read.
-  Damaged = "damaged",
+  Damaged = "damaged"
 }
 
 public struct Refused implements Error {

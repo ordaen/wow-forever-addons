@@ -39,19 +39,19 @@ public struct NextRank {
 
 public function nextRankOf(most: Integer): NextRank | nil {
   return match (most) {
-    75 => { name: Locale.RANK_150, skill: 50, level: 10 },
-    150 => { name: Locale.RANK_225, skill: 125, level: 20 },
-    225 => { name: Locale.RANK_300, skill: 200, level: 35 },
-    else => nil,
+    75 => { name: Locale.RANK_150, skill: 50, level: 10 }
+    150 => { name: Locale.RANK_225, skill: 125, level: 20 }
+    225 => { name: Locale.RANK_300, skill: 200, level: 35 }
+    else => nil
   }
 }
 
 // The profession's own spell on its overview, by its name as the client has it; none for one that has none.
 public function overviewSpellOf(skillLine: Integer): Integer | nil {
   return match (skillLine) {
-    FISHING => FISH_SPELL,
-    ENCHANTING => DISENCHANT_SPELL,
-    else => nil,
+    FISHING => FISH_SPELL
+    ENCHANTING => DISENCHANT_SPELL
+    else => nil
   }
 }
 
@@ -148,7 +148,7 @@ public class OverviewPage implements Component {
     thresholds: Signal<Thresholds>,
     kept: Signal<Kept>,
     // What the trainers met teach, by the recipe's name.
-    taught: Signal<Map<String, Taught>> = {},
+    taught: Signal<Map<String, Taught>> = {}
   ) {
     self.profession = profession
     self.thresholds = thresholds
@@ -168,7 +168,7 @@ public class OverviewPage implements Component {
     return [
       { text: Locale.COUNT_LEARNED.format(learned, recipes.length - learned), recipe: 0 },
       { text: Locale.COUNT_MAKEABLE.format(recipes.count(r => r.craftable > 0)), recipe: 0 },
-      { text: Locale.COUNT_SKILLUP.format(recipes.count(r => r.learned && r.difficulty != Game.Difficulty.Never)), recipe: 0 },
+      { text: Locale.COUNT_SKILLUP.format(recipes.count(r => r.learned && r.difficulty != Game.Difficulty.Never)), recipe: 0 }
     ]
   }
 
@@ -188,9 +188,9 @@ public class OverviewPage implements Component {
     for (recipe of list) {
       if (lines.length >= NEXT_MOST) { break }
       const from = taught[recipe.name]
-      const text = from == nil
-        ? Locale.LEARN_UNSEEN.format(recipe.name)
-        : Locale.LEARN_AT_TRAINER.format(recipe.name, from.skill, copperText(from.cost))
+      const text = from == nil ?
+        Locale.LEARN_UNSEEN.format(recipe.name) :
+        Locale.LEARN_AT_TRAINER.format(recipe.name, from.skill, copperText(from.cost))
       lines.push({ text: text, recipe: recipe.id })
     }
     if (lines.length == 0) { lines.push({ text: Locale.NOTHING_TO_LEARN, recipe: 0 }) }

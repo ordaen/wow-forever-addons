@@ -178,7 +178,7 @@ public class TalentsPage implements Component {
     unspent: Signal<Integer>,
     staged: Signal<Boolean>,
     // The spec group shown is the one the player has active.
-    active: Signal<Boolean>,
+    active: Signal<Boolean>
   ) {
     self.trees = trees
     self.unspent = unspent

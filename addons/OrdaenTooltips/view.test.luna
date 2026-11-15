@@ -14,13 +14,13 @@ import { Standing, TipGroup } from "@/view"
 const OPTIONS: Options = {
   spellsCooldown: true, spellsId: false, spellsNext: true, aurasCaster: true, aurasTotal: true, aurasId: false,
   classNames: true, playersTarget: true, playersRelation: true, npcsLoot: true, npcsParty: true, npcsRep: true,
-  itemsIlvl: true, itemsCooldown: true, itemsId: false, itemsCount: true, itemsStack: true,
+  itemsIlvl: true, itemsCooldown: true, itemsId: false, itemsCount: true, itemsStack: true
 }
 
 function titled(name: String, header: String | nil): mut Model {
   return {
     kind: Kind.Item, header: header, name: name, nameColor: Color.hex("#ffffff"), desc: [], info: [], facts: [],
-    body: [], more: [], foot: [], keys: [],
+    body: [], more: [], foot: [], keys: []
   }
 }
 
@@ -52,7 +52,7 @@ function ann(unit: String): Game.UnitInfo | nil {
   return {
     name: "Ann", player: true, className: "Priest", classColor: Color.hex("#ffffff"), dead: false, ghost: false,
     afk: false, dnd: false, pvp: false, level: 60, race: "Human", faction: "Alliance", factionName: "Alliance",
-    sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false, classification: "normal",
+    sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false, classification: "normal"
   }
 }
 
@@ -67,10 +67,10 @@ test "a locked group: each of its tooltips opens what its parts name, a value th
   stage.model = {
     foot: [
       { left: "Target", right: "Ann", opens: named(Term.Ptarget), valueOpens: Opens.Unit { unit: "mouseovertarget" } },
-      { left: "Caster", right: "Gone", valueOpens: Opens.Unit { unit: "party3" } },
+      { left: "Caster", right: "Gone", valueOpens: Opens.Unit { unit: "party3" } }
     ],
     desc: [{ text: "Two-Hand" }, { text: "Bound", opens: named(Term.Lock) }],
-    ..titled("Axe", nil),
+    ..titled("Axe", nil)
   }
   let well = Opens.Text { name: "Well", text: "Health regenerates 5% faster." }
   stage.sides = [{ body: [{ left: "Well", right: "+5%", opens: well }], ..titled("Use: heals", nil) }]

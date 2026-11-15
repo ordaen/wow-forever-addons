@@ -51,7 +51,7 @@ public function talent(data: Game.TooltipData, known: Game.TalentInfo, options: 
   let maxed = known.rank >= known.ranks
   let desc: Array<Part> = [
     { text: Locale.TALENT, opens: named(Term.Talent) },
-    { text: `${known.rank}/${known.ranks}`, color: maxed ? GREEN : nil, opens: named(Term.Talent) },
+    { text: `${known.rank}/${known.ranks}`, color: maxed ? GREEN : nil, opens: named(Term.Talent) }
   ]
   // Its tree, as the classic talent window names it.
   let tab = Talents.tab[known.spell]
@@ -73,7 +73,7 @@ public function talent(data: Game.TooltipData, known: Game.TalentInfo, options: 
       if (condition.points > 0) {
         foot.push({
           left: Locale.TALENT_POINTS, right: String.of(condition.points), valueColor: condition.met ? nil : RED,
-          opens: named(Term.Talent),
+          opens: named(Term.Talent)
         })
       }
     }

@@ -32,7 +32,7 @@ public const RING: Array<RingSpec> = [
   DRAWER_BUTTON,
   { id: RingId.Mail, angle: 65, glyph: "ui-hud-minimap-mail-up", glyphWidth: 18 * PX, glyphHeight: 13.5 * PX },
   { id: RingId.CraftingOrder, angle: 85 },
-  { id: RingId.Landing, angle: 120 },
+  { id: RingId.Landing, angle: 120 }
 ]
 
 const GOLD: Color = Color.hex("#ffd100")
@@ -61,11 +61,11 @@ public class RingButton implements Component {
 
   frameOf(self): any Frame | nil {
     match (self.spec.id) {
-      RingId.Tracking => return Game.frames.MinimapTrackingButton,
-      RingId.Mail => return Game.frames.MinimapMail,
-      RingId.CraftingOrder => return Game.frames.MinimapCraftingOrder,
-      RingId.Landing => return Game.frames.ExpansionLandingPageMinimapButton,
-      RingId.Ordaen, RingId.Drawer => return nil,
+      RingId.Tracking => return Game.frames.MinimapTrackingButton
+      RingId.Mail => return Game.frames.MinimapMail
+      RingId.CraftingOrder => return Game.frames.MinimapCraftingOrder
+      RingId.Landing => return Game.frames.ExpansionLandingPageMinimapButton
+      RingId.Ordaen, RingId.Drawer => return nil
     }
     return nil
   }
@@ -74,21 +74,21 @@ public class RingButton implements Component {
   // and holds something.
   shownNow(self): Boolean {
     match (self.spec.id) {
-      RingId.Ordaen, RingId.Tracking => return true,
-      RingId.Drawer => return self.map.isDrawerOn() && self.map.holds() > 0,
+      RingId.Ordaen, RingId.Tracking => return true
+      RingId.Drawer => return self.map.isDrawerOn() && self.map.holds() > 0
       else => {
         let frame = self.theirs
         return frame != nil && frame.IsShown()
-      },
+      }
     }
     return true
   }
 
   hintNow(self): Boolean {
     match (self.spec.id) {
-      RingId.Ordaen => return self.map.hinting(Hint.Ordaen),
-      RingId.Drawer => return self.map.hinting(Hint.Drawer),
-      else => return false,
+      RingId.Ordaen => return self.map.hinting(Hint.Ordaen)
+      RingId.Drawer => return self.map.hinting(Hint.Drawer)
+      else => return false
     }
     return false
   }
@@ -96,9 +96,9 @@ public class RingButton implements Component {
   onClick(mut self, click: Click) {
     let frame = self.theirs
     match (self.spec.id) {
-      RingId.Ordaen => { if (click.button == MouseButton.Right) { Ordaen.toggleDev() } else { Ordaen.toggleSettings(nil) } },
-      RingId.Drawer => { self.map.toggleDrawer() },
-      else => { if (frame != nil) { Game.minimap.press(frame, click.button) } },
+      RingId.Ordaen => { if (click.button == MouseButton.Right) { Ordaen.toggleDev() } else { Ordaen.toggleSettings(nil) } }
+      RingId.Drawer => { self.map.toggleDrawer() }
+      else => { if (frame != nil) { Game.minimap.press(frame, click.button) } }
     }
   }
 

@@ -13,7 +13,7 @@ public class Money implements Component {
   constructor(
     // In copper.
     amount: Signal<Integer>,
-    color: Signal<Color> = INK,
+    color: Signal<Color> = INK
   ) {
     self.amount = amount
     self.color = color

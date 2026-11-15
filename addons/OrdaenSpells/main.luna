@@ -24,7 +24,7 @@ public class Spells implements Module, App {
   public const windows: mut Array<mut KeptWindow> = [self.window, self.trainerWindow]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
-    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ specOne: "", specTwo: "", trainer: true })
@@ -48,7 +48,7 @@ public class Spells implements Module, App {
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_SPELLS },
     { title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne },
-    { title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo },
+    { title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo }
   ]
   derived trainerTabs: Array<WindowTabSpec> = [{ title: Locale.TAB_TRAINER }]
   derived level: Integer = Game.player.level

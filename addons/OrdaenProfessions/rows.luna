@@ -44,7 +44,7 @@ public class CategoryRow implements Component {
     // Its place in the list: the first has no rule above it.
     index: Signal<Integer>,
     // The chosen group's id.
-    chosen: Signal<Integer>,
+    chosen: Signal<Integer>
   ) {
     self.group = group
     self.index = index
@@ -99,7 +99,7 @@ public class RecipeRow implements Component {
     // The id of the recipe whose menu is open; 0 for none.
     menuFor: Signal<Integer>,
     // Under a heading of the one list.
-    indent: Boolean = false,
+    indent: Boolean = false
   ) {
     self.recipe = recipe
     self.index = index
@@ -151,7 +151,7 @@ public class CategoryGroup implements Component {
     shown: Signal<Array<Game.Recipe>>,
     chosen: Signal<Integer>,
     kept: Signal<Kept>,
-    menuFor: Signal<Integer>,
+    menuFor: Signal<Integer>
   ) {
     self.group = group
     self.shown = shown
@@ -220,7 +220,7 @@ public class RecipeTableRow implements Component {
     menuFor: Signal<Integer>,
     // Each recipe's totals, and whether the table has their columns.
     worth: Signal<Map<Integer, Totals>> = {},
-    priced: Signal<Boolean> = false,
+    priced: Signal<Boolean> = false
   ) {
     self.recipe = recipe
     self.tracks = tracks
@@ -274,7 +274,7 @@ public class ReagentRow implements Component {
   index: Signal<Integer>
   constructor(
     reagent: Signal<Game.Reagent>,
-    index: Signal<Integer>,
+    index: Signal<Integer>
   ) {
     self.reagent = reagent
     self.index = index

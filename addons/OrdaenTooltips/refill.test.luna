@@ -16,14 +16,14 @@ function memory(corner: any Frame, owner: any Frame, addons: Integer): Game.Show
     { left: "Home 31 ms", leftColor: WHITE, kind: 0 },
     { left: "World 34 ms", leftColor: WHITE, kind: 0 },
     { left: "Framerate: 60 fps", leftColor: WHITE, kind: 0 },
-    { left: "Addon memory:", leftColor: GOLD, kind: 0 },
+    { left: "Addon memory:", leftColor: GOLD, kind: 0 }
   ]
   for (i of 1..=addons) {
     lines.push({ left: `Addon ${i}`, right: `${i}.10 MB`, leftColor: WHITE, rightColor: WHITE, kind: 0 })
   }
   return {
     shown: true, owner: owner, ownerName: "MainMenuMicroButton", placeable: true, ownerHigh: false,
-    ownerRight: false, corner: corner, below: false, right: true, data: { plain: true, lines: lines },
+    ownerRight: false, corner: corner, below: false, right: true, data: { plain: true, lines: lines }
   }
 }
 

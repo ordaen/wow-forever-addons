@@ -81,7 +81,7 @@ public class MoneyField implements Component {
   constructor(
     // In copper.
     value: mut Signal<Integer>,
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.value = value
     self.disabled = disabled
@@ -118,7 +118,7 @@ public class MoneyInput implements Component {
     label: Signal<String>,
     value: mut Signal<Integer>,
     hint: Signal<String> = Locale.MONEY_HINT,
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.label = label
     self.value = value

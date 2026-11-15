@@ -33,7 +33,7 @@ public class Tab implements Component {
   constructor(
     label: Signal<String>,
     index: Integer,
-    selected: mut Signal<Integer>,
+    selected: mut Signal<Integer>
   ) {
     self.label = label
     self.index = index
@@ -61,7 +61,7 @@ public class Tabs implements Component {
   selected: mut Signal<Integer>
   constructor(
     tabs: Signal<Array<String>>,
-    selected: mut Signal<Integer>,
+    selected: mut Signal<Integer>
   ) {
     self.tabs = tabs
     self.selected = selected

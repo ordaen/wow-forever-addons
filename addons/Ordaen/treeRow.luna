@@ -46,7 +46,7 @@ public class TreeRow implements Component {
     open: mut Signal<Boolean>,
     // A row without children: no mark, and a click only reports `pick`.
     leaf: Signal<Boolean> = false,
-    selected: Signal<Boolean> = false,
+    selected: Signal<Boolean> = false
   ) {
     self.label = label
     self.depth = depth

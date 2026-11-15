@@ -17,10 +17,10 @@ public enum Space { Line, Item, Panel, Group, Window }
 // A step of the ladder in UI units: a constant where the step is written out (`space(.Panel)` is built as a number).
 public const function space(step: Space): Number {
   return match (step) {
-    .Line => 4 * PX,
-    .Item => 8 * PX,
-    .Panel => 16 * PX,
-    .Group => 20 * PX,
-    .Window => 24 * PX,
+    .Line => 4 * PX
+    .Item => 8 * PX
+    .Panel => 16 * PX
+    .Group => 20 * PX
+    .Window => 24 * PX
   }
 }

@@ -24,7 +24,7 @@ function spells(): Array<Game.SpellEntry> {
     { id: 772, name: "Rend", rank: "Rank 1", icon: ICON, level: 4, passive: false, line: 2 },
     { id: 3127, name: "Parry", rank: "", icon: ICON, level: 6, passive: true, line: 2 },
     { id: 12294, name: "Mortal Strike", rank: "", icon: ICON, level: 40, passive: false, line: 3 },
-    { id: 2481, name: "Find Treasure", rank: "", icon: ICON, level: 1, passive: false, line: 1 },
+    { id: 2481, name: "Find Treasure", rank: "", icon: ICON, level: 1, passive: false, line: 1 }
   ]
 }
 
@@ -53,15 +53,15 @@ test "the talents tab draws the trees of the game, and a click spends, refunds, 
         nodes: [
           {
             id: 10, x: 0, y: 0, name: "Deflection", icon: ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true,
-            edges: [11],
+            edges: [11]
           },
-          { id: 11, x: 600, y: 600, name: "Tactical Mastery", icon: ICON, rank: 0, ranks: 3, canSpend: false, canRefund: false, edges: [] },
-        ],
+          { id: 11, x: 600, y: 600, name: "Tactical Mastery", icon: ICON, rank: 0, ranks: 3, canSpend: false, canRefund: false, edges: [] }
+        ]
       },
       {
         id: 2, name: "Fury",
-        nodes: [{ id: 20, x: 0, y: 0, name: "Booming Voice", icon: ICON, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }],
-      },
+        nodes: [{ id: 20, x: 0, y: 0, name: "Booming Voice", icon: ICON, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }]
+      }
     ]
   }
   Game.talentTrees.unspent = (group: Integer): Integer => 3
@@ -86,13 +86,13 @@ test "the class trainer lists its services and a click shows one's card" {
   Spells.services = [
     {
       index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Game.ServiceStatus.Available, level: 8, cost: 400,
-      description: "A strong attack.",
+      description: "A strong attack."
     },
     {
       index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Game.ServiceStatus.Unavailable, level: 50, cost: 90000,
-      description: "Charge an enemy.",
+      description: "Charge an enemy."
     },
-    { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Game.ServiceStatus.Learned, level: 4, cost: 0, description: "" },
+    { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Game.ServiceStatus.Learned, level: 4, cost: 0, description: "" }
   ]
   Game.trainer.open = true
   Test.flush()
@@ -147,13 +147,13 @@ class Fixture {
   state services: Array<Game.TrainerService> = [
     {
       index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Game.ServiceStatus.Available, level: 8, cost: 400,
-      description: "",
+      description: ""
     },
     {
       index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Game.ServiceStatus.Unavailable, level: 50, cost: 90000,
-      description: "",
+      description: ""
     },
-    { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Game.ServiceStatus.Learned, level: 4, cost: 0, description: "" },
+    { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Game.ServiceStatus.Learned, level: 4, cost: 0, description: "" }
   ]
 }
 
@@ -172,12 +172,12 @@ test "the sort and the filter buttons are clicked and the lists follow" {
     return [
       {
         index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Game.ServiceStatus.Available, level: 8,
-        cost: 400, description: "A strong attack.",
+        cost: 400, description: "A strong attack."
       },
       {
         index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Game.ServiceStatus.Unavailable, level: 50,
-        cost: 90000, description: "",
-      },
+        cost: 90000, description: ""
+      }
     ]
   }
   Test.flush()

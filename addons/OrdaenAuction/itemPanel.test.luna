@@ -41,7 +41,7 @@ test "«Sell» picks into the panel «Buy» has; no history says so, and a brows
   Test.mount(nil, PAGE)
   Game.items.tooltip = names
   Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [
-    { item: LINEN, count: 20, bag: 0, slot: 1, commodity: true },
+    { item: LINEN, count: 20, bag: 0, slot: 1, commodity: true }
   ]
   Game.auctionHouse.open = true
   Auction.page = 2
@@ -70,7 +70,7 @@ test "the chart: the day a bar an hour, the week and the month a bar a day" {
     { hour: now.after(-2 * 24), copper: 30 },
     { hour: now.after(-5), copper: 44 },
     { hour: now.after(-1), copper: 38 },
-    { hour: now, copper: 36 },
+    { hour: now, copper: 36 }
   ])
   Game.items.tooltip = names
   Test.mount(new ItemPanel(ItemId.of(LINEN), "Linen Cloth", Color.hex("#ffffff"), "Listed: 30", house, prices, kept),

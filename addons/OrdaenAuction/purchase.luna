@@ -110,16 +110,16 @@ public class Purchase {
       .Quoted => {
         self.quotedCount = answer.quantity
         self.quotedTotal = answer.total
-      },
+      }
       .Refused => {
         self.quotedCount = 0
         self.refused = answer.reason
-      },
+      }
       else => {
         // Bought: the listings as they stand now.
         self.quotedCount = 0
         self.wanted = true
-      },
+      }
     }
   }
 }

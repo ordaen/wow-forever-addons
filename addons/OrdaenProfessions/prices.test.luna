@@ -24,7 +24,7 @@ const NOW = 1790002800
 function recipe(id: Integer, name: String, craftable: Integer): Game.Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 11, learned: true,
-    difficulty: Game.Difficulty.Always, craftable: craftable,
+    difficulty: Game.Difficulty.Always, craftable: craftable
   }
 }
 

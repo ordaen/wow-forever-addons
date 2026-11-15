@@ -19,7 +19,7 @@ class Rows {
       { label: "Link in chat" },
       { label: "Create [0]", disabled: true },
       { label: "Favorite", on: self.favorite, group: true },
-      { label: "Track", on: false, disabled: true },
+      { label: "Track", on: false, disabled: true }
     ]
   }
 

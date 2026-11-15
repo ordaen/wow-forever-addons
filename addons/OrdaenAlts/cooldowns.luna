@@ -9,7 +9,7 @@ import Style from "@/style"
 const COLUMNS: Array<Column> = [
   { title: Locale.COL_RECIPE, width: { fr: 3 }, sortable: true },
   { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
-  { title: Locale.COL_READY, width: 140 * PX, align: Align.End, sortable: true },
+  { title: Locale.COL_READY, width: 140 * PX, align: Align.End, sortable: true }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 
@@ -27,7 +27,7 @@ public struct Wait {
 function waitOf(recipe: String, who: String, hours: Integer): Wait {
   return {
     recipe: recipe, who: who, hours: hours, text: hours <= 0 ? Locale.READY_NOW : Style.until(hours),
-    color: hours <= 0 ? Style.GREEN : Style.DIM,
+    color: hours <= 0 ? Style.GREEN : Style.DIM
   }
 }
 

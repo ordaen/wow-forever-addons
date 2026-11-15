@@ -69,7 +69,7 @@ public class Heading implements Component {
     column: Signal<Column>,
     index: Integer,
     sorted: mut Signal<Integer>,
-    descending: mut Signal<Boolean>,
+    descending: mut Signal<Boolean>
   ) {
     self.column = column
     self.index = index
@@ -117,7 +117,7 @@ public class TableRow implements Component {
   selected: Signal<Boolean>
   constructor(
     tracks: Signal<Array<Track>>,
-    selected: Signal<Boolean> = false,
+    selected: Signal<Boolean> = false
   ) {
     self.tracks = tracks
     self.selected = selected
@@ -152,7 +152,7 @@ public class Table implements Component {
     // The body's height: it scrolls past it. None: as high as its rows, or the rest of a height the table is given.
     height: Signal<Number | nil> = nil,
     // How high each row is; `"auto"`: each as high as what it holds, and every row built (rows whose height varies).
-    rowHeight: Number | "auto" = ROW,
+    rowHeight: Number | "auto" = ROW
   ) {
     self.columns = columns
     self.sorted = sorted

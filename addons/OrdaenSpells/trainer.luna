@@ -23,12 +23,12 @@ const SHOWS: Array<Choice<Show>> = [
   { value: Show.All, label: Locale.SHOW_ALL },
   { value: Show.Available, label: Locale.SHOW_AVAILABLE },
   { value: Show.Unavailable, label: Locale.SHOW_UNAVAILABLE },
-  { value: Show.Learned, label: Locale.SHOW_LEARNED },
+  { value: Show.Learned, label: Locale.SHOW_LEARNED }
 ]
 const ORDERS: Array<Choice<Order>> = [
   { value: Order.Level, label: Locale.ORDER_LEVEL },
   { value: Order.Name, label: Locale.ORDER_NAME },
-  { value: Order.Price, label: Locale.ORDER_PRICE },
+  { value: Order.Price, label: Locale.ORDER_PRICE }
 ]
 const BODY: Array<Track> = [Style.LIST, { fr: 1 }]
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -39,10 +39,10 @@ const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
 
 function passes(service: Game.TrainerService, show: Show, search: String): Boolean {
   const kept = match (show) {
-    Show.All => true,
-    Show.Available => service.status == Game.ServiceStatus.Available,
-    Show.Unavailable => service.status == Game.ServiceStatus.Unavailable,
-    Show.Learned => service.status == Game.ServiceStatus.Learned,
+    Show.All => true
+    Show.Available => service.status == Game.ServiceStatus.Available
+    Show.Unavailable => service.status == Game.ServiceStatus.Unavailable
+    Show.Learned => service.status == Game.ServiceStatus.Learned
   }
   if (!kept) { return false }
   return search == "" || service.name.lower().contains(search.lower())

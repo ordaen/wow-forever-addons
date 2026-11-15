@@ -24,7 +24,7 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_TO_BUY, width: 100 * PX, align: Align.End },
   { title: Locale.COLUMN_PRICE, width: 100 * PX, align: Align.End },
   { title: Locale.COLUMN_TOTAL, width: 90 * PX, align: Align.End },
-  { title: "", width: 96 * PX, align: Align.End },
+  { title: "", width: 96 * PX, align: Align.End }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const ITEM: Array<Track> = ["auto", { fr: 1 }]
@@ -40,8 +40,8 @@ const BUTTONS: Array<Track> = ["auto", "auto", "auto"]
 function sourceText(source: Source): String {
   return match (source) {
     .Queue => Locale.QUEUE_LINE.format(Game.spells.name(source.recipe) ?? Locale.UNKNOWN_RECIPE.format(source.recipe),
-      source.crafts, source.character),
-    .ByHand => Locale.BY_HAND,
+      source.crafts, source.character)
+    .ByHand => Locale.BY_HAND
   }
 }
 
@@ -91,7 +91,7 @@ class ShoppingRow implements Component {
     selected: Signal<Boolean>,
     // The item whose purchase the client priced (0 for none), and what it asked, in copper.
     quotedItem: Signal<Integer>,
-    quotedTotal: Signal<Integer>,
+    quotedTotal: Signal<Integer>
   ) {
     self.row = row
     self.prices = prices

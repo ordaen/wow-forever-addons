@@ -38,7 +38,7 @@ public class Status implements Component {
     items: Signal<Integer>,
     // The server's time of the account's last full scan; 0 for none.
     lastFull: Signal<Integer>,
-    scanner: mut Scanner,
+    scanner: mut Scanner
   ) {
     self.items = items
     self.lastFull = lastFull

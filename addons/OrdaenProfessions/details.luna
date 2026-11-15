@@ -24,13 +24,13 @@ const FLAGS: Array<Track> = [{ fr: 1 }, { fr: 1 }]
 // The head, the description, the needs, the reagents in the rest, their totals, the switches, the make row, the note.
 const PANEL: Array<Track> = ["auto", "auto", "auto", { fr: 1 }, "auto", "auto", "auto", "auto"]
 const NO_TOTALS: Totals = {
-  cost: nil, toBuy: nil, sellable: false, sale: nil, profit: nil, oldest: nil, priced: false,
+  cost: nil, toBuy: nil, sellable: false, sale: nil, profit: nil, oldest: nil, priced: false
 }
 const NOTE: Color = Color.hex("#c8b48a")
 const SLOT = 52 * PX
 const HEAD: Array<Track> = [SLOT, { fr: 1 }]
 const NOTHING: Game.Recipe = {
-  id: 0, name: "", icon: "Interface/Icons/INV_Misc_QuestionMark", categoryID: 0, learned: false, difficulty: Game.Difficulty.Never, craftable: 0,
+  id: 0, name: "", icon: "Interface/Icons/INV_Misc_QuestionMark", categoryID: 0, learned: false, difficulty: Game.Difficulty.Never, craftable: 0
 }
 
 public class RecipeDetails implements Component {
@@ -84,7 +84,7 @@ public class RecipeDetails implements Component {
     mode: mut Signal<MakeMode>,
     profession: Signal<Game.Profession | nil>,
     yellow: Signal<Integer | nil>,
-    grey: Signal<Integer | nil>,
+    grey: Signal<Integer | nil>
   ) {
     self.recipe = recipe
     self.kept = kept
@@ -131,10 +131,10 @@ public class RecipeDetails implements Component {
   skillOf(self): String {
     if (!self.shown.learned) { return Locale.NOT_LEARNED }
     match (self.shown.difficulty) {
-      Game.Difficulty.Always => return Locale.DIFFICULTY_0,
-      Game.Difficulty.Usually => return Locale.DIFFICULTY_1,
-      Game.Difficulty.Rarely => return Locale.DIFFICULTY_2,
-      Game.Difficulty.Never => return Locale.DIFFICULTY_3,
+      Game.Difficulty.Always => return Locale.DIFFICULTY_0
+      Game.Difficulty.Usually => return Locale.DIFFICULTY_1
+      Game.Difficulty.Rarely => return Locale.DIFFICULTY_2
+      Game.Difficulty.Never => return Locale.DIFFICULTY_3
     }
   }
 

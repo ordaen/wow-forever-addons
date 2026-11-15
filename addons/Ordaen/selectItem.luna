@@ -45,7 +45,7 @@ public class SelectItem implements Component {
     first: Signal<Boolean> = false,
     // How what the slot holds is laid out: one column, or its own tracks (a name and a count).
     columns: Signal<Array<Track>> = ONE,
-    padding: Signal<Edges> = PADDING,
+    padding: Signal<Edges> = PADDING
   ) {
     self.selected = selected
     self.color = color

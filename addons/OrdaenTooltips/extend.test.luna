@@ -38,7 +38,7 @@ function frame(name: String, x: Number, y: Number): any Frame {
 function showing(corner: any Frame, data: Game.TooltipData): Game.ShownTip {
   return {
     shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner, below: false,
-    right: true,
+    right: true
   }
 }
 

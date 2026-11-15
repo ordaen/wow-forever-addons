@@ -81,8 +81,8 @@ public class Tube implements Component {
   derived parts: Array<Track> = [self.filled, { percent: self.behind.percent - self.filled.percent }, { fr: 1 }]
   // The values and their part; with words before them, the words take the part's room, so the longest standing's
   // name with its values still fits a tube at its least (the part stays in the tooltip).
-  derived label: String = self.words == "" ? valuesOf(self.value, self.least, self.most)
-    : "%s %s / %s".format(self.words, number(self.value - self.least), number(self.most - self.least))
+  derived label: String = self.words == "" ? valuesOf(self.value, self.least, self.most) :
+    "%s %s / %s".format(self.words, number(self.value - self.least), number(self.most - self.least))
   derived overBar: Boolean = self.over == Over.Bar
   derived overAhead: Boolean = self.over == Over.Ahead
   derived tinted: Boolean = self.tint != nil
@@ -118,7 +118,7 @@ public class Tube implements Component {
     aheadRows: Signal<Array<TipRow>> = [],
     height: Signal<Number> = TUBE_HEIGHT,
     // A colour the fill takes, its art made grey under it: the standing's.
-    tint: Signal<Color | nil> = nil,
+    tint: Signal<Color | nil> = nil
   ) {
     self.tint = tint
     self.fill = fill
@@ -218,7 +218,7 @@ public class XpBar implements Component {
     let whole = Game.player.xpMax
     let rows: Array<TipRow> = [
       { label: Locale.TIP_CURRENT, value: currentOf(Game.player.xp, whole) },
-      { label: Locale.XP_TIP_TO_LEVEL.format(Game.player.level + 1), value: countOf(self.toLevel, whole) },
+      { label: Locale.XP_TIP_TO_LEVEL.format(Game.player.level + 1), value: countOf(self.toLevel, whole) }
     ]
     if (Game.player.rested > 0) {
       rows.push(self.restedRow())
@@ -230,7 +230,7 @@ public class XpBar implements Component {
     return [
       self.restedRow(),
       { label: Locale.RESTED_TIP_RESTING, value: Game.situation.resting ? Locale.YES : Locale.NO },
-      { label: Locale.RESTED_TIP_ROOM, value: number((0).max(self.restedMost - Game.player.rested)) },
+      { label: Locale.RESTED_TIP_ROOM, value: number((0).max(self.restedMost - Game.player.rested)) }
     ]
   }
 
@@ -239,13 +239,13 @@ public class XpBar implements Component {
   standingRows(self): Array<TipRow> {
     let whole = Game.reputation.max - Game.reputation.min
     let rows: Array<TipRow> = [
-      { label: Locale.TIP_CURRENT, value: currentOf(Game.reputation.value - Game.reputation.min, whole) },
+      { label: Locale.TIP_CURRENT, value: currentOf(Game.reputation.value - Game.reputation.min, whole) }
     ]
     if (Game.reputation.next != "") {
       rows.push({
         label: Locale.REPUTATION_TIP_TO,
         mark: { text: Game.reputation.next, color: Game.reputation.nextColor },
-        value: countOf(self.toNext, whole),
+        value: countOf(self.toNext, whole)
       })
     }
     return rows

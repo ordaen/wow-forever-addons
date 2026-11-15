@@ -50,7 +50,7 @@ public class Toolbar implements Component {
   constructor(
     search: mut Signal<String>,
     // What the field searches by, in it while it is empty.
-    placeholder: Signal<String>,
+    placeholder: Signal<String>
   ) {
     self.search = search
     self.placeholder = placeholder
@@ -97,7 +97,7 @@ public class ToolButton implements Component {
     open: mut Signal<Boolean>,
     lit: Signal<Boolean> = false,
     // A glyph its colour tints; false for a picture of the game's, drawn in its own colours.
-    tinted: Boolean = true,
+    tinted: Boolean = true
   ) {
     self.icon = icon
     self.title = title
@@ -142,7 +142,7 @@ public class ToolAct implements Component {
     // What it does («Sort the bags»), and how («By quality»): its Tip.
     title: Signal<String>,
     text: Signal<String>,
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.icon = icon
     self.title = title
@@ -189,7 +189,7 @@ public class ToolPick<T: Unknown> implements Component {
     // What it chooses («Sort»): its Tip's title, over the picked choice.
     title: Signal<String>,
     lit: Signal<Boolean> = false,
-    listWidth: Number = LIST_WIDTH,
+    listWidth: Number = LIST_WIDTH
   ) {
     self.value = value
     self.choices = choices

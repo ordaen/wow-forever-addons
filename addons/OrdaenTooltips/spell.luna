@@ -25,9 +25,9 @@ function valueOf(text: String): String {
 function combo(points: Integer): String {
   let which = Game.client.locale == "ruRU" ? form(points) : (points == 1 ? 1 : 3)
   match (which) {
-    1 => return Locale.COMBO_ONE.format(points),
-    2 => return Locale.COMBO_FEW.format(points),
-    else => return Locale.COMBO_MANY.format(points),
+    1 => return Locale.COMBO_ONE.format(points)
+    2 => return Locale.COMBO_FEW.format(points)
+    else => return Locale.COMBO_MANY.format(points)
   }
 }
 
@@ -76,7 +76,7 @@ function describe(text: String, body: mut Array<TextLine>) {
     let value = effect != nil ? comboValue(effect) : nil
     if (points != nil && value != nil) {
       rows.push({
-        left: combo((points.toNumber() ?? 0).floor()), right: value, opens: named(Term.Combo),
+        left: combo((points.toNumber() ?? 0).floor()), right: value, opens: named(Term.Combo)
       })
     } else if (first == nil) {
       first = line
@@ -92,7 +92,7 @@ function describe(text: String, body: mut Array<TextLine>) {
 // the cost and the range stand; `right`: the line's right side; `cast`: its left side was the cast, so this is the
 // cooldown. Whether this side was the cast.
 function cell(
-  text: String, first: Boolean, right: Boolean, cost: Game.SpellCost | nil, cast: Boolean, facts: mut Array<Fact>,
+  text: String, first: Boolean, right: Boolean, cost: Game.SpellCost | nil, cast: Boolean, facts: mut Array<Fact>
 ): Boolean {
   let glyph: Glyph | nil = nil
   let tint: Color | nil = nil
@@ -109,8 +109,8 @@ function cell(
     glyph = .CastChan
     opens = named(Term.Castchan)
     isCast = true
-  } else if (text.unformat(Game.strings.castTimeSec) != nil
-      || text.unformat(Game.strings.castTimeMin) != nil) {
+  } else if (text.unformat(Game.strings.castTimeSec) != nil ||
+      text.unformat(Game.strings.castTimeMin) != nil) {
     glyph = .CastTime
     opens = named(Term.Casttime)
     isCast = true
@@ -119,8 +119,8 @@ function cell(
     glyph = .CastNext
     opens = named(Term.Castnext)
     isCast = true
-  } else if (!right && first && cost != nil && digits != nil
-      && (digits.replace("%D", "")).toNumber() == cost.amount) {
+  } else if (!right && first && cost != nil && digits != nil &&
+      (digits.replace("%D", "")).toNumber() == cost.amount) {
     // The cost: a dot in its resource's colour and the number.
     glyph = .Cost
     tint = cost.color
@@ -202,6 +202,6 @@ public function spell(data: Game.TooltipData, options: Options): Model | nil {
   if (name == nil) { return nil }
   return {
     kind: Kind.Spell, picture: iconOf(id != nil ? Game.spells.texture(id) : nil), name: name, nameColor: WHITE,
-    desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer,
+    desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer
   }
 }

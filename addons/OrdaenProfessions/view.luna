@@ -43,10 +43,10 @@ public struct Group {
 
 function rank(difficulty: Game.Difficulty): Integer {
   return match (difficulty) {
-    Game.Difficulty.Always => 0,
-    Game.Difficulty.Usually => 1,
-    Game.Difficulty.Rarely => 2,
-    Game.Difficulty.Never => 3,
+    Game.Difficulty.Always => 0
+    Game.Difficulty.Usually => 1
+    Game.Difficulty.Rarely => 2
+    Game.Difficulty.Never => 3
   }
 }
 
@@ -65,7 +65,7 @@ public function before(sort: SortBy, a: Game.Recipe, b: Game.Recipe): Boolean {
 // By a column of the table: 1 the name, 2 how many can be made, 3 the cost, 4 the profit (`worth`, by recipe; one with
 // no price after every one with a price, either way).
 public function tableBefore(
-  column: Integer, descending: Boolean, worth: Map<Integer, Totals>, a: Game.Recipe, b: Game.Recipe,
+  column: Integer, descending: Boolean, worth: Map<Integer, Totals>, a: Game.Recipe, b: Game.Recipe
 ): Boolean {
   if (column == 3 || column == 4) {
     const x = worthOf(column, worth, a)
@@ -123,8 +123,8 @@ public struct Queued implements Plain {
 // the client interrupted the run (the player moved, cancelled it); it refused a craft (a reagent, a tool, a place);
 // a fight began; the next recipe's profession isn't the one open; the bags hold no reagents for the next.
 public enum Pause implements Plain {
-  None = "none", Interrupted = "interrupted", Failed = "failed", Combat = "combat", Closed = "closed",
-  Missing = "missing",
+  None = "none", Interrupted = "interrupted", Failed = "failed", Combat = "combat", Closed = "closed"
+  Missing = "missing"
 }
 
 // The most recipes waiting: past it the oldest goes.

@@ -38,7 +38,7 @@ public class Records {
     if (found == nil) {
       self.makeRoom()
       self.characters[self.who] = Character {
-        name: name, realm: self.realm, faction: self.faction, classTag: classTag, level: level, seen: now,
+        name: name, realm: self.realm, faction: self.faction, classTag: classTag, level: level, seen: now
       }
     } else {
       found.name = name

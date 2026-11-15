@@ -29,11 +29,11 @@ struct Lies {
 
 function lies(
   bag: Integer, slot: Integer, id: Integer, name: String, count: Integer, quality: Integer, kind: Integer, subkind: Integer,
-  subkindName: String, worn: String,
+  subkindName: String, worn: String
 ): Lies {
   return {
     bag: bag, slot: slot, id: id, name: name, count: count, quality: quality, kind: kind, subkind: subkind,
-    subkindName: subkindName, worn: worn, level: 5 + id % 20, isNew: false,
+    subkindName: subkindName, worn: worn, level: 5 + id % 20, isNew: false
   }
 }
 
@@ -48,11 +48,11 @@ function inBags(): mut Array<Lies> {
     lies(0, 5, 3300, "Rabbit's Foot", 3, 0, 15, 0, "Junk", ""),
     lies(0, 7, 1972, "Westfall Deed", 1, 1, 12, 0, "Quest", ""),
     lies(1, 2, 2408, "Recipe: Fine Leather Gloves", 1, 2, 9, 1, "Leatherworking", ""),
-    lies(1, 4, 2589, "Linen Cloth", 7, 1, 7, 5, "Cloth", ""),
+    lies(1, 4, 2589, "Linen Cloth", 7, 1, 7, 5, "Cloth", "")
   ]
   items.push({
     bag: 0, slot: 9, id: 2575, name: "Red Linen Shirt", count: 1, quality: 2, kind: 4, subkind: 0, subkindName: "Miscellaneous",
-    worn: "INVTYPE_BODY", level: 12, isNew: true,
+    worn: "INVTYPE_BODY", level: 12, isNew: true
   })
   return items
 }

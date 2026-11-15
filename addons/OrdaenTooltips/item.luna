@@ -74,9 +74,9 @@ function durabilityColor(current: Number, most: Number): Color | nil {
 function slots(count: Integer): String {
   let which = Game.client.locale == "ruRU" ? form(count) : (count == 1 ? 1 : 3)
   match (which) {
-    1 => return Locale.COL_SLOTS_ONE.format(count),
-    2 => return Locale.COL_SLOTS_FEW.format(count),
-    else => return Locale.COL_SLOTS_MANY.format(count),
+    1 => return Locale.COL_SLOTS_ONE.format(count)
+    2 => return Locale.COL_SLOTS_FEW.format(count)
+    else => return Locale.COL_SLOTS_MANY.format(count)
   }
 }
 
@@ -248,7 +248,7 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
         let worn = number(armor) ?? 0
         facts.push({
           text: shown(worn), color: colorOf(line.leftColor), glyph: .Arm,
-          opens: namedWith(Term.Arm, shown(worn)),
+          opens: namedWith(Term.Arm, shown(worn))
         })
         stats["arm"] = worn
       } else if (block != nil) {
@@ -262,11 +262,11 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
         let whole = number(most) ?? 1
         foot.push({
           left: Locale.DURABILITY, right: "%d / %d".format(now.floor(), whole.floor()),
-          valueColor: durabilityColor(now, whole), opens: named(Term.Dur),
+          valueColor: durabilityColor(now, whole), opens: named(Term.Dur)
         })
       } else if (classes != nil) {
         foot.push({
-          left: Locale.CLASSES, right: classes, valueColor: colorOf(line.leftColor), opens: named(Term.Cls),
+          left: Locale.CLASSES, right: classes, valueColor: colorOf(line.leftColor), opens: named(Term.Cls)
         })
       } else if (needs != nil && reagents(needs, mut body)) {
         // A recipe's reagents: rows.
@@ -299,15 +299,15 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
   if (setName != nil) {
     sides.push({
       kind: Kind.Set, name: setName, nameColor: GOLD,
-      desc: [], info: [], facts: [], body: setBody, more: [], foot: [], keys: [],
+      desc: [], info: [], facts: [], body: setBody, more: [], foot: [], keys: []
     })
   }
   return {
     model: {
       kind: Kind.Item, picture: iconOf(id != nil ? Game.items.icon(id) : nil), name: name, nameColor: nameColor,
-      desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer,
+      desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer
     },
-    sides: sides, makes: makes, stats: stats,
+    sides: sides, makes: makes, stats: stats
   }
 }
 
@@ -316,7 +316,7 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
 // is less), nothing when they are equal. With `lacks`, the stats only `worse` has follow as «—» with what is lost:
 // the hovered item against the worn one.
 public function compare(
-  target: Model, better: Map<String, Number>, worse: Map<String, Number>, lacks: Boolean,
+  target: Model, better: Map<String, Number>, worse: Map<String, Number>, lacks: Boolean
 ): Model {
   let body: Array<TextLine> = []
   for (row of target.body) {
@@ -333,7 +333,7 @@ public function compare(
     for (key, value of worse) {
       if (better[key] == nil && key.match("^ITEM_MOD_") != nil) {
         body.push({
-          left: Game.items.statName(key) ?? key, right: "—", compared: { more: false, by: shown(value) }, color: GREY,
+          left: Game.items.statName(key) ?? key, right: "—", compared: { more: false, by: shown(value) }, color: GREY
         })
       }
     }

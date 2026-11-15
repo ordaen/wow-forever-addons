@@ -17,7 +17,7 @@ public class TextBox implements Component {
   constructor(
     value: mut Signal<String>,
     // As high as this; as wide as where it stands.
-    height: Signal<Number> = 160 * PX,
+    height: Signal<Number> = 160 * PX
   ) {
     self.value = value
     self.height = height

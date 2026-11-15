@@ -28,8 +28,8 @@ const DOT_LIGHT: Piece = GLYPH_ART[14] ?? panic("the dot's light is the last row
 // A glyph's picture.
 public function glyphArt(glyph: Glyph): Piece {
   const row = match (glyph) {
-    .Dmg => 1, .Spd => 2, .Arm => 3, .Blk => 4, .Alliance => 5, .Horde => 6, .Elite => 7, .Time => 8, .Cost => 9,
-    .CastNow => 10, .CastTime => 11, .CastChan => 12, .CastNext => 13,
+    .Dmg => 1, .Spd => 2, .Arm => 3, .Blk => 4, .Alliance => 5, .Horde => 6, .Elite => 7, .Time => 8, .Cost => 9
+    .CastNow => 10, .CastTime => 11, .CastChan => 12, .CastNext => 13
   }
   return GLYPH_ART[row] ?? panic("a row for every glyph")
 }
@@ -108,8 +108,8 @@ public struct Drawn {
 
 function opensSomething(opens: Opens): Boolean {
   match (opens) {
-    Opens.None => return false,
-    else => return true,
+    Opens.None => return false
+    else => return true
   }
 }
 
@@ -136,7 +136,7 @@ public class TermText implements Component {
     opens: Signal<Opens>,
     locked: Signal<Boolean>,
     // A value's text is in the numbers' font; nothing keeps the text's.
-    font: TextFont | nil = nil,
+    font: TextFont | nil = nil
   ) {
     self.text = text
     self.color = color
@@ -190,7 +190,7 @@ public class PartText implements Component {
     index: Signal<Integer>,
     // The line's colour, for a piece without its own.
     color: Color,
-    locked: Signal<Boolean> = false,
+    locked: Signal<Boolean> = false
   ) {
     self.part = part
     self.index = index
@@ -236,7 +236,7 @@ public class FactCell implements Component {
     fact: Signal<Fact>,
     index: Signal<Integer>,
     last: Signal<Boolean>,
-    locked: Signal<Boolean> = false,
+    locked: Signal<Boolean> = false
   ) {
     self.fact = fact
     self.index = index
@@ -383,7 +383,7 @@ function rows(lines: Array<TextLine>, was: Array<Drawn>, from: Array<TextLine>):
     list.push({
       left: line.left, right: line.right, leftColor: line.color ?? plain,
       rightColor: line.rightColor ?? line.color ?? BODY, size: TextSize.Primary, padding: padding, opens: line.opens,
-      valueOpens: Opens.None, compared: line.compared,
+      valueOpens: Opens.None, compared: line.compared
     })
   }
   return same ? was : list
@@ -447,7 +447,7 @@ public class TipFrame implements Component {
     // not. One that never locks (a button's text) keeps no room for a bar: it is its content's height.
     locks: Signal<Boolean> = false,
     charge: Signal<Integer> = 0,
-    locked: Signal<Boolean> = false,
+    locked: Signal<Boolean> = false
   ) {
     self.model = model
     self.side = side
@@ -475,24 +475,24 @@ public class TipFrame implements Component {
   pictured(self): Boolean {
     let picture = self.model.picture
     match (picture) {
-      Picture.None => return false,
-      else => return true,
+      Picture.None => return false
+      else => return true
     }
   }
 
   iconArt(self): Art | nil {
     let picture = self.model.picture
     match (picture) {
-      Picture.Icon => return picture.art,
-      else => return nil,
+      Picture.Icon => return picture.art
+      else => return nil
     }
   }
 
   faceUnit(self): String | nil {
     let picture = self.model.picture
     match (picture) {
-      Picture.Face => return picture.unit,
-      else => return nil,
+      Picture.Face => return picture.unit
+      else => return nil
     }
   }
 
@@ -514,7 +514,7 @@ public class TipFrame implements Component {
       list.push({
         left: note.left, right: note.right, leftColor: alone ? note.valueColor ?? QUIET : QUIET,
         rightColor: note.valueColor ?? QUIET_VALUE, size: TextSize.Secondary, padding: NO_PAD, opens: note.opens,
-        valueOpens: note.valueOpens, compared: nil,
+        valueOpens: note.valueOpens, compared: nil
       })
     }
     return list
@@ -525,7 +525,7 @@ public class TipFrame implements Component {
     for (key of self.model.keys) {
       list.push({
         left: key, right: nil, leftColor: QUIET, rightColor: QUIET, size: TextSize.Secondary, padding: NO_PAD,
-        opens: Opens.None, valueOpens: Opens.None, compared: nil,
+        opens: Opens.None, valueOpens: Opens.None, compared: nil
       })
     }
     return list

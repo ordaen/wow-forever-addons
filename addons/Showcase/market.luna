@@ -19,19 +19,19 @@ const FLAGS: Array<Marker> = [{ corner: Corner.TopLeft, color: Color.hex("#ffd10
 const WORTHS: Array<Choice<Worth>> = [
   { value: Worth.Auction, label: "Auction" },
   { value: Worth.Merchant, label: "Merchant" },
-  { value: Worth.Held, label: "Held", soon: true },
+  { value: Worth.Held, label: "Held", soon: true }
 ]
 
 const ORDERS: Array<Choice<Order>> = [
   { value: Order.Difficulty, label: "By difficulty" },
   { value: Order.Name, label: "By name" },
-  { value: Order.Price, label: "By price", soon: true },
+  { value: Order.Price, label: "By price", soon: true }
 ]
 
 const COLUMNS: Array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
   { title: "Each", width: 120, align: Align.End, sortable: true },
-  { title: "Age", width: 60, align: Align.End, sortable: true },
+  { title: "Age", width: 60, align: Align.End, sortable: true }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 
@@ -46,7 +46,7 @@ public class Market implements Component {
   state sales: Array<Sale> = [
     { name: "Copper Bar", price: 150, seen: 3 * 86400 },
     { name: "Bronze Axe", price: 12345, seen: 86400 },
-    { name: "Arcane Dust", price: 40, seen: 9 * 86400 },
+    { name: "Arcane Dust", price: 40, seen: 9 * 86400 }
   ]
   state sorted = 0
   state descending = false
@@ -80,7 +80,7 @@ public class Market implements Component {
     return [
       { label: "Link in chat" },
       { label: "Create [0]", disabled: true },
-      { label: "Favorite", on: self.menuOn, group: true },
+      { label: "Favorite", on: self.menuOn, group: true }
     ]
   }
 

@@ -43,7 +43,7 @@ public class MenuCell implements Component {
     // The icon in one gold.
     gold: Signal<Boolean>,
     // A number on the cell while it isn't 0: the friends online.
-    count: Signal<Integer> = 0,
+    count: Signal<Integer> = 0
   ) {
     self.icon = icon
     self.frame = frame

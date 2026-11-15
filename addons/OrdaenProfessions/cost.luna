@@ -66,7 +66,7 @@ public function partOf(prices: any PriceSource, reagent: Game.Reagent, count: In
   }
   return {
     item: item, name: reagent.name, icon: reagent.icon, need: need, have: reagent.have, auction: bought == nil ? nil : bought * need,
-    vendor: sold == nil ? nil : sold * need, way: way, unit: unit, age: age,
+    vendor: sold == nil ? nil : sold * need, way: way, unit: unit, age: age
   }
 }
 
@@ -77,7 +77,7 @@ public function partsOf(prices: any PriceSource, reagents: Array<Game.Reagent>, 
 // The totals of a recipe's parts for the count, and the sale of what it makes: `makes` none for a recipe that makes no
 // item (an enchant), `yield` how many one making gives.
 public function totalsOf(
-  prices: any PriceSource, parts: Array<PartPrice>, makes: Integer | nil, yield: Number, count: Integer,
+  prices: any PriceSource, parts: Array<PartPrice>, makes: Integer | nil, yield: Number, count: Integer
 ): Totals {
   let cost: Integer | nil = 0
   let toBuy: Integer | nil = 0
@@ -106,7 +106,7 @@ public function totalsOf(
   }
   const profit: Integer | nil = sale != nil && cost != nil ? sale - cost : nil
   return {
-    cost: cost, toBuy: toBuy, sellable: makes != nil, sale: sale, profit: profit, oldest: oldest, priced: priced,
+    cost: cost, toBuy: toBuy, sellable: makes != nil, sale: sale, profit: profit, oldest: oldest, priced: priced
   }
 }
 

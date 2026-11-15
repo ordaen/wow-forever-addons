@@ -7,11 +7,11 @@ import Locale from "@/locales"
 
 const ITEMSANCHORBAGS: Array<Choice<Place>> = [
   { value: Place.Corner, label: Locale.TOOLTIPS_ITEMSANCHORBAGS_CORNER },
-  { value: Place.Anchor, label: Locale.TOOLTIPS_ITEMSANCHORBAGS_ANCHOR },
+  { value: Place.Anchor, label: Locale.TOOLTIPS_ITEMSANCHORBAGS_ANCHOR }
 ]
 const ITEMSANCHORCHAR: Array<Choice<Place>> = [
   { value: Place.Corner, label: Locale.TOOLTIPS_ITEMSANCHORCHAR_CORNER },
-  { value: Place.Anchor, label: Locale.TOOLTIPS_ITEMSANCHORCHAR_ANCHOR },
+  { value: Place.Anchor, label: Locale.TOOLTIPS_ITEMSANCHORCHAR_ANCHOR }
 ]
 
 public class GeneralPage implements Component {

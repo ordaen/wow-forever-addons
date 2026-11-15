@@ -35,11 +35,11 @@ public class SkillBar implements Component {
 
   rankOf(self, most: Integer): String {
     match (most) {
-      75 => return Locale.RANK_75,
-      150 => return Locale.RANK_150,
-      225 => return Locale.RANK_225,
-      300 => return Locale.RANK_300,
-      else => return "",
+      75 => return Locale.RANK_75
+      150 => return Locale.RANK_150
+      225 => return Locale.RANK_225
+      300 => return Locale.RANK_300
+      else => return ""
     }
   }
 

@@ -45,7 +45,7 @@ public class Segment<T: Unknown> implements Component {
     choice: Signal<Choice<T>>,
     value: Signal<T>,
     first: Boolean,
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.choice = choice
     self.value = value
@@ -79,7 +79,7 @@ public class Segmented<T: Unknown> implements Component {
   constructor(
     value: mut Signal<T>,
     choices: Array<Choice<T>>,
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.value = value
     self.choices = choices

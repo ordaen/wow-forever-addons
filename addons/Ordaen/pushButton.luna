@@ -45,7 +45,7 @@ public class PushButton implements Component {
     // Held down, its click comes again until it is let go or disabled (a stepper's − and +).
     repeats: Signal<Boolean> = false,
     // What a Tip says of it under the cursor (its keys); none for none.
-    tip: Signal<TipText | nil> = nil,
+    tip: Signal<TipText | nil> = nil
   ) {
     self.label = label
     self.width = width

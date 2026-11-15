@@ -65,7 +65,7 @@ test "a full scan sets each item's price from the cheapest fifth of what is list
     // no buyout, and an auction the client couldn't say: left out
     { key: LINEN, unit: 0, many: 5 },
     { key: 0, unit: 10, many: 1 },
-    { key: BLADE + 3 * 1048576, unit: 25000, many: 1 },
+    { key: BLADE + 3 * 1048576, unit: 25000, many: 1 }
   ]
   Game.auctionScan.read = reader(auctions)
   Test.expect(stand.scanner.full())
@@ -98,7 +98,7 @@ test "a full scan counts every item it gives: the auctions read before their ite
     { key: BLADE + 3 * 1048576, unit: 25000, many: 1 },
     { key: LINEN, unit: 40, many: 20 },
     { key: BLADE + 3 * 1048576, unit: 24000, many: 1 },
-    { key: BLADE, unit: 9000, many: 1 },
+    { key: BLADE, unit: 9000, many: 1 }
   ]
   // The blades' data hasn't loaded: the client says nothing of them until it comes.
   let loaded = false

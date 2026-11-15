@@ -42,7 +42,7 @@ public const COLUMNS: Array<Track> = [{ fr: 1 }, "auto", Style.NUMBER, Style.NUM
 const CAPTION: Array<Track> = ["auto", "auto", { fr: 1 }, SWITCH_WIDTH]
 // The table's: the category in a column of its own, among the fixed ones so that it lines up from row to row.
 public const TABLE_COLUMNS: Array<Track> = [
-  { fr: 1 }, "auto", Style.CATEGORY, Style.NUMBER, Style.NUMBER, Style.MEMORY, SWITCH_WIDTH,
+  { fr: 1 }, "auto", Style.CATEGORY, Style.NUMBER, Style.NUMBER, Style.MEMORY, SWITCH_WIDTH
 ]
 // The fold's mark (ctl.markClosed, ctl.markOpen), as TreeRow draws it: a 16 px cell, its triangle in the middle.
 const MARK = 16 * PX
@@ -56,9 +56,9 @@ enum RowAction { Switch, Load, Settings, Details }
 // An addon's switch as the client has it for whom the header says.
 function shownOf(switched: Switch): Shown {
   return match (switched) {
-    .On => Shown.On,
-    .Off => Shown.Off,
-    .Some => Shown.Some,
+    .On => Shown.On
+    .Off => Shown.Off
+    .Some => Shown.Some
   }
 }
 
@@ -137,7 +137,7 @@ public class LineRow implements Component {
     hot: Signal<Hot>,
     picked: Signal<String>,
     // Ordaen's folder: the addon its modules stand under.
-    framework: String,
+    framework: String
   ) {
     self.line = line
     self.catalog = catalog
@@ -198,10 +198,10 @@ public class LineRow implements Component {
 
   entryOf(self, action: RowAction): MenuEntry {
     return match (action) {
-      .Switch => { label: self.switched == .Off ? Locale.ENABLE : Locale.DISABLE },
-      .Load => { label: Locale.LOAD_NOW, disabled: Game.situation.combat },
-      .Settings => { label: Locale.ORDAEN_SETTINGS },
-      .Details => { label: Locale.MENU_DETAILS, group: true },
+      .Switch => { label: self.switched == .Off ? Locale.ENABLE : Locale.DISABLE }
+      .Load => { label: Locale.LOAD_NOW, disabled: Game.situation.combat }
+      .Settings => { label: Locale.ORDAEN_SETTINGS }
+      .Details => { label: Locale.MENU_DETAILS, group: true }
     }
   }
 
@@ -210,10 +210,10 @@ public class LineRow implements Component {
     const action = self.actions[index]
     if (action == nil) { return }
     match (action) {
-      .Switch => self.toggle.emit(self.line.name, false),
-      .Load => self.loadNow.emit(self.line.name),
-      .Settings => self.settings.emit(self.line.name),
-      .Details => self.pick.emit(self.line.name),
+      .Switch => self.toggle.emit(self.line.name, false)
+      .Load => self.loadNow.emit(self.line.name)
+      .Settings => self.settings.emit(self.line.name)
+      .Details => self.pick.emit(self.line.name)
     }
   }
 

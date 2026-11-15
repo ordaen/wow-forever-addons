@@ -34,7 +34,7 @@ public struct Standing {
 // What stands in an opened tooltip's place while it opens nothing.
 const NOTHING: Model = {
   kind: Kind.Text, name: "", nameColor: Color.hex("#ffffff"),
-  desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: [],
+  desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: []
 }
 
 // The tooltip a part of a locked tooltip opens. It takes no cursor, and opens nothing further. A unit that is gone
@@ -54,13 +54,13 @@ class Opened implements Component {
   readNow(self): Model | nil {
     let opens = self.opens
     match (opens) {
-      Opens.Term => return term(opens.term, opens.amount),
+      Opens.Term => return term(opens.term, opens.amount)
       Opens.Text => return {
         kind: Kind.Text, name: opens.name, nameColor: GOLD,
-        desc: [], info: [], facts: [], body: [{ left: opens.text, desc: true }], more: [], foot: [], keys: [],
-      },
-      Opens.Unit => return unitOf(opens.unit, self.options),
-      Opens.None => return nil,
+        desc: [], info: [], facts: [], body: [{ left: opens.text, desc: true }], more: [], foot: [], keys: []
+      }
+      Opens.Unit => return unitOf(opens.unit, self.options)
+      Opens.None => return nil
     }
   }
 
@@ -114,7 +114,7 @@ public class TipGroup implements Component {
     // for it always (a listener is bound for good), and tells it always.
     locks: Signal<Boolean> = false,
     charge: Signal<Integer> = 0,
-    locked: Signal<Boolean> = false,
+    locked: Signal<Boolean> = false
   ) {
     self.model = model
     self.sides = sides
@@ -146,13 +146,13 @@ public class TipGroup implements Component {
   at(self): Place {
     let standing = self.standing
     if (standing.below) {
-      return standing.right
-        ? { point: Point.TopRight, to: Point.BottomRight, by: standing.by }
-        : { point: Point.TopLeft, to: Point.BottomLeft, by: standing.by }
+      return standing.right ?
+        { point: Point.TopRight, to: Point.BottomRight, by: standing.by } :
+        { point: Point.TopLeft, to: Point.BottomLeft, by: standing.by }
     }
-    return standing.right
-      ? { point: Point.BottomRight, to: Point.TopRight, by: standing.by }
-      : { point: Point.BottomLeft, to: Point.TopLeft, by: standing.by }
+    return standing.right ?
+      { point: Point.BottomRight, to: Point.TopRight, by: standing.by } :
+      { point: Point.BottomLeft, to: Point.TopLeft, by: standing.by }
   }
 
   public render(self): Template {

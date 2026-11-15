@@ -63,7 +63,7 @@ struct Held {
 // What the group shows while there is nothing to show: it isn't drawn then.
 const NOTHING: Model = {
   kind: Kind.Text, name: "", nameColor: Color.hex("#ffffff"),
-  desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: [],
+  desc: [], info: [], facts: [], body: [], more: [], foot: [], keys: []
 }
 
 public class Tooltips implements Module, App {
@@ -78,7 +78,7 @@ public class Tooltips implements Module, App {
     playersOn: true, playersTarget: true, playersRelation: true,
     npcsOn: true, npcsParty: true, npcsLoot: true, npcsRep: true,
     objectsOn: true, textsOn: true, textsExtra: true,
-    itemsLock: true, spellsLock: true, aurasLock: true, playersLock: true, npcsLock: true, objectsLock: true,
+    itemsLock: true, spellsLock: true, aurasLock: true, playersLock: true, npcsLock: true, objectsLock: true
   })
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
@@ -88,7 +88,7 @@ public class Tooltips implements Module, App {
     { title: Locale.TAB_PLAYERS, content: $ltml { <PlayersPage settings={mut self.settings} /> } },
     { title: Locale.TAB_NPCS, content: $ltml { <NpcsPage settings={mut self.settings} /> } },
     { title: Locale.TAB_OBJECTS, content: $ltml { <ObjectsPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_TEXTS, content: $ltml { <TextsPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_TEXTS, content: $ltml { <TextsPage settings={mut self.settings} /> } }
   ]
 
   derived read: Shown | nil = self.readNow()
@@ -219,7 +219,7 @@ public class Tooltips implements Module, App {
     self.closed = false
     self.target = {
       kind: data.kind, about: data.about, since: peek Game.clock.time,
-      locks: kind != nil && self.wanted(kind, data) && self.locks(kind, data),
+      locks: kind != nil && self.wanted(kind, data) && self.locks(kind, data)
     }
   }
 
@@ -296,7 +296,7 @@ public class Tooltips implements Module, App {
       classNames: true, playersTarget: chosen.playersTarget, playersRelation: chosen.playersRelation,
       npcsLoot: chosen.npcsLoot, npcsParty: chosen.npcsParty, npcsRep: chosen.npcsRep,
       itemsIlvl: chosen.itemsIlvl, itemsCooldown: chosen.itemsCooldown, itemsId: chosen.itemsId,
-      itemsCount: chosen.itemsCount, itemsStack: chosen.itemsStack,
+      itemsCount: chosen.itemsCount, itemsStack: chosen.itemsStack
     }
   }
 
@@ -312,14 +312,14 @@ public class Tooltips implements Module, App {
   wanted(self, kind: Kind, data: Game.TooltipData): Boolean {
     let chosen = self.settings.values
     match (kind) {
-      Kind.Item => return chosen.itemsOn,
-      Kind.Spell => return chosen.spellsOn,
-      Kind.Aura => return chosen.aurasOn,
-      Kind.Object => return chosen.objectsOn,
-      Kind.Text => return chosen.textsOn,
-      Kind.Set => return false,
-      Kind.Term => return false,
-      Kind.Unit => return self.aPlayer(data) ? chosen.playersOn : chosen.npcsOn,
+      Kind.Item => return chosen.itemsOn
+      Kind.Spell => return chosen.spellsOn
+      Kind.Aura => return chosen.aurasOn
+      Kind.Object => return chosen.objectsOn
+      Kind.Text => return chosen.textsOn
+      Kind.Set => return false
+      Kind.Term => return false
+      Kind.Unit => return self.aPlayer(data) ? chosen.playersOn : chosen.npcsOn
     }
   }
 
@@ -327,14 +327,14 @@ public class Tooltips implements Module, App {
   locks(self, kind: Kind, data: Game.TooltipData): Boolean {
     let chosen = self.settings.values
     match (kind) {
-      Kind.Item => return chosen.itemsLock,
-      Kind.Spell => return chosen.spellsLock,
-      Kind.Aura => return chosen.aurasLock,
-      Kind.Object => return chosen.objectsLock,
-      Kind.Text => return false,
-      Kind.Set => return false,
-      Kind.Term => return false,
-      Kind.Unit => return self.aPlayer(data) ? chosen.playersLock : chosen.npcsLock,
+      Kind.Item => return chosen.itemsLock
+      Kind.Spell => return chosen.spellsLock
+      Kind.Aura => return chosen.aurasLock
+      Kind.Object => return chosen.objectsLock
+      Kind.Text => return false
+      Kind.Set => return false
+      Kind.Term => return false
+      Kind.Unit => return self.aPlayer(data) ? chosen.playersLock : chosen.npcsLock
     }
   }
 
@@ -375,7 +375,7 @@ public class Tooltips implements Module, App {
     }
     return {
       model: model, sides: read.sides, compared: compared, item: tip.data.id ?? 0, link: tip.data.about ?? "",
-      object: "", locks: locks,
+      object: "", locks: locks
     }
   }
 

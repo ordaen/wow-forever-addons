@@ -51,7 +51,7 @@ public class Auction implements Module, App {
       <DataPage scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
                 items={self.scanner.known} />
     } },
-    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   derived cut: Integer = self.settings.values.cut
   derived priceLine: Boolean = self.settings.values.priceLine

@@ -11,20 +11,20 @@ import { Slider, Unit } from "@/slider"
 const DENSITIES: Array<Choice<Density>> = [
   { value: Density.Compact, label: Locale.GLOBAL_DENSITY_COMPACT },
   { value: Density.Normal, label: Locale.GLOBAL_DENSITY_NORMAL },
-  { value: Density.Roomy, label: Locale.GLOBAL_DENSITY_ROOMY },
+  { value: Density.Roomy, label: Locale.GLOBAL_DENSITY_ROOMY }
 ]
 const FORMATS: Array<Choice<NumberFormat>> = [
   { value: NumberFormat.Space, label: Locale.GLOBAL_NUMBERFORMAT_SPACE },
   { value: NumberFormat.Comma, label: Locale.GLOBAL_NUMBERFORMAT_COMMA },
-  { value: NumberFormat.Dot, label: Locale.GLOBAL_NUMBERFORMAT_DOT },
+  { value: NumberFormat.Dot, label: Locale.GLOBAL_NUMBERFORMAT_DOT }
 ]
 const LARGE: Array<Choice<LargeNumbers>> = [
   { value: LargeNumbers.Full, label: Locale.GLOBAL_NUMBERS_FULL },
-  { value: LargeNumbers.Short, label: Locale.GLOBAL_NUMBERS_SHORT },
+  { value: LargeNumbers.Short, label: Locale.GLOBAL_NUMBERS_SHORT }
 ]
 const CLOCKS: Array<Choice<Clock>> = [
   { value: Clock.H24, label: Locale.GLOBAL_CLOCK_24 },
-  { value: Clock.H12, label: Locale.GLOBAL_CLOCK_12 },
+  { value: Clock.H12, label: Locale.GLOBAL_CLOCK_12 }
 ]
 
 public class ScalePage implements Component {

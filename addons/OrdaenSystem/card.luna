@@ -142,7 +142,7 @@ public class Card implements Component {
           name: name,
           title: self.catalog.titleOf(name),
           state: loaded ? Locale.IS_LOADED : status.enabled == .Off ? Locale.IS_OFF : "",
-          color: loaded ? Style.GREEN : Style.DIM,
+          color: loaded ? Style.GREEN : Style.DIM
         })
       }
     }
@@ -157,7 +157,7 @@ public class Card implements Component {
       return [
         { label: Locale.CARD_NOW, value: DASH }, { label: Locale.CARD_AVERAGE, value: DASH },
         { label: Locale.CARD_ENCOUNTER, value: DASH }, { label: Locale.CARD_PEAK, value: DASH },
-        { label: Locale.CARD_SPIKES, value: DASH }, { label: Locale.CARD_MEMORY, value: weight },
+        { label: Locale.CARD_SPIKES, value: DASH }, { label: Locale.CARD_MEMORY, value: weight }
       ]
     }
     const spikes: Array<String> = []
@@ -171,7 +171,7 @@ public class Card implements Component {
       { label: Locale.CARD_ENCOUNTER, value: percent(load.encounter) },
       { label: Locale.CARD_PEAK, value: percent(load.peak) },
       { label: Locale.CARD_SPIKES, value: spikes.length == 0 ? DASH : spikes.join(" · ") },
-      { label: Locale.CARD_MEMORY, value: weight },
+      { label: Locale.CARD_MEMORY, value: weight }
     ]
   }
 

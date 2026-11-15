@@ -31,7 +31,7 @@ public class Toggle implements Component {
   disabled: Signal<Boolean>
   constructor(
     value: mut Signal<Boolean>,
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.value = value
     self.disabled = disabled
@@ -100,7 +100,7 @@ public class Switch implements Component {
     label: Signal<String>,
     value: mut Signal<Boolean>,
     hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.label = label
     self.value = value

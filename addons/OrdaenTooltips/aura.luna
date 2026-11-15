@@ -16,7 +16,7 @@ const REMOVE_COLOR: Color = Color.hex("#8fd2ff")
 
 // What an effect is removed as, in its colour, lifted to read on the wood.
 const DISPEL: Map<String, Color> = {
-  Magic: Color.hex("#3c9cff"), Curse: Color.hex("#b45cff"), Poison: Color.hex("#2fbf3f"), Disease: Color.hex("#c89040"),
+  Magic: Color.hex("#3c9cff"), Curse: Color.hex("#b45cff"), Poison: Color.hex("#2fbf3f"), Disease: Color.hex("#c89040")
 }
 
 // The spells that remove an effect, by the player's class and by what the effect is removed as; and the ones that
@@ -26,7 +26,7 @@ const REMOVE: Map<String, Map<String, Array<Integer>>> = {
   DRUID: { Curse: [2782], Poison: [2893, 8946] },
   PRIEST: { Magic: [527, 988], Disease: [552, 528] },
   PALADIN: { Magic: [4987], Poison: [4987, 1152], Disease: [4987, 1152] },
-  SHAMAN: { Poison: [526], Disease: [2870] },
+  SHAMAN: { Poison: [526], Disease: [2870] }
 }
 const PURGE: Map<String, Array<Integer>> = { SHAMAN: [8012, 370], PRIEST: [988, 527] }
 
@@ -104,9 +104,9 @@ public function aura(data: Game.TooltipData, options: Options): Model | nil {
     }
     if (left == nil || line.kind == BLANK) { continue }
     // The game's own line with the spell's number and the time left go: the band has the time.
-    if (left.match("^ID ") != nil || left.contains(Locale.REMAINING_WORD)
-        || left.unformat(Game.strings.timeRemainingMin) != nil
-        || left.unformat(Game.strings.timeRemainingSec) != nil) { continue }
+    if (left.match("^ID ") != nil || left.contains(Locale.REMAINING_WORD) ||
+        left.unformat(Game.strings.timeRemainingMin) != nil ||
+        left.unformat(Game.strings.timeRemainingSec) != nil) { continue }
     if (id == CAMP) { campRows(left, mut body) } else { body.push({ left: left, desc: true }) }
     description = description ?? left
   }
@@ -150,7 +150,7 @@ public function aura(data: Game.TooltipData, options: Options): Model | nil {
       foot.push({
         left: Locale.CASTER, right: source == "player" ? Locale.YOU : caster,
         valueColor: options.classNames ? known.sourceColor : nil, opens: named(Term.Caster),
-        valueOpens: source != nil && source != "player" ? Opens.Unit { unit: source } : Opens.None,
+        valueOpens: source != nil && source != "player" ? Opens.Unit { unit: source } : Opens.None
       })
     }
     if (options.aurasTotal && description != nil) {
@@ -161,6 +161,6 @@ public function aura(data: Game.TooltipData, options: Options): Model | nil {
   if (id != nil && options.aurasId) { info.push({ text: `ID ${id}` }) }
   return {
     kind: Kind.Aura, picture: iconOf(id != nil ? Game.spells.texture(id) : nil), name: name, nameColor: harmful ? RED : GOLD,
-    desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer,
+    desc: desc, info: info, facts: facts, body: body, more: [], foot: foot, keys: [], timer: timer
   }
 }

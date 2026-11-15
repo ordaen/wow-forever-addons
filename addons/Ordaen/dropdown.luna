@@ -52,7 +52,7 @@ public class DropdownItem<T: Unknown> implements Component {
     choice: Signal<Choice<T>>,
     value: Signal<T>,
     // As a `CompactDropdown`'s: the text on one line.
-    compact: Boolean = false,
+    compact: Boolean = false
   ) {
     self.choice = choice
     self.value = value
@@ -96,7 +96,7 @@ public class Dropdown<T: Unknown> implements Component {
     value: mut Signal<T>,
     choices: Array<Choice<T>>,
     hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.label = label
     self.value = value
@@ -151,7 +151,7 @@ public class CompactDropdown<T: Unknown> implements Component {
   constructor(
     value: mut Signal<T>,
     choices: Array<Choice<T>>,
-    width: Signal<Number>,
+    width: Signal<Number>
   ) {
     self.value = value
     self.choices = choices
@@ -249,7 +249,7 @@ public class ManyDropdown<T: Unknown> implements Component {
     // What the plate says while nothing is picked.
     none: Signal<String>,
     hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.label = label
     self.value = value

@@ -53,10 +53,10 @@ public class Holdings implements Component {
     for (held of list) {
       const character = self.records.characters[held.who]
       const place = match (held.place) {
-        Place.Bags => Locale.PLACE_BAGS,
-        Place.Bank => Locale.PLACE_BANK,
-        Place.Mail => Locale.PLACE_MAIL,
-        Place.Auctions => Locale.PLACE_AUCTIONS,
+        Place.Bags => Locale.PLACE_BAGS
+        Place.Bank => Locale.PLACE_BANK
+        Place.Mail => Locale.PLACE_MAIL
+        Place.Auctions => Locale.PLACE_AUCTIONS
       }
       parts.push("%s: %s %d".format(character == nil ? "?" : character.name, place, held.count))
     }
@@ -90,7 +90,7 @@ public class Holdings implements Component {
       if (index > MOST) { break }
       shown.push({
         id: entry.id, name: self.nameOf(entry.id), total: entry.total,
-        holders: self.holdersOf(self.records.holders(entry.id)),
+        holders: self.holdersOf(self.records.holders(entry.id))
       })
     }
     return shown

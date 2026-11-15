@@ -150,7 +150,7 @@ public const ARTWORK: Artwork = {
     small: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, curves: CURVES, lineStart: 10 },
     tab: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [Side.Top, Side.Left, Side.Right], radius: TAB_CORNERS, curves: CURVES, lineStart: 10 },
     tabIconClip: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH_ROUND, sides: [], radius: ICON_CORNER, curves: CURVES, lineStart: 10 },
-    tabIconLine: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 },
+    tabIconLine: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Left], curves: CURVES, lineStart: 10 }
   },
   window: { wood: WOOD, marble: "Interface/FrameGeneral/UI-Background-Marble" },
   ctl: {
@@ -191,7 +191,7 @@ public const ARTWORK: Artwork = {
       refresh: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 6 },
       whom: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 7 },
       one: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 8 },
-      arrange: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 9 },
+      arrange: { file: "@/media/ctl-tool-glyph.tga", width: 32, height: 512, rows: 16, normal: 9 }
     },
     // The marks (art/pieces/marks.json): 16 px cells, each triangle in its middle; the compared stat's two fill theirs.
     markUp: { file: "@/media/ctl-marks.tga", width: 32, height: 256, rows: 8, normal: 0 },
@@ -207,21 +207,21 @@ public const ARTWORK: Artwork = {
     corner: {
       bronze: {
         first: { file: "@/media/ctl-corner-plate.tga", width: 128, height: 1024, rows: 16, normal: 0, hover: 1, pressed: 2 },
-        next: { file: "@/media/ctl-corner-plate.tga", width: 128, height: 1024, rows: 16, normal: 3, hover: 4, pressed: 5 },
+        next: { file: "@/media/ctl-corner-plate.tga", width: 128, height: 1024, rows: 16, normal: 3, hover: 4, pressed: 5 }
       },
       red: {
         first: { file: "@/media/ctl-corner-plate.tga", width: 128, height: 1024, rows: 16, normal: 6, hover: 7, pressed: 8 },
-        next: { file: "@/media/ctl-corner-plate.tga", width: 128, height: 1024, rows: 16, normal: 9, hover: 10, pressed: 11 },
+        next: { file: "@/media/ctl-corner-plate.tga", width: 128, height: 1024, rows: 16, normal: 9, hover: 10, pressed: 11 }
       },
       gear: { file: "@/media/ctl-corner-glyph.tga", width: 32, height: 256, rows: 8, normal: 0, hover: 1, pressed: 1 },
       expand: { file: "@/media/ctl-corner-glyph.tga", width: 32, height: 256, rows: 8, normal: 2, hover: 3, pressed: 3 },
       contract: { file: "@/media/ctl-corner-glyph.tga", width: 32, height: 256, rows: 8, normal: 4, hover: 5, pressed: 5 },
-      close: { file: "@/media/ctl-corner-glyph.tga", width: 32, height: 256, rows: 8, normal: 6, hover: 7, pressed: 7 },
+      close: { file: "@/media/ctl-corner-glyph.tga", width: 32, height: 256, rows: 8, normal: 6, hover: 7, pressed: 7 }
     },
     // A window's resize grip: the client's own.
     grip: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up",
     gripHover: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Highlight",
-    gripDown: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Down",
+    gripDown: "Interface/ChatFrame/UI-ChatIM-SizeGrabber-Down"
   },
   panel: {
     // The shapes a face is cut to: a circle, and the screen's corner; the corner's rim, from the same render.
@@ -237,11 +237,11 @@ public const ARTWORK: Artwork = {
     // The experience tube, back to front: the trough, the fill, the shine, the ring.
     xpTrough: { file: "@/media/xp-tube-trough.tga", width: 256, height: 64, cap: 64, capHeight: 1 },
     xpShine: { file: "@/media/xp-tube-shine.tga", width: 256, height: 64, cap: 64, capHeight: 1 },
-    xpTube: { file: "@/media/xp-tube.tga", width: 256, height: 64, cap: 64, capHeight: 1 },
+    xpTube: { file: "@/media/xp-tube.tga", width: 256, height: 64, cap: 64, capHeight: 1 }
   },
   // A button on the minimap's ring, drawn whole: rows 0 the button, 1 the light ring over it, 2 lit.
   minimap: {
     ring: { file: "@/media/minimap-ring.tga", width: 128, height: 512, rows: 4, normal: 0, glow: 1 },
-    ringLit: { file: "@/media/minimap-ring.tga", width: 128, height: 512, rows: 4, normal: 2, glow: 1 },
-  },
+    ringLit: { file: "@/media/minimap-ring.tga", width: 128, height: 512, rows: 4, normal: 2, glow: 1 }
+  }
 }

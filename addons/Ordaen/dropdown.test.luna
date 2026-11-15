@@ -8,7 +8,7 @@ enum Order { Difficulty = "difficulty", Name = "name", Price = "price" }
 const ORDERS: Array<Choice<Order>> = [
   { value: Order.Difficulty, label: "By difficulty" },
   { value: Order.Name, label: "By name" },
-  { value: Order.Price, label: "By price", soon: true },
+  { value: Order.Price, label: "By price", soon: true }
 ]
 
 class Tools {

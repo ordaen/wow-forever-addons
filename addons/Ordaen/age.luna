@@ -28,7 +28,7 @@ public class Age implements Component {
   seconds: Signal<Number | nil>
   constructor(
     // How long ago the price was seen; none for a price there isn't.
-    seconds: Signal<Number | nil>,
+    seconds: Signal<Number | nil>
   ) {
     self.seconds = seconds
   }

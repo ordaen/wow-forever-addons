@@ -60,7 +60,7 @@ class ProfileDropdown implements Component {
     value: mut Signal<String>,
     names: Signal<Array<String>>,
     hint: Signal<String> = "",
-    none: Boolean = false,
+    none: Boolean = false
   ) {
     self.label = label
     self.value = value
@@ -263,10 +263,10 @@ public class ProfilesPage implements Component {
 
   whyText(self): String {
     match (self.profiles.why) {
-      Why.Spec => return Locale.PROFILES_WHY_SPEC.format(Game.player.spec?.name ?? ""),
-      Why.Character => return Locale.PROFILES_WHY_CHARACTER,
-      Why.Class => return Locale.PROFILES_WHY_CLASS,
-      Why.Account => return Locale.PROFILES_WHY_ACCOUNT,
+      Why.Spec => return Locale.PROFILES_WHY_SPEC.format(Game.player.spec?.name ?? "")
+      Why.Character => return Locale.PROFILES_WHY_CHARACTER
+      Why.Class => return Locale.PROFILES_WHY_CLASS
+      Why.Account => return Locale.PROFILES_WHY_ACCOUNT
     }
   }
 
@@ -570,10 +570,10 @@ public class ProfilesPage implements Component {
 
   refusal(self, refused: Refused): String {
     match (refused.reason) {
-      Refusal.NotProfile => return Locale.PROFILES_REFUSED_NOT_PROFILE,
-      Refusal.Version => return Locale.PROFILES_REFUSED_VERSION.format(refused.version ?? "?"),
-      Refusal.TooLong => return Locale.PROFILES_REFUSED_TOO_LONG,
-      Refusal.Damaged => return Locale.PROFILES_REFUSED_DAMAGED,
+      Refusal.NotProfile => return Locale.PROFILES_REFUSED_NOT_PROFILE
+      Refusal.Version => return Locale.PROFILES_REFUSED_VERSION.format(refused.version ?? "?")
+      Refusal.TooLong => return Locale.PROFILES_REFUSED_TOO_LONG
+      Refusal.Damaged => return Locale.PROFILES_REFUSED_DAMAGED
     }
   }
 

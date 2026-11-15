@@ -18,7 +18,7 @@ public class RecipeMenu implements Component {
   kept: Signal<Kept>
   constructor(
     recipe: Signal<Game.Recipe>,
-    kept: Signal<Kept>,
+    kept: Signal<Kept>
   ) {
     self.recipe = recipe
     self.kept = kept
@@ -30,7 +30,7 @@ public class RecipeMenu implements Component {
       { label: Locale.MENU_LINK, disabled: schematic == nil || schematic.makes == nil },
       { label: Locale.MENU_CREATE.format(self.recipe.craftable), disabled: self.recipe.craftable == 0 },
       { label: Locale.FAVORITE, on: has(self.kept.favorites, self.recipe.id), group: true },
-      { label: Locale.TRACK, on: has(self.kept.tracked, self.recipe.id), disabled: !self.recipe.learned },
+      { label: Locale.TRACK, on: has(self.kept.tracked, self.recipe.id), disabled: !self.recipe.learned }
     ]
   }
 

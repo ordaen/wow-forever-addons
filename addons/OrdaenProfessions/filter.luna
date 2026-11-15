@@ -22,7 +22,7 @@ public class Check implements Component {
   value: mut Signal<Boolean>
   constructor(
     label: Signal<String>,
-    value: mut Signal<Boolean>,
+    value: mut Signal<Boolean>
   ) {
     self.label = label
     self.value = value
@@ -58,7 +58,7 @@ public class FilterMenu implements Component {
     learned: mut Signal<Boolean>,
     unlearned: mut Signal<Boolean>,
     // Whether any option is off its default: «Reset» does something then.
-    filtered: Signal<Boolean>,
+    filtered: Signal<Boolean>
   ) {
     self.makeable = makeable
     self.skillUp = skillUp
@@ -113,7 +113,7 @@ public class FilterButton implements Component {
     skillUp: mut Signal<Boolean>,
     learned: mut Signal<Boolean>,
     unlearned: mut Signal<Boolean>,
-    filtered: Signal<Boolean>,
+    filtered: Signal<Boolean>
   ) {
     self.open = open
     self.makeable = makeable

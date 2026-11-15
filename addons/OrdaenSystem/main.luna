@@ -14,7 +14,7 @@ public class System implements Module, App {
   public window: mut KeptWindow = new KeptWindow("addons", Client.ADDONS, WINDOW)
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
-    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
   // The AddOns window: whether it shows, and whether it was ever made.

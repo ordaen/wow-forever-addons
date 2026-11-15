@@ -41,11 +41,11 @@ public class Minimap implements Module, App {
 
   settings: mut Settings<Choices> = new Settings<Choices>({
     scale: 1, showZone: true, showClock: true, showCoords: true, buttonsHover: true, hide: Hide.Never,
-    drawerOn: true, drawerColumns: 4,
+    drawerOn: true, drawerColumns: 4
   })
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_MAP, content: $ltml { <MapPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_DRAWER, content: $ltml { <DrawerPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_DRAWER, content: $ltml { <DrawerPage settings={mut self.settings} /> } }
   ]
   // The ring buttons' angles as the player left them: degrees from the top, clockwise.
   state angles: mut Map<RingId, Number> = {}
@@ -128,9 +128,9 @@ public class Minimap implements Module, App {
 
   hiddenNow(self): Boolean {
     match (self.settings.values.hide) {
-      Hide.Combat => return Game.situation.combat,
-      Hide.Transport => return Game.situation.taxi || Game.situation.vehicle,
-      Hide.Never => return false,
+      Hide.Combat => return Game.situation.combat
+      Hide.Transport => return Game.situation.taxi || Game.situation.vehicle
+      Hide.Never => return false
     }
     return false
   }
@@ -140,10 +140,10 @@ public class Minimap implements Module, App {
     let pvp = Game.location.pvp
     if (pvp == nil) { return GOLD }
     match (pvp) {
-      Game.Pvp.Sanctuary => return Color.hex("#69ccf0"),
-      Game.Pvp.Friendly => return Color.hex("#1aff1a"),
-      Game.Pvp.Hostile, Game.Pvp.Combat => return Color.hex("#ff1a1a"),
-      Game.Pvp.Contested => return Color.hex("#ffb300"),
+      Game.Pvp.Sanctuary => return Color.hex("#69ccf0")
+      Game.Pvp.Friendly => return Color.hex("#1aff1a")
+      Game.Pvp.Hostile, Game.Pvp.Combat => return Color.hex("#ff1a1a")
+      Game.Pvp.Contested => return Color.hex("#ffb300")
     }
     return GOLD
   }
@@ -152,10 +152,10 @@ public class Minimap implements Module, App {
     let pvp = Game.location.pvp
     if (pvp == nil) { return "" }
     match (pvp) {
-      Game.Pvp.Sanctuary => return Locale.ZONE_SANCTUARY,
-      Game.Pvp.Friendly, Game.Pvp.Hostile => return Locale.ZONE_FACTION,
-      Game.Pvp.Contested => return Locale.ZONE_CONTESTED,
-      Game.Pvp.Combat => return Locale.ZONE_COMBAT,
+      Game.Pvp.Sanctuary => return Locale.ZONE_SANCTUARY
+      Game.Pvp.Friendly, Game.Pvp.Hostile => return Locale.ZONE_FACTION
+      Game.Pvp.Contested => return Locale.ZONE_CONTESTED
+      Game.Pvp.Combat => return Locale.ZONE_COMBAT
     }
     return ""
   }
@@ -254,25 +254,25 @@ public class Minimap implements Module, App {
 
   titleOf(self): String {
     match (self.hint) {
-      Hint.Zone => return Game.location.realZone,
-      Hint.Coords => return Game.minimap.coords,
-      Hint.Clock => return Game.clock.text,
-      Hint.Ordaen => return Ordaen.title,
-      Hint.Drawer => return Locale.DRAWER_TITLE,
-      Hint.Entry => return self.entryName,
-      Hint.None => return "",
+      Hint.Zone => return Game.location.realZone
+      Hint.Coords => return Game.minimap.coords
+      Hint.Clock => return Game.clock.text
+      Hint.Ordaen => return Ordaen.title
+      Hint.Drawer => return Locale.DRAWER_TITLE
+      Hint.Entry => return self.entryName
+      Hint.None => return ""
     }
     return ""
   }
 
   textOf(self): String {
     match (self.hint) {
-      Hint.Zone => return self.zoneLabel(),
-      Hint.Coords => return Locale.COORDS_TIP,
-      Hint.Clock => return Locale.CLOCK_TIP,
-      Hint.Ordaen => return Ordaen.dev == true ? Locale.ORDAEN_TIP_DEV : Locale.ORDAEN_TIP,
-      Hint.Drawer => return Locale.DRAWER_TIP,
-      Hint.Entry, Hint.None => return "",
+      Hint.Zone => return self.zoneLabel()
+      Hint.Coords => return Locale.COORDS_TIP
+      Hint.Clock => return Locale.CLOCK_TIP
+      Hint.Ordaen => return Ordaen.dev == true ? Locale.ORDAEN_TIP_DEV : Locale.ORDAEN_TIP
+      Hint.Drawer => return Locale.DRAWER_TIP
+      Hint.Entry, Hint.None => return ""
     }
     return ""
   }

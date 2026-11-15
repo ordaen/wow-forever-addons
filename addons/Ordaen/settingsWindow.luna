@@ -53,7 +53,7 @@ public class SettingsWindow implements Component {
     { title: Locale.GLOBAL_TAB_SCALE, content: $ltml { <ScalePage globals={mut Ordaen.globals} /> } },
     { title: Locale.GLOBAL_TAB_NUMBERS, content: $ltml { <NumbersPage globals={mut Ordaen.globals} /> } },
     { title: Locale.GLOBAL_TAB_BEHAVIOR, content: $ltml { <BehaviourPage globals={mut Ordaen.globals} /> } },
-    { title: Locale.WINDOWS_TAB, content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+    { title: Locale.WINDOWS_TAB, content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
   state open = false

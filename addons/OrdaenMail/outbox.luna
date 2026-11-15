@@ -20,7 +20,7 @@ const FILTERS: Array<Choice<SentFilter>> = [
   { value: SentFilter.All, label: Locale.SENT_ALL },
   { value: SentFilter.Waiting, label: Locale.SENT_WAITING },
   { value: SentFilter.Sent, label: Locale.SENT_SENT },
-  { value: SentFilter.Stopped, label: Locale.SENT_STOPPED },
+  { value: SentFilter.Stopped, label: Locale.SENT_STOPPED }
 ]
 const ROW: Array<Track> = [30 * PX, { fr: 3 }, { fr: 2 }, "auto", 240 * PX]
 const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
@@ -28,28 +28,28 @@ const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
 
 function stateColor(state: SentState): Color {
   return match (state) {
-    SentState.Waiting => Style.DIM,
-    SentState.Sending => Style.GOLD,
-    SentState.Sent => Style.GREEN,
-    SentState.Stopped => Style.RED,
+    SentState.Waiting => Style.DIM
+    SentState.Sending => Style.GOLD
+    SentState.Sent => Style.GREEN
+    SentState.Stopped => Style.RED
   }
 }
 
 function stateText(letter: Sent): String {
   return match (letter.state) {
-    SentState.Waiting => Locale.STATE_WAITING,
-    SentState.Sending => Locale.STATE_SENDING,
-    SentState.Sent => Locale.STATE_SENT,
-    SentState.Stopped => letter.why == "" ? Locale.STATE_STOPPED : Locale.STATE_STOPPED_WHY.format(letter.why),
+    SentState.Waiting => Locale.STATE_WAITING
+    SentState.Sending => Locale.STATE_SENDING
+    SentState.Sent => Locale.STATE_SENT
+    SentState.Stopped => letter.why == "" ? Locale.STATE_STOPPED : Locale.STATE_STOPPED_WHY.format(letter.why)
   }
 }
 
 function passes(letter: Sent, filter: SentFilter, search: String): Boolean {
   const kept = match (filter) {
-    SentFilter.All => true,
-    SentFilter.Waiting => letter.state == SentState.Waiting || letter.state == SentState.Sending,
-    SentFilter.Sent => letter.state == SentState.Sent,
-    SentFilter.Stopped => letter.state == SentState.Stopped,
+    SentFilter.All => true
+    SentFilter.Waiting => letter.state == SentState.Waiting || letter.state == SentState.Sending
+    SentFilter.Sent => letter.state == SentState.Sent
+    SentFilter.Stopped => letter.state == SentState.Stopped
   }
   if (!kept) { return false }
   if (search == "") { return true }

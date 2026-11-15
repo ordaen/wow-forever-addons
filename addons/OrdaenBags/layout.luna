@@ -25,10 +25,10 @@ public struct Section {
 // What one place of a row holds, and where in the row it stands: each is a table of its own, which a row's places are
 // keyed by.
 public enum Cell {
-  Item { slot: Slot },
-  Free { at: Integer },
-  Caption { section: Section },
-  Space { at: Integer },
+  Item { slot: Slot }
+  Free { at: Integer }
+  Caption { section: Section }
+  Space { at: Integer }
 }
 
 // A row: what each of its places holds, and how wide each is.

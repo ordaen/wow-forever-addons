@@ -16,8 +16,8 @@ public function formIn(locale: String, n: Integer): Integer {
 // The form of the three for `n`, in the game's language.
 public function plural(n: Integer, one: String, few: String, many: String): String {
   return match (formIn(Game.client.locale, n)) {
-    1 => one,
-    2 => few,
-    else => many,
+    1 => one
+    2 => few
+    else => many
   }
 }

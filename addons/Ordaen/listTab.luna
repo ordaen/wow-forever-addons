@@ -39,7 +39,7 @@ public class ListTab implements Component {
     selected: Signal<Boolean>,
     // None for an entry without a picture.
     icon: Signal<Art | nil> = nil,
-    off: Signal<Boolean> = false,
+    off: Signal<Boolean> = false
   ) {
     self.label = label
     self.selected = selected

@@ -9,15 +9,15 @@ import { Grouping, KINDS, Slot, SortBy, Tab, rankOf } from "@/model"
 // A tab's name.
 public function tabName(tab: Tab): String {
   return match (tab) {
-    .All => Locale.TAB_ALL,
-    .New => Locale.TAB_NEW,
-    .Quest => Locale.TAB_QUEST,
-    .Consumables => Locale.TAB_CONSUMABLES,
-    .Equipment => Locale.TAB_EQUIPMENT,
-    .Trade => Locale.TAB_TRADE,
-    .Recipes => Locale.TAB_RECIPES,
-    .Other => Locale.TAB_OTHER,
-    .Junk => Locale.TAB_JUNK,
+    .All => Locale.TAB_ALL
+    .New => Locale.TAB_NEW
+    .Quest => Locale.TAB_QUEST
+    .Consumables => Locale.TAB_CONSUMABLES
+    .Equipment => Locale.TAB_EQUIPMENT
+    .Trade => Locale.TAB_TRADE
+    .Recipes => Locale.TAB_RECIPES
+    .Other => Locale.TAB_OTHER
+    .Junk => Locale.TAB_JUNK
   }
 }
 
@@ -40,9 +40,9 @@ public function before(a: Slot, b: Slot, by: SortBy): Boolean {
 public function inTab(slot: Slot, tab: Tab): Boolean {
   if (peek slot.id == 0) { return false }
   return match (tab) {
-    .All => true,
-    .New => peek slot.isNew,
-    else => slot.tab == tab,
+    .All => true
+    .New => peek slot.isNew
+    else => slot.tab == tab
   }
 }
 
@@ -70,7 +70,7 @@ public function tabSections(slots: Array<Slot>, tab: Tab, grouping: Grouping, by
       } else {
         const made: Group = {
           key: key, title: titleOf(slot, how), rank: rankOf(slot.tab), subkind: how == .Type ? slot.read.subkind : 0,
-          slots: [slot],
+          slots: [slot]
         }
         found[key] = made
         groups.push(mut made)
@@ -95,9 +95,9 @@ function groupBefore(a: Group, b: Group): Boolean {
 
 function keyOf(slot: Slot, how: Grouping): String {
   return match (how) {
-    .None => "all",
-    .Type => `${slot.tab}/${slot.read.subkind}`,
-    .Worn => `worn/${slot.read.worn}`,
+    .None => "all"
+    .Type => `${slot.tab}/${slot.read.subkind}`
+    .Worn => `worn/${slot.read.worn}`
   }
 }
 
@@ -105,9 +105,9 @@ function keyOf(slot: Slot, how: Grouping): String {
 // game names it (`INVTYPE_HEAD`), what isn't worn under its tab's name.
 function titleOf(slot: Slot, how: Grouping): String {
   return match (how) {
-    .None => "",
-    .Type => slot.read.subkindName != "" ? slot.read.subkindName : tabName(slot.tab),
-    .Worn => slot.read.worn != "" ? Runtime.text(slot.read.worn) ?? slot.read.worn : tabName(slot.tab),
+    .None => ""
+    .Type => slot.read.subkindName != "" ? slot.read.subkindName : tabName(slot.tab)
+    .Worn => slot.read.worn != "" ? Runtime.text(slot.read.worn) ?? slot.read.worn : tabName(slot.tab)
   }
 }
 

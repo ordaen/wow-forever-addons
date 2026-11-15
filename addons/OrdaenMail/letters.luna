@@ -26,12 +26,12 @@ public struct Sent {
 // Whether a letter passes the filter and the search (a part of its subject or its sender).
 public function matches(letter: Game.MailLetter, filter: Filter, search: String): Boolean {
   const kept = match (filter) {
-    Filter.All => true,
-    Filter.Players => letter.kind == Game.MailKind.Player,
-    Filter.Auction => letter.kind == Game.MailKind.Auction,
-    Filter.System => letter.kind == Game.MailKind.System,
-    Filter.Money => letter.copper > 0,
-    Filter.Items => letter.items.length > 0,
+    Filter.All => true
+    Filter.Players => letter.kind == Game.MailKind.Player
+    Filter.Auction => letter.kind == Game.MailKind.Auction
+    Filter.System => letter.kind == Game.MailKind.System
+    Filter.Money => letter.copper > 0
+    Filter.Items => letter.items.length > 0
   }
   if (!kept) { return false }
   if (search == "") { return true }

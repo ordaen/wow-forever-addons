@@ -72,7 +72,7 @@ function measured(
   named: String,
   vertical: Boolean,
   width: Number,
-  height: Number,
+  height: Number
 ): Array<Number> {
   Test.screen(width, height)
   Test.shot(`${named}, the screen ${width}x${height}`)

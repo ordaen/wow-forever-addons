@@ -6,8 +6,8 @@ public enum CharButton { Portrait = "portrait", Button = "button" }
 public enum MicroIcons { Upscaled = "upscaled", Gold = "gold" }
 // What the panel holds.
 public enum Item {
-  Micromenu = "micromenu", Social = "social", Experience = "experience", Zone = "zone", Clock = "clock",
-  Currencies = "currencies", Bags = "bags",
+  Micromenu = "micromenu", Social = "social", Experience = "experience", Zone = "zone", Clock = "clock"
+  Currencies = "currencies", Bags = "bags"
 }
 // Where an item sits: one of the panel's zones, or not on the panel.
 public enum Zone { Left = "left", Center = "center", Right = "right", Off = "off" }
@@ -48,8 +48,8 @@ public const DEFAULTS: Choices = {
   outline: Outline.None, shadow: true, edge: Edge.Bottom, fit: Fit.Full, height: 60,
   places: {
     [Item.Micromenu]: Zone.Left, [Item.Social]: Zone.Left, [Item.Experience]: Zone.Center,
-    [Item.Zone]: Zone.Off, [Item.Clock]: Zone.Off, [Item.Currencies]: Zone.Right, [Item.Bags]: Zone.Right,
+    [Item.Zone]: Zone.Off, [Item.Clock]: Zone.Off, [Item.Currencies]: Zone.Right, [Item.Bags]: Zone.Right
   },
   show: Show.Always, combat: Combat.Any, vehicle: true, petBattle: true, resting: false,
-  fadedAlpha: 0,
+  fadedAlpha: 0
 }

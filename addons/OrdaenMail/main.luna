@@ -25,7 +25,7 @@ public class Mail implements Module, App {
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
-    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
 
   public settings: mut Settings<Choices> = new Settings<Choices>({ keepFree: 0, blockTrades: false })
@@ -41,7 +41,7 @@ public class Mail implements Module, App {
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_INBOX.format(self.letters.length) },
     { title: Locale.TAB_SENT },
-    { title: Locale.TAB_OWN },
+    { title: Locale.TAB_OWN }
   ]
 
   constructor() {

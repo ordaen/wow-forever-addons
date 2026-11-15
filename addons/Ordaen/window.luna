@@ -76,7 +76,7 @@ public class KeptWindow {
     self.placing = placing.clone()
     self.defaults = {
       x: placing.x, y: placing.y, width: placing.width, height: placing.height, full: full, tab: 1, side: 0,
-      remember: true, openOn: 0, hideDuring: [Occasion.Combat], showAfter: [],
+      remember: true, openOn: 0, hideDuring: [Occasion.Combat], showAfter: []
     }
     self.memory = new Memory<WindowView>(self.defaults, .Profile, "window:" + name)
   }
@@ -234,7 +234,7 @@ public class WindowTab implements Component {
     index: Integer,
     selected: Signal<Integer>,
     // The tab's height: from the window's top to the inner side of the body's top line.
-    height: Signal<Number>,
+    height: Signal<Number>
   ) {
     self.tab = tab
     self.index = index
@@ -311,9 +311,9 @@ class CornerPlate implements Component {
 
   glyphOf(self): Art {
     return match (self.control) {
-      .Settings => Ordaen.art.ctl.corner.gear,
-      .Full => self.full ? Ordaen.art.ctl.corner.contract : Ordaen.art.ctl.corner.expand,
-      .Close => Ordaen.art.ctl.corner.close,
+      .Settings => Ordaen.art.ctl.corner.gear
+      .Full => self.full ? Ordaen.art.ctl.corner.contract : Ordaen.art.ctl.corner.expand
+      .Close => Ordaen.art.ctl.corner.close
     }
   }
 
@@ -441,7 +441,7 @@ public class Window implements Component {
     side: Signal<WindowSide | nil> = nil,
     // A tab's click only asks (`@picked`): the picked tab is what `selected` says, which follows what the window
     // shows (the profession the game has open), and the click doesn't write it.
-    asks: Boolean = false,
+    asks: Boolean = false
   ) {
     self.asks = asks
     self.footer = footer ?? $ltml {}
@@ -554,7 +554,7 @@ public class Window implements Component {
     if (self.maxWidth != nil) { width = self.maxWidth.min(width) }
     if (self.maxHeight != nil) { height = self.maxHeight.min(height) }
     self.declared.placing = {
-      x: used.x + (width - used.width) / 2, y: used.y + (height - used.height) / 2, width: width, height: height,
+      x: used.x + (width - used.width) / 2, y: used.y + (height - used.height) / 2, width: width, height: height
     }
     self.full = used.full
     if (!own) { self.openTab(false, !self.made) }
@@ -624,7 +624,7 @@ public class Window implements Component {
     return {
       point: Point.TopLeft, to: Point.Center,
       x: self.declared.placing.x - self.declared.placing.width / 2,
-      y: self.declared.placing.y - (self.tabHeight + self.declared.placing.height) / 2,
+      y: self.declared.placing.y - (self.tabHeight + self.declared.placing.height) / 2
     }
   }
 
@@ -644,9 +644,9 @@ public class Window implements Component {
   onClose(mut self) { self.close.emit() }
   onCorner(mut self, control: CornerControl) {
     match (control) {
-      .Settings => self.settings.emit(),
-      .Full => self.toggleFull(),
-      .Close => self.close.emit(),
+      .Settings => self.settings.emit()
+      .Full => self.toggleFull()
+      .Close => self.close.emit()
     }
   }
 

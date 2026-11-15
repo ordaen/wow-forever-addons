@@ -21,28 +21,28 @@ public enum Written implements Plain { All = "all", LunaType = "lunatype", Other
 
 const HEATS: Array<Choice<Heat>> = [
   { value: Heat.All, label: Locale.FILTER_ALL },
-  { value: Heat.Heavy, label: Locale.FILTER_HEAVY },
+  { value: Heat.Heavy, label: Locale.FILTER_HEAVY }
 ]
 const STANDINGS: Array<Choice<Standing>> = [
   { value: Standing.All, label: Locale.FILTER_ALL },
   { value: Standing.On, label: Locale.FILTER_ON },
   { value: Standing.Off, label: Locale.FILTER_OFF },
-  { value: Standing.Failed, label: Locale.FILTER_FAILED },
+  { value: Standing.Failed, label: Locale.FILTER_FAILED }
 ]
 const AGES: Array<Choice<Age>> = [
   { value: Age.All, label: Locale.FILTER_ALL },
   { value: Age.Outdated, label: Locale.FILTER_OUTDATED },
-  { value: Age.Current, label: Locale.FILTER_CURRENT },
+  { value: Age.Current, label: Locale.FILTER_CURRENT }
 ]
 const LOADINGS: Array<Choice<Loading>> = [
   { value: Loading.All, label: Locale.FILTER_ALL },
   { value: Loading.Demand, label: Locale.FILTER_DEMAND },
-  { value: Loading.Login, label: Locale.FILTER_LOGIN },
+  { value: Loading.Login, label: Locale.FILTER_LOGIN }
 ]
 const WRITTEN: Array<Choice<Written>> = [
   { value: Written.All, label: Locale.FILTER_ALL },
   { value: Written.LunaType, label: Locale.FILTER_LUNATYPE },
-  { value: Written.Other, label: Locale.FILTER_OTHER },
+  { value: Written.Other, label: Locale.FILTER_OTHER }
 ]
 
 // As a ToolPick's list.
@@ -76,7 +76,7 @@ public class FilterPick implements Component {
     standing: mut Signal<Standing>,
     age: mut Signal<Age>,
     loading: mut Signal<Loading>,
-    written: mut Signal<Written>,
+    written: mut Signal<Written>
   ) {
     self.heat = heat
     self.standing = standing

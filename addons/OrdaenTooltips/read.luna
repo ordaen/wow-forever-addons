@@ -26,12 +26,12 @@ public function kindOf(data: Game.TooltipData): Kind | nil {
   let about = data.kind
   if (about == nil) { return nil }
   match (about) {
-    0 => return Kind.Item,
-    1 => return Kind.Spell,
-    2 => return Kind.Unit,
-    4 => return Kind.Object,
-    7 => return Kind.Aura,
-    else => return nil,
+    0 => return Kind.Item
+    1 => return Kind.Spell
+    2 => return Kind.Unit
+    4 => return Kind.Object
+    7 => return Kind.Aura
+    else => return nil
   }
 }
 
@@ -74,8 +74,8 @@ public function plain(data: Game.TooltipData, was: Model | nil): Model | nil {
     // In a colour of its own it is a line; in the body's it reads as a description.
     let desc = !paired && color == nil ? true : nil
     let old = before != nil ? before[body.length + 1] : nil
-    if (old != nil && old.left == only && old.right == value && sameColor(old.color, color)
-        && sameColor(old.rightColor, valueColor) && old.desc == desc && own(old)) {
+    if (old != nil && old.left == only && old.right == value && sameColor(old.color, color) &&
+        sameColor(old.rightColor, valueColor) && old.desc == desc && own(old)) {
       body.push(old)
     } else {
       same = false
@@ -83,13 +83,13 @@ public function plain(data: Game.TooltipData, was: Model | nil): Model | nil {
     }
   }
   let nameColor = colorOf(first.leftColor) ?? WHITE
-  if (was != nil && before != nil && same && before.length == body.length && was.name == title
-      && sameColor(was.nameColor, nameColor) && was.keys.length == keys.length && was.keys[1] == keys[1]) {
+  if (was != nil && before != nil && same && before.length == body.length && was.name == title &&
+      sameColor(was.nameColor, nameColor) && was.keys.length == keys.length && was.keys[1] == keys[1]) {
     return was
   }
   return {
     kind: Kind.Text, name: title, nameColor: nameColor,
-    desc: [], info: [], facts: [], body: body, more: [], foot: [], keys: keys,
+    desc: [], info: [], facts: [], body: body, more: [], foot: [], keys: keys
   }
 }
 
@@ -130,14 +130,14 @@ public function object(data: Game.TooltipData, options: Options): Model | nil {
       let key = text.match("^[^:]+:%s*(.+)$") ?? text.replace("^%S+%s+", "")
       let missing = Game.items.count(key) == 0
       foot.push({
-        left: Locale.KEY_NEEDED, right: key, valueColor: locked || missing ? RED : nil, opens: named(Term.Lock),
+        left: Locale.KEY_NEEDED, right: key, valueColor: locked || missing ? RED : nil, opens: named(Term.Lock)
       })
     }
   }
   if (name == nil) { return nil }
   return {
     kind: Kind.Object, name: name, nameColor: GOLD,
-    desc: [], info: [], facts: [], body: body, more: quests(data.lines, options.npcsParty), foot: foot, keys: [],
+    desc: [], info: [], facts: [], body: body, more: quests(data.lines, options.npcsParty), foot: foot, keys: []
   }
 }
 
@@ -156,12 +156,12 @@ public function fill(data: Game.TooltipData, options: Options, was: Model | nil)
     if (known != nil) { return talent(data, known, options) }
   }
   match (kind) {
-    Kind.Text => return plain(data, was),
-    Kind.Object => return object(data, options),
-    Kind.Spell => return spell(data, options),
-    Kind.Aura => return aura(data, options),
-    Kind.Unit => return unit(data, options),
-    else => return nil,
+    Kind.Text => return plain(data, was)
+    Kind.Object => return object(data, options)
+    Kind.Spell => return spell(data, options)
+    Kind.Aura => return aura(data, options)
+    Kind.Unit => return unit(data, options)
+    else => return nil
   }
 }
 

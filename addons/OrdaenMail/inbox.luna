@@ -27,18 +27,18 @@ const FILTERS: Array<Choice<Filter>> = [
   { value: Filter.Auction, label: Locale.FILTER_AUCTION },
   { value: Filter.System, label: Locale.FILTER_SYSTEM },
   { value: Filter.Money, label: Locale.FILTER_MONEY },
-  { value: Filter.Items, label: Locale.FILTER_ITEMS },
+  { value: Filter.Items, label: Locale.FILTER_ITEMS }
 ]
 const VIEWS: Array<Choice<View>> = [
   { value: View.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list },
   { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
-  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table },
+  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
 const COLUMNS: Array<Column> = [
   { title: Locale.COL_SUBJECT, width: { fr: 3 }, sortable: true },
   { title: Locale.COL_FROM, width: { fr: 2 }, sortable: true },
   { title: Locale.COL_ATTACHED, width: 130 * PX },
-  { title: Locale.COL_DAYS, width: 70 * PX, align: Align.End, sortable: true },
+  { title: Locale.COL_DAYS, width: 70 * PX, align: Align.End, sortable: true }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const ROW: Array<Track> = [24 * PX, 30 * PX, { fr: 1 }, "auto", 54 * PX]
@@ -299,9 +299,9 @@ public class Inbox implements Component {
       }
       if (part.length > 0) {
         const title = match (kind) {
-          Game.MailKind.Auction => Locale.GROUP_AUCTION,
-          Game.MailKind.Player => Locale.GROUP_PLAYERS,
-          Game.MailKind.System => Locale.GROUP_SYSTEM,
+          Game.MailKind.Auction => Locale.GROUP_AUCTION
+          Game.MailKind.Player => Locale.GROUP_PLAYERS
+          Game.MailKind.System => Locale.GROUP_SYSTEM
         }
         list.push({ kind: kind, title: "%s (%d)".format(title, part.length), letters: part })
       }

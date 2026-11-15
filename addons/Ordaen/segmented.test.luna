@@ -10,7 +10,7 @@ const MODES: Array<Choice<Mode>> = [
   { value: Mode.Auction, label: "Auction" },
   { value: Mode.Merchant, label: "Merchant" },
   { value: Mode.Held, label: "From what is held" },
-  { value: Mode.Cooldowns, label: "Cooldowns", soon: true },
+  { value: Mode.Cooldowns, label: "Cooldowns", soon: true }
 ]
 
 class Pick {

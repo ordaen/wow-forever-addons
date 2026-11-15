@@ -45,7 +45,7 @@ public struct Found {
 public enum View implements Plain { Variants = "variants", Items = "items" }
 const VIEWS: Array<Choice<View>> = [
   { value: View.Variants, label: Locale.VIEW_VARIANTS, icon: ARTWORK.ctl.tool.list },
-  { value: View.Items, label: Locale.VIEW_ITEMS, icon: ARTWORK.ctl.tool.categories },
+  { value: View.Items, label: Locale.VIEW_ITEMS, icon: ARTWORK.ctl.tool.categories }
 ]
 
 const NAME_COLUMN = 1
@@ -61,7 +61,7 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_LOW, width: 96 * PX, align: Align.End, sortable: true },
   { title: Locale.COLUMN_MARKET, width: 90 * PX, align: Align.End, sortable: true },
   { title: Locale.COLUMN_SHARE, width: 56 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_AGE, width: 70 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_AGE, width: 70 * PX, align: Align.End, sortable: true }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 // A row an item: its range in the lowest's place, sorted by the lowest.
@@ -72,7 +72,7 @@ const ITEM_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RANGE, width: 190 * PX, align: Align.End, sortable: true },
   { title: Locale.COLUMN_MARKET, width: 90 * PX, align: Align.End, sortable: true },
   { title: Locale.COLUMN_SHARE, width: 56 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_AGE, width: 70 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_AGE, width: 70 * PX, align: Align.End, sortable: true }
 ]
 const ITEM_TRACKS: Array<Track> = tracksOf(ITEM_COLUMNS)
 const RANGE: Array<Track> = ["auto", "auto", "auto"]
@@ -83,7 +83,7 @@ const SUBCLASS_PAD: Edges = { top: 5 * PX, right: space(.Panel), bottom: 5 * PX,
 const LISTING_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_UNIT, width: { fr: 1 }, align: Align.End },
   { title: Locale.COLUMN_COUNT, width: 48 * PX, align: Align.End },
-  { title: Locale.COLUMN_LEFT, width: 56 * PX, align: Align.End },
+  { title: Locale.COLUMN_LEFT, width: 56 * PX, align: Align.End }
 ]
 const LISTING_TRACKS: Array<Track> = tracksOf(LISTING_COLUMNS)
 // The categories at the left, the results at the right.
@@ -124,14 +124,14 @@ const LEVELS: Array<Choice<Integer>> = [
   { value: 21, label: Locale.LEVELS.format(21, 30) },
   { value: 31, label: Locale.LEVELS.format(31, 40) },
   { value: 41, label: Locale.LEVELS.format(41, 50) },
-  { value: 51, label: Locale.LEVELS.format(51, 60) },
+  { value: 51, label: Locale.LEVELS.format(51, 60) }
 ]
 const QUALITIES: Array<Choice<Integer>> = [
   { value: ANY, label: Locale.ANY_QUALITY },
   { value: 1, label: Locale.QUALITY_COMMON },
   { value: 2, label: Locale.QUALITY_UNCOMMON },
   { value: 3, label: Locale.QUALITY_RARE },
-  { value: 4, label: Locale.QUALITY_EPIC },
+  { value: 4, label: Locale.QUALITY_EPIC }
 ]
 
 // The label of the choice a filter's value is.
@@ -301,7 +301,7 @@ class RowMenu implements Component {
       { label: quoted ? Locale.MENU_QUICK_CONFIRM : Locale.MENU_QUICK_BUY,
         disabled: !self.purchase.listed || !buyable || Game.auctionActions.busy },
       { label: Locale.TO_LIST, group: true },
-      { label: Locale.MENU_SEARCH },
+      { label: Locale.MENU_SEARCH }
     ]
   }
 
@@ -352,7 +352,7 @@ class FoundRow implements Component {
     wanted: Signal<Boolean>,
     tracks: Signal<Array<Track>>,
     // Its menu shows, under it.
-    menuOpen: Signal<Boolean>,
+    menuOpen: Signal<Boolean>
   ) {
     self.found = found
     self.selected = selected
@@ -471,7 +471,7 @@ public class BuyPage implements Component {
     items: Signal<Integer>,
     shopping: mut ShoppingList,
     // The row picked, while it is shown: the window's side section draws it.
-    chosen: mut Signal<Array<Found>>,
+    chosen: mut Signal<Array<Found>>
   ) {
     self.house = house
     self.prices = prices
@@ -516,7 +516,7 @@ public class BuyPage implements Component {
       itemSubclass: self.itemClass != ANY && self.itemSubclass != ANY ? self.itemSubclass : nil,
       minLevel: level != ANY ? level : nil,
       maxLevel: level != ANY ? level + 9 : nil,
-      qualities: self.list.values.quality != ANY ? [self.list.values.quality] : [],
+      qualities: self.list.values.quality != ANY ? [self.list.values.quality] : []
     }
   }
 
@@ -531,7 +531,7 @@ public class BuyPage implements Component {
       const market = self.house.quote(key)
       list.push({
         key: key, item: key.item(), name: named.name, lower: named.lower, color: named.color, listed: offer.quantity,
-        low: low, high: low, market: market, share: shareOf(low, market),
+        low: low, high: low, market: market, share: shareOf(low, market)
       })
     }
     return self.sortedOf(mut list)
@@ -555,7 +555,7 @@ public class BuyPage implements Component {
         at[item] = list.length + 1
         list.push({
           key: key, item: item, name: named.name, lower: named.lower, color: named.color, listed: offer.quantity,
-          low: low, high: low, market: market, share: shareOf(low, market),
+          low: low, high: low, market: market, share: shareOf(low, market)
         })
       } else {
         const cheaper = low < row.low
@@ -563,7 +563,7 @@ public class BuyPage implements Component {
         list[place ?? 0] = {
           key: cheaper ? key : row.key, listed: row.listed + offer.quantity, low: cheaper ? low : row.low,
           high: low > row.high ? low : row.high, market: market, share: cheaper ? shareOf(low, market) : row.share,
-          ..row,
+          ..row
         }
       }
     }
@@ -598,13 +598,13 @@ public class BuyPage implements Component {
   onAct(mut self, act: RowAct, found: Found) {
     self.menuFor = nil
     match (act) {
-      .List => self.shopping.add(found.item, 1, .ByHand),
+      .List => self.shopping.add(found.item, 1, .ByHand)
       .Search => {
         // The item's own name: a variant's suffix isn't what the house searches by.
         self.typed = self.house.named(PriceKey.of(found.item)).name
         self.searchNow()
-      },
-      .Close => {},
+      }
+      .Close => {}
     }
   }
 
@@ -749,7 +749,7 @@ public class Chosen implements Component {
     house: House,
     prices: any PriceSource,
     history: any PriceHistory | nil,
-    shopping: mut ShoppingList,
+    shopping: mut ShoppingList
   ) {
     self.found = found
     self.house = house

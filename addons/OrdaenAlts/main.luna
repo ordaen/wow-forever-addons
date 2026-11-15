@@ -24,7 +24,7 @@ const TABS: Array<WindowTabSpec> = [
   { title: Locale.TAB_CHARACTERS },
   { title: Locale.TAB_ITEMS },
   { title: Locale.TAB_COOLDOWNS },
-  { title: Locale.TAB_PROFESSIONS },
+  { title: Locale.TAB_PROFESSIONS }
 ]
 
 public class Alts implements Module, App {
@@ -33,7 +33,7 @@ public class Alts implements Module, App {
   public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
-    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   // The character being played.
   public const current: CharacterId
@@ -58,7 +58,7 @@ public class Alts implements Module, App {
     const surname = Game.player.surname
     self.records.begin(
       surname == nil ? Game.player.name : Game.player.name + " " + surname, Game.player.classTag,
-      peek Game.player.level, Hour.now(),
+      peek Game.player.level, Hour.now()
     )
     self.recorder = new Recorder(mut self.records)
     Ordaen.modules.add(self)

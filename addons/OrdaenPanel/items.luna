@@ -48,7 +48,7 @@ public class MicroLine implements Component {
     vertical: Signal<Boolean> = false,
     faced: Signal<Boolean> = true,
     // Friends and guild are in the menu.
-    social: Signal<Boolean> = false,
+    social: Signal<Boolean> = false
   ) {
     self.gold = gold
     self.vertical = vertical
@@ -100,7 +100,7 @@ public class MoneyLine implements Component {
     // The panel's text: the line round it and the shadow under it.
     outline: Signal<Integer>,
     shadow: Signal<Shadow>,
-    vertical: Signal<Boolean> = false,
+    vertical: Signal<Boolean> = false
   ) {
     self.outline = outline
     self.shadow = shadow

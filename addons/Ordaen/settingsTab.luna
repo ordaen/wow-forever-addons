@@ -9,7 +9,7 @@ public class SettingsTab implements Component {
   shown: Signal<Boolean>
   constructor(
     title: String,
-    shown: Signal<Boolean> = true,
+    shown: Signal<Boolean> = true
   ) {
     self.title = title
     self.shown = shown

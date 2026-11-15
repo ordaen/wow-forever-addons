@@ -20,20 +20,20 @@ const GOLD = 3308
 function recipe(id: Integer, name: String, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean): Game.Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 21, learned: learned,
-    difficulty: difficulty, craftable: craftable,
+    difficulty: difficulty, craftable: craftable
   }
 }
 
 function professions(): Array<Game.Profession> {
   return [
     { skillLine: MINING, name: "Mining", icon: "Interface/Icons/Trade_Mining", rank: 70, max: 75, kind: Game.ProfessionKind.Gathering },
-    { skillLine: FISHING, name: "Fishing", icon: "Interface/Icons/Trade_Fishing", rank: 120, max: 150, kind: Game.ProfessionKind.Gathering },
+    { skillLine: FISHING, name: "Fishing", icon: "Interface/Icons/Trade_Fishing", rank: 120, max: 150, kind: Game.ProfessionKind.Gathering }
   ]
 }
 
 function categories(): Array<Game.Category> {
   return [
-    { id: 2, name: "Mining" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Smelting", parentID: 2 },
+    { id: 2, name: "Mining" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Smelting", parentID: 2 }
   ]
 }
 
@@ -43,7 +43,7 @@ function recipes(): Array<Game.Recipe> {
     recipe(TIN, "Smelt Tin", Game.Difficulty.Always, 0, true),
     recipe(BRONZE, "Smelt Bronze", Game.Difficulty.Always, 0, true),
     recipe(GOLD, "Smelt Gold", Game.Difficulty.Always, 0, false),
-    recipe(SILVER, "Smelt Silver", Game.Difficulty.Always, 0, false),
+    recipe(SILVER, "Smelt Silver", Game.Difficulty.Always, 0, false)
   ]
 }
 
@@ -55,7 +55,7 @@ function reagents(id: Integer): Array<Game.Reagent> {
   if (id == BRONZE) {
     return [
       { itemID: 2840, name: "Copper Bar", icon: "Interface/Icons/INV_Ingot_02", have: 3, need: 1 },
-      { itemID: 3576, name: "Tin Bar", icon: "Interface/Icons/INV_Ingot_01", have: 0, need: 1 },
+      { itemID: 3576, name: "Tin Bar", icon: "Interface/Icons/INV_Ingot_01", have: 0, need: 1 }
     ]
   }
   return []
@@ -108,7 +108,7 @@ test "the overview: the next rank, the recipes counted, what to learn next, the 
 function services(): Array<Game.TrainerService> {
   return [
     { index: 1, name: "Smelt Gold", rank: "", status: Game.ServiceStatus.Unavailable, level: 0, cost: 100, description: "", skill: 155 },
-    { index: 2, name: "Smelt Silver", rank: "", status: Game.ServiceStatus.Available, level: 0, cost: 50, description: "", skill: 75 },
+    { index: 2, name: "Smelt Silver", rank: "", status: Game.ServiceStatus.Available, level: 0, cost: 50, description: "", skill: 75 }
   ]
 }
 

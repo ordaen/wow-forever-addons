@@ -29,7 +29,7 @@ const MOST_SIZE = 4000
 const OCCASIONS: Array<Choice<Occasion>> = [
   { value: Occasion.Combat, label: Locale.OCCASION_COMBAT },
   { value: Occasion.Travel, label: Locale.OCCASION_TRAVEL },
-  { value: Occasion.Moving, label: Locale.OCCASION_MOVING },
+  { value: Occasion.Moving, label: Locale.OCCASION_MOVING }
 ]
 
 // The title of a module's page of its windows, in its `pages`:

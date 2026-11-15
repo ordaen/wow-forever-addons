@@ -77,7 +77,7 @@ public class ZoneBox implements Component {
   panel: Panel
   constructor(
     zone: Zone,
-    panel: Panel,
+    panel: Panel
   ) {
     self.zone = zone
     self.panel = panel
@@ -88,9 +88,9 @@ public class ZoneBox implements Component {
     // takes the room the others leave.
     if (self.experience) { return Align.Stretch }
     match (self.zone) {
-      Zone.Left => return Align.Start,
-      Zone.Center => return Align.Center,
-      else => return Align.End,
+      Zone.Left => return Align.Start
+      Zone.Center => return Align.Center
+      else => return Align.End
     }
   }
 
@@ -147,7 +147,7 @@ public class Panel implements Module, App {
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale.TAB_MICROMENU, content: $ltml { <MicroPage settings={mut self.settings} /> } },
     { title: Locale.TAB_STATUS, content: $ltml { <StatusPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} /> } },
+    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} /> } }
   ]
 
   state hovered = false
@@ -160,8 +160,8 @@ public class Panel implements Module, App {
   public derived goldIcons: Boolean = self.settings.values.microIcons == MicroIcons.Gold
   // The player's portrait stands in the screen's corner: asked for, with the menu at the start of a panel
   // along the bottom. The character's button is then the portrait, and the menu has no cell for it.
-  public derived portraitShown: Boolean = self.settings.values.charButton == CharButton.Portrait && self.settings.values.microOn && self.settings.values.bottomOn
-    && self.side == Side.Bottom && self.at(Item.Micromenu) == Zone.Left
+  public derived portraitShown: Boolean = self.settings.values.charButton == CharButton.Portrait && self.settings.values.microOn && self.settings.values.bottomOn &&
+    self.side == Side.Bottom && self.at(Item.Micromenu) == Zone.Left
   // The side it stands along: its edge, or, while the player drags it in the placing mode, the side nearest the cursor.
   derived side: Side = self.docking ?? sideOf(self.settings.values.edge)
   state docking: Side | nil = nil
@@ -204,9 +204,9 @@ public class Panel implements Module, App {
 
   outlineOf(self): Integer {
     match (self.settings.values.outline) {
-      Outline.None => return 0,
-      Outline.Thin => return 1,
-      Outline.Thick => return 2,
+      Outline.None => return 0
+      Outline.Thin => return 1
+      Outline.Thick => return 2
     }
   }
 

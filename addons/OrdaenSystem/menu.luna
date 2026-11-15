@@ -163,7 +163,7 @@ public class GameMenu {
             gem: (options && label == Client.GAMEMENU_OPTIONS) || (event && label == Client.GAMEMENU_EXTERNALEVENT),
             addons: addons,
             width: child.GetWidth(),
-            height: child.GetHeight(),
+            height: child.GetHeight()
           })
         }
       } else {

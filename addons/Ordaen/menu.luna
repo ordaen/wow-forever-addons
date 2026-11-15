@@ -52,7 +52,7 @@ public class MenuItem implements Component {
   index: Signal<Integer>
   constructor(
     entry: Signal<MenuEntry>,
-    index: Signal<Integer>,
+    index: Signal<Integer>
   ) {
     self.entry = entry
     self.index = index

@@ -19,7 +19,7 @@ const STONE = 2660
 function recipe(id: Integer, name: String, category: Integer, craftable: Integer): Game.Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: true,
-    difficulty: Game.Difficulty.Always, craftable: craftable,
+    difficulty: Game.Difficulty.Always, craftable: craftable
   }
 }
 
@@ -35,7 +35,7 @@ function times(count: Integer, text: String) {
 function professions(): Array<Game.Profession> {
   return [
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: SMITHING, name: "Blacksmithing", icon: 136241, rank: 40, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: SMITHING, name: "Blacksmithing", icon: 136241, rank: 40, max: 75, kind: Game.ProfessionKind.Crafting }
   ]
 }
 

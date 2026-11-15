@@ -24,7 +24,7 @@ public class ColorPicker implements Component {
     // The setting it shows and changes.
     value: mut Signal<Color>,
     hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.label = label
     self.value = value

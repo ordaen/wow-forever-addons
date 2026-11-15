@@ -17,7 +17,7 @@ const BOLT = 2963
 function recipe(id: Integer, name: String, difficulty: Game.Difficulty, craftable: Integer): Game.Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 11, learned: true,
-    difficulty: difficulty, craftable: craftable,
+    difficulty: difficulty, craftable: craftable
   }
 }
 
@@ -44,7 +44,7 @@ function categories(): Array<Game.Category> {
   // The camp's category stands first under the heading, as the game gives it.
   return [
     { id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 },
-    { id: 11, name: "Cloth armour", parentID: 1 },
+    { id: 11, name: "Cloth armour", parentID: 1 }
   ]
 }
 
@@ -153,7 +153,7 @@ test "the count starts again at one for another recipe and for another professio
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
   Game.professions.list = [
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: 164, name: "Blacksmithing", icon: 136241, rank: 10, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: 164, name: "Blacksmithing", icon: 136241, rank: 10, max: 75, kind: Game.ProfessionKind.Crafting }
   ]
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()

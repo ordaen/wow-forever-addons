@@ -17,7 +17,7 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_COUNT, width: 48 * PX, align: Align.End },
   { title: Locale.COLUMN_UNIT, width: 90 * PX, align: Align.End },
   { title: Locale.COLUMN_LEFT, width: 56 * PX, align: Align.End },
-  { title: "", width: 96 * PX, align: Align.End },
+  { title: "", width: 96 * PX, align: Align.End }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 const ITEM: Array<Track> = ["auto", { fr: 1 }]
@@ -127,7 +127,7 @@ public class OwnedPage implements Component {
       const left = owned.left
       list.push({
         auction: owned.auction, item: owned.item, name: name, color: color, quantity: owned.quantity, unit: unit,
-        sold: owned.sold, lowest: lowest, left: left != nil ? leftText(left) : "—",
+        sold: owned.sold, lowest: lowest, left: left != nil ? leftText(left) : "—"
       })
     }
     return list

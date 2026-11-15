@@ -213,7 +213,7 @@ test "a window's tab with a picture keeps its box open or closed" {
   let page = new Tabbed([
     { title: "Blacksmithing", desc: "150 / 150", icon: "Interface/Icons/Trade_BlackSmithing" },
     { title: "Mining", desc: "121 / 150", icon: "Interface/Icons/Trade_Mining" },
-    { title: "First Aid", desc: "81 / 150", icon: "Interface/Icons/Spell_Holy_SealOfSacrifice" },
+    { title: "First Aid", desc: "81 / 150", icon: "Interface/Icons/Spell_Holy_SealOfSacrifice" }
   ])
   Test.mount(page, PAGE)
   for (name of ["Blacksmithing", "Mining", "First Aid"]) {
@@ -244,7 +244,7 @@ test "a push button keeps its box disabled or accented" {
   let page = new Buttons()
   Test.mount(page, PAGE)
   holdsItsBox(Test.holding("Make", nil), [
-    () => { page.disabled = true }, () => { page.accent = true }, () => { page.disabled = false },
+    () => { page.disabled = true }, () => { page.accent = true }, () => { page.disabled = false }
   ])
   destroy page
 }
@@ -267,7 +267,7 @@ test "a checkbox and a switch keep their boxes on, off or disabled" {
   let page = new Checks()
   Test.mount(page, PAGE)
   const steps: Array<() => nil> = [
-    () => { page.on = true }, () => { page.disabled = true }, () => { page.on = false }, () => { page.disabled = false },
+    () => { page.on = true }, () => { page.disabled = true }, () => { page.on = false }, () => { page.disabled = false }
   ]
   // Found before any is clicked: a click flips them.
   const check = Test.painted(Ordaen.art.ctl.check, nil)
@@ -289,7 +289,7 @@ class Modes {
       <Segmented value={mut self.mode} disabled={self.disabled} choices={[
         { value: Mode.Auction, label: "Auction" },
         { value: Mode.Merchant, label: "Merchant" },
-        { value: Mode.Cooldowns, label: "Cooldowns", soon: true },
+        { value: Mode.Cooldowns, label: "Cooldowns", soon: true }
       ]} />
     }
   }
@@ -299,7 +299,7 @@ test "a segment keeps its box picked, not or disabled" {
   let page = new Modes()
   Test.mount(page, PAGE)
   const steps: Array<() => nil> = [
-    () => { page.mode = Mode.Merchant }, () => { page.disabled = true }, () => { page.mode = Mode.Auction },
+    () => { page.mode = Mode.Merchant }, () => { page.disabled = true }, () => { page.mode = Mode.Auction }
   ]
   holdsItsBox(Test.holding("Auction", nil), steps)
   holdsItsBox(Test.holding("Merchant", nil), steps)
@@ -328,7 +328,7 @@ test "a list's entry and a tree's row keep their boxes selected, off or open" {
   Test.mount(page, PAGE)
   const steps: Array<() => nil> = [
     () => { page.selected = true }, () => { page.off = true }, () => { page.open = true },
-    () => { page.selected = false }, () => { page.off = false }, () => { page.open = false },
+    () => { page.selected = false }, () => { page.off = false }, () => { page.open = false }
   ]
   for (name of ["Bars", "Plain", "Copper Bar", "Copper Ore"]) {
     holdsItsBox(Test.holding(name, nil), steps)
@@ -339,7 +339,7 @@ test "a list's entry and a tree's row keep their boxes selected, off or open" {
 const COLUMNS: Array<Column> = [
   { title: "Recipe", width: { fr: 1 }, sortable: true },
   { title: "Makeable", width: 80 * PX, sortable: true },
-  { title: "Plain", width: 80 * PX },
+  { title: "Plain", width: 80 * PX }
 ]
 
 class Sorted {
@@ -366,7 +366,7 @@ test "a table's heading and row keep their boxes sorted by or not, selected or n
   Test.mount(page, PAGE)
   const steps: Array<() => nil> = [
     () => { page.column = 2 }, () => { page.descending = true }, () => { page.selected = true },
-    () => { page.column = 1 }, () => { page.selected = false },
+    () => { page.column = 1 }, () => { page.selected = false }
   ]
   for (name of ["Recipe", "Makeable", "Plain", "Linen Bandage"]) {
     holdsItsBox(Test.holding(name, nil), steps)
@@ -378,7 +378,7 @@ class Menus {
   state entries: Array<MenuEntry> = [
     { label: "Sound", on: false },
     { label: "Reset" },
-    { label: "Delete", group: true },
+    { label: "Delete", group: true }
   ]
 
   public render(self): Template {
@@ -395,7 +395,7 @@ test "a menu's entry keeps its box on, off or disabled" {
   Test.mount(page, PAGE)
   const steps: Array<() => nil> = [
     () => { page.entries = [{ label: "Sound", on: true }, { label: "Reset", disabled: true }, { label: "Delete", group: true, disabled: true }] },
-    () => { page.entries = [{ label: "Sound", on: false, disabled: true }, { label: "Reset" }, { label: "Delete", group: true }] },
+    () => { page.entries = [{ label: "Sound", on: false, disabled: true }, { label: "Reset" }, { label: "Delete", group: true }] }
   ]
   for (name of ["Sound", "Reset", "Delete"]) {
     holdsItsBox(Test.holding(name, nil), steps)
@@ -432,7 +432,7 @@ test "a module's entry and its switch keep their boxes on, off or shown" {
   Test.mount(page, PAGE)
   const steps: Array<() => nil> = [
     () => { page.shown = "OrdaenPanel" }, () => { page.entry.on = true }, () => { page.shown = "" },
-    () => { page.entry.on = false },
+    () => { page.entry.on = false }
   ]
   const toggle = Test.painted(Ordaen.art.ctl.switchOff, nil)
   holdsItsBox(Test.holding("Panel", nil), steps)
@@ -453,7 +453,7 @@ test "an item's button keeps its box of any quality, dimmed or not" {
   let page = new Slots()
   Test.mount(page, PAGE)
   holdsItsBox(Test.holding("5", nil), [
-    () => { page.quality = Quality.Epic }, () => { page.dimmed = true }, () => { page.quality = Quality.Poor },
+    () => { page.quality = Quality.Epic }, () => { page.dimmed = true }, () => { page.quality = Quality.Poor }
   ])
   destroy page
 }

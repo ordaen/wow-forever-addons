@@ -5,19 +5,19 @@ import { Art } from "$ltml"
 import { Term } from "@/terms"
 
 public enum Kind {
-  Item = "item", Spell = "spell", Aura = "aura", Unit = "unit", Object = "object", Text = "text", Set = "set",
+  Item = "item", Spell = "spell", Aura = "aura", Unit = "unit", Object = "object", Text = "text", Set = "set"
   // A term of the glossary, opened from a part of a locked tooltip.
-  Term = "term",
+  Term = "term"
 }
 
 // What a part of a tooltip opens once the tooltip is locked and the cursor comes onto the part: a term of the
 // glossary, with the amount the part speaks of; a name with its whole sentence (a camp's building and its bonus);
 // a unit's own tooltip, by the game's name for the unit (`mouseovertarget`).
 public enum Opens {
-  Term { term: Term, amount: String | nil },
-  Text { name: String, text: String },
-  Unit { unit: String },
-  None,
+  Term { term: Term, amount: String | nil }
+  Text { name: String, text: String }
+  Unit { unit: String }
+  None
 }
 
 // A term a part names, and one it names with the amount it speaks of.
@@ -46,9 +46,9 @@ public struct Part {
 // The tooltips' glyphs, by their names in the design (`tooltips`): what a fact is about, drawn before its text
 // (frame.luna's `glyphArt`; the cost's is the design's dot, in its resource's colour).
 public enum Glyph {
-  Dmg = "dmg", Spd = "spd", Arm = "arm", Blk = "blk", Alliance = "alliance", Horde = "horde", Elite = "elite",
-  Time = "time", Cost = "cost", CastNow = "castNow", CastTime = "castTime", CastChan = "castChan",
-  CastNext = "castNext",
+  Dmg = "dmg", Spd = "spd", Arm = "arm", Blk = "blk", Alliance = "alliance", Horde = "horde", Elite = "elite"
+  Time = "time", Cost = "cost", CastNow = "castNow", CastTime = "castTime", CastChan = "castChan"
+  CastNext = "castNext"
 }
 
 // A fact of the band: its glyph before its text.
@@ -98,9 +98,9 @@ public struct Note {
 
 // The picture by a tooltip's title: the icon of an item or a spell, or the face of the unit it is about.
 public enum Picture {
-  Icon { art: Art },
-  Face { unit: String },
-  None,
+  Icon { art: Art }
+  Face { unit: String }
+  None
 }
 
 // An icon where the game has one for the thing.

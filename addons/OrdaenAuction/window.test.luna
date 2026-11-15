@@ -100,7 +100,7 @@ test "«Sell»: the bags' items the house takes; one picked is posted from the c
   Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [
     { item: LINEN, count: 20, bag: 0, slot: 1, commodity: true },
     { item: AXE, count: 1, bag: 0, slot: 2, commodity: false },
-    { item: LINEN, count: 6, bag: 1, slot: 4, commodity: true },
+    { item: LINEN, count: 6, bag: 1, slot: 4, commodity: true }
   ]
   // The client's deposit: 4 copper each of a commodity, an item's auction 150, whatever the duration.
   Game.auctionActions.deposit = (from: Game.Sellable, quantity: Integer, duration: Game.Duration): Integer | nil =>
@@ -145,7 +145,7 @@ test "«My auctions»: the client's list, «Check» asks again, «Cancel» on a 
   Game.ownedAuctions.list = [
     { auction: 1, item: 2589, quantity: 20, buyout: 900, sold: false, left: 7200 },
     { auction: 2, item: 2770, quantity: 5, buyout: nil, sold: false, left: nil },
-    { auction: 3, item: 2592, quantity: 1, buyout: 300, sold: true, left: nil },
+    { auction: 3, item: 2592, quantity: 1, buyout: 300, sold: true, left: nil }
   ]
   Auction.page = 2
   Test.pass(0.02)

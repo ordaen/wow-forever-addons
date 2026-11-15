@@ -21,7 +21,7 @@ public class SettingRow implements Component {
   constructor(
     label: Signal<String>,
     hint: Signal<String> = "",
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.label = label
     self.hint = hint

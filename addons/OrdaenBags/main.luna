@@ -14,7 +14,7 @@ import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import {
   Choice, Component, KeptWindow, ListTab, Memory, Module, Money, PX, Settings, SettingsPage, space, Tip, TipRow, Toolbar, windowsTitle, WindowsPage,
-  ToolAct, ToolButton, ToolPick, Window, WindowTabSpec,
+  ToolAct, ToolButton, ToolPick, Window, WindowTabSpec
 } from "Ordaen"
 import { Arranger } from "@/arrange"
 import { BagLine, BagSlotsWindow } from "@/bagSlots"
@@ -70,7 +70,7 @@ const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Name, label: Locale.SORT_NAME },
   { value: SortBy.Level, label: Locale.SORT_LEVEL },
   { value: SortBy.Count, label: Locale.SORT_COUNT },
-  { value: SortBy.Type, label: Locale.SORT_TYPE },
+  { value: SortBy.Type, label: Locale.SORT_TYPE }
 ]
 // The backpack's icon of the game's, on the bag slots' button.
 const BACKPACK: FileId = 130716
@@ -110,7 +110,7 @@ public class Bags implements Module, App {
   public slotsWindow: mut KeptWindow = new KeptWindow("slots", Locale.BAG_SLOTS, { x: 0, y: 0, width: 250 * PX, height: 300 * PX })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.slotsWindow]
   public const pages: Array<SettingsPage> = [
-    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   public settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
@@ -168,7 +168,7 @@ public class Bags implements Module, App {
   views: Array<Choice<View>> = [
     { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: Ordaen.art.ctl.tool.categories },
     { value: View.Bags, label: Locale.VIEW_BAGS, icon: Ordaen.art.ctl.tool.table },
-    { value: View.One, label: Locale.VIEW_ONE, icon: Ordaen.art.ctl.tool.one },
+    { value: View.One, label: Locale.VIEW_ONE, icon: Ordaen.art.ctl.tool.one }
   ]
 
   constructor() {
@@ -256,9 +256,9 @@ public class Bags implements Module, App {
   settle(mut self, changed: Integer) {
     if (Client.bit.band(changed, MOVED) != 0) { self.follow() }
     self.count()
-    const regroup = Client.bit.band(changed, MOVED) != 0
-      || (Client.bit.band(changed, COUNTED) != 0 && peek self.list.values.sort == SortBy.Count)
-      || Client.bit.band(changed, MARKED) != 0
+    const regroup = Client.bit.band(changed, MOVED) != 0 ||
+      (Client.bit.band(changed, COUNTED) != 0 && peek self.list.values.sort == SortBy.Count) ||
+      Client.bit.band(changed, MARKED) != 0
     if (regroup) { self.revision += 1 }
   }
 
@@ -343,9 +343,9 @@ public class Bags implements Module, App {
   sectionsOf(self): Array<Section> {
     _ = self.revision
     return match (self.list.values.view) {
-      .Categories => tabSections(self.all, self.shownTab, self.settings.values.grouping[self.shownTab] ?? .Type, self.list.values.sort),
-      .Bags => bagSections(self.bags, self.infos.map(info => info.name)),
-      .One => oneSection(self.bags),
+      .Categories => tabSections(self.all, self.shownTab, self.settings.values.grouping[self.shownTab] ?? .Type, self.list.values.sort)
+      .Bags => bagSections(self.bags, self.infos.map(info => info.name))
+      .One => oneSection(self.bags)
     }
   }
 
@@ -428,7 +428,7 @@ public class Bags implements Module, App {
     const size = peek self.slotsWindow.memory.values
     self.slotsWindow.memory.write({
       x: at.x + at.width / 2 + space(.Group) + size.width / 2, y: at.y - at.height / 2 + size.height / 2,
-      ..size,
+      ..size
     })
   }
 

@@ -34,7 +34,7 @@ public class TooltipGroup implements Component {
     // How many tooltips the slot `secondary` holds.
     beside: Signal<Integer> = 0,
     across: Signal<Align> = Align.Start,
-    leftwards: Signal<Boolean> = false,
+    leftwards: Signal<Boolean> = false
   ) {
     self.shown = shown
     self.place = place

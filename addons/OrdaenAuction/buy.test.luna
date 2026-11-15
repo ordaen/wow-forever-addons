@@ -209,7 +209,7 @@ test "a commodity picked: its listings asked, a quantity priced by the client, t
   Test.pass(0.02)
   Game.auctionQuery.listed.emit(LINEN, [
     { auction: 0, unit: 36, quantity: 10, left: 7200, own: false, commodity: true },
-    { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true },
+    { auction: 0, unit: 40, quantity: 20, left: 86400, own: false, commodity: true }
   ])
   Test.pass(0.02)
   // The counter: Shift steps 10, then one a click.
@@ -251,7 +251,7 @@ test "an item picked: its cheapest auction with a buyout bought out from a click
   Game.auctionQuery.listed.emit(AXE, [
     { auction: 71, unit: 0, quantity: 1, bid: 1500, left: 3600, own: false, commodity: false },
     { auction: 72, unit: 2100, quantity: 1, buyout: 2100, left: 7200, own: true, commodity: false },
-    { auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false },
+    { auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }
   ])
   Test.pass(0.02)
   Test.shot("the axe: a bid alone, the player's own, then the one the click buys out")
@@ -293,13 +293,13 @@ test "variants: each named with its suffix, each with its own lowest and its sha
   Game.auctionQuery.results.emit([
     { key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 },
     { key: WARHAMMER + EAGLE * SUFFIXED, copper: 800, quantity: 1 },
-    { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1500, quantity: 1 },
+    { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1500, quantity: 1 }
   ])
   Game.clock.server = START + 24 * HOUR
   Game.auctionQuery.results.emit([
     { key: WARHAMMER + BEAR * SUFFIXED, copper: 933, quantity: 3 },
     { key: WARHAMMER + EAGLE * SUFFIXED, copper: 933, quantity: 1 },
-    { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1250, quantity: 2 },
+    { key: WARHAMMER + MONKEY * SUFFIXED, copper: 1250, quantity: 2 }
   ])
   Test.pass(0.02)
   Test.expect(Test.holding("Sergeant's Warhammer of the Bear", nil).y < Test.holding("Sergeant's Warhammer of the Eagle", nil).y)
@@ -339,7 +339,7 @@ test "a row right-clicked: its menu under it; «Buy at the best price» buys its
   Test.pass(0.02)
   Game.auctionQuery.listed.emit(AXE, [
     { auction: 72, unit: 2100, quantity: 1, buyout: 2100, left: 7200, own: true, commodity: false },
-    { auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false },
+    { auction: 73, unit: 2200, quantity: 1, buyout: 2200, left: 7200, own: false, commodity: false }
   ])
   Test.pass(0.02)
   Test.shot("the menu under the row: «Buy at the best price», then «Add to shopping list» and «Search for this item»")

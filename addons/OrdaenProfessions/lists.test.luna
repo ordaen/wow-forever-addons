@@ -16,11 +16,11 @@ const TAILORING = 197
 const HERBALISM = 182
 
 function recipe(
-  id: Integer, name: String, category: Integer, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean,
+  id: Integer, name: String, category: Integer, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean
 ): Game.Recipe {
   return {
     id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: learned, difficulty: difficulty,
-    craftable: craftable,
+    craftable: craftable
   }
 }
 
@@ -50,7 +50,7 @@ function ownFrame(): any Client.Frame {
 function professions(): Array<Game.Profession> {
   return [
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: HERBALISM, name: "Herbalism", icon: "Interface/Icons/Trade_Herbalism", rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
+    { skillLine: HERBALISM, name: "Herbalism", icon: "Interface/Icons/Trade_Herbalism", rank: 12, max: 75, kind: Game.ProfessionKind.Gathering }
   ]
 }
 
@@ -60,7 +60,7 @@ function categories(): Array<Game.Category> {
     { id: 1, name: "Tailoring" },
     { id: 10, name: "Resting at camp", parentID: 1 },
     { id: 11, name: "Cloth armour", parentID: 1 },
-    { id: 12, name: "Bags", parentID: 1 },
+    { id: 12, name: "Bags", parentID: 1 }
   ]
 }
 
@@ -71,7 +71,7 @@ function recipes(): Array<Game.Recipe> {
     recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true),
     recipe(112, "Woolen Cape", 11, Game.Difficulty.Never, 0, false),
     recipe(120, "Linen Bag", 12, Game.Difficulty.Usually, 2, true),
-    recipe(121, "Woolen Bag", 12, Game.Difficulty.Always, 0, true),
+    recipe(121, "Woolen Bag", 12, Game.Difficulty.Always, 0, true)
   ]
 }
 

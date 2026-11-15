@@ -1366,7 +1366,7 @@ public const tab: Map<Integer, Integer> = {
   [30905]: 183,
   [30906]: 183,
   [30919]: 181,
-  [30920]: 181,
+  [30920]: 181
 }
 
 // A tree to its name.
@@ -1397,5 +1397,5 @@ public const name: Map<Integer, Tree> = {
   [363]: Tree { ruRU: "Стрельба", enUS: "Marksmanship", order: 2 },
   [381]: Tree { ruRU: "Воздаяние", enUS: "Retribution", order: 3 },
   [382]: Tree { ruRU: "Свет", enUS: "Holy", order: 1 },
-  [383]: Tree { ruRU: "Защита", enUS: "Protection", order: 2 },
+  [383]: Tree { ruRU: "Защита", enUS: "Protection", order: 2 }
 }

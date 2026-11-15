@@ -35,7 +35,7 @@ const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_COUNT, width: 64 * PX, align: Align.End },
   { title: Locale.COLUMN_MARKET, width: 96 * PX, align: Align.End, sortable: true },
   { title: Locale.COLUMN_VENDOR, width: 96 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_BETTER, width: 90 * PX },
+  { title: Locale.COLUMN_BETTER, width: 90 * PX }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 // The bags' side, and the picked item's panel at the right, the page's whole height.
@@ -50,7 +50,7 @@ const STEP = 28 * PX
 const DURATIONS: Array<Choice<Game.Duration>> = [
   { value: Game.Duration.Short, label: Locale.HOURS.format(12) },
   { value: Game.Duration.Medium, label: Locale.HOURS.format(24) },
-  { value: Game.Duration.Long, label: Locale.HOURS.format(48) },
+  { value: Game.Duration.Long, label: Locale.HOURS.format(48) }
 ]
 
 class OfferedRow implements Component {
@@ -126,7 +126,7 @@ public class SellPage implements Component {
     house: House,
     prices: any PriceSource,
     // The row picked, while it is shown: the window's side section draws it.
-    chosen: mut Signal<Array<Offered>>,
+    chosen: mut Signal<Array<Offered>>
   ) {
     self.house = house
     self.prices = prices
@@ -158,7 +158,7 @@ public class SellPage implements Component {
         const house = net == nil && vendor == nil ? nil : (net ?? 0) > (vendor ?? 0)
         list.push({
           from: stack, item: item, name: name, color: color, count: stack.count, market: market, vendor: vendor,
-          house: house,
+          house: house
         })
         at[item] = list.length
       }

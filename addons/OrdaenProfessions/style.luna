@@ -31,9 +31,9 @@ public const BRONZE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
 // A recipe's name in its difficulty's colour.
 public function difficultyColor(difficulty: Game.Difficulty): Color {
   match (difficulty) {
-    Game.Difficulty.Always => return Color.hex("#ff8040"),
-    Game.Difficulty.Usually => return Color.hex("#ffd100"),
-    Game.Difficulty.Rarely => return Color.hex("#40c040"),
-    Game.Difficulty.Never => return Color.hex("#9a9a9a"),
+    Game.Difficulty.Always => return Color.hex("#ff8040")
+    Game.Difficulty.Usually => return Color.hex("#ffd100")
+    Game.Difficulty.Rarely => return Color.hex("#40c040")
+    Game.Difficulty.Never => return Color.hex("#9a9a9a")
   }
 }

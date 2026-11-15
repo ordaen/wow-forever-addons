@@ -35,10 +35,10 @@ public struct Filter {
 // merchant what isn't a quest's.
 function fits(slot: Slot, place: Game.BagPlace): Boolean {
   return match (place) {
-    .AuctionHouse => !slot.read.bound,
-    .Crafting => slot.read.kind == TRADE || slot.read.kind == REAGENT,
-    .Merchant => slot.read.kind != QUEST,
-    else => true,
+    .AuctionHouse => !slot.read.bound
+    .Crafting => slot.read.kind == TRADE || slot.read.kind == REAGENT
+    .Merchant => slot.read.kind != QUEST
+    else => true
   }
 }
 
@@ -138,7 +138,7 @@ class Place implements Component {
     filter: Signal<Filter>,
     free: Signal<Integer>,
     collapsed: Signal<Map<String, Boolean>>,
-    fills: Signal<Map<Integer, String>>,
+    fills: Signal<Map<Integer, String>>
   ) {
     self.cell = cell
     self.filter = filter
@@ -158,12 +158,12 @@ class Place implements Component {
       .Item => return $ltml {
         <BagSlot slot={self.cell.slot} filter={self.filter} @pressed={self.onPressed} @entered={self.onEnter}
                  @left={self.onLeave} />
-      },
+      }
       .Caption => return $ltml {
         <Caption section={self.cell.section} collapsed={self.collapsed} fills={self.fills} @toggled={self.onToggle} />
-      },
-      .Free => return $ltml { <ItemButton item={nil} count={self.free} size={SLOT} /> },
-      .Space => return $ltml { <box /> },
+      }
+      .Free => return $ltml { <ItemButton item={nil} count={self.free} size={SLOT} /> }
+      .Space => return $ltml { <box /> }
     }
   }
 }
@@ -185,7 +185,7 @@ public class BagRow implements Component {
     filter: Signal<Filter>,
     free: Signal<Integer>,
     collapsed: Signal<Map<String, Boolean>>,
-    fills: Signal<Map<Integer, String>>,
+    fills: Signal<Map<Integer, String>>
   ) {
     self.row = row
     self.filter = filter

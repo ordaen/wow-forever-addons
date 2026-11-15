@@ -26,7 +26,7 @@ import { Thresholds, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
 import {
   Act, before, FAVORITES, Group, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, Seen, SortBy,
-  tableBefore, View,
+  tableBefore, View
 } from "@/view"
 
 const FILL: Array<Track> = [{ fr: 1 }]
@@ -50,35 +50,35 @@ const FIND_HERBS = 2383
 // The spell a profession has at the right end of its tabs' line; none for one that has none.
 function trackSpellOf(skillLine: Integer | nil): Integer | nil {
   return match (skillLine) {
-    MINING => FIND_MINERALS,
-    HERBALISM => FIND_HERBS,
-    else => nil,
+    MINING => FIND_MINERALS
+    HERBALISM => FIND_HERBS
+    else => nil
   }
 }
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_MAKEABLE, width: 80 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_MAKEABLE, width: 80 * PX, align: Align.End, sortable: true }
 ]
 // With Ordaen Auction's prices: one making's cost and profit.
 const PRICED_COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_RECIPE, width: { fr: 1 }, sortable: true },
   { title: Locale.COLUMN_MAKEABLE, width: 80 * PX, align: Align.End, sortable: true },
   { title: Locale.COLUMN_COST, width: 110 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_PROFIT, width: 110 * PX, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_PROFIT, width: 110 * PX, align: Align.End, sortable: true }
 ]
 const VIEWS: Array<Choice<View>> = [
   { value: View.Columns, label: Locale.VIEW_COLUMNS, icon: ARTWORK.ctl.tool.columns },
   { value: View.Categories, label: Locale.VIEW_CATEGORIES, icon: ARTWORK.ctl.tool.categories },
   { value: View.List, label: Locale.VIEW_LIST, icon: ARTWORK.ctl.tool.list },
-  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table },
+  { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
 const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Difficulty, label: Locale.SORT_DIFFICULTY },
   { value: SortBy.Name, label: Locale.SORT_NAME },
-  { value: SortBy.Makeable, label: Locale.SORT_MAKEABLE },
+  { value: SortBy.Makeable, label: Locale.SORT_MAKEABLE }
 ]
 const NOTHING_KEPT: Kept = {
-  last: 0, seen: {}, favorites: [], tracked: [], queue: [], paused: Pause.None,
+  last: 0, seen: {}, favorites: [], tracked: [], queue: [], paused: Pause.None
 }
 
 public class Professions implements Module, App {
@@ -88,7 +88,7 @@ public class Professions implements Module, App {
   public const windows: mut Array<mut KeptWindow> = [self.window]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
-    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } }
   ]
   // The window's footer: the profession's own spell («Find Minerals») at its left; on the queue's page what the queue
   // is doing and «Create next». The make row is the chosen recipe's card's (`RecipeDetails`).
@@ -240,7 +240,7 @@ public class Professions implements Module, App {
     for (profession of Game.professions.list) {
       list.push({
         title: profession.name, icon: profession.icon,
-        desc: "%d / %d".format(profession.rank, profession.max),
+        desc: "%d / %d".format(profession.rank, profession.max)
       })
     }
     return list
@@ -307,10 +307,10 @@ public class Professions implements Module, App {
     let names: Array<String> = []
     for (kind of self.pageKinds) {
       names.push(match (kind) {
-        Page.Recipes => Locale.TAB_RECIPES,
-        Page.Camp => Locale.TAB_CAMP,
-        Page.Queue => waiting > 0 ? Locale.TAB_QUEUE_COUNT.format(waiting) : Locale.TAB_QUEUE,
-        Page.Overview => Locale.TAB_OVERVIEW,
+        Page.Recipes => Locale.TAB_RECIPES
+        Page.Camp => Locale.TAB_CAMP
+        Page.Queue => waiting > 0 ? Locale.TAB_QUEUE_COUNT.format(waiting) : Locale.TAB_QUEUE
+        Page.Overview => Locale.TAB_OVERVIEW
       })
     }
     return names
@@ -410,10 +410,10 @@ public class Professions implements Module, App {
   listingOf(self): Array<Game.Recipe> {
     if (self.onCamp) { return self.recipes }
     return match (self.list.values.view) {
-      View.Columns => self.recipes,
-      View.Categories => self.grouped(),
-      View.List => self.mains,
-      View.Table => self.tableRows,
+      View.Columns => self.recipes
+      View.Categories => self.grouped()
+      View.List => self.mains
+      View.Table => self.tableRows
     }
   }
 
@@ -518,13 +518,13 @@ public class Professions implements Module, App {
   // A row of a list asked for something of a recipe.
   onAct(mut self, act: Act, id: Integer) {
     match (act) {
-      Act.Pick => { self.pickRecipe(id) },
-      Act.Menu => { self.menuFor = id },
-      Act.Favorite => { self.starFavorite(id) },
-      Act.Track => { self.starTracked(id) },
-      Act.Make => { self.onMake(id) },
-      Act.Close => { self.closeMenu(id) },
-      Act.Link => { self.onLink(id) },
+      Act.Pick => { self.pickRecipe(id) }
+      Act.Menu => { self.menuFor = id }
+      Act.Favorite => { self.starFavorite(id) }
+      Act.Track => { self.starTracked(id) }
+      Act.Make => { self.onMake(id) }
+      Act.Close => { self.closeMenu(id) }
+      Act.Link => { self.onLink(id) }
     }
   }
 
@@ -606,9 +606,9 @@ public class Professions implements Module, App {
 
   onQueueAct(mut self, act: QueueAct, id: Integer) {
     match (act) {
-      QueueAct.Drop => { self.crafting.recount(id, 0) },
-      QueueAct.Open => { self.openRecipe(id) },
-      QueueAct.Next => { self.crafting.next() },
+      QueueAct.Drop => { self.crafting.recount(id, 0) }
+      QueueAct.Open => { self.openRecipe(id) }
+      QueueAct.Next => { self.crafting.next() }
     }
   }
 
@@ -618,12 +618,12 @@ public class Professions implements Module, App {
     if (first == nil) { return "" }
     if (self.crafting.running) { return Locale.QUEUE_MAKING.format(first.name, self.crafting.left) }
     return match (self.crafting.paused) {
-      Pause.Interrupted => Locale.PAUSE_INTERRUPTED,
-      Pause.Failed => Locale.PAUSE_FAILED,
-      Pause.Combat => Locale.PAUSE_COMBAT,
-      Pause.Closed => Locale.PAUSE_CLOSED.format(self.professionName(first.skillLine)),
-      Pause.Missing => Locale.PAUSE_MISSING.format(first.name),
-      Pause.None => Locale.QUEUE_NEXT.format(first.name, first.count),
+      Pause.Interrupted => Locale.PAUSE_INTERRUPTED
+      Pause.Failed => Locale.PAUSE_FAILED
+      Pause.Combat => Locale.PAUSE_COMBAT
+      Pause.Closed => Locale.PAUSE_CLOSED.format(self.professionName(first.skillLine))
+      Pause.Missing => Locale.PAUSE_MISSING.format(first.name)
+      Pause.None => Locale.QUEUE_NEXT.format(first.name, first.count)
     }
   }
 

@@ -32,7 +32,7 @@ function spikesOf(name: String): Array<Integer> {
     Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver50Ms).floor(),
     Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver100Ms).floor(),
     Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver500Ms).floor(),
-    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver1000Ms).floor(),
+    Client.C_AddOnProfiler.GetAddOnMetric(name, .CountTimeOver1000Ms).floor()
   ]
 }
 
@@ -93,7 +93,7 @@ public class Profiler {
         peak: share(name, .PeakTime),
         average: share(name, .SessionAverageTime),
         encounter: share(name, .EncounterAverageTime),
-        spikes: spikesOf(name),
+        spikes: spikesOf(name)
       }
     }
     self.loads = map

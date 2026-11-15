@@ -19,9 +19,9 @@ const PAIR: Array<Track> = ["auto", "auto"]
 // What a cell of a group is: the character's face, a button of the game's menu with our icon (the friends' with how
 // many are online), a bag button of the game's.
 public enum Cell {
-  Face,
-  Menu { icon: Art, frame: any Frame | nil, friends: Boolean },
-  Bag { button: Game.BagButton },
+  Face
+  Menu { icon: Art, frame: any Frame | nil, friends: Boolean }
+  Bag { button: Game.BagButton }
 }
 
 // The group: its cells in their order, across the screen or down a side of it.
@@ -35,7 +35,7 @@ public class CellGroup implements Component {
     cells: Signal<Array<Cell>>,
     // The menu's icons in one gold.
     gold: Signal<Boolean> = false,
-    vertical: Signal<Boolean> = false,
+    vertical: Signal<Boolean> = false
   ) {
     self.cells = cells
     self.gold = gold
@@ -99,7 +99,7 @@ class CellOf implements Component {
   // What a template draws reads `self`: the cell is told by its own field.
   public render(self): Template {
     match (self.cell) {
-      .Face => return $ltml { <FaceCell /> },
+      .Face => return $ltml { <FaceCell /> }
       .Menu => {
         if (self.cell.friends) {
           return $ltml {
@@ -107,8 +107,8 @@ class CellOf implements Component {
           }
         }
         return $ltml { <MenuCell icon={self.cell.icon} frame={self.cell.frame} gold={self.gold} /> }
-      },
-      .Bag => return $ltml { <BagCell button={self.cell.button} /> },
+      }
+      .Bag => return $ltml { <BagCell button={self.cell.button} /> }
     }
   }
 }

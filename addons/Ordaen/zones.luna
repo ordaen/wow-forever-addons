@@ -41,7 +41,7 @@ public class ZoneChip<K: Unknown> implements Component {
     dragging: mut Signal<K | nil>,
     hinted: mut Signal<K | nil>,
     // In the pool: greyed.
-    pooled: Signal<Boolean>,
+    pooled: Signal<Boolean>
   ) {
     self.item = item
     self.dragging = dragging
@@ -97,7 +97,7 @@ public class ZoneColumn<K: Unknown, Z: Unknown> implements Component {
     dragging: mut Signal<K | nil>,
     hinted: mut Signal<K | nil>,
     // The pool has its name over it, not in it.
-    pool: Signal<Boolean> = false,
+    pool: Signal<Boolean> = false
   ) {
     self.zone = zone
     self.index = index
@@ -151,7 +151,7 @@ public class Zones<K: Unknown, Z: Unknown> implements Component {
     zones: Array<Choice<Z>>,
     off: Choice<Z>,
     // Where each item sits: every item has its place, a zone's or the pool's.
-    value: mut Signal<Map<K, Z>>,
+    value: mut Signal<Map<K, Z>>
   ) {
     self.items = items
     self.zones = zones

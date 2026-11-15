@@ -16,14 +16,14 @@ import { PX } from "@/units"
 
 // The game's numbers for an item's quality.
 public enum Quality {
-  Poor = 0,
-  Common = 1,
-  Uncommon = 2,
-  Rare = 3,
-  Epic = 4,
-  Legendary = 5,
-  Artifact = 6,
-  Heirloom = 7,
+  Poor = 0
+  Common = 1
+  Uncommon = 2
+  Rare = 3
+  Epic = 4
+  Legendary = 5
+  Artifact = 6
+  Heirloom = 7
 }
 
 public enum Corner { TopLeft = "topLeft", TopRight = "topRight", BottomLeft = "bottomLeft" }
@@ -105,7 +105,7 @@ public class ItemButton implements Component {
     markers: Signal<Array<Marker>> = NONE,
     size: Signal<Number> = 40 * PX,
     // What the client does on the player's click itself: none where the slot's clicks are its own alone.
-    action: Signal<Action | nil> = nil,
+    action: Signal<Action | nil> = nil
   ) {
     self.item = item
     self.count = count
@@ -125,14 +125,14 @@ public class ItemButton implements Component {
   edgeOf(self): Line {
     if (self.item == nil) { return COMMON }
     return match (self.quality) {
-      Quality.Poor => POOR,
-      Quality.Common => COMMON,
-      Quality.Uncommon => UNCOMMON,
-      Quality.Rare => RARE,
-      Quality.Epic => EPIC,
-      Quality.Legendary => LEGENDARY,
-      Quality.Artifact => ARTIFACT,
-      Quality.Heirloom => HEIRLOOM,
+      Quality.Poor => POOR
+      Quality.Common => COMMON
+      Quality.Uncommon => UNCOMMON
+      Quality.Rare => RARE
+      Quality.Epic => EPIC
+      Quality.Legendary => LEGENDARY
+      Quality.Artifact => ARTIFACT
+      Quality.Heirloom => HEIRLOOM
     }
   }
 

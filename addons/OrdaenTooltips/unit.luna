@@ -63,7 +63,7 @@ function player(token: String, who: Game.UnitInfo, options: Options): Model | ni
   if (who.pvp) { info.push({ text: "PvP", opens: named(Term.Pvp) }) }
 
   facts.push({
-    text: who.level > 0 ? Locale.LEVEL_CELL.format(who.level) : "??", opens: named(Term.Plvl),
+    text: who.level > 0 ? Locale.LEVEL_CELL.format(who.level) : "??", opens: named(Term.Plvl)
   })
   let race = who.race
   if (race != nil) { facts.push({ text: race }) }
@@ -72,7 +72,7 @@ function player(token: String, who: Game.UnitInfo, options: Options): Model | ni
     facts.push({
       text: who.factionName ?? faction, color: who.sameFaction ? GREEN : RED,
       glyph: faction == "Alliance" ? Glyph.Alliance : (faction == "Horde" ? Glyph.Horde : nil),
-      opens: side(faction),
+      opens: side(faction)
     })
   }
 
@@ -80,14 +80,14 @@ function player(token: String, who: Game.UnitInfo, options: Options): Model | ni
   if (options.playersTarget && target != nil) {
     foot.push({
       left: Locale.TARGET, right: target.name, valueColor: target.color, opens: named(Term.Ptarget),
-      valueOpens: Opens.Unit { unit: token + "target" },
+      valueOpens: Opens.Unit { unit: token + "target" }
     })
   }
   if (options.playersRelation) {
     let group = who.raidGroup
     if (group != nil) {
       foot.push({
-        left: Locale.RAID, right: Locale.RAID_GROUP.format(group), opens: named(Term.Relation),
+        left: Locale.RAID, right: Locale.RAID_GROUP.format(group), opens: named(Term.Relation)
       })
     } else if (who.inParty) {
       foot.push({ left: Locale.PARTY, right: Locale.PARTY_YOURS, opens: named(Term.Relation) })
@@ -101,7 +101,7 @@ function player(token: String, who: Game.UnitInfo, options: Options): Model | ni
   }
   return {
     kind: Kind.Unit, name: titledName(name, who.titled, color), nameColor: color,
-    desc: desc, info: info, facts: facts, body: [], more: [], foot: foot, keys: [],
+    desc: desc, info: info, facts: facts, body: [], more: [], foot: foot, keys: []
   }
 }
 
@@ -174,7 +174,7 @@ function npc(who: Game.UnitInfo, name: String, data: Game.TooltipData, options: 
   }
   return {
     kind: Kind.Unit, name: name, nameColor: nameColor, desc: desc, info: info, facts: facts, body: body,
-    more: quests(data.lines, options.npcsParty), foot: foot, keys: [],
+    more: quests(data.lines, options.npcsParty), foot: foot, keys: []
   }
 }
 
@@ -195,7 +195,7 @@ public function unit(data: Game.TooltipData, options: Options): Model | nil {
     }
     return {
       kind: Kind.Unit, name: name, nameColor: WHITE,
-      desc: [], info: [], facts: [], body: body, more: [], foot: [], keys: [],
+      desc: [], info: [], facts: [], body: body, more: [], foot: [], keys: []
     }
   }
   if (who.player) {

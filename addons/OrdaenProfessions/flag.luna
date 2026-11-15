@@ -18,7 +18,7 @@ public class Flag implements Component {
   constructor(
     label: Signal<String>,
     on: Signal<Boolean>,
-    disabled: Signal<Boolean> = false,
+    disabled: Signal<Boolean> = false
   ) {
     self.label = label
     self.on = on

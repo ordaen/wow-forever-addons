@@ -18,17 +18,17 @@ function letters(): Array<Game.MailLetter> {
   return [
     {
       index: 1, kind: Game.MailKind.Auction, subject: "Auction successful: Linen Cloth", sender: "Auction House", copper: 12500,
-      cod: 0, days: 29, items: [],
+      cod: 0, days: 29, items: []
     },
     {
       index: 2, kind: Game.MailKind.Player, subject: "Bolts for you", sender: "Regy", copper: 0, cod: 0, days: 2,
-      items: [{ item: 2589, name: "Linen Cloth", count: 20 }, { item: 2592, name: "Wool Cloth", count: 5 }],
+      items: [{ item: 2589, name: "Linen Cloth", count: 20 }, { item: 2592, name: "Wool Cloth", count: 5 }]
     },
     {
       index: 3, kind: Game.MailKind.Player, subject: "Pay for the sword", sender: "Dorn", copper: 0, cod: 40000, days: 10,
-      items: [{ item: 12, name: "Sword", count: 1 }],
+      items: [{ item: 12, name: "Sword", count: 1 }]
     },
-    { index: 4, kind: Game.MailKind.System, subject: "Welcome", sender: "", copper: 0, cod: 0, days: 30, items: [] },
+    { index: 4, kind: Game.MailKind.System, subject: "Welcome", sender: "", copper: 0, cod: 0, days: 30, items: [] }
   ]
 }
 
@@ -62,7 +62,7 @@ test "the sent tab and the own characters' tab say what they hold" {
   Test.flush()
   Mail.sent = [
     { number: 1, subject: "Reagents (1/2)", to: "Regy", items: 12, copper: 0, state: SentState.Sent, why: "" },
-    { number: 2, subject: "Reagents (2/2)", to: "Regy", items: 3, copper: 100, state: SentState.Stopped, why: "Mailbox closed" },
+    { number: 2, subject: "Reagents (2/2)", to: "Regy", items: 3, copper: 100, state: SentState.Stopped, why: "Mailbox closed" }
   ]
   Mail.tab = 2
   Test.flush()

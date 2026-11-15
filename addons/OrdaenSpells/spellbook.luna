@@ -18,7 +18,7 @@ const BOOK_VIEW: BookView = {}
 const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Name, label: Locale.SORT_NAME },
   { value: SortBy.Level, label: Locale.SORT_LEVEL },
-  { value: SortBy.Active, label: Locale.SORT_ACTIVE },
+  { value: SortBy.Active, label: Locale.SORT_ACTIVE }
 ]
 const ROW: Array<Track> = [36 * PX, { fr: 1 }]
 const PAGE: Array<Track> = ["auto", "auto", { fr: 1 }]

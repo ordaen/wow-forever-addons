@@ -84,7 +84,7 @@ public class ModuleRow implements Component {
   constructor(
     entry: any Entry,
     // The page the window shows.
-    shown: Signal<String>,
+    shown: Signal<String>
   ) {
     self.entry = entry
     self.shown = shown

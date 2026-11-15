@@ -8,25 +8,25 @@ public enum View implements Plain { Categories = "categories", Bags = "bags", On
 
 // The order of the items in a section, and the order «Sort the bags» moves them into.
 public enum SortBy implements Plain {
-  Bags = "bags",
-  Quality = "quality",
-  Name = "name",
-  Level = "level",
-  Count = "count",
-  Type = "type",
+  Bags = "bags"
+  Quality = "quality"
+  Name = "name"
+  Level = "level"
+  Count = "count"
+  Type = "type"
 }
 
 // A tab of the categories view: every item, the new ones, or one kind. An item is of one kind alone (`tabOf`).
 public enum Tab implements Plain {
-  All = "all",
-  New = "new",
-  Quest = "quest",
-  Consumables = "consumables",
-  Equipment = "equipment",
-  Trade = "trade",
-  Recipes = "recipes",
-  Other = "other",
-  Junk = "junk",
+  All = "all"
+  New = "new"
+  Quest = "quest"
+  Consumables = "consumables"
+  Equipment = "equipment"
+  Trade = "trade"
+  Recipes = "recipes"
+  Other = "other"
+  Junk = "junk"
 }
 
 // How a tab's items are grouped into sections: by their type, all in one, or by where they are worn.
@@ -51,12 +51,12 @@ public const KINDS: Array<Tab> = [.Quest, .Consumables, .Equipment, .Trade, .Rec
 public function tabOf(kind: Integer, quality: Integer): Tab {
   if (quality == 0) { return .Junk }
   return match (kind) {
-    QUEST => .Quest,
-    CONSUMABLE => .Consumables,
-    WEAPON, ARMOR => .Equipment,
-    TRADE, REAGENT, GEM => .Trade,
-    RECIPE => .Recipes,
-    else => .Other,
+    QUEST => .Quest
+    CONSUMABLE => .Consumables
+    WEAPON, ARMOR => .Equipment
+    TRADE, REAGENT, GEM => .Trade
+    RECIPE => .Recipes
+    else => .Other
   }
 }
 
@@ -71,14 +71,14 @@ public function rankOf(tab: Tab): Integer {
 // The item's quality as the library's slot draws it.
 public function qualityOf(quality: Integer): Quality {
   return match (quality) {
-    0 => .Poor,
-    2 => .Uncommon,
-    3 => .Rare,
-    4 => .Epic,
-    5 => .Legendary,
-    6 => .Artifact,
-    7 => .Heirloom,
-    else => .Common,
+    0 => .Poor
+    2 => .Uncommon
+    3 => .Rare
+    4 => .Epic
+    5 => .Legendary
+    6 => .Artifact
+    7 => .Heirloom
+    else => .Common
   }
 }
 
@@ -110,7 +110,7 @@ public class Slot {
     self.index = index
     self.read = {
       id: 0, count: 0, quality: 1, icon: nil, name: "", link: "", level: 0, kind: -1, subkind: -1, subkindName: "",
-      worn: "", bound: false, locked: false, isNew: false, price: 0,
+      worn: "", bound: false, locked: false, isNew: false, price: 0
     }
   }
 

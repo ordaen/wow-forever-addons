@@ -12,7 +12,7 @@ public enum Hide { Never = "never", Combat = "combat", Transport = "transport" }
 const HIDES: Array<Choice<Hide>> = [
   { value: Hide.Never, label: "Never" },
   { value: Hide.Combat, label: "In combat" },
-  { value: Hide.Transport, label: "On a mount", soon: true },
+  { value: Hide.Transport, label: "On a mount", soon: true }
 ]
 
 public struct Choices {

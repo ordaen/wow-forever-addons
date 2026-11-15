@@ -60,7 +60,7 @@ public function linesOf(queued: Array<Queued>, recipes: Array<Game.Recipe>, prof
     if (recipe != nil) {
       list.push({
         recipe: entry.recipe, name: recipe.name, icon: recipe.icon, color: Style.difficultyColor(recipe.difficulty),
-        count: entry.count,
+        count: entry.count
       })
     } else {
       const profession = professions.find(p => p.skillLine == entry.skillLine)
@@ -88,7 +88,7 @@ public function needsOf(lines: Array<QueueLine>): Array<Need> {
         list.push({
           item: reagent.itemID ?? 0, recipe: line.recipe, crafts: line.count, name: reagent.name, icon: reagent.icon,
           need: total, have: reagent.have,
-          missing: (0).max(total - reagent.have),
+          missing: (0).max(total - reagent.have)
         })
       }
     }
@@ -252,7 +252,7 @@ public class QueuePage implements Component {
     // The queue, every profession's, in the order it runs.
     queued: Signal<Array<Queued>>,
     // Ordaen Auction's prices while they are shown; none for none.
-    prices: Signal<any PriceSource | nil> = nil,
+    prices: Signal<any PriceSource | nil> = nil
   ) {
     self.queued = queued
     self.prices = prices

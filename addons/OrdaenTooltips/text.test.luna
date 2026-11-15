@@ -25,7 +25,7 @@ test "the game's texts read: plurals, grammar codes, numbers, labels, durations"
     "Осталось 21 |4заряд:заряда:зарядов; и 5 |4минута:минуты:минут;",
     "Требуется |3-6(Кузнечный молот)",
     "1 сек. |4восстановление:восстановления;",
-    "A plain line: 5 charges",
+    "A plain line: 5 charges"
   ]) {
     Test.note(`${line} -> ${grammar(line)}`)
   }

@@ -17,7 +17,7 @@ const PLAYER = "Player-1-00000001"
 function professions(): Array<Game.Profession> {
   return [
     { skillLine: SMITHING, name: "Blacksmithing", icon: "Interface/Icons/Trade_BlackSmithing", rank: 150, max: 300, kind: .Crafting },
-    { skillLine: MINING, name: "Mining", icon: "Interface/Icons/Trade_Mining", rank: 75, max: 300, kind: .Gathering },
+    { skillLine: MINING, name: "Mining", icon: "Interface/Icons/Trade_Mining", rank: 75, max: 300, kind: .Gathering }
   ]
 }
 
@@ -131,7 +131,7 @@ test "the player's auctions are recorded while the house is open, and an empty l
   Game.ownedAuctions.list = [
     { auction: 1, item: 2840, quantity: 20, buyout: 5000, sold: false, left: nil },
     { auction: 2, item: 2840, quantity: 5, buyout: 900, sold: false, left: nil },
-    { auction: 3, item: 2841, quantity: 1, buyout: 100, sold: true, left: nil },
+    { auction: 3, item: 2841, quantity: 1, buyout: 100, sold: true, left: nil }
   ]
   Test.flush()
   const held = Alts.holders(ItemId.of(2840))[1] ?? panic("auctioned")
