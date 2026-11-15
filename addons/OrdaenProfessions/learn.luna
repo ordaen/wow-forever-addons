@@ -26,7 +26,7 @@ public function learnedFrom(known: Map<String, Taught>, services: Array<Game.Tra
 
 // The skill a recipe not learned is ordered by: the one a trainer teaches it from where one was met, else the one it
 // turns yellow at (the nearest the client's table tells); one with neither last.
-public function learnSkillOf(taught: Taught | nil, yellow: Integer | nil): Integer {
+public function learnSkillOf(taught: Taught | nil, yellow: Integer | nil): Number {
   if (taught != nil) { return taught.skill }
-  return yellow ?? 1000
+  return yellow ?? Number.huge
 }
