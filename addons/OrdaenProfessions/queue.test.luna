@@ -542,6 +542,7 @@ test "a line taken out takes its reagents from the list; the next reagent stands
   create("Bolt of Linen Cloth", 1)
   window().button("Queue (2)").click()
   Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 5 | 3 | 2 | —"))
+  Test.expect(window().box(BOLT_ICON).shown())
   window().text("Linen Cloak").item().button("x").click()
   Test.expect(!window().text("Coarse Thread").shown() && !window().box(BOLT_ICON).shown())
   Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 2 | 4 | -"))
@@ -657,4 +658,23 @@ test "a line's count stops at 999: «Create» of more with nothing ahead makes 9
   window().button("Create").click()
   window().button("Queue (1)").click()
   Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 999 | + | x"))
+}
+
+test "a reagent two recipes need that the bags hold all of is missing none" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  // The cloak and the bandage take a thread each; five are held.
+  Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => {
+    if (id == CLOAK || id == 3275) { return [{ itemID: 2320, name: "Coarse Thread", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 5, need: 1 }] }
+    return []
+  }
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  window().button("Camp").click()
+  create("Linen Bandage", 1)
+  window().button("Queue (2)").click()
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 2 | 5 | -"))
 }

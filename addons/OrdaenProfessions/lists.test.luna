@@ -687,6 +687,7 @@ test "the reagents with prices off: each with have / need, red where the bags ho
   // The woolen bag's wool has an icon of its own.
   Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => {
     if (id == 121) { return [{ itemID: 2997, name: "Bolt of Woolen Cloth", icon: WOOL_ICON, have: 0, need: 3 }] }
+    if (id == 120) { return [reagent("Bolt of Linen Cloth", 2589, 3, 3)] }
     return reagents(id)
   }
   Test.mount(nil, SCREEN)
@@ -699,6 +700,9 @@ test "the reagents with prices off: each with have / need, red where the bags ho
   window().button("Bags").click()
   Test.expect(chosen() == "Woolen Bag" && reads(window().text("Bolt of Woolen Cloth").item(), "Bolt of Woolen Cloth | 0 / 3"))
   Test.expect(window().text("0 / 3").textColor().equal(RED) && window().box(WOOL_ICON).shown())
+  // Just as many as it takes: not short.
+  window().text("Linen Bag").click()
+  Test.expect(window().text("3 / 3").textColor().equal(Color.hex("#e8dcc4")))
 }
 
 // Favorites and tracked
