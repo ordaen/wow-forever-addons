@@ -319,6 +319,36 @@ test "the cursor on a cell that names a term opens the term beside it, under the
   Test.expect(Test.cursor() == HELP)
 }
 
+// A player of a side, on the screen: their tooltip names the side.
+function sided(faction: String): Game.UnitInfo {
+  return {
+    name: "Varian", player: true, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 60,
+    faction: faction, sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false,
+    classification: "normal"
+  }
+}
+
+test "a player's side opens its term: the Alliance's, the Horde's, and none for a side Ordaen doesn't know" {
+  let faction = "Alliance"
+  Game.units.of = (unit: String): Game.UnitInfo | nil => sided(faction)
+  Test.mount(new Elsewhere(), SCREEN)
+  for (side of ["Alliance", "Horde"]) {
+    faction = side
+    Game.tooltip.main = inSlot({ kind: 2, about: side, lines: [{ left: "Varian", kind: 2, unit: "mouseover" }] })
+    Test.pass(CHARGED)
+    Game.tooltip.main = hidden()
+    locked().text(side).hover()
+    Test.expect(reads(Test.page().window(`Faction: ${side}.`), `${side} | Faction: ${side}.`))
+    locked().button(CLOSE).click()
+  }
+  faction = "Neutral"
+  Game.tooltip.main = inSlot({ kind: 2, about: "Neutral", lines: [{ left: "Varian", kind: 2, unit: "mouseover" }] })
+  Test.pass(CHARGED)
+  Game.tooltip.main = hidden()
+  locked().text("Neutral").hover()
+  Test.expect(Test.surfaces().length == 1)
+}
+
 test "the cursor off the cell takes its term away and keeps the lock" {
   Test.mount(new Elsewhere(), SCREEN)
   Game.tooltip.main = inSlot(frostbolt())
