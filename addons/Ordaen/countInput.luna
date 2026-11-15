@@ -22,8 +22,10 @@ const FILL: Color = Color.hex("#00000080")
 const EDGE: Line = { width: 1 * PX, color: Color.hex("#3e2f1d") }
 const BAD: Line = { width: 1 * PX, color: Color.hex("#c0463c") }
 const PADDING: Edges = { right: 10 * PX, left: 10 * PX }
-// The −, the number in the room of three digits, the +.
-const STEPS: Array<Track> = ["auto", 22 * PX, "auto"]
+// The −, the number, the +. The number's room is as wide as its digits as the font draws them, two at least: it
+// widens past them for a third.
+const STEPS: Array<Track> = ["auto", "auto", "auto"]
+const NUMBER_ROOM = 22 * PX
 const DIGITS = 6
 
 // `value` held between `least` and `most`; the least where the most is under it.
@@ -137,7 +139,7 @@ public class CountInput implements Component {
       <box $if={self.stepped} columns={STEPS} gap={6 * PX} yAlign={Align.Center}>
         <PushButton label={"-"} width={self.step} disabled={!self.fewer} repeats={true} tip={FEWER_TIP}
                     @click={self.less} />
-        <box xAlign={Align.Center}>
+        <box xAlign={Align.Center} minWidth={NUMBER_ROOM}>
           <text value={"%d"} arguments={[self.value]} textColor={WHITE}
                 textFont={.Numbers} wrap={false} />
         </box>

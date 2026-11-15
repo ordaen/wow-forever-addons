@@ -168,3 +168,28 @@ test "− and + under the cursor name their keys: a click, Shift, Alt, and holdi
   Test.shot("the cursor away: no Tip")
   destroy page
 }
+
+// Steps alone, near the most a count takes in three digits.
+class Steps {
+  state count = 98
+  state most = 999
+
+  public render(self): Template {
+    return $ltml {
+      <box xAlign={Align.Start}>
+        <CountInput value={mut self.count} least={1} most={self.most} />
+      </box>
+    }
+  }
+}
+
+test "three digits stand inside the number's room between − and +" {
+  let page = new Steps()
+  Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
+  Test.page().button("+").click()
+  Test.page().button("+").click()
+  Test.expect(Test.page().text("100").shown())
+  page.count = 998
+  Test.page().button("+").click()
+  Test.expect(Test.page().text("999").shown() && page.count == 999)
+}
