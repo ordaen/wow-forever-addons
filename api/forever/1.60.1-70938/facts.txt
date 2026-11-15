@@ -1,0 +1,32 @@
+ATTACHMENTS_MAX_RECEIVE	16
+C_ActionBar.GetExtraBarIndex	{"1":34}
+C_ActionBar.GetMultiCastBarIndex	{"1":12}
+C_ActionBar.GetOverrideBarIndex	{"1":33}
+C_ActionBar.GetTempShapeshiftBarIndex	{"1":32}
+C_ActionBar.GetVehicleBarIndex	{"1":31}
+C_AuctionHouse at login	"table"
+C_Bank.FetchPurchasedBankTabData	{"FetchPurchasedBankTabData":true}
+C_EncodingUtil's functions	{"CompressString":true,"DecodeBase64":true,"DecompressString":true,"DeserializeCBOR":true,"EncodeBase64":true,"SerializeCBOR":true}
+C_Item.GetItemInfoInstant of Linen Cloth	{"1":2589,"2":"Хозяйственные товары","3":"Ткань","4":"INVTYPE_NON_EQUIP_IGNORE","5":132889,"6":7,"7":5}
+C_SpecializationInfo.GetSpecialization	{"1":1}
+ChatFrameUtil's functions	{"InsertLink":true,"OpenChat":true}
+GetBuildInfo	{"1":"1.60.1","2":"70938","3":"Nov 12 2026","4":16001,"5":"","6":" "}
+GetKeyRingSize	{"1":4}
+GetServerTime less time()	0
+IsObjectType of ChatFrame1	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of GameTooltip	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of Minimap	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of UIParent	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of WorldFrame	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of a Button	{"button":true,"own":true,"zero":"userdata"}
+IsObjectType of a CheckButton	{"button":true,"own":true,"zero":"userdata"}
+IsObjectType of a Cooldown	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of a Frame	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of a GameTooltip	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of a Model	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of a ScrollFrame	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of a Slider	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of a StatusBar	{"button":false,"own":true,"zero":"userdata"}
+IsObjectType of an EditBox	{"button":false,"own":true,"zero":"userdata"}
+bit's functions	{"arshift":true,"band":true,"bnot":true,"bor":true,"bxor":true,"lshift":true,"rshift":true}
+bit.band of the top bit	2147483648
