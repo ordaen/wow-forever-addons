@@ -11,7 +11,7 @@ public const DIM: Color = Color.hex("#a3977f")
 public const GOLD: Color = Color.hex("#ffd100")
 public const RED: Color = Color.hex("#ff4040")
 public const GREEN: Color = Color.hex("#40d060")
-// A character the playing one can't send to, and one not played for a long time.
+// The name of a character the playing one can't send to (one not played for a long time has its hours in red).
 public const AWAY: Color = Color.hex("#7a7060")
 
 // How long ago, from a number of hours: under a day in hours, then in days.

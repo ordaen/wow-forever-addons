@@ -85,5 +85,6 @@ public const MOST_CHARACTERS = 40
 // refused, as the seam's fault.
 public const MOST_RECIPES = 1500
 public const MOST_ITEMS = 1000
-// Hours unseen after which the window marks a character (90 days): it is never dropped unasked.
+// Hours unseen after which the window marks a character (90 days): marked, it stays until the player forgets it or
+// it is the one played longest ago past the most characters.
 public const STALE: Integer = 90 * 24
