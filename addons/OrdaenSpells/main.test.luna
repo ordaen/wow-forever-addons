@@ -1,18 +1,32 @@
-// The windows on the stand-in game: the spellbook with its tabs and a search, the talents with the trees given to it,
-// and the class trainer with a service picked. The root is drawn on the screen as Ordaen draws it.
+// The spellbook and the trainer as the player meets them: `/spellbook` or the game's own spellbook window opens ours,
+// its tabs list the spells and the talents of each spec, and the class trainer's window shows while the game's trainer
+// is open. The root is drawn on the screen as Ordaen draws it; what the player asks of the game is heard as the fake
+// game's requests.
 import Client from "$client"
 import Game from "$game"
-import { Art, MouseButton } from "$ltml"
+import { Art } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import root Spells from "OrdaenSpells"
-import { SortBy, SpellbookPage } from "@/spellbook"
-import { Order, Show, TrainerPage } from "@/trainer"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
-const AREA: Test.Page = { left: 20, top: 20, width: 800, height: 560 }
 const ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
+// A text the spellbook window always shows: its third tab.
+const BOOK = "Secondary"
+// A text the trainer's window always shows.
+const TRAINER = "Your money"
+const SWORD: Asset = "Interface/Icons/INV_Sword_04"
+// The colours a text or a box is to be drawn in.
+const INK: Color = Color.hex("#e8dcc4")
+const DIM: Color = Color.hex("#a3977f")
+const GOLD: Color = Color.hex("#ffd100")
+const RED: Color = Color.hex("#ff4040")
+const GREEN: Color = Color.hex("#40d060")
+// An arrow of a tree that leads to a talent with no rank.
+const LINE: Color = Color.hex("#4a3a24")
+// A service's row: picked, and not.
+const PICKED: Color = Color.hex("#ffd10026")
+const BACK: Color = Color.hex("#00000066")
 
 function lines(): Array<Game.SpellLine> {
   return [{ index: 1, name: "General" }, { index: 2, name: "Warrior" }, { index: 3, name: "Arms" }]
@@ -28,191 +42,960 @@ function spells(): Array<Game.SpellEntry> {
   ]
 }
 
-test "the spellbook lists every spell with its skill line, kind and level" {
-  Test.mount(nil, PAGE)
-  Spells.spells = spells()
-  Spells.lines = lines()
-  Spells.open = true
-  Test.flush()
-  Test.shot("all spells, by name")
-  Spells.tab = 1
-  Test.flush()
-  Test.expect(Spells.spells.length == 5)
-}
-
-test "the talents tab draws the trees of the game, and a click spends, refunds, applies or cancels" {
-  Test.mount(nil, PAGE)
-  Spells.open = true
-  Spells.tab = 2
-  Test.flush()
-  Test.shot("no trees: it says so")
-  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => {
+// The trees of a spec: the first spec's two, the second's one.
+function trees(group: Integer): Array<Game.TalentTree> {
+  if (group == 2) {
     return [
       {
-        id: 1, name: "Arms",
-        nodes: [
-          {
-            id: 10, x: 0, y: 0, name: "Deflection", icon: ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true,
-            edges: [11]
-          },
-          { id: 11, x: 600, y: 600, name: "Tactical Mastery", icon: ICON, rank: 0, ranks: 3, canSpend: false, canRefund: false, edges: [] }
-        ]
-      },
-      {
-        id: 2, name: "Fury",
-        nodes: [{ id: 20, x: 0, y: 0, name: "Booming Voice", icon: ICON, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }]
+        id: 3, name: "Protection",
+        nodes: [{ id: 30, x: 0, y: 0, name: "Shield Wall", icon: ICON, rank: 1, ranks: 2, canSpend: true, canRefund: true, edges: [] }]
       }
     ]
   }
-  Game.talentTrees.unspent = (group: Integer): Integer => 3
-  Game.talentTrees.staged = (): Boolean => true
-  Spells.refreshTalents()
-  Test.flush()
-  Test.shot("two trees with their nodes where the client puts them, three points left")
-  Test.click(Test.holding("2/5", nil), nil)
-  Test.click(Test.holding("2/5", nil), MouseButton.Right)
-  Test.click(Test.holding("Apply changes", nil), nil)
-  Test.click(Test.holding("Cancel changes", nil), nil)
-  Test.shot("what was asked of the game")
-  Spells.tab = 3
-  Test.flush()
-  Test.click(Test.holding("Activate", nil), nil)
-  Test.shot("the second spec: Activate asks the game to switch")
+  return [
+    {
+      id: 1, name: "Arms",
+      nodes: [
+        { id: 10, x: 0, y: 0, name: "Deflection", icon: ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true, edges: [11] },
+        { id: 11, x: 600, y: 600, name: "Tactical Mastery", icon: ICON, rank: 0, ranks: 3, canSpend: false, canRefund: false, edges: [] }
+      ]
+    },
+    {
+      id: 2, name: "Fury",
+      nodes: [{ id: 20, x: 0, y: 0, name: "Booming Voice", icon: ICON, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }]
+    }
+  ]
 }
 
-test "the class trainer lists its services and a click shows one's card" {
-  Test.mount(nil, PAGE)
-  Game.money.amount = 5000
-  Spells.services = [
+function services(): Array<Game.TrainerService> {
+  return [
     {
-      index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Game.ServiceStatus.Available, level: 8, cost: 400,
+      index: 1, name: "Heroic Strike", rank: "Rank 3", icon: SWORD, status: Game.ServiceStatus.Available, level: 8, cost: 400,
       description: "A strong attack."
     },
     {
       index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Game.ServiceStatus.Unavailable, level: 50, cost: 90000,
       description: "Charge an enemy."
     },
-    { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Game.ServiceStatus.Learned, level: 4, cost: 0, description: "" }
-  ]
-  Game.trainer.open = true
-  Test.flush()
-  Test.shot("three services: nothing picked")
-  Test.click(Test.holding("Heroic Strike (Rank 3)", nil), nil)
-  Test.shot("one picked: its card, the price and the disabled button")
-}
-
-test "a skill line's tab, the search and each sort order the spellbook's list" {
-  const fixture = new Fixture()
-  const page = new SpellbookPage(fixture.spells, fixture.lines)
-  Test.mount(page, AREA)
-  Test.flush()
-  Test.expect(page.shown.length == 5)
-  Test.expect(page.shown[1]?.name == "Find Treasure")
-  page.list.values.sort = SortBy.Level
-  Test.expect(page.shown[1]?.name == "Find Treasure" && page.shown[5]?.name == "Mortal Strike")
-  page.list.values.sort = SortBy.Active
-  Test.expect(page.shown[5]?.name == "Parry")
-  page.tab = 3
-  Test.expect(page.shown.length == 3)
-  page.search = "rend"
-  Test.expect(page.shown.length == 1 && page.shown[1]?.name == "Rend")
-  Test.flush()
-  Test.shot("the Warrior tab narrowed by a search")
-}
-
-test "the trainer's filter, sort and search narrow its services" {
-  const fixture = new Fixture()
-  const page = new TrainerPage(fixture.services, fixture.level)
-  Test.mount(page, AREA)
-  Test.flush()
-  Test.expect(page.shown.length == 3)
-  page.list.values.show = Show.Available
-  Test.expect(page.shown.length == 1)
-  page.list.values.show = Show.Unavailable
-  Test.expect(page.shown.length == 1 && page.shown[1]?.name == "Charge")
-  page.list.values.show = Show.Learned
-  Test.expect(page.shown.length == 1 && page.shown[1]?.name == "Rend")
-  page.list.values.show = Show.All
-  page.list.values.order = Order.Price
-  Test.expect(page.shown[1]?.name == "Rend" && page.shown[3]?.name == "Charge")
-  page.search = "heroic"
-  Test.expect(page.shown.length == 1)
-}
-
-// The cells a page under test is given.
-class Fixture {
-  state spells: Array<Game.SpellEntry> = spells()
-  state lines: Array<Game.SpellLine> = lines()
-  state level = 20
-  state services: Array<Game.TrainerService> = [
     {
-      index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Game.ServiceStatus.Available, level: 8, cost: 400,
-      description: ""
-    },
-    {
-      index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Game.ServiceStatus.Unavailable, level: 50, cost: 90000,
-      description: ""
-    },
-    { index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Game.ServiceStatus.Learned, level: 4, cost: 0, description: "" }
+      index: 3, name: "Rend", rank: "Rank 1", icon: nil, status: Game.ServiceStatus.Learned, level: 4, cost: 0,
+      description: "Wounds the target."
+    }
   ]
 }
 
-// The choice picked from a toolbar button's list: the button by the glyph it shows, then the choice.
-function pickFrom(button: Art, choice: String) {
-  Test.click(Test.painted(button, nil), nil)
-  Test.click(Test.holding(choice, nil), nil)
+// Whether a text is drawn in this colour.
+function drawnIn(part: Test.Part, color: Color): Boolean {
+  const ink = part.textColor()
+  return (ink.r * 255).round() == (color.r * 255).round() &&
+    (ink.g * 255).round() == (color.g * 255).round() &&
+    (ink.b * 255).round() == (color.b * 255).round() &&
+    (ink.a * 255).round() == (color.a * 255).round()
 }
 
-test "the sort and the filter buttons are clicked and the lists follow" {
-  Test.mount(nil, PAGE)
-  Spells.spells = spells()
-  Spells.lines = lines()
-  Spells.open = true
-  Game.trainer.services = (): Array<Game.TrainerService> => {
-    return [
-      {
-        index: 1, name: "Heroic Strike", rank: "Rank 3", icon: nil, status: Game.ServiceStatus.Available, level: 8,
-        cost: 400, description: "A strong attack."
-      },
-      {
-        index: 2, name: "Charge", rank: "Rank 2", icon: nil, status: Game.ServiceStatus.Unavailable, level: 50,
-        cost: 90000, description: ""
-      }
-    ]
+// Whether every text is shown in the part, each drawn after the one before it.
+function inOrder(part: Test.Part, wanted: Array<String>): Boolean {
+  const texts = part.texts()
+  let at = 0
+  for (text of wanted) {
+    let found = 0
+    for (i, shown of texts) {
+      if (shown == text && i > at && found == 0) { found = i }
+    }
+    if (found == 0) { return false }
+    at = found
   }
-  Test.flush()
-  pickFrom(Ordaen.art.ctl.tool.sort, "By level")
-  Test.shot("the spells by level")
-  Spells.open = false
-  Game.trainer.open = true
-  Game.trainer.changed.emit()
-  Test.flush()
-  pickFrom(Ordaen.art.ctl.tool.sort, "By price")
-  Test.shot("the services by price")
-  pickFrom(Ordaen.art.ctl.tool.filter, "Unavailable")
-  Test.shot("the services narrowed to the unavailable")
+  return true
 }
 
-test "the game's spellbook window opens ours, and one the game makes again does too" {
+// A choice picked from a toolbar button's list: the button by the glyph it shows, then the choice in its list.
+function pick(window: Test.Part, button: Art, among: String, choice: String) {
+  window.button(button).click()
+  Test.page().window(among).button(choice).click()
+}
+
+// The spellbook opened by its command.
+function book(): Test.Part {
+  Test.open("/spellbook")
+  return Test.page().window(BOOK)
+}
+
+// The spellbook window
+
+test "the spellbook window opens with its command" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  Test.expect(!Test.page().window(BOOK).shown())
+  Test.expect(book().text("Heroic Strike (Rank 2)").shown())
+}
+
+test "the command again closes the spellbook window" {
+  Test.mount(nil, PAGE)
+  const window = book()
+  Test.open("/spellbook")
+  Test.expect(!window.shown())
+}
+
+test "the spellbook window's close button closes it" {
+  Test.mount(nil, PAGE)
+  const window = book()
+  window.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!window.shown())
+}
+
+test "the spellbook reads the game's spells each time it opens" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  Test.open("/spellbook")
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 6673, name: "Battle Shout", rank: "", icon: ICON, level: 1, passive: false, line: 2 }
+  ]
+  Test.open("/spellbook")
+  Test.expect(window.text("Battle Shout").shown())
+  Test.expect(!window.text("Rend (Rank 1)").shown())
+}
+
+test "the game is asked for its words on spells and talents while the spellbook shows, and no longer once it closes" {
+  Test.mount(nil, PAGE)
+  _ = Test.requests()
+  Test.expect(book().shown())
+  const opened = Test.requests()
+  Test.expect(opened.any(r => r == "Spellbook.watch true") && opened.any(r => r == "TalentTrees.watch true"))
+  Test.open("/spellbook")
+  const closed = Test.requests()
+  Test.expect(closed.any(r => r == "Spellbook.watch false") && closed.any(r => r == "TalentTrees.watch false"))
+}
+
+test "the game's spellbook window opens ours, and closes it as it hides" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  Test.clientFrames()
+  const found = Runtime.frame("PlayerSpellsFrame") ?? panic("the client has its spellbook window")
+  const game: any Client.Frame = found
+  Game.frames.PlayerSpells = game
+  const window = Test.page().window(BOOK)
+  Test.expect(!window.shown())
+  game.Show()
+  Test.expect(window.text("Rend (Rank 1)").shown())
+  game.Hide()
+  Test.expect(!window.shown())
+}
+
+test "the game's spellbook window is kept out of sight while ours stands in its place" {
   Test.mount(nil, PAGE)
   Test.clientFrames()
   const found = Runtime.frame("PlayerSpellsFrame") ?? panic("the client has its spellbook window")
-  const first: any Client.Frame = found
-  Game.frames.PlayerSpells = first
-  Test.flush()
-  Test.expect(!Spells.open)
-  first.Show()
-  Test.flush()
-  Test.expect(Spells.open && Spells.gameShown)
-  Test.shot("the game's window shown: ours stands in its place")
-  first.Hide()
-  Test.flush()
-  Test.expect(!Spells.open && !Spells.gameShown)
+  const game: any Client.Frame = found
+  Game.frames.PlayerSpells = game
+  game.Show()
+  Test.expect(Test.page().window(BOOK).shown())
+  Test.expect(game.GetAlpha() == 0)
+}
+
+test "a spellbook window the game makes again opens ours too" {
+  Test.mount(nil, PAGE)
+  Test.clientFrames()
+  const found = Runtime.frame("PlayerSpellsFrame") ?? panic("the client has its spellbook window")
+  Game.frames.PlayerSpells = found
   const second = Client.CreateFrame("Frame", "PlayerSpellsFrameAgain", Client.UIParent, nil)
   second.Hide()
   Game.frames.PlayerSpells = second
-  Test.flush()
+  const window = Test.page().window(BOOK)
+  Test.expect(!window.shown())
   second.Show()
-  Test.flush()
-  Test.expect(Spells.open)
+  Test.expect(window.shown())
+}
+
+test "the game's spellbook window already shown when it is named opens ours" {
+  Test.mount(nil, PAGE)
+  Test.clientFrames()
+  const shown = Client.CreateFrame("Frame", "PlayerSpellsFrameShown", Client.UIParent, nil)
+  shown.Show()
+  Game.frames.PlayerSpells = shown
+  Test.expect(Test.page().window(BOOK).shown())
+}
+
+// The spells
+
+test "each spell's row shows its name and rank, its skill line, its kind and the level it was learned at" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  Test.expect(window.text("Heroic Strike (Rank 2)").item().texts().join(" | ") == "Heroic Strike (Rank 2) | Warrior. Active. Level 8")
+  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Warrior. Passive. Level 6")
+  Test.expect(window.text("Find Treasure").item().texts().join(" | ") == "Find Treasure | General. Active. Level 1")
+  Test.expect(window.text("Mortal Strike").item().texts().join(" | ") == "Mortal Strike | Arms. Active. Level 40")
+}
+
+test "each spell's row shows its icon" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 78, name: "Heroic Strike", rank: "", icon: SWORD, level: 8, passive: false, line: 2 },
+    { id: 772, name: "Rend", rank: "", icon: ICON, level: 4, passive: false, line: 2 }
+  ]
+  const window = book()
+  Test.expect(window.text("Heroic Strike").item().paintedWith(SWORD))
+  Test.expect(!window.text("Rend").item().paintedWith(SWORD))
+}
+
+test "a spell learned at a new rank shows it in the open spellbook when the game's spellbook is opened" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  Test.clientFrames()
+  const game = Client.CreateFrame("Frame", "PlayerSpellsFrameLater", Client.UIParent, nil)
+  game.Hide()
+  Game.frames.PlayerSpells = game
+  const window = book()
+  Test.expect(window.text("Heroic Strike (Rank 2)").shown())
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 78, name: "Heroic Strike", rank: "Rank 3", icon: SWORD, level: 16, passive: false, line: 2 }
+  ]
+  game.Show()
+  const row = window.text("Heroic Strike (Rank 3)").item()
+  Test.expect(row.texts().join(" | ") == "Heroic Strike (Rank 3) | Warrior. Active. Level 16")
+  Test.expect(row.paintedWith(SWORD))
+}
+
+test "a spell's name is drawn in ink and its detail dim" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const row = book().text("Parry").item()
+  Test.expect(drawnIn(row.text("Parry"), INK))
+  Test.expect(drawnIn(row.text("Warrior. Passive. Level 6"), DIM))
+}
+
+test "the spellbook has a tab for all spells and one per skill line" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  Test.expect(inOrder(book(), ["All", "General", "Warrior", "Arms"]))
+}
+
+test "the spells stand by name at first" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  Test.expect(inOrder(book(), ["Find Treasure", "Heroic Strike (Rank 2)", "Mortal Strike", "Parry", "Rend (Rank 1)"]))
+}
+
+test "a skill line's tab shows the spells of that line alone" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  window.button("Warrior").click()
+  Test.expect(window.text("Heroic Strike (Rank 2)").shown() && window.text("Parry").shown() && window.text("Rend (Rank 1)").shown())
+  Test.expect(!window.text("Mortal Strike").shown() && !window.text("Find Treasure").shown())
+}
+
+test "the All tab shows the spells of every skill line again" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  window.button("Warrior").click()
+  window.button("All").click()
+  Test.expect(window.text("Mortal Strike").shown() && window.text("Find Treasure").shown() && window.text("Parry").shown())
+}
+
+test "the search keeps the spells whose names hold it, in any case" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  window.input().type("STRIKE")
+  Test.expect(window.text("Heroic Strike (Rank 2)").shown() && window.text("Mortal Strike").shown())
+  Test.expect(!window.text("Parry").shown() && !window.text("Find Treasure").shown())
+}
+
+test "the search narrows the skill line's tab it is typed in" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  window.button("Warrior").click()
+  window.input().type("strike")
+  Test.expect(window.text("Heroic Strike (Rank 2)").shown())
+  Test.expect(!window.text("Mortal Strike").shown())
+}
+
+test "a search nothing matches says nothing was found" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  Test.expect(!window.text("Nothing found.").shown())
+  window.input().type("fireball")
+  Test.expect(window.text("Nothing found.").shown())
+}
+
+test "sorted by level, the spells learned first stand first" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  pick(window, Ordaen.art.ctl.tool.sort, "Active first", "By level")
+  Test.expect(inOrder(window, ["Find Treasure", "Rend (Rank 1)", "Parry", "Heroic Strike (Rank 2)", "Mortal Strike"]))
+}
+
+test "sorted active first, the passive spells stand last" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  pick(window, Ordaen.art.ctl.tool.sort, "Active first", "Active first")
+  Test.expect(inOrder(window, ["Find Treasure", "Heroic Strike (Rank 2)", "Mortal Strike", "Rend (Rank 1)", "Parry"]))
+}
+
+test "two ranks of one spell stand by the level each is learned at" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 6547, name: "Rend", rank: "", icon: ICON, level: 10, passive: false, line: 2 },
+    { id: 772, name: "Rend", rank: "", icon: ICON, level: 4, passive: false, line: 2 }
+  ]
+  Test.expect(inOrder(book(), ["Warrior. Active. Level 4", "Warrior. Active. Level 10"]))
+}
+
+test "the spellbook's sort is kept when it opens again" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  pick(window, Ordaen.art.ctl.tool.sort, "Active first", "By level")
+  Test.open("/spellbook")
+  Test.open("/spellbook")
+  Test.expect(inOrder(window, ["Find Treasure", "Rend (Rank 1)", "Parry", "Heroic Strike (Rank 2)", "Mortal Strike"]))
+}
+
+// The talents
+
+test "a spec's tab shows its talent trees, each with the points spent in it" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = book()
+  window.button("Primary").click()
+  Test.expect(window.text("Arms: 2").shown() && window.text("Fury: 5").shown())
+  Test.expect(!window.text("Protection: 1").shown())
+}
+
+test "the second spec's tab shows that spec's trees" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = book()
+  window.button(BOOK).click()
+  Test.expect(window.text("Protection: 1").shown())
+  Test.expect(!window.text("Arms: 2").shown())
+}
+
+test "each talent says its rank of its ranks" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = book()
+  window.button("Primary").click()
+  Test.expect(window.button("2/5").shown() && window.button("0/3").shown() && window.button("5/5").shown())
+}
+
+test "a talent's rank is gold when full, green where a point may go, and dim where none may" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = book()
+  window.button("Primary").click()
+  Test.expect(drawnIn(window.text("5/5"), GOLD))
+  Test.expect(drawnIn(window.text("2/5"), GREEN))
+  Test.expect(drawnIn(window.text("0/3"), DIM))
+}
+
+test "a tree's arrow is gold where the talent it leads to has a rank" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+    {
+      id: 1, name: "Arms",
+      nodes: [
+        { id: 10, x: 0, y: 0, name: "Deflection", icon: ICON, rank: 2, ranks: 5, canSpend: true, canRefund: true, edges: [11] },
+        { id: 11, x: 0, y: 600, name: "Tactical Mastery", icon: ICON, rank: 1, ranks: 3, canSpend: true, canRefund: true, edges: [] }
+      ]
+    }
+  ]
+  const window = book()
+  window.button("Primary").click()
+  Test.expect(window.box(GOLD).shown())
+}
+
+test "a tree's arrow is drawn in the line's colour where the talent it leads to has no rank" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = book()
+  window.button("Primary").click()
+  Test.expect(!window.box(GOLD).shown())
+  Test.expect(window.box(LINE).count() == 2)
+}
+
+test "the talents say the points left to spend" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  Game.talentTrees.unspent = (group: Integer): Integer => group == 1 ? 3 : 7
+  const window = book()
+  window.button("Primary").click()
+  Test.expect(window.text("Talent points: 3").shown())
+  window.button(BOOK).click()
+  Test.expect(window.text("Talent points: 7").shown())
+}
+
+test "a spec with no trees says the talents are not available" {
+  Test.mount(nil, PAGE)
+  const window = book()
+  window.button("Primary").click()
+  Test.expect(window.text("The talents are not available.").shown())
+}
+
+test "the talents follow the trees the game reports while the spellbook shows" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = book()
+  window.button("Primary").click()
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+    {
+      id: 1, name: "Arms",
+      nodes: [{ id: 10, x: 0, y: 0, name: "Deflection", icon: SWORD, rank: 3, ranks: 5, canSpend: true, canRefund: true, edges: [] }]
+    }
+  ]
+  Game.talentTrees.changed.emit()
+  Test.expect(window.text("Arms: 3").shown() && window.button("3/5").shown())
+  Test.expect(window.button("3/5").paintedWith(SWORD))
+}
+
+test "a talent filled to its last rank turns gold" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = book()
+  window.button("Primary").click()
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => [
+    {
+      id: 1, name: "Arms",
+      nodes: [{ id: 10, x: 0, y: 0, name: "Deflection", icon: ICON, rank: 5, ranks: 5, canSpend: false, canRefund: true, edges: [] }]
+    }
+  ]
+  Game.talentTrees.changed.emit()
+  Test.expect(drawnIn(window.text("5/5"), GOLD))
+}
+
+test "the talents are read again each time the spellbook opens" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = Test.page().window("Primary")
+  _ = book()
+  window.button("Primary").click()
+  Test.open("/spellbook")
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => []
+  Test.open("/spellbook")
+  Test.expect(window.text("The talents are not available.").shown())
+}
+
+test "the spells tab asks the game for no talent tree" {
+  Test.mount(nil, PAGE)
+  let asked = 0
+  Game.talentTrees.trees = (group: Integer): Array<Game.TalentTree> => {
+    if (group < 1) { asked += 1 }
+    return []
+  }
+  Test.expect(book().button("All").shown())
+  Test.expect(asked == 0)
+}
+
+test "with points staged, Apply changes stands out from Cancel changes" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  Game.talentTrees.staged = (): Boolean => true
+  const window = book()
+  window.button("Primary").click()
+  Test.expect(window.button("Apply changes").paintedWith(Ordaen.art.ctl.buttonAccent))
+  Test.expect(!window.button("Cancel changes").paintedWith(Ordaen.art.ctl.buttonAccent))
+}
+
+test "a click on a talent spends a point in it" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = book()
+  window.button("Primary").click()
+  _ = Test.requests()
+  window.button("2/5").click()
+  Test.expect(Test.requests().any(r => r == "TalentTrees.spend 10"))
+}
+
+test "a right-click on a talent takes a point back" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = book()
+  window.button("Primary").click()
+  _ = Test.requests()
+  window.button("2/5").rightClick()
+  const asked = Test.requests()
+  Test.expect(asked.any(r => r == "TalentTrees.refund 10"))
+  Test.expect(!asked.any(r => r == "TalentTrees.spend 10"))
+}
+
+test "with points staged, Apply changes applies them" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  Game.talentTrees.staged = (): Boolean => true
+  const window = book()
+  window.button("Primary").click()
+  _ = Test.requests()
+  window.button("Apply changes").click()
+  Test.expect(Test.requests().any(r => r == "TalentTrees.commit"))
+}
+
+test "with points staged, Cancel changes takes them back" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  Game.talentTrees.staged = (): Boolean => true
+  const window = book()
+  window.button("Primary").click()
+  _ = Test.requests()
+  window.button("Cancel changes").click()
+  Test.expect(Test.requests().any(r => r == "TalentTrees.rollback"))
+}
+
+test "with no points staged, Apply changes and Cancel changes are switched off and ask nothing" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.trees = trees
+  const window = book()
+  window.button("Primary").click()
+  Test.expect(window.button("Apply changes").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  Test.expect(window.button("Cancel changes").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  _ = Test.requests()
+  window.button("Apply changes").click()
+  window.button("Cancel changes").click()
+  Test.expect(Test.requests().length == 0)
+}
+
+test "the active spec's tab offers no Activate" {
+  Test.mount(nil, PAGE)
+  const window = book()
+  window.button("Primary").click()
+  Test.expect(!window.button("Activate").shown())
+}
+
+test "the other spec's tab offers Activate, which asks the game to switch to it" {
+  Test.mount(nil, PAGE)
+  const window = book()
+  window.button(BOOK).click()
+  _ = Test.requests()
+  window.button("Activate").click()
+  Test.expect(Test.requests().any(r => r == "TalentTrees.activate 2"))
+}
+
+test "the other spec's points staged can't be applied until it is active" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.staged = (): Boolean => true
+  const window = book()
+  window.button(BOOK).click()
+  Test.expect(window.button("Apply changes").paintedWith(Ordaen.art.ctl.buttonDisabled))
+}
+
+test "the second spec's tab is the active one when the game says the player has it active" {
+  Test.mount(nil, PAGE)
+  Game.talentTrees.activeGroup = (): Integer => 2
+  const window = book()
+  window.button(BOOK).click()
+  Test.expect(!window.button("Activate").shown())
+  window.button("Primary").click()
+  Test.expect(window.button("Activate").shown())
+}
+
+// The trainer
+
+test "the trainer's window shows while the game's class trainer is open" {
+  Test.mount(nil, PAGE)
+  Test.expect(!Test.page().window(TRAINER).shown())
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(window.text("Heroic Strike (Rank 3)").shown())
+  Game.trainer.open = false
+  Test.expect(!window.shown())
+}
+
+test "the game is asked for its words on the trainer while the trainer's window shows" {
+  Test.mount(nil, PAGE)
+  _ = Test.requests()
+  Game.trainer.open = true
+  Test.expect(Test.page().window(TRAINER).shown())
+  Test.expect(Test.requests().any(r => r == "Trainer.watch true"))
+  Game.trainer.open = false
+  Test.expect(!Test.page().window(TRAINER).shown())
+  Test.expect(Test.requests().any(r => r == "Trainer.watch false"))
+}
+
+test "the trainer's window shut by the player stays shut, and shows again when the trainer speaks again" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!window.shown())
+  Game.trainer.changed.emit()
+  Test.expect(window.shown())
+}
+
+test "a trainer that teaches no class lists none of its services" {
+  Test.mount(nil, PAGE)
+  Game.trainer.teachesClass = (): Boolean => false
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Test.expect(!Test.page().text("Heroic Strike (Rank 3)").shown())
+}
+
+test "each service's row shows its name and rank, the level it needs and its price" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(window.text("Heroic Strike (Rank 3)").item().texts().join(" | ") == "Heroic Strike (Rank 3) | Requires level 8 | 0g 4s 0c")
+}
+
+test "a service learned for free shows no price" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(window.text("Rend (Rank 1)").item().texts().join(" | ") == "Rend (Rank 1) | Requires level 4")
+}
+
+test "a level the player hasn't reached is red, one reached dim" {
+  Test.mount(nil, PAGE)
+  Game.player.level = 20
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(drawnIn(window.text("Requires level 50"), RED))
+  Test.expect(drawnIn(window.text("Requires level 8"), DIM))
+}
+
+test "the level a service needs turns dim once the player reaches it" {
+  Test.mount(nil, PAGE)
+  Game.player.level = 20
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Game.player.level = 50
+  Test.expect(drawnIn(window.text("Requires level 50"), DIM))
+}
+
+test "the services stand by the level they need at first" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Test.expect(inOrder(Test.page().window(TRAINER), ["Rend (Rank 1)", "Heroic Strike (Rank 3)", "Charge (Rank 2)"]))
+}
+
+test "sorted by name, the services stand by name" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  pick(window, Ordaen.art.ctl.tool.sort, "By price", "By name")
+  Test.expect(inOrder(window, ["Charge (Rank 2)", "Heroic Strike (Rank 3)", "Rend (Rank 1)"]))
+}
+
+test "sorted by price, the cheapest services stand first" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  pick(window, Ordaen.art.ctl.tool.sort, "By price", "By price")
+  Test.expect(inOrder(window, ["Rend (Rank 1)", "Heroic Strike (Rank 3)", "Charge (Rank 2)"]))
+}
+
+test "services of one level, or of one price, stand by name" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = (): Array<Game.TrainerService> => [
+    { index: 1, name: "Rend", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 4, cost: 100, description: "" },
+    { index: 2, name: "Charge", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 4, cost: 100, description: "" }
+  ]
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(inOrder(window, ["Charge", "Rend"]))
+  pick(window, Ordaen.art.ctl.tool.sort, "By price", "By price")
+  Test.expect(inOrder(window, ["Charge", "Rend"]))
+}
+
+test "the filter keeps the services available, unavailable or learned" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "Available")
+  Test.expect(window.text("Heroic Strike (Rank 3)").shown() && !window.text("Charge (Rank 2)").shown() && !window.text("Rend (Rank 1)").shown())
+  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "Unavailable")
+  Test.expect(window.text("Charge (Rank 2)").shown() && !window.text("Heroic Strike (Rank 3)").shown() && !window.text("Rend (Rank 1)").shown())
+  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "Learned")
+  Test.expect(window.text("Rend (Rank 1)").shown() && !window.text("Heroic Strike (Rank 3)").shown() && !window.text("Charge (Rank 2)").shown())
+  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "All")
+  Test.expect(window.text("Rend (Rank 1)").shown() && window.text("Heroic Strike (Rank 3)").shown() && window.text("Charge (Rank 2)").shown())
+}
+
+test "the trainer's search keeps the services whose names hold it, in any case" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.input().type("HEROIC")
+  Test.expect(window.text("Heroic Strike (Rank 3)").shown() && !window.text("Charge (Rank 2)").shown())
+}
+
+test "a trainer's search nothing matches says nothing was found" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(!window.text("Nothing found.").shown())
+  window.input().type("fireball")
+  Test.expect(window.text("Nothing found.").shown())
+}
+
+test "the trainer's sort and filter are kept when it opens again" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  pick(window, Ordaen.art.ctl.tool.sort, "By price", "By name")
+  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "Available")
+  Game.trainer.open = false
+  Test.expect(!window.shown())
+  Game.trainer.open = true
+  Test.expect(!window.text("Charge (Rank 2)").shown())
+  pick(window, Ordaen.art.ctl.tool.filter, "Unavailable", "All")
+  Test.expect(inOrder(window, ["Charge (Rank 2)", "Heroic Strike (Rank 3)", "Rend (Rank 1)"]))
+}
+
+test "with nothing picked, the trainer asks for a pick and counts the services by what can be done with them" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = (): Array<Game.TrainerService> => [
+    { index: 1, name: "A", rank: "", icon: nil, status: Game.ServiceStatus.Available, level: 1, cost: 0, description: "" },
+    { index: 2, name: "B", rank: "", icon: nil, status: Game.ServiceStatus.Unavailable, level: 1, cost: 0, description: "" },
+    { index: 3, name: "C", rank: "", icon: nil, status: Game.ServiceStatus.Unavailable, level: 1, cost: 0, description: "" },
+    { index: 4, name: "D", rank: "", icon: nil, status: Game.ServiceStatus.Learned, level: 1, cost: 0, description: "" },
+    { index: 5, name: "E", rank: "", icon: nil, status: Game.ServiceStatus.Learned, level: 1, cost: 0, description: "" },
+    { index: 6, name: "F", rank: "", icon: nil, status: Game.ServiceStatus.Learned, level: 1, cost: 0, description: "" }
+  ]
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(window.text("Pick a skill.").shown())
+  Test.expect(window.text("Available: 1. Unavailable: 2. Learned: 3.").shown())
+}
+
+test "a service clicked shows its name, its description and its price beside the list" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Heroic Strike (Rank 3)").click()
+  Test.expect(window.text("Heroic Strike").shown() && window.text("A strong attack.").shown())
+  Test.expect(window.text("0g 4s 0c").count() == 2)
+  Test.expect(!window.text("Pick a skill.").shown())
+}
+
+test "the picked service's row is lit" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(!window.text("Heroic Strike (Rank 3)").item().paintedWith(PICKED))
+  window.button("Heroic Strike (Rank 3)").click()
+  Test.expect(window.text("Heroic Strike (Rank 3)").item().paintedWith(PICKED))
+  Test.expect(!window.text("Charge (Rank 2)").item().paintedWith(PICKED))
+}
+
+test "the picked service clicked again is let go" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Heroic Strike (Rank 3)").click()
+  window.button("Heroic Strike (Rank 3)").click()
+  Test.expect(window.text("Pick a skill.").shown())
+}
+
+test "another service clicked takes the pick" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Heroic Strike (Rank 3)").click()
+  window.button("Rend (Rank 1)").click()
+  Test.expect(window.text("Wounds the target.").shown() && !window.text("A strong attack.").shown())
+}
+
+test "each service's row shows its icon" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(window.text("Heroic Strike (Rank 3)").item().paintedWith(SWORD))
+  Test.expect(!window.text("Charge (Rank 2)").item().paintedWith(SWORD))
+}
+
+test "a service's row follows what the trainer says of it" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Game.trainer.services = (): Array<Game.TrainerService> => [
+    { index: 1, name: "Heroic Strike", rank: "Rank 4", icon: ICON, status: Game.ServiceStatus.Available, level: 16, cost: 400, description: "" }
+  ]
+  Game.trainer.changed.emit()
+  const row = window.text("Heroic Strike (Rank 4)").item()
+  Test.expect(row.text("Requires level 16").shown())
+  Test.expect(row.paintedWith(ICON) && !row.paintedWith(SWORD))
+}
+
+test "the count of the services follows what the trainer says" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(window.text("Available: 1. Unavailable: 1. Learned: 1.").shown())
+  Game.trainer.services = (): Array<Game.TrainerService> => []
+  Game.trainer.changed.emit()
+  Test.expect(window.text("Available: 0. Unavailable: 0. Learned: 0.").shown())
+}
+
+test "a row not picked stands on the list's dark ground" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Test.expect(Test.page().window(TRAINER).text("Charge (Rank 2)").item().paintedWith(BACK))
+}
+
+test "a price of all the player's money is in ink" {
+  Test.mount(nil, PAGE)
+  Game.money.amount = 400
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Test.expect(drawnIn(Test.page().window(TRAINER).text("Heroic Strike (Rank 3)").item().text("0g 4s 0c"), INK))
+}
+
+test "the trainer shows the player's money" {
+  Test.mount(nil, PAGE)
+  Game.money.amount = 5000
+  Game.trainer.open = true
+  Test.expect(Test.page().window(TRAINER).text("0g 50s 0c").shown())
+}
+
+test "a price the player can't pay is red, one they can in ink" {
+  Test.mount(nil, PAGE)
+  Game.money.amount = 5000
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  Test.expect(drawnIn(window.text("9g 0s 0c"), RED))
+  Test.expect(drawnIn(window.text("0g 4s 0c"), INK))
+}
+
+test "Learn is switched off: the game gives no way to buy a service" {
+  Test.mount(nil, PAGE)
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  const window = Test.page().window(TRAINER)
+  window.button("Heroic Strike (Rank 3)").click()
+  Test.expect(window.button("Learn").paintedWith(Ordaen.art.ctl.buttonDisabled))
+}
+
+// Settings
+
+test "the window's settings button opens Spells' page of the settings" {
+  Test.mount(nil, PAGE)
+  const window = book()
+  window.button(Ordaen.art.ctl.corner.gear).click()
+  const settings = Test.page().window("Name of the first spec tab")
+  Test.expect(settings.text("Name of the second spec tab").shown() && settings.text("Class trainer window").shown())
+}
+
+test "the settings' windows page lists the spellbook's window and the trainer's" {
+  Test.mount(nil, PAGE)
+  const window = book()
+  window.button(Ordaen.art.ctl.corner.gear).click()
+  const settings = Test.page().window("Name of the first spec tab")
+  settings.button("Windows").click()
+  Test.expect(Test.page().window("Windows").text("Trainer").shown())
+}
+
+test "a name given to the first spec in the settings stands on its tab" {
+  Test.mount(nil, PAGE)
+  const window = book()
+  window.button(Ordaen.art.ctl.corner.gear).click()
+  const settings = Test.page().window("Name of the first spec tab")
+  for (i of 1..=30) {
+    if (Test.keyboard()) { break }
+    Test.key(Test.Move.Next)
+  }
+  Test.type("Arms")
+  settings.button("Save").click()
+  Test.expect(window.button("Arms").shown() && !window.button("Primary").shown())
+}
+
+test "a name given to the second spec in the settings stands on its tab" {
+  Test.mount(nil, PAGE)
+  _ = book()
+  const window = Test.page().window("Primary")
+  window.button(Ordaen.art.ctl.corner.gear).click()
+  const settings = Test.page().window("Name of the first spec tab")
+  for (i of 1..=30) {
+    if (Test.keyboard()) { break }
+    Test.key(Test.Move.Next)
+  }
+  // The second field is the next the keyboard reaches.
+  Test.key(Test.Move.Next)
+  Test.type("Fury")
+  settings.button("Save").click()
+  Test.expect(window.button("Fury").shown() && !window.button(BOOK).shown())
+}
+
+test "the trainer's window switched off in the settings leaves the game's trainer to the game" {
+  Test.mount(nil, PAGE)
+  Game.trainer.open = true
+  const window = Test.page().window(TRAINER)
+  window.button(Ordaen.art.ctl.corner.gear).click()
+  const settings = Test.page().window("Name of the first spec tab")
+  // The checkbox beside «Class trainer window»: its well, the page's only one, names it; its label doesn't.
+  settings.button(Ordaen.art.ctl.check).click()
+  settings.button("Save").click()
+  Test.expect(!window.shown())
 }
