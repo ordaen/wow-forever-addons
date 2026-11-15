@@ -928,6 +928,29 @@ test "«Sort the bags» waits for a locked slot, and goes on once it is let go" 
   Test.expect(asked("Bags.swap 0 2 0 1"))
 }
 
+test "«Sort the bags» never takes a stack out of a place it belongs in, waiting for a locked one instead" {
+  // The letter goes first, the two ashes after it: the second ash is where an ash belongs, the first is locked.
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, locked: true },
+    { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12 },
+    { bag: 0, slot: 3, id: 1, name: "Ash", icon: ASH, kind: 7 }
+  ])
+  world.sizes = [3, 0, 0, 0, 0]
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(Ordaen.art.ctl.tool.arrange).click()
+  Test.expect(asked("Bags.follow true") && bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+  world.at(0, 1).locked = false
+  Game.bags.updated.emit(0)
+  Test.expect(asked("Bags.swap 0 2 0 1"))
+  Game.bags.updated.emit(0)
+  Test.expect(asked("") && !bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+}
+
 test "«Sort the bags» gives up after as many goes as there are slots, the client moving nothing" {
   const world = new World([
     { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },

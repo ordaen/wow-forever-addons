@@ -32,11 +32,9 @@ public class Arranger {
     for (section of tabSections(items, .All, .Type, by)) {
       for (slot of section.slots) { ordered.push(slot) }
     }
+    // The places past the last item want nothing: they hold what the swaps leave them.
     let wanted: Array<Integer> = []
-    for (index of 1..=places.length) {
-      const slot = ordered[index]
-      wanted.push(slot != nil ? slot.key() : 0)
-    }
+    for (slot of ordered) { wanted.push(slot.key()) }
     self.places = places
     self.wanted = wanted
     self.left = places.length
@@ -44,11 +42,7 @@ public class Arranger {
     self.step()
   }
 
-  public stop(mut self) {
-    self.running = false
-    self.places = []
-    self.wanted = []
-  }
+  public stop(mut self) { self.running = false }
 
   // One go: each place that holds another stack than it should takes it from a later place that holds it, two slots
   // locked or touched in this go left for the next. Nothing left to move ends the run.
@@ -63,8 +57,8 @@ public class Arranger {
     let pending = false
     let moved = false
     for (index, place of self.places) {
-      const want = self.wanted[index] ?? 0
-      if (place.key() != want && want != 0) {
+      const want = self.wanted[index]
+      if (want != nil && place.key() != want) {
         pending = true
         if (touched[place] == nil && !peek place.locked) {
           const from = self.holderOf(want, index, touched)
@@ -79,15 +73,13 @@ public class Arranger {
     if (!pending || (!moved && !self.anyLocked())) { self.stop() }
   }
 
-  // A later place that holds the stack, free in this go and not locked.
+  // A later place that holds the stack where it doesn't belong, free in this go and not locked. The first wrong place
+  // of a go always finds one: a place where the stack belongs is never emptied of it, and the rest wait for a go.
   holderOf(self, want: Integer, after: Integer, touched: Map<Slot, Boolean>): Slot | nil {
     for (index, place of self.places) {
-      if (index > after && touched[place] == nil && !peek place.locked && place.key() == want && (self.wanted[index] ?? 0) != want) {
+      if (index > after && touched[place] == nil && !peek place.locked && place.key() == want && self.wanted[index] != want) {
         return place
       }
-    }
-    for (index, place of self.places) {
-      if (index > after && touched[place] == nil && !peek place.locked && place.key() == want) { return place }
     }
     return nil
   }
