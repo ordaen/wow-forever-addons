@@ -802,7 +802,7 @@ test "a letter waiting to go says so, and the footer counts the letters waiting"
   Mail.sent = sent()
   const window = Test.page().window(MAIL)
   window.button("Sent").click()
-  Test.expect(window.text("Herbs").item().texts().join(" | ") == "3 | Herbs | Kel |  | Waiting")
+  Test.expect(window.text("Herbs").item().texts().join(" | ") == "3 | Herbs | Kel | Waiting")
   Test.expect(window.text("Letters waiting: 1").shown())
 }
 
