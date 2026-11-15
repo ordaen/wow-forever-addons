@@ -7,7 +7,7 @@ import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import { ARTWORK, Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, PushButton, PX, space, Tip, TipRow, Toolbar,
-  Memory, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
+  KeptWindow, Memory, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { AddOn, Catalog, plain, Status } from "@/catalog"
 import { Card } from "@/card"
@@ -85,12 +85,15 @@ function thirdOf(values: Array<Number>): Number {
   return list[(list.length / 3).ceil()] ?? Number.huge
 }
 
+// Where the window opens until the player moves it.
+public const WINDOW: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+
 public class AddOnsWindow implements Component {
   public close: Event<nil> = new Event()
 
   state tab = 1
-  // Where it stands and how large: the player moves and resizes it.
-  public state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+  // The window as the root declares it (`System.window`); one of its own where it is made alone (a test's).
+  declared: mut KeptWindow
   state search = ""
   public list: mut Memory<ListView> = new Memory<ListView>(LIST_VIEW, .Profile, "addons")
   state folded: mut Map<String, Boolean> = {}
@@ -166,7 +169,8 @@ public class AddOnsWindow implements Component {
   // Ordaen's folder: the addon its modules stand under.
   const framework: String
   const whom: Array<Choice<Boolean>>
-  constructor(framework: String, shown: Signal<Boolean> = true) {
+  constructor(framework: String, shown: Signal<Boolean> = true, declared: mut KeptWindow | nil = nil) {
+    self.declared = declared ?? new KeptWindow("addons", Client.ADDONS, WINDOW)
     self.shown = shown
     self.framework = framework
     self.whom = [{ value: true, label: Locale.WHO_ALL }, { value: false, label: Game.player.name }]
@@ -486,7 +490,7 @@ public class AddOnsWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"addons"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} shown={self.shown}
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.declared} shown={self.shown}
               footer={self.footer} side={self.side} @close={self.onClose}>
         <box rows={BODY} gap={space(.Item)}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>

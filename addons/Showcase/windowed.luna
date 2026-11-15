@@ -1,7 +1,7 @@
 // A window with two tabs over a page, for the run tests: what a module with a window of its own does, its footer on
 // the window's bottom line (a dim note at its left, «Save» at its right).
 import { Align, Track } from "$ltml"
-import { Module, Placing, PushButton, SettingsPage, space, Window, WindowTabSpec } from "Ordaen"
+import { Module, KeptWindow, PushButton, SettingsPage, space, Window, WindowTabSpec } from "Ordaen"
 
 const DIM: Color = Color.hex("#a3977f")
 const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
@@ -15,7 +15,7 @@ public class Windowed implements Module {
     { title: "Recipes" },
   ]
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
+  public window: mut KeptWindow = new KeptWindow("windowed", "Windowed", { x: 0, y: 0, width: 400, height: 300 })
   state open = true
   // How many times the window's settings button was clicked, and its «Save».
   state settingsOpened = 0
@@ -37,7 +37,7 @@ public class Windowed implements Module {
     return $ltml {
       <box padding={4}>
         <text value={"a page under the window"} />
-        <Window keep={"windowed"} $if={self.open} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}
+        <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window}
                 maxWidth={600} withSettings={true} footer={self.footer} @close={self.onClose}
                 @settings={self.onSettings}>
           <box>

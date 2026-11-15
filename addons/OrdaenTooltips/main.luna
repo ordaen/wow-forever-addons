@@ -344,8 +344,9 @@ public class Tooltips implements Module, App {
     if (!tip.shown) { return nil }
     let kind = kindOf(tip.data)
     if (kind == nil || !self.wanted(kind, tip.data)) { return nil }
-    let options = self.options()
-    let read = group(tip.data, options)
+    let options = self.chosen
+    // Against the show before: a tooltip the game fills anew keeps the lines that say the same.
+    let read = group(tip.data, options, (peek self.last)?.model)
     if (read == nil) { return nil }
     // Something in it counts down: it is read again as the seconds pass.
     if (read.model.timer == true) { _ = Game.clock.seconds }

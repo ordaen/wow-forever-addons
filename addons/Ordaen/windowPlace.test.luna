@@ -3,17 +3,17 @@
 // place.
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Placing, Window, WindowTabSpec } from "@/window"
+import { KeptWindow, Window, WindowTabSpec } from "@/window"
 
 class Shown {
   state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 400, height: 300 })
   state open = true
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"test"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} shown={self.open}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} shown={self.open}>
         <text value={"the page"} />
       </Window>
     }

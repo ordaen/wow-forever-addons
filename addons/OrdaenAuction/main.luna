@@ -4,7 +4,7 @@
 import Game from "$game"
 import { Side, Track } from "$ltml"
 import Runtime from "$runtime"
-import { Module, Placing, Settings, SettingsPage, Window, WindowSide, WindowTabSpec } from "Ordaen"
+import { Module, Settings, SettingsPage, Window, WindowSide, WindowTabSpec, KeptWindow, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { BuyPage, Chosen, Found } from "@/buy"
 import { DataPage } from "@/dataPage"
@@ -40,12 +40,18 @@ const FILL: Array<Track> = [{ fr: 1 }]
 public class Auction implements Module, App {
   public const title: String = "Ordaen Auction"
   settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
+  // Its windows, declared: where each stands and what the player does with it, kept in the profile.
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }, true)
+  public shoppingWindow: mut KeptWindow = new KeptWindow("shopping", Locale.PAGE_SHOPPING, { x: 0, y: 0, width: Style.SIDE_WIDTH, height: Style.HEIGHT })
+  public ownedWindow: mut KeptWindow = new KeptWindow("owned", Locale.PAGE_OWNED, { x: 0, y: 0, width: Style.SIDE_WIDTH, height: Style.HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window, self.shoppingWindow, self.ownedWindow]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale.PAGE_DATA, content: $ltml {
       <DataPage scanner={self.scanner} ledger={self.ledger} lastFull={self.scanner.lastFull}
                 items={self.scanner.known} />
     } },
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
   ]
   derived cut: Integer = self.settings.values.cut
   derived priceLine: Boolean = self.settings.values.priceLine
@@ -66,13 +72,11 @@ public class Auction implements Module, App {
   // The window: its page (the window's tab) and where it stands while it isn't full screen. It shows while the house
   // is open, and goes with it; so do the docked windows, each open from its button until it is closed.
   state page = BUY
-  state placing: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
   derived shown: Boolean = Game.auctionHouse.open && self.settings.values.window
   state shoppingOpen = false
   state ownedOpen = false
   // A docked window's one tab, and its width (it stands the screen's height).
   state sideTab = 1
-  state sidePlacing: Placing = { x: 0, y: 0, width: Style.SIDE_WIDTH, height: Style.HEIGHT }
   // What the full-screen window leaves clear at the screen's right: the docked windows' width, while one is open.
   derived room: Number = self.shoppingOpen || self.ownedOpen ? Style.SIDE_WIDTH : 0
   // The row picked on «Buy» and on «Sell»: the item's section at the window's right, the full height beside the
@@ -146,7 +150,7 @@ public class Auction implements Module, App {
       <$if={self.shown}>
         // The game's own window stays open, unseen and off the screen: hiding it would close the house.
         <frame of={Game.frames.AuctionHouse} opacity={0} away={true} />
-        <Window keep={"main"} tabs={TABS} selected={mut self.page} placing={mut self.placing} withSettings={true} full={true}
+        <Window tabs={TABS} selected={mut self.page} declared={mut self.window} withSettings={true}
                 room={self.room} footer={self.footer} side={self.side} @close={self.onClose}
                 @settings={self.onSettings}>
           <box $match={self.page} rows={FILL}>
@@ -157,11 +161,11 @@ public class Auction implements Module, App {
                       @openOwned={self.onOwned} />
           </box>
         </Window>
-        <Window keep={"shopping"} $if={self.shoppingOpen} tabs={SHOPPING_TABS} selected={mut self.sideTab}
-                placing={mut self.sidePlacing} docked={Side.Right} @close={self.closeShopping}>
+        <Window $if={self.shoppingOpen} tabs={SHOPPING_TABS} selected={mut self.sideTab}
+                declared={mut self.shoppingWindow} docked={Side.Right} @close={self.closeShopping}>
           <ShoppingPage prices={self.prices} list={mut self.shopping} />
         </Window>
-        <Window keep={"owned"} $if={self.ownedOpen} tabs={OWNED_TABS} selected={mut self.sideTab} placing={mut self.sidePlacing}
+        <Window $if={self.ownedOpen} tabs={OWNED_TABS} selected={mut self.sideTab} declared={mut self.ownedWindow}
                 docked={Side.Right} @close={self.closeOwned}>
           <OwnedPage house={self.house} revision={self.source.revision} />
         </Window>

@@ -3,7 +3,7 @@
 import { Align, Key, Track } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Placing, Window, WindowSide, WindowTabSpec } from "@/window"
+import { KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
 import { PushButton } from "@/pushButton"
 import { space } from "@/units"
 
@@ -13,11 +13,11 @@ class Tabbed {
     { title: "Recipes" },
   ]
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 400, height: 300 })
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"test20"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <text value={"the page"} />
       </Window>
     }
@@ -27,7 +27,7 @@ class Tabbed {
 class Gearbox {
   state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 400, height: 300 })
   state opened = 0
   state closed = 0
   // Whether the window has the button: a window made without it has none.
@@ -40,7 +40,7 @@ class Gearbox {
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"test43"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={self.withSettings}
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} withSettings={self.withSettings}
               @settings={self.onSettings} @close={self.onClose}>
         <text value={"the page"} />
       </Window>
@@ -67,9 +67,9 @@ class Desk {
   state betaTabs: Array<WindowTabSpec> = [{ title: "Beta" }]
   state gammaTabs: Array<WindowTabSpec> = [{ title: "Gamma" }]
   state tab = 1
-  state alpha: Placing = { x: -150, y: 0, width: 400, height: 200 }
-  state beta: Placing = { x: 0, y: 100, width: 400, height: 400 }
-  state gamma: Placing = { x: 150, y: 0, width: 400, height: 200 }
+  public alpha: mut KeptWindow = new KeptWindow("alpha", "alpha", { x: -150, y: 0, width: 400, height: 200 })
+  public beta: mut KeptWindow = new KeptWindow("beta", "beta", { x: 0, y: 100, width: 400, height: 400 })
+  public gamma: mut KeptWindow = new KeptWindow("gamma", "gamma", { x: 150, y: 0, width: 400, height: 200 })
   state alphaOpen = false
   state betaOpen = false
   state gammaOpen = false
@@ -86,15 +86,15 @@ class Desk {
   public render(self): Template {
     return $ltml {
       <box>
-        <Window keep={"test89"} shown={self.alphaOpen} tabs={self.alphaTabs} selected={mut self.tab} placing={mut self.alpha}
+        <Window shown={self.alphaOpen} tabs={self.alphaTabs} selected={mut self.tab} declared={mut self.alpha}
                 @close={self.closeAlpha}>
           <box background={FACE} @click={self.onAlpha} />
         </Window>
-        <Window keep={"test93"} $if={self.betaOpen} tabs={self.betaTabs} selected={mut self.tab} placing={mut self.beta}
+        <Window $if={self.betaOpen} tabs={self.betaTabs} selected={mut self.tab} declared={mut self.beta}
                 @close={self.closeBeta}>
           <box background={FACE} @click={self.onBeta} />
         </Window>
-        <Window keep={"test97"} $if={self.gammaOpen} tabs={self.gammaTabs} selected={mut self.tab} placing={mut self.gamma}
+        <Window $if={self.gammaOpen} tabs={self.gammaTabs} selected={mut self.tab} declared={mut self.gamma}
                 @close={self.closeGamma}>
           <box background={FACE} @click={self.onGamma} />
         </Window>
@@ -171,11 +171,11 @@ class Crowded {
     { title: "The fourth long tab" },
   ]
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: 330, height: 200 }
+  public placing: mut KeptWindow = new KeptWindow("crowded", "crowded", { x: 0, y: 0, width: 330, height: 200 })
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"crowded"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} withSettings={true}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} withSettings={true}>
         <text value={"the page"} />
       </Window>
     }
@@ -303,7 +303,7 @@ test "a click right of a window's tabs reaches the window under them" {
   let desk = new Desk()
   Test.mount(desk, { left: 0, top: 0, width: 10, height: 10 })
   // Gamma lower, its tab row over Beta's body.
-  desk.gamma = { x: 150, y: 120, width: 400, height: 200 }
+  desk.gamma.memory.write({ x: 150, y: 120, width: 400, height: 200, ..desk.gamma.defaults })
   desk.betaOpen = true
   Test.flush()
   desk.gammaOpen = true
@@ -315,7 +315,7 @@ test "a click right of a window's tabs reaches the window under them" {
   Test.click({ x: 1100, y: 600 }, nil)
   Test.expect(desk.hit == "Gamma")
   Test.pass(0.02)
-  const was = desk.gamma.x
+  const was = desk.gamma.placing.x
   const tab = Test.holding("Gamma", nil)
   Test.moveTo(tab)
   Test.press(nil)
@@ -325,7 +325,7 @@ test "a click right of a window's tabs reaches the window under them" {
   Test.moveTo({ x: tab.x + 31, y: tab.y })
   Test.pass(0.1)
   Test.release(nil)
-  Test.expect((desk.gamma.x - was - 30).abs() < 1)
+  Test.expect((desk.gamma.placing.x - was - 30).abs() < 1)
   destroy desk
 }
 
@@ -342,7 +342,7 @@ test "the open tab and the others are cut by their metal's corners" {
 class Footed {
   state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: 400, height: 300 }
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 400, height: 300 })
   state saved = 0
   const footer: Template = $ltml {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
@@ -356,7 +356,7 @@ class Footed {
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"test280"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} footer={self.footer}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}>
         <box background={FACE}>
           <text value={"the page"} />
         </box>
@@ -378,7 +378,7 @@ test "a footer stands on the window's bottom line under the content, its groups 
 class Sided {
   state tabs: Array<WindowTabSpec> = [{ title: "Market" }]
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: 600, height: 300 }
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 600, height: 300 })
   const footer: Template = $ltml {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
       <text value={"5 items"} />
@@ -397,7 +397,7 @@ class Sided {
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"test321"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing} footer={self.footer}
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing} footer={self.footer}
               side={self.details}>
         <box background={FACE}>
           <text value={"the list"} />

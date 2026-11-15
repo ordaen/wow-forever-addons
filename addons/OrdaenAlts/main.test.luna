@@ -140,3 +140,20 @@ test "the open tab is the profile's: the window opens on it after a reload, and 
   Test.flush()
   Test.expect(Alts.tab == 1)
 }
+
+test "a window fixed to a tab opens on it after a reload, whichever tab was open last" {
+  Test.mount(nil, { left: 20, top: 20, width: 1300, height: 720, screen: true })
+  Test.flush()
+  Alts.window.memory.write({ openOn: 3, ..Alts.window.memory.values })
+  Alts.toggle()
+  Test.flush()
+  Test.expect(Alts.tab == 3)
+  Test.click(Test.holding(Locale.TAB_ITEMS, nil), nil)
+  Test.flush()
+  Test.expect(Alts.tab == 2)
+  Test.reload()
+  Test.flush()
+  Alts.toggle()
+  Test.flush()
+  Test.expect(Alts.tab == 3)
+}

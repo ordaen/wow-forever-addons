@@ -22,7 +22,7 @@ import { Switch } from "@/switch"
 import { Column, Table, TableRow, tracksOf } from "@/table"
 import { Tabs } from "@/tabs"
 import { TreeRow } from "@/treeRow"
-import { Placing, Window, WindowTabSpec } from "@/window"
+import { KeptWindow, Window, WindowTabSpec } from "@/window"
 import { PX } from "@/units"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 900, height: 700 }
@@ -196,13 +196,13 @@ test "a page's tab keeps its box picked or not" {
 class Tabbed {
   state tabs: Array<WindowTabSpec>
   state tab = 1
-  state placing: Placing = { x: 0, y: 0, width: 600, height: 300 }
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 600, height: 300 })
 
   constructor(tabs: Array<WindowTabSpec>) { self.tabs = tabs }
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"test"} tabs={self.tabs} selected={mut self.tab} placing={mut self.placing}>
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}>
         <text value={"the page"} />
       </Window>
     }

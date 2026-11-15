@@ -7,7 +7,8 @@ import root Ordaen from "Ordaen"
 import { Component, Entry, SettingsPage } from "@/module"
 import { Dialog } from "@/dialog"
 import { ListTab } from "@/listTab"
-import { Placing, Window, WindowTabSpec } from "@/window"
+import { KeptWindow, Window, WindowTabSpec } from "@/window"
+import { WindowsPage } from "@/windowsPage"
 import { PushButton } from "@/pushButton"
 import { PX, space } from "@/units"
 import { Tabs } from "@/tabs"
@@ -44,11 +45,15 @@ const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto"]
 const SAVE_ROW: Array<Track> = ["auto", "auto"]
 
 public class SettingsWindow implements Component {
-  // Ordaen's own page: the settings every module follows.
+  // The window, declared: where it stands and what the player does with it, kept in the profile.
+  public window: mut KeptWindow = new KeptWindow("settings", Locale.WINDOW_SETTINGS, { x: 0, y: 0, width: WIDTH, height: HEIGHT })
+  public const windows: mut Array<mut KeptWindow> = [self.window]
+  // Ordaen's own page: the settings every module follows, and its window's.
   public const pages: Array<SettingsPage> = [
     { title: Locale.GLOBAL_TAB_SCALE, content: $ltml { <ScalePage globals={mut Ordaen.globals} /> } },
     { title: Locale.GLOBAL_TAB_NUMBERS, content: $ltml { <NumbersPage globals={mut Ordaen.globals} /> } },
     { title: Locale.GLOBAL_TAB_BEHAVIOR, content: $ltml { <BehaviourPage globals={mut Ordaen.globals} /> } },
+    { title: Locale.WINDOWS_TAB, content: $ltml { <WindowsPage windows={mut self.windows} /> } },
   ]
 
   state open = false
@@ -57,7 +62,6 @@ public class SettingsWindow implements Component {
   state tab = 1
   // Asking about unsaved changes.
   state closing = false
-  state placing: Placing = { x: 0, y: 0, width: WIDTH, height: HEIGHT }
   state titles: Array<WindowTabSpec> = [{ title: Ordaen.title }]
   state titleTab = 1
 
@@ -191,7 +195,7 @@ public class SettingsWindow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <Window keep={"settings"} shown={self.open} tabs={self.titles} selected={mut self.titleTab} placing={mut self.placing}
+      <Window shown={self.open} tabs={self.titles} selected={mut self.titleTab} declared={mut self.window}
               minWidth={MIN_WIDTH} minHeight={MIN_HEIGHT} footer={self.footer} @close={self.onClose}>
         <box columns={BODY} rows={FILL} gap={space(.Group)}>
           <box columns={1}>

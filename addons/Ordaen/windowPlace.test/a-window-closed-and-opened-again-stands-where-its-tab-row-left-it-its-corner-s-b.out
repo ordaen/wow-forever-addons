@@ -2,13 +2,13 @@
 surface 400,361.38 400x337.25 on DIALOG clamped raised by a click
   box 400,398.62 400x300 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 412.75,411.38 379.5x276.75
-      text 432.75,431.38 339.5x15 "the page" #ffffff
+      text 432.75,431.38 339.5x15.6 "the page" #ffffff
     box 782.75,678.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 400,361.38 400x47.75
     box 400,361.38 340.83x47.75
       box 400,361.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 418.58,371.62 77.33x34.25
-          text 435.38,381.25 43.75x15 "Recipes" #ffd100
+          text 433.36,380.95 47.78x15.6 "Recipes" #ffd100 centred
     box 747.5,374.46 52.5x34.67
       box 747.5,374.46 52.5x26.67 clipped
         box 747.5,374.46 29.17x26.67 absolute clipped @click
