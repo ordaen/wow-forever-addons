@@ -180,9 +180,7 @@ public class OverviewPage implements Component {
     list.sort((a, b) => {
       const x = learnSkillOf(taught[a.name], yellow[a.id])
       const y = learnSkillOf(taught[b.name], yellow[b.id])
-      if (x < y) { return true }
-      if (y < x) { return false }
-      return a.name < b.name
+      return x < y || (x == y && a.name < b.name)
     })
     let lines: Array<OverviewLine> = []
     for (recipe of list) {

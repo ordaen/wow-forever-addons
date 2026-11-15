@@ -137,7 +137,7 @@ public class CategoryGroup implements Component {
   state folded = false
   derived list: Array<Game.Recipe> = members(self.shown, self.group.id, self.kept.favorites)
   derived mark: String = self.folded ? "+" : "-"
-  derived nameColor: Color = self.group.id == FAVORITES ? Style.WHITE : Style.GOLD
+  derived nameColor: Color | nil = self.group.id == FAVORITES ? nil : Style.GOLD
   derived makeableColor: Color = self.group.makeable > 0 ? Style.WHITE : Style.DIM
 
   group: Signal<Group>
