@@ -639,3 +639,20 @@ test "a queue emptied stops waiting: what comes next starts at «Create»" {
   window().button("Queue (1)").click()
   Test.expect(window().text("Making Bolt of Linen Cloth: 1 left.").shown())
 }
+
+test "a line's count stops at 999, however much «Create» adds to it" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5000)
+  Game.input.altDown = (): Boolean => true
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  // One made at once; then nine hundred and one, twice, onto its line.
+  window().button("Create").click()
+  for (step of 1..=9) { window().button("+").click() }
+  window().button("Create").click()
+  window().button("Create").click()
+  window().button("Queue (1)").click()
+  Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 999 | + | x"))
+}
