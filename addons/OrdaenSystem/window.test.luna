@@ -38,6 +38,7 @@ struct Fake {
   loaded: Boolean = false
   // What `LoadAddOn` answers where it refuses one on demand.
   const refuses: String | nil = nil
+  const icon: String = ""
 }
 
 // The client's list of addons as the test makes it, and what the client keeps of them: off for this character, the
@@ -81,6 +82,7 @@ class World {
       "Version" => fake.version
       "Category" => fake.category
       "Group" => fake.group
+      "IconTexture" => fake.icon
       else => ""
     }
     return value == "" ? nil : value
@@ -186,12 +188,14 @@ function everyday(): mut Array<mut Fake> {
   ]
 }
 
-// What the client measures of each addon while it measures: CPU now and at its peak (in per cent of 10, the client's
-// own), the frames over 5 ms, memory in KB; how often it was sampled and weighed.
+// What the client measures of each addon while it measures: CPU now and at its peak (in per cent of the client's own
+// time, 10 now and at its peak, 20 on average), the frames over 5 and over 50 ms, memory in KB; how often it was
+// sampled and weighed.
 class Meter {
   public now: mut Map<String, Number> = {}
   public peak: mut Map<String, Number> = {}
   public spikes: mut Map<String, Number> = {}
+  public spikes50: mut Map<String, Number> = {}
   public memory: mut Map<String, Number> = {}
   public samples = 0
   public weighed = 0
@@ -199,23 +203,28 @@ class Meter {
 
   public whole(mut self, metric: Client.AddOnProfilerMetric): Number {
     if (metric == .RecentAverageTime) { self.samples += 1 }
-    return 10
+    return metric == .SessionAverageTime ? 20 : 10
   }
 
   public of(self, name: String, metric: Client.AddOnProfilerMetric): Number {
     return match (metric) {
       .RecentAverageTime => self.now[name] ?? 0
       .PeakTime => self.peak[name] ?? 0
-      .SessionAverageTime => (self.now[name] ?? 0) / 2
+      .SessionAverageTime => self.now[name] ?? 0
       .EncounterAverageTime => (self.peak[name] ?? 0) / 2
       .CountTimeOver5Ms => self.spikes[name] ?? 0
+      .CountTimeOver50Ms => self.spikes50[name] ?? 0
       else => 0
     }
   }
 
-  // The addons over 1 % now: the heaviest, as the client names them.
-  public top(self): Array<Client.AddOnProfilerResult> {
+  // Every addon together, now: 1.4 of the client's 10.
+  public overall(self, metric: Client.AddOnProfilerMetric): Number { return metric == .RecentAverageTime ? 1.4 : 0 }
+
+  // The ten heaviest now, as the client names them: those over 1 % here.
+  public top(self, metric: Client.AddOnProfilerMetric, k: Number): Array<Client.AddOnProfilerResult> {
     const list: Array<Client.AddOnProfilerResult> = []
+    if (metric != .RecentAverageTime || k != 10) { return list }
     for (name, now of self.now) {
       if (now >= 1) { list.push({ addOnName: name, metricValue: now }) }
     }
@@ -884,7 +893,7 @@ test "a caption's switch switches its whole group on where any of it is off, wit
   flip("Chatter")
   Test.expect(switchSome(row("Other")))
   flip("Other")
-  Test.expect(switchOn(row("Other")) && switchOn(row("Chatter")))
+  Test.expect(switchOn(row("Other")) && switchOn(row("Chatter")) && !window().button(Locale.UNDO).shown())
 }
 
 test "a caption's switch is off where none of its group is on, and switches it on" {
@@ -1389,8 +1398,8 @@ test "the numbers: each addon's CPU now, at its peak and its memory, the heavies
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
-  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
-  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
   Client.UpdateAddOnMemoryUsage = () => meter.weigh()
   Client.GetAddOnMemoryUsage = name => meter.kb(name)
   Test.mount(nil, SCREEN)
@@ -1412,8 +1421,8 @@ test "CPU is sampled once a second only while the window shows" {
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
-  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
-  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
   Client.UpdateAddOnMemoryUsage = () => meter.weigh()
   Client.GetAddOnMemoryUsage = name => meter.kb(name)
   Test.mount(nil, SCREEN)
@@ -1442,8 +1451,8 @@ test "the numbers follow the client's each second the window shows" {
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
-  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
-  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
   Client.UpdateAddOnMemoryUsage = () => meter.weigh()
   Client.GetAddOnMemoryUsage = name => meter.kb(name)
   Test.mount(nil, SCREEN)
@@ -1460,8 +1469,8 @@ test "a client whose own time is nought gives every addon nought" {
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
-  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
-  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
   Client.UpdateAddOnMemoryUsage = () => meter.weigh()
   Client.GetAddOnMemoryUsage = name => meter.kb(name)
   Client.C_AddOnProfiler.GetApplicationMetric = metric => 0
@@ -1476,8 +1485,8 @@ test "memory is read as the window opens and at «Refresh» alone" {
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
-  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
-  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
   Client.UpdateAddOnMemoryUsage = () => meter.weigh()
   Client.GetAddOnMemoryUsage = name => meter.kb(name)
   Test.mount(nil, SCREEN)
@@ -1524,8 +1533,8 @@ test "by category, the sort orders each category's addons: by load now, at its p
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
-  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
-  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
   Client.UpdateAddOnMemoryUsage = () => meter.weigh()
   Client.GetAddOnMemoryUsage = name => meter.kb(name)
   Test.mount(nil, SCREEN)
@@ -1589,8 +1598,8 @@ test "a table's heading sorts by its column, the heaviest first; clicked again, 
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
-  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
-  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
   Client.UpdateAddOnMemoryUsage = () => meter.weigh()
   Client.GetAddOnMemoryUsage = name => meter.kb(name)
   Test.mount(nil, SCREEN)
@@ -1631,8 +1640,8 @@ test "by category, a heading sorts nothing" {
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
-  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
-  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
   Client.UpdateAddOnMemoryUsage = () => meter.weigh()
   Client.GetAddOnMemoryUsage = name => meter.kb(name)
   Test.mount(nil, SCREEN)
@@ -1664,8 +1673,8 @@ test "«Heaviest» shows the addons the client names as the heaviest now" {
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
-  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
-  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
   Client.UpdateAddOnMemoryUsage = () => meter.weigh()
   Client.GetAddOnMemoryUsage = name => meter.kb(name)
   Test.mount(nil, SCREEN)
@@ -2047,8 +2056,8 @@ test "the card's numbers: each share, the spikes over 5 ms, and memory" {
   Client.C_AddOnProfiler.IsEnabled = () => true
   Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
   Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
-  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
-  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
   Client.UpdateAddOnMemoryUsage = () => meter.weigh()
   Client.GetAddOnMemoryUsage = name => meter.kb(name)
   Test.mount(nil, SCREEN)
@@ -2396,4 +2405,356 @@ test "a module the client won't load says why, in red" {
   open()
   Test.expect(reads(row("Ordaen Bank"), `Ordaen Bank | ${Client.ADDON_INSECURE} | — | — | —`))
   Test.expect(window().text(Client.ADDON_INSECURE).textColor().equal(Style.RED))
+}
+
+// More of the card
+
+test "the card shows the addon's icon as its TOC names it, the question mark where it names none" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "Bright", title: "Bright", icon: "Interface/Icons/INV_Misc_Bag_08", loaded: true })
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  row("Bright").click()
+  Test.expect(window().box("Interface/Icons/INV_Misc_Bag_08").shown())
+  row("Chatter").click()
+  Test.expect(window().box("Interface/Icons/INV_Misc_QuestionMark").shown() && !window().box("Interface/Icons/INV_Misc_Bag_08").shown())
+}
+
+test "the card of an addon not loaded says no memory, and its links say what they need is loaded, in green" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  row("Old Map").click()
+  Test.expect(card().contains("Memory | —"))
+  row("Ordaen System").click()
+  Test.expect(window().text(Locale.IS_LOADED).nth(1).textColor().equal(Style.GREEN))
+}
+
+test "the card offers «Load» only for an addon on demand that is on, not loaded and not refused" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "Shut", title: "Shut", demand: true })
+  world.fakes.push({ name: "Bad", title: "Bad", demand: true, reason: "INSECURE" })
+  world.off["Shut"] = true
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  for (title of ["Shut", "Bad", "Ordaen", "Ordaen System"]) {
+    row(title).click()
+    Test.expect(!window().button(Locale.LOAD_NOW).shown())
+  }
+  row("Chatter").click()
+  Test.expect(window().button(Locale.LOAD_NOW).shown())
+}
+
+test "the card's spikes: each count of frames over its time, joined" {
+  const meter = new Meter()
+  meter.spikes["Ordaen"] = 3
+  meter.spikes50["Ordaen"] = 1
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  row("Ordaen").click()
+  Test.expect(card().contains("Spikes | >5 ms: 3 · >50 ms: 1"))
+}
+
+test "the card's switch with Ctrl held switches the addon alone, not its group" {
+  Game.input.controlDown = () => true
+  Test.mount(nil, SCREEN)
+  open()
+  row("Ordaen").click()
+  window().button(Locale.DISABLE).click()
+  Test.expect(question("Ordaen").shown())
+}
+
+test "a row's menu switches the addon alone, with Ctrl held too" {
+  Game.input.controlDown = () => true
+  Test.mount(nil, SCREEN)
+  open()
+  menu("Ordaen").button(Locale.DISABLE).click()
+  Test.expect(question("Ordaen").shown())
+}
+
+// More of the numbers
+
+test "a client whose own time is 1 gives each share as its time, in per cent" {
+  const meter = new Meter()
+  meter.now["Ordaen"] = 1
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => 1
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(row("Ordaen"), "Ordaen | 100.0 % | 0.0 % | 0 KB") && window().text(Locale.ALL_ADDONS.format("140.0 %")).shown())
+}
+
+test "memory from 1024 KB says MB" {
+  const meter = new Meter()
+  meter.memory["Ordaen"] = 1024
+  meter.memory["LunaType"] = 1023
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(window().text("1.0 MB").shown() && window().text("1023 KB").shown())
+}
+
+test "a column lights its heaviest third: one of a single value, two of four" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  const meter = new Meter()
+  meter.memory["Ordaen"] = 500
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => meter.overall(metric)
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top(metric, k)
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(window().text("500 KB").textColor().equal(Style.HOT))
+  meter.memory["LunaType"] = 100
+  meter.memory["Bagger"] = 200
+  meter.memory["OrdaenSystem"] = 300
+  meter.memory["Ordaen"] = 400
+  window().button(Ordaen.art.ctl.tool.refresh).click()
+  Test.expect(window().text("400 KB").textColor().equal(Style.HOT) && window().text("300 KB").textColor().equal(Style.HOT))
+  Test.expect(window().text("100 KB").textColor().equal(Style.INK) && window().text("200 KB").textColor().equal(Style.INK))
+}
+
+test "two addons of one title both stand in the list" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "TwinA", title: "Twin", category: "Inventory", loaded: true })
+  world.fakes.push({ name: "TwinB", title: "Twin", category: "Inventory", loaded: true })
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(window().text("Twin").count() == 2 && reads(row("Inventory"), "Inventory | 3"))
+  window().text(Locale.COL_ADDON).click()
+  pick(Ordaen.art.ctl.tool.categories, Locale.VIEW_TABLE)
+  window().text(Locale.COL_ADDON).click()
+  Test.expect(window().text("Twin").count() == 2)
+}
+
+// More of the footer, the filter and the sets
+
+test "the footer's tip goes as the cursor leaves «Reload needed»" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Bagger")
+  window().text(Locale.RELOAD_NEEDED.format(1)).hover()
+  Test.expect(Test.page().window(Locale.RELOAD_NEEDED.format(1)).count() == 2)
+  window().text(Locale.COL_ADDON).hover()
+  Test.expect(Test.page().window(Locale.RELOAD_NEEDED.format(1)).count() == 1)
+}
+
+test "«Reset» takes the strip away with the step" {
+  Test.mount(nil, SCREEN)
+  open()
+  flip("LunaType")
+  question("LunaType").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  question("Ordaen").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  window().button(Locale.RESET).click()
+  Test.expect(!window().button(Locale.UNDO).shown())
+}
+
+test "the filter's tip names the choice of every kind that narrows" {
+  Test.mount(nil, SCREEN)
+  open()
+  filter(Locale.FILTER_HEAVY)
+  filter(Locale.FILTER_FAILED)
+  filter(Locale.FILTER_CURRENT)
+  window().button(Ordaen.art.ctl.tool.filter).hover()
+  Test.expect(reads(Test.page().window(Locale.FILTER), "Filter | Heaviest, Not loading, Current"))
+}
+
+test "a set's dialog holds its name, ready to rename" {
+  Test.mount(nil, SCREEN)
+  open()
+  saveSet("Raid")
+  saveSet("Solo")
+  Test.expect(set("Solo").input().value() == "Solo")
+}
+
+test "a set applied switches on what it holds that is off, and off the last addon of the list too; saved, with no strip" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Chatter")
+  saveSet("Quiet")
+  flip("Chatter")
+  flip("Bagger")
+  set("Quiet").button(Locale.APPLY).click()
+  Test.expect(switchOff(row("Chatter")) && switchOn(row("Bagger")) && !window().button(Locale.UNDO).shown())
+  window().button(Locale.RESET).click()
+  Test.expect(switchOff(row("Chatter")) && switchOn(row("Bagger")))
+}
+
+test "a set renamed, deleted or saved again is so after a reload" {
+  Test.mount(nil, SCREEN)
+  open()
+  saveSet("Raid")
+  saveSet("Gone")
+  saveSet("Raid")
+  set("Raid").input().type("")
+  Test.erase(4)
+  Test.type("Solo")
+  Test.page().window(Locale.SET_TITLE.format("Raid")).button(Locale.RENAME).click()
+  set("Gone").button(Locale.DELETE).click()
+  Test.reload()
+  open()
+  window().button(Locale.SETS).click()
+  Test.expect(reads(Test.page().window(Locale.SET_SAVE), "Save current as… | Solo"))
+}
+
+test "a set saved again under its name holds what is on now" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  saveSet("Raid")
+  flip("Bagger")
+  saveSet("Raid")
+  flip("Bagger")
+  set("Raid").button(Locale.APPLY).click()
+  Test.expect(switchOff(row("Bagger")))
 }
