@@ -296,10 +296,11 @@ class RowMenu implements Component {
 
   entriesOf(self): Array<MenuEntry> {
     const quoted = self.purchase.quotedCount == 1
-    const buyable = self.purchase.commodity ? self.purchase.held > 0 : self.purchase.next > 0
+    // A commodity's listings hold one at least; an item has an auction to buy out.
+    const buyable = self.purchase.commodity || self.purchase.next > 0
     return [
       { label: quoted ? Locale.MENU_QUICK_CONFIRM : Locale.MENU_QUICK_BUY,
-        disabled: !self.purchase.listed || !buyable || Game.auctionActions.busy },
+        disabled: !buyable || Game.auctionActions.busy },
       { label: Locale.TO_LIST, group: true },
       { label: Locale.MENU_SEARCH }
     ]
@@ -503,17 +504,14 @@ public class BuyPage implements Component {
     if (turn == self.turn) { self.search = peek self.typed }
   }
 
-  // Enter in the search field: what is typed is searched for now.
-  searchNow(mut self) {
-    self.turn += 1
-    self.search = peek self.typed
-  }
+  // Enter in the search field: what is typed is searched for now (the typing's settle after it searches the same).
+  searchNow(mut self) { self.search = peek self.typed }
 
   filters(self): Game.SearchFilters {
     const level = self.list.values.level
     return {
       itemClass: self.itemClass != ANY ? self.itemClass : nil,
-      itemSubclass: self.itemClass != ANY && self.itemSubclass != ANY ? self.itemSubclass : nil,
+      itemSubclass: self.itemSubclass != ANY ? self.itemSubclass : nil,
       minLevel: level != ANY ? level : nil,
       maxLevel: level != ANY ? level + 9 : nil,
       qualities: self.list.values.quality != ANY ? [self.list.values.quality] : []
@@ -604,7 +602,7 @@ public class BuyPage implements Component {
         self.typed = self.house.named(PriceKey.of(found.item)).name
         self.searchNow()
       }
-      .Close => {}
+      else => {}
     }
   }
 
@@ -729,7 +727,7 @@ public class Chosen implements Component {
   derived refused: Boolean = self.purchase.refused != nil
   derived refusedText: String = self.purchase.refused ?? ""
   derived auction: Game.Listing | nil = self.listings[self.purchase.next]
-  derived quoted: Boolean = self.purchase.quotedCount > 0 && self.purchase.quotedCount == self.count
+  derived quoted: Boolean = self.purchase.quotedCount == self.count
   derived total: Integer = self.totalOf()
   derived buyLabel: String = self.quoted ? Locale.CONFIRM : Locale.BUY
   derived canBuy: Boolean = !Game.auctionActions.busy && (self.commodity ? self.count <= self.purchase.held :
