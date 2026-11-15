@@ -129,37 +129,32 @@ public class Minimap implements Module, App {
   }
 
   hiddenNow(self): Boolean {
-    match (self.settings.values.hide) {
-      Hide.Combat => return Game.situation.combat
-      Hide.Transport => return Game.situation.taxi || Game.situation.vehicle
-      Hide.Never => return false
+    return match (self.settings.values.hide) {
+      Hide.Combat => Game.situation.combat
+      Hide.Transport => Game.situation.taxi || Game.situation.vehicle
+      Hide.Never => false
     }
-    return false
   }
 
   // The zone's colour by its PvP status: the game's own minimap colours.
   colorOf(self): Color {
-    let pvp = Game.location.pvp
-    if (pvp == nil) { return GOLD }
-    match (pvp) {
-      Game.Pvp.Sanctuary => return Color.hex("#69ccf0")
-      Game.Pvp.Friendly => return Color.hex("#1aff1a")
-      Game.Pvp.Hostile, Game.Pvp.Combat => return Color.hex("#ff1a1a")
-      Game.Pvp.Contested => return Color.hex("#ffb300")
+    return match (Game.location.pvp) {
+      nil => GOLD
+      Game.Pvp.Sanctuary => Color.hex("#69ccf0")
+      Game.Pvp.Friendly => Color.hex("#1aff1a")
+      Game.Pvp.Hostile, Game.Pvp.Combat => Color.hex("#ff1a1a")
+      Game.Pvp.Contested => Color.hex("#ffb300")
     }
-    return GOLD
   }
 
   zoneLabel(self): String {
-    let pvp = Game.location.pvp
-    if (pvp == nil) { return "" }
-    match (pvp) {
-      Game.Pvp.Sanctuary => return Locale.ZONE_SANCTUARY
-      Game.Pvp.Friendly, Game.Pvp.Hostile => return Locale.ZONE_FACTION
-      Game.Pvp.Contested => return Locale.ZONE_CONTESTED
-      Game.Pvp.Combat => return Locale.ZONE_COMBAT
+    return match (Game.location.pvp) {
+      nil => ""
+      Game.Pvp.Sanctuary => Locale.ZONE_SANCTUARY
+      Game.Pvp.Friendly, Game.Pvp.Hostile => Locale.ZONE_FACTION
+      Game.Pvp.Contested => Locale.ZONE_CONTESTED
+      Game.Pvp.Combat => Locale.ZONE_COMBAT
     }
-    return ""
   }
 
   // ---- the ring, for its buttons
@@ -215,7 +210,7 @@ public class Minimap implements Module, App {
   public dragTo(mut self, x: Number, y: Number) {
     let cx = self.dragLeft + x - ROOM - self.frameWidth / 2
     let cy = self.dragTop + y - ROOM - self.frameHeight / 2
-    self.dragAngle = ((cx.atan2(-cy).deg() + 360) % 360 + 0.5).floor()
+    self.dragAngle = (cx.atan2(-cy).deg() % 360 + 0.5).floor()
   }
 
   public stopDrag(mut self, spec: RingSpec) {
@@ -255,29 +250,27 @@ public class Minimap implements Module, App {
   // ---- the tooltip of our own parts (the game's buttons show their own)
 
   titleOf(self): String {
-    match (self.hint) {
-      Hint.Zone => return Game.location.realZone
-      Hint.Coords => return Game.minimap.coords
-      Hint.Clock => return Game.clock.text
-      Hint.Ordaen => return Ordaen.title
-      Hint.Drawer => return Locale.DRAWER_TITLE
-      Hint.Entry => return self.entryName
-      Hint.None => return ""
+    return match (self.hint) {
+      Hint.Zone => Game.location.realZone
+      Hint.Coords => Game.minimap.coords
+      Hint.Clock => Game.clock.text
+      Hint.Ordaen => Ordaen.title
+      Hint.Drawer => Locale.DRAWER_TITLE
+      Hint.Entry => self.entryName
+      Hint.None => ""
     }
-    return ""
   }
 
   textOf(self): String {
-    match (self.hint) {
-      Hint.Zone => return self.zoneLabel()
-      Hint.Coords => return Locale.COORDS_TIP
-      Hint.Clock => return Locale.CLOCK_TIP
+    return match (self.hint) {
+      Hint.Zone => self.zoneLabel()
+      Hint.Coords => Locale.COORDS_TIP
+      Hint.Clock => Locale.CLOCK_TIP
       // The right click opens the dev tools, which a development build alone has.
-      Hint.Ordaen => return Build.dev ? Locale.ORDAEN_TIP_DEV : Locale.ORDAEN_TIP
-      Hint.Drawer => return Locale.DRAWER_TIP
-      Hint.Entry, Hint.None => return ""
+      Hint.Ordaen => Build.dev ? Locale.ORDAEN_TIP_DEV : Locale.ORDAEN_TIP
+      Hint.Drawer => Locale.DRAWER_TIP
+      Hint.Entry, Hint.None => ""
     }
-    return ""
   }
 
   // The tooltip shown is this part's.

@@ -60,37 +60,32 @@ public class RingButton implements Component {
   }
 
   frameOf(self): any Frame | nil {
-    match (self.spec.id) {
-      RingId.Tracking => return Game.frames.MinimapTrackingButton
-      RingId.Mail => return Game.frames.MinimapMail
-      RingId.CraftingOrder => return Game.frames.MinimapCraftingOrder
-      RingId.Landing => return Game.frames.ExpansionLandingPageMinimapButton
-      RingId.Ordaen, RingId.Drawer => return nil
+    return match (self.spec.id) {
+      RingId.Tracking => Game.frames.MinimapTrackingButton
+      RingId.Mail => Game.frames.MinimapMail
+      RingId.CraftingOrder => Game.frames.MinimapCraftingOrder
+      RingId.Landing => Game.frames.ExpansionLandingPageMinimapButton
+      RingId.Ordaen, RingId.Drawer => nil
     }
-    return nil
   }
 
   // The game's buttons show only while theirs would (the mail while there is mail); the drawer only while it is on
   // and holds something.
   shownNow(self): Boolean {
-    match (self.spec.id) {
-      RingId.Ordaen, RingId.Tracking => return true
-      RingId.Drawer => return self.map.isDrawerOn() && self.map.holds() > 0
-      else => {
-        let frame = self.theirs
-        return frame != nil && frame.IsShown()
-      }
+    let frame = self.theirs
+    return match (self.spec.id) {
+      RingId.Ordaen, RingId.Tracking => true
+      RingId.Drawer => self.map.isDrawerOn() && self.map.holds() > 0
+      else => frame != nil && frame.IsShown()
     }
-    return true
   }
 
   hintNow(self): Boolean {
-    match (self.spec.id) {
-      RingId.Ordaen => return self.map.hinting(Hint.Ordaen)
-      RingId.Drawer => return self.map.hinting(Hint.Drawer)
-      else => return false
+    return match (self.spec.id) {
+      RingId.Ordaen => self.map.hinting(Hint.Ordaen)
+      RingId.Drawer => self.map.hinting(Hint.Drawer)
+      else => false
     }
-    return false
   }
 
   onClick(mut self, click: Click) {
