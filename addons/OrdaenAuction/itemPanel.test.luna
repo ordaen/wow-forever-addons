@@ -12,6 +12,7 @@ const HOUR = 3600
 const DAY = 86400
 const LINEN: Integer = 2589
 const LAST_BAR: Color = Color.hex("#f0c860")
+const BAR: Color = Color.hex("#d6a56b")
 
 function names(id: Integer): Game.TooltipData | nil {
   if (id == LINEN) { return { lines: [{ left: "Linen Cloth", kind: 0 }] } }
@@ -187,4 +188,71 @@ test "the 8,000 are freed as a full scan drops what is 30 days old: a new item h
   Game.auctionQuery.results.emit([{ key: 18002, copper: 50, quantity: 1 }])
   window().text("Ware 18002").click()
   Test.expect(!window().text("No price history yet.").shown())
+}
+
+// The three texts after `label` in the panel.
+function says(label: String, expected: String): Boolean {
+  const shown = window().button("Post").item().texts()
+  for (index, text of shown) {
+    if (text == label) {
+      const said = `${shown[index + 1] ?? ""} | ${shown[index + 2] ?? ""}`
+      if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
+      return true
+    }
+  }
+  panic(`no «${label}»`)
+}
+
+test "the day has a bar for each of its 24 hours, the week one a day for 7, the month for 30" {
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Game.clock.server = START
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 5 }])
+  window().text("Linen Cloth").click()
+  // The panel paints other parts the bars' colour too: the spans are told apart by how many more or fewer.
+  const chart = window().button("Post").item()
+  const day = chart.box(BAR).count()
+  Test.expect(chart.box(LAST_BAR).count() == 1)
+  window().button("Week").click()
+  const week = chart.box(BAR).count()
+  Test.expect(day - week == 17 && chart.box(LAST_BAR).count() == 1)
+  window().button("Month").click()
+  Test.expect(chart.box(BAR).count() - week == 23 && chart.box(LAST_BAR).count() == 1)
+}
+
+test "a look in the day's first hour has its bar, as has one on the month's first day" {
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  Game.clock.server = START + -29 * DAY + -8 * HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 90, quantity: 5 }])
+  Game.clock.server = START + -23 * HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 20, quantity: 5 }])
+  Game.clock.server = START
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 5 }])
+  window().text("Linen Cloth").click()
+  Test.expect(ends("0g 0s 20c | 0g 0s 36c"))
+  window().button("Month").click()
+  Test.expect(ends("0g 0s 20c | 0g 0s 90c"))
+}
+
+test "the panel names the item and says its market price with the price's age, and a merchant's price" {
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = (): Array<Game.Sellable> | nil => [{ item: LINEN, count: 1, bag: 0, slot: 1, commodity: true }]
+  Test.mount(nil, SCREEN)
+  Game.clock.server = START + -50 * HOUR
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 5 }])
+  Game.clock.server = START
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 13 } }
+  Game.merchant.opened.emit()
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  window().text("Linen Cloth").click()
+  Test.expect(window().button("Post").item().text("Linen Cloth").shown())
+  Test.expect(says("Market", "0g 0s 36c | (2 d.)") && says("Vendor price each", "0g 0s 13c | Quantity"))
 }
