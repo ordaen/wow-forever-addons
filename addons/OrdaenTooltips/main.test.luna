@@ -472,3 +472,127 @@ test "a button's tooltip, which never locks, ends at its last line; an item's ke
   // The bar's row and the room above it: more than 15 more.
   Test.expect(item.rect().bottom - item.text("Sword").rect().bottom > under + 15)
 }
+
+// Where the group stands
+
+// An item that stands beside its slot of the bags on the screen's left, under it on its left edge: what using it
+// does and its set beside it, `worn` the items it is compared with.
+function leftSlot(data: Game.TooltipData): Game.ShownTip {
+  return {
+    owner: frame("Button", "ContainerFrame2Item1", 100, 200, 40, 40), ownerName: "ContainerFrame2Item1", placeable: true,
+    ownerHigh: true, ownerRight: false, ..showing(data)
+  }
+}
+
+function axeWithSides(): Game.TooltipData {
+  return {
+    kind: 0, id: 9001,
+    lines: [
+      { left: "Axe", kind: 22 }, { left: "Use: Heals you.", kind: 44, spell: 7001 }, { left: "Deep Woods (1/3)", kind: 42 }
+    ]
+  }
+}
+
+function healingTouch(id: Integer): Game.TooltipData | nil {
+  return { kind: 1, id: 7001, lines: [{ left: "Healing Touch", kind: 13 }, { left: "Instant", kind: 0 }] }
+}
+
+test "on its owner's left edge the group runs rightwards: the axe at the owner, the column beside it, the worn one beyond" {
+  Game.spells.tooltip = healingTouch
+  Test.mount(nil, SCREEN)
+  Game.tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }]
+  Game.tooltip.main = leftSlot(axeWithSides())
+  const group = Test.page().window("Axe")
+  const main = group.text("Axe").rect()
+  const use = group.text("Healing Touch").rect()
+  const worn = group.text("Worn Axe").rect()
+  Test.expect(near(group.rect().left, 100) && main.right < use.left && use.right < worn.left)
+}
+
+test "two worn items stand from the main tooltip outwards in the game's order, whichever way the group runs" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }, { kind: 0, lines: [{ left: "Old Axe", kind: 22 }] }]
+  Game.tooltip.main = leftSlot({ kind: 0, lines: [{ left: "Axe", kind: 22 }] })
+  const right = Test.page().window("Axe")
+  Test.expect(right.text("Axe").rect().right < right.text("Worn Axe").rect().left)
+  Test.expect(right.text("Worn Axe").rect().right < right.text("Old Axe").rect().left)
+  Game.tooltip.main = showing({ kind: 0, lines: [{ left: "Axe", kind: 22 }] })
+  const left = Test.page().window("Axe")
+  Test.expect(left.text("Worn Axe").rect().right < left.text("Axe").rect().left)
+  Test.expect(left.text("Old Axe").rect().right < left.text("Worn Axe").rect().left)
+}
+
+test "under its owner the tooltips beside line up their tops with the main one's; above it, their bottoms" {
+  Game.spells.tooltip = healingTouch
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = leftSlot(axeWithSides())
+  const below = Test.page().window("Axe")
+  Test.expect(near(below.text("Healing Touch").rect().top, below.text("Axe").rect().top))
+  Game.tooltip.main = showing(axeWithSides())
+  const above = Test.page().window("Axe")
+  // The set's tooltip is the column's last: its bottom on the axe's.
+  const set = above.text("Deep Woods (1/3)").item().rect()
+  Test.expect(near(set.bottom, above.rect().bottom))
+  Test.expect(above.text("Axe").rect().top > above.text("Healing Touch").rect().top)
+}
+
+test "compared, the main tooltip's title stands level with the worn item's under its «Equipped»" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }]
+  Game.tooltip.main = showing({ kind: 0, lines: [{ left: "Axe", kind: 22 }] })
+  const group = Test.page().window("Axe")
+  Test.expect(near(group.text("Axe").rect().top, group.text("Worn Axe").rect().top))
+}
+
+// What buttons tell more: their edges
+
+test "each bag's slot tells its own free slots" {
+  Game.bags.roomOf = (bag: Integer): Game.BagRoom => ({ free: bag, slots: 10 * bag })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("CharacterBag1Slot", text("Bag 2"))
+  Test.expect(reads(Test.page().window("Bag 2"), "Bag 2 | Free slots | 2 / 20"))
+  Game.tooltip.main = atButton("CharacterBag2Slot", text("Bag 3"))
+  Test.expect(reads(Test.page().window("Bag 3"), "Bag 3 | Free slots | 3 / 30"))
+  Game.tooltip.main = atButton("CharacterBag3Slot", text("Bag 4"))
+  Test.expect(reads(Test.page().window("Bag 4"), "Bag 4 | Free slots | 4 / 40"))
+}
+
+test "a bag of one slot, an item level of one, a durability of a half and a single point are told" {
+  Game.bags.roomOf = (bag: Integer): Game.BagRoom => ({ free: 1, slots: 1 })
+  Game.character.itemLevel = (): Number | nil => 1
+  Game.character.durability = (): Number | nil => 0.5
+  Game.character.unspentTalents = (): Integer => 1
+  Game.character.achievementPoints = (): Integer => 1
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("CharacterBag0Slot", text("Pouch"))
+  Test.expect(reads(Test.page().window("Pouch"), "Pouch | Free slots | 1 / 1"))
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test.expect(reads(Test.page().window("Character Info"), "Character Info | Item level | 1 | Durability | 50%"))
+  Game.tooltip.main = atButton("TalentMicroButton", text("Talents"))
+  Test.expect(reads(Test.page().window("Talents"), "Talents | Unspent points | 1"))
+  Game.tooltip.main = atButton("AchievementMicroButton", text("Achievements"))
+  Test.expect(reads(Test.page().window("Achievements"), "Achievements | Achievement points | 1"))
+}
+
+test "a button's facts come after its own lines" {
+  Game.character.quests = (): Game.QuestCount => ({ have: 3, most: 25 })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("QuestLogMicroButton", {
+    plain: true, lines: [{ left: "Quest Log", kind: 0 }, { left: "See your quests.", kind: 0 }, { left: "Press L.", kind: 0 }]
+  })
+  Test.expect(reads(Test.page().window("Quest Log"), "Quest Log | See your quests. | Press L. | Quests | 3 / 25"))
+}
+
+// The tabs
+
+test "each kind's switch off greys the rest of its tab" {
+  Test.mount(nil, SCREEN)
+  for (title of ["Abilities", "Effects", "Players", "NPCs", "Objects", "Buttons and text"]) {
+    const settings = tab(title)
+    settings.button("On").click()
+    const rest = title == "Buttons and text" ? "More on buttons" : "Tooltips in tooltips"
+    if (settings.button(rest).opacity() >= 1) { panic(`${title}: «${rest}» isn't greyed`) }
+    settings.button("On").click()
+    Test.key(Key.Escape)
+  }
+}

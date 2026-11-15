@@ -526,3 +526,88 @@ test "with «Tooltips in tooltips» unticked for objects an object never locks, 
   Test.pass(CHARGED)
   Test.expect(isLocked())
 }
+
+test "a locked tooltip opens no term before the cursor comes onto a part" {
+  Test.mount(new Elsewhere(), SCREEN)
+  Game.tooltip.main = inSlot(frostbolt())
+  Test.pass(CHARGED)
+  Test.expect(Test.surfaces().length == 1)
+}
+
+// Whether a text is this one: where it isn't, the test fails with what it is.
+function same(said: String, expected: String): Boolean {
+  if (said != expected) { panic(`it says «${said}», not «${expected}»`) }
+  return true
+}
+
+// The name of the term the cursor on this part of the locked tooltip opens.
+function termOf(part: String): String {
+  locked().text(part).hover()
+  const opened = Test.surfaces()[2]?.texts ?? []
+  locked().text("Locked — hover the underlined parts").hover()
+  return opened[1] ?? "nothing"
+}
+
+test "each cell of an ability's band opens its own term" {
+  Test.mount(new Elsewhere(), SCREEN)
+  Game.tooltip.main = inSlot({
+    kind: 1, id: 8, about: "spell:8",
+    lines: [
+      { left: "Rend", kind: 13 }, { left: "Melee Range", kind: 0 }, { left: "Channeled", right: "Cooldown: 8 sec", kind: 0 },
+      { left: "Next melee", kind: 0 }
+    ]
+  })
+  Test.pass(CHARGED)
+  Test.expect(same([termOf("5 yd"), termOf("Channeled"), termOf("CD 8 sec"), termOf("Next")].join(" | "), "Melee range | Channelled | Cooldown | Next attack"))
+}
+
+test "an item bound on equip or on pickup opens what that binding is" {
+  Test.mount(new Elsewhere(), SCREEN)
+  Game.tooltip.main = inSlot({
+    kind: 0, id: 1, about: "item:1", lines: [{ left: "Ring", kind: 22 }, { left: "Binds when equipped", kind: 20 }]
+  })
+  Test.pass(CHARGED)
+  Test.expect(same(termOf("Binds when equipped"), "Binds when equipped"))
+  locked().button(CLOSE).click()
+  Game.tooltip.main = inSlot({
+    kind: 0, id: 2, about: "item:2", lines: [{ left: "Cloak", kind: 22 }, { left: "Binds when picked up", kind: 20 }]
+  })
+  Test.pass(CHARGED)
+  Test.expect(same(termOf("Binds when picked up"), "Binds when picked up"))
+}
+
+test "the caster of an effect opens the caster's own tooltip; the player's own «You» opens nothing" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => unit != "target" ? nil : {
+    name: "Scarlet Monk", player: false, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 30,
+    inParty: false, friend: false, ignored: false, tapped: false, classification: "normal", sameFaction: false
+  }
+  let source = "target"
+  Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => ({
+    harmful: true, source: source, sourceName: "Scarlet Monk", stacks: 1, own: false, hostile: false
+  })
+  Test.mount(new Elsewhere(), SCREEN)
+  Game.tooltip.main = inSlot({ kind: 7, id: 14914, about: "spell:14914", lines: [{ left: "Holy Fire", kind: 0 }] })
+  Test.pass(CHARGED)
+  locked().text("Scarlet Monk").hover()
+  Test.expect(reads(Test.page().window("Level 30"), "Scarlet Monk | Level 30"))
+  locked().button(CLOSE).click()
+  source = "player"
+  Game.tooltip.main = inSlot({ kind: 7, id: 1243, about: "spell:1243", lines: [{ left: "Fortitude", kind: 0 }] })
+  Test.pass(CHARGED)
+  const before = Test.page().texts().join(" | ")
+  locked().text("You").hover()
+  Test.expect(Test.page().texts().join(" | ") == before)
+}
+
+test "a new tooltip locked waits for the cursor, though the cursor was on the one before" {
+  Test.mount(new Elsewhere(), SCREEN)
+  Game.tooltip.main = inSlot(sword())
+  Test.pass(CHARGED)
+  locked().text("Sword").hover()
+  elsewhere()
+  Game.tooltip.main = inSlot(shield())
+  Test.pass(CHARGED)
+  Game.tooltip.main = hidden()
+  Test.pass(0.5)
+  Test.expect(isLocked())
+}

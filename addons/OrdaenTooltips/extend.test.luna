@@ -185,3 +185,27 @@ test "a world object has none of an item's hotkeys" {
   Test.expect(reads(Test.page().window("Copper Vein"), "Copper Vein"))
   destroy added
 }
+
+// A row of the test's own in one colour, its value with none of its own.
+class Tinted implements ItemLines {
+  public lines(self, item: Integer, link: String): Array<Line> {
+    return [{ left: "Sold for", right: "3g", color: Color.hex("#40ff40") }]
+  }
+}
+
+test "an added row's value with no colour of its own is in its line's" {
+  Test.mount(nil, SCREEN)
+  const added = Tooltips.worth.add(new Tinted())
+  Game.tooltip.main = showing(ore())
+  Test.expect(Test.page().text("3g").textColor().equal(Color.hex("#40ff40")))
+  destroy added
+}
+
+test "an item the game gives no number for asks the added rows nothing" {
+  Test.mount(nil, SCREEN)
+  let asked = 0
+  const added = Tooltips.worth.add(new Priced((): nil => { asked += 1 }))
+  Game.tooltip.main = showing({ kind: 0, lines: [{ left: "Mystery", kind: 22 }] })
+  Test.expect(reads(Test.page().window("Mystery"), "Mystery") && asked == 0)
+  destroy added
+}

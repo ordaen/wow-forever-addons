@@ -1141,3 +1141,319 @@ test "a requirement of the form «Label: value» is its label and its value; one
   })
   Test.expect(reads(tip("Charge"), "Charge | Requires | Battle Stance | No colon here | 12:30 is a time"))
 }
+
+// The edges of what the reader reads
+
+const QUIET: Color = Color.hex("#857a66")
+const FREE: Color = Color.hex("#e6dcc6")
+
+test "a hotkey and a footer's label are quiet, a value of the footer quieter than the body" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({ plain: true, lines: [{ left: "Bags |cffffd200(B)|r", kind: 0 }] })
+  Test.expect(inColor(tip("Bags").text("B: open"), QUIET))
+  Game.tooltip.main = showing({
+    kind: 0, id: 1,
+    lines: [
+      { left: "Mace", kind: NAME_OF_ITEM }, { left: "Requires Level 5", kind: REQUIRES },
+      { left: "Requires Honored", kind: REQUIRES }
+    ]
+  })
+  Test.expect(inColor(tip("Mace").text("Requires level"), QUIET))
+  Test.expect(inColor(tip("Mace").text("5"), QUIET_VALUE))
+  // A requirement of no form the game names: the line alone, as a label.
+  Test.expect(inColor(tip("Mace").text("Requires Honored"), QUIET))
+}
+
+test "a button's lines in a blue, a magenta or a yellow of their own keep them" {
+  const blue = Color.hex("#3366ff")
+  const magenta = Color.hex("#ff33ff")
+  const yellow = Color.hex("#ffff33")
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    plain: true,
+    lines: [
+      { left: "Menu", kind: 0 }, { left: "Blue", leftColor: blue, kind: 0 },
+      { left: "Magenta", leftColor: magenta, kind: 0 }, { left: "Yellow", leftColor: yellow, kind: 0 }
+    ]
+  })
+  Test.expect(inColor(tip("Menu").text("Blue"), blue) && inColor(tip("Menu").text("Magenta"), magenta))
+  Test.expect(inColor(tip("Menu").text("Yellow"), yellow))
+}
+
+test "a button's line with a value is in the body's colour, its value in its own or else in its line's" {
+  const green = Color.hex("#33ff33")
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    plain: true,
+    lines: [
+      { left: "Menu", kind: 0 }, { left: "Latency", right: "31 ms", rightColor: green, kind: 0 },
+      { left: "Wear", right: "Low", leftColor: GAME_RED, kind: 0 }
+    ]
+  })
+  Test.expect(inColor(tip("Menu").text("Latency"), BODY) && inColor(tip("Menu").text("31 ms"), green))
+  Test.expect(inColor(tip("Menu").text("Low"), GAME_RED))
+}
+
+test "a spell's first lines with no right side are cells of its band; a later one, in a free line's colour, is the body's" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 1, id: 3,
+    lines: [
+      { left: "Shoot", kind: NAME_OF_SPELL }, { left: "Range: 30 yd.", kind: 0 }, { left: "Instant", kind: 0 },
+      { left: "Uses a wand.", kind: DESCRIBED }, { left: "Needs a wand.", kind: 0 }, { left: "---", kind: 1 }
+    ]
+  })
+  const shoot = tip("Shoot")
+  // The range without its label and its full stop.
+  Test.expect(reads(shoot, "Shoot | 30 yd | Instant | Uses a wand. | Needs a wand."))
+  Test.expect(inColor(shoot.text("Uses a wand."), BODY) && inColor(shoot.text("Needs a wand."), FREE))
+}
+
+test "a finishing move's sentence before its rows is in the body's colour" {
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => ({ amount: 35 })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(eviscerate())
+  Test.expect(inColor(tip("Eviscerate").text("Finishing move that causes damage per combo point:\nStrikes hard."), BODY))
+}
+
+test "a cast of any kind beside a cooldown makes the cooldown a cell of its own" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 1, id: 4,
+    lines: [
+      { left: "Arcane Missiles", kind: NAME_OF_SPELL }, { left: "85 Mana", right: "30 yd range", kind: 0 },
+      { left: "Channeled", right: "Cooldown: 8 sec", kind: 0 }
+    ]
+  })
+  Test.expect(tip("Arcane Missiles").text("CD 8 sec").shown())
+  Game.tooltip.main = showing({
+    kind: 1, id: 5,
+    lines: [{ left: "Heroic Strike", kind: NAME_OF_SPELL }, { left: "Next melee", right: "Cooldown: 3 sec", kind: 0 }]
+  })
+  Test.expect(reads(tip("Heroic Strike"), "Heroic Strike | Next | CD 3 sec"))
+  Game.tooltip.main = showing({
+    kind: 1, id: 6,
+    lines: [{ left: "Fireball", kind: NAME_OF_SPELL }, { left: "3.5 sec cast", right: "Cooldown: 1 min", kind: 0 }]
+  })
+  Test.expect(reads(tip("Fireball"), "Fireball | 3.5 sec cast | CD 1 min"))
+  Game.tooltip.main = showing({
+    kind: 1, id: 7,
+    lines: [{ left: "Teleport", kind: NAME_OF_SPELL }, { left: "1.5 min cast", right: "Cooldown: 1 h", kind: 0 }]
+  })
+  Test.expect(reads(tip("Teleport"), "Teleport | 1.5 min cast | CD 1 h"))
+}
+
+test "a reagent the player carries just enough of is in the footer's colour" {
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => ({ amount: 35 })
+  Game.items.count = (name: String): Integer => 2
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(eviscerate())
+  Test.expect(inColor(tip("Eviscerate").text("Flash Powder").item().text("2"), QUIET_VALUE))
+}
+
+test "an item's durability of one is yellow, not red" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 0, id: 1, lines: [{ left: "Mace", kind: NAME_OF_ITEM }, { left: "Durability 1 / 120", kind: 0 }]
+  })
+  Test.expect(inColor(tip("Mace").text("1 / 120"), GOLD))
+}
+
+test "an item's own lines: an equip effect green, a blank line nothing, a sell price of nothing no line" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 0, id: 1,
+    lines: [
+      { left: "Mace", kind: NAME_OF_ITEM }, { left: "Equip: Hits harder.", kind: 45 }, { left: "---", kind: 1 },
+      { kind: 11, price: 0 }
+    ]
+  })
+  Test.expect(reads(tip("Mace"), "Mace | Equip: Hits harder."))
+  Test.expect(inColor(tip("Mace").text("Equip: Hits harder."), GREEN))
+}
+
+test "a weapon's damage of a school and a single damage read as its band's damage" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 0, id: 1,
+    lines: [{ left: "Wand", kind: NAME_OF_ITEM }, { left: "36 - 67 Fire Damage", right: "Speed 1,50", kind: 0 }]
+  })
+  Test.expect(reads(tip("Wand"), "Wand | 36–67 | 1.5/s"))
+  Game.tooltip.main = showing({
+    kind: 0, id: 2, lines: [{ left: "Dart", kind: NAME_OF_ITEM }, { left: "12 Damage", kind: 0 }]
+  })
+  Test.expect(reads(tip("Dart"), "Dart | 12"))
+}
+
+test "an item in the bags and the bank says how many in each; all of it in the bags, nothing of the bank" {
+  Game.items.maxStack = (id: Integer): Integer | nil => 20
+  Game.items.inBags = (id: Integer): Integer => 1
+  Game.items.owned = (id: Integer): Integer => id == 9002 ? 3 : 1
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({ kind: 0, id: 9002, lines: [{ left: "Linen", kind: NAME_OF_ITEM }] })
+  Test.expect(reads(tip("Linen"), "Linen | In bags | 1 | In the bank | 2 | Stack size | 20"))
+  Game.tooltip.main = showing({ kind: 0, id: 9003, lines: [{ left: "Wool", kind: NAME_OF_ITEM }] })
+  Test.expect(reads(tip("Wool"), "Wool | In bags | 1 | Stack size | 20"))
+}
+
+test "what using an item does keeps its own footer, the wait after it" {
+  Game.spells.tooltip = (id: Integer): Game.TooltipData | nil => ({
+    kind: 1, id: 7001,
+    lines: [{ left: "Healing Touch", kind: NAME_OF_SPELL }, { left: "Requires: Druid", kind: REQUIRES }]
+  })
+  Game.items.cooldown = (id: Integer): Number | nil => 30
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(axeTip())
+  Test.expect(reads(tip("Healing Touch").text("Healing Touch").item(), "Healing Touch | Requires | Druid | Ready in | 30 s"))
+}
+
+test "an item compared by level: the level it has more of, and no row for a level it lacks" {
+  Game.items.stats = axes
+  Game.items.level = (id: Integer): Integer | nil => id == 1 ? 62 : id == 2 ? 60 : nil
+  Test.mount(nil, SCREEN)
+  Game.tooltip.compared = [{ kind: 0, id: 2, lines: [{ left: "Worn Axe", kind: NAME_OF_ITEM }] }]
+  Game.tooltip.main = showing({ kind: 0, id: 1, lines: [{ left: "Greataxe", kind: NAME_OF_ITEM }] })
+  Test.expect(reads(tip("Greataxe").text("62").item(), "Item level | 62 | (2 | )"))
+  Game.tooltip.main = showing({ kind: 0, id: 3, lines: [{ left: "Greataxe", kind: NAME_OF_ITEM }] })
+  Test.expect(tip("Greataxe").text("Item level").count() == 1)
+}
+
+test "an NPC's first lines: a title in its role's place, a pet's owner, its level's line and a line like its kind gone" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => ({
+    name: "Wolf", player: false, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 5,
+    inParty: false, friend: false, ignored: false, tapped: false, creatureType: "Beast", classification: "rare",
+    sameFaction: true
+  })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 2,
+    lines: [
+      { left: "Wolf", kind: NAME_OF_UNIT, unit: "target" }, { left: "Pack Leader", kind: 0 },
+      { left: "Level 5 Beast", kind: 0 }, { left: "Beast", kind: 0 }, { left: "Jaina's Pet", kind: 16 },
+      { left: "Howls.", kind: 0 }, { left: "---", kind: 1 }
+    ]
+  })
+  Test.expect(reads(tip("Pack Leader"), "Wolf | Pack Leader | · | Jaina's Pet | Beast | Level 5 | Rare | Howls."))
+}
+
+test "an NPC of the player's side is in green; one of the first level says so" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => ({
+    name: "Guard", player: false, dead: false, ghost: false, afk: false, dnd: false, pvp: false, level: 1,
+    faction: "Alliance", sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false,
+    classification: "elite"
+  })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 2, lines: [{ left: "Guard", kind: NAME_OF_UNIT, unit: "target" }, { left: "Stormwind", kind: 0 }]
+  })
+  Test.expect(reads(tip("Guard"), "Guard | Level 1 | Elite | Stormwind"))
+  Test.expect(inColor(tip("Guard").text("Stormwind"), GREEN))
+}
+
+test "an NPC of the other side is in red" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => pillager()
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(pillagerTip())
+  Test.expect(inColor(tip("Brotherhood Scout").text("Defias Brotherhood").nth(1), RED))
+}
+
+test "a player's title without their name in it stands whole; a player of the first level says so" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => ({ titled: "Archmage of Dalaran", level: 1, ..jaina() })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(hovered("Jaina"))
+  Test.expect(tip("Kirin Tor").text("Archmage of Dalaran").shown() && tip("Kirin Tor").text("Level 1").shown())
+}
+
+test "a player's state reads whole: not to be disturbed, in the player's group, ignored" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => ({
+    afk: false, dnd: true, pvp: false, raidGroup: nil, inParty: true, friend: false, ignored: true, guild: nil,
+    titled: nil, target: nil, ..jaina()
+  })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(hovered("Jaina"))
+  Test.expect(reads(tip("Jaina"), "Jaina | Mage | · | Do not disturb | Level 60 | Human | Alliance | Group | Yours | Ignore | On the list"))
+}
+
+test "an effect's own lines: a blank one and the time left gone, its description in the body's colour" {
+  Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => burning()
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 7, id: 14914,
+    lines: [
+      { left: "Holy Fire", kind: 0 }, { left: "---", kind: 1 },
+      { left: "Burns for 12 damage every 3 sec.", kind: DESCRIBED }, { left: "8 minutes remaining", kind: 0 }
+    ]
+  })
+  const effect = tip("Holy Fire")
+  Test.expect(inColor(effect.text("Burns for 12 damage every 3 sec."), BODY))
+  Test.expect(!effect.text("---").shown() && !effect.text("8 minutes remaining").shown())
+}
+
+test "what an effect will still deal counts the whole ticks left, its stacks as one at least, and nothing of no amount or period" {
+  let info: Game.AuraInfo = { stacks: 0, left: 10, ..burning() }
+  Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => info
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(holyFire())
+  Test.expect(tip("Holy Fire").text("36 over 10 s").shown())
+  info = { stacks: 1, left: 10, ..burning() }
+  Game.tooltip.main = showing({
+    kind: 7, id: 1, lines: [{ left: "Ember", kind: 0 }, { left: "Burns for 0 damage every 3 sec.", kind: DESCRIBED }]
+  })
+  Test.expect(!tip("Ember").text("Damage left").shown())
+  Game.tooltip.main = showing({
+    kind: 7, id: 2, lines: [{ left: "Spark", kind: 0 }, { left: "Burns for 5 damage every 0 sec.", kind: DESCRIBED }]
+  })
+  Test.expect(!tip("Spark").text("Damage left").shown())
+}
+
+test "an effect's time is read again as the seconds pass, and a time run out is nought" {
+  let left: Number = 9
+  Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => ({ left: left, ..burning() })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(holyFire())
+  left = -2
+  Test.pass(1.1)
+  Test.expect(tip("Holy Fire").text("0 s").shown())
+}
+
+test "a disease on a priest names the first of the class's cures the priest knows, in the disease's colour" {
+  Game.spells.known = (id: Integer): Boolean => id == 528
+  Game.spells.name = (id: Integer): String | nil => id == 528 ? "Cure Disease" : id == 552 ? "Abolish Disease" : nil
+  Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => ({ dispel: "Disease", dispelName: "Disease", ..burning() })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(holyFire())
+  Test.expect(inColor(tip("Holy Fire").text("Disease"), Color.hex("#c89040")))
+  Test.expect(tip("Holy Fire").text("Cure Disease").shown())
+}
+
+test "an enemy's magic buff names a priest's first purge it knows" {
+  Game.spells.known = (id: Integer): Boolean => true
+  Game.spells.name = (id: Integer): String | nil => id == 988 ? "Mass Dispel" : "Dispel Magic"
+  Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => ({
+    harmful: false, dispel: "Magic", stacks: 1, own: false, hostile: true
+  })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({ kind: 7, id: 1243, lines: [{ left: "Power Word: Fortitude", kind: 0 }] })
+  Test.expect(tip("Power Word: Fortitude").text("Mass Dispel").shown())
+}
+
+test "the camp's first paragraph is its heading, never a row" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 7, id: 1229741,
+    lines: [{ left: "Camp", kind: 0 }, { left: "Bonuses: of your camp\nForge: Armor increased by 5.", kind: DESCRIBED }]
+  })
+  Test.expect(reads(tip("Forge"), "Camp | Camp | Forge | Armor increased by 5."))
+}
+
+test "a quest's objective with no count stands alone, and one after the next quest's title is the player's own again" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 4,
+    lines: [
+      { left: "Sack", kind: 0 }, { left: "Oats", kind: 17 }, { left: "Anduin", kind: 18 },
+      { left: " - Oats: 2/4", kind: 8 }, { left: "Hay", kind: 17 }, { left: "Find the hay", kind: 8 }
+    ]
+  })
+  Test.expect(reads(tip("Sack"), "Sack | Oats | Anduin | 2/4 | Hay | Find the hay"))
+}
