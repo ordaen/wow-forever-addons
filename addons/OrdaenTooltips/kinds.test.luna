@@ -432,7 +432,7 @@ test "a talent's «Next rank» unticked shows no next rank" {
 test "a talent not learned names the points its tree wants, red while not spent, and the talent before it" {
   Game.spells.name = (id: Integer): String | nil => "Improved Fireball"
   Game.talents.shown = (data: Game.TooltipData): Game.TalentInfo | nil => ({
-    spell: 11069, rank: 0, ranks: 5, next: "Reduces the cast time.",
+    spell: 11069, rank: 0, ranks: 5, current: "Reduces it.", next: "Reduces the cast time.",
     conditions: [{ points: 5, met: false }, { points: 0, met: true }, { points: 10, met: true }], locked: true
   })
   Test.mount(nil, SCREEN)
@@ -629,7 +629,7 @@ test "a player's state reads dead, a ghost or not to be disturbed; a party membe
   Test.expect(tip("Kirin Tor").text("Corpse").shown())
   who = { ghost: true, ..jaina() }
   Game.tooltip.main = showing(hovered("Jaina"))
-  Test.expect(tip("Kirin Tor").text("Ghost").shown())
+  Test.expect(reads(tip("Kirin Tor"), "|cffcbb994|r|cff4d99ffJaina|r|cffcbb994 the Patient|r | Kirin Tor | · | Archmage | Mage | · | Ghost | · | PvP | Level 60 | Human | Alliance | Target | Thrall | Raid | Group 2 | Friend | met in Dalaran"))
   who = { afk: false, dnd: true, raidGroup: nil, inParty: true, friend: false, ignored: true, ..jaina() }
   Game.tooltip.main = showing(hovered("Jaina"))
   const player = tip("Kirin Tor")
@@ -1122,12 +1122,14 @@ test "a line's plural code takes the form its number asks, of two forms or three
       { left: "21 |4заряд:заряда:зарядов;", kind: 0 },
       { left: "22 |4заряд:заряда:зарядов;", kind: 0 },
       { left: "12 |4заряд:заряда:зарядов;", kind: 0 },
+      { left: "14 |4заряд:заряда:зарядов;", kind: 0 },
+      { left: "24 |4заряд:заряда:зарядов;", kind: 0 },
       { left: "111 |4заряд:заряда:зарядов; и 5 |4минута:минуты:минут;", kind: 0 },
       { left: "Требуется |3-6(Кузнечный молот)", kind: 0 },
       { left: "2 |4nothing;", kind: 0 }
     ]
   })
-  Test.expect(reads(tip("Chest"), "Chest | 1 charge | 5 charges | 21 заряд | 22 заряда | 12 зарядов | 111 зарядов и 5 минут | Требуется Кузнечный молот | 2 nothing"))
+  Test.expect(reads(tip("Chest"), "Chest | 1 charge | 5 charges | 21 заряд | 22 заряда | 12 зарядов | 14 зарядов | 24 заряда | 111 зарядов и 5 минут | Требуется Кузнечный молот | 2 nothing"))
 }
 
 test "a requirement of the form «Label: value» is its label and its value; one of another form the line alone" {
