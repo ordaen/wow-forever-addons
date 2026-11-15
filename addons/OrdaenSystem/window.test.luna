@@ -1933,6 +1933,36 @@ test "the card says the client's refusal where «Load» fails" {
   Test.expect(window().text(Client.ADDON_LOAD_FAILED.format("Picky", "NOT_AVAILABLE")).textColor().equal(Style.RED))
 }
 
+test "a refusal of «Load» stays on the card of the addon it is about" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "Picky", title: "Picky", demand: true, refuses: "NOT_AVAILABLE" })
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.LoadAddOn = name => {
+    const loaded, refused = world.load(name)
+    return loaded, refused
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  row("Picky").click()
+  window().button(Locale.LOAD_NOW).click()
+  Test.expect(window().text(Client.ADDON_LOAD_FAILED.format("Picky", "NOT_AVAILABLE")).textColor().equal(Style.RED))
+  row("Bagger").click()
+  Test.expect(!window().text(Client.ADDON_LOAD_FAILED.format("Picky", "NOT_AVAILABLE")).shown())
+}
+
 test "in a fight the card's «Load» is greyed, does nothing, and says why under the cursor" {
   const world = new World(everyday())
   Client.C_AddOns.GetNumAddOns = () => world.count()

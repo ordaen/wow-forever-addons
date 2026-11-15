@@ -60,8 +60,10 @@ public class Card implements Component {
   public toggle: Event<String> = new Event()
   public settings: Event<String> = new Event()
 
-  // The client's answer where «Load» failed.
+  // The client's answer where «Load» failed, and the addon it is about: shown on that addon's card alone.
   state failed = ""
+  state failedFor = ""
+  derived failure: String = self.failedFor == self.name ? self.failed : ""
   derived addon: AddOn | nil = self.catalog.byName[self.name]
   derived status: Status | nil = self.catalog.statuses[self.name]
   derived load: Load | nil = self.profiler.loads[self.name]
@@ -184,6 +186,7 @@ public class Card implements Component {
   onLoad(mut self) {
     if (self.fighting) { return }
     const refused = self.catalog.load(self.name)
+    self.failedFor = self.name
     self.failed = refused == nil ? "" : Client.ADDON_LOAD_FAILED.format(self.catalog.titleOf(self.name), refused)
   }
 
@@ -205,7 +208,7 @@ public class Card implements Component {
               <text value={self.stateText} textColor={self.stateColor} textSize={.Secondary} />
             </box>
           </box>
-          <text $if={self.failed != ""} value={self.failed} textColor={Style.RED} textSize={.Secondary} />
+          <text $if={self.failure != ""} value={self.failure} textColor={Style.RED} textSize={.Secondary} />
           <text value={Locale.CARD_NEEDS} textColor={Style.DIM} textSize={.Secondary} />
           <NamedLink $for={named of self.needs} named={named} @pick={self.onPick} />
           <text $if={self.needs.length == 0} value={DASH} textColor={Style.DIM} />
