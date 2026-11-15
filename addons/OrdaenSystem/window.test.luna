@@ -1,49 +1,2272 @@
-// The AddOns window on the stand-in's list of addons (Ordaen, its modules, the runtime): opened from the game menu,
-// the list by category with Ordaen's modules under Ordaen; switching on with what an addon needs and «Undo»;
-// switching off what others need asks first; Ctrl on a group's parent switches the group; for whom; the search, the
-// filter and the table; the card; sets; the reload's secure box; the numbers read only while it shows.
+// The AddOns window as the player meets it: opened by the game menu's «AddOns», the client's addons by category with
+// Ordaen's modules under Ordaen, each row's state and numbers; switching on with what an addon needs and «Undo»,
+// switching off what others need after a question, Ctrl on a group's parent, a caption's switch, for whom; the search,
+// the filter, the sort and the table; a row's menu; the card; «Reset», sets and «Reload»; the numbers read only while
+// it shows; how the player left the list, kept in the profile. The client's list is the stand-in's (the runtime,
+// Ordaen, Ordaen System) and the addons a test's `World` adds after it: a test that adds them says so to the client's
+// functions that list addons, and to those that switch them where it switches one of its own.
 import Client from "$client"
+import Events from "$events"
 import Game from "$game"
-import { Key, MouseButton } from "$ltml"
+import { Art, Key } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import root System from "OrdaenSystem"
-import { AddOnsWindow, ListView } from "@/addonsWindow"
 import Locale from "@/locales"
 import Style from "@/style"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1300, height: 760, screen: true }
+// A text the settings window always shows.
+const SETTINGS = "Move mode"
+// The client's interface for an addon built for it, and for one built for an older client.
+const CURRENT = 16001
+const OLDER = 11507
 
-// Ordaen's switch: the second of its state's painted, after its caption's (the caption's group is Ordaen alone, its
-// modules having no switch of their own, so the two show the same).
-function ordaenSwitch(on: Boolean): Test.Point {
-  return Test.painted(on ? Ordaen.art.ctl.switchOn : Ordaen.art.ctl.switchOff, 2)
+// An addon the test adds to the client's list, as its TOC says it and as the client has it.
+struct Fake {
+  const name: String
+  const title: String
+  const notes: String = ""
+  const author: String = ""
+  const version: String = ""
+  const category: String = ""
+  const group: String = ""
+  const demand: Boolean = false
+  const outdated: Boolean = false
+  // Why the client doesn't load it while it is on: nil where it does.
+  const reason: Client.AddOnReason | nil = nil
+  loaded: Boolean = false
+  // What `LoadAddOn` answers where it refuses one on demand.
+  const refuses: String | nil = nil
 }
 
-test "at login the module holds one hook and nothing else: no dress, no window, no data" {
-  Test.mount(nil, SCREEN)
-  Test.flush()
-  Test.expect(!System.dressed)
-  Test.expect(!System.made)
-  Test.expect(Test.surfaces().length == 0)
+// The client's list of addons as the test makes it, and what the client keeps of them: off for this character, the
+// characters differing (as the stand-in keeps them), each as this session has it and as last saved. A test that
+// answers the client's functions from it answers for every addon (an answer replaces the stand-in's whole), so the
+// list starts with the stand-in's own three as their TOCs say them; what each needs is the stand-in's.
+class World {
+  public fakes: mut Array<mut Fake>
+  public off: mut Map<String, Boolean> = {}
+  public split: mut Map<String, Boolean> = {}
+  public savedOff: mut Map<String, Boolean> = {}
+  savedSplit: mut Map<String, Boolean> = {}
+
+  constructor(fakes: mut Array<mut Fake>) { self.fakes = fakes }
+
+  fake(self, name: String | Integer): Fake | nil {
+    if (name is Integer) { return self.fakes[name] }
+    return self.fakes.find(fake => fake.name == name)
+  }
+
+  // An addon taken out of the folder.
+  public remove(mut self, name: String) {
+    let at = 0
+    for (index, fake of self.fakes) {
+      if (fake.name == name) { at = index }
+    }
+    _ = self.fakes.remove(at)
+  }
+
+  public count(self): Number { return self.fakes.length }
+
+  public name(self, index: String | Integer): String { return self.fake(index)?.name ?? "" }
+
+  public metadata(self, name: String | Integer, field: String): String | nil {
+    const fake = self.fake(name)
+    if (fake == nil) { return nil }
+    const value = match (field) {
+      "Title" => fake.title
+      "Notes" => fake.notes
+      "Author" => fake.author
+      "Version" => fake.version
+      "Category" => fake.category
+      "Group" => fake.group
+      else => ""
+    }
+    return value == "" ? nil : value
+  }
+
+  public demand(self, name: String | Integer): Boolean { return self.fake(name)?.demand == true }
+
+  public interface(self, name: String | Integer): Number { return self.fake(name)?.outdated == true ? OLDER : CURRENT }
+
+  public state(self, name: String | Integer, character: String | nil): Client.AddOnEnableState {
+    const fake = self.fake(name)
+    if (fake == nil) { return .None }
+    if (character == nil && self.split[fake.name] == true) { return .Some }
+    return self.off[fake.name] == true ? .None : .All
+  }
+
+  public turn(mut self, name: String | Integer, character: String | nil, isOff: Boolean) {
+    const fake = self.fake(name)
+    if (fake == nil) { return }
+    const key = fake.name
+    if (character == nil) {
+      self.split[key] = nil
+    } else if ((self.off[key] == true) != isOff) {
+      self.split[key] = self.split[key] == true ? nil : true
+    }
+    self.off[key] = isOff ? true : nil
+  }
+
+  public save(mut self) {
+    self.savedOff = self.off.clone()
+    self.savedSplit = self.split.clone()
+  }
+
+  public reset(mut self) {
+    self.off = self.savedOff.clone()
+    self.split = self.savedSplit.clone()
+  }
+
+  public loaded(self, name: String | Integer): (Boolean, Boolean) {
+    const done = self.fake(name)?.loaded == true
+    return done, done
+  }
+
+  public loadable(self, name: String | Integer, character: String | nil, demandLoaded: Boolean | nil): (
+    Boolean, Client.AddOnReason | nil
+  ) {
+    const fake = self.fake(name)
+    if (fake == nil) { return false, "MISSING" }
+    const reason = self.reason(fake, demandLoaded == true)
+    return reason == nil, reason
+  }
+
+  // Why the client doesn't load an addon: off, what it needs missing or not loading, its own reason, or on demand.
+  reason(self, fake: Fake, demandLoaded: Boolean): Client.AddOnReason | nil {
+    if (self.off[fake.name] == true) { return "DISABLED" }
+    for (need of needsOf(...Client.C_AddOns.GetAddOnDependencies(fake.name))) {
+      const other = self.fake(need)
+      if (other == nil) { return "DEP_MISSING" }
+      if (self.reason(other, true) != nil) { return "DEP_DISABLED" }
+    }
+    if (fake.reason != nil) { return fake.reason }
+    if (fake.demand && !demandLoaded) { return "DEMAND_LOADED" }
+    return nil
+  }
+
+  public load(mut self, name: String | Integer): (Boolean | nil, String | nil) {
+    const fake = self.fake(name)
+    if (fake == nil) { return false, "MISSING" }
+    const reason = self.reason(fake, true)
+    if (reason != nil) { return false, reason }
+    if (!fake.demand) { return false, "NOT_DEMAND_LOADED" }
+    if (fake.refuses != nil) { return false, fake.refuses }
+    for (held of self.fakes) {
+      if (held.name == fake.name) { held.loaded = true }
+    }
+    return true, nil
+  }
 }
 
-test "the menu's «AddOns» opens the window: by category, Ordaen's modules under Ordaen, said on in Ordaen" {
-  Test.mount(nil, SCREEN)
-  Test.flush()
-  Client.ToggleGameMenu()
+// What a client's call gives, one after another, as a list.
+function needsOf(...names: String): Array<String> {
+  const list: Array<String> = []
+  for (i of 1..=names.length) { list.push(names[i] ?? "") }
+  return list
+}
+
+// The stand-in's own three, as their TOCs say them; then three addons of other authors: one in its category, loaded;
+// one built for an older client, which the client doesn't load; one on demand, not loaded, with no category.
+function everyday(): mut Array<mut Fake> {
+  return [
+    { name: "LunaType", title: "LunaType", loaded: true },
+    {
+      name: "Ordaen", title: "Ordaen", notes: "Ordaen Core: what every Ordaen module runs in. Its settings: /ordaen.",
+      version: "1.0.0", category: "User Interface", loaded: true
+    },
+    {
+      name: "OrdaenSystem", title: "Ordaen System", category: "User Interface", group: "Ordaen", demand: true,
+      loaded: true
+    },
+    { name: "Bagger", title: "Bagger", notes: "All bags in one window.", author: "Ann", version: "2.1", category: "Inventory", loaded: true },
+    { name: "OldMap", title: "Old Map", version: "1.0", category: "Map", outdated: true, reason: "INTERFACE_VERSION" },
+    { name: "Chatter", title: "Chatter", author: "Bo", demand: true }
+  ]
+}
+
+// What the client measures of each addon while it measures: CPU now and at its peak (in per cent of 10, the client's
+// own), the frames over 5 ms, memory in KB; how often it was sampled and weighed.
+class Meter {
+  public now: mut Map<String, Number> = {}
+  public peak: mut Map<String, Number> = {}
+  public spikes: mut Map<String, Number> = {}
+  public memory: mut Map<String, Number> = {}
+  public samples = 0
+  public weighed = 0
+  constructor() {}
+
+  public whole(mut self, metric: Client.AddOnProfilerMetric): Number {
+    if (metric == .RecentAverageTime) { self.samples += 1 }
+    return 10
+  }
+
+  public of(self, name: String, metric: Client.AddOnProfilerMetric): Number {
+    return match (metric) {
+      .RecentAverageTime => self.now[name] ?? 0
+      .PeakTime => self.peak[name] ?? 0
+      .SessionAverageTime => (self.now[name] ?? 0) / 2
+      .EncounterAverageTime => (self.peak[name] ?? 0) / 2
+      .CountTimeOver5Ms => self.spikes[name] ?? 0
+      else => 0
+    }
+  }
+
+  // The addons over 1 % now: the heaviest, as the client names them.
+  public top(self): Array<Client.AddOnProfilerResult> {
+    const list: Array<Client.AddOnProfilerResult> = []
+    for (name, now of self.now) {
+      if (now >= 1) { list.push({ addOnName: name, metricValue: now }) }
+    }
+    return list
+  }
+
+  public weigh(mut self) { self.weighed += 1 }
+
+  public kb(self, name: String | Integer): Number { return name is String ? self.memory[name] ?? 0 : 0 }
+}
+
+// The AddOns window: found by «Reset», which its footer always shows.
+function window(): Test.Part {
+  return Test.page().window(Locale.RESET)
+}
+
+// The game menu shown by Escape, as the player opens it (the client lays it out on the frame after).
+function gameMenu() {
+  _ = Test.key(Key.Escape)
   Test.pass(0.02)
-  Test.flush()
-  Test.click(Test.holding("AddOns", nil), nil)
-  Test.flush()
-  Test.expect(System.made && System.open)
-  Test.shot("the window: User Interface with Ordaen and its modules, the runtime under Other, nothing picked")
-  // Escape closes it, as every Ordaen window.
-  Test.key(Key.Escape)
-  Test.flush()
-  Test.expect(!System.open)
 }
+
+// The window opened as the player opens it: Escape, then the menu's «AddOns».
+function open() {
+  gameMenu()
+  Test.page().text(Client.ADDONS).click()
+}
+
+// An addon's row, or a category's caption, by its title: the first drawn, the list's (the card may name it too).
+function row(title: String): Test.Part {
+  return window().text(title).nth(1).item()
+}
+
+// Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
+function reads(part: Test.Part, expected: String): Boolean {
+  return same(part.texts().join(" | "), expected)
+}
+
+// Whether a text is exactly this: where it isn't, the test fails with what it is.
+function same(read: String, expected: String): Boolean {
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
+}
+
+// Whether a row's switch is on (lit whole), off, or on for some (its knob halfway, lit at half).
+function switchOn(part: Test.Part): Boolean {
+  return part.button(Ordaen.art.ctl.switchOn).shown() && part.box(Ordaen.art.ctl.knobOn).opacity() == 1
+}
+function switchOff(part: Test.Part): Boolean { return part.button(Ordaen.art.ctl.switchOff).shown() }
+function switchSome(part: Test.Part): Boolean { return part.box(Ordaen.art.ctl.knobOn).opacity() == 0.5 }
+
+// A row's switch clicked.
+function flip(title: String) {
+  const part = row(title)
+  part.button(switchOff(part) ? Ordaen.art.ctl.switchOff : Ordaen.art.ctl.switchOn).click()
+}
+
+// The question's dialog: found by its title.
+function question(title: String): Test.Part {
+  return Test.page().window(Locale.DISABLE_TITLE.format(title))
+}
+
+// A choice of one of the header's pickers: the picker by its glyph, then the choice in its list.
+function pick(glyph: Art, choice: String) {
+  window().button(glyph).click()
+  Test.page().window(choice).button(choice).click()
+}
+
+// A kind of the filter picked: its list opened, the choice clicked, the list closed again by a click on the button.
+function filter(choice: String) {
+  window().button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().window(Locale.FILTER_PERFORMANCE).button(choice).click()
+  window().button(Ordaen.art.ctl.tool.filter).click()
+}
+
+// The window's texts in the order drawn: the list and its footer up to «Reload», and the card's after it.
+function listed(): Array<String> {
+  const texts = window().texts()
+  const list: Array<String> = []
+  for (text of texts) {
+    if (text == Locale.RELOAD) { break }
+    list.push(text)
+  }
+  return list
+}
+
+// The titles of the addons' rows in the order they stand, captions left out.
+function titles(): String {
+  const names = ["Bagger", "Old Map", "Ordaen", "Ordaen System", "Chatter", "LunaType", "Ordaen Bank", "Fresh"]
+  return listed().filter(text => names.any(name => name == text)).join(", ")
+}
+
+// What the card says, joined by « | »: the window's texts after its footer's «Reload», up to its tab's title.
+function card(): String {
+  const texts = window().texts()
+  const list: Array<String> = []
+  let after = false
+  for (text of texts) {
+    if (after && text == Client.ADDONS) { break }
+    if (after) { list.push(text) }
+    if (text == Locale.RELOAD) { after = true }
+  }
+  return list.join(" | ")
+}
+
+// A row's menu of quick actions: right-click on it, the menu found by «Details», which it always offers.
+function menu(title: String): Test.Part {
+  row(title).rightClick()
+  return Test.page().window(Locale.MENU_DETAILS)
+}
+
+// Ordaen's settings window, opened by `/ordaen`.
+function settings(): Test.Part {
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
+  return Test.page().window(SETTINGS)
+}
+
+// Opened
+
+test "the menu's «AddOns» opens the window and shuts the menu; Blizzard's list stays shut" {
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(window().shown() && !Test.page().text(Client.MAINMENU_BUTTON).shown())
+  Test.expect(!Client.AddonList.IsShown())
+}
+
+test "Escape closes the window, and the menu's «AddOns» opens it again" {
+  Test.mount(nil, SCREEN)
+  open()
+  _ = Test.key(Key.Escape)
+  Test.expect(!window().shown())
+  open()
+  Test.expect(window().shown())
+}
+
+test "the list stands by category, a caption with its count over its addons, «Other» last, modules under Ordaen" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(
+    window(),
+    "Search by title, folder, author, notes | 6 | AddOn | Now | Peak | Memory | Inventory | 1 | Bagger | — | — | 0 KB | " +
+      `Map | 1 | Old Map | ${Client.ADDON_INTERFACE_VERSION} | — | — | — | User Interface | 2 | Ordaen | — | — | 0 KB | ` +
+      "Ordaen System | on in Ordaen | — | — | 0 KB | Other | 2 | Chatter | on demand | — | — | — | LunaType | — | — | " +
+      "0 KB | The client isn't measuring addons. | Reset | Sets | Reload | AddOns | 6 of 6"
+  ))
+}
+
+test "a title keeps its colours on its row, and sorts as it reads without them" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "Zed", title: "|cff33ff99Arrows|r", category: "Inventory", loaded: true })
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(row("Inventory"), "Inventory | 2"))
+  Test.expect(window().texts().join(" | ").contains("Inventory | 2 | |cff33ff99Arrows|r | — | — | 0 KB | Bagger"))
+}
+
+test "the cursor on a row shows its title and notes, without their colour codes" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "Zed", title: "|cff33ff99Zed|r", notes: "In |cffffffffwhite|r.", category: "Inventory", loaded: true })
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  row("|cff33ff99Zed|r").hover()
+  Test.expect(reads(Test.page().window("In white."), "Zed | In white."))
+}
+
+test "an addon with no notes shows no tip" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  row("Chatter").hover()
+  Test.expect(Test.page().window("Chatter").count() == 1)
+}
+
+test "the tab says how many addons are on, of all" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Bagger")
+  Test.expect(window().text("5 of 6").shown())
+}
+
+// A row's state
+
+test "a row says why the client doesn't load an addon, in red" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(window().text(Client.ADDON_INTERFACE_VERSION).textColor().equal(Style.RED))
+}
+
+test "an addon switched off says «disabled», dim; switched on, not loaded, it waits for a reload" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "Fresh", title: "Fresh" })
+  world.off["Fresh"] = true
+  world.savedOff["Fresh"] = true
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(row("Fresh"), "Fresh | disabled | — | — | —") && switchOff(row("Fresh")))
+  Test.expect(window().text(Locale.STATE_OFF).textColor().equal(Style.DIM))
+  flip("Fresh")
+  Test.expect(reads(row("Fresh"), "Fresh | waits for a reload | — | — | —") && switchOn(row("Fresh")))
+}
+
+test "an addon off and refused says it is off, dim, not why it is refused" {
+  const world = new World(everyday())
+  world.off["OldMap"] = true
+  world.savedOff["OldMap"] = true
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(row("Old Map"), "Old Map | disabled | — | — | —"))
+  Test.expect(window().text(Locale.STATE_OFF).textColor().equal(Style.DIM))
+}
+
+test "a loaded addon switched off stays loaded until a reload, and the footer counts what waits for one" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(!window().text(Locale.RELOAD_NEEDED.format(1)).shown())
+  flip("Bagger")
+  Test.expect(reads(row("Bagger"), "Bagger | loaded until a reload | — | — | 0 KB"))
+  window().text(Locale.RELOAD_NEEDED.format(1)).hover()
+  Test.expect(reads(Test.page().window(Locale.STATE_UNTIL).nth(2), "Reload needed: 1 | Bagger | loaded until a reload"))
+  flip("Bagger")
+  Test.expect(!window().text(Locale.RELOAD_NEEDED.format(1)).shown())
+}
+
+test "what waits for a reload is listed in the footer's tip: on and not loaded, off and loaded" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "Fresh", title: "Fresh" })
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Bagger")
+  window().text(Locale.RELOAD_NEEDED.format(2)).hover()
+  Test.expect(reads(
+    Test.page().window(Locale.STATE_UNTIL).nth(2),
+    "Reload needed: 2 | Bagger | loaded until a reload | Fresh | waits for a reload"
+  ))
+}
+
+test "neither an addon on demand nor one the client refuses waits for a reload" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(!window().text(Locale.RELOAD_NEEDED.format(1)).shown())
+}
+
+// Switching
+
+test "switching off what others need asks first: «Cancel» changes nothing" {
+  Test.mount(nil, SCREEN)
+  open()
+  flip("LunaType")
+  Test.expect(reads(question("LunaType"), "These stop loading: Ordaen, Ordaen System | Cancel | Disable | Disable LunaType?"))
+  question("LunaType").button(Locale.CANCEL).click()
+  Test.expect(!question("LunaType").shown() && switchOn(row("LunaType")))
+}
+
+test "«Disable» in the question switches it off alone: what needs it stays on and says why it won't load" {
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Ordaen")
+  question("Ordaen").button(Locale.DISABLE).click()
+  Test.expect(!question("Ordaen").shown())
+  Test.expect(switchOff(row("Ordaen")) && reads(row("Ordaen"), "Ordaen | loaded until a reload | — | — | 0 KB"))
+  Test.expect(reads(row("Ordaen System"), `Ordaen System | ${Client.ADDON_DEP_DISABLED} | — | — | 0 KB`))
+  Test.expect(window().text(Client.ADDON_DEP_DISABLED).textColor().equal(Style.RED))
+}
+
+test "the question comes at every switching off that stops another addon, and never otherwise" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  for (round of 1..=3) {
+    flip("Ordaen")
+    Test.expect(question("Ordaen").shown())
+    question("Ordaen").button(Locale.CANCEL).click()
+  }
+  flip("Bagger")
+  Test.expect(!Test.page().text(Locale.CANCEL).shown() && switchOff(row("Bagger")))
+}
+
+test "what stops loading is asked of through what needs it in turn, and only what is on" {
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Ordaen")
+  question("Ordaen").button(Locale.DISABLE).click()
+  // Ordaen off: what stops with the runtime is Ordaen System, through Ordaen, which stays named though it is off.
+  flip("LunaType")
+  Test.expect(reads(question("LunaType"), "These stop loading: Ordaen System | Cancel | Disable | Disable LunaType?"))
+}
+
+test "switching on enables what it needs in one step, said under the list; «Undo» puts back exactly that" {
+  Test.mount(nil, SCREEN)
+  open()
+  flip("LunaType")
+  question("LunaType").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  question("Ordaen").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  Test.expect(switchOn(row("Ordaen")) && switchOn(row("LunaType")))
+  Test.expect(window().text(Locale.ALSO.format("LunaType")).shown())
+  window().button(Locale.UNDO).click()
+  Test.expect(switchOff(row("Ordaen")) && switchOff(row("LunaType")))
+  Test.expect(!window().text(Locale.ALSO.format("LunaType")).shown() && !window().button(Locale.UNDO).shown())
+}
+
+test "«Undo» is saved: «Reset» after it keeps what it put back" {
+  Test.mount(nil, SCREEN)
+  open()
+  flip("LunaType")
+  question("LunaType").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  question("Ordaen").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  window().button(Locale.UNDO).click()
+  window().button(Locale.RESET).click()
+  Test.expect(switchOff(row("Ordaen")) && switchOff(row("LunaType")))
+}
+
+test "switching on what needs nothing that is off says nothing under the list" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Bagger")
+  flip("Bagger")
+  Test.expect(switchOn(row("Bagger")) && !window().button(Locale.UNDO).shown())
+}
+
+test "the next switch takes the strip away: «Undo» is for the last step alone" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("LunaType")
+  question("LunaType").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  question("Ordaen").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  flip("Bagger")
+  Test.expect(!window().button(Locale.UNDO).shown())
+}
+
+test "«Undo» puts an addon on for some characters back as it was, for this one and the others" {
+  Test.mount(nil, SCREEN)
+  open()
+  // LunaType off for this character alone: on for some.
+  pick(Ordaen.art.ctl.tool.whom, Game.player.name)
+  flip("LunaType")
+  question("LunaType").button(Locale.DISABLE).click()
+  pick(Ordaen.art.ctl.tool.whom, Locale.WHO_ALL)
+  Test.expect(switchSome(row("LunaType")))
+  flip("Ordaen")
+  question("Ordaen").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  Test.expect(switchOn(row("LunaType")))
+  window().button(Locale.UNDO).click()
+  Test.expect(switchSome(row("LunaType")) && switchOff(row("Ordaen")))
+  pick(Ordaen.art.ctl.tool.whom, Game.player.name)
+  Test.expect(switchOff(row("LunaType")))
+}
+
+test "«Undo» puts an addon on for this character alone back as it was" {
+  Test.mount(nil, SCREEN)
+  open()
+  flip("LunaType")
+  question("LunaType").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  question("Ordaen").button(Locale.DISABLE).click()
+  // LunaType on for this character alone: on for some, and on here.
+  pick(Ordaen.art.ctl.tool.whom, Game.player.name)
+  flip("LunaType")
+  pick(Ordaen.art.ctl.tool.whom, Locale.WHO_ALL)
+  flip("Ordaen")
+  Test.expect(switchOn(row("LunaType")))
+  window().button(Locale.UNDO).click()
+  Test.expect(switchSome(row("LunaType")))
+  pick(Ordaen.art.ctl.tool.whom, Game.player.name)
+  Test.expect(switchOn(row("LunaType")))
+}
+
+test "Ctrl on a group's parent switches the parent and its group together, to the parent's new state" {
+  Game.input.controlDown = () => true
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Ordaen")
+  Test.expect(!Test.page().text(Locale.CANCEL).shown())
+  Test.expect(switchOff(row("Ordaen")) && switchOff(row("User Interface")))
+  flip("Ordaen")
+  Test.expect(switchOn(row("Ordaen")) && switchOn(row("User Interface")))
+}
+
+test "a caption's switch switches its whole group off where all of it is on, after the question" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Other")
+  Test.expect(question("LunaType").shown())
+  question("LunaType").button(Locale.DISABLE).click()
+  Test.expect(switchOff(row("Other")) && switchOff(row("LunaType")) && switchOff(row("Chatter")))
+}
+
+test "a caption's switch switches its whole group on where any of it is off, with no question" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Chatter")
+  Test.expect(switchSome(row("Other")))
+  flip("Other")
+  Test.expect(switchOn(row("Other")) && switchOn(row("Chatter")))
+}
+
+test "a caption's switch is off where none of its group is on, and switches it on" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Bagger")
+  Test.expect(switchOff(row("Inventory")))
+  flip("Inventory")
+  Test.expect(switchOn(row("Bagger")) && switchOn(row("Inventory")))
+}
+
+test "a caption's switch is the whole group's, whatever the search shows of it" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  window().input().type("chatter")
+  flip("Chatter")
+  Test.expect(switchSome(row("Other")))
+  flip("Other")
+  Test.expect(switchOn(row("Chatter")))
+}
+
+test "Ordaen's caption switches Ordaen alone, after the question: its modules have no switch of their own" {
+  Test.mount(nil, SCREEN)
+  open()
+  flip("User Interface")
+  Test.expect(reads(question("Ordaen"), "These stop loading: Ordaen System | Cancel | Disable | Disable Ordaen?"))
+  question("Ordaen").button(Locale.DISABLE).click()
+  Test.expect(switchOff(row("User Interface")) && switchOff(row("Ordaen")))
+}
+
+// For whom
+
+test "for this character, a switch leaves the others: for all it shows on for some, and a click switches it off" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  pick(Ordaen.art.ctl.tool.whom, Game.player.name)
+  flip("Bagger")
+  Test.expect(switchOff(row("Bagger")))
+  pick(Ordaen.art.ctl.tool.whom, Locale.WHO_ALL)
+  Test.expect(switchSome(row("Bagger")))
+  // Clicked, an addon on for some is on: it is switched off, for all.
+  flip("Bagger")
+  Test.expect(switchOff(row("Bagger")))
+}
+
+test "an addon on for some characters is on: the tab counts it, «Enabled» shows it" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  pick(Ordaen.art.ctl.tool.whom, Game.player.name)
+  flip("Bagger")
+  pick(Ordaen.art.ctl.tool.whom, Locale.WHO_ALL)
+  Test.expect(window().text("6 of 6").shown())
+  filter(Locale.FILTER_ON)
+  Test.expect(titles() == "Bagger, Old Map, Ordaen, Ordaen System, Chatter, LunaType")
+}
+
+test "the choice of whom takes the strip away" {
+  Test.mount(nil, SCREEN)
+  open()
+  flip("LunaType")
+  question("LunaType").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  question("Ordaen").button(Locale.DISABLE).click()
+  flip("Ordaen")
+  pick(Ordaen.art.ctl.tool.whom, Game.player.name)
+  Test.expect(!window().button(Locale.UNDO).shown())
+}
+
+// The search and the filter
+
+test "the search narrows the list to the addons whose title, folder, author or notes hold it, in any case" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  window().input().type("WINDOW")
+  Test.expect(titles() == "Bagger" && window().text(Locale.COUNT_OF.format(1, 6)).shown())
+  Test.erase(6)
+  window().input().type("oldmap")
+  Test.expect(titles() == "Old Map")
+  Test.erase(6)
+  window().input().type("bo")
+  Test.expect(titles() == "Chatter")
+}
+
+test "the search isn't kept: after a reload the list is whole" {
+  Test.mount(nil, SCREEN)
+  open()
+  window().input().type("system")
+  Test.reload()
+  open()
+  Test.expect(window().text("3").shown() && window().input().value() == "")
+}
+
+test "the filter's list shows every kind under its heading" {
+  Test.mount(nil, SCREEN)
+  open()
+  window().button(Ordaen.art.ctl.tool.filter).click()
+  Test.expect(reads(
+    Test.page().window(Locale.FILTER_PERFORMANCE),
+    "Performance | All | Heaviest | State | All | Enabled | Disabled | Not loading | Version | All | Out of date | " +
+      "Current | Loading | All | On demand | At login | Runtime | All | LunaType | Other"
+  ))
+}
+
+test "a choice of the filter leaves its list open for the next kind; a click elsewhere closes it" {
+  Test.mount(nil, SCREEN)
+  open()
+  window().button(Ordaen.art.ctl.tool.filter).click()
+  Test.page().button(Locale.FILTER_OUTDATED).click()
+  Test.expect(Test.page().window(Locale.FILTER_PERFORMANCE).shown())
+  window().text(Locale.SEARCH).click()
+  Test.expect(!Test.page().window(Locale.FILTER_PERFORMANCE).shown())
+}
+
+test "the version's kinds: out of date shows what was built for an older client, current the rest" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  filter(Locale.FILTER_OUTDATED)
+  Test.expect(titles() == "Old Map")
+  filter(Locale.FILTER_CURRENT)
+  Test.expect(titles() == "Bagger, Ordaen, Ordaen System, Chatter, LunaType")
+}
+
+test "the loading's kinds: on demand, and at login" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  filter(Locale.FILTER_DEMAND)
+  Test.expect(titles() == "Ordaen System, Chatter")
+  filter(Locale.FILTER_LOGIN)
+  Test.expect(titles() == "Bagger, Old Map, Ordaen, LunaType")
+}
+
+test "the runtime's kinds: written in LunaType (the runtime and what needs it), and the others" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  filter(Locale.FILTER_LUNATYPE)
+  Test.expect(titles() == "Ordaen, Ordaen System, LunaType")
+  filter(Locale.FILTER_OTHER)
+  Test.expect(titles() == "Bagger, Old Map, Chatter")
+}
+
+test "the state's kinds: enabled, disabled, and on but not loading for a reason other than off" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Bagger")
+  filter(Locale.FILTER_OFF)
+  Test.expect(titles() == "Bagger")
+  filter(Locale.FILTER_ON)
+  Test.expect(titles() == "Old Map, Ordaen, Ordaen System, Chatter, LunaType")
+  filter(Locale.FILTER_FAILED)
+  Test.expect(titles() == "Old Map")
+}
+
+test "«Not loading» leaves out what is off, though the client says why it doesn't load" {
+  const world = new World(everyday())
+  world.off["OldMap"] = true
+  world.savedOff["OldMap"] = true
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  filter(Locale.FILTER_FAILED)
+  Test.expect(titles() == "")
+}
+
+test "an addon shows where it matches every kind of the filter and the search" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  filter(Locale.FILTER_DEMAND)
+  filter(Locale.FILTER_LUNATYPE)
+  Test.expect(titles() == "Ordaen System")
+  window().input().type("nothing of this")
+  Test.expect(titles() == "" && window().text(Locale.COUNT_OF.format(0, 6)).shown())
+}
+
+test "the filter's button is lit while a kind narrows the list, and its tip says which" {
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(!window().button(Ordaen.art.ctl.tool.filter).paintedWith(Style.GOLD))
+  window().button(Ordaen.art.ctl.tool.filter).hover()
+  Test.expect(reads(Test.page().window(Locale.FILTER), "Filter | All"))
+  filter(Locale.FILTER_DEMAND)
+  filter(Locale.FILTER_LUNATYPE)
+  Test.expect(window().button(Ordaen.art.ctl.tool.filter).paintedWith(Style.GOLD))
+  window().text(Locale.COL_PEAK).hover()
+  window().button(Ordaen.art.ctl.tool.filter).hover()
+  Test.expect(reads(Test.page().window(Locale.FILTER), "Filter | On demand, LunaType"))
+}
+
+test "each kind lights the filter's button by itself" {
+  Test.mount(nil, SCREEN)
+  open()
+  for (index, choice of [Locale.FILTER_HEAVY, Locale.FILTER_ON, Locale.FILTER_OUTDATED, Locale.FILTER_DEMAND, Locale.FILTER_LUNATYPE]) {
+    window().button(Ordaen.art.ctl.tool.filter).click()
+    Test.page().window(Locale.FILTER_PERFORMANCE).button(choice).click()
+    Test.expect(window().button(Ordaen.art.ctl.tool.filter).paintedWith(Style.GOLD))
+    Test.page().window(Locale.FILTER_PERFORMANCE).button(Locale.FILTER_ALL).nth(index).click()
+    window().button(Ordaen.art.ctl.tool.filter).click()
+    Test.expect(!window().button(Ordaen.art.ctl.tool.filter).paintedWith(Style.GOLD))
+  }
+}
+
+test "a category folds at its caption, its caption and count left; clicked again it opens" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(row("Other").paintedWith(Ordaen.art.ctl.markOpen))
+  row("Other").click()
+  Test.expect(titles() == "Bagger, Old Map, Ordaen, Ordaen System" && reads(row("Other"), "Other | 2"))
+  Test.expect(row("Other").paintedWith(Ordaen.art.ctl.markClosed))
+  row("Other").click()
+  Test.expect(titles() == "Bagger, Old Map, Ordaen, Ordaen System, Chatter, LunaType")
+}
+
+test "folded, switched and unfolded again, every row keeps its line and its switch" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  row("Inventory").click()
+  flip("Inventory")
+  row("Inventory").click()
+  Test.expect(switchOff(row("Bagger")) && reads(row("Bagger"), "Bagger | loaded until a reload | — | — | 0 KB"))
+}
+
+test "a long list scrolls, and each switch switches the addon its row shows, at every scroll" {
+  const world = new World(everyday())
+  for (i of 1..=20) { world.fakes.push({ name: `Many${i}`, title: `Many ${i}`, category: "Many", loaded: true }) }
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  let at = "Bagger"
+  for (round of 1..=3) {
+    window().text(at).wheel(-2)
+    // The last row in view that isn't switched yet: a row the list handed another addon as it moved.
+    let found = ""
+    for (i of 9..=1 step -1) {
+      const title = `Many ${i}`
+      if (found == "" && window().text(title).shown() && Test.refused(() => window().text(title).hover()) == nil &&
+          window().text(title).item().text(Locale.STATE_UNTIL).count() == 0) { found = title }
+    }
+    at = found
+    flip(at)
+    Test.expect(reads(row(at), `${at} | loaded until a reload | — | — | 0 KB`))
+  }
+}
+
+// The numbers
+
+test "the numbers: each addon's CPU now, at its peak and its memory, the heaviest third in the accent" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  const meter = new Meter()
+  meter.now["Bagger"] = 1
+  meter.now["Ordaen"] = 0.5
+  meter.peak["Bagger"] = 2
+  meter.peak["Ordaen"] = 3
+  meter.memory["Bagger"] = 300
+  meter.memory["Ordaen"] = 2048
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(row("Bagger"), "Bagger | 10.0 % | 20.0 % | 300 KB"))
+  Test.expect(reads(row("Ordaen"), "Ordaen | 5.0 % | 30.0 % | 2.0 MB"))
+  Test.expect(reads(row("LunaType"), "LunaType | 0.0 % | 0.0 % | 0 KB"))
+  Test.expect(reads(row("Chatter"), "Chatter | on demand | — | — | —"))
+  Test.expect(window().text("10.0 %").textColor().equal(Style.HOT) && window().text("5.0 %").textColor().equal(Style.INK))
+  Test.expect(window().text("30.0 %").textColor().equal(Style.HOT) && window().text("20.0 %").textColor().equal(Style.INK))
+  Test.expect(window().text("2.0 MB").textColor().equal(Style.HOT) && window().text("300 KB").textColor().equal(Style.INK))
+  Test.expect(row("LunaType").text("0 KB").textColor().equal(Style.INK))
+  Test.expect(row("LunaType").text("0.0 %").nth(1).textColor().equal(Style.INK))
+  Test.expect(window().text(Locale.ALL_ADDONS.format("14.0 %")).shown() && !window().text(Locale.NOT_MEASURING).shown())
+}
+
+test "CPU is sampled once a second only while the window shows" {
+  const meter = new Meter()
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  Test.pass(2.1)
+  Test.expect(meter.samples == 0)
+  open()
+  const first = meter.samples
+  Test.expect(first > 0)
+  Test.pass(1.1)
+  const second = meter.samples
+  Test.expect(second > first)
+  Test.pass(1.1)
+  Test.expect(meter.samples > second)
+  _ = Test.key(Key.Escape)
+  const closed = meter.samples
+  Test.pass(3.1)
+  Test.expect(meter.samples == closed)
+  open()
+  Test.pass(1.1)
+  Test.expect(meter.samples > closed + 1)
+}
+
+test "the numbers follow the client's each second the window shows" {
+  const meter = new Meter()
+  meter.now["Ordaen"] = 1
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  meter.now["Ordaen"] = 2
+  Test.expect(reads(row("Ordaen"), "Ordaen | 10.0 % | 0.0 % | 0 KB"))
+  Test.pass(1.1)
+  Test.expect(reads(row("Ordaen"), "Ordaen | 20.0 % | 0.0 % | 0 KB"))
+}
+
+test "a client whose own time is nought gives every addon nought" {
+  const meter = new Meter()
+  meter.now["Ordaen"] = 1
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => 0
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(row("Ordaen"), "Ordaen | 0.0 % | 0.0 % | 0 KB") && window().text(Locale.ALL_ADDONS.format("0.0 %")).shown())
+}
+
+test "memory is read as the window opens and at «Refresh» alone" {
+  const meter = new Meter()
+  meter.memory["Ordaen"] = 300
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(meter.weighed == 1)
+  meter.memory["Ordaen"] = 600
+  Test.pass(2.1)
+  Test.expect(meter.weighed == 1 && window().text("300 KB").shown())
+  window().button(Ordaen.art.ctl.tool.refresh).click()
+  Test.expect(meter.weighed == 2 && window().text("600 KB").shown())
+  _ = Test.key(Key.Escape)
+  open()
+  Test.expect(meter.weighed == 3)
+}
+
+// A meter where each column puts other addons first.
+function sorting(meter: mut Meter) {
+  meter.now["Ordaen"] = 2
+  meter.now["LunaType"] = 1
+  meter.peak["Bagger"] = 3
+  meter.peak["LunaType"] = 2
+  meter.memory["LunaType"] = 900
+  meter.memory["Ordaen"] = 300
+}
+
+test "by category, the sort orders each category's addons: by load now, at its peak, by memory, by title" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  const meter = new Meter()
+  sorting(mut meter)
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  pick(Ordaen.art.ctl.tool.sort, Locale.SORT_NOW)
+  Test.expect(titles() == "Bagger, Old Map, Ordaen, Ordaen System, LunaType, Chatter")
+  pick(Ordaen.art.ctl.tool.sort, Locale.SORT_PEAK)
+  Test.expect(titles() == "Bagger, Old Map, Ordaen, Ordaen System, LunaType, Chatter")
+  pick(Ordaen.art.ctl.tool.sort, Locale.SORT_MEMORY)
+  Test.expect(titles() == "Bagger, Old Map, Ordaen, Ordaen System, LunaType, Chatter")
+  pick(Ordaen.art.ctl.tool.sort, Locale.SORT_NAME)
+  Test.expect(titles() == "Bagger, Old Map, Ordaen, Ordaen System, Chatter, LunaType")
+}
+
+test "as a table: one list by title, no captions, the category in a column, the sort's button gone" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  pick(Ordaen.art.ctl.tool.categories, Locale.VIEW_TABLE)
+  Test.expect(titles() == "Bagger, Chatter, LunaType, Old Map, Ordaen, Ordaen System")
+  Test.expect(!listed().join(" | ").contains("Inventory | 1") && !window().button(Ordaen.art.ctl.tool.sort).shown())
+  Test.expect(reads(row("Bagger"), "Bagger | Inventory | — | — | 0 KB") && reads(row("Chatter"), "Chatter | on demand | Other | — | — | —"))
+  Test.expect(reads(row("Ordaen System"), "Ordaen System | on in Ordaen | User Interface | — | — | 0 KB"))
+  Test.expect(window().text(Locale.COL_CATEGORY).shown())
+  pick(Ordaen.art.ctl.tool.table, Locale.VIEW_CATEGORIES)
+  Test.expect(window().button(Ordaen.art.ctl.tool.sort).shown() && !window().text(Locale.COL_CATEGORY).shown())
+}
+
+test "a table's heading sorts by its column, the heaviest first; clicked again, the other way" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  const meter = new Meter()
+  sorting(mut meter)
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  pick(Ordaen.art.ctl.tool.categories, Locale.VIEW_TABLE)
+  window().text(Locale.COL_NOW).click()
+  Test.expect(titles() == "Ordaen, LunaType, Bagger, Ordaen System, Chatter, Old Map")
+  window().text(Locale.COL_NOW).click()
+  Test.expect(titles() == "Chatter, Old Map, Bagger, Ordaen System, LunaType, Ordaen")
+  window().text(Locale.COL_PEAK).click()
+  Test.expect(titles() == "Bagger, LunaType, Ordaen, Ordaen System, Chatter, Old Map")
+  window().text(Locale.COL_MEMORY).click()
+  Test.expect(titles() == "LunaType, Ordaen, Bagger, Ordaen System, Chatter, Old Map")
+  window().text(Locale.COL_ADDON).click()
+  Test.expect(titles() == "Bagger, Chatter, LunaType, Old Map, Ordaen, Ordaen System")
+  window().text(Locale.COL_ADDON).click()
+  Test.expect(titles() == "Ordaen System, Ordaen, Old Map, LunaType, Chatter, Bagger")
+}
+
+test "by category, a heading sorts nothing" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  const meter = new Meter()
+  sorting(mut meter)
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  window().text(Locale.COL_NOW).click()
+  window().text(Locale.COL_ADDON).click()
+  Test.expect(titles() == "Bagger, Old Map, Ordaen, Ordaen System, Chatter, LunaType")
+}
+
+test "«Heaviest» shows the addons the client names as the heaviest now" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  const meter = new Meter()
+  meter.now["Ordaen"] = 2
+  meter.now["Bagger"] = 0.5
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  filter(Locale.FILTER_HEAVY)
+  Test.expect(titles() == "Ordaen")
+}
+
+// A row's menu
+
+test "right-click on a row offers its switch and its card; «Disable» asks as its switch does" {
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(menu("LunaType"), "Disable | Details"))
+  Test.page().window(Locale.MENU_DETAILS).button(Locale.DISABLE).click()
+  Test.expect(question("LunaType").shown())
+  question("LunaType").button(Locale.DISABLE).click()
+  Test.expect(switchOff(row("LunaType")) && reads(menu("LunaType"), "Enable | Details"))
+  Test.page().window(Locale.MENU_DETAILS).button(Locale.ENABLE).click()
+  Test.expect(switchOn(row("LunaType")))
+}
+
+test "a module's menu offers Ordaen's settings at it in place of a switch" {
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(menu("Ordaen System"), "Ordaen settings | Details"))
+  Test.page().window(Locale.MENU_DETAILS).button(Locale.ORDAEN_SETTINGS).click()
+  Test.expect(Test.page().window(SETTINGS).text("Opens on").shown())
+}
+
+test "«Details» in a row's menu opens its card" {
+  Test.mount(nil, SCREEN)
+  open()
+  menu("Ordaen System").button(Locale.MENU_DETAILS).click()
+  Test.expect(card() != "")
+}
+
+test "a row's menu closes at a click elsewhere, having done nothing" {
+  Test.mount(nil, SCREEN)
+  open()
+  _ = menu("LunaType")
+  window().text(Locale.SEARCH).click()
+  Test.expect(!Test.page().window(Locale.MENU_DETAILS).shown() && switchOn(row("LunaType")))
+}
+
+test "«Load» in the menu of an addon on demand loads it now, and opens its card" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.LoadAddOn = name => {
+    const loaded, refused = world.load(name)
+    return loaded, refused
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(menu("Chatter"), "Disable | Load | Details"))
+  Test.page().window(Locale.MENU_DETAILS).button(Locale.LOAD_NOW).click()
+  Test.expect(reads(row("Chatter"), "Chatter | — | — | 0 KB") && window().text(Locale.LOADED_DEMAND).shown())
+}
+
+test "«Load» isn't offered for what is loaded, off, refused or loaded at login" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "Fresh", title: "Fresh" })
+  world.fakes.push({ name: "Shut", title: "Shut", demand: true })
+  world.fakes.push({ name: "Bad", title: "Bad", demand: true, reason: "INSECURE" })
+  world.off["Shut"] = true
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(menu("Fresh"), "Disable | Details"))
+  window().text(Locale.SEARCH).click()
+  Test.expect(reads(menu("Shut"), "Enable | Details"))
+  window().text(Locale.SEARCH).click()
+  Test.expect(reads(menu("Bad"), "Disable | Details"))
+  window().text(Locale.SEARCH).click()
+  Test.expect(reads(menu("Ordaen System"), "Ordaen settings | Details"))
+}
+
+test "in a fight «Load» in a row's menu is greyed" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.LoadAddOn = name => {
+    const loaded, refused = world.load(name)
+    return loaded, refused
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.combat(true)
+  Game.situation.combat = true
+  const entry = menu("Chatter").text(Locale.LOAD_NOW)
+  Test.expect(!entry.textColor().equal(Test.page().window(Locale.MENU_DETAILS).text(Locale.DISABLE).textColor()))
+  entry.click()
+  Test.expect(window().text(Locale.STATE_DEMAND).shown())
+  Test.combat(false)
+  Game.situation.combat = false
+}
+
+// The card
+
+test "a row clicked is picked: lit, and its card stands beside the list" {
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(card() == "")
+  row("Ordaen System").click()
+  Test.expect(row("Ordaen System").paintedWith(Style.PICKED) && !row("Ordaen").paintedWith(Style.PICKED))
+  Test.expect(card() != "")
+}
+
+test "the card: the addon's title, version and author, notes, state, what it needs and would like, and its load" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  row("Bagger").click()
+  Test.expect(same(
+    card(),
+    "Bagger | 2.1 · Ann | All bags in one window. | State | Loaded | Needs | — | Optional | — | Needed by | — | Load | " +
+      "Now | — | On average | — | In encounter | — | Peak | — | Spikes | — | Memory | 0 KB | Disable"
+  ))
+}
+
+test "the card's byline is the version alone, or the author alone, where the other isn't said" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  row("Old Map").click()
+  Test.expect(window().text("1.0").shown())
+  row("Chatter").click()
+  Test.expect(window().text("Bo").shown())
+}
+
+test "an Ordaen module's card: what it needs, loaded, and «Ordaen settings» in place of its switch" {
+  Test.mount(nil, SCREEN)
+  open()
+  row("Ordaen System").click()
+  Test.expect(same(card(), "Ordaen System | The game menu and the AddOns list in Ordaen's look: what each addon needs, why one doesn't load, its CPU and memory, sets of addons. | State | Loaded on demand | Needs | LunaType | loaded | Ordaen | loaded | Optional | — | Needed by | — | Load | Now | — | On average | — | In encounter | — | Peak | — | Spikes | — | Memory | 0 KB | Ordaen settings"))
+}
+
+test "a link on the card picks that addon's row" {
+  Test.mount(nil, SCREEN)
+  open()
+  row("Ordaen System").click()
+  window().text("Ordaen").nth(2).click()
+  Test.expect(row("Ordaen").paintedWith(Style.PICKED) && same(card().sub(1, 14), "Ordaen | 1.0.0"))
+}
+
+test "the card's state of an addon on demand: waits to be asked for, then loaded on demand" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.LoadAddOn = name => {
+    const loaded, refused = world.load(name)
+    return loaded, refused
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  row("Chatter").click()
+  Test.expect(window().text(Locale.WAITING_DEMAND).textColor().equal(Style.GREEN))
+  window().button(Locale.LOAD_NOW).click()
+  Test.expect(window().text(Locale.LOADED_DEMAND).shown() && !window().button(Locale.LOAD_NOW).shown())
+}
+
+test "the card says the client's refusal where «Load» fails" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "Picky", title: "Picky", demand: true, refuses: "NOT_AVAILABLE" })
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.LoadAddOn = name => {
+    const loaded, refused = world.load(name)
+    return loaded, refused
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  row("Picky").click()
+  window().button(Locale.LOAD_NOW).click()
+  Test.expect(window().text(Client.ADDON_LOAD_FAILED.format("Picky", "NOT_AVAILABLE")).textColor().equal(Style.RED))
+}
+
+test "the card's state: waits for a reload, disabled, refused in red" {
+  const world = new World(everyday())
+  world.fakes.push({ name: "Fresh", title: "Fresh" })
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  row("Fresh").click()
+  Test.expect(window().text(Locale.WAITING_RELOAD).shown())
+  window().button(Locale.DISABLE).click()
+  Test.expect(window().text(Locale.OFF).textColor().equal(Style.GREEN) && window().button(Locale.ENABLE).shown())
+  row("Old Map").click()
+  Test.expect(window().text(Client.ADDON_INTERFACE_VERSION).nth(2).textColor().equal(Style.RED))
+}
+
+test "the card names the addon it needs that keeps it from loading" {
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Ordaen")
+  question("Ordaen").button(Locale.DISABLE).click()
+  row("Ordaen System").click()
+  Test.expect(window().text(Locale.NOT_LOADING_BECAUSE.format(Client.ADDON_DEP_DISABLED, "Ordaen")).shown())
+  Test.expect(window().text(Locale.NOT_LOADING_BECAUSE.format(Client.ADDON_DEP_DISABLED, "Ordaen")).textColor().equal(Style.RED))
+}
+
+test "the card's numbers: each share, the spikes over 5 ms, and memory" {
+  const meter = new Meter()
+  meter.now["Ordaen"] = 1
+  meter.peak["Ordaen"] = 2
+  meter.spikes["Ordaen"] = 3
+  meter.memory["Ordaen"] = 2048
+  Client.C_AddOnProfiler.IsEnabled = () => true
+  Client.C_AddOnProfiler.GetApplicationMetric = metric => meter.whole(metric)
+  Client.C_AddOnProfiler.GetAddOnMetric = (name, metric) => meter.of(name, metric)
+  Client.C_AddOnProfiler.GetOverallMetric = metric => 1.4
+  Client.C_AddOnProfiler.GetTopKAddOnsForMetric = (metric, k) => meter.top()
+  Client.UpdateAddOnMemoryUsage = () => meter.weigh()
+  Client.GetAddOnMemoryUsage = name => meter.kb(name)
+  Test.mount(nil, SCREEN)
+  open()
+  row("Ordaen").click()
+  Test.expect(same(card(), "Ordaen | 1.0.0 | Ordaen Core: what every Ordaen module runs in. Its settings: /ordaen. | State | Loaded | Needs | LunaType | loaded | Optional | — | Needed by | Ordaen System | loaded | Load | Now | 10.0 % | On average | 5.0 % | In encounter | 10.0 % | Peak | 20.0 % | Spikes | >5 ms: 3 | Memory | 2.0 MB | Disable"))
+}
+
+test "a module's card opens Ordaen's settings at it" {
+  Test.mount(nil, SCREEN)
+  open()
+  row("Ordaen System").click()
+  window().text(Locale.CARD_LOAD).wheel(-5)
+  window().button(Locale.ORDAEN_SETTINGS).click()
+  Test.expect(Test.page().window(SETTINGS).text("Opens on").shown())
+}
+
+// The footer
+
+test "«Reset» puts every addon back as the client last saved them, undoing what was switched and not saved" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Bagger")
+  // Another addon switches it on again and doesn't save, then something loads: the list reads it.
+  world.off["Bagger"] = nil
+  Events.ADDON_LOADED.emit("Chatter", false)
+  Test.expect(switchOn(row("Bagger")))
+  window().button(Locale.RESET).click()
+  Test.expect(switchOff(row("Bagger")))
+}
+
+test "«Reload» is a secure box the client runs: /reload" {
+  Test.mount(nil, SCREEN)
+  open()
+  window().button(Locale.RELOAD).click()
+  Test.expect(Test.performed().length == 1)
+}
+
+// Sets
+
+// A set saved under a name, as the player saves one: «Sets», «Save current as…», the name, «Save».
+function saveSet(name: String) {
+  window().button(Locale.SETS).click()
+  Test.page().button(Locale.SET_SAVE).click()
+  Test.page().window(Locale.SET_NEW).input().type(name)
+  Test.page().window(Locale.SET_NEW).button(Locale.SAVE).click()
+}
+
+// A set's dialog, opened from «Sets».
+function set(name: String): Test.Part {
+  window().button(Locale.SETS).click()
+  Test.page().window(Locale.SET_SAVE).button(name).click()
+  return Test.page().window(Locale.SET_TITLE.format(name))
+}
+
+test "a set saved under a name is listed under «Sets»" {
+  Test.mount(nil, SCREEN)
+  open()
+  saveSet("Raid")
+  Test.expect(!Test.page().window(Locale.SET_NEW).shown())
+  window().button(Locale.SETS).click()
+  Test.expect(reads(Test.page().window(Locale.SET_SAVE), "Save current as… | Raid"))
+}
+
+test "a set isn't saved with no name" {
+  Test.mount(nil, SCREEN)
+  open()
+  window().button(Locale.SETS).click()
+  Test.page().button(Locale.SET_SAVE).click()
+  Test.page().window(Locale.SET_NEW).button(Locale.SAVE).click()
+  Test.expect(Test.page().window(Locale.SET_NEW).shown())
+  Test.page().window(Locale.SET_NEW).button(Locale.CANCEL).click()
+  window().button(Locale.SETS).click()
+  Test.expect(reads(Test.page().window(Locale.SET_SAVE), "Save current as…"))
+}
+
+test "a set applied switches on what it holds and off the rest" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  flip("Bagger")
+  saveSet("Lean")
+  flip("Bagger")
+  set("Lean").button(Locale.APPLY).click()
+  Test.expect(switchOff(row("Bagger")) && switchOn(row("Chatter")) && !Test.page().window(Locale.SET_TITLE.format("Lean")).shown())
+}
+
+test "a set applied skips what isn't in the folder any more, and says so" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  saveSet("All")
+  world.remove("OldMap")
+  _ = Test.key(Key.Escape)
+  open()
+  set("All").button(Locale.APPLY).click()
+  Test.expect(Test.page().window(Locale.SET_TITLE.format("All")).text(Locale.SET_SKIPPED.format("OldMap")).shown())
+}
+
+test "a set saved under a name kept already takes its place" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Client.C_AddOns.EnableAddOn = (name, character) => world.turn(name, character, false)
+  Client.C_AddOns.DisableAddOn = (name, character) => world.turn(name, character, true)
+  Client.C_AddOns.SaveAddOns = () => world.save()
+  Client.C_AddOns.ResetAddOns = () => world.reset()
+  Test.mount(nil, SCREEN)
+  open()
+  saveSet("Raid")
+  flip("Bagger")
+  saveSet("Raid")
+  flip("Bagger")
+  set("Raid").button(Locale.APPLY).click()
+  window().button(Locale.SETS).click()
+  Test.expect(reads(Test.page().window(Locale.SET_SAVE), "Save current as… | Raid"))
+}
+
+test "a set renamed, then deleted" {
+  Test.mount(nil, SCREEN)
+  open()
+  saveSet("Raid")
+  const dialog = set("Raid")
+  dialog.input().type("")
+  Test.erase(4)
+  Test.type("Solo")
+  Test.page().window(Locale.SET_TITLE.format("Raid")).button(Locale.RENAME).click()
+  set("Solo").button(Locale.DELETE).click()
+  window().button(Locale.SETS).click()
+  Test.expect(reads(Test.page().window(Locale.SET_SAVE), "Save current as…"))
+}
+
+test "a set isn't renamed to no name" {
+  Test.mount(nil, SCREEN)
+  open()
+  saveSet("Raid")
+  set("Raid").input().type("")
+  Test.erase(4)
+  Test.page().window(Locale.SET_TITLE.format("Raid")).button(Locale.RENAME).click()
+  window().button(Locale.SETS).click()
+  Test.expect(reads(Test.page().window(Locale.SET_SAVE), "Save current as… | Raid"))
+}
+
+test "at most ten sets are kept: the eleventh says to delete one first" {
+  Test.mount(nil, SCREEN)
+  open()
+  for (i of 1..=10) { saveSet(`Set ${i}`) }
+  saveSet("Eleven")
+  Test.expect(Test.page().window(Locale.SET_NEW).text(Locale.SETS_FULL.format(10)).shown())
+}
+
+test "sets are kept between sessions" {
+  Test.mount(nil, SCREEN)
+  open()
+  saveSet("Raid")
+  Test.reload()
+  open()
+  window().button(Locale.SETS).click()
+  Test.expect(reads(Test.page().window(Locale.SET_SAVE), "Save current as… | Raid"))
+}
+
+// What is kept
+
+test "the filter, the view and the picked addon are the profile's: there after a reload" {
+  Test.mount(nil, SCREEN)
+  open()
+  filter(Locale.FILTER_DEMAND)
+  pick(Ordaen.art.ctl.tool.categories, Locale.VIEW_TABLE)
+  row("Ordaen System").click()
+  Test.reload()
+  open()
+  Test.expect(titles() == "Ordaen System" && window().text(Locale.COL_CATEGORY).shown() && card() != "")
+}
+
+test "another profile has the list as it starts: by category, nothing picked, nothing filtered" {
+  Test.mount(nil, SCREEN)
+  open()
+  filter(Locale.FILTER_DEMAND)
+  row("Ordaen System").click()
+  const page = settings()
+  page.button("Profiles").click()
+  page.input().nth(1).type("Raid")
+  page.button(Ordaen.art.ctl.check).nth(1).click()
+  page.button("New").click()
+  page.button(Ordaen.art.ctl.check).nth(2).click()
+  page.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(titles() == "Ordaen, Ordaen System, LunaType" && card() == "")
+}
+
+test "while the window shows, an addon loaded by another is read at once" {
+  const world = new World(everyday())
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  for (fake of world.fakes) {
+    if (fake.name == "Chatter") { fake.loaded = true }
+  }
+  Events.ADDON_LOADED.emit("Chatter", false)
+  Test.expect(reads(row("Chatter"), "Chatter | — | — | 0 KB"))
+}
+
+// Ordaen's modules and Ordaen's settings
 
 test "every Ordaen module stands under Ordaen in the client's list, in its category" {
   const own = Runtime.Addon.of(Ordaen) ?? panic("Ordaen is an addon")
@@ -60,450 +2283,41 @@ test "every Ordaen module stands under Ordaen in the client's list, in its categ
   Test.expect(modules > 0)
 }
 
-test "switching off what others need asks first: «Cancel» changes nothing, «Disable» switches it off alone" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
-  Test.flush()
-  Test.shot("the question: Ordaen System stops loading")
-  Test.click(Test.holding("Cancel", nil), nil)
-  Test.flush()
-  Test.expect(window.catalog.isOn("Ordaen"))
-  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
-  Test.click(Test.holding("Disable", nil), nil)
-  Test.flush()
-  Test.expect(!window.catalog.isOn("Ordaen"))
-  Test.expect(window.catalog.isOn("OrdaenSystem"))
-  Test.expect((peek window.catalog.statuses)["OrdaenSystem"]?.reason == "DEP_DISABLED")
-  Test.shot("Ordaen off; its module on, its reason the client's")
-  Client.C_AddOns.EnableAddOn("Ordaen", nil)
-  Client.C_AddOns.SaveAddOns()
-  destroy window
-}
-
-test "switching on enables what it needs in one step, «Undo» puts back exactly that" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  window.catalog.switchOff(["Ordaen", "OrdaenSystem"])
-  Test.expect(peek window.catalog.step == nil)
-  window.catalog.switchOn(["OrdaenSystem"])
-  Test.flush()
-  Test.expect(window.catalog.isOn("Ordaen") && window.catalog.isOn("OrdaenSystem"))
-  const step = peek window.catalog.step
-  Test.expect(step != nil && step.also[1] == "Ordaen")
-  Test.shot("the strip: also enabled, Ordaen, with «Undo»")
-  Test.click(Test.holding("Undo", nil), nil)
-  Test.flush()
-  Test.expect(!window.catalog.isOn("Ordaen") && !window.catalog.isOn("OrdaenSystem"))
-  Test.expect(peek window.catalog.step == nil)
-  // «Reset» puts back what the client last saved: the undo saved both off.
-  Client.C_AddOns.EnableAddOn("Ordaen", nil)
-  window.catalog.reset()
-  Test.expect(!window.catalog.isOn("Ordaen"))
-  window.catalog.switchOn(["Ordaen", "OrdaenSystem"])
-  destroy window
-}
-
-test "Ctrl on a group's parent switches the parent and its group together, the parent's new state for all" {
-  Game.input.controlDown = (): Boolean => true
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
-  Test.flush()
-  Test.expect(!window.catalog.isOn("Ordaen") && !window.catalog.isOn("OrdaenSystem"))
-  Test.shot("the group off: Ordaen and every module folder")
-  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
-  Test.flush()
-  Test.expect(window.catalog.isOn("Ordaen") && window.catalog.isOn("OrdaenSystem"))
-  destroy window
-}
-
-test "folding, switching and unfolding again: every row keeps its line, a switch shows at once" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  Test.click(Test.holding("User Interface", nil), nil)
-  Test.flush()
-  Test.click(Test.holding("User Interface", nil), nil)
-  Test.flush()
-  Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
-  Test.flush()
-  Test.click(Test.holding("Cancel", nil), nil)
-  Test.flush()
-  window.catalog.switchOff(["OrdaenSystem"])
-  Test.flush()
-  Test.click(Test.holding("Other", nil), nil)
-  Test.flush()
-  window.catalog.switchOn(["OrdaenSystem"])
-  Test.flush()
-  Test.expect(Test.errors().length == 0)
-  destroy window
-}
-
-test "a short window's list scrolls: each switch switches what its line shows, at every scroll" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  window.declared.memory.write({ x: 0, y: 0, width: Style.WIDTH, height: 260, ..window.declared.memory.values })
-  Test.flush()
-  Test.moveTo(Test.holding("Ordaen", nil))
-  for (round of 1..=3) {
-    for (i of 1..=4) { Test.wheel(-1) }
-    Test.pass(0.04)
-    // The first switch on in view.
-    Test.click(Test.painted(Ordaen.art.ctl.switchOn, nil), nil)
-    Test.flush()
-    if (window.asking.length > 0) {
-      Test.click(Test.holding("Cancel", nil), nil)
-      Test.flush()
-    }
-  }
-  Test.expect(Test.errors().length == 0)
-  destroy window
-}
-
-test "a caption's switch switches its whole group: off where all of it is on, on where any of it is off" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  // «Other»: the runtime and the addons with no category, all on; its switch the third on (User Interface, Ordaen).
-  const other = Test.painted(Ordaen.art.ctl.switchOn, 3)
-  Test.click(other, nil)
-  Test.flush()
-  if (window.asking.length > 0) {
-    Test.click(Test.holding("Disable", nil), nil)
-    Test.flush()
-  }
-  Test.expect(!window.catalog.isOn("LunaType"))
-  Test.shot("«Other» off whole: its caption's switch and every row's off")
-  // On for this character alone: for all characters, the group is on for some, its knob halfway; clicked, it is on
-  // for all.
-  window.list.values.everyone = false
-  Test.flush()
-  window.catalog.switchOn(["LunaType"])
-  window.list.values.everyone = true
-  Test.flush()
-  Test.shot("«Other» on for some characters: the caption's switch and the row's, their knobs halfway")
-  Test.click(Test.painted(Ordaen.art.ctl.switchOn, 3), nil)
-  Test.flush()
-  Test.expect((peek window.catalog.statuses)["LunaType"]?.enabled == .On)
-  destroy window
-}
-
-test "the question comes at every switching off that stops another addon, and never otherwise" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  for (round of 1..=3) {
-    // Ordaen: its modules need it.
-    Test.click(ordaenSwitch(window.catalog.isOn("Ordaen")), nil)
-    Test.flush()
-    Test.expect(window.asking.length == 1)
-    _ = Test.surfaceHolding(Locale.CANCEL)
-    Test.click(Test.holding(Locale.CANCEL, nil), nil)
-    Test.flush()
-    Test.expect(window.asking.length == 0 && window.catalog.isOn("Ordaen"))
-  }
-  // Nothing needs the runtime's own listing here: off without a question, and on again.
-  window.onToggle("Showcase", false)
-  Test.flush()
-  Test.expect(window.asking.length == 0)
-  window.onToggle("Showcase", false)
-  Test.flush()
-  destroy window
-}
-
-test "right-click on a row opens its quick actions: its switch, a module's settings, its card" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  Test.click(Test.holding("LunaType", nil), MouseButton.Right)
-  Test.flush()
-  Test.shot("the runtime's row: Disable, then Details")
-  Test.click(Test.holding(Locale.DISABLE, nil), nil)
-  Test.flush()
-  // Every addon here needs the runtime: the question first, as from its switch.
-  Test.expect(window.asking.length == 1)
-  Test.click(Test.holding(Locale.DISABLE, nil), nil)
-  Test.flush()
-  Test.expect(!window.catalog.isOn("LunaType"))
-  // A module: no switch of its own, Ordaen's settings in its place.
-  Test.click(Test.holding("Ordaen System", nil), MouseButton.Right)
-  Test.flush()
-  _ = Test.holding(Locale.ORDAEN_SETTINGS, nil)
-  Test.click(Test.holding(Locale.MENU_DETAILS, nil), nil)
-  Test.flush()
-  Test.expect(window.list.values.picked == "OrdaenSystem")
-  window.catalog.switchOn(["LunaType"])
-  destroy window
-}
-
-test "the card widens the window by its column: the list keeps its width" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  const before = Test.edges(Ordaen.art.window.wood, 0)
-  const listBefore = Test.edges(Ordaen.art.ctl.tool.refresh, 2)
-  Test.click(Test.holding("Ordaen System", nil), nil)
-  Test.flush()
-  const after = Test.edges(Ordaen.art.window.wood, 0)
-  const listAfter = Test.edges(Ordaen.art.ctl.tool.refresh, 2)
-  Test.expect(after.left == before.left && after.right - before.right >= Style.CARD)
-  Test.expect(listAfter.right - listAfter.left == listBefore.right - listBefore.left)
-  destroy window
-}
-
-test "for whom: this character's switch leaves the others; all characters shows it on for some" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  window.list.values.everyone = false
-  Test.flush()
-  window.catalog.switchOff(["Ordaen"])
-  window.list.values.everyone = true
-  Test.flush()
-  Test.expect((peek window.catalog.statuses)["Ordaen"]?.enabled == .Some)
-  Test.shot("Ordaen on for some characters: the tick dim")
-  window.catalog.switchOn(["Ordaen"])
-  Test.expect((peek window.catalog.statuses)["Ordaen"]?.enabled == .On)
-  destroy window
-}
-
-test "the filter's kinds: each narrows the list, and an addon shows where it matches all of them" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  const all = window.visible.length
-  // The stand-in's addons are all built for this client.
-  window.list.values.age = .Outdated
-  Test.flush()
-  Test.expect(window.visible.length == 0)
-  window.list.values.age = .Current
-  Test.flush()
-  Test.expect(window.visible.length == all)
-  window.list.values.age = .All
-  window.list.values.written = .LunaType
-  Test.flush()
-  const lunatype = window.visible.length
-  Test.expect(lunatype > 0 && window.visible.all(addon => addon.lunatype))
-  window.list.values.written = .Other
-  Test.flush()
-  Test.expect(window.visible.length == all - lunatype && window.visible.all(addon => !addon.lunatype))
-  window.list.values.written = .LunaType
-  window.list.values.loading = .Login
-  Test.flush()
-  Test.expect(window.visible.all(addon => addon.lunatype && !addon.demand))
-  window.list.values.written = .All
-  window.list.values.loading = .All
-  Test.flush()
-  // The filter's list: every kind under its heading.
-  Test.click(Test.painted(Ordaen.art.ctl.tool.filter, nil), nil)
-  Test.flush()
-  _ = Test.holding("Runtime", nil)
-  _ = Test.holding("Out of date", nil)
-  Test.shot("the filter's list: performance, state, version, loading, runtime")
-  Test.click(Test.holding("Out of date", nil), nil)
-  Test.flush()
-  Test.expect(window.list.values.age == .Outdated)
-  _ = Test.holding("Runtime", nil)
-  destroy window
-}
-
-test "the search, the filter and the table: what shows, and how many of how many" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  Test.click(Test.field(nil), nil)
-  Test.type("system")
-  Test.flush()
-  Test.expect(window.visible.length == 1)
-  Test.shot("searched: one row, «1 of» the whole list")
-  Test.erase(6)
-  window.list.values.loading = .Demand
-  Test.flush()
-  Test.expect(window.visible.all(addon => addon.demand))
-  window.list.values.loading = .All
-  window.list.values.view = .Table
-  Test.flush()
-  Test.shot("one table: no captions, the sort's button gone")
-  // The category's column: under its heading on every row, a group's member's (whose state says more) as well.
-  const heading = Test.holding("Category", nil)
-  Test.expect(Test.holding("Other", nil).x == heading.x)
-  Test.expect(Test.holding("User Interface", 1).x == heading.x && Test.holding("User Interface", 2).x == heading.x)
-  Test.click(Test.holding("AddOn", nil), nil)
-  Test.flush()
-  Test.expect(window.list.values.descending)
-  destroy window
-}
-
-test "the card: the picked addon's state, what it needs and what needs it, and an Ordaen module's settings" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  Test.click(Test.holding("Ordaen System", nil), nil)
-  Test.flush()
-  Test.expect(window.list.values.picked == "OrdaenSystem")
-  Test.shot("the card of Ordaen System: loaded on demand, needs Ordaen, «Ordaen settings»")
-  // A link to what it needs picks that row.
-  Test.click(Test.holding("Ordaen", 2), nil)
-  Test.flush()
-  Test.expect(window.list.values.picked == "Ordaen")
-  Test.shot("the card of Ordaen: needed by its modules")
-  // A module's state opens Ordaen's settings at it: one more surface, the settings window.
-  const before = Test.surfaces().length
-  Test.click(Test.holding("on in Ordaen", nil), nil)
-  Test.flush()
-  Test.expect(Test.surfaces().length > before)
-  destroy window
-}
-
-test "sets: saved under a name, applied (one not in the folder skipped), renamed, deleted" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  Test.click(Test.holding("Sets", nil), nil)
-  Test.click(Test.holding("Save current as…", nil), nil)
-  Test.flush()
-  // The search's field is the first; the set's name the second.
-  Test.click(Test.field(2), nil)
-  Test.type("Raid")
-  Test.click(Test.holding("Save", nil), nil)
-  Test.flush()
-  Test.expect(window.sets.list.length == 1)
-  Test.expect(window.sets.list[1]?.name == "Raid")
-  _ = window.sets.save("Gone", ["Ordaen", "NotThere"])
-  window.onSet(3)
-  Test.flush()
-  Test.click(Test.holding("Apply", nil), nil)
-  Test.flush()
-  Test.expect(window.setNote != "")
-  Test.shot("applied: what isn't in the folder is listed and skipped")
-  Test.expect(!window.catalog.isOn("OrdaenSystem"))
-  Test.click(Test.holding("Cancel", nil), nil)
-  window.onSet(2)
-  Test.flush()
-  Test.click(Test.holding("Apply", nil), nil)
-  Test.flush()
-  Test.expect(window.catalog.isOn("OrdaenSystem"))
-  window.sets.rename(1, "Solo")
-  Test.expect(window.sets.list[1]?.name == "Solo")
-  window.sets.remove(1)
-  window.sets.remove(1)
-  Test.expect(window.sets.list.length == 0)
-  destroy window
-}
-
-test "«Reload» is a secure box the client runs: /reload; in a fight it waits" {
-  const window = new AddOnsWindow("Ordaen")
-  Test.mount(window, SCREEN)
-  Test.flush()
-  Test.click(Test.holding("Reload", nil), nil)
-  Test.expect(Test.performed().length == 1)
-  Test.combat(true)
-  Test.flush()
-  Test.shot("in a fight: «Reload» greyed")
-  Test.combat(false)
-  destroy window
-}
-
-test "the numbers: CPU sampled once a second only while the window shows, memory on open and «Refresh» alone" {
-  let samples = 0
-  let weighed = 0
-  Client.C_AddOnProfiler.IsEnabled = (): Boolean => true
-  Client.C_AddOnProfiler.GetApplicationMetric = (metric: Client.AddOnProfilerMetric): Number => {
-    if (metric == .RecentAverageTime) { samples += 1 }
-    return 10
-  }
-  Client.C_AddOnProfiler.GetAddOnMetric = (name: String, metric: Client.AddOnProfilerMetric): Number => {
-    return name == "Ordaen" ? 1 : 0.2
-  }
-  Client.C_AddOnProfiler.GetOverallMetric = (metric: Client.AddOnProfilerMetric): Number => 1.4
-  Client.UpdateAddOnMemoryUsage = (): nil => {
-    weighed += 1
-  }
-  Client.GetAddOnMemoryUsage = (name: String | Integer): Number => name == "Ordaen" ? 2048 : 300
+test "System is among Ordaen's modules, and its page has the AddOns window's settings" {
   Test.mount(nil, SCREEN)
-  Test.flush()
-  System.openWindow()
-  Test.flush()
-  Test.expect(weighed == 1)
-  const first = samples
-  Test.expect(first > 0)
-  Test.shot("Ordaen the heaviest: 10.0 % now, 2.0 MB, in the accent; all addons 14.0 %")
-  Test.pass(1.1)
-  Test.expect(samples > first)
-  Test.click(Test.painted(Ordaen.art.ctl.tool.refresh, nil), nil)
-  Test.expect(weighed == 2)
-  System.closeWindow()
-  Test.flush()
-  const closed = samples
-  Test.pass(3.1)
-  Test.expect(samples == closed)
-  Test.expect(weighed == 2)
+  const page = settings()
+  page.button("System").click()
+  Test.expect(page.text(Client.ADDONS).shown() && page.text("Opens on").shown())
 }
 
-// The window opened from the game menu, as the player opens it.
-function openFromMenu() {
-  Client.ToggleGameMenu()
-  Test.pass(0.02)
-  Test.flush()
-  Test.click(Test.holding("AddOns", nil), nil)
-  Test.flush()
-}
-
-// Where the side's line is, which takes a drag: its column (the card, the room on its sides and the frame's line) in
-// from the body's right.
-function sideLine(): Test.Point {
-  const body = Test.edges(Ordaen.art.window.wood, 0)
-  return { x: body.right - 297.4, y: (body.top + body.bottom) / 2 }
-}
-
-function near(a: Number, b: Number): Boolean { return (a - b).abs() < 0.01 }
-
-test "the list's filter, view and picked addon, and the card's width, are the profile's: there after a reload" {
+test "a module's state opens Ordaen's settings at the module" {
   Test.mount(nil, SCREEN)
-  Test.flush()
-  openFromMenu()
-  Test.click(Test.painted(Ordaen.art.ctl.tool.filter, nil), nil)
-  Test.flush()
-  Test.click(Test.holding(Locale.FILTER_DEMAND, nil), nil)
-  Test.flush()
-  // The filter's list stays open for another kind: a click on its button closes it.
-  Test.click(Test.painted(Ordaen.art.ctl.tool.filter, nil), nil)
-  Test.flush()
-  Test.click(Test.painted(Ordaen.art.ctl.tool.categories, nil), nil)
-  Test.flush()
-  Test.click(Test.holding(Locale.VIEW_TABLE, nil), nil)
-  Test.flush()
-  Test.click(Test.holding("Ordaen System", nil), nil)
-  Test.flush()
-  const before = Test.holding("Ordaen System", 2)
-  const line = sideLine()
-  Test.moveTo(line)
-  Test.press(nil)
-  Test.moveTo({ x: line.x - 1, y: line.y })
-  Test.pass(0.05)
-  Test.moveTo({ x: line.x - 60, y: line.y })
-  Test.pass(0.05)
-  Test.release(nil)
-  Test.flush()
-  const title = Test.holding("Ordaen System", 2)
-  Test.expect(title.x < before.x - 15)
-  const key = "OrdaenSystem:addons"
-  const kept = ListView.decode(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, key), ListView {})
-  Test.expect(kept.loading == .Demand && kept.view == .Table && kept.picked == "OrdaenSystem")
-  Test.reload()
-  Test.flush()
-  openFromMenu()
-  // The card stands beside the list again, as wide as it was dragged to.
-  const again = Test.holding("Ordaen System", 2)
-  Test.expect(near(again.x, title.x) && near(again.y, title.y))
-  Test.expect(Ordaen.keeper.profiles.make("Other", nil))
-  Ordaen.keeper.profiles.use("Other")
-  Test.flush()
-  Test.expect(Ordaen.keeper.profiles.recalled("Other", key) == nil)
-  Test.shot("another profile: the list as it starts, by category, nothing picked")
+  open()
+  window().text(Locale.MODULE_ON).click()
+  Test.expect(Test.page().window(SETTINGS).text("Opens on").shown())
+}
+
+test "a module the client won't load says why, in red" {
+  const world = new World(everyday())
+  world.fakes.push({
+    name: "OrdaenBank", title: "Ordaen Bank", category: "User Interface", group: "Ordaen", demand: true, reason: "INSECURE"
+  })
+  Client.C_AddOns.GetNumAddOns = () => world.count()
+  Client.C_AddOns.GetAddOnName = index => world.name(index)
+  Client.C_AddOns.GetAddOnMetadata = (name, field) => world.metadata(name, field)
+  Client.C_AddOns.IsAddOnLoadOnDemand = name => world.demand(name)
+  Client.C_AddOns.GetAddOnInterfaceVersion = name => world.interface(name)
+  Client.C_AddOns.GetAddOnEnableState = (name, character) => world.state(name, character)
+  Client.C_AddOns.IsAddOnLoaded = name => {
+    const loading, loaded = world.loaded(name)
+    return loading, loaded
+  }
+  Client.C_AddOns.IsAddOnLoadable = (name, character, demandLoaded) => {
+    const can, reason = world.loadable(name, character, demandLoaded)
+    return can, reason
+  }
+  Test.mount(nil, SCREEN)
+  open()
+  Test.expect(reads(row("Ordaen Bank"), `Ordaen Bank | ${Client.ADDON_INSECURE} | — | — | —`))
+  Test.expect(window().text(Client.ADDON_INSECURE).textColor().equal(Style.RED))
 }
