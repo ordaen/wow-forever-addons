@@ -4,7 +4,7 @@
 // learned), two in «Bags», and a category with none.
 import Client from "$client"
 import Game from "$game"
-import { Art, Key } from "$ltml"
+import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Kept, Pause } from "@/view"
@@ -176,17 +176,9 @@ function filter(): Test.Part {
   return Test.page().window("Raises the skill")
 }
 
-// A line of the open right-click menu pressed from the keyboard: Tab to it, then Enter. (A click on it is refused:
-// the parts take the menu, a surface of its own, for a part of the list it stands beside, and out of its view.)
+// A line of the open right-click menu clicked: the menu is found by its «Link in chat», which it always shows.
 function choose(label: String) {
-  for (step of 1..=12) {
-    if (Test.focused().contains(`«${label}»`)) {
-      Test.key(Key.Enter)
-      return
-    }
-    Test.key(Test.Move.Next)
-  }
-  panic(`the menu's «${label}» never had the keyboard's focus`)
+  Test.page().window("Link in chat").button(label).click()
 }
 
 // Ordaen's settings window at the module's page, as `/ordaen professions` opens it.

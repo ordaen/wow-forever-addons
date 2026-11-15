@@ -339,7 +339,7 @@ test "an early end with no run going changes nothing" {
   Test.expect(window().text("Next: Bolt of Linen Cloth ×1. Click «Create next».").shown())
 }
 
-test "a fight pauses the queue, and «Create next» is off while it lasts" {
+test "a fight closes the window and the profession, and pauses the queue until the player's click after it" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = tailoringCategories()
@@ -349,11 +349,14 @@ test "a fight pauses the queue, and «Create next» is off while it lasts" {
   create("Linen Cloak", 1)
   create("Bolt of Linen Cloth", 1)
   Game.tradeSkill.made.emit(CLOAK)
-  window().button("Queue (1)").click()
+  _ = Test.requests()
   Test.combat(true)
-  Test.expect(window().text("Paused: you entered combat. Click «Create next» after the fight.").shown())
-  Test.expect(off(window().button("Create next")))
+  Test.flush()
+  Test.expect(asked("TradeSkill.close") && !window().shown())
   Test.combat(false)
+  Game.tradeSkill.open = TAILORING
+  window().button("Queue (1)").click()
+  Test.expect(window().text("Paused: you entered combat. Click «Create next» after the fight.").shown())
   _ = Test.requests()
   window().button("Create next").click()
   Test.expect(asked("TradeSkill.craft 2963 1"))
@@ -371,6 +374,7 @@ test "«Create» in a fight queues the recipe and says the fight pauses it" {
   create("Linen Cloak", 1)
   window().button("Queue (1)").click()
   Test.expect(asked("") && window().text("Paused: you entered combat. Click «Create next» after the fight.").shown())
+  Test.expect(off(window().button("Create next")))
 }
 
 test "a fight with nothing queued leaves the queue empty and saying so" {
@@ -562,9 +566,8 @@ test "Escape while a run goes hides the window and keeps the profession open; it
   Test.expect(!window().shown() && asked(""))
   Game.tradeSkill.made.emit(CLOAK)
   Test.flush()
-  Test.expect(asked("TradeSkill.close") && !window().shown())
-  // Closed by the game, then opened again: the window shows.
-  Game.tradeSkill.open = nil
+  Test.expect(asked("TradeSkill.close") && !window().shown() && Game.tradeSkill.open == nil)
+  // Opened again: the window shows.
   Game.tradeSkill.open = TAILORING
   Test.expect(window().shown())
 }
