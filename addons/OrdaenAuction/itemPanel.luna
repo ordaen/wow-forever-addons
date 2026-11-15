@@ -149,7 +149,8 @@ public class ItemPanel implements Component {
   const prices: any PriceSource
   const history: any PriceHistory | nil
   constructor(
-    item: ItemId,
+    // The item, a variant by its suffix: its prices and its chart are the variant's own.
+    key: PriceKey,
     name: String,
     color: Color,
     // The line under the name: how many are listed («Buy»), how many the bags hold («Sell»).
@@ -158,8 +159,8 @@ public class ItemPanel implements Component {
     prices: any PriceSource,
     history: any PriceHistory | nil
   ) {
-    self.item = item
-    self.key = PriceKey.of(item)
+    self.item = key.item()
+    self.key = key
     self.name = name
     self.color = color
     self.detail = detail

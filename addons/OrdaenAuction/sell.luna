@@ -223,6 +223,7 @@ public class Posting implements Component {
   derived depositAmount: Integer = self.deposit ?? 0
 
   const offered: Offered
+  const key: PriceKey
   const house: House
   const prices: any PriceSource
   const history: any PriceHistory | nil
@@ -230,12 +231,13 @@ public class Posting implements Component {
   const detail: String
   constructor(offered: Offered, house: House, prices: any PriceSource, history: any PriceHistory | nil) {
     self.offered = offered
+    self.key = PriceKey.of(offered.item)
     self.house = house
     self.prices = prices
     self.history = history
     self.detail = Locale.IN_BAGS.format(offered.count)
     // The posting rule: a copper under the lowest listed; the market where nothing is listed.
-    const listed = house.listed(PriceKey.of(offered.item))
+    const listed = house.listed(self.key)
     self.unit = listed != nil ? (listed.low() - 1).max(1) : offered.market ?? 0
     Game.auctionActions.answered.listen(self.onAnswer)
   }
@@ -262,7 +264,7 @@ public class Posting implements Component {
 
   public render(self): Template {
     return $ltml {
-      <ItemPanel item={self.offered.item} name={self.offered.name} color={self.offered.color} detail={self.detail}
+      <ItemPanel key={self.key} name={self.offered.name} color={self.offered.color} detail={self.detail}
                  house={self.house} prices={self.prices} history={self.history}>
         <box gap={space(.Item)}>
           <box columns={PAIR} gap={space(.Item)} yAlign={Align.Center}>

@@ -611,6 +611,17 @@ test "a row searched away takes the panel with it" {
   Test.expect(!window().button("Add to shopping list").shown())
 }
 
+test "a variant picked shows its own market and lowest in the panel" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.items.variant = variants
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Game.auctionQuery.results.emit([{ key: WARHAMMER + BEAR * SUFFIXED, copper: 1100, quantity: 2 }])
+  window().text("Sergeant's Warhammer of the Bear").click()
+  Test.expect(says(panel(), "Market", "0g 11s 0c") && says(panel(), "Lowest", "0g 11s 0c"))
+}
+
 // A row's menu
 
 test "a row right-clicked: its menu, «Buy at the best price» dim until its listings come" {

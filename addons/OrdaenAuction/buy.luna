@@ -774,7 +774,7 @@ public class Chosen implements Component {
 
   public render(self): Template {
     return $ltml {
-      <ItemPanel item={self.found.item} name={self.found.name} color={self.found.color} detail={self.detail}
+      <ItemPanel key={self.found.key} name={self.found.name} color={self.found.color} detail={self.detail}
                  house={self.house} prices={self.prices} history={self.history}>
         <box rows={PANEL} gap={space(.Item)}>
           <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
