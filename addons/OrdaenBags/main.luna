@@ -393,9 +393,13 @@ public class Bags implements Module, App {
     self.markGuards(guards)
   }
 
-  // The cursor on a slot: its item new no more, and the tooltip's lines about it.
+  // The cursor on a slot: its item new no more (the tabs and the sections worked out again: «New» counts it no
+  // more), and the tooltip's lines about it.
   onEnter(mut self, slot: mut Slot) {
-    slot.see()
+    if (peek slot.isNew) {
+      slot.see()
+      self.revision += 1
+    }
     self.hovered.slot = slot
   }
 

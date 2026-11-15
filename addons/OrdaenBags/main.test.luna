@@ -406,6 +406,37 @@ test "an item stands in the tab of its class, and a grey one in «Junk» whateve
   Test.expect(held(HEARTH).shown() && bags().button(WELL).count() == 2)
 }
 
+test "the cursor on a new item: new no more, its glow gone, the game told, and «New» goes" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.expect(held(SHIRT).paintedWith(NEW_GLOW) && !held(SWORD).paintedWith(NEW_GLOW))
+  _ = Test.requests()
+  held(SHIRT).hover()
+  Test.expect(asked("Items.show 2575, Bags.seen 0 9"))
+  Test.expect(!held(SHIRT).paintedWith(NEW_GLOW) && !bags().text("New").shown())
+  // Looked at again: nothing more to tell.
+  held(SWORD).hover()
+  held(SHIRT).hover()
+  Test.expect(asked("Items.show 25, Items.show 2575"))
+}
+
+test "«New» picked shows the new items in one section; once none is new the window shows every item" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button("New").click()
+  Test.expect(held(SHIRT).shown() && bags().button(WELL).count() == 2 && !bags().text("Miscellaneous").shown())
+  held(SHIRT).hover()
+  Test.expect(bags().button(WELL).count() == 10)
+}
+
 test "an item come into the bags new is told under «New»" {
   const world = new World(everyday())
   Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)

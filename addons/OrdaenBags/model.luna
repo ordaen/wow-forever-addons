@@ -144,9 +144,8 @@ public class Slot {
     return changed
   }
 
-  // Looked at: new no more, the client told.
+  // A new item looked at: new no more, the client told.
   public see(mut self) {
-    if (!peek self.isNew) { return }
     self.isNew = false
     Game.bags.seen(self.bag, self.index)
   }
