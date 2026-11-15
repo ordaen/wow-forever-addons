@@ -354,3 +354,13 @@ test "what was recorded is kept: after a reload the professions and the bank rea
   // The new session's game says its own money and bags: the stand-in's, none.
   Test.expect(row("Player") == "Player | 1 | 0g 0s 0c | Mining 75 | — | now | 0 h ago | never opened")
 }
+
+test "a profession opened before the game lists the professions shows once the list names it" {
+  Test.mount(nil, SCREEN)
+  Test.open("/alts")
+  Game.recipeReader.known = (): Array<Integer> | nil => [2663]
+  Game.tradeSkill.open = 164
+  Test.expect(row("Player") == "Player | 1 | 0g 0s 0c | — | now | never opened | never opened")
+  Game.professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 150, max: 300, kind: .Crafting }]
+  Test.expect(row("Player") == "Player | 1 | 0g 0s 0c | Blacksmithing 150 | — | now | never opened | never opened")
+}

@@ -110,3 +110,15 @@ test "forty characters' skills scroll inside the window" {
   const window = grid()
   Test.expect(window.text("Alt 101").shown() && window.text("1 / 75").shown() && window.text("Mining").count() == 1)
 }
+
+test "the skills follow the game as it lists them, and a profession it hasn't named yet has no column" {
+  Test.mount(nil, SCREEN)
+  Game.recipeReader.known = (): Array<Integer> | nil => [2663]
+  Game.tradeSkill.open = 164
+  const window = grid()
+  Test.expect(shows(`Character | Player | ${TABS}`))
+  Game.professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 75, max: 150, kind: .Crafting }]
+  Test.expect(shows(`Character | Blacksmithing | Player | 75 / 150 | ${TABS}`))
+  Game.professions.list = [{ skillLine: 164, name: "Blacksmithing", icon: "x", rank: 76, max: 225, kind: .Crafting }]
+  Test.expect(shows(`Character | Blacksmithing | Player | 76 / 225 | ${TABS}`) && window.shown())
+}

@@ -33,7 +33,8 @@ public class Grid implements Component {
     const list: Array<String> = []
     for (_, character of self.records.characters) {
       for (known of character.professions) {
-        if (seen[known.name] == nil) {
+        // A profession whose recipes were read before the game listed it has no name yet: no column.
+        if (known.name != "" && seen[known.name] != true) {
           seen[known.name] = true
           list.push(known.name)
         }

@@ -116,7 +116,8 @@ public class Characters implements Component {
     for (who, character of self.records.characters) {
       const names: Array<String> = []
       for (known of character.professions) {
-        names.push("%s %d".format(known.name, known.rank))
+        // A profession whose recipes were read before the game listed it has no name, nor skill, yet.
+        if (known.name != "") { names.push("%s %d".format(known.name, known.rank)) }
       }
       const bank = character.read[Place.Bank]
       const mail = character.read[Place.Mail]
