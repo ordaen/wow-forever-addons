@@ -1,314 +1,424 @@
-// The professions window with a stand-in game: the profession the game has open, its categories and recipes, the
-// search, the chosen recipe and making it.
+// Ordaen Professions as the player meets it: one window in place of the game's own professions window, shown while
+// the game has a profession open; its tabs (one a profession), the skill bar, the profession's own tabs, the
+// profession's spell in the footer, Escape and the close, the settings, and what is kept between sessions. The game is
+// the test's: what it reports (`Game.tradeSkill`, `Game.professions`) and what it was asked (`Test.requests()`).
 import Client from "$client"
 import Game from "$game"
 import { Key } from "$ltml"
-import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import root Professions from "OrdaenProfessions"
 
-// The screen Ordaen draws its modules on.
-const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const TAILORING = 197
+const BLACKSMITHING = 164
+const FIRST_AID = 129
+const MINING = 186
+const HERBALISM = 182
+// A tab's title: gold on the open one, dim on the others.
+const OPEN: Color = Color.hex("#ffd100")
+const CLOSED: Color = Color.hex("#a3977f")
+// A text the settings window always shows.
+const SETTINGS = "Move mode"
+const REMEMBER = "Remember the last recipe"
 
-// What the game sends when it opens a profession.
-function recipe(
-  id: Integer, name: String, category: Integer, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean
-): Game.Recipe {
+function recipe(id: Integer, name: String, category: Integer): Game.Recipe {
   return {
-    id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: learned, difficulty: difficulty,
-    craftable: craftable
+    id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: true,
+    difficulty: Game.Difficulty.Always, craftable: 1
   }
 }
 
-// Tailoring as the game opens it: its categories, its recipes, and what it says of a recipe.
+// Tailoring at 31 of 75, Blacksmithing at 120 of 150, First Aid at 40 of 75: the game gives an icon as its file's
+// number or as its path.
+function professions(): Array<Game.Profession> {
+  return [
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+    {
+      skillLine: BLACKSMITHING, name: "Blacksmithing", icon: "Interface/Icons/Trade_BlackSmithing", rank: 120, max: 150,
+      kind: Game.ProfessionKind.Crafting
+    },
+    {
+      skillLine: FIRST_AID, name: "First Aid", icon: "Interface/Icons/Spell_Holy_SealOfSacrifice", rank: 40, max: 75,
+      kind: Game.ProfessionKind.Crafting
+    }
+  ]
+}
+
+// The game's own professions window, where it stands: ours shows in its place.
+function gameWindow(): any Client.Frame {
+  let own = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  own.SetSize(400, 500)
+  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+  return own
+}
+
+// Tailoring as the game opens it: its camp's recipe, and two in «Cloth armour».
 function tailoringCategories(): Array<Game.Category> {
   return [
-    { id: 1, name: "Tailoring" },
-    { id: 10, name: "Resting at camp", parentID: 1 },
-    { id: 11, name: "Cloth armour", parentID: 1 },
-    { id: 12, name: "Bags", parentID: 1 },
-    { id: 13, name: "Nothing known here", parentID: 1 }
+    { id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 }
   ]
 }
 
 function tailoringRecipes(): Array<Game.Recipe> {
+  return [recipe(100, "Linen Bandage", 10), recipe(110, "Linen Cloak", 11), recipe(111, "Brown Linen Vest", 11)]
+}
+
+// Blacksmithing as the game opens it: no camp recipe.
+function smithingCategories(): Array<Game.Category> {
   return [
-    recipe(100, "Linen Bandage", 10, Game.Difficulty.Rarely, 4, true),
-    recipe(110, "Linen Cloak", 11, Game.Difficulty.Always, 1, true),
-    recipe(111, "Brown Linen Vest", 11, Game.Difficulty.Usually, 0, true),
-    recipe(112, "Woolen Cape", 11, Game.Difficulty.Never, 0, false),
-    recipe(120, "Linen Bag", 12, Game.Difficulty.Usually, 2, true),
-    recipe(121, "Woolen Bag", 12, Game.Difficulty.Always, 0, true)
+    { id: 2, name: "Blacksmithing" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Weapons", parentID: 2 }
   ]
 }
 
-function description(id: Integer): String {
-  return id == 110 ? "A plain cloak of linen." : id == 120 ? "Holds six things." : ""
+function smithingRecipes(): Array<Game.Recipe> {
+  return [recipe(200, "Copper Mace", 21)]
 }
 
-function requirements(id: Integer): Array<Game.Requirement> {
-  if (id == 110) { return [{ name: "Sewing kit", met: true }, { name: "Loom", met: false }] }
-  return []
+// The professions window: the surface that holds the profession's «Overview» tab.
+function window(): Test.Part {
+  return Test.page().window("Overview")
 }
 
-function reagents(id: Integer): Array<Game.Reagent> {
-  if (id == 110) {
-    return [
-      { name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 3, need: 1 },
-      { name: "Coarse Thread", icon: "Interface/Icons/INV_Misc_Thread_01", have: 0, need: 1 }
-    ]
-  }
-  if (id == 120) { return [{ name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 6, need: 3 }] }
-  return []
+// Whether the game was asked exactly this since it was last asked, joined by «, »: where it wasn't, the test fails with
+// what it was asked.
+function asked(expected: String): Boolean {
+  const said = Test.requests().join(", ")
+  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  return true
 }
 
-// Blacksmithing has no camp recipes: the camp's category stands first all the same, and has no tab.
-function blacksmithingCategories(): Array<Game.Category> {
-  return [
-    { id: 2, name: "Blacksmithing" },
-    { id: 20, name: "Resting at camp", parentID: 2 },
-    { id: 21, name: "Weapons", parentID: 2 }
-  ]
-}
-
-function show(title: String, own: any Client.Frame) {
-  Test.shot(title)
-  let left = (own.GetLeft() ?? 0).floor()
-  let top = (Client.GetScreenHeight() - (own.GetTop() ?? 0)).floor()
-  Test.note(`the game's own window: at ${left},${top}, opacity ${own.GetAlpha()}`)
-  Test.note("")
-}
-
-// The module off draws nothing. The page isn't blank: Ordaen Auction, which it loads with it where it is installed,
-// stands on the screen as a module of its own, showing nothing while the house is shut.
-function nothingDrawn(): Boolean {
+// The game's own window stands off the screen, unseen: it stays open, which keeps the profession open.
+function away(own: any Client.Frame): Boolean {
   Test.flush()
-  return Test.drawn().length == 0
+  return own.GetAlpha() == 0 && (own.GetLeft() ?? 0) < -1000
 }
 
-// A click, and what it changed drawn.
-function click(at: Test.Point) {
-  Test.click(at, nil)
+// The game's own window is where it stood, seen.
+function back(own: any Client.Frame): Boolean {
   Test.flush()
+  return own.GetAlpha() == 1 && (own.GetLeft() ?? 0).floor() == 16
 }
 
-function isIcon(file: String | Integer): Boolean {
-  if (file is String) { return file.match("^icons/") != nil }
-  return file == 136249
+// Ordaen's settings window at the module's page, as `/ordaen professions` opens it.
+function settings(): Test.Part {
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("professions")
+  return Test.page().window(SETTINGS)
 }
 
-test "loaded by Ordaen, the module's root is made and is among Ordaen's modules" {
-  Test.flush()
-  const ordaen = Ordaen
-  let found = 0
-  for (entry of ordaen.modules) {
-    if (entry.title == "Ordaen Professions") { found += 1 }
-  }
-  Test.expect(found == 1)
-}
+// The window shown and shut
 
-test "the settings opened from the professions window stand over it, though they were made before it" {
-  let own = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  own.SetSize(400, 500)
-  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
+test "with no profession open nothing shows, and the game's own window stands where it is" {
+  const own = gameWindow()
   Game.frames.Professions = own
-  Game.professions.list = [
-    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }
-  ]
-  Test.mount(nil, PAGE)
-  // The settings window, made and closed before the professions window is.
-  Ordaen.toggleSettings(nil)
-  Test.flush()
-  Ordaen.toggleSettings(nil)
-  Test.flush()
-  Game.tradeSkill.shownEmpty.emit()
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Test.expect(!window().shown() && !Test.page().text("Tailoring").shown() && back(own))
+}
+
+test "the game opens a profession: the window shows in place of the game's own, which stands away unseen" {
+  const own = gameWindow()
+  Game.frames.Professions = own
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = 197
-  Test.flush()
-
-  // The settings plate shows while the cursor is on the window.
-  Test.moveTo(Test.holding("Bags", nil))
-  Test.flush()
-  click(Test.painted(Ordaen.art.ctl.corner.gear, nil))
-  // The cursor on a setting's label: its hint shows where the settings stand over the professions window.
-  Test.moveTo(Test.holding("Remember the last recipe", nil))
-  Test.flush()
-  Test.shot("the settings opened from the professions window: over it, the label's hint shown")
-  Test.expect(Test.surfaceHolding("Opens each profession at the recipe you left it at.").x > 0)
-  Ordaen.toggleSettings(nil)
-  (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
-  Test.flush()
+  Game.tradeSkill.open = TAILORING
+  Test.expect(window().shown() && away(own))
 }
 
-test "the professions window: the open profession, its lists, the search, a recipe made" {
-  // The game's own professions window: ours shows in its place.
-  let ui = Client.C_UI.GetUIParent()
-  let own = Client.CreateFrame("Frame", "ProfessionsFrame", ui, nil)
-  own.SetSize(400, 500)
-  own.SetPoint("TOPLEFT", ui, "TOPLEFT", 16, -116)
-  Game.frames.Professions = own
-  Game.professions.list = [
-    // The game gives an icon as its file's number, or as its path.
-    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: 182, name: "Herbalism", icon: "Interface/Icons/Trade_Herbalism", rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
-    {
-      skillLine: 164, name: "Blacksmithing", icon: "Interface/Icons/Trade_BlackSmithing", rank: 120, max: 150,
-      kind: Game.ProfessionKind.Crafting
-    }
-  ]
-
-  // The module's root, made as the addon loaded and drawn by Ordaen on the screen, which the page is: a second one
-  // would hear the game as well, and ask it twice.
-  Test.mount(nil, PAGE)
-  show("mounted: no profession is open, nothing is drawn", own)
-
-  Game.tradeSkill.shownEmpty.emit()
-  show("the game's own window came up with no profession open: ours stands in its place, its tabs to choose from", own)
-
+test "each profession has a tab with its skill, the open one's title gold" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.description = description
-  Game.tradeSkill.requirements = requirements
-  Game.tradeSkill.reagents = reagents
-  Game.tradeSkill.open = 197
-  show("the game opened Tailoring: its tab picked, its skill, its first category's recipes, the first recipe's details", own)
-
-  // Every icon is drawn without the rim the client's icons carry: a file by its number as one by its path.
-  let icons = 0
-  let whole = 0
-  for (texture of Test.drawn()) {
-    if (isIcon(texture.file)) {
-      icons += 1
-      if (texture.left == 0 && texture.right == 1) { whole += 1 }
-    }
-  }
-  Test.note(`icons drawn: ${icons > 0 ? "some" : "none"}; with their own rim left on: ${whole}`)
-
-  // The control group stands in the tab row, above the body: the skill bar runs under it, nothing between them.
-  const ordaen = Ordaen
-  const bar = Test.edges(ordaen.lookArt.xpFill, 2)
-  const corner = Test.edges(ordaen.art.ctl.corner.bronze.first, 0)
-  Test.expect(corner.bottom < bar.top && Test.painted(ordaen.art.ctl.corner.gear, nil).y < bar.top)
-
-  click(Test.holding("Bags", nil))
-  show("«Bags» picked: its recipes, the first of them chosen", own)
-
-  click(Test.holding("Woolen Bag", nil))
-  show("a recipe picked that the bags can't make: Create is disabled", own)
-
-  click(Test.holding("Cloth armour", nil))
-  click(Test.field(nil))
-  Test.type("LINEN")
-  show("back in «Cloth armour», «LINEN» typed into the search: the recipes with it in their names, in any case", own)
-
-  Test.erase(5)
-  Test.flush()
-  click(Test.holding("+", nil))
-  click(Test.holding("+", nil))
-  click(Test.holding("Create", nil))
-  show("the search emptied, + clicked twice and Create: three asked for, the one the bags can make is made", own)
-
-  click(Test.holding("Camp", nil))
-  show("the profession's «Camp» tab: the camp's recipes in one column", own)
-
-  click(Test.holding("Blacksmithing", nil))
-  show("the Blacksmithing tab clicked: the game is asked to open it, and Tailoring's tab stays picked till it has", own)
-
-  Game.tradeSkill.categories = blacksmithingCategories()
-  Game.tradeSkill.recipes = [recipe(200, "Copper Mace", 21, Game.Difficulty.Never, 0, true)]
-  Game.tradeSkill.open = 164
-  show("the game opened Blacksmithing: its lists, back on «Recipes» with no «Camp» tab, its one recipe", own)
-
-  Test.key(Key.Escape)
-  show("Escape: the game is asked to close the profession", own)
-
-  // The game hides its own window as the profession closes: given back, it stays hidden. Shown again, it would
-  // come up with no profession open, and the first profession would be opened in its place.
-  own.Hide()
-  Game.tradeSkill.open = nil
-  show("the game closed it: our window is gone, the game's own stands where it stood", own)
-  Test.note(`the game's own window shows: ${own.IsShown()}`)
-
-  // The player's key brings the game's own window up again with no profession open: the one last open is asked
-  // for, in the key's own call.
-  own.Show()
-  Test.inKey((): nil => Game.tradeSkill.shownEmpty.emit())
-  show("the game's own window came up again on the player's key: the profession last open is asked for", own)
-
-  (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
-  Test.expect(nothingDrawn())
+  Game.tradeSkill.open = TAILORING
+  Test.expect(window().text("Tailoring").item().texts().join(" | ") == "Tailoring | 31 / 75")
+  Test.expect(window().text("Blacksmithing").item().texts().join(" | ") == "Blacksmithing | 120 / 150")
+  Test.expect(window().text("Tailoring").textColor().equal(OPEN) && window().text("First Aid").textColor().equal(CLOSED))
 }
 
-// A description longer than the details panel is wide, as the game's are.
-function longDescription(id: Integer): String {
-  return "Teaches the miner to smelt silver ore into bars of silver. Smelting silver requires a forge nearby, and the ore."
-}
-
-test "a long description wraps in the details panel, which stays inside the window, its letters at their start" {
-  let ui = Client.C_UI.GetUIParent()
-  let own = Client.CreateFrame("Frame", "ProfessionsFrame", ui, nil)
-  own.SetSize(400, 500)
-  own.SetPoint("TOPLEFT", ui, "TOPLEFT", 16, -116)
-  Game.frames.Professions = own
+test "the skill bar says the open profession's rank and skill" {
+  Game.frames.Professions = gameWindow()
   Game.professions.list = [
-    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 120, max: 150, kind: Game.ProfessionKind.Crafting },
+    { skillLine: FIRST_AID, name: "First Aid", icon: 135966, rank: 200, max: 225, kind: Game.ProfessionKind.Crafting },
+    { skillLine: MINING, name: "Mining", icon: 136248, rank: 260, max: 300, kind: Game.ProfessionKind.Gathering },
+    { skillLine: HERBALISM, name: "Herbalism", icon: 136246, rank: 5, max: 0, kind: Game.ProfessionKind.Gathering }
   ]
-  Test.mount(nil, PAGE)
-  Game.tradeSkill.shownEmpty.emit()
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.description = longDescription
-  Game.tradeSkill.requirements = requirements
-  Game.tradeSkill.reagents = reagents
-  Game.tradeSkill.open = 197
-  Test.flush()
-  click(Test.holding("Cloth armour", nil))
-  Test.shot("«Linen Cloak» chosen: its description wraps in the panel, the panel ends inside the window")
-  (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
-  Test.expect(nothingDrawn())
+  Game.tradeSkill.open = TAILORING
+  Test.expect(window().text("Apprentice · 31 / 75").shown())
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = BLACKSMITHING
+  Test.expect(window().text("Journeyman · 120 / 150").shown())
+  Game.tradeSkill.open = FIRST_AID
+  Test.expect(window().text("Expert · 200 / 225").shown())
+  Game.tradeSkill.open = MINING
+  Test.expect(window().text("Artisan · 260 / 300").shown())
+  // A most the ranks don't name: the skill alone.
+  Game.tradeSkill.open = HERBALISM
+  // The tab's skill and the bar's.
+  Test.expect(window().text("5 / 0").count() == 2)
 }
 
-test "the profession the game opens picks its tab, every time: after the window closed on another, and while it is open" {
-  let own = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
-  own.SetSize(400, 500)
-  own.SetPoint("TOPLEFT", Client.UIParent, "TOPLEFT", 16, -116)
-  Game.frames.Professions = own
-  Game.professions.list = [
-    { skillLine: 197, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: 182, name: "Herbalism", icon: "Interface/Icons/Trade_Herbalism", rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
-    { skillLine: 129, name: "First Aid", icon: "Interface/Icons/Spell_Holy_SealOfSacrifice", rank: 40, max: 75, kind: Game.ProfessionKind.Crafting }
-  ]
-  Test.mount(nil, PAGE)
+test "a profession with camp recipes has a «Camp» tab; one without has none" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = 197
-  Test.flush()
-  Test.expect(Professions.tab == 1)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(window().button("Camp").shown())
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = BLACKSMITHING
+  Test.expect(!window().button("Camp").shown() && window().button("Recipes").shown())
+}
 
-  // Closed on Tailoring; the game opens First Aid from its spell on the action bar.
+test "another profession's tab asks the game to open it; its tab shows open once the game has" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = TAILORING
+  _ = Test.requests()
+  window().button("Blacksmithing").click()
+  Test.expect(asked("TradeSkill.show 164") && window().text("Tailoring").textColor().equal(OPEN))
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = BLACKSMITHING
+  Test.expect(window().text("Blacksmithing").textColor().equal(OPEN) && window().text("Copper Mace").shown())
+  Test.expect(window().text("Tailoring").textColor().equal(CLOSED))
+}
+
+test "the open profession's own tab asks the game nothing" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = TAILORING
+  _ = Test.requests()
+  window().button("Tailoring").click()
+  Test.expect(asked(""))
+}
+
+test "the profession the game opens picks its tab, after the window closed on another and while it is open" {
+  const own = gameWindow()
+  Game.frames.Professions = own
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = TAILORING
   Test.key(Key.Escape)
   own.Hide()
   Game.tradeSkill.open = nil
-  Test.flush()
   own.Show()
+  // The game opens First Aid from its spell on the action bar.
   Game.tradeSkill.categories = []
   Game.tradeSkill.recipes = []
-  Game.tradeSkill.open = 129
-  Test.flush()
-  Test.expect(Professions.tab == 3)
-
-  // The Herbalism tab clicked: the game is asked, and till it opens Herbalism the tab is First Aid's.
-  click(Test.holding("Herbalism", nil))
-  Test.expect(Professions.tab == 3)
-  // While the window is open, the game opens Tailoring from its spell: Tailoring's tab.
+  Game.tradeSkill.open = FIRST_AID
+  Test.expect(window().text("First Aid").textColor().equal(OPEN) && window().text("Tailoring").textColor().equal(CLOSED))
+  // While the window is open, the game opens Tailoring from its spell.
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes()
-  Game.tradeSkill.open = 197
-  Test.flush()
-  Test.expect(Professions.tab == 1)
-  Test.shot("Tailoring opened by the game while First Aid was open: its tab picked")
-  (Runtime.Addon.of(Professions) ?? panic("the module is installed")).disable()
-  Test.expect(nothingDrawn())
+  Game.tradeSkill.open = TAILORING
+  Test.expect(window().text("Tailoring").textColor().equal(OPEN) && window().text("First Aid").textColor().equal(CLOSED))
+}
+
+test "Escape asks the game to close the profession; closed, the window goes and the game's own is back" {
+  const own = gameWindow()
+  Game.frames.Professions = own
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = TAILORING
+  _ = Test.requests()
+  Test.key(Key.Escape)
+  Test.expect(asked("TradeSkill.close"))
+  // The game hides its own window as the profession closes: given back, it stays hidden.
+  own.Hide()
+  Game.tradeSkill.open = nil
+  Test.expect(!window().shown() && back(own) && !own.IsShown())
+}
+
+test "the window's close asks the game to close the profession" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = TAILORING
+  _ = Test.requests()
+  window().text("Linen Cloak").hover()
+  window().button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(asked("TradeSkill.close"))
+}
+
+test "the game's own window up with no profession open: ours stands in its place, its tabs to pick from" {
+  const own = gameWindow()
+  Game.frames.Professions = own
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.shownEmpty.emit()
+  const empty = Test.page().window("Choose a profession above")
+  Test.expect(empty.button("Tailoring").shown() && empty.button("First Aid").shown() && away(own))
+  Test.expect(!empty.text("Overview").shown() && asked(""))
+  empty.button("Blacksmithing").click()
+  Test.expect(asked("TradeSkill.show 164"))
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = BLACKSMITHING
+  Test.expect(window().text("Copper Mace").shown() && !Test.page().text("Choose a profession above").shown())
+}
+
+test "the game's own window up on the player's key asks for the profession last open" {
+  const own = gameWindow()
+  Game.frames.Professions = own
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = BLACKSMITHING
+  Test.expect(window().shown())
+  Test.key(Key.Escape)
+  own.Hide()
+  Game.tradeSkill.open = nil
+  _ = Test.requests()
+  own.Show()
+  Test.inKey((): nil => Game.tradeSkill.shownEmpty.emit())
+  Test.expect(asked("TradeSkill.show 164"))
+}
+
+test "the window waiting with no profession open goes with Escape, and asks nothing" {
+  const own = gameWindow()
+  Game.frames.Professions = own
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.shownEmpty.emit()
+  Test.expect(Test.page().window("Choose a profession above").shown())
+  Test.key(Key.Escape)
+  Test.expect(!Test.page().text("Choose a profession above").shown())
+  Test.expect(asked("TradeSkill.close"))
+  _ = own
+}
+
+test "the game's own window up while a profession is open changes nothing" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = TAILORING
+  _ = Test.requests()
+  Test.inKey((): nil => Game.tradeSkill.shownEmpty.emit())
+  Test.expect(asked("") && window().text("Linen Cloak").shown())
+}
+
+test "the profession last open is asked for after a reload" {
+  const own = gameWindow()
+  Game.frames.Professions = own
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = BLACKSMITHING
+  Test.key(Key.Escape)
+  Game.tradeSkill.open = nil
+  Test.reload()
+  _ = Test.requests()
+  Test.inKey((): nil => Game.tradeSkill.shownEmpty.emit())
+  Test.expect(asked("TradeSkill.show 164"))
+  _ = own
+}
+
+// The profession's spell
+
+test "Mining has «Find Minerals» in the footer, which the client casts from the player's click" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game.ProfessionKind.Gathering }]
+  Game.spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
+  Game.spells.known = (id: Integer): Boolean => true
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  _ = Test.performed()
+  window().button("Find Minerals").click()
+  Test.expect(Test.performed().join(", ") == "spell Find Minerals")
+}
+
+test "Herbalism has «Find Herbs»; a crafting profession has no spell in the footer" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = [
+    { skillLine: HERBALISM, name: "Herbalism", icon: 136246, rank: 12, max: 75, kind: Game.ProfessionKind.Gathering },
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }
+  ]
+  Game.spells.name = (id: Integer): String | nil => id == 2383 ? "Find Herbs" : id == 2580 ? "Find Minerals" : nil
+  Game.spells.known = (id: Integer): Boolean => true
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = HERBALISM
+  Test.expect(window().button("Find Herbs").shown())
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = TAILORING
+  Test.expect(!window().button("Find Herbs").shown() && !window().button("Find Minerals").shown())
+}
+
+test "a profession's spell the character doesn't know has no button" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = [{ skillLine: MINING, name: "Mining", icon: 136248, rank: 70, max: 75, kind: Game.ProfessionKind.Gathering }]
+  Game.spells.name = (id: Integer): String | nil => id == 2580 ? "Find Minerals" : nil
+  Game.spells.known = (id: Integer): Boolean => false
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  Test.expect(window().shown() && !window().button("Find Minerals").shown())
+}
+
+// The settings
+
+test "Ordaen lists the module, whose page has its three settings" {
+  Test.mount(nil, SCREEN)
+  const page = settings()
+  Test.expect(page.button("Professions").shown() && page.text("Prices").shown())
+  Test.expect(page.text("Show recipes you haven't learned").shown())
+}
+
+test "the window's gear opens the module's page of the settings, which stands over the window" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  // The settings window, made and closed before the professions window is.
+  const page = settings()
+  page.text(REMEMBER).hover()
+  page.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!page.shown())
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = TAILORING
+  window().text("Linen Cloak").hover()
+  window().button(Ordaen.art.ctl.corner.gear).click()
+  // The cursor on a setting's label: its hint shows, over the professions window.
+  Test.page().window(SETTINGS).text(REMEMBER).hover()
+  Test.expect(Test.page().window("Opens each profession at the recipe you left it at.").shown())
+}
+
+test "the module turned off in the settings: the window goes, and the game's own is back" {
+  const own = gameWindow()
+  Game.frames.Professions = own
+  Game.professions.list = professions()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes()
+  Game.tradeSkill.open = TAILORING
+  const page = settings()
+  // The modules in the list: Auction, Tooltips, Professions.
+  page.button(Ordaen.art.ctl.switchOn).nth(3).click()
+  Test.expect(!window().shown() && back(own))
 }

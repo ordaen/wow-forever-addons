@@ -1,21 +1,25 @@
-// A profession's «Overview» tab and its own spells: Mining's «Find Minerals» at the right end of the tabs' line, the
-// next rank, the recipes counted, what to learn next (a click opens it), what the work needs, the tracked recipes;
-// Fishing's «Fish» on its overview. The recipes are the client's own, by their numbers, so its table of where each
-// turns yellow orders what to learn next.
+// A profession's «Overview» tab as the player meets it: the card with the next rank (a secondary profession says so)
+// and the profession's own spell; the recipes counted; what to learn next and where (a click opens it); what the work
+// needs; the tracked recipes and what each lacks. The recipes are Mining's own, by their numbers, so the client's
+// table of where each turns yellow orders what to learn next; a trainer met says the rest.
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
-import root Professions from "OrdaenProfessions"
 
-const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const MINING = 186
 const FISHING = 356
+const ENCHANTING = 333
+const COOKING = 185
+const FIRST_AID = 129
 // Smelting: copper (learned), tin and bronze (learned), silver and gold (not), by their spells.
 const COPPER = 2657
 const TIN = 3304
 const BRONZE = 2659
 const SILVER = 2658
 const GOLD = 3308
+const INK: Color = Color.hex("#e8dcc4")
+const DIM: Color = Color.hex("#a3977f")
 
 function recipe(id: Integer, name: String, difficulty: Game.Difficulty, craftable: Integer, learned: Boolean): Game.Recipe {
   return {
@@ -24,33 +28,29 @@ function recipe(id: Integer, name: String, difficulty: Game.Difficulty, craftabl
   }
 }
 
+function profession(skillLine: Integer, name: String, rank: Integer, max: Integer): Game.Profession {
+  return { skillLine: skillLine, name: name, icon: 136248, rank: rank, max: max, kind: Game.ProfessionKind.Gathering }
+}
+
 function professions(): Array<Game.Profession> {
-  return [
-    { skillLine: MINING, name: "Mining", icon: "Interface/Icons/Trade_Mining", rank: 70, max: 75, kind: Game.ProfessionKind.Gathering },
-    { skillLine: FISHING, name: "Fishing", icon: "Interface/Icons/Trade_Fishing", rank: 120, max: 150, kind: Game.ProfessionKind.Gathering }
-  ]
+  return [profession(MINING, "Mining", 70, 75), profession(FISHING, "Fishing", 120, 150)]
 }
 
 function categories(): Array<Game.Category> {
-  return [
-    { id: 2, name: "Mining" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Smelting", parentID: 2 }
-  ]
+  return [{ id: 2, name: "Mining" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Smelting", parentID: 2 }]
 }
 
 function recipes(): Array<Game.Recipe> {
   return [
     recipe(COPPER, "Smelt Copper", Game.Difficulty.Rarely, 4, true),
     recipe(TIN, "Smelt Tin", Game.Difficulty.Always, 0, true),
-    recipe(BRONZE, "Smelt Bronze", Game.Difficulty.Always, 0, true),
+    recipe(BRONZE, "Smelt Bronze", Game.Difficulty.Never, 0, true),
     recipe(GOLD, "Smelt Gold", Game.Difficulty.Always, 0, false),
     recipe(SILVER, "Smelt Silver", Game.Difficulty.Always, 0, false)
   ]
 }
 
-function requirements(id: Integer): Array<Game.Requirement> {
-  return [{ name: "Forge", met: false }]
-}
-
+// Bronze takes a copper bar (three held) and a tin bar (none).
 function reagents(id: Integer): Array<Game.Reagent> {
   if (id == BRONZE) {
     return [
@@ -61,81 +61,394 @@ function reagents(id: Integer): Array<Game.Reagent> {
   return []
 }
 
-function spellName(id: Integer): String | nil {
-  return id == 2580 ? "Find Minerals" : id == 7620 ? "Fishing" : nil
-}
-
-function click(at: Test.Point) {
-  Test.click(at, nil)
-  Test.flush()
-}
-
-test "the overview: the next rank, the recipes counted, what to learn next, the needs, the tracked; the profession's spells" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = categories()
-  Game.tradeSkill.recipes = recipes()
-  Game.tradeSkill.requirements = requirements
-  Game.tradeSkill.reagents = reagents
-  Game.spells.name = spellName
-  Game.spells.known = (id: Integer): Boolean => true
-  Test.mount(nil, PAGE)
-  Game.tradeSkill.open = MINING
-  Test.flush()
-  Professions.starTracked(BRONZE)
-  Test.flush()
-
-  click(Test.holding("Overview", nil))
-  Test.shot("Mining's overview: «Find Minerals» on the tabs' line, Journeyman next, silver before gold to learn")
-
-  // A click on the minerals' button is the client's: its secure button casts the spell.
-  Test.click(Test.holding("Find Minerals", nil), nil)
-  Test.flush()
-
-  click(Test.holding("Smelt Silver · not seen at a trainer", nil))
-  Test.note(`opened: page ${Professions.page}, recipe ${Professions.chosenRecipe}`)
-  Test.expect(Professions.page == 1 && Professions.chosenRecipe == SILVER)
-
-  Game.tradeSkill.categories = [{ id: 3, name: "Fishing" }, { id: 30, name: "Resting at camp", parentID: 3 }]
-  Game.tradeSkill.recipes = []
-  Game.tradeSkill.open = FISHING
-  Test.flush()
-  click(Test.holding("Overview", nil))
-  Test.shot("Fishing's overview: a secondary profession, Expert next, «Fish» casting from its secure button")
-}
-
-// What a mining trainer says: gold from 155 for 1s, silver from 75 for 50c (as the classic trainer asks).
+// What a mining trainer says: gold from 155 for 1s, silver from 75 for 50c; a service with no skill is no recipe.
 function services(): Array<Game.TrainerService> {
   return [
     { index: 1, name: "Smelt Gold", rank: "", status: Game.ServiceStatus.Unavailable, level: 0, cost: 100, description: "", skill: 155 },
-    { index: 2, name: "Smelt Silver", rank: "", status: Game.ServiceStatus.Available, level: 0, cost: 50, description: "", skill: 75 }
+    { index: 2, name: "Smelt Silver", rank: "", status: Game.ServiceStatus.Available, level: 0, cost: 50, description: "", skill: 75 },
+    { index: 3, name: "Smelt Copper", rank: "", status: Game.ServiceStatus.Unavailable, level: 0, cost: 10, description: "", skill: nil }
   ]
 }
 
-test "what to learn next: the skill and price a profession's trainer said, kept; the recipes by the skill they are learned at" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+function window(): Test.Part {
+  return Test.page().window("Overview")
+}
+
+function reads(part: Test.Part, expected: String): Boolean {
+  const read = part.texts().join(" | ")
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
+}
+
+// The sections' titles, in the order drawn («Recipes» is the tab's name too, drawn before them).
+const TITLES: Array<String> = ["Recipes", "What to learn next", "Needed for the work", "Tracked recipes"]
+// The window's tabs, drawn after the page.
+const TABS: Array<String> = ["Mining", "Fishing", "Enchanting", "Cooking", "First Aid"]
+
+// Whether two colours are the same as the client keeps them (to three places).
+function near(a: Color, b: Color): Boolean {
+  return (a.r - b.r).abs() < 0.005 && (a.g - b.g).abs() < 0.005 && (a.b - b.b).abs() < 0.005
+}
+
+// Whether a section of the overview reads exactly this, its title and its lines joined by « | »: where it doesn't,
+// the test fails with what it reads.
+function sectionReads(title: String, expected: String): Boolean {
+  let read: Array<String> = []
+  let inside = false
+  for (shown of window().texts()) {
+    if (shown == title) {
+      read = []
+      inside = true
+    } else if (TITLES.any(other => other == shown) || TABS.any(other => other == shown)) {
+      inside = false
+    }
+    if (inside) { read.push(shown) }
+  }
+  const said = read.join(" | ")
+  if (said != expected) { panic(`the section reads «${said}», not «${expected}»`) }
+  return true
+}
+
+// The card
+
+test "the overview's card says the next rank and what it needs" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = [
+    profession(MINING, "Mining", 70, 75), profession(FISHING, "Fishing", 120, 150), profession(ENCHANTING, "Enchanting", 200, 225),
+    profession(COOKING, "Cooking", 300, 300)
+  ]
+  Game.tradeSkill.categories = categories()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(window().text("Next rank: Journeyman, from skill 50 and level 10").shown())
+  Game.tradeSkill.open = FISHING
+  window().button("Overview").click()
+  Test.expect(window().text("Next rank: Expert, from skill 125 and level 20").shown())
+  Game.tradeSkill.open = ENCHANTING
+  window().button("Overview").click()
+  Test.expect(window().text("Next rank: Artisan, from skill 200 and level 35").shown())
+  Game.tradeSkill.open = COOKING
+  window().button("Overview").click()
+  Test.expect(!window().texts().any(shown => shown.contains("Next rank")))
+}
+
+test "a secondary profession says so; a primary one doesn't" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = [
+    profession(MINING, "Mining", 70, 75), profession(FISHING, "Fishing", 120, 150), profession(COOKING, "Cooking", 10, 75),
+    profession(FIRST_AID, "First Aid", 10, 75)
+  ]
+  Game.tradeSkill.categories = categories()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(!window().text("Secondary profession").shown())
+  for (line of [FISHING, COOKING, FIRST_AID]) {
+    Game.tradeSkill.open = line
+    window().button("Overview").click()
+    Test.expect(window().text("Secondary profession").shown())
+  }
+}
+
+test "Fishing's overview has «Fish», which the client casts from the player's click" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = [{ id: 3, name: "Fishing" }, { id: 30, name: "Resting at camp", parentID: 3 }]
+  Game.spells.name = (id: Integer): String | nil => id == 7620 ? "Fishing" : nil
+  Game.spells.known = (id: Integer): Boolean => true
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = FISHING
+  window().button("Overview").click()
+  _ = Test.performed()
+  window().button("Fish").click()
+  Test.expect(Test.performed().join(", ") == "spell Fishing")
+}
+
+test "Enchanting's overview has «Disenchant»; Mining's has no spell on it" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = [profession(ENCHANTING, "Enchanting", 70, 75), profession(MINING, "Mining", 70, 75)]
+  Game.tradeSkill.categories = categories()
+  Game.spells.name = (id: Integer): String | nil => id == 13262 ? "Disenchant" : id == 2580 ? "Find Minerals" : nil
+  Game.spells.known = (id: Integer): Boolean => true
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = ENCHANTING
+  window().button("Overview").click()
+  _ = Test.performed()
+  window().button("Disenchant").click()
+  Test.expect(Test.performed().join(", ") == "spell Disenchant")
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(!window().button("Disenchant").shown() && !window().button("Fish").shown())
+}
+
+test "the overview's spell the character doesn't know has no button" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.spells.name = (id: Integer): String | nil => id == 7620 ? "Fishing" : nil
+  Game.spells.known = (id: Integer): Boolean => false
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = FISHING
+  window().button("Overview").click()
+  Test.expect(window().text("Secondary profession").shown() && !window().button("Fish").shown())
+}
+
+// The sections
+
+test "the recipes counted: learned and not, what the bags make now, what still raises the skill" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
-  Game.tradeSkill.requirements = requirements
-  Game.tradeSkill.reagents = reagents
-  // A class trainer's services are no recipe's.
-  Game.trainer.teachesClass = (): Boolean => true
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(sectionReads("Recipes", "Recipes | Learned: 3 · not learned: 2 | Can make now: 1 | Raise the skill: 2"))
+  Test.expect(window().text("Can make now: 1").textColor().equal(DIM))
+}
+
+test "what to learn next: the recipes not learned, by the skill they turn yellow at, each not seen at a trainer" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(sectionReads("What to learn next", "What to learn next | Smelt Silver · not seen at a trainer | Smelt Gold · not seen at a trainer"))
+  Test.expect(window().text("Smelt Silver · not seen at a trainer").textColor().equal(INK))
+}
+
+test "what to learn next lists six at most, those the table hasn't last, a tie by name" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = [
+    recipe(9000001, "Smelt Mithril", Game.Difficulty.Always, 0, false),
+    recipe(GOLD, "Smelt Gold", Game.Difficulty.Always, 0, false),
+    recipe(SILVER, "Smelt Silver", Game.Difficulty.Always, 0, false),
+    recipe(2577, "Smelt Arcanite", Game.Difficulty.Always, 0, false),
+    recipe(2578, "Smelt Dark Iron", Game.Difficulty.Always, 0, false),
+    recipe(9000002, "Smelt Elementium", Game.Difficulty.Always, 0, false),
+    recipe(2579, "Smelt Thorium", Game.Difficulty.Always, 0, false)
+  ]
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  // Arcanite turns yellow at 100, silver at 100, dark iron at 125, thorium at 150, gold at 170; mithril and elementium
+  // the table hasn't.
+  Test.expect(sectionReads(
+    "What to learn next",
+    "What to learn next | Smelt Arcanite · not seen at a trainer | Smelt Silver · not seen at a trainer | Smelt Dark Iron · not seen at a trainer | Smelt Thorium · not seen at a trainer | Smelt Gold · not seen at a trainer | Smelt Elementium · not seen at a trainer"
+  ))
+}
+
+test "what to learn next follows the recipes learned while the overview is open" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Game.tradeSkill.recipes = [
+    recipe(COPPER, "Smelt Copper", Game.Difficulty.Rarely, 4, true), recipe(GOLD, "Smelt Gold", Game.Difficulty.Always, 0, false),
+    recipe(SILVER, "Smelt Silver", Game.Difficulty.Always, 0, true)
+  ]
+  Test.expect(sectionReads("What to learn next", "What to learn next | Smelt Gold · not seen at a trainer"))
+  window().text("Smelt Gold · not seen at a trainer").click()
+  Test.expect(window().text("Not learned").shown())
+}
+
+test "with every recipe learned there is nothing to learn next" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = [recipe(COPPER, "Smelt Copper", Game.Difficulty.Rarely, 4, true)]
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(sectionReads("What to learn next", "What to learn next | Every recipe is learned."))
+  Test.expect(window().text("Every recipe is learned.").textColor().equal(DIM))
+}
+
+test "a recipe to learn next clicked opens it in the lists" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  window().text("Smelt Gold · not seen at a trainer").click()
+  Test.expect(window().text("Smelt Gold").count() == 2 && window().text("Not learned").shown())
+}
+
+test "what a profession's trainer said orders what to learn next, with its skill and price" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
   Game.trainer.services = services
+  Game.trainer.teachesClass = (): Boolean => false
+  Test.mount(nil, SCREEN)
   Game.trainer.open = true
   Game.trainer.changed.emit()
-  Test.expect(Professions.learning.values.recipes["Smelt Silver"] == nil)
+  Game.trainer.open = false
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(sectionReads("What to learn next", "What to learn next | Smelt Silver · trainer, from 75, 50c | Smelt Gold · trainer, from 155, 1s"))
+}
+
+test "a trainer's word stands over the table's: a recipe it teaches early comes first" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.trainer.services = (): Array<Game.TrainerService> => [
+    { index: 1, name: "Smelt Gold", rank: "", status: Game.ServiceStatus.Available, level: 0, cost: 100, description: "", skill: 60 }
+  ]
+  Test.mount(nil, SCREEN)
   Game.trainer.teachesClass = (): Boolean => false
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(sectionReads("What to learn next", "What to learn next | Smelt Gold · trainer, from 60, 1s | Smelt Silver · not seen at a trainer"))
+}
+
+test "a class trainer's services, or a trainer's while it is shut, teach nothing" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.trainer.services = services
+  Game.trainer.teachesClass = (): Boolean => false
+  Test.mount(nil, SCREEN)
+  Game.trainer.teachesClass = (): Boolean => true
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Game.trainer.teachesClass = (): Boolean => false
+  Game.trainer.open = false
+  Game.trainer.changed.emit()
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(sectionReads("What to learn next", "What to learn next | Smelt Silver · not seen at a trainer | Smelt Gold · not seen at a trainer"))
+}
+
+test "what the trainers said is there after a reload, and for another character" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.trainer.services = services
+  Game.trainer.teachesClass = (): Boolean => false
+  Test.mount(nil, SCREEN)
+  Game.trainer.open = true
   Game.trainer.changed.emit()
   Game.trainer.open = false
-  Test.mount(nil, PAGE)
-  Game.tradeSkill.open = MINING
   Test.flush()
-  click(Test.holding("Overview", nil))
-  Test.shot("what to learn next: silver from 75 for 50c, then gold from 155 for 1s, at the trainer")
-  const silver = Test.holding("Smelt Silver · trainer, from 75, 50c", nil)
-  const gold = Test.holding("Smelt Gold · trainer, from 155, 1s", nil)
-  Test.expect(silver.y < gold.y)
-  Test.reload()
-  Test.expect((Professions.learning.values.recipes["Smelt Gold"] ?? panic("kept")).skill == 155)
+  Test.login({ guid: "Player-1-2", name: "Other", surname: nil })
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(window().text("Smelt Gold · trainer, from 155, 1s").shown())
+}
+
+test "a trainer met again adds to what earlier ones said" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.trainer.services = (): Array<Game.TrainerService> => [
+    { index: 1, name: "Smelt Gold", rank: "", status: Game.ServiceStatus.Available, level: 0, cost: 100, description: "", skill: 155 }
+  ]
+  Test.mount(nil, SCREEN)
+  Game.trainer.teachesClass = (): Boolean => false
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Game.trainer.services = (): Array<Game.TrainerService> => [
+    { index: 1, name: "Smelt Silver", rank: "", status: Game.ServiceStatus.Available, level: 0, cost: 50, description: "", skill: 75 }
+  ]
+  Game.trainer.changed.emit()
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(sectionReads("What to learn next", "What to learn next | Smelt Silver · trainer, from 75, 50c | Smelt Gold · trainer, from 155, 1s"))
+}
+
+test "what the work needs: each tool or place a learned recipe asks for, once" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.requirements = (id: Integer): Array<Game.Requirement> => {
+    if (id == GOLD) { return [{ name: "Gold Anvil", met: false }] }
+    if (id == BRONZE) { return [{ name: "Forge", met: false }, { name: "Mining Pick", met: true }] }
+    return [{ name: "Forge", met: true }]
+  }
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(sectionReads("Needed for the work", "Needed for the work | Forge | Mining Pick"))
+  Test.expect(near(window().text("Forge").textColor(), DIM))
+}
+
+test "a profession that needs nothing but reagents says so" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(sectionReads("Needed for the work", "Needed for the work | Nothing but reagents."))
+}
+
+test "the tracked recipes, each with what the bags still lack for one making" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => {
+    if (id == COPPER) {
+      return [
+        { itemID: 2770, name: "Copper Ore", icon: "Interface/Icons/INV_Ore_Copper_01", have: 2, need: 2 },
+        { itemID: 2771, name: "Tin Ore", icon: "Interface/Icons/INV_Ore_Tin_01", have: 1, need: 3 }
+      ]
+    }
+    return reagents(id)
+  }
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().button("Overview").click()
+  Test.expect(sectionReads("Tracked recipes", "Tracked recipes | None. Switch on «Track» on a recipe."))
+  window().button("Recipes").click()
+  window().text("Smelt Bronze").click()
+  window().button("Track").click()
+  window().text("Smelt Copper").click()
+  window().button("Track").click()
+  window().text("Smelt Tin").click()
+  window().button("Track").click()
+  window().button("Overview").click()
+  Test.expect(sectionReads(
+    "Tracked recipes",
+    "Tracked recipes | Smelt Copper — missing: Tin Ore ×2 | Smelt Tin — all there | Smelt Bronze — missing: Tin Bar ×1"
+  ))
+  Test.expect(near(window().text("Smelt Tin — all there").textColor(), INK))
+}
+
+test "a tracked recipe clicked opens it in the lists" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = MINING
+  window().text("Smelt Bronze").click()
+  window().button("Track").click()
+  window().text("Smelt Copper").click()
+  window().button("Overview").click()
+  window().text("Smelt Bronze — missing: Tin Bar ×1").click()
+  Test.expect(window().text("Smelt Bronze").count() == 2 && window().text("Doesn't raise the skill").shown())
 }

@@ -1,17 +1,16 @@
-// Ordaen Auction's prices in the professions window: the chosen recipe's reagents at the house and at a merchant
-// with the way taken and the totals; the table's cost and profit; the queue's missing reagents priced and put on the
-// shopping list; «No prices» while nothing was scanned; with Ordaen Auction off, no price at all.
+// Ordaen Auction's prices in the professions window as the player meets them: the chosen recipe's reagents at the
+// house and at a merchant, the cheaper way and the totals; the table's cost and profit; the queue's missing reagents
+// priced and put on the shopping list; «No prices» while nothing was scanned; no price at all with «Prices» off or
+// Ordaen Auction turned off. The house's prices come from a scan the game answers (`Game.auctionQuery`), a merchant's
+// from the merchant's window (`Game.merchant`).
 import Client from "$client"
 import Game from "$game"
-import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ItemId } from "Ordaen"
 import root Auction from "OrdaenAuction"
-import root Professions from "OrdaenProfessions"
-import { View } from "@/view"
 
-const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const TAILORING = 197
 const CLOAK_RECIPE = 2387
 const BOLT_RECIPE = 2963
@@ -19,25 +18,41 @@ const CLOTH = 2996
 const THREAD = 2320
 const LINEN = 2589
 const CLOAK = 2570
+const APRON_RECIPE = 7623
+const APRON = 7026
+// The recipes the table lists, to read their order.
+const NAMES = ["Linen Cloak", "Bolt of Linen Cloth", "Brown Linen Vest", "Simple Apron"]
 const NOW = 1790002800
+const HOUR = 3600
+const RED: Color = Color.hex("#ff4040")
+const DIM: Color = Color.hex("#a3977f")
+const INK: Color = Color.hex("#e8dcc4")
+const AMBER: Color = Color.hex("#ffb02e")
+// The cheaper way's price, on a green ground.
+const CHEAPER: Color = Color.hex("#40c0402e")
+// A text the settings window always shows.
+const SETTINGS = "Move mode"
+const PRICES_OFF = "Needs Ordaen Auction: turn it on to see prices."
+const PRICES_TIP = "Cost, sale and profit by Ordaen Auction's prices."
 
-function recipe(id: Integer, name: String, craftable: Integer): Game.Recipe {
+function recipe(id: Integer, name: String, craftable: Integer, difficulty: Game.Difficulty): Game.Recipe {
   return {
-    id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 11, learned: true,
-    difficulty: Game.Difficulty.Always, craftable: craftable
+    id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 11, learned: true, difficulty: difficulty,
+    craftable: craftable
   }
 }
 
-function part(item: Integer, name: String, need: Integer, have: Integer): Game.Reagent {
+function reagent(item: Integer, name: String, need: Integer, have: Integer): Game.Reagent {
   return { itemID: item, name: name, icon: "Interface/Icons/INV_Misc_Note_01", have: have, need: need }
 }
 
 // A cloak takes a bolt (one held) and a thread (none); a bolt takes two linen (none).
 function reagents(id: Integer): Array<Game.Reagent> {
-  if (id == CLOAK_RECIPE) { return [part(CLOTH, "Bolt of Linen Cloth", 1, 1), part(THREAD, "Coarse Thread", 1, 0)] }
-  return [part(LINEN, "Linen Cloth", 2, 0)]
+  if (id == CLOAK_RECIPE) { return [reagent(CLOTH, "Bolt of Linen Cloth", 1, 1), reagent(THREAD, "Coarse Thread", 1, 0)] }
+  return [reagent(LINEN, "Linen Cloth", 2, 0)]
 }
 
+// Each recipe makes one of its item: the cloak a cloak, the bolt a bolt.
 function schematic(id: Integer): Game.Schematic | nil {
   return { recipe: id, makes: id == CLOAK_RECIPE ? CLOAK : CLOTH, least: 1, most: 1, parts: [] }
 }
@@ -50,8 +65,9 @@ function categories(): Array<Game.Category> {
   return [{ id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 }]
 }
 
+// The cloak (the bags make three) first, the bolt (none) after it.
 function recipes(): Array<Game.Recipe> {
-  return [recipe(CLOAK_RECIPE, "Linen Cloak", 3), recipe(BOLT_RECIPE, "Bolt of Linen Cloth", 0)]
+  return [recipe(CLOAK_RECIPE, "Linen Cloak", 3, Game.Difficulty.Always), recipe(BOLT_RECIPE, "Bolt of Linen Cloth", 0, Game.Difficulty.Rarely)]
 }
 
 // What a merchant sells: thread at 10 c.
@@ -64,125 +80,578 @@ function house(): Array<Game.Offer> {
   return [{ key: CLOTH, copper: 100, quantity: 5 }, { key: THREAD, copper: 15, quantity: 20 }, { key: CLOAK, copper: 500, quantity: 2 }]
 }
 
-function click(at: Test.Point) {
-  Test.click(at, nil)
-  Test.flush()
+function window(): Test.Part {
+  return Test.page().window("Overview")
 }
 
-test "the chosen recipe's reagents at the house and at a merchant, the cheaper way, and the totals" {
+function reads(part: Test.Part, expected: String): Boolean {
+  const read = part.texts().join(" | ")
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
+}
+
+// Whether the card's totals read exactly this, from «Cost» to the card's switches: where they don't, the test fails
+// with what they read.
+function totals(expected: String): Boolean {
+  let read: Array<String> = []
+  for (shown of window().texts()) {
+    if (shown == "Favorite") { break }
+    if (read.length > 0 || shown == "Cost") { read.push(shown) }
+  }
+  const said = read.join(" | ")
+  if (said != expected) { panic(`the totals read «${said}», not «${expected}»`) }
+  return true
+}
+
+// Ordaen's settings window at the module's page, as `/ordaen professions` opens it.
+function settings(): Test.Part {
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("professions")
+  return Test.page().window(SETTINGS)
+}
+
+// Whether two colours are the same as the client keeps them (to three places).
+function near(a: Color, b: Color): Boolean {
+  return (a.r - b.r).abs() < 0.005 && (a.g - b.g).abs() < 0.005 && (a.b - b.b).abs() < 0.005
+}
+
+// Whether the window shows `next` straight after `first`, in the order drawn.
+function follows(first: String, next: String): Boolean {
+  const shown = window().texts()
+  for (index, text of shown) {
+    if (text == first && shown[index + 1] == next) { return true }
+  }
+  panic(`«${next}» doesn't follow «${first}» in «${shown.join(" | ")}»`)
+}
+
+// The card
+
+test "each reagent's price at the house and at a merchant for the count, the cheaper one taken on a green ground" {
   Game.clock.server = NOW
   Game.merchant.prices = merchant
   Game.merchant.opened.emit()
   Game.auctionQuery.results.emit(house())
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
   Game.recipeReader.schematic = schematic
-  Test.mount(nil, PAGE)
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.flush()
-  click(Test.holding("Linen Cloak", nil))
-  Test.shot("Linen Cloak: the bolt bought at the house, the thread from a merchant; cost, left to buy, sale, profit")
-  Test.expect(Test.holding("Auction", nil).x > 0 && Test.holding("Merchant", nil).x > 0)
-  Test.expect(Test.holding("Buy", nil).x > 0)
-  Test.expect(Test.holding("Left to buy", nil).x > 0 && Test.holding("Profit", nil).x > 0)
-  Test.expect(Professions.prices != nil)
+  Test.expect(window().text("Auction").shown() && window().text("Merchant").shown() && window().text("Best").shown())
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 1 / 1 | 0g 1s 0c | — | Buy"))
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1 | 0g 0s 15c | 0g 0s 10c | Merchant"))
+  Test.expect(reads(window().text("Coarse Thread").item().box(CHEAPER), "0g 0s 10c"))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item().box(CHEAPER), "0g 1s 0c"))
+  Test.expect(window().text("0 / 1").textColor().equal(RED) && near(window().text("1 / 1").textColor(), INK))
+  Test.expect(near(window().text("Buy").textColor(), INK))
 }
 
-test "the table lists each recipe's cost and profit, and sorts by them; one with a part unpriced has none, last" {
+test "the totals: every part at its price, what the bags lack, the sale after the house's cut, the profit, the prices' age" {
   Game.clock.server = NOW
   Game.merchant.prices = merchant
   Game.merchant.opened.emit()
   Game.auctionQuery.results.emit(house())
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
   Game.recipeReader.schematic = schematic
-  Test.mount(nil, PAGE)
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.flush()
-  Professions.list.values.view = View.Table
-  Test.flush()
-  Test.shot("the table: the cloak's cost and profit; the bolt's linen unpriced, «—»")
-  click(Test.holding("Profit", nil))
-  click(Test.holding("Profit", nil))
-  Test.expect(Test.holding("Linen Cloak", nil).y < Test.holding("Bolt of Linen Cloth", nil).y)
+  // A bolt at 1 s and a thread at 10 c; the bolt held: the thread to buy; a cloak sells at 5 s less 5%.
+  Test.expect(totals("Cost | 0g 1s 10c | Left to buy | 0g 0s 10c | Sale | 0g 4s 75c | Profit | 0g 3s 65c | Prices: 0 h ago"))
+  Test.expect(!window().text("No prices: open the auction house.").shown())
 }
 
-test "the queue's missing reagents are priced, «Left to buy» sums them, and they go onto the shopping list" {
+test "the prices and totals are for the make row's count" {
   Game.clock.server = NOW
   Game.merchant.prices = merchant
   Game.merchant.opened.emit()
   Game.auctionQuery.results.emit(house())
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
   Game.recipeReader.schematic = schematic
-  Test.mount(nil, PAGE)
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.flush()
-  click(Test.holding("Linen Cloak", nil))
-  click(Test.holding("Create", nil))
-  click(Test.holding("Queue (1)", nil))
-  Test.shot("the queue: the thread missing, from a merchant; «To the shopping list»")
-  click(Test.holding("To the shopping list", nil))
-  const auction = Auction ?? panic("Ordaen Auction is on")
-  Test.expect(auction.shopping.needed[ItemId.of(THREAD)] == 1)
-  Test.expect(auction.shopping.needed[ItemId.of(CLOTH)] == nil)
+  window().button("+").click()
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 2 | 0g 0s 30c | 0g 0s 20c | Merchant"))
+  Test.expect(totals("Cost | 0g 2s 20c | Left to buy | 0g 1s 20c | Sale | 0g 9s 50c | Profit | 0g 7s 30c | Prices: 0 h ago"))
+}
+
+test "by «All» the prices are for all the bags make" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button("Quantity").click()
+  Test.page().window("Raise skill").button("All").click()
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 3 | 0g 0s 45c | 0g 0s 30c | Merchant"))
+}
+
+test "by «All» with nothing to make the prices are for one" {
+  Game.clock.server = NOW
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = [recipe(CLOAK_RECIPE, "Linen Cloak", 0, Game.Difficulty.Always)]
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button("Quantity").click()
+  Test.page().window("Raise skill").button("All").click()
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1 | 0g 0s 15c | — | Buy"))
+}
+
+test "a merchant's price as cheap as the house's is taken" {
+  Game.clock.server = NOW
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => ({ [THREAD]: 15 })
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1 | 0g 0s 15c | 0g 0s 15c | Merchant"))
+}
+
+test "a part with no price makes the cost and profit none; left to buy is none only where it is lacking" {
+  Game.clock.server = NOW
+  Game.auctionQuery.results.emit([{ key: CLOAK, copper: 500, quantity: 2 }, { key: THREAD, copper: 15, quantity: 20 }])
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  // The bolt, held, has no price; the thread is bought.
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 1 / 1 | — | — | —"))
+  Test.expect(window().text("Bolt of Linen Cloth").nth(2).item().text("—").nth(3).textColor().equal(RED))
+  Test.expect(totals("Cost | — | Left to buy | 0g 0s 15c | Sale | 0g 4s 75c | Profit | — | Prices: 0 h ago"))
+  // Two: one bolt lacking, with no price.
+  window().button("+").click()
+  Test.expect(totals("Cost | — | Left to buy | — | Sale | 0g 9s 50c | Profit | — | Prices: 0 h ago"))
+}
+
+test "a recipe that makes no item doesn't sell" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(totals("Cost | 0g 1s 10c | Left to buy | 0g 0s 10c | Sale | doesn't sell | Profit | — | Prices: 0 h ago"))
+}
+
+test "a making that gives several sells for the mean of what it gives" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = (id: Integer): Game.Schematic | nil => ({ recipe: id, makes: CLOAK, least: 2, most: 4, parts: [] })
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(totals("Cost | 0g 1s 10c | Left to buy | 0g 0s 10c | Sale | 0g 14s 25c | Profit | 0g 13s 15c | Prices: 0 h ago"))
+}
+
+test "a loss is said with a red minus" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit([{ key: CLOTH, copper: 100, quantity: 5 }, { key: CLOAK, copper: 50, quantity: 2 }])
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  // 1 s 10 c for what sells at 47 c: 63 c lost.
+  Test.expect(totals("Cost | 0g 1s 10c | Left to buy | 0g 0s 10c | Sale | 0g 0s 47c | Profit | - | 0g 0s 63c | Prices: 0 h ago"))
+  Test.expect(near(window().text("-").nth(1).textColor(), RED) && near(window().text("0g 0s 63c").textColor(), RED))
+}
+
+test "the prices' age: in hours under two days, then in days" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Game.clock.server = NOW + 47 * HOUR
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  // Over a day old: amber.
+  Test.expect(near(window().text("Prices: 47 h ago").textColor(), AMBER))
+  window().text("Bolt of Linen Cloth").nth(1).click()
+  Game.clock.server = NOW + 48 * HOUR
+  window().text("Linen Cloak").click()
+  Test.expect(window().text("Prices: 2 d. ago").shown())
+  window().text("Bolt of Linen Cloth").nth(1).click()
+  Game.clock.server = NOW + 95 * HOUR
+  window().text("Linen Cloak").click()
+  // Three days and most of a fourth, said as three, amber still.
+  Test.expect(near(window().text("Prices: 3 d. ago").textColor(), AMBER))
+  window().text("Bolt of Linen Cloth").nth(1).click()
+  Game.clock.server = NOW + 100 * HOUR
+  window().text("Linen Cloak").click()
+  // Four days old: dim.
+  Test.expect(near(window().text("Prices: 4 d. ago").textColor(), DIM))
+}
+
+test "prices under a day old are said dim" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Game.clock.server = NOW + 5 * HOUR
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(near(window().text("Prices: 5 h ago").textColor(), DIM))
+}
+
+test "the prices' age is the sale's too, where every part is a merchant's" {
+  Game.clock.server = NOW
+  Game.merchant.prices = (): Map<Integer, Integer> | nil => ({ [THREAD]: 10, [CLOTH]: 50 })
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit([{ key: CLOAK, copper: 500, quantity: 2 }])
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Game.clock.server = NOW + 5 * HOUR
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(totals("Cost | 0g 0s 60c | Left to buy | 0g 0s 10c | Sale | 0g 4s 75c | Profit | 0g 4s 15c | Prices: 5 h ago"))
+}
+
+test "a profit of nothing is said with no minus" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  // A bolt at 1 s and a thread at 10 c: 1 s 10 c, what a cloak at 1 s 16 c sells for after the cut.
+  Game.auctionQuery.results.emit([{ key: CLOTH, copper: 100, quantity: 5 }, { key: CLOAK, copper: 116, quantity: 2 }])
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(totals("Cost | 0g 1s 10c | Left to buy | 0g 0s 10c | Sale | 0g 1s 10c | Profit | 0g 0s 0c | Prices: 0 h ago"))
+}
+
+test "a reagent the game names no item of has no price" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => [{ name: "Coarse Thread", icon: "Interface/Icons/INV_Misc_Note_01", have: 0, need: 1 }]
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1 | — | — | —"))
 }
 
 test "with nothing scanned the card says there are no prices, and the totals are none" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
   Game.recipeReader.schematic = schematic
-  Test.mount(nil, PAGE)
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.flush()
-  click(Test.holding("Linen Cloak", nil))
-  Test.shot("nothing scanned: «No prices: open the auction house.», every total «—»")
-  Test.expect(Test.holding("No prices: open the auction house.", nil).x > 0)
+  Test.expect(window().text("No prices: open the auction house.").shown())
+  Test.expect(totals("Cost | — | Left to buy | — | Sale | — | Profit | —"))
+}
+
+test "a recipe with no reagents says nothing of prices missing" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(window().text("Cost").shown() && !window().text("No prices: open the auction house.").shown())
+}
+
+// The table
+
+test "the table lists each recipe's cost and profit, «—» where a part has no price" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button(Ordaen.art.ctl.tool.columns).click()
+  Test.page().window("By category").button("Table").click()
+  Test.expect(window().button("Cost").shown() && window().button("Profit").shown())
+  Test.expect(reads(window().text("Linen Cloak").nth(1).item(), "Linen Cloak | 3 | 0g 1s 10c | 0g 3s 65c"))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(1).item(), "Bolt of Linen Cloth | - | — | —"))
+}
+
+test "the table sorts by cost and by profit, a recipe with none last either way" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit([
+    { key: CLOTH, copper: 100, quantity: 5 }, { key: THREAD, copper: 15, quantity: 20 }, { key: CLOAK, copper: 500, quantity: 2 },
+    { key: LINEN, copper: 100, quantity: 9 }, { key: APRON, copper: 1000, quantity: 1 }
+  ])
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = [
+    recipe(CLOAK_RECIPE, "Linen Cloak", 3, Game.Difficulty.Always), recipe(BOLT_RECIPE, "Bolt of Linen Cloth", 0, Game.Difficulty.Rarely),
+    recipe(2385, "Brown Linen Vest", 0, Game.Difficulty.Usually), recipe(APRON_RECIPE, "Simple Apron", 0, Game.Difficulty.Usually)
+  ]
+  // The vest takes a dye no one sells; the apron a thread.
+  Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => {
+    if (id == 2385) { return [reagent(2324, "Gray Dye", 1, 0)] }
+    if (id == APRON_RECIPE) { return [reagent(THREAD, "Coarse Thread", 1, 0)] }
+    return reagents(id)
+  }
+  Game.recipeReader.schematic = (id: Integer): Game.Schematic | nil => id == APRON_RECIPE ? { recipe: id, makes: APRON, least: 1, most: 1, parts: [] } : schematic(id)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button(Ordaen.art.ctl.tool.columns).click()
+  Test.page().window("By category").button("Table").click()
+  // The apron: 10 c, 9 s 40 c; the cloak 1 s 10 c, 3 s 65 c; the bolt: 2 s of linen, sold at 95 c, 1 s 5 c lost.
+  const order = (): String => window().texts().filter(shown => NAMES.any(name => name == shown)).join(", ")
+  window().button("Cost").click()
+  Test.expect(order().contains("Simple Apron, Linen Cloak, Bolt of Linen Cloth, Brown Linen Vest"))
+  window().button("Cost").click()
+  Test.expect(order().contains("Bolt of Linen Cloth, Linen Cloak, Simple Apron, Brown Linen Vest"))
+  window().button("Profit").click()
+  Test.expect(order().contains("Bolt of Linen Cloth, Linen Cloak, Simple Apron, Brown Linen Vest"))
+  window().button("Profit").click()
+  Test.expect(order().contains("Simple Apron, Linen Cloak, Bolt of Linen Cloth, Brown Linen Vest"))
+  Test.expect(near(window().text("Bolt of Linen Cloth").nth(1).item().text("0g 1s 5c").textColor(), RED))
+}
+
+// The queue
+
+test "the queue's missing reagents priced by their cheaper way, «Left to buy» summing them" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button("+").click()
+  window().button("Create").click()
+  window().button("Queue (1)").click()
+  Test.expect(window().text("Price").shown() && window().text("Best").shown())
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 2 | 0 | 2 | 0g 0s 20c | Merchant"))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").item(), "Bolt of Linen Cloth | 2 | 1 | 1 | 0g 1s 0c | Buy"))
+  Test.expect(follows("Left to buy", "0g 1s 20c") && follows("0g 1s 20c", "To the shopping list"))
+}
+
+test "a reagent the bags hold all of is left out of «Left to buy»; one lacking one is said red" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button("Create").click()
+  window().button("Queue (1)").click()
+  Test.expect(reads(window().text("Bolt of Linen Cloth").item(), "Bolt of Linen Cloth | 1 | 1 | -"))
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 1 | 0 | 1 | 0g 0s 10c | Merchant"))
+  Test.expect(near(window().text("Coarse Thread").item().text("1").nth(2).textColor(), Color.hex("#ff6a5a")))
+  Test.expect(near(window().text("Merchant").textColor(), INK))
+  Test.expect(follows("Left to buy", "0g 0s 10c"))
+}
+
+test "a missing reagent with no price: «—» red, and nothing left to buy is summed" {
+  Game.clock.server = NOW
+  Game.auctionQuery.results.emit([{ key: THREAD, copper: 15, quantity: 20 }])
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button("+").click()
+  window().button("Create").click()
+  window().button("Queue (1)").click()
+  Test.expect(reads(window().text("Bolt of Linen Cloth").item(), "Bolt of Linen Cloth | 2 | 1 | 1 | —"))
+  Test.expect(window().text("Bolt of Linen Cloth").item().text("—").textColor().equal(Color.hex("#ff6a5a")))
+  Test.expect(follows("Left to buy", "—"))
+}
+
+test "«To the shopping list» puts each missing reagent onto Ordaen Auction's list" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button("Create").click()
+  window().button("Queue (1)").click()
+  window().button("To the shopping list").click()
+  const auction = Auction ?? panic("Ordaen Auction is on")
+  Test.expect(auction.shopping.needed[ItemId.of(THREAD)] == 1 && auction.shopping.needed[ItemId.of(CLOTH)] == nil)
+}
+
+test "a missing reagent the game names no item of isn't put onto the shopping list" {
+  Game.clock.server = NOW
+  Game.merchant.prices = merchant
+  Game.merchant.opened.emit()
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => [
+    { name: "Strange Dust", icon: "Interface/Icons/INV_Misc_Note_01", have: 0, need: 1 }, reagent(THREAD, "Coarse Thread", 1, 0)
+  ]
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button("Create").click()
+  window().button("Queue (1)").click()
+  window().button("To the shopping list").click()
+  const auction = Auction ?? panic("Ordaen Auction is on")
+  Test.expect(auction.shopping.needed[ItemId.of(THREAD)] == 1 && Test.faults().length == 0)
+}
+
+test "with nothing missing «To the shopping list» is off" {
+  Game.clock.server = NOW
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => [reagent(CLOTH, "Bolt of Linen Cloth", 1, 9)]
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  window().button("Create").click()
+  window().button("Queue (1)").click()
+  Test.expect(window().button("To the shopping list").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").item(), "Bolt of Linen Cloth | 1 | 9 | -"))
+}
+
+// Prices off
+
+test "with «Prices» off the window shows no price; on again, they are back" {
+  Game.clock.server = NOW
+  Game.auctionQuery.results.emit(house())
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  const page = settings()
+  page.button("Prices").click()
+  page.button("Save").click()
+  Test.expect(!window().text("Cost").shown() && reads(window().text("Coarse Thread").item(), "Coarse Thread | 0 / 1"))
+  page.button("Prices").click()
+  page.button("Save").click()
+  Test.expect(window().text("Cost").shown())
+  page.text("Prices").hover()
+  Test.expect(Test.page().window(PRICES_TIP).shown())
 }
 
 test "with Ordaen Auction turned off the window shows no price, and «Prices» is greyed with why; on again, they are back" {
   Game.clock.server = NOW
   Game.auctionQuery.results.emit(house())
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = categories()
   Game.tradeSkill.recipes = recipes()
   Game.tradeSkill.reagents = reagents
   Game.recipeReader.schematic = schematic
-  Test.mount(nil, PAGE)
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.flush()
-  click(Test.holding("Linen Cloak", nil))
-  Test.expect(Professions.prices != nil)
-  const auction = Runtime.Addon.of(Auction) ?? panic("Ordaen Auction is installed")
-  auction.disable()
-  Test.flush()
-  Test.expect(Auction == nil && Professions.prices == nil)
-  Test.shot("Ordaen Auction off: the reagents without prices, no totals")
-  // The module's page in the settings: «Prices» greyed, and its hint says why.
-  Ordaen.toggleSettings(Runtime.Addon.of(Professions))
-  Test.flush()
-  Test.moveTo(Test.holding("Prices", nil))
-  Test.flush()
-  Test.expect(Test.surfaceHolding("Needs Ordaen Auction: turn it on to see prices.").x > 0)
-  Test.shot("the settings: «Prices» greyed, its hint saying why")
-  click(Test.holding("Prices", nil))
-  Test.expect(Professions.settings.draft.prices)
-  Ordaen.toggleSettings(nil)
-  Test.expect(auction.enable() == nil)
-  Test.flush()
-  Test.expect(Professions.prices != nil)
-  Test.expect(Test.errors().length == 0)
+  const page = settings()
+  // The modules in the list: Auction, Tooltips, Professions.
+  page.button(Ordaen.art.ctl.switchOn).nth(1).click()
+  Test.expect(!window().text("Cost").shown() && !window().text("Auction").shown())
+  page.button("Professions").click()
+  page.text("Prices").hover()
+  Test.expect(Test.page().window(PRICES_OFF).shown() && !Test.page().window(PRICES_TIP).shown())
+  page.button(Ordaen.art.ctl.switchOff).click()
+  Test.expect(window().text("Cost").shown())
 }

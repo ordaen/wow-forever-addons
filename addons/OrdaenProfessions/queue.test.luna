@@ -1,222 +1,638 @@
-// The craft queue: «Create» adds a recipe at its count, every profession's, and the queue runs them in order, each
-// run started by the player's click (the client starts a craft from nothing else); a run goes on with the window
-// shut; an interruption, a fight, a closed profession or no reagents pause it as it is; it outlives a /reload. The
-// game's side says each craft made (`made`) and an early end (`stopped`): the test says them for it.
+// The craft queue as the player meets it: «Create» adds a recipe at its count, every profession's, and the queue runs
+// them in order, each run started by the player's click (the client starts a craft from nothing else); the «Queue»
+// tab's lines, their reagents and the footer's status and «Create next»; a run going on with the window shut; what
+// pauses it; and what is kept over a /reload. The game says each craft made (`made`) and an early end (`stopped`):
+// the test says them for it.
 import Client from "$client"
 import Game from "$game"
-import { Key } from "$ltml"
+import { Art, Key } from "$ltml"
 import Test from "$test"
-import root Professions from "OrdaenProfessions"
-import { Pause } from "@/view"
+import root Ordaen from "Ordaen"
 
-const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const TAILORING = 197
 const SMITHING = 164
 const CLOAK = 2387
 const BOLT = 2963
 const STONE = 2660
+const NOTE = "Queued: made after the ones ahead."
+const ORANGE: Color = Color.hex("#ff8040")
+const DIM: Color = Color.hex("#a3977f")
+const SHORT: Color = Color.hex("#ff6a5a")
+const SMITHING_ICON: FileId = 136241
+const BOLT_ICON: Art = "Interface/Icons/INV_Fabric_Linen_02"
 
-function recipe(id: Integer, name: String, category: Integer, craftable: Integer): Game.Recipe {
+function recipe(id: Integer, name: String, category: Integer, craftable: Integer, difficulty: Game.Difficulty): Game.Recipe {
   return {
-    id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: true,
-    difficulty: Game.Difficulty.Always, craftable: craftable
+    id: id, name: name, icon: "Interface/Icons/INV_Misc_Note_01", categoryID: category, learned: true, difficulty: difficulty,
+    craftable: craftable
   }
-}
-
-function click(at: Test.Point) {
-  Test.click(at, nil)
-  Test.flush()
-}
-
-function times(count: Integer, text: String) {
-  for (step of 1..=count) { click(Test.holding(text, nil)) }
 }
 
 function professions(): Array<Game.Profession> {
   return [
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: SMITHING, name: "Blacksmithing", icon: 136241, rank: 40, max: 75, kind: Game.ProfessionKind.Crafting }
+    { skillLine: SMITHING, name: "Blacksmithing", icon: SMITHING_ICON, rank: 40, max: 75, kind: Game.ProfessionKind.Crafting }
   ]
 }
 
-// The camp's category stands first under the heading, as the game gives it.
 function tailoringCategories(): Array<Game.Category> {
   return [{ id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 }]
+}
+
+// The cloak (orange) with the bags making `cloaks`, the bolt (green) with nine, and a bandage at the camp.
+function tailoringRecipes(cloaks: Integer): Array<Game.Recipe> {
+  return [
+    recipe(CLOAK, "Linen Cloak", 11, cloaks, Game.Difficulty.Always), recipe(BOLT, "Bolt of Linen Cloth", 11, 9, Game.Difficulty.Rarely),
+    recipe(3275, "Linen Bandage", 10, 9, Game.Difficulty.Usually)
+  ]
 }
 
 function smithingCategories(): Array<Game.Category> {
   return [{ id: 2, name: "Blacksmithing" }, { id: 20, name: "Resting at camp", parentID: 2 }, { id: 21, name: "Stones", parentID: 2 }]
 }
 
-function tailoringRecipes(cloaks: Integer): Array<Game.Recipe> {
-  return [recipe(CLOAK, "Linen Cloak", 11, cloaks), recipe(BOLT, "Bolt of Linen Cloth", 11, 9)]
-}
-
 function smithingRecipes(): Array<Game.Recipe> {
-  return [recipe(STONE, "Rough Sharpening Stone", 21, 4)]
+  return [recipe(STONE, "Rough Sharpening Stone", 21, 4, Game.Difficulty.Always)]
 }
 
-// The queue's lines, as a note says them: recipe × count, in order.
-function lines(): String {
-  let text = ""
-  for (line of Professions.queued) { text += ` ${line.name} ×${line.count}` }
-  return text == "" ? " (empty)" : text
+// A cloak takes a bolt (three held) and a thread (none); a bolt, two linen (four held).
+function reagents(id: Integer): Array<Game.Reagent> {
+  if (id == CLOAK) {
+    return [
+      { itemID: 2996, name: "Bolt of Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_02", have: 3, need: 1 },
+      { itemID: 2320, name: "Coarse Thread", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 0, need: 1 }
+    ]
+  }
+  if (id == BOLT) { return [{ itemID: 2589, name: "Linen Cloth", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 4, need: 2 }] }
+  return []
 }
 
-test "three recipes over two professions queued by «Create» run in order, each run from the player's click" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+function window(): Test.Part {
+  return Test.page().window("Overview")
+}
+
+function asked(expected: String): Boolean {
+  const said = Test.requests().join(", ")
+  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  return true
+}
+
+function reads(part: Test.Part, expected: String): Boolean {
+  const read = part.texts().join(" | ")
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
+}
+
+// The recipe chosen in the lists and «Create» clicked at a count `count`.
+function create(name: String, count: Integer) {
+  window().text(name).nth(1).click()
+  for (step of 2..=count) { window().button("+").click() }
+  window().button("Create").click()
+}
+
+// The «Queue» tab, as it is named now.
+function queueTab(): Test.Part {
+  for (count of 0..=9) {
+    const label = count == 0 ? "Queue" : `Queue (${count})`
+    if (window().button(label).shown()) { return window().button(label) }
+  }
+  panic("no «Queue» tab")
+}
+
+function off(part: Test.Part): Boolean {
+  return part.paintedWith(Ordaen.art.ctl.buttonDisabled)
+}
+
+// «Create»
+
+test "«Create» with nothing waiting makes the count at once, in the click" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes(5)
-  Test.mount(nil, PAGE)
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.flush()
+  _ = Test.requests()
+  create("Linen Cloak", 2)
+  Test.expect(asked("TradeSkill.craft 2387 2") && !window().text(NOTE).shown())
+  queueTab().click()
+  Test.expect(window().text("Making Linen Cloak: 2 left.").shown() && off(window().button("Create next")))
+}
 
-  // Two cloaks: nothing ahead, so the run starts in the click.
-  click(Test.holding("Linen Cloak", nil))
-  times(1, "+")
-  click(Test.holding("Create", nil))
-  Test.expect(Professions.crafting.running)
-  // Three bolts wait behind them.
-  click(Test.holding("Bolt of Linen Cloth", nil))
-  times(2, "+")
-  click(Test.holding("Create", nil))
-  Test.expect(Test.holding("Queued: made after the ones ahead.", nil).x > 0)
-  // A stone of Blacksmithing waits too.
-  Game.tradeSkill.open = SMITHING
+test "«Create» while a run goes queues the recipe, and the card says it waits" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 2)
+  _ = Test.requests()
+  create("Bolt of Linen Cloth", 3)
+  Test.expect(asked("") && window().text(NOTE).shown() && window().button("Queue (2)").shown())
+  window().button("Queue (2)").click()
+  Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 2 | + | x"))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(1).item(), "Bolt of Linen Cloth | - | 3 | + | x"))
+}
+
+test "the note that a recipe waits goes when another recipe is picked, or another tab" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  create("Bolt of Linen Cloth", 1)
+  window().text("Linen Cloak").click()
+  Test.expect(!window().text(NOTE).shown())
+  create("Bolt of Linen Cloth", 1)
+  window().button("Camp").click()
+  window().button("Recipes").click()
+  Test.expect(!window().text(NOTE).shown())
+}
+
+test "«Create» of a recipe already waiting adds to its count" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  create("Bolt of Linen Cloth", 2)
+  window().button("Create").click()
+  window().button("Queue (2)").click()
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(1).item(), "Bolt of Linen Cloth | - | 4 | + | x"))
+}
+
+// The run
+
+test "each craft made counts the run's line down; at nought it goes, and the footer says what is next" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 2)
+  create("Bolt of Linen Cloth", 3)
+  window().button("Queue (2)").click()
+  Game.tradeSkill.made.emit(CLOAK)
+  Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 1 | + | x") && window().text("Making Linen Cloak: 1 left.").shown())
+  Game.tradeSkill.made.emit(CLOAK)
+  Test.expect(!window().text("Linen Cloak").shown() && window().button("Queue (1)").shown())
+  Test.expect(window().text("Next: Bolt of Linen Cloth ×3. Click «Create next».").shown() && !off(window().button("Create next")))
+}
+
+test "a craft made of a recipe the run isn't making counts nothing" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 2)
+  create("Bolt of Linen Cloth", 3)
+  window().button("Queue (2)").click()
+  Game.tradeSkill.made.emit(BOLT)
+  Test.expect(window().text("Making Linen Cloak: 2 left.").shown())
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(1).item(), "Bolt of Linen Cloth | - | 3 | + | x"))
+}
+
+test "a craft made with no run going counts nothing" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 2)
+  Game.tradeSkill.stopped.emit(Game.CraftStop.Interrupted)
+  Game.tradeSkill.made.emit(CLOAK)
+  window().button("Queue (1)").click()
+  Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 2 | + | x"))
+}
+
+test "«Create next» runs the next line in the click, as many as the bags make" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(2)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Bolt of Linen Cloth", 1)
+  create("Linen Cloak", 2)
+  Game.tradeSkill.recipes = tailoringRecipes(1)
+  Game.tradeSkill.made.emit(BOLT)
+  window().button("Queue (1)").click()
+  _ = Test.requests()
+  window().button("Create next").click()
+  Test.expect(asked("TradeSkill.craft 2387 1") && window().text("Making Linen Cloak: 1 left.").shown())
+  Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 2 | + | x"))
+}
+
+test "three recipes over two professions run in order, each from its profession open" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  create("Bolt of Linen Cloth", 2)
   Game.tradeSkill.categories = smithingCategories()
   Game.tradeSkill.recipes = smithingRecipes()
-  Test.flush()
-  click(Test.holding("Create", nil))
-  Test.note(`queued:${lines()}`)
-
-  // The cloaks are made: the bolts are next, Tailoring's, with Blacksmithing open.
+  Game.tradeSkill.open = SMITHING
+  create("Rough Sharpening Stone", 1)
   Game.tradeSkill.made.emit(CLOAK)
-  Game.tradeSkill.made.emit(CLOAK)
-  Test.flush()
-  Test.expect(!Professions.crafting.running)
-  click(Test.holding("Queue (2)", nil))
-  click(Test.holding("Create next", nil))
-  Test.expect(Professions.crafting.paused == Pause.Closed)
-  Test.shot("the cloaks made; the bolts wait for Tailoring to be open, the stone after them")
-
+  window().button("Queue (2)").click()
+  _ = Test.requests()
+  window().button("Create next").click()
+  Test.expect(asked("") && window().text("Paused: open Tailoring, then click «Create next».").shown())
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
   Game.tradeSkill.open = TAILORING
+  window().button("Queue (2)").click()
+  window().button("Create next").click()
+  Test.expect(asked("TradeSkill.craft 2963 2"))
+  Game.tradeSkill.made.emit(BOLT)
+  Game.tradeSkill.made.emit(BOLT)
+  Test.expect(window().text("Next: Rough Sharpening Stone ×1. Click «Create next».").shown())
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = SMITHING
+  window().button("Queue (1)").click()
+  window().button("Create next").click()
+  Test.expect(asked("TradeSkill.craft 2660 1"))
+  Game.tradeSkill.made.emit(STONE)
+  Test.expect(window().button("Queue").shown() && off(window().button("Create next")))
+}
+
+// What pauses the queue
+
+test "no reagents for the next recipe pause the queue, and say so" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes(3)
-  Test.flush()
-  click(Test.holding("Queue (2)", nil))
-  click(Test.holding("Create next", nil))
-  Test.expect(Professions.crafting.running && Professions.crafting.paused == Pause.None)
-  for (made of 1..=3) { Game.tradeSkill.made.emit(BOLT) }
-  Test.flush()
-  Test.note(`the bolts made:${lines()}`)
-
-  Game.tradeSkill.open = SMITHING
-  Game.tradeSkill.categories = smithingCategories()
-  Game.tradeSkill.recipes = smithingRecipes()
-  Test.flush()
-  click(Test.holding("Queue (1)", nil))
-  click(Test.holding("Create next", nil))
-  Game.tradeSkill.made.emit(STONE)
-  Test.flush()
-  Test.note(`the stone made:${lines()}`)
-  Test.expect(Professions.queued.length == 0 && !Professions.crafting.running)
-}
-
-test "a run goes on with the window closed, and the profession closes once it ends" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes(5)
-  Test.mount(nil, PAGE)
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.flush()
-
-  click(Test.holding("Linen Cloak", nil))
-  times(2, "+")
-  click(Test.holding("Create", nil))
-  Game.tradeSkill.made.emit(CLOAK)
-  Test.flush()
-  // Escape closes the window: out of sight, the profession left open while the run goes.
-  _ = Test.key(Key.Escape)
-  Test.flush()
-  Test.expect(Professions.hidden && Professions.crafting.running)
-  Test.shot("the window closed mid-run: nothing drawn, the profession still open")
-
-  Game.tradeSkill.made.emit(CLOAK)
-  Game.tradeSkill.made.emit(CLOAK)
-  Test.flush()
-  Test.note(`the run made with the window shut:${lines()}`)
-  Test.expect(Professions.queued.length == 0 && !Professions.hidden)
-  Test.shot("the run made: the profession closed")
-}
-
-test "an interruption, a fight or no reagents pause the queue as it is; «Create next» goes on" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
-  Game.professions.list = professions()
-  Game.tradeSkill.categories = tailoringCategories()
-  Game.tradeSkill.recipes = tailoringRecipes(5)
-  Test.mount(nil, PAGE)
-  Game.tradeSkill.open = TAILORING
-  Test.flush()
-
-  click(Test.holding("Linen Cloak", nil))
-  times(3, "+")
-  click(Test.holding("Create", nil))
-  Game.tradeSkill.made.emit(CLOAK)
-  // The player moved: the client interrupted the cast.
-  Game.tradeSkill.stopped.emit(Game.CraftStop.Interrupted)
-  Test.flush()
-  Test.expect(Professions.crafting.paused == Pause.Interrupted && !Professions.crafting.running)
-  click(Test.holding("Queue (1)", nil))
-  Test.note(`interrupted:${lines()}`)
-  Test.shot("interrupted after one cloak: three wait, the queue says why and «Create next» goes on")
-
-  // A fight: nothing starts.
-  Game.situation.combat = true
-  Test.flush()
-  click(Test.holding("Create next", nil))
-  Test.expect(Professions.crafting.paused == Pause.Combat && !Professions.crafting.running)
-  Game.situation.combat = false
-  Test.flush()
-
-  // No reagents left for the cloak: nothing starts.
+  create("Bolt of Linen Cloth", 1)
+  create("Linen Cloak", 1)
+  // The bags hold no reagents for a cloak now.
   Game.tradeSkill.recipes = tailoringRecipes(0)
-  Test.flush()
-  click(Test.holding("Create next", nil))
-  Test.expect(Professions.crafting.paused == Pause.Missing)
-  Test.note(`no reagents:${lines()}`)
-
-  // Two cloaks' reagents: the run makes the two the bags allow of the three.
+  Game.tradeSkill.made.emit(BOLT)
+  window().button("Queue (1)").click()
+  _ = Test.requests()
+  window().button("Create next").click()
+  Test.expect(asked("") && window().text("Paused: not enough reagents for Linen Cloak.").shown())
   Game.tradeSkill.recipes = tailoringRecipes(2)
-  Test.flush()
-  click(Test.holding("Create next", nil))
-  Test.expect(Professions.crafting.running && Professions.crafting.left == 2 && Professions.crafting.paused == Pause.None)
+  window().button("Create next").click()
+  Test.expect(asked("TradeSkill.craft 2387 1") && window().text("Making Linen Cloak: 1 left.").shown())
 }
 
-test "the queue and why it waits outlive a /reload" {
-  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.C_UI.GetUIParent(), nil)
+test "an interruption pauses the queue as it is" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = tailoringCategories()
   Game.tradeSkill.recipes = tailoringRecipes(5)
-  Test.mount(nil, PAGE)
+  Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.flush()
+  create("Linen Cloak", 4)
+  Game.tradeSkill.made.emit(CLOAK)
+  Game.tradeSkill.stopped.emit(Game.CraftStop.Interrupted)
+  window().button("Queue (1)").click()
+  Test.expect(window().text("Paused: crafting was interrupted. Click «Create next» to go on.").shown())
+  Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 3 | + | x") && !off(window().button("Create next")))
+  _ = Test.requests()
+  window().button("Create next").click()
+  Test.expect(asked("TradeSkill.craft 2387 3"))
+}
 
-  click(Test.holding("Linen Cloak", nil))
-  times(2, "+")
-  click(Test.holding("Create", nil))
-  click(Test.holding("Bolt of Linen Cloth", nil))
-  times(1, "+")
-  click(Test.holding("Create", nil))
+test "a craft the game refused pauses the queue, and says to check the reagents and tools" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 2)
+  Game.tradeSkill.stopped.emit(Game.CraftStop.Failed)
+  window().button("Queue (1)").click()
+  Test.expect(window().text("Paused: the game couldn't make the next one. Check the reagents and tools, then click «Create next».").shown())
+}
+
+test "an early end with no run going changes nothing" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  create("Bolt of Linen Cloth", 1)
   Game.tradeSkill.made.emit(CLOAK)
   Game.tradeSkill.stopped.emit(Game.CraftStop.Failed)
-  Test.flush()
-  Test.note(`before:${lines()} (${Professions.crafting.paused})`)
+  window().button("Queue (1)").click()
+  Test.expect(window().text("Next: Bolt of Linen Cloth ×1. Click «Create next».").shown())
+}
 
-  Test.reload()
+test "a fight pauses the queue, and «Create next» is off while it lasts" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  create("Bolt of Linen Cloth", 1)
+  Game.tradeSkill.made.emit(CLOAK)
+  window().button("Queue (1)").click()
+  Test.combat(true)
+  Test.expect(window().text("Paused: you entered combat. Click «Create next» after the fight.").shown())
+  Test.expect(off(window().button("Create next")))
+  Test.combat(false)
+  _ = Test.requests()
+  window().button("Create next").click()
+  Test.expect(asked("TradeSkill.craft 2963 1"))
+}
+
+test "«Create» in a fight queues the recipe and says the fight pauses it" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.combat(true)
+  _ = Test.requests()
+  create("Linen Cloak", 1)
+  window().button("Queue (1)").click()
+  Test.expect(asked("") && window().text("Paused: you entered combat. Click «Create next» after the fight.").shown())
+}
+
+test "a fight with nothing queued leaves the queue empty and saying so" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.combat(true)
+  Test.combat(false)
+  window().button("Queue").click()
+  Test.expect(window().text("The queue is empty. «Create» adds a recipe here; recipes from any profession are made in order.").shown())
+  Test.expect(off(window().button("Create next")))
+}
+
+// The queue's tab
+
+test "a line of the open profession is in its difficulty's colour; another's dim, under its profession's icon" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = SMITHING
+  create("Rough Sharpening Stone", 1)
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  window().button("Queue (2)").click()
+  Test.expect(window().text("Linen Cloak").textColor().equal(ORANGE) && window().text("Rough Sharpening Stone").textColor().equal(DIM))
+  Test.expect(window().text("Rough Sharpening Stone").item().paintedWith(SMITHING_ICON))
+}
+
+test "a line's − and + set its count; at nought, or by its x, it leaves the queue" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  create("Bolt of Linen Cloth", 2)
+  window().button("Camp").click()
+  create("Linen Bandage", 1)
+  window().button("Queue (3)").click()
+  window().text("Bolt of Linen Cloth").item().button("+").click()
+  Test.expect(reads(window().text("Bolt of Linen Cloth").item(), "Bolt of Linen Cloth | - | 3 | + | x"))
+  for (step of 1..=3) { window().text("Bolt of Linen Cloth").item().button("-").click() }
+  Test.expect(!window().text("Bolt of Linen Cloth").shown() && window().button("Queue (2)").shown())
+  window().text("Linen Bandage").item().button("x").click()
+  Test.expect(!window().text("Linen Bandage").shown() && window().button("Queue (1)").shown())
+}
+
+test "the running line taken out: the queue stops following its run, and the next waits for «Create next»" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 2)
+  create("Bolt of Linen Cloth", 1)
+  window().button("Queue (2)").click()
+  window().text("Linen Cloak").item().button("x").click()
+  Test.expect(window().text("Next: Bolt of Linen Cloth ×1. Click «Create next».").shown() && !off(window().button("Create next")))
+}
+
+test "a line's name opens its recipe in the lists; the camp's recipe on the «Camp» tab" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  create("Bolt of Linen Cloth", 1)
+  window().button("Camp").click()
+  create("Linen Bandage", 1)
+  window().button("Queue (3)").click()
+  window().text("Bolt of Linen Cloth").click()
+  Test.expect(window().text("Rarely raises the skill").shown() && window().button("Cloth armour").shown())
+  window().button("Queue (3)").click()
+  window().text("Linen Bandage").click()
+  Test.expect(window().text("Usually raises the skill").shown() && !window().button("Cloth armour").shown())
+  window().button("Queue (3)").click()
+  window().text("Linen Cloak").click()
+  Test.expect(window().text("Always raises the skill").shown() && window().button("Cloth armour").shown())
+}
+
+test "a line of a profession that isn't open opens nothing" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = SMITHING
+  create("Rough Sharpening Stone", 1)
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Game.tradeSkill.open = TAILORING
+  window().button("Queue (1)").click()
+  window().text("Rough Sharpening Stone").click()
+  Test.expect(window().text("Rough Sharpening Stone").shown() && window().button("Create next").shown())
+}
+
+test "the reagents the lines need: each once, summed, with what the bags hold and what is missing in red" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 2)
+  create("Bolt of Linen Cloth", 1)
+  create("Linen Cloak", 2)
+  window().button("Queue (2)").click()
+  Test.expect(window().text("Need").shown() && window().text("Have").shown() && window().text("Missing").shown())
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 4 | 0 | 4 | —"))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 4 | 3 | 1 | —"))
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 2 | 4 | -"))
+  Test.expect(window().text("Coarse Thread").item().text("4").nth(2).textColor().equal(SHORT))
+  Test.expect(window().text("Linen Cloth").item().text("-").textColor().equal(Color.hex("#e8dcc4")))
+}
+
+test "a reagent two recipes need is summed on one line, and follows a line's count as it is set" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  // The bandage takes a thread, the cloak's second reagent; one thread is held.
+  Game.tradeSkill.reagents = (id: Integer): Array<Game.Reagent> => {
+    const thread: Game.Reagent = { itemID: 2320, name: "Coarse Thread", icon: "Interface/Icons/INV_Fabric_Linen_01", have: 1, need: 1 }
+    if (id == 3275) { return [thread] }
+    if (id == CLOAK) { return [reagents(CLOAK)[1] ?? panic("the cloak takes a bolt"), thread] }
+    return reagents(id)
+  }
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 2)
+  window().button("Camp").click()
+  create("Linen Bandage", 1)
+  window().button("Queue (2)").click()
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 3 | 1 | 2 | —"))
+  window().text("Linen Bandage").item().button("+").click()
+  Test.expect(reads(window().text("Coarse Thread").item(), "Coarse Thread | 4 | 1 | 3 | —"))
+  Test.expect(reads(window().text("Bolt of Linen Cloth").item(), "Bolt of Linen Cloth | 2 | 3 | -"))
+  window().text("Linen Cloak").item().button("+").click()
+  Test.expect(reads(window().text("Bolt of Linen Cloth").item(), "Bolt of Linen Cloth | 3 | 3 | -"))
+  window().text("Linen Cloak").item().button("+").click()
+  Test.expect(reads(window().text("Bolt of Linen Cloth").item(), "Bolt of Linen Cloth | 4 | 3 | 1 | —"))
+}
+
+test "a line taken out takes its reagents from the list; the next reagent stands in its place, as it is" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Game.tradeSkill.reagents = reagents
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 5)
+  create("Bolt of Linen Cloth", 1)
+  window().button("Queue (2)").click()
+  Test.expect(reads(window().text("Bolt of Linen Cloth").nth(2).item(), "Bolt of Linen Cloth | 5 | 3 | 2 | —"))
+  window().text("Linen Cloak").item().button("x").click()
+  Test.expect(!window().text("Coarse Thread").shown() && !window().box(BOLT_ICON).shown())
+  Test.expect(reads(window().text("Linen Cloth").item(), "Linen Cloth | 2 | 4 | -"))
+  Test.expect(window().text("Linen Cloth").item().text("-").textColor().equal(Color.hex("#e8dcc4")))
+}
+
+// The window shut
+
+test "Escape while a run goes hides the window and keeps the profession open; it closes once the run ends" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 3)
+  Game.tradeSkill.made.emit(CLOAK)
+  _ = Test.requests()
+  Test.key(Key.Escape)
+  Test.expect(!window().shown() && asked(""))
+  Game.tradeSkill.made.emit(CLOAK)
+  Test.expect(!window().shown() && asked(""))
+  Game.tradeSkill.made.emit(CLOAK)
   Test.flush()
-  Test.note(`after:${lines()} (${Professions.crafting.paused})`)
-  Test.expect(Professions.queued.length == 2 && Professions.crafting.paused == Pause.Failed)
-  Test.expect(!Professions.crafting.running)
+  Test.expect(asked("TradeSkill.close") && !window().shown())
+  // Closed by the game, then opened again: the window shows.
+  Game.tradeSkill.open = nil
+  Game.tradeSkill.open = TAILORING
+  Test.expect(window().shown())
+}
+
+test "the window hidden mid-run shows again when the game opens another profession" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 3)
+  Test.key(Key.Escape)
+  Test.expect(!window().shown())
+  Game.tradeSkill.categories = smithingCategories()
+  Game.tradeSkill.recipes = smithingRecipes()
+  Game.tradeSkill.open = SMITHING
+  Test.expect(window().text("Rough Sharpening Stone").shown())
+}
+
+test "a run ended with the window open closes nothing" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  _ = Test.requests()
+  Game.tradeSkill.made.emit(CLOAK)
+  Test.expect(asked("") && window().shown())
+}
+
+// Kept between sessions
+
+test "the queue and why it waits are there after a /reload" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 3)
+  create("Bolt of Linen Cloth", 2)
+  Game.tradeSkill.made.emit(CLOAK)
+  Game.tradeSkill.stopped.emit(Game.CraftStop.Failed)
+  Test.expect(window().button("Queue (2)").shown())
+  Test.reload()
+  window().button("Queue (2)").click()
+  Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 2 | + | x"))
+  Test.expect(window().text("Paused: the game couldn't make the next one. Check the reagents and tools, then click «Create next».").shown())
+}
+
+test "a queue emptied stops waiting: what comes next starts at «Create»" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = tailoringCategories()
+  Game.tradeSkill.recipes = tailoringRecipes(5)
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  create("Linen Cloak", 1)
+  Game.tradeSkill.stopped.emit(Game.CraftStop.Interrupted)
+  window().button("Queue (1)").click()
+  window().text("Linen Cloak").item().button("x").click()
+  window().button("Recipes").click()
+  _ = Test.requests()
+  create("Bolt of Linen Cloth", 1)
+  Test.expect(asked("TradeSkill.craft 2963 1"))
+  window().button("Queue (1)").click()
+  Test.expect(window().text("Making Bolt of Linen Cloth: 1 left.").shown())
 }
