@@ -59,7 +59,7 @@ public class ShoppingList {
     for (row of peek self.rows) {
       if (row.toBuy == 0) { done[row.item] = true }
     }
-    self.keep(line => done[line.item] == nil)
+    self.keep(line => done[line.item] != true)
   }
 
   // Every item on the list browsed in one query: their prices come back as the house's results.

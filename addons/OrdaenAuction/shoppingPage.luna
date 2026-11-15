@@ -83,14 +83,14 @@ class ShoppingRow implements Component {
   row: Signal<Row>
   const prices: any PriceSource
   selected: Signal<Boolean>
-  quotedItem: Signal<Integer>
+  quotedItem: Signal<ItemId | nil>
   quotedTotal: Signal<Integer>
   constructor(
     row: Signal<Row>,
     prices: any PriceSource,
     selected: Signal<Boolean>,
-    // The item whose purchase the client priced (0 for none), and what it asked, in copper.
-    quotedItem: Signal<Integer>,
+    // The item whose purchase the client priced (none for none), and what it asked, in copper.
+    quotedItem: Signal<ItemId | nil>,
     quotedTotal: Signal<Integer>
   ) {
     self.row = row
@@ -163,9 +163,9 @@ public class ShoppingPage implements Component {
   // The purchase of the row picked: its listings, then what the player's clicks buy.
   state purchase: mut Purchase | nil = nil
   derived empty: Boolean = self.list.rows.length == 0
-  derived chosen: Boolean = self.picked != nil && self.list.needed[self.picked ?? 0] != nil
-  // The row whose purchase the client priced, and the price; 0 for none.
-  derived quotedItem: Integer = self.quotedItemOf()
+  derived chosen: Boolean = self.chosenOf()
+  // The row whose purchase the client priced, none for none, and the price.
+  derived quotedItem: ItemId | nil = self.quotedItemOf()
   derived quotedTotal: Integer = self.purchase?.quotedTotal ?? 0
   // Every row's sum, and whether a row without a price left it short.
   derived total: Integer = self.totalOf()
@@ -178,9 +178,15 @@ public class ShoppingPage implements Component {
     self.list = list
   }
 
-  quotedItemOf(self): Integer {
+  // The row picked, while it is on the list.
+  chosenOf(self): Boolean {
+    const picked = self.picked
+    return picked != nil && self.list.needed[picked] != nil
+  }
+
+  quotedItemOf(self): ItemId | nil {
     const purchase = self.purchase
-    if (purchase == nil || purchase.quotedCount == 0) { return 0 }
+    if (purchase == nil || purchase.quotedCount == 0) { return nil }
     return purchase.key.item()
   }
 

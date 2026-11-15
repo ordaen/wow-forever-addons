@@ -141,7 +141,7 @@ public class Auction implements Module, App {
   closeOwned(mut self) { self.ownedOpen = false }
 
   sideOf(self): WindowSide | nil {
-    const picked = self.page == BUY ? self.buyChosen.length > 0 : self.page == SELL && self.sellChosen.length > 0
+    const picked = self.page == BUY ? self.buyChosen.length > 0 : self.sellChosen.length > 0
     return picked ? { width: Style.PANEL, content: self.chosenPanel } : nil
   }
 
