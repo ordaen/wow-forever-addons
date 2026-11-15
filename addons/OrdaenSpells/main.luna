@@ -1,7 +1,7 @@
 // Ordaen Spells: the spellbook and the talents in one window with three tabs, and the class trainer's window. The
 // spellbook window opens with `/spellbook`, and with the game's own button for it (the micro menu's): the game's
 // window opens all the same, unseen and off the screen, and this one stands in its place while it shows. The
-// trainer's shows while the client's class trainer is open. What each page shows is read from `"$game"` as the
+// trainer's shows while the client's class trainer is open, never for a profession's or a pet's. What each page shows is read from `"$game"` as the
 // window opens and when it says it changed.
 import Client from "$client"
 import Game from "$game"
@@ -41,9 +41,8 @@ public class Spells implements Module, App {
   state activeGroup = 1
   derived group: Integer = self.tab - 1
   derived groupActive: Boolean = self.group == self.activeGroup
-  // The game's own window shows (the micro menu's button opened it), and its frame was hooked.
+  // The game's own window shows (the micro menu's button opened it).
   state gameShown = false
-  hooked: any Frame | nil = nil
   state services: Array<Game.TrainerService> = []
   derived tabs: Array<WindowTabSpec> = [
     { title: Locale.TAB_SPELLS },
@@ -53,11 +52,15 @@ public class Spells implements Module, App {
   derived trainerTabs: Array<WindowTabSpec> = [{ title: Locale.TAB_TRAINER }]
   derived level: Integer = Game.player.level
   state trainerClosed = false
-  derived trainerShown: Boolean = Game.trainer.open && !self.trainerClosed && self.settings.values.trainer
+  // The trainer that is open teaches a class's skills: asked as it opens.
+  state classTrainer = false
+  derived trainerShown: Boolean = self.classTrainer && !self.trainerClosed && self.settings.values.trainer
 
   constructor() {
     Ordaen.modules.add(self)
     Game.trainer.changed.listen(self.onTrainer)
+    Game.spellbook.changed.listen(self.onSpells)
+    watch (opened of Game.trainer.open) { self.classTrainer = opened && Game.trainer.teachesClass() }
     Game.talentTrees.changed.listen(self.refreshTalents)
     watch (value of self.tab) { self.refreshTalents() }
     // The game's words about spells and talents are heard while their windows show.
@@ -86,10 +89,17 @@ public class Spells implements Module, App {
     self.refreshTalents()
   }
 
-  // The game's spellbook window: ours opens and closes with it. Hooked once, on its show and hide, which are rare.
+  // A spell learned or unlearned while the window shows.
+  onSpells(mut self) {
+    if (!(peek self.open)) { return }
+    self.spells = Game.spellbook.entries()
+    self.lines = Game.spellbook.lines()
+  }
+
+  // The game's spellbook window: ours opens and closes with it. Hooked as the game names it, on its show and hide,
+  // which are rare.
   hook(mut self, frame: any Frame | nil) {
-    if (frame == nil || frame == self.hooked) { return }
-    self.hooked = frame
+    if (frame == nil) { return }
     const window: any Client.Frame = frame
     _ = window.HookScript("OnShow", (): nil => {
       self.onGameShown()
@@ -129,7 +139,7 @@ public class Spells implements Module, App {
   // The spec switch is the player's: it runs in the click of «Activate».
   onActivate(mut self) { _ = Game.talentTrees.activate(peek self.group) }
 
-  // The client's class trainer, not a profession's or a pet's, taught its services.
+  // The class trainer's services, as it opens and as they change.
   onTrainer(mut self) {
     if (!Game.trainer.teachesClass()) { return }
     self.trainerClosed = false

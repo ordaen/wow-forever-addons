@@ -263,6 +263,33 @@ test "a spell learned at a new rank shows it in the open spellbook when the game
   Test.expect(row.paintedWith(SWORD))
 }
 
+test "a spell learned while the spellbook shows is in it at once" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => [
+    { id: 6673, name: "Battle Shout", rank: "", icon: ICON, level: 1, passive: false, line: 2 }
+  ]
+  Game.spellbook.changed.emit()
+  Test.expect(window.text("Battle Shout").shown())
+  Test.expect(!window.text("Rend (Rank 1)").shown())
+}
+
+test "a spell learned while the spellbook is shut asks the game for nothing" {
+  Test.mount(nil, PAGE)
+  let asked = 0
+  Game.spellbook.entries = (): Array<Game.SpellEntry> => {
+    asked += 1
+    return []
+  }
+  Game.spellbook.changed.emit()
+  Test.expect(asked == 0)
+  Test.expect(!Test.page().window(BOOK).shown())
+  Test.open("/spellbook")
+  Test.expect(asked == 1)
+}
+
 test "a spell's name is drawn in ink and its detail dim" {
   Test.mount(nil, PAGE)
   Game.spellbook.lines = lines
@@ -649,13 +676,26 @@ test "the trainer's window shut by the player stays shut, and shows again when t
   Test.expect(window.shown())
 }
 
-test "a trainer that teaches no class lists none of its services" {
+test "a trainer that teaches no class opens no window of ours" {
   Test.mount(nil, PAGE)
   Game.trainer.teachesClass = (): Boolean => false
   Game.trainer.services = services
   Game.trainer.open = true
   Game.trainer.changed.emit()
-  Test.expect(!Test.page().text("Heroic Strike (Rank 3)").shown())
+  Test.expect(!Test.page().window(TRAINER).shown())
+  Test.expect(!Test.requests().any(r => r == "Trainer.watch true"))
+}
+
+test "a class trainer met after a profession's opens the trainer's window" {
+  Test.mount(nil, PAGE)
+  Game.trainer.teachesClass = (): Boolean => false
+  Game.trainer.open = true
+  Game.trainer.open = false
+  Game.trainer.teachesClass = (): Boolean => true
+  Game.trainer.services = services
+  Game.trainer.open = true
+  Game.trainer.changed.emit()
+  Test.expect(Test.page().window(TRAINER).text("Heroic Strike (Rank 3)").shown())
 }
 
 test "each service's row shows its name and rank, the level it needs and its price" {
