@@ -70,6 +70,15 @@ function hideWhen(choice: String) {
   settings.button("Save").click()
 }
 
+// A slider's knob taken with the left button and let go over another part.
+function slide(knob: Test.Part, to: Test.Part) {
+  knob.hover()
+  Test.press(nil)
+  to.hover()
+  Test.pass(0.05)
+  Test.release(nil)
+}
+
 // The middle of what a part stands in.
 function middleX(rect: Test.Rect): Number { return (rect.left + rect.right) / 2 }
 function middleY(rect: Test.Rect): Number { return (rect.top + rect.bottom) / 2 }
@@ -171,7 +180,7 @@ test "each PvP status is named on the zone's tooltip, and a zone with none names
 test "the cursor leaving the zone's name takes its tooltip away" {
   Test.mount(nil, SCREEN)
   minimap().text(ZONE).hover()
-  Test.page().text(CLOCK).hover()
+  Test.page().window(COORDS).hover()
   Test.expect(!Test.page().text("Faction territory").shown())
 }
 
@@ -179,6 +188,8 @@ test "the coordinates' tooltip says how to send them to the chat" {
   Test.mount(nil, SCREEN)
   minimap().text(COORDS).hover()
   Test.expect(Test.page().window("Shift+Left-click: send to chat").texts().join(" | ") == `${COORDS} | Shift+Left-click: send to chat`)
+  minimap().hover()
+  Test.expect(!Test.page().text("Shift+Left-click: send to chat").shown())
 }
 
 test "the coordinates Shift+Left-clicked are sent to the chat" {
@@ -207,7 +218,7 @@ test "where the game gives no coordinates the strip shows the clock alone" {
 test "the clock is in ink, and orange while calendar invites wait" {
   Test.mount(nil, SCREEN)
   Test.expect(minimap().text(CLOCK).textColor().equal(INK))
-  Game.clock.invites = 2
+  Game.clock.invites = 1
   Test.expect(minimap().text(CLOCK).textColor().equal(PENDING))
 }
 
@@ -215,6 +226,8 @@ test "the clock's tooltip says what its clicks do" {
   Test.mount(nil, SCREEN)
   minimap().text(CLOCK).hover()
   Test.expect(Test.page().window("Left-click: calendar\nRight-click: minimap settings").texts().join(" | ") == `${CLOCK} | Left-click: calendar\nRight-click: minimap settings`)
+  minimap().hover()
+  Test.expect(Test.page().window(CLOCK).count() == 1)
 }
 
 test "a click on the clock opens the calendar" {
@@ -328,22 +341,74 @@ test "the Ordaen button right-clicked opens Ordaen's dev tools, and again closes
 
 test "a ring button dragged round the frame follows the cursor, frame after frame, and stays where it is let go" {
   Game.minimap.frame = frame("Minimap", true)
-  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game.frames.MinimapMail = frame("MinimapMail", true)
   Test.mount(nil, SCREEN)
   minimap().hover()
-  minimap().button(TRACKING).hover()
+  const before = angleOf(minimap().button(MAIL))
+  minimap().button(MAIL).hover()
   Test.press(nil)
-  // The client starts the drag once the cursor has moved.
-  minimap().text(COORDS).hover()
+  // The client starts the drag once the cursor has moved: the button stands where it stood until the next frame.
+  minimap().text(ZONE).hover()
   Test.pass(0.02)
+  Test.expect((angleOf(minimap().button(MAIL)) - before).abs() < 0.6)
   for (over of [CLOCK, COORDS, CLOCK]) {
     minimap().text(over).hover()
     Test.pass(0.02)
-    Test.expect((angleOf(minimap().button(TRACKING)) - angleOf(minimap().text(over))).abs() < 1)
+    Test.expect((angleOf(minimap().button(MAIL)) - angleOf(minimap().text(over))).abs() < 0.6)
   }
   Test.release(nil)
   minimap().hover()
-  Test.expect((angleOf(minimap().button(TRACKING)) - angleOf(minimap().text(CLOCK))).abs() < 1)
+  Test.expect((angleOf(minimap().button(MAIL)) - angleOf(minimap().text(CLOCK))).abs() < 0.6)
+}
+
+test "a ring button let go hides with the ring once the cursor leaves the minimap" {
+  Game.minimap.frame = frame("Minimap", true)
+  Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mount(nil, SCREEN)
+  minimap().hover()
+  minimap().button(MAIL).hover()
+  Test.press(nil)
+  minimap().text(CLOCK).hover()
+  Test.pass(0.02)
+  minimap().text(COORDS).hover()
+  Test.pass(0.02)
+  Test.release(nil)
+  Test.open("/ordaen")
+  Test.page().window(SETTINGS).text(SETTINGS).hover()
+  Test.expect(minimap().button(MAIL).opacity() == 0)
+}
+
+test "the drawer's button taken to be dragged hides its tooltip" {
+  Game.minimap.entries = [{ text: "Details", icon: DETAILS }]
+  Test.mount(nil, SCREEN)
+  minimap().hover()
+  minimap().button("1").hover()
+  Test.expect(Test.page().window("Addons").shown())
+  Test.press(nil)
+  minimap().text(CLOCK).hover()
+  Test.pass(0.02)
+  Test.expect(!Test.page().window("Addons").shown())
+  Test.release(nil)
+}
+
+test "the game's tracking button lies unseen under ours" {
+  const tracking = frame("MinimapTrackingButton", true)
+  Game.frames.MinimapTrackingButton = tracking
+  Test.mount(nil, SCREEN)
+  Test.pass(0.02)
+  Test.expect(tracking.GetParent() != Client.C_UI.GetUIParent() && tracking.IsVisible() && tracking.GetEffectiveAlpha() == 0)
+}
+
+test "no tooltip shows until the cursor comes onto a part that has one" {
+  Game.minimap.frame = frame("Minimap", true)
+  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game.frames.MinimapMail = frame("MinimapMail", true)
+  Game.minimap.entries = [{ text: "Details", icon: DETAILS }]
+  Test.mount(nil, SCREEN)
+  minimap().hover()
+  Test.expect(Test.surfaces().length == 1)
+  minimap().button(TRACKING).hover()
+  Test.expect(Test.surfaces().length == 1)
 }
 
 // The drawer
@@ -352,7 +417,7 @@ test "the drawer's button counts what the drawer holds" {
   Game.minimap.buttons = [frame("OtherAddonButton", true)]
   Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
   Test.mount(nil, SCREEN)
-  Test.expect(minimap().text("3").shown())
+  Test.expect(minimap().text("3").textColor().equal(GOLD))
   Game.minimap.entries = []
   Test.expect(minimap().text("1").shown())
 }
@@ -422,7 +487,29 @@ test "another addon's button shows in the open drawer, and is held unseen while 
   Test.pass(0.02)
   Test.expect(other.GetEffectiveAlpha() == 0)
   minimap().button("3").click()
-  Test.expect(other.IsVisible() && other.GetEffectiveAlpha() == 1)
+  Test.expect(other.GetParent() != Client.C_UI.GetUIParent() && other.IsVisible() && other.GetEffectiveAlpha() == 1)
+}
+
+test "another addon's button that takes the place of one in the closed drawer is held unseen, and the one it replaced is given back" {
+  const first = frame("FirstAddonButton", true)
+  const second = frame("SecondAddonButton", true)
+  Game.minimap.buttons = [first]
+  Test.mount(nil, SCREEN)
+  Game.minimap.buttons = [second]
+  Test.pass(0.02)
+  Test.expect(second.GetEffectiveAlpha() == 0 && first.GetParent() == Client.C_UI.GetUIParent())
+}
+
+test "the drawer turned off gives other addons' buttons back where they stood" {
+  const other = frame("OtherAddonButton", true)
+  other.SetPoint("CENTER", Client.C_UI.GetUIParent(), "TOPLEFT", 100, -100)
+  Game.minimap.buttons = [other]
+  Test.mount(nil, SCREEN)
+  const settings = tab("Button drawer")
+  settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
+  settings.button("Save").click()
+  Test.pass(0.02)
+  Test.expect(other.GetParent() == Client.C_UI.GetUIParent() && other.GetEffectiveAlpha() == 1 && other.GetRight() == 116)
 }
 
 test "the cursor on an entry of the drawer names it" {
@@ -457,6 +544,29 @@ test "the drawer turned off on its tab takes its button away" {
   settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
   settings.button("Save").click()
   Test.expect(!minimap().text("3").shown())
+}
+
+test "the drawer has four columns at first, from two to twelve" {
+  Test.mount(nil, SCREEN)
+  const settings = tab("Button drawer")
+  Test.expect(settings.text("4").shown())
+  slide(settings.box(Ordaen.art.ctl.sliderKnob), settings.text("Columns"))
+  Test.expect(settings.text("2").shown())
+  slide(settings.box(Ordaen.art.ctl.sliderKnob), settings.text("2"))
+  Test.expect(settings.text("12").shown())
+}
+
+test "the map's size goes from 80% to 160%, by 5%" {
+  Test.mount(nil, SCREEN)
+  const settings = tab("Map")
+  Test.expect(settings.text("100%").shown())
+  slide(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), settings.text("Map size"))
+  Test.expect(settings.text("80%").shown())
+  // The groove's middle: half way, a whole number of steps of 5%.
+  settings.box(Ordaen.art.ctl.groove).nth(1).click()
+  Test.expect(settings.text("120%").shown())
+  slide(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), settings.text("120%"))
+  Test.expect(settings.text("160%").shown())
 }
 
 test "with the drawer off its columns can't be chosen" {
