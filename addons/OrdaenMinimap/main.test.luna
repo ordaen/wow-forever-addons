@@ -389,6 +389,23 @@ test "the ring stays shown while the drawer is open" {
   Test.expect(minimap().button(TRACKING).opacity() == 1)
 }
 
+test "the drawer left with nothing to hold goes with its button, and leaves the ring to the cursor" {
+  Game.minimap.frame = frame("Minimap", true)
+  Game.frames.MinimapTrackingButton = frame("MinimapTrackingButton", true)
+  Game.minimap.entries = [{ text: "Details", icon: DETAILS }]
+  Test.mount(nil, SCREEN)
+  // The wood of the frame and its two strips.
+  const wood = minimap().box(Ordaen.art.window.wood).count()
+  minimap().hover()
+  minimap().button("1").click()
+  Test.expect(minimap().box(Ordaen.art.window.wood).count() == wood + 1)
+  Game.minimap.entries = []
+  Test.expect(!minimap().text("1").shown() && minimap().box(Ordaen.art.window.wood).count() == wood)
+  Test.open("/ordaen")
+  Test.page().window(SETTINGS).text(SETTINGS).hover()
+  Test.expect(minimap().button(TRACKING).opacity() == 0)
+}
+
 test "another addon's button shows in the open drawer, and is held unseen while it is closed" {
   const other = frame("OtherAddonButton", true)
   Game.minimap.buttons = [other]

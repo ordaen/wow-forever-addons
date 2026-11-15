@@ -84,9 +84,10 @@ public class Minimap implements Module, App {
   // opens its window).
   public derived hidden: Array<any Frame> = self.hiddenParts()
 
-  // The drawer: its cells, and where it hangs from its button.
+  // The drawer: its cells, and where it hangs from its button. Open, it shows while it holds something: its button
+  // goes with the last thing it held.
   derived held: Integer = Game.minimap.buttons.length + Game.minimap.entries.length
-  derived drawerShown: Boolean = self.settings.values.drawerOn && self.drawerOpen
+  derived drawerShown: Boolean = self.settings.values.drawerOn && self.drawerOpen && self.held > 0
   derived drawerParked: Boolean = self.settings.values.drawerOn && !self.drawerOpen
   // Its cells, the room round them and its frame's line on both sides.
   derived drawerEdge: Number = 2 * DRAWER_PAD + 2 * Ordaen.art.frame.small.width
@@ -191,9 +192,9 @@ public class Minimap implements Module, App {
   }
 
   // Whether the ring shows: always, or with «Buttons on mouseover» while the cursor is on the minimap, a button is
-  // dragged or the drawer is open.
+  // dragged or the drawer shows.
   public ringOpacity(self): Number {
-    if (!self.settings.values.buttonsHover || self.hovered || self.drawerOpen || self.dragging != nil) { return 1 }
+    if (!self.settings.values.buttonsHover || self.hovered || self.drawerShown || self.dragging != nil) { return 1 }
     return 0
   }
 
