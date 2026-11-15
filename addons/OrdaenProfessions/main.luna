@@ -635,10 +635,10 @@ public class Professions implements Module, App {
     return ""
   }
 
-  // A run ended: where the window was closed during it, the profession closes now.
+  // A run ended: where the window was closed during it, the profession closes now (and its closing shows the window
+  // again for the next one opened).
   runEnded(mut self, running: Boolean) {
     if (running || !peek self.hidden) { return }
-    self.hidden = false
     Game.tradeSkill.close()
   }
 
