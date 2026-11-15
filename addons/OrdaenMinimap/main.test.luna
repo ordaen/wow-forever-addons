@@ -500,6 +500,15 @@ test "another addon's button that takes the place of one in the closed drawer is
   Test.expect(second.GetEffectiveAlpha() == 0 && first.GetParent() == Client.C_UI.GetUIParent())
 }
 
+test "the drawer's switch says what it gathers, and nothing of a reload" {
+  Test.mount(nil, SCREEN)
+  const settings = tab("Button drawer")
+  // The tab, then the switch's label.
+  settings.text("Button drawer").nth(2).hover()
+  const said = "Gathers other addons' minimap buttons and the addon menu's entries behind one button on the ring."
+  Test.expect(Test.page().window(said).texts().join(" | ") == `Button drawer | ${said}`)
+}
+
 test "the drawer turned off gives other addons' buttons back where they stood" {
   const other = frame("OtherAddonButton", true)
   other.SetPoint("CENTER", Client.C_UI.GetUIParent(), "TOPLEFT", 100, -100)
