@@ -313,9 +313,9 @@ public class Panel implements Module, App {
           <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
                 wrap={false} />
         </box>
-        // The panel's corner: in the placing mode it takes the panel to another side too.
-        <Mover id={"OrdaenPanel.panel"} title={Locale.TAB_BOTTOM} @drag={self.onDock} @drop={self.onDocked}
-               @reset={self.onUndock} />
+        // The panel's corner: in the placing mode it takes the panel to another side too. It shows only while the
+        // panel is at the bottom, where a right click would put it: it hears none.
+        <Mover id={"OrdaenPanel.panel"} title={Locale.TAB_BOTTOM} @drag={self.onDock} @drop={self.onDocked} />
       </surface>
 
       <Placed $if={self.freeMicro} id={"OrdaenPanel.micromenu"} title={Locale.PANEL_MICROMENU} home={MICRO_HOME}>
