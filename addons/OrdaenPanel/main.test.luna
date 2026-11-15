@@ -17,6 +17,9 @@ const MONEY = "0g 0s 0c"
 const XP = "2 500 / 10 000 (25%)"
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
+// Where an item is let go to stand «Not on the panel»: an item that is there at first (the pool's name stands outside
+// it).
+const POOL = "Time"
 // The panel's name over it in the move mode.
 const MOVER = "Bottom panel"
 // The menu's icons, in its order.
@@ -217,6 +220,21 @@ test "one groove parts each two cells of a group, none before its first" {
   Test.expect(!window.box(BACKPACK).item().paintedWith(DIVIDER) && window.box(KEYRING).item().paintedWith(DIVIDER))
 }
 
+test "a click on a cell of the menu or of the bags is the game's own button's in it" {
+  let clicked: Array<String> = []
+  const professions = frame("ProfessionMicroButton")
+  professions.SetScript("OnClick", () => { clicked.push("professions") })
+  Game.frames.ProfessionMicroButton = professions
+  const bags = bagButtons(frame)
+  Game.bags.buttons = bags
+  const backpack = client("MainMenuBarBackpackButton")
+  backpack.SetScript("OnClick", () => { clicked.push("backpack") })
+  Test.mount(nil, SCREEN)
+  panel().box(PROFESSIONS).click()
+  panel().box(BACKPACK).click()
+  Test.expect(clicked.join(", ") == "professions, backpack")
+}
+
 test "the bag buttons and the menu's buttons of the game's are the panel's while it shows them" {
   const professions = frame("ProfessionMicroButton")
   Game.frames.ProfessionMicroButton = professions
@@ -414,6 +432,41 @@ test "the zone's name placed on the panel shows the zone the player is in" {
   Test.expect(!Test.page().text("Elwynn Forest").shown())
   place("Zone name", "Left")
   Test.expect(panel().text("Elwynn Forest").shown())
+}
+
+test "the experience bar off the panel stands on its own" {
+  Game.player.xp = 2500
+  Game.player.xpMax = 10000
+  Test.mount(nil, SCREEN)
+  place("Experience bar", POOL)
+  Test.expect(!panel().text(XP).shown() && Test.page().window(XP).shown())
+}
+
+test "the bags off the panel stand on their own" {
+  Game.bags.buttons = bagButtons(frame)
+  Test.mount(nil, SCREEN)
+  place("Bags", POOL)
+  Test.expect(!panel().box(BACKPACK).shown() && Test.page().box(BACKPACK).count() == 1)
+}
+
+test "the money off the panel stands on its own" {
+  Test.mount(nil, SCREEN)
+  place("Gold and currencies", POOL)
+  Test.expect(panel().texts().join(" | ") == MONEY && !panel().box(PROFESSIONS).shown())
+}
+
+test "the menu off the panel stands on its own, and the portrait goes" {
+  Game.player.level = 42
+  Test.mount(nil, SCREEN)
+  place("Game menu buttons", POOL)
+  Test.expect(!panel().box(PROFESSIONS).shown() && Test.page().box(PROFESSIONS).count() == 1)
+  Test.expect(!Test.page().text("42").shown())
+}
+
+test "friends and guild off the panel stand on their own" {
+  Test.mount(nil, SCREEN)
+  place("Friends and guild", POOL)
+  Test.expect(!panel().box(FRIENDS).shown() && Test.page().box(FRIENDS).count() == 1 && Test.page().box(GUILD).count() == 1)
 }
 
 // Where the panel runs
