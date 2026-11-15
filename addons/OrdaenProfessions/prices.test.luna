@@ -7,8 +7,6 @@ import Client from "$client"
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { ItemId } from "Ordaen"
-import root Auction from "OrdaenAuction"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const TAILORING = 197
@@ -115,6 +113,22 @@ function near(a: Color, b: Color): Boolean {
 }
 
 // Whether the window shows `next` straight after `first`, in the order drawn.
+// Whether Ordaen Auction's shopping list reads exactly this, its rows from the first under the headings to «Search
+// all»: the list's window opened from Ordaen Auction's «Shopping list» at the house (open), as the player does.
+function shoppingList(expected: String): Boolean {
+  Test.page().button("Shopping list").click()
+  let read: Array<String> = []
+  let inside = false
+  for (shown of Test.page().window("Search all").texts()) {
+    if (shown == "Search all") { break }
+    if (inside) { read.push(shown) }
+    if (shown == "Total") { inside = true }
+  }
+  const said = read.join(" | ")
+  if (said != expected) { panic(`the shopping list reads «${said}», not «${expected}»`) }
+  return true
+}
+
 function follows(first: String, next: String): Boolean {
   const shown = window().texts()
   for (index, text of shown) {
@@ -567,8 +581,9 @@ test "«To the shopping list» puts each missing reagent onto Ordaen Auction's l
   window().button("Create").click()
   window().button("Queue (1)").click()
   window().button("To the shopping list").click()
-  const auction = Auction ?? panic("Ordaen Auction is on")
-  Test.expect(auction.shopping.needed[ItemId.of(THREAD)] == 1 && auction.shopping.needed[ItemId.of(CLOTH)] == nil)
+  // The list, as Ordaen Auction's window shows it at the house: the thread, which the bags lack; not the bolt, held.
+  Game.auctionHouse.open = true
+  Test.expect(shoppingList("Item 2320 | Recipe 2387 ×1 — Player's queue | 1 | 0 of 1 held | 0g 0s 15c | 0g 0s 15c | Buy 1"))
 }
 
 test "a missing reagent the game names no item of isn't put onto the shopping list" {
@@ -589,8 +604,9 @@ test "a missing reagent the game names no item of isn't put onto the shopping li
   window().button("Create").click()
   window().button("Queue (1)").click()
   window().button("To the shopping list").click()
-  const auction = Auction ?? panic("Ordaen Auction is on")
-  Test.expect(auction.shopping.needed[ItemId.of(THREAD)] == 1 && Test.faults().length == 0)
+  // The list, as Ordaen Auction's window shows it at the house: the thread alone.
+  Game.auctionHouse.open = true
+  Test.expect(shoppingList("Item 2320 | Recipe 2387 ×1 — Player's queue | 1 | 0 of 1 held | 0g 0s 15c | 0g 0s 15c | Buy 1"))
 }
 
 test "with nothing missing «To the shopping list» is off" {
