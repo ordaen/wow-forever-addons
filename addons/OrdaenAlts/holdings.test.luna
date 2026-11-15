@@ -1,0 +1,259 @@
+// The «Items» tab as the player meets it: every item the characters hold, the most first, each with its total and its
+// holders by place, and a search over them. The character being played holds what the game's fakes give; the others
+// hold what other sessions left in the module's saved records, read as the module is turned off and on in Ordaen's
+// settings (in the same session, so the game's fakes are the module's).
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Hour, ItemId } from "Ordaen"
+import { Character, CharacterId, Kept, Place } from "@/character"
+import Locale from "@/locales"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const TABS = "Characters | Items | Cooldowns | Professions"
+const LINEN = 2589
+const WOOL = 2592
+const COPPER = 2840
+
+// The window at its «Items» tab: `/alts`, the tab.
+function items(): Test.Part {
+  (Client.SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  const window = Test.page().window(Locale.TAB_CHARACTERS)
+  window.button(Locale.TAB_ITEMS).click()
+  return window
+}
+
+// Whether the tab shows this, read whole: each item's total, name and holders, then the tabs. Where it shows something
+// else, the test stops and says what.
+function shows(expected: String): Boolean {
+  const said = Test.page().window(Locale.TAB_CHARACTERS).texts().join(" | ")
+  if (said != expected) { panic(`the window shows «${said}»`) }
+  return true
+}
+
+// What a place holds, as the game gives it: item, count, item, count.
+function counts(pairs: Array<Integer>): Map<Integer, Integer> {
+  const held: Map<Integer, Integer> = {}
+  for (i of 1..=pairs.length step 2) { held[pairs[i] ?? 0] = pairs[i + 1] ?? 0 }
+  return held
+}
+
+// The game's tooltip of an item: its name, for the items it knows.
+function named(id: Integer): Game.TooltipData | nil {
+  const name = id == LINEN ? "Linen Cloth" : id == WOOL ? "Wool Cloth" : id == COPPER ? "Copper Bar" : nil
+  if (name == nil) { return nil }
+  return { lines: [{ left: name, kind: 0 }] }
+}
+
+// A character of the player's realm and side that holds these in a place.
+function holder(name: String, place: Place, pairs: Array<Integer>): mut Character {
+  const held: Map<ItemId, Integer> = {}
+  for (id, count of counts(pairs)) { held[ItemId.of(id)] = count }
+  const made = Character { name: name, realm: "Stand-in", faction: .Alliance, level: 10, seen: Hour.now(), mailExpires: nil }
+  made.held[place] = held
+  return made
+}
+
+// The characters other sessions recorded, kept as the module's saved records, read as the module is turned off and on.
+function recorded(others: Array<Character>) {
+  const kept = Kept {}
+  for (index, character of others) { kept.characters[CharacterId.of("Player-1-" + String.of(index + 1))] = character.clone() }
+  Game.saved.store(.Own, "characters", kept)
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button(Ordaen.art.ctl.switchOn).click()
+  settings.button(Ordaen.art.ctl.switchOff).click()
+  settings.button(Ordaen.art.ctl.corner.close).click()
+}
+
+test "Items lists every item held, the most first, with its total and each holder by place" {
+  Game.items.tooltip = named
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 12, COPPER, 3])
+  Game.bags.changed.emit()
+  Test.mount(nil, SCREEN)
+  recorded([holder("Aria", .Bank, [LINEN, 20, WOOL, 5]), holder("Bram", .Mail, [COPPER, 1])])
+  _ = items()
+  Test.expect(shows(`32 | Linen Cloth | Aria: bank 20; Player: bags 12 | 5 | Wool Cloth | Aria: bank 5 | 4 | Copper Bar | Bram: mail 1; Player: bags 3 | ${TABS}`))
+}
+
+test "items held alike are listed by their number" {
+  Game.items.tooltip = named
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([COPPER, 5, LINEN, 5])
+  Game.bags.changed.emit()
+  Test.mount(nil, SCREEN)
+  _ = items()
+  Test.expect(shows(`5 | Linen Cloth | Player: bags 5 | 5 | Copper Bar | Player: bags 5 | ${TABS}`))
+}
+
+test "a search keeps the items whose name holds it, in any case, by name" {
+  Game.items.tooltip = named
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 12, WOOL, 30, COPPER, 3])
+  Game.bags.changed.emit()
+  Test.mount(nil, SCREEN)
+  items().input().type("CLOTH")
+  Test.expect(shows(`12 | Linen Cloth | Player: bags 12 | 30 | Wool Cloth | Player: bags 30 | ${TABS}`))
+}
+
+test "a search by an item's number finds it" {
+  Game.items.tooltip = named
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 12, COPPER, 3])
+  Game.bags.changed.emit()
+  Test.mount(nil, SCREEN)
+  items().input().type("2840")
+  Test.expect(shows(`3 | Copper Bar | Player: bags 3 | ${TABS}`))
+}
+
+test "a search that finds nothing says so" {
+  Game.items.tooltip = named
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 12])
+  Game.bags.changed.emit()
+  Test.mount(nil, SCREEN)
+  items().input().type("iron")
+  Test.expect(shows(`${Locale.NOTHING_FOUND} | ${TABS}`))
+}
+
+test "an item the game has no name for yet is listed by its number" {
+  Game.items.tooltip = named
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([4306, 2])
+  Game.bags.changed.emit()
+  Test.mount(nil, SCREEN)
+  _ = items()
+  Test.expect(shows(`2 | #4306 | Player: bags 2 | ${TABS}`))
+}
+
+test "the game is asked an item's name once while the tab shows" {
+  const asked: Array<Integer> = []
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+    asked.push(id)
+    return { lines: [{ left: "Linen Cloth", kind: 0 }] }
+  }
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 12])
+  Game.bags.changed.emit()
+  Test.mount(nil, SCREEN)
+  items().input().type("lin")
+  Test.expect(asked.length == 1)
+}
+
+test "the cursor on an item shows the game's tooltip of it" {
+  Game.items.tooltip = named
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 12])
+  Game.bags.changed.emit()
+  Test.mount(nil, SCREEN)
+  const window = items()
+  _ = Test.requests()
+  window.text("12").hover()
+  Test.expect(Test.requests().any(r => r == `Items.show ${LINEN}`))
+}
+
+// What the character being played holds, as it plays
+
+test "the bags are read each time they change, and where the game gives no count what was read stays" {
+  Game.items.tooltip = named
+  Test.mount(nil, SCREEN)
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 12, COPPER, 3])
+  Game.bags.changed.emit()
+  Game.bags.changed.emit()
+  _ = items()
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([COPPER, 4])
+  Game.bags.changed.emit()
+  Game.bags.changed.emit()
+  Test.expect(shows(`4 | Copper Bar | Player: bags 4 | ${TABS}`))
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => nil
+  Game.bags.changed.emit()
+  Test.expect(shows(`4 | Copper Bar | Player: bags 4 | ${TABS}`))
+}
+
+test "the bank is read as it opens and as it changes, and where the game gives nothing what was read stays" {
+  Game.items.tooltip = named
+  Test.mount(nil, SCREEN)
+  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 20, WOOL, 5])
+  Game.bankObserver.opened.emit()
+  _ = items()
+  Test.expect(shows(`20 | Linen Cloth | Player: bank 20 | 5 | Wool Cloth | Player: bank 5 | ${TABS}`))
+  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 1])
+  Game.bankObserver.changed.emit()
+  Test.expect(shows(`Linen Cloth | Player: bank 1 | ${TABS}`))
+  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => nil
+  Game.bankObserver.changed.emit()
+  Test.expect(shows(`Linen Cloth | Player: bank 1 | ${TABS}`))
+}
+
+test "the inbox is read as it opens and as it changes, and where the game gives nothing what was read stays" {
+  Game.items.tooltip = named
+  Test.mount(nil, SCREEN)
+  Game.mailObserver.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 3])
+  Game.mailObserver.opened.emit()
+  _ = items()
+  Test.expect(shows(`3 | Linen Cloth | Player: mail 3 | ${TABS}`))
+  Game.mailObserver.holdings = (): Map<Integer, Integer> | nil => counts([WOOL, 2])
+  Game.mailObserver.changed.emit()
+  Test.expect(shows(`2 | Wool Cloth | Player: mail 2 | ${TABS}`))
+  Game.mailObserver.holdings = (): Map<Integer, Integer> | nil => nil
+  Game.mailObserver.changed.emit()
+  Test.expect(shows(`2 | Wool Cloth | Player: mail 2 | ${TABS}`))
+}
+
+test "the player's auctions are counted by item, the sold ones left out" {
+  Game.items.tooltip = named
+  Test.mount(nil, SCREEN)
+  Game.ownedAuctions.list = [
+    { auction: 1, item: COPPER, quantity: 20, buyout: 5000, sold: false, left: nil },
+    { auction: 2, item: COPPER, quantity: 5, buyout: 900, sold: false, left: nil },
+    { auction: 3, item: LINEN, quantity: 1, buyout: 100, sold: true, left: nil }
+  ]
+  _ = items()
+  Test.expect(shows(`25 | Copper Bar | Player: auctions 25 | ${TABS}`))
+}
+
+test "an empty list of auctions before the house answers keeps them, and one while it is open empties them" {
+  Game.items.tooltip = named
+  Test.mount(nil, SCREEN)
+  Game.ownedAuctions.list = [{ auction: 1, item: COPPER, quantity: 20, buyout: 5000, sold: false, left: nil }]
+  _ = items()
+  Game.ownedAuctions.list = []
+  Test.expect(shows(`20 | Copper Bar | Player: auctions 20 | ${TABS}`))
+  Game.auctionHouse.open = true
+  Game.ownedAuctions.list = [{ auction: 2, item: LINEN, quantity: 1, buyout: nil, sold: false, left: nil }]
+  Game.ownedAuctions.list = []
+  Test.expect(shows(`${Locale.NOTHING_FOUND} | ${TABS}`))
+}
+
+test "a character forgotten takes its items from the list" {
+  Game.items.tooltip = named
+  Test.mount(nil, SCREEN)
+  recorded([holder("Aria", .Bank, [LINEN, 20])])
+  const window = items()
+  window.button(Locale.TAB_CHARACTERS).click()
+  window.text("Aria").item().button(Locale.FORGET).click()
+  Test.page().window(Locale.FORGET_TITLE).button(Locale.FORGET).click()
+  window.button(Locale.TAB_ITEMS).click()
+  Test.expect(shows(`${Locale.NOTHING_FOUND} | ${TABS}`))
+}
+
+test "a search lists by name, and items of one name by their number" {
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+    return { lines: [{ left: id == 4305 ? "Bolt of Cloth" : id == 9000 ? "Apron of Cloth" : "Cloth", kind: 0 }] }
+  }
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([WOOL, 2, LINEN, 9, 4305, 3, 9000, 4, 2996, 5])
+  Game.bags.changed.emit()
+  Test.mount(nil, SCREEN)
+  items().input().type("cloth")
+  Test.expect(shows(
+    `4 | Apron of Cloth | Player: bags 4 | 3 | Bolt of Cloth | Player: bags 3 | 9 | Cloth | Player: bags 9 | 2 | Cloth | Player: bags 2 | 5 | Cloth | Player: bags 5 | ${TABS}`
+  ))
+}
+
+test "an item in two places loses only the place that changed" {
+  Game.items.tooltip = named
+  Test.mount(nil, SCREEN)
+  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 20])
+  Game.bankObserver.opened.emit()
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 12])
+  Game.bags.changed.emit()
+  _ = items()
+  Test.expect(shows(`32 | Linen Cloth | Player: bank 20; Player: bags 12 | ${TABS}`))
+  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([WOOL, 1])
+  Game.bankObserver.changed.emit()
+  Test.expect(shows(`12 | Linen Cloth | Player: bags 12 | Wool Cloth | Player: bank 1 | ${TABS}`))
+}

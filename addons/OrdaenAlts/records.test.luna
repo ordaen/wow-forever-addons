@@ -1,285 +1,293 @@
-// The records of the characters, their indexes, and what the recorder writes of the character being played. A second
-// character's data is written through the records' own calls, for a test's `Game` stays the first load's after a
-// login (`Test.login`), and the new load's recorder reads the new load's.
-import Debug from "$debug"
+// What other modules read of the records, as they read it: who knows a recipe, who holds an item, whom the character
+// being played can send to, and the revision that moves when those answers may have changed; and the bounds the
+// records keep. The character being played is recorded through the game's fakes; the others are what other sessions
+// left in the module's saved records, read as the module is turned off and on in Ordaen's settings.
 import Game from "$game"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { Hour, ItemId } from "Ordaen"
 import root Alts from "OrdaenAlts"
-import { CharacterId, Faction, Kept, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES, Place, RecipeId } from "@/character"
-import { Records } from "@/records"
+import { Character, CharacterId, Kept, Known, Place, RecipeId } from "@/character"
+import Locale from "@/locales"
 
-const SMITHING = 164
-const MINING = 186
-const REGY = "Player-6946-005FB73B"
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const PLAYER = "Player-1-00000001"
+const SMITHING = 164
+const START = 1577836800 + 1000 * 3600
 
-function professions(): Array<Game.Profession> {
-  return [
-    { skillLine: SMITHING, name: "Blacksmithing", icon: "Interface/Icons/Trade_BlackSmithing", rank: 150, max: 300, kind: .Crafting },
-    { skillLine: MINING, name: "Mining", icon: "Interface/Icons/Trade_Mining", rank: 75, max: 300, kind: .Gathering }
-  ]
-}
-
+// What a place holds, as the game gives it: item, count, item, count.
 function counts(pairs: Array<Integer>): Map<Integer, Integer> {
   const held: Map<Integer, Integer> = {}
   for (i of 1..=pairs.length step 2) { held[pairs[i] ?? 0] = pairs[i + 1] ?? 0 }
   return held
 }
 
-function linen(): mut Map<ItemId, Integer> {
-  const held: Map<ItemId, Integer> = {}
-  held[ItemId.of(2589)] = 1
-  return held
+// The characters other sessions recorded, by their GUIDs, kept as the module's saved records; the module turned off
+// and on in Ordaen's settings reads them.
+function recorded(guids: Array<String>, characters: Array<Character>) {
+  const kept = Kept {}
+  for (index, character of characters) { kept.characters[CharacterId.of(guids[index] ?? "")] = character.clone() }
+  Game.saved.store(.Own, "characters", kept)
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button(Ordaen.art.ctl.switchOn).click()
+  settings.button(Ordaen.art.ctl.switchOff).click()
+  settings.button(Ordaen.art.ctl.corner.close).click()
 }
 
-test "the character being played is written down as the game gives it, and the indexes answer for it" {
-  const me = Alts.characters[Alts.current] ?? panic("the player is recorded")
-  Test.expect(me.name == "Player" && me.level == 1 && me.faction == Faction.Alliance && me.realm == "Stand-in")
+// A smith of a realm and side who knows these recipes.
+function smith(name: String, realm: String, faction: String, recipes: Array<Integer>): mut Character {
+  const known = Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
+  for (id of recipes) { known.recipes.push(RecipeId.of(id)) }
+  const made = Character {
+    name: name, realm: realm, faction: faction == "Horde" ? .Horde : .Alliance, level: 60, seen: Hour.now(), mailExpires: nil
+  }
+  made.professions.push(mut known)
+  return made
+}
 
-  Game.professions.list = professions()
-  Game.tradeSkill.open = SMITHING
+// The window, by its first tab.
+function window(): Test.Part {
+  return Test.page().window(Locale.TAB_CHARACTERS)
+}
+
+test "a recipe the character knows is answered with it, in reach, and the hour it is ready where it has a cooldown" {
+  Game.clock.server = START
+  Test.mount(nil, SCREEN)
   Game.recipeReader.known = (): Array<Integer> | nil => [2663, 2662]
   Game.recipeReader.cooldown = (recipe: Integer): Integer | nil => recipe == 2663 ? 7200 : nil
-  Test.flush()
-  const smithing = me.professions[1] ?? panic("smithing is there")
-  Test.expect(me.professions.length == 2 && smithing.rank == 150 && smithing.max == 300 && smithing.recipes.length == 2)
-  const knowers = Alts.knowers(RecipeId.of(2663))
-  Test.expect(knowers.length == 1)
-  Test.expect(knowers[1]?.who == Alts.current)
-  Test.expect(knowers[1]?.reachable == true)
-  Test.expect(knowers[1]?.ready != nil)
-  Test.expect(Alts.knowers(RecipeId.of(2662))[1]?.ready == nil)
-  Test.expect(Alts.knowers(RecipeId.of(9999)).length == 0)
-
-  Game.money.amount = 12345
-  Game.bags.free = 7
-  Game.bags.changed.emit()
-  Test.flush()
-  Test.expect(me.money == 12345)
-}
-
-test "a place read while it is open is counted by item, with the hour it was read" {
-  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 20, 2592, 5])
-  Game.bankObserver.opened.emit()
-  Test.expect(Alts.holders(ItemId.of(2589)).length == 1)
-  const held = Alts.holders(ItemId.of(2589))[1] ?? panic("held")
-  Test.expect(held.who == Alts.current && held.place == Place.Bank && held.count == 20)
-  const me = Alts.characters[Alts.current] ?? panic("the player is recorded")
-  Test.expect(me.read[Place.Bank] != nil && me.read[Place.Mail] == nil)
-
-  Game.mailObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 3])
-  Game.mailObserver.soonest = (): Integer | nil => 3 * 86400
-  Game.mailObserver.opened.emit()
-  Test.expect(Alts.holders(ItemId.of(2589)).length == 2)
-  Test.expect(me.mailExpires != nil)
-
-  // A bank read again with a different count replaces the first reading.
-  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 1])
-  Game.bankObserver.changed.emit()
-  Test.expect(Alts.holders(ItemId.of(2592)).length == 0)
-  let total = 0
-  for (entry of Alts.holders(ItemId.of(2589))) { total += entry.count }
-  Test.expect(total == 4)
-
-  // The seam gave nothing (the window shut, a fault): what was kept stays.
-  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => nil
-  Game.bankObserver.changed.emit()
-  Test.expect(total == 4 && Alts.holders(ItemId.of(2589)).length == 2)
-}
-
-test "the bags are counted by item each time they change, and a change of nothing moves nothing" {
-  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([2589, 12, 2840, 3])
-  Game.bags.changed.emit()
-  const held = Alts.holders(ItemId.of(2589))[1] ?? panic("in the bags")
-  Test.expect(held.who == Alts.current && held.place == Place.Bags && held.count == 12)
-  const me = Alts.characters[Alts.current] ?? panic("the player is recorded")
-  Test.expect(me.read[Place.Bags] == nil)
   const before = Alts.revision
+  Game.tradeSkill.open = SMITHING
+  Test.flush()
+  Test.expect(Alts.revision > before)
+  const cooling = Alts.knowers(RecipeId.of(2663))
+  Test.expect(cooling.length == 1 && cooling[1]?.who == Alts.current && cooling[1]?.reachable == true)
+  Test.expect(cooling[1]?.ready == Hour.now() + 2)
+  const ready = Alts.knowers(RecipeId.of(2662))
+  Test.expect(ready.length == 1 && ready[1]?.ready == nil)
+  Test.expect(Alts.knowers(RecipeId.of(9999)).length == 0)
+}
+
+test "a character of another realm or side knows its recipes out of reach, and can't be sent to" {
+  Test.mount(nil, SCREEN)
+  recorded(
+    ["Player-1-2", "Player-2-3", "Player-1-4"],
+    [smith("Aria", "Stand-in", "Alliance", [2663]), smith("Regy", "Elsewhere", "Alliance", [2663]), smith("Horda", "Stand-in", "Horde", [2663])]
+  )
+  const reach: Map<String, Boolean> = {}
+  for (knower of Alts.knowers(RecipeId.of(2663))) { reach[Alts.characters[knower.who]?.name ?? ""] = knower.reachable }
+  Test.expect(reach["Aria"] == true && reach["Regy"] == false && reach["Horda"] == false)
+  Test.expect(Alts.reaches(CharacterId.of("Player-1-2")) && Alts.reaches(Alts.current))
+  Test.expect(!Alts.reaches(CharacterId.of("Player-2-3")) && !Alts.reaches(CharacterId.of("Player-1-4")))
+  Test.expect(!Alts.reaches(CharacterId.of("Player-9-9")))
+}
+
+test "a recipe learned while its profession is open is known at once, and once" {
+  Test.mount(nil, SCREEN)
+  Game.recipeReader.known = (): Array<Integer> | nil => [2663]
+  Game.tradeSkill.open = SMITHING
+  Test.flush()
+  const before = Alts.revision
+  Game.tradeSkill.learned.emit(3320)
+  Test.expect(Alts.knowers(RecipeId.of(3320)).length == 1 && Alts.revision > before)
+  const after = Alts.revision
+  Game.tradeSkill.learned.emit(3320)
+  Test.expect(Alts.knowers(RecipeId.of(3320)).length == 1 && Alts.revision == after)
+}
+
+test "a recipe learned with no profession open, or of one never read, waits for the profession" {
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.learned.emit(3320)
+  Test.expect(Alts.knowers(RecipeId.of(3320)).length == 0)
+  Game.recipeReader.known = (): Array<Integer> | nil => nil
+  Game.tradeSkill.open = SMITHING
+  Test.flush()
+  Game.tradeSkill.learned.emit(3320)
+  Test.expect(Alts.knowers(RecipeId.of(3320)).length == 0)
+}
+
+test "an item held is answered with each holder, how many and where" {
+  Test.mount(nil, SCREEN)
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([2589, 12])
   Game.bags.changed.emit()
-  Test.expect(Alts.revision == before)
-  // The game gave no count (its guess about the client failed): what was kept stays.
-  Game.bags.holdings = (): Map<Integer, Integer> | nil => nil
-  Game.bags.changed.emit()
-  Test.expect(Alts.holders(ItemId.of(2840))[1]?.count == 3)
-  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([2840, 4])
-  Game.bags.changed.emit()
-  Test.expect(Alts.holders(ItemId.of(2589)).length == 0)
-  Test.expect(Alts.holders(ItemId.of(2840))[1]?.count == 4)
+  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 20])
+  Game.bankObserver.opened.emit()
+  const where: Map<String, Integer> = {}
+  for (held of Alts.holders(ItemId.of(2589))) {
+    Test.expect(held.who == Alts.current)
+    where[held.place == Place.Bags ? "bags" : held.place == Place.Bank ? "bank" : "?"] = held.count
+  }
+  Test.expect(where["bags"] == 12 && where["bank"] == 20 && Alts.holders(ItemId.of(2590)).length == 0)
 }
 
-test "the bags read again with nothing changed leave the window be" {
-  const kept = Kept {}
-  const records = new Records(mut kept, CharacterId.of("Player-1-bags"), "Realm", Faction.Alliance)
-  records.begin("Bags", "MAGE", 10, Hour.now())
-  _ = records.setPlace(Place.Bags, linen(), nil)
-  const touched = records.touched
-  _ = records.setPlace(Place.Bags, linen(), nil)
-  Test.expect(records.touched == touched)
-  _ = records.setPlace(Place.Bank, linen(), Hour.now())
-  Test.expect(records.touched > touched)
-}
-
-test "an hour is the server's clock, as the game gives it" {
-  Game.clock.server = 1577836800 + 5 * 3600 + 10
-  Test.expect(Hour.now() == 5 && Hour.fromNow(3590) == 6 && Hour.fromNow(3591) == 7)
-  Test.pass(3600)
-  Test.expect(Hour.now() == 6)
-}
-
-test "the player's auctions are recorded while the house is open, and an empty list before it answers keeps what was" {
-  Game.ownedAuctions.list = [
-    { auction: 1, item: 2840, quantity: 20, buyout: 5000, sold: false, left: nil },
-    { auction: 2, item: 2840, quantity: 5, buyout: 900, sold: false, left: nil },
-    { auction: 3, item: 2841, quantity: 1, buyout: 100, sold: true, left: nil }
-  ]
-  Test.flush()
-  const held = Alts.holders(ItemId.of(2840))[1] ?? panic("auctioned")
-  Test.expect(held.place == Place.Auctions && held.count == 25 && Alts.holders(ItemId.of(2841)).length == 0)
-  Game.ownedAuctions.list = []
-  Test.flush()
-  Test.expect(Alts.holders(ItemId.of(2840)).length == 1)
-  Game.auctionHouse.open = true
-  Game.ownedAuctions.list = []
-  Game.ownedAuctions.list = [{ auction: 4, item: 2842, quantity: 1, buyout: nil, sold: false, left: nil }]
-  Test.flush()
-  Game.ownedAuctions.list = []
-  Test.flush()
-  Test.expect(Alts.holders(ItemId.of(2840)).length == 0)
-}
-
-test "a reading that changes nothing moves no revision" {
+test "a reading that changes nothing moves no revision; money moves none either" {
+  Test.mount(nil, SCREEN)
   Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 20])
   Game.bankObserver.opened.emit()
   const before = Alts.revision
   Game.bankObserver.changed.emit()
-  Test.expect(Alts.revision == before)
   Game.money.amount = 777
-  Test.flush()
+  Game.player.level = 12
   Test.expect(Alts.revision == before)
   Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 21])
   Game.bankObserver.changed.emit()
   Test.expect(Alts.revision > before)
 }
 
-test "two characters across logins: each one's record kept, the indexes answering for both" {
-  // The first character, as the recorder wrote it.
-  Game.professions.list = professions()
-  Game.tradeSkill.open = SMITHING
-  Game.recipeReader.known = (): Array<Integer> | nil => [2663, 2662]
-  Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => counts([2589, 20])
-  Game.bankObserver.opened.emit()
+test "the professions read again alike move no revision; one more moves it" {
+  Test.mount(nil, SCREEN)
+  Game.professions.list = [{ skillLine: SMITHING, name: "Blacksmithing", icon: "x", rank: 150, max: 300, kind: .Crafting }]
   Test.flush()
-
-  Test.login({ guid: REGY, name: "Regy", surname: "Ironsight", realm: "CAMWOW EU5 Realm 4 PvP", faction: .Horde, classTag: "MAGE" })
-  Test.expect(Alts.current == CharacterId.of(REGY))
-  Test.expect(Alts.characters[CharacterId.of(PLAYER)]?.name == "Player")
-  Test.expect(Alts.characters[Alts.current]?.name == "Regy Ironsight")
-  Test.expect(Alts.characters[Alts.current]?.faction == Faction.Horde)
-  // The first character's recipes and items are in the new load's indexes, apart from this realm and side.
-  Test.expect(Alts.knowers(RecipeId.of(2663))[1]?.who == CharacterId.of(PLAYER))
-  Test.expect(Alts.knowers(RecipeId.of(2663))[1]?.reachable == false)
-  Test.expect(Alts.holders(ItemId.of(2589))[1]?.count == 20)
-
-  // The second character's own.
-  const recipes: Array<RecipeId> = [RecipeId.of(2663), RecipeId.of(3320)]
-  const ready: Map<RecipeId, Hour> = {}
-  ready[RecipeId.of(3320)] = Hour.fromNow(86400)
-  Test.expect(Alts.records.setRecipes(SMITHING, mut recipes, mut ready))
-  Test.expect(Alts.knowers(RecipeId.of(2663)).length == 2)
-  Test.expect(Alts.knowers(RecipeId.of(3320)).length == 1)
-  Test.expect(Alts.knowers(RecipeId.of(3320))[1]?.ready != nil)
-  const items: Map<ItemId, Integer> = {}
-  items[ItemId.of(2589)] = 4
-  Test.expect(Alts.records.setPlace(Place.Bank, mut items, Hour.now()))
-  let total = 0
-  for (entry of Alts.holders(ItemId.of(2589))) { total += entry.count }
-  Test.expect(total == 24 && Alts.holders(ItemId.of(2589)).length == 2)
-  Test.expect(Alts.reaches(CharacterId.of(PLAYER)) == false && Alts.reaches(Alts.current))
-
-  // Back to the first: both records are there, the second's indexes with them.
-  Test.login({ guid: PLAYER, name: "Player", surname: nil })
-  const smith = Alts.characters[CharacterId.of(REGY)] ?? panic("Regy is kept")
-  Test.expect((smith.professions[1] ?? panic("a profession")).recipes.length == 2)
-  Test.expect(Alts.knowers(RecipeId.of(2663)).length == 2)
-  Test.expect(Alts.knowers(RecipeId.of(2663))[1]?.reachable == true)
-  Test.expect(Alts.holders(ItemId.of(2589)).length == 2)
-
-  // The record of a character is its own: a reload keeps it all.
-  Test.reload()
-  const regy = Alts.characters[CharacterId.of(REGY)] ?? panic("Regy is kept")
-  const bank = regy.held[Place.Bank] ?? panic("the bank is kept")
-  Test.expect(bank[ItemId.of(2589)] == 4)
-  Test.expect(Alts.knowers(RecipeId.of(3320)).length == 1)
+  const before = Alts.revision
+  Game.professions.list = [{ skillLine: SMITHING, name: "Blacksmithing", icon: "x", rank: 151, max: 300, kind: .Crafting }]
+  Test.flush()
+  Test.expect(Alts.revision == before)
+  Game.professions.list = [
+    { skillLine: SMITHING, name: "Blacksmithing", icon: "x", rank: 151, max: 300, kind: .Crafting },
+    { skillLine: 186, name: "Mining", icon: "x", rank: 1, max: 75, kind: .Gathering }
+  ]
+  Test.flush()
+  Test.expect(Alts.revision > before)
 }
 
-test "a forgotten character is gone from the records, the indexes and the next login, and the one played can't be forgotten" {
-  Test.login({ guid: REGY, name: "Regy", surname: "Ironsight", realm: "CAMWOW EU5 Realm 4 PvP", faction: .Horde, classTag: "MAGE" })
-  const recipes: Array<RecipeId> = [RecipeId.of(555)]
-  const ready: Map<RecipeId, Hour> = {}
-  Alts.records.setProfessions([{ skillLine: SMITHING, name: "Blacksmithing", icon: "Interface/Icons/Trade_BlackSmithing", rank: 1, max: 75, kind: .Crafting }])
-  Test.expect(Alts.records.setRecipes(SMITHING, mut recipes, mut ready))
-  Test.login({ guid: PLAYER, name: "Player", surname: nil })
-  Test.expect(Alts.knowers(RecipeId.of(555)).length == 1)
-  Test.expect(!Alts.forget(Alts.current))
-  Test.expect(Alts.forget(CharacterId.of(REGY)))
-  Test.expect(Alts.characters[CharacterId.of(REGY)] == nil)
-  Test.expect(Alts.knowers(RecipeId.of(555)).length == 0)
-  Test.expect(!Alts.forget(CharacterId.of(REGY)))
-  Test.reload()
-  Test.expect(Alts.characters[CharacterId.of(REGY)] == nil)
-  Test.expect(Alts.characters[CharacterId.of(PLAYER)] != nil)
+test "a profession read again with the same recipes moves no revision" {
+  Test.mount(nil, SCREEN)
+  Game.recipeReader.known = (): Array<Integer> | nil => [2663]
+  Game.tradeSkill.open = SMITHING
+  Test.flush()
+  const before = Alts.revision
+  Game.tradeSkill.open = nil
+  Test.flush()
+  Game.tradeSkill.open = SMITHING
+  Test.flush()
+  Test.expect(Alts.revision == before)
 }
 
-test "past the most characters the one played longest ago goes, never the one being played" {
-  const kept = Kept {}
-  for (i of 1..=MOST_CHARACTERS) {
-    const records = new Records(mut kept, CharacterId.of("Player-1-" + String.of(i)), "Realm", Faction.Alliance)
-    records.begin("Alt " + String.of(i), "MAGE", 10, Hour.fromNow((i - 1000) * 3600))
+test "the bags read again with nothing changed tell the window nothing" {
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([2589, 12])
+  Test.mount(nil, SCREEN)
+  Game.bags.changed.emit()
+  Test.open("/alts")
+  Test.expect(window().shown() && Test.calls(() => { Game.bags.changed.emit() }) == "")
+}
+
+test "past forty characters the one played longest ago is dropped, never the one being played" {
+  Game.clock.server = START
+  const guids: Array<String> = []
+  const others: Array<Character> = []
+  for (i of 1..=40) {
+    guids.push("Player-1-" + String.of(100 + i))
+    others.push(Character { name: "Alt " + String.of(i), realm: "Stand-in", faction: .Alliance, seen: Hour.fromNow((i - 1000) * 3600), mailExpires: nil })
   }
-  Test.expect(kept.characters[CharacterId.of("Player-1-1")] != nil)
-  const newest = new Records(mut kept, CharacterId.of("Player-1-new"), "Realm", Faction.Alliance)
-  newest.begin("New", "MAGE", 10, Hour.now())
+  Test.mount(nil, SCREEN)
+  recorded(guids, others)
+  Test.expect(Alts.characters[CharacterId.of("Player-1-101")] == nil)
+  Test.expect(Alts.characters[CharacterId.of("Player-1-102")] != nil && Alts.characters[Alts.current] != nil)
   let count = 0
-  for (id, _ of kept.characters) { count += 1 }
-  Test.expect(count == MOST_CHARACTERS)
-  Test.expect(kept.characters[CharacterId.of("Player-1-1")] == nil)
-  Test.expect(kept.characters[CharacterId.of("Player-1-2")] != nil)
-  Test.expect(kept.characters[CharacterId.of("Player-1-new")] != nil)
+  for (id, _ of Alts.characters) { count += 1 }
+  Test.expect(count == 40)
+}
+
+test "one fewer than the most characters drops none" {
+  const guids: Array<String> = []
+  const others: Array<Character> = []
+  for (i of 1..=39) {
+    guids.push("Player-1-" + String.of(100 + i))
+    others.push(Character { name: "Alt " + String.of(i), seen: Hour.fromNow((i - 1000) * 3600), mailExpires: nil })
+  }
+  Test.mount(nil, SCREEN)
+  recorded(guids, others)
+  Test.expect(Alts.characters[CharacterId.of("Player-1-101")] != nil)
 }
 
 test "a reading past the most recipes or kinds of items is refused, and says so" {
-  const kept = Kept {}
-  const records = new Records(mut kept, CharacterId.of("Player-1-big"), "Realm", Faction.Alliance)
-  records.begin("Big", "MAGE", 10, Hour.now())
-  records.setProfessions([{ skillLine: SMITHING, name: "Blacksmithing", icon: "x", rank: 1, max: 75, kind: .Crafting }])
-  const recipes: Array<RecipeId> = []
-  for (i of 1..=MOST_RECIPES + 1) { recipes.push(RecipeId.of(i)) }
-  const ready: Map<RecipeId, Hour> = {}
-  Test.expect(!records.setRecipes(SMITHING, mut recipes, mut ready))
-  const items: Map<ItemId, Integer> = {}
-  for (i of 1..=MOST_ITEMS + 1) { items[ItemId.of(i)] = 1 }
-  Test.expect(!records.setPlace(Place.Bank, mut items, nil))
-  Test.expect(Debug.faultOf("Alts") != nil)
-  Test.expect(records.knowers(RecipeId.of(1)).length == 0 && records.holders(ItemId.of(1)).length == 0)
+  Test.mount(nil, SCREEN)
+  const recipes: Array<Integer> = []
+  for (i of 1..=1501) { recipes.push(i) }
+  Game.recipeReader.known = (): Array<Integer> | nil => recipes
+  Game.tradeSkill.open = SMITHING
+  Test.flush()
+  const items: Map<Integer, Integer> = {}
+  for (i of 1..=1001) { items[i] = 1 }
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => items
+  Game.bags.changed.emit()
+  Test.expect(Alts.knowers(RecipeId.of(1)).length == 0 && Alts.holders(ItemId.of(1)).length == 0)
   const heard = Test.errors()
   Test.expect(heard.length == 2)
+  Test.expect(heard.any(e => e.contains("a profession of 1501 recipes is more than the 1500 kept")))
+  Test.expect(heard.any(e => e.contains("a place of 1001 kinds of items is more than the 1000 kept")))
+}
+
+test "the most recipes and kinds of items are taken" {
+  Test.mount(nil, SCREEN)
+  const recipes: Array<Integer> = []
+  for (i of 1..=1500) { recipes.push(i) }
+  Game.recipeReader.known = (): Array<Integer> | nil => recipes
+  Game.tradeSkill.open = SMITHING
+  Test.flush()
+  const items: Map<Integer, Integer> = {}
+  for (i of 1..=1000) { items[i] = 1 }
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => items
+  Game.bags.changed.emit()
+  Test.expect(Alts.knowers(RecipeId.of(1)).length == 1 && Alts.holders(ItemId.of(1)).length == 1)
+}
+
+test "the character being played can't be forgotten; another is, once, and its recipes go with it" {
+  Test.mount(nil, SCREEN)
+  recorded(["Player-1-2"], [smith("Aria", "Stand-in", "Alliance", [555])])
+  Test.expect(!Alts.forget(Alts.current) && Alts.characters[Alts.current] != nil)
+  Test.expect(Alts.knowers(RecipeId.of(555)).length == 1)
+  const before = Alts.revision
+  Test.expect(Alts.forget(CharacterId.of("Player-1-2")) && Alts.revision > before)
+  Test.expect(Alts.knowers(RecipeId.of(555)).length == 0 && !Alts.forget(CharacterId.of("Player-1-2")))
 }
 
 test "the saved size of twenty characters with three hundred recipes and a hundred and fifty items each" {
   const kept = Kept {}
   for (i of 1..=20) {
-    const records = new Records(mut kept, CharacterId.of("Player-6946-" + String.of(100000 + i)), "CAMWOW EU5 Realm 4 PvP", Faction.Horde)
-    records.begin("Regy Ironsight", "MAGE", 60, Hour.now())
-    records.setProfessions(professions())
-    const recipes: Array<RecipeId> = []
-    for (r of 1..=300) { recipes.push(RecipeId.of(2000 + r * 7)) }
-    const ready: Map<RecipeId, Hour> = {}
-    _ = records.setRecipes(SMITHING, mut recipes, mut ready)
+    const known = Known { skillLine: SMITHING, name: "Blacksmithing", rank: 300, max: 300 }
+    for (r of 1..=300) { known.recipes.push(RecipeId.of(2000 + r * 7)) }
     const items: Map<ItemId, Integer> = {}
     for (n of 1..=150) { items[ItemId.of(2000 + n * 13)] = n }
-    _ = records.setPlace(Place.Bank, mut items, Hour.now())
+    const character = Character {
+      name: "Regy Ironsight", realm: "CAMWOW EU5 Realm 4 PvP", faction: .Horde, level: 60, seen: Hour.now(), mailExpires: nil
+    }
+    character.professions.push(mut known)
+    character.held[Place.Bank] = items
+    character.read[Place.Bank] = Hour.now()
+    kept.characters[CharacterId.of("Player-6946-" + String.of(100000 + i))] = character
   }
   const packed = Game.encoding.serialize(kept) ?? panic("plain data packs")
   Test.expect(packed.length < 40000)
+}
+
+test "a profession dropped for another takes its recipes from those known" {
+  Test.mount(nil, SCREEN)
+  Game.professions.list = [{ skillLine: SMITHING, name: "Blacksmithing", icon: "x", rank: 150, max: 300, kind: .Crafting }]
+  Game.recipeReader.known = (): Array<Integer> | nil => [2663]
+  Game.tradeSkill.open = SMITHING
+  Test.flush()
+  Test.expect(Alts.knowers(RecipeId.of(2663)).length == 1)
+  const before = Alts.revision
+  Game.professions.list = [{ skillLine: 186, name: "Mining", icon: "x", rank: 1, max: 75, kind: .Gathering }]
+  Test.flush()
+  Test.expect(Alts.knowers(RecipeId.of(2663)).length == 0 && Alts.revision > before)
+}
+
+test "the character played again on another realm knows its recipes in reach" {
+  Test.mount(nil, SCREEN)
+  recorded([PLAYER], [smith("Player", "Elsewhere", "Horde", [2663])])
+  Test.expect(Alts.knowers(RecipeId.of(2663))[1]?.reachable == true)
+}
+
+test "a recipe learned past the most a profession keeps is left out" {
+  Test.mount(nil, SCREEN)
+  const recipes: Array<Integer> = []
+  for (i of 1..=1500) { recipes.push(i) }
+  Game.recipeReader.known = (): Array<Integer> | nil => recipes
+  Game.tradeSkill.open = SMITHING
+  Test.flush()
+  Game.tradeSkill.learned.emit(9999)
+  Test.flush()
+  Test.expect(Alts.knowers(RecipeId.of(1500)).length == 1 && Alts.knowers(RecipeId.of(9999)).length == 0)
 }

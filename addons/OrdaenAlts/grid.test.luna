@@ -1,0 +1,99 @@
+// The «Professions» tab as the player meets it: the characters down the side, the professions across, each
+// character's skill in each. The character being played has the professions the game's fakes list; the others are what
+// other sessions left in the module's saved records, read as the module is turned off and on in Ordaen's settings (in
+// the same session, so the game's fakes are the module's).
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { Hour } from "Ordaen"
+import { Character, CharacterId, Kept, Known } from "@/character"
+import Locale from "@/locales"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+// The colours the player sees: a heading's and the played character's gold, a text's ink, a detail's dim ink, the red
+// of what is late, the green of what is ready, the darker ink of a character out of reach.
+const GOLD: Color = Color.hex("#ffd100")
+const INK: Color = Color.hex("#e8dcc4")
+const DIM: Color = Color.hex("#a3977f")
+const RED: Color = Color.hex("#ff4040")
+const GREEN: Color = Color.hex("#40d060")
+const AWAY: Color = Color.hex("#7a7060")
+const TABS = "Characters | Items | Cooldowns | Professions"
+
+// The window at its «Professions» tab: `/alts`, the tab.
+function grid(): Test.Part {
+  (Client.SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  const window = Test.page().window(Locale.TAB_CHARACTERS)
+  // From «Items», where no heading says «Professions» as the characters' table does.
+  window.button(Locale.TAB_ITEMS).click()
+  window.button(Locale.TAB_PROFESSIONS).click()
+  return window
+}
+
+// Whether the tab shows this, read whole: the headings, each character's row, then the tabs. Where it shows something
+// else, the test stops and says what.
+function shows(expected: String): Boolean {
+  const said = Test.page().window(Locale.TAB_CHARACTERS).texts().join(" | ")
+  if (said != expected) { panic(`the window shows «${said}»`) }
+  return true
+}
+
+// A character of a realm with professions: name, rank and most, each.
+function crafter(name: String, realm: String, skills: Array<Known>): mut Character {
+  const made = Character { name: name, realm: realm, faction: .Alliance, level: 60, seen: Hour.now(), mailExpires: nil }
+  for (known of skills) { made.professions.push(known.clone()) }
+  return made
+}
+
+function skill(name: String, rank: Integer, max: Integer): Known {
+  return { skillLine: name.length, name: name, rank: rank, max: max }
+}
+
+// The characters other sessions recorded, kept as the module's saved records, read as the module is turned off and on.
+function recorded(others: Array<Character>) {
+  const kept = Kept {}
+  for (index, character of others) { kept.characters[CharacterId.of("Player-1-" + String.of(index + 1))] = character.clone() }
+  Game.saved.store(.Own, "characters", kept)
+  Test.open("/ordaen")
+  const settings = Test.page().window("Move mode")
+  settings.button(Ordaen.art.ctl.switchOn).click()
+  settings.button(Ordaen.art.ctl.switchOff).click()
+  settings.button(Ordaen.art.ctl.corner.close).click()
+}
+
+test "each character's skill is shown in each profession by name, a dash where it has none" {
+  Game.professions.list = [{ skillLine: 186, name: "Mining", icon: "x", rank: 75, max: 150, kind: .Gathering }]
+  Test.mount(nil, SCREEN)
+  recorded([crafter("Aria", "Stand-in", [skill("Tailoring", 300, 300), skill("Alchemy", 120, 225)])])
+  const window = grid()
+  Test.expect(shows(
+    `Character | Alchemy | Mining | Tailoring | Aria | 120 / 225 | — | 300 / 300 | Player | — | 75 / 150 | — | ${TABS}`
+  ))
+  Test.expect(window.text("Character").textColor().equal(GOLD) && window.text("Mining").textColor().equal(GOLD))
+  Test.expect(window.text("Aria").textColor().equal(INK) && window.text("75 / 150").textColor().equal(INK))
+  Test.expect(window.text("Player").item().texts().join("") == "Player")
+}
+
+test "a dash for a profession a character lacks is dim" {
+  Test.mount(nil, SCREEN)
+  recorded([crafter("Aria", "Stand-in", [skill("Tailoring", 300, 300)]), crafter("Bram", "Stand-in", [skill("Mining", 1, 75)])])
+  const window = grid()
+  Test.expect(shows(`Character | Mining | Tailoring | Aria | — | 300 / 300 | Bram | 1 / 75 | — | Player | — | — | ${TABS}`))
+  Test.expect(window.text("—").nth(1).textColor().equal(DIM))
+}
+
+test "a character with no profession is listed with only its name" {
+  Test.mount(nil, SCREEN)
+  _ = grid()
+  Test.expect(shows(`Character | Player | ${TABS}`))
+}
+
+test "forty characters' skills scroll inside the window" {
+  const others: Array<Character> = []
+  for (i of 1..=39) { others.push(crafter("Alt " + String.of(100 + i), "Stand-in", [skill("Mining", i, 75)])) }
+  Test.mount(nil, SCREEN)
+  recorded(others)
+  const window = grid()
+  Test.expect(window.text("Alt 101").shown() && window.text("1 / 75").shown() && window.text("Mining").count() == 1)
+}
