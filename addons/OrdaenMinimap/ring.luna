@@ -4,7 +4,7 @@ import Game from "$game"
 import { Align, Art, Click, Drag, Frame, MouseButton, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, PX, Tip } from "Ordaen"
-import type { Minimap, Hint } from "@/main"
+import type { Hint, Minimap } from "@/main"
 
 public enum RingId { Tracking = "tracking", Ordaen = "ordaen", Drawer = "drawer", Mail = "mail", CraftingOrder = "craftingOrder", Landing = "landing" }
 

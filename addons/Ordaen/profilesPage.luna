@@ -5,20 +5,20 @@
 // Nothing here is made until the page is opened. A pick, a rename or a deletion that would make the character use
 // another profile first asks about the changes waiting to be saved; what is asked is kept as the change itself and made
 // anew after the answer, so a save that was answered with «Save» is in what is kept.
-import { Track } from "$ltml"
 import Game from "$game"
+import { Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { Checkbox } from "@/checkbox"
-import { Choice, Dropdown } from "@/dropdown"
 import { Dialog } from "@/dialog"
+import { Choice, Dropdown } from "@/dropdown"
 import { Input } from "@/input"
 import Locale from "@/locales"
 import { Component } from "@/module"
-import { Kept, MAX_NAME, named, picked, Profile, ProfileName, Profiles, Why } from "@/profiles"
+import { Kept, MAX_NAME, Profile, ProfileName, Profiles, Why, named, picked } from "@/profiles"
 import { PushButton } from "@/pushButton"
-import { Refused, Refusal, read, Shared, write } from "@/share"
 import { Section } from "@/section"
+import { Refusal, Refused, Shared, read, write } from "@/share"
 import { TextBox } from "@/textBox"
 import { PX } from "@/units"
 

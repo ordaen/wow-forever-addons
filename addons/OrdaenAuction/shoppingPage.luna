@@ -7,15 +7,15 @@
 // removed, and «Remove bought» clears every row at 0.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Age, Column, Component, ItemButton, ItemId, Money, PushButton, PX, Table, TableRow, tracksOf, space, Memory } from "Ordaen"
+import { Age, Column, Component, ItemButton, ItemId, Memory, Money, PX, PushButton, Table, TableRow, space, tracksOf } from "Ordaen"
 import { ageOf } from "@/buy"
 import { nameOf } from "@/house"
 import Locale from "@/locales"
 import { Purchase } from "@/purchase"
 import { PriceKey, PriceSource, Quote } from "@/quote"
 import { Row, ShoppingList } from "@/shopping"
-import { Source } from "@/wanted"
 import Style from "@/style"
+import { Source } from "@/wanted"
 
 // A window docked at the screen's right is narrow: what is held and needed stands under what is left to buy, the
 // price's age beside the price.

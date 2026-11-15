@@ -6,8 +6,8 @@
 import { Align, Art, Beside, Edges, Layer, Line, Position, Side, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
+import { KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_KNOB, SWITCH_WIDTH, knobShown } from "@/switch"
 import { PX } from "@/units"
-import { SWITCH_KNOB, KNOB_OFF, KNOB_ON, KNOB_TOP, SWITCH_HEIGHT, SWITCH_WIDTH, knobShown } from "@/switch"
 
 // One line of a menu.
 public struct MenuEntry {

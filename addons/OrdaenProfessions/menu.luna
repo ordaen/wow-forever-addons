@@ -4,7 +4,7 @@
 import Game from "$game"
 import { Component, Menu, MenuEntry } from "Ordaen"
 import Locale from "@/locales"
-import { Act, has, Kept } from "@/view"
+import { Act, Kept, has } from "@/view"
 
 // What each line asks, by its place in the menu.
 const ACTS: Array<Act> = [Act.Link, Act.Make, Act.Favorite, Act.Track]

@@ -5,17 +5,17 @@
 // recipe (`MakeRow`: the mode, the count, «Create») and what became of the last «Create».
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Side, Track } from "$ltml"
-import { Component, ItemButton, PX, space } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { Component, ItemButton, PX, space } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
-import { PartPrice, partsOf, Totals, totalsOf, yieldOf } from "@/cost"
+import { PartPrice, Totals, partsOf, totalsOf, yieldOf } from "@/cost"
 import { Flag } from "@/flag"
-import { PriceTable, TotalsBlock } from "@/priceRows"
 import Locale from "@/locales"
 import { MakeRow } from "@/make"
+import { PriceTable, TotalsBlock } from "@/priceRows"
 import { ReagentRow } from "@/rows"
 import Style from "@/style"
-import { Act, has, Kept, MakeMode } from "@/view"
+import { Act, Kept, MakeMode, has } from "@/view"
 
 const RIM: Line = { width: 1 * PX, color: Style.LINE }
 const SWITCHES: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Top] }

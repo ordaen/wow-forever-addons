@@ -1,6 +1,6 @@
 // The library's Money: an amount of copper written by the game, again when the amount changes.
-import Test from "$test"
 import Game from "$game"
+import Test from "$test"
 import { Money } from "@/money"
 
 class Priced {

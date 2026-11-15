@@ -1,8 +1,8 @@
 // The market's controls on a page, for the run tests: a scan's progress, a price with its age, a mode, a tree, item
 // slots and a sortable table of sales.
 import { Align, Click, MouseButton, Track } from "$ltml"
-import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, space, Table, TableRow, ToolPick, Toolbar, TreeRow, tracksOf } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, ToolPick, Toolbar, TreeRow, space, tracksOf } from "Ordaen"
 
 public enum Worth { Auction = "auction", Merchant = "merchant", Held = "held" }
 

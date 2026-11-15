@@ -3,8 +3,8 @@
 // in; a chip dragged into another zone, or into the pool, is placed there. The cursor on a chip shows the item's
 // hint.
 import { Align, Edges, Line } from "$ltml"
-import { Component } from "@/module"
 import { Choice } from "@/dropdown"
+import { Component } from "@/module"
 import { Tip } from "@/tip"
 import { PX } from "@/units"
 

@@ -5,7 +5,7 @@
 import Debug from "$debug"
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Component, ProgressBar, PushButton, PX, space } from "Ordaen"
+import { Component, PX, ProgressBar, PushButton, space } from "Ordaen"
 import Locale from "@/locales"
 import { serverSeconds } from "@/quote"
 import { Scanner } from "@/scan"

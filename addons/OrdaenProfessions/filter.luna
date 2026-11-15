@@ -1,9 +1,9 @@
 // The filter's button and menu: the game's own options, each a check (the ones it can answer from what the window
 // reads), and «Reset». The button is the toolbar's funnel, gold while a filter is on; the menu stands under it, and a
 // click anywhere else closes it.
-import { Align, Edges, Layer, Line, Position, Beside } from "$ltml"
+import { Align, Beside, Edges, Layer, Line, Position } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, PushButton, PX, space, ToolButton } from "Ordaen"
+import { Component, PX, PushButton, ToolButton, space } from "Ordaen"
 import Locale from "@/locales"
 
 const WIDTH = 230 * PX

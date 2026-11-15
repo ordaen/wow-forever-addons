@@ -7,17 +7,18 @@
 import Game from "$game"
 import { Action, Align, Line, Overflow, Side, Track } from "$ltml"
 import Runtime from "$runtime"
-import { ARTWORK, Choice, Column, ItemId, Memory, Module, PushButton, PX, SettingsPage, Settings, space, Table, tracksOf, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, KeptWindow, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { ARTWORK, Choice, Column, ItemId, KeptWindow, Memory, Module, PX, PushButton, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, space, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
-import Locale from "@/locales"
+import { Totals, makesOf, partsOf, totalsOf, yieldOf } from "@/cost"
+import { CraftQueue } from "@/crafting"
 import { RecipeDetails } from "@/details"
-import { Need, QueuePage } from "@/queue"
-import { makesOf, partsOf, Totals, totalsOf, yieldOf } from "@/cost"
-import { knownSpellName, OverviewPage } from "@/overview"
-import { learnedFrom, Learning, Taught } from "@/learn"
 import { FilterButton } from "@/filter"
+import { Learning, Taught, learnedFrom } from "@/learn"
+import Locale from "@/locales"
+import { OverviewPage, knownSpellName } from "@/overview"
+import { Need, QueuePage } from "@/queue"
 import { CategoryGroup, CategoryRow, RecipeRow, RecipeTableRow } from "@/rows"
 import { Choices, GeneralPage } from "@/settings"
 import { SkillBar } from "@/skillBar"
@@ -27,7 +28,6 @@ import {
   Act, before, FAVORITES, Group, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, Seen, SortBy,
   tableBefore, View,
 } from "@/view"
-import { CraftQueue } from "@/crafting"
 
 const FILL: Array<Track> = [{ fr: 1 }]
 // The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.

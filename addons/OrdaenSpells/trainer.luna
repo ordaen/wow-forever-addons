@@ -3,8 +3,8 @@
 // trainer; «Learn» is drawn disabled, as the client's declarations hold no call that buys a service.
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
-import { Choice, Component, Memory, Money, PushButton, PX, Toolbar, ToolPick } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { Choice, Component, Memory, Money, PX, PushButton, ToolPick, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 

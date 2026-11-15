@@ -5,13 +5,13 @@
 // off where none is, on for some between. Hover: our Tip with the notes. Left-click picks a row for the card; the
 // switch switches the addon, with Ctrl on a group's parent the whole group. An Ordaen module has no switch: Ordaen's
 // own is its one, and its state's text opens Ordaen's settings at it.
-import { Align, Art, Click, Edges, MouseButton, Stated, Track } from "$ltml"
 import Game from "$game"
-import { Component, Menu, MenuEntry, PX, Shown, ShownToggle, space, SWITCH_WIDTH, Tip } from "Ordaen"
+import { Align, Art, Click, Edges, MouseButton, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { AddOn, Catalog, plain, Status, Switch } from "@/catalog"
+import { Component, Menu, MenuEntry, PX, SWITCH_WIDTH, Shown, ShownToggle, Tip, space } from "Ordaen"
+import { AddOn, Catalog, Status, Switch, plain } from "@/catalog"
 import Locale from "@/locales"
-import { Load, memory, percent, Profiler } from "@/perf"
+import { Load, Profiler, memory, percent } from "@/perf"
 import Style from "@/style"
 
 // One line of the list.

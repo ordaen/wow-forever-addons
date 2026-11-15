@@ -1,9 +1,9 @@
 // A module's entry in the settings window's list: its icon, its name, its switch; dimmed while it is off.
 import { Art, Position } from "$ltml"
-import root Ordaen from "Ordaen"
-import { Component, Entry, Module, SettingsPage } from "@/module"
 import Runtime from "$runtime"
+import root Ordaen from "Ordaen"
 import { ListTab } from "@/listTab"
+import { Component, Entry, Module, SettingsPage } from "@/module"
 import { knobShown } from "@/switch"
 import { PX } from "@/units"
 

@@ -3,9 +3,9 @@
 import { Position } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
 import { knobShown } from "@/switch"
+import { PX } from "@/units"
 
 const SIZE = 22 * PX
 

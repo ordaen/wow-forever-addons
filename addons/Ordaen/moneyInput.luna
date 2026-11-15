@@ -5,10 +5,10 @@
 // changes the amount. `MoneyField` is the field alone; `MoneyInput` is the setting's row (SettingRow: its label, its
 // hint, greyed while disabled) with the field in it. Disabled, it takes no typing.
 import { Edges, Line } from "$ltml"
-import { Component } from "@/module"
 import Locale from "@/locales"
-import { PX } from "@/units"
+import { Component } from "@/module"
 import { SettingRow } from "@/settingRow"
+import { PX } from "@/units"
 
 // The most it takes: 9,999,999 gold 99 silver 99 copper.
 const MOST = 99999999999

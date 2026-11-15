@@ -4,8 +4,8 @@
 // takes the control.
 import { Align } from "$ltml"
 import { Component } from "@/module"
-import { PX } from "@/units"
 import { Tip } from "@/tip"
+import { PX } from "@/units"
 
 const LABEL_WIDTH = 280 * PX
 const LABEL: Color = Color.hex("#cbb994")

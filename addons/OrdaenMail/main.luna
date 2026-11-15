@@ -4,14 +4,14 @@
 // sends it, so the window reads and shows and its buttons for those are drawn disabled (`CAN_ACT`).
 import Game from "$game"
 import Runtime from "$runtime"
-import { Module, SettingsPage, Settings, Window, WindowTabSpec, KeptWindow, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { KeptWindow, Module, Settings, SettingsPage, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
 import root Alts from "OrdaenAlts"
 import { Inbox } from "@/inbox"
 import { Sent } from "@/letters"
 import Locale from "@/locales"
-import { OwnTab } from "@/own"
 import { Outbox } from "@/outbox"
+import { OwnTab } from "@/own"
 import { Choices, GeneralPage } from "@/settings"
 import Style from "@/style"
 

@@ -3,10 +3,10 @@
 import Client from "$client"
 import Game from "$game"
 import { Frame } from "$ltml"
-import Test from "$test"
-import { ItemKeys, ItemLines, Line, ObjectLines } from "@/extend"
 import Runtime from "$runtime"
+import Test from "$test"
 import root Tooltips from "OrdaenTooltips"
+import { ItemKeys, ItemLines, Line, ObjectLines } from "@/extend"
 
 // A price another module keeps: its row is asked again when the price moves, and only then.
 class Priced implements ItemLines {

@@ -7,10 +7,10 @@
 // itself takes no mouse while dressed: shown, the client raises it over everything of its strata, ours too, and it
 // would take the click meant for our «AddOns». Nothing is written on Blizzard's frames but their alpha, mouse and hit
 // insets; what is kept per button is this file's own weak table, and every widget is put back as the dress ends.
-import { Align, Anchored, Art, Layer, Point, Position, Shadow, Stated } from "$ltml"
 import Client from "$client"
-import { Component, PX, space } from "Ordaen"
+import { Align, Anchored, Art, Layer, Point, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
+import { Component, PX, space } from "Ordaen"
 
 // The dress's head, from its top: the frame's band, a gap, the title's line, a gap, the carved groove, the gap to
 // Blizzard's first button.

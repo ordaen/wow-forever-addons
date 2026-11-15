@@ -3,8 +3,8 @@
 // under its heading, its choices marked as a dropdown's; a click on a choice picks it and leaves the list open for the
 // next kind, a click anywhere else closes it. The button is lit while any kind narrows the list.
 import { Beside, Edges, Layer, Line } from "$ltml"
-import { Choice, Component, DropdownItem, PX, ToolButton } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { Choice, Component, DropdownItem, PX, ToolButton } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 

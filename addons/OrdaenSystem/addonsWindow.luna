@@ -2,18 +2,18 @@
 // how many show, for whom, the filter, the sort, the view), the columns' headings, the list (by category, an addon's
 // group under it, or one table), the strip of the last step's extras with «Undo»; the picked addon's card at the
 // right; on the footer row «Reset» and «Sets» at the left, what waits for a reload and «Reload» at the right.
-import { Action, Align, Edges, Overflow, Track } from "$ltml"
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
+import { Action, Align, Edges, Overflow, Track } from "$ltml"
+import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, PushButton, PX, space, Tip, TipRow, Toolbar,
   KeptWindow, Memory, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
-import root Ordaen from "Ordaen"
-import { AddOn, Catalog, plain, Status } from "@/catalog"
 import { Card } from "@/card"
+import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
 import Locale from "@/locales"
-import { percent, Profiler } from "@/perf"
+import { Profiler, percent } from "@/perf"
 import { COLUMNS, Hot, Line, LineRow, TABLE_COLUMNS } from "@/rows"
 import { MOST, Sets } from "@/sets"
 import Style from "@/style"

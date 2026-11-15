@@ -2,8 +2,8 @@
 // bronze rim, a notch every 10%, and on it the rank and the skill: «Apprentice · 31 / 75».
 import Game from "$game"
 import { Align, Edges, Line, Overflow, Percent, Position, Side, Track } from "$ltml"
-import { Component, PX } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { Component, PX } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 

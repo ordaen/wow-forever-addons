@@ -5,7 +5,7 @@
 // a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Money, MoneyField, PushButton, PX, Segmented, space, Table, TableRow, tracksOf, Memory } from "Ordaen"
+import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Memory, Money, MoneyField, PX, PushButton, Segmented, Table, TableRow, space, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House, nameOf } from "@/house"
 import { ItemPanel } from "@/itemPanel"

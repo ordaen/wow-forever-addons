@@ -11,8 +11,8 @@
 // clear at the screen's right side, where the windows docked there stand. A window made `docked` stands along that
 // side of the screen from its top to its bottom, as wide as its placing says: it isn't moved or resized, and its
 // full-screen toggle still covers the screen.
-import { Align, Art, Docked, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Stated, Track } from "$ltml"
 import Game from "$game"
+import { Align, Art, Docked, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"

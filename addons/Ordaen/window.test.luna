@@ -3,9 +3,9 @@
 import { Align, Key, Track } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
 import { PushButton } from "@/pushButton"
 import { space } from "@/units"
+import { KeptWindow, Window, WindowSide, WindowTabSpec } from "@/window"
 
 class Tabbed {
   state tabs: Array<WindowTabSpec> = [

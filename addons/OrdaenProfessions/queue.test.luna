@@ -6,8 +6,8 @@ import Client from "$client"
 import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
-import { Pause } from "@/view"
 import root Professions from "OrdaenProfessions"
+import { Pause } from "@/view"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
 const TAILORING = 197

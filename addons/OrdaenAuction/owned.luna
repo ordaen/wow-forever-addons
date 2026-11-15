@@ -4,7 +4,7 @@
 // the client's from a click alone). «Check» asks the client for them again and browses their items.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, tracksOf, space, Memory } from "Ordaen"
+import { Column, Component, ItemButton, Memory, Money, PX, PushButton, Table, TableRow, space, tracksOf } from "Ordaen"
 import { House, nameOf } from "@/house"
 import Locale from "@/locales"
 import { PriceKey } from "@/quote"

@@ -3,8 +3,8 @@
 // takes no typing.
 import { Edges, Line } from "$ltml"
 import { Component } from "@/module"
-import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
+import { PX } from "@/units"
 
 const INK: Color = Color.hex("#e8dcc4")
 const FILL: Color = Color.hex("#0d0a08")

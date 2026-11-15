@@ -5,9 +5,9 @@ import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
 import Wow from "LunaTypeRenderer"
+import root Ordaen from "Ordaen"
 import { ItemId } from "Ordaen"
 import root Auction from "OrdaenAuction"
-import root Ordaen from "Ordaen"
 
 // 2026-09-21, in the server's seconds: a whole hour.
 const START = 1790002800

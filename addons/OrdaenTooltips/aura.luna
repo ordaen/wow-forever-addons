@@ -5,8 +5,8 @@ import Game from "$game"
 import { GOLD, RED } from "@/colors"
 import Locale from "@/locales"
 import { Fact, Kind, Model, Note, Opens, Part, TextLine, iconOf, named } from "@/model"
-import { Term } from "@/terms"
 import { Options } from "@/options"
+import { Term } from "@/terms"
 import { clean, duration } from "@/text"
 
 const BLANK = 1

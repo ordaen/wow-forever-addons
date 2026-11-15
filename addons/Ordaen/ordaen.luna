@@ -3,14 +3,14 @@
 // modules that run and draws each on the screen, keeps Ordaen's own settings and where the player put each part,
 // turns the modules on and off as the player chooses, and draws the settings window once it is first asked for.
 import Debug from "$debug"
-import { Anchored, Art, Point } from "$ltml"
 import Game from "$game"
+import { Anchored, Art, Point } from "$ltml"
 import Runtime from "$runtime"
 import { ARTWORK, Artwork } from "@/art"
 import { DEFAULTS, Globals } from "@/globals"
 import { Keeper } from "@/keeper"
 import Locale from "@/locales"
-import { artOf, Look, LookArt, preset, Preset, unoffered } from "@/look"
+import { Look, LookArt, Preset, artOf, preset, unoffered } from "@/look"
 import { Module } from "@/module"
 import { Mover } from "@/placed"
 import { ProfileName } from "@/profiles"

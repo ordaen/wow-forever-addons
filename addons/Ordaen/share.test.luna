@@ -1,7 +1,7 @@
 // A profile as a text: written, read back equal, and every text that isn't one refused with its reason.
 import Game from "$game"
 import Test from "$test"
-import { read, Refused, Refusal, Shared, write } from "@/share"
+import { Refusal, Refused, Shared, read, write } from "@/share"
 
 struct Probe implements Plain {
   scale: Number = 1

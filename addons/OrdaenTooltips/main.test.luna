@@ -4,11 +4,11 @@
 import Client from "$client"
 import Game from "$game"
 import { Frame } from "$ltml"
-import root Ordaen from "Ordaen"
-import Test from "$test"
-import { Place } from "@/choices"
 import Runtime from "$runtime"
+import Test from "$test"
+import root Ordaen from "Ordaen"
 import root Tooltips from "OrdaenTooltips"
+import { Place } from "@/choices"
 
 // The game's tooltip showing `data`, where the game put its own: in `corner`.
 function showing(corner: any Frame, data: Game.TooltipData): Game.ShownTip {

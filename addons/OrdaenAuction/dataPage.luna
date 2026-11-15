@@ -2,7 +2,7 @@
 // many auctions and items), the house's size at rest and the sales ledger's totals.
 import Game from "$game"
 import { Track } from "$ltml"
-import { Component, Money, number, PX, Section } from "Ordaen"
+import { Component, Money, PX, Section, number } from "Ordaen"
 import { Deal, Ledger } from "@/ledger"
 import Locale from "@/locales"
 import { serverSeconds } from "@/quote"

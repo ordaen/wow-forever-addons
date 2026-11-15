@@ -2,8 +2,8 @@
 // written once, in look.luna; the site reads this snapshot (`design/.vitepress/theme/themes.js` in wow-dev-tools),
 // and the suite fails where the two part.
 import Test from "$test"
-import Ordaen from "Ordaen"
 import root Core from "Ordaen"
+import Ordaen from "Ordaen"
 import { artOf, presetOf } from "@/look"
 
 function color(c: Color): String {

@@ -2,8 +2,8 @@
 // day to three; dimmed beyond; nothing past thirty days (a price that old isn't one). The days are read from a
 // number of seconds, or nothing where there is no price. `ageText` is the rule itself, for what draws an age as text
 // of its own (a tooltip's line).
-import { Component } from "@/module"
 import Locale from "@/locales"
+import { Component } from "@/module"
 
 const DAY = 86400
 const AMBER_DAYS = 3

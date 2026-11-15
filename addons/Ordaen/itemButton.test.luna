@@ -1,8 +1,8 @@
 // The library's ItemButton: icon, quality's border, count, markers, dimmed; the game's tooltip of the item asked for as
 // the cursor comes onto it; Left-click picks and Shift+Left-click puts the item's link into the chat.
+import Game from "$game"
 import { Art } from "$ltml"
 import Test from "$test"
-import Game from "$game"
 import { Corner, ItemButton, Marker, Quality } from "@/itemButton"
 
 const SHOPPING: Marker = { corner: Corner.TopLeft, color: Color.hex("#ffd100") }

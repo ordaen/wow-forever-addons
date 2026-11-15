@@ -6,9 +6,9 @@ import Game from "$game"
 import { GOLD, GREEN, GREY, LABEL, RED, WHITE, YELLOW, colorOf, hex } from "@/colors"
 import Locale from "@/locales"
 import { Fact, Glyph, Kind, Model, Note, Opens, Part, Picture, TextLine, named, side } from "@/model"
-import { Term } from "@/terms"
 import { Options } from "@/options"
 import { QUEST_OBJECTIVE, QUEST_PLAYER, QUEST_TITLE, quests } from "@/quests"
+import { Term } from "@/terms"
 import { clean } from "@/text"
 
 // The game's numbers for what a line of a tooltip is.

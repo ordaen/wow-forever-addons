@@ -6,7 +6,7 @@ import Game from "$game"
 import Test from "$test"
 import { Hour, ItemId } from "Ordaen"
 import root Alts from "OrdaenAlts"
-import { CharacterId, Faction, Kept, Place, RecipeId, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES } from "@/character"
+import { CharacterId, Faction, Kept, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES, Place, RecipeId } from "@/character"
 import { Records } from "@/records"
 
 const SMITHING = 164

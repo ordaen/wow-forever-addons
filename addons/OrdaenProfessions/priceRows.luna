@@ -4,7 +4,7 @@
 // «Left to buy», «Sale» («doesn't sell» for what makes no item), «Profit» (red under nought), and how old the
 // oldest price taken is, in its age's colour; «—» where a part has no price.
 import { Align, Art, Edges, Line, Side, Track } from "$ltml"
-import { ageText, Component, Money, PX, space } from "Ordaen"
+import { Component, Money, PX, ageText, space } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
 import Style from "@/style"

@@ -4,8 +4,8 @@
 import { Art, Position } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
+import { PX } from "@/units"
 
 public const SWITCH_WIDTH: Number = 38 * PX
 public const SWITCH_HEIGHT: Number = 20 * PX

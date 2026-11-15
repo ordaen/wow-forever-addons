@@ -1,6 +1,6 @@
 // The library's TreeRow: a recipe's cost as a tree, its rows opened and closed with the mouse.
-import root Ordaen from "Ordaen"
 import Test from "$test"
+import root Ordaen from "Ordaen"
 import { Age } from "@/age"
 import { Money } from "@/money"
 import { TreeRow } from "@/treeRow"

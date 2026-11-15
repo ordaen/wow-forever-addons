@@ -2,8 +2,8 @@
 // of the game, and the game's own frames it hides, takes or lays its own over.
 import Client from "$client"
 import Game from "$game"
-import Test from "$test"
 import Runtime from "$runtime"
+import Test from "$test"
 import root Minimap from "OrdaenMinimap"
 import { RingId } from "@/ring"
 

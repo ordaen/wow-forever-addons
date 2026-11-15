@@ -4,9 +4,9 @@
 import { MouseButton } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import root Panel from "OrdaenPanel"
 import { Edge, Show } from "@/choices"
 import Locale from "@/locales"
-import root Panel from "OrdaenPanel"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 

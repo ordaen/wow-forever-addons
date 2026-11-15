@@ -2,9 +2,9 @@
 // in one grid. Worked out again only when what lies in the bags changes where they are, or when a choice of the window's
 // does; a count or a lock changing is drawn by its slot alone.
 import Runtime from "$runtime"
-import Locale from "@/locales"
 import { Section } from "@/layout"
-import { Grouping, KINDS, rankOf, Slot, SortBy, Tab } from "@/model"
+import Locale from "@/locales"
+import { Grouping, KINDS, Slot, SortBy, Tab, rankOf } from "@/model"
 
 // A tab's name.
 public function tabName(tab: Tab): String {

@@ -1,8 +1,8 @@
 // The panel's tabs in the settings window. «General» switches each part on or off; each part has a tab of its own.
 // Each control writes one entry of the settings' draft.
 import { Checkbox, Choice, Component, Dropdown, Section, Settings, Slider, Switch, Unit, ZoneItem, Zones } from "Ordaen"
-import Locale from "@/locales"
 import { CharButton, Choices, Combat, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
+import Locale from "@/locales"
 
 const ICONS: Array<Choice<MicroIcons>> = [
   { value: MicroIcons.Upscaled, label: Locale.PANEL_MICROICONS_UPSCALED },

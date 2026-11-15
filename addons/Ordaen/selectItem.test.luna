@@ -1,6 +1,6 @@
 // The library's SelectItem: a sidebar's items, the selected one filled in its own colour with an edge of it.
-import Test from "$test"
 import { Click, MouseButton, Track } from "$ltml"
+import Test from "$test"
 import { SelectItem, selectedFill } from "@/selectItem"
 
 const GREEN: Color = Color.hex("#40c040")

@@ -4,9 +4,9 @@
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
-import { MakeMode } from "@/view"
 import root Ordaen from "Ordaen"
 import root Professions from "OrdaenProfessions"
+import { MakeMode } from "@/view"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
 const TAILORING = 197

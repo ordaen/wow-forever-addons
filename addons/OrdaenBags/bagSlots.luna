@@ -3,7 +3,7 @@
 // the bags' window, the rest faded.
 import Game from "$game"
 import { Align, Frame, Track } from "$ltml"
-import { Component, KeptWindow, PX, space, Window, WindowTabSpec } from "Ordaen"
+import { Component, KeptWindow, PX, Window, WindowTabSpec, space } from "Ordaen"
 import Locale from "@/locales"
 
 const ROW: Array<Track> = [32 * PX, { fr: 1 }, "auto"]

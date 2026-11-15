@@ -1,9 +1,9 @@
 // A page that uses every control of the library, for the run tests: what a settings page of a real addon does.
-public import { Windowed } from "@/windowed"
-public import { Tinted } from "@/tinted"
+import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, Switch, Tabs, TextBox, Tick, Tip, Toggle, Unit, space } from "Ordaen"
 public import { Arranged } from "@/arranged"
-public import { Market, Worth, Sale } from "@/market"
-import { Checkbox, Choice, Dialog, Dropdown, Input, Module, PushButton, Section, SettingsPage, SettingsTab, Slider, space, Switch, Tabs, TextBox, Tick, Tip, Toggle, Unit } from "Ordaen"
+public import { Market, Sale, Worth } from "@/market"
+public import { Tinted } from "@/tinted"
+public import { Windowed } from "@/windowed"
 
 const TABS: Array<String> = ["Map", "Drawer", "Market"]
 

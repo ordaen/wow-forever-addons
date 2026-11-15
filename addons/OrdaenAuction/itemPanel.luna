@@ -3,8 +3,8 @@
 // chart of the day (a bar an hour), the week or the month (a bar a day), the player's pick; its prices (the market with
 // its age, the lowest listed, the merchant's); then what the page does with it (its slot: «Buy»'s listings and «Buy»,
 // «Sell»'s quantity and «Post»), in the rest of the panel's height.
-import { Age, Choice, Component, Copper, Hour, ItemButton, ItemId, Money, PX, Segmented, space } from "Ordaen"
 import { Align, Track } from "$ltml"
+import { Age, Choice, Component, Copper, Hour, ItemButton, ItemId, Money, PX, Segmented, space } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House } from "@/house"
 import Locale from "@/locales"

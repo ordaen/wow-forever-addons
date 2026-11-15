@@ -4,9 +4,9 @@
 import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Choice } from "@/dropdown"
 import { ARTWORK } from "@/art"
-import { Toolbar, ToolButton, ToolPick } from "@/toolbar"
+import { Choice } from "@/dropdown"
+import { ToolButton, ToolPick, Toolbar } from "@/toolbar"
 
 enum Order { Difficulty = "difficulty", Name = "name" }
 enum Look { Columns = "columns", List = "list" }

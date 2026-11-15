@@ -4,7 +4,7 @@
 // client's to say (`canSpend`, `canRefund`); the page only asks.
 import Game from "$game"
 import { Align, Click, MouseButton, Position, Track } from "$ltml"
-import { Component, PushButton, PX } from "Ordaen"
+import { Component, PX, PushButton } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 

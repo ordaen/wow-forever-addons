@@ -8,8 +8,8 @@
 // number past a bound is written as that bound; a text that isn't a number leaves the value and turns the edge red).
 import Game from "$game"
 import { Align, Edges, Line, Track } from "$ltml"
-import { Component } from "@/module"
 import Locale from "@/locales"
+import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
 import { TipText } from "@/tip"
 import { PX } from "@/units"

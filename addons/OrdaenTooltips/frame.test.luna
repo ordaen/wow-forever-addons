@@ -2,7 +2,7 @@
 // sign that is a title alone, a spell with its description, a unit with its face.
 import { Align } from "$ltml"
 import Test from "$test"
-import { glyphArt, TipFrame } from "@/frame"
+import { TipFrame, glyphArt } from "@/frame"
 import { Kind, Model, Picture } from "@/model"
 
 const EPIC: Color = { r: 0.64, g: 0.21, b: 0.93, a: 1 }

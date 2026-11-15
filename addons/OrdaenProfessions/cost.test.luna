@@ -4,7 +4,7 @@ import Game from "$game"
 import Test from "$test"
 import { Copper, Hour, ItemId } from "Ordaen"
 import type { PriceKey, PriceSource, Quote } from "OrdaenAuction"
-import { partsOf, totalsOf, Way } from "@/cost"
+import { Way, partsOf, totalsOf } from "@/cost"
 
 const CLOTH = 2996
 const THREAD = 2320

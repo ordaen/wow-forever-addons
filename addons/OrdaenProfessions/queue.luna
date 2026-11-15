@@ -5,13 +5,13 @@
 // starts the next run (the client starts a craft from nothing else), stand in the window's footer.
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Track } from "$ltml"
-import { Component, CountInput, Money, PushButton, PX, space } from "Ordaen"
+import { Component, CountInput, Money, PX, PushButton, space } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
-import { partOf, Way } from "@/cost"
+import { Way, partOf } from "@/cost"
 import Locale from "@/locales"
 import { wayText } from "@/priceRows"
 import Style from "@/style"
-import { MOST_COUNT, Queued, QueueAct } from "@/view"
+import { MOST_COUNT, QueueAct, Queued } from "@/view"
 
 const NO_ICON: Art = "Interface/Icons/INV_Misc_QuestionMark"
 

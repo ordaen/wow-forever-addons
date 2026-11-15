@@ -8,8 +8,8 @@ import Client from "$client"
 import Game from "$game"
 import { Key } from "$ltml"
 import Test from "$test"
-import root Auction from "OrdaenAuction"
 import root Ordaen from "Ordaen"
+import root Auction from "OrdaenAuction"
 import Style from "@/style"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }

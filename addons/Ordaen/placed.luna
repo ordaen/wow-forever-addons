@@ -3,9 +3,9 @@
 // while it was never moved. A part held to a side of the screen (the bottom panel) draws its own surface, holds a
 // `Mover` itself and goes to the side nearest where it is let go (`sideNear`).
 import { Align, Anchored, Click, Drag, Layer, Line, MouseButton, Place, Position, Side } from "$ltml"
+import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
-import root Ordaen from "Ordaen"
 
 const GOLD: Color = Color.hex("#ffd100")
 const SHADE: Color = Color.hex("#00000073")

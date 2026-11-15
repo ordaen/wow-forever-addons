@@ -2,8 +2,8 @@
 // switch comes first; off, that kind stays the game's and its rows are greyed. Each control writes one entry of the
 // settings' draft.
 import { Checkbox, Choice, Component, Dropdown, Section, Settings, Switch } from "Ordaen"
-import Locale from "@/locales"
 import { Choices, Place } from "@/choices"
+import Locale from "@/locales"
 
 const ITEMSANCHORBAGS: Array<Choice<Place>> = [
   { value: Place.Corner, label: Locale.TOOLTIPS_ITEMSANCHORBAGS_CORNER },

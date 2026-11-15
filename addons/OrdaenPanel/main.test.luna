@@ -3,12 +3,12 @@
 import Client from "$client"
 import Game from "$game"
 import { MouseButton } from "$ltml"
+import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { Preset, preset } from "Ordaen"
-import { CharButton, Combat, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
-import Runtime from "$runtime"
 import root Panel from "OrdaenPanel"
+import { CharButton, Combat, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
 
 // The screen Ordaen draws its modules on: the panel's root, made as its addon loaded.
 const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }

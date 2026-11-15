@@ -3,10 +3,10 @@
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Density, DEFAULTS, Globals } from "@/globals"
-import { preset, Preset } from "@/look"
+import { DEFAULTS, Density, Globals } from "@/globals"
+import { Preset, preset } from "@/look"
 import { KeptPlace } from "@/ordaen"
-import { DEFAULT_PROFILE, Picks, picked, ProfileName, Why } from "@/profiles"
+import { DEFAULT_PROFILE, Picks, ProfileName, Why, picked } from "@/profiles"
 import { Memory } from "@/settings"
 
 // A module's settings and what a module remembers, as `develop`'s runtime kept them.

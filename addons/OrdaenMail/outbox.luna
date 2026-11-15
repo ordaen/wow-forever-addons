@@ -2,8 +2,8 @@
 // and its state. The search and the filter narrow the list; «Write» opens the form, which the client's declarations
 // cannot send yet (`canWrite`).
 import { Align, Overflow, Track } from "$ltml"
-import { Choice, Component, Memory, Money, PushButton, PX, Toolbar, ToolPick } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { Choice, Component, Memory, Money, PX, PushButton, ToolPick, Toolbar } from "Ordaen"
 import { Sent, SentState } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"

@@ -4,11 +4,11 @@
 // what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
 import { Align, Art, Click, Edges, Line, MouseButton, Position, Track } from "$ltml"
-import { Component, Money, PX, SelectItem, space, TableRow } from "Ordaen"
+import { Component, Money, PX, SelectItem, TableRow, space } from "Ordaen"
 import { Totals } from "@/cost"
 import { RecipeMenu } from "@/menu"
 import Style from "@/style"
-import { Act, FAVORITES, Group, has, Kept, members } from "@/view"
+import { Act, FAVORITES, Group, Kept, has, members } from "@/view"
 
 const NAME_COUNT: Array<Track> = [{ fr: 1 }, "auto"]
 const MARKS: Array<Track> = ["auto", "auto"]

@@ -3,11 +3,11 @@
 // body, what there is more of, the footer, what other modules add, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
-import { Align, Art, Piece, Beside, Cursor, Edges, Layer, Line, Position, Side, Size, TextFont, TextSize, Track } from "$ltml"
+import { Align, Art, Beside, Cursor, Edges, Layer, Line, Piece, Position, Side, Size, TextFont, TextSize, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, space } from "Ordaen"
-import Locale from "@/locales"
 import { GREEN, RED } from "@/colors"
+import Locale from "@/locales"
 import { Compared, Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
 
 public const PX: Number = 1 / 1.2

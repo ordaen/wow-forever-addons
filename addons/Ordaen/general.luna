@@ -1,12 +1,12 @@
 // Ordaen's own page in the settings window: the settings every module follows, on three tabs. Each control writes
 // one entry of their draft.
-import { Clock, Density, Globals, LargeNumbers, NumberFormat } from "@/globals"
-import { Component } from "@/module"
-import { Settings } from "@/settings"
 import { Checkbox } from "@/checkbox"
 import { Choice, Dropdown } from "@/dropdown"
-import { Slider, Unit } from "@/slider"
+import { Clock, Density, Globals, LargeNumbers, NumberFormat } from "@/globals"
 import Locale from "@/locales"
+import { Component } from "@/module"
+import { Settings } from "@/settings"
+import { Slider, Unit } from "@/slider"
 
 const DENSITIES: Array<Choice<Density>> = [
   { value: Density.Compact, label: Locale.GLOBAL_DENSITY_COMPACT },

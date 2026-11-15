@@ -4,9 +4,9 @@
 // The window (`/alts`) is made only while it shows.
 import Game from "$game"
 import Runtime from "$runtime"
-import { Hour, ItemId, Module, SettingsPage, Window, WindowTabSpec, KeptWindow, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
-import { Character, CharacterId, factionOf, Held, Kept, Knower, RecipeId } from "@/character"
+import { Hour, ItemId, KeptWindow, Module, SettingsPage, Window, WindowTabSpec, WindowsPage, windowsTitle } from "Ordaen"
+import { Character, CharacterId, Held, Kept, Knower, RecipeId, factionOf } from "@/character"
 import { Characters } from "@/characters"
 import { Cooldowns } from "@/cooldowns"
 import { Grid } from "@/grid"

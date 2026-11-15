@@ -1,10 +1,10 @@
 // «Spells»: the player's spells in tabs, «All» and one per skill line of the spellbook, each with the search and the
 // sort. «All» is one flat list: under each name the skill line, the kind and the level the spell was learned at.
-import { Align, Overflow, Track } from "$ltml"
-import { Choice, Component, Memory, PX, Tabs, Toolbar, ToolPick } from "Ordaen"
-import root Ordaen from "Ordaen"
-import Locale from "@/locales"
 import Game from "$game"
+import { Align, Overflow, Track } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Choice, Component, Memory, PX, Tabs, ToolPick, Toolbar } from "Ordaen"
+import Locale from "@/locales"
 import Style from "@/style"
 
 public enum SortBy implements Plain { Name = "name", Level = "level", Active = "active" }

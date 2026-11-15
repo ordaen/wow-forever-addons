@@ -4,7 +4,7 @@
 // never makes more than the bags make now: with nothing to make, the count and «Create» are disabled.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Choice, CompactDropdown, Component, CountInput, PushButton, PX, space } from "Ordaen"
+import { Choice, CompactDropdown, Component, CountInput, PX, PushButton, space } from "Ordaen"
 import Locale from "@/locales"
 import { expectedMakings } from "@/skillUps"
 import Style from "@/style"

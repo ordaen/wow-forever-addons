@@ -3,21 +3,21 @@
 // tab's rows, which are the module's own. Every page's changes wait in the drafts until «Save»; closing with
 // changes unsaved asks first.
 import { Align, Edges, Overflow, Position, Track } from "$ltml"
+import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { Component, Entry, SettingsPage } from "@/module"
 import { Dialog } from "@/dialog"
+import { BehaviourPage, NumbersPage, ScalePage } from "@/general"
 import { ListTab } from "@/listTab"
+import Locale from "@/locales"
+import { LookPage } from "@/lookPage"
+import { Component, Entry, SettingsPage } from "@/module"
+import { ModuleEntry, ModuleRow } from "@/moduleRow"
+import { ProfilesPage } from "@/profilesPage"
+import { PushButton } from "@/pushButton"
+import { Tabs } from "@/tabs"
+import { PX, space } from "@/units"
 import { KeptWindow, Window, WindowTabSpec } from "@/window"
 import { WindowsPage } from "@/windowsPage"
-import { PushButton } from "@/pushButton"
-import { PX, space } from "@/units"
-import { Tabs } from "@/tabs"
-import Locale from "@/locales"
-import { ModuleEntry, ModuleRow } from "@/moduleRow"
-import Runtime from "$runtime"
-import { BehaviourPage, NumbersPage, ScalePage } from "@/general"
-import { LookPage } from "@/lookPage"
-import { ProfilesPage } from "@/profilesPage"
 
 // The window's body at first, and the smallest it resizes to: the list, a row and the foot fit.
 const WIDTH = 1160 * PX

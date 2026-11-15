@@ -1,7 +1,7 @@
 // The library's CountInput: a whole number the player sets, never outside its least and its most, which may move.
 import Game from "$game"
-import Test from "$test"
 import { Align } from "$ltml"
+import Test from "$test"
 import { CountInput, CountLook, held } from "@/countInput"
 
 // Both looks on one cell, between bounds the test moves.

@@ -4,8 +4,8 @@
 import { Align, Click, Drag, Key, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { PX } from "@/units"
 import { SettingRow } from "@/settingRow"
+import { PX } from "@/units"
 
 public enum Unit { None = "none", Percent = "percent", Px = "px", Sec = "sec" }
 

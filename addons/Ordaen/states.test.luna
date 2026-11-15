@@ -22,8 +22,8 @@ import { Switch } from "@/switch"
 import { Column, Table, TableRow, tracksOf } from "@/table"
 import { Tabs } from "@/tabs"
 import { TreeRow } from "@/treeRow"
-import { KeptWindow, Window, WindowTabSpec } from "@/window"
 import { PX } from "@/units"
+import { KeptWindow, Window, WindowTabSpec } from "@/window"
 
 const PAGE: Test.Page = { left: 0, top: 0, width: 900, height: 700 }
 // Where the cursor rests off every box.

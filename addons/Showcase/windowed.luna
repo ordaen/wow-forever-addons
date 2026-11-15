@@ -1,7 +1,7 @@
 // A window with two tabs over a page, for the run tests: what a module with a window of its own does, its footer on
 // the window's bottom line (a dim note at its left, «Save» at its right).
 import { Align, Track } from "$ltml"
-import { Module, KeptWindow, PushButton, SettingsPage, space, Window, WindowTabSpec } from "Ordaen"
+import { KeptWindow, Module, PushButton, SettingsPage, Window, WindowTabSpec, space } from "Ordaen"
 
 const DIM: Color = Color.hex("#a3977f")
 const FOOT: Array<Track> = [{ fr: 1 }, "auto"]

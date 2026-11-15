@@ -15,10 +15,10 @@
 // ToolAct: a ToolButton's plate and glyph that does one thing when clicked (sorting the bags now), its Tip saying what.
 import { Align, Art, Beside, Edges, Layer, Line, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component } from "@/module"
-import { PX } from "@/units"
-import { Tip } from "@/tip"
 import { Choice, DropdownItem } from "@/dropdown"
+import { Component } from "@/module"
+import { Tip } from "@/tip"
+import { PX } from "@/units"
 
 const SIZE = 34 * PX
 const GLYPH = 16 * PX

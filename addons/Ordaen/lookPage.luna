@@ -2,16 +2,16 @@
 // the look (fonts, bars, animation, the accent and the palette, the class colours). Every row writes one entry of
 // the look's draft and a preset all of them, so «Save», leaving unsaved and «Roll back» treat both alike.
 import { Align, Track } from "$ltml"
-import { Animation, BarFrame, BarTexture, Font, Hue, Look, Preset, PRESETS, presetOf, XpFill } from "@/look"
-import Looks from "@/look"
-import { Component } from "@/module"
-import { Settings } from "@/settings"
-import { Choice, Dropdown } from "@/dropdown"
 import { ColorPicker } from "@/colorPicker"
-import { PushButton } from "@/pushButton"
-import { PX } from "@/units"
-import { Section } from "@/section"
+import { Choice, Dropdown } from "@/dropdown"
 import Locale from "@/locales"
+import Looks from "@/look"
+import { Animation, BarFrame, BarTexture, Font, Hue, Look, PRESETS, Preset, XpFill, presetOf } from "@/look"
+import { Component } from "@/module"
+import { PushButton } from "@/pushButton"
+import { Section } from "@/section"
+import { Settings } from "@/settings"
+import { PX } from "@/units"
 
 const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#a3977f")

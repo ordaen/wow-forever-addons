@@ -3,13 +3,13 @@
 // with its state («not in the folder» where it is missing), and what needs it; its load (now, on average, in the last
 // encounter, peak, the frames it took over 5 to 1000 ms) and memory; and its buttons: «Enable» or «Disable», «Load»
 // for one on demand that isn't loaded and can be, «Ordaen settings» for an Ordaen module.
-import { Align, Art, Edges, Overflow, Track } from "$ltml"
 import Client from "$client"
 import Game from "$game"
-import { Component, PushButton, PX, space, Tip } from "Ordaen"
-import { AddOn, Catalog, plain, Status } from "@/catalog"
+import { Align, Art, Edges, Overflow, Track } from "$ltml"
+import { Component, PX, PushButton, Tip, space } from "Ordaen"
+import { AddOn, Catalog, Status, plain } from "@/catalog"
 import Locale from "@/locales"
-import { Load, memory, percent, Profiler, SPIKES } from "@/perf"
+import { Load, Profiler, SPIKES, memory, percent } from "@/perf"
 import Style from "@/style"
 
 const ICON = 40 * PX

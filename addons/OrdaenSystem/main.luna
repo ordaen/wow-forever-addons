@@ -3,8 +3,8 @@
 // game menu and nothing else: the dress is made the first time the menu shows, the window the first time it opens.
 import Client from "$client"
 import Runtime from "$runtime"
-import { KeptWindow, Module, SettingsPage, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
+import { KeptWindow, Module, SettingsPage, WindowsPage, windowsTitle } from "Ordaen"
 import { AddOnsWindow, WINDOW } from "@/addonsWindow"
 import { GameMenu, Live, MenuDress } from "@/menu"
 

@@ -3,9 +3,9 @@
 // so a question is one map read. Nothing here is a cell but the two counters: a reader follows `revision` where it
 // asks about recipes and items, the window follows `touched`.
 import Debug from "$debug"
-import { Character, CharacterId, Faction, Held, Kept, Knower, Known, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES, Place, RecipeId } from "@/character"
 import Game from "$game"
 import { Copper, Hour, ItemId } from "Ordaen"
+import { Character, CharacterId, Faction, Held, Kept, Knower, Known, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES, Place, RecipeId } from "@/character"
 
 // What a question about nobody answers.
 const NOBODY: Array<Knower> = []

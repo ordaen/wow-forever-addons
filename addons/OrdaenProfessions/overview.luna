@@ -6,12 +6,12 @@
 // what the work needs (each tool or place any recipe asks for), then the tracked recipes with what each still lacks.
 import Game from "$game"
 import { Action, Align, Line, Overflow, Track } from "$ltml"
-import { Component, copperText, PushButton, PX, space } from "Ordaen"
-import { learnSkillOf, Taught } from "@/learn"
+import { Component, PX, PushButton, copperText, space } from "Ordaen"
+import { Taught, learnSkillOf } from "@/learn"
 import Locale from "@/locales"
-import Style from "@/style"
 import { Thresholds } from "@/skillUps"
-import { has, Kept } from "@/view"
+import Style from "@/style"
+import { Kept, has } from "@/view"
 
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const BACK: Color = Color.hex("#0000004d")

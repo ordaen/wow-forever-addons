@@ -2,7 +2,7 @@
 import Game from "$game"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Look, preset, Preset } from "@/look"
+import { Look, Preset, preset } from "@/look"
 
 // A colour that lost its fields.
 struct Partial implements Plain {

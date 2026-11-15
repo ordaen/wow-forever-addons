@@ -5,10 +5,10 @@ import Game from "$game"
 import { GREEN, GREY, RED } from "@/colors"
 import Locale from "@/locales"
 import { Model, Note, Part, Picture, TextLine, named } from "@/model"
-import { Term } from "@/terms"
 import { Options } from "@/options"
 import { spell } from "@/spell"
 import Talents from "@/talents"
+import { Term } from "@/terms"
 
 // The game's number for the line a spell's name stands on.
 const SPELL_NAME = 13

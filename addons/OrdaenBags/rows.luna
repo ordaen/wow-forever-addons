@@ -4,9 +4,9 @@
 // own use of the item (secure); every other click and the cursor's coming and going are told to the window.
 import Game from "$game"
 import { Action, Align, Click, Position, Shadow, Track } from "$ltml"
-import { Component, ItemButton, PX, Quality } from "Ordaen"
 import root Ordaen from "Ordaen"
-import { Cell, GAP, Row, Section, SLOT } from "@/layout"
+import { Component, ItemButton, PX, Quality } from "Ordaen"
+import { Cell, GAP, Row, SLOT, Section } from "@/layout"
 import { Slot } from "@/model"
 
 const CAPTION: Color = Color.hex("#e8c35a")

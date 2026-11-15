@@ -1,7 +1,7 @@
 // The house window's look, shared by its parts: sizes at the player's scale, colours, and how a time is said, as the
 // professions window has them. A text's size is a step of the ladder (`$ltml`'s `TextSize`).
 import { Edges, Line, Side } from "$ltml"
-import { number, plural, PX, space } from "Ordaen"
+import { PX, number, plural, space } from "Ordaen"
 import Locale from "@/locales"
 
 // The window's body while it isn't full screen (it opens full screen), and the windows docked at the screen's right
