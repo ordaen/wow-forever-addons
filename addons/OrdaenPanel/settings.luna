@@ -115,8 +115,14 @@ public class BottomPage implements Component {
   derived off: Boolean = !self.settings.draft.bottomOn
 
   settings: mut Settings<Choices>
-  constructor(settings: mut Settings<Choices>) {
+  const least: Number
+  constructor(
+    settings: mut Settings<Choices>,
+    // The least the panel is high: its cells keep their size.
+    least: Number
+  ) {
     self.settings = settings
+    self.least = least
   }
 
   public render(self): Template {
@@ -126,7 +132,7 @@ public class BottomPage implements Component {
       <Dropdown label={Locale.PANEL_FIT} hint={Locale.PANEL_FIT_TIP} value={mut self.settings.draft.fit}
                 choices={FITS} disabled={self.off} />
       <Slider label={Locale.PANEL_HEIGHT} hint={Locale.PANEL_HEIGHT_TIP} value={mut self.settings.draft.height}
-              least={24} most={96} unit={Unit.Px} disabled={self.off} />
+              least={self.least} most={96} unit={Unit.Px} disabled={self.off} />
       <Section title={Locale.SECTION_ITEMS}>
         <Zones items={ITEMS} zones={ZONES} off={OFF} value={mut self.settings.draft.places} />
       </Section>

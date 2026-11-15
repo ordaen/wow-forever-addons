@@ -6,6 +6,7 @@ import Game from "$game"
 import { Align, Anchored, Docked, Drag, Edges, Layer, Overflow, Place, Point, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Module, Mover, Placed, Settings, SettingsPage, sideNear, space } from "Ordaen"
+import { CELL_HEIGHT } from "@/cells"
 import { CharButton, Choices, Combat, DEFAULTS, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
 import { BagLine, MicroLine, MoneyLine, SocialLine } from "@/items"
 import Locale from "@/locales"
@@ -22,6 +23,9 @@ const EDGE_ROOM_TOP = 4
 const EDGE_ROOM: Edges = { top: EDGE_ROOM_TOP }
 // The metal's width along the inner side (Ordaen's `panel.edge`).
 const METAL = 3
+// The least the panel is high: a cell, a fixed size, under the metal and the room along it. A height saved lower is
+// read as this.
+const LEAST_HEIGHT = CELL_HEIGHT + METAL + EDGE_ROOM_TOP
 // A panel shown on mouseover, hidden: unseen, yet under the cursor.
 const MOUSEOVER_LEAST = 1 / 255
 // Where the free parts stand until the player moves them: above the bottom of the screen.
@@ -147,7 +151,7 @@ public class Panel implements Module, App {
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale.TAB_MICROMENU, content: $ltml { <MicroPage settings={mut self.settings} /> } },
     { title: Locale.TAB_STATUS, content: $ltml { <StatusPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} /> } }
+    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} least={LEAST_HEIGHT} /> } }
   ]
 
   state hovered = false
@@ -192,11 +196,12 @@ public class Panel implements Module, App {
   derived thirds: Array<Track> = self.settings.values.fit == Fit.Full ? THIRDS : FITTED
   derived columns: Array<Track> = self.vertical ? DOWN : self.thirds
   derived rows: Array<Track> | nil = self.vertical ? self.thirds : nil
-  // How high its inside is across the screen: under the metal and the room along it.
-  public derived inside: Number = self.settings.values.height - METAL - EDGE_ROOM_TOP
-  // How far it reaches in from its edge.
-  derived width: Number | nil = self.vertical ? self.settings.values.height : nil
-  derived height: Number | nil = self.vertical ? nil : self.settings.values.height
+  // How far it reaches in from its edge, and how high its inside is across the screen: under the metal and the room
+  // along it.
+  derived tall: Number = self.settings.values.height.max(LEAST_HEIGHT)
+  public derived inside: Number = self.tall - METAL - EDGE_ROOM_TOP
+  derived width: Number | nil = self.vertical ? self.tall : nil
+  derived height: Number | nil = self.vertical ? nil : self.tall
   derived along: Align = self.vertical ? Align.Center : Align.Stretch
   derived across: Align = self.vertical ? Align.Stretch : Align.Center
   // Down a side whose items are longer than the screen even with the middle given way: the wheel scrolls it.

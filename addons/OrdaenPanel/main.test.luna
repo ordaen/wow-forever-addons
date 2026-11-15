@@ -9,6 +9,7 @@ import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Panel from "OrdaenPanel"
+import { CharButton, Choices, Combat, DEFAULTS, Edge, Fit, MicroIcons, Outline, Show } from "@/choices"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // What the panel always shows: the player's money, none at first.
@@ -626,15 +627,38 @@ test "the menu's icons chosen in gold are gold off the panel too" {
   Test.expect(Test.page().box(PROFESSIONS).paintedWith(GOLD) && Test.page().box(FRIENDS).paintedWith(GOLD))
 }
 
-test "the panel's height reaches from 24 to 96 on its slider" {
+test "the panel's height reaches from 60, where its cells still fit, to 96 on its slider" {
   Test.mount(nil, SCREEN)
   const settings = tab("Bottom panel")
   Test.expect(settings.text("60 px").shown())
   // The knob dragged past the slider's start, over its name; then past its end, over the value it shows.
   drag(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), [settings.text("Height")])
-  Test.expect(settings.text("24 px").shown())
-  drag(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), [settings.text("24 px")])
+  Test.expect(settings.text("60 px").shown())
+  drag(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), [settings.text("60 px")])
   Test.expect(settings.text("96 px").shown())
+}
+
+test "a height kept lower than the cells fit, from before the slider stopped at 60, is read as 60" {
+  const low: Choices = {
+    microOn: true, statusOn: true, bottomOn: true, microIcons: MicroIcons.Upscaled, charButton: CharButton.Portrait,
+    outline: Outline.None, shadow: true, edge: Edge.Bottom, fit: Fit.Full, height: 24, places: DEFAULTS.places,
+    show: Show.Always, combat: Combat.Any, vehicle: true, petBattle: true, resting: false, fadedAlpha: 0
+  }
+  // Ordaen's profiles as the game keeps them: the default profile, the panel's section packed in it.
+  const sections: Map<String, String> = {}
+  sections["OrdaenPanel"] = Game.encoding.serialize(low)
+  const profile: Map<String, Map<String, String>> = {}
+  profile["sections"] = sections
+  const profiles: Map<String, Map<String, Map<String, String>>> = {}
+  profiles["Default"] = profile
+  const kept: Map<String, Map<String, Map<String, Map<String, String>>>> = {}
+  kept["profiles"] = profiles
+  Game.saved.store(.Account, "profiles", kept)
+  Test.reload()
+  Test.mount(nil, SCREEN)
+  // The menu's cells, of their one height, stand whole on the screen.
+  const cell = panel().box(PROFESSIONS).rect()
+  Test.expect(cell.bottom <= SCREEN.height)
 }
 
 test "the panel's text outline is chosen on the bars' tab: none, thin or thick" {
