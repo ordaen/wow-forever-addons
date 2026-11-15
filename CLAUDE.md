@@ -70,7 +70,9 @@ would have caught it is half a fix: say which check now catches it, or add one.
    regex or a reading of the code.
 3. **One stand-in for the client.** Tests run the compiled addons on the stand-in client and stand-in game of
    `lunatype` (`src/standin`): frames, textures, the cursor, events, an addon loaded on demand from its TOC. No
-   per-test stub looser than the game (a lenient stub makes a missing frame look real).
+   per-test stub looser than the game (a lenient stub makes a missing frame look real). What the client does, as
+   learned, is `api/forever/client.md`: look there before assuming; a fact learned of the client goes into the
+   stand-in (with a test that fails without it) and into that page, in the same change.
 4. **The suite is `lunatype`'s.** From `../lunatype`: `zig build test -j16` checks, formats, builds and runs
    everything (the language, the host, the game's side, every addon here against its snapshots). Run it in the
    background before a change is handed over. Check `git status`/`git diff --stat` before each commit.
