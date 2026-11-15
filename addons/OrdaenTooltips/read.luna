@@ -7,7 +7,7 @@ import { aura } from "@/aura"
 import { GOLD, RED, WHITE, colorOf, tint } from "@/colors"
 import { item } from "@/item"
 import Locale from "@/locales"
-import { Kind, Model, Note, Opens, TextLine, named } from "@/model"
+import { Kind, Model, Note, TextLine, named } from "@/model"
 import { Options } from "@/options"
 import { quests } from "@/quests"
 import { spell } from "@/spell"
@@ -71,11 +71,12 @@ public function plain(data: Game.TooltipData, was: Model | nil): Model | nil {
     let color = tint(line.leftColor)
     let value = paired ? line.right : nil
     let valueColor = paired ? tint(line.rightColor) : nil
-    // In a colour of its own it is a line; in the body's it reads as a description.
-    let desc = !paired && color == nil ? true : nil
+    // In a colour of its own it is a line; in the body's it reads as a description (a row is in the body's colour
+    // either way).
+    let desc = color == nil ? true : nil
     let old = before != nil ? before[body.length + 1] : nil
     if (old != nil && old.left == only && old.right == value && sameColor(old.color, color) &&
-        sameColor(old.rightColor, valueColor) && old.desc == desc && own(old)) {
+        sameColor(old.rightColor, valueColor) && old.desc == desc) {
       body.push(old)
     } else {
       same = false
@@ -96,11 +97,6 @@ public function plain(data: Game.TooltipData, was: Model | nil): Model | nil {
 function sameColor(a: Color | nil, b: Color | nil): Boolean {
   if (a == nil || b == nil) { return a == b }
   return a.r == b.r && a.g == b.g && a.b == b.b && a.a == b.a
-}
-
-// A line of a model drawn before is one `plain` made: its texts and colours and nothing else.
-function own(line: TextLine): Boolean {
-  return line.indent == nil && line.stat == nil && line.compared == nil && line.opens is Opens.None
 }
 
 // An object's tooltip: its name in gold, what opening it needs in the footer (a skill with its rank, or a key,

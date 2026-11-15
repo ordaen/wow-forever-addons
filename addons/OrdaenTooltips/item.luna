@@ -81,13 +81,14 @@ function slots(count: Integer): String {
 }
 
 // A recipe's reagents written as one line («Thick Leather (6), Citrine (2)») as rows, the count on the right.
-// Whether there were any.
+// Whether there were any. A part with no count in brackets, or no name before it, is none.
 function reagents(text: String, body: mut Array<TextLine>): Boolean {
   let any = false
   for (part of text.split(",")) {
-    let name, count = part.match("^%s*(.-)%s*%((%d+)%)%s*$")
-    if (name != nil && count != nil && name != "") {
-      body.push({ left: name, right: Locale.COUNT.format((count.toNumber() ?? 1).floor()) })
+    const count = (part.match("%((%d+)%)%s*$") ?? "").toNumber()
+    const name = part.match("^%s*(.-)%s*%(%d+%)%s*$") ?? ""
+    if (count != nil && name != "") {
+      body.push({ left: name, right: Locale.COUNT.format(count.floor()) })
       any = true
     }
   }
@@ -99,7 +100,7 @@ function withNote(model: Model, note: Note): Model {
   let foot: Array<Note> = []
   for (kept of model.foot) { foot.push(kept) }
   foot.push(note)
-  return { foot: foot, timer: true, ..model }
+  return { foot: foot, ..model }
 }
 
 public function item(data: Game.TooltipData, options: Options): ItemRead | nil {

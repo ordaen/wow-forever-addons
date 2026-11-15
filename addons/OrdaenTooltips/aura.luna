@@ -104,10 +104,9 @@ public function aura(data: Game.TooltipData, options: Options): Model | nil {
       continue
     }
     if (left == nil || line.kind == BLANK) { continue }
-    // The game's own line with the spell's number and the time left go: the band has the time.
-    if (left.match("^ID ") != nil || left.contains(Locale.REMAINING_WORD) ||
-        left.unformat(Game.strings.timeRemainingMin) != nil ||
-        left.unformat(Game.strings.timeRemainingSec) != nil) { continue }
+    // The game's own line with the spell's number and the time left go: the band has the time. The time left is
+    // the line with the locale's word for it (the game's minutes, seconds and hours alike).
+    if (left.match("^ID ") != nil || left.contains(Locale.REMAINING_WORD)) { continue }
     if (id == CAMP) { campRows(left, mut body) } else { body.push({ left: left, desc: true }) }
     description = description ?? left
   }
