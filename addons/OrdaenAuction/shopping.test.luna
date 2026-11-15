@@ -404,6 +404,18 @@ test "a row bought in full with no price leaves the total whole" {
   Test.expect(says(list(), "To buy, in all", "0g 7s 20c"))
 }
 
+test "a price two days old says its age under it" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionQuery.results.emit([{ key: LINEN, copper: 36, quantity: 30 }])
+  Game.clock.server = START + 50 * 3600
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  Test.expect(list().text("Linen Cloth").item().text("(2 d.)").shown())
+}
+
 test "the client's price for one of a commodity is the row's sum" {
   Auction.shopping.add(ItemId.of(COPPER_BAR), 1, .ByHand)
   Game.clock.server = START
