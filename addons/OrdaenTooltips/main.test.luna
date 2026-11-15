@@ -1,490 +1,474 @@
-// Ordaen Tooltips' module on the stand-in client: the game's tooltip shows this and that, and the module reads it,
-// draws its group where it belongs and keeps the game's own unseen, or leaves the show to the game; a tooltip held
-// under the cursor locks, and what a part of a locked one opens.
+// Ordaen Tooltips as the player meets it: while the game shows its tooltip, Ordaen's stands in its place, beside
+// what it is about or in the screen's corner, and the game's own is kept unseen; a kind turned off, or one Ordaen's
+// doesn't read, is the game's own. The micro menu's and the bags' buttons tell more than their names. What is
+// chosen on the module's tabs of the settings (`/ordaen`, «Tooltips») is kept between sessions.
 import Client from "$client"
 import Game from "$game"
-import { Frame } from "$ltml"
+import { Key } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import root Tooltips from "OrdaenTooltips"
-import { Place } from "@/choices"
 
-// The game's tooltip showing `data`, where the game put its own: in `corner`.
-function showing(corner: any Frame, data: Game.TooltipData): Game.ShownTip {
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+const SETTINGS = "Move mode"
+// The colours a button's facts are in: a value, and a durability under a quarter.
+const VALUE: Color = Color.hex("#f3e7cc")
+const RED: Color = Color.hex("#ff4040")
+
+// A frame of the game's, by its name, at a place on the screen.
+function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Client.Frame {
+  const made = Client.CreateFrame(kind, name, Client.C_UI.GetUIParent(), nil)
+  made.SetSize(width, height)
+  made.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", x, -y)
+  return made
+}
+
+// The game's own tooltip, in the screen's bottom right corner: 200 wide, its top at 720.
+function corner(): any Client.Frame {
+  return frame("Frame", "GameTooltip", 1300, 720, 200, 80)
+}
+
+// The game's tooltip showing `data`, which the game put in the corner.
+function showing(data: Game.TooltipData): Game.ShownTip {
   return {
-    shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner, below: false,
+    shown: true, data: data, placeable: false, ownerHigh: false, ownerRight: false, corner: corner(), below: false,
     right: true
   }
 }
 
 // The game's tooltip gone.
-function hidden(corner: any Frame): Game.ShownTip {
-  return { shown: false, ..showing(corner, { lines: [] }) }
+function hidden(): Game.ShownTip {
+  return { shown: false, ..showing({ lines: [] }) }
 }
 
-// An item in a bag's slot.
-function inSlot(corner: any Frame, slot: any Frame, data: Game.TooltipData): Game.ShownTip {
+// A button of the micro menu in the screen's lower half, its top left at 600,800, 30 wide: the game's tooltip for it.
+function atButton(name: String, data: Game.TooltipData): Game.ShownTip {
   return {
-    owner: slot, ownerName: "ContainerFrame1Item3", placeable: true, ownerHigh: true, ownerRight: true,
-    ..showing(corner, data)
+    owner: frame("Button", name, 600, 800, 30, 40), ownerName: name, placeable: true, ..showing(data)
   }
 }
 
-function axe(name: String): Game.TooltipData {
-  return { kind: 0, lines: [{ left: name, kind: 22 }] }
+// A thing in a slot of the game's at the screen's top right, its top left at 1300,200, 40 wide: under it and on its
+// right edge, as the game asks.
+function inSlot(name: String, data: Game.TooltipData): Game.ShownTip {
+  return {
+    owner: frame("Button", name, 1300, 200, 40, 40), ownerName: name, placeable: true, ownerHigh: true,
+    ownerRight: true, ..showing(data)
+  }
+}
+
+function text(title: String): Game.TooltipData {
+  return { plain: true, lines: [{ left: title, kind: 0 }] }
 }
 
 function sword(): Game.TooltipData {
   return { kind: 0, id: 9010, about: "item:9010", lines: [{ left: "Sword", kind: 22 }] }
 }
 
-// The strength of each axe, as the game reads an item's stats.
-function strength(data: Game.TooltipData): Array<Game.ItemStat> {
-  let name = data.lines[1]?.left
-  let value = name == "Greataxe" ? 30 : name == "Worn Axe" ? 21 : name == "Other Axe" ? 40 : 0
-  if (value == 0) { return [] }
-  return [{ key: "ITEM_MOD_STRENGTH_SHORT", name: "Strength", value: value }]
+// Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
+function reads(part: Test.Part, expected: String): Boolean {
+  const read = part.texts().join(" | ")
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
 }
 
-// A frame of the game's, by its name, at a place on the screen.
-function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Frame {
-  let made = Client.CreateFrame(kind, name, Client.C_UI.GetUIParent(), nil)
-  made.SetSize(width, height)
-  made.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", x, -y)
-  return made
+// Whether a number is this one, to a hundredth: where it isn't, the test fails with what it is.
+function near(value: Number, expected: Number): Boolean {
+  if ((value - expected).abs() > 0.01) { panic(`it is ${value}, not ${expected}`) }
+  return true
 }
 
-// The settings window's «Save»: every draft becomes its values.
-function saveAll() {
-  const ordaen = Ordaen
-  ordaen.keeper.saveAll()
+// The module's tab in the settings: `/ordaen`, «Tooltips», the tab.
+function tab(title: String): Test.Part {
+  Test.open("/ordaen")
+  const settings = Test.page().window(SETTINGS)
+  settings.button("Tooltips").click()
+  // «General» is Ordaen's own page too, the first.
+  settings.button(title).nth(title == "General" ? 2 : 1).click()
+  return settings
 }
 
-function cursorSaid() {
-  Test.note(`the cursor's look: ${Test.cursor() ?? "nil"}`)
+// A control of the module's tab clicked and saved, and the window closed.
+function choose(title: String, control: String) {
+  const settings = tab(title)
+  settings.button(control).click()
+  settings.button("Save").click()
+  Test.key(Key.Escape)
 }
 
-test "the module reads the game's tooltip, draws it where it belongs, and locks it" {
-  // The game's own tooltip, in the screen's bottom right corner, and two things a tooltip belongs to.
-  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
-  let button = frame("Button", "CharacterMicroButton", 600, 800, 30, 40)
-  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
+// A dropdown of the module's tab, the `nth` of those that say what it says now, set to another choice and saved.
+function pick(title: String, now: String, nth: Integer, choice: String) {
+  const settings = tab(title)
+  settings.button(now).nth(nth).click()
+  Test.page().window(choice).button(choice).click()
+  settings.button("Save").click()
+  Test.key(Key.Escape)
+}
 
-  // The module's root, made as its addon loaded and drawn by Ordaen on the screen, which this page is.
-  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
-  Test.shot("the game shows no tooltip: nothing is drawn, and the game's own isn't kept unseen")
+// Shown and unseen
 
-  Game.character.itemLevel = (): Number | nil => 61.7
-  Game.character.durability = (): Number | nil => 0.2
-  Game.tooltip.main = {
-    owner: button, ownerName: "CharacterMicroButton", placeable: true,
-    ..showing(corner, { plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }] })
-  }
-  Test.shot("a button's text: read, with the item level and the most worn piece, drawn above the button on its left edge")
+test "with the game showing no tooltip nothing is drawn, and the game's own isn't kept unseen" {
+  Test.mount(nil, SCREEN)
+  Test.expect(Test.surfaces().length == 0)
+  Test.expect(!Test.requests().any(asked => asked == "Tooltip.hide true"))
+}
 
-  // A setting as the settings window writes and saves it.
-  Tooltips.settings.draft.anchorToButtons = false
-  saveAll()
-  Test.shot("«Tooltips at buttons» off: where the game put its own, in the corner")
-
-  Tooltips.settings.draft.textsExtra = false
-  saveAll()
-  Test.shot("«More on buttons» off: the button's own lines alone")
-
-  Game.bags.roomOf = (bag: Integer): Game.BagRoom => bag == 0 ? { free: 3, slots: 16 } : bag == 1 ? { free: 0, slots: 6 } : { free: 0, slots: 0 }
-  Game.bags.roomOfAll = (): Game.BagRoom => ({ free: 3, slots: 22 })
-  Tooltips.settings.draft.textsExtra = true
-  saveAll()
-  Game.tooltip.main = {
-    ownerName: "MainMenuBarBackpackButton",
-    ..showing(corner, { plain: true, lines: [{ left: "Backpack", kind: 0 }] })
-  }
-  Test.shot("the backpack: the free slots of every bag together")
-
-  Tooltips.settings.draft.textsOn = false
-  saveAll()
-  Test.shot("text tooltips off: the show is the game's again")
-
-  Game.items.stats = strength
-  Game.tooltip.main = inSlot(corner, slot, axe("Greataxe"))
-  Test.shot("an item in the bags: beside its slot, under it and on its right edge, though buttons' tooltips aren't")
-
-  Game.tooltip.compared = [axe("Worn Axe")]
-  Test.shot("compared with the worn one: its differences on the hovered item, the worn one under «Equipped»")
-
-  Game.tooltip.compared = [axe("Worn Axe"), axe("Other Axe")]
-  Test.shot("compared with two: the differences on each worn one")
-  // The differences' marks are art (no font the look ships carries ▲ or ▼): more's on the right, less's on the
-  // first worn one, at the left.
-  Test.expect(Test.painted(Ordaen.art.ctl.compareUp, nil).x > Test.painted(Ordaen.art.ctl.compareDown, nil).x)
-
-  Tooltips.settings.draft.itemsAnchorBags = Place.Corner
-  saveAll()
-  Game.tooltip.compared = []
-  Test.shot("bags' items in the corner: where the game put its own")
-
-  Game.spells.cooldown = (id: Integer): Number | nil => id == 116 ? 95 : nil
-  Tooltips.settings.draft.spellsId = false
-  saveAll()
-  Tooltips.settings.draft.spellsLock = false
-  saveAll()
-  Game.tooltip.main = showing(corner, { kind: 1, id: 116, lines: [{ left: "Frostbolt", kind: 13 }] })
-  Test.shot("a spell cooling down: how long until it is ready")
-
-  Game.spells.cooldown = (id: Integer): Number | nil => id == 116 ? 30 : nil
-  Test.pass(0.5)
-  Test.shot("half a second on: not read again yet")
-
-  Test.pass(0.6)
-  Test.shot("a second on: read again, the time it shows has moved")
-
-  Game.spells.cooldown = (id: Integer): Number | nil => nil
-  Test.pass(1.1)
-  Test.shot("ready: nothing counts down, and nothing is waited for")
-
-  Game.tooltip.main = showing(corner, { kind: 9, lines: [{ left: "?", kind: 0 }] })
-  Test.shot("a kind Ordaen Tooltips doesn't read: left to the game")
-
-  Game.tooltip.main = hidden(corner)
-  Test.shot("the game's tooltip gone")
-
-  // The lock.
-  Tooltips.settings.draft.itemsAnchorBags = Place.Anchor
-  saveAll()
-  Game.tooltip.main = inSlot(corner, slot, sword())
-  Test.shot("an item under the cursor: the bar's room, nothing in it yet")
-
-  Test.pass(0.1)
-  Game.tooltip.main = hidden(corner)
-  Test.pass(0.05)
-  Game.tooltip.main = inSlot(corner, slot, sword())
-  Test.pass(0.535)
-  Test.shot("half a second into the charge, the game having shown it again on the way: the bar half full")
-
-  Test.pass(0.6)
-  Test.shot("charged: locked, the line in the bar's place and the close button")
-
-  Game.tooltip.main = hidden(corner)
-  Test.pass(1)
-  Test.shot("the game's tooltip gone: the locked one stays")
-
-  // The locked group stands at 1068.83,240, 271.17 wide and 76.25 high; its close button at 1316.08,248.92.
-  Test.moveTo({ x: 1100, y: 300 })
-  Test.pass(1)
-  Test.shot("the cursor on the locked group: it stays")
-
-  Test.moveTo({ x: 1326, y: 258 })
-  Test.pass(1)
-  Test.shot("on its close button: still on the group")
-
-  Test.moveTo({ x: 500, y: 500 })
-  Test.pass(0.1)
-  Test.moveTo({ x: 1100, y: 300 })
+test "a tooltip drawn here keeps the game's own unseen; the game's tooltip gone, it is seen again" {
+  Test.mount(nil, SCREEN)
+  _ = Test.requests()
+  Game.tooltip.main = showing(sword())
+  Test.expect(Test.page().window("Sword").shown())
+  Test.expect(Test.requests().join(", ") == "Tooltip.hide true")
+  Game.tooltip.main = hidden()
   Test.pass(0.3)
-  Test.shot("off it and back within the grace: it stays")
+  Test.expect(!Test.page().window("Sword").shown())
+  Test.expect(Test.requests().join(", ") == "Tooltip.hide false")
+}
 
-  Test.moveTo({ x: 500, y: 500 })
-  Test.pass(0.3)
-  Test.shot("off it for longer than the grace: gone")
+test "the module turned off draws nothing and leaves the game's tooltip seen" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(sword())
+  Test.flush()
+  _ = Test.requests()
+  (Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")).disable()
+  Test.expect(Test.surfaces().length == 0)
+  Test.expect(Test.requests().join(", ") == "Tooltip.hide false")
+}
 
-  Game.tooltip.main = inSlot(corner, slot, sword())
-  Test.pass(1.3)
-  Test.shot("shown again: charged anew, and locked")
+// Where it stands
 
-  Test.click({ x: 1326, y: 258 }, nil)
-  Test.pass(0.05)
-  Test.shot("its close button clicked while the game still shows it: not locked, the bar empty")
+test "a button's tooltip stands above the button on its left edge in the screen's lower half" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  const at = Test.page().window("Character Info").rect()
+  Test.expect(near(at.bottom, 800) && near(at.left, 600))
+}
 
-  Test.pass(2)
-  Test.shot("held on: what was closed doesn't charge again")
+test "with «Tooltips at buttons» unticked a button's tooltip stands where the game put its own" {
+  Test.mount(nil, SCREEN)
+  choose("General", "Tooltips at buttons")
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  const at = Test.page().window("Character Info").rect()
+  Test.expect(near(at.bottom, 720) && near(at.right, 1500))
+}
 
-  Game.tooltip.main = hidden(corner)
-  Test.pass(0.2)
-  Game.tooltip.main = inSlot(corner, slot, sword())
-  Test.pass(1.3)
-  Test.shot("after the cursor left it and came back: locked once more")
+test "a tooltip the game can't place by its owner stands where the game put its own" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = { placeable: false, ..atButton("SomeAddonButton", text("Some Addon")) }
+  const at = Test.page().window("Some Addon").rect()
+  Test.expect(near(at.bottom, 720) && near(at.right, 1500))
+}
 
-  Game.tooltip.main = inSlot(corner, slot, { kind: 0, id: 9011, about: "item:9011", lines: [{ left: "Shield", kind: 22 }] })
-  Test.pass(0.05)
-  Test.shot("the game shows another thing: the locked one goes, and this one starts")
+test "an item in the bags stands under its slot on its right edge in the screen's upper right, though buttons' tooltips don't" {
+  Test.mount(nil, SCREEN)
+  choose("General", "Tooltips at buttons")
+  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
+  const at = Test.page().window("Sword").rect()
+  Test.expect(near(at.top, 240) && near(at.right, 1340))
+}
 
-  // What a part of a locked tooltip opens.
-  Tooltips.settings.draft.spellsLock = true
-  saveAll()
-  Game.spells.cost = (id: Integer): Game.SpellCost | nil => id == 116 ? { amount: 65 } : nil
-  Game.tooltip.main = hidden(corner)
-  Test.pass(0.2)
-  Game.tooltip.main = inSlot(corner, slot, {
-    kind: 1, id: 116, about: "spell:116",
+test "an item in the bank stands beside its slot as one in the bags does" {
+  Test.mount(nil, SCREEN)
+  choose("General", "Tooltips at buttons")
+  Game.tooltip.main = inSlot("BankFrameItem1", sword())
+  Test.expect(near(Test.page().window("Sword").rect().top, 240))
+}
+
+test "with bags' items set to the screen's corner an item in the bags stands where the game put its own" {
+  Test.mount(nil, SCREEN)
+  pick("Items", "Beside the item", 1, "In the screen's corner")
+  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
+  const at = Test.page().window("Sword").rect()
+  Test.expect(near(at.bottom, 720) && near(at.right, 1500))
+}
+
+test "a worn item stands beside its slot of the character, and in the corner where the character's are set so" {
+  Test.mount(nil, SCREEN)
+  choose("General", "Tooltips at buttons")
+  Game.tooltip.main = inSlot("CharacterHeadSlot", sword())
+  Test.expect(near(Test.page().window("Sword").rect().top, 240))
+  pick("Items", "Beside the item", 2, "In the screen's corner")
+  Game.tooltip.main = inSlot("CharacterHeadSlot", sword())
+  Test.expect(near(Test.page().window("Sword").rect().bottom, 720))
+}
+
+test "the tooltips beside an item stand in a column away from the corner, and the worn one beyond them" {
+  Game.spells.tooltip = (id: Integer): Game.TooltipData | nil => ({
+    kind: 1, id: 7001, lines: [{ left: "Healing Touch", kind: 13 }, { left: "Instant", kind: 0 }]
+  })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.compared = [{ kind: 0, lines: [{ left: "Worn Axe", kind: 22 }] }]
+  Game.tooltip.main = showing({
+    kind: 0, id: 9001,
     lines: [
-      { left: "Frostbolt", kind: 13 },
-      { left: "65 Mana", right: "30 yd range", kind: 0 },
-      { left: "2.5 sec cast", kind: 0 }
+      { left: "Axe", kind: 22 }, { left: "Use: Heals you.", kind: 44, spell: 7001 },
+      { left: "Deep Woods (1/3)", kind: 42 }
     ]
   })
-  Test.pass(1.3)
-  Test.shot("a spell locked: the cells of its band that open a term are underlined")
-  cursorSaid()
-
-  // The cursor leaves the slot for the locked tooltip: the game's goes.
-  Game.tooltip.main = hidden(corner)
-  Test.moveTo({ x: 1160, y: 297 })
-  Test.pass(0.1)
-  Test.shot("the cursor on the range's cell: the term's tooltip beside the cell, under it")
-  cursorSaid()
-
-  Test.moveTo({ x: 1100, y: 270 })
-  Test.pass(0.1)
-  Test.shot("off the cell, still on the tooltip: the term's tooltip gone, the locked one stays")
-  cursorSaid()
-
-  Test.moveTo({ x: 1260, y: 297 })
-  Test.pass(0.1)
-  Test.shot("on the cast's cell: its term")
-
-  Test.moveTo({ x: 500, y: 500 })
-  Test.pass(0.5)
-  Test.shot("off the tooltip for longer than the grace: the lock goes")
-  cursorSaid()
-  Tooltips.settings.draft.itemsLock = false
-  saveAll()
-  Game.tooltip.main = hidden(corner)
-  Test.pass(0.2)
-  Game.tooltip.main = inSlot(corner, slot, sword())
-  Test.pass(2)
-  Test.shot("«Tooltips in tooltips» off for items: it never charges")
-
-  Game.tooltip.main = hidden(corner)
-  Test.pass(0.2)
-  Test.expect(Test.idle())
-  (Runtime.Addon.of(Tooltips) ?? panic("the tooltips are installed")).disable()
-  Test.expect(Test.blank())
+  const group = Test.page().window("Axe")
+  const main = group.text("Axe").rect()
+  const worn = group.text("Worn Axe").rect()
+  const use = group.text("Healing Touch").rect()
+  const set = group.text("Deep Woods (1/3)").rect()
+  // The group runs leftwards from the corner: the column beside the axe, the worn axe beyond it.
+  Test.expect(use.right < main.left && worn.right < use.left)
+  Test.expect(near(use.left, set.left) && use.bottom < set.top)
 }
 
-test "a tooltip shown again is drawn by changing what differs: nothing of the group is drawn anew" {
-  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
-  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
-  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
-  Game.tooltip.main = inSlot(corner, slot, sword())
+// What is drawn here and what is left to the game
+
+test "a kind turned off on its tab is the game's own" {
+  Test.mount(nil, SCREEN)
+  choose("Items", "On")
+  Game.tooltip.main = showing(sword())
+  Test.expect(Test.surfaces().length == 0)
+}
+
+test "abilities, effects and objects turned off on their tabs are the game's own" {
+  Test.mount(nil, SCREEN)
+  choose("Abilities", "On")
+  choose("Effects", "On")
+  choose("Objects", "On")
+  Game.tooltip.main = showing({ kind: 1, id: 1, lines: [{ left: "Frostbolt", kind: 13 }] })
+  Test.expect(Test.surfaces().length == 0)
+  Game.tooltip.main = showing({ kind: 7, id: 1, lines: [{ left: "Renew", kind: 0 }] })
+  Test.expect(Test.surfaces().length == 0)
+  Game.tooltip.main = showing({ kind: 4, lines: [{ left: "Chest", kind: 0 }] })
+  Test.expect(Test.surfaces().length == 0)
+}
+
+// The unit under the cursor: a player or an NPC as the test says.
+function unitTip(name: String): Game.TooltipData {
+  return { kind: 2, lines: [{ left: name, kind: 2, unit: "mouseover" }] }
+}
+
+function aUnit(player: Boolean): Game.UnitInfo {
+  return {
+    name: player ? "Jaina" : "Wolf", player: player, dead: false, ghost: false, afk: false, dnd: false, pvp: false,
+    level: 10, inParty: false, friend: false, ignored: false, tapped: false, classification: "normal",
+    sameFaction: true
+  }
+}
+
+test "players turned off are the game's own, and NPCs still drawn here" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(true)
+  Test.mount(nil, SCREEN)
+  choose("Players", "On")
+  Game.tooltip.main = showing(unitTip("Jaina"))
+  Test.expect(Test.surfaces().length == 0)
+  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(false)
+  Game.tooltip.main = showing(unitTip("Wolf"))
+  Test.expect(Test.page().window("Wolf").shown())
+}
+
+test "NPCs turned off are the game's own, and players still drawn here" {
+  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(false)
+  Test.mount(nil, SCREEN)
+  choose("NPCs", "On")
+  Game.tooltip.main = showing(unitTip("Wolf"))
+  Test.expect(Test.surfaces().length == 0)
+  Game.units.of = (unit: String): Game.UnitInfo | nil => aUnit(true)
+  Game.tooltip.main = showing(unitTip("Jaina"))
+  Test.expect(Test.page().window("Jaina").shown())
+}
+
+test "buttons and texts turned off are the game's own" {
+  Test.mount(nil, SCREEN)
+  choose("Buttons and text", "On")
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test.expect(Test.surfaces().length == 0)
+}
+
+test "a kind's switch off greys the rest of its tab" {
+  Test.mount(nil, SCREEN)
+  const settings = tab("Items")
+  settings.button("On").click()
+  Test.expect(settings.button("Item level").opacity() < 1)
+}
+
+test "a setting changed on its tab is kept after a reload" {
+  Test.mount(nil, SCREEN)
+  choose("General", "Tooltips at buttons")
+  Test.reload()
+  // Its box shows no tick.
+  Test.expect(tab("General").button("Tooltips at buttons").box(Ordaen.art.ctl.tick).opacity() == 0)
+}
+
+test "a setting's box shows its tick before it is changed" {
+  Test.mount(nil, SCREEN)
+  Test.expect(tab("General").button("Tooltips at buttons").box(Ordaen.art.ctl.tick).opacity() == 1)
+}
+
+// What buttons tell more
+
+test "the character's button tells the item level and the most worn piece's durability, red under a quarter" {
+  Game.character.itemLevel = (): Number | nil => 61.7
+  Game.character.durability = (): Number | nil => 0.2
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("CharacterMicroButton", {
+    plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }]
+  })
+  const tip = Test.page().window("Character Info")
+  Test.expect(reads(tip, "Character Info | Item level | 61 | Durability | 20% | C: open"))
+  Test.expect(tip.text("20%").textColor().equal(RED))
+  Game.character.durability = (): Number | nil => 0.25
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test.expect(Test.page().window("Character Info").text("25%").textColor().equal(VALUE))
+}
+
+test "the character's button with no item level says none" {
+  Game.character.itemLevel = (): Number | nil => 0
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test.expect(reads(Test.page().window("Character Info"), "Character Info"))
+}
+
+test "the backpack tells the free slots of every bag together, a bag's slot its own" {
+  Game.bags.roomOf = (bag: Integer): Game.BagRoom => bag == 1 ? { free: 0, slots: 6 } : { free: 0, slots: 0 }
+  Game.bags.roomOfAll = (): Game.BagRoom => ({ free: 3, slots: 22 })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("MainMenuBarBackpackButton", text("Backpack"))
+  Test.expect(reads(Test.page().window("Backpack"), "Backpack | Free slots | 3 / 22"))
+  Game.tooltip.main = atButton("CharacterBag0Slot", text("Linen Bag"))
+  Test.expect(reads(Test.page().window("Linen Bag"), "Linen Bag | Free slots | 0 / 6"))
+  Game.tooltip.main = atButton("CharacterBag1Slot", text("Empty Slot"))
+  Test.expect(reads(Test.page().window("Empty Slot"), "Empty Slot"))
+}
+
+test "the talents' button tells the points not spent, and nothing with none" {
+  Game.character.unspentTalents = (): Integer => 3
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("TalentMicroButton", text("Talents"))
+  Test.expect(reads(Test.page().window("Talents"), "Talents | Unspent points | 3"))
+  Game.character.unspentTalents = (): Integer => 0
+  Game.tooltip.main = atButton("TalentMicroButton", text("Talents (N)"))
+  Test.expect(reads(Test.page().window("Talents (N)"), "Talents (N)"))
+}
+
+test "the professions' button tells each profession's rank" {
+  Game.professions.list = [
+    { skillLine: 186, name: "Mining", icon: 136248, rank: 75, max: 150, kind: .Gathering },
+    { skillLine: 182, name: "Herbalism", icon: 136246, rank: 1, max: 75, kind: .Gathering }
+  ]
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("ProfessionMicroButton", text("Professions"))
+  Test.expect(reads(Test.page().window("Professions"), "Professions | Mining | 75 / 150 | Herbalism | 1 / 75"))
+}
+
+test "the achievements' button tells the points, and nothing with none" {
+  Game.character.achievementPoints = (): Integer => 450
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("AchievementMicroButton", text("Achievements"))
+  Test.expect(reads(Test.page().window("Achievements"), "Achievements | Achievement points | 450"))
+  Game.character.achievementPoints = (): Integer => 0
+  Game.tooltip.main = atButton("AchievementMicroButton", text("Achievements (Y)"))
+  Test.expect(reads(Test.page().window("Achievements (Y)"), "Achievements (Y)"))
+}
+
+test "the quest log's button tells how many quests are taken of the most" {
+  Game.character.quests = (): Game.QuestCount => ({ have: 12, most: 25 })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("QuestLogMicroButton", text("Quest Log"))
+  Test.expect(reads(Test.page().window("Quest Log"), "Quest Log | Quests | 12 / 25"))
+}
+
+test "the guild's button tells how many are online, and nothing out of a guild" {
+  Game.character.guild = (): Game.GuildCount | nil => ({ online: 4, members: 30 })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("GuildMicroButton", text("Guild"))
+  Test.expect(reads(Test.page().window("Guild"), "Guild | Online | 4 / 30"))
+  Game.character.guild = (): Game.GuildCount | nil => nil
+  Game.tooltip.main = atButton("GuildMicroButton", text("Guild (J)"))
+  Test.expect(reads(Test.page().window("Guild (J)"), "Guild (J)"))
+}
+
+test "with «More on buttons» unticked a button tells its own lines alone" {
+  Game.character.itemLevel = (): Number | nil => 61.7
+  Test.mount(nil, SCREEN)
+  choose("Buttons and text", "More on buttons")
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  Test.expect(reads(Test.page().window("Character Info"), "Character Info"))
+}
+
+// Shown anew
+
+test "a tooltip shown again draws only what differs: nothing of the group is made anew" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
   Test.pass(0.1)
-  Game.tooltip.main = hidden(corner)
+  Game.tooltip.main = hidden()
   Test.pass(0.2)
   const said = Test.calls((): nil => {
-    Game.tooltip.main = inSlot(corner, slot, { kind: 0, id: 9011, about: "item:9011", lines: [{ left: "Shield", kind: 22 }] })
+    Game.tooltip.main = inSlot("ContainerFrame1Item3", { kind: 0, id: 9011, about: "item:9011", lines: [{ left: "Shield", kind: 22 }] })
     Test.flush()
   })
-  Test.shot("shown again")
-  // No frame is taken from the pool and dressed anew: the group's frames stay, and the one text that differs is set.
   Test.expect(!said.contains("SetParent") && !said.contains("SetAtlas") && !said.contains("SetScript"))
   Test.expect(said.contains("SetText=1"))
 }
 
-// A spell in a bag's slot whose band opens terms: the range's cell stands at 1160,297 once it is locked.
-function frostbolt(corner: any Frame, slot: any Frame): Game.ShownTip {
-  return inSlot(corner, slot, {
-    kind: 1, id: 116, about: "spell:116",
-    lines: [
-      { left: "Frostbolt", kind: 13 },
-      { left: "65 Mana", right: "30 yd range", kind: 0 },
-      { left: "2.5 sec cast", kind: 0 }
-    ]
-  })
-}
-
-// Where the cursor is while a tooltip is locked: on its source (the game shows the tooltip it is about), on the
-// locked group, on a part of it that opens a tooltip of its own, on another thing with a tooltip, or elsewhere. Off
-// the source the game's tooltip goes; on another thing it shows that.
-const PLACES: Array<String> = ["source", "tooltip", "nested", "another", "elsewhere"]
-
-// The cursor moved to `place`, and what the game's tooltip shows then.
-function goTo(place: String, corner: any Frame, slot: any Frame): Game.ShownTip {
-  if (place == "source") {
-    Test.moveTo({ x: 1320, y: 220 })
-    return frostbolt(corner, slot)
-  } else if (place == "another") {
-    Test.moveTo({ x: 600, y: 820 })
-    return inSlot(corner, slot, sword())
-  } else {
-    if (place == "tooltip") {
-      Test.moveTo({ x: 1100, y: 270 })
-    } else if (place == "nested") {
-      Test.moveTo({ x: 1160, y: 297 })
-    } else {
-      Test.moveTo({ x: 500, y: 500 })
-    }
-  }
-  return hidden(corner)
-}
-
-// The locked tooltip stays while the cursor is on it, on what it opens or on its source, for as long as it likes,
-// and goes at once on another thing with a tooltip. Anywhere else it goes after the grace once the cursor has been on
-// it, and stays until then: the cursor finds its way to it.
-function stays(place: String, touched: Boolean): Boolean {
-  return place == "source" || place == "tooltip" || place == "nested" || (place == "elsewhere" && !touched)
-}
-
-function onIt(place: String): Boolean {
-  return place == "tooltip" || place == "nested"
-}
-
-test "a locked tooltip goes only when the cursor goes onto something other than it and its source: every move between the places" {
-  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
-  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
-  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
-  Tooltips.settings.draft.itemsAnchorBags = Place.Anchor
-  Tooltips.settings.draft.spellsLock = true
-  saveAll()
-  Game.spells.cost = (id: Integer): Game.SpellCost | nil => id == 116 ? { amount: 65 } : nil
-  let moves = 0
-  for (visit of [false, true]) {
-    for (from of PLACES) {
-      if (from == "another") { continue }
-      for (to of PLACES) {
-        const walked = `${visit ? "on it, then " : ""}${from} to ${to}`
-        // Locked anew on the source, from nothing held.
-        Tooltips.close()
-        Test.moveTo({ x: 500, y: 500 })
-        Game.tooltip.main = hidden(corner)
-        Test.pass(0.3)
-        Game.tooltip.main = goTo("source", corner, slot)
-        Test.pass(1.3)
-        if (!Tooltips.locked) { panic(`${walked}: not locked on its source`) }
-        if (visit) {
-          Game.tooltip.main = goTo("tooltip", corner, slot)
-          Test.pass(0.1)
-        }
-        // A while at `from`: longer than the grace, but off everything only within it.
-        Game.tooltip.main = goTo(from, corner, slot)
-        Test.pass(from == "elsewhere" ? 0.1 : 0.5)
-        if (!Tooltips.locked) { panic(`${walked}: not locked at ${from}`) }
-        if (visit && from == "nested" && to == "nested") {
-          Test.shot("the cursor on a part of the locked tooltip that opens a term: the term's tooltip, and the lock stays")
-        }
-        const touched = visit || onIt(from)
-        Game.tooltip.main = goTo(to, corner, slot)
-        Test.pass(0.1)
-        if (Tooltips.locked != (to != "another")) { panic(`${walked}: locked ${Tooltips.locked} at once`) }
-        Test.pass(0.5)
-        if (Tooltips.locked != stays(to, touched)) { panic(`${walked}: locked ${Tooltips.locked} after the grace`) }
-        moves += 1
-      }
-    }
-  }
-  Test.expect(moves == 40)
-}
-
-test "a locked item compared with a worn one: the cursor crossing the gap between them keeps it, and a click there is the group's" {
-  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
-  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
-  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
-  Tooltips.settings.draft.itemsAnchorBags = Place.Anchor
-  saveAll()
-  Game.items.stats = strength
-  Game.tooltip.compared = [axe("Worn Axe")]
-  Game.tooltip.main = inSlot(corner, slot, sword())
-  Test.pass(1.3)
-  Test.expect(Tooltips.locked)
-  Test.shot("locked, the worn axe beside it")
-
-  // A button of the game's under the gap (1065.5 to 1068.83 between the worn axe and the sword), which would hear a
-  // click that went through.
-  let clicked = 0
-  const behind = Client.CreateFrame("Button", "Behind", Client.C_UI.GetUIParent(), nil)
-  behind.SetSize(40, 40)
-  behind.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1050, -280)
-  behind.SetScript("OnClick", (button: any Client.Frame): nil => { clicked += 1 })
-  // Off the slot onto the sword, into the gap, onto the worn axe: each longer than the grace.
-  Game.tooltip.main = hidden(corner)
-  Test.moveTo({ x: 1200, y: 320 })
-  Test.pass(0.5)
-  Test.moveTo({ x: 1067.2, y: 300 })
-  Test.pass(0.5)
-  Test.expect(Tooltips.locked)
-  Test.click({ x: 1067.2, y: 300 }, nil)
-  Test.pass(0.1)
-  Test.expect(clicked == 0 && Tooltips.locked)
-  Test.moveTo({ x: 950, y: 300 })
-  Test.pass(0.5)
-  Test.expect(Tooltips.locked)
-}
-
-// The text of every tooltip drawn now, one after another.
-function shownTexts(): String {
-  let all = ""
-  for (shown of Test.surfaces()) {
-    for (text of shown.texts) { all = `${all}|${text}` }
-  }
-  return all
-}
-
-// Whether a tooltip drawn now holds this text.
-function holds(text: String): Boolean {
-  return shownTexts().contains(text)
-}
-
-test "a spell's tooltip after a unit's holds nothing of the unit's, locked or not, the game's gone between or not" {
-  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
-  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
-  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
-  Game.units.of = (unit: String): Game.UnitInfo | nil => unit != "mouseover" ? nil : {
+function kragos(unit: String): Game.UnitInfo | nil {
+  if (unit != "mouseover") { return nil }
+  return {
     name: "Kragos", player: true, className: "Warrior", guild: "Kirin Tor", guildRank: "Officer", dead: false,
     ghost: false, afk: false, dnd: false, pvp: false, level: 34, race: "Human", faction: "Alliance",
     factionName: "Alliance", sameFaction: true, inParty: false, friend: false, ignored: false, tapped: false,
     classification: "normal"
   }
-  Game.spells.cost = (id: Integer): Game.SpellCost | nil => id == 116 ? { amount: 65 } : nil
-  for (lock of [false, true]) {
-    for (gone of [false, true]) {
-      Tooltips.settings.draft.spellsLock = lock
-      saveAll()
-      Tooltips.close()
-      Game.tooltip.main = hidden(corner)
-      Test.pass(0.3)
-      Game.tooltip.main = showing(corner, {
-        kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }, { left: "Level 34 Human Warrior", kind: 0 }]
-      })
-      Test.pass(0.1)
-      Test.expect(holds("Kirin Tor") && holds("Human"))
-      if (gone) {
-        Game.tooltip.main = hidden(corner)
-        Test.pass(0.1)
-      }
-      Game.tooltip.main = frostbolt(corner, slot)
-      Test.pass(1.3)
-      Test.expect(Tooltips.locked == lock)
-      Test.expect(holds("Frostbolt"))
-      for (text of ["Kirin Tor", "Officer", "Human", "Alliance", "Kragos"]) {
-        if (holds(text)) { panic(`locked ${lock}, gone ${gone}: the spell's tooltip holds the unit's «${text}»: ${shownTexts()}`) }
-      }
-    }
+}
+
+function frostbolt(): Game.TooltipData {
+  return {
+    kind: 1, id: 116, about: "spell:116",
+    lines: [{ left: "Frostbolt", kind: 13 }, { left: "65 Mana", right: "30 yd range", kind: 0 }]
   }
 }
 
-// A tooltip that never locks (a button's text) keeps no room for the lock's bar: its last line stands at its bottom,
-// under nothing but the frame's padding. One that locks keeps the bar's room under its lines from the start.
-test "a button's tooltip, which never locks, is its content's height; an item's keeps the bar's room" {
-  let corner = frame("Frame", "GameTooltip", 1300, 720, 200, 80)
-  let button = frame("Button", "CharacterMicroButton", 600, 800, 30, 40)
-  let slot = frame("Button", "ContainerFrame1Item3", 1300, 200, 40, 40)
-  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
-  Game.character.itemLevel = (): Number | nil => 16
-  Game.character.durability = (): Number | nil => 0.97
-  Game.tooltip.main = {
-    owner: button, ownerName: "CharacterMicroButton", placeable: true,
-    ..showing(corner, { plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }] })
-  }
+// Whether anything shown says one of the unit's texts.
+function anyOfKragos(): Boolean {
+  const all = Test.page().texts()
+  return ["Kirin Tor", "Officer", "Human", "Alliance", "Kragos"].any(said => all.any(shown => shown == said))
+}
+
+test "a spell's tooltip straight after a unit's holds nothing of the unit's, charging or locked" {
+  Game.units.of = kragos
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => ({ amount: 65 })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({ kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }] })
   Test.pass(0.1)
-  const tip = Test.edges(Ordaen.art.window.wood, 0)
-  const last = Test.holding("C: open", nil)
-  // The frame's padding, its section's and half the line (31): no bar's room (20 more) under the last line.
-  if (tip.bottom - last.y > 40) { panic(`${tip.bottom - last.y} under the button's tooltip's last line's middle`) }
-  Game.tooltip.main = hidden(corner)
+  Game.tooltip.main = inSlot("ContainerFrame1Item3", frostbolt())
+  Test.pass(0.1)
+  Test.expect(Test.page().window("Frostbolt").shown() && !anyOfKragos())
+  Test.pass(1.3)
+  Test.expect(!anyOfKragos())
+}
+
+test "a spell's tooltip after a unit's, the game's gone between, holds nothing of the unit's, charging or locked" {
+  Game.units.of = kragos
+  Game.spells.cost = (id: Integer): Game.SpellCost | nil => ({ amount: 65 })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({ kind: 2, lines: [{ left: "Kragos", kind: 2, unit: "mouseover" }] })
+  Test.pass(0.1)
+  Game.tooltip.main = hidden()
+  Test.pass(0.1)
+  Game.tooltip.main = inSlot("ContainerFrame1Item3", frostbolt())
+  Test.pass(0.1)
+  Test.expect(Test.page().window("Frostbolt").shown() && !anyOfKragos())
+  Test.pass(1.3)
+  Test.expect(!anyOfKragos())
+}
+
+// The lock's room
+
+test "a button's tooltip, which never locks, ends at its last line; an item's keeps the lock's bar's room under it" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("CharacterMicroButton", text("Character Info"))
+  const button = Test.page().window("Character Info")
+  const under = button.rect().bottom - button.text("Character Info").rect().bottom
+  Game.tooltip.main = hidden()
   Test.pass(0.3)
-  Game.tooltip.main = inSlot(corner, slot, sword())
-  Test.pass(0.1)
-  const item = Test.edges(Ordaen.art.window.wood, 0)
-  const name = Test.holding("Sword", nil)
-  // The item's name, then the bar's room under it.
-  Test.expect(item.bottom - name.y > 40)
+  Game.tooltip.main = inSlot("ContainerFrame1Item3", sword())
+  const item = Test.page().window("Sword")
+  // The bar's row and the room above it: more than 15 more.
+  Test.expect(item.rect().bottom - item.text("Sword").rect().bottom > under + 15)
 }

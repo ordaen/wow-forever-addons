@@ -37,7 +37,7 @@ function refilled(tip: Game.ShownTip, at: Integer, right: String): Game.ShownTip
   return { data: { lines: lines, ..tip.data }, ..tip }
 }
 
-test "a held tooltip the game fills anew costs what changed in it, however many lines it has" {
+test "a held tooltip the game fills anew costs what changed in it: a refill of thirty lines makes what one of ten does" {
   let corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
   corner.SetSize(200, 80)
   corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
@@ -62,7 +62,7 @@ test "a held tooltip the game fills anew costs what changed in it, however many 
       Game.tooltip.main = third
       Test.pass(0.02)
     }))
-    _ = Test.surfaceHolding("2.12 MB")
+    Test.expect(Test.page().window("Game Menu").text("2.12 MB").shown())
   }
   const few = made[1] ?? panic("the short tooltip's refill")
   const many = made[2] ?? panic("the long tooltip's refill")
@@ -70,5 +70,4 @@ test "a held tooltip the game fills anew costs what changed in it, however many 
   // refill is a few tables: the changed line's, the model's, the lists'.
   Test.expect(many - few < 1)
   Test.expect(many < 10)
-  Test.note("a refill of thirty lines makes what one of ten does")
 }
