@@ -1,7 +1,6 @@
 // The sales ledger: a row for each of the house's mail the player takes (a sale, a purchase, an auction back unsold),
-// written by whoever reads the mail (Ordaen Mail's inbox, through the root's `ledger`). It answers «sold 9 of 12» for an
-// item. Saved with the module's data, at most `MOST` rows, none older than 90 days: older rows say nothing of the
-// market now.
+// written through the root's `ledger` by whoever reads the mail; no addon does yet, so «Data» counts none. Saved with
+// the module's data, at most `MOST` rows, none older than 90 days: older rows say nothing of the market now.
 import Game from "$game"
 import { Hour } from "Ordaen"
 
@@ -40,19 +39,6 @@ public class Ledger {
   // An auction came back unsold.
   public expired(mut self, item: String, count: Integer) {
     self.add({ deal: .Expired, item: item, count: count, copper: 0, at: Hour.now() })
-  }
-
-  // How many of the item were sold, and how many were offered (sold, and back unsold).
-  public sellThrough(self, item: String): (Integer, Integer) {
-    let sold = 0
-    let offered = 0
-    for (row of self.rows) {
-      if (row.item == item && row.deal != .Bought) {
-        offered += row.count
-        if (row.deal == .Sold) { sold += row.count }
-      }
-    }
-    return sold, offered
   }
 
   // The rows of one kind, and their money together.
