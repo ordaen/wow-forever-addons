@@ -15,7 +15,7 @@ public type PriceKey = brand Integer {
   // A key as the house's seams give one (`AuctionScan.read`, `Offer.key`), the same form.
   public given(key: Integer): PriceKey { return key }
   public suffixed(item: Integer, suffix: Integer): PriceKey { return item + suffix.abs() * HALF }
-  // The key of an item a link names: the suffix is the link's seventh number after the id
+  // The key of an item a link names: the suffix is the link's sixth number after the id
   // (`item:id:enchant:gems×4:suffix`), a negative one counted by its size; none for a plain item.
   public ofLink(item: Integer, link: String): PriceKey {
     const suffix = link.match("item:%d+:%-?%d*:%-?%d*:%-?%d*:%-?%d*:%-?%d*:(%-?%d*)")
