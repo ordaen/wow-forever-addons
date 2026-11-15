@@ -1,13 +1,13 @@
 // The «Queue» tab: what «Create» asked for, every profession's, in the order it runs, a line each (its icon, its name
 // in its difficulty's colour (a recipe of a profession that isn't open: dim, its profession's icon), which opens it,
-// its count still to make with − and +, ✕ to take it out); one table of the reagents they all need (need, have,
+// its count still to make with − and +, x to take it out); one table of the reagents they all need (need, have,
 // missing, red while short). What the queue is doing or why it waits, and «Create next», the player's click that
 // starts the next run (the client starts a craft from nothing else), stand in the window's footer.
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Track } from "$ltml"
 import { Component, CountInput, Money, PX, PushButton, space } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
-import { Way, partOf } from "@/cost"
+import { Way, unitOf } from "@/cost"
 import Locale from "@/locales"
 import { wayText } from "@/priceRows"
 import Style from "@/style"
@@ -41,7 +41,7 @@ public struct QueueLine {
 
 // A reagent the queue needs: all of it, what the bags hold, and what is missing; the first line that needs it.
 public struct Need {
-  item: Integer
+  item: Integer | nil
   recipe: Integer
   crafts: Integer
   name: String
@@ -86,7 +86,7 @@ public function needsOf(lines: Array<QueueLine>): Array<Need> {
       if (!found) {
         const total = reagent.need * line.count
         list.push({
-          item: reagent.itemID ?? 0, recipe: line.recipe, crafts: line.count, name: reagent.name, icon: reagent.icon,
+          item: reagent.itemID, recipe: line.recipe, crafts: line.count, name: reagent.name, icon: reagent.icon,
           need: total, have: reagent.have,
           missing: (0).max(total - reagent.have)
         })
@@ -160,10 +160,9 @@ public struct NeedPrice {
 public function needPricesOf(prices: any PriceSource, needs: Array<Need>): Array<NeedPrice> {
   return needs.map((need: Need): NeedPrice => {
     if (need.missing == 0) { return { need: need, copper: nil, way: Way.None } }
-    const reagent: Game.Reagent = { itemID: need.item, name: need.name, icon: need.icon, have: 0, need: need.missing }
-    const part = partOf(prices, reagent, 1)
-    const unit = part.unit
-    return { need: need, copper: unit == nil ? nil : unit * need.missing, way: part.way }
+    const one = unitOf(prices, need.item)
+    const unit = one.unit
+    return { need: need, copper: unit == nil ? nil : unit * need.missing, way: one.way }
   })
 }
 
@@ -184,12 +183,13 @@ public function toBuyOf(priced: Array<NeedPrice>): Integer | nil {
 public class NeedRow implements Component {
   derived need: Need = self.entry.need
   derived icon: Art = self.need.icon
-  derived missing: String = self.need.missing > 0 ? "%d".format(self.need.missing) : "-"
-  derived missingColor: Color = self.need.missing > 0 ? SHORT : Style.INK
+  derived lacks: Boolean = self.need.missing > 0
+  derived missing: String = self.lacks ? "%d".format(self.need.missing) : "-"
+  derived missingColor: Color = self.lacks ? SHORT : Style.INK
   derived columns: Array<Track> = self.priced ? NEED_PRICED : NEED
   derived hasPrice: Boolean = self.entry.copper != nil
   derived copper: Integer = self.entry.copper ?? 0
-  derived way: String = self.need.missing == 0 ? "" : wayText(self.entry.way)
+  derived way: String = wayText(self.entry.way)
   derived wayColor: Color = self.entry.way == Way.None ? SHORT : Style.INK
 
   entry: Signal<NeedPrice>
@@ -220,7 +220,8 @@ public class NeedRow implements Component {
           <box xAlign={Align.End}>
             <Money $if={self.hasPrice} amount={self.copper} />
           </box>
-          <text value={self.way} textColor={self.wayColor} wrap={false} />
+          <text $if={self.lacks} value={self.way} textColor={self.wayColor} wrap={false} />
+          <box $else />
         </>
       </box>
     }
@@ -232,7 +233,7 @@ public class QueuePage implements Component {
   // A line's stepper set its recipe's count; nought takes it out.
   public counted: Event<(Integer, Integer)> = new Event()
 
-  // «To the shopping list»: what is missing, each need with what it lacks.
+  // «To the shopping list»: every need, with what it lacks (Ordaen Auction's list takes nothing of one that lacks none).
   public shop: Event<Array<Need>> = new Event()
 
   derived lines: Array<QueueLine> = linesOf(self.queued, Game.tradeSkill.recipes, Game.professions.list)
@@ -266,7 +267,7 @@ public class QueuePage implements Component {
     return needPricesOf(prices, self.needs)
   }
 
-  onShop(self) { self.shop.emit(self.needs.filter(need => need.missing > 0)) }
+  onShop(self) { self.shop.emit(self.needs) }
 
   onAct(self, act: QueueAct, id: Integer) { self.act.emit(act, id) }
   onCounted(self, recipe: Integer, count: Integer) { self.counted.emit(recipe, count) }

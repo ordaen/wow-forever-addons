@@ -248,13 +248,14 @@ public class Professions implements Module, App {
   }
 
   // «To the shopping list» on «Queue»: each missing reagent onto Ordaen Auction's list, as asked by the first line
-  // that needs it.
+  // that needs it (the list takes nothing of one that lacks none); one the game names no item of can't go on it.
   onShop(self, needs: Array<Need>) {
     const auction = Auction
     if (auction == nil) { return }
     for (need of needs) {
-      if (need.item > 0) {
-        auction.shopping.add(ItemId.of(need.item), need.missing,
+      const item = need.item
+      if (item != nil) {
+        auction.shopping.add(ItemId.of(item), need.missing,
           .Queue { recipe: need.recipe, crafts: need.crafts, character: Game.player.name })
       }
     }

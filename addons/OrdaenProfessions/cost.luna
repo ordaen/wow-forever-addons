@@ -13,7 +13,6 @@ public enum Way { Buy = "buy", Vendor = "vendor", None = "none" }
 
 // A reagent with its prices, for the make row's count.
 public struct PartPrice {
-  item: Integer
   name: String
   icon: Art
   // All the count needs, and what the bags hold.
@@ -44,29 +43,37 @@ public struct Totals {
   priced: Boolean
 }
 
-// The cheaper of the house's price and a merchant's for one, and how it is had; a merchant's where they are equal (it
-// has no age).
-public function partOf(prices: any PriceSource, reagent: Game.Reagent, count: Integer): PartPrice {
-  const item = reagent.itemID ?? 0
-  const need = reagent.need * count
-  const quote = item > 0 ? prices.buy(PriceKey.of(item)) : nil
-  const merchant = item > 0 ? prices.vendor(ItemId.of(item)) : nil
+// One of an item at the house and at a merchant, and how it is had: the cheaper of the two, a merchant's where they
+// are equal (it has no age).
+public struct UnitPrice {
+  bought: Integer | nil
+  sold: Integer | nil
+  way: Way
+  // One by its way; none for none.
+  unit: Integer | nil
+  // Hours the house's price it takes is old; none for a merchant's.
+  age: Integer | nil
+}
+
+// One of an item's prices; none at all for a reagent the game names no item of.
+public function unitOf(prices: any PriceSource, item: Integer | nil): UnitPrice {
+  if (item == nil) { return { bought: nil, sold: nil, way: Way.None, unit: nil, age: nil } }
+  const quote = prices.buy(PriceKey.of(item))
   const bought: Integer | nil = quote?.copper()
-  const sold: Integer | nil = merchant
-  let way = Way.None
-  let unit: Integer | nil = nil
-  let age: Integer | nil = nil
-  if (sold != nil && (bought == nil || sold <= bought)) {
-    way = Way.Vendor
-    unit = sold
-  } else if (bought != nil) {
-    way = Way.Buy
-    unit = bought
-    age = quote?.age()
-  }
+  const sold: Integer | nil = prices.vendor(ItemId.of(item))
+  if (sold != nil && (bought == nil || sold <= bought)) { return { bought: bought, sold: sold, way: Way.Vendor, unit: sold, age: nil } }
+  if (bought != nil) { return { bought: bought, sold: sold, way: Way.Buy, unit: bought, age: quote?.age() } }
+  return { bought: nil, sold: nil, way: Way.None, unit: nil, age: nil }
+}
+
+public function partOf(prices: any PriceSource, reagent: Game.Reagent, count: Integer): PartPrice {
+  const need = reagent.need * count
+  const one = unitOf(prices, reagent.itemID)
+  const bought = one.bought
+  const sold = one.sold
   return {
-    item: item, name: reagent.name, icon: reagent.icon, need: need, have: reagent.have, auction: bought == nil ? nil : bought * need,
-    vendor: sold == nil ? nil : sold * need, way: way, unit: unit, age: age
+    name: reagent.name, icon: reagent.icon, need: need, have: reagent.have, auction: bought == nil ? nil : bought * need,
+    vendor: sold == nil ? nil : sold * need, way: one.way, unit: one.unit, age: one.age
   }
 }
 
@@ -110,10 +117,10 @@ public function totalsOf(
   }
 }
 
-function older(a: Integer | nil, b: Integer | nil): Integer | nil {
-  if (a == nil) { return b }
-  if (b == nil) { return a }
-  return a.max(b)
+// The oldest of the ages taken so far and another; a price of no age leaves it.
+function older(oldest: Integer | nil, age: Integer | nil): Integer | nil {
+  if (age == nil) { return oldest }
+  return (oldest ?? age).max(age)
 }
 
 // How many one making of a recipe gives: the mean of its least and most; one where the client says nothing.
