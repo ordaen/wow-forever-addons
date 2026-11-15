@@ -1,112 +1,240 @@
-// The bags window with a stand-in game: the game's bags opened and shut, the three views, the sorts, the tabs, the
-// search, a slot's clicks, the protection, «Sort the bags», the bag slots, the gold, and the module turned off.
+// Ordaen Bags as the player meets it: the window that shows while the game has its bags open, in place of the game's
+// own; its tabs, views and sorts picked from the header; the search; a slot's clicks; the protection from «Sort the
+// bags»; the bag slots; the footer's free slots and gold; and what is kept between sessions. The game is a world of
+// items the test keeps (`World`): what each slot holds, each item with an icon of its own, by which the player tells
+// it on the screen.
 import Client from "$client"
 import Game from "$game"
-import { MouseButton } from "$ltml"
-import Runtime from "$runtime"
+import { Art } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import root Bags from "OrdaenBags"
+import { Purse, Purses } from "@/gold"
+import Locale from "@/locales"
 
-// The screen Ordaen draws its modules on.
-const PAGE: Test.Page = { left: 0, top: 0, width: 1200, height: 800, screen: true }
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 
-// One item as the game reads it.
+// The items' icons.
+const HEARTH: FileId = 134414
+const CLOTH: FileId = 132889
+const POTION: FileId = 134829
+const SWORD: FileId = 135274
+const FOOT: FileId = 133854
+const DEED: FileId = 134327
+const SHIRT: FileId = 135011
+const RECIPE: FileId = 134939
+const WOOL: FileId = 132911
+const SILK: FileId = 132905
+const MAGEWEAVE: FileId = 132892
+const ZIRCON: FileId = 134134
+const ASH: FileId = 132857
+const MOSS: FileId = 134187
+// The bags' icons, and the header's bag button's.
+const BACKPACK: FileId = 133633
+const LINEN_BAG: FileId = 133647
+const BAG_BUTTON: FileId = 130716
+
+// A slot's well, every slot drawn on it, empty or not; a new item's glow; a protected slot's padlock; a switched off
+// tool's glyph.
+const WELL: Color = Color.hex("#0d0a08")
+const NEW_GLOW: Color = Color.hex("#ffd65a")
+const PADLOCK: Atlas = "QuestSharing-Padlock"
+const OFF: Color = Color.hex("#a3977f")
+// How much of a dimmed slot shows.
+const DIMMED: Number = 0.35
+// A text the settings window always shows.
+const SETTINGS = "Move mode"
+
+// One stack in the bags, as the game reads it.
 struct Lies {
-  const bag: Integer
-  const slot: Integer
+  bag: Integer
+  slot: Integer
   const id: Integer
   const name: String
-  const count: Integer
-  const quality: Integer
+  const icon: FileId
+  count: Integer = 1
+  const quality: Integer = 1
   const kind: Integer
-  const subkind: Integer
-  const subkindName: String
-  const worn: String
-  const level: Integer
-  const isNew: Boolean
+  const subkind: Integer = 0
+  const subkindName: String = ""
+  const level: Integer = 1
+  isNew: Boolean = false
+  const bound: Boolean = false
+  locked: Boolean = false
 }
 
-function lies(
-  bag: Integer, slot: Integer, id: Integer, name: String, count: Integer, quality: Integer, kind: Integer, subkind: Integer,
-  subkindName: String, worn: String
-): Lies {
-  return {
-    bag: bag, slot: slot, id: id, name: name, count: count, quality: quality, kind: kind, subkind: subkind,
-    subkindName: subkindName, worn: worn, level: 5 + id % 20, isNew: false
+// What lies in the bags, the size of each, and what the game does with them: the test's fakes read it.
+class World {
+  items: mut Array<mut Lies>
+  // Each bag's slots, from the backpack.
+  sizes: mut Array<Integer> = [16, 6, 0, 0, 0]
+  // Whether the linen bag takes any item.
+  general = true
+  // Whether a swap asked moves the items.
+  moves = true
+
+  constructor(items: mut Array<mut Lies>) { self.items = items }
+
+  public bag(self, bag: Integer): Game.BagInfo {
+    const slots = self.sizes[bag + 1] ?? 0
+    if (bag == 0) { return { bag: 0, item: nil, name: "Backpack", icon: BACKPACK, slots: slots, general: true } }
+    if (bag == 1) { return { bag: 1, item: 4238, name: "Linen Bag", icon: LINEN_BAG, slots: slots, general: self.general } }
+    return { bag: bag, item: nil, name: "", icon: nil, slots: slots, general: true }
+  }
+
+  public size(self, bag: Integer): Integer { return self.sizes[bag + 1] ?? 0 }
+
+  public read(self, bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
+    const item = self.items.find(lying => lying.bag == bag && lying.slot == slot)
+    if (item == nil) {
+      into.id = 0
+      return false
+    }
+    into.id = item.id
+    into.count = item.count
+    into.quality = item.quality
+    into.name = item.name
+    into.link = `[${item.name}]`
+    into.level = item.level
+    into.kind = item.kind
+    into.subkind = item.subkind
+    into.subkindName = item.subkindName
+    into.worn = ""
+    into.bound = item.bound
+    into.locked = item.locked
+    into.isNew = item.isNew
+    into.price = 10
+    return true
+  }
+
+  public icon(self, id: Integer): Art | nil { return self.items.find(lying => lying.id == id)?.icon }
+
+  // The stack in a slot.
+  public at(mut self, bag: Integer, slot: Integer): mut Lies {
+    for (item of self.items) {
+      if (item.bag == bag && item.slot == slot) { return item }
+    }
+    panic(`nothing lies in ${bag}/${slot}`)
+  }
+
+  // The two slots' stacks change places, as the client does.
+  public swap(mut self, fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean {
+    if (!self.moves) { return true }
+    for (item of self.items) {
+      if (item.bag == fromBag && item.slot == fromSlot) {
+        item.bag = toBag
+        item.slot = toSlot
+      } else if (item.bag == toBag && item.slot == toSlot) {
+        item.bag = fromBag
+        item.slot = fromSlot
+      }
+    }
+    return true
+  }
+
+  // The stack taken out of the bags.
+  public take(mut self, bag: Integer, slot: Integer) {
+    let at = 0
+    for (index, item of self.items) {
+      if (item.bag == bag && item.slot == slot) { at = index }
+    }
+    _ = self.items.remove(at)
   }
 }
 
-// The backpack's sixteen slots and a linen bag's six: a hearthstone, cloth, potions, a sword, a grey rabbit's foot, a
-// quest's deed, a recipe, a new shirt.
-function inBags(): mut Array<Lies> {
-  let items: Array<Lies> = [
-    lies(0, 1, 6948, "Hearthstone", 1, 1, 15, 0, "Junk", ""),
-    lies(0, 2, 2589, "Linen Cloth", 20, 1, 7, 5, "Cloth", ""),
-    lies(0, 3, 118, "Minor Healing Potion", 5, 1, 0, 1, "Potion", ""),
-    lies(0, 4, 25, "Worn Shortsword", 1, 1, 2, 7, "One-Handed Swords", "INVTYPE_WEAPON"),
-    lies(0, 5, 3300, "Rabbit's Foot", 3, 0, 15, 0, "Junk", ""),
-    lies(0, 7, 1972, "Westfall Deed", 1, 1, 12, 0, "Quest", ""),
-    lies(1, 2, 2408, "Recipe: Fine Leather Gloves", 1, 2, 9, 1, "Leatherworking", ""),
-    lies(1, 4, 2589, "Linen Cloth", 7, 1, 7, 5, "Cloth", "")
+// The backpack's sixteen slots and the linen bag's six: a hearthstone, cloth, potions, a sword, a grey rabbit's foot, a
+// quest's deed, a new shirt; a recipe and more cloth in the linen bag. Nine items, thirteen slots free.
+function everyday(): mut Array<mut Lies> {
+  return [
+    { bag: 0, slot: 1, id: 6948, name: "Hearthstone", icon: HEARTH, kind: 15 },
+    { bag: 0, slot: 2, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7, subkind: 5, subkindName: "Cloth" },
+    { bag: 0, slot: 3, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0, subkind: 1, subkindName: "Potion" },
+    { bag: 0, slot: 4, id: 25, name: "Worn Shortsword", icon: SWORD, kind: 2, subkind: 7, subkindName: "One-Handed Swords" },
+    { bag: 0, slot: 5, id: 3300, name: "Rabbit's Foot", icon: FOOT, count: 3, quality: 0, kind: 15, subkindName: "Oddments" },
+    { bag: 0, slot: 7, id: 1972, name: "Westfall Deed", icon: DEED, kind: 12, subkindName: "Quest" },
+    {
+      bag: 0, slot: 9, id: 2575, name: "Red Linen Shirt", icon: SHIRT, quality: 2, kind: 4, subkindName: "Miscellaneous", isNew: true,
+      level: 12
+    },
+    { bag: 1, slot: 2, id: 2408, name: "Recipe: Fine Leather Gloves", icon: RECIPE, quality: 2, kind: 9, subkind: 1, subkindName: "Leatherworking" },
+    { bag: 1, slot: 4, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 7, kind: 7, subkind: 5, subkindName: "Cloth" }
   ]
-  items.push({
-    bag: 0, slot: 9, id: 2575, name: "Red Linen Shirt", count: 1, quality: 2, kind: 4, subkind: 0, subkindName: "Miscellaneous",
-    worn: "INVTYPE_BODY", level: 12, isNew: true
-  })
-  return items
 }
 
-// What the game says of each bag.
-function bagOf(bag: Integer): Game.BagInfo {
-  if (bag == 0) { return { bag: 0, item: nil, name: "Backpack", icon: 130716, slots: 16, general: true } }
-  if (bag == 1) { return { bag: 1, item: 4238, name: "Linen Bag", icon: 133647, slots: 6, general: true } }
-  return { bag: bag, item: nil, name: "", icon: nil, slots: 0, general: true }
+// Four cloths in the backpack's first slots, one section of the trade goods: wool, linen, silk and mageweave, each
+// told apart by a sort.
+function cloths(): mut Array<mut Lies> {
+  return [
+    { bag: 0, slot: 1, id: 2592, name: "Wool Cloth", icon: WOOL, count: 5, kind: 7, subkind: 5, subkindName: "Cloth", level: 10 },
+    { bag: 0, slot: 2, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 20, kind: 7, subkind: 5, subkindName: "Cloth", level: 5 },
+    { bag: 0, slot: 3, id: 4306, name: "Silk Cloth", icon: SILK, quality: 2, kind: 7, subkind: 5, subkindName: "Cloth", level: 20 },
+    {
+      bag: 0, slot: 4, id: 4338, name: "Mageweave Cloth", icon: MAGEWEAVE, count: 10, quality: 3, kind: 7, subkind: 5,
+      subkindName: "Cloth", level: 15
+    }
+  ]
 }
 
-function sizeOf(bag: Integer): Integer {
-  return bagOf(bag).slots
+// The bags' window: the surface that holds its title.
+function bags(): Test.Part {
+  return Test.page().window(Locale.TITLE)
 }
 
-// What the game reads of a slot, out of `inBags`.
-function readSlot(bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
-  return readOf(inBags(), bag, slot, mut into)
+// The bag slots' window: the surface that lists the linen bag (with the bags' window by category, where no caption
+// names it).
+function bagSlots(): Test.Part {
+  return Test.page().window("Linen Bag")
 }
 
-// The same with a potion come into the linen bag's last slot.
-function readMore(bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
-  let items = inBags()
-  items.push(lies(1, 6, 118, "Minor Healing Potion", 2, 1, 0, 1, "Potion", ""))
-  return readOf(items, bag, slot, mut into)
+// A slot, by its item's icon.
+function held(icon: FileId): Test.Part {
+  return bags().button(icon)
 }
 
-function readOf(items: Array<Lies>, bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean {
-  const item = items.find(lying => lying.bag == bag && lying.slot == slot)
-  if (item == nil) {
-    into.id = 0
-    return false
+// The `nth` slot drawn, an empty one too.
+function nth(n: Integer): Test.Part {
+  return bags().button(WELL).nth(n)
+}
+
+// Whether the slots drawn hold these items, in this order, from the first.
+function inOrder(icons: Array<FileId>): Boolean {
+  for (index, icon of icons) {
+    if (!nth(index).paintedWith(icon)) { return false }
   }
-  into.id = item.id
-  into.count = item.count
-  into.quality = item.quality
-  into.icon = 134400
-  into.name = item.name
-  into.link = `[${item.name}]`
-  into.level = item.level
-  into.kind = item.kind
-  into.subkind = item.subkind
-  into.subkindName = item.subkindName
-  into.worn = item.worn
-  into.bound = false
-  into.locked = false
-  into.isNew = item.isNew
-  into.price = 10
   return true
 }
 
-function click(at: Test.Point) {
-  Test.click(at, nil)
-  Test.flush()
+// A choice of one of the header's pickers: the picker by its glyph, then the choice in its list.
+function pick(glyph: Art, choice: String) {
+  bags().button(glyph).click()
+  Test.page().button(choice).click()
+}
+
+// The tab's name and count, as its row reads.
+function tab(name: String): String {
+  return bags().text(name).item().texts().join(" | ")
+}
+
+// Whether a part's texts read exactly this, joined by « | »: where they don't, the test fails with what they read.
+function reads(part: Test.Part, expected: String): Boolean {
+  const read = part.texts().join(" | ")
+  if (read != expected) { panic(`it reads «${read}», not «${expected}»`) }
+  return true
+}
+
+// Whether the game was asked exactly this since it was last asked, joined by «, »: where it wasn't, the test fails with
+// what it was asked.
+function asked(expected: String): Boolean {
+  const said = Test.requests().join(", ")
+  if (said != expected) { panic(`the game was asked «${said}», not «${expected}»`) }
+  return true
+}
+
+// The game's own tooltip, as the game shows it for an item the cursor is on: where Ordaen Tooltips draws its own.
+function tooltipOf(corner: any Client.Frame, id: Integer, name: String): Game.ShownTip {
+  return {
+    shown: true, data: { kind: 0, id: id, about: `item:${id}`, lines: [{ left: name, kind: 22 }] }, placeable: false,
+    ownerHigh: false, ownerRight: false, corner: corner, below: false, right: true
+  }
 }
 
 // A client's bag window, as the game's `ContainerFrame1`.
@@ -117,236 +245,908 @@ function gameWindow(): any Client.Frame {
   return own
 }
 
-test "loaded by Ordaen, the module's root is made and is among Ordaen's modules" {
-  Test.flush()
-  let found = 0
-  for (entry of Ordaen.modules) {
-    if (entry.title == "Ordaen Bags") { found += 1 }
-  }
-  Test.expect(found == 1)
+// Ordaen's settings window at the module's page, as `/ordaen bags` opens it.
+function settings(): Test.Part {
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("bags")
+  return Test.page().window(SETTINGS)
 }
 
-test "shut, nothing is drawn and the bags aren't followed; opened, the window by category, the game's windows held unseen" {
+// The window shown and shut
+
+test "the window shows while the game has its bags open, and the game's own bag windows stay unseen" {
   const own = gameWindow()
   Game.bags.windows = [own]
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Test.flush()
-  Test.expect(own.GetAlpha() == 0)
-  Test.shot("shut: nothing drawn")
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Test.expect(!bags().shown() && own.GetAlpha() == 0)
   Game.bags.open = true
-  Test.flush()
-  Test.shot("opened: the tabs with their counts, the sections side by side in the kinds' order, «Free» last")
+  Test.expect(bags().shown() && own.GetAlpha() == 0)
   Game.bags.open = false
-  Test.flush()
-  Test.shot("shut: the window hidden, the bags no more followed")
+  Test.expect(!bags().shown() && own.GetAlpha() == 0)
 }
 
-test "the module turned off: the game's windows shown again, the window gone" {
-  const own = gameWindow()
-  Game.bags.windows = [own]
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
+test "the bags are followed while they are open, and not while they are shut" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Test.expect(Test.requests().length == 0)
   Game.bags.open = true
-  Test.flush()
-  Test.expect(own.GetAlpha() == 0)
-  const ordaen = Runtime.Addon.of(Ordaen) ?? panic("Ordaen is installed")
-  for (addon of ordaen.dependents()) {
-    if (addon.name == "OrdaenBags") { Ordaen.turn(addon, false) }
-  }
-  Test.flush()
-  Test.expect(own.GetAlpha() == 1)
-  Test.shot("off: nothing of the module drawn, the bags no more followed")
-}
-
-test "every tab clicked through, each with its items alone" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  for (name of ["New", "Quest items", "Consumables", "Equipment", "Trade goods", "Recipes", "Other", "Junk", "All"]) {
-    click(Test.holding(name, nil))
-    Test.shot(`the tab «${name}»`)
-  }
-}
-
-test "the view picked from the header: a section per bag with its fill, then every slot in one grid" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  click(Test.painted(Ordaen.art.ctl.tool.categories, nil))
-  click(Test.holding("By bag", nil))
-  Test.expect((peek Bags.list.values).view == .Bags)
-  Test.shot("by bag: the backpack's sixteen slots and the linen bag's six, each with its name and fill")
-  click(Test.painted(Ordaen.art.ctl.tool.table, nil))
-  click(Test.holding("One bag", nil))
-  Test.expect((peek Bags.list.values).view == .One)
-  Test.shot("in one grid: every slot in the bags' order, no captions")
-  click(Test.painted(Ordaen.art.ctl.tool.one, nil))
-  click(Test.holding("Categories", nil))
-  Test.expect((peek Bags.list.values).view == .Categories)
-}
-
-test "a sort picked from the header orders the sections' items by it: quality, name, item level" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  for (name of ["Quality", "Name", "Item level"]) {
-    click(Test.painted(Ordaen.art.ctl.tool.sort, nil))
-    click(Test.holding(name, nil))
-    Test.shot(`sorted by ${name}`)
-  }
-}
-
-test "a sort picked from the header orders the sections' items by it: count, item type, the bags' order" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  for (name of ["Count", "Item type", "Order in the bags"]) {
-    click(Test.painted(Ordaen.art.ctl.tool.sort, nil))
-    click(Test.holding(name, nil))
-    Test.shot(`sorted by ${name}`)
-  }
-}
-
-test "the search dims what doesn't match; a caption clicked shuts its section and opens it again" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  click(Test.field(nil))
-  Test.type("linen")
-  Test.flush()
-  Test.shot("«linen»: the cloth and the shirt bright, every other item dimmed")
-  click(Test.holding("Cloth", nil))
-  Test.shot("the cloth's caption clicked: the section shut, its caption alone")
-  click(Test.holding("Cloth", nil))
-  Test.shot("clicked again: open")
-}
-
-test "a slot's clicks: the cursor on a new item clears its glow, a click picks it up, the right button uses it" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  click(Test.holding("New", nil))
-  const at = Test.painted(Ordaen.art.ctl.qualityRim, nil)
-  Test.moveTo(at)
-  Test.flush()
-  Test.shot("the cursor on the new shirt: told seen, its glow gone, its tooltip")
-  Test.click(at, nil)
-  Test.click(at, MouseButton.Right)
-  Test.note(Test.performed().join(", "))
-  Test.shot("clicked: picked up; right-clicked: the client's own use of the bag's item")
-}
-
-test "Alt-click protects a slot, the tooltip says so, and «Sort the bags» leaves it where it is" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  click(Test.painted(Ordaen.art.ctl.tool.categories, nil))
-  click(Test.holding("One bag", nil))
-  Game.input.altDown = (): Boolean => true
-  click(Test.holding("20", nil))
-  Game.input.altDown = (): Boolean => false
-  Test.expect((peek Bags.memory.values).guards.length == 1)
-  Test.shot("the cloth's slot protected: a padlock at its corner")
-  click(Test.painted(Ordaen.art.ctl.tool.arrange, nil))
-  Test.shot("«Sort the bags» clicked: the moves asked of the game, the protected slot left out")
-  Game.input.altDown = (): Boolean => true
-  click(Test.holding("20", nil))
-  Game.input.altDown = (): Boolean => false
-  Test.expect((peek Bags.memory.values).guards.length == 0)
-}
-
-test "Ctrl-click sends an item where the place takes it; at a merchant what he won't take dims" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  Game.input.controlDown = (): Boolean => true
-  click(Test.holding("20", nil))
-  Game.input.controlDown = (): Boolean => false
-  Game.bags.place = Game.BagPlace.Merchant
-  Test.flush()
-  Test.shot("asked to send the cloth; at a merchant, the quest's deed dimmed")
-}
-
-test "the bag slots open beside the window; the cursor on a bag lights its slots alone" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  click(Test.painted(130716, nil))
-  Test.shot("the bag slots: the backpack and the linen bag, each with its fill")
-  Test.moveTo(Test.holding("Linen Bag", nil))
-  Test.flush()
-  Test.shot("the cursor on the linen bag: the backpack's slots dimmed")
-}
-
-test "the footer: the free slots of the total, and every character's gold under the cursor" {
-  Game.money.amount = 123456
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  Test.expect(Test.holding("Free 13 of 22", nil).x > 0)
-  Test.moveTo(Test.holding(Game.money.format(123456), nil))
-  Test.flush()
-  Test.shot("the cursor on the gold: this character's and the total")
-}
-
-test "a bag changed: its slots read again, the counts told" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
-  Game.bags.open = true
-  Test.flush()
-  Game.bags.size = sizeOf
-  Game.bags.readSlot = readMore
-  Game.bags.updated.emit(1)
-  Test.flush()
-  Test.expect(Test.holding("Free 12 of 22", nil).x > 0)
-  Test.shot("a potion come into the linen bag: the consumables' section grows, the free count one less")
+  Test.expect(bags().shown() && asked("Bags.follow true"))
+  Game.bags.open = false
+  Test.expect(!bags().shown() && asked("Bags.follow false"))
 }
 
 test "the window's close shuts the game's bags" {
-  Game.bags.bag = bagOf
-  Game.bags.readSlot = readSlot
-  Test.mount(nil, PAGE)
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
   Game.bags.open = true
   // The corner's controls show while the cursor is over the window.
-  Test.moveTo(Test.holding("Free 13 of 22", nil))
-  Test.flush()
-  click(Test.painted(Ordaen.art.ctl.corner.close, nil))
-  Test.expect(!Game.bags.open)
+  bags().text("Free 13 of 22").hover()
+  bags().button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!Game.bags.open && !bags().shown())
 }
 
-test "the header's view and sort are the profile's: there after a reload, and as they start in another profile" {
-  Bags.list.values.view = .One
-  Bags.list.values.sort = .Name
-  Test.flush()
+test "the corner's gear opens the module's page of the settings, with its two windows, and shuts it again" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().text("Free 13 of 22").hover()
+  bags().button(Ordaen.art.ctl.corner.gear).click()
+  const page = Test.page().window(SETTINGS)
+  Test.expect(page.text("Ordaen Bags").shown() && page.text(Locale.BAG_SLOTS).shown())
+  Test.page().window("Free 13 of 22").text("Free 13 of 22").hover()
+  Test.page().window("Free 13 of 22").button(Ordaen.art.ctl.corner.gear).click()
+  Test.expect(!Test.page().window(SETTINGS).shown())
+}
+
+test "turned off in the settings the window goes and the game's own bag windows show; turned on, it shows again" {
+  const own = gameWindow()
+  Game.bags.windows = [own]
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  const page = settings()
+  // The modules in the list: Bags, then Tooltips.
+  page.button(Ordaen.art.ctl.switchOn).nth(1).click()
+  Test.expect(own.GetAlpha() == 1 && !Test.page().text("Free 13 of 22").shown())
+  Test.expect(asked("Bags.follow true, Bags.follow false"))
+  page.button(Ordaen.art.ctl.switchOff).click()
+  Test.expect(own.GetAlpha() == 0 && Test.page().text("Free 13 of 22").shown())
+}
+
+// The tabs
+
+test "each tab says how many items it has, «New» among them while something is new" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.expect(tab("All") == "All | 9" && tab("New") == "New | 1" && tab("Quest items") == "Quest items | 1")
+  Test.expect(tab("Consumables") == "Consumables | 1" && tab("Equipment") == "Equipment | 2")
+  Test.expect(tab("Trade goods") == "Trade goods | 2" && tab("Recipes") == "Recipes | 1")
+  Test.expect(tab("Junk") == "Junk | 1" && bags().text("Other").count() == 2)
+}
+
+test "every item shows under «All», a section for each kind and subclass in the kinds' order, «Free» last" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.expect(bags().button(WELL).count() == 10)
+  // A section is captioned by its subclass, or by its tab where the game names none (the hearthstone's: «Other»).
+  const captions = ["Quest", "Potion", "Miscellaneous", "One-Handed Swords", "Cloth", "Leatherworking", "Oddments", "Free"]
+  let at = 0
+  for (shown of bags().texts()) {
+    if (shown == captions[at + 1]) { at += 1 }
+  }
+  Test.expect(at == captions.length)
+  Test.expect(inOrder([DEED, POTION, SHIRT, SWORD, CLOTH, CLOTH, RECIPE, HEARTH, FOOT]))
+  Test.expect(bags().text("Free").shown() && bags().text("13").shown())
+}
+
+test "a tab clicked shows its items alone" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button("Equipment").click()
+  Test.expect(inOrder([SHIRT, SWORD]) && bags().button(WELL).count() == 3)
+  Test.expect(bags().text("Miscellaneous").shown() && !bags().text("Cloth").shown())
+  bags().button("Trade goods").click()
+  Test.expect(held(CLOTH).count() == 2 && bags().button(WELL).count() == 3)
+  bags().button("Junk").click()
+  Test.expect(held(FOOT).shown() && bags().button(WELL).count() == 2)
+}
+
+test "an item stands in the tab of its class, and a grey one in «Junk» whatever its class" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Agate", icon: ZIRCON, kind: 3, subkindName: "Kind" },
+    { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Kind" },
+    { bag: 0, slot: 3, id: 3, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    { bag: 0, slot: 4, id: 4, name: "Vest", icon: SHIRT, kind: 4, subkindName: "Kind" },
+    { bag: 0, slot: 5, id: 5, name: "Blade", icon: SWORD, kind: 2, subkindName: "Kind" },
+    { bag: 0, slot: 6, id: 6, name: "Broken Blade", icon: FOOT, quality: 0, kind: 2, subkindName: "Kind" },
+    { bag: 0, slot: 7, id: 7, name: "Pattern", icon: RECIPE, kind: 9, subkindName: "Kind" },
+    { bag: 0, slot: 8, id: 8, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
+    { bag: 0, slot: 9, id: 9, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" },
+    { bag: 0, slot: 10, id: 10, name: "Stone", icon: HEARTH, kind: 15, subkindName: "Kind" }
+  ])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button("Trade goods").click()
+  Test.expect(held(ZIRCON).shown() && held(MOSS).shown() && held(ASH).shown() && bags().button(WELL).count() == 4)
+  bags().button("Equipment").click()
+  Test.expect(held(SHIRT).shown() && held(SWORD).shown() && bags().button(WELL).count() == 3)
+  bags().button("Junk").click()
+  Test.expect(held(FOOT).shown() && bags().button(WELL).count() == 2)
+  bags().button("Recipes").click()
+  Test.expect(held(RECIPE).shown() && bags().button(WELL).count() == 2)
+  bags().button("Consumables").click()
+  Test.expect(held(POTION).shown() && bags().button(WELL).count() == 2)
+  bags().button("Quest items").click()
+  Test.expect(held(DEED).shown() && bags().button(WELL).count() == 2)
+  bags().button("Other").click()
+  Test.expect(held(HEARTH).shown() && bags().button(WELL).count() == 2)
+}
+
+test "an item come into the bags new is told under «New»" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  world.at(0, 3).isNew = true
+  Game.bags.updated.emit(0)
+  Test.expect(tab("New") == "New | 2")
+}
+
+// The views
+
+test "the view «By bag»: a section per bag, captioned by its name and fill, its empty slots too" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "By bag")
+  Test.expect(reads(bags().text("Backpack").item(), "Backpack | 7/16"))
+  Test.expect(reads(bags().text("Linen Bag").item(), "Linen Bag | 2/6"))
+  Test.expect(bags().button(WELL).count() == 22 && !bags().text("All").shown() && !bags().text("Free").shown())
+  Test.expect(nth(1).paintedWith(HEARTH) && nth(9).paintedWith(SHIRT) && nth(18).paintedWith(RECIPE))
+}
+
+test "the view «One bag»: every slot in one grid in the bags' order, with no caption" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  Test.expect(bags().button(WELL).count() == 22 && !bags().text("Backpack").shown() && !bags().text("All").shown())
+  Test.expect(inOrder([HEARTH, CLOTH, POTION, SWORD, FOOT]) && nth(7).paintedWith(DEED) && nth(20).paintedWith(CLOTH))
+  // The header's view picker shows the view picked: back to the categories from it.
+  pick(Ordaen.art.ctl.tool.one, "Categories")
+  Test.expect(bags().text("All").shown())
+}
+
+// The sorts: four cloths in one section
+
+test "sorted by quality: the best first, then by name" {
+  const world = new World(cloths())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.expect(inOrder([WOOL, CLOTH, SILK, MAGEWEAVE]))
+  pick(Ordaen.art.ctl.tool.sort, "Quality")
+  Test.expect(inOrder([MAGEWEAVE, SILK, CLOTH, WOOL]))
+}
+
+test "sorted by name: in the alphabet's order" {
+  const world = new World(cloths())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.sort, "Name")
+  Test.expect(inOrder([CLOTH, MAGEWEAVE, SILK, WOOL]))
+}
+
+test "sorted by item level: the highest first" {
+  const world = new World(cloths())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.sort, "Item level")
+  Test.expect(inOrder([SILK, MAGEWEAVE, WOOL, CLOTH]))
+}
+
+test "sorted by count: the largest stack first, and a stack that grows moves up" {
+  const world = new World(cloths())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.sort, "Count")
+  Test.expect(inOrder([CLOTH, MAGEWEAVE, WOOL, SILK]))
+  world.at(0, 3).count = 12
+  Game.bags.updated.emit(0)
+  Test.expect(inOrder([CLOTH, SILK, MAGEWEAVE, WOOL]) && held(SILK).text("12").shown())
+}
+
+test "a stack's count changing shows its new count, the order kept where the sort isn't by count" {
+  const world = new World(cloths())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  world.at(0, 1).count = 30
+  Game.bags.updated.emit(0)
+  Test.expect(held(WOOL).text("30").shown() && inOrder([WOOL, CLOTH, SILK, MAGEWEAVE]))
+}
+
+test "sorted by item type: by the game's class of each, whatever its name" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Parts" },
+    { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Parts" },
+    { bag: 0, slot: 3, id: 3, name: "Zircon", icon: ZIRCON, kind: 3, subkindName: "Parts" }
+  ])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.sort, "Item type")
+  Test.expect(inOrder([ZIRCON, MOSS, ASH]))
+  pick(Ordaen.art.ctl.tool.sort, "Order in the bags")
+  Test.expect(inOrder([ASH, MOSS, ZIRCON]))
+}
+
+test "two stacks alike stand in the bags' order whatever the sort" {
+  const world = new World([
+    { bag: 1, slot: 1, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 3, kind: 7 },
+    { bag: 0, slot: 4, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 2, kind: 7 },
+    { bag: 0, slot: 2, id: 2589, name: "Linen Cloth", icon: CLOTH, count: 4, kind: 7 }
+  ])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.sort, "Name")
+  Test.expect(nth(1).texts().join("") == "4" && nth(2).texts().join("") == "2" && nth(3).texts().join("") == "3")
+}
+
+// The search
+
+test "the search dims every item whose name doesn't hold the text, in any case" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().input().type("LINEN")
+  Test.expect(held(SHIRT).opacity() == 1 && bags().button("20").opacity() == 1 && bags().button("7").opacity() == 1)
+  Test.expect(held(POTION).opacity() == DIMMED && held(DEED).opacity() == DIMMED)
+}
+
+test "the search never dims an empty slot" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  bags().input().type("linen")
+  Test.expect(nth(6).opacity() == 1 && nth(1).opacity() == DIMMED)
+}
+
+test "the search isn't kept: after a reload nothing is dimmed" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().input().type("linen")
   Test.reload()
+  Test.expect(bags().input().value() == "" && held(POTION).opacity() == 1)
+}
+
+// A section's caption
+
+test "a caption clicked shuts its section, its caption alone left; clicked again it opens" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  const caption = bags().button("Cloth")
+  Test.expect(caption.paintedWith(Ordaen.art.ctl.markOpen))
+  caption.click()
+  Test.expect(!held(CLOTH).shown() && caption.paintedWith(Ordaen.art.ctl.markClosed) && held(POTION).shown())
+  caption.click()
+  Test.expect(held(CLOTH).count() == 2 && caption.paintedWith(Ordaen.art.ctl.markOpen))
+}
+
+test "«Free»'s caption has no mark and shuts nothing" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  const caption = bags().button("Free")
+  Test.expect(caption.box(Ordaen.art.ctl.markOpen).opacity() == 0)
+  caption.click()
+  Test.expect(bags().text("13").shown())
+}
+
+// A slot's clicks
+
+test "a click on a slot picks its item up, or puts down there what the cursor holds" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  _ = Test.requests()
+  nth(3).click()
+  nth(6).click()
+  Test.expect(asked("Items.show 118, Bags.pickup 0 3, Bags.pickup 0 6"))
+}
+
+test "the right button on a slot is the client's own use of the item" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  held(POTION).rightClick()
+  Test.expect(Test.performed().join(", ") == "item 0 3" && asked("Bags.follow true, Items.show 118"))
+}
+
+test "Shift-click puts the item's link into the chat" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.input.shiftDown = (): Boolean => true
+  held(POTION).click()
+  Test.expect(asked("Bags.follow true, Items.show 118, Chat.link 118"))
+}
+
+test "Ctrl-click sends the item where the place takes it" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.input.controlDown = (): Boolean => true
+  held(POTION).click()
+  Test.expect(asked("Bags.follow true, Items.show 118, Bags.send 0 3"))
+}
+
+// Where the player stands
+
+test "at a merchant a quest's items dim" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.bags.place = Game.BagPlace.Merchant
+  Test.expect(held(DEED).opacity() == DIMMED && held(POTION).opacity() == 1 && held(SWORD).opacity() == 1)
+  Game.bags.place = Game.BagPlace.Mail
+  Test.expect(held(DEED).opacity() == 1)
+}
+
+test "at the auction house what is bound dims" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Bound Blade", icon: SWORD, kind: 2, bound: true },
+    { bag: 0, slot: 2, id: 2, name: "Free Blade", icon: SHIRT, kind: 2 }
+  ])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.bags.place = Game.BagPlace.AuctionHouse
+  Test.expect(held(SWORD).opacity() == DIMMED && held(SHIRT).opacity() == 1)
+}
+
+test "at crafting only trade goods and reagents stay lit" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    { bag: 0, slot: 2, id: 2, name: "Moss", icon: MOSS, kind: 5, subkindName: "Kind" },
+    { bag: 0, slot: 3, id: 3, name: "Zircon", icon: ZIRCON, kind: 3 },
+    { bag: 0, slot: 4, id: 4, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" }
+  ])
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.bags.place = Game.BagPlace.Crafting
+  Test.expect(held(ASH).opacity() == 1 && held(MOSS).opacity() == 1)
+  Test.expect(held(ZIRCON).opacity() == DIMMED && held(POTION).opacity() == DIMMED)
+}
+
+// The protection from «Sort the bags»
+
+test "Alt-click protects a slot with a padlock; Alt-click again takes it off" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.input.altDown = (): Boolean => true
+  held(POTION).click()
+  Test.expect(held(POTION).paintedWith(PADLOCK) && Test.page().box(PADLOCK).count() == 1)
+  held(POTION).click()
+  Test.expect(Test.page().box(PADLOCK).count() == 0)
+  // Neither click picked the item up.
+  Test.expect(asked("Bags.follow true, Items.show 118"))
+}
+
+test "an empty slot takes no protection" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  Game.input.altDown = (): Boolean => true
+  nth(6).click()
+  Test.expect(Test.page().box(PADLOCK).count() == 0)
+}
+
+test "the tooltip of a slot names the key that protects it; protected, it says so and names the key that takes it off" {
+  let corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
+  corner.SetSize(200, 80)
+  corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  held(POTION).hover()
+  Game.tooltip.main = tooltipOf(corner, 118, "Minor Healing Potion")
+  const tip = Test.page().window("Minor Healing Potion")
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.KEY_PROTECT}`))
+  Game.input.altDown = (): Boolean => true
+  held(POTION).click()
+  Test.expect(reads(tip, `Minor Healing Potion | ${Locale.PROTECTED} | ${Locale.KEY_UNPROTECT}`))
+  // Another item's tooltip, where the cursor isn't on its slot: nothing of the bags'.
+  Game.tooltip.main = tooltipOf(corner, 25, "Worn Shortsword")
+  Test.expect(reads(Test.page().window("Worn Shortsword"), "Worn Shortsword"))
+}
+
+test "a protection is kept for the character: there after a reload, not for another character" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.input.altDown = (): Boolean => true
+  held(POTION).click()
+  Test.reload()
+  Test.expect(held(POTION).paintedWith(PADLOCK))
+  Test.login({ guid: "Player-1-0000002", name: "Alt", surname: nil })
+  Test.expect(Test.page().box(PADLOCK).count() == 0)
+}
+
+test "a protected item moved to another slot takes its protection with it" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  Game.input.altDown = (): Boolean => true
+  held(POTION).click()
+  world.at(0, 3).slot = 6
+  Game.bags.updated.emit(0)
+  Test.expect(nth(6).paintedWith(PADLOCK) && Test.page().box(PADLOCK).count() == 1)
+}
+
+test "a protected item gone from the bags loses its protection: put back, it has none" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Game.input.altDown = (): Boolean => true
+  held(POTION).click()
+  world.take(0, 3)
+  Game.bags.updated.emit(0)
+  world.items.push({ bag: 0, slot: 3, id: 118, name: "Minor Healing Potion", icon: POTION, count: 5, kind: 0, subkind: 1 })
+  Game.bags.updated.emit(0)
+  Test.expect(held(POTION).shown() && Test.page().box(PADLOCK).count() == 0)
+}
+
+// «Sort the bags»
+
+test "«Sort the bags» moves the items into the window's order, a swap at a time, and stops once they are" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    { bag: 0, slot: 3, id: 2, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
+    { bag: 0, slot: 4, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
+  ])
+  world.sizes = [4, 0, 0, 0, 0]
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  Test.expect(inOrder([ASH]) && nth(3).paintedWith(POTION))
+  bags().button(Ordaen.art.ctl.tool.arrange).click()
+  // The quest's letter first, the elixir, the ash: the first go swaps what it can, the client's word starts the next.
+  Test.expect(bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+  Game.bags.updated.emit(0)
+  Game.bags.updated.emit(0)
+  Test.expect(inOrder([DEED, POTION, ASH]))
+  Test.expect(!bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+}
+
+test "«Sort the bags» leaves a protected slot as it is" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    { bag: 0, slot: 2, id: 2, name: "Elixir", icon: POTION, kind: 0, subkindName: "Kind" },
+    { bag: 0, slot: 3, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
+  ])
+  world.sizes = [3, 0, 0, 0, 0]
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  Game.input.altDown = (): Boolean => true
+  held(ASH).click()
+  Game.input.altDown = (): Boolean => false
+  _ = Test.requests()
+  bags().button(Ordaen.art.ctl.tool.arrange).click()
+  Game.bags.updated.emit(0)
+  Test.expect(inOrder([ASH, DEED, POTION]) && held(ASH).paintedWith(PADLOCK))
+  Test.expect(asked("Bags.swap 0 3 0 2"))
+}
+
+test "«Sort the bags» leaves a bag that takes only its own kind as it is" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    { bag: 1, slot: 1, id: 3, name: "Letter", icon: DEED, kind: 12 }
+  ])
+  world.sizes = [2, 1, 0, 0, 0]
+  world.general = false
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(Ordaen.art.ctl.tool.arrange).click()
+  Test.expect(asked("Bags.follow true") && !bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+}
+
+test "«Sort the bags» waits for a locked slot, and goes on once it is let go" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12, locked: true }
+  ])
+  world.sizes = [2, 0, 0, 0, 0]
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(Ordaen.art.ctl.tool.arrange).click()
+  Test.expect(asked("Bags.follow true") && bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+  world.at(0, 2).locked = false
+  Game.bags.updated.emit(0)
+  Test.expect(asked("Bags.swap 0 2 0 1"))
+}
+
+test "«Sort the bags» gives up after as many goes as there are slots, the client moving nothing" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
+  ])
+  world.sizes = [2, 0, 0, 0, 0]
+  world.moves = false
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(Ordaen.art.ctl.tool.arrange).click()
+  Game.bags.updated.emit(0)
+  Test.expect(bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+  _ = Test.requests()
+  Game.bags.updated.emit(0)
+  Test.expect(!bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF) && Test.requests().length == 0)
+}
+
+test "the bags shut while «Sort the bags» goes stop it" {
+  const world = new World([
+    { bag: 0, slot: 1, id: 1, name: "Ash", icon: ASH, kind: 7, subkindName: "Kind" },
+    { bag: 0, slot: 2, id: 3, name: "Letter", icon: DEED, kind: 12, subkindName: "Kind" }
+  ])
+  world.sizes = [2, 0, 0, 0, 0]
+  world.moves = false
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.bags.swap = (fromBag: Integer, fromSlot: Integer, toBag: Integer, toSlot: Integer): Boolean => world.swap(fromBag, fromSlot, toBag, toSlot)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(Ordaen.art.ctl.tool.arrange).click()
+  Game.bags.open = false
+  Test.expect(!bags().shown())
+  Game.bags.open = true
+  Test.expect(!bags().button(Ordaen.art.ctl.tool.arrange).paintedWith(OFF))
+  _ = Test.requests()
+  Game.bags.updated.emit(0)
+  Test.expect(Test.requests().length == 0)
+}
+
+// The bag slots
+
+test "the bag button opens the bag slots: each bag with its name and fill, one with no slots left out" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(BAG_BUTTON).click()
+  const window = bagSlots()
+  Test.expect(reads(window, "Backpack | 7/16 | Linen Bag | 2/6 | Bag slots"))
+  Test.expect(window.box(BACKPACK).shown() && window.box(LINEN_BAG).shown())
+}
+
+test "the cursor on a bag lights its items, every other dimmed, and shows the bag's tooltip; off it, nothing is dimmed" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(BAG_BUTTON).click()
+  _ = Test.requests()
+  Test.page().text("Linen Bag").hover()
+  Test.expect(held(RECIPE).opacity() == 1 && held(POTION).opacity() == DIMMED && asked("Items.show 4238"))
+  Test.page().text("Backpack").hover()
+  // The backpack is no item: no tooltip.
+  Test.expect(held(RECIPE).opacity() == DIMMED && held(POTION).opacity() == 1 && Test.requests().length == 0)
+  bags().text("Free 13 of 22").hover()
+  Test.expect(held(RECIPE).opacity() == 1 && held(POTION).opacity() == 1)
+}
+
+test "the bag slots close with their close and with the bag button, and open again with it" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(BAG_BUTTON).click()
+  const window = bagSlots()
+  window.text("Backpack").hover()
+  window.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(!window.shown())
+  bags().button(BAG_BUTTON).click()
+  Test.expect(window.shown())
+  bags().button(BAG_BUTTON).click()
+  Test.expect(!window.shown())
+}
+
+test "the bag slots shut with the bags and open with them; a bag lit when they shut is lit no more" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  bags().button(BAG_BUTTON).click()
+  Test.page().text("Linen Bag").hover()
+  Game.bags.open = false
+  Test.expect(!bagSlots().shown())
+  Game.bags.open = true
+  Test.expect(bagSlots().shown() && held(POTION).opacity() == 1)
+}
+
+// The footer
+
+test "the footer says the free slots of the total, and the currency the player follows" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.money.amount = 123456
+  Game.money.tracked = "12 Marks"
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  Test.expect(bags().text("Free 13 of 22").shown() && bags().text("12 Marks").shown())
+  Test.expect(bags().text(Game.money.format(123456)).shown())
+}
+
+test "the cursor on the gold: this character's, then this realm's others by how much, and the total" {
+  Game.money.amount = 500
+  Test.mount(nil, SCREEN)
   Test.flush()
-  Test.expect(Bags.list.values.view == .One && Bags.list.values.sort == .Name)
-  Test.expect(Ordaen.keeper.profiles.make("Other", nil))
-  Ordaen.keeper.profiles.use("Other")
+  Test.login({ guid: "Player-1-0000002", name: "Bard", surname: nil })
+  Game.money.amount = 300
   Test.flush()
-  Test.expect(Bags.list.values.view == .Categories && Bags.list.values.sort == .Bags)
+  Test.login({ guid: "Player-1-0000003", name: "Cleric", surname: nil })
+  Game.money.amount = 900
+  Test.flush()
+  Test.login({ guid: "Player-2-0000004", name: "Far", surname: nil, realm: "Elsewhere" })
+  Game.money.amount = 5000
+  Test.flush()
+  Test.login({ guid: "Player-1-0000005", name: "Dancer", surname: nil })
+  Game.money.amount = 100
+  Test.flush()
+  Game.bags.open = true
+  bags().text(Game.money.format(100)).hover()
+  const tip = Test.page().window(Locale.GOLD)
+  const rows = [
+    "Dancer", Game.money.format(100), "Cleric", Game.money.format(900), "Player", Game.money.format(500), "Bard",
+    Game.money.format(300), Locale.GOLD_TOTAL, Game.money.format(1800)
+  ]
+  Test.expect(reads(tip, `${Locale.GOLD} | ${rows.join(" | ")}`))
+}
+
+test "past fifty characters the one seen longest ago is forgotten" {
+  // Fifty other characters' gold, as the sessions before left it: the first seen longest ago.
+  let characters: Map<String, Purse> = {}
+  for (index of 1..=50) {
+    characters[`Player-1-${index}`] = { name: `Alt${index}`, realm: "Stand-in", copper: 100, seen: 1000 + index }
+  }
+  Game.saved.store(.Account, "OrdaenBags:memory", Purses { characters: characters })
+  Test.mount(nil, SCREEN)
+  Test.reload()
+  Game.bags.open = true
+  bags().text(Game.money.format(0)).hover()
+  const tip = Test.page().window(Locale.GOLD)
+  Test.expect(!tip.text("Alt1").shown() && tip.text("Alt2").shown() && tip.text("Alt50").shown())
+  Test.expect(tip.text(Game.money.format(4900)).shown())
+}
+
+// What the game tells changed
+
+test "an item come into a bag shows, the counts told" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  world.items.push({ bag: 1, slot: 6, id: 1710, name: "Greater Healing Potion", icon: MOSS, count: 2, kind: 0, subkind: 1, subkindName: "Potion" })
+  Game.bags.updated.emit(1)
+  Test.expect(bags().text("Free 12 of 22").shown() && tab("Consumables") == "Consumables | 2" && held(MOSS).shown())
+  Test.expect(bags().text("12").shown())
+}
+
+test "a bag's fill in the view «By bag» follows its items" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "By bag")
+  world.take(1, 4)
+  Game.bags.updated.emit(1)
+  Test.expect(reads(bags().text("Linen Bag").item(), "Linen Bag | 1/6"))
+  Test.expect(reads(bags().text("Backpack").item(), "Backpack | 7/16"))
+}
+
+test "a bag swapped for a larger one: its slots read anew" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.size = (bag: Integer): Integer => world.size(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  world.sizes[2] = 10
+  world.items.push({ bag: 1, slot: 10, id: 1710, name: "Greater Healing Potion", icon: MOSS, kind: 0 })
+  Game.bags.updated.emit(1)
+  Test.expect(bags().text("Free 16 of 26").shown() && held(MOSS).shown())
+}
+
+// What is kept between sessions
+
+test "the view picked is the profile's: there after a reload" {
+  const world = new World(everyday())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.categories, "By bag")
+  Test.reload()
+  Test.expect(bags().text("Linen Bag").shown() && !bags().text("All").shown())
+}
+
+test "the sort picked is the profile's: there after a reload" {
+  const world = new World(cloths())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.sort, "Name")
+  Test.reload()
+  Test.expect(inOrder([CLOTH, MAGEWEAVE, SILK, WOOL]))
+}
+
+test "a new profile used: the window by category in the bags' order, as at first" {
+  const world = new World(cloths())
+  Game.bags.bag = (bag: Integer): Game.BagInfo => world.bag(bag)
+  Game.bags.readSlot = (bag: Integer, slot: Integer, into: mut Game.SlotItem): Boolean => world.read(bag, slot, mut into)
+  Game.items.icon = (id: Integer): Art | nil => world.icon(id)
+  Test.mount(nil, SCREEN)
+  Game.bags.open = true
+  pick(Ordaen.art.ctl.tool.sort, "Name")
+  pick(Ordaen.art.ctl.tool.categories, "One bag")
+  const page = settings()
+  page.button("Profiles").click()
+  // «Raid» made from the defaults, then used for this character: the page's first box and its second.
+  page.input().nth(1).type("Raid")
+  page.button(Ordaen.art.ctl.check).nth(1).click()
+  page.button("New").click()
+  page.button(Ordaen.art.ctl.check).nth(2).click()
+  Test.expect(page.text("In use: Raid, for this character").shown())
+  page.button(Ordaen.art.ctl.corner.close).click()
+  Test.expect(bags().text("All").shown() && inOrder([WOOL, CLOTH, SILK, MAGEWEAVE]))
 }
