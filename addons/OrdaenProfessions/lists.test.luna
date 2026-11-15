@@ -1081,3 +1081,14 @@ test "with «Show recipes you haven't learned» off they are left out, and the f
   filter().button("Reset").click()
   Test.expect(lists("Linen Cloak, Brown Linen Vest"))
 }
+
+test "the setting of recipes not learned says they are dimmed, which is all the rows show of them" {
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  settings().text("Show recipes you haven't learned").hover()
+  Test.expect(Test.page().window("Dimmed.").shown())
+}

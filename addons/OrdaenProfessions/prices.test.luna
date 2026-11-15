@@ -429,6 +429,21 @@ test "with nothing scanned the card says there are no prices, and the totals are
   Test.expect(totals("Cost | — | Left to buy | — | Sale | — | Profit | —"))
 }
 
+test "with a sale price and no reagent's price, the card says the reagents' prices are missing" {
+  Game.clock.server = NOW
+  Game.auctionQuery.results.emit([{ key: CLOAK, copper: 500, quantity: 2 }])
+  Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
+  Game.professions.list = professions()
+  Game.tradeSkill.categories = categories()
+  Game.tradeSkill.recipes = recipes()
+  Game.tradeSkill.reagents = reagents
+  Game.recipeReader.schematic = schematic
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.open = TAILORING
+  Test.expect(window().text("No reagent prices: open the auction house.").shown())
+  Test.expect(!window().text("No prices: open the auction house.").shown())
+}
+
 test "a recipe with no reagents says nothing of prices missing" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()

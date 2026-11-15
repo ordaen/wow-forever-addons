@@ -60,8 +60,10 @@ public class RecipeDetails implements Component {
   derived pricedCount: Integer = self.pricedCountOf()
   derived parts: Array<PartPrice> = self.partsOf()
   derived totals: Totals = self.totalsOf()
-  // Ordaen Auction is on but has no price for any part: nothing was scanned.
+  // Ordaen Auction is on but has no price for any part: nothing was scanned, or (where the house prices what it
+  // makes) none of the reagents.
   derived noPrices: Boolean = self.priced && self.reagents.length > 0 && !self.totals.priced
+  derived noPricesText: String = self.totals.sale == nil ? Locale.NO_PRICES : Locale.NO_REAGENT_PRICES
 
   recipe: Signal<Game.Recipe | nil>
   kept: Signal<Kept>
@@ -172,7 +174,7 @@ public class RecipeDetails implements Component {
             <ReagentRow $for={index, reagent of self.reagents} reagent={reagent} index={index} />
           </box>
           <box $if={self.priced} gap={space(.Item)}>
-            <text $if={self.noPrices} value={Locale.NO_PRICES} textSize={.Secondary} textColor={Style.DIM} />
+            <text $if={self.noPrices} value={self.noPricesText} textSize={.Secondary} textColor={Style.DIM} />
             <TotalsBlock totals={self.totals} />
           </box>
           <box $else />
