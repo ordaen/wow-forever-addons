@@ -89,6 +89,19 @@ test "a character with no profession is listed with only its name" {
   Test.expect(shows(`Character | Player | ${TABS}`))
 }
 
+test "two characters of one name on different realms each have their own skills" {
+  const here = crafter("Aria", "Stand-in", [skill("Tailoring", 300, 300)])
+  const there = crafter("Aria", "CAMWOW EU5 Realm 4 PvP", [skill("Mining", 50, 75)])
+  Test.mount(nil, SCREEN)
+  // Kept in either order, the two are shown by their realms: «CAMWOW...» before «Stand-in».
+  for (pair of [[here, there], [there, here]]) {
+    recorded(pair)
+    _ = grid()
+    Test.expect(shows(`Character | Mining | Tailoring | Aria | 50 / 75 | — | Aria | — | 300 / 300 | Player | — | — | ${TABS}`))
+    (Client.SlashCmdList["ALTS"] ?? panic("/alts is the module's command"))("")
+  }
+}
+
 test "forty characters' skills scroll inside the window" {
   const others: Array<Character> = []
   for (i of 1..=39) { others.push(crafter("Alt " + String.of(100 + i), "Stand-in", [skill("Mining", i, 75)])) }

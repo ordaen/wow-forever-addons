@@ -1,6 +1,7 @@
 // «Professions»: the characters down the side, the professions across, the skill in each cell.
 import { Align, Overflow, Track } from "$ltml"
 import { Component, space } from "Ordaen"
+import { Character } from "@/character"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
@@ -52,19 +53,16 @@ public class Grid implements Component {
   cellsOf(self): Array<Cell> {
     const list: Array<Cell> = [{ text: Locale.COL_NAME, color: Style.GOLD, align: Align.Start }]
     for (name of self.names) { list.push({ text: name, color: Style.GOLD, align: Align.Center }) }
-    const characters: Array<String> = []
-    for (_, character of self.records.characters) { characters.push(character.name) }
-    characters.sort((a, b) => a < b)
-    for (line of characters) {
-      list.push({ text: line, color: Style.INK, align: Align.Start })
+    // Each character its own row, by name, then by realm where two share a name.
+    const characters: Array<Character> = []
+    for (_, character of self.records.characters) { characters.push(character) }
+    characters.sort((a, b) => a.name < b.name || (a.name == b.name && a.realm < b.realm))
+    for (character of characters) {
+      list.push({ text: character.name, color: Style.INK, align: Align.Start })
       for (name of self.names) {
         let text = "—"
-        for (_, character of self.records.characters) {
-          if (character.name == line) {
-            for (known of character.professions) {
-              if (known.name == name) { text = "%d / %d".format(known.rank, known.max) }
-            }
-          }
+        for (known of character.professions) {
+          if (known.name == name) { text = "%d / %d".format(known.rank, known.max) }
         }
         list.push({ text: text, color: text == "—" ? Style.DIM : Style.INK, align: Align.Center })
       }
