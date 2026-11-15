@@ -106,7 +106,8 @@ public class Catalog {
   public derived byName: Map<String, AddOn> = self.indexOf()
   // Who names each addon as one it needs.
   public derived neededBy: Map<String, Array<String>> = self.reverseOf()
-  // Who stands under each addon (`## Group`).
+  // Who stands under each addon (`## Group`): a parent that names itself its group among them, which a switch takes
+  // once.
   public derived members: Map<String, Array<String>> = self.membersOf()
   // Addons whose next session differs from this one: on and not loaded (but on demand), or off and loaded.
   public derived waiting: Integer = self.waitingOf()
@@ -203,13 +204,11 @@ public class Catalog {
   membersOf(self): Map<String, Array<String>> {
     const map: Map<String, mut Array<String>> = {}
     for (addon of self.addons) {
-      if (addon.group != "" && addon.group != addon.name) {
-        const held = map[addon.group]
-        if (held == nil) {
-          map[addon.group] = [addon.name]
-        } else {
-          held.push(addon.name)
-        }
+      const held = map[addon.group]
+      if (held == nil) {
+        map[addon.group] = [addon.name]
+      } else {
+        held.push(addon.name)
       }
     }
     return map
@@ -230,48 +229,43 @@ public class Catalog {
     return status != nil && status.enabled != .Off
   }
 
-  // What an addon needs, and what those need in turn, that is in the folder: each once, a ring followed once.
-  public needsOf(self, name: String): Array<String> {
+  // An addon, then what it needs and what those need in turn: each need once, a ring followed once (back to the
+  // addon itself, where it is in one). One the folder hasn't is named, and needs nothing.
+  withNeeds(self, name: String): Array<String> {
     const seen: Map<String, Boolean> = {}
-    seen[name] = true
-    const list: Array<String> = []
+    const list: Array<String> = [name]
     self.gather(name, mut seen, mut list)
     return list
   }
 
   gather(self, name: String, seen: mut Map<String, Boolean>, list: mut Array<String>) {
-    const addon = (peek self.byName)[name]
-    if (addon == nil) { return }
-    for (need of addon.needs) {
-      if (seen[need] == nil) {
+    for (need of (peek self.byName)[name]?.needs ?? []) {
+      if (seen[need] != true) {
         seen[need] = true
-        if ((peek self.byName)[need] != nil) {
-          list.push(need)
-          self.gather(need, mut seen, mut list)
-        }
+        list.push(need)
+        self.gather(need, mut seen, mut list)
       }
     }
   }
 
   // Every addon that is on and needs one of `names`, directly or through another: what stops loading when they go.
+  // `names` themselves are never among them, a ring back to one of them left there.
   public dependentsOf(self, names: Array<String>): Array<String> {
     const seen: Map<String, Boolean> = {}
     for (name of names) { seen[name] = true }
     const list: Array<String> = []
-    const queue: Array<String> = []
-    for (name of names) { queue.push(name) }
-    for (turn of 1..=Number.huge) {
-      if (queue.length == 0) { break }
-      const name = queue.pop() ?? panic("the queue isn't empty")
-      for (other of (peek self.neededBy)[name] ?? []) {
-        if (seen[other] == nil) {
-          seen[other] = true
-          if (self.isOn(other)) { list.push(other) }
-          queue.push(other)
-        }
+    for (name of names) { self.reach(name, mut seen, mut list) }
+    return list
+  }
+
+  reach(self, name: String, seen: mut Map<String, Boolean>, list: mut Array<String>) {
+    for (other of (peek self.neededBy)[name] ?? []) {
+      if (seen[other] != true) {
+        seen[other] = true
+        if (self.isOn(other)) { list.push(other) }
+        self.reach(other, mut seen, mut list)
       }
     }
-    return list
   }
 
   // An addon's title as it reads without colour codes, by its folder: the folder itself where it isn't listed.
@@ -290,14 +284,10 @@ public class Catalog {
     const targets: Array<String> = []
     const listed: Map<String, Boolean> = {}
     for (name of names) {
-      if (listed[name] == nil) {
-        listed[name] = true
-        targets.push(name)
-      }
-      for (need of self.needsOf(name)) {
-        if (listed[need] == nil) {
-          listed[need] = true
-          targets.push(need)
+      for (one of self.withNeeds(name)) {
+        if (listed[one] != true) {
+          listed[one] = true
+          targets.push(one)
         }
       }
     }
@@ -309,7 +299,7 @@ public class Catalog {
       if (status != nil && status.enabled != .On) {
         changes.push({ name: name, before: status.enabled, mine: status.mine })
         Client.C_AddOns.EnableAddOn(name, character)
-        if (asked[name] == nil) { also.push(self.titleOf(name)) }
+        if (asked[name] != true) { also.push(self.titleOf(name)) }
       }
     }
     self.finish(changes, also)
@@ -318,21 +308,13 @@ public class Catalog {
   // `names` switched off for whom the header says, alone: what needs them stays on and reads the client's reason.
   public switchOff(mut self, names: Array<String>) {
     const character = self.character()
-    const changes: Array<Change> = []
-    const statuses = peek self.statuses
-    for (name of names) {
-      const status = statuses[name]
-      if (status != nil && status.enabled != .Off) {
-        changes.push({ name: name, before: status.enabled, mine: status.mine })
-        Client.C_AddOns.DisableAddOn(name, character)
-      }
-    }
-    self.finish(changes, [])
+    for (name of names) { Client.C_AddOns.DisableAddOn(name, character) }
+    self.finish([], [])
   }
 
   // A step saved once; the strip shows it where others came with what was asked.
   finish(mut self, changes: Array<Change>, also: Array<String>) {
-    if (changes.length > 0) { Client.C_AddOns.SaveAddOns() }
+    Client.C_AddOns.SaveAddOns()
     self.step = also.length > 0 ? { changes: changes, also: also } : nil
     self.refresh()
   }
