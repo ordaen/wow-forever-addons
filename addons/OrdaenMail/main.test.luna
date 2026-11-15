@@ -217,6 +217,19 @@ test "the rows stand in the order the mailbox holds the letters" {
   Test.expect(before(window, "Pay for the sword", "Welcome"))
 }
 
+test "a letter that says three days left is red, one that says four dim" {
+  Test.mount(nil, PAGE)
+  Game.mailbox.letters = (): Array<Game.MailLetter> => [
+    { index: 1, kind: Game.MailKind.Player, subject: "Going", sender: "Kel", copper: 0, cod: 0, days: 3.9, items: [] },
+    { index: 2, kind: Game.MailKind.Player, subject: "Staying", sender: "Kel", copper: 0, cod: 0, days: 4, items: [] }
+  ]
+  Game.mailObserver.open = true
+  Game.mailObserver.opened.emit()
+  const window = Test.page().window(MAIL)
+  Test.expect(drawnIn(window.text("Going").item().text("3 d"), RED))
+  Test.expect(drawnIn(window.text("Staying").item().text("4 d"), DIM))
+}
+
 test "days left are red under three days" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
@@ -226,7 +239,7 @@ test "days left are red under three days" {
   Test.expect(drawnIn(window.text("Bolts for you").item().text("2 d"), RED))
 }
 
-test "days left are dim from three days on" {
+test "days left are dim well past three days" {
   Test.mount(nil, PAGE)
   Game.mailbox.letters = letters
   Game.mailObserver.open = true

@@ -56,7 +56,8 @@ public struct Group {
   letters: Array<Game.MailLetter>
 }
 
-function daysColor(letter: Game.MailLetter): Color { return letter.days < URGENT_DAYS ? Style.RED : Style.DIM }
+// By the days the row says: «3 d» is red whatever part of the fourth day is left.
+function daysColor(letter: Game.MailLetter): Color { return letter.days.floor() <= URGENT_DAYS ? Style.RED : Style.DIM }
 
 function daysText(letter: Game.MailLetter): String {
   return letter.days < 1 ? Locale.LESS_THAN_A_DAY : Locale.DAYS_LEFT.format(letter.days.floor())
