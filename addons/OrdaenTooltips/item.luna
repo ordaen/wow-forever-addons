@@ -41,7 +41,7 @@ public struct ItemRead {
   sides: Array<Model>
   // What a recipe makes: the game's data for it, read as an item of its own.
   makes: Array<Game.TooltipData>
-  // Its stats by the game's key for each, for a comparison.
+  // Its level and its stats by the game's key for each: what a comparison sets against the other item's rows.
   stats: Map<String, Number>
 }
 
@@ -231,18 +231,15 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
         let from = number(low) ?? 0
         let to = number(high) ?? 0
         facts.push({ text: Locale.COL_DAMAGE.format(shown(from), shown(to)), glyph: .Dmg, opens: named(Term.Dmg) })
-        stats["dmg"] = (from + to) / 2
         let speed = last(clean(line.right) ?? "")
         if (speed != nil) {
           facts.push({ text: Locale.COL_SPEED.format(shown(speed)), glyph: .Spd, opens: named(Term.Spd) })
-          stats["spd"] = speed
         }
       } else if (single != nil) {
         facts.push({ text: shown(number(single) ?? 0), glyph: .Dmg, opens: named(Term.Dmg) })
       } else if (dps != nil) {
         let perSecond = number(dps) ?? 0
         facts.push({ text: Locale.COL_DPS.format(shown(perSecond)), opens: named(Term.Dps) })
-        stats["dps"] = perSecond
       } else if (armor != nil) {
         // Armour beyond the item's own is in green.
         let worn = number(armor) ?? 0
@@ -250,11 +247,9 @@ public function item(data: Game.TooltipData, options: Options): ItemRead | nil {
           text: shown(worn), color: colorOf(line.leftColor), glyph: .Arm,
           opens: namedWith(Term.Arm, shown(worn))
         })
-        stats["arm"] = worn
       } else if (block != nil) {
         let blocked = number(block) ?? 0
         facts.push({ text: shown(blocked), glyph: .Blk, opens: namedWith(Term.Blk, shown(blocked)) })
-        stats["blk"] = blocked
       } else if (room != nil) {
         facts.push({ text: slots(room.floor()), opens: namedWith(Term.Bag, `${room.floor()}`) })
       } else if (current != nil && most != nil) {
