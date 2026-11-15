@@ -7,6 +7,39 @@ import Game from "$game"
 import { Copper, Hour, ItemId } from "Ordaen"
 import { Character, CharacterId, Faction, Held, Kept, Knower, Known, MOST_CHARACTERS, MOST_ITEMS, MOST_RECIPES, Place, RecipeId } from "@/character"
 
+// The character being played written down: its record where it has one, made otherwise (room made for it).
+function written(
+  characters: mut Map<CharacterId, mut Character>, who: CharacterId, realm: String, faction: Faction, name: String, now: Hour
+): mut Character {
+  const found = characters[who]
+  if (found != nil) {
+    found.name = name
+    found.realm = realm
+    found.faction = faction
+    found.seen = now
+    return found
+  }
+  makeRoom(mut characters, who)
+  const made = Character { name: name, realm: realm, faction: faction, seen: now, mailExpires: nil }
+  characters[who] = made
+  return made
+}
+
+// Past the most characters the one played longest ago goes, never the one being played: room for one more.
+function makeRoom(characters: mut Map<CharacterId, mut Character>, who: CharacterId) {
+  let count = 0
+  let oldest: CharacterId | nil = nil
+  let oldestSeen: Hour = 0
+  for (id, character of characters) {
+    count += 1
+    if (id != who && (oldest == nil || character.seen < oldestSeen)) {
+      oldest = id
+      oldestSeen = character.seen
+    }
+  }
+  if (count >= MOST_CHARACTERS && oldest != nil) { characters[oldest] = nil }
+}
+
 // What a question about nobody answers.
 const NOBODY: Array<Knower> = []
 const NOTHING: Array<Held> = []
@@ -21,86 +54,51 @@ public class Records {
   public const characters: mut Map<CharacterId, mut Character>
   const realm: String
   const faction: Faction
+  // The record of the character being played: never forgotten, never dropped for room.
+  const me: mut Character
   knowing: mut Map<RecipeId, mut Array<Knower>> = {}
   holding: mut Map<ItemId, mut Array<Held>> = {}
 
-  constructor(kept: mut Kept, who: CharacterId, realm: String, faction: Faction) {
+  // The records kept, and the character being played written down in them: its name, realm and side, and the hour it
+  // is played. Its level, money and the rest follow as the recorder reads them.
+  constructor(kept: mut Kept, who: CharacterId, realm: String, faction: Faction, name: String, now: Hour) {
     self.characters = kept.characters
     self.who = who
     self.realm = realm
     self.faction = faction
+    self.me = written(mut kept.characters, who, realm, faction, name, now)
     self.index()
-  }
-
-  // The character being played, written down: its name, side and class, its level, and the hour it was played.
-  public begin(mut self, name: String, classTag: String, level: Integer, now: Hour) {
-    const found = self.characters[self.who]
-    if (found == nil) {
-      self.makeRoom()
-      self.characters[self.who] = Character {
-        name: name, realm: self.realm, faction: self.faction, classTag: classTag, level: level, seen: now
-      }
-    } else {
-      found.name = name
-      found.realm = self.realm
-      found.faction = self.faction
-      found.classTag = classTag
-      found.level = level
-      found.seen = now
-    }
-    self.index()
-    self.touched += 1
-    self.revision += 1
-  }
-
-  // Past the most characters the one played longest ago goes, never the one being played.
-  makeRoom(mut self) {
-    let count = 0
-    let oldest: CharacterId | nil = nil
-    let oldestSeen: Hour = 0
-    for (id, character of self.characters) {
-      count += 1
-      if (id != self.who && (oldest == nil || character.seen < oldestSeen)) {
-        oldest = id
-        oldestSeen = character.seen
-      }
-    }
-    if (count >= MOST_CHARACTERS && oldest != nil) { self.characters[oldest] = nil }
   }
 
   // The character's level, money and played hour change often and move no index.
   public setLevel(mut self, level: Integer) {
-    const found = self.characters[self.who]
-    if (found == nil || found.level == level) { return }
-    found.level = level
+    if (self.me.level == level) { return }
+    self.me.level = level
     self.touched += 1
   }
 
   public setMoney(mut self, copper: Copper, now: Hour) {
-    const found = self.characters[self.who]
-    if (found == nil || found.money == copper) { return }
-    found.money = copper
-    found.seen = now
+    if (self.me.money == copper) { return }
+    self.me.money = copper
+    self.me.seen = now
     self.touched += 1
   }
 
   public setBags(mut self, free: Integer, slots: Integer) {
-    const found = self.characters[self.who]
-    if (found == nil || (found.free == free && found.slots == slots)) { return }
-    found.free = free
-    found.slots = slots
+    if (self.me.free == free && self.me.slots == slots) { return }
+    self.me.free = free
+    self.me.slots = slots
     self.touched += 1
   }
 
   // The professions the character has now, with their skill: one it has dropped goes, with its recipes. The game's list
   // is empty until the client has read the skills, which a character with none has too: an empty list changes nothing.
   public setProfessions(mut self, professions: Array<Game.Profession>) {
-    const found = self.characters[self.who]
-    if (found == nil || professions.length == 0) { return }
+    if (professions.length == 0) { return }
     const kept: Array<mut Known> = []
-    let changed = professions.length != found.professions.length
+    let changed = professions.length != self.me.professions.length
     for (profession of professions) {
-      const old = self.professionOf(mut found, profession.skillLine)
+      const old = self.professionOf(profession.skillLine)
       if (old == nil) {
         changed = true
         kept.push(Known { skillLine: profession.skillLine, name: profession.name, rank: profession.rank, max: profession.max })
@@ -111,7 +109,7 @@ public class Records {
         kept.push(mut old)
       }
     }
-    found.professions = kept
+    self.me.professions = kept
     self.touched += 1
     if (changed) {
       self.index()
@@ -120,96 +118,76 @@ public class Records {
   }
 
   // The character's profession by its skill line.
-  professionOf(self, found: mut Character, skillLine: Integer): mut Known | nil {
-    for (known of found.professions) {
+  professionOf(mut self, skillLine: Integer): mut Known | nil {
+    for (known of self.me.professions) {
       if (known.skillLine == skillLine) { return known }
     }
     return nil
   }
 
-  // The character's profession by its skill line, made where the game's list of professions hasn't come yet (it
-  // takes its skill from the list when it does).
-  professionOrNew(self, found: mut Character, skillLine: Integer): mut Known {
-    const known = self.professionOf(mut found, skillLine)
-    if (known != nil) { return known }
+  // A profession of the character's that the game's list hasn't given yet.
+  added(mut self, skillLine: Integer): mut Known {
     const made = Known { skillLine: skillLine }
-    found.professions.push(mut made)
+    self.me.professions.push(mut made)
     return made
   }
 
   // The recipes the character knows of a profession and the hour each of them with a cooldown is ready, as the open
-  // profession gave them. A reading with more recipes than the most is refused. Whether the record changed.
-  @discardable
-  public setRecipes(mut self, skillLine: Integer, recipes: mut Array<RecipeId>, ready: mut Map<RecipeId, Hour>): Boolean {
-    const found = self.characters[self.who]
-    if (found == nil) { return false }
+  // profession gave them. A reading with more recipes than the most is refused. A profession the game's list hasn't
+  // given yet is made, and takes its skill from the list when it comes.
+  public setRecipes(mut self, skillLine: Integer, recipes: mut Array<RecipeId>, ready: mut Map<RecipeId, Hour>) {
     if (recipes.length > MOST_RECIPES) {
       Debug.fault("Alts", "a profession of " + String.of(recipes.length) + " recipes is more than the " + String.of(MOST_RECIPES) + " kept")
-      return false
+      return
     }
-    const known = self.professionOrNew(mut found, skillLine)
-    if (known.recipes.equal(recipes) && known.ready.equal(ready)) { return false }
+    const known = self.professionOf(skillLine) ?? self.added(skillLine)
+    if (known.recipes.equal(recipes) && known.ready.equal(ready)) { return }
     known.recipes = recipes
     known.ready = ready
     self.index()
     self.touched += 1
     self.revision += 1
-    return true
   }
 
-  // One more recipe the character learned of a profession. Whether the record changed.
-  @discardable
-  public learn(mut self, skillLine: Integer, recipe: RecipeId): Boolean {
-    const found = self.characters[self.who]
-    if (found == nil) { return false }
-    const known = self.professionOf(mut found, skillLine)
-    if (known == nil || known.recipes.length >= MOST_RECIPES) { return false }
-    for (have of known.recipes) {
-      if (have == recipe) { return false }
-    }
+  // One more recipe the character learned of a profession it has, up to the most. It has no cooldown yet, so no tab of
+  // the window shows it: only the readers' revision moves.
+  public learn(mut self, skillLine: Integer, recipe: RecipeId) {
+    const known = self.professionOf(skillLine)
+    if (known == nil || known.recipes.length >= MOST_RECIPES || known.recipes.any(have => have == recipe)) { return }
     known.recipes.push(recipe)
     self.index()
-    self.touched += 1
     self.revision += 1
-    return true
   }
 
   // What the character holds in a place, by item, as it was read at `now` (a place that is read only while it is open
-  // says when). A reading with more kinds of items than the most is refused. Whether the record changed.
-  @discardable
-  public setPlace(mut self, place: Place, items: mut Map<ItemId, Integer>, now: Hour | nil): Boolean {
-    const found = self.characters[self.who]
-    if (found == nil) { return false }
+  // says when). A reading with more kinds of items than the most is refused.
+  public setPlace(mut self, place: Place, items: mut Map<ItemId, Integer>, now: Hour | nil) {
     let kinds = 0
     for (item, _ of items) { kinds += 1 }
     if (kinds > MOST_ITEMS) {
       Debug.fault("Alts", "a place of " + String.of(kinds) + " kinds of items is more than the " + String.of(MOST_ITEMS) + " kept")
-      return false
+      return
     }
     // The hour a place was read moves the record; the bags, read on every change of theirs, move it only with what
     // they hold.
     if (now != nil) {
-      found.read[place] = now
+      self.me.read[place] = now
       self.touched += 1
     }
-    const before = found.held[place]
+    const before = self.me.held[place]
     if (before != nil) {
-      if (before.equal(items)) { return false }
-      for (item, _ of before) { self.drop(self.who, place, item) }
+      if (before.equal(items)) { return }
+      for (item, _ of before) { self.drop(place, item) }
     }
     if (now == nil) { self.touched += 1 }
-    found.held[place] = items
+    self.me.held[place] = items
     for (item, count of items) { self.holdingOf(item).push({ who: self.who, place: place, count: count }) }
     self.revision += 1
-    return true
   }
 
-  // When the first mail that carries something expires.
+  // When the first mail that carries something expires: read with the inbox, whose reading moved the record.
   public setMail(mut self, expires: Hour | nil) {
-    const found = self.characters[self.who]
-    if (found == nil || found.mailExpires == expires) { return }
-    found.mailExpires = expires
-    self.touched += 1
+    self.me.mailExpires = expires
   }
 
   // A character's record removed: its recipes and items go from the indexes. Never the one being played, whose record
@@ -262,15 +240,14 @@ public class Records {
     return made
   }
 
-  // The item of one place of one character taken out of the holders' index.
-  drop(mut self, who: CharacterId, place: Place, item: ItemId) {
-    const list = self.holding[item]
-    if (list == nil) { return }
+  // An item the character being played held in a place taken out of the holders' index, where it is.
+  drop(mut self, place: Place, item: ItemId) {
+    const list = self.holding[item] ?? panic("an item a place held is in the holders' index")
     let at = 0
     for (index, held of list) {
-      if (held.who == who && held.place == place) { at = index }
+      if (held.who == self.who && held.place == place) { at = index }
     }
-    if (at != 0) { _ = list.remove(at) }
+    _ = list.remove(at)
     if (list.length == 0) { self.holding[item] = nil }
   }
 

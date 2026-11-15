@@ -43,7 +43,6 @@ public struct Character implements Plain {
   name: String = ""
   realm: String = ""
   faction: Faction = .Neutral
-  classTag: String = ""
   level: Integer = 1
   money: Copper = 0
   // When it was last played.

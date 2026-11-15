@@ -53,13 +53,12 @@ public class Alts implements Module, App {
     self.kept = load<Kept>(.Own, KEY, Kept {})
     Game.saved.store(.Own, KEY, self.kept)
     self.current = CharacterId.of(Game.player.guid)
-    self.records = new Records(mut self.kept, self.current, Game.player.realm, factionOf(Game.player.faction))
-    self.characters = self.records.characters
     const surname = Game.player.surname
-    self.records.begin(
-      surname == nil ? Game.player.name : Game.player.name + " " + surname, Game.player.classTag,
-      peek Game.player.level, Hour.now()
+    self.records = new Records(
+      mut self.kept, self.current, Game.player.realm, factionOf(Game.player.faction),
+      surname == nil ? Game.player.name : Game.player.name + " " + surname, Hour.now()
     )
+    self.characters = self.records.characters
     self.recorder = new Recorder(mut self.records)
     Ordaen.modules.add(self)
     // A command can't be taken back: once the module is turned off it does nothing.

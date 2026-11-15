@@ -28,7 +28,8 @@ public class Grid implements Component {
 
   // The professions any character has, by name.
   namesOf(self): Array<String> {
-    if (self.touched < 0) { return [] }
+    // Read again when any record changed.
+    _ = self.touched
     const seen: Map<String, Boolean> = {}
     const list: Array<String> = []
     for (_, character of self.records.characters) {

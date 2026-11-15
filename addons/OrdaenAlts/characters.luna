@@ -110,7 +110,8 @@ public class Characters implements Component {
 
   // Every character as a line; read again when any record changed.
   linesOf(self): Array<Line> {
-    if (self.touched < 0) { return [] }
+    // Read again when any record changed.
+    _ = self.touched
     const now = Hour.now()
     const list: Array<Line> = []
     for (who, character of self.records.characters) {

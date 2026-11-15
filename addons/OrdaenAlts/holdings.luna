@@ -67,7 +67,8 @@ public class Holdings implements Component {
 
   // The items that match the search, the most held first while it is empty and by name once it isn't.
   entriesOf(mut self): Array<Entry> {
-    if (self.touched < 0) { return [] }
+    // Read again when any record changed.
+    _ = self.touched
     const sought = self.search.lower()
     const found: Array<Entry> = []
     for (id, list of self.records.everything()) {

@@ -49,7 +49,8 @@ public class Cooldowns implements Component {
   }
 
   waitsOf(self): Array<Wait> {
-    if (self.touched < 0) { return [] }
+    // Read again when any record changed.
+    _ = self.touched
     const now = Hour.now()
     const list: Array<Wait> = []
     for (_, character of self.records.characters) {
