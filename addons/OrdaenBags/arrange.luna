@@ -2,7 +2,8 @@
 // around the protected slots, which keep what they hold. Only the bags that take any item take part: a quiver or a soul
 // bag keeps its own. The moves are swaps of two slots, as many at once as touch no slot twice; the next go waits for
 // the client's word that the last moved (`Game.bags.updated`), and the run ends when every slot holds what it should,
-// or when a go finds nothing it can move.
+// when a go moves nothing and no slot is locked (a locked slot is waited for), or after as many goes as there are
+// places.
 import Game from "$game"
 import { Slot, SortBy } from "@/model"
 import { tabSections } from "@/sections"
@@ -10,14 +11,15 @@ import { tabSections } from "@/sections"
 public class Arranger {
   // Whether a run goes.
   public state running = false
-  // The slots that take part, in the bags' order, and the stack each should hold (`Slot.key`, 0 for none).
+  // The slots that take part, in the bags' order, and the stack each of the first should hold (`Slot.key`): one for
+  // each item, the places past them want nothing.
   places: Array<Slot> = []
   wanted: Array<Integer> = []
   // How many goes are left: a run ends after as many goes as there are places, whatever the client did.
   left = 0
 
   // A run over `slots` (every slot of the bags, in their order) into the order `by`; `general` tells the bags that
-  // take part, `guarded` the slots that keep what they hold.
+  // take part. A protected slot (`Slot.guarded`) keeps what it holds.
   public start(mut self, slots: Array<Slot>, general: (bag: Integer) => Boolean, by: SortBy) {
     let places: Array<Slot> = []
     let items: Array<Slot> = []
@@ -44,8 +46,8 @@ public class Arranger {
 
   public stop(mut self) { self.running = false }
 
-  // One go: each place that holds another stack than it should takes it from a later place that holds it, two slots
-  // locked or touched in this go left for the next. Nothing left to move ends the run.
+  // One go: each place that holds another stack than it should takes it from a later place that holds it, a slot
+  // locked or taken from in this go left for the next. Nothing left to move ends the run.
   public step(mut self) {
     if (!peek self.running) { return }
     if (self.left <= 0) {
@@ -53,18 +55,19 @@ public class Arranger {
       return
     }
     self.left -= 1
-    let touched: Map<Slot, Boolean> = {}
+    // The later places a swap of this go took a stack from: each is left for the next go. A place a swap filled is
+    // never looked at again in the go, as the walk and `holderOf` go on past it.
+    let taken: Map<Slot, Boolean> = {}
     let pending = false
     let moved = false
     for (index, place of self.places) {
       const want = self.wanted[index]
       if (want != nil && place.key() != want) {
         pending = true
-        if (touched[place] == nil && !peek place.locked) {
-          const from = self.holderOf(want, index, touched)
+        if (taken[place] != true && !peek place.locked) {
+          const from = self.holderOf(want, index, taken)
           if (from != nil && Game.bags.swap(from.bag, from.index, place.bag, place.index)) {
-            touched[place] = true
-            touched[from] = true
+            taken[from] = true
             moved = true
           }
         }
@@ -73,11 +76,12 @@ public class Arranger {
     if (!pending || (!moved && !self.anyLocked())) { self.stop() }
   }
 
-  // A later place that holds the stack where it doesn't belong, free in this go and not locked. The first wrong place
-  // of a go always finds one: a place where the stack belongs is never emptied of it, and the rest wait for a go.
-  holderOf(self, want: Integer, after: Integer, touched: Map<Slot, Boolean>): Slot | nil {
+  // A later place that holds the stack where it doesn't belong, not taken from in this go and not locked. The first
+  // wrong place of a go always finds one: a place where the stack belongs is never emptied of it, and the rest wait for
+  // a go.
+  holderOf(self, want: Integer, after: Integer, taken: Map<Slot, Boolean>): Slot | nil {
     for (index, place of self.places) {
-      if (index > after && touched[place] == nil && !peek place.locked && place.key() == want && self.wanted[index] != want) {
+      if (index > after && taken[place] != true && !peek place.locked && place.key() == want && self.wanted[index] != want) {
         return place
       }
     }
