@@ -16,6 +16,7 @@ const ORE: Integer = 2770
 const RED: Color = Color.hex("#ff4040")
 const GREEN: Color = Color.hex("#40c040")
 const GOLD: Color = Color.hex("#ffd100")
+const DIM: Color = Color.hex("#a3977f")
 // A row picked.
 const PICKED: Color = Color.hex("#00000040")
 
@@ -432,4 +433,15 @@ test "what an item brings is weighed with the cut: 5% of a silver is 5 copper" {
   Game.merchant.opened.emit()
   Game.bags.changed.emit()
   Test.expect(window().text("Linen Cloth").item().text("Auction").shown())
+}
+
+test "an item neither the house nor a merchant prices says «—» dim for which pays more" {
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Game.auctionActions.sellable = bags
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  window().button("Sell").click()
+  const axe = window().text("Bronze Axe").item()
+  Test.expect(reads(axe, "Bronze Axe | 1 | — | — | —") && axe.text("—").nth(3).textColor().equal(DIM))
 }

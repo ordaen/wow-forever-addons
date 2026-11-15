@@ -431,3 +431,16 @@ test "the client's price for one of a commodity is the row's sum" {
   Game.auctionActions.answered.emit(.Quoted { item: COPPER_BAR, quantity: 1, total: 55 })
   Test.expect(list().text("Copper Bar").item().text("0g 0s 55c").shown())
 }
+
+test "an item removed and put on the list again comes back unpicked" {
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Game.clock.server = START
+  Game.items.tooltip = names
+  Test.mount(nil, SCREEN)
+  Game.auctionHouse.open = true
+  Test.page().window("Sell").button("Shopping list").click()
+  list().text("Linen Cloth").click()
+  list().button("Remove").click()
+  Auction.shopping.add(ItemId.of(LINEN), 20, .ByHand)
+  Test.expect(!list().text("Linen Cloth").item().paintedWith(PICKED) && list().button("Remove").paintedWith(Ordaen.art.ctl.buttonDisabled))
+}
