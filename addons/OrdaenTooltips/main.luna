@@ -235,11 +235,11 @@ public class Tooltips implements Module, App {
     self.kept = { shown: read, standing: peek self.standing }
   }
 
-  // Gone for good and not locked: nothing is kept of it.
+  // Gone for good and not locked: nothing is kept of it (the next show is a target of its own, not closed), and the
+  // time is no longer read.
   forget(mut self) {
     if (self.gone) {
       self.target = nil
-      self.closed = false
       self.hiddenAt = nil
     }
   }
@@ -248,11 +248,11 @@ public class Tooltips implements Module, App {
     if (self.away) { self.close() }
   }
 
+  // Not locked, and its target doesn't charge again; with nothing kept the grace stops (`trackAway`), and the next
+  // target starts unvisited (`follow`).
   close(mut self) {
     self.closed = true
     self.kept = nil
-    self.leftAt = nil
-    self.visited = false
   }
 
   onEnter(mut self) { self.over = true }

@@ -126,6 +126,15 @@ test "a tooltip drawn here keeps the game's own unseen; the game's tooltip gone,
   Test.expect(Test.requests().join(", ") == "Tooltip.hide false")
 }
 
+test "once the game's tooltip is gone nothing waits for a frame" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing(sword())
+  Test.pass(0.1)
+  Game.tooltip.main = hidden()
+  Test.pass(0.3)
+  Test.expect(Test.idle())
+}
+
 test "the module turned off draws nothing and leaves the game's tooltip seen" {
   Test.mount(nil, SCREEN)
   Game.tooltip.main = showing(sword())
