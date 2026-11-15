@@ -103,7 +103,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
             box 531.08,655.62 100x28.33
               box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 531.08,655.62 100x28.33 absolute
-                  text 562.33,662.29 37.5x15 "Sets ▾" #ffd100
+                  text 568.58,662.29 25x15 "Sets" #ffd100
           box 647.75,669.79 376.17x0
           box 1040.58,655.62 140x28.33
             box 1040.58,669.79 0x0 @enter @leave
@@ -249,7 +249,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
             box 531.08,655.62 100x28.33
               box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 531.08,655.62 100x28.33 absolute
-                  text 562.33,662.29 37.5x15 "Sets ▾" #ffd100
+                  text 568.58,662.29 25x15 "Sets" #ffd100
           box 647.75,669.79 289.5x0
           box 953.92,655.62 226.67x28.33
             box 953.92,663.29 86.67x13 @enter @leave
