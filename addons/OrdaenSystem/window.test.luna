@@ -1997,7 +1997,7 @@ test "in a fight the card's «Load» is greyed, does nothing, and says why under
   Game.situation.combat = false
 }
 
-test "the card's state: waits for a reload, disabled, refused in red" {
+test "the card's state: waits for a reload in green, disabled dim, refused in red" {
   const world = new World(everyday())
   world.fakes.push({ name: "Fresh", title: "Fresh" })
   Client.C_AddOns.GetNumAddOns = () => world.count()
@@ -2021,9 +2021,9 @@ test "the card's state: waits for a reload, disabled, refused in red" {
   Test.mount(nil, SCREEN)
   open()
   row("Fresh").click()
-  Test.expect(window().text(Locale.WAITING_RELOAD).shown())
+  Test.expect(window().text(Locale.WAITING_RELOAD).textColor().equal(Style.GREEN))
   window().button(Locale.DISABLE).click()
-  Test.expect(window().text(Locale.OFF).textColor().equal(Style.GREEN) && window().button(Locale.ENABLE).shown())
+  Test.expect(window().text(Locale.OFF).textColor().equal(Style.DIM) && window().button(Locale.ENABLE).shown())
   row("Old Map").click()
   Test.expect(window().text(Client.ADDON_INTERFACE_VERSION).nth(2).textColor().equal(Style.RED))
 }

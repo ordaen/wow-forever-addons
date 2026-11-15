@@ -72,7 +72,8 @@ public class Card implements Component {
   derived notes: String = plain(self.addon?.notes ?? "")
   derived icon: Art = self.iconOf()
   derived stateText: String = self.stateTextOf()
-  derived stateColor: Color = self.status?.reason != nil && self.status?.enabled != .Off ? Style.RED : Style.GREEN
+  // Off, dim as its row says it; refused, red; loaded or waiting, green.
+  derived stateColor: Color = self.status?.enabled == .Off ? Style.DIM : self.status?.reason != nil ? Style.RED : Style.GREEN
   derived needs: Array<Named> = self.namedOf(self.addon?.needs ?? [])
   derived wants: Array<Named> = self.namedOf(self.addon?.wants ?? [])
   derived neededBy: Array<Named> = self.namedOf(self.catalog.neededBy[self.name] ?? [])
