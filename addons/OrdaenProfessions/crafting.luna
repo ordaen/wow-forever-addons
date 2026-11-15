@@ -33,13 +33,13 @@ public class CraftQueue {
     let found = false
     for (entry of before) {
       if (entry.recipe == recipe) {
-        queue.push({ count: (entry.count + count).min(MOST_COUNT), ..entry })
+        queue.push({ count: entry.count + count, ..entry })
         found = true
       } else {
         queue.push(entry)
       }
     }
-    if (!found) { queue.push({ skillLine: skillLine, recipe: recipe, name: name, count: count.min(MOST_COUNT) }) }
+    if (!found) { queue.push({ skillLine: skillLine, recipe: recipe, name: name, count: count }) }
     if (queue.length > MOST_QUEUED) { _ = queue.remove(1) }
     self.write(queue, peek self.paused)
     if (before.length == 0 && !peek self.running) {
@@ -56,7 +56,7 @@ public class CraftQueue {
     if (count < 1 && first != nil && first.recipe == recipe) { self.left = 0 }
     let queue: Array<Queued> = []
     for (entry of peek self.lines) {
-      const counted = entry.recipe == recipe ? count.min(MOST_COUNT) : entry.count
+      const counted = entry.recipe == recipe ? count : entry.count
       if (counted > 0) { queue.push({ count: counted, ..entry }) }
     }
     self.write(queue, peek self.paused)
@@ -110,8 +110,10 @@ public class CraftQueue {
     if (why != peek self.paused) { self.write(peek self.lines, why) }
   }
 
+  // The queue kept, each line's count held to the most a line takes.
   write(mut self, queue: Array<Queued>, paused: Pause) {
     const now = peek self.memory.values
-    self.memory.write({ queue: queue, paused: queue.length == 0 ? Pause.None : paused, ..now })
+    const held = queue.map((line: Queued): Queued => ({ count: line.count.min(MOST_COUNT), ..line }))
+    self.memory.write({ queue: held, paused: queue.length == 0 ? Pause.None : paused, ..now })
   }
 }

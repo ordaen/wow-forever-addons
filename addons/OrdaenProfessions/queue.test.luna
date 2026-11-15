@@ -640,7 +640,7 @@ test "a queue emptied stops waiting: what comes next starts at «Create»" {
   Test.expect(window().text("Making Bolt of Linen Cloth: 1 left.").shown())
 }
 
-test "a line's count stops at 999, however much «Create» adds to it" {
+test "a line's count stops at 999: «Create» of more with nothing ahead makes 999" {
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
   Game.professions.list = professions()
   Game.tradeSkill.categories = tailoringCategories()
@@ -648,10 +648,12 @@ test "a line's count stops at 999, however much «Create» adds to it" {
   Game.input.altDown = (): Boolean => true
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  // One made at once; then nine hundred and one, twice, onto its line.
+  // A thousand and one by «Quantity», Alt held: 1, then 100 a click.
+  for (step of 1..=10) { window().button("+").click() }
+  _ = Test.requests()
   window().button("Create").click()
-  for (step of 1..=9) { window().button("+").click() }
-  window().button("Create").click()
+  Test.expect(asked("TradeSkill.craft 2387 999"))
+  // Once more onto its line: it stays 999.
   window().button("Create").click()
   window().button("Queue (1)").click()
   Test.expect(reads(window().text("Linen Cloak").item(), "Linen Cloak | - | 999 | + | x"))
