@@ -364,7 +364,7 @@ test "sets: saved under a name, applied (one not in the folder skipped), renamed
   const window = new AddOnsWindow("Ordaen")
   Test.mount(window, SCREEN)
   Test.flush()
-  Test.click(Test.holding("Sets ▾", nil), nil)
+  Test.click(Test.holding("Sets", nil), nil)
   Test.click(Test.holding("Save current as…", nil), nil)
   Test.flush()
   // The search's field is the first; the set's name the second.

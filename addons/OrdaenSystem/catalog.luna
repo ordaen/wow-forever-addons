@@ -2,7 +2,9 @@
 // window opens, and what the client says of each now (on or off for whom the header says, loaded, why it doesn't
 // load), read again after every change. The client's state is the truth: a checkbox switches the addon in the client
 // at once and saves (`SaveAddOns`); nothing is kept here but the last step, for «Undo».
+import Build from "$build"
 import Client from "$client"
+import Debug from "$debug"
 import Game from "$game"
 
 // On or off, for whom the header says: with «All characters», `Some` where the account's characters differ.
@@ -82,6 +84,12 @@ function needsRuntime(needs: Array<String>): Boolean {
   return false
 }
 
+// Whether an addon's next session differs from this one: on and not loaded (but on demand, or refused), or off and
+// loaded.
+function waits(addon: AddOn, status: Status): Boolean {
+  return (status.mine && !status.loaded && !addon.demand && status.reason == nil) || (!status.mine && status.loaded)
+}
+
 // A title without the client's colour codes.
 public function plain(title: String): String {
   return title.replace("|c%x%x%x%x%x%x%x%x", "").replace("|r", "")
@@ -156,6 +164,16 @@ public class Catalog {
       }
     }
     self.statuses = map
+    if (Build.dev) {
+      // What waits for a reload, and what the client said of it: the count the footer shows, said whole.
+      for (addon of peek self.addons) {
+        const status = map[addon.name]
+        if (status != nil && waits(addon, status)) {
+          Debug.log("waits for a reload: %s (on for this character %s, loaded %s, on demand %s, reason %s)", addon.name,
+            String.of(status.mine), String.of(status.loaded), String.of(addon.demand), String.of(status.reason))
+        }
+      }
+    }
   }
 
   // The character the header's choice switches for: nil for all of them.
@@ -201,10 +219,7 @@ public class Catalog {
     let count = 0
     for (addon of self.addons) {
       const status = self.statuses[addon.name]
-      if (status != nil) {
-        if (status.mine && !status.loaded && !addon.demand && status.reason == nil) { count += 1 }
-        if (!status.mine && status.loaded) { count += 1 }
-      }
+      if (status != nil && waits(addon, status)) { count += 1 }
     }
     return count
   }

@@ -103,7 +103,7 @@ surface 391.67,192.21 816.67x515.58 on DIALOG clamped raised by a click
             box 531.08,655.62 100x28.33
               box 531.08,655.62 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 531.08,655.62 100x28.33 absolute
-                  text 559.97,661.99 42.22x15.6 "Sets ▾" #ffd100 centred
+                  text 566.64,661.99 28.89x15.6 "Sets" #ffd100 centred
           box 647.75,669.79 277.28x0
           box 941.69,655.62 238.89x28.33
             box 941.69,662.59 98.89x14.4 @enter @leave

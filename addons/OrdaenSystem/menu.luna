@@ -74,7 +74,8 @@ public struct Live {
 }
 
 // The game menu as the dress sees it: whether it shows, its buttons and its size, read again at each show and each
-// time Blizzard builds its buttons anew.
+// time Blizzard builds its buttons anew. Started inside the menu's first show, so that show is matched in its own
+// call as every later one is.
 public class GameMenu {
   public state shown = false
   public state buttons: Array<Dressed> = []
@@ -91,8 +92,13 @@ public class GameMenu {
   // Whether the dress is on: a hook of the client's can't be taken back, so a hook finds it off once the dress ends,
   // and calls nothing of it.
   const live: mut Live = { on: true }
+  // Whether the menu's hooks are set and its buttons matched: from the menu's first show on.
+  started = false
 
-  constructor() {
+  // The menu shows for the first time: its hooks set, its buttons matched now, inside that show's own call.
+  public start(mut self) {
+    if (self.started) { return }
+    self.started = true
     const menu = Client.GameMenuFrame
     const live = self.live
     _ = menu.HookScript("OnShow", (...args: Unknown): nil => {
@@ -109,11 +115,12 @@ public class GameMenu {
     Client.hooksecurefunc(menu, "Layout", (...args: Unknown): nil => {
       if (live.on) { self.onInit() }
     })
+    self.onShow()
   }
 
   destructor() {
     self.live.on = false
-    self.restore()
+    if (self.started) { self.restore() }
   }
 
   // The menu shows (its `OnShow`, after Blizzard built its buttons).
@@ -287,9 +294,9 @@ public class MenuDress implements Component {
   // The head stands over Blizzard's first button, which stands `lead` under the menu's top.
   derived high: Number = self.menu.height - self.menu.lead + HEAD
 
-  // Made as the menu first shows: dressed at once, then at each show.
-  const menu: mut GameMenu = new GameMenu()
-  constructor() { self.menu.onShow() }
+  // Blizzard's menu, matched by the module from its first show on.
+  const menu: GameMenu
+  constructor(menu: GameMenu) { self.menu = menu }
 
   onAddons(mut self) {
     self.addons.emit()
