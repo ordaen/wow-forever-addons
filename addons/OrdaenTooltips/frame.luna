@@ -352,6 +352,35 @@ public class Row implements Component {
   }
 }
 
+// A section's lines as they are drawn, each the ladder's `Primary`: a row with a value and a description in the
+// body's colour, other free lines in their own; 6 px more above a line where rows turn into sentences or back.
+// `was` is the section as it was drawn, made from the lines `from`: a line that is the one it was made from, with
+// the room it had, is `was`'s again, and with every line so, `was` itself.
+function rows(lines: Array<TextLine>, was: Array<Drawn>, from: Array<TextLine>): Array<Drawn> {
+  let list: Array<Drawn> = []
+  let same = lines.length == was.length
+  let pairedBefore = false
+  for (index, line of lines) {
+    let paired = line.right != nil
+    let padding = NO_PAD
+    if (line.indent == true) { padding = INDENT } else if (index > 1 && paired != pairedBefore) { padding = SPACED }
+    pairedBefore = paired
+    let old = was[index]
+    if (old != nil && from[index] == line && old.padding == padding) {
+      list.push(old)
+      continue
+    }
+    same = false
+    let plain = paired || line.desc == true ? BODY : FREE
+    list.push({
+      left: line.left, right: line.right, leftColor: line.color ?? plain,
+      rightColor: line.rightColor ?? line.color ?? BODY, size: TextSize.Primary, padding: padding, opens: line.opens,
+      valueOpens: Opens.None, compared: line.compared,
+    })
+  }
+  return same ? was : list
+}
+
 public class TipFrame implements Component {
   derived width: Number = self.side ? SIDE_WIDTH : WIDTH
   derived hasHeader: Boolean = self.model.header != nil
@@ -368,8 +397,13 @@ public class TipFrame implements Component {
 
   derived facts: Integer = self.model.facts.length
   derived hasFacts: Boolean = self.facts > 0
-  derived body: Array<Drawn> = self.rows(self.model.body)
-  derived more: Array<Drawn> = self.rows(self.model.more)
+  // The body's lines and what there is more of, as they are drawn, kept from one model to the next: a line of the
+  // model that is the line it was is drawn by the row it had, so a model with one line changed draws that line
+  // anew and nothing else. `bodyOf` and `moreOf` are the model's lines each was made from.
+  state body: Array<Drawn> = []
+  state more: Array<Drawn> = []
+  bodyOf: Array<TextLine> = []
+  moreOf: Array<TextLine> = []
   derived foot: Array<Drawn> = self.notes()
   derived keys: Array<Drawn> = self.hotkeys()
   derived hasBody: Boolean = self.body.length > 0
@@ -412,9 +446,23 @@ public class TipFrame implements Component {
     self.locks = locks
     self.charge = charge
     self.locked = locked
+    watch { self.keepBody() }
+    watch { self.keepMore() }
   }
 
   onClose(mut self) { self.close.emit() }
+
+  keepBody(mut self) {
+    const lines = self.model.body
+    self.body = rows(lines, peek self.body, self.bodyOf)
+    self.bodyOf = lines
+  }
+
+  keepMore(mut self) {
+    const lines = self.model.more
+    self.more = rows(lines, peek self.more, self.moreOf)
+    self.moreOf = lines
+  }
 
   pictured(self): Boolean {
     let picture = self.model.picture
@@ -448,26 +496,6 @@ public class TipFrame implements Component {
       list.push("auto")
     }
     list.push({ fr: 1 })
-    return list
-  }
-
-  // The body's lines as they are drawn, each the ladder's `Primary`: a row with a value and a description in the
-  // body's colour, other free lines in their own; 6 px more above a line where rows turn into sentences or back.
-  rows(self, lines: Array<TextLine>): Array<Drawn> {
-    let list: Array<Drawn> = []
-    let pairedBefore = false
-    for (index, line of lines) {
-      let paired = line.right != nil
-      let padding = NO_PAD
-      if (line.indent == true) { padding = INDENT } else if (index > 1 && paired != pairedBefore) { padding = SPACED }
-      let plain = paired || line.desc == true ? BODY : FREE
-      list.push({
-        left: line.left, right: line.right, leftColor: line.color ?? plain,
-        rightColor: line.rightColor ?? line.color ?? BODY, size: TextSize.Primary, padding: padding, opens: line.opens,
-        valueOpens: Opens.None, compared: line.compared,
-      })
-      pairedBefore = paired
-    }
     return list
   }
 

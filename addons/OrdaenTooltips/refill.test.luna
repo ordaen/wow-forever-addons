@@ -1,0 +1,74 @@
+// A tooltip the game fills anew while it is held (the menu button's, each second, with the addons' memory): a
+// refill costs what changed in it, however many lines it has.
+import Client from "$client"
+import Game from "$game"
+import { Frame } from "$ltml"
+import Test from "$test"
+
+const GOLD: Color = Color.hex("#ffd100")
+const WHITE: Color = Color.hex("#ffffff")
+
+// The game's tooltip showing the menu button's text: its title, the game's lines, and the memory of `addons` addons.
+function memory(corner: any Frame, owner: any Frame, addons: Integer): Game.ShownTip {
+  let lines: Array<Game.TooltipLine> = [
+    { left: "Game Menu |cffffd200(Escape)|r", leftColor: WHITE, kind: 0 },
+    { left: "Latency:", leftColor: GOLD, kind: 0 },
+    { left: "Home 31 ms", leftColor: WHITE, kind: 0 },
+    { left: "World 34 ms", leftColor: WHITE, kind: 0 },
+    { left: "Framerate: 60 fps", leftColor: WHITE, kind: 0 },
+    { left: "Addon memory:", leftColor: GOLD, kind: 0 },
+  ]
+  for (i of 1..=addons) {
+    lines.push({ left: `Addon ${i}`, right: `${i}.10 MB`, leftColor: WHITE, rightColor: WHITE, kind: 0 })
+  }
+  return {
+    shown: true, owner: owner, ownerName: "MainMenuMicroButton", placeable: true, ownerHigh: false,
+    ownerRight: false, corner: corner, below: false, right: true, data: { plain: true, lines: lines },
+  }
+}
+
+// The tooltip filled anew with another value on one line, as the game's side tells it: the other lines the tables
+// they were.
+function refilled(tip: Game.ShownTip, at: Integer, right: String): Game.ShownTip {
+  let lines: Array<Game.TooltipLine> = []
+  for (i, line of tip.data.lines) {
+    lines.push(i == at ? { right: right, ..line } : line)
+  }
+  return { data: { lines: lines, ..tip.data }, ..tip }
+}
+
+test "a held tooltip the game fills anew costs what changed in it, however many lines it has" {
+  let corner = Client.CreateFrame("Frame", "GameTooltip", Client.C_UI.GetUIParent(), nil)
+  corner.SetSize(200, 80)
+  corner.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 1300, -720)
+  let button = Client.CreateFrame("Button", "MainMenuMicroButton", Client.C_UI.GetUIParent(), nil)
+  button.SetSize(30, 40)
+  button.SetPoint("TOPLEFT", Client.C_UI.GetUIParent(), "TOPLEFT", 600, -800)
+  Test.mount(nil, { left: 100, top: 50, width: 700, height: 600, screen: true })
+
+  // The kilobytes a refill with one line changed makes (the refill told, and the frame that draws it), in a tooltip
+  // of four addons' memory and in one of twenty-four.
+  let made: Array<Number> = []
+  for (addons of [4, 24]) {
+    const first = memory(corner, button, addons)
+    Game.tooltip.main = first
+    Test.pass(0.1)
+    // A refill before the one measured: what is made once (a list grown, a text first measured) is made.
+    const second = refilled(first, 7, "2.11 MB")
+    Game.tooltip.main = second
+    Test.pass(0.1)
+    const third = refilled(second, 7, "2.12 MB")
+    made.push(Test.garbage((): nil => {
+      Game.tooltip.main = third
+      Test.pass(0.02)
+    }))
+    _ = Test.surfaceHolding("2.12 MB")
+  }
+  const few = made[1] ?? panic("the short tooltip's refill")
+  const many = made[2] ?? panic("the long tooltip's refill")
+  // Twenty lines more cost nothing more (each line read and drawn anew would be over a kilobyte a line), and a
+  // refill is a few tables: the changed line's, the model's, the lists'.
+  Test.expect(many - few < 1)
+  Test.expect(many < 10)
+  Test.note("a refill of thirty lines makes what one of ten does")
+}
