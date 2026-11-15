@@ -107,11 +107,9 @@ public class GameMenu {
     _ = menu.HookScript("OnHide", (...args: Unknown): nil => {
       if (live.on) { self.onHide() }
     })
-    Client.hooksecurefunc(menu, "InitButtons", (...args: Unknown): nil => {
-      if (live.on) { self.onInit() }
-    })
     // Blizzard's menu is a layout frame: its buttons get their places and the menu its size on the next frame's
-    // update, a pooled button standing where its last entry stood till then. Measured again once laid out.
+    // update, a pooled button standing where its last entry stood till then. Matched again once laid out, which
+    // follows every time Blizzard builds them anew (`InitButtons` marks the menu for it) before that frame is drawn.
     Client.hooksecurefunc(menu, "Layout", (...args: Unknown): nil => {
       if (live.on) { self.onInit() }
     })

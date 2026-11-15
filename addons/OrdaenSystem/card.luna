@@ -80,8 +80,8 @@ public class Card implements Component {
   derived loads: Array<Pair> = self.loadsOf()
   derived on: Boolean = self.status?.enabled != .Off
   derived switchLabel: String = self.on ? Locale.DISABLE : Locale.ENABLE
-  derived loadable: Boolean = self.addon?.demand == true && self.status?.loaded != true && self.status?.mine == true &&
-    self.status?.reason == nil
+  // Off for this character, the client's reason says so.
+  derived loadable: Boolean = self.addon?.demand == true && self.status?.loaded != true && self.status?.reason == nil
   derived fighting: Boolean = Game.situation.combat
   // In a fight «Load» says why it waits, under the cursor.
   derived loadTip: TipText | nil = self.fighting ? LOAD_TIP : nil
@@ -113,16 +113,17 @@ public class Card implements Component {
 
   // Loaded, loaded on demand, waiting to be asked for or for a reload, off, or why it can't load: for a
   // dependency's reason, which dependency.
+  // A status is the catalog's for each addon it lists: there is one where there is an addon.
   stateTextOf(self): String {
-    const addon = self.addon
     const status = self.status
-    if (addon == nil || status == nil) { return "" }
+    if (status == nil) { return "" }
     if (status.enabled == .Off) { return Locale.OFF }
+    const demand = self.addon?.demand == true
     const reason = status.reason
     if (reason != nil) {
       const text = Style.reasonText(reason)
       if (!Style.ofDependency(reason)) { return text }
-      for (need of addon.needs) {
+      for (need of self.addon?.needs ?? []) {
         const other = self.catalog.statuses[need]
         if (other == nil || other.reason != nil) {
           return Locale.NOT_LOADING_BECAUSE.format(text, self.catalog.titleOf(need))
@@ -130,8 +131,8 @@ public class Card implements Component {
       }
       return text
     }
-    if (status.loaded) { return addon.demand ? Locale.LOADED_DEMAND : Locale.LOADED }
-    return addon.demand ? Locale.WAITING_DEMAND : Locale.WAITING_RELOAD
+    if (status.loaded) { return demand ? Locale.LOADED_DEMAND : Locale.LOADED }
+    return demand ? Locale.WAITING_DEMAND : Locale.WAITING_RELOAD
   }
 
   namedOf(self, names: Array<String>): Array<Named> {
