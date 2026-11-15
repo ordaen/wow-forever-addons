@@ -25,15 +25,15 @@ const STAR = 8 * PX
 const STAR_RIGHT = 46 * PX
 const STAR_TOP = 8 * PX
 
-// A group in the recipes' first column: its name in gold (white for the favorites), and `N (M)` at the right, N its
-// recipes, M how many of them the bags can make now (white when any).
+// A group in the recipes' first column: its name in gold (the favorites' in the text's own white), and `N (M)` at
+// the right, N its recipes, M how many of them the bags can make now (white when any).
 public class CategoryRow implements Component {
   // Its id.
   public pick: Event<Integer> = new Event()
 
   derived isChosen: Boolean = self.chosen == self.group.id
   derived first: Boolean = self.index == 1
-  derived nameColor: Color = self.group.id == FAVORITES ? Style.WHITE : Style.GOLD
+  derived nameColor: Color | nil = self.group.id == FAVORITES ? nil : Style.GOLD
   derived makeableColor: Color = self.group.makeable > 0 ? Style.WHITE : Style.DIM
 
   group: Signal<Group>

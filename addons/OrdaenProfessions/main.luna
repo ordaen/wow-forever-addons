@@ -572,14 +572,13 @@ public class Professions implements Module, App {
   }
 
   // From the menu's click, as «Create» with all the bags make: the game takes making only from one. The menu's line
-  // takes no click while the bags make none.
+  // takes no click while the bags make none. The menu stands on a listed recipe of the open profession; the card's
+  // note is empty where its run starts at once (nothing waits, so nothing was queued since a recipe was picked).
   onMake(mut self, id: Integer) {
     self.menuFor = 0
-    const open = peek Game.tradeSkill.open
-    const recipe = (peek Game.tradeSkill.recipes).find(r => r.id == id)
-    if (open != nil && recipe != nil) {
-      self.note = self.crafting.add(open, id, recipe.name, recipe.craftable) ? Locale.QUEUED_AFTER : ""
-    }
+    const open = (peek Game.tradeSkill.open) ?? panic("the menu stands in the open profession's window")
+    const recipe = (peek Game.tradeSkill.recipes).find(r => r.id == id) ?? panic("the menu stands on a listed recipe")
+    if (self.crafting.add(open, id, recipe.name, recipe.craftable)) { self.note = Locale.QUEUED_AFTER }
   }
 
   // The filter's «Reset»: every option back to what the window starts with.
