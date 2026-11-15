@@ -38,6 +38,8 @@ public class Cooldowns implements Component {
   derived waits: Array<Wait> = self.waitsOf()
   derived ordered: Array<Wait> = self.order()
   derived empty: Boolean = self.waits.length == 0
+  // The table scrolls in the window's height, below the note while there is one.
+  derived rows: Array<Track> = self.empty ? ["auto", { fr: 1 }] : [{ fr: 1 }]
 
   const records: Records
   touched: Signal<Integer>
@@ -75,7 +77,7 @@ public class Cooldowns implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={space(.Group)}>
+      <box rows={self.rows} gap={space(.Group)}>
         <text $if={self.empty} value={Locale.NO_COOLDOWNS} textSize={.Secondary} textColor={Style.DIM} />
         <box overflow={Overflow.Scroll}>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>

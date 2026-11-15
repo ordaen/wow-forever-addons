@@ -160,3 +160,16 @@ test "a heading sorts the cooldowns by its column, a second click the other way"
   window.button(Locale.COL_NAME).click()
   Test.expect(shows(rows(mooncloth, transmute, stone)))
 }
+
+test "forty cooldowns scroll inside the window" {
+  Game.clock.server = START
+  const waits: Array<Integer> = []
+  for (i of 1..=40) {
+    waits.push(5000 + i)
+    waits.push(i)
+  }
+  Test.mount(nil, SCREEN)
+  recorded([crafter("Aria", SMITHING, waits)])
+  const window = cooldowns()
+  Test.expect(window.text("#5001").item().texts().join(" | ") == "#5001 | Aria | in 1 h")
+}

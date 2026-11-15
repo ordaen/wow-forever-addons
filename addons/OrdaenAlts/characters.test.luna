@@ -326,6 +326,14 @@ test "a character forgotten leaves the table, and stays gone when the module rea
   Test.expect(order(["Aria", "Bram", "Player"]) == "Bram, Player")
 }
 
+test "forty characters scroll inside the window" {
+  const others: Array<Character> = []
+  for (i of 1..=39) { others.push(alt("Alt " + String.of(100 + i), 10, i)) }
+  Test.mount(nil, SCREEN)
+  recorded(others, nil)
+  Test.expect(row("Alt 101") == "Alt 101 | 10 | 0g 0s 0c | — | 1 h ago | never opened | never opened | Forget")
+}
+
 test "what was recorded is kept: after a reload the professions and the bank read are as they were" {
   // The stand-in's own clock, which the new session's game has too.
   Game.bankObserver.holdings = (): Map<Integer, Integer> | nil => {

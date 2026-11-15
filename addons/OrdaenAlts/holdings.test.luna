@@ -135,6 +135,20 @@ test "the game is asked an item's name once while the tab shows" {
   Test.expect(asked.length == 1)
 }
 
+test "at most fifty items are listed" {
+  const held: Array<Integer> = []
+  for (id of 1..=51) {
+    held.push(id)
+    held.push(id + 100)
+  }
+  Game.bags.holdings = (): Map<Integer, Integer> | nil => counts(held)
+  Game.bags.changed.emit()
+  Test.mount(nil, SCREEN)
+  const window = items()
+  Test.expect(window.text("#51").shown() && window.text("#2").shown())
+  Test.expect(!window.text("#1").shown())
+}
+
 test "the cursor on an item shows the game's tooltip of it" {
   Game.items.tooltip = named
   Game.bags.holdings = (): Map<Integer, Integer> | nil => counts([LINEN, 12])

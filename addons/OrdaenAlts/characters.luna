@@ -98,6 +98,8 @@ public class Characters implements Component {
   derived ordered: Array<Line> = self.order()
   derived question: String = self.questionOf()
   derived alone: Boolean = self.lines.length < 2
+  // The table scrolls in the window's height, above the note while there is one.
+  derived rows: Array<Track> = self.alone ? [{ fr: 1 }, "auto"] : [{ fr: 1 }]
 
   const records: Records
   touched: Signal<Integer>
@@ -173,7 +175,7 @@ public class Characters implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={space(.Group)}>
+      <box rows={self.rows} gap={space(.Group)}>
         <box overflow={Overflow.Scroll}>
           // A character's professions wrap: its row is as high as they are.
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending} rowHeight={"auto"}>
