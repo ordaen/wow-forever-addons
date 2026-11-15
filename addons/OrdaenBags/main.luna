@@ -40,7 +40,7 @@ public struct Kept implements Plain {
   guards: Array<Guard>
 }
 
-// How the player left the bags' view, the profile's (`Memory`, `redesign/kept.md`): the view and the sort the header
+// How the player left the bags' view, the profile's (`Memory`): the view and the sort the header
 // picks. The search isn't kept.
 public struct BagsView implements Plain {
   view: View = View.Categories

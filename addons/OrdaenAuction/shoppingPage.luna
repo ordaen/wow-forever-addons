@@ -157,7 +157,7 @@ public struct ShoppingView implements Plain {
 const SHOPPING_VIEW: ShoppingView = {}
 
 public class ShoppingPage implements Component {
-  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  // How the player left the list, the profile's (`Memory`); the search isn't kept.
   public kept: mut Memory<ShoppingView> = new Memory<ShoppingView>(SHOPPING_VIEW, .Profile, "shopping")
   state picked: ItemId | nil = nil
   // The purchase of the row picked: its listings, then what the player's clicks buy.

@@ -1,6 +1,6 @@
 // What every reader of Ordaen Auction's prices names besides Ordaen's item, amount and hour: a key, a price with its
 // hour, the last observation's lowest with its quantity, and the trait every price is read through. Each is a number,
-// never a table: two halves packed into one below 2^53 (`redesign/market.md`, «What is kept per item»).
+// never a table: two halves packed into one below 2^53.
 import Game from "$game"
 import { Copper, Hour, ItemId } from "Ordaen"
 

@@ -39,7 +39,7 @@ public struct Placing implements Plain {
 // mount, in a vehicle, on a flight); moving.
 public enum Occasion implements Plain { Combat = "combat", Travel = "travel", Moving = "moving" }
 
-// What the player did with a window, kept in the active profile (`Memory`, `redesign/kept.md`): its place and its
+// What the player did with a window, kept in the active profile (`Memory`): its place and its
 // body's size, full screen or not, the tab last open, and the width the side section was dragged to (0: the width
 // the side is given); and what the player chose on its settings page («Окна»): whether any of that is kept
 // (`remember`; off, the window opens as it is declared), the tab it opens on (`openOn`: 0, the one last open), what

@@ -21,7 +21,7 @@ import Style from "@/style"
 public enum Order implements Plain { Name = "name", Now = "now", Peak = "peak", Memory = "memory" }
 public enum View implements Plain { Categories = "categories", Table = "table" }
 
-// How the player left the list, the profile's (`Memory`, `redesign/kept.md`): whose addons it shows, the filter (a
+// How the player left the list, the profile's (`Memory`): whose addons it shows, the filter (a
 // choice in each kind, `@/filter`), the order and which way (the heaviest first for a number's column, reversed by a
 // second click on a table's heading), the view, and the addon whose card stands beside it. The search isn't kept: a
 // list cut short by an old search at the next opening says nothing of why.

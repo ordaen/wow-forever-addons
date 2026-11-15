@@ -1,4 +1,4 @@
-// The shopping list (`redesign/market-ux.md` §2): one for the account, kept with the module's data. Its lines say
+// The shopping list: one for the account, kept with the module's data. Its lines say
 // what asked for an item (a recipe's missing parts from Professions, the player by hand); its rows sum them per item,
 // against what this character holds in its bags and bank, into what is left to buy.
 import Game from "$game"

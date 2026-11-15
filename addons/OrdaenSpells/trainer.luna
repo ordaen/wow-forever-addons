@@ -87,7 +87,7 @@ public class ServiceRow implements Component {
 
 public class TrainerPage implements Component {
   state search = ""
-  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  // How the player left the list, the profile's (`Memory`); the search isn't kept.
   public list: mut Memory<TrainerView> = new Memory<TrainerView>(TRAINER_VIEW, .Profile, "trainer")
   state picked = 0
   derived shown: Array<Game.TrainerService> = self.shownOf()

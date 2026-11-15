@@ -63,7 +63,7 @@ const HALF_LIFE: Number = 72
 public const KEPT_HOURS = 720
 
 public class House {
-  // The realm's name as the game shows it: one house per realm, both factions' (`redesign/market.md`).
+  // The realm's name as the game shows it: one house per realm, both factions'.
   public const name: String
   market: mut Map<PriceKey, Quote>
   listing: mut Map<PriceKey, Listing>

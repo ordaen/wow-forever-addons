@@ -66,7 +66,7 @@ public class SpellRow implements Component {
 public class SpellbookPage implements Component {
   state tab = 1
   state search = ""
-  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  // How the player left the list, the profile's (`Memory`); the search isn't kept.
   public list: mut Memory<BookView> = new Memory<BookView>(BOOK_VIEW, .Profile, "book")
   derived names: Array<String> = self.namesOf()
   derived shown: Array<Game.SpellEntry> = self.shownOf()

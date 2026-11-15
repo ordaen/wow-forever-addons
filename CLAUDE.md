@@ -52,7 +52,7 @@ and the game's host are the `lunatype` repository (`../lunatype`).
   what follows something else a `derived` one, read where it is drawn.
 - **The game is imported.** An addon reads the client through `"$game"` (the client by its parts, cells it can't
   write) and Ordaen through `Ordaen`; `"$client"` and `"$events"`, the client's own API, are any addon's to import
-  (`../lunatype/redesign/language.md`, section 12), for what `"$game"` has no part for.
+  (`../wow-dev-tools/design/development/language/game.md`), for what `"$game"` has no part for.
 - **Plain Lua beside a declaration** (`name.d.luna` with `name.lua`) is for what isn't LunaType's to say: another
   addon's own API (`OrdaenDev/dev`), generated data (`OrdaenTooltips/talents`).
 - **One way to write a file:** `lunatype fmt addons`.
@@ -216,7 +216,7 @@ Like EllesmereUI, but the modules load on demand. The approach and the inventory
 - **A module needs no other module to run:** it depends on Ordaen alone, and any module can be off while the others
   run. Where a module offers a place for others (a tooltip's lines, a map's layers), it declares a `Registry<T>` on
   its root and the module that wants to be there adds to it, importing the owner's root (`import root`) and its
-  contract by type alone; the owner knows only the trait it declared (`../lunatype/redesign/extend.md`). Dependencies
+  contract by type alone; the owner knows only the trait it declared (`../wow-dev-tools/design/development/language/modules.md`). Dependencies
   point from the module that wants something to the one that owns it.
 - Modules follow the **globals** (theme, fonts, text size, scale, spacing, colours, bar textures, animations, ...):
   a module's look setting defaults to "as in the globals" and may be overridden for that module only.

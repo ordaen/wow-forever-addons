@@ -429,7 +429,7 @@ public class BuyPage implements Component {
   state filterOpen = false
   // The filter's Tip: the level band and the quality it lets through.
   derived filterText: String = [labelOf(LEVELS, self.list.values.level), labelOf(QUALITIES, self.list.values.quality)].join(", ")
-  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  // How the player left the list, the profile's (`Memory`); the search isn't kept.
   public list: mut Memory<BuyView> = new Memory<BuyView>(BUY_VIEW, .Profile, "buy")
   state picked: PriceKey | nil = nil
   // The row whose menu shows; none.

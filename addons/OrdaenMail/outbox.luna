@@ -87,7 +87,7 @@ public class SentRow implements Component {
 
 public class Outbox implements Component {
   state search = ""
-  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  // How the player left the list, the profile's (`Memory`); the search isn't kept.
   public list: mut Memory<OutboxView> = new Memory<OutboxView>(OUTBOX_VIEW, .Profile, "outbox")
   derived shown: Array<Sent> = self.shownOf()
   derived empty: Boolean = self.shown.length == 0

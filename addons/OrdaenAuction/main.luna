@@ -1,5 +1,5 @@
-// Ordaen Auction: the house's prices, homemade (`redesign/market.md`), every Ordaen addon's through `prices`; the
-// merchants' prices; the sales ledger; the house's window (`redesign/market-ux.md` §1), shown while the house is open.
+// Ordaen Auction: the house's prices, homemade, every Ordaen addon's through `prices`; the
+// merchants' prices; the sales ledger; the house's window, shown while the house is open.
 // A module loaded on demand: a player with it off loads none of its data.
 import Game from "$game"
 import { Side, Track } from "$ltml"

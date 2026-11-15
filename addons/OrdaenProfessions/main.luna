@@ -109,7 +109,7 @@ public class Professions implements Module, App {
   // What the profession trainers met teach, the account's: every character meets the same trainers.
   public learning: mut Memory<Learning> = new Memory<Learning>({ recipes: {} }, .Account)
   derived taught: Map<String, Taught> = self.learning.values.recipes
-  // How the player left the recipe list: its view, its sort and the table's order, the profile's (`redesign/kept.md`).
+  // How the player left the recipe list: its view, its sort and the table's order, the profile's.
   public list: mut Memory<ListView> = new Memory<ListView>(LIST_VIEW)
   // The queue, the root's and not the window's: it runs while the window is shut.
   public crafting: mut CraftQueue

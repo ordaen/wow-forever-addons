@@ -1,4 +1,4 @@
-// What the player does with a window is kept in the active profile (`Memory`, `redesign/kept.md`): its place, its
+// What the player does with a window is kept in the active profile (`Memory`): its place, its
 // size from the grip and full screen or not come back after a reload, and a switch of profile takes the other
 // profile's at once. Ordaen's own settings window stands for every window: they keep through the same `Window`.
 // Where it stands is read by its texts, which a reload's window draws anew: its tab's title (its top left) and its
