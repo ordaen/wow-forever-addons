@@ -1,9 +1,9 @@
 // Window: a window whose open tab is its title. The small metal frame round its body, the windows' wood, its tabs
 // standing on the body's top line from its left, the open one over the body and the closed ones behind it. Centred
 // on the screen at first; dragging a tab moves it, Escape closes it, the grip in its bottom right corner
-// resizes it with its top left corner staying where it is. In the body's top right corner, while the cursor is over
-// the window: one group of plates, settings where the window is made `withSettings` (its `settings` event), full
-// screen (and back) and close. Its unnamed slot takes the body's content, which fills the body. Its `footer`, where
+// resizes it with its top left corner staying where it is. At the tab row's right end, standing on the body's
+// top line as the tabs do: one group of plates, settings where the window is made `withSettings` (its `settings`
+// event), full screen (and back) and close; the window is never narrower than its tabs and that group. Its unnamed slot takes the body's content, which fills the body. Its `footer`, where
 // it is given one, is the footer row: the window's action groups, its secondary actions and what isn't important
 // (counts, how long ago, in small dim text) standing on the body's bottom line under the content; the template lays
 // its groups out with the ladder's steps. Its `side`, where it is given one, is a section of its own at the body's
@@ -12,9 +12,11 @@
 // side of the screen from its top to its bottom, as wide as its placing says: it isn't moved or resized, and its
 // full-screen toggle still covers the screen.
 import { Align, Art, Docked, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Stated, Track } from "$ltml"
+import Game from "$game"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
+import { Memory } from "@/settings"
 import { PX, space } from "@/units"
 
 // One of a window's tabs: its name, a second line under it, a picture at its left end.
@@ -24,13 +26,94 @@ public struct WindowTabSpec {
   icon: Art | nil
 }
 
-// Where a window is: its centre from the screen's (y down), and its body's size. Its owner keeps it.
-public struct Placing {
+// Where a window is: its centre from the screen's (y down), and its body's size. Its owner holds it, and the window
+// keeps it in its memory.
+public struct Placing implements Plain {
   x: Number
   y: Number
   width: Number
   height: Number
 }
+
+// What the player is in the middle of that hides a window, and after which it shows again: a fight; travel (riding a
+// mount, in a vehicle, on a flight); moving.
+public enum Occasion implements Plain { Combat = "combat", Travel = "travel", Moving = "moving" }
+
+// What the player did with a window, kept in the active profile (`Memory`, `redesign/kept.md`): its place and its
+// body's size, full screen or not, the tab last open, and the width the side section was dragged to (0: the width
+// the side is given); and what the player chose on its settings page («Окна»): whether any of that is kept
+// (`remember`; off, the window opens as it is declared), the tab it opens on (`openOn`: 0, the one last open), what
+// hides it (`hideDuring`) and, of that, after which it shows again (`showAfter`; a window hidden by anything else is
+// closed). The defaults are the window's declaration's (`KeptWindow`): hidden in a fight, never shown again by itself.
+public struct WindowView implements Plain {
+  x: Number = 0
+  y: Number = 0
+  width: Number = 0
+  height: Number = 0
+  full: Boolean = false
+  tab: Integer = 1
+  side: Number = 0
+  remember: Boolean = true
+  openOn: Integer = 0
+  hideDuring: Array<Occasion> = [Occasion.Combat]
+  showAfter: Array<Occasion> = []
+}
+
+// One of a module's windows, declared once in its root: its name (what it is kept under), its title on the
+// settings' «Окна» page, and where it opens and whether full screen until the player changes it. What the player
+// does with it is its `memory`, the profile's; `placing` is where it stands now. The `Window` drawn for it and its
+// settings page (`WindowsPage`) both read and write this one: they can't disagree.
+public class KeptWindow {
+  public const title: String
+  public const defaults: WindowView
+  public memory: mut Memory<WindowView>
+  public state placing: mut Placing
+  // The window's tabs' titles, as it last drew them: the settings page offers each as the tab to open on.
+  public state tabs: Array<String> = []
+
+  constructor(name: String, title: String, placing: Placing, full: Boolean = false) {
+    self.title = title
+    self.placing = placing.clone()
+    self.defaults = {
+      x: placing.x, y: placing.y, width: placing.width, height: placing.height, full: full, tab: 1, side: 0,
+      remember: true, openOn: 0, hideDuring: [Occasion.Combat], showAfter: [],
+    }
+    self.memory = new Memory<WindowView>(self.defaults, .Profile, "window:" + name)
+  }
+
+  // What the window is to be: the kept view, or, where nothing is to be kept, the declaration's with the page's
+  // choices.
+  public used(self, view: WindowView): WindowView {
+    if (view.remember) { return view }
+    const declared = self.defaults.clone()
+    declared.remember = false
+    declared.openOn = view.openOn
+    declared.hideDuring = view.hideDuring.clone()
+    declared.showAfter = view.showAfter.clone()
+    return declared
+  }
+}
+
+// While a shown window asks for it, the player's situation follows what it doesn't follow otherwise (a mount,
+// moving): heeded as it is made, let go as it ends (`Game.situation.heed`).
+class Heeding {
+  const what: Game.Heeded
+  constructor(what: Game.Heeded) {
+    self.what = what
+    Game.situation.heed(what)
+  }
+  destructor() { Game.situation.unheed(self.what) }
+}
+
+// Whether a list of occasions holds one.
+function holds(list: Array<Occasion>, occasion: Occasion): Boolean {
+  return list.any((each: Occasion) => each == occasion)
+}
+// How far the side section's line is dragged: from two thirds of the width it is given to twice it.
+const SIDE_LEAST = 2 / 3
+const SIDE_MOST = 2
+// How wide the side's line takes the cursor to drag it.
+const SIDE_HANDLE = 8 * PX
 
 // The tab row above the body: taller when a tab has a second line.
 const TAB = 36 * PX
@@ -53,12 +136,12 @@ const ROOM: Number = space(.Window) + INSET
 const PADDING: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Window), left: space(.Window) }
 const PADDING_FOOTED: Edges = { top: space(.Window), right: space(.Window), bottom: space(.Panel), left: space(.Window) }
 const FOOTER_PAD: Edges = { top: space(.Group) }
-// The corner's group in the body's top right (the design's `CTRLS`): its controls from its left, each one kind of
-// plate with its glyph. How far from the body's line the group stands, and how high it is with its rim.
+// The control group at the tab row's right end (the design's `CTRLS`): its controls from its left, each one kind of
+// plate with its glyph; how high it is with its rim.
 public enum CornerControl { Settings = "settings", Full = "full", Close = "close" }
-const CORNER_TOP = 5.5 * PX
-const CORNER_RIGHT = 5 * PX
 const CORNER_HEIGHT = 32 * PX
+// How far below the body's top the group's foot stands: the middle of the frame's line.
+const CORNER_FOOT = 3 * PX
 // A plate's width; the first's rim and its shadow, left of its plate; the last is the design's 2 px wider, and the
 // frame's line covers its right end, which the group's box leaves out.
 const PLATE = 30 * PX
@@ -86,16 +169,12 @@ const function plateLeft(index: Integer, count: Integer): Number {
   for (i of 1..=index - 1) { left += plateWidth(i, count) }
   return left
 }
-// How much of the content's first row the corner's group takes, from its right end: what stands in that row at
-// the right (a bar across the window) ends this much short, and the group never lies over it.
-public const function cornerRoom(withSettings: Boolean): Number {
-  const count = cornerControls(withSettings).length
-  return CORNER_RIGHT + plateLeft(count + 1, count) + space(.Item) - ROOM
-}
 // The main section's content takes what its footer's row leaves; the body's one row is as high as the body.
 const MAIN_ROWS: Array<Track> = [{ fr: 1 }, "auto"]
 const BODY_ROWS: Array<Track> = [{ fr: 1 }]
 const ONE: Array<Track> = [{ fr: 1 }]
+// The tab row: the tabs, and the control group at its right end.
+const ROW: Array<Track> = [{ fr: 1 }, "auto"]
 
 // A window's side section: a column at the body's right, running from its top line to its bottom one, the frame's
 // line between it and the main section (as the trainer's card beside its list). It shares neither the main section's
@@ -264,12 +343,14 @@ public class Window implements Component {
   public picked: Event<Integer> = new Event()
 
   state full: Boolean
-  state hovered = false
   // Where the window and its body were when a drag began.
   x0: Number = 0
   y0: Number = 0
   w0: Number = 0
   h0: Number = 0
+  // The least body the content leaves room for, as the grip's drag began: the grip stops there.
+  leastW: Number = 0
+  leastH: Number = 0
 
   // The tab row's height: the design's, from a tab's own line down to the body, and the tab's art above its line.
   derived tabHeight: Number = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale
@@ -279,20 +360,23 @@ public class Window implements Component {
   derived columns: Array<Track> = self.tabColumns()
   derived place: Place = self.placeOf()
   // The main section keeps the width the player gave it: a side section widens the window by its own column.
-  derived width: Number | nil = self.full ? nil : self.placing.width + self.sideWide
+  derived width: Number | nil = self.full ? nil : self.declared.placing.width + self.sideWide
   derived sideWide: Number = self.sideWideOf()
-  derived height: Number | nil = self.full || self.docked != nil ? nil : self.tabHeight + self.placing.height
+  derived height: Number | nil = self.full || self.docked != nil ? nil : self.tabHeight + self.declared.placing.height
   // Moved by a tab and resized by its grip: neither full screen nor docked.
   derived free: Boolean = !self.full && self.docked == nil
   // The screen's right side kept clear while full screen.
   derived inset: Number = self.full ? self.room : 0
+  // The tab row ends where the body does: short of that side while full screen.
+  derived rowPad: Edges = { right: self.inset }
+  // The control group's foot stands in the middle of the body's top line, which covers it.
+  derived cornerFoot: Edges = { bottom: self.lineTop - CORNER_FOOT }
   derived grip: Stated<Art> = self.gripOf()
   // The ring round the control the keyboard has focused: the look's accent.
   derived focusLine: Line = { width: 1 * PX, color: Ordaen.look.values.accent, sides: nil }
 
   tabs: Signal<Array<WindowTabSpec>>
   selected: mut Signal<Integer>
-  placing: mut Signal<Placing>
   const minWidth: Number
   const minHeight: Number
   const maxWidth: Number | nil
@@ -309,15 +393,35 @@ public class Window implements Component {
   side: Signal<WindowSide | nil>
   derived sided: Boolean = self.side != nil
   derived sideContent: Template = self.side?.content ?? self.nothing
+  // The side's content's width: the one the player dragged it to, or the one it is given.
+  derived sideWidth: Number = self.sideWidthOf()
   derived bodyColumns: Array<Track> = self.columnsOf()
   const nothing: Template = $ltml {}
   const docked: Side | nil
   const asks: Boolean
   room: Signal<Number>
+  // Its declaration: where it stands, and what the player did with it, kept in the active profile.
+  declared: mut KeptWindow
+  // What this window kept last: a change of the memory that is not its own (a switch of profile, its settings
+  // page) is taken whole, the tab with it.
+  written: WindowView | nil = nil
+  // Whether what is kept was taken once: the first time, as the window is made.
+  made = false
+  // The side's width as a drag of its line began, and while it is dragged (0 otherwise): kept as the drag ends.
+  side0: Number = 0
+  state sideDrag: Number = 0
+  // What hid the window while it is shown, each to show it again as it ends (none: it shows); what the player is in
+  // the middle of now, while it is shown; and what it was at the last change.
+  state away: Array<Occasion> = []
+  derived occasions: Array<Occasion> = self.occasionsOf()
+  derived seen: Boolean = self.shown && self.away.length == 0
+  was: Array<Occasion> = []
+  opened = false
   constructor(
     tabs: Signal<Array<WindowTabSpec>>,
     selected: mut Signal<Integer>,
-    placing: mut Signal<Placing>,
+    // The window as its module declares it (`KeptWindow`): where it stands and what is kept of it.
+    declared: mut KeptWindow,
     minWidth: Number = MIN_W,
     minHeight: Number = MIN_H,
     maxWidth: Number | nil = nil,
@@ -327,8 +431,6 @@ public class Window implements Component {
     // Hidden, it stays drawn: a window opened often is shown again at the cost of a surface shown, not of being
     // drawn anew (`$if` on it builds it at each open).
     shown: Signal<Boolean> = true,
-    // Opens full screen.
-    full: Boolean = false,
     // Stands along this side of the screen, its whole length.
     docked: Side | nil = nil,
     // The width kept clear at the screen's right side while full screen: the windows docked there.
@@ -346,7 +448,7 @@ public class Window implements Component {
     self.footed = footer != nil
     self.padding = footer != nil ? PADDING_FOOTED : PADDING
     self.side = side
-    self.full = full
+    self.full = declared.defaults.full
     self.docked = docked
     self.room = room
     self.controls = cornerControls(withSettings)
@@ -354,11 +456,137 @@ public class Window implements Component {
     self.shown = shown
     self.tabs = tabs
     self.selected = selected
-    self.placing = placing
+    self.declared = declared
     self.minWidth = minWidth
     self.minHeight = minHeight
     self.maxWidth = maxWidth
     self.maxHeight = maxHeight
+    // Its tabs' titles, for its settings page.
+    watch (list of self.tabs) { self.declared.tabs = list.map((tab: WindowTabSpec) => tab.title) }
+    // What is kept becomes the window's, as it is made, at a switch of profile and as its settings page changes it.
+    watch (view of self.declared.memory.values) { self.recall(view) }
+    // Shown, it opens on the tab the player fixed, where there is one; otherwise on the one its owner says (the
+    // last one open this session, or the one an action asks for).
+    watch (open of self.shown) {
+      if (open) { self.openTab(true, false) }
+    }
+    // A tab picked is kept; a window that only asks shows the game's tab, which isn't the player's to keep.
+    if (!asks) {
+      watch (tab of self.selected) { self.remember((view: mut WindowView) => { view.tab = tab }) }
+    }
+    // Shown, it follows what it is to hide for, and what may show it again: a mount and moving are heard only then.
+    watch {
+      if (!self.shown) { return }
+      const view = self.declared.used(self.declared.memory.values)
+      const asked = self.away.length > 0 ? view.showAfter : view.hideDuring
+      if (holds(asked, .Travel)) { self.heed(new Heeding(.Mount)) }
+      if (holds(asked, .Moving)) { self.heed(new Heeding(.Moving)) }
+    }
+    watch { self.follow(self.occasions, self.shown) }
+  }
+
+  // What a watch's run made is the run's: it ends before the next run, and with the window.
+  heed(self, heeding: Heeding) {}
+
+  // What the player is in the middle of, of what can hide a window: read while the window is shown alone.
+  occasionsOf(self): Array<Occasion> {
+    const list: Array<Occasion> = []
+    if (!self.shown) { return list }
+    const situation = Game.situation
+    if (situation.combat) { list.push(.Combat) }
+    if (situation.taxi || situation.vehicle || situation.mounted) { list.push(.Travel) }
+    if (situation.moving) { list.push(.Moving) }
+    return list
+  }
+
+  // What began hides the window where the player chose so: until it ends, where it is to show again after it;
+  // closed otherwise, as the player closes it. What ended shows it again, once nothing else holds it hidden. A window
+  // the player opens in the middle of something stays: what goes on as it opens hides it not.
+  follow(mut self, now: Array<Occasion>, shown: Boolean) {
+    const was = self.was
+    self.was = now
+    if (!shown) {
+      self.opened = false
+      if ((peek self.away).length > 0) { self.away = [] }
+      return
+    }
+    if (!self.opened) {
+      self.opened = true
+      return
+    }
+    const view = self.declared.used(peek self.declared.memory.values)
+    const away = (peek self.away).filter((each: Occasion) => holds(now, each))
+    for (occasion of now) {
+      if (!holds(was, occasion) && holds(view.hideDuring, occasion)) {
+        if (!holds(view.showAfter, occasion)) {
+          self.away = []
+          self.close.emit()
+          return
+        }
+        if (!holds(away, occasion)) { away.push(occasion) }
+      }
+    }
+    if (!away.equal(peek self.away)) { self.away = away }
+  }
+
+  // The tab it opens on: the one fixed on its settings page, or (as it is made, or its memory is changed from
+  // elsewhere) the one last open.
+  openTab(mut self, showing: Boolean, first: Boolean) {
+    if (self.asks) { return }
+    const view = self.declared.used(peek self.declared.memory.values)
+    if (showing && view.openOn == 0) { return }
+    // Made with no tab ever picked, it leaves the one its owner holds (an action may have asked for another before
+    // the window was made).
+    if (first && view.openOn == 0 && view.tab == self.declared.defaults.tab) { return }
+    const tab = view.openOn > 0 ? view.openOn : view.tab
+    if (tab >= 1 && tab <= (peek self.tabs).length) { self.selected = tab }
+  }
+
+  // What is kept becomes the window's: a size outside the window's own bounds (kept on a larger screen, or before
+  // they changed) is held to them, its top left corner where it was; below what its content needs the renderer
+  // raises it (`Room`'s least size), and the grip starts from there.
+  recall(mut self, view: WindowView) {
+    const written = self.written
+    const own = written != nil && written.equal(view)
+    const used = self.declared.used(view)
+    let width = self.minWidth.max(used.width)
+    let height = self.minHeight.max(used.height)
+    if (self.maxWidth != nil) { width = self.maxWidth.min(width) }
+    if (self.maxHeight != nil) { height = self.maxHeight.min(height) }
+    self.declared.placing = {
+      x: used.x + (width - used.width) / 2, y: used.y + (height - used.height) / 2, width: width, height: height,
+    }
+    self.full = used.full
+    if (!own) { self.openTab(false, !self.made) }
+    self.made = true
+  }
+
+  // A change to what is kept, every entry at once; nothing is kept while the player chose so on its settings page.
+  remember(mut self, change: (view: mut WindowView) => nil) {
+    const view = (peek self.declared.memory.values).clone()
+    if (!view.remember) { return }
+    change(mut view)
+    self.written = view.clone()
+    self.declared.memory.write(view)
+  }
+
+  // Where the window is now, kept: a drag of a tab or of the grip ended.
+  onSettle(mut self) {
+    const at = peek self.declared.placing
+    self.remember((view: mut WindowView) => {
+      view.x = at.x
+      view.y = at.y
+      view.width = at.width
+      view.height = at.height
+    })
+  }
+
+  sideWidthOf(self): Number {
+    const side = self.side
+    if (side == nil) { return 0 }
+    const dragged = self.sideDrag > 0 ? self.sideDrag : self.declared.used(self.declared.memory.values).side
+    if (dragged <= 0) { return side.width }
+    return (side.width * SIDE_LEAST).max((side.width * SIDE_MOST).min(dragged))
   }
 
   columnsOf(self): Array<Track> {
@@ -371,7 +599,7 @@ public class Window implements Component {
     const side = self.side
     if (side == nil) { return 0 }
     const line = Ordaen.art.frame.tabIconLine
-    return side.width + 2 * space(.Window) + line.width + line.reach.left * line.scale
+    return self.sideWidth + 2 * space(.Window) + line.width + line.reach.left * line.scale
   }
 
   tabHeightOf(self): Number {
@@ -395,8 +623,8 @@ public class Window implements Component {
     if (side != nil) { return Docked { side: side, whole: true } }
     return {
       point: Point.TopLeft, to: Point.Center,
-      x: self.placing.x - self.placing.width / 2,
-      y: self.placing.y - (self.tabHeight + self.placing.height) / 2,
+      x: self.declared.placing.x - self.declared.placing.width / 2,
+      y: self.declared.placing.y - (self.tabHeight + self.declared.placing.height) / 2,
     }
   }
 
@@ -404,9 +632,11 @@ public class Window implements Component {
     return { default: Ordaen.art.ctl.grip, hover: Ordaen.art.ctl.gripHover, pressed: Ordaen.art.ctl.gripDown }
   }
 
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
-  toggleFull(mut self) { self.full = !self.full }
+  toggleFull(mut self) {
+    const full = !self.full
+    self.full = full
+    self.remember((view: mut WindowView) => { view.full = full })
+  }
   onPicked(mut self, index: Integer) {
     if (!self.asks) { self.selected = index }
     self.picked.emit(index)
@@ -421,10 +651,10 @@ public class Window implements Component {
   }
 
   onGrab(mut self) {
-    self.x0 = (peek self.placing).x
-    self.y0 = (peek self.placing).y
-    self.w0 = (peek self.placing).width
-    self.h0 = (peek self.placing).height
+    self.x0 = (peek self.declared.placing).x
+    self.y0 = (peek self.declared.placing).y
+    self.w0 = (peek self.declared.placing).width
+    self.h0 = (peek self.declared.placing).height
   }
 
   // A tab dragged moves the window, as far as it stays on the screen. The tab row takes the mouse on its tabs alone:
@@ -432,35 +662,72 @@ public class Window implements Component {
   onMove(mut self, drag: Drag) {
     if (self.full || self.docked != nil) { return }
     const dx, dy = kept(drag, Hold.Move)
-    self.placing.x = self.x0 + dx
-    self.placing.y = self.y0 + dy
+    self.declared.placing.x = self.x0 + dx
+    self.declared.placing.y = self.y0 + dy
   }
 
-  // The grip follows the cursor up to the screen's edges. The window is placed by its centre, so the centre moves half
-  // as far.
+  // The grip taken: the body is never sized below what its content needs (the surface's least size, its tab row
+  // over the body taken off). A body kept smaller (from an older save, a larger screen) is drawn at that least, and
+  // the drag starts from it, its top left corner where it is.
+  onGrabSize(mut self, drag: Drag) {
+    self.onGrab()
+    self.leastW = drag.room.leastWidth - peek self.sideWide
+    self.leastH = drag.room.leastHeight - peek self.tabHeight
+    if (self.w0 < self.leastW) {
+      self.x0 += (self.leastW - self.w0) / 2
+      self.w0 = self.leastW
+    }
+    if (self.h0 < self.leastH) {
+      self.y0 += (self.leastH - self.h0) / 2
+      self.h0 = self.leastH
+    }
+  }
+
+  // The grip follows the cursor up to the screen's edges, and down to the content's least size. The window is placed
+  // by its centre, so the centre moves half as far.
   onSize(mut self, drag: Drag) {
     const dx, dy = kept(drag, Hold.Size)
-    let width = self.minWidth.max(self.w0 + dx)
-    let height = self.minHeight.max(self.h0 + dy)
+    let width = self.minWidth.max(self.leastW).max(self.w0 + dx)
+    let height = self.minHeight.max(self.leastH).max(self.h0 + dy)
     if (self.maxWidth != nil) { width = self.maxWidth.min(width) }
     if (self.maxHeight != nil) { height = self.maxHeight.min(height) }
-    self.placing.width = width
-    self.placing.height = height
-    self.placing.x = self.x0 + (width - self.w0) / 2
-    self.placing.y = self.y0 + (height - self.h0) / 2
+    self.declared.placing.width = width
+    self.declared.placing.height = height
+    self.declared.placing.x = self.x0 + (width - self.w0) / 2
+    self.declared.placing.y = self.y0 + (height - self.h0) / 2
+  }
+
+  // The side's line dragged left widens the side, right narrows it, within its bounds (`sideWidthOf`).
+  // The main section keeps its width: the window's left side goes out as far as the side widens, so the line
+  // follows the cursor; the window's place and the side's width are kept as the drag ends.
+  onSideGrab(mut self) {
+    self.side0 = peek self.sideWidth
+    self.x0 = (peek self.declared.placing).x
+  }
+  onSide(mut self, drag: Drag) {
+    self.sideDrag = (self.side0 - drag.dx).max(1)
+    self.declared.placing.x = self.x0 - (peek self.sideWidth - self.side0)
+  }
+  onSideSettle(mut self) {
+    const width = peek self.sideWidth
+    const x = (peek self.declared.placing).x
+    self.sideDrag = 0
+    self.remember((view: mut WindowView) => {
+      view.side = width
+      view.x = x
+    })
   }
 
   public render(self): Template {
     return $ltml {
-      // As wide as the player made it, and never narrower than its tabs: the tab row is the one thing in its
-      // grid, and the width it keeps is its least.
-      <surface shown={self.shown} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
-               raise={true} xAlign={Align.Start} focusLine={self.focusLine}
+      // As wide as the player made it, and never narrower than its tab row (its tabs and its control group): the
+      // row is the one thing in its grid, and the width it keeps is its least.
+      <surface shown={self.seen} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
+               raise={true} focusLine={self.focusLine}
                @escape={self.onClose}>
         <box position={Position.Absolute} left={0} right={self.inset} top={self.tabHeight} bottom={0}
              border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={INSET}
-             columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL} hoverWithin={true}
-             @enter={self.onEnter} @leave={self.onLeave}>
+             columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL}>
           <box rows={MAIN_ROWS} padding={self.padding}>
             <slot />
             <box $if={self.footed} padding={FOOTER_PAD}>
@@ -469,18 +736,27 @@ public class Window implements Component {
           </box>
           <box $if={self.sided} border={Ordaen.art.frame.tabIconLine} rows={ONE} padding={self.padding}>
             {self.sideContent}
-          </box>
-          <box $if={self.hovered} position={Position.Absolute} top={CORNER_TOP} right={CORNER_RIGHT}
-               width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>
-            <CornerPlate $for={index, control of self.controls} control={control} index={index}
-                         count={self.controls.length} full={self.full} @pressed={self.onCorner} />
+            <box position={Position.Absolute} left={0} top={0} bottom={0} width={SIDE_HANDLE}
+                 @dragStart={self.onSideGrab} @drag={self.onSide} @dragStop={self.onSideSettle} />
           </box>
           <box $if={self.free} position={Position.Absolute} right={2 * PX} bottom={2 * PX} width={16 * PX}
-               height={16 * PX} background={self.grip} @dragStart={self.onGrab} @drag={self.onSize} />
+               height={16 * PX} background={self.grip} @dragStart={self.onGrabSize} @drag={self.onSize}
+               @dragStop={self.onSettle} />
         </box>
-        <box columns={self.columns} gap={12 * PX} yAlign={Align.End}>
-          <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={self.selected}
-                     height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @picked={self.onPicked} />
+        // The tab row: the tabs from the left, the control group at the right, standing on the body's top line as the
+        // tabs do. The row is the surface's least width: the window is never narrower than its tabs and its controls.
+        <box columns={ROW} gap={space(.Item)} padding={self.rowPad} yAlign={Align.End}>
+          <box columns={self.columns} gap={12 * PX} yAlign={Align.End}>
+            <WindowTab $for={index, tab of self.tabs} tab={tab} index={index} selected={self.selected}
+                       height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @drop={self.onSettle}
+                       @picked={self.onPicked} />
+          </box>
+          <box padding={self.cornerFoot}>
+            <box width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>
+              <CornerPlate $for={index, control of self.controls} control={control} index={index}
+                           count={self.controls.length} full={self.full} @pressed={self.onCorner} />
+            </box>
+          </box>
         </box>
       </surface>
     }

@@ -2,13 +2,19 @@
 // and its state. The search and the filter narrow the list; «Write» opens the form, which the client's declarations
 // cannot send yet (`canWrite`).
 import { Align, Overflow, Track } from "$ltml"
-import { Choice, Component, Money, PushButton, PX, Toolbar, ToolPick } from "Ordaen"
+import { Choice, Component, Memory, Money, PushButton, PX, Toolbar, ToolPick } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { Sent, SentState } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
 
-public enum SentFilter { All = "all", Waiting = "waiting", Sent = "sent", Stopped = "stopped" }
+public enum SentFilter implements Plain { All = "all", Waiting = "waiting", Sent = "sent", Stopped = "stopped" }
+
+// How the player left the outbox's list: its filter.
+public struct OutboxView implements Plain {
+  filter: SentFilter = SentFilter.All
+}
+const OUTBOX_VIEW: OutboxView = {}
 
 const FILTERS: Array<Choice<SentFilter>> = [
   { value: SentFilter.All, label: Locale.SENT_ALL },
@@ -81,13 +87,14 @@ public class SentRow implements Component {
 
 public class Outbox implements Component {
   state search = ""
-  state filter: SentFilter = SentFilter.All
+  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  public list: mut Memory<OutboxView> = new Memory<OutboxView>(OUTBOX_VIEW, .Profile, "outbox")
   derived shown: Array<Sent> = self.shownOf()
   derived empty: Boolean = self.shown.length == 0
   derived waiting: Integer = self.sent.count(l => l.state == SentState.Waiting || l.state == SentState.Sending)
   derived hasWaiting: Boolean = self.waiting > 0
   derived postage: String = Locale.WAITING_LETTERS.format(self.waiting)
-  derived narrowed: Boolean = self.filter != SentFilter.All
+  derived narrowed: Boolean = self.list.values.filter != SentFilter.All
 
   sent: Signal<Array<Sent>>
   canWrite: Signal<Boolean>
@@ -99,7 +106,7 @@ public class Outbox implements Component {
   shownOf(self): Array<Sent> {
     const list: Array<Sent> = []
     for (letter of self.sent) {
-      if (passes(letter, self.filter, self.search)) { list.push(letter) }
+      if (passes(letter, self.list.values.filter, self.search)) { list.push(letter) }
     }
     return list
   }
@@ -109,7 +116,7 @@ public class Outbox implements Component {
       <box rows={PAGE} gap={8 * PX}>
         <box columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-            <ToolPick value={mut self.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
+            <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
                       title={Locale.FILTER} lit={self.narrowed} />
           </Toolbar>
           <PushButton label={Locale.WRITE} width={150 * PX} accent={true} disabled={!self.canWrite} />

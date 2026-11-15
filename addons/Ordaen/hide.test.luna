@@ -1,0 +1,148 @@
+// A window hides while the player is in the middle of what its settings name (`hideDuring`: a fight by default),
+// and shows again after what they name of it (`showAfter`: nothing by default); hidden for anything else, it is
+// closed, as the player closes it. A mount and moving are heard only while a shown window asks for them. Whether the
+// window shows is read by the textures the client draws: a shown window draws its wood and frame.
+import Game from "$game"
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import { KeptWindow, Occasion, Window, WindowTabSpec, WindowView } from "@/window"
+
+class Hiding {
+  state tabs: Array<WindowTabSpec> = [{ title: "Hiding" }]
+  state tab = 1
+  public state open = true
+  public closes = 0
+  public window: mut KeptWindow = new KeptWindow("hiding", "hiding", { x: 0, y: 0, width: 300, height: 200 })
+
+  // It hides and shows again as these say, drawn.
+  public chose(mut self, hide: Array<Occasion>, show: Array<Occasion>) {
+    self.window.memory.write({ hideDuring: hide, showAfter: show, ..self.window.defaults })
+    Test.mount(self, { left: 0, top: 0, width: 200, height: 100 })
+  }
+
+  onClose(mut self) {
+    self.closes += 1
+    self.open = false
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Window tabs={self.tabs} selected={mut self.tab} declared={mut self.window} shown={self.open}
+              @close={self.onClose}>
+        <box width={100} height={50} background={Ordaen.art.window.wood} />
+      </Window>
+    }
+  }
+}
+
+// How many textures the client draws now: more while the window shows.
+function drawn(): Integer {
+  Test.flush()
+  return Test.drawn().length
+}
+
+test "every window hides in a fight and is never shown again by itself, until the player says otherwise" {
+  const page = new Hiding()
+  const view: WindowView = page.window.memory.values
+  Test.expect(view.hideDuring.equal([Occasion.Combat]) && view.showAfter.length == 0)
+  const blank: WindowView = {}
+  Test.expect(blank.hideDuring.equal([Occasion.Combat]) && blank.showAfter.length == 0)
+  Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
+  const shown = drawn()
+  Game.situation.combat = true
+  Test.expect(drawn() < shown && !page.open && page.closes == 1)
+  Game.situation.combat = false
+  Test.expect(drawn() < shown && !page.open)
+  destroy page
+}
+
+test "each occasion hides the window and shows it again after it" {
+  const page = new Hiding()
+  page.chose([.Combat, .Travel, .Moving], [.Combat, .Travel, .Moving])
+  const shown = drawn()
+  Game.situation.combat = true
+  Test.expect(drawn() < shown && page.open)
+  Game.situation.combat = false
+  Test.expect(drawn() == shown)
+  Game.situation.taxi = true
+  Test.expect(drawn() < shown)
+  Game.situation.taxi = false
+  Game.situation.mounted = true
+  Test.expect(drawn() < shown)
+  Game.situation.mounted = false
+  Test.expect(drawn() == shown)
+  Game.situation.moving = true
+  Test.expect(drawn() < shown)
+  Game.situation.moving = false
+  Test.expect(drawn() == shown && page.closes == 0)
+  destroy page
+}
+
+test "a window hidden for what isn't to show it again is closed, and one the player closed doesn't come back" {
+  const page = new Hiding()
+  page.chose([.Combat, .Moving], [.Combat])
+  const shown = drawn()
+  Game.situation.moving = true
+  Test.flush()
+  Test.expect(!page.open && page.closes == 1)
+  Game.situation.moving = false
+  Test.expect(drawn() < shown && !page.open)
+  page.open = true
+  Test.expect(drawn() == shown)
+  Game.situation.combat = true
+  Test.expect(drawn() < shown && page.open)
+  // The player closes it while it is hidden: the fight's end leaves it closed.
+  page.open = false
+  Test.flush()
+  Game.situation.combat = false
+  Test.expect(drawn() < shown && !page.open)
+  destroy page
+}
+
+test "a window opened in the middle of a fight stays; hidden, it shows again only once nothing holds it" {
+  const page = new Hiding()
+  page.chose([.Combat, .Moving], [.Combat, .Moving])
+  const shown = drawn()
+  page.open = false
+  Test.flush()
+  Game.situation.combat = true
+  Test.flush()
+  page.open = true
+  Test.expect(drawn() == shown)
+  // The fight ends as moving begins: moving holds it hidden; a fight again, then moving ends: the fight holds it.
+  Game.situation.combat = false
+  Game.situation.moving = true
+  Test.expect(drawn() < shown)
+  Game.situation.combat = true
+  Game.situation.moving = false
+  Test.expect(drawn() < shown)
+  Game.situation.combat = false
+  Test.expect(drawn() == shown)
+  destroy page
+}
+
+test "a mount and moving are heard only while a shown window asks for them" {
+  let mounts = 0
+  let moves = 0
+  Game.situation.heed = (what: Game.Heeded): nil => {
+    if (what == Game.Heeded.Mount) { mounts += 1 } else { moves += 1 }
+  }
+  Game.situation.unheed = (what: Game.Heeded): nil => {
+    if (what == Game.Heeded.Mount) { mounts -= 1 } else { moves -= 1 }
+  }
+  const page = new Hiding()
+  page.chose([.Combat], [.Combat])
+  Test.flush()
+  Test.expect(mounts == 0 && moves == 0)
+  page.window.memory.write({ hideDuring: [.Travel, .Moving], ..page.window.memory.values })
+  Test.flush()
+  Test.expect(mounts == 1 && moves == 1)
+  page.open = false
+  Test.flush()
+  Test.expect(mounts == 0 && moves == 0)
+  page.open = true
+  Test.flush()
+  Test.expect(mounts == 1 && moves == 1)
+  destroy page
+  Test.expect(mounts == 0 && moves == 0)
+}

@@ -1,10 +1,14 @@
 // Ordaen Professions' page in the settings window: what the window does about the recipes it shows. Each control
 // writes one entry of the settings' draft.
 import { Checkbox, Component, Settings } from "Ordaen"
+import root Auction from "OrdaenAuction"
 import Locale from "@/locales"
 
 // What the player chooses.
 public struct Choices implements Plain {
+  // The recipe's card and the lists show Ordaen Auction's prices: the cost, the sale and the profit. Greyed while
+  // Ordaen Auction is off, which has them.
+  prices: Boolean
   // The window opens a profession at the category and recipe the player left it at.
   remember: Boolean
   // The filter starts with the recipes the character hasn't learned in the list.
@@ -12,6 +16,9 @@ public struct Choices implements Plain {
 }
 
 public class GeneralPage implements Component {
+  derived noAuction: Boolean = Auction == nil
+  derived pricesTip: String = self.noAuction ? Locale.SETTING_PRICES_OFF : Locale.SETTING_PRICES_TIP
+
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
     self.settings = settings
@@ -19,6 +26,8 @@ public class GeneralPage implements Component {
 
   public render(self): Template {
     return $ltml {
+      <Checkbox label={Locale.SETTING_PRICES} hint={self.pricesTip} value={mut self.settings.draft.prices}
+                disabled={self.noAuction} />
       <Checkbox label={Locale.SETTING_REMEMBER} hint={Locale.SETTING_REMEMBER_TIP}
                 value={mut self.settings.draft.remember} />
       <Checkbox label={Locale.SETTING_UNLEARNED} hint={Locale.SETTING_UNLEARNED_TIP}

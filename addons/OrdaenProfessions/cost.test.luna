@@ -1,0 +1,70 @@
+// A recipe's cost with Ordaen Auction's prices: each part by the cheaper of the house and a merchant, the totals, and
+// none where a part has no price.
+import Game from "$game"
+import Test from "$test"
+import { Copper, Hour, ItemId } from "Ordaen"
+import type { PriceKey, PriceSource, Quote } from "OrdaenAuction"
+import { partsOf, totalsOf, Way } from "@/cost"
+
+const CLOTH = 2996
+const THREAD = 2320
+const CLOAK = 2570
+const DYE = 2324
+
+// The house's prices and the merchants', by item, all seen `hours` ago.
+class Prices implements PriceSource {
+  public const name: String = "test"
+  public state revision = 0
+  const house: Map<Integer, Integer>
+  const merchants: Map<Integer, Integer>
+  const hours: Integer
+
+  constructor(house: Map<Integer, Integer>, merchants: Map<Integer, Integer>, hours: Integer) {
+    self.house = house
+    self.merchants = merchants
+    self.hours = hours
+  }
+
+  public buy(self, key: PriceKey): Quote | nil {
+    const copper = self.house[key.item()]
+    return copper == nil ? nil : Quote.of(copper, Hour.of(Hour.now() - self.hours))
+  }
+
+  public sell(self, key: PriceKey): Quote | nil { return self.buy(key) }
+
+  public vendor(self, item: ItemId): Copper | nil {
+    const copper = self.merchants[item]
+    return copper == nil ? nil : Copper.of(copper)
+  }
+}
+
+function reagent(item: Integer, name: String, need: Integer, have: Integer): Game.Reagent {
+  return { itemID: item, name: name, icon: "Interface/Icons/INV_Misc_Note_01", have: have, need: need }
+}
+
+test "each part by the cheaper of the house and a merchant; the totals for the count, the sale less nothing more" {
+  const prices = new Prices({ [CLOTH]: 100, [THREAD]: 15, [CLOAK]: 500 }, { [THREAD]: 10 }, 3)
+  const parts = partsOf(prices, [reagent(CLOTH, "Bolt of Linen Cloth", 1, 1), reagent(THREAD, "Coarse Thread", 1, 0)], 2)
+  const cloth = parts[1] ?? panic("cloth")
+  const thread = parts[2] ?? panic("thread")
+  Test.expect(cloth.way == Way.Buy && cloth.unit == 100 && cloth.auction == 200 && cloth.vendor == nil && cloth.age == 3)
+  Test.expect(thread.way == Way.Vendor && thread.unit == 10 && thread.auction == 30 && thread.vendor == 20)
+  const totals = totalsOf(prices, parts, CLOAK, 1, 2)
+  // Two cloaks: two bolts at 100 and two threads at 10; one bolt held, no thread: one bolt and two threads to buy.
+  Test.expect(totals.cost == 220)
+  Test.expect(totals.toBuy == 120)
+  Test.expect(totals.sellable && totals.sale == 1000 && totals.profit == 780)
+  Test.expect(totals.oldest == 3 && totals.priced)
+}
+
+test "a part with no price makes the cost and the profit none; one held needs none to buy; an enchant doesn't sell" {
+  const prices = new Prices({ [CLOTH]: 100 }, {}, 0)
+  const held = partsOf(prices, [reagent(CLOTH, "Bolt of Linen Cloth", 1, 5), reagent(DYE, "Gray Dye", 1, 1)], 1)
+  const totals = totalsOf(prices, held, CLOAK, 1, 1)
+  Test.expect((held[2] ?? panic("dye")).way == Way.None)
+  Test.expect(totals.cost == nil && totals.profit == nil)
+  Test.expect(totals.toBuy == 0)
+  Test.expect(totals.sale == nil)
+  const short = totalsOf(prices, partsOf(prices, [reagent(DYE, "Gray Dye", 1, 0)], 1), nil, 1, 1)
+  Test.expect(short.toBuy == nil && !short.sellable && !short.priced)
+}

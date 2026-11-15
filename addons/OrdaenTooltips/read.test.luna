@@ -104,14 +104,14 @@ function describe(model: Model) {
 
 function show(title: String, data: Game.TooltipData) {
   Test.note(`== ${title}`)
-  let model = fill(data, OPTIONS)
+  let model = fill(data, OPTIONS, nil)
   if (model == nil) { Test.note("left to the game") } else { describe(model) }
   Test.note("")
 }
 
 function showGroup(title: String, data: Game.TooltipData): Group | nil {
   Test.note(`== ${title}`)
-  let read = group(data, OPTIONS)
+  let read = group(data, OPTIONS, nil)
   if (read == nil) {
     Test.note("left to the game")
     Test.note("")
@@ -420,7 +420,7 @@ test "the reader's model of each kind of the game's tooltips" {
   _ = showGroup("an item with no name line", { kind: 0, lines: [{ left: "?", kind: 0 }] })
 
   statNames["ITEM_MOD_AGILITY_SHORT"] = "Agility"
-  let hovered = group({ kind: 0, lines: [{ left: "Greataxe", kind: 22 }] }, OPTIONS)
+  let hovered = group({ kind: 0, lines: [{ left: "Greataxe", kind: 22 }] }, OPTIONS, nil)
   Test.note("== compared: the hovered item against the worn one, and the worn one against the hovered")
   Test.expect(worn != nil && hovered != nil)
   if (worn != nil && hovered != nil) {

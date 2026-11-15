@@ -4,7 +4,7 @@
 // the client's from a click alone). «Check» asks the client for them again and browses their items.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, tracksOf, space } from "Ordaen"
+import { Column, Component, ItemButton, Money, PushButton, PX, Table, TableRow, tracksOf, space, Memory } from "Ordaen"
 import { House, nameOf } from "@/house"
 import Locale from "@/locales"
 import { PriceKey } from "@/quote"
@@ -91,9 +91,16 @@ class OwnedRow implements Component {
   }
 }
 
+// How the player left the auctions' list: the column it is sorted by (0: as it comes) and which way.
+public struct OwnedView implements Plain {
+  sorted: Integer = 0
+  descending: Boolean = false
+}
+const OWNED_VIEW: OwnedView = {}
+
 public class OwnedPage implements Component {
-  state sorted = 0
-  state descending = false
+  // How the player left the list, the profile's (`Memory`, `redesign/kept.md`); the search isn't kept.
+  public list: mut Memory<OwnedView> = new Memory<OwnedView>(OWNED_VIEW, .Profile, "owned")
   // A cancel sent from here waits for its answer.
   state sending = false
   derived rows: Array<Shown> = self.shownOf()
@@ -149,7 +156,7 @@ public class OwnedPage implements Component {
     return $ltml {
       <box rows={PAGE} gap={space(.Item)}>
         <box rows={FILL} border={Style.FRAME} background={Style.LISTS_BACK}>
-          <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}
+          <Table columns={COLUMNS} sorted={mut self.list.values.sorted} descending={mut self.list.values.descending}
                  rowHeight={Style.BUTTON_ROW}>
             <OwnedRow $for={row of self.rows} $key={row} shown={row} busy={Game.auctionActions.busy}
                       @cancel={self.onCancel} />

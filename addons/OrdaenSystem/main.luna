@@ -3,14 +3,19 @@
 // game menu and nothing else: the dress is made the first time the menu shows, the window the first time it opens.
 import Client from "$client"
 import Runtime from "$runtime"
-import { Module, SettingsPage } from "Ordaen"
+import { KeptWindow, Module, SettingsPage, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
-import { AddOnsWindow } from "@/addonsWindow"
+import { AddOnsWindow, WINDOW } from "@/addonsWindow"
 import { Live, MenuDress } from "@/menu"
 
 public class System implements Module, App {
   public const title: String = "Ordaen System"
-  public const pages: Array<SettingsPage> = []
+  // Its window, declared: where it stands and what the player does with it, kept in the profile.
+  public window: mut KeptWindow = new KeptWindow("addons", Client.ADDONS, WINDOW)
+  public const windows: mut Array<mut KeptWindow> = [self.window]
+  public const pages: Array<SettingsPage> = [
+    { title: windowsTitle(), content: $ltml { <WindowsPage windows={mut self.windows} /> } },
+  ]
 
   // The AddOns window: whether it shows, and whether it was ever made.
   public state open = false
@@ -44,7 +49,8 @@ public class System implements Module, App {
   public render(self): Template {
     return $ltml {
       <MenuDress $if={self.dressed} @addons={self.openWindow} />
-      <AddOnsWindow $if={self.made} shown={self.open} framework={self.framework} @close={self.closeWindow} />
+      <AddOnsWindow $if={self.made} shown={self.open} framework={self.framework} declared={mut self.window}
+                    @close={self.closeWindow} />
     }
   }
 }

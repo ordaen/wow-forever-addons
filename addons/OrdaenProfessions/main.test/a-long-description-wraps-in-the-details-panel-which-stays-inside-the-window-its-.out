@@ -1,25 +1,24 @@
 -- «Linen Cloak» chosen: its description wraps in the panel, the panel ends inside the window
 surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
-  box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait @enter @leave
+  box 358.33,182.79 883.33x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 371.08,195.54 862.83x560.08
       box 391.08,215.54 822.83x510.08
-        box 391.08,215.54 822.83x25
-          box 391.08,215.54 757x25 #3d2710
-            box 393.58,215.54 752x22.5 #0b0805 clipped
-              box 393.58,215.54 310.83x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
-              box 393.58,215.54 752x22.5 absolute
-                box 393.58,215.54 75.2x22.5
-                box 468.78,215.54 75.2x22.5
-                box 543.98,215.54 75.2x22.5
-                box 619.18,215.54 75.2x22.5
-                box 694.38,215.54 75.2x22.5
-                box 769.58,215.54 75.2x22.5
-                box 844.78,215.54 75.2x22.5
-                box 919.98,215.54 75.2x22.5
-                box 995.18,215.54 75.2x22.5
-                box 1070.38,215.54 75.2x22.5
-              box 393.58,215.54 752x22.5 absolute
-                text 703.47,218.99 132.22x15.6 "Apprentice · 31 / 75" #ffffff centred
+        box 391.08,215.54 822.83x25 #3d2710
+          box 393.58,215.54 817.83x22.5 #0b0805 clipped
+            box 393.58,215.54 338.04x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 393.58,215.54 817.83x22.5 absolute
+              box 393.58,215.54 81.78x22.5
+              box 475.37,215.54 81.78x22.5
+              box 557.15,215.54 81.78x22.5
+              box 638.93,215.54 81.78x22.5
+              box 720.72,215.54 81.78x22.5
+              box 802.5,215.54 81.78x22.5
+              box 884.28,215.54 81.78x22.5
+              box 966.07,215.54 81.78x22.5
+              box 1047.85,215.54 81.78x22.5
+              box 1129.63,215.54 81.78x22.5
+            box 393.58,215.54 817.83x22.5 absolute
+              text 736.39,218.99 132.22x15.6 "Apprentice · 31 / 75" #ffffff centred
         box 391.08,257.21 822.83x27.27
           box 391.08,283.64 822.83x0.83 absolute #3e2f1d
           box 391.08,257.21 72.78x27.27 #00000059 @click
@@ -87,15 +86,56 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             text 863.58,365.31 336.17x43.2 "Teaches the miner to smelt silver ore into bars of silver. Smelting silver requires a forge nearby, and the ore." #e8dcc4
             text 863.58,415.18 336.17x28.8 "Needs: Sewing kit
 |cffff4040Needs: Loom|r" #a3977f
-            box 863.58,450.64 336.17x188.32 scrolled 0 of 0
-              box 863.58,450.64 336.17x31.67
-                box 863.58,453.14 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
-                text 896.92,458.68 255.61x15.6 "Bolt of Linen Cloth" #e8dcc4
-                text 1159.19,458.68 35.56x15.6 "3 / 1" #e8dcc4
-              box 863.58,482.31 336.17x32.5
-                box 863.58,485.64 26.67x26.67 icon=Interface/Icons/INV_Misc_Thread_01
-                text 896.92,491.18 255.61x15.6 "Coarse Thread" #e8dcc4
-                text 1159.19,491.18 35.56x15.6 "0 / 1" #ff4040
+            box 863.58,450.64 336.17x70.68 scrolled 0 of 17.42
+              box 863.58,450.64 336.17x88.1
+                box 863.58,450.64 26.67x19.4
+                box 890.25,450.64 120.06x19.4
+                box 1010.31,450.64 42.22x19.4
+                box 1052.53,450.64 51.11x19.4
+                  text 1059.19,453.14 44.44x14.4 "Auction" #a3977f
+                box 1103.64,450.64 57.78x19.4
+                  text 1110.31,453.14 51.11x14.4 "Merchant" #a3977f
+                box 1161.42,450.64 38.33x19.4
+                  text 1168.08,453.14 26.67x14.4 "Best" #a3977f
+                box 863.58,470.04 26.67x36.2
+                  box 863.58,472.54 26.67x26.67 icon=Interface/Icons/INV_Fabric_Linen_01
+                box 890.25,470.04 120.06x36.2
+                  text 896.92,472.54 113.39x31.2 "Bolt of Linen Cloth" #e8dcc4
+                box 1010.31,470.04 42.22x36.2
+                  text 1016.97,472.54 35.56x15.6 "3 / 1" #e8dcc4
+                box 1052.53,470.04 51.11x36.2
+                  box 1059.19,472.54 44.44x15.6 #00000000
+                    text 1094.75,472.54 8.89x15.6 "—" #a3977f right
+                box 1103.64,470.04 57.78x36.2
+                  box 1110.31,472.54 51.11x15.6 #00000000
+                    text 1152.53,472.54 8.89x15.6 "—" #a3977f right
+                box 1161.42,470.04 38.33x36.2
+                  text 1168.08,472.54 26.67x15.6 "—" #ff4040
+                box 863.58,506.24 26.67x32.5
+                  box 863.58,509.58 26.67x26.67 icon=Interface/Icons/INV_Misc_Thread_01
+                box 890.25,506.24 120.06x32.5
+                  text 896.92,509.58 113.39x15.6 "Coarse Thread" #e8dcc4
+                box 1010.31,506.24 42.22x32.5
+                  text 1016.97,509.58 35.56x15.6 "0 / 1" #ff4040
+                box 1052.53,506.24 51.11x32.5
+                  box 1059.19,509.58 44.44x15.6 #00000000
+                    text 1094.75,509.58 8.89x15.6 "—" #a3977f right
+                box 1103.64,506.24 57.78x32.5
+                  box 1110.31,509.58 51.11x15.6 #00000000
+                    text 1152.53,509.58 8.89x15.6 "—" #a3977f right
+                box 1161.42,506.24 38.33x32.5
+                  text 1168.08,509.58 26.67x15.6 "—" #ff4040
+            box 863.58,527.99 336.17x110.97
+              text 863.58,527.99 336.17x14.4 "No prices: open the auction house." #a3977f
+              box 863.58,549.06 336.17x89.9
+                text 863.58,556.56 248.39x15.6 "Cost" #a3977f
+                text 1118.64,556.56 81.11x15.6 "—" #a3977f
+                text 863.58,578.83 248.39x15.6 "Left to buy" #a3977f
+                text 1118.64,578.83 81.11x15.6 "—" #a3977f
+                text 863.58,601.09 248.39x15.6 "Sale" #a3977f
+                text 1118.64,601.09 81.11x15.6 "doesn't sell" #a3977f
+                text 863.58,623.36 248.39x15.6 "Profit" #a3977f
+                text 1118.64,623.36 81.11x15.6 "—" #a3977f
             box 863.58,645.62 336.17x24.17
               box 863.58,653.12 159.75x16.67
                 text 863.58,653.66 119.75x15.6 "Favorite" #e8dcc4
@@ -110,39 +150,41 @@ surface 358.33,133.88 883.33x632.25 on DIALOG clamped raised by a click
             box 863.58,676.46 336.17x28.33
               box 863.58,676.46 116.67x28.33
                 box 863.58,676.46 116.67x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @click
-                  text 873.58,682.83 81.67x15.6 "Quantity" #f0c860
+                  text 873.58,682.82 81.67x15.6 "Quantity" #f0c860
                   box 960.25,683.96 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
               box 986.92,676.46 75x28.33
                 box 986.92,676.46 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                   box 986.92,676.46 23.33x28.33 absolute
-                    text 994.14,682.83 8.89x15.6 "-" #808080 centred
-                box 1015.25,682.83 18.33x15.6
-                  text 1019.97,682.83 8.89x15.6 "1" #ffffff centred
+                    text 994.14,682.82 8.89x15.6 "-" #808080 centred
+                box 1015.25,682.82 18.33x15.6
+                  text 1019.97,682.82 8.89x15.6 "1" #ffffff centred
                 box 1038.58,676.46 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                   box 1038.58,676.46 23.33x28.33 absolute
-                    text 1045.81,682.83 8.89x15.6 "+" #808080 centred
+                    text 1045.81,682.82 8.89x15.6 "+" #808080 centred
               text 1068.58,690.62 32.83x0 "" #a3977f
               box 1108.08,676.46 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1108.08,676.46 91.67x28.33 absolute
-                  text 1132.81,682.83 42.22x15.6 "Create" #ffd100 centred
+                  text 1132.81,682.82 42.22x15.6 "Create" #ffd100 centred
       box 391.08,725.62 822.83x16.67
         box 391.08,742.29 822.83x0
           box 391.08,742.29 822.83x0
-    box 1157.75,194.63 77.5x26.67 absolute clipped
-      box 1157.75,194.63 29.17x26.67 absolute clipped @click
-        box 1157.75,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-        box 1167.75,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-      box 1186.92,194.63 25x26.67 absolute clipped @click
-        box 1186.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-        box 1193.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-      box 1211.92,194.63 23.33x26.67 absolute clipped @click
-        box 1211.92,194.63 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-        box 1218.17,200.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
-    box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart
-  box 358.33,133.88 147.19x59.42
-    box 358.33,133.88 147.19x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
-      box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
-      box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
-      box 425.83,144.12 61.11x45.92
-        text 425.83,151.67 61.11x15.6 "Tailoring" #ffd100 centred
-        text 434.17,168.1 44.44x14.4 "31 / 75" #8f8470 centred
+    box 1224.42,746.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
+  box 358.33,133.88 883.33x59.42
+    box 358.33,133.88 799.17x59.42
+      box 358.33,133.88 147.19x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+        box 365.58,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
+        box 409.5,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
+        box 425.83,144.12 61.11x45.92
+          text 425.83,151.67 61.11x15.6 "Tailoring" #ffd100 centred
+          text 434.17,168.1 44.44x14.4 "31 / 75" #8f8470 centred
+    box 1164.17,158.62 77.5x34.67
+      box 1164.17,158.62 77.5x26.67 clipped
+        box 1164.17,158.62 29.17x26.67 absolute clipped @click
+          box 1164.17,158.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1174.17,164.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1193.33,158.62 25x26.67 absolute clipped @click
+          box 1193.33,158.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1199.58,164.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1218.33,158.62 23.33x26.67 absolute clipped @click
+          box 1218.33,158.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1224.58,164.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

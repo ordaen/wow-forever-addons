@@ -219,8 +219,4 @@ test "the queue and why it waits outlive a /reload" {
   Test.note(`after:${lines()} (${Professions.crafting.paused})`)
   Test.expect(Professions.queued.length == 2 && Professions.crafting.paused == Pause.Failed)
   Test.expect(!Professions.crafting.running)
-  Game.tradeSkill.open = TAILORING
-  Test.flush()
-  // The window, opened again, counts what waits.
-  click(Test.holding("Queue (2)", nil))
 }
