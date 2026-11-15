@@ -498,6 +498,21 @@ test "a harmful effect the player's class can't remove names no spell" {
   Test.expect(!tip("Holy Fire").text("Dispel Magic").shown())
 }
 
+test "an effect that heals says how much healing is left, its description starting with «Heals» or not" {
+  Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => ({
+    harmful: false, stacks: 1, left: 12, own: false, hostile: false
+  })
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = showing({
+    kind: 7, id: 139, lines: [{ left: "Renew", kind: 0 }, { left: "Heals 20 every 3 sec.", kind: DESCRIBED }]
+  })
+  Test.expect(reads(tip("Renew").text("Healing left").item(), "Healing left | 80 over 12 s"))
+  Game.tooltip.main = showing({
+    kind: 7, id: 139, lines: [{ left: "Rejuvenation", kind: 0 }, { left: "Will heal 20 every 3 sec.", kind: DESCRIBED }]
+  })
+  Test.expect(tip("Rejuvenation").text("Healing left").shown())
+}
+
 test "an effect's «Who cast it» and «Damage and healing left» unticked leave the footer out" {
   Game.auras.shown = (data: Game.TooltipData): Game.AuraInfo | nil => burning()
   Test.mount(nil, SCREEN)
