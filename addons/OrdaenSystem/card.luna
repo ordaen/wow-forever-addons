@@ -6,7 +6,7 @@
 import Client from "$client"
 import Game from "$game"
 import { Align, Art, Edges, Overflow, Track } from "$ltml"
-import { Component, PX, PushButton, Tip, space } from "Ordaen"
+import { Component, PX, PushButton, TipText, space } from "Ordaen"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import Locale from "@/locales"
 import { Load, Profiler, SPIKES, memory, percent } from "@/perf"
@@ -18,6 +18,7 @@ const PAIR: Array<Track> = ["auto", { fr: 1 }]
 const SECTION: Edges = { top: space(.Item) }
 const LINK: Color = Color.hex("#d6b878")
 const DASH = "—"
+const LOAD_TIP: TipText = { title: Locale.LOAD_NOW, text: Locale.IN_COMBAT, rows: [] }
 
 // An addon the card names (one it needs, would like, or that needs it), with its state.
 public struct Named {
@@ -59,7 +60,6 @@ public class Card implements Component {
   public toggle: Event<String> = new Event()
   public settings: Event<String> = new Event()
 
-  state loadHovered = false
   // The client's answer where «Load» failed.
   state failed = ""
   derived addon: AddOn | nil = self.catalog.byName[self.name]
@@ -80,7 +80,8 @@ public class Card implements Component {
   derived loadable: Boolean = self.addon?.demand == true && self.status?.loaded != true && self.status?.mine == true &&
     self.status?.reason == nil
   derived fighting: Boolean = Game.situation.combat
-  derived loadTip: Boolean = self.loadHovered && self.fighting
+  // In a fight «Load» says why it waits, under the cursor.
+  derived loadTip: TipText | nil = self.fighting ? LOAD_TIP : nil
 
   name: Signal<String>
   const catalog: mut Catalog
@@ -178,8 +179,6 @@ public class Card implements Component {
   onPick(mut self, name: String) { self.pick.emit(name) }
   onSwitch(mut self) { self.toggle.emit(self.name) }
   onSettings(mut self) { self.settings.emit(self.name) }
-  onLoadEnter(mut self) { self.loadHovered = true }
-  onLoadLeave(mut self) { self.loadHovered = false }
 
   // Loaded now, out of a fight alone: the client's refusal shows on the card.
   onLoad(mut self) {
@@ -228,10 +227,8 @@ public class Card implements Component {
           <box columns={["auto", "auto"]} gap={space(.Item)} padding={SECTION}>
             <PushButton $if={self.module} label={Locale.ORDAEN_SETTINGS} width={170 * PX} @click={self.onSettings} />
             <PushButton $else label={self.switchLabel} width={120 * PX} @click={self.onSwitch} />
-            <box $if={self.loadable} @enter={self.onLoadEnter} @leave={self.onLoadLeave}>
-              <PushButton label={Locale.LOAD_NOW} width={120 * PX} disabled={self.fighting} @click={self.onLoad} />
-              <Tip $if={self.loadTip} title={Locale.LOAD_NOW} text={Locale.IN_COMBAT} />
-            </box>
+            <PushButton $if={self.loadable} label={Locale.LOAD_NOW} width={120 * PX} disabled={self.fighting}
+                        tip={self.loadTip} @click={self.onLoad} />
           </box>
         </box>
       </box>

@@ -8,7 +8,7 @@ import Game from "$game"
 import { Action, Align, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, PushButton, PX, space, Tip, TipRow, Toolbar,
-  KeptWindow, Memory, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
+  KeptWindow, Memory, TipText, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
 import { Age, FilterPick, Heat, Loading, Standing, Written } from "@/filter"
@@ -59,6 +59,7 @@ const HEADING: Edges = { left: space(.Item), right: space(.Item) }
 const HALF: Number = space(.Item) / 2
 // «Reload»: the client does it from the player's click (Forever refuses `ReloadUI` from addon code).
 const RELOAD: Action = Action.RunMacro { macro: "/reload" }
+const RELOAD_TIP: TipText = { title: Locale.RELOAD, text: Locale.IN_COMBAT, rows: [] }
 const CONFIRM_WIDTH = 460 * PX
 // The set's dialog: room for its name's row, the label and the field.
 const SET_WIDTH = 700 * PX
@@ -104,7 +105,6 @@ public class AddOnsWindow implements Component {
   state editing = 0
   state setName = ""
   state setNote = ""
-  state reloadHovered = false
   state waitHovered = false
 
   derived visible: Array<AddOn> = self.visibleOf()
@@ -130,7 +130,8 @@ public class AddOnsWindow implements Component {
   derived waitText: String = self.catalog.waiting > 0 ? Locale.RELOAD_NEEDED.format(self.catalog.waiting) : ""
   derived waitRows: Array<TipRow> = self.waitRowsOf()
   derived fighting: Boolean = Game.situation.combat
-  derived reloadTip: Boolean = self.reloadHovered && self.fighting
+  // In a fight «Reload» says why it waits, under the cursor.
+  derived reloadTip: TipText | nil = self.fighting ? RELOAD_TIP : nil
   derived waitTip: Boolean = self.waitHovered && self.waitText != ""
 
   const card: Template = $ltml {
@@ -152,11 +153,8 @@ public class AddOnsWindow implements Component {
           <text value={self.waitText} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
           <Tip $if={self.waitTip} title={self.waitText} text={""} rows={self.waitRows} />
         </box>
-        <box @enter={self.onReloadEnter} @leave={self.onReloadLeave}>
-          <PushButton label={Locale.RELOAD} width={160 * PX} accent={true} disabled={self.fighting}
-                      action={RELOAD} />
-          <Tip $if={self.reloadTip} title={Locale.RELOAD} text={Locale.IN_COMBAT} />
-        </box>
+        <PushButton label={Locale.RELOAD} width={160 * PX} accent={true} disabled={self.fighting} action={RELOAD}
+                    tip={self.reloadTip} />
       </box>
     </box>
   }
@@ -484,8 +482,6 @@ public class AddOnsWindow implements Component {
   onHeadMemory(mut self) { self.sortBy(.Memory) }
   onWaitEnter(mut self) { self.waitHovered = true }
   onWaitLeave(mut self) { self.waitHovered = false }
-  onReloadEnter(mut self) { self.reloadHovered = true }
-  onReloadLeave(mut self) { self.reloadHovered = false }
   onClose(mut self) { self.close.emit() }
 
   public render(self): Template {
