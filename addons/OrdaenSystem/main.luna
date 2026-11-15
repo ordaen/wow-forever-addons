@@ -6,7 +6,7 @@ import Runtime from "$runtime"
 import { KeptWindow, Module, SettingsPage, windowsTitle, WindowsPage } from "Ordaen"
 import root Ordaen from "Ordaen"
 import { AddOnsWindow, WINDOW } from "@/addonsWindow"
-import { Live, MenuDress } from "@/menu"
+import { GameMenu, Live, MenuDress } from "@/menu"
 
 public class System implements Module, App {
   public const title: String = "Ordaen System"
@@ -22,6 +22,9 @@ public class System implements Module, App {
   state made = false
   // The game menu has shown once since the module started: its dress is made.
   state dressed = false
+  // Blizzard's menu as the dress reads it: started in the menu's first show, inside that show's own call, so the
+  // first show is matched as every later one is and Blizzard's «AddOns» never stands undressed under the cursor.
+  const menu: mut GameMenu = new GameMenu()
   // Ordaen's folder: the addon its modules stand under.
   const framework: String
   // Whether the module runs: the menu's hook can't be taken back, so it finds the module ended.
@@ -32,11 +35,17 @@ public class System implements Module, App {
     Ordaen.modules.add(self)
     const live = self.live
     _ = Client.GameMenuFrame.HookScript("OnShow", (...args: Unknown): nil => {
-      if (live.on) { self.dressed = true }
+      if (live.on) { self.dress() }
     })
   }
 
   destructor() { self.live.on = false }
+
+  // The menu shows for the first time: Blizzard's buttons matched now, the dress drawn round them.
+  dress(mut self) {
+    self.menu.start()
+    self.dressed = true
+  }
 
   // The AddOns window opened: made the first time.
   public openWindow(mut self) {
@@ -48,7 +57,7 @@ public class System implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <MenuDress $if={self.dressed} @addons={self.openWindow} />
+      <MenuDress $if={self.dressed} menu={self.menu} @addons={self.openWindow} />
       <AddOnsWindow $if={self.made} shown={self.open} framework={self.framework} declared={mut self.window}
                     @close={self.closeWindow} />
     }

@@ -90,6 +90,25 @@ test "the menu is dressed at its first show: our plates a gap apart, the exits r
   _ = Test.surfaceHolding("Ordaen System")
 }
 
+test "the first show after the load is dressed in its own call, and its «AddOns» is ours" {
+  Test.mount(nil, SCREEN)
+  Test.flush()
+  Client.ToggleGameMenu()
+  // No frame has passed: Blizzard's buttons are under the dress as the menu shows, as at every later show.
+  Test.expect(blizzards(0, true))
+  Test.expect(!Client.GameMenuFrame.IsMouseEnabled())
+  // As the player: the frames pass, nothing is brought up to date by hand, the click lands where Blizzard's
+  // «AddOns» stands.
+  Test.pass(0.1)
+  const addons = buttonsOf(...Client.GameMenuFrame.GetChildren()).find(button => button.GetText() == Client.ADDONS) ??
+    panic("Blizzard's menu has «AddOns»")
+  const x, y = addons.GetCenter()
+  Test.click({ x: x ?? 0, y: Client.UIParent.GetHeight() - (y ?? 0) }, nil)
+  Test.pass(0.1)
+  Test.expect(!Client.AddonList.IsShown())
+  Test.expect(System.open)
+}
+
 test "Blizzard's buttons keep their clicks under the plates, and «new» is the gem" {
   Test.mount(nil, SCREEN)
   Test.flush()
