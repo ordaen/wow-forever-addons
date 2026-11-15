@@ -1,12 +1,17 @@
 // The minimap as a module loaded on demand (its `addon.json` says `"loadOnDemand": true`): Ordaen loads it at login
-// where it is on, the player's switch loads it with no reload, and turned off it is off at the next login. Loaded,
-// its root is made, joins Ordaen's modules and Ordaen draws it; turned off, its root ends and what it drew goes.
-// Here, as a module's tests are built with Ordaen and not the other way: Ordaen's own tests have no module to turn on.
+// where it is on, the player's switch in the settings' list loads it with no reload, and turned off it is off at the
+// next login. Loaded, Ordaen draws it; turned off, what it drew goes. Here, as a module's tests are built with Ordaen
+// and not the other way: Ordaen's own tests have no module to turn on.
 import Client from "$client"
 import Game from "$game"
+import { Art } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+// What the minimap always shows.
+const ZONE = "Elwynn Forest"
 
 function minimapAddon(): Runtime.Addon {
   const ordaen = Runtime.Addon.of(Ordaen) ?? panic("Ordaen is installed")
@@ -22,73 +27,67 @@ function loaded(): Boolean {
   return held
 }
 
-// Whether the module's root is made: it is among Ordaen's modules from then until it ends.
-function made(): Boolean {
-  let found = 0
-  for (module of Ordaen.modules) {
-    if (module.title == "Ordaen Minimap") { found += 1 }
-  }
-  return found == 1
-}
-
-// Whether anything is drawn on the screen once a frame has gone: Ordaen draws nothing of its own until asked, so
-// what shows is the module's.
+// Whether the minimap is drawn on the screen.
 function drawn(): Boolean {
-  Test.pass(0.02)
-  return Test.drawn().length > 0
+  return Test.page().window(ZONE).shown()
 }
 
-test "a module off at login, turned on, is loaded without a reload, made and drawn" {
+// The minimap's switch in the settings' list of modules, clicked: `/ordaen`, the switch as it stands (on or off).
+function flip(from: Art) {
+  (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
+  Test.page().window("Move mode").button(from).click()
+}
+
+// The player's choice kept from the last session: the minimap off.
+function keptOff() {
   const choices: Map<String, Boolean> = {}
   choices["OrdaenMinimap"] = false
   Game.saved.store(.Account, "choices", choices)
+}
+
+test "a module off at login, turned on, is loaded without a reload and drawn" {
+  keptOff()
   Test.reload()
-  Test.expect(!loaded())
-  Test.expect(!made())
-  Test.expect(!drawn())
-  Ordaen.turn(minimapAddon(), true)
-  Test.expect(loaded())
-  Test.expect(minimapAddon().isEnabled())
-  Test.expect(made())
-  Test.expect(drawn())
+  Test.mount(nil, SCREEN)
+  Test.expect(!loaded() && !drawn())
+  flip(Ordaen.art.ctl.switchOff)
+  Test.expect(loaded() && minimapAddon().isEnabled() && drawn())
 }
 
 test "a start leaves the client's list as it is: a module the player turned off stays on there, and isn't loaded" {
-  const choices: Map<String, Boolean> = {}
-  choices["OrdaenMinimap"] = false
-  Game.saved.store(.Account, "choices", choices)
+  keptOff()
   Test.reload()
-  Test.expect(minimapAddon().isEnabled())
-  Test.expect(!loaded())
-  Test.expect(!made())
+  Test.mount(nil, SCREEN)
+  Test.expect(minimapAddon().isEnabled() && !loaded() && !drawn())
 }
 
 test "a start leaves the client's list as it is: a module the list has off isn't loaded until the player turns it on" {
   Test.disable("OrdaenMinimap")
   Test.reload()
-  Test.expect(!minimapAddon().isEnabled())
-  Test.expect(!loaded())
-  Test.expect(!made())
-  Ordaen.turn(minimapAddon(), true)
-  Test.expect(minimapAddon().isEnabled())
-  Test.expect(made())
+  Test.mount(nil, SCREEN)
+  Test.expect(!minimapAddon().isEnabled() && !loaded() && !drawn())
+  flip(Ordaen.art.ctl.switchOff)
+  Test.expect(minimapAddon().isEnabled() && drawn())
 }
 
-test "a module on at login is loaded with Ordaen, made and drawn" {
-  Test.expect(loaded())
-  Test.expect(minimapAddon().isEnabled())
-  Test.expect(made())
-  Test.expect(drawn())
+test "a module on at login is loaded with Ordaen and drawn" {
+  Test.mount(nil, SCREEN)
+  Test.expect(loaded() && minimapAddon().isEnabled() && drawn())
+}
+
+test "a module turned off gives the game its round minimap back; on again, it is square and zooms with the wheel" {
+  Test.mount(nil, SCREEN)
+  _ = Test.requests()
+  flip(Ordaen.art.ctl.switchOn)
+  Test.expect(Test.requests().join(", ") == "Minimap.square false")
+  Test.page().window("Move mode").button(Ordaen.art.ctl.switchOff).click()
+  Test.expect(Test.requests().join(", ") == "Minimap.square true, Minimap.wheelZoom")
 }
 
 test "a module turned off is ended, what it drew gone, off in the client's list, and isn't loaded at the next login" {
-  Test.expect(drawn())
-  Ordaen.turn(minimapAddon(), false)
-  Test.expect(!made())
-  Test.expect(!drawn())
-  Test.expect(!minimapAddon().isEnabled())
+  Test.mount(nil, SCREEN)
+  flip(Ordaen.art.ctl.switchOn)
+  Test.expect(!drawn() && !minimapAddon().isEnabled())
   Test.reload()
-  Test.expect(!minimapAddon().isEnabled())
-  Test.expect(!loaded())
-  Test.expect(!made())
+  Test.expect(!minimapAddon().isEnabled() && !loaded())
 }

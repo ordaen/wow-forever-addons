@@ -1,208 +1,190 @@
-// Ordaen's settings window over the modules it knows, worked with the mouse and the keyboard: the list, a module's
-// page and its tabs, the drafts saved and taken back, a module turned off and on, and the question on closing with
-// changes unsaved. Here, as a module's tests are built with Ordaen: Ordaen's own tests have no module to list.
+// Ordaen's settings window over the modules it knows, worked as the player works it: the list, a module's page and its
+// tabs, the drafts saved and taken back, a module turned off and on, the question on closing with changes unsaved, the
+// profiles. Here, as a module's tests are built with Ordaen: Ordaen's own tests have no module to list.
 import Client from "$client"
-import Game from "$game"
-import { Key, MouseButton } from "$ltml"
-import Runtime from "$runtime"
+import { Key } from "$ltml"
 import Test from "$test"
 import root Ordaen from "Ordaen"
-import { Density } from "Ordaen"
-import root Minimap from "OrdaenMinimap"
-import { Hide } from "@/choices"
 
-const PAGE: Test.Page = { left: 20, top: 20, width: 200, height: 100, screen: true }
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+// A text the settings window always shows.
+const SETTINGS = "Move mode"
+// What the minimap always shows: the zone's name, under its mover's in the move mode.
+const ZONE = "Elwynn Forest"
+// The minimap's «Map» tab's first checkbox: «Zone name».
+const ZONE_BOX = 1
+// The page of a module turned off.
+const OFF = "The module is off: it isn't loaded and costs nothing. Its settings are kept."
+// The question on closing with a change unsaved.
+const ASK = "Save the changes?"
 
-function show(title: String) {
-  Test.flush()
-  Test.shot(title)
-  Test.note(`unsaved: ${Ordaen.keeper.unsaved}, a save to take back: ${Ordaen.keeper.rollbackable}, placing: ${Ordaen.placing}`)
-  Test.note("")
+// The settings window, opened as the player opens it.
+function opened(): Test.Part {
+  Test.open("/ordaen")
+  return Test.page().window(SETTINGS)
 }
 
-// A click, and what it changed drawn.
-function click(at: Test.Point) {
-  Test.click(at, nil)
-  Test.flush()
+// The settings window at the minimap's page.
+function minimapPage(): Test.Part {
+  const settings = opened()
+  settings.button("Minimap").click()
+  return settings
 }
 
-test "the settings window: the list, a module's page, drafts saved and taken back, a module turned off and on" {
-  Test.mount(nil, PAGE)
-  show("mounted: the window isn't open, the minimap runs")
-
-  Ordaen.toggleSettings(nil)
-  show("opened: Ordaen's own page, its tabs, the modules in the list with their switches")
-
-  click(Test.holding("Numbers", nil))
-  show("its second tab")
-
-  click(Test.holding("Minimap", nil))
-  show("the minimap picked in the list: its tabs, the first one's rows")
-
-  click(Test.painted(Ordaen.art.ctl.check, nil))
-  show("«Zone name»'s checkbox clicked: one change waits, Save can be clicked, the map still has its strip")
-
-  click(Test.holding("Save", nil))
-  show("Save clicked: the map loses its strip, Roll back shows")
-
-  click(Test.holding("Roll back", nil))
-  show("Roll back clicked: the strip is back, nothing waits")
-
-  click(Test.holding("Button drawer", nil))
-  show("the minimap's second tab")
-
-  click(Test.holding("Move mode", nil))
-  show("Move mode clicked: Ordaen's placing mode is on, the minimap shaded and named")
-
-  click(Test.holding("Move mode", nil))
-  show("Move mode clicked again: the mode is off")
-
-  click(Test.painted(Ordaen.art.ctl.switchOn, nil))
-  show("the minimap's switch in the list clicked: it is ended, its page says it is off")
-
-  click(Test.painted(Ordaen.art.ctl.switchOff, nil))
-  show("its switch clicked again: it runs, drawn on the screen")
-
-  click(Test.holding("General", nil))
-  click(Test.painted(Ordaen.art.ctl.check, nil))
-  Test.key(Key.Escape)
-  show("back on Ordaen's page, a checkbox changed, Escape: the question, the window stays")
-
-  click(Test.holding("Cancel", nil))
-  show("Cancel: back in the window, the change still waits")
-
-  Test.key(Key.Escape)
-  click(Test.holding("Don't save", nil))
-  show("Escape again and «Don't save»: closed, nothing waits")
-
-  Ordaen.toggleSettings(minimapAddon())
-  show("opened on the minimap's page by its addon")
-
-  Ordaen.toggleSettings(minimapAddon())
-  show("asked for the same page again: closed")
+// Whether the window's Save takes a click: a change waits.
+function saveable(settings: Test.Part): Boolean {
+  return !settings.button("Save").paintedWith(Ordaen.art.ctl.buttonDisabled)
 }
 
-function minimapAddon(): Runtime.Addon {
-  for (addon of (Runtime.Addon.of(Ordaen) ?? panic("Ordaen is installed")).dependents()) {
-    if (addon.name == "OrdaenMinimap") { return addon }
-  }
-  panic("OrdaenMinimap needs Ordaen")
+// Whether the `nth` checkbox is ticked: its tick, always drawn, shows.
+function ticked(settings: Test.Part, nth: Integer): Boolean {
+  return settings.box(Ordaen.art.ctl.tick).nth(nth).opacity() == 1
 }
 
-test "the clock right-clicked opens the settings window on the minimap's own page" {
-  Test.mount(nil, PAGE)
-  Test.click(Test.holding(Game.clock.text, nil), MouseButton.Right)
-  Test.flush()
-  Test.expect(Test.holding("Button drawer", nil).x > 0)
-  Ordaen.toggleSettings(nil)
-  Test.flush()
+test "/ordaen opens Ordaen's own page, its tabs, with the modules in the list" {
+  Test.mount(nil, SCREEN)
+  const settings = opened()
+  Test.expect(settings.button("General").shown() && settings.button("Numbers").shown())
+  Test.expect(settings.text("MODULES").shown() && settings.button("Minimap").shown())
+}
+
+test "a tab of Ordaen's page clicked shows its controls" {
+  Test.mount(nil, SCREEN)
+  const settings = opened()
+  Test.expect(!settings.text("Large numbers").shown())
+  settings.button("Numbers").click()
+  Test.expect(settings.text("Large numbers").shown())
+}
+
+test "a module picked in the list shows its tabs and its first tab's controls" {
+  Test.mount(nil, SCREEN)
+  const settings = minimapPage()
+  Test.expect(settings.button("Map").shown() && settings.button("Button drawer").shown())
+  Test.expect(settings.text("Map size").shown() && !settings.text("Columns").shown())
+  settings.button("Button drawer").click()
+  Test.expect(settings.text("Columns").shown() && !settings.text("Map size").shown())
 }
 
 test "/ordaen with a module's name opens its page; a word that names none opens Ordaen's own" {
-  Test.mount(nil, PAGE)
+  Test.mount(nil, SCREEN)
   const slash = Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command")
   slash(" Minimap")
-  Test.flush()
-  Test.expect(Test.holding("Button drawer", nil).x > 0)
+  Test.expect(Test.page().window(SETTINGS).button("Button drawer").shown())
   slash("nothing")
-  Test.flush()
-  Test.expect(Test.holding("Numbers", nil).x > 0)
-  slash("nothing")
-  Test.flush()
+  Test.expect(Test.page().window(SETTINGS).button("Numbers").shown())
+}
+
+test "a change waits for Save, which keeps it; Roll back takes the save back" {
+  Test.mount(nil, SCREEN)
+  const settings = minimapPage()
+  Test.expect(!saveable(settings) && !settings.button("Roll back").shown())
+  settings.button(Ordaen.art.ctl.check).nth(ZONE_BOX).click()
+  Test.expect(saveable(settings) && Test.page().text(ZONE).shown())
+  settings.button("Save").click()
+  Test.expect(!saveable(settings) && !Test.page().text(ZONE).shown())
+  settings.button("Roll back").click()
+  Test.expect(Test.page().text(ZONE).shown() && !settings.button("Roll back").shown())
+}
+
+test "Move mode clicked names the minimap over it; again, the mode ends" {
+  Test.mount(nil, SCREEN)
+  const settings = opened()
+  Test.expect(!Test.page().window(ZONE).text("Minimap").shown())
+  settings.button(SETTINGS).click()
+  Test.expect(Test.page().window(ZONE).text("Minimap").shown())
+  settings.button(SETTINGS).click()
+  Test.expect(!Test.page().window(ZONE).text("Minimap").shown())
+}
+
+test "a module's switch in the list turned off ends it, and its page says it is off; on again, it runs" {
+  Test.mount(nil, SCREEN)
+  const settings = minimapPage()
+  settings.button(Ordaen.art.ctl.switchOn).nth(1).click()
+  Test.expect(!Test.page().text(ZONE).shown() && settings.text(OFF).shown())
+  settings.button(Ordaen.art.ctl.switchOff).click()
+  Test.expect(Test.page().text(ZONE).shown() && !settings.text(OFF).shown())
+}
+
+test "Escape with a change unsaved asks first; Cancel goes back to the window, the change still waiting" {
+  Test.mount(nil, SCREEN)
+  const settings = minimapPage()
+  settings.button(Ordaen.art.ctl.check).nth(ZONE_BOX).click()
+  Test.key(Key.Escape)
+  Test.page().window(ASK).button("Cancel").click()
+  Test.expect(!Test.page().window(ASK).shown() && saveable(settings))
+}
+
+test "Escape with a change unsaved, and «Don't save»: the window closes and the change is dropped" {
+  Test.mount(nil, SCREEN)
+  const settings = minimapPage()
+  settings.button(Ordaen.art.ctl.check).nth(ZONE_BOX).click()
+  Test.key(Key.Escape)
+  Test.page().window(ASK).button("Don't save").click()
+  Test.expect(!Test.page().window(SETTINGS).shown() && Test.page().text(ZONE).shown())
+  Test.expect(!saveable(opened()))
 }
 
 test "the press that opens the window under the cursor turns nothing in it as it is let go" {
-  Test.mount(nil, PAGE)
-  // Where the minimap's switch stands in the list once the window is open.
-  Ordaen.toggleSettings(nil)
-  Test.flush()
-  const at = Test.painted(Ordaen.art.ctl.switchOn, nil)
-  Ordaen.toggleSettings(nil)
-  Test.flush()
+  Test.mount(nil, SCREEN)
+  // Where the minimap's switch stands in the list once the window is open: the cursor is left there.
+  const at = opened().button(Ordaen.art.ctl.switchOn).rect()
+  Test.page().window(SETTINGS).button(Ordaen.art.ctl.switchOn).hover()
+  Test.key(Key.Escape)
   // A button of the client's there (an entry of its options), that opens the window on its press and goes.
   const entry = Client.CreateFrame("Button", nil, Client.UIParent, nil)
   entry.SetFrameStrata("HIGH")
   entry.SetSize(40, 40)
-  entry.SetPoint("CENTER", Client.UIParent, "TOPLEFT", at.x, -at.y)
+  entry.SetPoint("CENTER", Client.UIParent, "TOPLEFT", (at.left + at.right) / 2, -(at.top + at.bottom) / 2)
   entry.SetScript("OnMouseDown", (): nil => {
     entry.Hide()
     Ordaen.toggleSettings(nil)
   })
-  Test.moveTo(at)
   Test.press(nil)
   Test.pass(0.1)
   Test.release(nil)
-  Test.flush()
-  const addon = Runtime.Addon.of(Minimap) ?? panic("the minimap is installed")
-  Test.expect(addon.isEnabled())
-  Test.expect(Test.painted(Ordaen.art.ctl.switchOn, nil).x == at.x)
-  show("opened by the press of a button that went: the minimap's switch under the cursor still on")
-  Ordaen.toggleSettings(nil)
-  Test.flush()
+  Test.expect(Test.page().window(SETTINGS).button(Ordaen.art.ctl.switchOn).shown() && Test.page().text(ZONE).shown())
 }
 
-// The strings each control's choice is told by.
-function hideOf(hide: Hide): String {
-  return match (hide) { Hide.Never => "never", Hide.Combat => "combat", else => "transport" }
+test "every kind of control takes the player's click, and Save keeps them all" {
+  Test.mount(nil, SCREEN)
+  const settings = opened()
+  const pixel = ticked(settings, 1)
+  // Ordaen's page: a dropdown's choice, a checkbox.
+  settings.button("Normal").click()
+  Test.page().window("Roomy").button("Compact").click()
+  settings.button(Ordaen.art.ctl.check).nth(1).click()
+  // The minimap's: its dropdown, a checkbox; its second tab's switch.
+  settings.button("Minimap").click()
+  settings.button("Never").click()
+  Test.page().window("On transport").button("In combat").click()
+  settings.button(Ordaen.art.ctl.check).nth(ZONE_BOX).click()
+  settings.button("Button drawer").click()
+  settings.button(Ordaen.art.ctl.switchOn).nth(2).click()
+  settings.button("Save").click()
+  Test.expect(!saveable(settings) && !Test.page().text(ZONE).shown())
+  Test.expect(!settings.button(Ordaen.art.ctl.switchOn).nth(2).shown())
+  settings.button("Map").click()
+  Test.expect(settings.button("In combat").shown() && !ticked(settings, ZONE_BOX))
+  settings.button("General").click()
+  Test.expect(settings.button("Compact").shown() && ticked(settings, 1) != pixel)
 }
 
-test "every kind of control on the pages takes the player's click: the draft follows it, and Save keeps it" {
-  Test.mount(nil, PAGE)
-  const ordaen = Ordaen
-  const minimap = Minimap
-  ordaen.toggleSettings(nil)
-  Test.flush()
-
-  // Ordaen's page, its first tab: a dropdown opened and a choice picked, the checkbox ticked.
-  click(Test.holding("Normal", nil))
-  click(Test.holding("Compact", nil))
-  Test.expect(ordaen.globals.draft.density == Density.Compact)
-  Test.expect(Test.holding("Compact", nil).x > 0)
-  click(Test.painted(ordaen.art.ctl.check, nil))
-  Test.expect(ordaen.globals.draft.pixel != ordaen.globals.values.pixel)
-  Test.note(`Ordaen's page: unsaved ${ordaen.keeper.unsaved}`)
-
-  // The minimap's page: its dropdown, a checkbox; its second tab's switch.
-  click(Test.holding("Minimap", nil))
-  click(Test.holding("Never", nil))
-  click(Test.holding("In combat", nil))
-  Test.note(`the minimap hides: ${hideOf(minimap.settings.draft.hide)}`)
-  Test.expect(minimap.settings.draft.hide == Hide.Combat)
-  click(Test.painted(ordaen.art.ctl.check, nil))
-  Test.expect(!minimap.settings.draft.showZone)
-  click(Test.holding("Button drawer", nil))
-  click(Test.painted(ordaen.art.ctl.switchOn, 2))
-  Test.expect(!minimap.settings.draft.drawerOn)
-  Test.note(`all of it: unsaved ${ordaen.keeper.unsaved}`)
-
-  click(Test.holding("Save", nil))
-  Test.expect(ordaen.keeper.unsaved == 0)
-  Test.expect(ordaen.globals.values.density == Density.Compact)
-  Test.expect(minimap.settings.values.hide == Hide.Combat)
-  Test.expect(!minimap.settings.values.showZone)
-  Test.expect(!minimap.settings.values.drawerOn)
-  show("saved: every change kept")
-  ordaen.toggleSettings(nil)
-  Test.flush()
+test "the profiles page is made when its entry is picked" {
+  Test.mount(nil, SCREEN)
+  const settings = opened()
+  Test.expect(!settings.text("Use for").shown())
+  settings.button("Profiles").click()
+  Test.expect(settings.text("Use for").shown())
 }
 
-test "the profiles page is made when its entry is picked; a pick that switches the profile asks about the unsaved change" {
-  Test.mount(nil, PAGE)
-  Ordaen.toggleSettings(nil)
-  click(Test.holding("Profiles", nil))
-  show("Profiles picked in the list: the page of profiles, made now")
-
-  click(Test.holding("General", nil))
-  click(Test.painted(Ordaen.art.ctl.check, nil))
-  click(Test.holding("Profiles", nil))
-  click(Test.field(1))
-  Test.type("Raid")
-  click(Test.holding("New", nil))
-  click(Test.painted(Ordaen.art.ctl.check, 2))
-  show("this character picked for «Raid» with a change unsaved on the general page: the question over the window")
-
-  click(Test.holding("Don't save", nil))
-  show("Don't save: the character uses «Raid», nothing waits")
-  Ordaen.toggleSettings(nil)
-  Test.flush()
+test "a profile picked for the character with a change unsaved asks first; «Don't save» switches to it" {
+  Test.mount(nil, SCREEN)
+  const settings = opened()
+  settings.button(Ordaen.art.ctl.check).nth(1).click()
+  settings.button("Profiles").click()
+  settings.input().nth(1).type("Raid")
+  settings.button("New").click()
+  settings.button(Ordaen.art.ctl.check).nth(2).click()
+  Test.page().window("Save the changes in profile «Default»?").button("Don't save").click()
+  Test.expect(settings.text("In use: Raid, for this character").shown() && !saveable(settings))
 }
