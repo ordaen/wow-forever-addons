@@ -1,7 +1,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Anchored, Frame, Point, Position, Shadow } from "$ltml"
+import { Align, Anchored, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { ALWAYS, Component, Module, Placed, Settings, SettingsPage, Visibility, VisibilityRows, opacityNow, space } from "Ordaen"
 import Locale from "@/locales"
@@ -16,6 +16,13 @@ const ABOVE: Number = space(.Item)
 const STEP: Number = BUTTON + GAP
 const INK: Color = Color.hex("#ffffff")
 const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
+
+// A frame never shown: what is put in it draws nothing, whatever shows it.
+function hiddenFrame(): any Client.Frame {
+  const made = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
+  made.Hide()
+  return made
+}
 
 // One of the game's eight bars: its number (Панель 1 to 8), its first slot (the game's own pages for it) and the
 // game's name of its buttons' bindings (`ACTIONBUTTON` and a button's number: `ACTIONBUTTON1`).
@@ -149,7 +156,15 @@ public class ActionBars implements Module, App {
   // The bars drawn: Панель 1 always, and the others the character's own Blizzard settings show.
   bars: Array<Shown> = []
   // The game's bars, hidden while the module runs: their slots stay as they are.
-  derived hidden: Array<any Frame> = self.hiddenBars()
+  derived hidden: Array<any Client.Frame> = self.hiddenBars()
+  // Where the game's bars are kept while the module runs: a frame never shown. A bar hidden by itself doesn't stay
+  // so: the client shows it again (entering the world, its toggles, a vehicle), so it is put in this one instead,
+  // and whatever shows it, it draws nothing.
+  const hider: any Client.Frame = hiddenFrame()
+  // Each bar put in the hider, by the parent the game gave it: given back as the module ends.
+  parents: mut Map<any Client.Frame, any Client.Frame> = {}
+  // The bars came in a fight: put away as it ends (the client moves no protected frame in a fight).
+  state rehide = false
   // Each binding's key as its button shows it, by the binding's name: read again when the player binds a key.
   state keys: Map<String, String> = {}
   // The keys of the game's bindings, bound to our buttons over the game's own: the frame that owns those overrides.
@@ -172,11 +187,34 @@ public class ActionBars implements Module, App {
         self.bind()
       }
     }
+    watch {
+      const games = self.hidden
+      if (Game.situation.combat) {
+        self.rehide = true
+      } else {
+        self.rehide = false
+        self.putAway(games)
+      }
+    }
     Ordaen.modules.add(self)
   }
 
   destructor() {
-    if (!Game.situation.combat) { Client.ClearOverrideBindings(self.owner) }
+    if (!Game.situation.combat) {
+      Client.ClearOverrideBindings(self.owner)
+      for (frame, parent of self.parents) { frame.SetParent(parent) }
+    }
+  }
+
+  // Each of the game's bars goes into the hider, its own parent kept to give back.
+  putAway(mut self, games: Array<any Client.Frame>) {
+    for (frame of games) {
+      if (self.parents[frame] == nil) {
+        const parent = frame.GetParent()
+        if (parent != nil) { self.parents[frame] = parent }
+        frame.SetParent(self.hider)
+      }
+    }
   }
 
   // Whether each of the eight bars is on, as the character's own Blizzard settings say: Панель 1 always.
@@ -211,8 +249,8 @@ public class ActionBars implements Module, App {
     self.keys = keys
   }
 
-  hiddenBars(self): Array<any Frame> {
-    const parts: Array<any Frame> = []
+  hiddenBars(self): Array<any Client.Frame> {
+    const parts: Array<any Client.Frame> = []
     for (number of 1..=SPECS.length) {
       const frame = ActionBars.gameBar(number)
       if (frame != nil) { parts.push(frame) }
@@ -221,7 +259,7 @@ public class ActionBars implements Module, App {
   }
 
   // The game's own bar of that number (Панель 1 to 8).
-  gameBar(number: Integer): any Frame | nil {
+  gameBar(number: Integer): any Client.Frame | nil {
     return match (number) {
       1 => Game.frames.MainActionBar
       2 => Game.frames.MultiBarBottomLeft
@@ -236,7 +274,6 @@ public class ActionBars implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <frame $for={part of self.hidden} of={part} shown={false} />
       <Bar $for={bar of self.bars} shown={peek bar} keys={self.keys} visibility={self.settings.values.visibility} />
     }
   }

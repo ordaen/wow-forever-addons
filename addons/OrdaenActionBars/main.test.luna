@@ -24,16 +24,37 @@ function gameBar(name: String, shown: Boolean): any Client.Frame {
 }
 
 test "the bars drawn are Панель 1 and those the character's settings show, and the game's own are hidden" {
-  Game.frames.MainActionBar = gameBar("MainActionBar", true)
-  Game.frames.MultiBarBottomLeft = gameBar("MultiBarBottomLeft", true)
+  const main = gameBar("MainActionBar", true)
+  const bottomLeft = gameBar("MultiBarBottomLeft", true)
+  Game.frames.MainActionBar = main
+  Game.frames.MultiBarBottomLeft = bottomLeft
   const bars = new ActionBars()
   // Ordaen draws its modules on the screen.
   Test.mount(nil, SCREEN)
   Test.flush()
   // The stand-in's new character shows the two bottom bars.
   Test.expect(bars.bars.map(shown => String.of(shown.spec.number)).join(",") == "1,2,3")
-  Test.expect(Game.frames.MainActionBar?.IsShown() == false)
-  Test.expect(Game.frames.MultiBarBottomLeft?.IsShown() == false)
+  Test.expect(!main.IsVisible())
+  Test.expect(!bottomLeft.IsVisible())
+  // The client shows its bars again (entering the world, their toggles): they stay unseen.
+  main.Show()
+  bottomLeft.Show()
+  Test.flush()
+  Test.expect(!main.IsVisible())
+  Test.expect(!bottomLeft.IsVisible())
+}
+
+test "the game's bars met in a fight are put away as it ends" {
+  const main = gameBar("MainActionBar", true)
+  Game.frames.MainActionBar = main
+  Test.mount(nil, SCREEN)
+  Test.combat(true)
+  const bars = new ActionBars()
+  Test.flush()
+  Test.expect(bars.rehide && main.IsVisible())
+  Test.combat(false)
+  Test.flush()
+  Test.expect(!main.IsVisible())
 }
 
 test "a key of the game's bindings presses our button in its place, and the button shows its key" {
