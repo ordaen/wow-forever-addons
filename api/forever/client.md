@@ -178,6 +178,16 @@ What a tooltip's data holds: [`tooltip-data.md`](tooltip-data.md).
   give the lists of the one that was open; the second update, about 35 ms after the show, brings its own, and a
   third says the same again. Known: session 511. Not held by the stand-in; the game's side leaves the lists unread
   until they are the asked profession's (`professions.luna`, `stale`).
+- **What a recipe is doesn't change in a session, and each thing of it that does has its own event:** its name,
+  icon and heading never; whether it is known at `NEW_RECIPE_LEARNED` (its id); how likely it is to raise the skill
+  with the player's rank (`GetProfessionInfo`); what the bags make of it (`GetCraftableCount`, a number, no table)
+  with the bags. A profession's list holds the recipes not known too, so a recipe learned adds none. The game's
+  side keeps each of the player's professions once the client has said its list twice running, and asks only what
+  the bags make after that (`professions.luna`, `Kept`). Known: session 522.
+- **A recipe's `GetRecipeInfo` is answered whatever is open:** straight after a reload with no profession opened,
+  and for a recipe of a profession other than the open one (its name and whether it is known; its difficulty and
+  what the bags make of it are not confirmed there). `GetAllRecipeIDs` gives the open profession's alone, and
+  straight after a reload the list of the one last open. Known: a probe of build 70938. Not held by the stand-in.
 - **A full auction scan reads a third of its weapon and armour auctions with no link yet;** the item's data comes
   with `ITEM_DATA_LOAD_RESULT`. Known: ea0652d (337 of the first 1000 read). Not held by the stand-in.
 - **`UnitPosition` gives nothing inside an instance** (`client.d.luna` doesn't say so); `IsPlayerMoving` still
