@@ -156,42 +156,52 @@ surface 908,648.42 584x45 on MEDIUM clamped
 surface 957,600.08 486x45 on MEDIUM clamped
   box 957,600.08 486x45 opacity=1 @pointerEnter @pointerLeave
     box 957,600.08 45x45
+      embed 957,600.08 45x45 absolute frame=OrdaenPanelBarpetButton1Cooldown
       embed 957,600.08 45x45 absolute frame=OrdaenPanelBarpetButton1 opacity=0
       box 957,600.08 45x4 absolute
         text 1000,602.08 0x0 "" #ffffff
     box 1006,600.08 45x45
+      embed 1006,600.08 45x45 absolute frame=OrdaenPanelBarpetButton2Cooldown
       embed 1006,600.08 45x45 absolute frame=OrdaenPanelBarpetButton2 opacity=0
       box 1006,600.08 45x4 absolute
         text 1049,602.08 0x0 "" #ffffff
     box 1055,600.08 45x45
+      embed 1055,600.08 45x45 absolute frame=OrdaenPanelBarpetButton3Cooldown
       embed 1055,600.08 45x45 absolute frame=OrdaenPanelBarpetButton3 opacity=0
       box 1055,600.08 45x4 absolute
         text 1098,602.08 0x0 "" #ffffff
     box 1104,600.08 45x45
+      embed 1104,600.08 45x45 absolute frame=OrdaenPanelBarpetButton4Cooldown
       embed 1104,600.08 45x45 absolute frame=OrdaenPanelBarpetButton4 opacity=0
       box 1104,600.08 45x4 absolute
         text 1147,602.08 0x0 "" #ffffff
     box 1153,600.08 45x45
+      embed 1153,600.08 45x45 absolute frame=OrdaenPanelBarpetButton5Cooldown
       embed 1153,600.08 45x45 absolute frame=OrdaenPanelBarpetButton5 opacity=0
       box 1153,600.08 45x4 absolute
         text 1196,602.08 0x0 "" #ffffff
     box 1202,600.08 45x45
+      embed 1202,600.08 45x45 absolute frame=OrdaenPanelBarpetButton6Cooldown
       embed 1202,600.08 45x45 absolute frame=OrdaenPanelBarpetButton6 opacity=0
       box 1202,600.08 45x4 absolute
         text 1245,602.08 0x0 "" #ffffff
     box 1251,600.08 45x45
+      embed 1251,600.08 45x45 absolute frame=OrdaenPanelBarpetButton7Cooldown
       embed 1251,600.08 45x45 absolute frame=OrdaenPanelBarpetButton7 opacity=0
       box 1251,600.08 45x4 absolute
         text 1294,602.08 0x0 "" #ffffff
     box 1300,600.08 45x45
+      embed 1300,600.08 45x45 absolute frame=OrdaenPanelBarpetButton8Cooldown
       embed 1300,600.08 45x45 absolute frame=OrdaenPanelBarpetButton8 opacity=0
       box 1300,600.08 45x4 absolute
         text 1343,602.08 0x0 "" #ffffff
     box 1349,600.08 45x45
+      embed 1349,600.08 45x45 absolute frame=OrdaenPanelBarpetButton9Cooldown
       embed 1349,600.08 45x45 absolute frame=OrdaenPanelBarpetButton9 opacity=0
       box 1349,600.08 45x4 absolute
         text 1392,602.08 0x0 "" #ffffff
     box 1398,600.08 45x45
+      embed 1398,600.08 45x45 absolute frame=OrdaenPanelBarpetButton10Cooldown
       embed 1398,600.08 45x45 absolute frame=OrdaenPanelBarpetButton10 opacity=0
       box 1398,600.08 45x4 absolute
         text 1441,602.08 0x0 "" #ffffff
