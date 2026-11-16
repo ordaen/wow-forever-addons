@@ -1,0 +1,35 @@
+import Client from "$client"
+import Game from "$game"
+import Test from "$test"
+import { ActionBars, Bar } from "@/main"
+
+const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
+
+test "a bar's buttons are the client's own, each on its slot: a click does the slot's action" {
+  const bar = new Bar({ spec: { number: 2, first: 61 }, place: 1 })
+  Test.mount(bar, SCREEN)
+  Test.expect(bar.buttons.length == 12)
+  Test.inKey(() => {
+    (bar.buttons[1] ?? panic("the bar has its first button")).Click("LeftButton")
+    (bar.buttons[12] ?? panic("the bar has its last button")).Click("LeftButton")
+  })
+  Test.expect(Test.performed().join(", ") == "action 61, action 72")
+}
+
+// One of the game's bars, shown or hidden as the character's settings say.
+function gameBar(name: String, shown: Boolean): any Client.Frame {
+  const made = Client.CreateFrame("Frame", name, Client.UIParent, nil)
+  if (!shown) { made.Hide() }
+  return made
+}
+
+test "the bars drawn are Панель 1 and those the game showed, and the game's own are hidden" {
+  Game.frames.MainActionBar = gameBar("MainActionBar", true)
+  Game.frames.MultiBarBottomLeft = gameBar("MultiBarBottomLeft", true)
+  Game.frames.MultiBarRight = gameBar("MultiBarRight", false)
+  const bars = new ActionBars()
+  Test.mount(bars, SCREEN)
+  Test.expect(bars.bars.map(shown => String.of(shown.spec.number)).join(",") == "1,2")
+  Test.expect(Game.frames.MainActionBar?.IsShown() == false)
+  Test.expect(Game.frames.MultiBarBottomLeft?.IsShown() == false)
+}

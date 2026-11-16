@@ -1,0 +1,7 @@
+{
+  "title": "Ordaen Action Bars",
+  "icon": "Interface/Icons/INV_Drink_13",
+  "loadOnDemand": true,
+  "dependencies": { "Ordaen": "^1.0.0" },
+  "notes": "Action bars in place of the game's own: each one placed anywhere, by default stacked at the bottom of the screen."
+}
