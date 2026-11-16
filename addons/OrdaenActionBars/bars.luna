@@ -78,7 +78,9 @@ public class Bar implements Component {
   derived opacity: Number = opacityNow(self.visibility, self.hovered)
   // How many of its buttons show: as many as chosen, and for the stances' bar no more than the player's forms.
   derived count: Integer = self.spec.kind == BarKind.Stance ? self.choice.buttons.min(self.forms) : self.choice.buttons
-  derived drawn: Array<Slot> = self.drawnOf()
+  derived drawn: Array<Slot> = self.drawnOf(true)
+  // The buttons past its count: kept unseen while it is drawn (the renderer shows an embedded frame let go again).
+  derived unseen: Array<Slot> = self.drawnOf(false)
   derived size: Number<Length> = self.choice.size * 1ui
   derived spacing: Number<Length> = self.choice.spacing * 1ui
   derived showKeys: Boolean = self.choice.keys
@@ -156,7 +158,7 @@ public class Bar implements Component {
   }
 
   // Its name in the placing mode and on the module's page.
-  titleOf(spec: BarSpec): String {
+  public titleOf(spec: BarSpec): String {
     return match (spec.kind) {
       BarKind.Action => Locale.BAR_TITLE.format(spec.number)
       BarKind.Pet => Locale.BAR_PET
@@ -164,28 +166,23 @@ public class Bar implements Component {
     }
   }
 
-  drawnOf(self): Array<Slot> {
+  // The buttons within its count (`within`), or those past it.
+  drawnOf(self, within: Boolean): Array<Slot> {
     const drawn: Array<Slot> = []
     for (index, slot of self.slots) {
-      if (index <= self.count) { drawn.push(slot) }
+      if ((index <= self.count) == within) { drawn.push(slot) }
     }
     return drawn
   }
 
-  // The first `count` buttons show (the pet's while there is a pet), the rest are hidden.
+  // The pet's buttons within the count show while there is a pet; those past it have no driver, and stay unseen.
   showFirst(self, count: Integer) {
+    if (self.spec.kind != BarKind.Pet) { return }
     for (index, slot of peek self.slots) {
-      if (self.spec.kind == BarKind.Pet) {
-        if (index <= count) {
-          Client.RegisterStateDriver(slot.frame, "visibility", WITH_PET)
-        } else {
-          Client.UnregisterStateDriver(slot.frame, "visibility")
-          slot.frame.Hide()
-        }
-      } else if (index <= count) {
-        slot.frame.Show()
+      if (index <= count) {
+        Client.RegisterStateDriver(slot.frame, "visibility", WITH_PET)
       } else {
-        slot.frame.Hide()
+        Client.UnregisterStateDriver(slot.frame, "visibility")
       }
     }
   }
@@ -195,6 +192,7 @@ public class Bar implements Component {
 
   public render(self): Template {
     return $ltml {
+      <frame $for={slot of self.unseen} of={slot.frame} shown={false} />
       <Placed id={self.id} title={self.title} home={self.home}>
         <box columns={self.choice.perRow} gap={self.spacing} opacity={self.opacity} hoverWithin={true}
              @enter={self.onEnter} @leave={self.onLeave}>

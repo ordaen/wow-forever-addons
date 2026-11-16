@@ -88,7 +88,9 @@ public class OrdaenCore implements App {
     watch (profile of self.keeper.profiles.active) { self.offered(profile) }
     Events.PLAYER_LEVEL_UP.listen(self.forgetTips)
     Events.SKILL_LINES_CHANGED.listen(self.forgetTips)
-    Events.PLAYER_REGEN_ENABLED.listen(self.combatEnded)
+    watch (fighting of Game.situation.combat) {
+      if (!fighting) { self.combatEnded() }
+    }
     self.start()
   }
 

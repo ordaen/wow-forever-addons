@@ -1,6 +1,7 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
+import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
 import { ALWAYS, Visibility, Visible } from "Ordaen"
@@ -40,6 +41,15 @@ function button(id: String, index: Integer): any Client.Frame {
   return lastNamed(name, Client.EnumerateFrames(nil), nil) ?? panic(`the module made ${name}`)
 }
 
+// The module Ordaen started at login is turned off: the test's own is the only one, made after what the test set.
+function alone() {
+  const running = (peek Ordaen.modules).find(module => module.title == "Ordaen Action Bars")
+  if (running == nil) { return }
+  const addon = Runtime.Addon.of(running) ?? panic("Ordaen's module is an addon's root")
+  Ordaen.turn(addon, false)
+  Test.flush()
+}
+
 // The ids of the bars drawn, in their order.
 function drawn(bars: Array<Shown>): String {
   return bars.map(shown => shown.spec.id).join(",")
@@ -54,6 +64,7 @@ function changed(values: Choices, id: String, change: (choice: mut BarChoice) =>
 }
 
 test "the bars drawn are Панель 1, those the character's settings show and the pet's, and the game's are put away" {
+  alone()
   const main = gameBar("MainActionBar", true)
   const bottomLeft = gameBar("MultiBarBottomLeft", true)
   Game.frames.MainActionBar = main
@@ -71,17 +82,20 @@ test "the bars drawn are Панель 1, those the character's settings show and
 }
 
 test "turned on in a fight, the module makes its bars as the fight ends" {
+  alone()
+  Test.mount(nil, SCREEN)
   Test.combat(true)
   const bars = new ActionBars()
-  Test.mount(nil, SCREEN)
   Test.flush()
   Test.expect(drawn(bars.bars) == "")
   Test.combat(false)
   Test.flush()
+  Test.expect(bars.ready)
   Test.expect(drawn(bars.bars) == "1,2,3,pet")
 }
 
 test "with Bartender4 loaded the bars stay off, and the game's are left as they are" {
+  alone()
   Client.C_AddOns.IsAddOnLoaded = name => {
     return name == "Bartender4", true
   }
@@ -91,10 +105,11 @@ test "with Bartender4 loaded the bars stay off, and the game's are left as they 
   Test.mount(nil, SCREEN)
   Test.flush()
   Test.expect(bars.conflict && drawn(bars.bars) == "")
-  Test.expect(main.IsVisible())
+  Test.expect(main.IsShown() && main.GetParent() == Client.UIParent)
 }
 
 test "a key of the game's bindings presses our button in its place, and the button shows its key" {
+  alone()
   _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
   const bars = new ActionBars()
   Test.mount(nil, SCREEN)
@@ -112,6 +127,7 @@ test "a key of the game's bindings presses our button in its place, and the butt
 }
 
 test "Панель 1 shows a form's page while the player is in it, in a fight too, unless the player keeps it as it is" {
+  alone()
   const bars = new ActionBars()
   Test.mount(nil, SCREEN)
   Test.flush()
@@ -131,6 +147,7 @@ test "Панель 1 shows a form's page while the player is in it, in a fight t
 }
 
 test "the pet's buttons show while there is a pet, in a fight too" {
+  alone()
   const bars = new ActionBars()
   Test.mount(nil, SCREEN)
   Test.flush()
@@ -143,6 +160,7 @@ test "the pet's buttons show while there is a pet, in a fight too" {
 }
 
 test "a bar's buttons, rows and look change as chosen, and in a fight only as it ends" {
+  alone()
   _ = Client.SetBinding("F6", "MULTIACTIONBAR1BUTTON6", nil)
   const bars = new ActionBars()
   Test.mount(nil, SCREEN)
@@ -169,6 +187,7 @@ test "a bar's buttons, rows and look change as chosen, and in a fight only as it
 }
 
 test "a bar the player never moved stands above what keeps the bottom edge, the highest of them" {
+  alone()
   const holder = new Holder()
   const spec = SPECS[1]
   const bar = new Bar(spec, 2, holder.choices, holder.defaults, holder.keys, holder.paging, holder.forms)
@@ -183,6 +202,7 @@ test "a bar the player never moved stands above what keeps the bottom edge, the 
 }
 
 test "a bar fades as its visibility says: hidden in a fight, its buttons keep their keys" {
+  alone()
   _ = Client.SetBinding("F7", "ACTIONBUTTON1", nil)
   const bars = new ActionBars()
   Test.mount(nil, SCREEN)
@@ -201,6 +221,7 @@ test "a bar fades as its visibility says: hidden in a fight, its buttons keep th
 }
 
 test "turned off in a fight, the buttons fade at once, and are put away with the keys as it ends" {
+  alone()
   _ = Client.SetBinding("F8", "ACTIONBUTTON2", nil)
   const bars = new ActionBars()
   Test.mount(nil, SCREEN)
