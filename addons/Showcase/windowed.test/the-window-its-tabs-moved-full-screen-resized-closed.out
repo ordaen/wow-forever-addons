@@ -10,8 +10,7 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
         box 632.75,572.29 339.5x28.33
           text 632.75,579.26 222.83x14.4 "saved 0 times" #a3977f
           box 872.25,572.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 872.25,572.29 100x28.33 absolute
-              text 907.81,578.66 28.89x15.6 "Save" #ffd100
+            text 907.81,578.66 28.89x15.6 "Save" #ffd100
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.54 400x59.42
     box 600,275.54 313.33x59.42
@@ -48,8 +47,7 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
         box 632.75,572.29 339.5x28.33
           text 632.75,579.26 222.83x14.4 "saved 0 times" #a3977f
           box 872.25,572.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 872.25,572.29 100x28.33 absolute
-              text 907.81,578.66 28.89x15.6 "Save" #ffd100
+            text 907.81,578.66 28.89x15.6 "Save" #ffd100
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.54 400x59.42
     box 600,275.54 313.33x59.42
@@ -86,8 +84,7 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
         box 672.75,602.29 339.5x28.33
           text 672.75,609.26 222.83x14.4 "saved 0 times" #a3977f
           box 912.25,602.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 912.25,602.29 100x28.33 absolute
-              text 947.81,608.66 28.89x15.6 "Save" #ffd100
+            text 947.81,608.66 28.89x15.6 "Save" #ffd100
     box 1022.75,634.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 400x59.42
     box 640,305.54 313.33x59.42
@@ -124,8 +121,7 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
         box 672.75,602.29 339.5x28.33
           text 672.75,609.26 222.83x14.4 "saved 0 times" #a3977f
           box 912.25,602.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 912.25,602.29 100x28.33 absolute
-              text 947.81,608.66 28.89x15.6 "Save" #ffd100
+            text 947.81,608.66 28.89x15.6 "Save" #ffd100
     box 1022.75,634.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 400x59.42
     box 640,305.54 313.33x59.42
@@ -162,8 +158,7 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
         box 672.75,602.29 339.5x28.33
           text 672.75,609.26 222.83x14.4 "saved 0 times" #a3977f
           box 912.25,602.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 912.25,602.29 100x28.33 absolute
-              text 947.81,608.66 28.89x15.6 "Save" #ffd100
+            text 947.81,608.66 28.89x15.6 "Save" #ffd100
     box 1022.75,634.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 400x59.42
     box 640,305.54 313.33x59.42
@@ -200,8 +195,7 @@ surface 0,0 1600x900 on DIALOG clamped raised by a click
         box 32.75,847.83 1539.5x28.33
           text 32.75,854.8 1422.83x14.4 "saved 0 times" #a3977f
           box 1472.25,847.83 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 1472.25,847.83 100x28.33 absolute
-              text 1507.81,854.2 28.89x15.6 "Save" #ffd100
+            text 1507.81,854.2 28.89x15.6 "Save" #ffd100
   box 0,0 1600x59.42
     box 0,0 1513.33x59.42
       box 0,0 160.53x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
@@ -237,8 +231,7 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
         box 672.75,602.29 339.5x28.33
           text 672.75,609.26 222.83x14.4 "saved 0 times" #a3977f
           box 912.25,602.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 912.25,602.29 100x28.33 absolute
-              text 947.81,608.66 28.89x15.6 "Save" #ffd100
+            text 947.81,608.66 28.89x15.6 "Save" #ffd100
     box 1022.75,634.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 400x59.42
     box 640,305.54 313.33x59.42
@@ -275,8 +268,7 @@ surface 640,305.54 400x348.92 on DIALOG clamped raised by a click
         box 672.75,602.29 339.5x28.33
           text 672.75,609.26 222.83x14.4 "saved 0 times" #a3977f
           box 912.25,602.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 912.25,602.29 100x28.33 absolute
-              text 947.81,608.66 28.89x15.6 "Save" #ffd100
+            text 947.81,608.66 28.89x15.6 "Save" #ffd100
     box 1022.75,634.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 400x59.42
     box 640,305.54 313.33x59.42
@@ -313,8 +305,7 @@ surface 640,305.54 460x368.92 on DIALOG clamped raised by a click
         box 672.75,622.29 399.5x28.33
           text 672.75,629.26 282.83x14.4 "saved 0 times" #a3977f
           box 972.25,622.29 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 972.25,622.29 100x28.33 absolute
-              text 1007.81,628.66 28.89x15.6 "Save" #ffd100
+            text 1007.81,628.66 28.89x15.6 "Save" #ffd100
     box 1082.75,654.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Highlight @drag @dragStart @dragStop
   box 640,305.54 460x59.42
     box 640,305.54 373.33x59.42
@@ -351,8 +342,7 @@ surface 640,305.54 600x215.58 on DIALOG clamped raised by a click
         box 672.75,468.96 539.5x28.33
           text 672.75,475.93 422.83x14.4 "saved 0 times" #a3977f
           box 1112.25,468.96 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-            box 1112.25,468.96 100x28.33 absolute
-              text 1147.81,475.33 28.89x15.6 "Save" #ffd100
+            text 1147.81,475.33 28.89x15.6 "Save" #ffd100
     box 1222.75,501.12 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 640,305.54 600x59.42
     box 640,305.54 513.33x59.42

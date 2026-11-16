@@ -2,13 +2,11 @@
 box 0,0 300x64.33
   box 0,0 75x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
-      box 0,0 23.33x28.33 absolute
-        text 7.22,6.37 8.89x15.6 "-" #ffd100
+      text 7.22,6.37 8.89x15.6 "-" #ffd100
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "3" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
-      box 51.67,0 23.33x28.33 absolute
-        text 58.89,6.37 8.89x15.6 "+" #ffd100
+      text 58.89,6.37 8.89x15.6 "+" #ffd100
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "3" @change
 
@@ -16,13 +14,11 @@ box 0,0 300x64.33
 box 0,0 300x64.33
   box 0,0 75x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
-      box 0,0 23.33x28.33 absolute
-        text 7.22,6.37 8.89x15.6 "-" #ffd100
+      text 7.22,6.37 8.89x15.6 "-" #ffd100
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "5" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-      box 51.67,0 23.33x28.33 absolute
-        text 58.89,6.37 8.89x15.6 "+" #808080
+      text 58.89,6.37 8.89x15.6 "+" #808080
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "5" @change
 surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
@@ -45,13 +41,11 @@ surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\windo
 box 0,0 300x64.33
   box 0,0 75x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-      box 0,0 23.33x28.33 absolute
-        text 7.22,6.37 8.89x15.6 "-" #808080
+      text 7.22,6.37 8.89x15.6 "-" #808080
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "1" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
-      box 51.67,0 23.33x28.33 absolute
-        text 58.89,6.37 8.89x15.6 "+" #ffd100
+      text 58.89,6.37 8.89x15.6 "+" #ffd100
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "1" @change
 surface 0,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
@@ -74,13 +68,11 @@ surface 0,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wo
 box 0,0 300x64.33
   box 0,0 75x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
-      box 0,0 23.33x28.33 absolute
-        text 7.22,6.37 8.89x15.6 "-" #ffd100
+      text 7.22,6.37 8.89x15.6 "-" #ffd100
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "5" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-      box 51.67,0 23.33x28.33 absolute
-        text 58.89,6.37 8.89x15.6 "+" #808080
+      text 58.89,6.37 8.89x15.6 "+" #808080
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "5" typing @change
 
@@ -88,13 +80,11 @@ box 0,0 300x64.33
 box 0,0 300x64.33
   box 0,0 75x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
-      box 0,0 23.33x28.33 absolute
-        text 7.22,6.37 8.89x15.6 "-" #ffd100
+      text 7.22,6.37 8.89x15.6 "-" #ffd100
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "5" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-      box 51.67,0 23.33x28.33 absolute
-        text 58.89,6.37 8.89x15.6 "+" #808080
+      text 58.89,6.37 8.89x15.6 "+" #808080
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "x" typing @change
 
@@ -102,13 +92,11 @@ box 0,0 300x64.33
 box 0,0 300x64.33
   box 0,0 75x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
-      box 0,0 23.33x28.33 absolute
-        text 7.22,6.37 8.89x15.6 "-" #ffd100
+      text 7.22,6.37 8.89x15.6 "-" #ffd100
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "2" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-      box 51.67,0 23.33x28.33 absolute
-        text 58.89,6.37 8.89x15.6 "+" #808080
+      text 58.89,6.37 8.89x15.6 "+" #808080
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "2" typing @change
 
@@ -116,13 +104,11 @@ box 0,0 300x64.33
 box 0,0 300x64.33
   box 0,0 75x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-      box 0,0 23.33x28.33 absolute
-        text 7.22,6.37 8.89x15.6 "-" #808080
+      text 7.22,6.37 8.89x15.6 "-" #808080
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "1" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-      box 51.67,0 23.33x28.33 absolute
-        text 58.89,6.37 8.89x15.6 "+" #808080
+      text 58.89,6.37 8.89x15.6 "+" #808080
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "1" @change
 surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
@@ -145,13 +131,11 @@ surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\windo
 box 0,0 300x64.33
   box 0,0 75x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave repeats
-      box 0,0 23.33x28.33 absolute
-        text 7.22,6.37 8.89x15.6 "-" #ffd100
+      text 7.22,6.37 8.89x15.6 "-" #ffd100
     box 28.33,6.37 18.33x15.6
       text 33.06,6.37 8.89x15.6 "9" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-      box 51.67,0 23.33x28.33 absolute
-        text 58.89,6.37 8.89x15.6 "+" #808080
+      text 58.89,6.37 8.89x15.6 "+" #808080
   box 0,38.33 80x26
     box 0,38.33 80x26 #00000080 input "9" @change
 surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped

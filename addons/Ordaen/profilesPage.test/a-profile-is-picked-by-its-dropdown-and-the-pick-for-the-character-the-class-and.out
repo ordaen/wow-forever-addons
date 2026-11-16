@@ -23,17 +23,13 @@ box 0,0 760x649.2
         box 248.33,131.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,161.2 760x28.33
       box 0,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,161.2 125x28.33 absolute
-          text 51.39,167.57 22.22x15.6 "New" #ffd100
+        text 51.39,167.57 22.22x15.6 "New" #ffd100
       box 131.67,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,161.2 125x28.33 absolute
-          text 173.06,167.57 42.22x15.6 "Rename" #ffd100
+        text 173.06,167.57 42.22x15.6 "Rename" #ffd100
       box 263.33,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 263.33,161.2 125x28.33 absolute
-          text 304.72,167.57 42.22x15.6 "Delete" #ffd100
+        text 304.72,167.57 42.22x15.6 "Delete" #ffd100
       box 395,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 395,161.2 125x28.33 absolute
-          text 439.72,167.57 35.56x15.6 "Reset" #ffd100
+        text 439.72,167.57 35.56x15.6 "Reset" #ffd100
     text 0,201.2 760x15.6 "Profile «Healing» made." #a3977f
   box 0,231.8 760x105.6
     box 0,231.8 760x15.6
@@ -68,8 +64,7 @@ box 0,0 760x649.2
             box 425,387.17 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 0,419.67 760x28.33
         box 0,419.67 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-          box 0,419.67 125x28.33 absolute
-            text 48.06,426.03 28.89x15.6 "Copy" #ffd100
+          text 48.06,426.03 28.89x15.6 "Copy" #ffd100
   box 0,463 760x186.2
     box 0,463 760x15.6
       text 0,463 35.56x15.6 "Share" #e8c35a
@@ -78,14 +73,11 @@ box 0,0 760x649.2
     box 0,517.53 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,620.87 760x28.33
       box 0,620.87 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,620.87 125x28.33 absolute
-          text 41.39,627.23 42.22x15.6 "Export" #ffd100
+        text 41.39,627.23 42.22x15.6 "Export" #ffd100
       box 131.67,620.87 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,620.87 125x28.33 absolute
-          text 173.06,627.23 42.22x15.6 "Import" #ffd100
+        text 173.06,627.23 42.22x15.6 "Import" #ffd100
       box 263.33,620.87 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-        box 263.33,620.87 125x28.33 absolute
-          text 304.72,627.23 42.22x15.6 "Create" #808080
+        text 304.72,627.23 42.22x15.6 "Create" #808080
 surface 258.33,92.87 216.67x83.47 on FULLSCREEN_DIALOG #0a0806f7
   box 259.17,98.7 215x23.93 #00000000 @click
     box 267.5,106.2 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 0 of 2
@@ -122,17 +114,13 @@ box 0,0 760x621.93
         box 248.33,131.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,161.2 760x28.33
       box 0,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,161.2 125x28.33 absolute
-          text 51.39,167.57 22.22x15.6 "New" #ffd100
+        text 51.39,167.57 22.22x15.6 "New" #ffd100
       box 131.67,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,161.2 125x28.33 absolute
-          text 173.06,167.57 42.22x15.6 "Rename" #ffd100
+        text 173.06,167.57 42.22x15.6 "Rename" #ffd100
       box 263.33,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 263.33,161.2 125x28.33 absolute
-          text 304.72,167.57 42.22x15.6 "Delete" #ffd100
+        text 304.72,167.57 42.22x15.6 "Delete" #ffd100
       box 395,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 395,161.2 125x28.33 absolute
-          text 439.72,167.57 35.56x15.6 "Reset" #ffd100
+        text 439.72,167.57 35.56x15.6 "Reset" #ffd100
   box 0,204.53 760x105.6
     box 0,204.53 760x15.6
       text 0,204.53 47.78x15.6 "Use for" #e8c35a
@@ -166,8 +154,7 @@ box 0,0 760x621.93
             box 425,359.9 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 0,392.4 760x28.33
         box 0,392.4 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-          box 0,392.4 125x28.33 absolute
-            text 48.06,398.77 28.89x15.6 "Copy" #ffd100
+          text 48.06,398.77 28.89x15.6 "Copy" #ffd100
   box 0,435.73 760x186.2
     box 0,435.73 760x15.6
       text 0,435.73 35.56x15.6 "Share" #e8c35a
@@ -176,14 +163,11 @@ box 0,0 760x621.93
     box 0,490.27 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,593.6 760x28.33
       box 0,593.6 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,593.6 125x28.33 absolute
-          text 41.39,599.97 42.22x15.6 "Export" #ffd100
+        text 41.39,599.97 42.22x15.6 "Export" #ffd100
       box 131.67,593.6 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,593.6 125x28.33 absolute
-          text 173.06,599.97 42.22x15.6 "Import" #ffd100
+        text 173.06,599.97 42.22x15.6 "Import" #ffd100
       box 263.33,593.6 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-        box 263.33,593.6 125x28.33 absolute
-          text 304.72,599.97 42.22x15.6 "Create" #808080
+        text 304.72,599.97 42.22x15.6 "Create" #808080
 
 -- the character plays «Holy»: a row for each specialisation, that one named
 box 0,0 760x741.93
@@ -210,17 +194,13 @@ box 0,0 760x741.93
         box 248.33,131.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 0,161.2 760x28.33
       box 0,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,161.2 125x28.33 absolute
-          text 51.39,167.57 22.22x15.6 "New" #ffd100
+        text 51.39,167.57 22.22x15.6 "New" #ffd100
       box 131.67,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,161.2 125x28.33 absolute
-          text 173.06,167.57 42.22x15.6 "Rename" #ffd100
+        text 173.06,167.57 42.22x15.6 "Rename" #ffd100
       box 263.33,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 263.33,161.2 125x28.33 absolute
-          text 304.72,167.57 42.22x15.6 "Delete" #ffd100
+        text 304.72,167.57 42.22x15.6 "Delete" #ffd100
       box 395,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 395,161.2 125x28.33 absolute
-          text 439.72,167.57 35.56x15.6 "Reset" #ffd100
+        text 439.72,167.57 35.56x15.6 "Reset" #ffd100
   box 0,204.53 760x225.6
     box 0,204.53 760x15.6
       text 0,204.53 47.78x15.6 "Use for" #e8c35a
@@ -276,8 +256,7 @@ box 0,0 760x741.93
             box 425,479.9 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
       box 0,512.4 760x28.33
         box 0,512.4 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-          box 0,512.4 125x28.33 absolute
-            text 48.06,518.77 28.89x15.6 "Copy" #ffd100
+          text 48.06,518.77 28.89x15.6 "Copy" #ffd100
   box 0,555.73 760x186.2
     box 0,555.73 760x15.6
       text 0,555.73 35.56x15.6 "Share" #e8c35a
@@ -286,11 +265,8 @@ box 0,0 760x741.93
     box 0,610.27 760x91.67 #0d0a08 input "" lines clipped @change
     box 0,713.6 760x28.33
       box 0,713.6 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 0,713.6 125x28.33 absolute
-          text 41.39,719.97 42.22x15.6 "Export" #ffd100
+        text 41.39,719.97 42.22x15.6 "Export" #ffd100
       box 131.67,713.6 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-        box 131.67,713.6 125x28.33 absolute
-          text 173.06,719.97 42.22x15.6 "Import" #ffd100
+        text 173.06,719.97 42.22x15.6 "Import" #ffd100
       box 263.33,713.6 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-        box 263.33,713.6 125x28.33 absolute
-          text 304.72,719.97 42.22x15.6 "Create" #808080
+        text 304.72,719.97 42.22x15.6 "Create" #808080

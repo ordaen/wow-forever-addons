@@ -126,17 +126,14 @@ surface 325,133.88 910.5x479.63 on DIALOG clamped raised by a click
                   box 986.92,531.34 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
               box 1013.58,523.84 75x28.33
                 box 1013.58,523.84 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-                  box 1013.58,523.84 23.33x28.33 absolute
-                    text 1020.81,530.21 8.89x15.6 "-" #808080
+                  text 1020.81,530.21 8.89x15.6 "-" #808080
                 box 1041.92,530.21 18.33x15.6
                   text 1046.64,530.21 8.89x15.6 "1" #ffffff
                 box 1065.25,523.84 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-                  box 1065.25,523.84 23.33x28.33 absolute
-                    text 1072.47,530.21 8.89x15.6 "+" #808080
+                  text 1072.47,530.21 8.89x15.6 "+" #808080
               text 1095.25,538.01 0x0 "" #a3977f
               box 1101.92,523.84 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                box 1101.92,523.84 91.67x28.33 absolute
-                  text 1126.64,530.21 42.22x15.6 "Create" #ffd100
+                text 1126.64,530.21 42.22x15.6 "Create" #ffd100
       box 357.75,573.01 850x16.67
         box 357.75,589.68 850x0
           box 357.75,589.68 850x0
@@ -289,17 +286,14 @@ surface 325,133.88 1275x479.63 on DIALOG clamped raised by a click
                   box 1084.17,531.34 13.33x13.33 Interface\AddOns\Ordaen\media\dropdown-arrow
               box 1110.83,523.84 75x28.33
                 box 1110.83,523.84 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-                  box 1110.83,523.84 23.33x28.33 absolute
-                    text 1118.06,530.21 8.89x15.6 "-" #808080
+                  text 1118.06,530.21 8.89x15.6 "-" #808080
                 box 1139.17,530.21 18.33x15.6
                   text 1143.89,530.21 8.89x15.6 "1" #ffffff
                 box 1162.5,523.84 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-                  box 1162.5,523.84 23.33x28.33 absolute
-                    text 1169.72,530.21 8.89x15.6 "+" #808080
+                  text 1169.72,530.21 8.89x15.6 "+" #808080
               text 1192.5,538.01 267.25x0 "" #a3977f
               box 1466.42,523.84 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-                box 1466.42,523.84 91.67x28.33 absolute
-                  text 1491.14,530.21 42.22x15.6 "Create" #ffd100
+                text 1491.14,530.21 42.22x15.6 "Create" #ffd100
       box 357.75,573.01 1214.5x16.67
         box 357.75,589.68 1214.5x0
           box 357.75,589.68 1214.5x0

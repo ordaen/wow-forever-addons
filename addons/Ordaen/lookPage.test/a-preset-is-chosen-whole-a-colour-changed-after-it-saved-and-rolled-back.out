@@ -15,8 +15,7 @@ box 0,0 800x1545.27
         text 0,70.6 665x15.6 "Minimal" #ffffff
         text 0,87.87 665x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
       box 675,72.27 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
-        box 675,72.27 125x28.33 absolute
-          text 726.39,78.63 22.22x15.6 "Use" #ffd100
+        text 726.39,78.63 22.22x15.6 "Use" #ffd100
   box 0,117.27 800x135.6
     box 0,117.27 800x15.6
       text 0,117.27 35.56x15.6 "Fonts" #e8c35a
@@ -249,8 +248,7 @@ box 0,0 800x1545.27
         text 0,27.27 665x15.6 "Ordaen" #ffffff
         text 0,44.53 665x14.4 "Blizzard's look in our style: bronze, dark wood, our own fonts" #a3977f
       box 675,28.93 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
-        box 675,28.93 125x28.33 absolute
-          text 726.39,35.3 22.22x15.6 "Use" #ffd100
+        text 726.39,35.3 22.22x15.6 "Use" #ffd100
     box 0,70.6 800x31.67
       box 0,70.6 665x31.67
         text 0,70.6 665x15.6 "Minimal" #ffffff
@@ -492,8 +490,7 @@ box 0,0 800x1545.27
         text 0,70.6 665x15.6 "Minimal" #ffffff
         text 0,87.87 665x14.4 "Flat, fine lines, hardly any textures or animations" #a3977f
       box 675,72.27 125x28.33 Interface\AddOns\Ordaen\media\button row 4 of 8 @click @enter @leave
-        box 675,72.27 125x28.33 absolute
-          text 726.39,78.63 22.22x15.6 "Use" #ffd100
+        text 726.39,78.63 22.22x15.6 "Use" #ffd100
   box 0,117.27 800x135.6
     box 0,117.27 800x15.6
       text 0,117.27 35.56x15.6 "Fonts" #e8c35a

@@ -158,9 +158,7 @@ box 0,0 700x690.57
             text 252.33,578.7 443.67x15.6 "Right-click here" #ffffff
   box 0,604.97 700x15.6 @enter @leave
     text 0,604.97 700x15.6 "zone shown" #ffffff
-  box 0,627.23 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-    box 0,627.23 120x28.33 absolute
-      text 45.56,633.6 28.89x15.6 "Save" #ffd100
-  box 0,662.23 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
-    box 0,662.23 120x28.33 absolute
-      text 42.22,668.6 35.56x15.6 "Reset" #808080
+  box 0,627.23 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
+    text 335.56,633.6 28.89x15.6 "Save" #ffd100
+  box 0,662.23 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
+    text 332.22,668.6 35.56x15.6 "Reset" #808080

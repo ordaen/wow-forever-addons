@@ -139,8 +139,7 @@ surface 325,133.88 950x632.25 on DIALOG clamped raised by a click
           box 357.75,697.29 889.5x28.33
             text 357.75,711.46 739.5x0 "" #a3977f
             box 1097.25,697.29 150x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
-              box 1097.25,697.29 150x28.33 absolute
-                text 1106.14,703.66 132.22x15.6 "To the shopping list" #ffffff
+              text 1106.14,703.66 132.22x15.6 "To the shopping list" #ffffff
       box 357.75,725.62 889.5x16.67
         box 357.75,742.29 889.5x0
           box 357.75,742.29 889.5x0
