@@ -1,21 +1,27 @@
-// The craft queue: what «Create» asked for, every profession's, in the order it was asked, kept for the character
-// (it outlives a /reload). The root owns it, not the window: a run goes on while the window is shut.
+// The craft queue: what «Create» asked for, each line under its profession, in the order it was asked, kept for the
+// character (it outlives a /reload). The root owns it, not the window: a run goes on while the window is shut.
 //
-// The client starts a run of crafts only from the player's own click or key (`Game.tradeSkill.craft`), and works
-// through its count by itself. So the queue's first recipe runs at «Create» when nothing waits ahead of it, and each
-// run after it starts at the player's click on «Create next». A run that ends early (the player moved or cancelled
-// it, the client refused a craft), a fight, the next recipe's profession not being the one open, or no reagents for it
-// pause the queue as it is: its lines keep what is still to make, and the pause says why until the next click.
+// Each profession has its own queue, its lines in the order they were asked: the window's «Queue» tab shows the open
+// profession's, and runs them. The client starts a run of crafts only from the player's own click or key
+// (`Game.tradeSkill.craft`), only of the open profession, and works through its count by itself. So a profession's
+// first recipe runs at «Create» when nothing of it waits ahead and no run goes, and each run after it starts at the
+// player's click on «Create next». A run that ends early (the player moved or cancelled it, the client refused a
+// craft), a fight, or no reagents for the next recipe pause the profession's queue as it is: its lines keep what is
+// still to make, and the pause says why until the next click.
 import Game from "$game"
 import { Memory } from "Ordaen"
 import { Kept, MOST_COUNT, MOST_QUEUED, Pause, Queued } from "@/view"
 
 public class CraftQueue {
-  // Crafts of the first line still to come in the run going; 0 while no run goes.
+  // Crafts still to come in the run going; 0 while no run goes.
   public state left = 0
   public derived running: Boolean = self.left > 0
+  // The recipe the run going makes (the last run's once it has ended).
+  public state making = 0
+  // Every profession's lines, in the order they were asked.
   public derived lines: Array<Queued> = self.memory.values.queue
-  public derived paused: Pause = self.memory.values.paused
+  // Why each profession's queue waits, by its skill line; one with none waits for nothing.
+  public derived paused: Map<Integer, Pause> = self.memory.values.paused
 
   memory: mut Memory<Kept>
   constructor(memory: mut Memory<Kept>) {
@@ -25,10 +31,22 @@ public class CraftQueue {
     watch (fighting of Game.situation.combat) { self.onCombat(fighting) }
   }
 
-  // «Create»: the recipe joins the queue (its count grows where it is there); with nothing ahead of it and no run
-  // going, its run starts now, in the click. Whether it waits.
+  // A profession's lines, in the order they run.
+  public linesOf(self, skillLine: Integer | nil): Array<Queued> {
+    return self.lines.filter(line => line.skillLine == skillLine)
+  }
+
+  // Why a profession's queue waits.
+  public pauseOf(self, skillLine: Integer | nil): Pause {
+    if (skillLine == nil) { return Pause.None }
+    return self.paused[skillLine] ?? Pause.None
+  }
+
+  // «Create» in the open profession: the recipe joins its queue (its count grows where it is there); with nothing of
+  // the profession ahead of it and no run going, its run starts now, in the click. Whether it waits.
   public add(mut self, skillLine: Integer, recipe: Integer, name: String, count: Integer): Boolean {
     const before = peek self.lines
+    const ahead = before.any(entry => entry.skillLine == skillLine)
     let queue: Array<Queued> = []
     let found = false
     for (entry of before) {
@@ -42,7 +60,7 @@ public class CraftQueue {
     if (!found) { queue.push({ skillLine: skillLine, recipe: recipe, name: name, count: count }) }
     if (queue.length > MOST_QUEUED) { _ = queue.remove(1) }
     self.write(queue, peek self.paused)
-    if (before.length == 0 && !peek self.running) {
+    if (!ahead && !peek self.running) {
       self.next()
       return false
     }
@@ -51,9 +69,8 @@ public class CraftQueue {
 
   // A recipe's count is `count`; at nought it leaves the queue.
   public recount(mut self, recipe: Integer, count: Integer) {
-    // The first line taken out: the queue no longer follows its run.
-    const first = (peek self.lines)[1]
-    if (count < 1 && first != nil && first.recipe == recipe) { self.left = 0 }
+    // The running line taken out: the queue no longer follows its run.
+    if (count < 1 && recipe == peek self.making) { self.left = 0 }
     let queue: Array<Queued> = []
     for (entry of peek self.lines) {
       const counted = entry.recipe == recipe ? count : entry.count
@@ -62,58 +79,72 @@ public class CraftQueue {
     self.write(queue, peek self.paused)
   }
 
-  // The player's click («Create next», or «Create» with nothing ahead): the first line's run starts, as many as the
-  // bags make of what is left of it. Where it can't, the queue pauses and says why.
+  // The player's click («Create next», or «Create» with nothing ahead): the open profession's first line's run
+  // starts, as many as the bags make of what is left of it. Where it can't, that queue pauses and says why.
   public next(mut self) {
-    const first = (peek self.lines)[1]
-    if (first == nil || peek self.running) { return }
+    const open = peek Game.tradeSkill.open
+    if (open == nil || peek self.running) { return }
+    const first = (peek self.lines).find(entry => entry.skillLine == open)
+    if (first == nil) { return }
     if (peek Game.situation.combat) {
-      self.pause(Pause.Combat)
-      return
-    }
-    if (first.skillLine != peek Game.tradeSkill.open) {
-      self.pause(Pause.Closed)
+      self.pause(open, Pause.Combat)
       return
     }
     const recipe = (peek Game.tradeSkill.recipes).find(r => r.id == first.recipe)
     const makes = recipe == nil ? 0 : first.count.min(recipe.craftable)
     if (makes < 1) {
-      self.pause(Pause.Missing)
+      self.pause(open, Pause.Missing)
       return
     }
-    self.pause(Pause.None)
+    self.pause(open, Pause.None)
+    self.making = first.recipe
     self.left = makes
     Game.tradeSkill.craft(first.recipe, makes)
   }
 
-  // One craft of the run made: the first line has one fewer to make, and leaves the queue at nought.
+  // One craft of the run made: its line has one fewer to make, and leaves the queue at nought.
   onMade(mut self, recipe: Integer) {
-    const first = (peek self.lines)[1]
-    if (!peek self.running || first == nil || first.recipe != recipe) { return }
+    if (!peek self.running || recipe != peek self.making) { return }
+    const line = (peek self.lines).find(entry => entry.recipe == recipe)
     self.left -= 1
-    self.recount(recipe, first.count - 1)
+    if (line != nil) { self.recount(recipe, line.count - 1) }
   }
 
-  // The run ended early: the queue keeps what is left and waits.
+  // The run ended early: its profession's queue keeps what is left and waits.
   onStopped(mut self, stop: Game.CraftStop) {
     if (!peek self.running) { return }
     self.left = 0
-    self.pause(match (stop) { Game.CraftStop.Interrupted => Pause.Interrupted, Game.CraftStop.Failed => Pause.Failed })
+    const making = peek self.making
+    const line = (peek self.lines).find(entry => entry.recipe == making)
+    if (line == nil) { return }
+    self.pause(line.skillLine, match (stop) { Game.CraftStop.Interrupted => Pause.Interrupted, Game.CraftStop.Failed => Pause.Failed })
   }
 
-  // A fight: nothing more starts until the player's click after it (a run already going is the client's).
+  // A fight: nothing more starts in any profession until the player's click after it (a run already going is the
+  // client's).
   onCombat(mut self, fighting: Boolean) {
-    if (fighting && (peek self.lines).length > 0) { self.pause(Pause.Combat) }
+    if (!fighting) { return }
+    let paused = (peek self.paused).clone()
+    for (line of peek self.lines) { paused[line.skillLine] = Pause.Combat }
+    self.write(peek self.lines, paused)
   }
 
-  pause(mut self, why: Pause) {
-    if (why != peek self.paused) { self.write(peek self.lines, why) }
+  pause(mut self, skillLine: Integer, why: Pause) {
+    if (why == peek self.pauseOf(skillLine)) { return }
+    let paused = (peek self.paused).clone()
+    paused[skillLine] = why
+    self.write(peek self.lines, paused)
   }
 
-  // The queue kept, each line's count held to the most a line takes.
-  write(mut self, queue: Array<Queued>, paused: Pause) {
+  // The queue kept, each line's count held to the most a line takes, and a pause kept only for a profession that has
+  // lines.
+  write(mut self, queue: Array<Queued>, paused: Map<Integer, Pause>) {
     const now = peek self.memory.values
     const held = queue.map((line: Queued): Queued => ({ count: line.count.min(MOST_COUNT), ..line }))
-    self.memory.write({ queue: held, paused: queue.length == 0 ? Pause.None : paused, ..now })
+    let kept: Map<Integer, Pause> = {}
+    for (skillLine, why of paused) {
+      if (why != Pause.None && queue.any(line => line.skillLine == skillLine)) { kept[skillLine] = why }
+    }
+    self.memory.write({ queue: held, paused: kept, ..now })
   }
 }

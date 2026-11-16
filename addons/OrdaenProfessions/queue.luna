@@ -1,5 +1,5 @@
-// The «Queue» tab: what «Create» asked for, every profession's, in the order it runs, a line each (its icon, its name
-// in its difficulty's colour (a recipe of a profession that isn't open: dim, its profession's icon), which opens it,
+// The «Queue» tab: what «Create» asked for in the open profession, in the order it runs, a line each (its icon, its
+// name in its difficulty's colour (one the profession's recipes don't list: dim, its profession's icon), which opens it,
 // its count still to make with − and +, x to take it out); one table of the reagents they all need (need, have,
 // missing, red while short). What the queue is doing or why it waits, and «Create next», the player's click that
 // starts the next run (the client starts a craft from nothing else), stand in the window's footer.
@@ -250,7 +250,7 @@ public class QueuePage implements Component {
   queued: Signal<Array<Queued>>
   prices: Signal<any PriceSource | nil>
   constructor(
-    // The queue, every profession's, in the order it runs.
+    // The open profession's queue, in the order it runs.
     queued: Signal<Array<Queued>>,
     // Ordaen Auction's prices while they are shown; none for none.
     prices: Signal<any PriceSource | nil> = nil

@@ -78,7 +78,7 @@ const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Makeable, label: Locale.SORT_MAKEABLE }
 ]
 const NOTHING_KEPT: Kept = {
-  last: 0, seen: {}, favorites: [], tracked: [], queue: [], paused: Pause.None
+  last: 0, seen: {}, favorites: [], tracked: [], queue: [], paused: {}
 }
 
 public class Professions implements Module, App {
@@ -166,9 +166,9 @@ public class Professions implements Module, App {
   derived hasTrack: Boolean = self.trackName != ""
   derived footColumns: Array<Track> = self.hasTrack ? TRACK_FOOT : FILL
   derived trackAction: Action | nil = Action.CastSpell { spell: self.trackName }
-  // The queue, every profession's, in the order it was asked for; what it is doing, or why it waits; whether «Create
+  // The open profession's queue, in the order it was asked for; what it is doing, or why it waits; whether «Create
   // next» starts its next run.
-  public derived queued: Array<Queued> = self.crafting.lines
+  public derived queued: Array<Queued> = self.crafting.linesOf(Game.tradeSkill.open)
   derived queueStatus: String = self.queueStatusOf()
   derived queueReady: Boolean = !self.crafting.running && self.queued.length > 0 && !Game.situation.combat
   // What became of the last «Create» that didn't start: it waits in the queue.
@@ -303,7 +303,7 @@ public class Professions implements Module, App {
     return kinds
   }
 
-  // «Queue (2)» while two recipes wait, of any profession.
+  // «Queue (2)» while two recipes of the open profession wait.
   pageNamesOf(self): Array<String> {
     const waiting = self.queued.length
     let names: Array<String> = []
@@ -613,26 +613,23 @@ public class Professions implements Module, App {
     }
   }
 
-  // What the queue is doing, or why it waits for the player's click.
+  // What the open profession's queue is doing, or why it waits for the player's click; while a run goes, what it
+  // makes (the client makes one run at a time).
   queueStatusOf(self): String {
     const first = self.queued[1]
     if (first == nil) { return "" }
-    if (self.crafting.running) { return Locale.QUEUE_MAKING.format(first.name, self.crafting.left) }
-    return match (self.crafting.paused) {
+    if (self.crafting.running) {
+      const making = self.crafting.making
+      const line = self.crafting.lines.find(entry => entry.recipe == making)
+      return Locale.QUEUE_MAKING.format(line?.name ?? first.name, self.crafting.left)
+    }
+    return match (self.crafting.pauseOf(Game.tradeSkill.open)) {
       Pause.Interrupted => Locale.PAUSE_INTERRUPTED
       Pause.Failed => Locale.PAUSE_FAILED
       Pause.Combat => Locale.PAUSE_COMBAT
-      Pause.Closed => Locale.PAUSE_CLOSED.format(self.professionName(first.skillLine))
       Pause.Missing => Locale.PAUSE_MISSING.format(first.name)
       Pause.None => Locale.QUEUE_NEXT.format(first.name, first.count)
     }
-  }
-
-  professionName(self, skillLine: Integer): String {
-    for (profession of Game.professions.list) {
-      if (profession.skillLine == skillLine) { return profession.name }
-    }
-    return ""
   }
 
   // A run ended: where the window was closed during it, the profession closes now (and its closing shows the window

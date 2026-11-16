@@ -118,8 +118,8 @@ public function members(recipes: Array<Game.Recipe>, group: Integer, starred: Ar
 // The profession's own tabs: the camp's while it has recipes.
 public enum Page { Recipes = "recipes", Camp = "camp", Queue = "queue", Overview = "overview" }
 
-// A recipe in the queue: what «Create» asked for, with how many are still to make, under its profession, and its name
-// (the queue shows every profession's, and the game names only the open one's recipes).
+// A recipe in the queue: what «Create» asked for, with how many are still to make, under its profession (whose
+// «Queue» tab shows it and runs it), and its name (the game names only the open profession's recipes).
 public struct Queued implements Plain {
   skillLine: Integer
   recipe: Integer
@@ -127,12 +127,11 @@ public struct Queued implements Plain {
   count: Integer
 }
 
-// Why the queue waits for the player's click to go on: for nothing (its next recipe is ready, or nothing is left);
-// the client interrupted the run (the player moved, cancelled it); it refused a craft (a reagent, a tool, a place);
-// a fight began; the next recipe's profession isn't the one open; the bags hold no reagents for the next.
+// Why a profession's queue waits for the player's click to go on: for nothing (its next recipe is ready, or nothing
+// is left); the client interrupted the run (the player moved, cancelled it); it refused a craft (a reagent, a tool, a
+// place); a fight began; the bags hold no reagents for the next.
 public enum Pause implements Plain {
-  None = "none", Interrupted = "interrupted", Failed = "failed", Combat = "combat", Closed = "closed"
-  Missing = "missing"
+  None = "none", Interrupted = "interrupted", Failed = "failed", Combat = "combat", Missing = "missing"
 }
 
 // The most recipes waiting: past it the oldest goes.
@@ -153,15 +152,16 @@ public struct Seen implements Plain {
 
 // What the window remembers for the character, kept at once: the profession last open (by its skill line, 0 before
 // any was), what was last chosen in each profession, the recipes starred and the ones tracked (each capped, the oldest
-// dropped first), and the queue (every profession's, in the order it was asked for) and why it waits. Where the window
-// stands is the window's own (`Window`, the profile's).
+// dropped first), and the queue (every profession's lines, in the order they were asked for) and why each
+// profession's waits, by its skill line (none for one that waits for nothing). Where the window stands is the
+// window's own (`Window`, the profile's).
 public struct Kept implements Plain {
   last: Integer
   seen: Map<Integer, Seen>
   favorites: Array<Integer>
   tracked: Array<Integer>
   queue: Array<Queued>
-  paused: Pause
+  paused: Map<Integer, Pause>
 }
 
 // The most recipes starred, or tracked.
