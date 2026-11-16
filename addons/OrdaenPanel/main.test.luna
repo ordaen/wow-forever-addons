@@ -659,6 +659,8 @@ test "a height kept lower than the cells fit, from before the slider stopped at 
   // The menu's cells, of their one height, stand whole on the screen.
   const cell = panel().box(PROFESSIONS).rect()
   Test.expect(cell.bottom <= SCREEN.height)
+  // Its slider says so too, before its knob is moved.
+  Test.expect(tab("Bottom panel").text("60 px").shown())
 }
 
 test "the panel's text outline is chosen on the bars' tab: none, thin or thick" {
