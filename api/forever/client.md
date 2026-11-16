@@ -170,6 +170,11 @@ What a tooltip's data holds: [`tooltip-data.md`](tooltip-data.md).
 
 - **`TRADE_SKILL_LIST_UPDATE` after `TRADE_SKILL_SHOW` may come before the list:** `GetAllRecipeIDs` gives none at
   the first. Known: session 445 (da2daef). Not held by the stand-in.
+- **A profession opened while another is open (`OpenTradeSkill`) is shown before its lists come:** at its
+  `TRADE_SKILL_SHOW` and the first `TRADE_SKILL_LIST_UPDATE` after it, `GetCategories` and `GetAllRecipeIDs` still
+  give the lists of the one that was open; the second update, about 35 ms after the show, brings its own, and a
+  third says the same again. Known: session 511. Not held by the stand-in; the game's side leaves the lists unread
+  until they are the asked profession's (`professions.luna`, `stale`).
 - **A full auction scan reads a third of its weapon and armour auctions with no link yet;** the item's data comes
   with `ITEM_DATA_LOAD_RESULT`. Known: ea0652d (337 of the first 1000 read). Not held by the stand-in.
 - **`UnitPosition` gives nothing inside an instance** (`client.d.luna` doesn't say so); `IsPlayerMoving` still
@@ -205,6 +210,7 @@ What a tooltip's data holds: [`tooltip-data.md`](tooltip-data.md).
 - The menu button's tooltip filled anew each second.
 - `ProfessionsFrame` shown before an addon hears `TRADE_SKILL_SHOW`.
 - The first `TRADE_SKILL_LIST_UPDATE` before the list.
+- A profession opened over another shown, and updated once, with the other's lists.
 - Auctions with no link until `ITEM_DATA_LOAD_RESULT`.
 - `UnitPosition` giving nothing in an instance.
 - The last level's experience figure at the cap.
