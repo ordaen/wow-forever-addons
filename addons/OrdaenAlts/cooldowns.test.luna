@@ -10,6 +10,13 @@ import { Hour } from "Ordaen"
 import { Character, CharacterId, Kept, Known, RecipeId } from "@/character"
 import Locale from "@/locales"
 
+// The open profession's recipes as the game's side reads them: these ids, each learned.
+function learned(ids: Array<Integer>): Array<Game.Recipe> {
+  return ids.map(id => Game.Recipe {
+    id: id, name: "", icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 0, learned: true, difficulty: Game.Difficulty.Usually, craftable: 0
+  })
+}
+
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // The colours the player sees: a heading's and the played character's gold, a text's ink, a detail's dim ink, the red
 // of what is late, the green of what is ready, the darker ink of a character out of reach.
@@ -86,7 +93,7 @@ test "with no recipe with a cooldown the tab says how to record them" {
 test "a profession opened records the cooldowns of its recipes, and only of those that have one" {
   Game.clock.server = START
   Game.spells.name = spellName
-  Game.recipeReader.known = (): Array<Integer> | nil => [STONE, 2662]
+  Game.tradeSkill.recipes = learned([STONE, 2662])
   Game.recipeReader.cooldown = (recipe: Integer): Integer | nil => recipe == STONE ? 5 * 3600 : nil
   Test.mount(nil, SCREEN)
   _ = cooldowns()
@@ -95,11 +102,11 @@ test "a profession opened records the cooldowns of its recipes, and only of thos
 }
 
 test "nothing is recorded while no profession is open, or where the game gives no recipes" {
-  Game.recipeReader.known = (): Array<Integer> | nil => [STONE]
+  Game.tradeSkill.recipes = learned([STONE])
   Game.recipeReader.cooldown = (recipe: Integer): Integer | nil => 3600
   Test.mount(nil, SCREEN)
   _ = cooldowns()
-  Game.recipeReader.known = (): Array<Integer> | nil => nil
+  Game.tradeSkill.recipes = []
   Game.tradeSkill.open = SMITHING
   Test.expect(shows(`${Locale.NO_COOLDOWNS} | ${HEADINGS} | ${TABS}`))
 }

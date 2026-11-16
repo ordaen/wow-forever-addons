@@ -10,6 +10,13 @@ import root Alts from "OrdaenAlts"
 import { Character, CharacterId, Kept, Known, Place, RecipeId } from "@/character"
 import Locale from "@/locales"
 
+// The open profession's recipes as the game's side reads them: these ids, each learned.
+function learned(ids: Array<Integer>): Array<Game.Recipe> {
+  return ids.map(id => Game.Recipe {
+    id: id, name: "", icon: "Interface/Icons/INV_Misc_Note_01", categoryID: 0, learned: true, difficulty: Game.Difficulty.Usually, craftable: 0
+  })
+}
+
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const PLAYER = "Player-1-00000001"
 const SMITHING = 164
@@ -54,7 +61,7 @@ function window(): Test.Part {
 test "a recipe the character knows is answered with it, in reach, and the hour it is ready where it has a cooldown" {
   Game.clock.server = START
   Test.mount(nil, SCREEN)
-  Game.recipeReader.known = (): Array<Integer> | nil => [2663, 2662]
+  Game.tradeSkill.recipes = learned([2663, 2662])
   Game.recipeReader.cooldown = (recipe: Integer): Integer | nil => recipe == 2663 ? 7200 : nil
   const before = Alts.revision
   Game.tradeSkill.open = SMITHING
@@ -84,7 +91,7 @@ test "a character of another realm or side knows its recipes out of reach, and c
 
 test "a recipe learned while its profession is open is known at once, and once" {
   Test.mount(nil, SCREEN)
-  Game.recipeReader.known = (): Array<Integer> | nil => [2663]
+  Game.tradeSkill.recipes = learned([2663])
   Game.tradeSkill.open = SMITHING
   Test.flush()
   const before = Alts.revision
@@ -99,7 +106,7 @@ test "a recipe learned with no profession open, or of one never read, waits for 
   Test.mount(nil, SCREEN)
   Game.tradeSkill.learned.emit(3320)
   Test.expect(Alts.knowers(RecipeId.of(3320)).length == 0)
-  Game.recipeReader.known = (): Array<Integer> | nil => nil
+  Game.tradeSkill.recipes = []
   Game.tradeSkill.open = SMITHING
   Test.flush()
   Game.tradeSkill.learned.emit(3320)
@@ -152,7 +159,7 @@ test "the professions read again alike move no revision; one more moves it" {
 
 test "a profession read again with the same recipes moves no revision" {
   Test.mount(nil, SCREEN)
-  Game.recipeReader.known = (): Array<Integer> | nil => [2663]
+  Game.tradeSkill.recipes = learned([2663])
   Game.tradeSkill.open = SMITHING
   Test.flush()
   const before = Alts.revision
@@ -204,7 +211,7 @@ test "a reading past the most recipes or kinds of items is refused, and says so"
   Test.mount(nil, SCREEN)
   const recipes: Array<Integer> = []
   for (i of 1..1501) { recipes.push(i) }
-  Game.recipeReader.known = (): Array<Integer> | nil => recipes
+  Game.tradeSkill.recipes = learned(recipes)
   Game.tradeSkill.open = SMITHING
   Test.flush()
   const items: Map<Integer, Integer> = {}
@@ -222,7 +229,7 @@ test "the most recipes and kinds of items are taken" {
   Test.mount(nil, SCREEN)
   const recipes: Array<Integer> = []
   for (i of 1..1500) { recipes.push(i) }
-  Game.recipeReader.known = (): Array<Integer> | nil => recipes
+  Game.tradeSkill.recipes = learned(recipes)
   Game.tradeSkill.open = SMITHING
   Test.flush()
   const items: Map<Integer, Integer> = {}
@@ -264,7 +271,7 @@ test "the saved size of twenty characters with three hundred recipes and a hundr
 test "a profession dropped for another takes its recipes from those known" {
   Test.mount(nil, SCREEN)
   Game.professions.list = [{ skillLine: SMITHING, name: "Blacksmithing", icon: "x", rank: 150, max: 300, kind: .Crafting }]
-  Game.recipeReader.known = (): Array<Integer> | nil => [2663]
+  Game.tradeSkill.recipes = learned([2663])
   Game.tradeSkill.open = SMITHING
   Test.flush()
   Test.expect(Alts.knowers(RecipeId.of(2663)).length == 1)
@@ -284,7 +291,7 @@ test "a recipe learned past the most a profession keeps is left out" {
   Test.mount(nil, SCREEN)
   const recipes: Array<Integer> = []
   for (i of 1..1500) { recipes.push(i) }
-  Game.recipeReader.known = (): Array<Integer> | nil => recipes
+  Game.tradeSkill.recipes = learned(recipes)
   Game.tradeSkill.open = SMITHING
   Test.flush()
   Game.tradeSkill.learned.emit(9999)
