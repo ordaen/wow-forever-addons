@@ -1,21 +1,16 @@
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
-import { Align, Anchored, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ALWAYS, Component, Module, Placed, SECONDARY_TEXT, Settings, SettingsPage, Visibility, VisibilityRows, opacityNow, space } from "Ordaen"
+import { Module, Settings, SettingsPage } from "Ordaen"
+import { Bar, buttonName, shortKey } from "@/bars"
+import { BarChoice, BarKind, BarSpec, Choices, DEFAULTS, SPECS, defaultChoice } from "@/choices"
 import Locale from "@/locales"
+import { BarsPage } from "@/settings"
 
-// The client's action button is this wide and high, in UI units: its art and its regions are drawn for it.
-const BUTTON: Number<Length> = 45ui
-const BUTTONS = 12
-const GAP: Number<Length> = space(.Line)
-// The lowest bar's room above what keeps the screen's bottom edge (the bottom panel, or the edge itself), and each
-// bar's step up from the one under it.
-const ABOVE: Number<Length> = space(.Item)
-const STEP: Number<Length> = BUTTON + GAP
-const INK: Color = Color.hex("#ffffff")
-const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
+// The game's pages Панель 1 shows: the one the player turned to (Shift and the wheel, or the page arrows), then a
+// form's (a bonus bar's: 7 to 10), else the first.
+const TURNED = "[actionbar:2] 2; [actionbar:3] 3; [actionbar:4] 4; [actionbar:5] 5; [actionbar:6] 6; "
 
 // A frame never shown: what is put in it draws nothing, whatever shows it.
 function hiddenFrame(): any Client.Frame {
@@ -24,138 +19,38 @@ function hiddenFrame(): any Client.Frame {
   return made
 }
 
-// One of the game's eight bars: its number (Панель 1 to 8), its first slot (the game's own pages for it) and the
-// game's name of its buttons' bindings (`ACTIONBUTTON` and a button's number: `ACTIONBUTTON1`).
-public struct BarSpec {
-  number: Integer
-  first: Integer
-  command: String
-}
-
-// A bar drawn: which of the eight, and its place in the stack from the bottom (1 the lowest).
+// A bar drawn: its spec and its place in the default stack from the bottom (1 the lowest).
 public struct Shown {
   spec: BarSpec
   place: Integer
 }
 
-// One button of a bar: the client's own, by its name, and its binding's name.
-public struct Slot {
-  frame: any Client.Frame
-  name: String
-  command: String
-}
-
-// What the player chooses on the module's page: one visibility for every bar.
-public struct Choices implements Plain {
-  visibility: Visibility
-}
-
-// The game's eight bars in Blizzard's own slots and bindings: without this module, the game's bars show the same
-// actions in the same places, and the game's Key Bindings window names their keys.
-const SPECS: Array<BarSpec> = [
-  { number: 1, first: 1, command: "ACTIONBUTTON" },
-  { number: 2, first: 61, command: "MULTIACTIONBAR1BUTTON" },
-  { number: 3, first: 49, command: "MULTIACTIONBAR2BUTTON" },
-  { number: 4, first: 25, command: "MULTIACTIONBAR3BUTTON" },
-  { number: 5, first: 37, command: "MULTIACTIONBAR4BUTTON" },
-  { number: 6, first: 145, command: "MULTIACTIONBAR5BUTTON" },
-  { number: 7, first: 157, command: "MULTIACTIONBAR6BUTTON" },
-  { number: 8, first: 169, command: "MULTIACTIONBAR7BUTTON" }
-]
-
-// A key as a button shows it: the modifiers by their first letter (`SHIFT-1` is `S1`).
-function shortKey(key: String): String {
-  return key.replace("SHIFT%-", "S").replace("CTRL%-", "C").replace("ALT%-", "A")
-}
-
-// One button: the client's own, and its key's text in its top right corner.
-public class Button implements Component {
-  derived key: String = self.keys[self.slot.command] ?? ""
-
-  const slot: Slot
-  keys: Signal<Map<String, String>>
-  constructor(slot: Slot, keys: Signal<Map<String, String>>) {
-    self.slot = slot
-    self.keys = keys
-  }
-
-  public render(self): Template {
-    return $ltml {
-      <box width={BUTTON} height={BUTTON}>
-        <embed frame={self.slot.frame} position={Position.Absolute} left={0ui} top={0ui} width={BUTTON} height={BUTTON} />
-        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align.End} padding={2ui} zLevel={2}>
-          <text value={self.key} textColor={INK} textSize={SECONDARY_TEXT} textShadow={KEY_SHADOW} wrap={false} />
-        </box>
-      </box>
-    }
-  }
-}
-
-// A bar of twelve of the client's own action buttons (`ActionBarButtonTemplate`), each given its slot: the client's
-// template draws the action's icon, cooldown, charges and count and the range and usable tints, and casts or uses it
-// on the player's click, in a fight too. It stands above what keeps the screen's bottom edge until the player moves
-// it, and shows as the module's visibility says (by its opacity alone: its buttons are protected, and a fight keeps
-// them where they are).
-public class Bar implements Component {
-  slots: Array<Slot> = []
-  state hovered = false
-  derived home: Anchored = { point: Point.Bottom, y: -(Ordaen.bottomTaken + ABOVE + (self.shown.place - 1) * STEP) }
-  derived opacity: Number = opacityNow(self.visibility, self.hovered)
-
-  // What tells it from every other part in the placing mode, and its name there.
-  id: String
-  title: String
-
-  const shown: Shown
-  keys: Signal<Map<String, String>>
-  visibility: Signal<Visibility>
-  constructor(shown: Shown, keys: Signal<Map<String, String>>, visibility: Signal<Visibility>) {
-    self.shown = shown
-    self.keys = keys
-    self.visibility = visibility
-    self.id = `OrdaenActionBars.bar${shown.spec.number}`
-    self.title = Locale.BAR_TITLE.format(shown.spec.number)
-    const made: Array<Slot> = []
-    for (index of 1..BUTTONS) {
-      const name = ActionBars.buttonName(shown.spec.number, index)
-      const frame = Client.CreateFrame("CheckButton", name, Client.UIParent, "ActionBarButtonTemplate")
-      frame.SetAttribute("type", "action")
-      frame.SetAttribute("action", shown.spec.first + index - 1)
-      made.push({ frame: frame, name: name, command: `${shown.spec.command}${index}` })
-    }
-    self.slots = made
-  }
-
-  // The client's frames can't be destroyed: hidden, they take no click and draw nothing.
-  destructor() {
-    for (slot of self.slots) { slot.frame.Hide() }
-  }
-
-  onEnter(mut self) { self.hovered = true }
-  onLeave(mut self) { self.hovered = false }
-
-  public render(self): Template {
-    return $ltml {
-      <Placed id={self.id} title={self.title} home={self.home}>
-        <box columns={BUTTONS} gap={GAP} opacity={self.opacity} hoverWithin={true} @enter={self.onEnter}
-             @leave={self.onLeave}>
-          <Button $for={slot of self.slots} slot={peek slot} keys={self.keys} />
-        </box>
-      </Placed>
-    }
-  }
-}
-
 public class ActionBars implements Module, App {
   public const title: String = "Ordaen Action Bars"
-  settings: mut Settings<Choices> = new Settings<Choices>({ visibility: ALWAYS })
+  settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   public const pages: Array<SettingsPage> = [
-    { title: Locale.TAB_BARS, content: $ltml { <VisibilityRows value={mut self.settings.draft.visibility} /> } }
+    {
+      title: Locale.TAB_BARS,
+      content: $ltml { <BarsPage settings={mut self.settings} defaults={self.defaults} conflict={self.conflict} /> }
+    }
   ]
 
-  // The bars drawn: Панель 1 always, and the others the character's own Blizzard settings show.
-  bars: Array<Shown> = []
-  // The game's bars, hidden while the module runs: their slots stay as they are.
+  // Bartender4 is loaded: both would fight over the slots, the keys and the game's bars, so the bars stay off.
+  state conflict: Boolean = false
+  // Each bar's settings before the player changes them: on as the character's own Blizzard settings have it (the
+  // pet's bar on, the stances' on for a class with forms).
+  state defaults: Map<String, BarChoice> = {}
+  // The choices that apply: the settings', taken out of a fight alone (the bars' buttons are protected).
+  state applied: Choices = DEFAULTS
+  // The player's forms: the stances' bar shows a button for each.
+  state forms: Integer = 0
+  // The bars are made once the player is out of a fight: a module turned on in one waits for its end.
+  state ready = false
+
+  // The bars drawn, the action bars in Blizzard's order from the bottom, then the pet's and the stances'.
+  derived bars: Array<Shown> = self.barsOf()
+  derived paging: String = self.pagingOf()
+  // The game's bars this module draws in their place, kept unseen while it runs: their slots stay as they are.
   derived hidden: Array<any Client.Frame> = self.hiddenBars()
   // Where the game's bars are kept while the module runs: a frame never shown. A bar hidden by itself doesn't stay
   // so: the client shows it again (entering the world, its toggles, a vehicle), so it is put in this one instead,
@@ -163,47 +58,54 @@ public class ActionBars implements Module, App {
   const hider: any Client.Frame = hiddenFrame()
   // Each bar put in the hider, by the parent the game gave it: given back as the module ends.
   parents: mut Map<any Client.Frame, any Client.Frame> = {}
-  // The bars came in a fight: put away as it ends (the client moves no protected frame in a fight).
-  state rehide = false
   // Each binding's key as its button shows it, by the binding's name: read again when the player binds a key.
   state keys: Map<String, String> = {}
   // The keys of the game's bindings, bound to our buttons over the game's own: the frame that owns those overrides.
   const owner: any Client.Frame = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
-  // The bindings changed in a fight: bound again as it ends (the client takes no binding in a fight).
-  state rebind = false
 
   constructor() {
-    const toggles = ActionBars.toggles()
-    const bars: Array<Shown> = []
-    for (index, spec of SPECS) {
-      if (toggles[index] == true) { bars.push({ spec: spec, place: bars.length + 1 }) }
-    }
-    self.bars = bars
-    self.bind()
-    Events.UPDATE_BINDINGS.listen(self.bind)
-    watch {
-      if (!Game.situation.combat && self.rebind) {
-        self.rebind = false
-        self.bind()
-      }
-    }
-    watch {
-      const games = self.hidden
-      if (Game.situation.combat) {
-        self.rehide = true
-      } else {
-        self.rehide = false
-        self.putAway(games)
-      }
-    }
+    let bartender, _ = Client.C_AddOns.IsAddOnLoaded("Bartender4")
+    self.conflict = bartender
+    self.defaults = ActionBars.defaultsOf()
     Ordaen.modules.add(self)
+    if (bartender) { return }
+    Ordaen.afterCombat(() => self.start())
+  }
+
+  // Out of a fight: the bars are made, the game's put away, the keys bound; from then on each change waits for a
+  // fight's end.
+  start(mut self) {
+    self.forms = Client.GetNumShapeshiftForms()
+    self.applied = peek self.settings.values
+    self.ready = true
+    self.bind()
+    Events.UPDATE_BINDINGS.listen(self.rebind)
+    Events.UPDATE_SHAPESHIFT_FORMS.listen(self.reform)
+    watch (values of self.settings.values) { Ordaen.afterCombat(() => self.apply(values)) }
+    watch (games of self.hidden) { Ordaen.afterCombat(() => self.putAway(games)) }
   }
 
   destructor() {
-    if (!Game.situation.combat) {
-      Client.ClearOverrideBindings(self.owner)
-      for (frame, parent of self.parents) { frame.SetParent(parent) }
-    }
+    const owner = self.owner
+    const parents = self.parents
+    Ordaen.afterCombat(() => ActionBars.giveBack(owner, parents))
+  }
+
+  apply(mut self, values: Choices) {
+    self.applied = values
+    self.bind()
+  }
+
+  rebind(mut self) { Ordaen.afterCombat(() => self.bind()) }
+
+  reform(mut self) { Ordaen.afterCombat(() => self.countForms()) }
+
+  countForms(mut self) { self.forms = Client.GetNumShapeshiftForms() }
+
+  // The game's keys and bars go back as they were.
+  giveBack(owner: any Client.Frame, parents: Map<any Client.Frame, any Client.Frame>) {
+    Client.ClearOverrideBindings(owner)
+    for (frame, parent of parents) { frame.SetParent(parent) }
   }
 
   // Each of the game's bars goes into the hider, its own parent kept to give back.
@@ -217,27 +119,46 @@ public class ActionBars implements Module, App {
     }
   }
 
-  // Whether each of the eight bars is on, as the character's own Blizzard settings say: Панель 1 always.
-  toggles(): Array<Boolean> {
+  defaultsOf(): Map<String, BarChoice> {
     let bottomLeft, bottomRight, right, left, six, seven, eight = Client.GetActionBarToggles()
-    return [true, bottomLeft, bottomRight, right, left, six, seven, eight]
+    const on = [true, bottomLeft, bottomRight, right, left, six, seven, eight, true, Client.GetNumShapeshiftForms() > 0]
+    const defaults: Map<String, BarChoice> = {}
+    for (index, spec of SPECS) { defaults[spec.id] = defaultChoice(spec, on[index] == true) }
+    return defaults
   }
 
-  // The name of a bar's button, a global of the client's: what a binding's click names.
-  buttonName(bar: Integer, index: Integer): String { return `OrdaenActionBars${bar}Button${index}` }
+  // A bar's settings that apply.
+  choiceOf(self, spec: BarSpec): BarChoice {
+    return self.applied.bars[spec.id] ?? self.defaults[spec.id] ?? defaultChoice(spec, false)
+  }
 
-  // Each key of the game's bindings of the bars drawn clicks our button in its place, and its text is kept.
-  bind(mut self) {
-    if (peek Game.situation.combat) {
-      self.rebind = true
-      return
+  barsOf(self): Array<Shown> {
+    const bars: Array<Shown> = []
+    if (!self.ready) { return bars }
+    for (spec of SPECS) {
+      if (self.choiceOf(spec).on) { bars.push({ spec: spec, place: bars.length + 1 }) }
     }
+    return bars
+  }
+
+  // Панель 1's paging: the page turned to, then each form's whose page the player keeps.
+  pagingOf(self): String {
+    let options = TURNED
+    for (bonusbar of 1..4) {
+      if (self.applied.unpaged[String.of(bonusbar)] != true) { options = `${options}[bonusbar:${bonusbar}] ${bonusbar + 6}; ` }
+    }
+    return `${options}1`
+  }
+
+  // Each key of the game's bindings of the bars drawn clicks our button in its place, and its text is kept. Out of a
+  // fight alone: the client takes no binding in one.
+  bind(mut self) {
     Client.ClearOverrideBindings(self.owner)
     const keys: Map<String, String> = {}
-    for (bar of self.bars) {
-      for (index of 1..BUTTONS) {
+    for (bar of peek self.bars) {
+      for (index of 1..self.choiceOf(bar.spec).buttons) {
         const command = `${bar.spec.command}${index}`
-        const name = ActionBars.buttonName(bar.spec.number, index)
+        const name = buttonName(bar.spec.id, index)
         let first, second = Client.GetBindingKey(command)
         if (first != nil) {
           keys[command] = shortKey(first)
@@ -251,15 +172,23 @@ public class ActionBars implements Module, App {
 
   hiddenBars(self): Array<any Client.Frame> {
     const parts: Array<any Client.Frame> = []
-    for (number of 1..SPECS.length) {
-      const frame = ActionBars.gameBar(number)
+    for (bar of self.bars) {
+      const frame = ActionBars.gameBar(bar.spec)
       if (frame != nil) { parts.push(frame) }
     }
     return parts
   }
 
-  // The game's own bar of that number (Панель 1 to 8).
-  gameBar(number: Integer): any Client.Frame | nil {
+  // The game's own bar in a bar's place.
+  gameBar(spec: BarSpec): any Client.Frame | nil {
+    return match (spec.kind) {
+      BarKind.Pet => Game.frames.PetActionBar
+      BarKind.Stance => Game.frames.StanceBar
+      BarKind.Action => ActionBars.actionBar(spec.number)
+    }
+  }
+
+  actionBar(number: Integer): any Client.Frame | nil {
     return match (number) {
       1 => Game.frames.MainActionBar
       2 => Game.frames.MultiBarBottomLeft
@@ -274,7 +203,9 @@ public class ActionBars implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <Bar $for={bar of self.bars} shown={peek bar} keys={self.keys} visibility={self.settings.values.visibility} />
+      <Bar $for={bar of self.bars} $key={bar.spec.id} spec={(peek bar).spec} place={(peek bar).place}
+           choices={self.applied.bars} defaults={self.defaults}
+           keys={self.keys} paging={self.paging} forms={self.forms} />
     }
   }
 }

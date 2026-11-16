@@ -1,0 +1,205 @@
+// A bar: the client's own buttons (its action, pet or stance button template) in a Placed part, laid out as the
+// player chose, each with its key's text.
+import Client from "$client"
+import { Align, Anchored, Point, Position, Shadow } from "$ltml"
+import root Ordaen from "Ordaen"
+import { Component, Placed, SECONDARY_TEXT, Visibility, opacityNow, space } from "Ordaen"
+import { BarChoice, BarKind, BarSpec, defaultChoice } from "@/choices"
+import Locale from "@/locales"
+
+// The client's action button is this wide and high, in UI units: its art and its regions are drawn for it.
+const BUTTON: Number<Length> = 45ui
+// The lowest bar's room above what keeps the screen's bottom edge (the bottom panel, or the edge itself), and each
+// bar's step up from the one under it at the buttons' own size.
+const ABOVE: Number<Length> = space(.Item)
+const STEP: Number<Length> = BUTTON + space(.Line)
+const INK: Color = Color.hex("#ffffff")
+const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
+
+// The pet's buttons show while the player has a pet with its bar: the client's own condition, read in a fight too.
+const WITH_PET = "[pet] show; hide"
+
+// One button of a bar: the client's own, by its name, and its binding's name.
+public struct Slot {
+  frame: any Client.Frame
+  name: String
+  command: String
+}
+
+// A key as a button shows it: the modifiers by their first letter (`SHIFT-1` is `S1`).
+public function shortKey(key: String): String {
+  return key.replace("SHIFT%-", "S").replace("CTRL%-", "C").replace("ALT%-", "A")
+}
+
+// The name of a bar's button, a global of the client's: what a binding's click names.
+public function buttonName(id: String, index: Integer): String { return `OrdaenActionBars${id}Button${index}` }
+
+// One button: the client's own, and its key's text in its top right corner.
+public class Button implements Component {
+  derived key: String = self.showKeys ? self.keys[self.slot.command] ?? "" : ""
+
+  const slot: Slot
+  keys: Signal<Map<String, String>>
+  size: Signal<Number<Length>>
+  showKeys: Signal<Boolean>
+  constructor(slot: Slot, keys: Signal<Map<String, String>>, size: Signal<Number<Length>>, showKeys: Signal<Boolean>) {
+    self.slot = slot
+    self.keys = keys
+    self.size = size
+    self.showKeys = showKeys
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <box width={self.size} height={self.size}>
+        <embed frame={self.slot.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size}
+               height={self.size} />
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align.End} padding={2ui} zLevel={2}>
+          <text value={self.key} textColor={INK} textSize={SECONDARY_TEXT} textShadow={KEY_SHADOW} wrap={false} />
+        </box>
+      </box>
+    }
+  }
+}
+
+// A bar of the client's own buttons, each on its slot (an action bar's) or its place (the pet's, the stances'): the
+// client's template draws the action's icon, cooldown, charges and count and the range and usable tints, and casts or
+// uses it on the player's click, in a fight too. Панель 1's buttons page as the client's main bar does, by a secure
+// driver of their `actionpage`: in a form whose page the player keeps, Панель 1 shows that form's page, in a fight too.
+// It stands above what keeps the screen's bottom edge until the player moves it, and shows as its visibility says (by
+// its opacity alone: its buttons are protected, and a fight keeps them where they are). Its choice changes out of a
+// fight alone: its module hands it the choice that applies.
+public class Bar implements Component {
+  slots: Array<Slot> = []
+  state hovered = false
+  derived home: Anchored = { point: Point.Bottom, y: -(Ordaen.bottomTaken + ABOVE + (self.place - 1) * STEP) }
+  derived choice: BarChoice = self.choices[self.spec.id] ?? self.defaults[self.spec.id] ?? defaultChoice(self.spec, false)
+  derived visibility: Visibility = self.choice.visibility
+  derived opacity: Number = opacityNow(self.visibility, self.hovered)
+  // How many of its buttons show: as many as chosen, and for the stances' bar no more than the player's forms.
+  derived count: Integer = self.spec.kind == BarKind.Stance ? self.choice.buttons.min(self.forms) : self.choice.buttons
+  derived drawn: Array<Slot> = self.drawnOf(true)
+  // The buttons past its count: kept unseen while it is drawn (the renderer shows an embedded frame let go again).
+  derived unseen: Array<Slot> = self.drawnOf(false)
+  derived size: Number<Length> = self.choice.size * 1ui
+  derived spacing: Number<Length> = self.choice.spacing * 1ui
+  derived showKeys: Boolean = self.choice.keys
+
+  // What tells it from every other part in the placing mode, and its name there.
+  id: String
+  title: String
+
+  const spec: BarSpec
+  // Its place in the default stack from the bottom: 1 the lowest.
+  const place: Integer
+  choices: Signal<Map<String, BarChoice>>
+  defaults: Signal<Map<String, BarChoice>>
+  keys: Signal<Map<String, String>>
+  paging: Signal<String>
+  forms: Signal<Integer>
+  constructor(
+    spec: BarSpec,
+    place: Integer,
+    // Each bar's settings that apply, by its id, and this bar's before the player changed them.
+    choices: Signal<Map<String, BarChoice>>,
+    defaults: Signal<Map<String, BarChoice>>,
+    keys: Signal<Map<String, String>>,
+    // Панель 1's paging: the client's macro options its buttons' `actionpage` follows.
+    paging: Signal<String>,
+    // The player's forms, which the stances' bar shows.
+    forms: Signal<Integer>
+  ) {
+    self.spec = spec
+    self.place = place
+    self.choices = choices
+    self.defaults = defaults
+    self.keys = keys
+    self.paging = paging
+    self.forms = forms
+    self.id = `OrdaenActionBars.bar${spec.id}`
+    self.title = Bar.titleOf(spec)
+    const made: Array<Slot> = []
+    for (index of 1..spec.most) {
+      const name = buttonName(spec.id, index)
+      const frame = Client.CreateFrame("CheckButton", name, Client.UIParent, spec.template)
+      if (spec.kind == BarKind.Action && spec.number != 1) {
+        frame.SetAttribute("type", "action")
+        frame.SetAttribute("action", spec.first + index - 1)
+      } else {
+        // Панель 1's, the pet's and the stances' buttons are told by their place, as the game's own are.
+        frame.SetID(index)
+      }
+      made.push({ frame: frame, name: name, command: `${spec.command}${index}` })
+    }
+    self.slots = made
+    if (spec.kind == BarKind.Action && spec.number == 1) {
+      watch (options of self.paging) {
+        for (slot of peek self.slots) { Client.RegisterAttributeDriver(slot.frame, "actionpage", options) }
+      }
+    }
+    watch (count of self.count) { self.showFirst(count) }
+  }
+
+  // The client's frames can't be destroyed: hidden, they take no click and draw nothing. In a fight the client hides
+  // no protected frame: they fade at once and are hidden as it ends.
+  destructor() {
+    const slots = self.slots
+    const pet = self.spec.kind == BarKind.Pet
+    for (slot of slots) { slot.frame.SetAlpha(0) }
+    Ordaen.afterCombat(() => Bar.putAway(slots, pet))
+  }
+
+  putAway(slots: Array<Slot>, pet: Boolean) {
+    for (slot of slots) {
+      if (pet) { Client.UnregisterStateDriver(slot.frame, "visibility") }
+      slot.frame.Hide()
+      slot.frame.SetAlpha(1)
+    }
+  }
+
+  // Its name in the placing mode and on the module's page.
+  public titleOf(spec: BarSpec): String {
+    return match (spec.kind) {
+      BarKind.Action => Locale.BAR_TITLE.format(spec.number)
+      BarKind.Pet => Locale.BAR_PET
+      BarKind.Stance => Locale.BAR_STANCE
+    }
+  }
+
+  // The buttons within its count (`within`), or those past it.
+  drawnOf(self, within: Boolean): Array<Slot> {
+    const drawn: Array<Slot> = []
+    for (index, slot of self.slots) {
+      if ((index <= self.count) == within) { drawn.push(slot) }
+    }
+    return drawn
+  }
+
+  // The pet's buttons within the count show while there is a pet; those past it have no driver, and stay unseen.
+  showFirst(self, count: Integer) {
+    if (self.spec.kind != BarKind.Pet) { return }
+    for (index, slot of peek self.slots) {
+      if (index <= count) {
+        Client.RegisterStateDriver(slot.frame, "visibility", WITH_PET)
+      } else {
+        Client.UnregisterStateDriver(slot.frame, "visibility")
+      }
+    }
+  }
+
+  onEnter(mut self) { self.hovered = true }
+  onLeave(mut self) { self.hovered = false }
+
+  public render(self): Template {
+    return $ltml {
+      <frame $for={slot of self.unseen} of={slot.frame} shown={false} />
+      <Placed id={self.id} title={self.title} home={self.home}>
+        <box columns={self.choice.perRow} gap={self.spacing} opacity={self.opacity} hoverWithin={true}
+             @enter={self.onEnter} @leave={self.onLeave}>
+          <Button $for={slot of self.drawn} slot={peek slot} keys={self.keys} size={self.size}
+                  showKeys={self.showKeys} />
+        </box>
+      </Placed>
+    }
+  }
+}
