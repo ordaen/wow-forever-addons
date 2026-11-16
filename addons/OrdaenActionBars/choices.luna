@@ -1,0 +1,65 @@
+// What the player chooses on the module's page: each bar's own settings, and which forms page Панель 1.
+import { ALWAYS, Visibility } from "Ordaen"
+
+// The kinds of bars: an action bar of the game's (Панель 1 to 8), the pet's and the stances'.
+public enum BarKind implements Plain { Action = "action", Pet = "pet", Stance = "stance" }
+
+// One bar as the module draws it: what tells it from the others (`"1"` to `"8"`, `"pet"`, `"stance"`), its kind, its
+// number among the action bars (0 for the others), its first slot (an action bar's page of the game's; the pet's
+// and stances' buttons are told by their place), how many buttons it can have, the game's name of its buttons'
+// bindings (`ACTIONBUTTON` and a button's number) and the client's template of its buttons.
+public struct BarSpec {
+  id: String
+  kind: BarKind
+  number: Integer
+  first: Integer
+  most: Integer
+  command: String
+  template: String
+}
+
+// The game's eight bars in Blizzard's own slots and bindings (without this module, the game's bars show the same
+// actions in the same places, and the game's Key Bindings window names their keys), then the pet's and the
+// stances'.
+public const SPECS: Array<BarSpec> = [
+  { id: "1", kind: BarKind.Action, number: 1, first: 1, most: 12, command: "ACTIONBUTTON", template: ACTION },
+  { id: "2", kind: BarKind.Action, number: 2, first: 61, most: 12, command: "MULTIACTIONBAR1BUTTON", template: ACTION },
+  { id: "3", kind: BarKind.Action, number: 3, first: 49, most: 12, command: "MULTIACTIONBAR2BUTTON", template: ACTION },
+  { id: "4", kind: BarKind.Action, number: 4, first: 25, most: 12, command: "MULTIACTIONBAR3BUTTON", template: ACTION },
+  { id: "5", kind: BarKind.Action, number: 5, first: 37, most: 12, command: "MULTIACTIONBAR4BUTTON", template: ACTION },
+  { id: "6", kind: BarKind.Action, number: 6, first: 145, most: 12, command: "MULTIACTIONBAR5BUTTON", template: ACTION },
+  { id: "7", kind: BarKind.Action, number: 7, first: 157, most: 12, command: "MULTIACTIONBAR6BUTTON", template: ACTION },
+  { id: "8", kind: BarKind.Action, number: 8, first: 169, most: 12, command: "MULTIACTIONBAR7BUTTON", template: ACTION },
+  { id: "pet", kind: BarKind.Pet, number: 0, first: 0, most: 10, command: "BONUSACTIONBUTTON", template: PET },
+  { id: "stance", kind: BarKind.Stance, number: 0, first: 0, most: 10, command: "SHAPESHIFTBUTTON", template: STANCE }
+]
+
+const ACTION = "ActionBarButtonTemplate"
+const PET = "PetActionButtonTemplate"
+const STANCE = "StanceButtonTemplate"
+
+// One bar's settings. Its size is the buttons' side in UI units (the client's own is 45), its spacing the room
+// between them.
+public struct BarChoice implements Plain {
+  on: Boolean
+  buttons: Integer
+  perRow: Integer
+  size: Number
+  spacing: Number
+  keys: Boolean
+  visibility: Visibility
+}
+
+public struct Choices implements Plain {
+  // Each bar's settings the player changed, by its id; a bar not here has its defaults (`defaultChoice`).
+  bars: mut Map<String, BarChoice>
+  // The forms that don't page Панель 1, by their bonus bar (`"1"` to `"4"`): in them it stays as it is.
+  unpaged: mut Map<String, Boolean>
+}
+
+public const DEFAULTS: Choices = { bars: {}, unpaged: {} }
+
+// A bar's settings before the player changes them: on as the character's Blizzard settings have it.
+public function defaultChoice(spec: BarSpec, on: Boolean): BarChoice {
+  return { on: on, buttons: spec.most, perRow: spec.most, size: 45, spacing: 4, keys: true, visibility: ALWAYS }
+}

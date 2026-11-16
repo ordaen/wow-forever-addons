@@ -1,0 +1,124 @@
+// The module's page in the settings window, «Панели команд»: a bar picked from the list, its own settings one
+// section under another, and for Панель 1 the forms that page it. Each control writes the settings' draft.
+import Game from "$game"
+import { Checkbox, Choice, Component, Dropdown, Section, Settings, Slider, Switch, VisibilityRows } from "Ordaen"
+import { Bar } from "@/bars"
+import { BarChoice, BarKind, BarSpec, Choices, SPECS } from "@/choices"
+import Locale from "@/locales"
+
+// A form of the player's class that pages Панель 1: its bonus bar and its name.
+public struct Form {
+  bonusbar: Integer
+  name: String
+}
+
+// The forms that page Панель 1, by the client's own tables (`SpellShapeshiftForm.BonusActionBar`): a warrior's three
+// stances, a druid's cat, prowl and bear, a rogue's stealth. Other classes have none.
+public function formsOf(classTag: String): Array<Form> {
+  return match (classTag) {
+    "WARRIOR" => [
+      { bonusbar: 1, name: Locale.FORM_BATTLE },
+      { bonusbar: 2, name: Locale.FORM_DEFENSIVE },
+      { bonusbar: 3, name: Locale.FORM_BERSERKER }
+    ]
+    "DRUID" => [
+      { bonusbar: 1, name: Locale.FORM_CAT },
+      { bonusbar: 2, name: Locale.FORM_PROWL },
+      { bonusbar: 3, name: Locale.FORM_BEAR }
+    ]
+    "ROGUE" => [{ bonusbar: 1, name: Locale.FORM_STEALTH }]
+    else => []
+  }
+}
+
+// One form's switch: on, Панель 1 shows the form's page in it.
+class FormRow implements Component {
+  state on: Boolean
+
+  const form: Form
+  settings: mut Settings<Choices>
+  constructor(form: Form, settings: mut Settings<Choices>) {
+    self.form = form
+    self.settings = settings
+    self.on = (peek self.settings.draft).unpaged[String.of(form.bonusbar)] != true
+    watch (on of self.on) {
+      const unpaged = (peek self.settings.draft).unpaged.clone()
+      unpaged[String.of(self.form.bonusbar)] = !on
+      self.settings.draft.unpaged = unpaged
+    }
+  }
+
+  public render(self): Template {
+    return $ltml { <Switch label={self.form.name} hint={Locale.FORM_TIP} value={mut self.on} /> }
+  }
+}
+
+// The picked bar's settings: a copy of its choice the controls change, written into the draft as they do.
+class BarEditor implements Component {
+  state choice: mut BarChoice
+  derived paged: Boolean = self.spec.kind == BarKind.Action && self.spec.number == 1 && self.forms.length > 0
+
+  const spec: BarSpec
+  const forms: Array<Form>
+  settings: mut Settings<Choices>
+  constructor(spec: BarSpec, start: BarChoice, settings: mut Settings<Choices>) {
+    self.spec = spec
+    self.settings = settings
+    self.forms = formsOf(peek Game.player.classTag)
+    self.choice = ((peek self.settings.draft).bars[spec.id] ?? start).clone()
+    watch (choice of self.choice) {
+      const bars = (peek self.settings.draft).bars.clone()
+      bars[self.spec.id] = choice
+      self.settings.draft.bars = bars
+    }
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Switch label={Locale.BAR_ON} hint={Locale.BAR_ON_TIP} value={mut self.choice.on} />
+      <Section title={Locale.SECTION_BUTTONS}>
+        <Slider label={Locale.BUTTONS} hint={Locale.BUTTONS_TIP} value={mut self.choice.buttons} least={1}
+                most={self.spec.most} />
+        <Slider label={Locale.PER_ROW} hint={Locale.PER_ROW_TIP} value={mut self.choice.perRow} least={1}
+                most={self.spec.most} />
+      </Section>
+      <Section title={Locale.SECTION_LOOK}>
+        <Slider label={Locale.SIZE} hint={Locale.SIZE_TIP} value={mut self.choice.size} least={24} most={64} />
+        <Slider label={Locale.SPACING} hint={Locale.SPACING_TIP} value={mut self.choice.spacing} least={0} most={16} />
+        <Checkbox label={Locale.KEYS} hint={Locale.KEYS_TIP} value={mut self.choice.keys} />
+      </Section>
+      <VisibilityRows value={mut self.choice.visibility} />
+      <Section $if={self.paged} title={Locale.SECTION_FORMS}>
+        <FormRow $for={form of self.forms} form={peek form} settings={mut self.settings} />
+      </Section>
+    }
+  }
+}
+
+public class BarsPage implements Component {
+  state picked: String = "1"
+  derived spec: BarSpec = SPECS.find(spec => spec.id == self.picked) ?? panic("a bar picked is one of the bars")
+  derived start: BarChoice = self.defaults[self.picked] ?? panic("every bar has its defaults")
+  const choices: Array<Choice<String>> = SPECS.map(spec => ({ value: spec.id, label: Bar.titleOf(spec) }))
+
+  settings: mut Settings<Choices>
+  // Each bar's settings before the player changes them, by its id.
+  defaults: Signal<Map<String, BarChoice>>
+  // Bartender4 is loaded: the bars stay off, and the page says why.
+  conflict: Signal<Boolean>
+  constructor(settings: mut Settings<Choices>, defaults: Signal<Map<String, BarChoice>>, conflict: Signal<Boolean>) {
+    self.settings = settings
+    self.defaults = defaults
+    self.conflict = conflict
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <text $if={self.conflict} value={Locale.CONFLICT} />
+      <text $if={Game.situation.combat} value={Locale.AFTER_COMBAT} />
+      <Dropdown label={Locale.BAR_PICK} value={mut self.picked} choices={self.choices} />
+      <BarEditor $for={spec of [self.spec]} $key={spec.id} spec={peek spec} start={peek self.start}
+                 settings={mut self.settings} />
+    }
+  }
+}
