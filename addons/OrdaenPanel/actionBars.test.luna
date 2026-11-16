@@ -12,6 +12,7 @@ import { BARS_DEFAULTS, BarChoice, BarsChoices, SPECS, defaultChoice } from "@/b
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900 }
 // The stand-in's icon of the player's first form.
 const FIRST_FORM: FileId = 130001
+const SECOND_FORM: FileId = 130002
 // The stand-in's icon of the pet's spell, fourth on its bar.
 const PET_SPELL: FileId = 131004
 
@@ -179,6 +180,31 @@ test "a stance's button draws its form's icon, and no more buttons than the play
   const rect = icon.rect()
   Test.expect((rect.left + rect.right) / 2 == at.x && (rect.top + rect.bottom) / 2 == at.y)
   Test.expect(button("stance", 2).IsVisible() && !button("stance", 3).IsVisible())
+  Test.forms(0)
+}
+
+test "the client's stance and pet buttons are unseen under ours, which stand as close as the gap says; an action's seen" {
+  Test.forms(2)
+  alone()
+  const holder = new Holder()
+  holder.settings.change((values: mut BarsChoices): nil => {
+    values.bars["stance"] = changed(values, "stance", (choice: mut BarChoice): nil => {
+      choice.spacing = 0
+      choice.size = 35
+    })
+  })
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.pet(true)
+  Events.PET_BAR_UPDATE.emit()
+  Test.flush()
+  Test.expect(button("stance", 1).GetAlpha() == 0 && button("stance", 2).GetAlpha() == 0)
+  Test.expect(button("pet", 1).GetAlpha() == 0)
+  Test.expect(button("1", 1).GetAlpha() == 1)
+  // Gap 0: the second form's icon begins where the first's ends.
+  const first = Test.page().box(FIRST_FORM).rect()
+  const second = Test.page().box(SECOND_FORM).rect()
+  Test.expect(second.left - first.right == 0 && first.right - first.left == 35)
+  Test.pet(false)
   Test.forms(0)
 }
 
