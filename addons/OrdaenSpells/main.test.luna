@@ -403,6 +403,71 @@ test "the spellbook's sort is kept when it opens again" {
   Test.expect(inOrder(window, ["Find Treasure", "Rend (Rank 1)", "Parry", "Heroic Strike (Rank 2)", "Mortal Strike"]))
 }
 
+test "on All, sorted by specialization, the spells stand by skill line, then by name" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  pick(window, Ordaen.art.ctl.tool.sort, "Active first", "By specialization")
+  Test.expect(inOrder(window, ["Find Treasure", "Heroic Strike (Rank 2)", "Parry", "Rend (Rank 1)", "Mortal Strike"]))
+}
+
+test "a skill line's tab offers no sort by specialization" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  window.button("Warrior").click()
+  window.button(Ordaen.art.ctl.tool.sort).click()
+  Test.expect(!Test.page().window("Active first").text("By specialization").shown())
+}
+
+test "a skill line's tab names no skill line under a spell: its kind and level alone" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  window.button("Warrior").click()
+  Test.expect(window.text("Parry").item().texts().join(" | ") == "Parry | Passive. Level 6")
+}
+
+test "the spells stand in three columns" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  _ = book()
+  Test.shot("five spells: three in the first row, two in the second")
+}
+
+// Dragged from a spell's row a little way: pressed, moved, a frame, let go.
+function drag(name: String) {
+  const from = Test.holding(name, nil)
+  Test.moveTo(from)
+  Test.press(nil)
+  Test.moveTo({ x: from.x + 20, y: from.y + 10 })
+  Test.flush()
+  Test.release(nil)
+}
+
+test "a spell dragged out of the spellbook is on the cursor, for the action bars to take" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  _ = book()
+  Test.expect(!Client.CursorHasSpell())
+  drag("Rend (Rank 1)")
+  Test.expect(Client.CursorHasSpell())
+}
+
+test "a passive spell dragged puts nothing on the cursor" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  _ = book()
+  drag("Parry")
+  Test.expect(!Client.CursorHasSpell())
+}
+
 // The talents
 
 test "a spec's tab shows its talent trees, each with the points spent in it" {

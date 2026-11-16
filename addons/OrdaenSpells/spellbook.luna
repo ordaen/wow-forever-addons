@@ -1,13 +1,16 @@
 // «Spells»: the player's spells in tabs, «All» and one per skill line of the spellbook, each with the search and the
-// sort. «All» is one flat list: under each name the skill line, the kind and the level the spell was learned at.
+// sort, the spells in three columns. «All» is one flat list: under each name the skill line, the kind and the level
+// the spell was learned at (the other tabs: the kind and the level). A spell that isn't passive is dragged out onto
+// the action bars: the drag puts it on the client's cursor, and the bars take what the cursor holds.
+import Client from "$client"
 import Game from "$game"
-import { Align, Overflow, Track } from "$ltml"
+import { Align, Overflow, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Choice, Component, Memory, SECONDARY_TEXT, Tabs, ToolPick, Toolbar } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
-public enum SortBy implements Plain { Name = "name", Level = "level", Active = "active" }
+public enum SortBy implements Plain { Name = "name", Level = "level", Active = "active", Line = "line" }
 
 // How the player left the spellbook's list: its sort.
 public struct BookView implements Plain {
@@ -20,13 +23,25 @@ const SORTS: Array<Choice<SortBy>> = [
   { value: SortBy.Level, label: Locale.SORT_LEVEL },
   { value: SortBy.Active, label: Locale.SORT_ACTIVE }
 ]
-const ROW: Array<Track> = [42.1875dp, { fr: 1 }]
+// «All» sorts by skill line too; on a line's own tab that would order nothing.
+const ALL_SORTS: Array<Choice<SortBy>> = [
+  { value: SortBy.Name, label: Locale.SORT_NAME },
+  { value: SortBy.Level, label: Locale.SORT_LEVEL },
+  { value: SortBy.Active, label: Locale.SORT_ACTIVE },
+  { value: SortBy.Line, label: Locale.SORT_LINE }
+]
+const ROW: Array<Track> = [37.5dp, { fr: 1 }]
+const CLEAR: Color = Color.hex("#00000000")
+const HOVER: Color = Color.hex("#ffffff0d")
+// A spell's row: lit under the cursor.
+const GROUND: Stated<Color> = { default: CLEAR, hover: HOVER }
 const PAGE: Array<Track> = ["max-content", "max-content", { fr: 1 }]
 
 // Whether the spell stands before another in the sort's order; equal ones by name.
 function before(a: Game.SpellEntry, b: Game.SpellEntry, by: SortBy): Boolean {
   if (by == SortBy.Level && a.level != b.level) { return a.level < b.level }
   if (by == SortBy.Active && a.passive != b.passive) { return !a.passive }
+  if (by == SortBy.Line && a.line != b.line) { return a.line < b.line }
   return a.name < b.name || (a.name == b.name && a.level < b.level)
 }
 
@@ -41,18 +56,29 @@ function lineName(lines: Array<Game.SpellLine>, index: Integer): String {
 public class SpellRow implements Component {
   derived title: String = self.spell.rank == "" ? self.spell.name : "%s (%s)".format(self.spell.name, self.spell.rank)
   derived kind: String = self.spell.passive ? Locale.PASSIVE : Locale.ACTIVE
-  derived detail: String = Locale.SPELL_DETAIL.format(lineName(self.lines, self.spell.line), self.kind, self.spell.level)
+  derived detail: String = self.all ?
+    Locale.SPELL_DETAIL.format(lineName(self.lines, self.spell.line), self.kind, self.spell.level) :
+    Locale.SPELL_KIND.format(self.kind, self.spell.level)
 
   spell: Signal<Game.SpellEntry>
   lines: Signal<Array<Game.SpellLine>>
-  constructor(spell: Signal<Game.SpellEntry>, lines: Signal<Array<Game.SpellLine>>) {
+  // Whether it stands on «All», where its skill line is named.
+  all: Signal<Boolean>
+  constructor(spell: Signal<Game.SpellEntry>, lines: Signal<Array<Game.SpellLine>>, all: Signal<Boolean>) {
     self.spell = spell
     self.lines = lines
+    self.all = all
+  }
+
+  // The drag takes the spell onto the client's cursor; a passive one goes on no bar.
+  onGrab(self) {
+    if (!self.spell.passive) { Client.C_Spell.PickupSpell(self.spell.id) }
   }
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={9.375dp} yAlign={Align.Center} padding={{ top: 3.515625dp, bottom: 3.515625dp }}>
+      <box columns={ROW} gap={9.375dp} yAlign={Align.Center} padding={{ top: 3.75dp, bottom: 3.75dp, left: 5.625dp, right: 5.625dp }}
+           background={GROUND} @dragStart={self.onGrab}>
         <box width={37.5dp} height={37.5dp} border={{ width: 1.171875dp, color: Style.LINE }} icon={self.spell.icon} />
         <box columns={1}>
           <text value={self.title} textColor={Style.INK} wrap={false} />
@@ -71,6 +97,7 @@ public class SpellbookPage implements Component {
   derived names: Array<String> = self.namesOf()
   derived shown: Array<Game.SpellEntry> = self.shownOf()
   derived empty: Boolean = self.shown.length == 0
+  derived all: Boolean = self.tab == 1
 
   spells: Signal<Array<Game.SpellEntry>>
   lines: Signal<Array<Game.SpellLine>>
@@ -101,7 +128,7 @@ public class SpellbookPage implements Component {
         list.push(spell)
       }
     }
-    const by = self.list.values.sort
+    const by = self.tab != 1 && self.list.values.sort == SortBy.Line ? SortBy.Name : self.list.values.sort
     list.sort((a, b) => before(a, b, by))
     return list
   }
@@ -111,13 +138,14 @@ public class SpellbookPage implements Component {
       <box rows={PAGE} gap={9.375dp}>
         <Tabs tabs={self.names} selected={mut self.tab} />
         <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
-          <ToolPick value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+          <ToolPick $if={self.all} value={mut self.list.values.sort} choices={ALL_SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
+          <ToolPick $else value={mut self.list.values.sort} choices={SORTS} icon={Ordaen.art.ctl.tool.sort} title={Locale.SORT} />
         </Toolbar>
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NOTHING_FOUND} textColor={Style.DIM} />
         </box>
-        <box $else overflow={Overflow.Scroll}>
-          <SpellRow $for={spell of self.shown} $key={spell.id} spell={spell} lines={self.lines} />
+        <box $else overflow={Overflow.Scroll} columns={3} gap={{ columns: 13.125dp, rows: 5.625dp }}>
+          <SpellRow $for={spell of self.shown} $key={spell.id} spell={spell} lines={self.lines} all={self.all} />
         </box>
       </box>
     }

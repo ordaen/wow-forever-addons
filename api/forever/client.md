@@ -103,6 +103,9 @@ at the end. Commits are lunatype's unless named `dev` (wow-dev-tools). What tool
 - **`GetCursorPosition` gives the screen's pixels** (`UIParent`'s scale divides it back); past one edge of the
   game's window it gives the other axis at its start (a window dragged into the left edge fell to the bottom left
   corner). Known: 2b06e1e, dev 2effcfd. Stand-in: `GetCursorPosition` (`client.lua`); `client_test.lua`.
+- **`C_Spell.PickupSpell(id)` puts a spell on the cursor** (`CursorHasSpell`, not `CursorHasItem`), outside the
+  player's input too; an action button the cursor is let go over takes it. Not yet confirmed in game for a drag that
+  starts on an addon's frame. Stand-in: `C_Spell.PickupSpell` (`client.lua`); `spells.test.luna` in `src/game`.
 - **Once the cursor has left the game's window the client keeps it on the screen's outermost pixel** and shows what
   lies in the world there: a world tooltip (owned by `UIParent` or `WorldFrame`) shown then is hidden at its show.
   Known: lunatype f9ac480 (2026-11-14, branch `fix/text-and-tips`). Held by the game side (`tooltip.luna`), test
