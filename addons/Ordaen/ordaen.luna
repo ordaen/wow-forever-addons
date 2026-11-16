@@ -3,6 +3,7 @@
 // modules that run and draws each on the screen, keeps Ordaen's own settings and where the player put each part,
 // turns the modules on and off as the player chooses, and draws the settings window once it is first asked for.
 import Debug from "$debug"
+import Events from "$events"
 import Game from "$game"
 import { Anchored, Art, Point } from "$ltml"
 import Runtime from "$runtime"
@@ -16,6 +17,9 @@ import { Mover } from "@/placed"
 import { ProfileName } from "@/profiles"
 import { Settings } from "@/settings"
 import { SettingsWindow } from "@/settingsWindow"
+
+// The most items' tooltips kept at once.
+const TIPS_MOST = 512
 
 // Where the player put a part, as it is kept: a point of it, the screen's point it stands by, and how far from it.
 public struct KeptPlace implements Plain {
@@ -55,7 +59,12 @@ public class OrdaenCore implements App {
   // The settings window, made when it is first asked for.
   window: mut SettingsWindow | nil = nil
   // The game's tooltip of each item asked for, by its number: every slot and list that reads one asks the game once.
+  // Emptied when the player levels up or a skill changes (what the tooltips mark usable follows the player), and
+  // when it passes TIPS_MOST.
   tips: mut Map<Integer, Game.TooltipData> = {}
+  tipCount = 0
+  // Moves each time `tips` is emptied: what read a tooltip through `itemTip` reads it again.
+  public state tipsAge = 0
 
   constructor() {
     self.look = new Settings<Look>(preset(Preset.Ordaen), "look", mut self.keeper)
@@ -69,6 +78,8 @@ public class OrdaenCore implements App {
     watch { Runtime.fonts(self.lookArt.fonts) }
     // A look loaded (at the start, at a switch of profile) that is a preset Ordaen doesn't offer is Ordaen's.
     watch (profile of self.keeper.profiles.active) { self.offered(profile) }
+    Events.PLAYER_LEVEL_UP.listen(self.forgetTips)
+    Events.SKILL_LINES_CHANGED.listen(self.forgetTips)
     self.start()
   }
 
@@ -77,8 +88,21 @@ public class OrdaenCore implements App {
     const kept = self.tips[id]
     if (kept != nil) { return kept }
     const tip = Game.items.tooltip(id)
-    if (tip != nil) { self.tips[id] = tip }
+    if (tip == nil) { return nil }
+    if (self.tipCount >= TIPS_MOST) {
+      self.tips = {}
+      self.tipCount = 0
+    }
+    self.tips[id] = tip
+    self.tipCount += 1
     return tip
+  }
+
+  // Every tooltip kept let go, and what read one told.
+  forgetTips(mut self) {
+    self.tips = {}
+    self.tipCount = 0
+    self.tipsAge += 1
   }
 
   // Each module that runs and isn't drawn yet, drawn on the screen as a module's root is: what it draws ends with it.

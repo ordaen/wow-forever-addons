@@ -133,6 +133,8 @@ public class ItemButton implements Component {
   usableOf(self): Boolean {
     const item = self.item
     if (item == nil) { return true }
+    // Read again when the kept tooltips are let go (a level-up, a skill changed).
+    _ = Ordaen.tipsAge
     const data = Ordaen.itemTip(item)
     if (data == nil) { return true }
     return !data.lines.any(line => line.usable == false || line.validSlot == false || line.validType == false)

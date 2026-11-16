@@ -1,5 +1,6 @@
 // The library's ItemButton: icon, quality's border, count, markers, dimmed; the game's tooltip of the item asked for as
 // the cursor comes onto it; Left-click picks and Shift+Left-click puts the item's link into the chat.
+import Events from "$events"
 import Game from "$game"
 import { Art } from "$ltml"
 import Test from "$test"
@@ -136,6 +137,25 @@ test "an item the client says the player can't use is tinted red over its icon; 
   Test.expect(Test.page().paintedWith(Color.hex("#ff1a1a")))
   Test.shot("the poor one (a level it needs) and the uncommon one (plate) tinted red, the others as they are")
   destroy page
+}
+
+test "a level-up has the client asked again whether the player can use the item" {
+  let met = false
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => {
+    return { lines: [{ left: "Requires Level 10", kind: 0, usable: met }] }
+  }
+  let slot = new Slot()
+  const button = slot.button ?? panic("the slot makes its button")
+  slot.item = 4242
+  Test.expect(!button.usable)
+  met = true
+  Test.expect(!button.usable)
+  Events.PLAYER_LEVEL_UP.emit(10, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+  Test.expect(button.usable)
+  met = false
+  Events.SKILL_LINES_CHANGED.emit()
+  Test.expect(!button.usable)
+  destroy slot
 }
 
 test "an icon is drawn for each slot that has one" {
