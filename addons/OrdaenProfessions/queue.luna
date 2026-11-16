@@ -5,7 +5,7 @@
 // starts the next run (the client starts a craft from nothing else), stand in the window's footer.
 import Game from "$game"
 import { Align, Art, Edges, Line, Overflow, Track } from "$ltml"
-import { Component, CountInput, Money, PX, PushButton, space } from "Ordaen"
+import { Component, CountInput, ItemButton, Money, PX, PushButton, space } from "Ordaen"
 import type { PriceSource } from "OrdaenAuction"
 import { Way, unitOf } from "@/cost"
 import Locale from "@/locales"
@@ -182,7 +182,7 @@ public function toBuyOf(priced: Array<NeedPrice>): Integer | nil {
 // A reagent of the queue's table; with prices, what its missing part costs and where.
 public class NeedRow implements Component {
   derived need: Need = self.entry.need
-  derived icon: Art = self.need.icon
+  derived item: Integer | nil = self.need.item
   derived lacks: Boolean = self.need.missing > 0
   derived missing: String = self.lacks ? "%d".format(self.need.missing) : "-"
   derived missingColor: Color = self.lacks ? SHORT : Style.INK
@@ -202,7 +202,7 @@ public class NeedRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} gap={space(.Item)} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
-        <box width={28 * PX} height={28 * PX} border={Style.BRONZE} icon={self.icon} />
+        <ItemButton item={self.item} size={28 * PX} />
         <text value={self.need.name} textColor={Style.INK} wrap={false} />
         <box xAlign={Align.End}>
           <text value={"%d"} arguments={[self.need.need]} textColor={Style.INK}
