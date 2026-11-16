@@ -5,7 +5,9 @@ surface 325,133.88 950x632.25 on DIALOG clamped raised by a click
       box 357.75,215.54 889.5x510.08
         box 357.75,215.54 889.5x25 #3d2710
           box 360.25,215.54 884.5x22.5 #0b0805 clipped
-            box 360.25,215.54 365.59x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 360.25,215.54 884.5x22.5 absolute
+              box 360.25,215.54 365.59x22.5 Interface\AddOns\Ordaen\media\xp-fill-brushed
+              box 725.84,215.54 518.91x22.5
             box 360.25,215.54 884.5x22.5 absolute
               box 360.25,215.54 88.45x22.5
               box 448.7,215.54 88.45x22.5

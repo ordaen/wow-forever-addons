@@ -5,7 +5,9 @@ surface 325,133.88 910.5x479.63 on DIALOG clamped raised by a click
       box 357.75,215.54 850x357.47
         box 357.75,215.54 850x25 #3d2710
           box 360.25,215.54 845x22.5 #0b0805 clipped
-            box 360.25,215.54 349.27x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 360.25,215.54 845x22.5 absolute
+              box 360.25,215.54 349.27x22.5 Interface\AddOns\Ordaen\media\xp-fill-brushed
+              box 709.52,215.54 495.73x22.5
             box 360.25,215.54 845x22.5 absolute
               box 360.25,215.54 84.5x22.5
               box 444.75,215.54 84.5x22.5
@@ -166,7 +168,9 @@ surface 325,133.88 1275x479.63 on DIALOG clamped raised by a click
       box 357.75,215.54 1214.5x357.47
         box 357.75,215.54 1214.5x25 #3d2710
           box 360.25,215.54 1209.5x22.5 #0b0805 clipped
-            box 360.25,215.54 499.93x22.5 absolute Interface\AddOns\Ordaen\media\xp-fill-brushed
+            box 360.25,215.54 1209.5x22.5 absolute
+              box 360.25,215.54 499.93x22.5 Interface\AddOns\Ordaen\media\xp-fill-brushed
+              box 860.18,215.54 709.57x22.5
             box 360.25,215.54 1209.5x22.5 absolute
               box 360.25,215.54 120.95x22.5
               box 481.2,215.54 120.95x22.5
