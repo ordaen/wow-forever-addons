@@ -4,7 +4,6 @@
 // house's cut taken), the profit, and the oldest house price used. A part no price reaches makes the totals none:
 // no partial sums. Crafting a part, the bank and the other characters (`professions/cost`) aren't in it.
 import Game from "$game"
-import { Art } from "$ltml"
 import { ItemId } from "Ordaen"
 import type { PriceKey, PriceSource } from "OrdaenAuction"
 
@@ -14,7 +13,8 @@ public enum Way { Buy = "buy", Vendor = "vendor", None = "none" }
 // A reagent with its prices, for the make row's count.
 public struct PartPrice {
   name: String
-  icon: Art
+  // The game's number of the item; none for a reagent the game names no item of.
+  item: Integer | nil
   // All the count needs, and what the bags hold.
   need: Integer
   have: Integer
@@ -72,7 +72,7 @@ public function partOf(prices: any PriceSource, reagent: Game.Reagent, count: In
   const bought = one.bought
   const sold = one.sold
   return {
-    name: reagent.name, icon: reagent.icon, need: need, have: reagent.have, auction: bought == nil ? nil : bought * need,
+    name: reagent.name, item: reagent.itemID, need: need, have: reagent.have, auction: bought == nil ? nil : bought * need,
     vendor: sold == nil ? nil : sold * need, way: one.way, unit: one.unit, age: one.age
   }
 }
