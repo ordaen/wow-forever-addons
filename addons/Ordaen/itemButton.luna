@@ -2,7 +2,8 @@
 // in it: the rim's light), its count at the bottom
 // right (from two up), and corner markers (a coloured pip each, in the top left, the top right or the bottom left)
 // that other modules put on it; what its slot holds stands over the icon (a bag's mark of a new item, a lock). A slot
-// with no item draws the well alone. Dimmed (by a search) it draws at 35%.
+// with no item draws the well alone. Dimmed (by a search) it draws at 35%. An item the client says the player
+// can't use has its icon tinted red.
 // Under the cursor the light of the other controls over the icon, and the game's own tooltip of the item beside it
 // (Ordaen's tooltips draw it where they are on), gone when the cursor leaves; `entered` and `left` are told. Left-click reports
 // `pick` with the item's number; Shift+Left-click puts the item's link into the chat instead, as the game's own slots
@@ -38,6 +39,8 @@ const WELL: Color = Color.hex("#0d0a08")
 const CLEAR: Color = Color.hex("#00000000")
 const SHINE: Stated<Color> = { default: CLEAR, hover: Color.hex("#ffffff26") }
 const INK: Color = Color.hex("#ffffff")
+// The game's tint of an item the player can't use (1, 0.1, 0.1).
+const UNUSABLE: Color = Color.hex("#ff1a1a")
 const COUNT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1 * PX, y: -1 * PX }
 const COUNT_PAD: Edges = { right: 3 * PX, bottom: 2 * PX }
 const EDGE = 2 * PX
@@ -80,6 +83,11 @@ public class ItemButton implements Component {
   public left: Event<nil> = new Event()
 
   derived icon: Art | nil = self.iconOf()
+  // Whether the player can use the item, as the client says in its tooltip: a requirement it marks unmet (level,
+  // class, skill, reputation) or a slot or kind it marks as not the player's. One the player can't use is tinted red
+  // over its icon, as the game's own slots are.
+  public derived usable: Boolean = self.usableOf()
+  derived tint: Color = self.usable ? INK : UNUSABLE
   // The border: its quality's colour, the plain one for an empty slot.
   public derived edge: Line = self.edgeOf()
   // The rim's light: an item from uncommon up, in its quality's colour.
@@ -122,6 +130,14 @@ public class ItemButton implements Component {
     return Game.items.icon(item)
   }
 
+  usableOf(self): Boolean {
+    const item = self.item
+    if (item == nil) { return true }
+    const data = Game.items.tooltip(item)
+    if (data == nil) { return true }
+    return !data.lines.any(line => line.usable == false || line.validSlot == false || line.validType == false)
+  }
+
   edgeOf(self): Line {
     if (self.item == nil) { return COMMON }
     return match (self.quality) {
@@ -159,7 +175,7 @@ public class ItemButton implements Component {
     return $ltml {
       <box width={self.size} height={self.size} background={WELL} border={self.edge} opacity={self.opacity}
            action={self.action} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
-        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} icon={self.icon} />
+        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} icon={self.icon} tint={self.tint} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
              background={Ordaen.art.ctl.qualityRim} tint={self.edge.color} opacity={self.rim}
              zLevel={1} />
