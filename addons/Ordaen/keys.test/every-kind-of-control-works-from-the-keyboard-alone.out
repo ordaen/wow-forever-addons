@@ -91,21 +91,21 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
           box 452.75,584.34 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=0
     box 1162.75,758.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 420,121.38 760x47.75
-    box 420,121.38 700.83x47.75
+    box 420,121.38 698.33x47.75
       box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 438.58,131.62 77.33x34.25
           text 450.03,140.95 54.44x15.6 "Controls" #ffd100 centred
       box 544.5,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 563.08,131.62 77.33x34.25
           text 587.31,140.95 28.89x15.6 "More" #a3977f centred
-    box 1127.5,134.46 52.5x34.67
-      box 1127.5,134.46 52.5x26.67 clipped
-        box 1127.5,134.46 29.17x26.67 absolute clipped @click
-          box 1127.5,134.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1137.5,139.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1156.67,134.46 23.33x26.67 absolute clipped @click
-          box 1156.67,134.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1162.92,139.87 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1125,134.46 55x34.67
+      box 1125,134.46 55x26.67 clipped
+        box 1125,134.46 27.5x26.67 absolute clipped @click
+          box 1125,134.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1133.33,144.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1152.5,134.46 27.5x26.67 absolute clipped @click
+          box 1152.5,134.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1158.75,144.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 surface 701.08,334.91 216.67x59.53 on FULLSCREEN_DIALOG #0a0806f7
   box 701.92,340.74 215x23.93 #d6a56b2e @click focus ring
     box 710.25,348.24 9.17x9.17 absolute Interface\AddOns\Ordaen\media\ctl-radio row 1 of 2

@@ -17,15 +17,15 @@ surface 500,281.38 850.25x337.25 on DIALOG clamped raised by a click
       box 1099.5,331.38 6.67x276.75 absolute @drag @dragStart @dragStop
     box 1333,598.62 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 500,281.38 850.25x47.75
-    box 500,281.38 791.08x47.75
+    box 500,281.38 788.58x47.75
       box 500,281.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 518.58,291.62 77.33x34.25
           text 536.14,300.95 42.22x15.6 "Market" #ffd100 centred
-    box 1297.75,294.46 52.5x34.67
-      box 1297.75,294.46 52.5x26.67 clipped
-        box 1297.75,294.46 29.17x26.67 absolute clipped @click
-          box 1297.75,294.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1307.75,299.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1326.92,294.46 23.33x26.67 absolute clipped @click
-          box 1326.92,294.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1333.17,299.88 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1295.25,294.46 55x34.67
+      box 1295.25,294.46 55x26.67 clipped
+        box 1295.25,294.46 27.5x26.67 absolute clipped @click
+          box 1295.25,294.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1303.58,304.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1322.75,294.46 27.5x26.67 absolute clipped @click
+          box 1322.75,294.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1329,304.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
