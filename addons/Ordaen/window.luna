@@ -142,26 +142,27 @@ public enum CornerControl { Settings = "settings", Full = "full", Close = "close
 const CORNER_HEIGHT = 32 * PX
 // How far below the body's top the group's foot stands: the middle of the frame's line.
 const CORNER_FOOT = 3 * PX
-// A plate's width; the first's rim and its shadow, left of its plate; the last is the design's 2 px wider, and the
-// frame's line covers its right end, which the group's box leaves out.
+// A plate's width; the group's rim on its left, top and right, with its shadow beside it (the first's left, the
+// last's right) and above it: a plate stands that far below the group's top.
 const PLATE = 30 * PX
-const RIM = 5 * PX
-const LAST = (32 - 4) * PX
+const RIM = 3 * PX
+const ABOVE = 5 * PX
 // A plate's art and its glyph's cell: the glyph stands where the design centres it on the plate (one after
 // another has its divider in its width, so its glyph stands half a pixel further right).
 const PLATE_ART = 64 * PX
 const GLYPH = 16 * PX
-const GLYPH_TOP = 6.5 * PX
-const GLYPH_LEFT_FIRST = RIM + 7 * PX
+const GLYPH_TOP: Number = ABOVE + 6.5 * PX
+const GLYPH_LEFT_FIRST: Number = RIM + 7 * PX
 const GLYPH_LEFT = 7.5 * PX
 // The controls of a window's group, from its left.
 public const function cornerControls(withSettings: Boolean): Array<CornerControl> {
   return withSettings ? [.Settings, .Full, .Close] : [.Full, .Close]
 }
-// The width of the `index`th of `count` plates: the first with the group's rim, the last as the frame leaves it.
+// The width of the `index`th of `count` plates: the first and the last with the group's rim.
 const function plateWidth(index: Integer, count: Integer): Number {
-  const plate = index == count ? LAST : PLATE
-  return index == 1 ? RIM + plate : plate
+  const left: Number = index == 1 ? RIM : 0
+  const right: Number = index == count ? RIM : 0
+  return left + PLATE + right
 }
 // How far the `index`th plate stands from the group's left.
 const function plateLeft(index: Integer, count: Integer): Number {
@@ -283,19 +284,19 @@ public class WindowTab implements Component {
   }
 }
 
-// One control of the corner's group: a plate of its tone (close's red, the others' bronze), the first of the group
-// or one after another, with its glyph on it. It takes the mouse over its own part of the group and no further:
-// its art is wider than its box, and two boxes that take the mouse never overlap.
+// One control of the window's group: a plate (close's red, the others' bronze: the first of the group, one after
+// another or the last), with its glyph on it. It takes the mouse over its own part of the group and no further: its
+// art is wider than its box, and two boxes that take the mouse never overlap.
 class CornerPlate implements Component {
   // The plate was clicked: heard in the click's own call.
   public pressed: Event<CornerControl> = new Event()
 
-  derived plates = self.control == .Close ? Ordaen.art.ctl.corner.red : Ordaen.art.ctl.corner.bronze
-  derived plate: Art = self.index == 1 ? self.plates.first : self.plates.next
+  derived plate: Art = self.plateOf()
   derived glyph: Art = self.glyphOf()
 
   control: Signal<CornerControl>
   const index: Integer
+  const count: Integer
   const left: Number
   const width: Number
   const glyphLeft: Number
@@ -303,10 +304,18 @@ class CornerPlate implements Component {
   constructor(control: Signal<CornerControl>, index: Integer, count: Integer, full: Signal<Boolean>) {
     self.control = control
     self.index = index
+    self.count = count
     self.full = full
     self.left = plateLeft(index, count)
     self.width = plateWidth(index, count)
     self.glyphLeft = index == 1 ? GLYPH_LEFT_FIRST : GLYPH_LEFT
+  }
+
+  plateOf(self): Art {
+    const plates = Ordaen.art.ctl.corner
+    if (self.control == .Close) { return plates.red }
+    if (self.index == 1) { return plates.bronze.first }
+    return self.index == self.count ? plates.bronze.last : plates.bronze.next
   }
 
   glyphOf(self): Art {

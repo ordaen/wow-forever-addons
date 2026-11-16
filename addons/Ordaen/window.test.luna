@@ -134,7 +134,7 @@ test "a window made with settings has a button in its corner that its owner hear
   Test.flush()
   Test.shot("the cursor over the window: the group's plates, settings first, then full screen and close")
   // Settings is the first bronze plate with the gear, full screen one after it with the expand glyph, close the
-  // red one after it: plates of one kind, each with its glyph.
+  // red one, the group's last: each plate with its glyph.
   Test.expect(corner() == "plate 0, glyph 0, plate 3, glyph 2, plate 9, glyph 6")
   // Under the cursor a plate shows its hover row, the settings plate as full screen's.
   Test.moveTo(Test.painted(Ordaen.art.ctl.corner.gear, nil))
@@ -192,6 +192,9 @@ test "the control group stands in the tab row: outside the body, right of the la
   const tab = Test.holding("Recipes", nil)
   Test.expect(gear.bottom <= body.top && close.bottom <= body.top)
   Test.expect(gear.left > tab.x && close.right <= body.right && close.right > body.right - 20)
+  // The close's plate, the group's last, stands on the body's top line: its foot under the line, which covers it.
+  const red = Test.edges(Ordaen.art.ctl.corner.red, 0)
+  Test.expect(red.top < body.top && red.bottom > body.top)
   // Shown with the window, not only while the cursor is over it.
   Test.expect(corner() == "plate 0, glyph 0, plate 3, glyph 2, plate 9, glyph 6")
   destroy page
