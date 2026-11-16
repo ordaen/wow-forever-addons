@@ -39,6 +39,16 @@ public struct ListView implements Plain {
 }
 const LIST_VIEW: ListView = {}
 
+// The categories the player folded, the profile's as the list's view is, in the order folded: kept so the list
+// opens after a reload as the player left it. A memory of its own, so a long category's name can never take the
+// filters past a memory's bound with it; at most `FOLDED_MOST` names, the earliest folded let go first, and a
+// category no addon has any more let go as the window opens.
+public struct Folded implements Plain {
+  categories: Array<String> = []
+}
+const FOLDED: Folded = {}
+public const FOLDED_MOST = 8
+
 const ORDERS: Array<Choice<Order>> = [
   { value: Order.Name, label: Locale.SORT_NAME },
   { value: Order.Now, label: Locale.SORT_NOW },
@@ -97,7 +107,7 @@ public class AddOnsWindow implements Component {
   declared: mut KeptWindow
   state search = ""
   public list: mut Memory<ListView> = new Memory<ListView>(LIST_VIEW, .Profile, "addons")
-  state folded: mut Map<String, Boolean> = {}
+  public folds: mut Memory<Folded> = new Memory<Folded>(FOLDED, .Profile, "addons:folded")
   // What is to be switched off once the player answers, with the question's title.
   public state asking: Array<String> = []
   // The sets' menu, and the set being saved (-1) or looked at (its place); 0: none.
@@ -184,6 +194,7 @@ public class AddOnsWindow implements Component {
       return
     }
     self.catalog.read()
+    self.dropGone()
     const loaded: Array<String> = []
     for (addon of peek self.catalog.addons) {
       if ((peek self.catalog.statuses)[addon.name]?.loaded == true) { loaded.push(addon.name) }
@@ -293,7 +304,7 @@ public class AddOnsWindow implements Component {
     categories.sort((a, b) => a == "" ? false : b == "" ? true : a < b)
     for (category of categories) {
       const members = byCategory[category] ?? []
-      const folded = self.folded[category] == true
+      const folded = self.folds.values.categories.any(name => name == category)
       list.push({
         caption: true, name: category, count: members.length, folded: folded, child: false, names: groups[category] ?? [],
         tabled: false
@@ -357,8 +368,25 @@ public class AddOnsWindow implements Component {
 
   onPick(mut self, name: String) { self.list.values.picked = name }
 
+  // A caption clicked: folded, or opened where it was folded; past `FOLDED_MOST`, the earliest folded opens.
   onFold(mut self, category: String) {
-    self.folded[category] = self.folded[category] == true ? nil : true
+    const kept = (peek self.folds.values).categories
+    const next = kept.filter(name => name != category)
+    if (next.length == kept.length) { next.push(category) }
+    const capped: Array<String> = []
+    for (index, name of next) {
+      if (index > next.length - FOLDED_MOST) { capped.push(name) }
+    }
+    self.folds.values.categories = capped
+  }
+
+  // The folded categories no addon has any more (each addon of one taken out of the folder) are let go.
+  dropGone(mut self) {
+    const present: Map<String, Boolean> = {}
+    for (addon of peek self.catalog.addons) { present[addon.category] = true }
+    const kept = (peek self.folds.values).categories
+    if (kept.all(name => present[name] == true)) { return }
+    self.folds.values.categories = kept.filter(name => present[name] == true)
   }
 
   onSettings(self, name: String) { Ordaen.toggleNamed(name) }
