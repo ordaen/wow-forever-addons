@@ -379,10 +379,12 @@ public class Window implements Component {
   derived inset: Number<Length> = self.full ? self.room : 0ui
   // The tab row ends where the body does: short of that side while full screen.
   derived rowPad: Edges = { right: self.inset }
-  // The control group's foot stands on the top of the body's line (the frame's art starts that far outside the
-  // body), and the group is drawn over the body: the frame's art above its line, its dark edge and shadow, would
-  // otherwise cover the plates' foot and stand between them and the line.
-  derived cornerFoot: Edges = { bottom: self.lineTop - Ordaen.art.frame.small.inset * 1ui }
+  // The control group's foot stands on the top of the body's line, as the tabs' sides meet it. The body is placed
+  // by its art's top: its line stands the art's reach below that, and the line's metal starts the frame's inset
+  // outside it. The group is drawn over the body: the frame's art above its line, its dark edge and shadow, would
+  // otherwise cover the plates' foot.
+  derived cornerFoot: Edges = { bottom: self.lineTop - (self.bodyReach + Ordaen.art.frame.small.inset) * 1ui }
+  derived bodyReach: Number = Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
   derived grip: Stated<Art> = self.gripOf()
   // The ring round the control the keyboard has focused: the look's accent.
   derived focusLine: Line = { width: 1.171875dp, color: Ordaen.look.values.accent, sides: nil }
