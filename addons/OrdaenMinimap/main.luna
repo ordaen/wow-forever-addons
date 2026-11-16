@@ -206,10 +206,11 @@ public class Minimap implements Module, App {
     self.hint = Hint.None
   }
 
-  // The cursor at `x`, `y` in the dragged button's box as it stood when the drag began.
-  public dragTo(mut self, x: Number, y: Number) {
-    let cx = self.dragLeft + x - ROOM - self.frameWidth / 2
-    let cy = self.dragTop + y - ROOM - self.frameHeight / 2
+  // The cursor gone `dx`, `dy` since the press: the button's middle as it stood, moved as far, held by the cursor
+  // where it took it.
+  public dragTo(mut self, dx: Number, dy: Number) {
+    let cx = self.dragLeft + BUTTON / 2 + dx - ROOM - self.frameWidth / 2
+    let cy = self.dragTop + BUTTON / 2 + dy - ROOM - self.frameHeight / 2
     self.dragAngle = (cx.atan2(-cy).deg() % 360 + 0.5).floor()
   }
 

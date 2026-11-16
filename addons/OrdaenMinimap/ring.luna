@@ -115,7 +115,7 @@ public class RingButton implements Component {
   }
 
   onDragStart(mut self) { self.map.startDrag(self.spec) }
-  onDrag(mut self, drag: Drag) { self.map.dragTo(drag.x, drag.y) }
+  onDrag(mut self, drag: Drag) { self.map.dragTo(drag.dx, drag.dy) }
   onDragStop(mut self) { self.map.stopDrag(self.spec) }
 
   public render(self): Template {

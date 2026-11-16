@@ -347,18 +347,39 @@ test "a ring button dragged round the frame follows the cursor, frame after fram
   const before = angleOf(minimap().button(MAIL))
   minimap().button(MAIL).hover()
   Test.press(nil)
-  // The client starts the drag once the cursor has moved: the button stands where it stood until the next frame.
-  minimap().text(ZONE).hover()
+  // The client starts the drag once the cursor has moved a little: the button stands where it stood until the next
+  // frame, and is held where the drag took it, a pixel off its middle.
+  const middle = minimap().button(MAIL).rect()
+  Test.moveTo({ x: middleX(middle), y: middleY(middle) + 1 })
   Test.pass(0.02)
   Test.expect((angleOf(minimap().button(MAIL)) - before).abs() < 0.6)
   for (over of [CLOCK, COORDS, CLOCK]) {
     minimap().text(over).hover()
     Test.pass(0.02)
-    Test.expect((angleOf(minimap().button(MAIL)) - angleOf(minimap().text(over))).abs() < 0.6)
+    Test.expect((angleOf(minimap().button(MAIL)) - angleOf(minimap().text(over))).abs() < 1.2)
   }
   Test.release(nil)
   minimap().hover()
-  Test.expect((angleOf(minimap().button(MAIL)) - angleOf(minimap().text(CLOCK))).abs() < 0.6)
+  Test.expect((angleOf(minimap().button(MAIL)) - angleOf(minimap().text(CLOCK))).abs() < 1.2)
+}
+
+test "a ring button taken off its middle and dragged by a pixel moves by a pixel" {
+  Game.minimap.frame = frame("Minimap", true)
+  Game.frames.MinimapMail = frame("MinimapMail", true)
+  Test.mount(nil, SCREEN)
+  minimap().hover()
+  const at = minimap().button(MAIL).rect()
+  Test.moveTo({ x: at.left + 4, y: at.top + 4 })
+  Test.press(nil)
+  // The client starts the drag once the cursor has moved; the motion after it is the drag's first.
+  Test.moveTo({ x: at.left + 4, y: at.top + 5 })
+  Test.pass(0.02)
+  Test.moveTo({ x: at.left + 4, y: at.top + 6 })
+  Test.pass(0.02)
+  const now = minimap().button(MAIL).rect()
+  Test.release(nil)
+  // Two pixels down, to the ring's whole degree: no jump towards the cursor.
+  Test.expect((now.left - at.left).abs() <= 3 && (now.top - at.top).abs() <= 3)
 }
 
 test "a ring button let go hides with the ring once the cursor leaves the minimap" {
