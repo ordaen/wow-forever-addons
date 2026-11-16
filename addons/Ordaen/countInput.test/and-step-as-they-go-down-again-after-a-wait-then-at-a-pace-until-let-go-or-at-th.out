@@ -1,6 +1,6 @@
 down: 2; held 0.3 s: 2; at 0.42 s: 3; at 0.52 s: 5; let go: 5
 -- held to 12, the most: + disabled, let go
-box 0,0 300x64.33
+box 0,0 300x28.33
   box 0,0 75x28.33
     box 0,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 7.22,6.37 8.89x15.6 "-" #ffd100
@@ -8,8 +8,6 @@ box 0,0 300x64.33
       text 29.72,6.37 15.56x15.6 "12" #ffffff
     box 51.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
       text 58.89,6.37 8.89x15.6 "+" #808080
-  box 0,38.33 80x26
-    box 0,38.33 80x26 #00000080 input "12" @change
 surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
   text 75.25,51.92 229x19.2 "More" #ffffff
   text 75.25,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
@@ -23,5 +21,5 @@ surface 51.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\windo
     text 282.03,127.92 22.22x15.6 "+10" #ffffff
   box 75.25,146.85 229x15.6
     box 75.25,146.85 193.44x15.6
-      text 75.25,146.85 93.33x15.6 "Alt+Left-click" #cbb994
+      text 75.25,146.85 100x15.6 "Ctrl+Left-click" #cbb994
     text 275.36,146.85 28.89x15.6 "+100" #ffffff

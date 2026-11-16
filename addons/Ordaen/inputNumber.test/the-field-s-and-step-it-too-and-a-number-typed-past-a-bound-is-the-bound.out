@@ -1,0 +1,26 @@
+-- 9999 typed: the most, 4000
+box 0,0 900x56.67
+  box 0,0 900x28.33 opacity=1
+    box 0,6.37 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,6.37 233.33x15.6 "Share" #cbb994
+    box 248.33,0 651.67x28.33
+      box 248.33,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 255.56,6.37 8.89x15.6 "-" #ffd100
+      box 276.67,5.83 200x16.67 @drag @dragStart @key @pointerPress
+        box 276.67,10.83 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+        box 277.5,11.67 99.17x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+        box 370,4.17 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+      box 481.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 488.89,6.37 8.89x15.6 "+" #ffd100
+      text 510,6.37 22.22x15.6 "50%" #ffffff
+  box 0,28.33 900x28.33 opacity=1
+    box 0,34.7 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,34.7 233.33x15.6 "Place" #cbb994
+    box 248.33,28.33 651.67x28.33
+      box 248.33,28.33 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 255.56,34.7 8.89x15.6 "-" #ffd100
+      box 276.67,31.67 100x21.67
+        box 276.67,31.67 100x21.67 #00000080 input "4000" typing @change
+      box 381.67,28.33 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 388.89,34.7 8.89x15.6 "+" #808080
+      text 410,34.7 15.56x15.6 "px" #ffffff

@@ -1,0 +1,41 @@
+-- the share at its most: 100%, + disabled
+box 0,0 900x56.67
+  box 0,0 900x28.33 opacity=1
+    box 0,6.37 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,6.37 233.33x15.6 "Share" #cbb994
+    box 248.33,0 651.67x28.33
+      box 248.33,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 255.56,6.37 8.89x15.6 "-" #ffd100
+      box 276.67,5.83 200x16.67 @drag @dragStart @key @pointerPress
+        box 276.67,10.83 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
+        box 277.5,11.67 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
+        box 470,4.17 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
+      box 481.67,0 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 488.89,6.37 8.89x15.6 "+" #808080
+      text 510,6.37 28.89x15.6 "100%" #ffffff
+  box 0,28.33 900x28.33 opacity=1
+    box 0,34.7 233.33x15.6 @pointerEnter @pointerLeave
+      text 0,34.7 233.33x15.6 "Place" #cbb994
+    box 248.33,28.33 651.67x28.33
+      box 248.33,28.33 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 255.56,34.7 8.89x15.6 "-" #ffd100
+      box 276.67,31.67 100x21.67
+        box 276.67,31.67 100x21.67 #00000080 input "0" @change
+      box 381.67,28.33 23.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+        text 388.89,34.7 8.89x15.6 "+" #ffd100
+      text 410,34.7 15.56x15.6 "px" #ffffff
+surface 481.67,28.33 271.17x155.45 on TOOLTIP Interface\AddOns\Ordaen\media\window-wood clamped
+  text 505.25,51.92 229x19.2 "More" #ffffff
+  text 505.25,74.45 229x31.2 "Hold to keep stepping, up to the limit." #cbb994
+  box 505.25,108.98 229x15.6
+    box 505.25,108.98 200.11x15.6
+      text 505.25,108.98 67.78x15.6 "Left-click" #cbb994
+    text 712.03,108.98 22.22x15.6 "+1%" #ffffff
+  box 505.25,127.92 229x15.6
+    box 505.25,127.92 193.44x15.6
+      text 505.25,127.92 106.67x15.6 "Shift+Left-click" #cbb994
+    text 705.36,127.92 28.89x15.6 "+10%" #ffffff
+  box 505.25,146.85 229x15.6
+    box 505.25,146.85 186.78x15.6
+      text 505.25,146.85 100x15.6 "Ctrl+Left-click" #cbb994
+    text 698.69,146.85 35.56x15.6 "+100%" #ffffff

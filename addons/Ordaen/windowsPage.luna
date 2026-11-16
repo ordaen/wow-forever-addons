@@ -5,12 +5,11 @@
 // once, as a window moved by its tab is: it is where the window is, not a choice waiting for «Save».
 import { Pointer, Track } from "$ltml"
 import { Checkbox } from "@/checkbox"
-import { CountInput, CountLook } from "@/countInput"
 import { Choice, Dropdown, ManyDropdown } from "@/dropdown"
+import { InputNumber, Unit } from "@/inputNumber"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { SelectItem } from "@/selectItem"
-import { SettingRow } from "@/settingRow"
 import { space } from "@/units"
 import { KeptWindow, Occasion, WindowView } from "@/window"
 
@@ -20,10 +19,6 @@ const INK: Color = Color.hex("#e8dcc4")
 // How far the numbers go: a place from the screen's centre, a size of the body.
 const FAR = 4000
 const LEAST_SIZE = 100
-// A number's field: as high as a text box, wide enough for its digits.
-const FIELD_WIDTH = 140.625dp
-const FIELD_HEIGHT = 30.46875dp
-const FILL: Array<Track> = [{ fr: 1 }]
 const MOST_SIZE = 4000
 // What can hide a window, and show it again.
 const OCCASIONS: Array<Choice<Occasion>> = [
@@ -73,10 +68,10 @@ public class WindowsPage implements Component {
   // is written to its memory, and a change of the memory (the window dragged) shows here.
   state remember = true
   state full = false
-  state x = 0
-  state y = 0
-  state width = 0
-  state height = 0
+  state x: Number = 0
+  state y: Number = 0
+  state width: Number = 0
+  state height: Number = 0
   state openOn = 0
   state hideDuring: Array<Occasion> = []
   state showAfter: Array<Occasion> = []
@@ -161,28 +156,14 @@ public class WindowsPage implements Component {
         <box columns={1} gap={space(.Item)}>
           <Checkbox label={Locale.WINDOW_REMEMBER} hint={Locale.WINDOW_REMEMBER_TIP} value={mut self.remember} />
           <Checkbox label={Locale.WINDOW_FULL} value={mut self.full} disabled={self.fixed} />
-          <SettingRow label={Locale.WINDOW_X} disabled={self.fixed}>
-            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
-              <CountInput value={mut self.x} least={-FAR} most={FAR} look={CountLook.Field} disabled={self.fixed} />
-            </box>
-          </SettingRow>
-          <SettingRow label={Locale.WINDOW_Y} disabled={self.fixed}>
-            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
-              <CountInput value={mut self.y} least={-FAR} most={FAR} look={CountLook.Field} disabled={self.fixed} />
-            </box>
-          </SettingRow>
-          <SettingRow label={Locale.WINDOW_WIDTH} disabled={self.fixed}>
-            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
-              <CountInput value={mut self.width} least={LEAST_SIZE} most={MOST_SIZE} look={CountLook.Field}
-                          disabled={self.fixed} />
-            </box>
-          </SettingRow>
-          <SettingRow label={Locale.WINDOW_HEIGHT} disabled={self.fixed}>
-            <box width={FIELD_WIDTH} height={FIELD_HEIGHT} rows={FILL}>
-              <CountInput value={mut self.height} least={LEAST_SIZE} most={MOST_SIZE} look={CountLook.Field}
-                          disabled={self.fixed} />
-            </box>
-          </SettingRow>
+          <InputNumber label={Locale.WINDOW_X} value={mut self.x} least={-FAR} most={FAR} unit={Unit.Px}
+                       disabled={self.fixed} />
+          <InputNumber label={Locale.WINDOW_Y} value={mut self.y} least={-FAR} most={FAR} unit={Unit.Px}
+                       disabled={self.fixed} />
+          <InputNumber label={Locale.WINDOW_WIDTH} value={mut self.width} least={LEAST_SIZE} most={MOST_SIZE}
+                       unit={Unit.Px} disabled={self.fixed} />
+          <InputNumber label={Locale.WINDOW_HEIGHT} value={mut self.height} least={LEAST_SIZE} most={MOST_SIZE}
+                       unit={Unit.Px} disabled={self.fixed} />
           <Dropdown $for={each of self.offers} $key={each.key} label={Locale.WINDOW_OPEN_ON}
                     value={mut self.openOn} choices={peek each.choices} />
           <ManyDropdown label={Locale.WINDOW_HIDE_DURING} hint={Locale.WINDOW_HIDE_DURING_TIP}
