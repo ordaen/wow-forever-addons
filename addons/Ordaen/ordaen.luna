@@ -2,6 +2,7 @@
 // root as it is: a module needs Ordaen, so its root is made before any module's and ends after them). It holds the
 // modules that run and draws each on the screen, keeps Ordaen's own settings and where the player put each part,
 // turns the modules on and off as the player chooses, and draws the settings window once it is first asked for.
+import Client from "$client"
 import Debug from "$debug"
 import Events from "$events"
 import Game from "$game"
@@ -70,6 +71,8 @@ public class OrdaenCore implements App {
   tipCount = 0
   // Moves each time `tips` is emptied: what read a tooltip through `itemTip` reads it again.
   public state tipsAge = 0
+  // What waits for the player's fight to end (`afterCombat`), in the order asked.
+  waiting: mut Array<() => nil> = []
 
   constructor() {
     self.look = new Settings<Look>(preset(Preset.Ordaen), "look", mut self.keeper)
@@ -85,7 +88,25 @@ public class OrdaenCore implements App {
     watch (profile of self.keeper.profiles.active) { self.offered(profile) }
     Events.PLAYER_LEVEL_UP.listen(self.forgetTips)
     Events.SKILL_LINES_CHANGED.listen(self.forgetTips)
+    Events.PLAYER_REGEN_ENABLED.listen(self.combatEnded)
     self.start()
+  }
+
+  // What runs once the player's fight ends: a change to protected frames (secure buttons, bindings) asked for in a
+  // fight, which the client refuses until it ends. Out of a fight it runs now. It outlives what asked for it: a
+  // module turned off in a fight has its buttons put away after it.
+  public afterCombat(mut self, run: () => nil) {
+    if (!Client.InCombatLockdown()) {
+      run()
+      return
+    }
+    self.waiting.push(run)
+  }
+
+  combatEnded(mut self) {
+    const waiting = self.waiting
+    self.waiting = []
+    for (run of waiting) { run() }
   }
 
   bottomTakenOf(self): Number<Length> {
