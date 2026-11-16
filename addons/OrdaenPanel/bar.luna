@@ -1,6 +1,7 @@
 // A bar: the client's own buttons (its action, pet or stance button template) in a Placed part, laid out as the
 // player chose, each with its key's text.
 import Client from "$client"
+import Events from "$events"
 import { Align, Anchored, Art, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Placed, SECONDARY_TEXT, Visibility, opacityNow, space } from "Ordaen"
@@ -63,8 +64,36 @@ public function shortKey(key: String): String {
 // The name of a bar's button, a global of the client's: what a binding's click names.
 public function buttonName(id: String, index: Integer): String { return `OrdaenPanelBar${id}Button${index}` }
 
-// One button: the client's own, and its key's text in its top right corner while the client shows it. A stance's
-// button has its form's icon under it: the client's template draws none of its own (the game's stance bar sets it).
+// What a stance's or the pet's button shows of its own: its icon, drawn under the client's button (the client's
+// template draws none: the game's own stance and pet bars set it), and whether it is on (the form the player is in,
+// the pet's stance or command), lit in the look's accent over it.
+public struct Face {
+  icon: Art | nil
+  lit: Boolean
+}
+
+const BLANK: Face = { icon: nil, lit: false }
+
+// A pet's command names its icon by one of the client's globals (`isToken`).
+function commandIcon(token: String): Art | nil {
+  const path: String | nil = match (token) {
+    "PET_ATTACK_TEXTURE" => Client.PET_ATTACK_TEXTURE
+    "PET_FOLLOW_TEXTURE" => Client.PET_FOLLOW_TEXTURE
+    "PET_MOVE_TO_TEXTURE" => Client.PET_MOVE_TO_TEXTURE
+    "PET_WAIT_TEXTURE" => Client.PET_WAIT_TEXTURE
+    "PET_ASSIST_TEXTURE" => Client.PET_ASSIST_TEXTURE
+    "PET_DEFENSIVE_TEXTURE" => Client.PET_DEFENSIVE_TEXTURE
+    "PET_DEFENSIVEASSIST_TEXTURE" => Client.PET_DEFENSIVEASSIST_TEXTURE
+    "PET_AGGRESSIVE_TEXTURE" => Client.PET_AGGRESSIVE_TEXTURE
+    "PET_PASSIVE_TEXTURE" => Client.PET_PASSIVE_TEXTURE
+    "PET_DISMISS_TEXTURE" => Client.PET_DISMISS_TEXTURE
+    else => nil
+  }
+  return path is Asset ? path : nil
+}
+
+// One button: the client's own, and its key's text in its top right corner while the client shows it; a stance's or
+// the pet's its face.
 public class Button implements Component {
   derived key: String = self.showKeys && self.slot.shown ? self.keys[self.slot.command] ?? "" : ""
 
@@ -72,23 +101,26 @@ public class Button implements Component {
   keys: Signal<Map<String, String>>
   size: Signal<Number<Length>>
   showKeys: Signal<Boolean>
-  icon: Signal<Art | nil>
+  face: Signal<Face>
   constructor(slot: Slot, keys: Signal<Map<String, String>>, size: Signal<Number<Length>>, showKeys: Signal<Boolean>,
-    icon: Signal<Art | nil>) {
+    face: Signal<Face>) {
     self.slot = slot
     self.keys = keys
     self.size = size
     self.showKeys = showKeys
-    self.icon = icon
+    self.face = face
   }
 
   public render(self): Template {
     return $ltml {
       <box width={self.size} height={self.size}>
-        <box $if={self.icon != nil && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
-             width={self.size} height={self.size} background={self.icon} />
+        <box $if={self.face.icon != nil && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
+             width={self.size} height={self.size} background={self.face.icon} />
         <embed frame={self.slot.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size}
                height={self.size} />
+        <box $if={self.face.lit && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
+             width={self.size} height={self.size} background={Ordaen.art.ctl.qualityRim}
+             tint={Ordaen.look.values.accent} zLevel={2} />
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align.End} padding={2ui} zLevel={2}>
           <text value={self.key} textColor={INK} textSize={SECONDARY_TEXT} textShadow={KEY_SHADOW} wrap={false} />
         </box>
@@ -121,8 +153,9 @@ public class Bar implements Component {
   derived showKeys: Boolean = self.choice.keys
   // As many columns as buttons in a row, and no more than it has buttons: an empty column would take the cursor.
   derived columns: Integer = self.choice.perRow.min(self.count).max(1)
-  // Each form's icon on the stances' bar, by its button's place: read again as the player learns a form.
-  state icons: Array<Art | nil> = []
+  // Each button's face on the stances' and the pet's bars, by its place: read again as the player learns or takes a
+  // form, and as the pet comes, goes or changes its bar.
+  state faces: Array<Face> = []
 
   // What tells it from every other part in the placing mode, and its name there.
   id: String
@@ -179,17 +212,39 @@ public class Bar implements Component {
     watch (count of self.count) { self.showFirst(count) }
     if (spec.kind == BarKind.Stance) {
       watch (count of self.forms) { self.readForms(count) }
+      Events.UPDATE_SHAPESHIFT_FORM.listen(self.reform)
+    } else if (spec.kind == BarKind.Pet) {
+      self.readPet()
+      Events.PET_BAR_UPDATE.listen(self.readPet)
+      Events.UNIT_PET.listen(self.petOf)
     }
   }
 
-  // The stances' icons, each form's by its button's place.
+  reform(mut self) { self.readForms(peek self.forms) }
+
+  // The stances' faces, each form's by its button's place.
   readForms(mut self, count: Integer) {
-    const icons: Array<Art | nil> = []
+    const faces: Array<Face> = []
     for (index of 1..self.spec.most) {
-      let icon, _, _, _ = Client.GetShapeshiftFormInfo(index)
-      icons.push(index <= count ? icon : nil)
+      let icon, active, _, _ = Client.GetShapeshiftFormInfo(index)
+      faces.push(index <= count ? { icon: icon, lit: active } : BLANK)
     }
-    self.icons = icons
+    self.faces = faces
+  }
+
+  petOf(mut self, unit: String) {
+    if (unit == "player") { self.readPet() }
+  }
+
+  // The pet's faces, each place's of its bar: a command's icon is named by a global of the client's.
+  readPet(mut self) {
+    const faces: Array<Face> = []
+    for (index of 1..self.spec.most) {
+      let _, texture, token, active, _, _, _ = Client.GetPetActionInfo(index)
+      const icon: Art | nil = texture is String ? (token ? commandIcon(texture) : texture is Asset ? texture : nil) : texture
+      faces.push({ icon: icon, lit: active })
+    }
+    self.faces = faces
   }
 
   // The client's frames can't be destroyed: hidden, they take no click and draw nothing. In a fight the client hides
@@ -250,7 +305,7 @@ public class Bar implements Component {
         <box columns={self.columns} gap={self.spacing} opacity={self.opacity} hoverWithin={true}
              @enter={self.onEnter} @leave={self.onLeave}>
           <Button $for={index, slot of self.drawn} slot={peek slot} keys={self.keys} size={self.size}
-                  showKeys={self.showKeys} icon={self.icons[index]} />
+                  showKeys={self.showKeys} face={self.faces[index] ?? BLANK} />
         </box>
       </Placed>
     }

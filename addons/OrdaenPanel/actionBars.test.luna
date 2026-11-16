@@ -12,6 +12,20 @@ import { BARS_DEFAULTS, BarChoice, BarsChoices, SPECS, defaultChoice } from "@/b
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900 }
 // The stand-in's icon of the player's first form.
 const FIRST_FORM: FileId = 130001
+// The stand-in's icon of the pet's spell, fourth on its bar.
+const PET_SPELL: FileId = 131004
+
+// Whether a part stands where the client's button does.
+function near(part: Test.Part, frame: any Client.Frame): Boolean {
+  const rect = part.rect()
+  const at = Test.centre(frame)
+  return ((rect.left + rect.right) / 2 - at.x).abs() < 0.001 && ((rect.top + rect.bottom) / 2 - at.y).abs() < 0.001
+}
+
+// Whether the button is the one lit.
+function lit(frame: any Client.Frame): Boolean {
+  return near(Test.page().box(Ordaen.art.ctl.qualityRim), frame)
+}
 
 // What the bars are handed by the panel: their settings (a test's own, kept nowhere) and their defaults as the
 // character's settings have them now; and what a bar alone is handed.
@@ -153,6 +167,49 @@ test "a stance's button draws its form's icon, and no more buttons than the play
   Test.expect((rect.left + rect.right) / 2 == at.x && (rect.top + rect.bottom) / 2 == at.y)
   Test.expect(button("stance", 2).IsVisible() && !button("stance", 3).IsVisible())
   Test.forms(0)
+}
+
+test "the form the player is in is lit on its stance's button, and no other" {
+  Test.forms(2)
+  alone()
+  const holder = new Holder()
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  Test.expect(!Test.page().box(Ordaen.art.ctl.qualityRim).shown())
+  Test.stance(2)
+  Events.UPDATE_SHAPESHIFT_FORM.emit()
+  Test.flush()
+  Test.expect(Test.page().box(Ordaen.art.ctl.qualityRim).count() == 1 && lit(button("stance", 2)))
+  Test.stance(1)
+  Events.UPDATE_SHAPESHIFT_FORM.emit()
+  Test.flush()
+  Test.expect(Test.page().box(Ordaen.art.ctl.qualityRim).count() == 1 && lit(button("stance", 1)))
+  Test.stance(0)
+  Events.UPDATE_SHAPESHIFT_FORM.emit()
+  Test.flush()
+  Test.expect(!Test.page().box(Ordaen.art.ctl.qualityRim).shown())
+  Test.forms(0)
+}
+
+test "the pet's buttons draw their icons, its commands' by the client's globals, and its stance lit" {
+  alone()
+  const holder = new Holder()
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  // The client's word as the pet comes: the stand-in's events reach no listener of a test's.
+  Test.pet(true)
+  Events.PET_BAR_UPDATE.emit()
+  Test.flush()
+  const path = Client.PET_ATTACK_TEXTURE
+  const attack = Test.page().box(path is Asset ? path : panic("the command's icon is a file's path"))
+  Test.expect(attack.shown() && near(attack, button("pet", 1)))
+  Test.expect(near(Test.page().box(PET_SPELL), button("pet", 4)))
+  // Defensive, the stance the pet is in.
+  Test.expect(Test.page().box(Ordaen.art.ctl.qualityRim).count() == 1 && lit(button("pet", 9)))
+  Test.pet(false)
+  Events.PET_BAR_UPDATE.emit()
+  Test.flush()
+  Test.expect(!Test.page().box(PET_SPELL).shown())
 }
 
 test "a bar of two rows stands under the next one: no bar's buttons overlap another's" {
