@@ -18,14 +18,14 @@ surface 635,331.38 758.67x237.25 on DIALOG clamped raised by a click
       box 1143.17,331.38 163.83x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 1161.75,341.62 126.67x34.25
           text 1161.75,350.95 126.67x15.6 "The fourth long tab" #a3977f centred
-    box 1313.67,344.46 80x34.67
-      box 1313.67,344.46 80x26.67 clipped
-        box 1313.67,344.46 27.5x26.67 absolute clipped @click
-          box 1313.67,344.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1322,354.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 1341.17,344.46 25x26.67 absolute clipped @click
-          box 1341.17,344.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1347.42,354.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1366.17,344.46 27.5x26.67 absolute clipped @click
-          box 1366.17,344.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1372.42,354.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1313.67,340.46 80x38.67
+      box 1313.67,340.46 80x26.67 clipped
+        box 1313.67,340.46 27.5x26.67 absolute clipped @click
+          box 1313.67,340.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1322,350.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1341.17,340.46 25x26.67 absolute clipped @click
+          box 1341.17,340.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1347.42,350.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1366.17,340.46 27.5x26.67 absolute clipped @click
+          box 1366.17,340.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1372.42,350.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

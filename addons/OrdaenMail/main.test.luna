@@ -480,7 +480,7 @@ test "no letter is ticked as the mailbox opens" {
   Game.mailObserver.open = true
   Game.mailObserver.opened.emit()
   const window = Test.page().window(MAIL)
-  for (n of 0..=4) { Test.expect(!window.button(`Collect (${n})`).shown()) }
+  for (n of 0..4) { Test.expect(!window.button(`Collect (${n})`).shown()) }
 }
 
 test "a ticked box offers its letter to collect" {

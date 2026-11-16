@@ -26,7 +26,7 @@ public function copperOf(text: String): Integer | nil {
   let copper = 0
   // The last unit taken: 1 gold, 2 silver, 3 copper.
   let last = 0
-  for (round of 1..=3) {
+  for (round of 1..3) {
     if (rest == "") { break }
     const digits, unit, after = rest.match("^(%d+)(%D*)(.*)$")
     if (digits == nil || unit == nil || after == nil) { return nil }

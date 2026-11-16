@@ -206,7 +206,7 @@ test "a text tooltip the game fills anew draws anew only the line that changed, 
 // The menu button's tooltip with a dozen addons' memory, the third's as given.
 function memory(third: String): Game.TooltipData {
   let lines: Array<Game.TooltipLine> = [{ left: "Game Menu |cffffd200(Esc)|r", kind: 0 }]
-  for (i of 1..=12) { lines.push({ left: `Addon ${i}`, right: i == 3 ? third : `${i}.10 MB`, kind: 0 }) }
+  for (i of 1..12) { lines.push({ left: `Addon ${i}`, right: i == 3 ? third : `${i}.10 MB`, kind: 0 }) }
   return { plain: true, lines: lines }
 }
 

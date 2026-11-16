@@ -754,7 +754,7 @@ test "starred and tracked recipes are there after a reload" {
 test "a hundred starred is the most: one more takes off the one starred first" {
   // Kept from an earlier session: the cloak starred first, then ninety-eight recipes of other professions.
   let favorites: Array<Integer> = [110]
-  for (id of 1..=98) { favorites.push(5000 + id) }
+  for (id of 1..98) { favorites.push(5000 + id) }
   Game.saved.store(.Character, "OrdaenProfessions:memory", Kept { last: 0, seen: {}, favorites: favorites, tracked: [], queue: [], paused: {} })
   Test.reload()
   Game.frames.Professions = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)

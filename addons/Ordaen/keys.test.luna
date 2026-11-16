@@ -83,7 +83,7 @@ class Controls {
 
 // Tab until the focus says `said` (its place, `#1 `, or its text, `«Left»`), at most once round the window.
 function tabTo(said: String) {
-  for (i of 1..=20) {
+  for (i of 1..20) {
     Test.key(Move.Next)
     if (Test.focused().contains(said)) { return }
   }

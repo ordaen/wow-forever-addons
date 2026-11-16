@@ -19,7 +19,7 @@ const GLYPH_CELL = 23.4375dp
 const GLYPH_IN = -2.34375dp
 const function glyphPieces(): Array<Piece> {
   let list: Array<Piece> = []
-  for (row of 0..=13) { list.push({ file: GLYPH_FILE, width: 32, height: 512, rows: 16, normal: row }) }
+  for (row of 0..13) { list.push({ file: GLYPH_FILE, width: 32, height: 512, rows: 16, normal: row }) }
   return list
 }
 const GLYPH_ART: Array<Piece> = glyphPieces()
@@ -498,7 +498,7 @@ public class TipFrame implements Component {
   // One column as wide as each piece and each « · » between two, and the rest of the row empty.
   tracks(self, pieces: Integer): Array<Track> {
     let list: Array<Track> = []
-    for (i of 1..=pieces) {
+    for (i of 1..pieces) {
       if (i > 1) { list.push("max-content") }
       list.push("max-content")
     }

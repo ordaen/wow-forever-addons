@@ -1002,7 +1002,7 @@ test "a name given to the first spec in the settings stands on its tab" {
   const window = book()
   window.button(Ordaen.art.ctl.corner.gear).click()
   const settings = Test.page().window("Name of the first spec tab")
-  for (i of 1..=30) {
+  for (i of 1..30) {
     if (Test.keyboard()) { break }
     Test.key(Test.Move.Next)
   }
@@ -1017,7 +1017,7 @@ test "a name given to the second spec in the settings stands on its tab" {
   const window = Test.page().window("Primary")
   window.button(Ordaen.art.ctl.corner.gear).click()
   const settings = Test.page().window("Name of the first spec tab")
-  for (i of 1..=30) {
+  for (i of 1..30) {
     if (Test.keyboard()) { break }
     Test.key(Test.Move.Next)
   }

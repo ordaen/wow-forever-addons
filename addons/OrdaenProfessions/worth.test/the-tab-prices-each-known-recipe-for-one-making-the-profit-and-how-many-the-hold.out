@@ -151,14 +151,14 @@ surface 325,133.88 950x632.25 on DIALOG clamped raised by a click
         box 392.5,144.12 61.11x45.92
           text 392.5,151.67 61.11x15.6 "Tailoring" #ffd100 centred
           text 400.83,168.1 44.44x14.4 "31 / 75" #8f8470 centred
-    box 1195,158.62 80x34.67
-      box 1195,158.62 80x26.67 clipped
-        box 1195,158.62 27.5x26.67 absolute clipped @click
-          box 1195,158.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 1203.33,168.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
-        box 1222.5,158.62 25x26.67 absolute clipped @click
-          box 1222.5,158.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
-          box 1228.75,168.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 1247.5,158.62 27.5x26.67 absolute clipped @click
-          box 1247.5,158.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 1253.75,168.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 1195,154.62 80x38.67
+      box 1195,154.62 80x26.67 clipped
+        box 1195,154.62 27.5x26.67 absolute clipped @click
+          box 1195,154.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 1203.33,164.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 0 of 8
+        box 1222.5,154.62 25x26.67 absolute clipped @click
+          box 1222.5,154.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 3 of 16
+          box 1228.75,164.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 1247.5,154.62 27.5x26.67 absolute clipped @click
+          box 1247.5,154.62 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 1253.75,164.21 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

@@ -1236,7 +1236,7 @@ test "the cursor on the gold: this character's, then this realm's others by how 
 test "fifty characters' gold is kept, this one's among them" {
   // Forty-nine other characters' gold, as the sessions before left it.
   let characters: Map<String, Purse> = {}
-  for (index of 1..=49) {
+  for (index of 1..49) {
     characters[`Player-1-${index}`] = { name: `Alt${index}`, realm: "Stand-in", copper: 100, seen: 1000 + index }
   }
   Game.saved.store(.Account, "OrdaenBags:memory", Purses { characters: characters })
@@ -1251,7 +1251,7 @@ test "fifty characters' gold is kept, this one's among them" {
 test "past fifty characters the one seen longest ago is forgotten" {
   // Fifty other characters' gold, as the sessions before left it: the first seen longest ago.
   let characters: Map<String, Purse> = {}
-  for (index of 1..=50) {
+  for (index of 1..50) {
     characters[`Player-1-${index}`] = { name: `Alt${index}`, realm: "Stand-in", copper: 100, seen: 1000 + index }
   }
   Game.saved.store(.Account, "OrdaenBags:memory", Purses { characters: characters })

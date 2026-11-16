@@ -12,7 +12,7 @@ const PLATES = ["Options", "AddOns", "Log Out", "Exit Game", "Return to Game"]
 // Blizzard's buttons that show.
 function buttonsOf(...frames: any Client.Frame): Array<any Client.Button> {
   const list: Array<any Client.Button> = []
-  for (i of 1..=frames.length) {
+  for (i of 1..frames.length) {
     const frame = frames[i]
     if (frame is Client.Button) {
       if (frame.IsShown()) { list.push(frame) }

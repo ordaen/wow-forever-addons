@@ -32,7 +32,7 @@ test "a window resized a fraction of a pixel at a time holds its tab and its bod
   Test.press(nil)
   Test.moveTo({ x: grip.x + 1, y: grip.y })
   Test.pass(0.05)
-  for (step of 1..=12) {
+  for (step of 1..12) {
     Test.moveTo({ x: grip.x + step * 0.25, y: grip.y + step * 0.25 })
     Test.pass(0.02)
     const now = Test.edges(Ordaen.art.window.wood, 0)

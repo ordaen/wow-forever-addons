@@ -39,11 +39,11 @@ test "− and + stop at the bounds, typing past one writes the bound, and a boun
   Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
   Test.shot("3 of 1 to 5: both looks show 3")
 
-  for (step of 1..=4) { click("+") }
+  for (step of 1..4) { click("+") }
   Test.expect(page.count == 5)
   Test.shot("+ four times: 5, the most, + disabled")
 
-  for (step of 1..=6) { click("-") }
+  for (step of 1..6) { click("-") }
   Test.expect(page.count == 1)
   Test.shot("- six times: 1, the least, - disabled")
 

@@ -167,7 +167,7 @@ const function plateWidth(index: Integer, count: Integer): Number<Length> {
 // How far the `index`th plate stands from the group's left.
 const function plateLeft(index: Integer, count: Integer): Number<Length> {
   let left: Number<Length> = 0ui
-  for (i of 1..=index - 1) { left += plateWidth(i, count) }
+  for (i of 1..index - 1) { left += plateWidth(i, count) }
   return left
 }
 // The main section's content takes what its footer's row leaves; the body's one row is as high as the body.
@@ -379,8 +379,10 @@ public class Window implements Component {
   derived inset: Number<Length> = self.full ? self.room : 0ui
   // The tab row ends where the body does: short of that side while full screen.
   derived rowPad: Edges = { right: self.inset }
-  // The control group's foot stands in the middle of the body's top line, which covers it.
-  derived cornerFoot: Edges = { bottom: self.lineTop - CORNER_FOOT }
+  // The control group's foot stands on the top of the body's line (the frame's art starts that far outside the
+  // body), and the group is drawn over the body: the frame's art above its line, its dark edge and shadow, would
+  // otherwise cover the plates' foot and stand between them and the line.
+  derived cornerFoot: Edges = { bottom: self.lineTop - Ordaen.art.frame.small.inset * 1ui }
   derived grip: Stated<Art> = self.gripOf()
   // The ring round the control the keyboard has focused: the look's accent.
   derived focusLine: Line = { width: 1.171875dp, color: Ordaen.look.values.accent, sides: nil }
@@ -761,7 +763,7 @@ public class Window implements Component {
                        height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @drop={self.onSettle}
                        @picked={self.onPicked} />
           </box>
-          <box padding={self.cornerFoot}>
+          <box padding={self.cornerFoot} zLevel={BODY_LEVEL + 1}>
             <box width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>
               <CornerPlate $for={index, control of self.controls} control={control} index={index}
                            count={self.controls.length} full={self.full} @pressed={self.onCorner} />

@@ -125,7 +125,7 @@ struct Grown implements Plain {
 
 test "a memory past its bound isn't kept" {
   const names: Array<String> = []
-  for (i of 1..=100) { names.push("name number %d".format(i)) }
+  for (i of 1..100) { names.push("name number %d".format(i)) }
   Ordaen.keeper.profiles.remember("Ordaen:grown", Grown { names: names })
   Test.expect(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:grown") == nil)
   Ordaen.keeper.profiles.remember("Ordaen:grown", Grown { names: ["one"] })

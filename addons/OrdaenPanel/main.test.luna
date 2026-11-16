@@ -80,10 +80,10 @@ function client(name: String): any Client.Frame {
 // each bag, one for each reagent bag, the keyring's; each of `make`'s frame of that name.
 function bagButtons(make: (name: String) => any Client.Frame): Array<Game.BagButton> {
   let bags: Array<Game.BagButton> = [{ kind: .Backpack, frame: make("MainMenuBarBackpackButton"), icon: BACKPACK }]
-  for (slot of 0..=Client.NUM_BAG_SLOTS - 1) {
+  for (slot of 0..Client.NUM_BAG_SLOTS - 1) {
     bags.push({ kind: .Bag, frame: make(`CharacterBag${slot}Slot`), icon: BAG })
   }
-  for (slot of 0..=Client.NUM_REAGENTBAG_SLOTS - 1) {
+  for (slot of 0..Client.NUM_REAGENTBAG_SLOTS - 1) {
     bags.push({ kind: .Reagent, frame: make(`CharacterReagentBag${slot}Slot`), icon: REAGENT })
   }
   bags.push({ kind: .Keyring, frame: make("KeyRingButton"), icon: KEYRING })
@@ -220,8 +220,8 @@ test "every bag button the game has stands in a cell after the menu, in its orde
   Test.mount(nil, SCREEN)
   const window = panel()
   let icons: Array<FileId> = [BACKPACK]
-  for (slot of 1..=Client.NUM_BAG_SLOTS) { icons.push(BAG) }
-  for (slot of 1..=Client.NUM_REAGENTBAG_SLOTS) { icons.push(REAGENT) }
+  for (slot of 1..Client.NUM_BAG_SLOTS) { icons.push(BAG) }
+  for (slot of 1..Client.NUM_REAGENTBAG_SLOTS) { icons.push(REAGENT) }
   icons.push(KEYRING)
   Test.expect(window.box(CELL).count() == 10 + icons.length)
   for (at, icon of icons) { Test.expect(window.box(CELL).nth(10 + at).paintedWith(icon)) }

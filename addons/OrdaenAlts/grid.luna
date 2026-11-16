@@ -47,7 +47,7 @@ public class Grid implements Component {
 
   tracksOf(self): Array<Track> {
     const list: Array<Track> = [{ fr: 2 }]
-    for (index of 1..=self.names.length) { list.push({ fr: 1 }) }
+    for (index of 1..self.names.length) { list.push({ fr: 1 }) }
     return list
   }
 

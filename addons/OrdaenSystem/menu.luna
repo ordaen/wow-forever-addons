@@ -52,7 +52,7 @@ public struct Dressed {
 // The values a client's call gives, one after another, as a list.
 function framesOf(...frames: any Client.Frame): Array<any Client.Frame> {
   const list: Array<any Client.Frame> = []
-  for (i of 1..=frames.length) {
+  for (i of 1..frames.length) {
     const frame = frames[i]
     if (frame != nil) { list.push(frame) }
   }
@@ -61,7 +61,7 @@ function framesOf(...frames: any Client.Frame): Array<any Client.Frame> {
 
 // A frame's own textures and texts at an alpha: its art.
 function fade(alpha: Number, ...regions: any Client.Region) {
-  for (i of 1..=regions.length) {
+  for (i of 1..regions.length) {
     const region = regions[i]
     if (region is Client.Texture) { region.SetAlpha(alpha) }
     if (region is Client.FontString) { region.SetAlpha(alpha) }

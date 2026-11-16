@@ -180,7 +180,7 @@ public class House {
 // hour), one older than 30 days is dropped. The points are oldest first, so a day's are side by side.
 function rolled(points: mut Array<Quote>, now: Hour) {
   let kept = 0
-  for (at of 1..=points.length) {
+  for (at of 1..points.length) {
     const point = points[at] ?? panic("a point of the history")
     let seen: Integer = point.seen()
     if (now - seen >= DAY) { seen -= seen % DAY }
@@ -194,7 +194,7 @@ function rolled(points: mut Array<Quote>, now: Hour) {
       }
     }
   }
-  for (step of kept + 1..=points.length) { _ = points.pop() }
+  for (step of kept + 1..points.length) { _ = points.pop() }
 }
 
 function unpacked(packed: String | nil): mut Packed {

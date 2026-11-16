@@ -167,7 +167,7 @@ class World {
 // What a client's call gives, one after another, as a list.
 function needsOf(...names: String): Array<String> {
   const list: Array<String> = []
-  for (i of 1..=names.length) { list.push(names[i] ?? "") }
+  for (i of 1..names.length) { list.push(names[i] ?? "") }
   return list
 }
 
@@ -688,7 +688,7 @@ test "the question comes at every switching off that stops another addon, and ne
   Client.C_AddOns.ResetAddOns = () => world.reset()
   Test.mount(nil, SCREEN)
   open()
-  for (round of 1..=3) {
+  for (round of 1..3) {
     flip("Ordaen")
     Test.expect(question("Ordaen").shown())
     question("Ordaen").button(Locale.CANCEL).click()
@@ -1433,15 +1433,15 @@ test "folded, switched and unfolded again, every row keeps its line and its swit
 }
 
 test "a long list scrolls, and each switch switches the addon its row shows, at every scroll" {
-  for (i of 1..=30) { Test.addon({ name: `Many${i}`, title: `Many ${i}`, category: "Many" }) }
+  for (i of 1..30) { Test.addon({ name: `Many${i}`, title: `Many ${i}`, category: "Many" }) }
   Test.mount(nil, SCREEN)
   open()
   let at = "Many 1"
-  for (round of 1..=3) {
+  for (round of 1..3) {
     window().text(at).wheel(-3)
     // The last row in view that isn't switched yet: a row the list handed another addon as it moved.
     let found = ""
-    for (i of 30..=1 step -1) {
+    for (i of 30..1 step -1) {
       const title = `Many ${i}`
       if (found == "" && window().text(title).shown() && Test.refused(() => window().text(title).hover()) == nil &&
           window().text(title).item().text(Locale.STATE_UNTIL).count() == 0) { found = title }
@@ -2347,7 +2347,7 @@ test "a set isn't renamed to no name" {
 test "at most ten sets are kept: the eleventh says to delete one first" {
   Test.mount(nil, SCREEN)
   open()
-  for (i of 1..=10) { saveSet(`Set ${i}`) }
+  for (i of 1..10) { saveSet(`Set ${i}`) }
   saveSet("Eleven")
   Test.expect(Test.page().window(Locale.SET_NEW).text(Locale.SETS_FULL.format(10)).shown())
 }
@@ -2413,13 +2413,13 @@ test "folded categories are the profile's: folded after a reload, and open after
 }
 
 test "at most so many categories are kept folded: one more opens the earliest folded" {
-  for (i of 1..=FOLDED_MOST + 1) { Test.addon({ name: `Crate${i}`, title: `Crate ${i}`, category: `Aisle ${i}` }) }
+  for (i of 1..FOLDED_MOST + 1) { Test.addon({ name: `Crate${i}`, title: `Crate ${i}`, category: `Aisle ${i}` }) }
   Test.mount(nil, SCREEN)
   open()
-  for (i of 1..=FOLDED_MOST + 1) { row(`Aisle ${i}`).click() }
+  for (i of 1..FOLDED_MOST + 1) { row(`Aisle ${i}`).click() }
   Test.expect(row("Aisle 1").paintedWith(Ordaen.art.ctl.markOpen) && window().text("Crate 1").shown())
   let closed = true
-  for (i of 2..=FOLDED_MOST + 1) {
+  for (i of 2..FOLDED_MOST + 1) {
     if (!row(`Aisle ${i}`).paintedWith(Ordaen.art.ctl.markClosed)) { closed = false }
   }
   Test.expect(closed)

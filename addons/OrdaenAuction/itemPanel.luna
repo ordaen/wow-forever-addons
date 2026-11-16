@@ -50,7 +50,7 @@ function lowestOf(history: any PriceHistory, key: PriceKey, span: Span, now: Hou
   const today = (now / HOURS_A_DAY).floor()
   const first = hourly ? now - (HOURS_A_DAY - 1) : (today - (count - 1)) * HOURS_A_DAY
   let lows: Array<Integer> = []
-  for (index of 1..=count) { lows.push(0) }
+  for (index of 1..count) { lows.push(0) }
   for (point of history.hours(key, Hour.of(first), now)) {
     const at = hourly ? point.hour - first + 1 : ((point.hour - first) / HOURS_A_DAY).floor() + 1
     const kept = lows[at] ?? 0

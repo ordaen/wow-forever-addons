@@ -11,11 +11,11 @@ surface 400,131.38 560.5x526.1 on DIALOG clamped raised by a click
       box 400,131.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 418.58,141.62 77.33x34.25
           text 433.36,150.95 47.78x15.6 "Crowded" #ffd100 centred
-    box 905.5,144.46 55x34.67
-      box 905.5,144.46 55x26.67 clipped
-        box 905.5,144.46 27.5x26.67 absolute clipped @click
-          box 905.5,144.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
-          box 913.83,154.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 933,144.46 27.5x26.67 absolute clipped @click
-          box 933,144.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
-          box 939.25,154.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
+    box 905.5,140.46 55x38.67
+      box 905.5,140.46 55x26.67 clipped
+        box 905.5,140.46 27.5x26.67 absolute clipped @click
+          box 905.5,140.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
+          box 913.83,150.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
+        box 933,140.46 27.5x26.67 absolute clipped @click
+          box 933,140.46 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
+          box 939.25,150.04 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

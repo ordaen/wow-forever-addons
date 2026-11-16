@@ -203,7 +203,7 @@ public class Bags implements Module, App {
   public readAll(mut self) {
     let infos: Array<Game.BagInfo> = []
     let sized = false
-    for (bag of 0..=Game.bags.last) {
+    for (bag of 0..Game.bags.last) {
       const info = Game.bags.bag(bag)
       infos.push(info)
       const had = self.bags[bag + 1]
@@ -214,7 +214,7 @@ public class Bags implements Module, App {
       let all: Array<mut Slot> = []
       for (info of infos) {
         let slots: Array<mut Slot> = []
-        for (index of 1..=info.slots) {
+        for (index of 1..info.slots) {
           const slot = new Slot(info.bag, index)
           slots.push(mut slot)
           all.push(mut slot)

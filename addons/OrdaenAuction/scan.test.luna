@@ -74,7 +74,7 @@ function says(part: Test.Part, label: String, expected: String): Boolean {
   for (index, text of shown) {
     if (text == label) {
       let read: Array<String> = []
-      for (at of index + 1..=index + count) { read.push(shown[at] ?? "") }
+      for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
       if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
       return true
@@ -189,7 +189,7 @@ test "a scan shows its progress as it reads, and the house shut on it drops it: 
   Test.mount(nil, SCREEN)
   Game.auctionHouse.open = true
   let auctions: Array<Sale> = []
-  for (index of 1..=1200) { auctions.push({ key: 1000 + index, unit: 10, many: 1 }) }
+  for (index of 1..1200) { auctions.push({ key: 1000 + index, unit: 10, many: 1 }) }
   // The clock moves 0.02 ms an auction read: asked every 50 auctions, the frame's 4 ms are past at the 250th.
   let reads = 0
   Game.auctionScan.read = (index: Integer): (Integer, Integer, Integer) => {
@@ -610,7 +610,7 @@ test "the ledger keeps a row 90 days to the hour, and 1,000 rows at most" {
   Auction.ledger.record({ kind: "buyer", item: "Copper Ore", other: nil, copper: 300, count: 20 })
   const page = data()
   Test.expect(says(page, "Sold: 1", "0g 5s 0c"))
-  for (index of 1..=998) { Auction.ledger.record({ kind: "buyer", item: "Copper Ore", other: nil, copper: 1, count: 1 }) }
+  for (index of 1..998) { Auction.ledger.record({ kind: "buyer", item: "Copper Ore", other: nil, copper: 1, count: 1 }) }
   Test.expect(page.text("Sold: 1").shown() && page.text("Bought: 999").shown())
   Auction.ledger.record({ kind: "buyer", item: "Copper Ore", other: nil, copper: 1, count: 1 })
   Test.expect(page.text("Sold: 0").shown() && page.text("Bought: 1000").shown())

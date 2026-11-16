@@ -69,6 +69,6 @@ public class Ledger {
       if (now - row.at <= KEPT_HOURS) { break }
       old += 1
     }
-    for (index of 1..=old) { _ = self.rows.remove(1) }
+    for (index of 1..old) { _ = self.rows.remove(1) }
   }
 }
