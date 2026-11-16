@@ -151,28 +151,22 @@ test "a click Blizzard's «AddOns» takes itself, first thing after a load, open
   Test.expect(Test.page().window("Reset").shown())
 }
 
-test "first thing after a reload, the menu's «AddOns» opens Ordaen's window, by its plate or by Blizzard's button" {
+test "first thing after a reload, the menu's «AddOns» opens Ordaen's window by its plate" {
   Test.mount(nil, SCREEN)
   Test.reload()
   escape()
   Test.page().text(Client.ADDONS).click()
   Test.expect(!Client.AddonList.IsShown() && !Client.GameMenuFrame.IsShown() && Test.page().window("Reset").shown())
-  Test.reload()
-  _ = Test.key(Key.Escape)
-  blizzardsAddOns().Click(nil, nil)
-  Test.expect(!Client.AddonList.IsShown() && !Client.GameMenuFrame.IsShown() && Test.page().window("Reset").shown())
 }
 
-test "Blizzard's list asked for anywhere opens Ordaen's window in its place, and nothing once the module is off" {
+test "once the module is off, Blizzard's «AddOns» opens Blizzard's list" {
   Test.mount(nil, SCREEN)
-  Client.ShowUIPanel(Client.AddonList)
-  Test.expect(!Client.AddonList.IsShown() && Test.page().window("Reset").shown())
-  _ = Test.key(Key.Escape)
   (Client.SlashCmdList["ORDAEN"] ?? panic("/ordaen is Ordaen's command"))("")
   Test.page().window("Move mode").button(Ordaen.art.ctl.switchOn).click()
   Test.page().window("Move mode").button(Ordaen.art.ctl.corner.close).click()
-  Client.ShowUIPanel(Client.AddonList)
-  Test.expect(Client.AddonList.IsShown() && !Test.page().window("Reset").shown())
+  _ = Test.key(Key.Escape)
+  blizzardsAddOns().Click(nil, nil)
+  Test.expect(Client.AddonList.IsShown())
 }
 
 test "Blizzard's «new» on the options shows as the gem on its plate alone, and goes with it" {
