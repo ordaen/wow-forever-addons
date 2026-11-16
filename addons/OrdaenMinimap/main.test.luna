@@ -62,11 +62,13 @@ function tick(nth: Integer) {
   settings.button("Save").click()
 }
 
-// «Hide the minimap»'s choice, saved.
-function hideWhen(choice: String) {
+// One of «Visibility»'s states, the `nth` («General», «In combat», «On transport»), set to «Hide» and saved.
+function hideWhen(nth: Integer) {
   const settings = tab("Map")
-  settings.button("Never").click()
-  Test.page().window("On transport").button(choice).click()
+  settings.text("Map size").wheel(-10)
+  settings.button("Show").nth(nth).click()
+  const holders = Test.page().window("On mouseover")
+  holders.nth(holders.count()).button("Hide").click()
   settings.button("Save").click()
 }
 
@@ -657,7 +659,7 @@ test "a change on the map's tab waits for Save" {
 
 test "the minimap set to hide in combat goes while the player fights" {
   Test.mount(nil, SCREEN)
-  hideWhen("In combat")
+  hideWhen(2)
   Game.situation.taxi = true
   Test.expect(minimap().shown())
   Game.situation.combat = true
@@ -668,10 +670,12 @@ test "the minimap set to hide in combat goes while the player fights" {
 
 test "the minimap set to hide on transport goes on a flight path and in a vehicle" {
   Test.mount(nil, SCREEN)
-  hideWhen("On transport")
+  hideWhen(3)
+  // A fight is asked first: in combat the map is as «In combat» says, on transport or not.
   Game.situation.combat = true
-  Test.expect(minimap().shown())
   Game.situation.taxi = true
+  Test.expect(minimap().shown())
+  Game.situation.combat = false
   Test.expect(!minimap().shown())
   Game.situation.taxi = false
   Game.situation.vehicle = true

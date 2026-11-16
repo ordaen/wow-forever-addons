@@ -1,8 +1,9 @@
 // The panel's items that are rows of cells or of text: the game's menu, friends and guild, the money, the bags. Each
 // is drawn in its zone of the panel, or standing free where the player put it.
 import Game from "$game"
-import { Align, Shadow, Track } from "$ltml"
+import { Align, Art, Shadow, Track } from "$ltml"
 import { Component } from "Ordaen"
+import { CELL_HEIGHT } from "@/cells"
 import { Cell, CellGroup } from "@/group"
 
 const INK: Color = Color.hex("#e8dcc4")
@@ -10,13 +11,16 @@ const INK: Color = Color.hex("#e8dcc4")
 const WHOLE: Array<Track> = [{ fr: 1 }]
 const PAIR: Array<Track> = ["auto", "auto"]
 
-// The game's menu's buttons before its last.
-function menuOf(faced: Boolean, social: Boolean): Array<Cell> {
+// The game's menu's buttons before its last. With the spellbook and the talents in one window (Ordaen Spells), the
+// spellbook's button alone opens it.
+function menuOf(faced: Boolean, social: Boolean, merged: Boolean): Array<Cell> {
   let cells: Array<Cell> = []
   if (faced) { cells.push(Cell.Face) }
   cells.push(Cell.Menu { icon: "@/assets/micro-professions.tga", frame: Game.frames.ProfessionMicroButton, friends: false })
   cells.push(Cell.Menu { icon: "@/assets/micro-spellbookabilities.tga", frame: Game.frames.SpellbookMicroButton, friends: false })
-  cells.push(Cell.Menu { icon: "@/assets/micro-spectalents.tga", frame: Game.frames.TalentMicroButton, friends: false })
+  if (!merged) {
+    cells.push(Cell.Menu { icon: "@/assets/micro-spectalents.tga", frame: Game.frames.TalentMicroButton, friends: false })
+  }
   cells.push(Cell.Menu { icon: "@/assets/micro-legacy.tga", frame: Game.frames.LegacyMicroButton, friends: false })
   cells.push(Cell.Menu { icon: "@/assets/micro-questlog.tga", frame: Game.frames.QuestLogMicroButton, friends: false })
   cells.push(Cell.Menu { icon: "@/assets/micro-groupfinder.tga", frame: Game.frames.LFDMicroButton, friends: false })
@@ -37,27 +41,44 @@ function pushSocial(cells: mut Array<Cell>) {
 // player's face, unless the portrait in the screen's corner stands for it; friends and guild stand in it, before the
 // game menu's button, where they sit with it.
 public class MicroLine implements Component {
-  derived cells: Array<Cell> = menuOf(self.faced, self.social)
+  derived cells: Array<Cell> = menuOf(self.faced, self.social, self.merged)
 
   gold: Signal<Boolean>
   vertical: Signal<Boolean>
   faced: Signal<Boolean>
   social: Signal<Boolean>
+  merged: Signal<Boolean>
+  height: Signal<Number>
+  face: Signal<String | nil>
+  icon: Signal<Art | nil>
   constructor(
     gold: Signal<Boolean>,
     vertical: Signal<Boolean> = false,
     faced: Signal<Boolean> = true,
     // Friends and guild are in the menu.
-    social: Signal<Boolean> = false
+    social: Signal<Boolean> = false,
+    // The spellbook and the talents open one window: one button for both.
+    merged: Signal<Boolean> = false,
+    height: Signal<Number> = CELL_HEIGHT,
+    // The character's cell: the unit whose face it shows, or the class's icon.
+    face: Signal<String | nil> = "player",
+    icon: Signal<Art | nil> = nil
   ) {
     self.gold = gold
     self.vertical = vertical
     self.faced = faced
     self.social = social
+    self.merged = merged
+    self.height = height
+    self.face = face
+    self.icon = icon
   }
 
   public render(self): Template {
-    return $ltml { <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} /> }
+    return $ltml {
+      <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} height={self.height} face={self.face}
+                 icon={self.icon} />
+    }
   }
 }
 
@@ -67,13 +88,15 @@ public class SocialLine implements Component {
 
   gold: Signal<Boolean>
   vertical: Signal<Boolean>
-  constructor(gold: Signal<Boolean>, vertical: Signal<Boolean> = false) {
+  height: Signal<Number>
+  constructor(gold: Signal<Boolean>, vertical: Signal<Boolean> = false, height: Signal<Number> = CELL_HEIGHT) {
     self.gold = gold
     self.vertical = vertical
+    self.height = height
   }
 
   public render(self): Template {
-    return $ltml { <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} /> }
+    return $ltml { <CellGroup cells={self.cells} gold={self.gold} vertical={self.vertical} height={self.height} /> }
   }
 }
 
@@ -125,11 +148,13 @@ public class BagLine implements Component {
   derived cells: Array<Cell> = Game.bags.buttons.map(button => Cell.Bag { button: button })
 
   vertical: Signal<Boolean>
-  constructor(vertical: Signal<Boolean> = false) {
+  height: Signal<Number>
+  constructor(vertical: Signal<Boolean> = false, height: Signal<Number> = CELL_HEIGHT) {
     self.vertical = vertical
+    self.height = height
   }
 
   public render(self): Template {
-    return $ltml { <CellGroup cells={self.cells} vertical={self.vertical} /> }
+    return $ltml { <CellGroup cells={self.cells} vertical={self.vertical} height={self.height} /> }
   }
 }
