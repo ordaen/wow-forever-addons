@@ -42,7 +42,7 @@ public class Toggle implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track} @pointerPress={self.flip}>
+      <box width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track} @pointerPress={self.flip} @keyPress(.Enter)={self.flip} @keyPress(.Space)={self.flip}>
         <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
              background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />
         <box position={Position.Absolute} left={KNOB_ON} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
@@ -82,7 +82,7 @@ public class ShownToggle implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track} @pointerPress={self.onClick}>
+      <box width={SWITCH_WIDTH} height={SWITCH_HEIGHT} background={self.track} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={self.knobLeft} top={KNOB_TOP} width={SWITCH_KNOB} height={SWITCH_KNOB}
              background={self.knob} opacity={self.knobLight} />
       </box>

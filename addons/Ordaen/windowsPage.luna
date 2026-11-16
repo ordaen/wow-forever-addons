@@ -3,7 +3,7 @@
 // the tab it opens on (the one last open, or a fixed one), what hides it and after what it shows again. It is fed by the windows' declarations (`KeptWindow`)
 // and writes their memory, which the windows read: a window and its page can't disagree. What it changes is kept at
 // once, as a window moved by its tab is: it is where the window is, not a choice waiting for «Save».
-import { Pointer, Track } from "$ltml"
+import { MouseButton, Track } from "$ltml"
 import { Checkbox } from "@/checkbox"
 import { CountInput, CountLook } from "@/countInput"
 import { Choice, Dropdown, ManyDropdown } from "@/dropdown"
@@ -56,7 +56,7 @@ class WindowItem implements Component {
     self.current = current
   }
 
-  onPick(self, click: Pointer) { self.picked.emit(self.index) }
+  onPick(self, button: MouseButton) { self.picked.emit(self.index) }
 
   public render(self): Template {
     return $ltml {

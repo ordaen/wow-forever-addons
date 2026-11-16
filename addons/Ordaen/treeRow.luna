@@ -62,7 +62,7 @@ public class TreeRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[self.gutter, { fr: 1 }, "max-content"]} gap={4.6875dp} padding={4.6875dp} yAlign={Align.Center}
-           background={self.background} @pointerPress={self.onClick}>
+           background={self.background} @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick}>
         <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={3.515625dp} background={self.light} />
         <box width={self.gutter} height={LINE}>
           <box $if={!self.leaf} position={Position.Absolute} left={self.markLeft} top={MARK_TOP} width={MARK_CELL}

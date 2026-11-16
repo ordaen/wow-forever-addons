@@ -2,13 +2,13 @@
 box 0,0 700x690.57
   box 0,0 700x27.27
     box 0,26.43 700x0.83 absolute #3e2f1d
-    box 0,0 47.22x27.27 #00000000 @pointerPress
+    box 0,0 47.22x27.27 #00000000 @keyPress @pointerPress
       box 0.83,0.83 45.56x1.67 absolute #00000000
       text 12.5,6.67 22.22x15.6 "Map" #a3977f
-    box 50.56,0 67.22x27.27 #00000000 @pointerPress
+    box 50.56,0 67.22x27.27 #00000000 @keyPress @pointerPress
       box 51.39,0.83 65.56x1.67 absolute #00000000
       text 63.06,6.67 42.22x15.6 "Drawer" #a3977f
-    box 121.11,0 67.22x27.27 #00000059 @pointerPress
+    box 121.11,0 67.22x27.27 #00000059 @keyPress @pointerPress
       box 121.94,0.83 65.56x1.67 absolute #d6a56b
       text 133.61,6.67 42.22x15.6 "Market" #ffffff
   box 0,33.93 700x564.37
@@ -42,13 +42,13 @@ box 0,0 700x690.57
           box 0,196.33 233.33x15.6 @pointerEnter @pointerLeave
             text 0,196.33 233.33x15.6 "Sold to" #cbb994
           box 248.33,189.67 451.67x28.93 opacity=1
-            box 248.33,189.67 72.78x28.93 #5a4428 @pointerPress
+            box 248.33,189.67 72.78x28.93 #5a4428 @keyPress @pointerPress
               box 248.33,189.67 72.78x1.67 absolute #d6a56b
               text 260.83,196.33 47.78x15.6 "Auction" #ffffff
-            box 321.11,189.67 78.61x28.93 #0d0a08 @pointerPress
+            box 321.11,189.67 78.61x28.93 #0d0a08 @keyPress @pointerPress
               box 321.11,189.67 78.61x1.67 absolute #00000000
               text 332.78,196.33 54.44x15.6 "Merchant" #a3977f
-            box 399.72,189.67 163.06x28.93 #0d0a08 @pointerPress
+            box 399.72,189.67 163.06x28.93 #0d0a08 @keyPress @pointerPress
               box 399.72,189.67 163.06x1.67 absolute #00000000
               text 411.39,196.33 138.89x15.6 "Held — in development" #ffffff
         box 0,230.27 700x33.33 opacity=1
@@ -73,14 +73,14 @@ box 0,0 700x690.57
               box 328.33,230.27 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
               box 328.33,230.27 33.33x33.33 absolute #00000000
         box 0,275.27 700x44.53
-          box 0,275.27 700x22.27 #00000000 @pointerPress
+          box 0,275.27 700x22.27 #00000000 @keyPress @pointerPress
             box 0,275.27 2.5x22.27 absolute #00000000
             box 3.33,280.15 13.33x12.5
               box 3.33,279.73 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 3 of 8
             text 20,278.6 605.56x15.6 "Bronze Axe" #e8dcc4
             box 628.89,278.6 67.78x15.6
               text 628.89,278.6 67.78x15.6 "1g 23s 45c" #e8dcc4
-          box 0,297.53 700x22.27 #00000000 @pointerPress
+          box 0,297.53 700x22.27 #00000000 @keyPress @pointerPress
             box 0,297.53 2.5x22.27 absolute #00000000
             box 3.33,302.42 26.67x12.5
             text 33.33,300.87 617.78x15.6 "Bronze Bar" #e8dcc4
@@ -96,38 +96,38 @@ box 0,0 700x690.57
           text 248.33,363.73 451.67x15.6 "none" #ffffff
         box 0,391 700x99.77
           box 0,391 700x29.77 #00000040
-            box 6.67,391 493.33x28.93 #00000000 @pointerPress
+            box 6.67,391 493.33x28.93 #00000000 @keyPress @pointerPress
               box 6.67,418.27 493.33x1.67 absolute #00000000
               box 6.67,397.67 493.33x15.6
                 text 6.67,397.67 28.89x15.6 "Item" #cbb994
                 box 38.89,402.97 6.67x5
                   box 35.56,398.8 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-            box 506.67,391 120x28.93 #00000000 @pointerPress
+            box 506.67,391 120x28.93 #00000000 @keyPress @pointerPress
               box 506.67,418.27 120x1.67 absolute #00000000
               box 587.78,397.67 38.89x15.6
                 text 587.78,397.67 28.89x15.6 "Each" #cbb994
                 box 620,402.97 6.67x5
                   box 616.67,398.8 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
-            box 633.33,391 60x28.93 #00000000 @pointerPress
+            box 633.33,391 60x28.93 #00000000 @keyPress @pointerPress
               box 633.33,418.27 60x1.67 absolute #00000000
               box 661.11,397.67 32.22x15.6
                 text 661.11,397.67 22.22x15.6 "Age" #cbb994
                 box 686.67,402.97 6.67x5
                   box 683.33,398.8 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-marks row 0 of 8 opacity=0
           box 0,420.77 700x70 scrolled 0 of 0
-            box 0,420.77 700x23.33 #00000000 @pointerPress
+            box 0,420.77 700x23.33 #00000000 @keyPress @pointerPress
               text 6.67,424.63 493.33x15.6 "Copper Bar" #ffffff
               box 506.67,424.63 120x15.6
                 text 565.56,424.63 61.11x15.6 "0g 1s 50c" #e8dcc4
               box 633.33,424.63 60x15.6
                 text 651.11,424.63 42.22x15.6 "(3 d.)" #ffb02e
-            box 0,444.1 700x23.33 #00000000 @pointerPress
+            box 0,444.1 700x23.33 #00000000 @keyPress @pointerPress
               text 6.67,447.97 493.33x15.6 "Bronze Axe" #ffffff
               box 506.67,447.97 120x15.6
                 text 558.89,447.97 67.78x15.6 "1g 23s 45c" #e8dcc4
               box 633.33,447.97 60x15.6
                 text 651.11,447.97 42.22x15.6 "(1 d.)" #ffb02e
-            box 0,467.43 700x23.33 #00000000 @pointerPress
+            box 0,467.43 700x23.33 #00000000 @keyPress @pointerPress
               text 6.67,471.3 493.33x15.6 "Arcane Dust" #ffffff
               box 506.67,471.3 120x15.6
                 text 565.56,471.3 61.11x15.6 "0g 0s 40c" #e8dcc4
@@ -149,7 +149,7 @@ box 0,0 700x690.57
               box 515,534.7 33.33x28.33
                 box 515,534.7 33.33x28.33
                   box 520,534.7 28.33x28.33
-                    box 520,534.7 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerEnter @pointerLeave @pointerPress
+                    box 520,534.7 28.33x28.33 absolute Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerEnter @pointerLeave @pointerPress
                       box 527.5,542.2 13.33x13.33 Interface\AddOns\Ordaen\media\ctl-tool-glyph row 1 of 16
         box 0,574.7 700x23.6 opacity=1
           box 0,578.7 233.33x15.6 @pointerEnter @pointerLeave
@@ -158,7 +158,7 @@ box 0,0 700x690.57
             text 252.33,578.7 443.67x15.6 "Right-click here" #ffffff
   box 0,604.97 700x15.6 @pointerEnter @pointerLeave
     text 0,604.97 700x15.6 "zone shown" #ffffff
-  box 0,627.23 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+  box 0,627.23 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 335.56,633.6 28.89x15.6 "Save" #ffd100
-  box 0,662.23 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+  box 0,662.23 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 332.22,668.6 35.56x15.6 "Reset" #808080

@@ -265,7 +265,7 @@ public class WindowTab implements Component {
   public render(self): Template {
     return $ltml {
       <box width={TAB_BOUNDS} height={self.given} border={Ordaen.art.frame.tab} background={Ordaen.art.window.wood}
-           tint={self.tint} padding={self.padding} rows={BODY_ROWS} @pointerPress={self.pick}
+           tint={self.tint} padding={self.padding} rows={BODY_ROWS} @pointerPress={self.pick} @keyPress(.Enter)={self.pick} @keyPress(.Space)={self.pick}
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
         <$if={self.hasIcon}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={self.side} height={self.side}
@@ -331,7 +331,7 @@ class CornerPlate implements Component {
   public render(self): Template {
     return $ltml {
       <box position={Position.Absolute} left={self.left} top={0ui} width={self.width} height={CORNER_HEIGHT}
-           overflow={Overflow.Hidden} @pointerPress={self.press}>
+           overflow={Overflow.Hidden} @pointerPress={self.press} @keyPress(.Enter)={self.press} @keyPress(.Space)={self.press}>
         <box position={Position.Absolute} left={0ui} top={0ui} width={PLATE_ART} height={CORNER_HEIGHT}
              background={self.plate} stateFromParent={true} />
         // Over the plate by a level: at one level the client draws either on top, and a frame the renderer's pool
@@ -738,7 +738,7 @@ public class Window implements Component {
       // row is the one thing in its grid, and the width it keeps is its least.
       <surface shown={self.seen} layer={Layer.Dialog} place={self.place} width={self.bounds} height={self.height} clamp={true}
                raise={true} focusLine={self.focusLine}
-               @escape={self.onClose}>
+               @keyPress.parentScope(.Escape)={self.onClose}>
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
              border={Ordaen.art.frame.small} background={Ordaen.art.window.wood} padding={INSET}
              columns={self.bodyColumns} rows={BODY_ROWS} zLevel={BODY_LEVEL}>

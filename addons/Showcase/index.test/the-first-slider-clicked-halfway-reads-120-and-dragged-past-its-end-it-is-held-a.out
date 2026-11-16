@@ -2,13 +2,13 @@
 box 0,0 700x258.47
   box 0,0 700x27.27
     box 0,26.43 700x0.83 absolute #3e2f1d
-    box 0,0 47.22x27.27 #00000059 @pointerPress
+    box 0,0 47.22x27.27 #00000059 @keyPress @pointerPress
       box 0.83,0.83 45.56x1.67 absolute #d6a56b
       text 12.5,6.67 22.22x15.6 "Map" #ffffff
-    box 50.56,0 67.22x27.27 #00000000 @pointerPress
+    box 50.56,0 67.22x27.27 #00000000 @keyPress @pointerPress
       box 51.39,0.83 65.56x1.67 absolute #00000000
       text 63.06,6.67 42.22x15.6 "Drawer" #a3977f
-    box 121.11,0 67.22x27.27 #00000000 @pointerPress
+    box 121.11,0 67.22x27.27 #00000000 @keyPress @pointerPress
       box 121.94,0.83 65.56x1.67 absolute #00000000
       text 133.61,6.67 42.22x15.6 "Market" #a3977f
   box 0,33.93 700x132.27
@@ -19,15 +19,15 @@ box 0,0 700x258.47
       box 0,61.2 700x18.33 opacity=1
         box 0,62.57 233.33x15.6 @pointerEnter @pointerLeave
           text 0,62.57 233.33x15.6 "Show the zone" #cbb994
-        box 248.33,61.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @pointerPress
+        box 248.33,61.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
           box 248.33,61.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,91.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @pointerPress
+      box 0,91.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
         box 0,91.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 0,121.2 700x16.67 opacity=1
         box 0,121.73 233.33x15.6 @pointerEnter @pointerLeave
           text 0,121.73 233.33x15.6 "Size" #cbb994
         box 248.33,121.2 451.67x16.67
-          box 248.33,121.2 200x16.67 @drag @dragStart @key @pointerPress
+          box 248.33,121.2 200x16.67 @drag @dragStart @keyPress @pointerPress
             box 248.33,126.2 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,127.03 99.17x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 341.67,119.53 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -36,29 +36,29 @@ box 0,0 700x258.47
         box 0,150.07 233.33x15.6 @pointerEnter @pointerLeave
           text 0,150.07 233.33x15.6 "Columns" #cbb994
         box 248.33,149.53 451.67x16.67
-          box 248.33,149.53 200x16.67 @drag @dragStart @key @pointerPress
+          box 248.33,149.53 200x16.67 @drag @dragStart @keyPress @pointerPress
             box 248.33,154.53 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,155.37 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 281.67,147.87 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
           text 458.33,150.07 8.89x15.6 "4" #ffffff
   box 0,172.87 700x15.6 @pointerEnter @pointerLeave
     text 0,172.87 700x15.6 "zone shown" #ffffff
-  box 0,195.13 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+  box 0,195.13 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 335.56,201.5 28.89x15.6 "Save" #ffd100
-  box 0,230.13 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+  box 0,230.13 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 332.22,236.5 35.56x15.6 "Reset" #808080
 
 -- dragged past its end: held at 160%
 box 0,0 700x258.47
   box 0,0 700x27.27
     box 0,26.43 700x0.83 absolute #3e2f1d
-    box 0,0 47.22x27.27 #00000059 @pointerPress
+    box 0,0 47.22x27.27 #00000059 @keyPress @pointerPress
       box 0.83,0.83 45.56x1.67 absolute #d6a56b
       text 12.5,6.67 22.22x15.6 "Map" #ffffff
-    box 50.56,0 67.22x27.27 #00000000 @pointerPress
+    box 50.56,0 67.22x27.27 #00000000 @keyPress @pointerPress
       box 51.39,0.83 65.56x1.67 absolute #00000000
       text 63.06,6.67 42.22x15.6 "Drawer" #a3977f
-    box 121.11,0 67.22x27.27 #00000000 @pointerPress
+    box 121.11,0 67.22x27.27 #00000000 @keyPress @pointerPress
       box 121.94,0.83 65.56x1.67 absolute #00000000
       text 133.61,6.67 42.22x15.6 "Market" #a3977f
   box 0,33.93 700x132.27
@@ -69,15 +69,15 @@ box 0,0 700x258.47
       box 0,61.2 700x18.33 opacity=1
         box 0,62.57 233.33x15.6 @pointerEnter @pointerLeave
           text 0,62.57 233.33x15.6 "Show the zone" #cbb994
-        box 248.33,61.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @pointerPress
+        box 248.33,61.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
           box 248.33,61.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
-      box 0,91.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @pointerPress
+      box 0,91.2 18.33x18.33 Interface\AddOns\Ordaen\media\ctl-check row 0 of 4 @keyPress @pointerPress
         box 0,91.2 18.33x18.33 absolute Interface\AddOns\Ordaen\media\ctl-check row 2 of 4 opacity=1
       box 0,121.2 700x16.67 opacity=1
         box 0,121.73 233.33x15.6 @pointerEnter @pointerLeave
           text 0,121.73 233.33x15.6 "Size" #cbb994
         box 248.33,121.2 451.67x16.67
-          box 248.33,121.2 200x16.67 @drag @dragStart @key @pointerPress
+          box 248.33,121.2 200x16.67 @drag @dragStart @keyPress @pointerPress
             box 248.33,126.2 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,127.03 198.33x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 441.67,119.53 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
@@ -86,14 +86,14 @@ box 0,0 700x258.47
         box 0,150.07 233.33x15.6 @pointerEnter @pointerLeave
           text 0,150.07 233.33x15.6 "Columns" #cbb994
         box 248.33,149.53 451.67x16.67
-          box 248.33,149.53 200x16.67 @drag @dragStart @key @pointerPress
+          box 248.33,149.53 200x16.67 @drag @dragStart @keyPress @pointerPress
             box 248.33,154.53 200x6.67 absolute Interface\AddOns\Ordaen\media\ctl-slider row 0 of 4
             box 249.17,155.37 39.67x5 absolute Interface\AddOns\Ordaen\media\ctl-slider row 1 of 4
             box 281.67,147.87 13.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-slider-knob
           text 458.33,150.07 8.89x15.6 "4" #ffffff
   box 0,172.87 700x15.6 @pointerEnter @pointerLeave
     text 0,172.87 700x15.6 "zone shown" #ffffff
-  box 0,195.13 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+  box 0,195.13 700x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 335.56,201.5 28.89x15.6 "Save" #ffd100
-  box 0,230.13 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @pointerDown @pointerEnter @pointerLeave @pointerPress
+  box 0,230.13 700x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @keyPress @pointerDown @pointerEnter @pointerLeave @pointerPress
     text 332.22,236.5 35.56x15.6 "Reset" #808080

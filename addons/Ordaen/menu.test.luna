@@ -46,7 +46,7 @@ class Rows {
           <text value={"Recipe row"} />
           <Menu $if={self.open} entries={self.entries} @pick={self.onPick} @close={self.onClose} />
         </box>
-        <box padding={8ui} @pointerPress={self.onBeside}>
+        <box padding={8ui} @pointerPress={self.onBeside} @keyPress(.Enter)={self.onBeside} @keyPress(.Space)={self.onBeside}>
           <text value={"Beside"} />
         </box>
       </box>

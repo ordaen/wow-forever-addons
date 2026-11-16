@@ -31,7 +31,7 @@ public class Tick implements Component {
         <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
              background={Ordaen.art.ctl.tick} opacity={self.tick} />
       </box>
-      <box $else width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @pointerPress={self.toggle}>
+      <box $else width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
         <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
              background={Ordaen.art.ctl.tick} opacity={self.tick} />
       </box>
@@ -67,7 +67,7 @@ public class Checkbox implements Component {
   public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
-        <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @pointerPress={self.toggle}>
+        <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
                background={Ordaen.art.ctl.tick} opacity={self.tick} />
         </box>

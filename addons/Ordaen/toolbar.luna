@@ -115,7 +115,7 @@ public class ToolButton implements Component {
       <box padding={AFTER}>
         <box width={SIZE} height={SIZE}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE} xAlign={Align.Center}
-               yAlign={Align.Center} background={self.plate} @pointerPress={self.toggle} @pointerEnter={self.onEnter}
+               yAlign={Align.Center} background={self.plate} @pointerPress={self.toggle} @keyPress(.Enter)={self.toggle} @keyPress(.Space)={self.toggle} @pointerEnter={self.onEnter}
                @pointerLeave={self.onLeave}>
             <box width={GLYPH} height={GLYPH} background={self.icon} tint={self.glyphColor} />
             <Tip $if={self.tipShown} title={self.title} text={self.text} />
@@ -159,7 +159,7 @@ public class ToolAct implements Component {
     return $ltml {
       <box padding={AFTER}>
         <box width={SIZE} height={SIZE} xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.ctl.button}
-             @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
+             @pointerPress={self.onClick} @keyPress(.Enter)={self.onClick} @keyPress(.Space)={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <box width={GLYPH} height={GLYPH} background={self.icon} tint={self.glyph} />
           <Tip $if={self.hovered} title={self.title} text={self.text} />
         </box>
