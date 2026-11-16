@@ -85,7 +85,7 @@ public class Scanner {
     const alone: Map<PriceKey, Listing> = {}
     const several: Map<PriceKey, mut Array<Listing>> = {}
     self.since = Client.debugprofilestop()
-    for (index of 1..=count) {
+    for (index of 1..count) {
       const key, unit, many = Game.auctionScan.read(index)
       take(key, unit, many, mut alone, mut several)
       if (index % CHECK == 0 && index < count && self.spent()) {
@@ -97,8 +97,8 @@ public class Scanner {
     // The auctions read before their item's data came, read again as it comes; a while at most.
     const until = (peek Game.clock.time) + LOAD_WAIT
     let turn = 1
-    for (round of 1..=Number.huge) {
-      for (step of 1..=Number.huge) {
+    for (round of 1..Number.huge) {
+      for (step of 1..Number.huge) {
         const index = Game.auctionScan.again(turn)
         if (index == 0) { break }
         turn += 1

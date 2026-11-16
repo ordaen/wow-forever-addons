@@ -165,7 +165,7 @@ const function plateWidth(index: Integer, count: Integer): Number {
 // How far the `index`th plate stands from the group's left.
 const function plateLeft(index: Integer, count: Integer): Number {
   let left: Number = 0
-  for (i of 1..=index - 1) { left += plateWidth(i, count) }
+  for (i of 1..index - 1) { left += plateWidth(i, count) }
   return left
 }
 // The main section's content takes what its footer's row leaves; the body's one row is as high as the body.

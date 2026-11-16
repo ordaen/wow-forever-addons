@@ -91,7 +91,7 @@ function says(part: Test.Part, label: String, expected: String): Boolean {
   for (index, text of shown) {
     if (text == label) {
       let read: Array<String> = []
-      for (at of index + 1..=index + count) { read.push(shown[at] ?? "") }
+      for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
       if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
       return true
@@ -188,14 +188,14 @@ test "five thousand items: the list builds the rows in view, and the wheel build
   Test.mount(nil, SCREEN)
   Game.auctionHouse.open = true
   let offers: Array<Game.Offer> = []
-  for (id of 1..=5000) { offers.push({ key: id, copper: id, quantity: 1 }) }
+  for (id of 1..5000) { offers.push({ key: id, copper: id, quantity: 1 }) }
   const made = Wow.made()
   Game.auctionQuery.results.emit(offers)
   Test.expect(window().text("Ware 2").shown())
   const built = Wow.made() - made
   Test.expect(built < 1000)
   // The results' list: the second box on a list's ground, after the categories.
-  for (i of 1..=3) { window().box(LISTS).nth(2).wheel(-1) }
+  for (i of 1..3) { window().box(LISTS).nth(2).wheel(-1) }
   Test.expect(Test.refused((): nil => window().text("Ware 1").hover()) != nil && Wow.made() - made == built)
 }
 
@@ -439,7 +439,7 @@ test "a commodity picked: its listings asked and shown, a quantity, the total of
   Game.input.shiftDown = (): Boolean => true
   panel().button("+").click()
   Game.input.shiftDown = (): Boolean => false
-  for (i of 1..=4) { panel().button("+").click() }
+  for (i of 1..4) { panel().button("+").click() }
   Test.expect(says(panel(), "Quantity", "- | 15 | +") && says(panel(), "Total", "0g 5s 60c"))
 }
 
@@ -958,7 +958,7 @@ test "a quantity the listings hold exactly can be bought; the quantity's listing
   panel().button("+").click()
   panel().button("+").click()
   Game.input.shiftDown = (): Boolean => false
-  for (i of 1..=5) { panel().button("+").click() }
+  for (i of 1..5) { panel().button("+").click() }
   Test.expect(says(panel(), "Quantity", "- | 35 | +") && panel().text("5").item().paintedWith(PICKED))
   _ = Test.requests()
   panel().button("Buy").click()

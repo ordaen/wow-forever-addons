@@ -18,7 +18,7 @@ function memory(corner: any Frame, owner: any Frame, addons: Integer): Game.Show
     { left: "Framerate: 60 fps", leftColor: WHITE, kind: 0 },
     { left: "Addon memory:", leftColor: GOLD, kind: 0 }
   ]
-  for (i of 1..=addons) {
+  for (i of 1..addons) {
     lines.push({ left: `Addon ${i}`, right: `${i}.10 MB`, leftColor: WHITE, rightColor: WHITE, kind: 0 })
   }
   return {

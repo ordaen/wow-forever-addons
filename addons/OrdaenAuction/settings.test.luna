@@ -137,7 +137,7 @@ test "5,000 merchants' prices are kept at most: a price seen before is written a
   Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [THREAD]: 10 } }
   Game.merchant.opened.emit()
   let many: Map<Integer, Integer> = {}
-  for (index of 1..=6000) { many[10000 + index] = index }
+  for (index of 1..6000) { many[10000 + index] = index }
   Game.merchant.prices = (): Map<Integer, Integer> | nil => many
   Game.merchant.opened.emit()
   Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [THREAD]: 12, [ORE]: 5 } }
@@ -154,7 +154,7 @@ test "5,000 merchants' prices are kept at most: a price seen before is written a
 
 test "with one price short of 5,000 kept, one of two new ones is kept and the other isn't" {
   let many: Map<Integer, Integer> = {}
-  for (index of 1..=4999) { many[10000 + index] = index }
+  for (index of 1..4999) { many[10000 + index] = index }
   Game.merchant.prices = (): Map<Integer, Integer> | nil => many
   Game.merchant.opened.emit()
   Game.merchant.prices = (): Map<Integer, Integer> | nil => { return { [LINEN]: 7, [ORE]: 5 } }

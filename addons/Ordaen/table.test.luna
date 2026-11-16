@@ -129,7 +129,7 @@ const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
 
 function many(count: Integer): Array<Sale> {
   let list: Array<Sale> = []
-  for (i of 1..=count) { list.push({ name: `Ware ${i}`, price: i * 37, seen: i * 600 }) }
+  for (i of 1..count) { list.push({ name: `Ware ${i}`, price: i * 37, seen: i * 600 }) }
   return list
 }
 
@@ -170,7 +170,7 @@ test "a table in a row that shares takes what is left, its body scrolls, and of 
   Test.expect(built < 200)
   Test.shot("the headings, the body in the rest of the 200 down to the foot, its first rows built")
   Test.moveTo(Test.holding("Ware 2", nil))
-  for (i of 1..=50) { Test.wheel(-1) }
+  for (i of 1..50) { Test.wheel(-1) }
   Test.expect(Wow.made() - before == built)
   Test.shot("fifty notches down: the same boxes hold the wares now in view")
   destroy page

@@ -116,7 +116,7 @@ public class Bar implements Component {
     self.id = `OrdaenActionBars.bar${shown.spec.number}`
     self.title = Locale.BAR_TITLE.format(shown.spec.number)
     const made: Array<Slot> = []
-    for (index of 1..=BUTTONS) {
+    for (index of 1..BUTTONS) {
       const name = ActionBars.buttonName(shown.spec.number, index)
       const frame = Client.CreateFrame("CheckButton", name, Client.UIParent, "ActionBarButtonTemplate")
       frame.SetAttribute("type", "action")
@@ -235,7 +235,7 @@ public class ActionBars implements Module, App {
     Client.ClearOverrideBindings(self.owner)
     const keys: Map<String, String> = {}
     for (bar of self.bars) {
-      for (index of 1..=BUTTONS) {
+      for (index of 1..BUTTONS) {
         const command = `${bar.spec.command}${index}`
         const name = ActionBars.buttonName(bar.spec.number, index)
         let first, second = Client.GetBindingKey(command)
@@ -251,7 +251,7 @@ public class ActionBars implements Module, App {
 
   hiddenBars(self): Array<any Client.Frame> {
     const parts: Array<any Client.Frame> = []
-    for (number of 1..=SPECS.length) {
+    for (number of 1..SPECS.length) {
       const frame = ActionBars.gameBar(number)
       if (frame != nil) { parts.push(frame) }
     }

@@ -44,7 +44,7 @@ function says(part: Test.Part, label: String, expected: String): Boolean {
   for (index, text of shown) {
     if (text == label) {
       let read: Array<String> = []
-      for (at of index + 1..=index + count) { read.push(shown[at] ?? "") }
+      for (at of index + 1..index + count) { read.push(shown[at] ?? "") }
       const said = read.join(" | ")
       if (said != expected) { panic(`after «${label}» it reads «${said}», not «${expected}»`) }
       return true
@@ -216,7 +216,7 @@ test "the list is kept between sessions, for every character of the account" {
 
 test "a list of 500 lines lets its oldest go for a new one" {
   Auction.shopping.add(ItemId.of(LINEN), 1, .ByHand)
-  for (index of 1..=499) { Auction.shopping.add(ItemId.of(COPPER_BAR), 1, .ByHand) }
+  for (index of 1..499) { Auction.shopping.add(ItemId.of(COPPER_BAR), 1, .ByHand) }
   Game.clock.server = START
   Game.items.tooltip = names
   Test.mount(nil, SCREEN)

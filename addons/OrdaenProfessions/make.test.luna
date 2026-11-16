@@ -68,7 +68,7 @@ function asked(expected: String): Boolean {
 }
 
 function times(count: Integer, label: String) {
-  for (step of 1..=count) { window().button(label).click() }
+  for (step of 1..count) { window().button(label).click() }
 }
 
 function off(label: String): Boolean {

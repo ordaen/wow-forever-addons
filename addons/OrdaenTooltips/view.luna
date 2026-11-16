@@ -136,7 +136,7 @@ public class TipGroup implements Component {
   inOrder(self): Array<Model> {
     if (!self.leftwards) { return self.compared }
     let leftwards: Array<Model> = []
-    for (i of self.compared.length..=1 step -1) {
+    for (i of self.compared.length..1 step -1) {
       let model = self.compared[i]
       if (model != nil) { leftwards.push(model) }
     }

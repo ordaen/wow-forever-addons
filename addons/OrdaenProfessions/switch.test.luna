@@ -31,7 +31,7 @@ function categories(base: Integer, name: String): Array<Game.Category> {
 
 function recipes(base: Integer, name: String): Array<Game.Recipe> {
   let list: Array<Game.Recipe> = []
-  for (i of 1..=36) {
+  for (i of 1..36) {
     list.push({
       id: base * 1000 + i, name: name + " thing " + String.of(i), icon: "Interface/Icons/INV_Misc_Note_01",
       categoryID: base * 10 + 1 + i % 2, learned: i % 5 != 0, difficulty: Game.Difficulty.Usually, craftable: i % 3

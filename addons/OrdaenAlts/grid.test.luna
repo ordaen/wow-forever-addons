@@ -104,7 +104,7 @@ test "two characters of one name on different realms each have their own skills"
 
 test "forty characters' skills scroll inside the window" {
   const others: Array<Character> = []
-  for (i of 1..=39) { others.push(crafter("Alt " + String.of(100 + i), "Stand-in", [skill("Mining", i, 75)])) }
+  for (i of 1..39) { others.push(crafter("Alt " + String.of(100 + i), "Stand-in", [skill("Mining", i, 75)])) }
   Test.mount(nil, SCREEN)
   recorded(others)
   const window = grid()

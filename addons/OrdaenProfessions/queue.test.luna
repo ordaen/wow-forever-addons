@@ -87,13 +87,13 @@ function reads(part: Test.Part, expected: String): Boolean {
 // The recipe chosen in the lists and «Create» clicked at a count `count`.
 function create(name: String, count: Integer) {
   window().text(name).nth(1).click()
-  for (step of 2..=count) { window().button("+").click() }
+  for (step of 2..count) { window().button("+").click() }
   window().button("Create").click()
 }
 
 // The «Queue» tab, as it is named now.
 function queueTab(): Test.Part {
-  for (count of 0..=9) {
+  for (count of 0..9) {
     const label = count == 0 ? "Queue" : `Queue (${count})`
     if (window().button(label).shown()) { return window().button(label) }
   }
@@ -496,7 +496,7 @@ test "a line's − and + set its count; at nought, or by its x, it leaves the qu
   window().button("Queue (3)").click()
   window().text("Bolt of Linen Cloth").item().button("+").click()
   Test.expect(reads(window().text("Bolt of Linen Cloth").item(), "Bolt of Linen Cloth | - | 3 | + | x"))
-  for (step of 1..=3) { window().text("Bolt of Linen Cloth").item().button("-").click() }
+  for (step of 1..3) { window().text("Bolt of Linen Cloth").item().button("-").click() }
   Test.expect(!window().text("Bolt of Linen Cloth").shown() && window().button("Queue (2)").shown())
   window().text("Linen Bandage").item().button("x").click()
   Test.expect(!window().text("Linen Bandage").shown() && window().button("Queue (1)").shown())
@@ -706,7 +706,7 @@ test "a line's count stops at 999: «Create» of more with nothing ahead makes 9
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
   // A thousand and one by «Quantity», Alt held: 1, then 100 a click.
-  for (step of 1..=10) { window().button("+").click() }
+  for (step of 1..10) { window().button("+").click() }
   _ = Test.requests()
   window().button("Create").click()
   Test.expect(asked("TradeSkill.craft 2387 999"))

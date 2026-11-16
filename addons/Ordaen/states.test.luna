@@ -49,7 +49,7 @@ function rectOf(frame: any Client.Frame): String {
 function pageOf(frame: any Client.Frame): any Client.Frame {
   const screen = Client.C_UI.GetUIParent()
   let at = frame
-  for (hop of 1..=Number.huge) {
+  for (hop of 1..Number.huge) {
     const up = at.GetParent()
     if (up == nil || up == screen || up.GetFrameStrata() != frame.GetFrameStrata()) { break }
     at = up
@@ -60,7 +60,7 @@ function pageOf(frame: any Client.Frame): any Client.Frame {
 // The regions and the frames the client hands one after another, as lists.
 function regionsOf(...given: any Client.Region): Array<any Client.Region> {
   let list: Array<any Client.Region> = []
-  for (index of 1..=given.length) {
+  for (index of 1..given.length) {
     const region = given[index]
     if (region != nil) { list.push(region) }
   }
@@ -68,7 +68,7 @@ function regionsOf(...given: any Client.Region): Array<any Client.Region> {
 }
 function framesOf(...given: any Client.Frame): Array<any Client.Frame> {
   let list: Array<any Client.Frame> = []
-  for (index of 1..=given.length) {
+  for (index of 1..given.length) {
     const frame = given[index]
     if (frame != nil) { list.push(frame) }
   }
@@ -136,7 +136,7 @@ function drawnBut(page: any Client.Frame, crops: Boolean): Array<String> {
 // What the page draws is what it drew at first, or the test stops and says the first line that isn't.
 function same(page: any Client.Frame, first: Array<String>, state: String, crops: Boolean) {
   const now = drawnBut(page, crops)
-  for (index of 1..=first.length.max(now.length)) {
+  for (index of 1..first.length.max(now.length)) {
     const was = first[index] ?? "(nothing)"
     const seen = now[index] ?? "(nothing)"
     if (was != seen) { panic(`${state}, line ${index} of what is drawn differs but for its colours:\n  at first: ${was}\n  now:      ${seen}`) }
@@ -159,7 +159,7 @@ function holdsItsBox(at: Test.Point, steps: Array<() => nil>) {
   // Away from the cursor the textures' crops are compared too; under it a light is an art's other row.
   const away = drawnBut(page, true)
   const first = drawnBut(page, false)
-  for (index of 0..=steps.length) {
+  for (index of 0..steps.length) {
     const step = steps[index]
     if (step != nil) { step() }
     const state = index == 0 ? "as drawn" : `after step ${index}`

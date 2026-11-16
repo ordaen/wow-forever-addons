@@ -109,7 +109,7 @@ function lineRows(rows: mut Array<Row>, line: Array<Section>, spans: Array<Integ
     }
     rows.push({ cells: cells, tracks: tracks })
   }
-  for (row of 1..=height) {
+  for (row of 1..height) {
     let cells: Array<Cell> = []
     let tracks: Array<Track> = []
     for (index, section of line) {
@@ -119,7 +119,7 @@ function lineRows(rows: mut Array<Row>, line: Array<Section>, spans: Array<Integ
         tracks.push(BETWEEN)
       }
       const shown = collapsed[section.key] != true
-      for (place of 1..=span) {
+      for (place of 1..span) {
         const at = (row - 1) * span + place
         const slot = shown && !section.free ? section.slots[at] : nil
         if (shown && section.free && at == 1) {

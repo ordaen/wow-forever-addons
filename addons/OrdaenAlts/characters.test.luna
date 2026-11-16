@@ -328,7 +328,7 @@ test "a character forgotten leaves the table, and stays gone when the module rea
 
 test "forty characters scroll inside the window" {
   const others: Array<Character> = []
-  for (i of 1..=39) { others.push(alt("Alt " + String.of(100 + i), 10, i)) }
+  for (i of 1..39) { others.push(alt("Alt " + String.of(100 + i), 10, i)) }
   Test.mount(nil, SCREEN)
   recorded(others, nil)
   Test.expect(row("Alt 101") == "Alt 101 | 10 | 0g 0s 0c | — | 1 h ago | never opened | never opened | Forget")

@@ -66,7 +66,7 @@ test "the bags opened, shut and opened again: the garbage the module made" {
   Game.bags.open = false
   Test.flush()
   _ = made()
-  for (round of 1..=5) {
+  for (round of 1..5) {
     Game.bags.open = round > 0
     Test.flush()
     Game.bags.open = false
@@ -84,8 +84,8 @@ test "every bag updated with nothing moved: the module makes no garbage" {
   Game.bags.open = true
   Test.flush()
   _ = made()
-  for (round of 1..=50) {
-    for (bag of 0..=round % 1 + 4) { Game.bags.updated.emit(bag) }
+  for (round of 1..50) {
+    for (bag of 0..round % 1 + 4) { Game.bags.updated.emit(bag) }
     Test.flush()
   }
   // A full update with nothing moved makes nothing: fifty of them under a kilobyte.

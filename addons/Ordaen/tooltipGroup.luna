@@ -45,7 +45,7 @@ public class TooltipGroup implements Component {
 
   autos(count: Integer): Array<Track> {
     let list: Array<Track> = []
-    for (i of 1..=count) { list.push("auto") }
+    for (i of 1..count) { list.push("auto") }
     return list
   }
 

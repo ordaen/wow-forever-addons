@@ -69,7 +69,7 @@ public struct Step {
 // The values a client's call gives, one after another, as a list.
 function listOf(...names: String): Array<String> {
   const list: Array<String> = []
-  for (i of 1..=names.length) {
+  for (i of 1..names.length) {
     const name = names[i]
     if (name != nil) { list.push(name) }
   }
@@ -118,7 +118,7 @@ public class Catalog {
     const _, _, _, interface, _, _ = Client.GetBuildInfo()
     const count = Client.C_AddOns.GetNumAddOns()
     const list: Array<AddOn> = []
-    for (index of 1..=count) {
+    for (index of 1..count) {
       const name = Client.C_AddOns.GetAddOnName(index)
       const needs = listOf(...Client.C_AddOns.GetAddOnDependencies(name))
       const title = Client.C_AddOns.GetAddOnMetadata(name, "Title") ?? name
@@ -325,7 +325,7 @@ public class Catalog {
     if (step == nil) { return }
     const character = self.character()
     const player = Game.player.name
-    for (index of step.changes.length..=1 step -1) {
+    for (index of step.changes.length..1 step -1) {
       const change = step.changes[index] ?? panic("an index of the list")
       match (change.before) {
         .On => Client.C_AddOns.EnableAddOn(change.name, character)

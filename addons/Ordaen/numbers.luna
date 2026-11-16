@@ -16,7 +16,7 @@ function decimalsFor(value: Number, precision: Integer, round: Boolean): Integer
   if (value > 0 && value < 1) {
     let scaled = value
     let shifts = 0
-    for (i of 1..=FINEST) {
+    for (i of 1..FINEST) {
       if (scaled >= 1) { break }
       scaled = scaled * 10
       shifts = i
@@ -32,7 +32,7 @@ function grouped(digits: String, group: String): String {
   if (n <= 3) { return digits }
   let first = n % 3
   let out = first > 0 ? digits.sub(1, first) : ""
-  for (i of first + 1..=n step 3) {
+  for (i of first + 1..n step 3) {
     out = (out == "" ? "" : out + group) + digits.sub(i, i + 2)
   }
   return out

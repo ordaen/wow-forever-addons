@@ -35,7 +35,7 @@ function shows(expected: String): Boolean {
 // What a place holds, as the game gives it: item, count, item, count.
 function counts(pairs: Array<Integer>): Map<Integer, Integer> {
   const held: Map<Integer, Integer> = {}
-  for (i of 1..=pairs.length step 2) { held[pairs[i] ?? 0] = pairs[i + 1] ?? 0 }
+  for (i of 1..pairs.length step 2) { held[pairs[i] ?? 0] = pairs[i + 1] ?? 0 }
   return held
 }
 
@@ -137,7 +137,7 @@ test "the game is asked an item's name once while the tab shows" {
 
 test "at most fifty items are listed" {
   const held: Array<Integer> = []
-  for (id of 1..=51) {
+  for (id of 1..51) {
     held.push(id)
     held.push(id + 100)
   }
