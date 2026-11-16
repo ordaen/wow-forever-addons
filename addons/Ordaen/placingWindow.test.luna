@@ -1,0 +1,16 @@
+// The placing mode is started by the settings window's button, and the window is its only way out: closing the
+// window ends the mode, so it never stays on with nothing on the screen to end it.
+import Test from "$test"
+import root Ordaen from "Ordaen"
+import Locale from "@/locales"
+
+test "closing the settings window ends the placing mode started from it" {
+  Ordaen.toggleNamed("")
+  Test.flush()
+  Test.click(Test.holding(Locale.PLACING, nil), nil)
+  Test.flush()
+  Test.expect(Ordaen.placing)
+  Ordaen.toggleNamed("")
+  Test.flush()
+  Test.expect(!Ordaen.placing)
+}

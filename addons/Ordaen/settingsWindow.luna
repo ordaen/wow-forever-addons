@@ -133,6 +133,11 @@ public class SettingsWindow implements Component {
       for (addon of own.dependents()) { listed.push(new ModuleEntry(addon)) }
     }
     self.entries = listed
+    // The placing mode started from the window ends as it closes: its button is the mode's only way out, and the
+    // places are kept as each part is let go.
+    watch (open of self.open) {
+      if (!open && peek Ordaen.placing) { Ordaen.togglePlacing() }
+    }
   }
 
   // `page` is Ordaen's own page (`""` or its name), or a module's folder; one that is neither (the player's
