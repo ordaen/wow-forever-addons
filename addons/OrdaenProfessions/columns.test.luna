@@ -33,16 +33,17 @@ test "at the window's least only the longest names wrap; wider, the lists and th
     { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting }
   ]
   Game.tradeSkill.categories = [
-    { id: 1, name: "Tailoring" }, { id: 11, name: "Cloth armour", parentID: 1 },
-    { id: 12, name: "Bags, quivers and every other kind of container", parentID: 1 }
+    // The first category under the heading is the camp's, which has a tab of its own: here it has no recipes.
+    { id: 1, name: "Tailoring" }, { id: 10, name: "Resting at camp", parentID: 1 }, { id: 11, name: "Cloth armour", parentID: 1 },
+    { id: 12, name: "Bags, quivers and pouches", parentID: 1 }
   ]
   Game.tradeSkill.recipes = [
     recipe(110, "Linen Cloak", 11), recipe(111, "Rich Purple Silk Shirt", 11),
-    recipe(112, "Enchanted Runecloth Robe of the Long Winter Nights", 11)
+    recipe(112, "Enchanted Runecloth Robe of Long Nights", 11), recipe(113, "Linen Bag", 12)
   ]
   Test.mount(nil, SCREEN)
   Game.tradeSkill.open = TAILORING
-  Test.expect(Test.page().window("Overview").text("Enchanted Runecloth Robe of the Long Winter Nights").shown())
+  Test.expect(Test.page().window("Overview").text("Enchanted Runecloth Robe of Long Nights").shown())
   dragBy(Test.painted(Ordaen.art.ctl.grip, nil), -900, -500)
   Test.shot("the window at its least: the longest category and recipe wrap, every other name on one line")
   dragBy(Test.painted(Ordaen.art.ctl.grip, nil), 1000, 0)
