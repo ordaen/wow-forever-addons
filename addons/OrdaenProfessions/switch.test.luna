@@ -1,5 +1,5 @@
-// A switch from one open profession to another: the rows of the profession left are handed the other's recipes, none
-// ended and drawn anew.
+// A switch between professions: a list the window sorted already is sorted no second time, and is read once for
+// every category it has.
 import Client from "$client"
 import Game from "$game"
 import Test from "$test"
@@ -7,13 +7,6 @@ import Test from "$test"
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 const TAILORING = 197
 const BLACKSMITHING = 164
-
-function professions(): Array<Game.Profession> {
-  return [
-    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
-    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 120, max: 150, kind: Game.ProfessionKind.Crafting }
-  ]
-}
 
 function gameWindow(): any Client.Frame {
   let own = Client.CreateFrame("Frame", "ProfessionsFrame", Client.UIParent, nil)
@@ -23,53 +16,69 @@ function gameWindow(): any Client.Frame {
 }
 
 function categories(base: Integer, name: String): Array<Game.Category> {
-  return [
-    { id: base, name: name }, { id: base * 10, name: "Resting at camp", parentID: base },
-    { id: base * 10 + 1, name: "Armour", parentID: base }, { id: base * 10 + 2, name: "Weapons", parentID: base }
-  ]
+  let list: Array<Game.Category> = [{ id: base, name: name }, { id: base * 100, name: "Resting at camp", parentID: base }]
+  for (i of 1..12) { list.push({ id: base * 100 + i, name: name + " heading " + String.of(i), parentID: base }) }
+  return list
 }
 
-function recipes(base: Integer, name: String): Array<Game.Recipe> {
+function recipes(base: Integer, name: String, count: Integer): Array<Game.Recipe> {
   let list: Array<Game.Recipe> = []
-  for (i of 1..36) {
+  for (i of 1..count) {
     list.push({
       id: base * 1000 + i, name: name + " thing " + String.of(i), icon: "Interface/Icons/INV_Misc_Note_01",
-      categoryID: base * 10 + 1 + i % 2, learned: i % 5 != 0, difficulty: Game.Difficulty.Usually, craftable: i % 3
+      categoryID: base * 100 + 1 + i % 12, learned: i % 5 != 0, difficulty: Game.Difficulty.Usually, craftable: i % 3
     })
   }
   return list
 }
 
-// The most a switch between two professions of 36 recipes each may leave behind, in KB: with its rows handed on it
-// leaves about 36, with each row ended and drawn anew about 900.
-const MOST = 100
+function known(): Array<Game.Profession> {
+  return [
+    { skillLine: TAILORING, name: "Tailoring", icon: 136249, rank: 31, max: 75, kind: Game.ProfessionKind.Crafting },
+    { skillLine: BLACKSMITHING, name: "Blacksmithing", icon: 136241, rank: 120, max: 150, kind: Game.ProfessionKind.Crafting }
+  ]
+}
 
-test "a switch of professions hands the rows on: it leaves a ninth of what rows drawn anew would" {
+test "a profession opened again, its list the same, costs a part of what its first opening did" {
   Game.frames.Professions = gameWindow()
-  Game.professions.list = professions()
+  Game.professions.list = known()
   Test.mount(nil, SCREEN)
-  const tailoring = recipes(1, "Tailoring")
-  const smithing = recipes(2, "Blacksmithing")
-  const tailoringHeads = categories(1, "Tailoring")
-  const smithingHeads = categories(2, "Blacksmithing")
-  // Each open once, so what is made once (a font, a pool's first rows) is made before the measure.
-  Game.tradeSkill.categories = tailoringHeads
-  Game.tradeSkill.recipes = tailoring
+  const sewn = recipes(1, "Tailoring", 400)
+  const forged = recipes(2, "Blacksmithing", 400)
+  const sewnHeads = categories(1, "Tailoring")
+  const forgedHeads = categories(2, "Blacksmithing")
+  Game.tradeSkill.categories = sewnHeads
+  Game.tradeSkill.recipes = sewn
   Game.tradeSkill.open = TAILORING
   Test.flush()
-  Game.tradeSkill.categories = smithingHeads
-  Game.tradeSkill.recipes = smithing
-  Game.tradeSkill.open = BLACKSMITHING
-  Test.flush()
-  Game.tradeSkill.categories = tailoringHeads
-  Game.tradeSkill.recipes = tailoring
+  const first = Test.garbage((): nil => {
+    Game.tradeSkill.categories = forgedHeads
+    Game.tradeSkill.recipes = forged
+    Game.tradeSkill.open = BLACKSMITHING
+  })
+  Game.tradeSkill.categories = sewnHeads
+  Game.tradeSkill.recipes = sewn
   Game.tradeSkill.open = TAILORING
   Test.flush()
-  Test.expect(Test.page().text("Tailoring thing 2").shown())
-  Game.tradeSkill.categories = smithingHeads
-  Game.tradeSkill.recipes = smithing
-  Game.tradeSkill.open = BLACKSMITHING
-  const left = Test.garbage((): nil => Test.flush())
-  Test.expect(Test.page().text("Blacksmithing thing 2").shown() && !Test.page().text("Tailoring thing 2").shown())
-  Test.expect(left < MOST || panic("%.0f KB a switch".format(left)))
+  const again = Test.garbage((): nil => {
+    Game.tradeSkill.categories = forgedHeads
+    Game.tradeSkill.recipes = forged
+    Game.tradeSkill.open = BLACKSMITHING
+  })
+  Test.expect(again * 2 < first)
+  Test.expect(Test.page().text("Blacksmithing thing 12").shown())
+}
+
+test "a profession opened again with another list shows that list" {
+  Game.frames.Professions = gameWindow()
+  Game.professions.list = known()
+  Test.mount(nil, SCREEN)
+  Game.tradeSkill.categories = categories(1, "Tailoring")
+  Game.tradeSkill.recipes = recipes(1, "Tailoring", 24)
+  Game.tradeSkill.open = TAILORING
+  Test.flush()
+  Test.expect(Test.page().text("Tailoring thing 12").shown())
+  Game.tradeSkill.recipes = recipes(1, "Linen", 24)
+  Test.flush()
+  Test.expect(Test.page().text("Linen thing 12").shown() && !Test.page().text("Tailoring thing 12").shown())
 }

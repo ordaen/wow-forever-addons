@@ -135,26 +135,29 @@ public class CategoryGroup implements Component {
   public act: Event<(Act, Integer)> = new Event()
 
   state folded = false
-  derived list: Array<Game.Recipe> = members(self.shown, self.group.id, self.kept.favorites)
+  derived list: Array<Game.Recipe> = members(self.shown, self.byCategory, self.group.id, self.kept.favorites)
   derived mark: String = self.folded ? "+" : "-"
   derived nameColor: Color | nil = self.group.id == FAVORITES ? nil : Style.GOLD
   derived makeableColor: Color | nil = self.group.makeable > 0 ? nil : Style.DIM
 
   group: Signal<Group>
   shown: Signal<Array<Game.Recipe>>
+  byCategory: Signal<Map<Integer, Array<Game.Recipe>>>
   chosen: Signal<Integer>
   kept: Signal<Kept>
   menuFor: Signal<Integer>
   constructor(
     group: Signal<Group>,
-    // Every recipe the search and the filter let through.
+    // Every recipe the search and the filter let through, and the same by their category.
     shown: Signal<Array<Game.Recipe>>,
+    byCategory: Signal<Map<Integer, Array<Game.Recipe>>>,
     chosen: Signal<Integer>,
     kept: Signal<Kept>,
     menuFor: Signal<Integer>
   ) {
     self.group = group
     self.shown = shown
+    self.byCategory = byCategory
     self.chosen = chosen
     self.kept = kept
     self.menuFor = menuFor

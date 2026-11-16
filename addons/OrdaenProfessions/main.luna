@@ -27,7 +27,7 @@ import { Thresholds, thresholdsOf } from "@/skillUps"
 import Style from "@/style"
 import {
   Act, before, FAVORITES, Group, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, Seen, SortBy,
-  tableBefore, View
+  Sorted, sorted, tableBefore, View
 } from "@/view"
 import { WorthPage } from "@/worth"
 
@@ -147,6 +147,10 @@ public class Professions implements Module, App {
   skillLine: Integer = 0
   // Each recipe's name and reagents' names, lower case: what the search looks in, made as the search first asks.
   texts: mut Map<Integer, String> = {}
+  // Each profession's list as it was last filtered and sorted, while what is sought, the filter and the order
+  // stand (`sortedAs`): a profession opened again, the game's list of it the same, is sorted no second time.
+  sortedOf: mut Map<Integer, Sorted> = {}
+  sortedAs: String = ""
   // A recipe opened from elsewhere chose itself as its page changed: the page's change keeps it.
   opening = false
 
@@ -193,7 +197,9 @@ public class Professions implements Module, App {
   public derived groups: Array<Group> = self.groupsOf()
   public derived chosenCategory: Integer = self.chosenCategoryOf()
   // The recipes of the chosen category, and the table's rows in the table's order.
-  public derived recipes: Array<Game.Recipe> = members(self.shown, self.listed, self.kept.favorites)
+  public derived recipes: Array<Game.Recipe> = members(self.shown, self.byCategory, self.listed, self.kept.favorites)
+  // What is shown by its category: every group's recipes come of one reading of the list.
+  derived byCategory: Map<Integer, Array<Game.Recipe>> = sorted(self.shown)
   derived tableRows: Array<Game.Recipe> = self.tableRowsOf()
   derived priced: Boolean = self.prices != nil
   derived tableColumns: Array<Column> = self.priced ? PRICED_COLUMNS : COLUMNS
@@ -354,13 +360,23 @@ public class Professions implements Module, App {
   }
 
   shownOf(mut self): Array<Game.Recipe> {
-    let list: Array<Game.Recipe> = []
     const sought = self.search.lower()
-    for (recipe of Game.tradeSkill.recipes) {
+    const sort = self.list.values.sort
+    const asked = `${sought}\n${sort}\n${self.onlyMake}${self.onlySkill}${self.showLearned}${self.showUnlearned}`
+    if (asked != self.sortedAs) {
+      self.sortedAs = asked
+      self.sortedOf = {}
+    }
+    const all = Game.tradeSkill.recipes
+    const open = Game.tradeSkill.open
+    const kept = open == nil ? nil : self.sortedOf[open]
+    if (kept != nil && kept.of == all) { return kept.list }
+    let list: Array<Game.Recipe> = []
+    for (recipe of all) {
       if (self.passes(recipe, sought)) { list.push(recipe) }
     }
-    const sort = self.list.values.sort
     list.sort((a, b) => before(sort, a, b))
+    if (open != nil) { self.sortedOf[open] = { of: all, list: list } }
     return list
   }
 
@@ -376,11 +392,12 @@ public class Professions implements Module, App {
   groupsOf(self): Array<Group> {
     let list: Array<Group> = []
     const starred = self.kept.favorites
-    const hearts = members(self.mains, FAVORITES, starred)
+    const byCategory = self.byCategory
+    const hearts = members(self.mains, byCategory, FAVORITES, starred)
     if (hearts.length > 0) { list.push(self.groupOf(FAVORITES, Locale.FAVORITES, hearts)) }
     for (category of Game.tradeSkill.categories) {
       if (category.parentID != nil && category.id != self.camp) {
-        const own = members(self.mains, category.id, starred)
+        const own = members(self.mains, byCategory, category.id, starred)
         if (own.length > 0) { list.push(self.groupOf(category.id, category.name, own)) }
       }
     }
@@ -441,7 +458,7 @@ public class Professions implements Module, App {
   grouped(self): Array<Game.Recipe> {
     let list: Array<Game.Recipe> = []
     for (group of self.groups) {
-      for (recipe of members(self.mains, group.id, self.kept.favorites)) { list.push(recipe) }
+      for (recipe of members(self.mains, self.byCategory, group.id, self.kept.favorites)) { list.push(recipe) }
     }
     return list
   }
@@ -734,6 +751,7 @@ public class Professions implements Module, App {
                 <box $elseif={self.inGroups} rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
                   <box overflow={Overflow.Scroll}>
                     <CategoryGroup $for={group of self.groups} $key={group.id} group={group} shown={self.mains}
+                                   byCategory={self.byCategory}
                                    chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                    @act={self.onAct} />
                   </box>

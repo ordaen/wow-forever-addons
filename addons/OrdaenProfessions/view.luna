@@ -106,11 +106,38 @@ public function has(list: Array<Integer>, id: Integer): Boolean {
   return false
 }
 
-// The recipes of a group, in the order they are given in.
-public function members(recipes: Array<Game.Recipe>, group: Integer, starred: Array<Integer>): Array<Game.Recipe> {
+// A list of the game's (`of`) as the window shows it: filtered and in its order.
+public struct Sorted {
+  const of: Array<Game.Recipe>
+  const list: Array<Game.Recipe>
+}
+
+const NO_RECIPES: Array<Game.Recipe> = []
+
+// The recipes by their category, each category's in the order they are given in: the list is read once for every
+// group there is.
+public function sorted(recipes: Array<Game.Recipe>): Map<Integer, Array<Game.Recipe>> {
+  let lists: Map<Integer, mut Array<Game.Recipe>> = {}
+  for (recipe of recipes) {
+    let list = lists[recipe.categoryID]
+    if (list == nil) {
+      lists[recipe.categoryID] = [recipe]
+    } else {
+      list.push(recipe)
+    }
+  }
+  return lists
+}
+
+// The recipes of a group, in the order they are given in: a category's as they were sorted (`sorted`, of the same
+// recipes), the favorites picked out of them all.
+public function members(
+  recipes: Array<Game.Recipe>, byCategory: Map<Integer, Array<Game.Recipe>>, group: Integer, starred: Array<Integer>
+): Array<Game.Recipe> {
+  if (group != FAVORITES) { return byCategory[group] ?? NO_RECIPES }
   let list: Array<Game.Recipe> = []
   for (recipe of recipes) {
-    if (group == FAVORITES ? has(starred, recipe.id) : recipe.categoryID == group) { list.push(recipe) }
+    if (has(starred, recipe.id)) { list.push(recipe) }
   }
   return list
 }
