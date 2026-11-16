@@ -133,7 +133,7 @@ public class ItemButton implements Component {
   usableOf(self): Boolean {
     const item = self.item
     if (item == nil) { return true }
-    const data = Game.items.tooltip(item)
+    const data = Ordaen.itemTip(item)
     if (data == nil) { return true }
     return !data.lines.any(line => line.usable == false || line.validSlot == false || line.validType == false)
   }

@@ -54,6 +54,8 @@ public class OrdaenCore implements App {
   chosen: mut Map<String, Boolean> = {}
   // The settings window, made when it is first asked for.
   window: mut SettingsWindow | nil = nil
+  // The game's tooltip of each item asked for, by its number: every slot and list that reads one asks the game once.
+  tips: mut Map<Integer, Game.TooltipData> = {}
 
   constructor() {
     self.look = new Settings<Look>(preset(Preset.Ordaen), "look", mut self.keeper)
@@ -68,6 +70,15 @@ public class OrdaenCore implements App {
     // A look loaded (at the start, at a switch of profile) that is a preset Ordaen doesn't offer is Ordaen's.
     watch (profile of self.keeper.profiles.active) { self.offered(profile) }
     self.start()
+  }
+
+  // The game's tooltip of an item, asked of the game once and kept; none while the game has none yet.
+  public itemTip(mut self, id: Integer): Game.TooltipData | nil {
+    const kept = self.tips[id]
+    if (kept != nil) { return kept }
+    const tip = Game.items.tooltip(id)
+    if (tip != nil) { self.tips[id] = tip }
+    return tip
   }
 
   // Each module that runs and isn't drawn yet, drawn on the screen as a module's root is: what it draws ends with it.

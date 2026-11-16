@@ -1,7 +1,7 @@
 // «Items»: a search across every character: per item the total and each holder by place. An item's name is the game's,
 // asked once per item the first time a search needs it and kept while the tab shows.
-import Game from "$game"
 import { Align, Edges, Overflow, Track } from "$ltml"
+import root Ordaen from "Ordaen"
 import { Component, ItemButton, ItemId, PX, space } from "Ordaen"
 import { Held, Place } from "@/character"
 import Locale from "@/locales"
@@ -41,7 +41,7 @@ public class Holdings implements Component {
   nameOf(mut self, id: ItemId): String {
     const known = self.names[id]
     if (known != nil) { return known }
-    const tip = Game.items.tooltip(id)
+    const tip = Ordaen.itemTip(id)
     const first = tip == nil ? nil : tip.lines[1]
     const name = first == nil ? nil : first.left
     if (name == nil) { return "#" + String.of(id) }
