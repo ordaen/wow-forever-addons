@@ -104,6 +104,7 @@ public class ItemButton implements Component {
   markers: Signal<Array<Marker>>
   size: Signal<Number>
   action: Signal<Action | nil>
+  art: Signal<Art | nil>
   constructor(
     // The game's number of the item; none for an empty slot.
     item: Signal<Integer | nil>,
@@ -113,8 +114,11 @@ public class ItemButton implements Component {
     markers: Signal<Array<Marker>> = NONE,
     size: Signal<Number> = 40 * PX,
     // What the client does on the player's click itself: none where the slot's clicks are its own alone.
-    action: Signal<Action | nil> = nil
+    action: Signal<Action | nil> = nil,
+    // The icon the game gave with what the slot shows (a reagent's): drawn in place of the item's, with or without one.
+    art: Signal<Art | nil> = nil
   ) {
+    self.art = art
     self.item = item
     self.count = count
     self.quality = quality
@@ -125,6 +129,8 @@ public class ItemButton implements Component {
   }
 
   iconOf(self): Art | nil {
+    const art = self.art
+    if (art != nil) { return art }
     const item = self.item
     if (item == nil) { return nil }
     return Game.items.icon(item)

@@ -3,7 +3,7 @@
 // that quantity («—» where none is known) and «Best», the way taken (red «—» where none is). The totals: «Cost»,
 // «Left to buy», «Sale» («doesn't sell» for what makes no item), «Profit» (red under nought), and how old the
 // oldest price taken is, in its age's colour; «—» where a part has no price.
-import { Align, Edges, Line, Side, Track } from "$ltml"
+import { Align, Art, Edges, Line, Side, Track } from "$ltml"
 import { Component, ItemButton, Money, PX, ageText, space } from "Ordaen"
 import { PartPrice, Totals, Way } from "@/cost"
 import Locale from "@/locales"
@@ -41,6 +41,7 @@ public function wayText(way: Way): String {
 public class PricedReagentRow implements Component {
   derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
   derived item: Integer | nil = self.price.item
+  derived icon: Art | nil = self.price.icon
   derived color: Color = self.price.have < self.price.need ? Style.RED : Style.INK
   derived hasAuction: Boolean = self.price.auction != nil
   derived hasVendor: Boolean = self.price.vendor != nil
@@ -62,7 +63,7 @@ public class PricedReagentRow implements Component {
     return $ltml {
       <>
         <box padding={FIRST} border={self.rule} yAlign={Align.Center}>
-          <ItemButton item={self.item} size={SLOT} />
+          <ItemButton item={self.item} art={self.icon} size={SLOT} />
         </box>
         <box padding={NEXT} border={self.rule} yAlign={Align.Center}>
           <text value={self.price.name} textColor={Style.INK} />

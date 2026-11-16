@@ -3,7 +3,7 @@
 // with a 2 px edge of it at its left (a recipe's, its difficulty's; a category's, the gold). A recipe's row says
 // what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
-import { Align, Click, Edges, Line, MouseButton, Position, Track } from "$ltml"
+import { Align, Art, Click, Edges, Line, MouseButton, Position, Track } from "$ltml"
 import { Component, ItemButton, Money, PX, SelectItem, TableRow, space } from "Ordaen"
 import { Totals } from "@/cost"
 import { RecipeMenu } from "@/menu"
@@ -268,6 +268,7 @@ public class RecipeTableRow implements Component {
 public class ReagentRow implements Component {
   derived rule: Line | nil = self.index > 1 ? Style.ROW_RULE : nil
   derived item: Integer | nil = self.reagent.itemID
+  derived icon: Art | nil = self.reagent.icon
   derived color: Color = self.reagent.have < self.reagent.need ? Style.RED : Style.INK
 
   reagent: Signal<Game.Reagent>
@@ -283,7 +284,7 @@ public class ReagentRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={REAGENT} gap={8 * PX} yAlign={Align.Center} padding={REAGENT_PAD} border={self.rule}>
-        <ItemButton item={self.item} size={SLOT} />
+        <ItemButton item={self.item} art={self.icon} size={SLOT} />
         <text value={self.reagent.name} textColor={Style.INK} />
         <text value={"%d / %d"} arguments={[self.reagent.have, self.reagent.need]} wrap={false} textColor={self.color}
               textFont={.Numbers} />

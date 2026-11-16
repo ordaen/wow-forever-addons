@@ -183,6 +183,7 @@ public function toBuyOf(priced: Array<NeedPrice>): Integer | nil {
 public class NeedRow implements Component {
   derived need: Need = self.entry.need
   derived item: Integer | nil = self.need.item
+  derived icon: Art | nil = self.need.icon
   derived lacks: Boolean = self.need.missing > 0
   derived missing: String = self.lacks ? "%d".format(self.need.missing) : "-"
   derived missingColor: Color = self.lacks ? SHORT : Style.INK
@@ -202,7 +203,7 @@ public class NeedRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={self.columns} gap={space(.Item)} yAlign={Align.Center} padding={NEED_PAD} border={Style.ROW_RULE}>
-        <ItemButton item={self.item} size={28 * PX} />
+        <ItemButton item={self.item} art={self.icon} size={28 * PX} />
         <text value={self.need.name} textColor={Style.INK} wrap={false} />
         <box xAlign={Align.End}>
           <text value={"%d"} arguments={[self.need.need]} textColor={Style.INK}
