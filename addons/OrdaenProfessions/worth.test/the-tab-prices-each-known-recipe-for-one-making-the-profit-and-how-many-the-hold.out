@@ -20,7 +20,7 @@ surface 325,133.88 950x632.25 on DIALOG clamped raised by a click
               box 1067.85,215.54 88.45x22.5
               box 1156.3,215.54 88.45x22.5
             box 360.25,215.54 884.5x22.5 absolute
-              text 736.39,218.99 132.22x15.6 "Apprentice · 31 / 75" #ffffff centred
+              text 736.39,218.99 132.22x15.6 "Apprentice · 31 / 75" #ffffff
         box 357.75,257.21 889.5x27.27
           box 357.75,283.64 889.5x0.83 absolute #3e2f1d
           box 357.75,257.21 72.78x27.27 #00000000 @click
@@ -42,16 +42,16 @@ surface 325,133.88 950x632.25 on DIALOG clamped raised by a click
           box 357.75,301.14 889.5x28.93 opacity=1
             box 357.75,301.14 138.33x28.93 #5a4428 @click
               box 357.75,301.14 138.33x1.67 absolute #d6a56b
-              text 370.25,307.81 113.33x15.6 "Auction → auction" #ffffff centred
+              text 370.25,307.81 113.33x15.6 "Auction → auction" #ffffff
             box 496.08,301.14 91.94x28.93 #0d0a08 @click
               box 496.08,301.14 91.94x1.67 absolute #00000000
-              text 507.75,307.81 67.78x15.6 "→ merchant" #a3977f centred
+              text 507.75,307.81 67.78x15.6 "→ merchant" #a3977f
             box 588.03,301.14 144.17x28.93 #0d0a08 @click
               box 588.03,301.14 144.17x1.67 absolute #00000000
-              text 599.69,307.81 120x15.6 "From what you have" #a3977f centred
+              text 599.69,307.81 120x15.6 "From what you have" #a3977f
             box 732.19,301.14 85.28x28.93 #0d0a08 @click
               box 732.19,301.14 85.28x1.67 absolute #00000000
-              text 743.86,307.81 61.11x15.6 "Cooldowns" #a3977f centred
+              text 743.86,307.81 61.11x15.6 "Cooldowns" #a3977f
           box 357.75,336.74 889.5x14.4
             text 357.75,336.74 889.5x14.4 "Only this character: turn on Ordaen Alts and log in on your other characters to see theirs." #a3977f
           box 357.75,357.81 889.5x332.82 #0000004d
@@ -110,37 +110,37 @@ surface 325,133.88 950x632.25 on DIALOG clamped raised by a click
                   text 365.25,392.28 311.17x15.6 "Linen Cloak" #ffffff
                   text 683.08,392.28 125x15.6 "Player, Tailoring" #a3977f
                   box 814.75,392.28 75x15.6
-                    text 828.64,392.28 61.11x15.6 "0g 1s 15c" #e8dcc4 right
+                    text 828.64,392.28 61.11x15.6 "0g 1s 15c" #e8dcc4
                   box 896.42,392.28 75x15.6
-                    text 910.31,392.28 61.11x15.6 "0g 4s 75c" #e8dcc4 right
+                    text 910.31,392.28 61.11x15.6 "0g 4s 75c" #e8dcc4
                   box 978.08,392.28 75x15.6
-                    text 991.97,392.28 61.11x15.6 "0g 3s 60c" #ffffff right
+                    text 991.97,392.28 61.11x15.6 "0g 3s 60c" #ffffff
                   box 1059.75,392.28 41.67x15.6
-                    text 1079.19,392.28 22.22x15.6 "313" #ffffff right
+                    text 1079.19,392.28 22.22x15.6 "313" #ffffff
                   box 1108.08,392.28 50x15.6
-                    text 1135.86,392.28 22.22x15.6 "0 h" #a3977f right
+                    text 1135.86,392.28 22.22x15.6 "0 h" #a3977f
                   box 1164.75,392.28 75x15.6
-                    text 1230.86,392.28 8.89x15.6 "0" #ffffff right
+                    text 1230.86,392.28 8.89x15.6 "0" #ffffff
                 box 358.58,411.74 887.83x23.33 #00000000 @click
                   text 365.25,415.61 311.17x15.6 "Bolt of Linen Cloth" #ffffff
                   text 683.08,415.61 125x15.6 "Player, Tailoring" #a3977f
                   box 814.75,415.61 75x15.6
-                    text 828.64,415.61 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+                    text 828.64,415.61 61.11x15.6 "0g 0s 40c" #e8dcc4
                   box 896.42,415.61 75x15.6
-                    text 910.31,415.61 61.11x15.6 "0g 0s 95c" #e8dcc4 right
+                    text 910.31,415.61 61.11x15.6 "0g 0s 95c" #e8dcc4
                   box 978.08,415.61 75x15.6
-                    text 991.97,415.61 61.11x15.6 "0g 0s 55c" #ffffff right
+                    text 991.97,415.61 61.11x15.6 "0g 0s 55c" #ffffff
                   box 1059.75,415.61 41.67x15.6
-                    text 1079.19,415.61 22.22x15.6 "137" #ffffff right
+                    text 1079.19,415.61 22.22x15.6 "137" #ffffff
                   box 1108.08,415.61 50x15.6
-                    text 1135.86,415.61 22.22x15.6 "0 h" #a3977f right
+                    text 1135.86,415.61 22.22x15.6 "0 h" #a3977f
                   box 1164.75,415.61 75x15.6
-                    text 1230.86,415.61 8.89x15.6 "2" #ffffff right
+                    text 1230.86,415.61 8.89x15.6 "2" #ffffff
           box 357.75,697.29 889.5x28.33
             text 357.75,711.46 739.5x0 "" #a3977f
             box 1097.25,697.29 150x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1097.25,697.29 150x28.33 absolute
-                text 1106.14,703.66 132.22x15.6 "To the shopping list" #808080 centred
+                text 1106.14,703.66 132.22x15.6 "To the shopping list" #808080
       box 357.75,725.62 889.5x16.67
         box 357.75,742.29 889.5x0
           box 357.75,742.29 889.5x0
@@ -151,8 +151,8 @@ surface 325,133.88 950x632.25 on DIALOG clamped raised by a click
         box 332.25,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
         box 376.17,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
         box 392.5,144.12 61.11x45.92
-          text 392.5,151.67 61.11x15.6 "Tailoring" #ffd100 centred
-          text 400.83,168.1 44.44x14.4 "31 / 75" #8f8470 centred
+          text 392.5,151.67 61.11x15.6 "Tailoring" #ffd100
+          text 400.83,168.1 44.44x14.4 "31 / 75" #8f8470
     box 1195,154.62 80x38.67
       box 1195,154.62 80x26.67 clipped
         box 1195,154.62 27.5x26.67 absolute clipped @click

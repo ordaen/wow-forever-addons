@@ -46,10 +46,10 @@ box 0,0 700x385.73
     text 0,300.13 700x15.6 "zone shown" #ffffff
   box 0,322.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
     box 0,322.4 120x28.33 absolute
-      text 45.56,328.77 28.89x15.6 "Save" #ffd100 centred
+      text 45.56,328.77 28.89x15.6 "Save" #ffd100
   box 0,357.4 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
     box 0,357.4 120x28.33 absolute
-      text 42.22,363.77 35.56x15.6 "Reset" #808080 centred
+      text 42.22,363.77 35.56x15.6 "Reset" #808080
 
 key: ESCAPE → none
 -- the first tab and the second again: the export box selects all its text anew
@@ -100,7 +100,7 @@ box 0,0 700x385.73
     text 0,300.13 700x15.6 "zone shown" #ffffff
   box 0,322.4 120x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
     box 0,322.4 120x28.33 absolute
-      text 45.56,328.77 28.89x15.6 "Save" #ffd100 centred
+      text 45.56,328.77 28.89x15.6 "Save" #ffd100
   box 0,357.4 120x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
     box 0,357.4 120x28.33 absolute
-      text 42.22,363.77 35.56x15.6 "Reset" #808080 centred
+      text 42.22,363.77 35.56x15.6 "Reset" #808080

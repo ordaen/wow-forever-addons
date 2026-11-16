@@ -101,7 +101,7 @@ surface 0,776 128x124 on MEDIUM face:player cut by Interface\AddOns\Ordaen\media
   embed 0,776 128x124 absolute frame=none opacity=0
   box 0,776 128x124 absolute Interface\AddOns\Ordaen\media\portrait-rim
   box 86.7,781.3 36x36 absolute Interface\AddOns\Ordaen\media\level-badge
-    text 100.26,791.5 8.89x15.6 "1" #b88f57 centred
+    text 100.26,791.5 8.89x15.6 "1" #b88f57
 surface 716.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
   box 716.67,176.96 966.67x583.33 absolute Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     box 729.42,189.71 946.17x560.08
@@ -264,21 +264,21 @@ surface 716.67,139.71 966.67x620.58 on DIALOG clamped raised by a click
         box 749.42,708.12 906.17x28.33
           box 749.42,708.12 166.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
             box 749.42,708.12 166.67x28.33 absolute
-              text 802.19,714.49 61.11x15.6 "Move mode" #ffd100 centred
+              text 802.19,714.49 61.11x15.6 "Move mode" #ffd100
           box 932.75,722.29 474.5x0
           box 1423.92,708.12 231.67x28.33
             box 1423.92,708.12 108.33x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
               box 1423.92,708.12 108.33x28.33 absolute
-                text 1447.53,714.49 61.11x15.6 "Roll back" #ffd100 centred
+                text 1447.53,714.49 61.11x15.6 "Roll back" #ffd100
             box 1538.92,708.12 116.67x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
               box 1538.92,708.12 116.67x28.33 absolute
-                text 1582.81,714.49 28.89x15.6 "Save" #808080 centred
+                text 1582.81,714.49 28.89x15.6 "Save" #808080
     box 1666.08,740.29 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 716.67,139.71 966.67x47.75
     box 716.67,139.71 905x47.75
       box 716.67,139.71 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 735.25,149.96 77.33x34.25
-          text 752.81,159.28 42.22x15.6 "Ordaen" #ffd100 centred
+          text 752.81,159.28 42.22x15.6 "Ordaen" #ffd100
     box 1628.33,148.79 55x38.67
       box 1628.33,148.79 55x26.67 clipped
         box 1628.33,148.79 27.5x26.67 absolute clipped @click

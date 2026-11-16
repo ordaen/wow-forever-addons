@@ -31,13 +31,13 @@ box 0,0 700x564.37
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #5a4428 @click
           box 248.33,155.73 72.78x1.67 absolute #d6a56b
-          text 260.83,162.4 47.78x15.6 "Auction" #ffffff centred
+          text 260.83,162.4 47.78x15.6 "Auction" #ffffff
         box 321.11,155.73 78.61x28.93 #0d0a08 @click
           box 321.11,155.73 78.61x1.67 absolute #00000000
-          text 332.78,162.4 54.44x15.6 "Merchant" #a3977f centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #a3977f
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -48,13 +48,13 @@ box 0,0 700x564.37
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -105,21 +105,21 @@ box 0,0 700x564.37
         box 0,386.83 700x23.33 #00000000 @click
           text 6.67,390.7 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,390.7 120x15.6
-            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,390.7 60x15.6
-            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e
         box 0,410.17 700x23.33 #00000000 @click
           text 6.67,414.03 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,414.03 120x15.6
-            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,414.03 60x15.6
-            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e
         box 0,433.5 700x23.33 #00000000 @click
           text 6.67,437.37 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,437.37 120x15.6
-            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,437.37 60x15.6
-            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f
   box 0,473.5 700x90.87
     box 0,473.5 700x15.6
       text 0,473.5 35.56x15.6 "Menus" #e8c35a
@@ -177,13 +177,13 @@ box 0,0 700x564.37
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #5a4428 @click
           box 248.33,155.73 72.78x1.67 absolute #d6a56b
-          text 260.83,162.4 47.78x15.6 "Auction" #ffffff centred
+          text 260.83,162.4 47.78x15.6 "Auction" #ffffff
         box 321.11,155.73 78.61x28.93 #0d0a08 @click
           box 321.11,155.73 78.61x1.67 absolute #00000000
-          text 332.78,162.4 54.44x15.6 "Merchant" #a3977f centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #a3977f
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -194,13 +194,13 @@ box 0,0 700x564.37
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -251,21 +251,21 @@ box 0,0 700x564.37
         box 0,386.83 700x23.33 #00000000 @click
           text 6.67,390.7 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,390.7 120x15.6
-            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,390.7 60x15.6
-            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e
         box 0,410.17 700x23.33 #00000000 @click
           text 6.67,414.03 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,414.03 120x15.6
-            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,414.03 60x15.6
-            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e
         box 0,433.5 700x23.33 #00000000 @click
           text 6.67,437.37 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,437.37 120x15.6
-            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,437.37 60x15.6
-            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f
   box 0,473.5 700x90.87
     box 0,473.5 700x15.6
       text 0,473.5 35.56x15.6 "Menus" #e8c35a
@@ -322,13 +322,13 @@ box 0,0 700x564.37
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #5a4428 @click
           box 248.33,155.73 72.78x1.67 absolute #d6a56b
-          text 260.83,162.4 47.78x15.6 "Auction" #ffffff centred
+          text 260.83,162.4 47.78x15.6 "Auction" #ffffff
         box 321.11,155.73 78.61x28.93 #0d0a08 @click
           box 321.11,155.73 78.61x1.67 absolute #00000000
-          text 332.78,162.4 54.44x15.6 "Merchant" #a3977f centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #a3977f
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -339,13 +339,13 @@ box 0,0 700x564.37
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -395,21 +395,21 @@ box 0,0 700x564.37
         box 0,386.83 700x23.33 #00000000 @click
           text 6.67,390.7 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,390.7 120x15.6
-            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,390.7 60x15.6
-            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e
         box 0,410.17 700x23.33 #00000000 @click
           text 6.67,414.03 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,414.03 120x15.6
-            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,414.03 60x15.6
-            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e
         box 0,433.5 700x23.33 #00000000 @click
           text 6.67,437.37 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,437.37 120x15.6
-            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,437.37 60x15.6
-            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f
   box 0,473.5 700x90.87
     box 0,473.5 700x15.6
       text 0,473.5 35.56x15.6 "Menus" #e8c35a
@@ -466,13 +466,13 @@ box 0,0 700x564.37
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #5a4428 @click
           box 248.33,155.73 72.78x1.67 absolute #d6a56b
-          text 260.83,162.4 47.78x15.6 "Auction" #ffffff centred
+          text 260.83,162.4 47.78x15.6 "Auction" #ffffff
         box 321.11,155.73 78.61x28.93 #0d0a08 @click
           box 321.11,155.73 78.61x1.67 absolute #00000000
-          text 332.78,162.4 54.44x15.6 "Merchant" #a3977f centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #a3977f
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -483,13 +483,13 @@ box 0,0 700x564.37
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -539,21 +539,21 @@ box 0,0 700x564.37
         box 0,386.83 700x23.33 #00000000 @click
           text 6.67,390.7 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,390.7 120x15.6
-            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,390.7 60x15.6
-            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e
         box 0,410.17 700x23.33 #00000000 @click
           text 6.67,414.03 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,414.03 120x15.6
-            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,414.03 60x15.6
-            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e
         box 0,433.5 700x23.33 #00000000 @click
           text 6.67,437.37 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,437.37 120x15.6
-            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,437.37 60x15.6
-            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f
   box 0,473.5 700x90.87
     box 0,473.5 700x15.6
       text 0,473.5 35.56x15.6 "Menus" #e8c35a
@@ -610,13 +610,13 @@ box 0,0 700x564.37
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #0d0a08 @click
           box 248.33,155.73 72.78x1.67 absolute #00000000
-          text 260.83,162.4 47.78x15.6 "Auction" #a3977f centred
+          text 260.83,162.4 47.78x15.6 "Auction" #a3977f
         box 321.11,155.73 78.61x28.93 #5a4428 @click
           box 321.11,155.73 78.61x1.67 absolute #d6a56b
-          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -627,13 +627,13 @@ box 0,0 700x564.37
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -683,21 +683,21 @@ box 0,0 700x564.37
         box 0,386.83 700x23.33 #00000000 @click
           text 6.67,390.7 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,390.7 120x15.6
-            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,390.7 60x15.6
-            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e
         box 0,410.17 700x23.33 #00000000 @click
           text 6.67,414.03 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,414.03 120x15.6
-            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,414.03 60x15.6
-            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e
         box 0,433.5 700x23.33 #00000000 @click
           text 6.67,437.37 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,437.37 120x15.6
-            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,437.37 60x15.6
-            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f
   box 0,473.5 700x90.87
     box 0,473.5 700x15.6
       text 0,473.5 35.56x15.6 "Menus" #e8c35a
@@ -754,13 +754,13 @@ box 0,0 700x564.37
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #0d0a08 @click
           box 248.33,155.73 72.78x1.67 absolute #00000000
-          text 260.83,162.4 47.78x15.6 "Auction" #a3977f centred
+          text 260.83,162.4 47.78x15.6 "Auction" #a3977f
         box 321.11,155.73 78.61x28.93 #5a4428 @click
           box 321.11,155.73 78.61x1.67 absolute #d6a56b
-          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -771,13 +771,13 @@ box 0,0 700x564.37
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #ffffff26
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -827,21 +827,21 @@ box 0,0 700x564.37
         box 0,386.83 700x23.33 #00000000 @click
           text 6.67,390.7 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,390.7 120x15.6
-            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,390.7 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,390.7 60x15.6
-            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,390.7 42.22x15.6 "(3 d.)" #ffb02e
         box 0,410.17 700x23.33 #00000000 @click
           text 6.67,414.03 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,414.03 120x15.6
-            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,414.03 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,414.03 60x15.6
-            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,414.03 42.22x15.6 "(1 d.)" #ffb02e
         box 0,433.5 700x23.33 #00000000 @click
           text 6.67,437.37 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,437.37 120x15.6
-            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,437.37 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,437.37 60x15.6
-            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,437.37 42.22x15.6 "(9 d.)" #a3977f
   box 0,473.5 700x90.87
     box 0,473.5 700x15.6
       text 0,473.5 35.56x15.6 "Menus" #e8c35a
@@ -899,13 +899,13 @@ box 0,0 700x542.1
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #0d0a08 @click
           box 248.33,155.73 72.78x1.67 absolute #00000000
-          text 260.83,162.4 47.78x15.6 "Auction" #a3977f centred
+          text 260.83,162.4 47.78x15.6 "Auction" #a3977f
         box 321.11,155.73 78.61x28.93 #5a4428 @click
           box 321.11,155.73 78.61x1.67 absolute #d6a56b
-          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -916,13 +916,13 @@ box 0,0 700x542.1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -967,21 +967,21 @@ box 0,0 700x542.1
         box 0,364.57 700x23.33 #00000000 @click
           text 6.67,368.43 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,368.43 120x15.6
-            text 565.56,368.43 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,368.43 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,368.43 60x15.6
-            text 651.11,368.43 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,368.43 42.22x15.6 "(3 d.)" #ffb02e
         box 0,387.9 700x23.33 #00000000 @click
           text 6.67,391.77 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,391.77 120x15.6
-            text 558.89,391.77 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,391.77 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,391.77 60x15.6
-            text 651.11,391.77 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,391.77 42.22x15.6 "(1 d.)" #ffb02e
         box 0,411.23 700x23.33 #00000000 @click
           text 6.67,415.1 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,415.1 120x15.6
-            text 565.56,415.1 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,415.1 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,415.1 60x15.6
-            text 651.11,415.1 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,415.1 42.22x15.6 "(9 d.)" #a3977f
   box 0,451.23 700x90.87
     box 0,451.23 700x15.6
       text 0,451.23 35.56x15.6 "Menus" #e8c35a
@@ -1038,13 +1038,13 @@ box 0,0 700x542.1
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #0d0a08 @click
           box 248.33,155.73 72.78x1.67 absolute #00000000
-          text 260.83,162.4 47.78x15.6 "Auction" #a3977f centred
+          text 260.83,162.4 47.78x15.6 "Auction" #a3977f
         box 321.11,155.73 78.61x28.93 #5a4428 @click
           box 321.11,155.73 78.61x1.67 absolute #d6a56b
-          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -1055,13 +1055,13 @@ box 0,0 700x542.1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1106,21 +1106,21 @@ box 0,0 700x542.1
         box 0,364.57 700x23.33 #00000000 @click
           text 6.67,368.43 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,368.43 120x15.6
-            text 565.56,368.43 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,368.43 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,368.43 60x15.6
-            text 651.11,368.43 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,368.43 42.22x15.6 "(9 d.)" #a3977f
         box 0,387.9 700x23.33 #00000000 @click
           text 6.67,391.77 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,391.77 120x15.6
-            text 565.56,391.77 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,391.77 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,391.77 60x15.6
-            text 651.11,391.77 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,391.77 42.22x15.6 "(3 d.)" #ffb02e
         box 0,411.23 700x23.33 #00000000 @click
           text 6.67,415.1 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,415.1 120x15.6
-            text 558.89,415.1 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,415.1 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,415.1 60x15.6
-            text 651.11,415.1 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,415.1 42.22x15.6 "(1 d.)" #ffb02e
   box 0,451.23 700x90.87
     box 0,451.23 700x15.6
       text 0,451.23 35.56x15.6 "Menus" #e8c35a
@@ -1177,13 +1177,13 @@ box 0,0 700x542.1
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #0d0a08 @click
           box 248.33,155.73 72.78x1.67 absolute #00000000
-          text 260.83,162.4 47.78x15.6 "Auction" #a3977f centred
+          text 260.83,162.4 47.78x15.6 "Auction" #a3977f
         box 321.11,155.73 78.61x28.93 #5a4428 @click
           box 321.11,155.73 78.61x1.67 absolute #d6a56b
-          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -1194,13 +1194,13 @@ box 0,0 700x542.1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1245,21 +1245,21 @@ box 0,0 700x542.1
         box 0,364.57 700x23.33 #00000000 @click
           text 6.67,368.43 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,368.43 120x15.6
-            text 558.89,368.43 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,368.43 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,368.43 60x15.6
-            text 651.11,368.43 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,368.43 42.22x15.6 "(1 d.)" #ffb02e
         box 0,387.9 700x23.33 #00000000 @click
           text 6.67,391.77 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,391.77 120x15.6
-            text 565.56,391.77 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,391.77 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,391.77 60x15.6
-            text 651.11,391.77 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,391.77 42.22x15.6 "(3 d.)" #ffb02e
         box 0,411.23 700x23.33 #00000000 @click
           text 6.67,415.1 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,415.1 120x15.6
-            text 565.56,415.1 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,415.1 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,415.1 60x15.6
-            text 651.11,415.1 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,415.1 42.22x15.6 "(9 d.)" #a3977f
   box 0,451.23 700x90.87
     box 0,451.23 700x15.6
       text 0,451.23 35.56x15.6 "Menus" #e8c35a
@@ -1316,13 +1316,13 @@ box 0,0 700x542.1
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #0d0a08 @click
           box 248.33,155.73 72.78x1.67 absolute #00000000
-          text 260.83,162.4 47.78x15.6 "Auction" #a3977f centred
+          text 260.83,162.4 47.78x15.6 "Auction" #a3977f
         box 321.11,155.73 78.61x28.93 #5a4428 @click
           box 321.11,155.73 78.61x1.67 absolute #d6a56b
-          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -1333,13 +1333,13 @@ box 0,0 700x542.1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1384,21 +1384,21 @@ box 0,0 700x542.1
         box 0,364.57 700x23.33 #00000000 @click
           text 6.67,368.43 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,368.43 120x15.6
-            text 558.89,368.43 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,368.43 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,368.43 60x15.6
-            text 651.11,368.43 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,368.43 42.22x15.6 "(1 d.)" #ffb02e
         box 0,387.9 700x23.33 #00000000 @click
           text 6.67,391.77 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,391.77 120x15.6
-            text 565.56,391.77 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,391.77 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,391.77 60x15.6
-            text 651.11,391.77 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,391.77 42.22x15.6 "(3 d.)" #ffb02e
         box 0,411.23 700x23.33 #00000033 @click
           text 6.67,415.1 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,415.1 120x15.6
-            text 565.56,415.1 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,415.1 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,415.1 60x15.6
-            text 651.11,415.1 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,415.1 42.22x15.6 "(9 d.)" #a3977f
   box 0,451.23 700x90.87
     box 0,451.23 700x15.6
       text 0,451.23 35.56x15.6 "Menus" #e8c35a
@@ -1455,13 +1455,13 @@ box 0,0 700x542.1
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #0d0a08 @click
           box 248.33,155.73 72.78x1.67 absolute #00000000
-          text 260.83,162.4 47.78x15.6 "Auction" #a3977f centred
+          text 260.83,162.4 47.78x15.6 "Auction" #a3977f
         box 321.11,155.73 78.61x28.93 #5a4428 @click
           box 321.11,155.73 78.61x1.67 absolute #d6a56b
-          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -1472,13 +1472,13 @@ box 0,0 700x542.1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1523,21 +1523,21 @@ box 0,0 700x542.1
         box 0,364.57 700x23.33 #00000000 @click
           text 6.67,368.43 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,368.43 120x15.6
-            text 558.89,368.43 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,368.43 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,368.43 60x15.6
-            text 651.11,368.43 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,368.43 42.22x15.6 "(1 d.)" #ffb02e
         box 0,387.9 700x23.33 #00000000 @click
           text 6.67,391.77 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,391.77 120x15.6
-            text 565.56,391.77 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,391.77 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,391.77 60x15.6
-            text 651.11,391.77 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,391.77 42.22x15.6 "(3 d.)" #ffb02e
         box 0,411.23 700x23.33 #00000000 @click
           text 6.67,415.1 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,415.1 120x15.6
-            text 565.56,415.1 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,415.1 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,415.1 60x15.6
-            text 651.11,415.1 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,415.1 42.22x15.6 "(9 d.)" #a3977f
   box 0,451.23 700x90.87
     box 0,451.23 700x15.6
       text 0,451.23 35.56x15.6 "Menus" #e8c35a
@@ -1594,13 +1594,13 @@ box 0,0 700x542.1
       box 248.33,155.73 451.67x28.93 opacity=1
         box 248.33,155.73 72.78x28.93 #0d0a08 @click
           box 248.33,155.73 72.78x1.67 absolute #00000000
-          text 260.83,162.4 47.78x15.6 "Auction" #a3977f centred
+          text 260.83,162.4 47.78x15.6 "Auction" #a3977f
         box 321.11,155.73 78.61x28.93 #5a4428 @click
           box 321.11,155.73 78.61x1.67 absolute #d6a56b
-          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff centred
+          text 332.78,162.4 54.44x15.6 "Merchant" #ffffff
         box 399.72,155.73 163.06x28.93 #0d0a08 @click
           box 399.72,155.73 163.06x1.67 absolute #00000000
-          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff centred
+          text 411.39,162.4 138.89x15.6 "Held — in development" #ffffff
     box 0,196.33 700x33.33 opacity=1
       box 0,205.2 233.33x15.6 @enter @leave
         text 0,205.2 233.33x15.6 "Bought" #cbb994
@@ -1611,13 +1611,13 @@ box 0,0 700x542.1
           box 248.33,196.33 33.33x33.33 absolute #00000000
           box 248.33,196.33 5.83x5.83 absolute #ffd100
           box 248.33,196.33 33.33x33.33 absolute
-            text 270.28,213.6 8.89x14.4 "5" #ffffff right
+            text 270.28,213.6 8.89x14.4 "5" #ffffff
         box 288.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 288.33,196.33 33.33x33.33 absolute
           box 288.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
           box 288.33,196.33 33.33x33.33 absolute #00000000
           box 288.33,196.33 33.33x33.33 absolute
-            text 304.72,213.6 14.44x14.4 "20" #ffffff right
+            text 304.72,213.6 14.44x14.4 "20" #ffffff
         box 328.33,196.33 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
           box 328.33,196.33 33.33x33.33 absolute
           box 328.33,196.33 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0
@@ -1662,21 +1662,21 @@ box 0,0 700x542.1
         box 0,364.57 700x23.33 #00000000 @click
           text 6.67,368.43 493.33x15.6 "Bronze Axe" #ffffff
           box 506.67,368.43 120x15.6
-            text 558.89,368.43 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+            text 558.89,368.43 67.78x15.6 "1g 23s 45c" #e8dcc4
           box 633.33,368.43 60x15.6
-            text 651.11,368.43 42.22x15.6 "(1 d.)" #ffb02e right
+            text 651.11,368.43 42.22x15.6 "(1 d.)" #ffb02e
         box 0,387.9 700x23.33 #00000000 @click
           text 6.67,391.77 493.33x15.6 "Copper Bar" #ffffff
           box 506.67,391.77 120x15.6
-            text 565.56,391.77 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+            text 565.56,391.77 61.11x15.6 "0g 1s 50c" #e8dcc4
           box 633.33,391.77 60x15.6
-            text 651.11,391.77 42.22x15.6 "(3 d.)" #ffb02e right
+            text 651.11,391.77 42.22x15.6 "(3 d.)" #ffb02e
         box 0,411.23 700x23.33 #00000000 @click
           text 6.67,415.1 493.33x15.6 "Arcane Dust" #ffffff
           box 506.67,415.1 120x15.6
-            text 565.56,415.1 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+            text 565.56,415.1 61.11x15.6 "0g 0s 40c" #e8dcc4
           box 633.33,415.1 60x15.6
-            text 651.11,415.1 42.22x15.6 "(9 d.)" #a3977f right
+            text 651.11,415.1 42.22x15.6 "(9 d.)" #a3977f
   box 0,451.23 700x90.87
     box 0,451.23 700x15.6
       text 0,451.23 35.56x15.6 "Menus" #e8c35a

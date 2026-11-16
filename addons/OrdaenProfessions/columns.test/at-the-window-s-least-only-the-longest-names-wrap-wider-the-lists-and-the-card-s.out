@@ -20,7 +20,7 @@ surface 325,133.88 910.5x479.63 on DIALOG clamped raised by a click
               box 1036.25,215.54 84.5x22.5
               box 1120.75,215.54 84.5x22.5
             box 360.25,215.54 845x22.5 absolute
-              text 716.64,218.99 132.22x15.6 "Apprentice · 31 / 75" #ffffff centred
+              text 716.64,218.99 132.22x15.6 "Apprentice · 31 / 75" #ffffff
         box 357.75,257.21 850x27.27
           box 357.75,283.64 850x0.83 absolute #3e2f1d
           box 357.75,257.21 72.78x27.27 #00000059 @click
@@ -127,16 +127,16 @@ surface 325,133.88 910.5x479.63 on DIALOG clamped raised by a click
               box 1013.58,523.84 75x28.33
                 box 1013.58,523.84 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                   box 1013.58,523.84 23.33x28.33 absolute
-                    text 1020.81,530.21 8.89x15.6 "-" #808080 centred
+                    text 1020.81,530.21 8.89x15.6 "-" #808080
                 box 1041.92,530.21 18.33x15.6
-                  text 1046.64,530.21 8.89x15.6 "1" #ffffff centred
+                  text 1046.64,530.21 8.89x15.6 "1" #ffffff
                 box 1065.25,523.84 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                   box 1065.25,523.84 23.33x28.33 absolute
-                    text 1072.47,530.21 8.89x15.6 "+" #808080 centred
+                    text 1072.47,530.21 8.89x15.6 "+" #808080
               text 1095.25,538.01 0x0 "" #a3977f
               box 1101.92,523.84 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1101.92,523.84 91.67x28.33 absolute
-                  text 1126.64,530.21 42.22x15.6 "Create" #ffd100 centred
+                  text 1126.64,530.21 42.22x15.6 "Create" #ffd100
       box 357.75,573.01 850x16.67
         box 357.75,589.68 850x0
           box 357.75,589.68 850x0
@@ -147,8 +147,8 @@ surface 325,133.88 910.5x479.63 on DIALOG clamped raised by a click
         box 332.25,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
         box 376.17,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
         box 392.5,144.12 61.11x45.92
-          text 392.5,151.67 61.11x15.6 "Tailoring" #ffd100 centred
-          text 400.83,168.1 44.44x14.4 "31 / 75" #8f8470 centred
+          text 392.5,151.67 61.11x15.6 "Tailoring" #ffd100
+          text 400.83,168.1 44.44x14.4 "31 / 75" #8f8470
     box 1155.5,154.62 80x38.67
       box 1155.5,154.62 80x26.67 clipped
         box 1155.5,154.62 27.5x26.67 absolute clipped @click
@@ -183,7 +183,7 @@ surface 325,133.88 1275x479.63 on DIALOG clamped raised by a click
               box 1327.85,215.54 120.95x22.5
               box 1448.8,215.54 120.95x22.5
             box 360.25,215.54 1209.5x22.5 absolute
-              text 898.89,218.99 132.22x15.6 "Apprentice · 31 / 75" #ffffff centred
+              text 898.89,218.99 132.22x15.6 "Apprentice · 31 / 75" #ffffff
         box 357.75,257.21 1214.5x27.27
           box 357.75,283.64 1214.5x0.83 absolute #3e2f1d
           box 357.75,257.21 72.78x27.27 #00000059 @click
@@ -290,16 +290,16 @@ surface 325,133.88 1275x479.63 on DIALOG clamped raised by a click
               box 1110.83,523.84 75x28.33
                 box 1110.83,523.84 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                   box 1110.83,523.84 23.33x28.33 absolute
-                    text 1118.06,530.21 8.89x15.6 "-" #808080 centred
+                    text 1118.06,530.21 8.89x15.6 "-" #808080
                 box 1139.17,530.21 18.33x15.6
-                  text 1143.89,530.21 8.89x15.6 "1" #ffffff centred
+                  text 1143.89,530.21 8.89x15.6 "1" #ffffff
                 box 1162.5,523.84 23.33x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
                   box 1162.5,523.84 23.33x28.33 absolute
-                    text 1169.72,530.21 8.89x15.6 "+" #808080 centred
+                    text 1169.72,530.21 8.89x15.6 "+" #808080
               text 1192.5,538.01 267.25x0 "" #a3977f
               box 1466.42,523.84 91.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
                 box 1466.42,523.84 91.67x28.33 absolute
-                  text 1491.14,530.21 42.22x15.6 "Create" #ffd100 centred
+                  text 1491.14,530.21 42.22x15.6 "Create" #ffd100
       box 357.75,573.01 1214.5x16.67
         box 357.75,589.68 1214.5x0
           box 357.75,589.68 1214.5x0
@@ -310,8 +310,8 @@ surface 325,133.88 1275x479.63 on DIALOG clamped raised by a click
         box 332.25,141.12 48.92x48.92 absolute icon=136249 cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
         box 376.17,141.12 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
         box 392.5,144.12 61.11x45.92
-          text 392.5,151.67 61.11x15.6 "Tailoring" #ffd100 centred
-          text 400.83,168.1 44.44x14.4 "31 / 75" #8f8470 centred
+          text 392.5,151.67 61.11x15.6 "Tailoring" #ffd100
+          text 400.83,168.1 44.44x14.4 "31 / 75" #8f8470
     box 1520,154.62 80x38.67
       box 1520,154.62 80x26.67 clipped
         box 1520,154.62 27.5x26.67 absolute clipped @click

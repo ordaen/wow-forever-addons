@@ -17,7 +17,7 @@ box 0,0 600x33.33
     box 82.67,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
     box 82.67,0 33.33x33.33 absolute #00000000
     box 82.67,0 33.33x33.33 absolute
-      text 99.06,17.27 14.44x14.4 "20" #ffffff right
+      text 99.06,17.27 14.44x14.4 "20" #ffffff
   box 124,0 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
     box 124,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
     box 124,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=1
@@ -25,7 +25,7 @@ box 0,0 600x33.33
     box 124,0 5.83x5.83 absolute #ffd100
     box 124,27.5 5.83x5.83 absolute #4fd1ff
     box 124,0 33.33x33.33 absolute
-      text 145.94,17.27 8.89x14.4 "5" #ffffff right
+      text 145.94,17.27 8.89x14.4 "5" #ffffff
   box 165.33,0 33.33x33.33 #0d0a08 opacity=1 @click @enter @leave
     box 165.33,0 33.33x33.33 absolute icon=Interface/Icons/INV_Misc_Bag_08
     box 165.33,0 33.33x33.33 absolute Interface\AddOns\Ordaen\media\ctl-quality-rim opacity=0

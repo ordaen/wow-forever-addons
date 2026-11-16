@@ -6,9 +6,9 @@ box 0,0 600x125
       box 7.5,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 16.67,31.07 35.56x15.6 "Clock" #f3e1b8
     box 200.28,0.83 199.44x27.73 @drop
-      text 280.97,7.5 38.89x14.4 "Middle" #a3977f centred
+      text 280.97,7.5 38.89x14.4 "Middle" #a3977f
     box 399.72,0.83 199.44x56.67 @drop
-      text 560.28,7.5 32.22x14.4 "Right" #a3977f right
+      text 560.28,7.5 32.22x14.4 "Right" #a3977f
       box 538.61,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 547.78,31.07 35.56x15.6 "Money" #f3e1b8
   text 0,65 600x14.4 "Not on the panel" #a3977f
@@ -25,9 +25,9 @@ box 0,0 600x125
       box 7.5,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 16.67,31.07 35.56x15.6 "Clock" #f3e1b8
     box 200.28,0.83 199.44x27.73 @drop
-      text 280.97,7.5 38.89x14.4 "Middle" #a3977f centred
+      text 280.97,7.5 38.89x14.4 "Middle" #a3977f
     box 399.72,0.83 199.44x56.67 @drop
-      text 560.28,7.5 32.22x14.4 "Right" #a3977f right
+      text 560.28,7.5 32.22x14.4 "Right" #a3977f
       box 538.61,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 547.78,31.07 35.56x15.6 "Money" #f3e1b8
   text 0,65 600x14.4 "Not on the panel" #a3977f
@@ -47,9 +47,9 @@ box 0,0 600x125
       box 7.5,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 16.67,31.07 35.56x15.6 "Clock" #f3e1b8
     box 200.28,0.83 199.44x27.73 @drop
-      text 280.97,7.5 38.89x14.4 "Middle" #a3977f centred
+      text 280.97,7.5 38.89x14.4 "Middle" #a3977f
     box 399.72,0.83 199.44x56.67 @drop
-      text 560.28,7.5 32.22x14.4 "Right" #a3977f right
+      text 560.28,7.5 32.22x14.4 "Right" #a3977f
       box 538.61,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 547.78,31.07 35.56x15.6 "Money" #f3e1b8
   text 0,65 600x14.4 "Not on the panel" #a3977f
@@ -64,11 +64,11 @@ box 0,0 600x125
     box 0.83,0.83 199.44x27.73 @drop
       text 7.5,7.5 26.67x14.4 "Left" #a3977f
     box 200.28,0.83 199.44x56.67 @drop
-      text 280.97,7.5 38.89x14.4 "Middle" #a3977f centred
+      text 280.97,7.5 38.89x14.4 "Middle" #a3977f
       box 273.47,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 282.64,31.07 35.56x15.6 "Clock" #f3e1b8
     box 399.72,0.83 199.44x56.67 @drop
-      text 560.28,7.5 32.22x14.4 "Right" #a3977f right
+      text 560.28,7.5 32.22x14.4 "Right" #a3977f
       box 538.61,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 547.78,31.07 35.56x15.6 "Money" #f3e1b8
   text 0,65 600x14.4 "Not on the panel" #a3977f
@@ -85,11 +85,11 @@ box 0,0 600x101.07
       box 7.5,26.9 66.11x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 16.67,31.07 47.78x15.6 "Friends" #f3e1b8
     box 200.28,0.83 199.44x56.67 @drop
-      text 280.97,7.5 38.89x14.4 "Middle" #a3977f centred
+      text 280.97,7.5 38.89x14.4 "Middle" #a3977f
       box 273.47,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 282.64,31.07 35.56x15.6 "Clock" #f3e1b8
     box 399.72,0.83 199.44x56.67 @drop
-      text 560.28,7.5 32.22x14.4 "Right" #a3977f right
+      text 560.28,7.5 32.22x14.4 "Right" #a3977f
       box 538.61,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 547.78,31.07 35.56x15.6 "Money" #f3e1b8
   text 0,65 600x14.4 "Not on the panel" #a3977f
@@ -104,11 +104,11 @@ box 0,0 600x101.07
       box 7.5,26.9 66.11x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 16.67,31.07 47.78x15.6 "Friends" #f3e1b8
     box 200.28,0.83 199.44x56.67 @drop
-      text 280.97,7.5 38.89x14.4 "Middle" #a3977f centred
+      text 280.97,7.5 38.89x14.4 "Middle" #a3977f
       box 273.47,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 282.64,31.07 35.56x15.6 "Clock" #f3e1b8
     box 399.72,0.83 199.44x56.67 @drop
-      text 560.28,7.5 32.22x14.4 "Right" #a3977f right
+      text 560.28,7.5 32.22x14.4 "Right" #a3977f
       box 538.61,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 547.78,31.07 35.56x15.6 "Money" #f3e1b8
   text 0,65 600x14.4 "Not on the panel" #a3977f
@@ -123,11 +123,11 @@ box 0,0 600x101.07
       box 7.5,26.9 66.11x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 16.67,31.07 47.78x15.6 "Friends" #f3e1b8
     box 200.28,0.83 199.44x56.67 @drop
-      text 280.97,7.5 38.89x14.4 "Middle" #a3977f centred
+      text 280.97,7.5 38.89x14.4 "Middle" #a3977f
       box 273.47,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 282.64,31.07 35.56x15.6 "Clock" #f3e1b8
     box 399.72,0.83 199.44x56.67 @drop
-      text 560.28,7.5 32.22x14.4 "Right" #a3977f right
+      text 560.28,7.5 32.22x14.4 "Right" #a3977f
       box 538.61,26.9 53.89x23.93 #5a4428 opacity=1 @dragStart @dragStop @enter @leave
         text 547.78,31.07 35.56x15.6 "Money" #f3e1b8
   text 0,65 600x14.4 "Not on the panel" #a3977f

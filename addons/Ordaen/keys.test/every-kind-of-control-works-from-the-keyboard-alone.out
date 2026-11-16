@@ -37,10 +37,10 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
         box 452.75,238.38 699.5x28.93 opacity=1
           box 452.75,238.38 53.89x28.93 #0d0a08 @click
             box 452.75,238.38 53.89x1.67 absolute #00000000
-            text 465.25,245.04 28.89x15.6 "Left" #a3977f centred
+            text 465.25,245.04 28.89x15.6 "Left" #a3977f
           box 506.64,238.38 59.72x28.93 #5a4428 @click
             box 506.64,238.38 59.72x1.67 absolute #d6a56b
-            text 518.31,245.04 35.56x15.6 "Right" #ffffff centred
+            text 518.31,245.04 35.56x15.6 "Right" #ffffff
         box 452.75,273.31 699.5x27.27
           box 452.75,299.74 699.5x0.83 absolute #3e2f1d
           box 452.75,273.31 47.22x27.27 #00000000 @click
@@ -94,10 +94,10 @@ surface 420,121.38 760x657.25 on DIALOG clamped raised by a click
     box 420,121.38 698.33x47.75
       box 420,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 438.58,131.62 77.33x34.25
-          text 450.03,140.95 54.44x15.6 "Controls" #ffd100 centred
+          text 450.03,140.95 54.44x15.6 "Controls" #ffd100
       box 544.5,121.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 563.08,131.62 77.33x34.25
-          text 587.31,140.95 28.89x15.6 "More" #a3977f centred
+          text 587.31,140.95 28.89x15.6 "More" #a3977f
     box 1125,130.46 55x38.67
       box 1125,130.46 55x26.67 clipped
         box 1125,130.46 27.5x26.67 absolute clipped @click

@@ -24,16 +24,16 @@ box 0,0 760x681.93
     box 0,161.2 760x28.33
       box 0,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 0,161.2 125x28.33 absolute
-          text 51.39,167.57 22.22x15.6 "New" #ffd100 centred
+          text 51.39,167.57 22.22x15.6 "New" #ffd100
       box 131.67,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 131.67,161.2 125x28.33 absolute
-          text 173.06,167.57 42.22x15.6 "Rename" #ffd100 centred
+          text 173.06,167.57 42.22x15.6 "Rename" #ffd100
       box 263.33,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 263.33,161.2 125x28.33 absolute
-          text 304.72,167.57 42.22x15.6 "Delete" #ffd100 centred
+          text 304.72,167.57 42.22x15.6 "Delete" #ffd100
       box 395,161.2 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 395,161.2 125x28.33 absolute
-          text 439.72,167.57 35.56x15.6 "Reset" #ffffff centred
+          text 439.72,167.57 35.56x15.6 "Reset" #ffffff
   box 0,204.53 760x105.6
     box 0,204.53 760x15.6
       text 0,204.53 47.78x15.6 "Use for" #e8c35a
@@ -73,7 +73,7 @@ box 0,0 760x681.93
       box 0,422.4 760x28.33
         box 0,422.4 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 0,422.4 125x28.33 absolute
-            text 48.06,428.77 28.89x15.6 "Copy" #ffd100 centred
+            text 48.06,428.77 28.89x15.6 "Copy" #ffd100
   box 0,465.73 760x216.2
     box 0,465.73 760x15.6
       text 0,465.73 35.56x15.6 "Share" #e8c35a
@@ -88,13 +88,13 @@ box 0,0 760x681.93
     box 0,653.6 760x28.33
       box 0,653.6 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 0,653.6 125x28.33 absolute
-          text 41.39,659.97 42.22x15.6 "Export" #ffd100 centred
+          text 41.39,659.97 42.22x15.6 "Export" #ffd100
       box 131.67,653.6 125x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
         box 131.67,653.6 125x28.33 absolute
-          text 173.06,659.97 42.22x15.6 "Import" #ffd100 centred
+          text 173.06,659.97 42.22x15.6 "Import" #ffd100
       box 263.33,653.6 125x28.33 Interface\AddOns\Ordaen\media\button row 2 of 8 @click @enter @leave
         box 263.33,653.6 125x28.33 absolute
-          text 304.72,659.97 42.22x15.6 "Create" #808080 centred
+          text 304.72,659.97 42.22x15.6 "Create" #808080
 surface 0,0 1600x900 on DIALOG #0000008c
   box 593.58,384.74 412.83x130.52 Interface\AddOns\Ordaen\media\window-wood border=ButtonFrameTemplateNoPortrait
     text 623.83,431.66 357.33x15.6 "Reset every setting of profile «Spare» to its default?" #e8dcc4
@@ -103,9 +103,9 @@ surface 0,0 1600x900 on DIALOG #0000008c
       box 751.17,458.93 230x28.33
         box 751.17,458.93 100x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 751.17,458.93 100x28.33 absolute
-            text 780.06,465.29 42.22x15.6 "Cancel" #ffd100 centred
+            text 780.06,465.29 42.22x15.6 "Cancel" #ffd100
         box 857.83,458.93 116.67x28.33 Interface\AddOns\Ordaen\media\button row 0 of 8 @click @enter @leave
           box 857.83,458.93 116.67x28.33 absolute
-            text 898.39,465.29 35.56x15.6 "Reset" #ffd100 centred
+            text 898.39,465.29 35.56x15.6 "Reset" #ffd100
     box 600.83,403.66 403.33x19.2 absolute
-      text 749.17,403.66 106.67x19.2 "Reset profile" #ffd100 centred
+      text 749.17,403.66 106.67x19.2 "Reset profile" #ffd100

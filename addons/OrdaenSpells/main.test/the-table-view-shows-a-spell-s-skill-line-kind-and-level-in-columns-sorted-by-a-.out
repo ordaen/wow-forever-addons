@@ -66,7 +66,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
               text 880.58,345.61 116.67x15.6 "Arms" #a3977f
               text 1003.92,345.61 80x15.6 "Active" #a3977f
               box 1090.58,345.61 50x15.6
-                text 1125.03,345.61 15.56x15.6 "40" #a3977f right
+                text 1125.03,345.61 15.56x15.6 "40" #a3977f
             box 457.75,365.07 689.5x23.33 #00000000 @click
               box 464.42,368.41 409.5x16.67 @dragStart
                 box 464.42,368.41 16.67x16.67 icon=Interface/Icons/INV_Misc_Note_01
@@ -74,7 +74,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
               text 880.58,368.94 116.67x15.6 "Warrior" #a3977f
               text 1003.92,368.94 80x15.6 "Active" #a3977f
               box 1090.58,368.94 50x15.6
-                text 1131.69,368.94 8.89x15.6 "8" #a3977f right
+                text 1131.69,368.94 8.89x15.6 "8" #a3977f
             box 457.75,388.41 689.5x23.33 #00000000 @click
               box 464.42,391.74 409.5x16.67 @dragStart
                 box 464.42,391.74 16.67x16.67 icon=Interface/Icons/INV_Misc_Note_01
@@ -82,7 +82,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
               text 880.58,392.27 116.67x15.6 "Warrior" #a3977f
               text 1003.92,392.27 80x15.6 "Passive" #a3977f
               box 1090.58,392.27 50x15.6
-                text 1131.69,392.27 8.89x15.6 "6" #a3977f right
+                text 1131.69,392.27 8.89x15.6 "6" #a3977f
             box 457.75,411.74 689.5x23.33 #00000000 @click
               box 464.42,415.07 409.5x16.67 @dragStart
                 box 464.42,415.07 16.67x16.67 icon=Interface/Icons/INV_Misc_Note_01
@@ -90,7 +90,7 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
               text 880.58,415.61 116.67x15.6 "Warrior" #a3977f
               text 1003.92,415.61 80x15.6 "Active" #a3977f
               box 1090.58,415.61 50x15.6
-                text 1131.69,415.61 8.89x15.6 "4" #a3977f right
+                text 1131.69,415.61 8.89x15.6 "4" #a3977f
             box 457.75,435.07 689.5x23.33 #00000000 @click
               box 464.42,438.41 409.5x16.67 @dragStart
                 box 464.42,438.41 16.67x16.67 icon=Interface/Icons/INV_Misc_Note_01
@@ -98,19 +98,19 @@ surface 425,173.04 750x553.92 on DIALOG clamped raised by a click
               text 880.58,438.94 116.67x15.6 "General" #a3977f
               text 1003.92,438.94 80x15.6 "Active" #a3977f
               box 1090.58,438.94 50x15.6
-                text 1131.69,438.94 8.89x15.6 "1" #a3977f right
+                text 1131.69,438.94 8.89x15.6 "1" #a3977f
     box 1157.75,706.96 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 425,173.04 750x47.75
     box 425,173.04 663.33x47.75
       box 425,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 443.58,183.29 77.33x34.25
-          text 461.14,192.62 42.22x15.6 "Spells" #ffd100 centred
+          text 461.14,192.62 42.22x15.6 "Spells" #ffd100
       box 549.5,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 568.08,183.29 77.33x34.25
-          text 582.86,192.62 47.78x15.6 "Primary" #a3977f centred
+          text 582.86,192.62 47.78x15.6 "Primary" #a3977f
       box 674,173.04 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 692.58,183.29 77.33x34.25
-          text 700.69,192.62 61.11x15.6 "Secondary" #a3977f centred
+          text 700.69,192.62 61.11x15.6 "Secondary" #a3977f
     box 1095,182.12 80x38.67
       box 1095,182.12 80x26.67 clipped
         box 1095,182.12 27.5x26.67 absolute clipped @click

@@ -27,23 +27,23 @@ box 0,0 500x69.77
     box 0,29.77 500x23.33 #00000000 @click
       text 6.67,33.63 246.67x15.6 "Copper Bar" #ffffff
       box 260,33.63 110x15.6
-        text 308.89,33.63 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+        text 308.89,33.63 61.11x15.6 "0g 1s 50c" #e8dcc4
       box 376.67,33.63 50x15.6
-        text 384.44,33.63 42.22x15.6 "(3 d.)" #ffb02e right
+        text 384.44,33.63 42.22x15.6 "(3 d.)" #ffb02e
       box 433.33,41.43 60x0
     box 0,53.1 500x23.33 #00000000 @click
       text 6.67,56.97 246.67x15.6 "Bronze Axe" #ffffff
       box 260,56.97 110x15.6
-        text 302.22,56.97 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+        text 302.22,56.97 67.78x15.6 "1g 23s 45c" #e8dcc4
       box 376.67,56.97 50x15.6
-        text 384.44,56.97 42.22x15.6 "(1 d.)" #ffb02e right
+        text 384.44,56.97 42.22x15.6 "(1 d.)" #ffb02e
       box 433.33,64.77 60x0
     box 0,76.43 500x23.33 #00000000 @click
       text 6.67,80.3 246.67x15.6 "Arcane Dust" #ffffff
       box 260,80.3 110x15.6
-        text 308.89,80.3 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+        text 308.89,80.3 61.11x15.6 "0g 0s 40c" #e8dcc4
       box 376.67,80.3 50x15.6
-        text 384.44,80.3 42.22x15.6 "(9 d.)" #a3977f right
+        text 384.44,80.3 42.22x15.6 "(9 d.)" #a3977f
       box 433.33,88.1 60x0
 
 -- the wheel turned down over the rows: they have moved up under the headings
@@ -75,21 +75,21 @@ box 0,0 500x69.77
     box 0,-0.23 500x23.33 #00000033 @click
       text 6.67,3.63 246.67x15.6 "Copper Bar" #ffffff
       box 260,3.63 110x15.6
-        text 308.89,3.63 61.11x15.6 "0g 1s 50c" #e8dcc4 right
+        text 308.89,3.63 61.11x15.6 "0g 1s 50c" #e8dcc4
       box 376.67,3.63 50x15.6
-        text 384.44,3.63 42.22x15.6 "(3 d.)" #ffb02e right
+        text 384.44,3.63 42.22x15.6 "(3 d.)" #ffb02e
       box 433.33,11.43 60x0
     box 0,23.1 500x23.33 #00000000 @click
       text 6.67,26.97 246.67x15.6 "Bronze Axe" #ffffff
       box 260,26.97 110x15.6
-        text 302.22,26.97 67.78x15.6 "1g 23s 45c" #e8dcc4 right
+        text 302.22,26.97 67.78x15.6 "1g 23s 45c" #e8dcc4
       box 376.67,26.97 50x15.6
-        text 384.44,26.97 42.22x15.6 "(1 d.)" #ffb02e right
+        text 384.44,26.97 42.22x15.6 "(1 d.)" #ffb02e
       box 433.33,34.77 60x0
     box 0,46.43 500x23.33 #00000000 @click
       text 6.67,50.3 246.67x15.6 "Arcane Dust" #ffffff
       box 260,50.3 110x15.6
-        text 308.89,50.3 61.11x15.6 "0g 0s 40c" #e8dcc4 right
+        text 308.89,50.3 61.11x15.6 "0g 0s 40c" #e8dcc4
       box 376.67,50.3 50x15.6
-        text 384.44,50.3 42.22x15.6 "(9 d.)" #a3977f right
+        text 384.44,50.3 42.22x15.6 "(9 d.)" #a3977f
       box 433.33,58.1 60x0

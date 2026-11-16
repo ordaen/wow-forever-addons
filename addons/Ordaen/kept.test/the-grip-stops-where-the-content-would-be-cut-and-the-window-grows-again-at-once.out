@@ -10,7 +10,7 @@ surface 400,131.38 560.5x526.1 on DIALOG clamped raised by a click
     box 400,131.38 498.83x47.75
       box 400,131.38 114.5x47.75 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
         box 418.58,141.62 77.33x34.25
-          text 433.36,150.95 47.78x15.6 "Crowded" #ffd100 centred
+          text 433.36,150.95 47.78x15.6 "Crowded" #ffd100
     box 905.5,140.46 55x38.67
       box 905.5,140.46 55x26.67 clipped
         box 905.5,140.46 27.5x26.67 absolute clipped @click
