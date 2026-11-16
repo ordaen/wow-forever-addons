@@ -1,6 +1,7 @@
 // «Talents»: the trees side by side, each node drawn where the client puts it (its grid, from the tree's top left),
 // Left-click spending a point in it and Right-click taking back one not applied yet; the search that dims what doesn't
-// match, the points left, and «Cancel changes» / «Apply changes» for the points staged. What a node may do is the
+// match, with «Activate» beside it for the spec that isn't active; the points left in the footer, and «Cancel
+// changes» / «Apply changes» either side of them while points wait to be applied. What a node may do is the
 // client's to say (`canSpend`, `canRefund`); the page only asks.
 import Game from "$game"
 import { Align, Click, MouseButton, Position, Track } from "$ltml"
@@ -15,7 +16,8 @@ const MARGIN = 9.375dp
 
 const TREES: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
-const FOOT: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content"]
+const FOOT: Array<Track> = [{ fr: 1 }, "max-content", { fr: 1 }]
+const TOP: Array<Track> = [{ fr: 1 }, "max-content"]
 
 // Where a tree's nodes begin: the smallest x or y.
 function leastOf(nodes: Array<Game.TalentNode>, vertical: Boolean): Number {
@@ -166,7 +168,8 @@ public class TalentsPage implements Component {
   state search = ""
   derived points: String = Locale.TALENT_POINTS.format(self.unspent)
   derived empty: Boolean = self.trees.length == 0
-  derived waiting: Boolean = !self.staged || !self.active
+  // Points wait to be applied: the spec's own, while it is the active one.
+  derived waiting: Boolean = self.staged && self.active
   derived inactive: Boolean = !self.active
 
   trees: Signal<Array<Game.TalentTree>>
@@ -195,9 +198,12 @@ public class TalentsPage implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={PAGE} gap={9.375dp}>
-        <box height={39.84375dp} rows={[{ fr: 1 }]}>
-          <input value={mut self.search} padding={{ left: 11.71875dp, right: 11.71875dp }} textColor={Style.INK}
-                 background={Color.hex("#00000080")} />
+        <box columns={TOP} gap={9.375dp} yAlign={Align.Center}>
+          <box height={39.84375dp} rows={[{ fr: 1 }]}>
+            <input value={mut self.search} padding={{ left: 11.71875dp, right: 11.71875dp }} textColor={Style.INK}
+                   background={Color.hex("#00000080")} />
+          </box>
+          <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={175.78125dp} @click={self.onActivate} />
         </box>
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NO_TALENTS} textColor={Style.DIM} />
@@ -207,14 +213,13 @@ public class TalentsPage implements Component {
                     @refund={self.onRefund} />
         </box>
         <box columns={FOOT} gap={9.375dp} yAlign={Align.Center}>
-          <PushButton label={Locale.CANCEL_CHANGES} width={222.65625dp} disabled={self.waiting} @click={self.onCancel} />
-          <PushButton $if={self.inactive} label={Locale.ACTIVATE} width={175.78125dp} @click={self.onActivate} />
-          <box $else />
-          <box xAlign={Align.Center}>
-            <text value={self.points} textColor={Style.INK} wrap={false} />
+          <box>
+            <PushButton $if={self.waiting} label={Locale.CANCEL_CHANGES} width={222.65625dp} @click={self.onCancel} />
           </box>
-          <PushButton label={Locale.APPLY_CHANGES} width={222.65625dp} accent={true} disabled={self.waiting}
-                      @click={self.onApply} />
+          <text value={self.points} textColor={Style.INK} wrap={false} />
+          <box xAlign={Align.End}>
+            <PushButton $if={self.waiting} label={Locale.APPLY_CHANGES} width={222.65625dp} accent={true} @click={self.onApply} />
+          </box>
         </box>
       </box>
     }

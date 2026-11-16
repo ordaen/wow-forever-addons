@@ -700,18 +700,12 @@ test "with points staged, Cancel changes takes them back" {
   Test.expect(Test.requests().any(r => r == "TalentTrees.rollback"))
 }
 
-test "with no points staged, Apply changes and Cancel changes are switched off and ask nothing" {
+test "with no points staged, Apply changes and Cancel changes aren't shown" {
   Test.mount(nil, PAGE)
   Game.talentTrees.trees = trees
   const window = book()
   window.button("Primary").click()
-  Test.expect(window.button("Apply changes").paintedWith(Ordaen.art.ctl.buttonDisabled))
-  Test.expect(window.button("Cancel changes").paintedWith(Ordaen.art.ctl.buttonDisabled))
-  _ = Test.requests()
-  window.button("Apply changes").click()
-  window.button("Cancel changes").click()
-  Test.expect(Test.requests().length == 0)
-}
+  Test.expect(!window.button("Apply changes").shown() && !window.button("Cancel changes").shown()) }
 
 test "the active spec's tab offers no Activate" {
   Test.mount(nil, PAGE)
@@ -734,7 +728,7 @@ test "the other spec's points staged can't be applied until it is active" {
   Game.talentTrees.staged = (): Boolean => true
   const window = book()
   window.button(BOOK).click()
-  Test.expect(window.button("Apply changes").paintedWith(Ordaen.art.ctl.buttonDisabled))
+  Test.expect(!window.button("Apply changes").shown())
 }
 
 test "the second spec's tab is the active one when the game says the player has it active" {
