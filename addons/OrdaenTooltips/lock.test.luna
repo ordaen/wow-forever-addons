@@ -15,7 +15,6 @@ const LOCKED = "Locked — hover the underlined parts"
 const CLOSE: Asset = "Interface/Buttons/UI-Panel-MinimizeButton-Up"
 // The lock's bar: its dark track, and the gold that fills it.
 const TRACK: Color = Color.hex("#00000073")
-const FILL: Color = Color.hex("#d6a56b80")
 // The cursor on a part that opens something.
 const HELP = "Interface/Cursor/QuestTurnIn"
 // What armour is, as its term says it.
@@ -109,7 +108,7 @@ test "a tooltip held under the cursor fills its bar, half of it half a second in
   Game.tooltip.main = inSlot(sword())
   Test.pass(0.68)
   const track = Test.page().window("Sword").box(TRACK).rect()
-  const filled = Test.page().window("Sword").box(FILL).rect()
+  const filled = Test.page().window("Sword").box(TRACK).fill().rect
   const share = (filled.right - filled.left) / (track.right - track.left)
   Test.expect(share > 0.45 && share < 0.55)
 }
