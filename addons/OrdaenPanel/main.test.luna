@@ -559,6 +559,42 @@ test "a hidden panel is drawn as faint as its opacity says" {
   Test.expect((panel().opacity() - 0.5).abs() < 0.01)
 }
 
+test "a hidden panel's every part is as faint as it: the portrait, its badge and the game's buttons in its cells" {
+  Game.player.level = 42
+  const professions = frame("ProfessionMicroButton")
+  Game.frames.ProfessionMicroButton = professions
+  const character = frame("CharacterMicroButton")
+  Game.frames.CharacterMicroButton = character
+  Game.bags.buttons = bagButtons(frame)
+  Test.mount(nil, SCREEN)
+  const settings = visibility()
+  choose(settings, "Show", "Only in combat", "Hide")
+  settings.button(Ordaen.art.ctl.groove).nth(2).click()
+  settings.button("Save").click()
+  Game.situation.combat = true
+  Test.expect((panel().opacity() - 0.5).abs() < 0.01)
+  const portrait = Test.page().box(Ordaen.art.panel.cornerRim)
+  Test.expect(portrait.opacity() <= 0.51 && Test.page().text("42").opacity() <= 0.51)
+  Test.expect(Test.page().box(Ordaen.art.panel.badge).opacity() <= 0.51)
+  for (game of [professions, character, client("MainMenuBarBackpackButton")]) {
+    Test.expect(game.GetEffectiveAlpha() <= 0.51)
+  }
+}
+
+test "a panel shown on mouseover shows with its portrait under the cursor, and the portrait with it" {
+  Game.player.level = 42
+  Test.mount(nil, SCREEN)
+  hide("Always", "Never", "On mouseover")
+  Test.page().window(SETTINGS).text(SETTINGS).hover()
+  Test.expect(Test.page().text("42").opacity() < 0.01)
+  Test.page().text("42").hover()
+  Test.expect(panel().opacity() == 1 && Test.page().text("42").opacity() == 1)
+  panel().text(MONEY).hover()
+  Test.expect(panel().opacity() == 1 && Test.page().text("42").opacity() == 1)
+  Test.page().window(SETTINGS).text(SETTINGS).hover()
+  Test.expect(panel().opacity() < 0.01 && Test.page().text("42").opacity() < 0.01)
+}
+
 test "the panel hides in a vehicle, and shows there once the player unticks it" {
   Test.mount(nil, SCREEN)
   Game.situation.vehicle = true

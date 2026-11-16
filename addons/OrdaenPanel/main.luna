@@ -154,7 +154,9 @@ public class Panel implements Module, App {
     { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} least={LEAST_HEIGHT} /> } }
   ]
 
+  // The cursor on the panel, on its portrait: each a surface of its own, heard apart.
   state hovered = false
+  state portraitHovered = false
 
   constructor() {
     Ordaen.modules.add(self)
@@ -241,7 +243,7 @@ public class Panel implements Module, App {
     if (self.settings.values.vehicle && Game.situation.vehicle) { return true }
     if (self.settings.values.petBattle && Game.situation.petBattle) { return true }
     if (self.settings.values.resting && Game.situation.resting) { return true }
-    return self.settings.values.show == Show.Mouseover && !self.hovered
+    return self.settings.values.show == Show.Mouseover && !self.hovered && !self.portraitHovered
   }
 
   // Hidden, it is faded to its opacity. Shown on mouseover, a hidden panel stays drawn at the least opacity the
@@ -274,6 +276,8 @@ public class Panel implements Module, App {
 
   onEnter(mut self) { self.hovered = true }
   onLeave(mut self) { self.hovered = false }
+  onPortraitEnter(mut self) { self.portraitHovered = true }
+  onPortraitLeave(mut self) { self.portraitHovered = false }
 
   public render(self): Template {
     return $ltml {
@@ -305,9 +309,10 @@ public class Panel implements Module, App {
                @reset={self.onUndock} />
       </surface>
       // The portrait: the player's face in the corner's shape, the level on a badge on its rim, and the
-      // character's button of the game's unseen over all of it.
+      // character's button of the game's unseen over all of it. Part of the panel: as faint as it.
       <surface $if={self.cornered} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
-               height={PORTRAIT_HEIGHT} portrait={"player"} mask={Ordaen.art.panel.corner}>
+               height={PORTRAIT_HEIGHT} portrait={"player"} mask={Ordaen.art.panel.corner} opacity={self.opacity}
+               hoverWithin={true} @enter={self.onPortraitEnter} @leave={self.onPortraitLeave}>
         <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
                width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
         // The rim along the top and down the right, over the face: drawn over the box its shape is cut to.
