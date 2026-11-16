@@ -1,0 +1,95 @@
+// The recipe book: for each character of the account, the recipes it knows of each profession, and for every recipe met
+// what it takes and makes. Saved for the account, so «Выгода» prices any character's recipes while no profession is
+// open, or while that character isn't played. A profession's page is read as it opens and each time its list changes:
+// one client call a recipe it knows.
+import Debug from "$debug"
+import Game from "$game"
+
+// One of a recipe's reagents: its item and how many one making takes.
+public struct Reagent implements Plain {
+  item: Integer = 0
+  count: Integer = 1
+}
+
+// What a recipe takes and makes, as the client gave it.
+public struct Entry implements Plain {
+  name: String = ""
+  // The item it makes; none for one that makes no item (an enchant).
+  makes: Integer | nil
+  // How many one making gives: from the least to the most.
+  least: Integer = 1
+  most: Integer = 1
+  parts: Array<Reagent> = []
+}
+
+// A profession of a character: its name in the player's language, and the recipes it knows.
+public struct Learned implements Plain {
+  name: String = ""
+  recipes: Array<Integer> = []
+}
+
+// A character's page of the book.
+public struct Shelf implements Plain {
+  name: String = ""
+  realm: String = ""
+  // By skill line.
+  professions: mut Map<Integer, Learned> = {}
+}
+
+public struct Book implements Plain {
+  recipes: mut Map<Integer, Entry> = {}
+  // By the character's GUID.
+  characters: mut Map<String, Shelf> = {}
+}
+
+// The most characters and recipes the book keeps: a character or a recipe past them isn't written, and the seam says so.
+public const MOST_CHARACTERS = 40
+public const MOST_RECIPES = 6000
+
+// How many one making gives: the mean of its least and most.
+public function yieldOfEntry(entry: Entry): Number { return (entry.least + entry.most) / 2 }
+
+// The book with the open profession's page of the character being played written in; none where nothing changed or
+// the client gave no list.
+public function written(book: Book, skillLine: Integer, recipes: Array<Game.Recipe>): Book | nil {
+  const known = Game.recipeReader.known()
+  if (known == nil) { return nil }
+  const guid = Game.player.guid
+  const next = book.clone()
+  const shelf = next.characters[guid]
+  if (shelf == nil) {
+    let count = 0
+    for (key, _ of next.characters) { count += 1 }
+    if (count >= MOST_CHARACTERS) {
+      Debug.fault("Professions", "the recipe book keeps " + String.of(MOST_CHARACTERS) + " characters at most")
+      return nil
+    }
+  }
+  let entries = 0
+  for (key, _ of next.recipes) { entries += 1 }
+  const names: Map<Integer, String> = {}
+  for (recipe of recipes) { names[recipe.id] = recipe.name }
+  for (id of known) {
+    if (next.recipes[id] == nil) {
+      const schematic = Game.recipeReader.schematic(id)
+      if (schematic != nil && entries < MOST_RECIPES) {
+        next.recipes[id] = {
+          name: names[id] ?? "", makes: schematic.makes, least: schematic.least, most: schematic.most,
+          parts: schematic.parts.map(part => Reagent { item: part.item, count: part.count })
+        }
+        entries += 1
+      } else if (schematic != nil) {
+        Debug.fault("Professions", "the recipe book keeps " + String.of(MOST_RECIPES) + " recipes at most")
+      }
+    }
+  }
+  let name = ""
+  for (profession of Game.professions.list) {
+    if (profession.skillLine == skillLine) { name = profession.name }
+  }
+  const professions: Map<Integer, Learned> = shelf == nil ? {} : shelf.professions.clone()
+  professions[skillLine] = { name: name, recipes: known.filter(id => next.recipes[id] != nil) }
+  next.characters[guid] = { name: Game.player.name, realm: Game.player.realm, professions: professions }
+  if (next.equal(book)) { return nil }
+  return next
+}
