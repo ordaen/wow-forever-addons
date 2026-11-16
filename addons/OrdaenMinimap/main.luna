@@ -3,12 +3,12 @@ import Game from "$game"
 import { Align, Anchored, Click, EmbedLook, Frame, Line, MouseButton, Point, Position, Shadow } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
-import { Module, PX, Placed, Settings, SettingsPage, Tip } from "Ordaen"
+import { ALWAYS, Module, PX, Placed, Settings, SettingsPage, Tip, opacityNow } from "Ordaen"
 import { DrawerEntry } from "@/drawer"
 import Locale from "@/locales"
 import { BUTTON, DRAWER_BUTTON, RING, ROOM, RingButton, RingId, RingSpec } from "@/ring"
 
-import { Choices, Hide } from "@/choices"
+import { Choices } from "@/choices"
 import { DrawerPage, MapPage } from "@/settings"
 
 // Which tooltip shows.
@@ -41,7 +41,7 @@ public class Minimap implements Module, App {
   public const title: String = "Ordaen Minimap"
 
   settings: mut Settings<Choices> = new Settings<Choices>({
-    scale: 1, showZone: true, showClock: true, showCoords: true, buttonsHover: true, hide: Hide.Never,
+    scale: 1, showZone: true, showClock: true, showCoords: true, buttonsHover: true, visibility: ALWAYS,
     drawerOn: true, drawerColumns: 4
   })
   public const pages: Array<SettingsPage> = [
@@ -78,8 +78,10 @@ public class Minimap implements Module, App {
   derived showsCoords: Boolean = self.settings.values.showCoords && Game.minimap.coords != ""
   derived zoneColor: Color = self.colorOf()
   derived clockColor: Color = Game.clock.invites > 0 ? PENDING : INK
-  // The map goes back into the game's hidden cluster while the player fights or travels, as chosen.
-  derived shown: Boolean = !self.hiddenNow()
+  // How visible the map is, by its visibility in the state the player is in; hidden with nothing to see, it goes back
+  // into the game's hidden cluster.
+  derived opacity: Number = opacityNow(self.settings.values.visibility, self.hovered || self.drawerShown)
+  derived shown: Boolean = self.opacity > 0
   // The game's parts the minimap takes the place of, the one list of them: its cluster and backdrop, the map's zoom
   // buttons and the area that shows them (the wheel zooms), and the dev addon's own button (the ring's Ordaen button
   // opens its window).
@@ -126,14 +128,6 @@ public class Minimap implements Module, App {
 
   hide(parts: mut Array<any Frame>, part: any Frame | nil) {
     if (part != nil) { parts.push(part) }
-  }
-
-  hiddenNow(self): Boolean {
-    return match (self.settings.values.hide) {
-      Hide.Combat => Game.situation.combat
-      Hide.Transport => Game.situation.taxi || Game.situation.vehicle
-      Hide.Never => false
-    }
   }
 
   // The zone's colour by its PvP status: the game's own minimap colours.
@@ -286,7 +280,7 @@ public class Minimap implements Module, App {
       <Placed $if={self.shown} id={"OrdaenMinimap.map"} title={Locale.MINIMAP_TITLE} home={HOME}>
         // The room round the frame holds the ring and takes no mouse: a click there reaches the world. The cursor
         // is on the minimap while it is on the frame or on a ring button, which stand in the frame's box.
-        <box width={self.wholeWidth} height={self.wholeHeight}>
+        <box width={self.wholeWidth} height={self.wholeHeight} opacity={self.opacity}>
           <box position={Position.Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameWidth}
                height={self.frameHeight} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
                artOrigin={true} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>

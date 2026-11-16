@@ -1,7 +1,10 @@
 // What the player chooses on the panel's settings page.
+import { ALWAYS, Visibility, Visible } from "Ordaen"
 
 // The character button: the portrait in the screen's corner with the level, or a micro menu cell with the face.
 public enum CharButton { Portrait = "portrait", Button = "button" }
+// What the character button shows: the player's face, or the class's icon.
+public enum CharView { Face = "face", ClassIcon = "classIcon" }
 // The micro menu's icons: as they are, or the same in one gold.
 public enum MicroIcons { Upscaled = "upscaled", Gold = "gold" }
 // What the panel holds.
@@ -15,9 +18,27 @@ public enum Edge { Bottom = "bottom", Top = "top", Left = "left", Right = "right
 // The panel's length: the whole edge, or as long as its items, in the edge's middle.
 public enum Fit { Full = "full", Center = "center" }
 public enum Outline { None = "none", Thin = "thin", Thick = "thick" }
-// When the panel shows.
-public enum Show { Always = "always", Mouseover = "mouseover", Never = "never" }
-public enum Combat { Any = "any", Hide = "hide", Only = "only" }
+// What the experience bar is filled with: the look's bar texture, or one of the experience fills.
+public enum XpTexture {
+  Theme = "theme", Deep = "deep", Grain = "grain", Brushed = "brushed", Potion = "potion", Clouds = "clouds"
+  Steel = "steel"
+}
+// The experience bar's edge: the look's, or one of the bars' edges.
+public enum XpBorder { Theme = "theme", Bezel = "bezel", Groove = "groove" }
+// What the experience and reputation bars say: the numbers or the percent first, the other dimmed in brackets; or
+// the numbers alone, or the percent alone (the whole as 100%).
+public enum XpView { Numbers = "numbers", Percent = "percent", NumbersOnly = "numbersOnly", PercentOnly = "percentOnly" }
+
+// The zone each item sits in: one each, so no item stands in two.
+public struct Places {
+  micromenu: Zone
+  social: Zone
+  experience: Zone
+  zone: Zone
+  clock: Zone
+  currencies: Zone
+  bags: Zone
+}
 
 public struct Choices {
   // The parts, each on or off.
@@ -26,30 +47,30 @@ public struct Choices {
   bottomOn: Boolean
   microIcons: MicroIcons
   charButton: CharButton
+  charView: CharView
   // The panel's text.
   outline: Outline
   shadow: Boolean
+  // The experience bar.
+  xpTexture: XpTexture
+  xpBorder: XpBorder
+  xpView: XpView
   // The panel: where, how long, how high, what sits in which zone, when it shows.
   edge: Edge
   fit: Fit
   height: Number
-  places: Map<Item, Zone>
-  show: Show
-  combat: Combat
-  vehicle: Boolean
-  petBattle: Boolean
-  resting: Boolean
-  // How visible the panel is while hidden.
-  fadedAlpha: Number
+  places: Places
+  visibility: Visibility
 }
 
 public const DEFAULTS: Choices = {
   microOn: true, statusOn: true, bottomOn: true, microIcons: MicroIcons.Upscaled, charButton: CharButton.Portrait,
-  outline: Outline.None, shadow: true, edge: Edge.Bottom, fit: Fit.Full, height: 60,
+  charView: CharView.Face, outline: Outline.None, shadow: true, xpTexture: XpTexture.Brushed, xpBorder: XpBorder.Theme,
+  xpView: XpView.Numbers, edge: Edge.Bottom, fit: Fit.Full, height: 60,
   places: {
-    [Item.Micromenu]: Zone.Left, [Item.Social]: Zone.Left, [Item.Experience]: Zone.Center,
-    [Item.Zone]: Zone.Off, [Item.Clock]: Zone.Off, [Item.Currencies]: Zone.Right, [Item.Bags]: Zone.Right
+    micromenu: Zone.Left, social: Zone.Left, experience: Zone.Center, zone: Zone.Off, clock: Zone.Off,
+    currencies: Zone.Right, bags: Zone.Right
   },
-  show: Show.Always, combat: Combat.Any, vehicle: true, petBattle: true, resting: false,
-  fadedAlpha: 0
+  // Out of the way on transport, where the game's own bar takes the bottom.
+  visibility: { transport: { visible: Visible.Hide, opacity: 0 }, ..ALWAYS }
 }

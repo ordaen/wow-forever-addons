@@ -26,7 +26,7 @@ function json(name: Ordaen.Preset): String {
   let l = Ordaen.preset(name)
   let entries = [
     text("font", `${l.font}`), text("fontHeader", `${l.fontHeader}`), text("fontNumbers", `${l.fontNumbers}`),
-    paint("accent", l.accent), text("barTexture", `${l.barTexture}`), text("xpFill", `${l.xpFill}`),
+    paint("accent", l.accent), text("barTexture", `${l.barTexture}`),
     text("barFrame", `${l.barFrame}`), text("anim", `${l.animation}`),
     paint("palette.red", l.red), paint("palette.redText", l.redText),
     paint("palette.orange", l.orange), paint("palette.orangeText", l.orangeText),

@@ -21,7 +21,7 @@ public enum Font implements Plain {
 
 // What a plain bar is filled with.
 public enum BarTexture implements Plain { Flat = "flat", Blizzard = "blizzard" }
-// What fills the experience bar, and every bar that looks like it.
+// What fills an experience bar, and every bar that looks like it: chosen where the bar is, over the look's bar texture.
 public enum XpFill implements Plain { Deep = "deep", Grain = "grain", Brushed = "brushed", Potion = "potion", Clouds = "clouds", Steel = "steel" }
 // A bar's edge.
 public enum BarFrame implements Plain { Bezel = "bezel", Groove = "groove" }
@@ -43,7 +43,6 @@ public struct Look implements Plain {
   fontNumbers: Font
   accent: Color
   barTexture: BarTexture
-  xpFill: XpFill
   barFrame: BarFrame
   animation: Animation
   // The palette every module colours with: each colour as a bar's fill, and as text.
@@ -85,7 +84,7 @@ public struct Look implements Plain {
 const ORDAEN: Look = {
   font: Font.FiraSans, fontHeader: Font.AlegreyaSC, fontNumbers: Font.FiraCondensed,
   accent: { r: 0.72, g: 0.56, b: 0.34, a: 1 },
-  barTexture: BarTexture.Flat, xpFill: XpFill.Brushed, barFrame: BarFrame.Bezel, animation: Animation.Smooth,
+  barTexture: BarTexture.Flat, barFrame: BarFrame.Bezel, animation: Animation.Smooth,
   red: { r: 0.737, g: 0.004, b: 0.044, a: 1 }, redText: { r: 0.999, g: 0.631, b: 0.582, a: 1 },
   orange: { r: 0.634, g: 0.256, b: 0.007, a: 1 }, orangeText: { r: 0.996, g: 0.644, b: 0.484, a: 1 },
   yellow: { r: 0.779, g: 0.588, b: 0.032, a: 1 }, yellowText: { r: 1, g: 0.85, b: 0.535, a: 1 },
@@ -161,7 +160,6 @@ public function hueColor(look: Look, hue: Hue): Color {
 public struct LookArt {
   fonts: Fonts
   bar: Art
-  xpFill: Art
 }
 
 // A font's file; nil for the client's own text font, the one for the client's language (Cyrillic on ruRU).
@@ -193,7 +191,7 @@ function xpPiece(file: Asset): Piece {
   return { file: file, width: 1024, height: 32, tile: true }
 }
 
-function xpFillOf(fill: XpFill): Art {
+public function xpFillArt(fill: XpFill): Art {
   match (fill) {
     XpFill.Deep => return xpPiece("@/media/xp-fill-deep.tga")
     XpFill.Grain => return xpPiece("@/media/xp-fill-grain.tga")
@@ -207,6 +205,6 @@ function xpFillOf(fill: XpFill): Art {
 public function artOf(look: Look): LookArt {
   return {
     fonts: { body: fontFile(look.font), title: fontFile(look.fontHeader), numbers: fontFile(look.fontNumbers) },
-    bar: barFile(look.barTexture), xpFill: xpFillOf(look.xpFill)
+    bar: barFile(look.barTexture)
   }
 }

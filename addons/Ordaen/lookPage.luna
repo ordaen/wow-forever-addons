@@ -6,7 +6,7 @@ import { ColorPicker } from "@/colorPicker"
 import { Choice, Dropdown } from "@/dropdown"
 import Locale from "@/locales"
 import Looks from "@/look"
-import { Animation, BarFrame, BarTexture, Font, Hue, Look, PRESETS, Preset, XpFill, presetOf } from "@/look"
+import { Animation, BarFrame, BarTexture, Font, Hue, Look, PRESETS, Preset, presetOf } from "@/look"
 import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
 import { Section } from "@/section"
@@ -34,14 +34,6 @@ const FONTS: Array<Choice<Font>> = [
 const BARS: Array<Choice<BarTexture>> = [
   { value: BarTexture.Flat, label: Locale.THEME_BAR_FLAT },
   { value: BarTexture.Blizzard, label: Locale.THEME_BAR_BLIZZARD }
-]
-const FILLS: Array<Choice<XpFill>> = [
-  { value: XpFill.Deep, label: Locale.THEME_XPFILL_DEEP },
-  { value: XpFill.Grain, label: Locale.THEME_XPFILL_GRAIN },
-  { value: XpFill.Brushed, label: Locale.THEME_XPFILL_BRUSHED },
-  { value: XpFill.Potion, label: Locale.THEME_XPFILL_POTION },
-  { value: XpFill.Clouds, label: Locale.THEME_XPFILL_CLOUDS },
-  { value: XpFill.Steel, label: Locale.THEME_XPFILL_STEEL }
 ]
 const FRAMES: Array<Choice<BarFrame>> = [
   { value: BarFrame.Bezel, label: Locale.THEME_BARFRAME_BEZEL },
@@ -130,7 +122,6 @@ public class LookPage implements Component {
         <Section title={Locale.THEMES_TEXTURES}>
           <Dropdown label={Locale.THEME_BARTEXTURE} hint={Locale.THEME_BARTEXTURE_TIP}
                     value={mut self.look.draft.barTexture} choices={BARS} />
-          <Dropdown label={Locale.THEME_XPFILL} value={mut self.look.draft.xpFill} choices={FILLS} />
           <Dropdown label={Locale.THEME_BARFRAME} value={mut self.look.draft.barFrame} choices={FRAMES} />
         </Section>
         <Section title={Locale.THEMES_ANIMATION}>
