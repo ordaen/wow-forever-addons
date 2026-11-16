@@ -1,7 +1,7 @@
 // The panel's tabs in the settings window. «General» switches each part on or off; each part has a tab of its own.
 // Each control writes one entry of the settings' draft.
-import { Checkbox, Choice, Component, Dropdown, Section, Settings, Slider, Switch, Unit, ZoneItem, Zones } from "Ordaen"
-import { CharButton, Choices, Combat, Edge, Fit, Item, MicroIcons, Outline, Show, Zone } from "@/choices"
+import { Checkbox, Choice, Component, Dropdown, Section, Settings, Slider, Switch, Unit, VisibilityRows } from "Ordaen"
+import { CharButton, CharView, Choices, Edge, Fit, MicroIcons, Outline, Places, XpBorder, XpTexture, XpView, Zone } from "@/choices"
 import Locale from "@/locales"
 
 const ICONS: Array<Choice<MicroIcons>> = [
@@ -12,10 +12,34 @@ const CHAR_BUTTONS: Array<Choice<CharButton>> = [
   { value: CharButton.Portrait, label: Locale.PANEL_CHARBUTTON_PORTRAIT },
   { value: CharButton.Button, label: Locale.PANEL_CHARBUTTON_BUTTON }
 ]
+const CHAR_VIEWS: Array<Choice<CharView>> = [
+  { value: CharView.Face, label: Locale.PANEL_CHARVIEW_FACE },
+  { value: CharView.ClassIcon, label: Locale.PANEL_CHARVIEW_CLASS }
+]
 const OUTLINES: Array<Choice<Outline>> = [
   { value: Outline.None, label: Locale.PANEL_OUTLINE_NONE },
   { value: Outline.Thin, label: Locale.PANEL_OUTLINE_THIN },
   { value: Outline.Thick, label: Locale.PANEL_OUTLINE_THICK }
+]
+const XP_TEXTURES: Array<Choice<XpTexture>> = [
+  { value: XpTexture.Theme, label: Locale.PANEL_AS_THEME },
+  { value: XpTexture.Deep, label: Locale.PANEL_XPFILL_DEEP },
+  { value: XpTexture.Grain, label: Locale.PANEL_XPFILL_GRAIN },
+  { value: XpTexture.Brushed, label: Locale.PANEL_XPFILL_BRUSHED },
+  { value: XpTexture.Potion, label: Locale.PANEL_XPFILL_POTION },
+  { value: XpTexture.Clouds, label: Locale.PANEL_XPFILL_CLOUDS },
+  { value: XpTexture.Steel, label: Locale.PANEL_XPFILL_STEEL }
+]
+const XP_BORDERS: Array<Choice<XpBorder>> = [
+  { value: XpBorder.Theme, label: Locale.PANEL_AS_THEME },
+  { value: XpBorder.Bezel, label: Locale.PANEL_XPBORDER_BEZEL },
+  { value: XpBorder.Groove, label: Locale.PANEL_XPBORDER_GROOVE }
+]
+const XP_VIEWS: Array<Choice<XpView>> = [
+  { value: XpView.Numbers, label: Locale.PANEL_XPVIEW_NUMBERS },
+  { value: XpView.Percent, label: Locale.PANEL_XPVIEW_PERCENT },
+  { value: XpView.NumbersOnly, label: Locale.PANEL_XPVIEW_NUMBERS_ONLY },
+  { value: XpView.PercentOnly, label: Locale.PANEL_XPVIEW_PERCENT_ONLY }
 ]
 const EDGES: Array<Choice<Edge>> = [
   { value: Edge.Bottom, label: Locale.PANEL_EDGE_BOTTOM },
@@ -27,30 +51,12 @@ const FITS: Array<Choice<Fit>> = [
   { value: Fit.Full, label: Locale.PANEL_FIT_FULL },
   { value: Fit.Center, label: Locale.PANEL_FIT_CENTER }
 ]
+// Where an item sits: one zone, or none. An item is in one place at a time by its one choice.
 const ZONES: Array<Choice<Zone>> = [
   { value: Zone.Left, label: Locale.SECTION_ITEMS_LEFT },
   { value: Zone.Center, label: Locale.SECTION_ITEMS_CENTER },
-  { value: Zone.Right, label: Locale.SECTION_ITEMS_RIGHT }
-]
-const OFF: Choice<Zone> = { value: Zone.Off, label: Locale.SECTION_ITEMS_OFF }
-const ITEMS: Array<ZoneItem<Item>> = [
-  { key: Item.Micromenu, label: Locale.PANEL_MICROMENU, hint: Locale.PANEL_MICROMENU_TIP },
-  { key: Item.Social, label: Locale.PANEL_SOCIAL, hint: Locale.PANEL_SOCIAL_TIP },
-  { key: Item.Experience, label: Locale.PANEL_EXPERIENCE, hint: Locale.PANEL_EXPERIENCE_TIP },
-  { key: Item.Zone, label: Locale.PANEL_ZONE, hint: Locale.PANEL_ZONE_TIP },
-  { key: Item.Clock, label: Locale.PANEL_CLOCK, hint: Locale.PANEL_CLOCK_TIP },
-  { key: Item.Currencies, label: Locale.PANEL_CURRENCIES, hint: Locale.PANEL_CURRENCIES_TIP },
-  { key: Item.Bags, label: Locale.PANEL_BAGS, hint: Locale.PANEL_BAGS_TIP }
-]
-const SHOWS: Array<Choice<Show>> = [
-  { value: Show.Always, label: Locale.PANEL_SHOW_ALWAYS },
-  { value: Show.Mouseover, label: Locale.PANEL_SHOW_MOUSEOVER },
-  { value: Show.Never, label: Locale.PANEL_SHOW_NEVER }
-]
-const COMBATS: Array<Choice<Combat>> = [
-  { value: Combat.Any, label: Locale.PANEL_COMBAT_ANY },
-  { value: Combat.Hide, label: Locale.PANEL_COMBAT_HIDE },
-  { value: Combat.Only, label: Locale.PANEL_COMBAT_ONLY }
+  { value: Zone.Right, label: Locale.SECTION_ITEMS_RIGHT },
+  { value: Zone.Off, label: Locale.SECTION_ITEMS_OFF }
 ]
 
 public class GeneralPage implements Component {
@@ -89,13 +95,19 @@ public class MicroPage implements Component {
     return $ltml {
       <Dropdown label={Locale.PANEL_MICROICONS} hint={Locale.PANEL_MICROICONS_TIP}
                 value={mut self.settings.draft.microIcons} choices={ICONS} disabled={self.off} />
-      <Dropdown label={Locale.PANEL_CHARBUTTON} hint={Locale.PANEL_CHARBUTTON_TIP}
-                value={mut self.settings.draft.charButton} choices={CHAR_BUTTONS} disabled={self.off} />
+      <Section title={Locale.SECTION_CHARACTER}>
+        <Dropdown label={Locale.PANEL_CHARBUTTON} hint={Locale.PANEL_CHARBUTTON_TIP}
+                  value={mut self.settings.draft.charButton} choices={CHAR_BUTTONS} disabled={self.off} />
+        <Dropdown label={Locale.PANEL_CHARVIEW} hint={Locale.PANEL_CHARVIEW_TIP}
+                  value={mut self.settings.draft.charView} choices={CHAR_VIEWS} disabled={self.off} />
+      </Section>
     }
   }
 }
 
 public class StatusPage implements Component {
+  derived off: Boolean = !self.settings.draft.statusOn
+
   settings: mut Settings<Choices>
   constructor(settings: mut Settings<Choices>) {
     self.settings = settings
@@ -107,6 +119,45 @@ public class StatusPage implements Component {
                 value={mut self.settings.draft.outline} choices={OUTLINES} />
       <Checkbox label={Locale.PANEL_SHADOW} hint={Locale.PANEL_SHADOW_TIP}
                 value={mut self.settings.draft.shadow} />
+      <Section title={Locale.SECTION_XPBAR}>
+        <Dropdown label={Locale.PANEL_XPVIEW} hint={Locale.PANEL_XPVIEW_TIP}
+                  value={mut self.settings.draft.xpView} choices={XP_VIEWS} disabled={self.off} />
+        <Dropdown label={Locale.PANEL_XPTEXTURE} hint={Locale.PANEL_XPTEXTURE_TIP}
+                  value={mut self.settings.draft.xpTexture} choices={XP_TEXTURES} disabled={self.off} />
+        <Dropdown label={Locale.PANEL_XPBORDER} hint={Locale.PANEL_XPBORDER_TIP}
+                  value={mut self.settings.draft.xpBorder} choices={XP_BORDERS} disabled={self.off} />
+      </Section>
+    }
+  }
+}
+
+// The zone of each item, in a section.
+class PlacesRows implements Component {
+  value: mut Signal<Places>
+  disabled: Signal<Boolean>
+  constructor(value: mut Signal<Places>, disabled: Signal<Boolean>) {
+    self.value = value
+    self.disabled = disabled
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Section title={Locale.SECTION_ITEMS}>
+        <Dropdown label={Locale.PANEL_MICROMENU} hint={Locale.PANEL_MICROMENU_TIP} value={mut self.value.micromenu}
+                  choices={ZONES} disabled={self.disabled} />
+        <Dropdown label={Locale.PANEL_SOCIAL} hint={Locale.PANEL_SOCIAL_TIP} value={mut self.value.social}
+                  choices={ZONES} disabled={self.disabled} />
+        <Dropdown label={Locale.PANEL_EXPERIENCE} hint={Locale.PANEL_EXPERIENCE_TIP}
+                  value={mut self.value.experience} choices={ZONES} disabled={self.disabled} />
+        <Dropdown label={Locale.PANEL_ZONE} hint={Locale.PANEL_ZONE_TIP} value={mut self.value.zone}
+                  choices={ZONES} disabled={self.disabled} />
+        <Dropdown label={Locale.PANEL_CLOCK} hint={Locale.PANEL_CLOCK_TIP} value={mut self.value.clock}
+                  choices={ZONES} disabled={self.disabled} />
+        <Dropdown label={Locale.PANEL_CURRENCIES} hint={Locale.PANEL_CURRENCIES_TIP}
+                  value={mut self.value.currencies} choices={ZONES} disabled={self.disabled} />
+        <Dropdown label={Locale.PANEL_BAGS} hint={Locale.PANEL_BAGS_TIP} value={mut self.value.bags}
+                  choices={ZONES} disabled={self.disabled} />
+      </Section>
     }
   }
 }
@@ -133,24 +184,8 @@ public class BottomPage implements Component {
                 choices={FITS} disabled={self.off} />
       <Slider label={Locale.PANEL_HEIGHT} hint={Locale.PANEL_HEIGHT_TIP} value={mut self.settings.draft.height}
               least={self.least} most={96} unit={Unit.Px} disabled={self.off} />
-      <Section title={Locale.SECTION_ITEMS}>
-        <Zones items={ITEMS} zones={ZONES} off={OFF} value={mut self.settings.draft.places} />
-      </Section>
-      <Section title={Locale.SECTION_VISIBILITY}>
-        <Dropdown label={Locale.PANEL_SHOW} hint={Locale.PANEL_SHOW_TIP} value={mut self.settings.draft.show}
-                  choices={SHOWS} disabled={self.off} />
-        <Dropdown label={Locale.PANEL_COMBAT} hint={Locale.PANEL_COMBAT_TIP}
-                  value={mut self.settings.draft.combat} choices={COMBATS} disabled={self.off} />
-        <Checkbox label={Locale.PANEL_VEHICLE} hint={Locale.PANEL_VEHICLE_TIP}
-                  value={mut self.settings.draft.vehicle} disabled={self.off} />
-        <Checkbox label={Locale.PANEL_PETBATTLE} hint={Locale.PANEL_PETBATTLE_TIP}
-                  value={mut self.settings.draft.petBattle} disabled={self.off} />
-        <Checkbox label={Locale.PANEL_RESTING} hint={Locale.PANEL_RESTING_TIP}
-                  value={mut self.settings.draft.resting} disabled={self.off} />
-        <Slider label={Locale.PANEL_FADEDALPHA} hint={Locale.PANEL_FADEDALPHA_TIP}
-                value={mut self.settings.draft.fadedAlpha} least={0} most={1} step={0.05} unit={Unit.Percent}
-                disabled={self.off} />
-      </Section>
+      <PlacesRows value={mut self.settings.draft.places} disabled={self.off} />
+      <VisibilityRows value={mut self.settings.draft.visibility} disabled={self.off} />
     }
   }
 }

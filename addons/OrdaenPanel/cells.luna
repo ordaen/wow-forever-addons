@@ -1,22 +1,21 @@
 // The panel's cells: a button of the game's menu or a bag, each a cell of the panel with the game's own button in
 // it, so its click, its menus and its alerts stay the game's. A cell draws no edge of its own: the group it stands
-// in parts it from its neighbours (`group.luna`).
+// in parts it from its neighbours (`group.luna`). A cell fills the panel's inside from edge to edge, as high as it
+// is; everything on it keeps its proportions to the cell's least size.
 import Game from "$game"
 import { Align, Art, Edges, Frame, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, PX } from "Ordaen"
 
-// A cell fills the panel below its metal edge, and is a divider's width narrower on each side than it is high: the
-// panel with the whole menu, seven bag buttons and the money still fits a 1366 x 768 screen at a UI scale of 1.
+// The least a cell is high, and where it is drawn at that: the panel with the whole menu, seven bag buttons and the
+// money still fits a 1366 x 768 screen at a UI scale of 1. A cell is a divider's width narrower on each side than
+// it is high.
 public const CELL_HEIGHT = 53
 public const DIVIDER: Number = 2 * PX
 public const CELL_WIDTH: Number = CELL_HEIGHT - 2 * DIVIDER
 // The face on the character's cell.
 const FACE = 40 * PX
 const ICON = 35
-const ICON_LEFT = (CELL_WIDTH - ICON) / 2
-// The icon sits a pixel lower while its cell is pushed.
-const ICON_TOP: Stated<Number> = { default: (CELL_HEIGHT - ICON) / 2, pressed: (CELL_HEIGHT - ICON) / 2 + 1 * PX }
 const GOLD: Color = Color.hex("#ffb847")
 const WHITE: Color = Color.hex("#ffffff")
 // The cell under the cursor: a warm light over the wood; pushed, a shade.
@@ -27,89 +26,137 @@ const BADGE_PAD: Edges = { right: 4 * PX, left: 4 * PX }
 // The design's bold number: a white shadow one pixel to the right.
 const BOLD: Shadow = { color: WHITE, x: 1, y: 0 }
 
+// A cell's measures at its height: its width in the least cell's proportion, its icon's size and place.
+public struct CellSize {
+  width: Number
+  height: Number
+  icon: Number
+  iconLeft: Number
+  // The icon sits a pixel lower while its cell is pushed.
+  iconTop: Stated<Number>
+  face: Number
+}
+
+public function cellSize(height: Number): CellSize {
+  const scale = height / CELL_HEIGHT
+  const width = CELL_WIDTH * scale
+  const icon = ICON * scale
+  const top = (height - icon) / 2
+  return {
+    width: width, height: height, icon: icon, iconLeft: (width - icon) / 2,
+    iconTop: { default: top, pressed: top + 1 * PX }, face: FACE * scale
+  }
+}
+
 // A button of the game's menu: our icon on the cell, the game's button unseen over it.
 public class MenuCell implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
   derived tint: Color = self.gold ? GOLD : WHITE
   derived counted: Boolean = self.count > 0
+  derived badgeRight: Number = self.size.width * 0.12
+  derived badgeBottom: Number = self.size.height * 0.14
 
   const icon: Art
   frame: Signal<any Frame | nil>
   gold: Signal<Boolean>
   count: Signal<Integer>
+  size: Signal<CellSize>
   constructor(
     icon: Art,
     frame: Signal<any Frame | nil>,
     // The icon in one gold.
     gold: Signal<Boolean>,
+    size: Signal<CellSize>,
     // A number on the cell while it isn't 0: the friends online.
     count: Signal<Integer> = 0
   ) {
     self.icon = icon
     self.frame = frame
     self.gold = gold
+    self.size = size
     self.count = count
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={LIT}>
-        <box position={Position.Absolute} left={ICON_LEFT} top={ICON_TOP} width={ICON} height={ICON}
-             background={self.icon} desaturate={self.gold} tint={self.tint} stateFromParent={true} />
-        <box $if={self.counted} position={Position.Absolute} right={CELL_WIDTH * 0.12} bottom={CELL_HEIGHT * 0.14}
-             height={BADGE} minWidth={BADGE} padding={BADGE_PAD} xAlign={Align.Center} yAlign={Align.Center}
-             background={Ordaen.art.panel.countBadge} zLevel={1}>
+      <box width={self.size.width} height={self.size.height} background={LIT}>
+        <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
+             height={self.size.icon} background={self.icon} desaturate={self.gold} tint={self.tint}
+             stateFromParent={true} />
+        <box $if={self.counted} position={Position.Absolute} right={self.badgeRight}
+             bottom={self.badgeBottom} height={BADGE} minWidth={BADGE} padding={BADGE_PAD}
+             xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.panel.countBadge} zLevel={1}>
           <text value={"%d"} arguments={[self.count]} textSize={.Secondary} textColor={WHITE}
                 textFont={.Numbers} textShadow={BOLD} wrap={false} />
         </box>
-        <embed frame={self.frame} position={Position.Absolute} left={0} top={0} width={CELL_WIDTH}
-               height={CELL_HEIGHT} opacity={0} />
+        <embed frame={self.frame} position={Position.Absolute} left={0} top={0} width={self.size.width}
+               height={self.size.height} opacity={0} />
       </box>
     }
   }
 }
 
-// The character's button as a cell: the player's face, round, with the game's button unseen over the cell like the
-// others.
+// The character's button as a cell: the player's face (or the class's icon), round, with the game's button unseen
+// over the cell like the others.
 public class FaceCell implements Component {
   // Ordaen's art: its root is there before this module loads.
+  derived faceLeft: Number = (self.size.width - self.size.face) / 2
+  derived faceTop: Number = (self.size.height - self.size.face) / 2
+
+  size: Signal<CellSize>
+  face: Signal<String | nil>
+  icon: Signal<Art | nil>
+  constructor(
+    size: Signal<CellSize>,
+    // The unit whose face it shows, or nil for the class's icon.
+    face: Signal<String | nil>,
+    icon: Signal<Art | nil>
+  ) {
+    self.size = size
+    self.face = face
+    self.icon = icon
+  }
 
   public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={LIT}>
-        <box position={Position.Absolute} left={(CELL_WIDTH - FACE) / 2} top={(CELL_HEIGHT - FACE) / 2} width={FACE}
-             height={FACE} portrait={"player"} mask={Ordaen.art.panel.faceRound} />
+      <box width={self.size.width} height={self.size.height} background={LIT}>
+        <box position={Position.Absolute} left={self.faceLeft} top={self.faceTop} width={self.size.face}
+             height={self.size.face} portrait={self.face} icon={self.icon} mask={Ordaen.art.panel.faceRound} />
         <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
-               width={CELL_WIDTH} height={CELL_HEIGHT} opacity={0} />
+               width={self.size.width} height={self.size.height} opacity={0} />
       </box>
     }
   }
 }
 
-// A bag button of the game's: the icon the game shows on it, on the cell as the menu's icons stand, in a slot's edge,
-// and the game's button unseen over the cell: its click opens the bag, a drag picks it up, its tooltip names it. The
-// backpack's has the free slots of every bag in its lower right.
+// A bag button of the game's: the icon the game shows on it, on the cell as the menu's icons stand, and the game's
+// button unseen over the cell: its click opens the bag, a drag picks it up, its tooltip names it. The backpack's has
+// the free slots of every bag in its lower right.
 public class BagCell implements Component {
   // Ordaen's art and the look's fonts: its root is there before this module loads.
   derived counted: Boolean = self.button.kind == Game.BagKind.Backpack && Game.bags.free > 0
+  derived countInset: Number = self.size.iconLeft - 3 * PX
+  derived countBottom: Number = self.size.iconLeft - 6 * PX
 
   const button: Game.BagButton
-  constructor(button: Game.BagButton) {
+  size: Signal<CellSize>
+  constructor(button: Game.BagButton, size: Signal<CellSize>) {
     self.button = button
+    self.size = size
   }
 
   public render(self): Template {
     return $ltml {
-      <box width={CELL_WIDTH} height={CELL_HEIGHT} background={LIT}>
-        <box position={Position.Absolute} left={ICON_LEFT} top={ICON_TOP} width={ICON} height={ICON}
-             icon={self.button.icon} border={Ordaen.art.panel.slotEdge} stateFromParent={true} />
-        <box $if={self.counted} position={Position.Absolute} right={ICON_LEFT - 3 * PX} bottom={ICON_LEFT - 6 * PX}
+      <box width={self.size.width} height={self.size.height} background={LIT}>
+        <box position={Position.Absolute} left={self.size.iconLeft} top={self.size.iconTop} width={self.size.icon}
+             height={self.size.icon} icon={self.button.icon} stateFromParent={true} />
+        <box $if={self.counted} position={Position.Absolute} right={self.countInset} bottom={self.countBottom}
              zLevel={1}>
           <text value={"%d"} arguments={[Game.bags.free]} textSize={.Secondary} textColor={WHITE}
                 textFont={.Numbers} textOutline={1} wrap={false} />
         </box>
-        <embed frame={self.button.frame} position={Position.Absolute} left={0} top={0} width={CELL_WIDTH}
-               height={CELL_HEIGHT} opacity={0} />
+        <embed frame={self.button.frame} position={Position.Absolute} left={0} top={0} width={self.size.width}
+               height={self.size.height} opacity={0} />
       </box>
     }
   }

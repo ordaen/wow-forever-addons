@@ -1,0 +1,98 @@
+// When a part of the screen shows (a module's panel, its minimap, its bars): one setting every module that has one
+// takes, in three states, each hidden, shown, or shown while the cursor is on it, with how faint it is while it isn't.
+// Combat is asked first, then transport: a fight on a flight path is a fight.
+import Game from "$game"
+import { Choice, Dropdown } from "@/dropdown"
+import Locale from "@/locales"
+import { Component } from "@/module"
+import { Section } from "@/section"
+import { Slider, Unit } from "@/slider"
+
+// A part hidden on hover is all but unseen while the cursor is away, yet the cursor still finds it.
+const HOVER_LEAST = 1 / 255
+
+public enum Visible implements Plain { Hide = "hide", Show = "show", Hover = "hover" }
+
+// One state's choice: hidden, shown or on hover, and how visible it is while it isn't shown.
+public struct StateVisibility implements Plain {
+  visible: Visible
+  opacity: Number
+}
+
+// The three states: out of combat and off transport, in combat, on transport (a flight path, a vehicle).
+public struct Visibility implements Plain {
+  general: StateVisibility
+  combat: StateVisibility
+  transport: StateVisibility
+}
+
+const SHOWN: StateVisibility = { visible: Visible.Show, opacity: 0 }
+// Shown in every state: what a module's setting starts at.
+public const ALWAYS: Visibility = { general: SHOWN, combat: SHOWN, transport: SHOWN }
+
+// The state the player is in now.
+public function stateOf(visibility: Visibility): StateVisibility {
+  if (Game.situation.combat) { return visibility.combat }
+  if (Game.situation.taxi || Game.situation.vehicle) { return visibility.transport }
+  return visibility.general
+}
+
+// How visible the part is now, the cursor on it or not: 1 shown, its state's opacity hidden. Shown on hover, it never
+// goes quite to nothing, so the cursor still finds it.
+public function opacityNow(visibility: Visibility, hovered: Boolean): Number {
+  const state = stateOf(visibility)
+  match (state.visible) {
+    Visible.Show => return 1
+    Visible.Hide => return state.opacity
+    Visible.Hover => return hovered ? 1 : state.opacity.max(HOVER_LEAST)
+  }
+}
+
+const VISIBLES: Array<Choice<Visible>> = [
+  { value: Visible.Show, label: Locale.VISIBLE_SHOW },
+  { value: Visible.Hover, label: Locale.VISIBLE_HOVER },
+  { value: Visible.Hide, label: Locale.VISIBLE_HIDE }
+]
+
+// One state's rows: its choice, and its opacity while it isn't «Show».
+class StateRows implements Component {
+  derived faded: Boolean = self.value.visible != Visible.Show
+
+  label: Signal<String>
+  value: mut Signal<StateVisibility>
+  disabled: Signal<Boolean>
+  constructor(label: Signal<String>, value: mut Signal<StateVisibility>, disabled: Signal<Boolean>) {
+    self.label = label
+    self.value = value
+    self.disabled = disabled
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Dropdown label={self.label} value={mut self.value.visible} choices={VISIBLES} disabled={self.disabled} />
+      <Slider $if={self.faded} label={Locale.VISIBLE_OPACITY} hint={Locale.VISIBLE_OPACITY_TIP}
+              value={mut self.value.opacity} least={0} most={1} step={0.05} unit={Unit.Percent}
+              disabled={self.disabled} />
+    }
+  }
+}
+
+// The setting on a module's page: a section of the three states.
+public class VisibilityRows implements Component {
+  value: mut Signal<Visibility>
+  disabled: Signal<Boolean>
+  constructor(value: mut Signal<Visibility>, disabled: Signal<Boolean> = false) {
+    self.value = value
+    self.disabled = disabled
+  }
+
+  public render(self): Template {
+    return $ltml {
+      <Section title={Locale.VISIBILITY}>
+        <StateRows label={Locale.VISIBLE_GENERAL} value={mut self.value.general} disabled={self.disabled} />
+        <StateRows label={Locale.VISIBLE_COMBAT} value={mut self.value.combat} disabled={self.disabled} />
+        <StateRows label={Locale.VISIBLE_TRANSPORT} value={mut self.value.transport} disabled={self.disabled} />
+      </Section>
+    }
+  }
+}

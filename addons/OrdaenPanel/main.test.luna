@@ -8,19 +8,19 @@ import { Art } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { Module, SettingsPage } from "Ordaen"
 import root Panel from "OrdaenPanel"
-import { CharButton, Choices, Combat, DEFAULTS, Edge, Fit, MicroIcons, Outline, Show } from "@/choices"
+import { Choices, DEFAULTS } from "@/choices"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
 // What the panel always shows: the player's money, none at first.
 const MONEY = "0g 0s 0c"
 // The experience bar's values, of 2 500 of 10 000, its thousands parted by a space that never breaks.
-const XP = "2 500 / 10 000 (25%)"
+const XP = "2 500 / 10 000"
 // A text the settings window always shows.
 const SETTINGS = "Move mode"
-// Where an item is let go to stand «Not on the panel»: an item that is there at first (the pool's name stands outside
-// it).
-const POOL = "Time"
+// Where an item stands off the panel: the zone's name and the time are there at first.
+const POOL = "Not on the panel"
 // The panel's name over it in the move mode.
 const MOVER = "Bottom panel"
 // The menu's icons, in its order.
@@ -51,6 +51,16 @@ const INK: Color = Color.hex("#e8dcc4")
 const PENDING: Color = Color.hex("#ff9933")
 // The reputation's tube of a faction watched, honored.
 const HONORED = "Honored 4 800 / 12 000"
+
+// Ordaen Spells as Ordaen's modules hold it: its title.
+class Spells implements Module {
+  public const title: String = "Ordaen Spells"
+  public const pages: Array<SettingsPage> = []
+
+  public render(self): Template {
+    return $ltml { <box /> }
+  }
+}
 
 // One of the game's own frames the panel stands in for, hides or leaves unseen.
 function frame(name: String): any Client.Frame {
@@ -107,17 +117,11 @@ function visibility(): Test.Part {
   return settings
 }
 
-// One of «Visibility»'s dropdowns' choices, saved.
-function hide(face: String, among: String, choice: String) {
+// One of «Visibility»'s states, the `nth` whose dropdown shows `face` («General», «In combat», «On transport» in that
+// order), set to `choice` and saved.
+function hide(face: String, nth: Integer, choice: String) {
   const settings = visibility()
-  choose(settings, face, among, choice)
-  settings.button("Save").click()
-}
-
-// One of «Visibility»'s checkboxes, the `nth`, clicked and saved.
-function tick(nth: Integer) {
-  const settings = visibility()
-  settings.button(Ordaen.art.ctl.check).nth(nth).click()
+  pick(settings, face, nth, choice)
   settings.button("Save").click()
 }
 
@@ -126,6 +130,14 @@ function tick(nth: Integer) {
 function choose(settings: Test.Part, face: String, among: String, choice: String) {
   settings.button(face).click()
   Test.page().window(among).button(choice).click()
+}
+
+// The `nth` dropdown whose face shows `face`, set to `choice`: its list is the last surface that shows the choice (a
+// face may show it too).
+function pick(settings: Test.Part, face: String, nth: Integer, choice: String) {
+  settings.button(face).nth(nth).click()
+  const holders = Test.page().window(choice)
+  holders.nth(holders.count()).button(choice).click()
 }
 
 // A part taken with the left button, carried over each part of `path` in turn (a frame each) and let go over the last.
@@ -140,10 +152,13 @@ function drag(from: Test.Part, path: Array<Test.Part>) {
   Test.pass(0.05)
 }
 
-// An item of the panel dragged on «Bottom panel»'s tab into a zone, let go over the zone's name, and saved.
-function place(item: String, zone: String) {
+// An item of the panel put in a zone on «Bottom panel»'s tab: the `nth` of the items' dropdowns that shows `face`
+// (in the items' order: the menu, friends and guild, the experience bar, the zone's name, the time, the money, the
+// bags), and saved.
+function place(face: String, nth: Integer, zone: String) {
   const settings = tab("Bottom panel")
-  drag(settings.text(item), [settings.text(zone)])
+  settings.text("Screen edge").wheel(-3)
+  pick(settings, face, nth, zone)
   settings.button("Save").click()
 }
 
@@ -210,6 +225,46 @@ test "every bag button the game has stands in a cell after the menu, in its orde
   icons.push(KEYRING)
   Test.expect(window.box(CELL).count() == 10 + icons.length)
   for (at, icon of icons) { Test.expect(window.box(CELL).nth(10 + at).paintedWith(icon)) }
+}
+
+test "with Ordaen Spells on, one cell opens the spellbook and the talents" {
+  Test.mount(nil, SCREEN)
+  const spells = Ordaen.modules.add(new Spells())
+  Test.expect(panel().box(SPELLBOOK).shown() && !panel().box(TALENTS).shown())
+  destroy spells
+  Test.expect(panel().box(SPELLBOOK).shown() && panel().box(TALENTS).shown())
+}
+
+test "a bag's cell draws no edge round its icon" {
+  Game.bags.buttons = bagButtons(frame)
+  Test.mount(nil, SCREEN)
+  Test.expect(!panel().box(BACKPACK).paintedWith(Ordaen.art.panel.slotEdge.color))
+}
+
+test "on a taller panel every cell and groove is as high as its inside, the icons as large in proportion" {
+  Game.bags.buttons = bagButtons(frame)
+  // A screen wide enough for the whole panel at its tallest.
+  Test.screen(2400, 900)
+  Test.mount(nil, { left: 0, top: 0, width: 2400, height: 900, screen: true })
+  const settings = tab("Bottom panel")
+  drag(settings.box(Ordaen.art.ctl.sliderKnob).nth(1), [settings.text("60 px")])
+  settings.button("Save").click()
+  Test.shot("tall")
+}
+
+test "the character's button shows the class's icon once chosen" {
+  Game.player.level = 42
+  Test.mount(nil, SCREEN)
+  const icons: Array<Asset> = [
+    "Interface/Icons/ClassIcon_Warrior", "Interface/Icons/ClassIcon_Paladin", "Interface/Icons/ClassIcon_Hunter",
+    "Interface/Icons/ClassIcon_Rogue", "Interface/Icons/ClassIcon_Priest", "Interface/Icons/ClassIcon_Shaman",
+    "Interface/Icons/ClassIcon_Mage", "Interface/Icons/ClassIcon_Warlock", "Interface/Icons/ClassIcon_Druid"
+  ]
+  Test.expect(!icons.any(icon => Test.page().window("42").paintedWith(icon)))
+  const settings = tab("Micro menu")
+  choose(settings, "Face", "Class icon", "Class icon")
+  settings.button("Save").click()
+  Test.expect(icons.any(icon => Test.page().window("42").paintedWith(icon)))
 }
 
 test "one groove parts each two cells of a group, none before its first" {
@@ -381,7 +436,7 @@ test "the portrait goes with the panel to another edge" {
 test "the portrait goes with the menu to the panel's middle" {
   Game.player.level = 42
   Test.mount(nil, SCREEN)
-  place("Game menu buttons", "Centre")
+  place("Left", 1, "Centre")
   Test.expect(panel().box(PROFESSIONS).shown() && !Test.page().text("42").shown())
 }
 
@@ -399,7 +454,7 @@ test "the menu's icons chosen in gold are painted gold" {
 test "friends and guild at the panel's end stand on their own, the game menu's button still the menu's last" {
   Test.mount(nil, SCREEN)
   Test.expect(panel().box(FRIENDS).item().paintedWith(DIVIDER))
-  place("Friends and guild", "Right")
+  place("Left", 2, "Right")
   const window = panel()
   // First of their own group: no groove before the friends' cell.
   Test.expect(!window.box(FRIENDS).item().paintedWith(DIVIDER) && window.box(GUILD).item().paintedWith(DIVIDER))
@@ -409,20 +464,20 @@ test "friends and guild at the panel's end stand on their own, the game menu's b
 test "the time placed on the panel shows the game's time, in ink" {
   Test.mount(nil, SCREEN)
   Test.expect(!Test.page().text("12:30").shown())
-  place("Time", "Centre")
+  place(POOL, 2, "Centre")
   Test.expect(panel().text("12:30").textColor().equal(INK))
 }
 
 test "the time turns orange while calendar invites wait" {
   Test.mount(nil, SCREEN)
-  place("Time", "Centre")
+  place(POOL, 2, "Centre")
   Game.clock.invites = 1
   Test.expect(panel().text("12:30").textColor().equal(PENDING))
 }
 
 test "a click on the time opens the calendar" {
   Test.mount(nil, SCREEN)
-  place("Time", "Centre")
+  place(POOL, 2, "Centre")
   _ = Test.requests()
   panel().text("12:30").click()
   Test.expect(Test.requests().any(r => r == "Clock.toggleCalendar"))
@@ -431,7 +486,7 @@ test "a click on the time opens the calendar" {
 test "the zone's name placed on the panel shows the zone the player is in" {
   Test.mount(nil, SCREEN)
   Test.expect(!Test.page().text("Elwynn Forest").shown())
-  place("Zone name", "Left")
+  place(POOL, 1, "Left")
   Test.expect(panel().text("Elwynn Forest").shown())
 }
 
@@ -439,34 +494,34 @@ test "the experience bar off the panel stands on its own" {
   Game.player.xp = 2500
   Game.player.xpMax = 10000
   Test.mount(nil, SCREEN)
-  place("Experience bar", POOL)
+  place("Centre", 1, POOL)
   Test.expect(!panel().text(XP).shown() && Test.page().window(XP).shown())
 }
 
 test "the bags off the panel stand on their own" {
   Game.bags.buttons = bagButtons(frame)
   Test.mount(nil, SCREEN)
-  place("Bags", POOL)
+  place("Right", 2, POOL)
   Test.expect(!panel().box(BACKPACK).shown() && Test.page().box(BACKPACK).count() == 1)
 }
 
 test "the money off the panel stands on its own" {
   Test.mount(nil, SCREEN)
-  place("Gold and currencies", POOL)
+  place("Right", 1, POOL)
   Test.expect(panel().texts().join(" | ") == MONEY && !panel().box(PROFESSIONS).shown())
 }
 
 test "the menu off the panel stands on its own, and the portrait goes" {
   Game.player.level = 42
   Test.mount(nil, SCREEN)
-  place("Game menu buttons", POOL)
+  place("Left", 1, POOL)
   Test.expect(!panel().box(PROFESSIONS).shown() && Test.page().box(PROFESSIONS).count() == 1)
   Test.expect(!Test.page().text("42").shown())
 }
 
 test "friends and guild off the panel stand on their own" {
   Test.mount(nil, SCREEN)
-  place("Friends and guild", POOL)
+  place("Left", 2, POOL)
   Test.expect(!panel().box(FRIENDS).shown() && Test.page().box(FRIENDS).count() == 1 && Test.page().box(GUILD).count() == 1)
 }
 
@@ -515,13 +570,13 @@ test "a panel set never to show is not drawn, and the game's buttons go back to 
   const professions = frame("ProfessionMicroButton")
   Game.frames.ProfessionMicroButton = professions
   Test.mount(nil, SCREEN)
-  hide("Always", "Never", "Never")
+  hide("Show", 1, "Hide")
   Test.expect(!panel().shown() && professions.GetParent() == Client.C_UI.GetUIParent())
 }
 
 test "a panel shown on mouseover is all but unseen while the cursor is away, and shows under it" {
   Test.mount(nil, SCREEN)
-  hide("Always", "Never", "On mouseover")
+  hide("Show", 1, "On mouseover")
   Test.page().window(SETTINGS).text(SETTINGS).hover()
   Test.expect(panel().opacity() > 0 && panel().opacity() < 0.01)
   panel().text(MONEY).hover()
@@ -532,7 +587,7 @@ test "a panel shown on mouseover is all but unseen while the cursor is away, and
 
 test "a panel hidden in combat is not drawn in combat, and drawn out of it" {
   Test.mount(nil, SCREEN)
-  hide("Show", "Only in combat", "Hide")
+  hide("Show", 2, "Hide")
   Test.expect(panel().shown())
   Game.situation.combat = true
   Test.expect(!panel().shown())
@@ -540,9 +595,9 @@ test "a panel hidden in combat is not drawn in combat, and drawn out of it" {
   Test.expect(panel().shown())
 }
 
-test "a panel shown only in combat is not drawn out of it" {
+test "a panel hidden out of combat is drawn in combat alone" {
   Test.mount(nil, SCREEN)
-  hide("Show", "Only in combat", "Only in combat")
+  hide("Show", 1, "Hide")
   Test.expect(!panel().shown())
   Game.situation.combat = true
   Test.expect(panel().shown())
@@ -551,7 +606,7 @@ test "a panel shown only in combat is not drawn out of it" {
 test "a hidden panel is drawn as faint as its opacity says" {
   Test.mount(nil, SCREEN)
   const settings = visibility()
-  choose(settings, "Show", "Only in combat", "Hide")
+  pick(settings, "Show", 2, "Hide")
   // The hidden panel's opacity: the tab's second slider, clicked in its middle: half.
   settings.button(Ordaen.art.ctl.groove).nth(2).click()
   settings.button("Save").click()
@@ -568,7 +623,7 @@ test "a hidden panel's every part is as faint as it: the portrait, its badge and
   Game.bags.buttons = bagButtons(frame)
   Test.mount(nil, SCREEN)
   const settings = visibility()
-  choose(settings, "Show", "Only in combat", "Hide")
+  pick(settings, "Show", 2, "Hide")
   settings.button(Ordaen.art.ctl.groove).nth(2).click()
   settings.button("Save").click()
   Game.situation.combat = true
@@ -584,7 +639,7 @@ test "a hidden panel's every part is as faint as it: the portrait, its badge and
 test "a panel shown on mouseover shows with its portrait under the cursor, and the portrait with it" {
   Game.player.level = 42
   Test.mount(nil, SCREEN)
-  hide("Always", "Never", "On mouseover")
+  hide("Show", 1, "On mouseover")
   Test.page().window(SETTINGS).text(SETTINGS).hover()
   Test.expect(Test.page().text("42").opacity() < 0.01)
   Test.page().text("42").hover()
@@ -595,28 +650,46 @@ test "a panel shown on mouseover shows with its portrait under the cursor, and t
   Test.expect(panel().opacity() < 0.01 && Test.page().text("42").opacity() < 0.01)
 }
 
-test "the panel hides in a vehicle, and shows there once the player unticks it" {
+test "the panel hides on transport, and shows there once the player sets it to show" {
   Test.mount(nil, SCREEN)
   Game.situation.vehicle = true
   Test.expect(!panel().shown())
-  tick(1)
+  Game.situation.vehicle = false
+  Game.situation.taxi = true
+  Test.expect(!panel().shown())
+  hide("Hide", 1, "Show")
   Test.expect(panel().shown())
 }
 
-test "the panel hides in a pet battle, and shows there once the player unticks it" {
+test "a state set to show has no opacity to choose; hidden or on mouseover, it has" {
   Test.mount(nil, SCREEN)
-  Game.situation.petBattle = true
-  Test.expect(!panel().shown())
-  tick(2)
-  Test.expect(panel().shown())
+  const settings = visibility()
+  // The height's slider and the transport's opacity.
+  Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 2)
+  pick(settings, "Show", 1, "On mouseover")
+  Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 3)
+  pick(settings, "Hide", 1, "Show")
+  Test.expect(settings.box(Ordaen.art.ctl.sliderKnob).count() == 2)
 }
 
-test "the panel hides while resting once the player ticks it" {
+test "the portrait stands over the panel shown again on mouseover" {
+  Game.player.level = 42
   Test.mount(nil, SCREEN)
-  Game.situation.resting = true
-  Test.expect(panel().shown())
-  tick(3)
-  Test.expect(!panel().shown())
+  hide("Show", 1, "On mouseover")
+  Test.page().window(SETTINGS).text(SETTINGS).hover()
+  panel().text(MONEY).hover()
+  // The portrait's badge, where it lies over the panel's wood, is the portrait's to the mouse.
+  Test.page().box(Ordaen.art.panel.badge).hover()
+  const order = Test.surfaces().map(s => s.texts.join(" "))
+  const portrait = order.find(t => t.contains("42"))
+  Test.expect(portrait != nil)
+  let panelAt = 0
+  let portraitAt = 0
+  for (index, texts of order) {
+    if (texts.contains(MONEY)) { panelAt = index }
+    if (texts.contains("42")) { portraitAt = index }
+  }
+  Test.expect(portraitAt > panelAt)
 }
 
 // The parts switched on and off
@@ -675,11 +748,7 @@ test "the panel's height reaches from 60, where its cells still fit, to 96 on it
 }
 
 test "a height kept lower than the cells fit, from before the slider stopped at 60, is read as 60" {
-  const low: Choices = {
-    microOn: true, statusOn: true, bottomOn: true, microIcons: MicroIcons.Upscaled, charButton: CharButton.Portrait,
-    outline: Outline.None, shadow: true, edge: Edge.Bottom, fit: Fit.Full, height: 24, places: DEFAULTS.places,
-    show: Show.Always, combat: Combat.Any, vehicle: true, petBattle: true, resting: false, fadedAlpha: 0
-  }
+  const low: Choices = { height: 24, ..DEFAULTS }
   // Ordaen's profiles as the game keeps them: the default profile, the panel's section packed in it.
   const sections: Map<String, String> = {}
   sections["OrdaenPanel"] = Game.encoding.serialize(low)
@@ -742,7 +811,7 @@ test "the panel turned off in the game's list of addons leaves the game's menu a
 test "the move mode shows a panel set never to show, and hides it again as it ends" {
   Test.mount(nil, SCREEN)
   const settings = visibility()
-  choose(settings, "Always", "Never", "Never")
+  pick(settings, "Show", 1, "Hide")
   settings.button("Save").click()
   settings.button(SETTINGS).click()
   Test.expect(panel().text(MOVER).shown())
@@ -757,7 +826,7 @@ test "the panel dragged in the move mode to the screen's left runs down it from 
   Test.mount(nil, SCREEN)
   const settings = visibility()
   // A change not saved: the drag leaves it waiting.
-  choose(settings, "Always", "Never", "Never")
+  pick(settings, "Show", 1, "Hide")
   settings.button(SETTINGS).click()
   // Carried over the portrait's badge, then let go over the portrait, in the screen's lower left corner: the left side
   // is nearest.
@@ -765,7 +834,7 @@ test "the panel dragged in the move mode to the screen's left runs down it from 
   drag(panel().text(MOVER), [portrait.text("42"), portrait.text(MOVER)])
   settings.button(SETTINGS).click()
   // Down the side, with no experience bar; «Never» still waits to be saved.
-  Test.expect(panel().shown() && !Test.page().text(XP).shown() && settings.button("Never").shown())
+  Test.expect(panel().shown() && !Test.page().text(XP).shown() && settings.button("Hide").count() == 2)
   Test.expect(settings.button("Left").shown())
 }
 

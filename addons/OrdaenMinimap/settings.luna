@@ -1,14 +1,8 @@
 // The minimap's tabs in the settings window: «Map» and «Button drawer». Each control writes one entry of the
 // settings' draft.
-import { Checkbox, Choice, Component, Dropdown, Settings, Slider, Switch, Unit } from "Ordaen"
-import { Choices, Hide } from "@/choices"
+import { Checkbox, Component, Settings, Slider, Switch, Unit, VisibilityRows } from "Ordaen"
+import { Choices } from "@/choices"
 import Locale from "@/locales"
-
-const HIDES: Array<Choice<Hide>> = [
-  { value: Hide.Never, label: Locale.MINIMAP_HIDE_NEVER },
-  { value: Hide.Combat, label: Locale.MINIMAP_HIDE_COMBAT },
-  { value: Hide.Transport, label: Locale.MINIMAP_HIDE_TRANSPORT }
-]
 
 public class MapPage implements Component {
   settings: mut Settings<Choices>
@@ -28,8 +22,7 @@ public class MapPage implements Component {
                 value={mut self.settings.draft.showCoords} />
       <Checkbox label={Locale.MINIMAP_BUTTONSHOVER} hint={Locale.MINIMAP_BUTTONSHOVER_TIP}
                 value={mut self.settings.draft.buttonsHover} />
-      <Dropdown label={Locale.MINIMAP_HIDE} hint={Locale.MINIMAP_HIDE_TIP} value={mut self.settings.draft.hide}
-                choices={HIDES} />
+      <VisibilityRows value={mut self.settings.draft.visibility} />
     }
   }
 }

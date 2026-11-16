@@ -8,8 +8,12 @@
 import Game from "$game"
 import { Align, Art, Edges, Line, Percent, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Tip, TipRow, number } from "Ordaen"
+import { Component, Tip, TipRow, XpFill, number, xpFillArt } from "Ordaen"
+import { XpView } from "@/choices"
 import Locale from "@/locales"
+
+// The experience's fill as it starts.
+const BRUSHED: Art = xpFillArt(XpFill.Brushed)
 
 // Slim at a third of the screen's width.
 const TUBE_HEIGHT: Number = 25
@@ -25,6 +29,12 @@ const MARGINS: Edges = { right: 32, left: 32 }
 const RESTED: Color = Color.hex("#6e96d129")
 const LABEL: Color = Color.hex("#f3e7cc")
 const LABEL_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
+// The label's second value, in brackets: the label's ink, fainter.
+const DIMMED: Color = Color.hex("#f3e7cc8c")
+const LABEL_PARTS: Array<Track> = ["auto", "auto"]
+const LABEL_GAP = 4
+// The bars' carved edge: a dark line round the tube, where the bezel's ring would stand.
+const GROOVE: Line = { width: 2, color: Color.hex("#0a0603d9"), sides: [Side.Top, Side.Right, Side.Bottom, Side.Left] }
 const FILL: Array<Track> = [{ fr: 1 }]
 // Ten equal cells over the inside, each but the last with a 1 px dark right edge.
 const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
@@ -55,9 +65,28 @@ public function partOf(part: Integer, whole: Integer): String {
   return percentText(whole > 0 ? 100 * (0).max(part) / whole : 0)
 }
 
-// The values of a tube: how far into its span and how long the span is, and the part of it.
-function valuesOf(value: Integer, least: Integer, most: Integer): String {
-  return "%s / %s (%s)".format(number(value - least), number(most - least), percentText(share(value, least, most)))
+// The values of a tube as its view says them: what it says first, and what it says after, dimmed in brackets ("" for
+// none). With words before them (the standing), the words take the dimmed part's room, so the longest standing's name
+// with its values still fits a tube at its least (the rest stays in the tooltip).
+function valuesOf(view: XpView, value: Integer, least: Integer, most: Integer, words: String): (String, String) {
+  const numbers = "%s / %s".format(number(value - least), number(most - least))
+  const percent = percentText(share(value, least, most))
+  let first = ""
+  let after = ""
+  match (view) {
+    XpView.Numbers => {
+      first = numbers
+      after = "(" + percent + ")"
+    }
+    XpView.Percent => {
+      first = percent
+      after = "(" + numbers + ")"
+    }
+    XpView.NumbersOnly => { first = numbers }
+    XpView.PercentOnly => { first = percent + " / 100%" }
+  }
+  if (words != "") { return words + " " + first, "" }
+  return first, after
 }
 
 // A count and its part of the whole: «900 (90%)».
@@ -79,16 +108,17 @@ public class Tube implements Component {
   derived behind: Percent = { percent: share(self.value + self.ahead, self.least, self.most) }
   // The part past the fill alone, where the cursor finds the paler part's tooltip; the rest of the tube is the bar's.
   derived parts: Array<Track> = [self.filled, { percent: self.behind.percent - self.filled.percent }, { fr: 1 }]
-  // The values and their part; with words before them, the words take the part's room, so the longest standing's
-  // name with its values still fits a tube at its least (the part stays in the tooltip).
-  derived label: String = self.words == "" ? valuesOf(self.value, self.least, self.most) :
-    "%s %s / %s".format(self.words, number(self.value - self.least), number(self.most - self.least))
+  derived label: String = self.labelOf(1)
+  derived dimmed: String = self.labelOf(2)
+  derived hasDimmed: Boolean = self.dimmed != ""
   derived overBar: Boolean = self.over == Over.Bar
   derived overAhead: Boolean = self.over == Over.Ahead
   derived tinted: Boolean = self.tint != nil
 
   // Ordaen's art: its root is there before this module loads.
-  const fill: Art
+  fill: Signal<Art>
+  bezel: Signal<Boolean>
+  view: Signal<XpView>
   value: Signal<Integer>
   least: Signal<Integer>
   most: Signal<Integer>
@@ -102,7 +132,10 @@ public class Tube implements Component {
   aheadText: Signal<String>
   aheadRows: Signal<Array<TipRow>>
   constructor(
-    fill: Art,
+    fill: Signal<Art>,
+    // The bronze ring round the tube; else a groove carved round it.
+    bezel: Signal<Boolean>,
+    view: Signal<XpView>,
     value: Signal<Integer>,
     least: Signal<Integer>,
     most: Signal<Integer>,
@@ -122,6 +155,8 @@ public class Tube implements Component {
   ) {
     self.tint = tint
     self.fill = fill
+    self.bezel = bezel
+    self.view = view
     self.value = value
     self.least = least
     self.most = most
@@ -133,6 +168,12 @@ public class Tube implements Component {
     self.aheadText = aheadText
     self.aheadRows = aheadRows
     self.height = height
+  }
+
+  // The label's first part, or its dimmed one.
+  labelOf(self, part: Integer): String {
+    const first, after = valuesOf(self.view, self.value, self.least, self.most, self.words)
+    return part == 1 ? first : after
   }
 
   onBar(mut self) { self.over = Over.Bar }
@@ -160,13 +201,18 @@ public class Tube implements Component {
         </box>
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
              background={Ordaen.art.panel.xpShine} zLevel={5} />
-        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+        <box $if={self.bezel} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
              background={Ordaen.art.panel.xpTube} zLevel={6} />
+        <box $else position={Position.Absolute} left={0} top={0} right={0} bottom={0} border={GROOVE} zLevel={6} />
         <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align.Center}
              yAlign={Align.Center} zLevel={7}>
           // Secondary: the values with the longest standing's name fit a tube at its least.
-          <text value={self.label} textSize={.Secondary} textColor={LABEL} textOutline={1}
-                textShadow={LABEL_SHADOW} wrap={false} textFont={.Numbers} />
+          <box columns={LABEL_PARTS} gap={LABEL_GAP} yAlign={Align.Center}>
+            <text value={self.label} textSize={.Secondary} textColor={LABEL} textOutline={1}
+                  textShadow={LABEL_SHADOW} wrap={false} textFont={.Numbers} />
+            <text $if={self.hasDimmed} value={self.dimmed} textSize={.Secondary} textColor={DIMMED}
+                  textOutline={1} textShadow={LABEL_SHADOW} wrap={false} textFont={.Numbers} />
+          </box>
         </box>
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              columns={self.parts} rows={FILL}>
@@ -201,10 +247,26 @@ public class XpBar implements Component {
   // The faction's fill takes its standing's colour, as the client's reputation bar does.
   derived standingTint: Color | nil = Game.reputation.color
 
+  // The faction's fill, its standing's colour over it.
+  const steel: Art = Ordaen.art.panel.xpSteel
+
   // How high the bar may be: the panel's inside.
   room: Signal<Number>
-  constructor(room: Signal<Number> = UNBOUNDED) {
+  fill: Signal<Art>
+  bezel: Signal<Boolean>
+  view: Signal<XpView>
+  constructor(
+    room: Signal<Number> = UNBOUNDED,
+    // What fills the experience's tube.
+    fill: Signal<Art> = BRUSHED,
+    // The bronze ring round each tube; else a carved groove.
+    bezel: Signal<Boolean> = true,
+    view: Signal<XpView> = XpView.Numbers
+  ) {
     self.room = room
+    self.fill = fill
+    self.bezel = bezel
+    self.view = view
   }
 
   // The rested bonus and its part of the level's whole.
@@ -254,11 +316,12 @@ public class XpBar implements Component {
   public render(self): Template {
     return $ltml {
       <box minWidth={LEAST} padding={MARGINS} yAlign={Align.Center} gap={GAP}>
-        <Tube $if={self.leveling} fill={peek Ordaen.lookArt.xpFill} value={Game.player.xp} least={0}
+        <Tube $if={self.leveling} fill={self.fill} bezel={self.bezel} view={self.view} value={Game.player.xp} least={0}
               most={Game.player.xpMax} ahead={Game.player.rested} height={self.tubeHeight} title={self.xpTitle}
               rows={self.xpRows} aheadTitle={Locale.RESTED_TIP_TITLE} aheadText={Locale.RESTED_TIP}
               aheadRows={self.restedRows} />
-        <Tube $if={self.showsReputation} fill={peek Ordaen.art.panel.xpSteel} value={Game.reputation.value}
+        <Tube $if={self.showsReputation} fill={self.steel} bezel={self.bezel} view={self.view}
+              value={Game.reputation.value}
               least={Game.reputation.min} most={Game.reputation.max} words={Game.reputation.standing}
               height={self.tubeHeight} title={Game.reputation.name} rows={self.reputationRows}
               tint={self.standingTint} />
