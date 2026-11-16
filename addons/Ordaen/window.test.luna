@@ -192,9 +192,13 @@ test "the control group stands in the tab row: outside the body, right of the la
   const tab = Test.holding("Recipes", nil)
   Test.expect(gear.bottom <= body.top && close.bottom <= body.top)
   Test.expect(gear.left > tab.x && close.right <= body.right && close.right > body.right - 20)
-  // The close's plate, the group's last, stands on the body's top line: its foot under the line, which covers it.
-  const red = Test.edges(Ordaen.art.ctl.corner.red, 0)
-  Test.expect(red.top < body.top && red.bottom > body.top)
+  // Every plate stands joined to the frame: its foot on the top of the body's line, which starts outside the body
+  // by the frame's inset, with nothing between.
+  const lineTop = body.top + Ordaen.art.frame.small.inset
+  for (art of [Ordaen.art.ctl.corner.bronze.first, Ordaen.art.ctl.corner.bronze.next, Ordaen.art.ctl.corner.red]) {
+    const foot = Test.edges(art, 0).bottom
+    Test.expect(foot > lineTop - 0.01 && foot < lineTop + 0.01)
+  }
   // Shown with the window, not only while the cursor is over it.
   Test.expect(corner() == "plate 0, glyph 0, plate 3, glyph 2, plate 9, glyph 6")
   destroy page

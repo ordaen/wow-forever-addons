@@ -140,8 +140,6 @@ const FOOTER_PAD: Edges = { top: space(.Group) }
 // plate with its glyph; how high it is with its rim.
 public enum CornerControl { Settings = "settings", Full = "full", Close = "close" }
 const CORNER_HEIGHT = 32 * PX
-// How far below the body's top the group's foot stands: the middle of the frame's line.
-const CORNER_FOOT = 3 * PX
 // A plate's width; the group's rim on its left, top and right, with its shadow beside it (the first's left, the
 // last's right) and above it: a plate stands that far below the group's top.
 const PLATE = 30 * PX
@@ -378,8 +376,10 @@ public class Window implements Component {
   derived inset: Number = self.full ? self.room : 0
   // The tab row ends where the body does: short of that side while full screen.
   derived rowPad: Edges = { right: self.inset }
-  // The control group's foot stands in the middle of the body's top line, which covers it.
-  derived cornerFoot: Edges = { bottom: self.lineTop - CORNER_FOOT }
+  // The control group's foot stands on the top of the body's line (the frame's art starts that far outside the
+  // body), and the group is drawn over the body: the frame's art above its line, its dark edge and shadow, would
+  // otherwise cover the plates' foot and stand between them and the line.
+  derived cornerFoot: Edges = { bottom: self.lineTop - Ordaen.art.frame.small.inset }
   derived grip: Stated<Art> = self.gripOf()
   // The ring round the control the keyboard has focused: the look's accent.
   derived focusLine: Line = { width: 1 * PX, color: Ordaen.look.values.accent, sides: nil }
@@ -760,7 +760,7 @@ public class Window implements Component {
                        height={self.tabWhole} @grab={self.onGrab} @move={self.onMove} @drop={self.onSettle}
                        @picked={self.onPicked} />
           </box>
-          <box padding={self.cornerFoot}>
+          <box padding={self.cornerFoot} zLevel={BODY_LEVEL + 1}>
             <box width={self.cornerWidth} height={CORNER_HEIGHT} overflow={Overflow.Hidden}>
               <CornerPlate $for={index, control of self.controls} control={control} index={index}
                            count={self.controls.length} full={self.full} @pressed={self.onCorner} />
