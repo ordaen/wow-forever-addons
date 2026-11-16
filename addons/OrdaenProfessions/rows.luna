@@ -119,7 +119,7 @@ public class RecipeRow implements Component {
     return $ltml {
       <SelectItem selected={self.isChosen} color={self.tint} first={self.first} columns={NAME_COUNT}
                   padding={self.padding} @pick={self.onClick}>
-        <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} wrap={false} />
+        <text value={self.recipe.name} textColor={self.color} textShadow={Style.SHADOW} />
         <text value={self.count} textColor={Style.WHITE} wrap={false} textFont={.Numbers} />
         <box $if={self.starred} position={Position.Absolute} right={STAR_RIGHT} top={STAR_TOP} width={STAR}
              height={STAR} background={Style.GOLD} />

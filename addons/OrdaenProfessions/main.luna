@@ -32,9 +32,11 @@ import {
 const FILL: Array<Track> = [{ fr: 1 }]
 // The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.
 const BODY: Array<Track> = ["auto", "auto", { fr: 1 }]
-const GRID: Array<Track> = [Style.LEFT, { fr: 1 }]
+// The recipes' side and the card share the width alike, the side never narrower than its lists' least; the
+// categories and the recipes share the side's, each never narrower than its least.
+const GRID: Array<Track> = [{ fr: 1 }, { fr: 1 }]
 const SIDE: Array<Track> = ["auto", { fr: 1 }]
-const LISTS: Array<Track> = [Style.CATEGORIES, { fr: 1 }]
+const LISTS: Array<Track> = [{ fr: 2 }, { fr: 3 }]
 const FRAME: Line = { width: 1 * PX, color: Style.LINE }
 const COLUMN_RULE: Line = { width: 1 * PX, color: Style.LINE, sides: [Side.Left] }
 const TRACK_WIDTH = 170 * PX
@@ -683,7 +685,7 @@ public class Professions implements Module, App {
             <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
                           kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
             <box $else columns={GRID} rows={FILL} gap={space(.Group)}>
-              <box rows={SIDE} gap={space(.Item)}>
+              <box rows={SIDE} gap={space(.Item)} minWidth={Style.LISTS_LEAST}>
                 <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
                   <FilterButton open={mut self.filterOpen} makeable={mut self.onlyMake} skillUp={mut self.onlySkill}
                                 learned={mut self.showLearned} unlearned={mut self.showUnlearned}
@@ -702,11 +704,11 @@ public class Professions implements Module, App {
                 </box>
                 <box $elseif={self.inColumns} columns={LISTS} rows={FILL} border={FRAME}
                      background={Style.LISTS_BACK}>
-                  <box overflow={Overflow.Scroll}>
+                  <box overflow={Overflow.Scroll} minWidth={Style.CATEGORIES_LEAST}>
                     <CategoryRow $for={index, group of self.groups} $key={group.id} group={group} index={index}
                                  chosen={self.chosenCategory} @pick={self.pickCategory} />
                   </box>
-                  <box overflow={Overflow.Scroll} border={COLUMN_RULE}>
+                  <box overflow={Overflow.Scroll} border={COLUMN_RULE} minWidth={Style.RECIPES_LEAST}>
                     <RecipeRow $for={index, recipe of self.recipes} $key={recipe.id} recipe={recipe} index={index}
                                chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                @act={self.onAct} />

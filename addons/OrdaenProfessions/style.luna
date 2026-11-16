@@ -4,11 +4,14 @@ import Game from "$game"
 import { Line, Shadow, Side, Stated } from "$ltml"
 import { PX } from "Ordaen"
 
-// The body, and its parts: the recipes' side (the search and the lists), the categories' column.
-public const WIDTH: Number = 1060 * PX
+// The body. The recipes' side (the search and the lists) and the recipe's card share its width; the lists are never
+// narrower than these, which hold all but the longest names of a category and a recipe on one line, and the
+// recipes' side never narrower than both.
+public const WIDTH: Number = 1140 * PX
 public const HEIGHT: Number = 700 * PX
-public const LEFT: Number = 530 * PX
-public const CATEGORIES: Number = 250 * PX
+public const CATEGORIES_LEAST: Number = 260 * PX
+public const RECIPES_LEAST: Number = 340 * PX
+public const LISTS_LEAST: Number = CATEGORIES_LEAST + RECIPES_LEAST
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")
