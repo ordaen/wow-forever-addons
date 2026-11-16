@@ -319,10 +319,10 @@ test "a click right of a window's tabs reaches the window under them" {
   const tab = Test.holding("Gamma", nil)
   Test.moveTo(tab)
   Test.press(nil)
-  // The client starts the drag once the cursor has moved: from there on the window follows it.
+  // The client starts the drag once the cursor has moved: the window has followed it from the press.
   Test.moveTo({ x: tab.x + 1, y: tab.y })
   Test.pass(0.02)
-  Test.moveTo({ x: tab.x + 31, y: tab.y })
+  Test.moveTo({ x: tab.x + 30, y: tab.y })
   Test.pass(0.1)
   Test.release(nil)
   Test.expect((desk.gamma.placing.x - was - 30).abs() < 1)

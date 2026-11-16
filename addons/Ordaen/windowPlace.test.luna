@@ -33,7 +33,7 @@ test "a window resized a fraction of a pixel at a time holds its tab and its bod
   Test.moveTo({ x: grip.x + 1, y: grip.y })
   Test.pass(0.05)
   for (step of 1..=12) {
-    Test.moveTo({ x: grip.x + 1 + step * 0.25, y: grip.y + step * 0.25 })
+    Test.moveTo({ x: grip.x + step * 0.25, y: grip.y + step * 0.25 })
     Test.pass(0.02)
     const now = Test.edges(Ordaen.art.window.wood, 0)
     const at = Test.holding("Recipes", nil)
@@ -54,7 +54,7 @@ test "a window closed and opened again stands where its tab row left it, its cor
   Test.press(nil)
   Test.moveTo({ x: tab.x + 1, y: tab.y })
   Test.pass(0.05)
-  Test.moveTo({ x: tab.x - 199, y: tab.y + 80 })
+  Test.moveTo({ x: tab.x - 200, y: tab.y + 80 })
   Test.pass(0.05)
   Test.release(nil)
   const moved = Test.edges(Ordaen.art.window.wood, 1)

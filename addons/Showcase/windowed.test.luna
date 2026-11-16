@@ -14,7 +14,7 @@ function dragBy(at: Test.Point, dx: Number, dy: Number) {
   Test.press(nil)
   Test.moveTo({ x: at.x + 1, y: at.y })
   Test.pass(0.05)
-  Test.moveTo({ x: at.x + 1 + dx, y: at.y + dy })
+  Test.moveTo({ x: at.x + dx, y: at.y + dy })
   Test.pass(0.05)
   Test.release(nil)
 }

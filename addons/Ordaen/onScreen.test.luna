@@ -43,14 +43,15 @@ struct Case {
   y: Number
 }
 
-// Take what is at `at` and let it go at `to`: the drag begins a pixel to the right, and goes as far as `to` is from
-// `at`.
+// Take what is at `at` and let it go at `to`: the client starts the drag a pixel on, and it is measured from the press.
 function drag(at: Test.Point, to: Test.Point) {
   Test.moveTo(at)
   Test.press(nil)
-  Test.moveTo({ x: at.x + 1, y: at.y })
+  const across = to.x > at.x ? 1 : (to.x < at.x ? -1 : 0)
+  const down = to.y > at.y ? 1 : (to.y < at.y ? -1 : 0)
+  Test.moveTo({ x: at.x + across, y: at.y + down })
   Test.pass(0.05)
-  Test.moveTo({ x: to.x + 1, y: to.y })
+  Test.moveTo(to)
   Test.pass(0.05)
   Test.release(nil)
 }
