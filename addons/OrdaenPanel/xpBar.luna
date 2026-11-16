@@ -6,7 +6,7 @@
 // the value is, what is left to the next level or standing, and the rested bonus, each with its part of the level's
 // (or the standing's) whole.
 import Game from "$game"
-import { Align, Art, Bounds, Edges, Line, Percent, Position, Shadow, Side, Track } from "$ltml"
+import { Align, Art, Bounds, Edges, Line, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, SECONDARY_TEXT, Tip, TipRow, XpFill, number, xpFillArt } from "Ordaen"
 import { XpView } from "@/choices"
@@ -104,10 +104,14 @@ function currentOf(part: Integer, whole: Integer): String {
 public class Tube implements Component {
   state over: Over = Over.Off
   derived inset: Number<Length> = self.height * 10 / 64
-  derived filled: Percent = { percent: share(self.value, self.least, self.most) }
-  derived behind: Percent = { percent: share(self.value + self.ahead, self.least, self.most) }
-  // The part past the fill alone, where the cursor finds the paler part's tooltip; the rest of the tube is the bar's.
-  derived parts: Array<Track> = [self.filled, { percent: self.behind.percent - self.filled.percent }, { fr: 1 }]
+  // How far the value has got, and the paler part past it, in hundredths of the tube.
+  derived filled: Number = share(self.value, self.least, self.most)
+  derived behind: Number = share(self.value + self.ahead, self.least, self.most)
+  // The tube in columns that share it: the fill and the rest; the paler part and the rest; and the part past the
+  // fill alone, where the cursor finds the paler part's tooltip (the rest of the tube is the bar's).
+  derived fillParts: Array<Track> = [{ fr: self.filled }, { fr: 100 - self.filled }]
+  derived behindParts: Array<Track> = [{ fr: self.behind }, { fr: 100 - self.behind }]
+  derived parts: Array<Track> = [{ fr: self.filled }, { fr: self.behind - self.filled }, { fr: 100 - self.behind }]
   derived label: String = self.labelOf(1)
   derived dimmed: String = self.labelOf(2)
   derived hasDimmed: Boolean = self.dimmed != ""
@@ -190,9 +194,16 @@ public class Tube implements Component {
         // either on top.
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              zLevel={1}>
-          <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={self.behind} background={RESTED} />
-          <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={self.filled}
-               background={self.fill} tint={self.tint} desaturate={self.tinted} zLevel={1} />
+          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.behindParts}
+               rows={FILL}>
+            <box background={RESTED} />
+            <box />
+          </box>
+          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={self.fillParts}
+               rows={FILL} zLevel={1}>
+            <box background={self.fill} tint={self.tint} desaturate={self.tinted} />
+            <box />
+          </box>
           <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={10} rows={FILL}
                zLevel={2}>
             <box $for={cell of CELLS} border={MARK} />
