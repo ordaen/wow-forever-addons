@@ -105,6 +105,39 @@ test "each quality has its own border colour, lit inside from uncommon up, a slo
   destroy slot
 }
 
+// The client's tooltip of three items: one with a requirement it marks unmet, one of a kind it marks the player's
+// class can't use, and one it marks as met.
+function tipOf(id: Integer): Game.TooltipData | nil {
+  if (id == 774) { return { lines: [{ left: "Requires Level 57", kind: 0, usable: false }] } }
+  if (id == 2592) { return { lines: [{ left: "Plate", kind: 0, validType: false }] } }
+  if (id == 2589) { return { lines: [{ left: "Requires Level 5", kind: 0, usable: true }] } }
+  return nil
+}
+
+test "an item the client says the player can't use is tinted red over its icon; the others are drawn as they are" {
+  Game.items.icon = (id: Integer): Art | nil => "Interface/Icons/INV_Misc_Bag_08"
+  Game.items.tooltip = (id: Integer): Game.TooltipData | nil => tipOf(id)
+  let slot = new Slot()
+  const button = slot.button ?? panic("the slot makes its button")
+  for (id of [774, 2592, 2589, 6948]) {
+    slot.item = id
+    Test.note("%d: %s".format(id, button.usable ? "usable" : "not usable"))
+  }
+  slot.item = 774
+  Test.expect(!button.usable)
+  slot.item = 2589
+  Test.expect(button.usable)
+  slot.item = nil
+  Test.expect(button.usable)
+  destroy slot
+
+  let page = new Bag()
+  Test.mount(page, { left: 0, top: 0, width: 600, height: 200 })
+  Test.expect(Test.page().paintedWith(Color.hex("#ff1a1a")))
+  Test.shot("the poor one (a level it needs) and the uncommon one (plate) tinted red, the others as they are")
+  destroy page
+}
+
 test "an icon is drawn for each slot that has one" {
   Game.items.icon = (id: Integer): Art | nil => id == 9999 ? nil : "Interface/Icons/INV_Misc_Bag_08"
   let page = new Bag()
