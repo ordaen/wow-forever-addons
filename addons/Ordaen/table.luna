@@ -128,7 +128,7 @@ public class TableRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={self.tracks} gap={space(.Item)} padding={ROW_PADDING} yAlign={Align.Center} background={self.background}
-           @click={self.onClick}>
+           @click.self={self.onClick}>
         <slot />
       </box>
     }
