@@ -19,7 +19,7 @@ class HoverRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box height={80} @enter={self.onEnter} @leave={self.onLeave}>
+      <box height={80ui} @enter={self.onEnter} @leave={self.onLeave}>
         <text value={self.name} />
         <Tip $if={self.hovered} title={self.title} text={""} />
       </box>
@@ -32,7 +32,7 @@ class Rows {
 
   public render(self): Template {
     return $ltml {
-      <box height={200} overflow={Overflow.Scroll} columns={1}>
+      <box height={200ui} overflow={Overflow.Scroll} columns={1}>
         <HoverRow $for={name of self.names} $key={name} name={name} />
       </box>
     }

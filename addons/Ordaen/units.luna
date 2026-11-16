@@ -1,26 +1,28 @@
-// UI units a design px is at the user's scale (a 1440p screen).
-public const PX: Number = 1 / 1.2
-
 // The spacing ladder: every room a window keeps round and between what it shows is one of these steps, and nothing
-// else. In design px (at the user's 2560×1440, one of them a screen pixel), each on the 4 px grid and each a clear
-// step from the next, so the eye reads which things belong together:
-// `Line` (4): between the lines of one block of text (a tooltip's title, its sentences, its rows); an underline
-// stands in the middle of it, under its text.
-// `Item` (8): between the things of one group (the buttons of a row, a label and its value, the rows of a list's
-// lines); the least room anything keeps from a frame's line, which the drawn rules hold every text to.
-// `Panel` (16): inside a panel or a list's frame, from its line to what it holds.
-// `Group` (20): between groups (the toolbar and the list under it, the list and the details beside it, the body
-// and the footer); more than a line of body text (15.6), so groups read apart.
-// `Window` (24): inside a window's frame, from its line to its content, more than any gap inside it.
+// else. Each a clear step from the next, so the eye reads which things belong together:
+// `Line` (4.6875dp): between the lines of one block of text (a tooltip's title, its sentences, its rows); an
+// underline stands in the middle of it, under its text.
+// `Item` (9.375dp): between the things of one group (the buttons of a row, a label and its value, the rows of a
+// list's lines); the least room anything keeps from a frame's line, which the drawn rules hold every text to.
+// `Panel` (18.75dp): inside a panel or a list's frame, from its line to what it holds.
+// `Group` (23.4375dp): between groups (the toolbar and the list under it, the list and the details beside it, the
+// body and the footer); more than a line of body text, so groups read apart.
+// `Window` (28.125dp): inside a window's frame, from its line to its content, more than any gap inside it.
 public enum Space { Line, Item, Panel, Group, Window }
 
-// A step of the ladder in UI units: a constant where the step is written out (`space(.Panel)` is built as a number).
-public const function space(step: Space): Number {
+// A step of the ladder: a constant where the step is written out (`space(.Panel)` is built as a number).
+public const function space(step: Space): Number<Length> {
   return match (step) {
-    .Line => 4 * PX
-    .Item => 8 * PX
-    .Panel => 16 * PX
-    .Group => 20 * PX
-    .Window => 24 * PX
+    .Line => 4.6875dp
+    .Item => 9.375dp
+    .Panel => 18.75dp
+    .Group => 23.4375dp
+    .Window => 28.125dp
   }
 }
+
+// The text sizes besides the body's (`1rem`, a text that names none): a description, a hint, a detail under a name,
+// a tab's subtitle; and a window's or a tooltip's title. Hierarchy is shown by colour, a border or a gap before a
+// size.
+public const SECONDARY_TEXT: Number<TextSize> = 12rem / 13
+public const TITLE_TEXT: Number<TextSize> = 16rem / 13

@@ -41,12 +41,12 @@ class Rows {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["auto", "auto"]} gap={40}>
-        <box padding={8} @click={self.onRow}>
+      <box columns={["max-content", "max-content"]} gap={40ui}>
+        <box padding={8ui} @click={self.onRow}>
           <text value={"Recipe row"} />
           <Menu $if={self.open} entries={self.entries} @pick={self.onPick} @close={self.onClose} />
         </box>
-        <box padding={8} @click={self.onBeside}>
+        <box padding={8ui} @click={self.onBeside}>
           <text value={"Beside"} />
         </box>
       </box>

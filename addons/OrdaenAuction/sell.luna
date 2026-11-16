@@ -5,7 +5,7 @@
 // a click (the client's from a click alone). «My auctions» opens their window.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Memory, Money, MoneyField, PX, PushButton, Segmented, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Choice, Column, Component, Copper, CountInput, ItemButton, ItemId, Memory, Money, MoneyField, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, space, tracksOf } from "Ordaen"
 import { PriceHistory } from "@/history"
 import { House, nameOf } from "@/house"
 import { ItemPanel } from "@/itemPanel"
@@ -32,21 +32,21 @@ const VENDOR_COLUMN = 4
 
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 }, sortable: true },
-  { title: Locale.COLUMN_COUNT, width: 64 * PX, align: Align.End },
-  { title: Locale.COLUMN_MARKET, width: 96 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_VENDOR, width: 96 * PX, align: Align.End, sortable: true },
-  { title: Locale.COLUMN_BETTER, width: 90 * PX }
+  { title: Locale.COLUMN_COUNT, width: 75dp, align: Align.End },
+  { title: Locale.COLUMN_MARKET, width: 112.5dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_VENDOR, width: 112.5dp, align: Align.End, sortable: true },
+  { title: Locale.COLUMN_BETTER, width: 105.46875dp }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 // The bags' side, and the picked item's panel at the right, the page's whole height.
 const PAGE: Array<Track> = [{ fr: 1 }, Style.PANEL]
 const FILL: Array<Track> = [{ fr: 1 }]
-const SIDE: Array<Track> = ["auto", { fr: 1 }]
-const TOOLS: Array<Track> = [{ fr: 1 }, "auto"]
-const ITEM: Array<Track> = ["auto", { fr: 1 }]
+const SIDE: Array<Track> = ["max-content", { fr: 1 }]
+const TOOLS: Array<Track> = [{ fr: 1 }, "max-content"]
+const ITEM: Array<Track> = ["max-content", { fr: 1 }]
 // A label at the left, its value or control at the right.
-const PAIR: Array<Track> = [{ fr: 1 }, "auto"]
-const STEP = 28 * PX
+const PAIR: Array<Track> = [{ fr: 1 }, "max-content"]
+const STEP = 32.8125dp
 const DURATIONS: Array<Choice<Game.Duration>> = [
   { value: Game.Duration.Short, label: Locale.HOURS.format(12) },
   { value: Game.Duration.Medium, label: Locale.HOURS.format(24) },
@@ -76,7 +76,7 @@ class OfferedRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS} selected={self.selected} @pick={self.onPick}>
-        <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
+        <box columns={ITEM} gap={9.375dp} yAlign={Align.Center}>
           <ItemButton item={self.offered.item} size={Style.SLOT} />
           <box overflow={.Hidden}>
             <text value={self.offered.name} textColor={self.offered.color} wrap={false} />
@@ -277,9 +277,9 @@ public class Posting implements Component {
             <Money $if={self.deposit != nil} amount={self.depositAmount} />
             <text $else value={"—"} textColor={Style.DIM} />
           </box>
-          <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={.Secondary} />
+          <text value={Locale.POSTING_RULE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
           <box>
-            <text $if={self.hasRefused} value={self.refusedText} textColor={Style.RED} textSize={.Secondary} />
+            <text $if={self.hasRefused} value={self.refusedText} textColor={Style.RED} textSize={SECONDARY_TEXT} />
           </box>
           <PushButton label={Locale.POST} width={Style.PANEL_BUTTON} accent={true} disabled={!self.canPost}
                       @click={self.onPost} />

@@ -20,31 +20,31 @@ import { XpBar } from "@/xpBar"
 const INK: Color = Color.hex("#e8dcc4")
 // The time while calendar invites wait.
 const PENDING: Color = Color.hex("#ff9933")
-const TEXT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
-const NO_SHADOW: Shadow = { color: Color.hex("#00000000"), x: 0, y: 0 }
+const TEXT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
+const NO_SHADOW: Shadow = { color: Color.hex("#00000000"), x: 0ui, y: 0ui }
 // Under the metal along its inner side the content starts 4 further in.
-const EDGE_ROOM_TOP = 4
+const EDGE_ROOM_TOP = 4ui
 const EDGE_ROOM: Edges = { top: EDGE_ROOM_TOP }
 // The metal's width along the inner side (Ordaen's `panel.edge`).
-const METAL = 3
+const METAL = 3ui
 // The least the panel is high: a cell, a fixed size, under the metal and the room along it. A height saved lower is
 // read as this.
-const LEAST_HEIGHT = CELL_HEIGHT + METAL + EDGE_ROOM_TOP
+const LEAST_HEIGHT: Number<Length> = CELL_HEIGHT + METAL + EDGE_ROOM_TOP
 // Where the free parts stand until the player moves them: above the bottom of the screen.
-const MICRO_HOME: Anchored = { point: Point.BottomLeft, x: 140, y: -10 }
-const SOCIAL_HOME: Anchored = { point: Point.BottomLeft, x: 660, y: -10 }
-const EXPERIENCE_HOME: Anchored = { point: Point.Bottom, x: 0, y: -20 }
-const MONEY_HOME: Anchored = { point: Point.BottomRight, x: -330, y: -20 }
-const BAGS_HOME: Anchored = { point: Point.BottomRight, x: -10, y: -10 }
+const MICRO_HOME: Anchored = { point: Point.BottomLeft, x: 140ui, y: -10ui }
+const SOCIAL_HOME: Anchored = { point: Point.BottomLeft, x: 660ui, y: -10ui }
+const EXPERIENCE_HOME: Anchored = { point: Point.Bottom, x: 0ui, y: -20ui }
+const MONEY_HOME: Anchored = { point: Point.BottomRight, x: -330ui, y: -20ui }
+const BAGS_HOME: Anchored = { point: Point.BottomRight, x: -10ui, y: -10ui }
 // The zones along the panel. Across the whole edge, thirds; as long as its items, each zone as long as they are.
 // Either way an end never gives way past its items' length, and the middle is a share that does, down to its own
 // items' least (the experience bar's): on a screen too short for that the panel scrolls down a side.
 const THIRDS: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
-const FITTED: Array<Track> = ["auto", { fr: 1 }, "auto"]
+const FITTED: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 // The portrait in the screen's corner, over the panel's start; the menu keeps that much room for it.
-const PORTRAIT_WIDTH = 128
-const PORTRAIT_HEIGHT = 124
-const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "auto"]
+const PORTRAIT_WIDTH = 128ui
+const PORTRAIT_HEIGHT = 124ui
+const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "max-content"]
 const CORNER: Anchored = { point: Point.BottomLeft }
 // Ordaen Spells' title, as its module gives it.
 const SPELLS = "Ordaen Spells"
@@ -120,12 +120,12 @@ public class ZoneBox implements Component {
   tracks(self): Array<Track> {
     let list: Array<Track> = []
     for (here of [self.micro, self.socialAlone]) {
-      if (here) { list.push("auto") }
+      if (here) { list.push("max-content") }
     }
     // The experience bar takes what the others leave.
     if (self.experience) { list.push({ fr: 1 }) }
     for (here of [self.zoneName, self.clock, self.money, self.bags]) {
-      if (here) { list.push("auto") }
+      if (here) { list.push("max-content") }
     }
     return list
   }
@@ -139,7 +139,7 @@ public class ZoneBox implements Component {
         <$if={self.micro}>
           <box $if={self.panel.portraitShown} columns={PORTRAIT_ROOM} gap={space(.Item)}
                yAlign={Align.Center}>
-            <box width={PORTRAIT_WIDTH} height={1} />
+            <box width={PORTRAIT_WIDTH} height={1ui} />
             <MicroLine gold={self.panel.goldIcons} faced={false} social={self.social}
                        merged={self.panel.spellsMerged} height={self.panel.inside} />
           </box>
@@ -178,7 +178,7 @@ public class Panel implements Module, App {
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale.TAB_MICROMENU, content: $ltml { <MicroPage settings={mut self.settings} /> } },
     { title: Locale.TAB_STATUS, content: $ltml { <StatusPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} least={LEAST_HEIGHT} /> } }
+    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} least={LEAST_HEIGHT / 1ui} /> } }
   ]
 
   // The cursor on the panel, on its portrait: each a surface of its own, heard apart.
@@ -189,13 +189,13 @@ public class Panel implements Module, App {
     Ordaen.modules.add(self)
     // The room it keeps along the screen's bottom edge, told to Ordaen: its height while it is on and stands there.
     watch {
-      const taken: Number = self.settings.values.bottomOn && self.side == Side.Bottom ? self.tall : 0
+      const taken: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? self.tall : 0ui
       Ordaen.keepBottom(FOLDER, taken)
     }
   }
 
   destructor() {
-    Ordaen.keepBottom(FOLDER, 0)
+    Ordaen.keepBottom(FOLDER, 0ui)
   }
 
   // What the zones read.
@@ -245,10 +245,10 @@ public class Panel implements Module, App {
   derived rows: Array<Track> | nil = self.vertical ? self.thirds : nil
   // How far it reaches in from its edge, and how high its inside is across the screen: under the metal and the room
   // along it.
-  derived tall: Number = self.settings.values.height.max(LEAST_HEIGHT)
-  public derived inside: Number = self.tall - METAL - EDGE_ROOM_TOP
-  derived width: Number | nil = self.vertical ? self.tall : nil
-  derived height: Number | nil = self.vertical ? nil : self.tall
+  derived tall: Number<Length> = (self.settings.values.height * 1ui).max(LEAST_HEIGHT)
+  public derived inside: Number<Length> = self.tall - METAL - EDGE_ROOM_TOP
+  derived width: Number<Length> | nil = self.vertical ? self.tall : nil
+  derived height: Number<Length> | nil = self.vertical ? nil : self.tall
   derived along: Align = self.vertical ? Align.Center : Align.Stretch
   derived across: Align = self.vertical ? Align.Stretch : Align.Center
   // Down a side whose items are longer than the screen even with the middle given way: the wheel scrolls it.
@@ -337,9 +337,9 @@ public class Panel implements Module, App {
       // lays its buttons out by their places, which a hidden box doesn't have.
       <$if={self.settings.values.microOn}>
         <frame of={Game.frames.MicroMenuContainer} opacity={0} />
-        <box width={0} height={0}>
-          <embed frame={Game.frames.StoreMicroButton} width={0} height={0} opacity={0} />
-          <embed frame={Game.frames.HelpMicroButton} width={0} height={0} opacity={0} />
+        <box width={0ui} height={0ui}>
+          <embed frame={Game.frames.StoreMicroButton} width={0ui} height={0ui} opacity={0} />
+          <embed frame={Game.frames.HelpMicroButton} width={0ui} height={0ui} opacity={0} />
         </box>
       </>
       <$if={self.settings.values.statusOn}>
@@ -365,12 +365,12 @@ public class Panel implements Module, App {
         <surface $if={self.portraitShown} layer={Layer.Screen} place={CORNER} width={PORTRAIT_WIDTH}
                  height={PORTRAIT_HEIGHT} portrait={self.face} icon={self.classIcon} mask={Ordaen.art.panel.corner}
                  opacity={self.opacity} hoverWithin={true} @enter={self.onPortraitEnter} @leave={self.onPortraitLeave}>
-          <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0} top={0}
+          <embed frame={Game.frames.CharacterMicroButton} position={Position.Absolute} left={0ui} top={0ui}
                  width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT} opacity={0} />
           // The rim along the top and down the right, over the face: drawn over the box its shape is cut to.
-          <box position={Position.Absolute} left={0} top={0} width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT}
+          <box position={Position.Absolute} left={0ui} top={0ui} width={PORTRAIT_WIDTH} height={PORTRAIT_HEIGHT}
                background={Ordaen.art.panel.cornerRim} />
-          <box position={Position.Absolute} left={86.7} top={5.3} width={36} height={36}
+          <box position={Position.Absolute} left={86.7ui} top={5.3ui} width={36ui} height={36ui}
                background={Ordaen.art.panel.badge} xAlign={Align.Center} yAlign={Align.Center} zLevel={1}>
             <text value={"%d"} arguments={[Game.player.level]} textColor={Ordaen.look.values.accent}
                   wrap={false} />
@@ -393,7 +393,7 @@ public class Panel implements Module, App {
       </Placed>
       <Placed $if={self.freeExperience} id={"OrdaenPanel.experience"} title={Locale.PANEL_EXPERIENCE}
               home={EXPERIENCE_HOME}>
-        <box width={600} background={Ordaen.art.window.wood} border={Ordaen.art.frame.small}
+        <box width={600ui} background={Ordaen.art.window.wood} border={Ordaen.art.frame.small}
              padding={space(.Item)}>
           <XpBar fill={self.xpFill} bezel={self.xpBezel} view={self.xpView} />
         </box>

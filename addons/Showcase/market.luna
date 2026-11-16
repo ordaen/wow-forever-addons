@@ -30,8 +30,8 @@ const ORDERS: Array<Choice<Order>> = [
 
 const COLUMNS: Array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
-  { title: "Each", width: 120, align: Align.End, sortable: true },
-  { title: "Age", width: 60, align: Align.End, sortable: true }
+  { title: "Each", width: 120ui, align: Align.End, sortable: true },
+  { title: "Age", width: 60ui, align: Align.End, sortable: true }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 
@@ -106,7 +106,7 @@ public class Market implements Component {
             <ProgressBar fraction={self.scanned} label={"Scanning"} />
           </SettingRow>
           <SettingRow label={"Price"}>
-            <box columns={["auto", "auto"]} gap={space(.Item)}>
+            <box columns={["max-content", "max-content"]} gap={space(.Item)}>
               <Money amount={self.price} />
               <Age seconds={self.seen} />
             </box>
@@ -119,7 +119,7 @@ public class Market implements Component {
             <Segmented value={mut self.worth} choices={WORTHS} />
           </SettingRow>
           <SettingRow label={"Bought"}>
-            <box columns={["auto", "auto", "auto"]} gap={space(.Item)}>
+            <box columns={["max-content", "max-content", "max-content"]} gap={space(.Item)}>
               <ItemButton item={6948} count={5} quality={Quality.Rare} markers={FLAGS} @pick={self.onItem} />
               <ItemButton item={2589} count={20} quality={Quality.Epic} @pick={self.onItem} />
               <ItemButton item={nil} />
@@ -152,14 +152,14 @@ public class Market implements Component {
         </Section>
         <Section title={"Menus"}>
           <SettingRow label={"Toolbar"}>
-            <box width={300}>
+            <box width={300ui}>
               <Toolbar search={mut self.search} placeholder={"Search"}>
                 <ToolPick value={mut self.sortBy} choices={ORDERS} icon={Ordaen.art.ctl.tool.sort} title={"Sort"} />
               </Toolbar>
             </box>
           </SettingRow>
           <SettingRow label={"Context menu"}>
-            <box padding={4} @click={self.onMenuBox}>
+            <box padding={4ui} @click={self.onMenuBox}>
               <text value={"Right-click here"} />
               <Menu $if={self.menuOpen} entries={self.menuEntries} @pick={self.onMenuPick} @close={self.onMenuClose} />
             </box>

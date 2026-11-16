@@ -15,11 +15,10 @@ import { Options } from "@/options"
 import { term } from "@/term"
 import { unitOf } from "@/unit"
 
-const PX = 1 / 1.2
-const GAP = 4 * PX
+const GAP = 4.6875dp
 // With a comparison shown the main tooltip sits this much lower, so its title lines up with the worn item's under
 // its «Equipped» header.
-const LOWERED: Edges = { top: 35 * PX }
+const LOWERED: Edges = { top: 41.015625dp }
 const LEVEL: Edges = {}
 
 // Where a group stands by a frame of the game's.

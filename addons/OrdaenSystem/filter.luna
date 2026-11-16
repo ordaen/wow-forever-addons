@@ -4,7 +4,7 @@
 // next kind, a click anywhere else closes it. The button is lit while any kind narrows the list.
 import { Beside, Edges, Layer, Line } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, DropdownItem, PX, ToolButton } from "Ordaen"
+import { Choice, Component, DropdownItem, SECONDARY_TEXT, ToolButton } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
 
@@ -46,11 +46,11 @@ const WRITTEN: Array<Choice<Written>> = [
 ]
 
 // As a ToolPick's list.
-const WIDTH = 230 * PX
+const WIDTH = 269.53125dp
 const BACK: Color = Color.hex("#0a0806f7")
-const EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
-const PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
-const HEADING: Edges = { top: 6 * PX, right: 14 * PX, bottom: 2 * PX, left: 14 * PX }
+const EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
+const HEADING: Edges = { top: 7.03125dp, right: 16.40625dp, bottom: 2.34375dp, left: 16.40625dp }
 
 // The label of a kind's choice, where it narrows the list.
 function narrowing<T: Unknown>(choices: Array<Choice<T>>, value: T, all: T, list: mut Array<String>) {
@@ -110,25 +110,25 @@ public class FilterPick implements Component {
         <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH}
                  background={BACK} border={EDGE} padding={PAD} columns={1} @clickOutside={self.close}>
           <box padding={HEADING}>
-            <text value={Locale.FILTER_PERFORMANCE} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+            <text value={Locale.FILTER_PERFORMANCE} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
           </box>
           <DropdownItem $for={choice of HEATS} choice={choice} value={self.heat} compact={true} @pick={self.onHeat} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_STATE} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+            <text value={Locale.FILTER_STATE} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
           </box>
           <DropdownItem $for={choice of STANDINGS} choice={choice} value={self.standing} compact={true}
                         @pick={self.onStanding} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_VERSION} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+            <text value={Locale.FILTER_VERSION} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
           </box>
           <DropdownItem $for={choice of AGES} choice={choice} value={self.age} compact={true} @pick={self.onAge} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_LOADING} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+            <text value={Locale.FILTER_LOADING} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
           </box>
           <DropdownItem $for={choice of LOADINGS} choice={choice} value={self.loading} compact={true}
                         @pick={self.onLoading} />
           <box padding={HEADING}>
-            <text value={Locale.FILTER_RUNTIME} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+            <text value={Locale.FILTER_RUNTIME} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
           </box>
           <DropdownItem $for={choice of WRITTEN} choice={choice} value={self.written} compact={true}
                         @pick={self.onWritten} />

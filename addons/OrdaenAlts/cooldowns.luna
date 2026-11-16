@@ -1,7 +1,7 @@
 // «Cooldowns»: each recipe with a cooldown, per character, ready now or the hour it will be.
 import Game from "$game"
 import { Align, Overflow, Track } from "$ltml"
-import { Column, Component, Hour, PX, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Column, Component, Hour, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
 import Locale from "@/locales"
 import { Records } from "@/records"
 import Style from "@/style"
@@ -9,7 +9,7 @@ import Style from "@/style"
 const COLUMNS: Array<Column> = [
   { title: Locale.COL_RECIPE, width: { fr: 3 }, sortable: true },
   { title: Locale.COL_NAME, width: { fr: 2 }, sortable: true },
-  { title: Locale.COL_READY, width: 140 * PX, align: Align.End, sortable: true }
+  { title: Locale.COL_READY, width: 164.0625dp, align: Align.End, sortable: true }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 
@@ -39,7 +39,7 @@ public class Cooldowns implements Component {
   derived ordered: Array<Wait> = self.order()
   derived empty: Boolean = self.waits.length == 0
   // The table scrolls in the window's height, below the note while there is one.
-  derived rows: Array<Track> = self.empty ? ["auto", { fr: 1 }] : [{ fr: 1 }]
+  derived rows: Array<Track> = self.empty ? ["max-content", { fr: 1 }] : [{ fr: 1 }]
 
   const records: Records
   touched: Signal<Integer>
@@ -79,7 +79,7 @@ public class Cooldowns implements Component {
   public render(self): Template {
     return $ltml {
       <box rows={self.rows} gap={space(.Group)}>
-        <text $if={self.empty} value={Locale.NO_COOLDOWNS} textSize={.Secondary} textColor={Style.DIM} />
+        <text $if={self.empty} value={Locale.NO_COOLDOWNS} textSize={SECONDARY_TEXT} textColor={Style.DIM} />
         <box overflow={Overflow.Scroll}>
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
             <TableRow $for={wait of self.ordered} $key={wait} tracks={TRACKS}>

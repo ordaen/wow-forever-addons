@@ -2,10 +2,10 @@
 import Game from "$game"
 import { Align, Art, Click } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, PX } from "Ordaen"
+import { Component } from "Ordaen"
 
-const CELL = 34 * PX
-const ICON = CELL - 4 * PX
+const CELL = 39.84375dp
+const ICON = CELL - 4.6875dp
 
 public class DrawerEntry implements Component {
   public hover: Event<String> = new Event()

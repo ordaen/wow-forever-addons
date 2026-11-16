@@ -4,7 +4,7 @@
 // the client's from a click alone). «Check» asks the client for them again and browses their items.
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Column, Component, ItemButton, Memory, Money, PX, PushButton, Table, TableRow, space, tracksOf } from "Ordaen"
+import { Column, Component, ItemButton, Memory, Money, PushButton, SECONDARY_TEXT, Table, TableRow, space, tracksOf } from "Ordaen"
 import { House, nameOf } from "@/house"
 import Locale from "@/locales"
 import { PriceKey } from "@/quote"
@@ -14,18 +14,18 @@ import { leftText } from "@/style"
 // A window docked at the screen's right is narrow: whether it is the lowest stands under the item's name.
 const COLUMNS: Array<Column> = [
   { title: Locale.COLUMN_ITEM, width: { fr: 1 } },
-  { title: Locale.COLUMN_COUNT, width: 48 * PX, align: Align.End },
-  { title: Locale.COLUMN_UNIT, width: 90 * PX, align: Align.End },
-  { title: Locale.COLUMN_LEFT, width: 56 * PX, align: Align.End },
-  { title: "", width: 96 * PX, align: Align.End }
+  { title: Locale.COLUMN_COUNT, width: 56.25dp, align: Align.End },
+  { title: Locale.COLUMN_UNIT, width: 105.46875dp, align: Align.End },
+  { title: Locale.COLUMN_LEFT, width: 65.625dp, align: Align.End },
+  { title: "", width: 112.5dp, align: Align.End }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
-const ITEM: Array<Track> = ["auto", { fr: 1 }]
-const LINES: Array<Track> = ["auto", "auto"]
+const ITEM: Array<Track> = ["max-content", { fr: 1 }]
+const LINES: Array<Track> = ["max-content", "max-content"]
 // The list, the rest of the window's height; «Check» and what it does under it.
-const PAGE: Array<Track> = [{ fr: 1 }, "auto"]
+const PAGE: Array<Track> = [{ fr: 1 }, "max-content"]
 const FILL: Array<Track> = [{ fr: 1 }]
-const BUTTONS: Array<Track> = ["auto", { fr: 1 }]
+const BUTTONS: Array<Track> = ["max-content", { fr: 1 }]
 
 // One auction, as its row draws it.
 public struct Shown {
@@ -66,11 +66,11 @@ class OwnedRow implements Component {
   public render(self): Template {
     return $ltml {
       <TableRow tracks={TRACKS}>
-        <box columns={ITEM} gap={8 * PX} yAlign={Align.Center}>
+        <box columns={ITEM} gap={9.375dp} yAlign={Align.Center}>
           <ItemButton item={self.shown.item} size={Style.SLOT} />
           <box rows={LINES} overflow={.Hidden}>
             <text value={self.shown.name} textColor={self.shown.color} wrap={false} />
-            <text value={self.lowest} textColor={self.lowestColor} textSize={.Secondary} wrap={false} />
+            <text value={self.lowest} textColor={self.lowestColor} textSize={SECONDARY_TEXT} wrap={false} />
           </box>
         </box>
         <box xAlign={Align.End}>
@@ -83,7 +83,7 @@ class OwnedRow implements Component {
           <text value={self.shown.left} textColor={Style.INK} />
         </box>
         <box xAlign={Align.End}>
-          <PushButton $if={!self.shown.sold} label={Locale.CANCEL_AUCTION} width={96 * PX} disabled={self.busy}
+          <PushButton $if={!self.shown.sold} label={Locale.CANCEL_AUCTION} width={112.5dp} disabled={self.busy}
                       @click={self.onCancel} />
         </box>
       </TableRow>
@@ -166,8 +166,8 @@ public class OwnedPage implements Component {
           </Table>
         </box>
         <box columns={BUTTONS} gap={space(.Group)} yAlign={Align.Center}>
-          <PushButton label={Locale.CHECK} width={140 * PX} @click={self.onCheck} />
-          <text value={Locale.CHECK_NOTE} textColor={Style.DIM} textSize={.Secondary} />
+          <PushButton label={Locale.CHECK} width={164.0625dp} @click={self.onCheck} />
+          <text value={Locale.CHECK_NOTE} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
         </box>
       </box>
     }

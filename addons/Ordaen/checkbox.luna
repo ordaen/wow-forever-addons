@@ -5,9 +5,8 @@ import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { SettingRow } from "@/settingRow"
 import { knobShown } from "@/switch"
-import { PX } from "@/units"
 
-const SIZE = 22 * PX
+const SIZE = 25.78125dp
 
 // Tick: the bare box of a checkbox, a dark well with a bronze edge and a gold tick while on: for a list's rows, where a
 // settings row's label has no room. Left-click toggles it; disabled, it takes no click.
@@ -29,11 +28,11 @@ public class Tick implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.disabled} width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} opacity={0.45}>
-        <box position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
+        <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
              background={Ordaen.art.ctl.tick} opacity={self.tick} />
       </box>
       <box $else width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @click={self.toggle}>
-        <box position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
+        <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
              background={Ordaen.art.ctl.tick} opacity={self.tick} />
       </box>
     }
@@ -69,7 +68,7 @@ public class Checkbox implements Component {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check} @click={self.toggle}>
-          <box position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE}
+          <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
                background={Ordaen.art.ctl.tick} opacity={self.tick} />
         </box>
       </SettingRow>

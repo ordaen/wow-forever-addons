@@ -5,16 +5,15 @@ import root Ordaen from "Ordaen"
 import { ListTab } from "@/listTab"
 import { Component, Entry, Module, SettingsPage } from "@/module"
 import { knobShown } from "@/switch"
-import { PX } from "@/units"
 
-const WIDTH = 38 * PX
-const HEIGHT = 20 * PX
+const WIDTH = 44.53125dp
+const HEIGHT = 23.4375dp
 // The knob's art is a 26 px square with the 14 px knob in its middle: 3 px in from the track's left while off, 21
 // while on, and 3 px down.
-const KNOB = 26 * PX
-const KNOB_TOP = (3 - 6) * PX
-const KNOB_OFF = (3 - 6) * PX
-const KNOB_ON = (21 - 6) * PX
+const KNOB = 30.46875dp
+const KNOB_TOP = -3.515625dp
+const KNOB_OFF = -3.515625dp
+const KNOB_ON = 17.578125dp
 const PREFIX = "Ordaen "
 
 // A module the player has, as the settings window lists it: its addon's name, title and icon from its TOC; it runs

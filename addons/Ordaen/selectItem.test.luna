@@ -5,7 +5,7 @@ import { SelectItem, selectedFill } from "@/selectItem"
 
 const GREEN: Color = Color.hex("#40c040")
 const ORANGE: Color = Color.hex("#ff8040")
-const NAME_COUNT: Array<Track> = [{ fr: 1 }, "auto"]
+const NAME_COUNT: Array<Track> = [{ fr: 1 }, "max-content"]
 
 class Sidebar {
   state picked = "Bags"
@@ -26,7 +26,7 @@ class Sidebar {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} width={300}>
+      <box columns={1} width={300ui}>
         <SelectItem selected={self.picked == "Bags"} first={true} columns={NAME_COUNT} @pick={self.onBags}>
           <text value={"Bags"} />
           <text value={"[2]"} />

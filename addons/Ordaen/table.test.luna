@@ -16,9 +16,9 @@ public struct Sale {
 
 const COLUMNS: Array<Column> = [
   { title: "Item", width: { fr: 1 }, sortable: true },
-  { title: "Price", width: 110, align: Align.End, sortable: true },
-  { title: "Age", width: 50, align: Align.End, sortable: true },
-  { title: "Note", width: 60 }
+  { title: "Price", width: 110ui, align: Align.End, sortable: true },
+  { title: "Age", width: 50ui, align: Align.End, sortable: true },
+  { title: "Note", width: 60ui }
 ]
 const TRACKS: Array<Track> = tracksOf(COLUMNS)
 
@@ -32,7 +32,7 @@ class Sales {
   public state descending = false
   public state picked = ""
   public state clicks = 0
-  public state height: Number | nil = nil
+  public state height: Number<Length> | nil = nil
   public derived ordered: Array<Sale> = self.order()
 
   order(self): Array<Sale> {
@@ -125,7 +125,7 @@ test "a heading click sorts by its column and again reverses it, the rows' own c
   Test.expect(Test.blank())
 }
 
-const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
+const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 
 function many(count: Integer): Array<Sale> {
   let list: Array<Sale> = []
@@ -141,7 +141,7 @@ class Long {
 
   public render(self): Template {
     return $ltml {
-      <box height={200} rows={PAGE}>
+      <box height={200ui} rows={PAGE}>
         <text value={"head"} />
         <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
           <TableRow $for={sale of self.sales} $key={sale} tracks={TRACKS}>
@@ -180,7 +180,7 @@ test "a table in a row that shares takes what is left, its body scrolls, and of 
 test "a body given a height scrolls past it, the headings stay" {
   let page = new Sales()
   Test.mount(page, { left: 0, top: 0, width: 500, height: 300 })
-  page.height = 40
+  page.height = 40ui
   Test.shot("the body 40 high: the first row and part of the next, the headings over them")
 
   Test.moveTo(Test.holding("Copper Bar", nil))

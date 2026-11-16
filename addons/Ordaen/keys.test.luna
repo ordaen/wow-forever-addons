@@ -25,7 +25,7 @@ class Controls {
   state open = true
   state tabs: Array<WindowTabSpec> = [{ title: "Controls" }, { title: "More" }]
   state tab = 1
-  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 760, height: 620 })
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 760ui, height: 620ui })
   state pixel = false
   state sounds = false
   state ticked = false
@@ -56,20 +56,20 @@ class Controls {
     return $ltml {
       <Window shown={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.placing}
               @close={self.close}>
-        <box columns={1} gap={6}>
+        <box columns={1} gap={6ui}>
           <Checkbox label={"Pixel"} value={mut self.pixel} />
           <Switch label={"Sounds"} value={mut self.sounds} />
           <Segmented value={mut self.side} choices={SIDES} />
           <Tabs tabs={["One", "Two"]} selected={mut self.page} />
           <Dropdown label={"Size"} value={mut self.size} choices={SIZES} />
-          <CompactDropdown value={mut self.compact} choices={SIDES} width={120} />
+          <CompactDropdown value={mut self.compact} choices={SIDES} width={120ui} />
           <Slider label={"Scale"} value={mut self.scale} least={0.5} most={2} step={0.1} />
           <MoneyInput label={"Price"} value={mut self.money} />
-          <TextBox value={mut self.notes} height={40} />
+          <TextBox value={mut self.notes} height={40ui} />
           <Table columns={COLUMNS} sorted={mut self.sorted} descending={mut self.descending}>
             <TableRow tracks={[{ fr: 1 }]} @pick={self.pickRow}> <text value={"a row"} /> </TableRow>
           </Table>
-          <box height={20} @click={self.showMenu}>
+          <box height={20ui} @click={self.showMenu}>
             <text value={"menu"} />
             <Menu $if={self.menu} entries={ENTRIES} @pick={self.onPick} @close={self.hideMenu} />
           </box>

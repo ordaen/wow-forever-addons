@@ -11,12 +11,12 @@ import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
 import { Section } from "@/section"
 import { Settings } from "@/settings"
-import { PX } from "@/units"
+import { SECONDARY_TEXT } from "@/units"
 
 const WHITE: Color = Color.hex("#ffffff")
 const DIM: Color = Color.hex("#a3977f")
 const IN_USE: Color = Color.hex("#a6e39a")
-const PRESET_ROW: Array<Track> = [{ fr: 1 }, 150 * PX]
+const PRESET_ROW: Array<Track> = [{ fr: 1 }, 175.78125dp]
 
 const FONTS: Array<Choice<Font>> = [
   { value: Font.FiraSans, label: Locale.THEME_FONT_FIRASANS },
@@ -90,13 +90,13 @@ public class PresetRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={PRESET_ROW} gap={12 * PX} yAlign={Align.Center}>
-        <box columns={1} gap={2 * PX}>
+      <box columns={PRESET_ROW} gap={14.0625dp} yAlign={Align.Center}>
+        <box columns={1} gap={2.34375dp}>
           <text value={self.name} textColor={WHITE} wrap={false} />
-          <text value={self.about} textColor={DIM} textSize={.Secondary} />
+          <text value={self.about} textColor={DIM} textSize={SECONDARY_TEXT} />
         </box>
-        <text $if={self.inUse} value={Locale.THEMES_IN_USE} textColor={IN_USE} textSize={.Secondary} wrap={false} />
-        <PushButton $else label={Locale.THEMES_USE} width={150 * PX} accent={true} @click={self.use} />
+        <text $if={self.inUse} value={Locale.THEMES_IN_USE} textColor={IN_USE} textSize={SECONDARY_TEXT} wrap={false} />
+        <PushButton $else label={Locale.THEMES_USE} width={175.78125dp} accent={true} @click={self.use} />
       </box>
     }
   }
@@ -110,7 +110,7 @@ public class LookPage implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={18 * PX}>
+      <box columns={1} gap={21.09375dp}>
         <Section title={Locale.LIST_THEMES}>
           <PresetRow $for={each of PRESETS} $key={each} preset={each} look={mut self.look} />
         </Section>

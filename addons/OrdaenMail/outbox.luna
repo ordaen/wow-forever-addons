@@ -3,7 +3,7 @@
 // cannot send yet (`canWrite`).
 import { Align, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Choice, Component, Memory, Money, PX, PushButton, ToolPick, Toolbar } from "Ordaen"
+import { Choice, Component, Memory, Money, PushButton, ToolPick, Toolbar } from "Ordaen"
 import { Sent, SentState } from "@/letters"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -22,9 +22,9 @@ const FILTERS: Array<Choice<SentFilter>> = [
   { value: SentFilter.Sent, label: Locale.SENT_SENT },
   { value: SentFilter.Stopped, label: Locale.SENT_STOPPED }
 ]
-const ROW: Array<Track> = [30 * PX, { fr: 3 }, { fr: 2 }, "auto", 240 * PX]
-const PAGE: Array<Track> = ["auto", { fr: 1 }, "auto"]
-const FOOT: Array<Track> = [{ fr: 1 }, "auto"]
+const ROW: Array<Track> = [35.15625dp, { fr: 3 }, { fr: 2 }, "max-content", 281.25dp]
+const PAGE: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const FOOT: Array<Track> = [{ fr: 1 }, "max-content"]
 
 function stateColor(state: SentState): Color {
   return match (state) {
@@ -70,12 +70,12 @@ public class SentRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={8 * PX} yAlign={Align.Center}
-           padding={{ top: 5 * PX, bottom: 5 * PX, left: 6 * PX, right: 6 * PX }} background={Style.BACK}>
+      <box columns={ROW} gap={9.375dp} yAlign={Align.Center}
+           padding={{ top: 5.859375dp, bottom: 5.859375dp, left: 7.03125dp, right: 7.03125dp }} background={Style.BACK}>
         <text value={"%d"} arguments={[self.letter.number]} textColor={Style.DIM} wrap={false} />
         <text value={self.letter.subject} textColor={Style.INK} wrap={false} />
         <text value={self.letter.to} textColor={Style.DIM} wrap={false} />
-        <box gap={6 * PX} yAlign={Align.Center}>
+        <box gap={7.03125dp} yAlign={Align.Center}>
           <text value={self.items} textColor={Style.DIM} wrap={false} />
           <Money $if={self.hasMoney} amount={self.letter.copper} />
         </box>
@@ -113,13 +113,13 @@ public class Outbox implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box rows={PAGE} gap={8 * PX}>
-        <box columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
+      <box rows={PAGE} gap={9.375dp}>
+        <box columns={FOOT} gap={9.375dp} yAlign={Align.Center}>
           <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
             <ToolPick value={mut self.list.values.filter} choices={FILTERS} icon={Ordaen.art.ctl.tool.filter}
                       title={Locale.FILTER} lit={self.narrowed} />
           </Toolbar>
-          <PushButton label={Locale.WRITE} width={150 * PX} accent={true} disabled={!self.canWrite} />
+          <PushButton label={Locale.WRITE} width={175.78125dp} accent={true} disabled={!self.canWrite} />
         </box>
         <box $if={self.empty} xAlign={Align.Center} yAlign={Align.Center}>
           <text value={Locale.NOTHING_SENT} textColor={Style.DIM} />
@@ -127,9 +127,9 @@ public class Outbox implements Component {
         <box $else overflow={Overflow.Scroll}>
           <SentRow $for={letter of self.shown} $key={letter.number} letter={letter} />
         </box>
-        <box $if={self.hasWaiting} columns={FOOT} gap={8 * PX} yAlign={Align.Center}>
+        <box $if={self.hasWaiting} columns={FOOT} gap={9.375dp} yAlign={Align.Center}>
           <text value={self.postage} textColor={Style.DIM} />
-          <PushButton label={Locale.CONTINUE} width={170 * PX} accent={true} disabled={true} />
+          <PushButton label={Locale.CONTINUE} width={199.21875dp} accent={true} disabled={true} />
         </box>
       </box>
     }

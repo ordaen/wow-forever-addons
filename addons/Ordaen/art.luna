@@ -231,7 +231,7 @@ public const ARTWORK: Artwork = {
     corner: "@/media/portrait-mask.tga",
     cornerRim: "@/media/portrait-rim.tga",
     badge: "@/media/level-badge.tga",
-    slotEdge: { width: 1, color: Color.hex("#6c5535") },
+    slotEdge: { width: 1ui, color: Color.hex("#6c5535") },
     xpSteel: { file: "@/media/xp-fill-steel.tga", width: 1024, height: 32, tile: true },
     wood: WOOD,
     edge: { nineSlice: FRAME, art: FRAME, width: 3, scale: 0.5, inset: -1.5, reach: REACH, sides: [Side.Top], curves: CURVES, lineStart: 10 },

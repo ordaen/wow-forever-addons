@@ -5,9 +5,8 @@
 import { Align } from "$ltml"
 import { Component } from "@/module"
 import { Tip } from "@/tip"
-import { PX } from "@/units"
 
-const LABEL_WIDTH = 280 * PX
+const LABEL_WIDTH = 328.125dp
 const LABEL: Color = Color.hex("#cbb994")
 
 public class SettingRow implements Component {
@@ -33,7 +32,7 @@ public class SettingRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[LABEL_WIDTH, { fr: 1 }]} gap={18 * PX} yAlign={Align.Center} opacity={self.opacity}>
+      <box columns={[LABEL_WIDTH, { fr: 1 }]} gap={21.09375dp} yAlign={Align.Center} opacity={self.opacity}>
         <box columns={1} @enter={self.onEnter} @leave={self.onLeave}>
           <text value={self.label} textColor={LABEL} />
           <Tip $if={self.tipShown} title={self.label} text={self.hint} />

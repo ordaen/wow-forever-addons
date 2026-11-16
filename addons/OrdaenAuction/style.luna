@@ -1,31 +1,31 @@
 // The house window's look, shared by its parts: sizes at the player's scale, colours, and how a time is said, as the
 // professions window has them. A text's size is a step of the ladder (`$ltml`'s `TextSize`).
 import { Edges, Line, Side } from "$ltml"
-import { PX, number, plural, space } from "Ordaen"
+import { number, plural, space } from "Ordaen"
 import Locale from "@/locales"
 
 // The window's body while it isn't full screen (it opens full screen), and the windows docked at the screen's right
 // («Shopping list», «My auctions»).
-public const WIDTH: Number = 1060 * PX
-public const HEIGHT: Number = 700 * PX
-public const SIDE_WIDTH: Number = 600 * PX
+public const WIDTH: Number<Length> = 1242.1875dp
+public const HEIGHT: Number<Length> = 820.3125dp
+public const SIDE_WIDTH: Number<Length> = 703.125dp
 // An item's slot in a row, and the chosen item's.
-public const SLOT: Number = 24 * PX
-public const BIG_SLOT: Number = 40 * PX
+public const SLOT: Number<Length> = 28.125dp
+public const BIG_SLOT: Number<Length> = 46.875dp
 // A table's row (`Table`'s `rowHeight`) with an item's slot, and one with a button: the row's padding round them.
-public const ITEM_ROW: Number = SLOT + 8 * PX
-public const BUTTON_ROW: Number = 46 * PX
+public const ITEM_ROW: Number<Length> = SLOT + 9.375dp
+public const BUTTON_ROW: Number<Length> = 53.90625dp
 // A list's note where it has no rows: a row of the list itself, its text in the row's middle (`yAlign`), a panel's
 // space at its sides.
 public const NOTE_PAD: Edges = { left: space(.Panel), right: space(.Panel) }
 // What the item's section at the window's right holds, how wide: «Buy»'s picked row, «Sell»'s.
-public const PANEL: Number = 280 * PX
+public const PANEL: Number<Length> = 328.125dp
 // The categories at «Buy»'s left.
-public const CATEGORIES: Number = 220 * PX
+public const CATEGORIES: Number<Length> = 257.8125dp
 // A button as wide as the section holds.
-public const PANEL_BUTTON: Number = PANEL
+public const PANEL_BUTTON: Number<Length> = PANEL
 // A button that opens a docked window, at the search's row's right end.
-public const OPENER: Number = 150 * PX
+public const OPENER: Number<Length> = 175.78125dp
 
 public const INK: Color = Color.hex("#e8dcc4")
 public const DIM: Color = Color.hex("#a3977f")
@@ -34,8 +34,8 @@ public const RED: Color = Color.hex("#ff4040")
 public const GREEN: Color = Color.hex("#40c040")
 public const AMBER: Color = Color.hex("#ffb02e")
 public const LISTS_BACK: Color = Color.hex("#0000004d")
-public const FRAME: Line = { width: 1 * PX, color: Color.hex("#3e2f1d") }
-public const RULE: Line = { width: 1 * PX, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
+public const FRAME: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d") }
+public const RULE: Line = { width: 1.171875dp, color: Color.hex("#3e2f1d"), sides: [Side.Bottom] }
 
 const MINUTE = 60
 const HOUR = 3600

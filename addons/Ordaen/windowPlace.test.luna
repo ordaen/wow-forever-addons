@@ -8,7 +8,7 @@ import { KeptWindow, Window, WindowTabSpec } from "@/window"
 class Shown {
   state tabs: Array<WindowTabSpec> = [{ title: "Recipes" }]
   state tab = 1
-  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0, y: 0, width: 400, height: 300 })
+  public placing: mut KeptWindow = new KeptWindow("placing", "placing", { x: 0ui, y: 0ui, width: 400ui, height: 300ui })
   state open = true
 
   public render(self): Template {

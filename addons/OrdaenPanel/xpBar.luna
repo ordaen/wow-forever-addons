@@ -6,9 +6,9 @@
 // the value is, what is left to the next level or standing, and the rested bonus, each with its part of the level's
 // (or the standing's) whole.
 import Game from "$game"
-import { Align, Art, Edges, Line, Percent, Position, Shadow, Side, Track } from "$ltml"
+import { Align, Art, Bounds, Edges, Line, Percent, Position, Shadow, Side, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, Tip, TipRow, XpFill, number, xpFillArt } from "Ordaen"
+import { Component, SECONDARY_TEXT, Tip, TipRow, XpFill, number, xpFillArt } from "Ordaen"
 import { XpView } from "@/choices"
 import Locale from "@/locales"
 
@@ -16,29 +16,29 @@ import Locale from "@/locales"
 const BRUSHED: Art = xpFillArt(XpFill.Brushed)
 
 // Slim at a third of the screen's width.
-const TUBE_HEIGHT: Number = 25
+const TUBE_HEIGHT: Number<Length> = 25ui
 // The least a tube is high stacked under another: its values still read.
-const LEAST_HEIGHT = 16
-const GAP = 5
+const LEAST_HEIGHT = 16ui
+const GAP = 5ui
 // Room enough for anything: a bar standing by itself.
-const UNBOUNDED = 1000
+const UNBOUNDED = 1000ui
 // The shortest a tube is, with its margins: on a panel as long as its items, and the least the panel's middle gives
 // way to on a short screen.
-const LEAST = 240
-const MARGINS: Edges = { right: 32, left: 32 }
+const LEAST: Bounds = { min: 240ui, max: nil }
+const MARGINS: Edges = { right: 32ui, left: 32ui }
 const RESTED: Color = Color.hex("#6e96d129")
 const LABEL: Color = Color.hex("#f3e7cc")
-const LABEL_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1, y: -1 }
+const LABEL_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 // The label's second value, in brackets: the label's ink, fainter.
 const DIMMED: Color = Color.hex("#f3e7cc8c")
-const LABEL_PARTS: Array<Track> = ["auto", "auto"]
-const LABEL_GAP = 4
+const LABEL_PARTS: Array<Track> = ["max-content", "max-content"]
+const LABEL_GAP = 4ui
 // The bars' carved edge: a dark line round the tube, where the bezel's ring would stand.
-const GROOVE: Line = { width: 2, color: Color.hex("#0a0603d9"), sides: [Side.Top, Side.Right, Side.Bottom, Side.Left] }
+const GROOVE: Line = { width: 2ui, color: Color.hex("#0a0603d9"), sides: [Side.Top, Side.Right, Side.Bottom, Side.Left] }
 const FILL: Array<Track> = [{ fr: 1 }]
 // Ten equal cells over the inside, each but the last with a 1 px dark right edge.
 const CELLS: Array<Integer> = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-const MARK: Line = { width: 1, color: Color.hex("#00000080"), sides: [Side.Right] }
+const MARK: Line = { width: 1ui, color: Color.hex("#00000080"), sides: [Side.Right] }
 // Rested experience grows to a level and a half at most (the client's rule).
 const RESTED_MOST = 1.5
 // Under this many percent a part keeps a decimal, so a small one still reads: 264 of 29 000 is 0.9%, not 0%.
@@ -103,7 +103,7 @@ function currentOf(part: Integer, whole: Integer): String {
 // the same way; how far the paler part reaches past the value; a tooltip over the bar and one over the paler part.
 public class Tube implements Component {
   state over: Over = Over.Off
-  derived inset: Number = self.height * 10 / 64
+  derived inset: Number<Length> = self.height * 10 / 64
   derived filled: Percent = { percent: share(self.value, self.least, self.most) }
   derived behind: Percent = { percent: share(self.value + self.ahead, self.least, self.most) }
   // The part past the fill alone, where the cursor finds the paler part's tooltip; the rest of the tube is the bar's.
@@ -124,7 +124,7 @@ public class Tube implements Component {
   most: Signal<Integer>
   words: Signal<String>
   ahead: Signal<Integer>
-  height: Signal<Number>
+  height: Signal<Number<Length>>
   tint: Signal<Color | nil>
   title: Signal<String>
   rows: Signal<Array<TipRow>>
@@ -149,7 +149,7 @@ public class Tube implements Component {
     aheadTitle: Signal<String> = "",
     aheadText: Signal<String> = "",
     aheadRows: Signal<Array<TipRow>> = [],
-    height: Signal<Number> = TUBE_HEIGHT,
+    height: Signal<Number<Length>> = TUBE_HEIGHT,
     // A colour the fill takes, its art made grey under it: the standing's.
     tint: Signal<Color | nil> = nil
   ) {
@@ -183,34 +183,34 @@ public class Tube implements Component {
   public render(self): Template {
     return $ltml {
       <box height={self.height} @enter={self.onBar} @leave={self.onOff}>
-        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.panel.xpTrough} />
         // Over one another by their levels, each over all that is in the one under it: the trough, the fills (the
         // rested part, the experience, the marks), the shine, the glass, the label. At one level the client draws
         // either on top.
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              zLevel={1}>
-          <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.behind} background={RESTED} />
-          <box position={Position.Absolute} left={0} top={0} bottom={0} width={self.filled}
+          <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={self.behind} background={RESTED} />
+          <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={self.filled}
                background={self.fill} tint={self.tint} desaturate={self.tinted} zLevel={1} />
-          <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} columns={10} rows={FILL}
+          <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} columns={10} rows={FILL}
                zLevel={2}>
             <box $for={cell of CELLS} border={MARK} />
             <box />
           </box>
         </box>
-        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.panel.xpShine} zLevel={5} />
-        <box $if={self.bezel} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+        <box $if={self.bezel} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.panel.xpTube} zLevel={6} />
-        <box $else position={Position.Absolute} left={0} top={0} right={0} bottom={0} border={GROOVE} zLevel={6} />
-        <box position={Position.Absolute} left={0} top={0} right={0} bottom={0} xAlign={Align.Center}
+        <box $else position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} border={GROOVE} zLevel={6} />
+        <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} xAlign={Align.Center}
              yAlign={Align.Center} zLevel={7}>
           // Secondary: the values with the longest standing's name fit a tube at its least.
           <box columns={LABEL_PARTS} gap={LABEL_GAP} yAlign={Align.Center}>
-            <text value={self.label} textSize={.Secondary} textColor={LABEL} textOutline={1}
+            <text value={self.label} textSize={SECONDARY_TEXT} textColor={LABEL} textOutline={1}
                   textShadow={LABEL_SHADOW} wrap={false} textFont={.Numbers} />
-            <text $if={self.hasDimmed} value={self.dimmed} textSize={.Secondary} textColor={DIMMED}
+            <text $if={self.hasDimmed} value={self.dimmed} textSize={SECONDARY_TEXT} textColor={DIMMED}
                   textOutline={1} textShadow={LABEL_SHADOW} wrap={false} textFont={.Numbers} />
           </box>
         </box>
@@ -233,10 +233,10 @@ public class XpBar implements Component {
   derived leveling: Boolean = Game.player.xpMax > 0
   derived watched: Boolean = Game.reputation.name != ""
   // Two tubes share the room, each no higher than one alone.
-  derived pairHeight: Number = TUBE_HEIGHT.min((self.room - GAP) / 2)
+  derived pairHeight: Number<Length> = TUBE_HEIGHT.min((self.room - GAP) / 2)
   derived stacked: Boolean = self.leveling && self.watched && self.pairHeight >= LEAST_HEIGHT
   derived showsReputation: Boolean = self.watched && (!self.leveling || self.stacked)
-  derived tubeHeight: Number = self.stacked ? self.pairHeight : TUBE_HEIGHT
+  derived tubeHeight: Number<Length> = self.stacked ? self.pairHeight : TUBE_HEIGHT
   derived toLevel: Integer = Game.player.xpMax - Game.player.xp
   derived toNext: Integer = Game.reputation.max - Game.reputation.value
   derived restedMost: Integer = (Game.player.xpMax * RESTED_MOST).floor()
@@ -251,12 +251,12 @@ public class XpBar implements Component {
   const steel: Art = Ordaen.art.panel.xpSteel
 
   // How high the bar may be: the panel's inside.
-  room: Signal<Number>
+  room: Signal<Number<Length>>
   fill: Signal<Art>
   bezel: Signal<Boolean>
   view: Signal<XpView>
   constructor(
-    room: Signal<Number> = UNBOUNDED,
+    room: Signal<Number<Length>> = UNBOUNDED,
     // What fills the experience's tube.
     fill: Signal<Art> = BRUSHED,
     // The bronze ring round each tube; else a carved groove.
@@ -315,7 +315,7 @@ public class XpBar implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box minWidth={LEAST} padding={MARGINS} yAlign={Align.Center} gap={GAP}>
+      <box width={LEAST} padding={MARGINS} yAlign={Align.Center} gap={GAP}>
         <Tube $if={self.leveling} fill={self.fill} bezel={self.bezel} view={self.view} value={Game.player.xp} least={0}
               most={Game.player.xpMax} ahead={Game.player.rested} height={self.tubeHeight} title={self.xpTitle}
               rows={self.xpRows} aheadTitle={Locale.RESTED_TIP_TITLE} aheadText={Locale.RESTED_TIP}

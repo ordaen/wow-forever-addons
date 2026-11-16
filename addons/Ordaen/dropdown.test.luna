@@ -20,9 +20,9 @@ class Tools {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["auto", "auto"]} gap={40}>
-        <CompactDropdown value={mut self.order} choices={ORDERS} width={170} />
-        <box padding={8} @click={self.onBeside}>
+      <box columns={["max-content", "max-content"]} gap={40ui}>
+        <CompactDropdown value={mut self.order} choices={ORDERS} width={170ui} />
+        <box padding={8ui} @click={self.onBeside}>
           <text value={"Beside"} />
         </box>
       </box>
@@ -63,7 +63,7 @@ class Lifted {
   public render(self): Template {
     return $ltml {
       <box zLevel={self.lift}>
-        <CompactDropdown value={mut self.order} choices={ORDERS} width={170} />
+        <CompactDropdown value={mut self.order} choices={ORDERS} width={170ui} />
       </box>
     }
   }

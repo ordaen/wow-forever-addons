@@ -6,7 +6,6 @@ import { Align, Edges, Line, Position, Side, Stated, Track } from "$ltml"
 import { Choice } from "@/dropdown"
 import Locale from "@/locales"
 import { Component } from "@/module"
-import { PX } from "@/units"
 
 const FILL: Stated<Color> = { default: Color.hex("#0d0a08"), hover: Color.hex("#1c1610") }
 const PICKED: Color = Color.hex("#5a4428")
@@ -18,10 +17,10 @@ const DIM: Color = Color.hex("#ffffff73")
 const LIGHT: Color = Color.hex("#d6a56b")
 const CLEAR: Color = Color.hex("#00000000")
 const EDGE: Color = Color.hex("#4a3a24")
-const PADDING: Edges = { top: 7 * PX, right: 14 * PX, bottom: 7 * PX, left: 14 * PX }
-const WHOLE: Line = { width: 1 * PX, color: EDGE }
+const PADDING: Edges = { top: 8.203125dp, right: 16.40625dp, bottom: 8.203125dp, left: 16.40625dp }
+const WHOLE: Line = { width: 1.171875dp, color: EDGE }
 // The segments after the first share the one before's right line.
-const AFTER: Line = { width: 1 * PX, color: EDGE, sides: [Side.Top, Side.Right, Side.Bottom] }
+const AFTER: Line = { width: 1.171875dp, color: EDGE, sides: [Side.Top, Side.Right, Side.Bottom] }
 
 // One segment of the strip.
 public class Segment<T: Unknown> implements Component {
@@ -61,7 +60,7 @@ public class Segment<T: Unknown> implements Component {
     return $ltml {
       <box padding={PADDING} background={self.fill} xAlign={Align.Center}
            border={self.edge} @click={self.onClick}>
-        <box position={Position.Absolute} left={0} right={0} top={0} height={2 * PX} background={self.light} />
+        <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={2.34375dp} background={self.light} />
         <text value={self.text} textColor={self.color} stateFromParent={true} wrap={false} />
       </box>
     }
@@ -88,7 +87,7 @@ public class Segmented<T: Unknown> implements Component {
 
   tracks(self): Array<Track> {
     let list: Array<Track> = []
-    for (choice of self.choices) { list.push("auto") }
+    for (choice of self.choices) { list.push("max-content") }
     return list
   }
 

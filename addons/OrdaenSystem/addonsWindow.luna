@@ -7,7 +7,8 @@ import Events from "$events"
 import Game from "$game"
 import { Action, Align, Edges, Overflow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { ARTWORK, Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, PushButton, PX, space, Tip, TipRow, Toolbar,
+import { SECONDARY_TEXT } from "Ordaen"
+import { ARTWORK, Choice, Component, Dialog, Input, Menu, MenuEntry, Placing, PushButton, space, Tip, TipRow, Toolbar,
   KeptWindow, Memory, TipText, ToolPick, Window, WindowSide, WindowTabSpec } from "Ordaen"
 import { Card } from "@/card"
 import { AddOn, Catalog, Status, plain } from "@/catalog"
@@ -60,20 +61,20 @@ const VIEWS: Array<Choice<View>> = [
   { value: View.Table, label: Locale.VIEW_TABLE, icon: ARTWORK.ctl.tool.table }
 ]
 // The memory column's refresh: a toolbar glyph's 16 px cell, drawn 1:1.
-const REFRESH = 16 * PX
-const BODY: Array<Track> = ["auto", "auto", { fr: 1 }, "auto", "auto"]
-const FOOT: Array<Track> = ["auto", { fr: 1 }, "auto"]
-const GROUP: Array<Track> = ["auto", "auto"]
-const STRIP: Array<Track> = [{ fr: 1 }, "auto"]
+const REFRESH = 18.75dp
+const BODY: Array<Track> = ["max-content", "max-content", { fr: 1 }, "max-content", "max-content"]
+const FOOT: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
+const GROUP: Array<Track> = ["max-content", "max-content"]
+const STRIP: Array<Track> = [{ fr: 1 }, "max-content"]
 const HEADING: Edges = { left: space(.Item), right: space(.Item) }
-const HALF: Number = space(.Item) / 2
+const HALF: Number<Length> = space(.Item) / 2
 // «Reload»: the client does it from the player's click (Forever refuses `ReloadUI` from addon code).
 const RELOAD: Action = Action.RunMacro { macro: "/reload" }
 const RELOAD_TIP: TipText = { title: Locale.RELOAD, text: Locale.IN_COMBAT, rows: [] }
-const CONFIRM_WIDTH = 460 * PX
+const CONFIRM_WIDTH = 539.0625dp
 // The set's dialog: room for its name's row, the label and the field.
-const SET_WIDTH = 700 * PX
-const BUTTON = 120 * PX
+const SET_WIDTH = 820.3125dp
+const BUTTON = 140.625dp
 
 // The value of the column `order` sorts by.
 function weightOf(order: Order, name: String, profiler: Profiler): Number {
@@ -97,7 +98,7 @@ function thirdOf(values: Array<Number>): Number {
 }
 
 // Where the window opens until the player moves it.
-public const WINDOW: Placing = { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }
+public const WINDOW: Placing = { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT }
 
 public class AddOnsWindow implements Component {
   public close: Event<nil> = new Event()
@@ -160,10 +161,10 @@ public class AddOnsWindow implements Component {
       <box />
       <box columns={GROUP} gap={space(.Item)} yAlign={Align.Center}>
         <box @enter={self.onWaitEnter} @leave={self.onWaitLeave}>
-          <text value={self.waitText} textColor={Style.GOLD} textSize={.Secondary} wrap={false} />
+          <text value={self.waitText} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
           <Tip $if={self.waitTip} title={self.waitText} text={""} rows={self.waitRows} />
         </box>
-        <PushButton label={Locale.RELOAD} width={160 * PX} accent={true} disabled={self.fighting} action={RELOAD}
+        <PushButton label={Locale.RELOAD} width={187.5dp} accent={true} disabled={self.fighting} action={RELOAD}
                     tip={self.reloadTip} />
       </box>
     </box>
@@ -531,22 +532,22 @@ public class AddOnsWindow implements Component {
           </Toolbar>
           <box columns={self.columns} gap={space(.Item)} padding={HEADING} yAlign={Align.Center}>
             <box @click={self.onHeadName}>
-              <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+              <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
             <box xAlign={Align.End}>
-              <text value={self.overall} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+              <text value={self.overall} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
-            <text $if={self.tabled} value={Locale.COL_CATEGORY} textColor={Style.DIM} textSize={.Secondary}
+            <text $if={self.tabled} value={Locale.COL_CATEGORY} textColor={Style.DIM} textSize={SECONDARY_TEXT}
                   wrap={false} />
             <box xAlign={Align.End} @click={self.onHeadNow}>
-              <text value={Locale.COL_NOW} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+              <text value={Locale.COL_NOW} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
             <box xAlign={Align.End} @click={self.onHeadPeak}>
-              <text value={Locale.COL_PEAK} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+              <text value={Locale.COL_PEAK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
             <box columns={GROUP} gap={HALF} xAlign={Align.End}>
               <box @click={self.onHeadMemory}>
-                <text value={Locale.COL_MEMORY} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
+                <text value={Locale.COL_MEMORY} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
               </box>
               <box width={REFRESH} height={REFRESH} background={ARTWORK.ctl.tool.refresh} tint={Style.GOLD}
                    @click={self.onRefresh} />
@@ -561,12 +562,12 @@ public class AddOnsWindow implements Component {
           </box>
           <box $if={self.stepShown} columns={STRIP} gap={space(.Item)} yAlign={Align.Center}>
             <box xAlign={Align.End}>
-              <text value={self.also} textColor={Style.INK} textSize={.Secondary} />
+              <text value={self.also} textColor={Style.INK} textSize={SECONDARY_TEXT} />
             </box>
             <PushButton label={Locale.UNDO} width={BUTTON} @click={self.onUndo} />
           </box>
           <box $else />
-          <text $if={self.notMeasuring} value={Locale.NOT_MEASURING} textColor={Style.DIM} textSize={.Secondary} />
+          <text $if={self.notMeasuring} value={Locale.NOT_MEASURING} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
         </box>
         <Dialog $if={self.asking.length > 0} title={self.questionTitle} width={CONFIRM_WIDTH}>
           <text value={self.question} textColor={Style.INK} />
@@ -575,7 +576,7 @@ public class AddOnsWindow implements Component {
         </Dialog>
         <Dialog $if={self.editing != 0} title={self.setTitle} width={SET_WIDTH}>
           <Input label={Locale.SET_NAME} value={mut self.setName} maxLength={40} />
-          <text $if={self.setNote != ""} value={self.setNote} textColor={Style.RED} textSize={.Secondary} />
+          <text $if={self.setNote != ""} value={self.setNote} textColor={Style.RED} textSize={SECONDARY_TEXT} />
           <box $if={self.editing > 0} xAlign={Align.Start}>
             <PushButton label={Locale.DELETE} width={BUTTON} @click={self.deleteSet} />
           </box>

@@ -18,7 +18,7 @@ class Bag {
 
   public render(self): Template {
     return $ltml {
-      <box columns={["auto", "auto", "auto", "auto", "auto", "auto"]} gap={8}>
+      <box columns={["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]} gap={8ui}>
         <ItemButton item={nil} />
         <ItemButton item={6948} @pick={self.onPick} />
         <ItemButton item={2589} count={20} quality={Quality.Epic} dimmed={self.dimmed} />

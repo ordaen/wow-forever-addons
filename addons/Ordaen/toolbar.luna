@@ -13,32 +13,31 @@
 // picks it and closes the list, a click anywhere else closes it. It shows the picked choice's own glyph where the
 // choice has one (a view), else its own (a sort); its Tip says the picked choice.
 // ToolAct: a ToolButton's plate and glyph that does one thing when clicked (sorting the bags now), its Tip saying what.
-import { Align, Art, Beside, Edges, Layer, Line, Position, Track } from "$ltml"
+import { Align, Art, Beside, Bounds, Edges, Layer, Line, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Choice, DropdownItem } from "@/dropdown"
 import { Component } from "@/module"
 import { Tip } from "@/tip"
-import { PX } from "@/units"
 
-const SIZE = 34 * PX
-const GLYPH = 16 * PX
-const GAP = 6 * PX
+const SIZE = 39.84375dp
+const GLYPH = 18.75dp
+const GAP = 7.03125dp
 const INK: Color = Color.hex("#e8dcc4")
 const GOLD: Color = Color.hex("#f0c860")
 const DIM: Color = Color.hex("#a3977f")
 const WHITE: Color = Color.hex("#ffffff")
 const FIELD_BACK: Color = Color.hex("#00000080")
-const FIELD_EDGE: Line = { width: 1 * PX, color: Color.hex("#4a3a24") }
-const FIELD_PAD: Edges = { right: 10 * PX, left: 10 * PX }
-const ROW: Array<Track> = [{ fr: 1 }, "auto"]
+const FIELD_EDGE: Line = { width: 1.171875dp, color: Color.hex("#4a3a24") }
+const FIELD_PAD: Edges = { right: 11.71875dp, left: 11.71875dp }
+const ROW: Array<Track> = [{ fr: 1 }, "max-content"]
 const FILL: Array<Track> = [{ fr: 1 }]
 // Room for every button a toolbar holds; a track no button takes is none wide (each button carries its own gap).
-const TOOLS: Array<Track> = ["auto", "auto", "auto", "auto", "auto", "auto"]
+const TOOLS: Array<Track> = ["max-content", "max-content", "max-content", "max-content", "max-content", "max-content"]
 const AFTER: Edges = { left: GAP }
 const LIST_BACK: Color = Color.hex("#0a0806f7")
-const LIST_EDGE: Line = { width: 1 * PX, color: Color.hex("#6c5535") }
-const LIST_PAD: Edges = { top: 6 * PX, bottom: 6 * PX }
-const LIST_WIDTH = 210 * PX
+const LIST_EDGE: Line = { width: 1.171875dp, color: Color.hex("#6c5535") }
+const LIST_PAD: Edges = { top: 7.03125dp, bottom: 7.03125dp }
+const LIST_WIDTH = 246.09375dp
 
 public class Toolbar implements Component {
   derived searching: Boolean = self.search != ""
@@ -64,7 +63,7 @@ public class Toolbar implements Component {
         <box height={SIZE} rows={FILL}>
           <input value={mut self.search} padding={FIELD_PAD} textColor={INK} background={FIELD_BACK}
                  border={FIELD_EDGE} @submit={self.onSubmit} />
-          <box $if={!self.searching} position={Position.Absolute} left={0} top={0} right={0} bottom={0}
+          <box $if={!self.searching} position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
                padding={FIELD_PAD} yAlign={Align.Center}>
             <text value={self.placeholder} textColor={DIM} wrap={false} />
           </box>
@@ -115,7 +114,7 @@ public class ToolButton implements Component {
     return $ltml {
       <box padding={AFTER}>
         <box width={SIZE} height={SIZE}>
-          <box position={Position.Absolute} left={0} top={0} width={SIZE} height={SIZE} xAlign={Align.Center}
+          <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE} xAlign={Align.Center}
                yAlign={Align.Center} background={self.plate} @click={self.toggle} @enter={self.onEnter}
                @leave={self.onLeave}>
             <box width={GLYPH} height={GLYPH} background={self.icon} tint={self.glyphColor} />
@@ -180,7 +179,7 @@ public class ToolPick<T: Unknown> implements Component {
   icon: Signal<Art>
   title: Signal<String>
   lit: Signal<Boolean>
-  const listWidth: Number
+  const listBounds: Bounds
   constructor(
     value: mut Signal<T>,
     choices: Array<Choice<T>>,
@@ -189,14 +188,14 @@ public class ToolPick<T: Unknown> implements Component {
     // What it chooses («Sort»): its Tip's title, over the picked choice.
     title: Signal<String>,
     lit: Signal<Boolean> = false,
-    listWidth: Number = LIST_WIDTH
+    listWidth: Number<Length> = LIST_WIDTH
   ) {
     self.value = value
     self.choices = choices
     self.icon = icon
     self.title = title
     self.lit = lit
-    self.listWidth = listWidth
+    self.listBounds = { min: listWidth, max: nil }
   }
 
   close(mut self) { self.open = false }
@@ -209,7 +208,7 @@ public class ToolPick<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <ToolButton icon={self.glyph} title={self.title} text={self.shown} open={mut self.open} lit={self.lit}>
-        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} minWidth={self.listWidth}
+        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
                  background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @clickOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />

@@ -5,14 +5,14 @@
 import Debug from "$debug"
 import Game from "$game"
 import { Align, Track } from "$ltml"
-import { Component, PX, ProgressBar, PushButton, space } from "Ordaen"
+import { Component, ProgressBar, PushButton, SECONDARY_TEXT, space } from "Ordaen"
 import Locale from "@/locales"
 import { serverSeconds } from "@/quote"
 import { Scanner } from "@/scan"
 import Style from "@/style"
 import { agoText, itemsText, leftText } from "@/style"
 
-const COLUMNS: Array<Track> = [{ fr: 1 }, "auto"]
+const COLUMNS: Array<Track> = [{ fr: 1 }, "max-content"]
 
 public class Status implements Component {
   // The server's time, read again once a second while the line shows: what counts down follows it.
@@ -60,11 +60,11 @@ public class Status implements Component {
         <box $if={self.scanner.reading}>
           <ProgressBar fraction={self.scanner.progress} label={self.percent} />
         </box>
-        <text $elseif={self.waiting} value={Locale.WAITING} textColor={Style.AMBER} textSize={.Secondary} />
-        <text $elseif={self.fault != nil} value={self.faultText} textColor={Style.RED} textSize={.Secondary} />
-        <text $else value={self.prices} textColor={Style.DIM} textSize={.Secondary} />
-        <text $if={self.wait > 0} value={self.next} textColor={Style.DIM} textSize={.Secondary} wrap={false} />
-        <PushButton $else label={Locale.SCAN} width={130 * PX} disabled={self.scanner.reading || self.waiting}
+        <text $elseif={self.waiting} value={Locale.WAITING} textColor={Style.AMBER} textSize={SECONDARY_TEXT} />
+        <text $elseif={self.fault != nil} value={self.faultText} textColor={Style.RED} textSize={SECONDARY_TEXT} />
+        <text $else value={self.prices} textColor={Style.DIM} textSize={SECONDARY_TEXT} />
+        <text $if={self.wait > 0} value={self.next} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
+        <PushButton $else label={Locale.SCAN} width={152.34375dp} disabled={self.scanner.reading || self.waiting}
                     @click={self.onScan} />
       </box>
     }

@@ -11,18 +11,18 @@ import Locale from "@/locales"
 import { Component } from "@/module"
 import { SelectItem } from "@/selectItem"
 import { SettingRow } from "@/settingRow"
-import { PX, space } from "@/units"
+import { space } from "@/units"
 import { KeptWindow, Occasion, WindowView } from "@/window"
 
-const SIDEBAR = 200 * PX
+const SIDEBAR = 234.375dp
 const COLUMNS: Array<Track> = [SIDEBAR, { fr: 1 }]
 const INK: Color = Color.hex("#e8dcc4")
 // How far the numbers go: a place from the screen's centre, a size of the body.
 const FAR = 4000
 const LEAST_SIZE = 100
 // A number's field: as high as a text box, wide enough for its digits.
-const FIELD_WIDTH = 120 * PX
-const FIELD_HEIGHT = 26 * PX
+const FIELD_WIDTH = 140.625dp
+const FIELD_HEIGHT = 30.46875dp
 const FILL: Array<Track> = [{ fr: 1 }]
 const MOST_SIZE = 4000
 // What can hide a window, and show it again.
@@ -112,10 +112,10 @@ public class WindowsPage implements Component {
   show(mut self, view: WindowView) {
     self.remember = view.remember
     self.full = view.full
-    self.x = view.x.round()
-    self.y = view.y.round()
-    self.width = view.width.round()
-    self.height = view.height.round()
+    self.x = (view.x / 1ui).round()
+    self.y = (view.y / 1ui).round()
+    self.width = (view.width / 1ui).round()
+    self.height = (view.height / 1ui).round()
     self.openOn = view.openOn
     self.hideDuring = view.hideDuring
     self.showAfter = view.showAfter
@@ -142,10 +142,10 @@ public class WindowsPage implements Component {
     next.openOn = openOn
     next.hideDuring = hideDuring.clone()
     next.showAfter = showAfter.clone()
-    if (x != was.x.round()) { next.x = x }
-    if (y != was.y.round()) { next.y = y }
-    if (width != was.width.round()) { next.width = width }
-    if (height != was.height.round()) { next.height = height }
+    if (x != (was.x / 1ui).round()) { next.x = x * 1ui }
+    if (y != (was.y / 1ui).round()) { next.y = y * 1ui }
+    if (width != (was.width / 1ui).round()) { next.width = width * 1ui }
+    if (height != (was.height / 1ui).round()) { next.height = height * 1ui }
     if (!next.equal(was)) { window.memory.write(next) }
   }
 

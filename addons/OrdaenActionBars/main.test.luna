@@ -84,14 +84,14 @@ test "a bar the player never moved stands above what keeps the bottom edge, the 
   const bar = new Bar({ spec: { number: 1, first: 1, command: "ACTIONBUTTON" }, place: 2 }, holder.keys,
     holder.visibility)
   // Higher than the bottom panel, whatever it keeps: the highest decides.
-  Ordaen.keepBottom("Ledge", 1000)
-  const above = bar.home.y ?? 0
-  Ordaen.keepBottom("Shelf", 1100)
-  Test.expect(bar.home.y == above - 100)
-  Ordaen.keepBottom("Shelf", 0)
+  Ordaen.keepBottom("Ledge", 1000ui)
+  const above = bar.home.y ?? 0ui
+  Ordaen.keepBottom("Shelf", 1100ui)
+  Test.expect(bar.home.y == above - 100ui)
+  Ordaen.keepBottom("Shelf", 0ui)
   Test.expect(bar.home.y == above)
-  Ordaen.keepBottom("Ledge", 0)
-  Test.expect((bar.home.y ?? 0) > above + 900)
+  Ordaen.keepBottom("Ledge", 0ui)
+  Test.expect((bar.home.y ?? 0ui) > above + 900ui)
 }
 
 test "the bars fade as their visibility says: hidden in a fight, they keep their buttons" {

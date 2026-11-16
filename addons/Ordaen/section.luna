@@ -3,11 +3,10 @@
 import { Align, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
-import { PX } from "@/units"
 
 const GOLD: Color = Color.hex("#e8c35a")
 // The design's 700: the same colour one pixel to the right.
-const BOLD: Shadow = { color: GOLD, x: 1 * PX, y: 0 }
+const BOLD: Shadow = { color: GOLD, x: 1.171875dp, y: 0ui }
 
 public class Section implements Component {
   title: Signal<String>
@@ -17,10 +16,10 @@ public class Section implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={1} gap={14 * PX}>
-        <box columns={["auto", { fr: 1 }]} gap={10 * PX} yAlign={Align.Center}>
+      <box columns={1} gap={16.40625dp}>
+        <box columns={["max-content", { fr: 1 }]} gap={11.71875dp} yAlign={Align.Center}>
           <text value={self.title} textColor={GOLD} textShadow={BOLD} wrap={false} />
-          <box height={1 * PX} background={Ordaen.art.ctl.rule} />
+          <box height={1.171875dp} background={Ordaen.art.ctl.rule} />
         </box>
         <slot />
       </box>

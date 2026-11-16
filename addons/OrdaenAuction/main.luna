@@ -41,9 +41,9 @@ public class Auction implements Module, App {
   public const title: String = "Ordaen Auction"
   settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
   // Its windows, declared: where each stands and what the player does with it, kept in the profile.
-  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0, y: 0, width: Style.WIDTH, height: Style.HEIGHT }, true)
-  public shoppingWindow: mut KeptWindow = new KeptWindow("shopping", Locale.PAGE_SHOPPING, { x: 0, y: 0, width: Style.SIDE_WIDTH, height: Style.HEIGHT })
-  public ownedWindow: mut KeptWindow = new KeptWindow("owned", Locale.PAGE_OWNED, { x: 0, y: 0, width: Style.SIDE_WIDTH, height: Style.HEIGHT })
+  public window: mut KeptWindow = new KeptWindow("main", self.title, { x: 0ui, y: 0ui, width: Style.WIDTH, height: Style.HEIGHT }, true)
+  public shoppingWindow: mut KeptWindow = new KeptWindow("shopping", Locale.PAGE_SHOPPING, { x: 0ui, y: 0ui, width: Style.SIDE_WIDTH, height: Style.HEIGHT })
+  public ownedWindow: mut KeptWindow = new KeptWindow("owned", Locale.PAGE_OWNED, { x: 0ui, y: 0ui, width: Style.SIDE_WIDTH, height: Style.HEIGHT })
   public const windows: mut Array<mut KeptWindow> = [self.window, self.shoppingWindow, self.ownedWindow]
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
@@ -78,7 +78,7 @@ public class Auction implements Module, App {
   // A docked window's one tab, and its width (it stands the screen's height).
   state sideTab = 1
   // What the full-screen window leaves clear at the screen's right: the docked windows' width, while one is open.
-  derived room: Number = self.shoppingOpen || self.ownedOpen ? Style.SIDE_WIDTH : 0
+  derived room: Number<Length> = self.shoppingOpen || self.ownedOpen ? Style.SIDE_WIDTH : 0ui
   // The row picked on «Buy» and on «Sell»: the item's section at the window's right, the full height beside the
   // page, while the page shows one.
   state buyChosen: Array<Found> = []
