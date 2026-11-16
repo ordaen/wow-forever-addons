@@ -38,5 +38,14 @@
   "SETTING_SPEC_ONE": "Name of the first spec tab",
   "SETTING_SPEC_TWO": "Name of the second spec tab",
   "SETTING_TRAINER": "Class trainer window",
-  "SETTING_TRAINER_TIP": "Off, class trainers are the game's own."
+  "SETTING_TRAINER_TIP": "Off, class trainers are the game's own.",
+  "SHOW_ACTIVE": "Active",
+  "SHOW_PASSIVE": "Passive",
+  "VIEW": "View",
+  "VIEW_COLUMNS": "In columns",
+  "VIEW_TABLE": "Table",
+  "COL_SPELL": "Spell",
+  "COL_LINE": "Specialization",
+  "COL_KIND": "Kind",
+  "COL_LEVEL": "Level"
 }

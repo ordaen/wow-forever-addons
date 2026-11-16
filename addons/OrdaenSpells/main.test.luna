@@ -8,6 +8,8 @@ import { Art } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { Component } from "Ordaen"
+import { SpellbookPage } from "@/spellbook"
 
 const PAGE: Test.Page = { left: 20, top: 20, width: 1300, height: 720, screen: true }
 const ICON: Asset = "Interface/Icons/INV_Misc_Note_01"
@@ -437,6 +439,47 @@ test "the spells stand in three columns" {
   Game.spellbook.entries = spells
   _ = book()
   Test.shot("five spells: three in the first row, two in the second")
+}
+
+// The spellbook's page alone, as wide as it is told.
+class NarrowBook implements Component {
+  state spells: Array<Game.SpellEntry> = spells()
+  state lines: Array<Game.SpellLine> = lines()
+  state width: Number<Length> = 562.5dp
+
+  public render(self): Template {
+    return $ltml { <SpellbookPage spells={self.spells} lines={self.lines} width={self.width} /> }
+  }
+}
+
+test "a page too narrow for three columns of spells holds fewer" {
+  Test.mount(new NarrowBook(), { left: 20, top: 20, width: 600, height: 400 })
+  Test.shot("one column in a page of 600 units")
+}
+
+test "the filter keeps the passive spells alone, or the active ones" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  pick(window, Ordaen.art.ctl.tool.filter, "Active", "Passive")
+  Test.expect(window.text("Parry").shown() && !window.text("Rend (Rank 1)").shown())
+  pick(window, Ordaen.art.ctl.tool.filter, "Passive", "Active")
+  Test.expect(!window.text("Parry").shown() && window.text("Rend (Rank 1)").shown())
+}
+
+test "the table view shows a spell's skill line, kind and level in columns, sorted by a heading" {
+  Test.mount(nil, PAGE)
+  Game.spellbook.lines = lines
+  Game.spellbook.entries = spells
+  const window = book()
+  pick(window, Ordaen.art.ctl.tool.columns, "In columns", "Table")
+  Test.expect(window.text("Rend (Rank 1)").item().texts().join(" | ") == "Rend (Rank 1) | Warrior | Active | 4")
+  window.button("Level").click()
+  Test.expect(inOrder(window, ["Find Treasure", "Rend (Rank 1)", "Parry", "Heroic Strike (Rank 2)", "Mortal Strike"]))
+  window.button("Level").click()
+  Test.expect(inOrder(window, ["Mortal Strike", "Heroic Strike (Rank 2)", "Parry", "Rend (Rank 1)", "Find Treasure"]))
+  Test.shot("the table, by level from the highest")
 }
 
 // Dragged from a spell's row a little way: pressed, moved, a frame, let go.

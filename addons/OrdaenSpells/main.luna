@@ -49,6 +49,8 @@ public class Spells implements Module, App {
     { title: self.settings.values.specOne == "" ? Locale.TAB_MAIN : self.settings.values.specOne },
     { title: self.settings.values.specTwo == "" ? Locale.TAB_SECOND : self.settings.values.specTwo }
   ]
+  // How wide the window's body is: the screen's, full screen.
+  derived bookWidth: Number<Length> = self.window.memory.values.full ? Client.UIParent.GetWidth() * 1ui : self.window.placing.width
   derived trainerTabs: Array<WindowTabSpec> = [{ title: Locale.TAB_TRAINER }]
   derived level: Integer = Game.player.level
   state trainerClosed = false
@@ -155,7 +157,7 @@ public class Spells implements Module, App {
       <frame $if={self.gameShown} of={Game.frames.PlayerSpells} opacity={0} away={true} />
       <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window} withSettings={true}
               @close={self.onClose} @settings={self.onSettings}>
-        <SpellbookPage $if={self.tab == 1} spells={self.spells} lines={self.lines} />
+        <SpellbookPage $if={self.tab == 1} spells={self.spells} lines={self.lines} width={self.bookWidth} />
         <TalentsPage $else trees={self.trees} unspent={self.unspent} staged={self.staged} active={self.groupActive} @spend={self.onSpend}
                      @refund={self.onRefund} @apply={self.onApply} @cancel={self.onCancel} @activate={self.onActivate} />
       </Window>
