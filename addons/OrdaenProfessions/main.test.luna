@@ -418,7 +418,7 @@ test "the module turned off in the settings: the window goes, and the game's own
   Game.tradeSkill.recipes = tailoringRecipes()
   Game.tradeSkill.open = TAILORING
   const page = settings()
-  // The modules in the list: Auction, Tooltips, Professions.
-  page.button(Ordaen.art.ctl.switchOn).nth(3).click()
+  // The modules in the list: Alts, Auction, Tooltips, Professions.
+  page.button(Ordaen.art.ctl.switchOn).nth(4).click()
   Test.expect(!window().shown() && back(own))
 }

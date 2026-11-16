@@ -102,5 +102,19 @@
   "TO_SHOPPING": "To the shopping list",
   "COLUMN_COST": "Cost",
   "COLUMN_PROFIT": "Profit",
-  "QUEUE_PRICE": "Price"
+  "QUEUE_PRICE": "Price",
+  "TAB_WORTH": "Worth it",
+  "WORTH_MODE_AUCTION": "Auction → auction",
+  "WORTH_MODE_VENDOR": "→ merchant",
+  "WORTH_MODE_HELD": "From what you have",
+  "WORTH_MODE_COOLDOWNS": "Cooldowns",
+  "WORTH_WHO": "Who",
+  "WORTH_SALE": "Sale",
+  "WORTH_AGE": "Age",
+  "WORTH_CAN": "Can make",
+  "WORTH_AGE_HOURS": "%d h",
+  "WORTH_AGE_DAYS": "%d d",
+  "WORTH_ALONE": "Only this character: turn on Ordaen Alts and log in on your other characters to see theirs.",
+  "WORTH_UNOPENED": "Open the professions on %s: their recipes aren't recorded yet.",
+  "WORTH_EMPTY": "Nothing to make in this mode."
 }

@@ -116,7 +116,7 @@ public function members(recipes: Array<Game.Recipe>, group: Integer, starred: Ar
 }
 
 // The profession's own tabs: the camp's while it has recipes.
-public enum Page { Recipes = "recipes", Camp = "camp", Queue = "queue", Overview = "overview" }
+public enum Page { Recipes = "recipes", Camp = "camp", Queue = "queue", Overview = "overview", Worth = "worth" }
 
 // A recipe in the queue: what «Create» asked for, with how many are still to make, under its profession (whose
 // «Queue» tab shows it and runs it), and its name (the game names only the open profession's recipes).

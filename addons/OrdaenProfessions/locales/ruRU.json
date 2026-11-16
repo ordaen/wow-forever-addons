@@ -102,5 +102,19 @@
   "TO_SHOPPING": "В список покупок",
   "COLUMN_COST": "Себест.",
   "COLUMN_PROFIT": "Доход",
-  "QUEUE_PRICE": "Цена"
+  "QUEUE_PRICE": "Цена",
+  "TAB_WORTH": "Выгода",
+  "WORTH_MODE_AUCTION": "Аукцион → аукцион",
+  "WORTH_MODE_VENDOR": "→ торговцу",
+  "WORTH_MODE_HELD": "Из того, что есть",
+  "WORTH_MODE_COOLDOWNS": "Кулдауны",
+  "WORTH_WHO": "Кто",
+  "WORTH_SALE": "Продажа",
+  "WORTH_AGE": "Возраст",
+  "WORTH_CAN": "Можно",
+  "WORTH_AGE_HOURS": "%d ч",
+  "WORTH_AGE_DAYS": "%d д.",
+  "WORTH_ALONE": "Только этот персонаж: включите Ordaen Alts и зайдите другими персонажами, чтобы видеть их рецепты.",
+  "WORTH_UNOPENED": "Откройте профессии на %s: его рецепты ещё не записаны.",
+  "WORTH_EMPTY": "В этом режиме делать нечего."
 }

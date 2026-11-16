@@ -11,6 +11,7 @@ import root Ordaen from "Ordaen"
 import { ARTWORK, Choice, Column, ItemId, KeptWindow, Memory, Module, PX, PushButton, Settings, SettingsPage, Table, Tabs, ToolPick, Toolbar, Window, WindowTabSpec, WindowsPage, space, tracksOf, windowsTitle } from "Ordaen"
 import root Auction from "OrdaenAuction"
 import type { PriceSource } from "OrdaenAuction"
+import { Book, written } from "@/book"
 import { Totals, makesOf, partsOf, totalsOf, yieldOf } from "@/cost"
 import { CraftQueue } from "@/crafting"
 import { RecipeDetails } from "@/details"
@@ -28,6 +29,7 @@ import {
   Act, before, FAVORITES, Group, Kept, LIST_VIEW, ListView, MakeMode, members, MOST_MARKED, Page, Pause, Queued, QueueAct, Seen, SortBy,
   tableBefore, View
 } from "@/view"
+import { WorthPage } from "@/worth"
 
 const FILL: Array<Track> = [{ fr: 1 }]
 // The skill bar, the page tabs, and the recipes' side with the chosen recipe in the rest.
@@ -110,6 +112,9 @@ public class Professions implements Module, App {
   public memory: mut Memory<Kept> = new Memory<Kept>(NOTHING_KEPT, .Character)
   // What the profession trainers met teach, the account's: every character meets the same trainers.
   public learning: mut Memory<Learning> = new Memory<Learning>({ recipes: {} }, .Account)
+  // The recipe book, the account's: what every character knows, and what each recipe takes and makes («Выгода»).
+  public book: mut Memory<Book> = new Memory<Book>({ recipes: {}, characters: {} }, .Account, "book")
+  derived written: Book = self.book.values
   derived taught: Map<String, Taught> = self.learning.values.recipes
   // How the player left the recipe list: its view, its sort and the table's order, the profile's.
   public list: mut Memory<ListView> = new Memory<ListView>(LIST_VIEW)
@@ -162,6 +167,7 @@ public class Professions implements Module, App {
   derived onCamp: Boolean = self.pageKind == Page.Camp
   derived queueShown: Boolean = self.pageKind == Page.Queue
   derived overviewShown: Boolean = self.pageKind == Page.Overview
+  derived worthShown: Boolean = self.pageKind == Page.Worth
   // The profession's own spell on its tabs' line: a secure button casts it from the player's click.
   derived trackSpell: Integer | nil = trackSpellOf(Game.tradeSkill.open)
   derived trackName: String = knownSpellName(self.trackSpell)
@@ -221,6 +227,7 @@ public class Professions implements Module, App {
     // The page's watch stands before the open profession's: what the profession chose again as it opens is kept.
     watch (page of self.page) { self.onPage() }
     watch { self.followOpen() }
+    watch { self.writeBook(Game.tradeSkill.open, Game.tradeSkill.recipes) }
     watch { self.shown = self.shownOf() }
     // Another recipe chosen, or another profession open: the count starts again at one.
     watch (recipe of self.chosenRecipe) { self.count = 1 }
@@ -235,6 +242,13 @@ public class Professions implements Module, App {
     if (!Game.trainer.open || Game.trainer.teachesClass()) { return }
     const now = peek self.learning.values
     self.learning.write({ recipes: learnedFrom(now.recipes, Game.trainer.services()) })
+  }
+
+  // The open profession's page of the book, as it opens and each time its list changes.
+  writeBook(mut self, open: Integer | nil, recipes: Array<Game.Recipe>) {
+    if (open == nil) { return }
+    const next = written(peek self.book.values, open, recipes)
+    if (next != nil) { self.book.write(next) }
   }
 
   // Each profession the character has: its icon, its name and its skill (`31 / 75`).
@@ -302,6 +316,7 @@ public class Professions implements Module, App {
     if (self.camp != 0 && self.hasRecipes(self.camp)) { kinds.push(Page.Camp) }
     kinds.push(Page.Queue)
     kinds.push(Page.Overview)
+    kinds.push(Page.Worth)
     return kinds
   }
 
@@ -315,6 +330,7 @@ public class Professions implements Module, App {
         Page.Camp => Locale.TAB_CAMP
         Page.Queue => waiting > 0 ? Locale.TAB_QUEUE_COUNT.format(waiting) : Locale.TAB_QUEUE
         Page.Overview => Locale.TAB_OVERVIEW
+        Page.Worth => Locale.TAB_WORTH
       })
     }
     return names
@@ -684,6 +700,7 @@ public class Professions implements Module, App {
                        @counted={self.onQueueCount} @shop={self.onShop} />
             <OverviewPage $elseif={self.overviewShown} profession={self.profession} thresholds={self.thresholds}
                           kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
+            <WorthPage $elseif={self.worthShown} book={self.written} prices={self.prices} />
             <box $else columns={GRID} rows={FILL} gap={space(.Group)}>
               <box rows={SIDE} gap={space(.Item)} minWidth={Style.LISTS_LEAST}>
                 <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
