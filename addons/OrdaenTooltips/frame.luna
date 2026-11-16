@@ -3,7 +3,7 @@
 // body, what there is more of, the footer, what other modules add, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
-import { Align, Art, Beside, Cursor, Edges, Layer, Line, Piece, Position, Side, Size, TextFont, Track } from "$ltml"
+import { Align, Art, BarFill, Beside, Cursor, Edges, Layer, Line, Piece, Position, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
 import { GREEN, RED } from "@/colors"
@@ -427,7 +427,7 @@ public class TipFrame implements Component {
 
   // The track shows once the charge starts; its room is there from the start.
   derived track: Color | nil = self.charge > 0 ? TRACK : nil
-  derived filled: Size = { percent: self.charge }
+  derived filled: BarFill = { value: self.charge / 100, color: BAR_GOLD }
 
   // The close button of a locked tooltip was clicked.
   public close: Event<nil> = new Event()
@@ -608,10 +608,7 @@ public class TipFrame implements Component {
         <box $if={self.locks} padding={BAR_PAD}>
           <box height={BAR_ROW} yAlign={Align.Center}>
             <text $if={self.locked} value={Locale.LOCKED_HINT} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={false} />
-            <box $else height={BAR_HEIGHT} background={self.track}>
-              <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={self.filled}
-                   background={BAR_GOLD} />
-            </box>
+            <box $else height={BAR_HEIGHT} background={self.track} fill={self.filled} />
           </box>
         </box>
         <box $if={self.locked} position={Position.Absolute} right={2.34375dp} top={2.34375dp} width={28.125dp}

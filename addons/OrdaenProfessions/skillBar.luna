@@ -1,7 +1,7 @@
 // The profession's skill bar, hanging from the window's top line: the experience bar's fill in a dark trough with a
 // bronze rim, a notch every 10%, and on it the rank and the skill: «Apprentice · 31 / 75».
 import Game from "$game"
-import { Align, Art, Edges, Line, Overflow, Percent, Position, Side, Track } from "$ltml"
+import { Align, Art, Edges, Line, Overflow, Position, Side, Track } from "$ltml"
 import { Component, XpFill, xpFillArt } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -17,8 +17,8 @@ const NOTCH: Line = { width: 1.171875dp, color: Color.hex("#000000bf"), sides: [
 const FILL: Array<Track> = [{ fr: 1 }]
 
 public class SkillBar implements Component {
-  // How much of the trough is filled.
-  derived share: Percent = { percent: self.shareOf() * 100 }
+  // The trough in two columns: the filled part, and the rest.
+  derived parts: Array<Track> = [{ fr: self.shareOf() }, { fr: 1 - self.shareOf() }]
   derived label: String = self.labelOf()
   // The experience bar's fill as it starts.
   const fill: Art = xpFillArt(XpFill.Brushed)
@@ -57,8 +57,11 @@ public class SkillBar implements Component {
     return $ltml {
       <box height={HEIGHT} padding={PADDING} background={RIM_COLOR} rows={FILL}>
         <box background={TROUGH} overflow={Overflow.Hidden}>
-          <box position={Position.Absolute} left={0ui} top={0ui} bottom={0ui} width={self.share}
-               background={self.fill} />
+          <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={self.parts}
+               rows={FILL}>
+            <box background={self.fill} />
+            <box />
+          </box>
           <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} bottom={0ui} columns={10} rows={FILL}>
             <box $for={cell of CELLS} border={NOTCH} />
             <box />
