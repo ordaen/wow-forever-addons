@@ -70,7 +70,7 @@ class World {
     _ = self.fakes.remove(at)
   }
 
-  public count(self): Number { return self.fakes.length }
+  public count(self): Integer { return self.fakes.length }
 
   public name(self, index: String | Integer): String { return self.fake(index)?.name ?? "" }
 

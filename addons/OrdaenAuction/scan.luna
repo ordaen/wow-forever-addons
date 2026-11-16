@@ -97,8 +97,8 @@ public class Scanner {
     // The auctions read before their item's data came, read again as it comes; a while at most.
     const until = (peek Game.clock.time) + LOAD_WAIT
     let turn = 1
-    for (round of 1..Number.huge) {
-      for (step of 1..Number.huge) {
+    for (round of 1..) {
+      for (step of 1..) {
         const index = Game.auctionScan.again(turn)
         if (index == 0) { break }
         turn += 1
