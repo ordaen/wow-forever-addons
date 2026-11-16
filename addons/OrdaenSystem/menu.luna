@@ -27,7 +27,7 @@ const TITLE: Color = Color.hex("#ffd100")
 const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1.171875dp, y: 1.171875dp }
 const LABEL: Color = Color.hex("#ffd100")
 // «AddOns», ours: its label white under the cursor and down while pressed, as a PushButton's.
-const OWN_DROP: Stated<Number> = { default: 0, pressed: 2.34375dp }
+const OWN_DROP: Stated<Number<Length>> = { default: 0ui, pressed: 2.34375dp }
 const OWN_LABEL: Stated<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("#ffffff") }
 const LABEL_HOVER: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
@@ -46,7 +46,7 @@ public struct Dressed {
   // «AddOns»: ours stands over it.
   addons: Boolean
   width: Number<Length>
-  height: Number
+  height: Number<Length>
 }
 
 // The values a client's call gives, one after another, as a list.
@@ -80,7 +80,7 @@ public class GameMenu {
   public state shown = false
   public state buttons: Array<Dressed> = []
   public state width: Number<Length> = 0ui
-  public state height: Number = 0
+  public state height: Number<Length> = 0ui
   // How far Blizzard's first button stands under the menu's top (its point on the menu's), nothing when it stands by
   // something else.
   public state lead: Number = 0
@@ -152,7 +152,7 @@ public class GameMenu {
           const addons = label == Client.ADDONS
           child.SetAlpha(0)
           child.EnableMouse(!addons)
-          child.SetHitRectInsets(0, 0, HALF_GAP, HALF_GAP)
+          child.SetHitRectInsets(0, 0, HALF_GAP / 1ui, HALF_GAP / 1ui)
           self.hook(child)
           list.push({
             button: child,
@@ -160,8 +160,8 @@ public class GameMenu {
             accent: label == Client.LOG_OUT || label == Client.EXIT_GAME,
             gem: (options && label == Client.GAMEMENU_OPTIONS) || (event && label == Client.GAMEMENU_EXTERNALEVENT),
             addons: addons,
-            width: child.GetWidth(),
-            height: child.GetHeight()
+            width: child.GetWidth() * 1ui,
+            height: child.GetHeight() * 1ui
           })
         }
       } else {
@@ -170,8 +170,8 @@ public class GameMenu {
       }
     }
     self.buttons = list
-    self.width = menu.GetWidth()
-    self.height = menu.GetHeight()
+    self.width = menu.GetWidth() * 1ui
+    self.height = menu.GetHeight() * 1ui
     // The topmost of Blizzard's buttons, whichever its pool handed first: the least way down from the menu's top.
     let lead: Number | nil = nil
     for (dressed of list) {
@@ -234,7 +234,7 @@ public class Plate implements Component {
     self.down ? Ordaen.art.ctl.buttonDown : Ordaen.art.ctl.button
   derived light: Number = self.over ? 1 : 0
   derived color: Color = self.over ? LABEL_HOVER : LABEL
-  derived drop: Number<Length> = self.down ? DOWN : 0
+  derived drop: Number<Length> = self.down ? DOWN : 0ui
   derived gem: Number = self.dressed.gem ? 1 : 0
   derived high: Number<Length> = self.dressed.height - 2 * HALF_GAP
   derived gemTop: Number<Length> = (self.high - GEM) / 2
@@ -290,7 +290,7 @@ public class MenuDress implements Component {
 
   derived wide: Number<Length> = self.menu.width
   // The head stands over Blizzard's first button, which stands `lead` under the menu's top.
-  derived high: Number<Length> = self.menu.height - self.menu.lead + HEAD
+  derived high: Number<Length> = self.menu.height - self.menu.lead * 1ui + HEAD
 
   // Blizzard's menu, matched by the module from its first show on.
   const menu: GameMenu

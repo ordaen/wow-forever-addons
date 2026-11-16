@@ -13,7 +13,7 @@ const LABEL: Stated<Color> = { default: Color.hex("#ffd100"), hover: Color.hex("
 const GREY: Color = Color.hex("#808080")
 const SHADOW: Shadow = { color: Color.hex("#000000"), x: 1.171875dp, y: -1.171875dp }
 // The label while pressed.
-const DOWN: Stated<Number> = { default: 0, pressed: 2.34375dp }
+const DOWN: Stated<Number<Length>> = { default: 0ui, pressed: 2.34375dp }
 const NO_TIP: TipText = { title: "", text: "", rows: [] }
 
 public class PushButton implements Component {
@@ -29,7 +29,7 @@ public class PushButton implements Component {
   derived tipText: TipText = self.tip ?? NO_TIP
 
   label: Signal<String>
-  width: Signal<Number>
+  width: Signal<Number<Length>>
   accent: Signal<Boolean>
   disabled: Signal<Boolean>
   action: Signal<Action | nil>
@@ -37,7 +37,7 @@ public class PushButton implements Component {
   tip: Signal<TipText | nil>
   constructor(
     label: Signal<String>,
-    width: Signal<Number>,
+    width: Signal<Number<Length>>,
     accent: Signal<Boolean> = false,
     disabled: Signal<Boolean> = false,
     action: Signal<Action | nil> = nil,

@@ -3,7 +3,7 @@
 // body, what there is more of, the footer, what other modules add, the hotkeys. A rule only between two present sections, none between the
 // title and the body. As wide as its title and its band (they never wrap), 314 px at least; the body wraps at that
 // width.
-import { Align, Art, Beside, Cursor, Edges, Layer, Line, Piece, Position, Side, Size, TextFont, TextSize, Track } from "$ltml"
+import { Align, Art, Beside, Cursor, Edges, Layer, Line, Piece, Position, Side, Size, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
 import { GREEN, RED } from "@/colors"
@@ -532,8 +532,9 @@ public class TipFrame implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={"min-content"} minWidth={self.width} padding={INSIDE} border={Ordaen.art.frame.small}
+      <box width={"min-content"} padding={INSIDE} border={Ordaen.art.frame.small}
            background={Ordaen.art.window.wood}>
+        <box width={self.width} height={0ui} />
         <box $if={self.hasHeader} height={41.015625dp} gap={7.03125dp}>
           <box xAlign={Align.Center}>
             <text value={self.header} textColor={HEADING} wrap={false} />

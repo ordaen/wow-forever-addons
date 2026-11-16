@@ -70,7 +70,7 @@ public class Slider implements Component {
   }
 
   // The value at `x` UI units along the groove, held to the range and its steps.
-  setAt(mut self, x: Number) {
+  setAt(mut self, x: Number<Length>) {
     if (self.disabled) { return }
     let t = (0).max((1).min(x / LENGTH))
     let steps = (t * (self.most - self.least) / self.step).round()

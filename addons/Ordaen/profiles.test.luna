@@ -66,7 +66,7 @@ test "what develop's build kept reads back: its settings as «Default», what mo
   const choices: Map<String, Boolean> = {}
   choices["OrdaenPanel"] = false
   const places: Map<String, KeptPlace> = {}
-  places["minimap"] = { point: .TopRight, to: .TopRight, x: -10, y: -20 }
+  places["minimap"] = { point: .TopRight, to: .TopRight, x: -10ui, y: -20ui }
   const account: Map<String, Unknown> = {}
   account["settings"] = settings
   account["choices"] = choices
@@ -94,7 +94,7 @@ test "what develop's build kept reads back: its settings as «Default», what mo
   Test.expect(load(.Character, "OrdaenPanel:memory", Remembered {}).last == "bags")
   // Which modules the player turned off, and where the parts were put.
   Test.expect(Ordaen.chosen["OrdaenPanel"] == false)
-  Test.expect(Ordaen.moved("minimap")?.x == -10)
+  Test.expect(Ordaen.moved("minimap")?.x == -10ui)
   Test.expect(Ordaen.moved("minimap")?.to == .TopRight)
   // Saved again, the look is the profile's alone.
   Ordaen.look.draft.accent = Color.hex("#112233")

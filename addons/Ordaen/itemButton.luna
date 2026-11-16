@@ -58,10 +58,10 @@ const NONE: Array<Marker> = []
 
 // One pip.
 public class Pip implements Component {
-  derived left: Number<Length> | nil = self.marker.corner == Corner.TopRight ? nil : 0
-  derived right: Number<Length> | nil = self.marker.corner == Corner.TopRight ? 0 : nil
-  derived top: Number<Length> | nil = self.marker.corner == Corner.BottomLeft ? nil : 0
-  derived bottom: Number<Length> | nil = self.marker.corner == Corner.BottomLeft ? 0 : nil
+  derived left: Number<Length> | nil = self.marker.corner == Corner.TopRight ? nil : 0ui
+  derived right: Number<Length> | nil = self.marker.corner == Corner.TopRight ? 0ui : nil
+  derived top: Number<Length> | nil = self.marker.corner == Corner.BottomLeft ? nil : 0ui
+  derived bottom: Number<Length> | nil = self.marker.corner == Corner.BottomLeft ? 0ui : nil
 
   const marker: Marker
   constructor(marker: Marker) {
@@ -102,7 +102,7 @@ public class ItemButton implements Component {
   quality: Signal<Quality>
   dimmed: Signal<Boolean>
   markers: Signal<Array<Marker>>
-  size: Signal<Number>
+  size: Signal<Number<Length>>
   action: Signal<Action | nil>
   art: Signal<Art | nil>
   constructor(

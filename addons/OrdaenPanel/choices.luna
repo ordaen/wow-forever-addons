@@ -58,7 +58,7 @@ public struct Choices {
   // The panel: where, how long, how high, what sits in which zone, when it shows.
   edge: Edge
   fit: Fit
-  height: Number<Length>
+  height: Number
   places: Places
   visibility: Visibility
 }
@@ -66,7 +66,7 @@ public struct Choices {
 public const DEFAULTS: Choices = {
   microOn: true, statusOn: true, bottomOn: true, microIcons: MicroIcons.Upscaled, charButton: CharButton.Portrait,
   charView: CharView.Face, outline: Outline.None, shadow: true, xpTexture: XpTexture.Brushed, xpBorder: XpBorder.Theme,
-  xpView: XpView.Numbers, edge: Edge.Bottom, fit: Fit.Full, height: 60ui,
+  xpView: XpView.Numbers, edge: Edge.Bottom, fit: Fit.Full, height: 60,
   places: {
     micromenu: Zone.Left, social: Zone.Left, experience: Zone.Center, zone: Zone.Off, clock: Zone.Off,
     currencies: Zone.Right, bags: Zone.Right

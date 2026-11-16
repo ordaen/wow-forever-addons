@@ -748,7 +748,7 @@ test "the panel's height reaches from 60, where its cells still fit, to 96 on it
 }
 
 test "a height kept lower than the cells fit, from before the slider stopped at 60, is read as 60" {
-  const low: Choices = { height: 24ui, ..DEFAULTS }
+  const low: Choices = { height: 24, ..DEFAULTS }
   // Ordaen's profiles as the game keeps them: the default profile, the panel's section packed in it.
   const sections: Map<String, String> = {}
   sections["OrdaenPanel"] = Game.encoding.serialize(low)

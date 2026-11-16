@@ -51,8 +51,8 @@ class Gearbox {
 // Three windows over one another (`Desk`): Alpha left, Gamma right, Beta between them and reaching further down.
 // Alpha stays drawn while hidden, as the settings window does; Beta and Gamma are drawn as they open. Each body is a
 // face that says which window a click reached. Where all three overlap, the click reaches the one in front.
-const SCREEN_W = 1600
-const SCREEN_H = 900
+const SCREEN_W = 1600ui
+const SCREEN_H = 900ui
 const SHARED: Test.Point = { x: 800, y: 470 }
 const ALPHA_ONLY: Test.Point = { x: 500, y: 470 }
 const GAMMA_ONLY: Test.Point = { x: 1120, y: 470 }
@@ -67,7 +67,7 @@ class Desk {
   state betaTabs: Array<WindowTabSpec> = [{ title: "Beta" }]
   state gammaTabs: Array<WindowTabSpec> = [{ title: "Gamma" }]
   state tab = 1
-  public alpha: mut KeptWindow = new KeptWindow("alpha", "alpha", { x: -150, y: 0ui, width: 400ui, height: 200ui })
+  public alpha: mut KeptWindow = new KeptWindow("alpha", "alpha", { x: -150ui, y: 0ui, width: 400ui, height: 200ui })
   public beta: mut KeptWindow = new KeptWindow("beta", "beta", { x: 0ui, y: 100ui, width: 400ui, height: 400ui })
   public gamma: mut KeptWindow = new KeptWindow("gamma", "gamma", { x: 150ui, y: 0ui, width: 400ui, height: 200ui })
   state alphaOpen = false
@@ -247,7 +247,7 @@ test "each control in the tab row works: settings and close are heard, full scre
 // A window that opens, or is clicked, comes in front of the others and is the one Escape closes: however often the
 // player went from one to another before.
 test "windows opened and clicked in turn each come to the front and take Escape" {
-  Test.screen(SCREEN_W, SCREEN_H)
+  Test.screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
   let desk = new Desk()
   Test.mount(desk, { left: 0, top: 0, width: 10, height: 10 })
   desk.alphaOpen = true
@@ -302,7 +302,7 @@ test "windows opened and clicked in turn each come to the front and take Escape"
 // The tab row takes the mouse on its tabs alone: a click on its room right of them reaches the window under it, and
 // the tab still moves its window.
 test "a click right of a window's tabs reaches the window under them" {
-  Test.screen(SCREEN_W, SCREEN_H)
+  Test.screen(SCREEN_W / 1ui, SCREEN_H / 1ui)
   let desk = new Desk()
   Test.mount(desk, { left: 0, top: 0, width: 10, height: 10 })
   // Gamma lower, its tab row over Beta's body.
@@ -328,7 +328,7 @@ test "a click right of a window's tabs reaches the window under them" {
   Test.moveTo({ x: tab.x + 30, y: tab.y })
   Test.pass(0.1)
   Test.release(nil)
-  Test.expect((desk.gamma.placing.x - was - 30).abs() < 1)
+  Test.expect((desk.gamma.placing.x - was - 30ui).abs() < 1ui)
   destroy desk
 }
 
@@ -349,9 +349,9 @@ class Footed {
   state saved = 0
   const footer: Template = $ltml {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
-      <PushButton label={"Reset"} width={100} />
+      <PushButton label={"Reset"} width={100ui} />
       <text value={"2 waiting"} />
-      <PushButton label={"Save"} width={100} @click={self.onSave} />
+      <PushButton label={"Save"} width={100ui} @click={self.onSave} />
     </box>
   }
 
@@ -386,7 +386,7 @@ class Sided {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
       <text value={"5 items"} />
       <box />
-      <PushButton label={"Scan"} width={100} />
+      <PushButton label={"Scan"} width={100ui} />
     </box>
   }
   const details: WindowSide = {

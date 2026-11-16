@@ -28,7 +28,7 @@ const INK: Color = Color.hex("#f3e1b8")
 // The clock while calendar invites wait.
 const PENDING: Color = Color.hex("#ff9a2e")
 // Dark up-left, as the windows' titles.
-const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1, y: 1ui }
+const ENGRAVED: Shadow = { color: Color.hex("#000000e6"), x: -1ui, y: 1ui }
 const RULE: Color = Color.hex("#120c06")
 // A strip's rule towards the map.
 const RULE_BELOW: Line = { width: 2.34375dp, color: RULE, sides: ["bottom"] }
@@ -55,24 +55,24 @@ public class Minimap implements Module, App {
   // The ring button being dragged, and its angle meanwhile.
   state dragging: RingId | nil = nil
   state dragAngle: Number = 0
-  dragLeft: Number = 0
-  dragTop: Number = 0
+  dragLeft: Number<Length> = 0ui
+  dragTop: Number<Length> = 0ui
   state hint: Hint = Hint.None
   state entryName = ""
 
   // The frame's metal: the map sits inside its wood, the line's width and the wood's inset in from the line.
-  derived out: Number<Length> = Ordaen.art.frame.small.width + Ordaen.art.frame.small.inset
+  derived out: Number<Length> = (Ordaen.art.frame.small.width + Ordaen.art.frame.small.inset) * 1ui
   derived size: Number<Length> = MAP * self.settings.values.scale
-  derived headHeight: Number<Length> = self.settings.values.showZone ? STRIP : 0
+  derived headHeight: Number<Length> = self.settings.values.showZone ? STRIP : 0ui
   derived hasFoot: Boolean = self.settings.values.showCoords || self.settings.values.showClock
-  derived footHeight: Number<Length> = self.hasFoot ? STRIP : 0
+  derived footHeight: Number<Length> = self.hasFoot ? STRIP : 0ui
   derived frameWidth: Number<Length> = self.size + 2 * self.out
   derived frameHeight: Number<Length> = self.size + 2 * self.out + self.headHeight + self.footHeight
   derived wholeWidth: Number<Length> = self.frameWidth + 2 * ROOM
   derived wholeHeight: Number<Length> = self.frameHeight + 2 * ROOM
   // The metal stands past its line, and the frame's box holds it: the box starts that far out.
-  derived frameLeft: Number<Length> = ROOM - Ordaen.art.frame.small.reach.left * Ordaen.art.frame.small.scale
-  derived frameTop: Number<Length> = ROOM - Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale
+  derived frameLeft: Number<Length> = ROOM - Ordaen.art.frame.small.reach.left * Ordaen.art.frame.small.scale * 1ui
+  derived frameTop: Number<Length> = ROOM - Ordaen.art.frame.small.reach.top * Ordaen.art.frame.small.scale * 1ui
   derived mapTop: Number<Length> = self.out + self.headHeight
 
   derived showsCoords: Boolean = self.settings.values.showCoords && Game.minimap.coords != ""
@@ -93,7 +93,7 @@ public class Minimap implements Module, App {
   derived drawerShown: Boolean = self.settings.values.drawerOn && self.drawerOpen && self.held > 0
   derived drawerParked: Boolean = self.settings.values.drawerOn && !self.drawerOpen
   // Its cells, the room round them and its frame's line on both sides.
-  derived drawerEdge: Number = 2 * DRAWER_PAD + 2 * Ordaen.art.frame.small.width
+  derived drawerEdge: Number<Length> = 2 * DRAWER_PAD + 2 * Ordaen.art.frame.small.width * 1ui
   derived drawerWidth: Number<Length> = self.settings.values.drawerColumns * CELL + (self.settings.values.drawerColumns - 1) * CELL_GAP + self.drawerEdge
   derived drawerRows: Integer = (1).max((self.held / self.settings.values.drawerColumns).ceil())
   derived drawerHeight: Number<Length> = self.drawerRows * CELL + (self.drawerRows - 1) * CELL_GAP + self.drawerEdge
@@ -161,22 +161,22 @@ public class Minimap implements Module, App {
 
   // Where a ring button's centre sits, from the frame's centre: along its angle, onto the box RING_OUT round the
   // frame (a square's projection, not a circle's), rounded to hundredths.
-  offset(self, spec: RingSpec): (Number, Number) {
+  offset(self, spec: RingSpec): (Number<Length>, Number<Length>) {
     let t = self.angle(spec).rad()
     let x = t.sin()
     let y = -t.cos()
     let halfWidth = self.frameWidth / 2 + RING_OUT
     let halfHeight = self.frameHeight / 2 + RING_OUT
     let k = (halfWidth / x.abs().max(1e-9)).min(halfHeight / y.abs().max(1e-9))
-    return (x * k * 100 + 0.5).floor() / 100, (y * k * 100 + 0.5).floor() / 100
+    return (x * k / 1ui * 100 + 0.5).floor() / 100 * 1ui, (y * k / 1ui * 100 + 0.5).floor() / 100 * 1ui
   }
 
-  public ringLeft(self, spec: RingSpec): Number {
+  public ringLeft(self, spec: RingSpec): Number<Length> {
     let x, y = self.offset(spec)
     return ROOM + self.frameWidth / 2 + x - BUTTON / 2
   }
 
-  public ringTop(self, spec: RingSpec): Number {
+  public ringTop(self, spec: RingSpec): Number<Length> {
     let x, y = self.offset(spec)
     return ROOM + self.frameHeight / 2 + y - BUTTON / 2
   }
@@ -202,10 +202,10 @@ public class Minimap implements Module, App {
 
   // The cursor gone `dx`, `dy` since the press: the button's middle as it stood, moved as far, held by the cursor
   // where it took it.
-  public dragTo(mut self, dx: Number, dy: Number) {
+  public dragTo(mut self, dx: Number<Length>, dy: Number<Length>) {
     let cx = self.dragLeft + BUTTON / 2 + dx - ROOM - self.frameWidth / 2
     let cy = self.dragTop + BUTTON / 2 + dy - ROOM - self.frameHeight / 2
-    self.dragAngle = (cx.atan2(-cy).deg() % 360 + 0.5).floor()
+    self.dragAngle = ((cx / 1ui).atan2(-cy / 1ui).deg() % 360 + 0.5).floor()
   }
 
   public stopDrag(mut self, spec: RingSpec) {

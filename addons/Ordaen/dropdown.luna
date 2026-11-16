@@ -2,7 +2,7 @@
 // arrow. Left-click opens the menu under it, each choice with its mark (the picked one's gold), the light under the
 // cursor. Left-click on a choice picks it and closes the menu; a click anywhere else closes it. Disabled, it doesn't
 // open. A choice not built yet (`soon`) is listed dimmed, with «in development» after its name, and takes no click.
-import { Align, Art, Beside, Edges, Layer, Line, Position, Shadow, Stated } from "$ltml"
+import { Align, Art, Beside, Bounds, Edges, Layer, Line, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
 import Locale from "@/locales"
 import { Component } from "@/module"
@@ -142,15 +142,15 @@ public class Dropdown<T: Unknown> implements Component {
 public class CompactDropdown<T: Unknown> implements Component {
   state open = false
   derived shown: String = labelOf(self.choices, self.value)
-  derived listWidth: Number<Length> = self.width + 46.875dp
+  derived listBounds: Bounds = { min: self.width + 46.875dp, max: nil }
 
   value: mut Signal<T>
   const choices: Array<Choice<T>>
-  width: Signal<Number>
+  width: Signal<Number<Length>>
   constructor(
     value: mut Signal<T>,
     choices: Array<Choice<T>>,
-    width: Signal<Number>
+    width: Signal<Number<Length>>
   ) {
     self.value = value
     self.choices = choices
@@ -174,7 +174,7 @@ public class CompactDropdown<T: Unknown> implements Component {
           <text value={self.shown} textColor={GOLD} wrap={false} />
           <box width={18.75dp} height={18.75dp} background={Ordaen.art.ctl.dropdownArrow} shadow={ARROW_SHADOW} />
         </box>
-        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} minWidth={self.listWidth}
+        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
                  background={MENU_BACK} border={MENU_EDGE} padding={MENU_PAD} columns={1} @clickOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />

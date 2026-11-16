@@ -7,7 +7,7 @@
 // cursor, a Tip names those keys), and `Field`, the number typed in, which fills the box it stands in (a
 // number past a bound is written as that bound; a text that isn't a number leaves the value and turns the edge red).
 import Game from "$game"
-import { Align, Edges, Line, Track } from "$ltml"
+import { Align, Bounds, Edges, Line, Track } from "$ltml"
 import Locale from "@/locales"
 import { Component } from "@/module"
 import { PushButton } from "@/pushButton"
@@ -24,7 +24,7 @@ const PADDING: Edges = { right: 11.71875dp, left: 11.71875dp }
 // The −, the number, the +. The number's room is as wide as its digits as the font draws them, two at least: it
 // widens past them for a third.
 const STEPS: Array<Track> = ["max-content", "max-content", "max-content"]
-const NUMBER_ROOM = 25.78125dp
+const NUMBER_BOUNDS: Bounds = { min: 25.78125dp, max: nil }
 const DIGITS = 6
 
 // `value` held between `least` and `most`; the least where the most is under it.
@@ -80,7 +80,7 @@ public class CountInput implements Component {
   most: Signal<Integer>
   const look: CountLook
   // The width of − and +.
-  const step: Number
+  const step: Number<Length>
   disabled: Signal<Boolean>
   constructor(
     value: mut Signal<Integer>,
@@ -138,7 +138,7 @@ public class CountInput implements Component {
       <box $if={self.stepped} columns={STEPS} gap={7.03125dp} yAlign={Align.Center}>
         <PushButton label={"-"} width={self.step} disabled={!self.fewer} repeats={true} tip={FEWER_TIP}
                     @click={self.less} />
-        <box xAlign={Align.Center} minWidth={NUMBER_ROOM}>
+        <box xAlign={Align.Center} width={NUMBER_BOUNDS}>
           <text value={"%d"} arguments={[self.value]} textColor={WHITE}
                 textFont={.Numbers} wrap={false} />
         </box>

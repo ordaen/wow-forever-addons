@@ -78,7 +78,7 @@ public class Auction implements Module, App {
   // A docked window's one tab, and its width (it stands the screen's height).
   state sideTab = 1
   // What the full-screen window leaves clear at the screen's right: the docked windows' width, while one is open.
-  derived room: Number<Length> = self.shoppingOpen || self.ownedOpen ? Style.SIDE_WIDTH : 0
+  derived room: Number<Length> = self.shoppingOpen || self.ownedOpen ? Style.SIDE_WIDTH : 0ui
   // The row picked on «Buy» and on «Sell»: the item's section at the window's right, the full height beside the
   // page, while the page shows one.
   state buyChosen: Array<Found> = []

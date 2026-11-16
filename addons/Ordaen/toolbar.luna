@@ -13,7 +13,7 @@
 // picks it and closes the list, a click anywhere else closes it. It shows the picked choice's own glyph where the
 // choice has one (a view), else its own (a sort); its Tip says the picked choice.
 // ToolAct: a ToolButton's plate and glyph that does one thing when clicked (sorting the bags now), its Tip saying what.
-import { Align, Art, Beside, Edges, Layer, Line, Position, Track } from "$ltml"
+import { Align, Art, Beside, Bounds, Edges, Layer, Line, Position, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Choice, DropdownItem } from "@/dropdown"
 import { Component } from "@/module"
@@ -179,7 +179,7 @@ public class ToolPick<T: Unknown> implements Component {
   icon: Signal<Art>
   title: Signal<String>
   lit: Signal<Boolean>
-  const listWidth: Number
+  const listBounds: Bounds
   constructor(
     value: mut Signal<T>,
     choices: Array<Choice<T>>,
@@ -195,7 +195,7 @@ public class ToolPick<T: Unknown> implements Component {
     self.icon = icon
     self.title = title
     self.lit = lit
-    self.listWidth = listWidth
+    self.listBounds = { min: listWidth, max: nil }
   }
 
   close(mut self) { self.open = false }
@@ -208,7 +208,7 @@ public class ToolPick<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <ToolButton icon={self.glyph} title={self.title} text={self.shown} open={mut self.open} lit={self.lit}>
-        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} minWidth={self.listWidth}
+        <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
                  background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @clickOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />

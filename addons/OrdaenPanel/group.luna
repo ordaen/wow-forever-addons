@@ -31,7 +31,7 @@ public class CellGroup implements Component {
   cells: Signal<Array<Cell>>
   gold: Signal<Boolean>
   vertical: Signal<Boolean>
-  height: Signal<Number>
+  height: Signal<Number<Length>>
   face: Signal<String | nil>
   icon: Signal<Art | nil>
   constructor(
@@ -40,7 +40,7 @@ public class CellGroup implements Component {
     gold: Signal<Boolean> = false,
     vertical: Signal<Boolean> = false,
     // How high each cell is: the panel's inside.
-    height: Signal<Number> = CELL_HEIGHT,
+    height: Signal<Number<Length>> = CELL_HEIGHT,
     // The character's cell: the unit whose face it shows, or the class's icon.
     face: Signal<String | nil> = "player",
     icon: Signal<Art | nil> = nil

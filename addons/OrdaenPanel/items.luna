@@ -48,7 +48,7 @@ public class MicroLine implements Component {
   faced: Signal<Boolean>
   social: Signal<Boolean>
   merged: Signal<Boolean>
-  height: Signal<Number>
+  height: Signal<Number<Length>>
   face: Signal<String | nil>
   icon: Signal<Art | nil>
   constructor(
@@ -59,7 +59,7 @@ public class MicroLine implements Component {
     social: Signal<Boolean> = false,
     // The spellbook and the talents open one window: one button for both.
     merged: Signal<Boolean> = false,
-    height: Signal<Number> = CELL_HEIGHT,
+    height: Signal<Number<Length>> = CELL_HEIGHT,
     // The character's cell: the unit whose face it shows, or the class's icon.
     face: Signal<String | nil> = "player",
     icon: Signal<Art | nil> = nil
@@ -88,8 +88,8 @@ public class SocialLine implements Component {
 
   gold: Signal<Boolean>
   vertical: Signal<Boolean>
-  height: Signal<Number>
-  constructor(gold: Signal<Boolean>, vertical: Signal<Boolean> = false, height: Signal<Number> = CELL_HEIGHT) {
+  height: Signal<Number<Length>>
+  constructor(gold: Signal<Boolean>, vertical: Signal<Boolean> = false, height: Signal<Number<Length>> = CELL_HEIGHT) {
     self.gold = gold
     self.vertical = vertical
     self.height = height
@@ -113,7 +113,7 @@ public class MoneyLine implements Component {
   // Down a side of the screen the two stand one under the other, in the panel's middle, the money wrapping in its
   // width.
   derived columns: Array<Track> = self.vertical ? WHOLE : PAIR
-  derived gap: Number<Length> = self.vertical ? 4 / 1.2 : 12 / 1.2
+  derived gap: Number<Length> = self.vertical ? 4ui / 1.2 : 12ui / 1.2
   derived across: Align = self.vertical ? Align.Center : Align.Stretch
 
   outline: Signal<Integer>
@@ -148,8 +148,8 @@ public class BagLine implements Component {
   derived cells: Array<Cell> = Game.bags.buttons.map(button => Cell.Bag { button: button })
 
   vertical: Signal<Boolean>
-  height: Signal<Number>
-  constructor(vertical: Signal<Boolean> = false, height: Signal<Number> = CELL_HEIGHT) {
+  height: Signal<Number<Length>>
+  constructor(vertical: Signal<Boolean> = false, height: Signal<Number<Length>> = CELL_HEIGHT) {
     self.vertical = vertical
     self.height = height
   }

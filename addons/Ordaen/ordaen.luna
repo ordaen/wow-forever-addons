@@ -49,8 +49,8 @@ public class OrdaenCore implements App {
   // The room each module's part keeps along the screen's bottom edge (the bottom panel), by its module's folder, and
   // the room the highest keeps: the free parts that stand by that edge until the player moves them (the action bars)
   // stand above it.
-  state bottoms: mut Map<String, Number> = {}
-  public derived bottomTaken: Number = self.bottomTakenOf()
+  state bottoms: mut Map<String, Number<Length>> = {}
+  public derived bottomTaken: Number<Length> = self.bottomTakenOf()
   // The modules drawn on the screen: each once, until it ends and what it drew goes with it.
   drawn: mut WeakMap<any Module, Boolean> = {}
   // The mode in which the player moves every module's parts about the screen.
@@ -88,15 +88,15 @@ public class OrdaenCore implements App {
     self.start()
   }
 
-  bottomTakenOf(self): Number {
-    let most: Number = 0
+  bottomTakenOf(self): Number<Length> {
+    let most: Number<Length> = 0ui
     for (_, taken of self.bottoms) { most = most.max(taken) }
     return most
   }
 
   // How far up from the screen's bottom edge a module's part reaches, in UI units: 0 while it keeps no room there
   // (off, along another side, or the module ending).
-  public keepBottom(mut self, folder: String, taken: Number) {
+  public keepBottom(mut self, folder: String, taken: Number<Length>) {
     self.bottoms[folder] = taken
   }
 

@@ -17,10 +17,10 @@ public class Dialog implements Component {
   derived titled: Boolean = self.title != ""
   derived padding: Edges = self.titled ? TITLED : PLAIN
 
-  width: Signal<Number>
+  width: Signal<Number<Length>>
   title: Signal<String>
   constructor(
-    width: Signal<Number>,
+    width: Signal<Number<Length>>,
     title: Signal<String> = ""
   ) {
     self.width = width

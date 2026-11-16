@@ -182,7 +182,7 @@ test "a size kept below what the content needs is raised to it as the window ope
   const kept = Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:window:settings")
   const view = WindowView.decode(kept, WindowView {})
   Ordaen.keeper.profiles.remember("Ordaen:window:settings", WindowView {
-    x: view.x - (view.width - 40) / 2, y: view.y, width: 40ui, height: 30ui, full: false, tab: 1, side: 0ui
+    x: view.x - (view.width - 40ui) / 2, y: view.y, width: 40ui, height: 30ui, full: false, tab: 1, side: 0ui
   })
   Test.reload()
   open()
@@ -208,7 +208,7 @@ test "a number typed on the «Windows» page moves the window, and is kept" {
   Test.shot("the place across typed: -100, the window 100 to the left")
   const kept = WindowView.decode(Ordaen.keeper.profiles.recalled(Ordaen.keeper.profiles.active, "Ordaen:window:settings"),
     WindowView {})
-  Test.expect(kept.x == -100)
+  Test.expect(kept.x == -100ui)
 }
 
 test "a window that keeps nothing opens where it is declared, whatever it was moved to" {

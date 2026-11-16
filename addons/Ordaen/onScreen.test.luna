@@ -30,14 +30,14 @@ class Framed {
 // Where the cursor is taken to: a point of the screen, an axis left out staying where the drag took it.
 struct Goal {
   name: String
-  x: Number<Length> | nil
-  y: Number<Length> | nil
+  x: Number | nil
+  y: Number | nil
 }
 
 // A drag of `kept`'s and what it should give.
 struct Case {
-  dx: Number
-  dy: Number
+  dx: Number<Length>
+  dy: Number<Length>
   hold: Hold
   x: Number<Length>
   y: Number<Length>
@@ -74,25 +74,25 @@ function said(rect: Test.Rect): String {
 }
 
 test "a drag is held to its surface's room: moved, at each edge and corner; sized, at the right and the bottom" {
-  const room: Room = { left: 10, right: 20, up: 30, down: 40, leastWidth: 0, leastHeight: 0 }
+  const room: Room = { left: 10ui, right: 20ui, up: 30ui, down: 40ui, leastWidth: 0ui, leastHeight: 0ui }
   const cases: Array<Case> = [
-    { dx: -50, dy: 5, hold: Hold.Move, x: -10, y: 5ui },
-    { dx: 50, dy: -5, hold: Hold.Move, x: 20ui, y: -5 },
-    { dx: 5, dy: -50, hold: Hold.Move, x: 5ui, y: -30 },
-    { dx: -5, dy: 50, hold: Hold.Move, x: -5, y: 40ui },
-    { dx: -50, dy: -50, hold: Hold.Move, x: -10, y: -30 },
-    { dx: 50, dy: -50, hold: Hold.Move, x: 20ui, y: -30 },
-    { dx: -50, dy: 50, hold: Hold.Move, x: -10, y: 40ui },
-    { dx: 50, dy: 50, hold: Hold.Move, x: 20ui, y: 40ui },
-    { dx: 3, dy: -4, hold: Hold.Move, x: 3ui, y: -4 },
+    { dx: -50ui, dy: 5ui, hold: Hold.Move, x: -10ui, y: 5ui },
+    { dx: 50ui, dy: -5ui, hold: Hold.Move, x: 20ui, y: -5ui },
+    { dx: 5ui, dy: -50ui, hold: Hold.Move, x: 5ui, y: -30ui },
+    { dx: -5ui, dy: 50ui, hold: Hold.Move, x: -5ui, y: 40ui },
+    { dx: -50ui, dy: -50ui, hold: Hold.Move, x: -10ui, y: -30ui },
+    { dx: 50ui, dy: -50ui, hold: Hold.Move, x: 20ui, y: -30ui },
+    { dx: -50ui, dy: 50ui, hold: Hold.Move, x: -10ui, y: 40ui },
+    { dx: 50ui, dy: 50ui, hold: Hold.Move, x: 20ui, y: 40ui },
+    { dx: 3ui, dy: -4ui, hold: Hold.Move, x: 3ui, y: -4ui },
     // Sized: its right and bottom stop at the screen's; it shrinks as far as the cursor goes.
-    { dx: 50, dy: 5, hold: Hold.Size, x: 20ui, y: 5ui },
-    { dx: 5, dy: 50, hold: Hold.Size, x: 5ui, y: 40ui },
-    { dx: 50, dy: 50, hold: Hold.Size, x: 20ui, y: 40ui },
-    { dx: -500, dy: -500, hold: Hold.Size, x: -500, y: -500 }
+    { dx: 50ui, dy: 5ui, hold: Hold.Size, x: 20ui, y: 5ui },
+    { dx: 5ui, dy: 50ui, hold: Hold.Size, x: 5ui, y: 40ui },
+    { dx: 50ui, dy: 50ui, hold: Hold.Size, x: 20ui, y: 40ui },
+    { dx: -500ui, dy: -500ui, hold: Hold.Size, x: -500ui, y: -500ui }
   ]
   for (c of cases) {
-    let x, y = kept({ x: 0, y: 0, dx: c.dx, dy: c.dy, room: room, shareX: 0.5, shareY: 0.5 }, c.hold)
+    let x, y = kept({ x: 0ui, y: 0ui, dx: c.dx, dy: c.dy, room: room, shareX: 0.5, shareY: 0.5 }, c.hold)
     Test.expect(x == c.x && y == c.y)
   }
 }
@@ -102,13 +102,13 @@ test "a window dragged into each edge and corner stops there, keeps the other ax
   Test.mount(page, { left: 0, top: 0, width: 200, height: 100 })
   const goals: Array<Goal> = [
     // The cursor on the screen: the window meets the edge before the cursor does.
-    { name: "left", x: 5ui, y: nil },
+    { name: "left", x: 5, y: nil },
     { name: "right", x: SCREEN_W - 5, y: nil },
-    { name: "top", x: nil, y: 5ui },
+    { name: "top", x: nil, y: 5 },
     { name: "bottom", x: nil, y: SCREEN_H - 5 },
-    { name: "top left", x: 5ui, y: 5ui },
-    { name: "top right", x: SCREEN_W - 5, y: 5ui },
-    { name: "bottom left", x: 5ui, y: SCREEN_H - 5 },
+    { name: "top left", x: 5, y: 5 },
+    { name: "top right", x: SCREEN_W - 5, y: 5 },
+    { name: "bottom left", x: 5, y: SCREEN_H - 5 },
     { name: "bottom right", x: SCREEN_W - 5, y: SCREEN_H - 5 },
     // Past the game's window: the client gives the other axis at its end, and the drag keeps where it had it.
     { name: "past the left", x: -400, y: nil },
@@ -151,7 +151,7 @@ test "a window sized by its grip to each edge stops there, its top left where it
     { name: "right", x: SCREEN_W - 5, y: nil },
     { name: "bottom", x: nil, y: SCREEN_H - 5 },
     { name: "bottom right", x: SCREEN_W - 5, y: SCREEN_H - 5 },
-    { name: "top left: as small as it may be", x: 5ui, y: 5ui },
+    { name: "top left: as small as it may be", x: 5, y: 5 },
     { name: "past the right", x: SCREEN_W + 400, y: nil },
     { name: "past the bottom", x: nil, y: SCREEN_H + 400 },
     { name: "past the bottom right", x: SCREEN_W + 400, y: SCREEN_H + 400 },

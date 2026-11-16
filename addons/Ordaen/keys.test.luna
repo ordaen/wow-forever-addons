@@ -62,7 +62,7 @@ class Controls {
           <Segmented value={mut self.side} choices={SIDES} />
           <Tabs tabs={["One", "Two"]} selected={mut self.page} />
           <Dropdown label={"Size"} value={mut self.size} choices={SIZES} />
-          <CompactDropdown value={mut self.compact} choices={SIDES} width={120} />
+          <CompactDropdown value={mut self.compact} choices={SIDES} width={120ui} />
           <Slider label={"Scale"} value={mut self.scale} least={0.5} most={2} step={0.1} />
           <MoneyInput label={"Price"} value={mut self.money} />
           <TextBox value={mut self.notes} height={40ui} />

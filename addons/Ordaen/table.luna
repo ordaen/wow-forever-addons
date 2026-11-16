@@ -141,7 +141,7 @@ public class Table implements Component {
   const columns: Array<Column>
   sorted: mut Signal<Integer>
   descending: mut Signal<Boolean>
-  height: Signal<Number | nil>
+  height: Signal<Number<Length> | nil>
   // The body's `rowHeight`: none where the rows are as high as what they hold.
   const fixedRows: Number<Length> | nil
   constructor(
@@ -150,9 +150,9 @@ public class Table implements Component {
     sorted: mut Signal<Integer>,
     descending: mut Signal<Boolean>,
     // The body's height: it scrolls past it. None: as high as its rows, or the rest of a height the table is given.
-    height: Signal<Number | nil> = nil,
+    height: Signal<Number<Length> | nil> = nil,
     // How high each row is; `"auto"`: each as high as what it holds, and every row built (rows whose height varies).
-    rowHeight: Number | "auto" = ROW
+    rowHeight: Number<Length> | "auto" = ROW
   ) {
     self.columns = columns
     self.sorted = sorted

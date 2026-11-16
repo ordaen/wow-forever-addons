@@ -15,7 +15,7 @@ const GAP: Number<Length> = space(.Line)
 const ABOVE: Number<Length> = space(.Item)
 const STEP: Number<Length> = BUTTON + GAP
 const INK: Color = Color.hex("#ffffff")
-const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1 }
+const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 
 // A frame never shown: what is put in it draws nothing, whatever shows it.
 function hiddenFrame(): any Client.Frame {

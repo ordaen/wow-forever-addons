@@ -351,8 +351,8 @@ public class Bags implements Module, App {
     }
   }
 
-  gridWidth(self): Number {
-    const tabs = self.categories ? TABS_WIDTH + space(.Group) : 0
+  gridWidth(self): Number<Length> {
+    const tabs: Number<Length> = self.categories ? TABS_WIDTH + space(.Group) : 0ui
     return self.window.placing.width - 2 * space(.Window) - tabs - SCROLL_ROOM
   }
 

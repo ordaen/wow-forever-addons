@@ -702,7 +702,7 @@ public class Professions implements Module, App {
                           kept={self.kept} taught={self.taught} @pick={self.openRecipe} />
             <WorthPage $elseif={self.worthShown} book={self.written} prices={self.prices} />
             <box $else columns={GRID} rows={FILL} gap={space(.Group)}>
-              <box rows={SIDE} gap={space(.Item)} minWidth={Style.LISTS_LEAST}>
+              <box rows={SIDE} gap={space(.Item)} width={Style.LISTS_BOUNDS}>
                 <Toolbar search={mut self.search} placeholder={Locale.SEARCH}>
                   <FilterButton open={mut self.filterOpen} makeable={mut self.onlyMake} skillUp={mut self.onlySkill}
                                 learned={mut self.showLearned} unlearned={mut self.showUnlearned}
@@ -721,11 +721,11 @@ public class Professions implements Module, App {
                 </box>
                 <box $elseif={self.inColumns} columns={LISTS} rows={FILL} border={FRAME}
                      background={Style.LISTS_BACK}>
-                  <box overflow={Overflow.Scroll} minWidth={Style.CATEGORIES_LEAST}>
+                  <box overflow={Overflow.Scroll} width={Style.CATEGORIES_BOUNDS}>
                     <CategoryRow $for={index, group of self.groups} group={group} index={index}
                                  chosen={self.chosenCategory} @pick={self.pickCategory} />
                   </box>
-                  <box overflow={Overflow.Scroll} border={COLUMN_RULE} minWidth={Style.RECIPES_LEAST}>
+                  <box overflow={Overflow.Scroll} border={COLUMN_RULE} width={Style.RECIPES_BOUNDS}>
                     <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
                                chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                @act={self.onAct} />

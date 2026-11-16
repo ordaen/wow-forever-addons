@@ -96,7 +96,7 @@ class PriceChart implements Component {
     const high = self.high
     const last = self.lows.length
     for (index, copper of self.lows) {
-      const height = copper > 0 && high > 0 ? LEAST_BAR.max(CHART_HEIGHT * copper / high) : 0
+      const height = copper > 0 && high > 0 ? LEAST_BAR.max(CHART_HEIGHT * copper / high) : 0ui
       list.push({ height: height, color: index == last ? LAST_BAR : BAR })
     }
     return list

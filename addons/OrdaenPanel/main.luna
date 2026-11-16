@@ -20,30 +20,30 @@ import { XpBar } from "@/xpBar"
 const INK: Color = Color.hex("#e8dcc4")
 // The time while calendar invites wait.
 const PENDING: Color = Color.hex("#ff9933")
-const TEXT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1 }
+const TEXT_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 const NO_SHADOW: Shadow = { color: Color.hex("#00000000"), x: 0ui, y: 0ui }
 // Under the metal along its inner side the content starts 4 further in.
-const EDGE_ROOM_TOP = 4
+const EDGE_ROOM_TOP = 4ui
 const EDGE_ROOM: Edges = { top: EDGE_ROOM_TOP }
 // The metal's width along the inner side (Ordaen's `panel.edge`).
-const METAL = 3
+const METAL = 3ui
 // The least the panel is high: a cell, a fixed size, under the metal and the room along it. A height saved lower is
 // read as this.
-const LEAST_HEIGHT = CELL_HEIGHT + METAL + EDGE_ROOM_TOP
+const LEAST_HEIGHT: Number<Length> = CELL_HEIGHT + METAL + EDGE_ROOM_TOP
 // Where the free parts stand until the player moves them: above the bottom of the screen.
-const MICRO_HOME: Anchored = { point: Point.BottomLeft, x: 140ui, y: -10 }
-const SOCIAL_HOME: Anchored = { point: Point.BottomLeft, x: 660ui, y: -10 }
-const EXPERIENCE_HOME: Anchored = { point: Point.Bottom, x: 0ui, y: -20 }
-const MONEY_HOME: Anchored = { point: Point.BottomRight, x: -330, y: -20 }
-const BAGS_HOME: Anchored = { point: Point.BottomRight, x: -10, y: -10 }
+const MICRO_HOME: Anchored = { point: Point.BottomLeft, x: 140ui, y: -10ui }
+const SOCIAL_HOME: Anchored = { point: Point.BottomLeft, x: 660ui, y: -10ui }
+const EXPERIENCE_HOME: Anchored = { point: Point.Bottom, x: 0ui, y: -20ui }
+const MONEY_HOME: Anchored = { point: Point.BottomRight, x: -330ui, y: -20ui }
+const BAGS_HOME: Anchored = { point: Point.BottomRight, x: -10ui, y: -10ui }
 // The zones along the panel. Across the whole edge, thirds; as long as its items, each zone as long as they are.
 // Either way an end never gives way past its items' length, and the middle is a share that does, down to its own
 // items' least (the experience bar's): on a screen too short for that the panel scrolls down a side.
 const THIRDS: Array<Track> = [{ fr: 1 }, { fr: 1 }, { fr: 1 }]
 const FITTED: Array<Track> = ["max-content", { fr: 1 }, "max-content"]
 // The portrait in the screen's corner, over the panel's start; the menu keeps that much room for it.
-const PORTRAIT_WIDTH = 128
-const PORTRAIT_HEIGHT = 124
+const PORTRAIT_WIDTH = 128ui
+const PORTRAIT_HEIGHT = 124ui
 const PORTRAIT_ROOM: Array<Track> = [PORTRAIT_WIDTH, "max-content"]
 const CORNER: Anchored = { point: Point.BottomLeft }
 // Ordaen Spells' title, as its module gives it.
@@ -178,7 +178,7 @@ public class Panel implements Module, App {
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale.TAB_MICROMENU, content: $ltml { <MicroPage settings={mut self.settings} /> } },
     { title: Locale.TAB_STATUS, content: $ltml { <StatusPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} least={LEAST_HEIGHT} /> } }
+    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} least={LEAST_HEIGHT / 1ui} /> } }
   ]
 
   // The cursor on the panel, on its portrait: each a surface of its own, heard apart.
@@ -189,13 +189,13 @@ public class Panel implements Module, App {
     Ordaen.modules.add(self)
     // The room it keeps along the screen's bottom edge, told to Ordaen: its height while it is on and stands there.
     watch {
-      const taken: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? self.tall : 0
+      const taken: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? self.tall : 0ui
       Ordaen.keepBottom(FOLDER, taken)
     }
   }
 
   destructor() {
-    Ordaen.keepBottom(FOLDER, 0)
+    Ordaen.keepBottom(FOLDER, 0ui)
   }
 
   // What the zones read.
@@ -245,8 +245,8 @@ public class Panel implements Module, App {
   derived rows: Array<Track> | nil = self.vertical ? self.thirds : nil
   // How far it reaches in from its edge, and how high its inside is across the screen: under the metal and the room
   // along it.
-  derived tall: Number<Length> = self.settings.values.height.max(LEAST_HEIGHT)
-  public derived inside: Number = self.tall - METAL - EDGE_ROOM_TOP
+  derived tall: Number<Length> = (self.settings.values.height * 1ui).max(LEAST_HEIGHT)
+  public derived inside: Number<Length> = self.tall - METAL - EDGE_ROOM_TOP
   derived width: Number<Length> | nil = self.vertical ? self.tall : nil
   derived height: Number<Length> | nil = self.vertical ? nil : self.tall
   derived along: Align = self.vertical ? Align.Center : Align.Stretch

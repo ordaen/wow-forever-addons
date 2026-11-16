@@ -117,7 +117,7 @@ public class LineRow implements Component {
   derived peakColor: Color = self.peakShare > 0 && self.peakShare >= self.hot.peak ? Style.HOT : Style.INK
   derived weightColor: Color = self.loaded && self.kb > 0 && self.kb >= self.hot.memory ? Style.HOT : Style.INK
   derived background: Color | Stated<Color> = self.line.name == self.picked ? Style.PICKED : LIGHT
-  derived indent: Edges = { left: self.line.child ? Style.INDENT : 0 }
+  derived indent: Edges = { left: self.line.child ? Style.INDENT : 0ui }
   derived notes: String = plain(self.addon?.notes ?? "")
   derived tipShown: Boolean = self.hovered && self.notes != ""
   derived plainTitle: String = plain(self.title)

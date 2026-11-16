@@ -91,12 +91,12 @@ public class Showcase implements Module {
         <box @enter={self.onEnter} @leave={self.onLeave}>
           <text value={self.summary} />
         </box>
-        <PushButton label={"Save"} width={120} @click={self.onSave} />
-        <PushButton label={"Reset"} width={120} accent={true} disabled={self.saved == 0} @click={self.onReset} />
-        <Dialog $if={self.asking} width={360} title={"Reset"}>
+        <PushButton label={"Save"} width={120ui} @click={self.onSave} />
+        <PushButton label={"Reset"} width={120ui} accent={true} disabled={self.saved == 0} @click={self.onReset} />
+        <Dialog $if={self.asking} width={360ui} title={"Reset"}>
           <text value={"Forget what was saved?"} />
-          <PushButton #buttons label={"Forget"} width={100} accent={true} @click={self.onDiscard} />
-          <PushButton #buttons label={"Keep"} width={100} @click={self.onKeep} />
+          <PushButton #buttons label={"Forget"} width={100ui} accent={true} @click={self.onDiscard} />
+          <PushButton #buttons label={"Keep"} width={100ui} @click={self.onKeep} />
         </Dialog>
         <Tip $if={self.hint} title={"Showcase"} text={self.summary} />
       </box>

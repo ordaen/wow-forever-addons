@@ -12,7 +12,7 @@ const PADDING: Edges = { top: 9.375dp, right: 11.71875dp, bottom: 9.375dp, left:
 
 public class TextBox implements Component {
   value: mut Signal<String>
-  height: Signal<Number>
+  height: Signal<Number<Length>>
   constructor(
     value: mut Signal<String>,
     // As high as this; as wide as where it stands.

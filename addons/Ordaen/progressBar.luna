@@ -17,7 +17,7 @@ public class ProgressBar implements Component {
 
   fraction: Signal<Number>
   label: Signal<String>
-  width: Signal<Number>
+  width: Signal<Number<Length>>
   constructor(
     fraction: Signal<Number>,
     label: Signal<String> = "",

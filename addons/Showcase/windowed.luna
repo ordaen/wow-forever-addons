@@ -25,7 +25,7 @@ public class Windowed implements Module {
   const footer: Template = $ltml {
     <box columns={FOOT} gap={space(.Group)} yAlign={Align.Center}>
       <text value={self.note} textSize={SECONDARY_TEXT} textColor={DIM} />
-      <PushButton label={"Save"} width={100} @click={self.onSave} />
+      <PushButton label={"Save"} width={100ui} @click={self.onSave} />
     </box>
   }
 
@@ -38,7 +38,7 @@ public class Windowed implements Module {
       <box padding={4ui}>
         <text value={"a page under the window"} />
         <Window $if={self.open} tabs={self.tabs} selected={mut self.tab} declared={mut self.window}
-                maxWidth={600} withSettings={true} footer={self.footer} @close={self.onClose}
+                maxWidth={600ui} withSettings={true} footer={self.footer} @close={self.onClose}
                 @settings={self.onSettings}>
           <box>
             <text value={self.body} />

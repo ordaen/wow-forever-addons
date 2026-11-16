@@ -12,7 +12,7 @@
 // side of the screen from its top to its bottom, as wide as its placing says: it isn't moved or resized, and its
 // full-screen toggle still covers the screen.
 import Game from "$game"
-import { Align, Art, Docked, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Stated, Track } from "$ltml"
+import { Align, Art, Bounds, Docked, Drag, Edges, Layer, Line, Overflow, Place, Point, Position, Shadow, Side, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { Hold, kept } from "@/onScreen"
@@ -127,7 +127,7 @@ const SHADE: Color = Color.hex("#808080")
 const WHITE: Color = Color.hex("#ffffff")
 const SHADOW: Shadow = { color: Color.hex("#000000cc"), x: 1.171875dp, y: -1.171875dp }
 const LABEL_PAD = 11.71875dp
-const MIN_TAB = 140.625dp
+const TAB_BOUNDS: Bounds = { min: 140.625dp, max: nil }
 // The body's wood inside the metal, and the room each of its sections keeps: the ladder's `Window` step from the line
 // on every side; with a footer, the footer stands on the bottom line, the ladder's `Panel` step above it, and keeps a
 // `Group` step from the content over it.
@@ -159,13 +159,13 @@ public const function cornerControls(withSettings: Boolean): Array<CornerControl
   return withSettings ? [.Settings, .Full, .Close] : [.Full, .Close]
 }
 // The width of the `index`th of `count` plates: the first and the last with the group's rim.
-const function plateWidth(index: Integer, count: Integer): Number {
-  const left: Number<Length> = index == 1 ? RIM : 0
-  const right: Number<Length> = index == count ? RIM : 0
+const function plateWidth(index: Integer, count: Integer): Number<Length> {
+  const left: Number<Length> = index == 1 ? RIM : 0ui
+  const right: Number<Length> = index == count ? RIM : 0ui
   return left + PLATE + right
 }
 // How far the `index`th plate stands from the group's left.
-const function plateLeft(index: Integer, count: Integer): Number {
+const function plateLeft(index: Integer, count: Integer): Number<Length> {
   let left: Number<Length> = 0ui
   for (i of 1..=index - 1) { left += plateWidth(i, count) }
   return left
@@ -204,9 +204,9 @@ public class WindowTab implements Component {
   derived open: Boolean = self.selected == self.index
   // The frame's measures at its scale: its art above its line, how far its foot stands behind the body's line,
   // where its line starts.
-  derived reachTop: Number = Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale
-  derived flare: Number<Length> = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale
-  derived lineStart: Number = Ordaen.art.frame.tab.lineStart * Ordaen.art.frame.tab.scale
+  derived reachTop: Number<Length> = Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale * 1ui
+  derived flare: Number<Length> = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale * 1ui
+  derived lineStart: Number<Length> = Ordaen.art.frame.tab.lineStart * Ordaen.art.frame.tab.scale * 1ui
   // The height the tab is given: a framed box grows by its art's reach.
   derived given: Number<Length> = self.height - self.reachTop
   // Open or closed only its colours differ: its wood and picture lighter, its title gold.
@@ -222,20 +222,20 @@ public class WindowTab implements Component {
   // what a framed box places by offsets starts. Its line stands at its right.
   derived side: Number<Length> = self.height - self.flare
   derived lineLeft: Number<Length> = self.side - self.lineStart
-  derived lineWidth: Number<Length> = self.flare - Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale + 1
+  derived lineWidth: Number<Length> = self.flare - Ordaen.art.frame.tabIconLine.reach.left * Ordaen.art.frame.tabIconLine.scale * 1ui + 1ui
   // The label's room: past the picture's line where there is a picture.
   derived padding: Edges = self.paddingOf()
 
   tab: Signal<WindowTabSpec>
   const index: Integer
   selected: Signal<Integer>
-  height: Signal<Number>
+  height: Signal<Number<Length>>
   constructor(
     tab: Signal<WindowTabSpec>,
     index: Integer,
     selected: Signal<Integer>,
     // The tab's height: from the window's top to the inner side of the body's top line.
-    height: Signal<Number>
+    height: Signal<Number<Length>>
   ) {
     self.tab = tab
     self.index = index
@@ -249,8 +249,8 @@ public class WindowTab implements Component {
     if (!self.hasIcon) { return { left: LABEL_PAD, right: LABEL_PAD, bottom: foot } }
     let line = Ordaen.art.frame.tabIconLine
     let frame = Ordaen.art.frame.tab
-    let lineEnd = line.width + line.reach.left * line.scale
-    let frameEnd = frame.width + frame.reach.left * frame.scale
+    let lineEnd = (line.width + line.reach.left * line.scale) * 1ui
+    let frameEnd = (frame.width + frame.reach.left * frame.scale) * 1ui
     let left = self.side + lineEnd - frameEnd + LABEL_PAD
     return { left: left, right: LABEL_PAD, bottom: foot }
   }
@@ -264,7 +264,7 @@ public class WindowTab implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box minWidth={MIN_TAB} height={self.given} border={Ordaen.art.frame.tab} background={Ordaen.art.window.wood}
+      <box width={TAB_BOUNDS} height={self.given} border={Ordaen.art.frame.tab} background={Ordaen.art.window.wood}
            tint={self.tint} padding={self.padding} rows={BODY_ROWS} @click={self.pick}
            @dragStart={self.onGrab} @drag={self.onMove} @dragStop={self.onDrop}>
         <$if={self.hasIcon}>
@@ -355,27 +355,28 @@ public class Window implements Component {
   // Where the window and its body were when a drag began.
   x0: Number<Length> = 0ui
   y0: Number<Length> = 0ui
-  w0: Number = 0
-  h0: Number = 0
+  w0: Number<Length> = 0ui
+  h0: Number<Length> = 0ui
   // The least body the content leaves room for, as the grip's drag began: the grip stops there.
-  leastW: Number = 0
-  leastH: Number = 0
+  leastW: Number<Length> = 0ui
+  leastH: Number<Length> = 0ui
 
   // The tab row's height: the design's, from a tab's own line down to the body, and the tab's art above its line.
-  derived tabHeight: Number<Length> = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale
+  derived tabHeight: Number<Length> = self.tabHeightOf() + Ordaen.art.frame.tab.reach.top * Ordaen.art.frame.tab.scale * 1ui
   // A tab's height: down to the inner side of the body's top line, which stands over its foot.
-  derived lineTop: Number = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale
-  derived tabWhole: Number = self.tabHeight + self.lineTop
+  derived lineTop: Number<Length> = Ordaen.art.frame.tab.curves.flare * Ordaen.art.frame.tab.scale * 1ui
+  derived tabWhole: Number<Length> = self.tabHeight + self.lineTop
   derived columns: Array<Track> = self.tabColumns()
   derived place: Place = self.placeOf()
   // The main section keeps the width the player gave it: a side section widens the window by its own column.
   derived width: Number<Length> | nil = self.full ? nil : self.declared.placing.width + self.sideWide
+  derived bounds: Bounds = { min: self.width, max: nil }
   derived sideWide: Number<Length> = self.sideWideOf()
   derived height: Number<Length> | nil = self.full || self.docked != nil ? nil : self.tabHeight + self.declared.placing.height
   // Moved by a tab and resized by its grip: neither full screen nor docked.
   derived free: Boolean = !self.full && self.docked == nil
   // The screen's right side kept clear while full screen.
-  derived inset: Number<Length> = self.full ? self.room : 0
+  derived inset: Number<Length> = self.full ? self.room : 0ui
   // The tab row ends where the body does: short of that side while full screen.
   derived rowPad: Edges = { right: self.inset }
   // The control group's foot stands in the middle of the body's top line, which covers it.
@@ -386,10 +387,10 @@ public class Window implements Component {
 
   tabs: Signal<Array<WindowTabSpec>>
   selected: mut Signal<Integer>
-  const minWidth: Number
-  const minHeight: Number
-  const maxWidth: Number | nil
-  const maxHeight: Number | nil
+  const minWidth: Number<Length>
+  const minHeight: Number<Length>
+  const maxWidth: Number<Length> | nil
+  const maxHeight: Number<Length> | nil
   // The corner group's controls from its left, and its width.
   const controls: Array<CornerControl>
   const cornerWidth: Number<Length>
@@ -403,12 +404,12 @@ public class Window implements Component {
   derived sided: Boolean = self.side != nil
   derived sideContent: Template = self.side?.content ?? self.nothing
   // The side's content's width: the one the player dragged it to, or the one it is given.
-  derived sideWidth: Number = self.sideWidthOf()
+  derived sideWidth: Number<Length> = self.sideWidthOf()
   derived bodyColumns: Array<Track> = self.columnsOf()
   const nothing: Template = $ltml {}
   const docked: Side | nil
   const asks: Boolean
-  room: Signal<Number>
+  room: Signal<Number<Length>>
   // Its declaration: where it stands, and what the player did with it, kept in the active profile.
   declared: mut KeptWindow
   // What this window kept last: a change of the memory that is not its own (a switch of profile, its settings
@@ -417,8 +418,8 @@ public class Window implements Component {
   // Whether what is kept was taken once: the first time, as the window is made.
   made = false
   // The side's width as a drag of its line began, and while it is dragged (0 otherwise): kept as the drag ends.
-  side0: Number = 0
-  state sideDrag: Number = 0
+  side0: Number<Length> = 0ui
+  state sideDrag: Number<Length> = 0ui
   // What hid the window while it is shown, each to show it again as it ends (none: it shows); what the player is in
   // the middle of now, while it is shown; and what it was at the last change.
   state away: Array<Occasion> = []
@@ -433,8 +434,8 @@ public class Window implements Component {
     declared: mut KeptWindow,
     minWidth: Number<Length> = MIN_W,
     minHeight: Number<Length> = MIN_H,
-    maxWidth: Number | nil = nil,
-    maxHeight: Number | nil = nil,
+    maxWidth: Number<Length> | nil = nil,
+    maxHeight: Number<Length> | nil = nil,
     // A settings plate first in the corner's group, before full screen and close.
     withSettings: Boolean = false,
     // Hidden, it stays drawn: a window opened often is shown again at the cost of a surface shown, not of being
@@ -443,7 +444,7 @@ public class Window implements Component {
     // Stands along this side of the screen, its whole length.
     docked: Side | nil = nil,
     // The width kept clear at the screen's right side while full screen: the windows docked there.
-    room: Signal<Number> = 0,
+    room: Signal<Number<Length>> = 0ui,
     // The footer row's groups on the body's bottom line: none where it is left out.
     footer: Template | nil = nil,
     // The side section at the body's right, the full height beside the main one: none where it is left out.
@@ -590,11 +591,11 @@ public class Window implements Component {
     })
   }
 
-  sideWidthOf(self): Number {
+  sideWidthOf(self): Number<Length> {
     const side = self.side
-    if (side == nil) { return 0 }
-    const dragged = self.sideDrag > 0 ? self.sideDrag : self.declared.used(self.declared.memory.values).side
-    if (dragged <= 0) { return side.width }
+    if (side == nil) { return 0ui }
+    const dragged = self.sideDrag > 0ui ? self.sideDrag : self.declared.used(self.declared.memory.values).side
+    if (dragged <= 0ui) { return side.width }
     return (side.width * SIDE_LEAST).max((side.width * SIDE_MOST).min(dragged))
   }
 
@@ -604,14 +605,14 @@ public class Window implements Component {
   }
 
   // The side section's column: its content, its room on both sides and the frame's line; none without one.
-  sideWideOf(self): Number {
+  sideWideOf(self): Number<Length> {
     const side = self.side
-    if (side == nil) { return 0 }
+    if (side == nil) { return 0ui }
     const line = Ordaen.art.frame.tabIconLine
-    return self.sideWidth + 2 * space(.Window) + line.width + line.reach.left * line.scale
+    return self.sideWidth + 2 * space(.Window) + (line.width + line.reach.left * line.scale) * 1ui
   }
 
-  tabHeightOf(self): Number {
+  tabHeightOf(self): Number<Length> {
     for (tab of self.tabs) {
       if (tab.desc != nil) { return TAB_DESC }
     }
@@ -714,13 +715,13 @@ public class Window implements Component {
     self.x0 = (peek self.declared.placing).x
   }
   onSide(mut self, drag: Drag) {
-    self.sideDrag = (self.side0 - drag.dx).max(1)
+    self.sideDrag = (self.side0 - drag.dx).max(1ui)
     self.declared.placing.x = self.x0 - (peek self.sideWidth - self.side0)
   }
   onSideSettle(mut self) {
     const width = peek self.sideWidth
     const x = (peek self.declared.placing).x
-    self.sideDrag = 0
+    self.sideDrag = 0ui
     self.remember((view: mut WindowView) => {
       view.side = width
       view.x = x
@@ -731,7 +732,7 @@ public class Window implements Component {
     return $ltml {
       // As wide as the player made it, and never narrower than its tab row (its tabs and its control group): the
       // row is the one thing in its grid, and the width it keeps is its least.
-      <surface shown={self.seen} layer={Layer.Dialog} place={self.place} minWidth={self.width} height={self.height} clamp={true}
+      <surface shown={self.seen} layer={Layer.Dialog} place={self.place} width={self.bounds} height={self.height} clamp={true}
                raise={true} focusLine={self.focusLine}
                @escape={self.onClose}>
         <box position={Position.Absolute} left={0ui} right={self.inset} top={self.tabHeight} bottom={0ui}
