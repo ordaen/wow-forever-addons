@@ -5,7 +5,7 @@
 // width.
 import { Align, Art, BarFill, Beside, Cursor, Edges, Layer, Line, Piece, Position, Side, TextFont, Track } from "$ltml"
 import root Ordaen from "Ordaen"
-import { Component, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
+import { Component, Hotkeys, SECONDARY_TEXT, TITLE_TEXT, space } from "Ordaen"
 import { GREEN, RED } from "@/colors"
 import Locale from "@/locales"
 import { Compared, Fact, Glyph, Model, Opens, Part, Picture, TextLine } from "@/model"
@@ -64,6 +64,8 @@ const COMPARED_MARK = 11.71875dp
 // A text at its own width, the rest of its row empty.
 const OWN_WIDTH: Array<Track> = ["max-content", { fr: 1 }]
 public const SECTION_PAD: Edges = { top: SECTION, bottom: SECTION }
+// The hotkeys, last before the bar, keep a section's room under them (`Hotkeys` keeps it over them).
+const KEYS_PAD: Edges = { bottom: SECTION }
 // The lock's bar: the tooltip's last section, a dark track that gold fills as the lock charges, in a hundred steps;
 // quiet, never louder than the text. Its row is as high as the line that stands there once locked, so nothing
 // moves when the lock lands.
@@ -412,11 +414,10 @@ public class TipFrame implements Component {
   bodyOf: Array<TextLine> = []
   moreOf: Array<TextLine> = []
   derived foot: Array<Drawn> = self.notes()
-  derived keys: Array<Drawn> = self.hotkeys()
   derived hasBody: Boolean = self.body.length > 0
   derived hasMore: Boolean = self.more.length > 0
   derived hasFoot: Boolean = self.foot.length > 0
-  derived hasKeys: Boolean = self.keys.length > 0
+  derived hasKeys: Boolean = self.model.keys.length > 0
   // The band ends the tooltip.
   derived bandLast: Boolean = !self.hasBody && !self.hasMore && !self.hasFoot && !self.hasKeys
   // The title alone (a sign): no room under it.
@@ -519,17 +520,6 @@ public class TipFrame implements Component {
     return list
   }
 
-  hotkeys(self): Array<Drawn> {
-    let list: Array<Drawn> = []
-    for (key of self.model.keys) {
-      list.push({
-        left: key, right: nil, leftColor: QUIET, rightColor: QUIET, size: SECONDARY_TEXT, padding: NO_PAD,
-        opens: Opens.None, valueOpens: Opens.None, compared: nil
-      })
-    }
-    return list
-  }
-
   public render(self): Template {
     return $ltml {
       <box width={"min-content"} padding={INSIDE} border={Ordaen.art.frame.small}
@@ -598,12 +588,8 @@ public class TipFrame implements Component {
         </box>
         // What other modules add, after the footer: the main tooltip's owner fills it.
         <slot />
-        <box $if={self.hasKeys} gap={LINE} padding={SECTION_PAD} border={RULE}>
-          <Row $for={line of self.keys} line={line} locked={self.locked}>
-            <box #opened={opens}>
-              <slot #opened opens={opens} />
-            </box>
-          </Row>
+        <box $if={self.hasKeys} padding={KEYS_PAD}>
+          <Hotkeys keys={self.model.keys} />
         </box>
         <box $if={self.locks} padding={BAR_PAD}>
           <box height={BAR_ROW} yAlign={Align.Center}>

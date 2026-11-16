@@ -351,7 +351,9 @@ public class Tooltips implements Module, App {
     // Something in it counts down: it is read again as the seconds pass.
     if (read.model.timer == true) { _ = Game.clock.seconds }
     // What a button of the menu or of the bags adds to its tooltip.
-    let told = self.settings.values.textsExtra ? extras(tip.ownerName, read.model) : read.model
+    let extra = self.settings.values.textsExtra ? extras(tip.ownerName, read.model) : read.model
+    // The hotkeys other modules give the frame it is shown for: an action button's binding.
+    let told = ownerKeys(tip.ownerName, extra)
     const locks = self.locks(kind, tip.data)
     if (told.kind != Kind.Item) {
       const object = told.kind == Kind.Object ? told.name : ""
@@ -417,4 +419,16 @@ public class Tooltips implements Module, App {
       </TipGroup>
     }
   }
+}
+
+// The model with the hotkeys other modules give its owner, by the owner's name, after its own.
+function ownerKeys(owner: String | nil, model: Model): Model {
+  if (owner == nil || Ordaen.hotkeys.length == 0) { return model }
+  let keys: Array<String> = []
+  for (key of model.keys) { keys.push(key) }
+  for (row of Ordaen.hotkeys) {
+    for (key of row.keys(owner)) { keys.push(key) }
+  }
+  if (keys.length == model.keys.length) { return model }
+  return { keys: keys, ..model }
 }

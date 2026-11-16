@@ -4,9 +4,10 @@ import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import root Ordaen from "Ordaen"
-import { Component } from "Ordaen"
+import { Component, OwnerKeys } from "Ordaen"
 import { BETWEEN, Bar, buttonName, heightOf, shortKey } from "@/bar"
 import { BarChoice, BarKind, BarSpec, BarsChoices, SPECS, defaultChoice } from "@/barChoices"
+import Locale from "@/locales"
 
 // The game's pages Панель 1 shows: the one the player turned to (Shift and the wheel, or the page arrows), then a
 // form's (a bonus bar's: 7 to 10), else the first.
@@ -41,7 +42,7 @@ public struct Shown {
   below: Number<Length>
 }
 
-public class ActionBars implements Component {
+public class ActionBars implements Component, OwnerKeys {
   // The choices that apply: the settings', taken out of a fight alone (the bars' buttons are protected).
   state applied: BarsChoices
   // The player's forms: the stances' bar shows a button for each.
@@ -61,7 +62,9 @@ public class ActionBars implements Component {
   // Each bar put in the hider, by the parent the game gave it: given back as the bars end.
   parents: mut Map<any Client.Frame, any Client.Frame> = {}
   // Each binding's key as its button shows it, by the binding's name: read again when the player binds a key.
-  state keys: Map<String, String> = {}
+  state bound: Map<String, String> = {}
+  // The same keys by the name of the button they click: what its tooltip says it is pressed by.
+  state named: Map<String, String> = {}
   // The keys of the game's bindings, bound to our buttons over the game's own: the frame that owns those overrides.
   const owner: any Client.Frame = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
 
@@ -77,6 +80,7 @@ public class ActionBars implements Component {
     self.defaults = defaults
     self.applied = peek values
     Ordaen.afterCombat(() => self.start())
+    Ordaen.hotkeys.add(self)
   }
 
   // Out of a fight: the bars are made, the game's put away, the keys bound; from then on each change waits for a
@@ -90,6 +94,12 @@ public class ActionBars implements Component {
     Events.UPDATE_SHAPESHIFT_FORMS.listen(self.reform)
     watch (values of self.values) { Ordaen.afterCombat(() => self.apply(values)) }
     watch (games of self.hidden) { Ordaen.afterCombat(() => self.putAway(games)) }
+  }
+
+  // A button's tooltip: the key that presses it, as the button shows it («1: use»).
+  public keys(self, owner: String): Array<String> {
+    const key = self.named[owner]
+    return key == nil ? [] : [Locale.KEY_USE.format(key)]
   }
 
   destructor() {
@@ -166,6 +176,7 @@ public class ActionBars implements Component {
   bind(mut self) {
     Client.ClearOverrideBindings(self.owner)
     const keys: Map<String, String> = {}
+    const named: Map<String, String> = {}
     for (bar of peek self.bars) {
       for (index of 1..self.choiceOf(bar.spec).buttons) {
         const command = `${bar.spec.command}${index}`
@@ -173,12 +184,14 @@ public class ActionBars implements Component {
         let first, second = Client.GetBindingKey(command)
         if (first != nil) {
           keys[command] = shortKey(first)
+          named[name] = keys[command]
           Client.SetOverrideBindingClick(self.owner, false, first, name, "LeftButton")
         }
         if (second != nil) { Client.SetOverrideBindingClick(self.owner, false, second, name, "LeftButton") }
       }
     }
-    self.keys = keys
+    self.bound = keys
+    self.named = named
   }
 
   hiddenBars(self): Array<any Client.Frame> {
@@ -216,7 +229,7 @@ public class ActionBars implements Component {
     return $ltml {
       <Bar $for={bar of self.bars} $key={bar.spec.id} spec={(peek bar).spec} below={bar.below}
            choices={self.applied.bars} defaults={self.defaults}
-           keys={self.keys} paging={self.paging} forms={self.forms} />
+           keys={self.bound} paging={self.paging} forms={self.forms} />
     }
   }
 }

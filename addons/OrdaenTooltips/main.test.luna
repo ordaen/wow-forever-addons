@@ -8,6 +8,7 @@ import { Key } from "$ltml"
 import Runtime from "$runtime"
 import Test from "$test"
 import root Ordaen from "Ordaen"
+import { OwnerKeys } from "Ordaen"
 import root Tooltips from "OrdaenTooltips"
 
 const SCREEN: Test.Page = { left: 0, top: 0, width: 1600, height: 900, screen: true }
@@ -15,6 +16,8 @@ const SETTINGS = "Move mode"
 // The colours a button's facts are in: a value, and a durability under a quarter.
 const VALUE: Color = Color.hex("#f3e7cc")
 const RED: Color = Color.hex("#ff4040")
+// A tooltip's hotkeys' colour.
+const HOTKEY: Color = Color.hex("#857a66")
 
 // A frame of the game's, by its name, at a place on the screen.
 function frame(kind: String, name: String, x: Number, y: Number, width: Number, height: Number): any Client.Frame {
@@ -307,6 +310,32 @@ test "a setting changed on its tab is kept after a reload" {
 test "a setting's box shows its tick before it is changed" {
   Test.mount(nil, SCREEN)
   Test.expect(tab("General").button("Tooltips at buttons").box(Ordaen.art.ctl.tick).opacity() == 1)
+}
+
+// Hotkeys
+
+// The hotkeys a module gives one button of its own: its key, as the button shows it.
+class ButtonKeys implements OwnerKeys {
+  public keys(self, owner: String): Array<String> { return owner == "ActionButton2" ? ["2: use"] : [] }
+}
+
+test "a menu button's key stands among the hotkeys, last, in their colour" {
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("CharacterMicroButton", {
+    plain: true, lines: [{ left: "Character Info |cffffd200(C)|r", kind: 0 }]
+  })
+  Test.expect(Test.page().window("Character Info").text("C: open").textColor().equal(HOTKEY))
+}
+
+test "a button another module gives a key has it among the hotkeys of whatever its tooltip shows" {
+  Ordaen.hotkeys.add(new ButtonKeys())
+  Test.mount(nil, SCREEN)
+  Game.tooltip.main = atButton("ActionButton2", text("Fireball"))
+  const tip = Test.page().window("Fireball")
+  Test.expect(reads(tip, "Fireball | 2: use"))
+  Test.expect(tip.text("2: use").textColor().equal(HOTKEY))
+  Game.tooltip.main = atButton("ActionButton3", text("Frostbolt"))
+  Test.expect(reads(Test.page().window("Frostbolt"), "Frostbolt"))
 }
 
 // What buttons tell more

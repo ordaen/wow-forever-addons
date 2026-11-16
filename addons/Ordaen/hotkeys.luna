@@ -1,0 +1,31 @@
+// Hotkeys: what the mouse and the keys do on what a tooltip explains, one «Press: what it does» line each («C:
+// open», «Shift+Left-click: send to chat»). Every tooltip draws them the same way: last, under their own rule, in
+// the footer's quiet colour and size.
+import { Line, Side } from "$ltml"
+import { Component } from "@/module"
+import { SECONDARY_TEXT, space } from "@/units"
+
+const QUIET: Color = Color.hex("#857a66")
+const RULE: Line = { width: 1.171875dp, color: Color.hex("#d6a56b2e"), sides: [Side.Top] }
+
+// The hotkeys of a frame of the game's that another module draws or binds (a button of the action bars), by the
+// frame's name: what a tooltip shown for that frame adds to its own. None where the frame isn't the module's.
+public trait OwnerKeys {
+  public keys(self, owner: String): Array<String>
+}
+
+// The hotkeys' section of a tooltip: drawn only with a line in it.
+public class Hotkeys implements Component {
+  derived any: Boolean = self.keys.length > 0
+
+  keys: Signal<Array<String>>
+  constructor(keys: Signal<Array<String>>) { self.keys = keys }
+
+  public render(self): Template {
+    return $ltml {
+      <box $if={self.any} gap={space(.Line)} padding={{ top: space(.Item) }} border={RULE}>
+        <text $for={key of self.keys} value={key} textColor={QUIET} textSize={SECONDARY_TEXT} wrap={false} />
+      </box>
+    }
+  }
+}

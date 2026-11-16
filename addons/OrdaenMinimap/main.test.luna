@@ -26,6 +26,8 @@ const QUESTION: Asset = "Interface/Icons/INV_Misc_QuestionMark"
 const GOLD: Color = Color.hex("#ffd100")
 const INK: Color = Color.hex("#f3e1b8")
 const PENDING: Color = Color.hex("#ff9a2e")
+// A tooltip's hotkeys' colour.
+const HOTKEY: Color = Color.hex("#857a66")
 
 // One of the game's own frames.
 function frame(name: String, shown: Boolean): any Client.Frame {
@@ -227,7 +229,10 @@ test "the clock is in ink, and orange while calendar invites wait" {
 test "the clock's tooltip says what its clicks do" {
   Test.mount(nil, SCREEN)
   minimap().text(CLOCK).hover()
-  Test.expect(Test.page().window("Left-click: calendar\nRight-click: minimap settings").texts().join(" | ") == `${CLOCK} | Left-click: calendar\nRight-click: minimap settings`)
+  const tip = Test.page().window("Left-click: calendar")
+  Test.expect(tip.texts().join(" | ") == `${CLOCK} | Left-click: calendar | Right-click: minimap settings`)
+  // In the hotkeys' place, as every tooltip draws them.
+  Test.expect(tip.text("Right-click: minimap settings").textColor().equal(HOTKEY))
   minimap().hover()
   Test.expect(Test.page().window(CLOCK).count() == 1)
 }
@@ -320,7 +325,7 @@ test "the crafting orders' and the expansion page's buttons show while the game 
 test "the Ordaen button's tooltip says what its clicks do" {
   Test.mount(nil, SCREEN)
   minimap().button(Ordaen.icon).hover()
-  Test.expect(Test.page().window("Ordaen").texts().join(" | ") == "Ordaen | Left-click: settings\nRight-click: Ordaen Dev")
+  Test.expect(Test.page().window("Ordaen").texts().join(" | ") == "Ordaen | Left-click: settings | Right-click: Ordaen Dev")
   minimap().hover()
   Test.expect(!Test.page().text("Ordaen").shown())
 }
@@ -465,7 +470,7 @@ test "the drawer's tooltip says what its button does, and no other button's says
   Game.minimap.entries = [{ text: "Details", icon: DETAILS }, { text: "Plater" }]
   Test.mount(nil, SCREEN)
   minimap().button("3").hover()
-  Test.expect(Test.page().window("Addons").texts().join(" | ") == "Addons | Left-click: open or close the drawer\nDrag: move it round the map")
+  Test.expect(Test.page().window("Addons").texts().join(" | ") == "Addons | Left-click: open or close the drawer | Drag: move it round the map")
   minimap().hover()
   Test.expect(!Test.page().text("Addons").shown())
 }

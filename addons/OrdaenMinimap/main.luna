@@ -103,6 +103,7 @@ public class Minimap implements Module, App {
   // The tooltip of what the cursor is on: written in that part's box, it stands beside it on the screen.
   public derived hintTitle: String = self.titleOf()
   public derived hintText: String = self.textOf()
+  public derived hintKeys: Array<String> = self.keysOf()
   // Ordaen's art: its root is there before this module loads.
 
   constructor() {
@@ -259,12 +260,18 @@ public class Minimap implements Module, App {
   textOf(self): String {
     return match (self.hint) {
       Hint.Zone => self.zoneLabel()
-      Hint.Coords => Locale.COORDS_TIP
-      Hint.Clock => Locale.CLOCK_TIP
+      Hint.Coords, Hint.Clock, Hint.Ordaen, Hint.Drawer, Hint.Entry, Hint.None => ""
+    }
+  }
+
+  keysOf(self): Array<String> {
+    return match (self.hint) {
+      Hint.Coords => [Locale.COORDS_KEY]
+      Hint.Clock => [Locale.CLOCK_KEY, Locale.CLOCK_KEY_RIGHT]
       // The right click opens the dev tools, which a development build alone has.
-      Hint.Ordaen => Build.dev ? Locale.ORDAEN_TIP_DEV : Locale.ORDAEN_TIP
-      Hint.Drawer => Locale.DRAWER_TIP
-      Hint.Entry, Hint.None => ""
+      Hint.Ordaen => Build.dev ? [Locale.ORDAEN_KEY, Locale.ORDAEN_KEY_DEV] : [Locale.ORDAEN_KEY]
+      Hint.Drawer => [Locale.DRAWER_KEY, Locale.DRAWER_KEY_DRAG]
+      Hint.Zone, Hint.Entry, Hint.None => []
     }
   }
 
@@ -293,7 +300,7 @@ public class Minimap implements Module, App {
               <box @enter={self.onZoneEnter} @leave={self.onHintLeave}>
                 <text value={Game.location.zone} textColor={self.zoneColor} textShadow={ENGRAVED}
                       wrap={false} />
-                <Tip $if={self.hint == Hint.Zone} title={self.hintTitle} text={self.hintText} />
+                <Tip $if={self.hint == Hint.Zone} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
               </box>
             </box>
 
@@ -304,14 +311,14 @@ public class Minimap implements Module, App {
                    @leave={self.onHintLeave}>
                 <text value={Game.minimap.coords} textColor={INK} textShadow={ENGRAVED}
                       textFont={.Numbers} wrap={false} />
-                <Tip $if={self.hint == Hint.Coords} title={self.hintTitle} text={self.hintText} />
+                <Tip $if={self.hint == Hint.Coords} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
               </box>
               <box $else width={1ui} />
               <box $if={self.settings.values.showClock} @click={self.onClockClick} @enter={self.onClockEnter}
                    @leave={self.onHintLeave}>
                 <text value={Game.clock.text} textColor={self.clockColor} textShadow={ENGRAVED}
                       textFont={.Numbers} wrap={false} />
-                <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} />
+                <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
               </box>
             </box>
 
@@ -326,7 +333,7 @@ public class Minimap implements Module, App {
                    look={EmbedLook.Icon} />
             <DrawerEntry $for={entry of Game.minimap.entries} entry={entry} @hover={self.onEntryHover}
                          @leave={self.onHintLeave} />
-            <Tip $if={self.hint == Hint.Entry} title={self.hintTitle} text={self.hintText} />
+            <Tip $if={self.hint == Hint.Entry} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
           </box>
           <box $elseif={self.drawerParked} position={Position.Absolute} left={0ui} top={0ui} width={0ui} height={0ui}
                opacity={0}>

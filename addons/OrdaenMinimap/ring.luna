@@ -134,7 +134,7 @@ public class RingButton implements Component {
                 textFont={.Numbers} textShadow={COUNT_SHADOW} wrap={false} />
           <box $elseif={self.spec.glyph != nil} width={self.spec.glyphWidth} height={self.spec.glyphHeight}
                background={self.spec.glyph} />
-          <Tip $if={self.hinted} title={self.map.hintTitle} text={self.map.hintText} />
+          <Tip $if={self.hinted} title={self.map.hintTitle} text={self.map.hintText} keys={self.map.hintKeys} />
         </box>
       </>
     }

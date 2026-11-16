@@ -10,6 +10,7 @@ import { Anchored, Art, Point } from "$ltml"
 import Runtime from "$runtime"
 import { ARTWORK, Artwork } from "@/art"
 import { DEFAULTS, Globals } from "@/globals"
+import { OwnerKeys } from "@/hotkeys"
 import { Keeper } from "@/keeper"
 import Locale from "@/locales"
 import { Look, LookArt, Preset, artOf, preset, unoffered } from "@/look"
@@ -58,6 +59,8 @@ public class OrdaenCore implements App {
   public state placing = false
   // The parts drawn that the player can move: each part's `Mover` joins as it is made and leaves as it ends.
   public const parts = new Registry<Mover>()
+  // The hotkeys modules add to the tooltips of the game's frames they draw or bind (the action bars' buttons).
+  public const hotkeys = new Registry<any OwnerKeys>()
   // Where the player put each part: read by a part an entry at a time, so a part follows its own place.
   state places: mut Map<String, KeptPlace> = {}
   // Which modules the player turned off: the account's, whatever each character's list of addons says.

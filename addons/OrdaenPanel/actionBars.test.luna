@@ -136,6 +136,19 @@ test "a key of the game's bindings presses our button in its place, and the butt
   Test.expect(Test.performed().join(", ") == "action 63")
 }
 
+test "a button's tooltip is given its key as the button shows it, among the tooltips' hotkeys" {
+  alone()
+  const holder = new Holder()
+  _ = Client.SetBinding("SHIFT-2", "MULTIACTIONBAR1BUTTON2", nil)
+  Test.mount(new ActionBars(holder.settings.values, holder.defaults), SCREEN)
+  Test.flush()
+  const given: Array<String> = []
+  for (row of Ordaen.hotkeys) {
+    for (key of row.keys(buttonName("2", 2))) { given.push(key) }
+  }
+  Test.expect(given.join(" | ") == "S2: use")
+}
+
 test "a button the client hides has its key hidden with it, and shown again with it" {
   alone()
   const holder = new Holder()
