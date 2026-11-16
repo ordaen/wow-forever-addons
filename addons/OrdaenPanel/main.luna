@@ -8,6 +8,9 @@ import root Ordaen from "Ordaen"
 import {
   BarFrame, Component, Module, Mover, Placed, Settings, SettingsPage, XpFill, opacityNow, sideNear, space, xpFillArt
 } from "Ordaen"
+import { ActionBars, barDefaults, bartenderLoaded } from "@/actionBars"
+import { BARS_DEFAULTS, BarChoice, BarsChoices } from "@/barChoices"
+import { BarsPage } from "@/barsPage"
 import { CELL_HEIGHT } from "@/cells"
 import {
   CharButton, CharView, Choices, DEFAULTS, Edge, Fit, Item, MicroIcons, Outline, XpBorder, XpTexture, XpView, Zone
@@ -174,11 +177,21 @@ public class Panel implements Module, App {
   // Ordaen's art, look and fonts: its root is there before this module loads.
 
   settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
+  // The action bars' own settings, kept apart from the panel's (`OrdaenPanel:bars`).
+  bars: mut Settings<BarsChoices> = new Settings<BarsChoices>(BARS_DEFAULTS, "bars")
+  // Each bar's settings before the player changes them, as the character's Blizzard settings have its bars.
+  const barsDefaults: Map<String, BarChoice> = barDefaults()
+  // Bartender4 is loaded: the action bars stay off, and their page says why.
+  const barsConflict: Boolean = bartenderLoaded()
   public const pages: Array<SettingsPage> = [
     { title: Locale.TAB_GENERAL, content: $ltml { <GeneralPage settings={mut self.settings} /> } },
     { title: Locale.TAB_MICROMENU, content: $ltml { <MicroPage settings={mut self.settings} /> } },
     { title: Locale.TAB_STATUS, content: $ltml { <StatusPage settings={mut self.settings} /> } },
-    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} least={LEAST_HEIGHT / 1ui} /> } }
+    { title: Locale.TAB_BOTTOM, content: $ltml { <BottomPage settings={mut self.settings} least={LEAST_HEIGHT / 1ui} /> } },
+    {
+      title: Locale.TAB_BARS,
+      content: $ltml { <BarsPage settings={mut self.bars} defaults={self.barsDefaults} conflict={self.barsConflict} /> }
+    }
   ]
 
   // The cursor on the panel, on its portrait: each a surface of its own, heard apart.
@@ -187,9 +200,12 @@ public class Panel implements Module, App {
 
   constructor() {
     Ordaen.modules.add(self)
-    // The room it keeps along the screen's bottom edge, told to Ordaen: its height while it is on and stands there.
+    // The room it keeps along the screen's bottom edge, told to Ordaen: its height and its top edge's metal, which
+    // reaches over it, while it is on and stands there.
     watch {
-      const taken: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? self.tall : 0ui
+      const edge = Ordaen.art.panel.edge
+      const drawn = self.tall + edge.reach.top * edge.scale * 1ui
+      const taken: Number<Length> = self.settings.values.bottomOn && self.side == Side.Bottom ? drawn : 0ui
       Ordaen.keepBottom(FOLDER, taken)
     }
   }
@@ -346,6 +362,7 @@ public class Panel implements Module, App {
         <frame of={Game.frames.MainStatusTrackingBarContainer} shown={false} />
         <frame of={Game.frames.SecondaryStatusTrackingBarContainer} shown={false} />
       </>
+      <ActionBars $if={!self.barsConflict} values={self.bars.values} defaults={self.barsDefaults} />
       <frame of={Game.frames.BagsBar} shown={false} />
       <frame of={Game.frames.BackpackFreeSlots} shown={false} />
 

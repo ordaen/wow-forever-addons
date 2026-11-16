@@ -1,10 +1,10 @@
-// What the player chooses on the module's page: each bar's own settings, and which forms page Панель 1.
+// What the player chooses on the panel's «Action bars» page: each bar's own settings, and which forms page Панель 1.
 import { ALWAYS, Visibility } from "Ordaen"
 
 // The kinds of bars: an action bar of the game's (Панель 1 to 8), the pet's and the stances'.
 public enum BarKind implements Plain { Action = "action", Pet = "pet", Stance = "stance" }
 
-// One bar as the module draws it: what tells it from the others (`"1"` to `"8"`, `"pet"`, `"stance"`), its kind, its
+// One bar as the panel draws it: what tells it from the others (`"1"` to `"8"`, `"pet"`, `"stance"`), its kind, its
 // number among the action bars (0 for the others), its first slot (an action bar's page of the game's; the pet's
 // and stances' buttons are told by their place), how many buttons it can have, the game's name of its buttons'
 // bindings (`ACTIONBUTTON` and a button's number) and the client's template of its buttons.
@@ -18,7 +18,7 @@ public struct BarSpec {
   template: String
 }
 
-// The game's eight bars in Blizzard's own slots and bindings (without this module, the game's bars show the same
+// The game's eight bars in Blizzard's own slots and bindings (without the panel, the game's bars show the same
 // actions in the same places, and the game's Key Bindings window names their keys), then the pet's and the
 // stances'.
 public const SPECS: Array<BarSpec> = [
@@ -50,14 +50,14 @@ public struct BarChoice implements Plain {
   visibility: Visibility
 }
 
-public struct Choices implements Plain {
+public struct BarsChoices implements Plain {
   // Each bar's settings the player changed, by its id; a bar not here has its defaults (`defaultChoice`).
   bars: mut Map<String, BarChoice>
   // The forms that don't page Панель 1, by their bonus bar (`"1"` to `"4"`): in them it stays as it is.
   unpaged: mut Map<String, Boolean>
 }
 
-public const DEFAULTS: Choices = { bars: {}, unpaged: {} }
+public const BARS_DEFAULTS: BarsChoices = { bars: {}, unpaged: {} }
 
 // A bar's settings before the player changes them: on as the character's Blizzard settings have it.
 public function defaultChoice(spec: BarSpec, on: Boolean): BarChoice {

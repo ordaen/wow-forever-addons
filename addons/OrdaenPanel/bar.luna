@@ -1,29 +1,58 @@
 // A bar: the client's own buttons (its action, pet or stance button template) in a Placed part, laid out as the
 // player chose, each with its key's text.
 import Client from "$client"
-import { Align, Anchored, Point, Position, Shadow } from "$ltml"
+import { Align, Anchored, Art, Point, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Placed, SECONDARY_TEXT, Visibility, opacityNow, space } from "Ordaen"
-import { BarChoice, BarKind, BarSpec, defaultChoice } from "@/choices"
+import { BarChoice, BarKind, BarSpec, defaultChoice } from "@/barChoices"
 import Locale from "@/locales"
 
-// The client's action button is this wide and high, in UI units: its art and its regions are drawn for it.
-const BUTTON: Number<Length> = 45ui
-// The lowest bar's room above what keeps the screen's bottom edge (the bottom panel, or the edge itself), and each
-// bar's step up from the one under it at the buttons' own size.
+// The lowest bar's room above what keeps the screen's bottom edge (the bottom panel, or the edge itself), and the
+// room between a bar and the one above it in the default stack.
 const ABOVE: Number<Length> = space(.Item)
-const STEP: Number<Length> = BUTTON + space(.Line)
+public const BETWEEN: Number<Length> = space(.Line)
 const INK: Color = Color.hex("#ffffff")
 const KEY_SHADOW: Shadow = { color: Color.hex("#000000"), x: 1ui, y: -1ui }
 
 // The pet's buttons show while the player has a pet with its bar: the client's own condition, read in a fight too.
 const WITH_PET = "[pet] show; hide"
 
-// One button of a bar: the client's own, by its name, and its binding's name.
-public struct Slot {
-  frame: any Client.Frame
-  name: String
-  command: String
+// One button of a bar: the client's own, by its name, its binding's name, and whether the client shows it (it hides
+// an action button with nothing on it, the pet's without a pet): what is drawn on it shows with it.
+public class Slot {
+  public const frame: any Client.Frame
+  public const name: String
+  public const command: String
+  public state shown: Boolean = false
+  // Whether the slot is still there: the client's hooks stay on its frame after it ends, and hear nothing then.
+  const life: mut Life = { on: true }
+
+  constructor(frame: any Client.Frame, name: String, command: String) {
+    self.frame = frame
+    self.name = name
+    self.command = command
+    self.shown = frame.IsShown()
+    const life = self.life
+    _ = frame.HookScript("OnShow", (): nil => {
+      if (life.on) { self.shown = true }
+    })
+    _ = frame.HookScript("OnHide", (): nil => {
+      if (life.on) { self.shown = false }
+    })
+  }
+
+  destructor() { self.life.on = false }
+}
+
+struct Life {
+  on: Boolean
+}
+
+// A bar's height in the default stack: its rows of buttons and the room between them.
+public function heightOf(count: Integer, perRow: Integer, size: Number, spacing: Number): Number<Length> {
+  const rows = (count / perRow).ceil()
+  if (rows == 0) { return 0ui }
+  return (rows * size + (rows - 1) * spacing) * 1ui
 }
 
 // A key as a button shows it: the modifiers by their first letter (`SHIFT-1` is `S1`).
@@ -32,26 +61,32 @@ public function shortKey(key: String): String {
 }
 
 // The name of a bar's button, a global of the client's: what a binding's click names.
-public function buttonName(id: String, index: Integer): String { return `OrdaenActionBars${id}Button${index}` }
+public function buttonName(id: String, index: Integer): String { return `OrdaenPanelBar${id}Button${index}` }
 
-// One button: the client's own, and its key's text in its top right corner.
+// One button: the client's own, and its key's text in its top right corner while the client shows it. A stance's
+// button has its form's icon under it: the client's template draws none of its own (the game's stance bar sets it).
 public class Button implements Component {
-  derived key: String = self.showKeys ? self.keys[self.slot.command] ?? "" : ""
+  derived key: String = self.showKeys && self.slot.shown ? self.keys[self.slot.command] ?? "" : ""
 
   const slot: Slot
   keys: Signal<Map<String, String>>
   size: Signal<Number<Length>>
   showKeys: Signal<Boolean>
-  constructor(slot: Slot, keys: Signal<Map<String, String>>, size: Signal<Number<Length>>, showKeys: Signal<Boolean>) {
+  icon: Signal<Art | nil>
+  constructor(slot: Slot, keys: Signal<Map<String, String>>, size: Signal<Number<Length>>, showKeys: Signal<Boolean>,
+    icon: Signal<Art | nil>) {
     self.slot = slot
     self.keys = keys
     self.size = size
     self.showKeys = showKeys
+    self.icon = icon
   }
 
   public render(self): Template {
     return $ltml {
       <box width={self.size} height={self.size}>
+        <box $if={self.icon != nil && self.slot.shown} position={Position.Absolute} left={0ui} top={0ui}
+             width={self.size} height={self.size} background={self.icon} />
         <embed frame={self.slot.frame} position={Position.Absolute} left={0ui} top={0ui} width={self.size}
                height={self.size} />
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} xAlign={Align.End} padding={2ui} zLevel={2}>
@@ -66,13 +101,13 @@ public class Button implements Component {
 // client's template draws the action's icon, cooldown, charges and count and the range and usable tints, and casts or
 // uses it on the player's click, in a fight too. Панель 1's buttons page as the client's main bar does, by a secure
 // driver of their `actionpage`: in a form whose page the player keeps, Панель 1 shows that form's page, in a fight too.
-// It stands above what keeps the screen's bottom edge until the player moves it, and shows as its visibility says (by
+// It stands above what keeps the screen's bottom edge and the bars under it in the stack until the player moves it, and shows as its visibility says (by
 // its opacity alone: its buttons are protected, and a fight keeps them where they are). Its choice changes out of a
 // fight alone: its module hands it the choice that applies.
 public class Bar implements Component {
   slots: Array<Slot> = []
   state hovered = false
-  derived home: Anchored = { point: Point.Bottom, y: -(Ordaen.bottomTaken + ABOVE + (self.place - 1) * STEP) }
+  derived home: Anchored = { point: Point.Bottom, y: -(Ordaen.bottomTaken + ABOVE + self.below) }
   derived choice: BarChoice = self.choices[self.spec.id] ?? self.defaults[self.spec.id] ?? defaultChoice(self.spec, false)
   derived visibility: Visibility = self.choice.visibility
   derived opacity: Number = opacityNow(self.visibility, self.hovered)
@@ -84,14 +119,18 @@ public class Bar implements Component {
   derived size: Number<Length> = self.choice.size * 1ui
   derived spacing: Number<Length> = self.choice.spacing * 1ui
   derived showKeys: Boolean = self.choice.keys
+  // As many columns as buttons in a row, and no more than it has buttons: an empty column would take the cursor.
+  derived columns: Integer = self.choice.perRow.min(self.count).max(1)
+  // Each form's icon on the stances' bar, by its button's place: read again as the player learns a form.
+  state icons: Array<Art | nil> = []
 
   // What tells it from every other part in the placing mode, and its name there.
   id: String
   title: String
 
   const spec: BarSpec
-  // Its place in the default stack from the bottom: 1 the lowest.
-  const place: Integer
+  // How high the bars under it in the default stack stand, with the room above each.
+  below: Signal<Number<Length>>
   choices: Signal<Map<String, BarChoice>>
   defaults: Signal<Map<String, BarChoice>>
   keys: Signal<Map<String, String>>
@@ -99,7 +138,7 @@ public class Bar implements Component {
   forms: Signal<Integer>
   constructor(
     spec: BarSpec,
-    place: Integer,
+    below: Signal<Number<Length>>,
     // Each bar's settings that apply, by its id, and this bar's before the player changed them.
     choices: Signal<Map<String, BarChoice>>,
     defaults: Signal<Map<String, BarChoice>>,
@@ -110,13 +149,13 @@ public class Bar implements Component {
     forms: Signal<Integer>
   ) {
     self.spec = spec
-    self.place = place
+    self.below = below
     self.choices = choices
     self.defaults = defaults
     self.keys = keys
     self.paging = paging
     self.forms = forms
-    self.id = `OrdaenActionBars.bar${spec.id}`
+    self.id = `OrdaenPanel.bar${spec.id}`
     self.title = Bar.titleOf(spec)
     const made: Array<Slot> = []
     for (index of 1..spec.most) {
@@ -129,7 +168,7 @@ public class Bar implements Component {
         // Панель 1's, the pet's and the stances' buttons are told by their place, as the game's own are.
         frame.SetID(index)
       }
-      made.push({ frame: frame, name: name, command: `${spec.command}${index}` })
+      made.push(new Slot(frame, name, `${spec.command}${index}`))
     }
     self.slots = made
     if (spec.kind == BarKind.Action && spec.number == 1) {
@@ -138,22 +177,36 @@ public class Bar implements Component {
       }
     }
     watch (count of self.count) { self.showFirst(count) }
+    if (spec.kind == BarKind.Stance) {
+      watch (count of self.forms) { self.readForms(count) }
+    }
+  }
+
+  // The stances' icons, each form's by its button's place.
+  readForms(mut self, count: Integer) {
+    const icons: Array<Art | nil> = []
+    for (index of 1..self.spec.most) {
+      let icon, _, _, _ = Client.GetShapeshiftFormInfo(index)
+      icons.push(index <= count ? icon : nil)
+    }
+    self.icons = icons
   }
 
   // The client's frames can't be destroyed: hidden, they take no click and draw nothing. In a fight the client hides
   // no protected frame: they fade at once and are hidden as it ends.
   destructor() {
-    const slots = self.slots
+    // The frames outlive their slots, which end with the bar.
+    const frames = self.slots.map(slot => slot.frame)
     const pet = self.spec.kind == BarKind.Pet
-    for (slot of slots) { slot.frame.SetAlpha(0) }
-    Ordaen.afterCombat(() => Bar.putAway(slots, pet))
+    for (frame of frames) { frame.SetAlpha(0) }
+    Ordaen.afterCombat(() => Bar.putAway(frames, pet))
   }
 
-  putAway(slots: Array<Slot>, pet: Boolean) {
-    for (slot of slots) {
-      if (pet) { Client.UnregisterStateDriver(slot.frame, "visibility") }
-      slot.frame.Hide()
-      slot.frame.SetAlpha(1)
+  putAway(frames: Array<any Client.Frame>, pet: Boolean) {
+    for (frame of frames) {
+      if (pet) { Client.UnregisterStateDriver(frame, "visibility") }
+      frame.Hide()
+      frame.SetAlpha(1)
     }
   }
 
@@ -194,10 +247,10 @@ public class Bar implements Component {
     return $ltml {
       <frame $for={slot of self.unseen} of={slot.frame} shown={false} />
       <Placed id={self.id} title={self.title} home={self.home}>
-        <box columns={self.choice.perRow} gap={self.spacing} opacity={self.opacity} hoverWithin={true}
+        <box columns={self.columns} gap={self.spacing} opacity={self.opacity} hoverWithin={true}
              @enter={self.onEnter} @leave={self.onLeave}>
-          <Button $for={slot of self.drawn} slot={peek slot} keys={self.keys} size={self.size}
-                  showKeys={self.showKeys} />
+          <Button $for={index, slot of self.drawn} slot={peek slot} keys={self.keys} size={self.size}
+                  showKeys={self.showKeys} icon={self.icons[index]} />
         </box>
       </Placed>
     }

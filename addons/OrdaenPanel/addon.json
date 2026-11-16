@@ -1,7 +1,9 @@
 {
   "title": "Ordaen Panel",
-  "icon": "Interface/Icons/INV_Misc_Note_01",
+  "icon": "Interface/Icons/INV_Drink_13",
   "loadOnDemand": true,
-  "dependencies": { "Ordaen": "^1.0.0" },
-  "notes": "The bottom panel: the menu, the bags, money and experience."
+  "dependencies": {
+    "Ordaen": "^1.0.0"
+  },
+  "notes": "The bottom panel and the action bars: the menu, the bags, money, experience, and the game's bars placed anywhere."
 }

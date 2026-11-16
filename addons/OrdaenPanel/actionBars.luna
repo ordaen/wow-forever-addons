@@ -1,12 +1,12 @@
+// The panel's action bars: the game's eight, the pet's and the stances', each a free bar the player places, drawn in
+// place of the game's own, with the game's keys.
 import Client from "$client"
 import Events from "$events"
 import Game from "$game"
 import root Ordaen from "Ordaen"
-import { Module, Settings, SettingsPage } from "Ordaen"
-import { Bar, buttonName, shortKey } from "@/bars"
-import { BarChoice, BarKind, BarSpec, Choices, DEFAULTS, SPECS, defaultChoice } from "@/choices"
-import Locale from "@/locales"
-import { BarsPage } from "@/settings"
+import { Component } from "Ordaen"
+import { BETWEEN, Bar, buttonName, heightOf, shortKey } from "@/bar"
+import { BarChoice, BarKind, BarSpec, BarsChoices, SPECS, defaultChoice } from "@/barChoices"
 
 // The game's pages Панель 1 shows: the one the player turned to (Shift and the wheel, or the page arrows), then a
 // form's (a bonus bar's: 7 to 10), else the first.
@@ -19,56 +19,63 @@ function hiddenFrame(): any Client.Frame {
   return made
 }
 
-// A bar drawn: its spec and its place in the default stack from the bottom (1 the lowest).
-public struct Shown {
-  spec: BarSpec
-  place: Integer
+// Bartender4 is loaded: both would fight over the slots, the keys and the game's bars, so the panel's bars stay off.
+public function bartenderLoaded(): Boolean {
+  let loaded, _ = Client.C_AddOns.IsAddOnLoaded("Bartender4")
+  return loaded
 }
 
-public class ActionBars implements Module, App {
-  public const title: String = "Ordaen Action Bars"
-  settings: mut Settings<Choices> = new Settings<Choices>(DEFAULTS)
-  public const pages: Array<SettingsPage> = [
-    {
-      title: Locale.TAB_BARS,
-      content: $ltml { <BarsPage settings={mut self.settings} defaults={self.defaults} conflict={self.conflict} /> }
-    }
-  ]
+// Each bar's settings before the player changes them: on as the character's own Blizzard settings have it (the pet's
+// bar on, the stances' on for a class with forms).
+public function barDefaults(): Map<String, BarChoice> {
+  let bottomLeft, bottomRight, right, left, six, seven, eight = Client.GetActionBarToggles()
+  const on = [true, bottomLeft, bottomRight, right, left, six, seven, eight, true, Client.GetNumShapeshiftForms() > 0]
+  const defaults: Map<String, BarChoice> = {}
+  for (index, spec of SPECS) { defaults[spec.id] = defaultChoice(spec, on[index] == true) }
+  return defaults
+}
 
-  // Bartender4 is loaded: both would fight over the slots, the keys and the game's bars, so the bars stay off.
-  state conflict: Boolean = false
-  // Each bar's settings before the player changes them: on as the character's own Blizzard settings have it (the
-  // pet's bar on, the stances' on for a class with forms).
-  state defaults: Map<String, BarChoice> = {}
+// A bar drawn: its spec, and how high the bars under it in the default stack stand, with the room above each.
+public struct Shown {
+  spec: BarSpec
+  below: Number<Length>
+}
+
+public class ActionBars implements Component {
   // The choices that apply: the settings', taken out of a fight alone (the bars' buttons are protected).
-  state applied: Choices = DEFAULTS
+  state applied: BarsChoices
   // The player's forms: the stances' bar shows a button for each.
   state forms: Integer = 0
-  // The bars are made once the player is out of a fight: a module turned on in one waits for its end.
-  state ready = false
+  // The bars are made once the player is out of a fight: the panel turned on in one waits for its end.
+  public state ready = false
 
   // The bars drawn, the action bars in Blizzard's order from the bottom, then the pet's and the stances'.
-  derived bars: Array<Shown> = self.barsOf()
+  public derived bars: Array<Shown> = self.barsOf()
   derived paging: String = self.pagingOf()
-  // The game's bars this module draws in their place, kept unseen while it runs: their slots stay as they are.
+  // The game's bars drawn in their place, kept unseen while the bars run: their slots stay as they are.
   derived hidden: Array<any Client.Frame> = self.hiddenBars()
-  // Where the game's bars are kept while the module runs: a frame never shown. A bar hidden by itself doesn't stay
-  // so: the client shows it again (entering the world, its toggles, a vehicle), so it is put in this one instead,
-  // and whatever shows it, it draws nothing.
+  // Where the game's bars are kept while the bars run: a frame never shown. A bar hidden by itself doesn't stay so:
+  // the client shows it again (entering the world, its toggles, a vehicle), so it is put in this one instead, and
+  // whatever shows it, it draws nothing.
   const hider: any Client.Frame = hiddenFrame()
-  // Each bar put in the hider, by the parent the game gave it: given back as the module ends.
+  // Each bar put in the hider, by the parent the game gave it: given back as the bars end.
   parents: mut Map<any Client.Frame, any Client.Frame> = {}
   // Each binding's key as its button shows it, by the binding's name: read again when the player binds a key.
   state keys: Map<String, String> = {}
   // The keys of the game's bindings, bound to our buttons over the game's own: the frame that owns those overrides.
   const owner: any Client.Frame = Client.CreateFrame("Frame", nil, Client.UIParent, nil)
 
-  constructor() {
-    let bartender, _ = Client.C_AddOns.IsAddOnLoaded("Bartender4")
-    self.conflict = bartender
-    self.defaults = ActionBars.defaultsOf()
-    Ordaen.modules.add(self)
-    if (bartender) { return }
+  values: Signal<BarsChoices>
+  defaults: Signal<Map<String, BarChoice>>
+  constructor(
+    // The bars' settings, as saved.
+    values: Signal<BarsChoices>,
+    // Each bar's settings before the player changed them, by its id.
+    defaults: Signal<Map<String, BarChoice>>
+  ) {
+    self.values = values
+    self.defaults = defaults
+    self.applied = peek values
     Ordaen.afterCombat(() => self.start())
   }
 
@@ -76,12 +83,12 @@ public class ActionBars implements Module, App {
   // fight's end.
   start(mut self) {
     self.forms = Client.GetNumShapeshiftForms()
-    self.applied = peek self.settings.values
+    self.applied = peek self.values
     self.ready = true
     self.bind()
     Events.UPDATE_BINDINGS.listen(self.rebind)
     Events.UPDATE_SHAPESHIFT_FORMS.listen(self.reform)
-    watch (values of self.settings.values) { Ordaen.afterCombat(() => self.apply(values)) }
+    watch (values of self.values) { Ordaen.afterCombat(() => self.apply(values)) }
     watch (games of self.hidden) { Ordaen.afterCombat(() => self.putAway(games)) }
   }
 
@@ -91,7 +98,7 @@ public class ActionBars implements Module, App {
     Ordaen.afterCombat(() => ActionBars.giveBack(owner, parents))
   }
 
-  apply(mut self, values: Choices) {
+  apply(mut self, values: BarsChoices) {
     self.applied = values
     self.bind()
   }
@@ -119,24 +126,28 @@ public class ActionBars implements Module, App {
     }
   }
 
-  defaultsOf(): Map<String, BarChoice> {
-    let bottomLeft, bottomRight, right, left, six, seven, eight = Client.GetActionBarToggles()
-    const on = [true, bottomLeft, bottomRight, right, left, six, seven, eight, true, Client.GetNumShapeshiftForms() > 0]
-    const defaults: Map<String, BarChoice> = {}
-    for (index, spec of SPECS) { defaults[spec.id] = defaultChoice(spec, on[index] == true) }
-    return defaults
-  }
-
   // A bar's settings that apply.
   choiceOf(self, spec: BarSpec): BarChoice {
     return self.applied.bars[spec.id] ?? self.defaults[spec.id] ?? defaultChoice(spec, false)
   }
 
+  // How many buttons a bar shows: as many as chosen, and for the stances' bar no more than the player's forms.
+  countOf(self, spec: BarSpec, choice: BarChoice): Integer {
+    return spec.kind == BarKind.Stance ? choice.buttons.min(self.forms) : choice.buttons
+  }
+
+  // The bars on, each standing over those under it by their rows' height: none overlaps another.
   barsOf(self): Array<Shown> {
     const bars: Array<Shown> = []
     if (!self.ready) { return bars }
+    let below: Number<Length> = 0ui
     for (spec of SPECS) {
-      if (self.choiceOf(spec).on) { bars.push({ spec: spec, place: bars.length + 1 }) }
+      const choice = self.choiceOf(spec)
+      if (choice.on) {
+        bars.push({ spec: spec, below: below })
+        const tall = heightOf(self.countOf(spec, choice), choice.perRow, choice.size, choice.spacing)
+        if (tall > 0ui) { below = below + tall + BETWEEN }
+      }
     }
     return bars
   }
@@ -203,7 +214,7 @@ public class ActionBars implements Module, App {
 
   public render(self): Template {
     return $ltml {
-      <Bar $for={bar of self.bars} $key={bar.spec.id} spec={(peek bar).spec} place={(peek bar).place}
+      <Bar $for={bar of self.bars} $key={bar.spec.id} spec={(peek bar).spec} below={bar.below}
            choices={self.applied.bars} defaults={self.defaults}
            keys={self.keys} paging={self.paging} forms={self.forms} />
     }
