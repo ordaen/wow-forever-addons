@@ -179,7 +179,7 @@ public class CategoryGroup implements Component {
           </box>
         </box>
         <$if={!self.folded}>
-          <RecipeRow $for={index, recipe of self.list} $key={recipe.id} recipe={recipe} index={index}
+          <RecipeRow $for={index, recipe of self.list} recipe={recipe} index={index}
                      chosen={self.chosen} kept={self.kept} menuFor={self.menuFor} indent={true}
                      @act={self.onAct} />
         </>

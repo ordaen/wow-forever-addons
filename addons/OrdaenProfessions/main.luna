@@ -698,7 +698,7 @@ public class Professions implements Module, App {
                 </Toolbar>
                 <box $if={self.onCamp} rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
                   <box overflow={Overflow.Scroll}>
-                    <RecipeRow $for={index, recipe of self.recipes} $key={recipe.id} recipe={recipe} index={index}
+                    <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
                                chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                @act={self.onAct} />
                   </box>
@@ -706,11 +706,11 @@ public class Professions implements Module, App {
                 <box $elseif={self.inColumns} columns={LISTS} rows={FILL} border={FRAME}
                      background={Style.LISTS_BACK}>
                   <box overflow={Overflow.Scroll}>
-                    <CategoryRow $for={index, group of self.groups} $key={group.id} group={group} index={index}
+                    <CategoryRow $for={index, group of self.groups} group={group} index={index}
                                  chosen={self.chosenCategory} @pick={self.pickCategory} />
                   </box>
                   <box overflow={Overflow.Scroll} border={COLUMN_RULE}>
-                    <RecipeRow $for={index, recipe of self.recipes} $key={recipe.id} recipe={recipe} index={index}
+                    <RecipeRow $for={index, recipe of self.recipes} recipe={recipe} index={index}
                                chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                @act={self.onAct} />
                   </box>
@@ -724,7 +724,7 @@ public class Professions implements Module, App {
                 </box>
                 <box $elseif={self.inList} rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
                   <box overflow={Overflow.Scroll}>
-                    <RecipeRow $for={index, recipe of self.mains} $key={recipe.id} recipe={recipe} index={index}
+                    <RecipeRow $for={index, recipe of self.mains} recipe={recipe} index={index}
                                chosen={self.chosenRecipe} kept={self.kept} menuFor={self.menuFor}
                                @act={self.onAct} />
                   </box>
@@ -732,12 +732,12 @@ public class Professions implements Module, App {
                 <box $else rows={FILL} border={FRAME} background={Style.LISTS_BACK}>
                   <Table $if={self.priced} columns={PRICED_COLUMNS} sorted={mut self.list.values.tableColumn}
                          descending={mut self.list.values.tableDescending}>
-                    <RecipeTableRow $for={recipe of self.tableRows} $key={recipe.id} recipe={recipe}
+                    <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe}
                                     tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
                                     menuFor={self.menuFor} worth={self.worth} priced={true} @act={self.onAct} />
                   </Table>
                   <Table $else columns={COLUMNS} sorted={mut self.list.values.tableColumn} descending={mut self.list.values.tableDescending}>
-                    <RecipeTableRow $for={recipe of self.tableRows} $key={recipe.id} recipe={recipe}
+                    <RecipeTableRow $for={recipe of self.tableRows} recipe={recipe}
                                     tracks={self.tracks} chosen={self.chosenRecipe} kept={self.kept}
                                     menuFor={self.menuFor} @act={self.onAct} />
                   </Table>
