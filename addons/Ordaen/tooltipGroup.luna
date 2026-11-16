@@ -55,7 +55,7 @@ public class TooltipGroup implements Component {
     return $ltml {
       <surface shown={self.shown} layer={Layer.Tooltip} place={self.place}>
         <box columns={self.columns} gap={GAP} yAlign={self.across} ownsGaps={true} hoverWithin={true}
-             @enter={self.onEnter} @leave={self.onLeave}>
+             @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           // The primary tooltip stays where it is drawn: the group turning round moves the secondary ones alone.
           <$if={self.turned}>
             <slot #secondary />

@@ -59,7 +59,7 @@ public class ModuleSwitch implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box width={WIDTH} height={HEIGHT} background={self.track} @click={self.flip}>
+      <box width={WIDTH} height={HEIGHT} background={self.track} @pointerPress={self.flip}>
         <box position={Position.Absolute} left={KNOB_OFF} top={KNOB_TOP} width={KNOB} height={KNOB}
              background={Ordaen.art.ctl.knobOff} opacity={self.offOpacity} />
         <box position={Position.Absolute} left={KNOB_ON} top={KNOB_TOP} width={KNOB} height={KNOB}

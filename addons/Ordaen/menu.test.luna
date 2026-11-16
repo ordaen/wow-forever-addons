@@ -1,7 +1,7 @@
 // The context menu under a row: a right-click opens it, an entry reports its place, a switch shows its state and stays
 // open while the page flips it, a rule stands above a group, a disabled entry is dim and deaf, and a click outside
 // closes it without reaching what is under it.
-import { Click, MouseButton } from "$ltml"
+import { MouseButton, Pointer } from "$ltml"
 import Test from "$test"
 import { Menu, MenuEntry } from "@/menu"
 
@@ -23,7 +23,7 @@ class Rows {
     ]
   }
 
-  onRow(mut self, click: Click) {
+  onRow(mut self, click: Pointer) {
     if (click.button == MouseButton.Right) { self.open = true }
   }
 
@@ -42,11 +42,11 @@ class Rows {
   public render(self): Template {
     return $ltml {
       <box columns={["max-content", "max-content"]} gap={40ui}>
-        <box padding={8ui} @click={self.onRow}>
+        <box padding={8ui} @pointerPress={self.onRow}>
           <text value={"Recipe row"} />
           <Menu $if={self.open} entries={self.entries} @pick={self.onPick} @close={self.onClose} />
         </box>
-        <box padding={8ui} @click={self.onBeside}>
+        <box padding={8ui} @pointerPress={self.onBeside}>
           <text value={"Beside"} />
         </box>
       </box>

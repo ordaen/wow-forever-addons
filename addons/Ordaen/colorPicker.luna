@@ -51,7 +51,7 @@ public class ColorPicker implements Component {
   public render(self): Template {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
-        <box width={51.5625dp} height={25.78125dp} border={EDGE} background={self.value} @click={self.open} />
+        <box width={51.5625dp} height={25.78125dp} border={EDGE} background={self.value} @pointerPress={self.open} />
       </SettingRow>
     }
   }

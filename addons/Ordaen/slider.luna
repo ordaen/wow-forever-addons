@@ -1,7 +1,7 @@
 // Slider: a number setting's row (SettingRow) between its least and its most. A dark groove, the bronze fill up to the value, a bronze
 // knob; the value beside it in its unit (70%, 48 px, 3). A click or a drag anywhere along it sets the value, in its
 // steps. Disabled, it takes no input.
-import { Align, Click, Drag, Key, Position, Shadow } from "$ltml"
+import { Align, Drag, Key, Pointer, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { SettingRow } from "@/settingRow"
@@ -77,7 +77,7 @@ public class Slider implements Component {
     self.value = self.most.min(self.least + steps * self.step)
   }
 
-  onClick(mut self, click: Click) { self.setAt(click.x) }
+  onClick(mut self, click: Pointer) { self.setAt(click.x) }
   onDrag(mut self, drag: Drag) { self.setAt(drag.x) }
 
   // A step down or up, held to the range.
@@ -100,7 +100,7 @@ public class Slider implements Component {
     return $ltml {
       <SettingRow label={self.label} hint={self.hint} disabled={self.disabled}>
         <box columns={[LENGTH, "max-content"]} gap={14.0625dp} yAlign={Align.Center}>
-          <box width={LENGTH} height={BAND} keys={KEYS} @key={self.onKey} @click={self.onClick}
+          <box width={LENGTH} height={BAND} keys={KEYS} @key={self.onKey} @pointerPress={self.onClick}
                @dragStart={self.onDrag} @drag={self.onDrag}>
             <box position={Position.Absolute} left={0ui} top={GROOVE_TOP} width={LENGTH} height={GROOVE}
                  background={Ordaen.art.ctl.groove} />

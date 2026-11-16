@@ -115,7 +115,7 @@ public class LetterRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={ROW} gap={9.375dp} yAlign={Align.Center} background={self.background}
-           padding={{ top: 4.6875dp, bottom: 4.6875dp, left: 7.03125dp, right: 7.03125dp }} @click.self={self.onPick}>
+           padding={{ top: 4.6875dp, bottom: 4.6875dp, left: 7.03125dp, right: 7.03125dp }} @pointerPress.self={self.onPick}>
         <Tick value={mut self.checked} />
         <ItemButton $if={self.hasItems} item={self.first} size={32.8125dp} />
         <box $else width={32.8125dp} height={32.8125dp} icon={LETTER} />

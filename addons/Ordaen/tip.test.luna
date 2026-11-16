@@ -19,7 +19,7 @@ class HoverRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box height={80ui} @enter={self.onEnter} @leave={self.onLeave}>
+      <box height={80ui} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <text value={self.name} />
         <Tip $if={self.hovered} title={self.title} text={""} />
       </box>

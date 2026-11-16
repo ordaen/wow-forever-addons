@@ -160,7 +160,7 @@ public class AddOnsWindow implements Component {
       </box>
       <box />
       <box columns={GROUP} gap={space(.Item)} yAlign={Align.Center}>
-        <box @enter={self.onWaitEnter} @leave={self.onWaitLeave}>
+        <box @pointerEnter={self.onWaitEnter} @pointerLeave={self.onWaitLeave}>
           <text value={self.waitText} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
           <Tip $if={self.waitTip} title={self.waitText} text={""} rows={self.waitRows} />
         </box>
@@ -531,7 +531,7 @@ public class AddOnsWindow implements Component {
                       title={Locale.VIEW} />
           </Toolbar>
           <box columns={self.columns} gap={space(.Item)} padding={HEADING} yAlign={Align.Center}>
-            <box @click={self.onHeadName}>
+            <box @pointerPress={self.onHeadName}>
               <text value={Locale.COL_ADDON} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
             <box xAlign={Align.End}>
@@ -539,18 +539,18 @@ public class AddOnsWindow implements Component {
             </box>
             <text $if={self.tabled} value={Locale.COL_CATEGORY} textColor={Style.DIM} textSize={SECONDARY_TEXT}
                   wrap={false} />
-            <box xAlign={Align.End} @click={self.onHeadNow}>
+            <box xAlign={Align.End} @pointerPress={self.onHeadNow}>
               <text value={Locale.COL_NOW} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
-            <box xAlign={Align.End} @click={self.onHeadPeak}>
+            <box xAlign={Align.End} @pointerPress={self.onHeadPeak}>
               <text value={Locale.COL_PEAK} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
             </box>
             <box columns={GROUP} gap={HALF} xAlign={Align.End}>
-              <box @click={self.onHeadMemory}>
+              <box @pointerPress={self.onHeadMemory}>
                 <text value={Locale.COL_MEMORY} textColor={Style.DIM} textSize={SECONDARY_TEXT} wrap={false} />
               </box>
               <box width={REFRESH} height={REFRESH} background={ARTWORK.ctl.tool.refresh} tint={Style.GOLD}
-                   @click={self.onRefresh} />
+                   @pointerPress={self.onRefresh} />
             </box>
             <box />
           </box>

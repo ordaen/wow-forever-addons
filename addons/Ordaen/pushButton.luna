@@ -57,8 +57,13 @@ public class PushButton implements Component {
     self.tip = tip
   }
 
+  // One that repeats is clicked as the button goes down and again while it is held; another as it is let go.
   onClick(mut self) {
-    if (!self.disabled) { self.click.emit() }
+    if (!self.disabled && !self.repeats) { self.click.emit() }
+  }
+
+  onHeld(mut self) {
+    if (self.repeating) { self.click.emit() }
   }
 
   onEnter(mut self) { self.hovered = true }
@@ -67,8 +72,8 @@ public class PushButton implements Component {
   public render(self): Template {
     return $ltml {
       <box width={{ min: self.width }} height={HEIGHT} padding={CAPS} xAlign={Align.Center} yAlign={Align.Center}
-           background={self.art} action={self.doing} repeats={self.repeating}
-           @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+           background={self.art} action={self.doing} @pointerPress={self.onClick} @pointerDown.repeat(.Left)={self.onHeld}
+           @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <Tip $if={self.tipShown} title={self.tipText.title} text={self.tipText.text} rows={self.tipText.rows} />
         <text value={self.label} textColor={self.color} textShadow={SHADOW} wrap={false}
               stateFromParent={true} />

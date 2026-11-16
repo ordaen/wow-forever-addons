@@ -186,7 +186,7 @@ public class Tube implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box height={self.height} @enter={self.onBar} @leave={self.onOff}>
+      <box height={self.height} @pointerEnter={self.onBar} @pointerLeave={self.onOff}>
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.panel.xpTrough} />
         // Over one another by their levels, each over all that is in the one under it: the trough, the fills (the
@@ -228,7 +228,7 @@ public class Tube implements Component {
         <box position={Position.Absolute} left={self.inset} top={self.inset} right={self.inset} bottom={self.inset}
              columns={self.parts} rows={FILL}>
           <box />
-          <box @enter={self.onAhead} @leave={self.onOff} />
+          <box @pointerEnter={self.onAhead} @pointerLeave={self.onOff} />
           <box />
         </box>
         <Tip $if={self.overBar} title={self.title} text={""} rows={self.rows} />

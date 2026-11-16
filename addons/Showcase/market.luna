@@ -1,6 +1,6 @@
 // The market's controls on a page, for the run tests: a scan's progress, a price with its age, a mode, a tree, item
 // slots and a sortable table of sales.
-import { Align, Click, MouseButton, Track } from "$ltml"
+import { Align, MouseButton, Pointer, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Age, Choice, Column, Component, Corner, ItemButton, Marker, Menu, MenuEntry, Money, MoneyInput, ProgressBar, Quality, Section, Segmented, SettingRow, Table, TableRow, ToolPick, Toolbar, TreeRow, space, tracksOf } from "Ordaen"
 
@@ -84,7 +84,7 @@ public class Market implements Component {
     ]
   }
 
-  onMenuBox(mut self, click: Click) {
+  onMenuBox(mut self, click: Pointer) {
     if (click.button == MouseButton.Right) { self.menuOpen = true }
   }
 
@@ -96,7 +96,7 @@ public class Market implements Component {
   onMenuClose(mut self) { self.menuOpen = false }
 
   onItem(mut self, item: Integer) { self.chosenItem = item }
-  onSale(mut self, click: Click) { self.clicked = click.button == MouseButton.Right ? "right" : "left" }
+  onSale(mut self, click: Pointer) { self.clicked = click.button == MouseButton.Right ? "right" : "left" }
 
   public render(self): Template {
     return $ltml {
@@ -159,7 +159,7 @@ public class Market implements Component {
             </box>
           </SettingRow>
           <SettingRow label={"Context menu"}>
-            <box padding={4ui} @click={self.onMenuBox}>
+            <box padding={4ui} @pointerPress={self.onMenuBox}>
               <text value={"Right-click here"} />
               <Menu $if={self.menuOpen} entries={self.menuEntries} @pick={self.onMenuPick} @close={self.onMenuClose} />
             </box>

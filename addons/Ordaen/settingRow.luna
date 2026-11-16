@@ -33,7 +33,7 @@ public class SettingRow implements Component {
   public render(self): Template {
     return $ltml {
       <box columns={[LABEL_WIDTH, { fr: 1 }]} gap={21.09375dp} yAlign={Align.Center} opacity={self.opacity}>
-        <box columns={1} @enter={self.onEnter} @leave={self.onLeave}>
+        <box columns={1} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <text value={self.label} textColor={LABEL} />
           <Tip $if={self.tipShown} title={self.label} text={self.hint} />
         </box>

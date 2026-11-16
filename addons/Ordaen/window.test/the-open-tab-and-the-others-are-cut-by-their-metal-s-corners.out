@@ -6,21 +6,21 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.54 400x59.42
     box 600,275.54 338.33x59.42
-      box 600,275.54 160.53x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 600,275.54 160.53x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @pointerPress
         box 607.25,282.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
         box 651.17,282.79 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
         box 667.5,285.79 74.44x45.92
           text 667.5,293.33 74.44x15.6 "Professions" #ffd100
           text 667.5,309.77 74.44x14.4 "Tailoring 75" #8f8470
-      box 770.53,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 770.53,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @pointerPress
         box 789.11,285.79 77.33x45.92
           text 803.89,300.95 47.78x15.6 "Recipes" #a3977f
     box 945,303.54 55x31.42
       box 945,303.54 55x26.67 clipped
-        box 945,303.54 27.5x26.67 absolute clipped @click
+        box 945,303.54 27.5x26.67 absolute clipped @pointerPress
           box 945,303.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
           box 953.33,313.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 972.5,303.54 27.5x26.67 absolute clipped @click
+        box 972.5,303.54 27.5x26.67 absolute clipped @pointerPress
           box 972.5,303.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
           box 978.75,313.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8
 
@@ -32,20 +32,20 @@ surface 600,275.54 400x348.92 on DIALOG clamped raised by a click
     box 982.75,604.46 13.33x13.33 absolute Interface/ChatFrame/UI-ChatIM-SizeGrabber-Up @drag @dragStart @dragStop
   box 600,275.54 400x59.42
     box 600,275.54 338.33x59.42
-      box 600,275.54 160.53x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 600,275.54 160.53x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @pointerPress
         box 607.25,282.79 48.92x48.92 absolute icon=Interface/Icons/Trade_Tailoring cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=none
         box 651.17,282.79 11.5x52.17 absolute border=ButtonFrameTemplateNoPortrait sides=left
         box 667.5,285.79 74.44x45.92
           text 667.5,293.33 74.44x15.6 "Professions" #a3977f
           text 667.5,309.77 74.44x14.4 "Tailoring 75" #8f8470
-      box 770.53,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @click @drag @dragStart @dragStop
+      box 770.53,275.54 114.5x59.42 Interface\AddOns\Ordaen\media\window-wood cut by Interface\AddOns\Ordaen\media\metal-clip-large-tl border=ButtonFrameTemplateNoPortrait sides=top,left,right @drag @dragStart @dragStop @pointerPress
         box 789.11,285.79 77.33x45.92
           text 803.89,300.95 47.78x15.6 "Recipes" #ffd100
     box 945,303.54 55x31.42
       box 945,303.54 55x26.67 clipped
-        box 945,303.54 27.5x26.67 absolute clipped @click
+        box 945,303.54 27.5x26.67 absolute clipped @pointerPress
           box 945,303.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 0 of 16
           box 953.33,313.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 2 of 8
-        box 972.5,303.54 27.5x26.67 absolute clipped @click
+        box 972.5,303.54 27.5x26.67 absolute clipped @pointerPress
           box 972.5,303.54 53.33x26.67 absolute Interface\AddOns\Ordaen\media\ctl-corner-plate row 9 of 16
           box 978.75,313.12 13.33x13.33 absolute Interface\AddOns\Ordaen\media\ctl-corner-glyph row 6 of 8

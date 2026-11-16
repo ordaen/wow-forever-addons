@@ -45,7 +45,7 @@ public class NamedLink implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={PAIR} gap={space(.Item)} @click={self.onClick}>
+      <box columns={PAIR} gap={space(.Item)} @pointerPress={self.onClick}>
         <text value={self.named.title} textColor={LINK} wrap={false} />
         <box xAlign={Align.End}>
           <text value={self.named.state} textColor={self.named.color} textSize={SECONDARY_TEXT} wrap={false} />

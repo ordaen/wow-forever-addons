@@ -6,7 +6,7 @@
 // switch switches the addon, with Ctrl on a group's parent the whole group. An Ordaen module has no switch: Ordaen's
 // own is its one, and its state's text opens Ordaen's settings at it.
 import Game from "$game"
-import { Align, Art, Click, Edges, MouseButton, Stated, Track } from "$ltml"
+import { Align, Art, Edges, MouseButton, Pointer, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Menu, MenuEntry, SECONDARY_TEXT, SWITCH_WIDTH, Shown, ShownToggle, Tip, space } from "Ordaen"
 import { AddOn, Catalog, Status, Switch, plain } from "@/catalog"
@@ -172,7 +172,7 @@ public class LineRow implements Component {
     return reason != nil && reason != "DISABLED" && (self.status?.enabled != .Off || self.module)
   }
 
-  onPick(mut self, click: Click) {
+  onPick(mut self, click: Pointer) {
     if (self.line.caption) {
       self.fold.emit(self.line.name)
     } else if (click.button == MouseButton.Right) {
@@ -229,18 +229,18 @@ public class LineRow implements Component {
   public render(self): Template {
     return $ltml {
       <box $if={self.line.caption} columns={CAPTION} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
-           @click.self={self.onPick}>
+           @pointerPress.self={self.onPick}>
         <box width={MARK} height={MARK} background={self.mark} tint={Style.GOLD} />
         <text value={self.title} textColor={Style.GOLD} textFont={.Title} wrap={false} />
         <text value={self.countText} textColor={Style.DIM} textFont={.Numbers} wrap={false} />
         <ShownToggle state={self.shown} @flip={self.onGroup} />
       </box>
       <box $else columns={self.columns} gap={space(.Item)} padding={PAD} yAlign={Align.Center}
-           background={self.background} @click.self={self.onPick} @enter={self.onEnter} @leave={self.onLeave}>
+           background={self.background} @pointerPress.self={self.onPick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <box padding={self.indent}>
           <text value={self.title} textColor={Style.INK} wrap={false} />
         </box>
-        <box $if={self.module} @click={self.onSettings}>
+        <box $if={self.module} @pointerPress={self.onSettings}>
           <text value={self.said} textColor={self.stateColor} textSize={SECONDARY_TEXT} wrap={false} />
         </box>
         <box $else>

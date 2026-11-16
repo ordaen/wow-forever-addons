@@ -137,7 +137,7 @@ public class QueueRow implements Component {
     return $ltml {
       <box columns={LINE} gap={space(.Item)} yAlign={Align.Center} padding={LINE_PAD} border={self.rule}>
         <box width={SLOT} height={SLOT} border={Style.BRONZE} icon={self.icon} />
-        <box @click={self.onOpen}>
+        <box @pointerPress={self.onOpen}>
           <text value={self.line.name} textColor={self.color} textShadow={Style.SHADOW}
                 wrap={false} />
         </box>

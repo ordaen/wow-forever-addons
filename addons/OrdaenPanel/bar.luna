@@ -303,7 +303,7 @@ public class Bar implements Component {
       <frame $for={slot of self.unseen} of={slot.frame} shown={false} />
       <Placed id={self.id} title={self.title} home={self.home}>
         <box columns={self.columns} gap={self.spacing} opacity={self.opacity} hoverWithin={true}
-             @enter={self.onEnter} @leave={self.onLeave}>
+             @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <Button $for={index, slot of self.drawn} slot={peek slot} keys={self.keys} size={self.size}
                   showKeys={self.showKeys} face={self.faces[index] ?? BLANK} />
         </box>

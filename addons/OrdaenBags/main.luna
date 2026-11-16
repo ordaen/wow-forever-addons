@@ -9,7 +9,7 @@
 // rows in view. While it is shut nothing is read and the bags' events aren't heard.
 import Client from "$client"
 import Game from "$game"
-import { Align, Click, MouseButton, Overflow, Track } from "$ltml"
+import { Align, MouseButton, Overflow, Pointer, Track } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { SECONDARY_TEXT } from "Ordaen"
@@ -370,7 +370,7 @@ public class Bags implements Module, App {
 
   // A click on a slot: Alt protects it from sorting (or takes the protection off), Ctrl sends its item where the place
   // takes it, a plain one picks up or puts down. The right button is the client's own.
-  onPressed(mut self, slot: mut Slot, click: Click) {
+  onPressed(mut self, slot: mut Slot, click: Pointer) {
     if (click.button != MouseButton.Left) { return }
     if (Game.input.altDown()) {
       self.guard(slot)
@@ -451,7 +451,7 @@ public class Bags implements Module, App {
       <text value={self.freeText} textColor={LABEL} textSize={SECONDARY_TEXT} />
       <box />
       <text value={Game.money.tracked} textFont={.Numbers} />
-      <box @enter={self.onGoldEnter} @leave={self.onGoldLeave}>
+      <box @pointerEnter={self.onGoldEnter} @pointerLeave={self.onGoldLeave}>
         <Money amount={Game.money.amount} />
         <Tip $if={self.goldShown} title={Locale.GOLD} text={""} rows={self.goldRows} />
       </box>

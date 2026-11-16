@@ -88,7 +88,7 @@ public class OverviewLineRow implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box $if={self.opens} @click={self.onClick}>
+      <box $if={self.opens} @pointerPress={self.onClick}>
         <text value={self.line.text} textColor={Style.INK} />
       </box>
       <text $else value={self.line.text} textColor={Style.DIM} />

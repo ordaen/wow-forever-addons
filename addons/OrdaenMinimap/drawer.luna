@@ -1,6 +1,6 @@
 // One entry of the addon menu in the drawer: its icon in a cell, its name reported while the cursor is on it.
 import Game from "$game"
-import { Align, Art, Click } from "$ltml"
+import { Align, Art, Pointer } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "Ordaen"
 
@@ -19,14 +19,14 @@ public class DrawerEntry implements Component {
     self.entry = entry
   }
 
-  onClick(mut self, click: Click) { Game.minimap.runEntry(self.entry, click.button) }
+  onClick(mut self, click: Pointer) { Game.minimap.runEntry(self.entry, click.button) }
   onEnter(mut self) { self.hover.emit(self.entry.text) }
   onLeave(mut self) { self.leave.emit() }
 
   public render(self): Template {
     return $ltml {
       <box width={CELL} height={CELL} xAlign={Align.Center} yAlign={Align.Center}
-           border={Ordaen.art.panel.slotEdge} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+           border={Ordaen.art.panel.slotEdge} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <box width={ICON} height={ICON} background={self.icon} />
       </box>
     }

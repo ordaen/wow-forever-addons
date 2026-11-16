@@ -65,7 +65,7 @@ public class ZoneChip<K: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={CHIP_PAD} background={CHIP} border={CHIP_EDGE} desaturate={self.pooled} opacity={self.opacity}
-           @dragStart={self.onGrab} @dragStop={self.onRelease} @enter={self.onEnter} @leave={self.onLeave}>
+           @dragStart={self.onGrab} @dragStop={self.onRelease} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <text value={self.item.label} textColor={CHIP_TEXT} wrap={false} />
       </box>
     }

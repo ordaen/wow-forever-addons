@@ -1,7 +1,7 @@
 // The library's Table: a heading click sorts by its column and again reverses it, a column that isn't sortable does
 // nothing, the rows follow their own cells, and a body given a height builds only the rows in view: a row handed
 // another item follows its cell.
-import { Align, Click, MouseButton, Track } from "$ltml"
+import { Align, MouseButton, Pointer, Track } from "$ltml"
 import Test from "$test"
 import Wow from "LunaTypeRenderer"
 import { Age } from "@/age"
@@ -49,7 +49,7 @@ class Sales {
     return list
   }
 
-  onPick(mut self, click: Click) {
+  onPick(mut self, click: Pointer) {
     self.picked = click.button == MouseButton.Right ? "right" : "row"
     self.clicks += 1
   }

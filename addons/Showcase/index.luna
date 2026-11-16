@@ -88,7 +88,7 @@ public class Showcase implements Module {
         </SettingsTab>
         // The summary hears the cursor, not the page: the page draws nothing between its controls, where a click
         // goes on to what shows under it.
-        <box @enter={self.onEnter} @leave={self.onLeave}>
+        <box @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <text value={self.summary} />
         </box>
         <PushButton label={"Save"} width={120ui} @click={self.onSave} />

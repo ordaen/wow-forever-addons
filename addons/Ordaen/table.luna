@@ -6,7 +6,7 @@
 // unless the table is told another). The body is a box of rows: it scrolls where it is given a `height`, or where the
 // table is given a height (its headings, then the body in the rest of it), and a `$for` of rows in it builds only the
 // rows in view, handing on the rows that leave to the items that come in: a row follows its item's cell.
-import { Align, Art, Click, Edges, Line, Overflow, Position, Side, Stated, Track } from "$ltml"
+import { Align, Art, Edges, Line, Overflow, Pointer, Position, Side, Stated, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { space } from "@/units"
@@ -89,7 +89,7 @@ public class Heading implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={PADDING} xAlign={self.column.align} background={self.shade} @click={self.onClick}>
+      <box padding={PADDING} xAlign={self.column.align} background={self.shade} @pointerPress={self.onClick}>
         <box position={Position.Absolute} left={0ui} right={0ui} bottom={0ui} height={2.34375dp} background={self.light} />
         <box columns={HEAD} gap={4.6875dp} yAlign={Align.Center} stateFromParent={true}>
           <text value={self.column.title} textColor={self.color} stateFromParent={true} wrap={false} />
@@ -109,7 +109,7 @@ public class Heading implements Component {
 // darker one. A click of any button reports `pick` with the click (its button and where it was in the row), as a
 // box's `click` does: the page tells a left-click from a right-click.
 public class TableRow implements Component {
-  public pick: Event<Click> = new Event()
+  public pick: Event<Pointer> = new Event()
 
   derived background: Color | Stated<Color> = self.selected ? BACK : SHADE
 
@@ -123,12 +123,12 @@ public class TableRow implements Component {
     self.selected = selected
   }
 
-  onClick(mut self, click: Click) { self.pick.emit(click) }
+  onClick(mut self, click: Pointer) { self.pick.emit(click) }
 
   public render(self): Template {
     return $ltml {
       <box columns={self.tracks} gap={space(.Item)} padding={ROW_PADDING} yAlign={Align.Center} background={self.background}
-           @click.self={self.onClick}>
+           @pointerPress.self={self.onClick}>
         <slot />
       </box>
     }

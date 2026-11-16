@@ -108,7 +108,7 @@ public class FilterPick implements Component {
       <ToolButton icon={Ordaen.art.ctl.tool.filter} title={Locale.FILTER} text={self.shown} open={mut self.open}
                   lit={self.lit}>
         <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH}
-                 background={BACK} border={EDGE} padding={PAD} columns={1} @clickOutside={self.close}>
+                 background={BACK} border={EDGE} padding={PAD} columns={1} @pointerPressOutside={self.close}>
           <box padding={HEADING}>
             <text value={Locale.FILTER_PERFORMANCE} textColor={Style.GOLD} textSize={SECONDARY_TEXT} wrap={false} />
           </box>

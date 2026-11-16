@@ -44,8 +44,8 @@ class BagEntry implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={ROW} gap={space(.Item)} yAlign={Align.Center} background={self.back} @enter={self.onEnter}
-           @leave={self.onLeave}>
+      <box columns={ROW} gap={space(.Item)} yAlign={Align.Center} background={self.back} @pointerEnter={self.onEnter}
+           @pointerLeave={self.onLeave}>
         <box width={ICON} height={ICON} background={WELL} icon={self.line.info.icon} />
         <text value={self.line.info.name} textColor={INK} />
         <text value={self.fill} textColor={LABEL} textFont={.Numbers} textSize={SECONDARY_TEXT} wrap={false} />

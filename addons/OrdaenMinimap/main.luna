@@ -1,6 +1,6 @@
 import Build from "$build"
 import Game from "$game"
-import { Align, Anchored, Click, EmbedLook, Frame, Line, MouseButton, Point, Position, Shadow } from "$ltml"
+import { Align, Anchored, EmbedLook, Frame, Line, MouseButton, Point, Pointer, Position, Shadow } from "$ltml"
 import Runtime from "$runtime"
 import root Ordaen from "Ordaen"
 import { ALWAYS, Module, Placed, Settings, SettingsPage, Tip, opacityNow } from "Ordaen"
@@ -231,11 +231,11 @@ public class Minimap implements Module, App {
     self.hint = Hint.Entry
   }
 
-  onCoordsClick(mut self, click: Click) {
+  onCoordsClick(mut self, click: Pointer) {
     if (click.button == MouseButton.Left && Game.input.shiftDown()) { Game.minimap.sendCoords() }
   }
 
-  onClockClick(mut self, click: Click) {
+  onClockClick(mut self, click: Pointer) {
     if (click.button == MouseButton.Right) {
       Ordaen.toggleSettings(Runtime.Addon.of(self))
     } else {
@@ -290,14 +290,14 @@ public class Minimap implements Module, App {
         <box width={self.wholeWidth} height={self.wholeHeight} opacity={self.opacity}>
           <box position={Position.Absolute} left={self.frameLeft} top={self.frameTop} width={self.frameWidth}
                height={self.frameHeight} border={Ordaen.art.frame.small} background={Ordaen.art.window.wood}
-               artOrigin={true} hoverWithin={true} @enter={self.onEnter} @leave={self.onLeave}>
+               artOrigin={true} hoverWithin={true} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
             <embed frame={Game.minimap.frame} position={Position.Absolute} left={self.out} top={self.mapTop}
                    width={self.size} height={self.size} />
 
             <box $if={self.settings.values.showZone} position={Position.Absolute} left={self.out} top={self.out}
                  width={self.size} height={STRIP} background={Ordaen.art.window.wood} border={RULE_BELOW}
                  xAlign={Align.Center} yAlign={Align.Center}>
-              <box @enter={self.onZoneEnter} @leave={self.onHintLeave}>
+              <box @pointerEnter={self.onZoneEnter} @pointerLeave={self.onHintLeave}>
                 <text value={Game.location.zone} textColor={self.zoneColor} textShadow={ENGRAVED}
                       wrap={false} />
                 <Tip $if={self.hint == Hint.Zone} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
@@ -307,15 +307,15 @@ public class Minimap implements Module, App {
             <box $if={self.hasFoot} position={Position.Absolute} left={self.out} bottom={self.out} width={self.size}
                  height={STRIP} background={Ordaen.art.window.wood} border={RULE_ABOVE}
                  columns={[{ fr: 1 }, "max-content"]} padding={{ left: 11.71875dp, right: 11.71875dp }} yAlign={Align.Center}>
-              <box $if={self.showsCoords} @click={self.onCoordsClick} @enter={self.onCoordsEnter}
-                   @leave={self.onHintLeave}>
+              <box $if={self.showsCoords} @pointerPress={self.onCoordsClick} @pointerEnter={self.onCoordsEnter}
+                   @pointerLeave={self.onHintLeave}>
                 <text value={Game.minimap.coords} textColor={INK} textShadow={ENGRAVED}
                       textFont={.Numbers} wrap={false} />
                 <Tip $if={self.hint == Hint.Coords} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />
               </box>
               <box $else width={1ui} />
-              <box $if={self.settings.values.showClock} @click={self.onClockClick} @enter={self.onClockEnter}
-                   @leave={self.onHintLeave}>
+              <box $if={self.settings.values.showClock} @pointerPress={self.onClockClick} @pointerEnter={self.onClockEnter}
+                   @pointerLeave={self.onHintLeave}>
                 <text value={Game.clock.text} textColor={self.clockColor} textShadow={ENGRAVED}
                       textFont={.Numbers} wrap={false} />
                 <Tip $if={self.hint == Hint.Clock} title={self.hintTitle} text={self.hintText} keys={self.hintKeys} />

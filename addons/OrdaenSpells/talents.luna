@@ -4,7 +4,7 @@
 // changes» / «Apply changes» either side of them while points wait to be applied. What a node may do is the
 // client's to say (`canSpend`, `canRefund`); the page only asks.
 import Game from "$game"
-import { Align, Click, MouseButton, Position, Track } from "$ltml"
+import { Align, MouseButton, Pointer, Position, Track } from "$ltml"
 import { Component, PushButton, SECONDARY_TEXT } from "Ordaen"
 import Locale from "@/locales"
 import Style from "@/style"
@@ -102,7 +102,7 @@ public class NodeView implements Component {
     self.leastY = leastY
   }
 
-  onClick(mut self, click: Click) {
+  onClick(mut self, click: Pointer) {
     if (click.button == MouseButton.Right) {
       self.refund.emit(self.node.id)
     } else {
@@ -114,7 +114,7 @@ public class NodeView implements Component {
     return $ltml {
       <box position={Position.Absolute} left={self.left} top={self.top} width={SIZE} height={SIZE}
            border={{ width: 1.171875dp, color: Style.LINE }} icon={self.node.icon} opacity={self.opacity}
-           xAlign={Align.End} yAlign={Align.End} @click={self.onClick}>
+           xAlign={Align.End} yAlign={Align.End} @pointerPress={self.onClick}>
         <text value={self.rank} textSize={SECONDARY_TEXT} textColor={self.rankColor} wrap={false} />
       </box>
     }

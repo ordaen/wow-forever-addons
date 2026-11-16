@@ -3,7 +3,7 @@
 // is lit; a new item's glow inside it until it is hovered; a lock on a protected one. Its right button is the client's
 // own use of the item (secure); every other click and the cursor's coming and going are told to the window.
 import Game from "$game"
-import { Action, Align, Click, Position, Shadow, Track } from "$ltml"
+import { Action, Align, Pointer, Position, Shadow, Track } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, ItemButton, Quality, SECONDARY_TEXT } from "Ordaen"
 import { Cell, GAP, Row, SLOT, Section } from "@/layout"
@@ -43,7 +43,7 @@ function fits(slot: Slot, place: Game.BagPlace): Boolean {
 }
 
 class BagSlot implements Component {
-  public pressed: Event<(Slot, Click)> = new Event()
+  public pressed: Event<(Slot, Pointer)> = new Event()
   public entered: Event<Slot> = new Event()
   public left: Event<Slot> = new Event()
 
@@ -69,7 +69,7 @@ class BagSlot implements Component {
     return !fits(slot, filter.place)
   }
 
-  onPressed(self, click: Click) { self.pressed.emit(self.slot, click) }
+  onPressed(self, click: Pointer) { self.pressed.emit(self.slot, click) }
   onEnter(self) { self.entered.emit(self.slot) }
   onLeave(self) { self.left.emit(self.slot) }
 
@@ -112,7 +112,7 @@ class Caption implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={CAPTION_TRACKS} gap={7.03125dp} yAlign={Align.End} @click={self.onClick}>
+      <box columns={CAPTION_TRACKS} gap={7.03125dp} yAlign={Align.End} @pointerPress={self.onClick}>
         <box width={MARK} height={MARK} background={self.mark} opacity={self.markOpacity} />
         <text value={self.section.title} textColor={self.titleColor} textShadow={SHADOW} wrap={false} />
         <text value={self.fill} textColor={LABEL} textSize={SECONDARY_TEXT} textFont={.Numbers} wrap={false} />
@@ -123,7 +123,7 @@ class Caption implements Component {
 
 // One place of a row.
 class Place implements Component {
-  public pressed: Event<(Slot, Click)> = new Event()
+  public pressed: Event<(Slot, Pointer)> = new Event()
   public entered: Event<Slot> = new Event()
   public left: Event<Slot> = new Event()
   public toggled: Event<String> = new Event()
@@ -147,7 +147,7 @@ class Place implements Component {
     self.fills = fills
   }
 
-  onPressed(self, slot: Slot, click: Click) { self.pressed.emit(slot, click) }
+  onPressed(self, slot: Slot, click: Pointer) { self.pressed.emit(slot, click) }
   onEnter(self, slot: Slot) { self.entered.emit(slot) }
   onLeave(self, slot: Slot) { self.left.emit(slot) }
   onToggle(self, key: String) { self.toggled.emit(key) }
@@ -170,7 +170,7 @@ class Place implements Component {
 
 // A row of the window's grid.
 public class BagRow implements Component {
-  public pressed: Event<(Slot, Click)> = new Event()
+  public pressed: Event<(Slot, Pointer)> = new Event()
   public entered: Event<Slot> = new Event()
   public left: Event<Slot> = new Event()
   public toggled: Event<String> = new Event()
@@ -194,7 +194,7 @@ public class BagRow implements Component {
     self.fills = fills
   }
 
-  onPressed(self, slot: Slot, click: Click) { self.pressed.emit(slot, click) }
+  onPressed(self, slot: Slot, click: Pointer) { self.pressed.emit(slot, click) }
   onEnter(self, slot: Slot) { self.entered.emit(slot) }
   onLeave(self, slot: Slot) { self.left.emit(slot) }
   onToggle(self, key: String) { self.toggled.emit(key) }

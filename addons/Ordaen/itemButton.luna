@@ -10,7 +10,7 @@
 // do. Every click, of an empty slot too, is told as `pressed` (a bag's slot picks up and puts down there). With an
 // `action` the right button is the client's own (a bag's item used: `Action.UseBagItem`). Nothing runs per frame.
 import Game from "$game"
-import { Action, Align, Art, Click, Edges, Frame, Line, MouseButton, Position, Shadow, Stated } from "$ltml"
+import { Action, Align, Art, Edges, Frame, Line, MouseButton, Pointer, Position, Shadow, Stated } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component } from "@/module"
 import { SECONDARY_TEXT } from "@/units"
@@ -78,7 +78,7 @@ public class Pip implements Component {
 
 public class ItemButton implements Component {
   public pick: Event<Integer> = new Event()
-  public pressed: Event<Click> = new Event()
+  public pressed: Event<Pointer> = new Event()
   public entered: Event<nil> = new Event()
   public left: Event<nil> = new Event()
 
@@ -169,7 +169,7 @@ public class ItemButton implements Component {
 
   onLeave(self) { self.left.emit() }
 
-  onClick(self, click: Click) {
+  onClick(self, click: Pointer) {
     const item = self.item
     if (item != nil && click.button == MouseButton.Left && Game.input.shiftDown()) {
       Game.chat.link(item)
@@ -182,7 +182,7 @@ public class ItemButton implements Component {
   public render(self): Template {
     return $ltml {
       <box width={self.size} height={self.size} background={WELL} border={self.edge} opacity={self.opacity}
-           action={self.action} @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+           action={self.action} @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui} icon={self.icon} tint={self.tint} />
         <box position={Position.Absolute} left={0ui} top={0ui} right={0ui} bottom={0ui}
              background={Ordaen.art.ctl.qualityRim} tint={self.edge.color} opacity={self.rim}

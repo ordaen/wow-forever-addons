@@ -32,7 +32,7 @@ public class Check implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box columns={[SIZE, { fr: 1 }]} gap={11.71875dp} yAlign={Align.Center} @click={self.toggle}>
+      <box columns={[SIZE, { fr: 1 }]} gap={11.71875dp} yAlign={Align.Center} @pointerPress={self.toggle}>
         <box width={SIZE} height={SIZE} background={Ordaen.art.ctl.check}>
           <box $if={self.value} position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE}
                background={Ordaen.art.ctl.tick} />
@@ -73,7 +73,7 @@ public class FilterMenu implements Component {
   public render(self): Template {
     return $ltml {
       <surface layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={WIDTH} background={BACK}
-               border={EDGE} padding={PAD} columns={1} gap={space(.Item)} @clickOutside={self.onClose}>
+               border={EDGE} padding={PAD} columns={1} gap={space(.Item)} @pointerPressOutside={self.onClose}>
         <Check label={Locale.FILTER_MAKEABLE} value={mut self.makeable} />
         <Check label={Locale.FILTER_SKILLUP} value={mut self.skillUp} />
         <box columns={1} gap={space(.Item)} padding={AFTER_RULE} border={RULE}>

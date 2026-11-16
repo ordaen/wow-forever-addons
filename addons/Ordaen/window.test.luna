@@ -88,15 +88,15 @@ class Desk {
       <box>
         <Window shown={self.alphaOpen} tabs={self.alphaTabs} selected={mut self.tab} declared={mut self.alpha}
                 @close={self.closeAlpha}>
-          <box background={FACE} @click={self.onAlpha} />
+          <box background={FACE} @pointerPress={self.onAlpha} />
         </Window>
         <Window $if={self.betaOpen} tabs={self.betaTabs} selected={mut self.tab} declared={mut self.beta}
                 @close={self.closeBeta}>
-          <box background={FACE} @click={self.onBeta} />
+          <box background={FACE} @pointerPress={self.onBeta} />
         </Window>
         <Window $if={self.gammaOpen} tabs={self.gammaTabs} selected={mut self.tab} declared={mut self.gamma}
                 @close={self.closeGamma}>
-          <box background={FACE} @click={self.onGamma} />
+          <box background={FACE} @pointerPress={self.onGamma} />
         </Window>
       </box>
     }

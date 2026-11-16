@@ -109,15 +109,17 @@ test "Shift steps by 10 and Alt by 100, held to the bounds" {
   destroy page
 }
 
-test "− and + held down step again after a wait, then at a pace, until let go or at the bound" {
+test "− and + step as they go down, again after a wait, then at a pace, until let go or at the bound" {
   let page = new Pair()
   page.count = 1
   page.most = 12
   Test.mount(page, { left: 0, top: 0, width: 300, height: 100 })
   Test.moveTo(Test.holding("+", nil))
   Test.press(nil)
+  Test.flush()
+  Test.expect(page.count == 2)
   Test.pass(0.3)
-  Test.expect(page.count == 1)
+  Test.expect(page.count == 2)
   Test.pass(0.12)
   const first = page.count
   Test.pass(0.1)
@@ -125,8 +127,8 @@ test "− and + held down step again after a wait, then at a pace, until let go 
   Test.release(nil)
   Test.flush()
   const released = page.count
-  Test.note(`held 0.3 s: 1; at 0.42 s: ${first}; at 0.52 s: ${later}; let go: ${released}`)
-  Test.expect(first == 2 && later == 4 && released == later)
+  Test.note(`down: 2; held 0.3 s: 2; at 0.42 s: ${first}; at 0.52 s: ${later}; let go: ${released}`)
+  Test.expect(first == 3 && later == 5 && released == later)
   Test.pass(1)
   Test.expect(page.count == released)
 
@@ -139,7 +141,7 @@ test "− and + held down step again after a wait, then at a pace, until let go 
   Test.expect(page.count == 12)
   Test.shot("held to 12, the most: + disabled, let go")
 
-  // A short click is one step, at the release.
+  // A short press is one step, as it goes down.
   Test.moveTo(Test.holding("-", nil))
   Test.press(nil)
   Test.pass(0.1)

@@ -115,8 +115,8 @@ public class ToolButton implements Component {
       <box padding={AFTER}>
         <box width={SIZE} height={SIZE}>
           <box position={Position.Absolute} left={0ui} top={0ui} width={SIZE} height={SIZE} xAlign={Align.Center}
-               yAlign={Align.Center} background={self.plate} @click={self.toggle} @enter={self.onEnter}
-               @leave={self.onLeave}>
+               yAlign={Align.Center} background={self.plate} @pointerPress={self.toggle} @pointerEnter={self.onEnter}
+               @pointerLeave={self.onLeave}>
             <box width={GLYPH} height={GLYPH} background={self.icon} tint={self.glyphColor} />
             <Tip $if={self.tipShown} title={self.title} text={self.text} />
           </box>
@@ -159,7 +159,7 @@ public class ToolAct implements Component {
     return $ltml {
       <box padding={AFTER}>
         <box width={SIZE} height={SIZE} xAlign={Align.Center} yAlign={Align.Center} background={Ordaen.art.ctl.button}
-             @click={self.onClick} @enter={self.onEnter} @leave={self.onLeave}>
+             @pointerPress={self.onClick} @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <box width={GLYPH} height={GLYPH} background={self.icon} tint={self.glyph} />
           <Tip $if={self.hovered} title={self.title} text={self.text} />
         </box>
@@ -209,7 +209,7 @@ public class ToolPick<T: Unknown> implements Component {
     return $ltml {
       <ToolButton icon={self.glyph} title={self.title} text={self.shown} open={mut self.open} lit={self.lit}>
         <surface $if={self.open} layer={Layer.Tooltip} place={Beside { beside: "parent" }} width={self.listBounds}
-                 background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @clickOutside={self.close}>
+                 background={LIST_BACK} border={LIST_EDGE} padding={LIST_PAD} columns={1} @pointerPressOutside={self.close}>
           <DropdownItem $for={choice of self.choices} choice={choice} value={self.value} compact={true}
                         @pick={self.onPick} />
         </surface>

@@ -43,7 +43,7 @@ public class Tab implements Component {
 
   public render(self): Template {
     return $ltml {
-      <box padding={PADDING} background={self.background} border={self.border} @click={self.pick}>
+      <box padding={PADDING} background={self.background} border={self.border} @pointerPress={self.pick}>
         <box position={Position.Absolute} left={1.171875dp} right={1.171875dp} top={1.171875dp} height={2.34375dp}
              background={self.light} />
         <text value={self.label} textColor={self.color} stateFromParent={true} wrap={false} />

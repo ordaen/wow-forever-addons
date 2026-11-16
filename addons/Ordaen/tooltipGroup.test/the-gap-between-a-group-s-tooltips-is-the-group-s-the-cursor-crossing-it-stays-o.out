@@ -1,6 +1,6 @@
 -- the primary at its owner, the secondary beside it, 4 px apart
 surface 200,100 203.33x80 on TOOLTIP
-  box 200,100 203.33x80 @enter @leave
+  box 200,100 203.33x80 @pointerEnter @pointerLeave
     box 200,100 100x80 #2a1d12
       text 200,100 100x15.6 "Primary" #ffffff
     box 303.33,100 100x50 #2a1d12
@@ -8,7 +8,7 @@ surface 200,100 203.33x80 on TOOLTIP
 
 -- running leftwards: the secondary on the primary's left
 surface 200,100 203.33x80 on TOOLTIP
-  box 200,100 203.33x80 @enter @leave
+  box 200,100 203.33x80 @pointerEnter @pointerLeave
     box 200,100 100x50 #2a1d12
       text 200,100 100x15.6 "Secondary" #ffffff
     box 303.33,100 100x80 #2a1d12

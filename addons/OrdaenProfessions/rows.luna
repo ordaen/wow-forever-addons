@@ -3,7 +3,7 @@
 // with a 2 px edge of it at its left (a recipe's, its difficulty's; a category's, the gold). A recipe's row says
 // what was clicked (`Act`): the left button picks it, the right one opens its menu.
 import Game from "$game"
-import { Align, Art, Click, Edges, Line, MouseButton, Position, Track } from "$ltml"
+import { Align, Art, Edges, Line, MouseButton, Pointer, Position, Track } from "$ltml"
 import { Component, ItemButton, Money, SelectItem, TableRow, space } from "Ordaen"
 import { Totals } from "@/cost"
 import { RecipeMenu } from "@/menu"
@@ -51,7 +51,7 @@ public class CategoryRow implements Component {
     self.chosen = chosen
   }
 
-  onClick(mut self, click: Click) { self.pick.emit(self.group.id) }
+  onClick(mut self, click: Pointer) { self.pick.emit(self.group.id) }
 
   public render(self): Template {
     return $ltml {
@@ -109,7 +109,7 @@ public class RecipeRow implements Component {
     self.indent = indent
   }
 
-  onClick(self, click: Click) {
+  onClick(self, click: Pointer) {
     self.act.emit(click.button == MouseButton.Right ? Act.Menu : Act.Pick, self.recipe.id)
   }
 
@@ -170,7 +170,7 @@ public class CategoryGroup implements Component {
     return $ltml {
       <box columns={1}>
         <box columns={FOLD} gap={9.375dp} padding={CATEGORY_PAD} yAlign={Align.Center} border={Style.ROW_RULE}
-             background={Style.ROW_LIGHT} @click={self.fold}>
+             background={Style.ROW_LIGHT} @pointerPress={self.fold}>
           <text value={self.mark} textColor={Style.DIM} wrap={false} />
           <text value={self.group.name} textColor={self.nameColor}
                 textShadow={Style.SHADOW} />
@@ -235,7 +235,7 @@ public class RecipeTableRow implements Component {
   }
 
   // The library's row says which button picked it: the left one chooses the recipe, the right one opens its menu.
-  onPick(self, click: Click) {
+  onPick(self, click: Pointer) {
     self.act.emit(click.button == MouseButton.Right ? Act.Menu : Act.Pick, self.recipe.id)
   }
 

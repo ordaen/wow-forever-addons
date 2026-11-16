@@ -1,7 +1,7 @@
 // The ring: the buttons round the map. The game's own (tracking, mail, crafting orders, the expansion's page) stay
 // the game's: each lies invisible under ours, which passes its clicks and its hover on.
 import Game from "$game"
-import { Align, Art, Click, Drag, Frame, MouseButton, Position, Shadow } from "$ltml"
+import { Align, Art, Drag, Frame, MouseButton, Pointer, Position, Shadow } from "$ltml"
 import root Ordaen from "Ordaen"
 import { Component, Tip } from "Ordaen"
 import type { Hint, Minimap } from "@/main"
@@ -88,7 +88,7 @@ public class RingButton implements Component {
     }
   }
 
-  onClick(mut self, click: Click) {
+  onClick(mut self, click: Pointer) {
     let frame = self.theirs
     match (self.spec.id) {
       RingId.Ordaen => { if (click.button == MouseButton.Right) { Ordaen.toggleDev() } else { Ordaen.toggleSettings(nil) } }
@@ -126,8 +126,8 @@ public class RingButton implements Component {
         // Over the game's own button, which lies under it unseen, and over the map: the mouse is this box's.
         <box position={Position.Absolute} left={self.left} top={self.top} width={BUTTON} height={BUTTON}
              zLevel={1} opacity={self.opacity} xAlign={Align.Center} yAlign={Align.Center} background={self.art}
-             @click={self.onClick} @dragStart={self.onDragStart} @drag={self.onDrag} @dragStop={self.onDragStop}
-             @enter={self.onEnter} @leave={self.onLeave}>
+             @pointerPress={self.onClick} @dragStart={self.onDragStart} @drag={self.onDrag} @dragStop={self.onDragStop}
+             @pointerEnter={self.onEnter} @pointerLeave={self.onLeave}>
           <box $if={self.spec.id == RingId.Ordaen} width={25.78125dp} height={25.78125dp} icon={Ordaen.icon}
                mask={Ordaen.art.panel.faceRound} />
           <text $elseif={self.spec.id == RingId.Drawer} value={self.count} textColor={GOLD}

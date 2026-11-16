@@ -4,7 +4,7 @@
 // book, Alts' records or a price changes while the tab shows; nothing while another tab does.
 import Client from "$client"
 import Game from "$game"
-import { Align, Click, Track } from "$ltml"
+import { Align, Pointer, Track } from "$ltml"
 import { Choice, Column, Component, Hour, ItemId, Money, PushButton, SECONDARY_TEXT, Segmented, Table, TableRow, space, tracksOf } from "Ordaen"
 import root Alts from "OrdaenAlts"
 import root Auction from "OrdaenAuction"
@@ -135,7 +135,7 @@ public class WorthLine implements Component {
     self.chosen = chosen
   }
 
-  onPick(self, click: Click) { self.pick.emit((peek self.worth).key) }
+  onPick(self, click: Pointer) { self.pick.emit((peek self.worth).key) }
 
   public render(self): Template {
     return $ltml {

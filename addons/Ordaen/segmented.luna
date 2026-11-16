@@ -59,7 +59,7 @@ public class Segment<T: Unknown> implements Component {
   public render(self): Template {
     return $ltml {
       <box padding={PADDING} background={self.fill} xAlign={Align.Center}
-           border={self.edge} @click={self.onClick}>
+           border={self.edge} @pointerPress={self.onClick}>
         <box position={Position.Absolute} left={0ui} right={0ui} top={0ui} height={2.34375dp} background={self.light} />
         <text value={self.text} textColor={self.color} stateFromParent={true} wrap={false} />
       </box>
