@@ -232,6 +232,21 @@ test "away from an inn the rested tooltip says the player isn't resting" {
   Test.expect(tip("Rested").contains("Resting now | No"))
 }
 
+test "the rested tooltip follows the player into an inn and out of it" {
+  Game.player.level = 10
+  Game.player.xpMax = 10000
+  Game.player.xp = 100
+  Game.player.rested = 3000
+  alone()
+  Test.mount(new Bars(), PAGE)
+  Test.page().box(RESTED).hover()
+  Test.expect(tip("Rested").contains("Resting now | No"))
+  Game.situation.resting = true
+  Test.expect(tip("Rested").contains("Resting now | Yes"))
+  Game.situation.resting = false
+  Test.expect(tip("Rested").contains("Resting now | No"))
+}
+
 test "rested to a level and a half, there is no room for more" {
   Game.player.level = 10
   Game.player.xpMax = 10000
